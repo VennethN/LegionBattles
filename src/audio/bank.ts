@@ -130,17 +130,23 @@ export function browserDecoder(): ((mp3: ArrayBuffer) => Promise<BufferLike>) | 
   const Ctor = w.OfflineAudioContext ?? w.webkitOfflineAudioContext;
   if (!Ctor) return null;
   // An offline context reads sound without the page having been touched, which the game's own context cannot be made before.
-  let ctx: InstanceType<Offline>;
-  try {
-    ctx = new Ctor(1, 1, BANK_RATE);
-  } catch {
-    return null;
+  // Some browsers make one only at the usual rates: then the sounds are read at one of those, and take a little more room.
+  let ctx: InstanceType<Offline> | null = null;
+  for (const rate of [BANK_RATE, 44100, 48000]) {
+    try {
+      ctx = new Ctor(1, 1, rate);
+      break;
+    } catch {
+      // The next rate is tried.
+    }
   }
+  if (!ctx) return null;
+  const reader = ctx;
   // The old form with two callbacks is the one every browser has.
   return (mp3) =>
     new Promise<BufferLike>((resolve, reject) => {
       try {
-        const r = ctx.decodeAudioData(mp3, resolve, reject);
+        const r = reader.decodeAudioData(mp3, resolve, reject);
         if (r && typeof (r as Promise<BufferLike>).catch === 'function') (r as Promise<BufferLike>).catch(reject);
       } catch (e) {
         reject(e);
