@@ -392,3 +392,70 @@ describe('skills', () => {
     expect(healed.length).toBeGreaterThanOrEqual(2);
   });
 });
+
+describe('what dungeons and raids ask of a battle', () => {
+  const defs = { dummy: dummy(), imp: dummy({ id: 'imp', name: 'Imp', hp: 120, damage: 10 }), wall: dummy({ id: 'wall', name: 'Wall', hp: 90000, damage: 0 }) };
+
+  it('a unit can come to a battle hurt, and one that comes with nothing left still comes alive', () => {
+    const hurt = new Battle({ seed: 1, defs, teams: [[{ unit: 'dummy', col: 0, row: 0, hpShare: 0.25 }, { unit: 'dummy', col: 0, row: 1, hpShare: 0 }, { unit: 'dummy', col: 0, row: 2 }], [{ unit: 'dummy', col: 7, row: 0 }]] });
+    const mine = hurt.units.filter((u) => u.team === 0);
+    expect(mine.map((u) => u.hp)).toEqual([250, 1, 1000]);
+    expect(mine.every((u) => u.maxHp === 1000)).toBe(true);
+    // Hurt units lose to whole ones of the same kind.
+    const a = [{ unit: 'dummy', col: 3, row: 1, hpShare: 0.3 }];
+    const b = [{ unit: 'dummy', col: 4, row: 1 }];
+    expect(battle(defs, a, b, 5).winner).toBe(1);
+  });
+
+  it('ends when its own time is up, and whoever has more of their health left has it', () => {
+    const input = { seed: 3, defs, teams: [[{ unit: 'wall', col: 0, row: 0, hpShare: 0.5 }], [{ unit: 'wall', col: 7, row: 3 }]] as const };
+    const short = runBattle({ ...input, seconds: 5 });
+    expect(short.seconds).toBeCloseTo(5, 5);
+    expect(short.winner).toBe(1);
+    expect(runBattle(input).seconds).toBeGreaterThan(80);
+  });
+
+  it('a unit that calls others up does so on its clock, never past its cap, and they have its strength', () => {
+    const caller = { unit: 'wall', col: 6, row: 1, hpMult: 2, damageMult: 3, summons: { unit: 'imp', every: 2, cap: 3 } };
+    const b = new Battle({ seed: 9, defs, teams: [[{ unit: 'wall', col: 0, row: 1 }], [caller]], seconds: 30 });
+    const spawns: number[] = [];
+    let most = 0;
+    while (!b.ended) {
+      b.step();
+      for (let i = 0; i < b.eventCount; i++) if (b.events[i].type === 'spawn') spawns.push(b.events[i].t);
+      most = Math.max(most, b.units.filter((u) => u.alive && u.calledBy >= 0).length);
+    }
+    // The first after two seconds, then every two: the wall they fight never kills one, so the cap holds them at three.
+    expect(spawns.slice(0, 3).map((t) => Math.round(t))).toEqual([2, 4, 6]);
+    expect(spawns).toHaveLength(3);
+    expect(most).toBe(3);
+    const imps = b.units.filter((u) => u.def.id === 'imp');
+    expect(imps).toHaveLength(3);
+    for (const imp of imps) {
+      expect(imp.team).toBe(1);
+      expect(imp.maxHp).toBe(240);
+      expect(imp.damage).toBe(30);
+      expect(imp.calledBy).toBe(b.units.find((u) => u.summons)?.id);
+      expect(imp.y).toBeGreaterThan(0);
+      expect(imp.x).toBeGreaterThan(0);
+    }
+  });
+
+  it('when one that was called up falls, another comes, and the same seed gives the same battle', () => {
+    const teams = [[{ unit: 'wall', col: 0, row: 1 }], [{ unit: 'wall', col: 6, row: 1, summons: { unit: 'imp', every: 1, cap: 1 } }]] as const;
+    const b = new Battle({ seed: 4, defs, teams, seconds: 20 });
+    const called = (): number => b.units.filter((u) => u.calledBy >= 0).length;
+    while (called() < 1) b.step();
+    // Its cap is one: no second comes while the first stands.
+    for (let i = 0; i < 60; i++) b.step();
+    expect(called()).toBe(1);
+    const first = b.units.find((u) => u.calledBy >= 0);
+    if (first) first.alive = false;
+    for (let i = 0; i < 25; i++) b.step();
+    expect(called()).toBe(2);
+    expect(runBattle({ seed: 4, defs, teams, seconds: 20 }).fingerprint).toBe(runBattle({ seed: 4, defs, teams, seconds: 20 }).fingerprint);
+    // A battle with no one called up is the battle it always was.
+    const plain = [[{ unit: 'dummy', col: 3, row: 1 }], [{ unit: 'dummy', col: 4, row: 1 }]] as const;
+    expect(runBattle({ seed: 4, defs, teams: plain }).fingerprint).toBe(runBattle({ seed: 4, defs, teams: plain, seconds: 90 }).fingerprint);
+  });
+});

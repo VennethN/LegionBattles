@@ -109,6 +109,19 @@ export interface Placement {
   damageMult?: number;
   /** Bigger still, on top of the unit's own scale: a stage's boss. 1 if left out. */
   scale?: number;
+  /** The share of its health it starts with, above 0 and up to 1: a unit that comes to a dungeon's floor hurt. Whole if left out. */
+  hpShare?: number;
+  /** It calls others up as the battle goes on: a raid's boss does. */
+  summons?: Summons;
+}
+
+/** What a unit calls up. Whoever comes has the caller's own multipliers and fights from the next step. */
+export interface Summons {
+  unit: string;
+  /** Seconds between one and the next, and before the first. */
+  every: number;
+  /** No more than this many of them stand at once. */
+  cap: number;
 }
 
 export interface BattleInput {
@@ -116,6 +129,8 @@ export interface BattleInput {
   defs: Readonly<Record<string, UnitDef>>;
   /** Team 0 is the player's, on the left. Team 1 is the enemy's. */
   teams: readonly [readonly Placement[], readonly Placement[]];
+  /** How long it may last, in seconds, before whoever has more health left has it. MAX_SECONDS if left out. */
+  seconds?: number;
 }
 
 export type EventType =
@@ -128,6 +143,8 @@ export type EventType =
   | 'damage'
   | 'heal'
   | 'death'
+  // A unit was called up mid-battle: `unit` is the newcomer, `target` whoever called it.
+  | 'spawn'
   | 'skill'
   | 'status'
   | 'statusEnd'

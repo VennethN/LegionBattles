@@ -8,10 +8,12 @@ import { applyResolution, watchFrameRate } from './view/app';
 import { H, RES, W } from './view/config';
 import { BattleScene } from './view/scenes/BattleScene';
 import { BootScene } from './view/scenes/BootScene';
+import { HallScene } from './view/scenes/HallScene';
 import { IndexScene } from './view/scenes/IndexScene';
 import { MainScene } from './view/scenes/MainScene';
 import { ShopScene } from './view/scenes/ShopScene';
 import { TeamScene } from './view/scenes/TeamScene';
+import { VentureScene } from './view/scenes/VentureScene';
 import { MapScene } from './view/scenes/MapScene';
 
 void ads().init();
@@ -41,7 +43,7 @@ const game = new Phaser.Game({
   // over is the dearest thing a weak graphics chip can be asked for. The
   // faster of two graphics chips is asked for where there are two.
   render: { antialias: true, antialiasGL: RES <= 1, roundPixels: false, maxTextures: 1, powerPreference: 'high-performance' },
-  scene: [BootScene, MainScene, BattleScene, TeamScene, IndexScene, ShopScene, MapScene],
+  scene: [BootScene, MainScene, BattleScene, TeamScene, IndexScene, ShopScene, MapScene, HallScene, VentureScene],
 });
 
 watchFrameRate(game);

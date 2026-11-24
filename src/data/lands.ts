@@ -62,7 +62,8 @@ export const RANK = {
   boss: { hp: 1.6, damage: 1, scale: 1.24 },
 } as const;
 
-function stage(name: string, kind: StageKind, grade: number, level: number, who: string): StageDef {
+/** A stage as it is written: its name, its kind, what its enemies stand at, and who stands where. */
+export function stage(name: string, kind: StageKind, grade: number, level: number, who: string): StageDef {
   const enemies = who.split(/\s+/).filter(Boolean).map((token): StageEnemy => {
     const m = /^([a-z]+)@(\d),(\d)([+!]?)$/.exec(token);
     if (!m) throw new Error(`stage "${name}": cannot read "${token}"`);

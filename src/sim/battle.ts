@@ -22,7 +22,7 @@ import {
 } from './constants';
 import { Rng } from './rng';
 import { POISON_STACKS, PULSE_TICKS, STATUS, STATUS_IDS, STATUS_INDEX } from './status';
-import type { BattleEvent, BattleInput, EventType, SkillDef, StatusApply, UnitDef } from './types';
+import type { BattleEvent, BattleInput, EventType, Placement, SkillDef, StatusApply, Summons, UnitDef } from './types';
 
 const ATTACK = 0;
 const HEAL = 1;
@@ -51,6 +51,14 @@ export interface SimUnit {
   id: number;
   team: 0 | 1;
   def: UnitDef;
+  /** What its health is multiplied by, and how much bigger it is drawn: kept for whoever it calls up. */
+  hpMult: number;
+  scale: number;
+  /** What it calls up, and the steps until the next. Null if it calls no one. */
+  summons: Summons | null;
+  summonWait: number;
+  /** The unit that called it up, or -1. */
+  calledBy: number;
   x: number;
   y: number;
   /** Where it was a step ago, for the view to glide between. */
@@ -126,6 +134,9 @@ export class Battle {
   winner = -1;
 
   private readonly rng: Rng;
+  /** The step it ends at if no side has fallen, and the units a unit may call up. */
+  private limit = MAX_SECONDS * TICKS_PER_SECOND;
+  private defs: Readonly<Record<string, UnitDef>> = {};
   private nextShot = 0;
 
   constructor(input: BattleInput) {
@@ -139,46 +150,86 @@ export class Battle {
         if (!p) continue;
         const def = input.defs[p.unit];
         if (!def) throw new Error(`battle: no unit "${p.unit}"`);
-        const maxHp = Math.max(1, Math.round(def.hp * (p.hpMult ?? 1)));
-        const zeros = (): number[] => STATUS_IDS.map(() => 0);
-        const x = tileCenterX(p.col);
-        const y = tileCenterY(p.row);
-        this.units.push({
-          id: this.units.length,
-          team: team as 0 | 1,
-          def,
-          x,
-          y,
-          prevX: x,
-          prevY: y,
-          hp: maxHp,
-          maxHp,
-          damage: def.damage * (p.damageMult ?? 1),
-          mult: p.damageMult ?? 1,
-          rangePx: def.range * TILE,
-          radiusPx: (def.radius ?? DEFAULT_RADIUS) * TILE * (1 + ((def.scale ?? 1) * (p.scale ?? 1) - 1) * 0.6),
-          alive: true,
-          facing: team === 0 ? 1 : -1,
-          moving: false,
-          target: -1,
-          windup: 0,
-          action: ATTACK,
-          actionTarget: -1,
-          // A little stagger, so that two of a kind do not strike as one.
-          cooldown: this.rng.int(7),
-          // First use comes somewhere in the second half of the wait, so that a
-          // team's skills do not all go off in the same moment.
-          skillWait: def.skill
-            ? ticks(def.skill.first ?? def.skill.cooldown * (0.4 + 0.5 * this.rng.next()))
-            : 0,
-          retarget: 0,
-          stTicks: zeros(),
-          stPower: zeros(),
-          stSrc: zeros(),
-          stStacks: zeros(),
-        });
+        this.add(team as 0 | 1, def, tileCenterX(p.col), tileCenterY(p.row), p, -1);
       }
     }
+    this.limit = Math.max(1, Math.round((input.seconds ?? MAX_SECONDS) * TICKS_PER_SECOND));
+    this.defs = input.defs;
+  }
+
+  /** Puts a unit in the battle: at the start, or called up in the middle of it. */
+  private add(team: 0 | 1, def: UnitDef, x: number, y: number, p: Placement, calledBy: number): SimUnit {
+    const maxHp = Math.max(1, Math.round(def.hp * (p.hpMult ?? 1)));
+    const share = p.hpShare === undefined ? 1 : Math.max(0, Math.min(1, p.hpShare));
+    const zeros = (): number[] => STATUS_IDS.map(() => 0);
+    const unit: SimUnit = {
+      id: this.units.length,
+      team,
+      def,
+      hpMult: p.hpMult ?? 1,
+      scale: p.scale ?? 1,
+      summons: p.summons ?? null,
+      summonWait: p.summons ? ticks(p.summons.every) : 0,
+      calledBy,
+      x,
+      y,
+      prevX: x,
+      prevY: y,
+      // A unit that comes hurt still comes alive: at least 1.
+      hp: Math.max(1, Math.round(maxHp * share)),
+      maxHp,
+      damage: def.damage * (p.damageMult ?? 1),
+      mult: p.damageMult ?? 1,
+      rangePx: def.range * TILE,
+      radiusPx: (def.radius ?? DEFAULT_RADIUS) * TILE * (1 + ((def.scale ?? 1) * (p.scale ?? 1) - 1) * 0.6),
+      alive: true,
+      facing: team === 0 ? 1 : -1,
+      moving: false,
+      target: -1,
+      windup: 0,
+      action: ATTACK,
+      actionTarget: -1,
+      // A little stagger, so that two of a kind do not strike as one.
+      cooldown: this.rng.int(7),
+      // First use comes somewhere in the second half of the wait, so that a
+      // team's skills do not all go off in the same moment.
+      skillWait: def.skill
+        ? ticks(def.skill.first ?? def.skill.cooldown * (0.4 + 0.5 * this.rng.next()))
+        : 0,
+      retarget: 0,
+      stTicks: zeros(),
+      stPower: zeros(),
+      stSrc: zeros(),
+      stStacks: zeros(),
+    };
+    this.units.push(unit);
+    return unit;
+  }
+
+  /**
+   * A unit that calls others up does so on its own clock, stunned or not:
+   * one more of its kind of follower, beside it on the side its enemy is,
+   * unless as many as it may have are standing already.
+   */
+  private callUp(u: SimUnit): void {
+    const call = u.summons;
+    if (!call) return;
+    if (u.summonWait > 0) {
+      u.summonWait--;
+      return;
+    }
+    u.summonWait = ticks(call.every);
+    const def = this.defs[call.unit];
+    if (!def) return;
+    let standing = 0;
+    for (let i = 0; i < this.units.length; i++) if (this.units[i].alive && this.units[i].calledBy === u.id) standing++;
+    if (standing >= call.cap) return;
+    // Above it and below it in turn, a step toward the enemy, and never off the board.
+    const side = standing % 2 === 0 ? -1 : 1;
+    const x = Math.max(TILE * 0.5, Math.min(BOARD_W - TILE * 0.5, u.x + u.facing * TILE * 0.7));
+    const y = Math.max(TILE * 0.5, Math.min(BOARD_H - TILE * 0.5, u.y + side * TILE * 0.9));
+    const born = this.add(u.team, def, x, y, { unit: call.unit, col: 0, row: 0, hpMult: u.hpMult, damageMult: u.mult }, u.id);
+    this.emit('spawn', born.id, u.id, 0, call.unit, x, y);
   }
 
   // ------------------------------------------------------------ the step
@@ -199,6 +250,9 @@ export class Battle {
       s.prevY = s.y;
     }
 
+    // Whoever is called up this step is at the end of the list, and acts from the next.
+    const before = units.length;
+    for (let i = 0; i < before; i++) if (units[i].alive) this.callUp(units[i]);
     for (let i = 0; i < units.length; i++) if (units[i].alive) this.runStatuses(units[i]);
     for (let i = 0; i < units.length; i++) if (units[i].alive) this.act(units[i]);
     for (let i = 0; i < this.shots.length; i++) if (this.shots[i].active) this.fly(this.shots[i]);
@@ -907,7 +961,7 @@ export class Battle {
       if (units[i].team === 0) alive0++;
       else alive1++;
     }
-    if (alive0 > 0 && alive1 > 0 && this.tick < MAX_SECONDS * TICKS_PER_SECOND) return;
+    if (alive0 > 0 && alive1 > 0 && this.tick < this.limit) return;
     this.ended = true;
     if (alive0 > 0 && alive1 === 0) this.winner = 0;
     else if (alive1 > 0 && alive0 === 0) this.winner = 1;

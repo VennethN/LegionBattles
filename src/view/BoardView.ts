@@ -134,7 +134,7 @@ export class BoardView {
    * new to the sheet. Whatever stood there before is gone, and a battle that
    * was on is called off. `team` is kept, not copied: dragging a unit changes it.
    */
-  show(team: Placement[], enemies: Placement[], seed: number): Promise<void> {
+  show(team: Placement[], enemies: Placement[], seed: number, more: readonly string[] = []): Promise<void> {
     const mine = ++this.shown;
     this.loading = true;
     this.team = team;
@@ -144,6 +144,8 @@ export class BoardView {
     const wanted = [
       ...team.map((p) => ({ team: 'blue', unit: p.unit })),
       ...enemies.map((p) => ({ team: 'red', unit: p.unit })),
+      // Whoever the enemy may call up in the middle of the battle: their art has to be there when they come.
+      ...more.map((unit) => ({ team: 'red', unit })),
     ];
     return atlas.ensure(this.scene, wanted).then(() => {
       // Asked again while this was loading: the later asking has it.
@@ -442,6 +444,21 @@ export class BoardView {
           this.fx.spawn('fx/sparkle', t.x + (i - 1) * 22, t.y - 30 - i * 14, {
             dur: 0.6, delay: i * 0.07, vy: -70, from: 0.3, to: 0.7, hold: 0.5, tint: hex(HOLY.light), spin: 2,
           });
+        }
+        break;
+      }
+      case 'spawn': {
+        // Called up in the middle of the battle: it takes its place after every unit that was there.
+        const u = battle.units[e.unit];
+        const view = this.makeView({ unit: e.kind, col: 0, row: 0, scale: u.scale }, u.team === 0 ? 'blue' : 'red', e.unit);
+        view.x = screenX(u.x);
+        view.y = screenY(u.y);
+        view.facing = u.facing;
+        view.setBarsVisible(true);
+        this.views[e.unit] = view;
+        sfx.play('thud', 0.7, 1.2);
+        for (let i = 0; i < 4; i++) {
+          this.fx.spawn('fx/dust', view.x + (i - 1.5) * 16, view.y - 4, { dur: 0.45, vx: (i - 1.5) * 50, vy: -30, from: 0.3, to: 0.8, hold: 0.3, alpha: 0.9, depth: view.y + 3 });
         }
         break;
       }

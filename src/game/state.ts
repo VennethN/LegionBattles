@@ -42,6 +42,9 @@ export interface SaveData {
   team: Fielded[];
   /** How many stages of the line are cleared, in order (data/stages.ts). */
   cleared: number;
+  /** How many tiers of each dungeon are cleared, in order, by its id; and of each raid (data/expeditions.ts). */
+  dungeons: Record<string, number>;
+  raids: Record<string, number>;
   /** Unopened packs, by pack id. */
   packs: Record<string, number>;
   /** Where the pack roller's generator stands, so that reloading does not reroll. */
@@ -72,6 +75,8 @@ export function newSave(seed: number): SaveData {
     met: [],
     team: [],
     cleared: 0,
+    dungeons: {},
+    raids: {},
     packs: {},
     rng: seed >>> 0,
     stats: { battles: 0, wins: 0, opened: 0 },
@@ -177,6 +182,12 @@ export function repair(raw: unknown, seed: number): SaveData {
     out.cleared = Math.max(0, Math.min(STAGES.length, Math.floor(num(r.cleared, 0))));
     out.at = Math.max(0, Math.min(STAGES.length - 1, Math.floor(num(r.at, 0))));
     out.lostAt = typeof r.lostAt === 'number' && Number.isFinite(r.lostAt) ? Math.max(0, Math.min(STAGES.length - 1, Math.floor(r.lostAt))) : null;
+  }
+  for (const key of ['dungeons', 'raids'] as const) {
+    const book = r[key];
+    if (book && typeof book === 'object') {
+      for (const [id, n] of Object.entries(book)) out[key][id] = Math.max(0, Math.floor(num(n, 0)));
+    }
   }
   out.auto = r.auto !== false;
   out.sort = typeof r.sort === 'string' ? r.sort : fresh.sort;

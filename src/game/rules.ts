@@ -2,7 +2,7 @@
 // what a pack turns over, what a win pays, what opens when. Pure functions on
 // the save: no Phaser, no browser. The screens ask these and show the answer.
 
-import { LANDS, RANK } from '../data/lands';
+import { LANDS, RANK, type StageDef } from '../data/lands';
 import { PACKS, allPacks, packById, type PackDef } from '../data/packs';
 import { STAGES, WORLDS, landStart, stageAt, worldOf, type Stage } from '../data/stages';
 import { UNITS, isFrontline, type UnitInfo } from '../data/units';
@@ -229,8 +229,13 @@ export function teamPlacements(save: SaveData): Placement[] {
  */
 export function stageEnemies(index: number): Placement[] {
   const stage = stageAt(index);
-  const def = stage.def;
-  const m = cardMult(stage.grade, stage.level);
+  return fieldOf(stage.def, stage.grade, stage.level, stage.extra);
+}
+
+/** Who a written stage fields at a grade and level, with so many more troops than it is written with. A dungeon's floor is fielded the same way. */
+export function fieldOf(def: StageDef, grade: number, level: number, extra: number): Placement[] {
+  const stage = { extra };
+  const m = cardMult(grade, level);
   const out: Placement[] = def.enemies.map((e) => {
     const rank = RANK[e.rank];
     return { unit: e.unit, col: e.col, row: e.row, hpMult: m * rank.hp, damageMult: m * rank.damage, scale: rank.scale };

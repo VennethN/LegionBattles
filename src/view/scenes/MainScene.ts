@@ -99,6 +99,10 @@ export class MainScene extends Phaser.Scene {
         team === 'blue' ? cardOf(save(), (p as Fielded).card) : stageAt(this.at),
     });
     this.coins = new CoinPill(this, s);
+    // The way to the dungeons and the raids, which are off the line of stages.
+    const hall = plain(new Button(this, 128, 36, '   DUNGEONS', () => this.open('Hall'), { width: 216, height: 50, size: 19, mat: BONE, color: OUTLINE })).setDepth(8000);
+    hall.root.add(this.add.image(-78, -3, SHEET, 'icon/crown').setScale(0.3));
+    plain(new Button(this, 128, 88, 'AND RAIDS', () => this.open('Hall'), { width: 150, height: 38, size: 15, mat: BONE, color: OUTLINE })).setDepth(8000);
     this.buildBottom();
     this.note = label(this, W / 2, 612, '', { size: 18, weight: 600, color: HIGHLIGHT }).setDepth(8000);
 
