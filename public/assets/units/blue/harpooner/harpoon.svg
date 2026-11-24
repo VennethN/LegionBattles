@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="harpooner-harpoon" width="192" height="192" viewBox="0 0 192 192">
+<svg xmlns="http://www.w3.org/2000/svg" id="harpooner-harpoon" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
 <clipPath id="harpooner-harpoon-hand-clip"><path d="M 133.5 112 C 133.5 116.1 130.1 119.5 126 119.5 C 121.9 119.5 118.5 116.1 118.5 112 C 118.5 107.9 121.9 104.5 126 104.5 C 130.1 104.5 133.5 107.9 133.5 112 Z"/></clipPath>
 </defs>
@@ -14,6 +14,7 @@
 <path id="harpooner-harpoon-hand-shade" d="M 133.5 112 C 133.5 116.1 130.1 119.5 126 119.5 C 121.9 119.5 118.5 116.1 118.5 112 C 118.5 107.9 121.9 104.5 126 104.5 C 130.1 104.5 133.5 107.9 133.5 112 Z" fill="#4e3520"/>
 <g clip-path="url(#harpooner-harpoon-hand-clip)">
 <path id="harpooner-harpoon-hand-fill" d="M 130.5 109 C 130.5 113.1 127.1 116.5 123 116.5 C 118.9 116.5 115.5 113.1 115.5 109 C 115.5 104.9 118.9 101.5 123 101.5 C 127.1 101.5 130.5 104.9 130.5 109 Z" fill="#6b4a2b"/>
+<path id="harpooner-harpoon-hand-lit" d="M 133.5 112 C 133.5 116.1 130.1 119.5 126 119.5 C 121.9 119.5 118.5 116.1 118.5 112 C 118.5 107.9 121.9 104.5 126 104.5 C 130.1 104.5 133.5 107.9 133.5 112 Z M 137.1 115.6 C 137.1 119.7 133.7 123.1 129.6 123.1 C 125.5 123.1 122.1 119.7 122.1 115.6 C 122.1 111.5 125.5 108.1 129.6 108.1 C 133.7 108.1 137.1 111.5 137.1 115.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="harpooner-harpoon-hand-line" d="M 133.5 112 C 133.5 116.1 130.1 119.5 126 119.5 C 121.9 119.5 118.5 116.1 118.5 112 C 118.5 107.9 121.9 104.5 126 104.5 C 130.1 104.5 133.5 107.9 133.5 112 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

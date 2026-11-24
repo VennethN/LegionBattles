@@ -6,6 +6,7 @@
 <path id="boot-boot-shade" d="M 13 6 L 29 6 L 29 24 C 38 25 43 30 43 37 L 43 42 L 11 42 L 11 30 Z" fill="#4e3520"/>
 <g clip-path="url(#boot-boot-clip)">
 <path id="boot-boot-fill" d="M 9 2 L 25 2 L 25 20 C 34 21 39 26 39 33 L 39 38 L 7 38 L 7 26 Z" fill="#6b4a2b"/>
+<path id="boot-boot-lit" d="M 13 6 L 29 6 L 29 24 C 38 25 43 30 43 37 L 43 42 L 11 42 L 11 30 Z M 17.2 10.2 L 33.2 10.2 L 33.2 28.2 C 42.2 29.2 47.2 34.2 47.2 41.2 L 47.2 46.2 L 15.2 46.2 L 15.2 34.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="boot-boot-line" d="M 13 6 L 29 6 L 29 24 C 38 25 43 30 43 37 L 43 42 L 11 42 L 11 30 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

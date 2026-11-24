@@ -1,5 +1,5 @@
 import { CLOTH, LEATHER } from '../kit/palette';
-import { FEET, NECK, arm, belt, bulkTorsoPath, club, sackHood } from '../kit/parts';
+import { FEET, NECK, arm, belt, bulkTorsoPath, club, patch, sackHood } from '../kit/parts';
 import { line } from '../kit/path';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
@@ -16,6 +16,7 @@ export const bruiser: UnitArt = {
     part('body', 'body', 'root', FEET, (d, team) => {
       d.piece('tunic', bulkTorsoPath(), CLOTH[team], {
         inner: (c) => {
+          patch(c, 104, 120, 14, 12);
           c.line('strap', line(62, 104, 126, 152));
           belt(c, { y: 142 });
         },

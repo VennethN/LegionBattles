@@ -1,8 +1,5 @@
 import { CLOTH, LEATHER } from '../kit/palette';
-import {
-  FEET, HIP_Y, LEG_BACK_X, LEG_FRONT_X, NECK,
-  arm, belt, bow, hood, leg, nockedArrow, quiver, shadow, torsoPath,
-} from '../kit/parts';
+import { FEET, HIP_Y, LEG_BACK_X, LEG_FRONT_X, NECK, arm, belt, bow, hood, lacing, leg, nockedArrow, quiver, shadow, torsoPath } from '../kit/parts';
 import { line } from '../kit/path';
 import type { UnitArt } from '../kit/unit';
 
@@ -26,6 +23,7 @@ export const archer: UnitArt = {
       draw: (d, team) => {
         d.piece('tunic', torsoPath(), CLOTH[team], {
           inner: (c) => {
+            lacing(c, 112, 108);
             c.line('strap', line(70, 100, 122, 150));
             belt(c, { y: 140, buckle: null });
           },

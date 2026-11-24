@@ -181,7 +181,9 @@ export class Sheet {
       const key = `svg:${frame}`;
       const source = scene.textures.get(key).getSourceImage() as HTMLImageElement;
       const [bx, by, bw, bh] = t.part.box;
-      this.draw(frame, source, bx * ART_SCALE, by * ART_SCALE, t.w, t.h, [(t.part.pivot[0] - bx) / bw, (t.part.pivot[1] - by) / bh]);
+      // A part's box is on the canvas; its file has a margin of page round that.
+      const m = this.manifest.margin;
+      this.draw(frame, source, (bx + m) * ART_SCALE, (by + m) * ART_SCALE, t.w, t.h, [(t.part.pivot[0] - bx) / bw, (t.part.pivot[1] - by) / bh]);
       this.unitFrames.push(frame);
       scene.textures.remove(key);
     }

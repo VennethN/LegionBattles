@@ -11,6 +11,7 @@
 <path id="orb-fire-core-shade" d="M 39 24 C 39 30.6 33.6 36 27 36 C 20.4 36 15 30.6 15 24 C 15 17.4 20.4 12 27 12 C 33.6 12 39 17.4 39 24 Z" fill="#c45f22"/>
 <g clip-path="url(#orb-fire-core-clip)">
 <path id="orb-fire-core-fill" d="M 35 20 C 35 26.6 29.6 32 23 32 C 16.4 32 11 26.6 11 20 C 11 13.4 16.4 8 23 8 C 29.6 8 35 13.4 35 20 Z" fill="#f08a3c"/>
+<path id="orb-fire-core-lit" d="M 39 24 C 39 30.6 33.6 36 27 36 C 20.4 36 15 30.6 15 24 C 15 17.4 20.4 12 27 12 C 33.6 12 39 17.4 39 24 Z M 43.2 28.2 C 43.2 34.8 37.8 40.2 31.2 40.2 C 24.6 40.2 19.2 34.8 19.2 28.2 C 19.2 21.6 24.6 16.2 31.2 16.2 C 37.8 16.2 43.2 21.6 43.2 28.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="orb-fire-core-line" d="M 39 24 C 39 30.6 33.6 36 27 36 C 20.4 36 15 30.6 15 24 C 15 17.4 20.4 12 27 12 C 33.6 12 39 17.4 39 24 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

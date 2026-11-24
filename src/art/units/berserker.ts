@@ -1,8 +1,5 @@
 import { BONE, CLOTH, LEATHER } from '../kit/palette';
-import {
-  FEET, HIP_Y, LEG_BACK_X, LEG_FRONT_X, NECK,
-  arm, belt, furCollar, greatAxe, hornedHelm, leg, shadow, torsoPath,
-} from '../kit/parts';
+import { FEET, HIP_Y, LEG_BACK_X, LEG_FRONT_X, NECK, arm, belt, furCollar, greatAxe, hornedHelm, leg, patch, shadow, torsoPath } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 
 // Melee damage. Read it by: the two great horns, the fur over the shoulders,
@@ -22,7 +19,12 @@ export const berserker: UnitArt = {
       parent: 'root',
       pivot: FEET,
       draw: (d, team) => {
-        d.piece('tunic', torsoPath(), CLOTH[team], { inner: (c) => belt(c, { y: 140 }) });
+        d.piece('tunic', torsoPath(), CLOTH[team], {
+          inner: (c) => {
+            patch(c, 100, 116);
+            belt(c, { y: 140 });
+          },
+        });
         arm(d, 'arm', [114, 118], [119, 138], CLOTH[team]);
         furCollar(d, BONE);
       },

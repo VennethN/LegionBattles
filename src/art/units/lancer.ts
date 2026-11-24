@@ -1,5 +1,5 @@
 import { CLOTH, LEATHER, LINEN } from '../kit/palette';
-import { FEET, NECK, arm, belt, cape, spear, torsoPath, turban } from '../kit/parts';
+import { FEET, NECK, arm, belt, buttons, cape, spear, torsoPath, turban } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
 
@@ -14,7 +14,12 @@ export const lancer: UnitArt = {
     part('sash', 'extra', 'body', [94, 106], (d, team) => cape(d, CLOTH[team]), 0.7),
     ...legs(LEATHER),
     part('body', 'body', 'root', FEET, (d) => {
-      d.piece('tunic', torsoPath(), LINEN, { inner: (c) => belt(c, { y: 140 }) });
+      d.piece('tunic', torsoPath(), LINEN, {
+        inner: (c) => {
+          buttons(c, 110, 112, 3);
+          belt(c, { y: 140 });
+        },
+      });
       arm(d, 'arm', [114, 118], [116, 134], LINEN);
     }),
     part('head', 'head', 'body', NECK, (d, team) => turban(d, CLOTH[team])),

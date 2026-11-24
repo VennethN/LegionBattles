@@ -27,6 +27,8 @@ export interface ManifestImage {
 
 export interface Manifest {
   canvas: number;
+  /** How much page a unit's files have all round the canvas. A part's box is on the canvas, and may reach into it. */
+  margin: number;
   feet: [number, number];
   teams: string[];
   units: Record<string, ManifestUnit>;

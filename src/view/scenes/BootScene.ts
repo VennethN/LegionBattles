@@ -79,7 +79,7 @@ export class BootScene extends Phaser.Scene {
               Math.round(box[2] * scale),
               Math.round(box[3] * scale),
               [(96 - box[0]) / box[2], (180 - box[1]) / box[3]],
-              [box[0] * scale, box[1] * scale],
+              [(box[0] + manifest.margin) * scale, (box[1] + manifest.margin) * scale],
             );
             this.textures.remove(key);
           }

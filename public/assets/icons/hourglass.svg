@@ -6,6 +6,7 @@
 <path id="hourglass-glass-shade" d="M 12 8 L 36 8 L 26 24 L 36 40 L 12 40 L 22 24 Z" fill="#c4b594"/>
 <g clip-path="url(#hourglass-glass-clip)">
 <path id="hourglass-glass-fill" d="M 9 5 L 33 5 L 23 21 L 33 37 L 9 37 L 19 21 Z" fill="#e9dfc6"/>
+<path id="hourglass-glass-lit" d="M 12 8 L 36 8 L 26 24 L 36 40 L 12 40 L 22 24 Z M 15.6 11.6 L 39.6 11.6 L 29.6 27.6 L 39.6 43.6 L 15.6 43.6 L 25.6 27.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="hourglass-glass-line" d="M 12 8 L 36 8 L 26 24 L 36 40 L 12 40 L 22 24 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

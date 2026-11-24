@@ -1,8 +1,5 @@
 import { CLOTH, STEEL } from '../kit/palette';
-import {
-  FEET, HIP_Y, LEG_BACK_X, LEG_FRONT_X, NECK,
-  arm, belt, leg, pauldron, plume, roundHelm, roundShield, shadow, sword, torsoPath,
-} from '../kit/parts';
+import { FEET, HIP_Y, LEG_BACK_X, LEG_FRONT_X, NECK, arm, belt, leg, pauldron, plume, roundHelm, roundShield, shadow, stripe, sword, torsoPath } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 
 // The tank. Read it by: the round closed helm with a plume, the big round
@@ -22,7 +19,12 @@ export const knight: UnitArt = {
       parent: 'root',
       pivot: FEET,
       draw: (d, team) => {
-        d.piece('tabard', torsoPath(), CLOTH[team], { inner: (c) => belt(c) });
+        d.piece('tabard', torsoPath(), CLOTH[team], {
+          inner: (c) => {
+            stripe(c);
+            belt(c);
+          },
+        });
         arm(d, 'arm', [117, 116], [127, 133], STEEL);
         pauldron(d, 117, 113);
       },

@@ -6,7 +6,9 @@
 <g id="stump-trunk">
 <path id="stump-trunk-shade" d="M 10 46 C 10 46 8.3 25 12 20 C 15.7 15 25.3 16 32 16 C 38.7 16 48.3 15 52 20 C 55.7 25 54 46 54 46 L 10 46 Z" fill="#8c6b42"/>
 <g clip-path="url(#stump-trunk-clip)">
+<path id="stump-trunk-deep" d="M 10 46 C 10 46 8.3 25 12 20 C 15.7 15 25.3 16 32 16 C 38.7 16 48.3 15 52 20 C 55.7 25 54 46 54 46 L 10 46 Z M 6.9 42.9 C 6.9 42.9 5.2 21.9 8.9 16.9 C 12.6 11.9 22.2 12.9 28.9 12.9 C 35.6 12.9 45.2 11.9 48.9 16.9 C 52.6 21.9 50.9 42.9 50.9 42.9 L 6.9 42.9 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
 <path id="stump-trunk-fill" d="M 5 41 C 5 41 3.3 20 7 15 C 10.7 10 20.3 11 27 11 C 33.7 11 43.3 10 47 15 C 50.7 20 49 41 49 41 L 5 41 Z" fill="#b08a5a"/>
+<path id="stump-trunk-lit" d="M 10 46 C 10 46 8.3 25 12 20 C 15.7 15 25.3 16 32 16 C 38.7 16 48.3 15 52 20 C 55.7 25 54 46 54 46 L 10 46 Z M 14.6 50.6 C 14.6 50.6 12.9 29.6 16.6 24.6 C 20.3 19.6 29.9 20.6 36.6 20.6 C 43.3 20.6 52.9 19.6 56.6 24.6 C 60.3 29.6 58.6 50.6 58.6 50.6 L 14.6 50.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="stump-trunk-line" d="M 10 46 C 10 46 8.3 25 12 20 C 15.7 15 25.3 16 32 16 C 38.7 16 48.3 15 52 20 C 55.7 25 54 46 54 46 L 10 46 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

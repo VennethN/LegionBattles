@@ -17,7 +17,7 @@ import { fxArt } from '../src/art/fx';
 import { GRADE_H, GRADE_W, drawGrade } from '../src/art/grades';
 import { iconArt } from '../src/art/icons';
 import { PACK_H, PACK_LOOKS, PACK_W, drawPack } from '../src/art/packs';
-import { CANVAS, Doc } from '../src/art/kit/draw';
+import { CANVAS, Doc, MARGIN, page } from '../src/art/kit/draw';
 import { ARCANE, FIRE, FROST, HOLY, TEAMS, VENOM, type Team } from '../src/art/kit/palette';
 import { drawPart } from '../src/art/kit/unit';
 import type { Manifest, ManifestImage, ManifestPart } from '../src/art/manifest';
@@ -64,16 +64,43 @@ export function effective(rel: string, generated: string): string {
   return fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : generated;
 }
 
-/** Corner to corner of what an SVG draws, lines included, with a little room. */
-function measure(svg: string, size: number): [number, number, number, number] | null {
-  const box = new Resvg(svg).getBBox();
-  if (!box || box.width <= 0 || box.height <= 0) return null;
+/**
+ * Corner to corner of what a unit's file draws, lines included, with a
+ * little room, on the canvas: a spear that reaches past the canvas gives a
+ * box that does. What reaches the edge of the page itself would be cut off
+ * in the game, so that is an error, and so is a file with another page.
+ */
+function measure(svg: string, rel: string): [number, number, number, number] | null {
+  const size = CANVAS + MARGIN * 2;
+  if (!svg.includes(`viewBox="${-MARGIN} ${-MARGIN} ${size} ${size}"`)) {
+    throw new Error(`${rel}: its page must be viewBox="${-MARGIN} ${-MARGIN} ${size} ${size}" (the ${CANVAS} canvas with ${MARGIN} all round)`);
+  }
+  // Counted from the picture itself, so that it does not matter how a renderer reports a box.
+  const img = new Resvg(svg).render();
+  const px = img.pixels;
+  let x0 = size;
+  let y0 = size;
+  let x1 = -1;
+  let y1 = -1;
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      if (px[(y * size + x) * 4 + 3] === 0) continue;
+      if (x < x0) x0 = x;
+      if (x > x1) x1 = x;
+      if (y < y0) y0 = y;
+      if (y > y1) y1 = y;
+    }
+  }
+  if (x1 < 0) return null;
+  if (x0 === 0 || y0 === 0 || x1 === size - 1 || y1 === size - 1) {
+    throw new Error(`${rel}: it runs off its page, ${MARGIN} past the canvas, and would be cut off. Make it smaller or MARGIN bigger.`);
+  }
   const pad = 2;
-  const x0 = Math.max(0, Math.floor(box.x - pad));
-  const y0 = Math.max(0, Math.floor(box.y - pad));
-  const x1 = Math.min(size, Math.ceil(box.x + box.width + pad));
-  const y1 = Math.min(size, Math.ceil(box.y + box.height + pad));
-  return [x0, y0, x1 - x0, y1 - y0];
+  const left = Math.max(0, x0 - pad) - MARGIN;
+  const top = Math.max(0, y0 - pad) - MARGIN;
+  const right = Math.min(size, x1 + 1 + pad) - MARGIN;
+  const bottom = Math.min(size, y1 + 1 + pad) - MARGIN;
+  return [left, top, right - left, bottom - top];
 }
 
 function union(a: [number, number, number, number] | null, b: [number, number, number, number] | null) {
@@ -105,6 +132,7 @@ export function buildArt(): Manifest {
 
   const manifest: Manifest = {
     canvas: CANVAS,
+    margin: MARGIN,
     feet: [FEET_X, FEET_Y],
     teams: [...TEAMS],
     units: {},
@@ -124,13 +152,13 @@ export function buildArt(): Manifest {
       let box: [number, number, number, number] | null = null;
       for (const team of TEAMS) {
         const rel = `units/${team}/${unit.id}/${part.name}.svg`;
-        const generated = drawPart(unit, part, team).svg();
+        const generated = drawPart(unit, part, team).svg(CANVAS, CANVAS, MARGIN);
         write(rel, generated);
         files++;
         const svg = effective(rel, generated);
         if (svg !== generated) overridden++;
         shown.set(`${team}/${part.name}`, svg);
-        box = union(box, measure(svg, CANVAS));
+        box = union(box, measure(svg, rel));
       }
       if (!box) throw new Error(`${unit.id}/${part.name} draws nothing`);
       parts.push({
@@ -146,10 +174,7 @@ export function buildArt(): Manifest {
     const source: PartSource = (_u, name, team: Team) => innerOf(shown.get(`${team}/${name}`) as string);
     for (const team of TEAMS) {
       const inner = composeUnit(unit, team, { source });
-      write(
-        `units/${team}/${unit.id}/full.svg`,
-        `<svg xmlns="http://www.w3.org/2000/svg" id="${unit.id}" width="${CANVAS}" height="${CANVAS}" viewBox="0 0 ${CANVAS} ${CANVAS}">\n${inner}\n</svg>\n`,
-      );
+      write(`units/${team}/${unit.id}/full.svg`, page(unit.id, inner, CANVAS, CANVAS, MARGIN));
       files++;
     }
     let full: [number, number, number, number] | null = null;

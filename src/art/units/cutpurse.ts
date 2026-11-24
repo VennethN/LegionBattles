@@ -1,5 +1,5 @@
 import { CLOTH, DARK_CLOTH, LEATHER } from '../kit/palette';
-import { FEET, NECK, arm, belt, dagger, faceWrap, torsoPath } from '../kit/parts';
+import { FEET, NECK, arm, belt, dagger, faceWrap, lacing, torsoPath } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
 
@@ -13,7 +13,12 @@ export const cutpurse: UnitArt = {
     ground(32),
     ...legs(LEATHER),
     part('body', 'body', 'root', FEET, (d, team) => {
-      d.piece('jerkin', torsoPath().scale(0.92, 1, 96, 159), DARK_CLOTH, { inner: (c) => belt(c, { y: 138, mat: CLOTH[team], buckle: null }) });
+      d.piece('jerkin', torsoPath().scale(0.92, 1, 96, 159), DARK_CLOTH, {
+        inner: (c) => {
+          lacing(c, 108, 108);
+          belt(c, { y: 138, mat: CLOTH[team], buckle: null });
+        },
+      });
       arm(d, 'arm', [114, 118], [126, 128], DARK_CLOTH, 13);
     }),
     part('head', 'head', 'body', NECK, (d, team) => faceWrap(d, CLOTH[team])),

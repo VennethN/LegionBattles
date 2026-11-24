@@ -10,13 +10,16 @@
 <path id="pine-trunk-shade" d="M 36 92 L 44 92 Q 47 92 47 95 L 47 111 Q 47 114 44 114 L 36 114 Q 33 114 33 111 L 33 95 Q 33 92 36 92 Z" fill="#8c6b42"/>
 <g clip-path="url(#pine-trunk-clip)">
 <path id="pine-trunk-fill" d="M 33 89 L 41 89 Q 44 89 44 92 L 44 108 Q 44 111 41 111 L 33 111 Q 30 111 30 108 L 30 92 Q 30 89 33 89 Z" fill="#b08a5a"/>
+<path id="pine-trunk-lit" d="M 36 92 L 44 92 Q 47 92 47 95 L 47 111 Q 47 114 44 114 L 36 114 Q 33 114 33 111 L 33 95 Q 33 92 36 92 Z M 39.6 95.6 L 47.6 95.6 Q 50.6 95.6 50.6 98.6 L 50.6 114.6 Q 50.6 117.6 47.6 117.6 L 39.6 117.6 Q 36.6 117.6 36.6 114.6 L 36.6 98.6 Q 36.6 95.6 39.6 95.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="pine-trunk-line" d="M 36 92 L 44 92 Q 47 92 47 95 L 47 111 Q 47 114 44 114 L 36 114 Q 33 114 33 111 L 33 95 Q 33 92 36 92 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="pine-low">
 <path id="pine-low-shade" d="M 40 64 L 74 98 L 6 98 Z" fill="#2e5f45"/>
 <g clip-path="url(#pine-low-clip)">
+<path id="pine-low-deep" d="M 40 64 L 74 98 L 6 98 Z M 36.9 60.9 L 70.9 94.9 L 2.9 94.9 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
 <path id="pine-low-fill" d="M 35 59 L 69 93 L 1 93 Z" fill="#3f7a5a"/>
+<path id="pine-low-lit" d="M 40 64 L 74 98 L 6 98 Z M 44.6 68.6 L 78.6 102.6 L 10.6 102.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 <path id="pine-low-snow" d="M 40 58 L 57 84 L 46.8 78 L 40 86 L 31.5 78 L 23 84 Z" fill="#f8fcfe"/>
 </g>
 <path id="pine-low-line" d="M 40 64 L 74 98 L 6 98 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -24,7 +27,9 @@
 <g id="pine-mid">
 <path id="pine-mid-shade" d="M 40 38 L 67 72 L 13 72 Z" fill="#2e5f45"/>
 <g clip-path="url(#pine-mid-clip)">
+<path id="pine-mid-deep" d="M 40 38 L 67 72 L 13 72 Z M 36.9 34.9 L 63.9 68.9 L 9.9 68.9 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
 <path id="pine-mid-fill" d="M 35 33 L 62 67 L 8 67 Z" fill="#3f7a5a"/>
+<path id="pine-mid-lit" d="M 40 38 L 67 72 L 13 72 Z M 44.6 42.6 L 71.6 76.6 L 17.6 76.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 <path id="pine-mid-snow" d="M 40 32 L 53.5 58 L 45.4 52 L 40 60 L 33.3 52 L 26.5 58 Z" fill="#f8fcfe"/>
 </g>
 <path id="pine-mid-line" d="M 40 38 L 67 72 L 13 72 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -32,7 +37,9 @@
 <g id="pine-top">
 <path id="pine-top-shade" d="M 40 12 L 60 46 L 20 46 Z" fill="#2e5f45"/>
 <g clip-path="url(#pine-top-clip)">
+<path id="pine-top-deep" d="M 40 12 L 60 46 L 20 46 Z M 36.9 8.9 L 56.9 42.9 L 16.9 42.9 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
 <path id="pine-top-fill" d="M 35 7 L 55 41 L 15 41 Z" fill="#3f7a5a"/>
+<path id="pine-top-lit" d="M 40 12 L 60 46 L 20 46 Z M 44.6 16.6 L 64.6 50.6 L 24.6 50.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 <path id="pine-top-snow" d="M 40 6 L 50 32 L 44 26 L 40 34 L 35 26 L 30 32 Z" fill="#f8fcfe"/>
 </g>
 <path id="pine-top-line" d="M 40 12 L 60 46 L 20 46 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>

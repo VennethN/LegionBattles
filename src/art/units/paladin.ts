@@ -1,5 +1,5 @@
 import { CLOTH, GOLD, STEEL } from '../kit/palette';
-import { FEET, NECK, arm, belt, cape, kiteShield, pauldron, torsoPath, warhammer, wingedHelm } from '../kit/parts';
+import { FEET, NECK, arm, belt, cape, kiteShield, pauldron, stripe, torsoPath, warhammer, wingedHelm } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
 
@@ -14,7 +14,12 @@ export const paladin: UnitArt = {
     part('cape', 'extra', 'body', [94, 106], (d, team) => cape(d, CLOTH[team]), 0.6),
     ...legs(STEEL),
     part('body', 'body', 'root', FEET, (d, team) => {
-      d.piece('tabard', torsoPath(), CLOTH[team], { inner: (c) => belt(c, { y: 138, mat: GOLD, buckle: null }) });
+      d.piece('tabard', torsoPath(), CLOTH[team], {
+        inner: (c) => {
+          stripe(c, 101, 12);
+          belt(c, { y: 138, mat: GOLD, buckle: null });
+        },
+      });
       arm(d, 'arm', [117, 116], [128, 132], STEEL);
       pauldron(d, 117, 113, GOLD);
     }),

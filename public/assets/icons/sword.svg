@@ -6,6 +6,8 @@
 <path id="sword-blade-shade" d="M 31.7 7 L 38.8 6.4 L 39.4 13.4 L 24 31.8 L 16.3 25.4 Z" fill="#8d97a3"/>
 <g clip-path="url(#sword-blade-clip)">
 <path id="sword-blade-fill" d="M 28.7 4 L 35.8 3.4 L 36.4 10.4 L 21 28.8 L 13.3 22.4 Z" fill="#b9c2cc"/>
+<path id="sword-blade-lit" d="M 31.7 7 L 38.8 6.4 L 39.4 13.4 L 24 31.8 L 16.3 25.4 Z M 35.3 10.6 L 42.4 10 L 43 17 L 27.6 35.4 L 19.9 29 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<path id="sword-blade-sheen" d="M33.2 6.38 L37.2 6.38 L26.52 31.81 L22.52 31.81 Z M40.7 6.38 L43.3 6.38 L32.62 31.81 L30.02 31.81 Z" fill="#f4f1e4" opacity="0.2"/>
 </g>
 <path id="sword-blade-line" d="M 31.7 7 L 38.8 6.4 L 39.4 13.4 L 24 31.8 L 16.3 25.4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

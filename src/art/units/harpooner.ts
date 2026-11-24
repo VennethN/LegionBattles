@@ -1,5 +1,5 @@
 import { BONE, CLOTH, LEATHER } from '../kit/palette';
-import { FEET, NECK, arm, belt, furHood, javelin, ropeCoil, torsoPath } from '../kit/parts';
+import { FEET, NECK, arm, belt, buttons, furHood, javelin, ropeCoil, torsoPath } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
 
@@ -13,7 +13,12 @@ export const harpooner: UnitArt = {
     ground(34),
     ...legs(LEATHER),
     part('body', 'body', 'root', FEET, (d, team) => {
-      d.piece('coat', torsoPath(), CLOTH[team], { inner: (c) => belt(c, { y: 140, mat: BONE, buckle: null }) });
+      d.piece('coat', torsoPath(), CLOTH[team], {
+        inner: (c) => {
+          buttons(c, 110, 112, 3);
+          belt(c, { y: 140, mat: BONE, buckle: null });
+        },
+      });
       arm(d, 'arm', [114, 116], [124, 112], CLOTH[team]);
     }),
     part('head', 'head', 'body', NECK, (d) => furHood(d, LEATHER)),

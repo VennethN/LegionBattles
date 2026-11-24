@@ -6,7 +6,10 @@
 <g id="frost-pouch">
 <path id="frost-pouch-shade" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z" fill="#3f97bd"/>
 <g clip-path="url(#frost-pouch-clip)">
+<path id="frost-pouch-deep" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z M 7.7 9.7 L 18.8 1.7 L 29.9 9.7 L 41 1.7 L 52.1 9.7 L 63.2 1.7 L 74.3 9.7 L 85.4 1.7 L 96.5 9.7 L 107.7 1.7 L 111.7 79.7 L 107.7 157.7 L 96.5 149.7 L 85.4 157.7 L 74.3 149.7 L 63.2 157.7 L 52.1 149.7 L 41 157.7 L 29.9 149.7 L 18.8 157.7 L 7.7 149.7 L 3.7 79.7 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
 <path id="frost-pouch-fill" d="M 5 7 L 16.1 -1 L 27.2 7 L 38.3 -1 L 49.4 7 L 60.6 -1 L 71.7 7 L 82.8 -1 L 93.9 7 L 105 -1 L 109 77 L 105 155 L 93.9 147 L 82.8 155 L 71.7 147 L 60.6 155 L 49.4 147 L 38.3 155 L 27.2 147 L 16.1 155 L 5 147 L 1 77 Z" fill="#6fc7e8"/>
+<path id="frost-pouch-lit" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z M 16.6 18.6 L 27.7 10.6 L 38.8 18.6 L 49.9 10.6 L 61 18.6 L 72.2 10.6 L 83.3 18.6 L 94.4 10.6 L 105.5 18.6 L 116.6 10.6 L 120.6 88.6 L 116.6 166.6 L 105.5 158.6 L 94.4 166.6 L 83.3 158.6 L 72.2 166.6 L 61 158.6 L 49.9 166.6 L 38.8 158.6 L 27.7 166.6 L 16.6 158.6 L 12.6 88.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<path id="frost-pouch-sheen" d="M94.76 6 L110.96 6 L45.44 162 L29.24 162 Z M114.46 6 L117.06 6 L51.54 162 L48.94 162 Z" fill="#f4f1e4" opacity="0.2"/>
 <g id="frost-crimp-top">
 <path id="frost-crimp-top-fill" d="M 0 0 L 124 0 L 124 26 L 0 26 Z" fill="#3f97bd"/>
 <path id="frost-crimp-top-line" d="M 0 0 L 124 0 L 124 26 L 0 26 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -26,6 +29,7 @@
 <path id="frost-seal-shade" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z" fill="#c4b594"/>
 <g clip-path="url(#frost-seal-clip)">
 <path id="frost-seal-fill" d="M 89 70 C 89 87.1 75.1 101 58 101 C 40.9 101 27 87.1 27 70 C 27 52.9 40.9 39 58 39 C 75.1 39 89 52.9 89 70 Z" fill="#e9dfc6"/>
+<path id="frost-seal-lit" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z M 97.2 78.2 C 97.2 95.3 83.3 109.2 66.2 109.2 C 49.1 109.2 35.2 95.3 35.2 78.2 C 35.2 61.1 49.1 47.2 66.2 47.2 C 83.3 47.2 97.2 61.1 97.2 78.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="frost-seal-line" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

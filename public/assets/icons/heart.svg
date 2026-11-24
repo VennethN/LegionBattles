@@ -6,6 +6,7 @@
 <path id="heart-heart-shade" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z" fill="#933027"/>
 <g clip-path="url(#heart-heart-clip)">
 <path id="heart-heart-fill" d="M 20 38 C 0 24 -1 8 10 5 C 16 4 20 9 20 12 C 20 9 24 4 30 5 C 41 8 40 24 20 38 Z" fill="#c2453a"/>
+<path id="heart-heart-lit" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z M 28.2 46.2 C 8.2 32.2 7.2 16.2 18.2 13.2 C 24.2 12.2 28.2 17.2 28.2 20.2 C 28.2 17.2 32.2 12.2 38.2 13.2 C 49.2 16.2 48.2 32.2 28.2 46.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="heart-heart-line" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

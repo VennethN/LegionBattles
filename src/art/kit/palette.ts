@@ -4,10 +4,12 @@
 export type Team = 'blue' | 'red';
 export const TEAMS: readonly Team[] = ['blue', 'red'];
 
-/** A flat fill with its one cel-shade tone. */
+/** A flat fill with its cel-shade tone. */
 export interface Material {
   fill: string;
   shade: string;
+  /** True for what is polished: metal, a cut stone, ice. It is drawn with a streak of light across it. */
+  gloss?: boolean;
 }
 
 export const OUTLINE = '#2a1a10';
@@ -21,17 +23,17 @@ export const HIGHLIGHT = '#f4f1e4';
 /** Ground shadows are the outline color at this opacity. */
 export const SHADOW_OPACITY = 0.28;
 
-export const STEEL: Material = { fill: '#b9c2cc', shade: '#8d97a3' };
+export const STEEL: Material = { fill: '#b9c2cc', shade: '#8d97a3', gloss: true };
 export const LEATHER: Material = { fill: '#6b4a2b', shade: '#4e3520' };
 export const WOOD: Material = { fill: '#9a6a3a', shade: '#75502b' };
-export const GOLD: Material = { fill: '#c8a24a', shade: '#9c7c33' };
+export const GOLD: Material = { fill: '#c8a24a', shade: '#9c7c33', gloss: true };
 /** Horn, parchment, bowstring, fletching. The one neutral light material. */
 export const BONE: Material = { fill: '#e9dfc6', shade: '#c4b594' };
 /** The plates of the grade badges between iron and gold, and above gold. */
-export const BRONZE: Material = { fill: '#c98b52', shade: '#9a6337' };
-export const RUBY: Material = { fill: '#c7364f', shade: '#952239' };
+export const BRONZE: Material = { fill: '#c98b52', shade: '#9a6337', gloss: true };
+export const RUBY: Material = { fill: '#c7364f', shade: '#952239', gloss: true };
 /** Dark iron for blackened gear, and stone for rocks and golems. */
-export const IRON: Material = { fill: '#5d6672', shade: '#434b56' };
+export const IRON: Material = { fill: '#5d6672', shade: '#434b56', gloss: true };
 export const STONE: Material = { fill: '#9c9a8c', shade: '#77766b' };
 
 export const CLOTH: Record<Team, Material> = {
@@ -49,7 +51,7 @@ export interface Accent extends Material {
 }
 export const ARCANE: Accent = { fill: '#8a5cd6', shade: '#6541a8', light: '#cdb6f7' };
 export const FIRE: Accent = { fill: '#f08a3c', shade: '#c45f22', light: '#ffd27a' };
-export const FROST: Accent = { fill: '#6fc7e8', shade: '#3f97bd', light: '#d4f1fb' };
+export const FROST: Accent = { fill: '#6fc7e8', shade: '#3f97bd', light: '#d4f1fb', gloss: true };
 export const HOLY: Accent = { fill: '#f2d264', shade: '#c9a53a', light: '#fff3b8' };
 export const VENOM: Accent = { fill: '#8fce4a', shade: '#62992b', light: '#d5f2a4' };
 
@@ -70,6 +72,6 @@ export function allColors(): Set<string> {
     STEEL, LEATHER, WOOD, GOLD, BONE, BRONZE, RUBY, IRON, STONE, CLOTH.blue, CLOTH.red, LINEN, DARK_CLOTH,
     ARCANE, FIRE, FROST, HOLY, VENOM, GRASS, DIRT, BUSH, SAND, SNOW, PINE, CACTUS,
   ] as unknown as Array<Record<string, string>>;
-  for (const m of mats) for (const v of Object.values(m)) out.add(v);
+  for (const m of mats) for (const v of Object.values(m)) if (typeof v === 'string') out.add(v);
   return out;
 }

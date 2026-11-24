@@ -1,5 +1,5 @@
 import { BONE, CLOTH, GOLD, IRON, LEATHER } from '../kit/palette';
-import { FEET, NECK, arm, belt, bulkTorsoPath, cape, furCollar, greatHammer, jarlHelm, skirt } from '../kit/parts';
+import { FEET, NECK, arm, belt, bulkTorsoPath, cape, furCollar, greatHammer, jarlHelm, mailRings, skirt } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
 
@@ -17,6 +17,7 @@ export const jarl: UnitArt = {
     part('body', 'body', 'root', FEET, (d, team) => {
       d.piece('mail', bulkTorsoPath(), IRON, {
         inner: (c) => {
+          mailRings(c, 56, 104, 140, 146, 8);
           skirt(c, CLOTH[team]);
           belt(c, { y: 140, mat: GOLD, buckle: null });
         },

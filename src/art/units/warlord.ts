@@ -1,5 +1,5 @@
 import { BONE, CLOTH, GOLD, IRON } from '../kit/palette';
-import { FEET, NECK, arm, belt, bulkTorsoPath, cape, crownedHelm, furCollar, greatsword, pauldron, skirt } from '../kit/parts';
+import { FEET, NECK, arm, belt, bulkTorsoPath, cape, crownedHelm, furCollar, greatsword, lames, pauldron, skirt } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
 
@@ -17,6 +17,7 @@ export const warlord: UnitArt = {
     part('body', 'body', 'root', FEET, (d, team) => {
       d.piece('plate', bulkTorsoPath(), IRON, {
         inner: (c) => {
+          lames(c, [116, 128]);
           skirt(c, CLOTH[team]);
           belt(c, { y: 140, mat: GOLD, buckle: null });
         },

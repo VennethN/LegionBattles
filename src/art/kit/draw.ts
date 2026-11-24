@@ -1,14 +1,28 @@
-// How a piece is drawn: a flat fill, one darker tone on the side away from
-// the light, and a dark line of one width round it. The light comes from the
-// top left, so the darker tone is a rim along the right and the bottom.
+// How a piece is drawn: a flat fill, a darker tone on the side away from the
+// light with a deeper one at its very edge, a lit rim on the side toward it,
+// and a dark line of one width round it all. The light comes from the top
+// left, so the dark is along the right and the bottom and the lit rim along
+// the left and the top. Polished things have a streak of light across them.
+//
+// The deeper tone, the lit rim and the streak are the outline color and the
+// highlight color laid over at part strength, so every material takes them
+// and none needs tones of its own for them. There are still no gradients
+// and no filters: every tone is a flat shape.
 //
 // The files this writes are meant to be opened in Inkscape: plain attributes,
 // ids that say what a thing is, no styles, filters or scripts.
 
-import { HIGHLIGHT, OUTLINE, OUTLINE_WIDTH, type Material } from './palette';
+import { HIGHLIGHT, OUTLINE, OUTLINE_WIDTH, SHADOW_OPACITY, type Material } from './palette';
 import { Path } from './path';
 
 export const CANVAS = 192;
+/**
+ * A unit's files have this much page all round the canvas. A long spear held
+ * level reaches past the canvas, and what is past the edge of a file is cut
+ * off. The canvas and every coordinate on it stay as they are: the feet are
+ * still at (96, 180).
+ */
+export const MARGIN = 40;
 /** Where a unit's feet are, and its middle. Every part is drawn against these. */
 export const CX = 96;
 export const FEET_Y = 180;
@@ -22,7 +36,14 @@ export interface PieceOpts {
   outline?: boolean;
   /** For a shape with holes in it, such as a letter: a path inside a path is a hole. */
   holes?: boolean;
+  /** False for no lit rim, no deeper edge and no streak: only the fill and its shade. */
+  finish?: boolean;
 }
+
+/** How strong the lit rim is, the deeper edge, and a polished thing's streak. */
+export const LIT = 0.36;
+export const DEEP = 0.2;
+export const SHEEN = 0.2;
 
 function attrs(a: Record<string, string | number | undefined>): string {
   return Object.entries(a)
@@ -65,9 +86,32 @@ export class Doc {
       this.defs.push(`<clipPath id="${id}-clip"><path ${attrs({ d, 'clip-rule': rule })}/></clipPath>`);
     }
     if (shade > 0) {
+      const finish = (opts.finish ?? true) && !opts.holes;
       out.push(`<path ${attrs({ id: `${id}-shade`, d, fill: mat.shade, 'fill-rule': rule })}/>`);
       out.push(`<g clip-path="url(#${id}-clip)">`);
+      // The shape and the shape moved, filled where only one of them is: inside the clip that is a rim.
+      const rim = (dx: number, dy: number): string => `${d} ${p.translate(dx, dy).toString()}`;
+      if (finish && shade >= 5) {
+        out.push(`<path ${attrs({ id: `${id}-deep`, d: rim(-shade * 0.62, -shade * 0.62), fill: OUTLINE, 'fill-rule': 'evenodd', opacity: DEEP })}/>`);
+      }
       out.push(`<path ${attrs({ id: `${id}-fill`, d: p.translate(-shade, -shade).toString(), fill: mat.fill, 'fill-rule': rule })}/>`);
+      if (finish && shade >= 3) {
+        // Half the dark line lies over the edge of a piece, so a rim has to be wider than that to be seen.
+        const lit = shade >= 5 ? 4.6 : shade >= 4 ? 4.2 : 3.6;
+        out.push(`<path ${attrs({ id: `${id}-lit`, d: rim(lit, lit), fill: HIGHLIGHT, 'fill-rule': 'evenodd', opacity: LIT })}/>`);
+      }
+      if (finish && mat.gloss) {
+        const b = p.bounds();
+        if (Math.min(b.w, b.h) >= 18) {
+          // A streak of light across it, leaning with the light, and a thin one beside it.
+          const lean = b.h * 0.42;
+          const band = (x: number, w: number): string =>
+            `M${r(x)} ${r(b.y)} L${r(x + w)} ${r(b.y)} L${r(x + w - lean)} ${r(b.y + b.h)} L${r(x - lean)} ${r(b.y + b.h)} Z`;
+          const wide = Math.max(4, b.w * 0.15);
+          const x = b.x + b.w * 0.5 + lean * 0.5;
+          out.push(`<path ${attrs({ id: `${id}-sheen`, d: `${band(x, wide)} ${band(x + wide + 3.5, 2.6)}`, fill: HIGHLIGHT, opacity: SHEEN })}/>`);
+        }
+      }
     } else {
       out.push(`<path ${attrs({ id: `${id}-fill`, d, fill: mat.fill, 'fill-rule': rule })}/>`);
       if (opts.inner) out.push(`<g clip-path="url(#${id}-clip)">`);
@@ -111,6 +155,20 @@ export class Doc {
     return this.flat(name, p, HIGHLIGHT);
   }
 
+  /**
+   * A shadow laid over whatever is under it: what a head casts on the
+   * shoulders, a belt on the cloth below it, a fold. `strength` is from 0 to
+   * 1, and 1 is as dark as the shadow on the ground.
+   */
+  shadeOver(name: string, p: Path, strength = 0.7): this {
+    return this.flat(name, p, OUTLINE, r(SHADOW_OPACITY * strength));
+  }
+
+  /** Light laid over whatever is under it: a worn edge, a facet, the shine on a fold. */
+  lightOver(name: string, p: Path, strength = 0.7): this {
+    return this.flat(name, p, HIGHLIGHT, r(LIT * strength));
+  }
+
   /** What is inside the svg element, for stacking parts into one picture. */
   inner(): string {
     const defs = this.defs.length ? `<defs>\n${this.defs.join('\n')}\n</defs>\n` : '';
@@ -121,12 +179,22 @@ export class Doc {
     return this.body.length === 0;
   }
 
-  svg(width = CANVAS, height = CANVAS): string {
-    return (
-      `<svg xmlns="http://www.w3.org/2000/svg" id="${this.prefix}" width="${width}" height="${height}" ` +
-      `viewBox="0 0 ${width} ${height}">\n${this.inner()}\n</svg>\n`
-    );
+  /** The file. `margin` is page left all round the canvas, for what reaches past it. */
+  svg(width = CANVAS, height = CANVAS, margin = 0): string {
+    return page(this.prefix, this.inner(), width, height, margin);
   }
+}
+
+/** An svg file of content drawn on a canvas, with page all round it if asked. */
+export function page(id: string, inner: string, width = CANVAS, height = CANVAS, margin = 0): string {
+  return (
+    `<svg xmlns="http://www.w3.org/2000/svg" id="${id}" width="${width + margin * 2}" height="${height + margin * 2}" ` +
+    `viewBox="${-margin} ${-margin} ${width + margin * 2} ${height + margin * 2}">\n${inner}\n</svg>\n`
+  );
+}
+
+function r(n: number): number {
+  return Math.round(n * 100) / 100;
 }
 
 const LINE = {

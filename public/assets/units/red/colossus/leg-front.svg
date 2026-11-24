@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="colossus-leg-front" width="192" height="192" viewBox="0 0 192 192">
+<svg xmlns="http://www.w3.org/2000/svg" id="colossus-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
 <clipPath id="colossus-leg-front-leg-clip"><path d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z"/></clipPath>
 </defs>
@@ -6,6 +6,7 @@
 <path id="colossus-leg-front-leg-shade" d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z" fill="#8c6b42"/>
 <g clip-path="url(#colossus-leg-front-leg-clip)">
 <path id="colossus-leg-front-leg-fill" d="M 100 142 L 114 142 Q 121 142 121 149 L 121 169 Q 121 176 114 176 L 100 176 Q 93 176 93 169 L 93 149 Q 93 142 100 142 Z" fill="#b08a5a"/>
+<path id="colossus-leg-front-leg-lit" d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z M 108.2 150.2 L 122.2 150.2 Q 129.2 150.2 129.2 157.2 L 129.2 177.2 Q 129.2 184.2 122.2 184.2 L 108.2 184.2 Q 101.2 184.2 101.2 177.2 L 101.2 157.2 Q 101.2 150.2 108.2 150.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="colossus-leg-front-leg-line" d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

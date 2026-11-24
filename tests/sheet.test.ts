@@ -51,9 +51,21 @@ describe('the art manifest', () => {
       expect(roles.filter((r) => r === 'head').length, id).toBeLessThanOrEqual(1);
       for (const p of u.parts) {
         expect(p.box[2], `${id}/${p.name}`).toBeGreaterThan(0);
-        expect(p.box[0] + p.box[2], `${id}/${p.name}`).toBeLessThanOrEqual(manifest.canvas);
+        // A part may reach past the canvas, a long spear does, but never to the edge of its page:
+        // there it would be cut off, as the Lancer's lance once was.
+        const m = manifest.margin;
+        expect(p.box[0], `${id}/${p.name} left`).toBeGreaterThan(-m);
+        expect(p.box[1], `${id}/${p.name} top`).toBeGreaterThan(-m);
+        expect(p.box[0] + p.box[2], `${id}/${p.name} right`).toBeLessThan(manifest.canvas + m);
+        expect(p.box[1] + p.box[3], `${id}/${p.name} bottom`).toBeLessThan(manifest.canvas + m);
       }
     }
+  });
+
+  it('cuts nothing off: the long spears reach past the canvas and are whole', () => {
+    expect(manifest.margin).toBeGreaterThan(0);
+    const lance = manifest.units.lancer.parts.find((p) => p.name === 'lance');
+    expect(lance && lance.box[0] + lance.box[2]).toBeGreaterThan(manifest.canvas);
   });
 });
 

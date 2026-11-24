@@ -1,5 +1,5 @@
 import { CLOTH, LEATHER, LINEN, WOOD } from '../kit/palette';
-import { FEET, NECK, arm, belt, buckler, javelin, skirt, spikeHelm, torsoPath } from '../kit/parts';
+import { FEET, NECK, arm, belt, buckler, javelin, seam, skirt, spikeHelm, torsoPath } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
 
@@ -15,6 +15,7 @@ export const javelineer: UnitArt = {
     part('body', 'body', 'root', FEET, (d, team) => {
       d.piece('tunic', torsoPath(), LINEN, {
         inner: (c) => {
+          seam(c, 108, 100, 146);
           skirt(c, CLOTH[team]);
           belt(c, { y: 140 });
         },

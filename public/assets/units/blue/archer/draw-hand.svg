@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="archer-draw-hand" width="192" height="192" viewBox="0 0 192 192">
+<svg xmlns="http://www.w3.org/2000/svg" id="archer-draw-hand" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
 <clipPath id="archer-draw-hand-hand-clip"><path d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z"/></clipPath>
 </defs>
@@ -15,6 +15,7 @@
 <path id="archer-draw-hand-hand-shade" d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z" fill="#4e3520"/>
 <g clip-path="url(#archer-draw-hand-hand-clip)">
 <path id="archer-draw-hand-hand-fill" d="M 122.5 125 C 122.5 129.1 119.1 132.5 115 132.5 C 110.9 132.5 107.5 129.1 107.5 125 C 107.5 120.9 110.9 117.5 115 117.5 C 119.1 117.5 122.5 120.9 122.5 125 Z" fill="#6b4a2b"/>
+<path id="archer-draw-hand-hand-lit" d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z M 129.1 131.6 C 129.1 135.7 125.7 139.1 121.6 139.1 C 117.5 139.1 114.1 135.7 114.1 131.6 C 114.1 127.5 117.5 124.1 121.6 124.1 C 125.7 124.1 129.1 127.5 129.1 131.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
 </g>
 <path id="archer-draw-hand-hand-line" d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

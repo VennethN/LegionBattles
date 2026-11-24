@@ -1,5 +1,5 @@
 import { CLOTH, LEATHER, LINEN } from '../kit/palette';
-import { FEET, NECK, arm, belt, brimHat, crossbow, quiver, skirt, torsoPath } from '../kit/parts';
+import { FEET, NECK, arm, belt, brimHat, crossbow, lacing, quiver, skirt, torsoPath } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
 
@@ -16,6 +16,7 @@ export const poacher: UnitArt = {
     part('body', 'body', 'root', FEET, (d, team) => {
       d.piece('shirt', torsoPath(), LINEN, {
         inner: (c) => {
+          lacing(c, 109, 108);
           skirt(c, CLOTH[team]);
           belt(c, { y: 140 });
         },

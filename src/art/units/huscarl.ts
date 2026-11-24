@@ -1,5 +1,5 @@
 import { BONE, CLOTH, LEATHER } from '../kit/palette';
-import { FEET, NECK, arm, belt, furCollar, handAxe, roundShield, spangenhelm, torsoPath } from '../kit/parts';
+import { FEET, NECK, arm, belt, furCollar, handAxe, roundShield, seam, spangenhelm, torsoPath } from '../kit/parts';
 import type { UnitArt } from '../kit/unit';
 import { ground, legs, part } from './common';
 
@@ -14,7 +14,12 @@ export const huscarl: UnitArt = {
     ground(38),
     ...legs(LEATHER),
     part('body', 'body', 'root', FEET, (d, team) => {
-      d.piece('tunic', torsoPath(), CLOTH[team], { inner: (c) => belt(c, { y: 140 }) });
+      d.piece('tunic', torsoPath(), CLOTH[team], {
+        inner: (c) => {
+          seam(c);
+          belt(c, { y: 140 });
+        },
+      });
       arm(d, 'arm', [116, 118], [128, 130], CLOTH[team]);
       furCollar(d, BONE);
     }),
