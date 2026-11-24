@@ -25,6 +25,7 @@ import type { UnitArt } from '../src/art/kit/unit';
 import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE, TOPPLE_POSE } from '../src/art/poses';
 import type { Pose } from '../src/art/rig';
 import { UNIT_ART } from '../src/art/units';
+import { LOGO_H, LOGO_SCALE, LOGO_W, MARK_SIZE } from '../src/art/logo';
 import { FIELDS } from '../src/data/fields';
 import { LANDS } from '../src/data/lands';
 import { COLS, ROWS } from '../src/sim/constants';
@@ -237,6 +238,28 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
     });
   });
   save('scenes.png', width, height, body, 1);
+}
+
+// ------------------------------------------------------------------ the logo
+{
+  // The logo on the two grounds it is likeliest to stand on, a land's green and the dark of a menu, and its mark alone at three sizes.
+  const w = LOGO_W * LOGO_SCALE;
+  const h = LOGO_H * LOGO_SCALE;
+  const width = w * 2 + 60;
+  const height = h + 40 + 300;
+  let body = `<rect width="${w + 30}" height="${h + 40}" fill="${GRASS.dark}"/><rect x="${w + 30}" width="${w + 30}" height="${h + 40}" fill="${OUTLINE}"/>`;
+  body += `<rect y="${h + 40}" width="${width}" height="300" fill="${GRASS.fill}"/>`;
+  [15, w + 45].forEach((x) => {
+    const inner = withIdSuffix(innerOf(shown('logo/logo.svg')), `-lg${serial++}`);
+    body += `<svg x="${x}" y="20" width="${w}" height="${h}" viewBox="0 0 ${LOGO_W} ${LOGO_H}">${inner}</svg>`;
+  });
+  let x = 40;
+  for (const size of [264, 132, 64, 32]) {
+    const inner = withIdSuffix(innerOf(shown('logo/mark.svg')), `-lg${serial++}`);
+    body += `<svg x="${x}" y="${h + 40 + (300 - size) / 2}" width="${size}" height="${size}" viewBox="0 0 ${MARK_SIZE} ${MARK_SIZE}">${inner}</svg>`;
+    x += size + 50;
+  }
+  save('logo.png', width, height, body, 1);
 }
 
 // ------------------------------------------------------------------ checks

@@ -29,6 +29,19 @@ const save = {
   tutorial: { done: true, seen: [] }, at: 9, lostAt: null, auto: false,
   player: { level: 9, xp: 420 }, tree: { command: 1, edge: 3, drill: 2 }, upgrades: { whetstones: 3, ledgers: 1 },
 };
+// The loading screen, with the logo over the bar. The art is held back a moment, so that the screen is still up to be looked at.
+const hold = async (route) => {
+  await new Promise((r) => setTimeout(r, 2500));
+  // The page may have moved on by then, and the request with it.
+  await route.continue().catch(() => {});
+};
+await page.route('**/assets/units/**', hold);
+await page.goto(base);
+await page.waitForFunction(() => window.game?.scene?.isActive('Boot') && window.game.textures.exists('logo'), null, { timeout: 30000 });
+await page.waitForTimeout(900);
+await page.screenshot({ path: `${out}/79-loading.png` });
+await page.unroute('**/assets/units/**', hold);
+
 await page.goto(base);
 await page.evaluate((v) => localStorage.setItem('legion-battles-save', JSON.stringify(v)), save);
 await page.reload();

@@ -12,6 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 import { SCENE_H, SCENE_W, boardBackdrop, boardTiles, mapBackdrop } from '../src/art/backdrop';
+import { logoMarkSvg, logoSvg } from '../src/art/logo';
 import { FIELDS } from '../src/data/fields';
 import { GROUNDS } from '../src/art/board';
 import { composeUnit, innerOf, type PartSource } from '../src/art/compose';
@@ -31,7 +32,7 @@ import { GRADES } from '../src/game/rarity';
 const OUT = path.resolve('public/assets');
 const OVERRIDES = path.resolve('art/overrides');
 
-const GENERATED = ['units', 'fx', 'board', 'tiles', 'maps', 'icons', 'packs', 'grades'];
+const GENERATED = ['units', 'fx', 'board', 'tiles', 'maps', 'icons', 'packs', 'grades', 'logo'];
 const written = new Set<string>();
 
 /**
@@ -204,6 +205,9 @@ export function buildArt(): Manifest {
     write(`maps/${land.id}.svg`, mapBackdrop(land.ground, land.stages.map((s) => s.kind)).svg(SCENE_W, SCENE_H));
     scenes++;
   }
+  // The logo, and its mark alone: each one picture, loaded by itself where it is shown.
+  write('logo/logo.svg', logoSvg());
+  write('logo/mark.svg', logoMarkSvg());
   manifest.icons = images('icons', iconArt());
   manifest.packs = images(
     'packs',

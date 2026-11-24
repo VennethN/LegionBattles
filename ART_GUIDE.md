@@ -207,6 +207,15 @@ The ground of a battle and the map of a land are each one painted picture the si
 - **The map** has a road from the first stage of the land to the last, with a round of trodden earth at each where the game writes the stage's number: a camp for a plain stage, a watchtower for a miniboss, a stronghold for the boss. `mapNodes` says where they are, for the picture and for the game alike.
 - A new kind of land needs its scenery and a line in `LOOKS`. `npm run art:sheet` draws all six scenes on `docs/art/scenes.png`, each land's ground with the tiles of a different field laid on it.
 
+## The logo
+
+`src/art/logo.ts` draws the logo with the same pieces as everything else: LEGION in gold over a shield that is half one side's color and half the other's, two standards crossed behind it, BATTLES on a red ribbon. Its letters are drawn by hand on the grid the grade badges' letters are on, 24 by 28, and the file is written three times the size it is drawn, so that its dark line is as heavy for its letters as theirs is.
+
+- **It is painted twice.** First every shape as a pale line, wider than the dark one that goes round it; then the pieces over that. What shows of the first pass is a pale edge round the whole logo, which is what lets it be read on a dark ground, where the dark line alone is lost.
+- **The shield is a shield by its top**: cut corners and a dip to a point in the middle. In the logo the word stands across its foot, so its foot can't be what tells it.
+- **`logo/mark.svg`** is the shield and the standards alone on a square, for a browser's tab or a portal's tile. `npm run art:sheet` draws both on `docs/art/logo.png`, on a light ground and a dark one, and the mark at four sizes.
+- The game shows the logo over the loading bar (`BootScene`), and the page's icon is the mark.
+
 ## Grade badges, packs, icons
 
 - **Grades** (`grades.ts`) are plates with a letter, dressed more grandly as they rise: iron for F and E, bronze with a gloss for D and C, silver with a spur at each end and a stud for B, gold with wings and two studs for A, ruby with a gold rim, feathered wings, three studs and a crown for S. A grade is told by its outline as well as its color. Every place that shows a grade shows this badge, never the letter in a line of text.

@@ -1,5 +1,7 @@
 # Legion Battles
 
+![The logo: LEGION in gold over a shield that is half blue and half red, BATTLES on a red ribbon](docs/art/logo.png)
+
 A 2D fantasy autobattler for the browser. You open packs to get cards, field a team of them, and battles start by themselves: your units fight on their own, a win moves you on to the next stage, and you step in to change the team, open packs or go into a dungeon.
 
 Everything on screen is drawn in code as SVG, and every sound is made in code. There are no bought assets and nothing is fetched from the network when the game runs.
@@ -26,7 +28,7 @@ Then open http://127.0.0.1:5173/. Add `?seed=123` to go straight to a skirmish w
 | `npm run balance` | Plays 400 skirmishes and says how long they last and who wins. |
 | `npm run journey` | Plays new players along the line of stages and says where they stall. |
 
-Eight scripts play the game in a headless browser. They need the dev server running, and Playwright. Their pictures go to `docs/screens`.
+Nine scripts play the game in a headless browser. They need the dev server running, and Playwright. Their pictures go to `docs/screens`.
 
 ```bash
 node scripts/newplayer.mjs
@@ -49,6 +51,10 @@ node scripts/fields.mjs
 ```
 
 ```bash
+node scripts/player.mjs
+```
+
+```bash
 node scripts/screens.mjs
 ```
 
@@ -60,7 +66,7 @@ node scripts/touch.mjs
 node scripts/perf.mjs
 ```
 
-`newplayer.mjs` starts from an empty save, watches the first battle start by itself and presses whatever the tutorial points at until it is over; with `TOUCH=1` in front it does that on a phone held sideways, with touches only. `tour.mjs` loads a save that is well into the game and visits the map, the units, the forge, the index, the packs and two bosses. `venture.mjs` walks a dungeon floor by floor and then a raid. `structures.mjs` stands towers, a barracks and traps on both sides and looks at them in a battle, on the two pages of UNITS and the INDEX, and in the shop. `fields.mjs` shows a stage on each of the three fields, with a summoner on two of them. `screens.mjs` and `touch.mjs` walk a skirmish with a mouse and with touches. `perf.mjs` measures a full battle: script time a frame with the processor slowed, draw calls, and where the time goes.
+`newplayer.mjs` starts from an empty save, watches the first battle start by itself and presses whatever the tutorial points at until it is over; with `TOUCH=1` in front it does that on a phone held sideways, with touches only. `tour.mjs` loads a save that is well into the game and visits the map, the units, the forge, the index, the packs and two bosses. `venture.mjs` walks a dungeon floor by floor and then a raid. `structures.mjs` stands towers, a barracks and traps on both sides and looks at them in a battle, on the two pages of UNITS and the INDEX, and in the shop. `fields.mjs` shows a stage on each of the three fields, with a summoner on two of them. `player.mjs` shows the loading screen with the logo, the level under the coins, the skill tree, the upgrades, and the result of a boss's first fall. `screens.mjs` and `touch.mjs` walk a skirmish with a mouse and with touches. `perf.mjs` measures a full battle: script time a frame with the processor slowed, draw calls, and where the time goes.
 
 ## Play it without installing anything
 
@@ -82,15 +88,25 @@ node scripts/perf.mjs
 
 **Packs.** Every pack holds one card. A pack names its set and the grades it can hand out, and holds everything of its set from the start: nothing in it has to be unlocked. A land's pack turns over one of its structures about one time in five. The Recruit Pack holds people only, and the Builder's Pack, sold from stage 8, holds only the Crownlands' structures; the first one is handed over with the first place to stand a structure.
 
+**The packs screen.** Every pack has a slot of its own, small, laid out as the cards on UNITS are: the three that are no land's along the top, then a row to a land with a slot to each difficulty. Pressing a slot brings that pack up on the right, big: the grades it hands out, a tile for everything it can turn over (a unit you have not met is its outline in the dark, on no tier's color), and how likely each tier is. Pressing a tile says what it is and how likely. OPEN opens one, and the button beside it opens as many as you hold, up to ten. A pack that is not sold yet says what opens it.
+
+**Opening a pack.** The pouch shakes, a light in the color of the best thing inside gathers behind it, and it bursts. One pack: its card rises out of it and turns over, rays turn behind a Rare or better, and its grade is stamped on a moment after. Several: the cards are dealt face down and turned one after another, the rarest last, and a press turns the rest at once.
+
 **Battles.** Your tiles are the left half of the field. Units walk to the nearest enemy, attack on their own rhythm, and use their skill whenever it is ready. Over each unit is its plate: its level on the color of its tier, its health, and its grade. A battle lasts about 20 to 40 seconds.
 
 **The field grows with the stage.** The first world is fought on a field of 8 by 4 tiles, the rest of the first lap on 10 by 5, and every lap after on 12 by 6. The line under the stage's plate says which. Every field is drawn in the same place on the screen: a bigger one has smaller tiles, and everyone on it is drawn smaller. A stage's enemies are written on the first field; on a bigger one they keep their depth behind their front line and are spread over its height. Your team's formation is kept as it would be written on the first field, so it is the same formation on every field, with more room behind and beside it on a bigger one. The first time the line comes to a bigger field, the team forms up again for it. Back on a smaller field (an early stage, a dungeon's first tier), whoever stood beyond it comes in to the nearest free tile for that battle, and the formation you set is not changed.
 
 **Battles start by themselves.** BATTLE counts down two seconds and presses itself. A first win moves on to the next stage. A win at a stage already cleared stays there, so a team left alone earns from a stage it can beat. A loss steps back one stage, and a changed team goes back to the stage it lost at. AUTO stops battles starting by themselves; the count also waits while a screen is open or a unit is being dragged.
 
-**The line of stages.** There is one line of 185 stages, numbered from 1, and that number says how far you have got. A world is a stretch of it in one land: World 1 is Thornwood, stages 1 to 10, World 2 Sunscar Dunes, 11 to 22, World 3 Frostholt, 23 to 37. Then the line runs through the three lands again, four more times, each harder: World 4 is Thornwood II. Enemies grow stronger with the stage's number, and so do what a win pays, what it teaches and the price of the pack it drops. Each land has minibosses and ends in a boss.
+**The line of stages.** There is one line of 185 stages, numbered from 1, and a stage's number says how hard it is: enemies grow stronger with it, and so do what a win pays, what it teaches and the price of the pack it drops. A world is a land: World 1 is Thornwood, World 2 Sunscar Dunes, World 3 Frostholt. Each land has minibosses and ends in a boss.
 
-**The map.** The main screen shows only the stage you are on, under the banner of its world. Pressing it opens the map of that world: a painted land with a road from stage to stage, a camp at each, a watchtower where a miniboss waits and a stronghold for the boss. Press an open stage to go there. The arrows turn to the worlds on either side that you have reached.
+**Difficulties.** Every world has five: Normal, Hard, Expert, Master, Nightmare. The line runs through the three worlds on Normal (stages 1 to 37), then through all three on Hard (38 to 74), and so on, so every stage of every world on every difficulty has its place on the one scale. A world opens on a difficulty when you have beaten it on the difficulty before, and beaten the world before it on this one. Following the line, each opens in its turn. What the rule adds is that Thornwood on Hard opens as soon as the Warlord falls on Normal, before the other two worlds are beaten: its stages are numbered from 38, which says how far ahead that is. Stages won ahead of the line are kept, and counted when the line comes to them. Places in the team, places for structures, dungeons and raids open by how far the line itself is cleared, in order.
+
+**The map.** The main screen shows only the stage you are on, under the banner of its world, which says its difficulty on a chip in that difficulty's color. Pressing it opens the map of that world: a painted land with a road from stage to stage, a camp at each, a watchtower where a miniboss waits and a stronghold for the boss. Press an open stage to go there. A row of the five difficulties stands under the heading: an open one turns the map to it, and a shut one says what must be beaten to open it. The arrows turn to the worlds on either side on the same difficulty, if they are open.
+
+**After a battle.** The result says what was won as pictures of the things: the coins, each kind of pack that dropped, the experience. Then the cards that made a level, as the units they are, each with its new level. Then your own level and what the battle added to it. Then whatever the win opened.
+
+**Your level, the skill tree, and upgrades.** A battle teaches you what it teaches each card that fought, won or lost. Each level is a skill point. The tree has four branches from one root: War (harder blows), Guard (more health), Craft (stronger structures) and Fortune (more coins, faster learning, more packs dropped, cheaper packs). It has 51 ranks and a player who walks the whole line earns about 35 points, so it is a choice; every point can be taken back, for nothing. Coins also buy five upgrades, each level dearer than the last: Whetstones, Rations, Seasoned Timber, Ledgers and Tutors. Your level stands under your coins on the main screen, with a red mark when there is a point to spend or an upgrade the coins will pay for, and pressing it opens both.
 
 **The team** starts at four and grows at stages 5, 10, 22 and 37, up to eight units, with up to three structures beside them.
 
@@ -98,7 +114,7 @@ node scripts/perf.mjs
 
 **Raids.** A raid is one long battle against a land's lord, grown huge, who calls up more of his own for as long as he stands. Every win pays, more than a dungeon, and it can be fought again at once.
 
-There is one dungeon and one raid to a land. The dungeons open at stages 10, 22 and 37 and the raids at 22, 37 and 47. Each has five tiers, each opened by clearing the one before. DUNGEONS, on the main screen, opens their hall.
+There is one dungeon and one raid to a land. The dungeons open at stages 10, 22 and 37 and the raids at 22, 37 and 47. Each has the five difficulties too, each opened by clearing the one before. DUNGEONS, on the main screen, opens their hall.
 
 **The tutorial.** A new player is shown the first battle, a pack, the team and the stage's plate. Which step is up is worked out from the save, so a reload in the middle carries on.
 
@@ -114,7 +130,7 @@ Press `D` in a battle for the debug overlay: tiles, ranges, targets, frame rate,
 | --- | --- |
 | `src/sim` | The battle. Pure TypeScript, no Phaser. Fixed 50 ms steps, a seeded generator, events for the view. `field.ts` is the field: its size, and where a team written on the first field stands on a bigger one. |
 | `src/data` | The numbers: units (structures and summoners among them), the lands and their stages, the laps, the fields, the line of stages, packs, dungeons and raids. |
-| `src/game` | The rules around the battles: cards and combining, sorting, packs, progress, the run of battles, dungeons and raids, the tutorial, the save. Pure TypeScript. |
+| `src/game` | The rules around the battles: cards and combining, sorting, packs, progress and which worlds are open, the run of battles, dungeons and raids, the player's level, tree and upgrades, the bonuses those give, the tutorial, the save. Pure TypeScript. |
 | `src/art` | The art, as code. `kit/` is the palette and the reusable parts, `units/` is one file to a unit, `scenery.ts` and `backdrop.ts` are the painted scenes. |
 | `src/audio` | The sounds, as code. |
 | `src/view` | Phaser: the scenes, the board, the unit rig, effects, the interface. |
@@ -140,23 +156,25 @@ That prints the spread of skirmish lengths (84% fall between 15 and 30 seconds) 
 npm run journey 12 --worlds=15 --losses
 ```
 
-It plays twelve new players along the line by the game's own rules and prints, for each world, how many battles it took, how many were lost, how long a battle lasts, and how strong the team was when the boss fell. `--losses` lists the stages that beat players most often, which is where the walls are. Without `--worlds` it plays the first three. As tuned on 24 November 2026, after structures, summoners and the bigger fields came, all of twenty-four finish the line: half of them in under about 355 battles, the slowest in 1127.
+It plays twelve new players along the line by the game's own rules and prints, for each world, how many battles it took, how many were lost, how long a battle lasts, and how strong the team was when the boss fell. `--losses` lists the stages that beat players most often, which is where the walls are. Without `--worlds` it plays the first three. `--bare` plays players who spend no skill points and buy no upgrades, to see what those are worth. As tuned on 24 November 2026, all of twenty-four finish the line: half of them in under about 350 battles, the slowest in 782.
 
 | World | Stages | Field | Battles, half took under | Lost | A battle |
 | --- | --- | --- | --- | --- | --- |
-| 1 Thornwood | 1 to 10 | 8 by 4 | 20 | 35% | 22 s |
-| 2 Sunscar Dunes | 11 to 22 | 10 by 5 | 40 | 42% | 24 s |
-| 3 Frostholt | 23 to 37 | 10 by 5 | 37 | 31% | 33 s |
-| 4 to 6, the second lap | 38 to 74 | 12 by 6 | 20, 14, 17 | 35%, 14%, 17% | 33 s |
-| 7 to 9, the third lap | 75 to 111 | 12 by 6 | 16, 24, 19 | 37%, 38%, 28% | 35 s |
-| 10 to 12, the fourth lap | 112 to 148 | 12 by 6 | 10, 16, 15 | 2%, 23%, 16% | 32 s |
-| 13 to 15, the fifth lap | 149 to 185 | 12 by 6 | 14, 26, 19 | 40%, 54%, 20% | 36 s |
+| Thornwood, Normal | 1 to 10 | 8 by 4 | 14 | 22% | 21 s |
+| Sunscar Dunes, Normal | 11 to 22 | 10 by 5 | 51 | 41% | 24 s |
+| Frostholt, Normal | 23 to 37 | 10 by 5 | 31 | 27% | 32 s |
+| The three on Hard | 38 to 74 | 12 by 6 | 14, 14, 19 | 22%, 15%, 17% | 29 s |
+| The three on Expert | 75 to 111 | 12 by 6 | 16, 14, 19 | 35%, 32%, 14% | 32 s |
+| The three on Master | 112 to 148 | 12 by 6 | 10, 18, 15 | 21%, 24%, 3% | 30 s |
+| The three on Nightmare | 149 to 185 | 12 by 6 | 12, 14, 15 | 53%, 40%, 9% | 34 s |
 
-The line is shorter in battles than it was before structures (half of twelve players took under about 730 then) and its battles are longer (they were 20 to 28 seconds): a team of eight with three structures, on a bigger field, against as many. Asking more of the later laps than this left one or two players in twenty-four unable to finish, as a card cannot grow past its last level. World 10, Thornwood IV, is the soft spot: almost nobody loses there.
+The simulated players are plain. They follow the line and never try a difficulty ahead of it. They buy the dearest pack on sale, combine every copy into the best card of its unit and every idle card into their team, and press FILL TEAM. They spend each skill point as it comes, on what makes the team fight better first and on Fortune last, and buy any upgrade that costs no more than the dearest pack on sale. They never arrange their team by hand, so nothing here says what good placement of a tower or a trap is worth. Read what half of them took before the average: one player in twenty-four took 334 battles over Thornwood on Nightmare, which is the nearest thing to a wall, and Frostholt on Master is a soft spot.
 
-The simulated players are plain: they buy the dearest pack on sale, combine every copy into the best card of its unit and every idle card into their team, and press FILL TEAM. They never arrange their team by hand, so nothing here says what good placement of a tower or a trap is worth. Read what half of them took before the average: one player in twenty-four took 222 battles over World 14.
+**The line was weighed three times on that day.** Structures, summoners and bigger fields made it shorter in battles than it had been (half of twelve players took under about 730 before them) and its battles longer (they were 20 to 28 seconds). Then the player's own level, tree and upgrades made everything they field about a third stronger by the end, and the last stage of all was raised from 7 to 9 (`TOP` in `stages.ts`) to keep the later difficulties a fight.
 
-**A structure or a summoner in a stage** is strong for what it is. The first tries stood a tent beside each land's boss, and the Colossus then beat simulated players a hundred times each; a tent that called without end made one stage of Thornwood a wall on every later lap. So no boss has a hall beside it, every caller has an end to whom it calls (`total` on `summons`), and a lap counts a caller as four. Measure after adding one.
+**A structure or a summoner in a stage** is strong for what it is. The first tries stood a tent beside each land's boss, and the Colossus then beat simulated players a hundred times each; a tent that called without end made one stage of Thornwood a wall on every later difficulty. So no boss has a hall beside it, every caller has an end to whom it calls (`total` on `summons`), and a difficulty counts a caller as four. Measure after adding one.
+
+**The player's level, the skill tree and the upgrades** are in `src/data/player.ts`: how much experience a level takes, each node of the tree (its effect, what a rank gives, what it needs), each upgrade (what a level gives, what the first costs, how fast the price grows). **Every bonus is added up in one place**, `src/game/bonuses.ts`: a source is one entry in `SOURCES`, and the fights, the pay, the experience, the drops and the price of packs all ask `bonus(save, effect)`. A new source of bonuses is one entry there and nothing else.
 
 **Grades, levels and tiers** are in `src/game/rarity.ts`. **Combining** is in `src/game/cards.ts`. **Team size and drop chance** are in `src/game/rules.ts`. **Packs** are in `src/data/packs.ts`. **Dungeons and raids** are in `src/data/expeditions.ts`, and what they pay at the top of `src/game/expeditions.ts`. Nobody has measured how hard each tier of a dungeon or a raid is for the team a player has when it opens: they stand a little above the land's own boss on that lap, and that is all.
 
@@ -182,7 +200,7 @@ The simulated players are plain: they buy the dearest pack on sale, combine ever
 npm run art
 ```
 
-writes `public/assets/units/<team>/<unit>/<part>.svg` for both teams, a whole-unit `full.svg` for the menus, the effects, the icons, the packs, the grade badges, the painted ground of a battle in each kind of land (`board/`), the tiles of each field on each kind of land (`tiles/`), the map of each land (`maps/`), and `public/assets/manifest.json`, which lists each unit's parts in draw order with their pivots.
+writes the logo and its mark (`logo/`), `public/assets/units/<team>/<unit>/<part>.svg` for both teams, a whole-unit `full.svg` for the menus, the effects, the icons, the packs, the grade badges, the painted ground of a battle in each kind of land (`board/`), the tiles of each field on each kind of land (`tiles/`), the map of each land (`maps/`), and `public/assets/manifest.json`, which lists each unit's parts in draw order with their pivots.
 
 To change a picture by hand, copy it to the same path under `art/overrides` and edit it there, in Inkscape or anything else. For example `art/overrides/units/blue/knight/head.svg` replaces `public/assets/units/blue/knight/head.svg`. The dev server serves your file straight away. `npm run art` never writes under `art/overrides`; run it after adding or changing an override so that the manifest measures your file, and a build copies overrides over the generated files.
 
@@ -208,7 +226,7 @@ The files in the repository are written to be read: every shape has an id that s
 
 **Sound.** `src/audio/sfx.ts` builds each sound from oscillators and filtered noise when it is asked for. A browser makes no sound until the page has been touched, so the first sound follows the first press. The speaker button mutes, and the choice is saved.
 
-**The save** is one JSON object in the browser's local storage (`src/game/state.ts`, `src/game/storage.ts`). It is at its fourth version, and each of the three before it is carried over when it is loaded: one card to a unit became cards of their own, and worlds with difficulties became the line. A team's tiles are kept as the first field would write them: column 3 is the front line, and a bigger field has columns behind 0, written -1 and -2, and rows beside 0 to 3, written -1 and 4. So a save from before the fields grew needs no change. A run of a dungeon is not saved: leaving the game in the middle of one gives it up. If storage is blocked, the game plays and forgets.
+**The save** is one JSON object in the browser's local storage (`src/game/state.ts`, `src/game/storage.ts`). It is at its fourth version, and each of the three before it is carried over when it is loaded: one card to a unit became cards of their own, and worlds with difficulties became the line. What has been added since needed no new version: a save without stages cleared ahead of the line, a player's level, a tree or upgrades is read as having none. A team's tiles are kept as the first field would write them: column 3 is the front line, and a bigger field has columns behind 0, written -1 and -2, and rows beside 0 to 3, written -1 and 4. So a save from before the fields grew needs no change. A run of a dungeon is not saved: leaving the game in the middle of one gives it up. If storage is blocked, the game plays and forgets.
 
 **Ads.** `src/platform/ads.ts` is an interface with `interstitial()`, `rewardedAd()`, `gameplayStart()`, `gameplayStop()` and `loadingDone()`, and an implementation that does nothing. The game already calls them in the right places. A portal's SDK is one new class and one call to `setAds`.
 
@@ -221,7 +239,10 @@ Dungeons and raids are modelled on the owner's Roblox autobattler, and are small
 - The game has only been run in a headless Chromium with a software renderer. It has not been played on a real phone or a real graphics chip. What was measured is the script side (about 5 ms a frame in the last stage's battle on this machine, with eleven of the player's pieces on the biggest field; 25 ms with the processor slowed four times, where a battle of sixteen units took 17; both with the software renderer's own work in them) and the draw calls (about 37). What a real chip does with it nobody has seen, and the changes made for the frame rate are the usual ones, not ones measured on a device.
 - Nobody has listened to the sounds. They are built and they play without error, and a test checks each is short and not silent. Whether they sound good is unknown.
 - The dungeons and raids were walked once each in the browser at their first tier with a strong team. How hard each tier is for a real player's team is not measured, and it has moved: their enemies stand on bigger fields now, and the team brings its structures.
-- The line was tuned with simulated players who are cruder than people, and who never place a tower or a trap by hand. A real player may find the fourth lap too easy or the fifth too slow.
+- The line was tuned with simulated players who are cruder than people, who never place a tower or a trap by hand, and who spend their skill points on fighting first. A real player who puts every point in Fortune will find the later difficulties harder than the table says; one who plays a difficulty ahead of the line is measured by nothing.
+- The logo is a first version. It has been looked at on a green ground, on the dark of a menu, on the loading screen, and as a mark down to 32 pixels, where it is a blue and red blot and little more.
+- The new screens (packs, skills, upgrades, the result) were looked at in screenshots at 1280 by 720 and walked with a mouse. None was tried with a touch, and the result's fullest case, a boss's first fall, fills the board from top to bottom.
+- Opening ten packs was watched in still pictures, not in motion: whether its pace feels right, and whether its sounds pile up, nobody has seen or heard.
 - The bigger fields have been seen only in screenshots at 1280 by 720. On the field of 12 by 6 a unit is two thirds the size it is on the first, and its plate three quarters: whether the level and the grade on it can still be read on a phone, nobody has looked.
 - A trap is hidden by whoever stands on the tile in front of it, but for the ring round it. Whether the ring is enough to find one's own trap when arranging a team is a judgment from screenshots.
 - Dragging a unit on the two bigger fields was not tried with a touch: the tiles there are 96 and 80 units wide on the 1280 layout, smaller on a phone.
