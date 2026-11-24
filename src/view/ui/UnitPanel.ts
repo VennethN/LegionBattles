@@ -21,6 +21,9 @@ import { portrait } from './UnitCard';
 import { label, slab } from './widgets';
 
 /** Where the panel stands: the right of a screen that has a grid of cards on its left. */
+/** What each role is called, wherever a unit is described. */
+export const ROLE_NAME: Readonly<Record<string, string>> = { tank: 'Tank', fighter: 'Fighter', ranger: 'Ranger', mage: 'Mage', support: 'Support' };
+
 export const PX = 884;
 export const PY = 78;
 export const PW = 372;
@@ -66,9 +69,9 @@ export function unitPanel(scene: Phaser.Scene, add: Adder, def: UnitInfo, o: Pan
   }
 
   add(label(scene, cx, PY + 190, def.name, { size: def.name.length > 14 ? 24 : 28 }));
-  // A building or a trap says so: it is a structure, fielded in a structure's place, not among the units.
-  const what = def.kind === 'trap' ? '  ·  Trap' : def.kind === 'building' ? '  ·  Building' : '';
-  add(label(scene, cx, PY + 220, `${RARITY[def.rarity].name}  ·  ${SETS[def.set].name}${what}`, { size: 15, weight: 600, ...dark }));
+  // What it is, after its tier: a tank, a ranger, a healer; or, for a structure, a building or a trap.
+  const role = def.kind === 'trap' ? 'Trap' : def.kind === 'building' ? 'Building' : ROLE_NAME[def.role];
+  add(label(scene, cx, PY + 220, `${RARITY[def.rarity].name} ${role}  ·  ${SETS[def.set].name}`, { size: 15, weight: 600, ...dark }));
 
   const card = o.card;
   const m = card ? cardMult(card.grade, card.level) : 1;

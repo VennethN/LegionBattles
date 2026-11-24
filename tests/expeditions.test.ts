@@ -182,7 +182,7 @@ describe('a run of a dungeon', () => {
     // No more are sent in than the team has places, and each stands on a tile of its own.
     const other = run.roster.find((x) => !x.fielded && x.hp > 0);
     expect(other && toggleFielded(save, run, other.card)).toBe(false);
-    expect(fielded(run).length).toBeLessThanOrEqual(teamSize(save));
+    expect(fielded(run).length).toBeLessThanOrEqual(teamSize(save) + structuresSize(save));
     expect(new Set(fielded(run).map((x) => `${x.col},${x.row}`)).size).toBe(fielded(run).length);
     // And a card can be rested: taken off the board while it still stands.
     expect(toggleFielded(save, run, run.roster[1].card)).toBe(true);

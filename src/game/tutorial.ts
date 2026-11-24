@@ -57,6 +57,8 @@ export interface GuideContext {
   show?: 'none' | 'pouch' | 'reveal';
   /** Today, by the player's own clock (view/clock.ts): the rewards' tour asks whether anything waits. */
   day?: number;
+  /** On the screen of cards: which of its two it is, the units' or the structures'. */
+  page?: 'units' | 'structures';
 }
 
 export interface Step {
@@ -116,13 +118,21 @@ const CLOSE_UNITS: Step = {
   id: 'close-units', target: 'close', holds: true, blocks: true,
   text: 'Tap CLOSE.',
 };
+const STRUCTS: Step = {
+  id: 'structures', target: 'structures', holds: true, blocks: true,
+  text: 'You have a tower too. Tap STRUCTURES.',
+};
+const CLOSE_STRUCTS: Step = {
+  id: 'close-structures', target: 'close', holds: true, blocks: true,
+  text: 'Towers fight from where they stand. Tap CLOSE.',
+};
 const WORD: Step = {
   id: 'word', target: 'stages', holds: true, blocks: true, ok: true,
   text: 'Win to move on. Lose and you drop back a stage. Tap here for the map.',
 };
 
 /** Every step, for the tests and for whoever wants to read them in order. */
-export const STEPS: readonly Step[] = [HELLO, PACKS, OPEN, TEAR, CARD, CLOSE_PACKS, UNITS, FILL, CLOSE_UNITS, WORD];
+export const STEPS: readonly Step[] = [HELLO, PACKS, OPEN, TEAR, CARD, CLOSE_PACKS, UNITS, FILL, CLOSE_UNITS, STRUCTS, CLOSE_STRUCTS, WORD];
 
 export function seen(save: SaveData, id: string): boolean {
   return save.tutorial.seen.includes(id);
@@ -138,7 +148,8 @@ export function seen(save: SaveData, id: string): boolean {
 function endFirst(save: SaveData): void {
   save.tutorial.done = true;
   save.tutorial.at = save.stats.battles;
-  if (!seen(save, 'tour:basics')) save.tutorial.seen.push('tour:basics');
+  // The first tutorial showed the tower and its screen: the structures need no tour of their own after it.
+  for (const id of ['tour:basics', 'tour:structures']) if (!seen(save, id)) save.tutorial.seen.push(id);
   if (!tourSeen(save, 'rewards')) save.tutorial.tour = { id: 'rewards', step: 1, open: true };
 }
 
@@ -201,8 +212,14 @@ function firstStep(save: SaveData, ctx: GuideContext): Step | null {
   // Then the team.
   if (!seen(save, 'team')) {
     if (onMain) return UNITS;
-    if (ctx.scene !== 'Team') return null;
+    if (ctx.scene !== 'Team' || ctx.page === 'structures') return null;
     return seen(save, 'fill') ? CLOSE_UNITS : FILL;
+  }
+
+  // Then the tower they started with, which has a screen of its own.
+  if (!seen(save, 'structures')) {
+    if (onMain) return STRUCTS;
+    return ctx.scene === 'Team' && ctx.page === 'structures' ? CLOSE_STRUCTS : null;
   }
 
   // And a last word.
@@ -344,8 +361,7 @@ export const TOURS: readonly Tour[] = [
     when: (save) => structuresSize(save) > 0,
     known: (save) => structuresSize(save) > 0,
     steps: [
-      press('Main', 'units', 'You can field a structure. Tap UNITS.'),
-      press('Team', 'tab:structures', 'Tap STRUCTURES.'),
+      press('Main', 'structures', 'You can field a structure. Tap STRUCTURES.'),
       note('Team', 'grid', 'Towers shoot. Traps go off once.'),
     ],
   },

@@ -29,10 +29,23 @@ export const DROP_CHANCE = 0.34;
 
 // ------------------------------------------------------------ starting
 
+/** What a new player holds: three units and a structure. */
+export const STARTERS: readonly string[] = ['archer', 'knight', 'cleric', 'watchtower'];
+/**
+ * The grade they start at: E, a step over the plainest. A healer in place of
+ * a third fighter wins more slowly, and at grade F the first world was lost
+ * 37 times in a hundred by simulated players, where it had been 23 (npm run
+ * journey, 24 November 2026).
+ */
+export const STARTER_GRADE = 1;
+
 export function startingSave(seed: number): SaveData {
   const save = newSave(seed);
   save.coins = 40;
-  for (const id of ['militia', 'knight', 'archer']) addCard(save, id, 0);
+  // One who shoots, one who stands in front, one who mends, and a tower: by the owner's word of 24 November
+  // 2026, "we start with 3 units and 1 structure so that structures are a part of the tutorial / 3 units
+  // are: a ranged, a melee, and a healer".
+  for (const id of STARTERS) addCard(save, id, STARTER_GRADE);
   save.team = formation(save.cards);
   // Two packs to open before the first fight: the fourth place in the team is theirs to fill.
   save.packs.recruit = 2;
@@ -136,9 +149,9 @@ export function teamSize(save: SaveData): number {
  * place in the team for a building or a trap, beside its places for units:
  * a tower takes no fighter's place, and a team is never all walls.
  */
-export const STRUCTURES_AT: readonly number[] = [8, 20, 37];
+export const STRUCTURES_AT: readonly number[] = [0, 20, 37];
 export const MAX_STRUCTURES = STRUCTURES_AT.length;
-/** The pack a player is handed when the first place for a structure opens, so that there is something to stand in it. */
+/** The pack that holds structures and nothing else. */
 export const STRUCTURE_PACK = 'builder';
 
 export function structuresSize(save: SaveData): number {
@@ -590,8 +603,6 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
     // A first clear of a boss or a miniboss always drops, and the very first stage does, to show what a pack is.
     if (def.kind !== 'normal' || stage.index === 0) result.packs.push(stage.pack);
     if (def.kind === 'boss') result.packs.push(stage.pack);
-    // The first place for a structure comes with something to stand in it.
-    if (structuresBefore === 0 && structuresSize(save) > 0) result.packs.push(STRUCTURE_PACK);
   }
   if (rng.chance(DROP_CHANCE + bonus(save, 'drops'))) result.packs.push(stage.pack);
   for (const id of result.packs) save.packs[id] = (save.packs[id] ?? 0) + 1;

@@ -191,6 +191,9 @@ export function sideTabs(scene: Phaser.Scene, side: Side, pick: (side: Side) => 
   return [tab(96, 120, 'UNITS', 'units'), tab(252, 176, 'STRUCTURES', 'structures')];
 }
 
+/** The name of the event the game sends when the team is changed on the screen of cards, for the field beside it to show. */
+export const TEAM_CHANGED = 'team-changed';
+
 /** The name of the event the game sends when one screen over the field gives way to another. */
 export const OVERLAY_SWAP = 'overlay-swap';
 

@@ -135,8 +135,9 @@ for (let i = 0; i < 900; i++) {
     await answer(g);
     await page.waitForTimeout(500);
   } else if (g && g.scene !== 'Main') {
-    // A tour that ends on the screen it led into leaves it open: shut it.
-    await press(1280 - 262, 37);
+    // A tour that ends on the screen it led into leaves it open: shut it. The screen of cards has its CLOSE at its own edge.
+    if (g.scene === 'Team') await press(824 - 76, 37);
+    else await press(1280 - 262, 37);
     await page.waitForTimeout(400);
   } else await page.waitForTimeout(400);
   if (i === 899) await fail('battles did not go on by themselves');

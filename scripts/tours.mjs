@@ -120,7 +120,9 @@ async function onward() {
   for (let i = 0; i < 5; i++) {
     const top = await page.evaluate((screens) => screens.find((key) => window.game.scene.isActive(key)), SCREENS);
     if (top === 'Main') break;
-    await click(1280 - 262, 37);
+    // The screen of cards is a side screen, and its CLOSE is at its own edge.
+    if (top === 'Team') await click(824 - 76, 37);
+    else await click(1280 - 262, 37);
     await page.waitForTimeout(400);
   }
   await ready();

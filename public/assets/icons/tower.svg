@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="tower" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="tower-tower-shape" d="M 10 43 L 10 8 L 18 8 L 18 15 L 21 15 L 21 8 L 27 8 L 27 15 L 30 15 L 30 8 L 38 8 L 38 43 Z"/>
+<clipPath id="tower-tower-clip"><use href="#tower-tower-shape"/></clipPath>
+<clipPath id="tower-tower-lit-clip"><use href="#tower-tower-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="tower-tower">
+<use id="tower-tower-shade" href="#tower-tower-shape" fill="#8d97a3"/>
+<g clip-path="url(#tower-tower-clip)">
+<use id="tower-tower-fill" href="#tower-tower-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#tower-tower-lit-clip)">
+<use id="tower-tower-lit" href="#tower-tower-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tower-tower-fill-over" href="#tower-tower-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="tower-tower-sheen" d="M31.35 8 L35.55 8 L20.85 43 L16.65 43 Z M39.05 8 L41.65 8 L26.95 43 L24.35 43 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="tower-tower-line" href="#tower-tower-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="tower-gate" d="M 19 43 L 19 31 L 24 26 L 29 31 L 29 43 Z" fill="#1e2b17"/>
+<path id="tower-gate-edge" d="M 19 43 L 19 31 L 24 26 L 29 31 L 29 43" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -23,7 +23,18 @@ export function getManifest(): Manifest {
  * it so a menu doesn't cover the whole screen, but leaves a bit outside the
  * border to show the current".
  */
-export const WINDOWED: ReadonlySet<string> = new Set(['Team', 'Index', 'Shop', 'Map', 'Hall', 'Player', 'Rewards', 'Settings']);
+export const WINDOWED: ReadonlySet<string> = new Set(['Index', 'Shop', 'Map', 'Hall', 'Player', 'Rewards', 'Settings']);
+/**
+ * The screen of cards is not a window but a side screen: it takes the left of
+ * the screen up to DRAWER_W, and the player's half of the field shows beside
+ * it in FIELD_WINDOW. By the owner's word of 24 November 2026: "its not
+ * optimal it seems to select a unit in a full screen / show it as a side
+ * screen" and "we dont need to see enemy when we're selecting our units ...
+ * put the unit selection ui on the left side, then the field on the right".
+ */
+export const DRAWER_W = 824;
+export const FIELD_WINDOW = { x: DRAWER_W + 12, y: 130, w: W - DRAWER_W - 24, h: 460 };
+
 /** How much of the screen such a window takes, each way. */
 export const WINDOW = 0.9;
 /** Where the window is on the 1280 by 720 layout. */

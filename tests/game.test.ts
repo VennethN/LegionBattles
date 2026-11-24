@@ -399,11 +399,19 @@ describe('difficulties', () => {
 });
 
 describe('a new player', () => {
-  it('starts with three cards in a team, two packs, and room for a fourth', () => {
+  it('starts with three units and a tower in a team, two packs, and room for a fourth unit', () => {
     const save = startingSave(1);
-    expect(save.cards).toHaveLength(3);
-    expect(new Set(save.cards.map((c) => c.id)).size).toBe(3);
-    expect(save.team).toHaveLength(3);
+    expect(save.cards).toHaveLength(4);
+    expect(new Set(save.cards.map((c) => c.id)).size).toBe(4);
+    expect(save.team).toHaveLength(4);
+    // One who shoots, one who stands in front, one who mends, and a structure in the place it starts with.
+    const roles = save.cards.filter((c) => !isStructure(c.unit)).map((c) => UNITS[c.unit].role).sort();
+    expect(roles).toEqual(['ranger', 'support', 'tank']);
+    expect(UNITS[save.cards.find((c) => UNITS[c.unit].role === 'support')!.unit].heal).toBeDefined();
+    expect(save.cards.filter((c) => isStructure(c.unit)).map((c) => c.unit)).toEqual(['watchtower']);
+    expect(structuresSize(save)).toBe(1);
+    expect(structuresIn(save.team)).toBe(1);
+    expect(unitsIn(save.team)).toBe(3);
     expect(save.packs.recruit).toBe(2);
     expect(teamSize(save)).toBe(BASE_TEAM);
     expect(frontier(save)).toBe(0);
@@ -622,14 +630,14 @@ describe('packs', () => {
 
   it('a card joins the team while there is room, a copy too, and waits when there is none', () => {
     const save = startingSave(4);
-    expect(save.team).toHaveLength(3);
+    expect(unitsIn(save.team)).toBe(3);
     const first = openPack(save, 'recruit');
     expect(first?.joined).toBe(true);
-    expect(save.team).toHaveLength(4);
+    expect(unitsIn(save.team)).toBe(4);
     expect(save.team.some((p) => p.card === first?.card && p.unit === first?.unit)).toBe(true);
     const second = openPack(save, 'recruit');
     expect(second?.joined).toBe(false);
-    expect(save.team).toHaveLength(4);
+    expect(unitsIn(save.team)).toBe(4);
     expect(inTeam(save, second?.card ?? 0)).toBe(false);
   });
 
@@ -735,10 +743,10 @@ describe('cards', () => {
 describe('the team', () => {
   it('takes cards in and out, and no more than may be fielded', () => {
     const save = startingSave(1);
-    const [cleric, , mage] = ['cleric', 'berserker', 'mage'].map((id) => addCard(save, id, 0).id);
+    const [militia, , mage] = ['militia', 'berserker', 'mage'].map((id) => addCard(save, id, 0).id);
     const knight = cardsOf(save, 'knight')[0].id;
-    expect(toggleTeam(save, cleric)).toBe(true);
-    expect(save.team).toHaveLength(4);
+    expect(toggleTeam(save, militia)).toBe(true);
+    expect(unitsIn(save.team)).toBe(4);
     expect(toggleTeam(save, mage)).toBe(false);
     expect(toggleTeam(save, knight)).toBe(true);
     expect(save.team.some((p) => p.unit === 'knight')).toBe(false);
@@ -775,10 +783,10 @@ describe('the team', () => {
       { card: 9999, unit: 'ghost', col: 1, row: 1 },
       // A place that names the wrong unit for its card takes the card's.
       { card: id('archer'), unit: 'mage', col: 3, row: 1 },
-      { card: id('militia'), unit: 'militia', col: 9, row: 9 },
+      { card: id('cleric'), unit: 'cleric', col: 9, row: 9 },
     ];
     tidyTeam(save);
-    expect(save.team.map((p) => p.unit)).toEqual(['knight', 'archer', 'militia']);
+    expect(save.team.map((p) => p.unit)).toEqual(['knight', 'archer', 'cleric']);
     const tiles = save.team.map((p) => `${p.col},${p.row}`);
     expect(new Set(tiles).size).toBe(3);
     for (const p of save.team) expect(p.col).toBeLessThan(4);
@@ -787,9 +795,9 @@ describe('the team', () => {
   it('FILL TEAM picks the strongest cards held', () => {
     const save = startingSave(1);
     Object.assign(addCard(save, 'paladin', 4), { level: 9 });
-    addCard(save, 'cleric', 0);
+    addCard(save, 'militia', 0);
     const team = bestTeam(save);
-    expect(team).toHaveLength(4);
+    expect(unitsIn(team)).toBe(4);
     expect(team.some((p) => p.unit === 'paladin')).toBe(true);
   });
 
@@ -852,22 +860,19 @@ describe('structures', () => {
     }
   });
 
-  it('stand in places of their own, which open as the line is cleared, and the first comes with a pack', () => {
-    expect(structuresSize(at(0))).toBe(0);
-    STRUCTURES_AT.forEach((n, i) => {
-      expect(structuresSize(at(n - 1)), `before stage ${n}`).toBe(i);
-      expect(structuresSize(at(n)), `after stage ${n}`).toBe(i + 1);
+  it('stand in places of their own: one from the start, and more as the line is cleared', () => {
+    // A new player has a place for a structure and a tower to stand in it, so that structures are part of the first tutorial.
+    expect(STRUCTURES_AT[0]).toBe(0);
+    expect(structuresSize(at(0))).toBe(1);
+    STRUCTURES_AT.slice(1).forEach((n, i) => {
+      expect(structuresSize(at(n - 1)), `before stage ${n}`).toBe(i + 1);
+      expect(structuresSize(at(n)), `after stage ${n}`).toBe(i + 2);
     });
     expect(structuresSize(at(STAGES.length))).toBe(MAX_STRUCTURES);
-    // The Builder's Pack is sold from the stage that opens the first place, and one is handed over with it.
-    expect(packById(STRUCTURE_PACK).after).toBe(STRUCTURES_AT[0]);
-    const save = at(STRUCTURES_AT[0] - 1);
-    const r = finishStage(save, STRUCTURES_AT[0] - 1, true);
-    expect(r.moreStructures).toBe(1);
-    expect(r.packs).toContain(STRUCTURE_PACK);
-    expect(packOpen(save, packById(STRUCTURE_PACK))).toBe(true);
-    expect(packOpen(at(STRUCTURES_AT[0] - 1), packById(STRUCTURE_PACK))).toBe(false);
-    // The second place does not come with one.
+    // The Builder's Pack is sold from the start too.
+    expect(packById(STRUCTURE_PACK).after).toBeUndefined();
+    expect(packOpen(at(0), packById(STRUCTURE_PACK))).toBe(true);
+    // A further place is told when the win that opens it is booked, and comes with no pack of its own.
     const later = at(STRUCTURES_AT[1] - 1);
     const r2 = finishStage(later, STRUCTURES_AT[1] - 1, true);
     expect(r2.moreStructures).toBe(1);
@@ -923,9 +928,9 @@ describe('structures', () => {
     // With only towers to stand, it stands towers.
     save.cards = save.cards.filter((c) => c.unit !== 'spiketrap' && c.unit !== 'barracks');
     expect(bestTeam(save).filter((p) => p.unit === 'watchtower')).toHaveLength(3);
-    // And with no place for one, none is fielded.
+    // And with one place, one is fielded.
     save.cleared = 0;
-    expect(structuresIn(bestTeam(save))).toBe(0);
+    expect(structuresIn(bestTeam(save))).toBe(1);
   });
 
   it('a pack of people holds no structure, the Builder\'s Pack holds nothing else, and a land\'s pack turns one over about one time in five', () => {
@@ -1094,7 +1099,10 @@ describe('sorting', () => {
 describe('combining', () => {
   const two = (): { save: ReturnType<typeof startingSave>; into: number; from: number } => {
     const save = startingSave(1);
+    // Three plain cards of three units, and a copy of one of them.
+    save.cards = [];
     save.team = [];
+    for (const id of ['militia', 'knight', 'archer']) addCard(save, id, 0);
     return { save, into: cardsOf(save, 'knight')[0].id, from: addCard(save, 'knight', 0).id };
   };
 

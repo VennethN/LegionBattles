@@ -1,4 +1,10 @@
-// The player's cards, and who of them fights. It opens over the field.
+// The player's cards, and who of them fights. It is a side screen: it takes
+// the left of the screen, and the player's half of the field stays on show
+// beside it, live, so that a card put in the team is seen to walk onto it
+// and can be dragged to its tile there and then (view/app.ts, DRAWER_W and
+// FIELD_WINDOW; MainScene shows the field). The units and the structures
+// have a screen each, opened by a button each on the main screen.
+//
 // Every card is a tile of its own: two of a unit are two tiles. Pressing a
 // card shows what it is and does; from there it is put in the team or taken
 // out, or other cards are combined into it. FILL TEAM fields the strongest,
@@ -18,25 +24,21 @@ import { sfx } from '../../audio/sfx';
 import { UNITS, isStructure } from '../../data/units';
 import { cardOf, cardsOf, combine, combinePreview, fielded, spare, whyNot, worth } from '../../game/cards';
 import { MAX_LEVEL } from '../../game/rarity';
-import { STRUCTURES_AT, bestTeam, inTeam, roomFor, teamSize, toggleTeam, unitsIn, structuresIn, structuresSize } from '../../game/rules';
+import { bestTeam, inTeam, roomFor, teamSize, toggleTeam, unitsIn, structuresIn, structuresSize } from '../../game/rules';
 import { SORT_NAME, isSort, nextSort, sortCards, type Sort } from '../../game/sorting';
 import type { Card } from '../../game/state';
 import { markSeen, seen } from '../../game/tutorial';
-import { setupCamera } from '../app';
-import { hex } from '../config';
+import { DRAWER_W, FIELD_WINDOW, setupCamera } from '../app';
+import { H, W, hex } from '../config';
 import { SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { OverlayHead, TABS_END, TABS_Y, TURN_X, sideOf, sideTabs, swapOverlay, type Side } from '../ui/chrome';
+import { TABS_Y, TEAM_CHANGED, closeOverlay, sideOf, swapOverlay, type Side } from '../ui/chrome';
 import { RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
 import { portrait, unitCard } from '../ui/UnitCard';
 import { PH, PW, PX, PY, levelBar, unitPanel } from '../ui/UnitPanel';
 import { Button, label, plain, slab } from '../ui/widgets';
-
-function plural(n: number, word: string): string {
-  return `${n} ${word}${n === 1 ? '' : 's'}`;
-}
 
 /** A place in the grid: a card. */
 interface Tile {
@@ -45,10 +47,18 @@ interface Tile {
   card: Card;
 }
 
-const COLS = 6;
-const ROWS = 4;
-const PITCH = 140;
+// The grid: smaller cards than a whole screen of them had, as it has the left of the screen only.
+const COLS = 4;
+const ROWS = 5;
+const CARD_W = 100;
+const CARD_H = 104;
+const PITCH_X = 106;
+const PITCH_Y = 110;
+const GRID_X = 14;
+const GRID_Y = 78;
 const PER_PAGE = COLS * ROWS;
+/** The panel of the card on show stands right of the grid: this far left of where a whole screen has it. */
+const PANEL_SHIFT = PX - 448;
 
 export interface TeamData {
   /** The tile to open on: "c12" for the card with that number. */
@@ -96,14 +106,30 @@ export class TeamScene extends Phaser.Scene {
   create(): void {
     setupCamera(this);
     const s = save();
-    const head = new OverlayHead(this, this.forge ? 'Combine' : this.side === 'structures' ? 'Structures' : 'Your Team', s, () => {
-      // The tutorial's look at the team is over once it has been filled and shut.
+    // The side screen's own ground: the left of the screen, which swallows presses. The rest is the field's.
+    this.add.rectangle(DRAWER_W / 2, H / 2, DRAWER_W, H, hex(OUTLINE), 1).setDepth(0).setInteractive();
+    const edge = this.add.graphics().setDepth(1);
+    edge.fillStyle(hex(BONE.fill), 1).fillRect(DRAWER_W, 0, 4, H);
+    // Round the field beside it: what it is, over it, and what can be done there, under it.
+    const fw = FIELD_WINDOW;
+    const frame = this.add.graphics().setDepth(1);
+    frame.fillStyle(hex(OUTLINE), 1).fillRect(DRAWER_W + 4, 0, W - DRAWER_W - 4, fw.y - 6);
+    frame.fillStyle(hex(OUTLINE), 1).fillRect(DRAWER_W + 4, fw.y + fw.h + 6, W - DRAWER_W - 4, H - fw.y - fw.h - 6);
+    frame.fillStyle(hex(OUTLINE), 1).fillRect(DRAWER_W + 4, fw.y - 6, fw.x - DRAWER_W - 10, fw.h + 12);
+    frame.fillStyle(hex(OUTLINE), 1).fillRect(fw.x + fw.w + 6, fw.y - 6, W - fw.x - fw.w - 6, fw.h + 12);
+    frame.lineStyle(4, hex(BONE.fill), 1).strokeRect(fw.x - 4, fw.y - 4, fw.w + 8, fw.h + 8);
+    label(this, fw.x + fw.w / 2, fw.y - 46, 'YOUR SIDE OF THE FIELD', { size: 20 }).setDepth(2);
+    label(this, fw.x + fw.w / 2, fw.y + fw.h + 40, 'Drag to move them.', { size: 17, weight: 600, color: HIGHLIGHT, strokeWidth: 4 }).setDepth(2);
+
+    label(this, 20, 36, this.forge ? 'Combine' : this.side === 'structures' ? 'Structures' : 'Units', { size: 30, align: 'left' }).setDepth(8000);
+    const close = new Button(this, DRAWER_W - 76, 37, 'CLOSE', () => {
+      // The tutorial's look at the team is over once it has been filled and shut, and its look at the tower once that screen is shut.
       if (seen(s, 'fill')) markSeen(s, 'team');
+      if (this.side === 'structures' && seen(s, 'team')) markSeen(s, 'structures');
       commit();
-    });
-    this.count = label(this, 250, 40, '', { size: 18, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
-    // The units and the structures have a page each. In the forge there is one list: any card can go into any.
-    if (!this.forge) sideTabs(this, this.side, (side) => this.scene.restart({ side } satisfies TeamData));
+      closeOverlay(this);
+    }, { width: 126, height: 48, size: 20, mat: CLOTH.red }).setDepth(8000);
+    this.count = label(this, 20, TABS_Y, '', { size: 15, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
 
     this.tiles = this.forge ? this.forgeTiles() : this.cardTiles();
     // The card that was open stays open, on whichever page it is.
@@ -114,33 +140,33 @@ export class TeamScene extends Phaser.Scene {
     this.guide = new Guide(this, 'Team');
     if (!this.forge) {
       // SORT steps to the next order and lays the cards out again from the first page.
-      const sort = plain(new Button(this, 840, 38, `SORT: ${SORT_NAME[this.sortBy()]}`, () => {
+      const sort = plain(new Button(this, 572, 38, `SORT: ${SORT_NAME[this.sortBy()]}`, () => {
         s.sort = nextSort(this.sortBy());
         commit();
         sort.setText(`SORT: ${SORT_NAME[this.sortBy()]}`);
         this.tiles = this.cardTiles();
         this.page = 0;
         this.drawGrid();
-      }, { width: 196, height: 46, size: 18, mat: BONE, color: OUTLINE }));
-      const fill = plain(new Button(this, 640, 38, 'FILL TEAM', () => {
+      }, { width: 176, height: 46, size: 16, mat: BONE, color: OUTLINE }));
+      const fill = plain(new Button(this, 394, 38, 'FILL TEAM', () => {
         // Into the team's own list: the board holds that list, and writes a drag into it.
         const best = bestTeam(s);
         s.team.length = 0;
         for (const p of best) s.team.push(p);
         markSeen(s, 'fill');
         commit();
+        this.game.events.emit(TEAM_CHANGED);
         this.redraw();
         this.guide.refresh();
-      }, { width: 170, height: 46, size: 20, mat: BONE, color: OUTLINE }));
+      }, { width: 160, height: 46, size: 19, mat: BONE, color: OUTLINE }));
       this.guide.mark('fill', () => fill.rect);
     }
-    this.guide.mark('close', () => head.close.rect);
-    // What the tour of the structures points at: their tab, and the cards on the page.
-    this.guide.mark('tab:structures', () => (this.forge ? null : { x: 164, y: TABS_Y - 23, w: 176, h: 46 }));
-    this.guide.mark('grid', () => ({ x: 26, y: 74, w: 848, h: 568 }));
+    this.guide.mark('close', () => close.rect);
+    // What the tour of the structures points at: the cards on the page.
+    this.guide.mark('grid', () => ({ x: GRID_X - 6, y: GRID_Y - 6, w: COLS * PITCH_X + 6, h: ROWS * PITCH_Y + 6 }));
 
     this.redraw();
-    this.guide.refresh();
+    this.guide.refresh({ page: this.side });
   }
 
   /** The order the player last chose, or by unit. */
@@ -173,10 +199,10 @@ export class TeamScene extends Phaser.Scene {
     const s = save();
     this.count.setText(
       this.forge
-        ? 'Mark the cards to give up. They are gone for good.'
+        ? 'Mark cards to give up.'
         : this.side === 'structures'
-          ? `${structuresIn(s.team)} of ${structuresSize(s)} placed  ·  ${plural(this.tiles.length, 'card')}`
-          : `${unitsIn(s.team)} of ${teamSize(s)} in the team  ·  ${plural(this.tiles.length, 'card')}`,
+          ? `${structuresIn(s.team)} of ${structuresSize(s)} placed`
+          : `${unitsIn(s.team)} of ${teamSize(s)} in team`,
     );
     this.drawGrid();
     if (this.forge) this.showForge();
@@ -198,9 +224,9 @@ export class TeamScene extends Phaser.Scene {
     const shown = this.tiles.slice(this.page * PER_PAGE, (this.page + 1) * PER_PAGE);
 
     shown.forEach((t, i) => {
-      const x = 30 + 66 + (i % COLS) * PITCH;
-      const y = 78 + 67 + Math.floor(i / COLS) * PITCH;
-      const card = add(unitCard(this, x, y, t.unit, s, { card: t.card }));
+      const x = GRID_X + CARD_W / 2 + (i % COLS) * PITCH_X;
+      const y = GRID_Y + CARD_H / 2 + Math.floor(i / COLS) * PITCH_Y;
+      const card = add(unitCard(this, x, y, t.unit, s, { card: t.card, width: CARD_W, height: CARD_H }));
       card.setInteractive({ useHandCursor: true });
       card.on('pointerup', () => this.press(t));
 
@@ -212,12 +238,12 @@ export class TeamScene extends Phaser.Scene {
           add(label(this, x, y - 8, fielded(s, t.card.id) ? 'IN TEAM' : 'KEPT', { size: 16, strokeWidth: 5 }).setDepth(51));
         } else if (this.marked.has(t.card.id)) {
           const g = add(this.add.graphics().setDepth(50));
-          g.fillStyle(hex(OUTLINE), 0.3).fillRoundedRect(x - 64, y - 66, 128, 132, 14);
-          g.lineStyle(6, hex(CLOTH.red.fill), 1).strokeRoundedRect(x - 67, y - 69, 134, 138, 16);
+          g.fillStyle(hex(OUTLINE), 0.3).fillRoundedRect(x - CARD_W / 2, y - CARD_H / 2, CARD_W, CARD_H, 14);
+          g.lineStyle(6, hex(CLOTH.red.fill), 1).strokeRoundedRect(x - CARD_W / 2 - 3, y - CARD_H / 2 - 3, CARD_W + 6, CARD_H + 6, 16);
           // A cross on a red disc: this one goes. It sits where a card in the team has its tick,
           // clear of the grade and the level, which are what the choice is made by.
-          const mx = x + 42;
-          const my = y + 20;
+          const mx = x + CARD_W / 2 - 22;
+          const my = y + 12;
           g.fillStyle(hex(OUTLINE), 1).fillCircle(mx, my, 19);
           g.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(mx, my, 15);
           g.lineStyle(5, hex(HIGHLIGHT), 1);
@@ -226,25 +252,20 @@ export class TeamScene extends Phaser.Scene {
         }
       } else if (!this.forge && t.key === this.selected) {
         const ring = add(this.add.graphics().setDepth(50));
-        ring.lineStyle(5, hex(HIGHLIGHT), 1).strokeRoundedRect(x - 69, y - 70, 138, 140, 16);
+        ring.lineStyle(5, hex(HIGHLIGHT), 1).strokeRoundedRect(x - CARD_W / 2 - 4, y - CARD_H / 2 - 4, CARD_W + 8, CARD_H + 8, 16);
       }
     });
 
     if (shown.length === 0 && !this.forge) {
-      // The structures' page before there is anything on it says what it is for.
-      const none = structuresSize(s) === 0
-        ? `Structures are towers, walls and traps.\nThey stand in places of their own, beside your team.\nClear stage ${STRUCTURES_AT[0]} for the first.`
-        : "You hold no structures yet.\nThe Builder's Pack has them, and each land's pack has its own.";
-      add(label(this, 30 + (COLS * PITCH) / 2, 300, none, { size: 20, weight: 600, color: HIGHLIGHT, strokeWidth: 4 }));
+      // An empty screen says where its cards come from.
+      const none = this.side === 'structures' ? "No structures yet.\nThe Builder's Pack has them." : 'No units yet.\nOpen a pack.';
+      add(label(this, GRID_X + (COLS * PITCH_X) / 2, 300, none, { size: 20, weight: 600, color: HIGHLIGHT, strokeWidth: 4 }));
     }
 
-    // In the forge, how many cards there are to choose from; elsewhere the tabs stand there, and the index beside them.
+    // Under the grid: how many are fielded (drawn once, above), the index of every unit there is, and the pages.
     const y = TABS_Y;
-    if (this.forge) {
-      add(label(this, 36, y, `${this.tiles.length} other ${this.tiles.length === 1 ? 'card' : 'cards'}, the least first`, { size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 }));
-    } else {
-      // Every unit there is, the ones not held among them, is on a page of its own.
-      const index = plain(new Button(this, TABS_END + 68, y, 'INDEX', () => swapOverlay(this, 'Index'), { width: 116, height: 46, size: 18, mat: BONE, color: OUTLINE }));
+    if (!this.forge) {
+      const index = plain(new Button(this, 222, y, 'INDEX', () => swapOverlay(this, 'Index'), { width: 96, height: 44, size: 16, mat: BONE, color: OUTLINE }));
       add(index.root);
     }
     if (pages > 1) {
@@ -254,13 +275,13 @@ export class TeamScene extends Phaser.Scene {
         // The forge marks a page at a time, so its panel follows the page.
         if (this.forge) this.showForge();
       };
-      const back = plain(new Button(this, TURN_X[0], y, '', () => turn(-1), { width: 60, height: 46, mat: BONE }));
-      back.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.34).setFlipX(true));
-      const on = plain(new Button(this, TURN_X[2], y, '', () => turn(1), { width: 60, height: 46, mat: BONE }));
-      on.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.34));
+      const back = plain(new Button(this, 304, y, '', () => turn(-1), { width: 50, height: 44, mat: BONE }));
+      back.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.3).setFlipX(true));
+      const on = plain(new Button(this, 412, y, '', () => turn(1), { width: 50, height: 44, mat: BONE }));
+      on.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.3));
       add(back.root);
       add(on.root);
-      add(label(this, TURN_X[1], y, `${this.page + 1} of ${pages}`, { size: 18, strokeWidth: 4 }));
+      add(label(this, 358, y, `${this.page + 1}/${pages}`, { size: 16, strokeWidth: 4 }));
     }
   }
 
@@ -293,7 +314,22 @@ export class TeamScene extends Phaser.Scene {
     };
   }
 
+  /** Moves everything of the panel to where this screen has it: it is drawn where a whole screen would have it. */
+  private place(): void {
+    for (const o of this.detail) (o as unknown as { x: number }).x -= PANEL_SHIFT;
+  }
+
   private showDetail(): void {
+    this.drawDetail();
+    this.place();
+  }
+
+  private showForge(): void {
+    this.drawForge();
+    this.place();
+  }
+
+  private drawDetail(): void {
     const add = this.clearDetail();
     const s = save();
     const tile = this.tiles.find((t) => t.key === this.selected);
@@ -313,6 +349,8 @@ export class TeamScene extends Phaser.Scene {
     const toggle = (): void => {
       if (toggleTeam(s, card.id)) {
         commit();
+        // The field beside this shows it at once.
+        this.game.events.emit(TEAM_CHANGED);
         this.redraw();
       }
     };
@@ -326,7 +364,7 @@ export class TeamScene extends Phaser.Scene {
     // Any other card can be combined into this one. A copy of it can also fight beside it.
     const free = spare(s, card.id).length;
     const note =
-      noPlace ? `Clear stage ${STRUCTURES_AT[0]} for a place to stand it.`
+      noPlace ? 'No place for a structure yet.'
       : card.level >= MAX_LEVEL ? 'This card is at the last level.'
       : free === 0 ? 'Every other card is in your team.'
       : copies > 1 ? `You hold ${copies} of this unit.`
@@ -341,7 +379,7 @@ export class TeamScene extends Phaser.Scene {
   }
 
   /** The forge's panel: the card that grows, what the marked cards make it, and the buttons. */
-  private showForge(): void {
+  private drawForge(): void {
     const add = this.clearDetail();
     const s = save();
     const target = cardOf(s, this.forge);
@@ -404,6 +442,7 @@ export class TeamScene extends Phaser.Scene {
       const done = combine(s, target.id, marked);
       if (!done) return;
       commit();
+      this.game.events.emit(TEAM_CHANGED);
       sfx.play(done.to > done.from ? 'levelUp' : 'buy');
       this.scene.restart({ selected: `c${target.id}` } satisfies TeamData);
     }, { width: 280, height: 66, size: this.sure ? 22 : 28, mat: this.sure ? CLOTH.red : GOLD });

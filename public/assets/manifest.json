@@ -4836,6 +4836,14 @@
     0.5
    ]
   },
+  "tower": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
   "status-burn": {
    "width": 48,
    "height": 48,

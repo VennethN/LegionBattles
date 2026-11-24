@@ -51,13 +51,13 @@ export interface PackDef {
 
 export const PACKS: readonly PackDef[] = [
   {
-    // A new player's pack is people: there is no place to stand a tower yet.
+    // A new player's pack is people: the fourth place in the team is theirs to fill.
     id: 'recruit', name: 'Recruit Pack', set: 'kingdom', cost: 60, gradeMin: 0, gradeMax: 2, structures: 'none',
     blurb: 'Soldiers of the Crownlands.',
   },
   {
-    // Sold from the stage that opens the first place for a structure (STRUCTURES_AT in game/rules.ts).
-    id: 'builder', name: "Builder's Pack", set: 'kingdom', cost: 140, gradeMin: 0, gradeMax: 3, structures: 'only', after: 8,
+    // Sold from the start: a new player has a place for a structure, and a tower to stand in it.
+    id: 'builder', name: "Builder's Pack", set: 'kingdom', cost: 140, gradeMin: 0, gradeMax: 3, structures: 'only',
     blurb: 'Towers, walls and traps.',
   },
   {

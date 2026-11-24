@@ -108,6 +108,15 @@ const ICONS: Record<string, (d: Doc) => void> = {
   },
 };
 
+// A tower, for the structures: three merlons on a wall, and its gate.
+ICONS.tower = (d) => {
+  d.piece('tower', poly([
+    [10, 43], [10, 8], [18, 8], [18, 15], [21, 15], [21, 8], [27, 8], [27, 15], [30, 15], [30, 8], [38, 8], [38, 43],
+  ]), STEEL, { shade: 4 });
+  d.flat('gate', poly([[19, 43], [19, 31], [24, 26], [29, 31], [29, 43]]), HOOD_INTERIOR);
+  d.line('gate-edge', poly([[19, 43], [19, 31], [24, 26], [29, 31], [29, 43]], false));
+};
+
 // The statuses, a disc each in the status's own color with what it does drawn on it: these stand over a unit
 // for as long as the status is on it. A disc is told from the others by its color first and its mark second,
 // as they are seen small.

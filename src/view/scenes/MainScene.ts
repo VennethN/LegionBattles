@@ -18,7 +18,7 @@ import { PLAYER_MAX_LEVEL, playerXpToNext } from '../../data/player';
 import { fieldName } from '../../data/fields';
 import { DIFFICULTIES } from '../../data/laps';
 import { WORLDS, landOf, stageAt, stageNumber, worldOf } from '../../data/stages';
-import { UNITS } from '../../data/units';
+import { UNITS, isStructure } from '../../data/units';
 import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
 import { cardOf } from '../../game/cards';
 import { rewardsWaiting } from '../../game/rewards';
@@ -26,14 +26,15 @@ import { raidOpen, tourOpens } from '../../game/tutorial';
 import { finishStage, packsHeld, payOf, stageCleared, stageEnemies, stageInput, stageSeed, teamSize, tidyTeam, structuresSize, type StageResult } from '../../game/rules';
 import type { Fielded } from '../../game/state';
 import { ads } from '../../platform/ads';
-import { WINDOW_RECT, setupCamera } from '../app';
+import { GROUND } from '../../art/board';
+import { FIELD_WINDOW, WINDOW_RECT, setupCamera } from '../app';
 import { BoardView } from '../BoardView';
 import { today } from '../clock';
-import { H, W, hex } from '../config';
+import { H, RES, W, hex } from '../config';
 import { BOARD_PX_H, BOARD_PX_W, BOARD_X, BOARD_Y } from '../layout';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { CoinPill, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, RewardsPill } from '../ui/chrome';
+import { CoinPill, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, RewardsPill, TEAM_CHANGED } from '../ui/chrome';
 import { RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
@@ -66,6 +67,12 @@ export class MainScene extends Phaser.Scene {
   /** The shade over the field while a screen is open over it, with the frame of that screen's window. */
   private shade: Phaser.GameObjects.Graphics | null = null;
   private hallRect = { x: 0, y: 0, w: 0, h: 0 };
+  private unitsRect = { x: 0, y: 0, w: 0, h: 0 };
+  private structuresRect = { x: 0, y: 0, w: 0, h: 0 };
+  /** Set when the team was changed on the screen of cards while that was open. */
+  private teamTouched = false;
+  /** The camera that shows the player's half of the field beside the screen of cards. */
+  private side: Phaser.Cameras.Scene2D.Camera | null = null;
   private raids!: Button;
   private gearRect = { x: 0, y: 0, w: 0, h: 0 };
   private battleButton!: Button;
@@ -93,6 +100,8 @@ export class MainScene extends Phaser.Scene {
     this.toast = [];
     this.arrival = 0;
     this.shade = null;
+    this.side = null;
+    this.teamTouched = false;
   }
 
   create(): void {
@@ -105,6 +114,12 @@ export class MainScene extends Phaser.Scene {
     this.speed = s.speed;
     this.board = new BoardView(this, landOf(this.at).ground, {
       onEnd: (winner) => this.onEnd(winner),
+      // A tap on one of the player's own opens its card on the screen it is on.
+      onTapOwn: (p) => {
+        const card = (p as Fielded).card;
+        if (this.overlay || this.state !== 'ready' || card === undefined) return;
+        this.pressUnits(isStructure(p.unit) ? 'structures' : 'units', `c${card}`);
+      },
       onPlaced: () => {
         // Where the team stands is kept, and a change puts the count back.
         commit();
@@ -137,7 +152,8 @@ export class MainScene extends Phaser.Scene {
     });
     this.guide.mark('battle', () => this.battleButton.rect);
     this.guide.mark('packs', () => this.packsButton.rect);
-    this.guide.mark('units', () => ({ x: 22, y: 633, w: 196, h: 62 }));
+    this.guide.mark('units', () => this.unitsRect);
+    this.guide.mark('structures', () => this.structuresRect);
     this.guide.mark('stages', () => this.plate);
     // What the tours point at: the player's half of the field, the two buttons that pace the battles, and the ways to the other screens.
     this.guide.mark('board', () => ({ x: BOARD_X, y: BOARD_Y, w: BOARD_PX_W / 2, h: BOARD_PX_H }));
@@ -155,11 +171,20 @@ export class MainScene extends Phaser.Scene {
       if (this.overlay !== from) return;
       this.overlay = to;
       this.scene.launch(to);
+      this.cover(true);
     };
     this.game.events.on(OVERLAY_SWAP, swapped);
+    // The team was changed on the screen of cards: the half of the field beside it shows that at once.
+    const teamChanged = (): void => {
+      if (this.overlay !== 'Team') return;
+      this.teamTouched = true;
+      this.arrive(COUNTDOWN.changed);
+    };
+    this.game.events.on(TEAM_CHANGED, teamChanged);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.game.events.off(OVERLAY_CLOSED, closed);
       this.game.events.off(OVERLAY_SWAP, swapped);
+      this.game.events.off(TEAM_CHANGED, teamChanged);
     });
     this.input.keyboard?.on('keydown-D', () => this.board.toggleDebug());
 
@@ -234,12 +259,18 @@ export class MainScene extends Phaser.Scene {
 
   private buildBottom(): void {
     const y = 664;
-    const units = plain(new Button(this, 120, y, '   UNITS', () => this.pressUnits(), { width: 196, height: 62, size: 24, mat: BONE, color: OUTLINE })).setDepth(8000);
-    units.root.add(this.add.image(-62, -3, SHEET, 'icon/team').setScale(0.36));
-    this.packsButton = plain(new Button(this, 328, y, '   PACKS', () => this.open('Shop'), { width: 196, height: 62, size: 24, mat: BONE, color: OUTLINE })).setDepth(8000);
-    this.packsButton.root.add(this.add.image(-62, -3, SHEET, 'icon/pack').setScale(0.36));
+    // The cards, in two screens of their own: who fights, and what is built. By the owner's word of
+    // 24 November 2026: "make structures its own button".
+    const units = plain(new Button(this, 95, y, '   UNITS', () => this.pressUnits('units'), { width: 146, height: 62, size: 20, mat: BONE, color: OUTLINE })).setDepth(8000);
+    units.root.add(this.add.image(-48, -3, SHEET, 'icon/team').setScale(0.32));
+    this.unitsRect = units.rect;
+    const built = plain(new Button(this, 262, y, '    STRUCTURES', () => this.pressUnits('structures'), { width: 176, height: 62, size: 18, mat: BONE, color: OUTLINE })).setDepth(8000);
+    built.root.add(this.add.image(-66, -3, SHEET, 'icon/tower').setScale(0.32));
+    this.structuresRect = built.rect;
+    this.packsButton = plain(new Button(this, 431, y, '   PACKS', () => this.open('Shop'), { width: 146, height: 62, size: 20, mat: BONE, color: OUTLINE })).setDepth(8000);
+    this.packsButton.root.add(this.add.image(-48, -3, SHEET, 'icon/pack').setScale(0.32));
 
-    this.battleButton = new Button(this, 640, y, 'BATTLE', () => this.pressBattle(), { width: 300, height: 74, size: 34 }).setDepth(8000);
+    this.battleButton = new Button(this, 644, y, 'BATTLE', () => this.pressBattle(), { width: 264, height: 74, size: 34 }).setDepth(8000);
     this.autoButton = new Button(this, 916, y, '', () => this.toggleAuto(), { width: 170, height: 62, size: 22 }).setDepth(8000);
     this.speedButton = plain(new Button(this, 1062, y, `${this.speed}x`, () => this.toggleSpeed(), { width: 96, height: 62, size: 26, mat: BONE, color: OUTLINE })).setDepth(8000);
     // The settings: sound and music, how the game is drawn, and every tutorial to view again.
@@ -261,16 +292,16 @@ export class MainScene extends Phaser.Scene {
     }
     // The tutorial's bubble stands where the note does, so the note waits for it.
     const quiet = this.state !== 'ready' || !!this.guide.step;
-    this.note.setText(empty ? 'Your team is empty. Press UNITS and put someone in it.' : quiet ? '' : 'Drag your units to arrange them');
+    this.note.setText(empty ? 'Your team is empty. Press UNITS and put someone in it.' : quiet ? '' : 'Drag your units to arrange them. Tap anyone to see who they are.');
 
     for (const o of this.badge) o.destroy();
     this.badge = [];
     const held = packsHeld(s);
     if (held > 0) {
       const dot = this.add.graphics().setDepth(8001);
-      dot.fillStyle(hex(OUTLINE), 1).fillCircle(416, 638, 17);
-      dot.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(416, 638, 13);
-      this.badge.push(dot, label(this, 416, 637, String(Math.min(99, held)), { size: 16, strokeWidth: 3 }).setDepth(8002));
+      dot.fillStyle(hex(OUTLINE), 1).fillCircle(496, 638, 17);
+      dot.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(496, 638, 13);
+      this.badge.push(dot, label(this, 496, 637, String(Math.min(99, held)), { size: 16, strokeWidth: 3 }).setDepth(8002));
     }
   }
 
@@ -296,17 +327,21 @@ export class MainScene extends Phaser.Scene {
     this.clearToast();
     this.refreshTop();
     this.refreshBottom();
+    if (this.overlay === 'Team') this.clearHud(true);
     void this.board
       .show(s.team, stageEnemies(this.at), stageSeed(s, this.at), [], stageAt(this.at).field)
       .then(() => {
         if (token !== this.arrival) return;
         this.state = 'ready';
         this.board.setPlacement(true);
+        // Everyone's plate is up before the fight: what they stand at, and the health they start with.
+        this.board.preview(stageInput(s, this.at));
+        if (this.side) this.board.hideEnemiesFrom(this.side);
         this.count = s.auto && seconds >= 0 ? seconds : -1;
         this.guide.refresh({ covered: !!this.overlay, busy: false });
         this.refreshBottom();
         // A raid may have opened with the last win.
-        this.raids.setVisible(raidOpen(s));
+        this.raids.setVisible(raidOpen(s) && this.overlay !== 'Team');
         this.lead();
       });
   }
@@ -378,9 +413,9 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
-  private pressUnits(): void {
+  private pressUnits(side: 'units' | 'structures', selected?: string): void {
     if (this.state === 'fighting') this.stop();
-    this.open('Team');
+    this.open('Team', selected ? { side, selected } : { side });
   }
 
   /** Calls the battle off. Nothing is paid for it. */
@@ -431,7 +466,25 @@ export class MainScene extends Phaser.Scene {
    * window is drawn here, under it.
    */
   private cover(on: boolean): void {
-    this.input.enabled = !on;
+    const drawer = on && this.overlay === 'Team';
+    // Beside the screen of cards the player's half of the field stays live: its units can be dragged there.
+    // Presses are taken away a moment after the press that opened the screen, not in the middle of it:
+    // a tutorial that asked for that press hears it let go, and steps on. Taken away at once, it never did.
+    if (!on || drawer) this.input.enabled = true;
+    else this.time.delayedCall(0, () => {
+      if (this.overlay && this.overlay !== 'Team') this.input.enabled = false;
+    });
+    this.cameras.main.setVisible(!drawer);
+    if (drawer && !this.side) {
+      const r = FIELD_WINDOW;
+      // The player's half and a little round it, with room over the back row for heads and plates.
+      const zoom = r.w / (BOARD_PX_W / 2 + 36);
+      this.side = this.cameras.add(r.x * RES, r.y * RES, r.w * RES, r.h * RES).setZoom(zoom * RES);
+      this.side.centerOn(BOARD_X + BOARD_PX_W / 4 - 6, BOARD_Y + BOARD_PX_H / 2 - 48);
+      this.side.setBackgroundColor(GROUND[landOf(this.at).ground].around);
+      this.board.hideEnemiesFrom(this.side);
+    }
+    this.side?.setVisible(drawer);
     if (!this.shade) {
       const r = WINDOW_RECT;
       const g = this.add.graphics().setDepth(9500);
@@ -441,7 +494,23 @@ export class MainScene extends Phaser.Scene {
       g.lineStyle(10, hex(OUTLINE), 1).strokeRoundedRect(r.x - 5, r.y - 5, r.w + 10, r.h + 10, 6);
       this.shade = g;
     }
-    this.shade.setVisible(on);
+    this.shade.setVisible(on && !drawer);
+    // The line under the board is for the field alone.
+    this.note.setVisible(!on);
+    this.clearHud(drawer);
+  }
+
+  /**
+   * Beside the screen of cards the field is shown through a camera of its
+   * own, and what of the main screen's own buttons would lie in its sight
+   * is put away: the stage's plate and banner, the raids' button, the count
+   * of packs. They come back when the screen shuts.
+   */
+  private clearHud(away: boolean): void {
+    for (const o of this.top) (o as unknown as Phaser.GameObjects.Components.Visible).setVisible(!away);
+    if (away) for (const o of this.info) o.setVisible(false);
+    for (const o of this.badge) (o as unknown as Phaser.GameObjects.Components.Visible).setVisible(!away);
+    this.raids.setVisible(!away && raidOpen(save()));
   }
 
   private onOverlayClosed(key: string): void {
@@ -452,7 +521,8 @@ export class MainScene extends Phaser.Scene {
     tidyTeam(s);
     this.coins.refresh();
     this.level.refresh();
-    const changed = this.keyOf() !== this.teamKey;
+    const changed = this.keyOf() !== this.teamKey || this.teamTouched;
+    this.teamTouched = false;
     // A changed team goes back to the stage it lost at.
     if (changed && teamChanged(s)) commit();
     if (key === 'Map' || changed) {

@@ -9,7 +9,7 @@ import {
   rewardPack, rewardsWaiting,
 } from '../src/game/rewards';
 import {
-  buyPack, frontier, known, openPack, packHolds, packNow, packOdds, packOpen, packPool, packShown, stageEnemies, stagePay, startingSave, teamSize,
+  buyPack, frontier, known, openPack, packHolds, packNow, packOdds, packOpen, packPool, packShown, stageEnemies, stagePay, startingSave, teamSize, unitsIn,
 } from '../src/game/rules';
 import { repair } from '../src/game/state';
 
@@ -97,7 +97,7 @@ describe('the daily calendar', () => {
 
   it('hands a card into the team when there is a place for it, as a pack does', () => {
     const s = startingSave(1);
-    expect(s.team.length).toBeLessThan(teamSize(s));
+    expect(unitsIn(s.team)).toBeLessThan(teamSize(s));
     claimDaily(s, DAY);
     const g = claimDaily(s, DAY + 1);
     expect(g?.card?.joined).toBe(true);

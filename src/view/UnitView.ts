@@ -49,7 +49,7 @@ const MARK_W = 108;
 const MARK_FLAT = 0.5;
 
 const BAR_W = 50;
-const BAR_H = 7;
+const BAR_H = 11;
 /** The chip with a unit's level stands a little taller than the bar it is beside. */
 const CHIP_H = 13;
 const GRADE_W = 17;
@@ -126,6 +126,14 @@ export class UnitView {
   private readonly gradeBack: Phaser.GameObjects.Image | null = null;
   private readonly gradeFill: Phaser.GameObjects.Image | null = null;
   private readonly gradeText: Phaser.GameObjects.BitmapText | null = null;
+
+  /**
+   * The health it has left, as a number: shown on its health bar. The board
+   * sets it while a battle is on. Below zero, nothing is shown.
+   */
+  hp = -1;
+  private hpShown = -2;
+  private readonly hpText: Phaser.GameObjects.BitmapText;
 
   /** The level and grade it stands at, if they are told: for the card a tap on it shows. */
   standing: { level: number; grade: number } | null = null;
@@ -205,6 +213,9 @@ export class UnitView {
     this.barFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(barColor).setOrigin(0, 0.5);
     this.barW = Math.round(BAR_W * ps * (1 + (size - 1) * 1.6));
     this.barBack.setDisplaySize(this.barW + 6, this.barH + 6);
+    // The health left, in figures, over the bar: the bar says how much of it, this says how much.
+    this.hpText = scene.add.bitmapText(0, 0, DIGITS_KEY, '', 13 * ps).setOrigin(0.5).setVisible(false);
+    this.hpText.setLetterSpacing(-13);
     for (let i = 0; i < MAX_PIPS; i++) {
       // Each is the icon of a status (art/icons.ts), big enough to be told apart in a fight.
       this.pips.push(scene.add.image(0, 0, SHEET, STATUS_FRAMES[0]).setDisplaySize(PIP * ps, PIP * ps).setVisible(false));
@@ -294,6 +305,15 @@ export class UnitView {
     this.pipCount = n;
   }
 
+  /** Everything this is drawn with: for a camera that is not to show it. */
+  things(): Phaser.GameObjects.GameObject[] {
+    const out: Array<Phaser.GameObjects.GameObject | null> = [
+      this.root, this.mark, this.barBack, this.barLag, this.barFill, this.hpText, this.chipBack, this.chipFill, this.chipText, this.gradeBack,
+      this.gradeFill, this.gradeText, ...this.pips,
+    ];
+    return out.filter((o): o is Phaser.GameObjects.GameObject => !!o);
+  }
+
   /** The health bar shows only while there is a fight on. */
   setBarsVisible(on: boolean): void {
     // A trap has no health to show.
@@ -308,6 +328,7 @@ export class UnitView {
     this.gradeFill?.setVisible(on);
     this.gradeText?.setVisible(on);
     if (!on) for (let i = 0; i < this.pips.length; i++) this.pips[i].setVisible(false);
+    if (!on) this.hpText.setVisible(false);
     this.barsOn = on;
   }
 
@@ -536,6 +557,18 @@ export class UnitView {
     this.barBack.depth = depth;
     this.barLag.depth = depth + 0.1;
     this.barFill.depth = depth + 0.2;
+    const figures = this.barsOn && this.hp >= 0 && this.deadAt < 0;
+    if (this.hpText.visible !== figures) this.hpText.setVisible(figures);
+    if (figures) {
+      const whole = Math.ceil(this.hp);
+      if (whole !== this.hpShown) {
+        this.hpShown = whole;
+        this.hpText.setText(String(whole));
+      }
+      this.hpText.setPosition(this.x, by - 1);
+      this.hpText.depth = depth + 0.35;
+      this.hpText.alpha = alpha;
+    }
     this.barBack.alpha = alpha;
     this.barLag.alpha = alpha;
     this.barFill.alpha = alpha;
@@ -581,6 +614,7 @@ export class UnitView {
     this.root.destroy();
     this.mark?.destroy();
     this.barBack.destroy();
+    this.hpText.destroy();
     this.barLag.destroy();
     this.barFill.destroy();
     this.chipBack?.destroy();

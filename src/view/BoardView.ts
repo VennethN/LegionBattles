@@ -12,7 +12,7 @@ import { ARCANE, BONE, CLOTH, FIRE, FROST, HIGHLIGHT, HOLY, OUTLINE, VENOM, type
 import { music } from '../audio/music';
 import { sfx } from '../audio/sfx';
 import { UNITS } from '../data/units';
-import { GRADES, RARITY } from '../game/rarity';
+import { GRADES, RARITY, cardMult } from '../game/rarity';
 import { Battle, type SimUnit } from '../sim/battle';
 import { DT, TILE } from '../sim/constants';
 import { FIRST_FIELD, isPlayerTile, seatTeam, writtenTile, type Field } from '../sim/field';
@@ -27,6 +27,7 @@ import { Numbers } from './Numbers';
 import { scenePicture } from './Scenes';
 import { SHEET, sheet } from './Sheet';
 import { RARITY_MAT, STATUS_COLOR } from './ui/colors';
+import { ROLE_NAME } from './ui/UnitPanel';
 import { label, slab } from './ui/widgets';
 import { UnitView } from './UnitView';
 
@@ -50,6 +51,8 @@ export interface BoardHooks {
    * for a unit, and that unit has no chips.
    */
   standingOf?: (p: Placement, team: 'blue' | 'red') => { level: number; grade: number } | undefined;
+  /** One of the player's own was tapped, and not dragged. */
+  onTapOwn?: (p: Placement) => void;
 }
 
 export class BoardView {
@@ -123,7 +126,22 @@ export class BoardView {
       // A drag is not a tap.
       if (Math.abs(p.worldX - downX) > 12 || Math.abs(p.worldY - downY) > 12) return;
       const v = this.viewAt(p.worldX, p.worldY);
-      if (v && v !== had) this.showTip(v);
+      if (!v) return;
+      // One of the player's own opens its card where the cards are; an enemy says who it is here, until the next tap.
+      if (v.team === 'blue') {
+        const i = this.mine.indexOf(v);
+        if (i >= 0 && !this.battle) this.hooks.onTapOwn?.(this.team[i]);
+      } else if (v !== had) this.showTip(v);
+    });
+    // Whoever can be tapped says so: a ring under them while the pointer is over them, and a hand for a pointer.
+    this.hover = scene.add.image(0, 0, SHEET, 'fx/ring').setVisible(false).setDepth(4).setTint(hex(HIGHLIGHT));
+    scene.input.on('pointermove', (p: Phaser.Input.Pointer) => {
+      const v = this.dragging ? null : this.viewAt(p.worldX, p.worldY);
+      if (v === this.hovered) return;
+      this.hovered = v;
+      this.hover.setVisible(!!v);
+      scene.input.setDefaultCursor(v ? 'pointer' : 'default');
+      if (v) this.hover.setPosition(v.x, v.y - 2).setDisplaySize(v.height * 0.95, v.height * 0.95 * Y_SCALE * 0.62);
     });
 
     this.fx = new Effects(scene);
@@ -232,6 +250,32 @@ export class BoardView {
     });
   }
 
+  /** Keeps the enemy out of a camera's sight: beside the screen of cards only the player's own half is shown. */
+  hideEnemiesFrom(camera: Phaser.Cameras.Scene2D.Camera): void {
+    for (let i = this.mine.length; i < this.views.length; i++) camera.ignore(this.views[i].things());
+  }
+
+  /**
+   * Shows everyone's plate before the battle: their level and grade, and the
+   * health they will start with, in figures. The owner, of the field while
+   * the team is being arranged: "the hp bars and grades etc would've been
+   * useful to know also". The numbers are the battle's own: it is set up
+   * from the same input and not fought.
+   */
+  preview(input: BattleInput): void {
+    if (this.battle || this.loading) return;
+    const set = new Battle(input);
+    const theirs = this.views.slice(this.mine.length);
+    const next = [0, 0];
+    for (const u of set.units) {
+      const v = u.team === 0 ? this.mine[next[0]++] : theirs[next[1]++];
+      if (!v) continue;
+      v.health = 1;
+      v.hp = u.maxHp;
+      v.setBarsVisible(true);
+    }
+  }
+
   /**
    * Holds this list as the team on show, if it is the same team in the same
    * places: whoever keeps the team may have made a new list of it, and a
@@ -282,7 +326,9 @@ export class BoardView {
 
   private tip: Phaser.GameObjects.GameObject[] = [];
   private tipFor: UnitView | null = null;
-  private tipUntil = -1;
+  /** The ring under whoever the pointer is over, and who that is. */
+  private hover!: Phaser.GameObjects.Image;
+  private hovered: UnitView | null = null;
 
   /** Whoever stands under a point of the screen: the one nearest the front, if they overlap. */
   private viewAt(x: number, y: number): UnitView | null {
@@ -300,7 +346,6 @@ export class BoardView {
     for (const o of this.tip) o.destroy();
     this.tip = [];
     this.tipFor = null;
-    this.tipUntil = -1;
   }
 
   /**
@@ -324,13 +369,18 @@ export class BoardView {
     const line = (text: string, size: number, weight: 600 | 700 = 600): void => {
       texts.push(add(label(scene, 0, 0, text, { size, weight, wrap: w - pad * 2, ...dark }).setOrigin(0, 0).setDepth(8602)));
     };
-    const role = def.kind === 'trap' ? 'Trap' : def.kind === 'building' ? 'Building' : def.role[0].toUpperCase() + def.role.slice(1);
+    const role = def.kind === 'trap' ? 'Trap' : def.kind === 'building' ? 'Building' : ROLE_NAME[def.role];
     const at = v.standing;
     line(at ? `${RARITY[def.rarity].name} ${role}  ·  Level ${at.level}  ·  Grade ${GRADES[Math.max(0, Math.min(GRADES.length - 1, at.grade))]}` : `${RARITY[def.rarity].name} ${role}`, 14, 700);
     // What it has now, while a battle is on: the battle's own numbers, with everything that changes them counted.
     const i = this.battle ? this.views.indexOf(v) : -1;
     const u = i >= 0 ? this.battle?.units[i] : undefined;
-    if (u && !def.trap) line(`Health ${Math.max(0, Math.round(u.hp))} of ${Math.round(u.maxHp)}${u.damage > 0 ? `  ·  Damage ${Math.round(u.damage)}` : ''}`, 14, 700);
+    if (u && !def.trap) line(`Health ${Math.max(0, Math.ceil(u.hp))} of ${Math.round(u.maxHp)}${u.damage > 0 ? `  ·  Damage ${Math.round(u.damage)}` : ''}`, 14, 700);
+    else if (!def.trap && at) {
+      // Before the battle: what it will walk in with, as near as its level and grade say.
+      const m = cardMult(at.grade, at.level);
+      line(`Health ${Math.round(def.hp * m)}${def.damage > 0 ? `  ·  Damage ${Math.round(def.damage * m)}` : ''}`, 14, 700);
+    }
     if (def.text) line(def.text, 14);
     if (def.skill) line(`${def.skill.name}: ${def.skill.text}`, 14);
     let tall = 44;
@@ -343,19 +393,21 @@ export class BoardView {
     slab(g, x, y, w, tall, BONE, 14, 6);
     slab(g, x + 6, y + 6, w - 12, 32, RARITY_MAT[def.rarity], 9, 3);
     add(label(scene, x + pad + 2, y + 21, def.name, { size: 19, align: 'left', strokeWidth: 4 }).setDepth(8602));
-    add(label(scene, x + w - pad, y + 21, v.team === 'blue' ? 'YOURS' : 'ENEMY', { size: 12, align: 'right', strokeWidth: 3, color: v.team === 'blue' ? CLOTH.blue.fill : CLOTH.red.fill }).setDepth(8602));
+    add(label(scene, x + w - pad, y + 21, 'ENEMY', { size: 12, align: 'right', strokeWidth: 3, color: CLOTH.red.fill }).setDepth(8602));
     let ty = y + 46;
     for (const t of texts) {
       t.setPosition(x + pad, ty);
       ty += t.height + 6;
     }
+    // It stays until the next tap: there is no hurry to read it.
     this.tipFor = v;
-    this.tipUntil = this.clock + 7;
     sfx.play('pop', 0.6);
   }
 
   private clearUnits(): void {
     this.hideTip();
+    this.hovered = null;
+    this.hover?.setVisible(false);
     this.setPlacement(false);
     for (const v of this.views) v.destroy();
     this.views = [];
@@ -496,7 +548,6 @@ export class BoardView {
     // A long frame (a tab coming back) must not become a burst of steps.
     const dt = (Math.min(deltaMs, 100) / 1000) * speed;
     this.clock += dt;
-    if (this.tipUntil >= 0 && this.clock >= this.tipUntil) this.hideTip();
     const battle = this.battle;
 
     if (battle && !this.told) {
@@ -529,6 +580,7 @@ export class BoardView {
           v.facing = u.facing;
           v.moving = u.moving;
           v.health = u.hp / u.maxHp;
+          v.hp = u.hp;
           let pips = 0;
           for (let k = 0; k < u.stTicks.length && pips < 4; k++) {
             if (u.stTicks[k] > 0) this.pipIds[pips++] = k;
@@ -544,6 +596,7 @@ export class BoardView {
           }
         } else {
           v.health = 0;
+          v.hp = -1;
         }
       }
       this.syncShots(battle, a);
