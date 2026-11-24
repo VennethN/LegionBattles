@@ -45,7 +45,7 @@ export interface SkillDef {
   kind: SkillKind;
   /** Seconds between uses. */
   cooldown: number;
-  /** Seconds before the first use. Half the cooldown if left out. */
+  /** Seconds before the first use. Somewhere in the second half of the cooldown if left out. */
   first?: number;
   /** Times the unit's damage (or its heal, for mend). */
   power?: number;
@@ -81,7 +81,7 @@ export interface UnitDef {
   armor: number;
   /** Pixels a second. */
   speed: number;
-  /** Tiles: how much room the unit takes. 0.3 if left out. */
+  /** Tiles: how much room the unit takes. 0.33 if left out. */
   radius?: number;
   /** Set for a unit that shoots: what flies and how fast, in pixels a second. */
   projectile?: { kind: string; speed: number };

@@ -24,7 +24,7 @@ const INV_ART = 1 / ART_SCALE;
 const RECOVER = 0.3;
 /** Seconds a hit's flinch lasts, and its white flash. */
 const FLINCH = 0.26;
-const FLASH = 0.09;
+const FLASH = 0.07;
 /** Seconds to fall over, to lie there, and to fade. */
 const FALL = 0.42;
 const LIE = 0.55;

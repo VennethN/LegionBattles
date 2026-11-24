@@ -28,7 +28,7 @@ const ATTACK = 0;
 const HEAL = 1;
 const SKILL = 2;
 
-const DEFAULT_RADIUS = 0.3;
+const DEFAULT_RADIUS = 0.33;
 /** How much of an overlap is pushed out each step. Less than all of it, so units slide rather than jump. */
 const PUSH = 0.6;
 /** How far ahead, beyond touching, a walking unit starts to steer round another. */
@@ -166,7 +166,11 @@ export class Battle {
           actionTarget: -1,
           // A little stagger, so that two of a kind do not strike as one.
           cooldown: this.rng.int(7),
-          skillWait: def.skill ? ticks(def.skill.first ?? def.skill.cooldown / 2) + this.rng.int(10) : 0,
+          // First use comes somewhere in the second half of the wait, so that a
+          // team's skills do not all go off in the same moment.
+          skillWait: def.skill
+            ? ticks(def.skill.first ?? def.skill.cooldown * (0.4 + 0.5 * this.rng.next()))
+            : 0,
           retarget: 0,
           stTicks: zeros(),
           stPower: zeros(),

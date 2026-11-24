@@ -114,7 +114,7 @@ export class BattleScene extends Phaser.Scene {
     this.debugText = label(this, 12, H - 12, '', { size: 14, weight: 600, align: 'left' }).setOrigin(0, 1).setDepth(8501).setVisible(false);
 
     for (let i = 0; i < 6; i++) {
-      this.callouts.push(label(this, 0, 0, '', { size: 22, color: HOLY.fill }).setDepth(7200).setVisible(false));
+      this.callouts.push(label(this, 0, 0, '', { size: 18, color: HOLY.fill }).setDepth(7200).setVisible(false));
       this.calloutAt.push(-1);
     }
 
@@ -464,7 +464,7 @@ export class BattleScene extends Phaser.Scene {
       case 'skill': {
         const v = this.views[e.unit];
         const skill = battle.units[e.unit].def.skill;
-        if (skill) this.callout(v.x, v.y - v.height - 30, skill.name);
+        if (skill) this.callout(v.x, v.y - v.height - 24, skill.name);
         break;
       }
       case 'battleEnd': {
