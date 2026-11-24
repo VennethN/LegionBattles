@@ -68,33 +68,39 @@ await page.screenshot({ path: `${out}/11-worlds.png` });
 await close('Worlds');
 await overlay('Team');
 await page.screenshot({ path: `${out}/12-team.png` });
-// The best Knight is the fourth tile. COMBINE turns the screen into a forge for it.
-const held = () => page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).cards.filter((c) => c.unit === 'knight'));
-const before = await held();
+// The best Knight is the fourth tile. COMBINE turns the screen into a forge for it:
+// every other card is there, the least first, and any of them can be given up.
+const cardsNow = () => page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).cards);
+const before = await cardsNow();
 await page.mouse.click(96 + 3 * 140, 145);
 await page.waitForTimeout(300);
 await page.screenshot({ path: `${out}/12b-card-with-copies.png` });
 await page.mouse.click(1158, 648);
 await page.waitForFunction(() => window.game.scene.getScene('Team').forge > 0, null, { timeout: 10000 });
 await page.waitForTimeout(300);
-await page.mouse.click(96, 145);
-await page.mouse.click(96 + 140, 145);
-await page.waitForTimeout(300);
+const target = await page.evaluate(() => window.game.scene.getScene('Team').forge);
 await page.screenshot({ path: `${out}/12c-forge.png` });
-// MARK ALL, then COMBINE, which asks once.
+// MARK THIS PAGE, then COMBINE, which asks once.
 await page.mouse.click(1070, 502);
 await page.waitForTimeout(200);
+const marked = await page.evaluate(() => [...window.game.scene.getScene('Team').marked]);
 await page.mouse.click(1070, 572);
 await page.waitForTimeout(200);
 await page.screenshot({ path: `${out}/12d-forge-sure.png` });
-if ((await held()).length !== before.length) throw new Error('COMBINE did not ask before it gave the cards up');
+if ((await cardsNow()).length !== before.length) throw new Error('COMBINE did not ask before it gave the cards up');
 await page.mouse.click(1070, 572);
 await page.waitForFunction(() => window.game.scene.getScene('Team').forge === 0, null, { timeout: 10000 });
 await page.waitForTimeout(400);
 await page.screenshot({ path: `${out}/12e-combined.png` });
-const after = await held();
-const top = before.find((c) => c.id === after[0]?.id);
-if (after.length !== 1 || !top || (after[0].level === top.level && after[0].xp <= top.xp)) throw new Error(`the Knights were not combined into one: ${JSON.stringify(after)}`);
+const after = await cardsNow();
+const was = before.find((c) => c.id === target);
+const now = after.find((c) => c.id === target);
+const kinds = new Set(before.filter((c) => marked.includes(c.id)).map((c) => c.unit));
+if (marked.length < 10 || kinds.size < 2) throw new Error(`the page marked ${marked.length} cards of ${kinds.size} units: any card should be there`);
+if (after.length !== before.length - marked.length || after.some((c) => marked.includes(c.id))) throw new Error('the marked cards were not given up');
+if (!now || !was || now.grade !== was.grade || (now.level === was.level && now.xp <= was.xp)) throw new Error(`the card did not grow: ${JSON.stringify(now)}`);
+const team = await page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).team);
+if (team.length !== 7 || team.some((p) => !after.some((c) => c.id === p.card))) throw new Error('a card of the team was given up');
 await close('Team');
 await overlay('Shop');
 await page.screenshot({ path: `${out}/13-packs.png` });

@@ -41,6 +41,8 @@ export interface SaveData {
   cards: Card[];
   /** The id the next card gets. */
   nextCard: number;
+  /** Every unit a card has ever been held of. A unit stays known after its last card is combined away. */
+  met: string[];
   /** Who fights and where they stand. */
   team: Fielded[];
   /** By world id, then by difficulty: how many of its stages are cleared, in order. */
@@ -70,6 +72,7 @@ export function newSave(seed: number): SaveData {
     coins: 0,
     cards: [],
     nextCard: 1,
+    met: [],
     team: [],
     cleared: {},
     packs: {},
@@ -134,6 +137,9 @@ export function repair(raw: unknown, seed: number): SaveData {
       out.cards.push(made);
     }
   }
+  const met = new Set<string>(Array.isArray(r.met) ? r.met.filter((x): x is string => typeof x === 'string') : []);
+  for (const c of out.cards) met.add(c.unit);
+  out.met = [...met];
   let top = 0;
   for (const id of taken) top = Math.max(top, id);
   out.nextCard = Math.max(top + 1, Math.floor(num(r.nextCard, 1)));

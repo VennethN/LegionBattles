@@ -228,7 +228,7 @@ export class MainScene extends Phaser.Scene {
 
   /** True while the count must not run: something is open over the board, or there is no one to fight. */
   private waits(): boolean {
-    return !!this.overlay || save().team.length === 0 || this.guide.holds || this.board.loading;
+    return !!this.overlay || save().team.length === 0 || this.guide.holds || this.board.loading || this.board.dragging;
   }
 
   private keyOf(): string {

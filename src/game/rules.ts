@@ -10,7 +10,7 @@ import { COLS, HALF_COLS, ROWS } from '../sim/constants';
 import { Rng, hash32 } from '../sim/rng';
 import { defaultFormation } from '../sim/setup';
 import type { BattleInput, Placement } from '../sim/types';
-import { addCard, addXp, cardOf, cardsOf, holds } from './cards';
+import { addCard, addXp, cardOf, cardsOf, met } from './cards';
 import { GRADES, GRADE_FALLOFF, RARITIES, RARITY, cardMult, type Rarity } from './rarity';
 import { newSave, type Card, type Fielded, type SaveData } from './state';
 
@@ -98,11 +98,12 @@ export function inPool(save: SaveData, unit: UnitInfo): boolean {
 }
 
 /**
- * Whether the player knows a unit: holds its card, or has beaten it. What is
- * not known is shown dark, with "???", and nothing else about it is told.
+ * Whether the player knows a unit: has held a card of it, or has beaten it.
+ * What is not known is shown dark, with "???", and nothing else about it is
+ * told. A unit stays known when its last card is combined into another.
  */
 export function known(save: SaveData, unit: UnitInfo): boolean {
-  return holds(save, unit.id) || (unit.from !== undefined && inPool(save, unit));
+  return met(save, unit.id) || (unit.from !== undefined && inPool(save, unit));
 }
 
 // ------------------------------------------------------------ the team

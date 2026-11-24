@@ -12,20 +12,21 @@
 // order a sensible player climbs in.
 //
 // The players are plain: they open every pack they get, buy the dearest pack
-// they can afford, combine every copy into the best card of its unit, field
-// their strongest cards, and when a stage beats them they go back a stage or
-// two for coins and experience before trying again. With --copies they
-// combine nothing and field copies as cards of their own, which says which of
-// the two a copy is better used for.
+// they can afford, combine every copy into the best card of its unit and
+// every card that will not fight into one that will, field their strongest
+// cards, and when a stage beats them they go back a stage or two for coins
+// and experience before trying again. With --copies they combine nothing
+// and field copies as cards of their own, which says which of the two a
+// card is better used for.
 
 import { DIFFICULTIES } from '../src/data/difficulties';
 import { allPacks } from '../src/data/packs';
 import { WORLDS } from '../src/data/worlds';
 import { SETS } from '../src/data/units';
 import { cardOf, cardsOf, combine } from '../src/game/cards';
-import { GRADES, cardMult } from '../src/game/rarity';
+import { GRADES, MAX_LEVEL, cardMult } from '../src/game/rarity';
 import {
-  bestTeam, buyPack, cardPower, clearedIn, difficultyOpen, finishStage, openPack, packOpen, packPool, stageInput, stageStanding,
+  MAX_TEAM, bestTeam, buyPack, cardPower, clearedIn, difficultyOpen, finishStage, openPack, packOpen, packPool, stageInput, stageStanding,
   startingSave, teamSize, worldDone,
 } from '../src/game/rules';
 import type { SaveData } from '../src/game/state';
@@ -77,6 +78,15 @@ function prepare(save: SaveData): void {
     for (const unit of new Set(save.cards.map((c) => c.unit))) {
       const [best, ...rest] = cardsOf(save, unit);
       if (rest.length > 0) combine(save, best.id, rest.map((c) => c.id));
+    }
+    // And every card that will not fight goes into one that will, the lowest of them first.
+    // A few are kept back, so that a place that opens in the team has a card to take it.
+    save.team = bestTeam(save);
+    const idle = save.cards.filter((c) => !save.team.some((p) => p.card === c.id)).sort((x, y) => cardPower(y) - cardPower(x));
+    for (const card of idle.slice(MAX_TEAM - save.team.length)) {
+      const fighters = save.team.map((p) => cardOf(save, p.card)).filter((c) => c && c.level < MAX_LEVEL);
+      fighters.sort((x, y) => (x?.level ?? 0) - (y?.level ?? 0));
+      if (fighters[0]) combine(save, fighters[0].id, [card.id]);
     }
   }
   save.team = bestTeam(save);

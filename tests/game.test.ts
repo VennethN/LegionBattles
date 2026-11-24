@@ -5,7 +5,7 @@ import { SETS, UNITS } from '../src/data/units';
 import { WORLDS, stageCoins } from '../src/data/worlds';
 import { COUNTDOWN, afterBattle, goTo, sameWhere, settle, teamChanged, whereOpen } from '../src/game/campaign';
 import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
-import { COPY_XP, addCard, cardOf, cardsOf, combine, combinePreview, spare, whyNot, worth, xpHeld } from '../src/game/cards';
+import { COPY_XP, OTHER_UNIT, addCard, cardOf, cardsOf, combine, combinePreview, spare, whyNot, worth, xpHeld } from '../src/game/cards';
 import {
   BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, clearedIn, difficultyOpen, finishStage, frontier, inPool, inTeam, isEnemyTile, known,
   openPack, packOpen, packPool, packsHeld, rollPack, stageEnemies, stageInput, stageOpen, stagePay, stageStanding, stageXp,
@@ -477,11 +477,33 @@ describe('combining', () => {
     expect(pulled.level).toBeLessThanOrEqual(old.level);
   });
 
-  it('is refused for another unit, a card in the team, the card itself, a card twice, and a card at the last level', () => {
+  it('takes any card, of its own unit or another', () => {
+    const { save, into, from } = two();
+    const archer = cardsOf(save, 'archer')[0];
+    const militia = cardsOf(save, 'militia')[0];
+    expect(whyNot(save, into, archer.id)).toBeNull();
+    // The least are offered first: they are what a player parts with soonest.
+    Object.assign(militia, { grade: 3, level: 4 });
+    expect(spare(save, into).map((c) => c.id)).toEqual([archer.id, from, militia.id]);
+    // A card of another unit gives half what a copy of the card's own unit would.
+    expect(worth(archer, 'knight')).toBe(Math.round(worth(archer) * OTHER_UNIT));
+    expect(worth(cardOf(save, from) ?? archer, 'knight')).toBe(COPY_XP[UNITS.knight.rarity]);
+    const value = worth(archer, 'knight') + worth(militia, 'knight');
+    const done = combine(save, into, [archer.id, militia.id]);
+    expect(done).toMatchObject({ xp: value, given: 2 });
+    expect(save.cards.map((c) => c.unit).sort()).toEqual(['knight', 'knight']);
+    // A unit all of whose cards are gone is still known: it was held, and can be pulled again.
+    expect(cardOf(save, into)?.unit).toBe('knight');
+    expect(cardsOf(save, 'archer')).toHaveLength(0);
+    expect(known(save, UNITS.archer)).toBe(true);
+    expect(known(repair(JSON.parse(JSON.stringify(save)), 1), UNITS.archer)).toBe(true);
+  });
+
+  it('is refused for a card in the team, the card itself, a card twice, and a card at the last level', () => {
     const { save, into, from } = two();
     const archer = cardsOf(save, 'archer')[0].id;
-    expect(whyNot(save, into, archer)).not.toBeNull();
-    expect(combine(save, into, [archer])).toBeNull();
+    toggleTeam(save, archer);
+    expect(whyNot(save, into, archer)).toMatch(/team/);
     expect(combine(save, into, [into])).toBeNull();
     expect(combine(save, into, [from, from])).toBeNull();
     expect(combine(save, into, [])).toBeNull();
@@ -489,9 +511,9 @@ describe('combining', () => {
     toggleTeam(save, from);
     expect(whyNot(save, into, from)).toMatch(/team/);
     expect(combine(save, into, [from])).toBeNull();
-    expect(spare(save, into)).toHaveLength(0);
+    expect(spare(save, into).map((c) => c.unit)).toEqual(['militia']);
     toggleTeam(save, from);
-    expect(spare(save, into).map((c) => c.id)).toEqual([from]);
+    expect(spare(save, into).map((c) => c.id)).toContain(from);
     // All of it or none: one card that can't go keeps the others too.
     const third = addCard(save, 'knight', 1).id;
     const before = save.cards.length;
@@ -819,8 +841,7 @@ describe('the run of battles', () => {
     expect(sameWhere(save.at, { world: 0, stage: 3, d: 0 })).toBe(true);
   });
 
-  it('counts down longest when the game is opened and shortest between battles', () => {
-    expect(COUNTDOWN.first).toBeGreaterThan(COUNTDOWN.changed);
-    expect(COUNTDOWN.changed).toBeGreaterThan(COUNTDOWN.next);
+  it('counts down two seconds before a battle starts by itself', () => {
+    expect(COUNTDOWN).toEqual({ first: 2, changed: 2, next: 2 });
   });
 });

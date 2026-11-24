@@ -1,12 +1,12 @@
 // The player's cards, and who of them fights. It opens over the field.
 // Every card is a tile of its own: two of a unit are two tiles. Pressing a
 // card shows what it is and does; from there it is put in the team or taken
-// out, or other cards of its unit are combined into it. FILL TEAM fields the
-// strongest.
+// out, or other cards are combined into it. FILL TEAM fields the strongest.
 //
 // COMBINE turns the screen into a forge: the card chosen is the one that
 // grows, each card marked after it is given up, and the panel says what
-// level that makes before anything is done.
+// level that makes before anything is done. Any card can be given up to any
+// other, a copy of its unit or not; the forge shows the least of them first.
 //
 // A unit the player does not know is its own outline in the dark, named
 // "???", and nothing else about it is told.
@@ -16,7 +16,7 @@ import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, VENOM } from '../.
 import { sfx } from '../../audio/sfx';
 import { PACKS } from '../../data/packs';
 import { SETS, UNITS, type UnitInfo } from '../../data/units';
-import { better, cardOf, cardsOf, combine, combinePreview, fielded, holds, spare, whyNot } from '../../game/cards';
+import { cardOf, cardsOf, combine, combinePreview, fielded, holds, spare, whyNot, worth } from '../../game/cards';
 import { MAX_LEVEL, RARITIES, RARITY, cardMult, xpToNext } from '../../game/rarity';
 import { bestTeam, inTeam, known, teamSize, toggleTeam } from '../../game/rules';
 import type { Card } from '../../game/state';
@@ -144,15 +144,18 @@ export class TeamScene extends Phaser.Scene {
     return out;
   }
 
-  /** The other cards of the forge's unit, best first. */
+  /**
+   * Every other card held: the ones that can be given up first, the least of
+   * them at the front, then the ones the team keeps.
+   */
   private forgeTiles(): Tile[] {
     const s = save();
     const target = cardOf(s, this.forge);
     if (!target) return [];
-    return cardsOf(s, target.unit)
-      .filter((c) => c.id !== target.id)
-      .sort(better)
-      .map((card) => ({ key: `c${card.id}`, unit: card.unit, card }));
+    const kept = s.cards
+      .filter((c) => c.id !== target.id && whyNot(s, target.id, c.id) !== null)
+      .sort((a, b) => worth(a, target.unit) - worth(b, target.unit) || a.id - b.id);
+    return [...spare(s, target.id), ...kept].map((card) => ({ key: `c${card.id}`, unit: card.unit, card }));
   }
 
   private redraw(): void {
@@ -216,12 +219,14 @@ export class TeamScene extends Phaser.Scene {
 
     // How many cards there are, and the pages they fill.
     const y = 676;
-    const held = this.forge ? `${this.tiles.length} other ${this.tiles.length === 1 ? 'card' : 'cards'} of this unit` : `${s.cards.length} cards`;
+    const held = this.forge ? `${this.tiles.length} other ${this.tiles.length === 1 ? 'card' : 'cards'}, the least first` : `${s.cards.length} cards`;
     add(label(this, 36, y, held, { size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 }));
     if (pages > 1) {
       const turn = (by: number): void => {
         this.page = (this.page + by + pages) % pages;
         this.drawGrid();
+        // The forge marks a page at a time, so its panel follows the page.
+        if (this.forge) this.showForge();
       };
       const back = plain(new Button(this, 386, y, '', () => turn(-1), { width: 60, height: 46, mat: BONE }));
       back.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.34).setFlipX(true));
@@ -349,19 +354,20 @@ export class TeamScene extends Phaser.Scene {
       }
     };
     const by = PY + PH - 50;
-    if (copies <= 1) {
+    if (s.cards.length <= 1) {
       const b = new Button(this, cx, by, on ? 'TAKE OUT' : full ? 'TEAM IS FULL' : 'PUT IN TEAM', toggle, { width: 260, height: 62, size: 24, mat: on ? CLOTH.red : GOLD });
       if (full) b.setEnabled(false);
       add(b.root);
       return;
     }
-    // More than one card of this unit: each can fight, or the others can be combined into this one.
+    // Any other card can be combined into this one. A copy of it can also fight beside it.
     const free = spare(s, card.id).length;
     const note =
-      card.level >= MAX_LEVEL ? `You hold ${copies} of this unit. This one is at the last level.`
-      : free === 0 ? `You hold ${copies} of this unit, all in your team.`
-      : `You hold ${copies} of this unit.`;
-    add(label(this, cx, by - 50, note, { size: 14, weight: 600, ...dark }));
+      card.level >= MAX_LEVEL ? 'This card is at the last level.'
+      : free === 0 ? 'Every other card is in your team.'
+      : copies > 1 ? `You hold ${copies} of this unit.`
+      : '';
+    if (note) add(label(this, cx, by - 50, note, { size: 14, weight: 600, ...dark }));
     const b = new Button(this, cx - 88, by, on ? 'TAKE OUT' : full ? 'TEAM FULL' : 'PUT IN', toggle, { width: 164, height: 62, size: 22, mat: on ? CLOTH.red : GOLD });
     if (full) b.setEnabled(false);
     add(b.root);
@@ -404,20 +410,24 @@ export class TeamScene extends Phaser.Scene {
       const free = spare(s, target.id).length;
       const text = free === 0
         ? 'Nothing here can be given up.\nCards in your team are kept:\ntake one out first.'
-        : 'Press a card on the left to mark it.\nA better grade and a higher level\ngive more experience.';
+        : `Press a card on the left to mark it.\nAny card will do. Another ${def.name}\ngives twice what another unit does,\nand a better grade or level gives more.`;
       add(label(this, cx, PY + 340, text, { size: 16, weight: 600, ...dark }));
     }
 
-    const free = spare(s, target.id);
-    const all = free.length > 0 && free.every((c) => this.marked.has(c.id));
-    const mark = plain(new Button(this, cx, PY + PH - 196, all ? 'CLEAR MARKS' : 'MARK ALL', () => {
-      if (all) this.marked.clear();
-      else for (const c of free) this.marked.add(c.id);
+    // Marking is a page at a time: what is about to go is all in view before COMBINE is pressed.
+    const shown = this.tiles
+      .slice(this.page * PER_PAGE, (this.page + 1) * PER_PAGE)
+      .filter((t) => t.card && whyNot(s, target.id, t.card.id) === null)
+      .map((t) => (t.card as Card).id);
+    const all = shown.length > 0 && shown.every((id) => this.marked.has(id));
+    const mark = plain(new Button(this, cx, PY + PH - 196, this.marked.size > 0 && (all || shown.length === 0) ? 'CLEAR MARKS' : 'MARK THIS PAGE', () => {
+      if (all || shown.length === 0) this.marked.clear();
+      else for (const id of shown) this.marked.add(id);
       this.sure = false;
       this.drawGrid();
       this.showForge();
     }, { width: 240, height: 50, size: 20, mat: BONE, color: OUTLINE }));
-    if (free.length === 0) mark.setEnabled(false);
+    if (shown.length === 0 && this.marked.size === 0) mark.setEnabled(false);
     add(mark.root);
 
     // COMBINE asks once: the cards given up do not come back.

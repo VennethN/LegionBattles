@@ -57,6 +57,8 @@ export class BoardView {
   private seed = 1;
   private views: UnitView[] = [];
   /** The player's views, in the order of `team`. */
+  /** True while the player holds one of their units in the air. A battle must not start under it. */
+  dragging = false;
   private mine: UnitView[] = [];
   private zones: Phaser.GameObjects.Zone[] = [];
   private acc = 0;
@@ -203,6 +205,7 @@ export class BoardView {
 
   /** Lets the player drag their units about their half, or stops them. */
   setPlacement(on: boolean): void {
+    this.dragging = false;
     for (const z of this.zones) z.destroy();
     this.zones = [];
     this.dropMark.clear();
@@ -216,6 +219,7 @@ export class BoardView {
       zone.setDepth(7500);
       this.zones.push(zone);
       zone.on('dragstart', () => {
+        this.dragging = true;
         view.lift = 14;
         sfx.play('lift');
       });
@@ -226,6 +230,7 @@ export class BoardView {
         this.markDrop(view.x, view.y - 10);
       });
       zone.on('dragend', () => {
+        this.dragging = false;
         view.lift = 0;
         sfx.play('place');
         this.dropMark.clear();

@@ -14,14 +14,19 @@ import { WORLDS } from '../data/worlds';
 import { frontier, stageOpen, type StageResult } from './rules';
 import type { SaveData, Where } from './state';
 
-/** Seconds before a battle starts by itself. */
+/**
+ * Seconds before a battle starts by itself. Two at each of the three
+ * moments, by the owner's word ("reduce the wait time to 2 seconds on auto
+ * delay"). The count waits while a screen is open over the board or a unit
+ * is being dragged, so it is never too short to change the team in.
+ */
 export const COUNTDOWN = {
   /** After the game is opened. */
-  first: 8,
+  first: 2,
   /** After the player last changed something. */
-  changed: 5,
+  changed: 2,
   /** Between one battle and the next. */
-  next: 3,
+  next: 2,
 };
 
 export function sameWhere(a: Where, b: Where): boolean {
