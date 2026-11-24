@@ -6,14 +6,26 @@
 import Phaser from 'phaser';
 import { H, RES, W } from './config';
 
-/** The picture at assets/<folder>/<name>.svg, on the screen under everything else of the scene. It comes when it has loaded. */
-export function scenePicture(scene: Phaser.Scene, folder: 'board' | 'maps', name: string, depth = 0): void {
+/**
+ * The picture at assets/<folder>/<name>.svg, on the screen under everything
+ * else of the scene: all of the screen, or the rectangle given. It comes
+ * when it has loaded, and `shown` is called with it then.
+ */
+export function scenePicture(
+  scene: Phaser.Scene,
+  folder: 'board' | 'maps' | 'tiles',
+  name: string,
+  depth = 0,
+  rect: { x: number; y: number; w: number; h: number } = { x: 0, y: 0, w: W, h: H },
+  shown?: (image: Phaser.GameObjects.Image) => void,
+): void {
   const key = `scene:${folder}:${name}`;
   const show = (): void => {
     // The scene may have gone, or come back as another land, while the picture loaded.
     if (!scene.sys.isActive() && !scene.sys.isVisible()) return;
     if (!scene.textures.exists(key)) return;
-    scene.add.image(0, 0, key).setOrigin(0, 0).setDisplaySize(W, H).setDepth(depth);
+    const image = scene.add.image(rect.x, rect.y, key).setOrigin(0, 0).setDisplaySize(rect.w, rect.h).setDepth(depth);
+    shown?.(image);
   };
   if (scene.textures.exists(key)) {
     show();

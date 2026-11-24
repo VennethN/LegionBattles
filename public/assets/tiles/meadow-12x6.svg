@@ -1,0 +1,294 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="meadow-tiles-12x6" width="960" height="408" viewBox="0 0 1440 612">
+<defs>
+<path id="meadow-tiles-12x6-tile-0-4-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-0-4-clip"><use href="#meadow-tiles-12x6-tile-0-4-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-0-4-lit-clip"><use href="#meadow-tiles-12x6-tile-0-4-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-1">
+<g id="meadow-tiles-12x6-tile-0-4">
+<use id="meadow-tiles-12x6-tile-0-4-shade" href="#meadow-tiles-12x6-tile-0-4-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-4-clip)">
+<use id="meadow-tiles-12x6-tile-0-4-fill" href="#meadow-tiles-12x6-tile-0-4-shape" transform="translate(-4 -4)" fill="#7fb956"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-4-lit-clip)">
+<use id="meadow-tiles-12x6-tile-0-4-lit" href="#meadow-tiles-12x6-tile-0-4-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-0-4-fill-over" href="#meadow-tiles-12x6-tile-0-4-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
+</g>
+<path id="meadow-tiles-12x6-tuft" d="M 91.1 50.9 L 93.6 42.9 L 96.1 50.9 L 98.6 44.9 L 101.1 50.9 Z" fill="#93c96a"/>
+<path id="meadow-tiles-12x6-tuft-2" d="M 62.3 22.1 L 64.8 14.1 L 67.3 22.1 L 69.8 16.1 L 72.3 22.1 Z" fill="#5c9440"/>
+<path id="meadow-tiles-12x6-tuft-3" d="M 57.4 69.9 L 59.9 61.9 L 62.4 69.9 L 64.9 63.9 L 67.4 69.9 Z" fill="#5c9440"/>
+<path id="meadow-tiles-12x6-tuft-4" d="M 24.7 20.1 L 27.2 12.1 L 29.7 20.1 L 32.2 14.1 L 34.7 20.1 Z" fill="#5c9440"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-1-4-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-1-4-clip"><use href="#meadow-tiles-12x6-tile-1-4-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-1-4-lit-clip"><use href="#meadow-tiles-12x6-tile-1-4-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-2">
+<g id="meadow-tiles-12x6-tile-1-4">
+<use id="meadow-tiles-12x6-tile-1-4-shade" href="#meadow-tiles-12x6-tile-1-4-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-4-clip)">
+<use id="meadow-tiles-12x6-tile-1-4-fill" href="#meadow-tiles-12x6-tile-1-4-shape" transform="translate(-4 -4)" fill="#6ea748"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-4-lit-clip)">
+<use id="meadow-tiles-12x6-tile-1-4-lit" href="#meadow-tiles-12x6-tile-1-4-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-1-4-fill-over" href="#meadow-tiles-12x6-tile-1-4-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
+</g>
+<path id="meadow-tiles-12x6-tuft-5" d="M 54.3 33.7 L 56.8 25.7 L 59.3 33.7 L 61.8 27.7 L 64.3 33.7 Z" fill="#5c9440"/>
+<path id="meadow-tiles-12x6-tuft-6" d="M 49.6 78.6 L 52.1 70.6 L 54.6 78.6 L 57.1 72.6 L 59.6 78.6 Z" fill="#93c96a"/>
+<path id="meadow-tiles-12x6-tuft-7" d="M 84 73.8 L 86.5 65.8 L 89 73.8 L 91.5 67.8 L 94 73.8 Z" fill="#5c9440"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-0-5-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-0-5-clip"><use href="#meadow-tiles-12x6-tile-0-5-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-0-5-lit-clip"><use href="#meadow-tiles-12x6-tile-0-5-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-3">
+<g id="meadow-tiles-12x6-tile-0-5">
+<use id="meadow-tiles-12x6-tile-0-5-shade" href="#meadow-tiles-12x6-tile-0-5-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-5-clip)">
+<use id="meadow-tiles-12x6-tile-0-5-fill" href="#meadow-tiles-12x6-tile-0-5-shape" transform="translate(-4 -4)" fill="#7fb956"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-5-lit-clip)">
+<use id="meadow-tiles-12x6-tile-0-5-lit" href="#meadow-tiles-12x6-tile-0-5-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-0-5-fill-over" href="#meadow-tiles-12x6-tile-0-5-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
+</g>
+<path id="meadow-tiles-12x6-tuft-8" d="M 56.1 28.2 L 58.6 20.2 L 61.1 28.2 L 63.6 22.2 L 66.1 28.2 Z" fill="#93c96a"/>
+<path id="meadow-tiles-12x6-clover" d="M 58.4 20.8 C 58.4 23.5 53.5 25.8 47.4 25.8 C 41.3 25.8 36.4 23.5 36.4 20.8 C 36.4 18 41.3 15.8 47.4 15.8 C 53.5 15.8 58.4 18 58.4 20.8 Z" fill="#2a1a10" opacity="0.06"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-1-3-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-1-3-clip"><use href="#meadow-tiles-12x6-tile-1-3-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-1-3-lit-clip"><use href="#meadow-tiles-12x6-tile-1-3-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-4">
+<g id="meadow-tiles-12x6-tile-1-3">
+<use id="meadow-tiles-12x6-tile-1-3-shade" href="#meadow-tiles-12x6-tile-1-3-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-3-clip)">
+<use id="meadow-tiles-12x6-tile-1-3-fill" href="#meadow-tiles-12x6-tile-1-3-shape" transform="translate(-4 -4)" fill="#6ea748"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-3-lit-clip)">
+<use id="meadow-tiles-12x6-tile-1-3-lit" href="#meadow-tiles-12x6-tile-1-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-1-3-fill-over" href="#meadow-tiles-12x6-tile-1-3-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
+</g>
+<path id="meadow-tiles-12x6-tuft-9" d="M 64.5 25.2 L 67 17.2 L 69.5 25.2 L 72 19.2 L 74.5 25.2 Z" fill="#93c96a"/>
+<path id="meadow-tiles-12x6-tuft-10" d="M 90.7 61.9 L 93.2 53.9 L 95.7 61.9 L 98.2 55.9 L 100.7 61.9 Z" fill="#5c9440"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-0-3-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-0-3-clip"><use href="#meadow-tiles-12x6-tile-0-3-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-0-3-lit-clip"><use href="#meadow-tiles-12x6-tile-0-3-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-5">
+<g id="meadow-tiles-12x6-tile-0-3">
+<use id="meadow-tiles-12x6-tile-0-3-shade" href="#meadow-tiles-12x6-tile-0-3-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-3-clip)">
+<use id="meadow-tiles-12x6-tile-0-3-fill" href="#meadow-tiles-12x6-tile-0-3-shape" transform="translate(-4 -4)" fill="#7fb956"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-3-lit-clip)">
+<use id="meadow-tiles-12x6-tile-0-3-lit" href="#meadow-tiles-12x6-tile-0-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-0-3-fill-over" href="#meadow-tiles-12x6-tile-0-3-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
+</g>
+<path id="meadow-tiles-12x6-bloom" d="M 59.4 39.7 L 62.8 43.1 L 59.4 46.5 L 56 43.1 Z" fill="#f2d264"/>
+<path id="meadow-tiles-12x6-bloom-heart" d="M 60.6 43.1 C 60.6 43.8 60.1 44.3 59.4 44.3 C 58.8 44.3 58.2 43.8 58.2 43.1 C 58.2 42.4 58.8 41.9 59.4 41.9 C 60.1 41.9 60.6 42.4 60.6 43.1 Z" fill="#c9a53a"/>
+<path id="meadow-tiles-12x6-clover-2" d="M 68.7 82.8 C 68.7 85.5 63.7 87.8 57.7 87.8 C 51.6 87.8 46.7 85.5 46.7 82.8 C 46.7 80 51.6 77.8 57.7 77.8 C 63.7 77.8 68.7 80 68.7 82.8 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-bloom-2" d="M 63 42.2 L 66.4 45.6 L 63 49 L 59.6 45.6 Z" fill="#f8fcfe"/>
+<path id="meadow-tiles-12x6-bloom-heart-2" d="M 64.2 45.6 C 64.2 46.3 63.6 46.8 63 46.8 C 62.3 46.8 61.8 46.3 61.8 45.6 C 61.8 44.9 62.3 44.4 63 44.4 C 63.6 44.4 64.2 44.9 64.2 45.6 Z" fill="#c9a53a"/>
+<path id="meadow-tiles-12x6-tuft-11" d="M 95 81 L 97.5 73 L 100 81 L 102.5 75 L 105 81 Z" fill="#5c9440"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-1-5-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-1-5-clip"><use href="#meadow-tiles-12x6-tile-1-5-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-1-5-lit-clip"><use href="#meadow-tiles-12x6-tile-1-5-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-6">
+<g id="meadow-tiles-12x6-tile-1-5">
+<use id="meadow-tiles-12x6-tile-1-5-shade" href="#meadow-tiles-12x6-tile-1-5-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-5-clip)">
+<use id="meadow-tiles-12x6-tile-1-5-fill" href="#meadow-tiles-12x6-tile-1-5-shape" transform="translate(-4 -4)" fill="#6ea748"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-5-lit-clip)">
+<use id="meadow-tiles-12x6-tile-1-5-lit" href="#meadow-tiles-12x6-tile-1-5-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-1-5-fill-over" href="#meadow-tiles-12x6-tile-1-5-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
+</g>
+<path id="meadow-tiles-12x6-clover-3" d="M 53.2 27.7 C 53.2 30.5 48.3 32.7 42.2 32.7 C 36.2 32.7 31.2 30.5 31.2 27.7 C 31.2 25 36.2 22.7 42.2 22.7 C 48.3 22.7 53.2 25 53.2 27.7 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-clover-4" d="M 34.2 76.2 C 34.2 79 29.3 81.2 23.2 81.2 C 17.1 81.2 12.2 79 12.2 76.2 C 12.2 73.5 17.1 71.2 23.2 71.2 C 29.3 71.2 34.2 73.5 34.2 76.2 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-clover-5" d="M 37.2 40.7 C 37.2 43.5 32.3 45.7 26.2 45.7 C 20.1 45.7 15.2 43.5 15.2 40.7 C 15.2 38 20.1 35.7 26.2 35.7 C 32.3 35.7 37.2 38 37.2 40.7 Z" fill="#2a1a10" opacity="0.06"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-1-2-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-1-2-clip"><use href="#meadow-tiles-12x6-tile-1-2-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-1-2-lit-clip"><use href="#meadow-tiles-12x6-tile-1-2-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-7">
+<g id="meadow-tiles-12x6-tile-1-2">
+<use id="meadow-tiles-12x6-tile-1-2-shade" href="#meadow-tiles-12x6-tile-1-2-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-2-clip)">
+<use id="meadow-tiles-12x6-tile-1-2-fill" href="#meadow-tiles-12x6-tile-1-2-shape" transform="translate(-4 -4)" fill="#6ea748"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-2-lit-clip)">
+<use id="meadow-tiles-12x6-tile-1-2-lit" href="#meadow-tiles-12x6-tile-1-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-1-2-fill-over" href="#meadow-tiles-12x6-tile-1-2-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
+</g>
+<path id="meadow-tiles-12x6-tuft-12" d="M 24.6 81.6 L 27.1 73.6 L 29.6 81.6 L 32.1 75.6 L 34.6 81.6 Z" fill="#5c9440"/>
+<path id="meadow-tiles-12x6-clover-6" d="M 47.9 50.5 C 47.9 53.3 43 55.5 36.9 55.5 C 30.8 55.5 25.9 53.3 25.9 50.5 C 25.9 47.7 30.8 45.5 36.9 45.5 C 43 45.5 47.9 47.7 47.9 50.5 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-clover-7" d="M 82.6 59.7 C 82.6 62.5 77.7 64.7 71.6 64.7 C 65.6 64.7 60.6 62.5 60.6 59.7 C 60.6 57 65.6 54.7 71.6 54.7 C 77.7 54.7 82.6 57 82.6 59.7 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-tuft-13" d="M 61.5 56 L 64 48 L 66.5 56 L 69 50 L 71.5 56 Z" fill="#93c96a"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-0-2-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-0-2-clip"><use href="#meadow-tiles-12x6-tile-0-2-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-0-2-lit-clip"><use href="#meadow-tiles-12x6-tile-0-2-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-8">
+<g id="meadow-tiles-12x6-tile-0-2">
+<use id="meadow-tiles-12x6-tile-0-2-shade" href="#meadow-tiles-12x6-tile-0-2-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-2-clip)">
+<use id="meadow-tiles-12x6-tile-0-2-fill" href="#meadow-tiles-12x6-tile-0-2-shape" transform="translate(-4 -4)" fill="#7fb956"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-2-lit-clip)">
+<use id="meadow-tiles-12x6-tile-0-2-lit" href="#meadow-tiles-12x6-tile-0-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-0-2-fill-over" href="#meadow-tiles-12x6-tile-0-2-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
+</g>
+<path id="meadow-tiles-12x6-tuft-14" d="M 33.2 73.1 L 35.7 65.1 L 38.2 73.1 L 40.7 67.1 L 43.2 73.1 Z" fill="#5c9440"/>
+<path id="meadow-tiles-12x6-tuft-15" d="M 38.8 72.7 L 41.3 64.7 L 43.8 72.7 L 46.3 66.7 L 48.8 72.7 Z" fill="#93c96a"/>
+<path id="meadow-tiles-12x6-tuft-16" d="M 59.4 60.4 L 61.9 52.4 L 64.4 60.4 L 66.9 54.4 L 69.4 60.4 Z" fill="#5c9440"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-1-0-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-1-0-clip"><use href="#meadow-tiles-12x6-tile-1-0-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-1-0-lit-clip"><use href="#meadow-tiles-12x6-tile-1-0-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-9">
+<g id="meadow-tiles-12x6-tile-1-0">
+<use id="meadow-tiles-12x6-tile-1-0-shade" href="#meadow-tiles-12x6-tile-1-0-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-0-clip)">
+<use id="meadow-tiles-12x6-tile-1-0-fill" href="#meadow-tiles-12x6-tile-1-0-shape" transform="translate(-4 -4)" fill="#6ea748"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-0-lit-clip)">
+<use id="meadow-tiles-12x6-tile-1-0-lit" href="#meadow-tiles-12x6-tile-1-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-1-0-fill-over" href="#meadow-tiles-12x6-tile-1-0-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
+</g>
+<path id="meadow-tiles-12x6-clover-8" d="M 89.1 68.3 C 89.1 71.1 84.2 73.3 78.1 73.3 C 72 73.3 67.1 71.1 67.1 68.3 C 67.1 65.5 72 63.3 78.1 63.3 C 84.2 63.3 89.1 65.5 89.1 68.3 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-clover-9" d="M 94.7 31.2 C 94.7 33.9 89.7 36.2 83.7 36.2 C 77.6 36.2 72.7 33.9 72.7 31.2 C 72.7 28.4 77.6 26.2 83.7 26.2 C 89.7 26.2 94.7 28.4 94.7 31.2 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-clover-10" d="M 41.8 40 C 41.8 42.7 36.9 45 30.8 45 C 24.7 45 19.8 42.7 19.8 40 C 19.8 37.2 24.7 35 30.8 35 C 36.9 35 41.8 37.2 41.8 40 Z" fill="#2a1a10" opacity="0.06"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-1-1-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-1-1-clip"><use href="#meadow-tiles-12x6-tile-1-1-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-1-1-lit-clip"><use href="#meadow-tiles-12x6-tile-1-1-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-10">
+<g id="meadow-tiles-12x6-tile-1-1">
+<use id="meadow-tiles-12x6-tile-1-1-shade" href="#meadow-tiles-12x6-tile-1-1-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-1-clip)">
+<use id="meadow-tiles-12x6-tile-1-1-fill" href="#meadow-tiles-12x6-tile-1-1-shape" transform="translate(-4 -4)" fill="#6ea748"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-1-1-lit-clip)">
+<use id="meadow-tiles-12x6-tile-1-1-lit" href="#meadow-tiles-12x6-tile-1-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-1-1-fill-over" href="#meadow-tiles-12x6-tile-1-1-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
+</g>
+<path id="meadow-tiles-12x6-tuft-17" d="M 74 20.7 L 76.5 12.7 L 79 20.7 L 81.5 14.7 L 84 20.7 Z" fill="#93c96a"/>
+<path id="meadow-tiles-12x6-clover-11" d="M 86.4 54.9 C 86.4 57.6 81.4 59.9 75.4 59.9 C 69.3 59.9 64.4 57.6 64.4 54.9 C 64.4 52.1 69.3 49.9 75.4 49.9 C 81.4 49.9 86.4 52.1 86.4 54.9 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-tuft-18" d="M 91.1 55.9 L 93.6 47.9 L 96.1 55.9 L 98.6 49.9 L 101.1 55.9 Z" fill="#93c96a"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-0-0-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-0-0-clip"><use href="#meadow-tiles-12x6-tile-0-0-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-0-0-lit-clip"><use href="#meadow-tiles-12x6-tile-0-0-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-11">
+<g id="meadow-tiles-12x6-tile-0-0">
+<use id="meadow-tiles-12x6-tile-0-0-shade" href="#meadow-tiles-12x6-tile-0-0-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-0-clip)">
+<use id="meadow-tiles-12x6-tile-0-0-fill" href="#meadow-tiles-12x6-tile-0-0-shape" transform="translate(-4 -4)" fill="#7fb956"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-0-lit-clip)">
+<use id="meadow-tiles-12x6-tile-0-0-lit" href="#meadow-tiles-12x6-tile-0-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-0-0-fill-over" href="#meadow-tiles-12x6-tile-0-0-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
+</g>
+<path id="meadow-tiles-12x6-tuft-19" d="M 38.7 30.4 L 41.2 22.4 L 43.7 30.4 L 46.2 24.4 L 48.7 30.4 Z" fill="#5c9440"/>
+<path id="meadow-tiles-12x6-clover-12" d="M 75.5 37.5 C 75.5 40.2 70.6 42.5 64.5 42.5 C 58.4 42.5 53.5 40.2 53.5 37.5 C 53.5 34.7 58.4 32.5 64.5 32.5 C 70.6 32.5 75.5 34.7 75.5 37.5 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-tuft-20" d="M 24 31.9 L 26.5 23.9 L 29 31.9 L 31.5 25.9 L 34 31.9 Z" fill="#5c9440"/>
+</g>
+</g>
+</g>
+<path id="meadow-tiles-12x6-tile-0-1-shape" d="M 14 3 L 106 3 Q 117 3 117 14 L 117 88 Q 117 99 106 99 L 14 99 Q 3 99 3 88 L 3 14 Q 3 3 14 3 Z"/>
+<clipPath id="meadow-tiles-12x6-tile-0-1-clip"><use href="#meadow-tiles-12x6-tile-0-1-shape"/></clipPath>
+<clipPath id="meadow-tiles-12x6-tile-0-1-lit-clip"><use href="#meadow-tiles-12x6-tile-0-1-shape" transform="translate(-4 -4)"/></clipPath>
+<g id="meadow-tiles-12x6-thing-12">
+<g id="meadow-tiles-12x6-tile-0-1">
+<use id="meadow-tiles-12x6-tile-0-1-shade" href="#meadow-tiles-12x6-tile-0-1-shape" fill="#5c9440"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-1-clip)">
+<use id="meadow-tiles-12x6-tile-0-1-fill" href="#meadow-tiles-12x6-tile-0-1-shape" transform="translate(-4 -4)" fill="#7fb956"/>
+<g clip-path="url(#meadow-tiles-12x6-tile-0-1-lit-clip)">
+<use id="meadow-tiles-12x6-tile-0-1-lit" href="#meadow-tiles-12x6-tile-0-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-tiles-12x6-tile-0-1-fill-over" href="#meadow-tiles-12x6-tile-0-1-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
+</g>
+<path id="meadow-tiles-12x6-clover-13" d="M 66.6 66.1 C 66.6 68.8 61.7 71.1 55.6 71.1 C 49.5 71.1 44.6 68.8 44.6 66.1 C 44.6 63.3 49.5 61.1 55.6 61.1 C 61.7 61.1 66.6 63.3 66.6 66.1 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-tiles-12x6-clover-14" d="M 93.5 82.3 C 93.5 85.1 88.6 87.3 82.5 87.3 C 76.4 87.3 71.5 85.1 71.5 82.3 C 71.5 79.5 76.4 77.3 82.5 77.3 C 88.6 77.3 93.5 79.5 93.5 82.3 Z" fill="#2a1a10" opacity="0.06"/>
+</g>
+</g>
+</g>
+</defs>
+<use href="#meadow-tiles-12x6-thing-1" transform="translate(0 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-2" transform="translate(120 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-3" transform="translate(240 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-4" transform="translate(360 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(480 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-6" transform="translate(600 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(720 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-7" transform="translate(840 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-8" transform="translate(960 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-4" transform="translate(1080 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-8" transform="translate(1200 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-9" transform="translate(1320 0) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-6" transform="translate(0 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-3" transform="translate(120 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-10" transform="translate(240 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-3" transform="translate(360 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-10" transform="translate(480 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-8" transform="translate(600 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-7" transform="translate(720 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(840 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-6" transform="translate(960 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-11" transform="translate(1080 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-4" transform="translate(1200 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(1320 102) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-1" transform="translate(0 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-4" transform="translate(120 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(240 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-6" transform="translate(360 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(480 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-4" transform="translate(600 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-3" transform="translate(720 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-6" transform="translate(840 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-11" transform="translate(960 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-4" transform="translate(1080 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-3" transform="translate(1200 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-4" transform="translate(1320 204) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-10" transform="translate(0 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(120 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-7" transform="translate(240 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-8" transform="translate(360 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-6" transform="translate(480 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-1" transform="translate(600 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-2" transform="translate(720 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(840 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-6" transform="translate(960 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-8" transform="translate(1080 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-7" transform="translate(1200 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(1320 306) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-12" transform="translate(0 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-9" transform="translate(120 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-12" transform="translate(240 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-7" transform="translate(360 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-1" transform="translate(480 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-2" transform="translate(600 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-3" transform="translate(720 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-2" transform="translate(840 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-1" transform="translate(960 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-4" transform="translate(1080 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(1200 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-10" transform="translate(1320 408) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-7" transform="translate(0 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-5" transform="translate(120 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-6" transform="translate(240 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-8" transform="translate(360 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-7" transform="translate(480 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-11" transform="translate(600 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-10" transform="translate(720 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-3" transform="translate(840 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-4" transform="translate(960 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-12" transform="translate(1080 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-6" transform="translate(1200 510) scale(1 1)"/>
+<use href="#meadow-tiles-12x6-thing-11" transform="translate(1320 510) scale(1 1)"/>
+</svg>

@@ -160,15 +160,49 @@ function stand(d: Doc, things: Standing[]): void {
 }
 
 /**
+ * The tiles of a field, as a file: a picture as big as the board is on the
+ * screen, whatever the field, to lay over the slab the ground is painted
+ * with. A bigger field has more tiles in the same room, so its tiles, and
+ * what grows on them, are smaller: the picture is drawn with tiles the size
+ * the first field's are and scaled to fit, as everything on that field is.
+ */
+export function boardTiles(ground: Ground, cols: number, rows: number): string {
+  const d = new Doc(`${ground}-tiles-${cols}x${rows}`);
+  const c = GROUND[ground];
+  const rng = new Rng(ground.length * 7919 + cols * 131 + rows * 17);
+  // A tile is drawn once and laid many times (Doc.at): a few of each tone, each with its own tufts or
+  // pebbles, so that the file stays small on a field of seventy-two and no two rows look stamped.
+  const KINDS = 6;
+  const kinds = [c.a, c.b].map((fill, tone) =>
+    Array.from({ length: KINDS }, (_, k) => {
+      const specks = new Rng(ground.length * 104729 + tone * 977 + k * 31);
+      return (t: Doc): void => {
+        t.piece(`tile-${tone}-${k}`, roundRect(3, 3, TILE_W - 6, TILE_H - 6, 11), { fill, shade: c.around }, {
+          shade: 4,
+          outline: false,
+          inner: (u) => tileSpecks(u, ground, specks, 0, 0),
+        });
+      };
+    }),
+  );
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) d.at(col * TILE_W, row * TILE_H, 1, false, kinds[(row + col) % 2][rng.int(KINDS)]);
+  }
+  return (
+    `<svg xmlns="http://www.w3.org/2000/svg" id="${ground}-tiles-${cols}x${rows}" width="${BOARD_W}" height="${BOARD_H}" ` +
+    `viewBox="0 0 ${cols * TILE_W} ${rows * TILE_H}">\n${d.inner()}\n</svg>\n`
+  );
+}
+
+/**
  * The ground of a battle: the land, a road up to the board from each side,
- * the board on a slab of earth with its tiles, a standard at each corner in
+ * the board on a slab of earth, a standard at each corner in
  * the color of the side it is on, and the land's scenery round about. The
  * strip above the board is kept low, as the back row's health bars are there.
  */
 export function boardBackdrop(ground: Ground): Doc {
   const d = new Doc(`${ground}-board`);
   const look = LOOKS[ground];
-  const c = GROUND[ground];
   const rng = new Rng(ground.length * 7919 + 17);
   land(d, ground, rng);
 
@@ -181,18 +215,7 @@ export function boardBackdrop(ground: Ground): Doc {
   d.flat('slab-side', roundRect(BOARD_X - 16, BOARD_Y - 14, BOARD_W + 32, BOARD_H + 40, 20), look.earth.shade);
   d.flat('slab', roundRect(BOARD_X - 16, BOARD_Y - 14, BOARD_W + 32, BOARD_H + 28, 20), look.earth.fill);
   d.lightOver('slab-lit', roundRect(BOARD_X - 16, BOARD_Y - 14, BOARD_W + 32, 8, 4), 0.5);
-  for (let row = 0; row < ROWS; row++) {
-    for (let col = 0; col < COLS; col++) {
-      const x = BOARD_X + col * TILE_W;
-      const y = BOARD_Y + row * TILE_H;
-      const fill = (row + col) % 2 === 0 ? c.a : c.b;
-      d.piece(`tile-${col}-${row}`, roundRect(x + 3, y + 3, TILE_W - 6, TILE_H - 6, 11), { fill, shade: c.around }, {
-        shade: 4,
-        outline: false,
-        inner: (t) => tileSpecks(t, ground, rng, x, y),
-      });
-    }
-  }
+  // The tiles are not in this picture: a field has as many as its stage says, and they are a picture of their own (boardTiles).
 
   const things: Standing[] = [];
   // Whose side is whose: the player's standards to the left, the enemy's to the right.

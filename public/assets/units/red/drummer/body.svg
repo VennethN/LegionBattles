@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="drummer-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="drummer-body-tunic-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="drummer-body-tunic-clip"><use href="#drummer-body-tunic-shape"/></clipPath>
+<clipPath id="drummer-body-tunic-lit-clip"><use href="#drummer-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="drummer-body-skirt-shape" d="M 52 147 L 140 147 L 140 171 L 52 171 L 52 147 Z"/>
+<path id="drummer-body-arm-shape" d="M 118.9 121.7 L 132.9 109.7 C 136 107 136.4 102.3 133.7 99.1 C 131 96 126.3 95.6 123.1 98.3 L 109.1 110.3 C 106 113 105.6 117.7 108.3 120.9 C 111 124 115.7 124.4 118.9 121.7 Z"/>
+<clipPath id="drummer-body-arm-clip"><use href="#drummer-body-arm-shape"/></clipPath>
+<clipPath id="drummer-body-arm-lit-clip"><use href="#drummer-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="drummer-body-tunic">
+<use id="drummer-body-tunic-shade" href="#drummer-body-tunic-shape" fill="#b3a585"/>
+<g clip-path="url(#drummer-body-tunic-clip)">
+<use id="drummer-body-tunic-deep" href="#drummer-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="drummer-body-tunic-shade-over" href="#drummer-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="drummer-body-tunic-fill" href="#drummer-body-tunic-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#drummer-body-tunic-lit-clip)">
+<use id="drummer-body-tunic-lit" href="#drummer-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="drummer-body-tunic-fill-over" href="#drummer-body-tunic-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="drummer-body-seam" d="M 107.7 100 L 108.3 100 Q 109.3 100 109.3 101 L 109.3 145 Q 109.3 146 108.3 146 L 107.7 146 Q 106.7 146 106.7 145 L 106.7 101 Q 106.7 100 107.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<g id="drummer-body-skirt">
+<use id="drummer-body-skirt-fill" href="#drummer-body-skirt-shape" fill="#c2453a"/>
+<use id="drummer-body-skirt-line" href="#drummer-body-skirt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="drummer-body-tunic-line" href="#drummer-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="drummer-body-arm-cast" d="M 119.9 125.2 L 133.9 113.2 C 137 110.5 137.4 105.8 134.7 102.6 C 132 99.5 127.3 99.1 124.1 101.8 L 110.1 113.8 C 107 116.5 106.6 121.2 109.3 124.4 C 112 127.5 116.7 127.9 119.9 125.2 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="drummer-body-arm">
+<use id="drummer-body-arm-shade" href="#drummer-body-arm-shape" fill="#b3a585"/>
+<g clip-path="url(#drummer-body-arm-clip)">
+<use id="drummer-body-arm-fill" href="#drummer-body-arm-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#drummer-body-arm-lit-clip)">
+<use id="drummer-body-arm-lit" href="#drummer-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="drummer-body-arm-fill-over" href="#drummer-body-arm-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="drummer-body-arm-line" href="#drummer-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

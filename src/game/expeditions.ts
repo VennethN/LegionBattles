@@ -10,12 +10,12 @@ import { LANDS, RANK } from '../data/lands';
 import { packIdAt } from '../data/packs';
 import { STAGES, WORLDS, type Stage } from '../data/stages';
 import { UNITS, isFrontline, isStructure } from '../data/units';
-import { HALF_COLS, ROWS } from '../sim/constants';
+import { seatTeam, standEnemy, type Field } from '../sim/field';
 import { hash32 } from '../sim/rng';
 import type { BattleInput, Placement } from '../sim/types';
 import { addXp, cardOf } from './cards';
 import { cardMult } from './rarity';
-import { cardPower, cleared, fieldOf, roomFor, type LevelUp } from './rules';
+import { cardPower, cleared, fieldOf, roomFor, teamPlacements, type LevelUp } from './rules';
 import type { Card, SaveData } from './state';
 
 export const TIERS = TIER_MARKS.length;
@@ -38,6 +38,11 @@ export function tierStage(land: number, tier: number): Stage {
 /** The pack a tier pays: its land's pack of the lap after, so that it is always a better pack than the line is dropping there. */
 export function tierPack(land: number, tier: number): string {
   return packIdAt(LANDS[land].pack, Math.min(TIERS - 1, tier + 1));
+}
+
+/** The field a tier of a dungeon or a raid is fought on: that of the stage it is measured by. */
+export function tierField(land: number, tier: number): Field {
+  return tierStage(land, tier).field;
 }
 
 // ------------------------------------------------------------ what is open
@@ -144,22 +149,24 @@ export function toggleFielded(save: SaveData, run: Run, card: number): boolean {
 /** Who a floor of a dungeon fields at a tier. */
 export function floorEnemies(dungeon: DungeonDef, tier: number, floor: number): Placement[] {
   const at = tierStage(dungeon.land, tier);
-  return fieldOf(dungeon.floors[floor], at.grade, at.level + DUNGEON_LEVELS, 0);
+  return fieldOf(dungeon.floors[floor], at.grade, at.level + DUNGEON_LEVELS, 0, at.field);
 }
 
 /** The battle of the floor a run is at: whoever is sent in, each with the health it has left. */
 export function floorInput(save: SaveData, run: Run, dungeon: DungeonDef): BattleInput {
-  const team: Placement[] = [];
-  for (const r of fielded(run)) {
-    const card = cardOf(save, r.card);
-    if (!card) continue;
+  const field = tierField(dungeon.land, run.tier);
+  const on = fielded(run).filter((r) => cardOf(save, r.card));
+  const seats = seatTeam(on, field);
+  const team: Placement[] = on.map((r, i) => {
+    const card = cardOf(save, r.card) as Card;
     const m = cardMult(card.grade, card.level);
-    team.push({ unit: card.unit, col: r.col, row: r.row, hpMult: m, damageMult: m, hpShare: r.hp });
-  }
+    return { unit: card.unit, col: seats[i][0], row: seats[i][1], hpMult: m, damageMult: m, hpShare: r.hp };
+  });
   return {
     seed: hash32(hash32(save.rng) ^ Math.imul(run.fought + 1, 0x9e3779b1) ^ Math.imul(run.floor + 7, 40503) ^ Math.imul(run.tier + 3, 7919)),
     defs: UNITS,
     teams: [team, floorEnemies(dungeon, run.tier, run.floor)],
+    field,
   };
 }
 
@@ -251,31 +258,29 @@ export function dungeonPrize(dungeon: DungeonDef, tier: number): { coins: number
 export function raidEnemies(raid: RaidDef, tier: number): Placement[] {
   const at = tierStage(raid.land, tier);
   const m = cardMult(at.grade, at.level + RAID_LEVELS);
+  // The lord and his guard are written on the first field, and stand on the tier's as a stage's enemies do.
+  const [bc, br] = standEnemy(at.field, raid.boss.col, raid.boss.row);
   const boss: Placement = {
-    unit: raid.boss.unit, col: raid.boss.col, row: raid.boss.row,
+    unit: raid.boss.unit, col: bc, row: br,
     hpMult: m * RAID_BOSS.hp, damageMult: m * RAID_BOSS.damage, scale: RAID_BOSS.scale,
     summons: { ...raid.calls },
   };
-  const guards: Placement[] = raid.guards.map((e) => ({
-    unit: e.unit, col: e.col, row: e.row, hpMult: m * RANK[e.rank].hp, damageMult: m * RANK[e.rank].damage, scale: RANK[e.rank].scale,
-  }));
+  const guards: Placement[] = raid.guards.map((e) => {
+    const [col, row] = standEnemy(at.field, e.col, e.row);
+    return { unit: e.unit, col, row, hpMult: m * RANK[e.rank].hp, damageMult: m * RANK[e.rank].damage, scale: RANK[e.rank].scale };
+  });
   return [boss, ...guards];
 }
 
 /** The battle of a raid: the team as it stands on the line, against the lord, for as long as the raid allows. */
 export function raidInput(save: SaveData, raid: RaidDef, tier: number): BattleInput {
-  const team: Placement[] = [];
-  for (const p of save.team) {
-    const card = cardOf(save, p.card);
-    if (!card) continue;
-    const m = cardMult(card.grade, card.level);
-    team.push({ unit: card.unit, col: Math.min(p.col, HALF_COLS - 1), row: Math.min(p.row, ROWS - 1), hpMult: m, damageMult: m });
-  }
+  const field = tierField(raid.land, tier);
   return {
     seed: hash32(hash32(save.rng) ^ Math.imul(save.stats.battles + 1, 0x9e3779b1) ^ Math.imul(tier + 11, 40503) ^ raid.id.length),
     defs: UNITS,
-    teams: [team, raidEnemies(raid, tier)],
+    teams: [teamPlacements(save, field), raidEnemies(raid, tier)],
     seconds: raid.seconds,
+    field,
   };
 }
 

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="drummer-drum" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="drummer-drum-shell-shape" d="M 97 132 L 127 132 Q 134 132 134 139 L 134 153 Q 134 160 127 160 L 97 160 Q 90 160 90 153 L 90 139 Q 90 132 97 132 Z"/>
+<clipPath id="drummer-drum-shell-clip"><use href="#drummer-drum-shell-shape"/></clipPath>
+<clipPath id="drummer-drum-shell-lit-clip"><use href="#drummer-drum-shell-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="drummer-drum-hoop-shape" d="M 88 154 L 136 154 L 136 160 L 88 160 L 88 154 Z"/>
+<path id="drummer-drum-skin-shape" d="M 134 132 C 134 135.9 124.2 139 112 139 C 99.8 139 90 135.9 90 132 C 90 128.1 99.8 125 112 125 C 124.2 125 134 128.1 134 132 Z"/>
+</defs>
+<g id="drummer-drum-shell">
+<use id="drummer-drum-shell-shade" href="#drummer-drum-shell-shape" fill="#2f5893"/>
+<g clip-path="url(#drummer-drum-shell-clip)">
+<use id="drummer-drum-shell-fill" href="#drummer-drum-shell-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#drummer-drum-shell-lit-clip)">
+<use id="drummer-drum-shell-lit" href="#drummer-drum-shell-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="drummer-drum-shell-fill-over" href="#drummer-drum-shell-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<path id="drummer-drum-lacing" d="M 94 136 L 100 156 L 106 136 L 112 156 L 118 136 L 124 156 L 130 136" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="drummer-drum-hoop">
+<use id="drummer-drum-hoop-fill" href="#drummer-drum-hoop-shape" fill="#c8a24a"/>
+<use id="drummer-drum-hoop-line" href="#drummer-drum-hoop-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="drummer-drum-shell-line" href="#drummer-drum-shell-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="drummer-drum-skin">
+<use id="drummer-drum-skin-fill" href="#drummer-drum-skin-shape" fill="#e9dfc6"/>
+<use id="drummer-drum-skin-line" href="#drummer-drum-skin-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

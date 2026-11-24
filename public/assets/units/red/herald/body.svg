@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="herald-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="herald-body-tabard-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="herald-body-tabard-clip"><use href="#herald-body-tabard-shape"/></clipPath>
+<clipPath id="herald-body-tabard-lit-clip"><use href="#herald-body-tabard-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="herald-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="herald-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
+<clipPath id="herald-body-buckle-clip"><use href="#herald-body-buckle-shape"/></clipPath>
+<clipPath id="herald-body-buckle-lit-clip"><use href="#herald-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="herald-body-arm-shape" d="M 117 122.9 L 131 116.9 C 134.8 115.3 136.5 110.9 134.9 107 C 133.3 103.2 128.9 101.5 125 103.1 L 111 109.1 C 107.2 110.7 105.5 115.1 107.1 119 C 108.7 122.8 113.1 124.5 117 122.9 Z"/>
+<clipPath id="herald-body-arm-clip"><use href="#herald-body-arm-shape"/></clipPath>
+<clipPath id="herald-body-arm-lit-clip"><use href="#herald-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="herald-body-tabard">
+<use id="herald-body-tabard-shade" href="#herald-body-tabard-shape" fill="#933027"/>
+<g clip-path="url(#herald-body-tabard-clip)">
+<use id="herald-body-tabard-deep" href="#herald-body-tabard-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="herald-body-tabard-shade-over" href="#herald-body-tabard-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="herald-body-tabard-fill" href="#herald-body-tabard-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#herald-body-tabard-lit-clip)">
+<use id="herald-body-tabard-lit" href="#herald-body-tabard-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="herald-body-tabard-fill-over" href="#herald-body-tabard-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
+<path id="herald-body-stripe" d="M 101 90 L 112 90 L 112 180 L 101 180 L 101 90 Z" fill="#f4f1e4" opacity="0.45"/>
+<path id="herald-body-stripe-edge" d="M 112 90 L 114 90 L 114 180 L 112 180 L 112 90 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="herald-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="herald-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="herald-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="herald-body-belt">
+<use id="herald-body-belt-fill" href="#herald-body-belt-shape" fill="#6b4a2b"/>
+<use id="herald-body-belt-line" href="#herald-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="herald-body-buckle">
+<use id="herald-body-buckle-shade" href="#herald-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#herald-body-buckle-clip)">
+<use id="herald-body-buckle-fill" href="#herald-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#herald-body-buckle-lit-clip)">
+<use id="herald-body-buckle-lit" href="#herald-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="herald-body-buckle-fill-over" href="#herald-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="herald-body-buckle-line" href="#herald-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="herald-body-tabard-line" href="#herald-body-tabard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="herald-body-arm-cast" d="M 118 126.4 L 132 120.4 C 135.8 118.8 137.5 114.4 135.9 110.5 C 134.3 106.7 129.9 105 126 106.6 L 112 112.6 C 108.2 114.2 106.5 118.6 108.1 122.5 C 109.7 126.3 114.1 128 118 126.4 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="herald-body-arm">
+<use id="herald-body-arm-shade" href="#herald-body-arm-shape" fill="#933027"/>
+<g clip-path="url(#herald-body-arm-clip)">
+<use id="herald-body-arm-fill" href="#herald-body-arm-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#herald-body-arm-lit-clip)">
+<use id="herald-body-arm-lit" href="#herald-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="herald-body-arm-fill-over" href="#herald-body-arm-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="herald-body-arm-line" href="#herald-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

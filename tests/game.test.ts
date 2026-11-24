@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { LANDS } from '../src/data/lands';
 import { LAPS } from '../src/data/laps';
 import { PACKS, allPacks, packAt, packById } from '../src/data/packs';
-import { STAGES, TOP, WORLDS, landOf, stageAt, stageStrength, worldOf } from '../src/data/stages';
+import { STAGES, TOP, WORLDS, fieldedWorth, landOf, stageAt, stageStrength, worldOf } from '../src/data/stages';
 import { SETS, UNITS, isStructure } from '../src/data/units';
 import { COUNTDOWN, afterBattle, goTo, settle, teamChanged } from '../src/game/campaign';
 import { COPY_XP, OTHER_UNIT, addCard, cardOf, cardsOf, combine, combinePreview, spare, whyNot, worth, xpHeld } from '../src/game/cards';
@@ -15,7 +15,7 @@ import {
 } from '../src/game/rules';
 import { SORTS, SORT_NAME, cardDamage, cardHealth, isSort, nextSort, sortCards, type Sort } from '../src/game/sorting';
 import { repair, type SaveData } from '../src/game/state';
-import { runBattle } from '../src/sim/battle';
+import { Battle, runBattle } from '../src/sim/battle';
 import { Rng } from '../src/sim/rng';
 
 /** A save with the line's stages cleared up to (not including) the one at `index`. */
@@ -204,11 +204,11 @@ describe('the line of stages', () => {
   it('on later laps a stage fields more enemies than it is written with, each on a free enemy tile', () => {
     for (const s of STAGES) {
       // On the first lap, who it is written with. After it, at least the lap's fewest, and from the third lap one more than written.
-      // A tower or a trap is not one of the troops a lap asks for.
-      const troops = s.def.enemies.filter((e) => !isStructure(e.unit)).length;
-      expect(s.extra).toBe(Math.max(LAPS[s.lap].extra, LAPS[s.lap].least - troops));
+      // Whoever calls others up counts as those it calls, a tower as one, and a trap as none.
+      const worth = fieldedWorth(s.def);
+      expect(s.extra).toBe(Math.max(LAPS[s.lap].extra, LAPS[s.lap].least - worth));
       if (s.lap === 0) expect(s.extra).toBe(0);
-      expect(troops + s.extra).toBeGreaterThanOrEqual(LAPS[s.lap].least);
+      expect(worth + s.extra).toBeGreaterThanOrEqual(LAPS[s.lap].least);
     }
     for (const n of [0, PER_LAP, PER_LAP + 1, PER_LAP * 2, PER_LAP * 3 + 10, PER_LAP * 4 + 3, STAGES.length - 1]) {
       const stage = STAGES[n];
@@ -217,7 +217,7 @@ describe('the line of stages', () => {
       const tiles = new Set(foes.map((p) => `${p.col},${p.row}`));
       expect(tiles.size).toBe(foes.length);
       for (const p of foes) {
-        expect(isEnemyTile(p.col, p.row)).toBe(true);
+        expect(isEnemyTile(p.col, p.row, stage.field)).toBe(true);
         expect(UNITS[p.unit].set).toBe(LANDS[stage.land].set);
       }
       // Whoever is added is a troop of a kind the stage has, at the stage's own grade and level.
@@ -227,9 +227,9 @@ describe('the line of stages', () => {
         expect(kinds.has(extra.unit)).toBe(true);
       }
     }
-    // The second world's first stage is two Cutpurses on the first lap and a line of six on the second.
+    // The line's first stage is two Cutpurses on the first lap, and filled up to the second lap's fewest when it is met again.
     expect(stageEnemies(0)).toHaveLength(2);
-    expect(stageEnemies(PER_LAP)).toHaveLength(6);
+    expect(stageEnemies(PER_LAP)).toHaveLength(LAPS[1].least);
   });
 
   it("a land's pack is better each lap, and costs about what a win there pays", () => {
@@ -786,6 +786,62 @@ describe('structures', () => {
   });
 });
 
+describe('summoners', () => {
+  const summoners = Object.values(UNITS).filter((u) => u.summons && !isStructure(u.id));
+
+  it('there is one to a set: it walks, fights little, and calls a troop of its own set', () => {
+    expect(summoners.map((u) => u.set).sort()).toEqual(Object.keys(SETS).sort());
+    for (const u of summoners) {
+      const called = UNITS[u.summons!.unit];
+      expect(called.set, u.id).toBe(u.set);
+      expect(isStructure(called.id), u.id).toBe(false);
+      expect(called.summons, u.id).toBeUndefined();
+      expect(u.speed, u.id).toBeGreaterThan(0);
+      // It strikes less hard than whoever it calls.
+      expect(u.damage / u.attackInterval, u.id).toBeLessThan(called.damage / called.attackInterval);
+    }
+  });
+
+  it('a land\'s stands in a few of its stages, never two at once, and never in its boss\'s', () => {
+    for (const land of LANDS) {
+      const mine = summoners.find((u) => u.set === land.set)!;
+      const stood = land.stages.map((st) => st.enemies.filter((e) => e.unit === mine.id).length);
+      expect(Math.max(...stood), land.id).toBe(1);
+      expect(stood.filter((n) => n > 0).length, land.id).toBeGreaterThanOrEqual(2);
+      expect(stood.filter((n) => n > 0).length, land.id).toBeLessThanOrEqual(4);
+      expect(stood[stood.length - 1], land.id).toBe(0);
+      expect(mine.from).toBe(stood.findIndex((n) => n > 0) + 1);
+    }
+    // A later lap adds troops who fight, never a second summoner.
+    for (const s of STAGES) {
+      const written = s.def.enemies.filter((e) => UNITS[e.unit].summons).length;
+      expect(stageEnemies(s.index).filter((p) => UNITS[p.unit].summons), `stage ${s.index + 1}`).toHaveLength(written);
+    }
+  });
+
+  it('calls its troops in a battle, as strong as it is, and they are fielded like any card', () => {
+    const b = new Battle({
+      seed: 6, defs: UNITS, seconds: 30,
+      teams: [[{ unit: 'herald', col: 0, row: 1, hpMult: 3, damageMult: 2 }], [{ unit: 'palisade', col: 7, row: 1 }, { unit: 'knight', col: 7, row: 3, hpMult: 30 }]],
+    });
+    while (!b.ended) b.step();
+    const sent = b.units.filter((u) => u.calledBy === 0);
+    expect(sent.length).toBeGreaterThanOrEqual(2);
+    expect(sent[0].def.id).toBe('militia');
+    expect(sent[0]).toMatchObject({ team: 0, maxHp: UNITS.militia.hp * 3, damage: UNITS.militia.damage * 2 });
+    // A summoner takes a unit's place in the team, not a structure's, and stands at the back.
+    const save = at(STRUCTURES_AT[0]);
+    save.cards = [];
+    save.team = [];
+    const herald = addCard(save, 'herald', 0);
+    expect(toggleTeam(save, herald.id)).toBe(true);
+    expect(unitsIn(save.team)).toBe(1);
+    expect(structuresIn(save.team)).toBe(0);
+    expect(save.team[0].col).toBeLessThan(2);
+    expect(cardPower(herald)).toBeGreaterThan(0);
+  });
+});
+
 describe('sorting', () => {
   const held = (): SaveData => {
     const save = startingSave(1);
@@ -1079,7 +1135,7 @@ describe('the save', () => {
 
 describe('the run of battles', () => {
   const result = (won: boolean, first: boolean): StageResult => ({
-    won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, finished: false,
+    won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, field: null, finished: false,
   });
 
   it('a first win goes on to the next stage, across a world\'s end too', () => {

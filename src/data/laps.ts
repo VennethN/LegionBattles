@@ -18,24 +18,27 @@ export interface Lap {
   /**
    * The fewest enemies a stage fields on this lap. A land's first stages are
    * written with two or three, to teach a new player: met again by a team of
-   * eight they would be no fight at all, so they are filled up to this.
+   * eight with its structures they would be no fight at all, so they are
+   * filled up to this. It counts what a stage is worth, not heads: whoever
+   * calls others up counts as those it calls, and a boss as three
+   * (fieldedWorth in stages.ts).
    */
   least: number;
   /**
-   * How much of a land's weight counts on this lap (lands.ts). Most on the
-   * second, where a small land's stages are still small, and less on the
-   * last laps: every stage is filled to eight by then, which is itself part
-   * of what a small land's weight stood in for. Set by measuring.
+   * How much of a land's weight counts on this lap (lands.ts). Set by
+   * measuring (npm run journey), last on 24 November 2026, when structures,
+   * summoners and the bigger fields came: a team of eight with three
+   * structures asks more of every lap than a team of eight did.
    */
   weight: number;
 }
 
 export const LAPS: readonly Lap[] = [
   { mark: '', extra: 0, least: 0, weight: 0 },
-  { mark: ' II', extra: 0, least: 6, weight: 1.3 },
-  { mark: ' III', extra: 1, least: 7, weight: 1 },
-  { mark: ' IV', extra: 1, least: 8, weight: 0.8 },
-  { mark: ' V', extra: 1, least: 8, weight: 0.8 },
+  { mark: ' II', extra: 0, least: 7, weight: 1.3 },
+  { mark: ' III', extra: 1, least: 8, weight: 1.2 },
+  { mark: ' IV', extra: 1, least: 9, weight: 1.2 },
+  { mark: ' V', extra: 2, least: 10, weight: 1.2 },
 ];
 
 export function lapOf(lap: number): Lap {

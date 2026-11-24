@@ -1,101 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="meadow-board" width="1280" height="720" viewBox="0 0 1280 720">
 <defs>
-<path id="meadow-board-tile-0-0-shape" d="M 174 189 L 266 189 Q 277 189 277 200 L 277 274 Q 277 285 266 285 L 174 285 Q 163 285 163 274 L 163 200 Q 163 189 174 189 Z"/>
-<clipPath id="meadow-board-tile-0-0-clip"><use href="#meadow-board-tile-0-0-shape"/></clipPath>
-<clipPath id="meadow-board-tile-0-0-lit-clip"><use href="#meadow-board-tile-0-0-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-1-0-shape" d="M 294 189 L 386 189 Q 397 189 397 200 L 397 274 Q 397 285 386 285 L 294 285 Q 283 285 283 274 L 283 200 Q 283 189 294 189 Z"/>
-<clipPath id="meadow-board-tile-1-0-clip"><use href="#meadow-board-tile-1-0-shape"/></clipPath>
-<clipPath id="meadow-board-tile-1-0-lit-clip"><use href="#meadow-board-tile-1-0-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-2-0-shape" d="M 414 189 L 506 189 Q 517 189 517 200 L 517 274 Q 517 285 506 285 L 414 285 Q 403 285 403 274 L 403 200 Q 403 189 414 189 Z"/>
-<clipPath id="meadow-board-tile-2-0-clip"><use href="#meadow-board-tile-2-0-shape"/></clipPath>
-<clipPath id="meadow-board-tile-2-0-lit-clip"><use href="#meadow-board-tile-2-0-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-3-0-shape" d="M 534 189 L 626 189 Q 637 189 637 200 L 637 274 Q 637 285 626 285 L 534 285 Q 523 285 523 274 L 523 200 Q 523 189 534 189 Z"/>
-<clipPath id="meadow-board-tile-3-0-clip"><use href="#meadow-board-tile-3-0-shape"/></clipPath>
-<clipPath id="meadow-board-tile-3-0-lit-clip"><use href="#meadow-board-tile-3-0-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-4-0-shape" d="M 654 189 L 746 189 Q 757 189 757 200 L 757 274 Q 757 285 746 285 L 654 285 Q 643 285 643 274 L 643 200 Q 643 189 654 189 Z"/>
-<clipPath id="meadow-board-tile-4-0-clip"><use href="#meadow-board-tile-4-0-shape"/></clipPath>
-<clipPath id="meadow-board-tile-4-0-lit-clip"><use href="#meadow-board-tile-4-0-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-5-0-shape" d="M 774 189 L 866 189 Q 877 189 877 200 L 877 274 Q 877 285 866 285 L 774 285 Q 763 285 763 274 L 763 200 Q 763 189 774 189 Z"/>
-<clipPath id="meadow-board-tile-5-0-clip"><use href="#meadow-board-tile-5-0-shape"/></clipPath>
-<clipPath id="meadow-board-tile-5-0-lit-clip"><use href="#meadow-board-tile-5-0-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-6-0-shape" d="M 894 189 L 986 189 Q 997 189 997 200 L 997 274 Q 997 285 986 285 L 894 285 Q 883 285 883 274 L 883 200 Q 883 189 894 189 Z"/>
-<clipPath id="meadow-board-tile-6-0-clip"><use href="#meadow-board-tile-6-0-shape"/></clipPath>
-<clipPath id="meadow-board-tile-6-0-lit-clip"><use href="#meadow-board-tile-6-0-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-7-0-shape" d="M 1014 189 L 1106 189 Q 1117 189 1117 200 L 1117 274 Q 1117 285 1106 285 L 1014 285 Q 1003 285 1003 274 L 1003 200 Q 1003 189 1014 189 Z"/>
-<clipPath id="meadow-board-tile-7-0-clip"><use href="#meadow-board-tile-7-0-shape"/></clipPath>
-<clipPath id="meadow-board-tile-7-0-lit-clip"><use href="#meadow-board-tile-7-0-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-0-1-shape" d="M 174 291 L 266 291 Q 277 291 277 302 L 277 376 Q 277 387 266 387 L 174 387 Q 163 387 163 376 L 163 302 Q 163 291 174 291 Z"/>
-<clipPath id="meadow-board-tile-0-1-clip"><use href="#meadow-board-tile-0-1-shape"/></clipPath>
-<clipPath id="meadow-board-tile-0-1-lit-clip"><use href="#meadow-board-tile-0-1-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-1-1-shape" d="M 294 291 L 386 291 Q 397 291 397 302 L 397 376 Q 397 387 386 387 L 294 387 Q 283 387 283 376 L 283 302 Q 283 291 294 291 Z"/>
-<clipPath id="meadow-board-tile-1-1-clip"><use href="#meadow-board-tile-1-1-shape"/></clipPath>
-<clipPath id="meadow-board-tile-1-1-lit-clip"><use href="#meadow-board-tile-1-1-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-2-1-shape" d="M 414 291 L 506 291 Q 517 291 517 302 L 517 376 Q 517 387 506 387 L 414 387 Q 403 387 403 376 L 403 302 Q 403 291 414 291 Z"/>
-<clipPath id="meadow-board-tile-2-1-clip"><use href="#meadow-board-tile-2-1-shape"/></clipPath>
-<clipPath id="meadow-board-tile-2-1-lit-clip"><use href="#meadow-board-tile-2-1-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-3-1-shape" d="M 534 291 L 626 291 Q 637 291 637 302 L 637 376 Q 637 387 626 387 L 534 387 Q 523 387 523 376 L 523 302 Q 523 291 534 291 Z"/>
-<clipPath id="meadow-board-tile-3-1-clip"><use href="#meadow-board-tile-3-1-shape"/></clipPath>
-<clipPath id="meadow-board-tile-3-1-lit-clip"><use href="#meadow-board-tile-3-1-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-4-1-shape" d="M 654 291 L 746 291 Q 757 291 757 302 L 757 376 Q 757 387 746 387 L 654 387 Q 643 387 643 376 L 643 302 Q 643 291 654 291 Z"/>
-<clipPath id="meadow-board-tile-4-1-clip"><use href="#meadow-board-tile-4-1-shape"/></clipPath>
-<clipPath id="meadow-board-tile-4-1-lit-clip"><use href="#meadow-board-tile-4-1-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-5-1-shape" d="M 774 291 L 866 291 Q 877 291 877 302 L 877 376 Q 877 387 866 387 L 774 387 Q 763 387 763 376 L 763 302 Q 763 291 774 291 Z"/>
-<clipPath id="meadow-board-tile-5-1-clip"><use href="#meadow-board-tile-5-1-shape"/></clipPath>
-<clipPath id="meadow-board-tile-5-1-lit-clip"><use href="#meadow-board-tile-5-1-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-6-1-shape" d="M 894 291 L 986 291 Q 997 291 997 302 L 997 376 Q 997 387 986 387 L 894 387 Q 883 387 883 376 L 883 302 Q 883 291 894 291 Z"/>
-<clipPath id="meadow-board-tile-6-1-clip"><use href="#meadow-board-tile-6-1-shape"/></clipPath>
-<clipPath id="meadow-board-tile-6-1-lit-clip"><use href="#meadow-board-tile-6-1-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-7-1-shape" d="M 1014 291 L 1106 291 Q 1117 291 1117 302 L 1117 376 Q 1117 387 1106 387 L 1014 387 Q 1003 387 1003 376 L 1003 302 Q 1003 291 1014 291 Z"/>
-<clipPath id="meadow-board-tile-7-1-clip"><use href="#meadow-board-tile-7-1-shape"/></clipPath>
-<clipPath id="meadow-board-tile-7-1-lit-clip"><use href="#meadow-board-tile-7-1-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-0-2-shape" d="M 174 393 L 266 393 Q 277 393 277 404 L 277 478 Q 277 489 266 489 L 174 489 Q 163 489 163 478 L 163 404 Q 163 393 174 393 Z"/>
-<clipPath id="meadow-board-tile-0-2-clip"><use href="#meadow-board-tile-0-2-shape"/></clipPath>
-<clipPath id="meadow-board-tile-0-2-lit-clip"><use href="#meadow-board-tile-0-2-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-1-2-shape" d="M 294 393 L 386 393 Q 397 393 397 404 L 397 478 Q 397 489 386 489 L 294 489 Q 283 489 283 478 L 283 404 Q 283 393 294 393 Z"/>
-<clipPath id="meadow-board-tile-1-2-clip"><use href="#meadow-board-tile-1-2-shape"/></clipPath>
-<clipPath id="meadow-board-tile-1-2-lit-clip"><use href="#meadow-board-tile-1-2-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-2-2-shape" d="M 414 393 L 506 393 Q 517 393 517 404 L 517 478 Q 517 489 506 489 L 414 489 Q 403 489 403 478 L 403 404 Q 403 393 414 393 Z"/>
-<clipPath id="meadow-board-tile-2-2-clip"><use href="#meadow-board-tile-2-2-shape"/></clipPath>
-<clipPath id="meadow-board-tile-2-2-lit-clip"><use href="#meadow-board-tile-2-2-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-3-2-shape" d="M 534 393 L 626 393 Q 637 393 637 404 L 637 478 Q 637 489 626 489 L 534 489 Q 523 489 523 478 L 523 404 Q 523 393 534 393 Z"/>
-<clipPath id="meadow-board-tile-3-2-clip"><use href="#meadow-board-tile-3-2-shape"/></clipPath>
-<clipPath id="meadow-board-tile-3-2-lit-clip"><use href="#meadow-board-tile-3-2-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-4-2-shape" d="M 654 393 L 746 393 Q 757 393 757 404 L 757 478 Q 757 489 746 489 L 654 489 Q 643 489 643 478 L 643 404 Q 643 393 654 393 Z"/>
-<clipPath id="meadow-board-tile-4-2-clip"><use href="#meadow-board-tile-4-2-shape"/></clipPath>
-<clipPath id="meadow-board-tile-4-2-lit-clip"><use href="#meadow-board-tile-4-2-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-5-2-shape" d="M 774 393 L 866 393 Q 877 393 877 404 L 877 478 Q 877 489 866 489 L 774 489 Q 763 489 763 478 L 763 404 Q 763 393 774 393 Z"/>
-<clipPath id="meadow-board-tile-5-2-clip"><use href="#meadow-board-tile-5-2-shape"/></clipPath>
-<clipPath id="meadow-board-tile-5-2-lit-clip"><use href="#meadow-board-tile-5-2-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-6-2-shape" d="M 894 393 L 986 393 Q 997 393 997 404 L 997 478 Q 997 489 986 489 L 894 489 Q 883 489 883 478 L 883 404 Q 883 393 894 393 Z"/>
-<clipPath id="meadow-board-tile-6-2-clip"><use href="#meadow-board-tile-6-2-shape"/></clipPath>
-<clipPath id="meadow-board-tile-6-2-lit-clip"><use href="#meadow-board-tile-6-2-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-7-2-shape" d="M 1014 393 L 1106 393 Q 1117 393 1117 404 L 1117 478 Q 1117 489 1106 489 L 1014 489 Q 1003 489 1003 478 L 1003 404 Q 1003 393 1014 393 Z"/>
-<clipPath id="meadow-board-tile-7-2-clip"><use href="#meadow-board-tile-7-2-shape"/></clipPath>
-<clipPath id="meadow-board-tile-7-2-lit-clip"><use href="#meadow-board-tile-7-2-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-0-3-shape" d="M 174 495 L 266 495 Q 277 495 277 506 L 277 580 Q 277 591 266 591 L 174 591 Q 163 591 163 580 L 163 506 Q 163 495 174 495 Z"/>
-<clipPath id="meadow-board-tile-0-3-clip"><use href="#meadow-board-tile-0-3-shape"/></clipPath>
-<clipPath id="meadow-board-tile-0-3-lit-clip"><use href="#meadow-board-tile-0-3-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-1-3-shape" d="M 294 495 L 386 495 Q 397 495 397 506 L 397 580 Q 397 591 386 591 L 294 591 Q 283 591 283 580 L 283 506 Q 283 495 294 495 Z"/>
-<clipPath id="meadow-board-tile-1-3-clip"><use href="#meadow-board-tile-1-3-shape"/></clipPath>
-<clipPath id="meadow-board-tile-1-3-lit-clip"><use href="#meadow-board-tile-1-3-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-2-3-shape" d="M 414 495 L 506 495 Q 517 495 517 506 L 517 580 Q 517 591 506 591 L 414 591 Q 403 591 403 580 L 403 506 Q 403 495 414 495 Z"/>
-<clipPath id="meadow-board-tile-2-3-clip"><use href="#meadow-board-tile-2-3-shape"/></clipPath>
-<clipPath id="meadow-board-tile-2-3-lit-clip"><use href="#meadow-board-tile-2-3-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-3-3-shape" d="M 534 495 L 626 495 Q 637 495 637 506 L 637 580 Q 637 591 626 591 L 534 591 Q 523 591 523 580 L 523 506 Q 523 495 534 495 Z"/>
-<clipPath id="meadow-board-tile-3-3-clip"><use href="#meadow-board-tile-3-3-shape"/></clipPath>
-<clipPath id="meadow-board-tile-3-3-lit-clip"><use href="#meadow-board-tile-3-3-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-4-3-shape" d="M 654 495 L 746 495 Q 757 495 757 506 L 757 580 Q 757 591 746 591 L 654 591 Q 643 591 643 580 L 643 506 Q 643 495 654 495 Z"/>
-<clipPath id="meadow-board-tile-4-3-clip"><use href="#meadow-board-tile-4-3-shape"/></clipPath>
-<clipPath id="meadow-board-tile-4-3-lit-clip"><use href="#meadow-board-tile-4-3-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-5-3-shape" d="M 774 495 L 866 495 Q 877 495 877 506 L 877 580 Q 877 591 866 591 L 774 591 Q 763 591 763 580 L 763 506 Q 763 495 774 495 Z"/>
-<clipPath id="meadow-board-tile-5-3-clip"><use href="#meadow-board-tile-5-3-shape"/></clipPath>
-<clipPath id="meadow-board-tile-5-3-lit-clip"><use href="#meadow-board-tile-5-3-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-6-3-shape" d="M 894 495 L 986 495 Q 997 495 997 506 L 997 580 Q 997 591 986 591 L 894 591 Q 883 591 883 580 L 883 506 Q 883 495 894 495 Z"/>
-<clipPath id="meadow-board-tile-6-3-clip"><use href="#meadow-board-tile-6-3-shape"/></clipPath>
-<clipPath id="meadow-board-tile-6-3-lit-clip"><use href="#meadow-board-tile-6-3-shape" transform="translate(-4 -4)"/></clipPath>
-<path id="meadow-board-tile-7-3-shape" d="M 1014 495 L 1106 495 Q 1117 495 1117 506 L 1117 580 Q 1117 591 1106 591 L 1014 591 Q 1003 591 1003 580 L 1003 506 Q 1003 495 1014 495 Z"/>
-<clipPath id="meadow-board-tile-7-3-clip"><use href="#meadow-board-tile-7-3-shape"/></clipPath>
-<clipPath id="meadow-board-tile-7-3-lit-clip"><use href="#meadow-board-tile-7-3-shape" transform="translate(-4 -4)"/></clipPath>
 <path id="meadow-board-trunk-shape" d="M -9 0 C -9 0 -6.8 -14.7 -7 -22 C -7.2 -29.3 -12.8 -40.3 -10 -44 C -7.2 -47.7 7.2 -47.7 10 -44 C 12.8 -40.3 7 -29.3 7 -22 C 7 -14.7 10 0 10 0 L -9 0 Z"/>
 <clipPath id="meadow-board-trunk-clip"><use href="#meadow-board-trunk-shape"/></clipPath>
 <clipPath id="meadow-board-trunk-lit-clip"><use href="#meadow-board-trunk-shape" transform="translate(-4 -4)"/></clipPath>
@@ -198,45 +102,9 @@
 </g>
 <use id="meadow-board-pebble-line" href="#meadow-board-pebble-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="meadow-board-tuft-54" d="M -34 0 L -32 -9 L -30 0 L -28 -7 L -26 0 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-55" d="M -6 0 L -4 -9 L -2 0 L 0 -7 L 2 0 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-56" d="M 30 0 L 32 -9 L 34 0 L 36 -7 L 38 0 Z" fill="#93c96a"/>
-</g>
-<path id="meadow-board-log-shape" d="M -28 -22 L 22 -22 Q 32 -22 32 -12 L 32 -10 Q 32 0 22 0 L -28 0 Q -38 0 -38 -10 L -38 -12 Q -38 -22 -28 -22 Z"/>
-<clipPath id="meadow-board-log-clip"><use href="#meadow-board-log-shape"/></clipPath>
-<clipPath id="meadow-board-log-lit-clip"><use href="#meadow-board-log-shape" transform="translate(-5 -5)"/></clipPath>
-<path id="meadow-board-end-shape" d="M 39 -11 C 39 -4.9 35.4 0 31 0 C 26.6 0 23 -4.9 23 -11 C 23 -17.1 26.6 -22 31 -22 C 35.4 -22 39 -17.1 39 -11 Z"/>
-<clipPath id="meadow-board-end-clip"><use href="#meadow-board-end-shape"/></clipPath>
-<g id="meadow-board-thing-3">
-<path id="meadow-board-shadow-3" d="M 44 2 C 44 6.4 26.1 10 4 10 C -18.1 10 -36 6.4 -36 2 C -36 -2.4 -18.1 -6 4 -6 C 26.1 -6 44 -2.4 44 2 Z" fill="#2a1a10" opacity="0.28"/>
-<g id="meadow-board-log">
-<use id="meadow-board-log-shade" href="#meadow-board-log-shape" fill="#75502b"/>
-<g clip-path="url(#meadow-board-log-clip)">
-<use id="meadow-board-log-deep" href="#meadow-board-log-shape" fill="#2a1a10" opacity="0.2"/>
-<use id="meadow-board-log-shade-over" href="#meadow-board-log-shape" transform="translate(-3.1 -3.1)" fill="#75502b"/>
-<use id="meadow-board-log-fill" href="#meadow-board-log-shape" transform="translate(-5 -5)" fill="#9a6a3a"/>
-<g clip-path="url(#meadow-board-log-lit-clip)">
-<use id="meadow-board-log-lit" href="#meadow-board-log-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-log-fill-over" href="#meadow-board-log-shape" transform="translate(4.6 4.6)" fill="#9a6a3a"/>
-</g>
-<path id="meadow-board-bark-a-2" d="M -26 -14.1 L 6 -14.1 C 6.5 -14.1 6.9 -14.5 6.9 -15 C 6.9 -15.5 6.5 -15.9 6 -15.9 L -26 -15.9 C -26.5 -15.9 -26.9 -15.5 -26.9 -15 C -26.9 -14.5 -26.5 -14.1 -26 -14.1 Z" fill="#2a1a10" opacity="0.28"/>
-<path id="meadow-board-bark-b-2" d="M -12 -6.1 L 18 -6.1 C 18.5 -6.1 18.9 -6.5 18.9 -7 C 18.9 -7.5 18.5 -7.9 18 -7.9 L -12 -7.9 C -12.5 -7.9 -12.9 -7.5 -12.9 -7 C -12.9 -6.5 -12.5 -6.1 -12 -6.1 Z" fill="#2a1a10" opacity="0.28"/>
-<path id="meadow-board-moss" d="M -30 -24 C -26 -25.3 -11.7 -26.7 -6 -26 C -0.3 -25.3 5.3 -21.5 4 -20 C 2.7 -18.5 -8.3 -17.3 -14 -17 C -19.7 -16.7 -27.3 -16.8 -30 -18 C -32.7 -19.2 -34 -22.7 -30 -24 Z" fill="#f4f1e4" opacity="0.07"/>
-<path id="meadow-board-moss-b" d="M -28 -24 C -24.7 -24.8 -12.7 -25.5 -8 -25 C -3.3 -24.5 1 -22 0 -21 C -1 -20 -9.3 -19.2 -14 -19 C -18.7 -18.8 -25.7 -19.2 -28 -20 C -30.3 -20.8 -31.3 -23.2 -28 -24 Z" fill="#4f8f3e" opacity="0.85"/>
-</g>
-<use id="meadow-board-log-line" href="#meadow-board-log-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<g id="meadow-board-end">
-<use id="meadow-board-end-fill" href="#meadow-board-end-shape" fill="#e9dfc6"/>
-<g clip-path="url(#meadow-board-end-clip)">
-<path id="meadow-board-ring" d="M 35 -11 C 35 -7.7 33.2 -5 31 -5 C 28.8 -5 27 -7.7 27 -11 C 27 -14.3 28.8 -17 31 -17 C 33.2 -17 35 -14.3 35 -11 Z" fill="#2a1a10" opacity="0.2"/>
-</g>
-<use id="meadow-board-end-line" href="#meadow-board-end-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</g>
-<g id="meadow-board-thing-4">
-<path id="meadow-board-back" d="M -12 0 L -9 -16 L -5 0 L -1 -22 L 4 0 L 8 -15 L 12 0 Z" fill="#5c9440"/>
-<path id="meadow-board-front" d="M -8 0 L -5 -10 L -2 0 L 2 -14 L 6 0 Z" fill="#93c96a"/>
+<path id="meadow-board-tuft" d="M -34 0 L -32 -9 L -30 0 L -28 -7 L -26 0 Z" fill="#93c96a"/>
+<path id="meadow-board-tuft-2" d="M -6 0 L -4 -9 L -2 0 L 0 -7 L 2 0 Z" fill="#93c96a"/>
+<path id="meadow-board-tuft-3" d="M 30 0 L 32 -9 L 34 0 L 36 -7 L 38 0 Z" fill="#93c96a"/>
 </g>
 <path id="meadow-board-rail-a-shape" d="M -41 -30 L 41 -30 Q 44 -30 44 -27 L 44 -26 Q 44 -23 41 -23 L -41 -23 Q -44 -23 -44 -26 L -44 -27 Q -44 -30 -41 -30 Z"/>
 <path id="meadow-board-rail-b-shape" d="M -41 -16 L 41 -16 Q 44 -16 44 -13 L 44 -12 Q 44 -9 41 -9 L -41 -9 Q -44 -9 -44 -12 L -44 -13 Q -44 -16 -41 -16 Z"/>
@@ -249,8 +117,8 @@
 <path id="meadow-board-post-3-shape" d="M 33 0 C 33 0 32.2 -29 33 -36 C 33.8 -43 36.3 -42 38 -42 C 39.7 -42 42.2 -43 43 -36 C 43.8 -29 43 0 43 0 L 33 0 Z"/>
 <clipPath id="meadow-board-post-3-clip"><use href="#meadow-board-post-3-shape"/></clipPath>
 <clipPath id="meadow-board-post-3-lit-clip"><use href="#meadow-board-post-3-shape" transform="translate(-3 -3)"/></clipPath>
-<g id="meadow-board-thing-5">
-<path id="meadow-board-shadow-4" d="M 50 2 C 50 5.3 29.4 8 4 8 C -21.4 8 -42 5.3 -42 2 C -42 -1.3 -21.4 -4 4 -4 C 29.4 -4 50 -1.3 50 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="meadow-board-thing-3">
+<path id="meadow-board-shadow-3" d="M 50 2 C 50 5.3 29.4 8 4 8 C -21.4 8 -42 5.3 -42 2 C -42 -1.3 -21.4 -4 4 -4 C 29.4 -4 50 -1.3 50 2 Z" fill="#2a1a10" opacity="0.28"/>
 <g id="meadow-board-rail-a">
 <use id="meadow-board-rail-a-fill" href="#meadow-board-rail-a-shape" fill="#9a6a3a"/>
 <use id="meadow-board-rail-a-line" href="#meadow-board-rail-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -293,7 +161,39 @@
 <use id="meadow-board-post-3-line" href="#meadow-board-post-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="meadow-board-thing-6">
+<path id="meadow-board-log-shape" d="M -28 -22 L 22 -22 Q 32 -22 32 -12 L 32 -10 Q 32 0 22 0 L -28 0 Q -38 0 -38 -10 L -38 -12 Q -38 -22 -28 -22 Z"/>
+<clipPath id="meadow-board-log-clip"><use href="#meadow-board-log-shape"/></clipPath>
+<clipPath id="meadow-board-log-lit-clip"><use href="#meadow-board-log-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="meadow-board-end-shape" d="M 39 -11 C 39 -4.9 35.4 0 31 0 C 26.6 0 23 -4.9 23 -11 C 23 -17.1 26.6 -22 31 -22 C 35.4 -22 39 -17.1 39 -11 Z"/>
+<clipPath id="meadow-board-end-clip"><use href="#meadow-board-end-shape"/></clipPath>
+<g id="meadow-board-thing-4">
+<path id="meadow-board-shadow-4" d="M 44 2 C 44 6.4 26.1 10 4 10 C -18.1 10 -36 6.4 -36 2 C -36 -2.4 -18.1 -6 4 -6 C 26.1 -6 44 -2.4 44 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="meadow-board-log">
+<use id="meadow-board-log-shade" href="#meadow-board-log-shape" fill="#75502b"/>
+<g clip-path="url(#meadow-board-log-clip)">
+<use id="meadow-board-log-deep" href="#meadow-board-log-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="meadow-board-log-shade-over" href="#meadow-board-log-shape" transform="translate(-3.1 -3.1)" fill="#75502b"/>
+<use id="meadow-board-log-fill" href="#meadow-board-log-shape" transform="translate(-5 -5)" fill="#9a6a3a"/>
+<g clip-path="url(#meadow-board-log-lit-clip)">
+<use id="meadow-board-log-lit" href="#meadow-board-log-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-board-log-fill-over" href="#meadow-board-log-shape" transform="translate(4.6 4.6)" fill="#9a6a3a"/>
+</g>
+<path id="meadow-board-bark-a-2" d="M -26 -14.1 L 6 -14.1 C 6.5 -14.1 6.9 -14.5 6.9 -15 C 6.9 -15.5 6.5 -15.9 6 -15.9 L -26 -15.9 C -26.5 -15.9 -26.9 -15.5 -26.9 -15 C -26.9 -14.5 -26.5 -14.1 -26 -14.1 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="meadow-board-bark-b-2" d="M -12 -6.1 L 18 -6.1 C 18.5 -6.1 18.9 -6.5 18.9 -7 C 18.9 -7.5 18.5 -7.9 18 -7.9 L -12 -7.9 C -12.5 -7.9 -12.9 -7.5 -12.9 -7 C -12.9 -6.5 -12.5 -6.1 -12 -6.1 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="meadow-board-moss" d="M -30 -24 C -26 -25.3 -11.7 -26.7 -6 -26 C -0.3 -25.3 5.3 -21.5 4 -20 C 2.7 -18.5 -8.3 -17.3 -14 -17 C -19.7 -16.7 -27.3 -16.8 -30 -18 C -32.7 -19.2 -34 -22.7 -30 -24 Z" fill="#f4f1e4" opacity="0.07"/>
+<path id="meadow-board-moss-b" d="M -28 -24 C -24.7 -24.8 -12.7 -25.5 -8 -25 C -3.3 -24.5 1 -22 0 -21 C -1 -20 -9.3 -19.2 -14 -19 C -18.7 -18.8 -25.7 -19.2 -28 -20 C -30.3 -20.8 -31.3 -23.2 -28 -24 Z" fill="#4f8f3e" opacity="0.85"/>
+</g>
+<use id="meadow-board-log-line" href="#meadow-board-log-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="meadow-board-end">
+<use id="meadow-board-end-fill" href="#meadow-board-end-shape" fill="#e9dfc6"/>
+<g clip-path="url(#meadow-board-end-clip)">
+<path id="meadow-board-ring" d="M 35 -11 C 35 -7.7 33.2 -5 31 -5 C 28.8 -5 27 -7.7 27 -11 C 27 -14.3 28.8 -17 31 -17 C 33.2 -17 35 -14.3 35 -11 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="meadow-board-end-line" href="#meadow-board-end-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="meadow-board-thing-5">
 <path id="meadow-board-stem" d="M -12 0 Q -10 -8 -12 -16" fill="none" stroke="#3b722f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="meadow-board-petal" d="M -4.8 -16 C -4.8 -14.2 -6.2 -12.8 -8 -12.8 C -9.8 -12.8 -11.2 -14.2 -11.2 -16 C -11.2 -17.8 -9.8 -19.2 -8 -19.2 C -6.2 -19.2 -4.8 -17.8 -4.8 -16 Z" fill="#f2d264"/>
 <path id="meadow-board-petal-2" d="M -7.6 -12.2 C -7.6 -10.4 -9 -9 -10.8 -9 C -12.5 -9 -14 -10.4 -14 -12.2 C -14 -14 -12.5 -15.4 -10.8 -15.4 C -9 -15.4 -7.6 -14 -7.6 -12.2 Z" fill="#f2d264"/>
@@ -318,7 +218,7 @@
 <path id="meadow-board-blade-a" d="M -18 0 L -15 -9 L -12 0 Z" fill="#93c96a"/>
 <path id="meadow-board-blade-b" d="M 5 0 L 8 -8 L 11 0 Z" fill="#93c96a"/>
 </g>
-<g id="meadow-board-thing-7">
+<g id="meadow-board-thing-6">
 <path id="meadow-board-stem-4" d="M -12 0 Q -10 -8 -12 -16" fill="none" stroke="#3b722f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="meadow-board-petal-16" d="M -4.8 -16 C -4.8 -14.2 -6.2 -12.8 -8 -12.8 C -9.8 -12.8 -11.2 -14.2 -11.2 -16 C -11.2 -17.8 -9.8 -19.2 -8 -19.2 C -6.2 -19.2 -4.8 -17.8 -4.8 -16 Z" fill="#f8fcfe"/>
 <path id="meadow-board-petal-17" d="M -7.6 -12.2 C -7.6 -10.4 -9 -9 -10.8 -9 C -12.5 -9 -14 -10.4 -14 -12.2 C -14 -14 -12.5 -15.4 -10.8 -15.4 C -9 -15.4 -7.6 -14 -7.6 -12.2 Z" fill="#f8fcfe"/>
@@ -348,7 +248,7 @@
 <clipPath id="meadow-board-cloth-clip"><use href="#meadow-board-cloth-shape"/></clipPath>
 <clipPath id="meadow-board-cloth-lit-clip"><use href="#meadow-board-cloth-shape" transform="translate(-4 -4)"/></clipPath>
 <path id="meadow-board-knob-shape" d="M 4.5 -78 C 4.5 -75.5 2.5 -73.5 0 -73.5 C -2.5 -73.5 -4.5 -75.5 -4.5 -78 C -4.5 -80.5 -2.5 -82.5 0 -82.5 C 2.5 -82.5 4.5 -80.5 4.5 -78 Z"/>
-<g id="meadow-board-thing-8">
+<g id="meadow-board-thing-7">
 <path id="meadow-board-shadow-5" d="M 14 2 C 14 4.2 8.6 6 2 6 C -4.6 6 -10 4.2 -10 2 C -10 -0.2 -4.6 -2 2 -2 C 8.6 -2 14 -0.2 14 2 Z" fill="#2a1a10" opacity="0.28"/>
 <g id="meadow-board-pole">
 <use id="meadow-board-pole-fill" href="#meadow-board-pole-shape" fill="#9a6a3a"/>
@@ -376,7 +276,7 @@
 <clipPath id="meadow-board-cloth-2-clip"><use href="#meadow-board-cloth-2-shape"/></clipPath>
 <clipPath id="meadow-board-cloth-2-lit-clip"><use href="#meadow-board-cloth-2-shape" transform="translate(-4 -4)"/></clipPath>
 <path id="meadow-board-knob-2-shape" d="M 4.5 -78 C 4.5 -75.5 2.5 -73.5 0 -73.5 C -2.5 -73.5 -4.5 -75.5 -4.5 -78 C -4.5 -80.5 -2.5 -82.5 0 -82.5 C 2.5 -82.5 4.5 -80.5 4.5 -78 Z"/>
-<g id="meadow-board-thing-9">
+<g id="meadow-board-thing-8">
 <path id="meadow-board-shadow-6" d="M 14 2 C 14 4.2 8.6 6 2 6 C -4.6 6 -10 4.2 -10 2 C -10 -0.2 -4.6 -2 2 -2 C 8.6 -2 14 -0.2 14 2 Z" fill="#2a1a10" opacity="0.28"/>
 <g id="meadow-board-pole-2">
 <use id="meadow-board-pole-2-fill" href="#meadow-board-pole-2-shape" fill="#9a6a3a"/>
@@ -405,7 +305,7 @@
 <path id="meadow-board-top-shape" d="M 18 -27 C 18 -23.1 9.9 -20 0 -20 C -9.9 -20 -18 -23.1 -18 -27 C -18 -30.9 -9.9 -34 0 -34 C 9.9 -34 18 -30.9 18 -27 Z"/>
 <clipPath id="meadow-board-top-clip"><use href="#meadow-board-top-shape"/></clipPath>
 <path id="meadow-board-leaf-7-shape" d="M 14 -44 C 14 -44 20 -50 22 -50 C 24 -50 26 -44 26 -44 C 26 -44 22 -40 20 -40 C 18 -40 14 -44 14 -44 Z"/>
-<g id="meadow-board-thing-10">
+<g id="meadow-board-thing-9">
 <path id="meadow-board-shadow-7" d="M 30 2 C 30 6.4 18.4 10 4 10 C -10.4 10 -22 6.4 -22 2 C -22 -2.4 -10.4 -6 4 -6 C 18.4 -6 30 -2.4 30 2 Z" fill="#2a1a10" opacity="0.28"/>
 <g id="meadow-board-roots">
 <use id="meadow-board-roots-shade" href="#meadow-board-roots-shape" fill="#75502b"/>
@@ -440,7 +340,7 @@
 <path id="meadow-board-bush-shape" d="M -34 0 C -34 0 -39 -11.3 -38 -16 C -37 -20.7 -30.7 -23.7 -28 -28 C -25.3 -32.3 -26 -38.7 -22 -42 C -18 -45.3 -9.3 -48.3 -4 -48 C 1.3 -47.7 5.7 -41.7 10 -40 C 14.3 -38.3 18.3 -40.3 22 -38 C 25.7 -35.7 29.3 -30 32 -26 C 34.7 -22 37.3 -18.3 38 -14 C 38.7 -9.7 36 0 36 0 L -34 0 Z"/>
 <clipPath id="meadow-board-bush-clip"><use href="#meadow-board-bush-shape"/></clipPath>
 <clipPath id="meadow-board-bush-lit-clip"><use href="#meadow-board-bush-shape" transform="translate(-6 -6)"/></clipPath>
-<g id="meadow-board-thing-11">
+<g id="meadow-board-thing-10">
 <path id="meadow-board-shadow-8" d="M 38 2 C 38 7 22.8 11 4 11 C -14.8 11 -30 7 -30 2 C -30 -3 -14.8 -7 4 -7 C 22.8 -7 38 -3 38 2 Z" fill="#2a1a10" opacity="0.28"/>
 <g id="meadow-board-bush">
 <use id="meadow-board-bush-shade" href="#meadow-board-bush-shape" fill="#3b722f"/>
@@ -476,7 +376,7 @@
 <path id="meadow-board-cap-3-shape" d="M -0.4 -7.7 C -0.4 -7.7 0.3 -13.6 1.7 -15.4 C 3.1 -17.1 5.9 -18.2 8 -18.2 C 10.1 -18.2 12.9 -17.1 14.3 -15.4 C 15.7 -13.6 16.4 -7.7 16.4 -7.7 L -0.4 -7.7 Z"/>
 <clipPath id="meadow-board-cap-3-clip"><use href="#meadow-board-cap-3-shape"/></clipPath>
 <clipPath id="meadow-board-cap-3-lit-clip"><use href="#meadow-board-cap-3-shape" transform="translate(-3 -3)"/></clipPath>
-<g id="meadow-board-thing-12">
+<g id="meadow-board-thing-11">
 <path id="meadow-board-shadow-9" d="M 18 2 C 18 4.8 10.8 7 2 7 C -6.8 7 -14 4.8 -14 2 C -14 -0.8 -6.8 -3 2 -3 C 10.8 -3 18 -0.8 18 2 Z" fill="#2a1a10" opacity="0.28"/>
 <g id="meadow-board-stalk">
 <use id="meadow-board-stalk-fill" href="#meadow-board-stalk-shape" fill="#e9dfc6"/>
@@ -512,6 +412,10 @@
 </g>
 <use id="meadow-board-cap-3-line" href="#meadow-board-cap-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
+</g>
+<g id="meadow-board-thing-12">
+<path id="meadow-board-back" d="M -12 0 L -9 -16 L -5 0 L -1 -22 L 4 0 L 8 -15 L 12 0 Z" fill="#5c9440"/>
+<path id="meadow-board-front" d="M -8 0 L -5 -10 L -2 0 L 2 -14 L 6 0 Z" fill="#93c96a"/>
 </g>
 <path id="meadow-board-pole-3-shape" d="M -1 -76 L 1 -76 Q 3 -76 3 -74 L 3 -2 Q 3 0 1 0 L -1 0 Q -3 0 -3 -2 L -3 -74 Q -3 -76 -1 -76 Z"/>
 <path id="meadow-board-cloth-3-shape" d="M 3 -74 L 36 -70 L 28 -58 L 36 -46 L 3 -44 Z"/>
@@ -607,481 +511,39 @@
 <path id="meadow-board-slab-side" d="M 164 172 L 1116 172 Q 1136 172 1136 192 L 1136 600 Q 1136 620 1116 620 L 164 620 Q 144 620 144 600 L 144 192 Q 144 172 164 172 Z" fill="#8c6b42"/>
 <path id="meadow-board-slab" d="M 164 172 L 1116 172 Q 1136 172 1136 192 L 1136 588 Q 1136 608 1116 608 L 164 608 Q 144 608 144 588 L 144 192 Q 144 172 164 172 Z" fill="#b08a5a"/>
 <path id="meadow-board-slab-lit" d="M 148 172 L 1132 172 Q 1136 172 1136 176 L 1136 176 Q 1136 180 1132 180 L 148 180 Q 144 180 144 176 L 144 176 Q 144 172 148 172 Z" fill="#f4f1e4" opacity="0.18"/>
-<g id="meadow-board-tile-0-0">
-<use id="meadow-board-tile-0-0-shade" href="#meadow-board-tile-0-0-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-0-0-clip)">
-<use id="meadow-board-tile-0-0-fill" href="#meadow-board-tile-0-0-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-0-0-lit-clip)">
-<use id="meadow-board-tile-0-0-lit" href="#meadow-board-tile-0-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-0-0-fill-over" href="#meadow-board-tile-0-0-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft" d="M 239.7 217.8 L 242.2 209.8 L 244.7 217.8 L 247.2 211.8 L 249.7 217.8 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-2" d="M 176.8 229.8 L 179.3 221.8 L 181.8 229.8 L 184.3 223.8 L 186.8 229.8 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-1-0">
-<use id="meadow-board-tile-1-0-shade" href="#meadow-board-tile-1-0-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-1-0-clip)">
-<use id="meadow-board-tile-1-0-fill" href="#meadow-board-tile-1-0-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-1-0-lit-clip)">
-<use id="meadow-board-tile-1-0-lit" href="#meadow-board-tile-1-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-1-0-fill-over" href="#meadow-board-tile-1-0-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-bloom" d="M 373 248.1 L 376.4 251.5 L 373 254.9 L 369.6 251.5 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart" d="M 374.2 251.5 C 374.2 252.2 373.7 252.7 373 252.7 C 372.4 252.7 371.8 252.2 371.8 251.5 C 371.8 250.8 372.4 250.3 373 250.3 C 373.7 250.3 374.2 250.8 374.2 251.5 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-3" d="M 311.6 265.2 L 314.1 257.2 L 316.6 265.2 L 319.1 259.2 L 321.6 265.2 Z" fill="#5c9440"/>
-<path id="meadow-board-clover" d="M 335.9 241.8 C 335.9 244.6 331 246.8 324.9 246.8 C 318.9 246.8 313.9 244.6 313.9 241.8 C 313.9 239.1 318.9 236.8 324.9 236.8 C 331 236.8 335.9 239.1 335.9 241.8 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-tuft-4" d="M 333.8 267.4 L 336.3 259.4 L 338.8 267.4 L 341.3 261.4 L 343.8 267.4 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-2-0">
-<use id="meadow-board-tile-2-0-shade" href="#meadow-board-tile-2-0-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-2-0-clip)">
-<use id="meadow-board-tile-2-0-fill" href="#meadow-board-tile-2-0-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-2-0-lit-clip)">
-<use id="meadow-board-tile-2-0-lit" href="#meadow-board-tile-2-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-2-0-fill-over" href="#meadow-board-tile-2-0-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-5" d="M 483.7 257.4 L 486.2 249.4 L 488.7 257.4 L 491.2 251.4 L 493.7 257.4 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-6" d="M 445.5 271.3 L 448 263.3 L 450.5 271.3 L 453 265.3 L 455.5 271.3 Z" fill="#5c9440"/>
-<path id="meadow-board-clover-2" d="M 498.5 244.7 C 498.5 247.5 493.6 249.7 487.5 249.7 C 481.4 249.7 476.5 247.5 476.5 244.7 C 476.5 241.9 481.4 239.7 487.5 239.7 C 493.6 239.7 498.5 241.9 498.5 244.7 Z" fill="#2a1a10" opacity="0.06"/>
-</g>
-</g>
-<g id="meadow-board-tile-3-0">
-<use id="meadow-board-tile-3-0-shade" href="#meadow-board-tile-3-0-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-3-0-clip)">
-<use id="meadow-board-tile-3-0-fill" href="#meadow-board-tile-3-0-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-3-0-lit-clip)">
-<use id="meadow-board-tile-3-0-lit" href="#meadow-board-tile-3-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-3-0-fill-over" href="#meadow-board-tile-3-0-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-tuft-7" d="M 589 234.6 L 591.5 226.6 L 594 234.6 L 596.5 228.6 L 599 234.6 Z" fill="#5c9440"/>
-<path id="meadow-board-bloom-2" d="M 573.3 233.2 L 576.7 236.6 L 573.3 240 L 569.9 236.6 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-2" d="M 574.5 236.6 C 574.5 237.3 574 237.8 573.3 237.8 C 572.7 237.8 572.1 237.3 572.1 236.6 C 572.1 236 572.7 235.4 573.3 235.4 C 574 235.4 574.5 236 574.5 236.6 Z" fill="#c9a53a"/>
-<path id="meadow-board-clover-3" d="M 609.4 254.8 C 609.4 257.5 604.4 259.8 598.4 259.8 C 592.3 259.8 587.4 257.5 587.4 254.8 C 587.4 252 592.3 249.8 598.4 249.8 C 604.4 249.8 609.4 252 609.4 254.8 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-bloom-3" d="M 547.2 207.7 L 550.6 211.1 L 547.2 214.5 L 543.8 211.1 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-3" d="M 548.4 211.1 C 548.4 211.8 547.9 212.3 547.2 212.3 C 546.6 212.3 546 211.8 546 211.1 C 546 210.4 546.6 209.9 547.2 209.9 C 547.9 209.9 548.4 210.4 548.4 211.1 Z" fill="#c9a53a"/>
-</g>
-</g>
-<g id="meadow-board-tile-4-0">
-<use id="meadow-board-tile-4-0-shade" href="#meadow-board-tile-4-0-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-4-0-clip)">
-<use id="meadow-board-tile-4-0-fill" href="#meadow-board-tile-4-0-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-4-0-lit-clip)">
-<use id="meadow-board-tile-4-0-lit" href="#meadow-board-tile-4-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-4-0-fill-over" href="#meadow-board-tile-4-0-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-8" d="M 713.3 251.3 L 715.8 243.3 L 718.3 251.3 L 720.8 245.3 L 723.3 251.3 Z" fill="#5c9440"/>
-<path id="meadow-board-bloom-4" d="M 735.8 221.5 L 739.2 224.9 L 735.8 228.3 L 732.4 224.9 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-4" d="M 737 224.9 C 737 225.6 736.4 226.1 735.8 226.1 C 735.1 226.1 734.6 225.6 734.6 224.9 C 734.6 224.3 735.1 223.7 735.8 223.7 C 736.4 223.7 737 224.3 737 224.9 Z" fill="#c9a53a"/>
-</g>
-</g>
-<g id="meadow-board-tile-5-0">
-<use id="meadow-board-tile-5-0-shade" href="#meadow-board-tile-5-0-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-5-0-clip)">
-<use id="meadow-board-tile-5-0-fill" href="#meadow-board-tile-5-0-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-5-0-lit-clip)">
-<use id="meadow-board-tile-5-0-lit" href="#meadow-board-tile-5-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-5-0-fill-over" href="#meadow-board-tile-5-0-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-tuft-9" d="M 815.4 220.1 L 817.9 212.1 L 820.4 220.1 L 822.9 214.1 L 825.4 220.1 Z" fill="#5c9440"/>
-<path id="meadow-board-clover-4" d="M 849.9 255.5 C 849.9 258.2 845 260.5 838.9 260.5 C 832.8 260.5 827.9 258.2 827.9 255.5 C 827.9 252.7 832.8 250.5 838.9 250.5 C 845 250.5 849.9 252.7 849.9 255.5 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-tuft-10" d="M 836.6 216.3 L 839.1 208.3 L 841.6 216.3 L 844.1 210.3 L 846.6 216.3 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-6-0">
-<use id="meadow-board-tile-6-0-shade" href="#meadow-board-tile-6-0-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-6-0-clip)">
-<use id="meadow-board-tile-6-0-fill" href="#meadow-board-tile-6-0-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-6-0-lit-clip)">
-<use id="meadow-board-tile-6-0-lit" href="#meadow-board-tile-6-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-6-0-fill-over" href="#meadow-board-tile-6-0-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-11" d="M 920.7 233.5 L 923.2 225.5 L 925.7 233.5 L 928.2 227.5 L 930.7 233.5 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-12" d="M 930.4 235.9 L 932.9 227.9 L 935.4 235.9 L 937.9 229.9 L 940.4 235.9 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-13" d="M 899.9 236.8 L 902.4 228.8 L 904.9 236.8 L 907.4 230.8 L 909.9 236.8 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-14" d="M 953.7 265.8 L 956.2 257.8 L 958.7 265.8 L 961.2 259.8 L 963.7 265.8 Z" fill="#93c96a"/>
-</g>
-</g>
-<g id="meadow-board-tile-7-0">
-<use id="meadow-board-tile-7-0-shade" href="#meadow-board-tile-7-0-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-7-0-clip)">
-<use id="meadow-board-tile-7-0-fill" href="#meadow-board-tile-7-0-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-7-0-lit-clip)">
-<use id="meadow-board-tile-7-0-lit" href="#meadow-board-tile-7-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-7-0-fill-over" href="#meadow-board-tile-7-0-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-bloom-5" d="M 1051.7 266.4 L 1055.1 269.8 L 1051.7 273.2 L 1048.3 269.8 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-5" d="M 1052.9 269.8 C 1052.9 270.5 1052.4 271 1051.7 271 C 1051.1 271 1050.5 270.5 1050.5 269.8 C 1050.5 269.1 1051.1 268.6 1051.7 268.6 C 1052.4 268.6 1052.9 269.1 1052.9 269.8 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-15" d="M 1034.4 238.6 L 1036.9 230.6 L 1039.4 238.6 L 1041.9 232.6 L 1044.4 238.6 Z" fill="#93c96a"/>
-</g>
-</g>
-<g id="meadow-board-tile-0-1">
-<use id="meadow-board-tile-0-1-shade" href="#meadow-board-tile-0-1-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-0-1-clip)">
-<use id="meadow-board-tile-0-1-fill" href="#meadow-board-tile-0-1-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-0-1-lit-clip)">
-<use id="meadow-board-tile-0-1-lit" href="#meadow-board-tile-0-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-0-1-fill-over" href="#meadow-board-tile-0-1-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-tuft-16" d="M 180.3 365.4 L 182.8 357.4 L 185.3 365.4 L 187.8 359.4 L 190.3 365.4 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-17" d="M 190.5 323.2 L 193 315.2 L 195.5 323.2 L 198 317.2 L 200.5 323.2 Z" fill="#93c96a"/>
-<path id="meadow-board-bloom-6" d="M 176.7 316.7 L 180.1 320.1 L 176.7 323.5 L 173.3 320.1 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-6" d="M 177.9 320.1 C 177.9 320.7 177.3 321.3 176.7 321.3 C 176 321.3 175.5 320.7 175.5 320.1 C 175.5 319.4 176 318.9 176.7 318.9 C 177.3 318.9 177.9 319.4 177.9 320.1 Z" fill="#c9a53a"/>
-<path id="meadow-board-clover-5" d="M 251 319.5 C 251 322.3 246.1 324.5 240 324.5 C 234 324.5 229 322.3 229 319.5 C 229 316.8 234 314.5 240 314.5 C 246.1 314.5 251 316.8 251 319.5 Z" fill="#2a1a10" opacity="0.06"/>
-</g>
-</g>
-<g id="meadow-board-tile-1-1">
-<use id="meadow-board-tile-1-1-shade" href="#meadow-board-tile-1-1-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-1-1-clip)">
-<use id="meadow-board-tile-1-1-fill" href="#meadow-board-tile-1-1-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-1-1-lit-clip)">
-<use id="meadow-board-tile-1-1-lit" href="#meadow-board-tile-1-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-1-1-fill-over" href="#meadow-board-tile-1-1-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-clover-6" d="M 374.9 332.7 C 374.9 335.4 370 337.7 363.9 337.7 C 357.8 337.7 352.9 335.4 352.9 332.7 C 352.9 329.9 357.8 327.7 363.9 327.7 C 370 327.7 374.9 329.9 374.9 332.7 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-clover-7" d="M 333.4 328.1 C 333.4 330.9 328.5 333.1 322.4 333.1 C 316.4 333.1 311.4 330.9 311.4 328.1 C 311.4 325.3 316.4 323.1 322.4 323.1 C 328.5 323.1 333.4 325.3 333.4 328.1 Z" fill="#2a1a10" opacity="0.06"/>
-</g>
-</g>
-<g id="meadow-board-tile-2-1">
-<use id="meadow-board-tile-2-1-shade" href="#meadow-board-tile-2-1-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-2-1-clip)">
-<use id="meadow-board-tile-2-1-fill" href="#meadow-board-tile-2-1-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-2-1-lit-clip)">
-<use id="meadow-board-tile-2-1-lit" href="#meadow-board-tile-2-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-2-1-fill-over" href="#meadow-board-tile-2-1-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-tuft-18" d="M 468.7 343.5 L 471.2 335.5 L 473.7 343.5 L 476.2 337.5 L 478.7 343.5 Z" fill="#93c96a"/>
-<path id="meadow-board-bloom-7" d="M 443.9 349.5 L 447.3 352.9 L 443.9 356.3 L 440.5 352.9 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-7" d="M 445.1 352.9 C 445.1 353.5 444.6 354.1 443.9 354.1 C 443.2 354.1 442.7 353.5 442.7 352.9 C 442.7 352.2 443.2 351.7 443.9 351.7 C 444.6 351.7 445.1 352.2 445.1 352.9 Z" fill="#c9a53a"/>
-</g>
-</g>
-<g id="meadow-board-tile-3-1">
-<use id="meadow-board-tile-3-1-shade" href="#meadow-board-tile-3-1-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-3-1-clip)">
-<use id="meadow-board-tile-3-1-fill" href="#meadow-board-tile-3-1-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-3-1-lit-clip)">
-<use id="meadow-board-tile-3-1-lit" href="#meadow-board-tile-3-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-3-1-fill-over" href="#meadow-board-tile-3-1-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-19" d="M 564.7 316.2 L 567.2 308.2 L 569.7 316.2 L 572.2 310.2 L 574.7 316.2 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-20" d="M 605.3 337.6 L 607.8 329.6 L 610.3 337.6 L 612.8 331.6 L 615.3 337.6 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-21" d="M 564.1 367.5 L 566.6 359.5 L 569.1 367.5 L 571.6 361.5 L 574.1 367.5 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-22" d="M 541.3 309 L 543.8 301 L 546.3 309 L 548.8 303 L 551.3 309 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-4-1">
-<use id="meadow-board-tile-4-1-shade" href="#meadow-board-tile-4-1-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-4-1-clip)">
-<use id="meadow-board-tile-4-1-fill" href="#meadow-board-tile-4-1-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-4-1-lit-clip)">
-<use id="meadow-board-tile-4-1-lit" href="#meadow-board-tile-4-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-4-1-fill-over" href="#meadow-board-tile-4-1-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-bloom-8" d="M 668.9 347.8 L 672.3 351.2 L 668.9 354.6 L 665.5 351.2 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-8" d="M 670.1 351.2 C 670.1 351.9 669.6 352.4 668.9 352.4 C 668.3 352.4 667.7 351.9 667.7 351.2 C 667.7 350.5 668.3 350 668.9 350 C 669.6 350 670.1 350.5 670.1 351.2 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-23" d="M 664.4 328.6 L 666.9 320.6 L 669.4 328.6 L 671.9 322.6 L 674.4 328.6 Z" fill="#5c9440"/>
-<path id="meadow-board-clover-8" d="M 739.5 344.9 C 739.5 347.6 734.6 349.9 728.5 349.9 C 722.4 349.9 717.5 347.6 717.5 344.9 C 717.5 342.1 722.4 339.9 728.5 339.9 C 734.6 339.9 739.5 342.1 739.5 344.9 Z" fill="#2a1a10" opacity="0.06"/>
-</g>
-</g>
-<g id="meadow-board-tile-5-1">
-<use id="meadow-board-tile-5-1-shade" href="#meadow-board-tile-5-1-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-5-1-clip)">
-<use id="meadow-board-tile-5-1-fill" href="#meadow-board-tile-5-1-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-5-1-lit-clip)">
-<use id="meadow-board-tile-5-1-lit" href="#meadow-board-tile-5-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-5-1-fill-over" href="#meadow-board-tile-5-1-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-bloom-9" d="M 836.5 326 L 839.9 329.4 L 836.5 332.8 L 833.1 329.4 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-9" d="M 837.7 329.4 C 837.7 330.1 837.1 330.6 836.5 330.6 C 835.8 330.6 835.3 330.1 835.3 329.4 C 835.3 328.7 835.8 328.2 836.5 328.2 C 837.1 328.2 837.7 328.7 837.7 329.4 Z" fill="#c9a53a"/>
-<path id="meadow-board-bloom-10" d="M 844.7 305.6 L 848.1 309 L 844.7 312.4 L 841.3 309 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-10" d="M 845.9 309 C 845.9 309.7 845.4 310.2 844.7 310.2 C 844.1 310.2 843.5 309.7 843.5 309 C 843.5 308.3 844.1 307.8 844.7 307.8 C 845.4 307.8 845.9 308.3 845.9 309 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-24" d="M 835.6 308.6 L 838.1 300.6 L 840.6 308.6 L 843.1 302.6 L 845.6 308.6 Z" fill="#5c9440"/>
-<path id="meadow-board-clover-9" d="M 861 326.5 C 861 329.2 856.1 331.5 850 331.5 C 844 331.5 839 329.2 839 326.5 C 839 323.7 844 321.5 850 321.5 C 856.1 321.5 861 323.7 861 326.5 Z" fill="#2a1a10" opacity="0.06"/>
-</g>
-</g>
-<g id="meadow-board-tile-6-1">
-<use id="meadow-board-tile-6-1-shade" href="#meadow-board-tile-6-1-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-6-1-clip)">
-<use id="meadow-board-tile-6-1-fill" href="#meadow-board-tile-6-1-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-6-1-lit-clip)">
-<use id="meadow-board-tile-6-1-lit" href="#meadow-board-tile-6-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-6-1-fill-over" href="#meadow-board-tile-6-1-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-bloom-11" d="M 952.8 312.3 L 956.2 315.7 L 952.8 319.1 L 949.4 315.7 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-11" d="M 954 315.7 C 954 316.4 953.5 316.9 952.8 316.9 C 952.2 316.9 951.6 316.4 951.6 315.7 C 951.6 315 952.2 314.5 952.8 314.5 C 953.5 314.5 954 315 954 315.7 Z" fill="#c9a53a"/>
-<path id="meadow-board-clover-10" d="M 935 351.8 C 935 354.5 930.1 356.8 924 356.8 C 917.9 356.8 913 354.5 913 351.8 C 913 349 917.9 346.8 924 346.8 C 930.1 346.8 935 349 935 351.8 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-bloom-12" d="M 968.2 357.8 L 971.6 361.2 L 968.2 364.6 L 964.8 361.2 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-12" d="M 969.4 361.2 C 969.4 361.9 968.8 362.4 968.2 362.4 C 967.5 362.4 967 361.9 967 361.2 C 967 360.6 967.5 360 968.2 360 C 968.8 360 969.4 360.6 969.4 361.2 Z" fill="#c9a53a"/>
-<path id="meadow-board-bloom-13" d="M 965.6 366.8 L 969 370.2 L 965.6 373.6 L 962.2 370.2 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-13" d="M 966.8 370.2 C 966.8 370.8 966.2 371.4 965.6 371.4 C 964.9 371.4 964.4 370.8 964.4 370.2 C 964.4 369.5 964.9 369 965.6 369 C 966.2 369 966.8 369.5 966.8 370.2 Z" fill="#c9a53a"/>
-</g>
-</g>
-<g id="meadow-board-tile-7-1">
-<use id="meadow-board-tile-7-1-shade" href="#meadow-board-tile-7-1-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-7-1-clip)">
-<use id="meadow-board-tile-7-1-fill" href="#meadow-board-tile-7-1-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-7-1-lit-clip)">
-<use id="meadow-board-tile-7-1-lit" href="#meadow-board-tile-7-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-7-1-fill-over" href="#meadow-board-tile-7-1-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-25" d="M 1021.7 363.7 L 1024.2 355.7 L 1026.7 363.7 L 1029.2 357.7 L 1031.7 363.7 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-26" d="M 1070 327.6 L 1072.5 319.6 L 1075 327.6 L 1077.5 321.6 L 1080 327.6 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-27" d="M 1024.7 366.6 L 1027.2 358.6 L 1029.7 366.6 L 1032.2 360.6 L 1034.7 366.6 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-28" d="M 1078.3 358.4 L 1080.8 350.4 L 1083.3 358.4 L 1085.8 352.4 L 1088.3 358.4 Z" fill="#93c96a"/>
-</g>
-</g>
-<g id="meadow-board-tile-0-2">
-<use id="meadow-board-tile-0-2-shade" href="#meadow-board-tile-0-2-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-0-2-clip)">
-<use id="meadow-board-tile-0-2-fill" href="#meadow-board-tile-0-2-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-0-2-lit-clip)">
-<use id="meadow-board-tile-0-2-lit" href="#meadow-board-tile-0-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-0-2-fill-over" href="#meadow-board-tile-0-2-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-bloom-14" d="M 177.2 408.7 L 180.6 412.1 L 177.2 415.5 L 173.8 412.1 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-14" d="M 178.4 412.1 C 178.4 412.8 177.8 413.3 177.2 413.3 C 176.5 413.3 176 412.8 176 412.1 C 176 411.5 176.5 410.9 177.2 410.9 C 177.8 410.9 178.4 411.5 178.4 412.1 Z" fill="#c9a53a"/>
-<path id="meadow-board-clover-11" d="M 203.8 473.1 C 203.8 475.9 198.9 478.1 192.8 478.1 C 186.7 478.1 181.8 475.9 181.8 473.1 C 181.8 470.3 186.7 468.1 192.8 468.1 C 198.9 468.1 203.8 470.3 203.8 473.1 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-clover-12" d="M 266.9 442.6 C 266.9 445.4 262 447.6 255.9 447.6 C 249.9 447.6 244.9 445.4 244.9 442.6 C 244.9 439.9 249.9 437.6 255.9 437.6 C 262 437.6 266.9 439.9 266.9 442.6 Z" fill="#2a1a10" opacity="0.06"/>
-</g>
-</g>
-<g id="meadow-board-tile-1-2">
-<use id="meadow-board-tile-1-2-shade" href="#meadow-board-tile-1-2-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-1-2-clip)">
-<use id="meadow-board-tile-1-2-fill" href="#meadow-board-tile-1-2-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-1-2-lit-clip)">
-<use id="meadow-board-tile-1-2-lit" href="#meadow-board-tile-1-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-1-2-fill-over" href="#meadow-board-tile-1-2-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-tuft-29" d="M 339.2 472.9 L 341.7 464.9 L 344.2 472.9 L 346.7 466.9 L 349.2 472.9 Z" fill="#93c96a"/>
-<path id="meadow-board-bloom-15" d="M 299.8 411.1 L 303.2 414.5 L 299.8 417.9 L 296.4 414.5 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-15" d="M 301 414.5 C 301 415.2 300.4 415.7 299.8 415.7 C 299.1 415.7 298.6 415.2 298.6 414.5 C 298.6 413.8 299.1 413.3 299.8 413.3 C 300.4 413.3 301 413.8 301 414.5 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-30" d="M 368.7 438.4 L 371.2 430.4 L 373.7 438.4 L 376.2 432.4 L 378.7 438.4 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-2-2">
-<use id="meadow-board-tile-2-2-shade" href="#meadow-board-tile-2-2-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-2-2-clip)">
-<use id="meadow-board-tile-2-2-fill" href="#meadow-board-tile-2-2-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-2-2-lit-clip)">
-<use id="meadow-board-tile-2-2-lit" href="#meadow-board-tile-2-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-2-2-fill-over" href="#meadow-board-tile-2-2-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-31" d="M 484.5 421.1 L 487 413.1 L 489.5 421.1 L 492 415.1 L 494.5 421.1 Z" fill="#93c96a"/>
-<path id="meadow-board-bloom-16" d="M 416.7 440.2 L 420.1 443.6 L 416.7 447 L 413.3 443.6 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-16" d="M 417.9 443.6 C 417.9 444.3 417.3 444.8 416.7 444.8 C 416 444.8 415.5 444.3 415.5 443.6 C 415.5 442.9 416 442.4 416.7 442.4 C 417.3 442.4 417.9 442.9 417.9 443.6 Z" fill="#c9a53a"/>
-<path id="meadow-board-bloom-17" d="M 466.2 415.4 L 469.6 418.8 L 466.2 422.2 L 462.8 418.8 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-17" d="M 467.4 418.8 C 467.4 419.5 466.9 420 466.2 420 C 465.6 420 465 419.5 465 418.8 C 465 418.2 465.6 417.6 466.2 417.6 C 466.9 417.6 467.4 418.2 467.4 418.8 Z" fill="#c9a53a"/>
-<path id="meadow-board-clover-13" d="M 456.3 446.3 C 456.3 449.1 451.4 451.3 445.3 451.3 C 439.2 451.3 434.3 449.1 434.3 446.3 C 434.3 443.6 439.2 441.3 445.3 441.3 C 451.4 441.3 456.3 443.6 456.3 446.3 Z" fill="#2a1a10" opacity="0.06"/>
-</g>
-</g>
-<g id="meadow-board-tile-3-2">
-<use id="meadow-board-tile-3-2-shade" href="#meadow-board-tile-3-2-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-3-2-clip)">
-<use id="meadow-board-tile-3-2-fill" href="#meadow-board-tile-3-2-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-3-2-lit-clip)">
-<use id="meadow-board-tile-3-2-lit" href="#meadow-board-tile-3-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-3-2-fill-over" href="#meadow-board-tile-3-2-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-bloom-18" d="M 598.4 434.6 L 601.8 438 L 598.4 441.4 L 595 438 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-18" d="M 599.6 438 C 599.6 438.6 599.1 439.2 598.4 439.2 C 597.8 439.2 597.2 438.6 597.2 438 C 597.2 437.3 597.8 436.8 598.4 436.8 C 599.1 436.8 599.6 437.3 599.6 438 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-32" d="M 543.6 437.5 L 546.1 429.5 L 548.6 437.5 L 551.1 431.5 L 553.6 437.5 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-33" d="M 579.2 443.4 L 581.7 435.4 L 584.2 443.4 L 586.7 437.4 L 589.2 443.4 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-34" d="M 583 447.4 L 585.5 439.4 L 588 447.4 L 590.5 441.4 L 593 447.4 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-4-2">
-<use id="meadow-board-tile-4-2-shade" href="#meadow-board-tile-4-2-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-4-2-clip)">
-<use id="meadow-board-tile-4-2-fill" href="#meadow-board-tile-4-2-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-4-2-lit-clip)">
-<use id="meadow-board-tile-4-2-lit" href="#meadow-board-tile-4-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-4-2-fill-over" href="#meadow-board-tile-4-2-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-35" d="M 727.2 453.3 L 729.7 445.3 L 732.2 453.3 L 734.7 447.3 L 737.2 453.3 Z" fill="#5c9440"/>
-<path id="meadow-board-bloom-19" d="M 683.2 408.1 L 686.6 411.5 L 683.2 414.9 L 679.8 411.5 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-19" d="M 684.4 411.5 C 684.4 412.2 683.8 412.7 683.2 412.7 C 682.5 412.7 682 412.2 682 411.5 C 682 410.9 682.5 410.3 683.2 410.3 C 683.8 410.3 684.4 410.9 684.4 411.5 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-36" d="M 685.3 417.5 L 687.8 409.5 L 690.3 417.5 L 692.8 411.5 L 695.3 417.5 Z" fill="#93c96a"/>
-</g>
-</g>
-<g id="meadow-board-tile-5-2">
-<use id="meadow-board-tile-5-2-shade" href="#meadow-board-tile-5-2-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-5-2-clip)">
-<use id="meadow-board-tile-5-2-fill" href="#meadow-board-tile-5-2-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-5-2-lit-clip)">
-<use id="meadow-board-tile-5-2-lit" href="#meadow-board-tile-5-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-5-2-fill-over" href="#meadow-board-tile-5-2-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-tuft-37" d="M 846.5 424.1 L 849 416.1 L 851.5 424.1 L 854 418.1 L 856.5 424.1 Z" fill="#93c96a"/>
-<path id="meadow-board-clover-14" d="M 866.8 427.3 C 866.8 430.1 861.9 432.3 855.8 432.3 C 849.7 432.3 844.8 430.1 844.8 427.3 C 844.8 424.6 849.7 422.3 855.8 422.3 C 861.9 422.3 866.8 424.6 866.8 427.3 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-tuft-38" d="M 855.8 470.1 L 858.3 462.1 L 860.8 470.1 L 863.3 464.1 L 865.8 470.1 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-39" d="M 785.9 455.3 L 788.4 447.3 L 790.9 455.3 L 793.4 449.3 L 795.9 455.3 Z" fill="#93c96a"/>
-</g>
-</g>
-<g id="meadow-board-tile-6-2">
-<use id="meadow-board-tile-6-2-shade" href="#meadow-board-tile-6-2-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-6-2-clip)">
-<use id="meadow-board-tile-6-2-fill" href="#meadow-board-tile-6-2-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-6-2-lit-clip)">
-<use id="meadow-board-tile-6-2-lit" href="#meadow-board-tile-6-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-6-2-fill-over" href="#meadow-board-tile-6-2-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-clover-15" d="M 927.4 423.1 C 927.4 425.9 922.5 428.1 916.4 428.1 C 910.3 428.1 905.4 425.9 905.4 423.1 C 905.4 420.3 910.3 418.1 916.4 418.1 C 922.5 418.1 927.4 420.3 927.4 423.1 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-tuft-40" d="M 945.5 443.4 L 948 435.4 L 950.5 443.4 L 953 437.4 L 955.5 443.4 Z" fill="#93c96a"/>
-</g>
-</g>
-<g id="meadow-board-tile-7-2">
-<use id="meadow-board-tile-7-2-shade" href="#meadow-board-tile-7-2-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-7-2-clip)">
-<use id="meadow-board-tile-7-2-fill" href="#meadow-board-tile-7-2-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-7-2-lit-clip)">
-<use id="meadow-board-tile-7-2-lit" href="#meadow-board-tile-7-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-7-2-fill-over" href="#meadow-board-tile-7-2-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-bloom-20" d="M 1029.6 454 L 1033 457.4 L 1029.6 460.8 L 1026.2 457.4 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-20" d="M 1030.8 457.4 C 1030.8 458.1 1030.3 458.6 1029.6 458.6 C 1029 458.6 1028.4 458.1 1028.4 457.4 C 1028.4 456.8 1029 456.2 1029.6 456.2 C 1030.3 456.2 1030.8 456.8 1030.8 457.4 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-41" d="M 1021.9 414.6 L 1024.4 406.6 L 1026.9 414.6 L 1029.4 408.6 L 1031.9 414.6 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-0-3">
-<use id="meadow-board-tile-0-3-shade" href="#meadow-board-tile-0-3-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-0-3-clip)">
-<use id="meadow-board-tile-0-3-fill" href="#meadow-board-tile-0-3-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-0-3-lit-clip)">
-<use id="meadow-board-tile-0-3-lit" href="#meadow-board-tile-0-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-0-3-fill-over" href="#meadow-board-tile-0-3-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-bloom-21" d="M 184.6 513.9 L 188 517.3 L 184.6 520.7 L 181.2 517.3 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-21" d="M 185.8 517.3 C 185.8 517.9 185.3 518.5 184.6 518.5 C 184 518.5 183.4 517.9 183.4 517.3 C 183.4 516.6 184 516.1 184.6 516.1 C 185.3 516.1 185.8 516.6 185.8 517.3 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-42" d="M 203 533.8 L 205.5 525.8 L 208 533.8 L 210.5 527.8 L 213 533.8 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-1-3">
-<use id="meadow-board-tile-1-3-shade" href="#meadow-board-tile-1-3-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-1-3-clip)">
-<use id="meadow-board-tile-1-3-fill" href="#meadow-board-tile-1-3-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-1-3-lit-clip)">
-<use id="meadow-board-tile-1-3-lit" href="#meadow-board-tile-1-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-1-3-fill-over" href="#meadow-board-tile-1-3-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-43" d="M 345.6 521.8 L 348.1 513.8 L 350.6 521.8 L 353.1 515.8 L 355.6 521.8 Z" fill="#5c9440"/>
-<path id="meadow-board-clover-16" d="M 375.8 567.7 C 375.8 570.5 370.9 572.7 364.8 572.7 C 358.7 572.7 353.8 570.5 353.8 567.7 C 353.8 565 358.7 562.7 364.8 562.7 C 370.9 562.7 375.8 565 375.8 567.7 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-tuft-44" d="M 349.6 545.7 L 352.1 537.7 L 354.6 545.7 L 357.1 539.7 L 359.6 545.7 Z" fill="#93c96a"/>
-<path id="meadow-board-bloom-22" d="M 308.3 541.6 L 311.7 545 L 308.3 548.4 L 304.9 545 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-22" d="M 309.5 545 C 309.5 545.7 309 546.2 308.3 546.2 C 307.7 546.2 307.1 545.7 307.1 545 C 307.1 544.3 307.7 543.8 308.3 543.8 C 309 543.8 309.5 544.3 309.5 545 Z" fill="#c9a53a"/>
-</g>
-</g>
-<g id="meadow-board-tile-2-3">
-<use id="meadow-board-tile-2-3-shade" href="#meadow-board-tile-2-3-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-2-3-clip)">
-<use id="meadow-board-tile-2-3-fill" href="#meadow-board-tile-2-3-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-2-3-lit-clip)">
-<use id="meadow-board-tile-2-3-lit" href="#meadow-board-tile-2-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-2-3-fill-over" href="#meadow-board-tile-2-3-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-tuft-45" d="M 444.1 571.4 L 446.6 563.4 L 449.1 571.4 L 451.6 565.4 L 454.1 571.4 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-46" d="M 471.9 565.5 L 474.4 557.5 L 476.9 565.5 L 479.4 559.5 L 481.9 565.5 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-47" d="M 425 555.5 L 427.5 547.5 L 430 555.5 L 432.5 549.5 L 435 555.5 Z" fill="#5c9440"/>
-<path id="meadow-board-bloom-23" d="M 495 571.3 L 498.4 574.7 L 495 578.1 L 491.6 574.7 Z" fill="#f2d264"/>
-<path id="meadow-board-bloom-heart-23" d="M 496.2 574.7 C 496.2 575.4 495.7 575.9 495 575.9 C 494.3 575.9 493.8 575.4 493.8 574.7 C 493.8 574 494.3 573.5 495 573.5 C 495.7 573.5 496.2 574 496.2 574.7 Z" fill="#c9a53a"/>
-</g>
-</g>
-<g id="meadow-board-tile-3-3">
-<use id="meadow-board-tile-3-3-shade" href="#meadow-board-tile-3-3-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-3-3-clip)">
-<use id="meadow-board-tile-3-3-fill" href="#meadow-board-tile-3-3-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-3-3-lit-clip)">
-<use id="meadow-board-tile-3-3-lit" href="#meadow-board-tile-3-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-3-3-fill-over" href="#meadow-board-tile-3-3-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-48" d="M 561.3 545.7 L 563.8 537.7 L 566.3 545.7 L 568.8 539.7 L 571.3 545.7 Z" fill="#93c96a"/>
-<path id="meadow-board-bloom-24" d="M 578.1 542.8 L 581.5 546.2 L 578.1 549.6 L 574.7 546.2 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-24" d="M 579.3 546.2 C 579.3 546.9 578.7 547.4 578.1 547.4 C 577.4 547.4 576.9 546.9 576.9 546.2 C 576.9 545.5 577.4 545 578.1 545 C 578.7 545 579.3 545.5 579.3 546.2 Z" fill="#c9a53a"/>
-</g>
-</g>
-<g id="meadow-board-tile-4-3">
-<use id="meadow-board-tile-4-3-shade" href="#meadow-board-tile-4-3-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-4-3-clip)">
-<use id="meadow-board-tile-4-3-fill" href="#meadow-board-tile-4-3-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-4-3-lit-clip)">
-<use id="meadow-board-tile-4-3-lit" href="#meadow-board-tile-4-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-4-3-fill-over" href="#meadow-board-tile-4-3-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-tuft-49" d="M 735.9 539.2 L 738.4 531.2 L 740.9 539.2 L 743.4 533.2 L 745.9 539.2 Z" fill="#93c96a"/>
-<path id="meadow-board-clover-17" d="M 740.3 554.7 C 740.3 557.5 735.4 559.7 729.3 559.7 C 723.2 559.7 718.3 557.5 718.3 554.7 C 718.3 551.9 723.2 549.7 729.3 549.7 C 735.4 549.7 740.3 551.9 740.3 554.7 Z" fill="#2a1a10" opacity="0.06"/>
-</g>
-</g>
-<g id="meadow-board-tile-5-3">
-<use id="meadow-board-tile-5-3-shade" href="#meadow-board-tile-5-3-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-5-3-clip)">
-<use id="meadow-board-tile-5-3-fill" href="#meadow-board-tile-5-3-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-5-3-lit-clip)">
-<use id="meadow-board-tile-5-3-lit" href="#meadow-board-tile-5-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-5-3-fill-over" href="#meadow-board-tile-5-3-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-tuft-50" d="M 853.5 535.7 L 856 527.7 L 858.5 535.7 L 861 529.7 L 863.5 535.7 Z" fill="#93c96a"/>
-<path id="meadow-board-tuft-51" d="M 820.2 535.4 L 822.7 527.4 L 825.2 535.4 L 827.7 529.4 L 830.2 535.4 Z" fill="#5c9440"/>
-<path id="meadow-board-tuft-52" d="M 830.9 577.6 L 833.4 569.6 L 835.9 577.6 L 838.4 571.6 L 840.9 577.6 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-6-3">
-<use id="meadow-board-tile-6-3-shade" href="#meadow-board-tile-6-3-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-6-3-clip)">
-<use id="meadow-board-tile-6-3-fill" href="#meadow-board-tile-6-3-shape" transform="translate(-4 -4)" fill="#6ea748"/>
-<g clip-path="url(#meadow-board-tile-6-3-lit-clip)">
-<use id="meadow-board-tile-6-3-lit" href="#meadow-board-tile-6-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-6-3-fill-over" href="#meadow-board-tile-6-3-shape" transform="translate(4.2 4.2)" fill="#6ea748"/>
-</g>
-<path id="meadow-board-bloom-25" d="M 945.1 516.2 L 948.5 519.6 L 945.1 523 L 941.7 519.6 Z" fill="#f8fcfe"/>
-<path id="meadow-board-bloom-heart-25" d="M 946.3 519.6 C 946.3 520.2 945.7 520.8 945.1 520.8 C 944.4 520.8 943.9 520.2 943.9 519.6 C 943.9 518.9 944.4 518.4 945.1 518.4 C 945.7 518.4 946.3 518.9 946.3 519.6 Z" fill="#c9a53a"/>
-<path id="meadow-board-tuft-53" d="M 959.1 569 L 961.6 561 L 964.1 569 L 966.6 563 L 969.1 569 Z" fill="#5c9440"/>
-</g>
-</g>
-<g id="meadow-board-tile-7-3">
-<use id="meadow-board-tile-7-3-shade" href="#meadow-board-tile-7-3-shape" fill="#5c9440"/>
-<g clip-path="url(#meadow-board-tile-7-3-clip)">
-<use id="meadow-board-tile-7-3-fill" href="#meadow-board-tile-7-3-shape" transform="translate(-4 -4)" fill="#7fb956"/>
-<g clip-path="url(#meadow-board-tile-7-3-lit-clip)">
-<use id="meadow-board-tile-7-3-lit" href="#meadow-board-tile-7-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
-<use id="meadow-board-tile-7-3-fill-over" href="#meadow-board-tile-7-3-shape" transform="translate(4.2 4.2)" fill="#7fb956"/>
-</g>
-<path id="meadow-board-clover-18" d="M 1054 560.4 C 1054 563.1 1049.1 565.4 1043 565.4 C 1036.9 565.4 1032 563.1 1032 560.4 C 1032 557.6 1036.9 555.4 1043 555.4 C 1049.1 555.4 1054 557.6 1054 560.4 Z" fill="#2a1a10" opacity="0.06"/>
-<path id="meadow-board-clover-19" d="M 1105.1 549.1 C 1105.1 551.9 1100.2 554.1 1094.1 554.1 C 1088.1 554.1 1083.1 551.9 1083.1 549.1 C 1083.1 546.3 1088.1 544.1 1094.1 544.1 C 1100.2 544.1 1105.1 546.3 1105.1 549.1 Z" fill="#2a1a10" opacity="0.06"/>
-</g>
-</g>
-<use href="#meadow-board-thing-1" transform="translate(36.18 136.91) scale(-0.9 0.9)"/>
-<use href="#meadow-board-thing-2" transform="translate(1238.61 146.88) scale(0.94 0.94)"/>
-<use href="#meadow-board-thing-3" transform="translate(261.94 146.94) scale(-0.82 0.82)"/>
-<use href="#meadow-board-thing-4" transform="translate(982.44 147.76) scale(-0.64 0.64)"/>
-<use href="#meadow-board-thing-5" transform="translate(594.25 148.3) scale(0.81 0.81)"/>
-<use href="#meadow-board-thing-6" transform="translate(420.76 159.59) scale(-0.73 0.73)"/>
-<use href="#meadow-board-thing-7" transform="translate(808.77 162.29) scale(0.67 0.67)"/>
-<use href="#meadow-board-thing-3" transform="translate(1093.43 165.73) scale(-0.79 0.79)"/>
-<use href="#meadow-board-thing-8" transform="translate(126 196) scale(0.9 0.9)"/>
-<use href="#meadow-board-thing-9" transform="translate(1154 196) scale(-0.9 0.9)"/>
-<use href="#meadow-board-thing-1" transform="translate(55.58 260.29) scale(-0.87 0.87)"/>
-<use href="#meadow-board-thing-1" transform="translate(1227.48 268.87) scale(-0.8 0.8)"/>
-<use href="#meadow-board-thing-10" transform="translate(1144.81 299.94) scale(0.68 0.68)"/>
-<use href="#meadow-board-thing-10" transform="translate(142.91 302.22) scale(-0.75 0.75)"/>
-<use href="#meadow-board-thing-11" transform="translate(35.66 334.91) scale(-0.83 0.83)"/>
-<use href="#meadow-board-thing-1" transform="translate(1249.57 335.4) scale(-1.04 1.04)"/>
-<use href="#meadow-board-thing-4" transform="translate(68.56 406.46) scale(0.65 0.65)"/>
-<use href="#meadow-board-thing-7" transform="translate(1228.53 411.55) scale(-0.69 0.69)"/>
-<use href="#meadow-board-thing-2" transform="translate(58.41 468.15) scale(0.95 0.95)"/>
-<use href="#meadow-board-thing-11" transform="translate(1219.56 481.35) scale(-0.81 0.81)"/>
-<use href="#meadow-board-thing-12" transform="translate(138.24 532.86) scale(-0.62 0.62)"/>
-<use href="#meadow-board-thing-4" transform="translate(1156.37 537.46) scale(-0.61 0.61)"/>
-<use href="#meadow-board-thing-1" transform="translate(35.36 545.03) scale(0.97 0.97)"/>
-<use href="#meadow-board-thing-2" transform="translate(1236.14 556.06) scale(1.02 1.02)"/>
+<use href="#meadow-board-thing-1" transform="translate(37.51 143.56) scale(-0.83 0.83)"/>
+<use href="#meadow-board-thing-2" transform="translate(1244.3 147.04) scale(0.97 0.97)"/>
+<use href="#meadow-board-thing-3" transform="translate(597.5 147.08) scale(-0.71 0.71)"/>
+<use href="#meadow-board-thing-3" transform="translate(966.61 147.61) scale(0.71 0.71)"/>
+<use href="#meadow-board-thing-4" transform="translate(241.42 148.29) scale(0.8 0.8)"/>
+<use href="#meadow-board-thing-5" transform="translate(427.74 160.56) scale(0.69 0.69)"/>
+<use href="#meadow-board-thing-5" transform="translate(786.45 161.66) scale(0.65 0.65)"/>
+<use href="#meadow-board-thing-6" transform="translate(1103.36 167.3) scale(-0.72 0.72)"/>
+<use href="#meadow-board-thing-7" transform="translate(126 196) scale(0.9 0.9)"/>
+<use href="#meadow-board-thing-8" transform="translate(1154 196) scale(-0.9 0.9)"/>
+<use href="#meadow-board-thing-1" transform="translate(50.16 260.32) scale(0.92 0.92)"/>
+<use href="#meadow-board-thing-1" transform="translate(1226.59 267.19) scale(-0.89 0.89)"/>
+<use href="#meadow-board-thing-9" transform="translate(116.74 295.08) scale(0.65 0.65)"/>
+<use href="#meadow-board-thing-9" transform="translate(1146.21 300.16) scale(-0.68 0.68)"/>
+<use href="#meadow-board-thing-10" transform="translate(43.41 338.27) scale(-1.07 1.07)"/>
+<use href="#meadow-board-thing-1" transform="translate(1245.42 343.17) scale(0.93 0.93)"/>
+<use href="#meadow-board-thing-6" transform="translate(1206.76 411.59) scale(-0.73 0.73)"/>
+<use href="#meadow-board-thing-11" transform="translate(56.62 413.7) scale(-0.66 0.66)"/>
+<use href="#meadow-board-thing-2" transform="translate(57.11 478.77) scale(-0.86 0.86)"/>
+<use href="#meadow-board-thing-10" transform="translate(1223.83 481.78) scale(-0.82 0.82)"/>
+<use href="#meadow-board-thing-11" transform="translate(139.02 526.75) scale(-0.75 0.75)"/>
+<use href="#meadow-board-thing-12" transform="translate(1157.39 543.92) scale(0.75 0.75)"/>
+<use href="#meadow-board-thing-1" transform="translate(40.68 549.4) scale(0.92 0.92)"/>
+<use href="#meadow-board-thing-2" transform="translate(1246.04 550.73) scale(0.84 0.84)"/>
 <use href="#meadow-board-thing-13" transform="translate(126 616) scale(0.9 0.9)"/>
 <use href="#meadow-board-thing-14" transform="translate(1154 616) scale(-0.9 0.9)"/>
-<use href="#meadow-board-thing-3" transform="translate(270.09 658.08) scale(0.69 0.69)"/>
-<use href="#meadow-board-thing-3" transform="translate(685.62 659.53) scale(-0.75 0.75)"/>
-<use href="#meadow-board-thing-5" transform="translate(1086.84 665.78) scale(-0.8 0.8)"/>
-<use href="#meadow-board-thing-1" transform="translate(1223.13 669.15) scale(0.79 0.79)"/>
-<use href="#meadow-board-thing-1" transform="translate(54.26 671.64) scale(-0.93 0.93)"/>
-<use href="#meadow-board-thing-4" transform="translate(473.99 687.42) scale(-0.85 0.85)"/>
-<use href="#meadow-board-thing-6" transform="translate(893.22 689.36) scale(-0.69 0.69)"/>
-<use href="#meadow-board-thing-11" transform="translate(112.73 710.35) scale(0.84 0.84)"/>
-<use href="#meadow-board-thing-1" transform="translate(1161.24 719.19) scale(-0.91 0.91)"/>
+<use href="#meadow-board-thing-4" transform="translate(248.74 656.95) scale(-0.82 0.82)"/>
+<use href="#meadow-board-thing-4" transform="translate(696.81 663.53) scale(0.64 0.64)"/>
+<use href="#meadow-board-thing-1" transform="translate(55.05 667.9) scale(1.03 1.03)"/>
+<use href="#meadow-board-thing-3" transform="translate(1081.76 669.61) scale(0.8 0.8)"/>
+<use href="#meadow-board-thing-1" transform="translate(1228.99 670.31) scale(-1.08 1.08)"/>
+<use href="#meadow-board-thing-11" transform="translate(914.58 690.05) scale(-0.68 0.68)"/>
+<use href="#meadow-board-thing-11" transform="translate(465.56 694.02) scale(-0.68 0.68)"/>
+<use href="#meadow-board-thing-1" transform="translate(1166.93 708.46) scale(-0.89 0.89)"/>
+<use href="#meadow-board-thing-10" transform="translate(110.66 710.42) scale(-1.08 1.08)"/>
 </svg>

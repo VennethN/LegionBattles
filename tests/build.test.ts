@@ -13,7 +13,7 @@ function pixels(svg: string): Uint8Array {
 describe('a picture as it is shipped', () => {
   const files = [
     'units/blue/knight/full.svg', 'units/red/jarl/full.svg', 'units/blue/lancer/lance.svg', 'units/blue/icegolem/body.svg',
-    'icons/land-meadow.svg', 'packs/thornwood.svg', 'grades/S.svg', 'fx/arrow.svg', 'board/desert.svg', 'maps/frostholt.svg',
+    'icons/land-meadow.svg', 'packs/thornwood.svg', 'grades/S.svg', 'fx/arrow.svg', 'board/desert.svg', 'tiles/snow-12x6.svg', 'maps/frostholt.svg',
   ];
 
   it('is drawn exactly as the file it was made from', () => {

@@ -17,6 +17,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 import { SCENE_H, SCENE_W } from '../src/art/backdrop';
+import { BOARD_X, BOARD_Y, TILE_H, TILE_W } from '../src/art/board';
 import { composeUnit, innerOf, withIdSuffix, type PartSource } from '../src/art/compose';
 import { CANVAS } from '../src/art/kit/draw';
 import { GRASS, OUTLINE, OUTLINE_WIDTH, TEAMS, allColors, type Team } from '../src/art/kit/palette';
@@ -24,7 +25,9 @@ import type { UnitArt } from '../src/art/kit/unit';
 import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE, TOPPLE_POSE } from '../src/art/poses';
 import type { Pose } from '../src/art/rig';
 import { UNIT_ART } from '../src/art/units';
+import { FIELDS } from '../src/data/fields';
 import { LANDS } from '../src/data/lands';
+import { COLS, ROWS } from '../src/sim/constants';
 import { buildArt } from './art';
 
 const ASSETS = path.resolve('public/assets');
@@ -175,7 +178,8 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
 
 // ------------------------------------------------------------- silhouettes
 {
-  // Every unit as one black shape, 48 px tall from its top to its feet.
+  // Every unit as one black shape, 48 px tall from its top to its feet. A trap is low and wide:
+  // at that height it would lie over its neighbors, so nothing is drawn bigger than a unit is.
   const all = UNIT_ART;
   const gap = 78;
   const perRow = Math.ceil(all.length / Math.ceil(all.length / 11));
@@ -187,7 +191,7 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
     const i = n % perRow;
     const row = Math.floor(n / perRow);
     const tall = 180 - unit.top;
-    const scale = 48 / tall;
+    const scale = Math.min(48 / tall, 0.5);
     let inner = composeUnit(unit, 'blue', { source, noShadow: true, idSuffix: `-s${serial++}` });
     inner = inner
       .replace(/fill="#[0-9a-fA-F]{3,8}"/g, 'fill="#000000"')
@@ -213,8 +217,10 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
   let body = `<rect width="${width}" height="${height}" fill="${GRASS.dark}"/>`;
   lands.forEach((land, i) => {
     const x = 20 + i * (w + 20);
+    // Each land's ground is shown with the tiles of a different field on it: the first, the second, the third.
+    const field = FIELDS[i % FIELDS.length];
     const scenes = [
-      [`${land.ground}: the ground of a battle`, `board/${land.ground}.svg`],
+      [`${land.ground}: the ground of a battle, with a field of ${field.cols} by ${field.rows}`, `board/${land.ground}.svg`],
       [`${land.name}: the map of its stages`, `maps/${land.id}.svg`],
     ];
     scenes.forEach(([title, file], row) => {
@@ -222,6 +228,12 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
       const inner = withIdSuffix(innerOf(shown(file)), `-sc${serial++}`);
       body += label(x + w / 2, y - 10, title, 14);
       body += `<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="0 0 ${SCENE_W} ${SCENE_H}">${inner}</svg>`;
+      if (row === 0) {
+        // The tiles are a picture of their own, laid over the slab where the game lays them.
+        const tiles = withIdSuffix(innerOf(shown(`tiles/${land.ground}-${field.cols}x${field.rows}.svg`)), `-sc${serial++}`);
+        body += `<svg x="${x + BOARD_X * k}" y="${y + BOARD_Y * k}" width="${COLS * TILE_W * k}" height="${ROWS * TILE_H * k}" ` +
+          `viewBox="0 0 ${field.cols * TILE_W} ${field.rows * TILE_H}">${tiles}</svg>`;
+      }
     });
   });
   save('scenes.png', width, height, body, 1);

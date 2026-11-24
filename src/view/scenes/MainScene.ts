@@ -14,6 +14,7 @@ import Phaser from 'phaser';
 import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { packById } from '../../data/packs';
+import { fieldName } from '../../data/fields';
 import { WORLDS, landOf, stageAt, worldOf } from '../../data/stages';
 import { UNITS } from '../../data/units';
 import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
@@ -163,14 +164,14 @@ export class MainScene extends Phaser.Scene {
     const mark = stage.def.kind === 'boss' ? 'icon/crown' : stage.def.kind === 'miniboss' ? 'icon/banner' : 'icon/flag';
     plate.root.add(this.add.image(-92, -3, SHEET, mark).setScale(0.32));
 
-    // One line under it: its name, what a win pays, and what its enemies stand at.
+    // One line under it: its name, what a win pays, what its enemies stand at, and how big its field is.
     const small = { size: 16, weight: 600 as const, color: HIGHLIGHT, strokeWidth: 4, align: 'left' as const };
     const y = 104;
     const name = add(label(this, 0, y, stage.def.name, { ...small, weight: 700 }).setDepth(8000));
     const coin = add(this.add.image(0, y, SHEET, 'icon/coin').setScale(0.28).setDepth(8000));
     const pay = add(label(this, 0, y, String(stagePay(this.at, first)), small).setDepth(8000));
     const badge = add(gradeBadge(this, 0, y, stage.grade, 18).setDepth(8000));
-    const level = add(label(this, 0, y, `level ${stage.level}`, small).setDepth(8000));
+    const level = add(label(this, 0, y, `level ${stage.level}  ·  field ${fieldName(stage.field)}`, small).setDepth(8000));
     const total = name.width + 20 + 24 + pay.width + 24 + 28 + 6 + level.width;
     let x = 640 - total / 2;
     name.setX(x);
@@ -253,7 +254,7 @@ export class MainScene extends Phaser.Scene {
     this.refreshTop();
     this.refreshBottom();
     void this.board
-      .show(s.team, stageEnemies(this.at), stageSeed(s, this.at))
+      .show(s.team, stageEnemies(this.at), stageSeed(s, this.at), [], stageAt(this.at).field)
       .then(() => {
         if (token !== this.arrival) return;
         this.state = 'ready';
@@ -450,6 +451,7 @@ export class MainScene extends Phaser.Scene {
       rows.push({ text: n === 1 ? 'You have a place for a structure now' : `You have ${n} places for structures now`, color: ARCANE.light });
     }
     if (r.reached >= 0) rows.push({ text: `World ${r.reached + 1} is open: ${WORLDS[r.reached].name}`, color: ARCANE.light });
+    if (r.field) rows.push({ text: `The field is bigger from here: ${fieldName(r.field)}`, color: ARCANE.light });
     if (r.finished) rows.push({ text: 'That was the last stage of all. Well fought.', color: ARCANE.light });
     if (!won && this.next < this.at) rows.push({ text: 'Back one stage, to grow stronger' });
 

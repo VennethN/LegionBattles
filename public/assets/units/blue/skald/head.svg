@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="skald-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="skald-head-hood-shape" d="M 100 50 C 106.5 50.8 116 53 121 58 C 126 63 129.2 72.8 130 80 C 130.8 87.2 129.7 96.2 126 101 C 122.3 105.8 115 107.7 108 109 C 101 110.3 90.5 110.2 84 109 C 77.5 107.8 72.3 106.2 69 102 C 65.7 97.8 64.2 90.3 64 84 C 63.8 77.7 65 69.2 68 64 C 71 58.8 76.7 55.3 82 53 C 87.3 50.7 93.5 49.2 100 50 Z"/>
+<clipPath id="skald-head-hood-clip"><use href="#skald-head-hood-shape"/></clipPath>
+<clipPath id="skald-head-hood-lit-clip"><use href="#skald-head-hood-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="skald-head-brow-shape" d="M 92 58 C 93 54 99.3 47.7 104 46 C 108.7 44.3 115.3 45.7 120 48 C 124.7 50.3 129 55.7 132 60 C 135 64.3 138.3 71 138 74 C 137.7 77 133 79.3 130 78 C 127 76.7 123.7 68.7 120 66 C 116.3 63.3 111.7 61.3 108 62 C 104.3 62.7 100.7 70.7 98 70 C 95.3 69.3 91 62 92 58 Z"/>
+<clipPath id="skald-head-brow-clip"><use href="#skald-head-brow-shape"/></clipPath>
+<clipPath id="skald-head-brow-lit-clip"><use href="#skald-head-brow-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="skald-head-collar-shape" d="M 66 98 C 69.7 97.3 77 102.7 84 104 C 91 105.3 100.3 107 108 106 C 115.7 105 125.7 97.7 130 98 C 134.3 98.3 137 104.8 134 108 C 131 111.2 120.3 115.7 112 117 C 103.7 118.3 92.3 117.5 84 116 C 75.7 114.5 65 111 62 108 C 59 105 62.3 98.7 66 98 Z"/>
+<clipPath id="skald-head-collar-clip"><use href="#skald-head-collar-shape"/></clipPath>
+<clipPath id="skald-head-collar-lit-clip"><use href="#skald-head-collar-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="skald-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="skald-head-hood">
+<use id="skald-head-hood-shade" href="#skald-head-hood-shape" fill="#2f5893"/>
+<g clip-path="url(#skald-head-hood-clip)">
+<use id="skald-head-hood-deep" href="#skald-head-hood-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="skald-head-hood-shade-over" href="#skald-head-hood-shape" transform="translate(-3.72 -3.72)" fill="#2f5893"/>
+<use id="skald-head-hood-fill" href="#skald-head-hood-shape" transform="translate(-6 -6)" fill="#3d6fb6"/>
+<g clip-path="url(#skald-head-hood-lit-clip)">
+<use id="skald-head-hood-lit" href="#skald-head-hood-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="skald-head-hood-fill-over" href="#skald-head-hood-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="skald-head-lining" d="M 108 60 C 114.3 59.3 124.8 63 130 68 C 135.2 73 139 82.8 139 90 C 139 97.2 135.8 107.5 130 111 C 124.2 114.5 110.7 113.7 104 111 C 97.3 108.3 92 101.5 90 95 C 88 88.5 89 77.8 92 72 C 95 66.2 101.7 60.7 108 60 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="skald-head-opening" d="M 110 66 C 114.7 65.3 122.2 68.3 126 72 C 129.8 75.7 133 82.7 133 88 C 133 93.3 130.2 101.2 126 104 C 121.8 106.8 113 106.8 108 105 C 103 103.2 97.7 97.8 96 93 C 94.3 88.2 95.7 80.5 98 76 C 100.3 71.5 105.3 66.7 110 66 Z" fill="#1e2b17"/>
+<path id="skald-head-opening-edge" d="M 110 66 C 114.7 65.3 122.2 68.3 126 72 C 129.8 75.7 133 82.7 133 88 C 133 93.3 130.2 101.2 126 104 C 121.8 106.8 113 106.8 108 105 C 103 103.2 97.7 97.8 96 93 C 94.3 88.2 95.7 80.5 98 76 C 100.3 71.5 105.3 66.7 110 66 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="skald-head-fold-b" d="M 72 70 Q 67.5 82.7 69 96 Q 71.1 83.1 72 70 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="skald-head-hood-line" href="#skald-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="skald-head-brow">
+<use id="skald-head-brow-shade" href="#skald-head-brow-shape" fill="#c4b594"/>
+<g clip-path="url(#skald-head-brow-clip)">
+<use id="skald-head-brow-fill" href="#skald-head-brow-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#skald-head-brow-lit-clip)">
+<use id="skald-head-brow-lit" href="#skald-head-brow-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="skald-head-brow-fill-over" href="#skald-head-brow-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="skald-head-brow-line" href="#skald-head-brow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="skald-head-collar">
+<use id="skald-head-collar-shade" href="#skald-head-collar-shape" fill="#c4b594"/>
+<g clip-path="url(#skald-head-collar-clip)">
+<use id="skald-head-collar-fill" href="#skald-head-collar-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#skald-head-collar-lit-clip)">
+<use id="skald-head-collar-lit" href="#skald-head-collar-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="skald-head-collar-fill-over" href="#skald-head-collar-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="skald-head-collar-line" href="#skald-head-collar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

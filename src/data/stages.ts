@@ -27,7 +27,9 @@
 import { GRADES, LEVEL_STEP, cardMult, gradeMult } from '../game/rarity';
 import { LANDS, landCoins, type LandDef, type StageDef } from './lands';
 import { LAPS, lapOf } from './laps';
-import { SETS, isStructure } from './units';
+import type { Field } from '../sim/field';
+import { fieldOfWorld } from './fields';
+import { SETS, UNITS } from './units';
 
 export interface Stage {
   /** Its place in the line, from 0. The number a player sees is one more. */
@@ -50,6 +52,8 @@ export interface Stage {
   level: number;
   /** More enemies than it is written with. */
   extra: number;
+  /** The field it is fought on: its world's (data/fields.ts). */
+  field: Field;
   /** Coins for its first clear, and the experience a win gives each card that fought. */
   coins: number;
   xp: number;
@@ -71,7 +75,7 @@ export interface World {
 }
 
 /** How strong a troop of the last stage of all is, against a Crownlands unit at the worst grade and level 1. */
-export const TOP = 6.9;
+export const TOP = 7;
 /** A grade is taken for each time this fits into what a troop is multiplied by; its level makes up the rest. */
 const GRADE_EVERY = 1.28;
 /** What a plain stage pays at the last stage of all, before a boss's or a miniboss's share. */
@@ -139,8 +143,9 @@ function build(): { stages: Stage[]; worlds: World[] } {
         }
         stages.push({
           index, lap, land: l, local, def, strength, grade, level,
-          // A tower or a trap is not one of the troops a lap asks for.
-          extra: Math.max(lapOf(lap).extra, lapOf(lap).least - def.enemies.filter((e) => !isStructure(e.unit)).length),
+          extra: Math.max(lapOf(lap).extra, lapOf(lap).least - fieldedWorth(def)),
+          // The world these stages are of is the next to be added to the list.
+          field: fieldOfWorld(worlds.length, LANDS.length),
           coins,
           xp: Math.max(10, Math.round(25 * strength - 9)),
           pack: lap > 0 ? `${land.pack}@${lap}` : land.pack,
@@ -150,6 +155,25 @@ function build(): { stages: Stage[]; worlds: World[] } {
     });
   }
   return { stages, worlds };
+}
+
+/**
+ * How many troops a stage as written is worth, for a lap's count of the
+ * fewest it fields. Whoever calls others up, a tent or a summoner, is worth
+ * the three or four it calls. A boss is worth three and a miniboss two: a
+ * lap does not crowd a lord's stage as it does a patrol's. A tower is worth
+ * one, and a trap, which is over in a moment, none.
+ */
+export const CALLER_WORTH = 4;
+export const RANK_WORTH: Readonly<Record<string, number>> = { troop: 1, miniboss: 2, boss: 3 };
+export function fieldedWorth(def: StageDef): number {
+  let n = 0;
+  for (const e of def.enemies) {
+    const unit = UNITS[e.unit];
+    if (unit?.summons) n += CALLER_WORTH;
+    else if (unit?.kind !== 'trap') n += RANK_WORTH[e.rank] ?? 1;
+  }
+  return n;
 }
 
 const BUILT = build();

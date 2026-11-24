@@ -13,18 +13,15 @@ import { sfx } from '../audio/sfx';
 import { UNITS } from '../data/units';
 import { GRADES } from '../game/rarity';
 import { Battle, type SimUnit } from '../sim/battle';
-import { COLS, DT, HALF_COLS, ROWS, TILE } from '../sim/constants';
+import { DT, TILE } from '../sim/constants';
+import { FIRST_FIELD, isPlayerTile, seatTeam, writtenTile, type Field } from '../sim/field';
 import { hash32 } from '../sim/rng';
-import { isPlayerTile } from '../sim/setup';
 import { STATUS_IDS } from '../sim/status';
 import type { BattleEvent, BattleInput, Placement } from '../sim/types';
 import { getManifest } from './app';
 import { H, W, hex } from './config';
 import { Effects } from './Effects';
-import {
-  BOARD_PX_H, BOARD_PX_W, BOARD_X, BOARD_Y, TILE_H, TILE_W, UNIT_SCALE, Y_SCALE,
-  screenX, screenY, tileAt, tileScreenX, tileScreenY,
-} from './layout';
+import { BOARD_PX_H, BOARD_PX_W, BOARD_X, BOARD_Y, FieldLayout, Y_SCALE } from './layout';
 import { Numbers } from './Numbers';
 import { scenePicture } from './Scenes';
 import { SHEET, sheet } from './Sheet';
@@ -61,8 +58,19 @@ export class BoardView {
   /** True from the moment units are asked for until they stand on the board. */
   loading = false;
 
+  /**
+   * The player's team, as the scene keeps it: its tiles written as the first
+   * field's are (sim/field.ts), so that a formation is one thing on every
+   * field. `seats` is where each stands on the field on show.
+   */
   private team: Placement[] = [];
+  private seats: Array<[number, number]> = [];
   private enemies: Placement[] = [];
+  /** The field on show, on the screen. */
+  private lay = new FieldLayout(FIRST_FIELD);
+  /** The picture of the field's tiles, over the painted ground, and which it is. */
+  private tiles: Phaser.GameObjects.Image | null = null;
+  private tilesKey = '';
   private seed = 1;
   private views: UnitView[] = [];
   /** The player's views, in the order of `team`. */
@@ -101,14 +109,8 @@ export class BoardView {
     this.fx = new Effects(scene);
     this.numbers = new Numbers(scene);
     this.dropMark = scene.add.graphics().setDepth(20);
-    // The player's half, marked while they may arrange it.
+    // The player's half, marked while they may arrange it. Drawn when a field is shown.
     this.tileHints = scene.add.graphics().setDepth(2).setVisible(false);
-    this.tileHints.fillStyle(hex(HIGHLIGHT), 0.16);
-    for (let row = 0; row < ROWS; row++) {
-      for (let col = 0; col < HALF_COLS; col++) {
-        this.tileHints.fillRoundedRect(BOARD_X + col * TILE_W + 6, BOARD_Y + row * TILE_H + 6, TILE_W - 12, TILE_H - 12, 10);
-      }
-    }
     this.debugG = scene.add.graphics().setDepth(8500).setVisible(false);
     this.debugText = label(scene, 12, H - 4, '', { size: 13, weight: 600, align: 'left' }).setOrigin(0, 1).setDepth(8501).setVisible(false);
     for (let i = 0; i < 6; i++) {
@@ -126,18 +128,53 @@ export class BoardView {
 
   /** The player's half of the board on the screen, for the tutorial to point at. */
   static myHalf(): { x: number; y: number; w: number; h: number } {
-    return { x: BOARD_X, y: BOARD_Y - 60, w: HALF_COLS * TILE_W, h: BOARD_PX_H + 60 };
+    return { x: BOARD_X, y: BOARD_Y - 60, w: BOARD_PX_W / 2, h: BOARD_PX_H + 60 };
+  }
+
+  /** The field on show. */
+  get field(): Field {
+    return this.lay.field;
+  }
+
+  /** Lays the board out for a field: its tiles' picture, the marks on the player's half, and how big things are drawn. */
+  private layOut(field: Field): void {
+    const key = `${this.ground}-${field.cols}x${field.rows}`;
+    if (key === this.tilesKey) return;
+    this.tilesKey = key;
+    this.lay = new FieldLayout(field);
+    this.fx.zoom = this.lay.zoom;
+    this.numbers.zoom = this.lay.zoom;
+    const { tileW, tileH, zoom } = this.lay;
+    this.tileHints.clear();
+    this.tileHints.fillStyle(hex(HIGHLIGHT), 0.16);
+    for (let row = 0; row < this.lay.rows; row++) {
+      for (let col = 0; col < this.lay.half; col++) {
+        this.tileHints.fillRoundedRect(BOARD_X + col * tileW + 6 * zoom, BOARD_Y + row * tileH + 6 * zoom, tileW - 12 * zoom, tileH - 12 * zoom, 10 * zoom);
+      }
+    }
+    // The tiles are a picture of their own, one to a field, laid over the ground's slab (art/backdrop.ts).
+    this.tiles?.destroy();
+    this.tiles = null;
+    scenePicture(this.scene, 'tiles', key, 1, { x: BOARD_X, y: BOARD_Y, w: BOARD_PX_W, h: BOARD_PX_H }, (img) => {
+      // Another field may have been asked for while this one's picture loaded.
+      if (this.tilesKey === key) this.tiles = img;
+      else img.destroy();
+    });
   }
 
   /**
    * Stands these teams on their tiles, loading the art of any unit that is
    * new to the sheet. Whatever stood there before is gone, and a battle that
    * was on is called off. `team` is kept, not copied: dragging a unit changes it.
+   * Its tiles are written as the first field's are; the enemy's are tiles of
+   * `field`, the field the battle will be fought on.
    */
-  show(team: Placement[], enemies: Placement[], seed: number, more: readonly string[] = []): Promise<void> {
+  show(team: Placement[], enemies: Placement[], seed: number, more: readonly string[] = [], field: Field = FIRST_FIELD): Promise<void> {
     const mine = ++this.shown;
     this.loading = true;
+    this.layOut(field);
     this.team = team;
+    this.seats = seatTeam(team, field);
     this.enemies = enemies;
     this.seed = seed;
     const atlas = sheet(this.scene.game, getManifest());
@@ -161,14 +198,16 @@ export class BoardView {
       // Asked again while this was loading: the later asking has it.
       if (mine !== this.shown) return;
       this.clearUnits();
-      this.mine = team.map((p, i) => this.makeView(p, 'blue', i));
-      const theirs = enemies.map((p, i) => this.makeView(p, 'red', i));
+      // The team may have been arranged while its art loaded.
+      this.seats = seatTeam(team, field);
+      this.mine = team.map((p, i) => this.makeView(p, 'blue', i, this.seats[i][0], this.seats[i][1]));
+      const theirs = enemies.map((p, i) => this.makeView(p, 'red', i, p.col, p.row));
       this.views = [...this.mine, ...theirs];
       this.loading = false;
     });
   }
 
-  private makeView(p: Placement, team: 'blue' | 'red', n: number): UnitView {
+  private makeView(p: Placement, team: 'blue' | 'red', n: number, col: number, row: number): UnitView {
     const def = UNITS[p.unit];
     const accent = accentOf(def.projectile?.kind);
     const at = this.hooks.standingOf?.(p, team);
@@ -190,9 +229,10 @@ export class BoardView {
             gradeColor: hex(gradePlate(at.grade).fill),
           },
       def.trap ? 'trap' : def.still ? 'building' : 'unit',
+      this.lay.zoom,
     );
-    view.x = tileScreenX(p.col);
-    view.y = tileScreenY(p.row);
+    view.x = this.lay.tileX(col);
+    view.y = this.lay.tileY(row);
     view.stride = def.speed / 70;
     return view;
   }
@@ -228,8 +268,9 @@ export class BoardView {
     this.tileHints.setVisible(on).setAlpha(1);
     if (!on) return;
     this.hintTween = this.scene.tweens.add({ targets: this.tileHints, alpha: 0.45, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    const z = this.lay.zoom;
     this.mine.forEach((view, i) => {
-      const zone = this.scene.add.zone(view.x, view.y - 50, 100, 130).setInteractive({ draggable: true, useHandCursor: true });
+      const zone = this.scene.add.zone(view.x, view.y - 50 * z, 100 * z, 130 * z).setInteractive({ draggable: true, useHandCursor: true });
       zone.setDepth(7500);
       this.zones.push(zone);
       zone.on('dragstart', () => {
@@ -239,16 +280,16 @@ export class BoardView {
       });
       zone.on('drag', (_p: Phaser.Input.Pointer, x: number, y: number) => {
         view.x = Phaser.Math.Clamp(x, 40, W - 40);
-        view.y = Phaser.Math.Clamp(y + 50, 120, H - 20);
-        zone.setPosition(view.x, view.y - 50);
-        this.markDrop(view.x, view.y - 10);
+        view.y = Phaser.Math.Clamp(y + 50 * z, 120, H - 20);
+        zone.setPosition(view.x, view.y - 50 * z);
+        this.markDrop(view.x, view.y - 10 * z);
       });
       zone.on('dragend', () => {
         this.dragging = false;
         view.lift = 0;
         sfx.play('place');
         this.dropMark.clear();
-        this.drop(i, view.x, view.y - 10);
+        this.drop(i, view.x, view.y - 10 * z);
       });
     });
   }
@@ -256,26 +297,33 @@ export class BoardView {
   private markDrop(x: number, y: number): void {
     const g = this.dropMark;
     g.clear();
-    const t = tileAt(x, y);
+    const t = this.lay.tileAt(x, y);
     if (!t) return;
-    const ok = isPlayerTile(t.col, t.row);
+    const ok = isPlayerTile(t.col, t.row, this.lay.field);
+    const { tileW, tileH, zoom } = this.lay;
     g.lineStyle(5, hex(ok ? HIGHLIGHT : CLOTH.red.fill), 0.95);
-    g.strokeRoundedRect(BOARD_X + t.col * TILE_W + 5, BOARD_Y + t.row * TILE_H + 5, TILE_W - 10, TILE_H - 10, 12);
+    g.strokeRoundedRect(BOARD_X + t.col * tileW + 5 * zoom, BOARD_Y + t.row * tileH + 5 * zoom, tileW - 10 * zoom, tileH - 10 * zoom, 12 * zoom);
   }
 
   /** A unit let go over a tile: it goes there, and whoever stood there takes its old place. */
   private drop(index: number, x: number, y: number): void {
-    const t = tileAt(x, y);
-    const me = this.team[index];
-    if (t && isPlayerTile(t.col, t.row) && (t.col !== me.col || t.row !== me.row)) {
-      const other = this.team.findIndex((p, i) => i !== index && p.col === t.col && p.row === t.row);
+    const t = this.lay.tileAt(x, y);
+    const field = this.lay.field;
+    const mine = this.seats[index];
+    if (t && isPlayerTile(t.col, t.row, field) && (t.col !== mine[0] || t.row !== mine[1])) {
+      // What the scene keeps is the tile as the first field would write it, so that the formation is the same on every field.
+      const put = (i: number, col: number, row: number): void => {
+        this.seats[i] = [col, row];
+        const [wc, wr] = writtenTile(field, col, row);
+        this.team[i].col = wc;
+        this.team[i].row = wr;
+      };
+      const other = this.seats.findIndex((seat, i) => i !== index && seat[0] === t.col && seat[1] === t.row);
       if (other >= 0) {
-        this.team[other].col = me.col;
-        this.team[other].row = me.row;
+        put(other, mine[0], mine[1]);
         this.settle(other);
       }
-      me.col = t.col;
-      me.row = t.row;
+      put(index, t.col, t.row);
       this.hooks.onPlaced?.();
     }
     this.settle(index);
@@ -285,15 +333,16 @@ export class BoardView {
   private settle(index: number): void {
     const view = this.mine[index];
     const zone = this.zones[index];
-    const p = this.team[index];
+    const [col, row] = this.seats[index];
+    const up = 50 * this.lay.zoom;
     this.scene.tweens.add({
       targets: view,
-      x: tileScreenX(p.col),
-      y: tileScreenY(p.row),
+      x: this.lay.tileX(col),
+      y: this.lay.tileY(row),
       duration: 160,
       ease: 'Cubic.easeOut',
-      onUpdate: () => zone?.active && zone.setPosition(view.x, view.y - 50),
-      onComplete: () => zone?.active && zone.setPosition(view.x, view.y - 50),
+      onUpdate: () => zone?.active && zone.setPosition(view.x, view.y - up),
+      onComplete: () => zone?.active && zone.setPosition(view.x, view.y - up),
     });
   }
 
@@ -312,8 +361,8 @@ export class BoardView {
     for (const u of battle.units) ordered.push(byTeam[u.team][next[u.team]++]);
     this.views = ordered;
     for (let i = 0; i < ordered.length; i++) {
-      ordered[i].x = tileScreenX(Math.floor(battle.units[i].x / TILE));
-      ordered[i].y = tileScreenY(Math.floor(battle.units[i].y / TILE));
+      ordered[i].x = this.lay.tileX(Math.floor(battle.units[i].x / TILE));
+      ordered[i].y = this.lay.tileY(Math.floor(battle.units[i].y / TILE));
       ordered[i].setBarsVisible(true);
     }
     this.battle = battle;
@@ -351,8 +400,8 @@ export class BoardView {
         const v = this.views[i];
         if (!v) continue;
         if (u.alive) {
-          v.x = screenX(u.prevX + (u.x - u.prevX) * a);
-          v.y = screenY(u.prevY + (u.y - u.prevY) * a);
+          v.x = this.lay.screenX(u.prevX + (u.x - u.prevX) * a);
+          v.y = this.lay.screenY(u.prevY + (u.y - u.prevY) * a);
           v.facing = u.facing;
           v.moving = u.moving;
           v.health = u.hp / u.maxHp;
@@ -377,6 +426,9 @@ export class BoardView {
 
   private onEvent(battle: Battle, e: BattleEvent): void {
     const now = this.clock;
+    // Everything below is written for the first field. On a bigger one, where it starts is scaled here; how big and fast it is, by the pool.
+    const z = this.lay.zoom;
+    const unit = this.lay.unit;
     switch (e.type) {
       case 'attackStart': {
         this.views[e.unit].attack(now, e.amount, e.kind !== 'attack' && e.kind !== 'heal');
@@ -394,13 +446,13 @@ export class BoardView {
         sfx.play('slash', 0.8, 0.85 + (e.unit % 5) * 0.07);
         // A blade's arc, in front of whoever swung it.
         const big = e.kind !== 'attack';
-        const k = v.scale / UNIT_SCALE;
+        const k = v.scale / unit;
         this.fx.spawn('fx/slash', v.x + v.facing * 34 * v.scale, v.y - 62 * v.scale, {
           dur: 0.2, from: (big ? 1.1 : 0.85) * k, to: (big ? 1.6 : 1.15) * k, alpha: 0.95, hold: 0.25,
           flipX: v.facing < 0, tint: hex(HIGHLIGHT), depth: v.y + 2,
         });
         if (u.def.skill?.id === e.kind && u.def.skill.kind === 'cleave') {
-          this.fx.spawn('fx/ring', v.x, v.y - 8, {
+          this.fx.spawn('fx/ring', v.x, v.y - 8 * z, {
             dur: 0.35, from: 0.3, to: ((u.def.skill.area ?? 1.2) * TILE) / 60, flat: Y_SCALE, alpha: 0.8, hold: 0.3,
             tint: hex(HIGHLIGHT), depth: 30,
           });
@@ -409,22 +461,22 @@ export class BoardView {
       }
       case 'projectileHit': {
         const accent = accentOf(e.kind);
-        const x = screenX(e.x);
-        const y = screenY(e.y);
+        const x = this.lay.screenX(e.x);
+        const y = this.lay.screenY(e.y);
         let radius = 0;
         for (let i = 0; i < battle.shots.length; i++) if (battle.shots[i].id === e.id) radius = battle.shots[i].splashR;
         sfx.play(radius > 0 ? 'blast' : 'thud', radius > 120 ? 1 : 0.7, 0.9 + (e.id % 5) * 0.05);
         if (accent) {
           if (radius > 0) {
-            this.fx.spawn('fx/ring', x, y - 6, {
+            this.fx.spawn('fx/ring', x, y - 6 * z, {
               dur: 0.4, from: 0.25, to: radius / 60, flat: Y_SCALE, alpha: 0.85, hold: 0.35, tint: hex(accent.light), depth: 30,
             });
           }
-          this.fx.spawn('fx/spark', x, y - 52 * UNIT_SCALE, {
+          this.fx.spawn('fx/spark', x, y - 52 * unit, {
             dur: 0.24, from: 0.4, to: 1.15, hold: 0.4, tint: hex(accent.light), rotation: (e.id % 6) * 0.5,
           });
         } else {
-          this.fx.spawn('fx/spark', x, y - 52 * UNIT_SCALE, { dur: 0.16, from: 0.3, to: 0.7, hold: 0.4, tint: hex(HIGHLIGHT), rotation: (e.id % 6) * 0.5 });
+          this.fx.spawn('fx/spark', x, y - 52 * unit, { dur: 0.16, from: 0.3, to: 0.7, hold: 0.4, tint: hex(HIGHLIGHT), rotation: (e.id % 6) * 0.5 });
         }
         break;
       }
@@ -441,7 +493,7 @@ export class BoardView {
         this.numbers.show(t.x, t.y - t.height * 0.78, String(e.amount), color, skill ? 34 : status ? 20 : 26);
         if (e.unit >= 0 && !battle.units[e.unit].def.projectile && !status) {
           sfx.play(skill ? 'bigHit' : 'hit', 0.9, 0.85 + (e.target % 5) * 0.07);
-          this.fx.spawn('fx/spark', t.x - Math.sign(t.x - from) * 10, t.y - 56 * UNIT_SCALE, {
+          this.fx.spawn('fx/spark', t.x - Math.sign(t.x - from) * 10 * z, t.y - 56 * unit, {
             dur: 0.16, from: 0.35, to: skill ? 1.1 : 0.8, hold: 0.4, tint: hex(HIGHLIGHT), rotation: (battle.tick % 7) * 0.45,
           });
         }
@@ -452,7 +504,7 @@ export class BoardView {
         sfx.play('heal', 0.8);
         this.numbers.show(t.x, t.y - t.height * 0.78, `+${e.amount}`, hex(VENOM.light), 26);
         for (let i = 0; i < 3; i++) {
-          this.fx.spawn('fx/sparkle', t.x + (i - 1) * 22, t.y - 30 - i * 14, {
+          this.fx.spawn('fx/sparkle', t.x + (i - 1) * 22 * z, t.y - (30 + i * 14) * z, {
             dur: 0.6, delay: i * 0.07, vy: -70, from: 0.3, to: 0.7, hold: 0.5, tint: hex(HOLY.light), spin: 2,
           });
         }
@@ -461,15 +513,15 @@ export class BoardView {
       case 'spawn': {
         // Called up in the middle of the battle: it takes its place after every unit that was there.
         const u = battle.units[e.unit];
-        const view = this.makeView({ unit: e.kind, col: 0, row: 0, scale: u.scale }, u.team === 0 ? 'blue' : 'red', e.unit);
-        view.x = screenX(u.x);
-        view.y = screenY(u.y);
+        const view = this.makeView({ unit: e.kind, col: 0, row: 0, scale: u.scale }, u.team === 0 ? 'blue' : 'red', e.unit, 0, 0);
+        view.x = this.lay.screenX(u.x);
+        view.y = this.lay.screenY(u.y);
         view.facing = u.facing;
         view.setBarsVisible(true);
         this.views[e.unit] = view;
         sfx.play('thud', 0.7, 1.2);
         for (let i = 0; i < 4; i++) {
-          this.fx.spawn('fx/dust', view.x + (i - 1.5) * 16, view.y - 4, { dur: 0.45, vx: (i - 1.5) * 50, vy: -30, from: 0.3, to: 0.8, hold: 0.3, alpha: 0.9, depth: view.y + 3 });
+          this.fx.spawn('fx/dust', view.x + (i - 1.5) * 16 * z, view.y - 4 * z, { dur: 0.45, vx: (i - 1.5) * 50, vy: -30, from: 0.3, to: 0.8, hold: 0.3, alpha: 0.9, depth: view.y + 3 });
         }
         break;
       }
@@ -481,12 +533,12 @@ export class BoardView {
         const status = trap?.status?.id;
         const color = status ? STATUS_COLOR[status] ?? hex(HIGHLIGHT) : hex(HIGHLIGHT);
         sfx.play(status === 'burn' ? 'blast' : 'bigHit', 1, status ? 0.9 : 0.7);
-        this.fx.spawn('fx/ring', v.x, v.y - 6, {
+        this.fx.spawn('fx/ring', v.x, v.y - 6 * z, {
           dur: 0.38, from: 0.25, to: ((trap?.radius ?? 1) * TILE) / 60, flat: Y_SCALE, alpha: 0.9, hold: 0.35, tint: color, depth: 30,
         });
-        this.fx.spawn('fx/spark', v.x, v.y - 24, { dur: 0.22, from: 0.5, to: 1.3, hold: 0.4, tint: color, rotation: (e.unit % 6) * 0.5 });
+        this.fx.spawn('fx/spark', v.x, v.y - 24 * z, { dur: 0.22, from: 0.5, to: 1.3, hold: 0.4, tint: color, rotation: (e.unit % 6) * 0.5 });
         for (let i = 0; i < 5; i++) {
-          this.fx.spawn('fx/chip', v.x, v.y - 14, {
+          this.fx.spawn('fx/chip', v.x, v.y - 14 * z, {
             dur: 0.5, vx: (i - 2) * 80, vy: -200 - (i % 2) * 70, gravity: 760, spin: 9 * (i % 2 === 0 ? 1 : -1), hold: 0.7,
           });
         }
@@ -500,13 +552,13 @@ export class BoardView {
           sfx.play('blast', 0.9, 0.7);
           for (let i = 0; i < 6; i++) {
             const side = i % 2 === 0 ? 1 : -1;
-            this.fx.spawn('fx/dust', v.x + side * (14 + i * 9), v.y - 6, {
+            this.fx.spawn('fx/dust', v.x + side * (14 + i * 9) * z, v.y - 6 * z, {
               dur: 0.6, delay: 0.1 + i * 0.03, vx: side * (40 + i * 14), vy: -30 - i * 6, from: 0.4, to: 1 + i * 0.1, hold: 0.3,
               alpha: 0.9, depth: v.y + 3,
             });
           }
           for (let i = 0; i < 7; i++) {
-            this.fx.spawn('fx/chip', v.x + (i - 3) * 8, v.y - 40 - (i % 3) * 22, {
+            this.fx.spawn('fx/chip', v.x + (i - 3) * 8 * z, v.y - (40 + (i % 3) * 22) * z, {
               dur: 0.65, vx: (i - 3) * 70, vy: -170 - (i % 2) * 80, gravity: 700, spin: 8 * (i % 2 === 0 ? 1 : -1), hold: 0.7,
             });
           }
@@ -516,13 +568,13 @@ export class BoardView {
         // Dust where it lands, when it lands.
         const back = -v.facing;
         for (let i = 0; i < 3; i++) {
-          this.fx.spawn('fx/dust', v.x + back * (40 + i * 22) * UNIT_SCALE, v.y - 4, {
+          this.fx.spawn('fx/dust', v.x + back * (40 + i * 22) * unit, v.y - 4 * z, {
             dur: 0.5, delay: v.landsAt - now, vx: back * (30 + i * 26), vy: -26 - i * 8, from: 0.35, to: 0.8 + i * 0.12, hold: 0.3,
             alpha: 0.9, depth: v.y + 3,
           });
         }
         for (let i = 0; i < 4; i++) {
-          this.fx.spawn('fx/chip', v.x, v.y - 50, {
+          this.fx.spawn('fx/chip', v.x, v.y - 50 * z, {
             dur: 0.55, vx: (i - 1.5) * 90, vy: -190 - (i % 2) * 60, gravity: 700, spin: 9 * (i % 2 === 0 ? 1 : -1), hold: 0.7,
           });
         }
@@ -532,7 +584,7 @@ export class BoardView {
         const v = this.views[e.unit];
         const skill = battle.units[e.unit].def.skill;
         sfx.play('skill', 0.9, 0.9 + (e.unit % 4) * 0.08);
-        if (skill) this.callout(v.x, v.y - v.height - 24, skill.name);
+        if (skill) this.callout(v.x, v.y - v.height - 24 * z, skill.name);
         break;
       }
       case 'status': {
@@ -605,7 +657,7 @@ export class BoardView {
       if (fresh) {
         this.shotIds[i] = s.id;
         img.setTexture(SHEET, getManifest().fx[s.kind] ? `fx/${s.kind}` : 'fx/arrow');
-        img.setScale(0.5 * (s.splashR > 150 ? 1.5 : 1));
+        img.setScale(0.5 * (s.splashR > 150 ? 1.5 : 1) * this.lay.zoom);
       }
       const x = s.prevX + (s.x - s.prevX) * a;
       const y = s.prevY + (s.y - s.prevY) * a;
@@ -615,23 +667,23 @@ export class BoardView {
       const k = gone + left > 0.001 ? gone / (gone + left) : 1;
       const src = this.views[s.src];
       const h0 = src.muzzleHeight();
-      const h1 = 56 * UNIT_SCALE;
-      const arc = s.kind === 'arrow' || s.kind === 'javelin' ? 16 : 6;
+      const h1 = 56 * this.lay.unit;
+      const arc = (s.kind === 'arrow' || s.kind === 'javelin' ? 16 : 6) * this.lay.zoom;
       const height = h0 + (h1 - h0) * k + arc * Math.sin(k * Math.PI);
-      const px = screenX(x) + src.muzzleReach() * (1 - k);
-      const py = screenY(y) - height;
+      const px = this.lay.screenX(x) + src.muzzleReach() * (1 - k);
+      const py = this.lay.screenY(y) - height;
       // It points the way it is going: from where it was drawn last to where it is now.
       if (!fresh && img.visible) {
         const dx = px - img.x;
         const dy = py - img.y;
         if (dx * dx + dy * dy > 0.01) img.rotation = Math.atan2(dy, dx);
       } else {
-        img.rotation = Math.atan2(screenY(s.ty) - h1 - py, screenX(s.tx) - px);
+        img.rotation = Math.atan2(this.lay.screenY(s.ty) - h1 - py, this.lay.screenX(s.tx) - px);
         img.setVisible(true);
       }
       img.x = px;
       img.y = py;
-      img.depth = screenY(y) + 1;
+      img.depth = this.lay.screenY(y) + 1;
     }
   }
 
@@ -650,8 +702,9 @@ export class BoardView {
     const g = this.debugG;
     g.clear();
     g.lineStyle(1.5, 0xffffff, 0.5);
-    for (let col = 0; col <= COLS; col++) g.lineBetween(BOARD_X + col * TILE_W, BOARD_Y, BOARD_X + col * TILE_W, BOARD_Y + BOARD_PX_H);
-    for (let row = 0; row <= ROWS; row++) g.lineBetween(BOARD_X, BOARD_Y + row * TILE_H, BOARD_X + BOARD_PX_W, BOARD_Y + row * TILE_H);
+    const lay = this.lay;
+    for (let col = 0; col <= lay.cols; col++) g.lineBetween(BOARD_X + col * lay.tileW, BOARD_Y, BOARD_X + col * lay.tileW, BOARD_Y + BOARD_PX_H);
+    for (let row = 0; row <= lay.rows; row++) g.lineBetween(BOARD_X, BOARD_Y + row * lay.tileH, BOARD_X + BOARD_PX_W, BOARD_Y + row * lay.tileH);
     const battle = this.battle;
     let alive = 0;
     if (battle) {
@@ -661,9 +714,9 @@ export class BoardView {
         alive++;
         const v = this.views[i];
         g.lineStyle(1.5, u.team === 0 ? hex(CLOTH.blue.fill) : hex(CLOTH.red.fill), 0.9);
-        g.strokeEllipse(v.x, v.y, u.rangePx * 2, u.rangePx * 2 * Y_SCALE);
+        g.strokeEllipse(v.x, v.y, u.rangePx * 2 * lay.zoom, u.rangePx * 2 * Y_SCALE * lay.zoom);
         g.lineStyle(1, 0xffffff, 0.6);
-        g.strokeEllipse(v.x, v.y, u.radiusPx * 2, u.radiusPx * 2 * Y_SCALE);
+        g.strokeEllipse(v.x, v.y, u.radiusPx * 2 * lay.zoom, u.radiusPx * 2 * Y_SCALE * lay.zoom);
         if (u.target >= 0 && battle.units[u.target].alive) {
           const t = this.views[u.target];
           g.lineStyle(2, u.team === 0 ? hex(CLOTH.blue.fill) : hex(CLOTH.red.fill), 0.8);
@@ -671,10 +724,11 @@ export class BoardView {
         }
       }
     } else {
-      for (const p of [...this.team, ...this.enemies]) {
+      const stood = [...this.team.map((p, i) => ({ unit: p.unit, col: this.seats[i]?.[0] ?? 0, row: this.seats[i]?.[1] ?? 0 })), ...this.enemies];
+      for (const p of stood) {
         const def = UNITS[p.unit];
         g.lineStyle(1.5, 0xffffff, 0.7);
-        g.strokeEllipse(tileScreenX(p.col), tileScreenY(p.row), def.range * TILE * 2, def.range * TILE * 2 * Y_SCALE);
+        g.strokeEllipse(lay.tileX(p.col), lay.tileY(p.row), def.range * TILE * 2 * lay.zoom, def.range * TILE * 2 * Y_SCALE * lay.zoom);
       }
     }
     const atlas = sheet(this.scene.game, getManifest());

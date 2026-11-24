@@ -11,7 +11,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
-import { SCENE_H, SCENE_W, boardBackdrop, mapBackdrop } from '../src/art/backdrop';
+import { SCENE_H, SCENE_W, boardBackdrop, boardTiles, mapBackdrop } from '../src/art/backdrop';
+import { FIELDS } from '../src/data/fields';
 import { GROUNDS } from '../src/art/board';
 import { composeUnit, innerOf, type PartSource } from '../src/art/compose';
 import { fxArt } from '../src/art/fx';
@@ -30,7 +31,7 @@ import { GRADES } from '../src/game/rarity';
 const OUT = path.resolve('public/assets');
 const OVERRIDES = path.resolve('art/overrides');
 
-const GENERATED = ['units', 'fx', 'board', 'maps', 'icons', 'packs', 'grades'];
+const GENERATED = ['units', 'fx', 'board', 'tiles', 'maps', 'icons', 'packs', 'grades'];
 const written = new Set<string>();
 
 /**
@@ -196,6 +197,8 @@ export function buildArt(): Manifest {
   for (const ground of GROUNDS) {
     write(`board/${ground}.svg`, boardBackdrop(ground).svg(SCENE_W, SCENE_H));
     scenes++;
+    // The tiles of each field there is, to lay over the slab in that picture.
+    for (const field of FIELDS) write(`tiles/${ground}-${field.cols}x${field.rows}.svg`, boardTiles(ground, field.cols, field.rows));
   }
   for (const land of LANDS) {
     write(`maps/${land.id}.svg`, mapBackdrop(land.ground, land.stages.map((s) => s.kind)).svg(SCENE_W, SCENE_H));

@@ -10,8 +10,6 @@
 // objects are reused, so read them before the next step.
 
 import {
-  BOARD_H,
-  BOARD_W,
   DT,
   MAX_SECONDS,
   TICKS_PER_SECOND,
@@ -20,6 +18,7 @@ import {
   tileCenterX,
   tileCenterY,
 } from './constants';
+import { FIRST_FIELD, type Field } from './field';
 import { Rng } from './rng';
 import { POISON_STACKS, PULSE_TICKS, STATUS, STATUS_IDS, STATUS_INDEX } from './status';
 import type { BattleEvent, BattleInput, EventType, Placement, SkillDef, StatusApply, Summons, UnitDef } from './types';
@@ -57,6 +56,8 @@ export interface SimUnit {
   /** What it calls up, and the steps until the next. Null if it calls no one. */
   summons: Summons | null;
   summonWait: number;
+  /** How many it has called up so far. */
+  summoned: number;
   /** The unit that called it up, or -1. */
   calledBy: number;
   /** True for a trap: no one's target, and not counted when a side is counted. */
@@ -142,9 +143,16 @@ export class Battle {
   private limit = MAX_SECONDS * TICKS_PER_SECOND;
   private defs: Readonly<Record<string, UnitDef>> = {};
   private nextShot = 0;
+  /** The field it is fought on, and its size in the simulation's pixels: no one leaves it. */
+  readonly field: Field;
+  private readonly boardW: number;
+  private readonly boardH: number;
 
   constructor(input: BattleInput) {
     this.rng = new Rng(input.seed);
+    this.field = input.field ?? FIRST_FIELD;
+    this.boardW = this.field.cols * TILE;
+    this.boardH = this.field.rows * TILE;
     // Units are numbered turn about, so that neither side always acts first.
     const [a, b] = input.teams;
     const n = Math.max(a.length, b.length);
@@ -174,6 +182,7 @@ export class Battle {
       scale: p.scale ?? 1,
       summons: p.summons ?? def.summons ?? null,
       summonWait: ticks((p.summons ?? def.summons)?.every ?? 0),
+      summoned: 0,
       calledBy,
       trap: !!def.trap,
       auraWait: def.aura ? ticks(def.aura.every) : 0,
@@ -220,6 +229,8 @@ export class Battle {
   private callUp(u: SimUnit): void {
     const call = u.summons;
     if (!call) return;
+    // It has sent out all it had.
+    if (call.total !== undefined && u.summoned >= call.total) return;
     if (u.summonWait > 0) {
       u.summonWait--;
       return;
@@ -232,8 +243,9 @@ export class Battle {
     if (standing >= call.cap) return;
     // Above it and below it in turn, a step toward the enemy, and never off the board.
     const side = standing % 2 === 0 ? -1 : 1;
-    const x = Math.max(TILE * 0.5, Math.min(BOARD_W - TILE * 0.5, u.x + u.facing * TILE * 0.7));
-    const y = Math.max(TILE * 0.5, Math.min(BOARD_H - TILE * 0.5, u.y + side * TILE * 0.9));
+    const x = Math.max(TILE * 0.5, Math.min(this.boardW - TILE * 0.5, u.x + u.facing * TILE * 0.7));
+    const y = Math.max(TILE * 0.5, Math.min(this.boardH - TILE * 0.5, u.y + side * TILE * 0.9));
+    u.summoned++;
     const born = this.add(u.team, def, x, y, { unit: call.unit, col: 0, row: 0, hpMult: u.hpMult, damageMult: u.mult }, u.id);
     this.emit('spawn', born.id, u.id, 0, call.unit, x, y);
   }
@@ -986,9 +998,9 @@ export class Battle {
   private keepOnBoard(u: SimUnit): void {
     const m = u.radiusPx * 0.6;
     if (u.x < m) u.x = m;
-    else if (u.x > BOARD_W - m) u.x = BOARD_W - m;
+    else if (u.x > this.boardW - m) u.x = this.boardW - m;
     if (u.y < m) u.y = m;
-    else if (u.y > BOARD_H - m) u.y = BOARD_H - m;
+    else if (u.y > this.boardH - m) u.y = this.boardH - m;
   }
 
   /** Units that overlap are eased apart, so that they do not stand in a heap. */

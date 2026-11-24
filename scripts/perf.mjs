@@ -27,10 +27,17 @@ page.on('pageerror', (e) => errors.push(e.message));
 const units = ['paladin', 'huscarl', 'colossus', 'frostwitch', 'ballista', 'pyromancer', 'cleric', 'jarl'];
 const cards = units.map((unit, i) => ({ id: i + 1, unit, grade: 6, level: 20, xp: 0 }));
 for (let i = 0; i < 60; i++) cards.push({ id: 100 + i, unit: ['knight', 'archer', 'mage', 'militia'][i % 4], grade: i % 5, level: 1 + (i % 7), xp: 0 });
+// And three structures, as a team this far along has: the last stage is fought on the biggest field, by the most there can be.
+const built = ['watchtower', 'barracks', 'spiketrap'];
+built.forEach((unit, i) => cards.push({ id: 50 + i, unit, grade: 6, level: 20, xp: 0 }));
 const tiles = [[3, 1], [3, 2], [2, 0], [1, 1], [0, 2], [1, 3], [0, 0], [2, 3]];
+const builtTiles = [[1, -1], [-1, 4], [3, 4]];
 const save = {
   version: 4, coins: 5000, cards, nextCard: 500,
-  team: units.map((unit, i) => ({ card: i + 1, unit, col: tiles[i][0], row: tiles[i][1] })),
+  team: [
+    ...units.map((unit, i) => ({ card: i + 1, unit, col: tiles[i][0], row: tiles[i][1] })),
+    ...built.map((unit, i) => ({ card: 50 + i, unit, col: builtTiles[i][0], row: builtTiles[i][1] })),
+  ],
   cleared: 184,
   packs: { recruit: 3 }, rng: 5, stats: { battles: 900, wins: 700, opened: 300 },
   speed: 2, sound: false, tutorial: { done: true, seen: [] }, at: 184, lostAt: null, auto: true,

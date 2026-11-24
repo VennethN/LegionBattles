@@ -286,6 +286,35 @@ const RAW: Record<string, Raw> = {
     },
   },
 
+  // ------------------------------------------------------------ summoners
+  // A summoner fights little and calls others to its side, as strong as it
+  // is, for as long as it stands: so it is the one to strike first. One to a
+  // set. A land's stands in a few of its stages, never many at once.
+  herald: {
+    name: 'Herald', set: 'kingdom', rarity: 'rare', role: 'support', place: 'back',
+    hp: 520, damage: 24, attackInterval: 1.3, windup: 0.4, range: 1.3, armor: 4, speed: 60,
+    summons: { unit: 'militia', every: 9, cap: 2, total: 3 },
+    text: 'Sounds the muster. A Militia comes to its side every nine seconds, three in all, as strong as the Herald is.',
+  },
+  ringleader: {
+    name: 'Ringleader', set: 'raiders', rarity: 'rare', role: 'support', place: 'back', from: 6,
+    hp: 500, damage: 28, attackInterval: 1.3, windup: 0.4, range: 1.3, armor: 2, speed: 62,
+    summons: { unit: 'cutpurse', every: 8, cap: 2, total: 3 },
+    text: 'Swings its lantern, and a Cutpurse comes out of the trees every eight seconds, three in all.',
+  },
+  drummer: {
+    name: 'War Drummer', set: 'sandsworn', rarity: 'rare', role: 'support', place: 'back', from: 7,
+    hp: 560, damage: 26, attackInterval: 1.2, windup: 0.4, range: 1.3, armor: 4, speed: 58,
+    summons: { unit: 'javelineer', every: 10, cap: 2, total: 3 },
+    text: 'Beats the march. A Javelineer answers it every ten seconds, three in all.',
+  },
+  skald: {
+    name: 'Skald', set: 'frostbound', rarity: 'rare', role: 'support', place: 'back', from: 6,
+    hp: 600, damage: 28, attackInterval: 1.3, windup: 0.4, range: 1.3, armor: 4, speed: 60,
+    summons: { unit: 'harpooner', every: 10, cap: 2, total: 3 },
+    text: 'Winds its horn, and a Harpooner comes down from the hall every ten seconds, three in all.',
+  },
+
   // ------------------------------------------------------------ structures: buildings and traps
   // A building never moves and nothing mends it. It does not hold the field
   // alone: a side with no one left who walks has lost, whatever of its still
@@ -317,8 +346,8 @@ const RAW: Record<string, Raw> = {
   barracks: {
     name: 'Barracks', set: 'kingdom', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back',
     hp: 760, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 8, speed: 0, radius: 0.44,
-    summons: { unit: 'militia', every: 8, cap: 2 },
-    text: 'Sends out a Militia every eight seconds, two at a time at most, as strong as the Barracks is.',
+    summons: { unit: 'militia', every: 8, cap: 2, total: 4 },
+    text: 'Sends out a Militia every eight seconds, two at a time and four in all, as strong as the Barracks is.',
   },
   warbanner: {
     name: 'War Banner', set: 'kingdom', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back',
@@ -335,8 +364,8 @@ const RAW: Record<string, Raw> = {
   raidertent: {
     name: 'Raider Tent', set: 'raiders', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back', from: 8,
     hp: 620, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 4, speed: 0, radius: 0.44,
-    summons: { unit: 'cutpurse', every: 8, cap: 2 },
-    text: 'A Cutpurse comes out of it every eight seconds, two at a time at most.',
+    summons: { unit: 'cutpurse', every: 8, cap: 2, total: 4 },
+    text: 'A Cutpurse comes out of it every eight seconds, two at a time and four in all.',
   },
   bramblesnare: {
     name: 'Bramble Snare', set: 'raiders', rarity: 'common', role: 'support', kind: 'trap', place: 'front', from: 3,
@@ -353,8 +382,8 @@ const RAW: Record<string, Raw> = {
   wartent: {
     name: 'War Tent', set: 'sandsworn', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back', from: 8,
     hp: 680, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 4, speed: 0, radius: 0.46,
-    summons: { unit: 'lancer', every: 9, cap: 2 },
-    text: 'A Lancer rides out of it every nine seconds, two at a time at most.',
+    summons: { unit: 'lancer', every: 9, cap: 2, total: 4 },
+    text: 'A Lancer rides out of it every nine seconds, two at a time and four in all.',
   },
   firepit: {
     name: 'Fire Pit', set: 'sandsworn', rarity: 'uncommon', role: 'support', kind: 'trap', place: 'front', from: 3,
@@ -371,8 +400,8 @@ const RAW: Record<string, Raw> = {
   longhouse: {
     name: 'Longhouse', set: 'frostbound', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back', from: 9,
     hp: 740, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 8, speed: 0, radius: 0.46,
-    summons: { unit: 'huscarl', every: 10, cap: 2 },
-    text: 'A Huscarl comes out of it every ten seconds, two at a time at most.',
+    summons: { unit: 'huscarl', every: 10, cap: 2, total: 4 },
+    text: 'A Huscarl comes out of it every ten seconds, two at a time and four in all.',
   },
   frostrune: {
     name: 'Frost Rune', set: 'frostbound', rarity: 'uncommon', role: 'support', kind: 'trap', place: 'front', from: 3,

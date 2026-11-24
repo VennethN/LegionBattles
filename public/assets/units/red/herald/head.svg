@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="herald-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="herald-head-helm-shape" d="M 97 50 C 104.3 50 113.7 52.3 119 57 C 124.3 61.7 128 71 129 78 C 130 85 128.5 94 125 99 C 121.5 104 114.8 106.5 108 108 C 101.2 109.5 90.5 109.5 84 108 C 77.5 106.5 72.2 104 69 99 C 65.8 94 64 85 65 78 C 66 71 69.7 61.7 75 57 C 80.3 52.3 89.7 50 97 50 Z"/>
+<clipPath id="herald-head-helm-clip"><use href="#herald-head-helm-shape"/></clipPath>
+<clipPath id="herald-head-helm-lit-clip"><use href="#herald-head-helm-shape" transform="translate(-6 -6)"/></clipPath>
+</defs>
+<path id="herald-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="herald-head-helm">
+<use id="herald-head-helm-shade" href="#herald-head-helm-shape" fill="#9c7c33"/>
+<g clip-path="url(#herald-head-helm-clip)">
+<use id="herald-head-helm-deep" href="#herald-head-helm-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="herald-head-helm-shade-over" href="#herald-head-helm-shape" transform="translate(-3.72 -3.72)" fill="#9c7c33"/>
+<use id="herald-head-helm-fill" href="#herald-head-helm-shape" transform="translate(-6 -6)" fill="#c8a24a"/>
+<g clip-path="url(#herald-head-helm-lit-clip)">
+<use id="herald-head-helm-lit" href="#herald-head-helm-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="herald-head-helm-fill-over" href="#herald-head-helm-shape" transform="translate(4.6 4.6)" fill="#c8a24a"/>
+</g>
+<path id="herald-head-helm-sheen" d="M109.5 50 L119.4 50 L94.41 109.5 L84.51 109.5 Z M122.9 50 L125.5 50 L100.51 109.5 L97.91 109.5 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="herald-head-plate" d="M 91.5 84 L 92.1 84 Q 93.1 84 93.1 85 L 93.1 99 Q 93.1 100 92.1 100 L 91.5 100 Q 90.5 100 90.5 99 L 90.5 85 Q 90.5 84 91.5 84 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="herald-head-rivet" d="M 72.3 88.5 C 72.3 89.5 71.5 90.3 70.5 90.3 C 69.5 90.3 68.7 89.5 68.7 88.5 C 68.7 87.5 69.5 86.7 70.5 86.7 C 71.5 86.7 72.3 87.5 72.3 88.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="herald-head-rivet-lit" d="M 70.7 87.9 C 70.7 88.3 70.3 88.7 69.9 88.7 C 69.4 88.7 69.1 88.3 69.1 87.9 C 69.1 87.4 69.4 87.1 69.9 87.1 C 70.3 87.1 70.7 87.4 70.7 87.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="herald-head-rivet-2" d="M 78.3 93 C 78.3 94 77.5 94.8 76.5 94.8 C 75.5 94.8 74.7 94 74.7 93 C 74.7 92 75.5 91.2 76.5 91.2 C 77.5 91.2 78.3 92 78.3 93 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="herald-head-rivet-lit-2" d="M 76.7 92.4 C 76.7 92.8 76.3 93.2 75.9 93.2 C 75.4 93.2 75.1 92.8 75.1 92.4 C 75.1 91.9 75.4 91.6 75.9 91.6 C 76.3 91.6 76.7 91.9 76.7 92.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="herald-head-rivet-3" d="M 85.8 95.5 C 85.8 96.5 85 97.3 84 97.3 C 83 97.3 82.2 96.5 82.2 95.5 C 82.2 94.5 83 93.7 84 93.7 C 85 93.7 85.8 94.5 85.8 95.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="herald-head-rivet-lit-3" d="M 84.2 94.9 C 84.2 95.3 83.8 95.7 83.4 95.7 C 82.9 95.7 82.6 95.3 82.6 94.9 C 82.6 94.4 82.9 94.1 83.4 94.1 C 83.8 94.1 84.2 94.4 84.2 94.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="herald-head-slit" d="M 98.5 77 L 133.5 77 Q 138 77 138 81.5 L 138 81.5 Q 138 86 133.5 86 L 98.5 86 Q 94 86 94 81.5 L 94 81.5 Q 94 77 98.5 77 Z" fill="#1e2b17"/>
+<path id="herald-head-slit-edge" d="M 98.5 77 L 133.5 77 Q 138 77 138 81.5 L 138 81.5 Q 138 86 133.5 86 L 98.5 86 Q 94 86 94 81.5 L 94 81.5 Q 94 77 98.5 77 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="herald-head-ridge" d="M 110 52 L 110 76" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="herald-head-rim" d="M 62 97 C 67.7 97.7 84.3 101.3 96 101 C 107.7 100.7 126 96 132 95" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="herald-head-helm-line" href="#herald-head-helm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="herald-head-glint" d="M 79.6 65.9 L 85.6 60.9 C 86.7 60 86.8 58.5 85.9 57.4 C 85 56.3 83.5 56.2 82.4 57.1 L 76.4 62.1 C 75.3 63 75.2 64.5 76.1 65.6 C 77 66.7 78.5 66.8 79.6 65.9 Z" fill="#f4f1e4"/>
+</svg>

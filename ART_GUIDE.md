@@ -175,6 +175,18 @@ export const militia: UnitArt = {
 6. **Run `npm run art:sheet`** and open all four sheets. Check: no face, enough team color, parts that stay joined at every pose, a silhouette of its own.
 7. **Run `npm test`.**
 
+## Structures and summoners
+
+**A structure** is a building or a trap (`src/art/units/structures.ts`). It is drawn on the same canvas with its foot at (96, 180), and it has fewer parts than a unit: a `shadow`, a `body`, and an `extra` if it flies a flag, which is the one thing on it that moves. It has no weapon, no head and no legs. The rig leaves it still, sets it back a little when it shoots, shudders it when it is struck, and brings it down where it stands.
+
+- It is drawn as the thing it is: a tower is timber legs, a walled top and a roof; a tent is cloth on a pole; a trap is an iron plate with its spikes up.
+- **A building has one door or one slit, and never two openings side by side.** Two dark holes over a third is a face. For the same reason the Longhouse has a cloth hung from its gable and not a round shield: a round thing in a triangle reads as an eye.
+- Whose it is shows in its roof, its flag or a band, as a unit's cloth does.
+- **A trap is low and flat**, about 40 units tall, drawn round the middle of its tile. The game draws it under everyone's feet with a ring of its side's color round it, as whoever stands in front of a trap hides it.
+- Its `muzzle` is where a shot leaves a tower from, and where what a spire throws gathers.
+
+**A summoner** (`src/art/units/summoners.ts`) is a unit like any other, read by what it calls with: the Herald's long horn with a cloth hung from it, the Ringleader's lantern on a crook, the War Drummer's drum and beater, the Skald's curved horn. Each is a part in `kit/parts.ts` that no one else carries.
+
 ## Editing by hand
 
 Copy a generated file to the same path under `art/overrides`, edit it there, and the game uses yours. The files are plain: attributes only, no styles, scripts or filters, nothing that points outside the file, and ids that say what a thing is (`knight-head-helm-fill`).
@@ -190,12 +202,13 @@ A unit's file has 40 px of page round the 192 canvas (`viewBox="-40 -40 272 272"
 The ground of a battle and the map of a land are each one painted picture the size of the screen, 1280 by 720 (`backdrop.ts`). They are put together from the scenery by a seed, so they come out the same every time.
 
 - **Scenery** (`scenery.ts`) is drawn about its own foot at (0, 0), so that a scene can stand it anywhere, at any size, facing either way (`Doc.at`). A thing stood many times is written once in the file and used each time.
-- **The ground of a battle** has the board in it: a slab of earth with its 32 tiles, a road up to it from each side, and a standard at each corner in the color of the side it is on. The strip above the board is kept to low things, as the back row's plates stand there, and tall things keep to the sides.
+- **The ground of a battle** has the board's slab of earth in it, a road up to it from each side, and a standard at each corner in the color of the side it is on. The strip above the board is kept to low things, as the back row's plates stand there, and tall things keep to the sides.
+- **The tiles are a picture of their own** (`boardTiles`), one for each field on each kind of land, as big as the board is on the screen whatever the field: `public/assets/tiles/meadow-10x5.svg`. It is drawn with tiles the size the first field's are and scaled to fit, so a bigger field's tiles, and what grows on them, are smaller, as everything on that field is. A tile is written a few times in the file and laid many (`Doc.at`), which keeps a field of seventy-two under 30 KB.
 - **The map** has a road from the first stage of the land to the last, with a round of trodden earth at each where the game writes the stage's number: a camp for a plain stage, a watchtower for a miniboss, a stronghold for the boss. `mapNodes` says where they are, for the picture and for the game alike.
-- A new kind of land needs its scenery and a line in `LOOKS`. `npm run art:sheet` draws all six scenes on `docs/art/scenes.png`.
+- A new kind of land needs its scenery and a line in `LOOKS`. `npm run art:sheet` draws all six scenes on `docs/art/scenes.png`, each land's ground with the tiles of a different field laid on it.
 
 ## Grade badges, packs, icons
 
 - **Grades** (`grades.ts`) are plates with a letter, dressed more grandly as they rise: iron for F and E, bronze with a gloss for D and C, silver with a spur at each end and a stud for B, gold with wings and two studs for A, ruby with a gold rim, feathered wings, three studs and a crown for S. A grade is told by its outline as well as its color. Every place that shows a grade shows this badge, never the letter in a line of text.
-- **Packs** (`packs.ts`) are all the same foil pouch, crimped top and bottom. What tells one from another is its color and the mark on its seal.
+- **Packs** (`packs.ts`) are all the same foil pouch, crimped top and bottom. What tells one from another is its color and the mark on its seal: the Builder's Pack is the brown of timber with a tower on it.
 - **Icons** (`icons.ts`) are drawn as the things they are: a coin is a struck coin, a lock has a shackle. No letters and no emoji. Each kind of land has an emblem there, a medal in its color with what grows or shines in it, which stands on the banner of a world wherever a stage's number is shown.

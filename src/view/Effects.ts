@@ -62,6 +62,13 @@ export class Effects {
     return { img, active: false, t: 0, dur: 1, x: 0, y: 0, vx: 0, vy: 0, gravity: 0, s0: 1, s1: 1, flat: 1, a0: 1, hold: 0.5, spin: 0 };
   }
 
+  /**
+   * How much smaller than on the first field effects are drawn: the zoom of
+   * the field on show. Sizes and speeds are given as they are on the first
+   * field, and are scaled by this. Where an effect starts is the caller's.
+   */
+  zoom = 1;
+
   /** Plays one effect. `frame` is its name on the sheet, like "fx/spark". */
   spawn(frame: string, x: number, y: number, o: FxOpts = {}): void {
     let fx: Fx | null = null;
@@ -81,11 +88,11 @@ export class Effects {
     fx.dur = o.dur ?? 0.3;
     fx.x = x;
     fx.y = y;
-    fx.vx = o.vx ?? 0;
-    fx.vy = o.vy ?? 0;
-    fx.gravity = o.gravity ?? 0;
-    fx.s0 = o.from ?? 1;
-    fx.s1 = o.to ?? fx.s0;
+    fx.vx = (o.vx ?? 0) * this.zoom;
+    fx.vy = (o.vy ?? 0) * this.zoom;
+    fx.gravity = (o.gravity ?? 0) * this.zoom;
+    fx.s0 = (o.from ?? 1) * this.zoom;
+    fx.s1 = (o.to ?? o.from ?? 1) * this.zoom;
     fx.flat = o.flat ?? 1;
     fx.a0 = o.alpha ?? 1;
     fx.hold = o.hold ?? 0.5;

@@ -20,7 +20,7 @@ import { packById } from '../../data/packs';
 import { UNITS } from '../../data/units';
 import { cardOf } from '../../game/cards';
 import {
-  afterFloor, canGoOn, fielded, finishRaid, floorEnemies, floorInput, raidEnemies, raidInput, startRun, tierStage, toggleFielded, unitsOf,
+  afterFloor, canGoOn, fielded, finishRaid, floorEnemies, floorInput, raidEnemies, raidInput, startRun, tierField, tierStage, toggleFielded, unitsOf,
   type Prize, type RosterCard, type Run,
 } from '../../game/expeditions';
 import { teamSize, tidyTeam, unitsIn, type LevelUp } from '../../game/rules';
@@ -224,7 +224,7 @@ export class VentureScene extends Phaser.Scene {
     this.drawHead();
     this.drawCamp();
     this.refreshButtons();
-    void this.board.show(team, foes, seed, unitsOf(this.place)).then(() => {
+    void this.board.show(team, foes, seed, unitsOf(this.place), tierField(this.place.land, this.tier)).then(() => {
       if (token !== this.arrival) return;
       this.state = 'camp';
       this.board.setPlacement(true);

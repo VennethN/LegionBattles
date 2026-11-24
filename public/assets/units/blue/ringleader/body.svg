@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ringleader-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="ringleader-body-coat-shape" d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z"/>
+<clipPath id="ringleader-body-coat-clip"><use href="#ringleader-body-coat-shape"/></clipPath>
+<clipPath id="ringleader-body-coat-lit-clip"><use href="#ringleader-body-coat-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="ringleader-body-hem-shape" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z"/>
+<path id="ringleader-body-sleeve-shape" d="M 109.5 121.6 L 121.5 138.6 C 124 142.2 129 143.1 132.6 140.5 C 136.2 138 137.1 133 134.5 129.4 L 122.5 112.4 C 120 108.8 115 107.9 111.4 110.5 C 107.8 113 106.9 118 109.5 121.6 Z"/>
+<clipPath id="ringleader-body-sleeve-clip"><use href="#ringleader-body-sleeve-shape"/></clipPath>
+<clipPath id="ringleader-body-sleeve-lit-clip"><use href="#ringleader-body-sleeve-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="ringleader-body-coat">
+<use id="ringleader-body-coat-shade" href="#ringleader-body-coat-shape" fill="#4e3520"/>
+<g clip-path="url(#ringleader-body-coat-clip)">
+<use id="ringleader-body-coat-deep" href="#ringleader-body-coat-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="ringleader-body-coat-shade-over" href="#ringleader-body-coat-shape" transform="translate(-3.1 -3.1)" fill="#4e3520"/>
+<use id="ringleader-body-coat-fill" href="#ringleader-body-coat-shape" transform="translate(-5 -5)" fill="#6b4a2b"/>
+<g clip-path="url(#ringleader-body-coat-lit-clip)">
+<use id="ringleader-body-coat-lit" href="#ringleader-body-coat-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ringleader-body-coat-fill-over" href="#ringleader-body-coat-shape" transform="translate(4.6 4.6)" fill="#6b4a2b"/>
+</g>
+<path id="ringleader-body-fold-a" d="M 77 162 Q 83.1 143 82 123 Q 78.8 142.4 77 162 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="ringleader-body-fold-b" d="M 99 166 Q 101.2 149.3 97 133 Q 97.4 149.5 99 166 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="ringleader-body-fold-c" d="M 119 163 Q 119.9 144.5 114 127 Q 115.8 145.1 119 163 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="ringleader-body-fold-lit-a" d="M 84 163 Q 90 143 88 125 Q 86 145 84 163 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="ringleader-body-fold-lit-b" d="M 105 165 Q 109 149 106 135 Q 104 151 105 165 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="ringleader-body-hem-cast" d="M 52 159 C 59.3 159 81.3 163 96 163 C 110.7 163 132.7 159 140 159 C 147.3 159 147.3 161.7 140 163 C 132.7 164.3 110.7 167 96 167 C 81.3 167 59.3 164.3 52 163 C 44.7 161.7 44.7 159 52 159 Z" fill="#2a1a10" opacity="0.22"/>
+<g id="ringleader-body-hem">
+<use id="ringleader-body-hem-fill" href="#ringleader-body-hem-shape" fill="#3d6fb6"/>
+<use id="ringleader-body-hem-line" href="#ringleader-body-hem-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="ringleader-body-coat-line" href="#ringleader-body-coat-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="ringleader-body-sleeve-cast" d="M 110.5 125.1 L 122.5 142.1 C 125 145.7 130 146.6 133.6 144 C 137.2 141.5 138.1 136.5 135.5 132.9 L 123.5 115.9 C 121 112.3 116 111.4 112.4 114 C 108.8 116.5 107.9 121.5 110.5 125.1 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="ringleader-body-sleeve">
+<use id="ringleader-body-sleeve-shade" href="#ringleader-body-sleeve-shape" fill="#4e3520"/>
+<g clip-path="url(#ringleader-body-sleeve-clip)">
+<use id="ringleader-body-sleeve-fill" href="#ringleader-body-sleeve-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#ringleader-body-sleeve-lit-clip)">
+<use id="ringleader-body-sleeve-lit" href="#ringleader-body-sleeve-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ringleader-body-sleeve-fill-over" href="#ringleader-body-sleeve-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="ringleader-body-sleeve-line" href="#ringleader-body-sleeve-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

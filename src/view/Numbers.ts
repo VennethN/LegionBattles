@@ -83,6 +83,9 @@ export class Numbers {
     return { text, active: false, t: 0, x: 0, y: 0, vx: 0, size: 26 };
   }
 
+  /** The zoom of the field on show. Numbers shrink with it, but less: they are read, not looked at. */
+  zoom = 1;
+
   show(x: number, y: number, value: string, color: number, size = 26): void {
     let n: Num | null = null;
     for (let i = 0; i < this.pool.length; i++) {
@@ -102,7 +105,7 @@ export class Numbers {
     n.x = x + this.flip * 6;
     n.y = y;
     n.vx = this.flip * 16;
-    n.size = size;
+    n.size = size * Math.max(0.8, this.zoom);
     n.text.setText(value);
     n.text.setTint(color);
     n.text.setActive(true).setVisible(true);
@@ -123,7 +126,7 @@ export class Numbers {
       const rise = 1 - (1 - k) * (1 - k);
       const pop = k < 0.15 ? 0.6 + (k / 0.15) * 0.65 : 1.25 - Math.min(1, (k - 0.15) / 0.2) * 0.25;
       n.text.x = n.x + n.vx * k;
-      n.text.y = n.y - 44 * rise;
+      n.text.y = n.y - 44 * this.zoom * rise;
       n.text.setFontSize(n.size * pop);
       n.text.alpha = k < 0.65 ? 1 : 1 - (k - 0.65) / 0.35;
     }

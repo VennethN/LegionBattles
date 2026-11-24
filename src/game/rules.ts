@@ -6,7 +6,8 @@ import { LANDS, RANK, type StageDef } from '../data/lands';
 import { PACKS, allPacks, packById, type PackDef } from '../data/packs';
 import { STAGES, WORLDS, landStart, stageAt, worldOf, type Stage } from '../data/stages';
 import { UNITS, isFrontline, isStructure, type UnitInfo } from '../data/units';
-import { COLS, HALF_COLS, ROWS } from '../sim/constants';
+import { FIELDS } from '../data/fields';
+import { FIRST_FIELD, halfOf, isEnemyTile as enemyTile, rowsFromMiddle, seatTeam, shiftOf, standEnemy, type Field } from '../sim/field';
 import { Rng, hash32 } from '../sim/rng';
 import { defaultFormation } from '../sim/setup';
 import type { BattleInput, Placement } from '../sim/types';
@@ -131,15 +132,40 @@ export function inTeam(save: SaveData, card: number): boolean {
   return save.team.some((p) => p.card === card);
 }
 
-/** Cards laid out as a team that has not been arranged: fighters forward, the rest behind. */
-function formation(cards: readonly Card[]): Fielded[] {
-  const tiles = defaultFormation(cards.map((c) => c.unit), isFrontline);
+/** Cards laid out as a team that has not been arranged: fighters forward, the rest behind, formed up for a field. */
+function formation(cards: readonly Card[], field: Field = FIRST_FIELD): Fielded[] {
+  const tiles = defaultFormation(cards.map((c) => c.unit), isFrontline, field);
   return tiles.map((t, i) => ({ ...t, card: cards[i].id }));
 }
 
-function freeTile(team: readonly Placement[], front: boolean): [number, number] {
+/** The field the player's next battle on the line is fought on: the one a team is set out for. */
+export function fieldAt(save: SaveData): Field {
+  return stageAt(Math.max(0, Math.min(STAGES.length - 1, save.at))).field;
+}
+
+/**
+ * Whether a team's tile is one a field could have. A team's tiles are
+ * written as the first field's are, and a bigger field has more behind and
+ * beside them (sim/field.ts): this is true for any tile of the player's
+ * half of the biggest field there is.
+ */
+export function teamTile(col: number, row: number): boolean {
+  const big = FIELDS[FIELDS.length - 1];
+  const shift = shiftOf(big);
+  return col >= -shift.col && col < halfOf(big) - shift.col && row >= -shift.row && row < big.rows - shift.row;
+}
+
+/**
+ * A free tile for one more of a team, written as the first field's are: at
+ * the front for a fighter, at the back for anyone else, the middle rows of
+ * the field first. Behind the four columns every field has, a bigger one
+ * has more, and they are taken last.
+ */
+function freeTile(team: readonly Placement[], front: boolean, field: Field = FIRST_FIELD): [number, number] {
+  const shift = shiftOf(field);
   const cols = front ? [3, 2, 1, 0] : [0, 1, 2, 3];
-  const rows = [1, 2, 0, 3];
+  for (let col = -1; col >= -shift.col; col--) cols.push(col);
+  const rows = rowsFromMiddle(field.rows).map((r) => r - shift.row);
   for (const col of cols) {
     for (const row of rows) {
       if (!team.some((p) => p.col === col && p.row === row)) return [col, row];
@@ -157,7 +183,7 @@ export function toggleTeam(save: SaveData, card: number): boolean {
   }
   const held = cardOf(save, card);
   if (!held || !roomFor(save, held.unit)) return false;
-  const [col, row] = freeTile(save.team, isFrontline(held.unit));
+  const [col, row] = freeTile(save.team, isFrontline(held.unit), fieldAt(save));
   save.team.push({ card, unit: held.unit, col, row });
   return true;
 }
@@ -172,8 +198,8 @@ export function tidyTeam(save: SaveData): void {
     if (!held || seen.has(held.id) || !roomFor(save, held.unit, out)) continue;
     seen.add(held.id);
     let { col, row } = p;
-    if (col < 0 || col >= HALF_COLS || row < 0 || row >= ROWS || tiles.has(`${col},${row}`)) {
-      [col, row] = freeTile(out, isFrontline(held.unit));
+    if (!teamTile(col, row) || tiles.has(`${col},${row}`)) {
+      [col, row] = freeTile(out, isFrontline(held.unit), fieldAt(save));
     }
     tiles.add(`${col},${row}`);
     out.push({ card: held.id, unit: held.unit, col, row });
@@ -232,7 +258,8 @@ export function bestTeam(save: SaveData): Fielded[] {
   const stood: Card[] = [];
   for (const card of built) if (stood.length < places && !stood.some((c) => c.unit === card.unit)) stood.push(card);
   for (const card of built) if (stood.length < places && !stood.includes(card)) stood.push(card);
-  return formation([...picked, ...stood]);
+  // Set out for the field the player is at: on a taller one the lines form up from its middle.
+  return formation([...picked, ...stood], fieldAt(save));
 }
 
 // What the structures that strike no one are counted as, in cardPower.
@@ -276,14 +303,19 @@ function mults(card: Card): { hpMult: number; damageMult: number } {
   return { hpMult: m, damageMult: m };
 }
 
-/** The player's team as the simulation takes it, with each card's grade and level counted. */
-export function teamPlacements(save: SaveData): Placement[] {
-  const out: Placement[] = [];
-  for (const p of save.team) {
-    const card = cardOf(save, p.card);
-    if (card) out.push({ unit: card.unit, col: p.col, row: p.row, ...mults(card) });
-  }
-  return out;
+/**
+ * The player's team as the simulation takes it on a field, with each card's
+ * grade and level counted. Where each stands is seatTeam's to say: its own
+ * tile if the field has it, the nearest free one if it was set out on a
+ * bigger field. The board shows the team by the same rule.
+ */
+export function teamPlacements(save: SaveData, field: Field = FIRST_FIELD): Placement[] {
+  const held = save.team.filter((p) => cardOf(save, p.card));
+  const seats = seatTeam(held, field);
+  return held.map((p, i) => {
+    const card = cardOf(save, p.card) as Card;
+    return { unit: card.unit, col: seats[i][0], row: seats[i][1], ...mults(card) };
+  });
 }
 
 /**
@@ -295,28 +327,48 @@ export function teamPlacements(save: SaveData): Placement[] {
  */
 export function stageEnemies(index: number): Placement[] {
   const stage = stageAt(index);
-  return fieldOf(stage.def, stage.grade, stage.level, stage.extra);
+  return fieldOf(stage.def, stage.grade, stage.level, stage.extra, stage.field);
 }
 
-/** Who a written stage fields at a grade and level, with so many more troops than it is written with. A dungeon's floor is fielded the same way. */
-export function fieldOf(def: StageDef, grade: number, level: number, extra: number): Placement[] {
+/**
+ * Who a written stage fields at a grade and level, with so many more troops
+ * than it is written with, as tiles of the field it is fought on. A stage
+ * is written on the first field; on a bigger one its enemies keep their
+ * depth behind their front line and are spread over the field's height
+ * (standEnemy). A dungeon's floor is fielded the same way.
+ */
+export function fieldOf(def: StageDef, grade: number, level: number, extra: number, field: Field = FIRST_FIELD): Placement[] {
   const stage = { extra };
   const m = cardMult(grade, level);
-  const out: Placement[] = def.enemies.map((e) => {
+  const out: Placement[] = [];
+  for (const e of def.enemies) {
     const rank = RANK[e.rank];
-    return { unit: e.unit, col: e.col, row: e.row, hpMult: m * rank.hp, damageMult: m * rank.damage, scale: rank.scale };
-  });
+    let [col, row] = standEnemy(field, e.col, e.row);
+    // Two written rows can come to one on a field that is not as tall as it is written for. Then the later one stands beside it.
+    if (out.some((p) => p.col === col && p.row === row)) {
+      const free = rowsFromMiddle(field.rows).find((r) => !out.some((p) => p.col === col && p.row === r));
+      if (free !== undefined) row = free;
+    }
+    out.push({ unit: e.unit, col, row, hpMult: m * rank.hp, damageMult: m * rank.damage, scale: rank.scale });
+  }
+  const front = halfOf(field);
+  const depth = field.cols - front;
+  const rows = rowsFromMiddle(field.rows);
   if (stage.extra > 0) {
     const counts = new Map<string, number>();
-    // The troops added are people: a second tower is not what a harder lap means.
-    for (const e of def.enemies) if (e.rank === 'troop' && !isStructure(e.unit)) counts.set(e.unit, (counts.get(e.unit) ?? 0) + 1);
+    // The troops added are people who fight: a second tower is not what a harder lap means, nor a second summoner.
+    for (const e of def.enemies) {
+      if (e.rank === 'troop' && !isStructure(e.unit) && !UNITS[e.unit]?.summons) counts.set(e.unit, (counts.get(e.unit) ?? 0) + 1);
+    }
     const kinds = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map((k) => k[0]);
     for (let n = 0; n < stage.extra && kinds.length > 0; n++) {
       const unit = kinds[n % kinds.length];
-      const cols = isFrontline(unit) ? [4, 5, 6, 7] : [7, 6, 5, 4];
+      // A fighter from the front line back; a shooter from the fourth column, where the written ones stand, forward, and then behind it.
+      const deep = Array.from({ length: depth }, (_, d) => front + d);
+      const cols = isFrontline(unit) ? deep : [...deep.slice(0, 4).reverse(), ...deep.slice(4)];
       let placed = false;
       for (const col of cols) {
-        for (const row of [1, 2, 0, 3]) {
+        for (const row of rows) {
           if (!placed && !out.some((p) => p.col === col && p.row === row)) {
             out.push({ unit, col, row, hpMult: m, damageMult: m, scale: 1 });
             placed = true;
@@ -334,10 +386,12 @@ export function stageSeed(save: SaveData, index: number): number {
 }
 
 export function stageInput(save: SaveData, index: number): BattleInput {
+  const field = stageAt(index).field;
   return {
     seed: stageSeed(save, index),
     defs: UNITS,
-    teams: [teamPlacements(save), stageEnemies(index)],
+    teams: [teamPlacements(save, field), stageEnemies(index)],
+    field,
   };
 }
 
@@ -376,6 +430,8 @@ export interface StageResult {
   moreStructures: number;
   /** The world the line has just come to, as its place in WORLDS, or -1. */
   reached: number;
+  /** The field of that world, if it is bigger than the one just left: the team has been formed up for it. Null otherwise. */
+  field: Field | null;
   /** True if this was the last stage of all, cleared for the first time. */
   finished: boolean;
 }
@@ -398,7 +454,7 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
 
   save.stats.battles++;
   const result: StageResult = {
-    won, first, coins: 0, xp: stageXp(stage.index, won), levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, finished: false,
+    won, first, coins: 0, xp: stageXp(stage.index, won), levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, field: null, finished: false,
   };
 
   for (const p of save.team) {
@@ -429,7 +485,17 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
   result.moreStructures = structuresSize(save) - structuresBefore;
   if (first) {
     if (stage.index + 1 >= STAGES.length) result.finished = true;
-    else if (worldOf(stage.index + 1).index !== worldOf(stage.index).index) result.reached = worldOf(stage.index + 1).index;
+    else if (worldOf(stage.index + 1).index !== worldOf(stage.index).index) {
+      result.reached = worldOf(stage.index + 1).index;
+      // A bigger field has rows the team was never set out on, and its middle is not where the last
+      // one's was. So the team forms up again for it, the same cards, fighters forward, from the middle.
+      const next = stageAt(stage.index + 1).field;
+      if (next.cols * next.rows > stage.field.cols * stage.field.rows) {
+        const cards = save.team.map((p) => cardOf(save, p.card)).filter((c): c is Card => !!c);
+        save.team = formation(cards, next);
+        result.field = next;
+      }
+    }
   }
   return result;
 }
@@ -563,7 +629,7 @@ export function packsHeld(save: SaveData): number {
 /** The packs the shop has a place for: one to a land and the two that are no land's. */
 export const SHELF: readonly PackDef[] = PACKS;
 
-/** Tiles a stage's enemies may stand on: the right half. For the tests. */
-export function isEnemyTile(col: number, row: number): boolean {
-  return col >= HALF_COLS && col < COLS && row >= 0 && row < ROWS;
+/** Tiles a stage's enemies may stand on: the right half of a field, the first if none is given. For the tests. */
+export function isEnemyTile(col: number, row: number, field: Field = FIRST_FIELD): boolean {
+  return enemyTile(col, row, field);
 }

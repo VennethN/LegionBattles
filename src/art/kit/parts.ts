@@ -1282,3 +1282,83 @@ export function ropeCoil(d: Doc, cx: number, cy: number, hand: Material = LEATHE
   d.line('coil-hole-edge', ellipse(cx, cy, 6, 9));
   mitt(d, cx, cy - 16, hand);
 }
+
+// ================================================================ what a summoner holds
+// A summoner fights little: what it carries is what it calls with. Each is
+// a thing no one else holds, so that a summoner is told from across a field.
+
+/** A long straight horn with a cloth hung from it. The Herald's. */
+export function trumpet(d: Doc, g: Grip, cloth: Material, len = 60, hand: Material = LEATHER): void {
+  const t = at(g);
+  // The cloth hangs from the tube, on the side that is down when the horn is raised.
+  d.piece('cloth', t(poly([[2, -len + 12], [28, -len + 12], [28, -len + 40], [15, -len + 33], [2, -len + 40]])), cloth, {
+    shade: 3,
+    inner: (c) => c.piece('cloth-mark', t(poly([[15, -len + 16], [21, -len + 23], [15, -len + 30], [9, -len + 23]])), GOLD, { shade: 0 }),
+  });
+  d.piece('tube', t(roundRect(-2.5, -len, 5, len + 18, 2)), GOLD, { shade: 2 });
+  d.piece('bell', t(poly([[-3, -len + 3], [3, -len + 3], [12, -len - 15], [-12, -len - 15]])), GOLD, { shade: 3 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A crook with a lantern hung from it, to signal with. The Ringleader's. */
+export function crookLantern(d: Doc, g: Grip, glow: Accent, len = 66, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-3.5, -len, 7, len + 38, 3)), WOOD, { shade: 2 });
+  d.piece('crook', t(smooth([
+    [-3.5, -len + 2, 'c'], [-3.5, -len - 12], [8, -len - 19], [22, -len - 13], [25, -len + 1, 'c'],
+    [18, -len + 1, 'c'], [16, -len - 7], [8, -len - 11], [3.5, -len - 6], [3.5, -len + 2, 'c'],
+  ])), WOOD, { shade: 0 });
+  d.line('ring', t(line(21.5, -len + 1, 21.5, -len + 8)));
+  // The light: two flat rings and a pane, as every glow here is.
+  d.flat('halo', t(circle(21.5, -len + 21, 19)), glow.light, 0.4);
+  d.piece('cage', t(roundRect(13, -len + 9, 17, 24, 3)), IRON, {
+    shade: 0,
+    inner: (c) => c.flat('pane', t(roundRect(16.5, -len + 13.5, 10, 15, 2)), glow.light),
+  });
+  d.piece('cap', t(poly([[10.5, -len + 10], [21.5, -len + 3], [32.5, -len + 10]])), IRON, { shade: 0 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A war drum slung in front: a wide shell laced top to bottom, its skin up. The Drummer's. */
+export function drum(d: Doc, cx: number, cy: number, cloth: Material, r = 22): void {
+  d.piece('shell', roundRect(cx - r, cy - 10, r * 2, 28, 7), cloth, {
+    shade: 4,
+    inner: (c) => {
+      // The lacing: a zigzag from rim to rim.
+      const pts: Pt[] = [];
+      for (let i = 0; i <= 6; i++) pts.push([cx - r + 4 + (i * (r * 2 - 8)) / 6, i % 2 === 0 ? cy - 6 : cy + 14]);
+      c.line('lacing', poly(pts, false));
+      c.piece('hoop', roundRect(cx - r - 2, cy + 12, r * 2 + 4, 6, 0), GOLD, { shade: 0 });
+    },
+  });
+  d.piece('skin', ellipse(cx, cy - 10, r, 7), BONE, { shade: 0 });
+}
+
+/** A drumstick with a padded head. */
+export function beater(d: Doc, g: Grip, len = 30, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('stick', t(roundRect(-2.5, -len, 5, len + 8, 2)), WOOD, { shade: 0 });
+  d.piece('pad', t(circle(0, -len - 5, 8)), LINEN, { shade: 3 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A great curved horn bound with gold, its mouth up and forward. The Skald's. */
+export function warHorn(d: Doc, g: Grip, len = 46, hand: Material = LEATHER): void {
+  const t = at(g);
+  // Narrow at the hand, where it is blown, and wide at the far end: a crescent.
+  d.piece('horn', t(smooth([
+    [-3, 8, 'c'], [-7, -len * 0.5], [2, -len], [20, -len - 18, 'c'],
+    [36, -len - 8, 'c'], [20, -len + 6], [9, -len * 0.45], [4, 8, 'c'],
+  ])), BONE, {
+    shade: 4,
+    inner: (c) => {
+      c.piece('band-a', t(roundRect(-10, -len * 0.45 - 3, 24, 6, 0)), GOLD, { shade: 0 });
+      c.piece('band-b', t(roundRect(-6, -len - 6, 26, 6, 0).rotate(38, 6, -len - 3)), GOLD, { shade: 0 });
+    },
+  });
+  // The mouth of the horn: one dark opening at its wide end.
+  const mouth = t(ellipse(28.5, -len - 13, 9.5, 5).rotate(35, 28.5, -len - 13));
+  d.flat('mouth', mouth, HOOD_INTERIOR);
+  d.line('mouth-edge', mouth);
+  mitt(d, g.hand[0], g.hand[1], hand);
+}

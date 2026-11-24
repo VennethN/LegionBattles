@@ -136,6 +136,13 @@ export class UnitView {
   private barsOn = false;
   /** The way its side faces. A building and a trap never turn from it. */
   private readonly side: 1 | -1;
+  /** How big its canvas is drawn: the usual scale, times the zoom of its field. */
+  private readonly unit: number;
+  /** The plate's own scale, and its parts' sizes at it. */
+  private readonly ps: number;
+  private readonly barH: number;
+  private readonly chipH: number;
+  private readonly gradeW: number;
 
   constructor(
     scene: Phaser.Scene,
@@ -150,7 +157,16 @@ export class UnitView {
     /** What the chips beside its health bar say: its level on the color of its tier, and its grade on its plate's. */
     plate: UnitPlate | null = null,
     readonly kind: ViewKind = 'unit',
+    /** The zoom of the field it stands on: 1 on the first, less on a bigger one, where everything is drawn smaller. */
+    zoom = 1,
   ) {
+    this.unit = UNIT_SCALE * zoom;
+    // The plate shrinks with the field, but not as far: it is read.
+    const ps = Math.max(0.75, zoom);
+    this.ps = ps;
+    this.barH = Math.max(5, Math.round(BAR_H * ps));
+    this.chipH = Math.round(CHIP_H * ps);
+    this.gradeW = Math.round(GRADE_W * ps);
     this.root = scene.add.container(0, 0);
     this.xf = makeXforms(art.parts.length);
     let weapon = -1;
@@ -172,27 +188,27 @@ export class UnitView {
     }
 
     if (kind === 'trap') {
-      this.mark = scene.add.image(0, 0, SHEET, 'fx/ring').setTint(barColor).setDisplaySize(MARK_W, MARK_W * MARK_FLAT).setDepth(TRAP_DEPTH - 0.5);
+      this.mark = scene.add.image(0, 0, SHEET, 'fx/ring').setTint(barColor).setDisplaySize(MARK_W * zoom, MARK_W * MARK_FLAT * zoom).setDepth(TRAP_DEPTH - 0.5);
     }
 
     this.barBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setOrigin(0.5, 0.5);
     this.barLag = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(0xffffff).setOrigin(0, 0.5);
     this.barFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(barColor).setOrigin(0, 0.5);
-    this.barW = Math.round(BAR_W * (1 + (size - 1) * 1.6));
-    this.barBack.setDisplaySize(this.barW + 6, BAR_H + 6);
+    this.barW = Math.round(BAR_W * ps * (1 + (size - 1) * 1.6));
+    this.barBack.setDisplaySize(this.barW + 6, this.barH + 6);
     for (let i = 0; i < MAX_PIPS; i++) {
-      this.pips.push(scene.add.image(0, 0, SHEET, 'fx/pixel').setDisplaySize(9, 9).setVisible(false));
+      this.pips.push(scene.add.image(0, 0, SHEET, 'fx/pixel').setDisplaySize(9 * ps, 9 * ps).setVisible(false));
     }
     if (plate && kind !== 'trap') {
       // Wide enough for the number: one digit or two.
-      this.chipW = plate.level >= 10 ? 28 : 19;
-      this.chipBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(this.chipW + 6, CHIP_H + 6);
-      this.chipFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.color).setDisplaySize(this.chipW, CHIP_H);
-      this.chipText = scene.add.bitmapText(0, 0, DIGITS_KEY, String(plate.level), 15).setOrigin(0.5);
+      this.chipW = Math.round((plate.level >= 10 ? 28 : 19) * ps);
+      this.chipBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(this.chipW + 6, this.chipH + 6);
+      this.chipFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.color).setDisplaySize(this.chipW, this.chipH);
+      this.chipText = scene.add.bitmapText(0, 0, DIGITS_KEY, String(plate.level), 15 * ps).setOrigin(0.5);
       this.chipText.setLetterSpacing(-13);
-      this.gradeBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(GRADE_W + 6, CHIP_H + 6);
-      this.gradeFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.gradeColor).setDisplaySize(GRADE_W, CHIP_H);
-      this.gradeText = scene.add.bitmapText(0, 0, DIGITS_KEY, plate.grade, 15).setOrigin(0.5);
+      this.gradeBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(this.gradeW + 6, this.chipH + 6);
+      this.gradeFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.gradeColor).setDisplaySize(this.gradeW, this.chipH);
+      this.gradeText = scene.add.bitmapText(0, 0, DIGITS_KEY, plate.grade, 15 * ps).setOrigin(0.5);
     }
     this.setBarsVisible(false);
 
@@ -235,20 +251,20 @@ export class UnitView {
 
   /** The point on the screen where its shots leave from, with `out` filled as [x, height]. */
   muzzleHeight(): number {
-    return (180 - this.art.muzzle[1]) * UNIT_SCALE * this.size;
+    return (180 - this.art.muzzle[1]) * this.unit * this.size;
   }
   muzzleReach(): number {
-    return (this.art.muzzle[0] - 96) * UNIT_SCALE * this.size * this.facing;
+    return (this.art.muzzle[0] - 96) * this.unit * this.size * this.facing;
   }
 
   /** How tall it stands, for what floats over it. */
   get height(): number {
-    return (180 - this.art.top) * UNIT_SCALE * this.size;
+    return (180 - this.art.top) * this.unit * this.size;
   }
 
   /** Its scale on the board, for effects that should match it. */
   get scale(): number {
-    return UNIT_SCALE * this.size;
+    return this.unit * this.size;
   }
 
   /**
@@ -473,14 +489,14 @@ export class UnitView {
     const root = this.root;
     root.x = this.x;
     root.y = this.y;
-    root.scaleX = this.turn * UNIT_SCALE * this.size;
-    root.scaleY = UNIT_SCALE * this.size;
+    root.scaleX = this.turn * this.unit * this.size;
+    root.scaleY = this.unit * this.size;
     root.alpha = alpha;
     // A trap lies under everyone's feet: just over the ground, whoever stands in front of it or behind.
     root.depth = this.lift > 0 ? this.y + 1000 : this.kind === 'trap' ? TRAP_DEPTH : this.y;
     if (this.mark) {
       this.mark.x = this.x;
-      this.mark.y = this.y - 8 * UNIT_SCALE - this.lift;
+      this.mark.y = this.y - 8 * this.unit - this.lift;
       // It breathes a little, so that it is seen at the edge of whoever hides it; and goes as the trap does.
       this.mark.alpha = alpha * (0.55 + 0.2 * Math.sin(t * 3));
     }
@@ -490,15 +506,15 @@ export class UnitView {
     else this.lagHealth = this.health;
     const BAR_W = this.barW;
     const bx = this.x - BAR_W / 2;
-    const by = this.y - this.height - 9 - this.lift;
+    const by = this.y - this.height - 9 * this.ps - this.lift;
     this.barBack.x = this.x;
     this.barBack.y = by;
     this.barLag.x = bx;
     this.barLag.y = by;
     this.barFill.x = bx;
     this.barFill.y = by;
-    this.barLag.setDisplaySize(Math.max(0.001, BAR_W * this.lagHealth), BAR_H);
-    this.barFill.setDisplaySize(Math.max(0.001, BAR_W * this.health), BAR_H);
+    this.barLag.setDisplaySize(Math.max(0.001, BAR_W * this.lagHealth), this.barH);
+    this.barFill.setDisplaySize(Math.max(0.001, BAR_W * this.health), this.barH);
     const depth = 5000 + this.y;
     this.barBack.depth = depth;
     this.barLag.depth = depth + 0.1;
@@ -521,7 +537,7 @@ export class UnitView {
     }
     if (this.gradeBack && this.gradeFill && this.gradeText) {
       // And the grade at the bar's right end, so that the bar stays over the middle of the unit.
-      const gx = bx + BAR_W + 3 + GRADE_W / 2;
+      const gx = bx + BAR_W + 3 + this.gradeW / 2;
       this.gradeBack.setPosition(gx, by);
       this.gradeFill.setPosition(gx, by);
       this.gradeText.setPosition(gx, by - 1);
@@ -538,8 +554,8 @@ export class UnitView {
       const on = this.barsOn && i < this.pipCount && this.deadAt < 0;
       if (pip.visible !== on) pip.setVisible(on);
       if (!on) continue;
-      pip.x = this.x - ((this.pipCount - 1) * 12) / 2 + i * 12;
-      pip.y = by - 12;
+      pip.x = this.x - ((this.pipCount - 1) * 12 * this.ps) / 2 + i * 12 * this.ps;
+      pip.y = by - 12 * this.ps;
       pip.depth = depth + 0.3;
     }
   }

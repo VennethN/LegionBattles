@@ -1,6 +1,8 @@
 // What a unit is to the simulation, what goes into a battle and what comes
 // out of it. Nothing here knows about drawing.
 
+import type { Field } from './field';
+
 export type Role = 'tank' | 'fighter' | 'ranger' | 'mage' | 'support';
 
 /** Lasting effects on a unit. See STATUS in status.ts for what each does. */
@@ -154,6 +156,13 @@ export interface Summons {
   every: number;
   /** No more than this many of them stand at once. */
   cap: number;
+  /**
+   * How many it calls in one battle, in all. A tent has only so many in it:
+   * without an end to them, a long fight feeds itself, and the only way to
+   * win it is to have won it quickly. Left out, there is no end: a raid's
+   * lord calls for as long as the raid lasts.
+   */
+  total?: number;
 }
 
 export interface BattleInput {
@@ -163,6 +172,8 @@ export interface BattleInput {
   teams: readonly [readonly Placement[], readonly Placement[]];
   /** How long it may last, in seconds, before whoever has more health left has it. MAX_SECONDS if left out. */
   seconds?: number;
+  /** The field it is fought on: its teams' tiles are tiles of this. The first field, 8 by 4, if left out. */
+  field?: Field;
 }
 
 export type EventType =
