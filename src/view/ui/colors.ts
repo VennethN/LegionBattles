@@ -25,3 +25,6 @@ export const STATUS_COLOR: Readonly<Record<StatusId, number>> = {
   shield: hex(STEEL.fill),
   regen: hex(VENOM.light),
 };
+
+/** The colors of the five difficulties, from Easy to Nightmare. */
+export const DIFFICULTY_MAT: readonly Material[] = [VENOM, FROST, HOLY, FIRE, ARCANE];

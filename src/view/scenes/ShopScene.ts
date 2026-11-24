@@ -1,30 +1,39 @@
-// The packs: the ones the player holds, and the ones coins buy. Every pack
-// holds one card. Opening one is a small show: the pouch shakes, bursts, and
-// the card it held is turned over.
+// The packs: the ones the player holds, and the ones coins buy. It opens
+// over the field. Every pack holds one card. Opening one is a small show:
+// the pouch shakes, bursts, and the card it held is turned over.
 //
+// A world's pack comes at each difficulty the player has opened there, the
+// same cards at better grades; the arrows on its card step between them.
 // A pack that is not sold yet is its own shape in the dark, named "???".
 
 import Phaser from 'phaser';
-import { BONE, CLOTH, GOLD, GRASS, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
+import { BONE, CLOTH, GOLD, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
-import { PACKS, type PackDef } from '../../data/packs';
+import { DIFFICULTIES } from '../../data/difficulties';
+import { packAt, type PackDef } from '../../data/packs';
 import { UNITS } from '../../data/units';
 import { RARITY } from '../../game/rarity';
-import { buyPack, openPack, packOpen, packPool, type Pull } from '../../game/rules';
+import { SHELF, buyPack, openPack, packOpen, packPool, type Pull } from '../../game/rules';
+import { markSeen } from '../../game/tutorial';
 import { setupCamera } from '../app';
 import { H, W, hex } from '../config';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { Chrome, veil } from '../ui/chrome';
-import { RARITY_MAT } from '../ui/colors';
+import { OverlayHead, veil } from '../ui/chrome';
+import { DIFFICULTY_MAT, RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
+import { Guide, type Rect } from '../ui/Guide';
 import { portrait } from '../ui/UnitCard';
-import { Button, label, slab } from '../ui/widgets';
+import { Button, label, plain, slab } from '../ui/widgets';
 
 export class ShopScene extends Phaser.Scene {
-  private chrome!: Chrome;
+  private head!: OverlayHead;
+  private guide!: Guide;
   private show: Phaser.GameObjects.GameObject[] = [];
   private busy = false;
+  /** Where the tutorial's OPEN is, if a pack is held. */
+  private firstOpen: Rect | null = null;
+  private doneRect: Rect | null = null;
 
   constructor() {
     super('Shop');
@@ -33,60 +42,108 @@ export class ShopScene extends Phaser.Scene {
   init(): void {
     this.show = [];
     this.busy = false;
+    this.firstOpen = null;
+    this.doneRect = null;
   }
 
   create(): void {
     setupCamera(this);
-    this.cameras.main.setBackgroundColor(GRASS.dark);
     const s = save();
-    this.chrome = new Chrome(this, 'Packs', 'Shop', s);
+    this.head = new OverlayHead(this, 'Packs', s, () => {
+      // The tutorial's look at the packs is over once one has been opened and the screen shut.
+      if (s.stats.opened > 0) markSeen(s, 'packs');
+      commit();
+    });
     label(this, 190, 40, 'Every pack holds one card. A better grade of a card you hold takes its place.', {
       size: 17, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
     });
 
     const pitch = 244;
-    const x0 = W / 2 - ((PACKS.length - 1) * pitch) / 2;
-    PACKS.forEach((pack, i) => this.packCard(pack, x0 + i * pitch, 350));
+    const x0 = W / 2 - ((SHELF.length - 1) * pitch) / 2;
+    SHELF.forEach((pack, i) => this.packCard(pack, x0 + i * pitch, 372));
+
+    this.guide = new Guide(this, 'Shop');
+    this.guide.mark('open', () => this.firstOpen);
+    this.guide.mark('close', () => this.head.close.rect);
+    this.guide.mark('pouch', () => ({ x: W / 2 - 130, y: H / 2 - 190, w: 260, h: 340 }));
+    this.guide.mark('reveal:done', () => this.doneRect);
+    this.guide.refresh({ show: 'none' });
   }
 
-  private packCard(pack: PackDef, x: number, y: number): void {
+  /** The difficulty of a world's pack that its card shows: the one last chosen, or the hardest one held, or the hardest on sale. */
+  private chosen(base: PackDef): number {
+    if (!base.world) return 0;
+    const s = save();
+    const picks = (this.registry.get('packDifficulty') as Record<string, number> | undefined) ?? {};
+    const open = (d: number): boolean => packOpen(s, packAt(base, d));
+    if (picks[base.id] !== undefined && open(picks[base.id])) return picks[base.id];
+    let best = 0;
+    for (let d = 0; d < DIFFICULTIES.length; d++) if (open(d)) best = d;
+    for (let d = DIFFICULTIES.length - 1; d >= 0; d--) if ((s.packs[packAt(base, d).id] ?? 0) > 0) return d;
+    return best;
+  }
+
+  private choose(base: PackDef, d: number): void {
+    const picks = { ...((this.registry.get('packDifficulty') as Record<string, number> | undefined) ?? {}) };
+    picks[base.id] = d;
+    this.registry.set('packDifficulty', picks);
+    this.scene.restart();
+  }
+
+  private packCard(base: PackDef, x: number, y: number): void {
     const s = save();
     const w = 224;
-    const h = 500;
+    const h = 520;
+    const d = this.chosen(base);
+    const pack = packAt(base, d);
     const open = packOpen(s, pack);
     const held = s.packs[pack.id] ?? 0;
     const g = this.add.graphics();
     slab(g, x - w / 2, y - h / 2, w, h, open ? BONE : IRON, 20, 8);
-    const art = this.add.image(x, y - 128, CARDS, `pack/${pack.id}`).setScale(0.5);
+    const art = this.add.image(x, y - 150, CARDS, `pack/${base.id}`).setScale(0.5);
     if (!open) {
       art.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.8);
-      label(this, x, y - 18, '???', { size: 28 });
-      this.add.image(x, y + 40, SHEET, 'icon/lock').setScale(0.6);
-      label(this, x, y + 100, 'Not sold yet.', { size: 16, weight: 600, color: HIGHLIGHT, strokeWidth: 4 });
+      label(this, x, y - 40, '???', { size: 28 });
+      this.add.image(x, y + 20, SHEET, 'icon/lock').setScale(0.6);
+      label(this, x, y + 80, 'Not sold yet.', { size: 16, weight: 600, color: HIGHLIGHT, strokeWidth: 4 });
       return;
     }
     const dark = { color: OUTLINE, stroke: null as null };
-    label(this, x, y - 22, pack.name, { size: 22 });
-    label(this, x, y + 10, pack.blurb, { size: 14, weight: 600, wrap: w - 30, ...dark });
-    // The grades it hands out, from its worst to its best.
-    gradeBadge(this, x - 44, y + 52, pack.gradeMin, 22);
-    label(this, x, y + 52, 'to', { size: 15, weight: 600, ...dark });
-    gradeBadge(this, x + 44, y + 52, pack.gradeMax, 22);
-    label(this, x, y + 80, `${packPool(s, pack).length} kinds of card inside`, { size: 13, weight: 600, color: IRON.shade, stroke: null });
+    label(this, x, y - 48, base.name, { size: 22 });
 
-    if (held > 0) {
-      label(this, x, y + 104, `You hold ${held}`, { size: 18, color: CLOTH.blue.shade, stroke: null });
+    if (base.world) {
+      // Which difficulty's pack this is, with arrows to the others that are on sale.
+      const chip = this.add.graphics();
+      slab(chip, x - 62, y - 30, 124, 30, DIFFICULTY_MAT[d], 10, 4);
+      label(this, x, y - 16, DIFFICULTIES[d].name, { size: 15, strokeWidth: 4 });
+      for (const step of [-1, 1]) {
+        const to = d + step;
+        if (to < 0 || to >= DIFFICULTIES.length || !packOpen(s, packAt(base, to))) continue;
+        const b = new Button(this, x + step * 88, y - 15, '', () => this.choose(base, to), { width: 44, height: 44, mat: BONE });
+        b.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.34).setFlipX(step < 0));
+      }
+    } else {
+      label(this, x, y - 14, base.blurb, { size: 14, weight: 600, wrap: w - 30, ...dark });
     }
-    const openB = new Button(this, x, y + 148, 'OPEN', () => this.open(pack.id), { width: 180, height: 56, size: 24 });
+
+    // The grades it hands out, from its worst to its best.
+    gradeBadge(this, x - 44, y + 30, pack.gradeMin, 22);
+    label(this, x, y + 30, 'to', { size: 15, weight: 600, ...dark });
+    gradeBadge(this, x + 44, y + 30, pack.gradeMax, 22);
+    label(this, x, y + 60, `${packPool(s, pack).length} kinds of card inside`, { size: 13, weight: 600, color: IRON.shade, stroke: null });
+    if (held > 0) label(this, x, y + 88, `You hold ${held}`, { size: 18, color: CLOTH.blue.shade, stroke: null });
+
+    const openB = new Button(this, x, y + 140, 'OPEN', () => this.open(pack.id), { width: 180, height: 56, size: 24 });
     openB.setEnabled(held > 0);
-    const buy = new Button(this, x, y + 212, `     ${pack.cost}`, () => {
+    if (held > 0 && !this.firstOpen) this.firstOpen = openB.rect;
+    const buy = new Button(this, x, y + 206, `     ${pack.cost}`, () => {
       if (buyPack(s, pack.id)) {
         sfx.play('buy');
         commit();
         this.scene.restart();
       }
-    }, { width: 180, height: 56, size: 24, mat: VENOM, color: undefined });
-    buy.root.add(this.add.image(-38, -3, SHEET, 'icon/coin').setScale(0.38));
+    }, { width: 180, height: 56, size: 24, mat: VENOM });
+    buy.root.add(this.add.image(-48, -3, SHEET, 'icon/coin').setScale(0.38));
     buy.setEnabled(s.coins >= pack.cost);
   }
 
@@ -95,6 +152,7 @@ export class ShopScene extends Phaser.Scene {
   private clearShow(): void {
     for (const o of this.show) o.destroy();
     this.show = [];
+    this.doneRect = null;
   }
 
   private open(packId: string): void {
@@ -108,13 +166,14 @@ export class ShopScene extends Phaser.Scene {
       return o;
     };
     add(veil(this, 9000, 0.72));
-    const pouch = add(this.add.image(W / 2, H / 2 - 20, CARDS, `pack/${packId}`).setDepth(9010).setScale(0.2));
+    const pouch = add(this.add.image(W / 2, H / 2 - 20, CARDS, `pack/${packId.split('@')[0]}`).setDepth(9010).setScale(0.2));
     const hint = add(label(this, W / 2, H - 90, 'Press to open', { size: 24 }).setDepth(9010));
     this.tweens.add({ targets: pouch, scale: 0.9, duration: 320, ease: 'Back.easeOut' });
     this.tweens.add({ targets: hint, alpha: 0.4, duration: 500, yoyo: true, repeat: -1 });
     const sway = this.tweens.add({ targets: pouch, angle: { from: -3, to: 3 }, duration: 700, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
     const zone = add(this.add.zone(W / 2, H / 2, W, H).setInteractive({ useHandCursor: true }).setDepth(9020));
+    this.guide.refresh({ show: 'pouch' });
     zone.once('pointerup', () => {
       zone.disableInteractive();
       hint.destroy();
@@ -122,6 +181,7 @@ export class ShopScene extends Phaser.Scene {
       // The card is decided here, by the rules; all that follows is the show.
       const pull = openPack(s, packId);
       commit();
+      this.guide.refresh({ show: 'reveal' });
       sfx.play('packShake');
       this.time.delayedCall(330, () => sfx.play('packShake'));
       // It shakes harder and harder, then bursts.
@@ -223,9 +283,7 @@ export class ShopScene extends Phaser.Scene {
       const more = (s.packs[pull.pack] ?? 0) > 0;
       const done = new Button(this, more ? cx - 150 : cx, H - 62, 'DONE', () => this.finish(), { width: 220, height: 66, size: 28, mat: more ? BONE : GOLD, color: more ? OUTLINE : undefined }).setDepth(9031);
       if (more) {
-        done.root.list.forEach((o) => {
-          if (o instanceof Phaser.GameObjects.Text) o.setStroke(BONE.fill, 0);
-        });
+        plain(done);
         const again = new Button(this, cx + 130, H - 62, 'OPEN ANOTHER', () => {
           this.busy = false;
           this.open(pull.pack);
@@ -233,14 +291,16 @@ export class ShopScene extends Phaser.Scene {
         add(again.root);
       }
       add(done.root);
+      this.doneRect = done.rect;
       this.busy = false;
+      this.guide.refresh({ show: 'reveal' });
     });
   }
 
   private finish(): void {
     this.clearShow();
     this.busy = false;
-    this.chrome.refresh();
     this.scene.restart();
   }
 }
+

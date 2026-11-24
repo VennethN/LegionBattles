@@ -10,9 +10,9 @@ import { ART_SCALE, FONT, H, W, hex } from '../config';
 import { makeDigitFont } from '../Numbers';
 import { cardSheet, portraitFrame, sheet } from '../Sheet';
 
-/** A seed in the address goes straight to that skirmish, as it always has. Otherwise, the map. */
+/** A seed in the address goes straight to that skirmish, as it always has. Otherwise, the game. */
 function startScene(): string {
-  return new URLSearchParams(window.location.search).has('seed') ? 'Battle' : 'Home';
+  return new URLSearchParams(window.location.search).has('seed') ? 'Battle' : 'Main';
 }
 
 export class BootScene extends Phaser.Scene {

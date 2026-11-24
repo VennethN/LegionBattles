@@ -45,7 +45,7 @@ export function levelMult(level: number): number {
 
 /** Experience a card needs to go from this level to the next. */
 export function xpToNext(level: number): number {
-  return 30 + 22 * (level - 1) + 4 * (level - 1) * (level - 1);
+  return 40 + 30 * (level - 1) + 9 * (level - 1) * (level - 1);
 }
 
 /** What a card's grade and level multiply its health and damage by. */

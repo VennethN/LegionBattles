@@ -35,6 +35,14 @@ export function label(scene: Phaser.Scene, x: number, y: number, text: string, o
   return t;
 }
 
+/** Takes the dark line off a button's words: for dark words on a pale button. */
+export function plain(button: Button): Button {
+  for (const o of button.root.list) {
+    if (o instanceof Phaser.GameObjects.Text) o.setStroke(BONE.fill, 0);
+  }
+  return button;
+}
+
 /** A rounded slab: fill, a darker lip along the bottom, a dark line round it. */
 export function slab(
   g: Phaser.GameObjects.Graphics,
@@ -148,6 +156,11 @@ export class Button {
   setDepth(d: number): this {
     this.root.setDepth(d);
     return this;
+  }
+
+  /** Where it is on the screen, for the tutorial to point at. */
+  get rect(): { x: number; y: number; w: number; h: number } {
+    return { x: this.root.x - this.w / 2, y: this.root.y - this.h / 2, w: this.w, h: this.h };
   }
 
   destroy(): void {

@@ -4,7 +4,14 @@
 
 import type { Placement } from '../sim/types';
 
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
+
+/** A stage: a world's place in WORLDS, the stage's place in it, and the difficulty's place in DIFFICULTIES. */
+export interface Where {
+  world: number;
+  stage: number;
+  d: number;
+}
 
 export interface Card {
   /** Its place in GRADES. A better pull of the same unit raises it. */
@@ -21,8 +28,8 @@ export interface SaveData {
   cards: Record<string, Card>;
   /** Who fights and where they stand. */
   team: Placement[];
-  /** By world id: how many of its stages are cleared, in order. */
-  cleared: Record<string, number>;
+  /** By world id, then by difficulty: how many of its stages are cleared, in order. */
+  cleared: Record<string, number[]>;
   /** Unopened packs, by pack id. */
   packs: Record<string, number>;
   /** Where the pack roller's generator stands, so that reloading does not reroll. */
@@ -32,6 +39,14 @@ export interface SaveData {
   speed: number;
   /** False when the player has turned the sound off. */
   sound: boolean;
+  /** Where the first-run tutorial stands: over, or the notes the player has pressed GOT IT on. */
+  tutorial: { done: boolean; seen: string[] };
+  /** The stage on show, which is where the next battle is fought. */
+  at: Where;
+  /** A stage that was lost and stepped back from, to come back to when the team changes. */
+  lostAt: Where | null;
+  /** False when the player has switched auto battle off: then BATTLE fights one battle and waits. */
+  auto: boolean;
 }
 
 export function newSave(seed: number): SaveData {
@@ -46,6 +61,10 @@ export function newSave(seed: number): SaveData {
     stats: { battles: 0, wins: 0, opened: 0 },
     speed: 1,
     sound: true,
+    tutorial: { done: false, seen: [] },
+    at: { world: 0, stage: 0, d: 0 },
+    lostAt: null,
+    auto: true,
   };
 }
 
@@ -53,8 +72,9 @@ export function newSave(seed: number): SaveData {
 export function repair(raw: unknown, seed: number): SaveData {
   const fresh = newSave(seed);
   if (!raw || typeof raw !== 'object') return fresh;
-  const r = raw as Partial<SaveData>;
-  if (r.version !== SAVE_VERSION) return fresh;
+  const r = raw as Partial<SaveData> & { cleared?: Record<string, unknown> };
+  // Version 1 kept one count of cleared stages to a world, and had no tutorial. It is carried over.
+  if (r.version !== SAVE_VERSION && r.version !== 1) return fresh;
   const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : d);
   const out: SaveData = {
     ...fresh,
@@ -80,11 +100,33 @@ export function repair(raw: unknown, seed: number): SaveData {
       }
     }
   }
-  for (const key of ['cleared', 'packs'] as const) {
-    const src = r[key];
-    if (src && typeof src === 'object') {
-      for (const [id, n] of Object.entries(src)) out[key][id] = Math.max(0, Math.floor(num(n, 0)));
+  if (r.packs && typeof r.packs === 'object') {
+    for (const [id, n] of Object.entries(r.packs)) out.packs[id] = Math.max(0, Math.floor(num(n, 0)));
+  }
+  if (r.cleared && typeof r.cleared === 'object') {
+    for (const [id, v] of Object.entries(r.cleared)) {
+      const list = Array.isArray(v) ? v : [v];
+      out.cleared[id] = list.map((n) => Math.max(0, Math.floor(num(n, 0))));
     }
+  }
+  const where = (v: unknown): Where | null => {
+    if (!v || typeof v !== 'object') return null;
+    const w = v as Partial<Where>;
+    return { world: Math.max(0, Math.floor(num(w.world, 0))), stage: Math.max(0, Math.floor(num(w.stage, 0))), d: Math.max(0, Math.floor(num(w.d, 0))) };
+  };
+  out.at = where(r.at) ?? fresh.at;
+  out.lostAt = where(r.lostAt);
+  out.auto = r.auto !== false;
+  // A save from before the tutorial belongs to someone who has already played: they have no use for it.
+  const t = r.tutorial;
+  if (t && typeof t === 'object') {
+    out.tutorial = {
+      done: t.done === true,
+      seen: Array.isArray(t.seen) ? t.seen.filter((x): x is string => typeof x === 'string') : [],
+    };
+  } else {
+    const played = Object.values(out.cleared).some((list) => list.some((n) => n > 0));
+    out.tutorial = { done: r.version === 1 || played, seen: [] };
   }
   if (r.stats && typeof r.stats === 'object') {
     out.stats = {

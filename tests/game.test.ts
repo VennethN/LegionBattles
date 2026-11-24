@@ -1,11 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { PACKS, packById } from '../src/data/packs';
+import { DIFFICULTIES } from '../src/data/difficulties';
+import { PACKS, allPacks, packAt, packById } from '../src/data/packs';
 import { SETS, UNITS } from '../src/data/units';
 import { WORLDS, stageCoins } from '../src/data/worlds';
+import { COUNTDOWN, afterBattle, goTo, sameWhere, settle, teamChanged, whereOpen } from '../src/game/campaign';
 import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
 import {
-  BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, clearedIn, finishStage, frontier, inPool, isEnemyTile, known, openPack,
-  packOpen, packPool, rollPack, stageEnemies, stageInput, stageOpen, startingSave, teamSize, tidyTeam, toggleTeam, worldOpen,
+  BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, clearedIn, difficultyOpen, finishStage, frontier, inPool, isEnemyTile, known,
+  openPack, packOpen, packPool, packsHeld, rollPack, stageEnemies, stageInput, stageOpen, stagePay, stageStanding, stageXp,
+  startingSave, teamSize, tidyTeam, toggleTeam, topDifficulty, worldDone, worldOpen, type StageResult,
 } from '../src/game/rules';
 import { repair, type SaveData } from '../src/game/state';
 import { runBattle } from '../src/sim/battle';
@@ -14,8 +17,8 @@ import { Rng } from '../src/sim/rng';
 /** A save with a world's stages cleared up to (not including) `stage`. */
 function at(world: number, stage: number): SaveData {
   const save = startingSave(7);
-  for (let w = 0; w < world; w++) save.cleared[WORLDS[w].id] = WORLDS[w].stages.length;
-  save.cleared[WORLDS[world].id] = stage;
+  for (let w = 0; w < world; w++) save.cleared[WORLDS[w].id] = [WORLDS[w].stages.length];
+  save.cleared[WORLDS[world].id] = [stage];
   return save;
 }
 
@@ -329,7 +332,7 @@ describe('cards', () => {
     const input = stageInput(save, WORLDS[0], 0);
     const knight = input.teams[0].find((p) => p.unit === 'knight');
     expect(knight?.hpMult).toBeCloseTo(cardMult(3, 5), 6);
-    const foes = stageEnemies(WORLDS[0].stages[4]);
+    const foes = stageEnemies(WORLDS[0], 4);
     const elite = foes.find((p) => p.unit === 'bruiser');
     expect(elite?.scale).toBeGreaterThan(1);
     expect(elite?.hpMult).toBeGreaterThan(foes[1].hpMult ?? 0);
@@ -377,22 +380,275 @@ describe('the team', () => {
   });
 });
 
+describe('difficulties', () => {
+  /** A save with a world finished on every difficulty below `d`. */
+  function upTo(world: number, d: number): SaveData {
+    const save = at(world, 0);
+    save.cleared[WORLDS[world].id] = Array.from({ length: d }, () => WORLDS[world].stages.length);
+    return save;
+  }
+
+  it('there are five, each asking more than the one before and paying more', () => {
+    expect(DIFFICULTIES).toHaveLength(5);
+    expect(DIFFICULTIES[0]).toMatchObject({ extra: 0, coins: 1, packCost: 1 });
+    for (let d = 1; d < DIFFICULTIES.length; d++) {
+      for (const w of WORLDS) {
+        for (let i = 0; i < w.stages.length; i++) {
+          const a = stageStanding(w, i, d - 1);
+          const b = stageStanding(w, i, d);
+          expect(cardMult(b.grade, b.level), `${w.name} ${i + 1} at ${d}`).toBeGreaterThan(cardMult(a.grade, a.level));
+        }
+      }
+      expect(DIFFICULTIES[d].coins).toBeGreaterThan(DIFFICULTIES[d - 1].coins);
+      expect(DIFFICULTIES[d].packCost).toBeGreaterThan(DIFFICULTIES[d - 1].packCost);
+      expect(DIFFICULTIES[d].extra).toBeGreaterThanOrEqual(DIFFICULTIES[d - 1].extra);
+    }
+  });
+
+  it("each is opened by the world's boss at the one before, in that world only", () => {
+    const fresh = startingSave(1);
+    expect(difficultyOpen(fresh, 0, 0)).toBe(true);
+    expect(difficultyOpen(fresh, 0, 1)).toBe(false);
+    expect(topDifficulty(fresh, 0)).toBe(0);
+    expect(topDifficulty(fresh, 1)).toBe(-1);
+
+    const save = at(0, WORLDS[0].stages.length - 1);
+    const r = finishStage(save, 0, WORLDS[0].stages.length - 1, true);
+    expect(r.harder).toBe(1);
+    expect(difficultyOpen(save, 0, 1)).toBe(true);
+    expect(difficultyOpen(save, 0, 2)).toBe(false);
+    // The next world is open on Easy, and only on Easy.
+    expect(difficultyOpen(save, 1, 0)).toBe(true);
+    expect(difficultyOpen(save, 1, 1)).toBe(false);
+    expect(stageOpen(save, 0, 0, 1)).toBe(true);
+    expect(stageOpen(save, 0, 1, 1)).toBe(false);
+  });
+
+  it('progress is kept apart for each, and Easy alone opens worlds, team places and packs', () => {
+    const save = upTo(0, 1);
+    const size = teamSize(save);
+    const r = finishStage(save, 0, 0, true, 1);
+    expect(r.first).toBe(true);
+    expect(clearedIn(save, 'thornwood', 1)).toBe(1);
+    expect(clearedIn(save, 'thornwood', 0)).toBe(WORLDS[0].stages.length);
+    expect(r.opened).toBeNull();
+    expect(r.moreTeam).toBe(0);
+    expect(teamSize(save)).toBe(size);
+    // Finishing a world on Normal opens Hard there, and no world.
+    const last = WORLDS[0].stages.length - 1;
+    const hard = upTo(0, 1);
+    hard.cleared.thornwood[1] = last;
+    const end = finishStage(hard, 0, last, true, 1);
+    expect(end.harder).toBe(2);
+    expect(end.opened).toBeNull();
+    expect(worldDone(hard, 'thornwood', 1)).toBe(true);
+    // The last difficulty opens nothing harder.
+    const top = upTo(0, 4);
+    top.cleared.thornwood[4] = last;
+    expect(finishStage(top, 0, last, true, 4).harder).toBe(-1);
+  });
+
+  it('enemies stand at a better grade and level, and from Hard there are more of them', () => {
+    const world = WORLDS[0];
+    const stage = world.stages[3];
+    const easy = stageEnemies(world, 3, 0);
+    expect(stageStanding(world, 3, 0)).toEqual({ grade: stage.grade, level: stage.level });
+    for (let d = 1; d < DIFFICULTIES.length; d++) {
+      const foes = stageEnemies(world, 3, d);
+      expect(foes.length).toBe(stage.enemies.length + DIFFICULTIES[d].extra);
+      expect(foes[0].hpMult ?? 0).toBeGreaterThan(stageEnemies(world, 3, d - 1)[0].hpMult ?? 0);
+      const tiles = foes.map((p) => `${p.col},${p.row}`);
+      expect(new Set(tiles).size).toBe(tiles.length);
+      for (const p of foes) expect(isEnemyTile(p.col, p.row)).toBe(true);
+      // Whoever joins is one of the stage's own.
+      for (const p of foes.slice(easy.length)) expect(stage.enemies.some((e) => e.unit === p.unit && e.rank === 'troop')).toBe(true);
+    }
+  });
+
+  it("on Nightmare every enemy is the best grade, and a world's last stage is at the level the world names", () => {
+    for (const w of WORLDS) {
+      const last = w.stages.length - 1;
+      for (let i = 0; i <= last; i++) expect(stageStanding(w, i, 4).grade).toBe(6);
+      expect(stageStanding(w, last, 4).level).toBe(w.nightmare);
+      expect(w.nightmare).toBeGreaterThan(w.stages[last].level);
+      for (let i = 0; i <= last; i++) for (let d = 0; d < 5; d++) expect(stageStanding(w, i, d).grade).toBeLessThanOrEqual(6);
+    }
+  });
+
+  it('a gentle world climbs steeply: Thornwood on Hard is a match for the dunes on Easy', () => {
+    const strength = (w: number, d: number): number => {
+      const at = stageStanding(WORLDS[w], WORLDS[w].stages.length - 1, d);
+      return cardMult(at.grade, at.level);
+    };
+    expect(strength(0, 2)).toBeGreaterThan(strength(1, 0));
+    expect(strength(0, 3)).toBeGreaterThan(strength(2, 0) * 0.9);
+  });
+
+  it('a harder win pays more coins and experience, and drops that difficulty\'s pack', () => {
+    expect(stagePay(WORLDS[0], 4, true, 2)).toBeGreaterThan(stagePay(WORLDS[0], 4, true, 1));
+    expect(stagePay(WORLDS[0], 4, false, 2)).toBe(Math.round(stagePay(WORLDS[0], 4, true, 2) / 2));
+    expect(stageXp(WORLDS[0], 4, true, 2)).toBeGreaterThan(stageXp(WORLDS[0], 4, true, 0));
+    const save = upTo(0, 2);
+    save.cleared.thornwood[2] = 4;
+    const r = finishStage(save, 0, 4, true, 2);
+    expect(r.packs.length).toBeGreaterThan(0);
+    expect(new Set(r.packs)).toEqual(new Set(['thornwood@2']));
+    expect(save.packs['thornwood@2']).toBe(r.packs.length);
+    expect(packsHeld(save)).toBe((save.packs.recruit ?? 0) + r.packs.length);
+  });
+
+  it("a world's harder packs hold the same cards at better grades, for more, and are sold once that difficulty is open", () => {
+    for (const base of PACKS.filter((p) => p.world)) {
+      for (let d = 1; d < DIFFICULTIES.length; d++) {
+        const p = packById(`${base.id}@${d}`);
+        expect(p).toEqual(packAt(base, d));
+        expect(p.set).toBe(base.set);
+        expect(p.cost).toBeGreaterThan(packAt(base, d - 1).cost);
+        expect(p.gradeMax).toBeGreaterThanOrEqual(packAt(base, d - 1).gradeMax);
+        expect(p.gradeMin).toBeGreaterThanOrEqual(packAt(base, d - 1).gradeMin);
+        expect(p.gradeMin).toBeLessThanOrEqual(p.gradeMax);
+        expect(p.gradeMax).toBeLessThanOrEqual(6);
+      }
+      // On Nightmare, the best two grades.
+      expect([packAt(base, 4).gradeMin, packAt(base, 4).gradeMax]).toEqual([5, 6]);
+    }
+    expect(() => packById('recruit@1')).toThrow();
+    expect(() => packById('thornwood@9')).toThrow();
+    expect(allPacks()).toHaveLength(PACKS.length + 3 * 4);
+
+    const save = upTo(0, 1);
+    expect(packOpen(save, packById('thornwood@1'))).toBe(true);
+    expect(packOpen(save, packById('thornwood@2'))).toBe(false);
+    save.coins = 100000;
+    expect(buyPack(save, 'thornwood@1')).toBe(true);
+    expect(buyPack(save, 'thornwood@2')).toBe(false);
+    const pull = openPack(save, 'thornwood@1');
+    expect(pull).not.toBeNull();
+    expect(pull?.grade).toBeGreaterThanOrEqual(packById('thornwood@1').gradeMin);
+  });
+
+  it('every stage of every difficulty can be fielded and fought to an end', () => {
+    const save = startingSave(3);
+    for (const id of ['paladin', 'berserker', 'mage', 'cleric']) save.cards[id] = { grade: 6, level: 20, xp: 0 };
+    save.team = bestTeam(save);
+    for (let w = 0; w < WORLDS.length; w++) {
+      for (const stage of [0, WORLDS[w].stages.length - 1]) {
+        for (let d = 0; d < DIFFICULTIES.length; d++) {
+          const r = runBattle(stageInput(save, WORLDS[w], stage, d), false);
+          expect([-1, 0, 1]).toContain(r.winner);
+        }
+      }
+    }
+  });
+});
+
 describe('the save', () => {
   it('survives a trip through JSON', () => {
     const save = at(1, 4);
     save.coins = 321;
     save.packs.dunes = 2;
+    save.packs['thornwood@1'] = 1;
+    save.cleared.thornwood.push(3);
+    save.tutorial = { done: true, seen: ['team'] };
     expect(repair(JSON.parse(JSON.stringify(save)), 1)).toEqual(save);
+    // A new player's save comes back as it went, tutorial and all.
+    const fresh = startingSave(4);
+    fresh.tutorial.seen.push('team');
+    expect(repair(JSON.parse(JSON.stringify(fresh)), 1)).toEqual(fresh);
   });
 
   it('is started again when it is not a save, and mended when parts are missing', () => {
     expect(repair(null, 5).cards).toEqual({});
     expect(repair('nonsense', 5).coins).toBe(0);
     expect(repair({ version: 999, coins: 50 }, 5).coins).toBe(0);
-    const mended = repair({ version: 1, coins: -5, cards: { knight: { grade: 2 } }, team: [{ unit: 'knight', col: 1, row: 1 }, { unit: 'nobody' }] }, 5);
+    const mended = repair({ version: 2, coins: -5, cards: { knight: { grade: 2 } }, team: [{ unit: 'knight', col: 1, row: 1 }, { unit: 'nobody' }] }, 5);
     expect(mended.coins).toBe(0);
     expect(mended.cards.knight).toEqual({ grade: 2, level: 1, xp: 0 });
     expect(mended.team).toEqual([{ unit: 'knight', col: 1, row: 1 }]);
     expect(mended.packs).toEqual({});
+    expect(mended.tutorial).toEqual({ done: false, seen: [] });
+  });
+
+  it('a save from before difficulties is carried over, with its progress as Easy and no tutorial', () => {
+    const old = {
+      version: 1, coins: 120, cards: { knight: { grade: 1, level: 3, xp: 4 } }, team: [{ unit: 'knight', col: 3, row: 1 }],
+      cleared: { thornwood: 10, sunscar: 4 }, packs: { recruit: 2 }, rng: 7, stats: { battles: 30, wins: 20, opened: 9 }, speed: 2, sound: false,
+    };
+    const now = repair(old, 1);
+    expect(now.version).toBe(2);
+    expect(now.cleared).toEqual({ thornwood: [10], sunscar: [4] });
+    expect(clearedIn(now, 'thornwood')).toBe(10);
+    expect(difficultyOpen(now, 0, 1)).toBe(true);
+    expect(now.coins).toBe(120);
+    expect(now.sound).toBe(false);
+    expect(now.tutorial.done).toBe(true);
+  });
+});
+
+describe('the run of battles', () => {
+  const result = (won: boolean, first: boolean): StageResult => ({
+    won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, opened: null, harder: -1,
+  });
+
+  it('a first win goes on to the next stage, and after a boss on Easy to the next world', () => {
+    const save = startingSave(1);
+    expect(settle(save)).toEqual({ world: 0, stage: 0, d: 0 });
+    const r = finishStage(save, 0, 0, true);
+    expect(afterBattle(save, { world: 0, stage: 0, d: 0 }, r)).toEqual({ world: 0, stage: 1, d: 0 });
+    const last = WORLDS[0].stages.length - 1;
+    const boss = at(0, last);
+    const won = finishStage(boss, 0, last, true);
+    expect(afterBattle(boss, { world: 0, stage: last, d: 0 }, won)).toEqual({ world: 1, stage: 0, d: 0 });
+    expect(whereOpen(boss, boss.at)).toBe(true);
+  });
+
+  it('a win again stays, so that a team left alone earns from a stage it can beat', () => {
+    const save = at(0, 3);
+    expect(afterBattle(save, { world: 0, stage: 1, d: 0 }, result(true, false))).toEqual({ world: 0, stage: 1, d: 0 });
+  });
+
+  it('on a harder difficulty it stays on the boss after beating it, and on the last world too', () => {
+    const save = at(2, WORLDS[2].stages.length);
+    save.cleared.thornwood = [10, 9];
+    expect(afterBattle(save, { world: 0, stage: 9, d: 1 }, result(true, true))).toEqual({ world: 0, stage: 9, d: 1 });
+    const end = WORLDS[2].stages.length - 1;
+    expect(afterBattle(save, { world: 2, stage: end, d: 0 }, result(true, true))).toEqual({ world: 2, stage: end, d: 0 });
+  });
+
+  it('a loss steps back one stage, never to another world, and remembers where it lost', () => {
+    const save = at(1, 3);
+    expect(afterBattle(save, { world: 1, stage: 3, d: 0 }, result(false, false))).toEqual({ world: 1, stage: 2, d: 0 });
+    expect(save.lostAt).toEqual({ world: 1, stage: 3, d: 0 });
+    // Lost again one back: it steps back again, and still means to return to the furthest.
+    expect(afterBattle(save, { world: 1, stage: 2, d: 0 }, result(false, false))).toEqual({ world: 1, stage: 1, d: 0 });
+    expect(save.lostAt).toEqual({ world: 1, stage: 3, d: 0 });
+    const first = at(1, 0);
+    expect(afterBattle(first, { world: 1, stage: 0, d: 0 }, result(false, false))).toEqual({ world: 1, stage: 0, d: 0 });
+    expect(first.lostAt).toBeNull();
+  });
+
+  it('a changed team goes back to the stage it lost at, once', () => {
+    const save = at(1, 3);
+    afterBattle(save, { world: 1, stage: 3, d: 0 }, result(false, false));
+    expect(teamChanged(save)).toBe(true);
+    expect(save.at).toEqual({ world: 1, stage: 3, d: 0 });
+    expect(teamChanged(save)).toBe(false);
+  });
+
+  it('only an open stage can be gone to, and a save that points at a shut one is put right', () => {
+    const save = at(0, 3);
+    expect(goTo(save, { world: 0, stage: 3, d: 0 })).toBe(true);
+    expect(goTo(save, { world: 0, stage: 4, d: 0 })).toBe(false);
+    expect(goTo(save, { world: 1, stage: 0, d: 0 })).toBe(false);
+    expect(goTo(save, { world: 0, stage: 0, d: 1 })).toBe(false);
+    expect(save.at).toEqual({ world: 0, stage: 3, d: 0 });
+    save.at = { world: 2, stage: 9, d: 3 };
+    expect(settle(save)).toEqual({ world: 0, stage: 3, d: 0 });
+    expect(sameWhere(save.at, { world: 0, stage: 3, d: 0 })).toBe(true);
+  });
+
+  it('counts down longest when the game is opened and shortest between battles', () => {
+    expect(COUNTDOWN.first).toBeGreaterThan(COUNTDOWN.changed);
+    expect(COUNTDOWN.changed).toBeGreaterThan(COUNTDOWN.next);
   });
 });

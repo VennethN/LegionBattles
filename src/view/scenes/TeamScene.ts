@@ -1,25 +1,28 @@
-// The player's cards, and who of them fights. Pressing a card shows what it
-// is and does; from there it is put in the team or taken out.
+// The player's cards, and who of them fights. It opens over the field.
+// Pressing a card shows what it is and does; from there it is put in the
+// team or taken out. FILL TEAM fields the strongest.
 //
 // A unit the player does not know is its own outline in the dark, named
 // "???", and nothing else about it is told.
 
 import Phaser from 'phaser';
-import { BONE, CLOTH, GOLD, GRASS, HIGHLIGHT, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
+import { BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { PACKS } from '../../data/packs';
 import { SETS, UNITS, type UnitInfo } from '../../data/units';
 import { MAX_LEVEL, RARITIES, RARITY, cardMult, xpToNext } from '../../game/rarity';
 import { bestTeam, inTeam, known, teamSize, toggleTeam } from '../../game/rules';
+import { markSeen, seen } from '../../game/tutorial';
 import { STATUS } from '../../sim/status';
 import { setupCamera } from '../app';
 import { hex } from '../config';
 import { SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { Chrome } from '../ui/chrome';
+import { OverlayHead } from '../ui/chrome';
 import { RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
+import { Guide } from '../ui/Guide';
 import { portrait, unitCard } from '../ui/UnitCard';
-import { Button, label, slab } from '../ui/widgets';
+import { Button, label, plain, slab } from '../ui/widgets';
 
 const SET_ORDER = Object.keys(SETS);
 
@@ -35,6 +38,7 @@ function ordered(): UnitInfo[] {
 export class TeamScene extends Phaser.Scene {
   private selected = '';
   private detail: Phaser.GameObjects.GameObject[] = [];
+  private guide!: Guide;
 
   constructor() {
     super('Team');
@@ -48,18 +52,20 @@ export class TeamScene extends Phaser.Scene {
 
   create(): void {
     setupCamera(this);
-    this.cameras.main.setBackgroundColor(GRASS.dark);
     const s = save();
-    new Chrome(this, 'Your Team', 'Team', s);
+    const head = new OverlayHead(this, 'Your Team', s, () => {
+      // The tutorial's look at the team is over once it has been filled and shut.
+      if (seen(s, 'fill')) markSeen(s, 'team');
+      commit();
+    });
     label(this, 250, 40, `${s.team.length} of ${teamSize(s)} in the team`, { size: 20, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
 
-    new Button(this, 640, 38, 'FILL TEAM', () => {
+    const fill = plain(new Button(this, 640, 38, 'FILL TEAM', () => {
       s.team = bestTeam(s);
+      markSeen(s, 'fill');
       commit();
       this.scene.restart({ selected: this.selected });
-    }, { width: 170, height: 46, size: 20, mat: BONE, color: OUTLINE }).root.list.forEach((o) => {
-      if (o instanceof Phaser.GameObjects.Text) o.setStroke(BONE.fill, 0);
-    });
+    }, { width: 170, height: 46, size: 20, mat: BONE, color: OUTLINE }));
 
     const units = ordered();
     const cols = 6;
@@ -83,6 +89,11 @@ export class TeamScene extends Phaser.Scene {
     else ring.setVisible(false);
 
     this.showDetail();
+
+    this.guide = new Guide(this, 'Team');
+    this.guide.mark('fill', () => fill.rect);
+    this.guide.mark('close', () => head.close.rect);
+    this.guide.refresh();
   }
 
   private showDetail(): void {
@@ -100,7 +111,7 @@ export class TeamScene extends Phaser.Scene {
     const px = 884;
     const py = 78;
     const pw = 372;
-    const ph = 556;
+    const ph = 620;
     const cx = px + pw / 2;
     const g = add(this.add.graphics());
     slab(g, px, py, pw, ph, BONE, 22, 8);

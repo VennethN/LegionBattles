@@ -27,9 +27,9 @@ export interface SetDef {
 
 export const SETS: Readonly<Record<string, SetDef>> = {
   kingdom: { id: 'kingdom', name: 'The Crownlands', power: 1 },
-  raiders: { id: 'raiders', name: 'Thornwood Raiders', power: 1.08 },
-  sandsworn: { id: 'sandsworn', name: 'The Sandsworn', power: 1.7 },
-  frostbound: { id: 'frostbound', name: 'The Frostbound', power: 2.7 },
+  raiders: { id: 'raiders', name: 'Thornwood Raiders', power: 1.06 },
+  sandsworn: { id: 'sandsworn', name: 'The Sandsworn', power: 1.3 },
+  frostbound: { id: 'frostbound', name: 'The Frostbound', power: 1.6 },
 };
 
 type Raw = Omit<UnitInfo, 'id'>;
