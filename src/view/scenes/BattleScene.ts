@@ -5,15 +5,20 @@
 // fixed clock, reads the events each step gives, and animates them.
 
 import Phaser from 'phaser';
+import { GROUND, PROPS, type Ground } from '../../art/board';
 import {
-  ARCANE, BONE, CLOTH, FIRE, FROST, GOLD, GRASS, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM, type Accent,
+  ARCANE, BONE, CLOTH, FIRE, FROST, GOLD, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM, type Accent,
 } from '../../art/kit/palette';
-import { SKIRMISH_ROSTER, UNITS } from '../../data/units';
+import { packById } from '../../data/packs';
+import { SKIRMISH_ROSTER, UNITS, isFrontline } from '../../data/units';
+import { WORLDS } from '../../data/worlds';
+import { finishStage, stageEnemies, stageOpen, stageSeed, teamPlacements, tidyTeam, type StageResult } from '../../game/rules';
 import { ads } from '../../platform/ads';
 import { Battle, type SimUnit } from '../../sim/battle';
 import { COLS, DT, HALF_COLS, ROWS, TILE } from '../../sim/constants';
 import { hash32 } from '../../sim/rng';
 import { defaultFormation, isPlayerTile, randomEnemyTeam } from '../../sim/setup';
+import { STATUS_IDS } from '../../sim/status';
 import type { BattleEvent, Placement } from '../../sim/types';
 import { getManifest, setupCamera } from '../app';
 import { H, W, hex } from '../config';
@@ -24,15 +29,26 @@ import {
 } from '../layout';
 import { Numbers } from '../Numbers';
 import { Button, label, slab } from '../ui/widgets';
-import { SHEET, sheet } from '../Sheet';
+import { CARDS, SHEET, sheet } from '../Sheet';
+import { commit, save } from '../session';
+import { STATUS_COLOR } from '../ui/colors';
+import { veil } from '../ui/chrome';
 import { UnitView } from '../UnitView';
 
+/**
+ * What battle to show. With a world and a stage it is that stage, fought
+ * with the player's own team and paid for by the game's rules. Without, it
+ * is a skirmish: the usual four against four at random from the seed.
+ */
 export interface BattleConfig {
   seed?: number;
-  /** The player's units and where they stand. The usual four in the usual places if left out. */
+  /** A skirmish's units and where they stand. The usual four in the usual places if left out. */
   team?: Placement[];
-  /** The enemy. Four at random from the seed if left out. */
+  /** A skirmish's enemy. Four at random from the seed if left out. */
   enemies?: Placement[];
+  /** The world's place in WORLDS, and the stage's place in it. */
+  world?: number;
+  stage?: number;
 }
 
 type Phase = 'loading' | 'placement' | 'fighting' | 'result';
@@ -46,9 +62,15 @@ function accentOf(kind: string | undefined): Accent | null {
 }
 
 const INFO_STYLE = { size: 18, weight: 600 as const };
+const STATUS_TINTS: number[] = STATUS_IDS.map((id) => STATUS_COLOR[id]);
 
 export class BattleScene extends Phaser.Scene {
   private seed = 1;
+  /** The stage being fought, or -1 for a skirmish. */
+  private worldIndex = -1;
+  private stageIndex = -1;
+  private ground: Ground = 'meadow';
+  private pipColors: number[] = [0, 0, 0, 0];
   private phase: Phase = 'loading';
   private team: Placement[] = [];
   private enemies: Placement[] = [];
@@ -83,9 +105,25 @@ export class BattleScene extends Phaser.Scene {
 
   init(data: BattleConfig): void {
     const asked = Number(new URLSearchParams(window.location.search).get('seed'));
-    this.seed = data.seed ?? (Number.isFinite(asked) && asked > 0 ? Math.floor(asked) : (Date.now() % 1000000) + 1);
-    this.team = (data.team ?? defaultFormation(SKIRMISH_ROSTER, (u) => UNITS[u].range <= 1.5)).map((p) => ({ ...p }));
-    this.enemies = (data.enemies ?? randomEnemyTeam(this.seed, SKIRMISH_ROSTER)).map((p) => ({ ...p }));
+    if (data.world !== undefined && data.stage !== undefined) {
+      // A stage: the player's own team, with each card's grade and level, against who the stage names.
+      const s = save();
+      tidyTeam(s);
+      const world = WORLDS[data.world];
+      this.worldIndex = data.world;
+      this.stageIndex = data.stage;
+      this.ground = world.ground;
+      this.seed = stageSeed(s, world.id, data.stage);
+      this.team = s.team;
+      this.enemies = stageEnemies(world.stages[data.stage]);
+    } else {
+      this.worldIndex = -1;
+      this.stageIndex = -1;
+      this.ground = 'meadow';
+      this.seed = data.seed ?? (Number.isFinite(asked) && asked > 0 ? Math.floor(asked) : (Date.now() % 1000000) + 1);
+      this.team = (data.team ?? defaultFormation(SKIRMISH_ROSTER, isFrontline)).map((p) => ({ ...p }));
+      this.enemies = (data.enemies ?? randomEnemyTeam(this.seed, SKIRMISH_ROSTER)).map((p) => ({ ...p }));
+    }
     this.phase = 'loading';
     this.views = [];
     this.mine = [];
@@ -103,8 +141,8 @@ export class BattleScene extends Phaser.Scene {
 
   create(): void {
     setupCamera(this);
-    this.cameras.main.setBackgroundColor(GRASS.dark);
-    this.speed = (this.registry.get('speed') as number | undefined) ?? 1;
+    this.cameras.main.setBackgroundColor(GROUND[this.ground].around);
+    this.speed = save().speed;
 
     this.buildBoard();
     this.fx = new Effects(this);
@@ -135,26 +173,27 @@ export class BattleScene extends Phaser.Scene {
   private buildBoard(): void {
     for (let row = 0; row < ROWS; row++) {
       for (let col = 0; col < COLS; col++) {
-        const frame = (row + col) % 2 === 0 ? 'board/meadow-tile-a' : 'board/meadow-tile-b';
+        const frame = `board/${this.ground}-tile-${(row + col) % 2 === 0 ? 'a' : 'b'}`;
         this.add.image(BOARD_X + col * TILE_W, BOARD_Y + row * TILE_H, SHEET, frame).setScale(0.5).setDepth(1);
       }
     }
     // A few things standing round the board, never on it, so the units stay the loudest thing on screen.
-    const props: Array<[string, number, number, number, boolean]> = [
-      ['bush', 72, 246, 1, false],
-      ['rock', 92, 452, 1, false],
-      ['stump', 64, 628, 0.9, false],
-      ['bush', 1208, 320, 1.05, true],
-      ['rock', 1204, 540, 0.9, true],
-      ['bush', 236, 128, 0.8, true],
-      ['rock', 452, 112, 0.7, false],
-      ['stump', 1030, 124, 0.8, true],
-      ['bush', 806, 106, 0.72, false],
-      ['bush', 1176, 676, 0.9, false],
-      ['rock', 312, 690, 0.75, true],
+    const names = PROPS[this.ground];
+    const props: Array<[number, number, number, number, boolean]> = [
+      [0, 72, 246, 1, false],
+      [1, 92, 452, 1, false],
+      [2, 64, 628, 0.9, false],
+      [0, 1208, 320, 1.05, true],
+      [1, 1204, 540, 0.9, true],
+      [0, 236, 128, 0.8, true],
+      [1, 452, 112, 0.7, false],
+      [2, 1030, 124, 0.8, true],
+      [0, 806, 106, 0.72, false],
+      [0, 1176, 676, 0.9, false],
+      [1, 312, 690, 0.75, true],
     ];
-    for (const [name, x, y, scale, flip] of props) {
-      this.add.image(x, y, SHEET, `board/${name}`).setScale(0.5 * scale).setFlipX(flip).setDepth(y);
+    for (const [k, x, y, scale, flip] of props) {
+      this.add.image(x, y, SHEET, `board/${names[k]}`).setScale(0.5 * scale).setFlipX(flip).setDepth(y);
     }
   }
 
@@ -166,8 +205,16 @@ export class BattleScene extends Phaser.Scene {
       if (o instanceof Phaser.GameObjects.Text) o.setStroke(HIGHLIGHT, 0);
     });
 
-    label(this, 24, 34, 'Skirmish', { size: 30, align: 'left' }).setDepth(8000);
-    label(this, 24, 66, `seed ${this.seed}`, { ...INFO_STYLE, align: 'left', color: GRASS.light, stroke: null }).setDepth(8000);
+    const stage = this.stageIndex >= 0 ? WORLDS[this.worldIndex].stages[this.stageIndex] : null;
+    label(this, 24, 34, stage ? stage.name : 'Skirmish', { size: 30, align: 'left' }).setDepth(8000);
+    label(this, 24, 66, stage ? `${WORLDS[this.worldIndex].name}, stage ${this.stageIndex + 1}` : `seed ${this.seed}`, {
+      ...INFO_STYLE, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
+    }).setDepth(8000);
+
+    const map = new Button(this, W - 190, 46, 'MAP', () => this.leave(), { width: 120, height: 56, size: 24, mat: BONE, color: OUTLINE }).setDepth(8000);
+    map.root.list.forEach((o) => {
+      if (o instanceof Phaser.GameObjects.Text) o.setStroke(HIGHLIGHT, 0);
+    });
 
     this.fightButton = new Button(this, W / 2, 662, 'FIGHT', () => this.startFight(), { width: 280, height: 72, size: 38 })
       .setDepth(8000)
@@ -179,8 +226,15 @@ export class BattleScene extends Phaser.Scene {
 
   private toggleSpeed(): void {
     this.speed = this.speed === 1 ? 2 : 1;
-    this.registry.set('speed', this.speed);
+    save().speed = this.speed;
+    commit();
     this.speedButton.setText(`${this.speed}x`);
+  }
+
+  /** Back to the map. A battle left before it ends is not counted. */
+  private leave(): void {
+    if (this.battle && !this.battle.ended) ads().gameplayStop();
+    this.scene.start('Home');
   }
 
   private toggleDebug(): void {
@@ -202,6 +256,7 @@ export class BattleScene extends Phaser.Scene {
       hex(CLOTH[team].fill),
       accent ? hex(accent.light) : null,
       hash32(this.seed * 31 + n * 7 + (team === 'red' ? 1000 : 0)),
+      (def.scale ?? 1) * (p.scale ?? 1),
     );
     view.x = tileScreenX(p.col);
     view.y = tileScreenY(p.row);
@@ -273,6 +328,8 @@ export class BattleScene extends Phaser.Scene {
       }
       me.col = t.col;
       me.row = t.row;
+      // Where the player's own team stands is kept for the next battle.
+      if (this.stageIndex >= 0) commit();
     }
     this.settle(index);
   }
@@ -307,7 +364,8 @@ export class BattleScene extends Phaser.Scene {
     this.fightButton.setVisible(false);
     this.hint.setVisible(false);
 
-    const battle = new Battle({ seed: this.seed, defs: UNITS, teams: [this.team, this.enemies] });
+    const mine = this.stageIndex >= 0 ? teamPlacements(save()) : this.team;
+    const battle = new Battle({ seed: this.seed, defs: UNITS, teams: [mine, this.enemies] });
     // The simulation numbers units turn about; put the views in its order.
     const byTeam = [this.mine, this.views.slice(this.mine.length)];
     const next = [0, 0];
@@ -356,6 +414,11 @@ export class BattleScene extends Phaser.Scene {
           v.facing = u.facing;
           v.moving = u.moving;
           v.health = u.hp / u.maxHp;
+          let pips = 0;
+          for (let k = 0; k < u.stTicks.length && pips < 4; k++) {
+            if (u.stTicks[k] > 0) this.pipColors[pips++] = STATUS_TINTS[k];
+          }
+          v.setStatuses(this.pipColors, pips);
         } else {
           v.health = 0;
         }
@@ -383,8 +446,8 @@ export class BattleScene extends Phaser.Scene {
         if (e.kind === 'heal' || u.def.projectile) break;
         // A blade's arc, in front of whoever swung it.
         const big = e.kind !== 'attack';
-        this.fx.spawn('fx/slash', v.x + v.facing * 34 * UNIT_SCALE, v.y - 62 * UNIT_SCALE, {
-          dur: 0.2, from: big ? 1.1 : 0.85, to: big ? 1.6 : 1.15, alpha: 0.95, hold: 0.25,
+        this.fx.spawn('fx/slash', v.x + v.facing * 34 * v.scale, v.y - 62 * v.scale, {
+          dur: 0.2, from: (big ? 1.1 : 0.85) * (v.scale / UNIT_SCALE), to: (big ? 1.6 : 1.15) * (v.scale / UNIT_SCALE), alpha: 0.95, hold: 0.25,
           flipX: v.facing < 0, tint: hex(HIGHLIGHT), depth: v.y + 2,
         });
         if (UNITS[u.def.id]?.skill?.id === e.kind && u.def.skill?.kind === 'cleave') {
@@ -465,6 +528,14 @@ export class BattleScene extends Phaser.Scene {
         const v = this.views[e.unit];
         const skill = battle.units[e.unit].def.skill;
         if (skill) this.callout(v.x, v.y - v.height - 24, skill.name);
+        break;
+      }
+      case 'status': {
+        const v = this.views[e.unit];
+        const color = STATUS_COLOR[e.kind as keyof typeof STATUS_COLOR];
+        if (color !== undefined) {
+          this.fx.spawn('fx/ring', v.x, v.y - v.height * 0.45, { dur: 0.3, from: 0.9, to: 0.35, alpha: 0.9, hold: 0.5, tint: color, depth: v.y + 2 });
+        }
         break;
       }
       case 'battleEnd': {
@@ -564,8 +635,8 @@ export class BattleScene extends Phaser.Scene {
     const won = winner === 0;
     const title = won ? 'VICTORY' : winner === 1 ? 'DEFEAT' : 'DRAW';
 
-    // The banner goes above the board and the button below it: whoever is
-    // left standing stays in view, and the winners are cheering.
+    // The banner goes above the board: whoever is left standing stays in
+    // view, and the winners are cheering.
     const banner = this.add.container(W / 2, 88).setDepth(9000);
     const g = this.add.graphics();
     const mat = won ? GOLD : winner === 1 ? CLOTH.red : IRON;
@@ -578,9 +649,90 @@ export class BattleScene extends Phaser.Scene {
     banner.setScale(0.2).setAlpha(0);
     this.tweens.add({ targets: banner, scale: 1, alpha: 1, duration: 420, ease: 'Back.easeOut' });
 
-    const again = new Button(this, W / 2, 680, 'PLAY AGAIN', () => this.playAgain(), { width: 300, height: 72, size: 34 }).setDepth(9000);
-    again.root.setAlpha(0);
-    this.tweens.add({ targets: again.root, alpha: 1, y: 662, duration: 300, delay: 350 });
+    if (this.stageIndex < 0) {
+      const again = new Button(this, W / 2, 680, 'PLAY AGAIN', () => this.playAgain(), { width: 300, height: 72, size: 34 }).setDepth(9000);
+      again.root.setAlpha(0);
+      this.tweens.add({ targets: again.root, alpha: 1, y: 662, duration: 300, delay: 350 });
+      return;
+    }
+
+    // A stage is booked by the game's rules, and what it paid is shown after
+    // a moment, so that the cheering is seen first.
+    const s = save();
+    const result = finishStage(s, this.worldIndex, this.stageIndex, won);
+    commit();
+    this.time.delayedCall(1100, () => this.showRewards(result));
+  }
+
+  /** What a stage paid: coins, experience, packs, and what has opened. */
+  private showRewards(r: StageResult): void {
+    const s = save();
+    const world = WORLDS[this.worldIndex];
+    interface Row {
+      icon?: [string, string, number];
+      text: string;
+      color?: string;
+      size?: number;
+    }
+    const rows: Row[] = [];
+    if (r.coins > 0) rows.push({ icon: [SHEET, 'icon/coin', 0.42], text: `+${r.coins} coins${r.first ? '' : '  (a first win pays double)'}`, size: 24 });
+    rows.push({ icon: [SHEET, 'icon/star', 0.42], text: `+${r.xp} experience for each of your team`, size: 20 });
+    if (r.levelUps.length > 0) {
+      const shown = r.levelUps.slice(0, 3).map((l) => `${UNITS[l.unit].name} is level ${l.to}`);
+      if (r.levelUps.length > 3) shown.push(`and ${r.levelUps.length - 3} more`);
+      rows.push({ text: shown.join(',  '), color: VENOM.shade, size: 18 });
+    }
+    const drops = new Map<string, number>();
+    for (const id of r.packs) drops.set(id, (drops.get(id) ?? 0) + 1);
+    for (const [id, n] of drops) {
+      rows.push({ icon: [CARDS, `pack/${id}`, 0.16], text: `${packById(id).name}${n > 1 ? ` x${n}` : ''}`, size: 22 });
+    }
+    if (r.unlocked.length > 0) {
+      rows.push({ text: `Packs can now turn over: ${r.unlocked.map((id) => UNITS[id].name).join(', ')}`, color: ARCANE.shade, size: 18 });
+    }
+    if (r.moreTeam > 0) rows.push({ text: 'Your team has room for one more!', color: ARCANE.shade, size: 20 });
+    if (r.opened) rows.push({ text: `${WORLDS[this.worldIndex + 1].name} is open!`, color: ARCANE.shade, size: 22 });
+    if (!r.won) rows.push({ text: 'Open packs, raise your grades, or stand your team another way.', color: OUTLINE, size: 17 });
+
+    const ph = 150 + rows.length * 42;
+    const pw = 660;
+    const py = Math.max(150, 372 - ph / 2);
+    veil(this, 9050, 0.3);
+    const g = this.add.graphics().setDepth(9100);
+    slab(g, W / 2 - pw / 2, py, pw, ph, BONE, 24, 10);
+    rows.forEach((row, i) => {
+      const y = py + 46 + i * 42;
+      const size = row.size ?? 20;
+      const t = label(this, W / 2, y, row.text, { size, weight: 600, color: row.color ?? OUTLINE, stroke: null }).setDepth(9101);
+      if (row.icon) {
+        const icon = this.add.image(0, y, row.icon[0], row.icon[1]).setScale(row.icon[2]).setDepth(9101);
+        const total = icon.displayWidth + 10 + t.width;
+        icon.x = W / 2 - total / 2 + icon.displayWidth / 2;
+        t.setOrigin(0, 0.5).setX(W / 2 - total / 2 + icon.displayWidth + 10);
+      }
+    });
+
+    const by = py + ph - 54;
+    const next = this.stageIndex + 1;
+    const hasNext = r.won && next < world.stages.length && stageOpen(s, this.worldIndex, next);
+    const buttons: Array<[string, () => void, boolean]> = [
+      ['MAP', () => this.scene.start('Home', { world: r.opened ? this.worldIndex + 1 : this.worldIndex }), false],
+      [r.won ? 'AGAIN' : 'RETRY', () => this.again(this.stageIndex), !hasNext && !r.opened],
+    ];
+    if (hasNext) buttons.push(['NEXT', () => this.again(next), true]);
+    const bw = 180;
+    const gap = 18;
+    const x0 = W / 2 - ((buttons.length - 1) * (bw + gap)) / 2;
+    buttons.forEach(([text, fn, main], i) => {
+      new Button(this, x0 + i * (bw + gap), by, text, fn, { width: bw, height: 62, size: 26, mat: main ? GOLD : IRON }).setDepth(9101);
+    });
+  }
+
+  /** Another battle, after whatever a portal wants to show between two. */
+  private again(stage: number): void {
+    void ads()
+      .interstitial()
+      .then(() => this.scene.restart({ world: this.worldIndex, stage } satisfies BattleConfig));
   }
 
   private playAgain(): void {

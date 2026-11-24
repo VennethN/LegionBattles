@@ -6,6 +6,9 @@ import { ads } from './platform/ads';
 import { H, RES, W } from './view/config';
 import { BattleScene } from './view/scenes/BattleScene';
 import { BootScene } from './view/scenes/BootScene';
+import { HomeScene } from './view/scenes/HomeScene';
+import { ShopScene } from './view/scenes/ShopScene';
+import { TeamScene } from './view/scenes/TeamScene';
 
 void ads().init();
 
@@ -22,7 +25,7 @@ const game = new Phaser.Game({
   // With more, a software GL (the headless browser the screenshots are taken
   // in) draws half of some sprites.
   render: { antialias: true, roundPixels: false, maxTextures: 1 },
-  scene: [BootScene, BattleScene],
+  scene: [BootScene, HomeScene, TeamScene, ShopScene, BattleScene],
 });
 
 // For the browser console and for the screenshot script.

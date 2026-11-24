@@ -32,6 +32,7 @@ const FADE = 0.45;
 
 const BAR_W = 50;
 const BAR_H = 7;
+const MAX_PIPS = 4;
 
 function easeOutCubic(t: number): number {
   const u = 1 - t;
@@ -71,6 +72,9 @@ export class UnitView {
   private readonly barLag: Phaser.GameObjects.Image;
   private readonly barFill: Phaser.GameObjects.Image;
   private readonly phase: number;
+  private readonly barW: number;
+  private readonly pips: Phaser.GameObjects.Image[] = [];
+  private pipCount = 0;
 
   private turn: number;
   private hopT = 0;
@@ -84,6 +88,7 @@ export class UnitView {
   private deadAt = -1;
   private lagHealth = 1;
   private gone = false;
+  private barsOn = false;
 
   constructor(
     scene: Phaser.Scene,
@@ -93,6 +98,8 @@ export class UnitView {
     barColor: number,
     glowColor: number | null,
     seed: number,
+    /** How much bigger than a usual unit it is drawn: a boss is. */
+    private readonly size = 1,
   ) {
     this.root = scene.add.container(0, 0);
     this.xf = makeXforms(art.parts.length);
@@ -117,7 +124,11 @@ export class UnitView {
     this.barBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setOrigin(0.5, 0.5);
     this.barLag = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(0xffffff).setOrigin(0, 0.5);
     this.barFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(barColor).setOrigin(0, 0.5);
-    this.barBack.setDisplaySize(BAR_W + 6, BAR_H + 6);
+    this.barW = Math.round(BAR_W * (1 + (size - 1) * 1.6));
+    this.barBack.setDisplaySize(this.barW + 6, BAR_H + 6);
+    for (let i = 0; i < MAX_PIPS; i++) {
+      this.pips.push(scene.add.image(0, 0, SHEET, 'fx/pixel').setDisplaySize(9, 9).setVisible(false));
+    }
     this.setBarsVisible(false);
 
     // Its own rhythm, so that a row of units does not breathe as one.
@@ -158,15 +169,30 @@ export class UnitView {
 
   /** The point on the screen where its shots leave from, with `out` filled as [x, height]. */
   muzzleHeight(): number {
-    return (180 - this.art.muzzle[1]) * UNIT_SCALE;
+    return (180 - this.art.muzzle[1]) * UNIT_SCALE * this.size;
   }
   muzzleReach(): number {
-    return (this.art.muzzle[0] - 96) * UNIT_SCALE * this.facing;
+    return (this.art.muzzle[0] - 96) * UNIT_SCALE * this.size * this.facing;
   }
 
   /** How tall it stands, for what floats over it. */
   get height(): number {
-    return (180 - this.art.top) * UNIT_SCALE;
+    return (180 - this.art.top) * UNIT_SCALE * this.size;
+  }
+
+  /** Its scale on the board, for effects that should match it. */
+  get scale(): number {
+    return UNIT_SCALE * this.size;
+  }
+
+  /**
+   * Shows a small square over the health bar for each status in `colors`
+   * (the first `count` of them). Called every frame; nothing is allocated.
+   */
+  setStatuses(colors: readonly number[], count: number): void {
+    const n = Math.min(count, MAX_PIPS);
+    for (let i = 0; i < n; i++) this.pips[i].setTint(colors[i]);
+    this.pipCount = n;
   }
 
   /** The health bar shows only while there is a fight on. */
@@ -174,6 +200,8 @@ export class UnitView {
     this.barBack.setVisible(on);
     this.barLag.setVisible(on);
     this.barFill.setVisible(on);
+    if (!on) for (let i = 0; i < this.pips.length; i++) this.pips[i].setVisible(false);
+    this.barsOn = on;
   }
 
   update(now: number, dt: number): void {
@@ -316,14 +344,15 @@ export class UnitView {
     const root = this.root;
     root.x = this.x;
     root.y = this.y;
-    root.scaleX = this.turn * UNIT_SCALE;
-    root.scaleY = UNIT_SCALE;
+    root.scaleX = this.turn * UNIT_SCALE * this.size;
+    root.scaleY = UNIT_SCALE * this.size;
     root.alpha = alpha;
     root.depth = this.y + (this.lift > 0 ? 1000 : 0);
 
     // The health bar: what is left in the team's color, what was just lost in white behind it.
     if (this.health < this.lagHealth) this.lagHealth = Math.max(this.health, this.lagHealth - dt * 0.6);
     else this.lagHealth = this.health;
+    const BAR_W = this.barW;
     const bx = this.x - BAR_W / 2;
     const by = this.y - this.height - 9 - this.lift;
     this.barBack.x = this.x;
@@ -341,6 +370,16 @@ export class UnitView {
     this.barBack.alpha = alpha;
     this.barLag.alpha = alpha;
     this.barFill.alpha = alpha;
+
+    for (let i = 0; i < this.pips.length; i++) {
+      const pip = this.pips[i];
+      const on = this.barsOn && i < this.pipCount && this.deadAt < 0;
+      if (pip.visible !== on) pip.setVisible(on);
+      if (!on) continue;
+      pip.x = this.x - ((this.pipCount - 1) * 12) / 2 + i * 12;
+      pip.y = by - 12;
+      pip.depth = depth + 0.3;
+    }
   }
 
   destroy(): void {
@@ -348,5 +387,6 @@ export class UnitView {
     this.barBack.destroy();
     this.barLag.destroy();
     this.barFill.destroy();
+    for (const pip of this.pips) pip.destroy();
   }
 }

@@ -17,7 +17,10 @@ import Phaser from 'phaser';
 import type { Manifest, ManifestImage, ManifestPart } from '../art/manifest';
 import { ART_SCALE } from './config';
 
+/** Everything a battle draws: effects, board, icons, digits, unit parts. */
 export const SHEET = 'sheet';
+/** What the menus draw: whole units for cards, and the packs. */
+export const CARDS = 'cards';
 const SIZE = 2048;
 const PAD = 2;
 
@@ -47,8 +50,9 @@ export class Sheet {
   constructor(
     game: Phaser.Game,
     readonly manifest: Manifest,
+    readonly key: string = SHEET,
   ) {
-    const t = game.textures.createCanvas(SHEET, SIZE, SIZE);
+    const t = game.textures.createCanvas(key, SIZE, SIZE);
     if (!t) throw new Error('sheet: could not make the canvas');
     this.texture = t;
   }
@@ -100,15 +104,32 @@ export class Sheet {
     if (!this.draw(frame, source, 0, 0, w, h, origin)) throw new Error('sheet: no room for what must always be there');
   }
 
-  /** Queues the pictures of a folder of the manifest (fx, board, icons) on a scene's loader. */
-  queue(scene: Phaser.Scene, folder: 'fx' | 'board' | 'icons'): void {
+  /** Packs part of a picture that stays for good: a whole unit, cut to its own corners. */
+  keepCut(
+    frame: string,
+    source: CanvasImageSource,
+    box: readonly [number, number, number, number],
+    scale: number,
+    origin: readonly [number, number] | null,
+  ): void {
+    // Copied to a canvas of its own, so that a wipe can draw it again.
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(box[2] * scale);
+    canvas.height = Math.round(box[3] * scale);
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    ctx.drawImage(source, box[0] * scale, box[1] * scale, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+    this.keep(frame, canvas, canvas.width, canvas.height, origin);
+  }
+
+  /** Queues the pictures of a folder of the manifest on a scene's loader. */
+  queue(scene: Phaser.Scene, folder: 'fx' | 'board' | 'icons' | 'packs' | 'grades'): void {
     for (const name of Object.keys(this.manifest[folder])) {
       scene.load.svg(`svg:${folder}/${name}`, `assets/${folder}/${name}.svg`, { scale: ART_SCALE });
     }
   }
 
   /** Packs what `queue` loaded. Frames are named like "fx/arrow". */
-  keepFolder(scene: Phaser.Scene, folder: 'fx' | 'board' | 'icons', short: string): void {
+  keepFolder(scene: Phaser.Scene, folder: 'fx' | 'board' | 'icons' | 'packs' | 'grades', short: string): void {
     for (const [name, img] of Object.entries(this.manifest[folder]) as Array<[string, ManifestImage]>) {
       const source = scene.textures.get(`svg:${folder}/${name}`).getSourceImage() as HTMLImageElement;
       this.keep(`${short}/${name}`, source, img.width * ART_SCALE, img.height * ART_SCALE, img.origin);
@@ -214,8 +235,19 @@ export class Sheet {
 }
 
 let shared: Sheet | null = null;
+let sharedCards: Sheet | null = null;
 
 export function sheet(game: Phaser.Game, manifest: Manifest): Sheet {
   if (!shared) shared = new Sheet(game, manifest);
   return shared;
+}
+
+export function cardSheet(game: Phaser.Game, manifest: Manifest): Sheet {
+  if (!sharedCards) sharedCards = new Sheet(game, manifest, CARDS);
+  return sharedCards;
+}
+
+/** A whole unit standing still, for cards and menus. Blue ones are drawn at 2x, red at 1x. */
+export function portraitFrame(team: string, unit: string): string {
+  return `portrait/${team}/${unit}`;
 }

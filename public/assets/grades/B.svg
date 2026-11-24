@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="B" width="132" height="96" viewBox="0 0 132 96">
+<defs>
+<clipPath id="B-plate-clip"><path d="M 51 33 L 81 33 Q 91 33 91 43 L 91 65 Q 91 75 81 75 L 51 75 Q 41 75 41 65 L 41 43 Q 41 33 51 33 Z"/></clipPath>
+</defs>
+<g id="B-spur-left">
+<path id="B-spur-left-fill" d="M 44 43 L 24 54 L 44 65 Z" fill="#b9c2cc"/>
+<path id="B-spur-left-line" d="M 44 43 L 24 54 L 44 65 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="B-spur-right">
+<path id="B-spur-right-fill" d="M 88 43 L 108 54 L 88 65 Z" fill="#b9c2cc"/>
+<path id="B-spur-right-line" d="M 88 43 L 108 54 L 88 65 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="B-plate">
+<path id="B-plate-shade" d="M 51 33 L 81 33 Q 91 33 91 43 L 91 65 Q 91 75 81 75 L 51 75 Q 41 75 41 65 L 41 43 Q 41 33 51 33 Z" fill="#8d97a3"/>
+<g clip-path="url(#B-plate-clip)">
+<path id="B-plate-fill" d="M 46 28 L 76 28 Q 86 28 86 38 L 86 60 Q 86 70 76 70 L 46 70 Q 36 70 36 60 L 36 38 Q 36 28 46 28 Z" fill="#b9c2cc"/>
+<path id="B-gloss" d="M 47 31 L 85 31 Q 93 31 93 39 L 93 42.3 Q 93 50.3 85 50.3 L 47 50.3 Q 39 50.3 39 42.3 L 39 39 Q 39 31 47 31 Z" fill="#f4f1e4" opacity="0.28"/>
+</g>
+<path id="B-plate-line" d="M 51 33 L 81 33 Q 91 33 91 43 L 91 65 Q 91 75 81 75 L 51 75 Q 41 75 41 65 L 41 43 Q 41 33 51 33 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="B-stud-0">
+<path id="B-stud-0-fill" d="M 70.5 79 C 70.5 81.5 68.5 83.5 66 83.5 C 63.5 83.5 61.5 81.5 61.5 79 C 61.5 76.5 63.5 74.5 66 74.5 C 68.5 74.5 70.5 76.5 70.5 79 Z" fill="#c8a24a"/>
+<path id="B-stud-0-line" d="M 70.5 79 C 70.5 81.5 68.5 83.5 66 83.5 C 63.5 83.5 61.5 81.5 61.5 79 C 61.5 76.5 63.5 74.5 66 74.5 C 68.5 74.5 70.5 76.5 70.5 79 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="B-letter">
+<path id="B-letter-fill" d="M 54 40 L 66.5 40 C 73.5 40 76.5 43 76.5 47.5 C 76.5 50.5 75 52.5 73 53.6 C 76 54.6 78 57 78 60.5 C 78 65 74.5 68 67.5 68 L 54 68 Z M 62.5 46.6 L 62.5 50.9 L 65.6 50.9 C 67.6 50.9 68.5 50 68.5 48.7 C 68.5 47.4 67.6 46.6 65.6 46.6 Z M 62.5 56.7 L 62.5 61.4 L 66.5 61.4 C 68.7 61.4 69.7 60.5 69.7 59 C 69.7 57.6 68.7 56.7 66.5 56.7 Z" fill="#f4f1e4" fill-rule="evenodd"/>
+<path id="B-letter-line" d="M 54 40 L 66.5 40 C 73.5 40 76.5 43 76.5 47.5 C 76.5 50.5 75 52.5 73 53.6 C 76 54.6 78 57 78 60.5 C 78 65 74.5 68 67.5 68 L 54 68 Z M 62.5 46.6 L 62.5 50.9 L 65.6 50.9 C 67.6 50.9 68.5 50 68.5 48.7 C 68.5 47.4 67.6 46.6 65.6 46.6 Z M 62.5 56.7 L 62.5 61.4 L 66.5 61.4 C 68.7 61.4 69.7 60.5 69.7 59 C 69.7 57.6 68.7 56.7 66.5 56.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

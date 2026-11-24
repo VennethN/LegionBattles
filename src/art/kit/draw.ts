@@ -20,6 +20,8 @@ export interface PieceOpts {
   inner?: (d: Doc) => void;
   /** False for a piece with no dark line round it. */
   outline?: boolean;
+  /** For a shape with holes in it, such as a letter: a path inside a path is a hole. */
+  holes?: boolean;
 }
 
 function attrs(a: Record<string, string | number | undefined>): string {
@@ -56,17 +58,18 @@ export class Doc {
     const d = p.toString();
     const shade = opts.shade ?? 5;
     const outline = opts.outline ?? true;
+    const rule = opts.holes ? 'evenodd' : undefined;
     const out: string[] = [];
     out.push(`<g id="${id}">`);
     if (shade > 0 || opts.inner) {
-      this.defs.push(`<clipPath id="${id}-clip"><path d="${d}"/></clipPath>`);
+      this.defs.push(`<clipPath id="${id}-clip"><path ${attrs({ d, 'clip-rule': rule })}/></clipPath>`);
     }
     if (shade > 0) {
-      out.push(`<path ${attrs({ id: `${id}-shade`, d, fill: mat.shade })}/>`);
+      out.push(`<path ${attrs({ id: `${id}-shade`, d, fill: mat.shade, 'fill-rule': rule })}/>`);
       out.push(`<g clip-path="url(#${id}-clip)">`);
-      out.push(`<path ${attrs({ id: `${id}-fill`, d: p.translate(-shade, -shade).toString(), fill: mat.fill })}/>`);
+      out.push(`<path ${attrs({ id: `${id}-fill`, d: p.translate(-shade, -shade).toString(), fill: mat.fill, 'fill-rule': rule })}/>`);
     } else {
-      out.push(`<path ${attrs({ id: `${id}-fill`, d, fill: mat.fill })}/>`);
+      out.push(`<path ${attrs({ id: `${id}-fill`, d, fill: mat.fill, 'fill-rule': rule })}/>`);
       if (opts.inner) out.push(`<g clip-path="url(#${id}-clip)">`);
     }
     if (opts.inner) {

@@ -27,6 +27,9 @@ export const WOOD: Material = { fill: '#9a6a3a', shade: '#75502b' };
 export const GOLD: Material = { fill: '#c8a24a', shade: '#9c7c33' };
 /** Horn, parchment, bowstring, fletching. The one neutral light material. */
 export const BONE: Material = { fill: '#e9dfc6', shade: '#c4b594' };
+/** The plates of the grade badges between iron and gold, and above gold. */
+export const BRONZE: Material = { fill: '#c98b52', shade: '#9a6337' };
+export const RUBY: Material = { fill: '#c7364f', shade: '#952239' };
 /** Dark iron for blackened gear, and stone for rocks and golems. */
 export const IRON: Material = { fill: '#5d6672', shade: '#434b56' };
 export const STONE: Material = { fill: '#9c9a8c', shade: '#77766b' };
@@ -64,7 +67,7 @@ export const BUSH: Material = { fill: '#4f8f3e', shade: '#3b722f' };
 export function allColors(): Set<string> {
   const out = new Set<string>([OUTLINE, HOOD_INTERIOR, HIGHLIGHT, '#ffffff']);
   const mats: Array<Record<string, string>> = [
-    STEEL, LEATHER, WOOD, GOLD, BONE, IRON, STONE, CLOTH.blue, CLOTH.red, LINEN, DARK_CLOTH,
+    STEEL, LEATHER, WOOD, GOLD, BONE, BRONZE, RUBY, IRON, STONE, CLOTH.blue, CLOTH.red, LINEN, DARK_CLOTH,
     ARCANE, FIRE, FROST, HOLY, VENOM, GRASS, DIRT, BUSH, SAND, SNOW, PINE, CACTUS,
   ] as unknown as Array<Record<string, string>>;
   for (const m of mats) for (const v of Object.values(m)) out.add(v);

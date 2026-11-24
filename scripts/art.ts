@@ -5,8 +5,8 @@
 // anything under src/art, or after adding or changing a file in
 // art/overrides (so that the manifest measures your file).
 //
-// It deletes and rewrites public/assets/{units,fx,board,icons,packs}. It never
-// writes in art/overrides.
+// Everything under public/assets/{units,fx,board,icons,packs,grades} is its
+// to write and to remove. It never writes in art/overrides.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -14,6 +14,7 @@ import { Resvg } from '@resvg/resvg-js';
 import { boardArt } from '../src/art/board';
 import { composeUnit, innerOf, type PartSource } from '../src/art/compose';
 import { fxArt } from '../src/art/fx';
+import { GRADE_H, GRADE_W, drawGrade } from '../src/art/grades';
 import { iconArt } from '../src/art/icons';
 import { PACK_H, PACK_LOOKS, PACK_W, drawPack } from '../src/art/packs';
 import { CANVAS, Doc } from '../src/art/kit/draw';
@@ -22,14 +23,39 @@ import { drawPart } from '../src/art/kit/unit';
 import type { Manifest, ManifestImage, ManifestPart } from '../src/art/manifest';
 import { FEET_X, FEET_Y } from '../src/art/rig';
 import { UNIT_ART } from '../src/art/units';
+import { GRADES } from '../src/game/rarity';
 
 const OUT = path.resolve('public/assets');
 const OVERRIDES = path.resolve('art/overrides');
 
+const GENERATED = ['units', 'fx', 'board', 'icons', 'packs', 'grades'];
+const written = new Set<string>();
+
+/**
+ * Writes a file only if it has changed, and remembers it. A file that is
+ * the same as before is left alone, so a dev server that is running does
+ * not see everything vanish and come back.
+ */
 function write(rel: string, content: string): void {
   const file = path.join(OUT, rel);
+  written.add(file);
+  if (fs.existsSync(file) && fs.readFileSync(file, 'utf8') === content) return;
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, content);
+}
+
+/** Removes what an earlier run wrote and this one did not: a part that was renamed, a unit that is gone. */
+function sweep(dir: string): void {
+  if (!fs.existsSync(dir)) return;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      sweep(file);
+      if (fs.readdirSync(file).length === 0) fs.rmdirSync(file);
+    } else if (!written.has(file)) {
+      fs.rmSync(file);
+    }
+  }
 }
 
 /** The file the game will show at this path: a hand-edited one if there is one. */
@@ -75,7 +101,7 @@ function images(
 }
 
 export function buildArt(): Manifest {
-  for (const dir of ['units', 'fx', 'board', 'icons', 'packs']) fs.rmSync(path.join(OUT, dir), { recursive: true, force: true });
+  written.clear();
 
   const manifest: Manifest = {
     canvas: CANVAS,
@@ -86,6 +112,7 @@ export function buildArt(): Manifest {
     board: {},
     icons: {},
     packs: {},
+    grades: {},
   };
 
   let files = 0;
@@ -149,10 +176,23 @@ export function buildArt(): Manifest {
       draw: (d: Doc) => drawPack(d, look),
     })),
   );
+  // A grade's badge has the middle of its plate for its own middle, whatever stands out of it.
+  manifest.grades = images(
+    'grades',
+    GRADES.map((letter, grade) => ({
+      name: letter,
+      width: GRADE_W,
+      height: GRADE_H,
+      origin: [0.5, 54 / GRADE_H] as [number, number],
+      draw: (d: Doc) => drawGrade(d, grade, letter),
+    })),
+  );
+  files += Object.keys(manifest.grades).length;
   files +=
     Object.keys(manifest.fx).length + Object.keys(manifest.board).length + Object.keys(manifest.icons).length + Object.keys(manifest.packs).length;
 
   write('manifest.json', JSON.stringify(manifest, null, 1) + '\n');
+  for (const dir of GENERATED) sweep(path.join(OUT, dir));
   console.log(
     `art: ${UNIT_ART.length} units, ${files} files under public/assets` +
       (overridden ? `, ${overridden} measured from art/overrides` : ''),

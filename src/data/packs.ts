@@ -20,23 +20,23 @@ export interface PackDef {
 export const PACKS: readonly PackDef[] = [
   {
     id: 'recruit', name: 'Recruit Pack', set: 'kingdom', cost: 60, gradeMin: 0, gradeMax: 2,
-    blurb: 'Soldiers of the Crownlands. Grades F to D.',
+    blurb: 'Soldiers of the Crownlands.',
   },
   {
     id: 'thornwood', name: 'Thornwood Pack', set: 'raiders', cost: 110, gradeMin: 0, gradeMax: 3, world: 'thornwood',
-    blurb: 'Raiders you have beaten in Thornwood. Grades F to C.',
+    blurb: 'Raiders you have beaten in Thornwood.',
   },
   {
     id: 'dunes', name: 'Dunes Pack', set: 'sandsworn', cost: 260, gradeMin: 1, gradeMax: 4, world: 'sunscar',
-    blurb: 'Sandsworn you have beaten in the dunes. Grades E to B.',
+    blurb: 'Sandsworn you have beaten in the dunes.',
   },
   {
     id: 'frost', name: 'Frost Pack', set: 'frostbound', cost: 560, gradeMin: 2, gradeMax: 5, world: 'frostholt',
-    blurb: 'Frostbound you have beaten in Frostholt. Grades D to A.',
+    blurb: 'Frostbound you have beaten in Frostholt.',
   },
   {
     id: 'royal', name: 'Royal Pack', set: 'kingdom', cost: 900, gradeMin: 3, gradeMax: 6, after: 'sunscar',
-    blurb: "The Crown's best. Grades C to S.",
+    blurb: "The Crown's own, and its best grades.",
   },
 ];
 

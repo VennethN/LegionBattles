@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="A" width="132" height="96" viewBox="0 0 132 96">
+<defs>
+<clipPath id="A-wing-left-0-clip"><path d="M 43 43 C 43 43 27.4 39.2 21.4 39 C 15.4 38.8 7 42 7 42 C 7 42 17.2 48 23.2 50 C 29.2 52 43 54 43 54 L 43 43 Z"/></clipPath>
+<clipPath id="A-wing-right-0-clip"><path d="M 89 43 C 89 43 104.6 39.2 110.6 39 C 116.6 38.8 125 42 125 42 C 125 42 114.8 48 108.8 50 C 102.8 52 89 54 89 54 L 89 43 Z"/></clipPath>
+<clipPath id="A-wing-left-1-clip"><path d="M 43 50 C 43 50 30.4 46.2 25.6 46 C 20.8 45.8 14 49 14 49 C 14 49 22.2 55 27.1 57 C 31.9 59 43 61 43 61 L 43 50 Z"/></clipPath>
+<clipPath id="A-wing-right-1-clip"><path d="M 89 50 C 89 50 101.6 46.2 106.4 46 C 111.2 45.8 118 49 118 49 C 118 49 109.8 55 105 57 C 100.1 59 89 61 89 61 L 89 50 Z"/></clipPath>
+<clipPath id="A-wing-left-2-clip"><path d="M 43 57 C 43 57 33.5 53.2 29.8 53 C 26.1 52.8 21 56 21 56 C 21 56 27.2 62 30.9 64 C 34.6 66 43 68 43 68 L 43 57 Z"/></clipPath>
+<clipPath id="A-wing-right-2-clip"><path d="M 89 57 C 89 57 98.5 53.2 102.2 53 C 105.9 52.8 111 56 111 56 C 111 56 104.8 62 101.1 64 C 97.4 66 89 68 89 68 L 89 57 Z"/></clipPath>
+<clipPath id="A-plate-clip"><path d="M 51 33 L 81 33 Q 91 33 91 43 L 91 65 Q 91 75 81 75 L 51 75 Q 41 75 41 65 L 41 43 Q 41 33 51 33 Z"/></clipPath>
+</defs>
+<g id="A-wing-left-0">
+<path id="A-wing-left-0-shade" d="M 43 43 C 43 43 27.4 39.2 21.4 39 C 15.4 38.8 7 42 7 42 C 7 42 17.2 48 23.2 50 C 29.2 52 43 54 43 54 L 43 43 Z" fill="#c4b594"/>
+<g clip-path="url(#A-wing-left-0-clip)">
+<path id="A-wing-left-0-fill" d="M 40 40 C 40 40 24.4 36.2 18.4 36 C 12.4 35.8 4 39 4 39 C 4 39 14.2 45 20.2 47 C 26.2 49 40 51 40 51 L 40 40 Z" fill="#e9dfc6"/>
+</g>
+<path id="A-wing-left-0-line" d="M 43 43 C 43 43 27.4 39.2 21.4 39 C 15.4 38.8 7 42 7 42 C 7 42 17.2 48 23.2 50 C 29.2 52 43 54 43 54 L 43 43 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="A-wing-right-0">
+<path id="A-wing-right-0-shade" d="M 89 43 C 89 43 104.6 39.2 110.6 39 C 116.6 38.8 125 42 125 42 C 125 42 114.8 48 108.8 50 C 102.8 52 89 54 89 54 L 89 43 Z" fill="#c4b594"/>
+<g clip-path="url(#A-wing-right-0-clip)">
+<path id="A-wing-right-0-fill" d="M 86 40 C 86 40 101.6 36.2 107.6 36 C 113.6 35.8 122 39 122 39 C 122 39 111.8 45 105.8 47 C 99.8 49 86 51 86 51 L 86 40 Z" fill="#e9dfc6"/>
+</g>
+<path id="A-wing-right-0-line" d="M 89 43 C 89 43 104.6 39.2 110.6 39 C 116.6 38.8 125 42 125 42 C 125 42 114.8 48 108.8 50 C 102.8 52 89 54 89 54 L 89 43 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="A-wing-left-1">
+<path id="A-wing-left-1-shade" d="M 43 50 C 43 50 30.4 46.2 25.6 46 C 20.8 45.8 14 49 14 49 C 14 49 22.2 55 27.1 57 C 31.9 59 43 61 43 61 L 43 50 Z" fill="#c4b594"/>
+<g clip-path="url(#A-wing-left-1-clip)">
+<path id="A-wing-left-1-fill" d="M 40 47 C 40 47 27.4 43.2 22.6 43 C 17.8 42.8 11 46 11 46 C 11 46 19.2 52 24 54 C 28.9 56 40 58 40 58 L 40 47 Z" fill="#e9dfc6"/>
+</g>
+<path id="A-wing-left-1-line" d="M 43 50 C 43 50 30.4 46.2 25.6 46 C 20.8 45.8 14 49 14 49 C 14 49 22.2 55 27.1 57 C 31.9 59 43 61 43 61 L 43 50 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="A-wing-right-1">
+<path id="A-wing-right-1-shade" d="M 89 50 C 89 50 101.6 46.2 106.4 46 C 111.2 45.8 118 49 118 49 C 118 49 109.8 55 105 57 C 100.1 59 89 61 89 61 L 89 50 Z" fill="#c4b594"/>
+<g clip-path="url(#A-wing-right-1-clip)">
+<path id="A-wing-right-1-fill" d="M 86 47 C 86 47 98.6 43.2 103.4 43 C 108.2 42.8 115 46 115 46 C 115 46 106.8 52 102 54 C 97.1 56 86 58 86 58 L 86 47 Z" fill="#e9dfc6"/>
+</g>
+<path id="A-wing-right-1-line" d="M 89 50 C 89 50 101.6 46.2 106.4 46 C 111.2 45.8 118 49 118 49 C 118 49 109.8 55 105 57 C 100.1 59 89 61 89 61 L 89 50 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="A-wing-left-2">
+<path id="A-wing-left-2-shade" d="M 43 57 C 43 57 33.5 53.2 29.8 53 C 26.1 52.8 21 56 21 56 C 21 56 27.2 62 30.9 64 C 34.6 66 43 68 43 68 L 43 57 Z" fill="#c4b594"/>
+<g clip-path="url(#A-wing-left-2-clip)">
+<path id="A-wing-left-2-fill" d="M 40 54 C 40 54 30.5 50.2 26.8 50 C 23.1 49.8 18 53 18 53 C 18 53 24.2 59 27.9 61 C 31.6 63 40 65 40 65 L 40 54 Z" fill="#e9dfc6"/>
+</g>
+<path id="A-wing-left-2-line" d="M 43 57 C 43 57 33.5 53.2 29.8 53 C 26.1 52.8 21 56 21 56 C 21 56 27.2 62 30.9 64 C 34.6 66 43 68 43 68 L 43 57 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="A-wing-right-2">
+<path id="A-wing-right-2-shade" d="M 89 57 C 89 57 98.5 53.2 102.2 53 C 105.9 52.8 111 56 111 56 C 111 56 104.8 62 101.1 64 C 97.4 66 89 68 89 68 L 89 57 Z" fill="#c4b594"/>
+<g clip-path="url(#A-wing-right-2-clip)">
+<path id="A-wing-right-2-fill" d="M 86 54 C 86 54 95.5 50.2 99.2 50 C 102.9 49.8 108 53 108 53 C 108 53 101.8 59 98.1 61 C 94.4 63 86 65 86 65 L 86 54 Z" fill="#e9dfc6"/>
+</g>
+<path id="A-wing-right-2-line" d="M 89 57 C 89 57 98.5 53.2 102.2 53 C 105.9 52.8 111 56 111 56 C 111 56 104.8 62 101.1 64 C 97.4 66 89 68 89 68 L 89 57 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="A-plate">
+<path id="A-plate-shade" d="M 51 33 L 81 33 Q 91 33 91 43 L 91 65 Q 91 75 81 75 L 51 75 Q 41 75 41 65 L 41 43 Q 41 33 51 33 Z" fill="#9c7c33"/>
+<g clip-path="url(#A-plate-clip)">
+<path id="A-plate-fill" d="M 46 28 L 76 28 Q 86 28 86 38 L 86 60 Q 86 70 76 70 L 46 70 Q 36 70 36 60 L 36 38 Q 36 28 46 28 Z" fill="#c8a24a"/>
+<path id="A-gloss" d="M 47 31 L 85 31 Q 93 31 93 39 L 93 42.3 Q 93 50.3 85 50.3 L 47 50.3 Q 39 50.3 39 42.3 L 39 39 Q 39 31 47 31 Z" fill="#f4f1e4" opacity="0.28"/>
+</g>
+<path id="A-plate-line" d="M 51 33 L 81 33 Q 91 33 91 43 L 91 65 Q 91 75 81 75 L 51 75 Q 41 75 41 65 L 41 43 Q 41 33 51 33 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="A-stud-0">
+<path id="A-stud-0-fill" d="M 61.5 79 C 61.5 81.5 59.5 83.5 57 83.5 C 54.5 83.5 52.5 81.5 52.5 79 C 52.5 76.5 54.5 74.5 57 74.5 C 59.5 74.5 61.5 76.5 61.5 79 Z" fill="#c8a24a"/>
+<path id="A-stud-0-line" d="M 61.5 79 C 61.5 81.5 59.5 83.5 57 83.5 C 54.5 83.5 52.5 81.5 52.5 79 C 52.5 76.5 54.5 74.5 57 74.5 C 59.5 74.5 61.5 76.5 61.5 79 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="A-stud-1">
+<path id="A-stud-1-fill" d="M 79.5 79 C 79.5 81.5 77.5 83.5 75 83.5 C 72.5 83.5 70.5 81.5 70.5 79 C 70.5 76.5 72.5 74.5 75 74.5 C 77.5 74.5 79.5 76.5 79.5 79 Z" fill="#c8a24a"/>
+<path id="A-stud-1-line" d="M 79.5 79 C 79.5 81.5 77.5 83.5 75 83.5 C 72.5 83.5 70.5 81.5 70.5 79 C 70.5 76.5 72.5 74.5 75 74.5 C 77.5 74.5 79.5 76.5 79.5 79 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="A-letter">
+<path id="A-letter-fill" d="M 61.5 40 L 70.5 40 L 78 68 L 69.5 68 L 68.5 63.5 L 63.5 63.5 L 62.5 68 L 54 68 Z M 64.8 57 L 67.2 57 L 66 50.5 Z" fill="#f4f1e4" fill-rule="evenodd"/>
+<path id="A-letter-line" d="M 61.5 40 L 70.5 40 L 78 68 L 69.5 68 L 68.5 63.5 L 63.5 63.5 L 62.5 68 L 54 68 Z M 64.8 57 L 67.2 57 L 66 50.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

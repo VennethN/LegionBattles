@@ -88,7 +88,7 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
   }
 
   // Effects, board pieces and icons.
-  for (const [folder, title] of [['fx', 'EFFECTS'], ['board', 'BOARD'], ['icons', 'ICONS'], ['packs', 'PACKS']] as const) {
+  for (const [folder, title] of [['fx', 'EFFECTS'], ['board', 'BOARD'], ['icons', 'ICONS'], ['packs', 'PACKS'], ['grades', 'GRADES: plainer to grander']] as const) {
     const list = Object.entries(manifest[folder]);
     if (list.length === 0) continue;
     body += label(20, y + 22, title, 16, 'start');

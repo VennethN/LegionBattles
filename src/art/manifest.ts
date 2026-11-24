@@ -34,4 +34,5 @@ export interface Manifest {
   board: Record<string, ManifestImage>;
   icons: Record<string, ManifestImage>;
   packs: Record<string, ManifestImage>;
+  grades: Record<string, ManifestImage>;
 }

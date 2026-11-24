@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="E" width="132" height="96" viewBox="0 0 132 96">
+<defs>
+<clipPath id="E-plate-clip"><path d="M 51 33 L 81 33 Q 91 33 91 43 L 91 65 Q 91 75 81 75 L 51 75 Q 41 75 41 65 L 41 43 Q 41 33 51 33 Z"/></clipPath>
+</defs>
+<g id="E-plate">
+<path id="E-plate-shade" d="M 51 33 L 81 33 Q 91 33 91 43 L 91 65 Q 91 75 81 75 L 51 75 Q 41 75 41 65 L 41 43 Q 41 33 51 33 Z" fill="#434b56"/>
+<g clip-path="url(#E-plate-clip)">
+<path id="E-plate-fill" d="M 46 28 L 76 28 Q 86 28 86 38 L 86 60 Q 86 70 76 70 L 46 70 Q 36 70 36 60 L 36 38 Q 36 28 46 28 Z" fill="#5d6672"/>
+</g>
+<path id="E-plate-line" d="M 51 33 L 81 33 Q 91 33 91 43 L 91 65 Q 91 75 81 75 L 51 75 Q 41 75 41 65 L 41 43 Q 41 33 51 33 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="E-letter">
+<path id="E-letter-fill" d="M 55 40 L 76 40 L 76 47.5 L 63.5 47.5 L 63.5 50.3 L 73 50.3 L 73 57.7 L 63.5 57.7 L 63.5 60.5 L 76 60.5 L 76 68 L 55 68 Z" fill="#f4f1e4" fill-rule="evenodd"/>
+<path id="E-letter-line" d="M 55 40 L 76 40 L 76 47.5 L 63.5 47.5 L 63.5 50.3 L 73 50.3 L 73 57.7 L 63.5 57.7 L 63.5 60.5 L 76 60.5 L 76 68 L 55 68 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
