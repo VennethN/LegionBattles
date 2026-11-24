@@ -121,6 +121,22 @@ describe('sound effects', () => {
     for (const h of heard) expect(Math.abs(h / base - 1)).toBeLessThan(0.1);
   });
 
+  it('a touch brings the sound back after a phone has interrupted it', () => {
+    const f = fake();
+    let woke = 0;
+    f.ctx.resume = () => { woke++; f.ctx.state = 'running'; };
+    const s = new Sfx(() => f.ctx);
+    s.unlock();
+    expect(woke).toBe(0);
+    // iOS, after a call or a spell in the background: neither running nor suspended.
+    f.ctx.state = 'interrupted';
+    s.unlock();
+    expect(woke).toBe(1);
+    f.ctx.state = 'suspended';
+    s.unlock();
+    expect(woke).toBe(2);
+  });
+
   it('goes quiet while the page is hidden, and does not wake itself', () => {
     const f = fake();
     let slept = 0;

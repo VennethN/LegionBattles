@@ -549,7 +549,8 @@ export class Sfx {
         this.through = { ctx, music: this.songs, noise: buffer, bank: this.bank };
         this.level();
       }
-      if (this.ctx.state === 'suspended' && !this.asleep) void this.ctx.resume?.();
+      // A phone that took a call, or sent the page to the background, leaves the audio "interrupted" (iOS) or suspended: a touch brings it back.
+      if ((this.ctx.state === 'suspended' || this.ctx.state === 'interrupted') && !this.asleep) void this.ctx.resume?.();
     } catch {
       // No audio on this device: the game is silent, and nothing else changes.
       this.ctx = null;
