@@ -29,11 +29,11 @@ const cards = units.map((unit, i) => ({ id: i + 1, unit, grade: 6, level: 20, xp
 for (let i = 0; i < 60; i++) cards.push({ id: 100 + i, unit: ['knight', 'archer', 'mage', 'militia'][i % 4], grade: i % 5, level: 1 + (i % 7), xp: 0 });
 const tiles = [[3, 1], [3, 2], [2, 0], [1, 1], [0, 2], [1, 3], [0, 0], [2, 3]];
 const save = {
-  version: 3, coins: 5000, cards, nextCard: 500,
+  version: 4, coins: 5000, cards, nextCard: 500,
   team: units.map((unit, i) => ({ card: i + 1, unit, col: tiles[i][0], row: tiles[i][1] })),
-  cleared: { thornwood: [10, 10, 10, 10, 10], sunscar: [12, 12, 12, 12, 12], frostholt: [15, 15, 15, 15, 14] },
+  cleared: 184,
   packs: { recruit: 3 }, rng: 5, stats: { battles: 900, wins: 700, opened: 300 },
-  speed: 2, sound: false, tutorial: { done: true, seen: [] }, at: { world: 2, stage: 14, d: 4 }, lostAt: null, auto: true,
+  speed: 2, sound: false, tutorial: { done: true, seen: [] }, at: 184, lostAt: null, auto: true,
 };
 
 await page.goto(base + res);

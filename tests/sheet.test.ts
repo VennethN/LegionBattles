@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import type { Manifest } from '../src/art/manifest';
 import { UNITS } from '../src/data/units';
-import { WORLDS } from '../src/data/worlds';
+import { LANDS } from '../src/data/lands';
 import { MAX_TEAM } from '../src/game/rules';
 import { ShelfPacker } from '../src/view/packer';
 
@@ -15,7 +15,7 @@ const manifest = JSON.parse(fs.readFileSync('public/assets/manifest.json', 'utf8
 const SIZE = 2048;
 const S = 2;
 
-function keepFolder(p: ShelfPacker, folder: 'fx' | 'board' | 'icons' | 'packs' | 'grades'): void {
+function keepFolder(p: ShelfPacker, folder: 'fx' | 'icons' | 'packs' | 'grades'): void {
   const list = Object.entries(manifest[folder]).sort((a, b) => b[1].height - a[1].height);
   for (const [name, img] of list) expect(p.place(img.width * S, img.height * S), `${folder}/${name}`).not.toBeNull();
 }
@@ -73,7 +73,6 @@ describe('the battle sheet', () => {
   it('holds the biggest battle the game can stage, under what is always on it', () => {
     const p = new ShelfPacker(SIZE, SIZE);
     keepFolder(p, 'fx');
-    keepFolder(p, 'board');
     keepFolder(p, 'icons');
     expect(p.place(44 * 12, 60)).not.toBeNull();
     p.newRow();
@@ -82,7 +81,7 @@ describe('the battle sheet', () => {
     // The player's eight biggest, and each stage's enemies in turn.
     const biggest = Object.keys(manifest.units).sort((a, b) => area(b) - area(a)).slice(0, MAX_TEAM);
     let worst = 0;
-    for (const w of WORLDS) {
+    for (const w of LANDS) {
       for (const stage of w.stages) {
         const enemies = [...new Set(stage.enemies.map((e) => e.unit))];
         const mark = p.mark();

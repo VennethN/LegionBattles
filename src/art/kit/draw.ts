@@ -169,6 +169,25 @@ export class Doc {
     return this.flat(name, p, HIGHLIGHT, r(LIT * strength));
   }
 
+  /**
+   * Draws something somewhere else: whatever `draw` draws about (0, 0) is
+   * put at (x, y), at a size, mirrored if asked. A scene is made of things
+   * drawn once and stood in many places.
+   */
+  at(x: number, y: number, scale: number, flip: boolean, draw: (d: Doc) => void): this {
+    this.stack.push([]);
+    draw(this);
+    const inner = this.stack.pop() as string[];
+    this.push(`<g transform="translate(${r(x)} ${r(y)}) scale(${r(flip ? -scale : scale)} ${r(scale)})">\n${inner.join('\n')}\n</g>`);
+    return this;
+  }
+
+  /** A line of svg as it stands, for the few shapes the rest of this cannot say. Its colors must be the palette's. */
+  raw(svg: string): this {
+    this.push(svg);
+    return this;
+  }
+
   /** What is inside the svg element, for stacking parts into one picture. */
   inner(): string {
     const defs = this.defs.length ? `<defs>\n${this.defs.join('\n')}\n</defs>\n` : '';

@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="snow-tile-a" width="120" height="102" viewBox="0 0 120 102">
-<path id="snow-tile-a-ground" d="M 12 2 L 108 2 Q 118 2 118 12 L 118 90 Q 118 100 108 100 L 12 100 Q 2 100 2 90 L 2 12 Q 2 2 12 2 Z" fill="#e4edf2"/>
-<path id="snow-tile-a-drift-0" d="M 42 30 C 42 32.2 37.5 34 32 34 C 26.5 34 22 32.2 22 30 C 22 27.8 26.5 26 32 26 C 37.5 26 42 27.8 42 30 Z" fill="#f8fcfe"/>
-<path id="snow-tile-a-drift-1" d="M 100 64 C 100 66.2 95.5 68 90 68 C 84.5 68 80 66.2 80 64 C 80 61.8 84.5 60 90 60 C 95.5 60 100 61.8 100 64 Z" fill="#f8fcfe"/>
-</svg>

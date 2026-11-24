@@ -1,117 +1,277 @@
 import { describe, expect, it } from 'vitest';
-import { DIFFICULTIES } from '../src/data/difficulties';
+import { LANDS } from '../src/data/lands';
+import { LAPS } from '../src/data/laps';
 import { PACKS, allPacks, packAt, packById } from '../src/data/packs';
+import { STAGES, TOP, WORLDS, landOf, stageAt, stageStrength, worldOf } from '../src/data/stages';
 import { SETS, UNITS } from '../src/data/units';
-import { WORLDS, stageCoins } from '../src/data/worlds';
-import { COUNTDOWN, afterBattle, goTo, sameWhere, settle, teamChanged, whereOpen } from '../src/game/campaign';
-import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
+import { COUNTDOWN, afterBattle, goTo, settle, teamChanged } from '../src/game/campaign';
 import { COPY_XP, OTHER_UNIT, addCard, cardOf, cardsOf, combine, combinePreview, spare, whyNot, worth, xpHeld } from '../src/game/cards';
+import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
 import {
-  BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, cardPower, clearedIn, difficultyOpen, finishStage, frontier, beaten, inTeam, isEnemyTile, known,
-  openPack, packOpen, packPool, packsHeld, rollPack, stageEnemies, stageInput, stageOpen, stagePay, stageStanding, stageXp,
-  startingSave, teamSize, tidyTeam, toggleTeam, topDifficulty, worldDone, worldOpen, type StageResult,
+  BASE_TEAM, MAX_TEAM, TEAM_AT, addXp, beaten, bestTeam, buyPack, cardPower, cleared, finishStage, frontier, inTeam, isEnemyTile, known,
+  lineDone, openPack, packOpen, packPool, packsHeld, rollPack, stageEnemies, stageInput, stageOpen, stagePay, stageXp, startingSave,
+  teamSize, tidyTeam, toggleTeam, worldReached, type StageResult,
 } from '../src/game/rules';
 import { SORTS, SORT_NAME, cardDamage, cardHealth, isSort, nextSort, sortCards, type Sort } from '../src/game/sorting';
 import { repair, type SaveData } from '../src/game/state';
 import { runBattle } from '../src/sim/battle';
 import { Rng } from '../src/sim/rng';
 
-/** A save with a world's stages cleared up to (not including) `stage`. */
-function at(world: number, stage: number): SaveData {
+/** A save with the line's stages cleared up to (not including) the one at `index`. */
+function at(index: number): SaveData {
   const save = startingSave(7);
-  for (let w = 0; w < world; w++) save.cleared[WORLDS[w].id] = [WORLDS[w].stages.length];
-  save.cleared[WORLDS[world].id] = [stage];
+  save.cleared = index;
+  save.at = Math.min(index, STAGES.length - 1);
   return save;
 }
+
+const PER_LAP = LANDS.reduce((n, l) => n + l.stages.length, 0);
 
 describe('the data', () => {
   it('every unit belongs to a set and has a tier', () => {
     for (const u of Object.values(UNITS)) {
       expect(SETS[u.set], u.id).toBeDefined();
-      expect(RARITIES, u.id).toContain(u.rarity);
-      expect(u.hp, u.id).toBeGreaterThan(0);
-      expect(u.attackInterval, u.id).toBeGreaterThan(u.windup);
+      expect(RARITIES).toContain(u.rarity);
+      expect(u.hp).toBeGreaterThan(0);
     }
   });
 
   it('every skill has a name of its own', () => {
-    const ids = Object.values(UNITS).map((u) => u.skill?.id).filter(Boolean);
-    expect(new Set(ids).size).toBe(ids.length);
-    const names = Object.values(UNITS).map((u) => u.skill?.name).filter(Boolean);
+    const names = Object.values(UNITS).filter((u) => u.skill).map((u) => u.skill?.name);
     expect(new Set(names).size).toBe(names.length);
   });
 
-  it('a world has 10 to 25 stages, never fewer than the one before nor more than 5 more', () => {
-    expect(WORLDS[0].stages.length).toBe(10);
-    for (let i = 0; i < WORLDS.length; i++) {
-      const n = WORLDS[i].stages.length;
-      expect(n).toBeGreaterThanOrEqual(10);
-      expect(n).toBeLessThanOrEqual(25);
+  it('a land has 10 to 25 stages, never fewer than the one before nor more than 5 more', () => {
+    let before = 0;
+    LANDS.forEach((w, i) => {
+      const n = w.stages.length;
+      expect(n, w.id).toBeGreaterThanOrEqual(10);
+      expect(n, w.id).toBeLessThanOrEqual(25);
       if (i > 0) {
-        expect(n).toBeGreaterThanOrEqual(WORLDS[i - 1].stages.length);
-        expect(n - WORLDS[i - 1].stages.length).toBeLessThanOrEqual(5);
+        expect(n, w.id).toBeGreaterThanOrEqual(before);
+        expect(n, w.id).toBeLessThanOrEqual(before + 5);
       }
-    }
+      before = n;
+    });
   });
 
-  it('the last stage is the only boss, and a miniboss comes before it', () => {
-    for (const w of WORLDS) {
+  it('the last stage of a land is its only boss, and a miniboss comes before it', () => {
+    for (const w of LANDS) {
       const kinds = w.stages.map((s) => s.kind);
-      expect(kinds[kinds.length - 1]).toBe('boss');
-      expect(kinds.filter((k) => k === 'boss')).toHaveLength(1);
-      expect(kinds.filter((k) => k === 'miniboss').length).toBeGreaterThanOrEqual(1);
+      expect(kinds[kinds.length - 1], w.id).toBe('boss');
+      expect(kinds.filter((k) => k === 'boss'), w.id).toHaveLength(1);
+      expect(kinds.filter((k) => k === 'miniboss').length, w.id).toBeGreaterThanOrEqual(1);
       for (const s of w.stages) {
         const ranks = s.enemies.map((e) => e.rank);
-        if (s.kind === 'boss') expect(ranks.filter((r) => r === 'boss')).toHaveLength(1);
-        if (s.kind === 'miniboss') expect(ranks.filter((r) => r === 'elite')).toHaveLength(1);
-        if (s.kind === 'normal') expect(ranks.every((r) => r === 'troop')).toBe(true);
+        if (s.kind === 'boss') expect(ranks.filter((r) => r === 'boss'), s.name).toHaveLength(1);
+        else expect(ranks, s.name).not.toContain('boss');
+        if (s.kind === 'miniboss') expect(ranks.filter((r) => r === 'elite'), s.name).toHaveLength(1);
       }
     }
   });
 
-  it('a stage fields only units of its world, each on its own enemy tile, none before it can be met', () => {
-    for (const w of WORLDS) {
+  it('a stage fields only units of its land, each on its own enemy tile, none before it can be met', () => {
+    for (const w of LANDS) {
       w.stages.forEach((s, i) => {
         const tiles = new Set<string>();
         expect(s.enemies.length, s.name).toBeGreaterThan(0);
         for (const e of s.enemies) {
-          const def = UNITS[e.unit];
-          expect(def, `${s.name}: ${e.unit}`).toBeDefined();
-          expect(def.set, `${s.name}: ${e.unit}`).toBe(w.set);
+          const u = UNITS[e.unit];
+          expect(u, `${s.name}: ${e.unit}`).toBeDefined();
+          expect(u.set, `${s.name}: ${e.unit}`).toBe(w.set);
           expect(isEnemyTile(e.col, e.row), `${s.name}: ${e.unit}`).toBe(true);
-          expect(tiles.has(`${e.col},${e.row}`), `${s.name}: two on ${e.col},${e.row}`).toBe(false);
+          expect(tiles.has(`${e.col},${e.row}`), `${s.name}: two on one tile`).toBe(false);
           tiles.add(`${e.col},${e.row}`);
-          // A unit is not fielded before the stage its `from` names, so that "beaten" means met.
-          expect(def.from, `${s.name}: ${e.unit}`).toBeLessThanOrEqual(i + 1);
+          // A unit says from which stage of its land it is met: it stands in none before that.
+          expect(u.from ?? 0, `${s.name}: ${e.unit}`).toBeLessThanOrEqual(i + 1);
         }
-        expect(s.grade).toBeLessThan(GRADES.length);
       });
-      // And every unit of the set is met by the stage it says.
-      for (const u of Object.values(UNITS).filter((x) => x.set === w.set)) {
-        const first = w.stages.findIndex((s) => s.enemies.some((e) => e.unit === u.id));
-        expect(first + 1, u.id).toBe(u.from);
+      // And every unit of the land's set is met somewhere in it.
+      for (const u of Object.values(UNITS)) {
+        if (u.set !== w.set) continue;
+        expect(w.stages.some((s) => s.enemies.some((e) => e.unit === u.id)), u.id).toBe(true);
       }
     }
   });
 
-  it('stages never get easier, and pay more as they go', () => {
-    for (const w of WORLDS) {
-      for (let i = 1; i < w.stages.length; i++) {
-        const a = w.stages[i - 1];
-        const b = w.stages[i];
-        expect(cardMult(b.grade, b.level), b.name).toBeGreaterThanOrEqual(cardMult(a.grade, a.level));
-        if (b.kind === a.kind) expect(stageCoins(w, i)).toBeGreaterThanOrEqual(stageCoins(w, i - 1));
-      }
+  it('every land has a pack of its set, and a pack names a range of grades', () => {
+    for (const w of LANDS) {
+      const pack = packById(w.pack);
+      expect(pack.set).toBe(w.set);
+      expect(pack.land).toBe(w.id);
     }
-  });
-
-  it('every world has a pack of its set, and a pack names a range of grades', () => {
-    for (const w of WORLDS) expect(packById(w.pack).set).toBe(w.set);
     for (const p of PACKS) {
       expect(p.gradeMin).toBeGreaterThanOrEqual(0);
       expect(p.gradeMax).toBeLessThan(GRADES.length);
       expect(p.gradeMax).toBeGreaterThanOrEqual(p.gradeMin);
       expect(Object.values(UNITS).some((u) => u.set === p.set)).toBe(true);
+    }
+  });
+});
+
+describe('the line of stages', () => {
+  it('is one numbered line: every land in turn, and then again, five laps in all', () => {
+    expect(STAGES).toHaveLength(PER_LAP * LAPS.length);
+    STAGES.forEach((s, i) => {
+      expect(s.index).toBe(i);
+      expect(s.def).toBe(LANDS[s.land].stages[s.local]);
+      expect(s.lap).toBe(Math.floor(i / PER_LAP));
+    });
+    // The first ten stages are the first land, as the owner asked: "wave 1 - 10 will be the first world".
+    expect(STAGES.slice(0, 10).every((s) => s.land === 0 && s.lap === 0)).toBe(true);
+    expect(STAGES[10].land).toBe(1);
+    expect(stageAt(-5).index).toBe(0);
+    expect(stageAt(99999).index).toBe(STAGES.length - 1);
+  });
+
+  it('a world is a stretch of it in one land, and every stage is in exactly one', () => {
+    expect(WORLDS).toHaveLength(LANDS.length * LAPS.length);
+    let next = 0;
+    WORLDS.forEach((w, i) => {
+      expect(w.index).toBe(i);
+      expect(w.first).toBe(next);
+      expect(w.last - w.first + 1).toBe(LANDS[w.land].stages.length);
+      for (let n = w.first; n <= w.last; n++) {
+        expect(worldOf(n)).toBe(w);
+        expect(landOf(n)).toBe(LANDS[w.land]);
+      }
+      next = w.last + 1;
+    });
+    expect(next).toBe(STAGES.length);
+    expect(WORLDS[0]).toMatchObject({ first: 0, last: 9, name: 'Thornwood' });
+    expect(WORLDS[1]).toMatchObject({ first: 10, last: 21 });
+    // The fourth world is the first land again, and says so.
+    expect(WORLDS[LANDS.length]).toMatchObject({ land: 0, lap: 1, name: 'Thornwood II' });
+    expect(new Set(WORLDS.map((w) => w.name)).size).toBe(WORLDS.length);
+  });
+
+  it('on the first lap a stage stands at what it is written with', () => {
+    for (let n = 0; n < PER_LAP; n++) {
+      expect(STAGES[n].grade).toBe(STAGES[n].def.grade);
+      expect(STAGES[n].level).toBe(STAGES[n].def.level);
+    }
+  });
+
+  it('its enemies grow stronger with its number, to the top at the last stage of all', () => {
+    for (let n = 1; n < STAGES.length; n++) {
+      expect(stageStrength(n), `stage ${n + 1}`).toBeGreaterThanOrEqual(stageStrength(n - 1) * 0.999);
+      // Over a stretch it never falls, and over a longer one it always rises.
+      if (n >= 8) expect(stageStrength(n), `stage ${n + 1}`).toBeGreaterThanOrEqual(stageStrength(n - 8) * 0.999);
+      if (n >= 30) expect(stageStrength(n), `stage ${n + 1}`).toBeGreaterThan(stageStrength(n - 30));
+    }
+    expect(stageStrength(STAGES.length - 1)).toBeGreaterThan(TOP * 0.97);
+    expect(stageStrength(STAGES.length - 1)).toBeLessThan(TOP * 1.03);
+    // Where a lap begins again in a weaker land, it is no easier than where the last one ended,
+    // and the second lap begins a step above the first lap's last boss.
+    for (let lap = 1; lap < LAPS.length; lap++) {
+      expect(stageStrength(lap * PER_LAP), `lap ${lap + 1}`).toBeGreaterThanOrEqual(stageStrength(lap * PER_LAP - 1));
+    }
+    expect(stageStrength(PER_LAP)).toBeGreaterThan(stageStrength(PER_LAP - 1) * 1.1);
+    // A stage's enemies stand at what makes them that strong: their land's units, their grade and level, and the land's weight.
+    for (const s of STAGES) {
+      if (s.lap === 0) continue;
+      const land = LANDS[s.land];
+      const stands = SETS[land.set].power * cardMult(s.grade, s.level);
+      const asked = s.strength * (1 + (land.weight - 1) * LAPS[s.lap].weight);
+      expect(stands / asked, `stage ${s.index + 1}`).toBeGreaterThan(0.96);
+      expect(stands / asked, `stage ${s.index + 1}`).toBeLessThan(1.04);
+    }
+    for (const s of STAGES) {
+      expect(s.grade).toBeGreaterThanOrEqual(0);
+      expect(s.grade).toBeLessThan(GRADES.length);
+      expect(s.level).toBeGreaterThanOrEqual(1);
+    }
+  });
+
+  it('pays and teaches more as it goes, a boss more than the stage before it', () => {
+    const plain = STAGES.filter((s) => s.def.kind === 'normal');
+    for (let i = 1; i < plain.length; i++) {
+      // Within a land of the first lap the pay is written by hand and rises; after it, it rises all along the line.
+      if (plain[i].lap > 0 || plain[i].land === plain[i - 1].land) {
+        expect(plain[i].coins, `stage ${plain[i].index + 1}`).toBeGreaterThanOrEqual(plain[i - 1].coins);
+      }
+    }
+    for (const s of STAGES) {
+      expect(s.coins % 5).toBe(0);
+      expect(s.xp).toBeGreaterThanOrEqual(10);
+      if (s.def.kind === 'boss') expect(s.coins).toBeGreaterThan(STAGES[s.index - 1].coins);
+    }
+    expect(STAGES[STAGES.length - 1].xp).toBeGreaterThan(STAGES[PER_LAP - 1].xp);
+    expect(STAGES[PER_LAP].coins).toBeGreaterThan(STAGES[PER_LAP - 2].coins * 0.9);
+  });
+
+  it('on later laps a stage fields more enemies than it is written with, each on a free enemy tile', () => {
+    for (const s of STAGES) {
+      // On the first lap, who it is written with. After it, at least the lap's fewest, and from the third lap one more than written.
+      expect(s.extra).toBe(Math.max(LAPS[s.lap].extra, LAPS[s.lap].least - s.def.enemies.length));
+      if (s.lap === 0) expect(s.extra).toBe(0);
+      expect(s.def.enemies.length + s.extra).toBeGreaterThanOrEqual(LAPS[s.lap].least);
+    }
+    for (const n of [0, PER_LAP, PER_LAP + 1, PER_LAP * 2, PER_LAP * 3 + 10, PER_LAP * 4 + 3, STAGES.length - 1]) {
+      const stage = STAGES[n];
+      const foes = stageEnemies(n);
+      expect(foes).toHaveLength(stage.def.enemies.length + stage.extra);
+      const tiles = new Set(foes.map((p) => `${p.col},${p.row}`));
+      expect(tiles.size).toBe(foes.length);
+      for (const p of foes) {
+        expect(isEnemyTile(p.col, p.row)).toBe(true);
+        expect(UNITS[p.unit].set).toBe(LANDS[stage.land].set);
+      }
+      // Whoever is added is a troop of a kind the stage has, at the stage's own grade and level.
+      const kinds = new Set(stage.def.enemies.filter((e) => e.rank === 'troop').map((e) => e.unit));
+      for (const extra of foes.slice(stage.def.enemies.length)) {
+        expect(extra.hpMult).toBeCloseTo(cardMult(stage.grade, stage.level), 6);
+        expect(kinds.has(extra.unit)).toBe(true);
+      }
+    }
+    // The second world's first stage is two Cutpurses on the first lap and a line of six on the second.
+    expect(stageEnemies(0)).toHaveLength(2);
+    expect(stageEnemies(PER_LAP)).toHaveLength(6);
+  });
+
+  it("a land's pack is better each lap, and costs about what a win there pays", () => {
+    for (const base of PACKS.filter((p) => p.land)) {
+      let before = packAt(base, 0);
+      for (let lap = 1; lap < LAPS.length; lap++) {
+        const pack = packAt(base, lap);
+        expect(pack.id).toBe(`${base.id}@${lap}`);
+        expect(packById(pack.id)).toEqual(pack);
+        expect(pack.set).toBe(base.set);
+        expect(pack.gradeMin).toBeGreaterThanOrEqual(before.gradeMin);
+        expect(pack.gradeMax).toBeGreaterThanOrEqual(before.gradeMax);
+        expect(pack.gradeMin + pack.gradeMax).toBeGreaterThan(before.gradeMin + before.gradeMax - (lap === 1 ? 0 : 1));
+        expect(pack.cost).toBeGreaterThan(before.cost);
+        const world = WORLDS[lap * LANDS.length + LANDS.findIndex((l) => l.id === base.land)];
+        const pays = STAGES[world.first].coins;
+        expect(pack.cost).toBeGreaterThan(pays * 0.4);
+        expect(pack.cost).toBeLessThan(pays * 1.6);
+        before = pack;
+      }
+      // On the last lap a pack hands out only the best two grades.
+      expect(packAt(base, LAPS.length - 1)).toMatchObject({ gradeMin: GRADES.length - 2, gradeMax: GRADES.length - 1 });
+    }
+    expect(() => packById('recruit@1')).toThrow();
+    expect(() => packById('thornwood@9')).toThrow();
+    expect(allPacks()).toHaveLength(PACKS.length + PACKS.filter((p) => p.land).length * (LAPS.length - 1));
+  });
+
+  it('a stage drops the pack of its land and lap', () => {
+    for (const s of STAGES) {
+      const pack = packById(s.pack);
+      expect(pack.land).toBe(LANDS[s.land].id);
+      expect(pack.lap ?? 0).toBe(s.lap);
+    }
+  });
+
+  it('every stage of the line can be fielded and fought to an end', () => {
+    const save = startingSave(3);
+    for (const id of ['paladin', 'berserker', 'mage', 'cleric']) Object.assign(addCard(save, id, 6), { level: 20 });
+    save.team = bestTeam(save);
+    for (const w of WORLDS) {
+      for (const n of [w.first, w.last]) {
+        const r = runBattle(stageInput(save, n), false);
+        expect([-1, 0, 1]).toContain(r.winner);
+      }
     }
   });
 });
@@ -124,71 +284,84 @@ describe('a new player', () => {
     expect(save.team).toHaveLength(3);
     expect(save.packs.recruit).toBe(2);
     expect(teamSize(save)).toBe(BASE_TEAM);
-    expect(frontier(save)).toEqual([0, 0]);
+    expect(frontier(save)).toBe(0);
+    expect(cleared(save)).toBe(0);
   });
 
   it('can win the first stage with what they start with', () => {
     let wins = 0;
-    for (let n = 0; n < 20; n++) {
-      const save = startingSave(n + 1);
-      if (runBattle(stageInput(save, WORLDS[0], 0), false).winner === 0) wins++;
+    for (let seed = 1; seed <= 20; seed++) {
+      const save = startingSave(seed);
+      if (runBattle(stageInput(save, 0), false).winner === 0) wins++;
     }
     expect(wins).toBeGreaterThanOrEqual(18);
   });
 });
 
 describe('what is open', () => {
-  it('stages open in order, and a world when the one before is finished', () => {
+  it('stages open in order, one after the other, all along the line', () => {
     const save = startingSave(1);
-    expect(stageOpen(save, 0, 0)).toBe(true);
-    expect(stageOpen(save, 0, 1)).toBe(false);
-    expect(worldOpen(save, 1)).toBe(false);
-    finishStage(save, 0, 0, true);
-    expect(stageOpen(save, 0, 1)).toBe(true);
-    const done = at(1, 0);
-    expect(worldOpen(done, 1)).toBe(true);
-    expect(stageOpen(done, 1, 0)).toBe(true);
-    expect(worldOpen(done, 2)).toBe(false);
+    expect(stageOpen(save, 0)).toBe(true);
+    expect(stageOpen(save, 1)).toBe(false);
+    expect(stageOpen(save, -1)).toBe(false);
+    const r = finishStage(save, 0, true);
+    expect(r.first).toBe(true);
+    expect(cleared(save)).toBe(1);
+    expect(stageOpen(save, 1)).toBe(true);
+    expect(stageOpen(save, 2)).toBe(false);
+    expect(frontier(save)).toBe(1);
+    const end = at(STAGES.length);
+    expect(lineDone(end)).toBe(true);
+    expect(frontier(end)).toBe(STAGES.length - 1);
+    expect(stageOpen(end, STAGES.length)).toBe(false);
   });
 
   it('a loss opens nothing and pays no coins, but the team still learns', () => {
     const save = startingSave(1);
-    const r = finishStage(save, 0, 0, false);
+    const coins = save.coins;
+    const r = finishStage(save, 0, false);
     expect(r.coins).toBe(0);
-    expect(r.packs).toEqual([]);
-    expect(clearedIn(save, 'thornwood')).toBe(0);
+    expect(save.coins).toBe(coins);
+    expect(cleared(save)).toBe(0);
+    expect(r.xp).toBe(stageXp(0, false));
     expect(r.xp).toBeGreaterThan(0);
-    expect(save.stats.battles).toBe(1);
-    expect(save.stats.wins).toBe(0);
+    expect(r.xp).toBeLessThan(stageXp(0, true));
+    expect(save.stats).toMatchObject({ battles: 1, wins: 0 });
   });
 
   it('a first clear pays in full and a replay half', () => {
     const save = startingSave(1);
-    const first = finishStage(save, 0, 0, true);
-    const again = finishStage(save, 0, 0, true);
-    expect(first.first).toBe(true);
+    const first = finishStage(save, 0, true);
+    expect(first.coins).toBe(STAGES[0].coins);
+    expect(first.coins).toBe(stagePay(0, true));
+    const again = finishStage(save, 0, true);
     expect(again.first).toBe(false);
-    expect(first.coins).toBe(stageCoins(WORLDS[0], 0));
-    expect(again.coins).toBe(Math.round(first.coins / 2));
+    expect(again.coins).toBe(Math.round(STAGES[0].coins / 2));
+    expect(cleared(save)).toBe(1);
   });
 
-  it('the team grows as bosses fall, to a ceiling', () => {
-    expect(teamSize(at(0, 4))).toBe(4);
-    expect(teamSize(at(0, 5))).toBe(5);
-    expect(teamSize(at(1, 0))).toBe(6);
-    expect(teamSize(at(2, 0))).toBe(7);
-    const all = at(2, WORLDS[2].stages.length);
-    expect(teamSize(all)).toBe(MAX_TEAM);
-    const before = at(0, 4);
-    expect(finishStage(before, 0, 4, true).moreTeam).toBe(1);
+  it('the team grows at stages the line names, to a ceiling', () => {
+    expect(teamSize(at(0))).toBe(BASE_TEAM);
+    TEAM_AT.forEach((n, i) => {
+      expect(teamSize(at(n - 1)), `before stage ${n}`).toBe(BASE_TEAM + i);
+      expect(teamSize(at(n)), `after stage ${n}`).toBe(BASE_TEAM + i + 1);
+    });
+    expect(teamSize(at(STAGES.length))).toBe(MAX_TEAM);
+    const save = at(TEAM_AT[0] - 1);
+    expect(finishStage(save, TEAM_AT[0] - 1, true).moreTeam).toBe(1);
   });
 
-  it('beating a boss opens the next world and always drops packs', () => {
-    const save = at(0, WORLDS[0].stages.length - 1);
-    const r = finishStage(save, 0, WORLDS[0].stages.length - 1, true);
-    expect(r.opened).toBe('sunscar');
+  it('beating the boss of a world always drops packs and opens the next world', () => {
+    const save = at(9);
+    const r = finishStage(save, 9, true);
     expect(r.packs.filter((p) => p === 'thornwood').length).toBeGreaterThanOrEqual(2);
-    expect(worldOpen(save, 1)).toBe(true);
+    expect(r.reached).toBe(1);
+    expect(worldReached(save, 1)).toBe(true);
+    expect(worldReached(save, 2)).toBe(false);
+    // A stage in the middle of a world opens no world, and the last stage of all says the line is done.
+    expect(finishStage(at(3), 3, true).reached).toBe(-1);
+    const last = finishStage(at(STAGES.length - 1), STAGES.length - 1, true);
+    expect(last).toMatchObject({ finished: true, reached: -1 });
   });
 });
 
@@ -200,10 +373,13 @@ describe('what is known', () => {
     expect(known(save, UNITS.cutpurse)).toBe(false);
     expect(known(save, UNITS.knight)).toBe(true);
     expect(known(save, UNITS.paladin)).toBe(false);
-    const r = finishStage(save, 0, 0, true);
+    const r = finishStage(save, 0, true);
     expect(r.unlocked).toEqual(['cutpurse']);
     expect(known(save, UNITS.cutpurse)).toBe(true);
     expect(beaten(save, UNITS.warlord)).toBe(false);
+    // The dunes' Lancer stands at their first stage, which is the eleventh of the line.
+    expect(beaten(at(10), UNITS.lancer)).toBe(false);
+    expect(beaten(at(11), UNITS.lancer)).toBe(true);
   });
 
   it('a pack holds every unit of its set from the start: nothing in it is unlocked', () => {
@@ -220,19 +396,27 @@ describe('what is known', () => {
     expect(known(save, UNITS.warlord)).toBe(true);
   });
 
-  it("a world's pack is sold once its world is open", () => {
+  it("a land's pack is sold once the line has come to that land, and its later packs once it has come again", () => {
     const save = startingSave(1);
     expect(packOpen(save, packById('recruit'))).toBe(true);
     expect(packOpen(save, packById('thornwood'))).toBe(true);
     expect(packOpen(save, packById('dunes'))).toBe(false);
-    expect(packOpen(save, packById('royal'))).toBe(false);
-    expect(packOpen(at(2, 0), packById('royal'))).toBe(true);
+    expect(packOpen(at(10), packById('dunes'))).toBe(true);
+    expect(packOpen(at(21), packById('royal'))).toBe(false);
+    expect(packOpen(at(22), packById('royal'))).toBe(true);
+    expect(packOpen(at(PER_LAP - 1), packById('thornwood@1'))).toBe(false);
+    expect(packOpen(at(PER_LAP), packById('thornwood@1'))).toBe(true);
+    expect(packOpen(at(PER_LAP), packById('dunes@1'))).toBe(false);
+    // Unopened packs of every lap are counted as held.
+    const held = at(PER_LAP);
+    held.packs = { recruit: 1, 'thornwood@1': 2 };
+    expect(packsHeld(held)).toBe(3);
   });
 });
 
 describe('packs', () => {
   it('hand out only the grades they name, and only units of their set that are in the pool', () => {
-    const save = at(2, 3);
+    const save = at(25);
     for (const pack of PACKS) {
       if (!packOpen(save, pack)) continue;
       const pool = new Set(packPool(save, pack).map((u) => u.id));
@@ -248,7 +432,7 @@ describe('packs', () => {
   });
 
   it('turn over commons most and the rarest least, and low grades more than high', () => {
-    const save = at(2, 3);
+    const save = at(25);
     const pack = packById('recruit');
     const rng = new Rng(5);
     const tiers: Record<string, number> = {};
@@ -323,13 +507,15 @@ describe('packs', () => {
   it('are bought with coins, when sold and affordable', () => {
     const save = startingSave(1);
     save.coins = 100;
-    expect(buyPack(save, 'thornwood')).toBe(false);
+    // The dunes have not been reached, so their pack is not sold however many coins there are.
+    expect(buyPack(save, 'dunes')).toBe(false);
     expect(buyPack(save, 'recruit')).toBe(true);
     expect(save.coins).toBe(40);
     expect(save.packs.recruit).toBe(3);
     expect(buyPack(save, 'recruit')).toBe(false);
   });
 });
+
 
 describe('cards', () => {
   it('level with experience, up to a ceiling', () => {
@@ -349,15 +535,16 @@ describe('cards', () => {
     expect(cardMult(2, 5)).toBeGreaterThan(cardMult(2, 4));
     const save = startingSave(1);
     Object.assign(cardsOf(save, 'knight')[0], { grade: 3, level: 5 });
-    const input = stageInput(save, WORLDS[0], 0);
+    const input = stageInput(save, 0);
     const knight = input.teams[0].find((p) => p.unit === 'knight');
     expect(knight?.hpMult).toBeCloseTo(cardMult(3, 5), 6);
-    const foes = stageEnemies(WORLDS[0], 4);
+    const foes = stageEnemies(4);
     const elite = foes.find((p) => p.unit === 'bruiser');
     expect(elite?.scale).toBeGreaterThan(1);
     expect(elite?.hpMult).toBeGreaterThan(foes[1].hpMult ?? 0);
   });
 });
+
 
 describe('the team', () => {
   it('takes cards in and out, and no more than may be fielded', () => {
@@ -383,12 +570,12 @@ describe('the team', () => {
     second.level = 7;
     expect(toggleTeam(save, second.id)).toBe(true);
     expect(save.team.filter((p) => p.unit === 'knight')).toHaveLength(2);
-    const knights = stageInput(save, WORLDS[0], 0).teams[0].filter((p) => p.unit === 'knight');
+    const knights = stageInput(save, 0).teams[0].filter((p) => p.unit === 'knight');
     expect(knights.map((p) => p.hpMult).sort()).toEqual([cardMult(first.grade, first.level), cardMult(4, 7)].sort());
-    expect(runBattle(stageInput(save, WORLDS[0], 0), false).winner).toBe(0);
+    expect(runBattle(stageInput(save, 0), false).winner).toBe(0);
     // Only the cards that fought are taught by it.
     const spare = addCard(save, 'knight', 0);
-    finishStage(save, 0, 0, true);
+    finishStage(save, 0, true);
     expect(second.xp + second.level).toBeGreaterThan(7);
     expect(spare).toMatchObject({ level: 1, xp: 0 });
   });
@@ -420,6 +607,24 @@ describe('the team', () => {
     expect(team.some((p) => p.unit === 'paladin')).toBe(true);
   });
 
+  it('FILL TEAM wants some of each role: it will not field a wall of tanks while a fighter waits', () => {
+    const save = at(40);
+    save.cards = [];
+    const tanks = [0, 1, 2, 3, 4, 5, 6, 7].map(() => Object.assign(addCard(save, 'knight', 4), { level: 10 }));
+    const mage = Object.assign(addCard(save, 'mage', 3), { level: 8 });
+    const archer = Object.assign(addCard(save, 'archer', 3), { level: 8 });
+    const cleric = Object.assign(addCard(save, 'cleric', 3), { level: 8 });
+    // Every Knight is stronger than any of the three, and still they are fielded.
+    for (const c of [mage, archer, cleric]) expect(cardPower(c)).toBeLessThan(cardPower(tanks[0]));
+    const team = bestTeam(save);
+    expect(team).toHaveLength(teamSize(save));
+    for (const c of [mage, archer, cleric]) expect(team.some((p) => p.card === c.id), c.unit).toBe(true);
+    expect(team.filter((p) => p.unit === 'knight').length).toBeLessThan(8);
+    // With nothing else to field, it fields what there is.
+    save.cards = save.cards.filter((c) => c.unit === 'knight');
+    expect(bestTeam(save)).toHaveLength(teamSize(save));
+  });
+
   it('FILL TEAM fields copies of a unit when they are the strongest held', () => {
     const save = startingSave(1);
     const strong = [0, 1, 2].map(() => Object.assign(addCard(save, 'mage', 5), { level: 12 }).id);
@@ -429,6 +634,7 @@ describe('the team', () => {
     expect(new Set(team.map((p) => p.card)).size).toBe(team.length);
   });
 });
+
 
 describe('sorting', () => {
   const held = (): SaveData => {
@@ -497,6 +703,7 @@ describe('sorting', () => {
     expect(isSort('nonsense')).toBe(false);
   });
 });
+
 
 describe('combining', () => {
   const two = (): { save: ReturnType<typeof startingSave>; into: number; from: number } => {
@@ -623,175 +830,14 @@ describe('combining', () => {
   });
 });
 
-describe('difficulties', () => {
-  /** A save with a world finished on every difficulty below `d`. */
-  function upTo(world: number, d: number): SaveData {
-    const save = at(world, 0);
-    save.cleared[WORLDS[world].id] = Array.from({ length: d }, () => WORLDS[world].stages.length);
-    return save;
-  }
-
-  it('there are five, each asking more than the one before and paying more', () => {
-    expect(DIFFICULTIES).toHaveLength(5);
-    expect(DIFFICULTIES[0]).toMatchObject({ extra: 0, coins: 1, packCost: 1 });
-    for (let d = 1; d < DIFFICULTIES.length; d++) {
-      for (const w of WORLDS) {
-        for (let i = 0; i < w.stages.length; i++) {
-          const a = stageStanding(w, i, d - 1);
-          const b = stageStanding(w, i, d);
-          expect(cardMult(b.grade, b.level), `${w.name} ${i + 1} at ${d}`).toBeGreaterThan(cardMult(a.grade, a.level));
-        }
-      }
-      expect(DIFFICULTIES[d].coins).toBeGreaterThan(DIFFICULTIES[d - 1].coins);
-      expect(DIFFICULTIES[d].packCost).toBeGreaterThan(DIFFICULTIES[d - 1].packCost);
-      expect(DIFFICULTIES[d].extra).toBeGreaterThanOrEqual(DIFFICULTIES[d - 1].extra);
-    }
-  });
-
-  it("each is opened by the world's boss at the one before, in that world only", () => {
-    const fresh = startingSave(1);
-    expect(difficultyOpen(fresh, 0, 0)).toBe(true);
-    expect(difficultyOpen(fresh, 0, 1)).toBe(false);
-    expect(topDifficulty(fresh, 0)).toBe(0);
-    expect(topDifficulty(fresh, 1)).toBe(-1);
-
-    const save = at(0, WORLDS[0].stages.length - 1);
-    const r = finishStage(save, 0, WORLDS[0].stages.length - 1, true);
-    expect(r.harder).toBe(1);
-    expect(difficultyOpen(save, 0, 1)).toBe(true);
-    expect(difficultyOpen(save, 0, 2)).toBe(false);
-    // The next world is open on Easy, and only on Easy.
-    expect(difficultyOpen(save, 1, 0)).toBe(true);
-    expect(difficultyOpen(save, 1, 1)).toBe(false);
-    expect(stageOpen(save, 0, 0, 1)).toBe(true);
-    expect(stageOpen(save, 0, 1, 1)).toBe(false);
-  });
-
-  it('progress is kept apart for each, and Easy alone opens worlds, team places and packs', () => {
-    const save = upTo(0, 1);
-    const size = teamSize(save);
-    const r = finishStage(save, 0, 0, true, 1);
-    expect(r.first).toBe(true);
-    expect(clearedIn(save, 'thornwood', 1)).toBe(1);
-    expect(clearedIn(save, 'thornwood', 0)).toBe(WORLDS[0].stages.length);
-    expect(r.opened).toBeNull();
-    expect(r.moreTeam).toBe(0);
-    expect(teamSize(save)).toBe(size);
-    // Finishing a world on Normal opens Hard there, and no world.
-    const last = WORLDS[0].stages.length - 1;
-    const hard = upTo(0, 1);
-    hard.cleared.thornwood[1] = last;
-    const end = finishStage(hard, 0, last, true, 1);
-    expect(end.harder).toBe(2);
-    expect(end.opened).toBeNull();
-    expect(worldDone(hard, 'thornwood', 1)).toBe(true);
-    // The last difficulty opens nothing harder.
-    const top = upTo(0, 4);
-    top.cleared.thornwood[4] = last;
-    expect(finishStage(top, 0, last, true, 4).harder).toBe(-1);
-  });
-
-  it('enemies stand at a better grade and level, and from Hard there are more of them', () => {
-    const world = WORLDS[0];
-    const stage = world.stages[3];
-    const easy = stageEnemies(world, 3, 0);
-    expect(stageStanding(world, 3, 0)).toEqual({ grade: stage.grade, level: stage.level });
-    for (let d = 1; d < DIFFICULTIES.length; d++) {
-      const foes = stageEnemies(world, 3, d);
-      expect(foes.length).toBe(stage.enemies.length + DIFFICULTIES[d].extra);
-      expect(foes[0].hpMult ?? 0).toBeGreaterThan(stageEnemies(world, 3, d - 1)[0].hpMult ?? 0);
-      const tiles = foes.map((p) => `${p.col},${p.row}`);
-      expect(new Set(tiles).size).toBe(tiles.length);
-      for (const p of foes) expect(isEnemyTile(p.col, p.row)).toBe(true);
-      // Whoever joins is one of the stage's own.
-      for (const p of foes.slice(easy.length)) expect(stage.enemies.some((e) => e.unit === p.unit && e.rank === 'troop')).toBe(true);
-    }
-  });
-
-  it("on Nightmare every enemy is the best grade, and a world's last stage is at the level the world names", () => {
-    for (const w of WORLDS) {
-      const last = w.stages.length - 1;
-      for (let i = 0; i <= last; i++) expect(stageStanding(w, i, 4).grade).toBe(6);
-      expect(stageStanding(w, last, 4).level).toBe(w.nightmare);
-      expect(w.nightmare).toBeGreaterThan(w.stages[last].level);
-      for (let i = 0; i <= last; i++) for (let d = 0; d < 5; d++) expect(stageStanding(w, i, d).grade).toBeLessThanOrEqual(6);
-    }
-  });
-
-  it('a gentle world climbs steeply: Thornwood on Hard is a match for the dunes on Easy', () => {
-    const strength = (w: number, d: number): number => {
-      const at = stageStanding(WORLDS[w], WORLDS[w].stages.length - 1, d);
-      return cardMult(at.grade, at.level);
-    };
-    expect(strength(0, 2)).toBeGreaterThan(strength(1, 0));
-    expect(strength(0, 3)).toBeGreaterThan(strength(2, 0) * 0.9);
-  });
-
-  it('a harder win pays more coins and experience, and drops that difficulty\'s pack', () => {
-    expect(stagePay(WORLDS[0], 4, true, 2)).toBeGreaterThan(stagePay(WORLDS[0], 4, true, 1));
-    expect(stagePay(WORLDS[0], 4, false, 2)).toBe(Math.round(stagePay(WORLDS[0], 4, true, 2) / 2));
-    expect(stageXp(WORLDS[0], 4, true, 2)).toBeGreaterThan(stageXp(WORLDS[0], 4, true, 0));
-    const save = upTo(0, 2);
-    save.cleared.thornwood[2] = 4;
-    const r = finishStage(save, 0, 4, true, 2);
-    expect(r.packs.length).toBeGreaterThan(0);
-    expect(new Set(r.packs)).toEqual(new Set(['thornwood@2']));
-    expect(save.packs['thornwood@2']).toBe(r.packs.length);
-    expect(packsHeld(save)).toBe((save.packs.recruit ?? 0) + r.packs.length);
-  });
-
-  it("a world's harder packs hold the same cards at better grades, for more, and are sold once that difficulty is open", () => {
-    for (const base of PACKS.filter((p) => p.world)) {
-      for (let d = 1; d < DIFFICULTIES.length; d++) {
-        const p = packById(`${base.id}@${d}`);
-        expect(p).toEqual(packAt(base, d));
-        expect(p.set).toBe(base.set);
-        expect(p.cost).toBeGreaterThan(packAt(base, d - 1).cost);
-        expect(p.gradeMax).toBeGreaterThanOrEqual(packAt(base, d - 1).gradeMax);
-        expect(p.gradeMin).toBeGreaterThanOrEqual(packAt(base, d - 1).gradeMin);
-        expect(p.gradeMin).toBeLessThanOrEqual(p.gradeMax);
-        expect(p.gradeMax).toBeLessThanOrEqual(6);
-      }
-      // On Nightmare, the best two grades.
-      expect([packAt(base, 4).gradeMin, packAt(base, 4).gradeMax]).toEqual([5, 6]);
-    }
-    expect(() => packById('recruit@1')).toThrow();
-    expect(() => packById('thornwood@9')).toThrow();
-    expect(allPacks()).toHaveLength(PACKS.length + 3 * 4);
-
-    const save = upTo(0, 1);
-    expect(packOpen(save, packById('thornwood@1'))).toBe(true);
-    expect(packOpen(save, packById('thornwood@2'))).toBe(false);
-    save.coins = 100000;
-    expect(buyPack(save, 'thornwood@1')).toBe(true);
-    expect(buyPack(save, 'thornwood@2')).toBe(false);
-    const pull = openPack(save, 'thornwood@1');
-    expect(pull).not.toBeNull();
-    expect(pull?.grade).toBeGreaterThanOrEqual(packById('thornwood@1').gradeMin);
-  });
-
-  it('every stage of every difficulty can be fielded and fought to an end', () => {
-    const save = startingSave(3);
-    for (const id of ['paladin', 'berserker', 'mage', 'cleric']) Object.assign(addCard(save, id, 6), { level: 20 });
-    save.team = bestTeam(save);
-    for (let w = 0; w < WORLDS.length; w++) {
-      for (const stage of [0, WORLDS[w].stages.length - 1]) {
-        for (let d = 0; d < DIFFICULTIES.length; d++) {
-          const r = runBattle(stageInput(save, WORLDS[w], stage, d), false);
-          expect([-1, 0, 1]).toContain(r.winner);
-        }
-      }
-    }
-  });
-});
 
 describe('the save', () => {
   it('survives a trip through JSON', () => {
-    const save = at(1, 4);
+    const save = at(14);
     save.coins = 321;
     save.packs.dunes = 2;
     save.packs['thornwood@1'] = 1;
-    save.cleared.thornwood.push(3);
+    save.lostAt = 13;
     save.tutorial = { done: true, seen: ['team'] };
     expect(repair(JSON.parse(JSON.stringify(save)), 1)).toEqual(save);
     // A new player's save comes back as it went, tutorial and all.
@@ -805,7 +851,7 @@ describe('the save', () => {
     expect(repair('nonsense', 5).coins).toBe(0);
     expect(repair({ version: 999, coins: 50 }, 5).coins).toBe(0);
     const mended = repair({
-      version: 3, coins: -5,
+      version: 4, coins: -5, cleared: 99999, at: -3, lostAt: 'nowhere',
       // A card with no number, two with the same, and one with nothing to it are dropped.
       cards: [{ id: 4, unit: 'knight', grade: 2 }, { unit: 'mage' }, { id: 4, unit: 'archer' }, null, { id: 6, unit: 'knight', level: 3 }],
       team: [{ card: 4, unit: 'archer', col: 1, row: 1 }, { card: 4, col: 2, row: 2 }, { card: 77 }, { card: 6, col: 0, row: 0 }],
@@ -819,106 +865,132 @@ describe('the save', () => {
     expect(mended.nextCard).toBe(7);
     expect(mended.team).toEqual([{ card: 4, unit: 'knight', col: 1, row: 1 }, { card: 6, unit: 'knight', col: 0, row: 0 }]);
     expect(mended.packs).toEqual({});
-    expect(mended.tutorial).toEqual({ done: false, seen: [] });
+    expect(mended.tutorial).toEqual({ done: true, seen: [] });
+    // Progress is kept on the line, and the stage on show is one that is there.
+    expect(mended.cleared).toBe(STAGES.length);
+    expect(mended.at).toBe(0);
+    expect(mended.lostAt).toBeNull();
   });
 
-  it('a save from before difficulties is carried over, with its progress as Easy and no tutorial', () => {
+  it('a save from when there were worlds and difficulties is carried onto the line', () => {
     const old = {
-      version: 1, coins: 120, cards: { knight: { grade: 1, level: 3, xp: 4 } }, team: [{ unit: 'knight', col: 3, row: 1 }],
-      cleared: { thornwood: 10, sunscar: 4 }, packs: { recruit: 2 }, rng: 7, stats: { battles: 30, wins: 20, opened: 9 }, speed: 2, sound: false,
+      version: 3, coins: 120, cards: [{ id: 1, unit: 'knight', grade: 1, level: 3, xp: 4 }], nextCard: 2,
+      team: [{ card: 1, unit: 'knight', col: 3, row: 1 }],
+      // All of Thornwood and four stages of the dunes on Easy, and Thornwood on Normal too.
+      cleared: { thornwood: [10, 10], sunscar: [4] }, packs: { recruit: 2, 'thornwood@1': 1 }, rng: 7,
+      stats: { battles: 30, wins: 20, opened: 9 }, speed: 2, sound: false, tutorial: { done: true, seen: [] },
+      at: { world: 0, stage: 3, d: 1 }, lostAt: { world: 1, stage: 4, d: 0 }, auto: false,
     };
     const now = repair(old, 1);
-    expect(now.version).toBe(3);
-    // One card to a unit then: each is a card with a number now, and the team names it.
-    expect(now.cards).toEqual([{ id: 1, unit: 'knight', grade: 1, level: 3, xp: 4 }]);
-    expect(now.team).toEqual([{ card: 1, unit: 'knight', col: 3, row: 1 }]);
-    expect(now.nextCard).toBe(2);
-    expect(now.cleared).toEqual({ thornwood: [10], sunscar: [4] });
-    expect(clearedIn(now, 'thornwood')).toBe(10);
-    expect(difficultyOpen(now, 0, 1)).toBe(true);
+    expect(now.version).toBe(4);
+    // The line is walked stage after stage: ten of Thornwood and four of the dunes. What was cleared
+    // of a harder difficulty lies further along the line than that, so it waits to be reached.
+    expect(now.cleared).toBe(14);
+    expect(now.at).toBe(14);
+    expect(now.lostAt).toBeNull();
     expect(now.coins).toBe(120);
     expect(now.sound).toBe(false);
-    expect(now.tutorial.done).toBe(true);
+    expect(now.auto).toBe(false);
+    expect(now.cards).toEqual(old.cards);
+    expect(now.packs).toEqual(old.packs);
+    expect(stageOpen(now, 14)).toBe(true);
+    // Everything of the first lap, and the next lap begins.
+    const all = repair({ ...old, cleared: { thornwood: [10, 10, 3], sunscar: [12, 5], frostholt: [15] } }, 1);
+    expect(all.cleared).toBe(PER_LAP + 10 + 5);
   });
 
-  it('a save from before copies were cards is carried over, each unit as one card', () => {
-    const old = {
+  it('a save from before difficulties and from before copies were cards is carried over too', () => {
+    const first = repair({
+      version: 1, coins: 120, cards: { knight: { grade: 1, level: 3, xp: 4 } }, team: [{ unit: 'knight', col: 3, row: 1 }],
+      cleared: { thornwood: 10, sunscar: 4 }, packs: { recruit: 2 }, rng: 7, stats: { battles: 30, wins: 20, opened: 9 }, speed: 2, sound: false,
+    }, 1);
+    expect(first.cleared).toBe(14);
+    expect(first.tutorial.done).toBe(true);
+    // One card to a unit then: each is a card with a number now, and the team names it.
+    expect(first.cards).toEqual([{ id: 1, unit: 'knight', grade: 1, level: 3, xp: 4 }]);
+    expect(first.team).toEqual([{ card: 1, unit: 'knight', col: 3, row: 1 }]);
+    expect(first.nextCard).toBe(2);
+
+    const second = repair({
       version: 2, coins: 9, cards: { knight: { grade: 2, level: 4, xp: 1 }, mage: { grade: 0, level: 1, xp: 0 } },
       team: [{ unit: 'mage', col: 0, row: 1 }, { unit: 'knight', col: 3, row: 1 }, { unit: 'nobody', col: 1, row: 1 }],
       cleared: { thornwood: [3] }, tutorial: { done: true, seen: [] },
-    };
-    const now = repair(old, 1);
-    expect(now.cards).toEqual([{ id: 1, unit: 'knight', grade: 2, level: 4, xp: 1 }, { id: 2, unit: 'mage', grade: 0, level: 1, xp: 0 }]);
-    expect(now.team).toEqual([{ card: 2, unit: 'mage', col: 0, row: 1 }, { card: 1, unit: 'knight', col: 3, row: 1 }]);
-    expect(now.nextCard).toBe(3);
+    }, 1);
+    expect(second.cleared).toBe(3);
+    expect(second.cards).toEqual([{ id: 1, unit: 'knight', grade: 2, level: 4, xp: 1 }, { id: 2, unit: 'mage', grade: 0, level: 1, xp: 0 }]);
+    expect(second.team).toEqual([{ card: 2, unit: 'mage', col: 0, row: 1 }, { card: 1, unit: 'knight', col: 3, row: 1 }]);
     // And the next pull of a Knight is a second Knight, not a change to the first.
-    now.packs.recruit = 40;
-    while (cardsOf(now, 'knight').length < 2 && openPack(now, 'recruit'));
-    expect(cardsOf(now, 'knight')).toHaveLength(2);
-    expect(cardOf(now, 1)).toMatchObject({ grade: 2, level: 4, xp: 1 });
+    second.packs.recruit = 40;
+    while (cardsOf(second, 'knight').length < 2 && openPack(second, 'recruit'));
+    expect(cardsOf(second, 'knight')).toHaveLength(2);
+    expect(cardOf(second, 1)).toMatchObject({ grade: 2, level: 4, xp: 1 });
   });
 });
 
 describe('the run of battles', () => {
   const result = (won: boolean, first: boolean): StageResult => ({
-    won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, opened: null, harder: -1,
+    won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, reached: -1, finished: false,
   });
 
-  it('a first win goes on to the next stage, and after a boss on Easy to the next world', () => {
-    const save = startingSave(1);
-    expect(settle(save)).toEqual({ world: 0, stage: 0, d: 0 });
-    const r = finishStage(save, 0, 0, true);
-    expect(afterBattle(save, { world: 0, stage: 0, d: 0 }, r)).toEqual({ world: 0, stage: 1, d: 0 });
-    const last = WORLDS[0].stages.length - 1;
-    const boss = at(0, last);
-    const won = finishStage(boss, 0, last, true);
-    expect(afterBattle(boss, { world: 0, stage: last, d: 0 }, won)).toEqual({ world: 1, stage: 0, d: 0 });
-    expect(whereOpen(boss, boss.at)).toBe(true);
+  it('a first win goes on to the next stage, across a world\'s end too', () => {
+    const save = at(3);
+    expect(afterBattle(save, 3, result(true, true))).toBe(4);
+    expect(save.at).toBe(4);
+    // The boss of the first world: the next battle is the first stage of the second.
+    expect(afterBattle(at(9), 9, result(true, true))).toBe(10);
   });
 
   it('a win again stays, so that a team left alone earns from a stage it can beat', () => {
-    const save = at(0, 3);
-    expect(afterBattle(save, { world: 0, stage: 1, d: 0 }, result(true, false))).toEqual({ world: 0, stage: 1, d: 0 });
+    const save = at(6);
+    expect(afterBattle(save, 2, result(true, false))).toBe(2);
   });
 
-  it('on a harder difficulty it stays on the boss after beating it, and on the last world too', () => {
-    const save = at(2, WORLDS[2].stages.length);
-    save.cleared.thornwood = [10, 9];
-    expect(afterBattle(save, { world: 0, stage: 9, d: 1 }, result(true, true))).toEqual({ world: 0, stage: 9, d: 1 });
-    const end = WORLDS[2].stages.length - 1;
-    expect(afterBattle(save, { world: 2, stage: end, d: 0 }, result(true, true))).toEqual({ world: 2, stage: end, d: 0 });
+  it('at the last stage of all it stays there', () => {
+    const last = STAGES.length - 1;
+    expect(afterBattle(at(last), last, result(true, true))).toBe(last);
   });
 
-  it('a loss steps back one stage, never to another world, and remembers where it lost', () => {
-    const save = at(1, 3);
-    expect(afterBattle(save, { world: 1, stage: 3, d: 0 }, result(false, false))).toEqual({ world: 1, stage: 2, d: 0 });
-    expect(save.lostAt).toEqual({ world: 1, stage: 3, d: 0 });
-    // Lost again one back: it steps back again, and still means to return to the furthest.
-    expect(afterBattle(save, { world: 1, stage: 2, d: 0 }, result(false, false))).toEqual({ world: 1, stage: 1, d: 0 });
-    expect(save.lostAt).toEqual({ world: 1, stage: 3, d: 0 });
-    const first = at(1, 0);
-    expect(afterBattle(first, { world: 1, stage: 0, d: 0 }, result(false, false))).toEqual({ world: 1, stage: 0, d: 0 });
-    expect(first.lostAt).toBeNull();
+  it('a loss steps back one stage, and remembers where it lost', () => {
+    const save = at(12);
+    expect(afterBattle(save, 12, result(false, false))).toBe(11);
+    expect(save.lostAt).toBe(12);
+    // A loss at the stage stepped back to goes back again, and the furthest loss is the one kept.
+    expect(afterBattle(save, 11, result(false, false))).toBe(10);
+    expect(save.lostAt).toBe(12);
+    // There is nothing before the first stage.
+    const start = startingSave(1);
+    expect(afterBattle(start, 0, result(false, false))).toBe(0);
+    expect(start.lostAt).toBeNull();
   });
 
   it('a changed team goes back to the stage it lost at, once', () => {
-    const save = at(1, 3);
-    afterBattle(save, { world: 1, stage: 3, d: 0 }, result(false, false));
+    const save = at(12);
+    afterBattle(save, 12, result(false, false));
     expect(teamChanged(save)).toBe(true);
-    expect(save.at).toEqual({ world: 1, stage: 3, d: 0 });
+    expect(save.at).toBe(12);
+    expect(save.lostAt).toBeNull();
     expect(teamChanged(save)).toBe(false);
   });
 
+  it('winning the stage that was lost forgets the loss', () => {
+    const save = at(12);
+    afterBattle(save, 12, result(false, false));
+    save.at = 12;
+    save.cleared = 13;
+    afterBattle(save, 12, result(true, true));
+    expect(save.lostAt).toBeNull();
+  });
+
   it('only an open stage can be gone to, and a save that points at a shut one is put right', () => {
-    const save = at(0, 3);
-    expect(goTo(save, { world: 0, stage: 3, d: 0 })).toBe(true);
-    expect(goTo(save, { world: 0, stage: 4, d: 0 })).toBe(false);
-    expect(goTo(save, { world: 1, stage: 0, d: 0 })).toBe(false);
-    expect(goTo(save, { world: 0, stage: 0, d: 1 })).toBe(false);
-    expect(save.at).toEqual({ world: 0, stage: 3, d: 0 });
-    save.at = { world: 2, stage: 9, d: 3 };
-    expect(settle(save)).toEqual({ world: 0, stage: 3, d: 0 });
-    expect(sameWhere(save.at, { world: 0, stage: 3, d: 0 })).toBe(true);
+    const save = at(3);
+    expect(goTo(save, 5)).toBe(false);
+    expect(save.at).toBe(3);
+    expect(goTo(save, 1)).toBe(true);
+    expect(save.at).toBe(1);
+    save.at = 90;
+    save.lostAt = 91;
+    expect(settle(save)).toBe(3);
+    expect(save.lostAt).toBeNull();
   });
 
   it('counts down two seconds before a battle starts by itself', () => {

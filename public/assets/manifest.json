@@ -2751,128 +2751,6 @@
    ]
   }
  },
- "board": {
-  "meadow-tile-a": {
-   "width": 120,
-   "height": 102,
-   "origin": [
-    0,
-    0
-   ]
-  },
-  "meadow-tile-b": {
-   "width": 120,
-   "height": 102,
-   "origin": [
-    0,
-    0
-   ]
-  },
-  "desert-tile-a": {
-   "width": 120,
-   "height": 102,
-   "origin": [
-    0,
-    0
-   ]
-  },
-  "desert-tile-b": {
-   "width": 120,
-   "height": 102,
-   "origin": [
-    0,
-    0
-   ]
-  },
-  "snow-tile-a": {
-   "width": 120,
-   "height": 102,
-   "origin": [
-    0,
-    0
-   ]
-  },
-  "snow-tile-b": {
-   "width": 120,
-   "height": 102,
-   "origin": [
-    0,
-    0
-   ]
-  },
-  "rock": {
-   "width": 84,
-   "height": 60,
-   "origin": [
-    0.5,
-    0.82
-   ]
-  },
-  "bush": {
-   "width": 90,
-   "height": 64,
-   "origin": [
-    0.5,
-    0.84
-   ]
-  },
-  "stump": {
-   "width": 64,
-   "height": 56,
-   "origin": [
-    0.5,
-    0.82
-   ]
-  },
-  "cactus": {
-   "width": 72,
-   "height": 96,
-   "origin": [
-    0.5,
-    0.88
-   ]
-  },
-  "sandrock": {
-   "width": 84,
-   "height": 60,
-   "origin": [
-    0.5,
-    0.82
-   ]
-  },
-  "dryshrub": {
-   "width": 68,
-   "height": 56,
-   "origin": [
-    0.5,
-    0.82
-   ]
-  },
-  "pine": {
-   "width": 80,
-   "height": 124,
-   "origin": [
-    0.5,
-    0.9
-   ]
-  },
-  "snowrock": {
-   "width": 84,
-   "height": 60,
-   "origin": [
-    0.5,
-    0.82
-   ]
-  },
-  "icespike": {
-   "width": 68,
-   "height": 76,
-   "origin": [
-    0.5,
-    0.86
-   ]
-  }
- },
  "icons": {
   "coin": {
    "width": 48,
@@ -3027,6 +2905,30 @@
    ]
   },
   "team": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "land-meadow": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "land-desert": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "land-snow": {
    "width": 48,
    "height": 48,
    "origin": [

@@ -3,26 +3,23 @@
 // The game plays like an idle game. BATTLE counts down and presses itself;
 // a first win moves on to the next stage, a win again stays, a loss steps
 // back one (game/campaign.ts says which). The player steps in to arrange the
-// team by dragging, and to open UNITS, PACKS or the menu of worlds, each of
-// which opens over the board.
+// team by dragging, and to open UNITS, PACKS or the map, each of which opens
+// over the board.
 //
-// What the player has not reached is not told: a stage that is not open is
-// a lock and cannot be picked.
+// There is one line of stages, numbered from 1 (data/stages.ts), and the
+// top of the screen shows only the one the player is on. Pressing it opens
+// the map, where another can be picked.
 
 import Phaser from 'phaser';
-import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, VENOM, type Material } from '../../art/kit/palette';
+import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
-import { DIFFICULTIES } from '../../data/difficulties';
 import { packById } from '../../data/packs';
+import { WORLDS, landOf, stageAt, worldOf } from '../../data/stages';
 import { UNITS } from '../../data/units';
-import { WORLDS } from '../../data/worlds';
-import { COUNTDOWN, afterBattle, goTo, settle, teamChanged } from '../../game/campaign';
+import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
 import { cardOf } from '../../game/cards';
-import {
-  clearedIn, finishStage, packsHeld, stageEnemies, stageInput, stageOpen, stagePay, stageSeed, stageStanding, teamSize, tidyTeam,
-  type StageResult,
-} from '../../game/rules';
-import type { Fielded, Where } from '../../game/state';
+import { cleared, finishStage, packsHeld, stageEnemies, stageInput, stagePay, stageSeed, teamSize, tidyTeam, type StageResult } from '../../game/rules';
+import type { Fielded } from '../../game/state';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
 import { BoardView } from '../BoardView';
@@ -30,9 +27,9 @@ import { W, hex } from '../config';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
 import { CoinPill, OVERLAY_CLOSED, OVERLAY_SWAP, soundButton } from '../ui/chrome';
-import { DIFFICULTY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
+import { worldBanner } from '../ui/WorldBanner';
 import { Button, label, plain, slab } from '../ui/widgets';
 
 type State = 'loading' | 'ready' | 'fighting' | 'after';
@@ -40,8 +37,11 @@ type State = 'loading' | 'ready' | 'fighting' | 'after';
 export class MainScene extends Phaser.Scene {
   private board!: BoardView;
   private guide!: Guide;
-  private at: Where = { world: 0, stage: 0, d: 0 };
-  private next: Where = { world: 0, stage: 0, d: 0 };
+  /** The stage on show, as its place in the line, and the one the battle just fought leads to. */
+  private at = 0;
+  private next = 0;
+  /** The plate at the top, for the tutorial to point at. */
+  private plate = { x: 440, y: 6, w: 400, h: 98 };
   private state: State = 'loading';
   /** Seconds until the battle starts by itself. Below zero when it will not. */
   private count = -1;
@@ -58,6 +58,8 @@ export class MainScene extends Phaser.Scene {
   private packsButton!: Button;
   private badge: Phaser.GameObjects.GameObject[] = [];
   private top: Phaser.GameObjects.GameObject[] = [];
+  /** The line under the stage's plate. It is put away while a battle is fought: the back row's plates stand there. */
+  private info: Array<Phaser.GameObjects.Image | Phaser.GameObjects.Text> = [];
   private toast: Phaser.GameObjects.GameObject[] = [];
   private note!: Phaser.GameObjects.Text;
 
@@ -82,9 +84,9 @@ export class MainScene extends Phaser.Scene {
     this.scene.setVisible(true);
     const s = save();
     tidyTeam(s);
-    this.at = { ...settle(s) };
+    this.at = settle(s);
     this.speed = s.speed;
-    this.board = new BoardView(this, WORLDS[this.at.world].ground, {
+    this.board = new BoardView(this, landOf(this.at).ground, {
       onEnd: (winner) => this.onEnd(winner),
       onPlaced: () => {
         // Where the team stands is kept, and a change puts the count back.
@@ -94,7 +96,7 @@ export class MainScene extends Phaser.Scene {
       },
       // The player's units show their card's level and grade, the enemy's what the stage stands at.
       standingOf: (p, team) =>
-        team === 'blue' ? cardOf(save(), (p as Fielded).card) : stageStanding(WORLDS[this.at.world], this.at.stage, this.at.d),
+        team === 'blue' ? cardOf(save(), (p as Fielded).card) : stageAt(this.at),
     });
     this.coins = new CoinPill(this, s);
     this.buildBottom();
@@ -104,7 +106,7 @@ export class MainScene extends Phaser.Scene {
     this.guide.mark('battle', () => this.battleButton.rect);
     this.guide.mark('packs', () => this.packsButton.rect);
     this.guide.mark('units', () => ({ x: 22, y: 633, w: 196, h: 62 }));
-    this.guide.mark('stages', () => ({ x: 286, y: 8, w: 780, h: 92 }));
+    this.guide.mark('stages', () => this.plate);
 
     const closed = (key: string): void => this.onOverlayClosed(key);
     this.game.events.on(OVERLAY_CLOSED, closed);
@@ -127,7 +129,12 @@ export class MainScene extends Phaser.Scene {
 
   // ------------------------------------------------------------ the top
 
-  /** The world and its difficulty, the stages as a row of stones, and what the stage on show is. */
+  /**
+   * The stage on show, and only that one: the banner of its world, its
+   * number on a plate under that, and a line with its name, what a win pays
+   * and what its enemies stand at. Banner and plate open the map of the
+   * world's stages.
+   */
   private refreshTop(): void {
     for (const o of this.top) o.destroy();
     this.top = [];
@@ -136,66 +143,43 @@ export class MainScene extends Phaser.Scene {
       return o;
     };
     const s = save();
-    const world = WORLDS[this.at.world];
-    const d = this.at.d;
+    const stage = stageAt(this.at);
+    const world = worldOf(this.at);
+    const first = this.at >= cleared(s);
 
-    // The world's name, and its difficulty in its color under it. Pressing either opens the menu of worlds.
-    const name = plain(new Button(this, 146, 34, world.name, () => this.open('Worlds'), {
-      width: 256, height: 50, size: world.name.length > 12 ? 20 : 24, mat: BONE, color: OUTLINE,
-    })).setDepth(8000);
-    add(name.root);
-    const band = new Button(this, 146, 82, DIFFICULTIES[d].name.toUpperCase(), () => this.open('Worlds'), {
-      width: 170, height: 44, size: 17, mat: DIFFICULTY_MAT[d],
+    const banner = add(worldBanner(this, 640, 22, world).setDepth(8000));
+    banner.setInteractive({ useHandCursor: true });
+    banner.on('pointerup', () => this.open('Map'));
+
+    const plate = new Button(this, 640, 64, `   STAGE ${this.at + 1}`, () => this.open('Map'), {
+      width: 250, height: 46, size: 25, mat: stage.def.kind === 'normal' ? GOLD : stage.def.kind === 'boss' ? CLOTH.red : ARCANE,
     }).setDepth(8000);
-    add(band.root);
+    add(plate.root);
+    // What kind of stage it is, as the mark on its plate: a flag, a banner for a miniboss, a crown for a boss.
+    const mark = stage.def.kind === 'boss' ? 'icon/crown' : stage.def.kind === 'miniboss' ? 'icon/banner' : 'icon/flag';
+    plate.root.add(this.add.image(-92, -3, SHEET, mark).setScale(0.32));
 
-    // The stages: a stone to each. Cleared ones are gold, the one on show is ringed, shut ones are locks.
-    const n = world.stages.length;
-    const cleared = clearedIn(s, world.id, d);
-    const gap = Math.min(54, 760 / n);
-    const x0 = 676 - ((n - 1) * gap) / 2;
-    world.stages.forEach((stage, i) => {
-      const x = x0 + i * gap;
-      const open = stageOpen(s, this.at.world, i, d);
-      const here = i === this.at.stage;
-      const r = (stage.kind === 'boss' ? 21 : stage.kind === 'miniboss' ? 18 : 15) + (here ? 3 : 0);
-      const mat: Material = !open ? IRON : i < cleared ? GOLD : BONE;
-      const stone = add(this.add.container(x, 36).setDepth(8000));
-      const g = this.add.graphics();
-      if (here) g.fillStyle(hex(HIGHLIGHT), 1).fillCircle(0, 0, r + 7);
-      g.fillStyle(hex(OUTLINE), 1).fillCircle(0, 1, r + 3);
-      g.fillStyle(hex(mat.shade), 1).fillCircle(0, 2, r);
-      g.fillStyle(hex(mat.fill), 1).fillCircle(0, -1, r);
-      stone.add(g);
-      if (!open) stone.add(this.add.image(0, -1, SHEET, 'icon/lock').setScale(r / 46));
-      else {
-        stone.add(label(this, 0, -2, String(i + 1), { size: r, color: OUTLINE, stroke: null }));
-        if (stage.kind !== 'normal') stone.add(this.add.image(r - 2, -r, SHEET, stage.kind === 'boss' ? 'icon/crown' : 'icon/banner').setScale(0.3));
-        stone.setSize(Math.max(44, gap), 56);
-        stone.setInteractive({ useHandCursor: true });
-        stone.on('pointerup', () => this.pick(i));
-      }
-    });
-
-    // One line for the stage on show: its name, what a win pays, and what its enemies stand at.
-    const stage = world.stages[this.at.stage];
-    const first = this.at.stage >= cleared;
-    const standing = stageStanding(world, this.at.stage, d);
-    const small = { size: 17, weight: 600 as const, color: HIGHLIGHT, strokeWidth: 4, align: 'left' as const };
-    const title = add(label(this, 0, 84, `${this.at.stage + 1}. ${stage.name}`, { ...small, weight: 700 }).setDepth(8000));
-    const coin = add(this.add.image(0, 84, SHEET, 'icon/coin').setScale(0.3).setDepth(8000));
-    const pay = add(label(this, 0, 84, String(stagePay(world, this.at.stage, first, d)), small).setDepth(8000));
-    const badge = add(gradeBadge(this, 0, 84, standing.grade, 20).setDepth(8000));
-    const level = add(label(this, 0, 84, `level ${standing.level}`, small).setDepth(8000));
-    const total = title.width + 22 + 26 + pay.width + 26 + 30 + 6 + level.width;
-    let x = 676 - total / 2;
-    title.setX(x);
-    x += title.width + 22;
+    // One line under it: its name, what a win pays, and what its enemies stand at.
+    const small = { size: 16, weight: 600 as const, color: HIGHLIGHT, strokeWidth: 4, align: 'left' as const };
+    const y = 104;
+    const name = add(label(this, 0, y, stage.def.name, { ...small, weight: 700 }).setDepth(8000));
+    const coin = add(this.add.image(0, y, SHEET, 'icon/coin').setScale(0.28).setDepth(8000));
+    const pay = add(label(this, 0, y, String(stagePay(this.at, first)), small).setDepth(8000));
+    const badge = add(gradeBadge(this, 0, y, stage.grade, 18).setDepth(8000));
+    const level = add(label(this, 0, y, `level ${stage.level}`, small).setDepth(8000));
+    const total = name.width + 20 + 24 + pay.width + 24 + 28 + 6 + level.width;
+    let x = 640 - total / 2;
+    name.setX(x);
+    x += name.width + 20;
     coin.setX(x + 10);
-    pay.setX(x + 26);
-    x += 26 + pay.width + 26;
-    badge.setX(x + 12);
-    level.setX(x + 36);
+    pay.setX(x + 24);
+    x += 24 + pay.width + 24;
+    badge.setX(x + 11);
+    level.setX(x + 33);
+    const w = Math.max(banner.width, total) + 20;
+    this.plate = { x: 640 - w / 2, y: 2, w, h: 114 };
+    this.info = [name, coin, pay, badge, level];
+    for (const o of this.info) o.setVisible(this.state !== 'fighting' && this.state !== 'after');
 
     this.coins.refresh();
   }
@@ -264,9 +248,8 @@ export class MainScene extends Phaser.Scene {
     this.clearToast();
     this.refreshTop();
     this.refreshBottom();
-    const world = WORLDS[this.at.world];
     void this.board
-      .show(s.team, stageEnemies(world, this.at.stage, this.at.d), stageSeed(s, world.id, this.at.stage, this.at.d))
+      .show(s.team, stageEnemies(this.at), stageSeed(s, this.at))
       .then(() => {
         if (token !== this.arrival) return;
         this.state = 'ready';
@@ -283,7 +266,8 @@ export class MainScene extends Phaser.Scene {
     this.state = 'fighting';
     this.count = -1;
     commit();
-    this.board.start(stageInput(s, WORLDS[this.at.world], this.at.stage, this.at.d));
+    this.board.start(stageInput(s, this.at));
+    for (const o of this.info) o.setVisible(false);
     ads().gameplayStart();
     this.guide.refresh({ busy: true });
     this.refreshBottom();
@@ -293,11 +277,11 @@ export class MainScene extends Phaser.Scene {
     ads().gameplayStop();
     const s = save();
     const won = winner === 0;
-    const result = finishStage(s, this.at.world, this.at.stage, won, this.at.d);
+    const result = finishStage(s, this.at, won);
     this.next = afterBattle(s, this.at, result);
     commit();
     this.state = 'after';
-    const news = result.moreTeam > 0 || !!result.opened || result.harder >= 0;
+    const news = result.moreTeam > 0 || result.reached >= 0 || result.finished;
     this.afterUntil = this.time.now + (news ? 3600 : 2300);
     this.showResult(winner, result);
     this.refreshTop();
@@ -305,13 +289,13 @@ export class MainScene extends Phaser.Scene {
     this.guide.refresh({ busy: true });
   }
 
-  /** On to wherever the next battle is: the same board, or another world's. */
+  /** On to wherever the next battle is: the same board, or another land's. */
   private proceed(): void {
-    if (this.next.world !== this.at.world) {
+    if (landOf(this.next) !== landOf(this.at)) {
       this.scene.restart();
       return;
     }
-    this.at = { ...this.next };
+    this.at = this.next;
     this.arrive(COUNTDOWN.next);
   }
 
@@ -368,17 +352,6 @@ export class MainScene extends Phaser.Scene {
     this.speedButton.setText(`${this.speed}x`);
   }
 
-  /** Goes to a stage of this world whose stone was pressed. */
-  private pick(stage: number): void {
-    if (this.state === 'after' || stage === this.at.stage) return;
-    const s = save();
-    if (!goTo(s, { ...this.at, stage })) return;
-    if (this.state === 'fighting') ads().gameplayStop();
-    commit();
-    this.at = { ...s.at };
-    this.arrive(COUNTDOWN.changed);
-  }
-
   private open(key: string): void {
     if (this.overlay) return;
     this.overlay = key;
@@ -399,14 +372,14 @@ export class MainScene extends Phaser.Scene {
     const changed = this.keyOf() !== this.teamKey;
     // A changed team goes back to the stage it lost at.
     if (changed && teamChanged(s)) commit();
-    if (key === 'Worlds' || changed) {
+    if (key === 'Map' || changed) {
       settle(s);
-      if (s.at.world !== this.at.world) {
+      if (landOf(s.at) !== landOf(this.at)) {
         this.scene.restart();
         return;
       }
-      const moved = s.at.stage !== this.at.stage || s.at.d !== this.at.d;
-      this.at = { ...s.at };
+      const moved = s.at !== this.at;
+      this.at = s.at;
       if (moved || (changed && this.state !== 'fighting')) {
         if (this.state === 'fighting') ads().gameplayStop();
         this.arrive(COUNTDOWN.changed);
@@ -468,9 +441,9 @@ export class MainScene extends Phaser.Scene {
       rows.push({ text: names.join(', '), color: VENOM.light });
     }
     if (r.moreTeam > 0) rows.push({ text: `Your team has room for ${teamSize(save())} now`, color: ARCANE.light });
-    if (r.opened) rows.push({ text: `${WORLDS[this.at.world + 1].name} is open`, color: ARCANE.light });
-    if (r.harder >= 0) rows.push({ text: `${DIFFICULTIES[r.harder].name} is open in ${WORLDS[this.at.world].name}`, color: ARCANE.light });
-    if (!won && this.next.stage < this.at.stage) rows.push({ text: 'Back one stage, to grow stronger' });
+    if (r.reached >= 0) rows.push({ text: `World ${r.reached + 1} is open: ${WORLDS[r.reached].name}`, color: ARCANE.light });
+    if (r.finished) rows.push({ text: 'That was the last stage of all. Well fought.', color: ARCANE.light });
+    if (!won && this.next < this.at) rows.push({ text: 'Back one stage, to grow stronger' });
 
     rows.forEach((row, i) => {
       const y = 322 + i * 34;

@@ -1,47 +1,42 @@
-// npm run journey [players] [--difficulties=N] [--losses] [--copies]
+// npm run journey [players] [--worlds=N] [--losses] [--copies]
 //
-// Plays new players through the game by its own rules, in seconds, and says
-// for each world how many battles it took, how many were lost, how long a
-// battle lasted and how strong the team was when its boss fell. Run it
-// before and after changing a stage, a unit's numbers, a pack or what a win
-// pays: it is how a wall or a walkover is found.
+// Plays new players along the line of stages by the game's own rules, in
+// seconds, and says for each world how many battles it took, how many were
+// lost, how long a battle lasted and how strong the team was when its boss
+// fell. Run it before and after changing a stage, a unit's numbers, a pack
+// or what a win pays: it is how a wall or a walkover is found.
 //
-// Without --difficulties it plays every world on Easy. With it, the players
-// may also go back to a world at a harder difficulty, up to the Nth, and
-// they always take whichever open world and difficulty is weakest: the
-// order a sensible player climbs in.
+// Without --worlds it plays the first lap of the lands, three worlds. With
+// it, as many worlds as are named: --worlds=15 is the whole line.
 //
 // The players are plain: they open every pack they get, buy the dearest pack
-// they can afford, combine every copy into the best card of its unit and
-// every card that will not fight into one that will, field their strongest
-// cards, and when a stage beats them they go back a stage or two for coins
+// on sale while they can afford it (they do not spend what is left on heaps
+// of cheap ones, as nobody opens forty packs between battles), combine every
+// copy into the best card of its unit and every card that will not fight
+// into one that will, press FILL TEAM, and when a stage beats them they go back a stage or two for coins
 // and experience before trying again. With --copies they combine nothing
 // and field copies as cards of their own, which says which of the two a
 // card is better used for.
 
-import { DIFFICULTIES } from '../src/data/difficulties';
 import { allPacks } from '../src/data/packs';
-import { WORLDS } from '../src/data/worlds';
-import { SETS } from '../src/data/units';
+import { STAGES, WORLDS, stageStrength } from '../src/data/stages';
 import { cardOf, cardsOf, combine } from '../src/game/cards';
-import { GRADES, MAX_LEVEL, cardMult } from '../src/game/rarity';
+import { GRADES, MAX_LEVEL } from '../src/game/rarity';
 import {
-  MAX_TEAM, bestTeam, buyPack, cardPower, clearedIn, difficultyOpen, finishStage, openPack, packOpen, packPool, stageInput, stageStanding,
-  startingSave, teamSize, worldDone,
+  MAX_TEAM, bestTeam, buyPack, cardPower, cleared, finishStage, openPack, packOpen, packPool, stageInput, startingSave, teamSize,
 } from '../src/game/rules';
 import type { SaveData } from '../src/game/state';
 import { runBattle } from '../src/sim/battle';
 
 const args = process.argv.slice(2);
 const players = Number(args.find((a) => /^\d+$/.test(a)) ?? 12);
-const depth = Math.min(DIFFICULTIES.length, Number(args.find((a) => a.startsWith('--difficulties='))?.split('=')[1] ?? 1));
+const depth = Math.max(1, Math.min(WORLDS.length, Number(args.find((a) => a.startsWith('--worlds='))?.split('=')[1] ?? 3)));
 const showLosses = args.includes('--losses');
 const KEEP_COPIES = args.includes('--copies');
-const CAP = 1500 * depth;
+/** A world that takes more battles than this is a wall: the player gives up there. */
+const WALL = 500;
 
 interface Leg {
-  d: number;
-  w: number;
   battles: number;
   losses: number;
   seconds: number;
@@ -65,7 +60,10 @@ function prepare(save: SaveData): void {
         opened = true;
       }
     }
-    const buyable = PACK_LIST.filter((p) => packOpen(save, p) && save.coins >= p.cost).sort((a, b) => b.cost - a.cost);
+    // Only the dearer packs on sale: what is left over is kept for the next of those.
+    const onSale = PACK_LIST.filter((p) => packOpen(save, p));
+    const dearest = Math.max(...onSale.map((p) => p.cost));
+    const buyable = onSale.filter((p) => save.coins >= p.cost && p.cost >= dearest * 0.5).sort((a, b) => b.cost - a.cost);
     if (buyable.length === 0) {
       if (!opened) break;
       continue;
@@ -92,95 +90,65 @@ function prepare(save: SaveData): void {
   save.team = bestTeam(save);
 }
 
-/** How strong a world's last stage is at a difficulty: what the players order their climb by. */
-function strength(w: number, d: number): number {
-  const world = WORLDS[w];
-  const last = world.stages.length - 1;
-  const at = stageStanding(world, last, d);
-  // More enemies count for more than their share: they are harder to get round.
-  const crowd = 1 + (0.15 * DIFFICULTIES[d].extra * 6) / world.stages[last].enemies.length;
-  return SETS[world.set].power * cardMult(at.grade, at.level) * crowd;
-}
-
-function play(seed: number): { legs: Map<string, Leg>; lost: Map<string, number>; battles: number } {
+function play(seed: number): { legs: Leg[]; lost: Map<number, number>; battles: number } {
   const save = startingSave(seed);
-  const legs = new Map<string, Leg>();
-  const lost = new Map<string, number>();
+  const legs: Leg[] = [];
+  const lost = new Map<number, number>();
   let battles = 0;
-  for (;;) {
-    // The weakest world and difficulty that is open and not finished.
-    let pick: [number, number] | null = null;
-    for (let w = 0; w < WORLDS.length; w++) {
-      for (let d = 0; d < depth; d++) {
-        if (!difficultyOpen(save, w, d) || worldDone(save, WORLDS[w].id, d)) continue;
-        if (!pick || strength(w, d) < strength(pick[0], pick[1])) pick = [w, d];
-      }
-    }
-    if (!pick || battles >= CAP) break;
-    const [w, d] = pick;
+  for (let w = 0; w < depth; w++) {
     const world = WORLDS[w];
-    const leg: Leg = { d, w, battles: 0, losses: 0, seconds: 0, power: 0, size: 0, best: '', copies: 0, done: false };
-    legs.set(`${w}:${d}`, leg);
+    const leg: Leg = { battles: 0, losses: 0, seconds: 0, power: 0, size: 0, best: '', copies: 0, done: false };
+    legs.push(leg);
     let stumbles = 0;
-    // A rung that takes more than 500 battles is a wall: the player gives up there.
-    while (battles < CAP && leg.battles < 500 && !worldDone(save, world.id, d)) {
+    while (leg.battles < WALL && cleared(save) <= world.last) {
       prepare(save);
-      const front = clearedIn(save, world.id, d);
+      const front = cleared(save);
       // After a loss, a stage further back each time, until the team has grown enough to go on.
       const stage = Math.max(0, front - stumbles);
-      const r = runBattle(stageInput(save, world, stage, d), false);
+      const r = runBattle(stageInput(save, stage), false);
       const won = r.winner === 0;
-      finishStage(save, w, stage, won, d);
+      finishStage(save, stage, won);
       battles++;
       leg.battles++;
       leg.seconds += r.seconds;
       if (!won) {
         leg.losses++;
-        if (stage === front) {
-          const key = `${DIFFICULTIES[d].name} ${world.name} ${front + 1}`;
-          lost.set(key, (lost.get(key) ?? 0) + 1);
-        }
+        if (stage === front) lost.set(front, (lost.get(front) ?? 0) + 1);
       }
       if (stage === front) stumbles = won ? 0 : Math.min(3, stumbles + 1);
       else if (won) stumbles = 0;
     }
-    if (!worldDone(save, world.id, d)) break;
-    {
-      const team = save.team.map((p) => cardOf(save, p.card));
-      leg.done = true;
-      leg.power = Math.round(team.reduce((a, c) => a + cardPower(c), 0) / Math.max(1, team.length));
-      leg.size = teamSize(save);
-      const best = [...save.cards].sort((a, b) => cardPower(b) - cardPower(a))[0];
-      leg.best = `${best.unit} ${GRADES[best.grade]}${best.level}`;
-      // How many of the team are a second or third card of a unit already in it.
-      leg.copies = team.length - new Set(team.map((c) => c?.unit)).size;
-    }
+    if (cleared(save) <= world.last) break;
+    const team = save.team.map((p) => cardOf(save, p.card));
+    leg.done = true;
+    leg.power = Math.round(team.reduce((a, c) => a + cardPower(c), 0) / Math.max(1, team.length));
+    leg.size = teamSize(save);
+    const best = [...save.cards].sort((a, b) => cardPower(b) - cardPower(a))[0];
+    leg.best = `${best.unit} ${GRADES[best.grade]}${best.level}`;
+    // How many of the team are a second or third card of a unit already in it.
+    leg.copies = team.length - new Set(team.map((c) => c?.unit)).size;
   }
   return { legs, lost, battles };
 }
 
 const runs = Array.from({ length: players }, (_, i) => play(1000 + i * 7919));
-const mid = (list: number[]): number => [...list].sort((a, b) => a - b)[Math.floor(list.length / 2)];
-const avg = (list: number[]): number => list.reduce((a, b) => a + b, 0) / Math.max(1, list.length);
+const mid = (xs: number[]): number => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
+const avg = (xs: number[]): number => xs.reduce((a, b) => a + b, 0) / Math.max(1, xs.length);
 
-console.log(`${players} new players, ${WORLDS.length} worlds, ${depth} ${depth === 1 ? 'difficulty' : 'difficulties'}`);
-console.log('                   strength battles: half took under / average / slowest   lost   a battle   boss fell with');
-// In the order they are climbed: weakest first.
-const order: Array<[number, number]> = [];
-for (let w = 0; w < WORLDS.length; w++) for (let d = 0; d < depth; d++) order.push([w, d]);
-order.sort((a, b) => strength(a[0], a[1]) - strength(b[0], b[1]));
-for (const [w, d] of order) {
-  const all = runs.map((r) => r.legs.get(`${w}:${d}`)).filter((l): l is Leg => !!l);
-  const logs = all.filter((l) => l.done);
-  const name = `${DIFFICULTIES[d].name} ${WORLDS[w].name}`.padEnd(22) + strength(w, d).toFixed(1).padStart(5);
+console.log(`${players} new players, ${depth} ${depth === 1 ? 'world' : 'worlds'} of ${WORLDS.length}, ${WORLDS[depth - 1].last + 1} stages of ${STAGES.length}`);
+console.log('world                     stages   strength  battles: half took under / average / slowest   lost   a battle   boss fell with');
+for (let w = 0; w < depth; w++) {
+  const world = WORLDS[w];
+  const name = `${String(w + 1).padStart(2)} ${world.name}`.padEnd(24) + `${world.first + 1}-${world.last + 1}`.padStart(8) + stageStrength(world.last).toFixed(1).padStart(10);
+  const logs = runs.map((r) => r.legs[w]).filter((l): l is Leg => !!l && l.done);
   if (logs.length === 0) {
-    console.log(`${name} ${all.length === 0 ? 'nobody reached it' : 'nobody finished it'}`);
+    console.log(`${name}   no one finished it`);
     continue;
   }
   const b = logs.map((l) => l.battles);
   console.log(
-    `${name} ${String(mid(b)).padStart(7)} / ${avg(b).toFixed(0).padStart(4)} / ${String(Math.max(...b)).padStart(4)}`.padEnd(57) +
-      `${Math.round((100 * avg(logs.map((l) => l.losses))) / avg(b))}%`.padStart(7) +
+    `${name} ${String(mid(b)).padStart(10)} / ${avg(b).toFixed(0).padStart(4)} / ${String(Math.max(...b)).padStart(4)}`.padEnd(82) +
+      `${Math.round((100 * avg(logs.map((l) => l.losses))) / avg(b))}%`.padStart(6) +
       `${avg(logs.map((l) => l.seconds / l.battles)).toFixed(1)} s`.padStart(10) +
       `   power ${Math.round(avg(logs.map((l) => l.power)))}, team of ${logs[0].size}` +
       (KEEP_COPIES ? `, ${avg(logs.map((l) => l.copies)).toFixed(1)} of them copies` : '') +
@@ -191,10 +159,9 @@ for (const [w, d] of order) {
 console.log(`all of it: half took under ${mid(runs.map((r) => r.battles))} battles, the slowest ${Math.max(...runs.map((r) => r.battles))}`);
 
 if (showLosses) {
-  const total = new Map<string, number>();
-  for (const r of runs) for (const [k, n] of r.lost) total.set(k, (total.get(k) ?? 0) + n);
-  console.log('\nlosses at the front, per player (where the walls are):');
-  for (const [k, n] of [...total.entries()].sort((a, b) => b[1] - a[1]).slice(0, 16)) {
-    console.log(`  ${k.padEnd(34)} ${(n / players).toFixed(1)}`);
-  }
+  const total = new Map<number, number>();
+  for (const r of runs) for (const [k, v] of r.lost) total.set(k, (total.get(k) ?? 0) + v);
+  const worst = [...total.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
+  console.log('\nlost most often, per player:');
+  for (const [k, v] of worst) console.log(`  stage ${String(k + 1).padStart(3)} ${STAGES[k].def.name.padEnd(22)} ${WORLDS.find((w) => k >= w.first && k <= w.last)?.name.padEnd(18)} ${(v / players).toFixed(1)}`);
 }

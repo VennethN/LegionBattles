@@ -14,7 +14,7 @@ describe('the tutorial', () => {
     expect(tutorialStep(save, main)?.holds).toBe(false);
     expect(tutorialStep(save, main)?.blocks).toBe(false);
 
-    finishStage(save, 0, 0, true);
+    finishStage(save, 0, true);
     expect(id(save, main)).toBe('packs');
     expect(id(save, { scene: 'Shop', show: 'none' })).toBe('open');
     expect(id(save, { scene: 'Shop', show: 'pouch' })).toBe('tear');
@@ -52,14 +52,14 @@ describe('the tutorial', () => {
     const save = startingSave(1);
     expect(tutorialStep(save, { scene: 'Shop', show: 'none' })).toBeNull();
     expect(tutorialStep(save, { scene: 'Main', covered: true })).toBeNull();
-    finishStage(save, 0, 0, true);
+    finishStage(save, 0, true);
     expect(tutorialStep(save, { scene: 'Team' })).toBeNull();
     expect(tutorialStep(save, { scene: 'Worlds' })).toBeNull();
   });
 
   it('picks up where it was after a reload', () => {
     const save = startingSave(1);
-    finishStage(save, 0, 0, true);
+    finishStage(save, 0, true);
     openPack(save, 'recruit');
     markSeen(save, 'packs');
     const back = repair(JSON.parse(JSON.stringify(save)), 9);
@@ -78,7 +78,7 @@ describe('the tutorial', () => {
     const save = startingSave(1);
     skipTutorial(save);
     expect(tutorialStep(save, main)).toBeNull();
-    finishStage(save, 0, 0, true);
+    finishStage(save, 0, true);
     expect(tutorialStep(save, main)).toBeNull();
   });
 });
@@ -87,7 +87,7 @@ describe('the tutorial and a battle', () => {
   it('asks for no press while a battle is on or its result is up, and still says its first word', () => {
     const save = startingSave(1);
     expect(tutorialStep(save, { scene: 'Main', busy: true })?.id).toBe('hello');
-    finishStage(save, 0, 0, true);
+    finishStage(save, 0, true);
     expect(tutorialStep(save, { scene: 'Main', busy: true })).toBeNull();
     expect(tutorialStep(save, { scene: 'Main', busy: false })?.id).toBe('packs');
   });

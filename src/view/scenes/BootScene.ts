@@ -41,7 +41,6 @@ export class BootScene extends Phaser.Scene {
 
     const art = sheet(this.game, manifest);
     art.queue(this, 'fx');
-    art.queue(this, 'board');
     art.queue(this, 'icons');
     // Whole units for the cards: the player's side sharp, the enemy's small, as that is how each is shown.
     const cards = cardSheet(this.game, manifest);
@@ -59,7 +58,6 @@ export class BootScene extends Phaser.Scene {
         : Promise.resolve([]);
       const go = (): void => {
         art.keepFolder(this, 'fx', 'fx');
-        art.keepFolder(this, 'board', 'board');
         art.keepFolder(this, 'icons', 'icon');
         makeDigitFont(this, art);
         // From here down, the sheet is for the units of whatever battle is on.

@@ -2,7 +2,7 @@
 //
 // Puts a save that is well into the game in the browser's storage and takes
 // the pictures docs/screens keeps of what a new player does not see yet: the
-// menu of worlds with its difficulties, a full team with copies of a unit in
+// drawn map of a world's stages, a full team with copies of a unit in
 // it, cards combined into one, every pack on sale, a card turned over, and
 // the two later bosses. It needs the dev server
 // running (npm run dev) or a served build, and Playwright.
@@ -34,10 +34,11 @@ const paladin2 = card('paladin', 5, 9);
 card('paladin', 2, 1);
 const fielded = (id, col, row) => ({ card: id, unit: cards[id - 1].unit, col, row });
 const save = (at) => ({
-  version: 3, coins: 23450, cards, nextCard: cards.length + 1,
+  version: 4, coins: 23450, cards, nextCard: cards.length + 1, met: units,
   // Two Paladins side by side: a copy is fielded like any card.
   team: [fielded(first.paladin, 3, 1), fielded(paladin2, 3, 2), fielded(first.colossus, 2, 0), fielded(first.frostwitch, 1, 1), fielded(first.ballista, 0, 2), fielded(first.pyromancer, 1, 3), fielded(first.cleric, 0, 0)],
-  cleared: { thornwood: [10, 10, 4], sunscar: [12, 7], frostholt: [14] },
+  // Into the fifth world: the first lap of the lands is behind, and the second is under way.
+  cleared: 52,
   packs: { recruit: 1, royal: 2, frost: 1, 'thornwood@2': 3 }, rng: 99, stats: { battles: 400, wins: 300, opened: 80 },
   speed: 2, sound: true, tutorial: { done: true, seen: [] }, at, lostAt: null,
   // Battles wait for a press, so that the pictures are of a still screen.
@@ -61,11 +62,27 @@ const close = async (key) => {
   await page.waitForTimeout(300);
 };
 
-await load({ world: 0, stage: 4, d: 2 });
-await page.screenshot({ path: `${out}/10-main-hard.png` });
-await overlay('Worlds');
-await page.screenshot({ path: `${out}/11-worlds.png` });
-await close('Worlds');
+await load(41);
+await page.screenshot({ path: `${out}/10-main.png` });
+// The stage's plate opens the map of its world. The arrows turn to the worlds on either side.
+await page.mouse.click(640, 64);
+await page.waitForFunction(() => window.game.scene.isActive('Map'), null, { timeout: 10000 });
+await page.waitForTimeout(1200);
+await page.screenshot({ path: `${out}/11-map.png` });
+await page.mouse.click(1280 - 44, 400);
+await page.waitForTimeout(1200);
+await page.screenshot({ path: `${out}/11b-map-next-world.png` });
+const shown = await page.evaluate(() => window.game.scene.getScene('Map').world.index);
+if (shown !== 4) throw new Error(`the arrow did not turn to the fifth world: ${shown}`);
+// Pressing a stage that is open goes to it: the first of this world.
+const firstStage = await page.evaluate(() => window.game.scene.getScene('Map').world.first);
+await page.mouse.click(150, 290);
+await page.waitForFunction(() => !window.game.scene.isActive('Map'), null, { timeout: 10000 });
+await page.waitForFunction(() => window.game.scene.isActive('Main') && window.game.scene.getScene('Main').state === 'ready', null, { timeout: 30000 });
+const went = await page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).at);
+if (went !== firstStage) throw new Error(`pressing a stage on the map went to ${went}, not ${firstStage}`);
+await page.waitForTimeout(800);
+await page.screenshot({ path: `${out}/11c-main-after-map.png` });
 await overlay('Team');
 await page.screenshot({ path: `${out}/12-team.png` });
 // The best Knight is the fourth tile. COMBINE turns the screen into a forge for it:
@@ -132,7 +149,7 @@ await page.waitForFunction(() => { const sc = window.game.scene.getScene('Shop')
 await page.waitForTimeout(400);
 await page.screenshot({ path: `${out}/14-card.png` });
 
-for (const [at, name] of [[{ world: 1, stage: 11, d: 0 }, 'colossus'], [{ world: 2, stage: 14, d: 0 }, 'jarl']]) {
+for (const [at, name] of [[21, 'colossus'], [36, 'jarl']]) {
   await load(at);
   await page.screenshot({ path: `${out}/15-${name}-ready.png` });
   await page.mouse.click(640, 664);

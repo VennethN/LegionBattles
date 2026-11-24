@@ -9,7 +9,7 @@
 import Phaser from 'phaser';
 import { BONE, CLOTH, GOLD, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
-import { DIFFICULTIES } from '../../data/difficulties';
+import { LAPS } from '../../data/laps';
 import { packAt, type PackDef } from '../../data/packs';
 import { UNITS } from '../../data/units';
 import { RARITY } from '../../game/rarity';
@@ -70,16 +70,16 @@ export class ShopScene extends Phaser.Scene {
     this.guide.refresh({ show: 'none' });
   }
 
-  /** The difficulty of a world's pack that its card shows: the one last chosen, or the hardest one held, or the hardest on sale. */
+  /** The lap of a land's pack that its card shows: the one last chosen, or the latest one held, or the latest on sale. */
   private chosen(base: PackDef): number {
-    if (!base.world) return 0;
+    if (!base.land) return 0;
     const s = save();
     const picks = (this.registry.get('packDifficulty') as Record<string, number> | undefined) ?? {};
     const open = (d: number): boolean => packOpen(s, packAt(base, d));
     if (picks[base.id] !== undefined && open(picks[base.id])) return picks[base.id];
     let best = 0;
-    for (let d = 0; d < DIFFICULTIES.length; d++) if (open(d)) best = d;
-    for (let d = DIFFICULTIES.length - 1; d >= 0; d--) if ((s.packs[packAt(base, d).id] ?? 0) > 0) return d;
+    for (let d = 0; d < LAPS.length; d++) if (open(d)) best = d;
+    for (let d = LAPS.length - 1; d >= 0; d--) if ((s.packs[packAt(base, d).id] ?? 0) > 0) return d;
     return best;
   }
 
@@ -111,14 +111,14 @@ export class ShopScene extends Phaser.Scene {
     const dark = { color: OUTLINE, stroke: null as null };
     label(this, x, y - 48, base.name, { size: 22 });
 
-    if (base.world) {
-      // Which difficulty's pack this is, with arrows to the others that are on sale.
+    if (base.land) {
+      // Which lap's pack this is, with arrows to the others that are on sale. Each lap's is better than the last.
       const chip = this.add.graphics();
       slab(chip, x - 62, y - 30, 124, 30, DIFFICULTY_MAT[d], 10, 4);
-      label(this, x, y - 16, DIFFICULTIES[d].name, { size: 15, strokeWidth: 4 });
+      label(this, x, y - 16, `Tier ${d + 1}`, { size: 15, strokeWidth: 4 });
       for (const step of [-1, 1]) {
         const to = d + step;
-        if (to < 0 || to >= DIFFICULTIES.length || !packOpen(s, packAt(base, to))) continue;
+        if (to < 0 || to >= LAPS.length || !packOpen(s, packAt(base, to))) continue;
         const b = new Button(this, x + step * 88, y - 15, '', () => this.choose(base, to), { width: 44, height: 44, mat: BONE });
         b.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.34).setFlipX(step < 0));
       }

@@ -6,7 +6,7 @@
 // clock, reads the events each step gives, and animates them.
 
 import Phaser from 'phaser';
-import { GROUND, PROPS, type Ground } from '../art/board';
+import { GROUND, type Ground } from '../art/board';
 import { gradePlate } from '../art/grades';
 import { ARCANE, CLOTH, FIRE, FROST, HIGHLIGHT, HOLY, VENOM, type Accent } from '../art/kit/palette';
 import { sfx } from '../audio/sfx';
@@ -26,6 +26,7 @@ import {
   screenX, screenY, tileAt, tileScreenX, tileScreenY,
 } from './layout';
 import { Numbers } from './Numbers';
+import { scenePicture } from './Scenes';
 import { SHEET, sheet } from './Sheet';
 import { RARITY_MAT, STATUS_COLOR } from './ui/colors';
 import { label } from './ui/widgets';
@@ -92,27 +93,10 @@ export class BoardView {
     readonly ground: Ground,
     private readonly hooks: BoardHooks = {},
   ) {
+    // The ground is one painted picture with the board in it and the land's scenery round about
+    // (art/backdrop.ts). Until it has loaded, the land's own color stands in for it.
     scene.cameras.main.setBackgroundColor(GROUND[ground].around);
-    for (let row = 0; row < ROWS; row++) {
-      for (let col = 0; col < COLS; col++) {
-        const frame = `board/${ground}-tile-${(row + col) % 2 === 0 ? 'a' : 'b'}`;
-        scene.add.image(BOARD_X + col * TILE_W, BOARD_Y + row * TILE_H, SHEET, frame).setScale(0.5).setDepth(1);
-      }
-    }
-    // A few things standing round the board, never on it, so the units stay the loudest thing on screen.
-    const names = PROPS[ground];
-    const props: Array<[number, number, number, number, boolean]> = [
-      [0, 72, 246, 1, false],
-      [1, 92, 452, 1, false],
-      [2, 64, 600, 0.9, false],
-      [0, 1208, 320, 1.05, true],
-      [1, 1204, 540, 0.9, true],
-      [0, 236, 136, 0.8, true],
-      [2, 1030, 134, 0.8, true],
-    ];
-    for (const [k, x, y, scale, flip] of props) {
-      scene.add.image(x, y, SHEET, `board/${names[k]}`).setScale(0.5 * scale).setFlipX(flip).setDepth(y);
-    }
+    scenePicture(scene, 'board', ground);
 
     this.fx = new Effects(scene);
     this.numbers = new Numbers(scene);

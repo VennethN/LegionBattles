@@ -3,7 +3,9 @@
 // faces, no emoji.
 
 import { Doc } from './kit/draw';
-import { BONE, CLOTH, GOLD, HOOD_INTERIOR, IRON, LEATHER, LINEN, STEEL, VENOM, WOOD, type Material } from './kit/palette';
+import {
+  BONE, BUSH, CLOTH, FROST, GOLD, GRASS, HOLY, HOOD_INTERIOR, IRON, LEATHER, LINEN, PINE, SAND, SNOW, STEEL, VENOM, WOOD, type Material,
+} from './kit/palette';
 import { capsule, circle, path, poly, roundRect, smooth, star } from './kit/path';
 
 export interface IconArt {
@@ -104,6 +106,31 @@ const ICONS: Record<string, (d: Doc) => void> = {
     d.piece('helm-b', smooth([[12, 40, 'c'], [13, 22], [24, 12], [35, 22], [36, 40, 'c']]), STEEL, { shade: 3 });
     d.piece('slit', capsule(20, 28, 34, 28, 5), { fill: HOOD_INTERIOR, shade: HOOD_INTERIOR }, { shade: 0 });
   },
+};
+
+// The emblem of each kind of land: a medal in its color with what grows or
+// shines there. A world is known by its land's emblem wherever its stages
+// are numbered.
+ICONS['land-meadow'] = (d) => {
+  d.piece('medal', circle(24, 24, 21), { fill: GRASS.fill, shade: GRASS.dark }, { shade: 4 });
+  d.piece('trunk', roundRect(21, 28, 6, 12, 2), WOOD, { shade: 0 });
+  d.piece('crown', smooth([[10, 24], [12, 13], [24, 7], [36, 13], [38, 24], [30, 31], [18, 31]]), BUSH, {
+    shade: 3,
+    inner: (c) => c.lightOver('heap', smooth([[14, 20], [18, 11], [27, 10], [26, 18], [18, 22]]), 0.8),
+  });
+};
+ICONS['land-desert'] = (d) => {
+  d.piece('medal', circle(24, 24, 21), { fill: SAND.fill, shade: SAND.dark }, { shade: 4 });
+  d.piece('rays', star(24, 24, 8, 17, 10), HOLY, { shade: 0 });
+  d.piece('sun', circle(24, 24, 8), GOLD, { shade: 2 });
+};
+ICONS['land-snow'] = (d) => {
+  d.piece('medal', circle(24, 24, 21), { fill: SNOW.fill, shade: SNOW.dark }, { shade: 4 });
+  d.piece('peak-b', poly([[22, 36], [32, 16], [42, 36]]), { fill: PINE.fill, shade: PINE.shade }, { shade: 0 });
+  d.piece('peak-a', poly([[6, 36], [20, 10], [34, 36]]), FROST, {
+    shade: 3,
+    inner: (c) => c.flat('cap', poly([[20, 8], [27, 21], [22, 18], [19, 23], [15, 19], [12, 22]]), SNOW.light),
+  });
 };
 
 export function iconArt(): IconArt[] {

@@ -9,7 +9,7 @@
 // (maxTextures in main.ts), so a second texture in the middle of the units
 // would cost a draw call every time.
 //
-// The effects, the board and the icons are packed at start and never move:
+// The effects and the icons are packed at start and never move:
 // sprites all over the game hold their frames. Units are packed under them
 // as battles need them and kept. If the sheet fills up, only the units are
 // wiped, and the battle that is starting packs its own again.
@@ -19,13 +19,13 @@ import type { Manifest, ManifestImage, ManifestPart } from '../art/manifest';
 import { ART_SCALE } from './config';
 import { ShelfPacker } from './packer';
 
-/** Everything a battle draws: effects, board, icons, digits, unit parts. */
+/** Everything a battle draws but the ground under it: effects, icons, digits, unit parts. */
 export const SHEET = 'sheet';
 /** What the menus draw: whole units for cards, the packs, the grade badges. */
 export const CARDS = 'cards';
 export const SHEET_SIZE = 2048;
 
-export type Folder = 'fx' | 'board' | 'icons' | 'packs' | 'grades';
+export type Folder = 'fx' | 'icons' | 'packs' | 'grades';
 
 export interface UnitKey {
   team: string;

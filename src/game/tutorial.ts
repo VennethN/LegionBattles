@@ -56,7 +56,7 @@ const TEAR: Step = {
 };
 const CARD: Step = {
   id: 'card', target: 'reveal:done', holds: true, blocks: true,
-  text: "The badge is the card's grade: F is the plainest, S the best. A better grade of a card you hold takes its place. Press DONE.",
+  text: "The badge is the card's grade: F is the plainest, S the best. A copy of a card you hold is a card of its own. Press DONE.",
 };
 const CLOSE_PACKS: Step = {
   id: 'close-packs', target: 'close', holds: true, blocks: true,
@@ -76,7 +76,7 @@ const CLOSE_UNITS: Step = {
 };
 const WORD: Step = {
   id: 'word', target: 'stages', holds: true, blocks: true, ok: true,
-  text: 'That is the game. Win a stage and the next begins. Lose, and your team steps back a stage to grow. Drag your units to arrange them. AUTO stops battles starting by themselves.',
+  text: 'This is your stage, and its world. Win and the next begins. Lose, and you step back a stage to grow. Press it for the map. AUTO stops battles starting by themselves.',
 };
 
 /** Every step, for the tests and for whoever wants to read them in order. */

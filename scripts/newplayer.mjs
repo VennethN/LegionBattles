@@ -47,7 +47,7 @@ const press = (x, y) => (touch ? page.touchscreen.tap(box.x + x * k, box.y + y *
 
 // What the tutorial shows now, on whichever screen is on top.
 const guide = () => page.evaluate(() => {
-  for (const key of ['Shop', 'Team', 'Worlds', 'Main']) {
+  for (const key of ['Shop', 'Team', 'Map', 'Main']) {
     if (!window.game.scene.isActive(key)) continue;
     const g = window.game.scene.getScene(key).guide;
     if (g && g.step) return { scene: key, id: g.step.id, ok: !!g.step.ok, blocks: g.step.blocks, rect: g.rect };
@@ -109,7 +109,7 @@ let m = await main();
 if (!m.done) await fail(`the tutorial did not end: walked ${walked.join(' > ')}, save ${JSON.stringify(m)}`);
 
 // 3. Battles go on by themselves, and a win moves on.
-const before = m.at.stage;
+const before = m.at;
 await page.waitForFunction((b) => {
   const s = JSON.parse(localStorage.getItem('legion-battles-save') ?? '{}');
   return (s.stats?.battles ?? 0) >= b + 2;

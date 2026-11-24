@@ -33,7 +33,6 @@ export interface Manifest {
   teams: string[];
   units: Record<string, ManifestUnit>;
   fx: Record<string, ManifestImage>;
-  board: Record<string, ManifestImage>;
   icons: Record<string, ManifestImage>;
   packs: Record<string, ManifestImage>;
   grades: Record<string, ManifestImage>;

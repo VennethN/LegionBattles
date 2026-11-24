@@ -5,13 +5,14 @@
 // anything under src/art, or after adding or changing a file in
 // art/overrides (so that the manifest measures your file).
 //
-// Everything under public/assets/{units,fx,board,icons,packs,grades} is its
+// Everything under public/assets/{units,fx,board,maps,icons,packs,grades} is its
 // to write and to remove. It never writes in art/overrides.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
-import { boardArt } from '../src/art/board';
+import { SCENE_H, SCENE_W, boardBackdrop, mapBackdrop } from '../src/art/backdrop';
+import { GROUNDS } from '../src/art/board';
 import { composeUnit, innerOf, type PartSource } from '../src/art/compose';
 import { fxArt } from '../src/art/fx';
 import { GRADE_H, GRADE_W, drawGrade } from '../src/art/grades';
@@ -23,12 +24,13 @@ import { drawPart } from '../src/art/kit/unit';
 import type { Manifest, ManifestImage, ManifestPart } from '../src/art/manifest';
 import { FEET_X, FEET_Y } from '../src/art/rig';
 import { UNIT_ART } from '../src/art/units';
+import { LANDS } from '../src/data/lands';
 import { GRADES } from '../src/game/rarity';
 
 const OUT = path.resolve('public/assets');
 const OVERRIDES = path.resolve('art/overrides');
 
-const GENERATED = ['units', 'fx', 'board', 'icons', 'packs', 'grades'];
+const GENERATED = ['units', 'fx', 'board', 'maps', 'icons', 'packs', 'grades'];
 const written = new Set<string>();
 
 /**
@@ -137,7 +139,6 @@ export function buildArt(): Manifest {
     teams: [...TEAMS],
     units: {},
     fx: {},
-    board: {},
     icons: {},
     packs: {},
     grades: {},
@@ -189,7 +190,17 @@ export function buildArt(): Manifest {
   }
 
   manifest.fx = images('fx', fxArt({ arcane: ARCANE, fire: FIRE, frost: FROST, holy: HOLY, venom: VENOM }));
-  manifest.board = images('board', boardArt());
+  // The painted scenes: the ground of a battle in each kind of land, and the map of each land's stages.
+  // Each is one picture the size of the screen, loaded when it is wanted and not packed on a sheet.
+  let scenes = 0;
+  for (const ground of GROUNDS) {
+    write(`board/${ground}.svg`, boardBackdrop(ground).svg(SCENE_W, SCENE_H));
+    scenes++;
+  }
+  for (const land of LANDS) {
+    write(`maps/${land.id}.svg`, mapBackdrop(land.ground, land.stages.map((s) => s.kind)).svg(SCENE_W, SCENE_H));
+    scenes++;
+  }
   manifest.icons = images('icons', iconArt());
   manifest.packs = images(
     'packs',
@@ -214,7 +225,7 @@ export function buildArt(): Manifest {
   );
   files += Object.keys(manifest.grades).length;
   files +=
-    Object.keys(manifest.fx).length + Object.keys(manifest.board).length + Object.keys(manifest.icons).length + Object.keys(manifest.packs).length;
+    Object.keys(manifest.fx).length + scenes + Object.keys(manifest.icons).length + Object.keys(manifest.packs).length;
 
   write('manifest.json', JSON.stringify(manifest, null, 1) + '\n');
   for (const dir of GENERATED) sweep(path.join(OUT, dir));

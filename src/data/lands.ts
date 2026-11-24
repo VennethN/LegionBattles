@@ -1,15 +1,19 @@
-// The worlds and their stages. A world has a length of its own: the first
-// has 10 stages, and each after it has as many or a few more. The last stage
-// is the world's only boss, and a miniboss comes about every fifth stage.
+// The lands the line of stages runs through, and the stages written for
+// each. A land is where a run of stages is fought: it decides the ground,
+// who the enemies are and which pack they drop. The player is never shown a
+// land to pick: they see one numbered line of stages (stages.ts), and the
+// lands are stretches of it. The first has 10 stages, and each after it has
+// as many or a few more. The last stage of a land is its only boss, and a
+// miniboss comes about every fifth stage.
 //
 // A stage is written as who stands where. "cutpurse@4,1" is a Cutpurse on
 // column 4, row 1 (columns 4 to 7 are the enemy's; rows are 0 to 3). A "+"
 // after it makes it the stage's miniboss, and a "!" its boss: bigger, with
 // more health and a harder blow.
 //
-// `grade` and `level` are what every enemy of the stage stands at, as a card
-// would. They are set by measuring: `npm run journey` plays new players
-// through and says where they stall.
+// `grade` and `level` are what every enemy of the stage stands at the first
+// time the line comes through, as a card would. They are set by measuring:
+// `npm run journey` plays new players through and says where they stall.
 
 import type { Ground } from '../art/board';
 
@@ -30,7 +34,7 @@ export interface StageDef {
   enemies: StageEnemy[];
 }
 
-export interface WorldDef {
+export interface LandDef {
   id: string;
   name: string;
   blurb: string;
@@ -40,8 +44,14 @@ export interface WorldDef {
   pack: string;
   /** Coins for a first clear of its first stage and of its last; the stages between are spread evenly. */
   coins: [number, number];
-  /** The level its last stage's enemies stand at on Nightmare. See difficulties.ts. */
-  nightmare: number;
+  /**
+   * How much more its troops are raised on later laps than their numbers
+   * alone would ask. A land's units are not all as hard to fight at the same
+   * health and damage: raiders have simpler skills than the Frostbound, and
+   * their stages are smaller. Set by measuring (npm run journey), so that a
+   * land met again is as much of a fight as the land before it was.
+   */
+  weight: number;
   stages: StageDef[];
 }
 
@@ -61,7 +71,7 @@ function stage(name: string, kind: StageKind, grade: number, level: number, who:
   return { name, kind, grade, level, enemies };
 }
 
-export const WORLDS: readonly WorldDef[] = [
+export const LANDS: readonly LandDef[] = [
   {
     id: 'thornwood',
     name: 'Thornwood',
@@ -70,7 +80,7 @@ export const WORLDS: readonly WorldDef[] = [
     set: 'raiders',
     pack: 'thornwood',
     coins: [40, 150],
-    nightmare: 22,
+    weight: 1.25,
     stages: [
       stage("Wood's Edge", 'normal', 0, 1, 'cutpurse@4,1 cutpurse@5,2'),
       stage('The Deer Trail', 'normal', 0, 1, 'cutpurse@4,1 cutpurse@4,2 poacher@6,1'),
@@ -92,7 +102,7 @@ export const WORLDS: readonly WorldDef[] = [
     set: 'sandsworn',
     pack: 'dunes',
     coins: [130, 380],
-    nightmare: 17,
+    weight: 1.12,
     stages: [
       stage('The Dry Well', 'normal', 1, 3, 'lancer@4,1 lancer@4,2 lancer@5,0'),
       stage('Caravan Tracks', 'normal', 1, 3, 'lancer@4,1 lancer@4,2 javelineer@6,0 javelineer@6,3'),
@@ -116,7 +126,7 @@ export const WORLDS: readonly WorldDef[] = [
     set: 'frostbound',
     pack: 'frost',
     coins: [340, 900],
-    nightmare: 15,
+    weight: 1,
     stages: [
       stage('The Snowline', 'normal', 2, 6, 'huscarl@4,1 huscarl@4,2 huscarl@5,0'),
       stage('Frozen Shore', 'normal', 2, 6, 'huscarl@4,1 huscarl@4,2 harpooner@6,0 harpooner@6,3'),
@@ -137,14 +147,14 @@ export const WORLDS: readonly WorldDef[] = [
   },
 ];
 
-export function worldById(id: string): WorldDef {
-  const w = WORLDS.find((x) => x.id === id);
-  if (!w) throw new Error(`no world "${id}"`);
+export function landById(id: string): LandDef {
+  const w = LANDS.find((x) => x.id === id);
+  if (!w) throw new Error(`no land "${id}"`);
   return w;
 }
 
-/** Coins for the first clear of a stage. A replay pays half. */
-export function stageCoins(world: WorldDef, index: number): number {
+/** Coins for the first clear of a stage of a land, the first time the line comes through. A replay pays half. */
+export function landCoins(world: LandDef, index: number): number {
   const n = world.stages.length;
   const t = n > 1 ? index / (n - 1) : 0;
   const base = world.coins[0] + (world.coins[1] - world.coins[0]) * t;

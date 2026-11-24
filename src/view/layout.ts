@@ -2,14 +2,14 @@
 // becomes a place on it. The board is seen a little from above, so the
 // simulation's square tiles are drawn wider than they are tall.
 
-import { TILE_H as ART_TILE_H } from '../art/board';
+import { BOARD_X as ART_BOARD_X, BOARD_Y as ART_BOARD_Y, TILE_H as ART_TILE_H } from '../art/board';
 import { BOARD_H, BOARD_W, COLS, ROWS, TILE } from '../sim/constants';
 
 export const Y_SCALE = ART_TILE_H / TILE;
 export const TILE_W = TILE;
 export const TILE_H = ART_TILE_H;
-export const BOARD_X = (1280 - BOARD_W) / 2;
-export const BOARD_Y = 186;
+export const BOARD_X = ART_BOARD_X;
+export const BOARD_Y = ART_BOARD_Y;
 export const BOARD_PX_W = BOARD_W;
 export const BOARD_PX_H = BOARD_H * Y_SCALE;
 

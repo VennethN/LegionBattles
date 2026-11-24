@@ -3,16 +3,15 @@
 // to change the team or spend coins. This says where the next battle is
 // fought; the main screen asks it and shows the answer.
 //
-//   a first win      on to the next stage; after a world's boss on Easy, on
-//                    to the next world
+//   a first win      on to the next stage of the line
 //   a win again      the same stage again: a team left alone earns from a
 //                    stage it can beat
-//   a loss           back one stage, never to another world. The stage that
-//                    was lost is remembered, and a changed team goes back to it
+//   a loss           back one stage. The stage that was lost is remembered,
+//                    and a changed team goes back to it
 
-import { WORLDS } from '../data/worlds';
+import { STAGES } from '../data/stages';
 import { frontier, stageOpen, type StageResult } from './rules';
-import type { SaveData, Where } from './state';
+import type { SaveData } from './state';
 
 /**
  * Seconds before a battle starts by itself. Two at each of the three
@@ -29,46 +28,33 @@ export const COUNTDOWN = {
   next: 2,
 };
 
-export function sameWhere(a: Where, b: Where): boolean {
-  return a.world === b.world && a.stage === b.stage && a.d === b.d;
-}
-
-export function whereOpen(save: SaveData, at: Where): boolean {
-  return at.world >= 0 && at.world < WORLDS.length && at.stage >= 0 && at.stage < WORLDS[at.world].stages.length && stageOpen(save, at.world, at.stage, at.d);
-}
-
-/** Makes sure the stage on show is one the player may fight: the furthest on Easy if it is not. */
-export function settle(save: SaveData): Where {
-  if (!whereOpen(save, save.at)) {
-    const [world, stage] = frontier(save);
-    save.at = { world, stage, d: 0 };
-  }
-  if (save.lostAt && !whereOpen(save, save.lostAt)) save.lostAt = null;
+/** Makes sure the stage on show is one the player may fight: the furthest if it is not. */
+export function settle(save: SaveData): number {
+  if (!stageOpen(save, save.at)) save.at = frontier(save);
+  if (save.lostAt !== null && !stageOpen(save, save.lostAt)) save.lostAt = null;
   return save.at;
 }
 
 /** Goes to a stage the player picked. Returns false, and changes nothing, if it is not open. */
-export function goTo(save: SaveData, at: Where): boolean {
-  if (!whereOpen(save, at)) return false;
-  save.at = { ...at };
+export function goTo(save: SaveData, at: number): boolean {
+  if (!stageOpen(save, at)) return false;
+  save.at = at;
   save.lostAt = null;
   return true;
 }
 
 /** Where the next battle is fought, after one at `at` came out as `result`. Changes the save. */
-export function afterBattle(save: SaveData, at: Where, result: StageResult): Where {
-  const world = WORLDS[at.world];
-  let next: Where = { ...at };
+export function afterBattle(save: SaveData, at: number, result: StageResult): number {
+  let next = at;
   if (!result.won) {
-    if (at.stage > 0) {
-      next = { ...at, stage: at.stage - 1 };
+    if (at > 0) {
+      next = at - 1;
       // The furthest stage lost at is the one to come back to.
-      if (!save.lostAt || save.lostAt.world !== at.world || save.lostAt.d !== at.d || save.lostAt.stage < at.stage) save.lostAt = { ...at };
+      if (save.lostAt === null || save.lostAt < at) save.lostAt = at;
     }
   } else if (result.first) {
-    if (at.stage + 1 < world.stages.length) next = { ...at, stage: at.stage + 1 };
-    else if (at.d === 0 && at.world + 1 < WORLDS.length) next = { world: at.world + 1, stage: 0, d: 0 };
-    if (save.lostAt && sameWhere(save.lostAt, at)) save.lostAt = null;
+    if (at + 1 < STAGES.length) next = at + 1;
+    if (save.lostAt === at) save.lostAt = null;
   }
   save.at = next;
   return next;
@@ -77,9 +63,9 @@ export function afterBattle(save: SaveData, at: Where, result: StageResult): Whe
 /** The team has changed: if a stage was lost and stepped back from, it is tried again. Returns true if the stage on show changed. */
 export function teamChanged(save: SaveData): boolean {
   const back = save.lostAt;
-  if (!back) return false;
+  if (back === null) return false;
   save.lostAt = null;
-  if (!whereOpen(save, back) || sameWhere(back, save.at)) return false;
-  save.at = { ...back };
+  if (!stageOpen(save, back) || back === save.at) return false;
+  save.at = back;
   return true;
 }
