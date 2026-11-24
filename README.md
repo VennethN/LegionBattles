@@ -311,9 +311,9 @@ builds the copy for the portal into `dist-crazygames/` and zips it to `build/leg
 3. **Two preview videos**: `preview-landscape.mp4` (1920 by 1080) and `preview-portrait.mp4` (1080 by 1620). They are made into `build/video` and are not kept in the repository. See "The preview video" below.
 4. **The form.** Game type HTML5, played in landscape, with mouse and with touch. Progress save: **"Yes, using the Data Module from the CrazyGames SDK"**; without it the module is off and the save stays in the browser. **"The game supports CrazyGames muting audio through SDK"**: yes. No ads are asked for by the game, no in-game purchases, no multiplayer, no chat, and it gathers nothing about the player beyond what the SDK does.
 
-Words for the form, to change as you like:
+Words for the form, to change as you like. They carry no counts (of stages, lands, difficulties or units), by the owner's word of 24 November 2026: "DO NOT PUT ANY FIXED NUMBER, ITS GOING TO GET UPDATED".
 
-> **Description.** Open packs, build your legion and watch it fight. Legion Battles is an autobattler: you field a team of cards, battles start by themselves, and every win moves you on along a line of 185 stages through three lands and five difficulties. Collect more than forty units, towers and traps, combine copies to level them up, spend skill points, and take on dungeons and raid bosses. Come back each day for a reward.
+> **Description.** Open packs, build your legion and watch it fight. Legion Battles is an autobattler: you field a team of cards, battles start by themselves, and every win moves you on along a long line of stages through different lands and rising difficulties. Collect units, towers and traps, combine copies to level them up, spend skill points, and take on dungeons and raid bosses. Come back each day for a reward.
 >
 > **Controls.** Mouse or touch. Drag your units to arrange them. Press BATTLE to fight, or leave AUTO on and battles start by themselves. Tap anyone on the field to see who they are.
 
