@@ -39,3 +39,14 @@ export function scenePicture(
   scene.load.once(`filecomplete-svg-${key}`, show);
   scene.load.start();
 }
+
+/**
+ * Asks the browser for a painted scene's file ahead of the scene that will
+ * show it, so that it is at hand when that scene asks: a land's ground,
+ * while the result of the last battle of the land before it is read. Nothing
+ * is made of it here.
+ */
+export function warmPicture(folder: 'board' | 'maps' | 'tiles', name: string): void {
+  if (typeof fetch !== 'function') return;
+  void fetch(`assets/${folder}/${name}.svg`).catch(() => undefined);
+}

@@ -10,15 +10,15 @@ import { H, W, hex } from '../config';
 import { SHEET } from '../Sheet';
 import { sfx } from '../../audio/sfx';
 import { toggleSound } from '../session';
-import { Button, label, slab } from './widgets';
+import { pillImage, slabImage } from './bake';
+import { Button, label } from './widgets';
 
 /** The player's coins, top right. */
 export class CoinPill {
   private text: Phaser.GameObjects.Text;
 
   constructor(scene: Phaser.Scene, private readonly save: SaveData, depth = 8000) {
-    const g = scene.add.graphics().setDepth(depth);
-    slab(g, W - 186, 14, 168, 46, IRON, 14, 5);
+    slabImage(scene, W - 186, 14, 168, 46, IRON, 14, 5).setDepth(depth);
     scene.add.image(W - 162, 35, SHEET, 'icon/coin').setScale(0.42).setDepth(depth + 1);
     this.text = label(scene, W - 34, 35, String(save.coins), { size: 24, align: 'right', color: GOLD.fill }).setDepth(depth + 1);
   }
@@ -37,6 +37,7 @@ export class CoinPill {
 export class LevelPill {
   private readonly things: Phaser.GameObjects.GameObject[] = [];
   private readonly zone: Phaser.GameObjects.Zone;
+  private visible = true;
 
   constructor(private readonly scene: Phaser.Scene, private readonly save: SaveData, onPress: () => void, private readonly depth = 8000) {
     this.zone = scene.add.zone(W - 102, 86, 168, 40).setInteractive({ useHandCursor: true }).setDepth(depth + 2);
@@ -49,65 +50,173 @@ export class LevelPill {
     return { x: W - 186, y: 66, w: 168, h: 40 };
   }
 
+  /** Puts it away, or brings it back: it is not there while a battle is fought. */
+  setVisible(on: boolean): void {
+    if (on === this.visible) return;
+    this.visible = on;
+    for (const o of this.things) (o as unknown as Phaser.GameObjects.Components.Visible).setVisible(on);
+    if (on) this.zone.setInteractive({ useHandCursor: true });
+    else this.zone.disableInteractive();
+  }
+
   refresh(): void {
     for (const o of this.things) o.destroy();
     this.things.length = 0;
     const s = this.save;
-    const g = this.scene.add.graphics().setDepth(this.depth);
-    slab(g, W - 186, 66, 168, 40, IRON, 12, 5);
+    // Its plate and the bar's track are pictures made once; only the bar's fill is drawn, and that is a plain rectangle.
     const share = s.player.level >= PLAYER_MAX_LEVEL ? 1 : Math.min(1, s.player.xp / playerXpToNext(s.player.level));
-    g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(W - 110, 78, 84, 14, 6);
-    if (share > 0.04) g.fillStyle(hex(HOLY.fill), 1).fillRoundedRect(W - 108, 80, 80 * share, 10, 4);
-    this.things.push(g, label(this.scene, W - 176, 84, `LV ${s.player.level}`, { size: 18, align: 'left', strokeWidth: 4 }).setDepth(this.depth + 1));
-    if (playerHasNews(s)) {
-      const dot = this.scene.add.graphics().setDepth(this.depth + 1);
-      dot.fillStyle(hex(OUTLINE), 1).fillCircle(W - 22, 68, 11);
-      dot.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(W - 22, 68, 8);
-      this.things.push(dot);
-    }
+    this.things.push(
+      slabImage(this.scene, W - 186, 66, 168, 40, IRON, 12, 5).setDepth(this.depth),
+      pillImage(this.scene, W - 68, 85, 76, 6, OUTLINE).setDepth(this.depth),
+      label(this.scene, W - 176, 84, `LV ${s.player.level}`, { size: 18, align: 'left', strokeWidth: 4 }).setDepth(this.depth + 1),
+    );
+    if (share > 0.04) this.things.push(this.scene.add.rectangle(W - 108, 85, 80 * share, 10, hex(HOLY.fill)).setOrigin(0, 0.5).setDepth(this.depth));
+    if (playerHasNews(s)) this.things.push(pillImage(this.scene, W - 22, 68, 14, 14, CLOTH.red.fill).setDepth(this.depth + 1));
+    if (!this.visible) for (const o of this.things) (o as unknown as Phaser.GameObjects.Components.Visible).setVisible(false);
   }
 }
 
 /**
- * The way to the rewards, under the player's level on the main screen: a
- * gift, and on it how many things wait to be claimed.
+ * A small plate on the corner of a button: how many of a thing there are,
+ * or how many of how many. It is asked often and draws only when what it
+ * says changes.
+ */
+export class CountChip {
+  private pill: Phaser.GameObjects.Image | null = null;
+  private readonly text: Phaser.GameObjects.Text;
+  private said = '';
+  private lit = false;
+  private visible = true;
+
+  constructor(private readonly scene: Phaser.Scene, private readonly x: number, private readonly y: number, private readonly depth = 8001) {
+    this.text = label(scene, x, y - 1, '', { size: 14, strokeWidth: 3 }).setDepth(depth + 1);
+  }
+
+  /** `lit` is for a count that asks for something: packs to open, a place that is free with a card to stand in it. */
+  set(said: string, lit = false): void {
+    if (said === this.said && lit === this.lit) return;
+    this.said = said;
+    this.lit = lit;
+    this.text.setText(said);
+    this.pill?.destroy();
+    this.pill = null;
+    if (!said) return;
+    // Its plate is a picture made once for each width and color it has had (bake.ts).
+    const w = Math.max(24, Math.ceil((this.text.width + 12) / 4) * 4);
+    this.pill = pillImage(this.scene, this.x, this.y, w, 22, lit ? CLOTH.red.fill : IRON.fill).setDepth(this.depth).setVisible(this.visible);
+  }
+
+  setVisible(on: boolean): void {
+    this.visible = on;
+    this.pill?.setVisible(on);
+    this.text.setVisible(on);
+  }
+}
+
+/**
+ * The way to the rewards, under the level on the main screen. No tutorial
+ * speaks of the rewards, by the owner's word of 24 November 2026 ("make sure
+ * the reward button is really obvious and you wanna really click it"), so
+ * the button has to say it all. With nothing to claim it is a quiet plate
+ * that says how long until the next gift. With something to claim it is
+ * another thing: gold, bigger, breathing, with light turning behind a gift
+ * that shakes, and the count of what waits in red on its corner.
  */
 export class RewardsPill {
-  private readonly dot: Phaser.GameObjects.Graphics;
+  private readonly calm: Phaser.GameObjects.Container;
+  private readonly hot: Phaser.GameObjects.Container;
+  private readonly soon: Phaser.GameObjects.Text;
   private readonly count: Phaser.GameObjects.Text;
+  private readonly sub: Phaser.GameObjects.Text;
+  private readonly zone: Phaser.GameObjects.Zone;
   private shown = -1;
+  private mins = -2;
+  private visible = true;
 
   constructor(scene: Phaser.Scene, onPress: () => void, depth = 8000) {
-    const r = this.rect;
-    const g = scene.add.graphics().setDepth(depth);
-    slab(g, r.x, r.y, r.w, r.h, IRON, 12, 5);
-    scene.add.image(r.x + 21, r.y + r.h / 2 - 2, SHEET, 'icon/gift').setScale(0.34).setDepth(depth + 1);
-    label(scene, r.x + 40, r.y + r.h / 2 - 2, 'REWARDS', { size: 15, align: 'left', strokeWidth: 4 }).setDepth(depth + 1);
-    this.dot = scene.add.graphics().setDepth(depth + 1);
-    this.count = label(scene, r.x + r.w - 4, r.y + 1, '', { size: 14, strokeWidth: 3 }).setDepth(depth + 2);
-    const zone = scene.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h + 6).setInteractive({ useHandCursor: true }).setDepth(depth + 2);
-    zone.on('pointerup', () => {
+    // The quiet plate.
+    const c = RewardsPill.CALM;
+    this.calm = scene.add.container(c.x + c.w / 2, c.y + c.h / 2).setDepth(depth);
+    const plate = slabImage(scene, -c.w / 2, -c.h / 2, c.w, c.h, IRON, 12, 5);
+    this.soon = label(scene, -c.w / 2 + 40, -2, 'REWARDS', { size: 15, align: 'left', strokeWidth: 4 });
+    this.calm.add([plate, scene.add.image(-c.w / 2 + 21, -2, SHEET, 'icon/gift').setScale(0.34), this.soon]);
+
+    // The one that asks to be pressed.
+    const h = RewardsPill.HOT;
+    this.hot = scene.add.container(h.x + h.w / 2, h.y + h.h / 2).setDepth(depth + 1).setVisible(false);
+    const gx = -h.w / 2 + 32;
+    // Light behind the gift: a star of twelve rays, turning.
+    const rays = scene.add.graphics();
+    rays.fillStyle(hex(HOLY.light), 0.75);
+    for (let i = 0; i < 12; i++) {
+      const a = (i * Math.PI) / 6;
+      const w = 0.13;
+      rays.fillTriangle(0, 0, Math.cos(a - w) * 36, Math.sin(a - w) * 36, Math.cos(a + w) * 36, Math.sin(a + w) * 36);
+    }
+    rays.setPosition(gx, -3);
+    const gold = slabImage(scene, -h.w / 2, -h.h / 2, h.w, h.h, GOLD, 14, 7);
+    const gift = scene.add.image(gx, -4, SHEET, 'icon/gift').setScale(0.56);
+    const claim = label(scene, gx + 24, -10, 'CLAIM!', { size: 20, align: 'left', strokeWidth: 6 });
+    this.sub = label(scene, gx + 25, 12, '', { size: 12, weight: 600, align: 'left', color: OUTLINE, stroke: null });
+    const dot = pillImage(scene, h.w / 2 - 6, -h.h / 2 + 4, 22, 22, CLOTH.red.fill);
+    this.count = label(scene, h.w / 2 - 6, -h.h / 2 + 3, '', { size: 16, strokeWidth: 3 });
+    // The plate hides the middle of the star, so the rays show only round its edge and through the gift's corner.
+    this.hot.add([gold, rays, gift, claim, this.sub, dot, this.count]);
+    // It breathes, the light turns, and the gift shakes every second or so: none of it stops while it waits.
+    scene.tweens.add({ targets: this.hot, scale: 1.07, duration: 520, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    scene.tweens.add({ targets: rays, angle: 360, duration: 5000, repeat: -1 });
+    scene.tweens.add({ targets: gift, angle: 16, duration: 520, repeat: -1, repeatDelay: 900, ease: (t: number) => Math.sin(t * Math.PI * 4) * (1 - t) });
+
+    this.zone = scene.add.zone(c.x + c.w / 2, c.y + c.h / 2, c.w, c.h + 6).setInteractive({ useHandCursor: true }).setDepth(depth + 3);
+    this.zone.on('pointerup', () => {
       sfx.play('click');
       onPress();
     });
   }
 
-  /** Where it is on the screen, for the tutorial to point at. */
+  /** Where each of its two looks stands. The quiet one is narrow: on the biggest field the plate of whoever stands in the far corner comes up beside it. */
+  private static readonly CALM = { x: W - 152, y: 112, w: 134, h: 38 };
+  private static readonly HOT = { x: W - 166, y: 117, w: 152, h: 56 };
+
+  /** Where it is on the screen, as it now looks. */
   get rect(): { x: number; y: number; w: number; h: number } {
-    // Narrower than the level over it: on the biggest field the plate of whoever stands in the far corner comes up beside it.
-    return { x: W - 152, y: 112, w: 134, h: 38 };
+    return this.shown > 0 ? RewardsPill.HOT : RewardsPill.CALM;
   }
 
-  /** Shows how many rewards wait. Draws only when the number changes: it is asked every frame. */
-  refresh(waiting: number): void {
-    if (waiting === this.shown) return;
-    this.shown = waiting;
-    const r = this.rect;
-    this.dot.clear();
-    this.count.setText(waiting > 0 ? String(waiting) : '');
-    if (waiting <= 0) return;
-    this.dot.fillStyle(hex(OUTLINE), 1).fillCircle(r.x + r.w - 4, r.y + 2, 13);
-    this.dot.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(r.x + r.w - 4, r.y + 2, 10);
+  /** Puts it away, or brings it back: it is not there while a battle is fought. */
+  setVisible(on: boolean): void {
+    if (on === this.visible) return;
+    this.visible = on;
+    this.calm.setVisible(on && this.shown <= 0);
+    this.hot.setVisible(on && this.shown > 0);
+    if (on) this.zone.setInteractive({ useHandCursor: true });
+    else this.zone.disableInteractive();
+  }
+
+  /**
+   * Shows how many rewards wait, and with none, how long until the next
+   * one: `left` is seconds, below zero for no more today. It is asked every
+   * frame and changes something only when a number does.
+   */
+  refresh(waiting: number, left = -1): void {
+    const mins = waiting > 0 || left < 0 ? -1 : Math.ceil(left / 60);
+    if (waiting === this.shown && mins === this.mins) return;
+    const woke = this.shown === 0 && waiting > 0;
+    if (waiting !== this.shown) {
+      this.shown = waiting;
+      const r = this.rect;
+      this.zone.setPosition(r.x + r.w / 2, r.y + r.h / 2).setSize(r.w, r.h + 6);
+      this.calm.setVisible(this.visible && waiting <= 0);
+      this.hot.setVisible(this.visible && waiting > 0);
+      this.count.setText(waiting > 0 ? String(waiting) : '');
+      this.sub.setText(waiting === 1 ? '1 free gift' : `${waiting} free gifts`);
+    }
+    if (mins !== this.mins) {
+      this.mins = mins;
+      this.soon.setText(mins > 0 ? `GIFT IN ${mins} MIN` : 'REWARDS').setFontSize(mins > 0 ? 12 : 15);
+    }
+    // A gift that comes ready while the field is on show is heard.
+    if (woke && this.visible) sfx.play('coin', 0.7);
   }
 }
 

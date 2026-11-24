@@ -3,7 +3,8 @@
 // Measures a full battle on the main screen: how long a frame's script work
 // takes, how many draw calls a frame makes, and which functions the time
 // goes to. The processor is slowed (CPU=4 for four times) to stand in for a
-// phone. SCREEN=Team measures with that screen open over the board instead.
+// phone. SCREEN=Team measures with that screen open over the board instead,
+// and IDLE=1 the main screen between battles, with every menu on it.
 // It needs the dev server running (npm run dev) and Playwright.
 //
 // The browser here draws with a software GL, so what the graphics card would
@@ -19,6 +20,7 @@ const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:dungeons', 'tou
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const slow = Number(process.env.CPU ?? 4);
 const screen = process.env.SCREEN ?? '';
+const idle = process.env.IDLE === '1';
 const res = process.env.RES ? `?res=${process.env.RES}` : '';
 
 const browser = await chromium.launch();
@@ -42,13 +44,13 @@ const save = {
   ],
   cleared: 184,
   packs: { recruit: 3 }, rng: 5, stats: { battles: 900, wins: 700, opened: 300 },
-  speed: 2, sound: false, tutorial: { done: true, seen: SEEN, at: 0, tour: null }, at: 184, lostAt: null, auto: true,
+  speed: 2, sound: false, tutorial: { done: true, seen: SEEN, at: 0, tour: null }, at: 184, lostAt: null, auto: !idle,
 };
 
 await page.goto(base + res);
 await page.evaluate((s) => localStorage.setItem('legion-battles-save', JSON.stringify(s)), save);
 await page.reload();
-await page.waitForFunction(() => window.game?.scene?.isActive('Main') && window.game.scene.getScene('Main').state === 'fighting', null, { timeout: 60000 });
+await page.waitForFunction((st) => window.game?.scene?.isActive('Main') && window.game.scene.getScene('Main').state === st, idle ? 'ready' : 'fighting', { timeout: 60000 });
 if (screen) {
   await page.evaluate((k) => {
     const m = window.game.scene.getScene('Main');
@@ -114,8 +116,24 @@ for (const id of profile.samples) {
   self.set(name, (self.get(name) ?? 0) + 1);
 }
 const top = [...self.entries()].sort((a, b) => b[1] - a[1]).slice(0, 22);
-console.log(`cpu slowed ${slow}x, ${screen || 'battle'}, canvas ${stat.canvas.join('x')}, ${stat.objects}`);
+console.log(`cpu slowed ${slow}x, ${screen || (idle ? 'between battles' : 'battle')}, canvas ${stat.canvas.join('x')}, ${stat.objects}`);
 console.log(`frames ${stat.frames} in 6 s (${stat.fps.toFixed(0)} fps here), script per frame ${stat.step.toFixed(2)} ms (95th ${stat.p95.toFixed(2)}, worst ${stat.worst.toFixed(1)}), draw calls per frame ${stat.draws.toFixed(1)}, state ${stat.state}`);
 for (const [name, n] of top) console.log(`  ${((100 * n) / total).toFixed(1).padStart(5)}%  ${name}`);
+// And by the kind of thing drawn, with everything it calls counted in: which of text, drawings, sprites and containers the frame goes to.
+const parent = new Map();
+for (const n of profile.nodes) for (const c of n.children ?? []) parent.set(c, n.id);
+const kinds = new Map();
+for (const id of profile.samples) {
+  // The innermost renderer on the stack has it: a container's own share is what its children do not take.
+  for (let at = id; at !== undefined; at = parent.get(at)) {
+    const name = byId.get(at).callFrame.functionName;
+    if (/WebGLRenderer$|^renderWebGLStep$/.test(name) && name !== 'ContainerWebGLRenderer') {
+      kinds.set(name, (kinds.get(name) ?? 0) + 1);
+      break;
+    }
+  }
+}
+console.log('by what is drawn:');
+for (const [name, n] of [...kinds.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)) console.log(`  ${((100 * n) / total).toFixed(1).padStart(5)}%  ${name}`);
 if (errors.length) console.log(`ERRORS: ${errors.slice(0, 3).join(' | ')}`);
 await browser.close();

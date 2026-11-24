@@ -11,7 +11,8 @@ import { DIFFICULTIES } from '../../data/laps';
 import type { World } from '../../data/stages';
 import { SHEET } from '../Sheet';
 import { DIFFICULTY_MAT, LAND_MAT } from './colors';
-import { label, slab } from './widgets';
+import { slabImage } from './bake';
+import { label } from './widgets';
 
 /** The banner with its middle at (x, y). `big` is for a heading. */
 export function worldBanner(scene: Phaser.Scene, x: number, y: number, world: World, big = false): Phaser.GameObjects.Container {
@@ -28,16 +29,17 @@ export function worldBanner(scene: Phaser.Scene, x: number, y: number, world: Wo
   // The ribbon and the chip are one thing, with its middle at the middle.
   const left = -(w + gap + chipW) / 2;
   const mid = left + w / 2;
-  const g = scene.add.graphics();
   const mat = LAND_MAT[land.ground];
-  // The two tails of the ribbon, then the ribbon over them.
-  slab(g, mid - w / 2 - 14, -h / 2 + 6, 30, h - 4, { fill: mat.shade, shade: mat.shade }, 6, 0);
-  slab(g, mid + w / 2 - 16, -h / 2 + 6, 30, h - 4, { fill: mat.shade, shade: mat.shade }, 6, 0);
-  slab(g, mid - w / 2, -h / 2, w, h, mat, 10, 5);
+  // The two tails of the ribbon, then the ribbon over them. Each is a picture made once (bake.ts): a banner is on show for as long as its world is.
+  const tail = { ...mat, fill: mat.shade };
   const chipX = left + w + gap + chipW / 2;
   const ch = h - (big ? 8 : 6);
-  slab(g, chipX - chipW / 2, -ch / 2, chipW, ch, DIFFICULTY_MAT[world.lap] ?? DIFFICULTY_MAT[0], 9, 4);
-  root.add(g);
+  root.add([
+    slabImage(scene, mid - w / 2 - 14, -h / 2 + 6, 30, h - 4, tail, 6, 0),
+    slabImage(scene, mid + w / 2 - 16, -h / 2 + 6, 30, h - 4, tail, 6, 0),
+    slabImage(scene, mid - w / 2, -h / 2, w, h, mat, 10, 5),
+    slabImage(scene, chipX - chipW / 2, -ch / 2, chipW, ch, DIFFICULTY_MAT[world.lap] ?? DIFFICULTY_MAT[0], 9, 4),
+  ]);
   text.setX(mid + h / 2 - 2);
   root.add(text);
   chipText.setX(chipX);

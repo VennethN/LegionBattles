@@ -145,11 +145,19 @@ for (let i = 0; i < 20; i++) {
     await walk('first');
     const after = await guide();
     if (!after.seen.includes(`tour:${up.id}`)) await fail(`the tour ${up.id} ended and is not marked as seen`);
-  } else if (order.length >= 6) break;
+  } else if (order.length >= 5) break;
   await onward();
 }
 console.log(JSON.stringify({ order, walked }, null, 1));
-if (order.length < 6) await fail(`only ${order.length} tours started by themselves: ${order.join(', ')}`);
+if (order.length < 5) await fail(`only ${order.length} tours started by themselves: ${order.join(', ')}`);
+// The rewards are left out of the tutorials, by the owner's word: no tour is theirs, and their button says it all.
+if (order.includes('rewards')) await fail('a tour of the rewards started: they are to be left out of the tutorials');
+const gift = await page.evaluate(() => {
+  const r = window.game.scene.getScene('Main').rewards;
+  return { waiting: r.shown, hot: r.hot.visible, calm: r.calm.visible, rect: r.rect };
+});
+if (gift.waiting > 0 && (!gift.hot || gift.calm)) await fail(`a reward waits and its button does not say so: ${JSON.stringify(gift)}`);
+console.log(JSON.stringify({ gift }));
 
 // 2. The settings, and the list of tutorials.
 await click(1168, 664);

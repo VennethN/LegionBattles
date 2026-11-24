@@ -78,9 +78,7 @@ export interface SaveData {
     seen: string[];
     at: number;
     /** `open` asks the main screen to open the screen the step is on: a tour that starts there. */
-    tour: { id: string; step: number; open?: boolean } | null;
-    /** A screen the main screen should open by itself, once: its scene's key. Never read back from storage. */
-    show?: string;
+    tour: { id: string; step: number } | null;
   };
   /** The stage on show, which is where the next battle is fought: its place in the line, from 0. */
   at: number;

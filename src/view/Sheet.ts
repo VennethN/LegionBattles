@@ -155,6 +155,27 @@ export class Sheet {
     });
   }
 
+  /**
+   * Brings units in ahead of the battle that will need them, and takes no
+   * one off to do it: their pictures are loaded, and packed if there is
+   * room. If there is none they wait as they are, and ensure() makes the
+   * room when their battle comes. It is for the moment after a battle, so
+   * that the next stage stands the instant it is asked for.
+   */
+  prepare(scene: Phaser.Scene, wanted: readonly UnitKey[]): Promise<void> {
+    const seen = new Set<string>();
+    const missing = wanted.filter((k) => {
+      const id = `${k.team}/${k.unit}`;
+      if (seen.has(id) || this.has(k)) return false;
+      seen.add(id);
+      return true;
+    });
+    if (missing.length === 0) return Promise.resolve();
+    return this.load(scene, missing).then(() => {
+      this.pack(scene, missing);
+    });
+  }
+
   private load(scene: Phaser.Scene, keys: readonly UnitKey[]): Promise<void> {
     return new Promise((resolve) => {
       let queued = 0;

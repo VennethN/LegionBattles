@@ -14,6 +14,8 @@ export interface Ads {
   gameplayStop(): void;
   /** Loading has finished. */
   loadingDone(): void;
+  /** Something worth cheering has happened: a boss has fallen for the first time. Rare, by the portals' own asking. */
+  happy(): void;
 }
 
 export class NoAds implements Ads {
@@ -25,6 +27,7 @@ export class NoAds implements Ads {
   gameplayStart(): void {}
   gameplayStop(): void {}
   loadingDone(): void {}
+  happy(): void {}
 }
 
 let current: Ads = new NoAds();

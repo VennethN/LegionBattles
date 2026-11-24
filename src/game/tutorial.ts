@@ -7,8 +7,10 @@
 // the right step, and nothing in it can get stuck out of order.
 //
 // The second kind is a tour: a few notes on one part of the game (the
-// packs, the dungeons and raids, skill points, upgrades, the rewards,
-// structures), each pointing at the thing it is about. A tour starts by
+// packs, the dungeons, the raids, skill points, upgrades, structures),
+// each pointing at the thing it is about. The rewards have none: the owner
+// asked for them to be left out of the tutorials, and their button says
+// enough. A tour starts by
 // itself the first time its part of the game matters, and never straight
 // after another: a couple of battles are fought between two of them. Once seen it is on the list in the settings,
 // where any of them can be viewed again. By the owner's word of 24 November
@@ -40,7 +42,6 @@ import { PACKS as SHELF } from '../data/packs';
 import { UPGRADES } from '../data/player';
 import { placeOpen } from './expeditions';
 import { pointsFree, upgradeCost } from './player';
-import { rewardsWaiting } from './rewards';
 import { packOpen, packsHeld, priceOf, structuresSize } from './rules';
 import type { SaveData } from './state';
 
@@ -139,35 +140,20 @@ export function seen(save: SaveData, id: string): boolean {
 }
 
 /**
- * The first tutorial is over. The rewards are shown straight after it, by
- * the owner's word of 24 November 2026 ("After the initial tutorial / SHOW
- * the reward screen"): their tour is up from its first note, and `open`
- * asks the main screen to open the screen it is on. The other tours wait
- * for battles to be fought.
+ * The first tutorial is over, and nothing is opened after it. The rewards
+ * were shown here for a day, and then the owner, of 24 November 2026:
+ * "Actually let's not show the reward after the tutorial / But make sure
+ * the reward button is really obvious and you wanna really click it
+ * (exclude the reward from the tutorial as well)". So no tutorial speaks of
+ * the rewards: their button on the main screen does that by itself
+ * (RewardsPill in view/ui/chrome.ts). The tours wait for battles to be
+ * fought.
  */
 function endFirst(save: SaveData): void {
   save.tutorial.done = true;
   save.tutorial.at = save.stats.battles;
   // The first tutorial showed the tower and its screen: the structures need no tour of their own after it.
   for (const id of ['tour:basics', 'tour:structures']) if (!seen(save, id)) save.tutorial.seen.push(id);
-  if (!tourSeen(save, 'rewards')) save.tutorial.tour = { id: 'rewards', step: 1, open: true };
-}
-
-/**
- * The screen the main screen should open now, because a tour starts on it:
- * the scene's key, or null. Asking takes the request away.
- */
-export function tourOpens(save: SaveData): string | null {
-  if (save.tutorial.show) {
-    const key = save.tutorial.show;
-    delete save.tutorial.show;
-    return key;
-  }
-  const t = save.tutorial.tour;
-  const at = t?.open ? tourById(t.id)?.steps[t.step] : undefined;
-  if (!t || !at) return null;
-  delete t.open;
-  return at.scene === 'Worlds' ? 'Map' : at.scene;
 }
 
 /** Notes that a part of the tutorial is behind the player. Ends the tutorial with its last part. */
@@ -179,16 +165,8 @@ export function markSeen(save: SaveData, id: string): void {
 
 /** SKIP: ends the first tutorial, or the tour that is up. */
 export function skipTutorial(save: SaveData): void {
-  if (!save.tutorial.done) {
-    endFirst(save);
-    // Whoever skips the tutorial is shown the rewards all the same, without the notes on them.
-    const t = save.tutorial.tour;
-    if (t) {
-      save.tutorial.seen.push(`tour:${t.id}`);
-      save.tutorial.tour = null;
-      save.tutorial.show = 'Rewards';
-    }
-  } else endTour(save);
+  if (!save.tutorial.done) endFirst(save);
+  else endTour(save);
 }
 
 /** The step of the first tutorial to show now, or null for none. */
@@ -294,17 +272,6 @@ export const TOURS: readonly Tour[] = [
       note('Main', 'units', 'Pick who fights here.'),
       note('Main', 'level', 'Level up for skill points.'),
       note('Main', 'settings', 'Sound and tutorials are here.'),
-    ],
-  },
-  {
-    id: 'rewards', name: 'Rewards', blurb: 'Daily and playtime rewards.',
-    // Not on top of the first tutorial: a few battles in.
-    when: (save, day) => save.stats.battles >= 3 && rewardsWaiting(save, day) > 0,
-    steps: [
-      press('Main', 'rewards', 'A reward is ready. Tap REWARDS.'),
-      note('Rewards', 'calendar', 'Claim one each day. Days 2 and 7 give special units.'),
-      note('Rewards', 'playtime', 'Play to earn more. 10 minutes gives a special pack.'),
-      note('Rewards', 'day', 'Tap CLAIM.'),
     ],
   },
   {
@@ -428,7 +395,6 @@ function tourStep(save: SaveData, ctx: GuideContext): Step | null {
       save.tutorial.tour = null;
       return null;
     }
-    if (ctx.scene === 'Main' && !ctx.covered && at.scene !== 'Main' && t.open) return null;
     if (ctx.scene === 'Main' && !ctx.covered && at.scene !== 'Main') {
       // The field is on show and the step belongs to a screen that is shut.
       if (at.kind === 'press' && at.target === 'close') {

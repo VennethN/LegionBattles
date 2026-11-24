@@ -6,6 +6,13 @@
 // team by dragging, and to open UNITS, PACKS or the map, each of which opens
 // over the board.
 //
+// The screen has two faces. Between battles it is the menu: every way into
+// the other screens is on it. While a battle is fought and its result is
+// up, those are put away and only what belongs to the battle stays: STOP,
+// AUTO and the speed. By the owner's word of 24 November 2026: "when battle
+// is going on / All the other menu ui dissapears (apart from auto) / So
+// theres an active game state".
+//
 // There is one line of stages, numbered from 1 (data/stages.ts), and the
 // top of the screen shows only the one the player is on. Pressing it opens
 // the map, where another can be picked.
@@ -21,9 +28,12 @@ import { WORLDS, landOf, stageAt, stageNumber, worldOf } from '../../data/stages
 import { UNITS, isStructure } from '../../data/units';
 import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
 import { cardOf } from '../../game/cards';
-import { rewardsWaiting } from '../../game/rewards';
-import { raidOpen, tourOpens } from '../../game/tutorial';
-import { finishStage, packsHeld, payOf, stageCleared, stageEnemies, stageInput, stageSeed, teamSize, tidyTeam, structuresSize, type StageResult } from '../../game/rules';
+import { playtimeLeft, rewardsWaiting } from '../../game/rewards';
+import { raidOpen } from '../../game/tutorial';
+import {
+  finishStage, packsHeld, payOf, stageCleared, stageEnemies, stageInput, stageSeed, structuresIn, structuresSize, teamSize, tidyTeam, unitsIn,
+  type StageResult,
+} from '../../game/rules';
 import type { Fielded } from '../../game/state';
 import { ads } from '../../platform/ads';
 import { GROUND } from '../../art/board';
@@ -32,9 +42,10 @@ import { BoardView } from '../BoardView';
 import { today } from '../clock';
 import { H, RES, W, hex } from '../config';
 import { BOARD_PX_H, BOARD_PX_W, BOARD_X, BOARD_Y } from '../layout';
+import { warmPicture } from '../Scenes';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { CoinPill, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, RewardsPill, TEAM_CHANGED } from '../ui/chrome';
+import { CoinPill, CountChip, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, RewardsPill, TEAM_CHANGED } from '../ui/chrome';
 import { RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
@@ -73,13 +84,30 @@ export class MainScene extends Phaser.Scene {
   private teamTouched = false;
   /** The camera that shows the player's half of the field beside the screen of cards. */
   private side: Phaser.Cameras.Scene2D.Camera | null = null;
+  private hall!: Button;
   private raids!: Button;
+  private gear!: Button;
   private gearRect = { x: 0, y: 0, w: 0, h: 0 };
   private battleButton!: Button;
   private autoButton!: Button;
   private speedButton!: Button;
+  private unitsButton!: Button;
+  private builtButton!: Button;
   private packsButton!: Button;
-  private badge: Phaser.GameObjects.GameObject[] = [];
+  /** How many are fielded of how many may be, on the corners of UNITS and STRUCTURES, and how many packs wait on PACKS. */
+  private unitsChip!: CountChip;
+  private builtChip!: CountChip;
+  private packsChip!: CountChip;
+  /** Which of the menus are on show, as one number: so that they are touched only when that changes. */
+  private hudKey = -1;
+  /** The banner of the world on show, and which world that is: it is made again only for another. */
+  private banner: Phaser.GameObjects.Container | null = null;
+  private bannerOf = -1;
+  /** When the result came up, and whether the next stage is already on its way under it. */
+  private afterFrom = 0;
+  private leaving = false;
+  /** Counts the results shown: what one of them still has to bring in is dropped if another has come. */
+  private toastId = 0;
   private top: Phaser.GameObjects.GameObject[] = [];
   /** The line under the stage's plate. It is put away while a battle is fought: the back row's plates stand there. */
   private info: Array<Phaser.GameObjects.Image | Phaser.GameObjects.Text> = [];
@@ -90,18 +118,25 @@ export class MainScene extends Phaser.Scene {
     super('Main');
   }
 
-  init(): void {
+  /** `quick` is for coming here from a battle won at the end of a land: nothing fades, the next one is simply there. */
+  private quick = false;
+
+  init(data?: { quick?: boolean }): void {
     this.state = 'loading';
     this.count = -1;
     this.shownCount = -2;
     this.overlay = null;
-    this.badge = [];
     this.top = [];
     this.toast = [];
     this.arrival = 0;
     this.shade = null;
     this.side = null;
     this.teamTouched = false;
+    this.hudKey = -1;
+    this.banner = null;
+    this.bannerOf = -1;
+    this.leaving = false;
+    this.quick = !!data?.quick;
   }
 
   create(): void {
@@ -139,6 +174,7 @@ export class MainScene extends Phaser.Scene {
     // have a button each; the raids' is not there until one is open.
     const hall = plain(new Button(this, 128, 36, '   DUNGEONS', () => this.open('Hall', { kind: 'dungeon' }), { width: 216, height: 50, size: 19, mat: BONE, color: OUTLINE })).setDepth(8000);
     hall.root.add(this.add.image(-78, -3, SHEET, 'icon/crown').setScale(0.3));
+    this.hall = hall;
     this.hallRect = hall.rect;
     this.raids = plain(new Button(this, 128, 90, '   RAIDS', () => this.open('Hall', { kind: 'raid' }), { width: 216, height: 44, size: 17, mat: BONE, color: OUTLINE })).setDepth(8000);
     this.raids.root.add(this.add.image(-78, -3, SHEET, 'icon/banner').setScale(0.26));
@@ -146,10 +182,7 @@ export class MainScene extends Phaser.Scene {
     this.buildBottom();
     this.note = label(this, W / 2, 612, '', { size: 18, weight: 600, color: HIGHLIGHT }).setDepth(8000);
 
-    this.guide = new Guide(this, 'Main', () => {
-      this.refreshBottom();
-      this.lead();
-    });
+    this.guide = new Guide(this, 'Main', () => this.refreshBottom());
     this.guide.mark('battle', () => this.battleButton.rect);
     this.guide.mark('packs', () => this.packsButton.rect);
     this.guide.mark('units', () => this.unitsRect);
@@ -188,8 +221,13 @@ export class MainScene extends Phaser.Scene {
     });
     this.input.keyboard?.on('keydown-D', () => this.board.toggleDebug());
 
-    this.cameras.main.fadeIn(220);
-    this.arrive(COUNTDOWN.first);
+    // A press anywhere on a result goes on from it. One that lands on a button is that button's: AUTO and the speed still take theirs.
+    this.input.on('pointerup', (_p: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[]) => {
+      if (over.length === 0) this.pressOn();
+    });
+
+    if (!this.quick) this.cameras.main.fadeIn(220);
+    this.arrive(this.quick ? COUNTDOWN.next : COUNTDOWN.first);
   }
 
   /** The tour that is up, if one is: for the walks (scripts/tours.mjs), which cannot wait for the save to be written. */
@@ -217,11 +255,17 @@ export class MainScene extends Phaser.Scene {
     const world = worldOf(this.at);
     const first = !stageCleared(s, this.at);
 
-    const banner = add(worldBanner(this, 640, 22, world).setDepth(8000));
-    banner.setInteractive({ useHandCursor: true });
-    banner.on('pointerup', () => this.open('Map'));
+    // The banner is the same for every stage of a world: it is made once for each.
+    if (!this.banner || this.bannerOf !== world.index) {
+      this.banner?.destroy();
+      this.banner = worldBanner(this, 640, 22, world).setDepth(8000);
+      this.bannerOf = world.index;
+      this.banner.setInteractive({ useHandCursor: true });
+      this.banner.on('pointerup', () => this.openMap());
+    }
+    const banner = this.banner;
 
-    const plate = new Button(this, 640, 64, `   STAGE ${stageNumber(this.at)}`, () => this.open('Map'), {
+    const plate = new Button(this, 640, 64, `   STAGE ${stageNumber(this.at)}`, () => this.openMap(), {
       width: 250, height: 46, size: 25, mat: stage.def.kind === 'normal' ? GOLD : stage.def.kind === 'boss' ? CLOTH.red : ARCANE,
     }).setDepth(8000);
     add(plate.root);
@@ -229,14 +273,15 @@ export class MainScene extends Phaser.Scene {
     const mark = stage.def.kind === 'boss' ? 'icon/crown' : stage.def.kind === 'miniboss' ? 'icon/banner' : 'icon/flag';
     plate.root.add(this.add.image(-92, -3, SHEET, mark).setScale(0.32));
 
-    // One line under it: its name, what a win pays, what its enemies stand at, and how big its field is.
-    const small = { size: 16, weight: 600 as const, color: HIGHLIGHT, strokeWidth: 4, align: 'left' as const };
-    const y = 104;
+    // One line under it: its name, what a win pays, and what its enemies stand at. It is kept close under the
+    // plate and short: the plates of whoever stands in the back row come up just beneath it.
+    const small = { size: 15, weight: 600 as const, color: HIGHLIGHT, strokeWidth: 4, align: 'left' as const };
+    const y = 100;
     const name = add(label(this, 0, y, stage.def.name, { ...small, weight: 700 }).setDepth(8000));
     const coin = add(this.add.image(0, y, SHEET, 'icon/coin').setScale(0.28).setDepth(8000));
     const pay = add(label(this, 0, y, String(payOf(s, this.at, first)), small).setDepth(8000));
     const badge = add(gradeBadge(this, 0, y, stage.grade, 18).setDepth(8000));
-    const level = add(label(this, 0, y, `level ${stage.level}  ·  field ${fieldName(stage.field)}`, small).setDepth(8000));
+    const level = add(label(this, 0, y, `level ${stage.level}`, small).setDepth(8000));
     const total = name.width + 20 + 24 + pay.width + 24 + 28 + 6 + level.width;
     let x = 640 - total / 2;
     name.setX(x);
@@ -253,6 +298,15 @@ export class MainScene extends Phaser.Scene {
 
     this.coins.refresh();
     this.level.refresh();
+    // What was just made is put away again if the screen of cards is open beside the field.
+    this.hudKey = -1;
+    this.hud();
+  }
+
+  /** The map of the world's stages. It is one of the menus, and is not opened in the middle of a battle. */
+  private openMap(): void {
+    if (this.state === 'fighting' || this.state === 'after') return;
+    this.open('Map');
   }
 
   // ------------------------------------------------------------ the bottom
@@ -263,12 +317,19 @@ export class MainScene extends Phaser.Scene {
     // 24 November 2026: "make structures its own button".
     const units = plain(new Button(this, 95, y, '   UNITS', () => this.pressUnits('units'), { width: 146, height: 62, size: 20, mat: BONE, color: OUTLINE })).setDepth(8000);
     units.root.add(this.add.image(-48, -3, SHEET, 'icon/team').setScale(0.32));
+    this.unitsButton = units;
     this.unitsRect = units.rect;
     const built = plain(new Button(this, 262, y, '    STRUCTURES', () => this.pressUnits('structures'), { width: 176, height: 62, size: 18, mat: BONE, color: OUTLINE })).setDepth(8000);
     built.root.add(this.add.image(-66, -3, SHEET, 'icon/tower').setScale(0.32));
+    this.builtButton = built;
     this.structuresRect = built.rect;
     this.packsButton = plain(new Button(this, 431, y, '   PACKS', () => this.open('Shop'), { width: 146, height: 62, size: 20, mat: BONE, color: OUTLINE })).setDepth(8000);
     this.packsButton.root.add(this.add.image(-48, -3, SHEET, 'icon/pack').setScale(0.32));
+    // On the corner of each: how many stand of how many may, and how many packs wait. The owner, of the main
+    // screen: "Make it also so it shows a unit count and structure count limit".
+    this.unitsChip = new CountChip(this, 146, 636);
+    this.builtChip = new CountChip(this, 328, 636);
+    this.packsChip = new CountChip(this, 494, 636);
 
     this.battleButton = new Button(this, 644, y, 'BATTLE', () => this.pressBattle(), { width: 264, height: 74, size: 34 }).setDepth(8000);
     this.autoButton = new Button(this, 916, y, '', () => this.toggleAuto(), { width: 170, height: 62, size: 22 }).setDepth(8000);
@@ -276,15 +337,18 @@ export class MainScene extends Phaser.Scene {
     // The settings: sound and music, how the game is drawn, and every tutorial to view again.
     const gear = plain(new Button(this, 1168, y, '', () => this.open('Settings'), { width: 62, height: 58, mat: BONE }).setDepth(8000));
     gear.root.add(this.add.image(0, -3, SHEET, 'icon/gear').setScale(0.44));
+    this.gear = gear;
     this.gearRect = gear.rect;
   }
 
-  /** The buttons as they now stand: what BATTLE says, whether AUTO is lit, how many packs wait. */
+  /** The buttons as they now stand: what BATTLE says, whether AUTO is lit, how many are fielded and how many packs wait. */
   private refreshBottom(): void {
     const s = save();
     this.autoButton.setText(s.auto ? 'AUTO ON' : 'AUTO OFF').setMaterial(s.auto ? VENOM : IRON);
     const empty = s.team.length === 0;
     if (this.state === 'fighting') this.battleButton.setText('STOP').setMaterial(CLOTH.red).setEnabled(true);
+    // A result is gone on from by pressing it, or this: it does not have to be waited for.
+    else if (this.state === 'after') this.battleButton.setText('CONTINUE').setMaterial(GOLD).setEnabled(true);
     else {
       const n = this.count >= 0 && !this.waits() ? Math.ceil(this.count) : -1;
       this.shownCount = n;
@@ -294,15 +358,41 @@ export class MainScene extends Phaser.Scene {
     const quiet = this.state !== 'ready' || !!this.guide.step;
     this.note.setText(empty ? 'Your team is empty. Press UNITS and put someone in it.' : quiet ? '' : 'Drag your units to arrange them. Tap anyone to see who they are.');
 
-    for (const o of this.badge) o.destroy();
-    this.badge = [];
+    // A count is lit when it asks for something: a place that is free, with a card that could stand in it.
+    const units = unitsIn(s.team);
+    const built = structuresIn(s.team);
+    const spare = (structures: boolean): boolean => s.cards.some((c) => isStructure(c.unit) === structures && !s.team.some((p) => p.card === c.id));
+    this.unitsChip.set(`${units}/${teamSize(s)}`, units < teamSize(s) && spare(false));
+    this.builtChip.set(`${built}/${structuresSize(s)}`, built < structuresSize(s) && spare(true));
     const held = packsHeld(s);
-    if (held > 0) {
-      const dot = this.add.graphics().setDepth(8001);
-      dot.fillStyle(hex(OUTLINE), 1).fillCircle(496, 638, 17);
-      dot.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(496, 638, 13);
-      this.badge.push(dot, label(this, 496, 637, String(Math.min(99, held)), { size: 16, strokeWidth: 3 }).setDepth(8002));
-    }
+    this.packsChip.set(held > 0 ? String(Math.min(99, held)) : '', true);
+    this.hud();
+  }
+
+  /**
+   * Shows the menus or puts them away. They are away while a battle is
+   * fought and while its result is up; and beside the screen of cards, where
+   * the field is seen through a camera of its own, whatever of this screen
+   * would lie in that camera's sight is away too: the stage's plate and
+   * banner, the raids' button, the counts. It is asked whenever anything
+   * may have changed, and does something only when something has.
+   */
+  private hud(): void {
+    const drawer = this.overlay === 'Team';
+    const menus = this.state !== 'fighting' && this.state !== 'after';
+    const raid = raidOpen(save());
+    const key = (menus ? 1 : 0) | (drawer ? 2 : 0) | (raid ? 4 : 0);
+    if (key === this.hudKey) return;
+    this.hudKey = key;
+    for (const b of [this.unitsButton, this.builtButton, this.packsButton, this.gear, this.hall]) b.setVisible(menus);
+    this.raids.setVisible(menus && raid && !drawer);
+    this.level.setVisible(menus);
+    this.rewards.setVisible(menus);
+    for (const c of [this.unitsChip, this.builtChip, this.packsChip]) c.setVisible(menus && !drawer);
+    for (const o of this.top) (o as unknown as Phaser.GameObjects.Components.Visible).setVisible(!drawer);
+    this.banner?.setVisible(!drawer);
+    // The line under the plate is for between battles: in one, the back row's plates stand where it does.
+    for (const o of this.info) o.setVisible(menus && !drawer);
   }
 
   /** True while the count must not run: something is open over the board, or there is no one to fight. */
@@ -316,23 +406,36 @@ export class MainScene extends Phaser.Scene {
 
   // ------------------------------------------------------------ the run of battles
 
-  /** Stands the stage on show on the board, and starts the count if battles start by themselves. */
-  private arrive(seconds: number): void {
+  /**
+   * Stands the stage on show on the board, and starts the count if battles
+   * start by themselves. Coming from a battle's result (`after`), the
+   * result stays up until the stage stands, and goes in that same moment:
+   * the owner asked for "NO DELAY from the victory screen gone and the next
+   * level loaded", and the stage's art was brought in while the result was
+   * read (bringNext).
+   */
+  private arrive(seconds: number, after = false): void {
     const token = ++this.arrival;
     const s = save();
     tidyTeam(s);
-    this.state = 'loading';
     this.count = -1;
     this.teamKey = this.keyOf();
-    this.clearToast();
-    this.refreshTop();
-    this.refreshBottom();
-    if (this.overlay === 'Team') this.clearHud(true);
+    if (!after) {
+      this.state = 'loading';
+      this.clearToast();
+      this.refreshTop();
+      this.refreshBottom();
+    }
     void this.board
       .show(s.team, stageEnemies(this.at), stageSeed(s, this.at), [], stageAt(this.at).field)
       .then(() => {
         if (token !== this.arrival) return;
+        this.leaving = false;
         this.state = 'ready';
+        if (after) {
+          this.clearToast();
+          this.refreshTop();
+        }
         this.board.setPlacement(true);
         // Everyone's plate is up before the fight: what they stand at, and the health they start with.
         this.board.preview(stageInput(s, this.at));
@@ -340,9 +443,6 @@ export class MainScene extends Phaser.Scene {
         this.count = s.auto && seconds >= 0 ? seconds : -1;
         this.guide.refresh({ covered: !!this.overlay, busy: false });
         this.refreshBottom();
-        // A raid may have opened with the last win.
-        this.raids.setVisible(raidOpen(s) && this.overlay !== 'Team');
-        this.lead();
       });
   }
 
@@ -363,34 +463,70 @@ export class MainScene extends Phaser.Scene {
     ads().gameplayStop();
     const s = save();
     const won = winner === 0;
+    const boss = won && stageAt(this.at).def.kind === 'boss' && !stageCleared(s, this.at);
     const result = finishStage(s, this.at, won);
     this.next = afterBattle(s, this.at, result);
     commit();
     this.state = 'after';
+    this.leaving = false;
     // Long enough to be read: longer when a card made a level, and longer again when the win opened something.
+    // It does not have to be waited for: a press goes on at once.
     const news = result.moreTeam > 0 || result.moreStructures > 0 || result.opened.length > 0 || result.finished || result.playerLevels > 0;
+    this.afterFrom = this.time.now;
     this.afterUntil = this.time.now + 2500 + (result.levelUps.length > 0 ? 500 : 0) + (news ? 1300 : 0);
     this.showResult(winner, result);
-    this.refreshTop();
+    // The coins and the level changed. The rest of the top is made again when the next stage stands.
+    this.coins.refresh();
+    this.level.refresh();
     this.refreshBottom();
     this.guide.refresh({ busy: true });
+    // A boss's first fall is the portal's to cheer as well.
+    if (boss) ads().happy();
+    // And while the result is read, the next stage's art comes in: once the result's own things have had their moment.
+    const token = this.toastId;
+    this.time.delayedCall(700, () => {
+      if (token === this.toastId && this.state === 'after') this.bringNext();
+    });
+  }
+
+  /** Brings in whatever the next battle needs that is not here yet, so that it stands the moment it is asked for. */
+  private bringNext(): void {
+    const s = save();
+    if (landOf(this.next) !== landOf(this.at)) {
+      // Another land: its painted ground and its tiles are asked for now, to be at hand when the screen is made again.
+      const ground = landOf(this.next).ground;
+      const field = stageAt(this.next).field;
+      warmPicture('board', ground);
+      warmPicture('tiles', `${ground}-${field.cols}x${field.rows}`);
+    }
+    void this.board.prepare(s.team, stageEnemies(this.next));
+  }
+
+  /** A press on the result, or on CONTINUE: on to the next battle now. */
+  private pressOn(): void {
+    // A press that was meant for the battle that has just ended is not one for its result.
+    if (this.state !== 'after' || this.overlay || this.time.now < this.afterFrom + 350) return;
+    this.afterUntil = 0;
   }
 
   /** On to wherever the next battle is: the same board, or another land's. */
   private proceed(): void {
+    if (this.leaving) return;
+    this.leaving = true;
     if (landOf(this.next) !== landOf(this.at)) {
-      this.scene.restart();
+      this.scene.restart({ quick: true });
       return;
     }
     this.at = this.next;
-    this.arrive(COUNTDOWN.next);
+    this.arrive(COUNTDOWN.next, true);
   }
 
   override update(time: number, deltaMs: number): void {
     this.board.debugNote = `${this.state}${this.overlay ? ` under ${this.overlay}` : ''}`;
     this.board.update(deltaMs, this.speed);
     // A reward comes ready as the minutes pass: the count on its button keeps up.
-    this.rewards.refresh(rewardsWaiting(save(), today()));
+    const day = today();
+    this.rewards.refresh(rewardsWaiting(save(), day), playtimeLeft(save(), day));
     if (this.state === 'ready' && this.count >= 0 && !this.waits()) {
       // A slow frame counts whole, so that the count keeps to the clock on a slow phone.
       this.count -= Math.min(deltaMs, 250) / 1000;
@@ -406,6 +542,7 @@ export class MainScene extends Phaser.Scene {
 
   private pressBattle(): void {
     if (this.state === 'ready') this.fight();
+    else if (this.state === 'after') this.pressOn();
     else if (this.state === 'fighting') {
       // STOP calls the battle off, and that is all it does. It used to open UNITS as well; the owner, of
       // 24 November 2026: "why every time i stop a battle it opens the unit screen".
@@ -439,13 +576,6 @@ export class MainScene extends Phaser.Scene {
     save().speed = this.speed;
     commit();
     this.speedButton.setText(`${this.speed}x`);
-  }
-
-  /** Opens whatever screen a tutorial asks to be shown by itself: the rewards, straight after the first one. */
-  private lead(): void {
-    if (this.overlay || this.state === 'fighting') return;
-    const key = tourOpens(save());
-    if (key) this.open(key);
   }
 
   private open(key: string, data?: object): void {
@@ -497,20 +627,7 @@ export class MainScene extends Phaser.Scene {
     this.shade.setVisible(on && !drawer);
     // The line under the board is for the field alone.
     this.note.setVisible(!on);
-    this.clearHud(drawer);
-  }
-
-  /**
-   * Beside the screen of cards the field is shown through a camera of its
-   * own, and what of the main screen's own buttons would lie in its sight
-   * is put away: the stage's plate and banner, the raids' button, the count
-   * of packs. They come back when the screen shuts.
-   */
-  private clearHud(away: boolean): void {
-    for (const o of this.top) (o as unknown as Phaser.GameObjects.Components.Visible).setVisible(!away);
-    if (away) for (const o of this.info) o.setVisible(false);
-    for (const o of this.badge) (o as unknown as Phaser.GameObjects.Components.Visible).setVisible(!away);
-    this.raids.setVisible(!away && raidOpen(save()));
+    this.hud();
   }
 
   private onOverlayClosed(key: string): void {
@@ -552,6 +669,8 @@ export class MainScene extends Phaser.Scene {
   // ------------------------------------------------------------ what a battle came to
 
   private clearToast(): void {
+    // Whatever of a result had not come in yet never does.
+    this.toastId++;
     for (const o of this.toast) o.destroy();
     this.toast = [];
   }
@@ -561,7 +680,13 @@ export class MainScene extends Phaser.Scene {
    * asked for them ("more clear what items did you get / then which unit
    * leveled up"): what was won, as pictures of the things; the cards that
    * made a level, as the units they are; the player's own level; and
-   * whatever the win opened. The next battle does not wait for a press.
+   * whatever the win opened. The next battle does not wait for a press, and
+   * a press does not have to wait for it: the owner, of the victory screen,
+   * "Make it clickable".
+   *
+   * Each part is made at the moment it comes in, not all of it at once.
+   * Made at once it was a dozen pieces of text and as many drawings in the
+   * frame the battle ended in, which is the frame a slow phone stalled on.
    */
   private showResult(winner: number, r: StageResult): void {
     this.clearToast();
@@ -640,11 +765,15 @@ export class MainScene extends Phaser.Scene {
     banner.setScale(0.2).setAlpha(0);
     this.tweens.add({ targets: banner, scale: 1, alpha: 1, duration: 320, ease: 'Back.easeOut' });
 
-    /** Brings a group of things in with a small jump, after a wait. */
-    const pop = (things: Phaser.GameObjects.GameObject[], delay: number, sound?: () => void): void => {
-      const root = add(this.add.container(0, 0, things).setDepth(9001).setAlpha(0));
-      root.y = 12;
-      this.tweens.add({ targets: root, alpha: 1, y: 0, duration: 220, delay, ease: 'Back.easeOut', onStart: sound });
+    /** Makes a group of things when its moment comes, and brings it in with a small jump. */
+    const id = this.toastId;
+    const pop = (make: () => Phaser.GameObjects.GameObject[], delay: number, sound?: () => void): void => {
+      this.time.delayedCall(delay, () => {
+        if (id !== this.toastId) return;
+        const root = add(this.add.container(0, 12, make()).setDepth(9001).setAlpha(0));
+        sound?.();
+        this.tweens.add({ targets: root, alpha: 1, y: 0, duration: 220, ease: 'Back.easeOut' });
+      });
     };
 
     // 1. What was won, a tile to each thing.
@@ -652,13 +781,17 @@ export class MainScene extends Phaser.Scene {
     let x = cx - lootW / 2;
     let wait = 260;
     for (const l of loot) {
-      const mid = x + l.w / 2;
-      const tile = this.add.graphics();
-      slab(tile, x, y, l.w, lootH - 14, BONE, 14, 6);
-      const big = label(this, mid, y + 82, l.big, { size: 22, color: l.color ?? HIGHLIGHT, strokeWidth: 6 });
-      const small = label(this, mid, y + 106, l.small, { size: l.small.length > 14 ? 11 : 13, weight: 600, color: OUTLINE, stroke: null });
+      const lx = x;
+      const ly = y;
       const sound = l.sound;
-      pop([tile, ...l.draw(mid, y + 36), big, small], wait, sound ? () => sfx.play(sound, 0.8) : undefined);
+      pop(() => {
+        const mid = lx + l.w / 2;
+        const tile = this.add.graphics();
+        slab(tile, lx, ly, l.w, lootH - 14, BONE, 14, 6);
+        const big = label(this, mid, ly + 82, l.big, { size: 22, color: l.color ?? HIGHLIGHT, strokeWidth: 6 });
+        const small = label(this, mid, ly + 106, l.small, { size: l.small.length > 14 ? 11 : 13, weight: 600, color: OUTLINE, stroke: null });
+        return [tile, ...l.draw(mid, ly + 36), big, small];
+      }, wait, sound ? () => sfx.play(sound, 0.8) : undefined);
       x += l.w + 10;
       wait += 130;
     }
@@ -667,21 +800,24 @@ export class MainScene extends Phaser.Scene {
     // 2. Who made a level: the unit itself, on its tier's color, and the level it is at now.
     if (ups.length > 0) {
       wait += 120;
-      const title = label(this, cx, y + 8, r.levelUps.length > ups.length ? `LEVEL UP, AND ${r.levelUps.length - ups.length} MORE` : 'LEVEL UP', { size: 17, color: VENOM.light, strokeWidth: 5 });
-      pop([title], wait, () => sfx.play('levelUp'));
+      const ty = y;
+      pop(() => [label(this, cx, ty + 8, r.levelUps.length > ups.length ? `LEVEL UP, AND ${r.levelUps.length - ups.length} MORE` : 'LEVEL UP', { size: 17, color: VENOM.light, strokeWidth: 5 })], wait, () => sfx.play('levelUp'));
       let ux = cx - (ups.length * 104 - 10) / 2;
       for (const up of ups) {
-        const def = UNITS[up.unit];
-        const tile = this.add.graphics();
-        slab(tile, ux, y + 24, 94, 92, RARITY_MAT[def.rarity], 12, 5);
-        tile.fillStyle(hex(HIGHLIGHT), 0.35).fillRoundedRect(ux + 6, y + 30, 82, 56, 8);
-        const pic = portrait(this, ux + 47, y + 86, def.id, 'blue', 54);
-        if (pic.displayWidth > 78) pic.setScale((pic.scaleX * 78) / pic.displayWidth);
-        const to = label(this, ux + 47, y + 100, `Lv ${up.to}`, { size: 17, strokeWidth: 5 });
-        // An arrow that points up, beside the level: it rose.
-        const arrow = this.add.image(ux + 80, y + 40, SHEET, 'icon/arrow').setScale(0.22).setAngle(-90).setTint(hex(VENOM.light));
+        const at = ux;
         wait += 90;
-        pop([tile, pic, to, arrow], wait);
+        pop(() => {
+          const def = UNITS[up.unit];
+          const tile = this.add.graphics();
+          slab(tile, at, ty + 24, 94, 92, RARITY_MAT[def.rarity], 12, 5);
+          tile.fillStyle(hex(HIGHLIGHT), 0.35).fillRoundedRect(at + 6, ty + 30, 82, 56, 8);
+          const pic = portrait(this, at + 47, ty + 86, def.id, 'blue', 54);
+          if (pic.displayWidth > 78) pic.setScale((pic.scaleX * 78) / pic.displayWidth);
+          const to = label(this, at + 47, ty + 100, `Lv ${up.to}`, { size: 17, strokeWidth: 5 });
+          // An arrow that points up, beside the level: it rose.
+          const arrow = this.add.image(at + 80, ty + 40, SHEET, 'icon/arrow').setScale(0.22).setAngle(-90).setTint(hex(VENOM.light));
+          return [tile, pic, to, arrow];
+        }, wait);
         ux += 104;
       }
       y += upsH;
@@ -690,25 +826,35 @@ export class MainScene extends Phaser.Scene {
     // 3. The player's own level: a bar that fills by what the battle taught.
     {
       wait += 140;
-      const p = save().player;
-      const need = playerXpToNext(p.level);
-      const bw = 300;
-      const bx = cx - bw / 2 + 40;
-      const bar = this.add.graphics();
-      bar.fillStyle(hex(OUTLINE), 1).fillRoundedRect(bx - 4, y + 8, bw + 8, 22, 10);
-      bar.fillStyle(hex(IRON.fill), 1).fillRoundedRect(bx, y + 12, bw, 14, 6);
-      const share = p.level >= PLAYER_MAX_LEVEL ? 1 : Math.min(1, p.xp / need);
-      if (share > 0.02) bar.fillStyle(hex(HOLY.fill), 1).fillRoundedRect(bx, y + 12, bw * share, 14, 6);
-      const name = label(this, bx - 14, y + 18, `YOUR LEVEL ${p.level}`, { size: 16, align: 'right', strokeWidth: 5 });
-      const got = label(this, bx + bw + 12, y + 18, `+${r.playerXp}`, { size: 16, align: 'left', color: HOLY.fill, strokeWidth: 5 });
-      pop([bar, name, got], wait, r.playerLevels > 0 ? () => sfx.play('levelUp', 1, 1.25) : undefined);
+      const by = y;
+      pop(() => {
+        const p = save().player;
+        const need = playerXpToNext(p.level);
+        const bw = 300;
+        const bx = cx - bw / 2 + 40;
+        const bar = this.add.graphics();
+        bar.fillStyle(hex(OUTLINE), 1).fillRoundedRect(bx - 4, by + 8, bw + 8, 22, 10);
+        bar.fillStyle(hex(IRON.fill), 1).fillRoundedRect(bx, by + 12, bw, 14, 6);
+        const share = p.level >= PLAYER_MAX_LEVEL ? 1 : Math.min(1, p.xp / need);
+        if (share > 0.02) bar.fillStyle(hex(HOLY.fill), 1).fillRoundedRect(bx, by + 12, bw * share, 14, 6);
+        const name = label(this, bx - 14, by + 18, `YOUR LEVEL ${p.level}`, { size: 16, align: 'right', strokeWidth: 5 });
+        const got = label(this, bx + bw + 12, by + 18, `+${r.playerXp}`, { size: 16, align: 'left', color: HOLY.fill, strokeWidth: 5 });
+        return [bar, name, got];
+      }, wait, r.playerLevels > 0 ? () => sfx.play('levelUp', 1, 1.25) : undefined);
       y += barH;
     }
 
     // 4. And whatever else it changed, a line each.
     news.forEach((n, i) => {
-      const t = label(this, cx, y + 8 + i * lineH, n.text, { size: crowded ? 17 : 20, color: n.color, strokeWidth: crowded ? 5 : 6 });
-      pop([t], wait + 160 + i * 110);
+      const ny = y + 8 + i * lineH;
+      pop(() => [label(this, cx, ny, n.text, { size: crowded ? 17 : 20, color: n.color, strokeWidth: crowded ? 5 : 6 })], wait + 160 + i * 110);
     });
+
+    // Under it all, once there has been time to see it: it need not be waited for.
+    pop(() => {
+      const hint = label(this, cx, top + tall + 22, 'TAP TO CONTINUE', { size: 15, color: HIGHLIGHT, strokeWidth: 5 });
+      this.tweens.add({ targets: hint, alpha: 0.45, duration: 600, yoyo: true, repeat: -1 });
+      return [hint];
+    }, 650);
   }
 }

@@ -5,6 +5,7 @@ import Phaser from 'phaser';
 import { BONE, GOLD, HIGHLIGHT, OUTLINE, type Material } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { FONT, RES, hex } from '../config';
+import { BAKE_PAD, slabKey } from './bake';
 
 export interface TextOpts {
   size?: number;
@@ -80,11 +81,12 @@ export interface ButtonOpts {
 
 /**
  * A button. Never smaller than 44 px either way, which is what a finger
- * needs. It sinks when pressed and fires when let go over it.
+ * needs. It sinks when pressed and fires when let go over it. Its slab is a
+ * picture made once for its size and color (bake.ts), up and down.
  */
 export class Button {
   readonly root: Phaser.GameObjects.Container;
-  private readonly g: Phaser.GameObjects.Graphics;
+  private readonly slab: Phaser.GameObjects.Image;
   private readonly text: Phaser.GameObjects.Text;
   private readonly w: number;
   private readonly h: number;
@@ -93,7 +95,7 @@ export class Button {
   private down = false;
 
   constructor(
-    scene: Phaser.Scene,
+    private readonly scene: Phaser.Scene,
     x: number,
     y: number,
     text: string,
@@ -104,9 +106,9 @@ export class Button {
     this.h = Math.max(44, o.height ?? 64);
     this.mat = o.mat ?? GOLD;
     this.root = scene.add.container(x, y);
-    this.g = scene.add.graphics();
+    this.slab = scene.add.image(0, 0, slabKey(scene, this.w, this.h, this.mat, 16, 7));
     this.text = label(scene, 0, -3, text, { size: o.size ?? 30, color: o.color });
-    this.root.add([this.g, this.text]);
+    this.root.add([this.slab, this.text]);
     this.root.setSize(this.w, this.h);
     this.root.setInteractive({ useHandCursor: true });
     this.root.on('pointerdown', () => {
@@ -133,10 +135,13 @@ export class Button {
   }
 
   private draw(): void {
-    const g = this.g;
-    g.clear();
+    // Pressed, it is a little shorter and its lip thinner: it has gone down into the page.
     const sink = this.down ? 4 : 0;
-    slab(g, -this.w / 2, -this.h / 2 + sink, this.w, this.h - sink, this.mat, 16, this.down ? 3 : 7);
+    const h = this.h - sink;
+    this.slab
+      .setTexture(slabKey(this.scene, this.w, h, this.mat, 16, this.down ? 3 : 7))
+      .setDisplaySize(this.w + BAKE_PAD * 2, h + BAKE_PAD * 2)
+      .setY(sink / 2);
     this.text.y = -3 + sink;
     this.root.alpha = this.enabled ? 1 : 0.5;
   }

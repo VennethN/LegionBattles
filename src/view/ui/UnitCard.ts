@@ -12,10 +12,11 @@ import { inTeam, known } from '../../game/rules';
 import type { Card, SaveData } from '../../game/state';
 import { getManifest } from '../app';
 import { hex } from '../config';
+import { BAKE_PAD, baked, roundRect, slabOn } from './bake';
 import { CARDS, SHEET, portraitFrame } from '../Sheet';
 import { RARITY_MAT } from './colors';
 import { gradeBadge } from './grade';
-import { label, slab } from './widgets';
+import { label } from './widgets';
 
 export interface CardOpts {
   width?: number;
@@ -64,12 +65,19 @@ export function unitCard(
   const card = o.card;
   const isKnown = !!card || known(save, def);
   const root = scene.add.container(x, y);
-  const g = scene.add.graphics();
-  slab(g, -w / 2, -h / 2, w, h, isKnown ? RARITY_MAT[def.rarity] : IRON, 14, 6);
-  // A lighter window behind the figure, so that it stands out from its tier's color.
-  g.fillStyle(hex(isKnown ? HIGHLIGHT : OUTLINE), isKnown ? 0.35 : 0.3);
-  g.fillRoundedRect(-w / 2 + 8, -h / 2 + 8, w - 16, h - (o.bare ? 22 : 40), 9);
-  root.add(g);
+  // The tile is a picture made once for its size and tier (bake.ts): a screen of twenty cards drew twenty of these as shapes, every frame.
+  const mat = isKnown ? RARITY_MAT[def.rarity] : IRON;
+  const windowH = h - (o.bare ? 22 : 40);
+  const tile = baked(scene, `card:${w}x${h}:${mat.fill}${mat.shade}:${isKnown ? 1 : 0}:${windowH}`, w + BAKE_PAD * 2, h + BAKE_PAD * 2, (ctx) => {
+    slabOn(ctx, BAKE_PAD, BAKE_PAD, w, h, mat, 14, 6);
+    // A lighter window behind the figure, so that it stands out from its tier's color.
+    ctx.globalAlpha = isKnown ? 0.35 : 0.3;
+    ctx.fillStyle = isKnown ? HIGHLIGHT : OUTLINE;
+    roundRect(ctx, BAKE_PAD + 8, BAKE_PAD + 8, w - 16, windowH, 9);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
+  root.add(scene.add.image(0, 0, tile).setDisplaySize(w + BAKE_PAD * 2, h + BAKE_PAD * 2));
 
   const nameRoom = o.bare ? 8 : 26;
   const pic = portrait(scene, 0, h / 2 - nameRoom - 8, unit, o.enemy ? 'red' : 'blue', h - nameRoom - 26, !isKnown);

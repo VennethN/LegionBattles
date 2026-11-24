@@ -42,6 +42,7 @@ import { burst, cardFace, rays, type Adder } from '../ui/fanfare';
 import { Guide, type Rect } from '../ui/Guide';
 import { portrait } from '../ui/UnitCard';
 import { PH, PW, PX, PY } from '../ui/UnitPanel';
+import { freeze, pillImage, slabImage } from '../ui/bake';
 import { Button, label, plain, slab } from '../ui/widgets';
 
 /** The slots stand as the cards on the screen of units do. */
@@ -177,9 +178,8 @@ export class ShopScene extends Phaser.Scene {
       const open = packShown(s, sl.pack);
       const held = s.packs[sl.pack.id] ?? 0;
       const root = add(this.add.container(x, y));
-      const g = this.add.graphics();
-      slab(g, -SLOT_W / 2, -SLOT_H / 2, SLOT_W, SLOT_H, open ? BONE : IRON, 14, 6);
-      root.add(g);
+      // A slot's plate, its chip and its count are pictures made once (ui/bake.ts): there are twenty slots.
+      root.add(slabImage(this, -SLOT_W / 2, -SLOT_H / 2, SLOT_W, SLOT_H, open ? BONE : IRON, 14, 6));
       const art = this.add.image(0, -16, CARDS, `pack/${sl.base.id}`).setScale(0.25);
       root.add(art);
       const lap = sl.pack.lap ?? 0;
@@ -190,19 +190,14 @@ export class ShopScene extends Phaser.Scene {
         root.add(label(this, 0, SLOT_H / 2 - 18, '???', { size: 15, strokeWidth: 4 }));
       } else if (sl.base.land) {
         // Which difficulty's pack it is, on that difficulty's color.
-        const chip = this.add.graphics();
-        slab(chip, -SLOT_W / 2 + 8, SLOT_H / 2 - 32, SLOT_W - 16, 24, DIFFICULTY_MAT[lap], 8, 3);
-        root.add(chip);
+        root.add(slabImage(this, -SLOT_W / 2 + 8, SLOT_H / 2 - 32, SLOT_W - 16, 24, DIFFICULTY_MAT[lap], 8, 3));
         root.add(label(this, 0, SLOT_H / 2 - 21, DIFFICULTIES[lap].toUpperCase(), { size: 13, strokeWidth: 4 }));
       } else {
         root.add(label(this, 0, SLOT_H / 2 - 20, sl.base.name.replace(' Pack', ''), { size: 15, color: OUTLINE, stroke: null }));
       }
       if (held > 0) {
         // How many are held, on a red disc in the corner, as the PACKS button on the main screen counts them.
-        const badge = this.add.graphics();
-        badge.fillStyle(hex(OUTLINE), 1).fillCircle(SLOT_W / 2 - 16, -SLOT_H / 2 + 16, 17);
-        badge.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(SLOT_W / 2 - 16, -SLOT_H / 2 + 16, 13);
-        root.add(badge);
+        root.add(pillImage(this, SLOT_W / 2 - 16, -SLOT_H / 2 + 16, 26, 26, CLOTH.red.fill));
         root.add(label(this, SLOT_W / 2 - 16, -SLOT_H / 2 + 15, String(Math.min(held, 99)), { size: 15, strokeWidth: 3 }));
       }
       root.setSize(SLOT_W, SLOT_H);
@@ -243,10 +238,11 @@ export class ShopScene extends Phaser.Scene {
     const open = packShown(s, pack);
     const cx = PX + PW / 2;
     const dark = { color: OUTLINE, stroke: null as null };
-    const g = add(this.add.graphics());
+    const g = this.add.graphics();
     slab(g, PX, PY, PW, PH, BONE, 22, 8);
     const window: Material = !open ? IRON : sl.base.land ? DIFFICULTY_MAT[lap] : GOLD;
     slab(g, PX + 14, PY + 14, PW - 28, 196, window, 16, 5);
+    add(freeze(g, PX - 4, PY - 4, PW + 8, PH + 8));
     const art = add(this.add.image(cx, PY + 112, CARDS, `pack/${sl.base.id}`).setScale(0.5));
 
     if (!open) {
@@ -290,8 +286,7 @@ export class ShopScene extends Phaser.Scene {
       const x = x0 + (i % per) * pitch;
       const y = y0 + Math.floor(i / per) * pitch;
       const met = known(s, unit);
-      const tile = add(this.add.graphics());
-      slab(tile, x - 21, y - 21, 42, 42, met ? RARITY_MAT[unit.rarity] : IRON, 8, 3);
+      add(slabImage(this, x - 21, y - 21, 42, 42, met ? RARITY_MAT[unit.rarity] : IRON, 8, 3));
       const pic = add(portrait(this, x, y + 17, unit.id, 'blue', 32, !met));
       // A wall or a trap is wider than it is tall: it is kept inside its tile.
       if (pic.displayWidth > 38) pic.setScale((pic.scaleX * 38) / pic.displayWidth);
@@ -310,8 +305,7 @@ export class ShopScene extends Phaser.Scene {
     tiers.forEach((r, i) => {
       const x = tx0 + i * tw;
       const share = odds.filter((o) => o.unit.rarity === r).reduce((n, o) => n + o.chance, 0);
-      const dot = add(this.add.graphics());
-      slab(dot, x - 28, ny + 16, 14, 14, RARITY_MAT[r], 4, 2);
+      add(slabImage(this, x - 28, ny + 16, 14, 14, RARITY_MAT[r], 4, 2));
       add(label(this, x - 10, ny + 23, percent(share), { size: 13, weight: 600, align: 'left', ...dark }));
     });
 

@@ -26,7 +26,8 @@ import { commit, save } from '../session';
 import { OverlayHead, TABS_Y } from '../ui/chrome';
 import { PH, PW, PX, PY } from '../ui/UnitPanel';
 import { Guide } from '../ui/Guide';
-import { Button, label, plain, slab } from '../ui/widgets';
+import { baked, pillImage, roundRect, slabImage } from '../ui/bake';
+import { Button, label, plain } from '../ui/widgets';
 
 type Page = 'skills' | 'upgrades';
 type Adder = <T extends Phaser.GameObjects.GameObject>(o: T) => T;
@@ -154,27 +155,29 @@ export class PlayerScene extends Phaser.Scene {
       const shut = rank === 0 && why === 'needs';
       const mat: Material = shut ? IRON : rank > 0 ? BRANCH_MAT[node.branch] : BONE;
       const root = add(this.add.container(x, y));
-      const g = this.add.graphics();
-      slab(g, -NODE / 2, -NODE / 2, NODE, NODE, mat, 18, 7);
-      root.add(g);
+      // A node's plate, its pips and its mark are pictures made once (ui/bake.ts): drawn as shapes, the tree was a hundred rounded things a frame.
+      root.add(slabImage(this, -NODE / 2, -NODE / 2, NODE, NODE, mat, 18, 7));
       const icon = this.add.image(0, -12, SHEET, `icon/${node.icon}`).setScale(0.58);
       if (shut) icon.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.6);
       root.add(icon);
       // Its ranks, as pips along its foot: filled for the ones bought.
       const pipW = 12;
       const px0 = -((node.ranks - 1) * (pipW + 3)) / 2;
-      const pips = this.add.graphics();
-      for (let i = 0; i < node.ranks; i++) {
-        pips.fillStyle(hex(OUTLINE), 1).fillRoundedRect(px0 + i * (pipW + 3) - pipW / 2 - 2, 26, pipW + 4, 14, 4);
-        pips.fillStyle(hex(i < rank ? GOLD.fill : IRON.shade), 1).fillRoundedRect(px0 + i * (pipW + 3) - pipW / 2, 28, pipW, 10, 3);
-      }
-      root.add(pips);
+      const pipsW = node.ranks * (pipW + 3) + 1;
+      const pips = baked(this, `pips:${node.ranks}:${rank}`, pipsW, 14, (ctx) => {
+        for (let i = 0; i < node.ranks; i++) {
+          ctx.fillStyle = OUTLINE;
+          roundRect(ctx, i * (pipW + 3), 0, pipW + 4, 14, 4);
+          ctx.fill();
+          ctx.fillStyle = i < rank ? GOLD.fill : IRON.shade;
+          roundRect(ctx, i * (pipW + 3) + 2, 2, pipW, 10, 3);
+          ctx.fill();
+        }
+      });
+      root.add(this.add.image(px0 - pipW / 2 - 2, 26, pips).setOrigin(0, 0).setDisplaySize(pipsW, 14));
       if (why === null) {
         // A point can go here: a mark in its corner says so.
-        const dot = this.add.graphics();
-        dot.fillStyle(hex(OUTLINE), 1).fillCircle(NODE / 2 - 10, -NODE / 2 + 10, 13);
-        dot.fillStyle(hex(HOLY.fill), 1).fillCircle(NODE / 2 - 10, -NODE / 2 + 10, 9);
-        root.add(dot);
+        root.add(pillImage(this, NODE / 2 - 10, -NODE / 2 + 10, 18, 18, HOLY.fill));
       }
       root.setSize(NODE, NODE);
       root.setInteractive({ useHandCursor: true });
@@ -208,9 +211,8 @@ export class PlayerScene extends Phaser.Scene {
     const why = whyNoRank(s, node);
     const cx = PX + PW / 2;
     const dark = { color: OUTLINE, stroke: null as null };
-    const g = add(this.add.graphics());
-    slab(g, PX, PY, PW, PH, BONE, 22, 8);
-    slab(g, PX + 14, PY + 14, PW - 28, 132, BRANCH_MAT[node.branch], 16, 5);
+    add(slabImage(this, PX, PY, PW, PH, BONE, 22, 8));
+    add(slabImage(this, PX + 14, PY + 14, PW - 28, 132, BRANCH_MAT[node.branch], 16, 5));
     add(this.add.image(cx, PY + 78, SHEET, `icon/${node.icon}`).setScale(1));
     add(label(this, cx, PY + 174, node.name, { size: 28 }));
     add(label(this, cx, PY + 204, `${BRANCH_NAME[node.branch]}  ·  rank ${rank} of ${node.ranks}`, { size: 15, weight: 600, ...dark }));
@@ -290,9 +292,8 @@ export class PlayerScene extends Phaser.Scene {
       const y = 82 + i * (h + 10);
       const level = upgradeLevel(s, up.id);
       const cost = upgradeCost(s, up);
-      const g = add(this.add.graphics());
-      slab(g, x, y, w, h, BONE, 16, 6);
-      slab(g, x + 12, y + 12, 76, 76, level > 0 ? GOLD : IRON, 12, 4);
+      add(slabImage(this, x, y, w, h, BONE, 16, 6));
+      add(slabImage(this, x + 12, y + 12, 76, 76, level > 0 ? GOLD : IRON, 12, 4));
       add(this.add.image(x + 50, y + 48, SHEET, `icon/${up.icon}`).setScale(0.62));
       add(label(this, x + 106, y + 28, up.name, { size: 22, align: 'left' }));
       add(label(this, x + 106, y + 56, up.text.replace('{amount}', percent(up.perLevel * Math.max(1, level))).replace(/\.$/, level > 0 ? '.' : ', a level.'), { size: 14, weight: 600, align: 'left', ...dark }));
@@ -315,8 +316,7 @@ export class PlayerScene extends Phaser.Scene {
       add(b.root);
     });
     // On the right, what it all adds up to.
-    const g = add(this.add.graphics());
-    slab(g, PX, PY, PW, PH, BONE, 22, 8);
+    add(slabImage(this, PX, PY, PW, PH, BONE, 22, 8));
     add(label(this, PX + PW / 2, PY + 40, 'Upgrades', { size: 28 }));
     add(label(this, PX + 24, PY + 74, 'Coins buy these for good. Each level costs more than the last, and what they give is added to what the skill tree gives.', {
       size: 15, weight: 600, align: 'left', wrap: PW - 48, ...dark,

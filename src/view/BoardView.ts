@@ -28,6 +28,7 @@ import { scenePicture } from './Scenes';
 import { SHEET, sheet } from './Sheet';
 import { RARITY_MAT, STATUS_COLOR } from './ui/colors';
 import { ROLE_NAME } from './ui/UnitPanel';
+import { baked, roundRect } from './ui/bake';
 import { label, slab } from './ui/widgets';
 import { UnitView } from './UnitView';
 
@@ -51,7 +52,7 @@ export interface BoardHooks {
    * for a unit, and that unit has no chips.
    */
   standingOf?: (p: Placement, team: 'blue' | 'red') => { level: number; grade: number } | undefined;
-  /** One of the player's own was tapped, and not dragged. */
+  /** One of the player's own was tapped, and not dragged, while no battle was on. */
   onTapOwn?: (p: Placement) => void;
 }
 
@@ -91,7 +92,8 @@ export class BoardView {
   private shotIds: number[] = [];
   private callouts: Phaser.GameObjects.Text[] = [];
   private calloutAt: number[] = [];
-  private tileHints: Phaser.GameObjects.Graphics;
+  /** The player's tiles, lit while the team may be arranged: one picture, laid on each tile. */
+  private tileHints: Phaser.GameObjects.Container;
   private hintTween: Phaser.Tweens.Tween | null = null;
   private dropMark: Phaser.GameObjects.Graphics;
   private pipIds: number[] = [0, 0, 0, 0];
@@ -128,9 +130,10 @@ export class BoardView {
       const v = this.viewAt(p.worldX, p.worldY);
       if (!v) return;
       // One of the player's own opens its card where the cards are; an enemy says who it is here, until the next tap.
-      if (v.team === 'blue') {
+      // In a battle the screens are put away, so there the player's own say who they are as the enemy do.
+      if (v.team === 'blue' && !this.battle) {
         const i = this.mine.indexOf(v);
-        if (i >= 0 && !this.battle) this.hooks.onTapOwn?.(this.team[i]);
+        if (i >= 0) this.hooks.onTapOwn?.(this.team[i]);
       } else if (v !== had) this.showTip(v);
     });
     // Whoever can be tapped says so: a ring under them while the pointer is over them, and a hand for a pointer.
@@ -148,7 +151,7 @@ export class BoardView {
     this.numbers = new Numbers(scene);
     this.dropMark = scene.add.graphics().setDepth(20);
     // The player's half, marked while they may arrange it. Drawn when a field is shown.
-    this.tileHints = scene.add.graphics().setDepth(2).setVisible(false);
+    this.tileHints = scene.add.container(0, 0).setDepth(2).setVisible(false);
     this.debugG = scene.add.graphics().setDepth(8500).setVisible(false);
     this.debugText = label(scene, 12, H - 4, '', { size: 13, weight: 600, align: 'left' }).setOrigin(0, 1).setDepth(8501).setVisible(false);
     for (let i = 0; i < 6; i++) {
@@ -183,11 +186,18 @@ export class BoardView {
     this.fx.zoom = this.lay.zoom;
     this.numbers.zoom = this.lay.zoom;
     const { tileW, tileH, zoom } = this.lay;
-    this.tileHints.clear();
-    this.tileHints.fillStyle(hex(HIGHLIGHT), 0.16);
+    // Drawn as shapes, three dozen rounded tiles were cut into triangles again every frame (ui/bake.ts).
+    this.tileHints.removeAll(true);
+    const hw = tileW - 12 * zoom;
+    const hh = tileH - 12 * zoom;
+    const hint = baked(this.scene, `hint:${Math.round(hw)}x${Math.round(hh)}`, hw, hh, (ctx) => {
+      ctx.fillStyle = HIGHLIGHT;
+      roundRect(ctx, 0, 0, hw, hh, 10 * zoom);
+      ctx.fill();
+    });
     for (let row = 0; row < this.lay.rows; row++) {
       for (let col = 0; col < this.lay.half; col++) {
-        this.tileHints.fillRoundedRect(BOARD_X + col * tileW + 6 * zoom, BOARD_Y + row * tileH + 6 * zoom, tileW - 12 * zoom, tileH - 12 * zoom, 10 * zoom);
+        this.tileHints.add(this.scene.add.image(BOARD_X + col * tileW + 6 * zoom, BOARD_Y + row * tileH + 6 * zoom, hint).setOrigin(0, 0).setDisplaySize(hw, hh).setAlpha(0.16));
       }
     }
     // The tiles are a picture of their own, one to a field, laid over the ground's slab (art/backdrop.ts).
@@ -216,22 +226,7 @@ export class BoardView {
     this.enemies = enemies;
     this.seed = seed;
     const atlas = sheet(this.scene.game, getManifest());
-    // Whoever may be called up in the middle of the battle, by a barracks or by a boss: their art has to be there when they come.
-    const called = (side: readonly Placement[], color: string): Array<{ team: string; unit: string }> => {
-      const out: Array<{ team: string; unit: string }> = [];
-      for (const p of side) {
-        const unit = p.summons?.unit ?? UNITS[p.unit]?.summons?.unit;
-        if (unit) out.push({ team: color, unit });
-      }
-      return out;
-    };
-    const wanted = [
-      ...team.map((p) => ({ team: 'blue', unit: p.unit })),
-      ...enemies.map((p) => ({ team: 'red', unit: p.unit })),
-      ...called(team, 'blue'),
-      ...called(enemies, 'red'),
-      ...more.map((unit) => ({ team: 'red', unit })),
-    ];
+    const wanted = this.wantedOf(team, enemies, more);
     // If the sheet has to make room, the units standing here go first: they are drawn from it.
     this.offWipe?.();
     this.offWipe = atlas.onWipe(() => this.clearUnits());
@@ -248,6 +243,35 @@ export class BoardView {
       this.views = [...this.mine, ...theirs];
       this.loading = false;
     });
+  }
+
+  /** Everyone whose art a stage needs: both sides, and whoever either may call up in the middle of the battle. */
+  private wantedOf(team: readonly Placement[], enemies: readonly Placement[], more: readonly string[]): Array<{ team: string; unit: string }> {
+    // Called up by a barracks or by a boss: their art has to be there when they come.
+    const called = (side: readonly Placement[], color: string): Array<{ team: string; unit: string }> => {
+      const out: Array<{ team: string; unit: string }> = [];
+      for (const p of side) {
+        const unit = p.summons?.unit ?? UNITS[p.unit]?.summons?.unit;
+        if (unit) out.push({ team: color, unit });
+      }
+      return out;
+    };
+    return [
+      ...team.map((p) => ({ team: 'blue', unit: p.unit })),
+      ...enemies.map((p) => ({ team: 'red', unit: p.unit })),
+      ...called(team, 'blue'),
+      ...called(enemies, 'red'),
+      ...more.map((unit) => ({ team: 'red', unit })),
+    ];
+  }
+
+  /**
+   * Brings in the art of a stage that is about to be shown, while what is
+   * on the board stays there: show() then finds it all and stands the stage
+   * at once.
+   */
+  prepare(team: readonly Placement[], enemies: readonly Placement[], more: readonly string[] = []): Promise<void> {
+    return sheet(this.scene.game, getManifest()).prepare(this.scene, this.wantedOf(team, enemies, more));
   }
 
   /** Keeps the enemy out of a camera's sight: beside the screen of cards only the player's own half is shown. */

@@ -18,7 +18,8 @@ import { BONE } from '../../art/kit/palette';
 import { RARITY_MAT } from './colors';
 import { gradeBadge } from './grade';
 import { portrait } from './UnitCard';
-import { label, slab } from './widgets';
+import { slabImage } from './bake';
+import { label } from './widgets';
 
 /** Where the panel stands: the right of a screen that has a grid of cards on its left. */
 /** What each role is called, wherever a unit is described. */
@@ -56,9 +57,9 @@ export interface PanelOpts {
  */
 export function unitPanel(scene: Phaser.Scene, add: Adder, def: UnitInfo, o: PanelOpts): number {
   const cx = PX + PW / 2;
-  const g = add(scene.add.graphics());
-  slab(g, PX, PY, PW, PH, BONE, 22, 8);
-  slab(g, PX + 14, PY + 14, PW - 28, 150, o.known ? RARITY_MAT[def.rarity] : IRON, 16, 5);
+  // The panel and the window its unit stands in are pictures made once (bake.ts).
+  add(slabImage(scene, PX, PY, PW, PH, BONE, 22, 8));
+  add(slabImage(scene, PX + 14, PY + 14, PW - 28, 150, o.known ? RARITY_MAT[def.rarity] : IRON, 16, 5));
   add(portrait(scene, cx, PY + 154, def.id, 'blue', 128, !o.known));
 
   const dark = { color: OUTLINE, stroke: null as null };
