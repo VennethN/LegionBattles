@@ -91,6 +91,19 @@ class BuyButton {
     this.coin.y = this.cost.y;
   }
 
+  private pulse: Phaser.Tweens.Tween | null = null;
+
+  /** Swells and settles, over and over, to be noticed. */
+  beckon(on: boolean): void {
+    if (on === (this.pulse !== null)) return;
+    if (on) this.pulse = this.scene.tweens.add({ targets: this.root, scale: 1.07, duration: 420, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    else {
+      this.pulse?.stop();
+      this.pulse = null;
+      this.root.setScale(1);
+    }
+  }
+
   /** What it says, what it costs, and whether that can be paid. Nothing is redrawn unless one of them has changed. */
   set(top: string, cost: string, can: boolean, mat: Material = GOLD): void {
     const state = `${top}|${cost}|${can}|${mat.fill}`;
@@ -205,10 +218,10 @@ export class ListScene extends Phaser.Scene {
   }
 
   /** Something was bought: the save is written, the rest of the game is told, and the rows say what is true now. */
-  private bought(sound: 'buy' | 'levelUp' = 'buy'): void {
+  private bought(sound: 'buy' | 'levelUp', what: 'hero' | 'camp' | 'honor', index: number, doubled = false): void {
     sfx.play(sound, 0.8);
     commit();
-    this.game.events.emit('bought');
+    this.game.events.emit('bought', what, index, doubled);
     if (this.tab === 'heroes' && save().run.heroes.filter((l) => l > 0).length !== this.hired) {
       // A hero has joined: the next one stands in the list now, where the unknown one was.
       this.scene.restart({ rect: this.rect, tab: this.tab, scroll: this.scroll });
@@ -280,7 +293,8 @@ export class ListScene extends Phaser.Scene {
         const before = save().run.heroes[i];
         if (buyHero(save(), i, n) > 0) {
           const after = save().run.heroes[i];
-          this.bought(nextMilestone(before) <= after ? 'levelUp' : 'buy');
+          const doubled = before > 0 && nextMilestone(before) <= after;
+          this.bought(doubled ? 'levelUp' : 'buy', 'hero', i, doubled);
         }
       });
       this.rows.push(() => {
@@ -292,6 +306,8 @@ export class ListScene extends Phaser.Scene {
         power.setText(lv > 0 ? `${fmt(heroDps(sv, i))} a second` : `${fmt(heroBase(i, 1))} a second to start`);
         next.setText(lv > 0 ? (lv < 25 ? bonusLine(def) : `Damage doubles at level ${nextMilestone(lv)}`) : '');
         button.set(lv > 0 ? `+${n}` : 'HIRE', fmt(cost, true), cost <= sv.run.gold);
+        // Someone new who can be afforded is the best thing there is to buy: the button says so.
+        button.beckon(lv === 0 && cost <= sv.run.gold);
       });
       y += h + GAP;
     }
@@ -310,7 +326,7 @@ export class ListScene extends Phaser.Scene {
       const now = this.dark('', PAD + 96, y + 62, 14, 600);
       const next = this.dark('', PAD + 96, y + 79, 12, 600).setAlpha(0.75);
       const button = new BuyButton(this, PAD + w - 68, y + h / 2 - 2, 118, 70, 'icon/coin', () => {
-        if (buyCamp(save(), i)) this.bought('buy');
+        if (buyCamp(save(), i)) this.bought('buy', 'camp', i);
       });
       this.rows.push(() => {
         const sv = save();
@@ -378,7 +394,7 @@ export class ListScene extends Phaser.Scene {
       const now = this.dark('', PAD + 84, y + 43, 14, 600);
       const next = this.dark('', PAD + 84, y + 64, 12, 600).setAlpha(0.75);
       const button = new BuyButton(this, PAD + w - 62, y + h / 2 - 2, 106, 62, 'icon/laurel', () => {
-        if (buyHonor(save(), i)) this.bought('levelUp');
+        if (buyHonor(save(), i)) this.bought('levelUp', 'honor', i);
       });
       this.rows.push(() => {
         const sv = save();

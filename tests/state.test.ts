@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { Battle } from '../src/game/battle';
 import { ABILITIES, CAMP, HEROES, HONORS } from '../src/game/data';
-import { legionDps } from '../src/game/rules';
-import { SAVE_VERSION, newSave, repair } from '../src/game/state';
+import { heroCost, legionDps } from '../src/game/rules';
+import { SAVE_VERSION, newRun, newSave, repair } from '../src/game/state';
 
 describe('the save', () => {
   it('a new one has no one hired, nothing built, and stands at the first stage', () => {
@@ -10,6 +10,8 @@ describe('the save', () => {
     expect(s.version).toBe(SAVE_VERSION);
     expect(s.run.stage).toBe(1);
     expect(s.run.heroes).toEqual(HEROES.map(() => 0));
+    // With the price of the first hero in the purse, so that the first thing there is to do is hire.
+    expect(s.run.gold).toBe(heroCost(s, 0));
     expect(s.run.camp).toEqual(CAMP.map(() => 0));
     expect(s.honors).toEqual(HONORS.map(() => 0));
     expect(s.abilities.length).toBe(ABILITIES.length);
@@ -47,7 +49,8 @@ describe('the save', () => {
       expect(s.run.top).toBeGreaterThanOrEqual(s.run.stage);
       expect(s.run.heroes.length).toBe(HEROES.length);
       expect(s.run.camp.length).toBe(CAMP.length);
-      expect(s.run.gold).toBe(0);
+      // What it has in its purse is what a new save has: the price of the first hero.
+      expect(s.run.gold).toBe(newRun().gold);
       expect(Number.isFinite(legionDps(s))).toBe(true);
       // And a fight can be run on it.
       const b = new Battle(s);

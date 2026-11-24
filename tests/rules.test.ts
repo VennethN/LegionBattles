@@ -8,7 +8,7 @@ import {
   enemiesIn, enemyAt, enemyHp, farmStage, goldFor, goldMult, heroAffordable, heroBase, heroCost, heroDps, heroOpen, honorCost, income, kindOf, landName,
   landOf, lapOf, laurelsFor, legionDps, milestones, nextMilestone, offlineHours, rebirth, renown, spawnSeconds, startStage, tapDamage, troopHp,
 } from '../src/game/rules';
-import { newSave } from '../src/game/state';
+import { newRun, newSave } from '../src/game/state';
 
 const campOf = (effect: string): number => CAMP.findIndex((c) => c.effect === effect);
 const honorOf = (effect: string): number => HONORS.findIndex((h) => h.effect === effect);
@@ -350,7 +350,7 @@ describe('rebirth', () => {
     expect(s.rebirths).toBe(1);
     expect(s.run.stage).toBe(1);
     expect(s.run.top).toBe(1);
-    expect(s.run.gold).toBe(0);
+    expect(s.run.gold).toBe(newRun().gold);
     expect(s.run.holding).toBe(false);
     expect(s.run.heroes.every((l) => l === 0)).toBe(true);
     expect(s.run.camp.every((l) => l === 0)).toBe(true);

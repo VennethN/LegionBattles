@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { Battle, type EventKind } from '../src/game/battle';
 import { ABILITIES, FEATS, HEROES, PACK_EVERY, PACK_WAITS, STAGE_ENEMIES } from '../src/game/data';
-import { ABILITY, bossSeconds, enemyHp, goldFor, heroCost, heroOpen, buyHero, kindOf, legionDps, tapDamage } from '../src/game/rules';
-import { newSave, type SaveData } from '../src/game/state';
+import { ABILITY, bossSeconds, buyHero, canBeat, enemyHp, goldFor, heroCost, heroOpen, kindOf, legionDps, tapDamage } from '../src/game/rules';
+import { newRun, newSave, type SaveData } from '../src/game/state';
 
 const DT = 1 / 30;
 
@@ -57,7 +57,7 @@ describe('the fight', () => {
     }
     expect(s.stats.kills).toBe(1);
     expect(dealt).toBeGreaterThanOrEqual(enemyHp(1));
-    expect(s.run.gold).toBe(goldFor(s, 1, now));
+    expect(s.run.gold).toBe(newRun().gold + goldFor(s, 1, now));
     expect(s.stats.taps).toBe(taps);
     // A tap while the next is still walking up is counted and strikes nothing.
     expect(b.phase).toBe('spawn');
@@ -65,18 +65,20 @@ describe('the fight', () => {
     expect(s.stats.taps).toBe(taps + 1);
   });
 
-  it('a new player can hire the first hero with a few dozen taps', () => {
+  it('a new player can hire the first hero at once, and the second after a few dozen taps', () => {
     const s = legion([]);
     const b = new Battle(s);
     const now = { t: 1_000_000 };
+    expect(buyHero(s, 0, 1)).toBe(1);
     let taps = 0;
-    while (s.run.gold < heroCost(s, 0) && taps < 200) {
+    while (s.run.gold < heroCost(s, 1) && taps < 200) {
       run(b, 0.2, now);
       b.tap(now.t);
       taps++;
     }
-    expect(taps).toBeLessThan(40);
-    expect(buyHero(s, 0, 1)).toBe(1);
+    expect(taps).toBeGreaterThan(5);
+    expect(taps).toBeLessThan(60);
+    expect(buyHero(s, 1, 1)).toBe(1);
   });
 
   it('heroes strike by themselves, each on its own beat, for what the rules say they do a second', () => {
@@ -113,7 +115,8 @@ describe('the fight', () => {
   });
 
   it('a captain it cannot bring down in time turns it back, and it holds a stage behind', () => {
-    const s = legion([3], 5);
+    const s = legion([1], 5);
+    expect(canBeat(s, 5)).toBe(false);
     const b = new Battle(s);
     const seen = run(b, bossSeconds(s) + 5);
     expect(seen.fail).toBe(1);
@@ -128,7 +131,7 @@ describe('the fight', () => {
   });
 
   it('goes on again by itself once it is strong enough, or at once when it is told to', () => {
-    const s = legion([3], 5);
+    const s = legion([1], 5);
     const b = new Battle(s);
     run(b, bossSeconds(s) + 5);
     expect(s.run.holding).toBe(true);

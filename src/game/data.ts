@@ -44,7 +44,7 @@ export const LAND_STAGES = 10;
 export const STAGE_ENEMIES = 10;
 
 /** A plain enemy's health at the first stage, and how much more each stage after has. */
-export const BASE_HP = 10;
+export const BASE_HP = 5;
 export const HP_GROWTH = 1.4;
 /** What a captain and a boss have over a plain enemy of their stage, and what they pay over one. */
 export const CAPTAIN = { hp: 4, gold: 5 } as const;
@@ -53,6 +53,8 @@ export const BOSS = { hp: 8, gold: 10 } as const;
 export const BOSS_SECONDS = 30;
 /** A plain enemy's gold, as a share of its health. */
 export const GOLD_SHARE = 0.25;
+/** And this much besides, whatever the stage: nothing later on, and at the start what makes the first purchases come quickly. */
+export const GOLD_FLAT = 2;
 /** Seconds between one enemy falling and the next standing to fight. */
 export const SPAWN_SECONDS = 0.7;
 

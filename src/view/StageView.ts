@@ -251,6 +251,30 @@ export class StageView {
     });
   }
 
+  /** A hero has been leveled: it hops, and when its damage has just doubled, shines. */
+  leveled(hero: number, doubled: boolean): void {
+    const f = this.heroes[hero];
+    if (!f) return;
+    f.cheering = true;
+    this.scene.time.delayedCall(doubled ? 900 : 380, () => {
+      f.cheering = false;
+    });
+    this.effects.spawn('fx/ring', f.x, f.y - f.height * 0.45, { dur: 0.35, from: 0.4 * this.unit, to: (doubled ? 2.4 : 1.3) * this.unit, alpha: 0.7, hold: 0.2, tint: hex(HOLY.light), depth: f.y + 1 });
+    if (!doubled) return;
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * 6.28;
+      this.effects.spawn('fx/sparkle', f.x, f.y - f.height * 0.5, { dur: 0.6, vx: Math.cos(a) * 150, vy: Math.sin(a) * 150 - 50, gravity: 260, from: 0.8, to: 0.25, tint: hex(HOLY.light), spin: 4 });
+    }
+  }
+
+  /** Something in the camp has been built or raised: dust at its foot. */
+  built(i: number): void {
+    const f = this.camp[i];
+    if (!f) return;
+    this.effects.spawn('fx/dust', f.x, f.y - 4, { from: 0.4, to: 1.2, dur: 0.4, flat: 0.5, alpha: 0.7, depth: f.y + 1 });
+    f.attack(this.scene.time.now / 1000, 0.05);
+  }
+
   /** Lays the ground of the land the legion is in, and brings in that land's enemies, and the next land's a little ahead. */
   land(): void {
     const stage = this.save.run.stage;
@@ -260,16 +284,28 @@ export class StageView {
       const key = `ground:${ground}`;
       const show = (): void => {
         if (this.destroyed || this.ground !== ground) return;
-        this.backdrop?.destroy();
+        const old = this.backdrop;
         const r = this.rect;
         // Big enough to cover the stage, and for its band to lie under the figures' feet.
         const band = this.bandBottom - this.bandTop;
         const k = Math.max(r.w / MARCH_W, band / (BAND[1] - BAND[0]), (this.bandTop - r.y) / BAND[0], (r.y + r.h - this.bandTop) / (MARCH_H - BAND[0]));
-        this.backdrop = this.scene.add
+        const fresh = this.scene.add
           .image(r.x + r.w / 2, this.bandTop - BAND[0] * k, key)
           .setOrigin(0.5, 0)
           .setDisplaySize(MARCH_W * k, MARCH_H * k)
           .setDepth(-1000);
+        this.backdrop = fresh;
+        if (old) {
+          // One land gives way to the next: the new ground comes up over the old.
+          fresh.setDepth(-999).setAlpha(0);
+          this.scene.tweens.add({
+            targets: fresh, alpha: 1, duration: 600,
+            onComplete: () => {
+              old.destroy();
+              fresh.setDepth(-1000);
+            },
+          });
+        }
       };
       if (this.scene.textures.exists(key)) show();
       else {
@@ -453,6 +489,8 @@ export class StageView {
       // When they fall faster than they can lie down, they do not lie down.
       const quick = spawnSeconds(this.save) < 0.5 || this.battle.wait < 0.5;
       f.die(now, quick && !big);
+      // It is thrown back as it falls, clear of where the next will stand.
+      this.scene.tweens.add({ targets: f, x: f.x + (big ? 30 : 58) * this.unit, duration: 300, ease: 'Cubic.easeOut' });
       this.effects.spawn('fx/dust', f.x, f.y - 4, { delay: 0.2, dur: 0.4, from: 0.6 * f.scale, to: 1.6 * f.scale, flat: 0.5, alpha: 0.7, depth: f.y - 1 });
     }
     const n = big ? 10 : 3;

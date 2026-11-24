@@ -12,10 +12,10 @@ import Phaser from 'phaser';
 import { BONE, CLOTH, FIRE, HOLY, LEATHER, LINEN, OUTLINE, STEEL, VENOM } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { ABILITIES, FEATS, FEAT_SHARE } from '../../game/data';
+import { ABILITIES, FEATS, FEAT_SHARE, HEROES, HONORS } from '../../game/data';
 import { fmt, percent } from '../../game/format';
 import {
-  ABILITY, abilityOn, abilityOpen, enemiesIn, enemyAt, kindOf, landName, landOf, legionDps, tapDamage,
+  ABILITY, abilityOn, abilityOpen, canRebirth, enemiesIn, enemyAt, honorCost, kindOf, landName, landOf, legionDps, tapDamage,
 } from '../../game/rules';
 import { ads } from '../../platform/ads';
 import { getManifest, layout, setupCamera, type Layout, type Rect } from '../app';
@@ -136,7 +136,11 @@ export class GameScene extends Phaser.Scene {
     });
     // The lists say when something was bought, so that the fight shows it.
     this.game.events.off('bought');
-    this.game.events.on('bought', () => {
+    this.game.events.on('bought', (what?: string, index?: number, doubled?: boolean) => {
+      if (what === 'hero' && index !== undefined) {
+        this.stage.leveled(index, doubled === true);
+        if (doubled) this.toast(`${HEROES[index].name.toUpperCase()}  x2 DAMAGE`, HOLY.light);
+      } else if (what === 'camp' && index !== undefined) this.stage.built(index);
       // What was bought may have been a feat's doing.
       const b = battle();
       const before = b.count;
@@ -505,6 +509,8 @@ export class GameScene extends Phaser.Scene {
       } else state = 'ready';
       ui.shade.setDisplaySize(54, Math.max(0.001, 54 * share)).setVisible(share > 0);
       const key = `${state}:${text}`;
+      // The moment one is given, it is said: a button that was dark is easy to go on not looking at.
+      if (ui.state.startsWith('locked') && state !== 'locked') this.toast(`NEW: ${def.name.toUpperCase()}`, FIRE.light);
       if (key !== ui.state) {
         ui.state = key;
         ui.text.setText(state === 'locked' ? `ST ${text}` : text).setFontSize(state === 'locked' ? 13 : 18);
@@ -516,7 +522,11 @@ export class GameScene extends Phaser.Scene {
 
     // A dot on a tab where there is something to do: laurels to spend, a rebirth worth having.
     for (const t of this.tabButtons) {
-      if (t.tab === 'rebirth') t.dot.setVisible(s.laurels > 0 && this.tab !== 'rebirth');
+      // Laurels that would buy something, or a legion that is turned back and could be mustered again.
+      if (t.tab === 'rebirth') {
+        const spend = HONORS.some((h, i) => s.honors[i] < h.max && honorCost(s, i) <= s.laurels);
+        t.dot.setVisible(this.tab !== 'rebirth' && (spend || (run.holding && canRebirth(s))));
+      }
     }
   }
 

@@ -3,7 +3,7 @@
 // tool (scripts/pace.ts) plays by exactly the rules the game does.
 
 import {
-  ABILITIES, BASE_HP, BONUS_AT, BONUS_DOUBLED_AT, BOSS, BOSS_SECONDS, CAMP, CAPTAIN, CRIT_CHANCE, CRIT_POWER, FEATS, FEAT_SHARE, GOLD_SHARE,
+  ABILITIES, BASE_HP, BONUS_AT, BONUS_DOUBLED_AT, BOSS, BOSS_SECONDS, CAMP, CAPTAIN, CRIT_CHANCE, CRIT_POWER, FEATS, FEAT_SHARE, GOLD_FLAT, GOLD_SHARE,
   HEROES, HERO_COST, HERO_COST_STEP, HERO_DPS, HERO_DPS_STEP, HONORS, HP_GROWTH, LANDS, LAND_STAGES, LAUREL_DAMAGE, LEVEL_GROWTH, MILESTONES,
   MILESTONE_EVERY, OFFLINE_HOURS, OFFLINE_HOURS_STEP, OFFLINE_LEAST, OFFLINE_SHARE, PACK_EVERY, PACK_KILLS, REBIRTH_STAGE, SPAWN_SECONDS,
   STAGE_ENEMIES, TAP_BASE, TAP_SHARE, type CampEffect, type FeatDef, type HonorEffect, type LandDef, type LegionBonus,
@@ -66,7 +66,7 @@ export function enemyHp(stage: number): number {
 /** What an enemy of a stage pays, before anything the player has adds to it. */
 export function baseGold(stage: number): number {
   const kind = kindOf(stage);
-  return Math.max(1, Math.ceil(troopHp(stage) * GOLD_SHARE)) * (kind === 'boss' ? BOSS.gold : kind === 'captain' ? CAPTAIN.gold : 1);
+  return (Math.ceil(troopHp(stage) * GOLD_SHARE) + GOLD_FLAT) * (kind === 'boss' ? BOSS.gold : kind === 'captain' ? CAPTAIN.gold : 1);
 }
 
 // ------------------------------------------------------------ what the player has

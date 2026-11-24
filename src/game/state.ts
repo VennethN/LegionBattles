@@ -2,7 +2,7 @@
 // worked out from this is worked out (rules.ts), so a save is small and an
 // old one can always be read.
 
-import { ABILITIES, CAMP, FEATS, HEROES, HONORS, PACK_EVERY } from './data';
+import { ABILITIES, CAMP, FEATS, HEROES, HERO_COST, HONORS, PACK_EVERY } from './data';
 
 export const SAVE_VERSION = 1;
 
@@ -77,8 +77,9 @@ export interface SaveData {
   settings: Settings;
 }
 
+/** A run as it starts: no one hired, nothing built, and the price of the first hero in the purse, so that the first thing there is to do is hire. */
 export function newRun(): Run {
-  return { stage: 1, top: 1, kills: 0, holding: false, gold: 0, heroes: HEROES.map(() => 0), camp: CAMP.map(() => 0) };
+  return { stage: 1, top: 1, kills: 0, holding: false, gold: HERO_COST, heroes: HEROES.map(() => 0), camp: CAMP.map(() => 0) };
 }
 
 export function newSave(seed = 1): SaveData {
@@ -136,7 +137,7 @@ export function repair(raw: unknown, seed = 1): SaveData {
       top,
       kills: whole(run.kills, 0),
       holding: run.holding === true,
-      gold: num(run.gold, 0),
+      gold: num(run.gold, fresh.run.gold),
       heroes: levels(run.heroes, HEROES.length),
       camp: levels(run.camp, CAMP.length, (i) => CAMP[i].max),
     },
