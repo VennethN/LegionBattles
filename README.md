@@ -26,6 +26,7 @@ Then open http://127.0.0.1:5173/. Add `?seed=123` to go straight to a skirmish w
 | `npm test` | Every test: the simulation, the rules, the data, the line of stages, dungeons and raids, the rewards, the tutorials, the sheets, the bank of recorded sounds, the effects and the music, the build's pictures. |
 | `npm run art` | Writes every picture as SVG under `public/assets`, and the manifest. |
 | `npm run art:sheet` | The same, then draws the contact sheets into `docs/art` and checks colors and line widths. |
+| `npm run cover` | Draws the game's covers into `docs/covers`: the pictures a portal shows the game by, in the three shapes CrazyGames asks for. |
 | `npm run balance` | Plays 400 skirmishes and says how long they last and who wins. |
 | `npm run journey` | Plays new players along the line of stages and says where they stall. |
 | `npm run listen` | Writes the music and every effect to sound files in `build/listen`, and prints how loud each is. Needs the dev server running. |
@@ -257,6 +258,8 @@ Every part of a unit is drawn on the same 192 by 192 canvas with the feet at (96
 
 The files in the repository are written to be read: every shape has an id that says what it is. A build makes its own copies small (unused ids gone, spaces gone), which is a third of their size. A test draws both and compares every pixel.
 
+The covers (`npm run cover`) are put together from the same files, so a hand-edited unit or pack shows on them too.
+
 ## Remaking the bank of sounds
 
 The bank is kept in the repository, so nothing has to be done to build the game. To change what is in it, get the two libraries it is cut from (they are not kept here: the orchestra alone is hundreds of megabytes), and then:
@@ -308,6 +311,8 @@ What the game does with it (`src/platform/crazygames.ts`):
 - Ads: the calls are wired (`interstitial()`, `rewardedAd()`, with the game silent while one plays), and the game makes neither of them anywhere yet.
 
 On the submission form two things have to match this. **Progress save: "Yes, using the Data Module from the CrazyGames SDK"**: without it the module is off and the game falls back to the browser's storage. **"The game supports CrazyGames muting audio through SDK"**: it does.
+
+The form also asks for three covers, and they are in `docs/covers`: `cover-landscape.png` (1920 by 1080), `cover-portrait.png` (800 by 1200) and `cover-square.png` (800 by 800). They are one picture laid out three times, drawn by `scripts/cover.ts` from the game's own art: the title, small, over three cards, three packs, and a Knight and the Warlord facing each other, the player's blue on the left and the enemy's red on the right as on the title's shield. They carry no words but the title and no border, which the portal asks; that is why a card on a cover has no name and no grade on it. `npm run cover` draws them again after the art has changed, and the layouts at the foot of the script say who stands where. The preview video the form asks for is not made.
 
 To try it before uploading, run the dev server and open `http://127.0.0.1:5173/?portal=crazygames`. On localhost the SDK runs in a local mode: it logs each call to the console, keeps the data module in the browser, and answers as a signed-in player called User1. `&user_response=logged_out` makes that a guest and `&muteAudio=true` throws the mute. That is how it was tried here, against the SDK itself at version 3.8.0; `tests/portal.test.ts` holds the same things against a stand-in.
 

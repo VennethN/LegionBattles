@@ -11,6 +11,7 @@
     "test": "vitest run",
     "art": "tsx scripts/art.ts",
     "art:sheet": "tsx scripts/sheet.ts",
+    "cover": "tsx scripts/cover.ts",
     "typecheck": "tsc --noEmit",
     "balance": "tsx scripts/balance.ts",
     "journey": "tsx scripts/journey.ts",
