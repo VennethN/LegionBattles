@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="barracks-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="barracks-body-wall-shape" d="M 61 130 L 131 130 Q 134 130 134 133 L 134 177 Q 134 180 131 180 L 61 180 Q 58 180 58 177 L 58 133 Q 58 130 61 130 Z"/>
+<clipPath id="barracks-body-wall-clip"><use href="#barracks-body-wall-shape"/></clipPath>
+<clipPath id="barracks-body-wall-lit-clip"><use href="#barracks-body-wall-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="barracks-body-roof-shape" d="M 50 132 L 96 92 L 142 132 Z"/>
+<clipPath id="barracks-body-roof-clip"><use href="#barracks-body-roof-shape"/></clipPath>
+<clipPath id="barracks-body-roof-lit-clip"><use href="#barracks-body-roof-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="barracks-body-shield-shape" d="M 87 118 C 87 118 93 115 96 115 C 99 115 105 118 105 118 C 105 118 106.5 124.2 105 127 C 103.5 129.8 96 135 96 135 C 96 135 88.5 129.8 87 127 C 85.5 124.2 87 118 87 118 Z"/>
+<clipPath id="barracks-body-shield-clip"><use href="#barracks-body-shield-shape"/></clipPath>
+<clipPath id="barracks-body-shield-lit-clip"><use href="#barracks-body-shield-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="barracks-body-wall">
+<use id="barracks-body-wall-shade" href="#barracks-body-wall-shape" fill="#77766b"/>
+<g clip-path="url(#barracks-body-wall-clip)">
+<use id="barracks-body-wall-deep" href="#barracks-body-wall-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="barracks-body-wall-shade-over" href="#barracks-body-wall-shape" transform="translate(-3.1 -3.1)" fill="#77766b"/>
+<use id="barracks-body-wall-fill" href="#barracks-body-wall-shape" transform="translate(-5 -5)" fill="#9c9a8c"/>
+<g clip-path="url(#barracks-body-wall-lit-clip)">
+<use id="barracks-body-wall-lit" href="#barracks-body-wall-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="barracks-body-wall-fill-over" href="#barracks-body-wall-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<path id="barracks-body-course" d="M 54 164 L 138 164 L 138 166.6 L 54 166.6 L 54 164 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="barracks-body-course-2" d="M 54 147 L 138 147 L 138 149.6 L 54 149.6 L 54 147 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="barracks-body-door" d="M 83 180 L 83 157 Q 83 144 96 144 Q 109 144 109 157 L 109 180 Z" fill="#1e2b17"/>
+<path id="barracks-body-step" d="M 80 176 L 112 176 L 112 180 L 80 180 L 80 176 Z" fill="#f4f1e4" opacity="0.22"/>
+</g>
+<use id="barracks-body-wall-line" href="#barracks-body-wall-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="barracks-body-roof">
+<use id="barracks-body-roof-shade" href="#barracks-body-roof-shape" fill="#2f5893"/>
+<g clip-path="url(#barracks-body-roof-clip)">
+<use id="barracks-body-roof-deep" href="#barracks-body-roof-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="barracks-body-roof-shade-over" href="#barracks-body-roof-shape" transform="translate(-3.72 -3.72)" fill="#2f5893"/>
+<use id="barracks-body-roof-fill" href="#barracks-body-roof-shape" transform="translate(-6 -6)" fill="#3d6fb6"/>
+<g clip-path="url(#barracks-body-roof-lit-clip)">
+<use id="barracks-body-roof-lit" href="#barracks-body-roof-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="barracks-body-roof-fill-over" href="#barracks-body-roof-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="barracks-body-eave" d="M 46 125 L 146 125 L 146 132 L 46 132 L 46 125 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="barracks-body-tile-a" d="M 74 112 L 118 112 L 121 115 L 71 115 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="barracks-body-roof-line" href="#barracks-body-roof-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="barracks-body-shield">
+<use id="barracks-body-shield-shade" href="#barracks-body-shield-shape" fill="#9c7c33"/>
+<g clip-path="url(#barracks-body-shield-clip)">
+<use id="barracks-body-shield-fill" href="#barracks-body-shield-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#barracks-body-shield-lit-clip)">
+<use id="barracks-body-shield-lit" href="#barracks-body-shield-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="barracks-body-shield-fill-over" href="#barracks-body-shield-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+<path id="barracks-body-shield-sheen" d="M100.2 115 L104.2 115 L95.8 135 L91.8 135 Z M107.7 115 L110.3 115 L101.9 135 L99.3 135 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="barracks-body-shield-line" href="#barracks-body-shield-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

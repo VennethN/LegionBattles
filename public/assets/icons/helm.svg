@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="helm" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="helm-plume-shape" d="M 22 12 C 22 12 18.3 3.8 20 2 C 21.7 0.2 28.3 0 32 1 C 35.7 2 41.7 6.7 42 8 C 42.3 9.3 36 8 34 9 C 32 10 30 14 30 14 L 22 12 Z"/>
+<clipPath id="helm-plume-clip"><use href="#helm-plume-shape"/></clipPath>
+<clipPath id="helm-plume-lit-clip"><use href="#helm-plume-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="helm-helm-shape" d="M 8 40 C 8 40 6.7 25.2 8 20 C 9.3 14.8 12.3 10.8 16 9 C 19.7 7.2 26.2 7.2 30 9 C 33.8 10.8 37.3 14.8 39 20 C 40.7 25.2 40 40 40 40 L 8 40 Z"/>
+<clipPath id="helm-helm-clip"><use href="#helm-helm-shape"/></clipPath>
+<clipPath id="helm-helm-lit-clip"><use href="#helm-helm-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="helm-rim-shape" d="M 9 38 L 39 38 Q 42 38 42 41 L 42 41 Q 42 44 39 44 L 9 44 Q 6 44 6 41 L 6 41 Q 6 38 9 38 Z"/>
+</defs>
+<g id="helm-plume">
+<use id="helm-plume-shade" href="#helm-plume-shape" fill="#2f5893"/>
+<g clip-path="url(#helm-plume-clip)">
+<use id="helm-plume-fill" href="#helm-plume-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#helm-plume-lit-clip)">
+<use id="helm-plume-lit" href="#helm-plume-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="helm-plume-fill-over" href="#helm-plume-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="helm-plume-line" href="#helm-plume-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="helm-helm">
+<use id="helm-helm-shade" href="#helm-helm-shape" fill="#8d97a3"/>
+<g clip-path="url(#helm-helm-clip)">
+<use id="helm-helm-fill" href="#helm-helm-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#helm-helm-lit-clip)">
+<use id="helm-helm-lit" href="#helm-helm-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="helm-helm-fill-over" href="#helm-helm-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="helm-helm-sheen" d="M30.56 7.17 L35.66 7.17 L21.87 40 L16.77 40 Z M39.16 7.17 L41.76 7.17 L27.97 40 L25.37 40 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="helm-slit" d="M 23 22 L 39 22 Q 42 22 42 25 L 42 25 Q 42 28 39 28 L 23 28 Q 20 28 20 25 L 20 25 Q 20 22 23 22 Z" fill="#1e2b17"/>
+<path id="helm-ridge" d="M 28 8 L 29 8 Q 30 8 30 9 L 30 41 Q 30 42 29 42 L 28 42 Q 27 42 27 41 L 27 9 Q 27 8 28 8 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="helm-helm-line" href="#helm-helm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="helm-rim">
+<use id="helm-rim-fill" href="#helm-rim-shape" fill="#c8a24a"/>
+<use id="helm-rim-line" href="#helm-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

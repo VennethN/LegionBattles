@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cutpurse-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="cutpurse-body-jerkin-shape" d="M 72.1 105 C 77 100.5 88 101 96 101 C 104 101 115 100.5 119.9 105 C 124.8 109.5 125.1 120.2 125.4 128 C 125.7 135.8 124.8 146.8 121.8 152 C 118.7 157.2 113.2 157.8 107 159 C 100.9 160.2 91.1 160.2 85 159 C 78.8 157.8 73.3 157.2 70.2 152 C 67.2 146.8 66.3 135.8 66.6 128 C 66.9 120.2 67.2 109.5 72.1 105 Z"/>
+<clipPath id="cutpurse-body-jerkin-clip"><use href="#cutpurse-body-jerkin-shape"/></clipPath>
+<clipPath id="cutpurse-body-jerkin-lit-clip"><use href="#cutpurse-body-jerkin-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="cutpurse-body-belt-shape" d="M 56 138 L 136 138 L 136 147 L 56 147 L 56 138 Z"/>
+<path id="cutpurse-body-arm-shape" d="M 109.8 123 L 121.8 133 C 124.6 135.3 128.7 134.9 131 132.2 C 133.3 129.4 132.9 125.3 130.2 123 L 118.2 113 C 115.4 110.7 111.3 111.1 109 113.8 C 106.7 116.6 107.1 120.7 109.8 123 Z"/>
+<clipPath id="cutpurse-body-arm-clip"><use href="#cutpurse-body-arm-shape"/></clipPath>
+<clipPath id="cutpurse-body-arm-lit-clip"><use href="#cutpurse-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="cutpurse-body-jerkin">
+<use id="cutpurse-body-jerkin-shade" href="#cutpurse-body-jerkin-shape" fill="#353041"/>
+<g clip-path="url(#cutpurse-body-jerkin-clip)">
+<use id="cutpurse-body-jerkin-deep" href="#cutpurse-body-jerkin-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="cutpurse-body-jerkin-shade-over" href="#cutpurse-body-jerkin-shape" transform="translate(-3.1 -3.1)" fill="#353041"/>
+<use id="cutpurse-body-jerkin-fill" href="#cutpurse-body-jerkin-shape" transform="translate(-5 -5)" fill="#4a4458"/>
+<g clip-path="url(#cutpurse-body-jerkin-lit-clip)">
+<use id="cutpurse-body-jerkin-lit" href="#cutpurse-body-jerkin-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-body-jerkin-fill-over" href="#cutpurse-body-jerkin-shape" transform="translate(4.6 4.6)" fill="#4a4458"/>
+</g>
+<path id="cutpurse-body-seam" d="M 107.7 100 L 108.3 100 Q 109.3 100 109.3 101 L 109.3 161 Q 109.3 162 108.3 162 L 107.7 162 Q 106.7 162 106.7 161 L 106.7 101 Q 106.7 100 107.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<path id="cutpurse-body-lace" d="M 103.2 109.2 L 112.2 111.7 C 112.8 111.8 113.5 111.5 113.7 110.8 C 113.8 110.2 113.5 109.5 112.8 109.3 L 103.8 106.8 C 103.2 106.7 102.5 107 102.3 107.7 C 102.2 108.3 102.5 109 103.2 109.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="cutpurse-body-lace-2" d="M 103.2 116.2 L 112.2 118.7 C 112.8 118.8 113.5 118.5 113.7 117.8 C 113.8 117.2 113.5 116.5 112.8 116.3 L 103.8 113.8 C 103.2 113.7 102.5 114 102.3 114.7 C 102.2 115.3 102.5 116 103.2 116.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="cutpurse-body-lace-3" d="M 103.2 123.2 L 112.2 125.7 C 112.8 125.8 113.5 125.5 113.7 124.8 C 113.8 124.2 113.5 123.5 112.8 123.3 L 103.8 120.8 C 103.2 120.7 102.5 121 102.3 121.7 C 102.2 122.3 102.5 123 103.2 123.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="cutpurse-body-crease-a" d="M 80 137 Q 81.6 128.4 77 121 Q 77.9 129.1 80 137 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="cutpurse-body-crease-b" d="M 118 137 Q 121.6 130.4 120 123 Q 118.5 129.9 118 137 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="cutpurse-body-belt-cast" d="M 56 148 L 136 148 L 136 152.5 L 56 152.5 L 56 148 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="cutpurse-body-belt">
+<use id="cutpurse-body-belt-fill" href="#cutpurse-body-belt-shape" fill="#c2453a"/>
+<use id="cutpurse-body-belt-line" href="#cutpurse-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="cutpurse-body-jerkin-line" href="#cutpurse-body-jerkin-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="cutpurse-body-arm-cast" d="M 110.8 126.5 L 122.8 136.5 C 125.6 138.8 129.7 138.4 132 135.7 C 134.3 132.9 133.9 128.8 131.2 126.5 L 119.2 116.5 C 116.4 114.2 112.3 114.6 110 117.3 C 107.7 120.1 108.1 124.2 110.8 126.5 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="cutpurse-body-arm">
+<use id="cutpurse-body-arm-shade" href="#cutpurse-body-arm-shape" fill="#353041"/>
+<g clip-path="url(#cutpurse-body-arm-clip)">
+<use id="cutpurse-body-arm-fill" href="#cutpurse-body-arm-shape" transform="translate(-3 -3)" fill="#4a4458"/>
+<g clip-path="url(#cutpurse-body-arm-lit-clip)">
+<use id="cutpurse-body-arm-lit" href="#cutpurse-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-body-arm-fill-over" href="#cutpurse-body-arm-shape" transform="translate(3.6 3.6)" fill="#4a4458"/>
+</g>
+</g>
+<use id="cutpurse-body-arm-line" href="#cutpurse-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

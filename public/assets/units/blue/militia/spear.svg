@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="militia-spear" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="militia-spear-shaft-shape" d="M 179.9 121.5 L 180.2 122.5 Q 180.9 125.4 178 126.2 L 86.8 148.9 Q 83.9 149.6 83.1 146.7 L 82.9 145.7 Q 82.2 142.8 85.1 142.1 L 176.3 119.4 Q 179.2 118.6 179.9 121.5 Z"/>
+<clipPath id="militia-spear-shaft-clip"><use href="#militia-spear-shaft-shape"/></clipPath>
+<path id="militia-spear-blade-shape" d="M 207.2 115.3 L 189.3 130 L 178.3 127.6 L 175.9 117.9 L 184.4 110.6 Z"/>
+<clipPath id="militia-spear-blade-clip"><use href="#militia-spear-blade-shape"/></clipPath>
+<clipPath id="militia-spear-blade-lit-clip"><use href="#militia-spear-blade-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="militia-spear-hand-shape" d="M 123.5 138 C 123.5 142.1 120.1 145.5 116 145.5 C 111.9 145.5 108.5 142.1 108.5 138 C 108.5 133.9 111.9 130.5 116 130.5 C 120.1 130.5 123.5 133.9 123.5 138 Z"/>
+<clipPath id="militia-spear-hand-clip"><use href="#militia-spear-hand-shape"/></clipPath>
+<clipPath id="militia-spear-hand-lit-clip"><use href="#militia-spear-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="militia-spear-shaft">
+<use id="militia-spear-shaft-shade" href="#militia-spear-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#militia-spear-shaft-clip)">
+<use id="militia-spear-shaft-fill" href="#militia-spear-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="militia-spear-shaft-line" href="#militia-spear-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="militia-spear-blade">
+<use id="militia-spear-blade-shade" href="#militia-spear-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#militia-spear-blade-clip)">
+<use id="militia-spear-blade-fill" href="#militia-spear-blade-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#militia-spear-blade-lit-clip)">
+<use id="militia-spear-blade-lit" href="#militia-spear-blade-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="militia-spear-blade-fill-over" href="#militia-spear-blade-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="militia-spear-blade-sheen" d="M195.64 110.64 L200.33 110.64 L192.18 130.04 L187.49 130.04 Z M203.83 110.64 L206.43 110.64 L198.28 130.04 L195.68 130.04 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="militia-spear-far-face" d="M 207.2 115.3 L 189.3 130 L 178.3 127.6 L 177.1 122.8 Z" fill="#2a1a10" opacity="0.22"/>
+</g>
+<use id="militia-spear-blade-line" href="#militia-spear-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="militia-spear-hand">
+<use id="militia-spear-hand-shade" href="#militia-spear-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#militia-spear-hand-clip)">
+<use id="militia-spear-hand-fill" href="#militia-spear-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#militia-spear-hand-lit-clip)">
+<use id="militia-spear-hand-lit" href="#militia-spear-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="militia-spear-hand-fill-over" href="#militia-spear-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="militia-spear-hand-line" href="#militia-spear-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

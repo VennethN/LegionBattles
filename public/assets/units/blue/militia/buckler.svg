@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="militia-buckler" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="militia-buckler-face-shape" d="M 97 138 C 97 147.4 89.4 155 80 155 C 70.6 155 63 147.4 63 138 C 63 128.6 70.6 121 80 121 C 89.4 121 97 128.6 97 138 Z"/>
+<clipPath id="militia-buckler-face-clip"><use href="#militia-buckler-face-shape"/></clipPath>
+<clipPath id="militia-buckler-face-lit-clip"><use href="#militia-buckler-face-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="militia-buckler-boss-shape" d="M 86.8 138 C 86.8 141.8 83.8 144.8 80 144.8 C 76.2 144.8 73.2 141.8 73.2 138 C 73.2 134.2 76.2 131.2 80 131.2 C 83.8 131.2 86.8 134.2 86.8 138 Z"/>
+<clipPath id="militia-buckler-boss-clip"><use href="#militia-buckler-boss-shape"/></clipPath>
+</defs>
+<g id="militia-buckler-face">
+<use id="militia-buckler-face-shade" href="#militia-buckler-face-shape" fill="#8d97a3"/>
+<g clip-path="url(#militia-buckler-face-clip)">
+<use id="militia-buckler-face-fill" href="#militia-buckler-face-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#militia-buckler-face-lit-clip)">
+<use id="militia-buckler-face-lit" href="#militia-buckler-face-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="militia-buckler-face-fill-over" href="#militia-buckler-face-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="militia-buckler-face-sheen" d="M87.14 121 L92.24 121 L77.96 155 L72.86 155 Z M95.74 121 L98.34 121 L84.06 155 L81.46 155 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="militia-buckler-rivet" d="M 91.8 143.5 C 91.8 144.5 91 145.2 90.1 145.2 C 89.2 145.2 88.4 144.5 88.4 143.5 C 88.4 142.6 89.2 141.8 90.1 141.8 C 91 141.8 91.8 142.6 91.8 143.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="militia-buckler-rivet-lit" d="M 90.3 142.9 C 90.3 143.3 89.9 143.7 89.5 143.7 C 89.1 143.7 88.7 143.3 88.7 142.9 C 88.7 142.5 89.1 142.2 89.5 142.2 C 89.9 142.2 90.3 142.5 90.3 142.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="militia-buckler-rivet-2" d="M 82 149.5 C 82 150.4 81.2 151.2 80.3 151.2 C 79.3 151.2 78.6 150.4 78.6 149.5 C 78.6 148.6 79.3 147.8 80.3 147.8 C 81.2 147.8 82 148.6 82 149.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="militia-buckler-rivet-lit-2" d="M 80.4 148.9 C 80.4 149.3 80.1 149.7 79.7 149.7 C 79.3 149.7 78.9 149.3 78.9 148.9 C 78.9 148.5 79.3 148.1 79.7 148.1 C 80.1 148.1 80.4 148.5 80.4 148.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="militia-buckler-rivet-3" d="M 71.9 144 C 71.9 144.9 71.1 145.7 70.2 145.7 C 69.2 145.7 68.5 144.9 68.5 144 C 68.5 143 69.2 142.3 70.2 142.3 C 71.1 142.3 71.9 143 71.9 144 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="militia-buckler-rivet-lit-3" d="M 70.3 143.4 C 70.3 143.8 70 144.2 69.6 144.2 C 69.2 144.2 68.8 143.8 68.8 143.4 C 68.8 143 69.2 142.6 69.6 142.6 C 70 142.6 70.3 143 70.3 143.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="militia-buckler-rivet-4" d="M 71.6 132.5 C 71.6 133.4 70.8 134.2 69.9 134.2 C 69 134.2 68.2 133.4 68.2 132.5 C 68.2 131.5 69 130.8 69.9 130.8 C 70.8 130.8 71.6 131.5 71.6 132.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="militia-buckler-rivet-lit-4" d="M 70.1 131.9 C 70.1 132.3 69.7 132.7 69.3 132.7 C 68.9 132.7 68.5 132.3 68.5 131.9 C 68.5 131.5 68.9 131.1 69.3 131.1 C 69.7 131.1 70.1 131.5 70.1 131.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="militia-buckler-rivet-5" d="M 81.4 126.5 C 81.4 127.4 80.7 128.2 79.7 128.2 C 78.8 128.2 78 127.4 78 126.5 C 78 125.6 78.8 124.8 79.7 124.8 C 80.7 124.8 81.4 125.6 81.4 126.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="militia-buckler-rivet-lit-5" d="M 79.9 125.9 C 79.9 126.3 79.6 126.7 79.1 126.7 C 78.7 126.7 78.4 126.3 78.4 125.9 C 78.4 125.5 78.7 125.1 79.1 125.1 C 79.6 125.1 79.9 125.5 79.9 125.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="militia-buckler-rivet-6" d="M 91.5 132 C 91.5 133 90.8 133.7 89.8 133.7 C 88.9 133.7 88.1 133 88.1 132 C 88.1 131.1 88.9 130.3 89.8 130.3 C 90.8 130.3 91.5 131.1 91.5 132 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="militia-buckler-rivet-lit-6" d="M 90 131.4 C 90 131.8 89.6 132.2 89.2 132.2 C 88.8 132.2 88.5 131.8 88.5 131.4 C 88.5 131 88.8 130.7 89.2 130.7 C 89.6 130.7 90 131 90 131.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="militia-buckler-boss-cast" d="M 90.3 140 C 90.3 144.9 86.4 148.8 81.5 148.8 C 76.6 148.8 72.7 144.9 72.7 140 C 72.7 135.1 76.6 131.2 81.5 131.2 C 86.4 131.2 90.3 135.1 90.3 140 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="militia-buckler-face-line" href="#militia-buckler-face-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="militia-buckler-boss">
+<use id="militia-buckler-boss-shade" href="#militia-buckler-boss-shape" fill="#9c7c33"/>
+<g clip-path="url(#militia-buckler-boss-clip)">
+<use id="militia-buckler-boss-fill" href="#militia-buckler-boss-shape" transform="translate(-2 -2)" fill="#c8a24a"/>
+</g>
+<use id="militia-buckler-boss-line" href="#militia-buckler-boss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

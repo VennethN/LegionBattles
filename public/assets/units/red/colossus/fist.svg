@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="colossus-fist" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="colossus-fist-arm-shape" d="M 122.1 103.3 L 126.1 133.3 C 126.8 138.8 131.8 142.6 137.3 141.9 C 142.8 141.2 146.6 136.2 145.9 130.7 L 141.9 100.7 C 141.2 95.2 136.2 91.4 130.7 92.1 C 125.2 92.8 121.4 97.8 122.1 103.3 Z"/>
+<clipPath id="colossus-fist-arm-clip"><use href="#colossus-fist-arm-shape"/></clipPath>
+<clipPath id="colossus-fist-arm-lit-clip"><use href="#colossus-fist-arm-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="colossus-fist-band-shape" d="M 126 114 L 146 114 Q 149 114 149 117 L 149 120 Q 149 123 146 123 L 126 123 Q 123 123 123 120 L 123 117 Q 123 114 126 114 Z"/>
+<path id="colossus-fist-fist-shape" d="M 118 136 C 121.2 131.7 130.8 128 137 128 C 143.2 128 151.7 131.7 155 136 C 158.3 140.3 159.8 149.3 157 154 C 154.2 158.7 144.5 164 138 164 C 131.5 164 121.3 158.7 118 154 C 114.7 149.3 114.8 140.3 118 136 Z"/>
+<clipPath id="colossus-fist-fist-clip"><use href="#colossus-fist-fist-shape"/></clipPath>
+<clipPath id="colossus-fist-fist-lit-clip"><use href="#colossus-fist-fist-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="colossus-fist-arm">
+<use id="colossus-fist-arm-shade" href="#colossus-fist-arm-shape" fill="#8c6b42"/>
+<g clip-path="url(#colossus-fist-arm-clip)">
+<use id="colossus-fist-arm-fill" href="#colossus-fist-arm-shape" transform="translate(-4 -4)" fill="#b08a5a"/>
+<g clip-path="url(#colossus-fist-arm-lit-clip)">
+<use id="colossus-fist-arm-lit" href="#colossus-fist-arm-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="colossus-fist-arm-fill-over" href="#colossus-fist-arm-shape" transform="translate(4.2 4.2)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="colossus-fist-arm-line" href="#colossus-fist-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="colossus-fist-band">
+<use id="colossus-fist-band-fill" href="#colossus-fist-band-shape" fill="#c2453a"/>
+<use id="colossus-fist-band-line" href="#colossus-fist-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="colossus-fist-fist">
+<use id="colossus-fist-fist-shade" href="#colossus-fist-fist-shape" fill="#8c6b42"/>
+<g clip-path="url(#colossus-fist-fist-clip)">
+<use id="colossus-fist-fist-deep" href="#colossus-fist-fist-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="colossus-fist-fist-shade-over" href="#colossus-fist-fist-shape" transform="translate(-3.1 -3.1)" fill="#8c6b42"/>
+<use id="colossus-fist-fist-fill" href="#colossus-fist-fist-shape" transform="translate(-5 -5)" fill="#b08a5a"/>
+<g clip-path="url(#colossus-fist-fist-lit-clip)">
+<use id="colossus-fist-fist-lit" href="#colossus-fist-fist-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="colossus-fist-fist-fill-over" href="#colossus-fist-fist-shape" transform="translate(4.6 4.6)" fill="#b08a5a"/>
+</g>
+<path id="colossus-fist-knuckle-a" d="M 134 142 Q 131.9 150.2 135 158 Q 135 150 134 142 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="colossus-fist-knuckle-b" d="M 144 140 Q 141.9 149.1 145 158 Q 145 149 144 140 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="colossus-fist-facet" d="M 122 138 L 136 132 L 132 144 L 120 148 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="colossus-fist-fist-line" href="#colossus-fist-fist-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

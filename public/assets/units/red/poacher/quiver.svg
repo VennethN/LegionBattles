@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="poacher-quiver" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="poacher-quiver-fletch-a-shape" d="M 30.5 115.5 L 41.1 116 L 50.4 127.9 L 44.1 132.8 Z"/>
+<path id="poacher-quiver-fletch-b-shape" d="M 36.7 105.5 L 47.3 106.1 L 59 121.1 L 52.7 126 Z"/>
+<path id="poacher-quiver-tube-shape" d="M 44.7 127.2 L 54.2 119.8 Q 58.9 116.1 62.6 120.8 L 81.1 144.5 Q 84.8 149.2 80.1 152.9 L 70.6 160.3 Q 65.9 164 62.2 159.2 L 43.7 135.6 Q 40 130.9 44.7 127.2 Z"/>
+<clipPath id="poacher-quiver-tube-clip"><use href="#poacher-quiver-tube-shape"/></clipPath>
+<clipPath id="poacher-quiver-tube-lit-clip"><use href="#poacher-quiver-tube-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="poacher-quiver-band-shape" d="M 43.7 135.6 L 62.6 120.8 L 66.9 126.3 L 48 141.1 L 43.7 135.6 Z"/>
+</defs>
+<g id="poacher-quiver-fletch-a">
+<use id="poacher-quiver-fletch-a-fill" href="#poacher-quiver-fletch-a-shape" fill="#e9dfc6"/>
+<use id="poacher-quiver-fletch-a-line" href="#poacher-quiver-fletch-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-quiver-fletch-b">
+<use id="poacher-quiver-fletch-b-fill" href="#poacher-quiver-fletch-b-shape" fill="#e9dfc6"/>
+<use id="poacher-quiver-fletch-b-line" href="#poacher-quiver-fletch-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-quiver-tube">
+<use id="poacher-quiver-tube-shade" href="#poacher-quiver-tube-shape" fill="#4e3520"/>
+<g clip-path="url(#poacher-quiver-tube-clip)">
+<use id="poacher-quiver-tube-fill" href="#poacher-quiver-tube-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#poacher-quiver-tube-lit-clip)">
+<use id="poacher-quiver-tube-lit" href="#poacher-quiver-tube-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="poacher-quiver-tube-fill-over" href="#poacher-quiver-tube-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="poacher-quiver-stitch" d="M 53.7 140.5 L 55.9 138.8 Q 56.6 138.2 57.1 139 L 57.1 139 Q 57.7 139.7 57 140.2 L 54.8 141.9 Q 54.1 142.4 53.6 141.7 L 53.6 141.7 Q 53 141 53.7 140.5 Z" fill="#f4f1e4" opacity="0.5"/>
+<path id="poacher-quiver-stitch-2" d="M 57.4 145.2 L 59.5 143.5 Q 60.3 143 60.8 143.7 L 60.8 143.7 Q 61.4 144.4 60.7 144.9 L 58.5 146.6 Q 57.8 147.2 57.3 146.4 L 57.3 146.4 Q 56.7 145.7 57.4 145.2 Z" fill="#f4f1e4" opacity="0.5"/>
+<path id="poacher-quiver-stitch-3" d="M 61.1 149.9 L 63.2 148.3 Q 64 147.7 64.5 148.4 L 64.5 148.4 Q 65.1 149.1 64.4 149.7 L 62.2 151.3 Q 61.5 151.9 61 151.2 L 61 151.2 Q 60.4 150.5 61.1 149.9 Z" fill="#f4f1e4" opacity="0.5"/>
+<path id="poacher-quiver-stitch-4" d="M 64.8 154.6 L 66.9 153 Q 67.6 152.4 68.2 153.1 L 68.2 153.1 Q 68.8 153.8 68 154.4 L 65.9 156.1 Q 65.2 156.6 64.7 155.9 L 64.7 155.9 Q 64.1 155.2 64.8 154.6 Z" fill="#f4f1e4" opacity="0.5"/>
+</g>
+<use id="poacher-quiver-tube-line" href="#poacher-quiver-tube-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-quiver-band">
+<use id="poacher-quiver-band-fill" href="#poacher-quiver-band-shape" fill="#c8a24a"/>
+<use id="poacher-quiver-band-line" href="#poacher-quiver-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

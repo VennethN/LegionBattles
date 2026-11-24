@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="harpooner-harpoon" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="harpooner-harpoon-shaft-shape" d="M 169.9 92.5 L 169.9 92.5 Q 170.9 94.8 168.6 95.8 L 96.4 127.9 Q 94.1 128.9 93.1 126.6 L 93.1 126.6 Q 92.1 124.4 94.4 123.3 L 166.5 91.2 Q 168.8 90.2 169.9 92.5 Z"/>
+<path id="harpooner-harpoon-head-shape" d="M 191.8 82.7 L 175.3 99.9 L 176.6 92.8 L 167.4 96.8 L 165 91.4 L 174.1 87.3 L 168 83.4 Z"/>
+<path id="harpooner-harpoon-hand-shape" d="M 133.5 112 C 133.5 116.1 130.1 119.5 126 119.5 C 121.9 119.5 118.5 116.1 118.5 112 C 118.5 107.9 121.9 104.5 126 104.5 C 130.1 104.5 133.5 107.9 133.5 112 Z"/>
+<clipPath id="harpooner-harpoon-hand-clip"><use href="#harpooner-harpoon-hand-shape"/></clipPath>
+<clipPath id="harpooner-harpoon-hand-lit-clip"><use href="#harpooner-harpoon-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="harpooner-harpoon-shaft">
+<use id="harpooner-harpoon-shaft-fill" href="#harpooner-harpoon-shaft-shape" fill="#9a6a3a"/>
+<use id="harpooner-harpoon-shaft-line" href="#harpooner-harpoon-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="harpooner-harpoon-head">
+<use id="harpooner-harpoon-head-fill" href="#harpooner-harpoon-head-shape" fill="#b9c2cc"/>
+<use id="harpooner-harpoon-head-line" href="#harpooner-harpoon-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="harpooner-harpoon-hand">
+<use id="harpooner-harpoon-hand-shade" href="#harpooner-harpoon-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#harpooner-harpoon-hand-clip)">
+<use id="harpooner-harpoon-hand-fill" href="#harpooner-harpoon-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#harpooner-harpoon-hand-lit-clip)">
+<use id="harpooner-harpoon-hand-lit" href="#harpooner-harpoon-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-harpoon-hand-fill-over" href="#harpooner-harpoon-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="harpooner-harpoon-hand-line" href="#harpooner-harpoon-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

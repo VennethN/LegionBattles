@@ -1,0 +1,15 @@
+The recorded sounds in bank.bin are cut from two libraries. Both are given
+to the public domain under CC0 1.0, so no credit is owed. They are credited
+here all the same.
+
+VS Chamber Orchestra: Community Edition (VSCO 2 CE)
+  Recorded by Sam Gossner and Simon Dalzell, sample cutting by Elan Hickler.
+  The instruments of the orchestra, the drums, the bells and the cymbals.
+  https://github.com/sgossner/VSCO-2-CE
+
+Interface Sounds 1.0, by Kenney
+  The sounds of the buttons and the menus.
+  https://www.kenney.nl
+
+scripts/samples.mjs in the game's repository says which recording each sound
+is cut from, and how.

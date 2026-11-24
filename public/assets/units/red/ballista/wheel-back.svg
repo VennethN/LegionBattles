@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ballista-wheel-back" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="ballista-wheel-back-rim-shape" d="M 93 163 C 93 172.4 85.4 180 76 180 C 66.6 180 59 172.4 59 163 C 59 153.6 66.6 146 76 146 C 85.4 146 93 153.6 93 163 Z"/>
+<clipPath id="ballista-wheel-back-rim-clip"><use href="#ballista-wheel-back-rim-shape"/></clipPath>
+<path id="ballista-wheel-back-hub-shape" d="M 81 163 C 81 165.8 78.8 168 76 168 C 73.2 168 71 165.8 71 163 C 71 160.2 73.2 158 76 158 C 78.8 158 81 160.2 81 163 Z"/>
+</defs>
+<g id="ballista-wheel-back-rim">
+<use id="ballista-wheel-back-rim-fill" href="#ballista-wheel-back-rim-shape" fill="#75502b"/>
+<g clip-path="url(#ballista-wheel-back-rim-clip)">
+<path id="ballista-wheel-back-spoke-a" d="M 59 163 L 93 163" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="ballista-wheel-back-spoke-b" d="M 76 146 L 76 180" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="ballista-wheel-back-rim-line" href="#ballista-wheel-back-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ballista-wheel-back-hub">
+<use id="ballista-wheel-back-hub-fill" href="#ballista-wheel-back-hub-shape" fill="#5d6672"/>
+<use id="ballista-wheel-back-hub-line" href="#ballista-wheel-back-hub-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="wartent" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="wartent-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="wartent-shadow-shadow" d="M 146 181 C 146 186.5 123.6 191 96 191 C 68.4 191 46 186.5 46 181 C 46 175.5 68.4 171 96 171 C 123.6 171 146 175.5 146 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="wartent-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="wartent-body-wall-shape" d="M 58 180 L 60 140 L 132 140 L 134 180 L 58 180 Z"/>
+<clipPath id="wartent-body-wall-clip"><use href="#wartent-body-wall-shape"/></clipPath>
+<clipPath id="wartent-body-wall-lit-clip"><use href="#wartent-body-wall-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="wartent-body-stripe-shape" d="M 66 134 L 75 134 L 75 184 L 66 184 L 66 134 Z"/>
+<path id="wartent-body-stripe-2-shape" d="M 92 134 L 101 134 L 101 184 L 92 184 L 92 134 Z"/>
+<path id="wartent-body-stripe-3-shape" d="M 118 134 L 127 134 L 127 184 L 118 184 L 118 134 Z"/>
+<path id="wartent-body-roof-shape" d="M 52 142 C 52 142 68.7 129.3 76 122 C 83.3 114.7 96 98 96 98 C 96 98 108.7 114.7 116 122 C 123.3 129.3 140 142 140 142 L 52 142 Z"/>
+<clipPath id="wartent-body-roof-clip"><use href="#wartent-body-roof-shape"/></clipPath>
+<clipPath id="wartent-body-roof-lit-clip"><use href="#wartent-body-roof-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="wartent-body-finial-shape" d="M 101 96 C 101 98.8 98.8 101 96 101 C 93.2 101 91 98.8 91 96 C 91 93.2 93.2 91 96 91 C 98.8 91 101 93.2 101 96 Z"/>
+</defs>
+<g id="wartent-body-wall">
+<use id="wartent-body-wall-shade" href="#wartent-body-wall-shape" fill="#b3a585"/>
+<g clip-path="url(#wartent-body-wall-clip)">
+<use id="wartent-body-wall-deep" href="#wartent-body-wall-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="wartent-body-wall-shade-over" href="#wartent-body-wall-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="wartent-body-wall-fill" href="#wartent-body-wall-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#wartent-body-wall-lit-clip)">
+<use id="wartent-body-wall-lit" href="#wartent-body-wall-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="wartent-body-wall-fill-over" href="#wartent-body-wall-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<g id="wartent-body-stripe">
+<use id="wartent-body-stripe-fill" href="#wartent-body-stripe-shape" fill="#3d6fb6"/>
+<use id="wartent-body-stripe-line" href="#wartent-body-stripe-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="wartent-body-stripe-2">
+<use id="wartent-body-stripe-2-fill" href="#wartent-body-stripe-2-shape" fill="#3d6fb6"/>
+<use id="wartent-body-stripe-2-line" href="#wartent-body-stripe-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="wartent-body-stripe-3">
+<use id="wartent-body-stripe-3-fill" href="#wartent-body-stripe-3-shape" fill="#3d6fb6"/>
+<use id="wartent-body-stripe-3-line" href="#wartent-body-stripe-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="wartent-body-door" d="M 87 180 L 87 161 Q 87 150 98 150 Q 109 150 109 161 L 109 180 Z" fill="#1e2b17"/>
+</g>
+<use id="wartent-body-wall-line" href="#wartent-body-wall-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="wartent-body-roof">
+<use id="wartent-body-roof-shade" href="#wartent-body-roof-shape" fill="#2f5893"/>
+<g clip-path="url(#wartent-body-roof-clip)">
+<use id="wartent-body-roof-deep" href="#wartent-body-roof-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="wartent-body-roof-shade-over" href="#wartent-body-roof-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="wartent-body-roof-fill" href="#wartent-body-roof-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#wartent-body-roof-lit-clip)">
+<use id="wartent-body-roof-lit" href="#wartent-body-roof-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="wartent-body-roof-fill-over" href="#wartent-body-roof-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="wartent-body-eave" d="M 48 135 L 144 135 L 144 142 L 48 142 L 48 135 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="wartent-body-roof-line" href="#wartent-body-roof-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="wartent-body-finial">
+<use id="wartent-body-finial-fill" href="#wartent-body-finial-shape" fill="#c8a24a"/>
+<use id="wartent-body-finial-line" href="#wartent-body-finial-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="wartent-flag-layer" transform="translate(96 94) rotate(0) scale(1 1) translate(-96 -94)">
+<defs>
+<path id="wartent-flag-staff-shape" d="M 95.5 74 L 96.5 74 Q 98.5 74 98.5 76 L 98.5 92 Q 98.5 94 96.5 94 L 95.5 94 Q 93.5 94 93.5 92 L 93.5 76 Q 93.5 74 95.5 74 Z"/>
+<path id="wartent-flag-cloth-shape" d="M 98 75 L 124 80 L 116 85 L 124 90 L 98 94 Z"/>
+<clipPath id="wartent-flag-cloth-clip"><use href="#wartent-flag-cloth-shape"/></clipPath>
+<clipPath id="wartent-flag-cloth-lit-clip"><use href="#wartent-flag-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="wartent-flag-knob-shape" d="M 99.5 73 C 99.5 74.9 97.9 76.5 96 76.5 C 94.1 76.5 92.5 74.9 92.5 73 C 92.5 71.1 94.1 69.5 96 69.5 C 97.9 69.5 99.5 71.1 99.5 73 Z"/>
+</defs>
+<g id="wartent-flag-staff">
+<use id="wartent-flag-staff-fill" href="#wartent-flag-staff-shape" fill="#9a6a3a"/>
+<use id="wartent-flag-staff-line" href="#wartent-flag-staff-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="wartent-flag-cloth">
+<use id="wartent-flag-cloth-shade" href="#wartent-flag-cloth-shape" fill="#2f5893"/>
+<g clip-path="url(#wartent-flag-cloth-clip)">
+<use id="wartent-flag-cloth-fill" href="#wartent-flag-cloth-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#wartent-flag-cloth-lit-clip)">
+<use id="wartent-flag-cloth-lit" href="#wartent-flag-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="wartent-flag-cloth-fill-over" href="#wartent-flag-cloth-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="wartent-flag-cloth-line" href="#wartent-flag-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="wartent-flag-knob">
+<use id="wartent-flag-knob-fill" href="#wartent-flag-knob-shape" fill="#c8a24a"/>
+<use id="wartent-flag-knob-line" href="#wartent-flag-knob-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="lancer-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="lancer-body-tunic-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="lancer-body-tunic-clip"><use href="#lancer-body-tunic-shape"/></clipPath>
+<clipPath id="lancer-body-tunic-lit-clip"><use href="#lancer-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="lancer-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="lancer-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
+<clipPath id="lancer-body-buckle-clip"><use href="#lancer-body-buckle-shape"/></clipPath>
+<clipPath id="lancer-body-buckle-lit-clip"><use href="#lancer-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="lancer-body-arm-shape" d="M 106.6 118.9 L 108.6 134.9 C 109.1 139 112.8 142 116.9 141.4 C 121 140.9 124 137.2 123.4 133.1 L 121.4 117.1 C 120.9 113 117.2 110 113.1 110.6 C 109 111.1 106 114.8 106.6 118.9 Z"/>
+<clipPath id="lancer-body-arm-clip"><use href="#lancer-body-arm-shape"/></clipPath>
+<clipPath id="lancer-body-arm-lit-clip"><use href="#lancer-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="lancer-body-tunic">
+<use id="lancer-body-tunic-shade" href="#lancer-body-tunic-shape" fill="#b3a585"/>
+<g clip-path="url(#lancer-body-tunic-clip)">
+<use id="lancer-body-tunic-deep" href="#lancer-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="lancer-body-tunic-shade-over" href="#lancer-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="lancer-body-tunic-fill" href="#lancer-body-tunic-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#lancer-body-tunic-lit-clip)">
+<use id="lancer-body-tunic-lit" href="#lancer-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lancer-body-tunic-fill-over" href="#lancer-body-tunic-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="lancer-body-seam" d="M 104.7 100 L 105.3 100 Q 106.3 100 106.3 101 L 106.3 161 Q 106.3 162 105.3 162 L 104.7 162 Q 103.7 162 103.7 161 L 103.7 101 Q 103.7 100 104.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<path id="lancer-body-rivet" d="M 112.2 112 C 112.2 113.2 111.2 114.2 110 114.2 C 108.8 114.2 107.8 113.2 107.8 112 C 107.8 110.8 108.8 109.8 110 109.8 C 111.2 109.8 112.2 110.8 112.2 112 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="lancer-body-rivet-lit" d="M 110.2 111.2 C 110.2 111.8 109.8 112.2 109.2 112.2 C 108.7 112.2 108.2 111.8 108.2 111.2 C 108.2 110.7 108.7 110.2 109.2 110.2 C 109.8 110.2 110.2 110.7 110.2 111.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="lancer-body-rivet-2" d="M 112.2 121 C 112.2 122.2 111.2 123.2 110 123.2 C 108.8 123.2 107.8 122.2 107.8 121 C 107.8 119.8 108.8 118.8 110 118.8 C 111.2 118.8 112.2 119.8 112.2 121 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="lancer-body-rivet-lit-2" d="M 110.2 120.2 C 110.2 120.8 109.8 121.2 109.2 121.2 C 108.7 121.2 108.2 120.8 108.2 120.2 C 108.2 119.7 108.7 119.2 109.2 119.2 C 109.8 119.2 110.2 119.7 110.2 120.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="lancer-body-rivet-3" d="M 112.2 130 C 112.2 131.2 111.2 132.2 110 132.2 C 108.8 132.2 107.8 131.2 107.8 130 C 107.8 128.8 108.8 127.8 110 127.8 C 111.2 127.8 112.2 128.8 112.2 130 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="lancer-body-rivet-lit-3" d="M 110.2 129.2 C 110.2 129.8 109.8 130.2 109.2 130.2 C 108.7 130.2 108.2 129.8 108.2 129.2 C 108.2 128.7 108.7 128.2 109.2 128.2 C 109.8 128.2 110.2 128.7 110.2 129.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="lancer-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="lancer-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="lancer-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="lancer-body-belt">
+<use id="lancer-body-belt-fill" href="#lancer-body-belt-shape" fill="#6b4a2b"/>
+<use id="lancer-body-belt-line" href="#lancer-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lancer-body-buckle">
+<use id="lancer-body-buckle-shade" href="#lancer-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#lancer-body-buckle-clip)">
+<use id="lancer-body-buckle-fill" href="#lancer-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#lancer-body-buckle-lit-clip)">
+<use id="lancer-body-buckle-lit" href="#lancer-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lancer-body-buckle-fill-over" href="#lancer-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="lancer-body-buckle-line" href="#lancer-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="lancer-body-tunic-line" href="#lancer-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="lancer-body-arm-cast" d="M 107.6 122.4 L 109.6 138.4 C 110.1 142.5 113.8 145.5 117.9 144.9 C 122 144.4 125 140.7 124.4 136.6 L 122.4 120.6 C 121.9 116.5 118.2 113.5 114.1 114.1 C 110 114.6 107 118.3 107.6 122.4 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="lancer-body-arm">
+<use id="lancer-body-arm-shade" href="#lancer-body-arm-shape" fill="#b3a585"/>
+<g clip-path="url(#lancer-body-arm-clip)">
+<use id="lancer-body-arm-fill" href="#lancer-body-arm-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#lancer-body-arm-lit-clip)">
+<use id="lancer-body-arm-lit" href="#lancer-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lancer-body-arm-fill-over" href="#lancer-body-arm-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="lancer-body-arm-line" href="#lancer-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

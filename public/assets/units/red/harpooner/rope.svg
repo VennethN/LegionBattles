@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="harpooner-rope" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="harpooner-rope-coil-shape" d="M 91 146 C 91 155.9 84.3 164 76 164 C 67.7 164 61 155.9 61 146 C 61 136.1 67.7 128 76 128 C 84.3 128 91 136.1 91 146 Z"/>
+<clipPath id="harpooner-rope-coil-clip"><use href="#harpooner-rope-coil-shape"/></clipPath>
+<clipPath id="harpooner-rope-coil-lit-clip"><use href="#harpooner-rope-coil-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="harpooner-rope-hand-shape" d="M 83.5 130 C 83.5 134.1 80.1 137.5 76 137.5 C 71.9 137.5 68.5 134.1 68.5 130 C 68.5 125.9 71.9 122.5 76 122.5 C 80.1 122.5 83.5 125.9 83.5 130 Z"/>
+<clipPath id="harpooner-rope-hand-clip"><use href="#harpooner-rope-hand-shape"/></clipPath>
+<clipPath id="harpooner-rope-hand-lit-clip"><use href="#harpooner-rope-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="harpooner-rope-coil">
+<use id="harpooner-rope-coil-shade" href="#harpooner-rope-coil-shape" fill="#b3a585"/>
+<g clip-path="url(#harpooner-rope-coil-clip)">
+<use id="harpooner-rope-coil-fill" href="#harpooner-rope-coil-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#harpooner-rope-coil-lit-clip)">
+<use id="harpooner-rope-coil-lit" href="#harpooner-rope-coil-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-rope-coil-fill-over" href="#harpooner-rope-coil-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="harpooner-rope-coil-line" href="#harpooner-rope-coil-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="harpooner-rope-coil-hole" d="M 82 146 C 82 151 79.3 155 76 155 C 72.7 155 70 151 70 146 C 70 141 72.7 137 76 137 C 79.3 137 82 141 82 146 Z" fill="#1e2b17"/>
+<path id="harpooner-rope-coil-hole-edge" d="M 82 146 C 82 151 79.3 155 76 155 C 72.7 155 70 151 70 146 C 70 141 72.7 137 76 137 C 79.3 137 82 141 82 146 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="harpooner-rope-hand">
+<use id="harpooner-rope-hand-shade" href="#harpooner-rope-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#harpooner-rope-hand-clip)">
+<use id="harpooner-rope-hand-fill" href="#harpooner-rope-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#harpooner-rope-hand-lit-clip)">
+<use id="harpooner-rope-hand-lit" href="#harpooner-rope-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-rope-hand-fill-over" href="#harpooner-rope-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="harpooner-rope-hand-line" href="#harpooner-rope-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

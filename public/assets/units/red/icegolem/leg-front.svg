@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icegolem-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="icegolem-leg-front-leg-shape" d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z"/>
+<clipPath id="icegolem-leg-front-leg-clip"><use href="#icegolem-leg-front-leg-shape"/></clipPath>
+<clipPath id="icegolem-leg-front-leg-lit-clip"><use href="#icegolem-leg-front-leg-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="icegolem-leg-front-leg">
+<use id="icegolem-leg-front-leg-shade" href="#icegolem-leg-front-leg-shape" fill="#3f97bd"/>
+<g clip-path="url(#icegolem-leg-front-leg-clip)">
+<use id="icegolem-leg-front-leg-fill" href="#icegolem-leg-front-leg-shape" transform="translate(-4 -4)" fill="#6fc7e8"/>
+<g clip-path="url(#icegolem-leg-front-leg-lit-clip)">
+<use id="icegolem-leg-front-leg-lit" href="#icegolem-leg-front-leg-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="icegolem-leg-front-leg-fill-over" href="#icegolem-leg-front-leg-shape" transform="translate(4.2 4.2)" fill="#6fc7e8"/>
+</g>
+<path id="icegolem-leg-front-leg-sheen" d="M118.14 146 L122.34 146 L108.06 180 L103.86 180 Z M125.84 146 L128.44 146 L114.16 180 L111.56 180 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="icegolem-leg-front-leg-line" href="#icegolem-leg-front-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="tent" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="tent-pennant-shape" d="M 24 2 L 35 5 L 24 9 Z"/>
+<path id="tent-tent-shape" d="M 3 43 L 24 8 L 45 43 Z"/>
+<clipPath id="tent-tent-clip"><use href="#tent-tent-shape"/></clipPath>
+<clipPath id="tent-tent-lit-clip"><use href="#tent-tent-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="tent-band-shape" d="M 3 43 L 6 38 L 42 38 L 45 43 Z"/>
+</defs>
+<path id="tent-pole" d="M 24 9 L 24 2" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="tent-pennant">
+<use id="tent-pennant-fill" href="#tent-pennant-shape" fill="#3d6fb6"/>
+<use id="tent-pennant-line" href="#tent-pennant-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tent-tent">
+<use id="tent-tent-shade" href="#tent-tent-shape" fill="#b3a585"/>
+<g clip-path="url(#tent-tent-clip)">
+<use id="tent-tent-fill" href="#tent-tent-shape" transform="translate(-4 -4)" fill="#d9cdb0"/>
+<g clip-path="url(#tent-tent-lit-clip)">
+<use id="tent-tent-lit" href="#tent-tent-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tent-tent-fill-over" href="#tent-tent-shape" transform="translate(4.2 4.2)" fill="#d9cdb0"/>
+</g>
+<path id="tent-door" d="M 17 43 L 24 24 L 31 43 Z" fill="#1e2b17"/>
+<path id="tent-seam" d="M 24 8 L 26 8 L 36 43 L 32 43 Z" fill="#2a1a10" opacity="0.22"/>
+</g>
+<use id="tent-tent-line" href="#tent-tent-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tent-band">
+<use id="tent-band-fill" href="#tent-band-shape" fill="#3d6fb6"/>
+<use id="tent-band-line" href="#tent-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

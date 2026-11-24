@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icegolem-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="icegolem-head-peak-a-shape" d="M 78 64 L 84 34 L 96 62 Z"/>
+<path id="icegolem-head-peak-b-shape" d="M 92 62 L 102 22 L 112 62 Z"/>
+<path id="icegolem-head-peak-c-shape" d="M 108 62 L 122 38 L 124 64 Z"/>
+<path id="icegolem-head-block-shape" d="M 76 60 L 122 58 C 122 58 127 73 127 80 C 127 87 122 100 122 100 L 78 100 C 78 100 72.3 86.7 72 80 C 71.7 73.3 76 60 76 60 Z"/>
+<clipPath id="icegolem-head-block-clip"><use href="#icegolem-head-block-shape"/></clipPath>
+<clipPath id="icegolem-head-block-lit-clip"><use href="#icegolem-head-block-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="icegolem-head-cap-shape" d="M 66 52 C 71 49 87 50 98 50 C 109 50 126.7 49 132 52 C 137.3 55 133.3 66 130 68 C 126.7 70 117.3 63.7 112 64 C 106.7 64.3 102.7 70 98 70 C 93.3 70 89 64.3 84 64 C 79 63.7 71 70 68 68 C 65 66 61 55 66 52 Z"/>
+</defs>
+<path id="icegolem-head-cast" d="M 128 100 C 128 104.4 115 108 99 108 C 83 108 70 104.4 70 100 C 70 95.6 83 92 99 92 C 115 92 128 95.6 128 100 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="icegolem-head-peak-a">
+<use id="icegolem-head-peak-a-fill" href="#icegolem-head-peak-a-shape" fill="#d4f1fb"/>
+<use id="icegolem-head-peak-a-line" href="#icegolem-head-peak-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="icegolem-head-peak-b">
+<use id="icegolem-head-peak-b-fill" href="#icegolem-head-peak-b-shape" fill="#d4f1fb"/>
+<use id="icegolem-head-peak-b-line" href="#icegolem-head-peak-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="icegolem-head-peak-c">
+<use id="icegolem-head-peak-c-fill" href="#icegolem-head-peak-c-shape" fill="#d4f1fb"/>
+<use id="icegolem-head-peak-c-line" href="#icegolem-head-peak-c-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="icegolem-head-block">
+<use id="icegolem-head-block-shade" href="#icegolem-head-block-shape" fill="#3f97bd"/>
+<g clip-path="url(#icegolem-head-block-clip)">
+<use id="icegolem-head-block-deep" href="#icegolem-head-block-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="icegolem-head-block-shade-over" href="#icegolem-head-block-shape" transform="translate(-3.72 -3.72)" fill="#3f97bd"/>
+<use id="icegolem-head-block-fill" href="#icegolem-head-block-shape" transform="translate(-6 -6)" fill="#6fc7e8"/>
+<g clip-path="url(#icegolem-head-block-lit-clip)">
+<use id="icegolem-head-block-lit" href="#icegolem-head-block-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="icegolem-head-block-fill-over" href="#icegolem-head-block-shape" transform="translate(4.6 4.6)" fill="#6fc7e8"/>
+</g>
+<path id="icegolem-head-block-sheen" d="M108.15 58 L116.45 58 L98.81 100 L90.51 100 Z M119.95 58 L122.55 58 L104.91 100 L102.31 100 Z" fill="#f4f1e4" opacity="0.2"/>
+<g id="icegolem-head-cap">
+<use id="icegolem-head-cap-fill" href="#icegolem-head-cap-shape" fill="#d4f1fb"/>
+<use id="icegolem-head-cap-line" href="#icegolem-head-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="icegolem-head-facet" d="M 74 66 L 100 64 L 94 82 L 73 84 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="icegolem-head-chip" d="M 82 88 Q 84.3 93.7 90 96 Q 86.3 91.7 82 88 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="icegolem-head-cut" d="M 108 74 L 108 104" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="icegolem-head-block-line" href="#icegolem-head-block-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

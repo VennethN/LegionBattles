@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="frost" width="124" height="168" viewBox="0 0 124 168">
+<defs>
+<path id="frost-pouch-shape" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z"/>
+<clipPath id="frost-pouch-clip"><use href="#frost-pouch-shape"/></clipPath>
+<clipPath id="frost-pouch-lit-clip"><use href="#frost-pouch-shape" transform="translate(-7 -7)"/></clipPath>
+<path id="frost-crimp-top-shape" d="M 0 0 L 124 0 L 124 26 L 0 26 Z"/>
+<path id="frost-crimp-bottom-shape" d="M 0 142 L 124 142 L 124 168 L 0 168 Z"/>
+<path id="frost-band-shape" d="M 0 108 L 124 92 L 124 112 L 0 128 Z"/>
+<path id="frost-seal-shape" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z"/>
+<clipPath id="frost-seal-clip"><use href="#frost-seal-shape"/></clipPath>
+<clipPath id="frost-seal-lit-clip"><use href="#frost-seal-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="frost-mark-shape" d="M 62 54 L 65.5 67.9 L 79.3 64 L 69 74 L 79.3 84 L 65.5 80.1 L 62 94 L 58.5 80.1 L 44.7 84 L 55 74 L 44.7 64 L 58.5 67.9 Z"/>
+</defs>
+<g id="frost-pouch">
+<use id="frost-pouch-shade" href="#frost-pouch-shape" fill="#3f97bd"/>
+<g clip-path="url(#frost-pouch-clip)">
+<use id="frost-pouch-deep" href="#frost-pouch-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="frost-pouch-shade-over" href="#frost-pouch-shape" transform="translate(-4.34 -4.34)" fill="#3f97bd"/>
+<use id="frost-pouch-fill" href="#frost-pouch-shape" transform="translate(-7 -7)" fill="#6fc7e8"/>
+<g clip-path="url(#frost-pouch-lit-clip)">
+<use id="frost-pouch-lit" href="#frost-pouch-shape" transform="translate(-7 -7)" fill="#f4f1e4" opacity="0.36"/>
+<use id="frost-pouch-fill-over" href="#frost-pouch-shape" transform="translate(4.6 4.6)" fill="#6fc7e8"/>
+</g>
+<path id="frost-pouch-sheen" d="M94.76 6 L110.96 6 L45.44 162 L29.24 162 Z M114.46 6 L117.06 6 L51.54 162 L48.94 162 Z" fill="#f4f1e4" opacity="0.2"/>
+<g id="frost-crimp-top">
+<use id="frost-crimp-top-fill" href="#frost-crimp-top-shape" fill="#3f97bd"/>
+<use id="frost-crimp-top-line" href="#frost-crimp-top-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="frost-crimp-bottom">
+<use id="frost-crimp-bottom-fill" href="#frost-crimp-bottom-shape" fill="#3f97bd"/>
+<use id="frost-crimp-bottom-line" href="#frost-crimp-bottom-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="frost-band">
+<use id="frost-band-fill" href="#frost-band-shape" fill="#b9c2cc"/>
+<use id="frost-band-line" href="#frost-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="frost-pouch-line" href="#frost-pouch-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="frost-seal">
+<use id="frost-seal-shade" href="#frost-seal-shape" fill="#c4b594"/>
+<g clip-path="url(#frost-seal-clip)">
+<use id="frost-seal-fill" href="#frost-seal-shape" transform="translate(-4 -4)" fill="#e9dfc6"/>
+<g clip-path="url(#frost-seal-lit-clip)">
+<use id="frost-seal-lit" href="#frost-seal-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="frost-seal-fill-over" href="#frost-seal-shape" transform="translate(4.2 4.2)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="frost-seal-line" href="#frost-seal-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="frost-mark">
+<use id="frost-mark-fill" href="#frost-mark-shape" fill="#6fc7e8"/>
+<use id="frost-mark-line" href="#frost-mark-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="frost-glint" d="M 25.5 42.6 L 35.5 36.6 C 37 35.7 37.4 33.9 36.6 32.5 C 35.7 31 33.9 30.6 32.5 31.4 L 22.5 37.4 C 21 38.3 20.6 40.1 21.4 41.5 C 22.3 43 24.1 43.4 25.5 42.6 Z" fill="#f4f1e4"/>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="javelineer-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="javelineer-body-tunic-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="javelineer-body-tunic-clip"><use href="#javelineer-body-tunic-shape"/></clipPath>
+<clipPath id="javelineer-body-tunic-lit-clip"><use href="#javelineer-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="javelineer-body-skirt-shape" d="M 52 147 L 140 147 L 140 171 L 52 171 L 52 147 Z"/>
+<path id="javelineer-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="javelineer-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
+<clipPath id="javelineer-body-buckle-clip"><use href="#javelineer-body-buckle-shape"/></clipPath>
+<clipPath id="javelineer-body-buckle-lit-clip"><use href="#javelineer-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="javelineer-body-arm-shape" d="M 115.5 123.4 L 125.5 121.4 C 129.5 120.5 132.2 116.6 131.4 112.5 C 130.5 108.5 126.6 105.8 122.5 106.6 L 112.5 108.6 C 108.5 109.5 105.8 113.4 106.6 117.5 C 107.5 121.5 111.4 124.2 115.5 123.4 Z"/>
+<clipPath id="javelineer-body-arm-clip"><use href="#javelineer-body-arm-shape"/></clipPath>
+<clipPath id="javelineer-body-arm-lit-clip"><use href="#javelineer-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="javelineer-body-tunic">
+<use id="javelineer-body-tunic-shade" href="#javelineer-body-tunic-shape" fill="#b3a585"/>
+<g clip-path="url(#javelineer-body-tunic-clip)">
+<use id="javelineer-body-tunic-deep" href="#javelineer-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="javelineer-body-tunic-shade-over" href="#javelineer-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="javelineer-body-tunic-fill" href="#javelineer-body-tunic-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#javelineer-body-tunic-lit-clip)">
+<use id="javelineer-body-tunic-lit" href="#javelineer-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-body-tunic-fill-over" href="#javelineer-body-tunic-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="javelineer-body-seam" d="M 107.7 100 L 108.3 100 Q 109.3 100 109.3 101 L 109.3 145 Q 109.3 146 108.3 146 L 107.7 146 Q 106.7 146 106.7 145 L 106.7 101 Q 106.7 100 107.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<g id="javelineer-body-skirt">
+<use id="javelineer-body-skirt-fill" href="#javelineer-body-skirt-shape" fill="#c2453a"/>
+<use id="javelineer-body-skirt-line" href="#javelineer-body-skirt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="javelineer-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="javelineer-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="javelineer-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="javelineer-body-belt">
+<use id="javelineer-body-belt-fill" href="#javelineer-body-belt-shape" fill="#6b4a2b"/>
+<use id="javelineer-body-belt-line" href="#javelineer-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-body-buckle">
+<use id="javelineer-body-buckle-shade" href="#javelineer-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#javelineer-body-buckle-clip)">
+<use id="javelineer-body-buckle-fill" href="#javelineer-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#javelineer-body-buckle-lit-clip)">
+<use id="javelineer-body-buckle-lit" href="#javelineer-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-body-buckle-fill-over" href="#javelineer-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="javelineer-body-buckle-line" href="#javelineer-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="javelineer-body-tunic-line" href="#javelineer-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="javelineer-body-arm-cast" d="M 116.5 126.9 L 126.5 124.9 C 130.5 124 133.2 120.1 132.4 116 C 131.5 112 127.6 109.3 123.5 110.1 L 113.5 112.1 C 109.5 113 106.8 116.9 107.6 121 C 108.5 125 112.4 127.7 116.5 126.9 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="javelineer-body-arm">
+<use id="javelineer-body-arm-shade" href="#javelineer-body-arm-shape" fill="#b3a585"/>
+<g clip-path="url(#javelineer-body-arm-clip)">
+<use id="javelineer-body-arm-fill" href="#javelineer-body-arm-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#javelineer-body-arm-lit-clip)">
+<use id="javelineer-body-arm-lit" href="#javelineer-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-body-arm-fill-over" href="#javelineer-body-arm-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="javelineer-body-arm-line" href="#javelineer-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

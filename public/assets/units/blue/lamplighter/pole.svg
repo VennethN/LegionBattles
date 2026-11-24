@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="lamplighter-pole" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="lamplighter-pole-pole-shape" d="M 141.7 53.8 L 141.7 53.8 Q 144.7 54.2 144.2 57.2 L 128.1 172.1 Q 127.7 175 124.7 174.6 L 124.7 174.6 Q 121.7 174.2 122.2 171.2 L 138.3 56.4 Q 138.7 53.4 141.7 53.8 Z"/>
+<clipPath id="lamplighter-pole-pole-clip"><use href="#lamplighter-pole-pole-shape"/></clipPath>
+<path id="lamplighter-pole-hook-shape" d="M 138.2 57.4 C 138.2 57.4 140.9 50 139.6 47.5 C 138.2 44.9 132.8 41.5 130.2 42.1 C 127.6 42.7 123.9 51.3 123.9 51.3 L 129.8 52.1 C 129.8 52.1 129.8 48.8 132.3 48.5 C 134.9 48.2 143.3 48.7 145.2 50.3 C 147.2 51.9 144.1 58.2 144.1 58.2 L 138.2 57.4 Z"/>
+<path id="lamplighter-pole-flame-shape" d="M 151.4 20.8 C 151.4 20.8 157.5 33.3 158.1 37.9 C 158.6 42.6 156.4 46.3 154.5 48.6 C 152.7 50.8 149.4 51.9 147.1 51.5 C 144.7 51.2 141.8 49.3 140.7 46.6 C 139.5 43.9 138.5 39.7 140.2 35.4 C 142 31.1 151.4 20.8 151.4 20.8 Z"/>
+<clipPath id="lamplighter-pole-flame-clip"><use href="#lamplighter-pole-flame-shape"/></clipPath>
+<clipPath id="lamplighter-pole-flame-lit-clip"><use href="#lamplighter-pole-flame-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="lamplighter-pole-hand-shape" d="M 137.5 137 C 137.5 141.1 134.1 144.5 130 144.5 C 125.9 144.5 122.5 141.1 122.5 137 C 122.5 132.9 125.9 129.5 130 129.5 C 134.1 129.5 137.5 132.9 137.5 137 Z"/>
+<clipPath id="lamplighter-pole-hand-clip"><use href="#lamplighter-pole-hand-shape"/></clipPath>
+<clipPath id="lamplighter-pole-hand-lit-clip"><use href="#lamplighter-pole-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="lamplighter-pole-pole">
+<use id="lamplighter-pole-pole-shade" href="#lamplighter-pole-pole-shape" fill="#75502b"/>
+<g clip-path="url(#lamplighter-pole-pole-clip)">
+<use id="lamplighter-pole-pole-fill" href="#lamplighter-pole-pole-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="lamplighter-pole-pole-line" href="#lamplighter-pole-pole-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lamplighter-pole-hook">
+<use id="lamplighter-pole-hook-fill" href="#lamplighter-pole-hook-shape" fill="#5d6672"/>
+<use id="lamplighter-pole-hook-line" href="#lamplighter-pole-hook-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="lamplighter-pole-halo" d="M 166.7 41.2 C 165.3 51 156.2 57.9 146.4 56.5 C 136.5 55.1 129.7 46 131 36.2 C 132.4 26.3 141.5 19.5 151.4 20.8 C 161.2 22.2 168.1 31.3 166.7 41.2 Z" fill="#ffd27a" opacity="0.45"/>
+<g id="lamplighter-pole-flame">
+<use id="lamplighter-pole-flame-shade" href="#lamplighter-pole-flame-shape" fill="#c45f22"/>
+<g clip-path="url(#lamplighter-pole-flame-clip)">
+<use id="lamplighter-pole-flame-fill" href="#lamplighter-pole-flame-shape" transform="translate(-3 -3)" fill="#f08a3c"/>
+<g clip-path="url(#lamplighter-pole-flame-lit-clip)">
+<use id="lamplighter-pole-flame-lit" href="#lamplighter-pole-flame-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lamplighter-pole-flame-fill-over" href="#lamplighter-pole-flame-shape" transform="translate(3.6 3.6)" fill="#f08a3c"/>
+</g>
+<path id="lamplighter-pole-core" d="M 152.3 43.2 C 151.7 47 149.5 49.9 147.3 49.6 C 145.2 49.3 143.8 45.9 144.4 42.1 C 144.9 38.2 147.1 35.4 149.3 35.7 C 151.5 36 152.8 39.4 152.3 43.2 Z" fill="#ffd27a"/>
+</g>
+<use id="lamplighter-pole-flame-line" href="#lamplighter-pole-flame-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lamplighter-pole-hand">
+<use id="lamplighter-pole-hand-shade" href="#lamplighter-pole-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#lamplighter-pole-hand-clip)">
+<use id="lamplighter-pole-hand-fill" href="#lamplighter-pole-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#lamplighter-pole-hand-lit-clip)">
+<use id="lamplighter-pole-hand-lit" href="#lamplighter-pole-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lamplighter-pole-hand-fill-over" href="#lamplighter-pole-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="lamplighter-pole-hand-line" href="#lamplighter-pole-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

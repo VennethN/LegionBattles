@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icegolem-fist" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="icegolem-fist-arm-shape" d="M 122.1 103.3 L 126.1 133.3 C 126.8 138.8 131.8 142.6 137.3 141.9 C 142.8 141.2 146.6 136.2 145.9 130.7 L 141.9 100.7 C 141.2 95.2 136.2 91.4 130.7 92.1 C 125.2 92.8 121.4 97.8 122.1 103.3 Z"/>
+<clipPath id="icegolem-fist-arm-clip"><use href="#icegolem-fist-arm-shape"/></clipPath>
+<clipPath id="icegolem-fist-arm-lit-clip"><use href="#icegolem-fist-arm-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="icegolem-fist-band-shape" d="M 126 114 L 146 114 Q 149 114 149 117 L 149 120 Q 149 123 146 123 L 126 123 Q 123 123 123 120 L 123 117 Q 123 114 126 114 Z"/>
+<path id="icegolem-fist-fist-shape" d="M 118 136 C 121.2 131.7 130.8 128 137 128 C 143.2 128 151.7 131.7 155 136 C 158.3 140.3 159.8 149.3 157 154 C 154.2 158.7 144.5 164 138 164 C 131.5 164 121.3 158.7 118 154 C 114.7 149.3 114.8 140.3 118 136 Z"/>
+<clipPath id="icegolem-fist-fist-clip"><use href="#icegolem-fist-fist-shape"/></clipPath>
+<clipPath id="icegolem-fist-fist-lit-clip"><use href="#icegolem-fist-fist-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="icegolem-fist-arm">
+<use id="icegolem-fist-arm-shade" href="#icegolem-fist-arm-shape" fill="#3f97bd"/>
+<g clip-path="url(#icegolem-fist-arm-clip)">
+<use id="icegolem-fist-arm-fill" href="#icegolem-fist-arm-shape" transform="translate(-4 -4)" fill="#6fc7e8"/>
+<g clip-path="url(#icegolem-fist-arm-lit-clip)">
+<use id="icegolem-fist-arm-lit" href="#icegolem-fist-arm-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="icegolem-fist-arm-fill-over" href="#icegolem-fist-arm-shape" transform="translate(4.2 4.2)" fill="#6fc7e8"/>
+</g>
+<path id="icegolem-fist-arm-sheen" d="M144.77 91.36 L148.77 91.36 L127.23 142.64 L123.23 142.64 Z M152.27 91.36 L154.87 91.36 L133.33 142.64 L130.73 142.64 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="icegolem-fist-arm-line" href="#icegolem-fist-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="icegolem-fist-band">
+<use id="icegolem-fist-band-fill" href="#icegolem-fist-band-shape" fill="#c2453a"/>
+<use id="icegolem-fist-band-line" href="#icegolem-fist-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="icegolem-fist-fist">
+<use id="icegolem-fist-fist-shade" href="#icegolem-fist-fist-shape" fill="#3f97bd"/>
+<g clip-path="url(#icegolem-fist-fist-clip)">
+<use id="icegolem-fist-fist-deep" href="#icegolem-fist-fist-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="icegolem-fist-fist-shade-over" href="#icegolem-fist-fist-shape" transform="translate(-3.1 -3.1)" fill="#3f97bd"/>
+<use id="icegolem-fist-fist-fill" href="#icegolem-fist-fist-shape" transform="translate(-5 -5)" fill="#6fc7e8"/>
+<g clip-path="url(#icegolem-fist-fist-lit-clip)">
+<use id="icegolem-fist-fist-lit" href="#icegolem-fist-fist-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="icegolem-fist-fist-fill-over" href="#icegolem-fist-fist-shape" transform="translate(4.6 4.6)" fill="#6fc7e8"/>
+</g>
+<path id="icegolem-fist-fist-sheen" d="M144.81 128 L151.59 128 L136.47 164 L129.69 164 Z M155.09 128 L157.69 128 L142.57 164 L139.97 164 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="icegolem-fist-knuckle-a" d="M 134 142 Q 131.9 150.2 135 158 Q 135 150 134 142 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="icegolem-fist-knuckle-b" d="M 144 140 Q 141.9 149.1 145 158 Q 145 149 144 140 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="icegolem-fist-facet" d="M 122 138 L 136 132 L 132 144 L 120 148 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="icegolem-fist-fist-line" href="#icegolem-fist-fist-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

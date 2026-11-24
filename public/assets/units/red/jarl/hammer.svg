@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jarl-hammer" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="jarl-hammer-shaft-shape" d="M 151 67.5 L 152.9 68.2 Q 155.7 69.3 154.6 72.1 L 118.6 161.1 Q 117.5 163.9 114.7 162.8 L 112.8 162 Q 110 160.9 111.2 158.1 L 147.1 69.1 Q 148.3 66.3 151 67.5 Z"/>
+<clipPath id="jarl-hammer-shaft-clip"><use href="#jarl-hammer-shaft-shape"/></clipPath>
+<path id="jarl-hammer-head-shape" d="M 140.2 43.6 L 177.3 58.6 Q 182.8 60.9 180.6 66.4 L 173.1 85 Q 170.8 90.5 165.3 88.3 L 128.2 73.3 Q 122.6 71.1 124.9 65.5 L 132.4 47 Q 134.6 41.4 140.2 43.6 Z"/>
+<clipPath id="jarl-hammer-head-clip"><use href="#jarl-hammer-head-shape"/></clipPath>
+<clipPath id="jarl-hammer-head-lit-clip"><use href="#jarl-hammer-head-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="jarl-hammer-band-a-shape" d="M 131.6 38 L 140.9 41.8 L 127.4 75.2 L 118.2 71.4 L 131.6 38 Z"/>
+<path id="jarl-hammer-band-b-shape" d="M 178 56.8 L 187.3 60.5 L 173.8 93.9 L 164.5 90.2 L 178 56.8 Z"/>
+<path id="jarl-hammer-hand-upper-shape" d="M 139.2 117.9 C 139.2 122 135.9 125.4 131.7 125.4 C 127.6 125.4 124.2 122 124.2 117.9 C 124.2 113.8 127.6 110.4 131.7 110.4 C 135.9 110.4 139.2 113.8 139.2 117.9 Z"/>
+<clipPath id="jarl-hammer-hand-upper-clip"><use href="#jarl-hammer-hand-upper-shape"/></clipPath>
+<clipPath id="jarl-hammer-hand-upper-lit-clip"><use href="#jarl-hammer-hand-upper-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="jarl-hammer-hand-shape" d="M 129.5 142 C 129.5 146.1 126.1 149.5 122 149.5 C 117.9 149.5 114.5 146.1 114.5 142 C 114.5 137.9 117.9 134.5 122 134.5 C 126.1 134.5 129.5 137.9 129.5 142 Z"/>
+<clipPath id="jarl-hammer-hand-clip"><use href="#jarl-hammer-hand-shape"/></clipPath>
+<clipPath id="jarl-hammer-hand-lit-clip"><use href="#jarl-hammer-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="jarl-hammer-shaft">
+<use id="jarl-hammer-shaft-shade" href="#jarl-hammer-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#jarl-hammer-shaft-clip)">
+<use id="jarl-hammer-shaft-fill" href="#jarl-hammer-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="jarl-hammer-shaft-line" href="#jarl-hammer-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-hammer-head">
+<use id="jarl-hammer-head-shade" href="#jarl-hammer-head-shape" fill="#434b56"/>
+<g clip-path="url(#jarl-hammer-head-clip)">
+<use id="jarl-hammer-head-deep" href="#jarl-hammer-head-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="jarl-hammer-head-shade-over" href="#jarl-hammer-head-shape" transform="translate(-3.72 -3.72)" fill="#434b56"/>
+<use id="jarl-hammer-head-fill" href="#jarl-hammer-head-shape" transform="translate(-6 -6)" fill="#5d6672"/>
+<g clip-path="url(#jarl-hammer-head-lit-clip)">
+<use id="jarl-hammer-head-lit" href="#jarl-hammer-head-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="jarl-hammer-head-fill-over" href="#jarl-hammer-head-shape" transform="translate(4.6 4.6)" fill="#5d6672"/>
+</g>
+<path id="jarl-hammer-head-sheen" d="M163.04 41.4 L172.07 41.4 L151.43 90.55 L142.4 90.55 Z M175.57 41.4 L178.17 41.4 L157.53 90.55 L154.93 90.55 Z" fill="#f4f1e4" opacity="0.2"/>
+<g id="jarl-hammer-band-a">
+<use id="jarl-hammer-band-a-fill" href="#jarl-hammer-band-a-shape" fill="#c8a24a"/>
+<use id="jarl-hammer-band-a-line" href="#jarl-hammer-band-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-hammer-band-b">
+<use id="jarl-hammer-band-b-fill" href="#jarl-hammer-band-b-shape" fill="#c8a24a"/>
+<use id="jarl-hammer-band-b-line" href="#jarl-hammer-band-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="jarl-hammer-head-line" href="#jarl-hammer-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-hammer-hand-upper">
+<use id="jarl-hammer-hand-upper-shade" href="#jarl-hammer-hand-upper-shape" fill="#4e3520"/>
+<g clip-path="url(#jarl-hammer-hand-upper-clip)">
+<use id="jarl-hammer-hand-upper-fill" href="#jarl-hammer-hand-upper-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#jarl-hammer-hand-upper-lit-clip)">
+<use id="jarl-hammer-hand-upper-lit" href="#jarl-hammer-hand-upper-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="jarl-hammer-hand-upper-fill-over" href="#jarl-hammer-hand-upper-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="jarl-hammer-hand-upper-line" href="#jarl-hammer-hand-upper-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-hammer-hand">
+<use id="jarl-hammer-hand-shade" href="#jarl-hammer-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#jarl-hammer-hand-clip)">
+<use id="jarl-hammer-hand-fill" href="#jarl-hammer-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#jarl-hammer-hand-lit-clip)">
+<use id="jarl-hammer-hand-lit" href="#jarl-hammer-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="jarl-hammer-hand-fill-over" href="#jarl-hammer-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="jarl-hammer-hand-line" href="#jarl-hammer-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

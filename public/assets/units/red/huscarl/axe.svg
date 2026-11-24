@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="huscarl-axe" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="huscarl-axe-shaft-shape" d="M 152.3 84 L 153.2 84.5 Q 155.9 85.8 154.6 88.5 L 127.4 144.2 Q 126.1 146.9 123.4 145.6 L 122.5 145.2 Q 119.8 143.8 121.2 141.2 L 148.3 85.4 Q 149.6 82.7 152.3 84 Z"/>
+<clipPath id="huscarl-axe-shaft-clip"><use href="#huscarl-axe-shaft-shape"/></clipPath>
+<path id="huscarl-axe-blade-shape" d="M 153.7 86.9 C 153.7 86.9 165.9 84.7 169.8 85.9 C 173.7 87 177 93.9 177 93.9 C 177 93.9 174.9 104.3 171.8 109.1 C 168.7 113.9 158.5 122.7 158.5 122.7 C 158.5 122.7 156.6 111.4 154.8 107.5 C 153 103.6 147.6 99.5 147.6 99.5 L 153.7 86.9 Z"/>
+<clipPath id="huscarl-axe-blade-clip"><use href="#huscarl-axe-blade-shape"/></clipPath>
+<clipPath id="huscarl-axe-blade-lit-clip"><use href="#huscarl-axe-blade-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="huscarl-axe-hand-shape" d="M 137.5 131 C 137.5 135.1 134.1 138.5 130 138.5 C 125.9 138.5 122.5 135.1 122.5 131 C 122.5 126.9 125.9 123.5 130 123.5 C 134.1 123.5 137.5 126.9 137.5 131 Z"/>
+<clipPath id="huscarl-axe-hand-clip"><use href="#huscarl-axe-hand-shape"/></clipPath>
+<clipPath id="huscarl-axe-hand-lit-clip"><use href="#huscarl-axe-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="huscarl-axe-shaft">
+<use id="huscarl-axe-shaft-shade" href="#huscarl-axe-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#huscarl-axe-shaft-clip)">
+<use id="huscarl-axe-shaft-fill" href="#huscarl-axe-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="huscarl-axe-shaft-line" href="#huscarl-axe-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-axe-blade">
+<use id="huscarl-axe-blade-shade" href="#huscarl-axe-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#huscarl-axe-blade-clip)">
+<use id="huscarl-axe-blade-fill" href="#huscarl-axe-blade-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#huscarl-axe-blade-lit-clip)">
+<use id="huscarl-axe-blade-lit" href="#huscarl-axe-blade-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="huscarl-axe-blade-fill-over" href="#huscarl-axe-blade-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="huscarl-axe-blade-sheen" d="M170.28 84.73 L174.7 84.73 L158.76 122.67 L154.34 122.67 Z M178.2 84.73 L180.8 84.73 L164.86 122.67 L162.26 122.67 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="huscarl-axe-cheek" d="M 148.3 84.3 C 148.3 84.3 160.5 82.1 164.4 83.3 C 168.3 84.4 171.6 91.2 171.6 91.2 C 171.6 91.2 169.5 101.7 166.4 106.5 C 163.3 111.3 153.1 120 153.1 120 C 153.1 120 151.2 108.7 149.4 104.9 C 147.6 101 142.2 96.9 142.2 96.9 L 148.3 84.3 Z" fill="#2a1a10" opacity="0.22"/>
+</g>
+<use id="huscarl-axe-blade-line" href="#huscarl-axe-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-axe-hand">
+<use id="huscarl-axe-hand-shade" href="#huscarl-axe-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#huscarl-axe-hand-clip)">
+<use id="huscarl-axe-hand-fill" href="#huscarl-axe-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#huscarl-axe-hand-lit-clip)">
+<use id="huscarl-axe-hand-lit" href="#huscarl-axe-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="huscarl-axe-hand-fill-over" href="#huscarl-axe-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="huscarl-axe-hand-line" href="#huscarl-axe-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

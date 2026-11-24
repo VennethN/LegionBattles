@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="huscarl-shield" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="huscarl-shield-rim-shape" d="M 112 140 C 112 155.5 99.5 168 84 168 C 68.5 168 56 155.5 56 140 C 56 124.5 68.5 112 84 112 C 99.5 112 112 124.5 112 140 Z"/>
+<clipPath id="huscarl-shield-rim-clip"><use href="#huscarl-shield-rim-shape"/></clipPath>
+<clipPath id="huscarl-shield-rim-lit-clip"><use href="#huscarl-shield-rim-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="huscarl-shield-face-shape" d="M 105 140 C 105 151.6 95.6 161 84 161 C 72.4 161 63 151.6 63 140 C 63 128.4 72.4 119 84 119 C 95.6 119 105 128.4 105 140 Z"/>
+<clipPath id="huscarl-shield-face-clip"><use href="#huscarl-shield-face-shape"/></clipPath>
+<clipPath id="huscarl-shield-face-lit-clip"><use href="#huscarl-shield-face-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="huscarl-shield-boss-shape" d="M 91 140 C 91 143.9 87.9 147 84 147 C 80.1 147 77 143.9 77 140 C 77 136.1 80.1 133 84 133 C 87.9 133 91 136.1 91 140 Z"/>
+<clipPath id="huscarl-shield-boss-clip"><use href="#huscarl-shield-boss-shape"/></clipPath>
+<clipPath id="huscarl-shield-boss-lit-clip"><use href="#huscarl-shield-boss-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="huscarl-shield-rim">
+<use id="huscarl-shield-rim-shade" href="#huscarl-shield-rim-shape" fill="#8d97a3"/>
+<g clip-path="url(#huscarl-shield-rim-clip)">
+<use id="huscarl-shield-rim-deep" href="#huscarl-shield-rim-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="huscarl-shield-rim-shade-over" href="#huscarl-shield-rim-shape" transform="translate(-3.1 -3.1)" fill="#8d97a3"/>
+<use id="huscarl-shield-rim-fill" href="#huscarl-shield-rim-shape" transform="translate(-5 -5)" fill="#b9c2cc"/>
+<g clip-path="url(#huscarl-shield-rim-lit-clip)">
+<use id="huscarl-shield-rim-lit" href="#huscarl-shield-rim-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="huscarl-shield-rim-fill-over" href="#huscarl-shield-rim-shape" transform="translate(4.6 4.6)" fill="#b9c2cc"/>
+</g>
+<path id="huscarl-shield-rim-sheen" d="M95.76 112 L104.16 112 L80.64 168 L72.24 168 Z M107.66 112 L110.26 112 L86.74 168 L84.14 168 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="huscarl-shield-rim-line" href="#huscarl-shield-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-shield-face">
+<use id="huscarl-shield-face-shade" href="#huscarl-shield-face-shape" fill="#75502b"/>
+<g clip-path="url(#huscarl-shield-face-clip)">
+<use id="huscarl-shield-face-fill" href="#huscarl-shield-face-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#huscarl-shield-face-lit-clip)">
+<use id="huscarl-shield-face-lit" href="#huscarl-shield-face-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="huscarl-shield-face-fill-over" href="#huscarl-shield-face-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="huscarl-shield-grain-a" d="M 70.2 132 L 70.2 145 C 70.2 145.5 70.5 145.9 71 145.9 C 71.5 145.9 71.9 145.5 71.9 145 L 71.9 132 C 71.9 131.5 71.5 131.2 71 131.2 C 70.5 131.2 70.2 131.5 70.2 132 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="huscarl-shield-grain-b" d="M 84.2 149 L 84.2 155 C 84.2 155.5 84.5 155.9 85 155.9 C 85.5 155.9 85.9 155.5 85.9 155 L 85.9 149 C 85.9 148.5 85.5 148.2 85 148.2 C 84.5 148.2 84.2 148.5 84.2 149 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="huscarl-shield-grain-c" d="M 96.2 131 L 96.2 143 C 96.2 143.5 96.5 143.9 97 143.9 C 97.5 143.9 97.9 143.5 97.9 143 L 97.9 131 C 97.9 130.5 97.5 130.2 97 130.2 C 96.5 130.2 96.2 130.5 96.2 131 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="huscarl-shield-boss-cast" d="M 94.5 142.5 C 94.5 147.5 90.5 151.5 85.5 151.5 C 80.5 151.5 76.5 147.5 76.5 142.5 C 76.5 137.5 80.5 133.5 85.5 133.5 C 90.5 133.5 94.5 137.5 94.5 142.5 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="huscarl-shield-plank-a" d="M 77 112 L 77 168" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="huscarl-shield-plank-b" d="M 92 112 L 92 168" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="huscarl-shield-face-line" href="#huscarl-shield-face-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-shield-boss">
+<use id="huscarl-shield-boss-shade" href="#huscarl-shield-boss-shape" fill="#9c7c33"/>
+<g clip-path="url(#huscarl-shield-boss-clip)">
+<use id="huscarl-shield-boss-fill" href="#huscarl-shield-boss-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#huscarl-shield-boss-lit-clip)">
+<use id="huscarl-shield-boss-lit" href="#huscarl-shield-boss-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="huscarl-shield-boss-fill-over" href="#huscarl-shield-boss-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="huscarl-shield-boss-line" href="#huscarl-shield-boss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="huscarl-shield-glint" d="M 84 138 C 84 139.1 83.1 140 82 140 C 80.9 140 80 139.1 80 138 C 80 136.9 80.9 136 82 136 C 83.1 136 84 136.9 84 138 Z" fill="#f4f1e4"/>
+</svg>

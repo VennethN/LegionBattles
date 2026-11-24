@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="harpooner-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="harpooner-body-coat-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="harpooner-body-coat-clip"><use href="#harpooner-body-coat-shape"/></clipPath>
+<clipPath id="harpooner-body-coat-lit-clip"><use href="#harpooner-body-coat-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="harpooner-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="harpooner-body-arm-shape" d="M 116.8 123 L 126.8 119 C 130.6 117.4 132.5 113.1 131 109.2 C 129.4 105.4 125.1 103.5 121.2 105 L 111.2 109 C 107.4 110.6 105.5 114.9 107 118.8 C 108.6 122.6 112.9 124.5 116.8 123 Z"/>
+<clipPath id="harpooner-body-arm-clip"><use href="#harpooner-body-arm-shape"/></clipPath>
+<clipPath id="harpooner-body-arm-lit-clip"><use href="#harpooner-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="harpooner-body-coat">
+<use id="harpooner-body-coat-shade" href="#harpooner-body-coat-shape" fill="#933027"/>
+<g clip-path="url(#harpooner-body-coat-clip)">
+<use id="harpooner-body-coat-deep" href="#harpooner-body-coat-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="harpooner-body-coat-shade-over" href="#harpooner-body-coat-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="harpooner-body-coat-fill" href="#harpooner-body-coat-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#harpooner-body-coat-lit-clip)">
+<use id="harpooner-body-coat-lit" href="#harpooner-body-coat-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-body-coat-fill-over" href="#harpooner-body-coat-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
+<path id="harpooner-body-seam" d="M 104.7 100 L 105.3 100 Q 106.3 100 106.3 101 L 106.3 161 Q 106.3 162 105.3 162 L 104.7 162 Q 103.7 162 103.7 161 L 103.7 101 Q 103.7 100 104.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<path id="harpooner-body-rivet" d="M 112.2 112 C 112.2 113.2 111.2 114.2 110 114.2 C 108.8 114.2 107.8 113.2 107.8 112 C 107.8 110.8 108.8 109.8 110 109.8 C 111.2 109.8 112.2 110.8 112.2 112 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="harpooner-body-rivet-lit" d="M 110.2 111.2 C 110.2 111.8 109.8 112.2 109.2 112.2 C 108.7 112.2 108.2 111.8 108.2 111.2 C 108.2 110.7 108.7 110.2 109.2 110.2 C 109.8 110.2 110.2 110.7 110.2 111.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="harpooner-body-rivet-2" d="M 112.2 121 C 112.2 122.2 111.2 123.2 110 123.2 C 108.8 123.2 107.8 122.2 107.8 121 C 107.8 119.8 108.8 118.8 110 118.8 C 111.2 118.8 112.2 119.8 112.2 121 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="harpooner-body-rivet-lit-2" d="M 110.2 120.2 C 110.2 120.8 109.8 121.2 109.2 121.2 C 108.7 121.2 108.2 120.8 108.2 120.2 C 108.2 119.7 108.7 119.2 109.2 119.2 C 109.8 119.2 110.2 119.7 110.2 120.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="harpooner-body-rivet-3" d="M 112.2 130 C 112.2 131.2 111.2 132.2 110 132.2 C 108.8 132.2 107.8 131.2 107.8 130 C 107.8 128.8 108.8 127.8 110 127.8 C 111.2 127.8 112.2 128.8 112.2 130 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="harpooner-body-rivet-lit-3" d="M 110.2 129.2 C 110.2 129.8 109.8 130.2 109.2 130.2 C 108.7 130.2 108.2 129.8 108.2 129.2 C 108.2 128.7 108.7 128.2 109.2 128.2 C 109.8 128.2 110.2 128.7 110.2 129.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="harpooner-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="harpooner-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="harpooner-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="harpooner-body-belt">
+<use id="harpooner-body-belt-fill" href="#harpooner-body-belt-shape" fill="#e9dfc6"/>
+<use id="harpooner-body-belt-line" href="#harpooner-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="harpooner-body-coat-line" href="#harpooner-body-coat-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="harpooner-body-arm-cast" d="M 117.8 126.5 L 127.8 122.5 C 131.6 120.9 133.5 116.6 132 112.7 C 130.4 108.9 126.1 107 122.2 108.5 L 112.2 112.5 C 108.4 114.1 106.5 118.4 108 122.3 C 109.6 126.1 113.9 128 117.8 126.5 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="harpooner-body-arm">
+<use id="harpooner-body-arm-shade" href="#harpooner-body-arm-shape" fill="#933027"/>
+<g clip-path="url(#harpooner-body-arm-clip)">
+<use id="harpooner-body-arm-fill" href="#harpooner-body-arm-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#harpooner-body-arm-lit-clip)">
+<use id="harpooner-body-arm-lit" href="#harpooner-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-body-arm-fill-over" href="#harpooner-body-arm-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="harpooner-body-arm-line" href="#harpooner-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

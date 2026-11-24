@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="moon" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="moon-moon-shape" d="M 30 5 C 14 4 5 14 6 26 C 7 38 18 45 30 43 C 20 38 16 30 17 23 C 18 15 23 9 30 5 Z"/>
+<clipPath id="moon-moon-clip"><use href="#moon-moon-shape"/></clipPath>
+<clipPath id="moon-moon-lit-clip"><use href="#moon-moon-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="moon-star-shape" d="M 36 12 L 38.3 17.7 L 44 20 L 38.3 22.3 L 36 28 L 33.7 22.3 L 28 20 L 33.7 17.7 Z"/>
+</defs>
+<g id="moon-moon">
+<use id="moon-moon-shade" href="#moon-moon-shape" fill="#c4b594"/>
+<g clip-path="url(#moon-moon-clip)">
+<use id="moon-moon-fill" href="#moon-moon-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#moon-moon-lit-clip)">
+<use id="moon-moon-lit" href="#moon-moon-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="moon-moon-fill-over" href="#moon-moon-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="moon-moon-line" href="#moon-moon-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="moon-star">
+<use id="moon-star-fill" href="#moon-star-shape" fill="#c8a24a"/>
+<use id="moon-star-line" href="#moon-star-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,631 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="snow-march" width="1600" height="1000" viewBox="0 0 1600 1000">
+<defs>
+<path id="snow-march-trunk-shape" d="M -4 -18 L 4 -18 Q 7 -18 7 -15 L 7 -3 Q 7 0 4 0 L -4 0 Q -7 0 -7 -3 L -7 -15 Q -7 -18 -4 -18 Z"/>
+<clipPath id="snow-march-trunk-clip"><use href="#snow-march-trunk-shape"/></clipPath>
+<clipPath id="snow-march-trunk-lit-clip"><use href="#snow-march-trunk-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-march-low-shape" d="M 0 -50 L 34 -18 L 25 -12 L 0 -18 L -25 -12 L -34 -18 Z"/>
+<clipPath id="snow-march-low-clip"><use href="#snow-march-low-shape"/></clipPath>
+<clipPath id="snow-march-low-lit-clip"><use href="#snow-march-low-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="snow-march-low-snow-shape" d="M 0 -58 C 7 -58 19.4 -34 21.1 -30 C 22.8 -26 13.1 -34.7 10.2 -34 C 7.3 -33.3 6.2 -26 3.4 -26 C 0.6 -26 -2.7 -33.3 -6.8 -34 C -10.9 -34.7 -22.2 -26 -21.1 -30 C -19.9 -34 -7 -58 0 -58 Z"/>
+<path id="snow-march-mid-shape" d="M 0 -76 L 27 -44 L 18 -38 L 0 -44 L -18 -38 L -27 -44 Z"/>
+<clipPath id="snow-march-mid-clip"><use href="#snow-march-mid-shape"/></clipPath>
+<clipPath id="snow-march-mid-lit-clip"><use href="#snow-march-mid-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="snow-march-mid-snow-shape" d="M 0 -84 C 5.6 -84 15.4 -60 16.7 -56 C 18.1 -52 10.4 -60.7 8.1 -60 C 5.8 -59.3 5 -52 2.7 -52 C 0.5 -52 -2.2 -59.3 -5.4 -60 C -8.6 -60.7 -17.6 -52 -16.7 -56 C -15.8 -60 -5.6 -84 0 -84 Z"/>
+<path id="snow-march-top-shape" d="M 0 -102 L 20 -70 L 11 -64 L 0 -70 L -11 -64 L -20 -70 Z"/>
+<clipPath id="snow-march-top-clip"><use href="#snow-march-top-shape"/></clipPath>
+<clipPath id="snow-march-top-lit-clip"><use href="#snow-march-top-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="snow-march-top-snow-shape" d="M 0 -110 C 4.1 -110 11.4 -86 12.4 -82 C 13.4 -78 7.7 -86.7 6 -86 C 4.3 -85.3 3.7 -78 2 -78 C 0.3 -78 -1.6 -85.3 -4 -86 C -6.4 -86.7 -13.1 -78 -12.4 -82 C -11.7 -86 -4.1 -110 0 -110 Z"/>
+<g id="snow-march-thing-1">
+<path id="snow-march-shadow" d="M 36 2 C 36 7 21.7 11 4 11 C -13.7 11 -28 7 -28 2 C -28 -3 -13.7 -7 4 -7 C 21.7 -7 36 -3 36 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snow-march-trunk">
+<use id="snow-march-trunk-shade" href="#snow-march-trunk-shape" fill="#75502b"/>
+<g clip-path="url(#snow-march-trunk-clip)">
+<use id="snow-march-trunk-fill" href="#snow-march-trunk-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#snow-march-trunk-lit-clip)">
+<use id="snow-march-trunk-lit" href="#snow-march-trunk-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-trunk-fill-over" href="#snow-march-trunk-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="snow-march-trunk-line" href="#snow-march-trunk-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-low">
+<use id="snow-march-low-shade" href="#snow-march-low-shape" fill="#2e5f45"/>
+<g clip-path="url(#snow-march-low-clip)">
+<use id="snow-march-low-deep" href="#snow-march-low-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="snow-march-low-shade-over" href="#snow-march-low-shape" transform="translate(-3.1 -3.1)" fill="#2e5f45"/>
+<use id="snow-march-low-fill" href="#snow-march-low-shape" transform="translate(-5 -5)" fill="#3f7a5a"/>
+<g clip-path="url(#snow-march-low-lit-clip)">
+<use id="snow-march-low-lit" href="#snow-march-low-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-low-fill-over" href="#snow-march-low-shape" transform="translate(4.6 4.6)" fill="#3f7a5a"/>
+</g>
+<g id="snow-march-low-snow">
+<use id="snow-march-low-snow-fill" href="#snow-march-low-snow-shape" fill="#f8fcfe"/>
+<use id="snow-march-low-snow-line" href="#snow-march-low-snow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="snow-march-low-under" d="M -34 -14 L 0 -20 L 34 -14 L 34 -8 L -34 -8 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="snow-march-low-line" href="#snow-march-low-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-mid">
+<use id="snow-march-mid-shade" href="#snow-march-mid-shape" fill="#2e5f45"/>
+<g clip-path="url(#snow-march-mid-clip)">
+<use id="snow-march-mid-deep" href="#snow-march-mid-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="snow-march-mid-shade-over" href="#snow-march-mid-shape" transform="translate(-3.1 -3.1)" fill="#2e5f45"/>
+<use id="snow-march-mid-fill" href="#snow-march-mid-shape" transform="translate(-5 -5)" fill="#3f7a5a"/>
+<g clip-path="url(#snow-march-mid-lit-clip)">
+<use id="snow-march-mid-lit" href="#snow-march-mid-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-mid-fill-over" href="#snow-march-mid-shape" transform="translate(4.6 4.6)" fill="#3f7a5a"/>
+</g>
+<g id="snow-march-mid-snow">
+<use id="snow-march-mid-snow-fill" href="#snow-march-mid-snow-shape" fill="#f8fcfe"/>
+<use id="snow-march-mid-snow-line" href="#snow-march-mid-snow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="snow-march-mid-under" d="M -27 -40 L 0 -46 L 27 -40 L 27 -34 L -27 -34 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="snow-march-mid-line" href="#snow-march-mid-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-top">
+<use id="snow-march-top-shade" href="#snow-march-top-shape" fill="#2e5f45"/>
+<g clip-path="url(#snow-march-top-clip)">
+<use id="snow-march-top-deep" href="#snow-march-top-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="snow-march-top-shade-over" href="#snow-march-top-shape" transform="translate(-3.1 -3.1)" fill="#2e5f45"/>
+<use id="snow-march-top-fill" href="#snow-march-top-shape" transform="translate(-5 -5)" fill="#3f7a5a"/>
+<g clip-path="url(#snow-march-top-lit-clip)">
+<use id="snow-march-top-lit" href="#snow-march-top-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-top-fill-over" href="#snow-march-top-shape" transform="translate(4.6 4.6)" fill="#3f7a5a"/>
+</g>
+<g id="snow-march-top-snow">
+<use id="snow-march-top-snow-fill" href="#snow-march-top-snow-shape" fill="#f8fcfe"/>
+<use id="snow-march-top-snow-line" href="#snow-march-top-snow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="snow-march-top-under" d="M -20 -66 L 0 -72 L 20 -66 L 20 -60 L -20 -60 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="snow-march-top-line" href="#snow-march-top-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="snow-march-bough-a-shape" d="M 0.6 -46.4 L -23.4 -72.4 C -24.7 -73.8 -27 -73.9 -28.4 -72.6 C -29.8 -71.3 -29.9 -69 -28.6 -67.6 L -4.6 -41.6 C -3.3 -40.2 -1 -40.1 0.4 -41.4 C 1.8 -42.7 1.9 -45 0.6 -46.4 Z"/>
+<path id="snow-march-bough-b-shape" d="M 4.8 -47.8 L 26.8 -75.8 C 27.9 -77.4 27.7 -79.6 26.2 -80.8 C 24.6 -81.9 22.4 -81.7 21.2 -80.2 L -0.8 -52.2 C -1.9 -50.6 -1.7 -48.4 -0.2 -47.2 C 1.4 -46.1 3.6 -46.3 4.8 -47.8 Z"/>
+<path id="snow-march-twig-shape" d="M 11.7 -61.5 L 29.7 -59.5 C 31.1 -59.4 32.3 -60.4 32.5 -61.7 C 32.6 -63.1 31.6 -64.3 30.3 -64.5 L 12.3 -66.5 C 10.9 -66.6 9.7 -65.6 9.5 -64.3 C 9.4 -62.9 10.4 -61.7 11.7 -61.5 Z"/>
+<path id="snow-march-trunk-2-shape" d="M -8 0 C -8 0 -6.5 -20 -6 -30 C -5.5 -40 -6 -51 -5 -60 C -4 -69 -1.7 -84 0 -84 C 1.7 -84 4 -69 5 -60 C 6 -51 5.5 -40 6 -30 C 6.5 -20 8 0 8 0 L -8 0 Z"/>
+<clipPath id="snow-march-trunk-2-clip"><use href="#snow-march-trunk-2-shape"/></clipPath>
+<clipPath id="snow-march-trunk-2-lit-clip"><use href="#snow-march-trunk-2-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="snow-march-snow-a-shape" d="M -28 -72 C -28 -72 -21.3 -72.7 -18 -70 C -14.7 -67.3 -8 -56 -8 -56 C -8 -56 -12.7 -57.3 -16 -60 C -19.3 -62.7 -28 -72 -28 -72 Z"/>
+<path id="snow-march-snow-b-shape" d="M 8 -60 C 8 -60 15 -72.7 18 -76 C 21 -79.3 26 -80 26 -80 C 26 -80 21 -71.3 18 -68 C 15 -64.7 8 -60 8 -60 Z"/>
+<g id="snow-march-thing-2">
+<path id="snow-march-shadow-2" d="M 30 2 C 30 5.9 18.4 9 4 9 C -10.4 9 -22 5.9 -22 2 C -22 -1.9 -10.4 -5 4 -5 C 18.4 -5 30 -1.9 30 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snow-march-bough-a">
+<use id="snow-march-bough-a-fill" href="#snow-march-bough-a-shape" fill="#75502b"/>
+<use id="snow-march-bough-a-line" href="#snow-march-bough-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-bough-b">
+<use id="snow-march-bough-b-fill" href="#snow-march-bough-b-shape" fill="#9a6a3a"/>
+<use id="snow-march-bough-b-line" href="#snow-march-bough-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-twig">
+<use id="snow-march-twig-fill" href="#snow-march-twig-shape" fill="#9a6a3a"/>
+<use id="snow-march-twig-line" href="#snow-march-twig-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-trunk-2">
+<use id="snow-march-trunk-2-shade" href="#snow-march-trunk-2-shape" fill="#75502b"/>
+<g clip-path="url(#snow-march-trunk-2-clip)">
+<use id="snow-march-trunk-2-fill" href="#snow-march-trunk-2-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#snow-march-trunk-2-lit-clip)">
+<use id="snow-march-trunk-2-lit" href="#snow-march-trunk-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-trunk-2-fill-over" href="#snow-march-trunk-2-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="snow-march-bark" d="M -0.1 -8 L 0.9 -50 C 0.9 -50.5 0.5 -50.9 0 -50.9 C -0.5 -50.9 -0.9 -50.5 -0.9 -50 L -1.9 -8 C -1.9 -7.5 -1.5 -7.1 -1 -7.1 C -0.5 -7.1 -0.1 -7.5 -0.1 -8 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="snow-march-trunk-2-line" href="#snow-march-trunk-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-snow-a">
+<use id="snow-march-snow-a-fill" href="#snow-march-snow-a-shape" fill="#f8fcfe"/>
+<use id="snow-march-snow-a-line" href="#snow-march-snow-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-snow-b">
+<use id="snow-march-snow-b-fill" href="#snow-march-snow-b-shape" fill="#f8fcfe"/>
+<use id="snow-march-snow-b-line" href="#snow-march-snow-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="snow-march-rock-shape" d="M -30 0 C -30 0 -30.7 -14 -28 -20 C -25.3 -26 -19.7 -33 -14 -36 C -8.3 -39 0 -39.7 6 -38 C 12 -36.3 18 -32.3 22 -26 C 26 -19.7 30 0 30 0 L -30 0 Z"/>
+<clipPath id="snow-march-rock-clip"><use href="#snow-march-rock-shape"/></clipPath>
+<clipPath id="snow-march-rock-lit-clip"><use href="#snow-march-rock-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="snow-march-cap-shape" d="M -36 -22 C -34.7 -26.3 -23.7 -40 -16 -44 C -8.3 -48 2.3 -49.3 10 -46 C 17.7 -42.7 29 -27.3 30 -24 C 31 -20.7 20.3 -26.7 16 -26 C 11.7 -25.3 8.3 -19.7 4 -20 C -0.3 -20.3 -5.3 -28.3 -10 -28 C -14.7 -27.7 -19.7 -19 -24 -18 C -28.3 -17 -37.3 -17.7 -36 -22 Z"/>
+<path id="snow-march-pebble-shape" d="M 14 0 C 14 0 14 -7.7 16 -10 C 18 -12.3 22.7 -14.3 26 -14 C 29.3 -13.7 34 -10.3 36 -8 C 38 -5.7 38 0 38 0 L 14 0 Z"/>
+<clipPath id="snow-march-pebble-clip"><use href="#snow-march-pebble-shape"/></clipPath>
+<clipPath id="snow-march-pebble-lit-clip"><use href="#snow-march-pebble-shape" transform="translate(-3 -3)"/></clipPath>
+<g id="snow-march-thing-3">
+<path id="snow-march-shadow-3" d="M 40 2 C 40 7 23.9 11 4 11 C -15.9 11 -32 7 -32 2 C -32 -3 -15.9 -7 4 -7 C 23.9 -7 40 -3 40 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snow-march-rock">
+<use id="snow-march-rock-shade" href="#snow-march-rock-shape" fill="#77766b"/>
+<g clip-path="url(#snow-march-rock-clip)">
+<use id="snow-march-rock-deep" href="#snow-march-rock-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="snow-march-rock-shade-over" href="#snow-march-rock-shape" transform="translate(-3.72 -3.72)" fill="#77766b"/>
+<use id="snow-march-rock-fill" href="#snow-march-rock-shape" transform="translate(-6 -6)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-march-rock-lit-clip)">
+<use id="snow-march-rock-lit" href="#snow-march-rock-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-rock-fill-over" href="#snow-march-rock-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<path id="snow-march-facet" d="M -24 -18 L -12 -34 L 4 -34 L -4 -14 L -22 -6 Z" fill="#f4f1e4" opacity="0.22"/>
+<path id="snow-march-facet-far" d="M 8 -30 L 24 -22 L 28 0 L 10 0 L 4 -14 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="snow-march-crack" d="M -2 -30 L 2 -20 L -3 -12 L 1 -4 L 4 -4 L 0 -12 L 5 -20 L 1 -30 Z" fill="#2a1a10" opacity="0.31"/>
+<g id="snow-march-cap">
+<use id="snow-march-cap-fill" href="#snow-march-cap-shape" fill="#f8fcfe"/>
+<use id="snow-march-cap-line" href="#snow-march-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="snow-march-rock-line" href="#snow-march-rock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-pebble">
+<use id="snow-march-pebble-shade" href="#snow-march-pebble-shape" fill="#77766b"/>
+<g clip-path="url(#snow-march-pebble-clip)">
+<use id="snow-march-pebble-fill" href="#snow-march-pebble-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-march-pebble-lit-clip)">
+<use id="snow-march-pebble-lit" href="#snow-march-pebble-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-pebble-fill-over" href="#snow-march-pebble-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="snow-march-pebble-line" href="#snow-march-pebble-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="snow-march-drift-37-shape" d="M -40 0 C -40 0 -35 -8.7 -30 -12 C -25 -15.3 -16.7 -19.3 -10 -20 C -3.3 -20.7 3.3 -17.7 10 -16 C 16.7 -14.3 24.7 -12.7 30 -10 C 35.3 -7.3 42 0 42 0 L -40 0 Z"/>
+<clipPath id="snow-march-drift-37-clip"><use href="#snow-march-drift-37-shape"/></clipPath>
+<clipPath id="snow-march-drift-37-lit-clip"><use href="#snow-march-drift-37-shape" transform="translate(-5 -5)"/></clipPath>
+<g id="snow-march-thing-4">
+<g id="snow-march-drift-37">
+<use id="snow-march-drift-37-shade" href="#snow-march-drift-37-shape" fill="#d3e0e8"/>
+<g clip-path="url(#snow-march-drift-37-clip)">
+<use id="snow-march-drift-37-deep" href="#snow-march-drift-37-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="snow-march-drift-37-shade-over" href="#snow-march-drift-37-shape" transform="translate(-3.1 -3.1)" fill="#d3e0e8"/>
+<use id="snow-march-drift-37-fill" href="#snow-march-drift-37-shape" transform="translate(-5 -5)" fill="#f8fcfe"/>
+<g clip-path="url(#snow-march-drift-37-lit-clip)">
+<use id="snow-march-drift-37-lit" href="#snow-march-drift-37-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-drift-37-fill-over" href="#snow-march-drift-37-shape" transform="translate(4.6 4.6)" fill="#f8fcfe"/>
+</g>
+<path id="snow-march-lee" d="M 4 -16 C 6.7 -17.7 23.7 -12.7 30 -10 C 36.3 -7.3 44.7 -1.7 42 0 C 39.3 1.7 20.3 2.7 14 0 C 7.7 -2.7 1.3 -14.3 4 -16 Z" fill="#2a1a10" opacity="0.07"/>
+</g>
+</g>
+</g>
+<g id="snow-march-thing-5">
+<path id="snow-march-back" d="M -12 0 L -9 -16 L -5 0 L -1 -22 L 4 0 L 8 -15 L 12 0 Z" fill="#b9ccd8"/>
+<path id="snow-march-front" d="M -8 0 L -5 -10 L -2 0 L 2 -14 L 6 0 Z" fill="#f8fcfe"/>
+</g>
+<path id="snow-march-stone-a-shape" d="M -14 -14 L 14 -14 Q 20 -14 20 -8 L 20 -6 Q 20 0 14 0 L -14 0 Q -20 0 -20 -6 L -20 -8 Q -20 -14 -14 -14 Z"/>
+<clipPath id="snow-march-stone-a-clip"><use href="#snow-march-stone-a-shape"/></clipPath>
+<clipPath id="snow-march-stone-a-lit-clip"><use href="#snow-march-stone-a-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="snow-march-stone-b-shape" d="M -8 -26 L 8 -26 Q 14 -26 14 -20 L 14 -19 Q 14 -13 8 -13 L -8 -13 Q -14 -13 -14 -19 L -14 -20 Q -14 -26 -8 -26 Z"/>
+<clipPath id="snow-march-stone-b-clip"><use href="#snow-march-stone-b-shape"/></clipPath>
+<clipPath id="snow-march-stone-b-lit-clip"><use href="#snow-march-stone-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-march-stone-c-shape" d="M -3 -36 L 4 -36 Q 9 -36 9 -31 L 9 -30 Q 9 -25 4 -25 L -3 -25 Q -8 -25 -8 -30 L -8 -31 Q -8 -36 -3 -36 Z"/>
+<clipPath id="snow-march-stone-c-clip"><use href="#snow-march-stone-c-shape"/></clipPath>
+<clipPath id="snow-march-stone-c-lit-clip"><use href="#snow-march-stone-c-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-march-snow-shape" d="M -10 -34 C -10 -34 -8.7 -40.7 -6 -42 C -3.3 -43.3 3.2 -43.3 6 -42 C 8.8 -40.7 11 -34 11 -34 L -10 -34 Z"/>
+<g id="snow-march-thing-6">
+<path id="snow-march-shadow-4" d="M 28 2 C 28 5.3 17.3 8 4 8 C -9.3 8 -20 5.3 -20 2 C -20 -1.3 -9.3 -4 4 -4 C 17.3 -4 28 -1.3 28 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snow-march-stone-a">
+<use id="snow-march-stone-a-shade" href="#snow-march-stone-a-shape" fill="#77766b"/>
+<g clip-path="url(#snow-march-stone-a-clip)">
+<use id="snow-march-stone-a-fill" href="#snow-march-stone-a-shape" transform="translate(-4 -4)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-march-stone-a-lit-clip)">
+<use id="snow-march-stone-a-lit" href="#snow-march-stone-a-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-stone-a-fill-over" href="#snow-march-stone-a-shape" transform="translate(4.2 4.2)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="snow-march-stone-a-line" href="#snow-march-stone-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-stone-b">
+<use id="snow-march-stone-b-shade" href="#snow-march-stone-b-shape" fill="#77766b"/>
+<g clip-path="url(#snow-march-stone-b-clip)">
+<use id="snow-march-stone-b-fill" href="#snow-march-stone-b-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-march-stone-b-lit-clip)">
+<use id="snow-march-stone-b-lit" href="#snow-march-stone-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-stone-b-fill-over" href="#snow-march-stone-b-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="snow-march-stone-b-line" href="#snow-march-stone-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-stone-c">
+<use id="snow-march-stone-c-shade" href="#snow-march-stone-c-shape" fill="#77766b"/>
+<g clip-path="url(#snow-march-stone-c-clip)">
+<use id="snow-march-stone-c-fill" href="#snow-march-stone-c-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-march-stone-c-lit-clip)">
+<use id="snow-march-stone-c-lit" href="#snow-march-stone-c-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-stone-c-fill-over" href="#snow-march-stone-c-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="snow-march-stone-c-line" href="#snow-march-stone-c-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-snow">
+<use id="snow-march-snow-fill" href="#snow-march-snow-shape" fill="#f8fcfe"/>
+<use id="snow-march-snow-line" href="#snow-march-snow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="snow-march-rail-a-shape" d="M -41 -30 L 41 -30 Q 44 -30 44 -27 L 44 -26 Q 44 -23 41 -23 L -41 -23 Q -44 -23 -44 -26 L -44 -27 Q -44 -30 -41 -30 Z"/>
+<path id="snow-march-rail-b-shape" d="M -41 -16 L 41 -16 Q 44 -16 44 -13 L 44 -12 Q 44 -9 41 -9 L -41 -9 Q -44 -9 -44 -12 L -44 -13 Q -44 -16 -41 -16 Z"/>
+<path id="snow-march-post-shape" d="M -43 0 C -43 0 -43.8 -29 -43 -36 C -42.2 -43 -39.7 -42 -38 -42 C -36.3 -42 -33.8 -43 -33 -36 C -32.2 -29 -33 0 -33 0 L -43 0 Z"/>
+<clipPath id="snow-march-post-clip"><use href="#snow-march-post-shape"/></clipPath>
+<clipPath id="snow-march-post-lit-clip"><use href="#snow-march-post-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-march-cap-2-shape" d="M -45 -36 C -45 -36 -45 -42.7 -43 -44 C -41 -45.3 -35 -45.3 -33 -44 C -31 -42.7 -31 -36 -31 -36 L -45 -36 Z"/>
+<path id="snow-march-post-2-shape" d="M -5 0 C -5 0 -5.8 -29 -5 -36 C -4.2 -43 -1.7 -42 0 -42 C 1.7 -42 4.2 -43 5 -36 C 5.8 -29 5 0 5 0 L -5 0 Z"/>
+<clipPath id="snow-march-post-2-clip"><use href="#snow-march-post-2-shape"/></clipPath>
+<clipPath id="snow-march-post-2-lit-clip"><use href="#snow-march-post-2-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-march-cap-3-shape" d="M -7 -36 C -7 -36 -7 -42.7 -5 -44 C -3 -45.3 3 -45.3 5 -44 C 7 -42.7 7 -36 7 -36 L -7 -36 Z"/>
+<path id="snow-march-post-3-shape" d="M 33 0 C 33 0 32.2 -29 33 -36 C 33.8 -43 36.3 -42 38 -42 C 39.7 -42 42.2 -43 43 -36 C 43.8 -29 43 0 43 0 L 33 0 Z"/>
+<clipPath id="snow-march-post-3-clip"><use href="#snow-march-post-3-shape"/></clipPath>
+<clipPath id="snow-march-post-3-lit-clip"><use href="#snow-march-post-3-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-march-cap-4-shape" d="M 31 -36 C 31 -36 31 -42.7 33 -44 C 35 -45.3 41 -45.3 43 -44 C 45 -42.7 45 -36 45 -36 L 31 -36 Z"/>
+<g id="snow-march-thing-7">
+<path id="snow-march-shadow-5" d="M 50 2 C 50 5.3 29.4 8 4 8 C -21.4 8 -42 5.3 -42 2 C -42 -1.3 -21.4 -4 4 -4 C 29.4 -4 50 -1.3 50 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snow-march-rail-a">
+<use id="snow-march-rail-a-fill" href="#snow-march-rail-a-shape" fill="#9a6a3a"/>
+<use id="snow-march-rail-a-line" href="#snow-march-rail-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-rail-b">
+<use id="snow-march-rail-b-fill" href="#snow-march-rail-b-shape" fill="#9a6a3a"/>
+<use id="snow-march-rail-b-line" href="#snow-march-rail-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-post">
+<use id="snow-march-post-shade" href="#snow-march-post-shape" fill="#75502b"/>
+<g clip-path="url(#snow-march-post-clip)">
+<use id="snow-march-post-fill" href="#snow-march-post-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#snow-march-post-lit-clip)">
+<use id="snow-march-post-lit" href="#snow-march-post-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-post-fill-over" href="#snow-march-post-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="snow-march-post-line" href="#snow-march-post-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-cap-2">
+<use id="snow-march-cap-2-fill" href="#snow-march-cap-2-shape" fill="#f8fcfe"/>
+<use id="snow-march-cap-2-line" href="#snow-march-cap-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-post-2">
+<use id="snow-march-post-2-shade" href="#snow-march-post-2-shape" fill="#75502b"/>
+<g clip-path="url(#snow-march-post-2-clip)">
+<use id="snow-march-post-2-fill" href="#snow-march-post-2-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#snow-march-post-2-lit-clip)">
+<use id="snow-march-post-2-lit" href="#snow-march-post-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-post-2-fill-over" href="#snow-march-post-2-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="snow-march-post-2-line" href="#snow-march-post-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-cap-3">
+<use id="snow-march-cap-3-fill" href="#snow-march-cap-3-shape" fill="#f8fcfe"/>
+<use id="snow-march-cap-3-line" href="#snow-march-cap-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-post-3">
+<use id="snow-march-post-3-shade" href="#snow-march-post-3-shape" fill="#75502b"/>
+<g clip-path="url(#snow-march-post-3-clip)">
+<use id="snow-march-post-3-fill" href="#snow-march-post-3-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#snow-march-post-3-lit-clip)">
+<use id="snow-march-post-3-lit" href="#snow-march-post-3-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-post-3-fill-over" href="#snow-march-post-3-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="snow-march-post-3-line" href="#snow-march-post-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-cap-4">
+<use id="snow-march-cap-4-fill" href="#snow-march-cap-4-shape" fill="#f8fcfe"/>
+<use id="snow-march-cap-4-line" href="#snow-march-cap-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="snow-march-spike-a-shape" d="M -24 0 L -14 -40 L -2 0 Z"/>
+<clipPath id="snow-march-spike-a-clip"><use href="#snow-march-spike-a-shape"/></clipPath>
+<clipPath id="snow-march-spike-a-lit-clip"><use href="#snow-march-spike-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-march-spike-b-shape" d="M 6 0 L 18 -32 L 26 0 Z"/>
+<clipPath id="snow-march-spike-b-clip"><use href="#snow-march-spike-b-shape"/></clipPath>
+<clipPath id="snow-march-spike-b-lit-clip"><use href="#snow-march-spike-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-march-spike-c-shape" d="M -12 0 L 2 -60 L 14 0 Z"/>
+<clipPath id="snow-march-spike-c-clip"><use href="#snow-march-spike-c-shape"/></clipPath>
+<clipPath id="snow-march-spike-c-lit-clip"><use href="#snow-march-spike-c-shape" transform="translate(-5 -5)"/></clipPath>
+<g id="snow-march-thing-8">
+<path id="snow-march-shadow-6" d="M 32 2 C 32 5.9 19.5 9 4 9 C -11.5 9 -24 5.9 -24 2 C -24 -1.9 -11.5 -5 4 -5 C 19.5 -5 32 -1.9 32 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snow-march-spike-a">
+<use id="snow-march-spike-a-shade" href="#snow-march-spike-a-shape" fill="#3f97bd"/>
+<g clip-path="url(#snow-march-spike-a-clip)">
+<use id="snow-march-spike-a-fill" href="#snow-march-spike-a-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#snow-march-spike-a-lit-clip)">
+<use id="snow-march-spike-a-lit" href="#snow-march-spike-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-spike-a-fill-over" href="#snow-march-spike-a-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="snow-march-spike-a-sheen" d="M-4.6 -40 L-0.6 -40 L-17.4 0 L-21.4 0 Z M2.9 -40 L5.5 -40 L-11.3 0 L-13.9 0 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="snow-march-spike-a-face" d="M -24 0 L -14 -40 L -13 0 Z" fill="#f4f1e4" opacity="0.32"/>
+</g>
+<use id="snow-march-spike-a-line" href="#snow-march-spike-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-spike-b">
+<use id="snow-march-spike-b-shade" href="#snow-march-spike-b-shape" fill="#3f97bd"/>
+<g clip-path="url(#snow-march-spike-b-clip)">
+<use id="snow-march-spike-b-fill" href="#snow-march-spike-b-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#snow-march-spike-b-lit-clip)">
+<use id="snow-march-spike-b-lit" href="#snow-march-spike-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-spike-b-fill-over" href="#snow-march-spike-b-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="snow-march-spike-b-sheen" d="M22.72 -32 L26.72 -32 L13.28 0 L9.28 0 Z M30.22 -32 L32.82 -32 L19.38 0 L16.78 0 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="snow-march-spike-b-face" d="M 6 0 L 18 -32 L 16 0 Z" fill="#f4f1e4" opacity="0.32"/>
+</g>
+<use id="snow-march-spike-b-line" href="#snow-march-spike-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-march-spike-c">
+<use id="snow-march-spike-c-shade" href="#snow-march-spike-c-shape" fill="#3f97bd"/>
+<g clip-path="url(#snow-march-spike-c-clip)">
+<use id="snow-march-spike-c-deep" href="#snow-march-spike-c-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="snow-march-spike-c-shade-over" href="#snow-march-spike-c-shape" transform="translate(-3.1 -3.1)" fill="#3f97bd"/>
+<use id="snow-march-spike-c-fill" href="#snow-march-spike-c-shape" transform="translate(-5 -5)" fill="#6fc7e8"/>
+<g clip-path="url(#snow-march-spike-c-lit-clip)">
+<use id="snow-march-spike-c-lit" href="#snow-march-spike-c-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-march-spike-c-fill-over" href="#snow-march-spike-c-shape" transform="translate(4.6 4.6)" fill="#6fc7e8"/>
+</g>
+<path id="snow-march-spike-c-sheen" d="M13.6 -60 L17.6 -60 L-7.6 0 L-11.6 0 Z M21.1 -60 L23.7 -60 L-1.5 0 L-4.1 0 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="snow-march-spike-c-face" d="M -12 0 L 2 -60 L 1 0 Z" fill="#f4f1e4" opacity="0.32"/>
+</g>
+<use id="snow-march-spike-c-line" href="#snow-march-spike-c-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="snow-march-glint" d="M -1 -40 L 2 -50 L 2 -22 L -3 -20 Z" fill="#f4f1e4"/>
+</g>
+</defs>
+<path id="snow-march-land" d="M 0 0 L 1600 0 L 1600 1000 L 0 1000 L 0 0 Z" fill="#b9ccd8"/>
+<path id="snow-march-field" d="M -60 372 C 0 290.7 156.7 351.3 300 350 C 443.3 348.7 633.3 364.3 800 364 C 966.7 363.7 1156.7 347 1300 348 C 1443.3 349 1600 288 1660 370 C 1720 452 1720 758.7 1660 840 C 1600 921.3 1443.3 857.7 1300 858 C 1156.7 858.3 966.7 841.7 800 842 C 633.3 842.3 443.3 860.7 300 860 C 156.7 859.3 0 919.3 -60 838 C -120 756.7 -120 453.3 -60 372 Z" fill="#d3e0e8"/>
+<path id="snow-march-patch-lit" d="M 742.8 306.6 C 704.6 293.1 652.4 269.7 641.8 244.8 C 631.1 219.9 651.6 178.2 679 157.1 C 706.4 135.9 760.1 123.9 806.2 117.9 C 852.2 111.8 920.7 106.7 955.3 120.9 C 989.9 135.2 1009 176.5 1013.6 203.3 C 1018.2 230.2 1006.7 261.8 982.9 282.2 C 959.1 302.7 910.7 322 870.7 326.1 C 830.7 330.2 781 320.2 742.8 306.6 Z" fill="#f4f1e4" opacity="0.15"/>
+<path id="snow-march-patch-dark" d="M 291.2 431.9 C 348.4 433.5 425.8 439.7 468.9 464.4 C 512 489.2 553.8 541.8 549.9 580.4 C 545.9 619 496.3 679.3 445.2 696.1 C 394.1 712.9 304.7 688.5 243.2 681 C 181.8 673.5 122.9 674.6 76.5 651.1 C 30.2 627.6 -43 572.7 -34.7 539.9 C -26.5 507.2 71.7 472.6 126 454.6 C 180.3 436.6 234.1 430.2 291.2 431.9 Z" fill="#2a1a10" opacity="0.09"/>
+<path id="snow-march-patch-lit-2" d="M 1349.9 360.8 C 1313.5 361.3 1259 347.9 1237.9 331.7 C 1216.8 315.6 1220.8 285.3 1223.3 264.2 C 1225.9 243 1231.5 221 1253.1 204.8 C 1274.7 188.7 1320.1 166.9 1352.9 167.3 C 1385.6 167.7 1430 190.7 1449.5 207.1 C 1468.9 223.5 1468.5 245.2 1469.6 265.5 C 1470.7 285.8 1476 313 1456.1 328.9 C 1436.1 344.7 1386.3 360.4 1349.9 360.8 Z" fill="#f4f1e4" opacity="0.09"/>
+<path id="snow-march-patch-dark-2" d="M 185.3 752 C 146.4 743.4 103.8 700.6 94.8 671.5 C 85.7 642.4 101.5 597.9 130.9 577.6 C 160.3 557.2 227.9 551.1 271.2 549.6 C 314.6 548.2 353.8 556.3 390.7 568.8 C 427.7 581.4 483.2 601.8 493 624.8 C 502.8 647.7 477.3 689.9 449.8 706.3 C 422.3 722.7 371.9 715.6 327.8 723.2 C 283.7 730.8 224.1 760.6 185.3 752 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-patch-lit-3" d="M 342 746.9 C 377.9 759 403.8 766.8 426.2 785.9 C 448.6 805 487.2 841.7 476.3 861.3 C 465.3 881 400.5 893.4 360.3 903.9 C 320.1 914.4 269.4 931.4 235.2 924.5 C 200.9 917.5 167.8 884.4 154.7 862.4 C 141.7 840.4 147.6 817.1 157 792.2 C 166.3 767.3 180.1 720.6 210.9 713 C 241.7 705.5 306.1 734.7 342 746.9 Z" fill="#f4f1e4" opacity="0.13"/>
+<path id="snow-march-patch-dark-3" d="M 692.6 568.3 C 745.2 588 849.9 616.2 854.4 644.4 C 859 672.7 762.7 707.7 719.7 737.8 C 676.7 767.9 649.7 816.5 596.5 825.1 C 543.2 833.8 435.2 814.3 400.2 789.5 C 365.1 764.8 394.5 714.8 386.2 676.9 C 377.8 638.9 324.7 587.1 350.1 562 C 375.6 536.8 481.8 525.1 538.9 526.1 C 596 527.2 640 548.6 692.6 568.3 Z" fill="#2a1a10" opacity="0.07"/>
+<path id="snow-march-patch-lit-4" d="M 673.3 860.6 C 638.5 868.8 584.4 879.8 557.8 871 C 531.2 862.2 526.7 829 513.8 807.7 C 500.8 786.4 471.8 763.6 480.2 743.2 C 488.6 722.8 532.1 689.6 564.3 685.5 C 596.6 681.4 639.7 707.6 673.9 718.4 C 708.1 729.2 754.2 733.2 769.6 750.4 C 785 767.6 782.5 803.2 766.4 821.5 C 750.4 839.9 708.1 852.3 673.3 860.6 Z" fill="#f4f1e4" opacity="0.11"/>
+<path id="snow-march-patch-dark-4" d="M 707.8 1032.8 C 698.3 1050.5 673.6 1080.7 645.3 1086.6 C 617.1 1092.5 562.7 1080.1 538.1 1068.4 C 513.5 1056.7 508.1 1035 497.9 1016.5 C 487.8 998 466.8 974.7 477.1 957.3 C 487.4 939.9 529.4 915.8 559.7 912.2 C 590 908.5 635.1 924.1 658.9 935.4 C 682.7 946.8 694.4 964.2 702.5 980.4 C 710.6 996.6 717.3 1015.1 707.8 1032.8 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="snow-march-patch-lit-5" d="M 1051.6 932.7 C 1027.2 918.1 998.3 899.2 994 878.4 C 989.7 857.6 1000.9 823 1026 807.8 C 1051.1 792.5 1107.8 785 1144.8 786.8 C 1181.8 788.5 1222.9 802.5 1248 818.3 C 1273.2 834 1292 857.9 1295.4 881.1 C 1298.9 904.4 1294.5 943.7 1268.7 957.7 C 1242.8 971.8 1176.5 969.8 1140.3 965.6 C 1104.2 961.5 1076 947.2 1051.6 932.7 Z" fill="#f4f1e4" opacity="0.14"/>
+<path id="snow-march-patch-dark-5" d="M 1102.5 736.7 C 1086.9 715.6 1123.6 675.9 1143 650.3 C 1162.4 624.7 1184.2 592.1 1218.7 583.3 C 1253.3 574.4 1314.3 586.7 1350.4 597.4 C 1386.5 608 1420.6 627.1 1435.4 647.2 C 1450.1 667.3 1448.2 692.7 1438.9 717.9 C 1429.6 743.2 1413.4 788.7 1379.7 798.6 C 1345.9 808.4 1282.6 787.3 1236.4 777 C 1190.2 766.7 1118 757.8 1102.5 736.7 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="snow-march-patch-lit-6" d="M 1528.7 522.7 C 1554.4 518.1 1585.2 504.9 1608.2 509.6 C 1631.2 514.4 1658.6 535.2 1666.6 551.4 C 1674.7 567.6 1670.5 591.5 1656.6 607 C 1642.8 622.4 1610.8 640.2 1583.5 644 C 1556.2 647.9 1515.6 639.7 1492.9 630.2 C 1470.3 620.7 1454 602.5 1447.6 587 C 1441.2 571.5 1440.9 548.1 1454.4 537.4 C 1467.9 526.6 1503.1 527.4 1528.7 522.7 Z" fill="#f4f1e4" opacity="0.12"/>
+<path id="snow-march-patch-dark-6" d="M 804.9 841.8 C 790.8 822.6 788.6 789 804.3 772.1 C 820.1 755.1 865.5 748.7 899.2 740.1 C 932.9 731.5 980.7 713.7 1006.5 720.6 C 1032.2 727.4 1049.4 763 1053.8 781.3 C 1058.2 799.5 1043.4 814.4 1032.8 830.1 C 1022.3 845.7 1014.5 865.7 990.5 875.2 C 966.5 884.8 919.7 893.1 888.7 887.5 C 857.8 881.9 819 861.1 804.9 841.8 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-patch-lit-7" d="M 1295.7 649.3 C 1352.8 636.5 1426.7 625.9 1477.6 637.8 C 1528.6 649.7 1585.7 690.1 1601.4 720.7 C 1617 751.4 1590.1 786.9 1571.6 821.7 C 1553.2 856.5 1537 915.4 1490.8 929.4 C 1444.6 943.4 1340.8 924.2 1294.3 905.7 C 1247.7 887.3 1237.9 850.4 1211.4 818.5 C 1185 786.5 1121.4 742.4 1135.4 714.2 C 1149.5 686 1238.7 662 1295.7 649.3 Z" fill="#f4f1e4" opacity="0.12"/>
+<path id="snow-march-patch-dark-7" d="M 151.7 514.9 C 148.5 528.2 148.2 554.6 133.3 559.1 C 118.5 563.6 84.9 546.6 62.8 541.6 C 40.8 536.6 15.1 538.7 1.1 529.1 C -12.9 519.6 -26.8 497.5 -21.1 484.5 C -15.4 471.6 13.2 458.6 35.3 451.5 C 57.4 444.4 91.9 437.4 111.5 442 C 131.1 446.7 146.2 467.2 152.9 479.3 C 159.6 491.5 155 501.6 151.7 514.9 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="snow-march-patch-lit-8" d="M 1592.6 235.9 C 1572.5 249 1519 257.8 1489.4 254.4 C 1459.7 251.1 1437.7 230.6 1414.6 216 C 1391.4 201.3 1350.4 183.2 1350.5 166.7 C 1350.6 150.1 1389.5 128.9 1415.2 116.5 C 1441 104.1 1472 93.5 1504.8 92.4 C 1537.7 91.4 1594.6 96.4 1612.2 110.2 C 1629.7 124.1 1613.4 154.6 1610.1 175.6 C 1606.8 196.5 1612.7 222.7 1592.6 235.9 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="snow-march-patch-dark-8" d="M 414.4 38.3 C 447.1 32.6 497.4 50.3 532.6 62.4 C 567.7 74.5 616.2 91.2 625.3 111 C 634.5 130.7 606.5 158.5 587.6 181.2 C 568.7 203.8 548.5 237.1 511.8 246.7 C 475.1 256.3 402.3 252.5 367.2 239 C 332.2 225.4 306.8 189.2 301.6 165.5 C 296.5 141.7 317.4 117.6 336.2 96.4 C 355 75.2 381.6 43.9 414.4 38.3 Z" fill="#2a1a10" opacity="0.1"/>
+<path id="snow-march-patch-lit-9" d="M 1524.9 552.1 C 1485.7 552.4 1449.5 564 1418.1 554.5 C 1386.7 545 1339.5 516.1 1336.3 495.1 C 1333.2 474.1 1371.6 442.1 1399.1 428.3 C 1426.6 414.4 1464.3 415.9 1501.4 412.1 C 1538.4 408.2 1589.3 394.9 1621.4 405.1 C 1653.5 415.4 1688.9 448.8 1694.2 473.4 C 1699.5 498.1 1681.6 539.8 1653.3 552.9 C 1625.1 566 1564.1 551.9 1524.9 552.1 Z" fill="#f4f1e4" opacity="0.13"/>
+<path id="snow-march-patch-dark-9" d="M 391.8 1060.7 C 355.4 1037.6 364.1 982 367.3 942.1 C 370.5 902.2 370.3 836.9 411.1 821.4 C 451.9 806 550.2 843.5 612 849.4 C 673.8 855.3 746.7 838.2 781.7 856.8 C 816.8 875.4 823.7 925.2 822.2 960.8 C 820.7 996.5 812.3 1050.6 772.9 1070.5 C 733.4 1090.5 649 1082.3 585.5 1080.7 C 522 1079.1 428.1 1083.8 391.8 1060.7 Z" fill="#2a1a10" opacity="0.07"/>
+<path id="snow-march-patch-lit-10" d="M 1743.1 100.6 C 1718.4 126.7 1688.6 154.3 1646.3 165.5 C 1604 176.8 1538.9 178.7 1489.5 168.2 C 1440.1 157.7 1371.6 132.3 1349.9 102.7 C 1328.3 73 1331.5 15.8 1359.7 -9.7 C 1388 -35.1 1466.2 -39.9 1519.7 -50.2 C 1573.2 -60.5 1635 -81.1 1680.7 -71.3 C 1726.5 -61.5 1783.9 -19.9 1794.3 8.7 C 1804.7 37.4 1767.8 74.4 1743.1 100.6 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="snow-march-patch-dark-10" d="M 1329.1 1042.9 C 1285.8 1034.1 1235.8 1004.6 1217.6 978.6 C 1199.4 952.6 1199.8 910.3 1219.6 887.1 C 1239.5 863.9 1293.8 850.9 1336.5 839.4 C 1379.2 827.8 1437.9 809.6 1475.8 817.7 C 1513.7 825.7 1549.2 862.6 1564 887.6 C 1578.7 912.6 1578.7 943.8 1564.2 967.9 C 1549.7 991.9 1516.2 1019.3 1477 1031.8 C 1437.8 1044.3 1372.3 1051.8 1329.1 1042.9 Z" fill="#2a1a10" opacity="0.07"/>
+<path id="snow-march-patch-lit-11" d="M 690.1 559.8 C 633.8 547.9 557 510.7 541.1 478.8 C 525.1 447 569.2 402.9 594.4 368.6 C 619.5 334.3 642.9 288.3 692.1 273.1 C 741.3 258 831.6 263.6 889.5 277.7 C 947.4 291.9 1010.7 322.9 1039.6 357.9 C 1068.5 392.9 1089.5 455.8 1062.7 487.8 C 1036 519.9 941 538.3 878.9 550.3 C 816.8 562.3 746.4 571.7 690.1 559.8 Z" fill="#f4f1e4" opacity="0.14"/>
+<path id="snow-march-patch-dark-11" d="M 351.4 402.3 C 339.7 414.8 293.6 416.1 261.1 421.4 C 228.6 426.8 175.5 442.9 156.5 434.4 C 137.4 425.8 154.1 391 146.8 370.1 C 139.5 349.2 100.8 321.1 112.6 309.1 C 124.4 297.2 182.6 303.1 217.7 298.4 C 252.7 293.7 304 272.8 322.9 280.8 C 341.9 288.8 326.7 326.4 331.4 346.6 C 336.1 366.9 363.1 389.8 351.4 402.3 Z" fill="#2a1a10" opacity="0.09"/>
+<path id="snow-march-patch-lit-12" d="M 505 921.2 C 464.3 914.1 427.6 883.1 405.4 859.7 C 383.2 836.3 365.6 807.3 371.6 780.9 C 377.6 754.4 406.5 709.8 441.3 701 C 476 692.2 534.9 720.5 580.2 727.8 C 625.5 735.1 691.9 728.3 713.1 745 C 734.3 761.7 718.2 801.8 707.6 828 C 697 854.1 683.3 886.6 649.5 902.1 C 615.8 917.6 545.7 928.2 505 921.2 Z" fill="#f4f1e4" opacity="0.11"/>
+<path id="snow-march-patch-dark-12" d="M 1665.2 1045.7 C 1629.5 1063 1571.7 1090.9 1530.4 1087.2 C 1489.2 1083.5 1446 1048.7 1417.8 1023.4 C 1389.6 998.2 1347.6 957.2 1361.1 935.6 C 1374.7 914 1456.8 909.4 1499.2 893.8 C 1541.5 878.3 1577 841.2 1615.1 842.4 C 1653.3 843.7 1706.5 877.8 1728 901.3 C 1749.6 924.8 1755 959.3 1744.5 983.3 C 1734 1007.4 1700.8 1028.3 1665.2 1045.7 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-patch-lit-13" d="M 132.1 701.4 C 182.9 714.5 224.6 758.4 244.8 790.2 C 265 822 268 858.7 253.2 892.3 C 238.4 925.9 201.8 981.4 155.8 991.7 C 109.8 1002 25.2 970.3 -22.7 954.1 C -70.6 938 -110.1 919.9 -131.7 894.7 C -153.3 869.5 -164.4 833.4 -152.5 802.9 C -140.6 772.4 -107.6 728.6 -60.2 711.7 C -12.8 694.7 81.3 688.3 132.1 701.4 Z" fill="#f4f1e4" opacity="0.09"/>
+<path id="snow-march-patch-dark-13" d="M 1466.2 320.2 C 1475 333.6 1478.1 354.3 1468.3 366.7 C 1458.6 379.2 1430.4 389.7 1407.6 394.8 C 1384.8 399.9 1350.6 403.2 1331.5 397.3 C 1312.5 391.3 1298.6 372 1293.4 359.3 C 1288.1 346.6 1291.3 331.4 1300.1 321.1 C 1309 310.9 1327.5 303.9 1346.7 298 C 1365.9 292.2 1395.3 282.4 1415.2 286 C 1435.1 289.7 1457.3 306.7 1466.2 320.2 Z" fill="#2a1a10" opacity="0.09"/>
+<path id="snow-march-patch-lit-14" d="M 883.3 598.2 C 858.1 573.5 839.9 525.4 857.6 497.4 C 875.2 469.4 938.9 442.6 989.3 430.3 C 1039.6 418 1111.8 412 1159.5 423.5 C 1207.1 435 1265.6 472.3 1275.2 499.3 C 1284.8 526.3 1241.1 563 1217.2 585.4 C 1193.4 607.9 1166.9 623.9 1132.1 634 C 1097.3 644.1 1049.8 652 1008.3 646.1 C 966.8 640.1 908.4 623 883.3 598.2 Z" fill="#f4f1e4" opacity="0.12"/>
+<path id="snow-march-patch-dark-14" d="M 601.7 152.2 C 613.2 118.5 611.5 58.6 650.5 43.9 C 689.6 29.1 775.3 53.3 835.8 63.8 C 896.4 74.3 980.7 78.9 1013.9 106.6 C 1047.2 134.3 1059.5 200.3 1035.2 230.1 C 1010.8 260 921.3 272.5 867.7 285.6 C 814.1 298.7 761.1 315.5 713.4 309 C 665.7 302.4 600.1 272.6 581.5 246.5 C 562.9 220.4 590.2 186 601.7 152.2 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-patch-lit-15" d="M 807.9 322.9 C 779.7 317.8 761.8 277.6 748.3 258.1 C 734.8 238.5 721.6 221.8 726.9 205.5 C 732.2 189.3 756.6 169.3 780.2 160.8 C 803.7 152.4 841 151.4 868.3 155 C 895.6 158.6 924.5 168.4 943.9 182.3 C 963.3 196.3 989.4 221.2 985 238.9 C 980.5 256.6 946.9 274.4 917.4 288.4 C 887.9 302.4 836.1 328 807.9 322.9 Z" fill="#f4f1e4" opacity="0.11"/>
+<path id="snow-march-patch-dark-15" d="M 1676.6 933.4 C 1657.3 952.3 1626.8 983.4 1598.2 985.3 C 1569.5 987.1 1526.6 958.4 1504.8 944.3 C 1483 930.3 1470.8 915.5 1467.5 900.8 C 1464.2 886.2 1471.9 868.4 1485.1 856.4 C 1498.3 844.3 1521.5 833.3 1546.5 828.4 C 1571.6 823.6 1607.4 820.3 1635.3 827.5 C 1663.1 834.7 1706.9 854 1713.8 871.6 C 1720.7 889.3 1695.8 914.4 1676.6 933.4 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="snow-march-road-edge" d="M -40 644 C 10 640 150 620.3 260 620 C 370 619.7 496.7 642.3 620 642 C 743.3 641.7 880 618.3 1000 618 C 1120 617.7 1233.3 639 1340 640 C 1446.7 641 1590 626.7 1640 624" fill="none" stroke="#b9ccd8" stroke-width="236" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="snow-march-road" d="M -40 644 C 10 640 150 620.3 260 620 C 370 619.7 496.7 642.3 620 642 C 743.3 641.7 880 618.3 1000 618 C 1120 617.7 1233.3 639 1340 640 C 1446.7 641 1590 626.7 1640 624" fill="none" stroke="#d3e0e8" stroke-width="212" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="snow-march-road-worn" d="M -40 644 C 10 640 150 620.3 260 620 C 370 619.7 496.7 642.3 620 642 C 743.3 641.7 880 618.3 1000 618 C 1120 617.7 1233.3 639 1340 640 C 1446.7 641 1590 626.7 1640 624" fill="none" stroke="#f8fcfe" stroke-width="70" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="snow-march-stone" d="M 854.7 633.3 C 854.7 637.8 850.6 641.4 845.6 641.4 C 840.5 641.4 836.5 637.8 836.5 633.3 C 836.5 628.9 840.5 625.3 845.6 625.3 C 850.6 625.3 854.7 628.9 854.7 633.3 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit" d="M 848.1 631.3 C 848.1 632.8 846.1 633.9 843.6 633.9 C 841.1 633.9 839.1 632.8 839.1 631.3 C 839.1 629.9 841.1 628.7 843.6 628.7 C 846.1 628.7 848.1 629.9 848.1 631.3 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut" d="M 702.8 665.7 C 702.8 667.7 695.6 669.3 686.7 669.3 C 677.8 669.3 670.5 667.7 670.5 665.7 C 670.5 663.7 677.8 662.1 686.7 662.1 C 695.6 662.1 702.8 663.7 702.8 665.7 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-2" d="M 908.5 701.1 C 908.5 703.1 897.4 704.7 883.7 704.7 C 870 704.7 858.9 703.1 858.9 701.1 C 858.9 699.2 870 697.5 883.7 697.5 C 897.4 697.5 908.5 699.2 908.5 701.1 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-3" d="M 511 568.8 C 511 570.7 496.6 572.4 478.9 572.4 C 461.2 572.4 446.9 570.7 446.9 568.8 C 446.9 566.8 461.2 565.2 478.9 565.2 C 496.6 565.2 511 566.8 511 568.8 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-2" d="M 1600.6 637.7 C 1600.6 641.6 1596.5 644.8 1591.3 644.8 C 1586.2 644.8 1582 641.6 1582 637.7 C 1582 633.8 1586.2 630.6 1591.3 630.6 C 1596.5 630.6 1600.6 633.8 1600.6 637.7 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-2" d="M 1593.8 635.7 C 1593.8 637.1 1591.8 638.3 1589.3 638.3 C 1586.8 638.3 1584.8 637.1 1584.8 635.7 C 1584.8 634.3 1586.8 633.1 1589.3 633.1 C 1591.8 633.1 1593.8 634.3 1593.8 635.7 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-4" d="M 976 548.1 C 976 550.1 964.4 551.7 950.2 551.7 C 936 551.7 924.4 550.1 924.4 548.1 C 924.4 546.2 936 544.5 950.2 544.5 C 964.4 544.5 976 546.2 976 548.1 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-5" d="M 1226.9 653.1 C 1226.9 655.1 1217.5 656.7 1205.9 656.7 C 1194.4 656.7 1185 655.1 1185 653.1 C 1185 651.1 1194.4 649.5 1205.9 649.5 C 1217.5 649.5 1226.9 651.1 1226.9 653.1 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-6" d="M 230.9 574.4 C 230.9 576.4 221.9 578 210.9 578 C 199.8 578 190.8 576.4 190.8 574.4 C 190.8 572.4 199.8 570.8 210.9 570.8 C 221.9 570.8 230.9 572.4 230.9 574.4 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-3" d="M 864 714 C 864 717.6 859.9 720.5 854.8 720.5 C 849.7 720.5 845.5 717.6 845.5 714 C 845.5 710.5 849.7 707.6 854.8 707.6 C 859.9 707.6 864 710.5 864 714 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-3" d="M 857.3 712 C 857.3 713.5 855.3 714.6 852.8 714.6 C 850.3 714.6 848.3 713.5 848.3 712 C 848.3 710.6 850.3 709.4 852.8 709.4 C 855.3 709.4 857.3 710.6 857.3 712 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-7" d="M 986.9 707.9 C 986.9 709.9 976.8 711.5 964.3 711.5 C 951.8 711.5 941.7 709.9 941.7 707.9 C 941.7 705.9 951.8 704.3 964.3 704.3 C 976.8 704.3 986.9 705.9 986.9 707.9 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-8" d="M 586.8 616.5 C 586.8 618.5 579.1 620.1 569.6 620.1 C 560 620.1 552.3 618.5 552.3 616.5 C 552.3 614.5 560 612.9 569.6 612.9 C 579.1 612.9 586.8 614.5 586.8 616.5 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-9" d="M 429.9 651.2 C 429.9 653.2 418.2 654.8 403.9 654.8 C 389.5 654.8 377.8 653.2 377.8 651.2 C 377.8 649.2 389.5 647.6 403.9 647.6 C 418.2 647.6 429.9 649.2 429.9 651.2 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-4" d="M 24.2 712.5 C 24.2 716.2 19.4 719.2 13.4 719.2 C 7.5 719.2 2.6 716.2 2.6 712.5 C 2.6 708.8 7.5 705.8 13.4 705.8 C 19.4 705.8 24.2 708.8 24.2 712.5 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-4" d="M 15.9 710.5 C 15.9 711.9 13.9 713.1 11.4 713.1 C 8.9 713.1 6.9 711.9 6.9 710.5 C 6.9 709 8.9 707.9 11.4 707.9 C 13.9 707.9 15.9 709 15.9 710.5 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-10" d="M 1448.7 611.8 C 1448.7 613.8 1439.3 615.4 1427.8 615.4 C 1416.2 615.4 1406.9 613.8 1406.9 611.8 C 1406.9 609.8 1416.2 608.2 1427.8 608.2 C 1439.3 608.2 1448.7 609.8 1448.7 611.8 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-11" d="M 1180.3 576.9 C 1180.3 578.9 1169.5 580.5 1156.2 580.5 C 1142.8 580.5 1132 578.9 1132 576.9 C 1132 574.9 1142.8 573.3 1156.2 573.3 C 1169.5 573.3 1180.3 574.9 1180.3 576.9 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-12" d="M 874.1 565.9 C 874.1 567.9 860.6 569.5 843.9 569.5 C 827.2 569.5 813.7 567.9 813.7 565.9 C 813.7 563.9 827.2 562.3 843.9 562.3 C 860.6 562.3 874.1 563.9 874.1 565.9 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-5" d="M 551.7 545.3 C 551.7 549.4 545.1 552.8 536.8 552.8 C 528.6 552.8 522 549.4 522 545.3 C 522 541.1 528.6 537.8 536.8 537.8 C 545.1 537.8 551.7 541.1 551.7 545.3 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-5" d="M 539.3 543.3 C 539.3 544.7 537.3 545.9 534.8 545.9 C 532.4 545.9 530.3 544.7 530.3 543.3 C 530.3 541.8 532.4 540.7 534.8 540.7 C 537.3 540.7 539.3 541.8 539.3 543.3 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-13" d="M 579.6 634.8 C 579.6 636.8 570.9 638.4 560.2 638.4 C 549.5 638.4 540.9 636.8 540.9 634.8 C 540.9 632.8 549.5 631.2 560.2 631.2 C 570.9 631.2 579.6 632.8 579.6 634.8 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-14" d="M 776.4 627.1 C 776.4 629.1 768.4 630.7 758.6 630.7 C 748.9 630.7 740.9 629.1 740.9 627.1 C 740.9 625.1 748.9 623.5 758.6 623.5 C 768.4 623.5 776.4 625.1 776.4 627.1 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-15" d="M 134.9 595.4 C 134.9 597.4 123.8 599 110.1 599 C 96.4 599 85.3 597.4 85.3 595.4 C 85.3 593.4 96.4 591.8 110.1 591.8 C 123.8 591.8 134.9 593.4 134.9 595.4 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-6" d="M 1243.1 668.8 C 1243.1 673.4 1236.8 677.1 1229.1 677.1 C 1221.3 677.1 1215 673.4 1215 668.8 C 1215 664.3 1221.3 660.6 1229.1 660.6 C 1236.8 660.6 1243.1 664.3 1243.1 668.8 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-6" d="M 1231.6 666.8 C 1231.6 668.3 1229.5 669.4 1227.1 669.4 C 1224.6 669.4 1222.6 668.3 1222.6 666.8 C 1222.6 665.4 1224.6 664.2 1227.1 664.2 C 1229.5 664.2 1231.6 665.4 1231.6 666.8 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-16" d="M 1490.6 706.4 C 1490.6 708.3 1483 710 1473.6 710 C 1464.3 710 1456.7 708.3 1456.7 706.4 C 1456.7 704.4 1464.3 702.8 1473.6 702.8 C 1483 702.8 1490.6 704.4 1490.6 706.4 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-17" d="M 500.2 660.9 C 500.2 662.9 491 664.5 479.5 664.5 C 468.1 664.5 458.8 662.9 458.8 660.9 C 458.8 658.9 468.1 657.3 479.5 657.3 C 491 657.3 500.2 658.9 500.2 660.9 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-18" d="M 451.4 687.5 C 451.4 689.5 438.4 691.1 422.5 691.1 C 406.6 691.1 393.7 689.5 393.7 687.5 C 393.7 685.5 406.6 683.9 422.5 683.9 C 438.4 683.9 451.4 685.5 451.4 687.5 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-7" d="M 1595.5 671.4 C 1595.5 676 1590.1 679.6 1583.4 679.6 C 1576.7 679.6 1571.3 676 1571.3 671.4 C 1571.3 666.9 1576.7 663.2 1583.4 663.2 C 1590.1 663.2 1595.5 666.9 1595.5 671.4 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-7" d="M 1585.9 669.4 C 1585.9 670.9 1583.9 672 1581.4 672 C 1578.9 672 1576.9 670.9 1576.9 669.4 C 1576.9 668 1578.9 666.8 1581.4 666.8 C 1583.9 666.8 1585.9 668 1585.9 669.4 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-19" d="M 595 633.9 C 595 635.9 580.8 637.5 563.3 637.5 C 545.7 637.5 531.5 635.9 531.5 633.9 C 531.5 632 545.7 630.3 563.3 630.3 C 580.8 630.3 595 632 595 633.9 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-20" d="M 716.2 707.9 C 716.2 709.9 702.8 711.5 686.3 711.5 C 669.8 711.5 656.4 709.9 656.4 707.9 C 656.4 705.9 669.8 704.3 686.3 704.3 C 702.8 704.3 716.2 705.9 716.2 707.9 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-21" d="M 363.2 642.3 C 363.2 644.2 353.9 645.9 342.4 645.9 C 330.9 645.9 321.6 644.2 321.6 642.3 C 321.6 640.3 330.9 638.7 342.4 638.7 C 353.9 638.7 363.2 640.3 363.2 642.3 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-8" d="M 385.2 593.9 C 385.2 598.6 379.4 602.4 372.3 602.4 C 365.2 602.4 359.5 598.6 359.5 593.9 C 359.5 589.2 365.2 585.4 372.3 585.4 C 379.4 585.4 385.2 589.2 385.2 593.9 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-8" d="M 374.8 591.9 C 374.8 593.3 372.8 594.5 370.3 594.5 C 367.8 594.5 365.8 593.3 365.8 591.9 C 365.8 590.5 367.8 589.3 370.3 589.3 C 372.8 589.3 374.8 590.5 374.8 591.9 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-22" d="M 737.5 560.2 C 737.5 562.2 729.1 563.8 718.6 563.8 C 708.1 563.8 699.6 562.2 699.6 560.2 C 699.6 558.2 708.1 556.6 718.6 556.6 C 729.1 556.6 737.5 558.2 737.5 560.2 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-23" d="M 712 693.1 C 712 695.1 704.3 696.7 694.8 696.7 C 685.3 696.7 677.7 695.1 677.7 693.1 C 677.7 691.1 685.3 689.5 694.8 689.5 C 704.3 689.5 712 691.1 712 693.1 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-24" d="M 857.1 614.2 C 857.1 616.2 849.7 617.8 840.5 617.8 C 831.3 617.8 823.9 616.2 823.9 614.2 C 823.9 612.2 831.3 610.6 840.5 610.6 C 849.7 610.6 857.1 612.2 857.1 614.2 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-9" d="M 228.4 562.6 C 228.4 566.5 222.4 569.7 215 569.7 C 207.6 569.7 201.6 566.5 201.6 562.6 C 201.6 558.7 207.6 555.6 215 555.6 C 222.4 555.6 228.4 558.7 228.4 562.6 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-9" d="M 217.5 560.6 C 217.5 562.1 215.5 563.2 213 563.2 C 210.5 563.2 208.5 562.1 208.5 560.6 C 208.5 559.2 210.5 558 213 558 C 215.5 558 217.5 559.2 217.5 560.6 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-25" d="M 468.4 694.4 C 468.4 696.4 455.2 698 439 698 C 422.7 698 409.5 696.4 409.5 694.4 C 409.5 692.4 422.7 690.8 439 690.8 C 455.2 690.8 468.4 692.4 468.4 694.4 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-26" d="M 603.6 640.7 C 603.6 642.7 589.2 644.3 571.5 644.3 C 553.8 644.3 539.4 642.7 539.4 640.7 C 539.4 638.7 553.8 637.1 571.5 637.1 C 589.2 637.1 603.6 638.7 603.6 640.7 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-27" d="M 917.8 579.4 C 917.8 581.4 903.1 583 885 583 C 866.9 583 852.2 581.4 852.2 579.4 C 852.2 577.4 866.9 575.8 885 575.8 C 903.1 575.8 917.8 577.4 917.8 579.4 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-10" d="M 377.8 614.6 C 377.8 618 371.1 620.8 362.8 620.8 C 354.5 620.8 347.8 618 347.8 614.6 C 347.8 611.1 354.5 608.3 362.8 608.3 C 371.1 608.3 377.8 611.1 377.8 614.6 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-10" d="M 365.3 612.6 C 365.3 614 363.3 615.2 360.8 615.2 C 358.3 615.2 356.3 614 356.3 612.6 C 356.3 611.1 358.3 610 360.8 610 C 363.3 610 365.3 611.1 365.3 612.6 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-28" d="M 561.2 669.4 C 561.2 671.4 552.5 673 541.7 673 C 530.9 673 522.2 671.4 522.2 669.4 C 522.2 667.5 530.9 665.8 541.7 665.8 C 552.5 665.8 561.2 667.5 561.2 669.4 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-29" d="M 294.1 710.6 C 294.1 712.6 282.8 714.2 268.8 714.2 C 254.9 714.2 243.6 712.6 243.6 710.6 C 243.6 708.6 254.9 707 268.8 707 C 282.8 707 294.1 708.6 294.1 710.6 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-30" d="M 1632.3 618.7 C 1632.3 620.7 1617.4 622.3 1598.9 622.3 C 1580.4 622.3 1565.4 620.7 1565.4 618.7 C 1565.4 616.7 1580.4 615.1 1598.9 615.1 C 1617.4 615.1 1632.3 616.7 1632.3 618.7 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-11" d="M 392.2 662.1 C 392.2 666.5 386.3 670 379.1 670 C 371.8 670 365.9 666.5 365.9 662.1 C 365.9 657.8 371.8 654.2 379.1 654.2 C 386.3 654.2 392.2 657.8 392.2 662.1 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-11" d="M 381.6 660.1 C 381.6 661.6 379.5 662.7 377.1 662.7 C 374.6 662.7 372.6 661.6 372.6 660.1 C 372.6 658.7 374.6 657.5 377.1 657.5 C 379.5 657.5 381.6 658.7 381.6 660.1 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-31" d="M 994.9 578.5 C 994.9 580.5 985 582.1 972.8 582.1 C 960.6 582.1 950.7 580.5 950.7 578.5 C 950.7 576.6 960.6 574.9 972.8 574.9 C 985 574.9 994.9 576.6 994.9 578.5 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-32" d="M 916.4 664.8 C 916.4 666.8 905.8 668.4 892.7 668.4 C 879.7 668.4 869.1 666.8 869.1 664.8 C 869.1 662.8 879.7 661.2 892.7 661.2 C 905.8 661.2 916.4 662.8 916.4 664.8 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-33" d="M 946.3 559.5 C 946.3 561.5 936.3 563.1 924 563.1 C 911.8 563.1 901.8 561.5 901.8 559.5 C 901.8 557.6 911.8 555.9 924 555.9 C 936.3 555.9 946.3 557.6 946.3 559.5 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-12" d="M 103.1 653.5 C 103.1 658.1 97.3 661.8 90 661.8 C 82.8 661.8 77 658.1 77 653.5 C 77 648.9 82.8 645.1 90 645.1 C 97.3 645.1 103.1 648.9 103.1 653.5 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-12" d="M 92.5 651.5 C 92.5 652.9 90.5 654.1 88 654.1 C 85.6 654.1 83.5 652.9 83.5 651.5 C 83.5 650 85.6 648.9 88 648.9 C 90.5 648.9 92.5 650 92.5 651.5 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-34" d="M 1502.6 615.3 C 1502.6 617.3 1487.7 618.9 1469.2 618.9 C 1450.7 618.9 1435.7 617.3 1435.7 615.3 C 1435.7 613.4 1450.7 611.7 1469.2 611.7 C 1487.7 611.7 1502.6 613.4 1502.6 615.3 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-35" d="M 1610 562.9 C 1610 564.8 1596.2 566.5 1579.1 566.5 C 1562.1 566.5 1548.3 564.8 1548.3 562.9 C 1548.3 560.9 1562.1 559.3 1579.1 559.3 C 1596.2 559.3 1610 560.9 1610 562.9 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-36" d="M 544.9 587.4 C 544.9 589.4 534.3 591 521.2 591 C 508.1 591 497.5 589.4 497.5 587.4 C 497.5 585.4 508.1 583.8 521.2 583.8 C 534.3 583.8 544.9 585.4 544.9 587.4 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-13" d="M 1075 552.7 C 1075 557.5 1069.1 561.5 1061.8 561.5 C 1054.5 561.5 1048.6 557.5 1048.6 552.7 C 1048.6 547.9 1054.5 543.9 1061.8 543.9 C 1069.1 543.9 1075 547.9 1075 552.7 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-13" d="M 1064.3 550.7 C 1064.3 552.1 1062.3 553.3 1059.8 553.3 C 1057.3 553.3 1055.3 552.1 1055.3 550.7 C 1055.3 549.3 1057.3 548.1 1059.8 548.1 C 1062.3 548.1 1064.3 549.3 1064.3 550.7 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-37" d="M 1405.2 650.7 C 1405.2 652.6 1397.7 654.3 1388.5 654.3 C 1379.3 654.3 1371.8 652.6 1371.8 650.7 C 1371.8 648.7 1379.3 647.1 1388.5 647.1 C 1397.7 647.1 1405.2 648.7 1405.2 650.7 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-38" d="M 756.4 616.7 C 756.4 618.7 743.7 620.3 728 620.3 C 712.3 620.3 699.6 618.7 699.6 616.7 C 699.6 614.7 712.3 613.1 728 613.1 C 743.7 613.1 756.4 614.7 756.4 616.7 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-39" d="M 1114.9 660.3 C 1114.9 662.3 1104.9 663.9 1092.7 663.9 C 1080.5 663.9 1070.5 662.3 1070.5 660.3 C 1070.5 658.3 1080.5 656.7 1092.7 656.7 C 1104.9 656.7 1114.9 658.3 1114.9 660.3 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-14" d="M 894.6 706.6 C 894.6 710.7 888.4 714 880.6 714 C 872.8 714 866.5 710.7 866.5 706.6 C 866.5 702.6 872.8 699.3 880.6 699.3 C 888.4 699.3 894.6 702.6 894.6 706.6 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-14" d="M 883.1 704.6 C 883.1 706.1 881.1 707.2 878.6 707.2 C 876.1 707.2 874.1 706.1 874.1 704.6 C 874.1 703.2 876.1 702 878.6 702 C 881.1 702 883.1 703.2 883.1 704.6 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-40" d="M 692.8 561.1 C 692.8 563.1 683.6 564.7 672.1 564.7 C 660.7 564.7 651.5 563.1 651.5 561.1 C 651.5 559.1 660.7 557.5 672.1 557.5 C 683.6 557.5 692.8 559.1 692.8 561.1 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-41" d="M 1431 678 C 1431 680 1421.7 681.6 1410.1 681.6 C 1398.5 681.6 1389.1 680 1389.1 678 C 1389.1 676 1398.5 674.4 1410.1 674.4 C 1421.7 674.4 1431 676 1431 678 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-42" d="M 671.6 635.9 C 671.6 637.9 660.4 639.5 646.6 639.5 C 632.9 639.5 621.7 637.9 621.7 635.9 C 621.7 633.9 632.9 632.3 646.6 632.3 C 660.4 632.3 671.6 633.9 671.6 635.9 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-15" d="M 1292.5 703.4 C 1292.5 707.7 1286 711.1 1277.9 711.1 C 1269.9 711.1 1263.4 707.7 1263.4 703.4 C 1263.4 699.2 1269.9 695.8 1277.9 695.8 C 1286 695.8 1292.5 699.2 1292.5 703.4 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-15" d="M 1280.4 701.4 C 1280.4 702.9 1278.4 704 1275.9 704 C 1273.5 704 1271.4 702.9 1271.4 701.4 C 1271.4 700 1273.5 698.8 1275.9 698.8 C 1278.4 698.8 1280.4 700 1280.4 701.4 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-43" d="M 314.8 567.7 C 314.8 569.7 306.5 571.3 296.2 571.3 C 286 571.3 277.7 569.7 277.7 567.7 C 277.7 565.7 286 564.1 296.2 564.1 C 306.5 564.1 314.8 565.7 314.8 567.7 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-44" d="M 945.9 701.5 C 945.9 703.4 934.1 705.1 919.5 705.1 C 904.9 705.1 893.1 703.4 893.1 701.5 C 893.1 699.5 904.9 697.9 919.5 697.9 C 934.1 697.9 945.9 699.5 945.9 701.5 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-45" d="M 1340.3 643.1 C 1340.3 645 1325.5 646.7 1307.3 646.7 C 1289.1 646.7 1274.3 645 1274.3 643.1 C 1274.3 641.1 1289.1 639.5 1307.3 639.5 C 1325.5 639.5 1340.3 641.1 1340.3 643.1 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-16" d="M 1568.5 614.6 C 1568.5 618.2 1563.3 621.2 1556.9 621.2 C 1550.5 621.2 1545.4 618.2 1545.4 614.6 C 1545.4 610.9 1550.5 607.9 1556.9 607.9 C 1563.3 607.9 1568.5 610.9 1568.5 614.6 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-16" d="M 1559.4 612.6 C 1559.4 614 1557.4 615.2 1554.9 615.2 C 1552.4 615.2 1550.4 614 1550.4 612.6 C 1550.4 611.1 1552.4 610 1554.9 610 C 1557.4 610 1559.4 611.1 1559.4 612.6 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-46" d="M 817.8 570.8 C 817.8 572.8 809.8 574.4 799.9 574.4 C 790.1 574.4 782.1 572.8 782.1 570.8 C 782.1 568.8 790.1 567.2 799.9 567.2 C 809.8 567.2 817.8 568.8 817.8 570.8 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-47" d="M 1522.6 569.3 C 1522.6 571.3 1512 572.9 1498.9 572.9 C 1485.8 572.9 1475.2 571.3 1475.2 569.3 C 1475.2 567.3 1485.8 565.7 1498.9 565.7 C 1512 565.7 1522.6 567.3 1522.6 569.3 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-48" d="M 1204.8 587.8 C 1204.8 589.8 1191.3 591.4 1174.7 591.4 C 1158.2 591.4 1144.7 589.8 1144.7 587.8 C 1144.7 585.8 1158.2 584.2 1174.7 584.2 C 1191.3 584.2 1204.8 585.8 1204.8 587.8 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-17" d="M 821.6 702.1 C 821.6 705.4 816.2 708.2 809.6 708.2 C 802.9 708.2 797.5 705.4 797.5 702.1 C 797.5 698.7 802.9 696 809.6 696 C 816.2 696 821.6 698.7 821.6 702.1 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-17" d="M 812.1 700.1 C 812.1 701.5 810.1 702.7 807.6 702.7 C 805.1 702.7 803.1 701.5 803.1 700.1 C 803.1 698.6 805.1 697.5 807.6 697.5 C 810.1 697.5 812.1 698.6 812.1 700.1 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-49" d="M 1380.8 700.4 C 1380.8 702.4 1370.3 704 1357.5 704 C 1344.6 704 1334.2 702.4 1334.2 700.4 C 1334.2 698.4 1344.6 696.8 1357.5 696.8 C 1370.3 696.8 1380.8 698.4 1380.8 700.4 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-50" d="M 339.4 618.5 C 339.4 620.5 328 622.1 313.8 622.1 C 299.7 622.1 288.2 620.5 288.2 618.5 C 288.2 616.5 299.7 614.9 313.8 614.9 C 328 614.9 339.4 616.5 339.4 618.5 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-rut-51" d="M 1004 657.7 C 1004 659.6 990.4 661.3 973.6 661.3 C 956.8 661.3 943.2 659.6 943.2 657.7 C 943.2 655.7 956.8 654.1 973.6 654.1 C 990.4 654.1 1004 655.7 1004 657.7 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-stone-18" d="M 88 657.4 C 88 662 82 665.8 74.6 665.8 C 67.3 665.8 61.3 662 61.3 657.4 C 61.3 652.8 67.3 649.1 74.6 649.1 C 82 649.1 88 652.8 88 657.4 Z" fill="#b9ccd8"/>
+<path id="snow-march-stone-lit-18" d="M 77.1 655.4 C 77.1 656.9 75.1 658 72.6 658 C 70.1 658 68.1 656.9 68.1 655.4 C 68.1 654 70.1 652.8 72.6 652.8 C 75.1 652.8 77.1 654 77.1 655.4 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="snow-march-rut-52" d="M 517.7 589.4 C 517.7 591.4 505 593 489.4 593 C 473.7 593 461 591.4 461 589.4 C 461 587.4 473.7 585.8 489.4 585.8 C 505 585.8 517.7 587.4 517.7 589.4 Z" fill="#2a1a10" opacity="0.08"/>
+<path id="snow-march-dip" d="M 195 759 C 195 762.1 188.7 764.5 181 764.5 C 173.3 764.5 167 762.1 167 759 C 167 756 173.3 753.5 181 753.5 C 188.7 753.5 195 756 195 759 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-ice" d="M 560.3 823.6 L 565.3 830.1 L 560.3 836.6 L 555.3 830.1 Z" fill="#d4f1fb"/>
+<path id="snow-march-ice-2" d="M 1385.6 727.1 L 1390.6 733.6 L 1385.6 740.1 L 1380.6 733.6 Z" fill="#d4f1fb"/>
+<path id="snow-march-ice-3" d="M 1286 739.4 L 1291 745.9 L 1286 752.4 L 1281 745.9 Z" fill="#d4f1fb"/>
+<path id="snow-march-dip-2" d="M 389.4 828.2 C 389.4 831.2 383.1 833.7 375.4 833.7 C 367.7 833.7 361.4 831.2 361.4 828.2 C 361.4 825.1 367.7 822.7 375.4 822.7 C 383.1 822.7 389.4 825.1 389.4 828.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-3" d="M 1549.6 385.1 C 1549.6 388.2 1543.4 390.6 1535.6 390.6 C 1527.9 390.6 1521.6 388.2 1521.6 385.1 C 1521.6 382.1 1527.9 379.6 1535.6 379.6 C 1543.4 379.6 1549.6 382.1 1549.6 385.1 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-4" d="M 1070.3 773.5 C 1070.3 776.5 1064 779 1056.3 779 C 1048.5 779 1042.3 776.5 1042.3 773.5 C 1042.3 770.4 1048.5 768 1056.3 768 C 1064 768 1070.3 770.4 1070.3 773.5 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-5" d="M 572 410.2 C 572 413.3 565.7 415.7 558 415.7 C 550.3 415.7 544 413.3 544 410.2 C 544 407.2 550.3 404.7 558 404.7 C 565.7 404.7 572 407.2 572 410.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-6" d="M 537.7 380.3 C 537.7 383.3 531.4 385.8 523.7 385.8 C 515.9 385.8 509.7 383.3 509.7 380.3 C 509.7 377.3 515.9 374.8 523.7 374.8 C 531.4 374.8 537.7 377.3 537.7 380.3 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift" d="M 179.7 792.2 C 179.7 795.8 171.7 798.7 161.7 798.7 C 151.8 798.7 143.7 795.8 143.7 792.2 C 143.7 788.6 151.8 785.7 161.7 785.7 C 171.7 785.7 179.7 788.6 179.7 792.2 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-4" d="M 1528.2 794.9 L 1533.2 801.4 L 1528.2 807.9 L 1523.2 801.4 Z" fill="#d4f1fb"/>
+<path id="snow-march-drift-2" d="M 248.9 351.4 C 248.9 355 240.8 357.9 230.9 357.9 C 221 357.9 212.9 355 212.9 351.4 C 212.9 347.8 221 344.9 230.9 344.9 C 240.8 344.9 248.9 347.8 248.9 351.4 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-3" d="M 1459.5 410.7 C 1459.5 414.2 1451.4 417.2 1441.5 417.2 C 1431.5 417.2 1423.5 414.2 1423.5 410.7 C 1423.5 407.1 1431.5 404.2 1441.5 404.2 C 1451.4 404.2 1459.5 407.1 1459.5 410.7 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-4" d="M 1158.7 435.7 C 1158.7 439.3 1150.6 442.2 1140.7 442.2 C 1130.8 442.2 1122.7 439.3 1122.7 435.7 C 1122.7 432.1 1130.8 429.2 1140.7 429.2 C 1150.6 429.2 1158.7 432.1 1158.7 435.7 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-5" d="M 939.2 779.8 C 939.2 783.4 931.2 786.3 921.2 786.3 C 911.3 786.3 903.2 783.4 903.2 779.8 C 903.2 776.2 911.3 773.3 921.2 773.3 C 931.2 773.3 939.2 776.2 939.2 779.8 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-7" d="M 287.1 395.7 C 287.1 398.7 280.8 401.2 273.1 401.2 C 265.4 401.2 259.1 398.7 259.1 395.7 C 259.1 392.6 265.4 390.2 273.1 390.2 C 280.8 390.2 287.1 392.6 287.1 395.7 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-8" d="M 291.4 752.8 C 291.4 755.9 285.2 758.3 277.4 758.3 C 269.7 758.3 263.4 755.9 263.4 752.8 C 263.4 749.8 269.7 747.3 277.4 747.3 C 285.2 747.3 291.4 749.8 291.4 752.8 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-9" d="M 246.4 417.9 C 246.4 420.9 240.1 423.4 232.4 423.4 C 224.7 423.4 218.4 420.9 218.4 417.9 C 218.4 414.9 224.7 412.4 232.4 412.4 C 240.1 412.4 246.4 414.9 246.4 417.9 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-6" d="M 1155.7 737.9 C 1155.7 741.5 1147.6 744.4 1137.7 744.4 C 1127.7 744.4 1119.7 741.5 1119.7 737.9 C 1119.7 734.3 1127.7 731.4 1137.7 731.4 C 1147.6 731.4 1155.7 734.3 1155.7 737.9 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-7" d="M 1578.9 755.6 C 1578.9 759.1 1570.9 762.1 1560.9 762.1 C 1551 762.1 1542.9 759.1 1542.9 755.6 C 1542.9 752 1551 749.1 1560.9 749.1 C 1570.9 749.1 1578.9 752 1578.9 755.6 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-8" d="M 630.9 776.4 C 630.9 779.9 622.8 782.9 612.9 782.9 C 602.9 782.9 594.9 779.9 594.9 776.4 C 594.9 772.8 602.9 769.9 612.9 769.9 C 622.8 769.9 630.9 772.8 630.9 776.4 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-5" d="M 754.6 349.8 L 759.6 356.3 L 754.6 362.8 L 749.6 356.3 Z" fill="#d4f1fb"/>
+<path id="snow-march-dip-10" d="M 376.9 369.8 C 376.9 372.8 370.6 375.3 362.9 375.3 C 355.1 375.3 348.9 372.8 348.9 369.8 C 348.9 366.7 355.1 364.3 362.9 364.3 C 370.6 364.3 376.9 366.7 376.9 369.8 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-9" d="M 1596.5 447.8 C 1596.5 451.4 1588.4 454.3 1578.5 454.3 C 1568.5 454.3 1560.5 451.4 1560.5 447.8 C 1560.5 444.2 1568.5 441.3 1578.5 441.3 C 1588.4 441.3 1596.5 444.2 1596.5 447.8 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-6" d="M 162 777.6 L 167 784.1 L 162 790.6 L 157 784.1 Z" fill="#d4f1fb"/>
+<path id="snow-march-dip-11" d="M 1296.7 381 C 1296.7 384 1290.4 386.5 1282.7 386.5 C 1275 386.5 1268.7 384 1268.7 381 C 1268.7 378 1275 375.5 1282.7 375.5 C 1290.4 375.5 1296.7 378 1296.7 381 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-ice-7" d="M 1564.9 785.1 L 1569.9 791.6 L 1564.9 798.1 L 1559.9 791.6 Z" fill="#d4f1fb"/>
+<path id="snow-march-ice-8" d="M 1317.7 724 L 1322.7 730.5 L 1317.7 737 L 1312.7 730.5 Z" fill="#d4f1fb"/>
+<path id="snow-march-drift-10" d="M 889.9 830 C 889.9 833.6 881.8 836.5 871.9 836.5 C 861.9 836.5 853.9 833.6 853.9 830 C 853.9 826.4 861.9 823.5 871.9 823.5 C 881.8 823.5 889.9 826.4 889.9 830 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-9" d="M 950.1 746.2 L 955.1 752.7 L 950.1 759.2 L 945.1 752.7 Z" fill="#d4f1fb"/>
+<path id="snow-march-ice-10" d="M 194.7 832.8 L 199.7 839.3 L 194.7 845.8 L 189.7 839.3 Z" fill="#d4f1fb"/>
+<path id="snow-march-ice-11" d="M 978.3 834.5 L 983.3 841 L 978.3 847.5 L 973.3 841 Z" fill="#d4f1fb"/>
+<path id="snow-march-ice-12" d="M 1422.2 449.6 L 1427.2 456.1 L 1422.2 462.6 L 1417.2 456.1 Z" fill="#d4f1fb"/>
+<path id="snow-march-drift-11" d="M 1565.9 419.6 C 1565.9 423.1 1557.9 426.1 1547.9 426.1 C 1538 426.1 1529.9 423.1 1529.9 419.6 C 1529.9 416 1538 413.1 1547.9 413.1 C 1557.9 413.1 1565.9 416 1565.9 419.6 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-13" d="M 685.9 459.2 L 690.9 465.7 L 685.9 472.2 L 680.9 465.7 Z" fill="#d4f1fb"/>
+<path id="snow-march-drift-12" d="M 485.8 453 C 485.8 456.6 477.7 459.5 467.8 459.5 C 457.8 459.5 449.8 456.6 449.8 453 C 449.8 449.5 457.8 446.5 467.8 446.5 C 477.7 446.5 485.8 449.5 485.8 453 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-12" d="M 939.7 810.7 C 939.7 813.7 933.4 816.2 925.7 816.2 C 917.9 816.2 911.7 813.7 911.7 810.7 C 911.7 807.6 917.9 805.2 925.7 805.2 C 933.4 805.2 939.7 807.6 939.7 810.7 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-13" d="M 39.1 815.2 C 39.1 818.3 32.8 820.7 25.1 820.7 C 17.4 820.7 11.1 818.3 11.1 815.2 C 11.1 812.2 17.4 809.7 25.1 809.7 C 32.8 809.7 39.1 812.2 39.1 815.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-14" d="M 969.2 458.5 C 969.2 461.5 962.9 464 955.2 464 C 947.4 464 941.2 461.5 941.2 458.5 C 941.2 455.4 947.4 453 955.2 453 C 962.9 453 969.2 455.4 969.2 458.5 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-15" d="M 1515.5 354.3 C 1515.5 357.3 1509.3 359.8 1501.5 359.8 C 1493.8 359.8 1487.5 357.3 1487.5 354.3 C 1487.5 351.3 1493.8 348.8 1501.5 348.8 C 1509.3 348.8 1515.5 351.3 1515.5 354.3 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-13" d="M 1045.7 445.1 C 1045.7 448.7 1037.6 451.6 1027.7 451.6 C 1017.7 451.6 1009.7 448.7 1009.7 445.1 C 1009.7 441.5 1017.7 438.6 1027.7 438.6 C 1037.6 438.6 1045.7 441.5 1045.7 445.1 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-16" d="M 202.4 376 C 202.4 379.1 196.2 381.5 188.4 381.5 C 180.7 381.5 174.4 379.1 174.4 376 C 174.4 373 180.7 370.5 188.4 370.5 C 196.2 370.5 202.4 373 202.4 376 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-14" d="M 919.7 397.4 C 919.7 401 911.6 403.9 901.7 403.9 C 891.8 403.9 883.7 401 883.7 397.4 C 883.7 393.8 891.8 390.9 901.7 390.9 C 911.6 390.9 919.7 393.8 919.7 397.4 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-17" d="M 116.8 404.1 C 116.8 407.2 110.5 409.6 102.8 409.6 C 95 409.6 88.8 407.2 88.8 404.1 C 88.8 401.1 95 398.6 102.8 398.6 C 110.5 398.6 116.8 401.1 116.8 404.1 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-15" d="M 24.5 371.9 C 24.5 375.4 16.4 378.4 6.5 378.4 C -3.4 378.4 -11.5 375.4 -11.5 371.9 C -11.5 368.3 -3.4 365.4 6.5 365.4 C 16.4 365.4 24.5 368.3 24.5 371.9 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-16" d="M 420.5 458.6 C 420.5 462.1 412.4 465.1 402.5 465.1 C 392.5 465.1 384.5 462.1 384.5 458.6 C 384.5 455 392.5 452.1 402.5 452.1 C 412.4 452.1 420.5 455 420.5 458.6 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-17" d="M 1325.7 391.9 C 1325.7 395.5 1317.7 398.4 1307.7 398.4 C 1297.8 398.4 1289.7 395.5 1289.7 391.9 C 1289.7 388.3 1297.8 385.4 1307.7 385.4 C 1317.7 385.4 1325.7 388.3 1325.7 391.9 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-18" d="M 1516.4 430.8 C 1516.4 433.9 1510.1 436.3 1502.4 436.3 C 1494.7 436.3 1488.4 433.9 1488.4 430.8 C 1488.4 427.8 1494.7 425.3 1502.4 425.3 C 1510.1 425.3 1516.4 427.8 1516.4 430.8 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-ice-14" d="M 1273.2 455.2 L 1278.2 461.7 L 1273.2 468.2 L 1268.2 461.7 Z" fill="#d4f1fb"/>
+<path id="snow-march-dip-19" d="M 503.6 797.2 C 503.6 800.3 497.4 802.7 489.6 802.7 C 481.9 802.7 475.6 800.3 475.6 797.2 C 475.6 794.2 481.9 791.7 489.6 791.7 C 497.4 791.7 503.6 794.2 503.6 797.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-18" d="M 1156.2 818.5 C 1156.2 822.1 1148.2 825 1138.2 825 C 1128.3 825 1120.2 822.1 1120.2 818.5 C 1120.2 814.9 1128.3 812 1138.2 812 C 1148.2 812 1156.2 814.9 1156.2 818.5 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-19" d="M 1457.3 429.2 C 1457.3 432.8 1449.2 435.7 1439.3 435.7 C 1429.3 435.7 1421.3 432.8 1421.3 429.2 C 1421.3 425.7 1429.3 422.7 1439.3 422.7 C 1449.2 422.7 1457.3 425.7 1457.3 429.2 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-15" d="M 1071.6 354.9 L 1076.6 361.4 L 1071.6 367.9 L 1066.6 361.4 Z" fill="#d4f1fb"/>
+<path id="snow-march-drift-20" d="M 648.1 821.7 C 648.1 825.3 640 828.2 630.1 828.2 C 620.1 828.2 612.1 825.3 612.1 821.7 C 612.1 818.1 620.1 815.2 630.1 815.2 C 640 815.2 648.1 818.1 648.1 821.7 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-16" d="M 1240.9 392 L 1245.9 398.5 L 1240.9 405 L 1235.9 398.5 Z" fill="#d4f1fb"/>
+<path id="snow-march-drift-21" d="M 1078 798.2 C 1078 801.8 1069.9 804.7 1060 804.7 C 1050 804.7 1042 801.8 1042 798.2 C 1042 794.6 1050 791.7 1060 791.7 C 1069.9 791.7 1078 794.6 1078 798.2 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-22" d="M 196.4 411 C 196.4 414.6 188.4 417.5 178.4 417.5 C 168.5 417.5 160.4 414.6 160.4 411 C 160.4 407.4 168.5 404.5 178.4 404.5 C 188.4 404.5 196.4 407.4 196.4 411 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-17" d="M 261.8 427.9 L 266.8 434.4 L 261.8 440.9 L 256.8 434.4 Z" fill="#d4f1fb"/>
+<path id="snow-march-drift-23" d="M 64.4 455.2 C 64.4 458.8 56.4 461.7 46.4 461.7 C 36.5 461.7 28.4 458.8 28.4 455.2 C 28.4 451.6 36.5 448.7 46.4 448.7 C 56.4 448.7 64.4 451.6 64.4 455.2 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-20" d="M 1032.9 418.2 C 1032.9 421.2 1026.6 423.7 1018.9 423.7 C 1011.2 423.7 1004.9 421.2 1004.9 418.2 C 1004.9 415.1 1011.2 412.7 1018.9 412.7 C 1026.6 412.7 1032.9 415.1 1032.9 418.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-24" d="M 1221.2 801.5 C 1221.2 805.1 1213.1 808 1203.2 808 C 1193.2 808 1185.2 805.1 1185.2 801.5 C 1185.2 797.9 1193.2 795 1203.2 795 C 1213.1 795 1221.2 797.9 1221.2 801.5 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-21" d="M 194.7 848 C 194.7 851.1 188.4 853.5 180.7 853.5 C 173 853.5 166.7 851.1 166.7 848 C 166.7 845 173 842.5 180.7 842.5 C 188.4 842.5 194.7 845 194.7 848 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-25" d="M 486.2 751.6 C 486.2 755.2 478.1 758.1 468.2 758.1 C 458.2 758.1 450.2 755.2 450.2 751.6 C 450.2 748 458.2 745.1 468.2 745.1 C 478.1 745.1 486.2 748 486.2 751.6 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-26" d="M 396.3 808.5 C 396.3 812 388.3 815 378.3 815 C 368.4 815 360.3 812 360.3 808.5 C 360.3 804.9 368.4 802 378.3 802 C 388.3 802 396.3 804.9 396.3 808.5 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-27" d="M 1106.1 372.3 C 1106.1 375.9 1098.1 378.8 1088.1 378.8 C 1078.2 378.8 1070.1 375.9 1070.1 372.3 C 1070.1 368.8 1078.2 365.8 1088.1 365.8 C 1098.1 365.8 1106.1 368.8 1106.1 372.3 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-18" d="M 1440.3 396.6 L 1445.3 403.1 L 1440.3 409.6 L 1435.3 403.1 Z" fill="#d4f1fb"/>
+<path id="snow-march-dip-22" d="M 816.4 427.9 C 816.4 430.9 810.1 433.4 802.4 433.4 C 794.6 433.4 788.4 430.9 788.4 427.9 C 788.4 424.9 794.6 422.4 802.4 422.4 C 810.1 422.4 816.4 424.9 816.4 427.9 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-28" d="M 326.3 405.1 C 326.3 408.6 318.2 411.6 308.3 411.6 C 298.3 411.6 290.3 408.6 290.3 405.1 C 290.3 401.5 298.3 398.6 308.3 398.6 C 318.2 398.6 326.3 401.5 326.3 405.1 Z" fill="#f8fcfe"/>
+<path id="snow-march-ice-19" d="M 1208.5 762.3 L 1213.5 768.8 L 1208.5 775.3 L 1203.5 768.8 Z" fill="#d4f1fb"/>
+<path id="snow-march-drift-29" d="M 1070.2 465.3 C 1070.2 468.9 1062.2 471.8 1052.2 471.8 C 1042.3 471.8 1034.2 468.9 1034.2 465.3 C 1034.2 461.7 1042.3 458.8 1052.2 458.8 C 1062.2 458.8 1070.2 461.7 1070.2 465.3 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-30" d="M 46 818.9 C 46 822.5 37.9 825.4 28 825.4 C 18.1 825.4 10 822.5 10 818.9 C 10 815.3 18.1 812.4 28 812.4 C 37.9 812.4 46 815.3 46 818.9 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-31" d="M 1404.6 357.9 C 1404.6 361.5 1396.5 364.4 1386.6 364.4 C 1376.6 364.4 1368.6 361.5 1368.6 357.9 C 1368.6 354.3 1376.6 351.4 1386.6 351.4 C 1396.5 351.4 1404.6 354.3 1404.6 357.9 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-23" d="M 1486.1 359.6 C 1486.1 362.6 1479.8 365.1 1472.1 365.1 C 1464.3 365.1 1458.1 362.6 1458.1 359.6 C 1458.1 356.5 1464.3 354.1 1472.1 354.1 C 1479.8 354.1 1486.1 356.5 1486.1 359.6 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-ice-20" d="M 485.6 756.7 L 490.6 763.2 L 485.6 769.7 L 480.6 763.2 Z" fill="#d4f1fb"/>
+<path id="snow-march-dip-24" d="M 1520.9 831.5 C 1520.9 834.6 1514.7 837 1506.9 837 C 1499.2 837 1492.9 834.6 1492.9 831.5 C 1492.9 828.5 1499.2 826 1506.9 826 C 1514.7 826 1520.9 828.5 1520.9 831.5 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-25" d="M 912.9 448.5 C 912.9 451.5 906.7 454 898.9 454 C 891.2 454 884.9 451.5 884.9 448.5 C 884.9 445.4 891.2 443 898.9 443 C 906.7 443 912.9 445.4 912.9 448.5 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-32" d="M 837.7 394.2 C 837.7 397.8 829.6 400.7 819.7 400.7 C 809.8 400.7 801.7 397.8 801.7 394.2 C 801.7 390.6 809.8 387.7 819.7 387.7 C 829.6 387.7 837.7 390.6 837.7 394.2 Z" fill="#f8fcfe"/>
+<path id="snow-march-drift-33" d="M 1385.5 825.7 C 1385.5 829.3 1377.4 832.2 1367.5 832.2 C 1357.6 832.2 1349.5 829.3 1349.5 825.7 C 1349.5 822.1 1357.6 819.2 1367.5 819.2 C 1377.4 819.2 1385.5 822.1 1385.5 825.7 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-26" d="M 697.8 742.5 C 697.8 745.5 691.6 748 683.8 748 C 676.1 748 669.8 745.5 669.8 742.5 C 669.8 739.4 676.1 737 683.8 737 C 691.6 737 697.8 739.4 697.8 742.5 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-34" d="M 1356.8 747.3 C 1356.8 750.9 1348.8 753.8 1338.8 753.8 C 1328.9 753.8 1320.8 750.9 1320.8 747.3 C 1320.8 743.7 1328.9 740.8 1338.8 740.8 C 1348.8 740.8 1356.8 743.7 1356.8 747.3 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-27" d="M 938.9 440.8 C 938.9 443.8 932.6 446.3 924.9 446.3 C 917.2 446.3 910.9 443.8 910.9 440.8 C 910.9 437.8 917.2 435.3 924.9 435.3 C 932.6 435.3 938.9 437.8 938.9 440.8 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-ice-21" d="M 1182.9 392.7 L 1187.9 399.2 L 1182.9 405.7 L 1177.9 399.2 Z" fill="#d4f1fb"/>
+<path id="snow-march-ice-22" d="M 1586.2 748.9 L 1591.2 755.4 L 1586.2 761.9 L 1581.2 755.4 Z" fill="#d4f1fb"/>
+<path id="snow-march-ice-23" d="M 1307.6 384.9 L 1312.6 391.4 L 1307.6 397.9 L 1302.6 391.4 Z" fill="#d4f1fb"/>
+<path id="snow-march-drift-35" d="M 312.1 383.1 C 312.1 386.7 304 389.6 294.1 389.6 C 284.1 389.6 276.1 386.7 276.1 383.1 C 276.1 379.6 284.1 376.6 294.1 376.6 C 304 376.6 312.1 379.6 312.1 383.1 Z" fill="#f8fcfe"/>
+<path id="snow-march-dip-28" d="M 188.4 385.7 C 188.4 388.7 182.1 391.2 174.4 391.2 C 166.7 391.2 160.4 388.7 160.4 385.7 C 160.4 382.7 166.7 380.2 174.4 380.2 C 182.1 380.2 188.4 382.7 188.4 385.7 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-dip-29" d="M 1338.2 378.7 C 1338.2 381.7 1331.9 384.2 1324.2 384.2 C 1316.4 384.2 1310.2 381.7 1310.2 378.7 C 1310.2 375.7 1316.4 373.2 1324.2 373.2 C 1331.9 373.2 1338.2 375.7 1338.2 378.7 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-ice-24" d="M 814.2 775.3 L 819.2 781.8 L 814.2 788.3 L 809.2 781.8 Z" fill="#d4f1fb"/>
+<path id="snow-march-dip-30" d="M 1180.4 758.6 C 1180.4 761.6 1174.1 764.1 1166.4 764.1 C 1158.7 764.1 1152.4 761.6 1152.4 758.6 C 1152.4 755.5 1158.7 753.1 1166.4 753.1 C 1174.1 753.1 1180.4 755.5 1180.4 758.6 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-march-drift-36" d="M 260.6 439.7 C 260.6 443.3 252.5 446.2 242.6 446.2 C 232.7 446.2 224.6 443.3 224.6 439.7 C 224.6 436.1 232.7 433.2 242.6 433.2 C 252.5 433.2 260.6 436.1 260.6 439.7 Z" fill="#f8fcfe"/>
+<use href="#snow-march-thing-1" transform="translate(10.97 150.44) scale(-1.72 1.72)"/>
+<use href="#snow-march-thing-1" transform="translate(1374.98 153.66) scale(-1.98 1.98)"/>
+<use href="#snow-march-thing-1" transform="translate(502.4 158.22) scale(1.84 1.84)"/>
+<use href="#snow-march-thing-1" transform="translate(1576.45 158.69) scale(-1.53 1.53)"/>
+<use href="#snow-march-thing-1" transform="translate(621.29 161.25) scale(-2 2)"/>
+<use href="#snow-march-thing-1" transform="translate(1078.73 163.51) scale(-1.51 1.51)"/>
+<use href="#snow-march-thing-1" transform="translate(106.74 173.04) scale(-1.96 1.96)"/>
+<use href="#snow-march-thing-2" transform="translate(210.43 176.75) scale(-1.52 1.52)"/>
+<use href="#snow-march-thing-3" transform="translate(313.93 184.23) scale(-1.98 1.98)"/>
+<use href="#snow-march-thing-2" transform="translate(681.88 184.52) scale(1.95 1.95)"/>
+<use href="#snow-march-thing-1" transform="translate(407.58 196.66) scale(1.54 1.54)"/>
+<use href="#snow-march-thing-2" transform="translate(1208.04 208.85) scale(1.74 1.74)"/>
+<use href="#snow-march-thing-1" transform="translate(995.2 208.93) scale(1.56 1.56)"/>
+<use href="#snow-march-thing-3" transform="translate(1296.11 210.2) scale(-1.91 1.91)"/>
+<use href="#snow-march-thing-1" transform="translate(1477.36 213.1) scale(-1.59 1.59)"/>
+<use href="#snow-march-thing-3" transform="translate(806.17 214.28) scale(-1.59 1.59)"/>
+<use href="#snow-march-thing-1" transform="translate(904.69 215.64) scale(1.83 1.83)"/>
+<use href="#snow-march-thing-3" transform="translate(857.42 272.12) scale(1.52 1.52)"/>
+<use href="#snow-march-thing-4" transform="translate(1163.85 272.79) scale(1.7 1.7)"/>
+<use href="#snow-march-thing-1" transform="translate(459.79 275.86) scale(1.38 1.38)"/>
+<use href="#snow-march-thing-2" transform="translate(81.09 280.33) scale(-1.63 1.63)"/>
+<use href="#snow-march-thing-4" transform="translate(359.64 280.8) scale(-1.42 1.42)"/>
+<use href="#snow-march-thing-5" transform="translate(754.39 288.39) scale(1.48 1.48)"/>
+<use href="#snow-march-thing-5" transform="translate(1534.54 298.38) scale(1.37 1.37)"/>
+<use href="#snow-march-thing-6" transform="translate(174.58 301.64) scale(1.44 1.44)"/>
+<use href="#snow-march-thing-7" transform="translate(600.15 304.51) scale(1.26 1.26)"/>
+<use href="#snow-march-thing-1" transform="translate(1285.91 305.72) scale(-1.38 1.38)"/>
+<use href="#snow-march-thing-7" transform="translate(1372.65 316.84) scale(-1.53 1.53)"/>
+<use href="#snow-march-thing-6" transform="translate(973.12 325.59) scale(-1.52 1.52)"/>
+<use href="#snow-march-thing-6" transform="translate(613.01 876.52) scale(-1.36 1.36)"/>
+<use href="#snow-march-thing-4" transform="translate(1372.68 877.32) scale(1.28 1.28)"/>
+<use href="#snow-march-thing-6" transform="translate(1124.78 878.38) scale(1.23 1.23)"/>
+<use href="#snow-march-thing-5" transform="translate(441.94 881.61) scale(-1.41 1.41)"/>
+<use href="#snow-march-thing-4" transform="translate(254.52 886.13) scale(1.46 1.46)"/>
+<use href="#snow-march-thing-5" transform="translate(1007.94 886.87) scale(-1.32 1.32)"/>
+<use href="#snow-march-thing-6" transform="translate(113.72 889.01) scale(-1.33 1.33)"/>
+<use href="#snow-march-thing-4" transform="translate(801.79 892.49) scale(1.29 1.29)"/>
+<use href="#snow-march-thing-5" transform="translate(1546.03 897.11) scale(1.4 1.4)"/>
+<use href="#snow-march-thing-4" transform="translate(-4.81 943.41) scale(2.01 2.01)"/>
+<use href="#snow-march-thing-8" transform="translate(1187.21 952.97) scale(-1.79 1.79)"/>
+<use href="#snow-march-thing-5" transform="translate(294.38 953.32) scale(-2.13 2.13)"/>
+<use href="#snow-march-thing-6" transform="translate(1309.48 954.09) scale(1.91 1.91)"/>
+<use href="#snow-march-thing-4" transform="translate(698.33 960.08) scale(-1.96 1.96)"/>
+<use href="#snow-march-thing-4" transform="translate(1610.77 965.8) scale(-1.79 1.79)"/>
+<use href="#snow-march-thing-6" transform="translate(532.53 966.19) scale(-2.1 2.1)"/>
+<use href="#snow-march-thing-8" transform="translate(433.05 966.36) scale(1.86 1.86)"/>
+<use href="#snow-march-thing-4" transform="translate(1436.68 974.67) scale(2.04 2.04)"/>
+<use href="#snow-march-thing-7" transform="translate(917.01 975.06) scale(1.79 1.79)"/>
+<use href="#snow-march-thing-4" transform="translate(830.39 978.72) scale(-1.76 1.76)"/>
+<use href="#snow-march-thing-5" transform="translate(1062.81 988) scale(1.8 1.8)"/>
+<use href="#snow-march-thing-7" transform="translate(129.43 989.8) scale(-1.95 1.95)"/>
+</svg>

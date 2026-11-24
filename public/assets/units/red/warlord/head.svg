@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="warlord-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="warlord-head-crown-shape" d="M 70 60 L 68 38 L 80 50 L 88 34 L 97 50 L 106 34 L 115 50 L 126 38 L 124 60 Z"/>
+<clipPath id="warlord-head-crown-clip"><use href="#warlord-head-crown-shape"/></clipPath>
+<clipPath id="warlord-head-crown-lit-clip"><use href="#warlord-head-crown-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="warlord-head-helm-shape" d="M 71 56 L 123 56 C 123 56 128.7 72.7 129 80 C 129.3 87.3 128.5 95.2 125 100 C 121.5 104.8 114.5 107.5 108 109 C 101.5 110.5 92.5 110.5 86 109 C 79.5 107.5 72.5 104.8 69 100 C 65.5 95.2 64.7 87.3 65 80 C 65.3 72.7 71 56 71 56 Z"/>
+<clipPath id="warlord-head-helm-clip"><use href="#warlord-head-helm-shape"/></clipPath>
+<clipPath id="warlord-head-helm-lit-clip"><use href="#warlord-head-helm-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="warlord-head-band-shape" d="M 60 56 L 136 56 L 136 63 L 60 63 L 60 56 Z"/>
+</defs>
+<path id="warlord-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="warlord-head-crown">
+<use id="warlord-head-crown-shade" href="#warlord-head-crown-shape" fill="#9c7c33"/>
+<g clip-path="url(#warlord-head-crown-clip)">
+<use id="warlord-head-crown-fill" href="#warlord-head-crown-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#warlord-head-crown-lit-clip)">
+<use id="warlord-head-crown-lit" href="#warlord-head-crown-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warlord-head-crown-fill-over" href="#warlord-head-crown-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+<path id="warlord-head-crown-sheen" d="M102.46 34 L111.16 34 L100.24 60 L91.54 60 Z M114.66 34 L117.26 34 L106.34 60 L103.74 60 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="warlord-head-crown-line" href="#warlord-head-crown-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warlord-head-helm">
+<use id="warlord-head-helm-shade" href="#warlord-head-helm-shape" fill="#434b56"/>
+<g clip-path="url(#warlord-head-helm-clip)">
+<use id="warlord-head-helm-deep" href="#warlord-head-helm-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="warlord-head-helm-shade-over" href="#warlord-head-helm-shape" transform="translate(-3.72 -3.72)" fill="#434b56"/>
+<use id="warlord-head-helm-fill" href="#warlord-head-helm-shape" transform="translate(-6 -6)" fill="#5d6672"/>
+<g clip-path="url(#warlord-head-helm-lit-clip)">
+<use id="warlord-head-helm-lit" href="#warlord-head-helm-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warlord-head-helm-fill-over" href="#warlord-head-helm-shape" transform="translate(4.6 4.6)" fill="#5d6672"/>
+</g>
+<path id="warlord-head-helm-sheen" d="M108.45 56 L118.15 56 L95.26 110.5 L85.56 110.5 Z M121.65 56 L124.24 56 L101.35 110.5 L98.76 110.5 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="warlord-head-plate" d="M 89.5 84 L 90.1 84 Q 91.1 84 91.1 85 L 91.1 101 Q 91.1 102 90.1 102 L 89.5 102 Q 88.5 102 88.5 101 L 88.5 85 Q 88.5 84 89.5 84 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="warlord-head-rivet" d="M 73.8 72 C 73.8 73 73 73.8 72 73.8 C 71 73.8 70.2 73 70.2 72 C 70.2 71 71 70.2 72 70.2 C 73 70.2 73.8 71 73.8 72 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="warlord-head-rivet-lit" d="M 72.2 71.4 C 72.2 71.8 71.8 72.2 71.4 72.2 C 70.9 72.2 70.6 71.8 70.6 71.4 C 70.6 70.9 70.9 70.6 71.4 70.6 C 71.8 70.6 72.2 70.9 72.2 71.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="warlord-head-rivet-2" d="M 73.3 84 C 73.3 85 72.5 85.8 71.5 85.8 C 70.5 85.8 69.7 85 69.7 84 C 69.7 83 70.5 82.2 71.5 82.2 C 72.5 82.2 73.3 83 73.3 84 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="warlord-head-rivet-lit-2" d="M 71.7 83.4 C 71.7 83.8 71.3 84.2 70.9 84.2 C 70.4 84.2 70.1 83.8 70.1 83.4 C 70.1 82.9 70.4 82.6 70.9 82.6 C 71.3 82.6 71.7 82.9 71.7 83.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="warlord-head-rivet-3" d="M 75.3 96 C 75.3 97 74.5 97.8 73.5 97.8 C 72.5 97.8 71.7 97 71.7 96 C 71.7 95 72.5 94.2 73.5 94.2 C 74.5 94.2 75.3 95 75.3 96 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="warlord-head-rivet-lit-3" d="M 73.7 95.4 C 73.7 95.8 73.3 96.2 72.9 96.2 C 72.4 96.2 72.1 95.8 72.1 95.4 C 72.1 94.9 72.4 94.6 72.9 94.6 C 73.3 94.6 73.7 94.9 73.7 95.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="warlord-head-slit" d="M 96.5 75 L 133.5 75 Q 138 75 138 79.5 L 138 79.5 Q 138 84 133.5 84 L 96.5 84 Q 92 84 92 79.5 L 92 79.5 Q 92 75 96.5 75 Z" fill="#1e2b17"/>
+<path id="warlord-head-slit-edge" d="M 96.5 75 L 133.5 75 Q 138 75 138 79.5 L 138 79.5 Q 138 84 133.5 84 L 96.5 84 Q 92 84 92 79.5 L 92 79.5 Q 92 75 96.5 75 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="warlord-head-ridge-a" d="M 112 54 L 112 74" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="warlord-head-ridge-b" d="M 112 86 L 112 110" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="warlord-head-band">
+<use id="warlord-head-band-fill" href="#warlord-head-band-shape" fill="#c8a24a"/>
+<use id="warlord-head-band-line" href="#warlord-head-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="warlord-head-helm-line" href="#warlord-head-helm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="warlord-head-glint" d="M 77.6 71.6 L 81.6 67.6 C 82.5 66.7 82.5 65.3 81.6 64.4 C 80.7 63.5 79.3 63.5 78.4 64.4 L 74.4 68.4 C 73.5 69.3 73.5 70.7 74.4 71.6 C 75.3 72.5 76.7 72.5 77.6 71.6 Z" fill="#f4f1e4"/>
+</svg>

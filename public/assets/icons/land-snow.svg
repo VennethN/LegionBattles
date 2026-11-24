@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="land-snow" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="land-snow-medal-shape" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z"/>
+<clipPath id="land-snow-medal-clip"><use href="#land-snow-medal-shape"/></clipPath>
+<clipPath id="land-snow-medal-lit-clip"><use href="#land-snow-medal-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="land-snow-peak-b-shape" d="M 22 36 L 32 16 L 42 36 Z"/>
+<path id="land-snow-peak-a-shape" d="M 6 36 L 20 10 L 34 36 Z"/>
+<clipPath id="land-snow-peak-a-clip"><use href="#land-snow-peak-a-shape"/></clipPath>
+<clipPath id="land-snow-peak-a-lit-clip"><use href="#land-snow-peak-a-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="land-snow-medal">
+<use id="land-snow-medal-shade" href="#land-snow-medal-shape" fill="#b9ccd8"/>
+<g clip-path="url(#land-snow-medal-clip)">
+<use id="land-snow-medal-fill" href="#land-snow-medal-shape" transform="translate(-4 -4)" fill="#e4edf2"/>
+<g clip-path="url(#land-snow-medal-lit-clip)">
+<use id="land-snow-medal-lit" href="#land-snow-medal-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="land-snow-medal-fill-over" href="#land-snow-medal-shape" transform="translate(4.2 4.2)" fill="#e4edf2"/>
+</g>
+</g>
+<use id="land-snow-medal-line" href="#land-snow-medal-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="land-snow-peak-b">
+<use id="land-snow-peak-b-fill" href="#land-snow-peak-b-shape" fill="#3f7a5a"/>
+<use id="land-snow-peak-b-line" href="#land-snow-peak-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="land-snow-peak-a">
+<use id="land-snow-peak-a-shade" href="#land-snow-peak-a-shape" fill="#3f97bd"/>
+<g clip-path="url(#land-snow-peak-a-clip)">
+<use id="land-snow-peak-a-fill" href="#land-snow-peak-a-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#land-snow-peak-a-lit-clip)">
+<use id="land-snow-peak-a-lit" href="#land-snow-peak-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="land-snow-peak-a-fill-over" href="#land-snow-peak-a-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="land-snow-peak-a-sheen" d="M25.46 10 L29.66 10 L18.74 36 L14.54 36 Z M33.16 10 L35.76 10 L24.84 36 L22.24 36 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="land-snow-cap" d="M 20 8 L 27 21 L 22 18 L 19 23 L 15 19 L 12 22 Z" fill="#f8fcfe"/>
+</g>
+<use id="land-snow-peak-a-line" href="#land-snow-peak-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

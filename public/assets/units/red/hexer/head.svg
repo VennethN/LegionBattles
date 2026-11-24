@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hexer-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="hexer-head-antler-far-shape" d="M 109.3 55.2 L 119.3 27.2 C 119.9 25.4 119 23.4 117.2 22.7 C 115.4 22.1 113.4 23 112.7 24.8 L 102.7 52.8 C 102.1 54.6 103 56.6 104.8 57.3 C 106.6 57.9 108.6 57 109.3 55.2 Z"/>
+<path id="hexer-head-tine-far-shape" d="M 113.5 40.6 L 127.5 32.6 C 128.9 31.8 129.4 30 128.6 28.5 C 127.8 27.1 126 26.6 124.5 27.4 L 110.5 35.4 C 109.1 36.2 108.6 38 109.4 39.5 C 110.2 40.9 112 41.4 113.5 40.6 Z"/>
+<path id="hexer-head-hood-shape" d="M 97 50 C 104.2 50 112.8 52.3 118 57 C 123.2 61.7 127 70.8 128 78 C 129 85.2 127.3 94.8 124 100 C 120.7 105.2 114.7 107.5 108 109 C 101.3 110.5 90.5 110.5 84 109 C 77.5 107.5 72.2 105.2 69 100 C 65.8 94.8 64 85.2 65 78 C 66 70.8 69.7 61.7 75 57 C 80.3 52.3 89.8 50 97 50 Z"/>
+<clipPath id="hexer-head-hood-clip"><use href="#hexer-head-hood-shape"/></clipPath>
+<clipPath id="hexer-head-hood-lit-clip"><use href="#hexer-head-hood-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="hexer-head-antler-shape" d="M 87.3 54.8 L 75.3 22.8 C 74.6 21 72.6 20 70.8 20.7 C 69 21.4 68 23.4 68.7 25.2 L 80.7 57.2 C 81.4 59 83.4 60 85.2 59.3 C 87 58.6 88 56.6 87.3 54.8 Z"/>
+<clipPath id="hexer-head-antler-clip"><use href="#hexer-head-antler-shape"/></clipPath>
+<path id="hexer-head-tine-shape" d="M 78 37.2 L 61 31.2 C 59.4 30.6 57.7 31.4 57.2 33 C 56.6 34.6 57.4 36.3 59 36.8 L 76 42.8 C 77.6 43.4 79.3 42.6 79.8 41 C 80.4 39.4 79.6 37.7 78 37.2 Z"/>
+<clipPath id="hexer-head-tine-clip"><use href="#hexer-head-tine-shape"/></clipPath>
+<path id="hexer-head-mask-shape" d="M 98 60 L 130 60 C 130 60 133 78 132 86 C 131 94 126.8 102.8 124 108 C 121.2 113.2 118 117 115 117 C 112 117 109.2 113.2 106 108 C 102.8 102.8 97.3 94 96 86 C 94.7 78 98 60 98 60 Z"/>
+<clipPath id="hexer-head-mask-clip"><use href="#hexer-head-mask-shape"/></clipPath>
+<clipPath id="hexer-head-mask-lit-clip"><use href="#hexer-head-mask-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<path id="hexer-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="hexer-head-antler-far">
+<use id="hexer-head-antler-far-fill" href="#hexer-head-antler-far-shape" fill="#c4b594"/>
+<use id="hexer-head-antler-far-line" href="#hexer-head-antler-far-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="hexer-head-tine-far">
+<use id="hexer-head-tine-far-fill" href="#hexer-head-tine-far-shape" fill="#c4b594"/>
+<use id="hexer-head-tine-far-line" href="#hexer-head-tine-far-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="hexer-head-hood">
+<use id="hexer-head-hood-shade" href="#hexer-head-hood-shape" fill="#353041"/>
+<g clip-path="url(#hexer-head-hood-clip)">
+<use id="hexer-head-hood-deep" href="#hexer-head-hood-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="hexer-head-hood-shade-over" href="#hexer-head-hood-shape" transform="translate(-3.72 -3.72)" fill="#353041"/>
+<use id="hexer-head-hood-fill" href="#hexer-head-hood-shape" transform="translate(-6 -6)" fill="#4a4458"/>
+<g clip-path="url(#hexer-head-hood-lit-clip)">
+<use id="hexer-head-hood-lit" href="#hexer-head-hood-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="hexer-head-hood-fill-over" href="#hexer-head-hood-shape" transform="translate(4.6 4.6)" fill="#4a4458"/>
+</g>
+</g>
+<use id="hexer-head-hood-line" href="#hexer-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="hexer-head-antler">
+<use id="hexer-head-antler-shade" href="#hexer-head-antler-shape" fill="#c4b594"/>
+<g clip-path="url(#hexer-head-antler-clip)">
+<use id="hexer-head-antler-fill" href="#hexer-head-antler-shape" transform="translate(-2 -2)" fill="#e9dfc6"/>
+</g>
+<use id="hexer-head-antler-line" href="#hexer-head-antler-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="hexer-head-tine">
+<use id="hexer-head-tine-shade" href="#hexer-head-tine-shape" fill="#c4b594"/>
+<g clip-path="url(#hexer-head-tine-clip)">
+<use id="hexer-head-tine-fill" href="#hexer-head-tine-shape" transform="translate(-2 -2)" fill="#e9dfc6"/>
+</g>
+<use id="hexer-head-tine-line" href="#hexer-head-tine-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="hexer-head-mask">
+<use id="hexer-head-mask-shade" href="#hexer-head-mask-shape" fill="#75502b"/>
+<g clip-path="url(#hexer-head-mask-clip)">
+<use id="hexer-head-mask-fill" href="#hexer-head-mask-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#hexer-head-mask-lit-clip)">
+<use id="hexer-head-mask-lit" href="#hexer-head-mask-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="hexer-head-mask-fill-over" href="#hexer-head-mask-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="hexer-head-grain-a" d="M 101.1 66 L 102.1 92 C 102.1 92.5 102.5 92.9 103 92.9 C 103.5 92.9 103.9 92.5 103.9 92 L 102.9 66 C 102.9 65.5 102.5 65.1 102 65.1 C 101.5 65.1 101.1 65.5 101.1 66 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="hexer-head-grain-b" d="M 125.1 64 L 125.1 96 C 125.1 96.5 125.5 96.9 126 96.9 C 126.5 96.9 126.9 96.5 126.9 96 L 126.9 64 C 126.9 63.5 126.5 63.1 126 63.1 C 125.5 63.1 125.1 63.5 125.1 64 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="hexer-head-slit" d="M 115 68 L 115 68 Q 119 68 119 72 L 119 94 Q 119 98 115 98 L 115 98 Q 111 98 111 94 L 111 72 Q 111 68 115 68 Z" fill="#1e2b17"/>
+<path id="hexer-head-slit-edge" d="M 115 68 L 115 68 Q 119 68 119 72 L 119 94 Q 119 98 115 98 L 115 98 Q 111 98 111 94 L 111 72 Q 111 68 115 68 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="hexer-head-paint-a" d="M 98 100 L 108 104 L 108 110 L 98 106 Z" fill="#8fce4a"/>
+<path id="hexer-head-paint-b" d="M 122 104 L 132 100 L 132 106 L 122 110 Z" fill="#8fce4a"/>
+</g>
+<use id="hexer-head-mask-line" href="#hexer-head-mask-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

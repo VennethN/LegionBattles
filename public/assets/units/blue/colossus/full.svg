@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="colossus" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="colossus-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="colossus-shadow-shadow" d="M 144 181 C 144 186.5 122.5 191 96 191 C 69.5 191 48 186.5 48 181 C 48 175.5 69.5 171 96 171 C 122.5 171 144 175.5 144 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="colossus-fist-back-layer" transform="translate(58 104) rotate(0) scale(1 1) translate(-58 -104)">
+<defs>
+<path id="colossus-fist-back-arm-shape" d="M 40.1 103.3 L 44.1 133.3 C 44.8 138.8 49.8 142.6 55.3 141.9 C 60.8 141.2 64.6 136.2 63.9 130.7 L 59.9 100.7 C 59.2 95.2 54.2 91.4 48.7 92.1 C 43.2 92.8 39.4 97.8 40.1 103.3 Z"/>
+<path id="colossus-fist-back-band-shape" d="M 44 114 L 64 114 Q 67 114 67 117 L 67 120 Q 67 123 64 123 L 44 123 Q 41 123 41 120 L 41 117 Q 41 114 44 114 Z"/>
+<path id="colossus-fist-back-fist-shape" d="M 36 136 C 39.2 131.7 48.8 128 55 128 C 61.2 128 69.7 131.7 73 136 C 76.3 140.3 77.8 149.3 75 154 C 72.2 158.7 62.5 164 56 164 C 49.5 164 39.3 158.7 36 154 C 32.7 149.3 32.8 140.3 36 136 Z"/>
+</defs>
+<g id="colossus-fist-back-arm">
+<use id="colossus-fist-back-arm-fill" href="#colossus-fist-back-arm-shape" fill="#8c6b42"/>
+<use id="colossus-fist-back-arm-line" href="#colossus-fist-back-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="colossus-fist-back-band">
+<use id="colossus-fist-back-band-fill" href="#colossus-fist-back-band-shape" fill="#2f5893"/>
+<use id="colossus-fist-back-band-line" href="#colossus-fist-back-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="colossus-fist-back-fist">
+<use id="colossus-fist-back-fist-fill" href="#colossus-fist-back-fist-shape" fill="#8c6b42"/>
+<use id="colossus-fist-back-fist-line" href="#colossus-fist-back-fist-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="colossus-leg-back-layer" transform="translate(80 152) rotate(0) scale(1 1) translate(-80 -152)">
+<defs>
+<path id="colossus-leg-back-leg-shape" d="M 74 146 L 88 146 Q 95 146 95 153 L 95 173 Q 95 180 88 180 L 74 180 Q 67 180 67 173 L 67 153 Q 67 146 74 146 Z"/>
+</defs>
+<g id="colossus-leg-back-leg">
+<use id="colossus-leg-back-leg-fill" href="#colossus-leg-back-leg-shape" fill="#8c6b42"/>
+<use id="colossus-leg-back-leg-line" href="#colossus-leg-back-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="colossus-leg-front-layer" transform="translate(110 152) rotate(0) scale(1 1) translate(-110 -152)">
+<defs>
+<path id="colossus-leg-front-leg-shape" d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z"/>
+<clipPath id="colossus-leg-front-leg-clip"><use href="#colossus-leg-front-leg-shape"/></clipPath>
+<clipPath id="colossus-leg-front-leg-lit-clip"><use href="#colossus-leg-front-leg-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="colossus-leg-front-leg">
+<use id="colossus-leg-front-leg-shade" href="#colossus-leg-front-leg-shape" fill="#8c6b42"/>
+<g clip-path="url(#colossus-leg-front-leg-clip)">
+<use id="colossus-leg-front-leg-fill" href="#colossus-leg-front-leg-shape" transform="translate(-4 -4)" fill="#b08a5a"/>
+<g clip-path="url(#colossus-leg-front-leg-lit-clip)">
+<use id="colossus-leg-front-leg-lit" href="#colossus-leg-front-leg-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="colossus-leg-front-leg-fill-over" href="#colossus-leg-front-leg-shape" transform="translate(4.2 4.2)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="colossus-leg-front-leg-line" href="#colossus-leg-front-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="colossus-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="colossus-body-rock-shape" d="M 60 92 C 67.7 85.7 84 84 96 84 C 108 84 124.3 85.7 132 92 C 139.7 98.3 141.7 111.7 142 122 C 142.3 132.3 139 147.3 134 154 C 129 160.7 121 160.7 112 162 C 103 163.3 89 163.3 80 162 C 71 160.7 63 160.7 58 154 C 53 147.3 49.7 132.3 50 122 C 50.3 111.7 52.3 98.3 60 92 Z"/>
+<clipPath id="colossus-body-rock-clip"><use href="#colossus-body-rock-shape"/></clipPath>
+<clipPath id="colossus-body-rock-lit-clip"><use href="#colossus-body-rock-shape" transform="translate(-7 -7)"/></clipPath>
+<path id="colossus-body-cap-shape" d="M 44 84 C 51.3 80 78.7 76 96 76 C 113.3 76 140.7 80 148 84 C 155.3 88 145 98 140 100 C 135 102 125.3 95.3 118 96 C 110.7 96.7 103.3 104 96 104 C 88.7 104 81.3 96.7 74 96 C 66.7 95.3 57 102 52 100 C 47 98 36.7 88 44 84 Z"/>
+<path id="colossus-body-wrap-shape" d="M 40 142 L 152 142 L 152 154 L 40 154 L 40 142 Z"/>
+<path id="colossus-body-rune-shape" d="M 104 109 L 112 120 L 104 131 L 96 120 Z"/>
+<path id="colossus-body-flap-shape" d="M 86 150 L 112 150 L 112 172 L 99 166 L 86 172 Z"/>
+<clipPath id="colossus-body-flap-clip"><use href="#colossus-body-flap-shape"/></clipPath>
+<clipPath id="colossus-body-flap-lit-clip"><use href="#colossus-body-flap-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="colossus-body-rock">
+<use id="colossus-body-rock-shade" href="#colossus-body-rock-shape" fill="#8c6b42"/>
+<g clip-path="url(#colossus-body-rock-clip)">
+<use id="colossus-body-rock-deep" href="#colossus-body-rock-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="colossus-body-rock-shade-over" href="#colossus-body-rock-shape" transform="translate(-4.34 -4.34)" fill="#8c6b42"/>
+<use id="colossus-body-rock-fill" href="#colossus-body-rock-shape" transform="translate(-7 -7)" fill="#b08a5a"/>
+<g clip-path="url(#colossus-body-rock-lit-clip)">
+<use id="colossus-body-rock-lit" href="#colossus-body-rock-shape" transform="translate(-7 -7)" fill="#f4f1e4" opacity="0.36"/>
+<use id="colossus-body-rock-fill-over" href="#colossus-body-rock-shape" transform="translate(4.6 4.6)" fill="#b08a5a"/>
+</g>
+<g id="colossus-body-cap">
+<use id="colossus-body-cap-fill" href="#colossus-body-cap-shape" fill="#d9cdb0"/>
+<use id="colossus-body-cap-line" href="#colossus-body-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="colossus-body-facet-a" d="M 58 100 L 92 96 L 86 122 L 56 130 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="colossus-body-facet-b" d="M 114 128 L 140 116 L 136 154 L 112 160 Z" fill="#2a1a10" opacity="0.2"/>
+<path id="colossus-body-chip-a" d="M 84 150 Q 90.2 145.4 92 138 Q 87.6 143.7 84 150 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="colossus-body-chip-b" d="M 124 96 Q 125.1 101.4 130 104 Q 127.4 99.7 124 96 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="colossus-body-crack-a" d="M 64 118 L 74 128 L 68 142" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="colossus-body-crack-b" d="M 128 112 L 120 124" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="colossus-body-wrap">
+<use id="colossus-body-wrap-fill" href="#colossus-body-wrap-shape" fill="#3d6fb6"/>
+<use id="colossus-body-wrap-line" href="#colossus-body-wrap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="colossus-body-rock-line" href="#colossus-body-rock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="colossus-body-rune-glow" d="M 104 104 L 116 120 L 104 136 L 92 120 Z" fill="#fff3b8" opacity="0.55"/>
+<g id="colossus-body-rune">
+<use id="colossus-body-rune-fill" href="#colossus-body-rune-shape" fill="#f2d264"/>
+<use id="colossus-body-rune-line" href="#colossus-body-rune-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="colossus-body-flap">
+<use id="colossus-body-flap-shade" href="#colossus-body-flap-shape" fill="#2f5893"/>
+<g clip-path="url(#colossus-body-flap-clip)">
+<use id="colossus-body-flap-fill" href="#colossus-body-flap-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#colossus-body-flap-lit-clip)">
+<use id="colossus-body-flap-lit" href="#colossus-body-flap-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="colossus-body-flap-fill-over" href="#colossus-body-flap-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="colossus-body-flap-line" href="#colossus-body-flap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="colossus-head-layer" transform="translate(98 98) rotate(0) scale(1 1) translate(-98 -98)">
+<defs>
+<path id="colossus-head-block-shape" d="M 76 60 L 122 58 C 122 58 127 73 127 80 C 127 87 122 100 122 100 L 78 100 C 78 100 72.3 86.7 72 80 C 71.7 73.3 76 60 76 60 Z"/>
+<clipPath id="colossus-head-block-clip"><use href="#colossus-head-block-shape"/></clipPath>
+<clipPath id="colossus-head-block-lit-clip"><use href="#colossus-head-block-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="colossus-head-cap-shape" d="M 66 52 C 71 49 87 50 98 50 C 109 50 126.7 49 132 52 C 137.3 55 133.3 66 130 68 C 126.7 70 117.3 63.7 112 64 C 106.7 64.3 102.7 70 98 70 C 93.3 70 89 64.3 84 64 C 79 63.7 71 70 68 68 C 65 66 61 55 66 52 Z"/>
+</defs>
+<path id="colossus-head-cast" d="M 128 100 C 128 104.4 115 108 99 108 C 83 108 70 104.4 70 100 C 70 95.6 83 92 99 92 C 115 92 128 95.6 128 100 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="colossus-head-block">
+<use id="colossus-head-block-shade" href="#colossus-head-block-shape" fill="#8c6b42"/>
+<g clip-path="url(#colossus-head-block-clip)">
+<use id="colossus-head-block-deep" href="#colossus-head-block-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="colossus-head-block-shade-over" href="#colossus-head-block-shape" transform="translate(-3.72 -3.72)" fill="#8c6b42"/>
+<use id="colossus-head-block-fill" href="#colossus-head-block-shape" transform="translate(-6 -6)" fill="#b08a5a"/>
+<g clip-path="url(#colossus-head-block-lit-clip)">
+<use id="colossus-head-block-lit" href="#colossus-head-block-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="colossus-head-block-fill-over" href="#colossus-head-block-shape" transform="translate(4.6 4.6)" fill="#b08a5a"/>
+</g>
+<g id="colossus-head-cap">
+<use id="colossus-head-cap-fill" href="#colossus-head-cap-shape" fill="#d9cdb0"/>
+<use id="colossus-head-cap-line" href="#colossus-head-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="colossus-head-facet" d="M 74 66 L 100 64 L 94 82 L 73 84 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="colossus-head-chip" d="M 82 88 Q 84.3 93.7 90 96 Q 86.3 91.7 82 88 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="colossus-head-cut" d="M 108 74 L 108 104" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="colossus-head-block-line" href="#colossus-head-block-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="colossus-fist-layer" transform="translate(134 104) rotate(0) scale(1 1) translate(-134 -104)">
+<defs>
+<path id="colossus-fist-arm-shape" d="M 122.1 103.3 L 126.1 133.3 C 126.8 138.8 131.8 142.6 137.3 141.9 C 142.8 141.2 146.6 136.2 145.9 130.7 L 141.9 100.7 C 141.2 95.2 136.2 91.4 130.7 92.1 C 125.2 92.8 121.4 97.8 122.1 103.3 Z"/>
+<clipPath id="colossus-fist-arm-clip"><use href="#colossus-fist-arm-shape"/></clipPath>
+<clipPath id="colossus-fist-arm-lit-clip"><use href="#colossus-fist-arm-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="colossus-fist-band-shape" d="M 126 114 L 146 114 Q 149 114 149 117 L 149 120 Q 149 123 146 123 L 126 123 Q 123 123 123 120 L 123 117 Q 123 114 126 114 Z"/>
+<path id="colossus-fist-fist-shape" d="M 118 136 C 121.2 131.7 130.8 128 137 128 C 143.2 128 151.7 131.7 155 136 C 158.3 140.3 159.8 149.3 157 154 C 154.2 158.7 144.5 164 138 164 C 131.5 164 121.3 158.7 118 154 C 114.7 149.3 114.8 140.3 118 136 Z"/>
+<clipPath id="colossus-fist-fist-clip"><use href="#colossus-fist-fist-shape"/></clipPath>
+<clipPath id="colossus-fist-fist-lit-clip"><use href="#colossus-fist-fist-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="colossus-fist-arm">
+<use id="colossus-fist-arm-shade" href="#colossus-fist-arm-shape" fill="#8c6b42"/>
+<g clip-path="url(#colossus-fist-arm-clip)">
+<use id="colossus-fist-arm-fill" href="#colossus-fist-arm-shape" transform="translate(-4 -4)" fill="#b08a5a"/>
+<g clip-path="url(#colossus-fist-arm-lit-clip)">
+<use id="colossus-fist-arm-lit" href="#colossus-fist-arm-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="colossus-fist-arm-fill-over" href="#colossus-fist-arm-shape" transform="translate(4.2 4.2)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="colossus-fist-arm-line" href="#colossus-fist-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="colossus-fist-band">
+<use id="colossus-fist-band-fill" href="#colossus-fist-band-shape" fill="#3d6fb6"/>
+<use id="colossus-fist-band-line" href="#colossus-fist-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="colossus-fist-fist">
+<use id="colossus-fist-fist-shade" href="#colossus-fist-fist-shape" fill="#8c6b42"/>
+<g clip-path="url(#colossus-fist-fist-clip)">
+<use id="colossus-fist-fist-deep" href="#colossus-fist-fist-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="colossus-fist-fist-shade-over" href="#colossus-fist-fist-shape" transform="translate(-3.1 -3.1)" fill="#8c6b42"/>
+<use id="colossus-fist-fist-fill" href="#colossus-fist-fist-shape" transform="translate(-5 -5)" fill="#b08a5a"/>
+<g clip-path="url(#colossus-fist-fist-lit-clip)">
+<use id="colossus-fist-fist-lit" href="#colossus-fist-fist-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="colossus-fist-fist-fill-over" href="#colossus-fist-fist-shape" transform="translate(4.6 4.6)" fill="#b08a5a"/>
+</g>
+<path id="colossus-fist-knuckle-a" d="M 134 142 Q 131.9 150.2 135 158 Q 135 150 134 142 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="colossus-fist-knuckle-b" d="M 144 140 Q 141.9 149.1 145 158 Q 145 149 144 140 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="colossus-fist-facet" d="M 122 138 L 136 132 L 132 144 L 120 148 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="colossus-fist-fist-line" href="#colossus-fist-fist-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hexer-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="hexer-body-robe-shape" d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z"/>
+<clipPath id="hexer-body-robe-clip"><use href="#hexer-body-robe-shape"/></clipPath>
+<clipPath id="hexer-body-robe-lit-clip"><use href="#hexer-body-robe-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="hexer-body-hem-shape" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z"/>
+<path id="hexer-body-sleeve-shape" d="M 109 121.8 L 122 140.8 C 124.6 144.7 129.9 145.7 133.8 143 C 137.7 140.4 138.7 135.1 136 131.2 L 123 112.2 C 120.4 108.3 115.1 107.3 111.2 110 C 107.3 112.6 106.3 117.9 109 121.8 Z"/>
+<clipPath id="hexer-body-sleeve-clip"><use href="#hexer-body-sleeve-shape"/></clipPath>
+<clipPath id="hexer-body-sleeve-lit-clip"><use href="#hexer-body-sleeve-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="hexer-body-robe">
+<use id="hexer-body-robe-shade" href="#hexer-body-robe-shape" fill="#933027"/>
+<g clip-path="url(#hexer-body-robe-clip)">
+<use id="hexer-body-robe-deep" href="#hexer-body-robe-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="hexer-body-robe-shade-over" href="#hexer-body-robe-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="hexer-body-robe-fill" href="#hexer-body-robe-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#hexer-body-robe-lit-clip)">
+<use id="hexer-body-robe-lit" href="#hexer-body-robe-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="hexer-body-robe-fill-over" href="#hexer-body-robe-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
+<path id="hexer-body-fold-a" d="M 77 162 Q 83.1 143 82 123 Q 78.8 142.4 77 162 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="hexer-body-fold-b" d="M 99 166 Q 101.2 149.3 97 133 Q 97.4 149.5 99 166 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="hexer-body-fold-c" d="M 119 163 Q 119.9 144.5 114 127 Q 115.8 145.1 119 163 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="hexer-body-fold-lit-a" d="M 84 163 Q 90 143 88 125 Q 86 145 84 163 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="hexer-body-fold-lit-b" d="M 105 165 Q 109 149 106 135 Q 104 151 105 165 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="hexer-body-hem-cast" d="M 52 159 C 59.3 159 81.3 163 96 163 C 110.7 163 132.7 159 140 159 C 147.3 159 147.3 161.7 140 163 C 132.7 164.3 110.7 167 96 167 C 81.3 167 59.3 164.3 52 163 C 44.7 161.7 44.7 159 52 159 Z" fill="#2a1a10" opacity="0.22"/>
+<g id="hexer-body-hem">
+<use id="hexer-body-hem-fill" href="#hexer-body-hem-shape" fill="#e9dfc6"/>
+<use id="hexer-body-hem-line" href="#hexer-body-hem-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="hexer-body-robe-line" href="#hexer-body-robe-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="hexer-body-sleeve-cast" d="M 110 125.3 L 123 144.3 C 125.6 148.2 130.9 149.2 134.8 146.5 C 138.7 143.9 139.7 138.6 137 134.7 L 124 115.7 C 121.4 111.8 116.1 110.8 112.2 113.5 C 108.3 116.1 107.3 121.4 110 125.3 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="hexer-body-sleeve">
+<use id="hexer-body-sleeve-shade" href="#hexer-body-sleeve-shape" fill="#933027"/>
+<g clip-path="url(#hexer-body-sleeve-clip)">
+<use id="hexer-body-sleeve-fill" href="#hexer-body-sleeve-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#hexer-body-sleeve-lit-clip)">
+<use id="hexer-body-sleeve-lit" href="#hexer-body-sleeve-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="hexer-body-sleeve-fill-over" href="#hexer-body-sleeve-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="hexer-body-sleeve-line" href="#hexer-body-sleeve-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

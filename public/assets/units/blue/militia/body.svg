@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="militia-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="militia-body-tunic-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="militia-body-tunic-clip"><use href="#militia-body-tunic-shape"/></clipPath>
+<clipPath id="militia-body-tunic-lit-clip"><use href="#militia-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="militia-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="militia-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
+<clipPath id="militia-body-buckle-clip"><use href="#militia-body-buckle-shape"/></clipPath>
+<clipPath id="militia-body-buckle-lit-clip"><use href="#militia-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="militia-body-arm-shape" d="M 106.5 118.8 L 108.5 136.8 C 109 140.9 112.7 143.9 116.8 143.5 C 120.9 143 123.9 139.3 123.5 135.2 L 121.5 117.2 C 121 113.1 117.3 110.1 113.2 110.5 C 109.1 111 106.1 114.7 106.5 118.8 Z"/>
+<clipPath id="militia-body-arm-clip"><use href="#militia-body-arm-shape"/></clipPath>
+<clipPath id="militia-body-arm-lit-clip"><use href="#militia-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="militia-body-tunic">
+<use id="militia-body-tunic-shade" href="#militia-body-tunic-shape" fill="#2f5893"/>
+<g clip-path="url(#militia-body-tunic-clip)">
+<use id="militia-body-tunic-deep" href="#militia-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="militia-body-tunic-shade-over" href="#militia-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="militia-body-tunic-fill" href="#militia-body-tunic-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#militia-body-tunic-lit-clip)">
+<use id="militia-body-tunic-lit" href="#militia-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="militia-body-tunic-fill-over" href="#militia-body-tunic-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="militia-body-patch" d="M 100 114 L 109 114 Q 111 114 111 116 L 111 123 Q 111 125 109 125 L 100 125 Q 98 125 98 123 L 98 116 Q 98 114 100 114 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="militia-body-patch-thread" d="M 100.7 116 L 108.3 116 Q 109 116 109 116.7 L 109 116.7 Q 109 117.4 108.3 117.4 L 100.7 117.4 Q 100 117.4 100 116.7 L 100 116.7 Q 100 116 100.7 116 Z" fill="#f4f1e4" opacity="0.47"/>
+<path id="militia-body-patch-thread-2" d="M 100.7 121.6 L 108.3 121.6 Q 109 121.6 109 122.3 L 109 122.3 Q 109 123 108.3 123 L 100.7 123 Q 100 123 100 122.3 L 100 122.3 Q 100 121.6 100.7 121.6 Z" fill="#f4f1e4" opacity="0.47"/>
+<path id="militia-body-seam" d="M 111.7 100 L 112.3 100 Q 113.3 100 113.3 101 L 113.3 161 Q 113.3 162 112.3 162 L 111.7 162 Q 110.7 162 110.7 161 L 110.7 101 Q 110.7 100 111.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<path id="militia-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="militia-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="militia-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="militia-body-belt">
+<use id="militia-body-belt-fill" href="#militia-body-belt-shape" fill="#6b4a2b"/>
+<use id="militia-body-belt-line" href="#militia-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="militia-body-buckle">
+<use id="militia-body-buckle-shade" href="#militia-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#militia-body-buckle-clip)">
+<use id="militia-body-buckle-fill" href="#militia-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#militia-body-buckle-lit-clip)">
+<use id="militia-body-buckle-lit" href="#militia-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="militia-body-buckle-fill-over" href="#militia-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="militia-body-buckle-line" href="#militia-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="militia-body-tunic-line" href="#militia-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="militia-body-arm-cast" d="M 107.5 122.3 L 109.5 140.3 C 110 144.4 113.7 147.4 117.8 147 C 121.9 146.5 124.9 142.8 124.5 138.7 L 122.5 120.7 C 122 116.6 118.3 113.6 114.2 114 C 110.1 114.5 107.1 118.2 107.5 122.3 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="militia-body-arm">
+<use id="militia-body-arm-shade" href="#militia-body-arm-shape" fill="#2f5893"/>
+<g clip-path="url(#militia-body-arm-clip)">
+<use id="militia-body-arm-fill" href="#militia-body-arm-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#militia-body-arm-lit-clip)">
+<use id="militia-body-arm-lit" href="#militia-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="militia-body-arm-fill-over" href="#militia-body-arm-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="militia-body-arm-line" href="#militia-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

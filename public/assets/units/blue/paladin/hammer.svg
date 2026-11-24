@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="paladin-hammer" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="paladin-hammer-shaft-shape" d="M 151.3 81.6 L 152.2 82 Q 155 83.3 153.8 86 L 126.9 146.3 Q 125.7 149 122.9 147.8 L 122 147.4 Q 119.3 146.2 120.5 143.5 L 147.4 83.2 Q 148.6 80.4 151.3 81.6 Z"/>
+<clipPath id="paladin-hammer-shaft-clip"><use href="#paladin-hammer-shaft-shape"/></clipPath>
+<path id="paladin-hammer-head-shape" d="M 144.8 65.6 L 168.5 76.2 Q 173.1 78.2 171.1 82.8 L 166.2 93.7 Q 164.2 98.3 159.6 96.3 L 135.8 85.7 Q 131.3 83.7 133.3 79.1 L 138.2 68.1 Q 140.2 63.6 144.8 65.6 Z"/>
+<clipPath id="paladin-hammer-head-clip"><use href="#paladin-hammer-head-shape"/></clipPath>
+<clipPath id="paladin-hammer-head-lit-clip"><use href="#paladin-hammer-head-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="paladin-hammer-band-shape" d="M 154.7 67.8 L 160.2 70.3 Q 162 71.1 161.2 72.9 L 152.3 93 Q 151.5 94.8 149.6 94 L 144.2 91.6 Q 142.3 90.8 143.1 88.9 L 152.1 68.8 Q 152.9 67 154.7 67.8 Z"/>
+<path id="paladin-hammer-hand-shape" d="M 136.5 133 C 136.5 137.1 133.1 140.5 129 140.5 C 124.9 140.5 121.5 137.1 121.5 133 C 121.5 128.9 124.9 125.5 129 125.5 C 133.1 125.5 136.5 128.9 136.5 133 Z"/>
+<clipPath id="paladin-hammer-hand-clip"><use href="#paladin-hammer-hand-shape"/></clipPath>
+<clipPath id="paladin-hammer-hand-lit-clip"><use href="#paladin-hammer-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="paladin-hammer-shaft">
+<use id="paladin-hammer-shaft-shade" href="#paladin-hammer-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#paladin-hammer-shaft-clip)">
+<use id="paladin-hammer-shaft-fill" href="#paladin-hammer-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="paladin-hammer-shaft-line" href="#paladin-hammer-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="paladin-hammer-head">
+<use id="paladin-hammer-head-shade" href="#paladin-hammer-head-shape" fill="#8d97a3"/>
+<g clip-path="url(#paladin-hammer-head-clip)">
+<use id="paladin-hammer-head-deep" href="#paladin-hammer-head-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="paladin-hammer-head-shade-over" href="#paladin-hammer-head-shape" transform="translate(-3.1 -3.1)" fill="#8d97a3"/>
+<use id="paladin-hammer-head-fill" href="#paladin-hammer-head-shape" transform="translate(-5 -5)" fill="#b9c2cc"/>
+<g clip-path="url(#paladin-hammer-head-lit-clip)">
+<use id="paladin-hammer-head-lit" href="#paladin-hammer-head-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="paladin-hammer-head-fill-over" href="#paladin-hammer-head-shape" transform="translate(4.6 4.6)" fill="#b9c2cc"/>
+</g>
+<path id="paladin-hammer-head-sheen" d="M159.48 63.56 L165.75 63.56 L151.16 98.3 L144.89 98.3 Z M169.25 63.56 L171.85 63.56 L157.26 98.3 L154.66 98.3 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="paladin-hammer-face-a" d="M 145.6 63.8 L 148 64.8 L 137.4 88.6 L 135 87.5 L 145.6 63.8 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="paladin-hammer-face-b" d="M 167 73.3 L 169.3 74.3 L 158.8 98.1 L 156.4 97 L 167 73.3 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="paladin-hammer-head-line" href="#paladin-hammer-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="paladin-hammer-band">
+<use id="paladin-hammer-band-fill" href="#paladin-hammer-band-shape" fill="#c8a24a"/>
+<use id="paladin-hammer-band-line" href="#paladin-hammer-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="paladin-hammer-hand">
+<use id="paladin-hammer-hand-shade" href="#paladin-hammer-hand-shape" fill="#8d97a3"/>
+<g clip-path="url(#paladin-hammer-hand-clip)">
+<use id="paladin-hammer-hand-fill" href="#paladin-hammer-hand-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#paladin-hammer-hand-lit-clip)">
+<use id="paladin-hammer-hand-lit" href="#paladin-hammer-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="paladin-hammer-hand-fill-over" href="#paladin-hammer-hand-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+</g>
+<use id="paladin-hammer-hand-line" href="#paladin-hammer-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

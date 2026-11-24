@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="berserker-axe" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="berserker-axe-shaft-shape" d="M 151.3 70.5 L 152.2 70.9 Q 154.9 72.2 153.7 74.9 L 116.3 159 Q 115.1 161.7 112.3 160.5 L 111.4 160.1 Q 108.7 158.8 109.9 156.1 L 147.3 72.1 Q 148.5 69.3 151.3 70.5 Z"/>
+<clipPath id="berserker-axe-shaft-clip"><use href="#berserker-axe-shaft-shape"/></clipPath>
+<path id="berserker-axe-blade-shape" d="M 152.7 73.4 C 152.7 73.4 161.9 70.9 167 71 C 172 71 183.2 73.8 183.2 73.8 C 183.2 73.8 182.2 90.9 178.9 98.2 C 175.7 105.5 163.7 117.7 163.7 117.7 C 163.7 117.7 155.6 107.9 152.3 103.8 C 149 99.8 143.8 93.5 143.8 93.5 L 152.7 73.4 Z"/>
+<clipPath id="berserker-axe-blade-clip"><use href="#berserker-axe-blade-shape"/></clipPath>
+<clipPath id="berserker-axe-blade-lit-clip"><use href="#berserker-axe-blade-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="berserker-axe-spike-shape" d="M 148.3 73.6 L 132.2 75.2 L 141.8 88.2 Z"/>
+<path id="berserker-axe-cap-shape" d="M 150.6 65.9 L 156.1 68.3 Q 158.8 69.5 157.6 72.3 L 156.8 74.1 Q 155.6 76.8 152.8 75.6 L 147.4 73.2 Q 144.6 72 145.8 69.2 L 146.7 67.4 Q 147.9 64.6 150.6 65.9 Z"/>
+<path id="berserker-axe-hand-upper-shape" d="M 138.1 118.2 C 138.1 122.4 134.7 125.7 130.6 125.7 C 126.4 125.7 123.1 122.4 123.1 118.2 C 123.1 114.1 126.4 110.7 130.6 110.7 C 134.7 110.7 138.1 114.1 138.1 118.2 Z"/>
+<clipPath id="berserker-axe-hand-upper-clip"><use href="#berserker-axe-hand-upper-shape"/></clipPath>
+<clipPath id="berserker-axe-hand-upper-lit-clip"><use href="#berserker-axe-hand-upper-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="berserker-axe-hand-shape" d="M 127.5 142 C 127.5 146.1 124.1 149.5 120 149.5 C 115.9 149.5 112.5 146.1 112.5 142 C 112.5 137.9 115.9 134.5 120 134.5 C 124.1 134.5 127.5 137.9 127.5 142 Z"/>
+<clipPath id="berserker-axe-hand-clip"><use href="#berserker-axe-hand-shape"/></clipPath>
+<clipPath id="berserker-axe-hand-lit-clip"><use href="#berserker-axe-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="berserker-axe-shaft">
+<use id="berserker-axe-shaft-shade" href="#berserker-axe-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#berserker-axe-shaft-clip)">
+<use id="berserker-axe-shaft-fill" href="#berserker-axe-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="berserker-axe-shaft-line" href="#berserker-axe-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="berserker-axe-blade">
+<use id="berserker-axe-blade-shade" href="#berserker-axe-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#berserker-axe-blade-clip)">
+<use id="berserker-axe-blade-deep" href="#berserker-axe-blade-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="berserker-axe-blade-shade-over" href="#berserker-axe-blade-shape" transform="translate(-3.1 -3.1)" fill="#8d97a3"/>
+<use id="berserker-axe-blade-fill" href="#berserker-axe-blade-shape" transform="translate(-5 -5)" fill="#b9c2cc"/>
+<g clip-path="url(#berserker-axe-blade-lit-clip)">
+<use id="berserker-axe-blade-lit" href="#berserker-axe-blade-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="berserker-axe-blade-fill-over" href="#berserker-axe-blade-shape" transform="translate(4.6 4.6)" fill="#b9c2cc"/>
+</g>
+<path id="berserker-axe-blade-sheen" d="M173.32 70.89 L179.23 70.89 L159.58 117.66 L153.67 117.66 Z M182.73 70.89 L185.33 70.89 L165.68 117.66 L163.08 117.66 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="berserker-axe-cheek" d="M 146.3 70.5 C 146.3 70.5 155.5 68 160.6 68.1 C 165.6 68.2 176.8 71 176.8 71 C 176.8 71 175.8 88 172.5 95.3 C 169.3 102.6 157.3 114.8 157.3 114.8 C 157.3 114.8 149.2 105 145.9 101 C 142.6 97 137.4 90.6 137.4 90.6 L 146.3 70.5 Z" fill="#2a1a10" opacity="0.22"/>
+</g>
+<use id="berserker-axe-blade-line" href="#berserker-axe-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="berserker-axe-spike">
+<use id="berserker-axe-spike-fill" href="#berserker-axe-spike-shape" fill="#b9c2cc"/>
+<use id="berserker-axe-spike-line" href="#berserker-axe-spike-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="berserker-axe-cap">
+<use id="berserker-axe-cap-fill" href="#berserker-axe-cap-shape" fill="#c8a24a"/>
+<use id="berserker-axe-cap-line" href="#berserker-axe-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="berserker-axe-hand-upper">
+<use id="berserker-axe-hand-upper-shade" href="#berserker-axe-hand-upper-shape" fill="#4e3520"/>
+<g clip-path="url(#berserker-axe-hand-upper-clip)">
+<use id="berserker-axe-hand-upper-fill" href="#berserker-axe-hand-upper-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#berserker-axe-hand-upper-lit-clip)">
+<use id="berserker-axe-hand-upper-lit" href="#berserker-axe-hand-upper-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="berserker-axe-hand-upper-fill-over" href="#berserker-axe-hand-upper-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="berserker-axe-hand-upper-line" href="#berserker-axe-hand-upper-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="berserker-axe-hand">
+<use id="berserker-axe-hand-shade" href="#berserker-axe-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#berserker-axe-hand-clip)">
+<use id="berserker-axe-hand-fill" href="#berserker-axe-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#berserker-axe-hand-lit-clip)">
+<use id="berserker-axe-hand-lit" href="#berserker-axe-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="berserker-axe-hand-fill-over" href="#berserker-axe-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="berserker-axe-hand-line" href="#berserker-axe-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bruiser-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="bruiser-head-gather-shape" d="M 88 54 C 88 54 79.3 36.3 80 34 C 80.7 31.7 88.7 40.7 92 40 C 95.3 39.3 97.7 30 100 30 C 102.3 30 103.3 39 106 40 C 108.7 41 115.7 33.7 116 36 C 116.3 38.3 108 54 108 54 L 88 54 Z"/>
+<clipPath id="bruiser-head-gather-clip"><use href="#bruiser-head-gather-shape"/></clipPath>
+<clipPath id="bruiser-head-gather-lit-clip"><use href="#bruiser-head-gather-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="bruiser-head-sack-shape" d="M 76 54 C 76 54 90.7 50 98 50 C 105.3 50 120 54 120 54 C 120 54 128 68.3 129 76 C 130 83.7 129.2 94.5 126 100 C 122.8 105.5 117 107.5 110 109 C 103 110.5 91 110.5 84 109 C 77 107.5 71.2 105.5 68 100 C 64.8 94.5 63.7 83.7 65 76 C 66.3 68.3 76 54 76 54 Z"/>
+<clipPath id="bruiser-head-sack-clip"><use href="#bruiser-head-sack-shape"/></clipPath>
+<clipPath id="bruiser-head-sack-lit-clip"><use href="#bruiser-head-sack-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="bruiser-head-rope-shape" d="M 60 97 C 66 96.3 83.7 101 96 101 C 108.3 101 127.7 96.3 134 97 C 140.3 97.7 140.3 103 134 105 C 127.7 107 108.3 109 96 109 C 83.7 109 66 107 60 105 C 54 103 54 97.7 60 97 Z"/>
+<path id="bruiser-head-tie-shape" d="M 88 48 L 108 48 Q 112 48 112 52 L 112 52 Q 112 56 108 56 L 88 56 Q 84 56 84 52 L 84 52 Q 84 48 88 48 Z"/>
+</defs>
+<path id="bruiser-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="bruiser-head-gather">
+<use id="bruiser-head-gather-shade" href="#bruiser-head-gather-shape" fill="#b3a585"/>
+<g clip-path="url(#bruiser-head-gather-clip)">
+<use id="bruiser-head-gather-fill" href="#bruiser-head-gather-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#bruiser-head-gather-lit-clip)">
+<use id="bruiser-head-gather-lit" href="#bruiser-head-gather-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bruiser-head-gather-fill-over" href="#bruiser-head-gather-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="bruiser-head-gather-line" href="#bruiser-head-gather-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bruiser-head-sack">
+<use id="bruiser-head-sack-shade" href="#bruiser-head-sack-shape" fill="#b3a585"/>
+<g clip-path="url(#bruiser-head-sack-clip)">
+<use id="bruiser-head-sack-deep" href="#bruiser-head-sack-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bruiser-head-sack-shade-over" href="#bruiser-head-sack-shape" transform="translate(-3.72 -3.72)" fill="#b3a585"/>
+<use id="bruiser-head-sack-fill" href="#bruiser-head-sack-shape" transform="translate(-6 -6)" fill="#d9cdb0"/>
+<g clip-path="url(#bruiser-head-sack-lit-clip)">
+<use id="bruiser-head-sack-lit" href="#bruiser-head-sack-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bruiser-head-sack-fill-over" href="#bruiser-head-sack-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="bruiser-head-slit" d="M 98 74 L 134 74 Q 139 74 139 79 L 139 79 Q 139 84 134 84 L 98 84 Q 93 84 93 79 L 93 79 Q 93 74 98 74 Z" fill="#1e2b17"/>
+<path id="bruiser-head-slit-edge" d="M 98 74 L 134 74 Q 139 74 139 79 L 139 79 Q 139 84 134 84 L 98 84 Q 93 84 93 79 L 93 79 Q 93 74 98 74 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="bruiser-head-seam" d="M 84 56 L 84 100" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="bruiser-head-stitch-a" d="M 79 66 L 89 66" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="bruiser-head-stitch-b" d="M 79 88 L 89 88" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="bruiser-head-rope">
+<use id="bruiser-head-rope-fill" href="#bruiser-head-rope-shape" fill="#9a6a3a"/>
+<use id="bruiser-head-rope-line" href="#bruiser-head-rope-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="bruiser-head-sack-line" href="#bruiser-head-sack-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bruiser-head-tie">
+<use id="bruiser-head-tie-fill" href="#bruiser-head-tie-shape" fill="#9a6a3a"/>
+<use id="bruiser-head-tie-line" href="#bruiser-head-tie-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

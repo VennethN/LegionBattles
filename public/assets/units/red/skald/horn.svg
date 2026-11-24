@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="skald-horn" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="skald-horn-horn-shape" d="M 125.4 118.5 C 125.4 118.5 128.4 96.2 132.3 88 C 136.1 79.8 142 74.3 148.6 69.5 C 155.2 64.6 171.7 58.7 171.7 58.7 L 183.3 73.6 C 183.3 73.6 169.6 77.6 163.5 81.3 C 157.3 84.9 151.8 89 146.5 95.6 C 141.3 102.2 132 120.9 132 120.9 L 125.4 118.5 Z"/>
+<clipPath id="skald-horn-horn-clip"><use href="#skald-horn-horn-shape"/></clipPath>
+<clipPath id="skald-horn-horn-lit-clip"><use href="#skald-horn-horn-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="skald-horn-band-a-shape" d="M 129.7 86.3 L 152.3 94.5 L 150.2 100.2 L 127.7 91.9 L 129.7 86.3 Z"/>
+<path id="skald-horn-band-b-shape" d="M 149.6 56.2 L 163.4 78.3 L 158.3 81.5 L 144.5 59.4 L 149.6 56.2 Z"/>
+<path id="skald-horn-hand-shape" d="M 138.5 112 C 138.5 116.1 135.1 119.5 131 119.5 C 126.9 119.5 123.5 116.1 123.5 112 C 123.5 107.9 126.9 104.5 131 104.5 C 135.1 104.5 138.5 107.9 138.5 112 Z"/>
+<clipPath id="skald-horn-hand-clip"><use href="#skald-horn-hand-shape"/></clipPath>
+<clipPath id="skald-horn-hand-lit-clip"><use href="#skald-horn-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="skald-horn-horn">
+<use id="skald-horn-horn-shade" href="#skald-horn-horn-shape" fill="#c4b594"/>
+<g clip-path="url(#skald-horn-horn-clip)">
+<use id="skald-horn-horn-fill" href="#skald-horn-horn-shape" transform="translate(-4 -4)" fill="#e9dfc6"/>
+<g clip-path="url(#skald-horn-horn-lit-clip)">
+<use id="skald-horn-horn-lit" href="#skald-horn-horn-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="skald-horn-horn-fill-over" href="#skald-horn-horn-shape" transform="translate(4.2 4.2)" fill="#e9dfc6"/>
+</g>
+<g id="skald-horn-band-a">
+<use id="skald-horn-band-a-fill" href="#skald-horn-band-a-shape" fill="#c8a24a"/>
+<use id="skald-horn-band-a-line" href="#skald-horn-band-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="skald-horn-band-b">
+<use id="skald-horn-band-b-fill" href="#skald-horn-band-b-shape" fill="#c8a24a"/>
+<use id="skald-horn-band-b-line" href="#skald-horn-band-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="skald-horn-horn-line" href="#skald-horn-horn-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="skald-horn-mouth" d="M 183.4 74.1 C 181.1 75.7 176.9 73.5 173.9 69.2 C 170.9 64.9 170.2 60.1 172.5 58.5 C 174.8 56.9 179 59.1 182.1 63.4 C 185.1 67.7 185.7 72.5 183.4 74.1 Z" fill="#1e2b17"/>
+<path id="skald-horn-mouth-edge" d="M 183.4 74.1 C 181.1 75.7 176.9 73.5 173.9 69.2 C 170.9 64.9 170.2 60.1 172.5 58.5 C 174.8 56.9 179 59.1 182.1 63.4 C 185.1 67.7 185.7 72.5 183.4 74.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="skald-horn-hand">
+<use id="skald-horn-hand-shade" href="#skald-horn-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#skald-horn-hand-clip)">
+<use id="skald-horn-hand-fill" href="#skald-horn-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#skald-horn-hand-lit-clip)">
+<use id="skald-horn-hand-lit" href="#skald-horn-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="skald-horn-hand-fill-over" href="#skald-horn-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="skald-horn-hand-line" href="#skald-horn-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
