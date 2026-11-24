@@ -30,6 +30,8 @@ export interface SaveData {
   /** Battles fought and won, packs opened: for the record and for tuning. */
   stats: { battles: number; wins: number; opened: number };
   speed: number;
+  /** False when the player has turned the sound off. */
+  sound: boolean;
 }
 
 export function newSave(seed: number): SaveData {
@@ -43,6 +45,7 @@ export function newSave(seed: number): SaveData {
     rng: seed >>> 0,
     stats: { battles: 0, wins: 0, opened: 0 },
     speed: 1,
+    sound: true,
   };
 }
 
@@ -58,6 +61,7 @@ export function repair(raw: unknown, seed: number): SaveData {
     coins: Math.max(0, Math.floor(num(r.coins, 0))),
     rng: num(r.rng, fresh.rng) >>> 0,
     speed: r.speed === 2 ? 2 : 1,
+    sound: r.sound !== false,
   };
   if (r.cards && typeof r.cards === 'object') {
     for (const [id, c] of Object.entries(r.cards)) {

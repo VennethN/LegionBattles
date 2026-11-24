@@ -2,6 +2,7 @@ import '@fontsource/fredoka/latin-600.css';
 import '@fontsource/fredoka/latin-700.css';
 import Phaser from 'phaser';
 import { GRASS } from './art/kit/palette';
+import { sfx } from './audio/sfx';
 import { ads } from './platform/ads';
 import { H, RES, W } from './view/config';
 import { BattleScene } from './view/scenes/BattleScene';
@@ -11,6 +12,12 @@ import { ShopScene } from './view/scenes/ShopScene';
 import { TeamScene } from './view/scenes/TeamScene';
 
 void ads().init();
+
+// A browser makes no sound until the page has been touched. Every touch asks
+// again, as a phone may put the audio back to sleep.
+for (const type of ['pointerdown', 'keydown', 'touchend'] as const) {
+  window.addEventListener(type, () => sfx.unlock(), { capture: true, passive: true });
+}
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -29,4 +36,5 @@ const game = new Phaser.Game({
 });
 
 // For the browser console and for the screenshot script.
-(window as unknown as { game: Phaser.Game }).game = game;
+(window as unknown as { game: Phaser.Game; sfx: typeof sfx }).game = game;
+(window as unknown as { sfx: typeof sfx }).sfx = sfx;

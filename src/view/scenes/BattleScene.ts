@@ -9,6 +9,7 @@ import { GROUND, PROPS, type Ground } from '../../art/board';
 import {
   ARCANE, BONE, CLOTH, FIRE, FROST, GOLD, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM, type Accent,
 } from '../../art/kit/palette';
+import { sfx } from '../../audio/sfx';
 import { packById } from '../../data/packs';
 import { SKIRMISH_ROSTER, UNITS, isFrontline } from '../../data/units';
 import { WORLDS } from '../../data/worlds';
@@ -32,7 +33,7 @@ import { Button, label, slab } from '../ui/widgets';
 import { CARDS, SHEET, sheet } from '../Sheet';
 import { commit, save } from '../session';
 import { STATUS_COLOR } from '../ui/colors';
-import { veil } from '../ui/chrome';
+import { soundButton, veil } from '../ui/chrome';
 import { UnitView } from '../UnitView';
 
 /**
@@ -211,6 +212,7 @@ export class BattleScene extends Phaser.Scene {
       ...INFO_STYLE, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
     }).setDepth(8000);
 
+    soundButton(this, W - 290, 46, save().sound).root.setScale(1.15);
     const map = new Button(this, W - 190, 46, 'MAP', () => this.leave(), { width: 120, height: 56, size: 24, mat: BONE, color: OUTLINE }).setDepth(8000);
     map.root.list.forEach((o) => {
       if (o instanceof Phaser.GameObjects.Text) o.setStroke(HIGHLIGHT, 0);
@@ -287,6 +289,7 @@ export class BattleScene extends Phaser.Scene {
       this.zones.push(zone);
       zone.on('dragstart', () => {
         view.lift = 14;
+        sfx.play('lift');
       });
       zone.on('drag', (_p: Phaser.Input.Pointer, x: number, y: number) => {
         view.x = Phaser.Math.Clamp(x, 40, W - 40);
@@ -296,6 +299,7 @@ export class BattleScene extends Phaser.Scene {
       });
       zone.on('dragend', () => {
         view.lift = 0;
+        sfx.play('place');
         this.dropMark.clear();
         this.drop(i, view.x, view.y - 10);
       });
@@ -379,6 +383,7 @@ export class BattleScene extends Phaser.Scene {
     for (const v of ordered) v.setBarsVisible(true);
     this.battle = battle;
     this.acc = 0;
+    sfx.play('fight');
     ads().gameplayStart();
   }
 
@@ -443,7 +448,13 @@ export class BattleScene extends Phaser.Scene {
       case 'impact': {
         const u = battle.units[e.unit];
         const v = this.views[e.unit];
-        if (e.kind === 'heal' || u.def.projectile) break;
+        // What leaves a hand is heard as it leaves: a string, a throw, a spell.
+        if (e.kind === 'heal') break;
+        if (u.def.projectile) {
+          if (e.target >= 0) sfx.play(accentOf(u.def.projectile.kind) ? 'cast' : 'shoot', 0.8, 0.9 + (e.unit % 5) * 0.05);
+          break;
+        }
+        sfx.play('slash', 0.8, 0.85 + (e.unit % 5) * 0.07);
         // A blade's arc, in front of whoever swung it.
         const big = e.kind !== 'attack';
         this.fx.spawn('fx/slash', v.x + v.facing * 34 * v.scale, v.y - 62 * v.scale, {
@@ -462,9 +473,10 @@ export class BattleScene extends Phaser.Scene {
         const accent = accentOf(e.kind);
         const x = screenX(e.x);
         const y = screenY(e.y);
+        let radius = 0;
+        for (let i = 0; i < battle.shots.length; i++) if (battle.shots[i].id === e.id) radius = battle.shots[i].splashR;
+        sfx.play(radius > 0 ? 'blast' : 'thud', radius > 120 ? 1 : 0.7, 0.9 + (e.id % 5) * 0.05);
         if (accent) {
-          let radius = 0;
-          for (let i = 0; i < battle.shots.length; i++) if (battle.shots[i].id === e.id) radius = battle.shots[i].splashR;
           if (radius > 0) {
             this.fx.spawn('fx/ring', x, y - 6, {
               dur: 0.4, from: 0.25, to: radius / 60, flat: Y_SCALE, alpha: 0.85, hold: 0.35, tint: hex(accent.light), depth: 30,
@@ -490,6 +502,7 @@ export class BattleScene extends Phaser.Scene {
         else if (skill && t.team === 'red') color = hex(HOLY.fill);
         this.numbers.show(t.x, t.y - t.height * 0.78, String(e.amount), color, skill ? 34 : status ? 20 : 26);
         if (e.unit >= 0 && !battle.units[e.unit].def.projectile && !status) {
+          sfx.play(skill ? 'bigHit' : 'hit', 0.9, 0.85 + (e.target % 5) * 0.07);
           this.fx.spawn('fx/spark', t.x - Math.sign(t.x - from) * 10, t.y - 56 * UNIT_SCALE, {
             dur: 0.16, from: 0.35, to: skill ? 1.1 : 0.8, hold: 0.4, tint: hex(HIGHLIGHT), rotation: (battle.tick % 7) * 0.45,
           });
@@ -498,6 +511,7 @@ export class BattleScene extends Phaser.Scene {
       }
       case 'heal': {
         const t = this.views[e.target];
+        sfx.play('heal', 0.8);
         this.numbers.show(t.x, t.y - t.height * 0.78, `+${e.amount}`, hex(VENOM.light), 26);
         for (let i = 0; i < 3; i++) {
           this.fx.spawn('fx/sparkle', t.x + (i - 1) * 22, t.y - 30 - i * 14, {
@@ -509,6 +523,7 @@ export class BattleScene extends Phaser.Scene {
       case 'death': {
         const v = this.views[e.unit];
         v.die(now);
+        sfx.play('death', 1, 0.85 + (e.unit % 4) * 0.1);
         // Dust where it lands, when it lands.
         const back = -v.facing;
         for (let i = 0; i < 3; i++) {
@@ -527,12 +542,14 @@ export class BattleScene extends Phaser.Scene {
       case 'skill': {
         const v = this.views[e.unit];
         const skill = battle.units[e.unit].def.skill;
+        sfx.play('skill', 0.9, 0.9 + (e.unit % 4) * 0.08);
         if (skill) this.callout(v.x, v.y - v.height - 24, skill.name);
         break;
       }
       case 'status': {
         const v = this.views[e.unit];
         const color = STATUS_COLOR[e.kind as keyof typeof STATUS_COLOR];
+        sfx.play('status');
         if (color !== undefined) {
           this.fx.spawn('fx/ring', v.x, v.y - v.height * 0.45, { dur: 0.3, from: 0.9, to: 0.35, alpha: 0.9, hold: 0.5, tint: color, depth: v.y + 2 });
         }
@@ -634,6 +651,7 @@ export class BattleScene extends Phaser.Scene {
     this.phase = 'result';
     const won = winner === 0;
     const title = won ? 'VICTORY' : winner === 1 ? 'DEFEAT' : 'DRAW';
+    sfx.play(won ? 'victory' : 'defeat');
 
     // The banner goes above the board: whoever is left standing stays in
     // view, and the winners are cheering.
@@ -693,6 +711,9 @@ export class BattleScene extends Phaser.Scene {
     if (r.moreTeam > 0) rows.push({ text: 'Your team has room for one more!', color: ARCANE.shade, size: 20 });
     if (r.opened) rows.push({ text: `${WORLDS[this.worldIndex + 1].name} is open!`, color: ARCANE.shade, size: 22 });
     if (!r.won) rows.push({ text: 'Open packs, raise your grades, or stand your team another way.', color: OUTLINE, size: 17 });
+
+    if (r.coins > 0) sfx.play('coin');
+    if (r.levelUps.length > 0) this.time.delayedCall(260, () => sfx.play('levelUp'));
 
     const ph = 150 + rows.length * 42;
     const pw = 660;

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mute" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="mute-cone-clip"><path d="M 6 18 L 16 18 L 27 8 L 27 40 L 16 30 L 6 30 Z"/></clipPath>
+</defs>
+<g id="mute-cone">
+<path id="mute-cone-shade" d="M 6 18 L 16 18 L 27 8 L 27 40 L 16 30 L 6 30 Z" fill="#c4b594"/>
+<g clip-path="url(#mute-cone-clip)">
+<path id="mute-cone-fill" d="M 3 15 L 13 15 L 24 5 L 24 37 L 13 27 L 3 27 Z" fill="#e9dfc6"/>
+</g>
+<path id="mute-cone-line" d="M 6 18 L 16 18 L 27 8 L 27 40 L 16 30 L 6 30 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mute-cross-a">
+<path id="mute-cross-a-fill" d="M 29.9 20.1 L 41.9 32.1 C 43.1 33.3 44.9 33.3 46.1 32.1 C 47.3 30.9 47.3 29.1 46.1 27.9 L 34.1 15.9 C 32.9 14.7 31.1 14.7 29.9 15.9 C 28.7 17.1 28.7 18.9 29.9 20.1 Z" fill="#c2453a"/>
+<path id="mute-cross-a-line" d="M 29.9 20.1 L 41.9 32.1 C 43.1 33.3 44.9 33.3 46.1 32.1 C 47.3 30.9 47.3 29.1 46.1 27.9 L 34.1 15.9 C 32.9 14.7 31.1 14.7 29.9 15.9 C 28.7 17.1 28.7 18.9 29.9 20.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mute-cross-b">
+<path id="mute-cross-b-fill" d="M 41.9 15.9 L 29.9 27.9 C 28.7 29.1 28.7 30.9 29.9 32.1 C 31.1 33.3 32.9 33.3 34.1 32.1 L 46.1 20.1 C 47.3 18.9 47.3 17.1 46.1 15.9 C 44.9 14.7 43.1 14.7 41.9 15.9 Z" fill="#c2453a"/>
+<path id="mute-cross-b-line" d="M 41.9 15.9 L 29.9 27.9 C 28.7 29.1 28.7 30.9 29.9 32.1 C 31.1 33.3 32.9 33.3 34.1 32.1 L 46.1 20.1 C 47.3 18.9 47.3 17.1 46.1 15.9 C 44.9 14.7 43.1 14.7 41.9 15.9 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

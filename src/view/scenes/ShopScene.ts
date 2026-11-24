@@ -6,6 +6,7 @@
 
 import Phaser from 'phaser';
 import { BONE, CLOTH, GOLD, GRASS, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
+import { sfx } from '../../audio/sfx';
 import { PACKS, type PackDef } from '../../data/packs';
 import { UNITS } from '../../data/units';
 import { RARITY } from '../../game/rarity';
@@ -80,6 +81,7 @@ export class ShopScene extends Phaser.Scene {
     openB.setEnabled(held > 0);
     const buy = new Button(this, x, y + 212, `     ${pack.cost}`, () => {
       if (buyPack(s, pack.id)) {
+        sfx.play('buy');
         commit();
         this.scene.restart();
       }
@@ -120,6 +122,8 @@ export class ShopScene extends Phaser.Scene {
       // The card is decided here, by the rules; all that follows is the show.
       const pull = openPack(s, packId);
       commit();
+      sfx.play('packShake');
+      this.time.delayedCall(330, () => sfx.play('packShake'));
       // It shakes harder and harder, then bursts.
       this.tweens.add({
         targets: pouch,
@@ -129,6 +133,7 @@ export class ShopScene extends Phaser.Scene {
         repeat: 5,
         onComplete: () => {
           this.tweens.add({ targets: pouch, scale: 1.25, alpha: 0, duration: 180, ease: 'Cubic.easeIn' });
+          sfx.play('packOpen');
           if (pull) this.reveal(pull);
           else this.finish();
         },
@@ -150,6 +155,7 @@ export class ShopScene extends Phaser.Scene {
 
     // A burst in the tier's color: rings, then sparkles flying out. Rarer tiers get more.
     const rank = ['common', 'uncommon', 'rare', 'epic', 'legendary'].indexOf(pull.rarity);
+    this.time.delayedCall(140, () => sfx.reveal(rank));
     for (let i = 0; i <= rank; i++) {
       const ring = add(this.add.image(cx, cy, SHEET, 'fx/ring').setTint(color).setDepth(9005).setScale(0.2).setAlpha(0.9));
       this.tweens.add({ targets: ring, scale: 3 + i * 0.8, alpha: 0, duration: 620 + i * 90, delay: i * 110, ease: 'Cubic.easeOut' });

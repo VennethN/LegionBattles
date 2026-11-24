@@ -87,6 +87,16 @@ const ICONS: Record<string, (d: Doc) => void> = {
   spark: (d) => {
     d.piece('spark', star(24, 24, 4, 21, 7), GOLD, { shade: 0 });
   },
+  sound: (d) => {
+    d.piece('cone', poly([[6, 18], [16, 18], [27, 8], [27, 40], [16, 30], [6, 30]]), BONE, { shade: 3 });
+    d.piece('wave-a', path().M(32, 17).C(37, 21, 37, 27, 32, 31).L(29, 28).C(31, 26, 31, 22, 29, 20).Z(), BONE, { shade: 0 });
+    d.piece('wave-b', path().M(38, 11).C(47, 18, 47, 30, 38, 37).L(35, 34).C(41, 29, 41, 19, 35, 14).Z(), BONE, { shade: 0 });
+  },
+  mute: (d) => {
+    d.piece('cone', poly([[6, 18], [16, 18], [27, 8], [27, 40], [16, 30], [6, 30]]), BONE, { shade: 3 });
+    d.piece('cross-a', capsule(32, 18, 44, 30, 6), CLOTH.red, { shade: 0 });
+    d.piece('cross-b', capsule(44, 18, 32, 30, 6), CLOTH.red, { shade: 0 });
+  },
   team: (d) => {
     // Three helms side by side: a team.
     d.piece('helm-a', smooth([[4, 34, 'c'], [5, 22], [13, 16], [21, 22], [22, 34, 'c']]), STEEL, { shade: 0 });

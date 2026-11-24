@@ -57,7 +57,7 @@ export class HomeScene extends Phaser.Scene {
     new Chrome(this, world.name, 'Home', s);
     label(this, 28, 78, world.blurb, { size: 17, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 }).setDepth(8000);
 
-    new Button(this, W - 300, 37, 'SKIRMISH', () => this.scene.start('Battle', { seed: (Date.now() % 999983) + 1 } satisfies BattleConfig), {
+    new Button(this, W - 356, 37, 'SKIRMISH', () => this.scene.start('Battle', { seed: (Date.now() % 999983) + 1 } satisfies BattleConfig), {
       width: 170, height: 46, size: 20, mat: BONE, color: OUTLINE,
     }).setDepth(8000).root.list.forEach((o) => {
       if (o instanceof Phaser.GameObjects.Text) o.setStroke(BONE.fill, 0);

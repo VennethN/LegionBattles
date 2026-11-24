@@ -7,6 +7,7 @@ import { packsHeld } from '../../game/rules';
 import type { SaveData } from '../../game/state';
 import { H, W, hex } from '../config';
 import { SHEET } from '../Sheet';
+import { toggleSound } from '../session';
 import { Button, label, slab } from './widgets';
 
 export type Tab = 'Home' | 'Team' | 'Shop';
@@ -32,6 +33,8 @@ export class Chrome {
     slab(g, W - 196, 14, 172, 46, IRON, 14, 5);
     scene.add.image(W - 172, 35, SHEET, 'icon/coin').setScale(0.42).setDepth(8001);
     this.coinText = label(scene, W - 40, 35, String(save.coins), { size: 24, align: 'right', color: GOLD.fill }).setDepth(8001);
+
+    soundButton(scene, W - 228, 37, save.sound);
 
     TABS.forEach((tab, i) => {
       const x = W / 2 + (i - 1) * 214;
@@ -62,6 +65,16 @@ export class Chrome {
   refresh(): void {
     this.coinText.setText(String(this.save.coins));
   }
+}
+
+/** A small button that turns the sound on and off. Every screen has one. */
+export function soundButton(scene: Phaser.Scene, x: number, y: number, on: boolean): Button {
+  const b = new Button(scene, x, y, '', () => {
+    icon.setFrame(toggleSound() ? 'icon/sound' : 'icon/mute');
+  }, { width: 50, height: 46, mat: BONE }).setDepth(8000);
+  const icon = scene.add.image(0, -3, SHEET, on ? 'icon/sound' : 'icon/mute').setScale(0.36);
+  b.root.add(icon);
+  return b;
 }
 
 /** A dim sheet over the scene that swallows presses, for what is shown on top of it. */

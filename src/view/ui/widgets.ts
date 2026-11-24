@@ -3,6 +3,7 @@
 
 import Phaser from 'phaser';
 import { BONE, GOLD, OUTLINE, type Material } from '../../art/kit/palette';
+import { sfx } from '../../audio/sfx';
 import { FONT, RES, hex } from '../config';
 
 export interface TextOpts {
@@ -105,6 +106,7 @@ export class Button {
       if (!this.enabled || !this.down) return;
       this.down = false;
       this.draw();
+      sfx.play('click');
       this.onClick();
     });
     this.draw();

@@ -3009,6 +3009,22 @@
     0.5
    ]
   },
+  "sound": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "mute": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
   "team": {
    "width": 48,
    "height": 48,
