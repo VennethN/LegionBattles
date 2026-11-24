@@ -1050,10 +1050,12 @@ export class Battle {
     let alive0 = 0;
     let alive1 = 0;
     for (let i = 0; i < units.length; i++) {
-      // Only who walks is counted. A side with nothing left but its towers,
-      // walls and traps has lost: they do not hold the field alone, and a
-      // battle is not drawn out by pulling down what no longer matters.
-      if (!units[i].alive || units[i].trap || units[i].def.still) continue;
+      // Everyone who stands is counted, a building as much as whoever walks:
+      // a side has not lost while a tower, a wall or a hall of its own is up.
+      // By the owner's word of 24 November 2026: "make the win condition to
+      // kill unit and destroy every structure / Not just unit". A trap is not
+      // counted: nothing can strike it, so nothing could end the battle.
+      if (!units[i].alive || units[i].trap) continue;
       if (units[i].team === 0) alive0++;
       else alive1++;
     }

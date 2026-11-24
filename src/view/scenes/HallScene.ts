@@ -1,6 +1,8 @@
-// The hall of dungeons and raids. It opens over the board. A tile to each
-// place: its lord's likeness, what it is, its five tiers, what it pays, and
-// ENTER.
+// The hall of the dungeons, and the hall of the raids: one screen, opened
+// on one or the other. They are two things, each with a button of its own
+// on the main screen, and the raids' is not there until a raid is open. A
+// tile to each place: its lord's likeness, what it is, its five tiers, what
+// it pays, and ENTER.
 //
 // A place the player has not opened is its lord's outline in the dark, named
 // "???", and says only at which stage it opens. A tier that is not open is
@@ -11,6 +13,7 @@ import { BONE, CLOTH, HIGHLIGHT, IRON, OUTLINE } from '../../art/kit/palette';
 import { DUNGEONS, RAIDS, RESERVES, TIER_MARKS, type DungeonDef, type RaidDef } from '../../data/expeditions';
 import { LANDS } from '../../data/lands';
 import { packById } from '../../data/packs';
+import { stageSaid } from '../../data/stages';
 import { dungeonPrize, placeOpen, raidPrize, tierOpen, tierStage, tiersCleared, topTier } from '../../game/expeditions';
 import { setupCamera } from '../app';
 import { CARDS, SHEET } from '../Sheet';
@@ -25,9 +28,15 @@ import type { VentureData } from './VentureScene';
 
 type Place = DungeonDef | RaidDef;
 
+export interface HallData {
+  kind?: 'dungeon' | 'raid';
+}
+
 export class HallScene extends Phaser.Scene {
   /** The tier each place's tile shows, by the place's id. */
   private picked: Record<string, number> = {};
+  /** Which hall this is: the dungeons', or the raids'. */
+  private kind: 'dungeon' | 'raid' = 'dungeon';
   /** The tutorial on this screen. The walks look at it (scripts/tours.mjs). */
   guide!: Guide;
 
@@ -35,21 +44,31 @@ export class HallScene extends Phaser.Scene {
     super('Hall');
   }
 
+  init(data: HallData): void {
+    this.kind = data?.kind ?? this.kind;
+  }
+
   create(): void {
     setupCamera(this);
     const s = save();
-    const head = new OverlayHead(this, 'Dungeons and Raids', s, () => commit());
-    label(this, 400, 40, 'A dungeon: floors where nothing heals. A raid: one long battle.', { size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
+    const raids = this.kind === 'raid';
+    const head = new OverlayHead(this, raids ? 'Raids' : 'Dungeons', s, () => commit());
+    label(this, 250, 40, raids ? 'One long fight with a boss.' : 'Several floors, no healing between them.', {
+      size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
+    });
     const pitch = 414;
-    DUNGEONS.forEach((d, i) => this.tile('dungeon', d, 226 + i * pitch, 232));
-    RAIDS.forEach((r, i) => this.tile('raid', r, 226 + i * pitch, 548));
+    const row = 330;
+    const places: readonly Place[] = raids ? RAIDS : DUNGEONS;
+    places.forEach((p, i) => this.tile(this.kind, p, 226 + i * pitch, row));
 
-    // What the tour of this hall points at: the first dungeon, the first raid, and the dungeon's five difficulties.
+    // What the tours of this hall point at: the first place that is open, and its five difficulties.
     const guide = new Guide(this, 'Hall');
     this.guide = guide;
-    guide.mark('dungeon', () => ({ x: 28, y: 82, w: 396, h: 300 }));
-    guide.mark('raid', () => ({ x: 28, y: 398, w: 396, h: 300 }));
-    guide.mark('tiers', () => (DUNGEONS[0] && placeOpen(s, DUNGEONS[0]) ? { x: 186, y: 201, w: 226, h: 38 } : null));
+    const first = Math.max(0, places.findIndex((p) => placeOpen(s, p)));
+    const tile = { x: 28 + first * pitch, y: row - 150, w: 396, h: 300 };
+    guide.mark('dungeon', () => (raids ? null : tile));
+    guide.mark('raid', () => (raids ? tile : null));
+    guide.mark('tiers', () => (placeOpen(s, places[first]) ? { x: tile.x + 158, y: tile.y + 119, w: 226, h: 38 } : null));
     guide.mark('close', () => head.close.rect);
     guide.refresh();
   }
@@ -73,7 +92,7 @@ export class HallScene extends Phaser.Scene {
     if (!open) {
       label(this, tx, y - h / 2 + 52, '???', { size: 28, align: 'left' });
       this.add.image(tx + 20, y - h / 2 + 110, SHEET, 'icon/lock').setScale(0.5);
-      label(this, x, y + 60, `Clear stage ${place.after} to open it.`, { size: 18, weight: 600, color: HIGHLIGHT, strokeWidth: 4 });
+      label(this, x, y + 60, `Clear ${stageSaid(place.after)} to open it.`, { size: 18, weight: 600, color: HIGHLIGHT, strokeWidth: 4 });
       return;
     }
 

@@ -506,7 +506,7 @@ describe('buildings, auras and traps', () => {
     expect(wall.x).toBe(x);
   });
 
-  it('nothing mends a building, a barracks sends out units as strong as it is, and a side with only buildings left has lost', () => {
+  it('nothing mends a building, a barracks sends out units as strong as it is, and a side has not lost while a building of its own stands', () => {
     const r = new Battle({ seed: 5, defs, teams: [[{ unit: 'wall', col: 0, row: 0 }, { unit: 'healer', col: 0, row: 3 }], [{ unit: 'dummy', col: 7, row: 0, damageMult: 6 }]], seconds: 40 });
     let healedWall = 0;
     while (!r.ended) {
@@ -520,10 +520,15 @@ describe('buildings, auras and traps', () => {
     const sent = hall.units.filter((u) => u.calledBy === 0);
     expect(sent.length).toBeGreaterThanOrEqual(1);
     expect(sent[0]).toMatchObject({ team: 0, maxHp: 2000, damage: 150 });
-    // A tower and a wall do not hold the field alone: with no one who walks, the side has lost before a blow is struck.
-    const alone = runBattle({ seed: 1, defs, teams: [[{ unit: 'tower', col: 3, row: 1 }, { unit: 'wall', col: 3, row: 2 }], [{ unit: 'dummy', col: 4, row: 1 }]] });
+    // A wall with no one beside it still holds the field: it has to be pulled down before the battle is won.
+    const alone = new Battle({ seed: 1, defs, teams: [[{ unit: 'wall', col: 3, row: 2 }], [{ unit: 'dummy', col: 4, row: 2, damageMult: 8 }]] });
+    while (!alone.ended) alone.step();
     expect(alone.winner).toBe(1);
-    expect(alone.seconds).toBeLessThan(1);
+    expect(alone.tick).toBeGreaterThan(20);
+    expect(alone.units[0].alive).toBe(false);
+    // And a tower with no one beside it can win one: whoever comes at it has to bring it down first.
+    const tower = runBattle({ seed: 1, defs, teams: [[{ unit: 'tower', col: 3, row: 1, damageMult: 20 }], [{ unit: 'dummy', col: 7, row: 1 }]] });
+    expect(tower.winner).toBe(0);
   });
 
   it('a banner keeps its status on its own side near it, and not on those far off or on the enemy', () => {

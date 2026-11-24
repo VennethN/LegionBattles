@@ -8,6 +8,7 @@
 //
 // Nothing is allocated per frame.
 
+import { STATUS_IDS } from '../sim/status';
 import Phaser from 'phaser';
 import type { ManifestUnit } from '../art/manifest';
 import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE } from '../art/poses';
@@ -63,6 +64,10 @@ export interface UnitPlate {
   gradeColor: number;
 }
 const MAX_PIPS = 4;
+/** How big a status's icon is over a unit, on the first field. */
+const PIP = 22;
+/** The frame of each status's icon, by its place in STATUS_IDS. */
+const STATUS_FRAMES: readonly string[] = STATUS_IDS.map((id) => `icon/status-${id}`);
 
 function easeOutCubic(t: number): number {
   const u = 1 - t;
@@ -110,6 +115,7 @@ export class UnitView {
   private readonly phase: number;
   private readonly barW: number;
   private readonly pips: Phaser.GameObjects.Image[] = [];
+  private readonly pipIds: number[] = [];
   private pipCount = 0;
   /** The chip at the left of the health bar: the unit's level on its tier's color. Null if its level is not told. */
   private readonly chipBack: Phaser.GameObjects.Image | null = null;
@@ -120,6 +126,9 @@ export class UnitView {
   private readonly gradeBack: Phaser.GameObjects.Image | null = null;
   private readonly gradeFill: Phaser.GameObjects.Image | null = null;
   private readonly gradeText: Phaser.GameObjects.BitmapText | null = null;
+
+  /** The level and grade it stands at, if they are told: for the card a tap on it shows. */
+  standing: { level: number; grade: number } | null = null;
 
   private turn: number;
   private hopT = 0;
@@ -197,7 +206,9 @@ export class UnitView {
     this.barW = Math.round(BAR_W * ps * (1 + (size - 1) * 1.6));
     this.barBack.setDisplaySize(this.barW + 6, this.barH + 6);
     for (let i = 0; i < MAX_PIPS; i++) {
-      this.pips.push(scene.add.image(0, 0, SHEET, 'fx/pixel').setDisplaySize(9 * ps, 9 * ps).setVisible(false));
+      // Each is the icon of a status (art/icons.ts), big enough to be told apart in a fight.
+      this.pips.push(scene.add.image(0, 0, SHEET, STATUS_FRAMES[0]).setDisplaySize(PIP * ps, PIP * ps).setVisible(false));
+      this.pipIds.push(0);
     }
     if (plate && kind !== 'trap') {
       // Wide enough for the number: one digit or two.
@@ -268,12 +279,18 @@ export class UnitView {
   }
 
   /**
-   * Shows a small square over the health bar for each status in `colors`
-   * (the first `count` of them). Called every frame; nothing is allocated.
+   * Shows the icon of each status in `ids` over the health bar (the first
+   * `count` of them, each a place in STATUS_IDS). Called every frame; nothing
+   * is allocated, and an icon is changed only when the status in its place is.
    */
-  setStatuses(colors: readonly number[], count: number): void {
+  setStatuses(ids: readonly number[], count: number): void {
     const n = Math.min(count, MAX_PIPS);
-    for (let i = 0; i < n; i++) this.pips[i].setTint(colors[i]);
+    for (let i = 0; i < n; i++) {
+      if (this.pipIds[i] === ids[i]) continue;
+      this.pipIds[i] = ids[i];
+      this.pips[i].setFrame(STATUS_FRAMES[ids[i]]);
+      this.pips[i].setDisplaySize(PIP * this.ps, PIP * this.ps);
+    }
     this.pipCount = n;
   }
 
@@ -554,8 +571,8 @@ export class UnitView {
       const on = this.barsOn && i < this.pipCount && this.deadAt < 0;
       if (pip.visible !== on) pip.setVisible(on);
       if (!on) continue;
-      pip.x = this.x - ((this.pipCount - 1) * 12 * this.ps) / 2 + i * 12 * this.ps;
-      pip.y = by - 12 * this.ps;
+      pip.x = this.x - ((this.pipCount - 1) * (PIP + 2) * this.ps) / 2 + i * (PIP + 2) * this.ps;
+      pip.y = by - (PIP / 2 + 9) * this.ps;
       pip.depth = depth + 0.3;
     }
   }

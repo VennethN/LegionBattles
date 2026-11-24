@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="status-regen" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="status-regen-disc-shape" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z"/>
+<clipPath id="status-regen-disc-clip"><use href="#status-regen-disc-shape"/></clipPath>
+<clipPath id="status-regen-disc-lit-clip"><use href="#status-regen-disc-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="status-regen-cross-shape" d="M 19 9 L 29 9 L 29 19 L 39 19 L 39 29 L 29 29 L 29 39 L 19 39 L 19 29 L 9 29 L 9 19 L 19 19 Z"/>
+</defs>
+<g id="status-regen-disc">
+<use id="status-regen-disc-shade" href="#status-regen-disc-shape" fill="#62992b"/>
+<g clip-path="url(#status-regen-disc-clip)">
+<use id="status-regen-disc-fill" href="#status-regen-disc-shape" transform="translate(-3 -3)" fill="#62992b"/>
+<g clip-path="url(#status-regen-disc-lit-clip)">
+<use id="status-regen-disc-lit" href="#status-regen-disc-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="status-regen-disc-fill-over" href="#status-regen-disc-shape" transform="translate(3.6 3.6)" fill="#62992b"/>
+</g>
+</g>
+<use id="status-regen-disc-line" href="#status-regen-disc-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-regen-cross">
+<use id="status-regen-cross-fill" href="#status-regen-cross-shape" fill="#e9dfc6"/>
+<use id="status-regen-cross-line" href="#status-regen-cross-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

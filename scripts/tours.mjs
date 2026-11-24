@@ -22,6 +22,11 @@ const all = process.env.ALL === '1';
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
+// A place on the game's layout is not always where it is on the page: a menu is drawn in a window (view/app.ts).
+const click = async (x, y) => {
+  const p = await page.evaluate(([a, b]) => window.screenOf?.(a, b) ?? { x: a, y: b }, [x, y]);
+  await page.mouse.click(p.x, p.y);
+};
 const errors = [];
 page.on('pageerror', (e) => errors.push(`${e.message}\n${(e.stack ?? '').split('\n').slice(0, 5).join('\n')}`));
 const fail = async (why) => {
@@ -104,8 +109,8 @@ async function walk(label) {
     }
     if (g.step.ok) {
       if (!g.button) await fail(`${label}: step ${g.step.id} has no button`);
-      await page.mouse.click(g.button.x, g.button.y);
-    } else await page.mouse.click(r.x + r.w / 2, r.y + r.h / 2);
+      await click(g.button.x, g.button.y);
+    } else await click(r.x + r.w / 2, r.y + r.h / 2);
     await page.waitForTimeout(250);
   }
   await fail(`${label}: the tour did not end`);
@@ -115,7 +120,7 @@ async function onward() {
   for (let i = 0; i < 5; i++) {
     const top = await page.evaluate((screens) => screens.find((key) => window.game.scene.isActive(key)), SCREENS);
     if (top === 'Main') break;
-    await page.mouse.click(1280 - 262, 37);
+    await click(1280 - 262, 37);
     await page.waitForTimeout(400);
   }
   await ready();
@@ -145,7 +150,7 @@ console.log(JSON.stringify({ order, walked }, null, 1));
 if (order.length < 6) await fail(`only ${order.length} tours started by themselves: ${order.join(', ')}`);
 
 // 2. The settings, and the list of tutorials.
-await page.mouse.click(1168, 664);
+await click(1168, 664);
 await page.waitForFunction(() => window.game.scene.isActive('Settings'), null, { timeout: 10000 });
 await page.waitForTimeout(400);
 await page.screenshot({ path: `${out}/91-settings.png` });
@@ -156,7 +161,7 @@ await page.screenshot({ path: `${out}/92-how-to-play.png` });
 // 3. View the basics again from the list: its first row's button.
 const view = await page.evaluate(() => window.game.scene.getScene('Settings').firstView);
 if (!view) await fail('the list of tutorials has no VIEW');
-await page.mouse.click(view.x + view.w / 2, view.y + view.h / 2);
+await click(view.x + view.w / 2, view.y + view.h / 2);
 await page.waitForFunction(() => !window.game.scene.isActive('Settings'), null, { timeout: 10000 });
 await page.waitForTimeout(500);
 const again = await tourUp();

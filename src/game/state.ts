@@ -73,7 +73,15 @@ export interface SaveData {
    * step it is at; it is never read back from storage, so a tour that was
    * cut short starts again.
    */
-  tutorial: { done: boolean; seen: string[]; at: number; tour: { id: string; step: number } | null };
+  tutorial: {
+    done: boolean;
+    seen: string[];
+    at: number;
+    /** `open` asks the main screen to open the screen the step is on: a tour that starts there. */
+    tour: { id: string; step: number; open?: boolean } | null;
+    /** A screen the main screen should open by itself, once: its scene's key. Never read back from storage. */
+    show?: string;
+  };
   /** The stage on show, which is where the next battle is fought: its place in the line, from 0. */
   at: number;
   /** A stage that was lost and stepped back from, to come back to when the team changes. */
@@ -322,7 +330,8 @@ export function repair(raw: unknown, seed: number): SaveData {
       const used: Array<[string, boolean]> = [
         ['basics', true],
         ['packs', num(r.stats?.opened, 0) > 2],
-        ['hall', Object.values(out.dungeons).some((n) => n > 0) || Object.values(out.raids).some((n) => n > 0)],
+        ['dungeons', Object.values(out.dungeons).some((n) => n > 0)],
+        ['raids', Object.values(out.raids).some((n) => n > 0)],
         ['skills', Object.keys(out.tree).length > 0],
         ['upgrades', Object.keys(out.upgrades).length > 0],
         ['structures', out.team.some((p) => isStructure(p.unit))],

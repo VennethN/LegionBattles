@@ -114,7 +114,7 @@ export interface UnitDef {
    * A trap. It lies where it is put, is no one's target and takes no harm,
    * and goes off once: when an enemy that walks comes within `trigger`
    * tiles, every enemy within `radius` tiles takes its damage and its
-   * status. A side with only traps left has lost.
+   * status. A side with only traps left has lost: nothing can strike a trap.
    */
   trap?: Trap;
 }

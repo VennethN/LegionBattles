@@ -4836,6 +4836,86 @@
     0.5
    ]
   },
+  "status-burn": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "status-poison": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "status-stun": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "status-slow": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "status-haste": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "status-rage": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "status-weak": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "status-mark": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "status-shield": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "status-regen": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
   "gift": {
    "width": 48,
    "height": 48,

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="status-shield" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="status-shield-disc-shape" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z"/>
+<clipPath id="status-shield-disc-clip"><use href="#status-shield-disc-shape"/></clipPath>
+<clipPath id="status-shield-disc-lit-clip"><use href="#status-shield-disc-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="status-shield-shield-shape" d="M 11 12 C 11 12 19.7 8 24 8 C 28.3 8 37 12 37 12 C 37 12 37.8 20.3 37 24 C 36.2 27.7 34.2 31.3 32 34 C 29.8 36.7 24 40 24 40 C 24 40 18.2 36.7 16 34 C 13.8 31.3 11.8 27.7 11 24 C 10.2 20.3 11 12 11 12 Z"/>
+<clipPath id="status-shield-shield-clip"><use href="#status-shield-shield-shape"/></clipPath>
+<clipPath id="status-shield-shield-lit-clip"><use href="#status-shield-shield-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="status-shield-boss-shape" d="M 29 23 C 29 25.8 26.8 28 24 28 C 21.2 28 19 25.8 19 23 C 19 20.2 21.2 18 24 18 C 26.8 18 29 20.2 29 23 Z"/>
+</defs>
+<g id="status-shield-disc">
+<use id="status-shield-disc-shade" href="#status-shield-disc-shape" fill="#5d6672"/>
+<g clip-path="url(#status-shield-disc-clip)">
+<use id="status-shield-disc-fill" href="#status-shield-disc-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#status-shield-disc-lit-clip)">
+<use id="status-shield-disc-lit" href="#status-shield-disc-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="status-shield-disc-fill-over" href="#status-shield-disc-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="status-shield-disc-line" href="#status-shield-disc-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-shield-shield">
+<use id="status-shield-shield-shade" href="#status-shield-shield-shape" fill="#8d97a3"/>
+<g clip-path="url(#status-shield-shield-clip)">
+<use id="status-shield-shield-fill" href="#status-shield-shield-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#status-shield-shield-lit-clip)">
+<use id="status-shield-shield-lit" href="#status-shield-shield-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="status-shield-shield-fill-over" href="#status-shield-shield-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="status-shield-shield-sheen" d="M30.72 8 L34.87 8 L21.43 40 L17.28 40 Z M38.37 8 L40.97 8 L27.53 40 L24.93 40 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="status-shield-shield-line" href="#status-shield-shield-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-shield-boss">
+<use id="status-shield-boss-fill" href="#status-shield-boss-shape" fill="#c8a24a"/>
+<use id="status-shield-boss-line" href="#status-shield-boss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -87,12 +87,12 @@ export class RewardsScene extends Phaser.Scene {
     this.head = new OverlayHead(this, 'Rewards', s, () => commit());
 
     label(this, 44, 92, 'DAILY', { size: 24, align: 'left' });
-    label(this, 136, 93, 'One day of the calendar each day you come back. A day missed loses nothing.', {
+    label(this, 136, 93, 'Claim one each day.', {
       size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
     });
     label(this, 44, 366, 'TIME PLAYED TODAY', { size: 24, align: 'left' });
     this.played = label(this, 300, 366, '', { size: 24, align: 'left', color: HOLY.fill });
-    label(this, 44, 686, 'The time starts again each day, and so do its rewards.', { size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
+    label(this, 44, 686, 'Resets every day.', { size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
     this.bar = this.add.graphics().setDepth(5);
 
     this.guide = new Guide(this, 'Rewards');
@@ -153,7 +153,7 @@ export class RewardsScene extends Phaser.Scene {
       if (!shown) art.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.85);
       add(label(this, x, y + 50, reward.count > 1 ? `x${reward.count}` : 'PACK', { size: 22, color: HOLY.fill, strokeWidth: 6 }));
       const name = shown ? pack.name : '???';
-      add(label(this, x, y + 74, pack.gift ? `${name}, sold nowhere` : name, { size: name.length > 18 ? 11 : 13, weight: 600, ...dark }));
+      add(label(this, x, y + 74, name, { size: name.length > 18 ? 11 : 13, weight: 600, ...dark }));
       return;
     }
     const def = UNITS[reward.unit];
@@ -166,7 +166,7 @@ export class RewardsScene extends Phaser.Scene {
     // What is not known tells nothing of itself, its grade among the rest.
     if (met) add(gradeBadge(this, x - 40, y - 36, rewardGrade(reward, round), 20));
     add(label(this, x, y + 54, met ? def.name : '???', { size: 17, strokeWidth: 5 }));
-    add(label(this, x, y + 74, 'a card no pack holds', { size: 12, weight: 600, ...dark }));
+    add(label(this, x, y + 74, 'special unit', { size: 12, weight: 600, ...dark }));
   }
 
   // ------------------------------------------------------------ the two tracks

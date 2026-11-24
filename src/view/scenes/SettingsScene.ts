@@ -28,9 +28,9 @@ export interface SettingsData {
 
 const GRAPHICS_NAME: Readonly<Record<Graphics, string>> = { auto: 'AUTO', sharp: 'SHARP', fast: 'FAST' };
 const GRAPHICS_TEXT: Readonly<Record<Graphics, string>> = {
-  auto: 'Picks for your screen, and draws plainer if frames come slowly.',
-  sharp: "Always your screen's own sharpness.",
-  fast: 'Plainer and quicker: for a phone that runs warm.',
+  auto: 'Best for your device.',
+  sharp: 'Sharpest.',
+  fast: 'Fastest.',
 };
 
 /** The two panels of the first page. */
@@ -153,7 +153,7 @@ export class SettingsScene extends Phaser.Scene {
     let y = LEFT.y + 126;
     const lx = LEFT.x + 30;
     const cx = LEFT.x + 220;
-    this.name(add, lx, y, 'Sound', 'Music and effects, all of it.');
+    this.name(add, lx, y, 'Sound');
     this.toggle(add, LEFT.x + LEFT.w - 105, y, s.sound, () => {
       s.sound = !s.sound;
       applySound(s);
@@ -168,11 +168,6 @@ export class SettingsScene extends Phaser.Scene {
     this.volume(add, cx, y, s.settings.effects, (v) => {
       s.settings.effects = v;
     });
-    y += 78;
-    add(label(this, lx, y, s.sound ? 'Every sound here is made by the game itself as it plays: there are no recordings.' : 'Sound is off. The volumes are kept for when it is on again.', {
-      size: 14, weight: 600, align: 'left', color: IRON.shade, stroke: null, wrap: LEFT.w - 60,
-    }).setOrigin(0, 0));
-
     // The game: how it is drawn, whether the screen shakes, and starting over.
     title(RIGHT, 'gear', 'GAME');
     y = RIGHT.y + 126;
@@ -188,16 +183,16 @@ export class SettingsScene extends Phaser.Scene {
     }, { width: 150, height: 54, size: 22, mat: BONE, color: OUTLINE }));
     add(mode.root);
     y += 96;
-    this.name(add, rx, y, 'Screen shake', 'When something rare is turned over.');
+    this.name(add, rx, y, 'Screen shake');
     this.toggle(add, bx, y, s.settings.shake, () => {
       s.settings.shake = !s.settings.shake;
     });
     y += 96;
-    this.name(add, rx, y, 'Tutorials', 'Every one of them, to view again.');
+    this.name(add, rx, y, 'Tutorials');
     const how = plain(new Button(this, bx - 20, y, 'HOW TO PLAY', () => this.scene.restart({ page: 'guides' } satisfies SettingsData), { width: 190, height: 54, size: 18, mat: BONE, color: OUTLINE }));
     add(how.root);
     y += 96;
-    this.name(add, rx, y, 'Start over', 'Wipes your cards, coins and progress.');
+    this.name(add, rx, y, 'Start over', 'Wipes all progress.');
     const over = new Button(this, bx - 20, y, 'START OVER', () => this.askStartOver(), { width: 190, height: 54, size: 18, mat: CLOTH.red });
     add(over.root);
   }
@@ -217,7 +212,7 @@ export class SettingsScene extends Phaser.Scene {
     const g = add(this.add.graphics().setDepth(9001));
     slab(g, W / 2 - 300, H / 2 - 150, 600, 300, BONE, 22, 8);
     add(label(this, W / 2, H / 2 - 100, 'Start over?', { size: 34 }).setDepth(9002));
-    add(label(this, W / 2, H / 2 - 30, 'Every card, every coin and every stage cleared is wiped, and the rewards with them. Only these settings are kept. It cannot be taken back.', {
+    add(label(this, W / 2, H / 2 - 30, 'All your cards, coins and progress will be wiped. This cannot be undone.', {
       size: 17, weight: 600, color: OUTLINE, stroke: null, wrap: 520,
     }).setDepth(9002));
     const keep = new Button(this, W / 2 - 140, H / 2 + 88, 'KEEP PLAYING', () => shut(), { width: 250, height: 60, size: 22 }).setDepth(9002);
@@ -241,7 +236,7 @@ export class SettingsScene extends Phaser.Scene {
   private drawGuides(add: Adder): void {
     const s = save();
     this.firstView = null;
-    add(label(this, 216, 40, 'Each starts by itself the first time it matters. Any of them can be viewed again here.', {
+    add(label(this, 216, 40, 'View any tutorial again.', {
       size: 17, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
     }));
     const x = 40;

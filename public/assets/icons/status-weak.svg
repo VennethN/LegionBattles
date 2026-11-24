@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="status-weak" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="status-weak-disc-shape" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z"/>
+<clipPath id="status-weak-disc-clip"><use href="#status-weak-disc-shape"/></clipPath>
+<clipPath id="status-weak-disc-lit-clip"><use href="#status-weak-disc-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="status-weak-stub-shape" d="M 19 22 L 24 17 L 29 23 L 29 31 L 19 31 Z"/>
+<path id="status-weak-tip-shape" d="M 30 6 L 38 10 L 33 20 L 27 15 Z"/>
+<path id="status-weak-guard-shape" d="M 16 30 L 32 30 Q 35 30 35 33 L 35 33 Q 35 36 32 36 L 16 36 Q 13 36 13 33 L 13 33 Q 13 30 16 30 Z"/>
+<path id="status-weak-grip-shape" d="M 23 35 L 25 35 Q 27 35 27 37 L 27 42 Q 27 44 25 44 L 23 44 Q 21 44 21 42 L 21 37 Q 21 35 23 35 Z"/>
+</defs>
+<g id="status-weak-disc">
+<use id="status-weak-disc-shade" href="#status-weak-disc-shape" fill="#434b56"/>
+<g clip-path="url(#status-weak-disc-clip)">
+<use id="status-weak-disc-fill" href="#status-weak-disc-shape" transform="translate(-3 -3)" fill="#434b56"/>
+<g clip-path="url(#status-weak-disc-lit-clip)">
+<use id="status-weak-disc-lit" href="#status-weak-disc-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="status-weak-disc-fill-over" href="#status-weak-disc-shape" transform="translate(3.6 3.6)" fill="#434b56"/>
+</g>
+</g>
+<use id="status-weak-disc-line" href="#status-weak-disc-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-weak-stub">
+<use id="status-weak-stub-fill" href="#status-weak-stub-shape" fill="#b9c2cc"/>
+<use id="status-weak-stub-line" href="#status-weak-stub-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-weak-tip">
+<use id="status-weak-tip-fill" href="#status-weak-tip-shape" fill="#b9c2cc"/>
+<use id="status-weak-tip-line" href="#status-weak-tip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-weak-guard">
+<use id="status-weak-guard-fill" href="#status-weak-guard-shape" fill="#c8a24a"/>
+<use id="status-weak-guard-line" href="#status-weak-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-weak-grip">
+<use id="status-weak-grip-fill" href="#status-weak-grip-shape" fill="#6b4a2b"/>
+<use id="status-weak-grip-line" href="#status-weak-grip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

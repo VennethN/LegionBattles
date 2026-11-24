@@ -15,7 +15,7 @@ import { BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, type Material } from '../.
 import { sfx } from '../../audio/sfx';
 import { LANDS } from '../../data/lands';
 import { DIFFICULTIES } from '../../data/laps';
-import { STAGES, WORLDS, stageAt, worldOf, type World } from '../../data/stages';
+import { STAGES, WORLDS, stageAt, stageNumber, worldOf, type World } from '../../data/stages';
 import { goTo } from '../../game/campaign';
 import { payOf, stageCleared, stageOpen, worldNeeds, worldReached } from '../../game/rules';
 import { setupCamera } from '../app';
@@ -61,15 +61,9 @@ export class MapScene extends Phaser.Scene {
 
     // The heading: the world's banner, the stages it holds, and the way out.
     worldBanner(this, W / 2, 36, world, true).setDepth(8000);
-    label(this, W / 2, 78, `Stages ${world.first + 1} to ${world.last + 1}`, { size: 18, weight: 600, color: HIGHLIGHT, strokeWidth: 5 }).setDepth(8000);
+    label(this, W / 2, 78, `Stages ${stageNumber(world.first)} to ${stageNumber(world.last)}`, { size: 18, weight: 600, color: HIGHLIGHT, strokeWidth: 5 }).setDepth(8000);
     new CoinPill(this, s);
     new Button(this, W - 262, 37, 'CLOSE', () => closeOverlay(this), { width: 130, height: 48, size: 20, mat: CLOTH.red }).setDepth(8000);
-    plain(new Button(this, 110, 37, 'SKIRMISH', () => {
-      // A battle by itself, with nothing won or lost by it.
-      this.scene.stop('Main');
-      this.scene.start('Battle', {});
-    }, { width: 170, height: 48, size: 18, mat: BONE, color: OUTLINE })).setDepth(8000);
-
     // The difficulties of this land, in a row under the heading: the one on show ringed, the ones not
     // open yet shut with a lock, which say what opens them when they are pressed.
     const chipW = 132;
@@ -126,7 +120,7 @@ export class MapScene extends Phaser.Scene {
         this.tweens.add({ targets: flag, y: flag.y - 10, duration: 520, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
       }
       slab(g, x - 33, y + 8, 66, 28, mat, 9, 4);
-      label(this, x, y + 20, String(index + 1), { size: 19, color: OUTLINE, stroke: null }).setDepth(31);
+      label(this, x, y + 20, String(stageNumber(index)), { size: 19, color: OUTLINE, stroke: null }).setDepth(31);
       if (beaten) this.add.image(x + 30, y + 8, SHEET, 'icon/check').setScale(0.3).setDepth(32);
       if (stage.def.kind !== 'normal') this.add.image(x - 31, y + 6, SHEET, boss ? 'icon/crown' : 'icon/banner').setScale(0.3).setDepth(32);
 
@@ -168,7 +162,7 @@ export class MapScene extends Phaser.Scene {
     const first = !stageCleared(s, index);
     const y = H - 30;
     const small = { size: 18, weight: 600 as const, align: 'left' as const, strokeWidth: 4 };
-    const name = label(this, 0, y, `Stage ${index + 1}  ·  ${stage.def.name}`, { ...small, weight: 700 }).setDepth(61);
+    const name = label(this, 0, y, `Stage ${stageNumber(index)}  ·  ${stage.def.name}`, { ...small, weight: 700 }).setDepth(61);
     const pay = label(this, 0, y, String(payOf(s, index, first)), small).setDepth(61);
     const level = label(this, 0, y, `level ${stage.level}`, small).setDepth(61);
     const total = name.width + 26 + 26 + pay.width + 34 + 46 + level.width;

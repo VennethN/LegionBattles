@@ -20,6 +20,17 @@
 // A tour is data: TOURS below. What a step points at is found by name among
 // what the screen has marked (view/ui/Guide.ts).
 //
+// The words are few. By the owner's word of 24 November 2026, of a note
+// three sentences long: "the tutorial text are too long and ai-ish / Please
+// simplify them to the thing that users only needed to know, we want to
+// minimize reading". A step says one thing, in a line; a test holds every
+// one of them to sixty characters.
+//
+// A tour ends on the screen it led into, with everything there free to be
+// pressed: it never ends by asking for CLOSE. The owner, of a last step that
+// said "Buy what you like. Press CLOSE." with the buttons under the shade:
+// "how does this make sense, i cant buy anything if you cover it".
+//
 // While a step points at something, nothing else can be pressed, and battles
 // do not start by themselves: a tutorial leads the player out of whatever it
 // led them into.
@@ -71,43 +82,43 @@ export interface Step {
 
 const HELLO: Step = {
   id: 'hello', target: 'battle', holds: false, blocks: false,
-  text: 'Battles start by themselves, and your units fight on their own. Watch this one.',
+  text: 'Your units fight on their own. Watch!',
 };
 const PACKS: Step = {
   id: 'packs', target: 'packs', holds: true, blocks: true,
-  text: 'You hold packs of cards. Press PACKS.',
+  text: 'You have packs. Tap PACKS.',
 };
 const OPEN: Step = {
   id: 'open', target: 'open', holds: true, blocks: true,
-  text: 'Every pack holds one card. Press OPEN.',
+  text: 'Tap OPEN.',
 };
 const TEAR: Step = {
   id: 'tear', target: 'pouch', holds: true, blocks: true,
-  text: 'Press the pouch to tear it open.',
+  text: 'Tap the pack.',
 };
 const CARD: Step = {
   id: 'card', target: 'reveal:done', holds: true, blocks: true,
-  text: "The badge is the card's grade: F is the plainest, S the best. A copy of a card you hold is a card of its own. Press DONE.",
+  text: 'Grades run from F up to S. Tap DONE.',
 };
 const CLOSE_PACKS: Step = {
   id: 'close-packs', target: 'close', holds: true, blocks: true,
-  text: 'Open the rest when you like. Now back to the field: press CLOSE.',
+  text: 'Tap CLOSE.',
 };
 const UNITS: Step = {
   id: 'units', target: 'units', holds: true, blocks: true,
-  text: 'A new card joins your team while there is room. Press UNITS to see who fights.',
+  text: 'Tap UNITS to see your team.',
 };
 const FILL: Step = {
   id: 'fill', target: 'fill', holds: true, blocks: true,
-  text: 'FILL TEAM fields your strongest cards. Press it.',
+  text: 'FILL TEAM picks your best. Tap it.',
 };
 const CLOSE_UNITS: Step = {
   id: 'close-units', target: 'close', holds: true, blocks: true,
-  text: 'Press a card to read it, and PUT IN TEAM or TAKE OUT to choose for yourself. For now, press CLOSE.',
+  text: 'Tap CLOSE.',
 };
 const WORD: Step = {
   id: 'word', target: 'stages', holds: true, blocks: true, ok: true,
-  text: 'This is your stage, and its world. Win and the next begins. Lose, and you step back a stage to grow. Press it for the map. AUTO stops battles starting by themselves.',
+  text: 'Win to move on. Lose and you drop back a stage. Tap here for the map.',
 };
 
 /** Every step, for the tests and for whoever wants to read them in order. */
@@ -117,11 +128,35 @@ export function seen(save: SaveData, id: string): boolean {
   return save.tutorial.seen.includes(id);
 }
 
-/** The first tutorial is over: from the next battle on, the tours may start. */
+/**
+ * The first tutorial is over. The rewards are shown straight after it, by
+ * the owner's word of 24 November 2026 ("After the initial tutorial / SHOW
+ * the reward screen"): their tour is up from its first note, and `open`
+ * asks the main screen to open the screen it is on. The other tours wait
+ * for battles to be fought.
+ */
 function endFirst(save: SaveData): void {
   save.tutorial.done = true;
   save.tutorial.at = save.stats.battles;
   if (!seen(save, 'tour:basics')) save.tutorial.seen.push('tour:basics');
+  if (!tourSeen(save, 'rewards')) save.tutorial.tour = { id: 'rewards', step: 1, open: true };
+}
+
+/**
+ * The screen the main screen should open now, because a tour starts on it:
+ * the scene's key, or null. Asking takes the request away.
+ */
+export function tourOpens(save: SaveData): string | null {
+  if (save.tutorial.show) {
+    const key = save.tutorial.show;
+    delete save.tutorial.show;
+    return key;
+  }
+  const t = save.tutorial.tour;
+  const at = t?.open ? tourById(t.id)?.steps[t.step] : undefined;
+  if (!t || !at) return null;
+  delete t.open;
+  return at.scene === 'Worlds' ? 'Map' : at.scene;
 }
 
 /** Notes that a part of the tutorial is behind the player. Ends the tutorial with its last part. */
@@ -133,8 +168,16 @@ export function markSeen(save: SaveData, id: string): void {
 
 /** SKIP: ends the first tutorial, or the tour that is up. */
 export function skipTutorial(save: SaveData): void {
-  if (!save.tutorial.done) endFirst(save);
-  else endTour(save);
+  if (!save.tutorial.done) {
+    endFirst(save);
+    // Whoever skips the tutorial is shown the rewards all the same, without the notes on them.
+    const t = save.tutorial.tour;
+    if (t) {
+      save.tutorial.seen.push(`tour:${t.id}`);
+      save.tutorial.tour = null;
+      save.tutorial.show = 'Rewards';
+    }
+  } else endTour(save);
 }
 
 /** The step of the first tutorial to show now, or null for none. */
@@ -210,8 +253,11 @@ function canBuyUpgrade(save: SaveData): boolean {
     return cost !== null && save.coins >= cost;
   });
 }
-function hallOpen(save: SaveData): boolean {
-  return DUNGEONS.some((d) => placeOpen(save, d)) || RAIDS.some((r) => placeOpen(save, r));
+export function dungeonOpen(save: SaveData): boolean {
+  return DUNGEONS.some((d) => placeOpen(save, d));
+}
+export function raidOpen(save: SaveData): boolean {
+  return RAIDS.some((r) => placeOpen(save, r));
 }
 
 /**
@@ -221,82 +267,86 @@ function hallOpen(save: SaveData): boolean {
 export const TOURS: readonly Tour[] = [
   {
     // What the first tutorial taught, as notes on the main screen: it is on the list from the start, and is never started by itself.
-    id: 'basics', name: 'The basics', blurb: 'The field, battles, and where everything is.',
+    id: 'basics', name: 'The basics', blurb: 'Battles, and where everything is.',
     steps: [
-      note('Main', 'board', 'This is the field. Your units stand on the left and fight by themselves. Before a battle starts, drag one to move it.'),
-      note('Main', 'battle', 'BATTLE starts the fight now. Left alone it counts down and starts by itself. While a battle runs it says STOP.'),
-      note('Main', 'auto', 'AUTO ON keeps the battles coming. Turn it off to fight one at a time. The button beside it plays them at double speed.'),
-      note('Main', 'stages', 'Your stage, and its world. A first win moves you on. A loss steps you back one stage to grow. Press it for the map of every stage.'),
-      note('Main', 'packs', 'PACKS: every pack holds one card. Stages drop them and coins buy them.'),
-      note('Main', 'units', 'UNITS: every card you hold. Choose who fights, and combine the cards you have no use for into the ones you do.'),
-      note('Main', 'level', 'Your own level. Every battle teaches you a little, and each level is a point for the skill tree.'),
-      note('Main', 'settings', 'Sound, music and the rest are here. So is this list: every tutorial can be viewed again.'),
+      note('Main', 'board', 'Your units fight by themselves. Drag to move them.'),
+      note('Main', 'battle', 'BATTLE starts the fight.'),
+      note('Main', 'auto', 'AUTO keeps battles going. 2x doubles the speed.'),
+      note('Main', 'stages', 'Win to move on. Tap for the map.'),
+      note('Main', 'packs', 'Packs give cards.'),
+      note('Main', 'units', 'Pick who fights here.'),
+      note('Main', 'level', 'Level up for skill points.'),
+      note('Main', 'settings', 'Sound and tutorials are here.'),
     ],
   },
   {
-    id: 'rewards', name: 'Rewards', blurb: 'The daily calendar and the time you play.',
+    id: 'rewards', name: 'Rewards', blurb: 'Daily and playtime rewards.',
     // Not on top of the first tutorial: a few battles in.
     when: (save, day) => save.stats.battles >= 3 && rewardsWaiting(save, day) > 0,
     steps: [
-      press('Main', 'rewards', 'Something waits for you here. Press REWARDS.'),
-      note('Rewards', 'calendar', 'A day of the calendar each day you come back. Miss a day and nothing is lost. Its second and seventh days give cards that no pack holds.'),
-      note('Rewards', 'playtime', 'The time you play today earns these, and starts again tomorrow. Ten minutes gives a pack that no shop sells.'),
-      note('Rewards', 'day', 'Whatever is ready has a green CLAIM on it. The count on the REWARDS button says how many wait.'),
+      press('Main', 'rewards', 'A reward is ready. Tap REWARDS.'),
+      note('Rewards', 'calendar', 'Claim one each day. Days 2 and 7 give special units.'),
+      note('Rewards', 'playtime', 'Play to earn more. 10 minutes gives a special pack.'),
+      note('Rewards', 'day', 'Tap CLAIM.'),
     ],
   },
   {
-    id: 'packs', name: 'Packs', blurb: 'What a pack holds, and buying more.',
+    id: 'packs', name: 'Packs', blurb: 'Buying and opening packs.',
     // The first tutorial has just opened a pack with them: this waits a few battles, and for coins enough to buy one.
     when: (save) => save.stats.battles >= 6 && canBuyPack(save),
     steps: [
-      press('Main', 'packs', 'You have coins enough for a pack. Press PACKS.'),
-      note('Shop', 'slots', 'Every pack has a slot. A land has a pack of its own on each difficulty, and the harder ones hand out better grades.'),
-      note('Shop', 'detail', 'The pack you pressed, and all it can turn over. Press a small tile to see what it is and how likely. The two badges are the worst and the best grade it gives.'),
-      note('Shop', 'buy', 'The green buttons buy with coins, one or ten. OPEN opens one, and the button beside it up to ten at once.'),
-      press('Shop', 'close', 'A new card joins your team while there is room. Press CLOSE.'),
+      press('Main', 'packs', 'You can afford a pack. Tap PACKS.'),
+      note('Shop', 'slots', 'Harder packs give better grades.'),
+      note('Shop', 'detail', 'This is what the pack can give.'),
+      note('Shop', 'buy', 'Green buys. Gold opens.'),
     ],
   },
   {
-    id: 'hall', name: 'Dungeons and raids', blurb: 'Fights off the line of stages.',
-    when: (save) => hallOpen(save),
-    known: (save) => hallOpen(save),
+    // Dungeons and raids are taught apart, each when it opens: by the owner's word of 24 November 2026,
+    // "DONT FUSE RAID WITH DUNGEON, THE TUTORIAL FOR DUNGEON SHOWS RAID EVEN THO ITS NOT UNLOCKED YET".
+    id: 'dungeons', name: 'Dungeons', blurb: 'Floors with no healing.',
+    when: (save) => dungeonOpen(save),
+    known: (save) => dungeonOpen(save),
     steps: [
-      press('Main', 'hall', 'A dungeon has opened. Press DUNGEONS.'),
-      note('Hall', 'dungeon', 'A dungeon is floors fought one after another. Nothing heals between them and the fallen stay down, so you bring two reserves and choose who goes in at each floor. Only the last floor pays.'),
-      note('Hall', 'raid', 'A raid is one long battle against a lord grown huge. He calls up more of his own for as long as he stands.'),
-      note('Hall', 'tiers', 'Each has five difficulties. Clearing one opens the next, and each pays better packs than the last.'),
-      press('Hall', 'close', 'ENTER takes your team in, whenever you like. For now, press CLOSE.'),
+      press('Main', 'hall', 'A dungeon is open. Tap DUNGEONS.'),
+      note('Hall', 'dungeon', 'Several floors, no healing between them.'),
+      note('Hall', 'tiers', 'Beat one difficulty to open the next.'),
     ],
   },
   {
-    id: 'skills', name: 'Skill points', blurb: 'Your level, and the skill tree.',
+    id: 'raids', name: 'Raids', blurb: 'One long fight with a boss.',
+    when: (save) => raidOpen(save),
+    known: (save) => raidOpen(save),
+    steps: [
+      press('Main', 'raids', 'A raid is open. Tap RAIDS.'),
+      note('Hall', 'raid', 'One long fight with a boss.'),
+    ],
+  },
+  {
+    id: 'skills', name: 'Skill points', blurb: 'Your level and the skill tree.',
     when: (save) => pointsFree(save) > 0,
     steps: [
-      press('Main', 'level', 'You made a level, and a level is a skill point. Press your level.'),
-      note('Player', 'tree', 'The skill tree. Each skill has ranks, and some open only when the one before them has ranks enough.'),
-      note('Player', 'spend', 'Press a skill to read it here. SPEND A POINT takes a rank of it. Every point can be taken back and spent again.'),
-      press('Player', 'close', 'Spend yours when you like. Press CLOSE.'),
+      press('Main', 'level', 'You have a skill point. Tap your level.'),
+      note('Player', 'tree', 'Pick a skill.'),
+      note('Player', 'spend', 'SPEND A POINT ranks it up.'),
     ],
   },
   {
     id: 'upgrades', name: 'Upgrades', blurb: 'What coins buy for good.',
     when: (save) => canBuyUpgrade(save),
     steps: [
-      press('Main', 'level', 'You have coins enough for an upgrade. Press your level.'),
-      note('Player', 'upgrades', 'Upgrades are bought with coins and kept for good. Each level of one costs more than the last.'),
-      note('Player', 'totals', 'Everything you have, from skills and upgrades together, is added up here.'),
-      press('Player', 'close', 'Buy what you like. Press CLOSE.'),
+      press('Main', 'level', 'You can afford an upgrade. Tap your level.'),
+      note('Player', 'upgrades', 'Upgrades cost coins and last forever.'),
     ],
   },
   {
-    id: 'structures', name: 'Structures', blurb: 'Buildings and traps, and where they go.',
+    id: 'structures', name: 'Structures', blurb: 'Towers and traps.',
     when: (save) => structuresSize(save) > 0,
     known: (save) => structuresSize(save) > 0,
     steps: [
-      press('Main', 'units', 'Your team has a place for a structure now. Press UNITS.'),
-      press('Team', 'tab:structures', 'Buildings and traps have a page of their own. Press STRUCTURES.'),
-      note('Team', 'grid', 'A building stands where you put it: a tower shoots, a barracks sends out troops, a wall holds. A trap lies in wait and goes off once. They take the places for structures, not the places for units.'),
-      press('Team', 'close', 'Press one to read it, and PUT IN TEAM to field it. Press CLOSE.'),
+      press('Main', 'units', 'You can field a structure. Tap UNITS.'),
+      press('Team', 'tab:structures', 'Tap STRUCTURES.'),
+      note('Team', 'grid', 'Towers shoot. Traps go off once.'),
     ],
   },
 ];
@@ -362,6 +412,7 @@ function tourStep(save: SaveData, ctx: GuideContext): Step | null {
       save.tutorial.tour = null;
       return null;
     }
+    if (ctx.scene === 'Main' && !ctx.covered && at.scene !== 'Main' && t.open) return null;
     if (ctx.scene === 'Main' && !ctx.covered && at.scene !== 'Main') {
       // The field is on show and the step belongs to a screen that is shut.
       if (at.kind === 'press' && at.target === 'close') {

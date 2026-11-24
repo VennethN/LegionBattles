@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="status-haste" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="status-haste-disc-shape" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z"/>
+<clipPath id="status-haste-disc-clip"><use href="#status-haste-disc-shape"/></clipPath>
+<clipPath id="status-haste-disc-lit-clip"><use href="#status-haste-disc-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="status-haste-chevron-a-shape" d="M 9 11 L 18 11 L 28 24 L 18 37 L 9 37 L 19 24 Z"/>
+<path id="status-haste-chevron-b-shape" d="M 23 11 L 32 11 L 42 24 L 32 37 L 23 37 L 33 24 Z"/>
+</defs>
+<g id="status-haste-disc">
+<use id="status-haste-disc-shade" href="#status-haste-disc-shape" fill="#3f97bd"/>
+<g clip-path="url(#status-haste-disc-clip)">
+<use id="status-haste-disc-fill" href="#status-haste-disc-shape" transform="translate(-3 -3)" fill="#3f97bd"/>
+<g clip-path="url(#status-haste-disc-lit-clip)">
+<use id="status-haste-disc-lit" href="#status-haste-disc-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="status-haste-disc-fill-over" href="#status-haste-disc-shape" transform="translate(3.6 3.6)" fill="#3f97bd"/>
+</g>
+</g>
+<use id="status-haste-disc-line" href="#status-haste-disc-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-haste-chevron-a">
+<use id="status-haste-chevron-a-fill" href="#status-haste-chevron-a-shape" fill="#e9dfc6"/>
+<use id="status-haste-chevron-a-line" href="#status-haste-chevron-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-haste-chevron-b">
+<use id="status-haste-chevron-b-fill" href="#status-haste-chevron-b-shape" fill="#e9dfc6"/>
+<use id="status-haste-chevron-b-line" href="#status-haste-chevron-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

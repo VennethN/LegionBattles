@@ -44,7 +44,11 @@ await page.waitForFunction(() => window.game?.scene?.isActive('Main') && window.
 // A press at a place on the game's own 1280 by 720 layout, wherever the canvas is on the page.
 const box = await page.locator('canvas').boundingBox();
 const k = box.width / 1280;
-const press = (x, y) => (touch ? page.touchscreen.tap(box.x + x * k, box.y + y * k) : page.mouse.click(box.x + x * k, box.y + y * k));
+// And a place on the layout is not always where it is on the page: a menu is drawn in a window (view/app.ts).
+const press = async (x0, y0) => {
+  const { x, y } = await page.evaluate(([a, b]) => window.screenOf?.(a, b) ?? { x: a, y: b }, [x0, y0]);
+  return touch ? page.touchscreen.tap(box.x + x * k, box.y + y * k) : page.mouse.click(box.x + x * k, box.y + y * k);
+};
 
 // What the tutorial shows now, on whichever screen is on top.
 const guide = () => page.evaluate(() => {

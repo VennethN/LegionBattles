@@ -4,7 +4,7 @@
 
 import { Doc } from './kit/draw';
 import {
-  BONE, BUSH, CLOTH, FROST, GOLD, GRASS, HOLY, HOOD_INTERIOR, IRON, LEATHER, LINEN, PINE, SAND, SNOW, STEEL, VENOM, WOOD, type Material,
+  ARCANE, BONE, BUSH, CLOTH, FIRE, FROST, GOLD, GRASS, HOLY, HOOD_INTERIOR, IRON, LEATHER, LINEN, PINE, SAND, SNOW, STEEL, VENOM, WOOD, type Material,
 } from './kit/palette';
 import { capsule, circle, ellipse, path, poly, roundRect, smooth, star } from './kit/path';
 
@@ -106,6 +106,80 @@ const ICONS: Record<string, (d: Doc) => void> = {
     d.piece('helm-b', smooth([[12, 40, 'c'], [13, 22], [24, 12], [35, 22], [36, 40, 'c']]), STEEL, { shade: 3 });
     d.piece('slit', capsule(20, 28, 34, 28, 5), { fill: HOOD_INTERIOR, shade: HOOD_INTERIOR }, { shade: 0 });
   },
+};
+
+// The statuses, a disc each in the status's own color with what it does drawn on it: these stand over a unit
+// for as long as the status is on it. A disc is told from the others by its color first and its mark second,
+// as they are seen small.
+const disc = (d: Doc, mat: Material): void => {
+  d.piece('disc', circle(24, 24, 21), mat, { shade: 3 });
+};
+ICONS['status-burn'] = (d) => {
+  disc(d, { fill: FIRE.shade, shade: FIRE.shade });
+  d.piece('flame', smooth([[24, 6, 'c'], [34, 20], [35, 31], [24, 40], [13, 31], [14, 20]]), FIRE, { shade: 0 });
+  d.flat('core', smooth([[24, 21, 'c'], [29, 29], [24, 36], [19, 29]]), FIRE.light);
+};
+ICONS['status-poison'] = (d) => {
+  disc(d, { fill: VENOM.shade, shade: VENOM.shade });
+  // A drop, and a smaller one beside it.
+  d.piece('drop', path().M(22, 7).C(30, 18, 34, 24, 34, 30).C(34, 37, 29, 41, 22, 41).C(15, 41, 10, 37, 10, 30).C(10, 24, 14, 18, 22, 7).Z(), VENOM, { shade: 0 });
+  d.flat('shine', circle(17, 30, 3.5), VENOM.light);
+  d.piece('drip', circle(37, 16, 4.5), VENOM, { shade: 0 });
+};
+ICONS['status-stun'] = (d) => {
+  disc(d, { fill: HOLY.shade, shade: HOLY.shade });
+  // Stars round a head that is not drawn.
+  d.piece('star-a', star(24, 14, 5, 9, 4), HOLY, { shade: 0 });
+  d.piece('star-b', star(13, 31, 5, 8, 3.5), HOLY, { shade: 0 });
+  d.piece('star-c', star(35, 31, 5, 8, 3.5), HOLY, { shade: 0 });
+};
+ICONS['status-slow'] = (d) => {
+  disc(d, { fill: FROST.shade, shade: FROST.shade });
+  // A flake of frost: six arms.
+  d.piece('flake', star(24, 24, 6, 17, 5), FROST, { shade: 0 });
+  d.flat('heart', circle(24, 24, 4), FROST.light);
+};
+ICONS['status-haste'] = (d) => {
+  disc(d, { fill: FROST.shade, shade: FROST.shade });
+  // Two chevrons, going somewhere.
+  d.piece('chevron-a', poly([[9, 11], [18, 11], [28, 24], [18, 37], [9, 37], [19, 24]]), BONE, { shade: 0 });
+  d.piece('chevron-b', poly([[23, 11], [32, 11], [42, 24], [32, 37], [23, 37], [33, 24]]), BONE, { shade: 0 });
+};
+ICONS['status-rage'] = (d) => {
+  disc(d, { fill: CLOTH.red.shade, shade: CLOTH.red.shade });
+  // A blade, point up: it strikes harder.
+  d.piece('blade', poly([[24, 5], [31, 14], [29, 31], [19, 31], [17, 14]]), STEEL, { shade: 0 });
+  d.piece('guard', roundRect(13, 30, 22, 6, 3), GOLD, { shade: 0 });
+  d.piece('grip', roundRect(21, 35, 6, 9, 2), LEATHER, { shade: 0 });
+};
+ICONS['status-weak'] = (d) => {
+  disc(d, { fill: IRON.shade, shade: IRON.shade });
+  // A blade broken in two.
+  d.piece('stub', poly([[19, 22], [24, 17], [29, 23], [29, 31], [19, 31]]), STEEL, { shade: 0 });
+  d.piece('tip', poly([[30, 6], [38, 10], [33, 20], [27, 15]]), STEEL, { shade: 0 });
+  d.piece('guard', roundRect(13, 30, 22, 6, 3), GOLD, { shade: 0 });
+  d.piece('grip', roundRect(21, 35, 6, 9, 2), LEATHER, { shade: 0 });
+};
+ICONS['status-mark'] = (d) => {
+  disc(d, { fill: ARCANE.shade, shade: ARCANE.shade });
+  // A mark to aim at: a ring, and a cross through it.
+  d.piece('ring', circle(24, 24, 13), { fill: ARCANE.light, shade: ARCANE.light }, { shade: 0 });
+  d.flat('hole', circle(24, 24, 7), ARCANE.shade);
+  d.line('hole-edge', circle(24, 24, 7));
+  d.piece('bar-a', roundRect(21, 4, 6, 12, 2), BONE, { shade: 0 });
+  d.piece('bar-b', roundRect(21, 32, 6, 12, 2), BONE, { shade: 0 });
+  d.piece('bar-c', roundRect(4, 21, 12, 6, 2), BONE, { shade: 0 });
+  d.piece('bar-d', roundRect(32, 21, 12, 6, 2), BONE, { shade: 0 });
+};
+ICONS['status-shield'] = (d) => {
+  disc(d, { fill: IRON.fill, shade: IRON.fill });
+  d.piece('shield', smooth([[11, 12, 'c'], [24, 8], [37, 12, 'c'], [37, 24], [32, 34], [24, 40, 'c'], [16, 34], [11, 24]]), STEEL, { shade: 3 });
+  d.piece('boss', circle(24, 23, 5), GOLD, { shade: 0 });
+};
+ICONS['status-regen'] = (d) => {
+  disc(d, { fill: VENOM.shade, shade: VENOM.shade });
+  // A cross: mending.
+  d.piece('cross', poly([[19, 9], [29, 9], [29, 19], [39, 19], [39, 29], [29, 29], [29, 39], [19, 39], [19, 29], [9, 29], [9, 19], [19, 19]]), BONE, { shade: 0 });
 };
 
 // The marks of the screens that came later: the rewards, the settings and what is in them.

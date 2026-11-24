@@ -76,7 +76,9 @@ export class Sheet {
     const spot = this.packer.place(w, h);
     if (!spot) return false;
     this.texture.context.drawImage(source, sx, sy, w, h, spot.x, spot.y, w, h);
-    const f = this.texture.add(frame, 0, spot.x, spot.y, w, h);
+    // A unit that comes back after a wipe has its frame still: it is moved to where the picture is now.
+    const old = this.texture.has(frame) ? this.texture.get(frame) : null;
+    const f = old ? old.setSize(w, h, spot.x, spot.y) : this.texture.add(frame, 0, spot.x, spot.y, w, h);
     if (f && origin) {
       // A sprite given this frame turns about this point without being told.
       f.customPivot = true;
@@ -200,10 +202,24 @@ export class Sheet {
     return true;
   }
 
-  /** Takes every unit off the sheet. What was kept at start is not touched. */
+  /** Whoever draws with the units' pictures, to be told before those are taken away. */
+  private readonly holders = new Set<() => void>();
+
+  /** Asks to be told before the units are taken off the sheet, so as to let go of them. Returns how to stop being told. */
+  onWipe(letGo: () => void): () => void {
+    this.holders.add(letGo);
+    return () => this.holders.delete(letGo);
+  }
+
+  /**
+   * Takes every unit off the sheet. What was kept at start is not touched.
+   * Whoever draws with the units is told first. A frame is never destroyed,
+   * only left where it was: a sprite that still held a destroyed one stopped
+   * the whole game the next time it was drawn.
+   */
   private wipe(): void {
     if (!this.base) return;
-    for (const name of this.unitFrames) this.texture.remove(name);
+    for (const letGo of this.holders) letGo();
     this.unitFrames = [];
     this.packed.clear();
     this.packer.restore(this.base);

@@ -14,12 +14,17 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
 // Every tour is behind this player, so that none comes up over what is being looked at.
-const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:hall', 'tour:skills', 'tour:upgrades', 'tour:structures'];
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:dungeons', 'tour:raids', 'tour:skills', 'tour:upgrades', 'tour:structures'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
+// A place on the game's layout is not always where it is on the page: a menu is drawn in a window (view/app.ts).
+const click = async (x, y) => {
+  const p = await page.evaluate(([a, b]) => window.screenOf?.(a, b) ?? { x: a, y: b }, [x, y]);
+  await page.mouse.click(p.x, p.y);
+};
 const errors = [];
 page.on('pageerror', (e) => errors.push(e.message + '\n' + (e.stack ?? '').split('\n').slice(0, 5).join('\n')));
 const cards = [];
@@ -33,12 +38,12 @@ const save = {
 };
 const main = () => page.waitForFunction(() => window.game?.scene?.isActive('Main') && window.game.scene.getScene('Main').state === 'ready', null, { timeout: 30000 });
 const open = async () => {
-  await page.mouse.click(1280 - 102, 131);
+  await click(1280 - 102, 131);
   await page.waitForFunction(() => window.game.scene.isActive('Rewards'), null, { timeout: 10000 });
   await page.waitForTimeout(400);
 };
 const close = async () => {
-  await page.mouse.click(1280 - 262, 37);
+  await click(1280 - 262, 37);
   await page.waitForFunction(() => !window.game.scene.isActive('Rewards'), null, { timeout: 10000 });
   await page.waitForTimeout(300);
 };
@@ -48,7 +53,7 @@ const claim = async (what, i) => {
     const s = window.game.scene.getScene('Rewards');
     return w === 'day' ? s.dayRect(n) : s.stepRect(n);
   }, [what, i]);
-  await page.mouse.click(r.x + r.w / 2, r.y + r.h - 28);
+  await click(r.x + r.w / 2, r.y + r.h - 28);
 };
 
 await page.goto(base);
@@ -73,7 +78,7 @@ await claim('day', 1);
 await page.waitForFunction(() => !!window.game.scene.getScene('Rewards').doneRect, null, { timeout: 20000 });
 await page.waitForTimeout(500);
 await page.screenshot({ path: `${out}/87-rewards-card.png` });
-await page.mouse.click(640, 720 - 56);
+await click(640, 720 - 56);
 await page.waitForFunction(() => !window.game.scene.getScene('Rewards').doneRect, null, { timeout: 10000 });
 await page.waitForTimeout(300);
 
@@ -94,10 +99,10 @@ await page.screenshot({ path: `${out}/89-rewards-pack-claimed.png` });
 await close();
 
 // The pack in its slot, with what it holds.
-await page.mouse.click(328, 664);
+await click(328, 664);
 await page.waitForFunction(() => window.game.scene.isActive('Shop'), null, { timeout: 10000 });
 await page.waitForTimeout(300);
-await page.mouse.click(30 + 66 + 3 * 140, 78 + 67);
+await click(30 + 66 + 3 * 140, 78 + 67);
 await page.waitForTimeout(400);
 await page.screenshot({ path: `${out}/90-faithful-pack.png` });
 

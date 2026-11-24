@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="status-rage" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="status-rage-disc-shape" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z"/>
+<clipPath id="status-rage-disc-clip"><use href="#status-rage-disc-shape"/></clipPath>
+<clipPath id="status-rage-disc-lit-clip"><use href="#status-rage-disc-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="status-rage-blade-shape" d="M 24 5 L 31 14 L 29 31 L 19 31 L 17 14 Z"/>
+<path id="status-rage-guard-shape" d="M 16 30 L 32 30 Q 35 30 35 33 L 35 33 Q 35 36 32 36 L 16 36 Q 13 36 13 33 L 13 33 Q 13 30 16 30 Z"/>
+<path id="status-rage-grip-shape" d="M 23 35 L 25 35 Q 27 35 27 37 L 27 42 Q 27 44 25 44 L 23 44 Q 21 44 21 42 L 21 37 Q 21 35 23 35 Z"/>
+</defs>
+<g id="status-rage-disc">
+<use id="status-rage-disc-shade" href="#status-rage-disc-shape" fill="#933027"/>
+<g clip-path="url(#status-rage-disc-clip)">
+<use id="status-rage-disc-fill" href="#status-rage-disc-shape" transform="translate(-3 -3)" fill="#933027"/>
+<g clip-path="url(#status-rage-disc-lit-clip)">
+<use id="status-rage-disc-lit" href="#status-rage-disc-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="status-rage-disc-fill-over" href="#status-rage-disc-shape" transform="translate(3.6 3.6)" fill="#933027"/>
+</g>
+</g>
+<use id="status-rage-disc-line" href="#status-rage-disc-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-rage-blade">
+<use id="status-rage-blade-fill" href="#status-rage-blade-shape" fill="#b9c2cc"/>
+<use id="status-rage-blade-line" href="#status-rage-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-rage-guard">
+<use id="status-rage-guard-fill" href="#status-rage-guard-shape" fill="#c8a24a"/>
+<use id="status-rage-guard-line" href="#status-rage-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-rage-grip">
+<use id="status-rage-grip-fill" href="#status-rage-grip-shape" fill="#6b4a2b"/>
+<use id="status-rage-grip-line" href="#status-rage-grip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

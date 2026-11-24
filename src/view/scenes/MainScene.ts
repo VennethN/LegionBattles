@@ -17,18 +17,19 @@ import { packById } from '../../data/packs';
 import { PLAYER_MAX_LEVEL, playerXpToNext } from '../../data/player';
 import { fieldName } from '../../data/fields';
 import { DIFFICULTIES } from '../../data/laps';
-import { WORLDS, landOf, stageAt, worldOf } from '../../data/stages';
+import { WORLDS, landOf, stageAt, stageNumber, worldOf } from '../../data/stages';
 import { UNITS } from '../../data/units';
 import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
 import { cardOf } from '../../game/cards';
 import { rewardsWaiting } from '../../game/rewards';
+import { raidOpen, tourOpens } from '../../game/tutorial';
 import { finishStage, packsHeld, payOf, stageCleared, stageEnemies, stageInput, stageSeed, teamSize, tidyTeam, structuresSize, type StageResult } from '../../game/rules';
 import type { Fielded } from '../../game/state';
 import { ads } from '../../platform/ads';
-import { setupCamera } from '../app';
+import { WINDOW_RECT, setupCamera } from '../app';
 import { BoardView } from '../BoardView';
 import { today } from '../clock';
-import { W, hex } from '../config';
+import { H, W, hex } from '../config';
 import { BOARD_PX_H, BOARD_PX_W, BOARD_X, BOARD_Y } from '../layout';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
@@ -62,7 +63,10 @@ export class MainScene extends Phaser.Scene {
   private coins!: CoinPill;
   private level!: LevelPill;
   private rewards!: RewardsPill;
+  /** The shade over the field while a screen is open over it, with the frame of that screen's window. */
+  private shade: Phaser.GameObjects.Graphics | null = null;
   private hallRect = { x: 0, y: 0, w: 0, h: 0 };
+  private raids!: Button;
   private gearRect = { x: 0, y: 0, w: 0, h: 0 };
   private battleButton!: Button;
   private autoButton!: Button;
@@ -88,12 +92,13 @@ export class MainScene extends Phaser.Scene {
     this.top = [];
     this.toast = [];
     this.arrival = 0;
+    this.shade = null;
   }
 
   create(): void {
     setupCamera(this);
-    // It may have been hidden under a screen when it was last shut down.
-    this.scene.setVisible(true);
+    // It may have been under a screen when it was last shut down.
+    this.input.enabled = true;
     const s = save();
     tidyTeam(s);
     this.at = settle(s);
@@ -115,15 +120,21 @@ export class MainScene extends Phaser.Scene {
     this.level = new LevelPill(this, s, () => this.open('Player'));
     // The rewards, under that: a day of the calendar, and what the time played today has earned.
     this.rewards = new RewardsPill(this, () => this.open('Rewards'));
-    // The way to the dungeons and the raids, which are off the line of stages.
-    const hall = plain(new Button(this, 128, 36, '   DUNGEONS', () => this.open('Hall'), { width: 216, height: 50, size: 19, mat: BONE, color: OUTLINE })).setDepth(8000);
+    // The ways to the dungeons and to the raids, which are off the line of stages. They are two things and
+    // have a button each; the raids' is not there until one is open.
+    const hall = plain(new Button(this, 128, 36, '   DUNGEONS', () => this.open('Hall', { kind: 'dungeon' }), { width: 216, height: 50, size: 19, mat: BONE, color: OUTLINE })).setDepth(8000);
     hall.root.add(this.add.image(-78, -3, SHEET, 'icon/crown').setScale(0.3));
-    this.hallRect = { x: 20, y: 11, w: 216, h: 96 };
-    plain(new Button(this, 128, 88, 'AND RAIDS', () => this.open('Hall'), { width: 150, height: 38, size: 15, mat: BONE, color: OUTLINE })).setDepth(8000);
+    this.hallRect = hall.rect;
+    this.raids = plain(new Button(this, 128, 90, '   RAIDS', () => this.open('Hall', { kind: 'raid' }), { width: 216, height: 44, size: 17, mat: BONE, color: OUTLINE })).setDepth(8000);
+    this.raids.root.add(this.add.image(-78, -3, SHEET, 'icon/banner').setScale(0.26));
+    this.raids.setVisible(raidOpen(s));
     this.buildBottom();
     this.note = label(this, W / 2, 612, '', { size: 18, weight: 600, color: HIGHLIGHT }).setDepth(8000);
 
-    this.guide = new Guide(this, 'Main', () => this.refreshBottom());
+    this.guide = new Guide(this, 'Main', () => {
+      this.refreshBottom();
+      this.lead();
+    });
     this.guide.mark('battle', () => this.battleButton.rect);
     this.guide.mark('packs', () => this.packsButton.rect);
     this.guide.mark('units', () => ({ x: 22, y: 633, w: 196, h: 62 }));
@@ -134,6 +145,7 @@ export class MainScene extends Phaser.Scene {
     this.guide.mark('level', () => this.level.rect);
     this.guide.mark('rewards', () => this.rewards.rect);
     this.guide.mark('hall', () => this.hallRect);
+    this.guide.mark('raids', () => (raidOpen(save()) ? this.raids.rect : null));
     this.guide.mark('settings', () => this.gearRect);
 
     const closed = (key: string): void => this.onOverlayClosed(key);
@@ -184,7 +196,7 @@ export class MainScene extends Phaser.Scene {
     banner.setInteractive({ useHandCursor: true });
     banner.on('pointerup', () => this.open('Map'));
 
-    const plate = new Button(this, 640, 64, `   STAGE ${this.at + 1}`, () => this.open('Map'), {
+    const plate = new Button(this, 640, 64, `   STAGE ${stageNumber(this.at)}`, () => this.open('Map'), {
       width: 250, height: 46, size: 25, mat: stage.def.kind === 'normal' ? GOLD : stage.def.kind === 'boss' ? CLOTH.red : ARCANE,
     }).setDepth(8000);
     add(plate.root);
@@ -293,6 +305,9 @@ export class MainScene extends Phaser.Scene {
         this.count = s.auto && seconds >= 0 ? seconds : -1;
         this.guide.refresh({ covered: !!this.overlay, busy: false });
         this.refreshBottom();
+        // A raid may have opened with the last win.
+        this.raids.setVisible(raidOpen(s));
+        this.lead();
       });
   }
 
@@ -357,9 +372,9 @@ export class MainScene extends Phaser.Scene {
   private pressBattle(): void {
     if (this.state === 'ready') this.fight();
     else if (this.state === 'fighting') {
-      // STOP calls the battle off and opens UNITS, so that the team can be changed.
+      // STOP calls the battle off, and that is all it does. It used to open UNITS as well; the owner, of
+      // 24 November 2026: "why every time i stop a battle it opens the unit screen".
       this.stop();
-      this.open('Team');
     }
   }
 
@@ -391,21 +406,48 @@ export class MainScene extends Phaser.Scene {
     this.speedButton.setText(`${this.speed}x`);
   }
 
-  private open(key: string): void {
+  /** Opens whatever screen a tutorial asks to be shown by itself: the rewards, straight after the first one. */
+  private lead(): void {
+    if (this.overlay || this.state === 'fighting') return;
+    const key = tourOpens(save());
+    if (key) this.open(key);
+  }
+
+  private open(key: string, data?: object): void {
     if (this.overlay) return;
     this.overlay = key;
     sfx.play('open');
-    this.scene.launch(key);
-    // What is covered is not drawn: a screen of cards costs enough frames by itself.
-    this.scene.setVisible(false);
+    this.scene.launch(key, data);
+    // The field stays on show round the screen's window, in shade, and nothing on it can be pressed.
+    this.cover(true);
     this.guide.refresh({ covered: true });
     this.refreshBottom();
+  }
+
+  /**
+   * Shades the field and takes its presses away while a screen is open over
+   * it, or gives them back. The screen is drawn in a window (view/app.ts,
+   * WINDOWED): the shade is what shows round that, and the frame round the
+   * window is drawn here, under it.
+   */
+  private cover(on: boolean): void {
+    this.input.enabled = !on;
+    if (!this.shade) {
+      const r = WINDOW_RECT;
+      const g = this.add.graphics().setDepth(9500);
+      g.fillStyle(hex(OUTLINE), 0.5).fillRect(-40, -40, W + 80, H + 80);
+      // The window's frame: the dark line, and a pale one outside it so that it stands off a dark field.
+      g.lineStyle(4, hex(BONE.fill), 0.9).strokeRoundedRect(r.x - 11, r.y - 11, r.w + 22, r.h + 22, 12);
+      g.lineStyle(10, hex(OUTLINE), 1).strokeRoundedRect(r.x - 5, r.y - 5, r.w + 10, r.h + 10, 6);
+      this.shade = g;
+    }
+    this.shade.setVisible(on);
   }
 
   private onOverlayClosed(key: string): void {
     if (this.overlay !== key) return;
     this.overlay = null;
-    this.scene.setVisible(true);
+    this.cover(false);
     const s = save();
     tidyTeam(s);
     this.coins.refresh();

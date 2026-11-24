@@ -26,7 +26,7 @@ import { sfx } from '../../audio/sfx';
 import { LANDS } from '../../data/lands';
 import { DIFFICULTIES, LAPS } from '../../data/laps';
 import { PACKS, packAt, type PackDef } from '../../data/packs';
-import { WORLDS } from '../../data/stages';
+import { WORLDS, stageSaid } from '../../data/stages';
 import { UNITS } from '../../data/units';
 import { RARITIES, RARITY } from '../../game/rarity';
 import { buyPacks, known, openPacks, packNow, packOdds, packOpen, packShown, priceOf, worldNeeds, type Pull } from '../../game/rules';
@@ -260,7 +260,7 @@ export class ShopScene extends Phaser.Scene {
         const land = LANDS.findIndex((l) => l.id === sl.base.land);
         const needs = worldNeeds(s, lap * LANDS.length + land).map((w) => `${WORLDS[w].name} on ${DIFFICULTIES[WORLDS[w].lap]}`);
         if (needs.length > 0) how = `Sold once you have beaten\n${needs.join('\nand ')}.`;
-      } else if (pack.after !== undefined) how = `Sold once stage ${pack.after} is cleared.`;
+      } else if (pack.after !== undefined) how = `Sold once ${stageSaid(pack.after)} is cleared.`;
       add(label(this, cx, PY + 392, how, { size: 17, weight: 600, ...dark }));
       return;
     }

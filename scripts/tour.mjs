@@ -14,13 +14,18 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
 // Every tour is behind this player, so that none comes up over what is being looked at.
-const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:hall', 'tour:skills', 'tour:upgrades', 'tour:structures'];
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:dungeons', 'tour:raids', 'tour:skills', 'tour:upgrades', 'tour:structures'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
+// A place on the game's layout is not always where it is on the page: a menu is drawn in a window (view/app.ts).
+const click = async (x, y) => {
+  const p = await page.evaluate(([a, b]) => window.screenOf?.(a, b) ?? { x: a, y: b }, [x, y]);
+  await page.mouse.click(p.x, p.y);
+};
 const errors = [];
 page.on('pageerror', (e) => errors.push(`${e.message}\n${(e.stack ?? '').split('\n').slice(0, 5).join('\n')}`));
 
@@ -59,7 +64,7 @@ const overlay = async (key) => {
   await page.waitForTimeout(400);
 };
 const close = async (key) => {
-  await page.mouse.click(1280 - 262, 37);
+  await click(1280 - 262, 37);
   await page.waitForFunction((k) => !window.game.scene.isActive(k), key, { timeout: 10000 });
   await page.waitForTimeout(300);
 };
@@ -67,18 +72,18 @@ const close = async (key) => {
 await load(41);
 await page.screenshot({ path: `${out}/10-main.png` });
 // The stage's plate opens the map of its world. The arrows turn to the worlds on either side.
-await page.mouse.click(640, 64);
+await click(640, 64);
 await page.waitForFunction(() => window.game.scene.isActive('Map'), null, { timeout: 10000 });
 await page.waitForTimeout(1200);
 await page.screenshot({ path: `${out}/11-map.png` });
-await page.mouse.click(1280 - 44, 400);
+await click(1280 - 44, 400);
 await page.waitForTimeout(1200);
 await page.screenshot({ path: `${out}/11b-map-next-world.png` });
 const shown = await page.evaluate(() => window.game.scene.getScene('Map').world.index);
 if (shown !== 4) throw new Error(`the arrow did not turn to the fifth world: ${shown}`);
 // Pressing a stage that is open goes to it: the first of this world.
 const firstStage = await page.evaluate(() => window.game.scene.getScene('Map').world.first);
-await page.mouse.click(150, 290);
+await click(150, 290);
 await page.waitForFunction(() => !window.game.scene.isActive('Map'), null, { timeout: 10000 });
 await page.waitForFunction(() => window.game.scene.isActive('Main') && window.game.scene.getScene('Main').state === 'ready', null, { timeout: 30000 });
 const went = await page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).at);
@@ -91,23 +96,23 @@ await page.screenshot({ path: `${out}/12-team.png` });
 // every other card is there, the least first, and any of them can be given up.
 const cardsNow = () => page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).cards);
 const before = await cardsNow();
-await page.mouse.click(96 + 3 * 140, 145);
+await click(96 + 3 * 140, 145);
 await page.waitForTimeout(300);
 await page.screenshot({ path: `${out}/12b-card-with-copies.png` });
-await page.mouse.click(1158, 648);
+await click(1158, 648);
 await page.waitForFunction(() => window.game.scene.getScene('Team').forge > 0, null, { timeout: 10000 });
 await page.waitForTimeout(300);
 const target = await page.evaluate(() => window.game.scene.getScene('Team').forge);
 await page.screenshot({ path: `${out}/12c-forge.png` });
 // MARK THIS PAGE, then COMBINE, which asks once.
-await page.mouse.click(1070, 502);
+await click(1070, 502);
 await page.waitForTimeout(200);
 const marked = await page.evaluate(() => [...window.game.scene.getScene('Team').marked]);
-await page.mouse.click(1070, 572);
+await click(1070, 572);
 await page.waitForTimeout(200);
 await page.screenshot({ path: `${out}/12d-forge-sure.png` });
 if ((await cardsNow()).length !== before.length) throw new Error('COMBINE did not ask before it gave the cards up');
-await page.mouse.click(1070, 572);
+await click(1070, 572);
 await page.waitForFunction(() => window.game.scene.getScene('Team').forge === 0, null, { timeout: 10000 });
 await page.waitForTimeout(400);
 await page.screenshot({ path: `${out}/12e-combined.png` });
@@ -129,12 +134,12 @@ const index = await page.evaluate(() => {
   return b ? { x: b.x, y: b.y } : null;
 });
 if (!index) throw new Error('no INDEX button on the screen of units');
-await page.mouse.click(index.x, index.y);
+await click(index.x, index.y);
 await page.waitForFunction(() => window.game.scene.isActive('Index') && !window.game.scene.isActive('Team'), null, { timeout: 10000 });
 await page.waitForTimeout(400);
 await page.screenshot({ path: `${out}/12f-index.png` });
 // The Jarl has not been met: his tile is dark, and pressing it tells nothing.
-await page.mouse.click(96 + 3 * 140, 145 + 3 * 140);
+await click(96 + 3 * 140, 145 + 3 * 140);
 await page.waitForTimeout(300);
 await page.screenshot({ path: `${out}/12g-index-unknown.png` });
 // The index has a page for structures too: every one of them is there, and none is a unit.
@@ -158,7 +163,7 @@ const back = await page.evaluate(() => {
   return b ? { x: b.x, y: b.y } : null;
 });
 if (!back) throw new Error('no MY CARDS button on the index');
-await page.mouse.click(back.x, back.y);
+await click(back.x, back.y);
 await page.waitForFunction(() => window.game.scene.isActive('Team') && !window.game.scene.isActive('Index'), null, { timeout: 10000 });
 await page.waitForTimeout(300);
 await close('Team');
@@ -170,31 +175,31 @@ const openOne = [884 + 186 - 88, 78 + 620 - 112];
 const openMany = [884 + 186 + 88, 78 + 620 - 112];
 const turned = () => page.waitForFunction(() => !window.game.scene.getScene('Shop').busy, null, { timeout: 30000 });
 // A pack that is not sold yet says what opens it.
-await page.mouse.click(...slot(3, 2));
+await click(...slot(3, 2));
 await page.waitForTimeout(300);
 await page.screenshot({ path: `${out}/13b-pack-not-sold.png` });
 // The Royal Pack, the third along the top: open one, for the picture of a card being turned over.
-await page.mouse.click(...slot(2, 0));
+await click(...slot(2, 0));
 await page.waitForTimeout(300);
 await page.screenshot({ path: `${out}/13c-pack-in-focus.png` });
-await page.mouse.click(...openOne);
+await click(...openOne);
 await page.waitForTimeout(900);
 await page.screenshot({ path: `${out}/14a-press-to-open.png` });
-await page.mouse.click(640, 360);
+await click(640, 360);
 await page.waitForTimeout(600);
 await turned();
 await page.waitForTimeout(500);
 await page.screenshot({ path: `${out}/14-card.png` });
 // DONE, then the Expert Thornwood Pack, of which three are held: all opened at one press.
 const done = await page.evaluate(() => window.game.scene.getScene('Shop').doneRect);
-await page.mouse.click(done.x + done.w / 2, done.y + done.h / 2);
+await click(done.x + done.w / 2, done.y + done.h / 2);
 await page.waitForTimeout(600);
-await page.mouse.click(...slot(2, 1));
+await click(...slot(2, 1));
 await page.waitForTimeout(300);
 const opened = await page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).stats.opened);
-await page.mouse.click(...openMany);
+await click(...openMany);
 await page.waitForTimeout(900);
-await page.mouse.click(640, 360);
+await click(640, 360);
 await page.waitForTimeout(1500);
 await page.screenshot({ path: `${out}/14b-cards-dealt.png` });
 await turned();
@@ -206,7 +211,7 @@ if (openedNow !== opened + 3) throw new Error(`three packs were held and ${opene
 for (const [at, name] of [[21, 'colossus'], [36, 'jarl']]) {
   await load(at);
   await page.screenshot({ path: `${out}/15-${name}-ready.png` });
-  await page.mouse.click(640, 664);
+  await click(640, 664);
   await page.waitForTimeout(3200);
   await page.screenshot({ path: `${out}/16-${name}-battle.png` });
   await page.waitForFunction(() => window.game.scene.getScene('Main').state === 'after', null, { timeout: 180000 });

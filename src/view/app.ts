@@ -16,11 +16,42 @@ export function getManifest(): Manifest {
   return manifest;
 }
 
-/** Every scene is laid out on 1280 by 720; the camera zooms that up to the canvas. */
+/**
+ * The screens that open over the field. Each is drawn in a window that
+ * stops short of the screen's edges, so that the field, and whatever battle
+ * is on it, shows round it. By the owner's word of 24 November 2026: "make
+ * it so a menu doesn't cover the whole screen, but leaves a bit outside the
+ * border to show the current".
+ */
+export const WINDOWED: ReadonlySet<string> = new Set(['Team', 'Index', 'Shop', 'Map', 'Hall', 'Player', 'Rewards', 'Settings']);
+/** How much of the screen such a window takes, each way. */
+export const WINDOW = 0.9;
+/** Where the window is on the 1280 by 720 layout. */
+export const WINDOW_RECT = { x: (W * (1 - WINDOW)) / 2, y: (H * (1 - WINDOW)) / 2, w: W * WINDOW, h: H * WINDOW };
+
+/**
+ * Every scene is laid out on 1280 by 720; the camera zooms that up to the
+ * canvas. A screen that opens over the field is laid out the same and drawn
+ * smaller, in its window: its camera sees the whole layout and shows it
+ * there, and nothing of it is drawn outside.
+ */
 export function setupCamera(scene: Phaser.Scene): void {
   const cam = scene.cameras.main;
-  cam.setZoom(RES);
+  const k = WINDOWED.has(scene.scene.key) ? WINDOW : 1;
+  cam.setViewport((W * RES * (1 - k)) / 2, (H * RES * (1 - k)) / 2, W * RES * k, H * RES * k);
+  cam.setZoom(RES * k);
   cam.centerOn(W / 2, H / 2);
+}
+
+/**
+ * Where a place on a scene's layout is on the page's canvas, in the layout's
+ * own units: a place in a window is not where it would be on the field. For
+ * the walks (scripts/), which press at places on the layout.
+ */
+export function screenOf(game: Phaser.Game, x: number, y: number): { x: number; y: number } {
+  const scenes = game.scene.getScenes(true);
+  const k = scenes.some((sc) => WINDOWED.has(sc.scene.key)) ? WINDOW : 1;
+  return { x: (W * (1 - k)) / 2 + x * k, y: (H * (1 - k)) / 2 + y * k };
 }
 
 /** False when a setting has said which resolution to draw at: then slow frames change nothing. */
@@ -64,7 +95,6 @@ function resize(game: Phaser.Game, res: number): void {
   for (const scene of game.scene.getScenes(false)) {
     const cam = scene.cameras?.main;
     if (!cam) continue;
-    cam.setSize(W * res, H * res);
     setupCamera(scene);
   }
 }

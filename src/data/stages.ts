@@ -191,6 +191,30 @@ export const STAGES: readonly Stage[] = BUILT.stages;
 export const WORLDS: readonly World[] = BUILT.worlds;
 
 /** The stage at a place in the line. One past either end gives the nearest. */
+/** How many stages a difficulty has: every land's, once through. */
+export const LAP_STAGES = STAGES.length / LAPS.length;
+
+/**
+ * The number a stage is shown by: its place among the stages of its
+ * difficulty, from 1. The line itself is one count from first to last, but
+ * a player is never shown that: by the owner's word of 24 November 2026, of
+ * Thornwood on Hard, "don't say stage 38 / it starts as still stage 1".
+ */
+export function stageNumber(index: number): number {
+  const i = Math.max(0, Math.min(STAGES.length - 1, Math.floor(index)));
+  return (i % LAP_STAGES) + 1;
+}
+
+/**
+ * How a count of stages cleared is said, for what opens at one: "stage 10",
+ * and past the first difficulty "stage 10 on Hard".
+ */
+export function stageSaid(cleared: number): string {
+  const index = Math.max(0, Math.min(STAGES.length - 1, Math.floor(cleared) - 1));
+  const lap = STAGES[index].lap;
+  return lap > 0 ? `stage ${stageNumber(index)} on ${LAPS[lap].name}` : `stage ${stageNumber(index)}`;
+}
+
 export function stageAt(index: number): Stage {
   return STAGES[Math.max(0, Math.min(STAGES.length - 1, Math.floor(index)))];
 }

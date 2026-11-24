@@ -5,7 +5,8 @@ import { claimDaily } from '../src/game/rewards';
 import { finishStage, openPack, startingSave } from '../src/game/rules';
 import { repair, type SaveData } from '../src/game/state';
 import {
-  STEPS, TOURS, TOUR_GAP, advanceTour, endTour, markSeen, skipTutorial, startTour, tourById, tourDue, tourKnown, tourSeen, tutorialStep, type GuideContext,
+  STEPS, TOURS, TOUR_GAP, advanceTour, endTour, markSeen, skipTutorial, startTour, tourById, tourDue, tourKnown, tourOpens, tourSeen, tutorialStep,
+  type GuideContext,
   type GuideScene,
 } from '../src/game/tutorial';
 
@@ -49,7 +50,7 @@ describe('the tutorial', () => {
       expect(step.holds, step.id).toBe(true);
       expect(step.blocks, step.id).toBe(true);
       expect(step.target.length, step.id).toBeGreaterThan(0);
-      expect(step.text.length, step.id).toBeLessThan(190);
+      expect(step.text.length, step.id).toBeLessThanOrEqual(72);
     }
     expect(new Set(STEPS.map((s) => s.id)).size).toBe(STEPS.length);
   });
@@ -113,7 +114,8 @@ const at = (scene: GuideScene, more: Partial<GuideContext> = {}): GuideContext =
 /** A player whose first tutorial is behind them, with a few battles fought. */
 function played(): SaveData {
   const save = startingSave(1);
-  skipTutorial(save);
+  save.tutorial.done = true;
+  save.tutorial.seen.push('tour:basics');
   save.stats.battles = 6;
   save.coins = 0;
   // Today's day of the calendar is claimed, so that nothing waits unless a test says so.
@@ -155,24 +157,26 @@ describe('the tours', () => {
   it('are a few notes each, start on the main screen, and lead into one screen at the most', () => {
     expect(new Set(TOURS.map((t) => t.id)).size).toBe(TOURS.length);
     for (const tour of TOURS) {
-      expect(tour.steps.length, tour.id).toBeGreaterThanOrEqual(3);
+      expect(tour.steps.length, tour.id).toBeGreaterThanOrEqual(2);
       expect(tour.steps.length, tour.id).toBeLessThanOrEqual(8);
       expect(tour.steps[0].scene, tour.id).toBe('Main');
       expect(tour.name.length, tour.id).toBeGreaterThan(0);
       expect(tour.blurb.length, tour.id).toBeLessThan(60);
       const screens = new Set(tour.steps.map((s) => s.scene).filter((s) => s !== 'Main'));
       expect(screens.size, tour.id).toBeLessThanOrEqual(1);
+      expect(tour.steps[tour.steps.length - 1].kind, `${tour.id}: its last step`).toBe('note');
       let left = false;
       tour.steps.forEach((step, i) => {
-        expect(step.text.length, `${tour.id} step ${i + 1}`).toBeLessThan(240);
+        // Few words: a step says one thing, in a line.
+        expect(step.text.length, `${tour.id} step ${i + 1}`).toBeLessThanOrEqual(60);
         expect(step.text, `${tour.id} step ${i + 1}`).not.toContain('\u2014');
         // Once it has left the field it does not come back to it, and what leads off the field is a press.
         if (step.scene !== 'Main') {
           if (!left) expect(tour.steps[i - 1].kind, `${tour.id}: what leads into ${step.scene}`).toBe('press');
           left = true;
         } else expect(left, `${tour.id} step ${i + 1}`).toBe(false);
-        // A step that asks for CLOSE is the last: it leads out of what the tour led into.
-        if (step.kind === 'press' && step.target === 'close') expect(i, tour.id).toBe(tour.steps.length - 1);
+        // No step asks for CLOSE: a tour ends on the screen it led into, with everything there free to be pressed.
+        expect(step.target, `${tour.id} step ${i + 1}`).not.toBe('close');
       });
     }
   });
@@ -180,7 +184,7 @@ describe('the tours', () => {
   it('there is one for each of the things the owner named', () => {
     const ids = TOURS.map((t) => t.id);
     // "the game itself, dungeons and raids, skill points, upgrades, packs"
-    for (const id of ['basics', 'hall', 'skills', 'upgrades', 'packs', 'rewards']) expect(ids).toContain(id);
+    for (const id of ['basics', 'dungeons', 'raids', 'skills', 'upgrades', 'packs', 'rewards']) expect(ids).toContain(id);
   });
 
   it('point only at what the screens have marked', () => {
@@ -219,19 +223,58 @@ describe('the tours', () => {
     markSeen(walked, 'word');
     expect(walked.tutorial.done).toBe(true);
     expect(tourSeen(walked, 'basics')).toBe(true);
-    // And the next waits for a couple of battles.
+    // The other tours wait for a couple of battles.
     walked.coins = 99999;
+    walked.tutorial.tour = null;
+    walked.tutorial.seen.push('tour:rewards');
     expect(tourDue(walked, DAY)).toBeNull();
     walked.stats.battles += TOUR_GAP - 1;
     expect(tourDue(walked, DAY)).toBeNull();
     walked.stats.battles++;
-    // With today's day of the calendar still to claim, the rewards come first.
-    expect(tourDue(walked, DAY)?.id).toBe('rewards');
-    claimDaily(walked, DAY);
     // The packs wait a few battles more: the first tutorial has only just opened one.
     expect(tourDue(walked, DAY)?.id).not.toBe('packs');
     walked.stats.battles = 6;
     expect(tourDue(walked, DAY)?.id).toBe('packs');
+  });
+
+  it('the rewards are shown straight after the first tutorial, with their notes', () => {
+    const save = startingSave(1);
+    save.stats.battles = 2;
+    save.packs = {};
+    markSeen(save, 'team');
+    expect(tutorialStep(save, at('Main'))?.id).toBe('word');
+    markSeen(save, 'word');
+    // The field shows no step: it is asked to open the rewards, once.
+    expect(tutorialStep(save, at('Main'))).toBeNull();
+    expect(tourOpens(save)).toBe('Rewards');
+    expect(tourOpens(save)).toBeNull();
+    expect(tutorialStep(save, at('Main', { covered: true }))).toBeNull();
+    expect(tutorialStep(save, at('Rewards'))?.target).toBe('calendar');
+    advanceTour(save);
+    expect(tutorialStep(save, at('Rewards'))?.target).toBe('playtime');
+    advanceTour(save);
+    expect(tutorialStep(save, at('Rewards'))?.button).toBe('DONE');
+    advanceTour(save);
+    expect(save.tutorial.tour).toBeNull();
+    expect(tourSeen(save, 'rewards')).toBe(true);
+    // Whoever skips the first tutorial is shown the rewards too, without the notes.
+    const skipped = startingSave(1);
+    skipTutorial(skipped);
+    expect(skipped.tutorial.tour).toBeNull();
+    expect(tourSeen(skipped, 'rewards')).toBe(true);
+    expect(tourOpens(skipped)).toBe('Rewards');
+    expect(tourOpens(skipped)).toBeNull();
+    expect(tutorialStep(skipped, at('Rewards'))).toBeNull();
+    // A reload in the middle forgets the asking: the rewards' tour comes by itself later instead.
+    const cut = startingSave(1);
+    cut.stats.battles = 2;
+    cut.packs = {};
+    markSeen(cut, 'team');
+    markSeen(cut, 'word');
+    const back = repair(JSON.parse(JSON.stringify(cut)), 3);
+    expect(back.tutorial.tour).toBeNull();
+    expect(back.tutorial.show).toBeUndefined();
+    expect(tourSeen(back, 'rewards')).toBe(false);
   });
 
   it('each starts the first time its part of the game matters', () => {
@@ -255,11 +298,16 @@ describe('the tours', () => {
     save.coins = 0;
     expect(tourDue(save, DAY)).toBeNull();
     save.cleared = 10;
-    expect(tourDue(save, DAY)?.id).toBe('hall');
-    endTourOf(save, 'hall');
+    expect(tourDue(save, DAY)?.id).toBe('dungeons');
+    endTourOf(save, 'dungeons');
     // The place for a structure has been open since the eighth.
     expect(tourDue(save, DAY)?.id).toBe('structures');
     endTourOf(save, 'structures');
+    // The first raid opens at the twenty-second, and is taught then and not before.
+    expect(tourDue(save, DAY)).toBeNull();
+    save.cleared = 22;
+    expect(tourDue(save, DAY)?.id).toBe('raids');
+    endTourOf(save, 'raids');
     // And tomorrow a day of the calendar waits.
     expect(tourDue(save, DAY)).toBeNull();
     expect(tourDue(save, DAY + 1)?.id).toBe('rewards');
@@ -293,7 +341,7 @@ describe('the tours', () => {
     }
     for (let i = 1; i < when.length; i++) expect(when[i] - when[i - 1]).toBe(TOUR_GAP);
     // Every tour that has a time of its own, in the order of the list. The rewards wait for a day when something waits.
-    expect(seen).toEqual(TOURS.filter((t) => t.when && t.id !== 'rewards').map((t) => t.id));
+    expect(seen).toEqual(TOURS.filter((t) => t.when && t.id !== 'rewards' && t.id !== 'raids').map((t) => t.id));
   });
 
   it('do not start under another screen or in the middle of a battle', () => {
@@ -331,7 +379,7 @@ describe('the tours', () => {
     advanceTour(save);
     expect(save.tutorial.tour).toBeNull();
     // A step that asks for a press has no button of its own.
-    startTour(save, 'hall');
+    startTour(save, 'dungeons');
     expect(tutorialStep(save, at('Main'))?.press).toBe(true);
     expect(tutorialStep(save, at('Main'))?.ok).toBe(false);
   });
@@ -339,18 +387,21 @@ describe('the tours', () => {
   it('a screen shut before its tour was done brings the tour back to the step that leads into it', () => {
     const save = played();
     save.cleared = 12;
-    startTour(save, 'hall');
+    startTour(save, 'dungeons');
     expect(tutorialStep(save, at('Main'))?.target).toBe('hall');
     advanceTour(save);
     // The hall is open over the field: the field shows nothing.
     expect(tutorialStep(save, at('Main', { covered: true }))).toBeNull();
     expect(tutorialStep(save, at('Hall'))?.target).toBe('dungeon');
     advanceTour(save);
-    expect(tutorialStep(save, at('Hall'))?.target).toBe('raid');
+    expect(tutorialStep(save, at('Hall'))?.target).toBe('tiers');
     // Shut some other way than the tour asked: back to DUNGEONS.
     expect(tutorialStep(save, at('Main'))?.target).toBe('hall');
     expect(save.tutorial.tour?.step).toBe(0);
-    expect(tourSeen(save, 'hall')).toBe(false);
+    expect(tourSeen(save, 'dungeons')).toBe(false);
+    // The dungeons' tour says nothing of raids, and the raids' nothing of dungeons.
+    for (const step of tourById('dungeons')!.steps) expect(`${step.target} ${step.text}`.toLowerCase()).not.toContain('raid');
+    for (const step of tourById('raids')!.steps) expect(step.text.toLowerCase()).not.toContain('dungeon');
   });
 
   it('can be skipped, and can be viewed again once seen', () => {
@@ -375,12 +426,16 @@ describe('the tours', () => {
     const save = played();
     const known = (id: string): boolean => tourKnown(save, tourById(id)!);
     for (const id of ['basics', 'packs', 'skills', 'upgrades', 'rewards']) expect(known(id), id).toBe(true);
-    expect(known('hall')).toBe(false);
+    expect(known('dungeons')).toBe(false);
+    expect(known('raids')).toBe(false);
     expect(known('structures')).toBe(false);
     save.cleared = 8;
     expect(known('structures')).toBe(true);
     save.cleared = 10;
-    expect(known('hall')).toBe(true);
+    expect(known('dungeons')).toBe(true);
+    expect(known('raids')).toBe(false);
+    save.cleared = 22;
+    expect(known('raids')).toBe(true);
   });
 
   it('a tour cut short by a reload starts again, and what has been seen is kept', () => {
@@ -406,7 +461,7 @@ describe('the tours', () => {
     const back = repair(old, 3);
     for (const id of ['basics', 'packs', 'skills']) expect(tourSeen(back, id), id).toBe(true);
     // Nothing says they have bought an upgrade or been in a dungeon: those are still to come.
-    for (const id of ['upgrades', 'hall', 'structures', 'rewards']) expect(tourSeen(back, id), id).toBe(false);
+    for (const id of ['upgrades', 'dungeons', 'raids', 'structures', 'rewards']) expect(tourSeen(back, id), id).toBe(false);
   });
 });
 

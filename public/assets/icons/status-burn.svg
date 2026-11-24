@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="status-burn" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="status-burn-disc-shape" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z"/>
+<clipPath id="status-burn-disc-clip"><use href="#status-burn-disc-shape"/></clipPath>
+<clipPath id="status-burn-disc-lit-clip"><use href="#status-burn-disc-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="status-burn-flame-shape" d="M 24 6 C 24 6 32.2 15.8 34 20 C 35.8 24.2 36.7 27.7 35 31 C 33.3 34.3 27.7 40 24 40 C 20.3 40 14.7 34.3 13 31 C 11.3 27.7 12.2 24.2 14 20 C 15.8 15.8 24 6 24 6 Z"/>
+</defs>
+<g id="status-burn-disc">
+<use id="status-burn-disc-shade" href="#status-burn-disc-shape" fill="#c45f22"/>
+<g clip-path="url(#status-burn-disc-clip)">
+<use id="status-burn-disc-fill" href="#status-burn-disc-shape" transform="translate(-3 -3)" fill="#c45f22"/>
+<g clip-path="url(#status-burn-disc-lit-clip)">
+<use id="status-burn-disc-lit" href="#status-burn-disc-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="status-burn-disc-fill-over" href="#status-burn-disc-shape" transform="translate(3.6 3.6)" fill="#c45f22"/>
+</g>
+</g>
+<use id="status-burn-disc-line" href="#status-burn-disc-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="status-burn-flame">
+<use id="status-burn-flame-fill" href="#status-burn-flame-shape" fill="#f08a3c"/>
+<use id="status-burn-flame-line" href="#status-burn-flame-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="status-burn-core" d="M 24 21 C 24 21 29 26.5 29 29 C 29 31.5 25.7 36 24 36 C 22.3 36 19 31.5 19 29 C 19 26.5 24 21 24 21 Z" fill="#ffd27a"/>
+</svg>

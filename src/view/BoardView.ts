@@ -8,11 +8,11 @@
 import Phaser from 'phaser';
 import { GROUND, type Ground } from '../art/board';
 import { gradePlate } from '../art/grades';
-import { ARCANE, CLOTH, FIRE, FROST, HIGHLIGHT, HOLY, VENOM, type Accent } from '../art/kit/palette';
+import { ARCANE, BONE, CLOTH, FIRE, FROST, HIGHLIGHT, HOLY, OUTLINE, VENOM, type Accent } from '../art/kit/palette';
 import { music } from '../audio/music';
 import { sfx } from '../audio/sfx';
 import { UNITS } from '../data/units';
-import { GRADES } from '../game/rarity';
+import { GRADES, RARITY } from '../game/rarity';
 import { Battle, type SimUnit } from '../sim/battle';
 import { DT, TILE } from '../sim/constants';
 import { FIRST_FIELD, isPlayerTile, seatTeam, writtenTile, type Field } from '../sim/field';
@@ -27,7 +27,7 @@ import { Numbers } from './Numbers';
 import { scenePicture } from './Scenes';
 import { SHEET, sheet } from './Sheet';
 import { RARITY_MAT, STATUS_COLOR } from './ui/colors';
-import { label } from './ui/widgets';
+import { label, slab } from './ui/widgets';
 import { UnitView } from './UnitView';
 
 const ACCENTS: Record<string, Accent> = { arcane: ARCANE, fire: FIRE, frost: FROST, holy: HOLY, venom: VENOM };
@@ -91,7 +91,9 @@ export class BoardView {
   private tileHints: Phaser.GameObjects.Graphics;
   private hintTween: Phaser.Tweens.Tween | null = null;
   private dropMark: Phaser.GameObjects.Graphics;
-  private pipColors: number[] = [0, 0, 0, 0];
+  private pipIds: number[] = [0, 0, 0, 0];
+  /** When each unit next gives off a mote of the status it is under, by its place in the battle. */
+  private motes: number[] = [];
   private debug = false;
   private debugG: Phaser.GameObjects.Graphics;
   private debugText: Phaser.GameObjects.Text;
@@ -106,6 +108,23 @@ export class BoardView {
     // (art/backdrop.ts). Until it has loaded, the land's own color stands in for it.
     scene.cameras.main.setBackgroundColor(GROUND[ground].around);
     scenePicture(scene, 'board', ground);
+    // A board that is gone holds nothing of the sheet's any more.
+    scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.offWipe?.());
+    // A tap on anyone on the field, the enemy's or the player's own, says who they are.
+    let downX = 0;
+    let downY = 0;
+    scene.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
+      downX = p.worldX;
+      downY = p.worldY;
+    });
+    scene.input.on('pointerup', (p: Phaser.Input.Pointer) => {
+      const had = this.tipFor;
+      this.hideTip();
+      // A drag is not a tap.
+      if (Math.abs(p.worldX - downX) > 12 || Math.abs(p.worldY - downY) > 12) return;
+      const v = this.viewAt(p.worldX, p.worldY);
+      if (v && v !== had) this.showTip(v);
+    });
 
     this.fx = new Effects(scene);
     this.numbers = new Numbers(scene);
@@ -195,6 +214,9 @@ export class BoardView {
       ...called(enemies, 'red'),
       ...more.map((unit) => ({ team: 'red', unit })),
     ];
+    // If the sheet has to make room, the units standing here go first: they are drawn from it.
+    this.offWipe?.();
+    this.offWipe = atlas.onWipe(() => this.clearUnits());
     return atlas.ensure(this.scene, wanted).then(() => {
       // Asked again while this was loading: the later asking has it.
       if (mine !== this.shown) return;
@@ -234,13 +256,93 @@ export class BoardView {
       def.trap ? 'trap' : def.still ? 'building' : 'unit',
       this.lay.zoom,
     );
+    view.standing = at === undefined ? null : { level: at.level, grade: at.grade };
     view.x = this.lay.tileX(col);
     view.y = this.lay.tileY(row);
     view.stride = def.speed / 70;
     return view;
   }
 
+  private offWipe: (() => void) | null = null;
+
+  // ------------------------------------------------------------ who is that
+
+  private tip: Phaser.GameObjects.GameObject[] = [];
+  private tipFor: UnitView | null = null;
+  private tipUntil = -1;
+
+  /** Whoever stands under a point of the screen: the one nearest the front, if they overlap. */
+  private viewAt(x: number, y: number): UnitView | null {
+    let best: UnitView | null = null;
+    for (const v of this.views) {
+      if (!v || v.health <= 0) continue;
+      const half = Math.max(30, v.height * 0.4);
+      if (Math.abs(x - v.x) > half || y > v.y + 10 || y < v.y - v.height - 6) continue;
+      if (!best || v.y > best.y) best = v;
+    }
+    return best;
+  }
+
+  private hideTip(): void {
+    for (const o of this.tip) o.destroy();
+    this.tip = [];
+    this.tipFor = null;
+    this.tipUntil = -1;
+  }
+
+  /**
+   * The card a tap on a unit shows, beside it: its name on its tier's color,
+   * what it stands at, its numbers if a battle is on, what it does, and its
+   * skill. By the owner's word of 24 November 2026: "can i click over to the
+   * enemy unit and it will show info about it on a tooltip?".
+   */
+  private showTip(v: UnitView): void {
+    const def = UNITS[v.unitId];
+    if (!def) return;
+    const scene = this.scene;
+    const add = <T extends Phaser.GameObjects.GameObject>(o: T): T => {
+      this.tip.push(o);
+      return o;
+    };
+    const w = 320;
+    const pad = 14;
+    const dark = { color: OUTLINE, stroke: null as null, align: 'left' as const };
+    const texts: Phaser.GameObjects.Text[] = [];
+    const line = (text: string, size: number, weight: 600 | 700 = 600): void => {
+      texts.push(add(label(scene, 0, 0, text, { size, weight, wrap: w - pad * 2, ...dark }).setOrigin(0, 0).setDepth(8602)));
+    };
+    const role = def.kind === 'trap' ? 'Trap' : def.kind === 'building' ? 'Building' : def.role[0].toUpperCase() + def.role.slice(1);
+    const at = v.standing;
+    line(at ? `${RARITY[def.rarity].name} ${role}  ·  Level ${at.level}  ·  Grade ${GRADES[Math.max(0, Math.min(GRADES.length - 1, at.grade))]}` : `${RARITY[def.rarity].name} ${role}`, 14, 700);
+    // What it has now, while a battle is on: the battle's own numbers, with everything that changes them counted.
+    const i = this.battle ? this.views.indexOf(v) : -1;
+    const u = i >= 0 ? this.battle?.units[i] : undefined;
+    if (u && !def.trap) line(`Health ${Math.max(0, Math.round(u.hp))} of ${Math.round(u.maxHp)}${u.damage > 0 ? `  ·  Damage ${Math.round(u.damage)}` : ''}`, 14, 700);
+    if (def.text) line(def.text, 14);
+    if (def.skill) line(`${def.skill.name}: ${def.skill.text}`, 14);
+    let tall = 44;
+    for (const t of texts) tall += t.height + 6;
+    tall += pad - 6;
+    // Beside it, on the side with more room, and wholly on the screen.
+    const x = Phaser.Math.Clamp(v.x < W / 2 ? v.x + 50 : v.x - 50 - w, 8, W - w - 8);
+    const y = Phaser.Math.Clamp(v.y - v.height * 0.6 - tall / 2, 118, H - 100 - tall);
+    const g = add(scene.add.graphics().setDepth(8600));
+    slab(g, x, y, w, tall, BONE, 14, 6);
+    slab(g, x + 6, y + 6, w - 12, 32, RARITY_MAT[def.rarity], 9, 3);
+    add(label(scene, x + pad + 2, y + 21, def.name, { size: 19, align: 'left', strokeWidth: 4 }).setDepth(8602));
+    add(label(scene, x + w - pad, y + 21, v.team === 'blue' ? 'YOURS' : 'ENEMY', { size: 12, align: 'right', strokeWidth: 3, color: v.team === 'blue' ? CLOTH.blue.fill : CLOTH.red.fill }).setDepth(8602));
+    let ty = y + 46;
+    for (const t of texts) {
+      t.setPosition(x + pad, ty);
+      ty += t.height + 6;
+    }
+    this.tipFor = v;
+    this.tipUntil = this.clock + 7;
+    sfx.play('pop', 0.6);
+  }
+
   private clearUnits(): void {
+    this.hideTip();
     this.setPlacement(false);
     for (const v of this.views) v.destroy();
     this.views = [];
@@ -381,6 +483,7 @@ export class BoardView {
     // A long frame (a tab coming back) must not become a burst of steps.
     const dt = (Math.min(deltaMs, 100) / 1000) * speed;
     this.clock += dt;
+    if (this.tipUntil >= 0 && this.clock >= this.tipUntil) this.hideTip();
     const battle = this.battle;
 
     if (battle && !this.told) {
@@ -415,9 +518,17 @@ export class BoardView {
           v.health = u.hp / u.maxHp;
           let pips = 0;
           for (let k = 0; k < u.stTicks.length && pips < 4; k++) {
-            if (u.stTicks[k] > 0) this.pipColors[pips++] = STATUS_TINTS[k];
+            if (u.stTicks[k] > 0) this.pipIds[pips++] = k;
           }
-          v.setStatuses(this.pipColors, pips);
+          v.setStatuses(this.pipIds, pips);
+          // While a status is on a unit, motes of its color rise off it: it is seen from across the field.
+          if (pips > 0 && this.clock >= (this.motes[i] ?? 0)) {
+            this.motes[i] = this.clock + 0.4;
+            const k = this.pipIds[(battle.tick >> 3) % pips];
+            this.fx.spawn('fx/sparkle', v.x + (((i * 37 + battle.tick) % 40) - 20) * this.lay.zoom, v.y - v.height * 0.35, {
+              dur: 0.55, vy: -60, from: 0.22, to: 0.5, hold: 0.4, alpha: 0.95, tint: STATUS_TINTS[k], spin: 3, depth: v.y + 2,
+            });
+          }
         } else {
           v.health = 0;
         }
@@ -496,9 +607,10 @@ export class BoardView {
         const skill = !status && e.kind !== 'attack' && e.kind !== 'splash';
         let color = t.team === 'blue' ? hex(CLOTH.red.fill) : hex(HIGHLIGHT);
         if (e.kind === 'burn') color = hex(FIRE.fill);
-        else if (e.kind === 'poison') color = hex(VENOM.fill);
+        else if (e.kind === 'poison') color = hex(VENOM.shade);
         else if (skill && t.team === 'red') color = hex(HOLY.fill);
-        this.numbers.show(t.x, t.y - t.height * 0.78, String(e.amount), color, skill ? 34 : status ? 20 : 26);
+        // Harm that goes on (a burn, a poison) is written with a minus, in its status's color, so that it is never taken for mending.
+        this.numbers.show(t.x, t.y - t.height * 0.78, status ? `-${e.amount}` : String(e.amount), color, skill ? 34 : status ? 22 : 26);
         if (e.unit >= 0 && !battle.units[e.unit].def.projectile && !status) {
           sfx.play(skill ? 'bigHit' : 'hit', 0.9, 0.85 + (e.target % 5) * 0.07);
           this.fx.spawn('fx/spark', t.x - Math.sign(t.x - from) * 10 * z, t.y - 56 * unit, {
@@ -510,7 +622,8 @@ export class BoardView {
       case 'heal': {
         const t = this.views[e.target];
         sfx.play('heal', 0.8);
-        this.numbers.show(t.x, t.y - t.height * 0.78, `+${e.amount}`, hex(VENOM.light), 26);
+        // Mending is pale gold with a plus. Poison is green, so green is never health coming back.
+        this.numbers.show(t.x, t.y - t.height * 0.78, `+${e.amount}`, hex(HOLY.light), 26);
         for (let i = 0; i < 3; i++) {
           this.fx.spawn('fx/sparkle', t.x + (i - 1) * 22 * z, t.y - (30 + i * 14) * z, {
             dur: 0.6, delay: i * 0.07, vy: -70, from: 0.3, to: 0.7, hold: 0.5, tint: hex(HOLY.light), spin: 2,
@@ -602,7 +715,11 @@ export class BoardView {
         const color = STATUS_COLOR[e.kind as keyof typeof STATUS_COLOR];
         sfx.play('status');
         if (color !== undefined) {
-          this.fx.spawn('fx/ring', v.x, v.y - v.height * 0.45, { dur: 0.3, from: 0.9, to: 0.35, alpha: 0.9, hold: 0.5, tint: color, depth: v.y + 2 });
+          // A status lands: two rings in its color close on the unit, and its icon jumps up over it.
+          const z = this.lay.zoom;
+          this.fx.spawn('fx/ring', v.x, v.y - v.height * 0.45, { dur: 0.36, from: 1.5 * z, to: 0.4 * z, alpha: 1, hold: 0.5, tint: color, depth: v.y + 2 });
+          this.fx.spawn('fx/ring', v.x, v.y - v.height * 0.45, { dur: 0.36, delay: 0.1, from: 1.1 * z, to: 0.3 * z, alpha: 0.9, hold: 0.5, tint: color, depth: v.y + 2 });
+          this.fx.spawn(`icon/status-${e.kind}`, v.x, v.y - v.height - 26 * z, { dur: 0.8, vy: -34, from: 0.62 * z, to: 0.4 * z, hold: 0.75, depth: 7000 });
         }
         break;
       }
