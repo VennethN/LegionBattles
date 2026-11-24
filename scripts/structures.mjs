@@ -82,18 +82,26 @@ await load(36);
 await page.screenshot({ path: `${out}/63-structures-jarl.png` });
 
 // UNITS and STRUCTURES are two buttons, and each opens the side screen on its own cards, with the player's half of the field beside it.
+// On that screen the two are tabs.
 await load(8);
 await mark('Main', 'units');
 await page.waitForFunction(() => window.game.scene.isActive('Team'), null, { timeout: 10000 });
 await page.waitForTimeout(600);
 await page.screenshot({ path: `${out}/64-structures-units-page.png` });
+// From one to the other without shutting anything: the tab at the top.
+await press('Team', 'STRUCTURES');
+await page.waitForFunction(() => window.game.scene.isActive('Team') && window.game.scene.getScene('Team').side === 'structures', null, { timeout: 10000 });
+await page.waitForTimeout(600);
+await page.screenshot({ path: `${out}/65-structures-page.png` });
+// And back, and then in by the button of the main screen, which opens the same screen on the same cards.
+await press('Team', 'UNITS');
+await page.waitForFunction(() => window.game.scene.getScene('Team').side === 'units', null, { timeout: 10000 });
 await press('Team', 'CLOSE');
 await page.waitForFunction(() => !window.game.scene.isActive('Team'), null, { timeout: 10000 });
 await page.waitForTimeout(300);
 await mark('Main', 'structures');
-await page.waitForFunction(() => window.game.scene.isActive('Team'), null, { timeout: 10000 });
-await page.waitForTimeout(600);
-await page.screenshot({ path: `${out}/65-structures-page.png` });
+await page.waitForFunction(() => window.game.scene.isActive('Team') && window.game.scene.getScene('Team').side === 'structures', null, { timeout: 10000 });
+await page.waitForTimeout(400);
 const team = (data) => page.evaluate((d) => window.game.scene.getScene('Team').scene.restart(d), data);
 await team({ side: 'structures', selected: `c${held.beartrap}` });
 await page.waitForTimeout(600);

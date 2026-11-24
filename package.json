@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "build:crazygames": "tsc --noEmit && vite build --mode crazygames --outDir dist-crazygames",
     "preview": "vite preview",
     "test": "vitest run",
     "art": "tsx scripts/art.ts",

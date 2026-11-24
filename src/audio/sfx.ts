@@ -467,6 +467,8 @@ export class Sfx {
   private next = 0;
   private wander = 0;
   private asleep = false;
+  /** A portal's own sound switch is off: silent, whatever the player's setting says. */
+  private hushed = false;
   /** What the music plays through, made once: it is asked for every frame. */
   private through: MusicOut | null = null;
 
@@ -485,6 +487,17 @@ export class Sfx {
     this.level();
   }
 
+  /**
+   * Silences everything, or lets it sound again, over the head of the
+   * player's own setting: for a portal whose page has a sound switch of its
+   * own (CrazyGames asks that its switch come first), and for the length of
+   * an ad. The player's setting is not touched.
+   */
+  hush(on: boolean): void {
+    this.hushed = on;
+    this.level();
+  }
+
   /** Sets how loud the effects and the music are, each from 0 to 1. */
   setVolumes(effects: number, music: number): void {
     this.effectsVolume = Math.max(0, Math.min(1, effects));
@@ -495,7 +508,7 @@ export class Sfx {
   /** Puts the volumes on the mix as they now stand. */
   private level(): void {
     if (!this.ctx || !this.master || !this.effects || !this.songs) return;
-    this.master.gain.value = this.on ? 0.9 : 0;
+    this.master.gain.value = this.on && !this.hushed ? 0.9 : 0;
     this.effects.gain.value = this.effectsVolume;
     this.songs.gain.value = this.musicVolume;
   }
@@ -566,7 +579,7 @@ export class Sfx {
    * no note is made at all.
    */
   get out(): MusicOut | null {
-    if (!this.on || this.musicVolume <= 0) return null;
+    if (!this.on || this.hushed || this.musicVolume <= 0) return null;
     return this.through;
   }
 
@@ -587,7 +600,7 @@ export class Sfx {
   play(name: SoundName, volume = 1, pitch = 1): void {
     const ctx = this.ctx;
     const out = this.effects;
-    if (!this.on || !ctx || !out || this.effectsVolume <= 0) return;
+    if (!this.on || this.hushed || !ctx || !out || this.effectsVolume <= 0) return;
     const recipe: Recipe = SOUNDS[name];
     const now = ctx.currentTime;
     const last = this.last[name];

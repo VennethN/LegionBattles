@@ -121,7 +121,20 @@ export class TeamScene extends Phaser.Scene {
     label(this, fw.x + fw.w / 2, fw.y - 46, 'YOUR SIDE OF THE FIELD', { size: 20 }).setDepth(2);
     label(this, fw.x + fw.w / 2, fw.y + fw.h + 40, 'Drag to move them.', { size: 17, weight: 600, color: HIGHLIGHT, strokeWidth: 4 }).setDepth(2);
 
-    label(this, 20, 36, this.forge ? 'Combine' : this.side === 'structures' ? 'Structures' : 'Units', { size: 30, align: 'left' }).setDepth(8000);
+    if (this.forge) label(this, 20, 36, 'Combine', { size: 30, align: 'left' }).setDepth(8000);
+    else {
+      // The two screens of cards are one press apart: the one that is open is lit, and the other is a button.
+      // The owner, of 24 November 2026: "Make it so i can change between structure and unit on each other's ui (quickswitch)".
+      const tab = (x: number, w: number, text: string, side: 'units' | 'structures'): void => {
+        const on = this.side === side;
+        const b = new Button(this, x, 37, text, () => {
+          if (!on) this.scene.restart({ side } satisfies TeamData);
+        }, { width: w, height: 46, size: 17, mat: on ? GOLD : BONE, color: on ? undefined : OUTLINE }).setDepth(8000);
+        if (!on) plain(b);
+      };
+      tab(76, 124, 'UNITS', 'units');
+      tab(222, 156, 'STRUCTURES', 'structures');
+    }
     const close = new Button(this, DRAWER_W - 76, 37, 'CLOSE', () => {
       // The tutorial's look at the team is over once it has been filled and shut, and its look at the tower once that screen is shut.
       if (seen(s, 'fill')) markSeen(s, 'team');

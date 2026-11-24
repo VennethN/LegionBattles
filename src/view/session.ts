@@ -35,6 +35,16 @@ export function commit(): void {
   if (current) storeSave(current);
 }
 
+/**
+ * Lets go of the save in hand, so that the next asking reads it again from
+ * where it is kept. For the moment a player signs in on a portal: the save
+ * kept there is then their account's, and the one in hand must not be
+ * written over it.
+ */
+export function reloadSave(): void {
+  current = null;
+}
+
 let pending = 0;
 let unsaved = 0;
 

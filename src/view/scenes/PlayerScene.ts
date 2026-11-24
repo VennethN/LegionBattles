@@ -22,6 +22,7 @@ import { buyUpgrade, pointsFree, rankOf, rankUp, resetTree, upgradeCost, upgrade
 import { setupCamera } from '../app';
 import { hex } from '../config';
 import { SHEET } from '../Sheet';
+import { playerName } from '../../platform/portal';
 import { commit, save } from '../session';
 import { OverlayHead, TABS_Y } from '../ui/chrome';
 import { PH, PW, PX, PY } from '../ui/UnitPanel';
@@ -125,7 +126,9 @@ export class PlayerScene extends Phaser.Scene {
     const free = pointsFree(s);
     const next = p.level >= PLAYER_MAX_LEVEL ? 'the last level' : `${p.xp} of ${playerXpToNext(p.level)} to the next`;
     const points = free === 1 ? '1 point to spend' : `${free} points to spend`;
-    add(label(this, 216, 40, `Level ${p.level}  ·  ${next}${this.page === 'skills' ? `  ·  ${points}` : ''}`, {
+    // On a portal that knows who is playing, their name there comes first.
+    const who = playerName();
+    add(label(this, 216, 40, `${who ? `${who}  ·  ` : ''}Level ${p.level}  ·  ${next}${this.page === 'skills' ? `  ·  ${points}` : ''}`, {
       size: 18, weight: 600, align: 'left', color: free > 0 && this.page === 'skills' ? HOLY.fill : HIGHLIGHT, strokeWidth: 4,
     }));
     if (this.page === 'skills') this.drawTree(add);
