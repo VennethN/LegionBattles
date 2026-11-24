@@ -40,6 +40,15 @@ async function start(): Promise<void> {
     window.addEventListener(type, () => sfx.unlock(), { capture: true, passive: true });
   }
 
+  // In a frame on a portal's page the game must not move that page: the wheel, the arrow keys and the space bar
+  // would scroll it under the player, and a right click would put the browser's menu over the board. CrazyGames
+  // lists these among the fixes it asks every HTML5 game for.
+  window.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === ' ') e.preventDefault();
+  });
+  document.addEventListener('contextmenu', (e) => e.preventDefault());
+
   // The graphics setting says what the canvas is drawn at, from its first frame.
   startGraphics(save().settings.graphics);
 

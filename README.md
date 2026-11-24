@@ -296,11 +296,30 @@ VSCO=/path/to/VSCO-2-CE KENNEY=/path/to/kenney_interface_sounds npm run samples
 
 ## CrazyGames
 
+### What to upload
+
 ```bash
-npm run build:crazygames
+npm run package:crazygames
 ```
 
-writes `dist-crazygames/`, which is what is uploaded. It differs from the plain build in one thing: it asks for CrazyGames' SDK (HTML5, v3) when it starts. The plain build asks for it only on a page of crazygames.com, or with `?portal=crazygames` in the address.
+builds the copy for the portal into `dist-crazygames/` and zips it to `build/legion-battles-crazygames.zip` (it needs the `zip` command; without it, `npm run build:crazygames` makes the folder alone). Four things go to the Developer Portal:
+
+1. **The game's files**: everything inside `dist-crazygames/`, with `index.html` at the top and the `assets` and `bundle` folders beside it. That is 691 files and 4.6 MB (1.7 MB zipped), against the portal's limits of 1500 files and 20 MB for a game shown on phones. Every path in it is relative. The portal's upload area takes files and folders dragged in: if it will not take the zip, unzip it and drag in what is inside, not the folder that holds it.
+2. **Three covers**, from `docs/covers`: `cover-landscape.png` (1920 by 1080), `cover-portrait.png` (800 by 1200), `cover-square.png` (800 by 800).
+3. **A preview video.** The form asks for one. There is none yet.
+4. **The form.** Game type HTML5, played in landscape, with mouse and with touch. Progress save: **"Yes, using the Data Module from the CrazyGames SDK"**; without it the module is off and the save stays in the browser. **"The game supports CrazyGames muting audio through SDK"**: yes. No ads are asked for by the game, no in-game purchases, no multiplayer, no chat, and it gathers nothing about the player beyond what the SDK does.
+
+Words for the form, to change as you like:
+
+> **Description.** Open packs, build your legion and watch it fight. Legion Battles is an autobattler: you field a team of cards, battles start by themselves, and every win moves you on along a line of 185 stages through three lands and five difficulties. Collect more than forty units, towers and traps, combine copies to level them up, spend skill points, and take on dungeons and raid bosses. Come back each day for a reward.
+>
+> **Controls.** Mouse or touch. Drag your units to arrange them. Press BATTLE to fight, or leave AUTO on and battles start by themselves. Tap anyone on the field to see who they are.
+
+After uploading, the portal's preview runs the game as CrazyGames will and checks it against their requirements. That is the first time it will have run on the portal: see "Not yet looked at".
+
+### What the build does there
+
+The copy made for the portal differs from the plain build in one thing: it asks for CrazyGames' SDK (HTML5, v3) when it starts. The plain build asks for it only on a page of crazygames.com, or with `?portal=crazygames` in the address.
 
 What the game does with it (`src/platform/crazygames.ts`):
 
@@ -310,7 +329,7 @@ What the game does with it (`src/platform/crazygames.ts`):
 - **The portal is told** when loading starts and stops, when a battle starts and stops, and of a boss's first fall, which it may cheer.
 - Ads: the calls are wired (`interstitial()`, `rewardedAd()`, with the game silent while one plays), and the game makes neither of them anywhere yet.
 
-On the submission form two things have to match this. **Progress save: "Yes, using the Data Module from the CrazyGames SDK"**: without it the module is off and the game falls back to the browser's storage. **"The game supports CrazyGames muting audio through SDK"**: it does.
+The two boxes of the form named above, the progress save and the mute, are the ones that have to match this.
 
 The form also asks for three covers, and they are in `docs/covers`: `cover-landscape.png` (1920 by 1080), `cover-portrait.png` (800 by 1200) and `cover-square.png` (800 by 800). They are one picture laid out three times, drawn by `scripts/cover.ts` from the game's own art: the title, small, over three cards, three packs, and a Knight and the Warlord facing each other, the player's blue on the left and the enemy's red on the right as on the title's shield. They carry no words but the title and no border, which the portal asks; that is why a card on a cover has no name and no grade on it. `npm run cover` draws them again after the art has changed, and the layouts at the foot of the script say who stands where. The preview video the form asks for is not made.
 
