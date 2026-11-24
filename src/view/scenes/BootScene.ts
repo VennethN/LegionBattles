@@ -43,10 +43,10 @@ export class BootScene extends Phaser.Scene {
     art.queue(this, 'fx');
     art.queue(this, 'board');
     art.queue(this, 'icons');
-    art.queue(this, 'grades');
     // Whole units for the cards: the player's side sharp, the enemy's small, as that is how each is shown.
     const cards = cardSheet(this.game, manifest);
     cards.queue(this, 'packs');
+    cards.queue(this, 'grades');
     for (const unit of Object.keys(manifest.units)) {
       this.load.svg(`svg:portrait/blue/${unit}`, `assets/units/blue/${unit}/full.svg`, { scale: ART_SCALE });
       this.load.svg(`svg:portrait/red/${unit}`, `assets/units/red/${unit}/full.svg`, { scale: 1 });
@@ -61,9 +61,9 @@ export class BootScene extends Phaser.Scene {
         art.keepFolder(this, 'fx', 'fx');
         art.keepFolder(this, 'board', 'board');
         art.keepFolder(this, 'icons', 'icon');
-        art.keepFolder(this, 'grades', 'grade');
         makeDigitFont(this, art);
-        art.refresh();
+        // From here down, the sheet is for the units of whatever battle is on.
+        art.seal();
         cards.keepFolder(this, 'packs', 'pack');
         // Tallest first, so that the rows of the sheet waste little.
         const units = Object.entries(manifest.units).sort((a, b) => b[1].full[3] - a[1].full[3]);
@@ -73,10 +73,18 @@ export class BootScene extends Phaser.Scene {
             const source = this.textures.get(key).getSourceImage() as HTMLImageElement;
             // A card's picture stands on its feet: the frame turns about the middle of the ground under it.
             const box = info.full;
-            cards.keepCut(portraitFrame(team, unit), source, box, scale, [(96 - box[0]) / box[2], (180 - box[1]) / box[3]]);
+            cards.keep(
+              portraitFrame(team, unit),
+              source,
+              Math.round(box[2] * scale),
+              Math.round(box[3] * scale),
+              [(96 - box[0]) / box[2], (180 - box[1]) / box[3]],
+              [box[0] * scale, box[1] * scale],
+            );
             this.textures.remove(key);
           }
         }
+        cards.keepFolder(this, 'grades', 'grade');
         cards.refresh();
         ads().loadingDone();
         this.scene.start(startScene());

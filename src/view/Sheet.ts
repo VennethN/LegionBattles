@@ -1,4 +1,4 @@
-// One sheet for all the art.
+// One sheet for all the art of a battle, and one for the menus' cards.
 //
 // Every picture is an SVG file, rasterized at 2x by Phaser's SVG loader. Left
 // as they are, each would be a texture of its own, and a unit part would be a
@@ -9,70 +9,51 @@
 // (maxTextures in main.ts), so a second texture in the middle of the units
 // would cost a draw call every time.
 //
-// The effects, the board and the icons are packed at start and stay. Units
-// are packed as battles need them and kept. If the sheet fills up it is
-// wiped and packed again with only what is asked for.
+// The effects, the board and the icons are packed at start and never move:
+// sprites all over the game hold their frames. Units are packed under them
+// as battles need them and kept. If the sheet fills up, only the units are
+// wiped, and the battle that is starting packs its own again.
 
 import Phaser from 'phaser';
 import type { Manifest, ManifestImage, ManifestPart } from '../art/manifest';
 import { ART_SCALE } from './config';
+import { ShelfPacker } from './packer';
 
 /** Everything a battle draws: effects, board, icons, digits, unit parts. */
 export const SHEET = 'sheet';
-/** What the menus draw: whole units for cards, and the packs. */
+/** What the menus draw: whole units for cards, the packs, the grade badges. */
 export const CARDS = 'cards';
-const SIZE = 2048;
-const PAD = 2;
+export const SHEET_SIZE = 2048;
+
+export type Folder = 'fx' | 'board' | 'icons' | 'packs' | 'grades';
 
 export interface UnitKey {
   team: string;
   unit: string;
 }
 
-interface Kept {
-  frame: string;
-  source: CanvasImageSource;
-  w: number;
-  h: number;
-  origin: readonly [number, number] | null;
-}
-
 export class Sheet {
   private texture: Phaser.Textures.CanvasTexture;
+  private packer: ShelfPacker;
   private packed = new Set<string>();
-  private frames: string[] = [];
-  /** What is packed at start and must survive a wipe. */
-  private kept: Kept[] = [];
-  private penX = PAD;
-  private penY = PAD;
-  private rowH = 0;
+  /** The frames of units, which a wipe takes away. */
+  private unitFrames: string[] = [];
+  /** Where the units' part of the sheet starts, once seal() has been called. */
+  private base: [number, number, number] | null = null;
 
   constructor(
     game: Phaser.Game,
     readonly manifest: Manifest,
     readonly key: string = SHEET,
   ) {
-    const t = game.textures.createCanvas(key, SIZE, SIZE);
+    const t = game.textures.createCanvas(key, SHEET_SIZE, SHEET_SIZE);
     if (!t) throw new Error('sheet: could not make the canvas');
     this.texture = t;
+    this.packer = new ShelfPacker(SHEET_SIZE, SHEET_SIZE);
   }
 
   static unitFrame(team: string, unit: string, part: string): string {
     return `units/${team}/${unit}/${part}`;
-  }
-
-  /** Room for a w by h picture, or null if there is none left. */
-  private place(w: number, h: number): { x: number; y: number } | null {
-    if (this.penX + w + PAD > SIZE) {
-      this.penX = PAD;
-      this.penY += this.rowH + PAD;
-      this.rowH = 0;
-    }
-    if (this.penY + h + PAD > SIZE) return null;
-    const spot = { x: this.penX, y: this.penY };
-    this.penX += w + PAD;
-    this.rowH = Math.max(this.rowH, h);
-    return spot;
   }
 
   private draw(
@@ -84,7 +65,7 @@ export class Sheet {
     h: number,
     origin: readonly [number, number] | null,
   ): boolean {
-    const spot = this.place(w, h);
+    const spot = this.packer.place(w, h);
     if (!spot) return false;
     this.texture.context.drawImage(source, sx, sy, w, h, spot.x, spot.y, w, h);
     const f = this.texture.add(frame, 0, spot.x, spot.y, w, h);
@@ -94,46 +75,45 @@ export class Sheet {
       f.pivotX = origin[0];
       f.pivotY = origin[1];
     }
-    this.frames.push(frame);
     return true;
   }
 
-  /** Packs a whole picture that stays for good: an effect, a tile, an icon. */
-  keep(frame: string, source: CanvasImageSource, w: number, h: number, origin: readonly [number, number] | null): void {
-    this.kept.push({ frame, source, w, h, origin });
-    if (!this.draw(frame, source, 0, 0, w, h, origin)) throw new Error('sheet: no room for what must always be there');
-  }
-
-  /** Packs part of a picture that stays for good: a whole unit, cut to its own corners. */
-  keepCut(
+  /** Packs a picture that stays for good: an effect, a tile, an icon. `box` cuts it to part of itself. */
+  keep(
     frame: string,
     source: CanvasImageSource,
-    box: readonly [number, number, number, number],
-    scale: number,
+    w: number,
+    h: number,
     origin: readonly [number, number] | null,
+    box: readonly [number, number] = [0, 0],
   ): void {
-    // Copied to a canvas of its own, so that a wipe can draw it again.
-    const canvas = document.createElement('canvas');
-    canvas.width = Math.round(box[2] * scale);
-    canvas.height = Math.round(box[3] * scale);
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-    ctx.drawImage(source, box[0] * scale, box[1] * scale, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
-    this.keep(frame, canvas, canvas.width, canvas.height, origin);
+    if (this.base) throw new Error('sheet: nothing more is kept once the units have their part');
+    if (!this.draw(frame, source, box[0], box[1], w, h, origin)) throw new Error(`sheet "${this.key}": no room for ${frame}`);
   }
 
   /** Queues the pictures of a folder of the manifest on a scene's loader. */
-  queue(scene: Phaser.Scene, folder: 'fx' | 'board' | 'icons' | 'packs' | 'grades'): void {
+  queue(scene: Phaser.Scene, folder: Folder): void {
     for (const name of Object.keys(this.manifest[folder])) {
       scene.load.svg(`svg:${folder}/${name}`, `assets/${folder}/${name}.svg`, { scale: ART_SCALE });
     }
   }
 
   /** Packs what `queue` loaded. Frames are named like "fx/arrow". */
-  keepFolder(scene: Phaser.Scene, folder: 'fx' | 'board' | 'icons' | 'packs' | 'grades', short: string): void {
-    for (const [name, img] of Object.entries(this.manifest[folder]) as Array<[string, ManifestImage]>) {
-      const source = scene.textures.get(`svg:${folder}/${name}`).getSourceImage() as HTMLImageElement;
+  keepFolder(scene: Phaser.Scene, folder: Folder, short: string): void {
+    const list = (Object.entries(this.manifest[folder]) as Array<[string, ManifestImage]>).sort((a, b) => b[1].height - a[1].height);
+    for (const [name, img] of list) {
+      const key = `svg:${folder}/${name}`;
+      const source = scene.textures.get(key).getSourceImage() as HTMLImageElement;
       this.keep(`${short}/${name}`, source, img.width * ART_SCALE, img.height * ART_SCALE, img.origin);
+      scene.textures.remove(key);
     }
+  }
+
+  /** Everything kept is in. From here down, the sheet is the units'. */
+  seal(): void {
+    this.packer.newRow();
+    this.base = this.packer.mark();
+    this.texture.refresh();
   }
 
   refresh(): void {
@@ -157,7 +137,7 @@ export class Sheet {
     if (missing.length === 0) return Promise.resolve();
     return this.load(scene, missing).then(() => {
       if (this.pack(scene, missing)) return undefined;
-      // Out of room. Start the sheet again with only what this battle needs.
+      // Out of room. Take the other units off and pack only what this battle needs.
       this.wipe();
       return this.load(scene, list).then(() => {
         if (!this.pack(scene, list)) throw new Error('sheet: one battle does not fit');
@@ -185,52 +165,45 @@ export class Sheet {
     });
   }
 
+  /** All of these units, or none of them. Their parts go in tallest first, which wastes least. */
   private pack(scene: Phaser.Scene, keys: readonly UnitKey[]): boolean {
+    const todo: Array<{ k: UnitKey; part: ManifestPart; w: number; h: number }> = [];
     for (const k of keys) {
       if (this.has(k)) continue;
-      const parts: ManifestPart[] = this.manifest.units[k.unit].parts;
-      // The whole unit, or none of it: check for room before drawing any part.
-      const save = [this.penX, this.penY, this.rowH];
-      let fits = true;
-      for (const part of parts) {
-        if (!this.place(part.box[2] * ART_SCALE, part.box[3] * ART_SCALE)) {
-          fits = false;
-          break;
-        }
+      for (const part of this.manifest.units[k.unit].parts) {
+        todo.push({ k, part, w: part.box[2] * ART_SCALE, h: part.box[3] * ART_SCALE });
       }
-      [this.penX, this.penY, this.rowH] = save;
-      if (!fits) return false;
-      for (const part of parts) {
-        const frame = Sheet.unitFrame(k.team, k.unit, part.name);
-        const key = `svg:${frame}`;
-        const source = scene.textures.get(key).getSourceImage() as HTMLImageElement;
-        const [bx, by, bw, bh] = part.box;
-        this.draw(frame, source, bx * ART_SCALE, by * ART_SCALE, bw * ART_SCALE, bh * ART_SCALE, [
-          (part.pivot[0] - bx) / bw,
-          (part.pivot[1] - by) / bh,
-        ]);
-        scene.textures.remove(key);
-      }
-      this.packed.add(`${k.team}/${k.unit}`);
     }
+    todo.sort((a, b) => b.h - a.h);
+    if (!this.packer.fits(todo.map((t) => [t.w, t.h] as const))) return false;
+    for (const t of todo) {
+      const frame = Sheet.unitFrame(t.k.team, t.k.unit, t.part.name);
+      const key = `svg:${frame}`;
+      const source = scene.textures.get(key).getSourceImage() as HTMLImageElement;
+      const [bx, by, bw, bh] = t.part.box;
+      this.draw(frame, source, bx * ART_SCALE, by * ART_SCALE, t.w, t.h, [(t.part.pivot[0] - bx) / bw, (t.part.pivot[1] - by) / bh]);
+      this.unitFrames.push(frame);
+      scene.textures.remove(key);
+    }
+    for (const k of keys) this.packed.add(`${k.team}/${k.unit}`);
     this.texture.refresh();
     return true;
   }
 
+  /** Takes every unit off the sheet. What was kept at start is not touched. */
   private wipe(): void {
-    for (const name of this.frames) this.texture.remove(name);
-    this.frames = [];
+    if (!this.base) return;
+    for (const name of this.unitFrames) this.texture.remove(name);
+    this.unitFrames = [];
     this.packed.clear();
-    this.texture.context.clearRect(0, 0, SIZE, SIZE);
-    this.penX = PAD;
-    this.penY = PAD;
-    this.rowH = 0;
-    for (const k of this.kept) this.draw(k.frame, k.source, 0, 0, k.w, k.h, k.origin);
+    this.packer.restore(this.base);
+    const top = this.base[1];
+    this.texture.context.clearRect(0, top, SHEET_SIZE, SHEET_SIZE - top);
   }
 
   /** How much of the sheet is used, for the debug overlay. */
   usage(): string {
-    return `${this.packed.size} units, ${Math.round((100 * (this.penY + this.rowH)) / SIZE)}% of ${SIZE}px`;
+    return `${this.packed.size} units, ${Math.round(100 * this.packer.used())}% of ${SHEET_SIZE}px`;
   }
 }
 
