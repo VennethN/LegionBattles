@@ -15,7 +15,7 @@ function seed(): number {
 export function save(): SaveData {
   if (!current) {
     const loaded = loadSave(seed());
-    current = loaded.fresh || Object.keys(loaded.save.cards).length === 0 ? startingSave(seed()) : loaded.save;
+    current = loaded.fresh || loaded.save.cards.length === 0 ? startingSave(seed()) : loaded.save;
     tidyTeam(current);
     sfx.enabled = current.sound;
   }

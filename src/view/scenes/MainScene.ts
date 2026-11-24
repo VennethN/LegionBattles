@@ -232,7 +232,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   private keyOf(): string {
-    return save().team.map((p) => `${p.unit}@${p.col},${p.row}`).join(' ');
+    return save().team.map((p) => `${p.card}@${p.col},${p.row}`).join(' ');
   }
 
   // ------------------------------------------------------------ the run of battles

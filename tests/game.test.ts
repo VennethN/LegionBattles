@@ -5,8 +5,9 @@ import { SETS, UNITS } from '../src/data/units';
 import { WORLDS, stageCoins } from '../src/data/worlds';
 import { COUNTDOWN, afterBattle, goTo, sameWhere, settle, teamChanged, whereOpen } from '../src/game/campaign';
 import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
+import { COPY_XP, addCard, cardOf, cardsOf, combine, combinePreview, spare, whyNot, worth, xpHeld } from '../src/game/cards';
 import {
-  BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, clearedIn, difficultyOpen, finishStage, frontier, inPool, isEnemyTile, known,
+  BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, clearedIn, difficultyOpen, finishStage, frontier, inPool, inTeam, isEnemyTile, known,
   openPack, packOpen, packPool, packsHeld, rollPack, stageEnemies, stageInput, stageOpen, stagePay, stageStanding, stageXp,
   startingSave, teamSize, tidyTeam, toggleTeam, topDifficulty, worldDone, worldOpen, type StageResult,
 } from '../src/game/rules';
@@ -117,7 +118,8 @@ describe('the data', () => {
 describe('a new player', () => {
   it('starts with three cards in a team, two packs, and room for a fourth', () => {
     const save = startingSave(1);
-    expect(Object.keys(save.cards)).toHaveLength(3);
+    expect(save.cards).toHaveLength(3);
+    expect(new Set(save.cards.map((c) => c.id)).size).toBe(3);
     expect(save.team).toHaveLength(3);
     expect(save.packs.recruit).toBe(2);
     expect(teamSize(save)).toBe(BASE_TEAM);
@@ -253,32 +255,37 @@ describe('packs', () => {
     expect(grades[2]).toBeGreaterThan(0);
   });
 
-  it('opening gives a new card, a better grade, or experience, and uses the pack up', () => {
+  it('opening always gives a card of its own, a copy of a unit held too, and uses the pack up', () => {
     const save = startingSave(3);
     save.packs.recruit = 60;
     const seen = new Set<string>();
+    let best = 0;
     for (let i = 0; i < 60; i++) {
-      const cardsBefore = Object.keys(save.cards).length;
+      const before = save.cards.length;
+      const held = cardsOf(save, 'knight').length;
       const pull = openPack(save, 'recruit');
       expect(pull).not.toBeNull();
       if (!pull) continue;
       seen.add(pull.outcome);
-      const card = save.cards[pull.unit];
-      if (pull.outcome === 'new') {
-        expect(Object.keys(save.cards).length).toBe(cardsBefore + 1);
-        expect(card.grade).toBe(pull.grade);
-      } else if (pull.outcome === 'gradeUp') {
-        expect(pull.grade).toBeGreaterThan(pull.was);
-        expect(card.grade).toBe(pull.grade);
-      } else {
-        expect(pull.xp).toBeGreaterThan(0);
-        expect(card.grade).toBeGreaterThanOrEqual(pull.grade);
+      // Every pull is one more card, whatever it is.
+      expect(save.cards.length).toBe(before + 1);
+      const card = cardOf(save, pull.card);
+      expect(card).toMatchObject({ unit: pull.unit, grade: pull.grade, level: 1, xp: 0 });
+      expect(pull.held).toBe(cardsOf(save, pull.unit).length);
+      expect(pull.outcome).toBe(pull.held === 1 ? 'new' : 'copy');
+      if (pull.unit === 'knight') expect(pull.held).toBe(held + 1);
+      if (pull.best) {
+        best++;
+        // The best yet is better than every other card of its unit.
+        for (const c of cardsOf(save, pull.unit)) if (c.id !== pull.card) expect(c.grade).toBeLessThan(pull.grade);
       }
     }
     expect(save.packs.recruit).toBe(0);
     expect(openPack(save, 'recruit')).toBeNull();
-    expect(seen).toEqual(new Set(['new', 'gradeUp', 'duplicate']));
+    expect(seen).toEqual(new Set(['new', 'copy']));
+    expect(best).toBeGreaterThan(0);
     expect(save.stats.opened).toBe(60);
+    expect(new Set(save.cards.map((c) => c.id)).size).toBe(save.cards.length);
   });
 
   it('the same save opens the same cards', () => {
@@ -288,16 +295,17 @@ describe('packs', () => {
     for (let i = 0; i < 10; i++) expect(openPack(a, 'recruit')).toEqual(openPack(b, 'recruit'));
   });
 
-  it('a new card joins the team while there is room', () => {
+  it('a card joins the team while there is room, a copy too, and waits when there is none', () => {
     const save = startingSave(4);
     expect(save.team).toHaveLength(3);
-    let pull = openPack(save, 'recruit');
-    while (pull && pull.outcome !== 'new') {
-      save.packs.recruit++;
-      pull = openPack(save, 'recruit');
-    }
+    const first = openPack(save, 'recruit');
+    expect(first?.joined).toBe(true);
     expect(save.team).toHaveLength(4);
-    expect(save.team.some((p) => p.unit === pull?.unit)).toBe(true);
+    expect(save.team.some((p) => p.card === first?.card && p.unit === first?.unit)).toBe(true);
+    const second = openPack(save, 'recruit');
+    expect(second?.joined).toBe(false);
+    expect(save.team).toHaveLength(4);
+    expect(inTeam(save, second?.card ?? 0)).toBe(false);
   });
 
   it('are bought with coins, when sold and affordable', () => {
@@ -313,7 +321,7 @@ describe('packs', () => {
 
 describe('cards', () => {
   it('level with experience, up to a ceiling', () => {
-    const card = { grade: 0, level: 1, xp: 0 };
+    const card = { id: 1, unit: 'knight', grade: 0, level: 1, xp: 0 };
     expect(addXp(card, xpToNext(1) - 1)).toBe(0);
     expect(addXp(card, 1)).toBe(1);
     expect(card.level).toBe(2);
@@ -328,7 +336,7 @@ describe('cards', () => {
     expect(gradeMult(3)).toBeGreaterThan(gradeMult(2));
     expect(cardMult(2, 5)).toBeGreaterThan(cardMult(2, 4));
     const save = startingSave(1);
-    save.cards.knight = { grade: 3, level: 5, xp: 0 };
+    Object.assign(cardsOf(save, 'knight')[0], { grade: 3, level: 5 });
     const input = stageInput(save, WORLDS[0], 0);
     const knight = input.teams[0].find((p) => p.unit === 'knight');
     expect(knight?.hpMult).toBeCloseTo(cardMult(3, 5), 6);
@@ -340,28 +348,49 @@ describe('cards', () => {
 });
 
 describe('the team', () => {
-  it('takes units in and out, and no more than may be fielded', () => {
+  it('takes cards in and out, and no more than may be fielded', () => {
     const save = startingSave(1);
-    for (const id of ['cleric', 'berserker', 'mage']) save.cards[id] = { grade: 0, level: 1, xp: 0 };
-    expect(toggleTeam(save, 'cleric')).toBe(true);
+    const [cleric, , mage] = ['cleric', 'berserker', 'mage'].map((id) => addCard(save, id, 0).id);
+    const knight = cardsOf(save, 'knight')[0].id;
+    expect(toggleTeam(save, cleric)).toBe(true);
     expect(save.team).toHaveLength(4);
-    expect(toggleTeam(save, 'mage')).toBe(false);
-    expect(toggleTeam(save, 'knight')).toBe(true);
+    expect(toggleTeam(save, mage)).toBe(false);
+    expect(toggleTeam(save, knight)).toBe(true);
     expect(save.team.some((p) => p.unit === 'knight')).toBe(false);
-    expect(toggleTeam(save, 'mage')).toBe(true);
-    expect(toggleTeam(save, 'paladin')).toBe(false);
+    expect(toggleTeam(save, mage)).toBe(true);
+    // A card that is not held can't be fielded.
+    expect(toggleTeam(save, 9999)).toBe(false);
     const tiles = save.team.map((p) => `${p.col},${p.row}`);
     expect(new Set(tiles).size).toBe(tiles.length);
   });
 
+  it('fields two cards of one unit side by side, each with its own grade and level', () => {
+    const save = startingSave(1);
+    const first = cardsOf(save, 'knight')[0];
+    const second = addCard(save, 'knight', 4);
+    second.level = 7;
+    expect(toggleTeam(save, second.id)).toBe(true);
+    expect(save.team.filter((p) => p.unit === 'knight')).toHaveLength(2);
+    const knights = stageInput(save, WORLDS[0], 0).teams[0].filter((p) => p.unit === 'knight');
+    expect(knights.map((p) => p.hpMult).sort()).toEqual([cardMult(first.grade, first.level), cardMult(4, 7)].sort());
+    expect(runBattle(stageInput(save, WORLDS[0], 0), false).winner).toBe(0);
+    // Only the cards that fought are taught by it.
+    const spare = addCard(save, 'knight', 0);
+    finishStage(save, 0, 0, true);
+    expect(second.xp + second.level).toBeGreaterThan(7);
+    expect(spare).toMatchObject({ level: 1, xp: 0 });
+  });
+
   it('is made fit to fight whatever state it was saved in', () => {
     const save = startingSave(1);
+    const id = (unit: string): number => cardsOf(save, unit)[0].id;
     save.team = [
-      { unit: 'knight', col: 3, row: 1 },
-      { unit: 'knight', col: 2, row: 1 },
-      { unit: 'ghost', col: 1, row: 1 },
-      { unit: 'archer', col: 3, row: 1 },
-      { unit: 'militia', col: 9, row: 9 },
+      { card: id('knight'), unit: 'knight', col: 3, row: 1 },
+      { card: id('knight'), unit: 'knight', col: 2, row: 1 },
+      { card: 9999, unit: 'ghost', col: 1, row: 1 },
+      // A place that names the wrong unit for its card takes the card's.
+      { card: id('archer'), unit: 'mage', col: 3, row: 1 },
+      { card: id('militia'), unit: 'militia', col: 9, row: 9 },
     ];
     tidyTeam(save);
     expect(save.team.map((p) => p.unit)).toEqual(['knight', 'archer', 'militia']);
@@ -372,11 +401,123 @@ describe('the team', () => {
 
   it('FILL TEAM picks the strongest cards held', () => {
     const save = startingSave(1);
-    save.cards.paladin = { grade: 4, level: 9, xp: 0 };
-    save.cards.cleric = { grade: 0, level: 1, xp: 0 };
+    Object.assign(addCard(save, 'paladin', 4), { level: 9 });
+    addCard(save, 'cleric', 0);
     const team = bestTeam(save);
     expect(team).toHaveLength(4);
     expect(team.some((p) => p.unit === 'paladin')).toBe(true);
+  });
+
+  it('FILL TEAM fields copies of a unit when they are the strongest held', () => {
+    const save = startingSave(1);
+    const strong = [0, 1, 2].map(() => Object.assign(addCard(save, 'mage', 5), { level: 12 }).id);
+    const team = bestTeam(save);
+    expect(team.filter((p) => p.unit === 'mage').map((p) => p.card).sort()).toEqual(strong.sort());
+    expect(new Set(team.map((p) => `${p.col},${p.row}`)).size).toBe(team.length);
+    expect(new Set(team.map((p) => p.card)).size).toBe(team.length);
+  });
+});
+
+describe('combining', () => {
+  const two = (): { save: ReturnType<typeof startingSave>; into: number; from: number } => {
+    const save = startingSave(1);
+    save.team = [];
+    return { save, into: cardsOf(save, 'knight')[0].id, from: addCard(save, 'knight', 0).id };
+  };
+
+  it('gives a card the worth of the cards given up, which are gone', () => {
+    const { save, into, from } = two();
+    const before = save.cards.length;
+    const fed = cardOf(save, from);
+    const value = fed ? worth(fed) : 0;
+    expect(value).toBe(COPY_XP[UNITS.knight.rarity]);
+    const seen = combinePreview(save, into, [from]);
+    // Looking changes nothing.
+    expect(save.cards.length).toBe(before);
+    const done = combine(save, into, [from]);
+    expect(done).toEqual(seen);
+    expect(done?.xp).toBe(value);
+    expect(save.cards.length).toBe(before - 1);
+    expect(cardOf(save, from)).toBeUndefined();
+    const card = cardOf(save, into);
+    expect(card && xpHeld(card)).toBe(value);
+    expect(card?.grade).toBe(0);
+  });
+
+  it('a better grade, a rarer unit and a higher level are each worth more', () => {
+    const card = (unit: string, grade: number, level: number) => ({ id: 1, unit, grade, level, xp: 0 });
+    expect(worth(card('knight', 3, 1))).toBeGreaterThan(worth(card('knight', 2, 1)));
+    expect(worth(card('knight', 0, 6))).toBeGreaterThan(worth(card('knight', 0, 5)));
+    expect(worth(card('paladin', 0, 1))).toBeGreaterThan(worth(card('militia', 0, 1)));
+  });
+
+  it('a card given up takes less than it holds with it, so passing levels about makes nothing', () => {
+    const { save, into, from } = two();
+    const a = cardOf(save, into);
+    const b = cardOf(save, from);
+    if (!a || !b) throw new Error('no cards');
+    addXp(a, 5000);
+    const held = xpHeld(a);
+    // The leveled card into the fresh one, and a fresh card back into that: less than there was.
+    combine(save, b.id, [a.id]);
+    expect(xpHeld(b)).toBeLessThan(held + COPY_XP[UNITS.knight.rarity]);
+    expect(xpHeld(b)).toBeGreaterThan(held * 0.7);
+  });
+
+  it('the old card can be combined into a better pull, which keeps its grade', () => {
+    const { save, into } = two();
+    const old = cardOf(save, into);
+    if (!old) throw new Error('no card');
+    addXp(old, 2000);
+    const pulled = addCard(save, 'knight', 4);
+    const done = combine(save, pulled.id, [old.id]);
+    expect(done?.to).toBeGreaterThan(1);
+    expect(pulled.grade).toBe(4);
+    expect(pulled.level).toBeGreaterThan(1);
+    expect(pulled.level).toBeLessThanOrEqual(old.level);
+  });
+
+  it('is refused for another unit, a card in the team, the card itself, a card twice, and a card at the last level', () => {
+    const { save, into, from } = two();
+    const archer = cardsOf(save, 'archer')[0].id;
+    expect(whyNot(save, into, archer)).not.toBeNull();
+    expect(combine(save, into, [archer])).toBeNull();
+    expect(combine(save, into, [into])).toBeNull();
+    expect(combine(save, into, [from, from])).toBeNull();
+    expect(combine(save, into, [])).toBeNull();
+    expect(combine(save, into, [9999])).toBeNull();
+    toggleTeam(save, from);
+    expect(whyNot(save, into, from)).toMatch(/team/);
+    expect(combine(save, into, [from])).toBeNull();
+    expect(spare(save, into)).toHaveLength(0);
+    toggleTeam(save, from);
+    expect(spare(save, into).map((c) => c.id)).toEqual([from]);
+    // All of it or none: one card that can't go keeps the others too.
+    const third = addCard(save, 'knight', 1).id;
+    const before = save.cards.length;
+    expect(combine(save, into, [third, archer])).toBeNull();
+    expect(save.cards.length).toBe(before);
+    const top = cardOf(save, into);
+    if (top) top.level = MAX_LEVEL;
+    expect(combine(save, into, [from])).toBeNull();
+    // The card in the team can still be the one that grows.
+    if (top) top.level = 1;
+    toggleTeam(save, into);
+    expect(combine(save, into, [from, third])?.given).toBe(2);
+    expect(inTeam(save, into)).toBe(true);
+  });
+
+  it('stops at the last level', () => {
+    const { save, into, from } = two();
+    // Two cards at the last level hold more than one card can take.
+    const more = addCard(save, 'knight', 0);
+    more.level = MAX_LEVEL;
+    const fed = cardOf(save, from);
+    if (fed) fed.level = MAX_LEVEL;
+    const done = combine(save, into, [from, more.id]);
+    expect(done?.to).toBe(MAX_LEVEL);
+    expect(done?.left).toBe(0);
+    expect(cardOf(save, into)).toMatchObject({ level: MAX_LEVEL, xp: 0 });
   });
 });
 
@@ -529,7 +670,7 @@ describe('difficulties', () => {
 
   it('every stage of every difficulty can be fielded and fought to an end', () => {
     const save = startingSave(3);
-    for (const id of ['paladin', 'berserker', 'mage', 'cleric']) save.cards[id] = { grade: 6, level: 20, xp: 0 };
+    for (const id of ['paladin', 'berserker', 'mage', 'cleric']) Object.assign(addCard(save, id, 6), { level: 20 });
     save.team = bestTeam(save);
     for (let w = 0; w < WORLDS.length; w++) {
       for (const stage of [0, WORLDS[w].stages.length - 1]) {
@@ -558,13 +699,23 @@ describe('the save', () => {
   });
 
   it('is started again when it is not a save, and mended when parts are missing', () => {
-    expect(repair(null, 5).cards).toEqual({});
+    expect(repair(null, 5).cards).toEqual([]);
     expect(repair('nonsense', 5).coins).toBe(0);
     expect(repair({ version: 999, coins: 50 }, 5).coins).toBe(0);
-    const mended = repair({ version: 2, coins: -5, cards: { knight: { grade: 2 } }, team: [{ unit: 'knight', col: 1, row: 1 }, { unit: 'nobody' }] }, 5);
+    const mended = repair({
+      version: 3, coins: -5,
+      // A card with no number, two with the same, and one with nothing to it are dropped.
+      cards: [{ id: 4, unit: 'knight', grade: 2 }, { unit: 'mage' }, { id: 4, unit: 'archer' }, null, { id: 6, unit: 'knight', level: 3 }],
+      team: [{ card: 4, unit: 'archer', col: 1, row: 1 }, { card: 4, col: 2, row: 2 }, { card: 77 }, { card: 6, col: 0, row: 0 }],
+    }, 5);
     expect(mended.coins).toBe(0);
-    expect(mended.cards.knight).toEqual({ grade: 2, level: 1, xp: 0 });
-    expect(mended.team).toEqual([{ unit: 'knight', col: 1, row: 1 }]);
+    expect(mended.cards).toEqual([
+      { id: 4, unit: 'knight', grade: 2, level: 1, xp: 0 },
+      { id: 6, unit: 'knight', grade: 0, level: 3, xp: 0 },
+    ]);
+    // The next card's number is past every number in use, so no two cards ever share one.
+    expect(mended.nextCard).toBe(7);
+    expect(mended.team).toEqual([{ card: 4, unit: 'knight', col: 1, row: 1 }, { card: 6, unit: 'knight', col: 0, row: 0 }]);
     expect(mended.packs).toEqual({});
     expect(mended.tutorial).toEqual({ done: false, seen: [] });
   });
@@ -575,13 +726,34 @@ describe('the save', () => {
       cleared: { thornwood: 10, sunscar: 4 }, packs: { recruit: 2 }, rng: 7, stats: { battles: 30, wins: 20, opened: 9 }, speed: 2, sound: false,
     };
     const now = repair(old, 1);
-    expect(now.version).toBe(2);
+    expect(now.version).toBe(3);
+    // One card to a unit then: each is a card with a number now, and the team names it.
+    expect(now.cards).toEqual([{ id: 1, unit: 'knight', grade: 1, level: 3, xp: 4 }]);
+    expect(now.team).toEqual([{ card: 1, unit: 'knight', col: 3, row: 1 }]);
+    expect(now.nextCard).toBe(2);
     expect(now.cleared).toEqual({ thornwood: [10], sunscar: [4] });
     expect(clearedIn(now, 'thornwood')).toBe(10);
     expect(difficultyOpen(now, 0, 1)).toBe(true);
     expect(now.coins).toBe(120);
     expect(now.sound).toBe(false);
     expect(now.tutorial.done).toBe(true);
+  });
+
+  it('a save from before copies were cards is carried over, each unit as one card', () => {
+    const old = {
+      version: 2, coins: 9, cards: { knight: { grade: 2, level: 4, xp: 1 }, mage: { grade: 0, level: 1, xp: 0 } },
+      team: [{ unit: 'mage', col: 0, row: 1 }, { unit: 'knight', col: 3, row: 1 }, { unit: 'nobody', col: 1, row: 1 }],
+      cleared: { thornwood: [3] }, tutorial: { done: true, seen: [] },
+    };
+    const now = repair(old, 1);
+    expect(now.cards).toEqual([{ id: 1, unit: 'knight', grade: 2, level: 4, xp: 1 }, { id: 2, unit: 'mage', grade: 0, level: 1, xp: 0 }]);
+    expect(now.team).toEqual([{ card: 2, unit: 'mage', col: 0, row: 1 }, { card: 1, unit: 'knight', col: 3, row: 1 }]);
+    expect(now.nextCard).toBe(3);
+    // And the next pull of a Knight is a second Knight, not a change to the first.
+    now.packs.recruit = 40;
+    while (cardsOf(now, 'knight').length < 2 && openPack(now, 'recruit'));
+    expect(cardsOf(now, 'knight')).toHaveLength(2);
+    expect(cardOf(now, 1)).toMatchObject({ grade: 2, level: 4, xp: 1 });
   });
 });
 

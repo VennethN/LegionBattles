@@ -54,7 +54,7 @@ export class ShopScene extends Phaser.Scene {
       if (s.stats.opened > 0) markSeen(s, 'packs');
       commit();
     });
-    label(this, 190, 40, 'Every pack holds one card. A better grade of a card you hold takes its place.', {
+    label(this, 190, 40, 'Every pack holds one card. A copy of one you hold is a card of its own.', {
       size: 17, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
     });
 
@@ -248,36 +248,21 @@ export class ShopScene extends Phaser.Scene {
     card.setScale(0.05, 1).setAlpha(0);
     this.tweens.add({ targets: card, scaleX: 1, alpha: 1, duration: 300, delay: 120, ease: 'Back.easeOut' });
 
-    let gradeLine = false;
+    // A copy is a card of its own: it says how many are held now, and what can be done with it.
     let headline = 'NEW!';
     let headColor = HOLY.fill;
-    let sub = `${def.name} joins you.`;
-    if (pull.outcome === 'gradeUp') {
-      headline = 'A BETTER GRADE';
-      sub = `Your ${def.name} is better now:`;
-      gradeLine = true;
-    } else if (pull.outcome === 'duplicate') {
-      headline = `+${pull.xp} EXPERIENCE`;
-      headColor = VENOM.light;
-      const mine = s.cards[pull.unit];
-      sub = pull.levels > 0
-        ? `Your ${def.name} is level ${mine.level} now.`
-        : `Your ${def.name} is as good already, so this one teaches it.`;
+    let sub = pull.joined ? `${def.name} joins your team.` : `${def.name} joins you.`;
+    if (pull.outcome === 'copy') {
+      headline = pull.best ? 'YOUR BEST YET' : 'ANOTHER ONE';
+      headColor = pull.best ? GOLD.fill : VENOM.light;
+      sub = pull.joined
+        ? `It joins your team. You hold ${pull.held} of this unit now.`
+        : `You hold ${pull.held} of this unit now. Field it, or COMBINE it in UNITS.`;
     }
     const head = add(label(this, cx, cy - h / 2 - 34, headline, { size: 40, color: headColor, strokeWidth: 8 }).setDepth(9031).setAlpha(0).setScale(0.6));
     this.tweens.add({ targets: head, alpha: 1, scale: 1, duration: 260, delay: 380, ease: 'Back.easeOut' });
     const line = add(label(this, cx, cy + h / 2 + 34, sub, { size: 20, weight: 600 }).setDepth(9031).setAlpha(0));
     this.tweens.add({ targets: line, alpha: 1, duration: 260, delay: 480 });
-    if (gradeLine) {
-      // The grade it had, an arrow, the grade it has: as badges, after the words.
-      const room = 34 + 30 + 34 + 30;
-      line.setX(cx - room / 2);
-      const x = cx - room / 2 + line.width / 2 + 30;
-      const was = add(gradeBadge(this, x, cy + h / 2 + 34, pull.was, 26).setDepth(9032).setAlpha(0));
-      const arrow = add(this.add.image(x + 46, cy + h / 2 + 34, SHEET, 'icon/arrow').setScale(0.34).setDepth(9032).setAlpha(0));
-      const now = add(gradeBadge(this, x + 96, cy + h / 2 + 34, pull.grade, 26).setDepth(9032).setAlpha(0));
-      this.tweens.add({ targets: [was, arrow, now], alpha: 1, duration: 260, delay: 480 });
-    }
 
     this.time.delayedCall(650, () => {
       const more = (s.packs[pull.pack] ?? 0) > 0;

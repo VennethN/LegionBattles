@@ -1,4 +1,4 @@
-// npm run journey [players] [--difficulties=N] [--losses]
+// npm run journey [players] [--difficulties=N] [--losses] [--copies]
 //
 // Plays new players through the game by its own rules, in seconds, and says
 // for each world how many battles it took, how many were lost, how long a
@@ -12,13 +12,17 @@
 // order a sensible player climbs in.
 //
 // The players are plain: they open every pack they get, buy the dearest pack
-// they can afford, field their strongest cards, and when a stage beats them
-// they go back a stage or two for coins and experience before trying again.
+// they can afford, combine every copy into the best card of its unit, field
+// their strongest cards, and when a stage beats them they go back a stage or
+// two for coins and experience before trying again. With --copies they
+// combine nothing and field copies as cards of their own, which says which of
+// the two a copy is better used for.
 
 import { DIFFICULTIES } from '../src/data/difficulties';
 import { allPacks } from '../src/data/packs';
 import { WORLDS } from '../src/data/worlds';
 import { SETS } from '../src/data/units';
+import { cardOf, cardsOf, combine } from '../src/game/cards';
 import { GRADES, cardMult } from '../src/game/rarity';
 import {
   bestTeam, buyPack, cardPower, clearedIn, difficultyOpen, finishStage, openPack, packOpen, packPool, stageInput, stageStanding,
@@ -31,6 +35,7 @@ const args = process.argv.slice(2);
 const players = Number(args.find((a) => /^\d+$/.test(a)) ?? 12);
 const depth = Math.min(DIFFICULTIES.length, Number(args.find((a) => a.startsWith('--difficulties='))?.split('=')[1] ?? 1));
 const showLosses = args.includes('--losses');
+const KEEP_COPIES = args.includes('--copies');
 const CAP = 1500 * depth;
 
 interface Leg {
@@ -42,6 +47,8 @@ interface Leg {
   power: number;
   size: number;
   best: string;
+  /** Cards of the team that are another card of a unit already in it. */
+  copies: number;
   done: boolean;
 }
 
@@ -63,6 +70,14 @@ function prepare(save: SaveData): void {
       continue;
     }
     buyPack(save, buyable[0].id);
+  }
+  if (!KEEP_COPIES) {
+    // Every copy goes into the best card of its unit: the old card into a better pull, a worse pull into the old card.
+    save.team = [];
+    for (const unit of new Set(save.cards.map((c) => c.unit))) {
+      const [best, ...rest] = cardsOf(save, unit);
+      if (rest.length > 0) combine(save, best.id, rest.map((c) => c.id));
+    }
   }
   save.team = bestTeam(save);
 }
@@ -94,7 +109,7 @@ function play(seed: number): { legs: Map<string, Leg>; lost: Map<string, number>
     if (!pick || battles >= CAP) break;
     const [w, d] = pick;
     const world = WORLDS[w];
-    const leg: Leg = { d, w, battles: 0, losses: 0, seconds: 0, power: 0, size: 0, best: '', done: false };
+    const leg: Leg = { d, w, battles: 0, losses: 0, seconds: 0, power: 0, size: 0, best: '', copies: 0, done: false };
     legs.set(`${w}:${d}`, leg);
     let stumbles = 0;
     // A rung that takes more than 500 battles is a wall: the player gives up there.
@@ -121,12 +136,14 @@ function play(seed: number): { legs: Map<string, Leg>; lost: Map<string, number>
     }
     if (!worldDone(save, world.id, d)) break;
     {
-      const team = save.team.map((p) => p.unit);
+      const team = save.team.map((p) => cardOf(save, p.card));
       leg.done = true;
-      leg.power = Math.round(team.reduce((a, u) => a + cardPower(save, u), 0) / Math.max(1, team.length));
+      leg.power = Math.round(team.reduce((a, c) => a + cardPower(c), 0) / Math.max(1, team.length));
       leg.size = teamSize(save);
-      const best = Object.entries(save.cards).sort((a, b) => cardPower(save, b[0]) - cardPower(save, a[0]))[0];
-      leg.best = `${best[0]} ${GRADES[best[1].grade]}${best[1].level}`;
+      const best = [...save.cards].sort((a, b) => cardPower(b) - cardPower(a))[0];
+      leg.best = `${best.unit} ${GRADES[best.grade]}${best.level}`;
+      // How many of the team are a second or third card of a unit already in it.
+      leg.copies = team.length - new Set(team.map((c) => c?.unit)).size;
     }
   }
   return { legs, lost, battles };
@@ -155,7 +172,9 @@ for (const [w, d] of order) {
     `${name} ${String(mid(b)).padStart(7)} / ${avg(b).toFixed(0).padStart(4)} / ${String(Math.max(...b)).padStart(4)}`.padEnd(57) +
       `${Math.round((100 * avg(logs.map((l) => l.losses))) / avg(b))}%`.padStart(7) +
       `${avg(logs.map((l) => l.seconds / l.battles)).toFixed(1)} s`.padStart(10) +
-      `   power ${Math.round(avg(logs.map((l) => l.power)))}, team of ${logs[0].size}, e.g. ${logs[0].best}` +
+      `   power ${Math.round(avg(logs.map((l) => l.power)))}, team of ${logs[0].size}` +
+      (KEEP_COPIES ? `, ${avg(logs.map((l) => l.copies)).toFixed(1)} of them copies` : '') +
+      `, e.g. ${logs[0].best}` +
       (logs.length < players ? `   (${logs.length} of ${players} finished)` : ''),
   );
 }

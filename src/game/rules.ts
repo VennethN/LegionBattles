@@ -10,8 +10,11 @@ import { COLS, HALF_COLS, ROWS } from '../sim/constants';
 import { Rng, hash32 } from '../sim/rng';
 import { defaultFormation } from '../sim/setup';
 import type { BattleInput, Placement } from '../sim/types';
-import { GRADES, GRADE_FALLOFF, MAX_LEVEL, RARITIES, RARITY, cardMult, xpToNext, type Rarity } from './rarity';
-import { newSave, type Card, type SaveData } from './state';
+import { addCard, addXp, cardOf, cardsOf, holds } from './cards';
+import { GRADES, GRADE_FALLOFF, RARITIES, RARITY, cardMult, type Rarity } from './rarity';
+import { newSave, type Card, type Fielded, type SaveData } from './state';
+
+export { addXp } from './cards';
 
 /** How many units a new player may field. It grows as bosses fall. */
 export const BASE_TEAM = 4;
@@ -19,16 +22,14 @@ export const MAX_TEAM = 8;
 
 /** The chance that a won stage drops a pack of its world. */
 export const DROP_CHANCE = 0.34;
-/** Experience a duplicate card is worth, at the worst grade. Each grade above is worth half as much again. */
-export const DUPLICATE_XP = 40;
 
 // ------------------------------------------------------------ starting
 
 export function startingSave(seed: number): SaveData {
   const save = newSave(seed);
   save.coins = 40;
-  for (const id of ['militia', 'archer', 'knight']) save.cards[id] = { grade: 0, level: 1, xp: 0 };
-  save.team = defaultFormation(['militia', 'knight', 'archer'], isFrontline);
+  for (const id of ['militia', 'knight', 'archer']) addCard(save, id, 0);
+  save.team = formation(save.cards);
   // Two packs to open before the first fight: the fourth place in the team is theirs to fill.
   save.packs.recruit = 2;
   return save;
@@ -101,13 +102,20 @@ export function inPool(save: SaveData, unit: UnitInfo): boolean {
  * not known is shown dark, with "???", and nothing else about it is told.
  */
 export function known(save: SaveData, unit: UnitInfo): boolean {
-  return !!save.cards[unit.id] || (unit.from !== undefined && inPool(save, unit));
+  return holds(save, unit.id) || (unit.from !== undefined && inPool(save, unit));
 }
 
 // ------------------------------------------------------------ the team
 
-export function inTeam(save: SaveData, unit: string): boolean {
-  return save.team.some((p) => p.unit === unit);
+/** Whether a card is in the team. Two cards of a unit are two cards: one may fight while the other waits. */
+export function inTeam(save: SaveData, card: number): boolean {
+  return save.team.some((p) => p.card === card);
+}
+
+/** Cards laid out as a team that has not been arranged: fighters forward, the rest behind. */
+function formation(cards: readonly Card[]): Fielded[] {
+  const tiles = defaultFormation(cards.map((c) => c.unit), isFrontline);
+  return tiles.map((t, i) => ({ ...t, card: cards[i].id }));
 }
 
 function freeTile(team: readonly Placement[], front: boolean): [number, number] {
@@ -121,47 +129,48 @@ function freeTile(team: readonly Placement[], front: boolean): [number, number] 
   throw new Error('team: no free tile');
 }
 
-/** Puts a unit in the team or takes it out. Returns false if the team is full. */
-export function toggleTeam(save: SaveData, unit: string): boolean {
-  const at = save.team.findIndex((p) => p.unit === unit);
+/** Puts a card in the team or takes it out. Returns false if the team is full. */
+export function toggleTeam(save: SaveData, card: number): boolean {
+  const at = save.team.findIndex((p) => p.card === card);
   if (at >= 0) {
     save.team.splice(at, 1);
     return true;
   }
-  if (!save.cards[unit] || save.team.length >= teamSize(save)) return false;
-  const [col, row] = freeTile(save.team, isFrontline(unit));
-  save.team.push({ unit, col, row });
+  const held = cardOf(save, card);
+  if (!held || save.team.length >= teamSize(save)) return false;
+  const [col, row] = freeTile(save.team, isFrontline(held.unit));
+  save.team.push({ card, unit: held.unit, col, row });
   return true;
 }
 
-/** The team as it must be to fight: only cards the player holds, no more than may be fielded, each on its own tile of the player's half. */
+/** The team as it must be to fight: only cards the player holds, each once, no more than may be fielded, each on its own tile of the player's half. */
 export function tidyTeam(save: SaveData): void {
-  const seen = new Set<string>();
+  const seen = new Set<number>();
   const tiles = new Set<string>();
-  const out: Placement[] = [];
+  const out: Fielded[] = [];
   for (const p of save.team) {
-    if (!save.cards[p.unit] || seen.has(p.unit) || out.length >= teamSize(save)) continue;
-    seen.add(p.unit);
+    const held = cardOf(save, p.card);
+    if (!held || seen.has(held.id) || out.length >= teamSize(save)) continue;
+    seen.add(held.id);
     let { col, row } = p;
     if (col < 0 || col >= HALF_COLS || row < 0 || row >= ROWS || tiles.has(`${col},${row}`)) {
-      [col, row] = freeTile(out, isFrontline(p.unit));
+      [col, row] = freeTile(out, isFrontline(held.unit));
     }
     tiles.add(`${col},${row}`);
-    out.push({ unit: p.unit, col, row });
+    out.push({ card: held.id, unit: held.unit, col, row });
   }
   save.team = out;
 }
 
-/** The best cards the player holds, laid out fighters forward. What FILL TEAM does. */
-export function bestTeam(save: SaveData): Placement[] {
-  const ids = Object.keys(save.cards).sort((a, b) => cardPower(save, b) - cardPower(save, a) || a.localeCompare(b));
-  return defaultFormation(ids.slice(0, teamSize(save)), isFrontline);
+/** The strongest cards the player holds, copies of a unit among them, laid out fighters forward. What FILL TEAM does. */
+export function bestTeam(save: SaveData): Fielded[] {
+  const cards = [...save.cards].sort((a, b) => cardPower(b) - cardPower(a) || a.unit.localeCompare(b.unit) || a.id - b.id);
+  return formation(cards.slice(0, teamSize(save)));
 }
 
 /** One number for how strong a card is, to order cards by. */
-export function cardPower(save: SaveData, unit: string): number {
-  const card = save.cards[unit];
-  const def = UNITS[unit];
+export function cardPower(card: Card | undefined): number {
+  const def = card ? UNITS[card.unit] : undefined;
   if (!card || !def) return 0;
   const m = cardMult(card.grade, card.level);
   const dps = (def.heal ? def.heal.amount * 0.8 + def.damage * 0.3 : def.damage) / def.attackInterval;
@@ -177,7 +186,12 @@ function mults(card: Card): { hpMult: number; damageMult: number } {
 
 /** The player's team as the simulation takes it, with each card's grade and level counted. */
 export function teamPlacements(save: SaveData): Placement[] {
-  return save.team.map((p) => ({ ...p, ...mults(save.cards[p.unit]) }));
+  const out: Placement[] = [];
+  for (const p of save.team) {
+    const card = cardOf(save, p.card);
+    if (card) out.push({ unit: card.unit, col: p.col, row: p.row, ...mults(card) });
+  }
+  return out;
 }
 
 /**
@@ -244,22 +258,10 @@ export function stageInput(save: SaveData, world: WorldDef, stage: number, d = 0
 }
 
 export interface LevelUp {
+  card: number;
   unit: string;
   from: number;
   to: number;
-}
-
-/** Gives a card experience. Returns how many levels it gained. */
-export function addXp(card: Card, xp: number): number {
-  let gained = 0;
-  card.xp += Math.max(0, Math.round(xp));
-  while (card.level < MAX_LEVEL && card.xp >= xpToNext(card.level)) {
-    card.xp -= xpToNext(card.level);
-    card.level++;
-    gained++;
-  }
-  if (card.level >= MAX_LEVEL) card.xp = 0;
-  return gained;
 }
 
 export function stageXp(world: WorldDef, stage: number, won: boolean, d = 0): number {
@@ -313,10 +315,10 @@ export function finishStage(save: SaveData, worldIndex: number, stage: number, w
   };
 
   for (const p of save.team) {
-    const card = save.cards[p.unit];
+    const card = cardOf(save, p.card);
     if (!card) continue;
     const from = card.level;
-    if (addXp(card, result.xp) > 0) result.levelUps.push({ unit: p.unit, from, to: card.level });
+    if (addXp(card, result.xp) > 0) result.levelUps.push({ card: card.id, unit: card.unit, from, to: card.level });
   }
   if (!won) return result;
 
@@ -368,14 +370,18 @@ export function packPool(save: SaveData, pack: PackDef): UnitInfo[] {
 export interface Pull {
   pack: string;
   unit: string;
+  /** The card it became. */
+  card: number;
   rarity: Rarity;
   grade: number;
-  /** new: a unit not held before. gradeUp: held, and this one is better. duplicate: held at this grade or better, so it becomes experience. */
-  outcome: 'new' | 'gradeUp' | 'duplicate';
-  /** The grade held before, for a gradeUp. */
-  was: number;
-  xp: number;
-  levels: number;
+  /** new: a unit not held before. copy: another card of a unit held, to field beside the others or to combine into one of them. */
+  outcome: 'new' | 'copy';
+  /** How many cards of the unit are held now, this one among them. */
+  held: number;
+  /** True for a copy at a better grade than any card of the unit held before. */
+  best: boolean;
+  /** True if there was room in the team and the card walked into it. */
+  joined: boolean;
 }
 
 /** What a pack turns over, without changing anything: a tier by weight, a unit of that tier, a grade in the pack's range. */
@@ -421,24 +427,21 @@ export function openPack(save: SaveData, packId: string): Pull | null {
   save.packs[packId]--;
   save.stats.opened++;
   const { unit, grade } = rollPack(save, pack, nextRandom(save));
-  const held = save.cards[unit.id];
-  const pull: Pull = { pack: packId, unit: unit.id, rarity: unit.rarity, grade, outcome: 'new', was: -1, xp: 0, levels: 0 };
-  if (!held) {
-    save.cards[unit.id] = { grade, level: 1, xp: 0 };
-    // A new card walks straight into the team if there is room for it.
-    if (save.team.length < teamSize(save)) toggleTeam(save, unit.id);
-    return pull;
-  }
-  if (grade > held.grade) {
-    pull.outcome = 'gradeUp';
-    pull.was = held.grade;
-    held.grade = grade;
-    return pull;
-  }
-  pull.outcome = 'duplicate';
-  pull.xp = Math.round(DUPLICATE_XP * Math.pow(1.5, grade));
-  pull.levels = addXp(held, pull.xp);
-  return pull;
+  const before = cardsOf(save, unit.id);
+  const card = addCard(save, unit.id, grade);
+  // A card walks straight into the team if there is room for it, a copy too.
+  const joined = save.team.length < teamSize(save) && toggleTeam(save, card.id);
+  return {
+    pack: packId,
+    unit: unit.id,
+    card: card.id,
+    rarity: unit.rarity,
+    grade,
+    outcome: before.length === 0 ? 'new' : 'copy',
+    held: before.length + 1,
+    best: before.length > 0 && grade > before[0].grade,
+    joined,
+  };
 }
 
 /** Buys a pack with coins. Returns false if it is not sold yet or costs too much. */

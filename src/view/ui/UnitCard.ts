@@ -1,5 +1,6 @@
-// A unit's card as the menus show it: its picture on its tier's color, its
-// name, its grade and its level.
+// A card as the menus show it: its unit's picture on its tier's color, its
+// name, its grade and its level. Every card is a tile of its own: two of a
+// unit are two tiles, and none has a count on it.
 //
 // A unit the player does not know is its own outline in the dark, named
 // "???", and nothing else about it is told: not its tier, not its name.
@@ -8,7 +9,7 @@ import Phaser from 'phaser';
 import { HIGHLIGHT, IRON, OUTLINE } from '../../art/kit/palette';
 import { UNITS } from '../../data/units';
 import { inTeam, known } from '../../game/rules';
-import type { SaveData } from '../../game/state';
+import type { Card, SaveData } from '../../game/state';
 import { getManifest } from '../app';
 import { hex } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../Sheet';
@@ -23,6 +24,8 @@ export interface CardOpts {
   enemy?: boolean;
   /** Leaves the name off, for small cards. */
   bare?: boolean;
+  /** The card shown. Without one the tile is the unit alone: one not held, or not known. */
+  card?: Card;
 }
 
 /** A unit's picture standing on (x, y), fitted to a height. Dark if `dark`. */
@@ -56,8 +59,8 @@ export function unitCard(
   const w = o.width ?? 128;
   const h = o.height ?? 132;
   const def = UNITS[unit];
-  const card = save.cards[unit];
-  const isKnown = o.enemy ? known(save, def) || !!card : known(save, def);
+  const card = o.card;
+  const isKnown = !!card || known(save, def);
   const root = scene.add.container(x, y);
   const g = scene.add.graphics();
   slab(g, -w / 2, -h / 2, w, h, isKnown ? RARITY_MAT[def.rarity] : IRON, 14, 6);
@@ -77,7 +80,7 @@ export function unitCard(
   if (card && !o.enemy) {
     root.add(gradeBadge(scene, -w / 2 + 24, -h / 2 + 20, card.grade, 24));
     root.add(label(scene, w / 2 - 8, -h / 2 + 18, `Lv ${card.level}`, { size: 14, align: 'right', strokeWidth: 4 }));
-    if (inTeam(save, unit)) root.add(scene.add.image(w / 2 - 16, h / 2 - 44, SHEET, 'icon/check').setScale(0.3));
+    if (inTeam(save, card.id)) root.add(scene.add.image(w / 2 - 16, h / 2 - 44, SHEET, 'icon/check').setScale(0.3));
   }
   root.setSize(w, h);
   return root;

@@ -2,8 +2,9 @@
 //
 // Puts a save that is well into the game in the browser's storage and takes
 // the pictures docs/screens keeps of what a new player does not see yet: the
-// menu of worlds with its difficulties, a full team, every pack on sale, a
-// card turned over, and the two later bosses. It needs the dev server
+// menu of worlds with its difficulties, a full team with copies of a unit in
+// it, cards combined into one, every pack on sale, a card turned over, and
+// the two later bosses. It needs the dev server
 // running (npm run dev) or a served build, and Playwright.
 
 import fs from 'node:fs';
@@ -22,11 +23,20 @@ const errors = [];
 page.on('pageerror', (e) => errors.push(`${e.message}\n${(e.stack ?? '').split('\n').slice(0, 5).join('\n')}`));
 
 const units = ['militia', 'archer', 'knight', 'cleric', 'berserker', 'mage', 'paladin', 'cutpurse', 'poacher', 'bruiser', 'hexer', 'warlord', 'lancer', 'javelineer', 'ballista', 'pyromancer', 'colossus', 'huscarl', 'harpooner', 'icegolem', 'frostwitch'];
-const cards = {};
-units.forEach((u, i) => { cards[u] = { grade: i % 7, level: 6 + (i % 9), xp: 10 }; });
+// One card of each unit, and copies of a few: every card is its own, with its own grade and level.
+const cards = [];
+const card = (unit, grade, level) => { cards.push({ id: cards.length + 1, unit, grade, level, xp: 10 }); return cards.length; };
+const first = {};
+units.forEach((u, i) => { first[u] = card(u, i % 7, 6 + (i % 9)); });
+for (const [grade, level] of [[0, 1], [0, 1], [1, 1], [0, 3], [2, 1], [1, 2]]) card('knight', grade, level);
+for (const [grade, level] of [[4, 1], [1, 5], [0, 1]]) card('mage', grade, level);
+const paladin2 = card('paladin', 5, 9);
+card('paladin', 2, 1);
+const fielded = (id, col, row) => ({ card: id, unit: cards[id - 1].unit, col, row });
 const save = (at) => ({
-  version: 2, coins: 23450, cards,
-  team: [{ unit: 'paladin', col: 3, row: 1 }, { unit: 'huscarl', col: 3, row: 2 }, { unit: 'colossus', col: 2, row: 0 }, { unit: 'frostwitch', col: 1, row: 1 }, { unit: 'ballista', col: 0, row: 2 }, { unit: 'pyromancer', col: 1, row: 3 }, { unit: 'cleric', col: 0, row: 0 }],
+  version: 3, coins: 23450, cards, nextCard: cards.length + 1,
+  // Two Paladins side by side: a copy is fielded like any card.
+  team: [fielded(first.paladin, 3, 1), fielded(paladin2, 3, 2), fielded(first.colossus, 2, 0), fielded(first.frostwitch, 1, 1), fielded(first.ballista, 0, 2), fielded(first.pyromancer, 1, 3), fielded(first.cleric, 0, 0)],
   cleared: { thornwood: [10, 10, 4], sunscar: [12, 7], frostholt: [14] },
   packs: { recruit: 1, royal: 2, frost: 1, 'thornwood@2': 3 }, rng: 99, stats: { battles: 400, wins: 300, opened: 80 },
   speed: 2, sound: true, tutorial: { done: true, seen: [] }, at, lostAt: null,
@@ -58,6 +68,33 @@ await page.screenshot({ path: `${out}/11-worlds.png` });
 await close('Worlds');
 await overlay('Team');
 await page.screenshot({ path: `${out}/12-team.png` });
+// The best Knight is the fourth tile. COMBINE turns the screen into a forge for it.
+const held = () => page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).cards.filter((c) => c.unit === 'knight'));
+const before = await held();
+await page.mouse.click(96 + 3 * 140, 145);
+await page.waitForTimeout(300);
+await page.screenshot({ path: `${out}/12b-card-with-copies.png` });
+await page.mouse.click(1158, 648);
+await page.waitForFunction(() => window.game.scene.getScene('Team').forge > 0, null, { timeout: 10000 });
+await page.waitForTimeout(300);
+await page.mouse.click(96, 145);
+await page.mouse.click(96 + 140, 145);
+await page.waitForTimeout(300);
+await page.screenshot({ path: `${out}/12c-forge.png` });
+// MARK ALL, then COMBINE, which asks once.
+await page.mouse.click(1070, 502);
+await page.waitForTimeout(200);
+await page.mouse.click(1070, 572);
+await page.waitForTimeout(200);
+await page.screenshot({ path: `${out}/12d-forge-sure.png` });
+if ((await held()).length !== before.length) throw new Error('COMBINE did not ask before it gave the cards up');
+await page.mouse.click(1070, 572);
+await page.waitForFunction(() => window.game.scene.getScene('Team').forge === 0, null, { timeout: 10000 });
+await page.waitForTimeout(400);
+await page.screenshot({ path: `${out}/12e-combined.png` });
+const after = await held();
+const top = before.find((c) => c.id === after[0]?.id);
+if (after.length !== 1 || !top || (after[0].level === top.level && after[0].xp <= top.xp)) throw new Error(`the Knights were not combined into one: ${JSON.stringify(after)}`);
 await close('Team');
 await overlay('Shop');
 await page.screenshot({ path: `${out}/13-packs.png` });
