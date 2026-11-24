@@ -14,15 +14,17 @@ import { GROUND } from '../../art/board';
 import { BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, type Material } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { LANDS } from '../../data/lands';
+import { DIFFICULTIES } from '../../data/laps';
 import { STAGES, WORLDS, stageAt, worldOf, type World } from '../../data/stages';
 import { goTo } from '../../game/campaign';
-import { cleared, stageOpen, stagePay, worldReached } from '../../game/rules';
+import { stageCleared, stageOpen, stagePay, worldNeeds, worldReached } from '../../game/rules';
 import { setupCamera } from '../app';
 import { H, W, hex } from '../config';
 import { scenePicture } from '../Scenes';
 import { SHEET } from '../Sheet';
 import { commit, save } from '../session';
 import { CoinPill, closeOverlay } from '../ui/chrome';
+import { DIFFICULTY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { worldBanner } from '../ui/WorldBanner';
 import { Button, label, plain, slab } from '../ui/widgets';
@@ -68,22 +70,40 @@ export class MapScene extends Phaser.Scene {
       this.scene.start('Battle', {});
     }, { width: 170, height: 48, size: 18, mat: BONE, color: OUTLINE })).setDepth(8000);
 
-    // The worlds on either side, if they have been reached.
+    // The difficulties of this land, in a row under the heading: the one on show ringed, the ones not
+    // open yet shut with a lock, which say what opens them when they are pressed.
+    const chipW = 132;
+    const row = 118;
+    DIFFICULTIES.forEach((name, d) => {
+      const to = d * LANDS.length + world.land;
+      const open = worldReached(s, to);
+      const x = W / 2 + (d - (DIFFICULTIES.length - 1) / 2) * (chipW + 10);
+      const b = new Button(this, x, row, open ? name.toUpperCase() : '', () => {
+        if (open) this.scene.restart({ world: to } satisfies MapData);
+        else this.showNeeds(to);
+      }, { width: chipW, height: 38, size: 15, mat: open ? DIFFICULTY_MAT[d] : IRON }).setDepth(8000);
+      if (!open) b.root.add(this.add.image(0, -3, SHEET, 'icon/lock').setScale(0.26));
+      if (to === world.index) {
+        const ring = this.add.graphics().setDepth(8001);
+        ring.lineStyle(4, hex(HIGHLIGHT), 1).strokeRoundedRect(x - chipW / 2 - 5, row - 24, chipW + 10, 46, 13);
+      }
+    });
+
+    // The lands on either side on this difficulty, if they are open.
     for (const step of [-1, 1]) {
       const to = world.index + step;
-      if (!worldReached(s, to)) continue;
+      if (!WORLDS[to] || WORLDS[to].lap !== world.lap || !worldReached(s, to)) continue;
       const b = plain(new Button(this, step < 0 ? 44 : W - 44, 400, '', () => this.scene.restart({ world: to } satisfies MapData), { width: 60, height: 84, mat: BONE })).setDepth(8000);
       b.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.44).setFlipX(step < 0));
     }
 
-    const done = cleared(s);
     const nodes = mapNodes(world.last - world.first + 1);
     nodes.forEach(([x, y], i) => {
       const index = world.first + i;
       const stage = stageAt(index);
       const open = stageOpen(s, index);
       const here = index === s.at;
-      const beaten = index < done;
+      const beaten = stageCleared(s, index);
       const boss = stage.def.kind === 'boss';
 
       if (!open) {
@@ -127,13 +147,25 @@ export class MapScene extends Phaser.Scene {
 
   private note: Phaser.GameObjects.GameObject[] = [];
 
+  /** What must be beaten for a world to open, said along the foot of the map. */
+  private showNeeds(world: number): void {
+    for (const o of this.note) o.destroy();
+    this.note = [];
+    const needs = worldNeeds(save(), world).map((w) => `${WORLDS[w].name} on ${DIFFICULTIES[WORLDS[w].lap]}`);
+    const y = H - 30;
+    const text = label(this, W / 2, y, `${WORLDS[world].title}: beat ${needs.join(' and ')} to open it`, { size: 18, weight: 600, strokeWidth: 4 }).setDepth(61);
+    const g = this.add.graphics().setDepth(60);
+    slab(g, W / 2 - text.width / 2 - 22, y - 24, text.width + 44, 46, IRON, 14, 5);
+    this.note.push(g, text);
+  }
+
   /** A stage's number and name, what a win pays and what its enemies stand at: one line along the foot of the map, clear of every site. */
   private showNote(index: number): void {
     for (const o of this.note) o.destroy();
     this.note = [];
     const s = save();
     const stage = STAGES[index];
-    const first = index >= cleared(s);
+    const first = !stageCleared(s, index);
     const y = H - 30;
     const small = { size: 18, weight: 600 as const, align: 'left' as const, strokeWidth: 4 };
     const name = label(this, 0, y, `Stage ${index + 1}  ·  ${stage.def.name}`, { ...small, weight: 700 }).setDepth(61);

@@ -3,7 +3,7 @@
 // thing that touches the browser.
 
 import { LANDS } from '../data/lands';
-import { STAGES } from '../data/stages';
+import { STAGES, WORLDS } from '../data/stages';
 import type { Placement } from '../sim/types';
 
 export const SAVE_VERSION = 4;
@@ -42,6 +42,13 @@ export interface SaveData {
   team: Fielded[];
   /** How many stages of the line are cleared, in order (data/stages.ts). */
   cleared: number;
+  /**
+   * Stages cleared in worlds the line has not come to yet, by the world's
+   * place in WORLDS: a world's harder difficulty can be open, and played,
+   * before the worlds between are done (game/rules.ts, worldOpen). When the
+   * line comes to such a world its count here is taken into `cleared`.
+   */
+  ahead: Record<string, number>;
   /** How many tiers of each dungeon are cleared, in order, by its id; and of each raid (data/expeditions.ts). */
   dungeons: Record<string, number>;
   raids: Record<string, number>;
@@ -75,6 +82,7 @@ export function newSave(seed: number): SaveData {
     met: [],
     team: [],
     cleared: 0,
+    ahead: {},
     dungeons: {},
     raids: {},
     packs: {},
@@ -182,6 +190,15 @@ export function repair(raw: unknown, seed: number): SaveData {
     out.cleared = Math.max(0, Math.min(STAGES.length, Math.floor(num(r.cleared, 0))));
     out.at = Math.max(0, Math.min(STAGES.length - 1, Math.floor(num(r.at, 0))));
     out.lostAt = typeof r.lostAt === 'number' && Number.isFinite(r.lostAt) ? Math.max(0, Math.min(STAGES.length - 1, Math.floor(r.lostAt))) : null;
+    // Stages cleared ahead of the line, in worlds it has not come to. A save from before difficulties could be picked has none.
+    const ahead = (r as { ahead?: unknown }).ahead;
+    if (ahead && typeof ahead === 'object') {
+      for (const [world, n] of Object.entries(ahead)) {
+        const w = Number(world);
+        const count = Math.floor(num(n, 0));
+        if (Number.isInteger(w) && w >= 0 && w < WORLDS.length && count > 0) out.ahead[String(w)] = Math.min(count, WORLDS[w].last - WORLDS[w].first + 1);
+      }
+    }
   }
   for (const key of ['dungeons', 'raids'] as const) {
     const book = r[key];

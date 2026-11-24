@@ -78,7 +78,7 @@ export function packAt(base: PackDef, lap: number): PackDef {
   return {
     ...base,
     id: packIdAt(base.id, lap),
-    name: `${base.name}${rule.mark}`,
+    name: `${rule.name} ${base.name}`,
     // It costs about what a win in its range pays, as the first lap's packs do.
     cost: lapPackCost(base.land, lap) ?? base.cost,
     // On the last lap every land's pack hands out the best two grades; between, the range climbs evenly.

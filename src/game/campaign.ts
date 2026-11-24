@@ -3,14 +3,14 @@
 // to change the team or spend coins. This says where the next battle is
 // fought; the main screen asks it and shows the answer.
 //
-//   a first win      on to the next stage of the line
+//   a first win      on to the next stage of the line, if it is open
 //   a win again      the same stage again: a team left alone earns from a
 //                    stage it can beat
 //   a loss           back one stage. The stage that was lost is remembered,
 //                    and a changed team goes back to it
 
 import { STAGES } from '../data/stages';
-import { frontier, stageOpen, type StageResult } from './rules';
+import { cleared, frontier, stageOpen, type StageResult } from './rules';
 import type { SaveData } from './state';
 
 /**
@@ -47,13 +47,17 @@ export function goTo(save: SaveData, at: number): boolean {
 export function afterBattle(save: SaveData, at: number, result: StageResult): number {
   let next = at;
   if (!result.won) {
-    if (at > 0) {
-      next = at - 1;
+    // Back one stage; or, from the first stage of a world entered ahead of the line, back to the last stage the line has cleared.
+    const back = stageOpen(save, at - 1) ? at - 1 : cleared(save) - 1;
+    if (back >= 0 && back !== at && stageOpen(save, back)) {
+      next = back;
       // The furthest stage lost at is the one to come back to.
       if (save.lostAt === null || save.lostAt < at) save.lostAt = at;
     }
   } else if (result.first) {
-    if (at + 1 < STAGES.length) next = at + 1;
+    // On to the next stage of the line; or, where that is a world not open yet, to the furthest stage of the line.
+    if (stageOpen(save, at + 1)) next = at + 1;
+    else if (at + 1 < STAGES.length) next = frontier(save);
     if (save.lostAt === at) save.lostAt = null;
   }
   save.at = next;

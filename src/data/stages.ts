@@ -65,13 +65,15 @@ export interface Stage {
 export interface World {
   /** Its place among the worlds, from 0. The number a player sees is one more. */
   index: number;
+  /** Its difficulty, as a place in LAPS: a world is a land on a difficulty. */
   lap: number;
   land: number;
   /** The first and last stages of it, as places in the line. */
   first: number;
   last: number;
-  /** The land's name with the lap's mark: "Thornwood II". */
+  /** Its land's name, and that with its difficulty: "Thornwood, Hard". */
   name: string;
+  title: string;
 }
 
 /** How strong a troop of the last stage of all is, against a Crownlands unit at the worst grade and level 1. */
@@ -151,7 +153,7 @@ function build(): { stages: Stage[]; worlds: World[] } {
           pack: lap > 0 ? `${land.pack}@${lap}` : land.pack,
         });
       });
-      worlds.push({ index: worlds.length, lap, land: l, first, last: stages.length - 1, name: `${land.name}${lapOf(lap).mark}` });
+      worlds.push({ index: worlds.length, lap, land: l, first, last: stages.length - 1, name: land.name, title: `${land.name}, ${lapOf(lap).name}` });
     });
   }
   return { stages, worlds };

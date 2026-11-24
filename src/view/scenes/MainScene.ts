@@ -15,11 +15,12 @@ import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, VENOM } from '../.
 import { sfx } from '../../audio/sfx';
 import { packById } from '../../data/packs';
 import { fieldName } from '../../data/fields';
+import { DIFFICULTIES } from '../../data/laps';
 import { WORLDS, landOf, stageAt, worldOf } from '../../data/stages';
 import { UNITS } from '../../data/units';
 import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
 import { cardOf } from '../../game/cards';
-import { cleared, finishStage, packsHeld, stageEnemies, stageInput, stagePay, stageSeed, teamSize, tidyTeam, structuresSize, type StageResult } from '../../game/rules';
+import { finishStage, packsHeld, stageCleared, stageEnemies, stageInput, stagePay, stageSeed, teamSize, tidyTeam, structuresSize, type StageResult } from '../../game/rules';
 import type { Fielded } from '../../game/state';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
@@ -150,7 +151,7 @@ export class MainScene extends Phaser.Scene {
     const s = save();
     const stage = stageAt(this.at);
     const world = worldOf(this.at);
-    const first = this.at >= cleared(s);
+    const first = !stageCleared(s, this.at);
 
     const banner = add(worldBanner(this, 640, 22, world).setDepth(8000));
     banner.setInteractive({ useHandCursor: true });
@@ -286,7 +287,7 @@ export class MainScene extends Phaser.Scene {
     this.next = afterBattle(s, this.at, result);
     commit();
     this.state = 'after';
-    const news = result.moreTeam > 0 || result.reached >= 0 || result.finished;
+    const news = result.moreTeam > 0 || result.moreStructures > 0 || result.opened.length > 0 || result.finished;
     this.afterUntil = this.time.now + (news ? 3600 : 2300);
     this.showResult(winner, result);
     this.refreshTop();
@@ -450,7 +451,11 @@ export class MainScene extends Phaser.Scene {
       const n = structuresSize(save());
       rows.push({ text: n === 1 ? 'You have a place for a structure now' : `You have ${n} places for structures now`, color: ARCANE.light });
     }
-    if (r.reached >= 0) rows.push({ text: `World ${r.reached + 1} is open: ${WORLDS[r.reached].name}`, color: ARCANE.light });
+    // What the win opened: the next land, this land on the next difficulty, or both.
+    for (const w of r.opened) {
+      const world = WORLDS[w];
+      rows.push({ text: world.lap === worldOf(this.at).lap ? `${world.name} is open` : `${world.name} is open on ${DIFFICULTIES[world.lap]}`, color: ARCANE.light });
+    }
     if (r.field) rows.push({ text: `The field is bigger from here: ${fieldName(r.field)}`, color: ARCANE.light });
     if (r.finished) rows.push({ text: 'That was the last stage of all. Well fought.', color: ARCANE.light });
     if (!won && this.next < this.at) rows.push({ text: 'Back one stage, to grow stronger' });

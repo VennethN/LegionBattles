@@ -131,7 +131,7 @@ export class VentureScene extends Phaser.Scene {
       return o;
     };
     const place = this.place;
-    const title = `${place.name.toUpperCase()}  ·  TIER ${TIER_MARKS[this.tier]}`;
+    const title = `${place.name.toUpperCase()}  ·  ${TIER_MARKS[this.tier].toUpperCase()}`;
     const text = add(label(this, W / 2, 26, title, { size: 22, strokeWidth: 6 }).setDepth(8001));
     const g = add(this.add.graphics().setDepth(8000));
     slab(g, W / 2 - text.width / 2 - 24, 4, text.width + 48, 46, LAND_MAT[LANDS[place.land].ground], 12, 5);
@@ -328,7 +328,7 @@ export class VentureScene extends Phaser.Scene {
     if (prize) {
       rows.push({ icon: [SHEET, 'icon/coin', 0.4], text: `+${prize.coins}`, color: GOLD.fill });
       rows.push({ icon: [CARDS, `pack/${prize.packs[0].split('@')[0]}`, 0.15], text: `${packById(prize.packs[0]).name} x${prize.packs.length}` });
-      if (prize.first && this.tier + 1 < TIER_MARKS.length) rows.push({ text: `Tier ${TIER_MARKS[this.tier + 1]} is open`, color: VENOM.light });
+      if (prize.first && this.tier + 1 < TIER_MARKS.length) rows.push({ text: `${TIER_MARKS[this.tier + 1]} is open here`, color: VENOM.light });
     }
     rows.push({ icon: [SHEET, 'icon/star', 0.36], text: `+${xp} experience each` });
     if (ups.length > 0) {

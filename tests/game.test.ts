@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { LANDS } from '../src/data/lands';
-import { LAPS } from '../src/data/laps';
+import { DIFFICULTIES, LAPS } from '../src/data/laps';
 import { PACKS, allPacks, packAt, packById } from '../src/data/packs';
 import { STAGES, TOP, WORLDS, fieldedWorth, landOf, stageAt, stageStrength, worldOf } from '../src/data/stages';
 import { SETS, UNITS, isStructure } from '../src/data/units';
@@ -9,9 +9,9 @@ import { COPY_XP, OTHER_UNIT, addCard, cardOf, cardsOf, combine, combinePreview,
 import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
 import {
   BASE_TEAM, MAX_STRUCTURES, MAX_TEAM, STRUCTURES_AT, STRUCTURE_PACK, STRUCTURE_SHARE, TEAM_AT, addXp, beaten, bestTeam, buyPack, cardPower,
-  cleared, finishStage, frontier, inTeam, isEnemyTile, known, lineDone, openPack, packHolds, packOpen, packPool, packsHeld, rollPack, roomFor,
-  stageEnemies, stageInput, stageOpen, stagePay, stageXp, startingSave, structuresIn, structuresSize, teamSize, tidyTeam, toggleTeam, unitsIn,
-  worldReached, type StageResult,
+  cleared, clearedIn, finishStage, frontier, inTeam, isEnemyTile, known, lineDone, openPack, packHolds, packOpen, packPool, packsHeld, rollPack, roomFor,
+  stageCleared, stageEnemies, stageInput, stageOpen, stagePay, stageXp, startingSave, structuresIn, structuresSize, teamSize, tidyTeam, toggleTeam,
+  unitsIn, worldDone, worldNeeds, worldOpen, worldReached, type StageResult,
 } from '../src/game/rules';
 import { SORTS, SORT_NAME, cardDamage, cardHealth, isSort, nextSort, sortCards, type Sort } from '../src/game/sorting';
 import { repair, type SaveData } from '../src/game/state';
@@ -141,9 +141,11 @@ describe('the line of stages', () => {
     expect(next).toBe(STAGES.length);
     expect(WORLDS[0]).toMatchObject({ first: 0, last: 9, name: 'Thornwood' });
     expect(WORLDS[1]).toMatchObject({ first: 10, last: 21 });
-    // The fourth world is the first land again, and says so.
-    expect(WORLDS[LANDS.length]).toMatchObject({ land: 0, lap: 1, name: 'Thornwood II' });
-    expect(new Set(WORLDS.map((w) => w.name)).size).toBe(WORLDS.length);
+    // The fourth world is the first land again, on the next difficulty, and says so.
+    expect(WORLDS[LANDS.length]).toMatchObject({ land: 0, lap: 1, name: 'Thornwood', title: 'Thornwood, Hard' });
+    expect(WORLDS[0].title).toBe('Thornwood, Normal');
+    expect(new Set(WORLDS.map((w) => w.title)).size).toBe(WORLDS.length);
+    expect(DIFFICULTIES).toEqual(['Normal', 'Hard', 'Expert', 'Master', 'Nightmare']);
   });
 
   it('on the first lap a stage stands at what it is written with', () => {
@@ -279,6 +281,122 @@ describe('the line of stages', () => {
   });
 });
 
+describe('difficulties', () => {
+  const N = LANDS.length;
+  /** The place in WORLDS of a land on a difficulty. */
+  const world = (land: number, difficulty: number): number => difficulty * N + land;
+
+  it('a world is a land on a difficulty, and its stages keep their numbers on the line', () => {
+    expect(WORLDS).toHaveLength(N * LAPS.length);
+    WORLDS.forEach((w, i) => {
+      expect(w).toMatchObject({ index: i, land: i % N, lap: Math.floor(i / N) });
+      expect(w.title).toBe(`${LANDS[w.land].name}, ${DIFFICULTIES[w.lap]}`);
+    });
+    // Harder is further along the line: every stage of a difficulty comes after every stage of the one before.
+    for (let d = 1; d < LAPS.length; d++) expect(WORLDS[world(0, d)].first).toBe(WORLDS[world(N - 1, d - 1)].last + 1);
+  });
+
+  it('a world opens when it is beaten on the difficulty before, and the world before it on this one', () => {
+    const save = startingSave(2);
+    expect(WORLDS.filter((w) => worldOpen(save, w.index)).map((w) => w.index)).toEqual([0]);
+    expect(worldNeeds(save, world(0, 1))).toEqual([world(0, 0)]);
+    expect(worldNeeds(save, world(1, 1))).toEqual([world(1, 0), world(0, 1)]);
+    expect(worldNeeds(save, 0)).toEqual([]);
+    // Thornwood beaten on Normal: the dunes on Normal, and Thornwood on Hard.
+    save.cleared = WORLDS[0].last + 1;
+    expect(WORLDS.filter((w) => worldOpen(save, w.index)).map((w) => w.index)).toEqual([0, world(1, 0), world(0, 1)].sort((a, b) => a - b));
+    expect(worldOpen(save, world(1, 1))).toBe(false);
+    expect(worldOpen(save, world(0, 2))).toBe(false);
+    // The dunes on Hard need both: the dunes on Normal and Thornwood on Hard.
+    save.cleared = WORLDS[1].last + 1;
+    expect(worldOpen(save, world(1, 1))).toBe(false);
+    save.ahead[world(0, 1)] = WORLDS[world(0, 1)].last - WORLDS[world(0, 1)].first + 1;
+    expect(worldDone(save, world(0, 1))).toBe(true);
+    expect(worldOpen(save, world(1, 1))).toBe(true);
+    // And Thornwood on Expert needs only Thornwood on Hard: there is no land before it.
+    expect(worldOpen(save, world(0, 2))).toBe(true);
+    expect(worldOpen(save, world(2, 1))).toBe(false);
+  });
+
+  it('following the line, every world is open in its turn', () => {
+    for (const w of WORLDS) {
+      expect(worldOpen(at(w.first), w.index), w.title).toBe(true);
+      // The land after it is not open on this difficulty until this one is beaten.
+      if (w.land + 1 < N) expect(worldOpen(at(w.first), w.index + 1), w.title).toBe(false);
+      for (let i = w.first; i <= w.last; i++) expect(stageOpen(at(i), i)).toBe(true);
+    }
+  });
+
+  it('a stage won ahead of the line is kept, and taken in when the line comes to it', () => {
+    const save = at(WORLDS[0].last + 1);
+    const hard = WORLDS[world(0, 1)];
+    // Thornwood on Hard is open, and only its first stage.
+    expect(stageOpen(save, hard.first)).toBe(true);
+    expect(stageOpen(save, hard.first + 1)).toBe(false);
+    expect(stageCleared(save, hard.first)).toBe(false);
+    const r = finishStage(save, hard.first, true);
+    expect(r.first).toBe(true);
+    expect(r.coins).toBe(stagePay(hard.first, true));
+    // The line has not moved: its places in the team and for structures are as they were.
+    expect(cleared(save)).toBe(WORLDS[0].last + 1);
+    expect(clearedIn(save, hard.index)).toBe(1);
+    expect(stageCleared(save, hard.first)).toBe(true);
+    expect(stageOpen(save, hard.first + 1)).toBe(true);
+    // Won again, it is not a first win.
+    expect(finishStage(save, hard.first, true).first).toBe(false);
+    expect(clearedIn(save, hard.index)).toBe(1);
+    // A stage that is not open is not booked, whatever is claimed.
+    expect(finishStage(save, hard.first + 3, true).first).toBe(false);
+    // The line comes to that world: what was cleared there is already cleared.
+    save.cleared = hard.first - 1;
+    const last = finishStage(save, hard.first - 1, true);
+    expect(last.first).toBe(true);
+    expect(cleared(save)).toBe(hard.first + 1);
+    expect(save.ahead[hard.index]).toBeUndefined();
+    // A whole world cleared ahead is passed over at once.
+    const far = at(WORLDS[N - 1].last);
+    for (let i = hard.first; i <= hard.last; i++) far.ahead[hard.index] = i - hard.first + 1;
+    finishStage(far, WORLDS[N - 1].last, true);
+    expect(cleared(far)).toBe(hard.last + 1);
+  });
+
+  it('a win says which worlds it opened, and the battles go on along the line', () => {
+    const save = at(WORLDS[0].last);
+    const r = finishStage(save, WORLDS[0].last, true);
+    expect(r.opened.sort((a, b) => a - b)).toEqual([world(1, 0), world(0, 1)].sort((a, b) => a - b));
+    expect(r.reached).toBe(world(1, 0));
+    expect(afterBattle(save, WORLDS[0].last, r)).toBe(WORLDS[1].first);
+    // Beating Thornwood on Hard before the dunes are beaten: the next stage of the line is not open, so back to the line's own furthest.
+    const hard = WORLDS[world(0, 1)];
+    save.ahead[hard.index] = hard.last - hard.first;
+    const r2 = finishStage(save, hard.last, true);
+    expect(r2.first).toBe(true);
+    expect(r2.opened).toEqual([world(0, 2)]);
+    expect(r2.reached).toBe(-1);
+    expect(afterBattle(save, hard.last, r2)).toBe(cleared(save));
+    // A loss at the first stage of a world entered ahead of the line steps back to the last stage the line has cleared.
+    const expert = WORLDS[world(0, 2)];
+    save.at = expert.first;
+    const lost = finishStage(save, expert.first, false);
+    expect(afterBattle(save, expert.first, lost)).toBe(cleared(save) - 1);
+    expect(save.lostAt).toBe(expert.first);
+  });
+
+  it('a save keeps what was cleared ahead, and one from before has none', () => {
+    const save = at(12);
+    save.ahead[N] = 4;
+    const back = repair(JSON.parse(JSON.stringify(save)), 1);
+    expect(back.ahead).toEqual({ [N]: 4 });
+    const old = JSON.parse(JSON.stringify(save));
+    delete old.ahead;
+    expect(repair(old, 1).ahead).toEqual({});
+    // Nonsense is dropped: a world there is not, a count that is not one, more than the world has.
+    const bad = JSON.parse(JSON.stringify(save));
+    bad.ahead = { 99: 3, [N]: 'x', [N + 1]: 500, '-1': 2 };
+    expect(repair(bad, 1).ahead).toEqual({ [N + 1]: WORLDS[N + 1].last - WORLDS[N + 1].first + 1 });
+  });
+});
+
 describe('a new player', () => {
   it('starts with three cards in a team, two packs, and room for a fourth', () => {
     const save = startingSave(1);
@@ -403,7 +521,7 @@ describe('what is known', () => {
     expect(known(save, UNITS.warlord)).toBe(true);
   });
 
-  it("a land's pack is sold once the line has come to that land, and its later packs once it has come again", () => {
+  it("a land's pack is sold once that land is open, and its harder packs once the land is open on that difficulty", () => {
     const save = startingSave(1);
     expect(packOpen(save, packById('recruit'))).toBe(true);
     expect(packOpen(save, packById('thornwood'))).toBe(true);
@@ -411,9 +529,12 @@ describe('what is known', () => {
     expect(packOpen(at(10), packById('dunes'))).toBe(true);
     expect(packOpen(at(21), packById('royal'))).toBe(false);
     expect(packOpen(at(22), packById('royal'))).toBe(true);
-    expect(packOpen(at(PER_LAP - 1), packById('thornwood@1'))).toBe(false);
-    expect(packOpen(at(PER_LAP), packById('thornwood@1'))).toBe(true);
+    // Thornwood on Hard opens with the Warlord's fall, and its pack with it; the dunes' Hard pack needs the dunes beaten too, and Thornwood on Hard.
+    expect(packById('thornwood@1').name).toBe('Hard Thornwood Pack');
+    expect(packOpen(at(9), packById('thornwood@1'))).toBe(false);
+    expect(packOpen(at(10), packById('thornwood@1'))).toBe(true);
     expect(packOpen(at(PER_LAP), packById('dunes@1'))).toBe(false);
+    expect(packOpen(at(PER_LAP + 10), packById('dunes@1'))).toBe(true);
     // Unopened packs of every lap are counted as held.
     const held = at(PER_LAP);
     held.packs = { recruit: 1, 'thornwood@1': 2 };
@@ -1135,15 +1256,16 @@ describe('the save', () => {
 
 describe('the run of battles', () => {
   const result = (won: boolean, first: boolean): StageResult => ({
-    won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, field: null, finished: false,
+    won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, opened: [], field: null, finished: false,
   });
 
   it('a first win goes on to the next stage, across a world\'s end too', () => {
-    const save = at(3);
+    // The win is booked before the next battle is chosen: the stage after it is open by then.
+    const save = at(4);
     expect(afterBattle(save, 3, result(true, true))).toBe(4);
     expect(save.at).toBe(4);
     // The boss of the first world: the next battle is the first stage of the second.
-    expect(afterBattle(at(9), 9, result(true, true))).toBe(10);
+    expect(afterBattle(at(10), 9, result(true, true))).toBe(10);
   });
 
   it('a win again stays, so that a team left alone earns from a stage it can beat', () => {
@@ -1153,7 +1275,7 @@ describe('the run of battles', () => {
 
   it('at the last stage of all it stays there', () => {
     const last = STAGES.length - 1;
-    expect(afterBattle(at(last), last, result(true, true))).toBe(last);
+    expect(afterBattle(at(STAGES.length), last, result(true, true))).toBe(last);
   });
 
   it('a loss steps back one stage, and remembers where it lost', () => {

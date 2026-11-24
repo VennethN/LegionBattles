@@ -43,12 +43,68 @@ export function cleared(save: SaveData): number {
   return Math.max(0, Math.min(save.cleared, STAGES.length));
 }
 
-/** A stage is open when every stage before it is cleared. */
-export function stageOpen(save: SaveData, index: number): boolean {
-  return index >= 0 && index < STAGES.length && index <= cleared(save);
+/** How many stages of a world are cleared: of a land on a difficulty. */
+export function clearedIn(save: SaveData, world: number): number {
+  const w = WORLDS[world];
+  if (!w) return 0;
+  const size = w.last - w.first + 1;
+  const along = cleared(save);
+  if (along > w.last) return size;
+  if (along > w.first) return along - w.first;
+  // A world the line has not come to: what has been cleared in it ahead of the line.
+  return Math.max(0, Math.min(size, Math.floor(save.ahead?.[world] ?? 0)));
 }
 
-/** The furthest stage the player may fight. The last stage of all, once everything is cleared. */
+/** True once a world's boss has fallen. */
+export function worldDone(save: SaveData, world: number): boolean {
+  const w = WORLDS[world];
+  return !!w && clearedIn(save, world) >= w.last - w.first + 1;
+}
+
+/**
+ * Whether a world can be played: a land on a difficulty. By the owner's
+ * word: "to unlock next difficulty you have to beat the previous difficulty
+ * and the preceding world". So a world is open when the same land has been
+ * beaten on the difficulty before, and the land before it on this one. The
+ * first land on the first difficulty is always open. Following the line,
+ * every world opens in its turn; what the rule adds is that a land's harder
+ * difficulty can be tried as soon as the land is beaten, before the lands
+ * after it are. Its stages keep their numbers on the line, which say how
+ * much harder that is.
+ */
+export function worldOpen(save: SaveData, world: number): boolean {
+  const w = WORLDS[world];
+  if (!w) return false;
+  if (w.lap > 0 && !worldDone(save, world - LANDS.length)) return false;
+  if (w.land > 0 && !worldDone(save, world - 1)) return false;
+  return true;
+}
+
+/** The worlds that must still be beaten for a world to open, as places in WORLDS. Empty if it is open. */
+export function worldNeeds(save: SaveData, world: number): number[] {
+  const w = WORLDS[world];
+  if (!w) return [];
+  const out: number[] = [];
+  if (w.lap > 0 && !worldDone(save, world - LANDS.length)) out.push(world - LANDS.length);
+  if (w.land > 0 && !worldDone(save, world - 1)) out.push(world - 1);
+  return out;
+}
+
+/** True once a stage has been won. */
+export function stageCleared(save: SaveData, index: number): boolean {
+  if (index < 0 || index >= STAGES.length) return false;
+  const w = worldOf(index);
+  return index - w.first < clearedIn(save, w.index);
+}
+
+/** A stage is open when its world is, and every stage of that world before it is cleared. */
+export function stageOpen(save: SaveData, index: number): boolean {
+  if (index < 0 || index >= STAGES.length) return false;
+  const w = worldOf(index);
+  return worldOpen(save, w.index) && index - w.first <= clearedIn(save, w.index);
+}
+
+/** The furthest stage of the line the player may fight: the first that is not cleared. The last stage of all, once everything is. */
 export function frontier(save: SaveData): number {
   return Math.min(cleared(save), STAGES.length - 1);
 }
@@ -58,9 +114,9 @@ export function lineDone(save: SaveData): boolean {
   return cleared(save) >= STAGES.length;
 }
 
-/** A world is reached when its first stage is open. */
+/** A world is reached when it is open. */
 export function worldReached(save: SaveData, world: number): boolean {
-  return world >= 0 && world < WORLDS.length && stageOpen(save, WORLDS[world].first);
+  return worldOpen(save, world);
 }
 
 /** How many stages must be cleared for each place in the team past the first four. */
@@ -428,12 +484,35 @@ export interface StageResult {
   moreTeam: number;
   /** The team has this many more places for structures from now on, or 0. */
   moreStructures: number;
-  /** The world the line has just come to, as its place in WORLDS, or -1. */
+  /** The world the battles go on to, the next on the line, if this was the last stage of its world and that one is open: its place in WORLDS, or -1. */
   reached: number;
+  /** Every world this win opened, as places in WORLDS: the next land on this difficulty, this land on the next, or both. */
+  opened: number[];
   /** The field of that world, if it is bigger than the one just left: the team has been formed up for it. Null otherwise. */
   field: Field | null;
   /** True if this was the last stage of all, cleared for the first time. */
   finished: boolean;
+}
+
+/**
+ * Books a stage as cleared. On the line, the count of the line moves on,
+ * and takes in whatever was cleared ahead in the worlds it comes to. Ahead
+ * of the line, the world's own count does.
+ */
+function clearStage(save: SaveData, index: number): void {
+  if (index !== cleared(save)) {
+    const w = worldOf(index).index;
+    save.ahead[w] = (save.ahead[w] ?? 0) + 1;
+    return;
+  }
+  save.cleared = index + 1;
+  while (save.cleared < STAGES.length) {
+    const w = worldOf(save.cleared);
+    const done = save.ahead[w.index] ?? 0;
+    if (save.cleared !== w.first || done <= 0) break;
+    delete save.ahead[w.index];
+    save.cleared += Math.min(done, w.last - w.first + 1);
+  }
 }
 
 function nextRandom(save: SaveData): Rng {
@@ -449,12 +528,13 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
   const rng = nextRandom(save);
   const sizeBefore = teamSize(save);
   const structuresBefore = structuresSize(save);
-  const first = won && stage.index === cleared(save);
+  const first = won && stageOpen(save, stage.index) && !stageCleared(save, stage.index);
+  const openBefore = new Set(WORLDS.filter((w) => worldOpen(save, w.index)).map((w) => w.index));
   const beatenBefore = new Set(Object.values(UNITS).filter((u) => beaten(save, u)).map((u) => u.id));
 
   save.stats.battles++;
   const result: StageResult = {
-    won, first, coins: 0, xp: stageXp(stage.index, won), levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, field: null, finished: false,
+    won, first, coins: 0, xp: stageXp(stage.index, won), levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, opened: [], field: null, finished: false,
   };
 
   for (const p of save.team) {
@@ -470,7 +550,7 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
   save.coins += result.coins;
 
   if (first) {
-    save.cleared = stage.index + 1;
+    clearStage(save, stage.index);
     // A first clear of a boss or a miniboss always drops, and the very first stage does, to show what a pack is.
     if (def.kind !== 'normal' || stage.index === 0) result.packs.push(stage.pack);
     if (def.kind === 'boss') result.packs.push(stage.pack);
@@ -484,8 +564,9 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
   result.moreTeam = teamSize(save) - sizeBefore;
   result.moreStructures = structuresSize(save) - structuresBefore;
   if (first) {
-    if (stage.index + 1 >= STAGES.length) result.finished = true;
-    else if (worldOf(stage.index + 1).index !== worldOf(stage.index).index) {
+    for (const w of WORLDS) if (!openBefore.has(w.index) && worldOpen(save, w.index)) result.opened.push(w.index);
+    if (lineDone(save) && stage.index + 1 >= STAGES.length) result.finished = true;
+    else if (stage.index + 1 < STAGES.length && worldOf(stage.index + 1).index !== worldOf(stage.index).index && stageOpen(save, stage.index + 1)) {
       result.reached = worldOf(stage.index + 1).index;
       // A bigger field has rows the team was never set out on, and its middle is not where the last
       // one's was. So the team forms up again for it, the same cards, fighters forward, from the middle.

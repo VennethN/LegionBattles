@@ -7,7 +7,7 @@
 // a lock.
 
 import Phaser from 'phaser';
-import { BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE } from '../../art/kit/palette';
+import { BONE, CLOTH, HIGHLIGHT, IRON, OUTLINE } from '../../art/kit/palette';
 import { DUNGEONS, RAIDS, RESERVES, TIER_MARKS, type DungeonDef, type RaidDef } from '../../data/expeditions';
 import { LANDS } from '../../data/lands';
 import { packById } from '../../data/packs';
@@ -16,7 +16,7 @@ import { setupCamera } from '../app';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
 import { OverlayHead } from '../ui/chrome';
-import { LAND_MAT } from '../ui/colors';
+import { DIFFICULTY_MAT, LAND_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { portrait } from '../ui/UnitCard';
 import { Button, label, plain, slab } from '../ui/widgets';
@@ -71,11 +71,12 @@ export class HallScene extends Phaser.Scene {
       : [`One battle of ${place.seconds} seconds.`, 'The lord calls up more.'];
     label(this, tx, y - h / 2 + 76, facts.join('\n'), { size: 14, weight: 600, align: 'left', ...dark }).setOrigin(0, 0);
 
-    // The five tiers: the ones that are open can be picked, the rest are locks.
+    // The five difficulties: the ones that are open can be picked, the rest are locks. A button has room
+    // for a number; the name of the one picked is said under them, on its color.
     const top = topTier(s, kind, place);
     const tier = Math.min(this.picked[place.id] ?? top, top);
     const done = tiersCleared(s, kind, place.id);
-    TIER_MARKS.forEach((mark, t) => {
+    TIER_MARKS.forEach((_name, t) => {
       const bx = tx + 22 + t * 45;
       const by = y - h / 2 + 138;
       if (!tierOpen(s, kind, place, t)) {
@@ -84,10 +85,10 @@ export class HallScene extends Phaser.Scene {
         this.add.image(bx, by - 2, SHEET, 'icon/lock').setScale(0.24);
         return;
       }
-      const b = new Button(this, bx, by, mark, () => {
+      const b = new Button(this, bx, by, String(t + 1), () => {
         this.picked[place.id] = t;
         this.scene.restart();
-      }, { width: 40, height: 34, size: 15, mat: t === tier ? GOLD : BONE, color: t === tier ? undefined : OUTLINE });
+      }, { width: 40, height: 34, size: 15, mat: t === tier ? DIFFICULTY_MAT[t] : BONE, color: t === tier ? undefined : OUTLINE });
       if (t !== tier) plain(b);
       if (t < done) this.add.image(bx + 14, by - 16, SHEET, 'icon/check').setScale(0.2);
     });
@@ -96,7 +97,7 @@ export class HallScene extends Phaser.Scene {
     const at = tierStage(place.land, tier);
     const prize = 'floors' in place ? dungeonPrize(place, tier) : raidPrize(place, tier);
     const py = y + 38;
-    label(this, x - w / 2 + 22, py, `Tier ${TIER_MARKS[tier]}`, { size: 17, align: 'left', ...dark });
+    label(this, x - w / 2 + 22, py, TIER_MARKS[tier], { size: 17, align: 'left', ...dark });
     gradeBadge(this, x - w / 2 + 108, py, at.grade, 18);
     label(this, x - w / 2 + 138, py, `level ${at.level + ('floors' in place ? 1 : 2)}`, { size: 15, weight: 600, align: 'left', ...dark });
     this.add.image(x + 30, py, SHEET, 'icon/coin').setScale(0.3);

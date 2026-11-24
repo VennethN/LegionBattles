@@ -15,9 +15,10 @@
 // one before.
 
 import { stage, type StageDef, type StageEnemy } from './lands';
+import { DIFFICULTIES } from './laps';
 
-/** How many tiers a dungeon or a raid has, and what each is called. */
-export const TIER_MARKS: readonly string[] = ['I', 'II', 'III', 'IV', 'V'];
+/** How many tiers a dungeon or a raid has, and what each is called: the difficulties' own names, as a tier is measured by a land's boss on that difficulty. */
+export const TIER_MARKS: readonly string[] = DIFFICULTIES;
 /** How many cards a dungeon's roster has beyond those that fight at once. */
 export const RESERVES = 2;
 
