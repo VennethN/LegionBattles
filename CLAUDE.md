@@ -19,9 +19,10 @@ There is no screen here, so look at pictures:
 npm run dev &                       # http://127.0.0.1:5174/
 npm run walk                        # every state on a wide screen and a phone, to build/walk
 npm run walk boss feats             # only those
+npm run smoke                       # plays it through its interface, wide and by touch, and fails if a press does nothing
 ```
 
-Read the PNGs with the Read tool. Do this after any change a player will see, at both sizes: most of what goes wrong is layout. `scripts/walk.ts` sets states up by writing the save in the page (`save()`, `battle()` and `game` are on `window`), so add a state there for a new screen.
+Run the smoke after changing a screen or a rule a button leans on; a button it presses is found by what it says, so give a new one words. Read the PNGs with the Read tool. Do this after any change a player will see, at both sizes: most of what goes wrong is layout. `scripts/walk.ts` sets states up by writing the save in the page (`save()`, `battle()` and `game` are on `window`), so add a state there for a new screen.
 
 The headless browser draws a few frames a second, and the fight caps a frame at a tenth of a second, so game time runs slow in it. To see a fight move, drive the page's clock: `page.clock.install()`, then `page.clock.runFor(16)` is exactly one frame of the game.
 

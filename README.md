@@ -24,6 +24,7 @@ Other things to run:
 | `npm run art:preview [unit ...]` | Draws units side by side to `build/preview.png`, to look at while drawing one. |
 | `npm run pace -- --hours=3 [--taps=4] [--each]` | Plays the game by its own rules in seconds and says how long each stretch of the road takes. The numbers in `src/game/data.ts` are set by what it prints. |
 | `npm run walk [state ...]` | With `npm run dev` running: pictures of the game in every state a player meets, on a wide screen and a phone, to `build/walk`. |
+| `npm run smoke` | With `npm run dev` running: plays the game through its interface on a wide screen and by touch on a phone, and fails if a press does not do what it says. About a minute. |
 | `npm run cover` | Draws the three covers a portal asks for to `docs/covers`. |
 | `npm run build` | The game, built to `dist`. |
 | `npm run package:crazygames` | The build that is uploaded to CrazyGames, to `dist-crazygames`, and a zip of it in `build`. |
@@ -95,8 +96,8 @@ The covers are in `docs/covers`: 1920 by 1080, 800 by 1200 and 800 by 800. Orien
 
 This was built in a cloud session with no screen and no sound.
 
-- Nobody has played it on a real device. Every picture of it was taken in a headless browser that draws with software, at a few frames a second, so how smoothly it runs is not known. The first game ran well on phones with the same art runtime, which is a reason for hope and not a measurement.
+- Nobody has played it on a real device. Every picture of it was taken in a headless browser that draws with software, at a few frames a second, so how smoothly it runs is not known. What was measured is the script's share of a frame, with all eighteen heroes and the camp on the screen: about half a millisecond for the game's own work and under two to hand the drawing over, and about two and seven with the processor slowed four times. How long a phone's graphics then take was not measured. The first game ran well on phones with the same art runtime, which is a reason for hope and not a measurement.
 - Nobody has heard it. The sounds and instruments are the first game's, which its owner has heard; which sound plays when is new here and was chosen by reading.
-- Touch has not been tried on a phone: dragging the lists, and tapping the fight with more than one finger.
+- Touch has been tried only as a headless browser makes it (`npm run smoke`): taps land where they should. Dragging the lists with a real finger, and tapping the fight with more than one, have not been.
 - The CrazyGames build has not been run on their page. Its code is the first game's, which has.
 - The pace is measured by a program that buys perfectly. A person does not.
