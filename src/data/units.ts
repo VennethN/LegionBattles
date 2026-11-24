@@ -158,8 +158,8 @@ const RAW: Record<string, Raw> = {
     hp: 1500, damage: 96, attackInterval: 1.4, windup: 0.45, range: 1.05, armor: 12, speed: 66, scale: 1.18,
     text: 'The one the raiders answer to. What its blade takes, it keeps.',
     skill: {
-      id: 'tyrants-due', name: "Tyrant's Due", kind: 'drain', cooldown: 8, power: 1.8, share: 1, windup: 0.6,
-      text: 'A blow for 180% damage that heals the Warlord by all it deals.',
+      id: 'tyrants-due', name: "Tyrant's Due", kind: 'drain', cooldown: 9, power: 1.8, share: 0.4, windup: 0.6,
+      text: 'A blow for 180% damage that heals the Warlord by part of what it deals.',
     },
   },
 
@@ -186,7 +186,7 @@ const RAW: Record<string, Raw> = {
   },
   ballista: {
     name: 'Ballista', set: 'sandsworn', rarity: 'uncommon', role: 'ranger', from: 4,
-    hp: 620, damage: 135, attackInterval: 2.6, windup: 0.7, range: 6, armor: 6, speed: 34,
+    hp: 620, damage: 112, attackInterval: 2.6, windup: 0.7, range: 6, armor: 6, speed: 34,
     projectile: { kind: 'bolt', speed: 950 },
     text: 'A siege engine on wheels. Reaches most of the board, and barely moves.',
     skill: {
@@ -259,19 +259,19 @@ const RAW: Record<string, Raw> = {
     splash: { radius: 0.7, share: 0.5 },
     text: 'Her orbs slow what they touch, and what stands beside it.',
     skill: {
-      id: 'deep-freeze', name: 'Deep Freeze', kind: 'hex', cooldown: 11, power: 0.8, area: 1.3,
-      status: { id: 'stun', duration: 1.8 }, windup: 0.8,
+      id: 'deep-freeze', name: 'Deep Freeze', kind: 'hex', cooldown: 13, power: 0.8, area: 1.1,
+      status: { id: 'stun', duration: 1.2 }, windup: 0.8,
       text: 'Freezes her target and the enemies near it solid for a moment.',
     },
   },
   jarl: {
     name: 'Jarl of the Rime', set: 'frostbound', rarity: 'legendary', role: 'fighter', from: 15,
-    hp: 2000, damage: 104, attackInterval: 1.5, windup: 0.5, range: 1.1, armor: 14, speed: 64, scale: 1.3,
-    frenzy: { below: 0.5, haste: 0.5 },
+    hp: 1750, damage: 92, attackInterval: 1.5, windup: 0.5, range: 1.1, armor: 12, speed: 64, scale: 1.3,
+    frenzy: { below: 0.4, haste: 0.3 },
     text: 'Lord of the frozen hall. Wounded, it only swings faster.',
     skill: {
-      id: 'winters-wrath', name: "Winter's Wrath", kind: 'cleave', cooldown: 8, power: 1.2, area: 1.8,
-      status: { id: 'stun', duration: 1.0 }, windup: 0.7,
+      id: 'winters-wrath', name: "Winter's Wrath", kind: 'cleave', cooldown: 10, power: 1.0, area: 1.7,
+      status: { id: 'stun', duration: 0.6 }, windup: 0.7,
       text: 'A great sweep of the hammer: damage and a stun to everyone in reach.',
     },
   },

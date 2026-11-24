@@ -11,7 +11,8 @@
     "art": "tsx scripts/art.ts",
     "art:sheet": "tsx scripts/sheet.ts",
     "typecheck": "tsc --noEmit",
-    "balance": "tsx scripts/balance.ts"
+    "balance": "tsx scripts/balance.ts",
+    "journey": "tsx scripts/journey.ts"
   },
   "dependencies": {
     "@fontsource/fredoka": "^5.3.0",
