@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="book" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="book-pages-shape" d="M 12 34 L 39 34 Q 41 34 41 36 L 41 41 Q 41 43 39 43 L 12 43 Q 10 43 10 41 L 10 36 Q 10 34 12 34 Z"/>
+<path id="book-cover-shape" d="M 12 5 L 37 5 Q 41 5 41 9 L 41 35 Q 41 39 37 39 L 12 39 Q 8 39 8 35 L 8 9 Q 8 5 12 5 Z"/>
+<clipPath id="book-cover-clip"><use href="#book-cover-shape"/></clipPath>
+<clipPath id="book-cover-lit-clip"><use href="#book-cover-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="book-spine-shape" d="M 11 5 L 13 5 Q 16 5 16 8 L 16 40 Q 16 43 13 43 L 11 43 Q 8 43 8 40 L 8 8 Q 8 5 11 5 Z"/>
+<path id="book-clasp-shape" d="M 28 12 L 30.8 18.2 L 37 21 L 30.8 23.8 L 28 30 L 25.2 23.8 L 19 21 L 25.2 18.2 Z"/>
+</defs>
+<g id="book-pages">
+<use id="book-pages-fill" href="#book-pages-shape" fill="#e9dfc6"/>
+<use id="book-pages-line" href="#book-pages-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="book-cover">
+<use id="book-cover-shade" href="#book-cover-shape" fill="#2f5893"/>
+<g clip-path="url(#book-cover-clip)">
+<use id="book-cover-fill" href="#book-cover-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#book-cover-lit-clip)">
+<use id="book-cover-lit" href="#book-cover-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="book-cover-fill-over" href="#book-cover-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="book-cover-line" href="#book-cover-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="book-spine">
+<use id="book-spine-fill" href="#book-spine-shape" fill="#3d6fb6"/>
+<use id="book-spine-line" href="#book-spine-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="book-clasp">
+<use id="book-clasp-fill" href="#book-clasp-shape" fill="#c8a24a"/>
+<use id="book-clasp-line" href="#book-clasp-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="gift" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="gift-box-shape" d="M 12 21 L 36 21 Q 40 21 40 25 L 40 40 Q 40 44 36 44 L 12 44 Q 8 44 8 40 L 8 25 Q 8 21 12 21 Z"/>
+<clipPath id="gift-box-clip"><use href="#gift-box-shape"/></clipPath>
+<clipPath id="gift-box-lit-clip"><use href="#gift-box-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="gift-lid-shape" d="M 9 14 L 39 14 Q 43 14 43 18 L 43 21 Q 43 25 39 25 L 9 25 Q 5 25 5 21 L 5 18 Q 5 14 9 14 Z"/>
+<path id="gift-ribbon-shape" d="M 20 14 L 28 14 L 28 44 L 20 44 L 20 14 Z"/>
+<path id="gift-loop-a-shape" d="M 24 14 C 24 14 16.8 4 14 3 C 11.2 2 7.3 6.2 7 8 C 6.7 9.8 9.2 13 12 14 C 14.8 15 24 14 24 14 Z"/>
+<path id="gift-loop-b-shape" d="M 24 14 C 24 14 31.2 4 34 3 C 36.8 2 40.7 6.2 41 8 C 41.3 9.8 38.8 13 36 14 C 33.2 15 24 14 24 14 Z"/>
+</defs>
+<g id="gift-box">
+<use id="gift-box-shade" href="#gift-box-shape" fill="#933027"/>
+<g clip-path="url(#gift-box-clip)">
+<use id="gift-box-fill" href="#gift-box-shape" transform="translate(-4 -4)" fill="#c2453a"/>
+<g clip-path="url(#gift-box-lit-clip)">
+<use id="gift-box-lit" href="#gift-box-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="gift-box-fill-over" href="#gift-box-shape" transform="translate(4.2 4.2)" fill="#c2453a"/>
+</g>
+</g>
+<use id="gift-box-line" href="#gift-box-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gift-lid">
+<use id="gift-lid-fill" href="#gift-lid-shape" fill="#c2453a"/>
+<use id="gift-lid-line" href="#gift-lid-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gift-ribbon">
+<use id="gift-ribbon-fill" href="#gift-ribbon-shape" fill="#c8a24a"/>
+<use id="gift-ribbon-line" href="#gift-ribbon-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gift-loop-a">
+<use id="gift-loop-a-fill" href="#gift-loop-a-shape" fill="#c8a24a"/>
+<use id="gift-loop-a-line" href="#gift-loop-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gift-loop-b">
+<use id="gift-loop-b-fill" href="#gift-loop-b-shape" fill="#c8a24a"/>
+<use id="gift-loop-b-line" href="#gift-loop-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

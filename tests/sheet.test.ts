@@ -106,13 +106,14 @@ describe('the battle sheet', () => {
 describe('the card sheet', () => {
   it('holds every pack, every unit on both sides, and every grade', () => {
     // The card sheet is taller than it is wide (CARDS_HEIGHT in view/Sheet.ts, which a test cannot import: it needs a browser).
-    const p = new ShelfPacker(SIZE, 2560);
+    const p = new ShelfPacker(SIZE, 3584);
     keepFolder(p, 'packs');
     const units = Object.entries(manifest.units).sort((a, b) => b[1].full[3] - a[1].full[3]);
     for (const scale of [S, 1]) {
       for (const [id, u] of units) expect(p.place(Math.round(u.full[2] * scale), Math.round(u.full[3] * scale)), id).not.toBeNull();
     }
     keepFolder(p, 'grades');
-    expect(p.used()).toBeLessThan(0.97);
+    // Room to spare, for the units still to come.
+    expect(p.used()).toBeLessThan(0.9);
   });
 });

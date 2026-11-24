@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bellringer" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="bellringer-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="bellringer-shadow-shadow" d="M 132 181 C 132 185.4 115.9 189 96 189 C 76.1 189 60 185.4 60 181 C 60 176.6 76.1 173 96 173 C 115.9 173 132 176.6 132 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="bellringer-cape-layer" transform="translate(78 112) rotate(0) scale(1 1) translate(-78 -112)">
+<defs>
+<path id="bellringer-cape-cape-shape" d="M 78 104 L 112 104 C 112 104 109.3 121.7 108 132 C 106.7 142.3 104 166 104 166 C 104 166 94 159.3 88 160 C 82 160.7 75.3 169.3 68 170 C 60.7 170.7 44 164 44 164 C 44 164 47.3 148 50 140 C 52.7 132 55.3 122 60 116 C 64.7 110 78 104 78 104 Z"/>
+<clipPath id="bellringer-cape-cape-clip"><use href="#bellringer-cape-cape-shape"/></clipPath>
+<clipPath id="bellringer-cape-cape-lit-clip"><use href="#bellringer-cape-cape-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="bellringer-cape-cape">
+<use id="bellringer-cape-cape-shade" href="#bellringer-cape-cape-shape" fill="#2f5893"/>
+<g clip-path="url(#bellringer-cape-cape-clip)">
+<use id="bellringer-cape-cape-deep" href="#bellringer-cape-cape-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bellringer-cape-cape-shade-over" href="#bellringer-cape-cape-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="bellringer-cape-cape-fill" href="#bellringer-cape-cape-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#bellringer-cape-cape-lit-clip)">
+<use id="bellringer-cape-cape-lit" href="#bellringer-cape-cape-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bellringer-cape-cape-fill-over" href="#bellringer-cape-cape-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="bellringer-cape-billow" d="M 80 110 C 83.7 107 92 107.3 94 114 C 96 120.7 94.7 143 92 150 C 89.3 157 81.3 159 78 156 C 74.7 153 71.7 139.7 72 132 C 72.3 124.3 76.3 113 80 110 Z" fill="#f4f1e4" opacity="0.22"/>
+<path id="bellringer-cape-fold-b" d="M 96 116 Q 91.6 137.8 94 160 Q 95.7 138 96 116 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="bellringer-cape-fold-c" d="M 78 118 Q 72 140.6 72 164 Q 75.6 141.1 78 118 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="bellringer-cape-fold" d="M 66 124 C 64.7 127.7 59.7 139 58 146 C 56.3 153 56.3 162.7 56 166" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="bellringer-cape-cape-line" href="#bellringer-cape-cape-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bellringer-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<defs>
+<path id="bellringer-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
+<clipPath id="bellringer-leg-back-boot-clip"><use href="#bellringer-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="bellringer-leg-back-boot">
+<use id="bellringer-leg-back-boot-fill" href="#bellringer-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#bellringer-leg-back-boot-clip)">
+<path id="bellringer-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="bellringer-leg-back-boot-line" href="#bellringer-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bellringer-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<path id="bellringer-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="bellringer-leg-front-boot-clip"><use href="#bellringer-leg-front-boot-shape"/></clipPath>
+<clipPath id="bellringer-leg-front-boot-lit-clip"><use href="#bellringer-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="bellringer-leg-front-boot">
+<use id="bellringer-leg-front-boot-shade" href="#bellringer-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#bellringer-leg-front-boot-clip)">
+<use id="bellringer-leg-front-boot-fill" href="#bellringer-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#bellringer-leg-front-boot-lit-clip)">
+<use id="bellringer-leg-front-boot-lit" href="#bellringer-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bellringer-leg-front-boot-fill-over" href="#bellringer-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="bellringer-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="bellringer-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="bellringer-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="bellringer-leg-front-boot-line" href="#bellringer-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bellringer-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="bellringer-body-coat-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="bellringer-body-coat-clip"><use href="#bellringer-body-coat-shape"/></clipPath>
+<clipPath id="bellringer-body-coat-lit-clip"><use href="#bellringer-body-coat-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="bellringer-body-belt-shape" d="M 56 142 L 136 142 L 136 151 L 56 151 L 56 142 Z"/>
+<path id="bellringer-body-sleeve-shape" d="M 118.8 123 L 138.8 115 C 142.6 113.4 144.5 109.1 143 105.2 C 141.4 101.4 137.1 99.5 133.2 101 L 113.2 109 C 109.4 110.6 107.5 114.9 109 118.8 C 110.6 122.6 114.9 124.5 118.8 123 Z"/>
+<clipPath id="bellringer-body-sleeve-clip"><use href="#bellringer-body-sleeve-shape"/></clipPath>
+<clipPath id="bellringer-body-sleeve-lit-clip"><use href="#bellringer-body-sleeve-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="bellringer-body-coat">
+<use id="bellringer-body-coat-shade" href="#bellringer-body-coat-shape" fill="#2f5893"/>
+<g clip-path="url(#bellringer-body-coat-clip)">
+<use id="bellringer-body-coat-deep" href="#bellringer-body-coat-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bellringer-body-coat-shade-over" href="#bellringer-body-coat-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="bellringer-body-coat-fill" href="#bellringer-body-coat-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#bellringer-body-coat-lit-clip)">
+<use id="bellringer-body-coat-lit" href="#bellringer-body-coat-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bellringer-body-coat-fill-over" href="#bellringer-body-coat-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="bellringer-body-seam" d="M 103.7 100 L 104.3 100 Q 105.3 100 105.3 101 L 105.3 161 Q 105.3 162 104.3 162 L 103.7 162 Q 102.7 162 102.7 161 L 102.7 101 Q 102.7 100 103.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<path id="bellringer-body-rivet" d="M 111.2 112 C 111.2 113.2 110.2 114.2 109 114.2 C 107.8 114.2 106.8 113.2 106.8 112 C 106.8 110.8 107.8 109.8 109 109.8 C 110.2 109.8 111.2 110.8 111.2 112 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bellringer-body-rivet-lit" d="M 109.2 111.2 C 109.2 111.8 108.8 112.2 108.2 112.2 C 107.7 112.2 107.2 111.8 107.2 111.2 C 107.2 110.7 107.7 110.2 108.2 110.2 C 108.8 110.2 109.2 110.7 109.2 111.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bellringer-body-rivet-2" d="M 111.2 121 C 111.2 122.2 110.2 123.2 109 123.2 C 107.8 123.2 106.8 122.2 106.8 121 C 106.8 119.8 107.8 118.8 109 118.8 C 110.2 118.8 111.2 119.8 111.2 121 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bellringer-body-rivet-lit-2" d="M 109.2 120.2 C 109.2 120.8 108.8 121.2 108.2 121.2 C 107.7 121.2 107.2 120.8 107.2 120.2 C 107.2 119.7 107.7 119.2 108.2 119.2 C 108.8 119.2 109.2 119.7 109.2 120.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bellringer-body-rivet-3" d="M 111.2 130 C 111.2 131.2 110.2 132.2 109 132.2 C 107.8 132.2 106.8 131.2 106.8 130 C 106.8 128.8 107.8 127.8 109 127.8 C 110.2 127.8 111.2 128.8 111.2 130 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bellringer-body-rivet-lit-3" d="M 109.2 129.2 C 109.2 129.8 108.8 130.2 108.2 130.2 C 107.7 130.2 107.2 129.8 107.2 129.2 C 107.2 128.7 107.7 128.2 108.2 128.2 C 108.8 128.2 109.2 128.7 109.2 129.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bellringer-body-crease-a" d="M 80 141 Q 81.6 132.4 77 125 Q 77.9 133.1 80 141 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="bellringer-body-crease-b" d="M 118 141 Q 121.6 134.4 120 127 Q 118.5 133.9 118 141 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="bellringer-body-belt-cast" d="M 56 152 L 136 152 L 136 156.5 L 56 156.5 L 56 152 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="bellringer-body-belt">
+<use id="bellringer-body-belt-fill" href="#bellringer-body-belt-shape" fill="#c8a24a"/>
+<use id="bellringer-body-belt-line" href="#bellringer-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="bellringer-body-coat-line" href="#bellringer-body-coat-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="bellringer-body-sleeve-cast" d="M 119.8 126.5 L 139.8 118.5 C 143.6 116.9 145.5 112.6 144 108.7 C 142.4 104.9 138.1 103 134.2 104.5 L 114.2 112.5 C 110.4 114.1 108.5 118.4 110 122.3 C 111.6 126.1 115.9 128 119.8 126.5 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="bellringer-body-sleeve">
+<use id="bellringer-body-sleeve-shade" href="#bellringer-body-sleeve-shape" fill="#2f5893"/>
+<g clip-path="url(#bellringer-body-sleeve-clip)">
+<use id="bellringer-body-sleeve-fill" href="#bellringer-body-sleeve-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#bellringer-body-sleeve-lit-clip)">
+<use id="bellringer-body-sleeve-lit" href="#bellringer-body-sleeve-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bellringer-body-sleeve-fill-over" href="#bellringer-body-sleeve-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="bellringer-body-sleeve-line" href="#bellringer-body-sleeve-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bellringer-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<path id="bellringer-head-scarf-shape" d="M 69 92 C 71.2 89.8 76.8 88.7 84 88 C 91.2 87.3 104.8 87.3 112 88 C 119.2 88.7 124.8 89.8 127 92 C 129.2 94.2 127.5 98.2 125 101 C 122.5 103.8 118.8 107.7 112 109 C 105.2 110.3 90.8 110.3 84 109 C 77.2 107.7 73.5 103.8 71 101 C 68.5 98.2 66.8 94.2 69 92 Z"/>
+<clipPath id="bellringer-head-scarf-clip"><use href="#bellringer-head-scarf-shape"/></clipPath>
+<clipPath id="bellringer-head-scarf-lit-clip"><use href="#bellringer-head-scarf-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="bellringer-head-hat-shape" d="M 46 78 C 46 78 56.3 67.3 62 64 C 67.7 60.7 74 62 80 58 C 86 54 98 40 98 40 C 98 40 108.3 54 114 58 C 119.7 62 125.7 60.3 132 64 C 138.3 67.7 152 80 152 80 C 152 80 133.3 81.2 124 82 C 114.7 82.8 105 85 96 85 C 87 85 78.3 83.2 70 82 C 61.7 80.8 46 78 46 78 Z"/>
+<clipPath id="bellringer-head-hat-clip"><use href="#bellringer-head-hat-shape"/></clipPath>
+<clipPath id="bellringer-head-hat-lit-clip"><use href="#bellringer-head-hat-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="bellringer-head-trim-shape" d="M 40 74 C 45 72.8 60.7 76 70 77 C 79.3 78 87 80 96 80 C 105 80 113.7 77.7 124 77 C 134.3 76.3 152.3 74.5 158 76 C 163.7 77.5 168.3 83.8 158 86 C 147.7 88.2 115.7 89.3 96 89 C 76.3 88.7 49.3 86.5 40 84 C 30.7 81.5 35 75.2 40 74 Z"/>
+</defs>
+<path id="bellringer-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<path id="bellringer-head-shadow-under" d="M 125 88 C 125 99.6 112.9 109 98 109 C 83.1 109 71 99.6 71 88 C 71 76.4 83.1 67 98 67 C 112.9 67 125 76.4 125 88 Z" fill="#1e2b17"/>
+<path id="bellringer-head-shadow-under-edge" d="M 125 88 C 125 99.6 112.9 109 98 109 C 83.1 109 71 99.6 71 88 C 71 76.4 83.1 67 98 67 C 112.9 67 125 76.4 125 88 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="bellringer-head-scarf">
+<use id="bellringer-head-scarf-shade" href="#bellringer-head-scarf-shape" fill="#b3a585"/>
+<g clip-path="url(#bellringer-head-scarf-clip)">
+<use id="bellringer-head-scarf-fill" href="#bellringer-head-scarf-shape" transform="translate(-4 -4)" fill="#d9cdb0"/>
+<g clip-path="url(#bellringer-head-scarf-lit-clip)">
+<use id="bellringer-head-scarf-lit" href="#bellringer-head-scarf-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bellringer-head-scarf-fill-over" href="#bellringer-head-scarf-shape" transform="translate(4.2 4.2)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="bellringer-head-scarf-line" href="#bellringer-head-scarf-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bellringer-head-hat">
+<use id="bellringer-head-hat-shade" href="#bellringer-head-hat-shape" fill="#353041"/>
+<g clip-path="url(#bellringer-head-hat-clip)">
+<use id="bellringer-head-hat-deep" href="#bellringer-head-hat-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bellringer-head-hat-shade-over" href="#bellringer-head-hat-shape" transform="translate(-3.1 -3.1)" fill="#353041"/>
+<use id="bellringer-head-hat-fill" href="#bellringer-head-hat-shape" transform="translate(-5 -5)" fill="#4a4458"/>
+<g clip-path="url(#bellringer-head-hat-lit-clip)">
+<use id="bellringer-head-hat-lit" href="#bellringer-head-hat-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bellringer-head-hat-fill-over" href="#bellringer-head-hat-shape" transform="translate(4.6 4.6)" fill="#4a4458"/>
+</g>
+<g id="bellringer-head-trim">
+<use id="bellringer-head-trim-fill" href="#bellringer-head-trim-shape" fill="#c8a24a"/>
+<use id="bellringer-head-trim-line" href="#bellringer-head-trim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="bellringer-head-turn-a" d="M 98 46 Q 87.7 56.4 82 70 Q 90.5 58.3 98 46 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="bellringer-head-turn-b" d="M 98 46 Q 104.8 59.7 116 70 Q 107.4 57.7 98 46 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="bellringer-head-hat-line" href="#bellringer-head-hat-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bellringer-bell-layer" transform="translate(138 106) rotate(0) scale(1 1) translate(-138 -106)">
+<defs>
+<path id="bellringer-bell-handle-shape" d="M 137.5 104 L 138.5 104 Q 141.5 104 141.5 107 L 141.5 119 Q 141.5 122 138.5 122 L 137.5 122 Q 134.5 122 134.5 119 L 134.5 107 Q 134.5 104 137.5 104 Z"/>
+<path id="bellringer-bell-clapper-shape" d="M 143.5 159 C 143.5 162 141 164.5 138 164.5 C 135 164.5 132.5 162 132.5 159 C 132.5 156 135 153.5 138 153.5 C 141 153.5 143.5 156 143.5 159 Z"/>
+<path id="bellringer-bell-bell-shape" d="M 130 119 L 146 119 C 146 119 148.3 130.2 151 136 C 153.7 141.8 162 154 162 154 L 114 154 C 114 154 122.3 141.8 125 136 C 127.7 130.2 130 119 130 119 Z"/>
+<clipPath id="bellringer-bell-bell-clip"><use href="#bellringer-bell-bell-shape"/></clipPath>
+<clipPath id="bellringer-bell-bell-lit-clip"><use href="#bellringer-bell-bell-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="bellringer-bell-hand-shape" d="M 145.5 106 C 145.5 110.1 142.1 113.5 138 113.5 C 133.9 113.5 130.5 110.1 130.5 106 C 130.5 101.9 133.9 98.5 138 98.5 C 142.1 98.5 145.5 101.9 145.5 106 Z"/>
+<clipPath id="bellringer-bell-hand-clip"><use href="#bellringer-bell-hand-shape"/></clipPath>
+<clipPath id="bellringer-bell-hand-lit-clip"><use href="#bellringer-bell-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="bellringer-bell-handle">
+<use id="bellringer-bell-handle-fill" href="#bellringer-bell-handle-shape" fill="#9a6a3a"/>
+<use id="bellringer-bell-handle-line" href="#bellringer-bell-handle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bellringer-bell-clapper">
+<use id="bellringer-bell-clapper-fill" href="#bellringer-bell-clapper-shape" fill="#5d6672"/>
+<use id="bellringer-bell-clapper-line" href="#bellringer-bell-clapper-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bellringer-bell-bell">
+<use id="bellringer-bell-bell-shade" href="#bellringer-bell-bell-shape" fill="#9c7c33"/>
+<g clip-path="url(#bellringer-bell-bell-clip)">
+<use id="bellringer-bell-bell-deep" href="#bellringer-bell-bell-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bellringer-bell-bell-shade-over" href="#bellringer-bell-bell-shape" transform="translate(-3.1 -3.1)" fill="#9c7c33"/>
+<use id="bellringer-bell-bell-fill" href="#bellringer-bell-bell-shape" transform="translate(-5 -5)" fill="#c8a24a"/>
+<g clip-path="url(#bellringer-bell-bell-lit-clip)">
+<use id="bellringer-bell-bell-lit" href="#bellringer-bell-bell-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bellringer-bell-bell-fill-over" href="#bellringer-bell-bell-shape" transform="translate(4.6 4.6)" fill="#c8a24a"/>
+</g>
+<path id="bellringer-bell-bell-sheen" d="M145.35 119 L152.55 119 L137.85 154 L130.65 154 Z M156.05 119 L158.65 119 L143.95 154 L141.35 154 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="bellringer-bell-lip" d="M 112 146 L 164 146 L 164 149 L 112 149 L 112 146 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="bellringer-bell-band" d="M 112 128 L 164 128 L 164 130.6 L 112 130.6 L 112 128 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="bellringer-bell-bell-line" href="#bellringer-bell-bell-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bellringer-bell-hand">
+<use id="bellringer-bell-hand-shade" href="#bellringer-bell-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#bellringer-bell-hand-clip)">
+<use id="bellringer-bell-hand-fill" href="#bellringer-bell-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#bellringer-bell-hand-lit-clip)">
+<use id="bellringer-bell-hand-lit" href="#bellringer-bell-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bellringer-bell-hand-fill-over" href="#bellringer-bell-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="bellringer-bell-hand-line" href="#bellringer-bell-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

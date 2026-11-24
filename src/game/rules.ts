@@ -3,6 +3,7 @@
 // the save: no Phaser, no browser. The screens ask these and show the answer.
 
 import { LANDS, RANK, type StageDef } from '../data/lands';
+import { raised } from '../data/laps';
 import { PACKS, allPacks, packById, type PackDef } from '../data/packs';
 import { STAGES, WORLDS, landStart, stageAt, worldOf, type Stage } from '../data/stages';
 import { UNITS, isFrontline, isStructure, type UnitInfo } from '../data/units';
@@ -14,7 +15,7 @@ import type { BattleInput, Placement } from '../sim/types';
 import { bonus, fieldBonus } from './bonuses';
 import { addCard, addXp, cardOf, cardsOf, met } from './cards';
 import { addPlayerXp } from './player';
-import { GRADE_FALLOFF, RARITIES, RARITY, cardMult, type Rarity } from './rarity';
+import { GRADES, GRADE_FALLOFF, RARITIES, RARITY, cardMult, type Rarity } from './rarity';
 import { newSave, type Card, type Fielded, type SaveData } from './state';
 
 export { addXp } from './cards';
@@ -614,8 +615,9 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
 
 // ------------------------------------------------------------ packs
 
-/** Whether the shop sells a pack yet. */
+/** Whether the shop sells a pack yet. A pack that is only ever given is never sold. */
 export function packOpen(save: SaveData, pack: PackDef): boolean {
+  if (pack.gift) return false;
   if (pack.land) {
     // A land's pack is sold once the line has come to that land, and its later packs once it has come to it again.
     const l = LANDS.findIndex((w) => w.id === pack.land);
@@ -634,9 +636,34 @@ export function packPool(_save: SaveData, pack: PackDef): UnitInfo[] {
   return Object.values(UNITS).filter((u) => packHolds(pack, u));
 }
 
-/** Whether a pack can turn a unit over: one of its set, and of the kind the pack holds, people or structures or both. */
+/**
+ * Whether the shop shows a pack as what it is: one that is sold, or one the
+ * player has been given. Any other is its own shape in the dark, as
+ * everything not yet reached is.
+ */
+export function packShown(save: SaveData, pack: PackDef): boolean {
+  return pack.gift ? save.packs[pack.id] !== undefined : packOpen(save, pack);
+}
+
+/**
+ * A pack as it stands for this player today. A pack that grows hands out
+ * the grades of the difficulty the line has come to, raised as a land's
+ * pack's are; any other is as it is written.
+ */
+export function packNow(save: SaveData, pack: PackDef): PackDef {
+  if (!pack.grows) return pack;
+  const lap = worldOf(frontier(save)).lap;
+  const top = GRADES.length - 1;
+  return { ...pack, gradeMin: raised(pack.gradeMin, top - 1, lap), gradeMax: raised(pack.gradeMax, top, lap) };
+}
+
+/**
+ * Whether a pack can turn a unit over: one of its set, and of the kind the
+ * pack holds, people or structures or both. A prize is in no pack: a day of
+ * the calendar gives it by name.
+ */
 export function packHolds(pack: PackDef, unit: UnitInfo): boolean {
-  return unit.set === pack.set && (pack.structures === undefined || (pack.structures === 'only') === isStructure(unit.id));
+  return unit.set === pack.set && !unit.prize && (pack.structures === undefined || (pack.structures === 'only') === isStructure(unit.id));
 }
 
 /** How often a pack that holds both people and structures turns over a structure. */
@@ -701,7 +728,7 @@ export function rollPack(save: SaveData, pack: PackDef, rng: Rng): { unit: UnitI
 /** Opens one pack the player holds. Changes the save. Null if they hold none. */
 export function openPack(save: SaveData, packId: string): Pull | null {
   if ((save.packs[packId] ?? 0) <= 0) return null;
-  const pack = packById(packId);
+  const pack = packNow(save, packById(packId));
   if (packPool(save, pack).length === 0) return null;
   save.packs[packId]--;
   save.stats.opened++;

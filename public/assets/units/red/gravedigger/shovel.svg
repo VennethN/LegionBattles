@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="gravedigger-shovel" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="gravedigger-shovel-shaft-shape" d="M 147.2 79.7 L 148.1 80.1 Q 150.9 81.3 149.6 84 L 113.8 164.4 Q 112.6 167.2 109.9 166 L 109 165.5 Q 106.2 164.3 107.4 161.6 L 143.2 81.2 Q 144.5 78.5 147.2 79.7 Z"/>
+<clipPath id="gravedigger-shovel-shaft-clip"><use href="#gravedigger-shovel-shaft-shape"/></clipPath>
+<path id="gravedigger-shovel-grip-shape" d="M 104.7 159.3 L 117.4 164.9 Q 120.2 166.2 119 168.9 L 118.6 169.8 Q 117.3 172.6 114.6 171.3 L 101.8 165.6 Q 99.1 164.4 100.3 161.7 L 100.7 160.8 Q 101.9 158 104.7 159.3 Z"/>
+<path id="gravedigger-shovel-blade-shape" d="M 134.1 76 L 159.6 87.4 C 159.6 87.4 168.2 76.3 168.7 69.5 C 169.1 62.8 162.3 47 162.3 47 C 162.3 47 146 52.5 141.3 57.3 C 136.6 62.2 134.1 76 134.1 76 Z"/>
+<clipPath id="gravedigger-shovel-blade-clip"><use href="#gravedigger-shovel-blade-shape"/></clipPath>
+<clipPath id="gravedigger-shovel-blade-lit-clip"><use href="#gravedigger-shovel-blade-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="gravedigger-shovel-socket-shape" d="M 145.3 76.6 L 151.7 79.5 Q 153.5 80.3 152.7 82.1 L 149.4 89.4 Q 148.6 91.3 146.8 90.4 L 140.4 87.6 Q 138.6 86.8 139.4 85 L 142.6 77.6 Q 143.4 75.8 145.3 76.6 Z"/>
+<path id="gravedigger-shovel-hand-upper-shape" d="M 138.1 118.2 C 138.1 122.4 134.7 125.7 130.6 125.7 C 126.4 125.7 123.1 122.4 123.1 118.2 C 123.1 114.1 126.4 110.7 130.6 110.7 C 134.7 110.7 138.1 114.1 138.1 118.2 Z"/>
+<clipPath id="gravedigger-shovel-hand-upper-clip"><use href="#gravedigger-shovel-hand-upper-shape"/></clipPath>
+<clipPath id="gravedigger-shovel-hand-upper-lit-clip"><use href="#gravedigger-shovel-hand-upper-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="gravedigger-shovel-hand-shape" d="M 127.5 142 C 127.5 146.1 124.1 149.5 120 149.5 C 115.9 149.5 112.5 146.1 112.5 142 C 112.5 137.9 115.9 134.5 120 134.5 C 124.1 134.5 127.5 137.9 127.5 142 Z"/>
+<clipPath id="gravedigger-shovel-hand-clip"><use href="#gravedigger-shovel-hand-shape"/></clipPath>
+<clipPath id="gravedigger-shovel-hand-lit-clip"><use href="#gravedigger-shovel-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="gravedigger-shovel-shaft">
+<use id="gravedigger-shovel-shaft-shade" href="#gravedigger-shovel-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#gravedigger-shovel-shaft-clip)">
+<use id="gravedigger-shovel-shaft-fill" href="#gravedigger-shovel-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="gravedigger-shovel-shaft-line" href="#gravedigger-shovel-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gravedigger-shovel-grip">
+<use id="gravedigger-shovel-grip-fill" href="#gravedigger-shovel-grip-shape" fill="#9a6a3a"/>
+<use id="gravedigger-shovel-grip-line" href="#gravedigger-shovel-grip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gravedigger-shovel-blade">
+<use id="gravedigger-shovel-blade-shade" href="#gravedigger-shovel-blade-shape" fill="#434b56"/>
+<g clip-path="url(#gravedigger-shovel-blade-clip)">
+<use id="gravedigger-shovel-blade-fill" href="#gravedigger-shovel-blade-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#gravedigger-shovel-blade-lit-clip)">
+<use id="gravedigger-shovel-blade-lit" href="#gravedigger-shovel-blade-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="gravedigger-shovel-blade-fill-over" href="#gravedigger-shovel-blade-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="gravedigger-shovel-blade-sheen" d="M160.08 46.99 L165.34 46.99 L148.37 87.4 L143.11 87.4 Z M168.84 46.99 L171.44 46.99 L154.47 87.4 L151.87 87.4 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="gravedigger-shovel-rib" d="M 158 56 L 158.5 56.2 Q 159.4 56.7 159 57.6 L 148.4 81.3 Q 148 82.2 147.1 81.8 L 146.6 81.6 Q 145.7 81.2 146.1 80.3 L 156.6 56.5 Q 157 55.6 158 56 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="gravedigger-shovel-edge" d="M 141.3 57.3 C 143.8 55.4 162.3 47 162.3 47 C 162.3 47 168.5 66.3 168.7 69.5 C 168.9 72.7 165.1 68.9 163.6 66.2 C 162.1 63.5 159.5 53.4 159.5 53.4 C 159.5 53.4 150.2 58.2 147.2 58.9 C 144.1 59.5 138.8 59.3 141.3 57.3 Z" fill="#f4f1e4" opacity="0.29"/>
+</g>
+<use id="gravedigger-shovel-blade-line" href="#gravedigger-shovel-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gravedigger-shovel-socket">
+<use id="gravedigger-shovel-socket-fill" href="#gravedigger-shovel-socket-shape" fill="#5d6672"/>
+<use id="gravedigger-shovel-socket-line" href="#gravedigger-shovel-socket-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gravedigger-shovel-hand-upper">
+<use id="gravedigger-shovel-hand-upper-shade" href="#gravedigger-shovel-hand-upper-shape" fill="#4e3520"/>
+<g clip-path="url(#gravedigger-shovel-hand-upper-clip)">
+<use id="gravedigger-shovel-hand-upper-fill" href="#gravedigger-shovel-hand-upper-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#gravedigger-shovel-hand-upper-lit-clip)">
+<use id="gravedigger-shovel-hand-upper-lit" href="#gravedigger-shovel-hand-upper-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="gravedigger-shovel-hand-upper-fill-over" href="#gravedigger-shovel-hand-upper-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="gravedigger-shovel-hand-upper-line" href="#gravedigger-shovel-hand-upper-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gravedigger-shovel-hand">
+<use id="gravedigger-shovel-hand-shade" href="#gravedigger-shovel-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#gravedigger-shovel-hand-clip)">
+<use id="gravedigger-shovel-hand-fill" href="#gravedigger-shovel-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#gravedigger-shovel-hand-lit-clip)">
+<use id="gravedigger-shovel-hand-lit" href="#gravedigger-shovel-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="gravedigger-shovel-hand-fill-over" href="#gravedigger-shovel-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="gravedigger-shovel-hand-line" href="#gravedigger-shovel-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

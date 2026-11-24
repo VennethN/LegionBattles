@@ -5,6 +5,7 @@ import { GRASS } from './art/kit/palette';
 import { sfx } from './audio/sfx';
 import { ads } from './platform/ads';
 import { applyResolution, watchFrameRate } from './view/app';
+import { addDays } from './view/clock';
 import { H, RES, W } from './view/config';
 import { BattleScene } from './view/scenes/BattleScene';
 import { BootScene } from './view/scenes/BootScene';
@@ -16,6 +17,8 @@ import { ShopScene } from './view/scenes/ShopScene';
 import { TeamScene } from './view/scenes/TeamScene';
 import { VentureScene } from './view/scenes/VentureScene';
 import { MapScene } from './view/scenes/MapScene';
+import { RewardsScene } from './view/scenes/RewardsScene';
+import { countPlaytime } from './view/session';
 
 void ads().init();
 
@@ -44,12 +47,15 @@ const game = new Phaser.Game({
   // over is the dearest thing a weak graphics chip can be asked for. The
   // faster of two graphics chips is asked for where there are two.
   render: { antialias: true, antialiasGL: RES <= 1, roundPixels: false, maxTextures: 1, powerPreference: 'high-performance' },
-  scene: [BootScene, MainScene, BattleScene, TeamScene, IndexScene, ShopScene, MapScene, HallScene, VentureScene, PlayerScene],
+  scene: [BootScene, MainScene, BattleScene, TeamScene, IndexScene, ShopScene, MapScene, HallScene, VentureScene, PlayerScene, RewardsScene],
 });
 
 watchFrameRate(game);
+// Time played is counted whatever screen is up.
+game.events.on('step', (_time: number, delta: number) => countPlaytime(delta));
 
 // For the browser console and for the screenshot script.
 (window as unknown as { game: Phaser.Game; sfx: typeof sfx }).game = game;
 (window as unknown as { sfx: typeof sfx }).sfx = sfx;
 (window as unknown as { setRes: (res: number) => void }).setRes = (res) => applyResolution(game, res);
+(window as unknown as { addDays: (n: number) => number }).addDays = addDays;

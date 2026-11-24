@@ -28,7 +28,7 @@ import { PACKS, packAt, type PackDef } from '../../data/packs';
 import { WORLDS } from '../../data/stages';
 import { UNITS } from '../../data/units';
 import { RARITIES, RARITY } from '../../game/rarity';
-import { buyPacks, known, openPacks, packOdds, packOpen, priceOf, worldNeeds, type Pull } from '../../game/rules';
+import { buyPacks, known, openPacks, packNow, packOdds, packOpen, packShown, priceOf, worldNeeds, type Pull } from '../../game/rules';
 import { markSeen } from '../../game/tutorial';
 import { setupCamera } from '../app';
 import { H, W, hex } from '../config';
@@ -37,6 +37,7 @@ import { commit, save } from '../session';
 import { OverlayHead, veil } from '../ui/chrome';
 import { DIFFICULTY_MAT, RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
+import { burst, cardFace, rays, type Adder } from '../ui/fanfare';
 import { Guide, type Rect } from '../ui/Guide';
 import { portrait } from '../ui/UnitCard';
 import { PH, PW, PX, PY } from '../ui/UnitPanel';
@@ -48,8 +49,6 @@ const SLOT_W = 128;
 const SLOT_H = 132;
 /** The most packs opened at one press. */
 export const OPEN_AT_ONCE = 10;
-
-type Adder = <T extends Phaser.GameObjects.GameObject>(o: T) => T;
 
 export interface Slot {
   pack: PackDef;
@@ -167,7 +166,8 @@ export class ShopScene extends Phaser.Scene {
     const s = save();
     for (const sl of this.slots) {
       const [x, y] = this.slotAt(sl);
-      const open = packOpen(s, sl.pack);
+      // Sold, or given: a pack the player has not come to is its own shape in the dark.
+      const open = packShown(s, sl.pack);
       const held = s.packs[sl.pack.id] ?? 0;
       const root = add(this.add.container(x, y));
       const g = this.add.graphics();
@@ -229,9 +229,10 @@ export class ShopScene extends Phaser.Scene {
     const s = save();
     const sl = this.slots.find((x) => x.pack.id === this.selected);
     if (!sl) return;
-    const pack = sl.pack;
+    // As it stands today: a pack that grows hands out the grades of the difficulty the line has come to.
+    const pack = packNow(s, sl.pack);
     const lap = pack.lap ?? 0;
-    const open = packOpen(s, pack);
+    const open = packShown(s, pack);
     const cx = PX + PW / 2;
     const dark = { color: OUTLINE, stroke: null as null };
     const g = add(this.add.graphics());
@@ -246,7 +247,8 @@ export class ShopScene extends Phaser.Scene {
       add(this.add.image(cx, PY + 310, SHEET, 'icon/lock').setScale(0.6));
       // What opens it: its land on its difficulty, or a stage of the line.
       let how = 'Not sold yet.';
-      if (sl.base.land) {
+      if (pack.gift) how = 'No shop sells it.\nIt is one of the REWARDS\nfor time played.';
+      else if (sl.base.land) {
         const land = LANDS.findIndex((l) => l.id === sl.base.land);
         const needs = worldNeeds(s, lap * LANDS.length + land).map((w) => `${WORLDS[w].name} on ${DIFFICULTIES[WORLDS[w].lap]}`);
         if (needs.length > 0) how = `Sold once you have beaten\n${needs.join('\nand ')}.`;
@@ -315,6 +317,11 @@ export class ShopScene extends Phaser.Scene {
     const all = new Button(this, cx + 88, by, many > 1 ? `OPEN ${many}` : 'OPEN 10', () => this.open(pack, sl.base, many), { width: 164, height: 58, size: 22 });
     all.setEnabled(many > 1);
     add(all.root);
+    if (pack.gift) {
+      // Coins never buy it: where the buttons would be, it says where it comes from.
+      add(label(this, cx, by + 66, 'No shop sells it. Time played gives it:\nsee REWARDS on the main screen.', { size: 15, weight: 600, ...dark }));
+      return;
+    }
     const buy = (n: number): void => {
       if (buyPacks(s, pack.id, n) > 0) {
         sfx.play('buy');
@@ -405,56 +412,6 @@ export class ShopScene extends Phaser.Scene {
     });
   }
 
-  /** Rings and sparkles in a tier's color, flying out from a point: more of them the rarer the tier. */
-  private burst(add: Adder, x: number, y: number, rank: number, color: number, size = 1): void {
-    for (let i = 0; i <= rank; i++) {
-      const ring = add(this.add.image(x, y, SHEET, 'fx/ring').setTint(color).setDepth(9005).setScale(0.2 * size).setAlpha(0.9));
-      this.tweens.add({ targets: ring, scale: (3 + i * 0.8) * size, alpha: 0, duration: 620 + i * 90, delay: i * 110, ease: 'Cubic.easeOut' });
-    }
-    const sparks = Math.round((8 + rank * 5) * (size < 1 ? 0.5 : 1));
-    for (let i = 0; i < sparks; i++) {
-      const a = (i / sparks) * Math.PI * 2 + 0.3;
-      const far = (230 + (i % 3) * 70) * size;
-      const sp = add(this.add.image(x, y, SHEET, 'fx/sparkle').setTint(i % 2 === 0 ? color : hex(HIGHLIGHT)).setDepth(9006).setScale(0.2));
-      this.tweens.add({
-        targets: sp, x: x + Math.cos(a) * far, y: y + Math.sin(a) * far * 0.8, scale: 0.5 * Math.max(size, 0.6), angle: 180, alpha: 0,
-        duration: 700 + (i % 4) * 90, ease: 'Cubic.easeOut',
-      });
-    }
-  }
-
-  /** Rays of light turning slowly behind a card: for the tiers worth stopping for. */
-  private rays(add: Adder, x: number, y: number, color: number, reach: number): void {
-    const g = add(this.add.graphics().setDepth(9003).setPosition(x, y).setAlpha(0).setScale(0.3));
-    const n = 12;
-    g.fillStyle(color, 0.5);
-    for (let i = 0; i < n; i++) {
-      const a = (i / n) * Math.PI * 2;
-      const half = (Math.PI / n) * 0.55;
-      g.fillTriangle(0, 0, Math.cos(a - half) * reach, Math.sin(a - half) * reach, Math.cos(a + half) * reach, Math.sin(a + half) * reach);
-    }
-    this.tweens.add({ targets: g, alpha: 1, scale: 1, duration: 360, ease: 'Cubic.easeOut' });
-    this.tweens.add({ targets: g, angle: 360, duration: 14000, repeat: -1 });
-  }
-
-  /** The face of a card: its tier's color, the unit, its name and its tier. */
-  private face(pull: Pull, w: number, h: number): Phaser.GameObjects.Container {
-    const def = UNITS[pull.unit];
-    const mat = RARITY_MAT[pull.rarity];
-    const big = w > 200;
-    const card = this.add.container(0, 0);
-    const g = this.add.graphics();
-    slab(g, -w / 2, -h / 2, w, h, mat, big ? 22 : 14, big ? 9 : 6);
-    const edge = big ? 14 : 8;
-    g.fillStyle(hex(HIGHLIGHT), 0.4).fillRoundedRect(-w / 2 + edge, -h / 2 + edge, w - edge * 2, h - (big ? 110 : 58), big ? 14 : 9);
-    card.add(g);
-    card.add(portrait(this, 0, h / 2 - (big ? 104 : 54), def.id, 'blue', big ? 176 : 92));
-    const nameSize = big ? (def.name.length > 14 ? 22 : 28) : def.name.length > 12 ? 13 : 16;
-    card.add(label(this, 0, h / 2 - (big ? 70 : 36), def.name, { size: nameSize, strokeWidth: big ? 6 : 4 }));
-    card.add(label(this, 0, h / 2 - (big ? 34 : 16), RARITY[pull.rarity].name, { size: big ? 18 : 12, weight: 600, color: OUTLINE, stroke: null }));
-    return card;
-  }
-
   /** One pack opened: its card comes up out of the pouch and turns over, and what it is is said. */
   private reveal(pull: Pull, pack: PackDef, base: PackDef): void {
     const s = save();
@@ -469,14 +426,14 @@ export class ShopScene extends Phaser.Scene {
     const rank = rankOf(pull.rarity);
 
     this.time.delayedCall(140, () => sfx.reveal(rank));
-    this.burst(add, cx, cy, rank, color);
-    if (rank >= 2) this.rays(add, cx, cy, color, 430);
+    burst(this, add, cx, cy, rank, color);
+    if (rank >= 2) rays(this, add, cx, cy, color, 430);
     if (rank >= 3) this.cameras.main.shake(220, 0.006 + (rank - 3) * 0.004);
 
     // The card rises out of where the pouch was, turning over as it comes.
     const w = 264;
     const h = 330;
-    const card = add(this.face(pull, w, h).setPosition(cx, cy + 70).setDepth(9030));
+    const card = add(cardFace(this, pull.unit, pull.rarity, w, h).setPosition(cx, cy + 70).setDepth(9030));
     card.setScale(0.05, 0.5).setAlpha(0);
     this.tweens.add({ targets: card, scaleX: 1, scaleY: 1, y: cy, alpha: 1, duration: 340, delay: 120, ease: 'Back.easeOut' });
     // Its grade is stamped on it a moment after: the second thing to hope for.
@@ -534,7 +491,7 @@ export class ShopScene extends Phaser.Scene {
       slab(bg, -w / 2, -h / 2, w, h, IRON, 14, 6);
       back.add(bg);
       back.add(this.add.image(0, 0, CARDS, `pack/${base.id}`).setScale(0.3).setAlpha(0.9));
-      const front = this.face(pull, w, h).setVisible(false);
+      const front = cardFace(this, pull.unit, pull.rarity, w, h).setVisible(false);
       front.add(gradeBadge(this, -w / 2 + 26, -h / 2 + 24, pull.grade, 26));
       if (pull.outcome === 'new' || pull.best) {
         // What is worth a second look says so, on a ribbon across its corner.
@@ -571,11 +528,11 @@ export class ShopScene extends Phaser.Scene {
           c.front.setVisible(true);
           this.tweens.add({ targets: c.root, scaleX: 1, duration: 130, ease: 'Back.easeOut' });
           sfx.reveal(rank);
-          this.burst(add, c.x, c.y, rank, color, 0.45);
+          burst(this, add, c.x, c.y, rank, color, 0.45);
           if (rank >= 2) {
             // A rare one is held up: it jumps, and the light stays on it.
             this.tweens.add({ targets: c.root, y: c.y - 14, duration: 140, yoyo: true, ease: 'Cubic.easeOut' });
-            this.rays(add, c.x, c.y, color, 150);
+            rays(this, add, c.x, c.y, color, 150);
           }
           if (rank >= 3) this.cameras.main.shake(160, 0.005);
         },

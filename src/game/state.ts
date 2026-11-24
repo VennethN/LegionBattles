@@ -79,6 +79,19 @@ export interface SaveData {
   tree: Record<string, number>;
   /** The levels bought of each upgrade, by its id. */
   upgrades: Record<string, number>;
+  /** Where the two tracks of rewards stand (game/rewards.ts). */
+  rewards: Rewards;
+}
+
+export interface Rewards {
+  /** How many days of the calendar have been claimed in all. The next is this one, round and round. */
+  claimed: number;
+  /** The day the last was claimed on, by the player's own clock (dayOf in game/rewards.ts). Null before the first. */
+  day: number | null;
+  /** The day the time below was played on, the seconds played that day, and the steps of the playtime track taken that day. */
+  playDay: number;
+  played: number;
+  taken: number[];
 }
 
 export function newSave(seed: number): SaveData {
@@ -106,6 +119,7 @@ export function newSave(seed: number): SaveData {
     player: { level: 1, xp: 0 },
     tree: {},
     upgrades: {},
+    rewards: { claimed: 0, day: null, playDay: 0, played: 0, taken: [] },
   };
 }
 
@@ -236,6 +250,18 @@ export function repair(raw: unknown, seed: number): SaveData {
         if (count > 0) out[key][id] = count;
       }
     }
+  }
+  // The rewards. A save from before there were any has claimed nothing.
+  const w = (r as { rewards?: unknown }).rewards;
+  if (w && typeof w === 'object') {
+    const v = w as Partial<Record<keyof Rewards, unknown>>;
+    out.rewards = {
+      claimed: Math.max(0, Math.floor(num(v.claimed, 0))),
+      day: typeof v.day === 'number' && Number.isFinite(v.day) ? Math.floor(v.day) : null,
+      playDay: Math.max(0, Math.floor(num(v.playDay, 0))),
+      played: Math.max(0, num(v.played, 0)),
+      taken: Array.isArray(v.taken) ? [...new Set(v.taken.filter((x): x is number => Number.isInteger(x) && x >= 0))] : [],
+    };
   }
   // A save from before the tutorial belongs to someone who has already played: they have no use for it.
   const t = r.tutorial;

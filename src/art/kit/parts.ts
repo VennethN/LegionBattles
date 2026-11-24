@@ -1362,3 +1362,217 @@ export function warHorn(d: Doc, g: Grip, len = 46, hand: Material = LEATHER): vo
   d.line('mouth-edge', mouth);
   mitt(d, g.hand[0], g.hand[1], hand);
 }
+
+// ================================================================ the Faithful
+// The townsfolk the rewards give. Each is read by a hat no soldier wears and
+// by a tool of its trade, held as a soldier holds a weapon.
+
+/** A tall hat with a flat top and a narrow brim, over a scarf, with shadow between. The Lamplighter's. */
+export function stovepipe(d: Doc, hat: Material, scarf: Material, band: Material = GOLD): void {
+  under(d);
+  const face = ellipse(98, 88, 27, 21);
+  d.flat('shadow-under', face, HOOD_INTERIOR);
+  d.line('shadow-under-edge', face);
+  d.piece('scarf', smooth([[69, 92], [84, 88], [112, 88], [127, 92], [125, 101], [112, 109], [84, 109], [71, 101]]), scarf, {
+    shade: 4,
+    inner: (c) => c.line('fold', smooth([[75, 98], [98, 95], [123, 98]], false)),
+  });
+  // The crown stands as tall as the head under it, and is a little wider at the top than at the band.
+  d.piece('crown', smooth([[77, 76, 'c'], [75, 50], [72, 22, 'c'], [122, 22, 'c'], [119, 50], [117, 76, 'c']]), hat, {
+    shade: 6,
+    inner: (c) => c.piece('band', roundRect(66, 60, 62, 10, 0), band, { shade: 0 }),
+  });
+  d.piece('brim', smooth([[57, 75], [96, 69], [137, 75], [138, 81], [96, 84], [56, 81]]), hat, { shade: 3 });
+}
+
+/**
+ * A wide straw hat with a veil hung from its brim to the shoulders, all the
+ * way round, and one dark window of net at the front. The Beekeeper's.
+ */
+export function veilHat(d: Doc, hat: Material, veil: Material = LINEN, band: Material = LEATHER): void {
+  under(d);
+  d.piece('veil', smooth([[67, 72, 'c'], [127, 72, 'c'], [133, 94], [127, 110], [96, 113], [67, 110], [61, 94]]), veil, {
+    shade: 5,
+    inner: (c) => {
+      dark(c, 'net', roundRect(101, 80, 40, 22, 7));
+      // The cloth is gathered where it is tied under the brim, and hangs in folds from there.
+      crease(c, 'fold-a', [76, 76], [72, 108], 3);
+      crease(c, 'fold-b', [90, 76], [89, 110], 2.6);
+    },
+  });
+  d.piece('crown', smooth([[78, 70, 'c'], [80, 55], [97, 48], [114, 55], [116, 70, 'c']]), hat, {
+    shade: 4,
+    inner: (c) => c.piece('band', roundRect(70, 61, 54, 7, 0), band, { shade: 0 }),
+  });
+  d.piece('brim', smooth([[44, 70], [96, 62], [150, 70], [151, 77], [96, 80], [43, 77]]), hat, { shade: 3 });
+}
+
+/** A hat with its brim turned up into three corners, over a scarf, with shadow between. The Bell Ringer's. */
+export function tricorn(d: Doc, hat: Material, scarf: Material, trim: Material = GOLD): void {
+  under(d);
+  const face = ellipse(98, 88, 27, 21);
+  d.flat('shadow-under', face, HOOD_INTERIOR);
+  d.line('shadow-under-edge', face);
+  d.piece('scarf', smooth([[69, 92], [84, 88], [112, 88], [127, 92], [125, 101], [112, 109], [84, 109], [71, 101]]), scarf, { shade: 4 });
+  // One corner forward, one back, and the third up over the brow.
+  const shape = smooth([[46, 78, 'c'], [62, 64], [80, 58], [98, 40, 'c'], [114, 58], [132, 64], [152, 80, 'c'], [124, 82], [96, 85], [70, 82]]);
+  d.piece('hat', shape, hat, {
+    shade: 5,
+    inner: (c) => {
+      c.piece('trim', smooth([[40, 74], [70, 77], [96, 80], [124, 77], [158, 76], [158, 86], [96, 89], [40, 84]]), trim, { shade: 0 });
+      crease(c, 'turn-a', [98, 46], [82, 70], 2.8);
+      crease(c, 'turn-b', [98, 46], [116, 70], 2.8);
+    },
+  });
+}
+
+/** A closed helm with one slit, and a great crest that stands from brow to nape. The Honor Guard's. */
+export function crestedHelm(d: Doc, crest: Material, mat: Material = STEEL, trim: Material = GOLD): void {
+  // The crest stands behind the dome and over it.
+  d.piece('crest', smooth([[122, 58, 'c'], [116, 30], [96, 16], [72, 20], [54, 40], [48, 68], [56, 94, 'c'], [66, 76], [80, 62], [100, 56]]), crest, {
+    shade: 6,
+    inner: (c) => {
+      // The hair of it, all standing out from the helm.
+      crease(c, 'hair-a', [108, 52], [112, 28], 2.8, 0.9);
+      crease(c, 'hair-b', [92, 54], [88, 22], 2.8, 0.9);
+      crease(c, 'hair-c', [78, 60], [66, 30], 2.8, 0.9);
+      crease(c, 'hair-d', [68, 72], [52, 52], 2.6, 0.9);
+    },
+  });
+  roundHelm(d, mat);
+  // The comb the crest is set in.
+  d.piece('comb', smooth([[62, 86, 'c'], [66, 68], [80, 56], [100, 51], [120, 55, 'c'], [118, 61], [100, 58], [84, 62], [72, 72], [68, 88, 'c']]), trim, { shade: 0 });
+}
+
+/** A flat-topped mask of plate with one slit, strapped on. The Blacksmith's. */
+export function forgeMask(d: Doc, mat: Material = IRON, strap: Material = LEATHER): void {
+  under(d);
+  d.piece('mask', smooth([[69, 55, 'c'], [125, 55, 'c'], [130, 80], [126, 101], [109, 109], [84, 109], [68, 101], [64, 80]]), mat, {
+    shade: 6,
+    inner: (c) => {
+      c.piece('strap', roundRect(58, 61, 80, 9, 0), strap, { shade: 0 });
+      c.shadeOver('plate', roundRect(88, 70, 2.6, 40, 1), 0.9);
+      // A row of three down the back plate: a row reads as rivets.
+      rivet(c, 81, 80, 1.8);
+      rivet(c, 81, 90, 1.8);
+      rivet(c, 81, 100, 1.8);
+      dark(c, 'slit', roundRect(97, 79, 44, 8, 4));
+    },
+  });
+  d.glint('glint', capsule(73, 74, 77, 70, 4));
+}
+
+/** A hood with a long tail hung down the back. The Gravedigger's. */
+export function tailHood(d: Doc, mat: Material): void {
+  d.piece('tail', smooth([[70, 62, 'c'], [54, 66], [44, 88], [44, 120], [50, 142, 'c'], [58, 122], [60, 96], [72, 84, 'c']]), mat, {
+    shade: 4,
+    inner: (c) => crease(c, 'tail-fold', [58, 74], [50, 128], 2.8),
+  });
+  hood(d, mat, 4);
+}
+
+/** A long pole with a hook to open a lamp and a wick burning at its tip. The Lamplighter's. */
+export function lampPole(d: Doc, g: Grip, glow: Accent, len = 84, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('pole', t(roundRect(-3, -len, 6, len + 38, 3)), WOOD, { shade: 2 });
+  d.piece('hook', t(smooth([
+    [-3, -len + 4, 'c'], [-3, -len - 6], [-13, -len - 10], [-18, -len, 'c'],
+    [-12, -len, 'c'], [-10, -len - 4], [3, -len - 4], [3, -len + 4, 'c'],
+  ])), IRON, { shade: 0 });
+  // The light: two flat rings and a core, as every glow here is.
+  d.flat('halo', t(circle(5, -len - 16, 18)), glow.light, 0.45);
+  d.piece('flame', t(smooth([[5, -len - 34, 'c'], [14, -len - 18], [12, -len - 7], [5, -len - 3], [-2, -len - 7], [-4, -len - 18]])), glow, {
+    shade: 3,
+    inner: (c) => c.flat('core', t(ellipse(5, -len - 12, 4, 7)), glow.light),
+  });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A halberd: an axe blade, a spike over it and a hook behind, on a shaft taller than whoever holds it. The Honor Guard's. */
+export function halberd(d: Doc, g: Grip, cloth: Material, len = 90, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-3.5, -len, 7, len + 32, 3)), WOOD, { shade: 2 });
+  // A tassel in the side's color, tied under the head.
+  d.piece('tassel', t(poly([[-3, -len + 30], [-20, -len + 34], [-13, -len + 42], [-22, -len + 52], [-3, -len + 50]])), cloth, { shade: 3 });
+  d.piece('spike', t(poly([[0, -len - 34], [6.5, -len - 2], [-6.5, -len - 2]])), STEEL, { shade: 0 });
+  d.piece('hook', t(poly([[-3, -len + 2], [-20, -len - 2], [-13, -len + 9], [-3, -len + 16]])), STEEL, { shade: 0 });
+  const blade = smooth([
+    [3, -len, 'c'],
+    [15, -len - 5],
+    [29, -len - 14, 'c'],
+    [34, -len + 8],
+    [29, -len + 30, 'c'],
+    [15, -len + 22],
+    [3, -len + 20, 'c'],
+  ]);
+  d.piece('blade', t(blade), STEEL, {
+    shade: 5,
+    inner: (c) => c.shadeOver('cheek', t(blade.translate(-7, 0)), 0.8),
+  });
+  d.piece('socket', t(roundRect(-6, -len - 4, 12, 28, 3)), GOLD, { shade: 0 });
+  const upper = t(circle(0, -28, 7.5)).bounds();
+  mitt(d, upper.x + upper.w / 2, upper.y + upper.h / 2, hand, 7.5, 'hand-upper');
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A shovel with a pointed blade and a grip across the end of its shaft. The Gravedigger's. */
+export function shovel(d: Doc, g: Grip, len = 68, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-3.5, -len, 7, len + 26, 3)), WOOD, { shade: 2 });
+  d.piece('grip', t(roundRect(-10, 22, 20, 7, 3)), WOOD, { shade: 0 });
+  d.piece('blade', t(smooth([[-14, -len + 2, 'c'], [14, -len + 2, 'c'], [15, -len - 18], [0, -len - 36, 'c'], [-15, -len - 18]])), IRON, {
+    shade: 4,
+    inner: (c) => {
+      // Pressed out of one sheet: a rib down the middle, and the edge worn bright.
+      c.shadeOver('rib', t(roundRect(-1.3, -len - 26, 2.6, 28, 1)), 0.9);
+      c.lightOver('edge', t(smooth([[-15, -len - 18], [0, -len - 36, 'c'], [15, -len - 18], [9, -len - 19], [0, -len - 29, 'c'], [-9, -len - 19]])), 0.8);
+    },
+  });
+  d.piece('socket', t(roundRect(-5.5, -len - 2, 11, 12, 2)), IRON, { shade: 0 });
+  const upper = t(circle(0, -26, 7.5)).bounds();
+  mitt(d, upper.x + upper.w / 2, upper.y + upper.h / 2, hand, 7.5, 'hand-upper');
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A great handbell, hung mouth down from the hand that rings it. The Bell Ringer's. */
+export function handbell(d: Doc, g: Grip, drop = 8, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('handle', t(roundRect(-3.5, -2, 7, drop + 10, 3)), WOOD, { shade: 0 });
+  d.piece('clapper', t(circle(0, drop + 45, 5.5)), IRON, { shade: 0 });
+  d.piece('bell', t(smooth([[-8, drop + 5, 'c'], [8, drop + 5, 'c'], [13, drop + 22], [24, drop + 40, 'c'], [-24, drop + 40, 'c'], [-13, drop + 22]])), GOLD, {
+    shade: 5,
+    inner: (c) => {
+      c.shadeOver('lip', t(roundRect(-26, drop + 32, 52, 3, 0)), 0.9);
+      c.shadeOver('band', t(roundRect(-26, drop + 14, 52, 2.6, 0)), 0.7);
+    },
+  });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A hive of coiled straw, carried on the hand that throws what is in it. The Beekeeper's. */
+export function skep(d: Doc, g: Grip, straw: Material, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('hive', t(smooth([[-18, 0, 'c'], [-19, -16], [-12, -31], [0, -37], [12, -31], [19, -16], [18, 0, 'c']])), straw, {
+    shade: 5,
+    inner: (c) => {
+      // Coil on coil, and one way in.
+      c.shadeOver('coil-a', t(roundRect(-22, -11, 44, 2.6, 0)), 0.9);
+      c.shadeOver('coil-b', t(roundRect(-22, -20, 44, 2.6, 0)), 0.9);
+      c.shadeOver('coil-c', t(roundRect(-22, -29, 44, 2.6, 0)), 0.9);
+      dark(c, 'door', t(roundRect(-5.5, -9, 11, 10, 4.5)));
+    },
+  });
+  mitt(d, g.hand[0], g.hand[1] + 4, hand);
+}
+
+/** Tongs with a billet in their jaws, still glowing from the fire. The Blacksmith's. */
+export function tongs(d: Doc, cx: number, cy: number, glow: Accent, hand: Material = LEATHER): void {
+  d.piece('bar-a', capsule(cx + 6, cy + 8, cx - 22, cy - 24, 5), IRON, { shade: 0 });
+  d.piece('bar-b', capsule(cx - 4, cy + 10, cx - 16, cy - 28, 5), IRON, { shade: 0 });
+  d.flat('halo', circle(cx - 24, cy - 31, 15), glow.light, 0.45);
+  d.piece('billet', roundRect(cx - 35, cy - 37, 22, 12, 2).rotate(18, cx - 24, cy - 31), glow, {
+    shade: 3,
+    inner: (c) => c.flat('heat', roundRect(cx - 31, cy - 34, 12, 5, 2).rotate(18, cx - 24, cy - 31), glow.light),
+  });
+  mitt(d, cx, cy + 4, hand);
+}

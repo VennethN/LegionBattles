@@ -8,6 +8,7 @@ import { playerHasNews } from '../../game/player';
 import type { SaveData } from '../../game/state';
 import { H, W, hex } from '../config';
 import { SHEET } from '../Sheet';
+import { sfx } from '../../audio/sfx';
 import { toggleSound } from '../session';
 import { Button, label, slab } from './widgets';
 
@@ -64,6 +65,48 @@ export class LevelPill {
       dot.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(W - 22, 68, 8);
       this.things.push(dot);
     }
+  }
+}
+
+/**
+ * The way to the rewards, under the player's level on the main screen: a
+ * gift, and on it how many things wait to be claimed.
+ */
+export class RewardsPill {
+  private readonly dot: Phaser.GameObjects.Graphics;
+  private readonly count: Phaser.GameObjects.Text;
+  private shown = -1;
+
+  constructor(scene: Phaser.Scene, onPress: () => void, depth = 8000) {
+    const r = this.rect;
+    const g = scene.add.graphics().setDepth(depth);
+    slab(g, r.x, r.y, r.w, r.h, IRON, 12, 5);
+    scene.add.image(r.x + 24, r.y + r.h / 2 - 2, SHEET, 'icon/gift').setScale(0.36).setDepth(depth + 1);
+    label(scene, r.x + 46, r.y + r.h / 2 - 2, 'REWARDS', { size: 17, align: 'left', strokeWidth: 4 }).setDepth(depth + 1);
+    this.dot = scene.add.graphics().setDepth(depth + 1);
+    this.count = label(scene, r.x + r.w - 4, r.y + 1, '', { size: 14, strokeWidth: 3 }).setDepth(depth + 2);
+    const zone = scene.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h + 6).setInteractive({ useHandCursor: true }).setDepth(depth + 2);
+    zone.on('pointerup', () => {
+      sfx.play('click');
+      onPress();
+    });
+  }
+
+  /** Where it is on the screen, for the tutorial to point at. */
+  get rect(): { x: number; y: number; w: number; h: number } {
+    return { x: W - 186, y: 112, w: 168, h: 38 };
+  }
+
+  /** Shows how many rewards wait. Draws only when the number changes: it is asked every frame. */
+  refresh(waiting: number): void {
+    if (waiting === this.shown) return;
+    this.shown = waiting;
+    const r = this.rect;
+    this.dot.clear();
+    this.count.setText(waiting > 0 ? String(waiting) : '');
+    if (waiting <= 0) return;
+    this.dot.fillStyle(hex(OUTLINE), 1).fillCircle(r.x + r.w - 4, r.y + 2, 13);
+    this.dot.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(r.x + r.w - 4, r.y + 2, 10);
   }
 }
 

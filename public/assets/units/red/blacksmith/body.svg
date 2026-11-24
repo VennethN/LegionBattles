@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="blacksmith-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="blacksmith-body-shirt-shape" d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z"/>
+<clipPath id="blacksmith-body-shirt-clip"><use href="#blacksmith-body-shirt-shape"/></clipPath>
+<clipPath id="blacksmith-body-shirt-lit-clip"><use href="#blacksmith-body-shirt-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="blacksmith-body-apron-shape" d="M 80 112 L 116 112 C 116 112 122.7 124.3 124 134 C 125.3 143.7 132.7 164 124 170 C 115.3 176 80.7 176 72 170 C 63.3 164 70.7 143.7 72 134 C 73.3 124.3 80 112 80 112 Z"/>
+<clipPath id="blacksmith-body-apron-clip"><use href="#blacksmith-body-apron-shape"/></clipPath>
+<clipPath id="blacksmith-body-apron-lit-clip"><use href="#blacksmith-body-apron-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="blacksmith-body-pocket-shape" d="M 91 138 L 107 138 Q 110 138 110 141 L 110 149 Q 110 152 107 152 L 91 152 Q 88 152 88 149 L 88 141 Q 88 138 91 138 Z"/>
+<path id="blacksmith-body-arm-shape" d="M 111 120.8 L 122 136.8 C 124.7 140.7 129.9 141.7 133.8 139 C 137.7 136.3 138.7 131.1 136 127.2 L 125 111.2 C 122.3 107.3 117.1 106.3 113.2 109 C 109.3 111.7 108.3 116.9 111 120.8 Z"/>
+<clipPath id="blacksmith-body-arm-clip"><use href="#blacksmith-body-arm-shape"/></clipPath>
+<clipPath id="blacksmith-body-arm-lit-clip"><use href="#blacksmith-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="blacksmith-body-pauldron-shape" d="M 130 113 C 130 118.5 125.1 123 119 123 C 112.9 123 108 118.5 108 113 C 108 107.5 112.9 103 119 103 C 125.1 103 130 107.5 130 113 Z"/>
+<clipPath id="blacksmith-body-pauldron-clip"><use href="#blacksmith-body-pauldron-shape"/></clipPath>
+<clipPath id="blacksmith-body-pauldron-lit-clip"><use href="#blacksmith-body-pauldron-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="blacksmith-body-shirt">
+<use id="blacksmith-body-shirt-shade" href="#blacksmith-body-shirt-shape" fill="#933027"/>
+<g clip-path="url(#blacksmith-body-shirt-clip)">
+<use id="blacksmith-body-shirt-deep" href="#blacksmith-body-shirt-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="blacksmith-body-shirt-shade-over" href="#blacksmith-body-shirt-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="blacksmith-body-shirt-fill" href="#blacksmith-body-shirt-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#blacksmith-body-shirt-lit-clip)">
+<use id="blacksmith-body-shirt-lit" href="#blacksmith-body-shirt-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blacksmith-body-shirt-fill-over" href="#blacksmith-body-shirt-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
+<g id="blacksmith-body-apron">
+<use id="blacksmith-body-apron-shade" href="#blacksmith-body-apron-shape" fill="#4e3520"/>
+<g clip-path="url(#blacksmith-body-apron-clip)">
+<use id="blacksmith-body-apron-fill" href="#blacksmith-body-apron-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#blacksmith-body-apron-lit-clip)">
+<use id="blacksmith-body-apron-lit" href="#blacksmith-body-apron-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blacksmith-body-apron-fill-over" href="#blacksmith-body-apron-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<g id="blacksmith-body-pocket">
+<use id="blacksmith-body-pocket-fill" href="#blacksmith-body-pocket-shape" fill="#6b4a2b"/>
+<use id="blacksmith-body-pocket-line" href="#blacksmith-body-pocket-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="blacksmith-body-apron-line" href="#blacksmith-body-apron-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="blacksmith-body-shirt-line" href="#blacksmith-body-shirt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="blacksmith-body-arm-cast" d="M 112 124.3 L 123 140.3 C 125.7 144.2 130.9 145.2 134.8 142.5 C 138.7 139.8 139.7 134.6 137 130.7 L 126 114.7 C 123.3 110.8 118.1 109.8 114.2 112.5 C 110.3 115.2 109.3 120.4 112 124.3 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="blacksmith-body-arm">
+<use id="blacksmith-body-arm-shade" href="#blacksmith-body-arm-shape" fill="#933027"/>
+<g clip-path="url(#blacksmith-body-arm-clip)">
+<use id="blacksmith-body-arm-fill" href="#blacksmith-body-arm-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#blacksmith-body-arm-lit-clip)">
+<use id="blacksmith-body-arm-lit" href="#blacksmith-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blacksmith-body-arm-fill-over" href="#blacksmith-body-arm-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="blacksmith-body-arm-line" href="#blacksmith-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="blacksmith-body-pauldron-cast" d="M 131 116.5 C 131 122 126.1 126.5 120 126.5 C 113.9 126.5 109 122 109 116.5 C 109 111 113.9 106.5 120 106.5 C 126.1 106.5 131 111 131 116.5 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="blacksmith-body-pauldron">
+<use id="blacksmith-body-pauldron-shade" href="#blacksmith-body-pauldron-shape" fill="#434b56"/>
+<g clip-path="url(#blacksmith-body-pauldron-clip)">
+<use id="blacksmith-body-pauldron-fill" href="#blacksmith-body-pauldron-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#blacksmith-body-pauldron-lit-clip)">
+<use id="blacksmith-body-pauldron-lit" href="#blacksmith-body-pauldron-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blacksmith-body-pauldron-fill-over" href="#blacksmith-body-pauldron-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="blacksmith-body-pauldron-sheen" d="M123.2 103 L127.2 103 L118.8 123 L114.8 123 Z M130.7 103 L133.3 103 L124.9 123 L122.3 123 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="blacksmith-body-rivet" d="M 124.2 116 C 124.2 116.9 123.4 117.7 122.5 117.7 C 121.6 117.7 120.8 116.9 120.8 116 C 120.8 115.1 121.6 114.3 122.5 114.3 C 123.4 114.3 124.2 115.1 124.2 116 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="blacksmith-body-rivet-lit" d="M 122.7 115.4 C 122.7 115.8 122.3 116.2 121.9 116.2 C 121.5 116.2 121.1 115.8 121.1 115.4 C 121.1 115 121.5 114.6 121.9 114.6 C 122.3 114.6 122.7 115 122.7 115.4 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="blacksmith-body-pauldron-line" href="#blacksmith-body-pauldron-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

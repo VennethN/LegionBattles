@@ -507,9 +507,9 @@ describe('what is known', () => {
   it('a pack holds every unit of its set from the start: nothing in it is unlocked', () => {
     const save = startingSave(1);
     for (const pack of PACKS) {
-      // All of its set: its people, its structures, or both, as the pack says.
+      // All of its set: its people, its structures, or both, as the pack says. A prize is in no pack.
       const all = Object.values(UNITS)
-        .filter((u) => u.set === pack.set && (pack.structures === undefined || (pack.structures === 'only') === isStructure(u.id)))
+        .filter((u) => u.set === pack.set && !u.prize && (pack.structures === undefined || (pack.structures === 'only') === isStructure(u.id)))
         .map((u) => u.id).sort();
       expect(all.length, pack.id).toBeGreaterThan(0);
       expect(packPool(save, pack).map((u) => u.id).sort(), pack.id).toEqual(all);
@@ -969,7 +969,8 @@ describe('summoners', () => {
   const summoners = Object.values(UNITS).filter((u) => u.summons && !isStructure(u.id));
 
   it('there is one to a set: it walks, fights little, and calls a troop of its own set', () => {
-    expect(summoners.map((u) => u.set).sort()).toEqual(Object.keys(SETS).sort());
+    // Every land's set has one. The Faithful are no land's: the rewards give them, and none of them calls anyone.
+    expect(summoners.map((u) => u.set).sort()).toEqual(Object.keys(SETS).filter((s) => s !== 'faithful').sort());
     for (const u of summoners) {
       const called = UNITS[u.summons!.unit];
       expect(called.set, u.id).toBe(u.set);

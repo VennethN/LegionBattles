@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="faithful" width="124" height="168" viewBox="0 0 124 168">
+<defs>
+<path id="faithful-pouch-shape" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z"/>
+<clipPath id="faithful-pouch-clip"><use href="#faithful-pouch-shape"/></clipPath>
+<clipPath id="faithful-pouch-lit-clip"><use href="#faithful-pouch-shape" transform="translate(-7 -7)"/></clipPath>
+<path id="faithful-crimp-top-shape" d="M 0 0 L 124 0 L 124 26 L 0 26 Z"/>
+<path id="faithful-crimp-bottom-shape" d="M 0 142 L 124 142 L 124 168 L 0 168 Z"/>
+<path id="faithful-band-shape" d="M 0 108 L 124 92 L 124 112 L 0 128 Z"/>
+<path id="faithful-seal-shape" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z"/>
+<clipPath id="faithful-seal-clip"><use href="#faithful-seal-shape"/></clipPath>
+<clipPath id="faithful-seal-lit-clip"><use href="#faithful-seal-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="faithful-mark-shape" d="M 62 93 C 40 78 39 61 51 58 C 58 57 62 62 62 66 C 62 62 66 57 73 58 C 85 61 84 78 62 93 Z"/>
+<clipPath id="faithful-mark-clip"><use href="#faithful-mark-shape"/></clipPath>
+<clipPath id="faithful-mark-lit-clip"><use href="#faithful-mark-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="faithful-pouch">
+<use id="faithful-pouch-shade" href="#faithful-pouch-shape" fill="#952239"/>
+<g clip-path="url(#faithful-pouch-clip)">
+<use id="faithful-pouch-deep" href="#faithful-pouch-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="faithful-pouch-shade-over" href="#faithful-pouch-shape" transform="translate(-4.34 -4.34)" fill="#952239"/>
+<use id="faithful-pouch-fill" href="#faithful-pouch-shape" transform="translate(-7 -7)" fill="#c7364f"/>
+<g clip-path="url(#faithful-pouch-lit-clip)">
+<use id="faithful-pouch-lit" href="#faithful-pouch-shape" transform="translate(-7 -7)" fill="#f4f1e4" opacity="0.36"/>
+<use id="faithful-pouch-fill-over" href="#faithful-pouch-shape" transform="translate(4.6 4.6)" fill="#c7364f"/>
+</g>
+<path id="faithful-pouch-sheen" d="M94.76 6 L110.96 6 L45.44 162 L29.24 162 Z M114.46 6 L117.06 6 L51.54 162 L48.94 162 Z" fill="#f4f1e4" opacity="0.2"/>
+<g id="faithful-crimp-top">
+<use id="faithful-crimp-top-fill" href="#faithful-crimp-top-shape" fill="#952239"/>
+<use id="faithful-crimp-top-line" href="#faithful-crimp-top-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="faithful-crimp-bottom">
+<use id="faithful-crimp-bottom-fill" href="#faithful-crimp-bottom-shape" fill="#952239"/>
+<use id="faithful-crimp-bottom-line" href="#faithful-crimp-bottom-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="faithful-band">
+<use id="faithful-band-fill" href="#faithful-band-shape" fill="#c8a24a"/>
+<use id="faithful-band-line" href="#faithful-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="faithful-pouch-line" href="#faithful-pouch-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="faithful-seal">
+<use id="faithful-seal-shade" href="#faithful-seal-shape" fill="#c4b594"/>
+<g clip-path="url(#faithful-seal-clip)">
+<use id="faithful-seal-fill" href="#faithful-seal-shape" transform="translate(-4 -4)" fill="#e9dfc6"/>
+<g clip-path="url(#faithful-seal-lit-clip)">
+<use id="faithful-seal-lit" href="#faithful-seal-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="faithful-seal-fill-over" href="#faithful-seal-shape" transform="translate(4.2 4.2)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="faithful-seal-line" href="#faithful-seal-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="faithful-mark">
+<use id="faithful-mark-shade" href="#faithful-mark-shape" fill="#952239"/>
+<g clip-path="url(#faithful-mark-clip)">
+<use id="faithful-mark-fill" href="#faithful-mark-shape" transform="translate(-3 -3)" fill="#c7364f"/>
+<g clip-path="url(#faithful-mark-lit-clip)">
+<use id="faithful-mark-lit" href="#faithful-mark-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="faithful-mark-fill-over" href="#faithful-mark-shape" transform="translate(3.6 3.6)" fill="#c7364f"/>
+</g>
+<path id="faithful-mark-sheen" d="M69.56 57 L76.46 57 L61.34 93 L54.44 93 Z M79.96 57 L82.56 57 L67.44 93 L64.84 93 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="faithful-mark-line" href="#faithful-mark-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="faithful-glint" d="M 25.5 42.6 L 35.5 36.6 C 37 35.7 37.4 33.9 36.6 32.5 C 35.7 31 33.9 30.6 32.5 31.4 L 22.5 37.4 C 21 38.3 20.6 40.1 21.4 41.5 C 22.3 43 24.1 43.4 25.5 42.6 Z" fill="#f4f1e4"/>
+</svg>

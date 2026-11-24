@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="beekeeper-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="beekeeper-head-veil-shape" d="M 67 72 L 127 72 C 127 72 133 87.7 133 94 C 133 100.3 133.2 106.8 127 110 C 120.8 113.2 106 113 96 113 C 86 113 72.8 113.2 67 110 C 61.2 106.8 61 100.3 61 94 C 61 87.7 67 72 67 72 Z"/>
+<clipPath id="beekeeper-head-veil-clip"><use href="#beekeeper-head-veil-shape"/></clipPath>
+<clipPath id="beekeeper-head-veil-lit-clip"><use href="#beekeeper-head-veil-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="beekeeper-head-crown-shape" d="M 78 70 C 78 70 76.8 58.7 80 55 C 83.2 51.3 91.3 48 97 48 C 102.7 48 110.8 51.3 114 55 C 117.2 58.7 116 70 116 70 L 78 70 Z"/>
+<clipPath id="beekeeper-head-crown-clip"><use href="#beekeeper-head-crown-shape"/></clipPath>
+<clipPath id="beekeeper-head-crown-lit-clip"><use href="#beekeeper-head-crown-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="beekeeper-head-band-shape" d="M 70 61 L 124 61 L 124 68 L 70 68 L 70 61 Z"/>
+<path id="beekeeper-head-brim-shape" d="M 44 70 C 52.8 67.5 78.3 62 96 62 C 113.7 62 140.8 67.5 150 70 C 159.2 72.5 160 75.3 151 77 C 142 78.7 114 80 96 80 C 78 80 51.7 78.7 43 77 C 34.3 75.3 35.2 72.5 44 70 Z"/>
+<clipPath id="beekeeper-head-brim-clip"><use href="#beekeeper-head-brim-shape"/></clipPath>
+<clipPath id="beekeeper-head-brim-lit-clip"><use href="#beekeeper-head-brim-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="beekeeper-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="beekeeper-head-veil">
+<use id="beekeeper-head-veil-shade" href="#beekeeper-head-veil-shape" fill="#b3a585"/>
+<g clip-path="url(#beekeeper-head-veil-clip)">
+<use id="beekeeper-head-veil-deep" href="#beekeeper-head-veil-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="beekeeper-head-veil-shade-over" href="#beekeeper-head-veil-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="beekeeper-head-veil-fill" href="#beekeeper-head-veil-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#beekeeper-head-veil-lit-clip)">
+<use id="beekeeper-head-veil-lit" href="#beekeeper-head-veil-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-head-veil-fill-over" href="#beekeeper-head-veil-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="beekeeper-head-net" d="M 108 80 L 134 80 Q 141 80 141 87 L 141 95 Q 141 102 134 102 L 108 102 Q 101 102 101 95 L 101 87 Q 101 80 108 80 Z" fill="#1e2b17"/>
+<path id="beekeeper-head-net-edge" d="M 108 80 L 134 80 Q 141 80 141 87 L 141 95 Q 141 102 134 102 L 108 102 Q 101 102 101 95 L 101 87 Q 101 80 108 80 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="beekeeper-head-fold-a" d="M 76 76 Q 71 91.6 72 108 Q 74.6 92.1 76 76 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="beekeeper-head-fold-b" d="M 90 76 Q 86.9 92.9 89 110 Q 90 93 90 76 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="beekeeper-head-veil-line" href="#beekeeper-head-veil-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beekeeper-head-crown">
+<use id="beekeeper-head-crown-shade" href="#beekeeper-head-crown-shape" fill="#9c7c33"/>
+<g clip-path="url(#beekeeper-head-crown-clip)">
+<use id="beekeeper-head-crown-fill" href="#beekeeper-head-crown-shape" transform="translate(-4 -4)" fill="#c8a24a"/>
+<g clip-path="url(#beekeeper-head-crown-lit-clip)">
+<use id="beekeeper-head-crown-lit" href="#beekeeper-head-crown-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-head-crown-fill-over" href="#beekeeper-head-crown-shape" transform="translate(4.2 4.2)" fill="#c8a24a"/>
+</g>
+<g id="beekeeper-head-band">
+<use id="beekeeper-head-band-fill" href="#beekeeper-head-band-shape" fill="#c2453a"/>
+<use id="beekeeper-head-band-line" href="#beekeeper-head-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="beekeeper-head-crown-line" href="#beekeeper-head-crown-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beekeeper-head-brim">
+<use id="beekeeper-head-brim-shade" href="#beekeeper-head-brim-shape" fill="#9c7c33"/>
+<g clip-path="url(#beekeeper-head-brim-clip)">
+<use id="beekeeper-head-brim-fill" href="#beekeeper-head-brim-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#beekeeper-head-brim-lit-clip)">
+<use id="beekeeper-head-brim-lit" href="#beekeeper-head-brim-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-head-brim-fill-over" href="#beekeeper-head-brim-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="beekeeper-head-brim-line" href="#beekeeper-head-brim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

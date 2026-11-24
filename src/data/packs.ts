@@ -33,6 +33,19 @@ export interface PackDef {
    * (STRUCTURE_SHARE in game/rules.ts).
    */
   structures?: 'none' | 'only';
+  /**
+   * True for a pack that is never sold: the rewards give it (data/rewards.ts),
+   * and nothing else does. The shop has a slot for it all the same, dark
+   * until the player has been given one, so that it can be opened.
+   */
+  gift?: boolean;
+  /**
+   * True for a pack whose grades rise with the difficulty the player's line
+   * has come to, as a land's pack's do from one difficulty to the next
+   * (packNow in game/rules.ts). It is one pack and has one slot: what it
+   * hands out is what it says on the day it is opened.
+   */
+  grows?: boolean;
   blurb: string;
 }
 
@@ -62,6 +75,11 @@ export const PACKS: readonly PackDef[] = [
   {
     id: 'royal', name: 'Royal Pack', set: 'kingdom', cost: 900, gradeMin: 3, gradeMax: 6, after: 22,
     blurb: "The Crown's own, and its best grades.",
+  },
+  {
+    // The exclusive pack: ten minutes played in a day gives one, and coins never do.
+    id: 'faithful', name: 'Faithful Pack', set: 'faithful', cost: 0, gradeMin: 1, gradeMax: 4, gift: true, grows: true,
+    blurb: 'Townsfolk no shop sells.',
   },
 ];
 

@@ -28,13 +28,14 @@ const PITCH = 140;
 const PER_PAGE = COLS * ROWS;
 
 /**
- * Every unit a pack can turn over, in the order of a book: the units, or the
- * structures, as the page is. A unit that is no card (a practice dummy, say)
- * has no place here.
+ * Every unit there is a card of, in the order of a book: the units, or the
+ * structures, as the page is. That is whatever a pack can turn over, and
+ * the prizes the rewards give by name. A unit that is no card (a practice
+ * dummy, say) has no place here.
  */
 export function indexUnits(side: Side = 'units'): UnitInfo[] {
   return Object.values(UNITS)
-    .filter((u) => isStructure(u.id) === (side === 'structures') && PACKS.some((p) => packHolds(p, u)))
+    .filter((u) => isStructure(u.id) === (side === 'structures') && (!!u.prize || PACKS.some((p) => packHolds(p, u))))
     .sort(unitOrder);
 }
 

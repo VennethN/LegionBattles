@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="gravedigger-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="gravedigger-body-coat-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="gravedigger-body-coat-clip"><use href="#gravedigger-body-coat-shape"/></clipPath>
+<clipPath id="gravedigger-body-coat-lit-clip"><use href="#gravedigger-body-coat-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="gravedigger-body-skirt-shape" d="M 52 147 L 140 147 L 140 171 L 52 171 L 52 147 Z"/>
+<path id="gravedigger-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="gravedigger-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
+<clipPath id="gravedigger-body-buckle-clip"><use href="#gravedigger-body-buckle-shape"/></clipPath>
+<clipPath id="gravedigger-body-buckle-lit-clip"><use href="#gravedigger-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="gravedigger-body-arm-shape" d="M 106.7 119.8 L 111.7 139.8 C 112.7 143.8 116.8 146.3 120.8 145.3 C 124.8 144.3 127.3 140.2 126.3 136.2 L 121.3 116.2 C 120.3 112.2 116.2 109.7 112.2 110.7 C 108.2 111.7 105.7 115.8 106.7 119.8 Z"/>
+<clipPath id="gravedigger-body-arm-clip"><use href="#gravedigger-body-arm-shape"/></clipPath>
+<clipPath id="gravedigger-body-arm-lit-clip"><use href="#gravedigger-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="gravedigger-body-coat">
+<use id="gravedigger-body-coat-shade" href="#gravedigger-body-coat-shape" fill="#353041"/>
+<g clip-path="url(#gravedigger-body-coat-clip)">
+<use id="gravedigger-body-coat-deep" href="#gravedigger-body-coat-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="gravedigger-body-coat-shade-over" href="#gravedigger-body-coat-shape" transform="translate(-3.1 -3.1)" fill="#353041"/>
+<use id="gravedigger-body-coat-fill" href="#gravedigger-body-coat-shape" transform="translate(-5 -5)" fill="#4a4458"/>
+<g clip-path="url(#gravedigger-body-coat-lit-clip)">
+<use id="gravedigger-body-coat-lit" href="#gravedigger-body-coat-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="gravedigger-body-coat-fill-over" href="#gravedigger-body-coat-shape" transform="translate(4.6 4.6)" fill="#4a4458"/>
+</g>
+<path id="gravedigger-body-seam" d="M 107.7 100 L 108.3 100 Q 109.3 100 109.3 101 L 109.3 145 Q 109.3 146 108.3 146 L 107.7 146 Q 106.7 146 106.7 145 L 106.7 101 Q 106.7 100 107.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<g id="gravedigger-body-skirt">
+<use id="gravedigger-body-skirt-fill" href="#gravedigger-body-skirt-shape" fill="#3d6fb6"/>
+<use id="gravedigger-body-skirt-line" href="#gravedigger-body-skirt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="gravedigger-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="gravedigger-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="gravedigger-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="gravedigger-body-belt">
+<use id="gravedigger-body-belt-fill" href="#gravedigger-body-belt-shape" fill="#6b4a2b"/>
+<use id="gravedigger-body-belt-line" href="#gravedigger-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="gravedigger-body-buckle">
+<use id="gravedigger-body-buckle-shade" href="#gravedigger-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#gravedigger-body-buckle-clip)">
+<use id="gravedigger-body-buckle-fill" href="#gravedigger-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#gravedigger-body-buckle-lit-clip)">
+<use id="gravedigger-body-buckle-lit" href="#gravedigger-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="gravedigger-body-buckle-fill-over" href="#gravedigger-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="gravedigger-body-buckle-line" href="#gravedigger-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="gravedigger-body-coat-line" href="#gravedigger-body-coat-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="gravedigger-body-arm-cast" d="M 107.7 123.3 L 112.7 143.3 C 113.7 147.3 117.8 149.8 121.8 148.8 C 125.8 147.8 128.3 143.7 127.3 139.7 L 122.3 119.7 C 121.3 115.7 117.2 113.2 113.2 114.2 C 109.2 115.2 106.7 119.3 107.7 123.3 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="gravedigger-body-arm">
+<use id="gravedigger-body-arm-shade" href="#gravedigger-body-arm-shape" fill="#353041"/>
+<g clip-path="url(#gravedigger-body-arm-clip)">
+<use id="gravedigger-body-arm-fill" href="#gravedigger-body-arm-shape" transform="translate(-3 -3)" fill="#4a4458"/>
+<g clip-path="url(#gravedigger-body-arm-lit-clip)">
+<use id="gravedigger-body-arm-lit" href="#gravedigger-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="gravedigger-body-arm-fill-over" href="#gravedigger-body-arm-shape" transform="translate(3.6 3.6)" fill="#4a4458"/>
+</g>
+</g>
+<use id="gravedigger-body-arm-line" href="#gravedigger-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

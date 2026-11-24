@@ -12,7 +12,7 @@
 import { packsHeld } from './rules';
 import type { SaveData } from './state';
 
-export type GuideScene = 'Main' | 'Shop' | 'Team' | 'Worlds';
+export type GuideScene = 'Main' | 'Shop' | 'Team' | 'Worlds' | 'Rewards';
 
 /** What is on the screen, as the scene that asks sees it. */
 export interface GuideContext {

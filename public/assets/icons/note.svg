@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="note" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="note-stem-a-shape" d="M 16 10 L 17 10 Q 19 10 19 12 L 19 34 Q 19 36 17 36 L 16 36 Q 14 36 14 34 L 14 12 Q 14 10 16 10 Z"/>
+<path id="note-stem-b-shape" d="M 37 6 L 38 6 Q 40 6 40 8 L 40 30 Q 40 32 38 32 L 37 32 Q 35 32 35 30 L 35 8 Q 35 6 37 6 Z"/>
+<path id="note-beam-shape" d="M 14 8 L 40 3 L 40 13 L 14 18 Z"/>
+<path id="note-head-a-shape" d="M 19 37 C 19 40.6 15.4 43.5 11 43.5 C 6.6 43.5 3 40.6 3 37 C 3 33.4 6.6 30.5 11 30.5 C 15.4 30.5 19 33.4 19 37 Z"/>
+<clipPath id="note-head-a-clip"><use href="#note-head-a-shape"/></clipPath>
+<clipPath id="note-head-a-lit-clip"><use href="#note-head-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="note-head-b-shape" d="M 40 33 C 40 36.6 36.4 39.5 32 39.5 C 27.6 39.5 24 36.6 24 33 C 24 29.4 27.6 26.5 32 26.5 C 36.4 26.5 40 29.4 40 33 Z"/>
+<clipPath id="note-head-b-clip"><use href="#note-head-b-shape"/></clipPath>
+<clipPath id="note-head-b-lit-clip"><use href="#note-head-b-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="note-stem-a">
+<use id="note-stem-a-fill" href="#note-stem-a-shape" fill="#e9dfc6"/>
+<use id="note-stem-a-line" href="#note-stem-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="note-stem-b">
+<use id="note-stem-b-fill" href="#note-stem-b-shape" fill="#e9dfc6"/>
+<use id="note-stem-b-line" href="#note-stem-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="note-beam">
+<use id="note-beam-fill" href="#note-beam-shape" fill="#e9dfc6"/>
+<use id="note-beam-line" href="#note-beam-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="note-head-a">
+<use id="note-head-a-shade" href="#note-head-a-shape" fill="#c4b594"/>
+<g clip-path="url(#note-head-a-clip)">
+<use id="note-head-a-fill" href="#note-head-a-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#note-head-a-lit-clip)">
+<use id="note-head-a-lit" href="#note-head-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="note-head-a-fill-over" href="#note-head-a-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="note-head-a-line" href="#note-head-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="note-head-b">
+<use id="note-head-b-shade" href="#note-head-b-shape" fill="#c4b594"/>
+<g clip-path="url(#note-head-b-clip)">
+<use id="note-head-b-fill" href="#note-head-b-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#note-head-b-lit-clip)">
+<use id="note-head-b-lit" href="#note-head-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="note-head-b-fill-over" href="#note-head-b-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="note-head-b-line" href="#note-head-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

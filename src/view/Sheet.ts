@@ -26,11 +26,11 @@ export const CARDS = 'cards';
 export const SHEET_SIZE = 2048;
 /**
  * The card sheet is taller than it is wide. Every unit is on it twice, and
- * with the buildings and the traps they no longer fit a square: a quarter
- * more height holds them, with room for the units still to come, and is
- * well inside the 4096 any phone's graphics take.
+ * with the buildings, the traps and the Faithful they no longer fit a
+ * square: three quarters more height holds them, with room for the units
+ * still to come, and is inside the 4096 any phone's graphics take.
  */
-export const CARDS_HEIGHT = 2560;
+export const CARDS_HEIGHT = 3584;
 
 export type Folder = 'fx' | 'icons' | 'packs' | 'grades';
 

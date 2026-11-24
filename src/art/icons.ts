@@ -6,7 +6,7 @@ import { Doc } from './kit/draw';
 import {
   BONE, BUSH, CLOTH, FROST, GOLD, GRASS, HOLY, HOOD_INTERIOR, IRON, LEATHER, LINEN, PINE, SAND, SNOW, STEEL, VENOM, WOOD, type Material,
 } from './kit/palette';
-import { capsule, circle, path, poly, roundRect, smooth, star } from './kit/path';
+import { capsule, circle, ellipse, path, poly, roundRect, smooth, star } from './kit/path';
 
 export interface IconArt {
   name: string;
@@ -106,6 +106,43 @@ const ICONS: Record<string, (d: Doc) => void> = {
     d.piece('helm-b', smooth([[12, 40, 'c'], [13, 22], [24, 12], [35, 22], [36, 40, 'c']]), STEEL, { shade: 3 });
     d.piece('slit', capsule(20, 28, 34, 28, 5), { fill: HOOD_INTERIOR, shade: HOOD_INTERIOR }, { shade: 0 });
   },
+};
+
+// The marks of the screens that came later: the rewards, the settings and what is in them.
+ICONS.gift = (d) => {
+  d.piece('box', roundRect(8, 21, 32, 23, 4), CLOTH.red, { shade: 4 });
+  d.piece('lid', roundRect(5, 14, 38, 11, 4), CLOTH.red, { shade: 0 });
+  d.piece('ribbon', roundRect(20, 14, 8, 30, 0), GOLD, { shade: 0 });
+  // The bow: two loops and the knot between them.
+  d.piece('loop-a', smooth([[24, 14, 'c'], [14, 3], [7, 8], [12, 14]]), GOLD, { shade: 0 });
+  d.piece('loop-b', smooth([[24, 14, 'c'], [34, 3], [41, 8], [36, 14]]), GOLD, { shade: 0 });
+};
+ICONS.gear = (d) => {
+  // Eight square teeth round a wheel, and the hole it turns on.
+  const pts: Array<[number, number]> = [];
+  const at = (deg: number, r: number): [number, number] => [24 + Math.cos((deg * Math.PI) / 180) * r, 24 + Math.sin((deg * Math.PI) / 180) * r];
+  for (let i = 0; i < 8; i++) {
+    const a = i * 45;
+    pts.push(at(a - 15, 15), at(a - 10, 21.5), at(a + 10, 21.5), at(a + 15, 15));
+  }
+  d.piece('wheel', poly(pts), STEEL, { shade: 3 });
+  d.flat('hole', circle(24, 24, 6.5), HOOD_INTERIOR);
+  d.line('hole-edge', circle(24, 24, 6.5));
+};
+ICONS.note = (d) => {
+  // Two notes on one beam.
+  d.piece('stem-a', roundRect(14, 10, 5, 26, 2), BONE, { shade: 0 });
+  d.piece('stem-b', roundRect(35, 6, 5, 26, 2), BONE, { shade: 0 });
+  d.piece('beam', poly([[14, 8], [40, 3], [40, 13], [14, 18]]), BONE, { shade: 0 });
+  d.piece('head-a', ellipse(11, 37, 8, 6.5), BONE, { shade: 3 });
+  d.piece('head-b', ellipse(32, 33, 8, 6.5), BONE, { shade: 3 });
+};
+ICONS.book = (d) => {
+  // A closed book, its pages showing along the bottom and a clasp on its cover.
+  d.piece('pages', roundRect(10, 34, 31, 9, 2), BONE, { shade: 0 });
+  d.piece('cover', roundRect(8, 5, 33, 34, 4), CLOTH.blue, { shade: 4 });
+  d.piece('spine', roundRect(8, 5, 8, 38, 3), CLOTH.blue, { shade: 0 });
+  d.piece('clasp', star(28, 21, 4, 9, 4), GOLD, { shade: 0 });
 };
 
 // The emblem of each kind of land: a medal in its color with what grows or

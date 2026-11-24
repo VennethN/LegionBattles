@@ -3,8 +3,8 @@
 // one from another is its color and its mark, never its shape.
 
 import { Doc } from './kit/draw';
-import { ARCANE, BONE, BUSH, CLOTH, FROST, GOLD, HOLY, OUTLINE, STEEL, STONE, WOOD, type Material } from './kit/palette';
-import { Path, capsule, circle, poly, smooth, star } from './kit/path';
+import { ARCANE, BONE, BUSH, CLOTH, FROST, GOLD, HOLY, OUTLINE, RUBY, STEEL, STONE, WOOD, type Material } from './kit/palette';
+import { Path, capsule, circle, path, poly, smooth, star } from './kit/path';
 
 export const PACK_W = 124;
 export const PACK_H = 168;
@@ -95,6 +95,20 @@ export const PACK_LOOKS: Readonly<Record<string, PackLook>> = {
     band: GOLD,
     mark: (d, cx, cy) => {
       d.piece('mark', poly([[cx - 17, cy + 12], [cx - 20, cy - 12], [cx - 9, cy - 2], [cx, cy - 18], [cx + 9, cy - 2], [cx + 20, cy - 12], [cx + 17, cy + 12]]), GOLD, { shade: 3 });
+    },
+  },
+  // The pack no shop sells: a heart on its seal, for those who came back.
+  faithful: {
+    foil: RUBY,
+    band: GOLD,
+    mark: (d, cx, cy) => {
+      d.piece('mark', path()
+        .M(cx, cy + 19)
+        .C(cx - 22, cy + 4, cx - 23, cy - 13, cx - 11, cy - 16)
+        .C(cx - 4, cy - 17, cx, cy - 12, cx, cy - 8)
+        .C(cx, cy - 12, cx + 4, cy - 17, cx + 11, cy - 16)
+        .C(cx + 23, cy - 13, cx + 22, cy + 4, cx, cy + 19)
+        .Z(), RUBY, { shade: 3 });
     },
   },
 };

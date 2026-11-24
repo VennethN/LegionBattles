@@ -21,15 +21,17 @@ import { WORLDS, landOf, stageAt, worldOf } from '../../data/stages';
 import { UNITS } from '../../data/units';
 import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
 import { cardOf } from '../../game/cards';
+import { rewardsWaiting } from '../../game/rewards';
 import { finishStage, packsHeld, payOf, stageCleared, stageEnemies, stageInput, stageSeed, teamSize, tidyTeam, structuresSize, type StageResult } from '../../game/rules';
 import type { Fielded } from '../../game/state';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
 import { BoardView } from '../BoardView';
+import { today } from '../clock';
 import { W, hex } from '../config';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { CoinPill, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, soundButton } from '../ui/chrome';
+import { CoinPill, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, RewardsPill, soundButton } from '../ui/chrome';
 import { RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
@@ -58,6 +60,7 @@ export class MainScene extends Phaser.Scene {
   private speed = 1;
   private coins!: CoinPill;
   private level!: LevelPill;
+  private rewards!: RewardsPill;
   private battleButton!: Button;
   private autoButton!: Button;
   private speedButton!: Button;
@@ -107,6 +110,8 @@ export class MainScene extends Phaser.Scene {
     this.coins = new CoinPill(this, s);
     // The player's own level, under the coins: it opens the skill tree and the upgrades.
     this.level = new LevelPill(this, s, () => this.open('Player'));
+    // The rewards, under that: a day of the calendar, and what the time played today has earned.
+    this.rewards = new RewardsPill(this, () => this.open('Rewards'));
     // The way to the dungeons and the raids, which are off the line of stages.
     const hall = plain(new Button(this, 128, 36, '   DUNGEONS', () => this.open('Hall'), { width: 216, height: 50, size: 19, mat: BONE, color: OUTLINE })).setDepth(8000);
     hall.root.add(this.add.image(-78, -3, SHEET, 'icon/crown').setScale(0.3));
@@ -316,6 +321,8 @@ export class MainScene extends Phaser.Scene {
   override update(time: number, deltaMs: number): void {
     this.board.debugNote = `${this.state}${this.overlay ? ` under ${this.overlay}` : ''}`;
     this.board.update(deltaMs, this.speed);
+    // A reward comes ready as the minutes pass: the count on its button keeps up.
+    this.rewards.refresh(rewardsWaiting(save(), today()));
     if (this.state === 'ready' && this.count >= 0 && !this.waits()) {
       // A slow frame counts whole, so that the count keeps to the clock on a slow phone.
       this.count -= Math.min(deltaMs, 250) / 1000;

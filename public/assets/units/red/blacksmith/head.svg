@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="blacksmith-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="blacksmith-head-mask-shape" d="M 69 55 L 125 55 C 125 55 129.8 72.3 130 80 C 130.2 87.7 129.5 96.2 126 101 C 122.5 105.8 116 107.7 109 109 C 102 110.3 90.8 110.3 84 109 C 77.2 107.7 71.3 105.8 68 101 C 64.7 96.2 63.8 87.7 64 80 C 64.2 72.3 69 55 69 55 Z"/>
+<clipPath id="blacksmith-head-mask-clip"><use href="#blacksmith-head-mask-shape"/></clipPath>
+<clipPath id="blacksmith-head-mask-lit-clip"><use href="#blacksmith-head-mask-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="blacksmith-head-strap-shape" d="M 58 61 L 138 61 L 138 70 L 58 70 L 58 61 Z"/>
+</defs>
+<path id="blacksmith-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="blacksmith-head-mask">
+<use id="blacksmith-head-mask-shade" href="#blacksmith-head-mask-shape" fill="#434b56"/>
+<g clip-path="url(#blacksmith-head-mask-clip)">
+<use id="blacksmith-head-mask-deep" href="#blacksmith-head-mask-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="blacksmith-head-mask-shade-over" href="#blacksmith-head-mask-shape" transform="translate(-3.72 -3.72)" fill="#434b56"/>
+<use id="blacksmith-head-mask-fill" href="#blacksmith-head-mask-shape" transform="translate(-6 -6)" fill="#5d6672"/>
+<g clip-path="url(#blacksmith-head-mask-lit-clip)">
+<use id="blacksmith-head-mask-lit" href="#blacksmith-head-mask-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blacksmith-head-mask-fill-over" href="#blacksmith-head-mask-shape" transform="translate(4.6 4.6)" fill="#5d6672"/>
+</g>
+<path id="blacksmith-head-mask-sheen" d="M108.62 55 L118.57 55 L95.33 110.33 L85.38 110.33 Z M122.07 55 L124.67 55 L101.43 110.33 L98.83 110.33 Z" fill="#f4f1e4" opacity="0.2"/>
+<g id="blacksmith-head-strap">
+<use id="blacksmith-head-strap-fill" href="#blacksmith-head-strap-shape" fill="#6b4a2b"/>
+<use id="blacksmith-head-strap-line" href="#blacksmith-head-strap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="blacksmith-head-plate" d="M 89 70 L 89.6 70 Q 90.6 70 90.6 71 L 90.6 109 Q 90.6 110 89.6 110 L 89 110 Q 88 110 88 109 L 88 71 Q 88 70 89 70 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="blacksmith-head-rivet" d="M 82.8 80 C 82.8 81 82 81.8 81 81.8 C 80 81.8 79.2 81 79.2 80 C 79.2 79 80 78.2 81 78.2 C 82 78.2 82.8 79 82.8 80 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="blacksmith-head-rivet-lit" d="M 81.2 79.4 C 81.2 79.8 80.8 80.2 80.4 80.2 C 79.9 80.2 79.6 79.8 79.6 79.4 C 79.6 78.9 79.9 78.6 80.4 78.6 C 80.8 78.6 81.2 78.9 81.2 79.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="blacksmith-head-rivet-2" d="M 82.8 90 C 82.8 91 82 91.8 81 91.8 C 80 91.8 79.2 91 79.2 90 C 79.2 89 80 88.2 81 88.2 C 82 88.2 82.8 89 82.8 90 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="blacksmith-head-rivet-lit-2" d="M 81.2 89.4 C 81.2 89.8 80.8 90.2 80.4 90.2 C 79.9 90.2 79.6 89.8 79.6 89.4 C 79.6 88.9 79.9 88.6 80.4 88.6 C 80.8 88.6 81.2 88.9 81.2 89.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="blacksmith-head-rivet-3" d="M 82.8 100 C 82.8 101 82 101.8 81 101.8 C 80 101.8 79.2 101 79.2 100 C 79.2 99 80 98.2 81 98.2 C 82 98.2 82.8 99 82.8 100 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="blacksmith-head-rivet-lit-3" d="M 81.2 99.4 C 81.2 99.8 80.8 100.2 80.4 100.2 C 79.9 100.2 79.6 99.8 79.6 99.4 C 79.6 98.9 79.9 98.6 80.4 98.6 C 80.8 98.6 81.2 98.9 81.2 99.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="blacksmith-head-slit" d="M 101 79 L 137 79 Q 141 79 141 83 L 141 83 Q 141 87 137 87 L 101 87 Q 97 87 97 83 L 97 83 Q 97 79 101 79 Z" fill="#1e2b17"/>
+<path id="blacksmith-head-slit-edge" d="M 101 79 L 137 79 Q 141 79 141 83 L 141 83 Q 141 87 137 87 L 101 87 Q 97 87 97 83 L 97 83 Q 97 79 101 79 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="blacksmith-head-mask-line" href="#blacksmith-head-mask-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="blacksmith-head-glint" d="M 74.4 75.4 L 78.4 71.4 C 79.2 70.6 79.2 69.4 78.4 68.6 C 77.6 67.8 76.4 67.8 75.6 68.6 L 71.6 72.6 C 70.8 73.4 70.8 74.6 71.6 75.4 C 72.4 76.2 73.6 76.2 74.4 75.4 Z" fill="#f4f1e4"/>
+</svg>

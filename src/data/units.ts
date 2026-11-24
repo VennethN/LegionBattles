@@ -27,6 +27,12 @@ export interface UnitInfo extends UnitDef {
   kind?: 'building' | 'trap';
   /** Where FILL TEAM stands it, if not where its reach would put it: a barracks strikes no one and still belongs at the back. */
   place?: 'front' | 'back';
+  /**
+   * True for a unit the rewards give by name (data/rewards.ts): a day of the
+   * calendar hands its card over, and no pack turns it over, its own set's
+   * among them.
+   */
+  prize?: boolean;
 }
 
 export interface SetDef {
@@ -40,6 +46,9 @@ export const SETS: Readonly<Record<string, SetDef>> = {
   raiders: { id: 'raiders', name: 'Thornwood Raiders', power: 1.06 },
   sandsworn: { id: 'sandsworn', name: 'The Sandsworn', power: 1.3 },
   frostbound: { id: 'frostbound', name: 'The Frostbound', power: 1.6 },
+  // The townsfolk who stand by whoever comes back: no land's set, and no shop's. Only the
+  // rewards give them (data/rewards.ts), so they are sized between the second land and the third.
+  faithful: { id: 'faithful', name: 'The Faithful', power: 1.2 },
 };
 
 type Raw = Omit<UnitInfo, 'id'>;
@@ -408,6 +417,75 @@ const RAW: Record<string, Raw> = {
     hp: 1, damage: 100, attackInterval: 1, windup: 0.3, range: 0, armor: 0, speed: 0,
     trap: { trigger: 0.6, radius: 1.1, status: { id: 'stun', duration: 2 } },
     text: 'A sign cut in the ice. It freezes whoever steps on it, and all near them, where they stand.',
+  },
+
+  // ------------------------------------------------------------ the Faithful
+  // Four that the Faithful Pack turns over, which only time played gives, and
+  // two that are prizes of the daily calendar and are in no pack.
+  beekeeper: {
+    name: 'Beekeeper', set: 'faithful', rarity: 'common', role: 'ranger',
+    hp: 430, damage: 36, attackInterval: 1.1, windup: 0.35, range: 3.5, armor: 0, speed: 66,
+    projectile: { kind: 'orb-venom', speed: 480 },
+    onHit: { id: 'poison', duration: 3 },
+    text: 'Throws its bees from behind the line. A sting goes on hurting.',
+    skill: {
+      id: 'the-swarm', name: 'The Swarm', kind: 'hex', cooldown: 9, area: 1.5,
+      status: { id: 'slow', duration: 3 }, windup: 0.5,
+      text: 'Lets the whole hive out over one enemy: it and all near it are slowed for 3 seconds.',
+    },
+  },
+  gravedigger: {
+    name: 'Gravedigger', set: 'faithful', rarity: 'uncommon', role: 'fighter',
+    hp: 720, damage: 72, attackInterval: 1.5, windup: 0.5, range: 1.0, armor: 4, speed: 70,
+    text: 'One slow swing of the shovel, and a hard one.',
+    skill: {
+      id: 'six-feet-under', name: 'Six Feet Under', kind: 'strike', cooldown: 9, power: 1.7,
+      status: { id: 'weak', duration: 4 }, windup: 0.6,
+      text: 'A blow for 170% damage that leaves its enemy weak for 4 seconds.',
+    },
+  },
+  bellringer: {
+    name: 'Bell Ringer', set: 'faithful', rarity: 'rare', role: 'support',
+    hp: 520, damage: 34, attackInterval: 1.3, windup: 0.4, range: 3, armor: 2, speed: 64,
+    projectile: { kind: 'orb-holy', speed: 520 },
+    text: 'Its peal carries three tiles, and its bell calls the whole line on.',
+    skill: {
+      id: 'call-to-arms', name: 'Call to Arms', kind: 'boon', cooldown: 10, area: 2.2,
+      status: { id: 'haste', duration: 4 }, windup: 0.5,
+      text: 'Rings the bell: itself and the allies around it move and strike faster for 4 seconds.',
+    },
+  },
+  blacksmith: {
+    name: 'Blacksmith', set: 'faithful', rarity: 'epic', role: 'tank',
+    hp: 1150, damage: 64, attackInterval: 1.4, windup: 0.45, range: 0.95, armor: 16, speed: 62,
+    text: 'An apron of plate and a hammer that has shaped harder things than this.',
+    skill: {
+      id: 'hammer-and-anvil', name: 'Hammer and Anvil', kind: 'cleave', cooldown: 9, power: 1.3, area: 1.4,
+      status: { id: 'stun', duration: 1 }, windup: 0.6,
+      text: 'Brings the hammer down: 130% damage and a stun to everyone around it.',
+    },
+  },
+  lamplighter: {
+    name: 'Lamplighter', set: 'faithful', rarity: 'rare', role: 'mage', prize: true,
+    hp: 470, damage: 52, attackInterval: 1.4, windup: 0.45, range: 3.5, armor: 0, speed: 62,
+    projectile: { kind: 'orb-fire', speed: 460 },
+    onHit: { id: 'burn', duration: 2.5 },
+    text: 'The second day of the calendar gives it. Its flame burns whoever it touches.',
+    skill: {
+      id: 'show-them-up', name: 'Show Them Up', kind: 'hex', cooldown: 10, area: 1.6,
+      status: { id: 'mark', duration: 4 }, windup: 0.5,
+      text: 'Holds the light over one enemy: it and all near it take more damage for 4 seconds.',
+    },
+  },
+  honorguard: {
+    name: 'Honor Guard', set: 'faithful', rarity: 'legendary', role: 'tank', prize: true,
+    hp: 1500, damage: 80, attackInterval: 1.3, windup: 0.4, range: 1.3, armor: 14, speed: 68, scale: 1.12,
+    text: 'The seventh day of the calendar gives it. A halberd reaches past the front rank.',
+    skill: {
+      id: 'changing-of-the-guard', name: 'Changing of the Guard', kind: 'cleave', cooldown: 10, power: 1.4, area: 1.7,
+      status: { id: 'weak', duration: 3 }, windup: 0.6,
+      text: 'One sweep of the halberd: 140% damage to everyone in reach, who are left weak.',
+    },
   },
 };
 

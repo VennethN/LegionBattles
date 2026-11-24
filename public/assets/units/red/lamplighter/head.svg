@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="lamplighter-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="lamplighter-head-scarf-shape" d="M 69 92 C 71.2 89.8 76.8 88.7 84 88 C 91.2 87.3 104.8 87.3 112 88 C 119.2 88.7 124.8 89.8 127 92 C 129.2 94.2 127.5 98.2 125 101 C 122.5 103.8 118.8 107.7 112 109 C 105.2 110.3 90.8 110.3 84 109 C 77.2 107.7 73.5 103.8 71 101 C 68.5 98.2 66.8 94.2 69 92 Z"/>
+<clipPath id="lamplighter-head-scarf-clip"><use href="#lamplighter-head-scarf-shape"/></clipPath>
+<clipPath id="lamplighter-head-scarf-lit-clip"><use href="#lamplighter-head-scarf-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="lamplighter-head-crown-shape" d="M 77 76 C 77 76 75.8 59 75 50 C 74.2 41 72 22 72 22 L 122 22 C 122 22 119.8 41 119 50 C 118.2 59 117 76 117 76 L 77 76 Z"/>
+<clipPath id="lamplighter-head-crown-clip"><use href="#lamplighter-head-crown-shape"/></clipPath>
+<clipPath id="lamplighter-head-crown-lit-clip"><use href="#lamplighter-head-crown-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="lamplighter-head-band-shape" d="M 66 60 L 128 60 L 128 70 L 66 70 L 66 60 Z"/>
+<path id="lamplighter-head-brim-shape" d="M 57 75 C 63.7 73 82.7 69 96 69 C 109.3 69 130 73 137 75 C 144 77 144.8 79.5 138 81 C 131.2 82.5 109.7 84 96 84 C 82.3 84 62.5 82.5 56 81 C 49.5 79.5 50.3 77 57 75 Z"/>
+<clipPath id="lamplighter-head-brim-clip"><use href="#lamplighter-head-brim-shape"/></clipPath>
+<clipPath id="lamplighter-head-brim-lit-clip"><use href="#lamplighter-head-brim-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="lamplighter-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<path id="lamplighter-head-shadow-under" d="M 125 88 C 125 99.6 112.9 109 98 109 C 83.1 109 71 99.6 71 88 C 71 76.4 83.1 67 98 67 C 112.9 67 125 76.4 125 88 Z" fill="#1e2b17"/>
+<path id="lamplighter-head-shadow-under-edge" d="M 125 88 C 125 99.6 112.9 109 98 109 C 83.1 109 71 99.6 71 88 C 71 76.4 83.1 67 98 67 C 112.9 67 125 76.4 125 88 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="lamplighter-head-scarf">
+<use id="lamplighter-head-scarf-shade" href="#lamplighter-head-scarf-shape" fill="#933027"/>
+<g clip-path="url(#lamplighter-head-scarf-clip)">
+<use id="lamplighter-head-scarf-fill" href="#lamplighter-head-scarf-shape" transform="translate(-4 -4)" fill="#c2453a"/>
+<g clip-path="url(#lamplighter-head-scarf-lit-clip)">
+<use id="lamplighter-head-scarf-lit" href="#lamplighter-head-scarf-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lamplighter-head-scarf-fill-over" href="#lamplighter-head-scarf-shape" transform="translate(4.2 4.2)" fill="#c2453a"/>
+</g>
+<path id="lamplighter-head-fold" d="M 75 98 C 78.8 97.5 90 95 98 95 C 106 95 118.8 97.5 123 98" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="lamplighter-head-scarf-line" href="#lamplighter-head-scarf-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lamplighter-head-crown">
+<use id="lamplighter-head-crown-shade" href="#lamplighter-head-crown-shape" fill="#353041"/>
+<g clip-path="url(#lamplighter-head-crown-clip)">
+<use id="lamplighter-head-crown-deep" href="#lamplighter-head-crown-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="lamplighter-head-crown-shade-over" href="#lamplighter-head-crown-shape" transform="translate(-3.72 -3.72)" fill="#353041"/>
+<use id="lamplighter-head-crown-fill" href="#lamplighter-head-crown-shape" transform="translate(-6 -6)" fill="#4a4458"/>
+<g clip-path="url(#lamplighter-head-crown-lit-clip)">
+<use id="lamplighter-head-crown-lit" href="#lamplighter-head-crown-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lamplighter-head-crown-fill-over" href="#lamplighter-head-crown-shape" transform="translate(4.6 4.6)" fill="#4a4458"/>
+</g>
+<g id="lamplighter-head-band">
+<use id="lamplighter-head-band-fill" href="#lamplighter-head-band-shape" fill="#c8a24a"/>
+<use id="lamplighter-head-band-line" href="#lamplighter-head-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="lamplighter-head-crown-line" href="#lamplighter-head-crown-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lamplighter-head-brim">
+<use id="lamplighter-head-brim-shade" href="#lamplighter-head-brim-shape" fill="#353041"/>
+<g clip-path="url(#lamplighter-head-brim-clip)">
+<use id="lamplighter-head-brim-fill" href="#lamplighter-head-brim-shape" transform="translate(-3 -3)" fill="#4a4458"/>
+<g clip-path="url(#lamplighter-head-brim-lit-clip)">
+<use id="lamplighter-head-brim-lit" href="#lamplighter-head-brim-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lamplighter-head-brim-fill-over" href="#lamplighter-head-brim-shape" transform="translate(3.6 3.6)" fill="#4a4458"/>
+</g>
+</g>
+<use id="lamplighter-head-brim-line" href="#lamplighter-head-brim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="blacksmith-tongs" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="blacksmith-tongs-bar-a-shape" d="M 79.9 150.4 L 51.9 118.4 C 51 117.3 49.4 117.2 48.4 118.1 C 47.3 119 47.2 120.6 48.1 121.6 L 76.1 153.6 C 77 154.7 78.6 154.8 79.6 153.9 C 80.7 153 80.8 151.4 79.9 150.4 Z"/>
+<path id="blacksmith-tongs-bar-b-shape" d="M 70.4 153.2 L 58.4 115.2 C 58 113.9 56.6 113.2 55.2 113.6 C 53.9 114 53.2 115.4 53.6 116.8 L 65.6 154.8 C 66 156.1 67.4 156.8 68.8 156.4 C 70.1 156 70.8 154.6 70.4 153.2 Z"/>
+<path id="blacksmith-tongs-billet-shape" d="M 41.3 104.5 L 58.4 110.1 Q 60.3 110.7 59.7 112.6 L 57.2 120.2 Q 56.6 122.1 54.7 121.5 L 37.6 115.9 Q 35.7 115.3 36.3 113.4 L 38.8 105.8 Q 39.4 103.9 41.3 104.5 Z"/>
+<clipPath id="blacksmith-tongs-billet-clip"><use href="#blacksmith-tongs-billet-shape"/></clipPath>
+<clipPath id="blacksmith-tongs-billet-lit-clip"><use href="#blacksmith-tongs-billet-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="blacksmith-tongs-hand-shape" d="M 79.5 148 C 79.5 152.1 76.1 155.5 72 155.5 C 67.9 155.5 64.5 152.1 64.5 148 C 64.5 143.9 67.9 140.5 72 140.5 C 76.1 140.5 79.5 143.9 79.5 148 Z"/>
+<clipPath id="blacksmith-tongs-hand-clip"><use href="#blacksmith-tongs-hand-shape"/></clipPath>
+<clipPath id="blacksmith-tongs-hand-lit-clip"><use href="#blacksmith-tongs-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="blacksmith-tongs-bar-a">
+<use id="blacksmith-tongs-bar-a-fill" href="#blacksmith-tongs-bar-a-shape" fill="#5d6672"/>
+<use id="blacksmith-tongs-bar-a-line" href="#blacksmith-tongs-bar-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blacksmith-tongs-bar-b">
+<use id="blacksmith-tongs-bar-b-fill" href="#blacksmith-tongs-bar-b-shape" fill="#5d6672"/>
+<use id="blacksmith-tongs-bar-b-line" href="#blacksmith-tongs-bar-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="blacksmith-tongs-halo" d="M 63 113 C 63 121.3 56.3 128 48 128 C 39.7 128 33 121.3 33 113 C 33 104.7 39.7 98 48 98 C 56.3 98 63 104.7 63 113 Z" fill="#ffd27a" opacity="0.45"/>
+<g id="blacksmith-tongs-billet">
+<use id="blacksmith-tongs-billet-shade" href="#blacksmith-tongs-billet-shape" fill="#c45f22"/>
+<g clip-path="url(#blacksmith-tongs-billet-clip)">
+<use id="blacksmith-tongs-billet-fill" href="#blacksmith-tongs-billet-shape" transform="translate(-3 -3)" fill="#f08a3c"/>
+<g clip-path="url(#blacksmith-tongs-billet-lit-clip)">
+<use id="blacksmith-tongs-billet-lit" href="#blacksmith-tongs-billet-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blacksmith-tongs-billet-fill-over" href="#blacksmith-tongs-billet-shape" transform="translate(3.6 3.6)" fill="#f08a3c"/>
+</g>
+<path id="blacksmith-tongs-heat" d="M 44.2 108.6 L 51.8 111.1 Q 53.7 111.7 53.1 113.6 L 52.8 114.5 Q 52.1 116.4 50.2 115.8 L 42.6 113.4 Q 40.7 112.7 41.3 110.8 L 41.7 109.9 Q 42.3 108 44.2 108.6 Z" fill="#ffd27a"/>
+</g>
+<use id="blacksmith-tongs-billet-line" href="#blacksmith-tongs-billet-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blacksmith-tongs-hand">
+<use id="blacksmith-tongs-hand-shade" href="#blacksmith-tongs-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#blacksmith-tongs-hand-clip)">
+<use id="blacksmith-tongs-hand-fill" href="#blacksmith-tongs-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#blacksmith-tongs-hand-lit-clip)">
+<use id="blacksmith-tongs-hand-lit" href="#blacksmith-tongs-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blacksmith-tongs-hand-fill-over" href="#blacksmith-tongs-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="blacksmith-tongs-hand-line" href="#blacksmith-tongs-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
