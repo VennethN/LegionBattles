@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="militia-buckler" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="militia-buckler-face-clip"><path d="M 97 138 C 97 147.4 89.4 155 80 155 C 70.6 155 63 147.4 63 138 C 63 128.6 70.6 121 80 121 C 89.4 121 97 128.6 97 138 Z"/></clipPath>
+<clipPath id="militia-buckler-boss-clip"><path d="M 86.8 138 C 86.8 141.8 83.8 144.8 80 144.8 C 76.2 144.8 73.2 141.8 73.2 138 C 73.2 134.2 76.2 131.2 80 131.2 C 83.8 131.2 86.8 134.2 86.8 138 Z"/></clipPath>
+</defs>
+<g id="militia-buckler-face">
+<path id="militia-buckler-face-shade" d="M 97 138 C 97 147.4 89.4 155 80 155 C 70.6 155 63 147.4 63 138 C 63 128.6 70.6 121 80 121 C 89.4 121 97 128.6 97 138 Z" fill="#8d97a3"/>
+<g clip-path="url(#militia-buckler-face-clip)">
+<path id="militia-buckler-face-fill" d="M 93 134 C 93 143.4 85.4 151 76 151 C 66.6 151 59 143.4 59 134 C 59 124.6 66.6 117 76 117 C 85.4 117 93 124.6 93 134 Z" fill="#b9c2cc"/>
+</g>
+<path id="militia-buckler-face-line" d="M 97 138 C 97 147.4 89.4 155 80 155 C 70.6 155 63 147.4 63 138 C 63 128.6 70.6 121 80 121 C 89.4 121 97 128.6 97 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="militia-buckler-boss">
+<path id="militia-buckler-boss-shade" d="M 86.8 138 C 86.8 141.8 83.8 144.8 80 144.8 C 76.2 144.8 73.2 141.8 73.2 138 C 73.2 134.2 76.2 131.2 80 131.2 C 83.8 131.2 86.8 134.2 86.8 138 Z" fill="#9c7c33"/>
+<g clip-path="url(#militia-buckler-boss-clip)">
+<path id="militia-buckler-boss-fill" d="M 84.8 136 C 84.8 139.8 81.8 142.8 78 142.8 C 74.2 142.8 71.2 139.8 71.2 136 C 71.2 132.2 74.2 129.2 78 129.2 C 81.8 129.2 84.8 132.2 84.8 136 Z" fill="#c8a24a"/>
+</g>
+<path id="militia-buckler-boss-line" d="M 86.8 138 C 86.8 141.8 83.8 144.8 80 144.8 C 76.2 144.8 73.2 141.8 73.2 138 C 73.2 134.2 76.2 131.2 80 131.2 C 83.8 131.2 86.8 134.2 86.8 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

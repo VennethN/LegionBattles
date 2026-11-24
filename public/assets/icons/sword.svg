@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sword" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="sword-blade-clip"><path d="M 31.7 7 L 38.8 6.4 L 39.4 13.4 L 24 31.8 L 16.3 25.4 Z"/></clipPath>
+</defs>
+<g id="sword-blade">
+<path id="sword-blade-shade" d="M 31.7 7 L 38.8 6.4 L 39.4 13.4 L 24 31.8 L 16.3 25.4 Z" fill="#8d97a3"/>
+<g clip-path="url(#sword-blade-clip)">
+<path id="sword-blade-fill" d="M 28.7 4 L 35.8 3.4 L 36.4 10.4 L 21 28.8 L 13.3 22.4 Z" fill="#b9c2cc"/>
+</g>
+<path id="sword-blade-line" d="M 31.7 7 L 38.8 6.4 L 39.4 13.4 L 24 31.8 L 16.3 25.4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="sword-guard">
+<path id="sword-guard-fill" d="M 13.9 22 L 27.7 33.6 Q 30 35.5 28.1 37.8 L 28.1 37.8 Q 26.1 40.1 23.8 38.2 L 10 26.6 Q 7.7 24.7 9.7 22.4 L 9.7 22.4 Q 11.6 20.1 13.9 22 Z" fill="#c8a24a"/>
+<path id="sword-guard-line" d="M 13.9 22 L 27.7 33.6 Q 30 35.5 28.1 37.8 L 28.1 37.8 Q 26.1 40.1 23.8 38.2 L 10 26.6 Q 7.7 24.7 9.7 22.4 L 9.7 22.4 Q 11.6 20.1 13.9 22 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="sword-grip">
+<path id="sword-grip-fill" d="M 16.8 31 L 18.3 32.3 Q 19.9 33.6 18.6 35.1 L 14.7 39.7 Q 13.4 41.2 11.9 40 L 10.4 38.7 Q 8.8 37.4 10.1 35.9 L 14 31.3 Q 15.3 29.7 16.8 31 Z" fill="#6b4a2b"/>
+<path id="sword-grip-line" d="M 16.8 31 L 18.3 32.3 Q 19.9 33.6 18.6 35.1 L 14.7 39.7 Q 13.4 41.2 11.9 40 L 10.4 38.7 Q 8.8 37.4 10.1 35.9 L 14 31.3 Q 15.3 29.7 16.8 31 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

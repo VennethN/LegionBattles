@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="warlord-sword" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="warlord-sword-blade-clip"><path d="M 119.3 124.6 L 150.3 70.9 L 168 60.3 L 167.7 80.9 L 136.7 134.6 Z"/></clipPath>
+<clipPath id="warlord-sword-guard-clip"><path d="M 112.9 111.7 C 112.9 111.7 109.2 118.8 111.4 122.3 C 113.6 125.9 120.8 130.1 126 133.1 C 131.2 136.1 138.4 140.2 142.6 140.3 C 146.8 140.4 151.1 133.7 151.1 133.7 C 151.1 133.7 145.2 135.1 139.9 133 C 134.6 130.9 123.6 124.6 119.1 121 C 114.6 117.5 112.9 111.7 112.9 111.7 Z"/></clipPath>
+<clipPath id="warlord-sword-hand-lower-clip"><path d="M 121.5 153.9 C 121.5 158 118.1 161.4 114 161.4 C 109.9 161.4 106.5 158 106.5 153.9 C 106.5 149.7 109.9 146.4 114 146.4 C 118.1 146.4 121.5 149.7 121.5 153.9 Z"/></clipPath>
+<clipPath id="warlord-sword-hand-clip"><path d="M 129.5 140 C 129.5 144.1 126.1 147.5 122 147.5 C 117.9 147.5 114.5 144.1 114.5 140 C 114.5 135.9 117.9 132.5 122 132.5 C 126.1 132.5 129.5 135.9 129.5 140 Z"/></clipPath>
+</defs>
+<g id="warlord-sword-blade">
+<path id="warlord-sword-blade-shade" d="M 119.3 124.6 L 150.3 70.9 L 168 60.3 L 167.7 80.9 L 136.7 134.6 Z" fill="#8d97a3"/>
+<g clip-path="url(#warlord-sword-blade-clip)">
+<path id="warlord-sword-blade-fill" d="M 114.3 119.6 L 145.3 65.9 L 163 55.3 L 162.7 75.9 L 131.7 129.6 Z" fill="#b9c2cc"/>
+<path id="warlord-sword-fuller" d="M 129 127.9 L 154 84.6" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="warlord-sword-blade-line" d="M 119.3 124.6 L 150.3 70.9 L 168 60.3 L 167.7 80.9 L 136.7 134.6 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warlord-sword-grip">
+<path id="warlord-sword-grip-fill" d="M 125.1 132.6 L 126.9 133.6 Q 129.5 135.1 128 137.7 L 114 161.9 Q 112.5 164.5 109.9 163 L 108.1 162 Q 105.5 160.5 107 157.9 L 121 133.7 Q 122.5 131.1 125.1 132.6 Z" fill="#6b4a2b"/>
+<path id="warlord-sword-grip-line" d="M 125.1 132.6 L 126.9 133.6 Q 129.5 135.1 128 137.7 L 114 161.9 Q 112.5 164.5 109.9 163 L 108.1 162 Q 105.5 160.5 107 157.9 L 121 133.7 Q 122.5 131.1 125.1 132.6 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warlord-sword-pommel">
+<path id="warlord-sword-pommel-fill" d="M 112.7 168.1 C 111 171 107.4 172 104.5 170.3 C 101.6 168.7 100.6 165 102.3 162.1 C 104 159.2 107.6 158.3 110.5 159.9 C 113.4 161.6 114.4 165.2 112.7 168.1 Z" fill="#c8a24a"/>
+<path id="warlord-sword-pommel-line" d="M 112.7 168.1 C 111 171 107.4 172 104.5 170.3 C 101.6 168.7 100.6 165 102.3 162.1 C 104 159.2 107.6 158.3 110.5 159.9 C 113.4 161.6 114.4 165.2 112.7 168.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warlord-sword-guard">
+<path id="warlord-sword-guard-shade" d="M 112.9 111.7 C 112.9 111.7 109.2 118.8 111.4 122.3 C 113.6 125.9 120.8 130.1 126 133.1 C 131.2 136.1 138.4 140.2 142.6 140.3 C 146.8 140.4 151.1 133.7 151.1 133.7 C 151.1 133.7 145.2 135.1 139.9 133 C 134.6 130.9 123.6 124.6 119.1 121 C 114.6 117.5 112.9 111.7 112.9 111.7 Z" fill="#9c7c33"/>
+<g clip-path="url(#warlord-sword-guard-clip)">
+<path id="warlord-sword-guard-fill" d="M 109.9 108.7 C 109.9 108.7 106.2 115.8 108.4 119.3 C 110.6 122.9 117.8 127.1 123 130.1 C 128.2 133.1 135.4 137.2 139.6 137.3 C 143.8 137.4 148.1 130.7 148.1 130.7 C 148.1 130.7 142.2 132.1 136.9 130 C 131.6 127.9 120.6 121.6 116.1 118 C 111.6 114.5 109.9 108.7 109.9 108.7 Z" fill="#c8a24a"/>
+</g>
+<path id="warlord-sword-guard-line" d="M 112.9 111.7 C 112.9 111.7 109.2 118.8 111.4 122.3 C 113.6 125.9 120.8 130.1 126 133.1 C 131.2 136.1 138.4 140.2 142.6 140.3 C 146.8 140.4 151.1 133.7 151.1 133.7 C 151.1 133.7 145.2 135.1 139.9 133 C 134.6 130.9 123.6 124.6 119.1 121 C 114.6 117.5 112.9 111.7 112.9 111.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warlord-sword-hand-lower">
+<path id="warlord-sword-hand-lower-shade" d="M 121.5 153.9 C 121.5 158 118.1 161.4 114 161.4 C 109.9 161.4 106.5 158 106.5 153.9 C 106.5 149.7 109.9 146.4 114 146.4 C 118.1 146.4 121.5 149.7 121.5 153.9 Z" fill="#434b56"/>
+<g clip-path="url(#warlord-sword-hand-lower-clip)">
+<path id="warlord-sword-hand-lower-fill" d="M 118.5 150.9 C 118.5 155 115.1 158.4 111 158.4 C 106.9 158.4 103.5 155 103.5 150.9 C 103.5 146.7 106.9 143.4 111 143.4 C 115.1 143.4 118.5 146.7 118.5 150.9 Z" fill="#5d6672"/>
+</g>
+<path id="warlord-sword-hand-lower-line" d="M 121.5 153.9 C 121.5 158 118.1 161.4 114 161.4 C 109.9 161.4 106.5 158 106.5 153.9 C 106.5 149.7 109.9 146.4 114 146.4 C 118.1 146.4 121.5 149.7 121.5 153.9 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warlord-sword-hand">
+<path id="warlord-sword-hand-shade" d="M 129.5 140 C 129.5 144.1 126.1 147.5 122 147.5 C 117.9 147.5 114.5 144.1 114.5 140 C 114.5 135.9 117.9 132.5 122 132.5 C 126.1 132.5 129.5 135.9 129.5 140 Z" fill="#434b56"/>
+<g clip-path="url(#warlord-sword-hand-clip)">
+<path id="warlord-sword-hand-fill" d="M 126.5 137 C 126.5 141.1 123.1 144.5 119 144.5 C 114.9 144.5 111.5 141.1 111.5 137 C 111.5 132.9 114.9 129.5 119 129.5 C 123.1 129.5 126.5 132.9 126.5 137 Z" fill="#5d6672"/>
+</g>
+<path id="warlord-sword-hand-line" d="M 129.5 140 C 129.5 144.1 126.1 147.5 122 147.5 C 117.9 147.5 114.5 144.1 114.5 140 C 114.5 135.9 117.9 132.5 122 132.5 C 126.1 132.5 129.5 135.9 129.5 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

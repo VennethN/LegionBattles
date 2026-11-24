@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="colossus-leg-back" width="192" height="192" viewBox="0 0 192 192">
+<g id="colossus-leg-back-leg">
+<path id="colossus-leg-back-leg-fill" d="M 74 146 L 88 146 Q 95 146 95 153 L 95 173 Q 95 180 88 180 L 74 180 Q 67 180 67 173 L 67 153 Q 67 146 74 146 Z" fill="#8c6b42"/>
+<path id="colossus-leg-back-leg-line" d="M 74 146 L 88 146 Q 95 146 95 153 L 95 173 Q 95 180 88 180 L 74 180 Q 67 180 67 173 L 67 153 Q 67 146 74 146 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="check" width="48" height="48" viewBox="0 0 48 48">
+<g id="check-check">
+<path id="check-check-fill" d="M 6 25 L 12 19 L 20 27 L 36 9 L 42 15 L 20 39 Z" fill="#8fce4a"/>
+<path id="check-check-line" d="M 6 25 L 12 19 L 20 27 L 36 9 L 42 15 L 20 39 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="huscarl" width="192" height="192" viewBox="0 0 192 192">
+<g id="huscarl-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="huscarl-shadow-shadow" d="M 134 181 C 134 185.4 117 189 96 189 C 75 189 58 185.4 58 181 C 58 176.6 75 173 96 173 C 117 173 134 176.6 134 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="huscarl-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<g id="huscarl-leg-back-boot">
+<path id="huscarl-leg-back-boot-fill" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="#4e3520"/>
+<path id="huscarl-leg-back-boot-line" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="huscarl-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<clipPath id="huscarl-leg-front-boot-clip"><path d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/></clipPath>
+</defs>
+<g id="huscarl-leg-front-boot">
+<path id="huscarl-leg-front-boot-shade" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="#4e3520"/>
+<g clip-path="url(#huscarl-leg-front-boot-clip)">
+<path id="huscarl-leg-front-boot-fill" d="M 90 144 L 109 144 L 109 160 C 115 160 120 164 120 170 L 120 172 Q 120 176 116 176 L 94 176 Q 90 176 90 172 Z" fill="#6b4a2b"/>
+</g>
+<path id="huscarl-leg-front-boot-line" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="huscarl-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<clipPath id="huscarl-body-tunic-clip"><path d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/></clipPath>
+<clipPath id="huscarl-body-buckle-clip"><path d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/></clipPath>
+<clipPath id="huscarl-body-arm-clip"><path d="M 110.7 123.3 L 122.7 135.3 C 125.6 138.2 130.4 138.2 133.3 135.3 C 136.2 132.4 136.2 127.6 133.3 124.7 L 121.3 112.7 C 118.4 109.8 113.6 109.8 110.7 112.7 C 107.8 115.6 107.8 120.4 110.7 123.3 Z"/></clipPath>
+<clipPath id="huscarl-body-fur-clip"><path d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z"/></clipPath>
+</defs>
+<g id="huscarl-body-tunic">
+<path id="huscarl-body-tunic-shade" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="#2f5893"/>
+<g clip-path="url(#huscarl-body-tunic-clip)">
+<path id="huscarl-body-tunic-fill" d="M 65 100 C 70.3 95.5 82.3 96 91 96 C 99.7 96 111.7 95.5 117 100 C 122.3 104.5 122.7 115.2 123 123 C 123.3 130.8 122.3 141.8 119 147 C 115.7 152.2 109.7 152.8 103 154 C 96.3 155.2 85.7 155.2 79 154 C 72.3 152.8 66.3 152.2 63 147 C 59.7 141.8 58.7 130.8 59 123 C 59.3 115.2 59.7 104.5 65 100 Z" fill="#3d6fb6"/>
+<g id="huscarl-body-belt">
+<path id="huscarl-body-belt-fill" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="#6b4a2b"/>
+<path id="huscarl-body-belt-line" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-body-buckle">
+<path id="huscarl-body-buckle-shade" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z" fill="#9c7c33"/>
+<g clip-path="url(#huscarl-body-buckle-clip)">
+<path id="huscarl-body-buckle-fill" d="M 101 135 L 107 135 Q 110 135 110 138 L 110 145 Q 110 148 107 148 L 101 148 Q 98 148 98 145 L 98 138 Q 98 135 101 135 Z" fill="#c8a24a"/>
+</g>
+<path id="huscarl-body-buckle-line" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="huscarl-body-tunic-line" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-body-arm">
+<path id="huscarl-body-arm-shade" d="M 110.7 123.3 L 122.7 135.3 C 125.6 138.2 130.4 138.2 133.3 135.3 C 136.2 132.4 136.2 127.6 133.3 124.7 L 121.3 112.7 C 118.4 109.8 113.6 109.8 110.7 112.7 C 107.8 115.6 107.8 120.4 110.7 123.3 Z" fill="#2f5893"/>
+<g clip-path="url(#huscarl-body-arm-clip)">
+<path id="huscarl-body-arm-fill" d="M 107.7 120.3 L 119.7 132.3 C 122.6 135.2 127.4 135.2 130.3 132.3 C 133.2 129.4 133.2 124.6 130.3 121.7 L 118.3 109.7 C 115.4 106.8 110.6 106.8 107.7 109.7 C 104.8 112.6 104.8 117.4 107.7 120.3 Z" fill="#3d6fb6"/>
+</g>
+<path id="huscarl-body-arm-line" d="M 110.7 123.3 L 122.7 135.3 C 125.6 138.2 130.4 138.2 133.3 135.3 C 136.2 132.4 136.2 127.6 133.3 124.7 L 121.3 112.7 C 118.4 109.8 113.6 109.8 110.7 112.7 C 107.8 115.6 107.8 120.4 110.7 123.3 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-body-fur">
+<path id="huscarl-body-fur-shade" d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z" fill="#c4b594"/>
+<g clip-path="url(#huscarl-body-fur-clip)">
+<path id="huscarl-body-fur-fill" d="M 62 100 L 92 95 L 122 100 L 129 112 L 122 123 L 116 116 L 109 126 L 101 117 L 92 127 L 83 117 L 75 126 L 68 116 L 62 123 L 55 112 Z" fill="#e9dfc6"/>
+</g>
+<path id="huscarl-body-fur-line" d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="huscarl-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<clipPath id="huscarl-head-mail-clip"><path d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z"/></clipPath>
+<clipPath id="huscarl-head-helm-clip"><path d="M 67 77 C 67 77 68.2 64.5 71 60 C 73.8 55.5 79.7 52.3 84 50 C 88.3 47.7 92.7 46 97 46 C 101.3 46 105.7 47.7 110 50 C 114.3 52.3 120.2 55.5 123 60 C 125.8 64.5 127 77 127 77 L 67 77 Z"/></clipPath>
+</defs>
+<g id="huscarl-head-mail">
+<path id="huscarl-head-mail-shade" d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z" fill="#434b56"/>
+<g clip-path="url(#huscarl-head-mail-clip)">
+<path id="huscarl-head-mail-fill" d="M 61 67 L 123 67 C 123 67 126.7 82.2 126 88 C 125.3 93.8 124.3 99 119 102 C 113.7 105 102.5 106 94 106 C 85.5 106 73.7 105 68 102 C 62.3 99 61.2 93.8 60 88 C 58.8 82.2 61 67 61 67 Z" fill="#5d6672"/>
+<path id="huscarl-head-slit" d="M 97.5 79 L 134.5 79 Q 139 79 139 83.5 L 139 83.5 Q 139 88 134.5 88 L 97.5 88 Q 93 88 93 83.5 L 93 83.5 Q 93 79 97.5 79 Z" fill="#1e2b17"/>
+<path id="huscarl-head-slit-edge" d="M 97.5 79 L 134.5 79 Q 139 79 139 83.5 L 139 83.5 Q 139 88 134.5 88 L 97.5 88 Q 93 88 93 83.5 L 93 83.5 Q 93 79 97.5 79 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="huscarl-head-mail-line" d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-head-helm">
+<path id="huscarl-head-helm-shade" d="M 67 77 C 67 77 68.2 64.5 71 60 C 73.8 55.5 79.7 52.3 84 50 C 88.3 47.7 92.7 46 97 46 C 101.3 46 105.7 47.7 110 50 C 114.3 52.3 120.2 55.5 123 60 C 125.8 64.5 127 77 127 77 L 67 77 Z" fill="#8d97a3"/>
+<g clip-path="url(#huscarl-head-helm-clip)">
+<path id="huscarl-head-helm-fill" d="M 62 72 C 62 72 63.2 59.5 66 55 C 68.8 50.5 74.7 47.3 79 45 C 83.3 42.7 87.7 41 92 41 C 96.3 41 100.7 42.7 105 45 C 109.3 47.3 115.2 50.5 118 55 C 120.8 59.5 122 72 122 72 L 62 72 Z" fill="#b9c2cc"/>
+<g id="huscarl-head-band-up">
+<path id="huscarl-head-band-up-fill" d="M 93 40 L 102 40 L 102 80 L 93 80 L 93 40 Z" fill="#c8a24a"/>
+<path id="huscarl-head-band-up-line" d="M 93 40 L 102 40 L 102 80 L 93 80 L 93 40 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-head-band-brow">
+<path id="huscarl-head-band-brow-fill" d="M 60 68 L 136 68 L 136 78 L 60 78 L 60 68 Z" fill="#c8a24a"/>
+<path id="huscarl-head-band-brow-line" d="M 60 68 L 136 68 L 136 78 L 60 78 L 60 68 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="huscarl-head-helm-line" d="M 67 77 C 67 77 68.2 64.5 71 60 C 73.8 55.5 79.7 52.3 84 50 C 88.3 47.7 92.7 46 97 46 C 101.3 46 105.7 47.7 110 50 C 114.3 52.3 120.2 55.5 123 60 C 125.8 64.5 127 77 127 77 L 67 77 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-head-knob">
+<path id="huscarl-head-knob-fill" d="M 102 46 C 102 48.8 99.8 51 97 51 C 94.2 51 92 48.8 92 46 C 92 43.2 94.2 41 97 41 C 99.8 41 102 43.2 102 46 Z" fill="#c8a24a"/>
+<path id="huscarl-head-knob-line" d="M 102 46 C 102 48.8 99.8 51 97 51 C 94.2 51 92 48.8 92 46 C 92 43.2 94.2 41 97 41 C 99.8 41 102 43.2 102 46 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="huscarl-axe-layer" transform="translate(130 131) rotate(0) scale(1 1) translate(-130 -131)">
+<defs>
+<clipPath id="huscarl-axe-shaft-clip"><path d="M 152.3 84 L 153.2 84.5 Q 155.9 85.8 154.6 88.5 L 127.4 144.2 Q 126.1 146.9 123.4 145.6 L 122.5 145.2 Q 119.8 143.8 121.2 141.2 L 148.3 85.4 Q 149.6 82.7 152.3 84 Z"/></clipPath>
+<clipPath id="huscarl-axe-blade-clip"><path d="M 153.7 86.9 C 153.7 86.9 165.9 84.7 169.8 85.9 C 173.7 87 177 93.9 177 93.9 C 177 93.9 174.9 104.3 171.8 109.1 C 168.7 113.9 158.5 122.7 158.5 122.7 C 158.5 122.7 156.6 111.4 154.8 107.5 C 153 103.6 147.6 99.5 147.6 99.5 L 153.7 86.9 Z"/></clipPath>
+<clipPath id="huscarl-axe-hand-clip"><path d="M 137.5 131 C 137.5 135.1 134.1 138.5 130 138.5 C 125.9 138.5 122.5 135.1 122.5 131 C 122.5 126.9 125.9 123.5 130 123.5 C 134.1 123.5 137.5 126.9 137.5 131 Z"/></clipPath>
+</defs>
+<g id="huscarl-axe-shaft">
+<path id="huscarl-axe-shaft-shade" d="M 152.3 84 L 153.2 84.5 Q 155.9 85.8 154.6 88.5 L 127.4 144.2 Q 126.1 146.9 123.4 145.6 L 122.5 145.2 Q 119.8 143.8 121.2 141.2 L 148.3 85.4 Q 149.6 82.7 152.3 84 Z" fill="#75502b"/>
+<g clip-path="url(#huscarl-axe-shaft-clip)">
+<path id="huscarl-axe-shaft-fill" d="M 150.3 82 L 151.2 82.5 Q 153.9 83.8 152.6 86.5 L 125.4 142.2 Q 124.1 144.9 121.4 143.6 L 120.5 143.2 Q 117.8 141.8 119.2 139.2 L 146.3 83.4 Q 147.6 80.7 150.3 82 Z" fill="#9a6a3a"/>
+</g>
+<path id="huscarl-axe-shaft-line" d="M 152.3 84 L 153.2 84.5 Q 155.9 85.8 154.6 88.5 L 127.4 144.2 Q 126.1 146.9 123.4 145.6 L 122.5 145.2 Q 119.8 143.8 121.2 141.2 L 148.3 85.4 Q 149.6 82.7 152.3 84 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-axe-blade">
+<path id="huscarl-axe-blade-shade" d="M 153.7 86.9 C 153.7 86.9 165.9 84.7 169.8 85.9 C 173.7 87 177 93.9 177 93.9 C 177 93.9 174.9 104.3 171.8 109.1 C 168.7 113.9 158.5 122.7 158.5 122.7 C 158.5 122.7 156.6 111.4 154.8 107.5 C 153 103.6 147.6 99.5 147.6 99.5 L 153.7 86.9 Z" fill="#8d97a3"/>
+<g clip-path="url(#huscarl-axe-blade-clip)">
+<path id="huscarl-axe-blade-fill" d="M 149.7 82.9 C 149.7 82.9 161.9 80.7 165.8 81.9 C 169.7 83 173 89.9 173 89.9 C 173 89.9 170.9 100.3 167.8 105.1 C 164.7 109.9 154.5 118.7 154.5 118.7 C 154.5 118.7 152.6 107.4 150.8 103.5 C 149 99.6 143.6 95.5 143.6 95.5 L 149.7 82.9 Z" fill="#b9c2cc"/>
+</g>
+<path id="huscarl-axe-blade-line" d="M 153.7 86.9 C 153.7 86.9 165.9 84.7 169.8 85.9 C 173.7 87 177 93.9 177 93.9 C 177 93.9 174.9 104.3 171.8 109.1 C 168.7 113.9 158.5 122.7 158.5 122.7 C 158.5 122.7 156.6 111.4 154.8 107.5 C 153 103.6 147.6 99.5 147.6 99.5 L 153.7 86.9 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-axe-hand">
+<path id="huscarl-axe-hand-shade" d="M 137.5 131 C 137.5 135.1 134.1 138.5 130 138.5 C 125.9 138.5 122.5 135.1 122.5 131 C 122.5 126.9 125.9 123.5 130 123.5 C 134.1 123.5 137.5 126.9 137.5 131 Z" fill="#4e3520"/>
+<g clip-path="url(#huscarl-axe-hand-clip)">
+<path id="huscarl-axe-hand-fill" d="M 134.5 128 C 134.5 132.1 131.1 135.5 127 135.5 C 122.9 135.5 119.5 132.1 119.5 128 C 119.5 123.9 122.9 120.5 127 120.5 C 131.1 120.5 134.5 123.9 134.5 128 Z" fill="#6b4a2b"/>
+</g>
+<path id="huscarl-axe-hand-line" d="M 137.5 131 C 137.5 135.1 134.1 138.5 130 138.5 C 125.9 138.5 122.5 135.1 122.5 131 C 122.5 126.9 125.9 123.5 130 123.5 C 134.1 123.5 137.5 126.9 137.5 131 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="huscarl-shield-layer" transform="translate(84 140) rotate(0) scale(1 1) translate(-84 -140)">
+<defs>
+<clipPath id="huscarl-shield-rim-clip"><path d="M 112 140 C 112 155.5 99.5 168 84 168 C 68.5 168 56 155.5 56 140 C 56 124.5 68.5 112 84 112 C 99.5 112 112 124.5 112 140 Z"/></clipPath>
+<clipPath id="huscarl-shield-face-clip"><path d="M 105 140 C 105 151.6 95.6 161 84 161 C 72.4 161 63 151.6 63 140 C 63 128.4 72.4 119 84 119 C 95.6 119 105 128.4 105 140 Z"/></clipPath>
+<clipPath id="huscarl-shield-boss-clip"><path d="M 91 140 C 91 143.9 87.9 147 84 147 C 80.1 147 77 143.9 77 140 C 77 136.1 80.1 133 84 133 C 87.9 133 91 136.1 91 140 Z"/></clipPath>
+</defs>
+<g id="huscarl-shield-rim">
+<path id="huscarl-shield-rim-shade" d="M 112 140 C 112 155.5 99.5 168 84 168 C 68.5 168 56 155.5 56 140 C 56 124.5 68.5 112 84 112 C 99.5 112 112 124.5 112 140 Z" fill="#8d97a3"/>
+<g clip-path="url(#huscarl-shield-rim-clip)">
+<path id="huscarl-shield-rim-fill" d="M 107 135 C 107 150.5 94.5 163 79 163 C 63.5 163 51 150.5 51 135 C 51 119.5 63.5 107 79 107 C 94.5 107 107 119.5 107 135 Z" fill="#b9c2cc"/>
+</g>
+<path id="huscarl-shield-rim-line" d="M 112 140 C 112 155.5 99.5 168 84 168 C 68.5 168 56 155.5 56 140 C 56 124.5 68.5 112 84 112 C 99.5 112 112 124.5 112 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-shield-face">
+<path id="huscarl-shield-face-shade" d="M 105 140 C 105 151.6 95.6 161 84 161 C 72.4 161 63 151.6 63 140 C 63 128.4 72.4 119 84 119 C 95.6 119 105 128.4 105 140 Z" fill="#75502b"/>
+<g clip-path="url(#huscarl-shield-face-clip)">
+<path id="huscarl-shield-face-fill" d="M 101 136 C 101 147.6 91.6 157 80 157 C 68.4 157 59 147.6 59 136 C 59 124.4 68.4 115 80 115 C 91.6 115 101 124.4 101 136 Z" fill="#9a6a3a"/>
+<path id="huscarl-shield-plank-a" d="M 77 112 L 77 168" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="huscarl-shield-plank-b" d="M 92 112 L 92 168" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="huscarl-shield-face-line" d="M 105 140 C 105 151.6 95.6 161 84 161 C 72.4 161 63 151.6 63 140 C 63 128.4 72.4 119 84 119 C 95.6 119 105 128.4 105 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-shield-boss">
+<path id="huscarl-shield-boss-shade" d="M 91 140 C 91 143.9 87.9 147 84 147 C 80.1 147 77 143.9 77 140 C 77 136.1 80.1 133 84 133 C 87.9 133 91 136.1 91 140 Z" fill="#9c7c33"/>
+<g clip-path="url(#huscarl-shield-boss-clip)">
+<path id="huscarl-shield-boss-fill" d="M 88 137 C 88 140.9 84.9 144 81 144 C 77.1 144 74 140.9 74 137 C 74 133.1 77.1 130 81 130 C 84.9 130 88 133.1 88 137 Z" fill="#c8a24a"/>
+</g>
+<path id="huscarl-shield-boss-line" d="M 91 140 C 91 143.9 87.9 147 84 147 C 80.1 147 77 143.9 77 140 C 77 136.1 80.1 133 84 133 C 87.9 133 91 136.1 91 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="huscarl-shield-glint" d="M 84 138 C 84 139.1 83.1 140 82 140 C 80.9 140 80 139.1 80 138 C 80 136.9 80.9 136 82 136 C 83.1 136 84 136.9 84 138 Z" fill="#f4f1e4"/>
+</g>
+</svg>

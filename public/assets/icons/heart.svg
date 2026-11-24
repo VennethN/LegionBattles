@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="heart" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="heart-heart-clip"><path d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z"/></clipPath>
+</defs>
+<g id="heart-heart">
+<path id="heart-heart-shade" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z" fill="#933027"/>
+<g clip-path="url(#heart-heart-clip)">
+<path id="heart-heart-fill" d="M 20 38 C 0 24 -1 8 10 5 C 16 4 20 9 20 12 C 20 9 24 4 30 5 C 41 8 40 24 20 38 Z" fill="#c2453a"/>
+</g>
+<path id="heart-heart-line" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

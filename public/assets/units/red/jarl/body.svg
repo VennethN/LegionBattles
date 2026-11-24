@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jarl-body" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="jarl-body-mail-clip"><path d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z"/></clipPath>
+<clipPath id="jarl-body-arm-clip"><path d="M 109.6 119.5 L 113.6 141.5 C 114.5 146.1 118.9 149.2 123.5 148.4 C 128.1 147.5 131.2 143.1 130.4 138.5 L 126.4 116.5 C 125.5 111.9 121.1 108.8 116.5 109.6 C 111.9 110.5 108.8 114.9 109.6 119.5 Z"/></clipPath>
+<clipPath id="jarl-body-fur-clip"><path d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z"/></clipPath>
+</defs>
+<g id="jarl-body-mail">
+<path id="jarl-body-mail-shade" d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z" fill="#434b56"/>
+<g clip-path="url(#jarl-body-mail-clip)">
+<path id="jarl-body-mail-fill" d="M 60.8 98.4 C 67 93.7 80.9 94.3 91 94.3 C 101.1 94.3 115 93.7 121.2 98.4 C 127.3 103 127.7 114 128.1 122.1 C 128.5 130.1 127.3 141.5 123.5 146.8 C 119.6 152.1 112.7 152.8 104.9 154 C 97.2 155.2 84.8 155.2 77.1 154 C 69.3 152.8 62.4 152.1 58.5 146.8 C 54.7 141.5 53.5 130.1 53.9 122.1 C 54.3 114 54.7 103 60.8 98.4 Z" fill="#5d6672"/>
+<g id="jarl-body-skirt">
+<path id="jarl-body-skirt-fill" d="M 52 147 L 140 147 L 140 171 L 52 171 L 52 147 Z" fill="#c2453a"/>
+<path id="jarl-body-skirt-line" d="M 52 147 L 140 147 L 140 171 L 52 171 L 52 147 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-body-belt">
+<path id="jarl-body-belt-fill" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="#c8a24a"/>
+<path id="jarl-body-belt-line" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="jarl-body-mail-line" d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-body-arm">
+<path id="jarl-body-arm-shade" d="M 109.6 119.5 L 113.6 141.5 C 114.5 146.1 118.9 149.2 123.5 148.4 C 128.1 147.5 131.2 143.1 130.4 138.5 L 126.4 116.5 C 125.5 111.9 121.1 108.8 116.5 109.6 C 111.9 110.5 108.8 114.9 109.6 119.5 Z" fill="#434b56"/>
+<g clip-path="url(#jarl-body-arm-clip)">
+<path id="jarl-body-arm-fill" d="M 106.6 116.5 L 110.6 138.5 C 111.5 143.1 115.9 146.2 120.5 145.4 C 125.1 144.5 128.2 140.1 127.4 135.5 L 123.4 113.5 C 122.5 108.9 118.1 105.8 113.5 106.6 C 108.9 107.5 105.8 111.9 106.6 116.5 Z" fill="#5d6672"/>
+</g>
+<path id="jarl-body-arm-line" d="M 109.6 119.5 L 113.6 141.5 C 114.5 146.1 118.9 149.2 123.5 148.4 C 128.1 147.5 131.2 143.1 130.4 138.5 L 126.4 116.5 C 125.5 111.9 121.1 108.8 116.5 109.6 C 111.9 110.5 108.8 114.9 109.6 119.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-body-fur">
+<path id="jarl-body-fur-shade" d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z" fill="#c4b594"/>
+<g clip-path="url(#jarl-body-fur-clip)">
+<path id="jarl-body-fur-fill" d="M 62 100 L 92 95 L 122 100 L 129 112 L 122 123 L 116 116 L 109 126 L 101 117 L 92 127 L 83 117 L 75 126 L 68 116 L 62 123 L 55 112 Z" fill="#e9dfc6"/>
+</g>
+<path id="jarl-body-fur-line" d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

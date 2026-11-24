@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="lancer-lance" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="lancer-lance-shaft-clip"><path d="M 187 115.1 L 187.3 116.1 Q 188.1 119 185.2 119.8 L 87.2 147.9 Q 84.3 148.7 83.5 145.9 L 83.2 144.9 Q 82.4 142 85.2 141.2 L 183.3 113.1 Q 186.2 112.2 187 115.1 Z"/></clipPath>
+<clipPath id="lancer-lance-pennant-clip"><path d="M 182.2 120.1 C 182.2 120.1 182.9 138.2 184.7 143.4 C 186.5 148.5 193.2 151.3 193.2 151.3 C 193.2 151.3 180 152.5 175.6 148 C 171.2 143.6 166.8 124.6 166.8 124.6 L 182.2 120.1 Z"/></clipPath>
+<clipPath id="lancer-lance-blade-clip"><path d="M 214 107.9 L 196.6 123.3 L 185.6 121.2 L 182.9 111.6 L 191.1 104.1 Z"/></clipPath>
+<clipPath id="lancer-lance-hand-clip"><path d="M 123.5 136 C 123.5 140.1 120.1 143.5 116 143.5 C 111.9 143.5 108.5 140.1 108.5 136 C 108.5 131.9 111.9 128.5 116 128.5 C 120.1 128.5 123.5 131.9 123.5 136 Z"/></clipPath>
+</defs>
+<g id="lancer-lance-shaft">
+<path id="lancer-lance-shaft-shade" d="M 187 115.1 L 187.3 116.1 Q 188.1 119 185.2 119.8 L 87.2 147.9 Q 84.3 148.7 83.5 145.9 L 83.2 144.9 Q 82.4 142 85.2 141.2 L 183.3 113.1 Q 186.2 112.2 187 115.1 Z" fill="#75502b"/>
+<g clip-path="url(#lancer-lance-shaft-clip)">
+<path id="lancer-lance-shaft-fill" d="M 185 113.1 L 185.3 114.1 Q 186.1 117 183.2 117.8 L 85.2 145.9 Q 82.3 146.7 81.5 143.9 L 81.2 142.9 Q 80.4 140 83.2 139.2 L 181.3 111.1 Q 184.2 110.2 185 113.1 Z" fill="#9a6a3a"/>
+</g>
+<path id="lancer-lance-shaft-line" d="M 187 115.1 L 187.3 116.1 Q 188.1 119 185.2 119.8 L 87.2 147.9 Q 84.3 148.7 83.5 145.9 L 83.2 144.9 Q 82.4 142 85.2 141.2 L 183.3 113.1 Q 186.2 112.2 187 115.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lancer-lance-pennant">
+<path id="lancer-lance-pennant-shade" d="M 182.2 120.1 C 182.2 120.1 182.9 138.2 184.7 143.4 C 186.5 148.5 193.2 151.3 193.2 151.3 C 193.2 151.3 180 152.5 175.6 148 C 171.2 143.6 166.8 124.6 166.8 124.6 L 182.2 120.1 Z" fill="#933027"/>
+<g clip-path="url(#lancer-lance-pennant-clip)">
+<path id="lancer-lance-pennant-fill" d="M 179.2 117.1 C 179.2 117.1 179.9 135.2 181.7 140.4 C 183.5 145.5 190.2 148.3 190.2 148.3 C 190.2 148.3 177 149.5 172.6 145 C 168.2 140.6 163.8 121.6 163.8 121.6 L 179.2 117.1 Z" fill="#c2453a"/>
+</g>
+<path id="lancer-lance-pennant-line" d="M 182.2 120.1 C 182.2 120.1 182.9 138.2 184.7 143.4 C 186.5 148.5 193.2 151.3 193.2 151.3 C 193.2 151.3 180 152.5 175.6 148 C 171.2 143.6 166.8 124.6 166.8 124.6 L 182.2 120.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lancer-lance-blade">
+<path id="lancer-lance-blade-shade" d="M 214 107.9 L 196.6 123.3 L 185.6 121.2 L 182.9 111.6 L 191.1 104.1 Z" fill="#8d97a3"/>
+<g clip-path="url(#lancer-lance-blade-clip)">
+<path id="lancer-lance-blade-fill" d="M 211 104.9 L 193.6 120.3 L 182.6 118.2 L 179.9 108.6 L 188.1 101.1 Z" fill="#b9c2cc"/>
+</g>
+<path id="lancer-lance-blade-line" d="M 214 107.9 L 196.6 123.3 L 185.6 121.2 L 182.9 111.6 L 191.1 104.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lancer-lance-hand">
+<path id="lancer-lance-hand-shade" d="M 123.5 136 C 123.5 140.1 120.1 143.5 116 143.5 C 111.9 143.5 108.5 140.1 108.5 136 C 108.5 131.9 111.9 128.5 116 128.5 C 120.1 128.5 123.5 131.9 123.5 136 Z" fill="#4e3520"/>
+<g clip-path="url(#lancer-lance-hand-clip)">
+<path id="lancer-lance-hand-fill" d="M 120.5 133 C 120.5 137.1 117.1 140.5 113 140.5 C 108.9 140.5 105.5 137.1 105.5 133 C 105.5 128.9 108.9 125.5 113 125.5 C 117.1 125.5 120.5 128.9 120.5 133 Z" fill="#6b4a2b"/>
+</g>
+<path id="lancer-lance-hand-line" d="M 123.5 136 C 123.5 140.1 120.1 143.5 116 143.5 C 111.9 143.5 108.5 140.1 108.5 136 C 108.5 131.9 111.9 128.5 116 128.5 C 120.1 128.5 123.5 131.9 123.5 136 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

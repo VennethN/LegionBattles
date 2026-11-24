@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="spark" width="48" height="48" viewBox="0 0 48 48">
+<g id="spark-spark">
+<path id="spark-spark-fill" d="M 24 3 L 28.9 19.1 L 45 24 L 28.9 28.9 L 24 45 L 19.1 28.9 L 3 24 L 19.1 19.1 Z" fill="#c8a24a"/>
+<path id="spark-spark-line" d="M 24 3 L 28.9 19.1 L 45 24 L 28.9 28.9 L 24 45 L 19.1 28.9 L 3 24 L 19.1 19.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

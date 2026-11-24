@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bruiser-club" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="bruiser-club-club-clip"><path d="M 111.9 158.7 C 111.9 158.7 121.7 136 125.2 123.1 C 128.6 110.1 129.7 90.4 132.6 80.7 C 135.4 71.1 138.3 67.8 142.1 65.2 C 145.8 62.6 151.4 63.5 155.1 65 C 158.8 66.5 163.5 69.7 164.3 74.2 C 165.2 78.7 165.1 83.1 160.4 92 C 155.7 100.9 142.8 115.8 136.3 127.6 C 129.8 139.3 121.1 162.4 121.1 162.4 L 111.9 158.7 Z"/></clipPath>
+<clipPath id="bruiser-club-hand-upper-clip"><path d="M 140.5 119.7 C 140.5 123.9 137.1 127.2 133 127.2 C 128.8 127.2 125.5 123.9 125.5 119.7 C 125.5 115.6 128.8 112.2 133 112.2 C 137.1 112.2 140.5 115.6 140.5 119.7 Z"/></clipPath>
+<clipPath id="bruiser-club-hand-clip"><path d="M 131.5 142 C 131.5 146.1 128.1 149.5 124 149.5 C 119.9 149.5 116.5 146.1 116.5 142 C 116.5 137.9 119.9 134.5 124 134.5 C 128.1 134.5 131.5 137.9 131.5 142 Z"/></clipPath>
+</defs>
+<g id="bruiser-club-club">
+<path id="bruiser-club-club-shade" d="M 111.9 158.7 C 111.9 158.7 121.7 136 125.2 123.1 C 128.6 110.1 129.7 90.4 132.6 80.7 C 135.4 71.1 138.3 67.8 142.1 65.2 C 145.8 62.6 151.4 63.5 155.1 65 C 158.8 66.5 163.5 69.7 164.3 74.2 C 165.2 78.7 165.1 83.1 160.4 92 C 155.7 100.9 142.8 115.8 136.3 127.6 C 129.8 139.3 121.1 162.4 121.1 162.4 L 111.9 158.7 Z" fill="#75502b"/>
+<g clip-path="url(#bruiser-club-club-clip)">
+<path id="bruiser-club-club-fill" d="M 106.9 153.7 C 106.9 153.7 116.7 131 120.2 118.1 C 123.6 105.1 124.7 85.4 127.6 75.7 C 130.4 66.1 133.3 62.8 137.1 60.2 C 140.8 57.6 146.4 58.5 150.1 60 C 153.8 61.5 158.5 64.7 159.3 69.2 C 160.2 73.7 160.1 78.1 155.4 87 C 150.7 95.9 137.8 110.8 131.3 122.6 C 124.8 134.3 116.1 157.4 116.1 157.4 L 106.9 153.7 Z" fill="#9a6a3a"/>
+<g id="bruiser-club-band-a">
+<path id="bruiser-club-band-a-fill" d="M 130.9 71.5 L 168 86.4 L 165 93.9 L 127.9 78.9 L 130.9 71.5 Z" fill="#5d6672"/>
+<path id="bruiser-club-band-a-line" d="M 130.9 71.5 L 168 86.4 L 165 93.9 L 127.9 78.9 L 130.9 71.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bruiser-club-band-b">
+<path id="bruiser-club-band-b-fill" d="M 123.4 90 L 160.5 105 L 157.5 112.4 L 120.4 97.4 L 123.4 90 Z" fill="#5d6672"/>
+<path id="bruiser-club-band-b-line" d="M 123.4 90 L 160.5 105 L 157.5 112.4 L 120.4 97.4 L 123.4 90 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="bruiser-club-club-line" d="M 111.9 158.7 C 111.9 158.7 121.7 136 125.2 123.1 C 128.6 110.1 129.7 90.4 132.6 80.7 C 135.4 71.1 138.3 67.8 142.1 65.2 C 145.8 62.6 151.4 63.5 155.1 65 C 158.8 66.5 163.5 69.7 164.3 74.2 C 165.2 78.7 165.1 83.1 160.4 92 C 155.7 100.9 142.8 115.8 136.3 127.6 C 129.8 139.3 121.1 162.4 121.1 162.4 L 111.9 158.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bruiser-club-hand-upper">
+<path id="bruiser-club-hand-upper-shade" d="M 140.5 119.7 C 140.5 123.9 137.1 127.2 133 127.2 C 128.8 127.2 125.5 123.9 125.5 119.7 C 125.5 115.6 128.8 112.2 133 112.2 C 137.1 112.2 140.5 115.6 140.5 119.7 Z" fill="#4e3520"/>
+<g clip-path="url(#bruiser-club-hand-upper-clip)">
+<path id="bruiser-club-hand-upper-fill" d="M 137.5 116.7 C 137.5 120.9 134.1 124.2 130 124.2 C 125.8 124.2 122.5 120.9 122.5 116.7 C 122.5 112.6 125.8 109.2 130 109.2 C 134.1 109.2 137.5 112.6 137.5 116.7 Z" fill="#6b4a2b"/>
+</g>
+<path id="bruiser-club-hand-upper-line" d="M 140.5 119.7 C 140.5 123.9 137.1 127.2 133 127.2 C 128.8 127.2 125.5 123.9 125.5 119.7 C 125.5 115.6 128.8 112.2 133 112.2 C 137.1 112.2 140.5 115.6 140.5 119.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bruiser-club-hand">
+<path id="bruiser-club-hand-shade" d="M 131.5 142 C 131.5 146.1 128.1 149.5 124 149.5 C 119.9 149.5 116.5 146.1 116.5 142 C 116.5 137.9 119.9 134.5 124 134.5 C 128.1 134.5 131.5 137.9 131.5 142 Z" fill="#4e3520"/>
+<g clip-path="url(#bruiser-club-hand-clip)">
+<path id="bruiser-club-hand-fill" d="M 128.5 139 C 128.5 143.1 125.1 146.5 121 146.5 C 116.9 146.5 113.5 143.1 113.5 139 C 113.5 134.9 116.9 131.5 121 131.5 C 125.1 131.5 128.5 134.9 128.5 139 Z" fill="#6b4a2b"/>
+</g>
+<path id="bruiser-club-hand-line" d="M 131.5 142 C 131.5 146.1 128.1 149.5 124 149.5 C 119.9 149.5 116.5 146.1 116.5 142 C 116.5 137.9 119.9 134.5 124 134.5 C 128.1 134.5 131.5 137.9 131.5 142 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

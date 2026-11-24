@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="shield" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="shield-shield-clip"><path d="M 7 9 C 7 9 18.3 5 24 5 C 29.7 5 41 9 41 9 C 41 9 42.2 19.3 41 24 C 39.8 28.7 36.8 33.7 34 37 C 31.2 40.3 24 44 24 44 C 24 44 16.8 40.3 14 37 C 11.2 33.7 8.2 28.7 7 24 C 5.8 19.3 7 9 7 9 Z"/></clipPath>
+</defs>
+<g id="shield-shield">
+<path id="shield-shield-shade" d="M 7 9 C 7 9 18.3 5 24 5 C 29.7 5 41 9 41 9 C 41 9 42.2 19.3 41 24 C 39.8 28.7 36.8 33.7 34 37 C 31.2 40.3 24 44 24 44 C 24 44 16.8 40.3 14 37 C 11.2 33.7 8.2 28.7 7 24 C 5.8 19.3 7 9 7 9 Z" fill="#8d97a3"/>
+<g clip-path="url(#shield-shield-clip)">
+<path id="shield-shield-fill" d="M 3 5 C 3 5 14.3 1 20 1 C 25.7 1 37 5 37 5 C 37 5 38.2 15.3 37 20 C 35.8 24.7 32.8 29.7 30 33 C 27.2 36.3 20 40 20 40 C 20 40 12.8 36.3 10 33 C 7.2 29.7 4.2 24.7 3 20 C 1.8 15.3 3 5 3 5 Z" fill="#b9c2cc"/>
+</g>
+<path id="shield-shield-line" d="M 7 9 C 7 9 18.3 5 24 5 C 29.7 5 41 9 41 9 C 41 9 42.2 19.3 41 24 C 39.8 28.7 36.8 33.7 34 37 C 31.2 40.3 24 44 24 44 C 24 44 16.8 40.3 14 37 C 11.2 33.7 8.2 28.7 7 24 C 5.8 19.3 7 9 7 9 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="shield-boss">
+<path id="shield-boss-fill" d="M 30 22 C 30 25.3 27.3 28 24 28 C 20.7 28 18 25.3 18 22 C 18 18.7 20.7 16 24 16 C 27.3 16 30 18.7 30 22 Z" fill="#c8a24a"/>
+<path id="shield-boss-line" d="M 30 22 C 30 25.3 27.3 28 24 28 C 20.7 28 18 25.3 18 22 C 18 18.7 20.7 16 24 16 C 27.3 16 30 18.7 30 22 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

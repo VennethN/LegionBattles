@@ -5,7 +5,7 @@
 // anything under src/art, or after adding or changing a file in
 // art/overrides (so that the manifest measures your file).
 //
-// It deletes and rewrites public/assets/{units,fx,board,icons}. It never
+// It deletes and rewrites public/assets/{units,fx,board,icons,packs}. It never
 // writes in art/overrides.
 
 import fs from 'node:fs';
@@ -15,6 +15,7 @@ import { boardArt } from '../src/art/board';
 import { composeUnit, innerOf, type PartSource } from '../src/art/compose';
 import { fxArt } from '../src/art/fx';
 import { iconArt } from '../src/art/icons';
+import { PACK_H, PACK_LOOKS, PACK_W, drawPack } from '../src/art/packs';
 import { CANVAS, Doc } from '../src/art/kit/draw';
 import { ARCANE, FIRE, FROST, HOLY, TEAMS, VENOM, type Team } from '../src/art/kit/palette';
 import { drawPart } from '../src/art/kit/unit';
@@ -74,7 +75,7 @@ function images(
 }
 
 export function buildArt(): Manifest {
-  for (const dir of ['units', 'fx', 'board', 'icons']) fs.rmSync(path.join(OUT, dir), { recursive: true, force: true });
+  for (const dir of ['units', 'fx', 'board', 'icons', 'packs']) fs.rmSync(path.join(OUT, dir), { recursive: true, force: true });
 
   const manifest: Manifest = {
     canvas: CANVAS,
@@ -84,6 +85,7 @@ export function buildArt(): Manifest {
     fx: {},
     board: {},
     icons: {},
+    packs: {},
   };
 
   let files = 0;
@@ -123,13 +125,32 @@ export function buildArt(): Manifest {
       );
       files++;
     }
-    manifest.units[unit.id] = { style: unit.style, muzzle: [unit.muzzle[0], unit.muzzle[1]], top: unit.top, parts };
+    let full: [number, number, number, number] | null = null;
+    for (const p of parts) full = union(full, p.box);
+    manifest.units[unit.id] = {
+      style: unit.style,
+      muzzle: [unit.muzzle[0], unit.muzzle[1]],
+      top: unit.top,
+      full: full as [number, number, number, number],
+      parts,
+    };
   }
 
   manifest.fx = images('fx', fxArt({ arcane: ARCANE, fire: FIRE, frost: FROST, holy: HOLY, venom: VENOM }));
   manifest.board = images('board', boardArt());
   manifest.icons = images('icons', iconArt());
-  files += Object.keys(manifest.fx).length + Object.keys(manifest.board).length + Object.keys(manifest.icons).length;
+  manifest.packs = images(
+    'packs',
+    Object.entries(PACK_LOOKS).map(([name, look]) => ({
+      name,
+      width: PACK_W,
+      height: PACK_H,
+      origin: [0.5, 0.5] as [number, number],
+      draw: (d: Doc) => drawPack(d, look),
+    })),
+  );
+  files +=
+    Object.keys(manifest.fx).length + Object.keys(manifest.board).length + Object.keys(manifest.icons).length + Object.keys(manifest.packs).length;
 
   write('manifest.json', JSON.stringify(manifest, null, 1) + '\n');
   console.log(

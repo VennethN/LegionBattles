@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="poacher-leg-front" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="poacher-leg-front-boot-clip"><path d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/></clipPath>
+</defs>
+<g id="poacher-leg-front-boot">
+<path id="poacher-leg-front-boot-shade" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="#4e3520"/>
+<g clip-path="url(#poacher-leg-front-boot-clip)">
+<path id="poacher-leg-front-boot-fill" d="M 90 144 L 109 144 L 109 160 C 115 160 120 164 120 170 L 120 172 Q 120 176 116 176 L 94 176 Q 90 176 90 172 Z" fill="#6b4a2b"/>
+</g>
+<path id="poacher-leg-front-boot-line" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

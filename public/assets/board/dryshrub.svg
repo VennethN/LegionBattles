@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="dryshrub" width="68" height="56" viewBox="0 0 68 56">
+<defs>
+<clipPath id="dryshrub-shrub-clip"><path d="M 10 46 L 4 30 L 16 34 L 14 14 L 26 28 L 34 6 L 42 28 L 54 14 L 52 34 L 64 30 L 58 46 Z"/></clipPath>
+</defs>
+<path id="dryshrub-shadow" d="M 60 46 C 60 50.4 48.4 54 34 54 C 19.6 54 8 50.4 8 46 C 8 41.6 19.6 38 34 38 C 48.4 38 60 41.6 60 46 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="dryshrub-shrub">
+<path id="dryshrub-shrub-shade" d="M 10 46 L 4 30 L 16 34 L 14 14 L 26 28 L 34 6 L 42 28 L 54 14 L 52 34 L 64 30 L 58 46 Z" fill="#8c6b42"/>
+<g clip-path="url(#dryshrub-shrub-clip)">
+<path id="dryshrub-shrub-fill" d="M 6 42 L 0 26 L 12 30 L 10 10 L 22 24 L 30 2 L 38 24 L 50 10 L 48 30 L 60 26 L 54 42 Z" fill="#b08a5a"/>
+</g>
+<path id="dryshrub-shrub-line" d="M 10 46 L 4 30 L 16 34 L 14 14 L 26 28 L 34 6 L 42 28 L 54 14 L 52 34 L 64 30 L 58 46 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

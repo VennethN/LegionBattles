@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="banner" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="banner-flag-clip"><path d="M 14 7 L 42 9 L 34 18 L 42 28 L 14 30 Z"/></clipPath>
+</defs>
+<g id="banner-pole">
+<path id="banner-pole-fill" d="M 12 4 L 12 4 Q 15 4 15 7 L 15 42 Q 15 45 12 45 L 12 45 Q 9 45 9 42 L 9 7 Q 9 4 12 4 Z" fill="#9a6a3a"/>
+<path id="banner-pole-line" d="M 12 4 L 12 4 Q 15 4 15 7 L 15 42 Q 15 45 12 45 L 12 45 Q 9 45 9 42 L 9 7 Q 9 4 12 4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="banner-flag">
+<path id="banner-flag-shade" d="M 14 7 L 42 9 L 34 18 L 42 28 L 14 30 Z" fill="#933027"/>
+<g clip-path="url(#banner-flag-clip)">
+<path id="banner-flag-fill" d="M 11 4 L 39 6 L 31 15 L 39 25 L 11 27 Z" fill="#c2453a"/>
+</g>
+<path id="banner-flag-line" d="M 14 7 L 42 9 L 34 18 L 42 28 L 14 30 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

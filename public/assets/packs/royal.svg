@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="royal" width="124" height="168" viewBox="0 0 124 168">
+<defs>
+<clipPath id="royal-pouch-clip"><path d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z"/></clipPath>
+<clipPath id="royal-seal-clip"><path d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z"/></clipPath>
+<clipPath id="royal-mark-clip"><path d="M 45 86 L 42 62 L 53 72 L 62 56 L 71 72 L 82 62 L 79 86 Z"/></clipPath>
+</defs>
+<g id="royal-pouch">
+<path id="royal-pouch-shade" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z" fill="#6541a8"/>
+<g clip-path="url(#royal-pouch-clip)">
+<path id="royal-pouch-fill" d="M 5 7 L 16.1 -1 L 27.2 7 L 38.3 -1 L 49.4 7 L 60.6 -1 L 71.7 7 L 82.8 -1 L 93.9 7 L 105 -1 L 109 77 L 105 155 L 93.9 147 L 82.8 155 L 71.7 147 L 60.6 155 L 49.4 147 L 38.3 155 L 27.2 147 L 16.1 155 L 5 147 L 1 77 Z" fill="#8a5cd6"/>
+<g id="royal-crimp-top">
+<path id="royal-crimp-top-fill" d="M 0 0 L 124 0 L 124 26 L 0 26 Z" fill="#6541a8"/>
+<path id="royal-crimp-top-line" d="M 0 0 L 124 0 L 124 26 L 0 26 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="royal-crimp-bottom">
+<path id="royal-crimp-bottom-fill" d="M 0 142 L 124 142 L 124 168 L 0 168 Z" fill="#6541a8"/>
+<path id="royal-crimp-bottom-line" d="M 0 142 L 124 142 L 124 168 L 0 168 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="royal-band">
+<path id="royal-band-fill" d="M 0 108 L 124 92 L 124 112 L 0 128 Z" fill="#c8a24a"/>
+<path id="royal-band-line" d="M 0 108 L 124 92 L 124 112 L 0 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="royal-pouch-line" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="royal-seal">
+<path id="royal-seal-shade" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z" fill="#c4b594"/>
+<g clip-path="url(#royal-seal-clip)">
+<path id="royal-seal-fill" d="M 89 70 C 89 87.1 75.1 101 58 101 C 40.9 101 27 87.1 27 70 C 27 52.9 40.9 39 58 39 C 75.1 39 89 52.9 89 70 Z" fill="#e9dfc6"/>
+</g>
+<path id="royal-seal-line" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="royal-mark">
+<path id="royal-mark-shade" d="M 45 86 L 42 62 L 53 72 L 62 56 L 71 72 L 82 62 L 79 86 Z" fill="#9c7c33"/>
+<g clip-path="url(#royal-mark-clip)">
+<path id="royal-mark-fill" d="M 42 83 L 39 59 L 50 69 L 59 53 L 68 69 L 79 59 L 76 83 Z" fill="#c8a24a"/>
+</g>
+<path id="royal-mark-line" d="M 45 86 L 42 62 L 53 72 L 62 56 L 71 72 L 82 62 L 79 86 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="royal-glint" d="M 25.5 42.6 L 35.5 36.6 C 37 35.7 37.4 33.9 36.6 32.5 C 35.7 31 33.9 30.6 32.5 31.4 L 22.5 37.4 C 21 38.3 20.6 40.1 21.4 41.5 C 22.3 43 24.1 43.4 25.5 42.6 Z" fill="#f4f1e4"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icegolem-leg-front" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="icegolem-leg-front-leg-clip"><path d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z"/></clipPath>
+</defs>
+<g id="icegolem-leg-front-leg">
+<path id="icegolem-leg-front-leg-shade" d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z" fill="#3f97bd"/>
+<g clip-path="url(#icegolem-leg-front-leg-clip)">
+<path id="icegolem-leg-front-leg-fill" d="M 100 142 L 114 142 Q 121 142 121 149 L 121 169 Q 121 176 114 176 L 100 176 Q 93 176 93 169 L 93 149 Q 93 142 100 142 Z" fill="#6fc7e8"/>
+</g>
+<path id="icegolem-leg-front-leg-line" d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

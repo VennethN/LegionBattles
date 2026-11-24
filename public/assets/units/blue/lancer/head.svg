@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="lancer-head" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="lancer-head-veil-clip"><path d="M 68 90 C 70.3 87.7 76.7 86.7 84 86 C 91.3 85.3 104.7 85.3 112 86 C 119.3 86.7 125.7 87.7 128 90 C 130.3 92.3 128.7 96.8 126 100 C 123.3 103.2 119 107.5 112 109 C 105 110.5 91 110.5 84 109 C 77 107.5 72.7 103.2 70 100 C 67.3 96.8 65.7 92.3 68 90 Z"/></clipPath>
+<clipPath id="lancer-head-turban-clip"><path d="M 62 74 C 59.5 69.8 60.3 61 63 56 C 65.7 51 72.2 46.7 78 44 C 83.8 41.3 91.3 40 98 40 C 104.7 40 112.2 41.3 118 44 C 123.8 46.7 130.3 51 133 56 C 135.7 61 136.5 69.8 134 74 C 131.5 78.2 124 79.5 118 81 C 112 82.5 104.7 83 98 83 C 91.3 83 84 82.5 78 81 C 72 79.5 64.5 78.2 62 74 Z"/></clipPath>
+</defs>
+<path id="lancer-head-shadow-under" d="M 126 86 C 126 98.7 113.5 109 98 109 C 82.5 109 70 98.7 70 86 C 70 73.3 82.5 63 98 63 C 113.5 63 126 73.3 126 86 Z" fill="#1e2b17"/>
+<path id="lancer-head-shadow-under-edge" d="M 126 86 C 126 98.7 113.5 109 98 109 C 82.5 109 70 98.7 70 86 C 70 73.3 82.5 63 98 63 C 113.5 63 126 73.3 126 86 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="lancer-head-tail">
+<path id="lancer-head-tail-fill" d="M 70 70 C 70 70 62.7 77.7 60 84 C 57.3 90.3 54 108 54 108 C 54 108 62.3 107 66 102 C 69.7 97 76 78 76 78 L 70 70 Z" fill="#2f5893"/>
+<path id="lancer-head-tail-line" d="M 70 70 C 70 70 62.7 77.7 60 84 C 57.3 90.3 54 108 54 108 C 54 108 62.3 107 66 102 C 69.7 97 76 78 76 78 L 70 70 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lancer-head-veil">
+<path id="lancer-head-veil-shade" d="M 68 90 C 70.3 87.7 76.7 86.7 84 86 C 91.3 85.3 104.7 85.3 112 86 C 119.3 86.7 125.7 87.7 128 90 C 130.3 92.3 128.7 96.8 126 100 C 123.3 103.2 119 107.5 112 109 C 105 110.5 91 110.5 84 109 C 77 107.5 72.7 103.2 70 100 C 67.3 96.8 65.7 92.3 68 90 Z" fill="#b3a585"/>
+<g clip-path="url(#lancer-head-veil-clip)">
+<path id="lancer-head-veil-fill" d="M 64 86 C 66.3 83.7 72.7 82.7 80 82 C 87.3 81.3 100.7 81.3 108 82 C 115.3 82.7 121.7 83.7 124 86 C 126.3 88.3 124.7 92.8 122 96 C 119.3 99.2 115 103.5 108 105 C 101 106.5 87 106.5 80 105 C 73 103.5 68.7 99.2 66 96 C 63.3 92.8 61.7 88.3 64 86 Z" fill="#d9cdb0"/>
+</g>
+<path id="lancer-head-veil-line" d="M 68 90 C 70.3 87.7 76.7 86.7 84 86 C 91.3 85.3 104.7 85.3 112 86 C 119.3 86.7 125.7 87.7 128 90 C 130.3 92.3 128.7 96.8 126 100 C 123.3 103.2 119 107.5 112 109 C 105 110.5 91 110.5 84 109 C 77 107.5 72.7 103.2 70 100 C 67.3 96.8 65.7 92.3 68 90 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lancer-head-turban">
+<path id="lancer-head-turban-shade" d="M 62 74 C 59.5 69.8 60.3 61 63 56 C 65.7 51 72.2 46.7 78 44 C 83.8 41.3 91.3 40 98 40 C 104.7 40 112.2 41.3 118 44 C 123.8 46.7 130.3 51 133 56 C 135.7 61 136.5 69.8 134 74 C 131.5 78.2 124 79.5 118 81 C 112 82.5 104.7 83 98 83 C 91.3 83 84 82.5 78 81 C 72 79.5 64.5 78.2 62 74 Z" fill="#2f5893"/>
+<g clip-path="url(#lancer-head-turban-clip)">
+<path id="lancer-head-turban-fill" d="M 56 68 C 53.5 63.8 54.3 55 57 50 C 59.7 45 66.2 40.7 72 38 C 77.8 35.3 85.3 34 92 34 C 98.7 34 106.2 35.3 112 38 C 117.8 40.7 124.3 45 127 50 C 129.7 55 130.5 63.8 128 68 C 125.5 72.2 118 73.5 112 75 C 106 76.5 98.7 77 92 77 C 85.3 77 78 76.5 72 75 C 66 73.5 58.5 72.2 56 68 Z" fill="#3d6fb6"/>
+<path id="lancer-head-wrap-a" d="M 64 60 C 68.7 60.3 81.3 64 92 62 C 102.7 60 122 50.3 128 48" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="lancer-head-wrap-b" d="M 66 76 C 71 75 84.7 72.7 96 70 C 107.3 67.3 127.7 61.7 134 60" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="lancer-head-turban-line" d="M 62 74 C 59.5 69.8 60.3 61 63 56 C 65.7 51 72.2 46.7 78 44 C 83.8 41.3 91.3 40 98 40 C 104.7 40 112.2 41.3 118 44 C 123.8 46.7 130.3 51 133 56 C 135.7 61 136.5 69.8 134 74 C 131.5 78.2 124 79.5 118 81 C 112 82.5 104.7 83 98 83 C 91.3 83 84 82.5 78 81 C 72 79.5 64.5 78.2 62 74 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lancer-head-jewel">
+<path id="lancer-head-jewel-fill" d="M 112 52 L 120 60 L 112 70 L 104 60 Z" fill="#c8a24a"/>
+<path id="lancer-head-jewel-line" d="M 112 52 L 120 60 L 112 70 L 104 60 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

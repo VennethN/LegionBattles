@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="javelineer-shield" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="javelineer-shield-face-clip"><path d="M 95 138 C 95 147.4 87.4 155 78 155 C 68.6 155 61 147.4 61 138 C 61 128.6 68.6 121 78 121 C 87.4 121 95 128.6 95 138 Z"/></clipPath>
+<clipPath id="javelineer-shield-boss-clip"><path d="M 84.8 138 C 84.8 141.8 81.8 144.8 78 144.8 C 74.2 144.8 71.2 141.8 71.2 138 C 71.2 134.2 74.2 131.2 78 131.2 C 81.8 131.2 84.8 134.2 84.8 138 Z"/></clipPath>
+</defs>
+<g id="javelineer-shield-face">
+<path id="javelineer-shield-face-shade" d="M 95 138 C 95 147.4 87.4 155 78 155 C 68.6 155 61 147.4 61 138 C 61 128.6 68.6 121 78 121 C 87.4 121 95 128.6 95 138 Z" fill="#75502b"/>
+<g clip-path="url(#javelineer-shield-face-clip)">
+<path id="javelineer-shield-face-fill" d="M 91 134 C 91 143.4 83.4 151 74 151 C 64.6 151 57 143.4 57 134 C 57 124.6 64.6 117 74 117 C 83.4 117 91 124.6 91 134 Z" fill="#9a6a3a"/>
+</g>
+<path id="javelineer-shield-face-line" d="M 95 138 C 95 147.4 87.4 155 78 155 C 68.6 155 61 147.4 61 138 C 61 128.6 68.6 121 78 121 C 87.4 121 95 128.6 95 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-shield-boss">
+<path id="javelineer-shield-boss-shade" d="M 84.8 138 C 84.8 141.8 81.8 144.8 78 144.8 C 74.2 144.8 71.2 141.8 71.2 138 C 71.2 134.2 74.2 131.2 78 131.2 C 81.8 131.2 84.8 134.2 84.8 138 Z" fill="#9c7c33"/>
+<g clip-path="url(#javelineer-shield-boss-clip)">
+<path id="javelineer-shield-boss-fill" d="M 82.8 136 C 82.8 139.8 79.8 142.8 76 142.8 C 72.2 142.8 69.2 139.8 69.2 136 C 69.2 132.2 72.2 129.2 76 129.2 C 79.8 129.2 82.8 132.2 82.8 136 Z" fill="#c8a24a"/>
+</g>
+<path id="javelineer-shield-boss-line" d="M 84.8 138 C 84.8 141.8 81.8 144.8 78 144.8 C 74.2 144.8 71.2 141.8 71.2 138 C 71.2 134.2 74.2 131.2 78 131.2 C 81.8 131.2 84.8 134.2 84.8 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

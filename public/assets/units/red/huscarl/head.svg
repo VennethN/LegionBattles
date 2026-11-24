@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="huscarl-head" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="huscarl-head-mail-clip"><path d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z"/></clipPath>
+<clipPath id="huscarl-head-helm-clip"><path d="M 67 77 C 67 77 68.2 64.5 71 60 C 73.8 55.5 79.7 52.3 84 50 C 88.3 47.7 92.7 46 97 46 C 101.3 46 105.7 47.7 110 50 C 114.3 52.3 120.2 55.5 123 60 C 125.8 64.5 127 77 127 77 L 67 77 Z"/></clipPath>
+</defs>
+<g id="huscarl-head-mail">
+<path id="huscarl-head-mail-shade" d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z" fill="#434b56"/>
+<g clip-path="url(#huscarl-head-mail-clip)">
+<path id="huscarl-head-mail-fill" d="M 61 67 L 123 67 C 123 67 126.7 82.2 126 88 C 125.3 93.8 124.3 99 119 102 C 113.7 105 102.5 106 94 106 C 85.5 106 73.7 105 68 102 C 62.3 99 61.2 93.8 60 88 C 58.8 82.2 61 67 61 67 Z" fill="#5d6672"/>
+<path id="huscarl-head-slit" d="M 97.5 79 L 134.5 79 Q 139 79 139 83.5 L 139 83.5 Q 139 88 134.5 88 L 97.5 88 Q 93 88 93 83.5 L 93 83.5 Q 93 79 97.5 79 Z" fill="#1e2b17"/>
+<path id="huscarl-head-slit-edge" d="M 97.5 79 L 134.5 79 Q 139 79 139 83.5 L 139 83.5 Q 139 88 134.5 88 L 97.5 88 Q 93 88 93 83.5 L 93 83.5 Q 93 79 97.5 79 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="huscarl-head-mail-line" d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-head-helm">
+<path id="huscarl-head-helm-shade" d="M 67 77 C 67 77 68.2 64.5 71 60 C 73.8 55.5 79.7 52.3 84 50 C 88.3 47.7 92.7 46 97 46 C 101.3 46 105.7 47.7 110 50 C 114.3 52.3 120.2 55.5 123 60 C 125.8 64.5 127 77 127 77 L 67 77 Z" fill="#8d97a3"/>
+<g clip-path="url(#huscarl-head-helm-clip)">
+<path id="huscarl-head-helm-fill" d="M 62 72 C 62 72 63.2 59.5 66 55 C 68.8 50.5 74.7 47.3 79 45 C 83.3 42.7 87.7 41 92 41 C 96.3 41 100.7 42.7 105 45 C 109.3 47.3 115.2 50.5 118 55 C 120.8 59.5 122 72 122 72 L 62 72 Z" fill="#b9c2cc"/>
+<g id="huscarl-head-band-up">
+<path id="huscarl-head-band-up-fill" d="M 93 40 L 102 40 L 102 80 L 93 80 L 93 40 Z" fill="#c8a24a"/>
+<path id="huscarl-head-band-up-line" d="M 93 40 L 102 40 L 102 80 L 93 80 L 93 40 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-head-band-brow">
+<path id="huscarl-head-band-brow-fill" d="M 60 68 L 136 68 L 136 78 L 60 78 L 60 68 Z" fill="#c8a24a"/>
+<path id="huscarl-head-band-brow-line" d="M 60 68 L 136 68 L 136 78 L 60 78 L 60 68 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="huscarl-head-helm-line" d="M 67 77 C 67 77 68.2 64.5 71 60 C 73.8 55.5 79.7 52.3 84 50 C 88.3 47.7 92.7 46 97 46 C 101.3 46 105.7 47.7 110 50 C 114.3 52.3 120.2 55.5 123 60 C 125.8 64.5 127 77 127 77 L 67 77 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="huscarl-head-knob">
+<path id="huscarl-head-knob-fill" d="M 102 46 C 102 48.8 99.8 51 97 51 C 94.2 51 92 48.8 92 46 C 92 43.2 94.2 41 97 41 C 99.8 41 102 43.2 102 46 Z" fill="#c8a24a"/>
+<path id="huscarl-head-knob-line" d="M 102 46 C 102 48.8 99.8 51 97 51 C 94.2 51 92 48.8 92 46 C 92 43.2 94.2 41 97 41 C 99.8 41 102 43.2 102 46 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

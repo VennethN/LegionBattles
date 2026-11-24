@@ -13,6 +13,8 @@ export interface ManifestUnit {
   style: AttackStyle;
   muzzle: [number, number];
   top: number;
+  /** Corner to corner of the whole unit standing still: [x, y, width, height]. */
+  full: [number, number, number, number];
   /** In draw order, back to front. */
   parts: ManifestPart[];
 }
@@ -31,4 +33,5 @@ export interface Manifest {
   fx: Record<string, ManifestImage>;
   board: Record<string, ManifestImage>;
   icons: Record<string, ManifestImage>;
+  packs: Record<string, ManifestImage>;
 }

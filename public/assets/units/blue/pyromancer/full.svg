@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="pyromancer" width="192" height="192" viewBox="0 0 192 192">
+<g id="pyromancer-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="pyromancer-shadow-shadow" d="M 134 181 C 134 185.4 117 189 96 189 C 75 189 58 185.4 58 181 C 58 176.6 75 173 96 173 C 117 173 134 176.6 134 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="pyromancer-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<g id="pyromancer-leg-back-boot">
+<path id="pyromancer-leg-back-boot-fill" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="#4e3520"/>
+<path id="pyromancer-leg-back-boot-line" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="pyromancer-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<clipPath id="pyromancer-leg-front-boot-clip"><path d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/></clipPath>
+</defs>
+<g id="pyromancer-leg-front-boot">
+<path id="pyromancer-leg-front-boot-shade" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="#4e3520"/>
+<g clip-path="url(#pyromancer-leg-front-boot-clip)">
+<path id="pyromancer-leg-front-boot-fill" d="M 90 144 L 109 144 L 109 160 C 115 160 120 164 120 170 L 120 172 Q 120 176 116 176 L 94 176 Q 90 176 90 172 Z" fill="#6b4a2b"/>
+</g>
+<path id="pyromancer-leg-front-boot-line" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="pyromancer-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<clipPath id="pyromancer-body-robe-clip"><path d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z"/></clipPath>
+<clipPath id="pyromancer-body-sleeve-clip"><path d="M 109 121.8 L 122 140.8 C 124.6 144.7 129.9 145.7 133.8 143 C 137.7 140.4 138.7 135.1 136 131.2 L 123 112.2 C 120.4 108.3 115.1 107.3 111.2 110 C 107.3 112.6 106.3 117.9 109 121.8 Z"/></clipPath>
+</defs>
+<g id="pyromancer-body-robe">
+<path id="pyromancer-body-robe-shade" d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z" fill="#2f5893"/>
+<g clip-path="url(#pyromancer-body-robe-clip)">
+<path id="pyromancer-body-robe-fill" d="M 67 100 C 72.2 95.2 83 96 91 96 C 99 96 109.8 95.2 115 100 C 120.2 104.8 119.8 115.2 122 125 C 124.2 134.8 128.8 151.8 128 159 C 127.2 166.2 123.2 166.2 117 168 C 110.8 169.8 99.7 170 91 170 C 82.3 170 71.2 169.8 65 168 C 58.8 166.2 54.8 166.2 54 159 C 53.2 151.8 57.8 134.8 60 125 C 62.2 115.2 61.8 104.8 67 100 Z" fill="#3d6fb6"/>
+<g id="pyromancer-body-hem">
+<path id="pyromancer-body-hem-fill" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z" fill="#c8a24a"/>
+<path id="pyromancer-body-hem-line" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="pyromancer-body-robe-line" d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pyromancer-body-sleeve">
+<path id="pyromancer-body-sleeve-shade" d="M 109 121.8 L 122 140.8 C 124.6 144.7 129.9 145.7 133.8 143 C 137.7 140.4 138.7 135.1 136 131.2 L 123 112.2 C 120.4 108.3 115.1 107.3 111.2 110 C 107.3 112.6 106.3 117.9 109 121.8 Z" fill="#2f5893"/>
+<g clip-path="url(#pyromancer-body-sleeve-clip)">
+<path id="pyromancer-body-sleeve-fill" d="M 106 118.8 L 119 137.8 C 121.6 141.7 126.9 142.7 130.8 140 C 134.7 137.4 135.7 132.1 133 128.2 L 120 109.2 C 117.4 105.3 112.1 104.3 108.2 107 C 104.3 109.6 103.3 114.9 106 118.8 Z" fill="#3d6fb6"/>
+</g>
+<path id="pyromancer-body-sleeve-line" d="M 109 121.8 L 122 140.8 C 124.6 144.7 129.9 145.7 133.8 143 C 137.7 140.4 138.7 135.1 136 131.2 L 123 112.2 C 120.4 108.3 115.1 107.3 111.2 110 C 107.3 112.6 106.3 117.9 109 121.8 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="pyromancer-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<clipPath id="pyromancer-head-hood-clip"><path d="M 76 58 C 76.5 50.7 68 34 68 34 C 68 34 80 48.3 84 46 C 88 43.7 92 20 92 20 C 92 20 99 41 103 42 C 107 43 116 26 116 26 C 116 26 116.8 43.3 119 52 C 121.2 60.7 128 70 129 78 C 130 86 128.5 94.8 125 100 C 121.5 105.2 114.8 107.5 108 109 C 101.2 110.5 90.5 110.5 84 109 C 77.5 107.5 72.2 105.2 69 100 C 65.8 94.8 63.8 85 65 78 C 66.2 71 75.5 65.3 76 58 Z"/></clipPath>
+</defs>
+<g id="pyromancer-head-hood">
+<path id="pyromancer-head-hood-shade" d="M 76 58 C 76.5 50.7 68 34 68 34 C 68 34 80 48.3 84 46 C 88 43.7 92 20 92 20 C 92 20 99 41 103 42 C 107 43 116 26 116 26 C 116 26 116.8 43.3 119 52 C 121.2 60.7 128 70 129 78 C 130 86 128.5 94.8 125 100 C 121.5 105.2 114.8 107.5 108 109 C 101.2 110.5 90.5 110.5 84 109 C 77.5 107.5 72.2 105.2 69 100 C 65.8 94.8 63.8 85 65 78 C 66.2 71 75.5 65.3 76 58 Z" fill="#2f5893"/>
+<g clip-path="url(#pyromancer-head-hood-clip)">
+<path id="pyromancer-head-hood-fill" d="M 70 52 C 70.5 44.7 62 28 62 28 C 62 28 74 42.3 78 40 C 82 37.7 86 14 86 14 C 86 14 93 35 97 36 C 101 37 110 20 110 20 C 110 20 110.8 37.3 113 46 C 115.2 54.7 122 64 123 72 C 124 80 122.5 88.8 119 94 C 115.5 99.2 108.8 101.5 102 103 C 95.2 104.5 84.5 104.5 78 103 C 71.5 101.5 66.2 99.2 63 94 C 59.8 88.8 57.8 79 59 72 C 60.2 65 69.5 59.3 70 52 Z" fill="#3d6fb6"/>
+<path id="pyromancer-head-opening" d="M 112 66 C 116.5 65.7 122.8 70.2 126 74 C 129.2 77.8 131.3 84.2 131 89 C 130.7 93.8 127.8 100.5 124 103 C 120.2 105.5 112.5 105.7 108 104 C 103.5 102.3 98.5 97.7 97 93 C 95.5 88.3 96.5 80.5 99 76 C 101.5 71.5 107.5 66.3 112 66 Z" fill="#1e2b17"/>
+<path id="pyromancer-head-opening-edge" d="M 112 66 C 116.5 65.7 122.8 70.2 126 74 C 129.2 77.8 131.3 84.2 131 89 C 130.7 93.8 127.8 100.5 124 103 C 120.2 105.5 112.5 105.7 108 104 C 103.5 102.3 98.5 97.7 97 93 C 95.5 88.3 96.5 80.5 99 76 C 101.5 71.5 107.5 66.3 112 66 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="pyromancer-head-hood-line" d="M 76 58 C 76.5 50.7 68 34 68 34 C 68 34 80 48.3 84 46 C 88 43.7 92 20 92 20 C 92 20 99 41 103 42 C 107 43 116 26 116 26 C 116 26 116.8 43.3 119 52 C 121.2 60.7 128 70 129 78 C 130 86 128.5 94.8 125 100 C 121.5 105.2 114.8 107.5 108 109 C 101.2 110.5 90.5 110.5 84 109 C 77.5 107.5 72.2 105.2 69 100 C 65.8 94.8 63.8 85 65 78 C 66.2 71 75.5 65.3 76 58 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pyromancer-head-ember">
+<path id="pyromancer-head-ember-fill" d="M 82 62 L 88 70 L 82 80 L 76 70 Z" fill="#f08a3c"/>
+<path id="pyromancer-head-ember-line" d="M 82 62 L 88 70 L 82 80 L 76 70 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="pyromancer-staff-layer" transform="translate(131 138) rotate(0) scale(1 1) translate(-131 -138)">
+<defs>
+<clipPath id="pyromancer-staff-shaft-clip"><path d="M 139 68.5 L 140 68.6 Q 143 68.9 142.6 71.9 L 130 175.2 Q 129.6 178.1 126.6 177.8 L 125.6 177.6 Q 122.7 177.3 123 174.3 L 135.7 71.1 Q 136.1 68.1 139 68.5 Z"/></clipPath>
+<clipPath id="pyromancer-staff-flame-clip"><path d="M 131.3 61.5 C 131.3 61.5 129.6 52.5 130.8 49.3 C 132 46.1 136.8 45.4 138.7 42.2 C 140.6 39.1 142.2 30.6 142.2 30.6 C 142.2 30.6 147.2 37.9 148.9 41.5 C 150.6 45 152.6 48.3 152.6 52 C 152.7 55.7 149.2 63.7 149.2 63.7 L 131.3 61.5 Z"/></clipPath>
+<clipPath id="pyromancer-staff-hand-clip"><path d="M 138.5 138 C 138.5 142.1 135.1 145.5 131 145.5 C 126.9 145.5 123.5 142.1 123.5 138 C 123.5 133.9 126.9 130.5 131 130.5 C 135.1 130.5 138.5 133.9 138.5 138 Z"/></clipPath>
+</defs>
+<g id="pyromancer-staff-shaft">
+<path id="pyromancer-staff-shaft-shade" d="M 139 68.5 L 140 68.6 Q 143 68.9 142.6 71.9 L 130 175.2 Q 129.6 178.1 126.6 177.8 L 125.6 177.6 Q 122.7 177.3 123 174.3 L 135.7 71.1 Q 136.1 68.1 139 68.5 Z" fill="#75502b"/>
+<g clip-path="url(#pyromancer-staff-shaft-clip)">
+<path id="pyromancer-staff-shaft-fill" d="M 137 66.5 L 138 66.6 Q 141 66.9 140.6 69.9 L 128 173.2 Q 127.6 176.1 124.6 175.8 L 123.6 175.6 Q 120.7 175.3 121 172.3 L 133.7 69.1 Q 134.1 66.1 137 66.5 Z" fill="#9a6a3a"/>
+</g>
+<path id="pyromancer-staff-shaft-line" d="M 139 68.5 L 140 68.6 Q 143 68.9 142.6 71.9 L 130 175.2 Q 129.6 178.1 126.6 177.8 L 125.6 177.6 Q 122.7 177.3 123 174.3 L 135.7 71.1 Q 136.1 68.1 139 68.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="pyromancer-staff-halo" d="M 158.6 52.7 C 157.5 62 149 68.7 139.7 67.5 C 130.3 66.4 123.7 57.9 124.9 48.6 C 126 39.3 134.5 32.6 143.8 33.8 C 153.1 34.9 159.7 43.4 158.6 52.7 Z" fill="#ffd27a" opacity="0.45"/>
+<g id="pyromancer-staff-flame">
+<path id="pyromancer-staff-flame-shade" d="M 131.3 61.5 C 131.3 61.5 129.6 52.5 130.8 49.3 C 132 46.1 136.8 45.4 138.7 42.2 C 140.6 39.1 142.2 30.6 142.2 30.6 C 142.2 30.6 147.2 37.9 148.9 41.5 C 150.6 45 152.6 48.3 152.6 52 C 152.7 55.7 149.2 63.7 149.2 63.7 L 131.3 61.5 Z" fill="#c45f22"/>
+<g clip-path="url(#pyromancer-staff-flame-clip)">
+<path id="pyromancer-staff-flame-fill" d="M 128.3 58.5 C 128.3 58.5 126.6 49.5 127.8 46.3 C 129 43.1 133.8 42.4 135.7 39.2 C 137.6 36.1 139.2 27.6 139.2 27.6 C 139.2 27.6 144.2 34.9 145.9 38.5 C 147.6 42 149.6 45.3 149.6 49 C 149.7 52.7 146.2 60.7 146.2 60.7 L 128.3 58.5 Z" fill="#f08a3c"/>
+</g>
+<path id="pyromancer-staff-flame-line" d="M 131.3 61.5 C 131.3 61.5 129.6 52.5 130.8 49.3 C 132 46.1 136.8 45.4 138.7 42.2 C 140.6 39.1 142.2 30.6 142.2 30.6 C 142.2 30.6 147.2 37.9 148.9 41.5 C 150.6 45 152.6 48.3 152.6 52 C 152.7 55.7 149.2 63.7 149.2 63.7 L 131.3 61.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="pyromancer-staff-flame-core" d="M 136.5 60.1 C 136.5 60.1 135.5 54.6 136.5 52 C 137.5 49.5 142.5 44.7 142.5 44.7 C 142.5 44.7 146.1 50.5 146.4 53.3 C 146.8 56 144.5 61.1 144.5 61.1 L 136.5 60.1 Z" fill="#ffd27a"/>
+<g id="pyromancer-staff-bowl">
+<path id="pyromancer-staff-bowl-fill" d="M 127.6 59 C 127.6 59 127.5 66.7 129.4 69.3 C 131.2 71.9 135.5 74.1 138.8 74.5 C 142.1 74.9 146.8 73.8 149.2 71.7 C 151.6 69.7 153.4 62.2 153.4 62.2 L 127.6 59 Z" fill="#5d6672"/>
+<path id="pyromancer-staff-bowl-line" d="M 127.6 59 C 127.6 59 127.5 66.7 129.4 69.3 C 131.2 71.9 135.5 74.1 138.8 74.5 C 142.1 74.9 146.8 73.8 149.2 71.7 C 151.6 69.7 153.4 62.2 153.4 62.2 L 127.6 59 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pyromancer-staff-hand">
+<path id="pyromancer-staff-hand-shade" d="M 138.5 138 C 138.5 142.1 135.1 145.5 131 145.5 C 126.9 145.5 123.5 142.1 123.5 138 C 123.5 133.9 126.9 130.5 131 130.5 C 135.1 130.5 138.5 133.9 138.5 138 Z" fill="#4e3520"/>
+<g clip-path="url(#pyromancer-staff-hand-clip)">
+<path id="pyromancer-staff-hand-fill" d="M 135.5 135 C 135.5 139.1 132.1 142.5 128 142.5 C 123.9 142.5 120.5 139.1 120.5 135 C 120.5 130.9 123.9 127.5 128 127.5 C 132.1 127.5 135.5 130.9 135.5 135 Z" fill="#6b4a2b"/>
+</g>
+<path id="pyromancer-staff-hand-line" d="M 138.5 138 C 138.5 142.1 135.1 145.5 131 145.5 C 126.9 145.5 123.5 142.1 123.5 138 C 123.5 133.9 126.9 130.5 131 130.5 C 135.1 130.5 138.5 133.9 138.5 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

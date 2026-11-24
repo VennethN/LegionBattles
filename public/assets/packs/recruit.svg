@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="recruit" width="124" height="168" viewBox="0 0 124 168">
+<defs>
+<clipPath id="recruit-pouch-clip"><path d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z"/></clipPath>
+<clipPath id="recruit-seal-clip"><path d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z"/></clipPath>
+<clipPath id="recruit-mark-clip"><path d="M 47 60 C 47 60 57 56 62 56 C 67 56 77 60 77 60 C 77 60 78 69.7 77 74 C 76 78.3 73.5 82.8 71 86 C 68.5 89.2 62 93 62 93 C 62 93 55.5 89.2 53 86 C 50.5 82.8 48 78.3 47 74 C 46 69.7 47 60 47 60 Z"/></clipPath>
+</defs>
+<g id="recruit-pouch">
+<path id="recruit-pouch-shade" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z" fill="#2f5893"/>
+<g clip-path="url(#recruit-pouch-clip)">
+<path id="recruit-pouch-fill" d="M 5 7 L 16.1 -1 L 27.2 7 L 38.3 -1 L 49.4 7 L 60.6 -1 L 71.7 7 L 82.8 -1 L 93.9 7 L 105 -1 L 109 77 L 105 155 L 93.9 147 L 82.8 155 L 71.7 147 L 60.6 155 L 49.4 147 L 38.3 155 L 27.2 147 L 16.1 155 L 5 147 L 1 77 Z" fill="#3d6fb6"/>
+<g id="recruit-crimp-top">
+<path id="recruit-crimp-top-fill" d="M 0 0 L 124 0 L 124 26 L 0 26 Z" fill="#2f5893"/>
+<path id="recruit-crimp-top-line" d="M 0 0 L 124 0 L 124 26 L 0 26 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="recruit-crimp-bottom">
+<path id="recruit-crimp-bottom-fill" d="M 0 142 L 124 142 L 124 168 L 0 168 Z" fill="#2f5893"/>
+<path id="recruit-crimp-bottom-line" d="M 0 142 L 124 142 L 124 168 L 0 168 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="recruit-band">
+<path id="recruit-band-fill" d="M 0 108 L 124 92 L 124 112 L 0 128 Z" fill="#c8a24a"/>
+<path id="recruit-band-line" d="M 0 108 L 124 92 L 124 112 L 0 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="recruit-pouch-line" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="recruit-seal">
+<path id="recruit-seal-shade" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z" fill="#c4b594"/>
+<g clip-path="url(#recruit-seal-clip)">
+<path id="recruit-seal-fill" d="M 89 70 C 89 87.1 75.1 101 58 101 C 40.9 101 27 87.1 27 70 C 27 52.9 40.9 39 58 39 C 75.1 39 89 52.9 89 70 Z" fill="#e9dfc6"/>
+</g>
+<path id="recruit-seal-line" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="recruit-mark">
+<path id="recruit-mark-shade" d="M 47 60 C 47 60 57 56 62 56 C 67 56 77 60 77 60 C 77 60 78 69.7 77 74 C 76 78.3 73.5 82.8 71 86 C 68.5 89.2 62 93 62 93 C 62 93 55.5 89.2 53 86 C 50.5 82.8 48 78.3 47 74 C 46 69.7 47 60 47 60 Z" fill="#8d97a3"/>
+<g clip-path="url(#recruit-mark-clip)">
+<path id="recruit-mark-fill" d="M 44 57 C 44 57 54 53 59 53 C 64 53 74 57 74 57 C 74 57 75 66.7 74 71 C 73 75.3 70.5 79.8 68 83 C 65.5 86.2 59 90 59 90 C 59 90 52.5 86.2 50 83 C 47.5 79.8 45 75.3 44 71 C 43 66.7 44 57 44 57 Z" fill="#b9c2cc"/>
+</g>
+<path id="recruit-mark-line" d="M 47 60 C 47 60 57 56 62 56 C 67 56 77 60 77 60 C 77 60 78 69.7 77 74 C 76 78.3 73.5 82.8 71 86 C 68.5 89.2 62 93 62 93 C 62 93 55.5 89.2 53 86 C 50.5 82.8 48 78.3 47 74 C 46 69.7 47 60 47 60 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="recruit-glint" d="M 25.5 42.6 L 35.5 36.6 C 37 35.7 37.4 33.9 36.6 32.5 C 35.7 31 33.9 30.6 32.5 31.4 L 22.5 37.4 C 21 38.3 20.6 40.1 21.4 41.5 C 22.3 43 24.1 43.4 25.5 42.6 Z" fill="#f4f1e4"/>
+</svg>

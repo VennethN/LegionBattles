@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="paladin-shield" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="paladin-shield-face-clip"><path d="M 48 112 C 48 112 64 107 72 107 C 80 107 96 112 96 112 C 96 112 97.7 131.7 96 140 C 94.3 148.3 90 156 86 162 C 82 168 72 176 72 176 C 72 176 62 168 58 162 C 54 156 49.7 148.3 48 140 C 46.3 131.7 48 112 48 112 Z"/></clipPath>
+</defs>
+<g id="paladin-shield-face">
+<path id="paladin-shield-face-shade" d="M 48 112 C 48 112 64 107 72 107 C 80 107 96 112 96 112 C 96 112 97.7 131.7 96 140 C 94.3 148.3 90 156 86 162 C 82 168 72 176 72 176 C 72 176 62 168 58 162 C 54 156 49.7 148.3 48 140 C 46.3 131.7 48 112 48 112 Z" fill="#8d97a3"/>
+<g clip-path="url(#paladin-shield-face-clip)">
+<path id="paladin-shield-face-fill" d="M 43 107 C 43 107 59 102 67 102 C 75 102 91 107 91 107 C 91 107 92.7 126.7 91 135 C 89.3 143.3 85 151 81 157 C 77 163 67 171 67 171 C 67 171 57 163 53 157 C 49 151 44.7 143.3 43 135 C 41.3 126.7 43 107 43 107 Z" fill="#b9c2cc"/>
+<g id="paladin-shield-chevron">
+<path id="paladin-shield-chevron-fill" d="M 42 128 L 72 146 L 102 128 L 102 140 L 72 158 L 42 140 Z" fill="#c8a24a"/>
+<path id="paladin-shield-chevron-line" d="M 42 128 L 72 146 L 102 128 L 102 140 L 72 158 L 42 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="paladin-shield-face-line" d="M 48 112 C 48 112 64 107 72 107 C 80 107 96 112 96 112 C 96 112 97.7 131.7 96 140 C 94.3 148.3 90 156 86 162 C 82 168 72 176 72 176 C 72 176 62 168 58 162 C 54 156 49.7 148.3 48 140 C 46.3 131.7 48 112 48 112 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="paladin-shield-glint" d="M 57.7 122.1 L 63.7 120.1 C 64.9 119.7 65.5 118.5 65.1 117.3 C 64.7 116.1 63.5 115.5 62.3 115.9 L 56.3 117.9 C 55.1 118.3 54.5 119.5 54.9 120.7 C 55.3 121.9 56.5 122.5 57.7 122.1 Z" fill="#f4f1e4"/>
+</svg>

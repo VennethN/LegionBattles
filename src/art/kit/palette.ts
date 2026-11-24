@@ -50,8 +50,13 @@ export const FROST: Accent = { fill: '#6fc7e8', shade: '#3f97bd', light: '#d4f1f
 export const HOLY: Accent = { fill: '#f2d264', shade: '#c9a53a', light: '#fff3b8' };
 export const VENOM: Accent = { fill: '#8fce4a', shade: '#62992b', light: '#d5f2a4' };
 
-// The board.
+// The board. Each kind of land has four tones: two for the tiles, one for
+// the land around them, one for specks on the ground.
 export const GRASS = { fill: '#7fb956', shade: '#6ea748', dark: '#5c9440', light: '#93c96a' };
+export const SAND = { fill: '#e6cc8e', shade: '#d9bc7a', dark: '#c4a564', light: '#f3e0ad' };
+export const SNOW = { fill: '#e4edf2', shade: '#d3e0e8', dark: '#b9ccd8', light: '#f8fcfe' };
+export const PINE: Material = { fill: '#3f7a5a', shade: '#2e5f45' };
+export const CACTUS: Material = { fill: '#6fa052', shade: '#55813d' };
 export const DIRT: Material = { fill: '#b08a5a', shade: '#8c6b42' };
 export const BUSH: Material = { fill: '#4f8f3e', shade: '#3b722f' };
 
@@ -60,7 +65,7 @@ export function allColors(): Set<string> {
   const out = new Set<string>([OUTLINE, HOOD_INTERIOR, HIGHLIGHT, '#ffffff']);
   const mats: Array<Record<string, string>> = [
     STEEL, LEATHER, WOOD, GOLD, BONE, IRON, STONE, CLOTH.blue, CLOTH.red, LINEN, DARK_CLOTH,
-    ARCANE, FIRE, FROST, HOLY, VENOM, GRASS, DIRT, BUSH,
+    ARCANE, FIRE, FROST, HOLY, VENOM, GRASS, DIRT, BUSH, SAND, SNOW, PINE, CACTUS,
   ] as unknown as Array<Record<string, string>>;
   for (const m of mats) for (const v of Object.values(m)) out.add(v);
   return out;

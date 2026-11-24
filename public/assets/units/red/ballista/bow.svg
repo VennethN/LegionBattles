@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ballista-bow" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="ballista-bow-limbs-clip"><path d="M 117.4 67.2 Q 161.4 97.3 140 146 L 131.6 142.2 Q 147.9 101.1 112.3 74.9 Z"/></clipPath>
+<clipPath id="ballista-bow-beam-clip"><path d="M 153.1 97.5 L 154.2 101.4 Q 155.6 106.2 150.8 107.6 L 75.8 129.1 Q 71 130.4 69.6 125.6 L 68.5 121.8 Q 67.2 117 72 115.6 L 146.9 94.1 Q 151.7 92.7 153.1 97.5 Z"/></clipPath>
+</defs>
+<path id="ballista-bow-string" d="M 122.1 69 L 101.8 114.3 L 143 142.1" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="ballista-bow-limbs">
+<path id="ballista-bow-limbs-shade" d="M 117.4 67.2 Q 161.4 97.3 140 146 L 131.6 142.2 Q 147.9 101.1 112.3 74.9 Z" fill="#75502b"/>
+<g clip-path="url(#ballista-bow-limbs-clip)">
+<path id="ballista-bow-limbs-fill" d="M 114.4 64.2 Q 158.4 94.3 137 143 L 128.6 139.2 Q 144.9 98.1 109.3 71.9 Z" fill="#9a6a3a"/>
+</g>
+<path id="ballista-bow-limbs-line" d="M 117.4 67.2 Q 161.4 97.3 140 146 L 131.6 142.2 Q 147.9 101.1 112.3 74.9 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ballista-bow-beam">
+<path id="ballista-bow-beam-shade" d="M 153.1 97.5 L 154.2 101.4 Q 155.6 106.2 150.8 107.6 L 75.8 129.1 Q 71 130.4 69.6 125.6 L 68.5 121.8 Q 67.2 117 72 115.6 L 146.9 94.1 Q 151.7 92.7 153.1 97.5 Z" fill="#75502b"/>
+<g clip-path="url(#ballista-bow-beam-clip)">
+<path id="ballista-bow-beam-fill" d="M 150.1 94.5 L 151.2 98.4 Q 152.6 103.2 147.8 104.6 L 72.8 126.1 Q 68 127.4 66.6 122.6 L 65.5 118.8 Q 64.2 114 69 112.6 L 143.9 91.1 Q 148.7 89.7 150.1 94.5 Z" fill="#9a6a3a"/>
+</g>
+<path id="ballista-bow-beam-line" d="M 153.1 97.5 L 154.2 101.4 Q 155.6 106.2 150.8 107.6 L 75.8 129.1 Q 71 130.4 69.6 125.6 L 68.5 121.8 Q 67.2 117 72 115.6 L 146.9 94.1 Q 151.7 92.7 153.1 97.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ballista-bow-bolt-shaft">
+<path id="ballista-bow-bolt-shaft-fill" d="M 155.5 98.4 L 155.7 99.4 Q 156.3 101.3 154.4 101.9 L 106.3 115.6 Q 104.4 116.2 103.8 114.3 L 103.6 113.3 Q 103 111.4 104.9 110.8 L 153 97.1 Q 154.9 96.5 155.5 98.4 Z" fill="#e9dfc6"/>
+<path id="ballista-bow-bolt-shaft-line" d="M 155.5 98.4 L 155.7 99.4 Q 156.3 101.3 154.4 101.9 L 106.3 115.6 Q 104.4 116.2 103.8 114.3 L 103.6 113.3 Q 103 111.4 104.9 110.8 L 153 97.1 Q 154.9 96.5 155.5 98.4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ballista-bow-bolt-head">
+<path id="ballista-bow-bolt-head-fill" d="M 149.5 92.3 L 172.9 93.9 L 154 107.7 Z" fill="#b9c2cc"/>
+<path id="ballista-bow-bolt-head-line" d="M 149.5 92.3 L 172.9 93.9 L 154 107.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ballista-bow-mount">
+<path id="ballista-bow-mount-fill" d="M 97.9 122.7 C 94.2 123.8 90.3 121.6 89.3 117.9 C 88.2 114.2 90.4 110.3 94.1 109.3 C 97.8 108.2 101.7 110.4 102.7 114.1 C 103.8 117.8 101.6 121.7 97.9 122.7 Z" fill="#5d6672"/>
+<path id="ballista-bow-mount-line" d="M 97.9 122.7 C 94.2 123.8 90.3 121.6 89.3 117.9 C 88.2 114.2 90.4 110.3 94.1 109.3 C 97.8 108.2 101.7 110.4 102.7 114.1 C 103.8 117.8 101.6 121.7 97.9 122.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

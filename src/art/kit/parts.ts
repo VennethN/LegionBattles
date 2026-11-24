@@ -11,6 +11,7 @@ import {
   BONE,
   GOLD,
   HOOD_INTERIOR,
+  IRON,
   LEATHER,
   LINEN,
   OUTLINE,
@@ -20,7 +21,7 @@ import {
   type Accent,
   type Material,
 } from './palette';
-import { Path, capsule, circle, ellipse, line, path, poly, roundRect, smooth, type Pt } from './path';
+import { Path, capsule, circle, ellipse, line, path, poly, roundRect, smooth, star, type Pt } from './path';
 
 export const HIP_Y = 152;
 export const NECK: Pt = [96, 106];
@@ -440,19 +441,23 @@ export function quiver(d: Doc): void {
   d.piece('band', turn(roundRect(59, 120, 24, 7, 0)), GOLD, { shade: 0 });
 }
 
-/** A cape that hangs from the shoulders down the back. */
+/** A cape that hangs from the shoulders and billows out behind. */
 export function cape(d: Doc, mat: Material): void {
   const shape = smooth([
     [78, 104, 'c'],
     [112, 104, 'c'],
-    [106, 130],
-    [100, 168, 'c'],
-    [86, 162],
-    [72, 170],
-    [58, 164, 'c'],
-    [62, 136],
+    [108, 132],
+    [104, 166, 'c'],
+    [88, 160],
+    [68, 170],
+    [44, 164, 'c'],
+    [50, 140],
+    [60, 116],
   ]);
-  d.piece('cape', shape, mat, { shade: 5 });
+  d.piece('cape', shape, mat, {
+    shade: 5,
+    inner: (c) => c.line('fold', smooth([[66, 124], [58, 146], [56, 166]], false)),
+  });
 }
 
 /** A mantle over the shoulders, under the head. */
@@ -489,4 +494,510 @@ export function furCollar(d: Doc, mat: Material): void {
     [96, 131], [87, 121], [79, 130], [72, 120], [66, 127], [59, 116],
   ]);
   d.piece('fur', shape, mat, { shade: 4 });
+}
+
+// ================================================================ more heads
+
+function domePath(): Path {
+  return smooth([[97, 50], [119, 57], [129, 78], [125, 99], [108, 108], [84, 108], [69, 99], [65, 78], [75, 57]]);
+}
+
+/** A wide-brimmed kettle hat over a mail coif that covers the face. The Militia's. */
+export function kettleHelm(d: Doc, mat: Material = STEEL, coif: Material = IRON): void {
+  d.piece('coif', smooth([[72, 74], [96, 70], [122, 74], [128, 92], [121, 106], [98, 110], [76, 106], [68, 92]]), coif, {
+    shade: 5,
+    inner: (c) => dark(c, 'slit', roundRect(94, 80, 44, 9, 4.5)),
+  });
+  d.piece('dome', smooth([[77, 74, 'c'], [79, 58], [97, 49], [115, 58], [117, 74, 'c']]), mat, { shade: 4 });
+  d.piece('brim', smooth([[56, 75], [96, 68], [138, 75], [139, 81], [96, 85], [55, 81]]), mat, { shade: 3 });
+  d.glint('glint', capsule(86, 60, 91, 56, 4.5));
+}
+
+/** A closed helm with one upright slit, a gold brow and a wing swept back from each temple. The Paladin's. */
+export function wingedHelm(d: Doc, mat: Material = STEEL, wing: Material = BONE): void {
+  const wingShape = smooth([
+    [82, 76, 'c'], [70, 66], [54, 54], [40, 34, 'c'], [56, 42], [56, 30, 'c'], [70, 44], [74, 34, 'c'], [84, 52], [92, 70, 'c'],
+  ]);
+  d.piece('wing-far', wingShape.translate(22, -6), far(wing), { shade: 0 });
+  d.piece('helm', domePath(), mat, {
+    shade: 6,
+    inner: (c) => {
+      dark(c, 'slit', roundRect(108, 72, 9, 32, 4.5));
+      c.piece('brow', smooth([[60, 62], [96, 58], [134, 62], [134, 71], [96, 68], [60, 72]]), GOLD, { shade: 0 });
+    },
+  });
+  d.piece('wing', wingShape, wing, { shade: 4 });
+  d.glint('glint', capsule(92, 82, 96, 78, 4.5));
+}
+
+/** A head wound round with cloth, a dark gap where it parts, and the ends knotted behind. The Cutpurse's. */
+export function faceWrap(d: Doc, mat: Material): void {
+  d.piece('tail-a', smooth([[72, 78, 'c'], [56, 78], [42, 88, 'c'], [56, 90], [70, 88, 'c']]), far(mat), { shade: 0 });
+  d.piece('tail-b', smooth([[72, 86, 'c'], [58, 92], [48, 106, 'c'], [62, 102], [72, 94, 'c']]), mat, { shade: 3 });
+  d.piece('wrap', domePath(), mat, {
+    shade: 6,
+    inner: (c) => {
+      dark(c, 'gap', roundRect(92, 73, 46, 12, 6));
+      c.line('fold-a', smooth([[68, 66], [88, 58], [112, 56]], false));
+      c.line('fold-b', smooth([[70, 96], [92, 92], [126, 96]], false));
+    },
+  });
+}
+
+/** A broad hat pulled low over a scarf: between them, only shadow. The Poacher's. */
+export function brimHat(d: Doc, hat: Material, scarf: Material, band: Material = GOLD): void {
+  const face = ellipse(98, 86, 28, 23);
+  d.flat('shadow-under', face, HOOD_INTERIOR);
+  d.line('shadow-under-edge', face);
+  d.piece('scarf', smooth([[68, 88], [84, 84], [112, 84], [128, 88], [126, 100], [112, 109], [84, 109], [70, 100]]), scarf, {
+    shade: 4,
+    inner: (c) => c.line('fold', smooth([[74, 96], [98, 92], [124, 96]], false)),
+  });
+  d.piece('crown', smooth([[76, 72, 'c'], [77, 54], [96, 47], [115, 54], [117, 72, 'c']]), hat, {
+    shade: 4,
+    inner: (c) => c.piece('band', roundRect(70, 62, 54, 8, 0), band, { shade: 0 }),
+  });
+  d.piece('brim', smooth([[50, 73], [96, 64], [144, 73], [145, 79], [96, 81], [49, 79]]), hat, { shade: 3 });
+}
+
+/** A sack with a slit cut in it, gathered and tied at the top and at the neck. The Bruiser's. */
+export function sackHood(d: Doc, mat: Material = LINEN, rope: Material = WOOD): void {
+  d.piece('gather', smooth([[88, 54, 'c'], [80, 34], [92, 40], [100, 30], [106, 40], [116, 36], [108, 54, 'c']]), mat, { shade: 3 });
+  d.piece('sack', smooth([[76, 54, 'c'], [98, 50], [120, 54, 'c'], [129, 76], [126, 100], [110, 109], [84, 109], [68, 100], [65, 76]]), mat, {
+    shade: 6,
+    inner: (c) => {
+      dark(c, 'slit', roundRect(93, 74, 46, 10, 5));
+      c.line('seam', line(84, 56, 84, 100));
+      c.line('stitch-a', line(79, 66, 89, 66));
+      c.line('stitch-b', line(79, 88, 89, 88));
+      c.piece('rope', smooth([[60, 97], [96, 101], [134, 97], [134, 105], [96, 109], [60, 105]]), rope, { shade: 0 });
+    },
+  });
+  d.piece('tie', roundRect(84, 48, 28, 8, 4), rope, { shade: 0 });
+}
+
+/** A tall wooden mask with one slit, under a hood, with antlers. The Hexer's. */
+export function antlerMask(d: Doc, hoodMat: Material, glow: Accent, mask: Material = WOOD, horn: Material = BONE): void {
+  d.piece('antler-far', capsule(106, 54, 116, 26, 7), far(horn), { shade: 0 });
+  d.piece('tine-far', capsule(112, 38, 126, 30, 6), far(horn), { shade: 0 });
+  d.piece('hood', smooth([[97, 50], [118, 57], [128, 78], [124, 100], [108, 109], [84, 109], [69, 100], [65, 78], [75, 57]]), hoodMat, { shade: 6 });
+  d.piece('antler', capsule(84, 56, 72, 24, 7), horn, { shade: 2 });
+  d.piece('tine', capsule(77, 40, 60, 34, 6), horn, { shade: 2 });
+  d.piece('mask', smooth([[98, 60, 'c'], [130, 60, 'c'], [132, 86], [124, 108], [115, 117], [106, 108], [96, 86]]), mask, {
+    shade: 4,
+    inner: (c) => {
+      dark(c, 'slit', roundRect(111, 68, 8, 30, 4));
+      c.flat('paint-a', poly([[98, 100], [108, 104], [108, 110], [98, 106]]), glow.fill);
+      c.flat('paint-b', poly([[122, 104], [132, 100], [132, 106], [122, 110]]), glow.fill);
+    },
+  });
+}
+
+/** A flat-topped great helm with a crown on it. The Warlord's. */
+export function crownedHelm(d: Doc, mat: Material = IRON, crown: Material = GOLD): void {
+  d.piece('crown', poly([[70, 60], [68, 38], [80, 50], [88, 34], [97, 50], [106, 34], [115, 50], [126, 38], [124, 60]]), crown, { shade: 3 });
+  d.piece('helm', smooth([[71, 56, 'c'], [123, 56, 'c'], [129, 80], [125, 100], [108, 109], [86, 109], [69, 100], [65, 80]]), mat, {
+    shade: 6,
+    inner: (c) => {
+      dark(c, 'slit', roundRect(92, 75, 46, 9, 4.5));
+      c.line('ridge-a', line(112, 54, 112, 74));
+      c.line('ridge-b', line(112, 86, 112, 110));
+      c.piece('band', roundRect(60, 56, 76, 7, 0), crown, { shade: 0 });
+    },
+  });
+  d.glint('glint', capsule(76, 70, 80, 66, 4.5));
+}
+
+// ================================================================ more weapons
+
+/** A spear, held low and level for the thrust. */
+export function spear(d: Doc, g: Grip, len = 78, hand: Material = LEATHER, pennant: Material | null = null): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-3.5, -len, 7, len + 34, 3)), WOOD, { shade: 2 });
+  if (pennant) {
+    d.piece('pennant', t(smooth([[3, -len + 6, 'c'], [26, -len + 10], [36, -len + 4, 'c'], [28, -len + 20], [3, -len + 22, 'c']])), pennant, { shade: 3 });
+  }
+  d.piece('blade', t(poly([[0, -len - 28], [10, -len - 7], [5, -len + 3], [-5, -len + 3], [-10, -len - 7]])), STEEL, { shade: 3 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A war hammer for one hand. */
+export function warhammer(d: Doc, g: Grip, len = 56, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-3.5, -len, 7, len + 16, 3)), WOOD, { shade: 2 });
+  d.piece('head', t(roundRect(-18, -len - 12, 36, 22, 5)), STEEL, { shade: 5 });
+  d.piece('band', t(roundRect(-5, -len - 14, 10, 26, 2)), GOLD, { shade: 0 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A short knife. */
+export function dagger(d: Doc, g: Grip, len = 34, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('blade', t(poly([[-5, -8], [-5, -len + 9], [0, -len], [5, -len + 9], [5, -8]])), STEEL, { shade: 3 });
+  d.piece('guard', t(roundRect(-9, -11, 18, 6, 3)), GOLD, { shade: 0 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A crossbow, loaded. Drawn upright and turned to point where it is aimed. */
+export function crossbow(d: Doc, g: Grip, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.line('string', t(path().M(-25, -30).L(0, -10).L(25, -30)));
+  d.piece('limbs', t(path().M(-27, -27).Q(0, -50, 27, -27).L(23, -22).Q(0, -40, -23, -22).Z()), STEEL, { shade: 0 });
+  d.piece('stock', t(roundRect(-5, -40, 10, 58, 4)), WOOD, { shade: 3 });
+  d.piece('bolt', t(poly([[-4.5, -40], [0, -54], [4.5, -40]])), BONE, { shade: 0 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** Most of a tree. Two hands. */
+export function club(d: Doc, g: Grip, len = 74, hand: Material = LEATHER): void {
+  const t = at(g);
+  const shape = smooth([
+    [-5, 20, 'c'], [-6, -18], [-15, -len + 14], [-12, -len - 4], [0, -len - 9], [12, -len - 4], [15, -len + 14], [6, -18], [5, 20, 'c'],
+  ]);
+  d.piece('club', t(shape), WOOD, {
+    shade: 5,
+    inner: (c) => {
+      c.piece('band-a', t(roundRect(-20, -len + 6, 40, 8, 0)), IRON, { shade: 0 });
+      c.piece('band-b', t(roundRect(-20, -len + 26, 40, 8, 0)), IRON, { shade: 0 });
+    },
+  });
+  const upper = t(circle(0, -24, 7.5)).bounds();
+  mitt(d, upper.x + upper.w / 2, upper.y + upper.h / 2, hand, 7.5, 'hand-upper');
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A carved post with a charm burning at its top. The Hexer's. */
+export function totemStaff(d: Doc, g: Grip, glow: Accent, len = 70, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-3.5, -len, 7, len + 40, 3)), WOOD, { shade: 2 });
+  d.piece('tassel-a', t(smooth([[-8, -len + 20, 'c'], [-15, -len + 30], [-11, -len + 44, 'c'], [-6, -len + 32]])), BONE, { shade: 0 });
+  d.piece('tassel-b', t(smooth([[8, -len + 20, 'c'], [15, -len + 30], [11, -len + 44, 'c'], [6, -len + 32]])), BONE, { shade: 0 });
+  d.piece('block', t(roundRect(-11, -len - 2, 22, 24, 5)), WOOD, {
+    shade: 3,
+    inner: (c) => {
+      c.flat('notch', t(roundRect(-3, -len + 3, 6, 14, 3)), HOOD_INTERIOR);
+    },
+  });
+  d.flat('halo', t(circle(0, -len - 16, 15)), glow.light, 0.45);
+  d.piece('charm', t(star(0, -len - 16, 4, 11, 6)), glow, { shade: 0 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A sword as long as its owner. Two hands. */
+export function greatsword(d: Doc, g: Grip, len = 96, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('blade', t(poly([[-10, -12], [-10, -len + 18], [0, -len], [10, -len + 18], [10, -12]])), STEEL, {
+    shade: 5,
+    inner: (c) => c.line('fuller', t(line(0, -14, 0, -len + 28))),
+  });
+  d.piece('grip', t(roundRect(-4, -8, 8, 34, 3)), LEATHER, { shade: 0 });
+  d.piece('pommel', t(circle(0, 29, 6)), GOLD, { shade: 0 });
+  d.piece('guard', t(smooth([[-22, -20, 'c'], [-18, -10], [0, -8], [18, -10], [22, -20, 'c'], [12, -15], [-12, -15]])), GOLD, { shade: 3 });
+  const lower = t(circle(0, 16, 7.5)).bounds();
+  mitt(d, lower.x + lower.w / 2, lower.y + lower.h / 2, hand, 7.5, 'hand-lower');
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+// ================================================================ more off hands
+
+/** A small round shield. */
+export function buckler(d: Doc, cx: number, cy: number, r = 16, mat: Material = STEEL): void {
+  d.piece('face', circle(cx, cy, r), mat, { shade: 4 });
+  d.piece('boss', circle(cx, cy, r * 0.4), GOLD, { shade: 2 });
+}
+
+/** A kite shield: broad at the top, a point at the bottom, a gold band across. */
+export function kiteShield(d: Doc, cx: number, cy: number, mat: Material = STEEL, trim: Material = GOLD): void {
+  const shape = smooth([
+    [cx - 24, cy - 28, 'c'], [cx, cy - 33], [cx + 24, cy - 28, 'c'], [cx + 24, cy], [cx + 14, cy + 22], [cx, cy + 36, 'c'], [cx - 14, cy + 22], [cx - 24, cy],
+  ]);
+  d.piece('face', shape, mat, {
+    shade: 5,
+    inner: (c) => {
+      c.piece('chevron', poly([[cx - 30, cy - 12], [cx, cy + 6], [cx + 30, cy - 12], [cx + 30, cy], [cx, cy + 18], [cx - 30, cy]]), trim, { shade: 0 });
+    },
+  });
+  d.glint('glint', capsule(cx - 15, cy - 20, cx - 9, cy - 22, 4.5));
+}
+
+/** A broader torso, for the big ones. */
+export function bulkTorsoPath(): Path {
+  return torsoPath().scale(1.16, 1.03, 96, 159);
+}
+
+/** Drawn inside a torso: what hangs below the belt, in another material. */
+export function skirt(d: Doc, mat: Material, y = 147): void {
+  d.piece('skirt', roundRect(52, y, 88, 24, 0), mat, { shade: 0 });
+}
+
+// ================================================================ the Sandsworn
+
+/** A great wound turban with a jewel, a veil below it, and shadow between. The Lancer's. */
+export function turban(d: Doc, mat: Material, veil: Material = LINEN): void {
+  const face = ellipse(98, 86, 28, 23);
+  d.flat('shadow-under', face, HOOD_INTERIOR);
+  d.line('shadow-under-edge', face);
+  d.piece('tail', smooth([[70, 70, 'c'], [60, 84], [54, 108, 'c'], [66, 102], [76, 78, 'c']]), far(mat), { shade: 0 });
+  d.piece('veil', smooth([[68, 90], [84, 86], [112, 86], [128, 90], [126, 100], [112, 109], [84, 109], [70, 100]]), veil, { shade: 4 });
+  d.piece('turban', smooth([[62, 74], [63, 56], [78, 44], [98, 40], [118, 44], [133, 56], [134, 74], [118, 81], [98, 83], [78, 81]]), mat, {
+    shade: 6,
+    inner: (c) => {
+      c.line('wrap-a', smooth([[64, 60], [92, 62], [128, 48]], false));
+      c.line('wrap-b', smooth([[66, 76], [96, 70], [134, 60]], false));
+    },
+  });
+  d.piece('jewel', poly([[112, 52], [120, 60], [112, 70], [104, 60]]), GOLD, { shade: 0 });
+}
+
+/** A pointed helm with a spike, and cloth hung from it over the face and neck. The Javelineer's. */
+export function spikeHelm(d: Doc, cloth: Material, mat: Material = STEEL): void {
+  d.piece('drape', smooth([[66, 72, 'c'], [128, 72, 'c'], [131, 93], [124, 107], [99, 111], [73, 107], [65, 93]]), cloth, {
+    shade: 5,
+    inner: (c) => dark(c, 'slit', roundRect(93, 78, 46, 9, 4.5)),
+  });
+  d.piece('spike', poly([[91, 50], [97, 24], [103, 50]]), mat, { shade: 0 });
+  d.piece('helm', smooth([[68, 76, 'c'], [74, 58], [97, 46], [120, 58], [126, 76, 'c']]), mat, {
+    shade: 5,
+    inner: (c) => c.piece('rim', roundRect(60, 68, 76, 10, 0), GOLD, { shade: 0 }),
+  });
+  d.glint('glint', capsule(82, 60, 87, 56, 4.5));
+}
+
+/** A hood whose crown is cut into tongues of flame. The Pyromancer's. */
+export function flameHood(d: Doc, mat: Material, glow: Accent): void {
+  const shape = smooth([
+    [76, 58], [68, 34, 'c'], [84, 46], [92, 20, 'c'], [103, 42], [116, 26, 'c'], [119, 52], [129, 78], [125, 100], [108, 109], [84, 109], [69, 100], [65, 78],
+  ]);
+  d.piece('hood', shape, mat, {
+    shade: 6,
+    inner: (c) => {
+      dark(c, 'opening', smooth([[112, 66], [126, 74], [131, 89], [124, 103], [108, 104], [97, 93], [99, 76]]));
+    },
+  });
+  d.piece('ember', poly([[82, 62], [88, 70], [82, 80], [76, 70]]), glow, { shade: 0 });
+}
+
+/** A light spear for throwing, held up by the shoulder. */
+export function javelin(d: Doc, g: Grip, len = 46, hand: Material = LEATHER, barbed = false): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-2.5, -len, 5, len + 36, 2.5)), WOOD, { shade: 0 });
+  const head = barbed
+    ? poly([[0, -len - 24], [9, -len - 2], [3, -len - 6], [3, -len + 4], [-3, -len + 4], [-3, -len - 6], [-9, -len - 2]])
+    : poly([[0, -len - 22], [7, -len - 4], [3, -len + 3], [-3, -len + 3], [-7, -len - 4]]);
+  d.piece('head', t(head), STEEL, { shade: 0 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A staff topped with an iron bowl of fire. The Pyromancer's. */
+export function brazierStaff(d: Doc, g: Grip, glow: Accent, len = 70, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-3.5, -len, 7, len + 40, 3)), WOOD, { shade: 2 });
+  d.flat('halo', t(circle(0, -len - 18, 17)), glow.light, 0.45);
+  d.piece('flame', t(smooth([[-9, -len - 6, 'c'], [-11, -len - 18], [-4, -len - 26], [-2, -len - 38, 'c'], [6, -len - 28], [11, -len - 18], [9, -len - 6, 'c']])), glow, { shade: 3 });
+  d.flat('flame-core', t(smooth([[-4, -len - 8, 'c'], [-5, -len - 16], [0, -len - 24, 'c'], [5, -len - 16], [4, -len - 8, 'c']])), glow.light);
+  d.piece('bowl', t(smooth([[-13, -len - 8, 'c'], [-10, -len + 2], [0, -len + 6], [10, -len + 2], [13, -len - 8, 'c']])), IRON, { shade: 0 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A wheel of a cart or an engine. */
+export function wheel(d: Doc, cx: number, cy: number, r = 17, isFar = false): void {
+  d.piece('rim', circle(cx, cy, r), isFar ? far(WOOD) : WOOD, {
+    shade: isFar ? 0 : 3,
+    inner: (c) => {
+      c.line('spoke-a', line(cx - r, cy, cx + r, cy));
+      c.line('spoke-b', line(cx, cy - r, cx, cy + r));
+    },
+  });
+  d.piece('hub', circle(cx, cy, 5), IRON, { shade: 0 });
+}
+
+/** The bed and post of a ballista: what the wheels carry and the bow sits on. */
+export function ballistaCart(d: Doc, cloth: Material): void {
+  d.piece('post', roundRect(88, 110, 16, 34, 3), WOOD, { shade: 3 });
+  d.piece('bed', roundRect(54, 136, 84, 20, 6), WOOD, { shade: 4 });
+  d.piece('drape', poly([[62, 138], [100, 138], [100, 160], [91, 153], [81, 162], [71, 153], [62, 160]]), cloth, { shade: 3 });
+  d.piece('brace', roundRect(108, 140, 24, 8, 3), IRON, { shade: 0 });
+}
+
+/** The bow of a ballista on its beam, loaded. Drawn upright and turned to aim. */
+export function ballistaBow(d: Doc, g: Grip): void {
+  const t = at(g);
+  d.line('string', t(path().M(-38, -38).L(0, -6).L(38, -38)));
+  d.piece('limbs', t(path().M(-41, -34).Q(0, -68, 41, -34).L(35, -27).Q(0, -54, -35, -27).Z()), WOOD, { shade: 3 });
+  d.piece('beam', t(roundRect(-7, -60, 14, 88, 5)), WOOD, { shade: 3 });
+  d.piece('bolt-shaft', t(roundRect(-2.5, -62, 5, 54, 2)), BONE, { shade: 0 });
+  d.piece('bolt-head', t(poly([[-8, -58], [0, -80], [8, -58]])), STEEL, { shade: 0 });
+  d.piece('mount', t(circle(0, 0, 7)), IRON, { shade: 0 });
+}
+
+// ---------------------------------------------------------------- golems
+
+export interface GolemLook {
+  /** What it is made of. */
+  rock: Material;
+  /** What caps its head and shoulders: sand, moss, snow. */
+  cap: Material;
+  /** The glow of the sign cut in its chest. */
+  rune: Accent;
+  /** Shards standing out of its shoulders. */
+  spikes: boolean;
+}
+
+export function golemLeg(d: Doc, x: number, look: GolemLook, isFar = false): void {
+  d.piece('leg', roundRect(x - 13, HIP_Y - 6, 28, 34, 7), isFar ? far(look.rock) : look.rock, { shade: isFar ? 0 : 4 });
+}
+
+/** A boulder of a body with a sign cut in its chest, and cloth tied round its middle. */
+export function golemBody(d: Doc, look: GolemLook, cloth: Material): void {
+  if (look.spikes) {
+    d.piece('shard-a', poly([[58, 98], [40, 56], [78, 86]]), look.cap, { shade: 0 });
+    d.piece('shard-b', poly([[116, 86], [146, 50], [136, 98]]), look.cap, { shade: 0 });
+    d.piece('shard-c', poly([[46, 112], [28, 92], [54, 98]]), look.cap, { shade: 0 });
+  }
+  const body = smooth([[60, 92], [96, 84], [132, 92], [142, 122], [134, 154], [112, 162], [80, 162], [58, 154], [50, 122]]);
+  d.piece('rock', body, look.rock, {
+    shade: 7,
+    inner: (c) => {
+      c.piece('cap', smooth([[44, 84], [96, 76], [148, 84], [140, 100], [118, 96], [96, 104], [74, 96], [52, 100]]), look.cap, { shade: 0 });
+      c.line('crack-a', path().M(64, 118).L(74, 128).L(68, 142));
+      c.line('crack-b', path().M(128, 112).L(120, 124));
+      c.piece('wrap', roundRect(40, 142, 112, 12, 0), cloth, { shade: 0 });
+    },
+  });
+  d.flat('rune-glow', poly([[104, 104], [116, 120], [104, 136], [92, 120]]), look.rune.light, 0.55);
+  d.piece('rune', poly([[104, 109], [112, 120], [104, 131], [96, 120]]), look.rune, { shade: 0 });
+  d.piece('flap', poly([[86, 150], [112, 150], [112, 172], [99, 166], [86, 172]]), cloth, { shade: 3 });
+}
+
+/** A block of a head, sunk between the shoulders, with a line cut down it and nothing else. */
+export function golemHead(d: Doc, look: GolemLook): void {
+  if (look.spikes) {
+    // Ice grows upward: the block is crowned with three shards.
+    d.piece('peak-a', poly([[78, 64], [84, 34], [96, 62]]), look.cap, { shade: 0 });
+    d.piece('peak-b', poly([[92, 62], [102, 22], [112, 62]]), look.cap, { shade: 0 });
+    d.piece('peak-c', poly([[108, 62], [122, 38], [124, 64]]), look.cap, { shade: 0 });
+  }
+  d.piece('block', smooth([[76, 60, 'c'], [122, 58, 'c'], [127, 80], [122, 100, 'c'], [78, 100, 'c'], [72, 80]]), look.rock, {
+    shade: 6,
+    inner: (c) => {
+      c.piece('cap', smooth([[66, 52], [98, 50], [132, 52], [130, 68], [112, 64], [98, 70], [84, 64], [68, 68]]), look.cap, { shade: 0 });
+      c.line('cut', line(108, 74, 108, 104));
+    },
+  });
+}
+
+/** An arm that ends in a fist the size of its head. `x`, `y` is the shoulder. */
+export function golemArm(d: Doc, x: number, y: number, look: GolemLook, cloth: Material, isFar = false): void {
+  const rock = isFar ? far(look.rock) : look.rock;
+  d.piece('arm', capsule(x, y, x + 4, y + 30, 20), rock, { shade: isFar ? 0 : 4 });
+  d.piece('band', roundRect(x - 9, y + 12, 26, 9, 3), isFar ? far(cloth) : cloth, { shade: 0 });
+  d.piece('fist', smooth([[x - 14, y + 34], [x + 5, y + 26], [x + 23, y + 34], [x + 25, y + 52], [x + 6, y + 62], [x - 14, y + 52]]), rock, { shade: isFar ? 0 : 5 });
+}
+
+// ================================================================ the Frostbound
+
+/** A banded pointed helm with mail hung from it over the face and neck. The Huscarl's. */
+export function spangenhelm(d: Doc, mat: Material = STEEL, mail: Material = IRON): void {
+  d.piece('mail', smooth([[66, 72, 'c'], [128, 72, 'c'], [131, 93], [124, 107], [99, 111], [73, 107], [65, 93]]), mail, {
+    shade: 5,
+    inner: (c) => dark(c, 'slit', roundRect(93, 79, 46, 9, 4.5)),
+  });
+  d.piece('helm', smooth([[67, 77, 'c'], [71, 60], [84, 50], [97, 46], [110, 50], [123, 60], [127, 77, 'c']]), mat, {
+    shade: 5,
+    inner: (c) => {
+      c.piece('band-up', roundRect(93, 40, 9, 40, 0), GOLD, { shade: 0 });
+      c.piece('band-brow', roundRect(60, 68, 76, 10, 0), GOLD, { shade: 0 });
+    },
+  });
+  d.piece('knob', circle(97, 46, 5), GOLD, { shade: 0 });
+}
+
+/**
+ * A hood with fur along its brow and round its neck. The Harpooner's.
+ * The fur does not ring the opening: a pale ring round a dark middle reads as
+ * an eye, and nothing here may.
+ */
+export function furHood(d: Doc, mat: Material, fur: Material = BONE): void {
+  d.piece('hood', smooth([[100, 50], [121, 58], [130, 80], [126, 101], [108, 109], [84, 109], [69, 102], [64, 84], [68, 64], [82, 53]]), mat, {
+    shade: 6,
+    inner: (c) => {
+      dark(c, 'opening', smooth([[110, 66], [126, 72], [133, 88], [126, 104], [108, 105], [96, 93], [98, 76]]));
+    },
+  });
+  d.piece('brow', smooth([[92, 58], [104, 46], [120, 48], [132, 60], [138, 74], [130, 78], [120, 66], [108, 62], [98, 70]]), fur, { shade: 3 });
+  d.piece('collar', smooth([[66, 98], [84, 104], [108, 106], [130, 98], [134, 108], [112, 117], [84, 116], [62, 108]]), fur, { shade: 3 });
+}
+
+/** A wide-brimmed hat with a tall bent point, and a scarf up to the brim. The Frost Witch's. */
+export function witchHat(d: Doc, mat: Material, band: Material, scarf: Material = LINEN): void {
+  const face = ellipse(98, 88, 27, 21);
+  d.flat('shadow-under', face, HOOD_INTERIOR);
+  d.line('shadow-under-edge', face);
+  d.piece('scarf', smooth([[69, 92], [84, 88], [112, 88], [127, 92], [125, 101], [112, 109], [84, 109], [71, 101]]), scarf, { shade: 4 });
+  d.piece('cone', smooth([[74, 76, 'c'], [80, 52], [78, 30], [62, 14, 'c'], [92, 20], [110, 40], [120, 76, 'c']]), mat, {
+    shade: 5,
+    inner: (c) => c.piece('band', roundRect(60, 62, 76, 10, 0), band, { shade: 0 }),
+  });
+  d.piece('brim', smooth([[44, 77], [96, 68], [150, 77], [151, 83], [96, 86], [43, 83]]), mat, { shade: 3 });
+}
+
+/** A helm with ram's horns curled at its sides and a crown on its brow. The Jarl's. */
+export function jarlHelm(d: Doc, mat: Material = IRON, horn: Material = BONE, crown: Material = GOLD): void {
+  const hornShape = smooth([
+    [76, 62, 'c'], [58, 52], [42, 60], [38, 78], [46, 94], [60, 96, 'c'], [52, 84], [52, 72], [62, 68], [76, 74, 'c'],
+  ]);
+  d.piece('horn-far', hornShape.mirrorX(97).translate(8, -2), far(horn), { shade: 0 });
+  d.piece('crown', poly([[72, 60], [70, 40], [82, 52], [90, 36], [98, 52], [106, 36], [114, 52], [126, 40], [124, 60]]), crown, { shade: 3 });
+  d.piece('helm', domePath().translate(0, 2), mat, {
+    shade: 6,
+    inner: (c) => {
+      dark(c, 'slit', roundRect(107, 74, 9, 32, 4.5));
+      c.piece('brow', smooth([[60, 62], [96, 58], [134, 62], [134, 72], [96, 69], [60, 73]]), crown, { shade: 0 });
+    },
+  });
+  d.piece('horn', hornShape, horn, { shade: 4 });
+}
+
+/** A bearded axe for one hand. */
+export function handAxe(d: Doc, g: Grip, len = 52, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-3.5, -len, 7, len + 16, 3)), WOOD, { shade: 2 });
+  d.piece('blade', t(smooth([[2, -len + 2, 'c'], [16, -len - 6], [26, -len - 2, 'c'], [28, -len + 14], [22, -len + 32, 'c'], [12, -len + 20], [2, -len + 16, 'c']])), STEEL, { shade: 4 });
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A hammer with a head like an anvil. Two hands. */
+export function greatHammer(d: Doc, g: Grip, len = 80, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-4, -len, 8, len + 22, 3)), WOOD, { shade: 2 });
+  d.piece('head', t(roundRect(-26, -len - 18, 52, 32, 6)), IRON, {
+    shade: 6,
+    inner: (c) => {
+      c.piece('band-a', t(roundRect(-30, -len - 20, 10, 36, 0)), GOLD, { shade: 0 });
+      c.piece('band-b', t(roundRect(20, -len - 20, 10, 36, 0)), GOLD, { shade: 0 });
+    },
+  });
+  const upper = t(circle(0, -26, 7.5)).bounds();
+  mitt(d, upper.x + upper.w / 2, upper.y + upper.h / 2, hand, 7.5, 'hand-upper');
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A wand with a great crystal at its tip and shards hanging by it. The Frost Witch's. */
+export function crystalWand(d: Doc, g: Grip, glow: Accent, len = 50, hand: Material = LEATHER): void {
+  const t = at(g);
+  d.piece('shaft', t(roundRect(-3, -len, 6, len + 22, 3)), WOOD, { shade: 0 });
+  d.flat('halo', t(circle(0, -len - 16, 19)), glow.light, 0.45);
+  d.piece('shard-a', t(poly([[-18, -len - 6], [-13, -len - 18], [-9, -len - 4]])), glow, { shade: 0 });
+  d.piece('shard-b', t(poly([[10, -len - 2], [16, -len - 14], [19, -len]])), glow, { shade: 0 });
+  d.piece('crystal', t(poly([[0, -len - 36], [10, -len - 18], [0, -len + 2], [-10, -len - 18]])), glow, { shade: 4 });
+  d.glint('glint', t(poly([[-3, -len - 26], [0, -len - 30], [0, -len - 14], [-5, -len - 18]])));
+  mitt(d, g.hand[0], g.hand[1], hand);
+}
+
+/** A coil of rope carried at the hip. */
+export function ropeCoil(d: Doc, cx: number, cy: number, hand: Material = LEATHER): void {
+  d.piece('coil', ellipse(cx, cy, 15, 18), LINEN, { shade: 3 });
+  d.flat('coil-hole', ellipse(cx, cy, 6, 9), HOOD_INTERIOR);
+  d.line('coil-hole-edge', ellipse(cx, cy, 6, 9));
+  mitt(d, cx, cy - 16, hand);
 }

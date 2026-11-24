@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="pine" width="80" height="124" viewBox="0 0 80 124">
+<defs>
+<clipPath id="pine-trunk-clip"><path d="M 36 92 L 44 92 Q 47 92 47 95 L 47 111 Q 47 114 44 114 L 36 114 Q 33 114 33 111 L 33 95 Q 33 92 36 92 Z"/></clipPath>
+<clipPath id="pine-low-clip"><path d="M 40 64 L 74 98 L 6 98 Z"/></clipPath>
+<clipPath id="pine-mid-clip"><path d="M 40 38 L 67 72 L 13 72 Z"/></clipPath>
+<clipPath id="pine-top-clip"><path d="M 40 12 L 60 46 L 20 46 Z"/></clipPath>
+</defs>
+<path id="pine-shadow" d="M 70 112 C 70 116.4 56.6 120 40 120 C 23.4 120 10 116.4 10 112 C 10 107.6 23.4 104 40 104 C 56.6 104 70 107.6 70 112 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="pine-trunk">
+<path id="pine-trunk-shade" d="M 36 92 L 44 92 Q 47 92 47 95 L 47 111 Q 47 114 44 114 L 36 114 Q 33 114 33 111 L 33 95 Q 33 92 36 92 Z" fill="#8c6b42"/>
+<g clip-path="url(#pine-trunk-clip)">
+<path id="pine-trunk-fill" d="M 33 89 L 41 89 Q 44 89 44 92 L 44 108 Q 44 111 41 111 L 33 111 Q 30 111 30 108 L 30 92 Q 30 89 33 89 Z" fill="#b08a5a"/>
+</g>
+<path id="pine-trunk-line" d="M 36 92 L 44 92 Q 47 92 47 95 L 47 111 Q 47 114 44 114 L 36 114 Q 33 114 33 111 L 33 95 Q 33 92 36 92 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pine-low">
+<path id="pine-low-shade" d="M 40 64 L 74 98 L 6 98 Z" fill="#2e5f45"/>
+<g clip-path="url(#pine-low-clip)">
+<path id="pine-low-fill" d="M 35 59 L 69 93 L 1 93 Z" fill="#3f7a5a"/>
+<path id="pine-low-snow" d="M 40 58 L 57 84 L 46.8 78 L 40 86 L 31.5 78 L 23 84 Z" fill="#f8fcfe"/>
+</g>
+<path id="pine-low-line" d="M 40 64 L 74 98 L 6 98 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pine-mid">
+<path id="pine-mid-shade" d="M 40 38 L 67 72 L 13 72 Z" fill="#2e5f45"/>
+<g clip-path="url(#pine-mid-clip)">
+<path id="pine-mid-fill" d="M 35 33 L 62 67 L 8 67 Z" fill="#3f7a5a"/>
+<path id="pine-mid-snow" d="M 40 32 L 53.5 58 L 45.4 52 L 40 60 L 33.3 52 L 26.5 58 Z" fill="#f8fcfe"/>
+</g>
+<path id="pine-mid-line" d="M 40 38 L 67 72 L 13 72 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pine-top">
+<path id="pine-top-shade" d="M 40 12 L 60 46 L 20 46 Z" fill="#2e5f45"/>
+<g clip-path="url(#pine-top-clip)">
+<path id="pine-top-fill" d="M 35 7 L 55 41 L 15 41 Z" fill="#3f7a5a"/>
+<path id="pine-top-snow" d="M 40 6 L 50 32 L 44 26 L 40 34 L 35 26 L 30 32 Z" fill="#f8fcfe"/>
+</g>
+<path id="pine-top-line" d="M 40 12 L 60 46 L 20 46 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

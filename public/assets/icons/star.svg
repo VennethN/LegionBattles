@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="star" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="star-star-clip"><path d="M 24 5 L 29.3 17.7 L 43 18.8 L 32.6 27.8 L 35.8 41.2 L 24 34 L 12.2 41.2 L 15.4 27.8 L 5 18.8 L 18.7 17.7 Z"/></clipPath>
+</defs>
+<g id="star-star">
+<path id="star-star-shade" d="M 24 5 L 29.3 17.7 L 43 18.8 L 32.6 27.8 L 35.8 41.2 L 24 34 L 12.2 41.2 L 15.4 27.8 L 5 18.8 L 18.7 17.7 Z" fill="#9c7c33"/>
+<g clip-path="url(#star-star-clip)">
+<path id="star-star-fill" d="M 21 2 L 26.3 14.7 L 40 15.8 L 29.6 24.8 L 32.8 38.2 L 21 31 L 9.2 38.2 L 12.4 24.8 L 2 15.8 L 15.7 14.7 Z" fill="#c8a24a"/>
+</g>
+<path id="star-star-line" d="M 24 5 L 29.3 17.7 L 43 18.8 L 32.6 27.8 L 35.8 41.2 L 24 34 L 12.2 41.2 L 15.4 27.8 L 5 18.8 L 18.7 17.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

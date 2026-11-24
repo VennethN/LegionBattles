@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bruiser-head" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="bruiser-head-gather-clip"><path d="M 88 54 C 88 54 79.3 36.3 80 34 C 80.7 31.7 88.7 40.7 92 40 C 95.3 39.3 97.7 30 100 30 C 102.3 30 103.3 39 106 40 C 108.7 41 115.7 33.7 116 36 C 116.3 38.3 108 54 108 54 L 88 54 Z"/></clipPath>
+<clipPath id="bruiser-head-sack-clip"><path d="M 76 54 C 76 54 90.7 50 98 50 C 105.3 50 120 54 120 54 C 120 54 128 68.3 129 76 C 130 83.7 129.2 94.5 126 100 C 122.8 105.5 117 107.5 110 109 C 103 110.5 91 110.5 84 109 C 77 107.5 71.2 105.5 68 100 C 64.8 94.5 63.7 83.7 65 76 C 66.3 68.3 76 54 76 54 Z"/></clipPath>
+</defs>
+<g id="bruiser-head-gather">
+<path id="bruiser-head-gather-shade" d="M 88 54 C 88 54 79.3 36.3 80 34 C 80.7 31.7 88.7 40.7 92 40 C 95.3 39.3 97.7 30 100 30 C 102.3 30 103.3 39 106 40 C 108.7 41 115.7 33.7 116 36 C 116.3 38.3 108 54 108 54 L 88 54 Z" fill="#b3a585"/>
+<g clip-path="url(#bruiser-head-gather-clip)">
+<path id="bruiser-head-gather-fill" d="M 85 51 C 85 51 76.3 33.3 77 31 C 77.7 28.7 85.7 37.7 89 37 C 92.3 36.3 94.7 27 97 27 C 99.3 27 100.3 36 103 37 C 105.7 38 112.7 30.7 113 33 C 113.3 35.3 105 51 105 51 L 85 51 Z" fill="#d9cdb0"/>
+</g>
+<path id="bruiser-head-gather-line" d="M 88 54 C 88 54 79.3 36.3 80 34 C 80.7 31.7 88.7 40.7 92 40 C 95.3 39.3 97.7 30 100 30 C 102.3 30 103.3 39 106 40 C 108.7 41 115.7 33.7 116 36 C 116.3 38.3 108 54 108 54 L 88 54 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bruiser-head-sack">
+<path id="bruiser-head-sack-shade" d="M 76 54 C 76 54 90.7 50 98 50 C 105.3 50 120 54 120 54 C 120 54 128 68.3 129 76 C 130 83.7 129.2 94.5 126 100 C 122.8 105.5 117 107.5 110 109 C 103 110.5 91 110.5 84 109 C 77 107.5 71.2 105.5 68 100 C 64.8 94.5 63.7 83.7 65 76 C 66.3 68.3 76 54 76 54 Z" fill="#b3a585"/>
+<g clip-path="url(#bruiser-head-sack-clip)">
+<path id="bruiser-head-sack-fill" d="M 70 48 C 70 48 84.7 44 92 44 C 99.3 44 114 48 114 48 C 114 48 122 62.3 123 70 C 124 77.7 123.2 88.5 120 94 C 116.8 99.5 111 101.5 104 103 C 97 104.5 85 104.5 78 103 C 71 101.5 65.2 99.5 62 94 C 58.8 88.5 57.7 77.7 59 70 C 60.3 62.3 70 48 70 48 Z" fill="#d9cdb0"/>
+<path id="bruiser-head-slit" d="M 98 74 L 134 74 Q 139 74 139 79 L 139 79 Q 139 84 134 84 L 98 84 Q 93 84 93 79 L 93 79 Q 93 74 98 74 Z" fill="#1e2b17"/>
+<path id="bruiser-head-slit-edge" d="M 98 74 L 134 74 Q 139 74 139 79 L 139 79 Q 139 84 134 84 L 98 84 Q 93 84 93 79 L 93 79 Q 93 74 98 74 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="bruiser-head-seam" d="M 84 56 L 84 100" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="bruiser-head-stitch-a" d="M 79 66 L 89 66" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="bruiser-head-stitch-b" d="M 79 88 L 89 88" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="bruiser-head-rope">
+<path id="bruiser-head-rope-fill" d="M 60 97 C 66 96.3 83.7 101 96 101 C 108.3 101 127.7 96.3 134 97 C 140.3 97.7 140.3 103 134 105 C 127.7 107 108.3 109 96 109 C 83.7 109 66 107 60 105 C 54 103 54 97.7 60 97 Z" fill="#9a6a3a"/>
+<path id="bruiser-head-rope-line" d="M 60 97 C 66 96.3 83.7 101 96 101 C 108.3 101 127.7 96.3 134 97 C 140.3 97.7 140.3 103 134 105 C 127.7 107 108.3 109 96 109 C 83.7 109 66 107 60 105 C 54 103 54 97.7 60 97 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="bruiser-head-sack-line" d="M 76 54 C 76 54 90.7 50 98 50 C 105.3 50 120 54 120 54 C 120 54 128 68.3 129 76 C 130 83.7 129.2 94.5 126 100 C 122.8 105.5 117 107.5 110 109 C 103 110.5 91 110.5 84 109 C 77 107.5 71.2 105.5 68 100 C 64.8 94.5 63.7 83.7 65 76 C 66.3 68.3 76 54 76 54 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bruiser-head-tie">
+<path id="bruiser-head-tie-fill" d="M 88 48 L 108 48 Q 112 48 112 52 L 112 52 Q 112 56 108 56 L 88 56 Q 84 56 84 52 L 84 52 Q 84 48 88 48 Z" fill="#9a6a3a"/>
+<path id="bruiser-head-tie-line" d="M 88 48 L 108 48 Q 112 48 112 52 L 112 52 Q 112 56 108 56 L 88 56 Q 84 56 84 52 L 84 52 Q 84 48 88 48 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

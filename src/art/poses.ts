@@ -43,6 +43,11 @@ export const ATTACK_POSES: Record<AttackStyle, AttackPoses> = {
     windup: pose({ weaponRot: 42, bodyRot: -5, headRot: -4, offRot: -6 }),
     strike: pose({ weaponRot: -96, weaponY: -8, bodyRot: 7, headRot: 4, rootY: -3, offRot: 6, extraRot: -8 }),
   },
+  // A crossbow or an engine: steadied, then it kicks.
+  shoot: {
+    windup: pose({ weaponRot: -5, weaponX: 3, bodyRot: 3, headRot: 2, bodySy: -0.02 }),
+    strike: pose({ weaponRot: -12, weaponX: -11, bodyRot: -9, headRot: -6, rootX: -5, bodySx: 0.04, extraRot: 10 }),
+  },
   // A thing thrown: the arm goes back, then whips over.
   throw: {
     windup: pose({ weaponRot: -70, weaponX: -8, weaponY: -8, bodyRot: -10, headRot: -5, rootX: -4 }),

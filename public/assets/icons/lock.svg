@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="lock" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="lock-body-clip"><path d="M 14 21 L 34 21 Q 40 21 40 27 L 40 38 Q 40 44 34 44 L 14 44 Q 8 44 8 38 L 8 27 Q 8 21 14 21 Z"/></clipPath>
+</defs>
+<g id="lock-shackle">
+<path id="lock-shackle-fill" d="M 11 25 L 11 16 C 11 1 37 1 37 16 L 37 25 L 30 25 L 30 16 C 30 9 18 9 18 16 L 18 25 Z" fill="#b9c2cc"/>
+<path id="lock-shackle-line" d="M 11 25 L 11 16 C 11 1 37 1 37 16 L 37 25 L 30 25 L 30 16 C 30 9 18 9 18 16 L 18 25 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lock-body">
+<path id="lock-body-shade" d="M 14 21 L 34 21 Q 40 21 40 27 L 40 38 Q 40 44 34 44 L 14 44 Q 8 44 8 38 L 8 27 Q 8 21 14 21 Z" fill="#434b56"/>
+<g clip-path="url(#lock-body-clip)">
+<path id="lock-body-fill" d="M 10 17 L 30 17 Q 36 17 36 23 L 36 34 Q 36 40 30 40 L 10 40 Q 4 40 4 34 L 4 23 Q 4 17 10 17 Z" fill="#5d6672"/>
+</g>
+<path id="lock-body-line" d="M 14 21 L 34 21 Q 40 21 40 27 L 40 38 Q 40 44 34 44 L 14 44 Q 8 44 8 38 L 8 27 Q 8 21 14 21 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lock-keyhole">
+<path id="lock-keyhole-fill" d="M 28 31 C 28 33.2 26.2 35 24 35 C 21.8 35 20 33.2 20 31 C 20 28.8 21.8 27 24 27 C 26.2 27 28 28.8 28 31 Z" fill="#c8a24a"/>
+<path id="lock-keyhole-line" d="M 28 31 C 28 33.2 26.2 35 24 35 C 21.8 35 20 33.2 20 31 C 20 28.8 21.8 27 24 27 C 26.2 27 28 28.8 28 31 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

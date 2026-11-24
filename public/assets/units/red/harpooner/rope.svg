@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="harpooner-rope" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="harpooner-rope-coil-clip"><path d="M 91 146 C 91 155.9 84.3 164 76 164 C 67.7 164 61 155.9 61 146 C 61 136.1 67.7 128 76 128 C 84.3 128 91 136.1 91 146 Z"/></clipPath>
+<clipPath id="harpooner-rope-hand-clip"><path d="M 83.5 130 C 83.5 134.1 80.1 137.5 76 137.5 C 71.9 137.5 68.5 134.1 68.5 130 C 68.5 125.9 71.9 122.5 76 122.5 C 80.1 122.5 83.5 125.9 83.5 130 Z"/></clipPath>
+</defs>
+<g id="harpooner-rope-coil">
+<path id="harpooner-rope-coil-shade" d="M 91 146 C 91 155.9 84.3 164 76 164 C 67.7 164 61 155.9 61 146 C 61 136.1 67.7 128 76 128 C 84.3 128 91 136.1 91 146 Z" fill="#b3a585"/>
+<g clip-path="url(#harpooner-rope-coil-clip)">
+<path id="harpooner-rope-coil-fill" d="M 88 143 C 88 152.9 81.3 161 73 161 C 64.7 161 58 152.9 58 143 C 58 133.1 64.7 125 73 125 C 81.3 125 88 133.1 88 143 Z" fill="#d9cdb0"/>
+</g>
+<path id="harpooner-rope-coil-line" d="M 91 146 C 91 155.9 84.3 164 76 164 C 67.7 164 61 155.9 61 146 C 61 136.1 67.7 128 76 128 C 84.3 128 91 136.1 91 146 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="harpooner-rope-coil-hole" d="M 82 146 C 82 151 79.3 155 76 155 C 72.7 155 70 151 70 146 C 70 141 72.7 137 76 137 C 79.3 137 82 141 82 146 Z" fill="#1e2b17"/>
+<path id="harpooner-rope-coil-hole-edge" d="M 82 146 C 82 151 79.3 155 76 155 C 72.7 155 70 151 70 146 C 70 141 72.7 137 76 137 C 79.3 137 82 141 82 146 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="harpooner-rope-hand">
+<path id="harpooner-rope-hand-shade" d="M 83.5 130 C 83.5 134.1 80.1 137.5 76 137.5 C 71.9 137.5 68.5 134.1 68.5 130 C 68.5 125.9 71.9 122.5 76 122.5 C 80.1 122.5 83.5 125.9 83.5 130 Z" fill="#4e3520"/>
+<g clip-path="url(#harpooner-rope-hand-clip)">
+<path id="harpooner-rope-hand-fill" d="M 80.5 127 C 80.5 131.1 77.1 134.5 73 134.5 C 68.9 134.5 65.5 131.1 65.5 127 C 65.5 122.9 68.9 119.5 73 119.5 C 77.1 119.5 80.5 122.9 80.5 127 Z" fill="#6b4a2b"/>
+</g>
+<path id="harpooner-rope-hand-line" d="M 83.5 130 C 83.5 134.1 80.1 137.5 76 137.5 C 71.9 137.5 68.5 134.1 68.5 130 C 68.5 125.9 71.9 122.5 76 122.5 C 80.1 122.5 83.5 125.9 83.5 130 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

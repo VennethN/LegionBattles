@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="javelineer-head" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="javelineer-head-drape-clip"><path d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z"/></clipPath>
+<clipPath id="javelineer-head-helm-clip"><path d="M 68 76 C 68 76 69.2 63 74 58 C 78.8 53 89.3 46 97 46 C 104.7 46 115.2 53 120 58 C 124.8 63 126 76 126 76 L 68 76 Z"/></clipPath>
+</defs>
+<g id="javelineer-head-drape">
+<path id="javelineer-head-drape-shade" d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z" fill="#933027"/>
+<g clip-path="url(#javelineer-head-drape-clip)">
+<path id="javelineer-head-drape-fill" d="M 61 67 L 123 67 C 123 67 126.7 82.2 126 88 C 125.3 93.8 124.3 99 119 102 C 113.7 105 102.5 106 94 106 C 85.5 106 73.7 105 68 102 C 62.3 99 61.2 93.8 60 88 C 58.8 82.2 61 67 61 67 Z" fill="#c2453a"/>
+<path id="javelineer-head-slit" d="M 97.5 78 L 134.5 78 Q 139 78 139 82.5 L 139 82.5 Q 139 87 134.5 87 L 97.5 87 Q 93 87 93 82.5 L 93 82.5 Q 93 78 97.5 78 Z" fill="#1e2b17"/>
+<path id="javelineer-head-slit-edge" d="M 97.5 78 L 134.5 78 Q 139 78 139 82.5 L 139 82.5 Q 139 87 134.5 87 L 97.5 87 Q 93 87 93 82.5 L 93 82.5 Q 93 78 97.5 78 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="javelineer-head-drape-line" d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-head-spike">
+<path id="javelineer-head-spike-fill" d="M 91 50 L 97 24 L 103 50 Z" fill="#b9c2cc"/>
+<path id="javelineer-head-spike-line" d="M 91 50 L 97 24 L 103 50 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-head-helm">
+<path id="javelineer-head-helm-shade" d="M 68 76 C 68 76 69.2 63 74 58 C 78.8 53 89.3 46 97 46 C 104.7 46 115.2 53 120 58 C 124.8 63 126 76 126 76 L 68 76 Z" fill="#8d97a3"/>
+<g clip-path="url(#javelineer-head-helm-clip)">
+<path id="javelineer-head-helm-fill" d="M 63 71 C 63 71 64.2 58 69 53 C 73.8 48 84.3 41 92 41 C 99.7 41 110.2 48 115 53 C 119.8 58 121 71 121 71 L 63 71 Z" fill="#b9c2cc"/>
+<g id="javelineer-head-rim">
+<path id="javelineer-head-rim-fill" d="M 60 68 L 136 68 L 136 78 L 60 78 L 60 68 Z" fill="#c8a24a"/>
+<path id="javelineer-head-rim-line" d="M 60 68 L 136 68 L 136 78 L 60 78 L 60 68 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="javelineer-head-helm-line" d="M 68 76 C 68 76 69.2 63 74 58 C 78.8 53 89.3 46 97 46 C 104.7 46 115.2 53 120 58 C 124.8 63 126 76 126 76 L 68 76 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="javelineer-head-glint" d="M 83.4 61.8 L 88.4 57.8 C 89.4 57 89.5 55.6 88.8 54.6 C 88 53.6 86.6 53.5 85.6 54.2 L 80.6 58.2 C 79.6 59 79.5 60.4 80.2 61.4 C 81 62.4 82.4 62.5 83.4 61.8 Z" fill="#f4f1e4"/>
+</svg>

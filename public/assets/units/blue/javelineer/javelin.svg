@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="javelineer-javelin" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="javelineer-javelin-hand-clip"><path d="M 133.5 114 C 133.5 118.1 130.1 121.5 126 121.5 C 121.9 121.5 118.5 118.1 118.5 114 C 118.5 109.9 121.9 106.5 126 106.5 C 130.1 106.5 133.5 109.9 133.5 114 Z"/></clipPath>
+</defs>
+<g id="javelineer-javelin-shaft">
+<path id="javelineer-javelin-shaft-fill" d="M 166.8 97.5 L 166.8 97.5 Q 167.7 99.8 165.4 100.8 L 95.9 128.9 Q 93.6 129.8 92.6 127.5 L 92.6 127.5 Q 91.7 125.2 94 124.2 L 163.5 96.1 Q 165.9 95.2 166.8 97.5 Z" fill="#9a6a3a"/>
+<path id="javelineer-javelin-shaft-line" d="M 166.8 97.5 L 166.8 97.5 Q 167.7 99.8 165.4 100.8 L 95.9 128.9 Q 93.6 129.8 92.6 127.5 L 92.6 127.5 Q 91.7 125.2 94 124.2 L 163.5 96.1 Q 165.9 95.2 166.8 97.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-javelin-head">
+<path id="javelineer-javelin-head-fill" d="M 187.2 89.3 L 173.1 102.5 L 165.1 101.4 L 162.9 95.9 L 167.9 89.5 Z" fill="#b9c2cc"/>
+<path id="javelineer-javelin-head-line" d="M 187.2 89.3 L 173.1 102.5 L 165.1 101.4 L 162.9 95.9 L 167.9 89.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-javelin-hand">
+<path id="javelineer-javelin-hand-shade" d="M 133.5 114 C 133.5 118.1 130.1 121.5 126 121.5 C 121.9 121.5 118.5 118.1 118.5 114 C 118.5 109.9 121.9 106.5 126 106.5 C 130.1 106.5 133.5 109.9 133.5 114 Z" fill="#4e3520"/>
+<g clip-path="url(#javelineer-javelin-hand-clip)">
+<path id="javelineer-javelin-hand-fill" d="M 130.5 111 C 130.5 115.1 127.1 118.5 123 118.5 C 118.9 118.5 115.5 115.1 115.5 111 C 115.5 106.9 118.9 103.5 123 103.5 C 127.1 103.5 130.5 106.9 130.5 111 Z" fill="#6b4a2b"/>
+</g>
+<path id="javelineer-javelin-hand-line" d="M 133.5 114 C 133.5 118.1 130.1 121.5 126 121.5 C 121.9 121.5 118.5 118.1 118.5 114 C 118.5 109.9 121.9 106.5 126 106.5 C 130.1 106.5 133.5 109.9 133.5 114 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

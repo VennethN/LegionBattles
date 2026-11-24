@@ -3,9 +3,9 @@
 // palette, so one drawing serves every kind of magic.
 
 import { Doc } from './kit/draw';
-import { BONE, HIGHLIGHT, LINEN, OUTLINE, type Accent } from './kit/palette';
+import { BONE, HIGHLIGHT, LINEN, OUTLINE, STEEL, WOOD, type Accent } from './kit/palette';
 import { arrowShape } from './kit/parts';
-import { circle, ellipse, path, poly, smooth, star } from './kit/path';
+import { circle, ellipse, path, poly, roundRect, smooth, star } from './kit/path';
 
 export interface FxArt {
   name: string;
@@ -35,6 +35,29 @@ export function fxArt(accents: Record<string, Accent>): FxArt[] {
       height: 24,
       origin: [0.8, 0.5],
       draw: (d) => arrowShape(d, 5, 12, 54),
+    },
+    {
+      // A crossbow's or an engine's bolt: short and thick.
+      name: 'bolt',
+      width: 56,
+      height: 20,
+      origin: [0.8, 0.5],
+      draw: (d) => {
+        d.piece('fletch', poly([[4, 4], [14, 4], [18, 10], [14, 16], [4, 16], [8, 10]]), BONE, { shade: 0 });
+        d.piece('shaft', roundRect(14, 7, 28, 6, 3), WOOD, { shade: 0 });
+        d.piece('head', poly([[38, 3], [53, 10], [38, 17]]), STEEL, { shade: 0 });
+      },
+    },
+    {
+      // A thrown spear.
+      name: 'javelin',
+      width: 80,
+      height: 20,
+      origin: [0.8, 0.5],
+      draw: (d) => {
+        d.piece('shaft', roundRect(4, 7.5, 58, 5, 2.5), WOOD, { shade: 0 });
+        d.piece('head', poly([[58, 3], [77, 10], [58, 17], [62, 10]]), STEEL, { shade: 0 });
+      },
     },
     {
       // A crescent that follows a blade: wide in the middle, sharp at both ends.

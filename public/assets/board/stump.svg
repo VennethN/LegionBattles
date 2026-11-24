@@ -2,7 +2,7 @@
 <defs>
 <clipPath id="stump-trunk-clip"><path d="M 10 46 C 10 46 8.3 25 12 20 C 15.7 15 25.3 16 32 16 C 38.7 16 48.3 15 52 20 C 55.7 25 54 46 54 46 L 10 46 Z"/></clipPath>
 </defs>
-<path id="stump-shadow" d="M 60 46 C 60 49.9 47.5 53 32 53 C 16.5 53 4 49.9 4 46 C 4 42.1 16.5 39 32 39 C 47.5 39 60 42.1 60 46 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="stump-shadow" d="M 60 46 C 60 50.4 47.5 54 32 54 C 16.5 54 4 50.4 4 46 C 4 41.6 16.5 38 32 38 C 47.5 38 60 41.6 60 46 Z" fill="#2a1a10" opacity="0.28"/>
 <g id="stump-trunk">
 <path id="stump-trunk-shade" d="M 10 46 C 10 46 8.3 25 12 20 C 15.7 15 25.3 16 32 16 C 38.7 16 48.3 15 52 20 C 55.7 25 54 46 54 46 L 10 46 Z" fill="#8c6b42"/>
 <g clip-path="url(#stump-trunk-clip)">

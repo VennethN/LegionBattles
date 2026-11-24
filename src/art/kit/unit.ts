@@ -24,7 +24,7 @@ export type Role =
 export type Parent = 'root' | 'body' | 'head';
 
 /** How the main hand attacks, which picks the animation. */
-export type AttackStyle = 'slash' | 'chop' | 'thrust' | 'bow' | 'cast' | 'swing' | 'throw';
+export type AttackStyle = 'slash' | 'chop' | 'thrust' | 'bow' | 'cast' | 'swing' | 'throw' | 'shoot';
 
 export interface PartSpec {
   name: string;

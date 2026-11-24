@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="snowrock" width="84" height="60" viewBox="0 0 84 60">
+<defs>
+<clipPath id="snowrock-rock-clip"><path d="M 10 48 C 10 48 9.3 34 12 28 C 14.7 22 20.3 15 26 12 C 31.7 9 40 8.3 46 10 C 52 11.7 58 15.7 62 22 C 66 28.3 70 48 70 48 L 10 48 Z"/></clipPath>
+<clipPath id="snowrock-pebble-clip"><path d="M 52 50 C 52 50 52 42.3 54 40 C 56 37.7 60.7 35.7 64 36 C 67.3 36.3 72 39.7 74 42 C 76 44.3 76 50 76 50 L 52 50 Z"/></clipPath>
+</defs>
+<path id="snowrock-shadow" d="M 74 50 C 74 54.4 58.8 58 40 58 C 21.2 58 6 54.4 6 50 C 6 45.6 21.2 42 40 42 C 58.8 42 74 45.6 74 50 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snowrock-rock">
+<path id="snowrock-rock-shade" d="M 10 48 C 10 48 9.3 34 12 28 C 14.7 22 20.3 15 26 12 C 31.7 9 40 8.3 46 10 C 52 11.7 58 15.7 62 22 C 66 28.3 70 48 70 48 L 10 48 Z" fill="#77766b"/>
+<g clip-path="url(#snowrock-rock-clip)">
+<path id="snowrock-rock-fill" d="M 4 42 C 4 42 3.3 28 6 22 C 8.7 16 14.3 9 20 6 C 25.7 3 34 2.3 40 4 C 46 5.7 52 9.7 56 16 C 60 22.3 64 42 64 42 L 4 42 Z" fill="#9c9a8c"/>
+<g id="snowrock-cap">
+<path id="snowrock-cap-fill" d="M 4 26 C 5.3 21.7 16.3 8 24 4 C 31.7 0 42.3 -1.3 50 2 C 57.7 5.3 69 20.7 70 24 C 71 27.3 60.3 21.3 56 22 C 51.7 22.7 48.3 28.3 44 28 C 39.7 27.7 34.7 19.7 30 20 C 25.3 20.3 20.3 29 16 30 C 11.7 31 2.7 30.3 4 26 Z" fill="#f8fcfe"/>
+<path id="snowrock-cap-line" d="M 4 26 C 5.3 21.7 16.3 8 24 4 C 31.7 0 42.3 -1.3 50 2 C 57.7 5.3 69 20.7 70 24 C 71 27.3 60.3 21.3 56 22 C 51.7 22.7 48.3 28.3 44 28 C 39.7 27.7 34.7 19.7 30 20 C 25.3 20.3 20.3 29 16 30 C 11.7 31 2.7 30.3 4 26 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="snowrock-rock-line" d="M 10 48 C 10 48 9.3 34 12 28 C 14.7 22 20.3 15 26 12 C 31.7 9 40 8.3 46 10 C 52 11.7 58 15.7 62 22 C 66 28.3 70 48 70 48 L 10 48 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snowrock-pebble">
+<path id="snowrock-pebble-shade" d="M 52 50 C 52 50 52 42.3 54 40 C 56 37.7 60.7 35.7 64 36 C 67.3 36.3 72 39.7 74 42 C 76 44.3 76 50 76 50 L 52 50 Z" fill="#77766b"/>
+<g clip-path="url(#snowrock-pebble-clip)">
+<path id="snowrock-pebble-fill" d="M 49 47 C 49 47 49 39.3 51 37 C 53 34.7 57.7 32.7 61 33 C 64.3 33.3 69 36.7 71 39 C 73 41.3 73 47 73 47 L 49 47 Z" fill="#9c9a8c"/>
+</g>
+<path id="snowrock-pebble-line" d="M 52 50 C 52 50 52 42.3 54 40 C 56 37.7 60.7 35.7 64 36 C 67.3 36.3 72 39.7 74 42 C 76 44.3 76 50 76 50 L 52 50 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

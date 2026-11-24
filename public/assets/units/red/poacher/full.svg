@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="poacher" width="192" height="192" viewBox="0 0 192 192">
+<g id="poacher-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="poacher-shadow-shadow" d="M 130 181 C 130 185.4 114.8 189 96 189 C 77.2 189 62 185.4 62 181 C 62 176.6 77.2 173 96 173 C 114.8 173 130 176.6 130 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="poacher-quiver-layer" transform="translate(74 150) rotate(0) scale(1 1) translate(-74 -150)">
+<defs>
+<clipPath id="poacher-quiver-tube-clip"><path d="M 44.7 127.2 L 54.2 119.8 Q 58.9 116.1 62.6 120.8 L 81.1 144.5 Q 84.8 149.2 80.1 152.9 L 70.6 160.3 Q 65.9 164 62.2 159.2 L 43.7 135.6 Q 40 130.9 44.7 127.2 Z"/></clipPath>
+</defs>
+<g id="poacher-quiver-fletch-a">
+<path id="poacher-quiver-fletch-a-fill" d="M 30.5 115.5 L 41.1 116 L 50.4 127.9 L 44.1 132.8 Z" fill="#e9dfc6"/>
+<path id="poacher-quiver-fletch-a-line" d="M 30.5 115.5 L 41.1 116 L 50.4 127.9 L 44.1 132.8 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-quiver-fletch-b">
+<path id="poacher-quiver-fletch-b-fill" d="M 36.7 105.5 L 47.3 106.1 L 59 121.1 L 52.7 126 Z" fill="#e9dfc6"/>
+<path id="poacher-quiver-fletch-b-line" d="M 36.7 105.5 L 47.3 106.1 L 59 121.1 L 52.7 126 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-quiver-tube">
+<path id="poacher-quiver-tube-shade" d="M 44.7 127.2 L 54.2 119.8 Q 58.9 116.1 62.6 120.8 L 81.1 144.5 Q 84.8 149.2 80.1 152.9 L 70.6 160.3 Q 65.9 164 62.2 159.2 L 43.7 135.6 Q 40 130.9 44.7 127.2 Z" fill="#4e3520"/>
+<g clip-path="url(#poacher-quiver-tube-clip)">
+<path id="poacher-quiver-tube-fill" d="M 40.7 123.2 L 50.2 115.8 Q 54.9 112.1 58.6 116.8 L 77.1 140.5 Q 80.8 145.2 76.1 148.9 L 66.6 156.3 Q 61.9 160 58.2 155.2 L 39.7 131.6 Q 36 126.9 40.7 123.2 Z" fill="#6b4a2b"/>
+</g>
+<path id="poacher-quiver-tube-line" d="M 44.7 127.2 L 54.2 119.8 Q 58.9 116.1 62.6 120.8 L 81.1 144.5 Q 84.8 149.2 80.1 152.9 L 70.6 160.3 Q 65.9 164 62.2 159.2 L 43.7 135.6 Q 40 130.9 44.7 127.2 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-quiver-band">
+<path id="poacher-quiver-band-fill" d="M 43.7 135.6 L 62.6 120.8 L 66.9 126.3 L 48 141.1 L 43.7 135.6 Z" fill="#c8a24a"/>
+<path id="poacher-quiver-band-line" d="M 43.7 135.6 L 62.6 120.8 L 66.9 126.3 L 48 141.1 L 43.7 135.6 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="poacher-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<g id="poacher-leg-back-boot">
+<path id="poacher-leg-back-boot-fill" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="#4e3520"/>
+<path id="poacher-leg-back-boot-line" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="poacher-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<clipPath id="poacher-leg-front-boot-clip"><path d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/></clipPath>
+</defs>
+<g id="poacher-leg-front-boot">
+<path id="poacher-leg-front-boot-shade" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="#4e3520"/>
+<g clip-path="url(#poacher-leg-front-boot-clip)">
+<path id="poacher-leg-front-boot-fill" d="M 90 144 L 109 144 L 109 160 C 115 160 120 164 120 170 L 120 172 Q 120 176 116 176 L 94 176 Q 90 176 90 172 Z" fill="#6b4a2b"/>
+</g>
+<path id="poacher-leg-front-boot-line" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="poacher-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<clipPath id="poacher-body-shirt-clip"><path d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/></clipPath>
+<clipPath id="poacher-body-buckle-clip"><path d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/></clipPath>
+<clipPath id="poacher-body-arm-clip"><path d="M 107.3 121.4 L 113.3 133.4 C 115.1 137.1 119.6 138.6 123.4 136.7 C 127.1 134.9 128.6 130.4 126.7 126.6 L 120.7 114.6 C 118.9 110.9 114.4 109.4 110.6 111.3 C 106.9 113.1 105.4 117.6 107.3 121.4 Z"/></clipPath>
+</defs>
+<g id="poacher-body-shirt">
+<path id="poacher-body-shirt-shade" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="#b3a585"/>
+<g clip-path="url(#poacher-body-shirt-clip)">
+<path id="poacher-body-shirt-fill" d="M 65 100 C 70.3 95.5 82.3 96 91 96 C 99.7 96 111.7 95.5 117 100 C 122.3 104.5 122.7 115.2 123 123 C 123.3 130.8 122.3 141.8 119 147 C 115.7 152.2 109.7 152.8 103 154 C 96.3 155.2 85.7 155.2 79 154 C 72.3 152.8 66.3 152.2 63 147 C 59.7 141.8 58.7 130.8 59 123 C 59.3 115.2 59.7 104.5 65 100 Z" fill="#d9cdb0"/>
+<g id="poacher-body-skirt">
+<path id="poacher-body-skirt-fill" d="M 52 147 L 140 147 L 140 171 L 52 171 L 52 147 Z" fill="#c2453a"/>
+<path id="poacher-body-skirt-line" d="M 52 147 L 140 147 L 140 171 L 52 171 L 52 147 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-body-belt">
+<path id="poacher-body-belt-fill" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="#6b4a2b"/>
+<path id="poacher-body-belt-line" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-body-buckle">
+<path id="poacher-body-buckle-shade" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z" fill="#9c7c33"/>
+<g clip-path="url(#poacher-body-buckle-clip)">
+<path id="poacher-body-buckle-fill" d="M 101 135 L 107 135 Q 110 135 110 138 L 110 145 Q 110 148 107 148 L 101 148 Q 98 148 98 145 L 98 138 Q 98 135 101 135 Z" fill="#c8a24a"/>
+</g>
+<path id="poacher-body-buckle-line" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="poacher-body-shirt-line" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-body-arm">
+<path id="poacher-body-arm-shade" d="M 107.3 121.4 L 113.3 133.4 C 115.1 137.1 119.6 138.6 123.4 136.7 C 127.1 134.9 128.6 130.4 126.7 126.6 L 120.7 114.6 C 118.9 110.9 114.4 109.4 110.6 111.3 C 106.9 113.1 105.4 117.6 107.3 121.4 Z" fill="#b3a585"/>
+<g clip-path="url(#poacher-body-arm-clip)">
+<path id="poacher-body-arm-fill" d="M 104.3 118.4 L 110.3 130.4 C 112.1 134.1 116.6 135.6 120.4 133.7 C 124.1 131.9 125.6 127.4 123.7 123.6 L 117.7 111.6 C 115.9 107.9 111.4 106.4 107.6 108.3 C 103.9 110.1 102.4 114.6 104.3 118.4 Z" fill="#d9cdb0"/>
+</g>
+<path id="poacher-body-arm-line" d="M 107.3 121.4 L 113.3 133.4 C 115.1 137.1 119.6 138.6 123.4 136.7 C 127.1 134.9 128.6 130.4 126.7 126.6 L 120.7 114.6 C 118.9 110.9 114.4 109.4 110.6 111.3 C 106.9 113.1 105.4 117.6 107.3 121.4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="poacher-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<clipPath id="poacher-head-scarf-clip"><path d="M 68 88 C 70.3 85.3 76.7 84.7 84 84 C 91.3 83.3 104.7 83.3 112 84 C 119.3 84.7 125.7 85.3 128 88 C 130.3 90.7 128.7 96.5 126 100 C 123.3 103.5 119 107.5 112 109 C 105 110.5 91 110.5 84 109 C 77 107.5 72.7 103.5 70 100 C 67.3 96.5 65.7 90.7 68 88 Z"/></clipPath>
+<clipPath id="poacher-head-crown-clip"><path d="M 76 72 C 76 72 73.7 58.2 77 54 C 80.3 49.8 89.7 47 96 47 C 102.3 47 111.5 49.8 115 54 C 118.5 58.2 117 72 117 72 L 76 72 Z"/></clipPath>
+<clipPath id="poacher-head-brim-clip"><path d="M 50 73 C 57.8 70.5 80.3 64 96 64 C 111.7 64 135.8 70.5 144 73 C 152.2 75.5 153 77.7 145 79 C 137 80.3 112 81 96 81 C 80 81 56.7 80.3 49 79 C 41.3 77.7 42.2 75.5 50 73 Z"/></clipPath>
+</defs>
+<path id="poacher-head-shadow-under" d="M 126 86 C 126 98.7 113.5 109 98 109 C 82.5 109 70 98.7 70 86 C 70 73.3 82.5 63 98 63 C 113.5 63 126 73.3 126 86 Z" fill="#1e2b17"/>
+<path id="poacher-head-shadow-under-edge" d="M 126 86 C 126 98.7 113.5 109 98 109 C 82.5 109 70 98.7 70 86 C 70 73.3 82.5 63 98 63 C 113.5 63 126 73.3 126 86 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="poacher-head-scarf">
+<path id="poacher-head-scarf-shade" d="M 68 88 C 70.3 85.3 76.7 84.7 84 84 C 91.3 83.3 104.7 83.3 112 84 C 119.3 84.7 125.7 85.3 128 88 C 130.3 90.7 128.7 96.5 126 100 C 123.3 103.5 119 107.5 112 109 C 105 110.5 91 110.5 84 109 C 77 107.5 72.7 103.5 70 100 C 67.3 96.5 65.7 90.7 68 88 Z" fill="#933027"/>
+<g clip-path="url(#poacher-head-scarf-clip)">
+<path id="poacher-head-scarf-fill" d="M 64 84 C 66.3 81.3 72.7 80.7 80 80 C 87.3 79.3 100.7 79.3 108 80 C 115.3 80.7 121.7 81.3 124 84 C 126.3 86.7 124.7 92.5 122 96 C 119.3 99.5 115 103.5 108 105 C 101 106.5 87 106.5 80 105 C 73 103.5 68.7 99.5 66 96 C 63.3 92.5 61.7 86.7 64 84 Z" fill="#c2453a"/>
+<path id="poacher-head-fold" d="M 74 96 C 78 95.3 89.7 92 98 92 C 106.3 92 119.7 95.3 124 96" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="poacher-head-scarf-line" d="M 68 88 C 70.3 85.3 76.7 84.7 84 84 C 91.3 83.3 104.7 83.3 112 84 C 119.3 84.7 125.7 85.3 128 88 C 130.3 90.7 128.7 96.5 126 100 C 123.3 103.5 119 107.5 112 109 C 105 110.5 91 110.5 84 109 C 77 107.5 72.7 103.5 70 100 C 67.3 96.5 65.7 90.7 68 88 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-head-crown">
+<path id="poacher-head-crown-shade" d="M 76 72 C 76 72 73.7 58.2 77 54 C 80.3 49.8 89.7 47 96 47 C 102.3 47 111.5 49.8 115 54 C 118.5 58.2 117 72 117 72 L 76 72 Z" fill="#4e3520"/>
+<g clip-path="url(#poacher-head-crown-clip)">
+<path id="poacher-head-crown-fill" d="M 72 68 C 72 68 69.7 54.2 73 50 C 76.3 45.8 85.7 43 92 43 C 98.3 43 107.5 45.8 111 50 C 114.5 54.2 113 68 113 68 L 72 68 Z" fill="#6b4a2b"/>
+<g id="poacher-head-band">
+<path id="poacher-head-band-fill" d="M 70 62 L 124 62 L 124 70 L 70 70 L 70 62 Z" fill="#c8a24a"/>
+<path id="poacher-head-band-line" d="M 70 62 L 124 62 L 124 70 L 70 70 L 70 62 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="poacher-head-crown-line" d="M 76 72 C 76 72 73.7 58.2 77 54 C 80.3 49.8 89.7 47 96 47 C 102.3 47 111.5 49.8 115 54 C 118.5 58.2 117 72 117 72 L 76 72 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-head-brim">
+<path id="poacher-head-brim-shade" d="M 50 73 C 57.8 70.5 80.3 64 96 64 C 111.7 64 135.8 70.5 144 73 C 152.2 75.5 153 77.7 145 79 C 137 80.3 112 81 96 81 C 80 81 56.7 80.3 49 79 C 41.3 77.7 42.2 75.5 50 73 Z" fill="#4e3520"/>
+<g clip-path="url(#poacher-head-brim-clip)">
+<path id="poacher-head-brim-fill" d="M 47 70 C 54.8 67.5 77.3 61 93 61 C 108.7 61 132.8 67.5 141 70 C 149.2 72.5 150 74.7 142 76 C 134 77.3 109 78 93 78 C 77 78 53.7 77.3 46 76 C 38.3 74.7 39.2 72.5 47 70 Z" fill="#6b4a2b"/>
+</g>
+<path id="poacher-head-brim-line" d="M 50 73 C 57.8 70.5 80.3 64 96 64 C 111.7 64 135.8 70.5 144 73 C 152.2 75.5 153 77.7 145 79 C 137 80.3 112 81 96 81 C 80 81 56.7 80.3 49 79 C 41.3 77.7 42.2 75.5 50 73 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="poacher-crossbow-layer" transform="translate(120 131) rotate(0) scale(1 1) translate(-120 -131)">
+<defs>
+<clipPath id="poacher-crossbow-stock-clip"><path d="M 159.8 127.2 L 160 129.2 Q 160.3 133.2 156.3 133.5 L 106.4 137 Q 102.4 137.2 102.1 133.3 L 102 131.3 Q 101.7 127.3 105.7 127 L 155.6 123.5 Q 159.6 123.2 159.8 127.2 Z"/></clipPath>
+<clipPath id="poacher-crossbow-hand-clip"><path d="M 127.5 131 C 127.5 135.1 124.1 138.5 120 138.5 C 115.9 138.5 112.5 135.1 112.5 131 C 112.5 126.9 115.9 123.5 120 123.5 C 124.1 123.5 127.5 126.9 127.5 131 Z"/></clipPath>
+</defs>
+<path id="poacher-crossbow-string" d="M 148.2 104 L 130 130.3 L 151.7 153.8" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="poacher-crossbow-limbs">
+<path id="poacher-crossbow-limbs-fill" d="M 145.1 102.2 Q 169.9 127.5 148.8 156.1 L 143.6 152.4 Q 159.9 128.2 140.3 106.5 Z" fill="#b9c2cc"/>
+<path id="poacher-crossbow-limbs-line" d="M 145.1 102.2 Q 169.9 127.5 148.8 156.1 L 143.6 152.4 Q 159.9 128.2 140.3 106.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-crossbow-stock">
+<path id="poacher-crossbow-stock-shade" d="M 159.8 127.2 L 160 129.2 Q 160.3 133.2 156.3 133.5 L 106.4 137 Q 102.4 137.2 102.1 133.3 L 102 131.3 Q 101.7 127.3 105.7 127 L 155.6 123.5 Q 159.6 123.2 159.8 127.2 Z" fill="#75502b"/>
+<g clip-path="url(#poacher-crossbow-stock-clip)">
+<path id="poacher-crossbow-stock-fill" d="M 156.8 124.2 L 157 126.2 Q 157.3 130.2 153.3 130.5 L 103.4 134 Q 99.4 134.2 99.1 130.3 L 99 128.3 Q 98.7 124.3 102.7 124 L 152.6 120.5 Q 156.6 120.2 156.8 124.2 Z" fill="#9a6a3a"/>
+</g>
+<path id="poacher-crossbow-stock-line" d="M 159.8 127.2 L 160 129.2 Q 160.3 133.2 156.3 133.5 L 106.4 137 Q 102.4 137.2 102.1 133.3 L 102 131.3 Q 101.7 127.3 105.7 127 L 155.6 123.5 Q 159.6 123.2 159.8 127.2 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-crossbow-bolt">
+<path id="poacher-crossbow-bolt-fill" d="M 159.6 123.7 L 173.9 127.2 L 160.2 132.7 Z" fill="#e9dfc6"/>
+<path id="poacher-crossbow-bolt-line" d="M 159.6 123.7 L 173.9 127.2 L 160.2 132.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="poacher-crossbow-hand">
+<path id="poacher-crossbow-hand-shade" d="M 127.5 131 C 127.5 135.1 124.1 138.5 120 138.5 C 115.9 138.5 112.5 135.1 112.5 131 C 112.5 126.9 115.9 123.5 120 123.5 C 124.1 123.5 127.5 126.9 127.5 131 Z" fill="#4e3520"/>
+<g clip-path="url(#poacher-crossbow-hand-clip)">
+<path id="poacher-crossbow-hand-fill" d="M 124.5 128 C 124.5 132.1 121.1 135.5 117 135.5 C 112.9 135.5 109.5 132.1 109.5 128 C 109.5 123.9 112.9 120.5 117 120.5 C 121.1 120.5 124.5 123.9 124.5 128 Z" fill="#6b4a2b"/>
+</g>
+<path id="poacher-crossbow-hand-line" d="M 127.5 131 C 127.5 135.1 124.1 138.5 120 138.5 C 115.9 138.5 112.5 135.1 112.5 131 C 112.5 126.9 115.9 123.5 120 123.5 C 124.1 123.5 127.5 126.9 127.5 131 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

@@ -3,9 +3,10 @@
 // Draws the pictures to look at before believing the art is right, into
 // docs/art:
 //
-//   contact-sheet.png  every unit on both teams, every part, every effect
+//   contact-sheet.png  every unit on both teams, every effect, the board
+//   parts.png          every part of every unit alone, on both teams
 //   poses.png          every unit at the far end of each movement
-//   silhouettes.png    every unit as a black shape 48 px tall, in one row
+//   silhouettes.png    every unit as a black shape 48 px tall, in rows
 //
 // It also checks what a program can check: that no color is off the palette
 // and that every dark line is the one width. Whether there is a face on
@@ -63,7 +64,8 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
 
 // ------------------------------------------------------------ contact sheet
 {
-  const cell = 200;
+  const cell = 176;
+  const scale = 0.88;
   const perRow = Math.min(units.length, 8);
   const unitRows = Math.ceil(units.length / perRow);
   const width = Math.max(perRow * cell + 40, 1040);
@@ -77,43 +79,16 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
       for (let c = 0; c < perRow; c++) {
         const unit = units[r * perRow + c];
         if (!unit) continue;
-        body += unitAt(unit, team, 20 + c * cell + 4, y, 1, undefined, team === 'red');
+        body += unitAt(unit, team, 20 + c * cell + 4, y, scale, undefined, team === 'red');
         if (team === 'blue') body += label(20 + c * cell + cell / 2, y + 12, unit.id);
       }
-      y += cell - 4;
+      y += cell - 6;
     }
     y += 8;
   }
 
-  // Every part by itself, on its own canvas, so a stray shape shows.
-  body += label(20, y + 22, 'PARTS: each layer alone, with its pivot (cross)', 16, 'start');
-  y += 34;
-  const ps = 0.62;
-  const pc = CANVAS * ps + 6;
-  for (const unit of units) {
-    const perLine = Math.floor((width - 130) / pc);
-    for (const team of TEAMS) {
-      body += label(20, y + 20, `${unit.id}`, 13, 'start');
-      body += label(20, y + 36, team, 12, 'start', team === 'blue' ? '#2f5893' : '#933027');
-      unit.parts.forEach((part, i) => {
-        const col = i % perLine;
-        const row = Math.floor(i / perLine);
-        const x = 120 + col * pc;
-        const yy = y + row * pc;
-        const inner = withIdSuffix(source(unit, part.name, team), `-p${serial++}`);
-        body += `<rect x="${x}" y="${yy}" width="${CANVAS * ps}" height="${CANVAS * ps}" rx="6" fill="${GRASS.shade}"/>`;
-        body += `<g transform="translate(${x} ${yy}) scale(${ps})">${inner}`;
-        const [px, py] = part.pivot;
-        body += `<path d="M ${px - 7} ${py} L ${px + 7} ${py} M ${px} ${py - 7} L ${px} ${py + 7}" stroke="#ffffff" stroke-width="2.5"/></g>`;
-        body += label(x + (CANVAS * ps) / 2, yy + CANVAS * ps - 5, part.name, 10);
-      });
-      y += Math.ceil(unit.parts.length / perLine) * pc + 4;
-    }
-    y += 6;
-  }
-
   // Effects, board pieces and icons.
-  for (const [folder, title] of [['fx', 'EFFECTS'], ['board', 'BOARD'], ['icons', 'ICONS']] as const) {
+  for (const [folder, title] of [['fx', 'EFFECTS'], ['board', 'BOARD'], ['icons', 'ICONS'], ['packs', 'PACKS']] as const) {
     const list = Object.entries(manifest[folder]);
     if (list.length === 0) continue;
     body += label(20, y + 22, title, 16, 'start');
@@ -137,28 +112,62 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
     y += rowH + 40;
   }
 
-  save('contact-sheet.png', width, y, `<rect width="${width}" height="${y}" fill="${GRASS.fill}"/>${body}`, 1.5);
+  save('contact-sheet.png', width, y, `<rect width="${width}" height="${y}" fill="${GRASS.fill}"/>${body}`, 1.25);
+}
+
+// ------------------------------------------------------------------- parts
+{
+  // Every part by itself on its own canvas, so a stray shape shows: blue, then red.
+  const ps = 0.42;
+  const pc = CANVAS * ps + 4;
+  const most = Math.max(...units.map((u) => u.parts.length));
+  const width = 100 + most * pc * 2 + 30;
+  const height = 34 + units.length * (pc + 14);
+  let body = `<rect width="${width}" height="${height}" fill="${GRASS.fill}"/>`;
+  body += label(20, 22, 'PARTS: each layer alone, with its pivot (cross). Blue, then red.', 15, 'start');
+  units.forEach((unit, r) => {
+    const y = 34 + r * (pc + 14);
+    body += label(14, y + pc / 2 + 4, unit.id, 12, 'start');
+    TEAMS.forEach((team, t) => {
+      unit.parts.forEach((part, i) => {
+        const x = 100 + t * (most * pc + 20) + i * pc;
+        const inner = withIdSuffix(source(unit, part.name, team), `-p${serial++}`);
+        body += `<rect x="${x}" y="${y}" width="${CANVAS * ps}" height="${CANVAS * ps}" rx="5" fill="${GRASS.shade}"/>`;
+        body += `<g transform="translate(${x} ${y}) scale(${ps})">${inner}`;
+        const [px, py] = part.pivot;
+        body += `<path d="M ${px - 8} ${py} L ${px + 8} ${py} M ${px} ${py - 8} L ${px} ${py + 8}" stroke="#ffffff" stroke-width="3"/></g>`;
+        if (t === 0) body += label(x + (CANVAS * ps) / 2, y + CANVAS * ps + 10, part.name, 8);
+      });
+    });
+  });
+  save('parts.png', width, height, body, 1.25);
 }
 
 // ------------------------------------------------------------------- poses
 {
-  const cell = 176;
-  const scale = 0.9;
+  // Two units to a row, each at the far end of every movement.
+  const scale = 0.6;
+  const cell = CANVAS * scale + 2;
   const names = ['rest', 'windup', 'strike', 'hop', 'land', 'hit', 'topple'];
-  const width = names.length * cell + 110;
-  const height = units.length * cell + 40;
+  const block = 92 + names.length * cell + 16;
+  const cols = units.length > 6 ? 2 : 1;
+  const rows = Math.ceil(units.length / cols);
+  const width = cols * block + 10;
+  const height = rows * cell + 40;
   let body = `<rect width="${width}" height="${height}" fill="${GRASS.fill}"/>`;
-  names.forEach((n, i) => (body += label(100 + i * cell + cell / 2, 24, n)));
-  units.forEach((unit, r) => {
+  for (let c = 0; c < cols; c++) names.forEach((n, i) => (body += label(c * block + 92 + i * cell + cell / 2, 22, n, 12)));
+  units.forEach((unit, n) => {
+    const c = Math.floor(n / rows);
+    const r = n % rows;
     const attack = ATTACK_POSES[unit.style];
     const poses: Array<Pose | undefined> = [undefined, attack.windup, attack.strike, HOP_POSE, LAND_POSE, HIT_POSE, TOPPLE_POSE];
-    body += label(14, 40 + r * cell + cell / 2, unit.id, 13, 'start');
-    body += label(14, 56 + r * cell + cell / 2, unit.style, 11, 'start', '#3b5a26');
+    body += label(c * block + 10, 34 + r * cell + cell / 2, unit.id, 11, 'start');
+    body += label(c * block + 10, 48 + r * cell + cell / 2, unit.style, 10, 'start', '#3b5a26');
     poses.forEach((p, i) => {
-      body += unitAt(unit, r % 2 === 0 ? 'blue' : 'red', 100 + i * cell + 4, 34 + r * cell, scale, p);
+      body += unitAt(unit, n % 2 === 0 ? 'blue' : 'red', c * block + 92 + i * cell, 30 + r * cell, scale, p);
     });
   });
-  save('poses.png', width, height, body, 1.5);
+  save('poses.png', width, height, body, 1.25);
 }
 
 // ------------------------------------------------------------- silhouettes
@@ -166,10 +175,14 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
   // Every unit as one black shape, 48 px tall from its top to its feet.
   const all = UNIT_ART;
   const gap = 78;
-  const width = all.length * gap + 40;
-  const height = 96;
+  const perRow = Math.ceil(all.length / Math.ceil(all.length / 11));
+  const rows = Math.ceil(all.length / perRow);
+  const width = perRow * gap + 40;
+  const height = rows * 96;
   let body = `<rect width="${width}" height="${height}" fill="#ffffff"/>`;
-  all.forEach((unit, i) => {
+  all.forEach((unit, n) => {
+    const i = n % perRow;
+    const row = Math.floor(n / perRow);
     const tall = 180 - unit.top;
     const scale = 48 / tall;
     let inner = composeUnit(unit, 'blue', { source, noShadow: true, idSuffix: `-s${serial++}` });
@@ -178,9 +191,9 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
       .replace(/stroke="#[0-9a-fA-F]{3,8}"/g, 'stroke="#000000"')
       .replace(/ opacity="[^"]*"/g, '');
     const x = 20 + i * gap + gap / 2 - 96 * scale;
-    const y = 66 - 180 * scale;
+    const y = row * 96 + 66 - 180 * scale;
     body += `<g transform="translate(${x} ${y}) scale(${scale})">${inner}</g>`;
-    body += label(20 + i * gap + gap / 2, 86, unit.id, 10);
+    body += label(20 + i * gap + gap / 2, row * 96 + 86, unit.id, 10);
   });
   save('silhouettes.png', width, height, body, 2);
 }

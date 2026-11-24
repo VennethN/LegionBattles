@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="frostwitch-head" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="frostwitch-head-scarf-clip"><path d="M 69 92 C 71.2 89.8 76.8 88.7 84 88 C 91.2 87.3 104.8 87.3 112 88 C 119.2 88.7 124.8 89.8 127 92 C 129.2 94.2 127.5 98.2 125 101 C 122.5 103.8 118.8 107.7 112 109 C 105.2 110.3 90.8 110.3 84 109 C 77.2 107.7 73.5 103.8 71 101 C 68.5 98.2 66.8 94.2 69 92 Z"/></clipPath>
+<clipPath id="frostwitch-head-cone-clip"><path d="M 74 76 C 74 76 79.3 59.7 80 52 C 80.7 44.3 81 36.3 78 30 C 75 23.7 62 14 62 14 C 62 14 84 15.7 92 20 C 100 24.3 105.3 30.7 110 40 C 114.7 49.3 120 76 120 76 L 74 76 Z"/></clipPath>
+<clipPath id="frostwitch-head-brim-clip"><path d="M 44 77 C 52.8 74.5 78.3 68 96 68 C 113.7 68 140.8 74.5 150 77 C 159.2 79.5 160 81.5 151 83 C 142 84.5 114 86 96 86 C 78 86 51.7 84.5 43 83 C 34.3 81.5 35.2 79.5 44 77 Z"/></clipPath>
+</defs>
+<path id="frostwitch-head-shadow-under" d="M 125 88 C 125 99.6 112.9 109 98 109 C 83.1 109 71 99.6 71 88 C 71 76.4 83.1 67 98 67 C 112.9 67 125 76.4 125 88 Z" fill="#1e2b17"/>
+<path id="frostwitch-head-shadow-under-edge" d="M 125 88 C 125 99.6 112.9 109 98 109 C 83.1 109 71 99.6 71 88 C 71 76.4 83.1 67 98 67 C 112.9 67 125 76.4 125 88 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="frostwitch-head-scarf">
+<path id="frostwitch-head-scarf-shade" d="M 69 92 C 71.2 89.8 76.8 88.7 84 88 C 91.2 87.3 104.8 87.3 112 88 C 119.2 88.7 124.8 89.8 127 92 C 129.2 94.2 127.5 98.2 125 101 C 122.5 103.8 118.8 107.7 112 109 C 105.2 110.3 90.8 110.3 84 109 C 77.2 107.7 73.5 103.8 71 101 C 68.5 98.2 66.8 94.2 69 92 Z" fill="#b3a585"/>
+<g clip-path="url(#frostwitch-head-scarf-clip)">
+<path id="frostwitch-head-scarf-fill" d="M 65 88 C 67.2 85.8 72.8 84.7 80 84 C 87.2 83.3 100.8 83.3 108 84 C 115.2 84.7 120.8 85.8 123 88 C 125.2 90.2 123.5 94.2 121 97 C 118.5 99.8 114.8 103.7 108 105 C 101.2 106.3 86.8 106.3 80 105 C 73.2 103.7 69.5 99.8 67 97 C 64.5 94.2 62.8 90.2 65 88 Z" fill="#d9cdb0"/>
+</g>
+<path id="frostwitch-head-scarf-line" d="M 69 92 C 71.2 89.8 76.8 88.7 84 88 C 91.2 87.3 104.8 87.3 112 88 C 119.2 88.7 124.8 89.8 127 92 C 129.2 94.2 127.5 98.2 125 101 C 122.5 103.8 118.8 107.7 112 109 C 105.2 110.3 90.8 110.3 84 109 C 77.2 107.7 73.5 103.8 71 101 C 68.5 98.2 66.8 94.2 69 92 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="frostwitch-head-cone">
+<path id="frostwitch-head-cone-shade" d="M 74 76 C 74 76 79.3 59.7 80 52 C 80.7 44.3 81 36.3 78 30 C 75 23.7 62 14 62 14 C 62 14 84 15.7 92 20 C 100 24.3 105.3 30.7 110 40 C 114.7 49.3 120 76 120 76 L 74 76 Z" fill="#2f5893"/>
+<g clip-path="url(#frostwitch-head-cone-clip)">
+<path id="frostwitch-head-cone-fill" d="M 69 71 C 69 71 74.3 54.7 75 47 C 75.7 39.3 76 31.3 73 25 C 70 18.7 57 9 57 9 C 57 9 79 10.7 87 15 C 95 19.3 100.3 25.7 105 35 C 109.7 44.3 115 71 115 71 L 69 71 Z" fill="#3d6fb6"/>
+<g id="frostwitch-head-band">
+<path id="frostwitch-head-band-fill" d="M 60 62 L 136 62 L 136 72 L 60 72 L 60 62 Z" fill="#6fc7e8"/>
+<path id="frostwitch-head-band-line" d="M 60 62 L 136 62 L 136 72 L 60 72 L 60 62 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="frostwitch-head-cone-line" d="M 74 76 C 74 76 79.3 59.7 80 52 C 80.7 44.3 81 36.3 78 30 C 75 23.7 62 14 62 14 C 62 14 84 15.7 92 20 C 100 24.3 105.3 30.7 110 40 C 114.7 49.3 120 76 120 76 L 74 76 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="frostwitch-head-brim">
+<path id="frostwitch-head-brim-shade" d="M 44 77 C 52.8 74.5 78.3 68 96 68 C 113.7 68 140.8 74.5 150 77 C 159.2 79.5 160 81.5 151 83 C 142 84.5 114 86 96 86 C 78 86 51.7 84.5 43 83 C 34.3 81.5 35.2 79.5 44 77 Z" fill="#2f5893"/>
+<g clip-path="url(#frostwitch-head-brim-clip)">
+<path id="frostwitch-head-brim-fill" d="M 41 74 C 49.8 71.5 75.3 65 93 65 C 110.7 65 137.8 71.5 147 74 C 156.2 76.5 157 78.5 148 80 C 139 81.5 111 83 93 83 C 75 83 48.7 81.5 40 80 C 31.3 78.5 32.2 76.5 41 74 Z" fill="#3d6fb6"/>
+</g>
+<path id="frostwitch-head-brim-line" d="M 44 77 C 52.8 74.5 78.3 68 96 68 C 113.7 68 140.8 74.5 150 77 C 159.2 79.5 160 81.5 151 83 C 142 84.5 114 86 96 86 C 78 86 51.7 84.5 43 83 C 34.3 81.5 35.2 79.5 44 77 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

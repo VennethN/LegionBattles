@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="crown" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="crown-crown-clip"><path d="M 7 38 L 4 14 L 15 24 L 24 8 L 33 24 L 44 14 L 41 38 Z"/></clipPath>
+</defs>
+<g id="crown-crown">
+<path id="crown-crown-shade" d="M 7 38 L 4 14 L 15 24 L 24 8 L 33 24 L 44 14 L 41 38 Z" fill="#9c7c33"/>
+<g clip-path="url(#crown-crown-clip)">
+<path id="crown-crown-fill" d="M 3 34 L 0 10 L 11 20 L 20 4 L 29 20 L 40 10 L 37 34 Z" fill="#c8a24a"/>
+</g>
+<path id="crown-crown-line" d="M 7 38 L 4 14 L 15 24 L 24 8 L 33 24 L 44 14 L 41 38 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crown-band">
+<path id="crown-band-fill" d="M 9 34 L 39 34 Q 42 34 42 37 L 42 39 Q 42 42 39 42 L 9 42 Q 6 42 6 39 L 6 37 Q 6 34 9 34 Z" fill="#9c7c33"/>
+<path id="crown-band-line" d="M 9 34 L 39 34 Q 42 34 42 37 L 42 39 Q 42 42 39 42 L 9 42 Q 6 42 6 39 L 6 37 Q 6 34 9 34 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
