@@ -2,7 +2,9 @@
 // screen that opens over the field, and the dim sheet behind it.
 
 import Phaser from 'phaser';
-import { BONE, CLOTH, GOLD, IRON, OUTLINE } from '../../art/kit/palette';
+import { BONE, CLOTH, GOLD, HOLY, IRON, OUTLINE } from '../../art/kit/palette';
+import { PLAYER_MAX_LEVEL, playerXpToNext } from '../../data/player';
+import { playerHasNews } from '../../game/player';
 import type { SaveData } from '../../game/state';
 import { H, W, hex } from '../config';
 import { SHEET } from '../Sheet';
@@ -22,6 +24,46 @@ export class CoinPill {
 
   refresh(): void {
     this.text.setText(String(this.save.coins));
+  }
+}
+
+/**
+ * The player's level, under the coins on the main screen: the level, a bar
+ * of the experience toward the next, and a mark when there is a skill point
+ * to spend or an upgrade the coins will pay for. Pressing it opens the
+ * player's screen.
+ */
+export class LevelPill {
+  private readonly things: Phaser.GameObjects.GameObject[] = [];
+  private readonly zone: Phaser.GameObjects.Zone;
+
+  constructor(private readonly scene: Phaser.Scene, private readonly save: SaveData, onPress: () => void, private readonly depth = 8000) {
+    this.zone = scene.add.zone(W - 102, 86, 168, 40).setInteractive({ useHandCursor: true }).setDepth(depth + 2);
+    this.zone.on('pointerup', onPress);
+    this.refresh();
+  }
+
+  /** Where it is on the screen, for the tutorial to point at. */
+  get rect(): { x: number; y: number; w: number; h: number } {
+    return { x: W - 186, y: 66, w: 168, h: 40 };
+  }
+
+  refresh(): void {
+    for (const o of this.things) o.destroy();
+    this.things.length = 0;
+    const s = this.save;
+    const g = this.scene.add.graphics().setDepth(this.depth);
+    slab(g, W - 186, 66, 168, 40, IRON, 12, 5);
+    const share = s.player.level >= PLAYER_MAX_LEVEL ? 1 : Math.min(1, s.player.xp / playerXpToNext(s.player.level));
+    g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(W - 110, 78, 84, 14, 6);
+    if (share > 0.04) g.fillStyle(hex(HOLY.fill), 1).fillRoundedRect(W - 108, 80, 80 * share, 10, 4);
+    this.things.push(g, label(this.scene, W - 176, 84, `LV ${s.player.level}`, { size: 18, align: 'left', strokeWidth: 4 }).setDepth(this.depth + 1));
+    if (playerHasNews(s)) {
+      const dot = this.scene.add.graphics().setDepth(this.depth + 1);
+      dot.fillStyle(hex(OUTLINE), 1).fillCircle(W - 22, 68, 11);
+      dot.fillStyle(hex(CLOTH.red.fill), 1).fillCircle(W - 22, 68, 8);
+      this.things.push(dot);
+    }
   }
 }
 

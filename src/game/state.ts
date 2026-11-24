@@ -3,6 +3,8 @@
 // thing that touches the browser.
 
 import { LANDS } from '../data/lands';
+import { PLAYER_MAX_LEVEL } from '../data/player';
+import { tidyTree } from './player';
 import { STAGES, WORLDS } from '../data/stages';
 import type { Placement } from '../sim/types';
 
@@ -71,6 +73,12 @@ export interface SaveData {
   auto: boolean;
   /** The order the screen of units lays the cards out in: one of SORTS (game/sorting.ts). */
   sort: string;
+  /** The player's own level and the experience toward the next (data/player.ts). */
+  player: { level: number; xp: number };
+  /** The ranks bought in the skill tree, by node. */
+  tree: Record<string, number>;
+  /** The levels bought of each upgrade, by its id. */
+  upgrades: Record<string, number>;
 }
 
 export function newSave(seed: number): SaveData {
@@ -95,6 +103,9 @@ export function newSave(seed: number): SaveData {
     lostAt: null,
     auto: true,
     sort: 'unit',
+    player: { level: 1, xp: 0 },
+    tree: {},
+    upgrades: {},
   };
 }
 
@@ -208,6 +219,24 @@ export function repair(raw: unknown, seed: number): SaveData {
   }
   out.auto = r.auto !== false;
   out.sort = typeof r.sort === 'string' ? r.sort : fresh.sort;
+  // The player's level, tree and upgrades. A save from before there were any starts at level 1 with none.
+  const p = (r as { player?: unknown }).player;
+  if (p && typeof p === 'object') {
+    const v = p as { level?: unknown; xp?: unknown };
+    out.player = {
+      level: Math.max(1, Math.min(PLAYER_MAX_LEVEL, Math.floor(num(v.level, 1)))),
+      xp: Math.max(0, Math.floor(num(v.xp, 0))),
+    };
+  }
+  for (const key of ['tree', 'upgrades'] as const) {
+    const book = (r as Record<string, unknown>)[key];
+    if (book && typeof book === 'object') {
+      for (const [id, n] of Object.entries(book)) {
+        const count = Math.floor(num(n, 0));
+        if (count > 0) out[key][id] = count;
+      }
+    }
+  }
   // A save from before the tutorial belongs to someone who has already played: they have no use for it.
   const t = r.tutorial;
   if (t && typeof t === 'object') {
@@ -225,5 +254,7 @@ export function repair(raw: unknown, seed: number): SaveData {
       opened: Math.max(0, Math.floor(num(r.stats.opened, 0))),
     };
   }
+  // A tree with ranks a node can't have, or more points spent than were earned, is put right.
+  tidyTree(out);
   return out;
 }

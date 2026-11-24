@@ -15,7 +15,9 @@ import { hash32 } from '../sim/rng';
 import type { BattleInput, Placement } from '../sim/types';
 import { addXp, cardOf } from './cards';
 import { cardMult } from './rarity';
-import { cardPower, cleared, fieldOf, roomFor, teamPlacements, type LevelUp } from './rules';
+import { bonus } from './bonuses';
+import { addPlayerXp } from './player';
+import { cardPower, cleared, fieldOf, fighting, roomFor, teamPlacements, type LevelUp } from './rules';
 import type { Card, SaveData } from './state';
 
 export const TIERS = TIER_MARKS.length;
@@ -159,8 +161,7 @@ export function floorInput(save: SaveData, run: Run, dungeon: DungeonDef): Battl
   const seats = seatTeam(on, field);
   const team: Placement[] = on.map((r, i) => {
     const card = cardOf(save, r.card) as Card;
-    const m = cardMult(card.grade, card.level);
-    return { unit: card.unit, col: seats[i][0], row: seats[i][1], hpMult: m, damageMult: m, hpShare: r.hp };
+    return { unit: card.unit, col: seats[i][0], row: seats[i][1], ...fighting(save, card), hpShare: r.hp };
   });
   return {
     seed: hash32(hash32(save.rng) ^ Math.imul(run.fought + 1, 0x9e3779b1) ^ Math.imul(run.floor + 7, 40503) ^ Math.imul(run.tier + 3, 7919)),
@@ -189,8 +190,14 @@ export interface FloorResult {
   prize: Prize | null;
 }
 
+/** What a dungeon or a raid teaches the cards that fought, and the player: with the player's bonus to it counted. */
+function learned(save: SaveData, xp: number): number {
+  return Math.round(xp * (1 + bonus(save, 'xp')));
+}
+
 function teach(save: SaveData, cards: readonly number[], xp: number): LevelUp[] {
   const ups: LevelUp[] = [];
+  addPlayerXp(save, xp);
   for (const id of cards) {
     const card: Card | undefined = cardOf(save, id);
     if (!card) continue;
@@ -204,6 +211,8 @@ function pay(save: SaveData, kind: 'dungeon' | 'raid', id: string, land: number,
   const book = kind === 'dungeon' ? save.dungeons : save.raids;
   const first = (book[id] ?? 0) <= tier;
   if (first) book[id] = tier + 1;
+  // What the player has that adds to a win's coins adds to these.
+  coins = Math.round(coins * (1 + bonus(save, 'coins')));
   save.coins += coins;
   const pack = tierPack(land, tier);
   save.packs[pack] = (save.packs[pack] ?? 0) + packs;
@@ -219,7 +228,7 @@ function pay(save: SaveData, kind: 'dungeon' | 'raid', id: string, land: number,
 export function afterFloor(save: SaveData, run: Run, dungeon: DungeonDef, won: boolean, left: readonly number[]): FloorResult {
   const fought = fielded(run);
   const at = tierStage(dungeon.land, run.tier);
-  const xp = Math.round(at.xp * (won ? 0.8 : 0.3));
+  const xp = learned(save, at.xp * (won ? 0.8 : 0.3));
   fought.forEach((r, i) => {
     r.hp = Math.max(0, Math.min(1, left[i] ?? 0));
     if (r.hp <= 0) r.fielded = false;
@@ -294,7 +303,7 @@ export interface RaidResult {
 /** Books a raid: only a win pays, and every win pays. The team learns either way. Changes the save. */
 export function finishRaid(save: SaveData, raid: RaidDef, tier: number, won: boolean): RaidResult {
   const at = tierStage(raid.land, tier);
-  const xp = Math.round(at.xp * (won ? 1.5 : 0.4));
+  const xp = learned(save, at.xp * (won ? 1.5 : 0.4));
   save.stats.battles++;
   // The battle's random numbers move on, so that the next try is another fight.
   save.rng = hash32(save.rng + 0x9e3779b9);

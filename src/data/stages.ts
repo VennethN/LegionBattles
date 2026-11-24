@@ -76,8 +76,13 @@ export interface World {
   title: string;
 }
 
-/** How strong a troop of the last stage of all is, against a Crownlands unit at the worst grade and level 1. */
-export const TOP = 7;
+/**
+ * How strong a troop of the last stage of all is, against a Crownlands unit
+ * at the worst grade and level 1. Set by measuring (npm run journey). It
+ * was 7 until the player had levels, a skill tree and upgrades, which make
+ * everything they field about a third stronger by the end.
+ */
+export const TOP = 9;
 /** A grade is taken for each time this fits into what a troop is multiplied by; its level makes up the rest. */
 const GRADE_EVERY = 1.28;
 /** What a plain stage pays at the last stage of all, before a boss's or a miniboss's share. */

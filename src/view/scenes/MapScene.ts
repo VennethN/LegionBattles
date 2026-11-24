@@ -17,7 +17,7 @@ import { LANDS } from '../../data/lands';
 import { DIFFICULTIES } from '../../data/laps';
 import { STAGES, WORLDS, stageAt, worldOf, type World } from '../../data/stages';
 import { goTo } from '../../game/campaign';
-import { stageCleared, stageOpen, stagePay, worldNeeds, worldReached } from '../../game/rules';
+import { payOf, stageCleared, stageOpen, worldNeeds, worldReached } from '../../game/rules';
 import { setupCamera } from '../app';
 import { H, W, hex } from '../config';
 import { scenePicture } from '../Scenes';
@@ -169,7 +169,7 @@ export class MapScene extends Phaser.Scene {
     const y = H - 30;
     const small = { size: 18, weight: 600 as const, align: 'left' as const, strokeWidth: 4 };
     const name = label(this, 0, y, `Stage ${index + 1}  ·  ${stage.def.name}`, { ...small, weight: 700 }).setDepth(61);
-    const pay = label(this, 0, y, String(stagePay(index, first)), small).setDepth(61);
+    const pay = label(this, 0, y, String(payOf(s, index, first)), small).setDepth(61);
     const level = label(this, 0, y, `level ${stage.level}`, small).setDepth(61);
     const total = name.width + 26 + 26 + pay.width + 34 + 46 + level.width;
     const g = this.add.graphics().setDepth(60);

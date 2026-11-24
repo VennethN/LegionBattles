@@ -11,7 +11,9 @@ import { FIRST_FIELD, halfOf, isEnemyTile as enemyTile, rowsFromMiddle, seatTeam
 import { Rng, hash32 } from '../sim/rng';
 import { defaultFormation } from '../sim/setup';
 import type { BattleInput, Placement } from '../sim/types';
+import { bonus, fieldBonus } from './bonuses';
 import { addCard, addXp, cardOf, cardsOf, met } from './cards';
+import { addPlayerXp } from './player';
 import { GRADE_FALLOFF, RARITIES, RARITY, cardMult, type Rarity } from './rarity';
 import { newSave, type Card, type Fielded, type SaveData } from './state';
 
@@ -354,9 +356,15 @@ export function cardPower(card: Card | undefined): number {
 
 // ------------------------------------------------------------ battles
 
-function mults(card: Card): { hpMult: number; damageMult: number } {
+/**
+ * What a card's health and damage are multiplied by when it fights: its own
+ * grade and level, and whatever the player has that boosts everything they
+ * field (game/bonuses.ts).
+ */
+export function fighting(save: SaveData, card: Card): { hpMult: number; damageMult: number } {
   const m = cardMult(card.grade, card.level);
-  return { hpMult: m, damageMult: m };
+  const boost = fieldBonus(save, isStructure(card.unit));
+  return { hpMult: m * boost.hp, damageMult: m * boost.damage };
 }
 
 /**
@@ -370,7 +378,7 @@ export function teamPlacements(save: SaveData, field: Field = FIRST_FIELD): Plac
   const seats = seatTeam(held, field);
   return held.map((p, i) => {
     const card = cardOf(save, p.card) as Card;
-    return { unit: card.unit, col: seats[i][0], row: seats[i][1], ...mults(card) };
+    return { unit: card.unit, col: seats[i][0], row: seats[i][1], ...fighting(save, card) };
   });
 }
 
@@ -464,10 +472,24 @@ export function stageXp(index: number, won: boolean): number {
   return Math.round(won ? xp : xp * 0.4);
 }
 
-/** Coins for a win at a stage: in full the first time, half after. */
+/** Coins for a win at a stage: in full the first time, half after. Before what the player has that adds to it. */
 export function stagePay(index: number, first: boolean): number {
   const full = stageAt(index).coins;
   return first ? full : Math.round(full / 2);
+}
+
+/** What a win at a stage pays this player, and what a battle there teaches: with their bonuses counted. */
+export function payOf(save: SaveData, index: number, first: boolean): number {
+  return Math.round(stagePay(index, first) * (1 + bonus(save, 'coins')));
+}
+export function xpOf(save: SaveData, index: number, won: boolean): number {
+  return Math.round(stageXp(index, won) * (1 + bonus(save, 'xp')));
+}
+
+/** What a pack costs this player: its price, less what they have that takes off it. To the nearest five, and never under five. */
+export function priceOf(save: SaveData, pack: PackDef): number {
+  const off = bonus(save, 'packCost');
+  return off <= 0 ? pack.cost : Math.max(5, Math.round((pack.cost * (1 - off)) / 5) * 5);
 }
 
 export interface StageResult {
@@ -492,6 +514,10 @@ export interface StageResult {
   field: Field | null;
   /** True if this was the last stage of all, cleared for the first time. */
   finished: boolean;
+  /** What the battle taught the player, how many levels of their own that made, and the level they stand at now. */
+  playerXp: number;
+  playerLevels: number;
+  playerLevel: number;
 }
 
 /**
@@ -534,8 +560,13 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
 
   save.stats.battles++;
   const result: StageResult = {
-    won, first, coins: 0, xp: stageXp(stage.index, won), levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, opened: [], field: null, finished: false,
+    won, first, coins: 0, xp: xpOf(save, stage.index, won), levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, opened: [], field: null, finished: false,
+    playerXp: 0, playerLevels: 0, playerLevel: save.player.level,
   };
+  // The player learns what each of their cards does.
+  result.playerXp = result.xp;
+  result.playerLevels = addPlayerXp(save, result.playerXp);
+  result.playerLevel = save.player.level;
 
   for (const p of save.team) {
     const card = cardOf(save, p.card);
@@ -546,7 +577,7 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
   if (!won) return result;
 
   save.stats.wins++;
-  result.coins = stagePay(stage.index, first);
+  result.coins = payOf(save, stage.index, first);
   save.coins += result.coins;
 
   if (first) {
@@ -557,7 +588,7 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
     // The first place for a structure comes with something to stand in it.
     if (structuresBefore === 0 && structuresSize(save) > 0) result.packs.push(STRUCTURE_PACK);
   }
-  if (rng.chance(DROP_CHANCE)) result.packs.push(stage.pack);
+  if (rng.chance(DROP_CHANCE + bonus(save, 'drops'))) result.packs.push(stage.pack);
   for (const id of result.packs) save.packs[id] = (save.packs[id] ?? 0) + 1;
 
   for (const u of Object.values(UNITS)) if (beaten(save, u) && !beatenBefore.has(u.id)) result.unlocked.push(u.id);
@@ -739,8 +770,9 @@ export function packOdds(save: SaveData, pack: PackDef): Array<{ unit: UnitInfo;
 /** Buys a pack with coins. Returns false if it is not sold yet or costs too much. */
 export function buyPack(save: SaveData, packId: string): boolean {
   const pack = packById(packId);
-  if (!packOpen(save, pack) || save.coins < pack.cost) return false;
-  save.coins -= pack.cost;
+  const price = priceOf(save, pack);
+  if (!packOpen(save, pack) || save.coins < price) return false;
+  save.coins -= price;
   save.packs[packId] = (save.packs[packId] ?? 0) + 1;
   return true;
 }

@@ -19,11 +19,15 @@
 // card is better used for.
 
 import { allPacks } from '../src/data/packs';
+import { UPGRADES } from '../src/data/player';
+import { isStructure } from '../src/data/units';
 import { STAGES, WORLDS, stageStrength } from '../src/data/stages';
 import { cardOf, cardsOf, combine } from '../src/game/cards';
 import { GRADES, MAX_LEVEL } from '../src/game/rarity';
+import { buyUpgrade, rankUp, upgradeCost } from '../src/game/player';
 import {
-  MAX_TEAM, bestTeam, buyPack, cardPower, cleared, finishStage, openPack, packOpen, packPool, stageInput, startingSave, teamSize,
+  MAX_TEAM, bestTeam, buyPack, cardPower, cleared, finishStage, openPack, packOpen, packPool, priceOf, stageInput, startingSave, structuresSize,
+  teamSize,
 } from '../src/game/rules';
 import type { SaveData } from '../src/game/state';
 import { runBattle } from '../src/sim/battle';
@@ -33,6 +37,8 @@ const players = Number(args.find((a) => /^\d+$/.test(a)) ?? 12);
 const depth = Math.max(1, Math.min(WORLDS.length, Number(args.find((a) => a.startsWith('--worlds='))?.split('=')[1] ?? 3)));
 const showLosses = args.includes('--losses');
 const KEEP_COPIES = args.includes('--copies');
+/** --bare: players who spend no skill points and buy no upgrades, to see what those are worth. */
+const BARE = args.includes('--bare');
 /** A world that takes more battles than this is a wall: the player gives up there. */
 const WALL = 500;
 
@@ -50,7 +56,14 @@ interface Leg {
 
 const PACK_LIST = allPacks();
 
+/** The order a plain player fills the skill tree in: what makes the team fight better first, what a win brings last. */
+const TREE_ORDER = ['command', 'edge', 'drill', 'fury', 'bulwark', 'masonry', 'engineers', 'tithe', 'study', 'scouts', 'haggle'];
+
 function prepare(save: SaveData): void {
+  if (!BARE) {
+    // Every skill point is spent as it comes, down the list.
+    for (const id of TREE_ORDER) while (rankUp(save, id));
+  }
   // Open what is held, then spend: the dearest pack on sale that can be afforded, until nothing can.
   for (;;) {
     let opened = false;
@@ -61,9 +74,19 @@ function prepare(save: SaveData): void {
       }
     }
     // Only the dearer packs on sale: what is left over is kept for the next of those.
-    const onSale = PACK_LIST.filter((p) => packOpen(save, p));
-    const dearest = Math.max(...onSale.map((p) => p.cost));
-    const buyable = onSale.filter((p) => save.coins >= p.cost && p.cost >= dearest * 0.5).sort((a, b) => b.cost - a.cost);
+    // A pack of structures only is bought while there are places for structures with nothing to stand in them.
+    const onSale = PACK_LIST.filter((p) => packOpen(save, p) && (p.structures !== 'only' || save.cards.filter((c) => isStructure(c.unit)).length < structuresSize(save)));
+    const dearest = Math.max(...onSale.map((p) => priceOf(save, p)));
+    if (!BARE) {
+      // An upgrade that costs no more than the dearest pack on sale is bought before it, the cheapest first.
+      for (;;) {
+        const next = UPGRADES.map((u) => ({ u, cost: upgradeCost(save, u) }))
+          .filter((x): x is { u: (typeof UPGRADES)[number]; cost: number } => x.cost !== null && x.cost <= dearest && x.cost <= save.coins)
+          .sort((a, b) => a.cost - b.cost)[0];
+        if (!next || !buyUpgrade(save, next.u.id)) break;
+      }
+    }
+    const buyable = onSale.filter((p) => save.coins >= priceOf(save, p) && priceOf(save, p) >= dearest * 0.5).sort((a, b) => priceOf(save, b) - priceOf(save, a));
     if (buyable.length === 0) {
       if (!opened) break;
       continue;
@@ -136,10 +159,10 @@ const mid = (xs: number[]): number => [...xs].sort((a, b) => a - b)[Math.floor(x
 const avg = (xs: number[]): number => xs.reduce((a, b) => a + b, 0) / Math.max(1, xs.length);
 
 console.log(`${players} new players, ${depth} ${depth === 1 ? 'world' : 'worlds'} of ${WORLDS.length}, ${WORLDS[depth - 1].last + 1} stages of ${STAGES.length}`);
-console.log('world                     stages   strength  battles: half took under / average / slowest   lost   a battle   boss fell with');
+console.log('world                           stages   strength  battles: half took under / average / slowest   lost   a battle   boss fell with');
 for (let w = 0; w < depth; w++) {
   const world = WORLDS[w];
-  const name = `${String(w + 1).padStart(2)} ${world.name}`.padEnd(24) + `${world.first + 1}-${world.last + 1}`.padStart(8) + stageStrength(world.last).toFixed(1).padStart(10);
+  const name = `${String(w + 1).padStart(2)} ${world.title}`.padEnd(30) + `${world.first + 1}-${world.last + 1}`.padStart(8) + stageStrength(world.last).toFixed(1).padStart(10);
   const logs = runs.map((r) => r.legs[w]).filter((l): l is Leg => !!l && l.done);
   if (logs.length === 0) {
     console.log(`${name}   no one finished it`);
@@ -163,5 +186,5 @@ if (showLosses) {
   for (const r of runs) for (const [k, v] of r.lost) total.set(k, (total.get(k) ?? 0) + v);
   const worst = [...total.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
   console.log('\nlost most often, per player:');
-  for (const [k, v] of worst) console.log(`  stage ${String(k + 1).padStart(3)} ${STAGES[k].def.name.padEnd(22)} ${WORLDS.find((w) => k >= w.first && k <= w.last)?.name.padEnd(18)} ${(v / players).toFixed(1)}`);
+  for (const [k, v] of worst) console.log(`  stage ${String(k + 1).padStart(3)} ${STAGES[k].def.name.padEnd(22)} ${WORLDS.find((w) => k >= w.first && k <= w.last)?.title.padEnd(26)} ${(v / players).toFixed(1)}`);
 }

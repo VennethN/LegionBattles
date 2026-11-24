@@ -11,16 +11,17 @@
 // the map, where another can be picked.
 
 import Phaser from 'phaser';
-import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
+import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { packById } from '../../data/packs';
+import { PLAYER_MAX_LEVEL, playerXpToNext } from '../../data/player';
 import { fieldName } from '../../data/fields';
 import { DIFFICULTIES } from '../../data/laps';
 import { WORLDS, landOf, stageAt, worldOf } from '../../data/stages';
 import { UNITS } from '../../data/units';
 import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
 import { cardOf } from '../../game/cards';
-import { finishStage, packsHeld, stageCleared, stageEnemies, stageInput, stagePay, stageSeed, teamSize, tidyTeam, structuresSize, type StageResult } from '../../game/rules';
+import { finishStage, packsHeld, payOf, stageCleared, stageEnemies, stageInput, stageSeed, teamSize, tidyTeam, structuresSize, type StageResult } from '../../game/rules';
 import type { Fielded } from '../../game/state';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
@@ -28,9 +29,11 @@ import { BoardView } from '../BoardView';
 import { W, hex } from '../config';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { CoinPill, OVERLAY_CLOSED, OVERLAY_SWAP, soundButton } from '../ui/chrome';
+import { CoinPill, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, soundButton } from '../ui/chrome';
+import { RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
+import { portrait } from '../ui/UnitCard';
 import { worldBanner } from '../ui/WorldBanner';
 import { Button, label, plain, slab } from '../ui/widgets';
 
@@ -54,6 +57,7 @@ export class MainScene extends Phaser.Scene {
   private teamKey = '';
   private speed = 1;
   private coins!: CoinPill;
+  private level!: LevelPill;
   private battleButton!: Button;
   private autoButton!: Button;
   private speedButton!: Button;
@@ -101,6 +105,8 @@ export class MainScene extends Phaser.Scene {
         team === 'blue' ? cardOf(save(), (p as Fielded).card) : stageAt(this.at),
     });
     this.coins = new CoinPill(this, s);
+    // The player's own level, under the coins: it opens the skill tree and the upgrades.
+    this.level = new LevelPill(this, s, () => this.open('Player'));
     // The way to the dungeons and the raids, which are off the line of stages.
     const hall = plain(new Button(this, 128, 36, '   DUNGEONS', () => this.open('Hall'), { width: 216, height: 50, size: 19, mat: BONE, color: OUTLINE })).setDepth(8000);
     hall.root.add(this.add.image(-78, -3, SHEET, 'icon/crown').setScale(0.3));
@@ -170,7 +176,7 @@ export class MainScene extends Phaser.Scene {
     const y = 104;
     const name = add(label(this, 0, y, stage.def.name, { ...small, weight: 700 }).setDepth(8000));
     const coin = add(this.add.image(0, y, SHEET, 'icon/coin').setScale(0.28).setDepth(8000));
-    const pay = add(label(this, 0, y, String(stagePay(this.at, first)), small).setDepth(8000));
+    const pay = add(label(this, 0, y, String(payOf(s, this.at, first)), small).setDepth(8000));
     const badge = add(gradeBadge(this, 0, y, stage.grade, 18).setDepth(8000));
     const level = add(label(this, 0, y, `level ${stage.level}  ·  field ${fieldName(stage.field)}`, small).setDepth(8000));
     const total = name.width + 20 + 24 + pay.width + 24 + 28 + 6 + level.width;
@@ -188,6 +194,7 @@ export class MainScene extends Phaser.Scene {
     for (const o of this.info) o.setVisible(this.state !== 'fighting' && this.state !== 'after');
 
     this.coins.refresh();
+    this.level.refresh();
   }
 
   // ------------------------------------------------------------ the bottom
@@ -287,8 +294,9 @@ export class MainScene extends Phaser.Scene {
     this.next = afterBattle(s, this.at, result);
     commit();
     this.state = 'after';
-    const news = result.moreTeam > 0 || result.moreStructures > 0 || result.opened.length > 0 || result.finished;
-    this.afterUntil = this.time.now + (news ? 3600 : 2300);
+    // Long enough to be read: longer when a card made a level, and longer again when the win opened something.
+    const news = result.moreTeam > 0 || result.moreStructures > 0 || result.opened.length > 0 || result.finished || result.playerLevels > 0;
+    this.afterUntil = this.time.now + 2500 + (result.levelUps.length > 0 ? 500 : 0) + (news ? 1300 : 0);
     this.showResult(winner, result);
     this.refreshTop();
     this.refreshBottom();
@@ -375,6 +383,7 @@ export class MainScene extends Phaser.Scene {
     const s = save();
     tidyTeam(s);
     this.coins.refresh();
+    this.level.refresh();
     const changed = this.keyOf() !== this.teamKey;
     // A changed team goes back to the stage it lost at.
     if (changed && teamChanged(s)) commit();
@@ -407,7 +416,13 @@ export class MainScene extends Phaser.Scene {
     this.toast = [];
   }
 
-  /** Who won, and what it paid, over the board for a moment. The next battle does not wait for a press. */
+  /**
+   * Who won, over the board for a moment, and then, in the order the owner
+   * asked for them ("more clear what items did you get / then which unit
+   * leveled up"): what was won, as pictures of the things; the cards that
+   * made a level, as the units they are; the player's own level; and
+   * whatever the win opened. The next battle does not wait for a press.
+   */
   private showResult(winner: number, r: StageResult): void {
     this.clearToast();
     const add = <T extends Phaser.GameObjects.GameObject>(o: T): T => {
@@ -416,10 +431,65 @@ export class MainScene extends Phaser.Scene {
     };
     const won = winner === 0;
     sfx.play(won ? 'victory' : 'defeat');
-    if (r.coins > 0) this.time.delayedCall(300, () => sfx.play('coin'));
-    if (r.levelUps.length > 0) this.time.delayedCall(560, () => sfx.play('levelUp'));
+    const cx = W / 2;
 
-    const banner = add(this.add.container(W / 2, 250).setDepth(9000));
+    // What was won: coins, each kind of pack that dropped, and what the battle taught.
+    interface Loot {
+      draw: (x: number, y: number) => Phaser.GameObjects.GameObject[];
+      big: string;
+      small: string;
+      color?: string;
+      sound?: 'coin' | 'lift';
+      w: number;
+    }
+    const loot: Loot[] = [];
+    if (r.coins > 0) {
+      loot.push({ draw: (x, y) => [this.add.image(x, y, SHEET, 'icon/coin').setScale(0.62)], big: `+${r.coins}`, small: 'coins', color: GOLD.fill, sound: 'coin', w: 112 });
+    }
+    const drops = new Map<string, number>();
+    for (const id of r.packs) drops.set(id, (drops.get(id) ?? 0) + 1);
+    for (const [id, n] of drops) {
+      loot.push({
+        draw: (x, y) => [this.add.image(x, y, CARDS, `pack/${id.split('@')[0]}`).setScale(0.19)],
+        big: n > 1 ? `x${n}` : 'PACK', small: packById(id).name.replace(' Pack', ''), color: HOLY.fill, sound: 'lift', w: 136,
+      });
+    }
+    loot.push({ draw: (x, y) => [this.add.image(x, y, SHEET, 'icon/star').setScale(0.58)], big: `+${r.xp}`, small: 'experience each', w: 136 });
+
+    // How tall it will be, so that it can be stood in the middle of the board.
+    const ups = r.levelUps.slice(0, 6);
+    const news: Array<{ text: string; color: string }> = [];
+    if (r.playerLevels > 0) news.push({ text: r.playerLevels > 1 ? `You are level ${r.playerLevel}: ${r.playerLevels} skill points to spend` : `You are level ${r.playerLevel}: a skill point to spend`, color: HOLY.fill });
+    if (r.moreTeam > 0) news.push({ text: `Your team has room for ${teamSize(save())} now`, color: ARCANE.light });
+    if (r.moreStructures > 0) {
+      const n = structuresSize(save());
+      news.push({ text: n === 1 ? 'You have a place for a structure now' : `You have ${n} places for structures now`, color: ARCANE.light });
+    }
+    // What the win opened: the next land, this land on the next difficulty, or both.
+    for (const w of r.opened) {
+      const world = WORLDS[w];
+      news.push({ text: world.lap === worldOf(this.at).lap ? `${world.name} is open` : `${world.name} is open on ${DIFFICULTIES[world.lap]}`, color: ARCANE.light });
+    }
+    if (r.field) news.push({ text: `The field is bigger from here: ${fieldName(r.field)}`, color: ARCANE.light });
+    if (r.finished) news.push({ text: 'That was the last stage of all. Well fought.', color: ARCANE.light });
+    if (!won && this.next < this.at) news.push({ text: 'Back one stage, to grow stronger', color: HIGHLIGHT });
+    const lootH = 138;
+    const upsH = ups.length > 0 ? 130 : 0;
+    const barH = 42;
+    // A boss's first fall can say five things at once, with levels made besides: then the lines stand closer, to stay clear of the buttons.
+    const crowded = ups.length > 0 && news.length > 3;
+    const lineH = crowded ? 23 : 30;
+    const tall = 70 + lootH + upsH + barH + news.length * lineH + 12;
+    const top = Math.max(108, Math.min(196, 364 - tall / 2));
+
+    // A dark sheet behind it all, so that it reads over any land and any fight.
+    const lootW = loot.reduce((n, l) => n + l.w + 10, -10);
+    const wide = Math.max(560, lootW + 60, ups.length * 104 + 60);
+    const back = add(this.add.graphics().setDepth(8990).setAlpha(0));
+    back.fillStyle(hex(OUTLINE), 0.8).fillRoundedRect(cx - wide / 2, top + 30, wide, tall - 26, 22);
+    this.tweens.add({ targets: back, alpha: 1, duration: 200 });
+
+    const banner = add(this.add.container(cx, top + 30).setDepth(9000));
     const g = this.add.graphics();
     const mat = won ? GOLD : winner === 1 ? CLOTH.red : IRON;
     slab(g, -250, -18, 100, 52, { fill: mat.shade, shade: mat.shade }, 10, 0);
@@ -430,48 +500,75 @@ export class MainScene extends Phaser.Scene {
     banner.setScale(0.2).setAlpha(0);
     this.tweens.add({ targets: banner, scale: 1, alpha: 1, duration: 320, ease: 'Back.easeOut' });
 
-    interface Row {
-      icon?: [string, string, number];
-      text: string;
-      color?: string;
-    }
-    const rows: Row[] = [];
-    if (r.coins > 0) rows.push({ icon: [SHEET, 'icon/coin', 0.4], text: `+${r.coins}`, color: GOLD.fill });
-    rows.push({ icon: [SHEET, 'icon/star', 0.36], text: `+${r.xp} experience each` });
-    const drops = new Map<string, number>();
-    for (const id of r.packs) drops.set(id, (drops.get(id) ?? 0) + 1);
-    for (const [id, n] of drops) rows.push({ icon: [CARDS, `pack/${id.split('@')[0]}`, 0.15], text: `${packById(id).name}${n > 1 ? ` x${n}` : ''}` });
-    if (r.levelUps.length > 0) {
-      const names = r.levelUps.slice(0, 2).map((l) => `${UNITS[l.unit].name} level ${l.to}`);
-      if (r.levelUps.length > 2) names.push(`and ${r.levelUps.length - 2} more`);
-      rows.push({ text: names.join(', '), color: VENOM.light });
-    }
-    if (r.moreTeam > 0) rows.push({ text: `Your team has room for ${teamSize(save())} now`, color: ARCANE.light });
-    if (r.moreStructures > 0) {
-      const n = structuresSize(save());
-      rows.push({ text: n === 1 ? 'You have a place for a structure now' : `You have ${n} places for structures now`, color: ARCANE.light });
-    }
-    // What the win opened: the next land, this land on the next difficulty, or both.
-    for (const w of r.opened) {
-      const world = WORLDS[w];
-      rows.push({ text: world.lap === worldOf(this.at).lap ? `${world.name} is open` : `${world.name} is open on ${DIFFICULTIES[world.lap]}`, color: ARCANE.light });
-    }
-    if (r.field) rows.push({ text: `The field is bigger from here: ${fieldName(r.field)}`, color: ARCANE.light });
-    if (r.finished) rows.push({ text: 'That was the last stage of all. Well fought.', color: ARCANE.light });
-    if (!won && this.next < this.at) rows.push({ text: 'Back one stage, to grow stronger' });
+    /** Brings a group of things in with a small jump, after a wait. */
+    const pop = (things: Phaser.GameObjects.GameObject[], delay: number, sound?: () => void): void => {
+      const root = add(this.add.container(0, 0, things).setDepth(9001).setAlpha(0));
+      root.y = 12;
+      this.tweens.add({ targets: root, alpha: 1, y: 0, duration: 220, delay, ease: 'Back.easeOut', onStart: sound });
+    };
 
-    rows.forEach((row, i) => {
-      const y = 322 + i * 34;
-      const t = add(label(this, W / 2, y, row.text, { size: 22, color: row.color ?? HIGHLIGHT, strokeWidth: 6 }).setDepth(9001).setAlpha(0));
-      const things: Phaser.GameObjects.GameObject[] = [t];
-      if (row.icon) {
-        const icon = add(this.add.image(0, y, row.icon[0], row.icon[1]).setScale(row.icon[2]).setDepth(9001).setAlpha(0));
-        const total = icon.displayWidth + 10 + t.width;
-        icon.x = W / 2 - total / 2 + icon.displayWidth / 2;
-        t.setOrigin(0, 0.5).setX(W / 2 - total / 2 + icon.displayWidth + 10);
-        things.push(icon);
+    // 1. What was won, a tile to each thing.
+    let y = top + 84;
+    let x = cx - lootW / 2;
+    let wait = 260;
+    for (const l of loot) {
+      const mid = x + l.w / 2;
+      const tile = this.add.graphics();
+      slab(tile, x, y, l.w, lootH - 14, BONE, 14, 6);
+      const big = label(this, mid, y + 82, l.big, { size: 22, color: l.color ?? HIGHLIGHT, strokeWidth: 6 });
+      const small = label(this, mid, y + 106, l.small, { size: l.small.length > 14 ? 11 : 13, weight: 600, color: OUTLINE, stroke: null });
+      const sound = l.sound;
+      pop([tile, ...l.draw(mid, y + 36), big, small], wait, sound ? () => sfx.play(sound, 0.8) : undefined);
+      x += l.w + 10;
+      wait += 130;
+    }
+    y += lootH;
+
+    // 2. Who made a level: the unit itself, on its tier's color, and the level it is at now.
+    if (ups.length > 0) {
+      wait += 120;
+      const title = label(this, cx, y + 8, r.levelUps.length > ups.length ? `LEVEL UP, AND ${r.levelUps.length - ups.length} MORE` : 'LEVEL UP', { size: 17, color: VENOM.light, strokeWidth: 5 });
+      pop([title], wait, () => sfx.play('levelUp'));
+      let ux = cx - (ups.length * 104 - 10) / 2;
+      for (const up of ups) {
+        const def = UNITS[up.unit];
+        const tile = this.add.graphics();
+        slab(tile, ux, y + 24, 94, 92, RARITY_MAT[def.rarity], 12, 5);
+        tile.fillStyle(hex(HIGHLIGHT), 0.35).fillRoundedRect(ux + 6, y + 30, 82, 56, 8);
+        const pic = portrait(this, ux + 47, y + 86, def.id, 'blue', 54);
+        if (pic.displayWidth > 78) pic.setScale((pic.scaleX * 78) / pic.displayWidth);
+        const to = label(this, ux + 47, y + 100, `Lv ${up.to}`, { size: 17, strokeWidth: 5 });
+        // An arrow that points up, beside the level: it rose.
+        const arrow = this.add.image(ux + 80, y + 40, SHEET, 'icon/arrow').setScale(0.22).setAngle(-90).setTint(hex(VENOM.light));
+        wait += 90;
+        pop([tile, pic, to, arrow], wait);
+        ux += 104;
       }
-      this.tweens.add({ targets: things, alpha: 1, duration: 200, delay: 220 + i * 90 });
+      y += upsH;
+    }
+
+    // 3. The player's own level: a bar that fills by what the battle taught.
+    {
+      wait += 140;
+      const p = save().player;
+      const need = playerXpToNext(p.level);
+      const bw = 300;
+      const bx = cx - bw / 2 + 40;
+      const bar = this.add.graphics();
+      bar.fillStyle(hex(OUTLINE), 1).fillRoundedRect(bx - 4, y + 8, bw + 8, 22, 10);
+      bar.fillStyle(hex(IRON.fill), 1).fillRoundedRect(bx, y + 12, bw, 14, 6);
+      const share = p.level >= PLAYER_MAX_LEVEL ? 1 : Math.min(1, p.xp / need);
+      if (share > 0.02) bar.fillStyle(hex(HOLY.fill), 1).fillRoundedRect(bx, y + 12, bw * share, 14, 6);
+      const name = label(this, bx - 14, y + 18, `YOUR LEVEL ${p.level}`, { size: 16, align: 'right', strokeWidth: 5 });
+      const got = label(this, bx + bw + 12, y + 18, `+${r.playerXp}`, { size: 16, align: 'left', color: HOLY.fill, strokeWidth: 5 });
+      pop([bar, name, got], wait, r.playerLevels > 0 ? () => sfx.play('levelUp', 1, 1.25) : undefined);
+      y += barH;
+    }
+
+    // 4. And whatever else it changed, a line each.
+    news.forEach((n, i) => {
+      const t = label(this, cx, y + 8 + i * lineH, n.text, { size: crowded ? 17 : 20, color: n.color, strokeWidth: crowded ? 5 : 6 });
+      pop([t], wait + 160 + i * 110);
     });
   }
 }

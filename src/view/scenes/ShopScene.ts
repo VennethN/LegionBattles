@@ -28,7 +28,7 @@ import { PACKS, packAt, type PackDef } from '../../data/packs';
 import { WORLDS } from '../../data/stages';
 import { UNITS } from '../../data/units';
 import { RARITIES, RARITY } from '../../game/rarity';
-import { buyPacks, known, openPacks, packOdds, packOpen, worldNeeds, type Pull } from '../../game/rules';
+import { buyPacks, known, openPacks, packOdds, packOpen, priceOf, worldNeeds, type Pull } from '../../game/rules';
 import { markSeen } from '../../game/tutorial';
 import { setupCamera } from '../app';
 import { H, W, hex } from '../config';
@@ -325,12 +325,14 @@ export class ShopScene extends Phaser.Scene {
         this.guide.refresh({ show: 'none' });
       }
     };
-    const b1 = new Button(this, cx - 88, by + 66, `     ${pack.cost}`, () => buy(1), { width: 164, height: 58, size: 22, mat: VENOM });
+    // What it costs this player: its price, less whatever they have that takes off it.
+    const price = priceOf(s, pack);
+    const b1 = new Button(this, cx - 88, by + 66, `     ${price}`, () => buy(1), { width: 164, height: 58, size: 22, mat: VENOM });
     b1.root.add(this.add.image(-58, -3, SHEET, 'icon/coin').setScale(0.34));
-    b1.setEnabled(s.coins >= pack.cost);
+    b1.setEnabled(s.coins >= price);
     add(b1.root);
-    const b10 = new Button(this, cx + 88, by + 66, `x10   ${pack.cost * 10}`, () => buy(10), { width: 164, height: 58, size: pack.cost * 10 >= 10000 ? 17 : 20, mat: VENOM });
-    b10.setEnabled(s.coins >= pack.cost * 10);
+    const b10 = new Button(this, cx + 88, by + 66, `x10   ${price * 10}`, () => buy(10), { width: 164, height: 58, size: price * 10 >= 10000 ? 17 : 20, mat: VENOM });
+    b10.setEnabled(s.coins >= price * 10);
     add(b10.root);
   }
 

@@ -1315,6 +1315,7 @@ describe('the save', () => {
 describe('the run of battles', () => {
   const result = (won: boolean, first: boolean): StageResult => ({
     won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, opened: [], field: null, finished: false,
+    playerXp: 0, playerLevels: 0, playerLevel: 1,
   });
 
   it('a first win goes on to the next stage, across a world\'s end too', () => {
