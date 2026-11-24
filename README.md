@@ -20,6 +20,7 @@ Other things to run:
 | --- | --- |
 | `npm test` | The tests of the rules, the fight, the save, the sound and the art. A second or two. |
 | `npm run art` | Writes every picture the game uses to `public/assets`, and the manifest that says how figures are put together. Run it after changing anything under `src/art`. |
+| `npm run art:sheet` | Draws the contact sheets to `docs/art` (every unit, part, pose and silhouette, the grounds, the logo) and fails on a color off the palette or a line of the wrong width. Look at them after drawing anything: no program can see a face. |
 | `npm run art:preview [unit ...]` | Draws units side by side to `build/preview.png`, to look at while drawing one. |
 | `npm run pace -- --hours=3 [--taps=4] [--each]` | Plays the game by its own rules in seconds and says how long each stretch of the road takes. The numbers in `src/game/data.ts` are set by what it prints. |
 | `npm run walk [state ...]` | With `npm run dev` running: pictures of the game in every state a player meets, on a wide screen and a phone, to `build/walk`. |
@@ -64,7 +65,7 @@ Other things to run:
 | `src/view/config.ts`, `src/view/app.ts` | How the screen is fitted to a window, and how it is cut into the fight and the lists. |
 | `src/audio` | The sounds and the music, which is written as notes and played on recorded instruments. |
 | `src/platform` | The portal: CrazyGames' SDK for the save, the player's name and ads. |
-| `scripts` | `art`, `pace`, `walk`, `cover`, `preview`. |
+| `scripts` | `art` and `sheet` are the kit's and the same for every game; `art.game.ts` says what this game shows of the kit. `pace`, `walk` and `cover` are this game's. |
 | `tests` | Vitest. |
 | `.claude/skills/legion-art` | The art style as a skill: its rules, the kit, and how to draw with it. |
 
@@ -76,7 +77,7 @@ Other things to run:
 
 **Something for the camp, an honor, a feat.** A line in `CAMP`, `HONORS` or `FEATS`. A new kind of effect also needs its rule in `rules.ts` and its words in `src/view/ui/texts.ts`.
 
-**A picture.** Read `.claude/skills/legion-art/SKILL.md` first. The style has hard rules that a program can only partly check, the first being that nothing has a face.
+**A picture.** Read `.claude/skills/legion-art/SKILL.md` first. The style has hard rules that a program can only partly check, the first being that nothing has a face. A new icon has to be named in `scripts/art.game.ts` to be written. After changing anything under `src/art`, take it back into the skill, which a test holds to: `node .claude/skills/legion-art/scripts/sync.mjs .`
 
 ## The pace
 

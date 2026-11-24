@@ -69,8 +69,8 @@ export function fit(cssW: number, cssH: number, dpr = 1): View {
   return view;
 }
 
-/** The scale SVGs are rasterized at. */
-export const ART_SCALE = 2;
+// The scale SVGs are rasterized at is the art runtime's to say (art/scale.ts). It is passed on here for the screens.
+export { ART_SCALE } from './art/scale';
 
 export const FONT = 'Fredoka';
 

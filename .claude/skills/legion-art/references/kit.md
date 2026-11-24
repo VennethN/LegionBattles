@@ -3,6 +3,7 @@
 ## Contents
 
 - How the code is laid out
+- What a game shows: `scripts/art.game.ts`
 - Shapes
 - The drawing surface: `Doc`
 - Parts, roles and pivots
@@ -21,6 +22,7 @@ src/art/kit/palette.ts   every color
 src/art/kit/path.ts      shapes: circles, rounded rectangles, soft outlines through points
 src/art/kit/draw.ts      Doc: a picture in the making. piece, flat, line, glint, shadeOver, lightOver, at
 src/art/kit/parts.ts     the reusable parts: legs, torsos, helms, hoods, weapons, shields, capes
+src/art/kit/dice.ts      the same numbers every time, from a seed: what places scenery
 src/art/kit/unit.ts      what a unit's art is: parts in draw order, each with a role and a pivot
 src/art/units/*.ts       one file to a unit (a few files hold a family: structures, summoners, faithful, golems)
 src/art/units/index.ts   UNIT_ART: every unit there is
@@ -30,16 +32,33 @@ src/art/compose.ts       a whole unit as one SVG fragment, at a pose: for cards,
 src/art/manifest.ts      the shape of manifest.json, which tells the game how units are put together
 src/art/fx.ts            projectiles and effects
 src/art/scenery.ts       what stands in a land: trees, rocks, ruins, camps, towers, strongholds, standards
+src/art/ground.ts        the tones of each kind of land: meadow, desert, snow
+src/art/march.ts         a painted ground with a road through it, put together from the scenery: for a game seen from the side
 src/art/icons.ts         the interface's icons
+src/art/icons-idle.ts    more of them: a laurel, a trophy, a gauntlet, a helm, a tent, a horn, a sack, a cog
 src/art/packs.ts         the packs
 src/art/grades.ts        the grade badges, and the hand-drawn letters
 src/art/logo.ts          a logo made of the same pieces
 scripts/art.ts           npm run art: writes every SVG under public/assets, and manifest.json
+scripts/art.game.ts      what this game shows of all that, and its own scenes. The one script a game changes
 scripts/sheet.ts         npm run art:sheet: the contact sheets, and the checks
 scripts/preview.ts       a quick look at units while drawing them
 ```
 
 Nothing under `src/art` imports from the game. It can be lifted into another project whole.
+
+## What a game shows: `scripts/art.game.ts`
+
+`art.ts` and `sheet.ts` are the same for every game. They ask `art.game.ts` for one object, `GAME`:
+
+- `wants(team, unit)`: whether a unit's parts are written for a side. A hero the player hires is wanted in blue, an enemy in red, and most units in only one.
+- `whole(team, unit)`: whether it is also written standing still as one picture (`full.svg`), for a card or a row of a list.
+- `icons()`: the game's own icons, drawn as `icons.ts` draws its own, and `onlyIcons`: the names to write, or null for all.
+- `onlyPacks`, `grades`: which packs and grade badges, if any.
+- `logoWord`: the word on the ribbon under LEGION.
+- `scenes`: pictures of the game's own that are loaded one at a time and not packed: a board, a map, a ground. Each says where it goes under `public/assets`, its size, and how it is drawn.
+
+Whatever is not named is not written, and what was written before and is no longer named is removed. Take the names from the game's own data where there is any (`assets/examples/art.game.idle.ts`), and have a test read the screens' source for `'icon/name'` and hold the list to it: a missing icon is otherwise found by a player.
 
 ## Shapes
 

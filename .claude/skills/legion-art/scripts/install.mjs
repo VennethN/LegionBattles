@@ -53,8 +53,9 @@ if (flags.has('--list')) process.exit(0);
 console.log(`install: ${copied} files copied into ${target}${kept ? `, ${kept} already there and left alone (--force writes over them)` : ''}`);
 console.log(`
 Next:
-  npm install --save-dev @resvg/resvg-js tsx typescript
+  npm install --save-dev @resvg/resvg-js tsx typescript     (and phaser, for the runtime under src/view)
   add to package.json scripts:  "art": "tsx scripts/art.ts",  "art:sheet": "tsx scripts/sheet.ts"
+  say what the game shows in scripts/art.game.ts: as it comes, it shows everything
   npm run art          writes public/assets and its manifest.json
   npm run art:sheet    draws docs/art/*.png and checks colors and lines
 Read references/rules.md before drawing anything.`);

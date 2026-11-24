@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -74,5 +75,13 @@ describe('the pictures', () => {
   it('fit the build: the whole of the art is well under what a portal takes', () => {
     const bytes = files('public/assets').reduce((a, f) => a + fs.statSync(f).size, 0);
     expect(bytes).toBeLessThan(4_200_000);
+  });
+});
+
+describe('the art skill', () => {
+  it('carries the kit as it is here, so that the next game starts from what this one added', () => {
+    // If this fails, the kit was changed and the skill was not told: node .claude/skills/legion-art/scripts/sync.mjs .
+    const said = execFileSync('node', ['.claude/skills/legion-art/scripts/sync.mjs', '.', '--check'], { encoding: 'utf8' });
+    expect(said).toContain('the skill has');
   });
 });

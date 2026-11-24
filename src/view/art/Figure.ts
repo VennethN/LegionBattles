@@ -15,7 +15,7 @@ import Phaser from 'phaser';
 import type { ManifestUnit } from '../../art/manifest';
 import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE } from '../../art/poses';
 import { FEET_X, FEET_Y, addPose, clearPose, makeXforms, restPose, solve, type PartXform, type Pose } from '../../art/rig';
-import { ART_SCALE } from '../config';
+import { ART_SCALE } from './scale';
 import { SHEET, Sheet } from './Sheet';
 
 const RAD = Math.PI / 180;

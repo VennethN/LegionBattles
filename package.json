@@ -16,7 +16,8 @@
     "cover": "tsx scripts/cover.ts",
     "walk": "tsx scripts/walk.ts",
     "art:preview": "tsx scripts/preview.ts",
-    "check": "tsc --noEmit && vitest run && vite build"
+    "check": "tsc --noEmit && vitest run && vite build",
+    "art:sheet": "tsx scripts/sheet.ts"
   },
   "dependencies": {
     "@fontsource/fredoka": "^5.3.0",

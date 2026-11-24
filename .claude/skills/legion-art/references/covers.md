@@ -1,6 +1,6 @@
 # Covers, thumbnails and key art
 
-A portal shows a game by a picture before anyone has played it. These are put together from the game's own art, by code, as everything else is: a script composes one big SVG from the units' files, the scenery and the logo, and renders it with resvg. `assets/examples/cover.ts` is the script that drew Legion Battles' covers. Copy it into a project's `scripts`, and change two things: it reads that game's `UNITS` (to tell a building from a soldier and for a card's tier) and its `RARITY_MAT` (a card's color), and its layouts at the foot say who stands where.
+A portal shows a game by a picture before anyone has played it. These are put together from the game's own art, by code, as everything else is: a script composes one big SVG from the units' files, the scenery and the logo, and renders it with resvg. `assets/examples/cover.ts` is the script that drew Legion Battles' covers. Copy it into a project's `scripts`, and change two things: it reads that game's `UNITS` (to tell a building from a soldier and for a card's tier) and its `RARITY_MAT` (a card's color), and its layouts at the foot say who stands where. `assets/examples/cover-idle.ts` is the same script as Legion Idle changed it, which took an hour: its own cast in the ranks, and gold going up out of the supply packs where the cards were. A cover reads the units' files from `public/assets`, so only someone the game's `art.game.ts` names for a side can stand on it.
 
 ## What a portal asks
 

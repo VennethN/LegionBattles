@@ -16,7 +16,7 @@
 
 import Phaser from 'phaser';
 import type { Manifest, ManifestImage, ManifestPart } from '../../art/manifest';
-import { ART_SCALE } from '../config';
+import { ART_SCALE } from './scale';
 import { SkylinePacker, type Mark } from './packer';
 
 /** Everything a battle draws but the ground under it: effects, icons, digits, unit parts. */

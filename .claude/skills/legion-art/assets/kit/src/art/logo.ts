@@ -32,6 +32,13 @@ const LETTERS: Record<string, { w: number; draw: () => Path }> = {
         .C(15, 20.1, 14.1, 20.4, 12.8, 20.4).C(9.6, 20.4, 8.6, 17.4, 8.6, 14).C(8.6, 10.6, 9.6, 7.6, 12.6, 7.6).C(14.2, 7.6, 15.3, 8.6, 16.2, 11).Z(),
   },
   I: { w: 10.5, draw: () => poly([[1, 0], [9.5, 0], [9.5, 28], [1, 28]]) },
+  D: {
+    w: 24,
+    draw: () =>
+      path()
+        .M(0, 0).L(11, 0).C(19.5, 0, 24, 6, 24, 14).C(24, 22, 19.5, 28, 11, 28).L(0, 28).Z()
+        .M(8.5, 7.5).L(8.5, 20.5).L(10.8, 20.5).C(14, 20.5, 15.4, 17.8, 15.4, 14).C(15.4, 10.2, 14, 7.5, 10.8, 7.5).Z(),
+  },
   O: {
     w: 24,
     draw: () =>
@@ -172,7 +179,7 @@ function shield(p: Painter, d: Doc, cx: number, top: number, w: number, h: numbe
   d.piece('shield-star', star(cx, top + h * 0.34, 4, w * 0.2, w * 0.085), GOLD, { shade: 2 });
 }
 
-function paintLogo(d: Doc, pass: 'edge' | 'art'): void {
+function paintLogo(d: Doc, pass: 'edge' | 'art', second: string): void {
   const p = painter(d, pass);
   const cx = LOGO_W / 2;
   // The standards end behind the word: nothing of them shows under it.
@@ -180,23 +187,26 @@ function paintLogo(d: Doc, pass: 'edge' | 'art'): void {
   standard(p, 'red', [cx - 44, 104], [cx + 60, 12], CLOTH.red, 1);
   shield(p, d, cx, 6, 96, 112);
   word(p, 'LEGION', cx, 62, 1.95, 4.5, GOLD, 5);
-  // The ribbon BATTLES is written on: its two tails first, folded back, then the band over them.
+  // The ribbon the second word is written on: its two tails first, folded back, then the band over them.
+  // It is as long as its word asks: a short word's letters are set a little apart, so that it is not lost on it.
   const ry = 131;
-  const rw = 232;
+  const gap = second.length <= 4 ? 8 : 4;
+  const wide = [...second].reduce((n, ch) => n + LETTERS[ch].w, 0) + gap * (second.length - 1);
+  const rw = Math.max(150, wide + 47);
   const far: Material = { fill: CLOTH.red.shade, shade: CLOTH.red.shade };
   p.piece('ribbon-tail-a', poly([[cx - rw / 2 + 14, ry + 9], [cx - rw / 2 - 26, ry + 9], [cx - rw / 2 - 14, ry + 27], [cx - rw / 2 - 26, ry + 45], [cx - rw / 2 + 14, ry + 45]]), far, { shade: 0 });
   p.piece('ribbon-tail-b', poly([[cx + rw / 2 - 14, ry + 9], [cx + rw / 2 + 26, ry + 9], [cx + rw / 2 + 14, ry + 27], [cx + rw / 2 + 26, ry + 45], [cx + rw / 2 - 14, ry + 45]]), far, { shade: 0 });
   p.cast('ribbon-cast', poly([[cx - rw / 2 + 3, ry + 4], [cx + rw / 2 + 3, ry + 4], [cx + rw / 2 + 3, ry + 44], [cx - rw / 2 + 3, ry + 44]]));
   p.piece('ribbon', poly([[cx - rw / 2, ry], [cx + rw / 2, ry], [cx + rw / 2, ry + 40], [cx - rw / 2, ry + 40]]), CLOTH.red, { shade: 5 });
   // The letters on the ribbon need no pale edge: the ribbon is under them.
-  if (pass === 'art') word(p, 'BATTLES', cx, ry + 6, 1, 4, BONE, 3);
+  if (pass === 'art') word(p, second, cx, ry + 6, 1, gap, BONE, 3);
 }
 
-/** The whole logo. */
-export function logo(): Doc {
+/** The whole logo. `second` is the word on the ribbon: a sister game keeps the shield and changes it. */
+export function logo(second = 'BATTLES'): Doc {
   const d = new Doc('logo');
-  paintLogo(d, 'edge');
-  paintLogo(d, 'art');
+  paintLogo(d, 'edge', second);
+  paintLogo(d, 'art', second);
   return d;
 }
 
@@ -219,10 +229,10 @@ export function logoMark(): Doc {
 }
 
 /** The logo's file, three times the size it is drawn. */
-export function logoSvg(): string {
+export function logoSvg(second = 'BATTLES'): string {
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" id="logo" width="${LOGO_W * LOGO_SCALE}" height="${LOGO_H * LOGO_SCALE}" ` +
-    `viewBox="0 0 ${LOGO_W} ${LOGO_H}">\n${logo().inner()}\n</svg>\n`
+    `viewBox="0 0 ${LOGO_W} ${LOGO_H}">\n${logo(second).inner()}\n</svg>\n`
   );
 }
 

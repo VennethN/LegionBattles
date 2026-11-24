@@ -32,7 +32,8 @@ The headless browser draws a few frames a second, and the fight caps a frame at 
 - **A change to a number is measured.** `npm run pace -- --hours=3` before and after, and say what moved.
 - **The screens show and ask.** A scene never works out what something costs or does: it asks `rules.ts`.
 - **The art is drawn in code, in the kit's style.** No image files, no AI pictures, no art copied from another game. Nothing has a face: no eyes, mouths, noses or brows, and no two dark openings side by side that could be read as eyes. One outline color and width, a fixed palette (`tests/art.test.ts` holds the palette).
-- **The art build writes only what the game shows** (`CAST`, `ICONS` and `PACKS` at the head of `scripts/art.ts`). An icon named in a screen has to be in `ICONS`; the test says so if it is not.
+- **The art build writes only what the game shows,** which `scripts/art.game.ts` says: the cast comes from the game's data, the icons are named. An icon used in a screen has to be named there; a test says so if it is not. `scripts/art.ts` and `scripts/sheet.ts` are the kit's and are not changed for this game.
+- **The skill carries the kit.** After a change under `src/art` or `src/view/art`, run `node .claude/skills/legion-art/scripts/sync.mjs .`: a test fails until the two agree. After drawing, run `npm run art:sheet` and look at the sheets in `docs/art`.
 - **Everything in the fight is on one sheet** (`src/view/art/Sheet.ts`), and all of it fits at once. `tests/sheet.test.ts` fails when it no longer does.
 - **What a player has not got is dark, with "???".** The next hero in the list is a dark shape and nobody past it is shown.
 - **The screen is laid out for the window it has** (`layout()` in `src/view/app.ts`): the fight beside the lists when wide, over them when tall, and remade when the window changes. No bars at any shape. Pictures are loaded by `AssetsScene`, which outlives that.

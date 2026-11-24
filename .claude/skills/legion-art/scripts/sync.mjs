@@ -19,6 +19,12 @@ const project = path.resolve(args.find((a) => !a.startsWith('--')) ?? '.');
 /** The folders that are the kit's from top to bottom: a new file in one of them is a new part of the kit. */
 const WHOLE = ['src/art', 'src/view/art'];
 
+/**
+ * What is a game's own and stays out of the kit, though the kit has a file by the same name: the kit's
+ * scripts/art.game.ts shows everything, and a game's names its own cast from its own data.
+ */
+const OWN = new Set(['scripts/art.game.ts']);
+
 function filesOf(dir, base = dir) {
   if (!fs.existsSync(dir)) return [];
   const out = [];
@@ -36,6 +42,7 @@ for (const folder of WHOLE) for (const rel of filesOf(path.join(project, folder)
 const differs = [];
 let copied = 0;
 for (const rel of [...wanted].sort()) {
+  if (OWN.has(rel.split(path.sep).join('/'))) continue;
   const from = path.join(project, rel);
   const to = path.join(kit, rel);
   if (!fs.existsSync(from)) {

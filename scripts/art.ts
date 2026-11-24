@@ -5,21 +5,18 @@
 // anything under src/art, or after adding or changing a file in
 // art/overrides (so that the manifest measures your file).
 //
-// Everything under public/assets/{units,fx,ground,icons,packs,logo} is its to
-// write and to remove. It never writes in art/overrides.
+// Everything it writes under public/assets is its to write and to remove.
+// It never writes in art/overrides.
 //
-// The top of buildArt is the same for any game drawn with this kit: every
-// unit's parts, measured, and the manifest. What a game adds of its own
-// (here the ground the legion marches over, this game's icons, its logo) is
-// at the foot.
+// This file is the same for every game drawn with the kit. What a game
+// shows of the kit, and what it draws that the kit does not have (its
+// grounds, its own icons, the word in its logo), is said in
+// scripts/art.game.ts.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 import { logoMarkSvg, logoSvg } from '../src/art/logo';
-import { GROUNDS } from '../src/art/ground';
-import { MARCH_H, MARCH_W, marchBackdrop } from '../src/art/march';
-import { idleIcons } from '../src/art/icons-idle';
 import { composeUnit, innerOf, type PartSource } from '../src/art/compose';
 import { fxArt } from '../src/art/fx';
 import { iconArt } from '../src/art/icons';
@@ -29,28 +26,15 @@ import { ARCANE, FIRE, FROST, HOLY, TEAMS, VENOM, type Team } from '../src/art/k
 import { drawPart } from '../src/art/kit/unit';
 import type { Manifest, ManifestImage, ManifestPart } from '../src/art/manifest';
 import { FEET_X, FEET_Y } from '../src/art/rig';
+import { GRADE_H, GRADE_W, drawGrade } from '../src/art/grades';
 import { UNIT_ART } from '../src/art/units';
-import { CAMP, HEROES, LANDS } from '../src/game/data';
+import { GAME } from './art.game';
 
 const OUT = path.resolve('public/assets');
 const OVERRIDES = path.resolve('art/overrides');
 
-const GENERATED = ['units', 'fx', 'ground', 'icons', 'packs', 'logo'];
-
-// What this game shows of the kit. The kit draws more than any one game uses, and a picture nobody is shown is
-// still a file a player has to wait for: only these are written.
-/** Who is seen, and on which side: the heroes and the camp in blue, whoever bars the road in red. */
-const CAST: Record<Team, Set<string>> = {
-  blue: new Set([...HEROES.map((h) => h.unit), ...CAMP.map((c) => c.unit)]),
-  red: new Set(LANDS.flatMap((l) => [...l.troops, l.captain, l.boss])),
-};
-/** The icons the screens ask for by name (tests/art.test.ts reads the screens and holds this to them). */
-const ICONS = new Set([
-  'coin', 'sword', 'check', 'boot', 'hourglass', 'pack', 'land-meadow', 'land-desert', 'land-snow',
-  'laurel', 'trophy', 'gauntlet', 'helm', 'tent', 'horn', 'arrows', 'sack', 'cog', 'chevrons', 'moon',
-]);
-/** The supply packs: one to each kind of land. */
-const PACKS = new Set(['thornwood', 'dunes', 'frost']);
+/** The folders under public/assets that are this script's: a file in one of them that it did not write is removed. */
+const GENERATED = [...new Set(['units', 'fx', 'icons', 'packs', 'grades', 'logo', ...GAME.scenes.map((sc) => sc.file.split('/')[0])])];
 const written = new Set<string>();
 
 /**
@@ -168,7 +152,7 @@ export function buildArt(): Manifest {
   let overridden = 0;
   let units = 0;
   for (const unit of UNIT_ART) {
-    const teams = TEAMS.filter((t) => CAST[t].has(unit.id));
+    const teams = TEAMS.filter((t) => GAME.wants(t, unit.id));
     if (teams.length === 0) continue;
     units++;
     const parts: ManifestPart[] = [];
@@ -195,10 +179,10 @@ export function buildArt(): Manifest {
         box,
       });
     }
-    // The whole unit standing still, for the lists. Only the player's own are listed.
+    // The whole unit standing still, for cards and lists, where the game shows one.
     const source: PartSource = (_u, name, team: Team) => innerOf(shown.get(`${team}/${name}`) as string);
     for (const team of teams) {
-      if (team !== 'blue') continue;
+      if (!GAME.whole(team, unit.id)) continue;
       const inner = composeUnit(unit, team, { source });
       write(`units/${team}/${unit.id}/full.svg`, page(unit.id, inner, CANVAS, CANVAS, MARGIN));
       files++;
@@ -215,30 +199,38 @@ export function buildArt(): Manifest {
   }
 
   manifest.fx = images('fx', fxArt({ arcane: ARCANE, fire: FIRE, frost: FROST, holy: HOLY, venom: VENOM }));
-  // The painted ground the legion marches over, one picture to each kind of land. Each is loaded by itself
-  // when its land is come to, and not packed on a sheet.
-  let scenes = 0;
-  for (const ground of GROUNDS) {
-    write(`ground/${ground}.svg`, marchBackdrop(ground).svg(MARCH_W, MARCH_H));
-    scenes++;
-  }
+  // The game's own painted scenes. Each is one picture, loaded by itself when it is wanted and not packed on a sheet.
+  for (const scene of GAME.scenes) write(scene.file, scene.svg());
   // The logo, and its mark alone: each one picture, loaded by itself where it is shown.
-  write('logo/logo.svg', logoSvg('IDLE'));
+  write('logo/logo.svg', logoSvg(GAME.logoWord));
   write('logo/mark.svg', logoMarkSvg());
-  const icons = [...iconArt(), ...idleIcons()].filter((i) => ICONS.has(i.name));
-  for (const name of ICONS) if (!icons.some((i) => i.name === name)) throw new Error(`art: no icon is drawn by the name "${name}"`);
+  const icons = [...iconArt(), ...GAME.icons()].filter((i) => !GAME.onlyIcons || GAME.onlyIcons.has(i.name));
+  for (const name of GAME.onlyIcons ?? []) if (!icons.some((i) => i.name === name)) throw new Error(`art: no icon is drawn by the name "${name}"`);
   manifest.icons = images('icons', icons);
   manifest.packs = images(
     'packs',
-    Object.entries(PACK_LOOKS).filter(([name]) => PACKS.has(name)).map(([name, look]) => ({
-      name,
-      width: PACK_W,
-      height: PACK_H,
-      origin: [0.5, 0.5] as [number, number],
-      draw: (d: Doc) => drawPack(d, look),
+    Object.entries(PACK_LOOKS)
+      .filter(([name]) => !GAME.onlyPacks || GAME.onlyPacks.has(name))
+      .map(([name, look]) => ({
+        name,
+        width: PACK_W,
+        height: PACK_H,
+        origin: [0.5, 0.5] as [number, number],
+        draw: (d: Doc) => drawPack(d, look),
+      })),
+  );
+  // A grade's badge has the middle of its plate for its own middle, whatever stands out of it.
+  manifest.grades = images(
+    'grades',
+    GAME.grades.map((letter, grade) => ({
+      name: letter,
+      width: GRADE_W,
+      height: GRADE_H,
+      origin: [0.5, 54 / GRADE_H] as [number, number],
+      draw: (d: Doc) => drawGrade(d, grade, letter),
     })),
   );
-  files += Object.keys(manifest.fx).length + scenes + Object.keys(manifest.icons).length + Object.keys(manifest.packs).length + 2;
+  files += Object.keys(manifest.fx).length + GAME.scenes.length + Object.keys(manifest.icons).length + Object.keys(manifest.packs).length + Object.keys(manifest.grades).length + 2;
 
   write('manifest.json', JSON.stringify(manifest, null, 1) + '\n');
   for (const dir of GENERATED) sweep(path.join(OUT, dir));
