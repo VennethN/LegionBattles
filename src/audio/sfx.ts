@@ -1,7 +1,9 @@
-// Every sound in the game, made in code. There are no audio files: a sound
-// is a few oscillators and bursts of noise with an envelope on each, built
-// when it is asked for. That keeps the build small and the sounds as much
-// the game's own as the art is.
+// Every sound in the game. A sound is played from the bank of recorded
+// sounds (audio/bank.ts): a drum, a harp's notes, a bell tree, a click. Each
+// effect is a few of those, said below as what is struck, how hard, at what
+// pitch and when. Where the bank is not there (it has not come in yet, or
+// the device cannot read it), the same effect is made from a few
+// oscillators and bursts of noise instead, as every sound once was.
 //
 // A browser will not make a sound until the player has touched the page, so
 // nothing is created before unlock() is called from an input event.
@@ -14,6 +16,8 @@
 // tenth of a second is dropped if it is one of a battle's small ones
 // (crowd), and each is turned down a little by how many are already in the
 // air. Sounds that repeat are never quite the same pitch twice (vary).
+
+import { bank as theBank, nearest, type Bank, type Instrument, type Sample } from './bank';
 
 /** The little of the Web Audio API this needs, so that a test can stand in for it. */
 export interface AudioLike {
@@ -63,6 +67,8 @@ interface FilterLike extends NodeLike {
 }
 interface SourceLike extends NodeLike {
   buffer: unknown;
+  /** How fast it is played: 2 is an octave up. */
+  playbackRate?: { value: number };
   start(t: number, offset?: number): void;
   stop(t: number): void;
 }
@@ -91,7 +97,30 @@ interface Noise {
   at?: number;
 }
 
+/** One recorded sound of the bank, as a part of an effect. */
+export interface Hit {
+  /** Its name in the bank. */
+  s: string;
+  /** How loud, where 1 is as loud as the bank holds it. */
+  gain: number;
+  /** How fast it is played: 2 is an octave up. */
+  rate?: number;
+  /** Seconds after the effect starts. */
+  at?: number;
+  /** Stopped after this many seconds, with a short fall, where it would ring on too long. */
+  dur?: number;
+}
+
 interface Recipe {
+  /** What it is played on from the bank. */
+  hits?: Hit[];
+  /**
+   * How loud those are in the mix, as a share. The gains of the hits say how
+   * its parts stand to each other; this says how it stands to every other
+   * effect, and is set by measuring (scripts/listen.mjs).
+   */
+  level?: number;
+  /** What it is made of where the bank is not there. */
   tones?: Tone[];
   noise?: Noise[];
   /** The least time between two of this sound, in seconds: a dozen hits in one step are one thud, not a roar. */
@@ -127,13 +156,48 @@ function run(notes: number[], step: number, dur: number, gain: number, wave: Wav
   return notes.map((n, i) => ({ wave, from: n, dur, gain, at: at + i * step }));
 }
 
-/** What a pack's card sounds like, by its tier: the rarer, the longer the flourish. */
+/** A note of an instrument of the bank, by its MIDI number: 72 is the C above middle C. */
+function note(instrument: Instrument, midi: number, gain: number, at = 0, dur?: number): Hit {
+  const { name, rate } = nearest(instrument, midi);
+  return { s: name, rate, gain, at, dur };
+}
+
+/** A run of an instrument's notes, one after another. */
+function arp(instrument: Instrument, notes: number[], step: number, gain: number, at = 0, dur?: number): Hit[] {
+  return notes.map((m, i) => note(instrument, m, gain, at + i * step, dur));
+}
+
+// The timpani of the bank is a little under the D below middle C. This brings it to C, for what is in C.
+const TIMPANI_C = 0.917;
+
+/** What a pack's card sounds like, by its tier: the rarer, the longer the flourish. A harp climbs, and bells take the top. */
 const REVEALS: Recipe[] = [
-  { tones: run([C5, E5], 0.07, 0.16, 0.16) },
-  { tones: run([C5, E5, G5], 0.07, 0.18, 0.16) },
-  { tones: run([C5, E5, G5, C6], 0.07, 0.22, 0.17) },
-  { tones: [...run([C5, E5, G5, C6, E6], 0.07, 0.26, 0.17), { wave: 'sine', from: C6, dur: 0.6, gain: 0.07, at: 0.35 }] },
+  { level: 0.54, hits: arp('harp', [72, 76], 0.07, 0.4), tones: run([C5, E5], 0.07, 0.16, 0.16) },
+  { level: 0.48, hits: arp('harp', [72, 76, 79], 0.07, 0.4), tones: run([C5, E5, G5], 0.07, 0.18, 0.16) },
   {
+    level: 0.52,
+    hits: [...arp('harp', [72, 76, 79], 0.07, 0.42), note('glock', 84, 0.22, 0.21), { s: 'triangle', gain: 0.12, at: 0.21 }],
+    tones: run([C5, E5, G5, C6], 0.07, 0.22, 0.17),
+  },
+  {
+    level: 0.58,
+    hits: [...arp('harp', [72, 76, 79], 0.07, 0.42), ...arp('glock', [84, 88], 0.07, 0.24, 0.21), { s: 'chimes', gain: 0.26, at: 0.3 }],
+    tones: [...run([C5, E5, G5, C6, E6], 0.07, 0.26, 0.17), { wave: 'sine', from: C6, dur: 0.6, gain: 0.07, at: 0.35 }],
+  },
+  {
+    // The rarest: bells run up under the harp, and trumpets, a great bell, a cymbal and a kettledrum land together at the top.
+    level: 0.61,
+    hits: [
+      { s: 'gliss-up', gain: 0.4 },
+      ...arp('harp', [67, 72, 76, 79], 0.08, 0.42),
+      ...arp('glock', [84, 88, 91], 0.08, 0.24, 0.32),
+      note('trumpet', 72, 0.26, 0.6),
+      note('trumpet', 76, 0.26, 0.6),
+      note('trumpet', 79, 0.3, 0.6),
+      { s: 'bell-72', gain: 0.4, at: 0.6 },
+      { s: 'crash-long', gain: 0.3, at: 0.6 },
+      { s: 'timpani', gain: 0.5, rate: TIMPANI_C, at: 0.6 },
+    ],
     tones: [
       ...run([G4, C5, E5, G5, C6, E6, G6], 0.08, 0.3, 0.17),
       { wave: 'triangle', from: C5, dur: 0.9, gain: 0.12, at: 0.6 },
@@ -147,47 +211,102 @@ const REVEALS: Recipe[] = [
 
 export const SOUNDS = {
   // The interface.
-  click: { tones: [{ wave: 'triangle', from: 660, to: 880, dur: 0.05, gain: 0.11 }, { wave: 'sine', from: 1320, dur: 0.03, gain: 0.03 }], gap: 0.03 },
+  click: {
+    level: 0.6,
+    hits: [{ s: 'ui-click', gain: 0.5 }],
+    tones: [{ wave: 'triangle', from: 660, to: 880, dur: 0.05, gain: 0.11 }, { wave: 'sine', from: 1320, dur: 0.03, gain: 0.03 }],
+    gap: 0.03,
+  },
   // A screen opens over the field, and shuts: a breath up, a breath down.
   open: {
+    level: 0.42,
+    hits: [{ s: 'ui-open', gain: 0.3 }],
     tones: [{ wave: 'sine', from: 330, to: 560, dur: 0.12, gain: 0.07 }],
     noise: [{ filter: 'bandpass', from: 700, to: 2400, q: 0.8, dur: 0.14, gain: 0.07 }],
     gap: 0.08,
   },
   close: {
+    level: 0.56,
+    hits: [{ s: 'ui-close', gain: 0.3 }],
     tones: [{ wave: 'sine', from: 520, to: 300, dur: 0.11, gain: 0.07 }],
     noise: [{ filter: 'bandpass', from: 2000, to: 600, q: 0.8, dur: 0.12, gain: 0.06 }],
     gap: 0.08,
   },
   // A switch thrown, a step on a slider.
-  tick: { tones: [{ wave: 'square', from: 520, dur: 0.025, gain: 0.04 }, { wave: 'sine', from: 780, dur: 0.05, gain: 0.07, at: 0.012 }], gap: 0.025 },
+  tick: {
+    level: 0.78,
+    hits: [{ s: 'ui-tick', gain: 0.45 }],
+    tones: [{ wave: 'square', from: 520, dur: 0.025, gain: 0.04 }, { wave: 'sine', from: 780, dur: 0.05, gain: 0.07, at: 0.012 }],
+    gap: 0.025,
+  },
   // Not enough coins, not open yet.
-  deny: { tones: [{ wave: 'triangle', from: 196, dur: 0.09, gain: 0.13 }, { wave: 'triangle', from: 156, dur: 0.14, gain: 0.13, at: 0.085 }], gap: 0.1 },
+  deny: {
+    hits: [{ s: 'ui-deny', gain: 0.4 }],
+    tones: [{ wave: 'triangle', from: 196, dur: 0.09, gain: 0.13 }, { wave: 'triangle', from: 156, dur: 0.14, gain: 0.13, at: 0.085 }],
+    gap: 0.1,
+  },
   // A tutorial's note comes up.
-  pop: { tones: [{ wave: 'sine', from: 420, to: 760, dur: 0.07, gain: 0.12 }], gap: 0.08 },
-  // A reward is claimed.
+  pop: { level: 0.58, hits: [{ s: 'ui-pop', gain: 0.4 }], tones: [{ wave: 'sine', from: 420, to: 760, dur: 0.07, gain: 0.12 }], gap: 0.08 },
+  // A reward is claimed: wind chimes, and three bells going up.
   claim: {
+    level: 0.7,
+    hits: [{ s: 'chimes', gain: 0.3 }, ...arp('glock', [79, 84, 88], 0.07, 0.24, 0.02), { s: 'finger-cymbal', gain: 0.16, at: 0.2 }],
     tones: [...run([G5, C6, E6], 0.06, 0.2, 0.12, 'sine'), { wave: 'triangle', from: C5, dur: 0.4, gain: 0.07 }],
     noise: [{ filter: 'highpass', from: 4000, to: 9000, dur: 0.3, gain: 0.03, at: 0.1 }],
   },
+  // A unit is set down on the board: wood, knocked.
   place: {
+    level: 0.65,
+    hits: [{ s: 'logdrum', gain: 0.5, rate: 1.15, dur: 0.2 }, { s: 'ui-drop', gain: 0.2 }],
     tones: [{ wave: 'sine', from: 190, to: 110, dur: 0.09, gain: 0.26 }],
     noise: [{ filter: 'lowpass', from: 500, dur: 0.05, gain: 0.1 }],
   },
-  lift: { tones: [{ wave: 'sine', from: 300, to: 460, dur: 0.07, gain: 0.12 }] },
+  lift: { level: 0.9, hits: [{ s: 'ui-lift', gain: 0.35 }], tones: [{ wave: 'sine', from: 300, to: 460, dur: 0.07, gain: 0.12 }] },
+  // A battle begins: a horn's call of two notes over a kettledrum.
   fight: {
+    level: 0.5,
+    hits: [
+      { s: 'timpani', gain: 0.6, dur: 0.9 },
+      note('horn', 57, 0.36, 0, 0.16),
+      note('horn', 62, 0.42, 0.13, 0.4),
+      { s: 'snare', gain: 0.22, at: 0.13 },
+    ],
     tones: [
       { wave: 'sawtooth', from: 196, to: 262, dur: 0.34, gain: 0.1 },
       { wave: 'triangle', from: 392, to: 523, dur: 0.34, gain: 0.1 },
     ],
   },
-  coin: { tones: [{ wave: 'sine', from: E6, dur: 0.07, gain: 0.13 }, { wave: 'sine', from: G6 * 1.12, dur: 0.16, gain: 0.13, at: 0.06 }], gap: 0.05 },
-  levelUp: { tones: run([C5, E5, G5, C6], 0.06, 0.16, 0.14) },
-  buy: { tones: run([G5, C6], 0.06, 0.12, 0.13, 'sine') },
+  coin: {
+    level: 0.63,
+    hits: [note('glock', 88, 0.3, 0, 0.3), note('glock', 95, 0.3, 0.06, 0.5)],
+    tones: [{ wave: 'sine', from: E6, dur: 0.07, gain: 0.13 }, { wave: 'sine', from: G6 * 1.12, dur: 0.16, gain: 0.13, at: 0.06 }],
+    gap: 0.05,
+  },
+  levelUp: {
+    level: 0.51,
+    hits: [...arp('harp', [72, 76, 79], 0.06, 0.42), note('glock', 84, 0.24, 0.18), { s: 'triangle', gain: 0.1, at: 0.18, dur: 0.5 }],
+    tones: run([C5, E5, G5, C6], 0.06, 0.16, 0.14),
+  },
+  buy: {
+    level: 0.51,
+    hits: [{ s: 'ui-buy', gain: 0.3 }, { s: 'finger-cymbal', gain: 0.2, at: 0.06, dur: 0.6 }],
+    tones: run([G5, C6], 0.06, 0.12, 0.13, 'sine'),
+  },
 
   // A battle.
-  slash: { noise: [{ filter: 'bandpass', from: 900, to: 2800, q: 1.1, dur: 0.11, gain: 0.2 }], gap: 0.05, crowd: true, vary: 0.06 },
+  // A blade through the air, and a little of its ring.
+  slash: {
+    level: 0.36,
+    hits: [{ s: 'cabasa', gain: 0.5, rate: 0.85 }, { s: 'brake-2', gain: 0.1, rate: 1.7, at: 0.02, dur: 0.12 }],
+    noise: [{ filter: 'bandpass', from: 900, to: 2800, q: 1.1, dur: 0.11, gain: 0.2 }],
+    gap: 0.05,
+    crowd: true,
+    vary: 0.06,
+  },
+  // A blow lands: a hand drum's thump and a snare's snap.
   hit: {
+    level: 0.4,
+    hits: [{ s: 'tumba', gain: 0.55, rate: 0.9, dur: 0.22 }, { s: 'tap-1', gain: 0.25 }],
     tones: [{ wave: 'sine', from: 150, to: 70, dur: 0.09, gain: 0.3 }],
     noise: [{ filter: 'lowpass', from: 1300, to: 300, dur: 0.07, gain: 0.24 }],
     gap: 0.05,
@@ -195,11 +314,16 @@ export const SOUNDS = {
     vary: 0.07,
   },
   bigHit: {
+    level: 0.55,
+    hits: [{ s: 'bdrum', gain: 0.8, dur: 0.5 }, { s: 'tom-low', gain: 0.45, rate: 0.75 }, { s: 'snare', gain: 0.25 }],
     tones: [{ wave: 'sine', from: 120, to: 45, dur: 0.2, gain: 0.42 }],
     noise: [{ filter: 'lowpass', from: 1500, to: 200, dur: 0.16, gain: 0.3 }],
     gap: 0.08,
   },
+  // A bowstring: a violin's string plucked, and the arrow's hiss.
   shoot: {
+    level: 0.38,
+    hits: [note('pizz', 74, 0.3, 0, 0.18), { s: 'cabasa', gain: 0.18, rate: 1.5, at: 0.01 }],
     tones: [{ wave: 'triangle', from: 920, to: 480, dur: 0.06, gain: 0.1 }],
     noise: [{ filter: 'highpass', from: 2200, to: 5200, dur: 0.07, gain: 0.12 }],
     gap: 0.04,
@@ -207,13 +331,18 @@ export const SOUNDS = {
     vary: 0.05,
   },
   thud: {
+    level: 0.62,
+    hits: [{ s: 'claves', gain: 0.3, rate: 0.6 }, { s: 'logdrum', gain: 0.3, rate: 1.4, dur: 0.12 }],
     tones: [{ wave: 'sine', from: 230, to: 110, dur: 0.05, gain: 0.2 }],
     noise: [{ filter: 'lowpass', from: 900, dur: 0.03, gain: 0.1 }],
     gap: 0.04,
     crowd: true,
     vary: 0.06,
   },
+  // Magic: a stroke up a bell tree.
   cast: {
+    level: 0.5,
+    hits: [{ s: 'belltree', gain: 0.35, rate: 1.15, dur: 0.6 }],
     tones: [
       { wave: 'sine', from: 420, to: 900, dur: 0.22, gain: 0.13 },
       { wave: 'sine', from: 840, to: 1800, dur: 0.22, gain: 0.05 },
@@ -221,31 +350,67 @@ export const SOUNDS = {
     gap: 0.06,
   },
   blast: {
+    level: 0.45,
+    hits: [{ s: 'bdrum', gain: 0.85 }, { s: 'crash', gain: 0.3, rate: 0.8, dur: 0.6 }, { s: 'timpani-low', gain: 0.4, dur: 0.6 }],
     tones: [{ wave: 'sine', from: 210, to: 48, dur: 0.28, gain: 0.36 }],
     noise: [{ filter: 'lowpass', from: 1900, to: 180, dur: 0.26, gain: 0.26 }],
     gap: 0.08,
   },
-  heal: { tones: [{ wave: 'triangle', from: E5, dur: 0.12, gain: 0.11 }, { wave: 'triangle', from: G5 * 1.122, dur: 0.18, gain: 0.11, at: 0.08 }], gap: 0.1 },
-  skill: { tones: run([C5, E5, G5], 0.055, 0.1, 0.15), gap: 0.12 },
-  status: { tones: [{ wave: 'square', from: 320, to: 210, dur: 0.06, gain: 0.05 }], gap: 0.1, crowd: true },
+  heal: {
+    level: 0.4,
+    hits: [note('harp', 76, 0.4, 0, 0.6), note('harp', 83, 0.4, 0.08, 0.9), note('glock', 95, 0.08, 0.08)],
+    tones: [{ wave: 'triangle', from: E5, dur: 0.12, gain: 0.11 }, { wave: 'triangle', from: G5 * 1.122, dur: 0.18, gain: 0.11, at: 0.08 }],
+    gap: 0.1,
+  },
+  skill: {
+    level: 0.42,
+    hits: [...arp('harp', [72, 76, 79], 0.055, 0.42, 0, 0.5), { s: 'triangle', gain: 0.16, at: 0.11, dur: 0.5 }],
+    tones: run([C5, E5, G5], 0.055, 0.1, 0.15),
+    gap: 0.12,
+  },
+  status: {
+    level: 0.45,
+    hits: [{ s: 'tamb-shake', gain: 0.25, rate: 0.9 }],
+    tones: [{ wave: 'square', from: 320, to: 210, dur: 0.06, gain: 0.05 }],
+    gap: 0.1,
+    crowd: true,
+  },
   // Someone is called up onto the field: a horn's two notes, and feet landing.
   spawn: {
+    level: 0.45,
+    hits: [note('horn', 57, 0.3, 0, 0.14), note('horn', 62, 0.34, 0.09, 0.3), { s: 'logdrum', gain: 0.25, at: 0.17, dur: 0.2 }],
     tones: [{ wave: 'triangle', from: G4, dur: 0.1, gain: 0.1 }, { wave: 'triangle', from: C5, dur: 0.16, gain: 0.1, at: 0.08 }],
     noise: [{ filter: 'lowpass', from: 700, dur: 0.06, gain: 0.1, at: 0.16 }],
     gap: 0.15,
   },
   // A trap goes off: the snap of it before whatever it does.
   trap: {
+    level: 0.66,
+    hits: [{ s: 'ratchet', gain: 0.4, dur: 0.1 }, { s: 'claves', gain: 0.4, at: 0.02 }, { s: 'snare-soft', gain: 0.3, at: 0.05 }],
     tones: [{ wave: 'square', from: 1400, to: 500, dur: 0.035, gain: 0.07 }],
     noise: [{ filter: 'highpass', from: 2500, dur: 0.04, gain: 0.18 }, { filter: 'lowpass', from: 900, to: 200, dur: 0.12, gain: 0.16, at: 0.03 }],
     gap: 0.08,
   },
+  // Someone falls: a low drum, and the ground a moment after.
   death: {
+    level: 0.5,
+    hits: [{ s: 'tom-low', gain: 0.4, rate: 0.7 }, { s: 'bdrum-soft', gain: 0.4, at: 0.34, dur: 0.4 }],
     tones: [{ wave: 'triangle', from: 300, to: 85, dur: 0.26, gain: 0.18 }],
     noise: [{ filter: 'lowpass', from: 520, dur: 0.12, gain: 0.16, at: 0.36 }],
     gap: 0.08,
   },
+  // Trumpets up the chord, and the whole band on its top.
   victory: {
+    level: 0.64,
+    hits: [
+      ...arp('trumpet', [67, 72, 76, 79], 0.12, 0.4),
+      note('trumpet', 72, 0.3, 0.5),
+      note('trumpet', 76, 0.3, 0.5),
+      note('trumpet', 79, 0.34, 0.5),
+      { s: 'timpani', gain: 0.6, rate: TIMPANI_C, at: 0.5 },
+      { s: 'crash-long', gain: 0.3, at: 0.5 },
+      ...arp('glock', [84, 88, 91, 96], 0.07, 0.14, 0.55),
+    ],
     tones: [
       ...run([G4, C5, E5, G5], 0.12, 0.2, 0.16),
       { wave: 'triangle', from: C5, dur: 0.7, gain: 0.12, at: 0.5 },
@@ -253,11 +418,28 @@ export const SOUNDS = {
       { wave: 'triangle', from: G5, dur: 0.7, gain: 0.1, at: 0.5 },
     ],
   },
-  defeat: { tones: run([E4, D4, C4], 0.2, 0.34, 0.15) },
+  // Cellos down three steps, and a kettledrum under the last.
+  defeat: {
+    level: 0.45,
+    hits: [
+      note('cello', 64, 0.4, 0, 0.3),
+      note('cello', 62, 0.4, 0.22, 0.3),
+      note('cello', 60, 0.45, 0.44, 0.9),
+      { s: 'timpani', gain: 0.35, rate: TIMPANI_C, at: 0.44 },
+    ],
+    tones: run([E4, D4, C4], 0.2, 0.34, 0.15),
+  },
 
   // A pack.
-  packShake: { noise: [0, 0.07, 0.14].map((at) => ({ filter: 'bandpass' as const, from: 2600, q: 2, dur: 0.035, gain: 0.12, at })), gap: 0.1 },
+  packShake: {
+    level: 0.52,
+    hits: [{ s: 'tamb-shake', gain: 0.35 }, { s: 'tamb-shake', gain: 0.3, rate: 1.12, at: 0.1 }],
+    noise: [0, 0.07, 0.14].map((at) => ({ filter: 'bandpass' as const, from: 2600, q: 2, dur: 0.035, gain: 0.12, at })),
+    gap: 0.1,
+  },
+  // Torn open: a rasp, a cymbal, and bells running up.
   packOpen: {
+    hits: [{ s: 'guiro', gain: 0.5, rate: 0.8 }, { s: 'crash', gain: 0.25, at: 0.06, dur: 0.6 }, { s: 'gliss-fast', gain: 0.3, at: 0.04 }],
     tones: [{ wave: 'sine', from: 300, to: 950, dur: 0.16, gain: 0.14 }],
     noise: [{ filter: 'highpass', from: 600, to: 6500, dur: 0.2, gain: 0.2 }],
   },
@@ -285,9 +467,14 @@ export class Sfx {
   private next = 0;
   private wander = 0;
   private asleep = false;
+  /** What the music plays through, made once: it is asked for every frame. */
+  private through: MusicOut | null = null;
 
-  /** `make` builds the audio context. The game passes the browser's; a test passes a stand-in. */
-  constructor(private readonly make: () => AudioLike | null) {}
+  /** `make` builds the audio context. The game passes the browser's; a test passes a stand-in. `bank` is where recorded sounds are looked for. */
+  constructor(
+    private readonly make: () => AudioLike | null,
+    private readonly bank: Bank = theBank,
+  ) {}
 
   /** False when the player has turned all sound off: effects and music both. */
   get enabled(): boolean {
@@ -346,12 +533,14 @@ export class Sfx {
           data[i] = ((seed >>> 8) & 0xffff) / 32768 - 1;
         }
         this.noise = buffer;
+        this.through = { ctx, music: this.songs, noise: buffer, bank: this.bank };
         this.level();
       }
       if (this.ctx.state === 'suspended' && !this.asleep) void this.ctx.resume?.();
     } catch {
       // No audio on this device: the game is silent, and nothing else changes.
       this.ctx = null;
+      this.through = null;
     }
   }
 
@@ -371,14 +560,20 @@ export class Sfx {
   }
 
   /**
-   * What the music plays through: the context, its own volume, and the
-   * noise. Null until the page has been touched, and while there is nothing
-   * to hear of it (sound off, or the music turned to nothing): then no note
-   * is made at all.
+   * What the music plays through: the context, its own volume, the noise
+   * and the bank. Null until the page has been touched, and while there is
+   * nothing to hear of it (sound off, or the music turned to nothing): then
+   * no note is made at all.
    */
-  get out(): { ctx: AudioLike; music: GainLike; noise: unknown } | null {
+  get out(): MusicOut | null {
     if (!this.on || this.musicVolume <= 0) return null;
-    return this.ctx && this.songs ? { ctx: this.ctx, music: this.songs, noise: this.noise } : null;
+    return this.through;
+  }
+
+  /** True when every recorded sound an effect is played on is in the bank. */
+  private holds(hits: readonly Hit[]): boolean {
+    for (let i = 0; i < hits.length; i++) if (!this.bank.get(hits[i].s)) return false;
+    return true;
   }
 
   /** How many sounds began in the last moment. */
@@ -409,6 +604,16 @@ export class Sfx {
       this.wander = (this.wander + 1) % WANDER.length;
     }
     try {
+      // From the bank where it is there, and from oscillators where it is not.
+      const hits = recipe.hits;
+      if (hits && this.holds(hits)) {
+        const loud = vol * (recipe.level ?? 1);
+        for (let i = 0; i < hits.length; i++) {
+          const h = hits[i];
+          strike(ctx, out, this.bank.get(h.s) as Sample, now + (h.at ?? 0), h.gain * loud, (h.rate ?? 1) * pitch, h.dur);
+        }
+        return;
+      }
       for (const t of recipe.tones ?? []) {
         const t0 = now + (t.at ?? 0);
         const osc = ctx.createOscillator();
@@ -449,6 +654,41 @@ export class Sfx {
   reveal(rank: number): void {
     const names: SoundName[] = ['reveal0', 'reveal1', 'reveal2', 'reveal3', 'reveal4'];
     this.play(names[Math.max(0, Math.min(names.length - 1, rank))]);
+  }
+}
+
+/** What the music is given to play through. */
+export interface MusicOut {
+  ctx: AudioLike;
+  music: GainLike;
+  noise: unknown;
+  bank: Bank;
+}
+
+/**
+ * Plays a recorded sound once: at `t`, as loud as `gain`, `rate` times as
+ * fast. With `dur` it is stopped after that long, falling away over
+ * `release`; without, it rings to its own end. `attack` brings it in
+ * slowly, for a note that should not start with a knock.
+ */
+export function strike(ctx: AudioLike, to: unknown, sample: Sample, t: number, gain: number, rate = 1, dur?: number, release = 0.06, attack = 0): void {
+  const src = ctx.createBufferSource();
+  const g = ctx.createGain();
+  src.buffer = sample.buffer;
+  if (src.playbackRate) src.playbackRate.value = rate;
+  const peak = Math.max(0.0002, gain);
+  if (attack > 0) {
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(peak, t + attack);
+  } else g.gain.setValueAtTime(peak, t);
+  src.connect(g);
+  g.connect(to);
+  src.start(t, sample.lead);
+  if (dur !== undefined) {
+    const end = t + Math.max(dur, attack);
+    g.gain.setValueAtTime(peak, end);
+    g.gain.linearRampToValueAtTime(0.0001, end + release);
+    src.stop(end + release + 0.02);
   }
 }
 

@@ -5,6 +5,7 @@ import Phaser from 'phaser';
 import { LOGO_H, LOGO_SCALE, LOGO_W } from '../../art/logoSize';
 import type { Manifest } from '../../art/manifest';
 import { BONE, GRASS, OUTLINE } from '../../art/kit/palette';
+import { fillBank } from '../../audio/bank';
 import { ads } from '../../platform/ads';
 import { setManifest, setupCamera } from '../app';
 import { ART_SCALE, FONT, H, RES, W, hex } from '../config';
@@ -63,7 +64,11 @@ export class BootScene extends Phaser.Scene {
       this.load.svg(`svg:portrait/red/${unit}`, `assets/units/red/${unit}/full.svg`, { scale: 1 });
     }
 
+    // The recorded sounds, in one file. They are read while the game goes on: nothing waits for them.
+    this.load.binary('audio-bank', 'assets/audio/bank.bin');
+
     this.load.once(Phaser.Loader.Events.COMPLETE, () => {
+      void fillBank(this.cache.binary.get('audio-bank') as ArrayBuffer | undefined);
       // Text is drawn with the browser's canvas, so the font has to be there before any is made.
       const fonts = typeof document !== 'undefined' && document.fonts
         ? Promise.all([document.fonts.load(`600 24px ${FONT}`), document.fonts.load(`700 24px ${FONT}`)])

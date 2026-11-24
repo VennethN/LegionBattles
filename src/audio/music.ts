@@ -1,14 +1,18 @@
-// The music, made in code as the effects are: there are no audio files. A
-// theme is written down as a scale, a round of chords and a tune in the
-// steps of that scale, and played by a few oscillators, a note at a time, a
-// quarter of a second ahead of the clock.
+// The music. A theme is written down as a scale, a round of chords and a
+// tune in the steps of that scale, and played a note at a time, a quarter
+// of a second ahead of the clock, on the recorded instruments of the bank
+// (audio/bank.ts): a flute, an oboe or a harp for the tune, a section of
+// cellos holding the chord, a plucked bass, a harp, and drums. There is no
+// recording of the music itself, only of its instruments, so a theme costs
+// a few lines and can change with the battle. Where the bank is not there,
+// the same notes are played by oscillators.
 //
 // Each kind of land has a theme of its own, sixteen bars long. A theme has
 // two moods. Calm is what plays while the team is being set out and the
-// screens are open: a pad, a bass, a few plucked notes and the tune. Battle
-// is the same bars with drums under them, the bass driven in eighths and
-// the tune doubled an octave up, so that the fight starts on the beat the
-// calm was on and ends back in it.
+// screens are open: the cellos, the bass, a few plucked notes and the tune.
+// Battle is the same bars with drums under them, the bass driven in eighths
+// and a flute over the tune an octave up, so that the fight starts on the
+// beat the calm was on and ends back in it.
 //
 // So that sixteen bars do not wear thin, every third time round the tune
 // rests for the first half and comes back for the second.
@@ -17,7 +21,8 @@
 // by the rules of harmony and checked by tests (tests/music.test.ts), which
 // can say a note is in the chord under it and cannot say it is good.
 
-import { sfx, type AudioLike, type GainLike, type ParamLike } from './sfx';
+import { nearest, type Instrument } from './bank';
+import { sfx, strike, type GainLike, type MusicOut, type ParamLike } from './sfx';
 
 export type Mood = 'calm' | 'battle';
 
@@ -42,6 +47,8 @@ export interface Theme {
   voice: Voice;
   /** The drums of its battles, a slot to a letter: k a kick, s a snare, t a tom, h a hat, a dot nothing. */
   drums: string;
+  /** What each of those letters is struck on, of the bank's sounds, and how hard. */
+  kit: Readonly<Record<string, readonly [string, number]>>;
 }
 
 export const BARS = 16;
@@ -63,6 +70,8 @@ export const THEMES: Readonly<Record<string, Theme>> = {
     ],
     voice: 'flute',
     drums: 'k.h.s.h.k.khs.h.',
+    // A village band: a bass drum, a snare and a tambourine.
+    kit: { k: ['bdrum-soft', 0.55], s: ['snare-soft', 0.3], h: ['tamb', 0.1] },
   },
   // The Sunscar Dunes: D with a flat second and a raised third, slower, on a reed, over a hand drum.
   desert: {
@@ -78,6 +87,8 @@ export const THEMES: Readonly<Record<string, Theme>> = {
     ],
     voice: 'reed',
     drums: 'k..tk.t.k..tktt.',
+    // Hand drums, a low one and a high.
+    kit: { k: ['tumba', 0.6], t: ['conga', 0.4] },
   },
   // Frostholt: A minor, slow, on bells that ring on.
   snow: {
@@ -93,6 +104,8 @@ export const THEMES: Readonly<Record<string, Theme>> = {
     ],
     voice: 'bell',
     drums: 'k...t...k.k.t...',
+    // A soft drum, and sleigh bells where the tom would be.
+    kit: { k: ['bdrum-soft', 0.5], t: ['sleigh', 0.14] },
   },
 };
 
@@ -150,11 +163,19 @@ const LOWEST = 38;
 /** How far ahead of the clock notes are written down, in seconds. Frames may come late: the music must not. */
 const AHEAD = 0.3;
 
-interface Out {
-  ctx: AudioLike;
-  music: GainLike;
-  noise: unknown;
-}
+type Out = MusicOut;
+
+/** How loud the whole band is, as a share of what the numbers under it add up to. Set by measuring (scripts/listen.mjs). */
+const BAND = 0.63;
+// How loud each part of the band is, where 1 is as loud as the bank holds a sound.
+const PAD = 0.1;
+const BASS = 0.5;
+const PLUCK = 0.2;
+const TUNE = { flute: 0.34, reed: 0.24, bell: 0.44 } as const;
+/** The lowest note the cellos hold, as a MIDI number: a third under the lowest one in the bank. */
+const PAD_LOWEST = 46;
+/** The flute that joins over the tune in a battle. */
+const OVER = 0.1;
 
 export class Music {
   private theme: Theme | null = null;
@@ -221,6 +242,8 @@ export class Music {
     if (!theme) return;
     const o = this.out();
     if (!o) return;
+    // The band is on its way: better a moment of quiet than a theme that changes its instruments halfway through a bar.
+    if (o.bank.state === 'loading') return;
     const now = o.ctx.currentTime;
     // The first notes after the page is touched, or after a long sleep: start from now, not from then.
     if (this.at < now - 0.05) this.at = now + 0.1;
@@ -228,13 +251,19 @@ export class Music {
     try {
       if (!this.bus) {
         // Everything of the music goes through one gain, so that it can be ducked, and a filter that keeps it under the effects.
+        // Oscillators are harsh at the top and are cut lower than recorded instruments, which lose their air there.
         this.bus = o.ctx.createGain();
         const soft = o.ctx.createBiquadFilter();
         soft.type = 'lowpass';
-        soft.frequency.value = 5200;
+        soft.frequency.value = o.bank.state === 'ready' ? 9000 : 5200;
         soft.Q.value = 0.5;
         this.bus.connect(soft);
-        soft.connect(o.music);
+        if (o.bank.state === 'ready') {
+          const trim = o.ctx.createGain();
+          trim.gain.value = BAND;
+          soft.connect(trim);
+          trim.connect(o.music);
+        } else soft.connect(o.music);
       }
       const slotTime = 30 / theme.bpm;
       while (this.at < now + AHEAD) {
@@ -254,6 +283,10 @@ export class Music {
 
   /** Everything that starts on one slot. */
   private write(o: Out, theme: Theme, slot: number, t: number, slotTime: number): void {
+    if (o.bank.state === 'ready') {
+      this.perform(o, theme, slot, t, slotTime);
+      return;
+    }
     const bar = Math.floor(slot / SLOTS);
     const beat = slot % SLOTS;
     const battle = this.mood === 'battle';
@@ -285,6 +318,67 @@ export class Music {
     if (note && !rests) this.sing(o, bus, theme, hertz(midiOf(theme, note.step)), t, note.slots * slotTime, battle);
     // The drums of a battle.
     if (battle) this.drum(o, bus, theme.drums[slot % theme.drums.length], t);
+  }
+
+  /** Everything that starts on one slot, on the bank's instruments. */
+  private perform(o: Out, theme: Theme, slot: number, t: number, slotTime: number): void {
+    const bar = Math.floor(slot / SLOTS);
+    const beat = slot % SLOTS;
+    const battle = this.mood === 'battle';
+    const chord = chordOf(theme, bar);
+    const bus = this.bus as GainLike;
+
+    // The cellos: the chord, held for the bar, an octave under the tune, coming in softly.
+    // A note under the lowest one recorded is played an octave up, where it is still a note of the chord.
+    if (beat === 0) {
+      for (const step of chord) {
+        const m = midiOf(theme, step) - 12;
+        this.note(o, bus, 'cello', m < PAD_LOWEST ? m + 12 : m, t, PAD, slotTime * SLOTS, 0.3, 0.5);
+      }
+    }
+    // The bass, plucked: the chord's root, two octaves down, but never so low that a phone's speaker loses it.
+    // On the first and third beats when calm and left to ring, driven in eighths in a battle and damped.
+    let low = midiOf(theme, chord[0]) - 24;
+    while (low < LOWEST) low += 12;
+    if (battle) {
+      const fifth = low + midiOf(theme, chord[2]) - midiOf(theme, chord[0]);
+      this.note(o, bus, 'bass', beat === 3 || beat === 7 ? fifth : low, t, beat % 2 === 0 ? BASS : BASS * 0.65, slotTime * 0.9, 0, 0.06);
+    } else if (beat === 0 || beat === 4) {
+      this.note(o, bus, 'bass', low, t, beat === 0 ? BASS : BASS * 0.65, slotTime * 3.2, 0, 0.3);
+    }
+    // A note of the chord on the harp off the beat, when calm: something moving under a tune that rests.
+    if (!battle && (beat === 2 || beat === 6)) {
+      this.note(o, bus, 'harp', midiOf(theme, chord[beat === 2 ? 1 : 2]), t, PLUCK);
+    }
+    // The tune. Every third time round it rests for the first half.
+    const note = this.notes[slot];
+    const rests = this.round % 3 === 2 && bar < BARS / 2;
+    if (note && !rests) {
+      const midi = midiOf(theme, note.step);
+      const dur = note.slots * slotTime;
+      const loud = battle ? 1.25 : 1;
+      if (theme.voice === 'bell') {
+        // A harp, left to ring on past its length; and on its long notes a small bell two octaves over it.
+        this.note(o, bus, 'harp', midi, t, TUNE.bell * loud);
+        if (note.slots >= 4) this.note(o, bus, 'glock', midi + 24, t, 0.05 * loud);
+      } else if (theme.voice === 'reed') this.note(o, bus, 'oboe', midi, t, TUNE.reed * loud, dur * 0.94, 0.012, 0.09);
+      else this.note(o, bus, 'flute', midi, t, TUNE.flute * loud, dur * 0.94, 0.012, 0.09);
+      // In a battle a flute plays it too, an octave up.
+      if (battle) this.note(o, bus, 'flute', midi + 12, t, OVER, dur * 0.85, 0.012, 0.08);
+    }
+    // The drums of a battle.
+    if (battle) {
+      const drum = theme.kit[theme.drums[slot % theme.drums.length]];
+      const sample = drum && o.bank.get(drum[0]);
+      if (drum && sample) strike(o.ctx, bus, sample, t, drum[1]);
+    }
+  }
+
+  /** A note on one of the bank's instruments. Without `dur` it rings to its own end. */
+  private note(o: Out, to: GainLike, instrument: Instrument, midi: number, t: number, gain: number, dur?: number, attack = 0, release = 0.06): void {
+    const { name, rate } = nearest(instrument, midi);
+    const sample = o.bank.get(name);
+    if (sample) strike(o.ctx, to, sample, t, gain, rate, dur, release, attack);
   }
 
   /** A note with a soft start and a soft end. */

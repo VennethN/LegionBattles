@@ -23,9 +23,9 @@ Open them and look. The script checks what a program can check (colors, line wid
 
 There are no eyes, mouths, noses or brows anywhere. Not glowing dots either. A head is one of:
 
-- a closed helmet with a dark slit (Knight, Paladin, Berserker, Warlord, Jarl)
-- a hood filled with solid shadow (Archer, Mage, Pyromancer, Harpooner)
-- a hat or helm over a veil, a scarf or mail, with shadow between (Militia, Poacher, Lancer, Javelineer, Huscarl, Frost Witch, Cleric)
+- a closed helmet with a dark slit (Knight, Paladin, Berserker, Warlord, Jarl, Honor Guard, and the Blacksmith's flat mask)
+- a hood filled with solid shadow (Archer, Mage, Pyromancer, Harpooner, Gravedigger)
+- a hat or helm over a veil, a scarf or mail, with shadow between (Militia, Poacher, Lancer, Javelineer, Huscarl, Frost Witch, Cleric, Lamplighter, Bell Ringer, and the Beekeeper, whose veil has one dark window of net)
 - a wrap or a mask (Cutpurse, Bruiser, Hexer)
 - no head at all (the Ballista), or a block with one line cut in it (the golems)
 
@@ -187,6 +187,23 @@ export const militia: UnitArt = {
 
 **A summoner** (`src/art/units/summoners.ts`) is a unit like any other, read by what it calls with: the Herald's long horn with a cloth hung from it, the Ringleader's lantern on a crook, the War Drummer's drum and beater, the Skald's curved horn. Each is a part in `kit/parts.ts` that no one else carries.
 
+## The Faithful
+
+The six units only the rewards give (`src/art/units/faithful.ts`) are townsfolk, and none is dressed as a soldier. Each is read by the hat of its trade and the tool it carries, held as a soldier holds a weapon so that the same movements play:
+
+| Unit | Its head | What it carries |
+| --- | --- | --- |
+| Beekeeper | a wide straw hat with a veil to the shoulders | a hive of coiled straw on one hand |
+| Gravedigger | a hood with a long tail down the back | a shovel, carried like an axe |
+| Bell Ringer | a three-cornered hat over a scarf | a great handbell, hung mouth down from the hand |
+| Blacksmith | a flat-topped mask of plate with one slit | a hammer, and tongs with a glowing billet |
+| Lamplighter | a hat as tall as its head | a long pole with a flame at its tip |
+| Honor Guard | a closed helm with a crest from brow to nape | a halberd taller than it is |
+
+**Two dark openings must not meet.** The Beekeeper's hive has a door, and its veil has a window. The first drawing held the hive up beside the head, and the two dark shapes sat side by side at the height of a face. The hive is carried low now, a head's height under the window. Before giving a unit a second dark opening of any kind (a lantern's pane, a horn's mouth, a door), look at where it sits against the first.
+
+Straw is gold's color without its polish (`STRAW` in that file): a material is a fill and a shade, and `gloss` is what makes it metal.
+
 ## Editing by hand
 
 Copy a generated file to the same path under `art/overrides`, edit it there, and the game uses yours. The files are plain: attributes only, no styles, scripts or filters, nothing that points outside the file, and ids that say what a thing is (`knight-head-helm-fill`).
@@ -219,5 +236,5 @@ The ground of a battle and the map of a land are each one painted picture the si
 ## Grade badges, packs, icons
 
 - **Grades** (`grades.ts`) are plates with a letter, dressed more grandly as they rise: iron for F and E, bronze with a gloss for D and C, silver with a spur at each end and a stud for B, gold with wings and two studs for A, ruby with a gold rim, feathered wings, three studs and a crown for S. A grade is told by its outline as well as its color. Every place that shows a grade shows this badge, never the letter in a line of text.
-- **Packs** (`packs.ts`) are all the same foil pouch, crimped top and bottom. What tells one from another is its color and the mark on its seal: the Builder's Pack is the brown of timber with a tower on it.
-- **Icons** (`icons.ts`) are drawn as the things they are: a coin is a struck coin, a lock has a shackle. No letters and no emoji. Each kind of land has an emblem there, a medal in its color with what grows or shines in it, which stands on the banner of a world wherever a stage's number is shown.
+- **Packs** (`packs.ts`) are all the same foil pouch, crimped top and bottom. What tells one from another is its color and the mark on its seal: the Builder's Pack is the brown of timber with a tower on it, and the Faithful Pack, which is given and never sold, is ruby with a heart.
+- **Icons** (`icons.ts`) are drawn as the things they are: a coin is a struck coin, a lock has a shackle. No letters and no emoji. Each kind of land has an emblem there, a medal in its color with what grows or shines in it, which stands on the banner of a world wherever a stage's number is shown. The later screens have theirs: a wrapped gift for the rewards, a cog for the settings, two notes on a beam for the sound, a closed book for a tutorial. Each status has one too, a disc in the status's own color with its mark on it, which stands over a unit for as long as the status does: a flame for burning, drops for poison, stars for a stun, a flake of frost for slowness, chevrons for haste, a blade for rage and a broken one for weakness, a ring and cross for a mark, a shield, and a cross for mending. They are told apart by color first, as they are seen small, and poison's green is not mending's.

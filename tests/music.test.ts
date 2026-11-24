@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { BARS, Music, SLOTS, THEMES, chordOf, hertz, midiOf, notesOf, type Mood } from '../src/audio/music';
 import { Sfx } from '../src/audio/sfx';
 import { LANDS } from '../src/data/lands';
-import { fakeAudio, type FakeAudio } from './audio';
+import { Bank, INSTRUMENTS } from '../src/audio/bank';
+import { fakeAudio, fakeBank, sampled, type FakeAudio } from './audio';
 
 /** A band with a stand-in for the browser's audio under it. */
 function band(): { f: FakeAudio; sfx: Sfx; music: Music } {
@@ -193,5 +194,104 @@ describe('the band', () => {
     expect(() => music.duck(1.5)).not.toThrow();
     run(f, music, 3);
     expect(f.made.osc).toBeGreaterThan(0);
+  });
+});
+
+describe('the band on recorded instruments', () => {
+  /** A band whose bank is there. */
+  function recorded(bank: Bank = fakeBank()): { f: FakeAudio; sfx: Sfx; music: Music } {
+    const f = fakeAudio();
+    const sfx = new Sfx(() => f.ctx, bank);
+    return { f, sfx, music: new Music(() => sfx.out) };
+  }
+
+  it('plays every theme in both moods from the bank, with no oscillator', () => {
+    for (const land of Object.keys(THEMES)) {
+      for (const mood of ['calm', 'battle'] as Mood[]) {
+        const { f, sfx, music } = recorded();
+        sfx.unlock();
+        music.play(land, mood);
+        run(f, music, 50);
+        expect(f.made.osc, `${land}, ${mood}`).toBe(0);
+        const heard = sampled(f);
+        expect(heard.length, `${land}, ${mood}`).toBeGreaterThan(100);
+        // The cellos hold the chord and the bass is plucked under it, whatever the land.
+        expect(heard.some((n) => n.startsWith('cello-')), land).toBe(true);
+        expect(heard.some((n) => n.startsWith('bass-')), land).toBe(true);
+      }
+    }
+  });
+
+  it('each land has its own instrument for the tune, and its own drums in a battle', () => {
+    const tune = { meadow: 'flute-', desert: 'oboe-', snow: 'harp-' } as Record<string, string>;
+    const heardIn = (land: string, mood: Mood): string[] => {
+      const { f, sfx, music } = recorded();
+      sfx.unlock();
+      music.play(land, mood);
+      run(f, music, 20);
+      return sampled(f);
+    };
+    const drums = new Set<string>();
+    for (const [land, theme] of Object.entries(THEMES)) {
+      const calm = heardIn(land, 'calm');
+      expect(calm.some((n) => n.startsWith(tune[land])), land).toBe(true);
+      const kit = Object.values(theme.kit).map(([name]) => name);
+      for (const d of kit) expect(calm, `${land}: no ${d} while calm`).not.toContain(d);
+      const battle = heardIn(land, 'battle');
+      for (const d of kit) expect(battle, `${land}: ${d} in a battle`).toContain(d);
+      // Every letter of its drums has something to be struck on.
+      for (const letter of theme.drums) if (letter !== '.') expect(theme.kit[letter], `${land}: drum "${letter}"`).toBeDefined();
+      drums.add(kit.join());
+      // A battle has more in it than the calm has.
+      expect(battle.length, land).toBeGreaterThan(calm.length);
+    }
+    expect(drums.size).toBe(Object.keys(THEMES).length);
+  });
+
+  it('no note is played far from where its instrument was recorded', () => {
+    for (const land of Object.keys(THEMES)) {
+      for (const mood of ['calm', 'battle'] as Mood[]) {
+        const { f, sfx, music } = recorded();
+        sfx.unlock();
+        music.play(land, mood);
+        run(f, music, 50);
+        for (const src of f.sources) {
+          const name = (src.buffer as { sample?: string }).sample ?? '';
+          const pitched = Object.keys(INSTRUMENTS).some((i) => name.startsWith(`${i}-`));
+          // A fifth up at the most, for the bass under a chord; a fourth down.
+          if (pitched) {
+            expect(src.playbackRate.value, `${land}, ${mood}: ${name}`).toBeLessThanOrEqual(Math.pow(2, 7 / 12) + 1e-9);
+            expect(src.playbackRate.value, `${land}, ${mood}: ${name}`).toBeGreaterThanOrEqual(Math.pow(2, -5 / 12) - 1e-9);
+          } else expect(src.playbackRate.value, name).toBe(1);
+        }
+      }
+    }
+  });
+
+  it('waits for a bank that is on its way, and starts on the beat when it is in', () => {
+    const bank = fakeBank();
+    bank.state = 'loading';
+    const { f, sfx, music } = recorded(bank);
+    sfx.unlock();
+    music.play('meadow', 'calm');
+    run(f, music, 3);
+    expect(f.sources.length + f.made.osc).toBe(0);
+    bank.state = 'ready';
+    run(f, music, 1);
+    expect(f.made.osc).toBe(0);
+    expect(sampled(f).length).toBeGreaterThan(0);
+    // Nothing of the three seconds it waited is played late.
+    for (const src of f.sources) expect(src.at).toBeGreaterThan(f.clock.t - 1.1);
+  });
+
+  it('a device whose bank failed gets the theme from oscillators', () => {
+    const bank = new Bank();
+    bank.state = 'failed';
+    const { f, sfx, music } = recorded(bank);
+    sfx.unlock();
+    music.play('snow', 'battle');
+    run(f, music, 5);
+    expect(f.made.osc).toBeGreaterThan(0);
+    expect(sampled(f)).toEqual([]);
   });
 });

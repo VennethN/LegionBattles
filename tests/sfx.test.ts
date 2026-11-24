@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { CROWD, SOUNDS, Sfx, type SoundName } from '../src/audio/sfx';
-import { fakeAudio } from './audio';
+import { CROWD, SOUNDS, Sfx, type Hit, type SoundName } from '../src/audio/sfx';
+import { fakeAudio, fakeBank, sampled } from './audio';
 
 const fake = fakeAudio;
 
@@ -136,5 +136,81 @@ describe('sound effects', () => {
     expect(woke).toBe(0);
     s.sleep(false);
     expect(woke).toBe(1);
+  });
+});
+
+describe('sound effects from the bank', () => {
+  it('every sound is played on recorded sounds, and on nothing else, when the bank is there', () => {
+    const bank = fakeBank();
+    for (const name of Object.keys(SOUNDS) as SoundName[]) {
+      const f = fake();
+      const s = new Sfx(() => f.ctx, bank);
+      s.unlock();
+      s.play(name);
+      const hits = (SOUNDS[name] as { hits?: Hit[] }).hits ?? [];
+      expect(hits.length, name).toBeGreaterThan(0);
+      expect(f.made.osc, name).toBe(0);
+      expect(sampled(f), name).toEqual(hits.map((h) => h.s));
+      for (const src of f.sources) {
+        // Nothing is played so far from how it was recorded that it is another thing.
+        expect(src.playbackRate.value, name).toBeGreaterThan(0.55);
+        expect(src.playbackRate.value, name).toBeLessThan(1.8);
+        // And nothing starts late: the whole of an effect is over its first second.
+        expect(src.at - f.clock.t, name).toBeLessThan(1);
+      }
+    }
+  });
+
+  it('a sound whose recording is missing is made from oscillators, whole', () => {
+    const f = fake();
+    const s = new Sfx(() => f.ctx, fakeBank(['tap-1']));
+    s.unlock();
+    s.play('hit');
+    expect(sampled(f)).toEqual([]);
+    expect(f.made.osc).toBeGreaterThan(0);
+    // The others are untouched by it.
+    f.clock.t += 0.5;
+    s.play('click');
+    expect(sampled(f)).toEqual(['ui-click']);
+  });
+
+  it('pitch and volume reach a recorded sound as they reach a made one', () => {
+    const f = fake();
+    const s = new Sfx(() => f.ctx, fakeBank());
+    s.unlock();
+    s.play('coin', 1, 1);
+    const plain = f.sources.map((x) => x.playbackRate.value);
+    f.clock.t += 0.5;
+    s.play('coin', 1, 1.5);
+    const higher = f.sources.slice(plain.length).map((x) => x.playbackRate.value);
+    higher.forEach((r, i) => expect(r).toBeCloseTo(plain[i] * 1.5, 6));
+    // One that wanders is never the same twice running.
+    const rates: number[] = [];
+    for (let i = 0; i < 5; i++) {
+      f.clock.t += 0.5;
+      const from = f.sources.length;
+      s.play('hit');
+      rates.push(f.sources[from].playbackRate.value);
+    }
+    for (let i = 1; i < rates.length; i++) expect(rates[i]).not.toBe(rates[i - 1]);
+  });
+
+  it('a burst of the same sound is still one sound, and the small ones still give way in a crowd', () => {
+    const f = fake();
+    const s = new Sfx(() => f.ctx, fakeBank());
+    s.unlock();
+    for (let i = 0; i < 12; i++) s.play('hit');
+    expect(sampled(f).length).toBe(SOUNDS.hit.hits.length);
+    const names = Object.keys(SOUNDS) as SoundName[];
+    let dropped = 0;
+    for (const name of names) {
+      const before = f.sources.length;
+      s.play(name);
+      if (f.sources.length === before && name !== 'hit') {
+        dropped++;
+        expect(SOUNDS[name], name).toHaveProperty('crowd', true);
+      }
+    }
+    expect(dropped).toBeGreaterThan(0);
   });
 });

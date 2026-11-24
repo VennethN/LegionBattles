@@ -2,8 +2,19 @@
 // the music: it counts what is built, keeps when each thing is to start
 // and stop, and fails on a number no speaker could play.
 
+import fs from 'node:fs';
 import { expect } from 'vitest';
+import { Bank, parse } from '../src/audio/bank';
 import type { AudioLike } from '../src/audio/sfx';
+
+/** One thing played from a buffer: a burst of noise, or a sound of the bank. */
+export interface FakeSource {
+  buffer: unknown;
+  playbackRate: { value: number };
+  /** When it starts, and how far into the buffer. */
+  at: number;
+  offset: number;
+}
 
 export interface FakeAudio {
   ctx: AudioLike;
@@ -12,7 +23,28 @@ export interface FakeAudio {
   starts: number[];
   ends: number[];
   pitches: number[];
+  /** Everything played from a buffer, in the order it was made. */
+  sources: FakeSource[];
   clock: { t: number };
+}
+
+/** The bank's file as it is kept in the repository. */
+export function bankFile(): ArrayBuffer {
+  const b = fs.readFileSync('public/assets/audio/bank.bin');
+  return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength) as ArrayBuffer;
+}
+
+/** A bank with every sound of the real one in it by name, and nothing to hear: each buffer says only which it is. */
+export function fakeBank(without: string[] = []): Bank {
+  const bank = new Bank();
+  for (const part of parse(bankFile())) if (!without.includes(part.name)) bank.put(part.name, { sample: part.name });
+  bank.state = 'ready';
+  return bank;
+}
+
+/** The sounds of the bank among what a stand-in played, by name. */
+export function sampled(f: FakeAudio): string[] {
+  return f.sources.map((s) => (s.buffer as { sample?: string } | null)?.sample).filter((n): n is string => !!n);
 }
 
 export function fakeAudio(): FakeAudio {
@@ -20,6 +52,7 @@ export function fakeAudio(): FakeAudio {
   const starts: number[] = [];
   const ends: number[] = [];
   const pitches: number[] = [];
+  const sources: FakeSource[] = [];
   const clock = { t: 10 };
   const param = (seen?: number[]) => {
     const p = {
@@ -63,12 +96,26 @@ export function fakeAudio(): FakeAudio {
     createBiquadFilter: () => ({ ...node(), type: 'lowpass', frequency: param(), Q: param() }),
     createBufferSource: () => {
       made.noise++;
-      return { ...node(), buffer: null, start: begin, stop: (t: number) => { ends.push(t); } };
+      const src: FakeSource & { connect(to: unknown): unknown; start(t: number, offset?: number): void; stop(t: number): void } = {
+        ...node(),
+        buffer: null,
+        playbackRate: { value: 1 },
+        at: 0,
+        offset: 0,
+        start: (t: number, offset = 0) => {
+          begin(t);
+          src.at = t;
+          src.offset = offset;
+        },
+        stop: (t: number) => { ends.push(t); },
+      };
+      sources.push(src);
+      return src;
     },
     createBuffer: (_c: number, length: number) => {
       const data = new Float32Array(length);
       return { getChannelData: () => data };
     },
   };
-  return { ctx, made, starts, ends, pitches, clock };
+  return { ctx, made, starts, ends, pitches, sources, clock };
 }
