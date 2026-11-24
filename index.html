@@ -9,7 +9,8 @@
       html, body { margin: 0; width: 100%; height: 100%; background: #2a1a10; overflow: hidden; }
       body { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
       #game { position: fixed; inset: 0; }
-      #game canvas { display: block; }
+      /* The canvas fills the window whatever size it is drawn at: the game makes it as dense as the screen (src/view/config.ts). */
+      #game canvas { display: block; width: 100% !important; height: 100% !important; }
     </style>
   </head>
   <body>

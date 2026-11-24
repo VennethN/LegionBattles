@@ -2,7 +2,7 @@
 // worked out from this is worked out (rules.ts), so a save is small and an
 // old one can always be read.
 
-import { ABILITIES, CAMP, HEROES, HONORS, PACK_EVERY } from './data';
+import { ABILITIES, CAMP, FEATS, HEROES, HONORS, PACK_EVERY } from './data';
 
 export const SAVE_VERSION = 1;
 
@@ -153,7 +153,8 @@ export function repair(raw: unknown, seed = 1): SaveData {
       packs: whole(stats.packs, 0),
       seconds: num(stats.seconds, 0),
     },
-    feats: Array.isArray(r.feats) ? r.feats.filter((f): f is string => typeof f === 'string') : [],
+    // Each feat there is, once: one listed twice would be counted twice, and one there is not would be counted at all.
+    feats: FEATS.map((f) => f.id).filter((id) => Array.isArray(r.feats) && r.feats.includes(id)),
     abilities: ABILITIES.map((_a, i) => {
       const a = (abilities[i] && typeof abilities[i] === 'object' ? abilities[i] : {}) as Record<string, unknown>;
       return { ready: num(a.ready, 0), until: num(a.until, 0) };

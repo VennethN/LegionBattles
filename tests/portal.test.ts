@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { Sfx } from '../src/audio/sfx';
 import { SAVE_KEY, loadSave, setStore, storeSave, wipeSave, type Store } from '../src/game/storage';
-import { startingSave } from '../src/game/rules';
+import { newSave } from '../src/game/state';
 import { NoAds, ads, setAds } from '../src/platform/ads';
 import { CrazyGamesPortal, CrazyStore, loadCrazySdk, type CrazySdk, type CrazyUser } from '../src/platform/crazygames';
 import { playerName, startPortal, wantsCrazyGames } from '../src/platform/portal';
@@ -143,22 +143,22 @@ describe('the save on CrazyGames', () => {
     const sdk = fakeSdk();
     const local = memory();
     expect(await startPortal(page(sdk, 'www.crazygames.com', '', local))).toBe('crazygames');
-    const save = startingSave(7);
-    save.coins = 4321;
+    const save = newSave(7);
+    save.run.gold = 4321;
     storeSave(save);
     expect(Object.keys(sdk.kept)).toEqual([SAVE_KEY]);
     // Nothing of it is written to the browser's own storage: the portal asks that the module be relied on wholly.
     expect(local.held).toEqual({});
     const back = loadSave(1);
     expect(back.fresh).toBe(false);
-    expect(back.save.coins).toBe(4321);
+    expect(back.save.run.gold).toBe(4321);
     wipeSave();
     expect(sdk.kept).toEqual({});
     expect(loadSave(1).fresh).toBe(true);
   });
 
   it('a save from before the game used the module is brought into it once, and one already there is not written over', () => {
-    const old = JSON.stringify({ ...startingSave(3), coins: 999 });
+    const old = JSON.stringify({ ...newSave(3), laurels: 999 });
     const fresh = fakeSdk();
     new CrazyStore(fresh, memory({ [SAVE_KEY]: old })).adopt(SAVE_KEY);
     expect(fresh.kept[SAVE_KEY]).toBe(old);

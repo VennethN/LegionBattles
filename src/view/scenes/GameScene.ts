@@ -137,8 +137,12 @@ export class GameScene extends Phaser.Scene {
     // The lists say when something was bought, so that the fight shows it.
     this.game.events.off('bought');
     this.game.events.on('bought', () => {
-      // What was bought may have been a feat's doing: the fight says so in its next frame, as it says everything.
-      battle().feats();
+      // What was bought may have been a feat's doing.
+      const b = battle();
+      const before = b.count;
+      b.feats();
+      for (let k = before; k < b.count; k++) this.tell(b.events[k].kind, b.events[k].a, b.events[k].b, b.events[k].flag);
+      b.count = before;
       this.stage.sync();
       this.refresh(true);
     });

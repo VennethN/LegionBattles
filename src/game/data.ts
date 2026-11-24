@@ -166,7 +166,7 @@ export const ABILITIES: readonly AbilityDef[] = [
 // ------------------------------------------------------------ the tap
 
 /** A tap strikes for this, and this share of the legion's damage a second on top. */
-export const TAP_BASE = 1;
+export const TAP_BASE = 2;
 export const TAP_SHARE = 0.04;
 /** A tap in ten is a telling blow, for this many times as much. */
 export const CRIT_CHANCE = 0.1;

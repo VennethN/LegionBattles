@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { BARS, Music, SLOTS, THEMES, chordOf, hertz, midiOf, notesOf, type Mood } from '../src/audio/music';
 import { Sfx } from '../src/audio/sfx';
-import { LANDS } from '../src/data/lands';
+import { LANDS } from '../src/game/data';
 import { Bank, INSTRUMENTS } from '../src/audio/bank';
 import { fakeAudio, fakeBank, sampled, type FakeAudio } from './audio';
 
