@@ -8,6 +8,7 @@
 
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
+import { walker } from './walk.mjs';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
@@ -20,6 +21,7 @@ fs.mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
+const { press, mark } = walker(page);
 const errors = [];
 page.on('pageerror', (e) => errors.push(`${e.message}\n${(e.stack ?? '').split('\n').slice(0, 5).join('\n')}`));
 
@@ -79,15 +81,21 @@ await fight('62-structures-tent', [9500, 3000, 3000, 3000]);
 await load(36);
 await page.screenshot({ path: `${out}/63-structures-jarl.png` });
 
-// The UNITS screen has a page for units and a page for structures.
+// UNITS and STRUCTURES are two buttons, and each opens the side screen on its own cards, with the player's half of the field beside it.
 await load(8);
-await overlay('Team');
+await mark('Main', 'units');
+await page.waitForFunction(() => window.game.scene.isActive('Team'), null, { timeout: 10000 });
+await page.waitForTimeout(600);
 await page.screenshot({ path: `${out}/64-structures-units-page.png` });
-const team = (data) => page.evaluate((d) => window.game.scene.getScene('Team').scene.restart(d), data);
-await team({ side: 'structures' });
+await press('Team', 'CLOSE');
+await page.waitForFunction(() => !window.game.scene.isActive('Team'), null, { timeout: 10000 });
+await page.waitForTimeout(300);
+await mark('Main', 'structures');
+await page.waitForFunction(() => window.game.scene.isActive('Team'), null, { timeout: 10000 });
 await page.waitForTimeout(600);
 await page.screenshot({ path: `${out}/65-structures-page.png` });
-await team({ selected: `c${held.beartrap}` });
+const team = (data) => page.evaluate((d) => window.game.scene.getScene('Team').scene.restart(d), data);
+await team({ side: 'structures', selected: `c${held.beartrap}` });
 await page.waitForTimeout(600);
 await page.screenshot({ path: `${out}/66-structures-trap-card.png` });
 // The index has the two pages too.

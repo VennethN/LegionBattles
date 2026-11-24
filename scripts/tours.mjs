@@ -170,6 +170,25 @@ const again = await tourUp();
 if (!again || again.id !== 'basics') await fail(`VIEW AGAIN did not start the basics: ${JSON.stringify(again)}`);
 await walk('again');
 console.log(JSON.stringify({ again: walked.basics }));
+
+// 4. The raids have a tour of their own, which waits for the first raid to be open. The dungeons' tour once
+// pointed at a raid before there was one to enter, and the owner was shown a thing that was not there.
+if ((walked.dungeons ?? []).some((step) => /raid/i.test(step))) await fail(`the tour of the dungeons points at a raid: ${walked.dungeons.join(', ')}`);
+const everyOther = ['basics', 'rewards', 'packs', 'dungeons', 'skills', 'upgrades', 'structures'].map((id) => `tour:${id}`);
+const later = { ...save, cleared: 22, tutorial: { done: true, seen: everyOther, at: 0, tour: null } };
+await page.evaluate((v) => localStorage.setItem('legion-battles-save', JSON.stringify(v)), later);
+await page.reload();
+await ready();
+let raids = null;
+for (let i = 0; i < 6 && !raids; i++) {
+  await page.waitForTimeout(400);
+  raids = await tourUp();
+  if (!raids) await onward();
+}
+if (!raids || raids.id !== 'raids') await fail(`with the first raid open, the tour of the raids did not start: ${JSON.stringify(raids)}`);
+await walk('raids');
+console.log(JSON.stringify({ raids: walked.raids }));
+if (!(walked.raids ?? []).some((step) => step.startsWith('Hall/'))) await fail('the tour of the raids did not lead into their hall');
 if (errors.length) await fail('the page threw');
 console.log('no errors');
 await browser.close();

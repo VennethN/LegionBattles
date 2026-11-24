@@ -139,7 +139,7 @@ await press(640 + 140, 360 + 88);
 await ready();
 const fresh = await stored();
 await expect('after starting over', { coins: fresh.coins, cleared: fresh.cleared, cards: fresh.cards.length, done: fresh.tutorial.done, level: fresh.player.level, tree: fresh.tree, claimed: fresh.rewards.claimed },
-  { coins: 40, cleared: 0, cards: 3, done: false, level: 1, tree: {}, claimed: 0 });
+  { coins: 40, cleared: 0, cards: 4, done: false, level: 1, tree: {}, claimed: 0 });
 await expect('the settings after starting over', fresh.settings, kept);
 // The first tutorial is up again, for whoever is new.
 const step = await page.evaluate(() => window.game.scene.getScene('Main').guide.step?.id ?? null);

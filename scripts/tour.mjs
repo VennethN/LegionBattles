@@ -9,6 +9,7 @@
 
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
+import { walker } from './walk.mjs';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
@@ -21,11 +22,7 @@ fs.mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
-// A place on the game's layout is not always where it is on the page: a menu is drawn in a window (view/app.ts).
-const click = async (x, y) => {
-  const p = await page.evaluate(([a, b]) => window.screenOf?.(a, b) ?? { x: a, y: b }, [x, y]);
-  await page.mouse.click(p.x, p.y);
-};
+const { click, press, mark, card: tile } = walker(page);
 const errors = [];
 page.on('pageerror', (e) => errors.push(`${e.message}\n${(e.stack ?? '').split('\n').slice(0, 5).join('\n')}`));
 
@@ -64,7 +61,7 @@ const overlay = async (key) => {
   await page.waitForTimeout(400);
 };
 const close = async (key) => {
-  await click(1280 - 262, 37);
+  await press(key, 'CLOSE');
   await page.waitForFunction((k) => !window.game.scene.isActive(k), key, { timeout: 10000 });
   await page.waitForTimeout(300);
 };
@@ -72,7 +69,7 @@ const close = async (key) => {
 await load(41);
 await page.screenshot({ path: `${out}/10-main.png` });
 // The stage's plate opens the map of its world. The arrows turn to the worlds on either side.
-await click(640, 64);
+await mark('Main', 'stages');
 await page.waitForFunction(() => window.game.scene.isActive('Map'), null, { timeout: 10000 });
 await page.waitForTimeout(1200);
 await page.screenshot({ path: `${out}/11-map.png` });
@@ -96,23 +93,23 @@ await page.screenshot({ path: `${out}/12-team.png` });
 // every other card is there, the least first, and any of them can be given up.
 const cardsNow = () => page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).cards);
 const before = await cardsNow();
-await click(96 + 3 * 140, 145);
+await click(...tile(3));
 await page.waitForTimeout(300);
 await page.screenshot({ path: `${out}/12b-card-with-copies.png` });
-await click(1158, 648);
+await press('Team', 'COMBINE');
 await page.waitForFunction(() => window.game.scene.getScene('Team').forge > 0, null, { timeout: 10000 });
 await page.waitForTimeout(300);
 const target = await page.evaluate(() => window.game.scene.getScene('Team').forge);
 await page.screenshot({ path: `${out}/12c-forge.png` });
 // MARK THIS PAGE, then COMBINE, which asks once.
-await click(1070, 502);
+await press('Team', 'MARK THIS PAGE');
 await page.waitForTimeout(200);
 const marked = await page.evaluate(() => [...window.game.scene.getScene('Team').marked]);
-await click(1070, 572);
+await press('Team', 'COMBINE');
 await page.waitForTimeout(200);
 await page.screenshot({ path: `${out}/12d-forge-sure.png` });
 if ((await cardsNow()).length !== before.length) throw new Error('COMBINE did not ask before it gave the cards up');
-await click(1070, 572);
+await press('Team', 'SURE? PRESS AGAIN');
 await page.waitForFunction(() => window.game.scene.getScene('Team').forge === 0, null, { timeout: 10000 });
 await page.waitForTimeout(400);
 await page.screenshot({ path: `${out}/12e-combined.png` });
@@ -128,13 +125,7 @@ if (team.length !== 7 || team.some((p) => !after.some((c) => c.id === p.card))) 
 // UNITS lists only cards held. INDEX, beside the count of them, is the page of every unit there is.
 const tiles = await page.evaluate(() => window.game.scene.getScene('Team').tiles.map((t) => !!t.card));
 if (tiles.length !== after.length || tiles.includes(false)) throw new Error('the screen of units shows something that is not a card held');
-const index = await page.evaluate(() => {
-  const sc = window.game.scene.getScene('Team');
-  const b = sc.children.list.filter((o) => o.type === 'Container').find((c) => c.list.some((t) => t.text === 'INDEX'));
-  return b ? { x: b.x, y: b.y } : null;
-});
-if (!index) throw new Error('no INDEX button on the screen of units');
-await click(index.x, index.y);
+await press('Team', 'INDEX');
 await page.waitForFunction(() => window.game.scene.isActive('Index') && !window.game.scene.isActive('Team'), null, { timeout: 10000 });
 await page.waitForTimeout(400);
 await page.screenshot({ path: `${out}/12f-index.png` });
@@ -157,13 +148,7 @@ await page.evaluate(() => {
 });
 await page.waitForTimeout(400);
 // MY CARDS, beside the tabs, goes back to the cards held.
-const back = await page.evaluate(() => {
-  const sc = window.game.scene.getScene('Index');
-  const b = sc.children.list.filter((o) => o.type === 'Container').find((c) => c.list.some((t) => t.text === 'MY CARDS'));
-  return b ? { x: b.x, y: b.y } : null;
-});
-if (!back) throw new Error('no MY CARDS button on the index');
-await click(back.x, back.y);
+await press('Index', 'MY CARDS');
 await page.waitForFunction(() => window.game.scene.isActive('Team') && !window.game.scene.isActive('Index'), null, { timeout: 10000 });
 await page.waitForTimeout(300);
 await close('Team');
@@ -211,7 +196,7 @@ if (openedNow !== opened + 3) throw new Error(`three packs were held and ${opene
 for (const [at, name] of [[21, 'colossus'], [36, 'jarl']]) {
   await load(at);
   await page.screenshot({ path: `${out}/15-${name}-ready.png` });
-  await click(640, 664);
+  await mark('Main', 'battle');
   await page.waitForTimeout(3200);
   await page.screenshot({ path: `${out}/16-${name}-battle.png` });
   await page.waitForFunction(() => window.game.scene.getScene('Main').state === 'after', null, { timeout: 180000 });

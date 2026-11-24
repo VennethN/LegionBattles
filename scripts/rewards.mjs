@@ -9,6 +9,7 @@
 
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
+import { walker } from './walk.mjs';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
@@ -20,11 +21,7 @@ const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
-// A place on the game's layout is not always where it is on the page: a menu is drawn in a window (view/app.ts).
-const click = async (x, y) => {
-  const p = await page.evaluate(([a, b]) => window.screenOf?.(a, b) ?? { x: a, y: b }, [x, y]);
-  await page.mouse.click(p.x, p.y);
-};
+const { click, press, mark } = walker(page);
 const errors = [];
 page.on('pageerror', (e) => errors.push(e.message + '\n' + (e.stack ?? '').split('\n').slice(0, 5).join('\n')));
 const cards = [];
@@ -38,12 +35,12 @@ const save = {
 };
 const main = () => page.waitForFunction(() => window.game?.scene?.isActive('Main') && window.game.scene.getScene('Main').state === 'ready', null, { timeout: 30000 });
 const open = async () => {
-  await click(1280 - 102, 131);
+  await mark('Main', 'rewards');
   await page.waitForFunction(() => window.game.scene.isActive('Rewards'), null, { timeout: 10000 });
   await page.waitForTimeout(400);
 };
 const close = async () => {
-  await click(1280 - 262, 37);
+  await press('Rewards', 'CLOSE');
   await page.waitForFunction(() => !window.game.scene.isActive('Rewards'), null, { timeout: 10000 });
   await page.waitForTimeout(300);
 };
@@ -99,7 +96,7 @@ await page.screenshot({ path: `${out}/89-rewards-pack-claimed.png` });
 await close();
 
 // The pack in its slot, with what it holds.
-await click(328, 664);
+await mark('Main', 'packs');
 await page.waitForFunction(() => window.game.scene.isActive('Shop'), null, { timeout: 10000 });
 await page.waitForTimeout(300);
 await click(30 + 66 + 3 * 140, 78 + 67);
