@@ -26,7 +26,7 @@ Then open http://127.0.0.1:5173/. Add `?seed=123` to go straight to a skirmish w
 | `npm run balance` | Plays 400 skirmishes and says how long they last and who wins. |
 | `npm run journey` | Plays new players through all three worlds and says where they stall. |
 
-Three scripts play the game in a headless browser and take the pictures in `docs/screens`. They need the dev server running, and Playwright:
+Four scripts play the game in a headless browser and take the pictures in `docs/screens`. They need the dev server running, and Playwright:
 
 ```bash
 node scripts/screens.mjs
@@ -37,10 +37,14 @@ node scripts/touch.mjs
 ```
 
 ```bash
+node scripts/phone.mjs
+```
+
+```bash
 node scripts/tour.mjs
 ```
 
-`screens.mjs` walks a skirmish with a mouse. `touch.mjs` does the same on a phone-sized screen with touches, and fails if a drag or a tap does not do what a click would. `tour.mjs` loads a save that is well into the game and visits the map, the team, the packs and the two later bosses.
+`screens.mjs` walks a skirmish with a mouse. `touch.mjs` does the same on a phone-sized screen with touches, and fails if a drag or a tap does not do what a click would. `phone.mjs` is a new player on a phone, with touches only: a pack, a card, the first stage, the next. `tour.mjs` loads a save that is well into the game and visits the map, the team, the packs and the two later bosses.
 
 ## How the game works
 
