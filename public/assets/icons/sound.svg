@@ -1,21 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="sound" width="48" height="48" viewBox="0 0 48 48">
 <defs>
-<clipPath id="sound-cone-clip"><path d="M 6 18 L 16 18 L 27 8 L 27 40 L 16 30 L 6 30 Z"/></clipPath>
+<path id="sound-cone-shape" d="M 6 18 L 16 18 L 27 8 L 27 40 L 16 30 L 6 30 Z"/>
+<clipPath id="sound-cone-clip"><use href="#sound-cone-shape"/></clipPath>
+<clipPath id="sound-cone-lit-clip"><use href="#sound-cone-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="sound-wave-a-shape" d="M 32 17 C 37 21 37 27 32 31 L 29 28 C 31 26 31 22 29 20 Z"/>
+<path id="sound-wave-b-shape" d="M 38 11 C 47 18 47 30 38 37 L 35 34 C 41 29 41 19 35 14 Z"/>
 </defs>
 <g id="sound-cone">
-<path id="sound-cone-shade" d="M 6 18 L 16 18 L 27 8 L 27 40 L 16 30 L 6 30 Z" fill="#c4b594"/>
+<use id="sound-cone-shade" href="#sound-cone-shape" fill="#c4b594"/>
 <g clip-path="url(#sound-cone-clip)">
-<path id="sound-cone-fill" d="M 3 15 L 13 15 L 24 5 L 24 37 L 13 27 L 3 27 Z" fill="#e9dfc6"/>
-<path id="sound-cone-lit" d="M 6 18 L 16 18 L 27 8 L 27 40 L 16 30 L 6 30 Z M 9.6 21.6 L 19.6 21.6 L 30.6 11.6 L 30.6 43.6 L 19.6 33.6 L 9.6 33.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="sound-cone-fill" href="#sound-cone-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#sound-cone-lit-clip)">
+<use id="sound-cone-lit" href="#sound-cone-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="sound-cone-fill-over" href="#sound-cone-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
 </g>
-<path id="sound-cone-line" d="M 6 18 L 16 18 L 27 8 L 27 40 L 16 30 L 6 30 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="sound-cone-line" href="#sound-cone-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="sound-wave-a">
-<path id="sound-wave-a-fill" d="M 32 17 C 37 21 37 27 32 31 L 29 28 C 31 26 31 22 29 20 Z" fill="#e9dfc6"/>
-<path id="sound-wave-a-line" d="M 32 17 C 37 21 37 27 32 31 L 29 28 C 31 26 31 22 29 20 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="sound-wave-a-fill" href="#sound-wave-a-shape" fill="#e9dfc6"/>
+<use id="sound-wave-a-line" href="#sound-wave-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="sound-wave-b">
-<path id="sound-wave-b-fill" d="M 38 11 C 47 18 47 30 38 37 L 35 34 C 41 29 41 19 35 14 Z" fill="#e9dfc6"/>
-<path id="sound-wave-b-line" d="M 38 11 C 47 18 47 30 38 37 L 35 34 C 41 29 41 19 35 14 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="sound-wave-b-fill" href="#sound-wave-b-shape" fill="#e9dfc6"/>
+<use id="sound-wave-b-line" href="#sound-wave-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

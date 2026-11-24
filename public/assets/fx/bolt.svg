@@ -1,14 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="bolt" width="56" height="20" viewBox="0 0 56 20">
+<defs>
+<path id="bolt-fletch-shape" d="M 4 4 L 14 4 L 18 10 L 14 16 L 4 16 L 8 10 Z"/>
+<path id="bolt-shaft-shape" d="M 17 7 L 39 7 Q 42 7 42 10 L 42 10 Q 42 13 39 13 L 17 13 Q 14 13 14 10 L 14 10 Q 14 7 17 7 Z"/>
+<path id="bolt-head-shape" d="M 38 3 L 53 10 L 38 17 Z"/>
+</defs>
 <g id="bolt-fletch">
-<path id="bolt-fletch-fill" d="M 4 4 L 14 4 L 18 10 L 14 16 L 4 16 L 8 10 Z" fill="#e9dfc6"/>
-<path id="bolt-fletch-line" d="M 4 4 L 14 4 L 18 10 L 14 16 L 4 16 L 8 10 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="bolt-fletch-fill" href="#bolt-fletch-shape" fill="#e9dfc6"/>
+<use id="bolt-fletch-line" href="#bolt-fletch-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="bolt-shaft">
-<path id="bolt-shaft-fill" d="M 17 7 L 39 7 Q 42 7 42 10 L 42 10 Q 42 13 39 13 L 17 13 Q 14 13 14 10 L 14 10 Q 14 7 17 7 Z" fill="#9a6a3a"/>
-<path id="bolt-shaft-line" d="M 17 7 L 39 7 Q 42 7 42 10 L 42 10 Q 42 13 39 13 L 17 13 Q 14 13 14 10 L 14 10 Q 14 7 17 7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="bolt-shaft-fill" href="#bolt-shaft-shape" fill="#9a6a3a"/>
+<use id="bolt-shaft-line" href="#bolt-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="bolt-head">
-<path id="bolt-head-fill" d="M 38 3 L 53 10 L 38 17 Z" fill="#b9c2cc"/>
-<path id="bolt-head-line" d="M 38 3 L 53 10 L 38 17 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="bolt-head-fill" href="#bolt-head-shape" fill="#b9c2cc"/>
+<use id="bolt-head-line" href="#bolt-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

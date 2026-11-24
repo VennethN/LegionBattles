@@ -4,125 +4,168 @@
 </g>
 <g id="ballista-pennant-layer" transform="translate(62 138) rotate(0) scale(1 1) translate(-62 -138)">
 <defs>
-<clipPath id="ballista-pennant-flag-clip"><path d="M 64 80 L 36 86 L 46 94 L 36 104 L 64 106 Z"/></clipPath>
+<path id="ballista-pennant-pole-shape" d="M 62 78 L 62 78 Q 65 78 65 81 L 65 137 Q 65 140 62 140 L 62 140 Q 59 140 59 137 L 59 81 Q 59 78 62 78 Z"/>
+<path id="ballista-pennant-flag-shape" d="M 64 80 L 36 86 L 46 94 L 36 104 L 64 106 Z"/>
+<clipPath id="ballista-pennant-flag-clip"><use href="#ballista-pennant-flag-shape"/></clipPath>
+<clipPath id="ballista-pennant-flag-lit-clip"><use href="#ballista-pennant-flag-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
 <g id="ballista-pennant-pole">
-<path id="ballista-pennant-pole-fill" d="M 62 78 L 62 78 Q 65 78 65 81 L 65 137 Q 65 140 62 140 L 62 140 Q 59 140 59 137 L 59 81 Q 59 78 62 78 Z" fill="#9a6a3a"/>
-<path id="ballista-pennant-pole-line" d="M 62 78 L 62 78 Q 65 78 65 81 L 65 137 Q 65 140 62 140 L 62 140 Q 59 140 59 137 L 59 81 Q 59 78 62 78 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="ballista-pennant-pole-fill" href="#ballista-pennant-pole-shape" fill="#9a6a3a"/>
+<use id="ballista-pennant-pole-line" href="#ballista-pennant-pole-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-pennant-flag">
-<path id="ballista-pennant-flag-shade" d="M 64 80 L 36 86 L 46 94 L 36 104 L 64 106 Z" fill="#2f5893"/>
+<use id="ballista-pennant-flag-shade" href="#ballista-pennant-flag-shape" fill="#2f5893"/>
 <g clip-path="url(#ballista-pennant-flag-clip)">
-<path id="ballista-pennant-flag-fill" d="M 61 77 L 33 83 L 43 91 L 33 101 L 61 103 Z" fill="#3d6fb6"/>
-<path id="ballista-pennant-flag-lit" d="M 64 80 L 36 86 L 46 94 L 36 104 L 64 106 Z M 67.6 83.6 L 39.6 89.6 L 49.6 97.6 L 39.6 107.6 L 67.6 109.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="ballista-pennant-flag-fill" href="#ballista-pennant-flag-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#ballista-pennant-flag-lit-clip)">
+<use id="ballista-pennant-flag-lit" href="#ballista-pennant-flag-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ballista-pennant-flag-fill-over" href="#ballista-pennant-flag-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
 </g>
-<path id="ballista-pennant-flag-line" d="M 64 80 L 36 86 L 46 94 L 36 104 L 64 106 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="ballista-pennant-flag-line" href="#ballista-pennant-flag-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 <g id="ballista-wheel-back-layer" transform="translate(76 163) rotate(0) scale(1 1) translate(-76 -163)">
 <defs>
-<clipPath id="ballista-wheel-back-rim-clip"><path d="M 93 163 C 93 172.4 85.4 180 76 180 C 66.6 180 59 172.4 59 163 C 59 153.6 66.6 146 76 146 C 85.4 146 93 153.6 93 163 Z"/></clipPath>
+<path id="ballista-wheel-back-rim-shape" d="M 93 163 C 93 172.4 85.4 180 76 180 C 66.6 180 59 172.4 59 163 C 59 153.6 66.6 146 76 146 C 85.4 146 93 153.6 93 163 Z"/>
+<clipPath id="ballista-wheel-back-rim-clip"><use href="#ballista-wheel-back-rim-shape"/></clipPath>
+<path id="ballista-wheel-back-hub-shape" d="M 81 163 C 81 165.8 78.8 168 76 168 C 73.2 168 71 165.8 71 163 C 71 160.2 73.2 158 76 158 C 78.8 158 81 160.2 81 163 Z"/>
 </defs>
 <g id="ballista-wheel-back-rim">
-<path id="ballista-wheel-back-rim-fill" d="M 93 163 C 93 172.4 85.4 180 76 180 C 66.6 180 59 172.4 59 163 C 59 153.6 66.6 146 76 146 C 85.4 146 93 153.6 93 163 Z" fill="#75502b"/>
+<use id="ballista-wheel-back-rim-fill" href="#ballista-wheel-back-rim-shape" fill="#75502b"/>
 <g clip-path="url(#ballista-wheel-back-rim-clip)">
 <path id="ballista-wheel-back-spoke-a" d="M 59 163 L 93 163" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="ballista-wheel-back-spoke-b" d="M 76 146 L 76 180" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="ballista-wheel-back-rim-line" d="M 93 163 C 93 172.4 85.4 180 76 180 C 66.6 180 59 172.4 59 163 C 59 153.6 66.6 146 76 146 C 85.4 146 93 153.6 93 163 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="ballista-wheel-back-rim-line" href="#ballista-wheel-back-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-wheel-back-hub">
-<path id="ballista-wheel-back-hub-fill" d="M 81 163 C 81 165.8 78.8 168 76 168 C 73.2 168 71 165.8 71 163 C 71 160.2 73.2 158 76 158 C 78.8 158 81 160.2 81 163 Z" fill="#5d6672"/>
-<path id="ballista-wheel-back-hub-line" d="M 81 163 C 81 165.8 78.8 168 76 168 C 73.2 168 71 165.8 71 163 C 71 160.2 73.2 158 76 158 C 78.8 158 81 160.2 81 163 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="ballista-wheel-back-hub-fill" href="#ballista-wheel-back-hub-shape" fill="#5d6672"/>
+<use id="ballista-wheel-back-hub-line" href="#ballista-wheel-back-hub-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 <g id="ballista-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
 <defs>
-<clipPath id="ballista-body-post-clip"><path d="M 91 110 L 101 110 Q 104 110 104 113 L 104 141 Q 104 144 101 144 L 91 144 Q 88 144 88 141 L 88 113 Q 88 110 91 110 Z"/></clipPath>
-<clipPath id="ballista-body-bed-clip"><path d="M 60 136 L 132 136 Q 138 136 138 142 L 138 150 Q 138 156 132 156 L 60 156 Q 54 156 54 150 L 54 142 Q 54 136 60 136 Z"/></clipPath>
-<clipPath id="ballista-body-drape-clip"><path d="M 62 138 L 100 138 L 100 160 L 91 153 L 81 162 L 71 153 L 62 160 Z"/></clipPath>
+<path id="ballista-body-post-shape" d="M 91 110 L 101 110 Q 104 110 104 113 L 104 141 Q 104 144 101 144 L 91 144 Q 88 144 88 141 L 88 113 Q 88 110 91 110 Z"/>
+<clipPath id="ballista-body-post-clip"><use href="#ballista-body-post-shape"/></clipPath>
+<clipPath id="ballista-body-post-lit-clip"><use href="#ballista-body-post-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ballista-body-bed-shape" d="M 60 136 L 132 136 Q 138 136 138 142 L 138 150 Q 138 156 132 156 L 60 156 Q 54 156 54 150 L 54 142 Q 54 136 60 136 Z"/>
+<clipPath id="ballista-body-bed-clip"><use href="#ballista-body-bed-shape"/></clipPath>
+<clipPath id="ballista-body-bed-lit-clip"><use href="#ballista-body-bed-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="ballista-body-drape-shape" d="M 62 138 L 100 138 L 100 160 L 91 153 L 81 162 L 71 153 L 62 160 Z"/>
+<clipPath id="ballista-body-drape-clip"><use href="#ballista-body-drape-shape"/></clipPath>
+<clipPath id="ballista-body-drape-lit-clip"><use href="#ballista-body-drape-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ballista-body-brace-shape" d="M 111 140 L 129 140 Q 132 140 132 143 L 132 145 Q 132 148 129 148 L 111 148 Q 108 148 108 145 L 108 143 Q 108 140 111 140 Z"/>
 </defs>
 <g id="ballista-body-post">
-<path id="ballista-body-post-shade" d="M 91 110 L 101 110 Q 104 110 104 113 L 104 141 Q 104 144 101 144 L 91 144 Q 88 144 88 141 L 88 113 Q 88 110 91 110 Z" fill="#75502b"/>
+<use id="ballista-body-post-shade" href="#ballista-body-post-shape" fill="#75502b"/>
 <g clip-path="url(#ballista-body-post-clip)">
-<path id="ballista-body-post-fill" d="M 88 107 L 98 107 Q 101 107 101 110 L 101 138 Q 101 141 98 141 L 88 141 Q 85 141 85 138 L 85 110 Q 85 107 88 107 Z" fill="#9a6a3a"/>
-<path id="ballista-body-post-lit" d="M 91 110 L 101 110 Q 104 110 104 113 L 104 141 Q 104 144 101 144 L 91 144 Q 88 144 88 141 L 88 113 Q 88 110 91 110 Z M 94.6 113.6 L 104.6 113.6 Q 107.6 113.6 107.6 116.6 L 107.6 144.6 Q 107.6 147.6 104.6 147.6 L 94.6 147.6 Q 91.6 147.6 91.6 144.6 L 91.6 116.6 Q 91.6 113.6 94.6 113.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="ballista-body-post-fill" href="#ballista-body-post-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#ballista-body-post-lit-clip)">
+<use id="ballista-body-post-lit" href="#ballista-body-post-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ballista-body-post-fill-over" href="#ballista-body-post-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
 </g>
-<path id="ballista-body-post-line" d="M 91 110 L 101 110 Q 104 110 104 113 L 104 141 Q 104 144 101 144 L 91 144 Q 88 144 88 141 L 88 113 Q 88 110 91 110 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="ballista-body-post-line" href="#ballista-body-post-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-body-bed">
-<path id="ballista-body-bed-shade" d="M 60 136 L 132 136 Q 138 136 138 142 L 138 150 Q 138 156 132 156 L 60 156 Q 54 156 54 150 L 54 142 Q 54 136 60 136 Z" fill="#75502b"/>
+<use id="ballista-body-bed-shade" href="#ballista-body-bed-shape" fill="#75502b"/>
 <g clip-path="url(#ballista-body-bed-clip)">
-<path id="ballista-body-bed-fill" d="M 56 132 L 128 132 Q 134 132 134 138 L 134 146 Q 134 152 128 152 L 56 152 Q 50 152 50 146 L 50 138 Q 50 132 56 132 Z" fill="#9a6a3a"/>
-<path id="ballista-body-bed-lit" d="M 60 136 L 132 136 Q 138 136 138 142 L 138 150 Q 138 156 132 156 L 60 156 Q 54 156 54 150 L 54 142 Q 54 136 60 136 Z M 64.2 140.2 L 136.2 140.2 Q 142.2 140.2 142.2 146.2 L 142.2 154.2 Q 142.2 160.2 136.2 160.2 L 64.2 160.2 Q 58.2 160.2 58.2 154.2 L 58.2 146.2 Q 58.2 140.2 64.2 140.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="ballista-body-bed-fill" href="#ballista-body-bed-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#ballista-body-bed-lit-clip)">
+<use id="ballista-body-bed-lit" href="#ballista-body-bed-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ballista-body-bed-fill-over" href="#ballista-body-bed-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
 </g>
-<path id="ballista-body-bed-line" d="M 60 136 L 132 136 Q 138 136 138 142 L 138 150 Q 138 156 132 156 L 60 156 Q 54 156 54 150 L 54 142 Q 54 136 60 136 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="ballista-body-bed-line" href="#ballista-body-bed-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-body-drape">
-<path id="ballista-body-drape-shade" d="M 62 138 L 100 138 L 100 160 L 91 153 L 81 162 L 71 153 L 62 160 Z" fill="#2f5893"/>
+<use id="ballista-body-drape-shade" href="#ballista-body-drape-shape" fill="#2f5893"/>
 <g clip-path="url(#ballista-body-drape-clip)">
-<path id="ballista-body-drape-fill" d="M 59 135 L 97 135 L 97 157 L 88 150 L 78 159 L 68 150 L 59 157 Z" fill="#3d6fb6"/>
-<path id="ballista-body-drape-lit" d="M 62 138 L 100 138 L 100 160 L 91 153 L 81 162 L 71 153 L 62 160 Z M 65.6 141.6 L 103.6 141.6 L 103.6 163.6 L 94.6 156.6 L 84.6 165.6 L 74.6 156.6 L 65.6 163.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="ballista-body-drape-fill" href="#ballista-body-drape-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#ballista-body-drape-lit-clip)">
+<use id="ballista-body-drape-lit" href="#ballista-body-drape-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ballista-body-drape-fill-over" href="#ballista-body-drape-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
 </g>
-<path id="ballista-body-drape-line" d="M 62 138 L 100 138 L 100 160 L 91 153 L 81 162 L 71 153 L 62 160 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="ballista-body-drape-line" href="#ballista-body-drape-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-body-brace">
-<path id="ballista-body-brace-fill" d="M 111 140 L 129 140 Q 132 140 132 143 L 132 145 Q 132 148 129 148 L 111 148 Q 108 148 108 145 L 108 143 Q 108 140 111 140 Z" fill="#5d6672"/>
-<path id="ballista-body-brace-line" d="M 111 140 L 129 140 Q 132 140 132 143 L 132 145 Q 132 148 129 148 L 111 148 Q 108 148 108 145 L 108 143 Q 108 140 111 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="ballista-body-brace-fill" href="#ballista-body-brace-shape" fill="#5d6672"/>
+<use id="ballista-body-brace-line" href="#ballista-body-brace-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 <g id="ballista-wheel-front-layer" transform="translate(118 163) rotate(0) scale(1 1) translate(-118 -163)">
 <defs>
-<clipPath id="ballista-wheel-front-rim-clip"><path d="M 135 163 C 135 172.4 127.4 180 118 180 C 108.6 180 101 172.4 101 163 C 101 153.6 108.6 146 118 146 C 127.4 146 135 153.6 135 163 Z"/></clipPath>
+<path id="ballista-wheel-front-rim-shape" d="M 135 163 C 135 172.4 127.4 180 118 180 C 108.6 180 101 172.4 101 163 C 101 153.6 108.6 146 118 146 C 127.4 146 135 153.6 135 163 Z"/>
+<clipPath id="ballista-wheel-front-rim-clip"><use href="#ballista-wheel-front-rim-shape"/></clipPath>
+<clipPath id="ballista-wheel-front-rim-lit-clip"><use href="#ballista-wheel-front-rim-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ballista-wheel-front-hub-shape" d="M 123 163 C 123 165.8 120.8 168 118 168 C 115.2 168 113 165.8 113 163 C 113 160.2 115.2 158 118 158 C 120.8 158 123 160.2 123 163 Z"/>
 </defs>
 <g id="ballista-wheel-front-rim">
-<path id="ballista-wheel-front-rim-shade" d="M 135 163 C 135 172.4 127.4 180 118 180 C 108.6 180 101 172.4 101 163 C 101 153.6 108.6 146 118 146 C 127.4 146 135 153.6 135 163 Z" fill="#75502b"/>
+<use id="ballista-wheel-front-rim-shade" href="#ballista-wheel-front-rim-shape" fill="#75502b"/>
 <g clip-path="url(#ballista-wheel-front-rim-clip)">
-<path id="ballista-wheel-front-rim-fill" d="M 132 160 C 132 169.4 124.4 177 115 177 C 105.6 177 98 169.4 98 160 C 98 150.6 105.6 143 115 143 C 124.4 143 132 150.6 132 160 Z" fill="#9a6a3a"/>
-<path id="ballista-wheel-front-rim-lit" d="M 135 163 C 135 172.4 127.4 180 118 180 C 108.6 180 101 172.4 101 163 C 101 153.6 108.6 146 118 146 C 127.4 146 135 153.6 135 163 Z M 138.6 166.6 C 138.6 176 131 183.6 121.6 183.6 C 112.2 183.6 104.6 176 104.6 166.6 C 104.6 157.2 112.2 149.6 121.6 149.6 C 131 149.6 138.6 157.2 138.6 166.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="ballista-wheel-front-rim-fill" href="#ballista-wheel-front-rim-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#ballista-wheel-front-rim-lit-clip)">
+<use id="ballista-wheel-front-rim-lit" href="#ballista-wheel-front-rim-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ballista-wheel-front-rim-fill-over" href="#ballista-wheel-front-rim-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
 <path id="ballista-wheel-front-spoke-a" d="M 101 163 L 135 163" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="ballista-wheel-front-spoke-b" d="M 118 146 L 118 180" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="ballista-wheel-front-rim-line" d="M 135 163 C 135 172.4 127.4 180 118 180 C 108.6 180 101 172.4 101 163 C 101 153.6 108.6 146 118 146 C 127.4 146 135 153.6 135 163 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="ballista-wheel-front-rim-line" href="#ballista-wheel-front-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-wheel-front-hub">
-<path id="ballista-wheel-front-hub-fill" d="M 123 163 C 123 165.8 120.8 168 118 168 C 115.2 168 113 165.8 113 163 C 113 160.2 115.2 158 118 158 C 120.8 158 123 160.2 123 163 Z" fill="#5d6672"/>
-<path id="ballista-wheel-front-hub-line" d="M 123 163 C 123 165.8 120.8 168 118 168 C 115.2 168 113 165.8 113 163 C 113 160.2 115.2 158 118 158 C 120.8 158 123 160.2 123 163 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="ballista-wheel-front-hub-fill" href="#ballista-wheel-front-hub-shape" fill="#5d6672"/>
+<use id="ballista-wheel-front-hub-line" href="#ballista-wheel-front-hub-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 <g id="ballista-bow-layer" transform="translate(96 116) rotate(0) scale(1 1) translate(-96 -116)">
 <defs>
-<clipPath id="ballista-bow-limbs-clip"><path d="M 117.4 67.2 Q 161.4 97.3 140 146 L 131.6 142.2 Q 147.9 101.1 112.3 74.9 Z"/></clipPath>
-<clipPath id="ballista-bow-beam-clip"><path d="M 153.1 97.5 L 154.2 101.4 Q 155.6 106.2 150.8 107.6 L 75.8 129.1 Q 71 130.4 69.6 125.6 L 68.5 121.8 Q 67.2 117 72 115.6 L 146.9 94.1 Q 151.7 92.7 153.1 97.5 Z"/></clipPath>
+<path id="ballista-bow-limbs-shape" d="M 117.4 67.2 Q 161.4 97.3 140 146 L 131.6 142.2 Q 147.9 101.1 112.3 74.9 Z"/>
+<clipPath id="ballista-bow-limbs-clip"><use href="#ballista-bow-limbs-shape"/></clipPath>
+<clipPath id="ballista-bow-limbs-lit-clip"><use href="#ballista-bow-limbs-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ballista-bow-beam-shape" d="M 153.1 97.5 L 154.2 101.4 Q 155.6 106.2 150.8 107.6 L 75.8 129.1 Q 71 130.4 69.6 125.6 L 68.5 121.8 Q 67.2 117 72 115.6 L 146.9 94.1 Q 151.7 92.7 153.1 97.5 Z"/>
+<clipPath id="ballista-bow-beam-clip"><use href="#ballista-bow-beam-shape"/></clipPath>
+<clipPath id="ballista-bow-beam-lit-clip"><use href="#ballista-bow-beam-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ballista-bow-bolt-shaft-shape" d="M 155.5 98.4 L 155.7 99.4 Q 156.3 101.3 154.4 101.9 L 106.3 115.6 Q 104.4 116.2 103.8 114.3 L 103.6 113.3 Q 103 111.4 104.9 110.8 L 153 97.1 Q 154.9 96.5 155.5 98.4 Z"/>
+<path id="ballista-bow-bolt-head-shape" d="M 149.5 92.3 L 172.9 93.9 L 154 107.7 Z"/>
+<path id="ballista-bow-mount-shape" d="M 97.9 122.7 C 94.2 123.8 90.3 121.6 89.3 117.9 C 88.2 114.2 90.4 110.3 94.1 109.3 C 97.8 108.2 101.7 110.4 102.7 114.1 C 103.8 117.8 101.6 121.7 97.9 122.7 Z"/>
 </defs>
 <path id="ballista-bow-string" d="M 122.1 69 L 101.8 114.3 L 143 142.1" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <g id="ballista-bow-limbs">
-<path id="ballista-bow-limbs-shade" d="M 117.4 67.2 Q 161.4 97.3 140 146 L 131.6 142.2 Q 147.9 101.1 112.3 74.9 Z" fill="#75502b"/>
+<use id="ballista-bow-limbs-shade" href="#ballista-bow-limbs-shape" fill="#75502b"/>
 <g clip-path="url(#ballista-bow-limbs-clip)">
-<path id="ballista-bow-limbs-fill" d="M 114.4 64.2 Q 158.4 94.3 137 143 L 128.6 139.2 Q 144.9 98.1 109.3 71.9 Z" fill="#9a6a3a"/>
-<path id="ballista-bow-limbs-lit" d="M 117.4 67.2 Q 161.4 97.3 140 146 L 131.6 142.2 Q 147.9 101.1 112.3 74.9 Z M 121 70.8 Q 165 100.9 143.6 149.6 L 135.2 145.8 Q 151.5 104.7 115.9 78.5 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="ballista-bow-limbs-fill" href="#ballista-bow-limbs-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#ballista-bow-limbs-lit-clip)">
+<use id="ballista-bow-limbs-lit" href="#ballista-bow-limbs-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ballista-bow-limbs-fill-over" href="#ballista-bow-limbs-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
 </g>
-<path id="ballista-bow-limbs-line" d="M 117.4 67.2 Q 161.4 97.3 140 146 L 131.6 142.2 Q 147.9 101.1 112.3 74.9 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="ballista-bow-limbs-line" href="#ballista-bow-limbs-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-bow-beam">
-<path id="ballista-bow-beam-shade" d="M 153.1 97.5 L 154.2 101.4 Q 155.6 106.2 150.8 107.6 L 75.8 129.1 Q 71 130.4 69.6 125.6 L 68.5 121.8 Q 67.2 117 72 115.6 L 146.9 94.1 Q 151.7 92.7 153.1 97.5 Z" fill="#75502b"/>
+<use id="ballista-bow-beam-shade" href="#ballista-bow-beam-shape" fill="#75502b"/>
 <g clip-path="url(#ballista-bow-beam-clip)">
-<path id="ballista-bow-beam-fill" d="M 150.1 94.5 L 151.2 98.4 Q 152.6 103.2 147.8 104.6 L 72.8 126.1 Q 68 127.4 66.6 122.6 L 65.5 118.8 Q 64.2 114 69 112.6 L 143.9 91.1 Q 148.7 89.7 150.1 94.5 Z" fill="#9a6a3a"/>
-<path id="ballista-bow-beam-lit" d="M 153.1 97.5 L 154.2 101.4 Q 155.6 106.2 150.8 107.6 L 75.8 129.1 Q 71 130.4 69.6 125.6 L 68.5 121.8 Q 67.2 117 72 115.6 L 146.9 94.1 Q 151.7 92.7 153.1 97.5 Z M 156.7 101.1 L 157.8 105 Q 159.2 109.8 154.4 111.2 L 79.4 132.7 Q 74.6 134 73.2 129.2 L 72.1 125.4 Q 70.8 120.6 75.6 119.2 L 150.5 97.7 Q 155.3 96.3 156.7 101.1 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="ballista-bow-beam-fill" href="#ballista-bow-beam-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#ballista-bow-beam-lit-clip)">
+<use id="ballista-bow-beam-lit" href="#ballista-bow-beam-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ballista-bow-beam-fill-over" href="#ballista-bow-beam-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
 </g>
-<path id="ballista-bow-beam-line" d="M 153.1 97.5 L 154.2 101.4 Q 155.6 106.2 150.8 107.6 L 75.8 129.1 Q 71 130.4 69.6 125.6 L 68.5 121.8 Q 67.2 117 72 115.6 L 146.9 94.1 Q 151.7 92.7 153.1 97.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="ballista-bow-beam-line" href="#ballista-bow-beam-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-bow-bolt-shaft">
-<path id="ballista-bow-bolt-shaft-fill" d="M 155.5 98.4 L 155.7 99.4 Q 156.3 101.3 154.4 101.9 L 106.3 115.6 Q 104.4 116.2 103.8 114.3 L 103.6 113.3 Q 103 111.4 104.9 110.8 L 153 97.1 Q 154.9 96.5 155.5 98.4 Z" fill="#e9dfc6"/>
-<path id="ballista-bow-bolt-shaft-line" d="M 155.5 98.4 L 155.7 99.4 Q 156.3 101.3 154.4 101.9 L 106.3 115.6 Q 104.4 116.2 103.8 114.3 L 103.6 113.3 Q 103 111.4 104.9 110.8 L 153 97.1 Q 154.9 96.5 155.5 98.4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="ballista-bow-bolt-shaft-fill" href="#ballista-bow-bolt-shaft-shape" fill="#e9dfc6"/>
+<use id="ballista-bow-bolt-shaft-line" href="#ballista-bow-bolt-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-bow-bolt-head">
-<path id="ballista-bow-bolt-head-fill" d="M 149.5 92.3 L 172.9 93.9 L 154 107.7 Z" fill="#b9c2cc"/>
-<path id="ballista-bow-bolt-head-line" d="M 149.5 92.3 L 172.9 93.9 L 154 107.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="ballista-bow-bolt-head-fill" href="#ballista-bow-bolt-head-shape" fill="#b9c2cc"/>
+<use id="ballista-bow-bolt-head-line" href="#ballista-bow-bolt-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="ballista-bow-mount">
-<path id="ballista-bow-mount-fill" d="M 97.9 122.7 C 94.2 123.8 90.3 121.6 89.3 117.9 C 88.2 114.2 90.4 110.3 94.1 109.3 C 97.8 108.2 101.7 110.4 102.7 114.1 C 103.8 117.8 101.6 121.7 97.9 122.7 Z" fill="#5d6672"/>
-<path id="ballista-bow-mount-line" d="M 97.9 122.7 C 94.2 123.8 90.3 121.6 89.3 117.9 C 88.2 114.2 90.4 110.3 94.1 109.3 C 97.8 108.2 101.7 110.4 102.7 114.1 C 103.8 117.8 101.6 121.7 97.9 122.7 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="ballista-bow-mount-fill" href="#ballista-bow-mount-shape" fill="#5d6672"/>
+<use id="ballista-bow-mount-line" href="#ballista-bow-mount-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 </svg>

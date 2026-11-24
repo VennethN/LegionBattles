@@ -1,26 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="cards" width="48" height="48" viewBox="0 0 48 48">
 <defs>
-<clipPath id="cards-back-clip"><path d="M 7.8 7.8 L 21.5 4.9 Q 26.4 3.9 27.5 8.7 L 32 30.3 Q 33.1 35.2 28.2 36.2 L 14.5 39.1 Q 9.6 40.1 8.5 35.3 L 4 13.7 Q 2.9 8.8 7.8 7.8 Z"/></clipPath>
-<clipPath id="cards-front-clip"><path d="M 24.3 8.2 L 38.2 10.1 Q 43.1 10.8 42.4 15.8 L 39.4 37.6 Q 38.7 42.5 33.7 41.8 L 19.8 39.9 Q 14.9 39.2 15.6 34.2 L 18.6 12.4 Q 19.3 7.5 24.3 8.2 Z"/></clipPath>
+<path id="cards-back-shape" d="M 7.8 7.8 L 21.5 4.9 Q 26.4 3.9 27.5 8.7 L 32 30.3 Q 33.1 35.2 28.2 36.2 L 14.5 39.1 Q 9.6 40.1 8.5 35.3 L 4 13.7 Q 2.9 8.8 7.8 7.8 Z"/>
+<clipPath id="cards-back-clip"><use href="#cards-back-shape"/></clipPath>
+<clipPath id="cards-back-lit-clip"><use href="#cards-back-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="cards-front-shape" d="M 24.3 8.2 L 38.2 10.1 Q 43.1 10.8 42.4 15.8 L 39.4 37.6 Q 38.7 42.5 33.7 41.8 L 19.8 39.9 Q 14.9 39.2 15.6 34.2 L 18.6 12.4 Q 19.3 7.5 24.3 8.2 Z"/>
+<clipPath id="cards-front-clip"><use href="#cards-front-shape"/></clipPath>
+<clipPath id="cards-front-lit-clip"><use href="#cards-front-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="cards-mark-shape" d="M 30.1 17.1 L 31.8 22.9 L 36.9 26.1 L 31.1 27.8 L 27.9 32.9 L 26.2 27.1 L 21.1 23.9 L 26.9 22.2 Z"/>
 </defs>
 <g id="cards-back">
-<path id="cards-back-shade" d="M 7.8 7.8 L 21.5 4.9 Q 26.4 3.9 27.5 8.7 L 32 30.3 Q 33.1 35.2 28.2 36.2 L 14.5 39.1 Q 9.6 40.1 8.5 35.3 L 4 13.7 Q 2.9 8.8 7.8 7.8 Z" fill="#2f5893"/>
+<use id="cards-back-shade" href="#cards-back-shape" fill="#2f5893"/>
 <g clip-path="url(#cards-back-clip)">
-<path id="cards-back-fill" d="M 4.8 4.8 L 18.5 1.9 Q 23.4 0.9 24.5 5.7 L 29 27.3 Q 30.1 32.2 25.2 33.2 L 11.5 36.1 Q 6.6 37.1 5.5 32.3 L 1 10.7 Q -0.1 5.8 4.8 4.8 Z" fill="#3d6fb6"/>
-<path id="cards-back-lit" d="M 7.8 7.8 L 21.5 4.9 Q 26.4 3.9 27.5 8.7 L 32 30.3 Q 33.1 35.2 28.2 36.2 L 14.5 39.1 Q 9.6 40.1 8.5 35.3 L 4 13.7 Q 2.9 8.8 7.8 7.8 Z M 11.4 11.4 L 25.1 8.5 Q 30 7.5 31.1 12.3 L 35.6 33.9 Q 36.7 38.8 31.8 39.8 L 18.1 42.7 Q 13.2 43.7 12.1 38.9 L 7.6 17.3 Q 6.5 12.4 11.4 11.4 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="cards-back-fill" href="#cards-back-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#cards-back-lit-clip)">
+<use id="cards-back-lit" href="#cards-back-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cards-back-fill-over" href="#cards-back-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
 </g>
-<path id="cards-back-line" d="M 7.8 7.8 L 21.5 4.9 Q 26.4 3.9 27.5 8.7 L 32 30.3 Q 33.1 35.2 28.2 36.2 L 14.5 39.1 Q 9.6 40.1 8.5 35.3 L 4 13.7 Q 2.9 8.8 7.8 7.8 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="cards-back-line" href="#cards-back-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="cards-front">
-<path id="cards-front-shade" d="M 24.3 8.2 L 38.2 10.1 Q 43.1 10.8 42.4 15.8 L 39.4 37.6 Q 38.7 42.5 33.7 41.8 L 19.8 39.9 Q 14.9 39.2 15.6 34.2 L 18.6 12.4 Q 19.3 7.5 24.3 8.2 Z" fill="#c4b594"/>
+<use id="cards-front-shade" href="#cards-front-shape" fill="#c4b594"/>
 <g clip-path="url(#cards-front-clip)">
-<path id="cards-front-fill" d="M 21.3 5.2 L 35.2 7.1 Q 40.1 7.8 39.4 12.8 L 36.4 34.6 Q 35.7 39.5 30.7 38.8 L 16.8 36.9 Q 11.9 36.2 12.6 31.2 L 15.6 9.4 Q 16.3 4.5 21.3 5.2 Z" fill="#e9dfc6"/>
-<path id="cards-front-lit" d="M 24.3 8.2 L 38.2 10.1 Q 43.1 10.8 42.4 15.8 L 39.4 37.6 Q 38.7 42.5 33.7 41.8 L 19.8 39.9 Q 14.9 39.2 15.6 34.2 L 18.6 12.4 Q 19.3 7.5 24.3 8.2 Z M 27.9 11.8 L 41.8 13.7 Q 46.7 14.4 46 19.4 L 43 41.2 Q 42.3 46.1 37.3 45.4 L 23.4 43.5 Q 18.5 42.8 19.2 37.8 L 22.2 16 Q 22.9 11.1 27.9 11.8 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="cards-front-fill" href="#cards-front-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#cards-front-lit-clip)">
+<use id="cards-front-lit" href="#cards-front-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cards-front-fill-over" href="#cards-front-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
 </g>
-<path id="cards-front-line" d="M 24.3 8.2 L 38.2 10.1 Q 43.1 10.8 42.4 15.8 L 39.4 37.6 Q 38.7 42.5 33.7 41.8 L 19.8 39.9 Q 14.9 39.2 15.6 34.2 L 18.6 12.4 Q 19.3 7.5 24.3 8.2 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="cards-front-line" href="#cards-front-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="cards-mark">
-<path id="cards-mark-fill" d="M 30.1 17.1 L 31.8 22.9 L 36.9 26.1 L 31.1 27.8 L 27.9 32.9 L 26.2 27.1 L 21.1 23.9 L 26.9 22.2 Z" fill="#c8a24a"/>
-<path id="cards-mark-line" d="M 30.1 17.1 L 31.8 22.9 L 36.9 26.1 L 31.1 27.8 L 27.9 32.9 L 26.2 27.1 L 21.1 23.9 L 26.9 22.2 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="cards-mark-fill" href="#cards-mark-shape" fill="#c8a24a"/>
+<use id="cards-mark-line" href="#cards-mark-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

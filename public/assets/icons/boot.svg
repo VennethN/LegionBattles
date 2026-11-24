@@ -1,17 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="boot" width="48" height="48" viewBox="0 0 48 48">
 <defs>
-<clipPath id="boot-boot-clip"><path d="M 13 6 L 29 6 L 29 24 C 38 25 43 30 43 37 L 43 42 L 11 42 L 11 30 Z"/></clipPath>
+<path id="boot-boot-shape" d="M 13 6 L 29 6 L 29 24 C 38 25 43 30 43 37 L 43 42 L 11 42 L 11 30 Z"/>
+<clipPath id="boot-boot-clip"><use href="#boot-boot-shape"/></clipPath>
+<clipPath id="boot-boot-lit-clip"><use href="#boot-boot-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="boot-cuff-shape" d="M 14 4 L 28 4 Q 31 4 31 7 L 31 9 Q 31 12 28 12 L 14 12 Q 11 12 11 9 L 11 7 Q 11 4 14 4 Z"/>
 </defs>
 <g id="boot-boot">
-<path id="boot-boot-shade" d="M 13 6 L 29 6 L 29 24 C 38 25 43 30 43 37 L 43 42 L 11 42 L 11 30 Z" fill="#4e3520"/>
+<use id="boot-boot-shade" href="#boot-boot-shape" fill="#4e3520"/>
 <g clip-path="url(#boot-boot-clip)">
-<path id="boot-boot-fill" d="M 9 2 L 25 2 L 25 20 C 34 21 39 26 39 33 L 39 38 L 7 38 L 7 26 Z" fill="#6b4a2b"/>
-<path id="boot-boot-lit" d="M 13 6 L 29 6 L 29 24 C 38 25 43 30 43 37 L 43 42 L 11 42 L 11 30 Z M 17.2 10.2 L 33.2 10.2 L 33.2 28.2 C 42.2 29.2 47.2 34.2 47.2 41.2 L 47.2 46.2 L 15.2 46.2 L 15.2 34.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="boot-boot-fill" href="#boot-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#boot-boot-lit-clip)">
+<use id="boot-boot-lit" href="#boot-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="boot-boot-fill-over" href="#boot-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
 </g>
-<path id="boot-boot-line" d="M 13 6 L 29 6 L 29 24 C 38 25 43 30 43 37 L 43 42 L 11 42 L 11 30 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="boot-boot-line" href="#boot-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="boot-cuff">
-<path id="boot-cuff-fill" d="M 14 4 L 28 4 Q 31 4 31 7 L 31 9 Q 31 12 28 12 L 14 12 Q 11 12 11 9 L 11 7 Q 11 4 14 4 Z" fill="#d9cdb0"/>
-<path id="boot-cuff-line" d="M 14 4 L 28 4 Q 31 4 31 7 L 31 9 Q 31 12 28 12 L 14 12 Q 11 12 11 9 L 11 7 Q 11 4 14 4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="boot-cuff-fill" href="#boot-cuff-shape" fill="#d9cdb0"/>
+<use id="boot-cuff-line" href="#boot-cuff-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

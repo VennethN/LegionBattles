@@ -1,12 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="jarl-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<clipPath id="jarl-leg-back-boot-clip"><path d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/></clipPath>
+<path id="jarl-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
+<clipPath id="jarl-leg-back-boot-clip"><use href="#jarl-leg-back-boot-shape"/></clipPath>
 </defs>
 <g id="jarl-leg-back-boot">
-<path id="jarl-leg-back-boot-fill" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="#4e3520"/>
+<use id="jarl-leg-back-boot-fill" href="#jarl-leg-back-boot-shape" fill="#4e3520"/>
 <g clip-path="url(#jarl-leg-back-boot-clip)">
 <path id="jarl-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
 </g>
-<path id="jarl-leg-back-boot-line" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="jarl-leg-back-boot-line" href="#jarl-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

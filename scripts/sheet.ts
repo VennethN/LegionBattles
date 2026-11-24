@@ -3,7 +3,8 @@
 // Draws the pictures to look at before believing the art is right, into
 // docs/art:
 //
-//   contact-sheet.png  every unit on both teams, every effect, the board
+//   contact-sheet.png  every unit on both teams, every effect, icon, pack and badge
+//   scenes.png         the painted ground of a battle in each land, and the map of each land
 //   parts.png          every part of every unit alone, on both teams
 //   poses.png          every unit at the far end of each movement
 //   silhouettes.png    every unit as a black shape 48 px tall, in rows
@@ -15,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
+import { SCENE_H, SCENE_W } from '../src/art/backdrop';
 import { composeUnit, innerOf, withIdSuffix, type PartSource } from '../src/art/compose';
 import { CANVAS } from '../src/art/kit/draw';
 import { GRASS, OUTLINE, OUTLINE_WIDTH, TEAMS, allColors, type Team } from '../src/art/kit/palette';
@@ -22,6 +24,7 @@ import type { UnitArt } from '../src/art/kit/unit';
 import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE, TOPPLE_POSE } from '../src/art/poses';
 import type { Pose } from '../src/art/rig';
 import { UNIT_ART } from '../src/art/units';
+import { LANDS } from '../src/data/lands';
 import { buildArt } from './art';
 
 const ASSETS = path.resolve('public/assets');
@@ -198,6 +201,32 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
   save('silhouettes.png', width, height, body, 2);
 }
 
+// ------------------------------------------------------------------ scenes
+{
+  // The painted scenes at half their size: the ground of a battle in each kind of land, and the map of each land.
+  const k = 0.5;
+  const w = SCENE_W * k;
+  const h = SCENE_H * k;
+  const lands = LANDS;
+  const width = lands.length * (w + 20) + 20;
+  const height = 2 * (h + 44) + 20;
+  let body = `<rect width="${width}" height="${height}" fill="${GRASS.dark}"/>`;
+  lands.forEach((land, i) => {
+    const x = 20 + i * (w + 20);
+    const scenes = [
+      [`${land.ground}: the ground of a battle`, `board/${land.ground}.svg`],
+      [`${land.name}: the map of its stages`, `maps/${land.id}.svg`],
+    ];
+    scenes.forEach(([title, file], row) => {
+      const y = 34 + row * (h + 44);
+      const inner = withIdSuffix(innerOf(shown(file)), `-sc${serial++}`);
+      body += label(x + w / 2, y - 10, title, 14);
+      body += `<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="0 0 ${SCENE_W} ${SCENE_H}">${inner}</svg>`;
+    });
+  });
+  save('scenes.png', width, height, body, 1);
+}
+
 // ------------------------------------------------------------------ checks
 {
   const palette = allColors();
@@ -215,12 +244,13 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
     for (const m of svg.matchAll(/(?:fill|stroke)="(#[0-9a-fA-F]{3,8})"/g)) {
       if (!palette.has(m[1].toLowerCase())) problems.push(`${rel}: ${m[1]} is not in the palette`);
     }
-    for (const m of svg.matchAll(/<path[^>]*stroke="([^"]+)"[^>]*stroke-width="([^"]+)"/g)) {
+    for (const m of svg.matchAll(/<(?:path|use)[^>]*stroke="([^"]+)"[^>]*stroke-width="([^"]+)"/g)) {
       if (m[1].toLowerCase() === OUTLINE && Number(m[2]) !== OUTLINE_WIDTH) {
         problems.push(`${rel}: a dark line ${m[2]} wide (they are all ${OUTLINE_WIDTH})`);
       }
     }
-    if (/<style|<script|<filter|href=/.test(svg)) problems.push(`${rel}: has a style, script, filter or reference`);
+    // A shape may be used again inside its own file (href="#..."). Nothing may point outside it.
+    if (/<style|<script|<filter|href="[^#]/.test(svg)) problems.push(`${rel}: has a style, script, filter or a reference to another file`);
   }
   const unique = [...new Set(problems)];
   if (unique.length) {

@@ -1,25 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="land-desert" width="48" height="48" viewBox="0 0 48 48">
 <defs>
-<clipPath id="land-desert-medal-clip"><path d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z"/></clipPath>
-<clipPath id="land-desert-sun-clip"><path d="M 32 24 C 32 28.4 28.4 32 24 32 C 19.6 32 16 28.4 16 24 C 16 19.6 19.6 16 24 16 C 28.4 16 32 19.6 32 24 Z"/></clipPath>
+<path id="land-desert-medal-shape" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z"/>
+<clipPath id="land-desert-medal-clip"><use href="#land-desert-medal-shape"/></clipPath>
+<clipPath id="land-desert-medal-lit-clip"><use href="#land-desert-medal-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="land-desert-rays-shape" d="M 24 7 L 27.8 14.8 L 36 12 L 33.2 20.2 L 41 24 L 33.2 27.8 L 36 36 L 27.8 33.2 L 24 41 L 20.2 33.2 L 12 36 L 14.8 27.8 L 7 24 L 14.8 20.2 L 12 12 L 20.2 14.8 Z"/>
+<path id="land-desert-sun-shape" d="M 32 24 C 32 28.4 28.4 32 24 32 C 19.6 32 16 28.4 16 24 C 16 19.6 19.6 16 24 16 C 28.4 16 32 19.6 32 24 Z"/>
+<clipPath id="land-desert-sun-clip"><use href="#land-desert-sun-shape"/></clipPath>
 </defs>
 <g id="land-desert-medal">
-<path id="land-desert-medal-shade" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z" fill="#c4a564"/>
+<use id="land-desert-medal-shade" href="#land-desert-medal-shape" fill="#c4a564"/>
 <g clip-path="url(#land-desert-medal-clip)">
-<path id="land-desert-medal-fill" d="M 41 20 C 41 31.6 31.6 41 20 41 C 8.4 41 -1 31.6 -1 20 C -1 8.4 8.4 -1 20 -1 C 31.6 -1 41 8.4 41 20 Z" fill="#e6cc8e"/>
-<path id="land-desert-medal-lit" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z M 49.2 28.2 C 49.2 39.8 39.8 49.2 28.2 49.2 C 16.6 49.2 7.2 39.8 7.2 28.2 C 7.2 16.6 16.6 7.2 28.2 7.2 C 39.8 7.2 49.2 16.6 49.2 28.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="land-desert-medal-fill" href="#land-desert-medal-shape" transform="translate(-4 -4)" fill="#e6cc8e"/>
+<g clip-path="url(#land-desert-medal-lit-clip)">
+<use id="land-desert-medal-lit" href="#land-desert-medal-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="land-desert-medal-fill-over" href="#land-desert-medal-shape" transform="translate(4.2 4.2)" fill="#e6cc8e"/>
 </g>
-<path id="land-desert-medal-line" d="M 45 24 C 45 35.6 35.6 45 24 45 C 12.4 45 3 35.6 3 24 C 3 12.4 12.4 3 24 3 C 35.6 3 45 12.4 45 24 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="land-desert-medal-line" href="#land-desert-medal-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="land-desert-rays">
-<path id="land-desert-rays-fill" d="M 24 7 L 27.8 14.8 L 36 12 L 33.2 20.2 L 41 24 L 33.2 27.8 L 36 36 L 27.8 33.2 L 24 41 L 20.2 33.2 L 12 36 L 14.8 27.8 L 7 24 L 14.8 20.2 L 12 12 L 20.2 14.8 Z" fill="#f2d264"/>
-<path id="land-desert-rays-line" d="M 24 7 L 27.8 14.8 L 36 12 L 33.2 20.2 L 41 24 L 33.2 27.8 L 36 36 L 27.8 33.2 L 24 41 L 20.2 33.2 L 12 36 L 14.8 27.8 L 7 24 L 14.8 20.2 L 12 12 L 20.2 14.8 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="land-desert-rays-fill" href="#land-desert-rays-shape" fill="#f2d264"/>
+<use id="land-desert-rays-line" href="#land-desert-rays-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="land-desert-sun">
-<path id="land-desert-sun-shade" d="M 32 24 C 32 28.4 28.4 32 24 32 C 19.6 32 16 28.4 16 24 C 16 19.6 19.6 16 24 16 C 28.4 16 32 19.6 32 24 Z" fill="#9c7c33"/>
+<use id="land-desert-sun-shade" href="#land-desert-sun-shape" fill="#9c7c33"/>
 <g clip-path="url(#land-desert-sun-clip)">
-<path id="land-desert-sun-fill" d="M 30 22 C 30 26.4 26.4 30 22 30 C 17.6 30 14 26.4 14 22 C 14 17.6 17.6 14 22 14 C 26.4 14 30 17.6 30 22 Z" fill="#c8a24a"/>
+<use id="land-desert-sun-fill" href="#land-desert-sun-shape" transform="translate(-2 -2)" fill="#c8a24a"/>
 </g>
-<path id="land-desert-sun-line" d="M 32 24 C 32 28.4 28.4 32 24 32 C 19.6 32 16 28.4 16 24 C 16 19.6 19.6 16 24 16 C 28.4 16 32 19.6 32 24 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="land-desert-sun-line" href="#land-desert-sun-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

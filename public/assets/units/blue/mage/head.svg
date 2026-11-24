@@ -1,21 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="mage-head" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<clipPath id="mage-head-hood-clip"><path d="M 84 16 C 84 16 92.7 23.7 98 30 C 103.3 36.3 111 45.7 116 54 C 121 62.3 126.7 72 128 80 C 129.3 88 127.7 97.2 124 102 C 120.3 106.8 112.7 107.8 106 109 C 99.3 110.2 90.2 110.3 84 109 C 77.8 107.7 72 105.8 69 101 C 66 96.2 64.5 88.2 66 80 C 67.5 71.8 75.7 60 78 52 C 80.3 44 79 38 80 32 C 81 26 84 16 84 16 Z"/></clipPath>
+<path id="mage-head-hood-shape" d="M 84 16 C 84 16 92.7 23.7 98 30 C 103.3 36.3 111 45.7 116 54 C 121 62.3 126.7 72 128 80 C 129.3 88 127.7 97.2 124 102 C 120.3 106.8 112.7 107.8 106 109 C 99.3 110.2 90.2 110.3 84 109 C 77.8 107.7 72 105.8 69 101 C 66 96.2 64.5 88.2 66 80 C 67.5 71.8 75.7 60 78 52 C 80.3 44 79 38 80 32 C 81 26 84 16 84 16 Z"/>
+<clipPath id="mage-head-hood-clip"><use href="#mage-head-hood-shape"/></clipPath>
+<clipPath id="mage-head-hood-lit-clip"><use href="#mage-head-hood-shape" transform="translate(-6 -6)"/></clipPath>
 </defs>
 <path id="mage-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
 <g id="mage-head-hood">
-<path id="mage-head-hood-shade" d="M 84 16 C 84 16 92.7 23.7 98 30 C 103.3 36.3 111 45.7 116 54 C 121 62.3 126.7 72 128 80 C 129.3 88 127.7 97.2 124 102 C 120.3 106.8 112.7 107.8 106 109 C 99.3 110.2 90.2 110.3 84 109 C 77.8 107.7 72 105.8 69 101 C 66 96.2 64.5 88.2 66 80 C 67.5 71.8 75.7 60 78 52 C 80.3 44 79 38 80 32 C 81 26 84 16 84 16 Z" fill="#2f5893"/>
+<use id="mage-head-hood-shade" href="#mage-head-hood-shape" fill="#2f5893"/>
 <g clip-path="url(#mage-head-hood-clip)">
-<path id="mage-head-hood-deep" d="M 84 16 C 84 16 92.7 23.7 98 30 C 103.3 36.3 111 45.7 116 54 C 121 62.3 126.7 72 128 80 C 129.3 88 127.7 97.2 124 102 C 120.3 106.8 112.7 107.8 106 109 C 99.3 110.2 90.2 110.3 84 109 C 77.8 107.7 72 105.8 69 101 C 66 96.2 64.5 88.2 66 80 C 67.5 71.8 75.7 60 78 52 C 80.3 44 79 38 80 32 C 81 26 84 16 84 16 Z M 80.3 12.3 C 80.3 12.3 88.9 19.9 94.3 26.3 C 99.6 32.6 107.3 41.9 112.3 50.3 C 117.3 58.6 122.9 68.3 124.3 76.3 C 125.6 84.3 123.9 93.4 120.3 98.3 C 116.6 103.1 108.9 104.1 102.3 105.3 C 95.6 106.4 86.4 106.6 80.3 105.3 C 74.1 103.9 68.3 102.1 65.3 97.3 C 62.3 92.4 60.8 84.4 62.3 76.3 C 63.8 68.1 71.9 56.3 74.3 48.3 C 76.6 40.3 75.3 34.3 76.3 28.3 C 77.3 22.3 80.3 12.3 80.3 12.3 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
-<path id="mage-head-hood-fill" d="M 78 10 C 78 10 86.7 17.7 92 24 C 97.3 30.3 105 39.7 110 48 C 115 56.3 120.7 66 122 74 C 123.3 82 121.7 91.2 118 96 C 114.3 100.8 106.7 101.8 100 103 C 93.3 104.2 84.2 104.3 78 103 C 71.8 101.7 66 99.8 63 95 C 60 90.2 58.5 82.2 60 74 C 61.5 65.8 69.7 54 72 46 C 74.3 38 73 32 74 26 C 75 20 78 10 78 10 Z" fill="#3d6fb6"/>
-<path id="mage-head-hood-lit" d="M 84 16 C 84 16 92.7 23.7 98 30 C 103.3 36.3 111 45.7 116 54 C 121 62.3 126.7 72 128 80 C 129.3 88 127.7 97.2 124 102 C 120.3 106.8 112.7 107.8 106 109 C 99.3 110.2 90.2 110.3 84 109 C 77.8 107.7 72 105.8 69 101 C 66 96.2 64.5 88.2 66 80 C 67.5 71.8 75.7 60 78 52 C 80.3 44 79 38 80 32 C 81 26 84 16 84 16 Z M 88.6 20.6 C 88.6 20.6 97.3 28.3 102.6 34.6 C 107.9 40.9 115.6 50.3 120.6 58.6 C 125.6 66.9 131.3 76.6 132.6 84.6 C 133.9 92.6 132.3 101.8 128.6 106.6 C 124.9 111.4 117.3 112.4 110.6 113.6 C 103.9 114.8 94.8 114.9 88.6 113.6 C 82.4 112.3 76.6 110.4 73.6 105.6 C 70.6 100.8 69.1 92.8 70.6 84.6 C 72.1 76.4 80.3 64.6 82.6 56.6 C 84.9 48.6 83.6 42.6 84.6 36.6 C 85.6 30.6 88.6 20.6 88.6 20.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="mage-head-hood-deep" href="#mage-head-hood-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="mage-head-hood-shade-over" href="#mage-head-hood-shape" transform="translate(-3.72 -3.72)" fill="#2f5893"/>
+<use id="mage-head-hood-fill" href="#mage-head-hood-shape" transform="translate(-6 -6)" fill="#3d6fb6"/>
+<g clip-path="url(#mage-head-hood-lit-clip)">
+<use id="mage-head-hood-lit" href="#mage-head-hood-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="mage-head-hood-fill-over" href="#mage-head-hood-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
 <path id="mage-head-lining" d="M 110 60 C 116 60 125.7 66.7 130 72 C 134.3 77.3 136.5 85.7 136 92 C 135.5 98.3 132.5 107 127 110 C 121.5 113 109 112.5 103 110 C 97 107.5 92.5 101.3 91 95 C 89.5 88.7 90.8 77.8 94 72 C 97.2 66.2 104 60 110 60 Z" fill="#2a1a10" opacity="0.31"/>
 <path id="mage-head-opening" d="M 112 66 C 116.3 66 123 72 126 76 C 129 80 130.5 85.5 130 90 C 129.5 94.5 126.8 100.7 123 103 C 119.2 105.3 111.3 105.7 107 104 C 102.7 102.3 98.2 97.7 97 93 C 95.8 88.3 97.5 80.5 100 76 C 102.5 71.5 107.7 66 112 66 Z" fill="#1e2b17"/>
 <path id="mage-head-opening-edge" d="M 112 66 C 116.3 66 123 72 126 76 C 129 80 130.5 85.5 130 90 C 129.5 94.5 126.8 100.7 123 103 C 119.2 105.3 111.3 105.7 107 104 C 102.7 102.3 98.2 97.7 97 93 C 95.8 88.3 97.5 80.5 100 76 C 102.5 71.5 107.7 66 112 66 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="mage-head-fold-b" d="M 96 34 Q 97.2 46 104 56 Q 100.6 44.8 96 34 Z" fill="#2a1a10" opacity="0.21"/>
 <path id="mage-head-fold-c" d="M 72 76 Q 68 87.8 70 100 Q 71.6 88 72 76 Z" fill="#2a1a10" opacity="0.21"/>
 </g>
-<path id="mage-head-hood-line" d="M 84 16 C 84 16 92.7 23.7 98 30 C 103.3 36.3 111 45.7 116 54 C 121 62.3 126.7 72 128 80 C 129.3 88 127.7 97.2 124 102 C 120.3 106.8 112.7 107.8 106 109 C 99.3 110.2 90.2 110.3 84 109 C 77.8 107.7 72 105.8 69 101 C 66 96.2 64.5 88.2 66 80 C 67.5 71.8 75.7 60 78 52 C 80.3 44 79 38 80 32 C 81 26 84 16 84 16 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="mage-head-hood-line" href="#mage-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="mage-head-fold" d="M 88 40 C 86.7 43.7 82 54 80 62 C 78 70 76.7 83.7 76 88" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

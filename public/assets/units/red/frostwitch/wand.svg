@@ -1,37 +1,50 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="frostwitch-wand" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<clipPath id="frostwitch-wand-crystal-clip"><path d="M 152.8 48.6 L 158.2 68.4 L 143.6 85.4 L 138.7 63.6 Z"/></clipPath>
-<clipPath id="frostwitch-wand-hand-clip"><path d="M 139.5 132 C 139.5 136.1 136.1 139.5 132 139.5 C 127.9 139.5 124.5 136.1 124.5 132 C 124.5 127.9 127.9 124.5 132 124.5 C 136.1 124.5 139.5 127.9 139.5 132 Z"/></clipPath>
+<path id="frostwitch-wand-shaft-shape" d="M 144.1 83.5 L 144.1 83.5 Q 147 84.2 146.3 87.1 L 130.3 151.2 Q 129.6 154.1 126.7 153.3 L 126.7 153.3 Q 123.8 152.6 124.5 149.7 L 140.5 85.7 Q 141.2 82.8 144.1 83.5 Z"/>
+<path id="frostwitch-wand-shard-a-shape" d="M 128.1 73.3 L 135.8 62.9 L 136.3 77.4 Z"/>
+<path id="frostwitch-wand-shard-b-shape" d="M 154.3 84 L 163 73.8 L 162.5 88.1 Z"/>
+<path id="frostwitch-wand-crystal-shape" d="M 152.8 48.6 L 158.2 68.4 L 143.6 85.4 L 138.7 63.6 Z"/>
+<clipPath id="frostwitch-wand-crystal-clip"><use href="#frostwitch-wand-crystal-shape"/></clipPath>
+<clipPath id="frostwitch-wand-crystal-lit-clip"><use href="#frostwitch-wand-crystal-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="frostwitch-wand-hand-shape" d="M 139.5 132 C 139.5 136.1 136.1 139.5 132 139.5 C 127.9 139.5 124.5 136.1 124.5 132 C 124.5 127.9 127.9 124.5 132 124.5 C 136.1 124.5 139.5 127.9 139.5 132 Z"/>
+<clipPath id="frostwitch-wand-hand-clip"><use href="#frostwitch-wand-hand-shape"/></clipPath>
+<clipPath id="frostwitch-wand-hand-lit-clip"><use href="#frostwitch-wand-hand-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
 <g id="frostwitch-wand-shaft">
-<path id="frostwitch-wand-shaft-fill" d="M 144.1 83.5 L 144.1 83.5 Q 147 84.2 146.3 87.1 L 130.3 151.2 Q 129.6 154.1 126.7 153.3 L 126.7 153.3 Q 123.8 152.6 124.5 149.7 L 140.5 85.7 Q 141.2 82.8 144.1 83.5 Z" fill="#9a6a3a"/>
-<path id="frostwitch-wand-shaft-line" d="M 144.1 83.5 L 144.1 83.5 Q 147 84.2 146.3 87.1 L 130.3 151.2 Q 129.6 154.1 126.7 153.3 L 126.7 153.3 Q 123.8 152.6 124.5 149.7 L 140.5 85.7 Q 141.2 82.8 144.1 83.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="frostwitch-wand-shaft-fill" href="#frostwitch-wand-shaft-shape" fill="#9a6a3a"/>
+<use id="frostwitch-wand-shaft-line" href="#frostwitch-wand-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="frostwitch-wand-halo" d="M 166.4 72.6 C 163.9 82.7 153.6 88.9 143.4 86.4 C 133.2 83.9 127 73.5 129.5 63.4 C 132.1 53.2 142.4 47 152.6 49.5 C 162.7 52.1 168.9 62.4 166.4 72.6 Z" fill="#d4f1fb" opacity="0.45"/>
 <g id="frostwitch-wand-shard-a">
-<path id="frostwitch-wand-shard-a-fill" d="M 128.1 73.3 L 135.8 62.9 L 136.3 77.4 Z" fill="#6fc7e8"/>
-<path id="frostwitch-wand-shard-a-line" d="M 128.1 73.3 L 135.8 62.9 L 136.3 77.4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="frostwitch-wand-shard-a-fill" href="#frostwitch-wand-shard-a-shape" fill="#6fc7e8"/>
+<use id="frostwitch-wand-shard-a-line" href="#frostwitch-wand-shard-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="frostwitch-wand-shard-b">
-<path id="frostwitch-wand-shard-b-fill" d="M 154.3 84 L 163 73.8 L 162.5 88.1 Z" fill="#6fc7e8"/>
-<path id="frostwitch-wand-shard-b-line" d="M 154.3 84 L 163 73.8 L 162.5 88.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="frostwitch-wand-shard-b-fill" href="#frostwitch-wand-shard-b-shape" fill="#6fc7e8"/>
+<use id="frostwitch-wand-shard-b-line" href="#frostwitch-wand-shard-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="frostwitch-wand-crystal">
-<path id="frostwitch-wand-crystal-shade" d="M 152.8 48.6 L 158.2 68.4 L 143.6 85.4 L 138.7 63.6 Z" fill="#3f97bd"/>
+<use id="frostwitch-wand-crystal-shade" href="#frostwitch-wand-crystal-shape" fill="#3f97bd"/>
 <g clip-path="url(#frostwitch-wand-crystal-clip)">
-<path id="frostwitch-wand-crystal-fill" d="M 148.8 44.6 L 154.2 64.4 L 139.6 81.4 L 134.7 59.6 Z" fill="#6fc7e8"/>
-<path id="frostwitch-wand-crystal-lit" d="M 152.8 48.6 L 158.2 68.4 L 143.6 85.4 L 138.7 63.6 Z M 157 52.8 L 162.4 72.6 L 147.8 89.6 L 142.9 67.8 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="frostwitch-wand-crystal-fill" href="#frostwitch-wand-crystal-shape" transform="translate(-4 -4)" fill="#6fc7e8"/>
+<g clip-path="url(#frostwitch-wand-crystal-lit-clip)">
+<use id="frostwitch-wand-crystal-lit" href="#frostwitch-wand-crystal-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="frostwitch-wand-crystal-fill-over" href="#frostwitch-wand-crystal-shape" transform="translate(4.2 4.2)" fill="#6fc7e8"/>
+</g>
 <path id="frostwitch-wand-crystal-sheen" d="M156.19 48.55 L160.19 48.55 L144.71 85.43 L140.71 85.43 Z M163.69 48.55 L166.29 48.55 L150.81 85.43 L148.21 85.43 Z" fill="#f4f1e4" opacity="0.2"/>
 </g>
-<path id="frostwitch-wand-crystal-line" d="M 152.8 48.6 L 158.2 68.4 L 143.6 85.4 L 138.7 63.6 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="frostwitch-wand-crystal-line" href="#frostwitch-wand-crystal-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="frostwitch-wand-glint" d="M 147.5 57.5 L 151.4 54.4 L 147.5 69.9 L 143.6 64.8 Z" fill="#f4f1e4"/>
 <g id="frostwitch-wand-hand">
-<path id="frostwitch-wand-hand-shade" d="M 139.5 132 C 139.5 136.1 136.1 139.5 132 139.5 C 127.9 139.5 124.5 136.1 124.5 132 C 124.5 127.9 127.9 124.5 132 124.5 C 136.1 124.5 139.5 127.9 139.5 132 Z" fill="#4e3520"/>
+<use id="frostwitch-wand-hand-shade" href="#frostwitch-wand-hand-shape" fill="#4e3520"/>
 <g clip-path="url(#frostwitch-wand-hand-clip)">
-<path id="frostwitch-wand-hand-fill" d="M 136.5 129 C 136.5 133.1 133.1 136.5 129 136.5 C 124.9 136.5 121.5 133.1 121.5 129 C 121.5 124.9 124.9 121.5 129 121.5 C 133.1 121.5 136.5 124.9 136.5 129 Z" fill="#6b4a2b"/>
-<path id="frostwitch-wand-hand-lit" d="M 139.5 132 C 139.5 136.1 136.1 139.5 132 139.5 C 127.9 139.5 124.5 136.1 124.5 132 C 124.5 127.9 127.9 124.5 132 124.5 C 136.1 124.5 139.5 127.9 139.5 132 Z M 143.1 135.6 C 143.1 139.7 139.7 143.1 135.6 143.1 C 131.5 143.1 128.1 139.7 128.1 135.6 C 128.1 131.5 131.5 128.1 135.6 128.1 C 139.7 128.1 143.1 131.5 143.1 135.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="frostwitch-wand-hand-fill" href="#frostwitch-wand-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#frostwitch-wand-hand-lit-clip)">
+<use id="frostwitch-wand-hand-lit" href="#frostwitch-wand-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="frostwitch-wand-hand-fill-over" href="#frostwitch-wand-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
 </g>
-<path id="frostwitch-wand-hand-line" d="M 139.5 132 C 139.5 136.1 136.1 139.5 132 139.5 C 127.9 139.5 124.5 136.1 124.5 132 C 124.5 127.9 127.9 124.5 132 124.5 C 136.1 124.5 139.5 127.9 139.5 132 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="frostwitch-wand-hand-line" href="#frostwitch-wand-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

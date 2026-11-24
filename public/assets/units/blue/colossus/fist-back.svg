@@ -1,14 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="colossus-fist-back" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="colossus-fist-back-arm-shape" d="M 40.1 103.3 L 44.1 133.3 C 44.8 138.8 49.8 142.6 55.3 141.9 C 60.8 141.2 64.6 136.2 63.9 130.7 L 59.9 100.7 C 59.2 95.2 54.2 91.4 48.7 92.1 C 43.2 92.8 39.4 97.8 40.1 103.3 Z"/>
+<path id="colossus-fist-back-band-shape" d="M 44 114 L 64 114 Q 67 114 67 117 L 67 120 Q 67 123 64 123 L 44 123 Q 41 123 41 120 L 41 117 Q 41 114 44 114 Z"/>
+<path id="colossus-fist-back-fist-shape" d="M 36 136 C 39.2 131.7 48.8 128 55 128 C 61.2 128 69.7 131.7 73 136 C 76.3 140.3 77.8 149.3 75 154 C 72.2 158.7 62.5 164 56 164 C 49.5 164 39.3 158.7 36 154 C 32.7 149.3 32.8 140.3 36 136 Z"/>
+</defs>
 <g id="colossus-fist-back-arm">
-<path id="colossus-fist-back-arm-fill" d="M 40.1 103.3 L 44.1 133.3 C 44.8 138.8 49.8 142.6 55.3 141.9 C 60.8 141.2 64.6 136.2 63.9 130.7 L 59.9 100.7 C 59.2 95.2 54.2 91.4 48.7 92.1 C 43.2 92.8 39.4 97.8 40.1 103.3 Z" fill="#8c6b42"/>
-<path id="colossus-fist-back-arm-line" d="M 40.1 103.3 L 44.1 133.3 C 44.8 138.8 49.8 142.6 55.3 141.9 C 60.8 141.2 64.6 136.2 63.9 130.7 L 59.9 100.7 C 59.2 95.2 54.2 91.4 48.7 92.1 C 43.2 92.8 39.4 97.8 40.1 103.3 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="colossus-fist-back-arm-fill" href="#colossus-fist-back-arm-shape" fill="#8c6b42"/>
+<use id="colossus-fist-back-arm-line" href="#colossus-fist-back-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="colossus-fist-back-band">
-<path id="colossus-fist-back-band-fill" d="M 44 114 L 64 114 Q 67 114 67 117 L 67 120 Q 67 123 64 123 L 44 123 Q 41 123 41 120 L 41 117 Q 41 114 44 114 Z" fill="#2f5893"/>
-<path id="colossus-fist-back-band-line" d="M 44 114 L 64 114 Q 67 114 67 117 L 67 120 Q 67 123 64 123 L 44 123 Q 41 123 41 120 L 41 117 Q 41 114 44 114 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="colossus-fist-back-band-fill" href="#colossus-fist-back-band-shape" fill="#2f5893"/>
+<use id="colossus-fist-back-band-line" href="#colossus-fist-back-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="colossus-fist-back-fist">
-<path id="colossus-fist-back-fist-fill" d="M 36 136 C 39.2 131.7 48.8 128 55 128 C 61.2 128 69.7 131.7 73 136 C 76.3 140.3 77.8 149.3 75 154 C 72.2 158.7 62.5 164 56 164 C 49.5 164 39.3 158.7 36 154 C 32.7 149.3 32.8 140.3 36 136 Z" fill="#8c6b42"/>
-<path id="colossus-fist-back-fist-line" d="M 36 136 C 39.2 131.7 48.8 128 55 128 C 61.2 128 69.7 131.7 73 136 C 76.3 140.3 77.8 149.3 75 154 C 72.2 158.7 62.5 164 56 164 C 49.5 164 39.3 158.7 36 154 C 32.7 149.3 32.8 140.3 36 136 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="colossus-fist-back-fist-fill" href="#colossus-fist-back-fist-shape" fill="#8c6b42"/>
+<use id="colossus-fist-back-fist-line" href="#colossus-fist-back-fist-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

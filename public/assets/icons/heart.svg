@@ -1,13 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="heart" width="48" height="48" viewBox="0 0 48 48">
 <defs>
-<clipPath id="heart-heart-clip"><path d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z"/></clipPath>
+<path id="heart-heart-shape" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z"/>
+<clipPath id="heart-heart-clip"><use href="#heart-heart-shape"/></clipPath>
+<clipPath id="heart-heart-lit-clip"><use href="#heart-heart-shape" transform="translate(-4 -4)"/></clipPath>
 </defs>
 <g id="heart-heart">
-<path id="heart-heart-shade" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z" fill="#933027"/>
+<use id="heart-heart-shade" href="#heart-heart-shape" fill="#933027"/>
 <g clip-path="url(#heart-heart-clip)">
-<path id="heart-heart-fill" d="M 20 38 C 0 24 -1 8 10 5 C 16 4 20 9 20 12 C 20 9 24 4 30 5 C 41 8 40 24 20 38 Z" fill="#c2453a"/>
-<path id="heart-heart-lit" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z M 28.2 46.2 C 8.2 32.2 7.2 16.2 18.2 13.2 C 24.2 12.2 28.2 17.2 28.2 20.2 C 28.2 17.2 32.2 12.2 38.2 13.2 C 49.2 16.2 48.2 32.2 28.2 46.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="heart-heart-fill" href="#heart-heart-shape" transform="translate(-4 -4)" fill="#c2453a"/>
+<g clip-path="url(#heart-heart-lit-clip)">
+<use id="heart-heart-lit" href="#heart-heart-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="heart-heart-fill-over" href="#heart-heart-shape" transform="translate(4.2 4.2)" fill="#c2453a"/>
 </g>
-<path id="heart-heart-line" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="heart-heart-line" href="#heart-heart-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

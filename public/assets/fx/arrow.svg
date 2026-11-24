@@ -1,11 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="arrow" width="64" height="24" viewBox="0 0 64 24">
+<defs>
+<path id="arrow-fletch-shape" d="M 5 5.5 L 16 5.5 L 21 12 L 16 18.5 L 5 18.5 L 10 12 Z"/>
+<path id="arrow-head-shape" d="M 46 5 L 61 12 L 46 19 Z"/>
+</defs>
 <path id="arrow-shaft" d="M 11 12 L 49 12" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <g id="arrow-fletch">
-<path id="arrow-fletch-fill" d="M 5 5.5 L 16 5.5 L 21 12 L 16 18.5 L 5 18.5 L 10 12 Z" fill="#e9dfc6"/>
-<path id="arrow-fletch-line" d="M 5 5.5 L 16 5.5 L 21 12 L 16 18.5 L 5 18.5 L 10 12 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="arrow-fletch-fill" href="#arrow-fletch-shape" fill="#e9dfc6"/>
+<use id="arrow-fletch-line" href="#arrow-fletch-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="arrow-head">
-<path id="arrow-head-fill" d="M 46 5 L 61 12 L 46 19 Z" fill="#b9c2cc"/>
-<path id="arrow-head-line" d="M 46 5 L 61 12 L 46 19 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="arrow-head-fill" href="#arrow-head-shape" fill="#b9c2cc"/>
+<use id="arrow-head-line" href="#arrow-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

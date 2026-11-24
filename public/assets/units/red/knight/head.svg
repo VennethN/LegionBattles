@@ -1,14 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="knight-head" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<clipPath id="knight-head-helm-clip"><path d="M 97 50 C 104.3 50 113.7 52.3 119 57 C 124.3 61.7 128 71 129 78 C 130 85 128.5 94 125 99 C 121.5 104 114.8 106.5 108 108 C 101.2 109.5 90.5 109.5 84 108 C 77.5 106.5 72.2 104 69 99 C 65.8 94 64 85 65 78 C 66 71 69.7 61.7 75 57 C 80.3 52.3 89.7 50 97 50 Z"/></clipPath>
+<path id="knight-head-helm-shape" d="M 97 50 C 104.3 50 113.7 52.3 119 57 C 124.3 61.7 128 71 129 78 C 130 85 128.5 94 125 99 C 121.5 104 114.8 106.5 108 108 C 101.2 109.5 90.5 109.5 84 108 C 77.5 106.5 72.2 104 69 99 C 65.8 94 64 85 65 78 C 66 71 69.7 61.7 75 57 C 80.3 52.3 89.7 50 97 50 Z"/>
+<clipPath id="knight-head-helm-clip"><use href="#knight-head-helm-shape"/></clipPath>
+<clipPath id="knight-head-helm-lit-clip"><use href="#knight-head-helm-shape" transform="translate(-6 -6)"/></clipPath>
 </defs>
 <path id="knight-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
 <g id="knight-head-helm">
-<path id="knight-head-helm-shade" d="M 97 50 C 104.3 50 113.7 52.3 119 57 C 124.3 61.7 128 71 129 78 C 130 85 128.5 94 125 99 C 121.5 104 114.8 106.5 108 108 C 101.2 109.5 90.5 109.5 84 108 C 77.5 106.5 72.2 104 69 99 C 65.8 94 64 85 65 78 C 66 71 69.7 61.7 75 57 C 80.3 52.3 89.7 50 97 50 Z" fill="#8d97a3"/>
+<use id="knight-head-helm-shade" href="#knight-head-helm-shape" fill="#8d97a3"/>
 <g clip-path="url(#knight-head-helm-clip)">
-<path id="knight-head-helm-deep" d="M 97 50 C 104.3 50 113.7 52.3 119 57 C 124.3 61.7 128 71 129 78 C 130 85 128.5 94 125 99 C 121.5 104 114.8 106.5 108 108 C 101.2 109.5 90.5 109.5 84 108 C 77.5 106.5 72.2 104 69 99 C 65.8 94 64 85 65 78 C 66 71 69.7 61.7 75 57 C 80.3 52.3 89.7 50 97 50 Z M 93.3 46.3 C 100.6 46.3 109.9 48.6 115.3 53.3 C 120.6 57.9 124.3 67.3 125.3 74.3 C 126.3 81.3 124.8 90.3 121.3 95.3 C 117.8 100.3 111.1 102.8 104.3 104.3 C 97.4 105.8 86.8 105.8 80.3 104.3 C 73.8 102.8 68.4 100.3 65.3 95.3 C 62.1 90.3 60.3 81.3 61.3 74.3 C 62.3 67.3 65.9 57.9 71.3 53.3 C 76.6 48.6 85.9 46.3 93.3 46.3 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
-<path id="knight-head-helm-fill" d="M 91 44 C 98.3 44 107.7 46.3 113 51 C 118.3 55.7 122 65 123 72 C 124 79 122.5 88 119 93 C 115.5 98 108.8 100.5 102 102 C 95.2 103.5 84.5 103.5 78 102 C 71.5 100.5 66.2 98 63 93 C 59.8 88 58 79 59 72 C 60 65 63.7 55.7 69 51 C 74.3 46.3 83.7 44 91 44 Z" fill="#b9c2cc"/>
-<path id="knight-head-helm-lit" d="M 97 50 C 104.3 50 113.7 52.3 119 57 C 124.3 61.7 128 71 129 78 C 130 85 128.5 94 125 99 C 121.5 104 114.8 106.5 108 108 C 101.2 109.5 90.5 109.5 84 108 C 77.5 106.5 72.2 104 69 99 C 65.8 94 64 85 65 78 C 66 71 69.7 61.7 75 57 C 80.3 52.3 89.7 50 97 50 Z M 101.6 54.6 C 108.9 54.6 118.3 56.9 123.6 61.6 C 128.9 66.3 132.6 75.6 133.6 82.6 C 134.6 89.6 133.1 98.6 129.6 103.6 C 126.1 108.6 119.4 111.1 112.6 112.6 C 105.8 114.1 95.1 114.1 88.6 112.6 C 82.1 111.1 76.8 108.6 73.6 103.6 C 70.4 98.6 68.6 89.6 69.6 82.6 C 70.6 75.6 74.3 66.3 79.6 61.6 C 84.9 56.9 94.3 54.6 101.6 54.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="knight-head-helm-deep" href="#knight-head-helm-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="knight-head-helm-shade-over" href="#knight-head-helm-shape" transform="translate(-3.72 -3.72)" fill="#8d97a3"/>
+<use id="knight-head-helm-fill" href="#knight-head-helm-shape" transform="translate(-6 -6)" fill="#b9c2cc"/>
+<g clip-path="url(#knight-head-helm-lit-clip)">
+<use id="knight-head-helm-lit" href="#knight-head-helm-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="knight-head-helm-fill-over" href="#knight-head-helm-shape" transform="translate(4.6 4.6)" fill="#b9c2cc"/>
+</g>
 <path id="knight-head-helm-sheen" d="M109.5 50 L119.4 50 L94.41 109.5 L84.51 109.5 Z M122.9 50 L125.5 50 L100.51 109.5 L97.91 109.5 Z" fill="#f4f1e4" opacity="0.2"/>
 <path id="knight-head-plate" d="M 91.5 84 L 92.1 84 Q 93.1 84 93.1 85 L 93.1 99 Q 93.1 100 92.1 100 L 91.5 100 Q 90.5 100 90.5 99 L 90.5 85 Q 90.5 84 91.5 84 Z" fill="#2a1a10" opacity="0.25"/>
 <path id="knight-head-rivet" d="M 72.3 88.5 C 72.3 89.5 71.5 90.3 70.5 90.3 C 69.5 90.3 68.7 89.5 68.7 88.5 C 68.7 87.5 69.5 86.7 70.5 86.7 C 71.5 86.7 72.3 87.5 72.3 88.5 Z" fill="#2a1a10" opacity="0.53"/>
@@ -22,7 +28,7 @@
 <path id="knight-head-ridge" d="M 110 52 L 110 76" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="knight-head-rim" d="M 62 97 C 67.7 97.7 84.3 101.3 96 101 C 107.7 100.7 126 96 132 95" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="knight-head-helm-line" d="M 97 50 C 104.3 50 113.7 52.3 119 57 C 124.3 61.7 128 71 129 78 C 130 85 128.5 94 125 99 C 121.5 104 114.8 106.5 108 108 C 101.2 109.5 90.5 109.5 84 108 C 77.5 106.5 72.2 104 69 99 C 65.8 94 64 85 65 78 C 66 71 69.7 61.7 75 57 C 80.3 52.3 89.7 50 97 50 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="knight-head-helm-line" href="#knight-head-helm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="knight-head-glint" d="M 79.6 65.9 L 85.6 60.9 C 86.7 60 86.8 58.5 85.9 57.4 C 85 56.3 83.5 56.2 82.4 57.1 L 76.4 62.1 C 75.3 63 75.2 64.5 76.1 65.6 C 77 66.7 78.5 66.8 79.6 65.9 Z" fill="#f4f1e4"/>
 </svg>

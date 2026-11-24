@@ -46,10 +46,25 @@ Watch for accidents. A pale ring round a dark middle reads as an eye: the Harpoo
 
 ### Fill and shade
 
-- Flat fills. No gradients, no filters, no blur.
-- One shade tone on each piece: a darker rim along the right and the bottom, because the light comes from the top left. `Doc.piece` draws it: the piece in its shade color, then its fill pushed 5 px up and left and cut to the piece's shape.
-- At most one small highlight on a piece (`Doc.glint`).
+The first brief asked for flat fills with one shade tone and at most one highlight. The owner later asked for more ("more shading, and more fidelity in the decorations"), so a piece has more tones now. They are still flat shapes: no gradients, no filters, no blur.
+
+`Doc.piece` draws all of it, for every piece of every picture:
+
+- The fill, and a darker shade as a rim along the right and the bottom, because the light comes from the top left.
+- A deeper tone at the far edge of that rim, on pieces big enough to show it.
+- A lit rim along the left and the top.
+- A streak of light across a piece of something polished: metal, ice, a cut stone. A material says it is polished with `gloss` in the palette.
+
+The deeper tone, the lit rim and the streak are the outline color and the highlight color laid over at part strength, so every material takes them and none needs tones of its own.
+
+Besides that:
+
+- At most one small bright highlight on a piece (`Doc.glint`).
+- Shadows that things cast on each other: a head on the shoulders under it, an arm on the body, a belt on the cloth below it. `Doc.shadeOver` lays one over whatever is under it. A head's is part of the head, so it moves with it.
+- Surface detail on the shared parts, drawn inside the piece so that it is cut to its shape: mail rings, the edges of plates, creases where cloth gathers (`crease`), the bevel of a blade, the grain of wood, a horn's ridges, a boot's sole and cuff. A unit's torso is dressed as what it is with one line: `stripe`, `lacing`, `buttons`, `patch`, `seam`, `mailRings`, `lames`.
 - A glow is flat rings: a pale disc at half strength round a core. Never a blur.
+
+One caution with small marks on a head. One or two dots alone near where a face would be can read as eyes. Rivets on a helm go in a row of three or more along an edge, behind the opening, or not at all.
 
 ### Palette
 
@@ -88,14 +103,16 @@ Not every unit is a soldier. The Ballista is an engine on wheels and the golems 
 ```
 src/art/kit/palette.ts   every color
 src/art/kit/path.ts      shapes: circles, rounded rectangles, soft outlines through points
-src/art/kit/draw.ts      Doc: a picture in the making. piece, flat, line, glint
+src/art/kit/draw.ts      Doc: a picture in the making. piece, flat, line, glint, shadeOver, lightOver, at
 src/art/kit/parts.ts     the reusable parts: legs, torsos, helms, hoods, weapons, shields, capes
 src/art/kit/unit.ts      what a unit's art is: parts in draw order, each with a role and a pivot
 src/art/units/*.ts       one file to a unit
 src/art/rig.ts           where each part is, given a pose
 src/art/poses.ts         the far ends of each movement
 src/art/fx.ts            projectiles and effects
-src/art/board.ts         tiles and props, by kind of land
+src/art/board.ts         where the board is and the colors of each kind of land
+src/art/scenery.ts       what stands in a land: trees, rocks, ruins, and the camps, towers and strongholds a map marks
+src/art/backdrop.ts      the two painted scenes of a land: the ground of a battle, and the map of its stages
 src/art/icons.ts         the interface's icons
 src/art/packs.ts         the packs
 src/art/grades.ts        the grade badges
@@ -160,12 +177,25 @@ export const militia: UnitArt = {
 
 ## Editing by hand
 
-Copy a generated file to the same path under `art/overrides`, edit it there, and the game uses yours. The files are plain: attributes only, no styles, scripts, filters or outside references, and ids that say what a thing is (`knight-head-helm-fill`). A piece is a group of three things: its shade, its fill cut to its shape, and its line. Keep the canvas at 192 by 192 and the pivot where it was, or change the pivot in the unit's file.
+Copy a generated file to the same path under `art/overrides`, edit it there, and the game uses yours. The files are plain: attributes only, no styles, scripts or filters, nothing that points outside the file, and ids that say what a thing is (`knight-head-helm-fill`).
+
+A piece's shape is written once, in the file's `defs`, and used for its shade, its fill, its line and its clip. Inkscape shows these as clones: edit the shape and they all follow. A piece is a group: its shade, then, cut to its shape, its deeper edge, its fill, its lit rim and whatever is drawn inside it, then its line.
+
+A unit's file has 40 px of page round the 192 canvas (`viewBox="-40 -40 272 272"`), because a long spear held level reaches past the canvas. Coordinates are unchanged: the feet are at (96, 180). Keep the page as it is and the pivot where it was, or change the pivot in the unit's file. The art build stops on a file with another page, and on a part that reaches the edge of the page, where it would be cut off.
 
 `npm run art` never writes under `art/overrides`. Run it after an edit so the manifest measures your file; the contact sheets show your override, not the generated file.
+
+## Scenes
+
+The ground of a battle and the map of a land are each one painted picture the size of the screen, 1280 by 720 (`backdrop.ts`). They are put together from the scenery by a seed, so they come out the same every time.
+
+- **Scenery** (`scenery.ts`) is drawn about its own foot at (0, 0), so that a scene can stand it anywhere, at any size, facing either way (`Doc.at`). A thing stood many times is written once in the file and used each time.
+- **The ground of a battle** has the board in it: a slab of earth with its 32 tiles, a road up to it from each side, and a standard at each corner in the color of the side it is on. The strip above the board is kept to low things, as the back row's plates stand there, and tall things keep to the sides.
+- **The map** has a road from the first stage of the land to the last, with a round of trodden earth at each where the game writes the stage's number: a camp for a plain stage, a watchtower for a miniboss, a stronghold for the boss. `mapNodes` says where they are, for the picture and for the game alike.
+- A new kind of land needs its scenery and a line in `LOOKS`. `npm run art:sheet` draws all six scenes on `docs/art/scenes.png`.
 
 ## Grade badges, packs, icons
 
 - **Grades** (`grades.ts`) are plates with a letter, dressed more grandly as they rise: iron for F and E, bronze with a gloss for D and C, silver with a spur at each end and a stud for B, gold with wings and two studs for A, ruby with a gold rim, feathered wings, three studs and a crown for S. A grade is told by its outline as well as its color. Every place that shows a grade shows this badge, never the letter in a line of text.
 - **Packs** (`packs.ts`) are all the same foil pouch, crimped top and bottom. What tells one from another is its color and the mark on its seal.
-- **Icons** (`icons.ts`) are drawn as the things they are: a coin is a struck coin, a lock has a shackle. No letters and no emoji.
+- **Icons** (`icons.ts`) are drawn as the things they are: a coin is a struck coin, a lock has a shackle. No letters and no emoji. Each kind of land has an emblem there, a medal in its color with what grows or shines in it, which stands on the banner of a world wherever a stage's number is shown.

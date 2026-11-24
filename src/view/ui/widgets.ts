@@ -2,7 +2,7 @@
 // a darker lip along the bottom, the one dark line round them.
 
 import Phaser from 'phaser';
-import { BONE, GOLD, OUTLINE, type Material } from '../../art/kit/palette';
+import { BONE, GOLD, HIGHLIGHT, OUTLINE, type Material } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { FONT, RES, hex } from '../config';
 
@@ -43,7 +43,10 @@ export function plain(button: Button): Button {
   return button;
 }
 
-/** A rounded slab: fill, a darker lip along the bottom, a dark line round it. */
+/**
+ * A rounded slab: fill, a darker lip along the bottom, a band of light
+ * along the top as the art has, and a dark line round it.
+ */
 export function slab(
   g: Phaser.GameObjects.Graphics,
   x: number,
@@ -58,6 +61,11 @@ export function slab(
   g.fillRoundedRect(x, y, w, h, radius);
   g.fillStyle(hex(mat.fill), 1);
   g.fillRoundedRect(x, y, w, h - lip, radius);
+  // The light comes from the top left, on a panel as on a unit. Small slabs and flat ones go without.
+  if (lip > 0 && h >= 30 && w >= 40) {
+    g.fillStyle(hex(HIGHLIGHT), 0.22);
+    g.fillRoundedRect(x + 5, y + 4, w - 10, Math.min(7, h * 0.16), Math.min(radius, 5));
+  }
   g.lineStyle(4, hex(OUTLINE), 1);
   g.strokeRoundedRect(x, y, w, h, radius);
 }

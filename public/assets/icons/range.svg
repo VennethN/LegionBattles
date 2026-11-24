@@ -1,14 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="range" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="range-bow-shape" d="M 8 6 C 26 12 26 36 8 42 L 6 37 C 18 32 18 16 6 11 Z"/>
+<path id="range-shaft-shape" d="M 16.5 21.5 L 33.5 21.5 Q 36 21.5 36 24 L 36 24 Q 36 26.5 33.5 26.5 L 16.5 26.5 Q 14 26.5 14 24 L 14 24 Q 14 21.5 16.5 21.5 Z"/>
+<path id="range-head-shape" d="M 33 15 L 45 24 L 33 33 Z"/>
+</defs>
 <g id="range-bow">
-<path id="range-bow-fill" d="M 8 6 C 26 12 26 36 8 42 L 6 37 C 18 32 18 16 6 11 Z" fill="#9a6a3a"/>
-<path id="range-bow-line" d="M 8 6 C 26 12 26 36 8 42 L 6 37 C 18 32 18 16 6 11 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="range-bow-fill" href="#range-bow-shape" fill="#9a6a3a"/>
+<use id="range-bow-line" href="#range-bow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="range-shaft">
-<path id="range-shaft-fill" d="M 16.5 21.5 L 33.5 21.5 Q 36 21.5 36 24 L 36 24 Q 36 26.5 33.5 26.5 L 16.5 26.5 Q 14 26.5 14 24 L 14 24 Q 14 21.5 16.5 21.5 Z" fill="#e9dfc6"/>
-<path id="range-shaft-line" d="M 16.5 21.5 L 33.5 21.5 Q 36 21.5 36 24 L 36 24 Q 36 26.5 33.5 26.5 L 16.5 26.5 Q 14 26.5 14 24 L 14 24 Q 14 21.5 16.5 21.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="range-shaft-fill" href="#range-shaft-shape" fill="#e9dfc6"/>
+<use id="range-shaft-line" href="#range-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="range-head">
-<path id="range-head-fill" d="M 33 15 L 45 24 L 33 33 Z" fill="#b9c2cc"/>
-<path id="range-head-line" d="M 33 15 L 45 24 L 33 33 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="range-head-fill" href="#range-head-shape" fill="#b9c2cc"/>
+<use id="range-head-line" href="#range-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

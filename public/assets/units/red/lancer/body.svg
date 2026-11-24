@@ -1,15 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="lancer-body" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<clipPath id="lancer-body-tunic-clip"><path d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/></clipPath>
-<clipPath id="lancer-body-buckle-clip"><path d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/></clipPath>
-<clipPath id="lancer-body-arm-clip"><path d="M 106.6 118.9 L 108.6 134.9 C 109.1 139 112.8 142 116.9 141.4 C 121 140.9 124 137.2 123.4 133.1 L 121.4 117.1 C 120.9 113 117.2 110 113.1 110.6 C 109 111.1 106 114.8 106.6 118.9 Z"/></clipPath>
+<path id="lancer-body-tunic-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="lancer-body-tunic-clip"><use href="#lancer-body-tunic-shape"/></clipPath>
+<clipPath id="lancer-body-tunic-lit-clip"><use href="#lancer-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="lancer-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="lancer-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
+<clipPath id="lancer-body-buckle-clip"><use href="#lancer-body-buckle-shape"/></clipPath>
+<clipPath id="lancer-body-buckle-lit-clip"><use href="#lancer-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="lancer-body-arm-shape" d="M 106.6 118.9 L 108.6 134.9 C 109.1 139 112.8 142 116.9 141.4 C 121 140.9 124 137.2 123.4 133.1 L 121.4 117.1 C 120.9 113 117.2 110 113.1 110.6 C 109 111.1 106 114.8 106.6 118.9 Z"/>
+<clipPath id="lancer-body-arm-clip"><use href="#lancer-body-arm-shape"/></clipPath>
+<clipPath id="lancer-body-arm-lit-clip"><use href="#lancer-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
 <g id="lancer-body-tunic">
-<path id="lancer-body-tunic-shade" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="#b3a585"/>
+<use id="lancer-body-tunic-shade" href="#lancer-body-tunic-shape" fill="#b3a585"/>
 <g clip-path="url(#lancer-body-tunic-clip)">
-<path id="lancer-body-tunic-deep" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z M 66.9 101.9 C 72.2 97.4 84.2 97.9 92.9 97.9 C 101.6 97.9 113.6 97.4 118.9 101.9 C 124.2 106.4 124.6 117.1 124.9 124.9 C 125.2 132.7 124.2 143.7 120.9 148.9 C 117.6 154.1 111.6 154.7 104.9 155.9 C 98.2 157.1 87.6 157.1 80.9 155.9 C 74.2 154.7 68.2 154.1 64.9 148.9 C 61.6 143.7 60.6 132.7 60.9 124.9 C 61.2 117.1 61.6 106.4 66.9 101.9 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
-<path id="lancer-body-tunic-fill" d="M 65 100 C 70.3 95.5 82.3 96 91 96 C 99.7 96 111.7 95.5 117 100 C 122.3 104.5 122.7 115.2 123 123 C 123.3 130.8 122.3 141.8 119 147 C 115.7 152.2 109.7 152.8 103 154 C 96.3 155.2 85.7 155.2 79 154 C 72.3 152.8 66.3 152.2 63 147 C 59.7 141.8 58.7 130.8 59 123 C 59.3 115.2 59.7 104.5 65 100 Z" fill="#d9cdb0"/>
-<path id="lancer-body-tunic-lit" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z M 74.6 109.6 C 79.9 105.1 91.9 105.6 100.6 105.6 C 109.3 105.6 121.3 105.1 126.6 109.6 C 131.9 114.1 132.3 124.8 132.6 132.6 C 132.9 140.4 131.9 151.4 128.6 156.6 C 125.3 161.8 119.3 162.4 112.6 163.6 C 105.9 164.8 95.3 164.8 88.6 163.6 C 81.9 162.4 75.9 161.8 72.6 156.6 C 69.3 151.4 68.3 140.4 68.6 132.6 C 68.9 124.8 69.3 114.1 74.6 109.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="lancer-body-tunic-deep" href="#lancer-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="lancer-body-tunic-shade-over" href="#lancer-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="lancer-body-tunic-fill" href="#lancer-body-tunic-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#lancer-body-tunic-lit-clip)">
+<use id="lancer-body-tunic-lit" href="#lancer-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lancer-body-tunic-fill-over" href="#lancer-body-tunic-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
 <path id="lancer-body-seam" d="M 104.7 100 L 105.3 100 Q 106.3 100 106.3 101 L 106.3 161 Q 106.3 162 105.3 162 L 104.7 162 Q 103.7 162 103.7 161 L 103.7 101 Q 103.7 100 104.7 100 Z" fill="#2a1a10" opacity="0.24"/>
 <path id="lancer-body-rivet" d="M 112.2 112 C 112.2 113.2 111.2 114.2 110 114.2 C 108.8 114.2 107.8 113.2 107.8 112 C 107.8 110.8 108.8 109.8 110 109.8 C 111.2 109.8 112.2 110.8 112.2 112 Z" fill="#2a1a10" opacity="0.53"/>
 <path id="lancer-body-rivet-lit" d="M 110.2 111.2 C 110.2 111.8 109.8 112.2 109.2 112.2 C 108.7 112.2 108.2 111.8 108.2 111.2 C 108.2 110.7 108.7 110.2 109.2 110.2 C 109.8 110.2 110.2 110.7 110.2 111.2 Z" fill="#f4f1e4" opacity="0.58"/>
@@ -21,27 +32,33 @@
 <path id="lancer-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
 <path id="lancer-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
 <g id="lancer-body-belt">
-<path id="lancer-body-belt-fill" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="#6b4a2b"/>
-<path id="lancer-body-belt-line" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="lancer-body-belt-fill" href="#lancer-body-belt-shape" fill="#6b4a2b"/>
+<use id="lancer-body-belt-line" href="#lancer-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="lancer-body-buckle">
-<path id="lancer-body-buckle-shade" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z" fill="#9c7c33"/>
+<use id="lancer-body-buckle-shade" href="#lancer-body-buckle-shape" fill="#9c7c33"/>
 <g clip-path="url(#lancer-body-buckle-clip)">
-<path id="lancer-body-buckle-fill" d="M 101 135 L 107 135 Q 110 135 110 138 L 110 145 Q 110 148 107 148 L 101 148 Q 98 148 98 145 L 98 138 Q 98 135 101 135 Z" fill="#c8a24a"/>
-<path id="lancer-body-buckle-lit" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z M 107.6 141.6 L 113.6 141.6 Q 116.6 141.6 116.6 144.6 L 116.6 151.6 Q 116.6 154.6 113.6 154.6 L 107.6 154.6 Q 104.6 154.6 104.6 151.6 L 104.6 144.6 Q 104.6 141.6 107.6 141.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="lancer-body-buckle-fill" href="#lancer-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#lancer-body-buckle-lit-clip)">
+<use id="lancer-body-buckle-lit" href="#lancer-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lancer-body-buckle-fill-over" href="#lancer-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
 </g>
-<path id="lancer-body-buckle-line" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="lancer-body-buckle-line" href="#lancer-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<path id="lancer-body-tunic-line" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="lancer-body-tunic-line" href="#lancer-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="lancer-body-arm-cast" d="M 107.6 122.4 L 109.6 138.4 C 110.1 142.5 113.8 145.5 117.9 144.9 C 122 144.4 125 140.7 124.4 136.6 L 122.4 120.6 C 121.9 116.5 118.2 113.5 114.1 114.1 C 110 114.6 107 118.3 107.6 122.4 Z" fill="#2a1a10" opacity="0.17"/>
 <g id="lancer-body-arm">
-<path id="lancer-body-arm-shade" d="M 106.6 118.9 L 108.6 134.9 C 109.1 139 112.8 142 116.9 141.4 C 121 140.9 124 137.2 123.4 133.1 L 121.4 117.1 C 120.9 113 117.2 110 113.1 110.6 C 109 111.1 106 114.8 106.6 118.9 Z" fill="#b3a585"/>
+<use id="lancer-body-arm-shade" href="#lancer-body-arm-shape" fill="#b3a585"/>
 <g clip-path="url(#lancer-body-arm-clip)">
-<path id="lancer-body-arm-fill" d="M 103.6 115.9 L 105.6 131.9 C 106.1 136 109.8 139 113.9 138.4 C 118 137.9 121 134.2 120.4 130.1 L 118.4 114.1 C 117.9 110 114.2 107 110.1 107.6 C 106 108.1 103 111.8 103.6 115.9 Z" fill="#d9cdb0"/>
-<path id="lancer-body-arm-lit" d="M 106.6 118.9 L 108.6 134.9 C 109.1 139 112.8 142 116.9 141.4 C 121 140.9 124 137.2 123.4 133.1 L 121.4 117.1 C 120.9 113 117.2 110 113.1 110.6 C 109 111.1 106 114.8 106.6 118.9 Z M 110.2 122.5 L 112.2 138.5 C 112.7 142.6 116.4 145.6 120.5 145 C 124.6 144.5 127.6 140.8 127 136.7 L 125 120.7 C 124.5 116.6 120.8 113.6 116.7 114.2 C 112.6 114.7 109.6 118.4 110.2 122.5 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="lancer-body-arm-fill" href="#lancer-body-arm-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#lancer-body-arm-lit-clip)">
+<use id="lancer-body-arm-lit" href="#lancer-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lancer-body-arm-fill-over" href="#lancer-body-arm-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
 </g>
-<path id="lancer-body-arm-line" d="M 106.6 118.9 L 108.6 134.9 C 109.1 139 112.8 142 116.9 141.4 C 121 140.9 124 137.2 123.4 133.1 L 121.4 117.1 C 120.9 113 117.2 110 113.1 110.6 C 109 111.1 106 114.8 106.6 118.9 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="lancer-body-arm-line" href="#lancer-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

@@ -1,15 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="bruiser-body" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<clipPath id="bruiser-body-tunic-clip"><path d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z"/></clipPath>
-<clipPath id="bruiser-body-buckle-clip"><path d="M 104 140 L 110 140 Q 113 140 113 143 L 113 150 Q 113 153 110 153 L 104 153 Q 101 153 101 150 L 101 143 Q 101 140 104 140 Z"/></clipPath>
-<clipPath id="bruiser-body-arm-clip"><path d="M 109.8 120.2 L 115.8 142.2 C 117 146.8 121.7 149.4 126.2 148.2 C 130.8 147 133.4 142.3 132.2 137.8 L 126.2 115.8 C 125 111.2 120.3 108.6 115.8 109.8 C 111.2 111 108.6 115.7 109.8 120.2 Z"/></clipPath>
+<path id="bruiser-body-tunic-shape" d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z"/>
+<clipPath id="bruiser-body-tunic-clip"><use href="#bruiser-body-tunic-shape"/></clipPath>
+<clipPath id="bruiser-body-tunic-lit-clip"><use href="#bruiser-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="bruiser-body-belt-shape" d="M 56 142 L 136 142 L 136 151 L 56 151 L 56 142 Z"/>
+<path id="bruiser-body-buckle-shape" d="M 104 140 L 110 140 Q 113 140 113 143 L 113 150 Q 113 153 110 153 L 104 153 Q 101 153 101 150 L 101 143 Q 101 140 104 140 Z"/>
+<clipPath id="bruiser-body-buckle-clip"><use href="#bruiser-body-buckle-shape"/></clipPath>
+<clipPath id="bruiser-body-buckle-lit-clip"><use href="#bruiser-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="bruiser-body-arm-shape" d="M 109.8 120.2 L 115.8 142.2 C 117 146.8 121.7 149.4 126.2 148.2 C 130.8 147 133.4 142.3 132.2 137.8 L 126.2 115.8 C 125 111.2 120.3 108.6 115.8 109.8 C 111.2 111 108.6 115.7 109.8 120.2 Z"/>
+<clipPath id="bruiser-body-arm-clip"><use href="#bruiser-body-arm-shape"/></clipPath>
+<clipPath id="bruiser-body-arm-lit-clip"><use href="#bruiser-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
 <g id="bruiser-body-tunic">
-<path id="bruiser-body-tunic-shade" d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z" fill="#933027"/>
+<use id="bruiser-body-tunic-shade" href="#bruiser-body-tunic-shape" fill="#933027"/>
 <g clip-path="url(#bruiser-body-tunic-clip)">
-<path id="bruiser-body-tunic-deep" d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z M 62.7 100.3 C 68.9 95.6 82.8 96.2 92.9 96.2 C 103 96.2 116.9 95.6 123.1 100.3 C 129.2 104.9 129.6 115.9 130 124 C 130.4 132 129.2 143.4 125.4 148.7 C 121.5 154 114.6 154.7 106.8 155.9 C 99.1 157.1 86.7 157.1 79 155.9 C 71.2 154.7 64.3 154 60.4 148.7 C 56.6 143.4 55.4 132 55.8 124 C 56.2 115.9 56.6 104.9 62.7 100.3 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
-<path id="bruiser-body-tunic-fill" d="M 60.8 98.4 C 67 93.7 80.9 94.3 91 94.3 C 101.1 94.3 115 93.7 121.2 98.4 C 127.3 103 127.7 114 128.1 122.1 C 128.5 130.1 127.3 141.5 123.5 146.8 C 119.6 152.1 112.7 152.8 104.9 154 C 97.2 155.2 84.8 155.2 77.1 154 C 69.3 152.8 62.4 152.1 58.5 146.8 C 54.7 141.5 53.5 130.1 53.9 122.1 C 54.3 114 54.7 103 60.8 98.4 Z" fill="#c2453a"/>
-<path id="bruiser-body-tunic-lit" d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z M 70.4 108 C 76.6 103.3 90.5 103.9 100.6 103.9 C 110.7 103.9 124.6 103.3 130.8 108 C 136.9 112.6 137.3 123.6 137.7 131.7 C 138.1 139.7 136.9 151.1 133.1 156.4 C 129.2 161.7 122.3 162.4 114.5 163.6 C 106.8 164.8 94.4 164.8 86.7 163.6 C 78.9 162.4 72 161.7 68.1 156.4 C 64.3 151.1 63.1 139.7 63.5 131.7 C 63.9 123.6 64.3 112.6 70.4 108 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="bruiser-body-tunic-deep" href="#bruiser-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bruiser-body-tunic-shade-over" href="#bruiser-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="bruiser-body-tunic-fill" href="#bruiser-body-tunic-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#bruiser-body-tunic-lit-clip)">
+<use id="bruiser-body-tunic-lit" href="#bruiser-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bruiser-body-tunic-fill-over" href="#bruiser-body-tunic-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
 <path id="bruiser-body-patch" d="M 106 120 L 116 120 Q 118 120 118 122 L 118 130 Q 118 132 116 132 L 106 132 Q 104 132 104 130 L 104 122 Q 104 120 106 120 Z" fill="#2a1a10" opacity="0.25"/>
 <path id="bruiser-body-patch-thread" d="M 106.7 122 L 115.3 122 Q 116 122 116 122.7 L 116 122.7 Q 116 123.4 115.3 123.4 L 106.7 123.4 Q 106 123.4 106 122.7 L 106 122.7 Q 106 122 106.7 122 Z" fill="#f4f1e4" opacity="0.47"/>
 <path id="bruiser-body-patch-thread-2" d="M 106.7 128.6 L 115.3 128.6 Q 116 128.6 116 129.3 L 116 129.3 Q 116 130 115.3 130 L 106.7 130 Q 106 130 106 129.3 L 106 129.3 Q 106 128.6 106.7 128.6 Z" fill="#f4f1e4" opacity="0.47"/>
@@ -18,27 +29,33 @@
 <path id="bruiser-body-crease-b" d="M 118 141 Q 121.6 134.4 120 127 Q 118.5 133.9 118 141 Z" fill="#2a1a10" opacity="0.21"/>
 <path id="bruiser-body-belt-cast" d="M 56 152 L 136 152 L 136 156.5 L 56 156.5 L 56 152 Z" fill="#2a1a10" opacity="0.25"/>
 <g id="bruiser-body-belt">
-<path id="bruiser-body-belt-fill" d="M 56 142 L 136 142 L 136 151 L 56 151 L 56 142 Z" fill="#6b4a2b"/>
-<path id="bruiser-body-belt-line" d="M 56 142 L 136 142 L 136 151 L 56 151 L 56 142 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="bruiser-body-belt-fill" href="#bruiser-body-belt-shape" fill="#6b4a2b"/>
+<use id="bruiser-body-belt-line" href="#bruiser-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="bruiser-body-buckle">
-<path id="bruiser-body-buckle-shade" d="M 104 140 L 110 140 Q 113 140 113 143 L 113 150 Q 113 153 110 153 L 104 153 Q 101 153 101 150 L 101 143 Q 101 140 104 140 Z" fill="#9c7c33"/>
+<use id="bruiser-body-buckle-shade" href="#bruiser-body-buckle-shape" fill="#9c7c33"/>
 <g clip-path="url(#bruiser-body-buckle-clip)">
-<path id="bruiser-body-buckle-fill" d="M 101 137 L 107 137 Q 110 137 110 140 L 110 147 Q 110 150 107 150 L 101 150 Q 98 150 98 147 L 98 140 Q 98 137 101 137 Z" fill="#c8a24a"/>
-<path id="bruiser-body-buckle-lit" d="M 104 140 L 110 140 Q 113 140 113 143 L 113 150 Q 113 153 110 153 L 104 153 Q 101 153 101 150 L 101 143 Q 101 140 104 140 Z M 107.6 143.6 L 113.6 143.6 Q 116.6 143.6 116.6 146.6 L 116.6 153.6 Q 116.6 156.6 113.6 156.6 L 107.6 156.6 Q 104.6 156.6 104.6 153.6 L 104.6 146.6 Q 104.6 143.6 107.6 143.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="bruiser-body-buckle-fill" href="#bruiser-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#bruiser-body-buckle-lit-clip)">
+<use id="bruiser-body-buckle-lit" href="#bruiser-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bruiser-body-buckle-fill-over" href="#bruiser-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
 </g>
-<path id="bruiser-body-buckle-line" d="M 104 140 L 110 140 Q 113 140 113 143 L 113 150 Q 113 153 110 153 L 104 153 Q 101 153 101 150 L 101 143 Q 101 140 104 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="bruiser-body-buckle-line" href="#bruiser-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<path id="bruiser-body-tunic-line" d="M 65.8 103.4 C 72 98.7 85.9 99.3 96 99.3 C 106.1 99.3 120 98.7 126.2 103.4 C 132.3 108 132.7 119 133.1 127.1 C 133.5 135.1 132.3 146.5 128.5 151.8 C 124.6 157.1 117.7 157.8 109.9 159 C 102.2 160.2 89.8 160.2 82.1 159 C 74.3 157.8 67.4 157.1 63.5 151.8 C 59.7 146.5 58.5 135.1 58.9 127.1 C 59.3 119 59.7 108 65.8 103.4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="bruiser-body-tunic-line" href="#bruiser-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="bruiser-body-arm-cast" d="M 110.8 123.7 L 116.8 145.7 C 118 150.3 122.7 152.9 127.2 151.7 C 131.8 150.5 134.4 145.8 133.2 141.3 L 127.2 119.3 C 126 114.7 121.3 112.1 116.8 113.3 C 112.2 114.5 109.6 119.2 110.8 123.7 Z" fill="#2a1a10" opacity="0.17"/>
 <g id="bruiser-body-arm">
-<path id="bruiser-body-arm-shade" d="M 109.8 120.2 L 115.8 142.2 C 117 146.8 121.7 149.4 126.2 148.2 C 130.8 147 133.4 142.3 132.2 137.8 L 126.2 115.8 C 125 111.2 120.3 108.6 115.8 109.8 C 111.2 111 108.6 115.7 109.8 120.2 Z" fill="#933027"/>
+<use id="bruiser-body-arm-shade" href="#bruiser-body-arm-shape" fill="#933027"/>
 <g clip-path="url(#bruiser-body-arm-clip)">
-<path id="bruiser-body-arm-fill" d="M 106.8 117.2 L 112.8 139.2 C 114 143.8 118.7 146.4 123.2 145.2 C 127.8 144 130.4 139.3 129.2 134.8 L 123.2 112.8 C 122 108.2 117.3 105.6 112.8 106.8 C 108.2 108 105.6 112.7 106.8 117.2 Z" fill="#c2453a"/>
-<path id="bruiser-body-arm-lit" d="M 109.8 120.2 L 115.8 142.2 C 117 146.8 121.7 149.4 126.2 148.2 C 130.8 147 133.4 142.3 132.2 137.8 L 126.2 115.8 C 125 111.2 120.3 108.6 115.8 109.8 C 111.2 111 108.6 115.7 109.8 120.2 Z M 113.4 123.8 L 119.4 145.8 C 120.6 150.4 125.3 153 129.8 151.8 C 134.4 150.6 137 145.9 135.8 141.4 L 129.8 119.4 C 128.6 114.8 123.9 112.2 119.4 113.4 C 114.8 114.6 112.2 119.3 113.4 123.8 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="bruiser-body-arm-fill" href="#bruiser-body-arm-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#bruiser-body-arm-lit-clip)">
+<use id="bruiser-body-arm-lit" href="#bruiser-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bruiser-body-arm-fill-over" href="#bruiser-body-arm-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
 </g>
-<path id="bruiser-body-arm-line" d="M 109.8 120.2 L 115.8 142.2 C 117 146.8 121.7 149.4 126.2 148.2 C 130.8 147 133.4 142.3 132.2 137.8 L 126.2 115.8 C 125 111.2 120.3 108.6 115.8 109.8 C 111.2 111 108.6 115.7 109.8 120.2 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="bruiser-body-arm-line" href="#bruiser-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

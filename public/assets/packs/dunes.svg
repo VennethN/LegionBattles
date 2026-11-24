@@ -1,45 +1,61 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="dunes" width="124" height="168" viewBox="0 0 124 168">
 <defs>
-<clipPath id="dunes-pouch-clip"><path d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z"/></clipPath>
-<clipPath id="dunes-seal-clip"><path d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z"/></clipPath>
+<path id="dunes-pouch-shape" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z"/>
+<clipPath id="dunes-pouch-clip"><use href="#dunes-pouch-shape"/></clipPath>
+<clipPath id="dunes-pouch-lit-clip"><use href="#dunes-pouch-shape" transform="translate(-7 -7)"/></clipPath>
+<path id="dunes-crimp-top-shape" d="M 0 0 L 124 0 L 124 26 L 0 26 Z"/>
+<path id="dunes-crimp-bottom-shape" d="M 0 142 L 124 142 L 124 168 L 0 168 Z"/>
+<path id="dunes-band-shape" d="M 0 108 L 124 92 L 124 112 L 0 128 Z"/>
+<path id="dunes-seal-shape" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z"/>
+<clipPath id="dunes-seal-clip"><use href="#dunes-seal-shape"/></clipPath>
+<clipPath id="dunes-seal-lit-clip"><use href="#dunes-seal-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="dunes-mark-shape" d="M 62 54 L 66.2 63.8 L 76.1 59.9 L 72.2 69.8 L 82 74 L 72.2 78.2 L 76.1 88.1 L 66.2 84.2 L 62 94 L 57.8 84.2 L 47.9 88.1 L 51.8 78.2 L 42 74 L 51.8 69.8 L 47.9 59.9 L 57.8 63.8 Z"/>
+<path id="dunes-mark-core-shape" d="M 70 74 C 70 78.4 66.4 82 62 82 C 57.6 82 54 78.4 54 74 C 54 69.6 57.6 66 62 66 C 66.4 66 70 69.6 70 74 Z"/>
 </defs>
 <g id="dunes-pouch">
-<path id="dunes-pouch-shade" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z" fill="#9c7c33"/>
+<use id="dunes-pouch-shade" href="#dunes-pouch-shape" fill="#9c7c33"/>
 <g clip-path="url(#dunes-pouch-clip)">
-<path id="dunes-pouch-deep" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z M 7.7 9.7 L 18.8 1.7 L 29.9 9.7 L 41 1.7 L 52.1 9.7 L 63.2 1.7 L 74.3 9.7 L 85.4 1.7 L 96.5 9.7 L 107.7 1.7 L 111.7 79.7 L 107.7 157.7 L 96.5 149.7 L 85.4 157.7 L 74.3 149.7 L 63.2 157.7 L 52.1 149.7 L 41 157.7 L 29.9 149.7 L 18.8 157.7 L 7.7 149.7 L 3.7 79.7 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
-<path id="dunes-pouch-fill" d="M 5 7 L 16.1 -1 L 27.2 7 L 38.3 -1 L 49.4 7 L 60.6 -1 L 71.7 7 L 82.8 -1 L 93.9 7 L 105 -1 L 109 77 L 105 155 L 93.9 147 L 82.8 155 L 71.7 147 L 60.6 155 L 49.4 147 L 38.3 155 L 27.2 147 L 16.1 155 L 5 147 L 1 77 Z" fill="#c8a24a"/>
-<path id="dunes-pouch-lit" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z M 16.6 18.6 L 27.7 10.6 L 38.8 18.6 L 49.9 10.6 L 61 18.6 L 72.2 10.6 L 83.3 18.6 L 94.4 10.6 L 105.5 18.6 L 116.6 10.6 L 120.6 88.6 L 116.6 166.6 L 105.5 158.6 L 94.4 166.6 L 83.3 158.6 L 72.2 166.6 L 61 158.6 L 49.9 166.6 L 38.8 158.6 L 27.7 166.6 L 16.6 158.6 L 12.6 88.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="dunes-pouch-deep" href="#dunes-pouch-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="dunes-pouch-shade-over" href="#dunes-pouch-shape" transform="translate(-4.34 -4.34)" fill="#9c7c33"/>
+<use id="dunes-pouch-fill" href="#dunes-pouch-shape" transform="translate(-7 -7)" fill="#c8a24a"/>
+<g clip-path="url(#dunes-pouch-lit-clip)">
+<use id="dunes-pouch-lit" href="#dunes-pouch-shape" transform="translate(-7 -7)" fill="#f4f1e4" opacity="0.36"/>
+<use id="dunes-pouch-fill-over" href="#dunes-pouch-shape" transform="translate(4.6 4.6)" fill="#c8a24a"/>
+</g>
 <path id="dunes-pouch-sheen" d="M94.76 6 L110.96 6 L45.44 162 L29.24 162 Z M114.46 6 L117.06 6 L51.54 162 L48.94 162 Z" fill="#f4f1e4" opacity="0.2"/>
 <g id="dunes-crimp-top">
-<path id="dunes-crimp-top-fill" d="M 0 0 L 124 0 L 124 26 L 0 26 Z" fill="#9c7c33"/>
-<path id="dunes-crimp-top-line" d="M 0 0 L 124 0 L 124 26 L 0 26 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="dunes-crimp-top-fill" href="#dunes-crimp-top-shape" fill="#9c7c33"/>
+<use id="dunes-crimp-top-line" href="#dunes-crimp-top-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="dunes-crimp-bottom">
-<path id="dunes-crimp-bottom-fill" d="M 0 142 L 124 142 L 124 168 L 0 168 Z" fill="#9c7c33"/>
-<path id="dunes-crimp-bottom-line" d="M 0 142 L 124 142 L 124 168 L 0 168 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="dunes-crimp-bottom-fill" href="#dunes-crimp-bottom-shape" fill="#9c7c33"/>
+<use id="dunes-crimp-bottom-line" href="#dunes-crimp-bottom-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="dunes-band">
-<path id="dunes-band-fill" d="M 0 108 L 124 92 L 124 112 L 0 128 Z" fill="#c2453a"/>
-<path id="dunes-band-line" d="M 0 108 L 124 92 L 124 112 L 0 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="dunes-band-fill" href="#dunes-band-shape" fill="#c2453a"/>
+<use id="dunes-band-line" href="#dunes-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<path id="dunes-pouch-line" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="dunes-pouch-line" href="#dunes-pouch-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="dunes-seal">
-<path id="dunes-seal-shade" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z" fill="#c4b594"/>
+<use id="dunes-seal-shade" href="#dunes-seal-shape" fill="#c4b594"/>
 <g clip-path="url(#dunes-seal-clip)">
-<path id="dunes-seal-fill" d="M 89 70 C 89 87.1 75.1 101 58 101 C 40.9 101 27 87.1 27 70 C 27 52.9 40.9 39 58 39 C 75.1 39 89 52.9 89 70 Z" fill="#e9dfc6"/>
-<path id="dunes-seal-lit" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z M 97.2 78.2 C 97.2 95.3 83.3 109.2 66.2 109.2 C 49.1 109.2 35.2 95.3 35.2 78.2 C 35.2 61.1 49.1 47.2 66.2 47.2 C 83.3 47.2 97.2 61.1 97.2 78.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="dunes-seal-fill" href="#dunes-seal-shape" transform="translate(-4 -4)" fill="#e9dfc6"/>
+<g clip-path="url(#dunes-seal-lit-clip)">
+<use id="dunes-seal-lit" href="#dunes-seal-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="dunes-seal-fill-over" href="#dunes-seal-shape" transform="translate(4.2 4.2)" fill="#e9dfc6"/>
 </g>
-<path id="dunes-seal-line" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="dunes-seal-line" href="#dunes-seal-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="dunes-mark">
-<path id="dunes-mark-fill" d="M 62 54 L 66.2 63.8 L 76.1 59.9 L 72.2 69.8 L 82 74 L 72.2 78.2 L 76.1 88.1 L 66.2 84.2 L 62 94 L 57.8 84.2 L 47.9 88.1 L 51.8 78.2 L 42 74 L 51.8 69.8 L 47.9 59.9 L 57.8 63.8 Z" fill="#f2d264"/>
-<path id="dunes-mark-line" d="M 62 54 L 66.2 63.8 L 76.1 59.9 L 72.2 69.8 L 82 74 L 72.2 78.2 L 76.1 88.1 L 66.2 84.2 L 62 94 L 57.8 84.2 L 47.9 88.1 L 51.8 78.2 L 42 74 L 51.8 69.8 L 47.9 59.9 L 57.8 63.8 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="dunes-mark-fill" href="#dunes-mark-shape" fill="#f2d264"/>
+<use id="dunes-mark-line" href="#dunes-mark-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="dunes-mark-core">
-<path id="dunes-mark-core-fill" d="M 70 74 C 70 78.4 66.4 82 62 82 C 57.6 82 54 78.4 54 74 C 54 69.6 57.6 66 62 66 C 66.4 66 70 69.6 70 74 Z" fill="#c8a24a"/>
-<path id="dunes-mark-core-line" d="M 70 74 C 70 78.4 66.4 82 62 82 C 57.6 82 54 78.4 54 74 C 54 69.6 57.6 66 62 66 C 66.4 66 70 69.6 70 74 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="dunes-mark-core-fill" href="#dunes-mark-core-shape" fill="#c8a24a"/>
+<use id="dunes-mark-core-line" href="#dunes-mark-core-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="dunes-glint" d="M 25.5 42.6 L 35.5 36.6 C 37 35.7 37.4 33.9 36.6 32.5 C 35.7 31 33.9 30.6 32.5 31.4 L 22.5 37.4 C 21 38.3 20.6 40.1 21.4 41.5 C 22.3 43 24.1 43.4 25.5 42.6 Z" fill="#f4f1e4"/>
 </svg>

@@ -1,17 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="warlord-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<clipPath id="warlord-leg-front-boot-clip"><path d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/></clipPath>
+<path id="warlord-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="warlord-leg-front-boot-clip"><use href="#warlord-leg-front-boot-shape"/></clipPath>
+<clipPath id="warlord-leg-front-boot-lit-clip"><use href="#warlord-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
 </defs>
 <g id="warlord-leg-front-boot">
-<path id="warlord-leg-front-boot-shade" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="#434b56"/>
+<use id="warlord-leg-front-boot-shade" href="#warlord-leg-front-boot-shape" fill="#434b56"/>
 <g clip-path="url(#warlord-leg-front-boot-clip)">
-<path id="warlord-leg-front-boot-fill" d="M 90 144 L 109 144 L 109 160 C 115 160 120 164 120 170 L 120 172 Q 120 176 116 176 L 94 176 Q 90 176 90 172 Z" fill="#5d6672"/>
-<path id="warlord-leg-front-boot-lit" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z M 98.2 152.2 L 117.2 152.2 L 117.2 168.2 C 123.2 168.2 128.2 172.2 128.2 178.2 L 128.2 180.2 Q 128.2 184.2 124.2 184.2 L 102.2 184.2 Q 98.2 184.2 98.2 180.2 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="warlord-leg-front-boot-fill" href="#warlord-leg-front-boot-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#warlord-leg-front-boot-lit-clip)">
+<use id="warlord-leg-front-boot-lit" href="#warlord-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warlord-leg-front-boot-fill-over" href="#warlord-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
 <path id="warlord-leg-front-boot-sheen" d="M115.72 148 L120.22 148 L106.78 180 L102.28 180 Z M123.72 148 L126.32 148 L112.88 180 L110.28 180 Z" fill="#f4f1e4" opacity="0.2"/>
 <path id="warlord-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
 <path id="warlord-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
 <path id="warlord-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
 </g>
-<path id="warlord-leg-front-boot-line" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="warlord-leg-front-boot-line" href="#warlord-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

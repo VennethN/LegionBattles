@@ -1,30 +1,44 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="icegolem-body" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<clipPath id="icegolem-body-rock-clip"><path d="M 60 92 C 67.7 85.7 84 84 96 84 C 108 84 124.3 85.7 132 92 C 139.7 98.3 141.7 111.7 142 122 C 142.3 132.3 139 147.3 134 154 C 129 160.7 121 160.7 112 162 C 103 163.3 89 163.3 80 162 C 71 160.7 63 160.7 58 154 C 53 147.3 49.7 132.3 50 122 C 50.3 111.7 52.3 98.3 60 92 Z"/></clipPath>
-<clipPath id="icegolem-body-flap-clip"><path d="M 86 150 L 112 150 L 112 172 L 99 166 L 86 172 Z"/></clipPath>
+<path id="icegolem-body-shard-a-shape" d="M 58 98 L 40 56 L 78 86 Z"/>
+<path id="icegolem-body-shard-b-shape" d="M 116 86 L 146 50 L 136 98 Z"/>
+<path id="icegolem-body-shard-c-shape" d="M 46 112 L 28 92 L 54 98 Z"/>
+<path id="icegolem-body-rock-shape" d="M 60 92 C 67.7 85.7 84 84 96 84 C 108 84 124.3 85.7 132 92 C 139.7 98.3 141.7 111.7 142 122 C 142.3 132.3 139 147.3 134 154 C 129 160.7 121 160.7 112 162 C 103 163.3 89 163.3 80 162 C 71 160.7 63 160.7 58 154 C 53 147.3 49.7 132.3 50 122 C 50.3 111.7 52.3 98.3 60 92 Z"/>
+<clipPath id="icegolem-body-rock-clip"><use href="#icegolem-body-rock-shape"/></clipPath>
+<clipPath id="icegolem-body-rock-lit-clip"><use href="#icegolem-body-rock-shape" transform="translate(-7 -7)"/></clipPath>
+<path id="icegolem-body-cap-shape" d="M 44 84 C 51.3 80 78.7 76 96 76 C 113.3 76 140.7 80 148 84 C 155.3 88 145 98 140 100 C 135 102 125.3 95.3 118 96 C 110.7 96.7 103.3 104 96 104 C 88.7 104 81.3 96.7 74 96 C 66.7 95.3 57 102 52 100 C 47 98 36.7 88 44 84 Z"/>
+<path id="icegolem-body-wrap-shape" d="M 40 142 L 152 142 L 152 154 L 40 154 L 40 142 Z"/>
+<path id="icegolem-body-rune-shape" d="M 104 109 L 112 120 L 104 131 L 96 120 Z"/>
+<path id="icegolem-body-flap-shape" d="M 86 150 L 112 150 L 112 172 L 99 166 L 86 172 Z"/>
+<clipPath id="icegolem-body-flap-clip"><use href="#icegolem-body-flap-shape"/></clipPath>
+<clipPath id="icegolem-body-flap-lit-clip"><use href="#icegolem-body-flap-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
 <g id="icegolem-body-shard-a">
-<path id="icegolem-body-shard-a-fill" d="M 58 98 L 40 56 L 78 86 Z" fill="#d4f1fb"/>
-<path id="icegolem-body-shard-a-line" d="M 58 98 L 40 56 L 78 86 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="icegolem-body-shard-a-fill" href="#icegolem-body-shard-a-shape" fill="#d4f1fb"/>
+<use id="icegolem-body-shard-a-line" href="#icegolem-body-shard-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="icegolem-body-shard-b">
-<path id="icegolem-body-shard-b-fill" d="M 116 86 L 146 50 L 136 98 Z" fill="#d4f1fb"/>
-<path id="icegolem-body-shard-b-line" d="M 116 86 L 146 50 L 136 98 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="icegolem-body-shard-b-fill" href="#icegolem-body-shard-b-shape" fill="#d4f1fb"/>
+<use id="icegolem-body-shard-b-line" href="#icegolem-body-shard-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="icegolem-body-shard-c">
-<path id="icegolem-body-shard-c-fill" d="M 46 112 L 28 92 L 54 98 Z" fill="#d4f1fb"/>
-<path id="icegolem-body-shard-c-line" d="M 46 112 L 28 92 L 54 98 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="icegolem-body-shard-c-fill" href="#icegolem-body-shard-c-shape" fill="#d4f1fb"/>
+<use id="icegolem-body-shard-c-line" href="#icegolem-body-shard-c-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="icegolem-body-rock">
-<path id="icegolem-body-rock-shade" d="M 60 92 C 67.7 85.7 84 84 96 84 C 108 84 124.3 85.7 132 92 C 139.7 98.3 141.7 111.7 142 122 C 142.3 132.3 139 147.3 134 154 C 129 160.7 121 160.7 112 162 C 103 163.3 89 163.3 80 162 C 71 160.7 63 160.7 58 154 C 53 147.3 49.7 132.3 50 122 C 50.3 111.7 52.3 98.3 60 92 Z" fill="#3f97bd"/>
+<use id="icegolem-body-rock-shade" href="#icegolem-body-rock-shape" fill="#3f97bd"/>
 <g clip-path="url(#icegolem-body-rock-clip)">
-<path id="icegolem-body-rock-deep" d="M 60 92 C 67.7 85.7 84 84 96 84 C 108 84 124.3 85.7 132 92 C 139.7 98.3 141.7 111.7 142 122 C 142.3 132.3 139 147.3 134 154 C 129 160.7 121 160.7 112 162 C 103 163.3 89 163.3 80 162 C 71 160.7 63 160.7 58 154 C 53 147.3 49.7 132.3 50 122 C 50.3 111.7 52.3 98.3 60 92 Z M 55.7 87.7 C 63.3 81.3 79.7 79.7 91.7 79.7 C 103.7 79.7 120 81.3 127.7 87.7 C 135.3 94 137.3 107.3 137.7 117.7 C 138 128 134.7 143 129.7 149.7 C 124.7 156.3 116.7 156.3 107.7 157.7 C 98.7 159 84.7 159 75.7 157.7 C 66.7 156.3 58.7 156.3 53.7 149.7 C 48.7 143 45.3 128 45.7 117.7 C 46 107.3 48 94 55.7 87.7 Z" fill="#2a1a10" fill-rule="evenodd" opacity="0.2"/>
-<path id="icegolem-body-rock-fill" d="M 53 85 C 60.7 78.7 77 77 89 77 C 101 77 117.3 78.7 125 85 C 132.7 91.3 134.7 104.7 135 115 C 135.3 125.3 132 140.3 127 147 C 122 153.7 114 153.7 105 155 C 96 156.3 82 156.3 73 155 C 64 153.7 56 153.7 51 147 C 46 140.3 42.7 125.3 43 115 C 43.3 104.7 45.3 91.3 53 85 Z" fill="#6fc7e8"/>
-<path id="icegolem-body-rock-lit" d="M 60 92 C 67.7 85.7 84 84 96 84 C 108 84 124.3 85.7 132 92 C 139.7 98.3 141.7 111.7 142 122 C 142.3 132.3 139 147.3 134 154 C 129 160.7 121 160.7 112 162 C 103 163.3 89 163.3 80 162 C 71 160.7 63 160.7 58 154 C 53 147.3 49.7 132.3 50 122 C 50.3 111.7 52.3 98.3 60 92 Z M 64.6 96.6 C 72.3 90.3 88.6 88.6 100.6 88.6 C 112.6 88.6 128.9 90.3 136.6 96.6 C 144.3 102.9 146.3 116.3 146.6 126.6 C 146.9 136.9 143.6 151.9 138.6 158.6 C 133.6 165.3 125.6 165.3 116.6 166.6 C 107.6 167.9 93.6 167.9 84.6 166.6 C 75.6 165.3 67.6 165.3 62.6 158.6 C 57.6 151.9 54.3 136.9 54.6 126.6 C 54.9 116.3 56.9 102.9 64.6 96.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="icegolem-body-rock-deep" href="#icegolem-body-rock-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="icegolem-body-rock-shade-over" href="#icegolem-body-rock-shape" transform="translate(-4.34 -4.34)" fill="#3f97bd"/>
+<use id="icegolem-body-rock-fill" href="#icegolem-body-rock-shape" transform="translate(-7 -7)" fill="#6fc7e8"/>
+<g clip-path="url(#icegolem-body-rock-lit-clip)">
+<use id="icegolem-body-rock-lit" href="#icegolem-body-rock-shape" transform="translate(-7 -7)" fill="#f4f1e4" opacity="0.36"/>
+<use id="icegolem-body-rock-fill-over" href="#icegolem-body-rock-shape" transform="translate(4.6 4.6)" fill="#6fc7e8"/>
+</g>
 <path id="icegolem-body-rock-sheen" d="M112.66 84 L126.56 84 L93.24 163.33 L79.34 163.33 Z M130.06 84 L132.66 84 L99.34 163.33 L96.74 163.33 Z" fill="#f4f1e4" opacity="0.2"/>
 <g id="icegolem-body-cap">
-<path id="icegolem-body-cap-fill" d="M 44 84 C 51.3 80 78.7 76 96 76 C 113.3 76 140.7 80 148 84 C 155.3 88 145 98 140 100 C 135 102 125.3 95.3 118 96 C 110.7 96.7 103.3 104 96 104 C 88.7 104 81.3 96.7 74 96 C 66.7 95.3 57 102 52 100 C 47 98 36.7 88 44 84 Z" fill="#d4f1fb"/>
-<path id="icegolem-body-cap-line" d="M 44 84 C 51.3 80 78.7 76 96 76 C 113.3 76 140.7 80 148 84 C 155.3 88 145 98 140 100 C 135 102 125.3 95.3 118 96 C 110.7 96.7 103.3 104 96 104 C 88.7 104 81.3 96.7 74 96 C 66.7 95.3 57 102 52 100 C 47 98 36.7 88 44 84 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="icegolem-body-cap-fill" href="#icegolem-body-cap-shape" fill="#d4f1fb"/>
+<use id="icegolem-body-cap-line" href="#icegolem-body-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="icegolem-body-facet-a" d="M 58 100 L 92 96 L 86 122 L 56 130 Z" fill="#f4f1e4" opacity="0.2"/>
 <path id="icegolem-body-facet-b" d="M 114 128 L 140 116 L 136 154 L 112 160 Z" fill="#2a1a10" opacity="0.2"/>
@@ -33,23 +47,26 @@
 <path id="icegolem-body-crack-a" d="M 64 118 L 74 128 L 68 142" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="icegolem-body-crack-b" d="M 128 112 L 120 124" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <g id="icegolem-body-wrap">
-<path id="icegolem-body-wrap-fill" d="M 40 142 L 152 142 L 152 154 L 40 154 L 40 142 Z" fill="#c2453a"/>
-<path id="icegolem-body-wrap-line" d="M 40 142 L 152 142 L 152 154 L 40 154 L 40 142 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="icegolem-body-wrap-fill" href="#icegolem-body-wrap-shape" fill="#c2453a"/>
+<use id="icegolem-body-wrap-line" href="#icegolem-body-wrap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<path id="icegolem-body-rock-line" d="M 60 92 C 67.7 85.7 84 84 96 84 C 108 84 124.3 85.7 132 92 C 139.7 98.3 141.7 111.7 142 122 C 142.3 132.3 139 147.3 134 154 C 129 160.7 121 160.7 112 162 C 103 163.3 89 163.3 80 162 C 71 160.7 63 160.7 58 154 C 53 147.3 49.7 132.3 50 122 C 50.3 111.7 52.3 98.3 60 92 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="icegolem-body-rock-line" href="#icegolem-body-rock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="icegolem-body-rune-glow" d="M 104 104 L 116 120 L 104 136 L 92 120 Z" fill="#cdb6f7" opacity="0.55"/>
 <g id="icegolem-body-rune">
-<path id="icegolem-body-rune-fill" d="M 104 109 L 112 120 L 104 131 L 96 120 Z" fill="#8a5cd6"/>
-<path id="icegolem-body-rune-line" d="M 104 109 L 112 120 L 104 131 L 96 120 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="icegolem-body-rune-fill" href="#icegolem-body-rune-shape" fill="#8a5cd6"/>
+<use id="icegolem-body-rune-line" href="#icegolem-body-rune-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="icegolem-body-flap">
-<path id="icegolem-body-flap-shade" d="M 86 150 L 112 150 L 112 172 L 99 166 L 86 172 Z" fill="#933027"/>
+<use id="icegolem-body-flap-shade" href="#icegolem-body-flap-shape" fill="#933027"/>
 <g clip-path="url(#icegolem-body-flap-clip)">
-<path id="icegolem-body-flap-fill" d="M 83 147 L 109 147 L 109 169 L 96 163 L 83 169 Z" fill="#c2453a"/>
-<path id="icegolem-body-flap-lit" d="M 86 150 L 112 150 L 112 172 L 99 166 L 86 172 Z M 89.6 153.6 L 115.6 153.6 L 115.6 175.6 L 102.6 169.6 L 89.6 175.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="icegolem-body-flap-fill" href="#icegolem-body-flap-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#icegolem-body-flap-lit-clip)">
+<use id="icegolem-body-flap-lit" href="#icegolem-body-flap-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="icegolem-body-flap-fill-over" href="#icegolem-body-flap-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
 </g>
-<path id="icegolem-body-flap-line" d="M 86 150 L 112 150 L 112 172 L 99 166 L 86 172 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="icegolem-body-flap-line" href="#icegolem-body-flap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

@@ -1,36 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="pyromancer-staff" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<clipPath id="pyromancer-staff-shaft-clip"><path d="M 139 68.5 L 140 68.6 Q 143 68.9 142.6 71.9 L 130 175.2 Q 129.6 178.1 126.6 177.8 L 125.6 177.6 Q 122.7 177.3 123 174.3 L 135.7 71.1 Q 136.1 68.1 139 68.5 Z"/></clipPath>
-<clipPath id="pyromancer-staff-flame-clip"><path d="M 131.3 61.5 C 131.3 61.5 129.6 52.5 130.8 49.3 C 132 46.1 136.8 45.4 138.7 42.2 C 140.6 39.1 142.2 30.6 142.2 30.6 C 142.2 30.6 147.2 37.9 148.9 41.5 C 150.6 45 152.6 48.3 152.6 52 C 152.7 55.7 149.2 63.7 149.2 63.7 L 131.3 61.5 Z"/></clipPath>
-<clipPath id="pyromancer-staff-hand-clip"><path d="M 138.5 138 C 138.5 142.1 135.1 145.5 131 145.5 C 126.9 145.5 123.5 142.1 123.5 138 C 123.5 133.9 126.9 130.5 131 130.5 C 135.1 130.5 138.5 133.9 138.5 138 Z"/></clipPath>
+<path id="pyromancer-staff-shaft-shape" d="M 139 68.5 L 140 68.6 Q 143 68.9 142.6 71.9 L 130 175.2 Q 129.6 178.1 126.6 177.8 L 125.6 177.6 Q 122.7 177.3 123 174.3 L 135.7 71.1 Q 136.1 68.1 139 68.5 Z"/>
+<clipPath id="pyromancer-staff-shaft-clip"><use href="#pyromancer-staff-shaft-shape"/></clipPath>
+<path id="pyromancer-staff-flame-shape" d="M 131.3 61.5 C 131.3 61.5 129.6 52.5 130.8 49.3 C 132 46.1 136.8 45.4 138.7 42.2 C 140.6 39.1 142.2 30.6 142.2 30.6 C 142.2 30.6 147.2 37.9 148.9 41.5 C 150.6 45 152.6 48.3 152.6 52 C 152.7 55.7 149.2 63.7 149.2 63.7 L 131.3 61.5 Z"/>
+<clipPath id="pyromancer-staff-flame-clip"><use href="#pyromancer-staff-flame-shape"/></clipPath>
+<clipPath id="pyromancer-staff-flame-lit-clip"><use href="#pyromancer-staff-flame-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="pyromancer-staff-bowl-shape" d="M 127.6 59 C 127.6 59 127.5 66.7 129.4 69.3 C 131.2 71.9 135.5 74.1 138.8 74.5 C 142.1 74.9 146.8 73.8 149.2 71.7 C 151.6 69.7 153.4 62.2 153.4 62.2 L 127.6 59 Z"/>
+<path id="pyromancer-staff-hand-shape" d="M 138.5 138 C 138.5 142.1 135.1 145.5 131 145.5 C 126.9 145.5 123.5 142.1 123.5 138 C 123.5 133.9 126.9 130.5 131 130.5 C 135.1 130.5 138.5 133.9 138.5 138 Z"/>
+<clipPath id="pyromancer-staff-hand-clip"><use href="#pyromancer-staff-hand-shape"/></clipPath>
+<clipPath id="pyromancer-staff-hand-lit-clip"><use href="#pyromancer-staff-hand-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
 <g id="pyromancer-staff-shaft">
-<path id="pyromancer-staff-shaft-shade" d="M 139 68.5 L 140 68.6 Q 143 68.9 142.6 71.9 L 130 175.2 Q 129.6 178.1 126.6 177.8 L 125.6 177.6 Q 122.7 177.3 123 174.3 L 135.7 71.1 Q 136.1 68.1 139 68.5 Z" fill="#75502b"/>
+<use id="pyromancer-staff-shaft-shade" href="#pyromancer-staff-shaft-shape" fill="#75502b"/>
 <g clip-path="url(#pyromancer-staff-shaft-clip)">
-<path id="pyromancer-staff-shaft-fill" d="M 137 66.5 L 138 66.6 Q 141 66.9 140.6 69.9 L 128 173.2 Q 127.6 176.1 124.6 175.8 L 123.6 175.6 Q 120.7 175.3 121 172.3 L 133.7 69.1 Q 134.1 66.1 137 66.5 Z" fill="#9a6a3a"/>
+<use id="pyromancer-staff-shaft-fill" href="#pyromancer-staff-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
 </g>
-<path id="pyromancer-staff-shaft-line" d="M 139 68.5 L 140 68.6 Q 143 68.9 142.6 71.9 L 130 175.2 Q 129.6 178.1 126.6 177.8 L 125.6 177.6 Q 122.7 177.3 123 174.3 L 135.7 71.1 Q 136.1 68.1 139 68.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="pyromancer-staff-shaft-line" href="#pyromancer-staff-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="pyromancer-staff-halo" d="M 158.6 52.7 C 157.5 62 149 68.7 139.7 67.5 C 130.3 66.4 123.7 57.9 124.9 48.6 C 126 39.3 134.5 32.6 143.8 33.8 C 153.1 34.9 159.7 43.4 158.6 52.7 Z" fill="#ffd27a" opacity="0.45"/>
 <g id="pyromancer-staff-flame">
-<path id="pyromancer-staff-flame-shade" d="M 131.3 61.5 C 131.3 61.5 129.6 52.5 130.8 49.3 C 132 46.1 136.8 45.4 138.7 42.2 C 140.6 39.1 142.2 30.6 142.2 30.6 C 142.2 30.6 147.2 37.9 148.9 41.5 C 150.6 45 152.6 48.3 152.6 52 C 152.7 55.7 149.2 63.7 149.2 63.7 L 131.3 61.5 Z" fill="#c45f22"/>
+<use id="pyromancer-staff-flame-shade" href="#pyromancer-staff-flame-shape" fill="#c45f22"/>
 <g clip-path="url(#pyromancer-staff-flame-clip)">
-<path id="pyromancer-staff-flame-fill" d="M 128.3 58.5 C 128.3 58.5 126.6 49.5 127.8 46.3 C 129 43.1 133.8 42.4 135.7 39.2 C 137.6 36.1 139.2 27.6 139.2 27.6 C 139.2 27.6 144.2 34.9 145.9 38.5 C 147.6 42 149.6 45.3 149.6 49 C 149.7 52.7 146.2 60.7 146.2 60.7 L 128.3 58.5 Z" fill="#f08a3c"/>
-<path id="pyromancer-staff-flame-lit" d="M 131.3 61.5 C 131.3 61.5 129.6 52.5 130.8 49.3 C 132 46.1 136.8 45.4 138.7 42.2 C 140.6 39.1 142.2 30.6 142.2 30.6 C 142.2 30.6 147.2 37.9 148.9 41.5 C 150.6 45 152.6 48.3 152.6 52 C 152.7 55.7 149.2 63.7 149.2 63.7 L 131.3 61.5 Z M 134.9 65.1 C 134.9 65.1 133.2 56.1 134.4 52.9 C 135.6 49.7 140.4 49 142.3 45.8 C 144.2 42.7 145.8 34.2 145.8 34.2 C 145.8 34.2 150.8 41.5 152.5 45.1 C 154.2 48.6 156.2 51.9 156.2 55.6 C 156.3 59.3 152.8 67.3 152.8 67.3 L 134.9 65.1 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="pyromancer-staff-flame-fill" href="#pyromancer-staff-flame-shape" transform="translate(-3 -3)" fill="#f08a3c"/>
+<g clip-path="url(#pyromancer-staff-flame-lit-clip)">
+<use id="pyromancer-staff-flame-lit" href="#pyromancer-staff-flame-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="pyromancer-staff-flame-fill-over" href="#pyromancer-staff-flame-shape" transform="translate(3.6 3.6)" fill="#f08a3c"/>
 </g>
-<path id="pyromancer-staff-flame-line" d="M 131.3 61.5 C 131.3 61.5 129.6 52.5 130.8 49.3 C 132 46.1 136.8 45.4 138.7 42.2 C 140.6 39.1 142.2 30.6 142.2 30.6 C 142.2 30.6 147.2 37.9 148.9 41.5 C 150.6 45 152.6 48.3 152.6 52 C 152.7 55.7 149.2 63.7 149.2 63.7 L 131.3 61.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="pyromancer-staff-flame-line" href="#pyromancer-staff-flame-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <path id="pyromancer-staff-flame-core" d="M 136.5 60.1 C 136.5 60.1 135.5 54.6 136.5 52 C 137.5 49.5 142.5 44.7 142.5 44.7 C 142.5 44.7 146.1 50.5 146.4 53.3 C 146.8 56 144.5 61.1 144.5 61.1 L 136.5 60.1 Z" fill="#ffd27a"/>
 <g id="pyromancer-staff-bowl">
-<path id="pyromancer-staff-bowl-fill" d="M 127.6 59 C 127.6 59 127.5 66.7 129.4 69.3 C 131.2 71.9 135.5 74.1 138.8 74.5 C 142.1 74.9 146.8 73.8 149.2 71.7 C 151.6 69.7 153.4 62.2 153.4 62.2 L 127.6 59 Z" fill="#5d6672"/>
-<path id="pyromancer-staff-bowl-line" d="M 127.6 59 C 127.6 59 127.5 66.7 129.4 69.3 C 131.2 71.9 135.5 74.1 138.8 74.5 C 142.1 74.9 146.8 73.8 149.2 71.7 C 151.6 69.7 153.4 62.2 153.4 62.2 L 127.6 59 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="pyromancer-staff-bowl-fill" href="#pyromancer-staff-bowl-shape" fill="#5d6672"/>
+<use id="pyromancer-staff-bowl-line" href="#pyromancer-staff-bowl-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="pyromancer-staff-hand">
-<path id="pyromancer-staff-hand-shade" d="M 138.5 138 C 138.5 142.1 135.1 145.5 131 145.5 C 126.9 145.5 123.5 142.1 123.5 138 C 123.5 133.9 126.9 130.5 131 130.5 C 135.1 130.5 138.5 133.9 138.5 138 Z" fill="#4e3520"/>
+<use id="pyromancer-staff-hand-shade" href="#pyromancer-staff-hand-shape" fill="#4e3520"/>
 <g clip-path="url(#pyromancer-staff-hand-clip)">
-<path id="pyromancer-staff-hand-fill" d="M 135.5 135 C 135.5 139.1 132.1 142.5 128 142.5 C 123.9 142.5 120.5 139.1 120.5 135 C 120.5 130.9 123.9 127.5 128 127.5 C 132.1 127.5 135.5 130.9 135.5 135 Z" fill="#6b4a2b"/>
-<path id="pyromancer-staff-hand-lit" d="M 138.5 138 C 138.5 142.1 135.1 145.5 131 145.5 C 126.9 145.5 123.5 142.1 123.5 138 C 123.5 133.9 126.9 130.5 131 130.5 C 135.1 130.5 138.5 133.9 138.5 138 Z M 142.1 141.6 C 142.1 145.7 138.7 149.1 134.6 149.1 C 130.5 149.1 127.1 145.7 127.1 141.6 C 127.1 137.5 130.5 134.1 134.6 134.1 C 138.7 134.1 142.1 137.5 142.1 141.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="pyromancer-staff-hand-fill" href="#pyromancer-staff-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#pyromancer-staff-hand-lit-clip)">
+<use id="pyromancer-staff-hand-lit" href="#pyromancer-staff-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="pyromancer-staff-hand-fill-over" href="#pyromancer-staff-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
 </g>
-<path id="pyromancer-staff-hand-line" d="M 138.5 138 C 138.5 142.1 135.1 145.5 131 145.5 C 126.9 145.5 123.5 142.1 123.5 138 C 123.5 133.9 126.9 130.5 131 130.5 C 135.1 130.5 138.5 133.9 138.5 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="pyromancer-staff-hand-line" href="#pyromancer-staff-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

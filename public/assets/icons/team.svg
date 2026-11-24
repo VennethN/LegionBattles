@@ -1,26 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="team" width="48" height="48" viewBox="0 0 48 48">
 <defs>
-<clipPath id="team-helm-b-clip"><path d="M 12 40 C 12 40 11 26.7 13 22 C 15 17.3 20.3 12 24 12 C 27.7 12 33 17.3 35 22 C 37 26.7 36 40 36 40 L 12 40 Z"/></clipPath>
+<path id="team-helm-a-shape" d="M 4 34 C 4 34 3.5 25 5 22 C 6.5 19 10.3 16 13 16 C 15.7 16 19.5 19 21 22 C 22.5 25 22 34 22 34 L 4 34 Z"/>
+<path id="team-helm-c-shape" d="M 26 34 C 26 34 25.5 25 27 22 C 28.5 19 32.3 16 35 16 C 37.7 16 41.5 19 43 22 C 44.5 25 44 34 44 34 L 26 34 Z"/>
+<path id="team-helm-b-shape" d="M 12 40 C 12 40 11 26.7 13 22 C 15 17.3 20.3 12 24 12 C 27.7 12 33 17.3 35 22 C 37 26.7 36 40 36 40 L 12 40 Z"/>
+<clipPath id="team-helm-b-clip"><use href="#team-helm-b-shape"/></clipPath>
+<clipPath id="team-helm-b-lit-clip"><use href="#team-helm-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="team-slit-shape" d="M 20 30.5 L 34 30.5 C 35.4 30.5 36.5 29.4 36.5 28 C 36.5 26.6 35.4 25.5 34 25.5 L 20 25.5 C 18.6 25.5 17.5 26.6 17.5 28 C 17.5 29.4 18.6 30.5 20 30.5 Z"/>
 </defs>
 <g id="team-helm-a">
-<path id="team-helm-a-fill" d="M 4 34 C 4 34 3.5 25 5 22 C 6.5 19 10.3 16 13 16 C 15.7 16 19.5 19 21 22 C 22.5 25 22 34 22 34 L 4 34 Z" fill="#b9c2cc"/>
-<path id="team-helm-a-line" d="M 4 34 C 4 34 3.5 25 5 22 C 6.5 19 10.3 16 13 16 C 15.7 16 19.5 19 21 22 C 22.5 25 22 34 22 34 L 4 34 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="team-helm-a-fill" href="#team-helm-a-shape" fill="#b9c2cc"/>
+<use id="team-helm-a-line" href="#team-helm-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="team-helm-c">
-<path id="team-helm-c-fill" d="M 26 34 C 26 34 25.5 25 27 22 C 28.5 19 32.3 16 35 16 C 37.7 16 41.5 19 43 22 C 44.5 25 44 34 44 34 L 26 34 Z" fill="#b9c2cc"/>
-<path id="team-helm-c-line" d="M 26 34 C 26 34 25.5 25 27 22 C 28.5 19 32.3 16 35 16 C 37.7 16 41.5 19 43 22 C 44.5 25 44 34 44 34 L 26 34 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="team-helm-c-fill" href="#team-helm-c-shape" fill="#b9c2cc"/>
+<use id="team-helm-c-line" href="#team-helm-c-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="team-helm-b">
-<path id="team-helm-b-shade" d="M 12 40 C 12 40 11 26.7 13 22 C 15 17.3 20.3 12 24 12 C 27.7 12 33 17.3 35 22 C 37 26.7 36 40 36 40 L 12 40 Z" fill="#8d97a3"/>
+<use id="team-helm-b-shade" href="#team-helm-b-shape" fill="#8d97a3"/>
 <g clip-path="url(#team-helm-b-clip)">
-<path id="team-helm-b-fill" d="M 9 37 C 9 37 8 23.7 10 19 C 12 14.3 17.3 9 21 9 C 24.7 9 30 14.3 32 19 C 34 23.7 33 37 33 37 L 9 37 Z" fill="#b9c2cc"/>
-<path id="team-helm-b-lit" d="M 12 40 C 12 40 11 26.7 13 22 C 15 17.3 20.3 12 24 12 C 27.7 12 33 17.3 35 22 C 37 26.7 36 40 36 40 L 12 40 Z M 15.6 43.6 C 15.6 43.6 14.6 30.3 16.6 25.6 C 18.6 20.9 23.9 15.6 27.6 15.6 C 31.3 15.6 36.6 20.9 38.6 25.6 C 40.6 30.3 39.6 43.6 39.6 43.6 L 15.6 43.6 Z" fill="#f4f1e4" fill-rule="evenodd" opacity="0.36"/>
+<use id="team-helm-b-fill" href="#team-helm-b-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#team-helm-b-lit-clip)">
+<use id="team-helm-b-lit" href="#team-helm-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="team-helm-b-fill-over" href="#team-helm-b-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
 <path id="team-helm-b-sheen" d="M29.88 12 L33.88 12 L22.12 40 L18.12 40 Z M37.38 12 L39.98 12 L28.22 40 L25.62 40 Z" fill="#f4f1e4" opacity="0.2"/>
 </g>
-<path id="team-helm-b-line" d="M 12 40 C 12 40 11 26.7 13 22 C 15 17.3 20.3 12 24 12 C 27.7 12 33 17.3 35 22 C 37 26.7 36 40 36 40 L 12 40 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="team-helm-b-line" href="#team-helm-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <g id="team-slit">
-<path id="team-slit-fill" d="M 20 30.5 L 34 30.5 C 35.4 30.5 36.5 29.4 36.5 28 C 36.5 26.6 35.4 25.5 34 25.5 L 20 25.5 C 18.6 25.5 17.5 26.6 17.5 28 C 17.5 29.4 18.6 30.5 20 30.5 Z" fill="#1e2b17"/>
-<path id="team-slit-line" d="M 20 30.5 L 34 30.5 C 35.4 30.5 36.5 29.4 36.5 28 C 36.5 26.6 35.4 25.5 34 25.5 L 20 25.5 C 18.6 25.5 17.5 26.6 17.5 28 C 17.5 29.4 18.6 30.5 20 30.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="team-slit-fill" href="#team-slit-shape" fill="#1e2b17"/>
+<use id="team-slit-line" href="#team-slit-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

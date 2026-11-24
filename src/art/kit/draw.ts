@@ -10,7 +10,11 @@
 // and no filters: every tone is a flat shape.
 //
 // The files this writes are meant to be opened in Inkscape: plain attributes,
-// ids that say what a thing is, no styles, filters or scripts.
+// ids that say what a thing is, no styles, filters or scripts. A piece's
+// shape is written once and used for its shade, its fill, its line and its
+// clip (Inkscape calls these clones), and a thing stood in a scene many
+// times is written once and used each time. That keeps the files small: the
+// whole build has to stay under 5 MB.
 
 import { HIGHLIGHT, OUTLINE, OUTLINE_WIDTH, SHADOW_OPACITY, type Material } from './palette';
 import { Path } from './path';
@@ -58,6 +62,8 @@ export class Doc {
   private body: string[] = [];
   private stack: string[][] = [];
   private used = new Set<string>();
+  /** What has been stood in the scene already, and the id it was written under. */
+  private stamps = new Map<(d: Doc) => void, string>();
 
   constructor(public readonly prefix: string) {}
 
@@ -82,23 +88,34 @@ export class Doc {
     const rule = opts.holes ? 'evenodd' : undefined;
     const out: string[] = [];
     out.push(`<g id="${id}">`);
+    // The shape itself, written once. Whatever is the whole shape uses it.
+    const shape = `#${id}-shape`;
+    this.defs.push(`<path ${attrs({ id: `${id}-shape`, d })}/>`);
     if (shade > 0 || opts.inner) {
-      this.defs.push(`<clipPath id="${id}-clip"><path ${attrs({ d, 'clip-rule': rule })}/></clipPath>`);
+      this.defs.push(`<clipPath id="${id}-clip"><use ${attrs({ href: shape, 'clip-rule': rule })}/></clipPath>`);
     }
     if (shade > 0) {
       const finish = (opts.finish ?? true) && !opts.holes;
-      out.push(`<path ${attrs({ id: `${id}-shade`, d, fill: mat.shade, 'fill-rule': rule })}/>`);
+      const use = (name: string, dx: number, dy: number, fill: string, opacity?: number): string =>
+        `<use ${attrs({ id: `${id}-${name}`, href: shape, transform: dx || dy ? `translate(${r(dx)} ${r(dy)})` : undefined, fill, 'fill-rule': rule, opacity })}/>`;
+      out.push(use('shade', 0, 0, mat.shade));
       out.push(`<g clip-path="url(#${id}-clip)">`);
-      // The shape and the shape moved, filled where only one of them is: inside the clip that is a rim.
-      const rim = (dx: number, dy: number): string => `${d} ${p.translate(dx, dy).toString()}`;
       if (finish && shade >= 5) {
-        out.push(`<path ${attrs({ id: `${id}-deep`, d: rim(-shade * 0.62, -shade * 0.62), fill: OUTLINE, 'fill-rule': 'evenodd', opacity: DEEP })}/>`);
+        // The deeper edge: the whole shape darkened, then its shade laid back over all but the far rim.
+        const deep = shade * 0.62;
+        out.push(use('deep', 0, 0, OUTLINE, DEEP));
+        out.push(use('shade-over', -deep, -deep, mat.shade));
       }
-      out.push(`<path ${attrs({ id: `${id}-fill`, d: p.translate(-shade, -shade).toString(), fill: mat.fill, 'fill-rule': rule })}/>`);
+      out.push(use('fill', -shade, -shade, mat.fill));
       if (finish && shade >= 3) {
+        // The lit rim: the fill lightened all over, then laid back over all but the rim toward the light.
         // Half the dark line lies over the edge of a piece, so a rim has to be wider than that to be seen.
         const lit = shade >= 5 ? 4.6 : shade >= 4 ? 4.2 : 3.6;
-        out.push(`<path ${attrs({ id: `${id}-lit`, d: rim(lit, lit), fill: HIGHLIGHT, 'fill-rule': 'evenodd', opacity: LIT })}/>`);
+        this.defs.push(`<clipPath id="${id}-lit-clip"><use ${attrs({ href: shape, transform: `translate(${-shade} ${-shade})` })}/></clipPath>`);
+        out.push(`<g clip-path="url(#${id}-lit-clip)">`);
+        out.push(use('lit', -shade, -shade, HIGHLIGHT, LIT));
+        out.push(use('fill-over', lit, lit, mat.fill));
+        out.push('</g>');
       }
       if (finish && mat.gloss) {
         const b = p.bounds();
@@ -113,7 +130,7 @@ export class Doc {
         }
       }
     } else {
-      out.push(`<path ${attrs({ id: `${id}-fill`, d, fill: mat.fill, 'fill-rule': rule })}/>`);
+      out.push(`<use ${attrs({ id: `${id}-fill`, href: shape, fill: mat.fill, 'fill-rule': rule })}/>`);
       if (opts.inner) out.push(`<g clip-path="url(#${id}-clip)">`);
     }
     if (opts.inner) {
@@ -122,7 +139,7 @@ export class Doc {
       out.push(...(this.stack.pop() as string[]));
     }
     if (shade > 0 || opts.inner) out.push('</g>');
-    if (outline) out.push(`<path ${attrs({ id: `${id}-line`, d, ...LINE })}/>`);
+    if (outline) out.push(`<use ${attrs({ id: `${id}-line`, href: shape, ...LINE })}/>`);
     out.push('</g>');
     this.push(out.join('\n'));
     return this;
@@ -175,10 +192,17 @@ export class Doc {
    * drawn once and stood in many places.
    */
   at(x: number, y: number, scale: number, flip: boolean, draw: (d: Doc) => void): this {
-    this.stack.push([]);
-    draw(this);
-    const inner = this.stack.pop() as string[];
-    this.push(`<g transform="translate(${r(x)} ${r(y)}) scale(${r(flip ? -scale : scale)} ${r(scale)})">\n${inner.join('\n')}\n</g>`);
+    // A thing is written the first time it is stood somewhere, and used every time after.
+    let id = this.stamps.get(draw);
+    if (!id) {
+      id = this.id(`thing-${this.stamps.size + 1}`);
+      this.stamps.set(draw, id);
+      this.stack.push([]);
+      draw(this);
+      const inner = this.stack.pop() as string[];
+      this.defs.push(`<g id="${id}">\n${inner.join('\n')}\n</g>`);
+    }
+    this.push(`<use href="#${id}" transform="translate(${r(x)} ${r(y)}) scale(${r(flip ? -scale : scale)} ${r(scale)})"/>`);
     return this;
   }
 

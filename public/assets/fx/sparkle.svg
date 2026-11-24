@@ -1,6 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="sparkle" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="sparkle-star-shape" d="M 24 3 L 28.9 19.1 L 45 24 L 28.9 28.9 L 24 45 L 19.1 28.9 L 3 24 L 19.1 19.1 Z"/>
+</defs>
 <g id="sparkle-star">
-<path id="sparkle-star-fill" d="M 24 3 L 28.9 19.1 L 45 24 L 28.9 28.9 L 24 45 L 19.1 28.9 L 3 24 L 19.1 19.1 Z" fill="#ffffff"/>
-<path id="sparkle-star-line" d="M 24 3 L 28.9 19.1 L 45 24 L 28.9 28.9 L 24 45 L 19.1 28.9 L 3 24 L 19.1 19.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<use id="sparkle-star-fill" href="#sparkle-star-shape" fill="#ffffff"/>
+<use id="sparkle-star-line" href="#sparkle-star-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

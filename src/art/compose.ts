@@ -16,6 +16,7 @@ export function innerOf(svg: string): string {
 export function withIdSuffix(fragment: string, suffix: string): string {
   return fragment
     .replace(/id="([^"]+)"/g, `id="$1${suffix}"`)
+    .replace(/href="#([^"]+)"/g, `href="#$1${suffix}"`)
     .replace(/url\(#([^)]+)\)/g, `url(#$1${suffix})`);
 }
 
