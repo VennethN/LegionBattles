@@ -182,6 +182,12 @@ interface Finish {
   shine?: boolean;
   /** Hazed toward a color, for whoever stands far back: the color, and how far. */
   haze?: [string, number];
+  /**
+   * Polished: its light colors made lighter and its dark line left dark, most at its top, with no shade at all.
+   * For the title, which is to be the brightest thing there: how strong. Plain white laid over it was tried first
+   * and washed the outline to grey; this is white through the "overlay" blend, which leaves what is dark alone.
+   */
+  gloss?: number;
 }
 
 function edgeId(color: string, wide: number): string {
@@ -205,6 +211,8 @@ function finishDefs(edges: Array<[string, number]>): string {
           `<stop offset="0" stop-color="#ffffff" stop-opacity="0.6"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>`,
       )
       .join('') +
+    `<linearGradient id="fx-gloss" x1="0" y1="0" x2="0" y2="1">` +
+    `<stop offset="0" stop-color="#fff8dc" stop-opacity="1"/><stop offset="0.6" stop-color="#fff8dc" stop-opacity="0.8"/><stop offset="1" stop-color="#fff8dc" stop-opacity="0.5"/></linearGradient>` +
     `<linearGradient id="fx-shine" x1="0" y1="0" x2="1" y2="1">` +
     `<stop offset="0.34" stop-color="#ffffff" stop-opacity="0"/><stop offset="0.44" stop-color="#ffffff" stop-opacity="0.55"/>` +
     `<stop offset="0.5" stop-color="#ffffff" stop-opacity="0.12"/><stop offset="0.56" stop-color="#ffffff" stop-opacity="0.4"/><stop offset="0.64" stop-color="#ffffff" stop-opacity="0"/></linearGradient>`;
@@ -234,6 +242,7 @@ function finished(body: string, box: Box, f: Finish): string {
   if (f.haze) out += `${rect} fill="${f.haze[0]}" opacity="${f.haze[1]}" mask="url(#${id}-mask)"/>`;
   const side = f.from === 'right' ? 'r' : 'l';
   if (f.lit) out += `${rect} fill="url(#fx-lit-${side})" opacity="${f.lit}" mask="url(#${id}-mask)"/>${rect} fill="url(#fx-spot-${side})" opacity="${f.lit}" mask="url(#${id}-mask)"/>`;
+  if (f.gloss) out += `${rect} fill="url(#fx-gloss)" opacity="${f.gloss}" mask="url(#${id}-mask)" style="mix-blend-mode:overlay"/>`;
   if (f.shine) out += `${rect} fill="url(#fx-shine)" mask="url(#${id}-mask)"/>`;
   return out;
 }
@@ -537,6 +546,16 @@ function draw(l: Layout): string {
     })
     .join('');
   const stars = l.stars.map(([x, y, size]) => star(x, y, size)).join('');
+  // The title is small, so it is the brightest thing on the cover: it stands in a light of its own, with a bright
+  // edge round it and a polish on its gold. Left as it is drawn for the game's dark title screen, it was the one
+  // dull thing on a shining picture, on the murkiest part of the sky, and the owner took it for darkened.
+  const [tx, ty, tw] = l.title;
+  const th = (tw * LOGO_H) / LOGO_W;
+  const halo =
+    `<defs><radialGradient id="title-light"><stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/><stop offset="0.5" stop-color="${HOLY.light}" stop-opacity="0.6"/>` +
+    `<stop offset="1" stop-color="${HOLY.light}" stop-opacity="0"/></radialGradient></defs>` +
+    `<ellipse cx="${r(tx)}" cy="${r(ty)}" rx="${r(tw * 0.9)}" ry="${r(th * 0.9)}" fill="url(#title-light)"/>`;
+  const name = halo + finished(title(tx, ty, tw), [tx - tw * 0.6, ty - th * 0.62, tw * 1.2, th * 1.24], { edge: [HIGHLIGHT, thick], gloss: 0.6 });
   // The corners are let go dark, so that the eye stays in the middle.
   const dim =
     `<defs><radialGradient id="dim" cx="50%" cy="46%" r="72%"><stop offset="0.62" stop-color="${OUTLINE}" stop-opacity="0"/><stop offset="1" stop-color="${OUTLINE}" stop-opacity="0.36"/></radialGradient></defs>` +
@@ -544,7 +563,7 @@ function draw(l: Layout): string {
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" width="${l.w}" height="${l.h}" viewBox="0 0 ${l.w} ${l.h}">` +
     `<defs>${finishDefs(edges)}</defs>` +
-    sky(l) + field(l) + beam + stands.map((s) => s.svg).join('') + packLight + packs + dim + stars + title(...l.title) +
+    sky(l) + field(l) + beam + stands.map((s) => s.svg).join('') + packLight + packs + dim + stars + name +
     `</svg>`
   );
 }
