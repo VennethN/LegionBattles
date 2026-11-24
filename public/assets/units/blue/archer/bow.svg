@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="archer-bow" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="archer-bow-limbs-clip"><path d="M 122 80 C 140 88 149 110 148 128 C 149 146 140 168 122 176 L 120 166 C 132 158 138 142 138 128 C 138 114 132 98 120 90 Z"/></clipPath>
+<clipPath id="archer-bow-hand-clip"><path d="M 147.5 128 C 147.5 132.1 144.1 135.5 140 135.5 C 135.9 135.5 132.5 132.1 132.5 128 C 132.5 123.9 135.9 120.5 140 120.5 C 144.1 120.5 147.5 123.9 147.5 128 Z"/></clipPath>
+</defs>
+<path id="archer-bow-string" d="M 125 86 L 125 170" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="archer-bow-limbs">
+<path id="archer-bow-limbs-shade" d="M 122 80 C 140 88 149 110 148 128 C 149 146 140 168 122 176 L 120 166 C 132 158 138 142 138 128 C 138 114 132 98 120 90 Z" fill="#75502b"/>
+<g clip-path="url(#archer-bow-limbs-clip)">
+<path id="archer-bow-limbs-fill" d="M 119 77 C 137 85 146 107 145 125 C 146 143 137 165 119 173 L 117 163 C 129 155 135 139 135 125 C 135 111 129 95 117 87 Z" fill="#9a6a3a"/>
+</g>
+<path id="archer-bow-limbs-line" d="M 122 80 C 140 88 149 110 148 128 C 149 146 140 168 122 176 L 120 166 C 132 158 138 142 138 128 C 138 114 132 98 120 90 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-bow-grip">
+<path id="archer-bow-grip-fill" d="M 140 119 L 145 119 Q 149 119 149 123 L 149 133 Q 149 137 145 137 L 140 137 Q 136 137 136 133 L 136 123 Q 136 119 140 119 Z" fill="#6b4a2b"/>
+<path id="archer-bow-grip-line" d="M 140 119 L 145 119 Q 149 119 149 123 L 149 133 Q 149 137 145 137 L 140 137 Q 136 137 136 133 L 136 123 Q 136 119 140 119 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-bow-hand">
+<path id="archer-bow-hand-shade" d="M 147.5 128 C 147.5 132.1 144.1 135.5 140 135.5 C 135.9 135.5 132.5 132.1 132.5 128 C 132.5 123.9 135.9 120.5 140 120.5 C 144.1 120.5 147.5 123.9 147.5 128 Z" fill="#4e3520"/>
+<g clip-path="url(#archer-bow-hand-clip)">
+<path id="archer-bow-hand-fill" d="M 144.5 125 C 144.5 129.1 141.1 132.5 137 132.5 C 132.9 132.5 129.5 129.1 129.5 125 C 129.5 120.9 132.9 117.5 137 117.5 C 141.1 117.5 144.5 120.9 144.5 125 Z" fill="#6b4a2b"/>
+</g>
+<path id="archer-bow-hand-line" d="M 147.5 128 C 147.5 132.1 144.1 135.5 140 135.5 C 135.9 135.5 132.5 132.1 132.5 128 C 132.5 123.9 135.9 120.5 140 120.5 C 144.1 120.5 147.5 123.9 147.5 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

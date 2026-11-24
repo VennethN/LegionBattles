@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="orb-holy" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="orb-holy-core-clip"><path d="M 39 24 C 39 30.6 33.6 36 27 36 C 20.4 36 15 30.6 15 24 C 15 17.4 20.4 12 27 12 C 33.6 12 39 17.4 39 24 Z"/></clipPath>
+</defs>
+<path id="orb-holy-halo" d="M 44 24 C 44 35 35 44 24 44 C 13 44 4 35 4 24 C 4 13 13 4 24 4 C 35 4 44 13 44 24 Z" fill="#fff3b8" opacity="0.45"/>
+<g id="orb-holy-tail">
+<path id="orb-holy-tail-fill" d="M 24 13 C 24 13 11.7 15.2 8 17 C 4.3 18.8 2 24 2 24 C 2 24 4.3 29.2 8 31 C 11.7 32.8 24 35 24 35 L 24 13 Z" fill="#fff3b8"/>
+<path id="orb-holy-tail-line" d="M 24 13 C 24 13 11.7 15.2 8 17 C 4.3 18.8 2 24 2 24 C 2 24 4.3 29.2 8 31 C 11.7 32.8 24 35 24 35 L 24 13 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="orb-holy-core">
+<path id="orb-holy-core-shade" d="M 39 24 C 39 30.6 33.6 36 27 36 C 20.4 36 15 30.6 15 24 C 15 17.4 20.4 12 27 12 C 33.6 12 39 17.4 39 24 Z" fill="#c9a53a"/>
+<g clip-path="url(#orb-holy-core-clip)">
+<path id="orb-holy-core-fill" d="M 35 20 C 35 26.6 29.6 32 23 32 C 16.4 32 11 26.6 11 20 C 11 13.4 16.4 8 23 8 C 29.6 8 35 13.4 35 20 Z" fill="#f2d264"/>
+</g>
+<path id="orb-holy-core-line" d="M 39 24 C 39 30.6 33.6 36 27 36 C 20.4 36 15 30.6 15 24 C 15 17.4 20.4 12 27 12 C 33.6 12 39 17.4 39 24 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="orb-holy-glint" d="M 26 20 C 26 21.7 24.7 23 23 23 C 21.3 23 20 21.7 20 20 C 20 18.3 21.3 17 23 17 C 24.7 17 26 18.3 26 20 Z" fill="#f4f1e4"/>
+</svg>

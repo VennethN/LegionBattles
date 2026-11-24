@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="archer-draw-hand" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="archer-draw-hand-hand-clip"><path d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z"/></clipPath>
+</defs>
+<path id="archer-draw-hand-shaft" d="M 104 128 L 142 128" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="archer-draw-hand-fletch">
+<path id="archer-draw-hand-fletch-fill" d="M 98 121.5 L 109 121.5 L 114 128 L 109 134.5 L 98 134.5 L 103 128 Z" fill="#e9dfc6"/>
+<path id="archer-draw-hand-fletch-line" d="M 98 121.5 L 109 121.5 L 114 128 L 109 134.5 L 98 134.5 L 103 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-draw-hand-head">
+<path id="archer-draw-hand-head-fill" d="M 139 121 L 154 128 L 139 135 Z" fill="#b9c2cc"/>
+<path id="archer-draw-hand-head-line" d="M 139 121 L 154 128 L 139 135 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-draw-hand-hand">
+<path id="archer-draw-hand-hand-shade" d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z" fill="#4e3520"/>
+<g clip-path="url(#archer-draw-hand-hand-clip)">
+<path id="archer-draw-hand-hand-fill" d="M 122.5 125 C 122.5 129.1 119.1 132.5 115 132.5 C 110.9 132.5 107.5 129.1 107.5 125 C 107.5 120.9 110.9 117.5 115 117.5 C 119.1 117.5 122.5 120.9 122.5 125 Z" fill="#6b4a2b"/>
+</g>
+<path id="archer-draw-hand-hand-line" d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="berserker-body" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="berserker-body-tunic-clip"><path d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/></clipPath>
+<clipPath id="berserker-body-buckle-clip"><path d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/></clipPath>
+<clipPath id="berserker-body-arm-clip"><path d="M 106.7 119.8 L 111.7 139.8 C 112.7 143.8 116.8 146.3 120.8 145.3 C 124.8 144.3 127.3 140.2 126.3 136.2 L 121.3 116.2 C 120.3 112.2 116.2 109.7 112.2 110.7 C 108.2 111.7 105.7 115.8 106.7 119.8 Z"/></clipPath>
+<clipPath id="berserker-body-fur-clip"><path d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z"/></clipPath>
+</defs>
+<g id="berserker-body-tunic">
+<path id="berserker-body-tunic-shade" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="#2f5893"/>
+<g clip-path="url(#berserker-body-tunic-clip)">
+<path id="berserker-body-tunic-fill" d="M 65 100 C 70.3 95.5 82.3 96 91 96 C 99.7 96 111.7 95.5 117 100 C 122.3 104.5 122.7 115.2 123 123 C 123.3 130.8 122.3 141.8 119 147 C 115.7 152.2 109.7 152.8 103 154 C 96.3 155.2 85.7 155.2 79 154 C 72.3 152.8 66.3 152.2 63 147 C 59.7 141.8 58.7 130.8 59 123 C 59.3 115.2 59.7 104.5 65 100 Z" fill="#3d6fb6"/>
+<g id="berserker-body-belt">
+<path id="berserker-body-belt-fill" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="#6b4a2b"/>
+<path id="berserker-body-belt-line" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="berserker-body-buckle">
+<path id="berserker-body-buckle-shade" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z" fill="#9c7c33"/>
+<g clip-path="url(#berserker-body-buckle-clip)">
+<path id="berserker-body-buckle-fill" d="M 101 135 L 107 135 Q 110 135 110 138 L 110 145 Q 110 148 107 148 L 101 148 Q 98 148 98 145 L 98 138 Q 98 135 101 135 Z" fill="#c8a24a"/>
+</g>
+<path id="berserker-body-buckle-line" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="berserker-body-tunic-line" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="berserker-body-arm">
+<path id="berserker-body-arm-shade" d="M 106.7 119.8 L 111.7 139.8 C 112.7 143.8 116.8 146.3 120.8 145.3 C 124.8 144.3 127.3 140.2 126.3 136.2 L 121.3 116.2 C 120.3 112.2 116.2 109.7 112.2 110.7 C 108.2 111.7 105.7 115.8 106.7 119.8 Z" fill="#2f5893"/>
+<g clip-path="url(#berserker-body-arm-clip)">
+<path id="berserker-body-arm-fill" d="M 103.7 116.8 L 108.7 136.8 C 109.7 140.8 113.8 143.3 117.8 142.3 C 121.8 141.3 124.3 137.2 123.3 133.2 L 118.3 113.2 C 117.3 109.2 113.2 106.7 109.2 107.7 C 105.2 108.7 102.7 112.8 103.7 116.8 Z" fill="#3d6fb6"/>
+</g>
+<path id="berserker-body-arm-line" d="M 106.7 119.8 L 111.7 139.8 C 112.7 143.8 116.8 146.3 120.8 145.3 C 124.8 144.3 127.3 140.2 126.3 136.2 L 121.3 116.2 C 120.3 112.2 116.2 109.7 112.2 110.7 C 108.2 111.7 105.7 115.8 106.7 119.8 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="berserker-body-fur">
+<path id="berserker-body-fur-shade" d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z" fill="#c4b594"/>
+<g clip-path="url(#berserker-body-fur-clip)">
+<path id="berserker-body-fur-fill" d="M 62 100 L 92 95 L 122 100 L 129 112 L 122 123 L 116 116 L 109 126 L 101 117 L 92 127 L 83 117 L 75 126 L 68 116 L 62 123 L 55 112 Z" fill="#e9dfc6"/>
+</g>
+<path id="berserker-body-fur-line" d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

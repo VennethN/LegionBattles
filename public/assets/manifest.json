@@ -1,0 +1,756 @@
+{
+ "canvas": 192,
+ "feet": [
+  96,
+  180
+ ],
+ "teams": [
+  "blue",
+  "red"
+ ],
+ "units": {
+  "knight": {
+   "style": "slash",
+   "muzzle": [
+    140,
+    118
+   ],
+   "top": 28,
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      58,
+      171,
+      76,
+      20
+     ]
+    },
+    {
+     "name": "leg-back",
+     "role": "legBack",
+     "parent": "root",
+     "pivot": [
+      85,
+      152
+     ],
+     "box": [
+      71,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "leg-front",
+     "role": "legFront",
+     "parent": "root",
+     "pivot": [
+      104,
+      152
+     ],
+     "box": [
+      88,
+      142,
+      40,
+      42
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      52,
+      93,
+      88,
+      71
+     ]
+    },
+    {
+     "name": "plume",
+     "role": "extra",
+     "parent": "head",
+     "pivot": [
+      99,
+      54
+     ],
+     "sway": 1,
+     "box": [
+      47,
+      22,
+      62,
+      44
+     ]
+    },
+    {
+     "name": "head",
+     "role": "head",
+     "parent": "body",
+     "pivot": [
+      96,
+      106
+     ],
+     "box": [
+      56,
+      42,
+      86,
+      72
+     ]
+    },
+    {
+     "name": "shield",
+     "role": "offhand",
+     "parent": "body",
+     "pivot": [
+      76,
+      141
+     ],
+     "box": [
+      44,
+      109,
+      61,
+      61
+     ]
+    },
+    {
+     "name": "sword",
+     "role": "weapon",
+     "parent": "body",
+     "pivot": [
+      128,
+      134
+     ],
+     "box": [
+      112,
+      77,
+      52,
+      78
+     ]
+    }
+   ]
+  },
+  "berserker": {
+   "style": "chop",
+   "muzzle": [
+    146,
+    110
+   ],
+   "top": 26,
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      58,
+      171,
+      76,
+      20
+     ]
+    },
+    {
+     "name": "leg-back",
+     "role": "legBack",
+     "parent": "root",
+     "pivot": [
+      85,
+      152
+     ],
+     "box": [
+      71,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "leg-front",
+     "role": "legFront",
+     "parent": "root",
+     "pivot": [
+      104,
+      152
+     ],
+     "box": [
+      88,
+      142,
+      40,
+      42
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      52,
+      93,
+      88,
+      71
+     ]
+    },
+    {
+     "name": "head",
+     "role": "head",
+     "parent": "body",
+     "pivot": [
+      96,
+      106
+     ],
+     "box": [
+      48,
+      24,
+      98,
+      92
+     ]
+    },
+    {
+     "name": "axe",
+     "role": "weapon",
+     "parent": "body",
+     "pivot": [
+      120,
+      142
+     ],
+     "box": [
+      105,
+      61,
+      83,
+      105
+     ]
+    }
+   ]
+  },
+  "archer": {
+   "style": "bow",
+   "muzzle": [
+    150,
+    128
+   ],
+   "top": 44,
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      60,
+      171,
+      72,
+      20
+     ]
+    },
+    {
+     "name": "quiver",
+     "role": "extra",
+     "parent": "body",
+     "pivot": [
+      74,
+      150
+     ],
+     "sway": 0.5,
+     "box": [
+      26,
+      101,
+      62,
+      66
+     ]
+    },
+    {
+     "name": "leg-back",
+     "role": "legBack",
+     "parent": "root",
+     "pivot": [
+      85,
+      152
+     ],
+     "box": [
+      71,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "leg-front",
+     "role": "legFront",
+     "parent": "root",
+     "pivot": [
+      104,
+      152
+     ],
+     "box": [
+      88,
+      142,
+      40,
+      42
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      52,
+      93,
+      91,
+      71
+     ]
+    },
+    {
+     "name": "head",
+     "role": "head",
+     "parent": "body",
+     "pivot": [
+      96,
+      106
+     ],
+     "box": [
+      38,
+      42,
+      98,
+      72
+     ]
+    },
+    {
+     "name": "bow",
+     "role": "weapon",
+     "parent": "body",
+     "pivot": [
+      134,
+      128
+     ],
+     "box": [
+      115,
+      75,
+      38,
+      105
+     ]
+    },
+    {
+     "name": "draw-hand",
+     "role": "offhand",
+     "parent": "body",
+     "pivot": [
+      118,
+      128
+     ],
+     "box": [
+      94,
+      115,
+      64,
+      25
+     ]
+    }
+   ]
+  },
+  "mage": {
+   "style": "cast",
+   "muzzle": [
+    138,
+    52
+   ],
+   "top": 14,
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      56,
+      171,
+      80,
+      20
+     ]
+    },
+    {
+     "name": "leg-back",
+     "role": "legBack",
+     "parent": "root",
+     "pivot": [
+      85,
+      152
+     ],
+     "box": [
+      71,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "leg-front",
+     "role": "legFront",
+     "parent": "root",
+     "pivot": [
+      104,
+      152
+     ],
+     "box": [
+      88,
+      142,
+      40,
+      42
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      42,
+      93,
+      108,
+      87
+     ]
+    },
+    {
+     "name": "head",
+     "role": "head",
+     "parent": "body",
+     "pivot": [
+      96,
+      106
+     ],
+     "box": [
+      57,
+      8,
+      78,
+      106
+     ]
+    },
+    {
+     "name": "staff",
+     "role": "weapon",
+     "parent": "body",
+     "pivot": [
+      130,
+      138
+     ],
+     "box": [
+      117,
+      37,
+      41,
+      145
+     ]
+    }
+   ]
+  },
+  "cleric": {
+   "style": "swing",
+   "muzzle": [
+    138,
+    160
+   ],
+   "top": 44,
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      56,
+      171,
+      80,
+      20
+     ]
+    },
+    {
+     "name": "leg-back",
+     "role": "legBack",
+     "parent": "root",
+     "pivot": [
+      85,
+      152
+     ],
+     "box": [
+      71,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "leg-front",
+     "role": "legFront",
+     "parent": "root",
+     "pivot": [
+      104,
+      152
+     ],
+     "box": [
+      88,
+      142,
+      40,
+      42
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      42,
+      92,
+      108,
+      88
+     ]
+    },
+    {
+     "name": "head",
+     "role": "head",
+     "parent": "body",
+     "pivot": [
+      96,
+      106
+     ],
+     "box": [
+      51,
+      41,
+      93,
+      83
+     ]
+    },
+    {
+     "name": "book",
+     "role": "offhand",
+     "parent": "body",
+     "pivot": [
+      72,
+      146
+     ],
+     "box": [
+      50,
+      123,
+      43,
+      50
+     ]
+    },
+    {
+     "name": "censer",
+     "role": "weapon",
+     "parent": "body",
+     "pivot": [
+      138,
+      121
+     ],
+     "box": [
+      118,
+      108,
+      40,
+      72
+     ]
+    }
+   ]
+  }
+ },
+ "fx": {
+  "arrow": {
+   "width": 64,
+   "height": 24,
+   "origin": [
+    0.8,
+    0.5
+   ]
+  },
+  "slash": {
+   "width": 96,
+   "height": 96,
+   "origin": [
+    0.2,
+    0.5
+   ]
+  },
+  "spark": {
+   "width": 64,
+   "height": 64,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "ring": {
+   "width": 128,
+   "height": 128,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "disc": {
+   "width": 64,
+   "height": 64,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "dust": {
+   "width": 64,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.7
+   ]
+  },
+  "sparkle": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "chip": {
+   "width": 24,
+   "height": 24,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "pixel": {
+   "width": 8,
+   "height": 8,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "orb-arcane": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.56,
+    0.5
+   ]
+  },
+  "orb-fire": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.56,
+    0.5
+   ]
+  },
+  "orb-frost": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.56,
+    0.5
+   ]
+  },
+  "orb-holy": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.56,
+    0.5
+   ]
+  },
+  "orb-venom": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.56,
+    0.5
+   ]
+  }
+ },
+ "board": {
+  "meadow-tile-a": {
+   "width": 120,
+   "height": 96,
+   "origin": [
+    0,
+    0
+   ]
+  },
+  "meadow-tile-b": {
+   "width": 120,
+   "height": 96,
+   "origin": [
+    0,
+    0
+   ]
+  },
+  "rock": {
+   "width": 84,
+   "height": 60,
+   "origin": [
+    0.5,
+    0.82
+   ]
+  },
+  "bush": {
+   "width": 90,
+   "height": 64,
+   "origin": [
+    0.5,
+    0.84
+   ]
+  },
+  "stump": {
+   "width": 64,
+   "height": 56,
+   "origin": [
+    0.5,
+    0.82
+   ]
+  }
+ },
+ "icons": {
+  "coin": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  }
+ }
+}

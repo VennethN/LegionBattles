@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="archer" width="192" height="192" viewBox="0 0 192 192">
+<g id="archer-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="archer-shadow-shadow" d="M 130 181 C 130 185.4 114.8 189 96 189 C 77.2 189 62 185.4 62 181 C 62 176.6 77.2 173 96 173 C 114.8 173 130 176.6 130 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="archer-quiver-layer" transform="translate(74 150) rotate(0) scale(1 1) translate(-74 -150)">
+<defs>
+<clipPath id="archer-quiver-tube-clip"><path d="M 44.7 127.2 L 54.2 119.8 Q 58.9 116.1 62.6 120.8 L 81.1 144.5 Q 84.8 149.2 80.1 152.9 L 70.6 160.3 Q 65.9 164 62.2 159.2 L 43.7 135.6 Q 40 130.9 44.7 127.2 Z"/></clipPath>
+</defs>
+<g id="archer-quiver-fletch-a">
+<path id="archer-quiver-fletch-a-fill" d="M 30.5 115.5 L 41.1 116 L 50.4 127.9 L 44.1 132.8 Z" fill="#e9dfc6"/>
+<path id="archer-quiver-fletch-a-line" d="M 30.5 115.5 L 41.1 116 L 50.4 127.9 L 44.1 132.8 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-quiver-fletch-b">
+<path id="archer-quiver-fletch-b-fill" d="M 36.7 105.5 L 47.3 106.1 L 59 121.1 L 52.7 126 Z" fill="#e9dfc6"/>
+<path id="archer-quiver-fletch-b-line" d="M 36.7 105.5 L 47.3 106.1 L 59 121.1 L 52.7 126 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-quiver-tube">
+<path id="archer-quiver-tube-shade" d="M 44.7 127.2 L 54.2 119.8 Q 58.9 116.1 62.6 120.8 L 81.1 144.5 Q 84.8 149.2 80.1 152.9 L 70.6 160.3 Q 65.9 164 62.2 159.2 L 43.7 135.6 Q 40 130.9 44.7 127.2 Z" fill="#4e3520"/>
+<g clip-path="url(#archer-quiver-tube-clip)">
+<path id="archer-quiver-tube-fill" d="M 40.7 123.2 L 50.2 115.8 Q 54.9 112.1 58.6 116.8 L 77.1 140.5 Q 80.8 145.2 76.1 148.9 L 66.6 156.3 Q 61.9 160 58.2 155.2 L 39.7 131.6 Q 36 126.9 40.7 123.2 Z" fill="#6b4a2b"/>
+</g>
+<path id="archer-quiver-tube-line" d="M 44.7 127.2 L 54.2 119.8 Q 58.9 116.1 62.6 120.8 L 81.1 144.5 Q 84.8 149.2 80.1 152.9 L 70.6 160.3 Q 65.9 164 62.2 159.2 L 43.7 135.6 Q 40 130.9 44.7 127.2 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-quiver-band">
+<path id="archer-quiver-band-fill" d="M 43.7 135.6 L 62.6 120.8 L 66.9 126.3 L 48 141.1 L 43.7 135.6 Z" fill="#c8a24a"/>
+<path id="archer-quiver-band-line" d="M 43.7 135.6 L 62.6 120.8 L 66.9 126.3 L 48 141.1 L 43.7 135.6 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="archer-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<g id="archer-leg-back-boot">
+<path id="archer-leg-back-boot-fill" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="#4e3520"/>
+<path id="archer-leg-back-boot-line" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="archer-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<clipPath id="archer-leg-front-boot-clip"><path d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/></clipPath>
+</defs>
+<g id="archer-leg-front-boot">
+<path id="archer-leg-front-boot-shade" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="#4e3520"/>
+<g clip-path="url(#archer-leg-front-boot-clip)">
+<path id="archer-leg-front-boot-fill" d="M 90 144 L 109 144 L 109 160 C 115 160 120 164 120 170 L 120 172 Q 120 176 116 176 L 94 176 Q 90 176 90 172 Z" fill="#6b4a2b"/>
+</g>
+<path id="archer-leg-front-boot-line" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="archer-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<clipPath id="archer-body-tunic-clip"><path d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/></clipPath>
+<clipPath id="archer-body-arm-clip"><path d="M 111.6 123 L 126.6 134 C 129.9 136.5 134.6 135.8 137 132.4 C 139.5 129.1 138.8 124.4 135.4 122 L 120.4 111 C 117.1 108.5 112.4 109.2 110 112.6 C 107.5 115.9 108.2 120.6 111.6 123 Z"/></clipPath>
+</defs>
+<g id="archer-body-tunic">
+<path id="archer-body-tunic-shade" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="#933027"/>
+<g clip-path="url(#archer-body-tunic-clip)">
+<path id="archer-body-tunic-fill" d="M 65 100 C 70.3 95.5 82.3 96 91 96 C 99.7 96 111.7 95.5 117 100 C 122.3 104.5 122.7 115.2 123 123 C 123.3 130.8 122.3 141.8 119 147 C 115.7 152.2 109.7 152.8 103 154 C 96.3 155.2 85.7 155.2 79 154 C 72.3 152.8 66.3 152.2 63 147 C 59.7 141.8 58.7 130.8 59 123 C 59.3 115.2 59.7 104.5 65 100 Z" fill="#c2453a"/>
+<path id="archer-body-strap" d="M 70 100 L 122 150" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="archer-body-belt">
+<path id="archer-body-belt-fill" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="#6b4a2b"/>
+<path id="archer-body-belt-line" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="archer-body-tunic-line" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-body-arm">
+<path id="archer-body-arm-shade" d="M 111.6 123 L 126.6 134 C 129.9 136.5 134.6 135.8 137 132.4 C 139.5 129.1 138.8 124.4 135.4 122 L 120.4 111 C 117.1 108.5 112.4 109.2 110 112.6 C 107.5 115.9 108.2 120.6 111.6 123 Z" fill="#933027"/>
+<g clip-path="url(#archer-body-arm-clip)">
+<path id="archer-body-arm-fill" d="M 108.6 120 L 123.6 131 C 126.9 133.5 131.6 132.8 134 129.4 C 136.5 126.1 135.8 121.4 132.4 119 L 117.4 108 C 114.1 105.5 109.4 106.2 107 109.6 C 104.5 112.9 105.2 117.6 108.6 120 Z" fill="#c2453a"/>
+</g>
+<path id="archer-body-arm-line" d="M 111.6 123 L 126.6 134 C 129.9 136.5 134.6 135.8 137 132.4 C 139.5 129.1 138.8 124.4 135.4 122 L 120.4 111 C 117.1 108.5 112.4 109.2 110 112.6 C 107.5 115.9 108.2 120.6 111.6 123 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="archer-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<clipPath id="archer-head-hood-clip"><path d="M 104 51 C 110.5 52.2 117.7 54.8 122 60 C 126.3 65.2 129.5 75 130 82 C 130.5 89 129 97.5 125 102 C 121 106.5 112.8 107.8 106 109 C 99.2 110.2 90 109.8 84 109 C 78 108.2 74.3 105.7 70 104 C 65.7 102.3 62 100 58 99 C 54 98 46 98 46 98 C 46 98 54.9 87.7 58.4 82 C 61.9 76.3 62.9 68.8 67 64 C 71.1 59.2 76.8 55.2 83 53 C 89.2 50.8 97.5 49.8 104 51 Z"/></clipPath>
+</defs>
+<g id="archer-head-hood">
+<path id="archer-head-hood-shade" d="M 104 51 C 110.5 52.2 117.7 54.8 122 60 C 126.3 65.2 129.5 75 130 82 C 130.5 89 129 97.5 125 102 C 121 106.5 112.8 107.8 106 109 C 99.2 110.2 90 109.8 84 109 C 78 108.2 74.3 105.7 70 104 C 65.7 102.3 62 100 58 99 C 54 98 46 98 46 98 C 46 98 54.9 87.7 58.4 82 C 61.9 76.3 62.9 68.8 67 64 C 71.1 59.2 76.8 55.2 83 53 C 89.2 50.8 97.5 49.8 104 51 Z" fill="#933027"/>
+<g clip-path="url(#archer-head-hood-clip)">
+<path id="archer-head-hood-fill" d="M 98 45 C 104.5 46.2 111.7 48.8 116 54 C 120.3 59.2 123.5 69 124 76 C 124.5 83 123 91.5 119 96 C 115 100.5 106.8 101.8 100 103 C 93.2 104.2 84 103.8 78 103 C 72 102.2 68.3 99.7 64 98 C 59.7 96.3 56 94 52 93 C 48 92 40 92 40 92 C 40 92 48.9 81.7 52.4 76 C 55.9 70.3 56.9 62.8 61 58 C 65.1 53.2 70.8 49.2 77 47 C 83.2 44.8 91.5 43.8 98 45 Z" fill="#c2453a"/>
+<path id="archer-head-opening" d="M 112 64 C 116.5 63.7 122.8 68 126 72 C 129.2 76 131.3 82.8 131 88 C 130.7 93.2 127.8 100.3 124 103 C 120.2 105.7 112.5 105.8 108 104 C 103.5 102.2 98.5 97 97 92 C 95.5 87 96.5 78.7 99 74 C 101.5 69.3 107.5 64.3 112 64 Z" fill="#1e2b17"/>
+<path id="archer-head-opening-edge" d="M 112 64 C 116.5 63.7 122.8 68 126 72 C 129.2 76 131.3 82.8 131 88 C 130.7 93.2 127.8 100.3 124 103 C 120.2 105.7 112.5 105.8 108 104 C 103.5 102.2 98.5 97 97 92 C 95.5 87 96.5 78.7 99 74 C 101.5 69.3 107.5 64.3 112 64 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="archer-head-hood-line" d="M 104 51 C 110.5 52.2 117.7 54.8 122 60 C 126.3 65.2 129.5 75 130 82 C 130.5 89 129 97.5 125 102 C 121 106.5 112.8 107.8 106 109 C 99.2 110.2 90 109.8 84 109 C 78 108.2 74.3 105.7 70 104 C 65.7 102.3 62 100 58 99 C 54 98 46 98 46 98 C 46 98 54.9 87.7 58.4 82 C 61.9 76.3 62.9 68.8 67 64 C 71.1 59.2 76.8 55.2 83 53 C 89.2 50.8 97.5 49.8 104 51 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="archer-head-fold" d="M 84 60 C 82.7 62.3 77.7 69 76 74 C 74.3 79 74.3 87.3 74 90" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-bow-layer" transform="translate(134 128) rotate(0) scale(1 1) translate(-134 -128)">
+<defs>
+<clipPath id="archer-bow-limbs-clip"><path d="M 122 80 C 140 88 149 110 148 128 C 149 146 140 168 122 176 L 120 166 C 132 158 138 142 138 128 C 138 114 132 98 120 90 Z"/></clipPath>
+<clipPath id="archer-bow-hand-clip"><path d="M 147.5 128 C 147.5 132.1 144.1 135.5 140 135.5 C 135.9 135.5 132.5 132.1 132.5 128 C 132.5 123.9 135.9 120.5 140 120.5 C 144.1 120.5 147.5 123.9 147.5 128 Z"/></clipPath>
+</defs>
+<path id="archer-bow-string" d="M 125 86 L 125 170" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="archer-bow-limbs">
+<path id="archer-bow-limbs-shade" d="M 122 80 C 140 88 149 110 148 128 C 149 146 140 168 122 176 L 120 166 C 132 158 138 142 138 128 C 138 114 132 98 120 90 Z" fill="#75502b"/>
+<g clip-path="url(#archer-bow-limbs-clip)">
+<path id="archer-bow-limbs-fill" d="M 119 77 C 137 85 146 107 145 125 C 146 143 137 165 119 173 L 117 163 C 129 155 135 139 135 125 C 135 111 129 95 117 87 Z" fill="#9a6a3a"/>
+</g>
+<path id="archer-bow-limbs-line" d="M 122 80 C 140 88 149 110 148 128 C 149 146 140 168 122 176 L 120 166 C 132 158 138 142 138 128 C 138 114 132 98 120 90 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-bow-grip">
+<path id="archer-bow-grip-fill" d="M 140 119 L 145 119 Q 149 119 149 123 L 149 133 Q 149 137 145 137 L 140 137 Q 136 137 136 133 L 136 123 Q 136 119 140 119 Z" fill="#6b4a2b"/>
+<path id="archer-bow-grip-line" d="M 140 119 L 145 119 Q 149 119 149 123 L 149 133 Q 149 137 145 137 L 140 137 Q 136 137 136 133 L 136 123 Q 136 119 140 119 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-bow-hand">
+<path id="archer-bow-hand-shade" d="M 147.5 128 C 147.5 132.1 144.1 135.5 140 135.5 C 135.9 135.5 132.5 132.1 132.5 128 C 132.5 123.9 135.9 120.5 140 120.5 C 144.1 120.5 147.5 123.9 147.5 128 Z" fill="#4e3520"/>
+<g clip-path="url(#archer-bow-hand-clip)">
+<path id="archer-bow-hand-fill" d="M 144.5 125 C 144.5 129.1 141.1 132.5 137 132.5 C 132.9 132.5 129.5 129.1 129.5 125 C 129.5 120.9 132.9 117.5 137 117.5 C 141.1 117.5 144.5 120.9 144.5 125 Z" fill="#6b4a2b"/>
+</g>
+<path id="archer-bow-hand-line" d="M 147.5 128 C 147.5 132.1 144.1 135.5 140 135.5 C 135.9 135.5 132.5 132.1 132.5 128 C 132.5 123.9 135.9 120.5 140 120.5 C 144.1 120.5 147.5 123.9 147.5 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="archer-draw-hand-layer" transform="translate(118 128) rotate(0) scale(1 1) translate(-118 -128)">
+<defs>
+<clipPath id="archer-draw-hand-hand-clip"><path d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z"/></clipPath>
+</defs>
+<path id="archer-draw-hand-shaft" d="M 104 128 L 142 128" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="archer-draw-hand-fletch">
+<path id="archer-draw-hand-fletch-fill" d="M 98 121.5 L 109 121.5 L 114 128 L 109 134.5 L 98 134.5 L 103 128 Z" fill="#e9dfc6"/>
+<path id="archer-draw-hand-fletch-line" d="M 98 121.5 L 109 121.5 L 114 128 L 109 134.5 L 98 134.5 L 103 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-draw-hand-head">
+<path id="archer-draw-hand-head-fill" d="M 139 121 L 154 128 L 139 135 Z" fill="#b9c2cc"/>
+<path id="archer-draw-hand-head-line" d="M 139 121 L 154 128 L 139 135 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-draw-hand-hand">
+<path id="archer-draw-hand-hand-shade" d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z" fill="#4e3520"/>
+<g clip-path="url(#archer-draw-hand-hand-clip)">
+<path id="archer-draw-hand-hand-fill" d="M 122.5 125 C 122.5 129.1 119.1 132.5 115 132.5 C 110.9 132.5 107.5 129.1 107.5 125 C 107.5 120.9 110.9 117.5 115 117.5 C 119.1 117.5 122.5 120.9 122.5 125 Z" fill="#6b4a2b"/>
+</g>
+<path id="archer-draw-hand-hand-line" d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

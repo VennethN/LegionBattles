@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cleric-censer" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="cleric-censer-bowl-clip"><path d="M 126 157 C 126 157 125 164.3 127 167 C 129 169.7 134.3 173 138 173 C 141.7 173 147 169.7 149 167 C 151 164.3 150 157 150 157 L 126 157 Z"/></clipPath>
+<clipPath id="cleric-censer-hand-clip"><path d="M 145.5 121 C 145.5 125.1 142.1 128.5 138 128.5 C 133.9 128.5 130.5 125.1 130.5 121 C 130.5 116.9 133.9 113.5 138 113.5 C 142.1 113.5 145.5 116.9 145.5 121 Z"/></clipPath>
+</defs>
+<path id="cleric-censer-chain" d="M 138 123 L 138 149" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="cleric-censer-halo" d="M 156 160 C 156 169.9 147.9 178 138 178 C 128.1 178 120 169.9 120 160 C 120 150.1 128.1 142 138 142 C 147.9 142 156 150.1 156 160 Z" fill="#fff3b8" opacity="0.45"/>
+<g id="cleric-censer-bowl">
+<path id="cleric-censer-bowl-shade" d="M 126 157 C 126 157 125 164.3 127 167 C 129 169.7 134.3 173 138 173 C 141.7 173 147 169.7 149 167 C 151 164.3 150 157 150 157 L 126 157 Z" fill="#9c7c33"/>
+<g clip-path="url(#cleric-censer-bowl-clip)">
+<path id="cleric-censer-bowl-fill" d="M 123 154 C 123 154 122 161.3 124 164 C 126 166.7 131.3 170 135 170 C 138.7 170 144 166.7 146 164 C 148 161.3 147 154 147 154 L 123 154 Z" fill="#c8a24a"/>
+</g>
+<path id="cleric-censer-bowl-line" d="M 126 157 C 126 157 125 164.3 127 167 C 129 169.7 134.3 173 138 173 C 141.7 173 147 169.7 149 167 C 151 164.3 150 157 150 157 L 126 157 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-censer-lid">
+<path id="cleric-censer-lid-fill" d="M 126 157 C 126 157 129 151 131 149 C 133 147 135.7 145 138 145 C 140.3 145 143 147 145 149 C 147 151 150 157 150 157 L 126 157 Z" fill="#c8a24a"/>
+<path id="cleric-censer-lid-line" d="M 126 157 C 126 157 129 151 131 149 C 133 147 135.7 145 138 145 C 140.3 145 143 147 145 149 C 147 151 150 157 150 157 L 126 157 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="cleric-censer-ember" d="M 133 155 L 143 155 Q 145 155 145 157 L 145 157 Q 145 159 143 159 L 133 159 Q 131 159 131 157 L 131 157 Q 131 155 133 155 Z" fill="#fff3b8"/>
+<g id="cleric-censer-hand">
+<path id="cleric-censer-hand-shade" d="M 145.5 121 C 145.5 125.1 142.1 128.5 138 128.5 C 133.9 128.5 130.5 125.1 130.5 121 C 130.5 116.9 133.9 113.5 138 113.5 C 142.1 113.5 145.5 116.9 145.5 121 Z" fill="#4e3520"/>
+<g clip-path="url(#cleric-censer-hand-clip)">
+<path id="cleric-censer-hand-fill" d="M 142.5 118 C 142.5 122.1 139.1 125.5 135 125.5 C 130.9 125.5 127.5 122.1 127.5 118 C 127.5 113.9 130.9 110.5 135 110.5 C 139.1 110.5 142.5 113.9 142.5 118 Z" fill="#6b4a2b"/>
+</g>
+<path id="cleric-censer-hand-line" d="M 145.5 121 C 145.5 125.1 142.1 128.5 138 128.5 C 133.9 128.5 130.5 125.1 130.5 121 C 130.5 116.9 133.9 113.5 138 113.5 C 142.1 113.5 145.5 116.9 145.5 121 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

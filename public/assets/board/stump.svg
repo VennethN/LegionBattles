@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="stump" width="64" height="56" viewBox="0 0 64 56">
+<defs>
+<clipPath id="stump-trunk-clip"><path d="M 10 46 C 10 46 8.3 25 12 20 C 15.7 15 25.3 16 32 16 C 38.7 16 48.3 15 52 20 C 55.7 25 54 46 54 46 L 10 46 Z"/></clipPath>
+</defs>
+<path id="stump-shadow" d="M 60 46 C 60 49.9 47.5 53 32 53 C 16.5 53 4 49.9 4 46 C 4 42.1 16.5 39 32 39 C 47.5 39 60 42.1 60 46 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="stump-trunk">
+<path id="stump-trunk-shade" d="M 10 46 C 10 46 8.3 25 12 20 C 15.7 15 25.3 16 32 16 C 38.7 16 48.3 15 52 20 C 55.7 25 54 46 54 46 L 10 46 Z" fill="#8c6b42"/>
+<g clip-path="url(#stump-trunk-clip)">
+<path id="stump-trunk-fill" d="M 5 41 C 5 41 3.3 20 7 15 C 10.7 10 20.3 11 27 11 C 33.7 11 43.3 10 47 15 C 50.7 20 49 41 49 41 L 5 41 Z" fill="#b08a5a"/>
+</g>
+<path id="stump-trunk-line" d="M 10 46 C 10 46 8.3 25 12 20 C 15.7 15 25.3 16 32 16 C 38.7 16 48.3 15 52 20 C 55.7 25 54 46 54 46 L 10 46 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="stump-top">
+<path id="stump-top-fill" d="M 53 19 C 53 23.4 43.6 27 32 27 C 20.4 27 11 23.4 11 19 C 11 14.6 20.4 11 32 11 C 43.6 11 53 14.6 53 19 Z" fill="#e9dfc6"/>
+<path id="stump-top-line" d="M 53 19 C 53 23.4 43.6 27 32 27 C 20.4 27 11 23.4 11 19 C 11 14.6 20.4 11 32 11 C 43.6 11 53 14.6 53 19 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

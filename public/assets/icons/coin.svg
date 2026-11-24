@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="coin" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<clipPath id="coin-coin-clip"><path d="M 43 24 C 43 34.5 34.5 43 24 43 C 13.5 43 5 34.5 5 24 C 5 13.5 13.5 5 24 5 C 34.5 5 43 13.5 43 24 Z"/></clipPath>
+</defs>
+<g id="coin-coin">
+<path id="coin-coin-shade" d="M 43 24 C 43 34.5 34.5 43 24 43 C 13.5 43 5 34.5 5 24 C 5 13.5 13.5 5 24 5 C 34.5 5 43 13.5 43 24 Z" fill="#9c7c33"/>
+<g clip-path="url(#coin-coin-clip)">
+<path id="coin-coin-fill" d="M 39 20 C 39 30.5 30.5 39 20 39 C 9.5 39 1 30.5 1 20 C 1 9.5 9.5 1 20 1 C 30.5 1 39 9.5 39 20 Z" fill="#c8a24a"/>
+</g>
+<path id="coin-coin-line" d="M 43 24 C 43 34.5 34.5 43 24 43 C 13.5 43 5 34.5 5 24 C 5 13.5 13.5 5 24 5 C 34.5 5 43 13.5 43 24 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="coin-stamp">
+<path id="coin-stamp-fill" d="M 24 14 L 26.6 20.4 L 33.5 20.9 L 28.3 25.4 L 29.9 32.1 L 24 28.5 L 18.1 32.1 L 19.7 25.4 L 14.5 20.9 L 21.4 20.4 Z" fill="#9c7c33"/>
+<path id="coin-stamp-line" d="M 24 14 L 26.6 20.4 L 33.5 20.9 L 28.3 25.4 L 29.9 32.1 L 24 28.5 L 18.1 32.1 L 19.7 25.4 L 14.5 20.9 L 21.4 20.4 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

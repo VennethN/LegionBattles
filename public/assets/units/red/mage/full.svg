@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mage" width="192" height="192" viewBox="0 0 192 192">
+<g id="mage-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="mage-shadow-shadow" d="M 134 181 C 134 185.4 117 189 96 189 C 75 189 58 185.4 58 181 C 58 176.6 75 173 96 173 C 117 173 134 176.6 134 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="mage-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<g id="mage-leg-back-boot">
+<path id="mage-leg-back-boot-fill" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="#4e3520"/>
+<path id="mage-leg-back-boot-line" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="mage-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<clipPath id="mage-leg-front-boot-clip"><path d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/></clipPath>
+</defs>
+<g id="mage-leg-front-boot">
+<path id="mage-leg-front-boot-shade" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="#4e3520"/>
+<g clip-path="url(#mage-leg-front-boot-clip)">
+<path id="mage-leg-front-boot-fill" d="M 90 144 L 109 144 L 109 160 C 115 160 120 164 120 170 L 120 172 Q 120 176 116 176 L 94 176 Q 90 176 90 172 Z" fill="#6b4a2b"/>
+</g>
+<path id="mage-leg-front-boot-line" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="mage-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<clipPath id="mage-body-robe-clip"><path d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z"/></clipPath>
+<clipPath id="mage-body-sleeve-clip"><path d="M 108.8 121.5 L 120.8 140.5 C 123.3 144.5 128.6 145.7 132.5 143.2 C 136.5 140.7 137.7 135.4 135.2 131.5 L 123.2 112.5 C 120.7 108.5 115.4 107.3 111.5 109.8 C 107.5 112.3 106.3 117.6 108.8 121.5 Z"/></clipPath>
+</defs>
+<g id="mage-body-robe">
+<path id="mage-body-robe-shade" d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z" fill="#933027"/>
+<g clip-path="url(#mage-body-robe-clip)">
+<path id="mage-body-robe-fill" d="M 67 100 C 72.2 95.2 83 96 91 96 C 99 96 109.8 95.2 115 100 C 120.2 104.8 119.8 115.2 122 125 C 124.2 134.8 128.8 151.8 128 159 C 127.2 166.2 123.2 166.2 117 168 C 110.8 169.8 99.7 170 91 170 C 82.3 170 71.2 169.8 65 168 C 58.8 166.2 54.8 166.2 54 159 C 53.2 151.8 57.8 134.8 60 125 C 62.2 115.2 61.8 104.8 67 100 Z" fill="#c2453a"/>
+<g id="mage-body-hem">
+<path id="mage-body-hem-fill" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z" fill="#c8a24a"/>
+<path id="mage-body-hem-line" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="mage-body-robe-line" d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mage-body-sleeve">
+<path id="mage-body-sleeve-shade" d="M 108.8 121.5 L 120.8 140.5 C 123.3 144.5 128.6 145.7 132.5 143.2 C 136.5 140.7 137.7 135.4 135.2 131.5 L 123.2 112.5 C 120.7 108.5 115.4 107.3 111.5 109.8 C 107.5 112.3 106.3 117.6 108.8 121.5 Z" fill="#933027"/>
+<g clip-path="url(#mage-body-sleeve-clip)">
+<path id="mage-body-sleeve-fill" d="M 105.8 118.5 L 117.8 137.5 C 120.3 141.5 125.6 142.7 129.5 140.2 C 133.5 137.7 134.7 132.4 132.2 128.5 L 120.2 109.5 C 117.7 105.5 112.4 104.3 108.5 106.8 C 104.5 109.3 103.3 114.6 105.8 118.5 Z" fill="#c2453a"/>
+</g>
+<path id="mage-body-sleeve-line" d="M 108.8 121.5 L 120.8 140.5 C 123.3 144.5 128.6 145.7 132.5 143.2 C 136.5 140.7 137.7 135.4 135.2 131.5 L 123.2 112.5 C 120.7 108.5 115.4 107.3 111.5 109.8 C 107.5 112.3 106.3 117.6 108.8 121.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="mage-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<clipPath id="mage-head-hood-clip"><path d="M 84 16 C 84 16 92.7 23.7 98 30 C 103.3 36.3 111 45.7 116 54 C 121 62.3 126.7 72 128 80 C 129.3 88 127.7 97.2 124 102 C 120.3 106.8 112.7 107.8 106 109 C 99.3 110.2 90.2 110.3 84 109 C 77.8 107.7 72 105.8 69 101 C 66 96.2 64.5 88.2 66 80 C 67.5 71.8 75.7 60 78 52 C 80.3 44 79 38 80 32 C 81 26 84 16 84 16 Z"/></clipPath>
+</defs>
+<g id="mage-head-hood">
+<path id="mage-head-hood-shade" d="M 84 16 C 84 16 92.7 23.7 98 30 C 103.3 36.3 111 45.7 116 54 C 121 62.3 126.7 72 128 80 C 129.3 88 127.7 97.2 124 102 C 120.3 106.8 112.7 107.8 106 109 C 99.3 110.2 90.2 110.3 84 109 C 77.8 107.7 72 105.8 69 101 C 66 96.2 64.5 88.2 66 80 C 67.5 71.8 75.7 60 78 52 C 80.3 44 79 38 80 32 C 81 26 84 16 84 16 Z" fill="#933027"/>
+<g clip-path="url(#mage-head-hood-clip)">
+<path id="mage-head-hood-fill" d="M 78 10 C 78 10 86.7 17.7 92 24 C 97.3 30.3 105 39.7 110 48 C 115 56.3 120.7 66 122 74 C 123.3 82 121.7 91.2 118 96 C 114.3 100.8 106.7 101.8 100 103 C 93.3 104.2 84.2 104.3 78 103 C 71.8 101.7 66 99.8 63 95 C 60 90.2 58.5 82.2 60 74 C 61.5 65.8 69.7 54 72 46 C 74.3 38 73 32 74 26 C 75 20 78 10 78 10 Z" fill="#c2453a"/>
+<path id="mage-head-opening" d="M 112 66 C 116.3 66 123 72 126 76 C 129 80 130.5 85.5 130 90 C 129.5 94.5 126.8 100.7 123 103 C 119.2 105.3 111.3 105.7 107 104 C 102.7 102.3 98.2 97.7 97 93 C 95.8 88.3 97.5 80.5 100 76 C 102.5 71.5 107.7 66 112 66 Z" fill="#1e2b17"/>
+<path id="mage-head-opening-edge" d="M 112 66 C 116.3 66 123 72 126 76 C 129 80 130.5 85.5 130 90 C 129.5 94.5 126.8 100.7 123 103 C 119.2 105.3 111.3 105.7 107 104 C 102.7 102.3 98.2 97.7 97 93 C 95.8 88.3 97.5 80.5 100 76 C 102.5 71.5 107.7 66 112 66 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="mage-head-hood-line" d="M 84 16 C 84 16 92.7 23.7 98 30 C 103.3 36.3 111 45.7 116 54 C 121 62.3 126.7 72 128 80 C 129.3 88 127.7 97.2 124 102 C 120.3 106.8 112.7 107.8 106 109 C 99.3 110.2 90.2 110.3 84 109 C 77.8 107.7 72 105.8 69 101 C 66 96.2 64.5 88.2 66 80 C 67.5 71.8 75.7 60 78 52 C 80.3 44 79 38 80 32 C 81 26 84 16 84 16 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="mage-head-fold" d="M 88 40 C 86.7 43.7 82 54 80 62 C 78 70 76.7 83.7 76 88" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mage-staff-layer" transform="translate(130 138) rotate(0) scale(1 1) translate(-130 -138)">
+<defs>
+<clipPath id="mage-staff-shaft-clip"><path d="M 138.5 64.5 L 139.5 64.6 Q 142.5 65 142.1 68 L 129 175.2 Q 128.6 178.1 125.6 177.8 L 124.6 177.6 Q 121.7 177.3 122 174.3 L 135.2 67.1 Q 135.5 64.1 138.5 64.5 Z"/></clipPath>
+<clipPath id="mage-staff-orb-clip"><path d="M 149.7 55.8 C 149 61 144.3 64.7 139.1 64.1 C 133.9 63.4 130.2 58.7 130.8 53.5 C 131.4 48.3 136.2 44.6 141.4 45.2 C 146.6 45.8 150.3 50.6 149.7 55.8 Z"/></clipPath>
+<clipPath id="mage-staff-hand-clip"><path d="M 137.5 138 C 137.5 142.1 134.1 145.5 130 145.5 C 125.9 145.5 122.5 142.1 122.5 138 C 122.5 133.9 125.9 130.5 130 130.5 C 134.1 130.5 137.5 133.9 137.5 138 Z"/></clipPath>
+</defs>
+<g id="mage-staff-shaft">
+<path id="mage-staff-shaft-shade" d="M 138.5 64.5 L 139.5 64.6 Q 142.5 65 142.1 68 L 129 175.2 Q 128.6 178.1 125.6 177.8 L 124.6 177.6 Q 121.7 177.3 122 174.3 L 135.2 67.1 Q 135.5 64.1 138.5 64.5 Z" fill="#75502b"/>
+<g clip-path="url(#mage-staff-shaft-clip)">
+<path id="mage-staff-shaft-fill" d="M 136.5 62.5 L 137.5 62.6 Q 140.5 63 140.1 66 L 127 173.2 Q 126.6 176.1 123.6 175.8 L 122.6 175.6 Q 119.7 175.3 120 172.3 L 133.2 65.1 Q 133.5 62.1 136.5 62.5 Z" fill="#9a6a3a"/>
+</g>
+<path id="mage-staff-shaft-line" d="M 138.5 64.5 L 139.5 64.6 Q 142.5 65 142.1 68 L 129 175.2 Q 128.6 178.1 125.6 177.8 L 124.6 177.6 Q 121.7 177.3 122 174.3 L 135.2 67.1 Q 135.5 64.1 138.5 64.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mage-staff-claw">
+<path id="mage-staff-claw-fill" d="M 127.4 61.1 C 127.4 61.1 127.3 69.8 129 72.4 C 130.7 74.9 134.6 76.1 137.6 76.5 C 140.5 76.8 144.6 76.7 146.9 74.6 C 149.1 72.5 151.2 64 151.2 64 C 151.2 64 146.5 67.7 143.6 68.1 C 140.7 68.6 136.4 68.1 133.7 66.9 C 131 65.7 127.4 61.1 127.4 61.1 Z" fill="#c8a24a"/>
+<path id="mage-staff-claw-line" d="M 127.4 61.1 C 127.4 61.1 127.3 69.8 129 72.4 C 130.7 74.9 134.6 76.1 137.6 76.5 C 140.5 76.8 144.6 76.7 146.9 74.6 C 149.1 72.5 151.2 64 151.2 64 C 151.2 64 146.5 67.7 143.6 68.1 C 140.7 68.6 136.4 68.1 133.7 66.9 C 131 65.7 127.4 61.1 127.4 61.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="mage-staff-halo" d="M 155.1 56.5 C 154.1 64.7 146.6 70.5 138.4 69.5 C 130.2 68.5 124.3 61 125.3 52.8 C 126.4 44.6 133.8 38.7 142.1 39.7 C 150.3 40.7 156.1 48.2 155.1 56.5 Z" fill="#cdb6f7" opacity="0.45"/>
+<g id="mage-staff-orb">
+<path id="mage-staff-orb-shade" d="M 149.7 55.8 C 149 61 144.3 64.7 139.1 64.1 C 133.9 63.4 130.2 58.7 130.8 53.5 C 131.4 48.3 136.2 44.6 141.4 45.2 C 146.6 45.8 150.3 50.6 149.7 55.8 Z" fill="#6541a8"/>
+<g clip-path="url(#mage-staff-orb-clip)">
+<path id="mage-staff-orb-fill" d="M 146.7 52.8 C 146 58 141.3 61.7 136.1 61.1 C 130.9 60.4 127.2 55.7 127.8 50.5 C 128.4 45.3 133.2 41.6 138.4 42.2 C 143.6 42.8 147.3 47.6 146.7 52.8 Z" fill="#8a5cd6"/>
+</g>
+<path id="mage-staff-orb-line" d="M 149.7 55.8 C 149 61 144.3 64.7 139.1 64.1 C 133.9 63.4 130.2 58.7 130.8 53.5 C 131.4 48.3 136.2 44.6 141.4 45.2 C 146.6 45.8 150.3 50.6 149.7 55.8 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="mage-staff-glint" d="M 140.1 51.6 C 139.9 53 138.7 53.9 137.3 53.8 C 135.9 53.6 135 52.3 135.1 51 C 135.3 49.6 136.6 48.6 137.9 48.8 C 139.3 49 140.3 50.2 140.1 51.6 Z" fill="#f4f1e4"/>
+<g id="mage-staff-hand">
+<path id="mage-staff-hand-shade" d="M 137.5 138 C 137.5 142.1 134.1 145.5 130 145.5 C 125.9 145.5 122.5 142.1 122.5 138 C 122.5 133.9 125.9 130.5 130 130.5 C 134.1 130.5 137.5 133.9 137.5 138 Z" fill="#4e3520"/>
+<g clip-path="url(#mage-staff-hand-clip)">
+<path id="mage-staff-hand-fill" d="M 134.5 135 C 134.5 139.1 131.1 142.5 127 142.5 C 122.9 142.5 119.5 139.1 119.5 135 C 119.5 130.9 122.9 127.5 127 127.5 C 131.1 127.5 134.5 130.9 134.5 135 Z" fill="#6b4a2b"/>
+</g>
+<path id="mage-staff-hand-line" d="M 137.5 138 C 137.5 142.1 134.1 145.5 130 145.5 C 125.9 145.5 122.5 142.1 122.5 138 C 122.5 133.9 125.9 130.5 130 130.5 C 134.1 130.5 137.5 133.9 137.5 138 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

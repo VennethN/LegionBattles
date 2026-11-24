@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cleric-head" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="cleric-head-cowl-clip"><path d="M 97 49 C 104.7 49 114.5 52 120 57 C 125.5 62 128.8 71.8 130 79 C 131.2 86.2 130.3 95 127 100 C 123.7 105 117.2 107.5 110 109 C 102.8 110.5 91.2 110.5 84 109 C 76.8 107.5 70.3 105 67 100 C 63.7 95 62.8 86.2 64 79 C 65.2 71.8 68.5 62 74 57 C 79.5 52 89.3 49 97 49 Z"/></clipPath>
+<clipPath id="cleric-head-veil-clip"><path d="M 102 66 L 140 66 L 140 114 C 140 114 113.2 117 106 114 C 98.8 111 97.7 104 97 96 C 96.3 88 102 66 102 66 Z"/></clipPath>
+</defs>
+<g id="cleric-head-cowl">
+<path id="cleric-head-cowl-shade" d="M 97 49 C 104.7 49 114.5 52 120 57 C 125.5 62 128.8 71.8 130 79 C 131.2 86.2 130.3 95 127 100 C 123.7 105 117.2 107.5 110 109 C 102.8 110.5 91.2 110.5 84 109 C 76.8 107.5 70.3 105 67 100 C 63.7 95 62.8 86.2 64 79 C 65.2 71.8 68.5 62 74 57 C 79.5 52 89.3 49 97 49 Z" fill="#933027"/>
+<g clip-path="url(#cleric-head-cowl-clip)">
+<path id="cleric-head-cowl-fill" d="M 91 43 C 98.7 43 108.5 46 114 51 C 119.5 56 122.8 65.8 124 73 C 125.2 80.2 124.3 89 121 94 C 117.7 99 111.2 101.5 104 103 C 96.8 104.5 85.2 104.5 78 103 C 70.8 101.5 64.3 99 61 94 C 57.7 89 56.8 80.2 58 73 C 59.2 65.8 62.5 56 68 51 C 73.5 46 83.3 43 91 43 Z" fill="#c2453a"/>
+<g id="cleric-head-veil">
+<path id="cleric-head-veil-shade" d="M 102 66 L 140 66 L 140 114 C 140 114 113.2 117 106 114 C 98.8 111 97.7 104 97 96 C 96.3 88 102 66 102 66 Z" fill="#b3a585"/>
+<g clip-path="url(#cleric-head-veil-clip)">
+<path id="cleric-head-veil-fill" d="M 98 62 L 136 62 L 136 110 C 136 110 109.2 113 102 110 C 94.8 107 93.7 100 93 92 C 92.3 84 98 62 98 62 Z" fill="#d9cdb0"/>
+<g id="cleric-head-stripe">
+<path id="cleric-head-stripe-fill" d="M 113 60 L 122 60 L 122 120 L 113 120 L 113 60 Z" fill="#c8a24a"/>
+<path id="cleric-head-stripe-line" d="M 113 60 L 122 60 L 122 120 L 113 120 L 113 60 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="cleric-head-veil-line" d="M 102 66 L 140 66 L 140 114 C 140 114 113.2 117 106 114 C 98.8 111 97.7 104 97 96 C 96.3 88 102 66 102 66 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-head-band">
+<path id="cleric-head-band-fill" d="M 60 62 C 66 59.7 83.7 58 96 58 C 108.3 58 127.7 59.8 134 62 C 140.3 64.2 140.3 70 134 71 C 127.7 72 108.3 67.8 96 68 C 83.7 68.2 66 73 60 72 C 54 71 54 64.3 60 62 Z" fill="#c8a24a"/>
+<path id="cleric-head-band-line" d="M 60 62 C 66 59.7 83.7 58 96 58 C 108.3 58 127.7 59.8 134 62 C 140.3 64.2 140.3 70 134 71 C 127.7 72 108.3 67.8 96 68 C 83.7 68.2 66 73 60 72 C 54 71 54 64.3 60 62 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="cleric-head-cowl-line" d="M 97 49 C 104.7 49 114.5 52 120 57 C 125.5 62 128.8 71.8 130 79 C 131.2 86.2 130.3 95 127 100 C 123.7 105 117.2 107.5 110 109 C 102.8 110.5 91.2 110.5 84 109 C 76.8 107.5 70.3 105 67 100 C 63.7 95 62.8 86.2 64 79 C 65.2 71.8 68.5 62 74 57 C 79.5 52 89.3 49 97 49 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

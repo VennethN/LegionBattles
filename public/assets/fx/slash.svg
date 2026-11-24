@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="slash" width="96" height="96" viewBox="0 0 96 96">
+<g id="slash-arc">
+<path id="slash-arc-fill" d="M 30 6 C 74 14 92 40 84 90 C 80 52 62 26 30 6 Z" fill="#ffffff"/>
+<path id="slash-arc-line" d="M 30 6 C 74 14 92 40 84 90 C 80 52 62 26 30 6 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

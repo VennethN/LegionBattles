@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="archer-body" width="192" height="192" viewBox="0 0 192 192">
+<defs>
+<clipPath id="archer-body-tunic-clip"><path d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/></clipPath>
+<clipPath id="archer-body-arm-clip"><path d="M 111.6 123 L 126.6 134 C 129.9 136.5 134.6 135.8 137 132.4 C 139.5 129.1 138.8 124.4 135.4 122 L 120.4 111 C 117.1 108.5 112.4 109.2 110 112.6 C 107.5 115.9 108.2 120.6 111.6 123 Z"/></clipPath>
+</defs>
+<g id="archer-body-tunic">
+<path id="archer-body-tunic-shade" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="#933027"/>
+<g clip-path="url(#archer-body-tunic-clip)">
+<path id="archer-body-tunic-fill" d="M 65 100 C 70.3 95.5 82.3 96 91 96 C 99.7 96 111.7 95.5 117 100 C 122.3 104.5 122.7 115.2 123 123 C 123.3 130.8 122.3 141.8 119 147 C 115.7 152.2 109.7 152.8 103 154 C 96.3 155.2 85.7 155.2 79 154 C 72.3 152.8 66.3 152.2 63 147 C 59.7 141.8 58.7 130.8 59 123 C 59.3 115.2 59.7 104.5 65 100 Z" fill="#c2453a"/>
+<path id="archer-body-strap" d="M 70 100 L 122 150" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="archer-body-belt">
+<path id="archer-body-belt-fill" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="#6b4a2b"/>
+<path id="archer-body-belt-line" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="archer-body-tunic-line" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-body-arm">
+<path id="archer-body-arm-shade" d="M 111.6 123 L 126.6 134 C 129.9 136.5 134.6 135.8 137 132.4 C 139.5 129.1 138.8 124.4 135.4 122 L 120.4 111 C 117.1 108.5 112.4 109.2 110 112.6 C 107.5 115.9 108.2 120.6 111.6 123 Z" fill="#933027"/>
+<g clip-path="url(#archer-body-arm-clip)">
+<path id="archer-body-arm-fill" d="M 108.6 120 L 123.6 131 C 126.9 133.5 131.6 132.8 134 129.4 C 136.5 126.1 135.8 121.4 132.4 119 L 117.4 108 C 114.1 105.5 109.4 106.2 107 109.6 C 104.5 112.9 105.2 117.6 108.6 120 Z" fill="#c2453a"/>
+</g>
+<path id="archer-body-arm-line" d="M 111.6 123 L 126.6 134 C 129.9 136.5 134.6 135.8 137 132.4 C 139.5 129.1 138.8 124.4 135.4 122 L 120.4 111 C 117.1 108.5 112.4 109.2 110 112.6 C 107.5 115.9 108.2 120.6 111.6 123 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
