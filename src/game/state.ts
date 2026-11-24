@@ -64,6 +64,8 @@ export interface SaveData {
   lostAt: Where | null;
   /** False when the player has switched auto battle off: then BATTLE fights one battle and waits. */
   auto: boolean;
+  /** The order the screen of units lays the cards out in: one of SORTS (game/sorting.ts). */
+  sort: string;
 }
 
 export function newSave(seed: number): SaveData {
@@ -84,6 +86,7 @@ export function newSave(seed: number): SaveData {
     at: { world: 0, stage: 0, d: 0 },
     lostAt: null,
     auto: true,
+    sort: 'unit',
   };
 }
 
@@ -172,6 +175,7 @@ export function repair(raw: unknown, seed: number): SaveData {
   out.at = where(r.at) ?? fresh.at;
   out.lostAt = where(r.lostAt);
   out.auto = r.auto !== false;
+  out.sort = typeof r.sort === 'string' ? r.sort : fresh.sort;
   // A save from before the tutorial belongs to someone who has already played: they have no use for it.
   const t = r.tutorial;
   if (t && typeof t === 'object') {

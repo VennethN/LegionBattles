@@ -7,10 +7,11 @@ import { COUNTDOWN, afterBattle, goTo, sameWhere, settle, teamChanged, whereOpen
 import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
 import { COPY_XP, OTHER_UNIT, addCard, cardOf, cardsOf, combine, combinePreview, spare, whyNot, worth, xpHeld } from '../src/game/cards';
 import {
-  BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, clearedIn, difficultyOpen, finishStage, frontier, inPool, inTeam, isEnemyTile, known,
+  BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, cardPower, clearedIn, difficultyOpen, finishStage, frontier, inPool, inTeam, isEnemyTile, known,
   openPack, packOpen, packPool, packsHeld, rollPack, stageEnemies, stageInput, stageOpen, stagePay, stageStanding, stageXp,
   startingSave, teamSize, tidyTeam, toggleTeam, topDifficulty, worldDone, worldOpen, type StageResult,
 } from '../src/game/rules';
+import { SORTS, SORT_NAME, cardDamage, cardHealth, isSort, nextSort, sortCards, type Sort } from '../src/game/sorting';
 import { repair, type SaveData } from '../src/game/state';
 import { runBattle } from '../src/sim/battle';
 import { Rng } from '../src/sim/rng';
@@ -415,6 +416,74 @@ describe('the team', () => {
     expect(team.filter((p) => p.unit === 'mage').map((p) => p.card).sort()).toEqual(strong.sort());
     expect(new Set(team.map((p) => `${p.col},${p.row}`)).size).toBe(team.length);
     expect(new Set(team.map((p) => p.card)).size).toBe(team.length);
+  });
+});
+
+describe('sorting', () => {
+  const held = (): SaveData => {
+    const save = startingSave(1);
+    Object.assign(addCard(save, 'paladin', 1), { level: 3 });
+    Object.assign(addCard(save, 'knight', 5), { level: 2 });
+    Object.assign(addCard(save, 'mage', 2), { level: 9 });
+    addCard(save, 'archer', 0);
+    return save;
+  };
+
+  it('lays cards out by unit, power, grade, level, rarity, health and damage, the most first', () => {
+    const save = held();
+    for (const by of SORTS) {
+      const out = sortCards(save.cards, by);
+      // Every card is there once, whatever the order.
+      expect(out.map((c) => c.id).sort()).toEqual(save.cards.map((c) => c.id).sort());
+      const key: Record<string, (c: (typeof out)[number]) => number> = {
+        unit: () => 0,
+        power: (c) => cardPower(c),
+        grade: (c) => c.grade,
+        level: (c) => c.level,
+        rarity: (c) => RARITIES.indexOf(UNITS[c.unit].rarity),
+        health: (c) => cardHealth(c),
+        damage: (c) => cardDamage(c),
+      };
+      for (let i = 1; i < out.length; i++) expect(key[by](out[i - 1])).toBeGreaterThanOrEqual(key[by](out[i]));
+    }
+    expect(sortCards(save.cards, 'grade')[0]).toMatchObject({ unit: 'knight', grade: 5 });
+    expect(sortCards(save.cards, 'level')[0]).toMatchObject({ unit: 'mage', level: 9 });
+    expect(sortCards(save.cards, 'rarity')[0].unit).toBe('paladin');
+  });
+
+  it('by unit keeps the cards of a unit together, its best first', () => {
+    const save = held();
+    const out = sortCards(save.cards, 'unit');
+    const knights = out.map((c, i) => (c.unit === 'knight' ? i : -1)).filter((i) => i >= 0);
+    expect(knights[1] - knights[0]).toBe(1);
+    expect(out[knights[0]].grade).toBe(5);
+    const archers = out.filter((c) => c.unit === 'archer');
+    expect(archers).toHaveLength(2);
+    expect(Math.abs(out.indexOf(archers[0]) - out.indexOf(archers[1]))).toBe(1);
+  });
+
+  it('never shuffles cards that tie, and does not change the list it is given', () => {
+    const save = held();
+    const before = save.cards.map((c) => c.id);
+    for (const by of SORTS) expect(sortCards(sortCards(save.cards, by), by)).toEqual(sortCards([...save.cards].reverse(), by));
+    expect(save.cards.map((c) => c.id)).toEqual(before);
+  });
+
+  it('SORT steps through every order and comes round again, and a save keeps the choice', () => {
+    let by: Sort = SORTS[0];
+    const seen = new Set<string>();
+    for (let i = 0; i < SORTS.length; i++) {
+      seen.add(by);
+      expect(SORT_NAME[by].length).toBeGreaterThan(0);
+      by = nextSort(by);
+    }
+    expect(seen.size).toBe(SORTS.length);
+    expect(by).toBe(SORTS[0]);
+    const save = startingSave(1);
+    expect(isSort(save.sort)).toBe(true);
+    save.sort = 'rarity';
+    expect(repair(JSON.parse(JSON.stringify(save)), 1).sort).toBe('rarity');
+    expect(isSort('nonsense')).toBe(false);
   });
 });
 

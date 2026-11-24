@@ -14,6 +14,7 @@ import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE } from '../art/poses';
 import { addPose, clearPose, makeXforms, restPose, solve, type PartXform, type Pose } from '../art/rig';
 import { OUTLINE } from '../art/kit/palette';
 import { ART_SCALE, hex } from './config';
+import { DIGITS_KEY } from './Numbers';
 import { UNIT_SCALE } from './layout';
 import { SHEET, Sheet } from './Sheet';
 
@@ -32,6 +33,8 @@ const FADE = 0.45;
 
 const BAR_W = 50;
 const BAR_H = 7;
+/** The chip with a unit's level stands a little taller than the bar it is beside. */
+const CHIP_H = 13;
 const MAX_PIPS = 4;
 
 function easeOutCubic(t: number): number {
@@ -75,6 +78,11 @@ export class UnitView {
   private readonly barW: number;
   private readonly pips: Phaser.GameObjects.Image[] = [];
   private pipCount = 0;
+  /** The chip beside the health bar: the unit's level on its tier's color. Null if its level is not told. */
+  private readonly chipBack: Phaser.GameObjects.Image | null = null;
+  private readonly chipFill: Phaser.GameObjects.Image | null = null;
+  private readonly chipText: Phaser.GameObjects.BitmapText | null = null;
+  private readonly chipW: number = 0;
 
   private turn: number;
   private hopT = 0;
@@ -100,6 +108,8 @@ export class UnitView {
     seed: number,
     /** How much bigger than a usual unit it is drawn: a boss is. */
     private readonly size = 1,
+    /** What the chip beside its health bar says: its level, on the color of its tier. */
+    plate: { level: number; color: number } | null = null,
   ) {
     this.root = scene.add.container(0, 0);
     this.xf = makeXforms(art.parts.length);
@@ -128,6 +138,14 @@ export class UnitView {
     this.barBack.setDisplaySize(this.barW + 6, BAR_H + 6);
     for (let i = 0; i < MAX_PIPS; i++) {
       this.pips.push(scene.add.image(0, 0, SHEET, 'fx/pixel').setDisplaySize(9, 9).setVisible(false));
+    }
+    if (plate) {
+      // Wide enough for the number: one digit or two.
+      this.chipW = plate.level >= 10 ? 28 : 19;
+      this.chipBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(this.chipW + 6, CHIP_H + 6);
+      this.chipFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.color).setDisplaySize(this.chipW, CHIP_H);
+      this.chipText = scene.add.bitmapText(0, 0, DIGITS_KEY, String(plate.level), 15).setOrigin(0.5);
+      this.chipText.setLetterSpacing(-13);
     }
     this.setBarsVisible(false);
 
@@ -200,6 +218,9 @@ export class UnitView {
     this.barBack.setVisible(on);
     this.barLag.setVisible(on);
     this.barFill.setVisible(on);
+    this.chipBack?.setVisible(on);
+    this.chipFill?.setVisible(on);
+    this.chipText?.setVisible(on);
     if (!on) for (let i = 0; i < this.pips.length; i++) this.pips[i].setVisible(false);
     this.barsOn = on;
   }
@@ -370,6 +391,19 @@ export class UnitView {
     this.barBack.alpha = alpha;
     this.barLag.alpha = alpha;
     this.barFill.alpha = alpha;
+    if (this.chipBack && this.chipFill && this.chipText) {
+      // The chip stands at the bar's left end, touching it, so the two read as one plate.
+      const cx = bx - 3 - this.chipW / 2;
+      this.chipBack.setPosition(cx, by);
+      this.chipFill.setPosition(cx, by);
+      this.chipText.setPosition(cx, by - 1);
+      this.chipBack.depth = depth;
+      this.chipFill.depth = depth + 0.1;
+      this.chipText.depth = depth + 0.2;
+      this.chipBack.alpha = alpha;
+      this.chipFill.alpha = alpha;
+      this.chipText.alpha = alpha;
+    }
 
     for (let i = 0; i < this.pips.length; i++) {
       const pip = this.pips[i];
@@ -387,6 +421,9 @@ export class UnitView {
     this.barBack.destroy();
     this.barLag.destroy();
     this.barFill.destroy();
+    this.chipBack?.destroy();
+    this.chipFill?.destroy();
+    this.chipText?.destroy();
     for (const pip of this.pips) pip.destroy();
   }
 }

@@ -17,11 +17,12 @@ import { packById } from '../../data/packs';
 import { UNITS } from '../../data/units';
 import { WORLDS } from '../../data/worlds';
 import { COUNTDOWN, afterBattle, goTo, settle, teamChanged } from '../../game/campaign';
+import { cardOf } from '../../game/cards';
 import {
   clearedIn, finishStage, packsHeld, stageEnemies, stageInput, stageOpen, stagePay, stageSeed, stageStanding, teamSize, tidyTeam,
   type StageResult,
 } from '../../game/rules';
-import type { Where } from '../../game/state';
+import type { Fielded, Where } from '../../game/state';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
 import { BoardView } from '../BoardView';
@@ -89,6 +90,11 @@ export class MainScene extends Phaser.Scene {
         this.teamKey = this.keyOf();
         if (this.count >= 0) this.count = Math.max(this.count, COUNTDOWN.changed);
       },
+      // The player's units show their card's level, the enemy's the level the stage stands at.
+      levelOf: (p, team) =>
+        team === 'blue'
+          ? cardOf(save(), (p as Fielded).card)?.level
+          : stageStanding(WORLDS[this.at.world], this.at.stage, this.at.d).level,
     });
     this.coins = new CoinPill(this, s);
     this.buildBottom();

@@ -1,7 +1,8 @@
 // The player's cards, and who of them fights. It opens over the field.
 // Every card is a tile of its own: two of a unit are two tiles. Pressing a
 // card shows what it is and does; from there it is put in the team or taken
-// out, or other cards are combined into it. FILL TEAM fields the strongest.
+// out, or other cards are combined into it. FILL TEAM fields the strongest,
+// and SORT steps through the orders the cards can be laid out in.
 //
 // COMBINE turns the screen into a forge: the card chosen is the one that
 // grows, each card marked after it is given up, and the panel says what
@@ -15,10 +16,11 @@ import Phaser from 'phaser';
 import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { PACKS } from '../../data/packs';
-import { SETS, UNITS, type UnitInfo } from '../../data/units';
+import { SETS, UNITS } from '../../data/units';
 import { cardOf, cardsOf, combine, combinePreview, fielded, holds, spare, whyNot, worth } from '../../game/cards';
-import { MAX_LEVEL, RARITIES, RARITY, cardMult, xpToNext } from '../../game/rarity';
+import { MAX_LEVEL, RARITY, cardMult, xpToNext } from '../../game/rarity';
 import { bestTeam, inTeam, known, teamSize, toggleTeam } from '../../game/rules';
+import { SORT_NAME, isSort, nextSort, sortCards, unitOrder, type Sort } from '../../game/sorting';
 import type { Card } from '../../game/state';
 import { markSeen, seen } from '../../game/tutorial';
 import { STATUS } from '../../sim/status';
@@ -32,16 +34,6 @@ import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
 import { portrait, unitCard } from '../ui/UnitCard';
 import { Button, label, plain, slab } from '../ui/widgets';
-
-const SET_ORDER = Object.keys(SETS);
-
-function unitOrder(a: UnitInfo, b: UnitInfo): number {
-  return (
-    SET_ORDER.indexOf(a.set) - SET_ORDER.indexOf(b.set) ||
-    RARITIES.indexOf(a.rarity) - RARITIES.indexOf(b.rarity) ||
-    a.name.localeCompare(b.name)
-  );
-}
 
 /** A place in the grid: a card, or a unit the player holds no card of. */
 interface Tile {
@@ -114,6 +106,15 @@ export class TeamScene extends Phaser.Scene {
 
     this.guide = new Guide(this, 'Team');
     if (!this.forge) {
+      // SORT steps to the next order and lays the cards out again from the first page.
+      const sort = plain(new Button(this, 840, 38, `SORT: ${SORT_NAME[this.sortBy()]}`, () => {
+        s.sort = nextSort(this.sortBy());
+        commit();
+        sort.setText(`SORT: ${SORT_NAME[this.sortBy()]}`);
+        this.tiles = this.cardTiles();
+        this.page = 0;
+        this.drawGrid();
+      }, { width: 196, height: 46, size: 18, mat: BONE, color: OUTLINE }));
       const fill = plain(new Button(this, 640, 38, 'FILL TEAM', () => {
         s.team = bestTeam(s);
         markSeen(s, 'fill');
@@ -129,14 +130,16 @@ export class TeamScene extends Phaser.Scene {
     this.guide.refresh();
   }
 
-  /** Every card held, a unit's cards together and its best first, then the units no card is held of. */
+  /** The order the player last chose, or by unit. */
+  private sortBy(): Sort {
+    const by = save().sort;
+    return isSort(by) ? by : 'unit';
+  }
+
+  /** Every card held, in the order chosen, then the units no card is held of. */
   private cardTiles(): Tile[] {
     const s = save();
-    const out: Tile[] = [];
-    for (const u of Object.values(UNITS).sort(unitOrder)) {
-      const cards = cardsOf(s, u.id);
-      for (const card of cards) out.push({ key: `c${card.id}`, unit: u.id, card });
-    }
+    const out: Tile[] = sortCards(s.cards, this.sortBy()).map((card) => ({ key: `c${card.id}`, unit: card.unit, card }));
     for (const u of Object.values(UNITS).sort(unitOrder)) {
       // Units no pack holds (a practice dummy, say) have no place here.
       if (!holds(s, u.id) && PACKS.some((p) => p.set === u.set)) out.push({ key: `u:${u.id}`, unit: u.id });

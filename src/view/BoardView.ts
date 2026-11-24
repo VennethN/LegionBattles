@@ -25,7 +25,7 @@ import {
 } from './layout';
 import { Numbers } from './Numbers';
 import { SHEET, sheet } from './Sheet';
-import { STATUS_COLOR } from './ui/colors';
+import { RARITY_MAT, STATUS_COLOR } from './ui/colors';
 import { label } from './ui/widgets';
 import { UnitView } from './UnitView';
 
@@ -43,6 +43,12 @@ export interface BoardHooks {
   onEnd?: (winner: number) => void;
   /** The player put one of their units on another tile. The team's placements are already changed. */
   onPlaced?: () => void;
+  /**
+   * A unit's level, for the chip beside its health bar: a card's for the
+   * player's, the stage's for the enemy's. Left out, or undefined for a
+   * unit, and that unit has no chip.
+   */
+  levelOf?: (p: Placement, team: 'blue' | 'red') => number | undefined;
 }
 
 export class BoardView {
@@ -167,6 +173,7 @@ export class BoardView {
   private makeView(p: Placement, team: 'blue' | 'red', n: number): UnitView {
     const def = UNITS[p.unit];
     const accent = accentOf(def.projectile?.kind);
+    const level = this.hooks.levelOf?.(p, team);
     const view = new UnitView(
       this.scene,
       p.unit,
@@ -176,6 +183,7 @@ export class BoardView {
       accent ? hex(accent.light) : null,
       hash32(this.seed * 31 + n * 7 + (team === 'red' ? 1000 : 0)),
       (def.scale ?? 1) * (p.scale ?? 1),
+      level === undefined ? null : { level, color: hex(RARITY_MAT[def.rarity].fill) },
     );
     view.x = tileScreenX(p.col);
     view.y = tileScreenY(p.row);
