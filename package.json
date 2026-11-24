@@ -10,7 +10,8 @@
     "test": "vitest run",
     "art": "tsx scripts/art.ts",
     "art:sheet": "tsx scripts/sheet.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "balance": "tsx scripts/balance.ts"
   },
   "dependencies": {
     "@fontsource/fredoka": "^5.3.0",
