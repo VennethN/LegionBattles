@@ -9,7 +9,8 @@ import { COPY_XP, OTHER_UNIT, addCard, cardOf, cardsOf, combine, combinePreview,
 import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
 import {
   BASE_TEAM, MAX_STRUCTURES, MAX_TEAM, STRUCTURES_AT, STRUCTURE_PACK, STRUCTURE_SHARE, TEAM_AT, addXp, beaten, bestTeam, buyPack, cardPower,
-  cleared, clearedIn, finishStage, frontier, inTeam, isEnemyTile, known, lineDone, openPack, packHolds, packOpen, packPool, packsHeld, rollPack, roomFor,
+  buyPacks, cleared, clearedIn, finishStage, frontier, inTeam, isEnemyTile, known, lineDone, openPack, openPacks, packHolds, packOdds, packOpen,
+  packPool, packsHeld, rollPack, roomFor,
   stageCleared, stageEnemies, stageInput, stageOpen, stagePay, stageXp, startingSave, structuresIn, structuresSize, teamSize, tidyTeam, toggleTeam,
   unitsIn, worldDone, worldNeeds, worldOpen, worldReached, type StageResult,
 } from '../src/game/rules';
@@ -644,6 +645,63 @@ describe('packs', () => {
   });
 });
 
+
+describe('opening and buying many packs', () => {
+  it('opening several is opening one that many times, and stops when there are no more', () => {
+    const a = startingSave(9);
+    const b = startingSave(9);
+    a.packs.recruit = 5;
+    b.packs.recruit = 5;
+    const many = openPacks(a, 'recruit', 3);
+    const single = [openPack(b, 'recruit'), openPack(b, 'recruit'), openPack(b, 'recruit')];
+    expect(many).toEqual(single);
+    expect(a.packs.recruit).toBe(2);
+    expect(a.cards).toEqual(b.cards);
+    // Asking for more than are held opens what there is.
+    expect(openPacks(a, 'recruit', 10)).toHaveLength(2);
+    expect(openPacks(a, 'recruit', 10)).toEqual([]);
+    expect(a.stats.opened).toBe(5);
+  });
+
+  it('buying several stops at what the coins will pay for', () => {
+    const save = startingSave(9);
+    const cost = packById('recruit').cost;
+    save.coins = cost * 3 + 5;
+    expect(buyPacks(save, 'recruit', 10)).toBe(3);
+    expect(save.coins).toBe(5);
+    expect(save.packs.recruit).toBe(2 + 3);
+    // A pack that is not sold yet is not bought.
+    save.coins = 100000;
+    expect(buyPacks(save, 'royal', 2)).toBe(0);
+    expect(save.coins).toBe(100000);
+  });
+
+  it('a pack says how likely each thing in it is, and that is how it is rolled', () => {
+    const save = startingSave(3);
+    for (const pack of allPacks()) {
+      const odds = packOdds(save, pack);
+      expect(odds.map((o) => o.unit.id).sort(), pack.id).toEqual(packPool(save, pack).map((u) => u.id).sort());
+      expect(odds.reduce((n, o) => n + o.chance, 0), pack.id).toBeCloseTo(1, 9);
+      for (const o of odds) expect(o.chance, `${pack.id}: ${o.unit.id}`).toBeGreaterThan(0);
+    }
+    // A land's pack: a structure one time in five, and a Legendary rarely.
+    const thornwood = packOdds(save, packById('thornwood'));
+    expect(thornwood.filter((o) => isStructure(o.unit.id)).reduce((n, o) => n + o.chance, 0)).toBeCloseTo(STRUCTURE_SHARE, 9);
+    expect(thornwood.find((o) => o.unit.id === 'warlord')!.chance).toBeLessThan(0.02);
+    // Rolled many times, a unit comes up about as often as the pack said.
+    const rng = new Rng(5);
+    const n = 6000;
+    const seen = new Map<string, number>();
+    for (let i = 0; i < n; i++) {
+      const id = rollPack(save, packById('thornwood'), rng).unit.id;
+      seen.set(id, (seen.get(id) ?? 0) + 1);
+    }
+    for (const o of thornwood) {
+      if (o.chance > 0.05) expect((seen.get(o.unit.id) ?? 0) / n, o.unit.id).toBeGreaterThan(o.chance * 0.8);
+      expect((seen.get(o.unit.id) ?? 0) / n, o.unit.id).toBeLessThan(o.chance * 1.25 + 0.01);
+    }
+  });
+});
 
 describe('cards', () => {
   it('level with experience, up to a ceiling', () => {

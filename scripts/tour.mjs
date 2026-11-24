@@ -162,16 +162,44 @@ await page.waitForTimeout(300);
 await close('Team');
 await overlay('Shop');
 await page.screenshot({ path: `${out}/13-packs.png` });
-// Open a Royal Pack, for the picture of a card being turned over.
-// The shelf has six packs now, each as wide as there is room for; the Royal Pack is the last.
-const shelf = 6;
-const pitch = Math.min(244, (1280 - 24) / shelf);
-await page.mouse.click(640 + ((shelf - 1) / 2) * pitch, 372 + 140);
+// Every pack has a slot, laid out as the cards on the screen of units are. Pressing one brings it up on the right.
+const slot = (col, row) => [96 + col * 140, 145 + row * 140];
+const openOne = [884 + 186 - 88, 78 + 620 - 112];
+const openMany = [884 + 186 + 88, 78 + 620 - 112];
+const turned = () => page.waitForFunction(() => !window.game.scene.getScene('Shop').busy, null, { timeout: 30000 });
+// A pack that is not sold yet says what opens it.
+await page.mouse.click(...slot(3, 2));
+await page.waitForTimeout(300);
+await page.screenshot({ path: `${out}/13b-pack-not-sold.png` });
+// The Royal Pack, the third along the top: open one, for the picture of a card being turned over.
+await page.mouse.click(...slot(2, 0));
+await page.waitForTimeout(300);
+await page.screenshot({ path: `${out}/13c-pack-in-focus.png` });
+await page.mouse.click(...openOne);
+await page.waitForTimeout(900);
+await page.screenshot({ path: `${out}/14a-press-to-open.png` });
+await page.mouse.click(640, 360);
+await page.waitForTimeout(600);
+await turned();
+await page.waitForTimeout(500);
+await page.screenshot({ path: `${out}/14-card.png` });
+// DONE, then the Expert Thornwood Pack, of which three are held: all opened at one press.
+const done = await page.evaluate(() => window.game.scene.getScene('Shop').doneRect);
+await page.mouse.click(done.x + done.w / 2, done.y + done.h / 2);
+await page.waitForTimeout(600);
+await page.mouse.click(...slot(2, 1));
+await page.waitForTimeout(300);
+const opened = await page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).stats.opened);
+await page.mouse.click(...openMany);
 await page.waitForTimeout(900);
 await page.mouse.click(640, 360);
-await page.waitForFunction(() => { const sc = window.game.scene.getScene('Shop'); return !sc.busy && sc.show.length > 6; }, null, { timeout: 30000 });
-await page.waitForTimeout(400);
-await page.screenshot({ path: `${out}/14-card.png` });
+await page.waitForTimeout(1500);
+await page.screenshot({ path: `${out}/14b-cards-dealt.png` });
+await turned();
+await page.waitForTimeout(500);
+await page.screenshot({ path: `${out}/14c-three-cards.png` });
+const openedNow = await page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).stats.opened);
+if (openedNow !== opened + 3) throw new Error(`three packs were held and ${openedNow - opened} were opened at once`);
 
 for (const [at, name] of [[21, 'colossus'], [36, 'jarl']]) {
   await load(at);

@@ -692,6 +692,50 @@ export function openPack(save: SaveData, packId: string): Pull | null {
   };
 }
 
+/**
+ * Opens up to `count` packs of a kind, one after another, as pressing OPEN
+ * that many times would. Returns what each turned over, in order. Changes
+ * the save.
+ */
+export function openPacks(save: SaveData, packId: string, count: number): Pull[] {
+  const out: Pull[] = [];
+  for (let i = 0; i < count; i++) {
+    const pull = openPack(save, packId);
+    if (!pull) break;
+    out.push(pull);
+  }
+  return out;
+}
+
+/** Buys up to `count` packs of a kind. Returns how many were bought. */
+export function buyPacks(save: SaveData, packId: string, count: number): number {
+  let n = 0;
+  while (n < count && buyPack(save, packId)) n++;
+  return n;
+}
+
+/**
+ * The chance of each thing a pack can turn over, as rollPack rolls it: a
+ * structure or a person first if it holds both, then a tier by weight among
+ * the tiers that kind has, then one of that tier. They add up to 1.
+ */
+export function packOdds(save: SaveData, pack: PackDef): Array<{ unit: UnitInfo; chance: number }> {
+  const all = packPool(save, pack);
+  const built = all.filter((u) => isStructure(u.id));
+  const people = all.filter((u) => !isStructure(u.id));
+  const of = (pool: UnitInfo[], share: number): Array<{ unit: UnitInfo; chance: number }> => {
+    const tiers = RARITIES.filter((r) => pool.some((u) => u.rarity === r));
+    let total = 0;
+    for (const t of tiers) total += RARITY[t].weight;
+    return pool.map((unit) => ({
+      unit,
+      chance: (share * RARITY[unit.rarity].weight) / total / pool.filter((u) => u.rarity === unit.rarity).length,
+    }));
+  };
+  if (built.length > 0 && people.length > 0) return [...of(people, 1 - STRUCTURE_SHARE), ...of(built, STRUCTURE_SHARE)];
+  return of(all, 1);
+}
+
 /** Buys a pack with coins. Returns false if it is not sold yet or costs too much. */
 export function buyPack(save: SaveData, packId: string): boolean {
   const pack = packById(packId);
