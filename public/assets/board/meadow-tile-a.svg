@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="meadow-tile-a" width="120" height="96" viewBox="0 0 120 96">
-<path id="meadow-tile-a-ground" d="M 12 2 L 108 2 Q 118 2 118 12 L 118 84 Q 118 94 108 94 L 12 94 Q 2 94 2 84 L 2 12 Q 2 2 12 2 Z" fill="#7fb956"/>
+<svg xmlns="http://www.w3.org/2000/svg" id="meadow-tile-a" width="120" height="102" viewBox="0 0 120 102">
+<path id="meadow-tile-a-ground" d="M 12 2 L 108 2 Q 118 2 118 12 L 118 90 Q 118 100 108 100 L 12 100 Q 2 100 2 90 L 2 12 Q 2 2 12 2 Z" fill="#7fb956"/>
 <path id="meadow-tile-a-tuft-0" d="M 26 30 C 26.5 28.7 28 22 29 22 C 30 22 31 29.7 32 30 C 33 30.3 34 24 35 24 C 36 24 37.5 29 38 30 L 26 30 Z" fill="#93c96a"/>
 <path id="meadow-tile-a-tuft-1" d="M 84 62 C 84.5 60.7 86 54 87 54 C 88 54 89 61.7 90 62 C 91 62.3 92 56 93 56 C 94 56 95.5 61 96 62 L 84 62 Z" fill="#93c96a"/>
 </svg>

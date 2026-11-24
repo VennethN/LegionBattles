@@ -28,7 +28,7 @@ const ATTACK = 0;
 const HEAL = 1;
 const SKILL = 2;
 
-const DEFAULT_RADIUS = 0.27;
+const DEFAULT_RADIUS = 0.3;
 /** How much of an overlap is pushed out each step. Less than all of it, so units slide rather than jump. */
 const PUSH = 0.6;
 /** How far ahead, beyond touching, a walking unit starts to steer round another. */

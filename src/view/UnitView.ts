@@ -1,0 +1,352 @@
+// One unit on the board: its parts as sprites, moved every frame by the rig.
+//
+// Nothing here is frame-by-frame drawing. Every movement is a pose (a set of
+// offsets for the parts) blended in and out over time: standing and
+// breathing, hopping along, winding up and striking, being hit, falling.
+// The blends are worked out from the battle's own clock, so a blow lands on
+// the frame the simulation says it lands, at any speed.
+//
+// Nothing is allocated per frame.
+
+import Phaser from 'phaser';
+import type { ManifestUnit } from '../art/manifest';
+import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE } from '../art/poses';
+import { addPose, clearPose, makeXforms, restPose, solve, type PartXform, type Pose } from '../art/rig';
+import { OUTLINE } from '../art/kit/palette';
+import { ART_SCALE, hex } from './config';
+import { UNIT_SCALE } from './layout';
+import { SHEET, Sheet } from './Sheet';
+
+const RAD = Math.PI / 180;
+const INV_ART = 1 / ART_SCALE;
+
+/** Seconds a blow takes to come back to rest after it lands. */
+const RECOVER = 0.3;
+/** Seconds a hit's flinch lasts, and its white flash. */
+const FLINCH = 0.26;
+const FLASH = 0.09;
+/** Seconds to fall over, to lie there, and to fade. */
+const FALL = 0.42;
+const LIE = 0.55;
+const FADE = 0.45;
+
+const BAR_W = 50;
+const BAR_H = 7;
+
+function easeOutCubic(t: number): number {
+  const u = 1 - t;
+  return 1 - u * u * u;
+}
+function easeInQuad(t: number): number {
+  return t * t;
+}
+function easeOutBack(t: number): number {
+  const c = 1.70158;
+  const u = t - 1;
+  return 1 + (c + 1) * u * u * u + c * u * u;
+}
+
+export class UnitView {
+  readonly root: Phaser.GameObjects.Container;
+  /** Where its feet are on the screen. Set these, then call update. */
+  x = 0;
+  y = 0;
+  facing: 1 | -1 = 1;
+  moving = false;
+  /** Raised off the ground while it is being dragged. */
+  lift = 0;
+  /** Hopping on the spot: the winners do, when a battle ends. */
+  cheering = false;
+  /** 0 to 1. */
+  health = 1;
+  /** How fast it hops when walking: its speed over the usual. */
+  stride = 1;
+
+  private readonly sprites: Phaser.GameObjects.Image[] = [];
+  private readonly xf: PartXform[];
+  private readonly pose: Pose = restPose();
+  private readonly weaponIndex: number;
+  private readonly glow: Phaser.GameObjects.Image | null;
+  private readonly barBack: Phaser.GameObjects.Image;
+  private readonly barLag: Phaser.GameObjects.Image;
+  private readonly barFill: Phaser.GameObjects.Image;
+  private readonly phase: number;
+
+  private turn: number;
+  private hopT = 0;
+  private hopBlend = 0;
+  private actAt = -1;
+  private actWindup = 0.3;
+  private actBig = false;
+  private hitAt = -1;
+  private hitDir = 1;
+  private flashOn = false;
+  private deadAt = -1;
+  private lagHealth = 1;
+  private gone = false;
+
+  constructor(
+    scene: Phaser.Scene,
+    readonly unitId: string,
+    readonly team: 'blue' | 'red',
+    private readonly art: ManifestUnit,
+    barColor: number,
+    glowColor: number | null,
+    seed: number,
+  ) {
+    this.root = scene.add.container(0, 0);
+    this.xf = makeXforms(art.parts.length);
+    let weapon = -1;
+    art.parts.forEach((part, i) => {
+      // The frame knows its own pivot (Sheet sets it), so the sprite turns about the right point.
+      const img = scene.add.image(0, 0, SHEET, Sheet.unitFrame(team, unitId, part.name));
+      img.setScale(INV_ART);
+      this.sprites.push(img);
+      this.root.add(img);
+      if (part.role === 'weapon') weapon = i;
+    });
+    this.weaponIndex = weapon;
+
+    // The glow a caster gathers at the tip of what it holds.
+    this.glow = null;
+    if (glowColor !== null && weapon >= 0) {
+      this.glow = scene.add.image(0, 0, SHEET, 'fx/disc').setScale(0).setTint(glowColor);
+      this.root.add(this.glow);
+    }
+
+    this.barBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setOrigin(0.5, 0.5);
+    this.barLag = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(0xffffff).setOrigin(0, 0.5);
+    this.barFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(barColor).setOrigin(0, 0.5);
+    this.barBack.setDisplaySize(BAR_W + 6, BAR_H + 6);
+    this.setBarsVisible(false);
+
+    // Its own rhythm, so that a row of units does not breathe as one.
+    this.phase = ((seed * 2654435761) >>> 0) / 4294967296 * 20;
+    this.turn = team === 'blue' ? 1 : -1;
+    this.facing = this.turn as 1 | -1;
+  }
+
+  /** A blow, a shot or a cast begins and will land in `windup` seconds. */
+  attack(now: number, windup: number, big: boolean): void {
+    this.actAt = now;
+    this.actWindup = Math.max(0.05, windup);
+    this.actBig = big;
+  }
+
+  /** It was hurt. `fromX` is where the blow came from, on the screen. */
+  hit(now: number, fromX: number): void {
+    this.hitAt = now;
+    const away = this.x >= fromX ? 1 : -1;
+    // In the unit's own frame, back is negative: knocked the way the blow was going.
+    this.hitDir = away === this.facing ? -1 : 1;
+  }
+
+  die(now: number): void {
+    if (this.deadAt < 0) this.deadAt = now;
+    this.actAt = -1;
+    this.moving = false;
+  }
+
+  get dead(): boolean {
+    return this.deadAt >= 0;
+  }
+
+  /** When the falling unit meets the ground, for the dust. */
+  get landsAt(): number {
+    return this.deadAt + FALL;
+  }
+
+  /** The point on the screen where its shots leave from, with `out` filled as [x, height]. */
+  muzzleHeight(): number {
+    return (180 - this.art.muzzle[1]) * UNIT_SCALE;
+  }
+  muzzleReach(): number {
+    return (this.art.muzzle[0] - 96) * UNIT_SCALE * this.facing;
+  }
+
+  /** How tall it stands, for what floats over it. */
+  get height(): number {
+    return (180 - this.art.top) * UNIT_SCALE;
+  }
+
+  /** The health bar shows only while there is a fight on. */
+  setBarsVisible(on: boolean): void {
+    this.barBack.setVisible(on);
+    this.barLag.setVisible(on);
+    this.barFill.setVisible(on);
+  }
+
+  update(now: number, dt: number): void {
+    if (this.gone) return;
+    const p = this.pose;
+    clearPose(p);
+    const t = now + this.phase;
+
+    // Standing: a slow breath, the head a beat behind, what is held swaying.
+    const breath = Math.sin(t * 2.7);
+    p.bodySy += 0.022 * breath;
+    p.bodySx -= 0.014 * breath;
+    p.headY += 1.1 * Math.sin(t * 2.7 - 0.7);
+    p.headRot += 1.4 * Math.sin(t * 1.6);
+    p.weaponRot += 2.6 * Math.sin(t * 2.1 + 1);
+    p.offRot += 1.8 * Math.sin(t * 1.9 + 2);
+    p.extraRot += 5 * Math.sin(t * 2.3 + 0.5);
+
+    // Walking, and cheering, are small hops.
+    const hopping = (this.moving || this.cheering) && this.deadAt < 0;
+    this.hopBlend += ((hopping ? 1 : 0) - this.hopBlend) * Math.min(1, dt * 12);
+    if (hopping || this.hopBlend > 0.02) {
+      this.hopT += dt * (this.cheering ? 2.4 : 2.9 * this.stride);
+      const h = Math.abs(Math.sin(this.hopT * Math.PI));
+      addPose(p, HOP_POSE, h * this.hopBlend);
+      const land = 1 - h;
+      addPose(p, LAND_POSE, land * land * land * land * this.hopBlend);
+      if (this.cheering) p.weaponRot -= 30 * h * this.hopBlend;
+    } else {
+      this.hopT = 0;
+    }
+
+    // A blow: back, a held breath, then through, to arrive exactly on time.
+    let charge = 0;
+    if (this.actAt >= 0) {
+      const poses = ATTACK_POSES[this.art.style];
+      const e = now - this.actAt;
+      const reach = this.actBig ? 1.3 : 1;
+      if (e < this.actWindup) {
+        const u = e / this.actWindup;
+        if (u < 0.55) addPose(p, poses.windup, easeOutCubic(u / 0.55) * reach);
+        else if (u < 0.78) addPose(p, poses.windup, reach * (1 + 0.06 * Math.sin(((u - 0.55) / 0.23) * Math.PI)));
+        else {
+          const k = easeInQuad((u - 0.78) / 0.22);
+          addPose(p, poses.windup, (1 - k) * reach);
+          addPose(p, poses.strike, k * reach);
+        }
+        charge = Math.min(1, u / 0.7);
+      } else {
+        const r = (e - this.actWindup) / RECOVER;
+        if (r >= 1) this.actAt = -1;
+        else {
+          addPose(p, poses.strike, (1 - easeOutBack(Math.min(1, r * 1.1))) * reach);
+          charge = Math.max(0, 1 - r * 3);
+        }
+      }
+    }
+
+    // A hit: knocked back and squashed, and white for a moment.
+    let flash = false;
+    if (this.hitAt >= 0) {
+      const e = now - this.hitAt;
+      if (e >= FLINCH) this.hitAt = -1;
+      else {
+        const k = e < 0.04 ? e / 0.04 : 1 - (e - 0.04) / (FLINCH - 0.04);
+        addPose(p, HIT_POSE, k);
+        if (this.hitDir > 0) {
+          // Struck from behind: the same flinch, the other way.
+          p.rootX -= 2 * HIT_POSE.rootX * k;
+          p.bodyRot -= 2 * HIT_POSE.bodyRot * k;
+          p.headRot -= 2 * HIT_POSE.headRot * k;
+        }
+        flash = e < FLASH;
+      }
+    }
+    if (flash !== this.flashOn) {
+      this.flashOn = flash;
+      for (let i = 0; i < this.sprites.length; i++) {
+        const s = this.sprites[i];
+        if (this.art.parts[i].role === 'shadow') continue;
+        if (flash) s.setTint(0xffffff).setTintMode(Phaser.TintModes.FILL);
+        else s.clearTint().setTintMode(Phaser.TintModes.MULTIPLY);
+      }
+    }
+
+    // Falling: over backwards, a small bounce, a moment on the ground, gone.
+    let alpha = 1;
+    if (this.deadAt >= 0) {
+      const e = now - this.deadAt;
+      const k = Math.min(1, e / FALL);
+      let rot = -90 * easeInQuad(k);
+      if (e > FALL) {
+        const b = Math.min(1, (e - FALL) / 0.22);
+        rot += 9 * Math.sin(b * Math.PI) * (1 - b);
+      }
+      p.rootRot += rot;
+      p.rootY += -10 * Math.sin(k * Math.PI);
+      p.rootX += -10 * k;
+      p.weaponRot += -40 * k;
+      p.headRot += -14 * k;
+      const fade = (e - FALL - LIE) / FADE;
+      if (fade >= 1) {
+        this.gone = true;
+        this.root.setVisible(false);
+        this.setBarsVisible(false);
+        return;
+      }
+      if (fade > 0) alpha = 1 - fade;
+    }
+
+    p.rootY -= this.lift;
+
+    solve(this.art.parts, p, this.xf);
+    for (let i = 0; i < this.sprites.length; i++) {
+      const s = this.sprites[i];
+      const o = this.xf[i];
+      s.x = o.x;
+      s.y = o.y;
+      s.rotation = o.rot * RAD;
+      s.scaleX = o.sx * INV_ART;
+      s.scaleY = o.sy * INV_ART;
+    }
+
+    if (this.glow) {
+      const o = this.xf[this.weaponIndex];
+      const part = this.art.parts[this.weaponIndex];
+      const lx = this.art.muzzle[0] - part.pivot[0];
+      const ly = this.art.muzzle[1] - part.pivot[1];
+      const c = Math.cos(o.rot * RAD);
+      const s = Math.sin(o.rot * RAD);
+      this.glow.x = o.x + lx * c - ly * s;
+      this.glow.y = o.y + lx * s + ly * c;
+      const size = charge * (this.actBig ? 1.5 : 1) * (0.9 + 0.1 * Math.sin(now * 30));
+      this.glow.setScale(size * INV_ART * 1.3);
+      this.glow.setVisible(charge > 0.02);
+    }
+
+    // Turning round is a quick flip through flat, like a card.
+    this.turn += (this.facing - this.turn) * Math.min(1, dt * 20);
+    const root = this.root;
+    root.x = this.x;
+    root.y = this.y;
+    root.scaleX = this.turn * UNIT_SCALE;
+    root.scaleY = UNIT_SCALE;
+    root.alpha = alpha;
+    root.depth = this.y + (this.lift > 0 ? 1000 : 0);
+
+    // The health bar: what is left in the team's color, what was just lost in white behind it.
+    if (this.health < this.lagHealth) this.lagHealth = Math.max(this.health, this.lagHealth - dt * 0.6);
+    else this.lagHealth = this.health;
+    const bx = this.x - BAR_W / 2;
+    const by = this.y - this.height - 9 - this.lift;
+    this.barBack.x = this.x;
+    this.barBack.y = by;
+    this.barLag.x = bx;
+    this.barLag.y = by;
+    this.barFill.x = bx;
+    this.barFill.y = by;
+    this.barLag.setDisplaySize(Math.max(0.001, BAR_W * this.lagHealth), BAR_H);
+    this.barFill.setDisplaySize(Math.max(0.001, BAR_W * this.health), BAR_H);
+    const depth = 5000 + this.y;
+    this.barBack.depth = depth;
+    this.barLag.depth = depth + 0.1;
+    this.barFill.depth = depth + 0.2;
+    this.barBack.alpha = alpha;
+    this.barLag.alpha = alpha;
+    this.barFill.alpha = alpha;
+  }
+
+  destroy(): void {
+    this.root.destroy();
+    this.barBack.destroy();
+    this.barLag.destroy();
+    this.barFill.destroy();
+  }
+}

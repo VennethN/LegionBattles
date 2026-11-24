@@ -81,7 +81,7 @@ export interface UnitDef {
   armor: number;
   /** Pixels a second. */
   speed: number;
-  /** Tiles: how much room the unit takes. 0.27 if left out. */
+  /** Tiles: how much room the unit takes. 0.3 if left out. */
   radius?: number;
   /** Set for a unit that shoots: what flies and how fast, in pixels a second. */
   projectile?: { kind: string; speed: number };

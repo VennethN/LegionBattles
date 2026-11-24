@@ -8,7 +8,7 @@ import { OUTLINE, SHADOW_OPACITY } from './kit/palette';
 
 /** A tile on screen. The board is seen a little from above, so it is wider than tall. */
 export const TILE_W = 120;
-export const TILE_H = 96;
+export const TILE_H = 102;
 
 export interface BoardArt {
   name: string;

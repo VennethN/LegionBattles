@@ -704,7 +704,7 @@
  "board": {
   "meadow-tile-a": {
    "width": 120,
-   "height": 96,
+   "height": 102,
    "origin": [
     0,
     0
@@ -712,7 +712,7 @@
   },
   "meadow-tile-b": {
    "width": 120,
-   "height": 96,
+   "height": 102,
    "origin": [
     0,
     0
