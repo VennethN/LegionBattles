@@ -1,10 +1,14 @@
 #!/usr/bin/env node
-// node sync.mjs <project> [--check]
+// node sync.mjs <project> [--check] [--adopt]
 //
 // Takes a project's art source back into the skill (assets/kit), so that
 // the next game starts from what this one added: every file the kit has,
 // and every new file in the folders the kit owns whole. --check changes
 // nothing and fails if the two differ, for a test to run.
+//
+// The kit remembers which project it was last taken from. Asked to take
+// from another, it stops: that project's files may be the older ones, and
+// would go over the newer. --adopt says they are to be taken all the same.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -36,7 +40,25 @@ function filesOf(dir, base = dir) {
   return out.sort();
 }
 
-const wanted = new Set(filesOf(kit));
+/** The project's name, by its package.json, and the name of the project the kit was last taken from. */
+const SOURCE = path.join(kit, '.source');
+let name = path.basename(project);
+try {
+  name = JSON.parse(fs.readFileSync(path.join(project, 'package.json'), 'utf8')).name ?? name;
+} catch {
+  // No package.json: the folder's name will do.
+}
+const last = fs.existsSync(SOURCE) ? fs.readFileSync(SOURCE, 'utf8').trim() : '';
+if (!check && last && last !== name && !args.includes('--adopt')) {
+  console.error(
+    `sync: the kit was last taken from "${last}", and this project is "${name}".\n` +
+      `Its files would go over the kit's, which may be the newer. Look first (--check lists where they differ),\n` +
+      `and pass --adopt if this project's are the ones to keep.`,
+  );
+  process.exit(2);
+}
+
+const wanted = new Set(filesOf(kit).filter((rel) => rel !== '.source'));
 for (const folder of WHOLE) for (const rel of filesOf(path.join(project, folder))) wanted.add(path.join(folder, rel));
 
 const differs = [];
@@ -61,8 +83,16 @@ for (const rel of [...wanted].sort()) {
 }
 if (check) {
   if (differs.length > 0) {
-    console.error(`sync: the skill's kit is behind the project in ${differs.length} files:\n  ${differs.join('\n  ')}\nRun: node ${path.relative(project, path.join(here, 'sync.mjs'))} .`);
+    console.error(
+      `sync: the skill's kit and the project differ in ${differs.length} files:\n  ${differs.join('\n  ')}\n` +
+        (last && last !== name
+          ? `The kit was last taken from "${last}", so its copies may be the newer ones.`
+          : `Run: node ${path.relative(project, path.join(here, 'sync.mjs'))} .`),
+    );
     process.exit(1);
   }
   console.log('sync: the skill has the project\'s kit');
-} else console.log(`sync: ${copied} files taken into the skill`);
+} else {
+  fs.writeFileSync(SOURCE, `${name}\n`);
+  console.log(`sync: ${copied} files taken into the skill from "${name}"`);
+}

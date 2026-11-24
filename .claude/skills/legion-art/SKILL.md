@@ -85,4 +85,6 @@ node .claude/skills/legion-art/scripts/sync.mjs .           # project -> skill
 node .claude/skills/legion-art/scripts/sync.mjs . --check   # fail if they differ
 ```
 
+The kit remembers which project it was last taken from, and will not take from another without `--adopt`: an older game's files would otherwise go over what a newer one added. Before adopting, run `--check` and read the files it lists on both sides.
+
 If something about the look is decided anew (the owner asks for more shading, a rule turns out wrong), write it into `references/rules.md` with the reason. The rules there each came from a picture that went wrong.

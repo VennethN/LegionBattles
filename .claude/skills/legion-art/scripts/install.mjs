@@ -34,6 +34,8 @@ if (!fs.existsSync(kit)) {
 let copied = 0;
 let kept = 0;
 for (const rel of filesOf(kit)) {
+  // The kit's note of where it was last taken from is the kit's own.
+  if (rel === '.source') continue;
   const to = path.join(target, rel);
   const there = fs.existsSync(to);
   if (there && !flags.has('--force')) {
