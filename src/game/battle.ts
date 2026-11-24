@@ -243,7 +243,8 @@ export class Battle {
     this.walkUp(spawnSeconds(this.save) + 0.8);
   }
 
-  private feats(): void {
+  /** Says which feats have just been done. The fight asks as it goes; whoever buys something asks too, as a feat may be for that. */
+  feats(): void {
     const done = claimFeats(this.save);
     for (const feat of done) this.emit('feat', FEATS.indexOf(feat));
   }

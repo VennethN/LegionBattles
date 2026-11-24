@@ -330,30 +330,38 @@ export class ListScene extends Phaser.Scene {
   private rebirth(y0: number): number {
     const w = this.width();
     let y = y0;
-    // What a rebirth is, what it would win, and the button.
-    const ch = 214;
-    slabImage(this, PAD, y, w, ch, BONE, 14, 6);
-    this.add.image(PAD + 34, y + 30, SHEET, 'icon/laurel').setScale(0.8 * INV_ART);
-    this.dark('MUSTER AGAIN', PAD + 62, y + 30, 21);
-    label(this, PAD + 16, y + 82, 'Give up this road, its gold, your heroes\' levels and the camp, and start again stronger. Laurels, honors and feats are kept.', {
+    // What a rebirth is, what it would win, and the button. The words are of no fixed length, so the card is
+    // made as tall as they turn out, and laid under them afterwards.
+    const left = PAD + 16;
+    const icon = this.add.image(PAD + 34, y + 30, SHEET, 'icon/laurel').setScale(0.8 * INV_ART);
+    const title = this.dark('MUSTER AGAIN', PAD + 62, y + 30, 21);
+    const about = label(this, left, y + 54, "Give up this road, its gold, your heroes' levels and the camp, and start again stronger. Laurels, honors and feats are kept.", {
       size: 14, weight: 600, align: 'left', color: OUTLINE, stroke: null, wrap: w - 32,
-    });
-    const held = this.dark('', PAD + 16, y + 128, 14, 600);
-    const win = this.dark('', PAD + 16, y + 148, 14, 600);
-    const button = new BuyButton(this, PAD + w / 2, y + ch - 34, Math.min(300, w - 40), 50, 'icon/laurel', () => {
+    }).setOrigin(0, 0);
+    const facts = label(this, left, about.y + about.height + 10, '', { size: 14, weight: 600, align: 'left', color: OUTLINE, stroke: null, wrap: w - 32 }).setOrigin(0, 0);
+    const words = (): string => {
+      const sv = save();
+      const held = `Laurels ever won: ${sv.laurelsEver}. Each is ${percent(LAUREL_DAMAGE)} more damage: ${percent(sv.laurelsEver * LAUREL_DAMAGE)} now.`;
+      if (!canRebirth(sv)) return `${held}\nReach stage ${REBIRTH_STAGE} to muster again. This run has reached stage ${sv.run.top}.`;
+      const n = laurelsFor(sv.run.top);
+      return `${held}\nThis run reached stage ${sv.run.top}: worth ${n} ${n === 1 ? 'laurel' : 'laurels'}. Further is worth more.`;
+    };
+    facts.setText(words());
+    // Room for the facts to run to a line more than they do now, as their numbers grow.
+    const by = facts.y + facts.height + 18 + 16 + 32;
+    const ch = by + 32 + 16 - y;
+    const button = new BuyButton(this, PAD + w / 2, by, Math.min(300, w - 40), 64, 'icon/laurel', () => {
       this.scene.launch('Modal', { kind: 'rebirth' });
     });
+    const card = slabImage(this, PAD, y, w, ch, BONE, 14, 6);
+    this.children.sendToBack(card);
+    void icon;
+    void title;
     this.rows.push(() => {
       const sv = save();
-      held.setText(`Laurels ever won: ${sv.laurelsEver}, each ${percent(LAUREL_DAMAGE)} more damage (${percent(sv.laurelsEver * LAUREL_DAMAGE)} now)`);
-      if (canRebirth(sv)) {
-        const n = laurelsFor(sv.run.top);
-        win.setText(`This run reached stage ${sv.run.top}: worth ${n} ${n === 1 ? 'laurel' : 'laurels'}. Further is worth more.`);
-        button.set('REBIRTH', `+${n}`, true, VENOM);
-      } else {
-        win.setText(`Reach stage ${REBIRTH_STAGE} to be able to. This run has reached stage ${sv.run.top}.`);
-        button.set(`STAGE ${REBIRTH_STAGE} FIRST`, '', false);
-      }
+      facts.setText(words());
+      if (canRebirth(sv)) button.set('REBIRTH', `+${laurelsFor(sv.run.top)}`, true, VENOM);
+      else button.set(`STAGE ${REBIRTH_STAGE} FIRST`, '', false);
     });
     y += ch + GAP;
 

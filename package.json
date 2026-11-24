@@ -14,7 +14,8 @@
     "art": "tsx scripts/art.ts",
     "art:sheet": "tsx scripts/sheet.ts",
     "pace": "tsx scripts/pace.ts",
-    "cover": "tsx scripts/cover.ts"
+    "cover": "tsx scripts/cover.ts",
+    "walk": "tsx scripts/walk.ts"
   },
   "dependencies": {
     "@fontsource/fredoka": "^5.3.0",

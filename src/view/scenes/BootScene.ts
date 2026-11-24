@@ -15,7 +15,7 @@ import { ART_SCALE, FONT, hex, view } from '../config';
 import { makeDigitFont } from '../Numbers';
 import { cardSheet, portraitFrame, sheet } from '../art/Sheet';
 import { save } from '../session';
-import { unitsNeeded } from '../StageView';
+import { ASSETS, unitsNeeded } from '../StageView';
 
 /** The sheet of the fight is taller than it is wide: a whole legion, its camp and a land's enemies are on it together. */
 export const SHEET_HEIGHT = 4096;
@@ -100,6 +100,7 @@ export class BootScene extends Phaser.Scene {
         // Whoever is on the road now is brought in before the first frame of it.
         void art.ensure(this, unitsNeeded(save())).then(() => {
           ads().loadingDone();
+          this.scene.launch(ASSETS);
           this.scene.start('Game');
         });
       };

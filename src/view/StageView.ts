@@ -73,6 +73,9 @@ interface Coin {
   fy: number;
 }
 
+/** The key of the scene that loads pictures for as long as the game runs (scenes/AssetsScene.ts). */
+export const ASSETS = 'Assets';
+
 /** How many ranks deep the legion stands, and how many files wide. */
 const RANKS = 5;
 const FILES = 4;
@@ -126,6 +129,11 @@ export class StageView {
   private seed = 1;
   private destroyed = false;
   private readonly offWipe: () => void;
+  /**
+   * The scene whose loader brings pictures in. It is not the scene the fight is shown in: that one is made again
+   * whenever the window changes shape, and a loader that is put away in the middle of its work never says it is done.
+   */
+  private readonly assets: Phaser.Scene;
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -140,9 +148,10 @@ export class StageView {
     this.bandBottom = rect.y + rect.h - (view.tall ? 84 : 104);
     const band = this.bandBottom - this.bandTop;
     this.unit = Math.max(0.56, Math.min(0.8, band / 520));
-    this.frontX = rect.x + rect.w * 0.46;
+    this.frontX = rect.x + rect.w * 0.47;
     // Five ranks deep, from the front one back to the edge of the screen.
-    this.colGap = Math.min(110 * this.unit, (this.frontX - rect.x - 44 * this.unit) / (RANKS - 1));
+    // The giants stand in the rearmost, and are not to be cut off by the edge of the screen.
+    this.colGap = Math.min(110 * this.unit, (this.frontX - rect.x - 86 * this.unit) / (RANKS - 1));
     this.enemyX = rect.x + rect.w * 0.75;
     this.enemyY = this.bandTop + band * 0.62;
     this.barHalf = Math.floor(Math.min(170, rect.x + rect.w - 14 - this.enemyX));
@@ -155,6 +164,7 @@ export class StageView {
     // The sheet has room for everyone in the game at once (tests/sheet.test.ts). Should it ever not, it takes
     // every figure off to make room and says so first: the fight lets go of them all, and stands them up again.
     this.offWipe = sheet.onWipe(() => this.letGo());
+    this.assets = scene.scene.get(ASSETS);
     this.land();
     this.sync();
     // An enemy is on its way from the first frame.
@@ -182,7 +192,7 @@ export class StageView {
     const id = `${key.team}/${key.unit}`;
     if (this.loading.has(id)) return;
     this.loading.add(id);
-    void this.sheet.ensure(this.scene, [key]).then(() => {
+    void this.sheet.ensure(this.assets, [key]).then(() => {
       this.loading.delete(id);
       if (!this.destroyed) then();
     });
@@ -263,9 +273,9 @@ export class StageView {
       };
       if (this.scene.textures.exists(key)) show();
       else {
-        this.scene.load.svg(key, `assets/ground/${ground}.svg`, { scale: Math.min(2, Math.max(1, view.zoom)) });
-        this.scene.load.once(`filecomplete-svg-${key}`, show);
-        this.scene.load.start();
+        this.scene.textures.once(`addtexture-${key}`, show);
+        this.assets.load.svg(key, `assets/ground/${ground}.svg`, { scale: Math.min(2, Math.max(1, view.zoom)) });
+        this.assets.load.start();
       }
     }
     for (const key of enemiesOf(stage)) this.want(key, () => {});

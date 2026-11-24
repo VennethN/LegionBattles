@@ -8,11 +8,12 @@ import { sfx } from './audio/sfx';
 import { ads } from './platform/ads';
 import { onAccount, startPortal } from './platform/portal';
 import { fit, view } from './view/config';
+import { AssetsScene } from './view/scenes/AssetsScene';
 import { BootScene } from './view/scenes/BootScene';
 import { GameScene } from './view/scenes/GameScene';
 import { ListScene } from './view/scenes/ListScene';
 import { ModalScene } from './view/scenes/ModalScene';
-import { battle, commit, reloadSave, returned, save } from './view/session';
+import { battle, commit, reloadSave, returned, save, takeEarned } from './view/session';
 
 /**
  * Starts the game. A portal is looked for first, because where there is one
@@ -47,7 +48,7 @@ async function start(): Promise<void> {
     input: { activePointers: 3 },
     // One texture to a batch, on every device: all the art of the fight is on one sheet, and it is what phones get anyway.
     render: { antialias: true, antialiasGL: view.density <= 1, roundPixels: false, maxTextures: 1, powerPreference: 'high-performance' },
-    scene: [BootScene, GameScene, ListScene, ModalScene],
+    scene: [BootScene, AssetsScene, GameScene, ListScene, ModalScene],
   });
 
   let pending = 0;
@@ -61,10 +62,8 @@ async function start(): Promise<void> {
       game.scale.resize(view.width, view.height);
       // Whatever is on the screen is laid out again for its new shape. The save and the fight are not the screen's, and go on.
       if (game.scene.isActive('Boot')) return;
-      const modal = game.scene.isActive('Modal');
       game.scene.stop('Modal');
       game.scene.getScene('Game').scene.restart();
-      void modal;
     }, 120);
   };
   window.addEventListener('resize', refit);
@@ -74,8 +73,14 @@ async function start(): Promise<void> {
   // A game in a tab nobody is looking at makes no noise, and what it does there is counted as time away.
   document.addEventListener('visibilitychange', () => {
     sfx.sleep(document.hidden);
-    if (document.hidden) commit();
-    else returned();
+    if (document.hidden) {
+      commit();
+      return;
+    }
+    returned();
+    // Long enough away to have earned something worth saying: the card for it comes up over the fight.
+    const earned = takeEarned();
+    if (earned && game.scene.isActive('Game')) game.scene.getScene('Game').scene.launch('Modal', { kind: 'away', earned });
   });
   window.addEventListener('pagehide', () => commit());
 
