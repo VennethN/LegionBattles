@@ -12,6 +12,8 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
+// Every tour is behind this player, so that none comes up over what is being looked at.
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:hall', 'tour:skills', 'tour:upgrades', 'tour:structures'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
@@ -32,7 +34,7 @@ const f = (unit, col, row) => ({ card: held[unit], unit, col, row });
 const save = (at, team) => ({
   version: 4, coins: 100, cards, nextCard: cards.length + 1, met: Object.keys(held), team,
   cleared: 60, packs: {}, rng: 5, stats: { battles: 9, wins: 6, opened: 3 }, speed: 1, sound: true,
-  tutorial: { done: true, seen: [] }, at, lostAt: null, auto: false,
+  tutorial: { done: true, seen: SEEN, at: 0, tour: null }, at, lostAt: null, auto: false,
 });
 // A team as it is written on the first field: column 3 is the front, row 0 the top.
 const compact = [

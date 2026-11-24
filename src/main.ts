@@ -2,9 +2,10 @@ import '@fontsource/fredoka/latin-600.css';
 import '@fontsource/fredoka/latin-700.css';
 import Phaser from 'phaser';
 import { GRASS } from './art/kit/palette';
+import { music } from './audio/music';
 import { sfx } from './audio/sfx';
 import { ads } from './platform/ads';
-import { applyResolution, watchFrameRate } from './view/app';
+import { applyResolution, startGraphics, watchFrameRate } from './view/app';
 import { addDays } from './view/clock';
 import { H, RES, W } from './view/config';
 import { BattleScene } from './view/scenes/BattleScene';
@@ -18,7 +19,8 @@ import { TeamScene } from './view/scenes/TeamScene';
 import { VentureScene } from './view/scenes/VentureScene';
 import { MapScene } from './view/scenes/MapScene';
 import { RewardsScene } from './view/scenes/RewardsScene';
-import { countPlaytime } from './view/session';
+import { SettingsScene } from './view/scenes/SettingsScene';
+import { countPlaytime, save } from './view/session';
 
 void ads().init();
 
@@ -27,6 +29,9 @@ void ads().init();
 for (const type of ['pointerdown', 'keydown', 'touchend'] as const) {
   window.addEventListener(type, () => sfx.unlock(), { capture: true, passive: true });
 }
+
+// The graphics setting says what the canvas is drawn at, from its first frame.
+startGraphics(save().settings.graphics);
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -47,15 +52,21 @@ const game = new Phaser.Game({
   // over is the dearest thing a weak graphics chip can be asked for. The
   // faster of two graphics chips is asked for where there are two.
   render: { antialias: true, antialiasGL: RES <= 1, roundPixels: false, maxTextures: 1, powerPreference: 'high-performance' },
-  scene: [BootScene, MainScene, BattleScene, TeamScene, IndexScene, ShopScene, MapScene, HallScene, VentureScene, PlayerScene, RewardsScene],
+  scene: [BootScene, MainScene, BattleScene, TeamScene, IndexScene, ShopScene, MapScene, HallScene, VentureScene, PlayerScene, RewardsScene, SettingsScene],
 });
 
 watchFrameRate(game);
-// Time played is counted whatever screen is up.
-game.events.on('step', (_time: number, delta: number) => countPlaytime(delta));
+// Time played is counted whatever screen is up, and the music is written down a little ahead of the clock.
+game.events.on('step', (_time: number, delta: number) => {
+  countPlaytime(delta);
+  music.update();
+});
+// A game in a tab nobody is looking at makes no noise.
+document.addEventListener('visibilitychange', () => sfx.sleep(document.hidden));
 
 // For the browser console and for the screenshot script.
 (window as unknown as { game: Phaser.Game; sfx: typeof sfx }).game = game;
 (window as unknown as { sfx: typeof sfx }).sfx = sfx;
+(window as unknown as { music: typeof music }).music = music;
 (window as unknown as { setRes: (res: number) => void }).setRes = (res) => applyResolution(game, res);
 (window as unknown as { addDays: (n: number) => number }).addDays = addDays;

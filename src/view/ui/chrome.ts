@@ -81,8 +81,8 @@ export class RewardsPill {
     const r = this.rect;
     const g = scene.add.graphics().setDepth(depth);
     slab(g, r.x, r.y, r.w, r.h, IRON, 12, 5);
-    scene.add.image(r.x + 24, r.y + r.h / 2 - 2, SHEET, 'icon/gift').setScale(0.36).setDepth(depth + 1);
-    label(scene, r.x + 46, r.y + r.h / 2 - 2, 'REWARDS', { size: 17, align: 'left', strokeWidth: 4 }).setDepth(depth + 1);
+    scene.add.image(r.x + 21, r.y + r.h / 2 - 2, SHEET, 'icon/gift').setScale(0.34).setDepth(depth + 1);
+    label(scene, r.x + 40, r.y + r.h / 2 - 2, 'REWARDS', { size: 15, align: 'left', strokeWidth: 4 }).setDepth(depth + 1);
     this.dot = scene.add.graphics().setDepth(depth + 1);
     this.count = label(scene, r.x + r.w - 4, r.y + 1, '', { size: 14, strokeWidth: 3 }).setDepth(depth + 2);
     const zone = scene.add.zone(r.x + r.w / 2, r.y + r.h / 2, r.w, r.h + 6).setInteractive({ useHandCursor: true }).setDepth(depth + 2);
@@ -94,7 +94,8 @@ export class RewardsPill {
 
   /** Where it is on the screen, for the tutorial to point at. */
   get rect(): { x: number; y: number; w: number; h: number } {
-    return { x: W - 186, y: 112, w: 168, h: 38 };
+    // Narrower than the level over it: on the biggest field the plate of whoever stands in the far corner comes up beside it.
+    return { x: W - 152, y: 112, w: 134, h: 38 };
   }
 
   /** Shows how many rewards wait. Draws only when the number changes: it is asked every frame. */
@@ -203,6 +204,7 @@ export function swapOverlay(scene: Phaser.Scene, to: string): void {
 /** Shuts a screen that is open over the field, and tells the field. */
 export function closeOverlay(scene: Phaser.Scene): void {
   const key = scene.scene.key;
+  sfx.play('close');
   scene.scene.stop();
   scene.game.events.emit(OVERLAY_CLOSED, key);
 }

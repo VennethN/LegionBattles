@@ -10,6 +10,8 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
+// Every tour is behind this player, so that none comes up over what is being looked at.
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:hall', 'tour:skills', 'tour:upgrades', 'tour:structures'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
@@ -24,7 +26,7 @@ const save = {
   version: 4, coins: 5210, cards, nextCard: 50, met: units,
   team: units.slice(0, 7).map((unit, i) => ({ card: i + 1, unit, col: tiles[i][0], row: tiles[i][1] })),
   cleared: 30, dungeons: {}, raids: {}, packs: {}, rng: 5, stats: { battles: 90, wins: 70, opened: 30 },
-  speed: 2, sound: false, tutorial: { done: true, seen: [] }, at: 30, lostAt: null, auto: false, sort: 'unit',
+  speed: 2, sound: false, tutorial: { done: true, seen: SEEN, at: 0, tour: null }, at: 30, lostAt: null, auto: false, sort: 'unit',
 };
 await page.goto(base);
 await page.evaluate((s) => localStorage.setItem('legion-battles-save', JSON.stringify(s)), save);

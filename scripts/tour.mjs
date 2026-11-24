@@ -13,6 +13,8 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
+// Every tour is behind this player, so that none comes up over what is being looked at.
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:hall', 'tour:skills', 'tour:upgrades', 'tour:structures'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
@@ -40,7 +42,7 @@ const save = (at) => ({
   // Into the fifth world: the first lap of the lands is behind, and the second is under way.
   cleared: 52,
   packs: { recruit: 1, royal: 2, frost: 1, 'thornwood@2': 3 }, rng: 99, stats: { battles: 400, wins: 300, opened: 80 },
-  speed: 2, sound: true, tutorial: { done: true, seen: [] }, at, lostAt: null,
+  speed: 2, sound: true, tutorial: { done: true, seen: SEEN, at: 0, tour: null }, at, lostAt: null,
   // Battles wait for a press, so that the pictures are of a still screen.
   auto: false,
 });

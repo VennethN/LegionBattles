@@ -25,6 +25,7 @@ import { SHEET } from '../Sheet';
 import { commit, save } from '../session';
 import { OverlayHead, TABS_Y } from '../ui/chrome';
 import { PH, PW, PX, PY } from '../ui/UnitPanel';
+import { Guide } from '../ui/Guide';
 import { Button, label, plain, slab } from '../ui/widgets';
 
 type Page = 'skills' | 'upgrades';
@@ -61,13 +62,18 @@ export class PlayerScene extends Phaser.Scene {
   private body: Phaser.GameObjects.GameObject[] = [];
   /** True once RESET has been pressed and asks to be pressed again. */
   private sure = false;
+  /** The tutorial on this screen. The walks look at it (scripts/tours.mjs). */
+  guide!: Guide;
 
   constructor() {
     super('Player');
   }
 
   init(data: PlayerData): void {
-    this.page = data.page ?? ((this.registry.get('playerPage') as Page | undefined) ?? 'skills');
+    // A tour of the skills or of the upgrades opens the page it is about, whichever was open last.
+    const tour = save().tutorial.tour?.id;
+    const led = tour === 'skills' ? 'skills' : tour === 'upgrades' ? 'upgrades' : undefined;
+    this.page = data.page ?? led ?? ((this.registry.get('playerPage') as Page | undefined) ?? 'skills');
     this.registry.set('playerPage', this.page);
     this.body = [];
     this.sure = false;
@@ -92,6 +98,16 @@ export class PlayerScene extends Phaser.Scene {
     tab(104, 136, 'SKILLS', 'skills');
     tab(264, 164, 'UPGRADES', 'upgrades');
     this.redraw();
+
+    // What the tours of this screen point at.
+    const guide = new Guide(this, 'Player');
+    this.guide = guide;
+    guide.mark('tree', () => (this.page === 'skills' ? { x: 24, y: 84, w: 844, h: 560 } : null));
+    guide.mark('spend', () => (this.page === 'skills' ? { x: PX + 16, y: PY + PH - 148, w: PW - 32, h: 136 } : null));
+    guide.mark('upgrades', () => (this.page === 'upgrades' ? { x: 30, y: 82, w: 836, h: UPGRADES.length * 110 - 10 } : null));
+    guide.mark('totals', () => ({ x: PX + 12, y: PY + (this.page === 'skills' ? 356 : 174), w: PW - 24, h: 150 }));
+    guide.mark('close', () => this.head.close.rect);
+    guide.refresh();
   }
 
   private redraw(): void {

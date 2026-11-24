@@ -132,6 +132,9 @@ export class TeamScene extends Phaser.Scene {
       this.guide.mark('fill', () => fill.rect);
     }
     this.guide.mark('close', () => head.close.rect);
+    // What the tour of the structures points at: their tab, and the cards on the page.
+    this.guide.mark('tab:structures', () => (this.forge ? null : { x: 164, y: TABS_Y - 23, w: 176, h: 46 }));
+    this.guide.mark('grid', () => ({ x: 26, y: 74, w: 848, h: 568 }));
 
     this.redraw();
     this.guide.refresh();

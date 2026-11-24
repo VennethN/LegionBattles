@@ -3,7 +3,8 @@
 // A new player, from an empty save. It watches the first battle start by
 // itself, then presses whatever the tutorial points at until the tutorial
 // is over, and fails if a step points at nothing or does not move on. Then
-// it lets battles run and checks that a win moves on to the next stage.
+// it lets battles run and checks that a win moves on to the next stage,
+// pressing through whatever tour comes up between them as a player would.
 // It needs the dev server running (npm run dev) or a served build, and
 // Playwright. Pictures go to docs/screens.
 
@@ -47,14 +48,29 @@ const press = (x, y) => (touch ? page.touchscreen.tap(box.x + x * k, box.y + y *
 
 // What the tutorial shows now, on whichever screen is on top.
 const guide = () => page.evaluate(() => {
-  for (const key of ['Shop', 'Team', 'Map', 'Main']) {
+  for (const key of ['Settings', 'Rewards', 'Hall', 'Player', 'Shop', 'Team', 'Map', 'Main']) {
     if (!window.game.scene.isActive(key)) continue;
     const g = window.game.scene.getScene(key).guide;
-    if (g && g.step) return { scene: key, id: g.step.id, ok: !!g.step.ok, blocks: g.step.blocks, rect: g.rect };
-    if (key !== 'Main') return null;
+    if (g && g.step) return { scene: key, id: g.step.id, ok: !!g.step.ok, blocks: g.step.blocks, rect: g.rect, tour: g.step.tour ?? null };
+    if (key !== 'Main') return { scene: key, id: null };
   }
   return null;
 });
+/** Presses what a step points at, or its own button if it has one. */
+const answer = async (g) => {
+  if (g.ok) {
+    // GOT IT, or NEXT, is the gold button in the bubble: find it by asking the scene.
+    const at = await page.evaluate((key) => {
+      const sc = window.game.scene.getScene(key);
+      const b = sc.guide.drawn.filter((o) => o.type === 'Container').pop();
+      return b ? { x: b.x, y: b.y } : null;
+    }, g.scene);
+    if (!at) await fail(`no button to press on ${g.id}`);
+    await press(at.x, at.y);
+  } else {
+    await press(g.rect.x + g.rect.w / 2, g.rect.y + g.rect.h / 2);
+  }
+};
 const main = () => page.evaluate(() => {
   const m = window.game.scene.getScene('Main');
   const s = JSON.parse(localStorage.getItem('legion-battles-save') ?? '{}');
@@ -79,7 +95,7 @@ for (let i = 0; i < 60; i++) {
   const m = await main();
   if (m.done) break;
   g = await guide();
-  if (!g) {
+  if (!g || !g.id) {
     await page.waitForTimeout(250);
     continue;
   }
@@ -91,31 +107,38 @@ for (let i = 0; i < 60; i++) {
     await page.waitForTimeout(300);
     continue;
   }
-  if (g.ok) {
-    // GOT IT is the gold button in the bubble: find it by asking the scene.
-    const at = await page.evaluate((key) => {
-      const sc = window.game.scene.getScene(key);
-      const b = sc.guide.drawn.filter((o) => o.type === 'Container').pop();
-      return b ? { x: b.x, y: b.y } : null;
-    }, g.scene);
-    if (!at) await fail('no GOT IT to press');
-    await press(at.x, at.y);
-  } else {
-    await press(g.rect.x + g.rect.w / 2, g.rect.y + g.rect.h / 2);
-  }
+  await answer(g);
   await page.waitForTimeout(g.id === 'tear' ? 2600 : 600);
 }
 let m = await main();
 if (!m.done) await fail(`the tutorial did not end: walked ${walked.join(' > ')}, save ${JSON.stringify(m)}`);
 
-// 3. Battles go on by themselves, and a win moves on.
+// 3. Battles go on by themselves, and a win moves on. A tour may come up between two of them (the packs, once
+// there are coins enough for one): it is pressed through, and the battles go on after it.
 const before = m.at;
-await page.waitForFunction((b) => {
-  const s = JSON.parse(localStorage.getItem('legion-battles-save') ?? '{}');
-  return (s.stats?.battles ?? 0) >= b + 2;
-}, m.battles, { timeout: 180000 }).catch(() => fail('battles did not go on by themselves'));
+const from = m.battles;
+const tours = [];
+let stuck = 0;
+for (let i = 0; i < 900; i++) {
+  m = await main();
+  if ((m.battles ?? 0) >= from + 3) break;
+  g = await guide();
+  if (g && g.id) {
+    if (tours[tours.length - 1] !== g.id) {
+      tours.push(g.id);
+      stuck = 0;
+    } else if (++stuck > 30) await fail(`the tour stayed at ${g.id}`);
+    await answer(g);
+    await page.waitForTimeout(500);
+  } else if (g && g.scene !== 'Main') {
+    // A tour that ends on the screen it led into leaves it open: shut it.
+    await press(1280 - 262, 37);
+    await page.waitForTimeout(400);
+  } else await page.waitForTimeout(400);
+  if (i === 899) await fail('battles did not go on by themselves');
+}
 m = await main();
 await page.screenshot({ path: `${out}/${tag}29-running.png` });
-console.log(JSON.stringify({ walked, stageBefore: before, now: m }));
+console.log(JSON.stringify({ walked, tours, stageBefore: before, now: m }));
 if (errors.length) await fail('the page threw');
 await browser.close();

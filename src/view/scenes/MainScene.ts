@@ -29,9 +29,10 @@ import { setupCamera } from '../app';
 import { BoardView } from '../BoardView';
 import { today } from '../clock';
 import { W, hex } from '../config';
+import { BOARD_PX_H, BOARD_PX_W, BOARD_X, BOARD_Y } from '../layout';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { CoinPill, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, RewardsPill, soundButton } from '../ui/chrome';
+import { CoinPill, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, RewardsPill } from '../ui/chrome';
 import { RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
@@ -61,6 +62,8 @@ export class MainScene extends Phaser.Scene {
   private coins!: CoinPill;
   private level!: LevelPill;
   private rewards!: RewardsPill;
+  private hallRect = { x: 0, y: 0, w: 0, h: 0 };
+  private gearRect = { x: 0, y: 0, w: 0, h: 0 };
   private battleButton!: Button;
   private autoButton!: Button;
   private speedButton!: Button;
@@ -115,6 +118,7 @@ export class MainScene extends Phaser.Scene {
     // The way to the dungeons and the raids, which are off the line of stages.
     const hall = plain(new Button(this, 128, 36, '   DUNGEONS', () => this.open('Hall'), { width: 216, height: 50, size: 19, mat: BONE, color: OUTLINE })).setDepth(8000);
     hall.root.add(this.add.image(-78, -3, SHEET, 'icon/crown').setScale(0.3));
+    this.hallRect = { x: 20, y: 11, w: 216, h: 96 };
     plain(new Button(this, 128, 88, 'AND RAIDS', () => this.open('Hall'), { width: 150, height: 38, size: 15, mat: BONE, color: OUTLINE })).setDepth(8000);
     this.buildBottom();
     this.note = label(this, W / 2, 612, '', { size: 18, weight: 600, color: HIGHLIGHT }).setDepth(8000);
@@ -124,6 +128,13 @@ export class MainScene extends Phaser.Scene {
     this.guide.mark('packs', () => this.packsButton.rect);
     this.guide.mark('units', () => ({ x: 22, y: 633, w: 196, h: 62 }));
     this.guide.mark('stages', () => this.plate);
+    // What the tours point at: the player's half of the field, the two buttons that pace the battles, and the ways to the other screens.
+    this.guide.mark('board', () => ({ x: BOARD_X, y: BOARD_Y, w: BOARD_PX_W / 2, h: BOARD_PX_H }));
+    this.guide.mark('auto', () => ({ x: 831, y: 633, w: 279, h: 62 }));
+    this.guide.mark('level', () => this.level.rect);
+    this.guide.mark('rewards', () => this.rewards.rect);
+    this.guide.mark('hall', () => this.hallRect);
+    this.guide.mark('settings', () => this.gearRect);
 
     const closed = (key: string): void => this.onOverlayClosed(key);
     this.game.events.on(OVERLAY_CLOSED, closed);
@@ -142,6 +153,11 @@ export class MainScene extends Phaser.Scene {
 
     this.cameras.main.fadeIn(220);
     this.arrive(COUNTDOWN.first);
+  }
+
+  /** The tour that is up, if one is: for the walks (scripts/tours.mjs), which cannot wait for the save to be written. */
+  tourUp(): { id: string; step: number } | null {
+    return save().tutorial.tour;
   }
 
   // ------------------------------------------------------------ the top
@@ -205,7 +221,6 @@ export class MainScene extends Phaser.Scene {
   // ------------------------------------------------------------ the bottom
 
   private buildBottom(): void {
-    const s = save();
     const y = 664;
     const units = plain(new Button(this, 120, y, '   UNITS', () => this.pressUnits(), { width: 196, height: 62, size: 24, mat: BONE, color: OUTLINE })).setDepth(8000);
     units.root.add(this.add.image(-62, -3, SHEET, 'icon/team').setScale(0.36));
@@ -215,7 +230,10 @@ export class MainScene extends Phaser.Scene {
     this.battleButton = new Button(this, 640, y, 'BATTLE', () => this.pressBattle(), { width: 300, height: 74, size: 34 }).setDepth(8000);
     this.autoButton = new Button(this, 916, y, '', () => this.toggleAuto(), { width: 170, height: 62, size: 22 }).setDepth(8000);
     this.speedButton = plain(new Button(this, 1062, y, `${this.speed}x`, () => this.toggleSpeed(), { width: 96, height: 62, size: 26, mat: BONE, color: OUTLINE })).setDepth(8000);
-    soundButton(this, 1168, y, s.sound).root.setScale(1.2);
+    // The settings: sound and music, how the game is drawn, and every tutorial to view again.
+    const gear = plain(new Button(this, 1168, y, '', () => this.open('Settings'), { width: 62, height: 58, mat: BONE }).setDepth(8000));
+    gear.root.add(this.add.image(0, -3, SHEET, 'icon/gear').setScale(0.44));
+    this.gearRect = gear.rect;
   }
 
   /** The buttons as they now stand: what BATTLE says, whether AUTO is lit, how many packs wait. */
@@ -376,6 +394,7 @@ export class MainScene extends Phaser.Scene {
   private open(key: string): void {
     if (this.overlay) return;
     this.overlay = key;
+    sfx.play('open');
     this.scene.launch(key);
     // What is covered is not drawn: a screen of cards costs enough frames by itself.
     this.scene.setVisible(false);

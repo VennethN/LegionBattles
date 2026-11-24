@@ -18,6 +18,7 @@ import { commit, save } from '../session';
 import { OverlayHead } from '../ui/chrome';
 import { DIFFICULTY_MAT, LAND_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
+import { Guide } from '../ui/Guide';
 import { portrait } from '../ui/UnitCard';
 import { Button, label, plain, slab } from '../ui/widgets';
 import type { VentureData } from './VentureScene';
@@ -27,6 +28,8 @@ type Place = DungeonDef | RaidDef;
 export class HallScene extends Phaser.Scene {
   /** The tier each place's tile shows, by the place's id. */
   private picked: Record<string, number> = {};
+  /** The tutorial on this screen. The walks look at it (scripts/tours.mjs). */
+  guide!: Guide;
 
   constructor() {
     super('Hall');
@@ -35,11 +38,20 @@ export class HallScene extends Phaser.Scene {
   create(): void {
     setupCamera(this);
     const s = save();
-    new OverlayHead(this, 'Dungeons and Raids', s, () => commit());
+    const head = new OverlayHead(this, 'Dungeons and Raids', s, () => commit());
     label(this, 400, 40, 'A dungeon: floors where nothing heals. A raid: one long battle.', { size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
     const pitch = 414;
     DUNGEONS.forEach((d, i) => this.tile('dungeon', d, 226 + i * pitch, 232));
     RAIDS.forEach((r, i) => this.tile('raid', r, 226 + i * pitch, 548));
+
+    // What the tour of this hall points at: the first dungeon, the first raid, and the dungeon's five difficulties.
+    const guide = new Guide(this, 'Hall');
+    this.guide = guide;
+    guide.mark('dungeon', () => ({ x: 28, y: 82, w: 396, h: 300 }));
+    guide.mark('raid', () => ({ x: 28, y: 398, w: 396, h: 300 }));
+    guide.mark('tiers', () => (DUNGEONS[0] && placeOpen(s, DUNGEONS[0]) ? { x: 186, y: 201, w: 226, h: 38 } : null));
+    guide.mark('close', () => head.close.rect);
+    guide.refresh();
   }
 
   private tile(kind: 'dungeon' | 'raid', place: Place, x: number, y: number): void {

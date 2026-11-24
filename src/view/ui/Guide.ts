@@ -1,13 +1,21 @@
-// The tutorial on the screen: a shade over everything but what the step
+// A tutorial on the screen: a shade over everything but what the step
 // points at, a ring round that, and a bubble that says what to do.
 //
 // Which step is up is not kept here. A screen marks its buttons by name and
 // calls refresh() whenever something changes; the step is worked out from
 // the save (game/tutorial.ts) and drawn, or cleared if there is none.
+//
+// A step of a tour that asks for a press is moved on from here: the press
+// goes through the shade to whatever is under it, and when it is let go the
+// tour steps on. Every screen's guide is told, and looks again a moment
+// later, when whatever the press opened or shut has settled.
 
 import Phaser from 'phaser';
 import { BONE, GOLD, HIGHLIGHT, OUTLINE } from '../../art/kit/palette';
-import { markSeen, skipTutorial, tutorialStep, type GuideContext, type GuideScene, type Step } from '../../game/tutorial';
+import { sfx } from '../../audio/sfx';
+import { advanceTour, markSeen, skipTutorial, tutorialStep, type GuideContext, type GuideScene, type Step } from '../../game/tutorial';
+import { today } from '../clock';
+import type { SaveData } from '../../game/state';
 import { H, W, hex } from '../config';
 import { commit, save } from '../session';
 import { Button, label, plain, slab } from './widgets';
@@ -19,7 +27,17 @@ export interface Rect {
   h: number;
 }
 
+/** Where the tours stand, as one line: to tell whether looking at the step moved anything. */
+function tourKey(s: SaveData): string {
+  const t = s.tutorial.tour;
+  return `${t ? `${t.id}:${t.step}` : ''}/${s.tutorial.seen.length}`;
+}
+
 const DEPTH = 9600;
+/** How far the hole in the shade stands off what it is round. */
+const PAD = 8;
+/** The name of the event the game sends when a tour steps on, for every screen's guide to look again. */
+const TOUR_MOVED = 'tour-moved';
 
 export class Guide {
   /** Battles wait while this is true. */
@@ -33,6 +51,8 @@ export class Guide {
   private drawn: Phaser.GameObjects.GameObject[] = [];
   private ctx: GuideContext;
   private shownKey = '';
+  /** The step whose hole a press went down in, and the hole: the tour moves on when it is let go there. */
+  private armed: { id: string; hole: Rect } | null = null;
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -41,6 +61,42 @@ export class Guide {
     private readonly onChange: () => void = () => {},
   ) {
     this.ctx = { scene: name };
+    const inside = (p: Phaser.Input.Pointer, r: Rect): boolean => p.worldX >= r.x && p.worldX <= r.x + r.w && p.worldY >= r.y && p.worldY <= r.y + r.h;
+    const down = (p: Phaser.Input.Pointer): void => {
+      const step = this.step;
+      const r = this.rect;
+      this.armed = null;
+      if (!step?.press || !r) return;
+      const hole = { x: r.x - PAD, y: r.y - PAD, w: r.w + PAD * 2, h: r.h + PAD * 2 };
+      if (inside(p, hole)) this.armed = { id: step.id, hole };
+    };
+    const up = (p: Phaser.Input.Pointer): void => {
+      const armed = this.armed;
+      this.armed = null;
+      if (!armed || !inside(p, armed.hole)) return;
+      const s = save();
+      const t = s.tutorial.tour;
+      // Only if the tour still stands at the step that was pressed: shutting a screen may have moved it on already.
+      if (!t || `${t.id}:${t.step}` !== armed.id) return;
+      advanceTour(s);
+      commit();
+      scene.game.events.emit(TOUR_MOVED);
+    };
+    // Whatever the press opened, turned or shut is in place a moment later: then this looks again.
+    const moved = (): void => {
+      scene.time.delayedCall(40, () => {
+        this.refresh();
+        this.onChange();
+      });
+    };
+    scene.input.on('pointerdown', down);
+    scene.input.on('pointerup', up);
+    scene.game.events.on(TOUR_MOVED, moved);
+    scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      scene.input.off('pointerdown', down);
+      scene.input.off('pointerup', up);
+      scene.game.events.off(TOUR_MOVED, moved);
+    });
   }
 
   /** Names something a step may point at. `rect` is asked each time, as things move. */
@@ -55,9 +111,19 @@ export class Guide {
   /** Works out the step again and draws it. Call whenever what is on the screen changes. */
   refresh(change: Partial<GuideContext> = {}): void {
     Object.assign(this.ctx, change);
+    this.ctx.day = today();
     const s = save();
-    const step = tutorialStep(s, this.ctx);
-    const rect = step ? (this.marks.get(step.target)?.() ?? null) : null;
+    const before = tourKey(s);
+    let step = tutorialStep(s, this.ctx);
+    let rect = step ? (this.marks.get(step.target)?.() ?? null) : null;
+    // A step of a tour that points at something this screen does not have is passed over: a pack that is not sold has no button to buy it.
+    for (let i = 0; step?.tour && !rect && i < 12; i++) {
+      advanceTour(s);
+      step = tutorialStep(s, this.ctx);
+      rect = step ? (this.marks.get(step.target)?.() ?? null) : null;
+    }
+    // Looking can move a tour: one that is due starts, one whose screen was shut steps on or back. That is kept.
+    if (tourKey(s) !== before) commit();
     // A step whose target is not on the screen yet still holds the battles, but draws nothing.
     this.holds = !!step && step.holds;
     this.step = step && rect ? step : null;
@@ -66,7 +132,10 @@ export class Guide {
     if (key === this.shownKey) return;
     this.shownKey = key;
     this.clear();
-    if (this.step && rect) this.draw(this.step, rect);
+    if (this.step && rect) {
+      this.draw(this.step, rect);
+      sfx.play('pop', 0.7);
+    }
   }
 
   private clear(): void {
@@ -81,8 +150,7 @@ export class Guide {
 
   private draw(step: Step, r: Rect): void {
     const scene = this.scene;
-    const pad = 8;
-    const hole = { x: r.x - pad, y: r.y - pad, w: r.w + pad * 2, h: r.h + pad * 2 };
+    const hole = { x: r.x - PAD, y: r.y - PAD, w: r.w + PAD * 2, h: r.h + PAD * 2 };
 
     if (step.blocks) {
       // Four dark sheets round the hole. They swallow presses; the hole lets them through.
@@ -110,6 +178,8 @@ export class Guide {
     const bw = 460;
     const text = this.add(label(scene, 0, 0, step.text, { size: 18, weight: 600, color: OUTLINE, stroke: null, align: 'left', wrap: bw - 44 }).setDepth(DEPTH + 3));
     text.setOrigin(0, 0);
+    // A tour says how far along it is.
+    const count = step.tour && step.of ? `${step.n} of ${step.of}` : '';
     const bh = text.height + (step.ok ? 100 : 76);
     const above = hole.y + hole.h / 2 > H / 2;
     const bx = Phaser.Math.Clamp(hole.x + hole.w / 2 - bw / 2, 16, W - bw - 16);
@@ -140,9 +210,13 @@ export class Guide {
       this.onChange();
     }, { width: 96, height: 44, size: 16, mat: BONE, color: OUTLINE })).setDepth(DEPTH + 4);
     this.add(skip.root);
+    if (count) this.add(label(scene, bx + bw - 124, by + bh - 31, count, { size: 14, weight: 600, align: 'right', color: OUTLINE, stroke: null }).setDepth(DEPTH + 4));
     if (step.ok) {
-      const ok = new Button(scene, bx + 110, by + bh - 40, 'GOT IT', () => {
-        markSeen(save(), step.id);
+      const ok = new Button(scene, bx + 110, by + bh - 40, step.button ?? 'GOT IT', () => {
+        const s = save();
+        // A note of a tour moves the tour on; a note of the first tutorial is marked as read.
+        if (step.tour) advanceTour(s);
+        else markSeen(s, step.id);
         commit();
         this.refresh();
         this.onChange();

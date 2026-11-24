@@ -25,14 +25,20 @@ export const RES_ADAPTS = askedResolution() === 0;
  */
 export let RES = pickResolution();
 
+/** The resolution the screen itself asks for, whatever a slow day left behind. */
+export function screenResolution(): number {
+  if (typeof window === 'undefined') return 1;
+  const fit = Math.min(window.innerWidth / W, window.innerHeight / H);
+  const wanted = fit * (window.devicePixelRatio || 1);
+  // In halves, and never more than 2: past that a phone pays in fill rate for nothing it can see.
+  return Math.min(2, Math.max(1, Math.ceil(wanted * 2 - 0.2) / 2));
+}
+
 function pickResolution(): number {
   if (typeof window === 'undefined') return 1;
   const asked = askedResolution();
   if (asked) return asked;
-  const fit = Math.min(window.innerWidth / W, window.innerHeight / H);
-  const wanted = fit * (window.devicePixelRatio || 1);
-  // In halves, and never more than 2: past that a phone pays in fill rate for nothing it can see.
-  let res = Math.min(2, Math.max(1, Math.ceil(wanted * 2 - 0.2) / 2));
+  let res = screenResolution();
   // A machine that was slow at a resolution before starts below it.
   try {
     const kept = Number(window.localStorage.getItem(RES_KEY));
@@ -41,6 +47,20 @@ function pickResolution(): number {
     // No storage: the screen's own resolution it is.
   }
   return res;
+}
+
+/** Changes the resolution for this visit only: for a setting that says which to draw at (app.ts, applyGraphics). */
+export function useRes(res: number): void {
+  RES = res;
+}
+
+/** Forgets the lower resolution a slow day left behind. */
+export function forgetRes(): void {
+  try {
+    window.localStorage.removeItem(RES_KEY);
+  } catch {
+    // There was none to forget.
+  }
 }
 
 /** Changes the resolution and remembers it for the next visit. app.ts resizes the canvas to match. */

@@ -9,6 +9,7 @@ import Phaser from 'phaser';
 import { GROUND, type Ground } from '../art/board';
 import { gradePlate } from '../art/grades';
 import { ARCANE, CLOTH, FIRE, FROST, HIGHLIGHT, HOLY, VENOM, type Accent } from '../art/kit/palette';
+import { music } from '../audio/music';
 import { sfx } from '../audio/sfx';
 import { UNITS } from '../data/units';
 import { GRADES } from '../game/rarity';
@@ -197,6 +198,8 @@ export class BoardView {
     return atlas.ensure(this.scene, wanted).then(() => {
       // Asked again while this was loading: the later asking has it.
       if (mine !== this.shown) return;
+      // A field stood up and not yet fought on: the land's theme, calm. A battle called off comes back to it here.
+      music.play(this.ground, 'calm');
       this.clearUnits();
       // The team may have been arranged while its art loaded.
       this.seats = seatTeam(team, field);
@@ -370,6 +373,8 @@ export class BoardView {
     this.endAt = -1;
     this.told = false;
     sfx.play('fight');
+    // The land's theme goes on, with its drums under it.
+    music.play(this.ground, 'battle');
   }
 
   update(deltaMs: number, speed: number): void {
@@ -388,6 +393,9 @@ export class BoardView {
       if (battle.ended && this.endAt < 0) this.endAt = this.clock + 1.1;
       if (this.endAt >= 0 && this.clock >= this.endAt) {
         this.told = true;
+        // The drums stop, and the music stands back for whatever is played over the result.
+        music.play(this.ground, 'calm');
+        music.duck(1.8);
         this.hooks.onEnd?.(battle.winner);
       }
     }
@@ -519,7 +527,7 @@ export class BoardView {
         view.facing = u.facing;
         view.setBarsVisible(true);
         this.views[e.unit] = view;
-        sfx.play('thud', 0.7, 1.2);
+        sfx.play('spawn', 0.8, u.team === 0 ? 1 : 0.84);
         for (let i = 0; i < 4; i++) {
           this.fx.spawn('fx/dust', view.x + (i - 1.5) * 16 * z, view.y - 4 * z, { dur: 0.45, vx: (i - 1.5) * 50, vy: -30, from: 0.3, to: 0.8, hold: 0.3, alpha: 0.9, depth: view.y + 3 });
         }
@@ -532,6 +540,8 @@ export class BoardView {
         v.die(now);
         const status = trap?.status?.id;
         const color = status ? STATUS_COLOR[status] ?? hex(HIGHLIGHT) : hex(HIGHLIGHT);
+        // The snap of it, and then what it does.
+        sfx.play('trap');
         sfx.play(status === 'burn' ? 'blast' : 'bigHit', 1, status ? 0.9 : 0.7);
         this.fx.spawn('fx/ring', v.x, v.y - 6 * z, {
           dur: 0.38, from: 0.25, to: ((trap?.radius ?? 1) * TILE) / 60, flat: Y_SCALE, alpha: 0.9, hold: 0.35, tint: color, depth: 30,

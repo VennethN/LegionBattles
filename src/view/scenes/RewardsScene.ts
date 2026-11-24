@@ -9,6 +9,7 @@
 
 import Phaser from 'phaser';
 import { BONE, GOLD, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM, type Material } from '../../art/kit/palette';
+import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { packById } from '../../data/packs';
 import { DAILY, PLAYTIME, type Reward } from '../../data/rewards';
@@ -317,7 +318,8 @@ export class RewardsScene extends Phaser.Scene {
     const x = from.x + from.w / 2;
     const y = from.y + from.h / 2;
     const said = given.coins > 0 ? `+${given.coins} coins` : `${given.count > 1 ? `${given.count} packs` : 'A pack'}: open in PACKS`;
-    sfx.play(given.coins > 0 ? 'coin' : 'lift');
+    sfx.play('claim');
+    if (given.coins > 0) this.time.delayedCall(160, () => sfx.play('coin'));
     const t = label(this, x, y, said, { size: 24, color: given.coins > 0 ? GOLD.fill : HOLY.fill, strokeWidth: 7 }).setDepth(9000);
     // It stays on the screen, whichever tile it rose from.
     t.setX(Math.max(t.width / 2 + 16, Math.min(W - t.width / 2 - 16, x)));
@@ -344,6 +346,7 @@ export class RewardsScene extends Phaser.Scene {
     const cy = H / 2 - 40;
     add(veil(this, 9000, 0.9));
     sfx.play('packOpen');
+    music.duck(1.6);
     this.time.delayedCall(140, () => sfx.reveal(rank));
     burst(this, add, cx, cy, rank, color);
     rays(this, add, cx, cy, color, 430);

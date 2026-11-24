@@ -5,7 +5,7 @@ import { sfx } from '../audio/sfx';
 import { PLAYTIME_GAP } from '../data/rewards';
 import { addPlaytime } from '../game/rewards';
 import { startingSave, tidyTeam } from '../game/rules';
-import type { SaveData } from '../game/state';
+import { VOLUME_STEPS, type SaveData } from '../game/state';
 import { loadSave, storeSave, wipeSave } from '../game/storage';
 import { today } from './clock';
 
@@ -20,9 +20,15 @@ export function save(): SaveData {
     const loaded = loadSave(seed());
     current = loaded.fresh || loaded.save.cards.length === 0 ? startingSave(seed()) : loaded.save;
     tidyTeam(current);
-    sfx.enabled = current.sound;
+    applySound(current);
   }
   return current;
+}
+
+/** Puts the save's sound settings on the mix: on or off, and how loud the effects and the music are. */
+export function applySound(s: SaveData): void {
+  sfx.enabled = s.sound;
+  sfx.setVolumes(s.settings.effects / VOLUME_STEPS, s.settings.music / VOLUME_STEPS);
 }
 
 export function commit(): void {
@@ -66,6 +72,7 @@ export function toggleSound(): boolean {
 export function reset(): SaveData {
   wipeSave();
   current = startingSave(seed());
+  applySound(current);
   commit();
   return current;
 }

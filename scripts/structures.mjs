@@ -12,6 +12,8 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
+// Every tour is behind this player, so that none comes up over what is being looked at.
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:hall', 'tour:skills', 'tour:upgrades', 'tour:structures'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
@@ -39,7 +41,7 @@ const save = (at, cleared) => ({
   ],
   cleared,
   packs: { builder: 2, recruit: 1 }, rng: 99, stats: { battles: 90, wins: 60, opened: 30 },
-  speed: 1, sound: true, tutorial: { done: true, seen: [] }, at, lostAt: null,
+  speed: 1, sound: true, tutorial: { done: true, seen: SEEN, at: 0, tour: null }, at, lostAt: null,
   // Battles wait for a press, so that the pictures are of a still screen.
   auto: false,
 });

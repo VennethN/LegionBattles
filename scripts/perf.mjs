@@ -14,6 +14,8 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
+// Every tour is behind this player, so that none comes up over what is being looked at.
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:hall', 'tour:skills', 'tour:upgrades', 'tour:structures'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const slow = Number(process.env.CPU ?? 4);
 const screen = process.env.SCREEN ?? '';
@@ -40,7 +42,7 @@ const save = {
   ],
   cleared: 184,
   packs: { recruit: 3 }, rng: 5, stats: { battles: 900, wins: 700, opened: 300 },
-  speed: 2, sound: false, tutorial: { done: true, seen: [] }, at: 184, lostAt: null, auto: true,
+  speed: 2, sound: false, tutorial: { done: true, seen: SEEN, at: 0, tour: null }, at: 184, lostAt: null, auto: true,
 };
 
 await page.goto(base + res);

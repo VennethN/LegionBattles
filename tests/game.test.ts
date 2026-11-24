@@ -1224,7 +1224,7 @@ describe('the save', () => {
     save.packs.dunes = 2;
     save.packs['thornwood@1'] = 1;
     save.lostAt = 13;
-    save.tutorial = { done: true, seen: ['team'] };
+    save.tutorial = { done: true, seen: ['team'], at: 3, tour: null };
     expect(repair(JSON.parse(JSON.stringify(save)), 1)).toEqual(save);
     // A new player's save comes back as it went, tutorial and all.
     const fresh = startingSave(4);
@@ -1251,7 +1251,7 @@ describe('the save', () => {
     expect(mended.nextCard).toBe(7);
     expect(mended.team).toEqual([{ card: 4, unit: 'knight', col: 1, row: 1 }, { card: 6, unit: 'knight', col: 0, row: 0 }]);
     expect(mended.packs).toEqual({});
-    expect(mended.tutorial).toEqual({ done: true, seen: [] });
+    expect(mended.tutorial).toEqual({ done: true, seen: [], at: 0, tour: null });
     // Progress is kept on the line, and the stage on show is one that is there.
     expect(mended.cleared).toBe(STAGES.length);
     expect(mended.at).toBe(0);

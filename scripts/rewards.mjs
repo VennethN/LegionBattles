@@ -13,6 +13,8 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
+// Every tour is behind this player, so that none comes up over what is being looked at.
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:hall', 'tour:skills', 'tour:upgrades', 'tour:structures'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
@@ -26,7 +28,7 @@ const team = cards.map((c, i) => ({ card: c.id, unit: c.unit, col: 3 - (i % 2), 
 const save = {
   version: 4, coins: 310, cards, nextCard: 99, met: cards.map((c) => c.unit), team, cleared: 6, ahead: {},
   packs: {}, rng: 5, stats: { battles: 9, wins: 6, opened: 3 }, speed: 1, sound: true,
-  tutorial: { done: true, seen: [] }, at: 6, lostAt: null, auto: false,
+  tutorial: { done: true, seen: SEEN, at: 0, tour: null }, at: 6, lostAt: null, auto: false,
   player: { level: 4, xp: 20 }, tree: {}, upgrades: {},
 };
 const main = () => page.waitForFunction(() => window.game?.scene?.isActive('Main') && window.game.scene.getScene('Main').state === 'ready', null, { timeout: 30000 });

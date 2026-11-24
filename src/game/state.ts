@@ -6,6 +6,7 @@ import { LANDS } from '../data/lands';
 import { PLAYER_MAX_LEVEL } from '../data/player';
 import { tidyTree } from './player';
 import { STAGES, WORLDS } from '../data/stages';
+import { isStructure } from '../data/units';
 import type { Placement } from '../sim/types';
 
 export const SAVE_VERSION = 4;
@@ -63,8 +64,16 @@ export interface SaveData {
   speed: number;
   /** False when the player has turned the sound off. */
   sound: boolean;
-  /** Where the first-run tutorial stands: over, or the notes the player has pressed GOT IT on. */
-  tutorial: { done: boolean; seen: string[] };
+  /**
+   * Where the tutorials stand (game/tutorial.ts). `done` is true once the
+   * first one is over. `seen` holds the notes of it the player has pressed
+   * GOT IT on, and every tour that has been seen, as "tour:" and its id.
+   * `at` is how many battles had been fought when the last tutorial ended:
+   * the next waits for another. `tour` is the tour that is up now and the
+   * step it is at; it is never read back from storage, so a tour that was
+   * cut short starts again.
+   */
+  tutorial: { done: boolean; seen: string[]; at: number; tour: { id: string; step: number } | null };
   /** The stage on show, which is where the next battle is fought: its place in the line, from 0. */
   at: number;
   /** A stage that was lost and stepped back from, to come back to when the team changes. */
@@ -81,6 +90,28 @@ export interface SaveData {
   upgrades: Record<string, number>;
   /** Where the two tracks of rewards stand (game/rewards.ts). */
   rewards: Rewards;
+  /** What the settings screen sets. */
+  settings: Settings;
+}
+
+/** How loud a volume can be set: it goes from 0, which is off, to this. */
+export const VOLUME_STEPS = 10;
+
+export const GRAPHICS = ['auto', 'sharp', 'fast'] as const;
+/**
+ * How the game is drawn. "auto" picks a resolution for the screen and
+ * lowers it if frames come slowly; "sharp" keeps the screen's own; "fast"
+ * draws at the layout's size, a quarter of the pixels of a dense screen.
+ */
+export type Graphics = (typeof GRAPHICS)[number];
+
+export interface Settings {
+  /** The volume of the music and of the effects, each from 0 to VOLUME_STEPS. `sound` above turns both off. */
+  music: number;
+  effects: number;
+  /** False for no shaking of the screen when something rare is turned over. */
+  shake: boolean;
+  graphics: Graphics;
 }
 
 export interface Rewards {
@@ -111,7 +142,7 @@ export function newSave(seed: number): SaveData {
     stats: { battles: 0, wins: 0, opened: 0 },
     speed: 1,
     sound: true,
-    tutorial: { done: false, seen: [] },
+    tutorial: { done: false, seen: [], at: 0, tour: null },
     at: 0,
     lostAt: null,
     auto: true,
@@ -120,6 +151,7 @@ export function newSave(seed: number): SaveData {
     tree: {},
     upgrades: {},
     rewards: { claimed: 0, day: null, playDay: 0, played: 0, taken: [] },
+    settings: { music: 5, effects: 8, shake: true, graphics: 'auto' },
   };
 }
 
@@ -263,15 +295,42 @@ export function repair(raw: unknown, seed: number): SaveData {
       taken: Array.isArray(v.taken) ? [...new Set(v.taken.filter((x): x is number => Number.isInteger(x) && x >= 0))] : [],
     };
   }
+  // The settings. A save from before there were any has them as a new player does.
+  const st = (r as { settings?: unknown }).settings;
+  if (st && typeof st === 'object') {
+    const v = st as Partial<Record<keyof Settings, unknown>>;
+    const volume = (x: unknown, d: number): number => Math.max(0, Math.min(VOLUME_STEPS, Math.round(num(x, d))));
+    out.settings = {
+      music: volume(v.music, fresh.settings.music),
+      effects: volume(v.effects, fresh.settings.effects),
+      shake: v.shake !== false,
+      graphics: (GRAPHICS as readonly unknown[]).includes(v.graphics) ? (v.graphics as Graphics) : 'auto',
+    };
+  }
   // A save from before the tutorial belongs to someone who has already played: they have no use for it.
   const t = r.tutorial;
   if (t && typeof t === 'object') {
+    const at = (t as { at?: unknown }).at;
     out.tutorial = {
       done: t.done === true,
       seen: Array.isArray(t.seen) ? t.seen.filter((x): x is string => typeof x === 'string') : [],
+      at: Math.max(0, Math.floor(num(at, 0))),
+      tour: null,
     };
+    // A save from before there were tours: whatever its player has plainly used already needs no tour.
+    if (at === undefined && out.tutorial.done) {
+      const used: Array<[string, boolean]> = [
+        ['basics', true],
+        ['packs', num(r.stats?.opened, 0) > 2],
+        ['hall', Object.values(out.dungeons).some((n) => n > 0) || Object.values(out.raids).some((n) => n > 0)],
+        ['skills', Object.keys(out.tree).length > 0],
+        ['upgrades', Object.keys(out.upgrades).length > 0],
+        ['structures', out.team.some((p) => isStructure(p.unit))],
+      ];
+      for (const [id, yes] of used) if (yes && !out.tutorial.seen.includes(`tour:${id}`)) out.tutorial.seen.push(`tour:${id}`);
+    }
   } else {
-    out.tutorial = { done: r.version === 1 || out.cleared > 0, seen: [] };
+    out.tutorial = { done: r.version === 1 || out.cleared > 0, seen: [], at: 0, tour: null };
   }
   if (r.stats && typeof r.stats === 'object') {
     out.stats = {

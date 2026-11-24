@@ -21,6 +21,7 @@
 
 import Phaser from 'phaser';
 import { BONE, CLOTH, GOLD, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM, type Material } from '../../art/kit/palette';
+import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { LANDS } from '../../data/lands';
 import { DIFFICULTIES, LAPS } from '../../data/laps';
@@ -100,6 +101,8 @@ export class ShopScene extends Phaser.Scene {
   /** Where the tutorial's OPEN is, if the pack on show is held. */
   private firstOpen: Rect | null = null;
   private doneRect: Rect | null = null;
+  /** Where the buttons that open and buy the pack on show are, if it is one that is sold. */
+  private buyRect: Rect | null = null;
   /** Ends the show at once, while cards are still being turned. */
   private skip: (() => void) | null = null;
 
@@ -144,6 +147,10 @@ export class ShopScene extends Phaser.Scene {
     this.guide.mark('close', () => this.head.close.rect);
     this.guide.mark('pouch', () => ({ x: W / 2 - 130, y: H / 2 - 190, w: 260, h: 340 }));
     this.guide.mark('reveal:done', () => this.doneRect);
+    // What the tour of the packs points at: the slots, the pack on show, and the buttons that buy it.
+    this.guide.mark('slots', () => ({ x: 26, y: 74, w: 704, h: 560 }));
+    this.guide.mark('detail', () => ({ x: PX + 8, y: PY + 8, w: PW - 16, h: PH - 156 }));
+    this.guide.mark('buy', () => this.buyRect);
 
     this.drawGrid();
     this.showDetail();
@@ -222,6 +229,7 @@ export class ShopScene extends Phaser.Scene {
     for (const o of this.detail) o.destroy();
     this.detail = [];
     this.firstOpen = null;
+    this.buyRect = null;
     const add: Adder = (o) => {
       this.detail.push(o);
       return o;
@@ -332,6 +340,7 @@ export class ShopScene extends Phaser.Scene {
         this.guide.refresh({ show: 'none' });
       }
     };
+    this.buyRect = { x: PX + 16, y: by - 32, w: PW - 32, h: 132 };
     // What it costs this player: its price, less whatever they have that takes off it.
     const price = priceOf(s, pack);
     const b1 = new Button(this, cx - 88, by + 66, `     ${price}`, () => buy(1), { width: 164, height: 58, size: 22, mat: VENOM });
@@ -426,9 +435,11 @@ export class ShopScene extends Phaser.Scene {
     const rank = rankOf(pull.rarity);
 
     this.time.delayedCall(140, () => sfx.reveal(rank));
+    // A rare card's flourish is heard over the music, not through it.
+    if (rank >= 2) music.duck(1 + rank * 0.3);
     burst(this, add, cx, cy, rank, color);
     if (rank >= 2) rays(this, add, cx, cy, color, 430);
-    if (rank >= 3) this.cameras.main.shake(220, 0.006 + (rank - 3) * 0.004);
+    if (rank >= 3 && s.settings.shake) this.cameras.main.shake(220, 0.006 + (rank - 3) * 0.004);
 
     // The card rises out of where the pouch was, turning over as it comes.
     const w = 264;
@@ -534,7 +545,8 @@ export class ShopScene extends Phaser.Scene {
             this.tweens.add({ targets: c.root, y: c.y - 14, duration: 140, yoyo: true, ease: 'Cubic.easeOut' });
             rays(this, add, c.x, c.y, color, 150);
           }
-          if (rank >= 3) this.cameras.main.shake(160, 0.005);
+          if (rank >= 3) music.duck(1.4);
+          if (rank >= 3 && s.settings.shake) this.cameras.main.shake(160, 0.005);
         },
       });
     };

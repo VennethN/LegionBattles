@@ -110,7 +110,11 @@ export class Button {
     this.root.setSize(this.w, this.h);
     this.root.setInteractive({ useHandCursor: true });
     this.root.on('pointerdown', () => {
-      if (!this.enabled) return;
+      if (!this.enabled) {
+        // A button that will not go says so: not enough coins, nothing to open.
+        sfx.play('deny', 0.6);
+        return;
+      }
       this.down = true;
       this.draw();
     });
