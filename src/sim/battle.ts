@@ -156,7 +156,7 @@ export class Battle {
           damage: def.damage * (p.damageMult ?? 1),
           mult: p.damageMult ?? 1,
           rangePx: def.range * TILE,
-          radiusPx: (def.radius ?? DEFAULT_RADIUS) * TILE,
+          radiusPx: (def.radius ?? DEFAULT_RADIUS) * TILE * (1 + ((def.scale ?? 1) * (p.scale ?? 1) - 1) * 0.6),
           alive: true,
           facing: team === 0 ? 1 : -1,
           moving: false,

@@ -18,6 +18,9 @@ export interface BoardArt {
   draw: (d: Doc) => void;
 }
 
+/** The kinds of land a world can be. */
+export type Ground = 'meadow' | 'desert' | 'snow';
+
 export interface GroundColors {
   /** The two tones tiles alternate between, and the land around the board. */
   a: string;

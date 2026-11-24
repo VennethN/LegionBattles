@@ -96,6 +96,8 @@ export interface UnitDef {
   skill?: SkillDef;
   /** One line for the unit's card. */
   text?: string;
+  /** How much bigger than usual it is drawn, and how much more room it takes. 1 if left out. */
+  scale?: number;
 }
 
 export interface Placement {
@@ -105,6 +107,8 @@ export interface Placement {
   /** Multipliers from a card's level and grade. 1 if left out. */
   hpMult?: number;
   damageMult?: number;
+  /** Bigger still, on top of the unit's own scale: a stage's boss. 1 if left out. */
+  scale?: number;
 }
 
 export interface BattleInput {
