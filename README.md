@@ -262,6 +262,12 @@ The files in the repository are written to be read: every shape has an id that s
 
 The covers (`npm run cover`) are put together from the same files, so a hand-edited unit or pack shows on them too.
 
+## The art as a skill, and the game made with it
+
+The way this game is drawn is packaged as a skill for Claude, in `.claude/skills/legion-art`: the rules of the look, the kit that draws it with the whole cast, the build and the contact sheets, the Phaser runtime that shows it, and how to make covers. Its install script copies all of that into an empty project, and one small file there says what the new game shows. Start with its `SKILL.md`.
+
+It has been used once. **Legion Idle** is an idle game drawn with the same art, made from the skill: a legion in ranks on a painted road, heroes hired and leveled, a camp, abilities, rebirth. For now it lives beside this game in this repository, on the branch `claude/legion-idle-k1epdv`, which shares no files with this one. What that game added to the kit (a tighter packer, a ground with a road through it, a general build, more icons) is in the skill here too. This game's own `src/art` and `scripts/art.ts` are as they were: taking the kit's newer files in is a change for another day, and `node .claude/skills/legion-art/scripts/sync.mjs . --check` lists where the two now differ.
+
 ## Remaking the bank of sounds
 
 The bank is kept in the repository, so nothing has to be done to build the game. To change what is in it, get the two libraries it is cut from (they are not kept here: the orchestra alone is hundreds of megabytes), and then:

@@ -22,7 +22,7 @@ Read `references/rules.md` before drawing anything. In brief:
 - **A silhouette of its own** for every unit: a head, a weapon and an off hand that no other unit has together.
 - **What is drawn is the thing it is.** A coin is a struck coin, a tower is timber legs and a roof. No letters standing in for pictures, no emoji.
 
-`assets/pictures/` has what it should look like: `contact-sheet.jpg` (every unit, effect, icon, pack and badge), `parts.jpg`, `poses.jpg`, `silhouettes.jpg`, `scenes.jpg`, `logo.jpg`. Open one with the Read tool before you start, so you are matching a picture and not a description.
+`assets/pictures/` has what it should look like: `contact-sheet.jpg` (every unit, effect, icon, pack and badge), `parts.jpg`, `poses.jpg`, `silhouettes.jpg`, `scenes.jpg`, `grounds.jpg`, `logo.jpg`, and two of a game on the screen, wide and on a phone (`legion-idle.jpg`, `legion-idle-phone.jpg`). Open one with the Read tool before you start, so you are matching a picture and not a description.
 
 ## Starting a new project
 
@@ -33,17 +33,29 @@ node .claude/skills/legion-art/scripts/install.mjs .            # into the proje
 node .claude/skills/legion-art/scripts/install.mjs . --list     # only say what it would copy
 ```
 
-It puts the kit under `src/art`, the scripts under `scripts`, and the Phaser runtime under `src/view/art` (see `assets/kit` for exactly what). Then:
+It puts three things in, each at the path it has under `assets/kit`:
+
+- `src/art`: the drawing kit and the cast, about forty-five units, buildings and traps from Legion Battles. A sister game uses them as they are; that is what makes it a sister. Draw new ones the same way.
+- `scripts`: `art.ts` (the build), `sheet.ts` (the contact sheets and checks), `preview.ts` (a quick look while drawing), and `art.game.ts`, which says what this game shows.
+- `src/view`: the Phaser runtime. `art/Sheet.ts` packs pictures onto one texture, `art/Figure.ts` moves a figure's parts by the rig, `config.ts` fits the screen to any window, `ui/bake.ts`, `Effects.ts` and `Numbers.ts` are the small things every screen ends up wanting. Leave it out of a game that is not Phaser.
+
+Then:
 
 ```bash
 npm install --save-dev @resvg/resvg-js tsx typescript
+npm install phaser                                   # for the runtime
 ```
 
 and add to `package.json`: `"art": "tsx scripts/art.ts"`, `"art:sheet": "tsx scripts/sheet.ts"`.
 
-The cast comes with it: about forty-five units, buildings and traps from Legion Battles (`src/art/units`). A sister game uses them as they are; that is what makes it a sister. Draw new ones the same way.
+**Then say what the game shows**, in `scripts/art.game.ts`. As it comes it shows everything the kit can draw, on both sides, which is over 5 MB of pictures. A game names its cast (who is seen, on which side), its icons, its packs, the word in its logo and its own painted scenes, and only those are written: Legion Idle's art came to 3 MB that way. `assets/examples/art.game.idle.ts` is that game's, which takes its cast from its own data so that a hero added to the game is drawn without anyone remembering to.
 
 If the project is not TypeScript, the rules and the pictures still hold: port `kit/path.ts`, `kit/draw.ts` and `kit/palette.ts` first, they are small and have no dependencies.
+
+## Games drawn with it
+
+- **Legion Battles**, an auto battler: units on a board, cards, packs, grades. Its cover script is `assets/examples/cover.ts`.
+- **Legion Idle**, an idle game made from this skill in a day: a legion in ranks on a painted road, with a camp behind it. `assets/examples` has its `art.game.idle.ts`, its cover script (`cover-idle.ts`), and the screen that stands figures up as they are hired and brings a land's enemies in as it is come to (`StageView.idle.ts`, `AssetsScene.ts`). Read those before writing the same thing again.
 
 ## The way of working
 
