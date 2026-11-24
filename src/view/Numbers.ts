@@ -8,7 +8,8 @@ import { FONT } from './config';
 import { SHEET, type Sheet } from './Sheet';
 
 export const DIGITS_KEY = 'digits';
-const CHARS = '0123456789+-';
+// The digits, and the letters of the grades for the plate over a unit.
+const CHARS = '0123456789+-FEDCBAS';
 const CELL_W = 44;
 const CELL_H = 60;
 

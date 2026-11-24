@@ -35,6 +35,17 @@ const BAR_W = 50;
 const BAR_H = 7;
 /** The chip with a unit's level stands a little taller than the bar it is beside. */
 const CHIP_H = 13;
+const GRADE_W = 17;
+
+/** What the plate over a unit says besides its health. */
+export interface UnitPlate {
+  level: number;
+  /** The color of its tier. */
+  color: number;
+  /** The letter of its grade, and the color of that grade's plate. */
+  grade: string;
+  gradeColor: number;
+}
 const MAX_PIPS = 4;
 
 function easeOutCubic(t: number): number {
@@ -78,11 +89,15 @@ export class UnitView {
   private readonly barW: number;
   private readonly pips: Phaser.GameObjects.Image[] = [];
   private pipCount = 0;
-  /** The chip beside the health bar: the unit's level on its tier's color. Null if its level is not told. */
+  /** The chip at the left of the health bar: the unit's level on its tier's color. Null if its level is not told. */
   private readonly chipBack: Phaser.GameObjects.Image | null = null;
   private readonly chipFill: Phaser.GameObjects.Image | null = null;
   private readonly chipText: Phaser.GameObjects.BitmapText | null = null;
   private readonly chipW: number = 0;
+  /** The chip at the right of it: the letter of its grade on the color of that grade's plate. */
+  private readonly gradeBack: Phaser.GameObjects.Image | null = null;
+  private readonly gradeFill: Phaser.GameObjects.Image | null = null;
+  private readonly gradeText: Phaser.GameObjects.BitmapText | null = null;
 
   private turn: number;
   private hopT = 0;
@@ -108,8 +123,8 @@ export class UnitView {
     seed: number,
     /** How much bigger than a usual unit it is drawn: a boss is. */
     private readonly size = 1,
-    /** What the chip beside its health bar says: its level, on the color of its tier. */
-    plate: { level: number; color: number } | null = null,
+    /** What the chips beside its health bar say: its level on the color of its tier, and its grade on its plate's. */
+    plate: UnitPlate | null = null,
   ) {
     this.root = scene.add.container(0, 0);
     this.xf = makeXforms(art.parts.length);
@@ -146,6 +161,9 @@ export class UnitView {
       this.chipFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.color).setDisplaySize(this.chipW, CHIP_H);
       this.chipText = scene.add.bitmapText(0, 0, DIGITS_KEY, String(plate.level), 15).setOrigin(0.5);
       this.chipText.setLetterSpacing(-13);
+      this.gradeBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(GRADE_W + 6, CHIP_H + 6);
+      this.gradeFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.gradeColor).setDisplaySize(GRADE_W, CHIP_H);
+      this.gradeText = scene.add.bitmapText(0, 0, DIGITS_KEY, plate.grade, 15).setOrigin(0.5);
     }
     this.setBarsVisible(false);
 
@@ -221,6 +239,9 @@ export class UnitView {
     this.chipBack?.setVisible(on);
     this.chipFill?.setVisible(on);
     this.chipText?.setVisible(on);
+    this.gradeBack?.setVisible(on);
+    this.gradeFill?.setVisible(on);
+    this.gradeText?.setVisible(on);
     if (!on) for (let i = 0; i < this.pips.length; i++) this.pips[i].setVisible(false);
     this.barsOn = on;
   }
@@ -404,6 +425,19 @@ export class UnitView {
       this.chipFill.alpha = alpha;
       this.chipText.alpha = alpha;
     }
+    if (this.gradeBack && this.gradeFill && this.gradeText) {
+      // And the grade at the bar's right end, so that the bar stays over the middle of the unit.
+      const gx = bx + BAR_W + 3 + GRADE_W / 2;
+      this.gradeBack.setPosition(gx, by);
+      this.gradeFill.setPosition(gx, by);
+      this.gradeText.setPosition(gx, by - 1);
+      this.gradeBack.depth = depth;
+      this.gradeFill.depth = depth + 0.1;
+      this.gradeText.depth = depth + 0.2;
+      this.gradeBack.alpha = alpha;
+      this.gradeFill.alpha = alpha;
+      this.gradeText.alpha = alpha;
+    }
 
     for (let i = 0; i < this.pips.length; i++) {
       const pip = this.pips[i];
@@ -424,6 +458,9 @@ export class UnitView {
     this.chipBack?.destroy();
     this.chipFill?.destroy();
     this.chipText?.destroy();
+    this.gradeBack?.destroy();
+    this.gradeFill?.destroy();
+    this.gradeText?.destroy();
     for (const pip of this.pips) pip.destroy();
   }
 }

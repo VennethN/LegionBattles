@@ -32,6 +32,11 @@ const CY = 54;
 const BAND_OF = [0, 0, 1, 1, 2, 3, 4];
 const PLATE: Material[] = [IRON, BRONZE, STEEL, GOLD, RUBY];
 
+/** What a grade's plate is made of: iron, bronze, silver, gold, ruby. For whatever shows a grade without its badge. */
+export function gradePlate(grade: number): Material {
+  return PLATE[BAND_OF[Math.max(0, Math.min(BAND_OF.length - 1, grade))]];
+}
+
 // The letters, each on a box 24 wide and 28 tall. Chunky, like the font's.
 const LETTERS: Record<string, () => Path> = {
   F: () => poly([[1, 0], [22, 0], [22, 7.5], [9.5, 7.5], [9.5, 11], [19, 11], [19, 18.5], [9.5, 18.5], [9.5, 28], [1, 28]]),

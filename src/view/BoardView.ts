@@ -7,9 +7,11 @@
 
 import Phaser from 'phaser';
 import { GROUND, PROPS, type Ground } from '../art/board';
+import { gradePlate } from '../art/grades';
 import { ARCANE, CLOTH, FIRE, FROST, HIGHLIGHT, HOLY, VENOM, type Accent } from '../art/kit/palette';
 import { sfx } from '../audio/sfx';
 import { UNITS } from '../data/units';
+import { GRADES } from '../game/rarity';
 import { Battle, type SimUnit } from '../sim/battle';
 import { COLS, DT, HALF_COLS, ROWS, TILE } from '../sim/constants';
 import { hash32 } from '../sim/rng';
@@ -44,11 +46,11 @@ export interface BoardHooks {
   /** The player put one of their units on another tile. The team's placements are already changed. */
   onPlaced?: () => void;
   /**
-   * A unit's level, for the chip beside its health bar: a card's for the
-   * player's, the stage's for the enemy's. Left out, or undefined for a
-   * unit, and that unit has no chip.
+   * A unit's level and grade, for the chips beside its health bar: a card's
+   * for the player's, the stage's for the enemy's. Left out, or undefined
+   * for a unit, and that unit has no chips.
    */
-  levelOf?: (p: Placement, team: 'blue' | 'red') => number | undefined;
+  standingOf?: (p: Placement, team: 'blue' | 'red') => { level: number; grade: number } | undefined;
 }
 
 export class BoardView {
@@ -173,7 +175,7 @@ export class BoardView {
   private makeView(p: Placement, team: 'blue' | 'red', n: number): UnitView {
     const def = UNITS[p.unit];
     const accent = accentOf(def.projectile?.kind);
-    const level = this.hooks.levelOf?.(p, team);
+    const at = this.hooks.standingOf?.(p, team);
     const view = new UnitView(
       this.scene,
       p.unit,
@@ -183,7 +185,14 @@ export class BoardView {
       accent ? hex(accent.light) : null,
       hash32(this.seed * 31 + n * 7 + (team === 'red' ? 1000 : 0)),
       (def.scale ?? 1) * (p.scale ?? 1),
-      level === undefined ? null : { level, color: hex(RARITY_MAT[def.rarity].fill) },
+      at === undefined
+        ? null
+        : {
+            level: at.level,
+            color: hex(RARITY_MAT[def.rarity].fill),
+            grade: GRADES[Math.max(0, Math.min(GRADES.length - 1, at.grade))],
+            gradeColor: hex(gradePlate(at.grade).fill),
+          },
     );
     view.x = tileScreenX(p.col);
     view.y = tileScreenY(p.row);

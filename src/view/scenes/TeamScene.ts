@@ -9,51 +9,45 @@
 // level that makes before anything is done. Any card can be given up to any
 // other, a copy of its unit or not; the forge shows the least of them first.
 //
-// A unit the player does not know is its own outline in the dark, named
-// "???", and nothing else about it is told.
+// Only cards the player holds are here. Every unit there is, the ones not
+// met yet among them, is in the index (IndexScene), which INDEX opens.
 
 import Phaser from 'phaser';
-import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
+import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, OUTLINE, VENOM } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
-import { PACKS } from '../../data/packs';
-import { SETS, UNITS } from '../../data/units';
-import { cardOf, cardsOf, combine, combinePreview, fielded, holds, spare, whyNot, worth } from '../../game/cards';
-import { MAX_LEVEL, RARITY, cardMult, xpToNext } from '../../game/rarity';
-import { bestTeam, inTeam, known, teamSize, toggleTeam } from '../../game/rules';
-import { SORT_NAME, isSort, nextSort, sortCards, unitOrder, type Sort } from '../../game/sorting';
+import { UNITS } from '../../data/units';
+import { cardOf, cardsOf, combine, combinePreview, fielded, spare, whyNot, worth } from '../../game/cards';
+import { MAX_LEVEL } from '../../game/rarity';
+import { bestTeam, inTeam, teamSize, toggleTeam } from '../../game/rules';
+import { SORT_NAME, isSort, nextSort, sortCards, type Sort } from '../../game/sorting';
 import type { Card } from '../../game/state';
 import { markSeen, seen } from '../../game/tutorial';
-import { STATUS } from '../../sim/status';
 import { setupCamera } from '../app';
 import { hex } from '../config';
 import { SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { OverlayHead } from '../ui/chrome';
+import { OverlayHead, swapOverlay } from '../ui/chrome';
 import { RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
 import { portrait, unitCard } from '../ui/UnitCard';
+import { PH, PW, PX, PY, levelBar, unitPanel } from '../ui/UnitPanel';
 import { Button, label, plain, slab } from '../ui/widgets';
 
-/** A place in the grid: a card, or a unit the player holds no card of. */
+/** A place in the grid: a card. */
 interface Tile {
   key: string;
   unit: string;
-  card?: Card;
+  card: Card;
 }
 
 const COLS = 6;
 const ROWS = 4;
 const PITCH = 140;
 const PER_PAGE = COLS * ROWS;
-/** The panel on the right. */
-const PX = 884;
-const PY = 78;
-const PW = 372;
-const PH = 620;
 
 export interface TeamData {
-  /** The tile to open on: "c12" for a card, "u:knight" for a unit not held. */
+  /** The tile to open on: "c12" for the card with that number. */
   selected?: string;
   /** The card to combine others into: the screen opens as its forge. */
   forge?: number;
@@ -136,15 +130,9 @@ export class TeamScene extends Phaser.Scene {
     return isSort(by) ? by : 'unit';
   }
 
-  /** Every card held, in the order chosen, then the units no card is held of. */
+  /** Every card held, in the order chosen. */
   private cardTiles(): Tile[] {
-    const s = save();
-    const out: Tile[] = sortCards(s.cards, this.sortBy()).map((card) => ({ key: `c${card.id}`, unit: card.unit, card }));
-    for (const u of Object.values(UNITS).sort(unitOrder)) {
-      // Units no pack holds (a practice dummy, say) have no place here.
-      if (!holds(s, u.id) && PACKS.some((p) => p.set === u.set)) out.push({ key: `u:${u.id}`, unit: u.id });
-    }
-    return out;
+    return sortCards(save().cards, this.sortBy()).map((card) => ({ key: `c${card.id}`, unit: card.unit, card }));
   }
 
   /**
@@ -223,7 +211,12 @@ export class TeamScene extends Phaser.Scene {
     // How many cards there are, and the pages they fill.
     const y = 676;
     const held = this.forge ? `${this.tiles.length} other ${this.tiles.length === 1 ? 'card' : 'cards'}, the least first` : `${s.cards.length} cards`;
-    add(label(this, 36, y, held, { size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 }));
+    const count = add(label(this, 36, y, held, { size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 }));
+    if (!this.forge) {
+      // Every unit there is, the ones not held among them, is on a page of its own.
+      const index = plain(new Button(this, 36 + count.width + 84, y, 'INDEX', () => swapOverlay(this, 'Index'), { width: 120, height: 46, size: 18, mat: BONE, color: OUTLINE }));
+      add(index.root);
+    }
     if (pages > 1) {
       const turn = (by: number): void => {
         this.page = (this.page + by + pages) % pages;
@@ -270,83 +263,17 @@ export class TeamScene extends Phaser.Scene {
     };
   }
 
-  /** The level and the bar of experience toward the next, at (x, y) from the panel's corner. */
-  private levelBar(add: <T extends Phaser.GameObjects.GameObject>(o: T) => T, y: number, level: number, xp: number): void {
-    const bw = 120;
-    const share = level >= MAX_LEVEL ? 1 : Math.min(1, xp / xpToNext(level));
-    const bar = add(this.add.graphics());
-    bar.fillStyle(hex(OUTLINE), 1).fillRoundedRect(PX + PW - 24 - bw - 3, y - 9, bw + 6, 18, 8);
-    bar.fillStyle(hex(IRON.fill), 1).fillRoundedRect(PX + PW - 24 - bw, y - 6, bw, 12, 5);
-    if (share > 0.03) bar.fillStyle(hex(VENOM.fill), 1).fillRoundedRect(PX + PW - 24 - bw, y - 6, bw * share, 12, 5);
-  }
-
   private showDetail(): void {
     const add = this.clearDetail();
     const s = save();
     const tile = this.tiles.find((t) => t.key === this.selected);
-    const def = tile ? UNITS[tile.unit] : undefined;
-    if (!tile || !def) return;
-    const card = tile.card;
-    const isKnown = !!card || known(s, def);
+    const card = tile?.card;
+    const def = card ? UNITS[card.unit] : undefined;
+    if (!card || !def) return;
+    unitPanel(this, add, def, { card, known: true });
     const cx = PX + PW / 2;
-    const g = add(this.add.graphics());
-    slab(g, PX, PY, PW, PH, BONE, 22, 8);
-    slab(g, PX + 14, PY + 14, PW - 28, 150, isKnown ? RARITY_MAT[def.rarity] : IRON, 16, 5);
-    add(portrait(this, cx, PY + 154, def.id, 'blue', 128, !isKnown));
-
     const dark = { color: OUTLINE, stroke: null as null };
-    if (!isKnown) {
-      add(label(this, cx, PY + 200, '???', { size: 30 }));
-      add(label(this, cx, PY + 260, 'You have not met this one yet.\nBeat it in battle and packs\ncan turn it over.', { size: 18, weight: 600, ...dark }));
-      return;
-    }
 
-    add(label(this, cx, PY + 190, def.name, { size: def.name.length > 14 ? 24 : 28 }));
-    add(label(this, cx, PY + 220, `${RARITY[def.rarity].name}  ·  ${SETS[def.set].name}`, { size: 15, weight: 600, ...dark }));
-
-    const m = card ? cardMult(card.grade, card.level) : 1;
-    if (card) {
-      add(gradeBadge(this, PX + 62, PY + 252, card.grade, 26));
-      add(label(this, PX + 118, PY + 252, `Level ${card.level}`, { size: 18, align: 'left', ...dark }));
-      this.levelBar(add, PY + 252, card.level, card.xp);
-    } else {
-      const pack = PACKS.find((p) => p.set === def.set);
-      add(label(this, cx, PY + 252, `Not held yet. Found in the ${pack ? pack.name : 'packs'}.`, { size: 16, weight: 600, color: CLOTH.red.shade, stroke: null }));
-    }
-
-    // Its numbers, as it would fight now.
-    const stats: Array<[string, string]> = [
-      ['icon/heart', `${Math.round(def.hp * m)}`],
-      ['icon/sword', def.heal ? `${Math.round(def.heal.amount * m)} heal` : `${Math.round(def.damage * m)}`],
-      ['icon/hourglass', `${def.attackInterval} s`],
-      ['icon/range', def.range <= 1.6 ? 'melee' : `${def.range} tiles`],
-      ['icon/shield', `${Math.round(def.armor)}`],
-      ['icon/boot', `${def.speed}`],
-    ];
-    stats.forEach(([icon, text], i) => {
-      const x = PX + 30 + (i % 3) * 114;
-      const y = PY + 292 + Math.floor(i / 3) * 32;
-      add(this.add.image(x, y, SHEET, icon).setScale(0.3));
-      add(label(this, x + 18, y, text, { size: 16, weight: 600, align: 'left', ...dark }));
-    });
-
-    // What it says of itself, then its skill: each under the last, however long they run.
-    let y = PY + 350;
-    if (def.text) {
-      const t = add(label(this, PX + 24, y, def.text, { size: 14, weight: 600, align: 'left', wrap: PW - 48, color: IRON.shade, stroke: null }).setOrigin(0, 0));
-      y += t.height + 10;
-    }
-    if (def.skill) {
-      const sk = def.skill;
-      add(this.add.image(PX + 32, y + 10, SHEET, 'icon/spark').setScale(0.3));
-      add(label(this, PX + 50, y + 10, `${sk.name}  (every ${sk.cooldown} s)`, { size: 17, align: 'left', color: CLOTH.blue.shade, stroke: null }));
-      y += 24;
-      let text = sk.text;
-      if (sk.status) text += ` ${STATUS[sk.status.id].name}: ${STATUS[sk.status.id].text}`;
-      add(label(this, PX + 24, y, text, { size: 14, weight: 600, align: 'left', wrap: PW - 48, ...dark }).setOrigin(0, 0));
-    }
-
-    if (!card) return;
     const on = inTeam(s, card.id);
     const full = !on && s.team.length >= teamSize(s);
     const copies = cardsOf(s, card.unit).length;
@@ -399,14 +326,14 @@ export class TeamScene extends Phaser.Scene {
     const after = combinePreview(s, target.id, marked);
     add(gradeBadge(this, PX + 62, PY + 262, target.grade, 26));
     add(label(this, PX + 118, PY + 262, `Level ${target.level}`, { size: 18, align: 'left', ...dark }));
-    this.levelBar(add, PY + 262, target.level, target.xp);
+    levelBar(this, add, PY + 262, target.level, target.xp);
 
     if (after) {
       // What it will be: under what it is, so the two can be compared.
       add(this.add.image(PX + 62, PY + 306, SHEET, 'icon/arrow').setScale(0.34).setAngle(90));
       const up = after.to > after.from;
       add(label(this, PX + 118, PY + 306, `Level ${after.to}`, { size: 22, align: 'left', color: up ? VENOM.shade : OUTLINE, stroke: null }));
-      this.levelBar(add, PY + 306, after.to, after.left);
+      levelBar(this, add, PY + 306, after.to, after.left);
       add(label(this, cx, PY + 350, `+${after.xp} experience from ${after.given} ${after.given === 1 ? 'card' : 'cards'}`, { size: 17, ...dark }));
       if (after.to >= MAX_LEVEL) add(label(this, cx, PY + 376, 'That is the last level. More would be wasted.', { size: 14, weight: 600, color: CLOTH.red.shade, stroke: null }));
     } else {

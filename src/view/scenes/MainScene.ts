@@ -29,7 +29,7 @@ import { BoardView } from '../BoardView';
 import { W, hex } from '../config';
 import { CARDS, SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { CoinPill, OVERLAY_CLOSED, soundButton } from '../ui/chrome';
+import { CoinPill, OVERLAY_CLOSED, OVERLAY_SWAP, soundButton } from '../ui/chrome';
 import { DIFFICULTY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
 import { Guide } from '../ui/Guide';
@@ -90,11 +90,9 @@ export class MainScene extends Phaser.Scene {
         this.teamKey = this.keyOf();
         if (this.count >= 0) this.count = Math.max(this.count, COUNTDOWN.changed);
       },
-      // The player's units show their card's level, the enemy's the level the stage stands at.
-      levelOf: (p, team) =>
-        team === 'blue'
-          ? cardOf(save(), (p as Fielded).card)?.level
-          : stageStanding(WORLDS[this.at.world], this.at.stage, this.at.d).level,
+      // The player's units show their card's level and grade, the enemy's what the stage stands at.
+      standingOf: (p, team) =>
+        team === 'blue' ? cardOf(save(), (p as Fielded).card) : stageStanding(WORLDS[this.at.world], this.at.stage, this.at.d),
     });
     this.coins = new CoinPill(this, s);
     this.buildBottom();
@@ -108,7 +106,17 @@ export class MainScene extends Phaser.Scene {
 
     const closed = (key: string): void => this.onOverlayClosed(key);
     this.game.events.on(OVERLAY_CLOSED, closed);
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.game.events.off(OVERLAY_CLOSED, closed));
+    // One screen over the board can give way to another: the units to the index and back.
+    const swapped = (from: string, to: string): void => {
+      if (this.overlay !== from) return;
+      this.overlay = to;
+      this.scene.launch(to);
+    };
+    this.game.events.on(OVERLAY_SWAP, swapped);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.game.events.off(OVERLAY_CLOSED, closed);
+      this.game.events.off(OVERLAY_SWAP, swapped);
+    });
     this.input.keyboard?.on('keydown-D', () => this.board.toggleDebug());
 
     this.cameras.main.fadeIn(220);

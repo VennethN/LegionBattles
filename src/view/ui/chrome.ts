@@ -65,6 +65,16 @@ export class OverlayHead {
   }
 }
 
+/** The name of the event the game sends when one screen over the field gives way to another. */
+export const OVERLAY_SWAP = 'overlay-swap';
+
+/** Shuts a screen that is open over the field and opens another in its place. The field stays covered. */
+export function swapOverlay(scene: Phaser.Scene, to: string): void {
+  const from = scene.scene.key;
+  scene.scene.stop();
+  scene.game.events.emit(OVERLAY_SWAP, from, to);
+}
+
 /** Shuts a screen that is open over the field, and tells the field. */
 export function closeOverlay(scene: Phaser.Scene): void {
   const key = scene.scene.key;

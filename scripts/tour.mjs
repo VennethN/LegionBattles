@@ -101,6 +101,26 @@ if (after.length !== before.length - marked.length || after.some((c) => marked.i
 if (!now || !was || now.grade !== was.grade || (now.level === was.level && now.xp <= was.xp)) throw new Error(`the card did not grow: ${JSON.stringify(now)}`);
 const team = await page.evaluate(() => JSON.parse(localStorage.getItem('legion-battles-save')).team);
 if (team.length !== 7 || team.some((p) => !after.some((c) => c.id === p.card))) throw new Error('a card of the team was given up');
+// UNITS lists only cards held. INDEX, beside the count of them, is the page of every unit there is.
+const tiles = await page.evaluate(() => window.game.scene.getScene('Team').tiles.map((t) => !!t.card));
+if (tiles.length !== after.length || tiles.includes(false)) throw new Error('the screen of units shows something that is not a card held');
+const index = await page.evaluate(() => {
+  const sc = window.game.scene.getScene('Team');
+  const b = sc.children.list.filter((o) => o.type === 'Container').find((c) => c.list.some((t) => t.text === 'INDEX'));
+  return b ? { x: b.x, y: b.y } : null;
+});
+if (!index) throw new Error('no INDEX button on the screen of units');
+await page.mouse.click(index.x, index.y);
+await page.waitForFunction(() => window.game.scene.isActive('Index') && !window.game.scene.isActive('Team'), null, { timeout: 10000 });
+await page.waitForTimeout(400);
+await page.screenshot({ path: `${out}/12f-index.png` });
+// The Jarl has not been met: his tile is dark, and pressing it tells nothing.
+await page.mouse.click(96 + 3 * 140, 145 + 3 * 140);
+await page.waitForTimeout(300);
+await page.screenshot({ path: `${out}/12g-index-unknown.png` });
+await page.mouse.click(840, 38);
+await page.waitForFunction(() => window.game.scene.isActive('Team') && !window.game.scene.isActive('Index'), null, { timeout: 10000 });
+await page.waitForTimeout(300);
 await close('Team');
 await overlay('Shop');
 await page.screenshot({ path: `${out}/13-packs.png` });

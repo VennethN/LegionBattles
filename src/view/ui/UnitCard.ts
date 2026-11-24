@@ -26,6 +26,8 @@ export interface CardOpts {
   bare?: boolean;
   /** The card shown. Without one the tile is the unit alone: one not held, or not known. */
   card?: Card;
+  /** With no card: true if the player holds one all the same, so the unit is shown at full strength. The index says this. */
+  held?: boolean;
 }
 
 /** A unit's picture standing on (x, y), fitted to a height. Dark if `dark`. */
@@ -71,7 +73,7 @@ export function unitCard(
 
   const nameRoom = o.bare ? 8 : 26;
   const pic = portrait(scene, 0, h / 2 - nameRoom - 8, unit, o.enemy ? 'red' : 'blue', h - nameRoom - 26, !isKnown);
-  if (isKnown && !card && !o.enemy) pic.setAlpha(0.55);
+  if (isKnown && !card && !o.enemy && !o.held) pic.setAlpha(0.55);
   root.add(pic);
 
   if (!o.bare) {
