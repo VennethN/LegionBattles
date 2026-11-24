@@ -700,11 +700,19 @@ if (only.includes('poses')) {
   poseSheet();
   process.exit(0);
 }
+// `width=1080` draws a cover that many pixels wide, and `out=build/video` puts it somewhere else: the preview
+// video opens on the cover (scripts/videocut.ts), and its portrait frame is bigger than the portrait cover.
+const option = (name: string): string | undefined => only.find((a) => a.startsWith(`${name}=`))?.slice(name.length + 1);
+const wide = Number(option('width') ?? 0);
+const into = option('out') ? path.resolve(option('out') as string) : OUT;
+const named = only.filter((a) => !a.includes('='));
+fs.mkdirSync(into, { recursive: true });
 for (const l of LAYOUTS) {
-  if (only.length > 0 && !only.includes(l.name)) continue;
+  if (named.length > 0 && !named.includes(l.name)) continue;
   const svg = draw(l);
   if (process.env.DUMP) fs.writeFileSync(process.env.DUMP, svg);
-  const png = new Resvg(svg, { fitTo: { mode: 'width', value: l.w } }).render().asPng();
-  fs.writeFileSync(path.join(OUT, `cover-${l.name}.png`), png);
-  console.log(`cover: docs/covers/cover-${l.name}.png (${l.w} x ${l.h}, ${(png.length / 1024).toFixed(0)} KB)`);
+  const png = new Resvg(svg, { fitTo: { mode: 'width', value: wide || l.w } }).render().asPng();
+  fs.writeFileSync(path.join(into, `cover-${l.name}.png`), png);
+  const tall = Math.round(((wide || l.w) * l.h) / l.w);
+  console.log(`cover: ${path.relative(process.cwd(), path.join(into, `cover-${l.name}.png`))} (${wide || l.w} x ${tall}, ${(png.length / 1024).toFixed(0)} KB)`);
 }
