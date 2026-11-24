@@ -263,7 +263,11 @@ export function tidyTeam(save: SaveData): void {
     tiles.add(`${col},${row}`);
     out.push({ card: held.id, unit: held.unit, col, row });
   }
-  save.team = out;
+  // The list itself is kept and filled again: the board holds this very list while the team is on show,
+  // and a unit dragged to another tile is written into it. A new list here was a team whose moves were
+  // lost as soon as any screen had been opened and shut.
+  save.team.length = 0;
+  for (const p of out) save.team.push(p);
 }
 
 /**

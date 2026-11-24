@@ -123,7 +123,10 @@ export class TeamScene extends Phaser.Scene {
         this.drawGrid();
       }, { width: 196, height: 46, size: 18, mat: BONE, color: OUTLINE }));
       const fill = plain(new Button(this, 640, 38, 'FILL TEAM', () => {
-        s.team = bestTeam(s);
+        // Into the team's own list: the board holds that list, and writes a drag into it.
+        const best = bestTeam(s);
+        s.team.length = 0;
+        for (const p of best) s.team.push(p);
         markSeen(s, 'fill');
         commit();
         this.redraw();

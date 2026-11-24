@@ -232,6 +232,19 @@ export class BoardView {
     });
   }
 
+  /**
+   * Holds this list as the team on show, if it is the same team in the same
+   * places: whoever keeps the team may have made a new list of it, and a
+   * drag is written into the list held here.
+   */
+  holdTeam(team: Placement[]): void {
+    if (team.length !== this.team.length) return;
+    for (let i = 0; i < team.length; i++) {
+      if (team[i].unit !== this.team[i].unit || team[i].col !== this.team[i].col || team[i].row !== this.team[i].row) return;
+    }
+    this.team = team;
+  }
+
   private makeView(p: Placement, team: 'blue' | 'red', n: number, col: number, row: number): UnitView {
     const def = UNITS[p.unit];
     const accent = accentOf(def.projectile?.kind);

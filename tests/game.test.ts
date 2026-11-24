@@ -1217,6 +1217,26 @@ describe('combining', () => {
 });
 
 
+describe('where the team stands', () => {
+  it('is kept through a tidy: the list the board writes a drag into is still the save\'s own', () => {
+    const save = startingSave(3);
+    const list = save.team;
+    tidyTeam(save);
+    expect(save.team).toBe(list);
+    // A unit dragged to another tile, as the board writes it, after a screen was opened and shut.
+    tidyTeam(save);
+    list[0].col = 0;
+    list[0].row = 3;
+    tidyTeam(save);
+    expect(save.team[0]).toMatchObject({ col: 0, row: 3 });
+    const back = repair(JSON.parse(JSON.stringify(save)), 1);
+    expect(back.team[0]).toMatchObject({ col: 0, row: 3 });
+    // And the battle is fought from there.
+    const placed = stageInput(save, 0).teams[0][0];
+    expect([placed.col, placed.row]).toEqual([0, 3]);
+  });
+});
+
 describe('the save', () => {
   it('survives a trip through JSON', () => {
     const save = at(14);

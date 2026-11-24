@@ -470,6 +470,8 @@ export class MainScene extends Phaser.Scene {
         return;
       }
     }
+    // The same team in the same places may be a new list all the same: the board is given the one that is saved.
+    this.board.holdTeam(s.team);
     // Shutting a screen starts the count again.
     if (this.state === 'ready' && s.auto) this.count = Math.max(this.count, COUNTDOWN.changed);
     this.guide.refresh({ covered: false });
