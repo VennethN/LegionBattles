@@ -61,7 +61,7 @@ export function unitPanel(scene: Phaser.Scene, add: Adder, def: UnitInfo, o: Pan
   const dark = { color: OUTLINE, stroke: null as null };
   if (!o.known) {
     add(label(scene, cx, PY + 200, '???', { size: 30 }));
-    add(label(scene, cx, PY + 260, 'You have not met this one yet.\nBeat it in battle and packs\ncan turn it over.', { size: 18, weight: 600, ...dark }));
+    add(label(scene, cx, PY + 260, 'You have not met this one yet.\nPull its card from a pack,\nor beat it in battle.', { size: 18, weight: 600, ...dark }));
     return PY + 300;
   }
 

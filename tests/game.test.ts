@@ -7,7 +7,7 @@ import { COUNTDOWN, afterBattle, goTo, sameWhere, settle, teamChanged, whereOpen
 import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
 import { COPY_XP, OTHER_UNIT, addCard, cardOf, cardsOf, combine, combinePreview, spare, whyNot, worth, xpHeld } from '../src/game/cards';
 import {
-  BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, cardPower, clearedIn, difficultyOpen, finishStage, frontier, inPool, inTeam, isEnemyTile, known,
+  BASE_TEAM, MAX_TEAM, addXp, bestTeam, buyPack, cardPower, clearedIn, difficultyOpen, finishStage, frontier, beaten, inTeam, isEnemyTile, known,
   openPack, packOpen, packPool, packsHeld, rollPack, stageEnemies, stageInput, stageOpen, stagePay, stageStanding, stageXp,
   startingSave, teamSize, tidyTeam, toggleTeam, topDifficulty, worldDone, worldOpen, type StageResult,
 } from '../src/game/rules';
@@ -193,26 +193,37 @@ describe('what is open', () => {
 });
 
 describe('what is known', () => {
-  it('a unit is in a pack only once it has been beaten', () => {
+  it('a unit is known once it is held or has been beaten', () => {
     const save = startingSave(1);
-    expect(inPool(save, UNITS.knight)).toBe(true);
-    expect(inPool(save, UNITS.cutpurse)).toBe(false);
+    expect(beaten(save, UNITS.knight)).toBe(true);
+    expect(beaten(save, UNITS.cutpurse)).toBe(false);
     expect(known(save, UNITS.cutpurse)).toBe(false);
     expect(known(save, UNITS.knight)).toBe(true);
     expect(known(save, UNITS.paladin)).toBe(false);
     const r = finishStage(save, 0, 0, true);
     expect(r.unlocked).toEqual(['cutpurse']);
     expect(known(save, UNITS.cutpurse)).toBe(true);
-    expect(inPool(save, UNITS.warlord)).toBe(false);
+    expect(beaten(save, UNITS.warlord)).toBe(false);
   });
 
-  it("a world's pack is sold once something in it has been beaten", () => {
+  it('a pack holds every unit of its set from the start: nothing in it is unlocked', () => {
+    const save = startingSave(1);
+    for (const pack of PACKS) {
+      const all = Object.values(UNITS).filter((u) => u.set === pack.set).map((u) => u.id).sort();
+      expect(packPool(save, pack).map((u) => u.id).sort(), pack.id).toEqual(all);
+    }
+    // The boss of the first world can be pulled before it has been met, and is known from then on.
+    expect(packPool(save, packById('thornwood')).map((u) => u.id)).toContain('warlord');
+    expect(known(save, UNITS.warlord)).toBe(false);
+    save.packs.thornwood = 400;
+    while (!known(save, UNITS.warlord) && openPack(save, 'thornwood'));
+    expect(known(save, UNITS.warlord)).toBe(true);
+  });
+
+  it("a world's pack is sold once its world is open", () => {
     const save = startingSave(1);
     expect(packOpen(save, packById('recruit'))).toBe(true);
-    expect(packOpen(save, packById('thornwood'))).toBe(false);
-    finishStage(save, 0, 0, true);
     expect(packOpen(save, packById('thornwood'))).toBe(true);
-    expect(packPool(save, packById('thornwood')).map((u) => u.id)).toEqual(['cutpurse']);
     expect(packOpen(save, packById('dunes'))).toBe(false);
     expect(packOpen(save, packById('royal'))).toBe(false);
     expect(packOpen(at(2, 0), packById('royal'))).toBe(true);

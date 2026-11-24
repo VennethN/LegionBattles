@@ -4,6 +4,7 @@ import Phaser from 'phaser';
 import { GRASS } from './art/kit/palette';
 import { sfx } from './audio/sfx';
 import { ads } from './platform/ads';
+import { applyResolution, watchFrameRate } from './view/app';
 import { H, RES, W } from './view/config';
 import { BattleScene } from './view/scenes/BattleScene';
 import { BootScene } from './view/scenes/BootScene';
@@ -33,10 +34,19 @@ const game = new Phaser.Game({
   // (view/Sheet.ts), so this costs nothing, and it is what phones get anyway.
   // With more, a software GL (the headless browser the screenshots are taken
   // in) draws half of some sprites.
-  render: { antialias: true, roundPixels: false, maxTextures: 1 },
+  //
+  // Textures are smoothed (antialias), but the canvas itself is multisampled
+  // only at the layout's own size: on a dense screen the canvas is already
+  // drawn at up to twice that, and sampling every pixel of it four times
+  // over is the dearest thing a weak graphics chip can be asked for. The
+  // faster of two graphics chips is asked for where there are two.
+  render: { antialias: true, antialiasGL: RES <= 1, roundPixels: false, maxTextures: 1, powerPreference: 'high-performance' },
   scene: [BootScene, MainScene, BattleScene, TeamScene, IndexScene, ShopScene, WorldsScene],
 });
+
+watchFrameRate(game);
 
 // For the browser console and for the screenshot script.
 (window as unknown as { game: Phaser.Game; sfx: typeof sfx }).game = game;
 (window as unknown as { sfx: typeof sfx }).sfx = sfx;
+(window as unknown as { setRes: (res: number) => void }).setRes = (res) => applyResolution(game, res);

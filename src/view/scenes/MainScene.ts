@@ -78,6 +78,8 @@ export class MainScene extends Phaser.Scene {
 
   create(): void {
     setupCamera(this);
+    // It may have been hidden under a screen when it was last shut down.
+    this.scene.setVisible(true);
     const s = save();
     tidyTeam(s);
     this.at = { ...settle(s) };
@@ -295,7 +297,7 @@ export class MainScene extends Phaser.Scene {
     this.next = afterBattle(s, this.at, result);
     commit();
     this.state = 'after';
-    const news = result.unlocked.length > 0 || result.moreTeam > 0 || !!result.opened || result.harder >= 0;
+    const news = result.moreTeam > 0 || !!result.opened || result.harder >= 0;
     this.afterUntil = this.time.now + (news ? 3600 : 2300);
     this.showResult(winner, result);
     this.refreshTop();
@@ -381,6 +383,8 @@ export class MainScene extends Phaser.Scene {
     if (this.overlay) return;
     this.overlay = key;
     this.scene.launch(key);
+    // What is covered is not drawn: a screen of cards costs enough frames by itself.
+    this.scene.setVisible(false);
     this.guide.refresh({ covered: true });
     this.refreshBottom();
   }
@@ -388,6 +392,7 @@ export class MainScene extends Phaser.Scene {
   private onOverlayClosed(key: string): void {
     if (this.overlay !== key) return;
     this.overlay = null;
+    this.scene.setVisible(true);
     const s = save();
     tidyTeam(s);
     this.coins.refresh();
@@ -462,7 +467,6 @@ export class MainScene extends Phaser.Scene {
       if (r.levelUps.length > 2) names.push(`and ${r.levelUps.length - 2} more`);
       rows.push({ text: names.join(', '), color: VENOM.light });
     }
-    if (r.unlocked.length > 0) rows.push({ text: `Packs can now turn over: ${r.unlocked.map((id) => UNITS[id].name).join(', ')}`, color: ARCANE.light });
     if (r.moreTeam > 0) rows.push({ text: `Your team has room for ${teamSize(save())} now`, color: ARCANE.light });
     if (r.opened) rows.push({ text: `${WORLDS[this.at.world + 1].name} is open`, color: ARCANE.light });
     if (r.harder >= 0) rows.push({ text: `${DIFFICULTIES[r.harder].name} is open in ${WORLDS[this.at.world].name}`, color: ARCANE.light });

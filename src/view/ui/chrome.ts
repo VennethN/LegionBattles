@@ -55,7 +55,8 @@ export class OverlayHead {
 
   /** `beforeClose` is called when CLOSE is pressed, before the screen goes. */
   constructor(scene: Phaser.Scene, title: string, save: SaveData, beforeClose: () => void = () => {}) {
-    veil(scene, 0, 0.94);
+    // The board under it is not drawn while this is open (MainScene), so the sheet over it is solid.
+    veil(scene, 0, 1);
     label(scene, 26, 36, title, { size: 32, align: 'left' }).setDepth(8000);
     this.coins = new CoinPill(scene, save);
     this.close = new Button(scene, W - 262, 37, 'CLOSE', () => {

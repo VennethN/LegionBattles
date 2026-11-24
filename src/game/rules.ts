@@ -90,8 +90,13 @@ export function teamSize(save: SaveData): number {
   return Math.min(MAX_TEAM, n);
 }
 
-/** Whether a unit has been met and beaten often enough for packs to turn it over. */
-export function inPool(save: SaveData, unit: UnitInfo): boolean {
+/**
+ * Whether a unit has been met in battle and beaten: an enemy from the stage
+ * it first stands at, once that stage is cleared. A unit that is no enemy
+ * counts as met. This is for what is known, not for packs: a pack holds
+ * every unit of its set from the start (packPool).
+ */
+export function beaten(save: SaveData, unit: UnitInfo): boolean {
   if (unit.from === undefined) return true;
   const world = WORLDS.find((w) => w.set === unit.set);
   return !!world && clearedIn(save, world.id) >= unit.from;
@@ -103,7 +108,7 @@ export function inPool(save: SaveData, unit: UnitInfo): boolean {
  * told. A unit stays known when its last card is combined into another.
  */
 export function known(save: SaveData, unit: UnitInfo): boolean {
-  return met(save, unit.id) || (unit.from !== undefined && inPool(save, unit));
+  return met(save, unit.id) || (unit.from !== undefined && beaten(save, unit));
 }
 
 // ------------------------------------------------------------ the team
@@ -285,7 +290,7 @@ export interface StageResult {
   levelUps: LevelUp[];
   /** Packs dropped, by id. */
   packs: string[];
-  /** Units that packs can turn over from now on. */
+  /** Units beaten for the first time: known from now on, held or not. */
   unlocked: string[];
   /** The team may be this much bigger from now on, or 0. */
   moreTeam: number;
@@ -308,7 +313,7 @@ export function finishStage(save: SaveData, worldIndex: number, stage: number, w
   const rng = nextRandom(save);
   const sizeBefore = teamSize(save);
   const first = won && stage === clearedIn(save, world.id, d);
-  const poolBefore = new Set(Object.values(UNITS).filter((u) => inPool(save, u)).map((u) => u.id));
+  const beatenBefore = new Set(Object.values(UNITS).filter((u) => beaten(save, u)).map((u) => u.id));
 
   save.stats.battles++;
   const result: StageResult = {
@@ -341,7 +346,7 @@ export function finishStage(save: SaveData, worldIndex: number, stage: number, w
   if (rng.chance(DROP_CHANCE)) result.packs.push(pack);
   for (const id of result.packs) save.packs[id] = (save.packs[id] ?? 0) + 1;
 
-  for (const u of Object.values(UNITS)) if (inPool(save, u) && !poolBefore.has(u.id)) result.unlocked.push(u.id);
+  for (const u of Object.values(UNITS)) if (beaten(save, u) && !beatenBefore.has(u.id)) result.unlocked.push(u.id);
   result.moreTeam = teamSize(save) - sizeBefore;
   if (first && def.kind === 'boss') {
     if (d === 0 && worldIndex + 1 < WORLDS.length) result.opened = WORLDS[worldIndex + 1].id;
@@ -356,16 +361,20 @@ export function finishStage(save: SaveData, worldIndex: number, stage: number, w
 export function packOpen(save: SaveData, pack: PackDef): boolean {
   if (pack.world) {
     const i = WORLDS.findIndex((w) => w.id === pack.world);
-    // A world's pack is sold once something in it has been beaten: before that it would be empty.
-    // Its harder packs are sold once that difficulty is open.
-    return i >= 0 && difficultyOpen(save, i, pack.difficulty ?? 0) && clearedIn(save, pack.world) > 0;
+    // A world's pack is sold once its world is open, and its harder packs once that difficulty is.
+    return i >= 0 && difficultyOpen(save, i, pack.difficulty ?? 0);
   }
   if (pack.after) return worldDone(save, pack.after);
   return true;
 }
 
-export function packPool(save: SaveData, pack: PackDef): UnitInfo[] {
-  return Object.values(UNITS).filter((u) => u.set === pack.set && inPool(save, u));
+/**
+ * What a pack can turn over: every unit of its set, from the start. Nothing
+ * in a pack has to be unlocked, by the owner's word ("all packs can contain
+ * the unit from that pack from the start").
+ */
+export function packPool(_save: SaveData, pack: PackDef): UnitInfo[] {
+  return Object.values(UNITS).filter((u) => u.set === pack.set);
 }
 
 export interface Pull {
