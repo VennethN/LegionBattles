@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="builder" width="124" height="168" viewBox="0 0 124 168">
+<defs>
+<path id="builder-pouch-shape" d="M 12 14 L 23.1 6 L 34.2 14 L 45.3 6 L 56.4 14 L 67.6 6 L 78.7 14 L 89.8 6 L 100.9 14 L 112 6 L 116 84 L 112 162 L 100.9 154 L 89.8 162 L 78.7 154 L 67.6 162 L 56.4 154 L 45.3 162 L 34.2 154 L 23.1 162 L 12 154 L 8 84 Z"/>
+<clipPath id="builder-pouch-clip"><use href="#builder-pouch-shape"/></clipPath>
+<clipPath id="builder-pouch-lit-clip"><use href="#builder-pouch-shape" transform="translate(-7 -7)"/></clipPath>
+<path id="builder-crimp-top-shape" d="M 0 0 L 124 0 L 124 26 L 0 26 Z"/>
+<path id="builder-crimp-bottom-shape" d="M 0 142 L 124 142 L 124 168 L 0 168 Z"/>
+<path id="builder-band-shape" d="M 0 108 L 124 92 L 124 112 L 0 128 Z"/>
+<path id="builder-seal-shape" d="M 93 74 C 93 91.1 79.1 105 62 105 C 44.9 105 31 91.1 31 74 C 31 56.9 44.9 43 62 43 C 79.1 43 93 56.9 93 74 Z"/>
+<clipPath id="builder-seal-clip"><use href="#builder-seal-shape"/></clipPath>
+<clipPath id="builder-seal-lit-clip"><use href="#builder-seal-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="builder-mark-shape" d="M 47 91 L 47 58 L 54 58 L 54 65 L 58.5 65 L 58.5 58 L 65.5 58 L 65.5 65 L 70 65 L 70 58 L 77 58 L 77 91 Z"/>
+<clipPath id="builder-mark-clip"><use href="#builder-mark-shape"/></clipPath>
+<clipPath id="builder-mark-lit-clip"><use href="#builder-mark-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="builder-pouch">
+<use id="builder-pouch-shade" href="#builder-pouch-shape" fill="#75502b"/>
+<g clip-path="url(#builder-pouch-clip)">
+<use id="builder-pouch-deep" href="#builder-pouch-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="builder-pouch-shade-over" href="#builder-pouch-shape" transform="translate(-4.34 -4.34)" fill="#75502b"/>
+<use id="builder-pouch-fill" href="#builder-pouch-shape" transform="translate(-7 -7)" fill="#9a6a3a"/>
+<g clip-path="url(#builder-pouch-lit-clip)">
+<use id="builder-pouch-lit" href="#builder-pouch-shape" transform="translate(-7 -7)" fill="#f4f1e4" opacity="0.36"/>
+<use id="builder-pouch-fill-over" href="#builder-pouch-shape" transform="translate(4.6 4.6)" fill="#9a6a3a"/>
+</g>
+<g id="builder-crimp-top">
+<use id="builder-crimp-top-fill" href="#builder-crimp-top-shape" fill="#75502b"/>
+<use id="builder-crimp-top-line" href="#builder-crimp-top-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="builder-crimp-bottom">
+<use id="builder-crimp-bottom-fill" href="#builder-crimp-bottom-shape" fill="#75502b"/>
+<use id="builder-crimp-bottom-line" href="#builder-crimp-bottom-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="builder-band">
+<use id="builder-band-fill" href="#builder-band-shape" fill="#b9c2cc"/>
+<use id="builder-band-line" href="#builder-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="builder-pouch-line" href="#builder-pouch-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="builder-seal">
+<use id="builder-seal-shade" href="#builder-seal-shape" fill="#c4b594"/>
+<g clip-path="url(#builder-seal-clip)">
+<use id="builder-seal-fill" href="#builder-seal-shape" transform="translate(-4 -4)" fill="#e9dfc6"/>
+<g clip-path="url(#builder-seal-lit-clip)">
+<use id="builder-seal-lit" href="#builder-seal-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="builder-seal-fill-over" href="#builder-seal-shape" transform="translate(4.2 4.2)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="builder-seal-line" href="#builder-seal-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="builder-mark">
+<use id="builder-mark-shade" href="#builder-mark-shape" fill="#77766b"/>
+<g clip-path="url(#builder-mark-clip)">
+<use id="builder-mark-fill" href="#builder-mark-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#builder-mark-lit-clip)">
+<use id="builder-mark-lit" href="#builder-mark-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="builder-mark-fill-over" href="#builder-mark-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+<path id="builder-gate" d="M 57 91 L 57 80 L 62 75 L 67 80 L 67 91 Z" fill="#2a1a10"/>
+</g>
+<use id="builder-mark-line" href="#builder-mark-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="builder-glint" d="M 25.5 42.6 L 35.5 36.6 C 37 35.7 37.4 33.9 36.6 32.5 C 35.7 31 33.9 30.6 32.5 31.4 L 22.5 37.4 C 21 38.3 20.6 40.1 21.4 41.5 C 22.3 43 24.1 43.4 25.5 42.6 Z" fill="#f4f1e4"/>
+</svg>

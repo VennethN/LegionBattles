@@ -20,6 +20,7 @@ import { paladin } from './paladin';
 import { poacher } from './poacher';
 import { pyromancer } from './pyromancer';
 import { warlord } from './warlord';
+import { STRUCTURES_ART } from './structures';
 
 /** Every unit that has art, in the order the contact sheet shows them: set by set. */
 export const UNIT_ART: readonly UnitArt[] = [
@@ -27,6 +28,8 @@ export const UNIT_ART: readonly UnitArt[] = [
   cutpurse, poacher, bruiser, hexer, warlord,
   lancer, javelineer, ballista, pyromancer, colossus,
   huscarl, harpooner, icegolem, frostwitch, jarl,
+  // The structures: buildings and traps, the Crownlands' and then each land's.
+  ...STRUCTURES_ART,
 ];
 
 export function unitArt(id: string): UnitArt {

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="watchtower-flag" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="watchtower-flag-staff-shape" d="M 95.5 45 L 96.5 45 Q 98.5 45 98.5 47 L 98.5 67 Q 98.5 69 96.5 69 L 95.5 69 Q 93.5 69 93.5 67 L 93.5 47 Q 93.5 45 95.5 45 Z"/>
+<path id="watchtower-flag-cloth-shape" d="M 98 46 L 124 51 L 116 56 L 124 61 L 98 65 Z"/>
+<clipPath id="watchtower-flag-cloth-clip"><use href="#watchtower-flag-cloth-shape"/></clipPath>
+<clipPath id="watchtower-flag-cloth-lit-clip"><use href="#watchtower-flag-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="watchtower-flag-knob-shape" d="M 99.5 44 C 99.5 45.9 97.9 47.5 96 47.5 C 94.1 47.5 92.5 45.9 92.5 44 C 92.5 42.1 94.1 40.5 96 40.5 C 97.9 40.5 99.5 42.1 99.5 44 Z"/>
+</defs>
+<g id="watchtower-flag-staff">
+<use id="watchtower-flag-staff-fill" href="#watchtower-flag-staff-shape" fill="#9a6a3a"/>
+<use id="watchtower-flag-staff-line" href="#watchtower-flag-staff-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="watchtower-flag-cloth">
+<use id="watchtower-flag-cloth-shade" href="#watchtower-flag-cloth-shape" fill="#2f5893"/>
+<g clip-path="url(#watchtower-flag-cloth-clip)">
+<use id="watchtower-flag-cloth-fill" href="#watchtower-flag-cloth-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#watchtower-flag-cloth-lit-clip)">
+<use id="watchtower-flag-cloth-lit" href="#watchtower-flag-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="watchtower-flag-cloth-fill-over" href="#watchtower-flag-cloth-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="watchtower-flag-cloth-line" href="#watchtower-flag-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="watchtower-flag-knob">
+<use id="watchtower-flag-knob-fill" href="#watchtower-flag-knob-shape" fill="#c8a24a"/>
+<use id="watchtower-flag-knob-line" href="#watchtower-flag-knob-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

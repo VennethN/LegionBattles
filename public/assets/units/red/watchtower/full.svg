@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="watchtower" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="watchtower-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="watchtower-shadow-shadow" d="M 136 181 C 136 186 118.1 190 96 190 C 73.9 190 56 186 56 181 C 56 176 73.9 172 96 172 C 118.1 172 136 176 136 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="watchtower-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="watchtower-body-leg-a-shape" d="M 72 180 L 81 128 L 88 128 L 81 180 Z"/>
+<clipPath id="watchtower-body-leg-a-clip"><use href="#watchtower-body-leg-a-shape"/></clipPath>
+<clipPath id="watchtower-body-leg-a-lit-clip"><use href="#watchtower-body-leg-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="watchtower-body-leg-b-shape" d="M 120 180 L 111 128 L 104 128 L 111 180 Z"/>
+<clipPath id="watchtower-body-leg-b-clip"><use href="#watchtower-body-leg-b-shape"/></clipPath>
+<clipPath id="watchtower-body-leg-b-lit-clip"><use href="#watchtower-body-leg-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="watchtower-body-brace-shape" d="M 79 171 L 111 135 L 113 139 L 81 175 Z"/>
+<path id="watchtower-body-deck-shape" d="M 71 121 L 121 121 Q 123 121 123 123 L 123 129 Q 123 131 121 131 L 71 131 Q 69 131 69 129 L 69 123 Q 69 121 71 121 Z"/>
+<path id="watchtower-body-wall-shape" d="M 76 95 L 116 95 Q 118 95 118 97 L 118 121 Q 118 123 116 123 L 76 123 Q 74 123 74 121 L 74 97 Q 74 95 76 95 Z"/>
+<clipPath id="watchtower-body-wall-clip"><use href="#watchtower-body-wall-shape"/></clipPath>
+<clipPath id="watchtower-body-wall-lit-clip"><use href="#watchtower-body-wall-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="watchtower-body-roof-shape" d="M 65 97 L 96 67 L 127 97 Z"/>
+<clipPath id="watchtower-body-roof-clip"><use href="#watchtower-body-roof-shape"/></clipPath>
+<clipPath id="watchtower-body-roof-lit-clip"><use href="#watchtower-body-roof-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="watchtower-body-leg-a">
+<use id="watchtower-body-leg-a-shade" href="#watchtower-body-leg-a-shape" fill="#75502b"/>
+<g clip-path="url(#watchtower-body-leg-a-clip)">
+<use id="watchtower-body-leg-a-fill" href="#watchtower-body-leg-a-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#watchtower-body-leg-a-lit-clip)">
+<use id="watchtower-body-leg-a-lit" href="#watchtower-body-leg-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="watchtower-body-leg-a-fill-over" href="#watchtower-body-leg-a-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="watchtower-body-leg-a-line" href="#watchtower-body-leg-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="watchtower-body-leg-b">
+<use id="watchtower-body-leg-b-shade" href="#watchtower-body-leg-b-shape" fill="#75502b"/>
+<g clip-path="url(#watchtower-body-leg-b-clip)">
+<use id="watchtower-body-leg-b-fill" href="#watchtower-body-leg-b-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#watchtower-body-leg-b-lit-clip)">
+<use id="watchtower-body-leg-b-lit" href="#watchtower-body-leg-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="watchtower-body-leg-b-fill-over" href="#watchtower-body-leg-b-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="watchtower-body-leg-b-line" href="#watchtower-body-leg-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="watchtower-body-brace">
+<use id="watchtower-body-brace-fill" href="#watchtower-body-brace-shape" fill="#75502b"/>
+<use id="watchtower-body-brace-line" href="#watchtower-body-brace-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="watchtower-body-deck">
+<use id="watchtower-body-deck-fill" href="#watchtower-body-deck-shape" fill="#9a6a3a"/>
+<use id="watchtower-body-deck-line" href="#watchtower-body-deck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="watchtower-body-wall">
+<use id="watchtower-body-wall-shade" href="#watchtower-body-wall-shape" fill="#75502b"/>
+<g clip-path="url(#watchtower-body-wall-clip)">
+<use id="watchtower-body-wall-fill" href="#watchtower-body-wall-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#watchtower-body-wall-lit-clip)">
+<use id="watchtower-body-wall-lit" href="#watchtower-body-wall-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="watchtower-body-wall-fill-over" href="#watchtower-body-wall-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="watchtower-body-plank" d="M 83.8 94 L 86.2 94 L 86.2 124 L 83.8 124 L 83.8 94 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="watchtower-body-plank-2" d="M 94.8 94 L 97.2 94 L 97.2 124 L 94.8 124 L 94.8 94 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="watchtower-body-plank-3" d="M 105.8 94 L 108.2 94 L 108.2 124 L 105.8 124 L 105.8 94 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="watchtower-body-slit" d="M 103 102 L 113 102 Q 116 102 116 105 L 116 108 Q 116 111 113 111 L 103 111 Q 100 111 100 108 L 100 105 Q 100 102 103 102 Z" fill="#1e2b17"/>
+</g>
+<use id="watchtower-body-wall-line" href="#watchtower-body-wall-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="watchtower-body-roof">
+<use id="watchtower-body-roof-shade" href="#watchtower-body-roof-shape" fill="#933027"/>
+<g clip-path="url(#watchtower-body-roof-clip)">
+<use id="watchtower-body-roof-deep" href="#watchtower-body-roof-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="watchtower-body-roof-shade-over" href="#watchtower-body-roof-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="watchtower-body-roof-fill" href="#watchtower-body-roof-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#watchtower-body-roof-lit-clip)">
+<use id="watchtower-body-roof-lit" href="#watchtower-body-roof-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="watchtower-body-roof-fill-over" href="#watchtower-body-roof-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
+<path id="watchtower-body-eave" d="M 62 91 L 130 91 L 130 97 L 62 97 L 62 91 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="watchtower-body-roof-line" href="#watchtower-body-roof-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="watchtower-flag-layer" transform="translate(96 69) rotate(0) scale(1 1) translate(-96 -69)">
+<defs>
+<path id="watchtower-flag-staff-shape" d="M 95.5 45 L 96.5 45 Q 98.5 45 98.5 47 L 98.5 67 Q 98.5 69 96.5 69 L 95.5 69 Q 93.5 69 93.5 67 L 93.5 47 Q 93.5 45 95.5 45 Z"/>
+<path id="watchtower-flag-cloth-shape" d="M 98 46 L 124 51 L 116 56 L 124 61 L 98 65 Z"/>
+<clipPath id="watchtower-flag-cloth-clip"><use href="#watchtower-flag-cloth-shape"/></clipPath>
+<clipPath id="watchtower-flag-cloth-lit-clip"><use href="#watchtower-flag-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="watchtower-flag-knob-shape" d="M 99.5 44 C 99.5 45.9 97.9 47.5 96 47.5 C 94.1 47.5 92.5 45.9 92.5 44 C 92.5 42.1 94.1 40.5 96 40.5 C 97.9 40.5 99.5 42.1 99.5 44 Z"/>
+</defs>
+<g id="watchtower-flag-staff">
+<use id="watchtower-flag-staff-fill" href="#watchtower-flag-staff-shape" fill="#9a6a3a"/>
+<use id="watchtower-flag-staff-line" href="#watchtower-flag-staff-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="watchtower-flag-cloth">
+<use id="watchtower-flag-cloth-shade" href="#watchtower-flag-cloth-shape" fill="#933027"/>
+<g clip-path="url(#watchtower-flag-cloth-clip)">
+<use id="watchtower-flag-cloth-fill" href="#watchtower-flag-cloth-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#watchtower-flag-cloth-lit-clip)">
+<use id="watchtower-flag-cloth-lit" href="#watchtower-flag-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="watchtower-flag-cloth-fill-over" href="#watchtower-flag-cloth-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="watchtower-flag-cloth-line" href="#watchtower-flag-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="watchtower-flag-knob">
+<use id="watchtower-flag-knob-fill" href="#watchtower-flag-knob-shape" fill="#c8a24a"/>
+<use id="watchtower-flag-knob-line" href="#watchtower-flag-knob-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

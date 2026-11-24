@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="barracks-flag" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="barracks-flag-staff-shape" d="M 95.5 72 L 96.5 72 Q 98.5 72 98.5 74 L 98.5 92 Q 98.5 94 96.5 94 L 95.5 94 Q 93.5 94 93.5 92 L 93.5 74 Q 93.5 72 95.5 72 Z"/>
+<path id="barracks-flag-cloth-shape" d="M 98 73 L 124 78 L 116 83 L 124 88 L 98 92 Z"/>
+<clipPath id="barracks-flag-cloth-clip"><use href="#barracks-flag-cloth-shape"/></clipPath>
+<clipPath id="barracks-flag-cloth-lit-clip"><use href="#barracks-flag-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="barracks-flag-knob-shape" d="M 99.5 71 C 99.5 72.9 97.9 74.5 96 74.5 C 94.1 74.5 92.5 72.9 92.5 71 C 92.5 69.1 94.1 67.5 96 67.5 C 97.9 67.5 99.5 69.1 99.5 71 Z"/>
+</defs>
+<g id="barracks-flag-staff">
+<use id="barracks-flag-staff-fill" href="#barracks-flag-staff-shape" fill="#9a6a3a"/>
+<use id="barracks-flag-staff-line" href="#barracks-flag-staff-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="barracks-flag-cloth">
+<use id="barracks-flag-cloth-shade" href="#barracks-flag-cloth-shape" fill="#2f5893"/>
+<g clip-path="url(#barracks-flag-cloth-clip)">
+<use id="barracks-flag-cloth-fill" href="#barracks-flag-cloth-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#barracks-flag-cloth-lit-clip)">
+<use id="barracks-flag-cloth-lit" href="#barracks-flag-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="barracks-flag-cloth-fill-over" href="#barracks-flag-cloth-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="barracks-flag-cloth-line" href="#barracks-flag-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="barracks-flag-knob">
+<use id="barracks-flag-knob-fill" href="#barracks-flag-knob-shape" fill="#c8a24a"/>
+<use id="barracks-flag-knob-line" href="#barracks-flag-knob-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

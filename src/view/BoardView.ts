@@ -141,10 +141,20 @@ export class BoardView {
     this.enemies = enemies;
     this.seed = seed;
     const atlas = sheet(this.scene.game, getManifest());
+    // Whoever may be called up in the middle of the battle, by a barracks or by a boss: their art has to be there when they come.
+    const called = (side: readonly Placement[], color: string): Array<{ team: string; unit: string }> => {
+      const out: Array<{ team: string; unit: string }> = [];
+      for (const p of side) {
+        const unit = p.summons?.unit ?? UNITS[p.unit]?.summons?.unit;
+        if (unit) out.push({ team: color, unit });
+      }
+      return out;
+    };
     const wanted = [
       ...team.map((p) => ({ team: 'blue', unit: p.unit })),
       ...enemies.map((p) => ({ team: 'red', unit: p.unit })),
-      // Whoever the enemy may call up in the middle of the battle: their art has to be there when they come.
+      ...called(team, 'blue'),
+      ...called(enemies, 'red'),
       ...more.map((unit) => ({ team: 'red', unit })),
     ];
     return atlas.ensure(this.scene, wanted).then(() => {
@@ -179,6 +189,7 @@ export class BoardView {
             grade: GRADES[Math.max(0, Math.min(GRADES.length - 1, at.grade))],
             gradeColor: hex(gradePlate(at.grade).fill),
           },
+      def.trap ? 'trap' : def.still ? 'building' : 'unit',
     );
     view.x = tileScreenX(p.col);
     view.y = tileScreenY(p.row);
@@ -462,9 +473,45 @@ export class BoardView {
         }
         break;
       }
+      case 'trap': {
+        // A trap goes off: it jumps shut, and its blast is drawn as wide as it reaches.
+        const v = this.views[e.unit];
+        const trap = battle.units[e.unit].def.trap;
+        v.die(now);
+        const status = trap?.status?.id;
+        const color = status ? STATUS_COLOR[status] ?? hex(HIGHLIGHT) : hex(HIGHLIGHT);
+        sfx.play(status === 'burn' ? 'blast' : 'bigHit', 1, status ? 0.9 : 0.7);
+        this.fx.spawn('fx/ring', v.x, v.y - 6, {
+          dur: 0.38, from: 0.25, to: ((trap?.radius ?? 1) * TILE) / 60, flat: Y_SCALE, alpha: 0.9, hold: 0.35, tint: color, depth: 30,
+        });
+        this.fx.spawn('fx/spark', v.x, v.y - 24, { dur: 0.22, from: 0.5, to: 1.3, hold: 0.4, tint: color, rotation: (e.unit % 6) * 0.5 });
+        for (let i = 0; i < 5; i++) {
+          this.fx.spawn('fx/chip', v.x, v.y - 14, {
+            dur: 0.5, vx: (i - 2) * 80, vy: -200 - (i % 2) * 70, gravity: 760, spin: 9 * (i % 2 === 0 ? 1 : -1), hold: 0.7,
+          });
+        }
+        break;
+      }
       case 'death': {
         const v = this.views[e.unit];
         v.die(now);
+        if (v.kind === 'building') {
+          // A building comes down where it stands: dust to both sides of it, and more of it in the air.
+          sfx.play('blast', 0.9, 0.7);
+          for (let i = 0; i < 6; i++) {
+            const side = i % 2 === 0 ? 1 : -1;
+            this.fx.spawn('fx/dust', v.x + side * (14 + i * 9), v.y - 6, {
+              dur: 0.6, delay: 0.1 + i * 0.03, vx: side * (40 + i * 14), vy: -30 - i * 6, from: 0.4, to: 1 + i * 0.1, hold: 0.3,
+              alpha: 0.9, depth: v.y + 3,
+            });
+          }
+          for (let i = 0; i < 7; i++) {
+            this.fx.spawn('fx/chip', v.x + (i - 3) * 8, v.y - 40 - (i % 3) * 22, {
+              dur: 0.65, vx: (i - 3) * 70, vy: -170 - (i % 2) * 80, gravity: 700, spin: 8 * (i % 2 === 0 ? 1 : -1), hold: 0.7,
+            });
+          }
+          break;
+        }
         sfx.play('death', 1, 0.85 + (e.unit % 4) * 0.1);
         // Dust where it lands, when it lands.
         const back = -v.facing;

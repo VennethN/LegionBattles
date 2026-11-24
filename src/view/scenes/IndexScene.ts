@@ -3,20 +3,21 @@
 // own outline in the dark, named "???", and nothing else about it is told:
 // not its name, not its tier, not where it is from.
 //
-// It opens from the screen of units, which lists only the cards held.
+// It opens from the screen of units, which lists only the cards held. Like
+// that screen it has a page for units and a page for structures.
 
 import Phaser from 'phaser';
 import { BONE, HIGHLIGHT, OUTLINE } from '../../art/kit/palette';
 import { PACKS } from '../../data/packs';
-import { UNITS, type UnitInfo } from '../../data/units';
+import { UNITS, isStructure, type UnitInfo } from '../../data/units';
 import { cardsOf, holds } from '../../game/cards';
-import { known } from '../../game/rules';
+import { known, packHolds } from '../../game/rules';
 import { unitOrder } from '../../game/sorting';
 import { setupCamera } from '../app';
 import { hex } from '../config';
 import { SHEET } from '../Sheet';
 import { commit, save } from '../session';
-import { OverlayHead, swapOverlay } from '../ui/chrome';
+import { OverlayHead, TABS_END, TABS_Y, TURN_X, sideOf, sideTabs, swapOverlay, type Side } from '../ui/chrome';
 import { unitCard } from '../ui/UnitCard';
 import { unitPanel } from '../ui/UnitPanel';
 import { Button, label, plain } from '../ui/widgets';
@@ -26,10 +27,14 @@ const ROWS = 4;
 const PITCH = 140;
 const PER_PAGE = COLS * ROWS;
 
-/** Every unit a pack can turn over, in the order of a book. A unit that is no card (a practice dummy, say) has no place here. */
-export function indexUnits(): UnitInfo[] {
+/**
+ * Every unit a pack can turn over, in the order of a book: the units, or the
+ * structures, as the page is. A unit that is no card (a practice dummy, say)
+ * has no place here.
+ */
+export function indexUnits(side: Side = 'units'): UnitInfo[] {
   return Object.values(UNITS)
-    .filter((u) => PACKS.some((p) => p.set === u.set))
+    .filter((u) => isStructure(u.id) === (side === 'structures') && PACKS.some((p) => packHolds(p, u)))
     .sort(unitOrder);
 }
 
@@ -54,10 +59,13 @@ export class IndexScene extends Phaser.Scene {
     setupCamera(this);
     const s = save();
     new OverlayHead(this, 'Index', s, () => commit());
-    this.units = indexUnits();
+    const side = sideOf(this);
+    this.units = indexUnits(side);
     const found = this.units.filter((u) => known(s, u)).length;
-    label(this, 170, 40, `${found} of ${this.units.length} units met`, { size: 20, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
-    plain(new Button(this, 840, 38, 'UNITS', () => swapOverlay(this, 'Team'), { width: 150, height: 46, size: 20, mat: BONE, color: OUTLINE }));
+    label(this, 170, 40, `${found} of ${this.units.length} ${side === 'structures' ? 'structures' : 'units'} met`, { size: 20, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
+    sideTabs(this, side, () => this.scene.restart());
+    // Back to the cards held, where the index was opened from: it stands where INDEX does there.
+    plain(new Button(this, TABS_END + 80, TABS_Y, 'MY CARDS', () => swapOverlay(this, 'Team'), { width: 140, height: 46, size: 18, mat: BONE, color: OUTLINE }));
     // It opens on the first unit the player knows, so that the panel has something to say.
     this.selected = (this.units.find((u) => known(s, u)) ?? this.units[0])?.id ?? '';
     this.drawGrid();
@@ -91,18 +99,18 @@ export class IndexScene extends Phaser.Scene {
       }
     });
     if (pages > 1) {
-      const y = 676;
+      const y = TABS_Y;
       const turn = (by: number): void => {
         this.page = (this.page + by + pages) % pages;
         this.drawGrid();
       };
-      const back = plain(new Button(this, 386, y, '', () => turn(-1), { width: 60, height: 46, mat: BONE }));
+      const back = plain(new Button(this, TURN_X[0], y, '', () => turn(-1), { width: 60, height: 46, mat: BONE }));
       back.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.34).setFlipX(true));
-      const on = plain(new Button(this, 534, y, '', () => turn(1), { width: 60, height: 46, mat: BONE }));
+      const on = plain(new Button(this, TURN_X[2], y, '', () => turn(1), { width: 60, height: 46, mat: BONE }));
       on.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.34));
       add(back.root);
       add(on.root);
-      add(label(this, 460, y, `${this.page + 1} of ${pages}`, { size: 18, strokeWidth: 4 }));
+      add(label(this, TURN_X[1], y, `${this.page + 1} of ${pages}`, { size: 18, strokeWidth: 4 }));
     }
   }
 
@@ -117,7 +125,7 @@ export class IndexScene extends Phaser.Scene {
     const def = UNITS[this.selected];
     if (!def) return;
     const held = cardsOf(s, def.id).length;
-    const pack = PACKS.find((p) => p.set === def.set);
+    const pack = PACKS.find((p) => packHolds(p, def));
     const from = pack ? `Found in the ${pack.name}.` : '';
     // The numbers are those of a card fresh from its pack, at the worst grade.
     unitPanel(this, add, def, {

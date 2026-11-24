@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="palisade" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="palisade-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="palisade-shadow-shadow" d="M 142 181 C 142 185.4 121.4 189 96 189 C 70.6 189 50 185.4 50 181 C 50 176.6 70.6 173 96 173 C 121.4 173 142 176.6 142 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="palisade-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="palisade-body-stake-0-shape" d="M 53 180 L 53 124 L 63 110 L 73 124 L 73 180 Z"/>
+<clipPath id="palisade-body-stake-0-clip"><use href="#palisade-body-stake-0-shape"/></clipPath>
+<clipPath id="palisade-body-stake-0-lit-clip"><use href="#palisade-body-stake-0-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="palisade-body-stake-1-shape" d="M 75 180 L 75 115 L 85 101 L 95 115 L 95 180 Z"/>
+<clipPath id="palisade-body-stake-1-clip"><use href="#palisade-body-stake-1-shape"/></clipPath>
+<clipPath id="palisade-body-stake-1-lit-clip"><use href="#palisade-body-stake-1-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="palisade-body-stake-2-shape" d="M 97 180 L 97 124 L 107 110 L 117 124 L 117 180 Z"/>
+<clipPath id="palisade-body-stake-2-clip"><use href="#palisade-body-stake-2-shape"/></clipPath>
+<clipPath id="palisade-body-stake-2-lit-clip"><use href="#palisade-body-stake-2-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="palisade-body-stake-3-shape" d="M 119 180 L 119 115 L 129 101 L 139 115 L 139 180 Z"/>
+<clipPath id="palisade-body-stake-3-clip"><use href="#palisade-body-stake-3-shape"/></clipPath>
+<clipPath id="palisade-body-stake-3-lit-clip"><use href="#palisade-body-stake-3-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="palisade-body-binding-a-shape" d="M 53 128 L 139 128 Q 142 128 142 131 L 142 133 Q 142 136 139 136 L 53 136 Q 50 136 50 133 L 50 131 Q 50 128 53 128 Z"/>
+<path id="palisade-body-binding-b-shape" d="M 53 156 L 139 156 Q 142 156 142 159 L 142 161 Q 142 164 139 164 L 53 164 Q 50 164 50 161 L 50 159 Q 50 156 53 156 Z"/>
+<path id="palisade-body-ribbon-shape" d="M 118 124 L 138 120 L 134 128 L 140 136 L 120 136 Z"/>
+<clipPath id="palisade-body-ribbon-clip"><use href="#palisade-body-ribbon-shape"/></clipPath>
+<clipPath id="palisade-body-ribbon-lit-clip"><use href="#palisade-body-ribbon-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="palisade-body-stake-0">
+<use id="palisade-body-stake-0-shade" href="#palisade-body-stake-0-shape" fill="#75502b"/>
+<g clip-path="url(#palisade-body-stake-0-clip)">
+<use id="palisade-body-stake-0-fill" href="#palisade-body-stake-0-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#palisade-body-stake-0-lit-clip)">
+<use id="palisade-body-stake-0-lit" href="#palisade-body-stake-0-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="palisade-body-stake-0-fill-over" href="#palisade-body-stake-0-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="palisade-body-bark" d="M 60.9 172 L 60.9 132 C 60.9 131.5 60.5 131.1 60 131.1 C 59.5 131.1 59.1 131.5 59.1 132 L 59.1 172 C 59.1 172.5 59.5 172.9 60 172.9 C 60.5 172.9 60.9 172.5 60.9 172 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="palisade-body-cut" d="M 53 124 L 63 110 L 63 122 Z" fill="#f4f1e4" opacity="0.25"/>
+</g>
+<use id="palisade-body-stake-0-line" href="#palisade-body-stake-0-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="palisade-body-stake-1">
+<use id="palisade-body-stake-1-shade" href="#palisade-body-stake-1-shape" fill="#75502b"/>
+<g clip-path="url(#palisade-body-stake-1-clip)">
+<use id="palisade-body-stake-1-fill" href="#palisade-body-stake-1-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#palisade-body-stake-1-lit-clip)">
+<use id="palisade-body-stake-1-lit" href="#palisade-body-stake-1-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="palisade-body-stake-1-fill-over" href="#palisade-body-stake-1-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="palisade-body-bark-2" d="M 82.9 172 L 82.9 123 C 82.9 122.5 82.5 122.1 82 122.1 C 81.5 122.1 81.1 122.5 81.1 123 L 81.1 172 C 81.1 172.5 81.5 172.9 82 172.9 C 82.5 172.9 82.9 172.5 82.9 172 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="palisade-body-cut-2" d="M 75 115 L 85 101 L 85 113 Z" fill="#f4f1e4" opacity="0.25"/>
+</g>
+<use id="palisade-body-stake-1-line" href="#palisade-body-stake-1-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="palisade-body-stake-2">
+<use id="palisade-body-stake-2-shade" href="#palisade-body-stake-2-shape" fill="#75502b"/>
+<g clip-path="url(#palisade-body-stake-2-clip)">
+<use id="palisade-body-stake-2-fill" href="#palisade-body-stake-2-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#palisade-body-stake-2-lit-clip)">
+<use id="palisade-body-stake-2-lit" href="#palisade-body-stake-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="palisade-body-stake-2-fill-over" href="#palisade-body-stake-2-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="palisade-body-bark-3" d="M 104.9 172 L 104.9 132 C 104.9 131.5 104.5 131.1 104 131.1 C 103.5 131.1 103.1 131.5 103.1 132 L 103.1 172 C 103.1 172.5 103.5 172.9 104 172.9 C 104.5 172.9 104.9 172.5 104.9 172 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="palisade-body-cut-3" d="M 97 124 L 107 110 L 107 122 Z" fill="#f4f1e4" opacity="0.25"/>
+</g>
+<use id="palisade-body-stake-2-line" href="#palisade-body-stake-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="palisade-body-stake-3">
+<use id="palisade-body-stake-3-shade" href="#palisade-body-stake-3-shape" fill="#75502b"/>
+<g clip-path="url(#palisade-body-stake-3-clip)">
+<use id="palisade-body-stake-3-fill" href="#palisade-body-stake-3-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#palisade-body-stake-3-lit-clip)">
+<use id="palisade-body-stake-3-lit" href="#palisade-body-stake-3-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="palisade-body-stake-3-fill-over" href="#palisade-body-stake-3-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="palisade-body-bark-4" d="M 126.9 172 L 126.9 123 C 126.9 122.5 126.5 122.1 126 122.1 C 125.5 122.1 125.1 122.5 125.1 123 L 125.1 172 C 125.1 172.5 125.5 172.9 126 172.9 C 126.5 172.9 126.9 172.5 126.9 172 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="palisade-body-cut-4" d="M 119 115 L 129 101 L 129 113 Z" fill="#f4f1e4" opacity="0.25"/>
+</g>
+<use id="palisade-body-stake-3-line" href="#palisade-body-stake-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="palisade-body-binding-a">
+<use id="palisade-body-binding-a-fill" href="#palisade-body-binding-a-shape" fill="#6b4a2b"/>
+<use id="palisade-body-binding-a-line" href="#palisade-body-binding-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="palisade-body-binding-b">
+<use id="palisade-body-binding-b-fill" href="#palisade-body-binding-b-shape" fill="#6b4a2b"/>
+<use id="palisade-body-binding-b-line" href="#palisade-body-binding-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="palisade-body-ribbon">
+<use id="palisade-body-ribbon-shade" href="#palisade-body-ribbon-shape" fill="#933027"/>
+<g clip-path="url(#palisade-body-ribbon-clip)">
+<use id="palisade-body-ribbon-fill" href="#palisade-body-ribbon-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#palisade-body-ribbon-lit-clip)">
+<use id="palisade-body-ribbon-lit" href="#palisade-body-ribbon-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="palisade-body-ribbon-fill-over" href="#palisade-body-ribbon-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="palisade-body-ribbon-line" href="#palisade-body-ribbon-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

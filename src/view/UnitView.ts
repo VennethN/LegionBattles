@@ -11,7 +11,7 @@
 import Phaser from 'phaser';
 import type { ManifestUnit } from '../art/manifest';
 import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE } from '../art/poses';
-import { addPose, clearPose, makeXforms, restPose, solve, type PartXform, type Pose } from '../art/rig';
+import { FEET_X, FEET_Y, addPose, clearPose, makeXforms, restPose, solve, type PartXform, type Pose } from '../art/rig';
 import { OUTLINE } from '../art/kit/palette';
 import { ART_SCALE, hex } from './config';
 import { DIGITS_KEY } from './Numbers';
@@ -30,6 +30,22 @@ const FLASH = 0.07;
 const FALL = 0.42;
 const LIE = 0.55;
 const FADE = 0.45;
+/** Seconds a trap takes to snap and be gone. */
+const SNAP = 0.34;
+
+/**
+ * What kind of thing a view is. A unit breathes, hops along, swings and
+ * topples. A building does none of that: only its flag stirs, a shot kicks
+ * it a little, and it comes down where it stands. A trap lies flat on the
+ * ground under everyone's feet, has no plate, and jumps once as it goes off.
+ */
+export type ViewKind = 'unit' | 'building' | 'trap';
+
+/** Where a trap is drawn: over the ground and the marks on it, under every unit. */
+const TRAP_DEPTH = 3;
+/** The ring round a trap: how wide on the screen, and how flat, as the ground is seen from above. */
+const MARK_W = 108;
+const MARK_FLAT = 0.5;
 
 const BAR_W = 50;
 const BAR_H = 7;
@@ -82,6 +98,12 @@ export class UnitView {
   private readonly pose: Pose = restPose();
   private readonly weaponIndex: number;
   private readonly glow: Phaser.GameObjects.Image | null;
+  /**
+   * The ring round a trap, in its side's color. A trap is low, and whoever
+   * stands on the tile in front of it hides it: the ring is wider than they
+   * are, and says whose it is.
+   */
+  private readonly mark: Phaser.GameObjects.Image | null = null;
   private readonly barBack: Phaser.GameObjects.Image;
   private readonly barLag: Phaser.GameObjects.Image;
   private readonly barFill: Phaser.GameObjects.Image;
@@ -112,6 +134,8 @@ export class UnitView {
   private lagHealth = 1;
   private gone = false;
   private barsOn = false;
+  /** The way its side faces. A building and a trap never turn from it. */
+  private readonly side: 1 | -1;
 
   constructor(
     scene: Phaser.Scene,
@@ -125,6 +149,7 @@ export class UnitView {
     private readonly size = 1,
     /** What the chips beside its health bar say: its level on the color of its tier, and its grade on its plate's. */
     plate: UnitPlate | null = null,
+    readonly kind: ViewKind = 'unit',
   ) {
     this.root = scene.add.container(0, 0);
     this.xf = makeXforms(art.parts.length);
@@ -141,9 +166,13 @@ export class UnitView {
 
     // The glow a caster gathers at the tip of what it holds.
     this.glow = null;
-    if (glowColor !== null && weapon >= 0) {
+    if (glowColor !== null && (weapon >= 0 || kind === 'building')) {
       this.glow = scene.add.image(0, 0, SHEET, 'fx/disc').setScale(0).setTint(glowColor);
       this.root.add(this.glow);
+    }
+
+    if (kind === 'trap') {
+      this.mark = scene.add.image(0, 0, SHEET, 'fx/ring').setTint(barColor).setDisplaySize(MARK_W, MARK_W * MARK_FLAT).setDepth(TRAP_DEPTH - 0.5);
     }
 
     this.barBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setOrigin(0.5, 0.5);
@@ -154,7 +183,7 @@ export class UnitView {
     for (let i = 0; i < MAX_PIPS; i++) {
       this.pips.push(scene.add.image(0, 0, SHEET, 'fx/pixel').setDisplaySize(9, 9).setVisible(false));
     }
-    if (plate) {
+    if (plate && kind !== 'trap') {
       // Wide enough for the number: one digit or two.
       this.chipW = plate.level >= 10 ? 28 : 19;
       this.chipBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(this.chipW + 6, CHIP_H + 6);
@@ -169,8 +198,9 @@ export class UnitView {
 
     // Its own rhythm, so that a row of units does not breathe as one.
     this.phase = ((seed * 2654435761) >>> 0) / 4294967296 * 20;
-    this.turn = team === 'blue' ? 1 : -1;
-    this.facing = this.turn as 1 | -1;
+    this.side = team === 'blue' ? 1 : -1;
+    this.turn = this.side;
+    this.facing = this.side;
   }
 
   /** A blow, a shot or a cast begins and will land in `windup` seconds. */
@@ -233,6 +263,8 @@ export class UnitView {
 
   /** The health bar shows only while there is a fight on. */
   setBarsVisible(on: boolean): void {
+    // A trap has no health to show.
+    if (this.kind === 'trap') on = false;
     this.barBack.setVisible(on);
     this.barLag.setVisible(on);
     this.barFill.setVisible(on);
@@ -251,19 +283,24 @@ export class UnitView {
     const p = this.pose;
     clearPose(p);
     const t = now + this.phase;
+    const fixed = this.kind !== 'unit';
+    if (fixed) this.facing = this.side;
 
-    // Standing: a slow breath, the head a beat behind, what is held swaying.
-    const breath = Math.sin(t * 2.7);
-    p.bodySy += 0.022 * breath;
-    p.bodySx -= 0.014 * breath;
-    p.headY += 1.1 * Math.sin(t * 2.7 - 0.7);
-    p.headRot += 1.4 * Math.sin(t * 1.6);
-    p.weaponRot += 2.6 * Math.sin(t * 2.1 + 1);
-    p.offRot += 1.8 * Math.sin(t * 1.9 + 2);
-    p.extraRot += 5 * Math.sin(t * 2.3 + 0.5);
+    if (!fixed) {
+      // Standing: a slow breath, the head a beat behind, what is held swaying.
+      const breath = Math.sin(t * 2.7);
+      p.bodySy += 0.022 * breath;
+      p.bodySx -= 0.014 * breath;
+      p.headY += 1.1 * Math.sin(t * 2.7 - 0.7);
+      p.headRot += 1.4 * Math.sin(t * 1.6);
+      p.weaponRot += 2.6 * Math.sin(t * 2.1 + 1);
+      p.offRot += 1.8 * Math.sin(t * 1.9 + 2);
+    }
+    // A flag stirs on a building as a plume does on a helm, and harder for the side that has won.
+    p.extraRot += (fixed && this.cheering ? 9 : 5) * Math.sin(t * (fixed && this.cheering ? 5 : 2.3) + 0.5);
 
     // Walking, and cheering, are small hops.
-    const hopping = (this.moving || this.cheering) && this.deadAt < 0;
+    const hopping = !fixed && (this.moving || this.cheering) && this.deadAt < 0;
     this.hopBlend += ((hopping ? 1 : 0) - this.hopBlend) * Math.min(1, dt * 12);
     if (hopping || this.hopBlend > 0.02) {
       this.hopT += dt * (this.cheering ? 2.4 : 2.9 * this.stride);
@@ -278,7 +315,21 @@ export class UnitView {
 
     // A blow: back, a held breath, then through, to arrive exactly on time.
     let charge = 0;
-    if (this.actAt >= 0) {
+    if (this.actAt >= 0 && fixed) {
+      // A tower does not lean into a shot. It gathers, and the shot's kick sets it back a little.
+      const e = now - this.actAt;
+      if (e < this.actWindup) charge = Math.min(1, e / this.actWindup / 0.7);
+      else {
+        const r = (e - this.actWindup) / RECOVER;
+        if (r >= 1) this.actAt = -1;
+        else {
+          const k = (1 - r) * (1 - r);
+          p.bodySy -= 0.05 * k;
+          p.bodySx += 0.03 * k;
+          charge = Math.max(0, 1 - r * 3);
+        }
+      }
+    } else if (this.actAt >= 0) {
       const poses = ATTACK_POSES[this.art.style];
       const e = now - this.actAt;
       const reach = this.actBig ? 1.3 : 1;
@@ -309,8 +360,10 @@ export class UnitView {
       if (e >= FLINCH) this.hitAt = -1;
       else {
         const k = e < 0.04 ? e / 0.04 : 1 - (e - 0.04) / (FLINCH - 0.04);
-        addPose(p, HIT_POSE, k);
-        if (this.hitDir > 0) {
+        // A wall does not flinch: it shudders.
+        if (fixed) p.rootX += 2.4 * Math.sin(e * 95) * k;
+        else addPose(p, HIT_POSE, k);
+        if (!fixed && this.hitDir > 0) {
           // Struck from behind: the same flinch, the other way.
           p.rootX -= 2 * HIT_POSE.rootX * k;
           p.bodyRot -= 2 * HIT_POSE.bodyRot * k;
@@ -331,7 +384,35 @@ export class UnitView {
 
     // Falling: over backwards, a small bounce, a moment on the ground, gone.
     let alpha = 1;
-    if (this.deadAt >= 0) {
+    if (this.deadAt >= 0 && this.kind === 'trap') {
+      // Gone off: it jumps shut and is gone.
+      const k = (now - this.deadAt) / SNAP;
+      if (k >= 1) {
+        this.gone = true;
+        this.root.setVisible(false);
+        this.mark?.setVisible(false);
+        return;
+      }
+      const jump = Math.sin(Math.min(1, k * 2) * Math.PI);
+      p.bodySy += 0.9 * jump;
+      p.bodySx += 0.25 * jump;
+      alpha = k < 0.5 ? 1 : 1 - (k - 0.5) / 0.5;
+    } else if (this.deadAt >= 0 && this.kind === 'building') {
+      // Brought down: it shudders and sinks into its own dust, where it stands.
+      const e = now - this.deadAt;
+      const k = Math.min(1, e / FALL);
+      p.bodySy -= 0.82 * easeInQuad(k);
+      p.bodySx += 0.12 * k;
+      p.rootX += 2.6 * Math.sin(e * 70) * (1 - k);
+      const fade = (e - FALL * 0.6) / FADE;
+      if (fade >= 1) {
+        this.gone = true;
+        this.root.setVisible(false);
+        this.setBarsVisible(false);
+        return;
+      }
+      if (fade > 0) alpha = 1 - fade;
+    } else if (this.deadAt >= 0) {
       const e = now - this.deadAt;
       const k = Math.min(1, e / FALL);
       let rot = -90 * easeInQuad(k);
@@ -368,14 +449,20 @@ export class UnitView {
     }
 
     if (this.glow) {
-      const o = this.xf[this.weaponIndex];
-      const part = this.art.parts[this.weaponIndex];
-      const lx = this.art.muzzle[0] - part.pivot[0];
-      const ly = this.art.muzzle[1] - part.pivot[1];
-      const c = Math.cos(o.rot * RAD);
-      const s = Math.sin(o.rot * RAD);
-      this.glow.x = o.x + lx * c - ly * s;
-      this.glow.y = o.y + lx * s + ly * c;
+      if (this.weaponIndex >= 0) {
+        const o = this.xf[this.weaponIndex];
+        const part = this.art.parts[this.weaponIndex];
+        const lx = this.art.muzzle[0] - part.pivot[0];
+        const ly = this.art.muzzle[1] - part.pivot[1];
+        const c = Math.cos(o.rot * RAD);
+        const s = Math.sin(o.rot * RAD);
+        this.glow.x = o.x + lx * c - ly * s;
+        this.glow.y = o.y + lx * s + ly * c;
+      } else {
+        // A building holds nothing: what it throws gathers where it leaves from.
+        this.glow.x = this.art.muzzle[0] - FEET_X;
+        this.glow.y = this.art.muzzle[1] - FEET_Y;
+      }
       const size = charge * (this.actBig ? 1.5 : 1) * (0.9 + 0.1 * Math.sin(now * 30));
       this.glow.setScale(size * INV_ART * 1.3);
       this.glow.setVisible(charge > 0.02);
@@ -389,7 +476,14 @@ export class UnitView {
     root.scaleX = this.turn * UNIT_SCALE * this.size;
     root.scaleY = UNIT_SCALE * this.size;
     root.alpha = alpha;
-    root.depth = this.y + (this.lift > 0 ? 1000 : 0);
+    // A trap lies under everyone's feet: just over the ground, whoever stands in front of it or behind.
+    root.depth = this.lift > 0 ? this.y + 1000 : this.kind === 'trap' ? TRAP_DEPTH : this.y;
+    if (this.mark) {
+      this.mark.x = this.x;
+      this.mark.y = this.y - 8 * UNIT_SCALE - this.lift;
+      // It breathes a little, so that it is seen at the edge of whoever hides it; and goes as the trap does.
+      this.mark.alpha = alpha * (0.55 + 0.2 * Math.sin(t * 3));
+    }
 
     // The health bar: what is left in the team's color, what was just lost in white behind it.
     if (this.health < this.lagHealth) this.lagHealth = Math.max(this.health, this.lagHealth - dt * 0.6);
@@ -452,6 +546,7 @@ export class UnitView {
 
   destroy(): void {
     this.root.destroy();
+    this.mark?.destroy();
     this.barBack.destroy();
     this.barLag.destroy();
     this.barFill.destroy();

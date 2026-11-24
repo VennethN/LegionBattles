@@ -23,7 +23,7 @@ import {
   afterFloor, canGoOn, fielded, finishRaid, floorEnemies, floorInput, raidEnemies, raidInput, startRun, tierStage, toggleFielded, unitsOf,
   type Prize, type RosterCard, type Run,
 } from '../../game/expeditions';
-import { teamSize, tidyTeam, type LevelUp } from '../../game/rules';
+import { teamSize, tidyTeam, unitsIn, type LevelUp } from '../../game/rules';
 import type { Fielded } from '../../game/state';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
@@ -194,7 +194,7 @@ export class VentureScene extends Phaser.Scene {
         this.arrive();
       });
     });
-    const on = fielded(run).length;
+    const on = unitsIn(fielded(run));
     add(label(this, x0 + ((n - 1) * pitch) / 2, 606, `${on} of ${teamSize(s)} sent in. Press a card to send it in or rest it. Nothing heals here.`, { size: 15, weight: 600, color: HIGHLIGHT, strokeWidth: 4 }).setDepth(8000));
   }
 

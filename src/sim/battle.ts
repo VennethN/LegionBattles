@@ -59,6 +59,10 @@ export interface SimUnit {
   summonWait: number;
   /** The unit that called it up, or -1. */
   calledBy: number;
+  /** True for a trap: no one's target, and not counted when a side is counted. */
+  trap: boolean;
+  /** The steps until it next gives its aura, if it has one. */
+  auraWait: number;
   x: number;
   y: number;
   /** Where it was a step ago, for the view to glide between. */
@@ -168,9 +172,11 @@ export class Battle {
       def,
       hpMult: p.hpMult ?? 1,
       scale: p.scale ?? 1,
-      summons: p.summons ?? null,
-      summonWait: p.summons ? ticks(p.summons.every) : 0,
+      summons: p.summons ?? def.summons ?? null,
+      summonWait: ticks((p.summons ?? def.summons)?.every ?? 0),
       calledBy,
+      trap: !!def.trap,
+      auraWait: def.aura ? ticks(def.aura.every) : 0,
       x,
       y,
       prevX: x,
@@ -232,6 +238,55 @@ export class Battle {
     this.emit('spawn', born.id, u.id, 0, call.unit, x, y);
   }
 
+  /** A trap goes off when an enemy that walks comes near it: once, on everyone of the enemy's within its blast. */
+  private spring(u: SimUnit): void {
+    const trap = u.def.trap;
+    if (!trap) return;
+    const units = this.units;
+    const reach = trap.trigger * TILE;
+    let near = false;
+    for (let i = 0; i < units.length && !near; i++) {
+      const o = units[i];
+      if (!o.alive || o.team === u.team || o.trap || o.def.still) continue;
+      const dx = o.x - u.x;
+      const dy = o.y - u.y;
+      near = dx * dx + dy * dy <= reach * reach;
+    }
+    if (!near) return;
+    u.alive = false;
+    this.emit('trap', u.id, -1, 0, u.def.id, u.x, u.y);
+    const r = trap.radius * TILE;
+    for (let i = 0; i < units.length; i++) {
+      const o = units[i];
+      if (!o.alive || o.team === u.team || o.trap) continue;
+      const dx = o.x - u.x;
+      const dy = o.y - u.y;
+      if (dx * dx + dy * dy > r * r) continue;
+      if (u.damage > 0) this.hurt(u.id, o, u.damage, 'trap', false);
+      if (trap.status && o.alive) this.afflict(u, o, trap.status);
+    }
+  }
+
+  /** A unit with an aura gives its status, every so often, to everyone of the side it is for within its reach. */
+  private radiate(u: SimUnit): void {
+    const aura = u.def.aura;
+    if (!aura || u.stTicks[ST_STUN] > 0) return;
+    if (u.auraWait > 0) {
+      u.auraWait--;
+      return;
+    }
+    u.auraWait = ticks(aura.every);
+    const units = this.units;
+    const r = aura.radius * TILE;
+    for (let i = 0; i < units.length; i++) {
+      const o = units[i];
+      if (!o.alive || o.trap || o === u || (o.team === u.team) === !!aura.foes) continue;
+      const dx = o.x - u.x;
+      const dy = o.y - u.y;
+      if (dx * dx + dy * dy <= r * r) this.afflict(u, o, aura.status);
+    }
+  }
+
   // ------------------------------------------------------------ the step
 
   step(): void {
@@ -253,8 +308,14 @@ export class Battle {
     // Whoever is called up this step is at the end of the list, and acts from the next.
     const before = units.length;
     for (let i = 0; i < before; i++) if (units[i].alive) this.callUp(units[i]);
-    for (let i = 0; i < units.length; i++) if (units[i].alive) this.runStatuses(units[i]);
-    for (let i = 0; i < units.length; i++) if (units[i].alive) this.act(units[i]);
+    for (let i = 0; i < units.length; i++) {
+      const u = units[i];
+      if (!u.alive) continue;
+      if (u.trap) this.spring(u);
+      else if (u.def.aura) this.radiate(u);
+    }
+    for (let i = 0; i < units.length; i++) if (units[i].alive && !units[i].trap) this.runStatuses(units[i]);
+    for (let i = 0; i < units.length; i++) if (units[i].alive && !units[i].trap) this.act(units[i]);
     for (let i = 0; i < this.shots.length; i++) if (this.shots[i].active) this.fly(this.shots[i]);
     this.separate();
     this.checkEnd();
@@ -295,6 +356,14 @@ export class Battle {
 
     const def = u.def;
     const skill = def.skill;
+
+    // What stands still strikes whoever comes within its reach, the nearest first, and goes after no one.
+    if (def.still) {
+      if (def.damage <= 0 || u.cooldown > 0) return;
+      const t = this.nearestEnemy(u.team, u.x, u.y, u.rangePx);
+      if (t) this.begin(u, ATTACK, t.id);
+      return;
+    }
 
     // A skill that mends is used as soon as someone nearby needs it.
     if (skill && skill.kind === 'mend' && u.skillWait === 0 && this.skillReady(u, skill, 0)) {
@@ -384,7 +453,7 @@ export class Battle {
     let bestD = Infinity;
     for (let i = 0; i < units.length; i++) {
       const o = units[i];
-      if (!o.alive || o.team === u.team) continue;
+      if (!o.alive || o.team === u.team || o.trap) continue;
       const dx = o.x - u.x;
       const dy = o.y - u.y;
       const d = dx * dx + dy * dy;
@@ -417,7 +486,8 @@ export class Battle {
     const r2 = reach * reach;
     for (let i = 0; i < units.length; i++) {
       const o = units[i];
-      if (!o.alive || o.team !== u.team || o === u) continue;
+      // Nothing mends a building, and a trap has nothing to mend.
+      if (!o.alive || o.team !== u.team || o === u || o.trap || o.def.still) continue;
       const share = o.hp / o.maxHp;
       if (share >= bestShare) continue;
       const dx = o.x - u.x;
@@ -435,7 +505,7 @@ export class Battle {
     let bestD = within * within;
     for (let i = 0; i < units.length; i++) {
       const o = units[i];
-      if (!o.alive || o.team === team || o.id === not) continue;
+      if (!o.alive || o.team === team || o.id === not || o.trap) continue;
       const dx = o.x - x;
       const dy = o.y - y;
       const d = dx * dx + dy * dy;
@@ -457,7 +527,8 @@ export class Battle {
         const units = this.units;
         for (let i = 0; i < units.length; i++) {
           const o = units[i];
-          if (!o.alive || o.team !== u.team || o.hp > o.maxHp * 0.8) continue;
+          // A hurt wall is no reason to mend: nothing mends a building.
+          if (!o.alive || o.team !== u.team || o.trap || o.def.still || o.hp > o.maxHp * 0.8) continue;
           const dx = o.x - u.x;
           const dy = o.y - u.y;
           if (dx * dx + dy * dy <= reach * reach) return true;
@@ -569,7 +640,7 @@ export class Battle {
         const r = (skill.area ?? 1.2) * TILE;
         for (let i = 0; i < units.length; i++) {
           const o = units[i];
-          if (!o.alive || o.team === u.team) continue;
+          if (!o.alive || o.team === u.team || o.trap) continue;
           const dx = o.x - u.x;
           const dy = o.y - u.y;
           if (dx * dx + dy * dy > r * r) continue;
@@ -588,7 +659,7 @@ export class Battle {
           let bestD = Infinity;
           for (let i = 0; i < units.length; i++) {
             const o = units[i];
-            if (!o.alive || o.team === u.team) continue;
+            if (!o.alive || o.team === u.team || o.trap) continue;
             const dx = o.x - u.x;
             const dy = o.y - u.y;
             const d = dx * dx + dy * dy;
@@ -641,7 +712,7 @@ export class Battle {
         const cy = t.y;
         for (let i = 0; i < units.length; i++) {
           const o = units[i];
-          if (!o.alive || o.team === u.team) continue;
+          if (!o.alive || o.team === u.team || o.trap) continue;
           const dx = o.x - cx;
           const dy = o.y - cy;
           if (o !== t && dx * dx + dy * dy > area * area) continue;
@@ -689,7 +760,7 @@ export class Battle {
     const r2 = radius * radius;
     for (let i = 0; i < units.length; i++) {
       const o = units[i];
-      if (!o.alive || o.team === team || o.id === not) continue;
+      if (!o.alive || o.team === team || o.id === not || o.trap) continue;
       const dx = o.x - cx;
       const dy = o.y - cy;
       if (dx * dx + dy * dy > r2) continue;
@@ -704,6 +775,8 @@ export class Battle {
    * still does at least 1; harm from a status goes straight through.
    */
   private hurt(src: number, t: SimUnit, raw: number, cause: string, pierce: boolean): number {
+    // Nothing breaks a trap: it lies there until it goes off.
+    if (t.trap) return 0;
     let d = raw;
     if (t.stTicks[ST_MARK] > 0) d *= 1 + t.stPower[ST_MARK];
     if (t.stTicks[ST_SHIELD] > 0) d *= 1 - t.stPower[ST_SHIELD];
@@ -717,6 +790,7 @@ export class Battle {
   }
 
   private heal(by: SimUnit, t: SimUnit, raw: number): void {
+    if (t.trap || t.def.still) return;
     const amount = Math.min(t.maxHp - t.hp, Math.max(1, Math.round(raw)));
     if (amount <= 0) return;
     t.hp += amount;
@@ -735,6 +809,7 @@ export class Battle {
   // ------------------------------------------------------------ statuses
 
   private afflict(by: SimUnit, t: SimUnit, s: StatusApply): void {
+    if (t.trap) return;
     if (s.chance !== undefined && s.chance < 1 && this.rng.next() >= s.chance) return;
     const i = STATUS_INDEX[s.id];
     const rule = STATUS[s.id];
@@ -874,7 +949,8 @@ export class Battle {
     let steerY = 0;
     for (let i = 0; i < units.length; i++) {
       const o = units[i];
-      if (!o.alive || o === u || o.id === toward) continue;
+      // A trap is not in the way: it is walked over, which is the point of it.
+      if (!o.alive || o === u || o.id === toward || o.trap) continue;
       const ox = o.x - u.x;
       const oy = o.y - u.y;
       const reach = u.radiusPx + o.radiusPx + STEER_AHEAD;
@@ -920,10 +996,12 @@ export class Battle {
     const units = this.units;
     for (let i = 0; i < units.length; i++) {
       const a = units[i];
-      if (!a.alive) continue;
+      if (!a.alive || a.trap) continue;
       for (let j = i + 1; j < units.length; j++) {
         const b = units[j];
-        if (!b.alive) continue;
+        if (!b.alive || b.trap) continue;
+        // Two things that stand still are where they were put.
+        if (a.def.still && b.def.still) continue;
         const min = a.radiusPx + b.radiusPx;
         let dx = b.x - a.x;
         let dy = b.y - a.y;
@@ -940,10 +1018,13 @@ export class Battle {
           dy /= d;
         }
         const push = (min - d) * 0.5 * PUSH;
-        a.x -= dx * push;
-        a.y -= dy * push;
-        b.x += dx * push;
-        b.y += dy * push;
+        // What stands still is not pushed: whoever walked into it gives all the way.
+        const pa = a.def.still ? 0 : b.def.still ? 2 : 1;
+        const pb = b.def.still ? 0 : a.def.still ? 2 : 1;
+        a.x -= dx * push * pa;
+        a.y -= dy * push * pa;
+        b.x += dx * push * pb;
+        b.y += dy * push * pb;
         this.keepOnBoard(a);
         this.keepOnBoard(b);
       }
@@ -957,7 +1038,10 @@ export class Battle {
     let alive0 = 0;
     let alive1 = 0;
     for (let i = 0; i < units.length; i++) {
-      if (!units[i].alive) continue;
+      // Only who walks is counted. A side with nothing left but its towers,
+      // walls and traps has lost: they do not hold the field alone, and a
+      // battle is not drawn out by pulling down what no longer matters.
+      if (!units[i].alive || units[i].trap || units[i].def.still) continue;
       if (units[i].team === 0) alive0++;
       else alive1++;
     }
@@ -971,6 +1055,7 @@ export class Battle {
       const share = [0, 0];
       const full = [0, 0];
       for (let i = 0; i < units.length; i++) {
+        if (units[i].trap) continue;
         share[units[i].team] += units[i].hp;
         full[units[i].team] += units[i].maxHp;
       }

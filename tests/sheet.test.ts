@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import type { Manifest } from '../src/art/manifest';
-import { UNITS } from '../src/data/units';
+import { UNITS, isStructure } from '../src/data/units';
 import { LANDS } from '../src/data/lands';
-import { MAX_TEAM } from '../src/game/rules';
+import { MAX_TEAM, MAX_STRUCTURES } from '../src/game/rules';
 import { ShelfPacker } from '../src/view/packer';
 
 // The sheets are 2048 on a side and everything is drawn at 2x. These tests
@@ -47,7 +47,8 @@ describe('the art manifest', () => {
       const roles = u.parts.map((p) => p.role);
       expect(roles.filter((r) => r === 'shadow'), id).toHaveLength(1);
       expect(roles.filter((r) => r === 'body'), id).toHaveLength(1);
-      expect(roles.filter((r) => r === 'weapon'), id).toHaveLength(1);
+      // A building or a trap holds nothing; everyone else holds one thing.
+      expect(roles.filter((r) => r === 'weapon'), id).toHaveLength(isStructure(id) ? 0 : 1);
       expect(roles.filter((r) => r === 'head').length, id).toBeLessThanOrEqual(1);
       for (const p of u.parts) {
         expect(p.box[2], `${id}/${p.name}`).toBeGreaterThan(0);
@@ -78,12 +79,17 @@ describe('the battle sheet', () => {
     p.newRow();
     const kept = p.used();
 
-    // The player's eight biggest, and each stage's enemies in turn.
-    const biggest = Object.keys(manifest.units).sort((a, b) => area(b) - area(a)).slice(0, MAX_TEAM);
+    // The player's eight biggest units and three biggest structures, whoever those call up, and each stage's
+    // enemies in turn with whoever theirs call up.
+    const bySize = Object.keys(manifest.units).sort((a, b) => area(b) - area(a));
+    const calledBy = (units: readonly string[]): string[] => units.flatMap((u) => (UNITS[u].summons ? [UNITS[u].summons!.unit] : []));
+    const fielded = [...bySize.filter((u) => !isStructure(u)).slice(0, MAX_TEAM), ...bySize.filter((u) => isStructure(u)).slice(0, MAX_STRUCTURES)];
+    const biggest = [...new Set([...fielded, ...calledBy(fielded)])];
     let worst = 0;
     for (const w of LANDS) {
       for (const stage of w.stages) {
-        const enemies = [...new Set(stage.enemies.map((e) => e.unit))];
+        const there = stage.enemies.map((e) => e.unit);
+        const enemies = [...new Set([...there, ...calledBy(there)])];
         const mark = p.mark();
         expect(p.fits([...unitParts(biggest), ...unitParts(enemies)].sort((a, b) => b[1] - a[1])), `${w.name}: ${stage.name}`).toBe(true);
         for (const [pw, ph] of [...unitParts(biggest), ...unitParts(enemies)].sort((a, b) => b[1] - a[1])) p.place(pw, ph);
@@ -99,7 +105,8 @@ describe('the battle sheet', () => {
 
 describe('the card sheet', () => {
   it('holds every pack, every unit on both sides, and every grade', () => {
-    const p = new ShelfPacker(SIZE, SIZE);
+    // The card sheet is taller than it is wide (CARDS_HEIGHT in view/Sheet.ts, which a test cannot import: it needs a browser).
+    const p = new ShelfPacker(SIZE, 2560);
     keepFolder(p, 'packs');
     const units = Object.entries(manifest.units).sort((a, b) => b[1].full[3] - a[1].full[3]);
     for (const scale of [S, 1]) {

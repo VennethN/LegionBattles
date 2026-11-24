@@ -27,7 +27,7 @@
 import { GRADES, LEVEL_STEP, cardMult, gradeMult } from '../game/rarity';
 import { LANDS, landCoins, type LandDef, type StageDef } from './lands';
 import { LAPS, lapOf } from './laps';
-import { SETS } from './units';
+import { SETS, isStructure } from './units';
 
 export interface Stage {
   /** Its place in the line, from 0. The number a player sees is one more. */
@@ -139,7 +139,8 @@ function build(): { stages: Stage[]; worlds: World[] } {
         }
         stages.push({
           index, lap, land: l, local, def, strength, grade, level,
-          extra: Math.max(lapOf(lap).extra, lapOf(lap).least - def.enemies.length),
+          // A tower or a trap is not one of the troops a lap asks for.
+          extra: Math.max(lapOf(lap).extra, lapOf(lap).least - def.enemies.filter((e) => !isStructure(e.unit)).length),
           coins,
           xp: Math.max(10, Math.round(25 * strength - 9)),
           pack: lap > 0 ? `${land.pack}@${lap}` : land.pack,

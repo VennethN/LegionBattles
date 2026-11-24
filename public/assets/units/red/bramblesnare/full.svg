@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bramblesnare" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="bramblesnare-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="bramblesnare-shadow-shadow" d="M 126 181 C 126 184.9 112.6 188 96 188 C 79.4 188 66 184.9 66 181 C 66 177.1 79.4 174 96 174 C 112.6 174 126 177.1 126 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="bramblesnare-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="bramblesnare-body-vine-shape" d="M 126 172 C 126 178.1 112.6 183 96 183 C 79.4 183 66 178.1 66 172 C 66 165.9 79.4 161 96 161 C 112.6 161 126 165.9 126 172 Z M 115 172 C 115 174.8 106.5 177 96 177 C 85.5 177 77 174.8 77 172 C 77 169.2 85.5 167 96 167 C 106.5 167 115 169.2 115 172 Z"/>
+<path id="bramblesnare-body-thorn-0-shape" d="M 116.8 176.7 L 129.4 166.8 L 124.8 176.7 Z"/>
+<path id="bramblesnare-body-thorn-1-shape" d="M 106.1 181.6 L 115 173.9 L 114.1 181.6 Z"/>
+<path id="bramblesnare-body-thorn-2-shape" d="M 88.7 182.9 L 91.6 175.9 L 96.7 182.9 Z"/>
+<path id="bramblesnare-body-thorn-3-shape" d="M 72.9 180.1 L 70.3 171.8 L 80.9 180.1 Z"/>
+<path id="bramblesnare-body-thorn-4-shape" d="M 66 174.4 L 61 163.6 L 74 174.4 Z"/>
+<path id="bramblesnare-body-thorn-5-shape" d="M 71.3 168.6 L 68.1 155.1 L 79.3 168.6 Z"/>
+<path id="bramblesnare-body-thorn-6-shape" d="M 86.2 165.2 L 88.2 150.3 L 94.2 165.2 Z"/>
+<path id="bramblesnare-body-thorn-7-shape" d="M 103.9 166 L 112 151.4 L 111.9 166 Z"/>
+<path id="bramblesnare-body-thorn-8-shape" d="M 116 170.5 L 128.3 158 L 124 170.5 Z"/>
+</defs>
+<g id="bramblesnare-body-vine">
+<use id="bramblesnare-body-vine-fill" href="#bramblesnare-body-vine-shape" fill="#3f7a5a" fill-rule="evenodd"/>
+<use id="bramblesnare-body-vine-line" href="#bramblesnare-body-vine-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bramblesnare-body-thorn-0">
+<use id="bramblesnare-body-thorn-0-fill" href="#bramblesnare-body-thorn-0-shape" fill="#4f8f3e"/>
+<use id="bramblesnare-body-thorn-0-line" href="#bramblesnare-body-thorn-0-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bramblesnare-body-thorn-1">
+<use id="bramblesnare-body-thorn-1-fill" href="#bramblesnare-body-thorn-1-shape" fill="#4f8f3e"/>
+<use id="bramblesnare-body-thorn-1-line" href="#bramblesnare-body-thorn-1-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bramblesnare-body-thorn-2">
+<use id="bramblesnare-body-thorn-2-fill" href="#bramblesnare-body-thorn-2-shape" fill="#4f8f3e"/>
+<use id="bramblesnare-body-thorn-2-line" href="#bramblesnare-body-thorn-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bramblesnare-body-thorn-3">
+<use id="bramblesnare-body-thorn-3-fill" href="#bramblesnare-body-thorn-3-shape" fill="#4f8f3e"/>
+<use id="bramblesnare-body-thorn-3-line" href="#bramblesnare-body-thorn-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bramblesnare-body-thorn-4">
+<use id="bramblesnare-body-thorn-4-fill" href="#bramblesnare-body-thorn-4-shape" fill="#4f8f3e"/>
+<use id="bramblesnare-body-thorn-4-line" href="#bramblesnare-body-thorn-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bramblesnare-body-thorn-5">
+<use id="bramblesnare-body-thorn-5-fill" href="#bramblesnare-body-thorn-5-shape" fill="#4f8f3e"/>
+<use id="bramblesnare-body-thorn-5-line" href="#bramblesnare-body-thorn-5-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bramblesnare-body-thorn-6">
+<use id="bramblesnare-body-thorn-6-fill" href="#bramblesnare-body-thorn-6-shape" fill="#4f8f3e"/>
+<use id="bramblesnare-body-thorn-6-line" href="#bramblesnare-body-thorn-6-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bramblesnare-body-thorn-7">
+<use id="bramblesnare-body-thorn-7-fill" href="#bramblesnare-body-thorn-7-shape" fill="#4f8f3e"/>
+<use id="bramblesnare-body-thorn-7-line" href="#bramblesnare-body-thorn-7-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bramblesnare-body-thorn-8">
+<use id="bramblesnare-body-thorn-8-fill" href="#bramblesnare-body-thorn-8-shape" fill="#4f8f3e"/>
+<use id="bramblesnare-body-thorn-8-line" href="#bramblesnare-body-thorn-8-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

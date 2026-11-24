@@ -3,14 +3,14 @@ import { DUNGEONS, RAIDS, RAID_BOSS, RESERVES, dungeonById, raidById } from '../
 import { LANDS } from '../src/data/lands';
 import { packById } from '../src/data/packs';
 import { STAGES, WORLDS } from '../src/data/stages';
-import { UNITS } from '../src/data/units';
+import { UNITS, isStructure } from '../src/data/units';
 import { addCard, cardOf } from '../src/game/cards';
 import {
   TIERS, afterFloor, canGoOn, dungeonPrize, fielded, finishRaid, floorEnemies, floorInput, placeOpen, raidEnemies, raidInput, raidPrize,
   startRun, tierOpen, tierPack, tierStage, tiersCleared, toggleFielded, topTier, unitsOf,
 } from '../src/game/expeditions';
 import { cardMult } from '../src/game/rarity';
-import { bestTeam, isEnemyTile, startingSave, teamSize } from '../src/game/rules';
+import { bestTeam, isEnemyTile, startingSave, structuresSize, teamSize } from '../src/game/rules';
 import { repair, type SaveData } from '../src/game/state';
 import { Battle, runBattle } from '../src/sim/battle';
 
@@ -123,6 +123,36 @@ describe('a run of a dungeon', () => {
     expect(startRun(startingSave(1), d, 0)).toBeNull();
     save.team = [];
     expect(startRun(save, d, 0)).toBeNull();
+  });
+
+  it('takes the team\'s structures in with it, and never a structure as a reserve', () => {
+    const save = veteran();
+    save.cleared = Math.max(save.cleared, 40);
+    for (const u of ['watchtower', 'barracks', 'spiketrap', 'palisade', 'beartrap']) Object.assign(addCard(save, u, 6), { level: 20 });
+    save.team = bestTeam(save);
+    const built = save.team.filter((p) => isStructure(p.unit));
+    expect(built).toHaveLength(structuresSize(save));
+    const run = startRun(save, DUNGEONS[0], 0);
+    if (!run) throw new Error('no run');
+    expect(fielded(run).filter((r) => isStructure(r.unit))).toHaveLength(built.length);
+    // The two strongest cards left over are structures, and still the reserves are people.
+    const reserves = run.roster.filter((r) => !r.fielded);
+    expect(reserves).toHaveLength(RESERVES);
+    for (const r of reserves) expect(isStructure(r.unit), r.unit).toBe(false);
+    // A trap that has gone off is spent for the run, like anyone who has fallen.
+    const on = fielded(run);
+    const trap = on.findIndex((r) => UNITS[r.unit].kind === 'trap');
+    if (trap >= 0) {
+      afterFloor(save, run, DUNGEONS[0], true, on.map((_, i) => (i === trap ? 0 : 1)));
+      expect(run.roster.find((r) => r.card === on[trap].card)).toMatchObject({ hp: 0, fielded: false });
+    }
+    // A structure rested can be sent in again only while there is a place for one.
+    const tower = fielded(run).find((r) => UNITS[r.unit].kind === 'building');
+    if (tower) {
+      expect(toggleFielded(save, run, tower.card)).toBe(true);
+      expect(toggleFielded(save, run, tower.card)).toBe(true);
+      expect(fielded(run).filter((r) => isStructure(r.unit)).length).toBeLessThanOrEqual(structuresSize(save));
+    }
   });
 
   it('nothing heals between floors: a card brings the health it has left, and the fallen stay fallen', () => {

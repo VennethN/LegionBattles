@@ -3,7 +3,7 @@
 // one from another is its color and its mark, never its shape.
 
 import { Doc } from './kit/draw';
-import { ARCANE, BONE, BUSH, CLOTH, FROST, GOLD, HOLY, STEEL, type Material } from './kit/palette';
+import { ARCANE, BONE, BUSH, CLOTH, FROST, GOLD, HOLY, OUTLINE, STEEL, STONE, WOOD, type Material } from './kit/palette';
 import { Path, capsule, circle, poly, smooth, star } from './kit/path';
 
 export const PACK_W = 124;
@@ -48,6 +48,20 @@ export const PACK_LOOKS: Readonly<Record<string, PackLook>> = {
     band: GOLD,
     mark: (d, cx, cy) => {
       d.piece('mark', smooth([[cx - 15, cy - 14, 'c'], [cx, cy - 18], [cx + 15, cy - 14, 'c'], [cx + 15, cy], [cx + 9, cy + 12], [cx, cy + 19, 'c'], [cx - 9, cy + 12], [cx - 15, cy]]), STEEL, { shade: 3 });
+    },
+  },
+  builder: {
+    foil: WOOD,
+    band: STEEL,
+    mark: (d, cx, cy) => {
+      // A tower: three merlons on a wall, and its gate.
+      d.piece('mark', poly([
+        [cx - 15, cy + 17], [cx - 15, cy - 16], [cx - 8, cy - 16], [cx - 8, cy - 9], [cx - 3.5, cy - 9], [cx - 3.5, cy - 16],
+        [cx + 3.5, cy - 16], [cx + 3.5, cy - 9], [cx + 8, cy - 9], [cx + 8, cy - 16], [cx + 15, cy - 16], [cx + 15, cy + 17],
+      ]), STONE, {
+        shade: 3,
+        inner: (c) => c.flat('gate', poly([[cx - 5, cy + 17], [cx - 5, cy + 6], [cx, cy + 1], [cx + 5, cy + 6], [cx + 5, cy + 17]]), OUTLINE),
+      });
     },
   },
   thornwood: {

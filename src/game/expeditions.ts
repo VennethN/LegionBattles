@@ -9,13 +9,13 @@ import { DUNGEONS, RAIDS, RAID_BOSS, RESERVES, TIER_MARKS, type DungeonDef, type
 import { LANDS, RANK } from '../data/lands';
 import { packIdAt } from '../data/packs';
 import { STAGES, WORLDS, type Stage } from '../data/stages';
-import { UNITS, isFrontline } from '../data/units';
+import { UNITS, isFrontline, isStructure } from '../data/units';
 import { HALF_COLS, ROWS } from '../sim/constants';
 import { hash32 } from '../sim/rng';
 import type { BattleInput, Placement } from '../sim/types';
 import { addXp, cardOf } from './cards';
 import { cardMult } from './rarity';
-import { cardPower, cleared, fieldOf, teamSize, type LevelUp } from './rules';
+import { cardPower, cleared, fieldOf, roomFor, type LevelUp } from './rules';
 import type { Card, SaveData } from './state';
 
 export const TIERS = TIER_MARKS.length;
@@ -106,8 +106,9 @@ export function startRun(save: SaveData, dungeon: DungeonDef, tier: number): Run
     const card = cardOf(save, p.card);
     if (card) roster.push({ card: card.id, unit: card.unit, hp: 1, fielded: true, col: p.col, row: p.row });
   }
+  // The reserves are people: someone to send in when another has fallen. A wall is not that.
   const spare = save.cards
-    .filter((c) => !roster.some((r) => r.card === c.id))
+    .filter((c) => !isStructure(c.unit) && !roster.some((r) => r.card === c.id))
     .sort((a, b) => cardPower(b) - cardPower(a) || a.id - b.id)
     .slice(0, RESERVES);
   for (const c of spare) roster.push({ card: c.id, unit: c.unit, hp: 1, fielded: false, col: 0, row: 0 });
@@ -121,7 +122,8 @@ export function fielded(run: Run): RosterCard[] {
 
 /**
  * Sends a card of the roster in, or takes it off the board. Returns false
- * if it has fallen, or the board is as full as the team may be.
+ * if it has fallen, or the board has no place for it: as many units as the
+ * team may be, and as many buildings and traps as it has places for structures.
  */
 export function toggleFielded(save: SaveData, run: Run, card: number): boolean {
   const entry = run.roster.find((r) => r.card === card);
@@ -131,7 +133,7 @@ export function toggleFielded(save: SaveData, run: Run, card: number): boolean {
     return true;
   }
   const on = fielded(run);
-  if (on.length >= teamSize(save)) return false;
+  if (!roomFor(save, entry.unit, on)) return false;
   const [col, row] = freeTile(on, isFrontline(entry.unit));
   entry.col = col;
   entry.row = row;

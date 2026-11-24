@@ -58,9 +58,10 @@ export class ShopScene extends Phaser.Scene {
       size: 17, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
     });
 
-    const pitch = 244;
+    // The shelf is as wide as the screen: a card for each pack, as wide as there is room for.
+    const pitch = Math.min(244, (W - 24) / SHELF.length);
     const x0 = W / 2 - ((SHELF.length - 1) * pitch) / 2;
-    SHELF.forEach((pack, i) => this.packCard(pack, x0 + i * pitch, 372));
+    SHELF.forEach((pack, i) => this.packCard(pack, x0 + i * pitch, 372, Math.round(pitch - 20)));
 
     this.guide = new Guide(this, 'Shop');
     this.guide.mark('open', () => this.firstOpen);
@@ -90,10 +91,10 @@ export class ShopScene extends Phaser.Scene {
     this.scene.restart();
   }
 
-  private packCard(base: PackDef, x: number, y: number): void {
+  private packCard(base: PackDef, x: number, y: number, w: number): void {
     const s = save();
-    const w = 224;
     const h = 520;
+    const bw = Math.min(180, w - 28);
     const d = this.chosen(base);
     const pack = packAt(base, d);
     const open = packOpen(s, pack);
@@ -109,17 +110,18 @@ export class ShopScene extends Phaser.Scene {
       return;
     }
     const dark = { color: OUTLINE, stroke: null as null };
-    label(this, x, y - 48, base.name, { size: 22 });
+    label(this, x, y - 48, base.name, { size: w < 200 ? (base.name.length > 12 ? 18 : 20) : 22 });
 
     if (base.land) {
       // Which lap's pack this is, with arrows to the others that are on sale. Each lap's is better than the last.
       const chip = this.add.graphics();
-      slab(chip, x - 62, y - 30, 124, 30, DIFFICULTY_MAT[d], 10, 4);
+      const cw = Math.min(124, w - 112);
+      slab(chip, x - cw / 2, y - 30, cw, 30, DIFFICULTY_MAT[d], 10, 4);
       label(this, x, y - 16, `Tier ${d + 1}`, { size: 15, strokeWidth: 4 });
       for (const step of [-1, 1]) {
         const to = d + step;
         if (to < 0 || to >= LAPS.length || !packOpen(s, packAt(base, to))) continue;
-        const b = new Button(this, x + step * 88, y - 15, '', () => this.choose(base, to), { width: 44, height: 44, mat: BONE });
+        const b = new Button(this, x + step * (w / 2 - 32), y - 15, '', () => this.choose(base, to), { width: 40, height: 44, mat: BONE });
         b.root.add(this.add.image(0, -3, SHEET, 'icon/arrow').setScale(0.34).setFlipX(step < 0));
       }
     } else {
@@ -133,7 +135,7 @@ export class ShopScene extends Phaser.Scene {
     label(this, x, y + 60, `${packPool(s, pack).length} kinds of card inside`, { size: 13, weight: 600, color: IRON.shade, stroke: null });
     if (held > 0) label(this, x, y + 88, `You hold ${held}`, { size: 18, color: CLOTH.blue.shade, stroke: null });
 
-    const openB = new Button(this, x, y + 140, 'OPEN', () => this.open(pack.id), { width: 180, height: 56, size: 24 });
+    const openB = new Button(this, x, y + 140, 'OPEN', () => this.open(pack.id), { width: bw, height: 56, size: 24 });
     openB.setEnabled(held > 0);
     if (held > 0 && !this.firstOpen) this.firstOpen = openB.rect;
     const buy = new Button(this, x, y + 206, `     ${pack.cost}`, () => {
@@ -142,8 +144,8 @@ export class ShopScene extends Phaser.Scene {
         commit();
         this.scene.restart();
       }
-    }, { width: 180, height: 56, size: 24, mat: VENOM });
-    buy.root.add(this.add.image(-48, -3, SHEET, 'icon/coin').setScale(0.38));
+    }, { width: bw, height: 56, size: 24, mat: VENOM });
+    buy.root.add(this.add.image(-bw / 2 + 42, -3, SHEET, 'icon/coin').setScale(0.38));
     buy.setEnabled(s.coins >= pack.cost);
   }
 

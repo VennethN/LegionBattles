@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="raidertent-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="raidertent-body-tent-shape" d="M 50 180 L 94 114 L 138 180 Z"/>
+<clipPath id="raidertent-body-tent-clip"><use href="#raidertent-body-tent-shape"/></clipPath>
+<clipPath id="raidertent-body-tent-lit-clip"><use href="#raidertent-body-tent-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="raidertent-body-peg-a-shape" d="M 46 172 L 48 172 Q 50 172 50 174 L 50 179 Q 50 181 48 181 L 46 181 Q 44 181 44 179 L 44 174 Q 44 172 46 172 Z"/>
+<path id="raidertent-body-peg-b-shape" d="M 142 172 L 144 172 Q 146 172 146 174 L 146 179 Q 146 181 144 181 L 142 181 Q 140 181 140 179 L 140 174 Q 140 172 142 172 Z"/>
+</defs>
+<g id="raidertent-body-tent">
+<use id="raidertent-body-tent-shade" href="#raidertent-body-tent-shape" fill="#2f5893"/>
+<g clip-path="url(#raidertent-body-tent-clip)">
+<use id="raidertent-body-tent-deep" href="#raidertent-body-tent-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="raidertent-body-tent-shade-over" href="#raidertent-body-tent-shape" transform="translate(-3.72 -3.72)" fill="#2f5893"/>
+<use id="raidertent-body-tent-fill" href="#raidertent-body-tent-shape" transform="translate(-6 -6)" fill="#3d6fb6"/>
+<g clip-path="url(#raidertent-body-tent-lit-clip)">
+<use id="raidertent-body-tent-lit" href="#raidertent-body-tent-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="raidertent-body-tent-fill-over" href="#raidertent-body-tent-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="raidertent-body-flap" d="M 82 180 L 94 146 L 106 180 Z" fill="#1e2b17"/>
+<path id="raidertent-body-seam" d="M 94 114 L 97 114 L 118 180 L 113 180 Z" fill="#2a1a10" opacity="0.22"/>
+<path id="raidertent-body-panel" d="M 56 180 L 90 126 L 76 180 Z" fill="#f4f1e4" opacity="0.18"/>
+<path id="raidertent-body-patch" d="M 112 152 L 121 152 Q 123 152 123 154 L 123 161 Q 123 163 121 163 L 112 163 Q 110 163 110 161 L 110 154 Q 110 152 112 152 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="raidertent-body-tent-line" href="#raidertent-body-tent-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="raidertent-body-peg-a">
+<use id="raidertent-body-peg-a-fill" href="#raidertent-body-peg-a-shape" fill="#9a6a3a"/>
+<use id="raidertent-body-peg-a-line" href="#raidertent-body-peg-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="raidertent-body-peg-b">
+<use id="raidertent-body-peg-b-fill" href="#raidertent-body-peg-b-shape" fill="#9a6a3a"/>
+<use id="raidertent-body-peg-b-line" href="#raidertent-body-peg-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="warbanner-cloth" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="warbanner-cloth-cloth-shape" d="M 74 58 L 118 58 L 118 118 L 107 108 L 96 122 L 85 108 L 74 118 Z"/>
+<clipPath id="warbanner-cloth-cloth-clip"><use href="#warbanner-cloth-cloth-shape"/></clipPath>
+<clipPath id="warbanner-cloth-cloth-lit-clip"><use href="#warbanner-cloth-cloth-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="warbanner-cloth-mark-shape" d="M 96 72 L 106 84 L 96 96 L 86 84 Z"/>
+<clipPath id="warbanner-cloth-mark-clip"><use href="#warbanner-cloth-mark-shape"/></clipPath>
+<clipPath id="warbanner-cloth-mark-lit-clip"><use href="#warbanner-cloth-mark-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="warbanner-cloth-cloth">
+<use id="warbanner-cloth-cloth-shade" href="#warbanner-cloth-cloth-shape" fill="#2f5893"/>
+<g clip-path="url(#warbanner-cloth-cloth-clip)">
+<use id="warbanner-cloth-cloth-deep" href="#warbanner-cloth-cloth-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="warbanner-cloth-cloth-shade-over" href="#warbanner-cloth-cloth-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="warbanner-cloth-cloth-fill" href="#warbanner-cloth-cloth-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#warbanner-cloth-cloth-lit-clip)">
+<use id="warbanner-cloth-cloth-lit" href="#warbanner-cloth-cloth-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warbanner-cloth-cloth-fill-over" href="#warbanner-cloth-cloth-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="warbanner-cloth-fold" d="M 86 56 L 92 56 L 92 126 L 86 126 L 86 56 Z" fill="#f4f1e4" opacity="0.22"/>
+<path id="warbanner-cloth-fold-b" d="M 102 56 L 106 56 L 106 126 L 102 126 L 102 56 Z" fill="#2a1a10" opacity="0.17"/>
+</g>
+<use id="warbanner-cloth-cloth-line" href="#warbanner-cloth-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warbanner-cloth-mark">
+<use id="warbanner-cloth-mark-shade" href="#warbanner-cloth-mark-shape" fill="#9c7c33"/>
+<g clip-path="url(#warbanner-cloth-mark-clip)">
+<use id="warbanner-cloth-mark-fill" href="#warbanner-cloth-mark-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#warbanner-cloth-mark-lit-clip)">
+<use id="warbanner-cloth-mark-lit" href="#warbanner-cloth-mark-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warbanner-cloth-mark-fill-over" href="#warbanner-cloth-mark-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+<path id="warbanner-cloth-mark-sheen" d="M101.04 72 L105.04 72 L94.96 96 L90.96 96 Z M108.54 72 L111.14 72 L101.06 96 L98.46 96 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="warbanner-cloth-mark-line" href="#warbanner-cloth-mark-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

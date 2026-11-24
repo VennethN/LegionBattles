@@ -66,6 +66,45 @@ export class OverlayHead {
   }
 }
 
+/**
+ * The two pages a screen of cards has: one for units, one for structures,
+ * the buildings and the traps. They are kept apart because they are fielded
+ * apart, each in places of its own.
+ */
+export type Side = 'units' | 'structures';
+
+/** The page last looked at, on whichever screen: the index opens on the page the units were left on. */
+export function sideOf(scene: Phaser.Scene): Side {
+  return scene.registry.get('side') === 'structures' ? 'structures' : 'units';
+}
+
+/** The row along the bottom of a screen of cards, and where its parts stand on it. */
+export const TABS_Y = 676;
+/** Where the tabs end, for whatever a screen puts beside them. */
+export const TABS_END = 340;
+/** Where the arrows that turn the pages of a grid stand, clear of the tabs. */
+export const TURN_X = [606, 680, 754] as const;
+
+/**
+ * The tabs that turn between the two pages. The one that is open is in
+ * gold and does nothing; the other calls `pick`. Returns what it drew.
+ */
+export function sideTabs(scene: Phaser.Scene, side: Side, pick: (side: Side) => void): Phaser.GameObjects.GameObject[] {
+  const tab = (x: number, w: number, text: string, of: Side): Phaser.GameObjects.GameObject => {
+    const on = side === of;
+    const b = new Button(scene, x, TABS_Y, text, () => {
+      if (on) return;
+      scene.registry.set('side', of);
+      pick(of);
+    }, { width: w, height: 46, size: 18, mat: on ? GOLD : BONE, color: on ? undefined : OUTLINE });
+    if (!on) {
+      for (const o of b.root.list) if (o instanceof Phaser.GameObjects.Text) o.setStroke(BONE.fill, 0);
+    }
+    return b.root;
+  };
+  return [tab(96, 120, 'UNITS', 'units'), tab(252, 176, 'STRUCTURES', 'structures')];
+}
+
 /** The name of the event the game sends when one screen over the field gives way to another. */
 export const OVERLAY_SWAP = 'overlay-swap';
 

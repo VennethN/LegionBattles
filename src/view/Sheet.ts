@@ -24,6 +24,13 @@ export const SHEET = 'sheet';
 /** What the menus draw: whole units for cards, the packs, the grade badges. */
 export const CARDS = 'cards';
 export const SHEET_SIZE = 2048;
+/**
+ * The card sheet is taller than it is wide. Every unit is on it twice, and
+ * with the buildings and the traps they no longer fit a square: a quarter
+ * more height holds them, with room for the units still to come, and is
+ * well inside the 4096 any phone's graphics take.
+ */
+export const CARDS_HEIGHT = 2560;
 
 export type Folder = 'fx' | 'icons' | 'packs' | 'grades';
 
@@ -45,11 +52,12 @@ export class Sheet {
     game: Phaser.Game,
     readonly manifest: Manifest,
     readonly key: string = SHEET,
+    readonly height: number = SHEET_SIZE,
   ) {
-    const t = game.textures.createCanvas(key, SHEET_SIZE, SHEET_SIZE);
+    const t = game.textures.createCanvas(key, SHEET_SIZE, height);
     if (!t) throw new Error('sheet: could not make the canvas');
     this.texture = t;
-    this.packer = new ShelfPacker(SHEET_SIZE, SHEET_SIZE);
+    this.packer = new ShelfPacker(SHEET_SIZE, height);
   }
 
   static unitFrame(team: string, unit: string, part: string): string {
@@ -200,7 +208,7 @@ export class Sheet {
     this.packed.clear();
     this.packer.restore(this.base);
     const top = this.base[1];
-    this.texture.context.clearRect(0, top, SHEET_SIZE, SHEET_SIZE - top);
+    this.texture.context.clearRect(0, top, SHEET_SIZE, this.height - top);
   }
 
   /** How much of the sheet is used, for the debug overlay. */
@@ -218,7 +226,7 @@ export function sheet(game: Phaser.Game, manifest: Manifest): Sheet {
 }
 
 export function cardSheet(game: Phaser.Game, manifest: Manifest): Sheet {
-  if (!sharedCards) sharedCards = new Sheet(game, manifest, CARDS);
+  if (!sharedCards) sharedCards = new Sheet(game, manifest, CARDS, CARDS_HEIGHT);
   return sharedCards;
 }
 

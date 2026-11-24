@@ -26,13 +26,26 @@ export interface PackDef {
   after?: number;
   /** Which lap it is its land's pack of. 0, the first, if left out. */
   lap?: number;
+  /**
+   * What it holds of its set's structures, the buildings and the traps: "none"
+   * for a pack of people only, "only" for a pack of structures and nothing else.
+   * Left out, it holds both, and turns a structure over one time in five
+   * (STRUCTURE_SHARE in game/rules.ts).
+   */
+  structures?: 'none' | 'only';
   blurb: string;
 }
 
 export const PACKS: readonly PackDef[] = [
   {
-    id: 'recruit', name: 'Recruit Pack', set: 'kingdom', cost: 60, gradeMin: 0, gradeMax: 2,
+    // A new player's pack is people: there is no place to stand a tower yet.
+    id: 'recruit', name: 'Recruit Pack', set: 'kingdom', cost: 60, gradeMin: 0, gradeMax: 2, structures: 'none',
     blurb: 'Soldiers of the Crownlands.',
+  },
+  {
+    // Sold from the stage that opens the first place for a structure (STRUCTURES_AT in game/rules.ts).
+    id: 'builder', name: "Builder's Pack", set: 'kingdom', cost: 140, gradeMin: 0, gradeMax: 3, structures: 'only', after: 8,
+    blurb: 'Towers, walls and traps.',
   },
   {
     id: 'thornwood', name: 'Thornwood Pack', set: 'raiders', cost: 110, gradeMin: 0, gradeMax: 3, land: 'thornwood',

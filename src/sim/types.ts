@@ -98,6 +98,38 @@ export interface UnitDef {
   text?: string;
   /** How much bigger than usual it is drawn, and how much more room it takes. 1 if left out. */
   scale?: number;
+  /**
+   * It never moves: a tower, a barracks, a wall, a banner. It strikes only
+   * what comes within its reach, nothing mends it, and its side has not lost
+   * while it stands.
+   */
+  still?: boolean;
+  /** Who it calls up as the battle goes on, as a barracks does. A placement's own `summons` comes before this. */
+  summons?: Summons;
+  /** A status it keeps on those near it: its own side, or the enemy's with `foes`. A banner does. */
+  aura?: Aura;
+  /**
+   * A trap. It lies where it is put, is no one's target and takes no harm,
+   * and goes off once: when an enemy that walks comes within `trigger`
+   * tiles, every enemy within `radius` tiles takes its damage and its
+   * status. A side with only traps left has lost.
+   */
+  trap?: Trap;
+}
+
+export interface Aura {
+  status: StatusApply;
+  /** Tiles. */
+  radius: number;
+  /** Seconds between one giving and the next. */
+  every: number;
+  foes?: boolean;
+}
+
+export interface Trap {
+  trigger: number;
+  radius: number;
+  status?: StatusApply;
 }
 
 export interface Placement {
@@ -145,6 +177,8 @@ export type EventType =
   | 'death'
   // A unit was called up mid-battle: `unit` is the newcomer, `target` whoever called it.
   | 'spawn'
+  // A trap went off: `unit` is the trap, `kind` what it is.
+  | 'trap'
   | 'skill'
   | 'status'
   | 'statusEnd'

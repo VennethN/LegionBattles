@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="lookout-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="lookout-body-pole-shape" d="M 94 80 L 98 80 Q 102 80 102 84 L 102 176 Q 102 180 98 180 L 94 180 Q 90 180 90 176 L 90 84 Q 90 80 94 80 Z"/>
+<clipPath id="lookout-body-pole-clip"><use href="#lookout-body-pole-shape"/></clipPath>
+<clipPath id="lookout-body-pole-lit-clip"><use href="#lookout-body-pole-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="lookout-body-nest-shape" d="M 72 74 L 120 74 L 114 102 L 78 102 Z"/>
+<clipPath id="lookout-body-nest-clip"><use href="#lookout-body-nest-shape"/></clipPath>
+<clipPath id="lookout-body-nest-lit-clip"><use href="#lookout-body-nest-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="lookout-body-rim-shape" d="M 72 70 L 120 70 Q 123 70 123 73 L 123 74 Q 123 77 120 77 L 72 77 Q 69 77 69 74 L 69 73 Q 69 70 72 70 Z"/>
+</defs>
+<path id="lookout-body-stay-a" d="M 62 180 L 92 102" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="lookout-body-stay-b" d="M 130 180 L 100 102" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="lookout-body-pole">
+<use id="lookout-body-pole-shade" href="#lookout-body-pole-shape" fill="#75502b"/>
+<g clip-path="url(#lookout-body-pole-clip)">
+<use id="lookout-body-pole-fill" href="#lookout-body-pole-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#lookout-body-pole-lit-clip)">
+<use id="lookout-body-pole-lit" href="#lookout-body-pole-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lookout-body-pole-fill-over" href="#lookout-body-pole-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="lookout-body-rung" d="M 88 166 L 104 166 L 104 169 L 88 169 L 88 166 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="lookout-body-rung-2" d="M 88 152 L 104 152 L 104 155 L 88 155 L 88 152 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="lookout-body-rung-3" d="M 88 138 L 104 138 L 104 141 L 88 141 L 88 138 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="lookout-body-rung-4" d="M 88 124 L 104 124 L 104 127 L 88 127 L 88 124 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="lookout-body-rung-5" d="M 88 110 L 104 110 L 104 113 L 88 113 L 88 110 Z" fill="#2a1a10" opacity="0.34"/>
+</g>
+<use id="lookout-body-pole-line" href="#lookout-body-pole-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lookout-body-nest">
+<use id="lookout-body-nest-shade" href="#lookout-body-nest-shape" fill="#4e3520"/>
+<g clip-path="url(#lookout-body-nest-clip)">
+<use id="lookout-body-nest-fill" href="#lookout-body-nest-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#lookout-body-nest-lit-clip)">
+<use id="lookout-body-nest-lit" href="#lookout-body-nest-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="lookout-body-nest-fill-over" href="#lookout-body-nest-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="lookout-body-weave-a" d="M 68 83 L 124 83 L 124 85.6 L 68 85.6 L 68 83 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="lookout-body-weave-b" d="M 68 92 L 124 92 L 124 94.6 L 68 94.6 L 68 92 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="lookout-body-gap" d="M 103 77 L 113 77 Q 116 77 116 80 L 116 82 Q 116 85 113 85 L 103 85 Q 100 85 100 82 L 100 80 Q 100 77 103 77 Z" fill="#1e2b17"/>
+</g>
+<use id="lookout-body-nest-line" href="#lookout-body-nest-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="lookout-body-rim">
+<use id="lookout-body-rim-fill" href="#lookout-body-rim-shape" fill="#9a6a3a"/>
+<use id="lookout-body-rim-line" href="#lookout-body-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

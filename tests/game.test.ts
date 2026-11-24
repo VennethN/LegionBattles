@@ -3,14 +3,15 @@ import { LANDS } from '../src/data/lands';
 import { LAPS } from '../src/data/laps';
 import { PACKS, allPacks, packAt, packById } from '../src/data/packs';
 import { STAGES, TOP, WORLDS, landOf, stageAt, stageStrength, worldOf } from '../src/data/stages';
-import { SETS, UNITS } from '../src/data/units';
+import { SETS, UNITS, isStructure } from '../src/data/units';
 import { COUNTDOWN, afterBattle, goTo, settle, teamChanged } from '../src/game/campaign';
 import { COPY_XP, OTHER_UNIT, addCard, cardOf, cardsOf, combine, combinePreview, spare, whyNot, worth, xpHeld } from '../src/game/cards';
 import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
 import {
-  BASE_TEAM, MAX_TEAM, TEAM_AT, addXp, beaten, bestTeam, buyPack, cardPower, cleared, finishStage, frontier, inTeam, isEnemyTile, known,
-  lineDone, openPack, packOpen, packPool, packsHeld, rollPack, stageEnemies, stageInput, stageOpen, stagePay, stageXp, startingSave,
-  teamSize, tidyTeam, toggleTeam, worldReached, type StageResult,
+  BASE_TEAM, MAX_STRUCTURES, MAX_TEAM, STRUCTURES_AT, STRUCTURE_PACK, STRUCTURE_SHARE, TEAM_AT, addXp, beaten, bestTeam, buyPack, cardPower,
+  cleared, finishStage, frontier, inTeam, isEnemyTile, known, lineDone, openPack, packHolds, packOpen, packPool, packsHeld, rollPack, roomFor,
+  stageEnemies, stageInput, stageOpen, stagePay, stageXp, startingSave, structuresIn, structuresSize, teamSize, tidyTeam, toggleTeam, unitsIn,
+  worldReached, type StageResult,
 } from '../src/game/rules';
 import { SORTS, SORT_NAME, cardDamage, cardHealth, isSort, nextSort, sortCards, type Sort } from '../src/game/sorting';
 import { repair, type SaveData } from '../src/game/state';
@@ -203,9 +204,11 @@ describe('the line of stages', () => {
   it('on later laps a stage fields more enemies than it is written with, each on a free enemy tile', () => {
     for (const s of STAGES) {
       // On the first lap, who it is written with. After it, at least the lap's fewest, and from the third lap one more than written.
-      expect(s.extra).toBe(Math.max(LAPS[s.lap].extra, LAPS[s.lap].least - s.def.enemies.length));
+      // A tower or a trap is not one of the troops a lap asks for.
+      const troops = s.def.enemies.filter((e) => !isStructure(e.unit)).length;
+      expect(s.extra).toBe(Math.max(LAPS[s.lap].extra, LAPS[s.lap].least - troops));
       if (s.lap === 0) expect(s.extra).toBe(0);
-      expect(s.def.enemies.length + s.extra).toBeGreaterThanOrEqual(LAPS[s.lap].least);
+      expect(troops + s.extra).toBeGreaterThanOrEqual(LAPS[s.lap].least);
     }
     for (const n of [0, PER_LAP, PER_LAP + 1, PER_LAP * 2, PER_LAP * 3 + 10, PER_LAP * 4 + 3, STAGES.length - 1]) {
       const stage = STAGES[n];
@@ -385,7 +388,11 @@ describe('what is known', () => {
   it('a pack holds every unit of its set from the start: nothing in it is unlocked', () => {
     const save = startingSave(1);
     for (const pack of PACKS) {
-      const all = Object.values(UNITS).filter((u) => u.set === pack.set).map((u) => u.id).sort();
+      // All of its set: its people, its structures, or both, as the pack says.
+      const all = Object.values(UNITS)
+        .filter((u) => u.set === pack.set && (pack.structures === undefined || (pack.structures === 'only') === isStructure(u.id)))
+        .map((u) => u.id).sort();
+      expect(all.length, pack.id).toBeGreaterThan(0);
       expect(packPool(save, pack).map((u) => u.id).sort(), pack.id).toEqual(all);
     }
     // The boss of the first world can be pulled before it has been met, and is known from then on.
@@ -635,6 +642,149 @@ describe('the team', () => {
   });
 });
 
+
+describe('structures', () => {
+  const structures = Object.values(UNITS).filter((u) => isStructure(u.id));
+
+  it('are buildings and traps: each land has a tower, a hall that sends its troops out and a trap, and the Crownlands have six', () => {
+    expect(structures).toHaveLength(15);
+    for (const u of structures) {
+      // A building stands still and a trap is a trap; nothing built walks.
+      expect(u.kind === 'trap' ? !!u.trap : !!u.still, u.id).toBe(true);
+      expect(u.speed, u.id).toBe(0);
+      expect(cardPower({ id: 1, unit: u.id, grade: 0, level: 1, xp: 0 }), u.id).toBeGreaterThan(0);
+      // Whoever a hall sends out is one of its own set, and no structure.
+      if (u.summons) {
+        expect(UNITS[u.summons.unit].set, u.id).toBe(u.set);
+        expect(isStructure(u.summons.unit), u.id).toBe(false);
+      }
+    }
+    expect(structures.filter((u) => u.set === 'kingdom')).toHaveLength(6);
+    for (const land of LANDS) {
+      const of = structures.filter((u) => u.set === land.set);
+      expect(of.filter((u) => u.kind === 'trap'), land.id).toHaveLength(1);
+      expect(of.filter((u) => u.summons), land.id).toHaveLength(1);
+      expect(of.filter((u) => u.kind === 'building' && u.damage > 0), land.id).toHaveLength(1);
+      // A unit says from which stage it is met, and that is the first it stands at.
+      for (const u of of) {
+        const first = land.stages.findIndex((st) => st.enemies.some((e) => e.unit === u.id));
+        expect(u.from, u.id).toBe(first + 1);
+      }
+    }
+  });
+
+  it('stand in places of their own, which open as the line is cleared, and the first comes with a pack', () => {
+    expect(structuresSize(at(0))).toBe(0);
+    STRUCTURES_AT.forEach((n, i) => {
+      expect(structuresSize(at(n - 1)), `before stage ${n}`).toBe(i);
+      expect(structuresSize(at(n)), `after stage ${n}`).toBe(i + 1);
+    });
+    expect(structuresSize(at(STAGES.length))).toBe(MAX_STRUCTURES);
+    // The Builder's Pack is sold from the stage that opens the first place, and one is handed over with it.
+    expect(packById(STRUCTURE_PACK).after).toBe(STRUCTURES_AT[0]);
+    const save = at(STRUCTURES_AT[0] - 1);
+    const r = finishStage(save, STRUCTURES_AT[0] - 1, true);
+    expect(r.moreStructures).toBe(1);
+    expect(r.packs).toContain(STRUCTURE_PACK);
+    expect(packOpen(save, packById(STRUCTURE_PACK))).toBe(true);
+    expect(packOpen(at(STRUCTURES_AT[0] - 1), packById(STRUCTURE_PACK))).toBe(false);
+    // The second place does not come with one.
+    const later = at(STRUCTURES_AT[1] - 1);
+    const r2 = finishStage(later, STRUCTURES_AT[1] - 1, true);
+    expect(r2.moreStructures).toBe(1);
+    expect(r2.packs).not.toContain(STRUCTURE_PACK);
+  });
+
+  it('a structure takes no unit\'s place and a unit takes no structure\'s', () => {
+    const early = at(2);
+    const tower = addCard(early, 'watchtower', 0);
+    // No place for it yet.
+    expect(roomFor(early, 'watchtower')).toBe(false);
+    expect(toggleTeam(early, tower.id)).toBe(false);
+
+    const save = at(STRUCTURES_AT[0]);
+    save.cards = [];
+    save.team = [];
+    const units = ['knight', 'archer', 'militia', 'cleric', 'mage', 'paladin', 'berserker'].map((u) => addCard(save, u, 0));
+    for (const c of units.slice(0, teamSize(save))) expect(toggleTeam(save, c.id), c.unit).toBe(true);
+    // The team is full of units, and there is still the one place for a structure.
+    expect(unitsIn(save.team)).toBe(teamSize(save));
+    expect(toggleTeam(save, units[teamSize(save)].id)).toBe(false);
+    const trap = addCard(save, 'spiketrap', 0);
+    const wall = addCard(save, 'palisade', 0);
+    expect(toggleTeam(save, trap.id)).toBe(true);
+    expect(toggleTeam(save, wall.id)).toBe(false);
+    expect(structuresIn(save.team)).toBe(1);
+    expect(save.team).toHaveLength(teamSize(save) + 1);
+    // Each stands on a tile of its own, the trap out in front.
+    expect(new Set(save.team.map((p) => `${p.col},${p.row}`)).size).toBe(save.team.length);
+    // A team with more structures than it has places is put right before it fights.
+    save.team.push({ card: wall.id, unit: 'palisade', col: 0, row: 3 });
+    tidyTeam(save);
+    expect(structuresIn(save.team)).toBe(1);
+    expect(unitsIn(save.team)).toBe(teamSize(save));
+    // The battle is fought with all of them.
+    expect(stageInput(save, 0).teams[0].map((p) => p.unit)).toContain('spiketrap');
+  });
+
+  it('FILL TEAM fills the structures\' places too, with no two the same while there is another to stand', () => {
+    const save = at(STAGES.length);
+    save.cards = [];
+    for (const u of ['knight', 'archer', 'militia', 'cleric', 'mage', 'paladin', 'berserker', 'knight', 'archer']) addCard(save, u, 2);
+    const towers = [0, 1, 2].map(() => Object.assign(addCard(save, 'watchtower', 5), { level: 10 }));
+    addCard(save, 'spiketrap', 0);
+    addCard(save, 'barracks', 0);
+    const team = bestTeam(save);
+    expect(unitsIn(team)).toBe(MAX_TEAM);
+    expect(structuresIn(team)).toBe(MAX_STRUCTURES);
+    expect(team.filter((p) => isStructure(p.unit)).map((p) => p.unit).sort()).toEqual(['barracks', 'spiketrap', 'watchtower']);
+    // The tower fielded is one of the strong ones.
+    expect(towers.map((c) => c.id)).toContain(team.find((p) => p.unit === 'watchtower')?.card);
+    expect(new Set(team.map((p) => `${p.col},${p.row}`)).size).toBe(team.length);
+    // With only towers to stand, it stands towers.
+    save.cards = save.cards.filter((c) => c.unit !== 'spiketrap' && c.unit !== 'barracks');
+    expect(bestTeam(save).filter((p) => p.unit === 'watchtower')).toHaveLength(3);
+    // And with no place for one, none is fielded.
+    save.cleared = 0;
+    expect(structuresIn(bestTeam(save))).toBe(0);
+  });
+
+  it('a pack of people holds no structure, the Builder\'s Pack holds nothing else, and a land\'s pack turns one over about one time in five', () => {
+    const save = startingSave(3);
+    const rng = new Rng(77);
+    for (let i = 0; i < 300; i++) expect(isStructure(rollPack(save, packById('recruit'), rng).unit.id)).toBe(false);
+    for (let i = 0; i < 300; i++) expect(isStructure(rollPack(save, packById(STRUCTURE_PACK), rng).unit.id)).toBe(true);
+    let built = 0;
+    const seen = new Set<string>();
+    const n = 4000;
+    for (let i = 0; i < n; i++) {
+      const u = rollPack(save, packById('thornwood'), rng).unit;
+      if (isStructure(u.id)) built++;
+      seen.add(u.id);
+    }
+    expect(built / n).toBeGreaterThan(STRUCTURE_SHARE - 0.03);
+    expect(built / n).toBeLessThan(STRUCTURE_SHARE + 0.03);
+    // Everything of the raiders' can come out of it, the tent and the snare among them.
+    for (const u of Object.values(UNITS)) if (u.set === 'raiders') expect(seen.has(u.id), u.id).toBe(true);
+    for (const pack of PACKS) for (const u of packPool(save, pack)) expect(packHolds(pack, u)).toBe(true);
+  });
+
+  it('a later lap adds troops to a stage, never another tower or trap', () => {
+    for (const s of STAGES) {
+      if (s.extra === 0) continue;
+      const written = s.def.enemies.filter((e) => isStructure(e.unit)).length;
+      expect(stageEnemies(s.index).filter((p) => isStructure(p.unit)), `stage ${s.index + 1}`).toHaveLength(written);
+    }
+  });
+
+  it('are listed after the people of their set, and sort like any card', () => {
+    const save = startingSave(1);
+    const tower = addCard(save, 'watchtower', 3);
+    const order = sortCards(save.cards, 'unit').map((c) => c.unit);
+    expect(order[order.length - 1]).toBe('watchtower');
+    expect(sortCards(save.cards, 'grade')[0].id).toBe(tower.id);
+  });
+});
 
 describe('sorting', () => {
   const held = (): SaveData => {
@@ -929,7 +1079,7 @@ describe('the save', () => {
 
 describe('the run of battles', () => {
   const result = (won: boolean, first: boolean): StageResult => ({
-    won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, reached: -1, finished: false,
+    won, first, coins: 0, xp: 0, levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, finished: false,
   });
 
   it('a first win goes on to the next stage, across a world\'s end too', () => {

@@ -5,7 +5,7 @@
 import { LANDS, RANK, type StageDef } from '../data/lands';
 import { PACKS, allPacks, packById, type PackDef } from '../data/packs';
 import { STAGES, WORLDS, landStart, stageAt, worldOf, type Stage } from '../data/stages';
-import { UNITS, isFrontline, type UnitInfo } from '../data/units';
+import { UNITS, isFrontline, isStructure, type UnitInfo } from '../data/units';
 import { COLS, HALF_COLS, ROWS } from '../sim/constants';
 import { Rng, hash32 } from '../sim/rng';
 import { defaultFormation } from '../sim/setup';
@@ -72,6 +72,38 @@ export function teamSize(save: SaveData): number {
 }
 
 /**
+ * How many stages must be cleared for each structure's place. A structure's place is a
+ * place in the team for a building or a trap, beside its places for units:
+ * a tower takes no fighter's place, and a team is never all walls.
+ */
+export const STRUCTURES_AT: readonly number[] = [8, 20, 37];
+export const MAX_STRUCTURES = STRUCTURES_AT.length;
+/** The pack a player is handed when the first place for a structure opens, so that there is something to stand in it. */
+export const STRUCTURE_PACK = 'builder';
+
+export function structuresSize(save: SaveData): number {
+  let n = 0;
+  for (const at of STRUCTURES_AT) if (cleared(save) >= at) n++;
+  return n;
+}
+
+/** How many of a team are structures, and how many are units. */
+export function structuresIn(team: ReadonlyArray<{ unit: string }>): number {
+  let n = 0;
+  for (const p of team) if (isStructure(p.unit)) n++;
+  return n;
+}
+
+export function unitsIn(team: ReadonlyArray<{ unit: string }>): number {
+  return team.length - structuresIn(team);
+}
+
+/** Whether a team has a free place for one more of this unit: a structure's place for a building or a trap, a unit's place for anyone else. */
+export function roomFor(save: SaveData, unit: string, team: ReadonlyArray<{ unit: string }> = save.team): boolean {
+  return isStructure(unit) ? structuresIn(team) < structuresSize(save) : unitsIn(team) < teamSize(save);
+}
+
+/**
  * Whether a unit has been met in battle and beaten: an enemy from the stage
  * of its land it first stands at, once that stage is cleared. A unit that is
  * no enemy counts as met. This is for what is known, not for packs: a pack
@@ -116,7 +148,7 @@ function freeTile(team: readonly Placement[], front: boolean): [number, number] 
   throw new Error('team: no free tile');
 }
 
-/** Puts a card in the team or takes it out. Returns false if the team is full. */
+/** Puts a card in the team or takes it out. Returns false if the team has no place for it: a unit's place for a unit, a structure's place for a building or a trap. */
 export function toggleTeam(save: SaveData, card: number): boolean {
   const at = save.team.findIndex((p) => p.card === card);
   if (at >= 0) {
@@ -124,20 +156,20 @@ export function toggleTeam(save: SaveData, card: number): boolean {
     return true;
   }
   const held = cardOf(save, card);
-  if (!held || save.team.length >= teamSize(save)) return false;
+  if (!held || !roomFor(save, held.unit)) return false;
   const [col, row] = freeTile(save.team, isFrontline(held.unit));
   save.team.push({ card, unit: held.unit, col, row });
   return true;
 }
 
-/** The team as it must be to fight: only cards the player holds, each once, no more than may be fielded, each on its own tile of the player's half. */
+/** The team as it must be to fight: only cards the player holds, each once, no more units and no more structures than may be fielded, each on its own tile of the player's half. */
 export function tidyTeam(save: SaveData): void {
   const seen = new Set<number>();
   const tiles = new Set<string>();
   const out: Fielded[] = [];
   for (const p of save.team) {
     const held = cardOf(save, p.card);
-    if (!held || seen.has(held.id) || out.length >= teamSize(save)) continue;
+    if (!held || seen.has(held.id) || !roomFor(save, held.unit, out)) continue;
     seen.add(held.id);
     let { col, row } = p;
     if (col < 0 || col >= HALF_COLS || row < 0 || row >= ROWS || tiles.has(`${col},${row}`)) {
@@ -166,10 +198,14 @@ const ROLE_WORTH: Readonly<Record<string, readonly number[]>> = {
  * The strongest team the player's cards make, laid out fighters forward.
  * What FILL TEAM does. It takes the strongest card, and then, one at a time,
  * whichever card adds most: a card's power, less the more of its role the
- * team already has. Copies of a unit can be among them.
+ * team already has. Copies of a unit can be among them. Then the structures'
+ * places are filled with the strongest buildings and traps, no two of them
+ * the same thing while there is another to stand: a tower, a trap and a
+ * barracks do more together than three towers.
  */
 export function bestTeam(save: SaveData): Fielded[] {
-  const left = [...save.cards].sort((a, b) => cardPower(b) - cardPower(a) || a.unit.localeCompare(b.unit) || a.id - b.id);
+  const byPower = (a: Card, b: Card): number => cardPower(b) - cardPower(a) || a.unit.localeCompare(b.unit) || a.id - b.id;
+  const left = save.cards.filter((c) => !isStructure(c.unit)).sort(byPower);
   const picked: Card[] = [];
   const have = new Map<string, number>();
   const size = teamSize(save);
@@ -191,17 +227,47 @@ export function bestTeam(save: SaveData): Fielded[] {
     have.set(role, (have.get(role) ?? 0) + 1);
     picked.push(card);
   }
-  return formation(picked);
+  const built = save.cards.filter((c) => isStructure(c.unit)).sort(byPower);
+  const places = structuresSize(save);
+  const stood: Card[] = [];
+  for (const card of built) if (stood.length < places && !stood.some((c) => c.unit === card.unit)) stood.push(card);
+  for (const card of built) if (stood.length < places && !stood.includes(card)) stood.push(card);
+  return formation([...picked, ...stood]);
 }
 
-/** One number for how strong a card is, to order cards by. */
+// What the structures that strike no one are counted as, in cardPower.
+const TRAP_BODY = 600;
+const TRAP_SPREAD = 6;
+const TRAP_STATUS = 12;
+const AURA_WORTH = 30;
+const WALL_WORTH = 8;
+
+/** What a unit does in a second, as one number: its blows, or its mending. */
+function strikes(def: UnitInfo): number {
+  return (def.heal ? def.heal.amount * 0.8 + def.damage * 0.3 : def.damage) / def.attackInterval;
+}
+
+/**
+ * One number for how strong a card is, to order cards by. A building that
+ * strikes no one is worth what it does instead: a barracks the blows of
+ * whom it sends out, a banner a fighter's share, a wall the little that
+ * standing in the way is. A trap strikes once, so it is counted as that one
+ * blow spread over the start of a fight, on a body of its own making, as it
+ * has no health to speak of.
+ */
 export function cardPower(card: Card | undefined): number {
   const def = card ? UNITS[card.unit] : undefined;
   if (!card || !def) return 0;
   const m = cardMult(card.grade, card.level);
-  const dps = (def.heal ? def.heal.amount * 0.8 + def.damage * 0.3 : def.damage) / def.attackInterval;
+  if (def.trap) return Math.round(Math.sqrt(TRAP_BODY * m * (def.damage / TRAP_SPREAD + (def.trap.status ? TRAP_STATUS : 0)) * m));
+  let dps = strikes(def);
+  const called = def.summons ? UNITS[def.summons.unit] : undefined;
+  if (def.summons && called) dps += strikes(called) * def.summons.cap * 0.5;
+  if (def.aura) dps += AURA_WORTH;
+  if (dps <= 0) dps = WALL_WORTH;
   return Math.round(Math.sqrt(def.hp * m * (1 + def.armor / 40) * dps * m * (def.splash ? 1.3 : 1)));
 }
+
 
 // ------------------------------------------------------------ battles
 
@@ -242,7 +308,8 @@ export function fieldOf(def: StageDef, grade: number, level: number, extra: numb
   });
   if (stage.extra > 0) {
     const counts = new Map<string, number>();
-    for (const e of def.enemies) if (e.rank === 'troop') counts.set(e.unit, (counts.get(e.unit) ?? 0) + 1);
+    // The troops added are people: a second tower is not what a harder lap means.
+    for (const e of def.enemies) if (e.rank === 'troop' && !isStructure(e.unit)) counts.set(e.unit, (counts.get(e.unit) ?? 0) + 1);
     const kinds = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map((k) => k[0]);
     for (let n = 0; n < stage.extra && kinds.length > 0; n++) {
       const unit = kinds[n % kinds.length];
@@ -305,6 +372,8 @@ export interface StageResult {
   unlocked: string[];
   /** The team may be this much bigger from now on, or 0. */
   moreTeam: number;
+  /** The team has this many more places for structures from now on, or 0. */
+  moreStructures: number;
   /** The world the line has just come to, as its place in WORLDS, or -1. */
   reached: number;
   /** True if this was the last stage of all, cleared for the first time. */
@@ -323,12 +392,13 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
   const def = stage.def;
   const rng = nextRandom(save);
   const sizeBefore = teamSize(save);
+  const structuresBefore = structuresSize(save);
   const first = won && stage.index === cleared(save);
   const beatenBefore = new Set(Object.values(UNITS).filter((u) => beaten(save, u)).map((u) => u.id));
 
   save.stats.battles++;
   const result: StageResult = {
-    won, first, coins: 0, xp: stageXp(stage.index, won), levelUps: [], packs: [], unlocked: [], moreTeam: 0, reached: -1, finished: false,
+    won, first, coins: 0, xp: stageXp(stage.index, won), levelUps: [], packs: [], unlocked: [], moreTeam: 0, moreStructures: 0, reached: -1, finished: false,
   };
 
   for (const p of save.team) {
@@ -348,12 +418,15 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
     // A first clear of a boss or a miniboss always drops, and the very first stage does, to show what a pack is.
     if (def.kind !== 'normal' || stage.index === 0) result.packs.push(stage.pack);
     if (def.kind === 'boss') result.packs.push(stage.pack);
+    // The first place for a structure comes with something to stand in it.
+    if (structuresBefore === 0 && structuresSize(save) > 0) result.packs.push(STRUCTURE_PACK);
   }
   if (rng.chance(DROP_CHANCE)) result.packs.push(stage.pack);
   for (const id of result.packs) save.packs[id] = (save.packs[id] ?? 0) + 1;
 
   for (const u of Object.values(UNITS)) if (beaten(save, u) && !beatenBefore.has(u.id)) result.unlocked.push(u.id);
   result.moreTeam = teamSize(save) - sizeBefore;
+  result.moreStructures = structuresSize(save) - structuresBefore;
   if (first) {
     if (stage.index + 1 >= STAGES.length) result.finished = true;
     else if (worldOf(stage.index + 1).index !== worldOf(stage.index).index) result.reached = worldOf(stage.index + 1).index;
@@ -380,8 +453,16 @@ export function packOpen(save: SaveData, pack: PackDef): boolean {
  * the unit from that pack from the start").
  */
 export function packPool(_save: SaveData, pack: PackDef): UnitInfo[] {
-  return Object.values(UNITS).filter((u) => u.set === pack.set);
+  return Object.values(UNITS).filter((u) => packHolds(pack, u));
 }
+
+/** Whether a pack can turn a unit over: one of its set, and of the kind the pack holds, people or structures or both. */
+export function packHolds(pack: PackDef, unit: UnitInfo): boolean {
+  return unit.set === pack.set && (pack.structures === undefined || (pack.structures === 'only') === isStructure(unit.id));
+}
+
+/** How often a pack that holds both people and structures turns over a structure. */
+export const STRUCTURE_SHARE = 0.2;
 
 export interface Pull {
   pack: string;
@@ -402,8 +483,12 @@ export interface Pull {
 
 /** What a pack turns over, without changing anything: a tier by weight, a unit of that tier, a grade in the pack's range. */
 export function rollPack(save: SaveData, pack: PackDef, rng: Rng): { unit: UnitInfo; grade: number } {
-  const pool = packPool(save, pack);
-  if (pool.length === 0) throw new Error(`pack "${pack.id}" has nothing in it yet`);
+  const all = packPool(save, pack);
+  if (all.length === 0) throw new Error(`pack "${pack.id}" has nothing in it yet`);
+  // People or a structure first, if the pack holds both: then a tier among those, and one of that tier.
+  const built = all.filter((u) => isStructure(u.id));
+  const mixed = built.length > 0 && built.length < all.length;
+  const pool = mixed ? (rng.chance(STRUCTURE_SHARE) ? built : all.filter((u) => !isStructure(u.id))) : all;
   // Only the tiers the pool has anything of take part, so a small pool does not waste rolls.
   const tiers = RARITIES.filter((r) => pool.some((u) => u.rarity === r));
   let total = 0;
@@ -445,8 +530,8 @@ export function openPack(save: SaveData, packId: string): Pull | null {
   const { unit, grade } = rollPack(save, pack, nextRandom(save));
   const before = cardsOf(save, unit.id);
   const card = addCard(save, unit.id, grade);
-  // A card walks straight into the team if there is room for it, a copy too.
-  const joined = save.team.length < teamSize(save) && toggleTeam(save, card.id);
+  // A card walks straight into the team if there is a place for it, a copy too.
+  const joined = roomFor(save, card.unit) && toggleTeam(save, card.id);
   return {
     pack: packId,
     unit: unit.id,

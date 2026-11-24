@@ -66,7 +66,9 @@ export function unitPanel(scene: Phaser.Scene, add: Adder, def: UnitInfo, o: Pan
   }
 
   add(label(scene, cx, PY + 190, def.name, { size: def.name.length > 14 ? 24 : 28 }));
-  add(label(scene, cx, PY + 220, `${RARITY[def.rarity].name}  ·  ${SETS[def.set].name}`, { size: 15, weight: 600, ...dark }));
+  // A building or a trap says so: it is a structure, fielded in a structure's place, not among the units.
+  const what = def.kind === 'trap' ? '  ·  Trap' : def.kind === 'building' ? '  ·  Building' : '';
+  add(label(scene, cx, PY + 220, `${RARITY[def.rarity].name}  ·  ${SETS[def.set].name}${what}`, { size: 15, weight: 600, ...dark }));
 
   const card = o.card;
   const m = card ? cardMult(card.grade, card.level) : 1;
@@ -78,15 +80,19 @@ export function unitPanel(scene: Phaser.Scene, add: Adder, def: UnitInfo, o: Pan
     add(label(scene, cx, PY + 252, o.line, { size: 16, weight: 600, color: CLOTH.blue.shade, stroke: null }));
   }
 
-  // Its numbers, as it would fight now.
-  const stats: Array<[string, string]> = [
-    ['icon/heart', `${Math.round(def.hp * m)}`],
-    ['icon/sword', def.heal ? `${Math.round(def.heal.amount * m)} heal` : `${Math.round(def.damage * m)}`],
-    ['icon/hourglass', `${def.attackInterval} s`],
-    ['icon/range', def.range <= 1.6 ? 'melee' : `${def.range} tiles`],
-    ['icon/shield', `${Math.round(def.armor)}`],
-    ['icon/boot', `${def.speed}`],
-  ];
+  // Its numbers, as it would fight now. Only the ones it has: a wall strikes
+  // no one, nothing that is built walks, and a trap is one blow of a width.
+  const strikes = def.damage > 0 || !!def.heal;
+  const stats: Array<[string, string]> = [];
+  if (!def.trap) stats.push(['icon/heart', `${Math.round(def.hp * m)}`]);
+  if (strikes) stats.push(['icon/sword', def.heal ? `${Math.round(def.heal.amount * m)} heal` : `${Math.round(def.damage * m)}`]);
+  if (def.trap) stats.push(['icon/range', `${def.trap.radius * 2} tiles wide`]);
+  else if (strikes) {
+    stats.push(['icon/hourglass', `${def.attackInterval} s`]);
+    stats.push(['icon/range', def.range <= 1.6 ? 'melee' : `${def.range} tiles`]);
+  }
+  if (!def.trap) stats.push(['icon/shield', `${Math.round(def.armor)}`]);
+  if (!def.kind) stats.push(['icon/boot', `${def.speed}`]);
   stats.forEach(([icon, text], i) => {
     const x = PX + 30 + (i % 3) * 114;
     const y = PY + 292 + Math.floor(i / 3) * 32;

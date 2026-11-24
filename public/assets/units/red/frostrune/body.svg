@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="frostrune-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="frostrune-body-slab-shape" d="M 124 172 C 124 177.5 111.5 182 96 182 C 80.5 182 68 177.5 68 172 C 68 166.5 80.5 162 96 162 C 111.5 162 124 166.5 124 172 Z"/>
+<clipPath id="frostrune-body-slab-clip"><use href="#frostrune-body-slab-shape"/></clipPath>
+<clipPath id="frostrune-body-slab-lit-clip"><use href="#frostrune-body-slab-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="frostrune-body-glow" d="M 132 172 C 132 179.7 115.9 186 96 186 C 76.1 186 60 179.7 60 172 C 60 164.3 76.1 158 96 158 C 115.9 158 132 164.3 132 172 Z" fill="#d4f1fb" opacity="0.45"/>
+<g id="frostrune-body-slab">
+<use id="frostrune-body-slab-shade" href="#frostrune-body-slab-shape" fill="#6fc7e8"/>
+<g clip-path="url(#frostrune-body-slab-clip)">
+<use id="frostrune-body-slab-fill" href="#frostrune-body-slab-shape" transform="translate(-3 -3)" fill="#d4f1fb"/>
+<g clip-path="url(#frostrune-body-slab-lit-clip)">
+<use id="frostrune-body-slab-lit" href="#frostrune-body-slab-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="frostrune-body-slab-fill-over" href="#frostrune-body-slab-shape" transform="translate(3.6 3.6)" fill="#d4f1fb"/>
+</g>
+<path id="frostrune-body-rune-a" d="M 95.4 165 L 96.6 165 Q 97.6 165 97.6 166 L 97.6 178 Q 97.6 179 96.6 179 L 95.4 179 Q 94.4 179 94.4 178 L 94.4 166 Q 94.4 165 95.4 165 Z" fill="#3f97bd"/>
+<path id="frostrune-body-rune-b" d="M 96 167 L 106 171 L 106 173.5 L 96 169.5 Z" fill="#3f97bd"/>
+<path id="frostrune-body-rune-c" d="M 96 172 L 86 168 L 86 170.5 L 96 174.5 Z" fill="#3f97bd"/>
+</g>
+<use id="frostrune-body-slab-line" href="#frostrune-body-slab-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

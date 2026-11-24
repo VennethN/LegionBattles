@@ -17,6 +17,16 @@ export interface UnitInfo extends UnitDef {
   rarity: Rarity;
   /** The stage of its set's world (counting from 1) that must be cleared before packs turn it over. None for the first set. */
   from?: number;
+  /**
+   * What it is, if it is not a unit that walks and fights: a building, which
+   * stands where it is put (a tower, a barracks, a wall, a banner), or a
+   * trap, which lies there until an enemy steps on it. Both are cards like
+   * any other, but they are fielded in the team's places for structures, not in its
+   * places for units (game/rules.ts).
+   */
+  kind?: 'building' | 'trap';
+  /** Where FILL TEAM stands it, if not where its reach would put it: a barracks strikes no one and still belongs at the back. */
+  place?: 'front' | 'back';
 }
 
 export interface SetDef {
@@ -275,6 +285,101 @@ const RAW: Record<string, Raw> = {
       text: 'A great sweep of the hammer: damage and a stun to everyone in reach.',
     },
   },
+
+  // ------------------------------------------------------------ structures: buildings and traps
+  // A building never moves and nothing mends it. It does not hold the field
+  // alone: a side with no one left who walks has lost, whatever of its still
+  // stands. A trap goes off once. Each land has a tower, something that
+  // calls up its troops, and a trap of its own; the Crownlands have six.
+  palisade: {
+    name: 'Palisade', set: 'kingdom', rarity: 'common', role: 'tank', kind: 'building', still: true, place: 'front',
+    hp: 1200, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 12, speed: 0, radius: 0.42,
+    text: 'A wall of stakes. Whoever comes at it has to break it or go round, and it does nothing else.',
+  },
+  spiketrap: {
+    name: 'Spike Trap', set: 'kingdom', rarity: 'common', role: 'support', kind: 'trap', place: 'front',
+    hp: 1, damage: 260, attackInterval: 1, windup: 0.3, range: 0, armor: 0, speed: 0,
+    trap: { trigger: 0.6, radius: 1.1 },
+    text: 'Lies in the grass. The first enemy to step on it, and whoever is beside them, takes its spikes.',
+  },
+  beartrap: {
+    name: 'Bear Trap', set: 'kingdom', rarity: 'uncommon', role: 'support', kind: 'trap', place: 'front',
+    hp: 1, damage: 120, attackInterval: 1, windup: 0.3, range: 0, armor: 0, speed: 0,
+    trap: { trigger: 0.6, radius: 0.8, status: { id: 'stun', duration: 2.5 } },
+    text: 'Shuts on the first enemy to step on it and holds them there, stunned, for two and a half seconds.',
+  },
+  watchtower: {
+    name: 'Watchtower', set: 'kingdom', rarity: 'uncommon', role: 'ranger', kind: 'building', still: true,
+    hp: 560, damage: 48, attackInterval: 1.1, windup: 0.35, range: 4.2, armor: 6, speed: 0, radius: 0.4,
+    projectile: { kind: 'arrow', speed: 640 },
+    text: 'Shoots whoever comes within four tiles of it. It cannot follow them, so stand it where they will come.',
+  },
+  barracks: {
+    name: 'Barracks', set: 'kingdom', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back',
+    hp: 760, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 8, speed: 0, radius: 0.44,
+    summons: { unit: 'militia', every: 8, cap: 2 },
+    text: 'Sends out a Militia every eight seconds, two at a time at most, as strong as the Barracks is.',
+  },
+  warbanner: {
+    name: 'War Banner', set: 'kingdom', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back',
+    hp: 480, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 4, speed: 0, radius: 0.3,
+    aura: { status: { id: 'haste', duration: 3.4 }, radius: 1.9, every: 3 },
+    text: 'Everyone of yours within two tiles of it fights faster for as long as it stands.',
+  },
+  lookout: {
+    name: 'Lookout', set: 'raiders', rarity: 'uncommon', role: 'ranger', kind: 'building', still: true, from: 4,
+    hp: 500, damage: 42, attackInterval: 1.2, windup: 0.35, range: 4, armor: 4, speed: 0, radius: 0.36,
+    projectile: { kind: 'arrow', speed: 600 },
+    text: 'A crow\'s nest on a pole. Shoots whoever comes within four tiles.',
+  },
+  raidertent: {
+    name: 'Raider Tent', set: 'raiders', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back', from: 8,
+    hp: 620, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 4, speed: 0, radius: 0.44,
+    summons: { unit: 'cutpurse', every: 8, cap: 2 },
+    text: 'A Cutpurse comes out of it every eight seconds, two at a time at most.',
+  },
+  bramblesnare: {
+    name: 'Bramble Snare', set: 'raiders', rarity: 'common', role: 'support', kind: 'trap', place: 'front', from: 3,
+    hp: 1, damage: 90, attackInterval: 1, windup: 0.3, range: 0, armor: 0, speed: 0,
+    trap: { trigger: 0.6, radius: 0.9, status: { id: 'slow', duration: 4 } },
+    text: 'Thorns wound into a ring. Whoever steps in it is cut, and slowed for four seconds.',
+  },
+  sunobelisk: {
+    name: 'Sun Obelisk', set: 'sandsworn', rarity: 'rare', role: 'mage', kind: 'building', still: true, from: 5,
+    hp: 560, damage: 44, attackInterval: 1.5, windup: 0.45, range: 4, armor: 8, speed: 0, radius: 0.36,
+    projectile: { kind: 'orb-fire', speed: 520 }, onHit: { id: 'burn', duration: 3 },
+    text: 'Throws fire at whoever comes within four tiles, and leaves them burning.',
+  },
+  wartent: {
+    name: 'War Tent', set: 'sandsworn', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back', from: 8,
+    hp: 680, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 4, speed: 0, radius: 0.46,
+    summons: { unit: 'lancer', every: 9, cap: 2 },
+    text: 'A Lancer rides out of it every nine seconds, two at a time at most.',
+  },
+  firepit: {
+    name: 'Fire Pit', set: 'sandsworn', rarity: 'uncommon', role: 'support', kind: 'trap', place: 'front', from: 3,
+    hp: 1, damage: 110, attackInterval: 1, windup: 0.3, range: 0, armor: 0, speed: 0,
+    trap: { trigger: 0.6, radius: 1.2, status: { id: 'burn', duration: 4 } },
+    text: 'Coals under the sand. It bursts under the first enemy to step on it and sets all near it burning.',
+  },
+  frostspire: {
+    name: 'Frost Spire', set: 'frostbound', rarity: 'rare', role: 'mage', kind: 'building', still: true, from: 4,
+    hp: 580, damage: 40, attackInterval: 1.6, windup: 0.45, range: 4, armor: 8, speed: 0, radius: 0.36,
+    projectile: { kind: 'orb-frost', speed: 500 }, onHit: { id: 'slow', duration: 2.5 },
+    text: 'Throws cold at whoever comes within four tiles, and slows them.',
+  },
+  longhouse: {
+    name: 'Longhouse', set: 'frostbound', rarity: 'rare', role: 'support', kind: 'building', still: true, place: 'back', from: 9,
+    hp: 740, damage: 0, attackInterval: 1, windup: 0.3, range: 0, armor: 8, speed: 0, radius: 0.46,
+    summons: { unit: 'huscarl', every: 10, cap: 2 },
+    text: 'A Huscarl comes out of it every ten seconds, two at a time at most.',
+  },
+  frostrune: {
+    name: 'Frost Rune', set: 'frostbound', rarity: 'uncommon', role: 'support', kind: 'trap', place: 'front', from: 3,
+    hp: 1, damage: 100, attackInterval: 1, windup: 0.3, range: 0, armor: 0, speed: 0,
+    trap: { trigger: 0.6, radius: 1.1, status: { id: 'stun', duration: 2 } },
+    text: 'A sign cut in the ice. It freezes whoever steps on it, and all near them, where they stand.',
+  },
 };
 
 function build(): Record<string, UnitInfo> {
@@ -311,5 +416,11 @@ export function unitsOfSet(set: string): UnitInfo[] {
 
 /** Who stands at the front when a team is laid out for the player. */
 export function isFrontline(id: string): boolean {
-  return UNITS[id].range <= 1.6;
+  const def = UNITS[id];
+  return def.place ? def.place === 'front' : def.range <= 1.6;
+}
+
+/** True for a building or a trap: a structure, a card that is fielded in a structure's place, not among the units. */
+export function isStructure(id: string): boolean {
+  return !!UNITS[id]?.kind;
 }

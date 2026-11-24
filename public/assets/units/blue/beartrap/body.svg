@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="beartrap-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="beartrap-body-peg-shape" d="M 138 168 L 140 168 Q 142 168 142 170 L 142 178 Q 142 180 140 180 L 138 180 Q 136 180 136 178 L 136 170 Q 136 168 138 168 Z"/>
+<path id="beartrap-body-ring-shape" d="M 124 173 C 124 178.5 111.5 183 96 183 C 80.5 183 68 178.5 68 173 C 68 167.5 80.5 163 96 163 C 111.5 163 124 167.5 124 173 Z M 116 173 C 116 176.3 107 179 96 179 C 85 179 76 176.3 76 173 C 76 169.7 85 167 96 167 C 107 167 116 169.7 116 173 Z"/>
+<path id="beartrap-body-tooth-0-shape" d="M 119.9 175 L 126.4 167 L 126.9 175 Z"/>
+<path id="beartrap-body-tooth-1-shape" d="M 111.4 180.4 L 117 172.4 L 118.4 180.4 Z"/>
+<path id="beartrap-body-tooth-2-shape" d="M 95.7 182.9 L 99.5 174.9 L 102.7 182.9 Z"/>
+<path id="beartrap-body-tooth-3-shape" d="M 78.7 181.7 L 80.8 173.7 L 85.7 181.7 Z"/>
+<path id="beartrap-body-tooth-4-shape" d="M 67 177.2 L 67.8 169.2 L 74 177.2 Z"/>
+<path id="beartrap-body-tooth-5-shape" d="M 65.1 171 L 65.6 163 L 72.1 171 Z"/>
+<path id="beartrap-body-tooth-6-shape" d="M 73.6 165.6 L 75 157.6 L 80.6 165.6 Z"/>
+<path id="beartrap-body-tooth-7-shape" d="M 89.3 163.1 L 92.5 155.1 L 96.3 163.1 Z"/>
+<path id="beartrap-body-tooth-8-shape" d="M 106.3 164.3 L 111.2 156.3 L 113.3 164.3 Z"/>
+<path id="beartrap-body-tooth-9-shape" d="M 118 168.8 L 124.2 160.8 L 125 168.8 Z"/>
+<path id="beartrap-body-plate-shape" d="M 107 173 C 107 175.2 102.1 177 96 177 C 89.9 177 85 175.2 85 173 C 85 170.8 89.9 169 96 169 C 102.1 169 107 170.8 107 173 Z"/>
+</defs>
+<path id="beartrap-body-chain" d="M 122 174 L 138 178" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="beartrap-body-peg">
+<use id="beartrap-body-peg-fill" href="#beartrap-body-peg-shape" fill="#9a6a3a"/>
+<use id="beartrap-body-peg-line" href="#beartrap-body-peg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-ring">
+<use id="beartrap-body-ring-fill" href="#beartrap-body-ring-shape" fill="#b9c2cc" fill-rule="evenodd"/>
+<use id="beartrap-body-ring-line" href="#beartrap-body-ring-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-0">
+<use id="beartrap-body-tooth-0-fill" href="#beartrap-body-tooth-0-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-0-line" href="#beartrap-body-tooth-0-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-1">
+<use id="beartrap-body-tooth-1-fill" href="#beartrap-body-tooth-1-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-1-line" href="#beartrap-body-tooth-1-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-2">
+<use id="beartrap-body-tooth-2-fill" href="#beartrap-body-tooth-2-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-2-line" href="#beartrap-body-tooth-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-3">
+<use id="beartrap-body-tooth-3-fill" href="#beartrap-body-tooth-3-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-3-line" href="#beartrap-body-tooth-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-4">
+<use id="beartrap-body-tooth-4-fill" href="#beartrap-body-tooth-4-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-4-line" href="#beartrap-body-tooth-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-5">
+<use id="beartrap-body-tooth-5-fill" href="#beartrap-body-tooth-5-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-5-line" href="#beartrap-body-tooth-5-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-6">
+<use id="beartrap-body-tooth-6-fill" href="#beartrap-body-tooth-6-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-6-line" href="#beartrap-body-tooth-6-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-7">
+<use id="beartrap-body-tooth-7-fill" href="#beartrap-body-tooth-7-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-7-line" href="#beartrap-body-tooth-7-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-8">
+<use id="beartrap-body-tooth-8-fill" href="#beartrap-body-tooth-8-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-8-line" href="#beartrap-body-tooth-8-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-tooth-9">
+<use id="beartrap-body-tooth-9-fill" href="#beartrap-body-tooth-9-shape" fill="#b9c2cc"/>
+<use id="beartrap-body-tooth-9-line" href="#beartrap-body-tooth-9-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beartrap-body-plate">
+<use id="beartrap-body-plate-fill" href="#beartrap-body-plate-shape" fill="#e9dfc6"/>
+<use id="beartrap-body-plate-line" href="#beartrap-body-plate-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

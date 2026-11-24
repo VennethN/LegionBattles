@@ -32,10 +32,11 @@ export function nextSort(by: Sort): Sort {
 
 const SET_ORDER = Object.keys(SETS);
 
-/** Units as a book would list them: by where they are from, then how rare, then by name. */
+/** Units as a book would list them: by where they are from, its people before its buildings and traps, then how rare, then by name. */
 export function unitOrder(a: UnitInfo, b: UnitInfo): number {
   return (
     SET_ORDER.indexOf(a.set) - SET_ORDER.indexOf(b.set) ||
+    Number(!!a.kind) - Number(!!b.kind) ||
     RARITIES.indexOf(a.rarity) - RARITIES.indexOf(b.rarity) ||
     a.name.localeCompare(b.name)
   );

@@ -2619,6 +2619,792 @@
      ]
     }
    ]
+  },
+  "palisade": {
+   "style": "slash",
+   "muzzle": [
+    130,
+    140
+   ],
+   "top": 96,
+   "full": [
+    46,
+    97,
+    100,
+    94
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      48,
+      171,
+      96,
+      20
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      46,
+      97,
+      100,
+      87
+     ]
+    }
+   ]
+  },
+  "spiketrap": {
+   "style": "slash",
+   "muzzle": [
+    96,
+    170
+   ],
+   "top": 148,
+   "full": [
+    62,
+    147,
+    68,
+    43
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      62,
+      172,
+      68,
+      18
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      63,
+      147,
+      66,
+      41
+     ]
+    }
+   ]
+  },
+  "beartrap": {
+   "style": "slash",
+   "muzzle": [
+    96,
+    170
+   ],
+   "top": 150,
+   "full": [
+    61,
+    151,
+    85,
+    39
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      62,
+      172,
+      68,
+      18
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      61,
+      151,
+      85,
+      36
+     ]
+    }
+   ]
+  },
+  "watchtower": {
+   "style": "shoot",
+   "muzzle": [
+    118,
+    108
+   ],
+   "top": 44,
+   "full": [
+    54,
+    36,
+    84,
+    156
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      54,
+      170,
+      84,
+      22
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      61,
+      63,
+      70,
+      121
+     ]
+    },
+    {
+     "name": "flag",
+     "role": "extra",
+     "parent": "body",
+     "pivot": [
+      96,
+      69
+     ],
+     "sway": 0.8,
+     "box": [
+      88,
+      36,
+      40,
+      37
+     ]
+    }
+   ]
+  },
+  "barracks": {
+   "style": "slash",
+   "muzzle": [
+    130,
+    150
+   ],
+   "top": 60,
+   "full": [
+    44,
+    63,
+    104,
+    130
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      44,
+      169,
+      104,
+      24
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      46,
+      88,
+      100,
+      96
+     ]
+    },
+    {
+     "name": "flag",
+     "role": "extra",
+     "parent": "body",
+     "pivot": [
+      96,
+      94
+     ],
+     "sway": 0.8,
+     "box": [
+      88,
+      63,
+      40,
+      35
+     ]
+    }
+   ]
+  },
+  "warbanner": {
+   "style": "cast",
+   "muzzle": [
+    96,
+    70
+   ],
+   "top": 44,
+   "full": [
+    66,
+    30,
+    60,
+    160
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      68,
+      172,
+      56,
+      18
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      66,
+      30,
+      60,
+      154
+     ]
+    },
+    {
+     "name": "cloth",
+     "role": "extra",
+     "parent": "body",
+     "pivot": [
+      96,
+      58
+     ],
+     "sway": 0.35,
+     "box": [
+      70,
+      54,
+      52,
+      72
+     ]
+    }
+   ]
+  },
+  "lookout": {
+   "style": "shoot",
+   "muzzle": [
+    114,
+    86
+   ],
+   "top": 46,
+   "full": [
+    58,
+    37,
+    76,
+    154
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      64,
+      171,
+      64,
+      20
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      58,
+      66,
+      76,
+      118
+     ]
+    },
+    {
+     "name": "flag",
+     "role": "extra",
+     "parent": "body",
+     "pivot": [
+      82,
+      72
+     ],
+     "sway": 0.8,
+     "box": [
+      74,
+      37,
+      39,
+      39
+     ]
+    }
+   ]
+  },
+  "raidertent": {
+   "style": "slash",
+   "muzzle": [
+    130,
+    150
+   ],
+   "top": 72,
+   "full": [
+    40,
+    85,
+    110,
+    108
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      44,
+      169,
+      104,
+      24
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      40,
+      110,
+      110,
+      75
+     ]
+    },
+    {
+     "name": "flag",
+     "role": "extra",
+     "parent": "body",
+     "pivot": [
+      94,
+      116
+     ],
+     "sway": 0.8,
+     "box": [
+      86,
+      85,
+      39,
+      35
+     ]
+    }
+   ]
+  },
+  "bramblesnare": {
+   "style": "slash",
+   "muzzle": [
+    96,
+    170
+   ],
+   "top": 150,
+   "full": [
+    57,
+    146,
+    77,
+    44
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      64,
+      172,
+      64,
+      18
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      57,
+      146,
+      77,
+      41
+     ]
+    }
+   ]
+  },
+  "sunobelisk": {
+   "style": "cast",
+   "muzzle": [
+    96,
+    66
+   ],
+   "top": 46,
+   "full": [
+    64,
+    46,
+    64,
+    145
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      64,
+      171,
+      64,
+      20
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      68,
+      46,
+      56,
+      138
+     ]
+    }
+   ]
+  },
+  "wartent": {
+   "style": "slash",
+   "muzzle": [
+    130,
+    150
+   ],
+   "top": 78,
+   "full": [
+    44,
+    65,
+    104,
+    128
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      44,
+      169,
+      104,
+      24
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      48,
+      87,
+      96,
+      97
+     ]
+    },
+    {
+     "name": "flag",
+     "role": "extra",
+     "parent": "body",
+     "pivot": [
+      96,
+      94
+     ],
+     "sway": 0.8,
+     "box": [
+      88,
+      65,
+      40,
+      33
+     ]
+    }
+   ]
+  },
+  "firepit": {
+   "style": "slash",
+   "muzzle": [
+    96,
+    170
+   ],
+   "top": 150,
+   "full": [
+    58,
+    155,
+    76,
+    37
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      62,
+      172,
+      68,
+      18
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      58,
+      155,
+      76,
+      37
+     ]
+    }
+   ]
+  },
+  "frostspire": {
+   "style": "cast",
+   "muzzle": [
+    96,
+    62
+   ],
+   "top": 42,
+   "full": [
+    64,
+    42,
+    64,
+    149
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      64,
+      171,
+      64,
+      20
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      66,
+      42,
+      60,
+      142
+     ]
+    }
+   ]
+  },
+  "longhouse": {
+   "style": "slash",
+   "muzzle": [
+    130,
+    150
+   ],
+   "top": 66,
+   "full": [
+    40,
+    72,
+    112,
+    121
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      40,
+      169,
+      112,
+      24
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      42,
+      72,
+      108,
+      112
+     ]
+    }
+   ]
+  },
+  "frostrune": {
+   "style": "slash",
+   "muzzle": [
+    96,
+    170
+   ],
+   "top": 150,
+   "full": [
+    58,
+    156,
+    76,
+    34
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      62,
+      172,
+      68,
+      18
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      58,
+      156,
+      76,
+      32
+     ]
+    }
+   ]
   }
  },
  "fx": {
@@ -2939,6 +3725,14 @@
  },
  "packs": {
   "recruit": {
+   "width": 124,
+   "height": 168,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "builder": {
    "width": 124,
    "height": 168,
    "origin": [

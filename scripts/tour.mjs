@@ -135,14 +135,38 @@ await page.screenshot({ path: `${out}/12f-index.png` });
 await page.mouse.click(96 + 3 * 140, 145 + 3 * 140);
 await page.waitForTimeout(300);
 await page.screenshot({ path: `${out}/12g-index-unknown.png` });
-await page.mouse.click(840, 38);
+// The index has a page for structures too: every one of them is there, and none is a unit.
+await page.evaluate(() => {
+  const sc = window.game.scene.getScene('Index');
+  sc.registry.set('side', 'structures');
+  sc.scene.restart();
+});
+await page.waitForTimeout(500);
+await page.screenshot({ path: `${out}/12h-index-structures.png` });
+await page.evaluate(() => {
+  const sc = window.game.scene.getScene('Index');
+  sc.registry.set('side', 'units');
+  sc.scene.restart();
+});
+await page.waitForTimeout(400);
+// MY CARDS, beside the tabs, goes back to the cards held.
+const back = await page.evaluate(() => {
+  const sc = window.game.scene.getScene('Index');
+  const b = sc.children.list.filter((o) => o.type === 'Container').find((c) => c.list.some((t) => t.text === 'MY CARDS'));
+  return b ? { x: b.x, y: b.y } : null;
+});
+if (!back) throw new Error('no MY CARDS button on the index');
+await page.mouse.click(back.x, back.y);
 await page.waitForFunction(() => window.game.scene.isActive('Team') && !window.game.scene.isActive('Index'), null, { timeout: 10000 });
 await page.waitForTimeout(300);
 await close('Team');
 await overlay('Shop');
 await page.screenshot({ path: `${out}/13-packs.png` });
 // Open a Royal Pack, for the picture of a card being turned over.
-await page.mouse.click(640 + 2 * 244, 372 + 140);
+// The shelf has six packs now, each as wide as there is room for; the Royal Pack is the last.
+const shelf = 6;
+const pitch = Math.min(244, (1280 - 24) / shelf);
+await page.mouse.click(640 + ((shelf - 1) / 2) * pitch, 372 + 140);
 await page.waitForTimeout(900);
 await page.mouse.click(640, 360);
 await page.waitForFunction(() => { const sc = window.game.scene.getScene('Shop'); return !sc.busy && sc.show.length > 6; }, null, { timeout: 30000 });

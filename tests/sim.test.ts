@@ -459,3 +459,136 @@ describe('what dungeons and raids ask of a battle', () => {
     expect(runBattle({ seed: 4, defs, teams: plain }).fingerprint).toBe(runBattle({ seed: 4, defs, teams: plain, seconds: 90 }).fingerprint);
   });
 });
+
+describe('buildings, auras and traps', () => {
+  const defs = {
+    dummy: dummy(),
+    tower: dummy({ id: 'tower', name: 'Tower', still: true, hp: 800, damage: 40, range: 3, speed: 0, projectile: { kind: 'arrow', speed: 600 } }),
+    wall: dummy({ id: 'wall', name: 'Wall', still: true, hp: 3000, damage: 0, range: 0, speed: 0 }),
+    hall: dummy({ id: 'hall', name: 'Hall', still: true, hp: 3000, damage: 0, range: 0, speed: 0, summons: { unit: 'dummy', every: 2, cap: 1 } }),
+    banner: dummy({ id: 'banner', name: 'Banner', still: true, hp: 500, damage: 0, range: 0, speed: 0, aura: { status: { id: 'haste', duration: 3 }, radius: 2, every: 1 } }),
+    spikes: dummy({ id: 'spikes', name: 'Spikes', hp: 1, damage: 300, range: 0, speed: 0, trap: { trigger: 0.6, radius: 1 } }),
+    jaws: dummy({ id: 'jaws', name: 'Jaws', hp: 1, damage: 50, range: 0, speed: 0, trap: { trigger: 0.6, radius: 0.8, status: { id: 'stun', duration: 2 } } }),
+    // Someone who counts as standing but goes nowhere and harms no one: a battle is on while a side has one.
+    post: dummy({ id: 'post', name: 'Post', hp: 100000, damage: 0, range: 0, speed: 0 }),
+    healer: dummy({ id: 'healer', name: 'Healer', hp: 400, damage: 5, range: 3, heal: { amount: 60, range: 4 }, projectile: { kind: 'orb-holy', speed: 500 } }),
+  };
+
+  it('a building never moves, strikes only what comes within its reach, and falls like anything else', () => {
+    const b = new Battle({ seed: 2, defs, teams: [[{ unit: 'tower', col: 1, row: 1 }, { unit: 'post', col: 0, row: 3 }], [{ unit: 'dummy', col: 7, row: 1 }]], seconds: 60 });
+    const tower = b.units[0];
+    const [x, y] = [tower.x, tower.y];
+    let shotsBefore = 0;
+    let near = false;
+    while (!b.ended) {
+      b.step();
+      const foe = b.units.find((u) => u.team === 1)!;
+      near = near || Math.abs(foe.x - tower.x) <= tower.rangePx;
+      for (let i = 0; i < b.eventCount; i++) if (b.events[i].type === 'attackStart' && b.events[i].unit === tower.id && !near) shotsBefore++;
+      if (tower.alive) expect([tower.x, tower.y]).toEqual([x, y]);
+    }
+    // It did not loose a shot while its enemy was out of reach, and the enemy, which could walk to it, pulled it down.
+    expect(shotsBefore).toBe(0);
+    expect(tower.alive).toBe(false);
+  });
+
+  it('whoever walks into a building gives way: it is not pushed', () => {
+    const b = new Battle({ seed: 2, defs, teams: [[{ unit: 'wall', col: 3, row: 1 }, { unit: 'post', col: 0, row: 1 }], [{ unit: 'dummy', col: 5, row: 1 }, { unit: 'dummy', col: 5, row: 2 }]], seconds: 10 });
+    const wall = b.units[0];
+    const x = wall.x;
+    let struck = 0;
+    while (!b.ended) {
+      b.step();
+      for (let i = 0; i < b.eventCount; i++) if (b.events[i].type === 'damage' && b.events[i].target === wall.id) struck++;
+    }
+    // They came at it and struck it, and it stands where it stood.
+    expect(struck).toBeGreaterThan(0);
+    expect(wall.x).toBe(x);
+  });
+
+  it('nothing mends a building, a barracks sends out units as strong as it is, and a side with only buildings left has lost', () => {
+    const r = new Battle({ seed: 5, defs, teams: [[{ unit: 'wall', col: 0, row: 0 }, { unit: 'healer', col: 0, row: 3 }], [{ unit: 'dummy', col: 7, row: 0, damageMult: 6 }]], seconds: 40 });
+    let healedWall = 0;
+    while (!r.ended) {
+      r.step();
+      for (let i = 0; i < r.eventCount; i++) if (r.events[i].type === 'heal' && r.events[i].target === 0) healedWall++;
+    }
+    expect(healedWall).toBe(0);
+    // A barracks of its own sends units out, as strong as it is.
+    const hall = new Battle({ seed: 5, defs, teams: [[{ unit: 'hall', col: 0, row: 1, hpMult: 2, damageMult: 3 }, { unit: 'post', col: 0, row: 3 }], [{ unit: 'post', col: 7, row: 1 }]], seconds: 6 });
+    while (!hall.ended) hall.step();
+    const sent = hall.units.filter((u) => u.calledBy === 0);
+    expect(sent.length).toBeGreaterThanOrEqual(1);
+    expect(sent[0]).toMatchObject({ team: 0, maxHp: 2000, damage: 150 });
+    // A tower and a wall do not hold the field alone: with no one who walks, the side has lost before a blow is struck.
+    const alone = runBattle({ seed: 1, defs, teams: [[{ unit: 'tower', col: 3, row: 1 }, { unit: 'wall', col: 3, row: 2 }], [{ unit: 'dummy', col: 4, row: 1 }]] });
+    expect(alone.winner).toBe(1);
+    expect(alone.seconds).toBeLessThan(1);
+  });
+
+  it('a banner keeps its status on its own side near it, and not on those far off or on the enemy', () => {
+    const b = new Battle({ seed: 3, defs, teams: [[{ unit: 'banner', col: 1, row: 1 }, { unit: 'wall', col: 1, row: 2 }, { unit: 'wall', col: 3, row: 3 }, { unit: 'post', col: 0, row: 3 }], [{ unit: 'post', col: 7, row: 0 }]], seconds: 3 });
+    const hasted = new Set<number>();
+    while (!b.ended) {
+      b.step();
+      for (let i = 0; i < b.eventCount; i++) if (b.events[i].type === 'status' && b.events[i].kind === 'haste') hasted.add(b.events[i].unit);
+    }
+    expect([...hasted]).toEqual([b.units.find((u) => u.def.id === 'wall' && u.team === 0)?.id]);
+  });
+
+  it("a trap is no one's target, goes off once when an enemy steps on it, and hurts all near it", () => {
+    const teams = [[{ unit: 'spikes', col: 3, row: 1 }, { unit: 'post', col: 0, row: 1 }], [{ unit: 'dummy', col: 5, row: 1 }, { unit: 'dummy', col: 7, row: 3 }]] as const;
+    const b = new Battle({ seed: 8, defs, teams, seconds: 30 });
+    const trap = b.units[0];
+    const stepper = b.units[1];
+    const sprung: number[] = [];
+    const hurtBy: number[] = [];
+    while (!b.ended) {
+      b.step();
+      for (let i = 0; i < b.eventCount; i++) {
+        const e = b.events[i];
+        if (e.type === 'trap') sprung.push(e.unit);
+        if (e.type === 'damage' && e.kind === 'trap') hurtBy.push(e.target);
+        if (e.type === 'attackStart') expect(e.target).not.toBe(trap.id);
+      }
+    }
+    expect(sprung).toEqual([trap.id]);
+    expect(hurtBy).toContain(stepper.id);
+    expect(trap.alive).toBe(false);
+    // The one that was far off when it went was not touched by it.
+    expect(hurtBy).not.toContain(b.units[3].id);
+  });
+
+  it('a trap with a status leaves it, and a side with only traps left has lost', () => {
+    const b = new Battle({ seed: 8, defs, teams: [[{ unit: 'jaws', col: 3, row: 1 }, { unit: 'post', col: 0, row: 1 }], [{ unit: 'dummy', col: 5, row: 1 }]], seconds: 20 });
+    let stunned = false;
+    while (!b.ended) {
+      b.step();
+      for (let i = 0; i < b.eventCount; i++) if (b.events[i].type === 'status' && b.events[i].kind === 'stun') stunned = true;
+    }
+    expect(stunned).toBe(true);
+    const only = runBattle({ seed: 1, defs, teams: [[{ unit: 'spikes', col: 0, row: 0 }], [{ unit: 'dummy', col: 7, row: 3 }]] });
+    expect(only.winner).toBe(1);
+    expect(only.seconds).toBeLessThan(1);
+  });
+
+  it('no skill reaches a trap: an archer that looses a fan of arrows at a wall leaves the trap beside it alone', () => {
+    // The game's own units: the Archer's volley picks the nearest few, and a trap is never one of them.
+    const b = new Battle({
+      seed: 4, defs: UNITS, seconds: 40,
+      teams: [[{ unit: 'archer', col: 0, row: 0, hpMult: 40, damageMult: 0.2 }], [{ unit: 'militia', col: 7, row: 0, hpMult: 40 }, { unit: 'palisade', col: 6, row: 0 }, { unit: 'spiketrap', col: 6, row: 3 }]],
+    });
+    const trap = b.units.find((u) => u.def.id === 'spiketrap')!;
+    let skills = 0;
+    while (!b.ended) {
+      b.step();
+      for (let i = 0; i < b.eventCount; i++) {
+        const e = b.events[i];
+        if (e.type === 'skill') skills++;
+        if (e.type === 'damage' || e.type === 'death') expect(e.type === 'death' ? e.unit : e.target).not.toBe(trap.id);
+      }
+    }
+    expect(skills).toBeGreaterThan(0);
+    expect(trap.alive).toBe(true);
+  });
+});

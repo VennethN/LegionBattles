@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sunobelisk-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="sunobelisk-body-foot-shape" d="M 74 168 L 118 168 Q 120 168 120 170 L 120 178 Q 120 180 118 180 L 74 180 Q 72 180 72 178 L 72 170 Q 72 168 74 168 Z"/>
+<clipPath id="sunobelisk-body-foot-clip"><use href="#sunobelisk-body-foot-shape"/></clipPath>
+<clipPath id="sunobelisk-body-foot-lit-clip"><use href="#sunobelisk-body-foot-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="sunobelisk-body-pillar-shape" d="M 80 170 L 85 94 L 96 80 L 107 94 L 112 170 Z"/>
+<clipPath id="sunobelisk-body-pillar-clip"><use href="#sunobelisk-body-pillar-shape"/></clipPath>
+<clipPath id="sunobelisk-body-pillar-lit-clip"><use href="#sunobelisk-body-pillar-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="sunobelisk-body-band-shape" d="M 76 104 L 116 104 L 116 113 L 76 113 L 76 104 Z"/>
+<path id="sunobelisk-body-orb-shape" d="M 106 64 C 106 69.5 101.5 74 96 74 C 90.5 74 86 69.5 86 64 C 86 58.5 90.5 54 96 54 C 101.5 54 106 58.5 106 64 Z"/>
+<clipPath id="sunobelisk-body-orb-clip"><use href="#sunobelisk-body-orb-shape"/></clipPath>
+<clipPath id="sunobelisk-body-orb-lit-clip"><use href="#sunobelisk-body-orb-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="sunobelisk-body-foot">
+<use id="sunobelisk-body-foot-shade" href="#sunobelisk-body-foot-shape" fill="#b08a5a"/>
+<g clip-path="url(#sunobelisk-body-foot-clip)">
+<use id="sunobelisk-body-foot-fill" href="#sunobelisk-body-foot-shape" transform="translate(-3 -3)" fill="#c4a564"/>
+<g clip-path="url(#sunobelisk-body-foot-lit-clip)">
+<use id="sunobelisk-body-foot-lit" href="#sunobelisk-body-foot-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="sunobelisk-body-foot-fill-over" href="#sunobelisk-body-foot-shape" transform="translate(3.6 3.6)" fill="#c4a564"/>
+</g>
+</g>
+<use id="sunobelisk-body-foot-line" href="#sunobelisk-body-foot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="sunobelisk-body-pillar">
+<use id="sunobelisk-body-pillar-shade" href="#sunobelisk-body-pillar-shape" fill="#b08a5a"/>
+<g clip-path="url(#sunobelisk-body-pillar-clip)">
+<use id="sunobelisk-body-pillar-deep" href="#sunobelisk-body-pillar-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="sunobelisk-body-pillar-shade-over" href="#sunobelisk-body-pillar-shape" transform="translate(-3.1 -3.1)" fill="#b08a5a"/>
+<use id="sunobelisk-body-pillar-fill" href="#sunobelisk-body-pillar-shape" transform="translate(-5 -5)" fill="#c4a564"/>
+<g clip-path="url(#sunobelisk-body-pillar-lit-clip)">
+<use id="sunobelisk-body-pillar-lit" href="#sunobelisk-body-pillar-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="sunobelisk-body-pillar-fill-over" href="#sunobelisk-body-pillar-shape" transform="translate(4.6 4.6)" fill="#c4a564"/>
+</g>
+<path id="sunobelisk-body-face" d="M 80 170 L 85 94 L 96 80 L 96 170 Z" fill="#f4f1e4" opacity="0.14"/>
+<path id="sunobelisk-body-cut" d="M 88 150 L 104 150 L 104 152.6 L 88 152.6 L 88 150 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="sunobelisk-body-cut-2" d="M 88 136 L 104 136 L 104 138.6 L 88 138.6 L 88 136 Z" fill="#2a1a10" opacity="0.31"/>
+<g id="sunobelisk-body-band">
+<use id="sunobelisk-body-band-fill" href="#sunobelisk-body-band-shape" fill="#c2453a"/>
+<use id="sunobelisk-body-band-line" href="#sunobelisk-body-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="sunobelisk-body-pillar-line" href="#sunobelisk-body-pillar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="sunobelisk-body-halo" d="M 112 64 C 112 72.8 104.8 80 96 80 C 87.2 80 80 72.8 80 64 C 80 55.2 87.2 48 96 48 C 104.8 48 112 55.2 112 64 Z" fill="#ffd27a" opacity="0.45"/>
+<g id="sunobelisk-body-orb">
+<use id="sunobelisk-body-orb-shade" href="#sunobelisk-body-orb-shape" fill="#c45f22"/>
+<g clip-path="url(#sunobelisk-body-orb-clip)">
+<use id="sunobelisk-body-orb-fill" href="#sunobelisk-body-orb-shape" transform="translate(-3 -3)" fill="#f08a3c"/>
+<g clip-path="url(#sunobelisk-body-orb-lit-clip)">
+<use id="sunobelisk-body-orb-lit" href="#sunobelisk-body-orb-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="sunobelisk-body-orb-fill-over" href="#sunobelisk-body-orb-shape" transform="translate(3.6 3.6)" fill="#f08a3c"/>
+</g>
+</g>
+<use id="sunobelisk-body-orb-line" href="#sunobelisk-body-orb-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="sunobelisk-body-glint" d="M 95.6 61 C 95.6 62.4 94.4 63.6 93 63.6 C 91.6 63.6 90.4 62.4 90.4 61 C 90.4 59.6 91.6 58.4 93 58.4 C 94.4 58.4 95.6 59.6 95.6 61 Z" fill="#f4f1e4"/>
+</svg>

@@ -18,7 +18,7 @@ import { WORLDS, landOf, stageAt, worldOf } from '../../data/stages';
 import { UNITS } from '../../data/units';
 import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
 import { cardOf } from '../../game/cards';
-import { cleared, finishStage, packsHeld, stageEnemies, stageInput, stagePay, stageSeed, teamSize, tidyTeam, type StageResult } from '../../game/rules';
+import { cleared, finishStage, packsHeld, stageEnemies, stageInput, stagePay, stageSeed, teamSize, tidyTeam, structuresSize, type StageResult } from '../../game/rules';
 import type { Fielded } from '../../game/state';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
@@ -445,6 +445,10 @@ export class MainScene extends Phaser.Scene {
       rows.push({ text: names.join(', '), color: VENOM.light });
     }
     if (r.moreTeam > 0) rows.push({ text: `Your team has room for ${teamSize(save())} now`, color: ARCANE.light });
+    if (r.moreStructures > 0) {
+      const n = structuresSize(save());
+      rows.push({ text: n === 1 ? 'You have a place for a structure now' : `You have ${n} places for structures now`, color: ARCANE.light });
+    }
     if (r.reached >= 0) rows.push({ text: `World ${r.reached + 1} is open: ${WORLDS[r.reached].name}`, color: ARCANE.light });
     if (r.finished) rows.push({ text: 'That was the last stage of all. Well fought.', color: ARCANE.light });
     if (!won && this.next < this.at) rows.push({ text: 'Back one stage, to grow stronger' });
