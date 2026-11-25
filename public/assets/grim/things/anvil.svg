@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="anvil" width="156" height="120" viewBox="0 0 156 120">
+<defs>
+<path id="anvil-foot-shape" d="M 24 108 L 30 84 L 110 80 L 118 106 Z"/>
+<clipPath id="anvil-foot-clip"><use href="#anvil-foot-shape"/></clipPath>
+<path id="anvil-waist-shape" d="M 44 84 L 50 56 L 92 54 L 96 82 Z"/>
+<clipPath id="anvil-waist-clip"><use href="#anvil-waist-shape"/></clipPath>
+<path id="anvil-face-shape" d="M 8 58 L 10 36 L 104 32 L 150 30 L 128 46 L 104 52 L 104 58 Z"/>
+<clipPath id="anvil-face-clip"><use href="#anvil-face-shape"/></clipPath>
+</defs>
+<path id="anvil-blot" d="M 6 104 L 130 98 L 138 112 L 10 114 Z" fill="#14110f" opacity="0.55"/>
+<g id="anvil-foot">
+<use id="anvil-foot-line" href="#anvil-foot-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#anvil-foot-clip)">
+<use id="anvil-foot-lit" href="#anvil-foot-shape" fill="#8c9194"/>
+<use id="anvil-foot-rim" href="#anvil-foot-shape" fill="#f4d294" opacity="0.55"/>
+<use id="anvil-foot-lit-over" href="#anvil-foot-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="anvil-foot-mid" d="M 12 76 L 62.9 75.3 L 67.3 89.5 L 64.3 95.2 L 69.7 112.7 L 12 112 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="anvil-foot-dark" d="M 12 76 L 62.9 75.3 L 67.3 89.5 L 64.3 95.2 L 69.7 112.7 L 12 112 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="anvil-waist">
+<use id="anvil-waist-line" href="#anvil-waist-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#anvil-waist-clip)">
+<use id="anvil-waist-lit" href="#anvil-waist-shape" fill="#8c9194"/>
+<path id="anvil-waist-dark" d="M 32 50 L 66.3 49.3 L 73.5 71.9 L 70.3 78 L 73.7 88.7 L 32 88 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="anvil-face">
+<use id="anvil-face-line" href="#anvil-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#anvil-face-clip)">
+<use id="anvil-face-lit" href="#anvil-face-shape" fill="#8c9194"/>
+<use id="anvil-face-rim" href="#anvil-face-shape" fill="#f4d294" opacity="0.55"/>
+<use id="anvil-face-lit-over" href="#anvil-face-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="anvil-face-mid" d="M 0 48 L 160 42 L 160 70 L 0 70 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="anvil-face-dark" d="M 0 48 L 160 42 L 160 70 L 0 70 Z" fill="#14110f"/>
+<path id="anvil-worn" d="M 20.1 39.2 L 96 34 L 19.9 36.8 Z" fill="#8c9194"/>
+</g>
+</g>
+<path id="anvil-hardy-hole" d="M 20 40 L 28 40 L 28 46 L 20 46 Z" fill="#14110f"/>
+<path id="anvil-dust" d="M 0 110 L 30 100 L 40 112 L 110 108 L 140 100 L 150 114 L 0 118 Z" fill="#434134" opacity="0.8"/>
+</svg>

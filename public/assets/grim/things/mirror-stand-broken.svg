@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mirror-stand-broken" width="176" height="260" viewBox="0 0 176 260">
+<defs>
+<path id="mirror-stand-broken-frame-shape" d="M 30 240 L 26 50 L 44 20 L 80 10 L 116 20 L 134 50 L 130 240 L 116 240 L 118 60 L 104 36 L 80 28 L 56 36 L 42 60 L 44 240 Z"/>
+<clipPath id="mirror-stand-broken-frame-clip"><use href="#mirror-stand-broken-frame-shape"/></clipPath>
+<path id="mirror-stand-broken-teeth-shape" d="M 44 60 L 60 70 L 50 90 L 44 120 Z"/>
+<clipPath id="mirror-stand-broken-teeth-clip"><use href="#mirror-stand-broken-teeth-shape"/></clipPath>
+<path id="mirror-stand-broken-teeth-b-shape" d="M 104 36 L 116 60 L 100 56 L 96 46 Z"/>
+<path id="mirror-stand-broken-piece-0-shape" d="M 50 246 L 76 238.2 L 68.2 250 Z"/>
+<clipPath id="mirror-stand-broken-piece-0-clip"><use href="#mirror-stand-broken-piece-0-shape"/></clipPath>
+<path id="mirror-stand-broken-piece-1-shape" d="M 86 250 L 120 239.8 L 109.8 254 Z"/>
+<clipPath id="mirror-stand-broken-piece-1-clip"><use href="#mirror-stand-broken-piece-1-shape"/></clipPath>
+<path id="mirror-stand-broken-piece-2-shape" d="M 120 244 L 142 237.4 L 135.4 248 Z"/>
+<clipPath id="mirror-stand-broken-piece-2-clip"><use href="#mirror-stand-broken-piece-2-shape"/></clipPath>
+<path id="mirror-stand-broken-piece-3-shape" d="M 150 252 L 168 246.6 L 162.6 256 Z"/>
+<clipPath id="mirror-stand-broken-piece-3-clip"><use href="#mirror-stand-broken-piece-3-shape"/></clipPath>
+<path id="mirror-stand-broken-piece-4-shape" d="M 20 252 L 36 247.2 L 31.2 256 Z"/>
+<clipPath id="mirror-stand-broken-piece-4-clip"><use href="#mirror-stand-broken-piece-4-shape"/></clipPath>
+</defs>
+<path id="mirror-stand-broken-blot" d="M 20 244 L 150 238 L 160 252 L 24 256 Z" fill="#14110f" opacity="0.55"/>
+<g id="mirror-stand-broken-frame">
+<use id="mirror-stand-broken-frame-line" href="#mirror-stand-broken-frame-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-broken-frame-clip)">
+<use id="mirror-stand-broken-frame-lit" href="#mirror-stand-broken-frame-shape" fill="#6f5c46"/>
+<use id="mirror-stand-broken-frame-rim" href="#mirror-stand-broken-frame-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-stand-broken-frame-lit-over" href="#mirror-stand-broken-frame-shape" transform="translate(-1.28 0.96)" fill="#6f5c46"/>
+<path id="mirror-stand-broken-frame-mid" d="M 0 0 L 60 0 L 62.8 0 L 65.1 148.6 L 59.6 154.8 L 61.2 260 L 0 260 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="mirror-stand-broken-frame-dark" d="M 0 0 L 60 0 L 62.8 0 L 65.1 148.6 L 59.6 154.8 L 61.2 260 L 0 260 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="mirror-stand-broken-empty" d="M 44 236 L 42 60 L 56 36 L 80 28 L 104 36 L 118 60 L 116 236 Z" fill="#14110f"/>
+<g id="mirror-stand-broken-teeth">
+<use id="mirror-stand-broken-teeth-line" href="#mirror-stand-broken-teeth-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-broken-teeth-clip)">
+<use id="mirror-stand-broken-teeth-lit" href="#mirror-stand-broken-teeth-shape" fill="#5f7480"/>
+<path id="mirror-stand-broken-teeth-light" d="M 46 66 L 56 72 L 48 86 Z" fill="#84939a"/>
+</g>
+</g>
+<g id="mirror-stand-broken-teeth-b">
+<use id="mirror-stand-broken-teeth-b-line" href="#mirror-stand-broken-teeth-b-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="mirror-stand-broken-teeth-b-lit" href="#mirror-stand-broken-teeth-b-shape" fill="#5f7480"/>
+</g>
+<g id="mirror-stand-broken-piece-0">
+<use id="mirror-stand-broken-piece-0-line" href="#mirror-stand-broken-piece-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-broken-piece-0-clip)">
+<use id="mirror-stand-broken-piece-0-lit" href="#mirror-stand-broken-piece-0-shape" fill="#5f7480"/>
+<path id="mirror-stand-broken-piece-0-light" d="M 53 245 L 65.6 240.8 L 60.4 247 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-stand-broken-piece-1">
+<use id="mirror-stand-broken-piece-1-line" href="#mirror-stand-broken-piece-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-broken-piece-1-clip)">
+<use id="mirror-stand-broken-piece-1-lit" href="#mirror-stand-broken-piece-1-shape" fill="#5f7480"/>
+<path id="mirror-stand-broken-piece-1-light" d="M 89 249 L 106.4 243.2 L 99.6 251 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-stand-broken-piece-2">
+<use id="mirror-stand-broken-piece-2-line" href="#mirror-stand-broken-piece-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-broken-piece-2-clip)">
+<use id="mirror-stand-broken-piece-2-lit" href="#mirror-stand-broken-piece-2-shape" fill="#5f7480"/>
+<path id="mirror-stand-broken-piece-2-light" d="M 123 243 L 133.2 239.6 L 128.8 245 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-stand-broken-piece-3">
+<use id="mirror-stand-broken-piece-3-line" href="#mirror-stand-broken-piece-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-broken-piece-3-clip)">
+<use id="mirror-stand-broken-piece-3-lit" href="#mirror-stand-broken-piece-3-shape" fill="#5f7480"/>
+<path id="mirror-stand-broken-piece-3-light" d="M 153 251 L 160.8 248.4 L 157.2 253 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-stand-broken-piece-4">
+<use id="mirror-stand-broken-piece-4-line" href="#mirror-stand-broken-piece-4-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-broken-piece-4-clip)">
+<use id="mirror-stand-broken-piece-4-lit" href="#mirror-stand-broken-piece-4-shape" fill="#5f7480"/>
+<path id="mirror-stand-broken-piece-4-light" d="M 23 251 L 29.6 248.8 L 26.4 253 Z" fill="#b4bfc0"/>
+</g>
+</g>
+</svg>

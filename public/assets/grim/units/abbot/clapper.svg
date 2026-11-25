@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="abbot-clapper" width="1100" height="1100" viewBox="-190 -190 1100 1100">
+<defs>
+<path id="abbot-clapper-pole-shape" d="M 529 640.7 L 562.4 167.6 L 546.4 166.4 L 511 639.3 Z"/>
+<clipPath id="abbot-clapper-pole-clip"><use href="#abbot-clapper-pole-shape"/></clipPath>
+<path id="abbot-clapper-clapper-shape" d="M 536 182 L 586 176 L 590 120 L 606 84 L 580 40 L 540 44 L 520 82 L 534 120 Z"/>
+<clipPath id="abbot-clapper-clapper-clip"><use href="#abbot-clapper-clapper-shape"/></clipPath>
+<path id="abbot-clapper-ferrule-shape" d="M 536 176 L 588 172 L 590 196 L 538 200 Z"/>
+<clipPath id="abbot-clapper-ferrule-clip"><use href="#abbot-clapper-ferrule-shape"/></clipPath>
+<path id="abbot-clapper-arm-upper-shape" d="M 461.5 282.8 L 498.6 322 L 537.6 385.9 L 502.4 414.1 L 452.4 358.9 L 418.5 317.2 Z"/>
+<clipPath id="abbot-clapper-arm-upper-clip"><use href="#abbot-clapper-arm-upper-shape"/></clipPath>
+<path id="abbot-clapper-arm-fore-shape" d="M 538.5 414.8 L 548.3 406.1 L 553.3 387.2 L 525.1 364.8 L 510.6 375.9 L 501.5 385.2 Z"/>
+<clipPath id="abbot-clapper-arm-fore-clip"><use href="#abbot-clapper-arm-fore-shape"/></clipPath>
+<path id="abbot-clapper-arm-fist-shape" d="M 488.2 390.2 L 508.3 345.8 L 525 330.5 L 544.4 335 L 554.1 328.5 L 571.4 341.2 L 569.6 351.8 L 587.1 361.5 L 582.9 388.9 L 550.6 423.7 L 519.9 416.7 Z"/>
+<clipPath id="abbot-clapper-arm-fist-clip"><use href="#abbot-clapper-arm-fist-shape"/></clipPath>
+</defs>
+<g id="abbot-clapper-pole">
+<use id="abbot-clapper-pole-line" href="#abbot-clapper-pole-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-pole-clip)">
+<use id="abbot-clapper-pole-lit" href="#abbot-clapper-pole-shape" fill="#6f5c46"/>
+<path id="abbot-clapper-pole-mid" d="M 522.9 643.2 L 535.6 468.6 L 533.2 465.5 L 555.1 164 L 538.5 162.8 L 503.6 641.8 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="abbot-clapper-pole-dark" d="M 522.9 643.2 L 535.6 468.6 L 533.2 465.5 L 555.1 164 L 538.5 162.8 L 503.6 641.8 Z" fill="#14110f"/>
+<path id="abbot-clapper-pole-grain" d="M 529.5 530.1 L 536 420 L 526.5 529.9 Z M 545.5 310.1 L 552 200 L 542.5 309.9 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="abbot-clapper-clapper">
+<use id="abbot-clapper-clapper-line" href="#abbot-clapper-clapper-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-clapper-clip)">
+<use id="abbot-clapper-clapper-lit" href="#abbot-clapper-clapper-shape" fill="#8c9194"/>
+<use id="abbot-clapper-clapper-rim" href="#abbot-clapper-clapper-shape" fill="#f4d294" opacity="0.55"/>
+<use id="abbot-clapper-clapper-lit-over" href="#abbot-clapper-clapper-shape" transform="translate(-2.4 1.8)" fill="#8c9194"/>
+<path id="abbot-clapper-clapper-mid" d="M 500 30 L 560 30 L 563.9 39.8 L 566 92.5 L 558.5 101.4 L 562.1 190.2 L 500 200 Z" transform="translate(6 -1.44)" fill="#5b6165"/>
+<path id="abbot-clapper-clapper-dark" d="M 500 30 L 560 30 L 563.9 39.8 L 566 92.5 L 558.5 101.4 L 562.1 190.2 L 500 200 Z" fill="#14110f"/>
+<path id="abbot-clapper-clapper-rust" d="M 540 140 L 584 136 L 586 176 L 540 180 Z" fill="#6a3b24"/>
+<path id="abbot-clapper-clapper-pits" d="M 568.9 71.1 L 580 80 L 571.1 68.9 Z M 554.8 100.9 L 564 110 L 557.2 99.1 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="abbot-clapper-ferrule">
+<use id="abbot-clapper-ferrule-line" href="#abbot-clapper-ferrule-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-ferrule-clip)">
+<use id="abbot-clapper-ferrule-lit" href="#abbot-clapper-ferrule-shape" fill="#8c9194"/>
+<path id="abbot-clapper-ferrule-dark" d="M 524 168 L 554.4 167.2 L 559 181.9 L 555.5 187.7 L 560.8 204.8 L 524 204 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-clapper-arm-upper">
+<use id="abbot-clapper-arm-upper-line" href="#abbot-clapper-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-arm-upper-clip)">
+<use id="abbot-clapper-arm-upper-lit" href="#abbot-clapper-arm-upper-shape" fill="#4f4944"/>
+<path id="abbot-clapper-arm-upper-mid" d="M 444.2 292.8 L 486.3 345.4 L 486 350.7 L 525.2 399.7 L 479.7 436.1 L 396 331.4 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="abbot-clapper-arm-upper-dark" d="M 444.2 292.8 L 486.3 345.4 L 486 350.7 L 525.2 399.7 L 479.7 436.1 L 396 331.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-clapper-arm-fore">
+<use id="abbot-clapper-arm-fore-line" href="#abbot-clapper-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-arm-fore-clip)">
+<use id="abbot-clapper-arm-fore-lit" href="#abbot-clapper-arm-fore-shape" fill="#4f4944"/>
+<path id="abbot-clapper-arm-fore-mid" d="M 523.5 406.6 L 531.9 396.1 L 531.6 390.5 L 543.5 375.6 L 505.9 345.5 L 483 374.2 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="abbot-clapper-arm-fore-dark" d="M 523.5 406.6 L 531.9 396.1 L 531.6 390.5 L 543.5 375.6 L 505.9 345.5 L 483 374.2 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-clapper-arm-fold" d="M 505.1 421.8 L 528 394 L 494.9 408.2 Z" fill="#14110f"/>
+<g id="abbot-clapper-arm-fist">
+<use id="abbot-clapper-arm-fist-line" href="#abbot-clapper-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-arm-fist-clip)">
+<use id="abbot-clapper-arm-fist-lit" href="#abbot-clapper-arm-fist-shape" fill="#9aa48c"/>
+<path id="abbot-clapper-arm-fist-mid" d="M 511.7 431.1 L 590.9 340.3 L 623.8 366.6 L 548.6 460.6 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="abbot-clapper-arm-fist-dark" d="M 511.7 431.1 L 590.9 340.3 L 623.8 366.6 L 548.6 460.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-clapper-arm-fist-fingers" d="M 542.8 332.4 L 532.5 359.6 L 551 337.1 Z M 564.8 346 L 551 372.2 L 572.4 351.7 Z" fill="#14110f"/>
+<path id="abbot-clapper-drowned-hand" d="M 519.1 380.8 L 530 392 L 520.9 379.2 Z M 535.1 376.7 L 544 386 L 536.9 375.3 Z" fill="#6b7562"/>
+</svg>

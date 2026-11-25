@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ned-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ned-leg-front-thigh-shape" d="M 142.8 161.3 L 150.8 175.4 L 159.1 196.3 L 144.9 203.7 L 133.2 184.7 L 125.2 170.7 Z"/>
+<clipPath id="ned-leg-front-thigh-clip"><use href="#ned-leg-front-thigh-shape"/></clipPath>
+<path id="ned-leg-front-shin-shape" d="M 159.8 197.6 L 157.6 210.2 L 152.4 227.3 L 139.6 224.7 L 142.1 207.1 L 144.2 194.4 Z"/>
+<clipPath id="ned-leg-front-shin-clip"><use href="#ned-leg-front-shin-shape"/></clipPath>
+<path id="ned-leg-front-kneepad-shape" d="M 144 190 L 160 188 L 162 206 L 146 208 Z"/>
+<clipPath id="ned-leg-front-kneepad-clip"><use href="#ned-leg-front-kneepad-shape"/></clipPath>
+<path id="ned-leg-front-boot-shape" d="M 135.9 219 L 155 217 L 162.3 227 L 173.5 230 L 179.5 236 L 179.5 240 L 135.5 240 L 133.5 230 Z"/>
+<clipPath id="ned-leg-front-boot-clip"><use href="#ned-leg-front-boot-shape"/></clipPath>
+</defs>
+<g id="ned-leg-front-thigh">
+<use id="ned-leg-front-thigh-line" href="#ned-leg-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-front-thigh-clip)">
+<use id="ned-leg-front-thigh-lit" href="#ned-leg-front-thigh-shape" fill="#6f5c46"/>
+<path id="ned-leg-front-thigh-mid" d="M 136.5 161.3 L 144.8 177.1 L 143.7 181.6 L 154.5 202.1 L 138.2 210.7 L 117.4 171.4 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="ned-leg-front-thigh-dark" d="M 136.5 161.3 L 144.8 177.1 L 143.7 181.6 L 154.5 202.1 L 138.2 210.7 L 117.4 171.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-leg-front-shin">
+<use id="ned-leg-front-shin-line" href="#ned-leg-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-front-shin-clip)">
+<use id="ned-leg-front-shin-lit" href="#ned-leg-front-shin-shape" fill="#6f5c46"/>
+<path id="ned-leg-front-shin-mid" d="M 156.1 193.8 L 152.4 212 L 149.3 214.3 L 146.3 229.1 L 131.9 226.2 L 139.1 190.4 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="ned-leg-front-shin-dark" d="M 156.1 193.8 L 152.4 212 L 149.3 214.3 L 146.3 229.1 L 131.9 226.2 L 139.1 190.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-leg-front-kneepad">
+<use id="ned-leg-front-kneepad-line" href="#ned-leg-front-kneepad-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-front-kneepad-clip)">
+<use id="ned-leg-front-kneepad-lit" href="#ned-leg-front-kneepad-shape" fill="#7b5b3d"/>
+<path id="ned-leg-front-kneepad-mid" d="M 132 184 L 148.4 183.7 L 152.1 196.8 L 150.5 199.9 L 154 212.3 L 132 212 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="ned-leg-front-kneepad-dark" d="M 132 184 L 148.4 183.7 L 152.1 196.8 L 150.5 199.9 L 154 212.3 L 132 212 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-leg-front-kneepad-stud" d="M 151.4 197 L 153 195.4 L 154.6 197 L 153 198.6 Z" fill="#14110f"/>
+<g id="ned-leg-front-boot">
+<use id="ned-leg-front-boot-line" href="#ned-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-front-boot-clip)">
+<use id="ned-leg-front-boot-lit" href="#ned-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="ned-leg-front-boot-mid" d="M 127.5 214 L 152.2 214 L 153.6 226 L 163 232 L 183.5 235 L 183.5 244 L 127.5 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ned-leg-front-boot-dark" d="M 127.5 214 L 152.2 214 L 153.6 226 L 163 232 L 183.5 235 L 183.5 244 L 127.5 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-leg-front-boot-sole" d="M 133.5 237 L 180.5 237 L 180.5 241.5 L 133.5 241.5 Z" fill="#14110f"/>
+<path id="ned-leg-front-boot-crease" d="M 161.4 225.8 L 152.2 231 L 162.4 228.2 Z" fill="#14110f"/>
+</svg>

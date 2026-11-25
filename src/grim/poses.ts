@@ -127,3 +127,83 @@ export const HIT: Pose = pose({ rootX: -8, bodyRot: -12, bodySx: 0.05, bodySy: -
 
 /** Halfway through falling, which is where a loose part would show. */
 export const FALL: Pose = pose({ rootRot: -48, rootY: -4, headRot: -16, weaponRot: -28, offRot: -22, legFrontRot: -18, legBackRot: 14, extraRot: 20 });
+
+// ---- What every hunter has besides: a roll out of a blow, and the ways they wait at the inn.
+
+/** Rolled out of a blow: tucked low, going forward, the weapon held in. Halfway through, where a part would come away. */
+export const DODGE: Pose = pose({ rootX: 14, rootY: 22, rootRot: 26, bodyRot: 30, bodySy: -0.08, headRot: 24, weaponRot: 30, weaponX: -6, offRot: 30, legFrontRot: -46, legFrontY: -10, legBackRot: 40, legBackY: -8, extraRot: -26 });
+/** Waiting: the weight on the back foot, the head down, the weapon let rest against them. */
+export const REST: Pose = pose({ rootX: -2, bodyRot: -4, bodyY: 2, headRot: 14, headY: 2, weaponRot: 8, weaponX: -4, weaponY: 4, offRot: 10, legFrontRot: -8, legBackRot: 4, extraRot: 4 });
+/** Sat down on a bench or a barrel: low, the legs out in front, the head down. */
+export const SIT: Pose = pose({ rootY: 44, bodyRot: -6, bodyY: 4, headRot: 12, weaponRot: 14, weaponY: 6, offRot: 18, legFrontRot: -78, legFrontY: -6, legBackRot: -64, legBackY: -4, extraRot: 6 });
+
+// ---- The hunters who came after the first four.
+
+/** A sledge carried on the shoulder, heaved back and brought down over it onto what is in front. */
+export const SMASH: Move = {
+  windup: pose({ weaponRot: -30, weaponY: -10, weaponX: -6, bodyRot: -12, headRot: 6, rootX: -8, legFrontRot: -8, legFrontY: -3, extraRot: 14 }),
+  strike: pose({ weaponRot: 150, weaponX: 16, weaponY: 26, bodyRot: 20, bodySy: -0.05, headRot: -10, rootX: 16, legFrontRot: -16, legBackRot: 16, extraRot: -24 }),
+};
+/** The same sledge swung low and round, at the knees of what is there. */
+export const SWING_LOW: Move = {
+  windup: pose({ weaponRot: -60, weaponY: 10, weaponX: -14, bodyRot: -14, headRot: 8, rootX: -10, legBackRot: 8, extraRot: 16 }),
+  strike: pose({ weaponRot: 104, weaponX: 18, weaponY: 30, bodyRot: 14, headRot: -10, rootX: 14, legFrontRot: -16, legBackRot: 14, extraRot: -22 }),
+};
+/** A thing heaved up and thrown down in front with both hands: an anvil, a stone. */
+export const HEAVE: Move = {
+  windup: pose({ weaponRot: -40, weaponY: -16, bodyRot: -16, bodySy: 0.03, headRot: -8, rootX: -6, rootY: -4, legFrontRot: -6, extraRot: 14 }),
+  strike: pose({ weaponRot: 60, weaponX: 10, weaponY: 24, bodyRot: 26, bodyY: 10, headRot: -12, rootX: 10, legFrontRot: -18, legBackRot: 16, extraRot: -20 }),
+};
+/** A thing held up high, as a blessing or a warning: a red-hot sledge, a lamp. */
+export const HOLD_HIGH: Move = {
+  windup: pose({ weaponRot: -12, weaponY: 6, bodyRot: 4, bodyY: 3, headRot: 4 }),
+  strike: pose({ weaponRot: -70, weaponY: -26, weaponX: -6, bodyRot: -8, bodySy: 0.04, headRot: -14, rootY: -4, extraRot: -12 }),
+};
+/** A pick brought down from over the head, short and hard. */
+export const PICK: Move = {
+  windup: pose({ weaponRot: -96, weaponY: -12, weaponX: -6, bodyRot: -10, headRot: 6, rootX: -6, legFrontRot: -8, extraRot: 14 }),
+  strike: pose({ weaponRot: 54, weaponX: 12, weaponY: 18, bodyRot: 18, bodySy: -0.04, headRot: -10, rootX: 14, legFrontRot: -14, legBackRot: 14, extraRot: -20 }),
+};
+/** The pick driven into the ground with the whole weight behind it: the floor cracks and the roof comes down. */
+export const BREAK_GROUND: Move = {
+  windup: pose({ weaponRot: -120, weaponY: -20, weaponX: -8, bodyRot: -16, bodySy: 0.03, headRot: -6, rootY: -6, legFrontRot: -8, extraRot: 16 }),
+  strike: pose({ weaponRot: 88, weaponX: 10, weaponY: 40, bodyRot: 34, bodyY: 14, headRot: -16, rootX: 8, rootY: 6, legFrontRot: -20, legBackRot: 22, extraRot: -26 }),
+};
+/** Something on the back swung round and thrown overarm with the free hand: a keg with its fuse lit. */
+export const THROW: Move = {
+  windup: pose({ offRot: -150, offY: -10, offX: -10, bodyRot: -14, headRot: 8, rootX: -6, weaponRot: 14, legBackRot: 8, extraRot: 14 }),
+  strike: pose({ offRot: 60, offX: 14, offY: -4, bodyRot: 16, headRot: -8, rootX: 12, weaponRot: -10, legFrontRot: -14, legBackRot: 14, extraRot: -20 }),
+};
+/** A very long pole swung flat across in front, its lamp going round with it. */
+export const POLE_SWEEP: Move = {
+  windup: pose({ weaponRot: -30, weaponX: -10, weaponY: 4, bodyRot: -10, headRot: 6, rootX: -6, extraRot: 12 }),
+  strike: pose({ weaponRot: 62, weaponX: 14, weaponY: 10, bodyRot: 12, headRot: -8, rootX: 12, legFrontRot: -12, legBackRot: 12, extraRot: -18 }),
+};
+/** The pole's foot set against what is in front and pushed, the whole body behind it: what a ferry is poled off with. */
+export const SHOVE: Move = {
+  windup: pose({ weaponX: -14, weaponRot: 16, weaponY: 6, bodyRot: -6, headRot: 4, rootX: -8, legFrontRot: -6, extraRot: 10 }),
+  strike: pose({ weaponX: 26, weaponRot: 34, weaponY: 14, bodyRot: 22, headRot: -10, rootX: 18, legFrontRot: -18, legBackRot: 26, extraRot: -22 }),
+};
+/** A cleaver brought down short: the butcher's stroke, from the shoulder. */
+export const CHOP: Move = {
+  windup: pose({ weaponRot: -80, weaponY: -10, weaponX: -4, bodyRot: -8, headRot: 5, rootX: -4, extraRot: 10 }),
+  strike: pose({ weaponRot: 50, weaponX: 10, weaponY: 12, bodyRot: 14, bodySy: -0.03, headRot: -8, rootX: 10, legFrontRot: -10, legBackRot: 10, extraRot: -16 }),
+};
+/** The cleaver back across, the other way: a backhand that follows the chop. */
+export const BACKHAND: Move = {
+  windup: pose({ weaponRot: 46, weaponY: 6, bodyRot: 10, headRot: -4, rootX: 4, extraRot: -10 }),
+  strike: pose({ weaponRot: -54, weaponX: 6, weaponY: -2, bodyRot: -10, headRot: 6, rootX: 8, legFrontRot: -8, legBackRot: 8, extraRot: 16 }),
+};
+/** A hook on a chain whirled and thrown with the free hand, then hauled back in. */
+export const HOOK_THROW: Move = {
+  windup: pose({ offRot: -130, offY: -10, bodyRot: -10, headRot: 6, rootX: -6, weaponRot: 10, extraRot: 14 }),
+  strike: pose({ offRot: 40, offX: 16, offY: -6, bodyRot: 14, headRot: -8, rootX: 12, weaponRot: -6, legFrontRot: -14, legBackRot: 14, extraRot: -18 }),
+};
+
+/** The sledge held up red-hot a moment, then brought down: the Smith's heated blow. */
+export const FORGE_STRIKE: Move = { windup: HOLD_HIGH.strike, strike: SMASH.strike };
+/** Many short cuts in a row where he stands: the cleaver up, and down at the end of them. */
+export const HACK: Move = {
+  windup: pose({ weaponRot: -40, weaponY: -6, bodyRot: -4, headRot: 4, rootX: -2, extraRot: 8 }),
+  strike: pose({ weaponRot: 70, weaponX: 14, weaponY: 16, bodyRot: 18, bodySy: -0.04, headRot: -10, rootX: 14, legFrontRot: -12, legBackRot: 12, extraRot: -18 }),
+};

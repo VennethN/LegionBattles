@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mirror-mantle" width="1040" height="1100" viewBox="-190 -190 1040 1100">
+<defs>
+<path id="mirror-mantle-piece-a-shape" d="M 226 270 L 162.2 130 L 170 120 L 183 138 L 278 274 Z"/>
+<clipPath id="mirror-mantle-piece-a-clip"><use href="#mirror-mantle-piece-a-shape"/></clipPath>
+<path id="mirror-mantle-piece-b-shape" d="M 242 240 L 221 70 L 230 60 L 245 78 L 302 244 Z"/>
+<clipPath id="mirror-mantle-piece-b-clip"><use href="#mirror-mantle-piece-b-shape"/></clipPath>
+<path id="mirror-mantle-piece-c-shape" d="M 278 226 L 293.4 80 L 300 70 L 311 88 L 322 230 Z"/>
+<clipPath id="mirror-mantle-piece-c-clip"><use href="#mirror-mantle-piece-c-shape"/></clipPath>
+<path id="mirror-mantle-piece-d-shape" d="M 224 330 L 144 240 L 150 230 L 160 248 L 264 334 Z"/>
+<clipPath id="mirror-mantle-piece-d-clip"><use href="#mirror-mantle-piece-d-shape"/></clipPath>
+</defs>
+<g id="mirror-mantle-piece-a">
+<use id="mirror-mantle-piece-a-line" href="#mirror-mantle-piece-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-mantle-piece-a-clip)">
+<use id="mirror-mantle-piece-a-lit" href="#mirror-mantle-piece-a-shape" fill="#5f7480"/>
+<use id="mirror-mantle-piece-a-rim" href="#mirror-mantle-piece-a-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-mantle-piece-a-lit-over" href="#mirror-mantle-piece-a-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-mantle-piece-a-mid" d="M 166 110 L 246.8 110 L 246.8 280 L 166 280 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-mantle-piece-a-dark" d="M 166 110 L 246.8 110 L 246.8 280 L 166 280 Z" fill="#14110f"/>
+<path id="mirror-mantle-piece-a-facet-0" d="M 241.6 264 L 167.4 140 L 259.8 250 Z" fill="#3f505b"/>
+<path id="mirror-mantle-piece-a-crack-0" d="M 241.6 264 L 167.4 140 L 259.8 250 L 241.6 264" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="mirror-mantle-piece-a-glints" d="M 242.5 263.5 L 204.5 202 L 240.7 264.5 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-mantle-piece-b">
+<use id="mirror-mantle-piece-b-line" href="#mirror-mantle-piece-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-mantle-piece-b-clip)">
+<use id="mirror-mantle-piece-b-lit" href="#mirror-mantle-piece-b-shape" fill="#5f7480"/>
+<use id="mirror-mantle-piece-b-rim" href="#mirror-mantle-piece-b-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-mantle-piece-b-lit-over" href="#mirror-mantle-piece-b-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-mantle-piece-b-mid" d="M 182 50 L 266 50 L 266 250 L 182 250 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-mantle-piece-b-dark" d="M 182 50 L 266 50 L 266 250 L 182 250 Z" fill="#14110f"/>
+<path id="mirror-mantle-piece-b-facet-0" d="M 260 234 L 227 80 L 281 220 Z" fill="#3f505b"/>
+<path id="mirror-mantle-piece-b-crack-0" d="M 260 234 L 227 80 L 281 220 L 260 234" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="mirror-mantle-piece-b-glints" d="M 261 233.8 L 243.5 157 L 259 234.2 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-mantle-piece-c">
+<use id="mirror-mantle-piece-c-line" href="#mirror-mantle-piece-c-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-mantle-piece-c-clip)">
+<use id="mirror-mantle-piece-c-lit" href="#mirror-mantle-piece-c-shape" fill="#5f7480"/>
+<use id="mirror-mantle-piece-c-rim" href="#mirror-mantle-piece-c-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-mantle-piece-c-lit-over" href="#mirror-mantle-piece-c-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-mantle-piece-c-mid" d="M 218 60 L 295.6 60 L 295.6 236 L 218 236 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-mantle-piece-c-dark" d="M 218 60 L 295.6 60 L 295.6 236 L 218 236 Z" fill="#14110f"/>
+<path id="mirror-mantle-piece-c-facet-0" d="M 291.2 220 L 297.8 90 L 306.6 206 Z" fill="#3f505b"/>
+<path id="mirror-mantle-piece-c-crack-0" d="M 291.2 220 L 297.8 90 L 306.6 206 L 291.2 220" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="mirror-mantle-piece-c-glints" d="M 292.2 220.1 L 294.5 155 L 290.2 219.9 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-mantle-piece-d">
+<use id="mirror-mantle-piece-d-line" href="#mirror-mantle-piece-d-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-mantle-piece-d-clip)">
+<use id="mirror-mantle-piece-d-lit" href="#mirror-mantle-piece-d-shape" fill="#5f7480"/>
+<use id="mirror-mantle-piece-d-rim" href="#mirror-mantle-piece-d-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-mantle-piece-d-lit-over" href="#mirror-mantle-piece-d-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-mantle-piece-d-mid" d="M 164 220 L 240 220 L 240 340 L 164 340 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-mantle-piece-d-dark" d="M 164 220 L 240 220 L 240 340 L 164 340 Z" fill="#14110f"/>
+<path id="mirror-mantle-piece-d-facet-0" d="M 236 324 L 148 250 L 250 310 Z" fill="#3f505b"/>
+<path id="mirror-mantle-piece-d-crack-0" d="M 236 324 L 148 250 L 250 310 L 236 324" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="mirror-mantle-piece-d-glints" d="M 236.6 323.2 L 192 287 L 235.4 324.8 Z" fill="#b4bfc0"/>
+</g>
+</g>
+</svg>

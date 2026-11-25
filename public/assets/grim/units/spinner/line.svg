@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="spinner-line" width="1220" height="1120" viewBox="-200 -200 1220 1120">
+<path id="spinner-line-line" d="M 270 236 L 268 -190" fill="none" stroke="#9c9178" stroke-width="3.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="spinner-line-line-b" d="M 276 236 L 282 -190" fill="none" stroke="#cfc5a8" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

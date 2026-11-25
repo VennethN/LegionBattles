@@ -25,7 +25,7 @@ import { Numbers } from '../Numbers';
 import { drawTell as drawMarkedTell } from '../vfx/Tells';
 import { Vfx } from '../vfx/Vfx';
 import {
-  ABILITY_MOVES, ALLY_ART, BUILDING_ART, GRIM_SCALE, HUNTER_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, isGrim, type Art,
+  ABILITY_MOVES, ALLY_ART, BLOW_MOVES, BUILDING_ART, FIELD_THINGS, FIELD_THING_R, HELPER_ALPHA, GRIM_SCALE, HUNTER_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, isGrim, type Art,
 } from '../pictures';
 import { Figure } from '../art/Figure';
 import { GrimFigure } from '../art/GrimFigure';
@@ -37,6 +37,8 @@ import type { HudScene } from './HudScene';
 import { Controls, DRAG_FAR, DRAG_MIN, type Target } from '../input';
 
 const INV_ART = 1 / ART_SCALE;
+/** What each prop of a lair leaves when it is broken, as the kit names it. */
+const LEFT_BROKEN = new Map<string, string>([['eggsac', 'eggsac-burst'], ['barrel', 'barrel-broken'], ['mirror', 'mirror-stand-broken']]);
 const WHITE = 0xffffff;
 const RED = 0xff4a36;
 const GOLD = hex(HOLY.fill);
@@ -81,6 +83,10 @@ export class LairScene extends Phaser.Scene {
   /** The monster: a figure of the style, or a stand-in moved part by part. */
   private monster: GrimFigure | null = null;
   private standIn: Figure | null = null;
+  /** The props of a lair where they stand, what is left of those broken, and the pictures lying on the field for both. */
+  private readonly props = new Map<number, { id: string; x: number; y: number }>();
+  private readonly broken = new Map<string, { thing: string; x: number; y: number }>();
+  private readonly lying = new Map<string, Phaser.GameObjects.Image>();
   private fx!: Effects;
   private nums!: Numbers;
   private light!: LairLight;
@@ -133,6 +139,9 @@ export class LairScene extends Phaser.Scene {
     this.talk = new Talk(save().hunts * 7919 + 17, this.hunt.hunter.def.id, this.hunt.monster.def.id, save().talk !== false);
     this.actors.clear();
     this.before.clear();
+    this.props.clear();
+    this.broken.clear();
+    this.lying.clear();
     this.monster = null;
     this.standIn = null;
     this.vfx = null;
@@ -165,10 +174,12 @@ export class LairScene extends Phaser.Scene {
     const groundKey = `ground:${h.monster.def.lair}:${shape}`;
     const groundUrl = 'grim' in lair ? `assets/grim/grounds/${lair.grim}-${shape}.svg` : `assets/arena/${lair.legion}-${shape}.svg`;
     // Everything that can be on this field: the hunter, the monster, and all that either side may bring or call up.
-    const arts: Art[] = [...h.party.map((p) => HUNTER_ART[p.def.id] ?? HUNTER_ART.marta), MONSTER_ART[h.monster.def.id], ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
+    // Marta's figure always: it stands for the player's own hunter while theirs is not drawn yet.
+    const arts: Art[] = [HUNTER_ART.marta, ...h.party.map((p) => HUNTER_ART[p.def.id] ?? HUNTER_ART.marta), MONSTER_ART[h.monster.def.id], ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
     const grim = [...new Set(arts.flatMap((a) => (isGrim(a) ? [a.grim] : [])))].map(wantedUnit);
     const dressing = DRESSING[h.monster.def.lair] ?? [];
-    const things = 'grim' in lair ? [...new Set(dressing.map((c) => c[0]))].map(wantedThing) : [];
+    // What the later lairs and hunters leave on the field, and what their props leave when broken: few and small, so always.
+    const things = [...new Set([...('grim' in lair ? dressing.map((c) => c[0]) : []), ...Object.values(FIELD_THINGS), ...LEFT_BROKEN.values()])].map(wantedThing);
     const mon = MONSTER_ART[h.monster.def.id];
     const rigged: UnitKey[] = isGrim(mon) ? [] : [{ team: mon.team, unit: mon.legion }];
     const stills: UnitKey[] = arts.flatMap((a) => (isGrim(a) || a === mon ? [] : [{ team: a.team, unit: a.legion }]));
@@ -510,10 +521,10 @@ export class LairScene extends Phaser.Scene {
           break;
         case 'strike':
           if (e.who !== 0) {
-            this.actors.get(`p${e.who}`)?.fig?.play('', this.clock, 0.07, 0.12);
+            this.actors.get(`p${e.who}`)?.fig?.play(BLOW_MOVES[w.party[e.who]?.def.id ?? '']?.[e.n] ?? '', this.clock, 0.07, 0.12);
             break;
           }
-          this.hunter.play('', this.clock, 0.07, 0.12);
+          this.hunter.play(BLOW_MOVES[h.def.id]?.[e.n] ?? '', this.clock, 0.07, 0.12);
           if (e.kind === 'arc') {
             this.fx.spawn('fx/slash', e.x + Math.cos(e.angle) * e.reach * 0.5, e.y - 30 + Math.sin(e.angle) * e.reach * 0.5, {
               dur: 0.16, from: (e.reach / 60) * 0.9, to: (e.reach / 60) * 1.15, rotation: e.angle, alpha: 0.9, depth: h.y + 40,
@@ -665,6 +676,13 @@ export class LairScene extends Phaser.Scene {
           this.nums.show(e.x, e.y - 70, `+${e.amount}`, 0x8fe07a, 22);
           break;
         case 'fall':
+          if (e.who === 'helper') {
+            // A prop broken leaves its pieces where it stood.
+            const p = this.props.get(e.id);
+            const left = p && LEFT_BROKEN.get(p.id);
+            if (p && left) this.broken.set(`b${e.id}`, { thing: left, x: p.x, y: p.y });
+            this.props.delete(e.id);
+          }
           if (e.who === 'helper' || e.who === 'ally') {
             sfx.play('death', 0.4, 1 + Math.random() * 0.2);
             this.fx.spawn('fx/dust', e.x, e.y - 10, { dur: 0.3, from: 0.4, to: 0.9, alpha: 0.7, depth: e.y + 2 });
@@ -850,8 +868,9 @@ export class LairScene extends Phaser.Scene {
       mf.facing = m.face;
       mf.moving = m.moving && !this.halted;
       mf.pace = m.state === 'dash' ? 2.4 : 0.55;
-      // Broken, dazed or held, it sags: its own still for that.
-      mf.hold(m.state === 'broken' || m.state === 'dazed' || m.state === 'held' ? 'stagger' : null);
+      // Broken, dazed or held, it sags: its own still for that. Up in the dark, it hangs; cooled, it shows its water.
+      const heat = m.def.heat;
+      mf.hold(m.state === 'broken' || m.state === 'dazed' || m.state === 'held' ? 'stagger' : m.aloft ? 'hang' : heat && m.heat <= heat.cool ? 'cooled' : null);
       mf.tint = m.state === 'shift' ? 0xff8a7a : 0xffffff;
       mf.update(this.clock, dt);
     } else if (this.standIn) {
@@ -880,7 +899,12 @@ export class LairScene extends Phaser.Scene {
     for (const f of w.helpers) {
       const [x, y] = this.at(`h${f.id}`, f.x, f.y);
       const s = this.show(`h${f.id}`, HELPER_ART[f.def.id], x + (f.held > 0 ? Math.sin(this.clock * 40) * 1.5 : 0), y, f.face, f.moving);
-      if (s.fig) s.fig.pace = 0.6;
+      if (s.fig) {
+        s.fig.pace = 0.6;
+        s.fig.alpha = HELPER_ALPHA[f.def.id] ?? 1;
+      }
+      // A prop is remembered where it stands, so that what is left of it can lie there when it is broken.
+      if (LEFT_BROKEN.has(f.def.id)) this.props.set(f.id, { id: f.def.id, x: f.x, y: f.y });
     }
     // Those who fight beside the hunter. A hound that is down lies still.
     for (const a of w.allies) {
@@ -913,9 +937,13 @@ export class LairScene extends Phaser.Scene {
       }
       s.img?.setAlpha(0.55).setTint(tint);
     }
-    w.stones.forEach((st, i) => this.show(`s${i}`, STONE_ART, st.x, st.y + 16, 1, false));
-    // The lamp Agnes stands on the ground, in the middle of its light.
-    for (const d of w.wards) this.show(`w${d.id}`, LAMP_ART, d.x, d.y + 6, 1, false);
+    // A stone of the lair, or an anvil a hunter dropped, which stays a while.
+    w.stones.forEach((st, i) => {
+      if (st.life === undefined) this.show(`s${i}`, STONE_ART, st.x, st.y + 16, 1, false);
+    });
+    // The lamp Agnes stands on the ground, in the middle of its light. A lantern's trail is light alone, drawn below.
+    for (const d of w.wards) if (!d.haste) this.show(`w${d.id}`, LAMP_ART, d.x, d.y + 6, 1, false);
+    this.fieldThings();
     for (const t of w.traps) {
       const s = this.show(`t${t.id}`, TRAP_ART, t.x, t.y + 6, 1, false);
       s.img?.setDepth(3).setAlpha(t.arm > 0 ? 0.5 : 1);
@@ -943,7 +971,15 @@ export class LairScene extends Phaser.Scene {
     // Tar on the ground: lit with the ground, since it is part of it.
     const g = this.ground;
     g.clear();
+    // Up in the dark: the rest of the thread she hangs by, from where the kit's line ends to the top of the screen.
+    if (w.monster.aloft && this.monster) {
+      const top = this.cameras.main.worldView.y - 20;
+      const end = this.monster.y - this.monster.height - 190 * this.monster.scale;
+      if (end > top) g.lineStyle(2, 0xc8c0b0, 0.7).lineBetween(this.monster.x, end, this.monster.x, top);
+    }
     for (const p of w.pools) {
+      // Webs and water are pictures of their own (fieldThings).
+      if (p.def.id === 'web' || p.def.id === 'water') continue;
       const a = Math.min(0.8, p.life * 0.5);
       g.fillStyle(p.burning > 0 ? 0x5a2410 : 0x1c1612, a).fillCircle(p.x, p.y, p.r);
       g.lineStyle(3, p.burning > 0 ? 0xff8a3c : 0x0c0a08, a).strokeCircle(p.x, p.y, p.r);
@@ -961,6 +997,41 @@ export class LairScene extends Phaser.Scene {
     this.vfx?.update(dt, this.clock, this.halted);
     this.follow();
     this.light.update(dt, this.clock, this.halted);
+  }
+
+  /**
+   * What the later lairs and hunters leave on the field, as the kit drew them: webs, the abbey's shallows, a lantern's
+   * light, an anvil, a keg on its fuse, and what is left of a prop that was broken. Each at the size the rules give it.
+   */
+  private fieldThings(): void {
+    const w = this.hunt;
+    const seen = new Set<string>();
+    const put = (key: string, thing: string, x: number, y: number, r: number | null, depth: number, alpha = 1): void => {
+      seen.add(key);
+      let img = this.lying.get(key);
+      if (!img) {
+        img = this.add.image(x, y, SHEET, thingFrame(thing));
+        this.lying.set(key, img);
+      }
+      const t = getGrim().things[thing];
+      const k = r === null ? 1 : (r * 2) / ((FIELD_THING_R[thing] ?? t.width / 2) * 2);
+      img.setPosition(x, y).setScale(k).setDepth(depth).setAlpha(alpha);
+    };
+    for (const p of w.pools) {
+      if (p.def.id === 'web') put(`pool${p.id}`, FIELD_THINGS.web, p.x, p.y, p.r, 2, Math.min(1, p.life));
+      else if (p.def.id === 'water') put(`pool${p.id}`, FIELD_THINGS.water, p.x, p.y, p.r, -50);
+    }
+    for (const d of w.wards) if (d.haste) put(`ward${d.id}`, FIELD_THINGS.wake, d.x, d.y, d.r, 2, Math.min(1, d.life));
+    w.stones.forEach((st, i) => {
+      if (st.life !== undefined) put(`anvil${i}`, FIELD_THINGS.anvil, st.x, st.y, null, st.y);
+    });
+    for (const t of w.tells) if (t.own === 'keg') put(`keg${t.id}`, FIELD_THINGS.keg, t.x, t.y, null, t.y);
+    for (const [key, b] of this.broken) put(key, b.thing, b.x, b.y, null, 2);
+    for (const [key, img] of this.lying) {
+      if (seen.has(key)) continue;
+      img.destroy();
+      this.lying.delete(key);
+    }
   }
 
   /** Everything that is drawn over the dark: what is about to land, where it is safe to build, when the monster is open. */

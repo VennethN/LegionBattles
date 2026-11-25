@@ -157,12 +157,18 @@ export interface BlowDef {
   hounds?: boolean;
   /** A held attack: how long it is aimed before it goes, and how much slower the hunter walks meanwhile. */
   aim?: number;
+  /** Helpers it lands on are pushed this far from the hunter: the length of a pole. Less than nothing pulls them in. */
+  push?: number;
+  /** Cuts that open the boss: stacks of bleeding, each a little harm a second until they close. */
+  bleed?: number;
+  /** A blow that stuns: helpers it lands on are held this long, and the boss takes this much stagger more. */
+  stun?: { hold: number; stagger: number };
 }
 
 /** How long after a blow's recovery a press still chains to the next, and how far the aim turns by itself toward a boss in reach. */
 export const ATTACK = { chain: 0.4, help: 35 };
 
-export type AbilityKind = 'brace' | 'sweep' | 'trap' | 'pool' | 'flare' | 'ward' | 'seton' | 'whistle';
+export type AbilityKind = 'brace' | 'sweep' | 'trap' | 'pool' | 'flare' | 'ward' | 'seton' | 'whistle' | 'forge' | 'anvil' | 'keg' | 'cavein' | 'shove' | 'wake' | 'hook' | 'hack';
 
 /** One of a hunter's two abilities. `kind` says which rule in hunt.ts it is; the numbers are that rule's. */
 export interface AbilityDef {
@@ -188,6 +194,21 @@ export interface AbilityDef {
   most?: number;
   /** How far it can be thrown. */
   range?: number;
+  /** Seconds from being shown to going off, for what is shown on the ground first: a keg's fuse, a falling anvil. */
+  fuse?: number;
+  /** How wide a strip it marks. */
+  w?: number;
+  /** How many blows it is made of, and the seconds between them. */
+  n?: number;
+  every?: number;
+  /** How far it throws what it reaches. */
+  push?: number;
+  /** What it does to a hunter of the party caught in it: a keg does not ask whose side you are on. */
+  hurt?: number;
+  /** Harm a second it leaves burning on what it lands on. */
+  burn?: number;
+  /** How much slower an enemy goes in it. */
+  slow?: number;
 }
 
 export const ABILITIES: readonly AbilityDef[] = [
@@ -204,7 +225,28 @@ export const ABILITIES: readonly AbilityDef[] = [
   // Brask's hounds hold the monster for `hold` seconds and bite `share` times as hard for `life`.
   { id: 'seton', name: 'Dogs Attack', says: 'The dogs hold the boss for 1.8 seconds and bite twice as hard for 4 seconds.', kind: 'seton', wait: 18, hold: 1.8, life: 4, share: 2, stagger: 10 },
   { id: 'heel', name: 'Call Back', says: 'The dogs come back, get up if they are down, and all three heal 15%.', kind: 'whistle', wait: 24, share: 0.15 },
+  // Greta's hammer, heated: a heavy blow in front. What it lands on burns `dmg` a second for `life` seconds, and its
+  // armor is cracked for as long: every blow fills `share` more stagger.
+  { id: 'forgestrike', name: 'Forge Strike', says: 'A heated blow for 30 damage. The boss burns and takes 50% more stagger for 6 seconds.', kind: 'forge', wait: 12, r: 128, dmg: 30, stagger: 18, life: 6, share: 0.5, burn: 4 },
+  // Her anvil is shown where it will fall, `range` in front of her, and falls after `fuse`: what is under it is held,
+  // and it stays as a stone that blocks a charge.
+  { id: 'anvil', name: 'Anvil', says: 'Drops an anvil in front of her. It holds what is under it for 1.6 seconds, deals 34 damage, and stays as cover.', kind: 'anvil', wait: 15, r: 64, range: 120, fuse: 0.9, dmg: 34, hold: 1.6, stagger: 16, life: 14 },
+  // Ned's powder: thrown, shown with its fuse, and it goes up. A hunter caught in it is hurt too.
+  { id: 'keg', name: 'Powder Keg', says: 'Thrown at the boss. After its fuse it blows up for 70 damage. Hunters in it get hurt too.', kind: 'keg', wait: 13, r: 110, range: 330, fuse: 1.6, dmg: 70, stagger: 30, hurt: 24 },
+  // Rocks come down along a strip from where he stands, `fuse` after it is shown.
+  { id: 'cavein', name: 'Cave-in', says: 'Rocks fall in a line in front of him a second later, for 40 damage.', kind: 'cavein', wait: 11, range: 330, w: 80, fuse: 1.0, dmg: 40, stagger: 20, hold: 0.8 },
+  // Ida's pole at full length: helpers are thrown back, and a boss caught winding up is put off its blow.
+  { id: 'shove', name: 'Shove', says: 'A long push. Throws small enemies back. Timed as the boss winds up, it stops the attack.', kind: 'shove', wait: 8, r: 205, dmg: 10, push: 150, stagger: 24, hold: 1.3 },
+  // Her lantern leaves light behind her as she walks, `n` patches `every` seconds apart, each lasting `life`.
+  { id: 'wake', name: 'Lantern Wake', says: 'For 6 seconds she leaves light behind her. Hunters in it move 30% faster, enemies 35% slower.', kind: 'wake', wait: 17, r: 74, life: 4.5, n: 12, every: 0.5, share: 0.3, slow: 0.35 },
+  // Silas's hook on its chain: a small thing on its line is dragged to him, and if there is none he is dragged to the boss.
+  { id: 'hook', name: 'Hook', says: 'Throws the hook. Pulls a small enemy to him, or pulls him to the boss.', kind: 'hook', wait: 9, range: 330, w: 40, dmg: 12 },
+  // A flurry of the cleaver where he stands: `n` cuts, each opening another wound.
+  { id: 'hack', name: 'Hack', says: 'Six fast cuts in front of him. Each makes the boss bleed more.', kind: 'hack', wait: 12, r: 104, dmg: 5, n: 6, every: 0.14 },
 ];
+
+/** How a boss bleeds: the harm each stack does a second, the most stacks there can be, and the seconds after the last cut before one closes, and between each closing after. */
+export const BLEED = { dps: 1.1, most: 10, close: 2.2, each: 0.7 };
 
 export interface HunterDef {
   id: string;
@@ -231,6 +273,10 @@ export interface HunterDef {
   heavy?: BlowDef;
   /** A hand for hire: never a player's own hunter, and they take a share of the reward. */
   hired?: boolean;
+  /** How much more stagger their blows fill than their harm: a smith's hammer. */
+  staggerBy?: number;
+  /** How many times their harm their blows do to helpers and to anything that stands still on the field: a pick. */
+  wrecker?: number;
   /** What opens them: nothing, or a monster's trophy. */
   opens: string | null;
 }
@@ -249,13 +295,13 @@ export const HUNTERS: readonly HunterDef[] = [
   },
   {
     id: 'jory', name: 'Jory Pell', short: 'Jory', epithet: 'the Poacher', who: 'He has never met the thing he could not catch, given a week.',
-    way: 'Long range. Fast on his feet. 35% more damage from far away. 84 Health.',
-    hp: 84, speed: 186, armor: 0, strike: { kind: 'bolt', reach: 430, every: 1.05, dmg: 11, speed: 900, far: { beyond: 230, by: 0.35 } },
+    way: 'Long range. Fast on his feet. 35% more damage from far away. 96 Health.',
+    hp: 96, speed: 186, armor: 0, strike: { kind: 'bolt', reach: 430, every: 1.05, dmg: 11, speed: 900, far: { beyond: 230, by: 0.35 } },
     dodge: { dist: 165, dur: 0.28, wait: 1.3 }, abilities: ['jawtrap', 'tarflask'], opens: 'spade',
     // A shot, then a shot and the long reload. Held, the crossbow is cranked for a heavy bolt.
     combo: [
-      { kind: 'bolt', reach: 430, dmg: 7, wind: 0.12, recover: 0.38, speed: 900, far: { beyond: 230, by: 0.35 } },
-      { kind: 'bolt', reach: 430, dmg: 9, wind: 0.12, recover: 0.8, speed: 900, far: { beyond: 230, by: 0.35 } },
+      { kind: 'bolt', reach: 430, dmg: 8, wind: 0.12, recover: 0.38, speed: 900, far: { beyond: 230, by: 0.35 } },
+      { kind: 'bolt', reach: 430, dmg: 10, wind: 0.12, recover: 0.8, speed: 900, far: { beyond: 230, by: 0.35 } },
     ],
     heavy: { kind: 'bolt', reach: 480, dmg: 19, wind: 0.05, recover: 0.45, speed: 1100, far: { beyond: 230, by: 0.35 }, aim: 0.9 },
   },
@@ -280,6 +326,51 @@ export const HUNTERS: readonly HunterDef[] = [
       { kind: 'thrust', reach: 128, w: 32, dmg: 6, wind: 0.14, recover: 0.24 },
       { kind: 'thrust', reach: 128, w: 32, dmg: 6, wind: 0.14, recover: 0.24 },
       { kind: 'thrust', reach: 140, w: 36, dmg: 10, wind: 0.22, recover: 0.55, hounds: true },
+    ],
+  },
+  {
+    id: 'greta', name: 'Greta Hale', short: 'Greta', epithet: 'the Smith', who: 'She shod every horse at Black Pit. The foundry woke and burned her brother.',
+    way: 'Close range. Slow, huge hits that stun. Her hits fill stagger 50% more. 130 Health, takes 12% less damage.',
+    hp: 130, speed: 150, armor: 0.12, strike: { kind: 'arc', reach: 112, every: 1.1, dmg: 18, half: 44 },
+    dodge: { dist: 112, dur: 0.3, wait: 2.0 }, abilities: ['forgestrike', 'anvil'], opens: 'silk', staggerBy: 1.5,
+    // An overhead blow, then the hammer brought round and down: the second stuns what it lands on.
+    combo: [
+      { kind: 'arc', reach: 112, half: 42, dmg: 14, wind: 0.4, recover: 0.42 },
+      { kind: 'arc', reach: 122, half: 78, dmg: 23, wind: 0.58, recover: 0.78, stun: { hold: 1.4, stagger: 14 } },
+    ],
+  },
+  {
+    id: 'ned', name: 'Ned Rook', short: 'Ned', epithet: 'the Miner', who: 'He dug the cellars under Harrow. Something down there dug back.',
+    way: 'Mid range. A pick and blasting powder. His hits do triple damage to small enemies and anything that stands still. 118 Health, takes 15% less damage.',
+    hp: 118, speed: 164, armor: 0.15, strike: { kind: 'arc', reach: 128, every: 1.0, dmg: 14, half: 50 },
+    dodge: { dist: 136, dur: 0.3, wait: 1.6 }, abilities: ['keg', 'cavein'], opens: 'bellrope', wrecker: 3,
+    // A jab of the pick's point, then a swing of the whole of it.
+    combo: [
+      { kind: 'thrust', reach: 134, w: 40, dmg: 9, wind: 0.2, recover: 0.3 },
+      { kind: 'arc', reach: 126, half: 56, dmg: 15, wind: 0.3, recover: 0.56 },
+    ],
+  },
+  {
+    id: 'ida', name: 'Ida Marsh', short: 'Ida', epithet: 'the Ferrywoman', who: 'She rowed the monks to the abbey before the water took it. They still ring for her.',
+    way: 'Long reach with a ferry pole. Her jab pushes small enemies away and her sweep pulls them in. 114 Health.',
+    hp: 114, speed: 172, armor: 0.08, strike: { kind: 'arc', reach: 196, every: 1.0, dmg: 12, half: 30 },
+    dodge: { dist: 150, dur: 0.3, wait: 1.5 }, abilities: ['shove', 'wake'], opens: 'grate',
+    // A long jab that pushes, then a sweep of the pole that pulls what it catches in toward her.
+    combo: [
+      { kind: 'thrust', reach: 204, w: 30, dmg: 9, wind: 0.2, recover: 0.3, push: 70 },
+      { kind: 'arc', reach: 192, half: 46, dmg: 14, wind: 0.3, recover: 0.54, push: -90 },
+    ],
+  },
+  {
+    id: 'silas', name: 'Silas Grey', short: 'Silas', epithet: 'the Butcher', who: 'The mirror maker owed him a year of meat. He means to collect.',
+    way: 'Close range. A cleaver and a hook. Fast cuts that make the boss bleed. 108 Health.',
+    hp: 108, speed: 178, armor: 0, strike: { kind: 'arc', reach: 90, every: 0.8, dmg: 10, half: 60 },
+    dodge: { dist: 150, dur: 0.28, wait: 1.4 }, abilities: ['hook', 'hack'], opens: 'shard',
+    // Three quick chops, every one a wound; the last is the deepest.
+    combo: [
+      { kind: 'arc', reach: 90, half: 60, dmg: 5, wind: 0.1, recover: 0.18, bleed: 1 },
+      { kind: 'arc', reach: 90, half: 60, dmg: 5, wind: 0.1, recover: 0.18, bleed: 1 },
+      { kind: 'arc', reach: 96, half: 64, dmg: 8, wind: 0.16, recover: 0.44, bleed: 2 },
     ],
   },
   // Hands for hire: what fills a place in a party when the player has not unlocked enough hunters. Plainer and weaker
@@ -412,8 +503,8 @@ export type ShapeDef =
   | { kind: 'cone'; r: number; half: number; turn?: number; after?: number }
   /** A circle on the monster or on its mark. With `inner`, the middle of it is safe. */
   | { kind: 'ring'; r: number; at: 'self' | 'target'; inner?: number; after?: number }
-  /** `n` circles: scattered round the mark, anywhere on the field, or each where the hunter stands when it appears (`every` seconds apart). */
-  | { kind: 'marks'; n: number; r: number; at: 'target' | 'field' | 'follow'; spread?: number; every?: number; after?: number }
+  /** `n` circles: scattered round the mark, anywhere on the field, each where the hunter stands when it appears (`every` seconds apart), or one at each of the lair's props still standing. */
+  | { kind: 'marks'; n: number; r: number; at: 'target' | 'field' | 'follow' | 'props'; spread?: number; every?: number; after?: number }
   /** `n` strips right across the field with safe ground between them. */
   | { kind: 'lanes'; n: number; w: number; after?: number };
 
@@ -441,6 +532,12 @@ export interface AttackDef {
   party?: number;
   /** With three hunters or more, what it marks at its target it marks at a second one too. */
   split?: boolean;
+  /** Each circle it marks leaves a web where it lands: so wide, for so long, and how long it holds a hunter who walks into it. */
+  web?: { r: number; life: number; root: number };
+  /** It leaves the ground as the warning shows and comes down in its first circle, and is slow to climb back: it takes `soft` more for its whole recovery. Nothing reaches it in the air. */
+  leap?: { soft: number };
+  /** Marked at its props: it steps out of one of them, picked as the warning shows, and a reflection of it out of each of the others. */
+  swap?: boolean;
 }
 
 /** A lesser thing that fights for a monster. */
@@ -458,6 +555,16 @@ export interface HelperDef {
   most: number;
   /** True for a thing that stands and does nothing until it is broken: a contract's marker. */
   still?: boolean;
+  /** Something still that hatches: one of these every so many seconds while it stands. */
+  hatch?: { every: number; into: string };
+  /** Health it gives back to the boss each second while it lives. */
+  heals?: number;
+  /** It walks the lair in procession, round and round, and goes for nobody. */
+  walks?: boolean;
+  /** Broken, it spills water: the boss within `r` is cooled by `by` of its heat. */
+  douse?: { r: number; by: number };
+  /** Seconds after it is broken until another stands in its place. */
+  respawn?: number;
 }
 
 export const HELPERS: readonly HelperDef[] = [
@@ -467,6 +574,20 @@ export const HELPERS: readonly HelperDef[] = [
   // What a contract asks to be broken first. They stand where they are put and do nothing: a thing to go out of the way for.
   { id: 'gravemarker', name: 'a grave marker', hp: 240, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
   { id: 'totem', name: 'an antler totem', hp: 240, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
+  // The Spinner's young: quick and weak, and there are always more while a sac stands.
+  { id: 'spiderling', name: 'a spiderling', hp: 18, speed: 130, dmg: 5, reach: 34, every: 1.4, tell: 0.5, most: 4 },
+  // A sac on the cellar wall: it does nothing but hatch. Broken, it hatches nothing more.
+  { id: 'eggsac', name: 'an egg sac', hp: 50, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 5, still: true, hatch: { every: 18, into: 'spiderling' } },
+  // The Abbot's monks walk round the abbey singing, and he mends while they sing. They do not fight.
+  { id: 'monk', name: 'a drowned monk', hp: 40, speed: 46, dmg: 0, reach: 0, every: 0, tell: 0, most: 3, heals: 1.5, walks: true },
+  // Sparks off the Furnace that walk.
+  { id: 'cinder', name: 'a cinder', hp: 24, speed: 96, dmg: 7, reach: 38, every: 1.6, tell: 0.5, most: 4 },
+  // Water barrels in the foundry: broken next to the Furnace, the water cools it. Another is rolled in after a while.
+  { id: 'barrel', name: 'a water barrel', hp: 30, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true, douse: { r: 200, by: 55 }, respawn: 14 },
+  // A mirror in the hall. While it stands the Mirror King can step out of it, and leave a reflection in it.
+  { id: 'mirror', name: 'a tall mirror', hp: 80, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
+  // A reflection of the Mirror King: as tall as he is and as quick, with a small blow of its own. It breaks with its mirror.
+  { id: 'reflection', name: 'a reflection', hp: 40, speed: 80, dmg: 10, reach: 60, every: 2.0, tell: 0.7, most: 3 },
 ];
 
 export interface MonsterDef {
@@ -476,7 +597,7 @@ export interface MonsterDef {
   rumor: string;
   /** What the board says once it has been hunted. */
   known: string;
-  lair: 'churchyard' | 'wood';
+  lair: 'churchyard' | 'wood' | 'cellar' | 'abbey' | 'foundry' | 'hall';
   hp: number;
   speed: number;
   /** How much ground it takes. */
@@ -500,6 +621,15 @@ export interface MonsterDef {
   after: string | null;
   /** Where it is weakest, in a line, told on its contract once it has been hunted. */
   weak?: string;
+  /** Things of its lair that stand on the field from the start: egg sacs, barrels, mirrors. */
+  props?: { id: string; n: number };
+  /** Water lying in its lair: so many pools, so wide, and how much slower everyone in them goes. */
+  shallows?: { n: number; r: number; slow: number };
+  /**
+   * A boss that runs hot. Its heat goes up `rise` a second; at `hot` and over it takes `hotShare` of any harm, at
+   * `cool` and under `coolShare`. At 100 it vents with `burst`, and is left at `after`.
+   */
+  heat?: { rise: number; hot: number; cool: number; hotShare: number; coolShare: number; after: number; burst: AttackDef };
 }
 
 export const MONSTERS: readonly MonsterDef[] = [
@@ -560,15 +690,123 @@ export const MONSTERS: readonly MonsterDef[] = [
     trophy: { id: 'antler', name: "The King's Tine", says: 'Dodge goes 25% further and has 25% less Cooldown.' },
     pay: [50, 85, 130], after: 'sexton',
   },
+  {
+    // One idea: the ground itself is hers. Webs hold whoever walks into them, her sacs keep hatching, and she comes down
+    // from the dark where the ground is marked, and is slow and soft while she climbs back up.
+    id: 'spinner', name: 'The Spinner',
+    rumor: 'Something under the cellars of Harrow spins. The cats will not go down.',
+    known: 'Her webs hold you: walk round them. Break her egg sacs or face more young. Hit her hard after she drops.',
+    lair: 'cellar', hp: 3600, speed: 84, r: 42, stagger: { max: 240, grow: 1.25, down: 4.5, more: 2 }, gap: [0.8, 1.3], reach: 170, stones: 0,
+    props: { id: 'eggsac', n: 3 },
+    attacks: [
+      { id: 'bite', name: 'Bite', tell: 0.72, recover: 1.1, dmg: 20, near: 210, shapes: [{ kind: 'cone', r: 150, half: 50 }] },
+      // Spit that lands as webs: struck, held at once; missed, the web stays and holds whoever walks into it later.
+      { id: 'spit', name: 'Web Spit', tell: 1.0, recover: 1.2, dmg: 8, root: 1.1, web: { r: 56, life: 11, root: 0.8 }, shapes: [{ kind: 'marks', n: 3, r: 56, at: 'target', spread: 150 }] },
+      // Up into the dark, and down where the ring is: she is open and soft for a long while after.
+      { id: 'drop', name: 'Drop', tell: 1.25, recover: 2.6, dmg: 26, leap: { soft: 0.5 }, shapes: [{ kind: 'ring', r: 112, at: 'target' }] },
+      { id: 'legs', name: 'Leg Sweep', tell: 0.85, recover: 1.2, dmg: 18, near: 230, shapes: [{ kind: 'ring', r: 168, at: 'self' }] },
+      { id: 'brood', name: 'Lay Eggs', tell: 1.3, recover: 1.5, dmg: 6, summon: 'eggsac', shapes: [{ kind: 'marks', n: 2, r: 40, at: 'field' }] },
+      { id: 'widebite', name: 'Wide Bite', tell: 0.95, recover: 1.3, dmg: 18, party: 3, near: 260, shapes: [{ kind: 'cone', r: 215, half: 100 }] },
+      { id: 'webfield', name: 'Web Rain', tell: 1.3, recover: 1.5, dmg: 8, root: 1.0, mark: 2, web: { r: 60, life: 10, root: 0.8 }, shapes: [{ kind: 'marks', n: 6, r: 60, at: 'field' }] },
+      { id: 'frenzy', name: 'Frenzy', tell: 0.8, recover: 1.6, dmg: 18, mark: 3, near: 230, shapes: [{ kind: 'cone', r: 160, half: 40, turn: -45 }, { kind: 'cone', r: 160, half: 40, after: 0.25 }, { kind: 'cone', r: 160, half: 40, turn: 45, after: 0.5 }] },
+    ],
+    parts: [
+      ['bite', 'spit', 'drop', 'legs', 'widebite'],
+      ['spit', 'drop', 'bite', 'brood', 'legs', 'widebite', 'webfield'],
+      ['drop', 'webfield', 'bite', 'brood', 'frenzy', 'drop', 'legs', 'widebite'],
+    ],
+    trophy: { id: 'silk', name: "The Spinner's Silk", says: 'Roots and webs hold you half as long.' },
+    pay: [55, 95, 145], after: 'king',
+  },
+  {
+    // One idea: the bell. Its rings come with a gap of safe ground to stand in, and the monks who walk round him singing
+    // mend him while they live. The abbey is half under water, and the shallows slow everyone.
+    id: 'abbot', name: 'The Bell Abbot',
+    rumor: 'The abbey of Saint Wenna went under the lake. Its bell still rings at vespers.',
+    known: 'Between the rings of his bell is safe ground: stand in it. Kill the singing monks, they heal him. Water slows you.',
+    lair: 'abbey', hp: 3000, speed: 70, r: 46, stagger: { max: 280, grow: 1.25, down: 4.5, more: 2 }, gap: [0.9, 1.4], reach: 190, stones: 0,
+    shallows: { n: 4, r: 112, slow: 0.3 },
+    attacks: [
+      { id: 'crook', name: 'Crook Swing', tell: 0.8, recover: 1.2, dmg: 20, near: 220, shapes: [{ kind: 'cone', r: 172, half: 60 }] },
+      // A ring on him and a ring far out, at once: the band between them is where to be.
+      { id: 'toll', name: 'Bell Toll', tell: 1.25, recover: 1.3, dmg: 22, shapes: [{ kind: 'ring', r: 130, at: 'self' }, { kind: 'ring', r: 430, at: 'self', inner: 245 }] },
+      { id: 'censer', name: 'Censer', tell: 0.9, recover: 1.2, dmg: 19, shapes: [{ kind: 'line', len: 280, w: 72 }] },
+      { id: 'procession', name: 'Call the Monks', tell: 1.3, recover: 1.5, dmg: 6, summon: 'monk', shapes: [{ kind: 'marks', n: 2, r: 40, at: 'field' }] },
+      { id: 'widecrook', name: 'Wide Swing', tell: 1.0, recover: 1.4, dmg: 18, party: 3, near: 270, shapes: [{ kind: 'cone', r: 235, half: 100 }] },
+      // Two tolls, the second shown once the first has rung, with its safe band further out: step out with it.
+      { id: 'peal', name: 'Double Peal', tell: 1.25, recover: 1.5, dmg: 22, mark: 2, shapes: [{ kind: 'ring', r: 130, at: 'self' }, { kind: 'ring', r: 430, at: 'self', inner: 245 }, { kind: 'ring', r: 230, at: 'self', after: 1.2 }, { kind: 'ring', r: 480, at: 'self', inner: 360, after: 1.2 }] },
+      { id: 'drown', name: 'Holy Water', tell: 0.9, recover: 1.5, dmg: 12, shapes: [{ kind: 'marks', n: 4, r: 46, at: 'follow', every: 0.5 }] },
+      { id: 'knell', name: 'Knell', tell: 1.25, recover: 1.9, dmg: 22, mark: 3, shapes: [{ kind: 'ring', r: 130, at: 'self' }, { kind: 'ring', r: 430, at: 'self', inner: 245 }, { kind: 'ring', r: 230, at: 'self', after: 1.2 }, { kind: 'ring', r: 480, at: 'self', inner: 360, after: 1.2 }, { kind: 'ring', r: 350, at: 'self', after: 2.4 }] },
+    ],
+    parts: [
+      ['crook', 'toll', 'censer', 'crook', 'toll', 'procession', 'widecrook'],
+      ['toll', 'crook', 'censer', 'procession', 'peal', 'crook', 'censer', 'widecrook'],
+      ['peal', 'drown', 'toll', 'crook', 'procession', 'widecrook', 'censer', 'knell', 'toll'],
+    ],
+    trophy: { id: 'bellrope', name: "The Abbot's Bell Rope", says: 'Each time the boss is stunned, you heal 20% of your Health.' },
+    pay: [60, 100, 155], after: 'spinner',
+  },
+  {
+    // One idea: heat. It must be cooled to be hurt: break a water barrel next to it. Left alone it heats up until it
+    // vents, and after venting its weak place is open for a long while.
+    id: 'furnace', name: 'The Furnace',
+    rumor: 'The old foundry at Black Pit went cold ten years ago. Its chimney smokes again.',
+    known: 'Hot, it takes little damage. Break a water barrel next to it to cool it. Left alone it vents: get away, then hit it.',
+    lair: 'foundry', hp: 3400, speed: 58, r: 50, stagger: { max: 260, grow: 1.25, down: 4.5, more: 2 }, gap: [0.9, 1.4], reach: 170, stones: 0,
+    props: { id: 'barrel', n: 4 },
+    heat: {
+      rise: 2.5, hot: 60, cool: 35, hotShare: 0.45, coolShare: 1.4, after: 15,
+      burst: { id: 'overheat', name: 'Vent', tell: 1.4, recover: 3.2, dmg: 30, shapes: [{ kind: 'ring', r: 235, at: 'self' }] },
+    },
+    attacks: [
+      { id: 'press', name: 'Hammer Press', tell: 0.8, recover: 1.2, dmg: 22, near: 210, shapes: [{ kind: 'cone', r: 162, half: 55 }] },
+      // Four vents, then the four between them: stand between the spokes, then move.
+      { id: 'vent', name: 'Vents', tell: 1.0, recover: 1.3, dmg: 20, shapes: [0, 90, 180, 270].map((turn) => ({ kind: 'line' as const, len: 340, w: 60, turn })).concat([45, 135, 225, 315].map((turn) => ({ kind: 'line' as const, len: 340, w: 60, turn, after: 0.7 }))) },
+      { id: 'slag', name: 'Slag Throw', tell: 1.0, recover: 1.2, dmg: 18, shapes: [{ kind: 'marks', n: 3, r: 58, at: 'target', spread: 160 }] },
+      { id: 'cinders', name: 'Cinders', tell: 1.3, recover: 1.5, dmg: 8, summon: 'cinder', shapes: [{ kind: 'marks', n: 2, r: 44, at: 'field' }] },
+      { id: 'widepress', name: 'Wide Press', tell: 1.0, recover: 1.4, dmg: 19, party: 3, near: 270, shapes: [{ kind: 'cone', r: 232, half: 100 }] },
+      // A line of fire that turns round it: keep behind it.
+      { id: 'spokes', name: 'Turning Vent', tell: 0.95, recover: 1.6, dmg: 20, mark: 2, shapes: [0, 40, 80, 120, 160, 200].map((turn, i) => ({ kind: 'line' as const, len: 360, w: 56, turn, after: i * 0.25 })) },
+      { id: 'pour', name: 'Pour Iron', tell: 1.4, recover: 1.6, dmg: 26, shapes: [{ kind: 'lanes', n: 3, w: 92 }] },
+    ],
+    parts: [
+      ['press', 'vent', 'slag', 'cinders', 'widepress'],
+      ['vent', 'slag', 'press', 'cinders', 'spokes', 'widepress'],
+      ['spokes', 'pour', 'vent', 'cinders', 'press', 'widepress', 'slag'],
+    ],
+    trophy: { id: 'grate', name: "The Furnace's Grate", says: 'Skills have 15% less Cooldown.' },
+    pay: [65, 110, 165], after: 'abbot',
+  },
+  {
+    // One idea: he is not where he seems. He steps out of his mirrors and leaves reflections in the others, which fight
+    // too and break at a blow. The true one makes the big marks. Break the mirrors and there is nowhere left to hide.
+    id: 'mirror', name: 'The Mirror King',
+    rumor: 'The mirror maker\'s hall has been shut a year. People see themselves in its windows, waving.',
+    known: 'He steps out of his mirrors and leaves copies. Copies make small marks, he makes big ones. Break the mirrors.',
+    lair: 'hall', hp: 3500, speed: 90, r: 44, stagger: { max: 250, grow: 1.25, down: 4.5, more: 2 }, gap: [0.8, 1.2], reach: 180, stones: 0,
+    props: { id: 'mirror', n: 4 },
+    attacks: [
+      { id: 'cut', name: 'Glass Cut', tell: 0.75, recover: 1.1, dmg: 21, near: 210, shapes: [{ kind: 'cone', r: 160, half: 50 }] },
+      { id: 'shards', name: 'Shards', tell: 0.9, recover: 1.2, dmg: 17, shapes: [{ kind: 'line', len: 330, w: 46, turn: -25 }, { kind: 'line', len: 330, w: 46 }, { kind: 'line', len: 330, w: 46, turn: 25 }] },
+      // Each standing mirror bursts where it is marked; he steps out of one and a reflection out of each of the rest.
+      { id: 'step', name: 'Mirror Step', tell: 1.1, recover: 1.0, dmg: 16, swap: true, summon: 'reflection', shapes: [{ kind: 'marks', n: 0, r: 72, at: 'props' }] },
+      { id: 'lure', name: 'False Image', tell: 1.2, recover: 1.4, dmg: 8, summon: 'reflection', shapes: [{ kind: 'marks', n: 2, r: 44, at: 'target', spread: 170 }] },
+      { id: 'widecut', name: 'Wide Cut', tell: 0.95, recover: 1.3, dmg: 18, party: 3, near: 260, shapes: [{ kind: 'cone', r: 220, half: 100 }] },
+      { id: 'shatter', name: 'Shatter', tell: 1.2, recover: 1.4, dmg: 16, mark: 2, shapes: [{ kind: 'marks', n: 6, r: 56, at: 'field' }] },
+      { id: 'crown', name: 'Crown of Glass', tell: 1.0, recover: 1.6, dmg: 22, mark: 3, shapes: [{ kind: 'ring', r: 265, at: 'self', inner: 110 }] },
+    ],
+    parts: [
+      ['cut', 'shards', 'step', 'cut', 'widecut'],
+      ['step', 'shards', 'cut', 'lure', 'shatter', 'widecut'],
+      ['step', 'shards', 'lure', 'cut', 'shatter', 'widecut', 'crown'],
+    ],
+    trophy: { id: 'shard', name: 'The Mirror Shard', says: 'Your first hit after a dodge does 50% more damage.' },
+    pay: [70, 120, 180], after: 'furnace',
+  },
 ];
 
-/** Monsters that are posted on the board but cannot yet be hunted: their names are not told. */
-export const TO_COME: ReadonlyArray<{ id: string; after: string }> = [
-  { id: 'spinner', after: 'king' },
-  { id: 'abbot', after: 'king' },
-  { id: 'furnace', after: 'king' },
-  { id: 'glazier', after: 'king' },
-];
+/** Monsters that are posted on the board but cannot yet be hunted: their names are not told. Every one there is can be hunted now. */
+export const TO_COME: ReadonlyArray<{ id: string; after: string }> = [];
 
 // ------------------------------------------------------------ posted contracts
 
@@ -625,6 +863,10 @@ export interface VariantDef {
   escort?: number;
   /** Minions that keep coming: so many, every so many seconds, each where a mark shows first. */
   waves?: { every: number; n: number };
+  /** So many more of its lair's props. */
+  props?: number;
+  /** How much faster it heats up. */
+  heat?: number;
 }
 
 export const VARIANTS: readonly VariantDef[] = [
@@ -636,13 +878,18 @@ export const VARIANTS: readonly VariantDef[] = [
   { id: 'blighted', name: 'Blighted', says: 'Leaves rot where it walks. The marked ground bursts.', kind: 'boss', danger: 1, blight: { every: 1.3, r: 60, tell: 1.1, dmg: 13 } },
   { id: 'restless', name: 'Restless Dead', says: 'Opens graves twice as often.', kind: 'boss', only: 'sexton', danger: 1, more: { attack: 'graves', every: 2 } },
   { id: 'stampede', name: 'Stampede', says: 'Charges twice in a row. A crash stops the second.', kind: 'boss', only: 'king', mark: 2, danger: 2, again: 'charge' },
+  { id: 'brood', name: 'Brood Mother', says: 'Two more egg sacs in the cellar.', kind: 'boss', only: 'spinner', danger: 1, props: 2 },
+  { id: 'choir', name: 'Full Choir', says: 'Calls the monks twice as often.', kind: 'boss', only: 'abbot', danger: 1, more: { attack: 'procession', every: 2 } },
+  { id: 'stoked', name: 'Stoked', says: 'Heats up 50% faster.', kind: 'boss', only: 'furnace', danger: 1, heat: 1.5 },
+  { id: 'gallery', name: 'Gallery', says: 'Two more mirrors in the hall.', kind: 'boss', only: 'mirror', danger: 1, props: 2 },
   { id: 'escort', name: 'Escort', says: '3 minions with it, and 3 more at each new phase.', kind: 'minions', danger: 1, escort: 3, not: ['waves'] },
   { id: 'waves', name: 'Endless Minions', says: '2 more minions every 28 seconds.', kind: 'minions', danger: 1, waves: { every: 28, n: 2 }, not: ['escort'] },
 ];
 
 /** Who fights for each boss when a contract brings minions, and what a contract asks to be broken first. */
-export const MINION: Record<string, string> = { sexton: 'risen', king: 'herd' };
-export const MARKER: Record<string, string> = { sexton: 'gravemarker', king: 'totem' };
+export const MINION: Record<string, string> = { sexton: 'risen', king: 'herd', spinner: 'spiderling', abbot: 'monk', furnace: 'cinder', mirror: 'reflection' };
+/** The Furnace has none: what stands in the foundry is its barrels, and they are for breaking anyway. */
+export const MARKER: Record<string, string> = { sexton: 'gravemarker', king: 'totem', spinner: 'eggsac', abbot: 'gravemarker', mirror: 'mirror' };
 
 export type TaskKind = 'swift' | 'careful' | 'breaks' | 'nobuild' | 'markers' | 'villagers' | 'cart' | 'together';
 
@@ -682,7 +929,10 @@ export const CART: BuildingDef = { id: 'cart', name: 'The Cart', says: 'Keep it 
 export const CART_ROAD = { speed: 24, ahead: 46 };
 
 /** Where each boss is hunted, as a poster says it. */
-export const WHERE: Record<string, string> = { sexton: "Saint Odran's churchyard", king: 'The winter wood' };
+export const WHERE: Record<string, string> = {
+  sexton: "Saint Odran's churchyard", king: 'The winter wood', spinner: 'The cellars under Harrow', abbot: 'The drowned abbey of Saint Wenna',
+  furnace: 'The old foundry at Black Pit', mirror: "The mirror maker's hall",
+};
 
 /** Who puts a contract up. */
 export const POSTED_BY: readonly string[] = [
@@ -724,6 +974,62 @@ export const WHY: Record<string, readonly string[]> = {
     'We left him bread at the edge of the wood. He left us a crown of bones.',
     'The charcoal burners say he stood and watched them all night.',
     'He walked through the village at dawn. Nobody has fixed the walls since.',
+  ],
+  spinner: [
+    'The wine in our cellar is wrapped up tight. So is the cellarman.',
+    'Something taps on the floorboards from below. Eight taps.',
+    'Our cat went down after a rat. The rat came back up.',
+    'The cellars under Harrow join up now. They never used to.',
+    'There are eggs in the potato store. They are not potatoes.',
+    'My husband went down for a cheese. Bring the cheese if you can.',
+    'Silk on every stair. The children think it is snow.',
+    'She took the well bucket, the rope, and the boy holding it.',
+    'Nobody goes down after dark. It is always dark down there.',
+    'The tavern cellar is hers now. We are out of ale.',
+    'We hear her spinning all night. It sounds like a loom.',
+    'The rats have all gone. That is not good news.',
+  ],
+  abbot: [
+    'The bell rings under the lake at vespers. We drowned it on purpose.',
+    'Monks walk out of the water in a line. They never get wet.',
+    'The ferry will not cross. The bell calls it back.',
+    'Our nets come up with prayer books in them.',
+    'He blessed the lake. Now nothing lives in it.',
+    'The abbey roof is above the water again. It was not last year.',
+    'He wants his tithe. We do not know what in.',
+    'Our priest went to the shore to pray. He is still there. Singing.',
+    'The bell is louder every night.',
+    'Three fishermen joined the choir. They could not sing before.',
+    'He took the candles from our church. All of them.',
+    'Every bell in the valley rings when his does.',
+  ],
+  furnace: [
+    'The foundry went cold ten years ago. It is warm again.',
+    'Its chimney smokes, and nobody has been in to light it.',
+    'It ate the coal store. Then the coal man.',
+    'Sparks come over the wall and walk about.',
+    'The river runs hot past the foundry. The fish come out cooked.',
+    'We hear the hammers going all night. There is nobody to swing them.',
+    'Our smith went in to put it out. Bring his apron back.',
+    'It wants iron. It has had all our gates.',
+    'The snow does not settle on the Black Pit road.',
+    'It breathes. We can see the walls move.',
+    'Every pot in the village has a crack in it now.',
+    'The night shift at the pit came out with their boots melted.',
+  ],
+  mirror: [
+    'I saw myself in his window. I waved. I was not waving.',
+    'There are two of my daughter now. One of them is wrong.',
+    'He made our mirrors. Cover yours.',
+    'The mirror maker died a year ago. His shop is open.',
+    'My reflection is late. It catches up.',
+    'Every window on Glass Street shows the same face.',
+    'He owes the butcher for a year of meat. The butcher has asked.',
+    'Things come out of the mirrors at night and stand in the road.',
+    'He sold Lord Vesey a looking glass. There are two Lord Veseys.',
+    'The lake shows his hall upside down. With lights on.',
+    'We broke our mirrors. The pieces still watch.',
+    'Something in the hall wears a crown made of glass.',
   ],
 };
 

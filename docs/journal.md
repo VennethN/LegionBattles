@@ -2,6 +2,59 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## Four more hunters and four more bosses
+
+The owner: "Add more hunters as well / and bosses".
+
+**Built** (the rules in `src/game`, with tests in `tests/bosses.test.ts`):
+
+- **Four hunters**, each a way of fighting the first four do not have. **Greta Hale**, the Smith: a forge hammer, slow huge blows; her blows fill stagger half as much again as their harm and her second stuns small things; *Forge Strike* (the boss burns and its armor cracks, so everything fills more stagger) and *Anvil* (shown where it will fall, holds what is under it, and stays as a stone that stops a charge). **Ned Rook**, the Miner: a pick that does three times its harm to small things and to anything that stands still; *Powder Keg* (thrown, shown with its fuse, and a hunter left in it is hurt too) and *Cave-in* (rocks along a strip a second after it is shown). **Ida Marsh**, the Ferrywoman: the longest reach, a jab that pushes and a sweep that pulls small things to pole length; *Shove* (throws small things back, and timed as the boss winds up, puts it off its blow) and *Lantern Wake* (light left behind her: hunters faster in it, enemies slower). **Silas Grey**, the Butcher: fast cuts that make the boss bleed more with every one; *Hook* (drags a small thing to him, or him to the boss) and *Hack* (six cuts where he stands).
+- **Four bosses**, each one idea, posted one after another after the King: **the Spinner** (webs that hold whoever walks into them, egg sacs that hatch until broken, and she drops out of the dark where the ground is marked and is soft while she climbs back), **the Bell Abbot** (the bell rings with a band of safe ground between its rings, monks walk round singing and mend him, and shallows slow everyone), **the Furnace** (it must be cooled to be hurt: a water barrel broken next to it; left alone it vents, and is then open and cool), **the Mirror King** (he steps out of one mirror and leaves a reflection in each of the others; the true one makes the big marks; a mirror broken takes its reflection with it). Three difficulties each, a variant each (Brood Mother, Full Choir, Stoked, Gallery), a dozen reasons on the board each, their minions for Escort and Endless Minions, markers for three of them.
+- **Trophies**: the Spinner's Silk opens Greta, the Abbot's Bell Rope Ned, the Furnace's Grate Ida, the Mirror Shard Silas. Each does a little for whoever wears it (design.md says what).
+- **Lines**: about sixty for each new hunter, and wake, change, last, big, reel and die for each boss (the Spinner and the Furnace are heard, not spoken); the first four hunters have a line for coming into each new lair.
+- **Nothing hurts without a tell** still: every new attack is a shape on the ground; what a hunter's own skill does to the party (a keg) is shown the same way. The test that plays every monster and every variant takes the four new ones in.
+- **The bot** walks round webs, keeps out of its own kegs, does not roll through a band of safe ground narrower than its roll, breaks sacs and mirrors when the boss is not open (a bow leaves those to blades), cuts down singing monks, and waits by a barrel for the Furnace to come to it when it is hot. A bow stands further off from the later four, and shoots first what has come close and is too quick to walk away from.
+- **Tuned on the way**: Jory has 96 Health (was 84) and his bolts do 8 and 10 (were 7 and 9): he lost to every new boss before. The monks mend far less than at first (7 a second each, then 1.5), and the Abbot has 3000 Health; the Furnace 3400, more barrels; fewer spiderlings and cinders; the Abbot's second toll is shown once the first has rung.
+
+**The drawn figures** came from the art agent (game-assets 43895be) and are in: `src/grim` copied from the kit, the four grounds written by the game's art build, the new figures, moves, stills and helpers named in `pictures.ts`, each blow of the new chains shown by its own move, the Spinner hanging by her thread while she is in the air, the Furnace's water shown only while it is cooled, reflections a little see-through, webs, shallows, a lantern's light, an anvil and a keg drawn on the field at the rules' size, a broken sac, barrel or mirror left where it stood, and the new skill and trophy icons in the interface. The bosses' posters are not written into the build until a screen shows them.
+
+**Measured**: `npm run pace`, ten hunts each, every hunter against every boss.
+
+Difficulty 1, hunts won and how long a won hunt took:
+
+| Boss | Marta | Jory | Agnes | Brask | Greta | Ned | Ida | Silas |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| The Gravedigger | 100%, 2:34 | 80%, 4:14 | 100%, 2:29 | 100%, 2:36 | 100%, 2:21 | 100%, 2:29 | 100%, 2:49 | 100%, 1:59 |
+| The Antlered King | 100%, 3:41 | 100%, 4:35 | 90%, 6:00 | 100%, 4:08 | 100%, 2:45 | 50%, 4:48 | 80%, 5:54 | 100%, 2:41 |
+| The Spinner | 100%, 2:42 | 80%, 6:44 | 100%, 3:54 | 100%, 2:44 | 100%, 2:32 | 100%, 2:11 | 90%, 4:03 | 100%, 2:09 |
+| The Bell Abbot | 100%, 3:46 | 80%, 7:14 | 100%, 4:42 | 100%, 3:21 | 100%, 3:13 | 100%, 3:29 | 100%, 5:30 | 100%, 2:19 |
+| The Furnace | 90%, 2:37 | 70%, 6:08 | 100%, 2:03 | 100%, 2:04 | 100%, 2:14 | 100%, 2:14 | 100%, 2:24 | 100%, 1:49 |
+| The Mirror King | 100%, 2:53 | 70%, 7:31 | 100%, 3:19 | 100%, 2:53 | 80%, 2:51 | 100%, 3:10 | 100%, 3:34 | 100%, 2:26 |
+
+Difficulty 2, hunts won and how long a won hunt took:
+
+| Boss | Marta | Jory | Agnes | Brask | Greta | Ned | Ida | Silas |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| The Gravedigger | 90%, 3:09 | 20%, 4:22 | 70%, 2:58 | 40%, 3:17 | 80%, 2:50 | 90%, 2:51 | 60%, 3:20 | 90%, 2:25 |
+| The Antlered King | 80%, 4:16 | 90%, 5:43 | 60%, 7:04 | 90%, 4:36 | 60%, 3:21 | 50%, 5:25 | 60%, 6:50 | 80%, 3:06 |
+| The Spinner | 100%, 3:09 | 30%, 8:04 | 60%, 4:07 | 100%, 3:55 | 80%, 2:58 | 100%, 2:43 | 50%, 4:47 | 80%, 2:47 |
+| The Bell Abbot | 100%, 4:38 | 0% | 80%, 5:59 | 100%, 4:18 | 100%, 3:42 | 100%, 3:54 | 80%, 6:49 | 100%, 2:58 |
+| The Furnace | 100%, 3:22 | 20%, 7:22 | 100%, 2:28 | 100%, 2:33 | 100%, 2:36 | 100%, 2:46 | 80%, 2:47 | 100%, 2:11 |
+| The Mirror King | 100%, 3:27 | 40%, 7:53 | 90%, 3:57 | 100%, 3:47 | 70%, 3:01 | 100%, 3:50 | 100%, 4:06 | 90%, 2:56 |
+
+Over all six bosses, difficulty 1 and 2: Marta 98% and 95%, Jory 80% and 33%, Agnes 98% and 77%, Brask 100% and 88%, Greta 97% and 82%, Ned 92% and 90%, Ida 95% and 72%, Silas 100% and 90%.
+
+What it says: at difficulty 1 every one of the eight beats every boss most of the time, but Ned against the King (half: the charge catches him), and none wins twice as often as another. At difficulty 2 Jory is the one left behind (a third, against nine in ten for the best): a bow is chased by the later bosses' young and marks, and his hunts there take seven minutes or more, into the boss's impatience. The Silk, the Bell Rope, the Grate and the Shard were not worn in these hunts. Two measures with other dice differ by fifteen points or so, so only bigger differences mean anything.
+
+**Not looked at**:
+
+- Nobody has played any of the eight. They were seen in pictures of the lair a few seconds after the boss wakes, and in pictures of each attack's warning, taken by the walk at the small frame only, not on a phone.
+- The Furnace's heat is not on the screen: no bar says how hot it is, and nothing but the size of the numbers says it is hot. Its water shows while it is cooled.
+- The new lairs have their grounds but no dressing set out round them (the kit drew casks, pillars, flats and more: `DRESSING` in the lair has no entry for them yet), and no music of their own (they borrow the Gravedigger's).
+- The inn has no place for the four new hunters, and the contract screen does not show the posters (the screens agent's).
+- How a web, an anvil, a keg on its fuse, a lantern's light and a broken prop look at speed; the Spinner's thread; the reflections' see-through look beside the true King.
+- The bot is the only player of them. Jory is the weakest of the eight against the later four; a person who uses his trap and tar as the bot does not may do better.
+
 ## The effects, and the warnings as marked ground
 
 The owner asked to "improve the vfx of boss hunters so its more engaging", and then, of the warnings: "Also please update the markings (its just a plain circle)".

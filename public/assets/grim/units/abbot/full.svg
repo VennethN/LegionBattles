@@ -1,0 +1,321 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="abbot" width="1100" height="1100" viewBox="-190 -190 1100 1100">
+<g id="abbot-shadow-layer" transform="translate(360 690) rotate(0) scale(1 1) translate(-360 -690)">
+<path id="abbot-shadow-blot" d="M 140 693 L 204.4 675 L 324 670.9 L 480.4 675 L 600 688.6 L 563.2 707.3 L 416 713.1 L 232 709 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="abbot-censer-arm-layer" transform="translate(300 300) rotate(0) scale(1 1) translate(-300 -300)">
+<defs>
+<path id="abbot-censer-arm-arm-upper-shape" d="M 323.9 308.3 L 311.9 355.8 L 281.6 416.8 L 242.4 403.2 L 260.5 338.1 L 276.1 291.7 Z"/>
+<clipPath id="abbot-censer-arm-arm-upper-clip"><use href="#abbot-censer-arm-arm-upper-shape"/></clipPath>
+<path id="abbot-censer-arm-arm-fore-shape" d="M 283.3 405.3 L 293.6 442.6 L 298.2 496.4 L 265.8 503.6 L 250.3 452.3 L 240.7 414.7 Z"/>
+<clipPath id="abbot-censer-arm-arm-fore-clip"><use href="#abbot-censer-arm-arm-fore-shape"/></clipPath>
+<path id="abbot-censer-arm-arm-fist-shape" d="M 301.2 455.2 L 321.5 495.3 L 322.8 516 L 308.3 527.4 L 307.5 538.1 L 288.4 543.2 L 281.8 535.7 L 264.8 542.7 L 247.6 523.9 L 241.2 480.7 L 264 462.7 Z"/>
+<clipPath id="abbot-censer-arm-arm-fist-clip"><use href="#abbot-censer-arm-arm-fist-shape"/></clipPath>
+</defs>
+<g id="abbot-censer-arm-arm-upper">
+<use id="abbot-censer-arm-arm-upper-line" href="#abbot-censer-arm-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-arm-arm-upper-clip)">
+<use id="abbot-censer-arm-arm-upper-lit" href="#abbot-censer-arm-arm-upper-shape" fill="#4f4944"/>
+<path id="abbot-censer-arm-arm-upper-mid" d="M 307.9 299.5 L 287.8 357.7 L 283.1 360.2 L 264.6 414.1 L 214.1 396.6 L 254 280.9 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="abbot-censer-arm-arm-upper-dark" d="M 307.9 299.5 L 287.8 357.7 L 283.1 360.2 L 264.6 414.1 L 214.1 396.6 L 254 280.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-censer-arm-arm-fore">
+<use id="abbot-censer-arm-arm-fore-line" href="#abbot-censer-arm-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-arm-arm-fore-clip)">
+<use id="abbot-censer-arm-arm-fore-lit" href="#abbot-censer-arm-arm-fore-shape" fill="#4f4944"/>
+<path id="abbot-censer-arm-arm-fore-mid" d="M 267.7 405.7 L 275.5 440.8 L 272.7 445.7 L 285.3 502.3 L 242.2 511.9 L 220.9 416.1 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="abbot-censer-arm-arm-fore-dark" d="M 267.7 405.7 L 275.5 440.8 L 272.7 445.7 L 285.3 502.3 L 242.2 511.9 L 220.9 416.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-censer-arm-arm-fold" d="M 248.3 430.1 L 269.4 404.5 L 238.9 417.5 Z" fill="#14110f"/>
+<g id="abbot-censer-arm-arm-fist">
+<use id="abbot-censer-arm-arm-fist-line" href="#abbot-censer-arm-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-arm-arm-fist-clip)">
+<use id="abbot-censer-arm-arm-fist-lit" href="#abbot-censer-arm-arm-fist-shape" fill="#9aa48c"/>
+<path id="abbot-censer-arm-arm-fist-mid" d="M 258.4 448.5 L 277.8 557.7 L 239.9 566.1 L 215.9 457.9 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="abbot-censer-arm-arm-fist-dark" d="M 258.4 448.5 L 277.8 557.7 L 239.9 566.1 L 215.9 457.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-censer-arm-arm-fist-fingers" d="M 311.2 527.7 L 297.6 504.6 L 303.1 530.8 Z M 288.7 535.7 L 277.9 510.6 L 280.3 537.8 Z" fill="#14110f"/>
+</g>
+<g id="abbot-censer-layer" transform="translate(282 506) rotate(0) scale(1 1) translate(-282 -506)">
+<defs>
+<path id="abbot-censer-censer-lid-shape" d="M 262 596 L 276 580 L 294 580 L 306 596 Z"/>
+<clipPath id="abbot-censer-censer-lid-clip"><use href="#abbot-censer-censer-lid-shape"/></clipPath>
+<path id="abbot-censer-censer-pot-shape" d="M 256 598 L 312 598 L 306 630 L 290 644 L 276 644 L 260 630 Z"/>
+<clipPath id="abbot-censer-censer-pot-clip"><use href="#abbot-censer-censer-pot-shape"/></clipPath>
+</defs>
+<path id="abbot-censer-censer-chain" d="M 282 506 L 284 586" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="abbot-censer-censer-chain-links" d="M 279 506.7 L 283.8 513.2 L 281.8 505.4 Z M 282.3 512.6 L 280.8 520.6 L 285.3 513.8 Z M 279.3 521.3 L 284.1 527.8 L 282.2 519.9 Z M 282.7 527.2 L 281.1 535.1 L 285.6 528.4 Z M 279.7 535.8 L 284.5 542.3 L 282.6 534.5 Z M 283 541.7 L 281.5 549.7 L 286 542.9 Z M 280 550.4 L 284.9 556.9 L 282.9 549 Z M 283.4 556.3 L 281.9 564.2 L 286.4 557.5 Z M 280.4 564.9 L 285.2 571.4 L 283.3 563.5 Z M 283.8 570.8 L 282.2 578.8 L 286.7 572 Z M 280.8 579.4 L 285.6 586 L 283.7 578.1 Z" fill="#14110f"/>
+<g id="abbot-censer-censer-lid">
+<use id="abbot-censer-censer-lid-line" href="#abbot-censer-censer-lid-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-censer-lid-clip)">
+<use id="abbot-censer-censer-lid-lit" href="#abbot-censer-censer-lid-shape" fill="#9a5b38"/>
+<path id="abbot-censer-censer-lid-mid" d="M 250 576 L 276.4 576 L 282.8 600 L 250 600 Z" transform="translate(2 -0.48)" fill="#6a3b24"/>
+<path id="abbot-censer-censer-lid-dark" d="M 250 576 L 276.4 576 L 282.8 600 L 250 600 Z" fill="#14110f"/>
+<path id="abbot-censer-lid-green" d="M 280 584 L 294 584 L 300 594 L 284 594 Z" fill="#727646" opacity="0.8"/>
+</g>
+</g>
+<g id="abbot-censer-censer-pot">
+<use id="abbot-censer-censer-pot-line" href="#abbot-censer-censer-pot-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-censer-pot-clip)">
+<use id="abbot-censer-censer-pot-lit" href="#abbot-censer-censer-pot-shape" fill="#9a5b38"/>
+<use id="abbot-censer-censer-pot-rim" href="#abbot-censer-censer-pot-shape" fill="#f4d294" opacity="0.55"/>
+<use id="abbot-censer-censer-pot-lit-over" href="#abbot-censer-censer-pot-shape" transform="translate(-1.28 0.96)" fill="#9a5b38"/>
+<path id="abbot-censer-censer-pot-mid" d="M 244 594 L 275.6 592.8 L 282.6 613.4 L 277.7 622.4 L 286.8 649.2 L 244 648 Z" transform="translate(3 -0.72)" fill="#6a3b24"/>
+<path id="abbot-censer-censer-pot-dark" d="M 244 594 L 275.6 592.8 L 282.6 613.4 L 277.7 622.4 L 286.8 649.2 L 244 648 Z" fill="#14110f"/>
+<path id="abbot-censer-pot-green" d="M 262 606 L 284 604 L 280 630 L 266 626 Z" fill="#4b4f2f"/>
+<path id="abbot-censer-holes" d="M 288 610 L 294 610 L 294 618 L 288 618 Z" fill="#14110f"/>
+<path id="abbot-censer-ember" d="M 296 612 L 302 612 L 301 620 L 296 620 Z" fill="#c27a26"/>
+</g>
+</g>
+<path id="abbot-censer-smoke-a" d="M 300 590 L 326 566 L 344 576 L 338 548 L 360 530 L 364 560 L 340 590 Z" fill="#5f7480" opacity="0.6"/>
+<path id="abbot-censer-smoke-b" d="M 252 600 L 230 580 L 240 560 L 222 540 L 248 548 L 262 590 Z" fill="#5f7480" opacity="0.45"/>
+</g>
+<g id="abbot-leg-back-layer" transform="translate(320 560) rotate(0) scale(1 1) translate(-320 -560)">
+<defs>
+<path id="abbot-leg-back-foot-shape" d="M 260 664 L 320 656 L 350 674 L 346 692 L 256 692 Z"/>
+<clipPath id="abbot-leg-back-foot-clip"><use href="#abbot-leg-back-foot-shape"/></clipPath>
+</defs>
+<g id="abbot-leg-back-foot">
+<use id="abbot-leg-back-foot-line" href="#abbot-leg-back-foot-shape" transform="translate(-2.48 1.86)" fill="#14110f" stroke="#14110f" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-leg-back-foot-clip)">
+<use id="abbot-leg-back-foot-lit" href="#abbot-leg-back-foot-shape" fill="#9aa48c"/>
+<path id="abbot-leg-back-foot-mid" d="M 244 652 L 308 651.1 L 316.2 676.4 L 312.4 683.5 L 316.8 696.9 L 244 696 Z" transform="translate(4 -0.96)" fill="#6b7562"/>
+<path id="abbot-leg-back-foot-dark" d="M 244 652 L 308 651.1 L 316.2 676.4 L 312.4 683.5 L 316.8 696.9 L 244 696 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="abbot-leg-front-layer" transform="translate(400 560) rotate(0) scale(1 1) translate(-400 -560)">
+<defs>
+<path id="abbot-leg-front-foot-shape" d="M 390 660 L 450 652 L 492 672 L 490 692 L 386 692 Z"/>
+<clipPath id="abbot-leg-front-foot-clip"><use href="#abbot-leg-front-foot-shape"/></clipPath>
+</defs>
+<g id="abbot-leg-front-foot">
+<use id="abbot-leg-front-foot-line" href="#abbot-leg-front-foot-shape" transform="translate(-2.48 1.86)" fill="#14110f" stroke="#14110f" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-leg-front-foot-clip)">
+<use id="abbot-leg-front-foot-lit" href="#abbot-leg-front-foot-shape" fill="#9aa48c"/>
+<path id="abbot-leg-front-foot-mid" d="M 374 648 L 425.2 647.1 L 434.4 674.7 L 431 682.3 L 435.8 696.9 L 374 696 Z" transform="translate(4 -0.96)" fill="#6b7562"/>
+<path id="abbot-leg-front-foot-dark" d="M 374 648 L 425.2 647.1 L 434.4 674.7 L 431 682.3 L 435.8 696.9 L 374 696 Z" fill="#14110f"/>
+<path id="abbot-leg-front-toes" d="M 467 664.1 L 470 680 L 469 663.9 Z M 479 668.1 L 482 684 L 481 667.9 Z" fill="#6b7562"/>
+</g>
+</g>
+</g>
+<g id="abbot-body-layer" transform="translate(360 560) rotate(0) scale(1 1) translate(-360 -560)">
+<defs>
+<path id="abbot-body-habit-shape" d="M 260 250 L 330 210 L 420 214 L 470 260 L 496 380 L 520 520 L 540 640 L 216.8 649.5 L 229.9 628.2 L 221.3 649.4 L 241 648.8 L 250.2 638.6 L 249.1 648.6 L 266.6 648 L 276.9 635.7 L 274.7 647.8 L 292.4 647.3 L 301.3 637.8 L 300.7 647 L 317.7 646.5 L 326.9 633.6 L 323 646.4 L 343.4 645.8 L 355.2 629.8 L 350.7 645.6 L 371.2 645 L 386.1 622.8 L 378.4 644.8 L 396.8 644.2 L 404.7 635.8 L 404.1 644 L 423.8 643.4 L 437.4 623.4 L 430.7 643.2 L 449.2 642.7 L 456.4 634.6 L 455.4 642.5 L 504.7 641 L 512.7 631.3 L 510.7 640.9 L 531.2 640.3 L 541.5 625.6 L 536.8 640.1 L 200 650 L 214 520 L 236 380 Z"/>
+<clipPath id="abbot-body-habit-clip"><use href="#abbot-body-habit-shape"/></clipPath>
+<path id="abbot-body-girdle-shape" d="M 230 420 L 500 400 L 504 420 L 234 444 Z"/>
+<clipPath id="abbot-body-girdle-clip"><use href="#abbot-body-girdle-shape"/></clipPath>
+<path id="abbot-body-girdle-end-shape" d="M 476 419.3 L 495 599.4 L 485 600.6 L 464 420.7 Z"/>
+<clipPath id="abbot-body-girdle-end-clip"><use href="#abbot-body-girdle-end-shape"/></clipPath>
+<path id="abbot-body-knot-0-shape" d="M 472 470 L 490 466 L 494 480 L 476 484 Z"/>
+<clipPath id="abbot-body-knot-0-clip"><use href="#abbot-body-knot-0-shape"/></clipPath>
+<path id="abbot-body-knot-1-shape" d="M 472 510 L 490 506 L 494 520 L 476 524 Z"/>
+<clipPath id="abbot-body-knot-1-clip"><use href="#abbot-body-knot-1-shape"/></clipPath>
+<path id="abbot-body-knot-2-shape" d="M 472 550 L 490 546 L 494 560 L 476 564 Z"/>
+<clipPath id="abbot-body-knot-2-clip"><use href="#abbot-body-knot-2-shape"/></clipPath>
+</defs>
+<g id="abbot-body-habit">
+<use id="abbot-body-habit-line" href="#abbot-body-habit-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-body-habit-clip)">
+<use id="abbot-body-habit-lit" href="#abbot-body-habit-shape" fill="#4f4944"/>
+<path id="abbot-body-habit-mid" d="M 160 200 L 330 200 L 350.9 213.5 L 361.6 451.2 L 340.8 476.2 L 349.1 660.5 L 160 670 Z" transform="translate(12 -2.88)" fill="#34302d"/>
+<path id="abbot-body-habit-dark" d="M 160 200 L 330 200 L 350.9 213.5 L 361.6 451.2 L 340.8 476.2 L 349.1 660.5 L 160 670 Z" fill="#14110f"/>
+<path id="abbot-body-habit-folds" d="M 417 280.5 L 440 400 L 423 279.5 Z M 447 420.5 L 480 600 L 453 419.5 Z M 397 460.2 L 410 620 L 403 459.8 Z M 477 300.5 L 500 420 L 483 299.5 Z" fill="#34302d"/>
+<path id="abbot-body-tide-line" d="M 220.1 541.5 L 520 520 L 219.9 538.5 Z" fill="#34302d"/>
+<path id="abbot-body-weed-a" d="M 430 300 L 456 296 L 470 380 L 452 420 L 446 360 Z" fill="#4b4f2f"/>
+<path id="abbot-body-weed-b" d="M 470 480 L 494 476 L 510 560 L 500 600 L 488 540 Z" fill="#4b4f2f"/>
+<path id="abbot-body-barnacles" d="M 441.3 561.3 L 446 554 L 438.7 558.7 Z M 453 571.5 L 458 566 L 451 568.5 Z M 437.3 585.3 L 442 578 L 434.7 582.7 Z M 465 585.5 L 470 580 L 463 582.5 Z" fill="#cfc5a8"/>
+<path id="abbot-body-habit-cold" d="M 160 170 L 581.47 170 L 581.47 690 L 160 690 Z M 263.8 247.1 L 333.8 207.1 L 423.8 211.1 L 473.8 257.1 L 499.8 377.1 L 523.8 517.1 L 543.8 637.1 L 220.6 646.6 L 233.8 625.3 L 225.1 646.5 L 244.8 645.9 L 254 635.8 L 253 645.7 L 270.5 645.2 L 280.8 632.8 L 278.5 644.9 L 296.2 644.4 L 305.2 634.9 L 304.5 644.2 L 321.5 643.7 L 330.8 630.7 L 326.9 643.5 L 347.3 642.9 L 359 627 L 354.6 642.7 L 375.1 642.1 L 389.9 620 L 382.3 641.9 L 400.6 641.3 L 408.5 633 L 408 641.1 L 427.6 640.5 L 441.3 620.5 L 434.5 640.3 L 453 639.8 L 460.3 631.7 L 459.3 639.6 L 508.5 638.2 L 516.5 628.4 L 514.5 638 L 535 637.4 L 545.3 622.7 L 540.6 637.2 L 203.8 647.1 L 217.8 517.1 L 239.8 377.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="abbot-body-habit-open-0" d="M 476 280 L 478.32 278.26 L 496.32 368.26 L 494 370 Z" fill="#4f4944"/>
+</g>
+<g id="abbot-body-girdle">
+<use id="abbot-body-girdle-line" href="#abbot-body-girdle-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-body-girdle-clip)">
+<use id="abbot-body-girdle-lit" href="#abbot-body-girdle-shape" fill="#c7ad84"/>
+<path id="abbot-body-girdle-mid" d="M 218 396 L 334.2 394.9 L 344.3 424.9 L 339.7 433.5 L 345 449.1 L 218 448 Z" transform="translate(3 -0.72)" fill="#927a58"/>
+<path id="abbot-body-girdle-dark" d="M 218 396 L 334.2 394.9 L 344.3 424.9 L 339.7 433.5 L 345 449.1 L 218 448 Z" fill="#14110f"/>
+<path id="abbot-body-girdle-twist" d="M 239.9 424.7 L 257.7 438.6 L 241.2 423.2 Z M 258.2 423.3 L 276 437.2 L 259.5 421.7 Z M 276.5 421.8 L 294.3 435.8 L 277.8 420.3 Z M 294.8 420.4 L 312.6 434.4 L 296.1 418.9 Z M 313 419 L 330.9 432.9 L 314.3 417.5 Z M 331.3 417.6 L 349.2 431.5 L 332.6 416 Z M 349.6 416.1 L 367.5 430.1 L 350.9 414.6 Z M 367.9 414.7 L 385.7 428.6 L 369.2 413.2 Z M 386.2 413.3 L 404 427.2 L 387.5 411.7 Z M 404.5 411.8 L 422.3 425.8 L 405.8 410.3 Z M 422.8 410.4 L 440.6 424.4 L 424.1 408.9 Z M 441 409 L 458.9 422.9 L 442.3 407.5 Z M 459.3 407.6 L 477.2 421.5 L 460.6 406 Z M 477.6 406.1 L 495.5 420.1 L 478.9 404.6 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="abbot-body-girdle-end">
+<use id="abbot-body-girdle-end-line" href="#abbot-body-girdle-end-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-body-girdle-end-clip)">
+<use id="abbot-body-girdle-end-lit" href="#abbot-body-girdle-end-shape" fill="#c7ad84"/>
+<path id="abbot-body-girdle-end-dark" d="M 471.9 416.8 L 479.7 487 L 477.8 489.6 L 490.4 603 L 479.6 604.2 L 458.9 418.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-body-knot-0">
+<use id="abbot-body-knot-0-line" href="#abbot-body-knot-0-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-body-knot-0-clip)">
+<use id="abbot-body-knot-0-lit" href="#abbot-body-knot-0-shape" fill="#c7ad84"/>
+<path id="abbot-body-knot-0-dark" d="M 460 462 L 478.9 461.5 L 481.6 471.3 L 479.1 475.4 L 482.7 488.5 L 460 488 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-body-knot-1">
+<use id="abbot-body-knot-1-line" href="#abbot-body-knot-1-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-body-knot-1-clip)">
+<use id="abbot-body-knot-1-lit" href="#abbot-body-knot-1-shape" fill="#c7ad84"/>
+<path id="abbot-body-knot-1-dark" d="M 460 502 L 478.5 501.6 L 481.3 511.7 L 479.5 515.3 L 483.1 528.4 L 460 528 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-body-knot-2">
+<use id="abbot-body-knot-2-line" href="#abbot-body-knot-2-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-body-knot-2-clip)">
+<use id="abbot-body-knot-2-lit" href="#abbot-body-knot-2-shape" fill="#c7ad84"/>
+<path id="abbot-body-knot-2-dark" d="M 460 542 L 478.8 541.6 L 482.1 553.5 L 479.8 557.5 L 482.8 568.4 L 460 568 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-body-drips" d="M 228.5 599.9 L 228 636 L 231.5 600.1 Z M 298.5 609.9 L 298 650 L 301.5 610.1 Z M 514.5 600.1 L 520 640 L 517.5 599.9 Z" fill="#5f7480"/>
+</g>
+<g id="abbot-cowl-layer" transform="translate(370 250) rotate(0) scale(1 1) translate(-370 -250)">
+<defs>
+<path id="abbot-cowl-cowl-shape" d="M 230 270 L 260 220 L 330 196 L 420 200 L 480 230 L 510 280 L 239.5 299 L 249.2 284.8 L 245.9 298.6 L 262.4 297.4 L 268.9 288.9 L 267.5 297.1 L 284.4 295.9 L 289.9 288.7 L 289 295.6 L 349.5 291.3 L 356.6 281.9 L 355.2 290.9 L 394.9 288.1 L 400.7 279.4 L 398.5 287.9 L 414.5 286.7 L 422.5 273.4 L 418.3 286.5 L 433.7 285.4 L 440.4 276 L 438.7 285 L 458.2 283.7 L 466.5 271.6 L 464 283.2 L 481.7 282 L 487.5 274.1 L 486.1 281.7 L 226 300 Z"/>
+<clipPath id="abbot-cowl-cowl-clip"><use href="#abbot-cowl-cowl-shape"/></clipPath>
+</defs>
+<g id="abbot-cowl-cowl">
+<use id="abbot-cowl-cowl-line" href="#abbot-cowl-cowl-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-cowl-cowl-clip)">
+<use id="abbot-cowl-cowl-lit" href="#abbot-cowl-cowl-shape" fill="#4f4944"/>
+<path id="abbot-cowl-cowl-mid" d="M 200 180 L 340 180 L 343.7 195.7 L 349.7 270 L 342.9 278.8 L 346.3 320.3 L 200 320 Z" transform="translate(8 -1.92)" fill="#34302d"/>
+<path id="abbot-cowl-cowl-dark" d="M 200 180 L 340 180 L 343.7 195.7 L 349.7 270 L 342.9 278.8 L 346.3 320.3 L 200 320 Z" fill="#14110f"/>
+<path id="abbot-cowl-cowl-weed" d="M 430 214 L 470 228 L 480 260 L 450 250 Z" fill="#4b4f2f"/>
+<path id="abbot-cowl-cowl-cold" d="M 186 156 L 550 156 L 550 340 L 186 340 Z M 233.3 267.6 L 263.3 217.6 L 333.3 193.6 L 423.3 197.6 L 483.3 227.6 L 513.3 277.6 L 242.8 296.6 L 252.5 282.3 L 249.2 296.1 L 265.7 295 L 272.1 286.4 L 270.8 294.6 L 287.6 293.4 L 293.2 286.3 L 292.2 293.1 L 352.8 288.9 L 359.9 279.5 L 358.5 288.5 L 398.2 285.7 L 403.9 276.9 L 401.8 285.4 L 417.7 284.3 L 425.7 270.9 L 421.5 284 L 436.9 282.9 L 443.7 273.5 L 442 282.6 L 461.4 281.2 L 469.8 269.1 L 467.2 280.8 L 485 279.5 L 490.8 271.6 L 489.3 279.2 L 229.3 297.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</g>
+<g id="abbot-bell-layer" transform="translate(370 210) rotate(0) scale(1 1) translate(-370 -210)">
+<defs>
+<path id="abbot-bell-bell-shape" d="M 262 232 L 282 196 L 300 120 L 320 82 L 360 66 L 404 72 L 428 110 L 444 190 L 470 228 L 476 244 L 258 248 Z"/>
+<clipPath id="abbot-bell-bell-clip"><use href="#abbot-bell-bell-shape"/></clipPath>
+<path id="abbot-bell-crack-shape" d="M 404 80 L 414 108 L 404 136 L 420 168 L 410 204 L 398 170 L 392 136 L 398 108 Z"/>
+<clipPath id="abbot-bell-crack-clip"><use href="#abbot-bell-crack-shape"/></clipPath>
+<path id="abbot-bell-lip-shape" d="M 252 236 L 482 232 L 490 252 L 246 258 Z"/>
+<clipPath id="abbot-bell-lip-clip"><use href="#abbot-bell-lip-shape"/></clipPath>
+<path id="abbot-bell-crown-shape" d="M 336 70 L 346 40 L 376 36 L 388 66 Z"/>
+<clipPath id="abbot-bell-crown-clip"><use href="#abbot-bell-crown-shape"/></clipPath>
+<path id="abbot-bell-rope-stub-shape" d="M 356 40 L 366 40 L 372 6 L 362 0 L 358 14 Z"/>
+<clipPath id="abbot-bell-rope-stub-clip"><use href="#abbot-bell-rope-stub-shape"/></clipPath>
+</defs>
+<g id="abbot-bell-bell">
+<use id="abbot-bell-bell-line" href="#abbot-bell-bell-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-bell-clip)">
+<use id="abbot-bell-bell-lit" href="#abbot-bell-bell-shape" fill="#9a5b38"/>
+<use id="abbot-bell-bell-rim" href="#abbot-bell-bell-shape" fill="#f4d294" opacity="0.55"/>
+<use id="abbot-bell-bell-lit-over" href="#abbot-bell-bell-shape" transform="translate(-3.2 2.4)" fill="#9a5b38"/>
+<path id="abbot-bell-bell-mid" d="M 240 50 L 340 50 L 345.5 65.6 L 351 149.1 L 340.7 162 L 346.5 250.4 L 240 260 Z" transform="translate(10 -2.4)" fill="#6a3b24"/>
+<path id="abbot-bell-bell-dark" d="M 240 50 L 340 50 L 345.5 65.6 L 351 149.1 L 340.7 162 L 346.5 250.4 L 240 260 Z" fill="#14110f"/>
+<path id="abbot-bell-green-a" d="M 380 90 L 420 100 L 434 170 L 404 150 Z" fill="#727646" opacity="0.8"/>
+<path id="abbot-bell-green-b" d="M 300 150 L 340 140 L 330 220 L 296 212 Z" fill="#4b4f2f"/>
+<path id="abbot-bell-bands" d="M 300.1 126 L 430 118 L 299.9 122 Z M 286 202 L 452 196 L 286 198 Z M 280 216 L 458 212 L 280 212 Z" fill="#6a3b24"/>
+<path id="abbot-bell-letters" d="M 373.7 154.9 L 375.1 164.9 L 376.1 154.8 Z M 383.7 154.6 L 385.1 164.6 L 386.1 154.5 Z M 393.7 154.3 L 395.1 164.3 L 396.1 154.3 Z M 403.7 154 L 405.1 164 L 406.1 154 Z M 413.7 153.8 L 415.1 163.7 L 416.1 153.7 Z M 423.7 153.5 L 425.1 163.4 L 426.1 153.4 Z M 433.7 153.2 L 435.1 163.1 L 436.1 153.1 Z" fill="#6a3b24"/>
+<g id="abbot-bell-crack">
+<use id="abbot-bell-crack-line" href="#abbot-bell-crack-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-crack-clip)">
+<use id="abbot-bell-crack-lit" href="#abbot-bell-crack-shape" fill="#c42a2c"/>
+<path id="abbot-bell-crack-deep" d="M 402 110 L 408 128 L 402 150 L 398 130 Z" fill="#8c1a20"/>
+</g>
+</g>
+</g>
+</g>
+<g id="abbot-bell-lip">
+<use id="abbot-bell-lip-line" href="#abbot-bell-lip-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-lip-clip)">
+<use id="abbot-bell-lip-lit" href="#abbot-bell-lip-shape" fill="#9a5b38"/>
+<use id="abbot-bell-lip-rim" href="#abbot-bell-lip-shape" fill="#f4d294" opacity="0.55"/>
+<use id="abbot-bell-lip-lit-over" href="#abbot-bell-lip-shape" transform="translate(-1.6 1.2)" fill="#9a5b38"/>
+<path id="abbot-bell-lip-mid" d="M 234 228 L 353.1 227.2 L 359.1 246.8 L 355.3 252.4 L 358.5 262.8 L 234 262 Z" transform="translate(4 -0.96)" fill="#6a3b24"/>
+<path id="abbot-bell-lip-dark" d="M 234 228 L 353.1 227.2 L 359.1 246.8 L 355.3 252.4 L 358.5 262.8 L 234 262 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-bell-crown">
+<use id="abbot-bell-crown-line" href="#abbot-bell-crown-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-crown-clip)">
+<use id="abbot-bell-crown-lit" href="#abbot-bell-crown-shape" fill="#9a5b38"/>
+<path id="abbot-bell-crown-mid" d="M 324 32 L 355.2 31.2 L 361 49.2 L 357.5 55.8 L 363.6 74.8 L 324 74 Z" transform="translate(3 -0.72)" fill="#6a3b24"/>
+<path id="abbot-bell-crown-dark" d="M 324 32 L 355.2 31.2 L 361 49.2 L 357.5 55.8 L 363.6 74.8 L 324 74 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-bell-crown-eye" d="M 352 52 L 370 50 L 370 60 L 352 62 Z" fill="#14110f"/>
+<g id="abbot-bell-rope-stub">
+<use id="abbot-bell-rope-stub-line" href="#abbot-bell-rope-stub-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-rope-stub-clip)">
+<use id="abbot-bell-rope-stub-lit" href="#abbot-bell-rope-stub-shape" fill="#c7ad84"/>
+<path id="abbot-bell-rope-stub-dark" d="M 344 -4 L 360 -4.2 L 364.3 25.6 L 362.5 28.3 L 364.8 44.2 L 344 44 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="abbot-clapper-layer" transform="translate(440 300) rotate(0) scale(1 1) translate(-440 -300)">
+<defs>
+<path id="abbot-clapper-pole-shape" d="M 529 640.7 L 562.4 167.6 L 546.4 166.4 L 511 639.3 Z"/>
+<clipPath id="abbot-clapper-pole-clip"><use href="#abbot-clapper-pole-shape"/></clipPath>
+<path id="abbot-clapper-clapper-shape" d="M 536 182 L 586 176 L 590 120 L 606 84 L 580 40 L 540 44 L 520 82 L 534 120 Z"/>
+<clipPath id="abbot-clapper-clapper-clip"><use href="#abbot-clapper-clapper-shape"/></clipPath>
+<path id="abbot-clapper-ferrule-shape" d="M 536 176 L 588 172 L 590 196 L 538 200 Z"/>
+<clipPath id="abbot-clapper-ferrule-clip"><use href="#abbot-clapper-ferrule-shape"/></clipPath>
+<path id="abbot-clapper-arm-upper-shape" d="M 461.5 282.8 L 498.6 322 L 537.6 385.9 L 502.4 414.1 L 452.4 358.9 L 418.5 317.2 Z"/>
+<clipPath id="abbot-clapper-arm-upper-clip"><use href="#abbot-clapper-arm-upper-shape"/></clipPath>
+<path id="abbot-clapper-arm-fore-shape" d="M 538.5 414.8 L 548.3 406.1 L 553.3 387.2 L 525.1 364.8 L 510.6 375.9 L 501.5 385.2 Z"/>
+<clipPath id="abbot-clapper-arm-fore-clip"><use href="#abbot-clapper-arm-fore-shape"/></clipPath>
+<path id="abbot-clapper-arm-fist-shape" d="M 488.2 390.2 L 508.3 345.8 L 525 330.5 L 544.4 335 L 554.1 328.5 L 571.4 341.2 L 569.6 351.8 L 587.1 361.5 L 582.9 388.9 L 550.6 423.7 L 519.9 416.7 Z"/>
+<clipPath id="abbot-clapper-arm-fist-clip"><use href="#abbot-clapper-arm-fist-shape"/></clipPath>
+</defs>
+<g id="abbot-clapper-pole">
+<use id="abbot-clapper-pole-line" href="#abbot-clapper-pole-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-pole-clip)">
+<use id="abbot-clapper-pole-lit" href="#abbot-clapper-pole-shape" fill="#6f5c46"/>
+<path id="abbot-clapper-pole-mid" d="M 522.9 643.2 L 535.6 468.6 L 533.2 465.5 L 555.1 164 L 538.5 162.8 L 503.6 641.8 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="abbot-clapper-pole-dark" d="M 522.9 643.2 L 535.6 468.6 L 533.2 465.5 L 555.1 164 L 538.5 162.8 L 503.6 641.8 Z" fill="#14110f"/>
+<path id="abbot-clapper-pole-grain" d="M 529.5 530.1 L 536 420 L 526.5 529.9 Z M 545.5 310.1 L 552 200 L 542.5 309.9 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="abbot-clapper-clapper">
+<use id="abbot-clapper-clapper-line" href="#abbot-clapper-clapper-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-clapper-clip)">
+<use id="abbot-clapper-clapper-lit" href="#abbot-clapper-clapper-shape" fill="#8c9194"/>
+<use id="abbot-clapper-clapper-rim" href="#abbot-clapper-clapper-shape" fill="#f4d294" opacity="0.55"/>
+<use id="abbot-clapper-clapper-lit-over" href="#abbot-clapper-clapper-shape" transform="translate(-2.4 1.8)" fill="#8c9194"/>
+<path id="abbot-clapper-clapper-mid" d="M 500 30 L 560 30 L 563.9 39.8 L 566 92.5 L 558.5 101.4 L 562.1 190.2 L 500 200 Z" transform="translate(6 -1.44)" fill="#5b6165"/>
+<path id="abbot-clapper-clapper-dark" d="M 500 30 L 560 30 L 563.9 39.8 L 566 92.5 L 558.5 101.4 L 562.1 190.2 L 500 200 Z" fill="#14110f"/>
+<path id="abbot-clapper-clapper-rust" d="M 540 140 L 584 136 L 586 176 L 540 180 Z" fill="#6a3b24"/>
+<path id="abbot-clapper-clapper-pits" d="M 568.9 71.1 L 580 80 L 571.1 68.9 Z M 554.8 100.9 L 564 110 L 557.2 99.1 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="abbot-clapper-ferrule">
+<use id="abbot-clapper-ferrule-line" href="#abbot-clapper-ferrule-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-ferrule-clip)">
+<use id="abbot-clapper-ferrule-lit" href="#abbot-clapper-ferrule-shape" fill="#8c9194"/>
+<path id="abbot-clapper-ferrule-dark" d="M 524 168 L 554.4 167.2 L 559 181.9 L 555.5 187.7 L 560.8 204.8 L 524 204 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-clapper-arm-upper">
+<use id="abbot-clapper-arm-upper-line" href="#abbot-clapper-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-arm-upper-clip)">
+<use id="abbot-clapper-arm-upper-lit" href="#abbot-clapper-arm-upper-shape" fill="#4f4944"/>
+<path id="abbot-clapper-arm-upper-mid" d="M 444.2 292.8 L 486.3 345.4 L 486 350.7 L 525.2 399.7 L 479.7 436.1 L 396 331.4 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="abbot-clapper-arm-upper-dark" d="M 444.2 292.8 L 486.3 345.4 L 486 350.7 L 525.2 399.7 L 479.7 436.1 L 396 331.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-clapper-arm-fore">
+<use id="abbot-clapper-arm-fore-line" href="#abbot-clapper-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-arm-fore-clip)">
+<use id="abbot-clapper-arm-fore-lit" href="#abbot-clapper-arm-fore-shape" fill="#4f4944"/>
+<path id="abbot-clapper-arm-fore-mid" d="M 523.5 406.6 L 531.9 396.1 L 531.6 390.5 L 543.5 375.6 L 505.9 345.5 L 483 374.2 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="abbot-clapper-arm-fore-dark" d="M 523.5 406.6 L 531.9 396.1 L 531.6 390.5 L 543.5 375.6 L 505.9 345.5 L 483 374.2 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-clapper-arm-fold" d="M 505.1 421.8 L 528 394 L 494.9 408.2 Z" fill="#14110f"/>
+<g id="abbot-clapper-arm-fist">
+<use id="abbot-clapper-arm-fist-line" href="#abbot-clapper-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-clapper-arm-fist-clip)">
+<use id="abbot-clapper-arm-fist-lit" href="#abbot-clapper-arm-fist-shape" fill="#9aa48c"/>
+<path id="abbot-clapper-arm-fist-mid" d="M 511.7 431.1 L 590.9 340.3 L 623.8 366.6 L 548.6 460.6 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="abbot-clapper-arm-fist-dark" d="M 511.7 431.1 L 590.9 340.3 L 623.8 366.6 L 548.6 460.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-clapper-arm-fist-fingers" d="M 542.8 332.4 L 532.5 359.6 L 551 337.1 Z M 564.8 346 L 551 372.2 L 572.4 351.7 Z" fill="#14110f"/>
+<path id="abbot-clapper-drowned-hand" d="M 519.1 380.8 L 530 392 L 520.9 379.2 Z M 535.1 376.7 L 544 386 L 536.9 375.3 Z" fill="#6b7562"/>
+</g>
+</svg>

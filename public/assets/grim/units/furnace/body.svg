@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="furnace-body" width="1120" height="1120" viewBox="-200 -200 1120 1120">
+<defs>
+<path id="furnace-body-belly-shape" d="M 210 520 L 190 440 L 196 340 L 236 270 L 300 230 L 380 222 L 460 244 L 520 300 L 546 390 L 534 480 L 500 546 L 420 580 L 300 580 Z"/>
+<clipPath id="furnace-body-belly-clip"><use href="#furnace-body-belly-shape"/></clipPath>
+<path id="furnace-body-seam-shape" d="M 480 330 L 500 336 L 494 380 L 510 420 L 496 470 L 480 430 L 486 390 L 476 360 Z"/>
+<clipPath id="furnace-body-seam-clip"><use href="#furnace-body-seam-shape"/></clipPath>
+<path id="furnace-body-door-shape" d="M 400 450 L 500 440 L 506 540 L 404 552 Z"/>
+<clipPath id="furnace-body-door-clip"><use href="#furnace-body-door-shape"/></clipPath>
+<path id="furnace-body-fire-shape" d="M 414 466 L 492 458 L 496 530 L 418 538 Z"/>
+<clipPath id="furnace-body-fire-clip"><use href="#furnace-body-fire-shape"/></clipPath>
+<path id="furnace-body-door-latch-shape" d="M 504 480 L 524 476 L 526 492 L 506 496 Z"/>
+<clipPath id="furnace-body-door-latch-clip"><use href="#furnace-body-door-latch-shape"/></clipPath>
+</defs>
+<g id="furnace-body-belly">
+<use id="furnace-body-belly-line" href="#furnace-body-belly-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-body-belly-clip)">
+<use id="furnace-body-belly-lit" href="#furnace-body-belly-shape" fill="#8c9194"/>
+<use id="furnace-body-belly-rim" href="#furnace-body-belly-shape" fill="#f4d294" opacity="0.55"/>
+<use id="furnace-body-belly-lit-over" href="#furnace-body-belly-shape" transform="translate(-2.4 1.8)" fill="#8c9194"/>
+<path id="furnace-body-belly-mid" d="M 160 200 L 330 200 L 347.3 221.4 L 363.6 420.5 L 350.2 437.8 L 362.7 590.6 L 160 600 Z" transform="translate(12 -2.88)" fill="#5b6165"/>
+<path id="furnace-body-belly-dark" d="M 160 200 L 330 200 L 347.3 221.4 L 363.6 420.5 L 350.2 437.8 L 362.7 590.6 L 160 600 Z" fill="#14110f"/>
+<path id="furnace-body-plates" d="M 239.8 302 L 520 330 L 240.2 298 Z M 210.1 472 L 536 450 L 209.9 468 Z M 378 226.1 L 390 580 L 382 225.9 Z M 458 246.1 L 480 570 L 462 245.9 Z" fill="#5b6165"/>
+<path id="furnace-body-soot" d="M 380 230 L 460 244 L 490 280 L 420 270 Z" fill="#34302d"/>
+<path id="furnace-body-rust-a" d="M 460 500 L 520 486 L 510 540 L 470 552 Z" fill="#6a3b24"/>
+<path id="furnace-body-rust-b" d="M 250 300 L 290 290 L 292 320 L 256 326 Z" fill="#6a3b24"/>
+<path id="furnace-body-pits" d="M 418.9 321.1 L 430 330 L 421.1 318.9 Z M 478.8 381 L 490 392 L 481.2 379 Z M 439 521.2 L 452 530 L 441 518.8 Z M 398.9 461.1 L 410 470 L 401.1 458.9 Z" fill="#5b6165"/>
+<g id="furnace-body-seam">
+<use id="furnace-body-seam-line" href="#furnace-body-seam-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-body-seam-clip)">
+<use id="furnace-body-seam-lit" href="#furnace-body-seam-shape" fill="#c42a2c"/>
+<path id="furnace-body-seam-hot" d="M 486 360 L 494 362 L 496 400 L 490 430 L 486 396 Z" fill="#c27a26"/>
+</g>
+</g>
+<path id="furnace-body-belly-cold" d="M 150 182 L 586 182 L 586 620 L 150 620 Z M 213.8 517.1 L 193.8 437.1 L 199.8 337.1 L 239.8 267.1 L 303.8 227.1 L 383.8 219.1 L 463.8 241.1 L 523.8 297.1 L 549.8 387.1 L 537.8 477.1 L 503.8 543.1 L 423.8 577.1 L 303.8 577.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="furnace-body-belly-open-0" d="M 508 290 L 510.32 288.26 L 540.32 368.26 L 538 370 Z" fill="#8c9194"/>
+</g>
+<path id="furnace-body-rivets-a-0" d="M 241.6 315 L 245 311.6 L 248.4 315 L 245 318.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-1" d="M 267.6 317 L 271 313.6 L 274.4 317 L 271 320.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-2" d="M 293.6 319 L 297 315.6 L 300.4 319 L 297 322.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-3" d="M 319.6 321 L 323 317.6 L 326.4 321 L 323 324.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-4" d="M 345.6 323 L 349 319.6 L 352.4 323 L 349 326.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-5" d="M 371.6 325 L 375 321.6 L 378.4 325 L 375 328.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-6" d="M 397.6 327 L 401 323.6 L 404.4 327 L 401 330.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-7" d="M 423.6 329 L 427 325.6 L 430.4 329 L 427 332.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-8" d="M 449.6 331 L 453 327.6 L 456.4 331 L 453 334.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-9" d="M 475.6 333 L 479 329.6 L 482.4 333 L 479 336.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-a-10" d="M 501.6 335 L 505 331.6 L 508.4 335 L 505 338.4 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-0" d="M 221.9 475.2 L 225.3 471.8 L 228.7 475.2 L 225.3 478.6 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-1" d="M 248.4 473.5 L 251.8 470.1 L 255.2 473.5 L 251.8 476.9 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-2" d="M 274.9 471.8 L 278.3 468.4 L 281.7 471.8 L 278.3 475.2 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-3" d="M 301.4 470.2 L 304.8 466.8 L 308.2 470.2 L 304.8 473.6 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-4" d="M 327.9 468.5 L 331.3 465.1 L 334.7 468.5 L 331.3 471.9 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-5" d="M 354.4 466.8 L 357.8 463.4 L 361.2 466.8 L 357.8 470.2 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-6" d="M 380.9 465.2 L 384.3 461.8 L 387.7 465.2 L 384.3 468.6 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-7" d="M 407.4 463.5 L 410.8 460.1 L 414.2 463.5 L 410.8 466.9 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-8" d="M 433.9 461.8 L 437.3 458.4 L 440.7 461.8 L 437.3 465.2 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-9" d="M 460.4 460.2 L 463.8 456.8 L 467.2 460.2 L 463.8 463.6 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-10" d="M 486.9 458.5 L 490.3 455.1 L 493.7 458.5 L 490.3 461.9 Z" fill="#14110f"/>
+<path id="furnace-body-rivets-b-11" d="M 513.4 456.8 L 516.8 453.4 L 520.2 456.8 L 516.8 460.2 Z" fill="#14110f"/>
+<path id="furnace-body-vent-0" d="M 227 358 L 245 356 L 245 396 L 227 398 Z" fill="#14110f"/>
+<path id="furnace-body-vent-glow-0" d="M 231 366 L 241 365 L 241 392 L 231 393 Z" fill="#eeb040"/>
+<path id="furnace-body-vent-1" d="M 263 353.7 L 281 351.7 L 281 391.7 L 263 393.7 Z" fill="#14110f"/>
+<path id="furnace-body-vent-glow-1" d="M 267 361.7 L 277 360.7 L 277 387.7 L 267 388.7 Z" fill="#c27a26"/>
+<path id="furnace-body-vent-2" d="M 299 350.2 L 317 348.2 L 317 388.2 L 299 390.2 Z" fill="#14110f"/>
+<path id="furnace-body-vent-glow-2" d="M 303 358.2 L 313 357.2 L 313 384.2 L 303 385.2 Z" fill="#eeb040"/>
+<path id="furnace-body-vent-3" d="M 335 348.3 L 353 346.3 L 353 386.3 L 335 388.3 Z" fill="#14110f"/>
+<path id="furnace-body-vent-glow-3" d="M 339 356.3 L 349 355.3 L 349 382.3 L 339 383.3 Z" fill="#c27a26"/>
+<path id="furnace-body-vent-4" d="M 371 348.3 L 389 346.3 L 389 386.3 L 371 388.3 Z" fill="#14110f"/>
+<path id="furnace-body-vent-glow-4" d="M 375 356.3 L 385 355.3 L 385 382.3 L 375 383.3 Z" fill="#eeb040"/>
+<path id="furnace-body-vent-5" d="M 407 350.2 L 425 348.2 L 425 388.2 L 407 390.2 Z" fill="#14110f"/>
+<path id="furnace-body-vent-glow-5" d="M 411 358.2 L 421 357.2 L 421 384.2 L 411 385.2 Z" fill="#c27a26"/>
+<path id="furnace-body-vent-6" d="M 443 353.7 L 461 351.7 L 461 391.7 L 443 393.7 Z" fill="#14110f"/>
+<path id="furnace-body-vent-glow-6" d="M 447 361.7 L 457 360.7 L 457 387.7 L 447 388.7 Z" fill="#eeb040"/>
+<path id="furnace-body-vent-7" d="M 479 358 L 497 356 L 497 396 L 479 398 Z" fill="#14110f"/>
+<path id="furnace-body-vent-glow-7" d="M 483 366 L 493 365 L 493 392 L 483 393 Z" fill="#c27a26"/>
+<g id="furnace-body-door">
+<use id="furnace-body-door-line" href="#furnace-body-door-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-body-door-clip)">
+<use id="furnace-body-door-lit" href="#furnace-body-door-shape" fill="#8c9194"/>
+<use id="furnace-body-door-rim" href="#furnace-body-door-shape" fill="#f4d294" opacity="0.55"/>
+<use id="furnace-body-door-lit-over" href="#furnace-body-door-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="furnace-body-door-mid" d="M 388 436 L 419.3 434.7 L 446.8 508.3 L 442.6 518.7 L 457 557.3 L 388 556 Z" transform="translate(4 -0.96)" fill="#5b6165"/>
+<path id="furnace-body-door-dark" d="M 388 436 L 419.3 434.7 L 446.8 508.3 L 442.6 518.7 L 457 557.3 L 388 556 Z" fill="#14110f"/>
+<g id="furnace-body-fire">
+<use id="furnace-body-fire-line" href="#furnace-body-fire-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-body-fire-clip)">
+<use id="furnace-body-fire-lit" href="#furnace-body-fire-shape" fill="#eeb040"/>
+<path id="furnace-body-fire-heart" d="M 426 496 L 484 490 L 486 528 L 428 532 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<path id="furnace-body-bar-0" d="M 420 460 L 425 460 L 427 538 L 422 538 Z" fill="#14110f"/>
+<path id="furnace-body-bar-1" d="M 432 460 L 437 460 L 439 538 L 434 538 Z" fill="#14110f"/>
+<path id="furnace-body-bar-2" d="M 444 460 L 449 460 L 451 538 L 446 538 Z" fill="#14110f"/>
+<path id="furnace-body-bar-3" d="M 456 460 L 461 460 L 463 538 L 458 538 Z" fill="#14110f"/>
+<path id="furnace-body-bar-4" d="M 468 460 L 473 460 L 475 538 L 470 538 Z" fill="#14110f"/>
+<path id="furnace-body-bar-5" d="M 480 460 L 485 460 L 487 538 L 482 538 Z" fill="#14110f"/>
+<path id="furnace-body-bar-6" d="M 492 460 L 497 460 L 499 538 L 494 538 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="furnace-body-door-latch">
+<use id="furnace-body-door-latch-line" href="#furnace-body-door-latch-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-body-door-latch-clip)">
+<use id="furnace-body-door-latch-lit" href="#furnace-body-door-latch-shape" fill="#8c9194"/>
+<path id="furnace-body-door-latch-dark" d="M 492 472 L 510.1 471.6 L 514.4 486.8 L 512.6 490.3 L 515.5 500.4 L 492 500 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="furnace-body-hinge-a" d="M 394 460 L 404 458 L 404 472 L 394 474 Z" fill="#14110f"/>
+<path id="furnace-body-hinge-b" d="M 396 528 L 406 526 L 406 540 L 396 542 Z" fill="#14110f"/>
+</svg>

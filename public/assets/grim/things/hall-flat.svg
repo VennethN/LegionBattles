@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hall-flat" width="300" height="300" viewBox="0 0 300 300">
+<path id="hall-flat-ground" d="M 0 300 L 0 262 L 100 258 L 200 266 L 300 258 L 300 300 Z" fill="#14110f"/>
+<path id="hall-flat-drape" d="M 0 0 L 120 0 L 100 60 L 110 140 L 80 200 L 70 150 L 50 230 L 30 170 L 0 210 Z" fill="#14110f"/>
+<path id="hall-flat-frame" d="M 170 262 L 180 60 L 280 50 L 292 262 L 274 262 L 264 72 L 196 78 L 188 262 Z" fill="#14110f"/>
+</svg>

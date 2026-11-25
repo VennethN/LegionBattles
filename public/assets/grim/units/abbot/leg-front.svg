@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="abbot-leg-front" width="1100" height="1100" viewBox="-190 -190 1100 1100">
+<defs>
+<path id="abbot-leg-front-foot-shape" d="M 390 660 L 450 652 L 492 672 L 490 692 L 386 692 Z"/>
+<clipPath id="abbot-leg-front-foot-clip"><use href="#abbot-leg-front-foot-shape"/></clipPath>
+</defs>
+<g id="abbot-leg-front-foot">
+<use id="abbot-leg-front-foot-line" href="#abbot-leg-front-foot-shape" transform="translate(-2.48 1.86)" fill="#14110f" stroke="#14110f" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-leg-front-foot-clip)">
+<use id="abbot-leg-front-foot-lit" href="#abbot-leg-front-foot-shape" fill="#9aa48c"/>
+<path id="abbot-leg-front-foot-mid" d="M 374 648 L 425.2 647.1 L 434.4 674.7 L 431 682.3 L 435.8 696.9 L 374 696 Z" transform="translate(4 -0.96)" fill="#6b7562"/>
+<path id="abbot-leg-front-foot-dark" d="M 374 648 L 425.2 647.1 L 434.4 674.7 L 431 682.3 L 435.8 696.9 L 374 696 Z" fill="#14110f"/>
+<path id="abbot-leg-front-toes" d="M 467 664.1 L 470 680 L 469 663.9 Z M 479 668.1 L 482 684 L 481 667.9 Z" fill="#6b7562"/>
+</g>
+</g>
+</svg>

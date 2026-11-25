@@ -1,0 +1,375 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="silas" width="416" height="416" viewBox="-80 -80 416 416">
+<g id="silas-shadow-layer" transform="translate(128 240) rotate(0) scale(1 1) translate(-128 -240)">
+<path id="silas-shadow-blot" d="M 63 241 L 81.2 233.5 L 115 231.9 L 159.2 233.5 L 193 238.7 L 182.6 245.9 L 141 248.1 L 89 246.5 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="silas-leg-back-layer" transform="translate(112 188) rotate(0) scale(1 1) translate(-112 -188)">
+<defs>
+<path id="silas-leg-back-leg-shape" d="M 125.2 186.8 L 122.3 202.8 L 114.3 224.2 L 93.7 219.8 L 96.3 197.4 L 98.8 181.2 Z"/>
+<clipPath id="silas-leg-back-leg-clip"><use href="#silas-leg-back-leg-shape"/></clipPath>
+<path id="silas-leg-back-boot-shape" d="M 91.7 215 L 115 213 L 114.1 227 L 124.7 230 L 130.7 236 L 130.7 240 L 84.7 240 L 82.7 230 Z"/>
+<clipPath id="silas-leg-back-boot-clip"><use href="#silas-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="silas-leg-back-leg">
+<use id="silas-leg-back-leg-line" href="#silas-leg-back-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-leg-back-leg-clip)">
+<use id="silas-leg-back-leg-lit" href="#silas-leg-back-leg-shape" fill="#4f4944"/>
+<path id="silas-leg-back-leg-mid" d="M 111.4 180.8 L 107 201.9 L 102.1 205.4 L 98.3 223.9 L 73.8 218.7 L 83 174.8 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="silas-leg-back-leg-dark" d="M 111.4 180.8 L 107 201.9 L 102.1 205.4 L 98.3 223.9 L 73.8 218.7 L 83 174.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-leg-back-boot">
+<use id="silas-leg-back-boot-line" href="#silas-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-leg-back-boot-clip)">
+<use id="silas-leg-back-boot-lit" href="#silas-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="silas-leg-back-boot-mid" d="M 76.7 210 L 101.8 210 L 103.6 226 L 115 232 L 134.7 235 L 134.7 244 L 76.7 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="silas-leg-back-boot-dark" d="M 76.7 210 L 101.8 210 L 103.6 226 L 115 232 L 134.7 235 L 134.7 244 L 76.7 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-leg-back-boot-sole" d="M 82.7 237 L 131.7 237 L 131.7 241.5 L 82.7 241.5 Z" fill="#14110f"/>
+<path id="silas-leg-back-boot-crease" d="M 113.3 225.8 L 101.8 231 L 114.1 228.2 Z" fill="#14110f"/>
+</g>
+<g id="silas-hook-arm-layer" transform="translate(114 112) rotate(0) scale(1 1) translate(-114 -112)">
+<defs>
+<path id="silas-hook-arm-arm-upper-shape" d="M 123.8 113.1 L 123.8 128.4 L 118.1 148.9 L 101.9 147.1 L 102.6 126 L 104.2 110.9 Z"/>
+<clipPath id="silas-hook-arm-arm-upper-clip"><use href="#silas-hook-arm-arm-upper-shape"/></clipPath>
+<path id="silas-hook-arm-arm-fore-shape" d="M 118.2 145.7 L 122.3 157.2 L 124.2 174.2 L 111.8 177.8 L 105.6 162 L 101.8 150.3 Z"/>
+<clipPath id="silas-hook-arm-arm-fore-clip"><use href="#silas-hook-arm-arm-fore-shape"/></clipPath>
+<path id="silas-hook-arm-arm-fist-shape" d="M 124.5 158.1 L 133.3 173.2 L 134.3 181.3 L 128.9 186.1 L 128.8 190.3 L 121.5 192.7 L 118.8 189.9 L 112.3 193.1 L 105.1 186.1 L 101.6 169.4 L 110.1 161.8 Z"/>
+<clipPath id="silas-hook-arm-arm-fist-clip"><use href="#silas-hook-arm-arm-fist-shape"/></clipPath>
+</defs>
+<g id="silas-hook-arm-arm-upper">
+<use id="silas-hook-arm-arm-upper-line" href="#silas-hook-arm-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-hook-arm-arm-upper-clip)">
+<use id="silas-hook-arm-arm-upper-lit" href="#silas-hook-arm-arm-upper-shape" fill="#cfc5a8"/>
+<path id="silas-hook-arm-arm-upper-mid" d="M 118.2 109.5 L 115.9 130.6 L 111.9 134.1 L 110 151 L 90.3 148.8 L 95 106.9 Z" transform="translate(2.5 -0.6)" fill="#9c9178"/>
+<path id="silas-hook-arm-arm-upper-dark" d="M 118.2 109.5 L 115.9 130.6 L 111.9 134.1 L 110 151 L 90.3 148.8 L 95 106.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-hook-arm-arm-fore">
+<use id="silas-hook-arm-arm-fore-line" href="#silas-hook-arm-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-hook-arm-arm-fore-clip)">
+<use id="silas-hook-arm-arm-fore-lit" href="#silas-hook-arm-arm-fore-shape" fill="#cfc5a8"/>
+<path id="silas-hook-arm-arm-fore-mid" d="M 112.5 144.2 L 116.1 156.5 L 113.8 161.1 L 118.9 178.9 L 103.2 183.3 L 93.6 149.6 Z" transform="translate(2.5 -0.6)" fill="#9c9178"/>
+<path id="silas-hook-arm-arm-fore-dark" d="M 112.5 144.2 L 116.1 156.5 L 113.8 161.1 L 118.9 178.9 L 103.2 183.3 L 93.6 149.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-hook-arm-arm-fold" d="M 104.6 155.8 L 112.9 145.8 L 101 151 Z" fill="#14110f"/>
+<g id="silas-hook-arm-arm-fist">
+<use id="silas-hook-arm-arm-fist-line" href="#silas-hook-arm-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-hook-arm-arm-fist-clip)">
+<use id="silas-hook-arm-arm-fist-lit" href="#silas-hook-arm-arm-fist-shape" fill="#c7ad84"/>
+<path id="silas-hook-arm-arm-fist-mid" d="M 107.6 156.4 L 117.7 198.6 L 103.1 202.8 L 91.2 161.1 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="silas-hook-arm-arm-fist-dark" d="M 107.6 156.4 L 117.7 198.6 L 103.1 202.8 L 91.2 161.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-hook-arm-arm-fist-fingers" d="M 130.1 186.1 L 124.2 177.4 L 127 187.6 Z M 121.5 189.8 L 116.6 180.3 L 118.2 190.8 Z" fill="#14110f"/>
+<path id="silas-hook-arm-arm-hair" d="M 113.3 156.2 L 116 164 L 114.7 155.8 Z M 111.3 140.2 L 114 146 L 112.7 139.8 Z" fill="#927a58"/>
+<path id="silas-hook-arm-wind-a" d="M 110 172 L 126 176" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="silas-hook-arm-wind-b" d="M 110 178 L 126 182" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+</g>
+<g id="silas-hook-layer" transform="translate(120 182) rotate(0) scale(1 1) translate(-120 -182)">
+<defs>
+<path id="silas-hook-hook-shape" d="M 118.9 200 L 125.2 200 L 125.2 210.5 L 130.4 218.9 L 130.4 231.5 L 124.1 239.9 L 113.6 239.9 L 107.3 231.5 L 107.3 223.1 L 113.6 223.1 L 113.6 229.4 L 117.8 233.6 L 122 231.5 L 124.1 225.2 L 118.9 214.7 Z"/>
+<clipPath id="silas-hook-hook-clip"><use href="#silas-hook-hook-shape"/></clipPath>
+</defs>
+<path id="silas-hook-chain" d="M 120 182 L 122 200" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="silas-hook-chain-links" d="M 117.2 183.2 L 122.1 186.3 L 119.6 181.1 Z M 120.7 185.5 L 119.4 191.2 L 123.5 187.1 Z M 118.2 192.2 L 123.1 195.3 L 120.6 190.1 Z M 121.7 194.5 L 120.4 200.2 L 124.5 196.1 Z" fill="#14110f"/>
+<g id="silas-hook-hook">
+<use id="silas-hook-hook-line" href="#silas-hook-hook-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-hook-hook-clip)">
+<use id="silas-hook-hook-lit" href="#silas-hook-hook-shape" fill="#8c9194"/>
+<use id="silas-hook-hook-rim" href="#silas-hook-hook-shape" fill="#f4d294" opacity="0.55"/>
+<use id="silas-hook-hook-lit-over" href="#silas-hook-hook-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="silas-hook-hook-dark" d="M 95.3 196 L 113.1 195.7 L 119.2 224.8 L 116.8 229 L 120 244.2 L 95.3 243.9 Z" fill="#14110f"/>
+<path id="silas-hook-hook-rust" d="M 113.6 231.5 L 122 231.5 L 122 239.9 L 113.6 239.9 Z" fill="#6a3b24"/>
+</g>
+</g>
+<path id="silas-hook-hook-point" d="M 107.3 223.1 L 105.2 214.7 L 111.5 223.1 Z" fill="#14110f"/>
+</g>
+<g id="silas-leg-front-layer" transform="translate(148 188) rotate(0) scale(1 1) translate(-148 -188)">
+<defs>
+<path id="silas-leg-front-leg-shape" d="M 162 180.3 L 166.5 196.2 L 168.6 219.2 L 147.4 224.8 L 139.3 203.4 L 134 187.7 Z"/>
+<clipPath id="silas-leg-front-leg-clip"><use href="#silas-leg-front-leg-shape"/></clipPath>
+<path id="silas-leg-front-boot-shape" d="M 145.1 215 L 169.5 213 L 172.6 227 L 185 230 L 191 236 L 191 240 L 141 240 L 139 230 Z"/>
+<clipPath id="silas-leg-front-boot-clip"><use href="#silas-leg-front-boot-shape"/></clipPath>
+</defs>
+<g id="silas-leg-front-leg">
+<use id="silas-leg-front-leg-line" href="#silas-leg-front-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-leg-front-leg-clip)">
+<use id="silas-leg-front-leg-lit" href="#silas-leg-front-leg-shape" fill="#4f4944"/>
+<path id="silas-leg-front-leg-mid" d="M 130 178 L 144 178 L 145.6 183.8 L 147.8 199.1 L 145.1 203 L 148.4 226.2 L 130 226 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="silas-leg-front-leg-dark" d="M 130 178 L 144 178 L 145.6 183.8 L 147.8 199.1 L 145.1 203 L 148.4 226.2 L 130 226 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-leg-front-boot">
+<use id="silas-leg-front-boot-line" href="#silas-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-leg-front-boot-clip)">
+<use id="silas-leg-front-boot-lit" href="#silas-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="silas-leg-front-boot-mid" d="M 133 210 L 159.7 210 L 161.5 226 L 173.5 232 L 195 235 L 195 244 L 133 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="silas-leg-front-boot-dark" d="M 133 210 L 159.7 210 L 161.5 226 L 173.5 232 L 195 235 L 195 244 L 133 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-leg-front-boot-sole" d="M 139 237 L 192 237 L 192 241.5 L 139 241.5 Z" fill="#14110f"/>
+<path id="silas-leg-front-boot-crease" d="M 171.7 225.8 L 159.7 231 L 172.5 228.2 Z" fill="#14110f"/>
+<path id="silas-leg-front-sawdust" d="M 163.7 230.8 L 170 232 L 164.3 229.2 Z M 175.6 232.7 L 180 234 L 176.4 231.3 Z" fill="#553d29"/>
+</g>
+<g id="silas-body-layer" transform="translate(130 188) rotate(0) scale(1 1) translate(-130 -188)">
+<defs>
+<path id="silas-body-smock-shape" d="M 96 104 L 168 102 L 180 132 L 178 172 L 170 212 L 107.8 215.6 L 109.6 213.8 L 109.8 215.4 L 130.5 214.3 L 133.2 212.1 L 133.8 214.1 L 142.8 213.6 L 144.6 211.7 L 144.7 213.4 L 152.9 213 L 155.6 210.6 L 156 212.8 L 100 216 L 94 172 L 92 132 Z"/>
+<clipPath id="silas-body-smock-clip"><use href="#silas-body-smock-shape"/></clipPath>
+<path id="silas-body-apron-shape" d="M 126 128 L 174 124 L 180 156 L 174 206 L 130 210 Z"/>
+<clipPath id="silas-body-apron-clip"><use href="#silas-body-apron-shape"/></clipPath>
+<path id="silas-body-strings-shape" d="M 95.8 127.5 L 177.8 121.5 L 178.2 126.5 L 96.2 132.5 Z"/>
+<clipPath id="silas-body-strings-clip"><use href="#silas-body-strings-shape"/></clipPath>
+<path id="silas-body-strings-buckle-shape" d="M 98.8 125.8 L 106.3 126.1 L 105.9 133.3 L 99.2 132.9 Z"/>
+<clipPath id="silas-body-strings-buckle-clip"><use href="#silas-body-strings-buckle-shape"/></clipPath>
+<path id="silas-body-string-end-shape" d="M 98 132 L 90 140 L 88 156 L 94 150 L 96 162 L 100 140 Z"/>
+<clipPath id="silas-body-string-end-clip"><use href="#silas-body-string-end-shape"/></clipPath>
+<path id="silas-body-belt-shape" d="M 95.8 158 L 177.8 154 L 178.2 162 L 96.2 166 Z"/>
+<clipPath id="silas-body-belt-clip"><use href="#silas-body-belt-shape"/></clipPath>
+<path id="silas-body-belt-buckle-shape" d="M 114.6 154.8 L 126.6 155.4 L 126 166.8 L 115.2 166.2 Z"/>
+<clipPath id="silas-body-belt-buckle-clip"><use href="#silas-body-belt-buckle-shape"/></clipPath>
+<path id="silas-body-steel-shape" d="M 114.2 166.3 L 107.7 204.3 L 104.3 203.7 L 109.8 165.7 Z"/>
+<clipPath id="silas-body-steel-clip"><use href="#silas-body-steel-shape"/></clipPath>
+<path id="silas-body-steel-grip-shape" d="M 108 158 L 116 158 L 115 168 L 109 168 Z"/>
+<clipPath id="silas-body-steel-grip-clip"><use href="#silas-body-steel-grip-shape"/></clipPath>
+<path id="silas-body-lamp-glass-shape" d="M 133.7 177.5 L 146.3 177.5 L 147.9 192.2 L 132.1 192.2 Z"/>
+<clipPath id="silas-body-lamp-glass-clip"><use href="#silas-body-lamp-glass-shape"/></clipPath>
+</defs>
+<g id="silas-body-smock">
+<use id="silas-body-smock-line" href="#silas-body-smock-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-smock-clip)">
+<use id="silas-body-smock-lit" href="#silas-body-smock-shape" fill="#cfc5a8"/>
+<path id="silas-body-smock-mid" d="M 76 94 L 114 94 L 118.1 101.8 L 121.2 163 L 113.4 172.5 L 115.9 222.2 L 76 224 Z" transform="translate(4 -0.96)" fill="#9c9178"/>
+<path id="silas-body-smock-dark" d="M 76 94 L 114 94 L 118.1 101.8 L 121.2 163 L 113.4 172.5 L 115.9 222.2 L 76 224 Z" fill="#14110f"/>
+<path id="silas-body-stain-a" d="M 150 140 L 172 136 L 176 160 L 156 168 L 148 156 Z" fill="#551f1c" opacity="0.7"/>
+<path id="silas-body-stain-b" d="M 140 186 L 160 184 L 162 204 L 144 206 Z" fill="#551f1c" opacity="0.6"/>
+<path id="silas-body-stain-c" d="M 164 176 L 174 174 L 172 190 L 164 190 Z" fill="#551f1c" opacity="0.5"/>
+<path id="silas-body-smock-folds" d="M 135 110 L 134 150 L 137 110 Z M 155 172.1 L 160 206 L 157 171.9 Z" fill="#9c9178"/>
+<path id="silas-body-smock-cold" d="M 52 62 L 220 62 L 220 256 L 52 256 Z M 98.3 102.3 L 170.3 100.3 L 182.3 130.3 L 180.3 170.3 L 172.3 210.3 L 110.1 213.8 L 112 212.1 L 112.1 213.7 L 132.8 212.5 L 135.5 210.3 L 136.1 212.3 L 145.1 211.8 L 146.9 210 L 147 211.7 L 155.2 211.2 L 157.9 208.9 L 158.3 211.1 L 102.3 214.3 L 96.3 170.3 L 94.3 130.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="silas-body-smock-open-0" d="M 178 134 L 180.32 132.26 L 180.32 164.26 L 178 166 Z" fill="#cfc5a8"/>
+</g>
+<g id="silas-body-apron">
+<use id="silas-body-apron-line" href="#silas-body-apron-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-apron-clip)">
+<use id="silas-body-apron-lit" href="#silas-body-apron-shape" fill="#7b5b3d"/>
+<path id="silas-body-apron-mid" d="M 114 120 L 127.7 119.3 L 138 160 L 134 167.5 L 145.9 214.7 L 114 214 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="silas-body-apron-dark" d="M 114 120 L 127.7 119.3 L 138 160 L 134 167.5 L 145.9 214.7 L 114 214 Z" fill="#14110f"/>
+<path id="silas-body-apron-scores" d="M 145.5 140.7 L 160 150 L 146.5 139.3 Z M 149.6 168.8 L 164 176 L 150.4 167.2 Z M 139.6 186.8 L 154 194 L 140.4 185.2 Z" fill="#553d29"/>
+<path id="silas-body-apron-stain" d="M 156 136 L 172 134 L 174 150 L 158 152 Z" fill="#551f1c" opacity="0.6"/>
+</g>
+</g>
+<g id="silas-body-strings">
+<use id="silas-body-strings-line" href="#silas-body-strings-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-strings-clip)">
+<use id="silas-body-strings-lit" href="#silas-body-strings-shape" fill="#7d312b"/>
+<path id="silas-body-strings-dark" d="M 92.9 129.1 L 137.4 125.9 L 138.4 126.6 L 181 123.5 L 181.3 128.1 L 93.3 134.5 Z" fill="#14110f"/>
+<path id="silas-body-strings-stitch" d="M 103.3 128.6 L 104 130.3 L 104.5 128.5 Z M 109.3 128.1 L 110 129.9 L 110.5 128 Z M 115.3 127.7 L 116 129.4 L 116.5 127.6 Z M 121.3 127.2 L 122 129 L 122.5 127.2 Z M 127.3 126.8 L 128 128.6 L 128.5 126.7 Z M 133.3 126.4 L 134.1 128.1 L 134.5 126.3 Z M 139.3 125.9 L 140.1 127.7 L 140.5 125.8 Z M 145.4 125.5 L 146.1 127.2 L 146.6 125.4 Z M 151.4 125 L 152.1 126.8 L 152.6 125 Z M 157.4 124.6 L 158.1 126.4 L 158.6 124.5 Z M 163.4 124.2 L 164.1 125.9 L 164.6 124.1 Z M 169.4 123.7 L 170.1 125.5 L 170.6 123.6 Z" fill="#551f1c"/>
+</g>
+</g>
+<g id="silas-body-strings-buckle">
+<use id="silas-body-strings-buckle-line" href="#silas-body-strings-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-strings-buckle-clip)">
+<use id="silas-body-strings-buckle-lit" href="#silas-body-strings-buckle-shape" fill="#8c9194"/>
+<path id="silas-body-strings-buckle-dark" d="M 86.8 121.8 L 99.6 121.8 L 102.6 137.3 L 86.8 137.3 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-body-strings-pin" d="M 100.7 128.7 L 105.2 129.1 L 105.2 130.3 L 100.7 130.1 Z" fill="#14110f"/>
+<g id="silas-body-string-end">
+<use id="silas-body-string-end-line" href="#silas-body-string-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-string-end-clip)">
+<use id="silas-body-string-end-lit" href="#silas-body-string-end-shape" fill="#7d312b"/>
+<path id="silas-body-string-end-dark" d="M 76 128 L 91 127.9 L 94.2 150.5 L 92.7 152.7 L 94.6 166.1 L 76 166 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-body-belt">
+<use id="silas-body-belt-line" href="#silas-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-belt-clip)">
+<use id="silas-body-belt-lit" href="#silas-body-belt-shape" fill="#7b5b3d"/>
+<path id="silas-body-belt-dark" d="M 92.9 160.4 L 147.5 157.7 L 148.9 158.9 L 181 157.4 L 181.3 164.7 L 93.3 169 Z" fill="#14110f"/>
+<path id="silas-body-belt-stitch" d="M 103.3 160.2 L 104 163.1 L 104.5 160.1 Z M 109.3 159.9 L 110 162.8 L 110.5 159.9 Z M 115.3 159.6 L 116 162.5 L 116.5 159.6 Z M 121.3 159.3 L 122 162.2 L 122.5 159.3 Z M 127.3 159 L 128.1 161.9 L 128.5 159 Z M 133.3 158.7 L 134.1 161.6 L 134.5 158.7 Z M 139.3 158.4 L 140.1 161.3 L 140.5 158.4 Z M 145.4 158.2 L 146.1 161 L 146.5 158.1 Z M 151.4 157.9 L 152.1 160.7 L 152.6 157.8 Z M 157.4 157.6 L 158.1 160.4 L 158.6 157.5 Z M 163.4 157.3 L 164.1 160.1 L 164.6 157.2 Z M 169.4 157 L 170.1 159.8 L 170.6 156.9 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="silas-body-belt-buckle">
+<use id="silas-body-belt-buckle-line" href="#silas-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-belt-buckle-clip)">
+<use id="silas-body-belt-buckle-lit" href="#silas-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="silas-body-belt-buckle-dark" d="M 102.6 150.8 L 115.8 150.8 L 120.6 170.8 L 102.6 170.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-body-belt-pin" d="M 117.6 160 L 124.8 160.4 L 124.8 161.6 L 117.6 161.4 Z" fill="#14110f"/>
+<g id="silas-body-steel">
+<use id="silas-body-steel-line" href="#silas-body-steel-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-steel-clip)">
+<use id="silas-body-steel-lit" href="#silas-body-steel-shape" fill="#8c9194"/>
+<path id="silas-body-steel-dark" d="M 92.3 161.7 L 106.7 161.6 L 109.1 187.4 L 108 189 L 109.8 208.3 L 92.3 208.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-body-steel-grip">
+<use id="silas-body-steel-grip-line" href="#silas-body-steel-grip-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-steel-grip-clip)">
+<use id="silas-body-steel-grip-lit" href="#silas-body-steel-grip-shape" fill="#6f5c46"/>
+<path id="silas-body-steel-grip-dark" d="M 96 154 L 109.4 154 L 113 172 L 96 172 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-body-lamp-hook" d="M 138 162 L 142 162 L 142 170 L 138 170 Z" fill="#14110f"/>
+<path id="silas-body-lamp-ring" d="M 137.4 171.2 L 140 168 L 142.6 171.2 L 140 174.3 L 137.4 171.2" fill="none" stroke="#14110f" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="silas-body-lamp-glass">
+<use id="silas-body-lamp-glass-line" href="#silas-body-lamp-glass-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-lamp-glass-clip)">
+<use id="silas-body-lamp-glass-lit" href="#silas-body-lamp-glass-shape" fill="#eeb040"/>
+<path id="silas-body-lamp-low" d="M 131.6 186.9 L 148.4 185.9 L 148.4 193.2 L 131.6 193.2 Z" fill="#c27a26"/>
+</g>
+</g>
+<path id="silas-body-lamp-heart" d="M 137.7 189 L 136.9 183.8 L 140 179 L 143.2 183.8 L 142.3 189 Z" fill="#ffe6a2"/>
+<path id="silas-body-lamp-cap" d="M 131.1 178 L 134.8 172.7 L 145.3 172.7 L 148.9 178 Z" fill="#14110f"/>
+<path id="silas-body-lamp-vent" d="M 137.4 173.3 L 142.6 173.3 L 141.6 170.1 L 138.4 170.1 Z" fill="#14110f"/>
+<path id="silas-body-lamp-foot" d="M 130.6 191.6 L 149.5 191.6 L 147.4 195.8 L 132.7 195.8 Z" fill="#14110f"/>
+<path id="silas-body-lamp-bar" d="M 139.1 177.5 L 140.9 177.5 L 140.9 192.2 L 139.1 192.2 Z" fill="#14110f"/>
+<path id="silas-body-lamp-bar-l" d="M 133.3 177.5 L 134.8 177.5 L 133.5 192.2 L 132 192.2 Z" fill="#14110f"/>
+</g>
+<g id="silas-cleaver-layer" transform="translate(146 114) rotate(0) scale(1 1) translate(-146 -114)">
+<defs>
+<path id="silas-cleaver-arm-upper-shape" d="M 163.1 102.3 L 176 112 L 189.8 129.7 L 178.2 142.3 L 160.8 128.5 L 148.9 117.7 Z"/>
+<clipPath id="silas-cleaver-arm-upper-clip"><use href="#silas-cleaver-arm-upper-shape"/></clipPath>
+<path id="silas-cleaver-arm-fore-shape" d="M 192.6 138.9 L 197.5 126.5 L 200.5 108.2 L 187.5 103.8 L 180.1 120.7 L 175.4 133.1 Z"/>
+<clipPath id="silas-cleaver-arm-fore-clip"><use href="#silas-cleaver-arm-fore-shape"/></clipPath>
+<path id="silas-cleaver-arm-fist-shape" d="M 177.7 117.8 L 179 99.3 L 182.9 91.6 L 190.5 90.7 L 193.1 87.1 L 200.9 89.4 L 201.6 93.4 L 209.2 94.5 L 211.3 104.9 L 204.3 121.5 L 192.4 123.1 Z"/>
+<clipPath id="silas-cleaver-arm-fist-clip"><use href="#silas-cleaver-arm-fist-shape"/></clipPath>
+<path id="silas-cleaver-handle-shape" d="M 188 98 L 200 98 L 200 116 L 188 116 Z"/>
+<clipPath id="silas-cleaver-handle-clip"><use href="#silas-cleaver-handle-shape"/></clipPath>
+<path id="silas-cleaver-blade-shape" d="M 184 98 L 204 98 L 214 92 L 222 40 L 210 30 L 176 30 L 170 40 L 172 70 Z"/>
+<clipPath id="silas-cleaver-blade-clip"><use href="#silas-cleaver-blade-shape"/></clipPath>
+<path id="silas-cleaver-grip-shape" d="M 181.7 125.8 L 179.2 108.9 L 181.2 101.3 L 187.8 99 L 189.4 95.2 L 196.9 95.7 L 198.4 99.2 L 205.4 98.7 L 209.2 107.6 L 206.3 123.9 L 196 127.6 Z"/>
+<clipPath id="silas-cleaver-grip-clip"><use href="#silas-cleaver-grip-shape"/></clipPath>
+</defs>
+<g id="silas-cleaver-arm-upper">
+<use id="silas-cleaver-arm-upper-line" href="#silas-cleaver-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-cleaver-arm-upper-clip)">
+<use id="silas-cleaver-arm-upper-lit" href="#silas-cleaver-arm-upper-shape" fill="#cfc5a8"/>
+<path id="silas-cleaver-arm-upper-mid" d="M 156.6 105 L 172.9 120.1 L 173.3 125.4 L 186.5 137.7 L 172.2 153.1 L 139.8 123 Z" transform="translate(2.5 -0.6)" fill="#9c9178"/>
+<path id="silas-cleaver-arm-upper-dark" d="M 156.6 105 L 172.9 120.1 L 173.3 125.4 L 186.5 137.7 L 172.2 153.1 L 139.8 123 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-cleaver-arm-fore">
+<use id="silas-cleaver-arm-fore-line" href="#silas-cleaver-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-cleaver-arm-fore-clip)">
+<use id="silas-cleaver-arm-fore-lit" href="#silas-cleaver-arm-fore-shape" fill="#cfc5a8"/>
+<path id="silas-cleaver-arm-fore-mid" d="M 186.6 140 L 190.9 126.9 L 188.8 122 L 195 103.2 L 178.7 97.7 L 166.8 133.4 Z" transform="translate(2.5 -0.6)" fill="#9c9178"/>
+<path id="silas-cleaver-arm-fore-dark" d="M 186.6 140 L 190.9 126.9 L 188.8 122 L 195 103.2 L 178.7 97.7 L 166.8 133.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-cleaver-arm-fold" d="M 178.3 144.3 L 187 133.7 L 174.5 139.1 Z" fill="#14110f"/>
+<g id="silas-cleaver-arm-fist">
+<use id="silas-cleaver-arm-fist-line" href="#silas-cleaver-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-cleaver-arm-fist-clip)">
+<use id="silas-cleaver-arm-fist-lit" href="#silas-cleaver-arm-fist-shape" fill="#c7ad84"/>
+<path id="silas-cleaver-arm-fist-mid" d="M 191.4 129.3 L 207.7 86.5 L 222.9 91.5 L 208.5 134.9 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="silas-cleaver-arm-fist-dark" d="M 191.4 129.3 L 207.7 86.5 L 222.9 91.5 L 208.5 134.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-cleaver-arm-fist-fingers" d="M 189.5 90 L 189.5 101 L 193.1 90.6 Z M 199.2 91.9 L 197.7 103.1 L 202.6 93 Z" fill="#14110f"/>
+<path id="silas-cleaver-forearm" d="M 188.7 124.4 L 192 116 L 187.3 123.6 Z M 186.6 132.6 L 190 128 L 185.4 131.4 Z" fill="#927a58"/>
+<g id="silas-cleaver-handle">
+<use id="silas-cleaver-handle-line" href="#silas-cleaver-handle-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-cleaver-handle-clip)">
+<use id="silas-cleaver-handle-lit" href="#silas-cleaver-handle-shape" fill="#6f5c46"/>
+<path id="silas-cleaver-handle-dark" d="M 176 94 L 191 93.8 L 193.5 106.5 L 192.3 108.6 L 194.6 120.2 L 176 120 Z" fill="#14110f"/>
+<path id="silas-cleaver-handle-grain" d="M 191.4 100 L 192 114 L 192.6 100 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<path id="silas-cleaver-handle-pins-0" d="M 192.4 103.5 L 194 101.9 L 195.6 103.5 L 194 105.1 Z" fill="#14110f"/>
+<path id="silas-cleaver-handle-pins-1" d="M 192.4 110.5 L 194 108.9 L 195.6 110.5 L 194 112.1 Z" fill="#14110f"/>
+<g id="silas-cleaver-blade">
+<use id="silas-cleaver-blade-line" href="#silas-cleaver-blade-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-cleaver-blade-clip)">
+<use id="silas-cleaver-blade-lit" href="#silas-cleaver-blade-shape" fill="#8c9194"/>
+<use id="silas-cleaver-blade-rim" href="#silas-cleaver-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="silas-cleaver-blade-lit-over" href="#silas-cleaver-blade-shape" transform="translate(-1.92 1.44)" fill="#8c9194"/>
+<path id="silas-cleaver-blade-mid" d="M 160 20 L 190 20 L 192.2 27.9 L 193 59 L 188.8 63.9 L 189.8 100.1 L 160 104 Z" transform="translate(4 -0.96)" fill="#5b6165"/>
+<path id="silas-cleaver-blade-dark" d="M 160 20 L 190 20 L 192.2 27.9 L 193 59 L 188.8 63.9 L 189.8 100.1 L 160 104 Z" fill="#14110f"/>
+<path id="silas-cleaver-blade-pits" d="M 197.4 50.6 L 204 56 L 198.6 49.4 Z M 205.3 70.4 L 210 76 L 206.7 69.6 Z M 195.3 80.4 L 200 86 L 196.7 79.6 Z" fill="#5b6165"/>
+<path id="silas-cleaver-blade-stain" d="M 200 34 L 214 34 L 218 48 L 204 50 Z" fill="#551f1c" opacity="0.6"/>
+</g>
+</g>
+<path id="silas-cleaver-hang-hole" d="M 176 38 L 182 38 L 182 44 L 176 44 Z" fill="#14110f"/>
+<g id="silas-cleaver-grip">
+<use id="silas-cleaver-grip-line" href="#silas-cleaver-grip-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-cleaver-grip-clip)">
+<use id="silas-cleaver-grip-lit" href="#silas-cleaver-grip-shape" fill="#c7ad84"/>
+<path id="silas-cleaver-grip-mid" d="M 196.3 133.4 L 202.5 91.8 L 217.1 93.3 L 212.7 135.1 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="silas-cleaver-grip-dark" d="M 196.3 133.4 L 202.5 91.8 L 217.1 93.3 L 212.7 135.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-cleaver-grip-fingers" d="M 186.8 98.5 L 188.9 108.5 L 190.1 98.4 Z M 195.9 98.4 L 196.8 108.7 L 199.2 98.6 Z" fill="#14110f"/>
+</g>
+<g id="silas-shoulders-layer" transform="translate(132 104) rotate(0) scale(1 1) translate(-132 -104)">
+<defs>
+<path id="silas-shoulders-cape-shape" d="M 86 112 L 96 94 L 120 86 L 148 88 L 170 94 L 184 110 L 89.4 123.2 L 92.5 119.6 L 93 122.7 L 102.8 121.4 L 106.1 117.6 L 106.7 120.8 L 116.4 119.5 L 120.3 114.2 L 120.3 118.9 L 128.7 117.7 L 131.4 115.3 L 132.4 117.2 L 166.6 112.4 L 169.6 107.4 L 168.9 112.1 L 177.8 110.9 L 180.8 106.5 L 180.5 110.5 L 84 124 Z"/>
+<clipPath id="silas-shoulders-cape-clip"><use href="#silas-shoulders-cape-shape"/></clipPath>
+</defs>
+<g id="silas-shoulders-cape">
+<use id="silas-shoulders-cape-line" href="#silas-shoulders-cape-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-shoulders-cape-clip)">
+<use id="silas-shoulders-cape-lit" href="#silas-shoulders-cape-shape" fill="#7b5b3d"/>
+<path id="silas-shoulders-cape-mid" d="M 70 76 L 106 76 L 108.6 85.7 L 111 104.4 L 106.6 110.6 L 109.4 132.3 L 70 134 Z" transform="translate(9 -2.16)" fill="#553d29"/>
+<path id="silas-shoulders-cape-dark" d="M 70 76 L 106 76 L 108.6 85.7 L 111 104.4 L 106.6 110.6 L 109.4 132.3 L 70 134 Z" fill="#14110f"/>
+<path id="silas-shoulders-cape-scuffs" d="M 149.2 94.6 L 158 106 L 150.8 93.4 Z M 163.2 98.6 L 172 108 L 164.8 97.4 Z" fill="#553d29"/>
+<path id="silas-shoulders-cape-cold" d="M 44 46 L 224 46 L 224 164 L 44 164 Z M 88.5 110.1 L 98.5 92.1 L 122.5 84.1 L 150.5 86.1 L 172.5 92.1 L 186.5 108.1 L 91.9 121.4 L 95 117.7 L 95.5 120.9 L 105.3 119.5 L 108.6 115.7 L 109.2 118.9 L 118.9 117.6 L 122.7 112.4 L 122.8 117 L 131.2 115.9 L 133.9 113.4 L 134.9 115.3 L 169.1 110.6 L 172.1 105.5 L 171.3 110.2 L 180.3 109 L 183.3 104.6 L 183 108.6 L 86.5 122.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</g>
+<g id="silas-head-layer" transform="translate(148 98) rotate(0) scale(1 1) translate(-148 -98)">
+<defs>
+<path id="silas-head-neck-shape" d="M 139.6 92.4 L 151.3 95.6 L 153.5 109.5 L 137.5 109.5 Z"/>
+<clipPath id="silas-head-neck-clip"><use href="#silas-head-neck-shape"/></clipPath>
+<path id="silas-head-face-shape" d="M 144 75 L 149 71 L 159 71 L 163 75 L 165.5 79.5 L 163.5 82 L 165 84 L 169.5 89 L 165.5 90.5 L 166 93.5 L 164.5 94.5 L 165 96.5 L 162.5 101.9 L 156 103.7 L 149 95 L 145 92 Z"/>
+<clipPath id="silas-head-face-clip"><use href="#silas-head-face-shape"/></clipPath>
+<path id="silas-head-face-ear-shape" d="M 149 84 L 152.5 83 L 154 87 L 152.5 91.5 L 149.5 90 Z"/>
+<path id="silas-head-skull-shape" d="M 136 76 L 138 66 L 150 59 L 162 60 L 168 66 L 160 66 L 146 70 Z"/>
+<clipPath id="silas-head-skull-clip"><use href="#silas-head-skull-shape"/></clipPath>
+</defs>
+<g id="silas-head-neck">
+<use id="silas-head-neck-line" href="#silas-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-head-neck-clip)">
+<use id="silas-head-neck-lit" href="#silas-head-neck-shape" fill="#c7ad84"/>
+<path id="silas-head-neck-mid" d="M 125.5 88.4 L 142.1 88.4 L 148.9 113.5 L 125.5 113.5 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="silas-head-neck-dark" d="M 125.5 88.4 L 142.1 88.4 L 148.9 113.5 L 125.5 113.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-head-face">
+<use id="silas-head-face-line" href="#silas-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-head-face-clip)">
+<use id="silas-head-face-lit" href="#silas-head-face-shape" fill="#c7ad84"/>
+<path id="silas-head-face-mid" d="M 140 68 L 151.7 68.8 L 153.5 88.1 L 150.4 92.2 L 151.3 102.2 L 140 104 Z" transform="translate(3 -0.72)" fill="#927a58"/>
+<path id="silas-head-face-dark" d="M 140 68 L 151.7 68.8 L 153.5 88.1 L 150.4 92.2 L 151.3 102.2 L 140 104 Z" fill="#14110f"/>
+<path id="silas-head-face-cheek-plane" d="M 155 87.5 L 161 86.5 L 163 90 L 161.5 95 L 156 100.6 L 153 93 Z" fill="#927a58"/>
+<path id="silas-head-face-chin-plane" d="M 160 96.5 L 165 96 L 162.5 101.9 L 158 102.6 Z" fill="#927a58"/>
+<path id="silas-head-face-socket" d="M 166 79 L 152 78 L 153 85 L 158 87.5 L 161 85 L 164.5 83.8 Z" fill="#14110f"/>
+<path id="silas-head-face-lines" d="M 162.7 90.1 L 161.5 94.5 L 164.3 90.9 Z M 150.3 94.6 L 158 101.9 L 151.7 93.4 Z" fill="#14110f"/>
+<path id="silas-head-face-mouth" d="M 165.8 92.7 L 159.5 94.8 L 166.2 94.9 Z" fill="#14110f"/>
+<path id="silas-head-face-scar" d="M 158.4 83.3 L 163 92 L 159.6 82.7 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="silas-head-face-nostril" d="M 166 89.8 L 162.5 88.5 L 165 91.2 Z" fill="#14110f"/>
+<g id="silas-head-face-ear">
+<use id="silas-head-face-ear-line" href="#silas-head-face-ear-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="silas-head-face-ear-lit" href="#silas-head-face-ear-shape" fill="#c7ad84"/>
+</g>
+<path id="silas-head-face-ear-hollow" d="M 149.7 85.7 L 152 89.6 L 151.1 85.1 Z" fill="#14110f"/>
+<g id="silas-head-skull">
+<use id="silas-head-skull-line" href="#silas-head-skull-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-head-skull-clip)">
+<use id="silas-head-skull-lit" href="#silas-head-skull-shape" fill="#c7ad84"/>
+<path id="silas-head-skull-mid" d="M 124 55 L 146 55 L 152.8 80 L 124 80 Z" transform="translate(3 -0.72)" fill="#927a58"/>
+<path id="silas-head-skull-dark" d="M 124 55 L 146 55 L 152.8 80 L 124 80 Z" fill="#14110f"/>
+<path id="silas-head-skull-planes" d="M 151.8 62.8 L 162 64 L 152.2 61.2 Z M 143.2 66.3 L 146 72 L 144.8 65.7 Z" fill="#927a58"/>
+<path id="silas-head-skull-cold" d="M 96 19 L 208 19 L 208 116 L 96 116 Z M 137.9 74.6 L 139.9 64.6 L 151.9 57.6 L 163.9 58.6 L 169.9 64.6 L 161.9 64.6 L 147.9 68.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<path id="silas-head-jowl" d="M 155.8 98.9 L 164 100 L 156.2 97.1 Z M 149.5 100.7 L 156 104 L 150.5 99.3 Z" fill="#927a58"/>
+<path id="silas-head-broken-nose" d="M 165.4 84.6 L 170 88 L 166.6 83.4 Z" fill="#14110f"/>
+<path id="silas-head-stubble" d="M 137.3 70 L 138 76 L 138.7 70 Z M 141.3 66.1 L 143 72 L 142.7 65.9 Z" fill="#927a58"/>
+</g>
+</svg>

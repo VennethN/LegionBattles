@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="spinner-near-legs-back" width="1220" height="1120" viewBox="-200 -200 1220 1120">
+<defs>
+<path id="spinner-near-legs-back-leg-e-0-shape" d="M 436.1 449.9 L 387.9 368.6 L 312.9 261.9 L 287.1 278.1 L 354 390.1 L 403.9 470.1 Z"/>
+<clipPath id="spinner-near-legs-back-leg-e-0-clip"><use href="#spinner-near-legs-back-leg-e-0-shape"/></clipPath>
+<path id="spinner-near-legs-back-leg-e-1-shape" d="M 314 276 L 220.5 484.5 L 199.5 475.5 L 286 264 Z"/>
+<clipPath id="spinner-near-legs-back-leg-e-1-clip"><use href="#spinner-near-legs-back-leg-e-1-shape"/></clipPath>
+<path id="spinner-near-legs-back-leg-e-2-shape" d="M 221.3 481.2 L 192.3 676.2 L 187.7 675.8 L 198.7 478.8 Z"/>
+<clipPath id="spinner-near-legs-back-leg-e-2-clip"><use href="#spinner-near-legs-back-leg-e-2-shape"/></clipPath>
+<path id="spinner-near-legs-back-leg-e-joint-1-shape" d="M 286.3 264.5 L 295.9 256.3 L 309.6 259.1 L 313.7 272.7 L 302.7 283.7 L 289.1 278.2 Z"/>
+<clipPath id="spinner-near-legs-back-leg-e-joint-1-clip"><use href="#spinner-near-legs-back-leg-e-joint-1-shape"/></clipPath>
+<path id="spinner-near-legs-back-leg-e-joint-2-shape" d="M 198.6 475.4 L 206.6 468.6 L 218 470.9 L 221.4 482.3 L 212.3 491.4 L 200.9 486.8 Z"/>
+<clipPath id="spinner-near-legs-back-leg-e-joint-2-clip"><use href="#spinner-near-legs-back-leg-e-joint-2-shape"/></clipPath>
+<path id="spinner-near-legs-back-leg-f-0-shape" d="M 476.7 463.3 L 453.9 399.4 L 413.4 314.7 L 386.6 325.3 L 418.6 413.5 L 443.3 476.7 Z"/>
+<clipPath id="spinner-near-legs-back-leg-f-0-clip"><use href="#spinner-near-legs-back-leg-f-0-shape"/></clipPath>
+<path id="spinner-near-legs-back-leg-f-1-shape" d="M 414.1 323 L 370.6 512.2 L 349.4 507.8 L 385.9 317 Z"/>
+<clipPath id="spinner-near-legs-back-leg-f-1-clip"><use href="#spinner-near-legs-back-leg-f-1-shape"/></clipPath>
+<path id="spinner-near-legs-back-leg-f-2-shape" d="M 370.8 510.6 L 352.2 676.1 L 347.8 675.9 L 349.2 509.4 Z"/>
+<clipPath id="spinner-near-legs-back-leg-f-2-clip"><use href="#spinner-near-legs-back-leg-f-2-shape"/></clipPath>
+<path id="spinner-near-legs-back-leg-f-joint-1-shape" d="M 387 314.8 L 396.1 307 L 409.1 309.6 L 413 322.6 L 402.6 333 L 389.6 327.8 Z"/>
+<clipPath id="spinner-near-legs-back-leg-f-joint-1-clip"><use href="#spinner-near-legs-back-leg-f-joint-1-shape"/></clipPath>
+<path id="spinner-near-legs-back-leg-f-joint-2-shape" d="M 349.2 505.7 L 356.8 499.2 L 367.6 501.4 L 370.8 512.2 L 362.2 520.8 L 351.4 516.5 Z"/>
+<clipPath id="spinner-near-legs-back-leg-f-joint-2-clip"><use href="#spinner-near-legs-back-leg-f-joint-2-shape"/></clipPath>
+</defs>
+<g id="spinner-near-legs-back-leg-e-0">
+<use id="spinner-near-legs-back-leg-e-0-line" href="#spinner-near-legs-back-leg-e-0-shape" transform="translate(-1.59 1.19)" fill="#14110f" stroke="#14110f" stroke-width="5.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-e-0-clip)">
+<use id="spinner-near-legs-back-leg-e-0-lit" href="#spinner-near-legs-back-leg-e-0-shape" fill="#4f4944"/>
+<path id="spinner-near-legs-back-leg-e-0-mid" d="M 425.8 459.9 L 363.5 361.2 L 357.9 359.6 L 299.3 266.9 L 268.8 286.1 L 392 481.2 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="spinner-near-legs-back-leg-e-0-dark" d="M 425.8 459.9 L 363.5 361.2 L 357.9 359.6 L 299.3 266.9 L 268.8 286.1 L 392 481.2 Z" fill="#14110f"/>
+<path id="spinner-near-legs-back-leg-e-0-hairs" d="M 382.2 424.1 L 392.6 391.7 L 380.7 423.6 Z M 364.2 395.6 L 374.6 363.2 L 362.7 395.1 Z M 346.2 367.1 L 356.6 334.7 L 344.7 366.6 Z M 328.2 338.6 L 338.6 306.2 L 326.7 338.1 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="spinner-near-legs-back-leg-e-1">
+<use id="spinner-near-legs-back-leg-e-1-line" href="#spinner-near-legs-back-leg-e-1-shape" transform="translate(-1.59 1.19)" fill="#14110f" stroke="#14110f" stroke-width="5.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-e-1-clip)">
+<use id="spinner-near-legs-back-leg-e-1-lit" href="#spinner-near-legs-back-leg-e-1-shape" fill="#4f4944"/>
+<path id="spinner-near-legs-back-leg-e-1-mid" d="M 304.9 268.9 L 269.6 351.2 L 265.1 353.3 L 209.5 483.1 L 183.1 471.7 L 275.5 256.2 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="spinner-near-legs-back-leg-e-1-dark" d="M 304.9 268.9 L 269.6 351.2 L 265.1 353.3 L 209.5 483.1 L 183.1 471.7 L 275.5 256.2 Z" fill="#14110f"/>
+<path id="spinner-near-legs-back-leg-e-1-hairs" d="M 288.2 323.3 L 262.1 331.4 L 288.6 324.9 Z M 274.7 354.8 L 248.6 362.9 L 275.1 356.4 Z M 261.2 386.3 L 235.1 394.4 L 261.6 387.9 Z M 247.7 417.8 L 221.6 425.9 L 248.1 419.4 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="spinner-near-legs-back-leg-e-2">
+<use id="spinner-near-legs-back-leg-e-2-line" href="#spinner-near-legs-back-leg-e-2-shape" transform="translate(-1.59 1.19)" fill="#14110f" stroke="#14110f" stroke-width="5.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-e-2-clip)">
+<use id="spinner-near-legs-back-leg-e-2-lit" href="#spinner-near-legs-back-leg-e-2-shape" fill="#4f4944"/>
+<path id="spinner-near-legs-back-leg-e-2-mid" d="M 213.6 477.4 L 203.7 574.4 L 200.4 577.3 L 190 679 L 168.8 676.9 L 189.4 474.9 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="spinner-near-legs-back-leg-e-2-dark" d="M 213.6 477.4 L 203.7 574.4 L 200.4 577.3 L 190 679 L 168.8 676.9 L 189.4 474.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="spinner-near-legs-back-leg-e-joint-1">
+<use id="spinner-near-legs-back-leg-e-joint-1-line" href="#spinner-near-legs-back-leg-e-joint-1-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-e-joint-1-clip)">
+<use id="spinner-near-legs-back-leg-e-joint-1-lit" href="#spinner-near-legs-back-leg-e-joint-1-shape" fill="#cfc5a8"/>
+<path id="spinner-near-legs-back-leg-e-joint-1-dark" d="M 274.3 252.3 L 293.4 251.8 L 300.1 273.7 L 298 278.1 L 301.2 288.2 L 274.3 287.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="spinner-near-legs-back-leg-e-joint-2">
+<use id="spinner-near-legs-back-leg-e-joint-2-line" href="#spinner-near-legs-back-leg-e-joint-2-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-e-joint-2-clip)">
+<use id="spinner-near-legs-back-leg-e-joint-2-lit" href="#spinner-near-legs-back-leg-e-joint-2-shape" fill="#cfc5a8"/>
+<path id="spinner-near-legs-back-leg-e-joint-2-dark" d="M 186.6 464.6 L 204.4 464.2 L 209.6 481.9 L 208 485.4 L 211 495.8 L 186.6 495.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="spinner-near-legs-back-leg-f-0">
+<use id="spinner-near-legs-back-leg-f-0-line" href="#spinner-near-legs-back-leg-f-0-shape" transform="translate(-1.59 1.19)" fill="#14110f" stroke="#14110f" stroke-width="5.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-f-0-clip)">
+<use id="spinner-near-legs-back-leg-f-0-lit" href="#spinner-near-legs-back-leg-f-0-shape" fill="#4f4944"/>
+<path id="spinner-near-legs-back-leg-f-0-mid" d="M 465.3 471.1 L 432.2 388.2 L 427.7 386.1 L 400 316.8 L 368.1 329.5 L 430.4 485.1 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="spinner-near-legs-back-leg-f-0-dark" d="M 465.3 471.1 L 432.2 388.2 L 427.7 386.1 L 400 316.8 L 368.1 329.5 L 430.4 485.1 Z" fill="#14110f"/>
+<path id="spinner-near-legs-back-leg-f-0-hairs" d="M 436.2 443.2 L 451.5 414.7 L 434.8 442.4 Z M 427.2 420.7 L 442.5 392.2 L 425.8 419.9 Z M 418.2 398.2 L 433.5 369.7 L 416.8 397.4 Z M 409.2 375.7 L 424.5 347.2 L 407.8 374.9 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="spinner-near-legs-back-leg-f-1">
+<use id="spinner-near-legs-back-leg-f-1-line" href="#spinner-near-legs-back-leg-f-1-shape" transform="translate(-1.59 1.19)" fill="#14110f" stroke="#14110f" stroke-width="5.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-f-1-clip)">
+<use id="spinner-near-legs-back-leg-f-1-lit" href="#spinner-near-legs-back-leg-f-1-shape" fill="#4f4944"/>
+<path id="spinner-near-legs-back-leg-f-1-mid" d="M 404.3 317.8 L 384.8 410.7 L 381.2 413.3 L 360.2 513.1 L 333.5 507.5 L 374.7 311.6 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="spinner-near-legs-back-leg-f-1-dark" d="M 404.3 317.8 L 384.8 410.7 L 381.2 413.3 L 360.2 513.1 L 333.5 507.5 L 374.7 311.6 Z" fill="#14110f"/>
+<path id="spinner-near-legs-back-leg-f-1-hairs" d="M 400.2 365.7 L 377.5 378.1 L 400.9 367.1 Z M 394.2 394.2 L 371.5 406.6 L 394.9 395.6 Z M 388.2 422.7 L 365.5 435.1 L 388.9 424.1 Z M 382.2 451.2 L 359.5 463.6 L 382.9 452.6 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="spinner-near-legs-back-leg-f-2">
+<use id="spinner-near-legs-back-leg-f-2-line" href="#spinner-near-legs-back-leg-f-2-shape" transform="translate(-1.59 1.19)" fill="#14110f" stroke="#14110f" stroke-width="5.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-f-2-clip)">
+<use id="spinner-near-legs-back-leg-f-2-lit" href="#spinner-near-legs-back-leg-f-2-shape" fill="#4f4944"/>
+<path id="spinner-near-legs-back-leg-f-2-mid" d="M 363.4 507.2 L 357.5 604.8 L 354.4 607.8 L 350.1 679 L 330 677.8 L 340.3 505.8 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="spinner-near-legs-back-leg-f-2-dark" d="M 363.4 507.2 L 357.5 604.8 L 354.4 607.8 L 350.1 679 L 330 677.8 L 340.3 505.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="spinner-near-legs-back-leg-f-joint-1">
+<use id="spinner-near-legs-back-leg-f-joint-1-line" href="#spinner-near-legs-back-leg-f-joint-1-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-f-joint-1-clip)">
+<use id="spinner-near-legs-back-leg-f-joint-1-lit" href="#spinner-near-legs-back-leg-f-joint-1-shape" fill="#cfc5a8"/>
+<path id="spinner-near-legs-back-leg-f-joint-1-dark" d="M 375 303 L 393.8 302.6 L 397.6 315.2 L 395.6 319.5 L 401.1 337.4 L 375 337 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="spinner-near-legs-back-leg-f-joint-2">
+<use id="spinner-near-legs-back-leg-f-joint-2-line" href="#spinner-near-legs-back-leg-f-joint-2-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-near-legs-back-leg-f-joint-2-clip)">
+<use id="spinner-near-legs-back-leg-f-joint-2-lit" href="#spinner-near-legs-back-leg-f-joint-2-shape" fill="#cfc5a8"/>
+<path id="spinner-near-legs-back-leg-f-joint-2-dark" d="M 337.2 495.2 L 354.8 494.8 L 360 512.6 L 358.2 516.1 L 360.9 525.2 L 337.2 524.8 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

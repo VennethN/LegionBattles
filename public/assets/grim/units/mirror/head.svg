@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mirror-head" width="1040" height="1100" viewBox="-190 -190 1040 1100">
+<defs>
+<path id="mirror-head-face-shape" d="M 320 196 L 326 130 L 352 96 L 384 104 L 400 150 L 392 200 L 366 214 Z"/>
+<clipPath id="mirror-head-face-clip"><use href="#mirror-head-face-shape"/></clipPath>
+<path id="mirror-head-band-shape" d="M 318 118 L 394 106 L 400 126 L 322 138 Z"/>
+<clipPath id="mirror-head-band-clip"><use href="#mirror-head-band-shape"/></clipPath>
+<path id="mirror-head-spike-a-shape" d="M 317 118 L 316 62 L 336 116 Z"/>
+<clipPath id="mirror-head-spike-a-clip"><use href="#mirror-head-spike-a-shape"/></clipPath>
+<path id="mirror-head-spike-b-shape" d="M 335 118 L 340 28 L 354 116 Z"/>
+<clipPath id="mirror-head-spike-b-clip"><use href="#mirror-head-spike-b-shape"/></clipPath>
+<path id="mirror-head-spike-c-shape" d="M 353 118 L 366 8 L 372 116 Z"/>
+<clipPath id="mirror-head-spike-c-clip"><use href="#mirror-head-spike-c-shape"/></clipPath>
+<path id="mirror-head-spike-d-shape" d="M 371 118 L 390 42 L 390 116 Z"/>
+<clipPath id="mirror-head-spike-d-clip"><use href="#mirror-head-spike-d-shape"/></clipPath>
+<path id="mirror-head-spike-e-shape" d="M 385 118 L 408 78 L 404 116 Z"/>
+<clipPath id="mirror-head-spike-e-clip"><use href="#mirror-head-spike-e-shape"/></clipPath>
+</defs>
+<g id="mirror-head-face">
+<use id="mirror-head-face-line" href="#mirror-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-head-face-clip)">
+<use id="mirror-head-face-lit" href="#mirror-head-face-shape" fill="#5f7480"/>
+<use id="mirror-head-face-rim" href="#mirror-head-face-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-head-face-lit-over" href="#mirror-head-face-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-head-face-mid" d="M 300 90 L 344 90 L 344 220 L 300 220 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-head-face-dark" d="M 300 90 L 344 90 L 344 220 L 300 220 Z" fill="#14110f"/>
+<path id="mirror-head-face-facet-0" d="M 360 100 L 384 104 L 398 146 L 334 210 L 322 196 L 326 170 Z" fill="#3f505b"/>
+<path id="mirror-head-face-crack-0" d="M 360 100 L 384 104 L 398 146 L 334 210 L 322 196 L 326 170 L 360 100" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="mirror-head-face-glints" d="M 359.8 101 L 372 102 L 360.2 99 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<path id="mirror-head-face-crack" d="M 324 150 L 350 160 L 362 150 L 398 176" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="mirror-head-face-light" d="M 370.7 112.7 L 392 150 L 373.3 111.3 Z M 362.7 122.7 L 376 144 L 365.3 121.3 Z" fill="#b4bfc0"/>
+<g id="mirror-head-band">
+<use id="mirror-head-band-line" href="#mirror-head-band-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-head-band-clip)">
+<use id="mirror-head-band-lit" href="#mirror-head-band-shape" fill="#8c9194"/>
+<path id="mirror-head-band-mid" d="M 306 102 L 347 101.2 L 352.2 117.3 L 348.5 123.8 L 354.6 142.8 L 306 142 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="mirror-head-band-dark" d="M 306 102 L 347 101.2 L 352.2 117.3 L 348.5 123.8 L 354.6 142.8 L 306 142 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mirror-head-spike-a">
+<use id="mirror-head-spike-a-line" href="#mirror-head-spike-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-head-spike-a-clip)">
+<use id="mirror-head-spike-a-lit" href="#mirror-head-spike-a-shape" fill="#5f7480"/>
+<use id="mirror-head-spike-a-rim" href="#mirror-head-spike-a-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-head-spike-a-lit-over" href="#mirror-head-spike-a-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-head-spike-a-mid" d="M 306 0 L 324 0 L 324 130 L 306 130 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-head-spike-a-dark" d="M 306 0 L 324 0 L 324 130 L 306 130 Z" fill="#14110f"/>
+<path id="mirror-head-spike-a-glints" d="" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-head-spike-b">
+<use id="mirror-head-spike-b-line" href="#mirror-head-spike-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-head-spike-b-clip)">
+<use id="mirror-head-spike-b-lit" href="#mirror-head-spike-b-shape" fill="#5f7480"/>
+<use id="mirror-head-spike-b-rim" href="#mirror-head-spike-b-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-head-spike-b-lit-over" href="#mirror-head-spike-b-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-head-spike-b-mid" d="M 324 0 L 342 0 L 342 130 L 324 130 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-head-spike-b-dark" d="M 324 0 L 342 0 L 342 130 L 324 130 Z" fill="#14110f"/>
+<path id="mirror-head-spike-b-glints" d="" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-head-spike-c">
+<use id="mirror-head-spike-c-line" href="#mirror-head-spike-c-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-head-spike-c-clip)">
+<use id="mirror-head-spike-c-lit" href="#mirror-head-spike-c-shape" fill="#5f7480"/>
+<use id="mirror-head-spike-c-rim" href="#mirror-head-spike-c-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-head-spike-c-lit-over" href="#mirror-head-spike-c-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-head-spike-c-mid" d="M 342 0 L 360 0 L 360 130 L 342 130 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-head-spike-c-dark" d="M 342 0 L 360 0 L 360 130 L 342 130 Z" fill="#14110f"/>
+<path id="mirror-head-spike-c-glints" d="" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-head-spike-d">
+<use id="mirror-head-spike-d-line" href="#mirror-head-spike-d-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-head-spike-d-clip)">
+<use id="mirror-head-spike-d-lit" href="#mirror-head-spike-d-shape" fill="#5f7480"/>
+<use id="mirror-head-spike-d-rim" href="#mirror-head-spike-d-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-head-spike-d-lit-over" href="#mirror-head-spike-d-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-head-spike-d-mid" d="M 360 0 L 378 0 L 378 130 L 360 130 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-head-spike-d-dark" d="M 360 0 L 378 0 L 378 130 L 360 130 Z" fill="#14110f"/>
+<path id="mirror-head-spike-d-glints" d="" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-head-spike-e">
+<use id="mirror-head-spike-e-line" href="#mirror-head-spike-e-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-head-spike-e-clip)">
+<use id="mirror-head-spike-e-lit" href="#mirror-head-spike-e-shape" fill="#5f7480"/>
+<use id="mirror-head-spike-e-rim" href="#mirror-head-spike-e-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-head-spike-e-lit-over" href="#mirror-head-spike-e-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-head-spike-e-mid" d="M 374 0 L 392 0 L 392 130 L 374 130 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-head-spike-e-dark" d="M 374 0 L 392 0 L 392 130 L 374 130 Z" fill="#14110f"/>
+<path id="mirror-head-spike-e-glints" d="" fill="#b4bfc0"/>
+</g>
+</g>
+</svg>

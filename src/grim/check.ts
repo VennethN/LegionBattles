@@ -21,6 +21,7 @@ export function checkUnit(unit: UnitArt): string[] {
   for (const p of unit.parts) {
     if ((p.parent === 'head' || p.parent === 'weapon' || p.parent === 'offhand') && !unit.parts.some((q) => q.role === p.parent)) {
       say(`${p.name} hangs from the ${p.parent}, and there is none`);
+    if (p.only && !unit.stills?.[p.only]) say(`${p.name} is shown only in ${p.only}, and there is no such still`);
     }
     if (p.role === 'extra' && p.sway === undefined) say(`${p.name} is an extra with no sway: say 0 if it is stiff`);
   }

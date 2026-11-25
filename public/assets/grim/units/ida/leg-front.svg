@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ida-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ida-leg-front-wader-shape" d="M 152.4 170.3 L 156.2 191.3 L 158.4 220.7 L 141.6 223.3 L 135.5 194.6 L 131.6 173.7 Z"/>
+<clipPath id="ida-leg-front-wader-clip"><use href="#ida-leg-front-wader-shape"/></clipPath>
+<path id="ida-leg-front-wader-top-shape" d="M 134 170 L 154 168 L 156 180 L 136 182 Z"/>
+<clipPath id="ida-leg-front-wader-top-clip"><use href="#ida-leg-front-wader-top-shape"/></clipPath>
+<path id="ida-leg-front-boot-shape" d="M 139.9 217 L 159 215 L 164.3 227 L 175.5 230 L 181.5 236 L 181.5 240 L 137.5 240 L 135.5 230 Z"/>
+<clipPath id="ida-leg-front-boot-clip"><use href="#ida-leg-front-boot-shape"/></clipPath>
+</defs>
+<g id="ida-leg-front-wader">
+<use id="ida-leg-front-wader-line" href="#ida-leg-front-wader-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-leg-front-wader-clip)">
+<use id="ida-leg-front-wader-lit" href="#ida-leg-front-wader-shape" fill="#7b5b3d"/>
+<path id="ida-leg-front-wader-mid" d="M 146.4 168.3 L 149.7 189 L 146.5 193.8 L 151.5 224.8 L 132.6 227.8 L 123.7 171.9 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="ida-leg-front-wader-dark" d="M 146.4 168.3 L 149.7 189 L 146.5 193.8 L 151.5 224.8 L 132.6 227.8 L 123.7 171.9 Z" fill="#14110f"/>
+<path id="ida-leg-front-wader-creases" d="M 146.1 194.8 L 158 192 L 145.9 193.2 Z M 148.1 206.8 L 158 205 L 147.9 205.2 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="ida-leg-front-wader-top">
+<use id="ida-leg-front-wader-top-line" href="#ida-leg-front-wader-top-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-leg-front-wader-top-clip)">
+<use id="ida-leg-front-wader-top-lit" href="#ida-leg-front-wader-top-shape" fill="#7b5b3d"/>
+<path id="ida-leg-front-wader-top-dark" d="M 122 164 L 137.8 164 L 143.4 186 L 122 186 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-leg-front-boot">
+<use id="ida-leg-front-boot-line" href="#ida-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-leg-front-boot-clip)">
+<use id="ida-leg-front-boot-lit" href="#ida-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="ida-leg-front-boot-mid" d="M 129.5 212 L 154.2 212 L 155.6 226 L 165 232 L 185.5 235 L 185.5 244 L 129.5 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ida-leg-front-boot-dark" d="M 129.5 212 L 154.2 212 L 155.6 226 L 165 232 L 185.5 235 L 185.5 244 L 129.5 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-leg-front-boot-sole" d="M 135.5 237 L 182.5 237 L 182.5 241.5 L 135.5 241.5 Z" fill="#14110f"/>
+<path id="ida-leg-front-boot-crease" d="M 163.4 225.8 L 154.2 231 L 164.4 228.2 Z" fill="#14110f"/>
+</svg>

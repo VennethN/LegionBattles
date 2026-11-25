@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cask-rack" width="260" height="256" viewBox="0 0 260 256">
+<defs>
+<path id="cask-rack-rack-shape" d="M 10 240 L 14 40 L 246 34 L 250 236 Z"/>
+<clipPath id="cask-rack-rack-clip"><use href="#cask-rack-rack-shape"/></clipPath>
+<path id="cask-rack-cask-a-shape" d="M 18 46 L 86 46 L 90 76 L 86 106 L 18 106 L 14 76 Z"/>
+<clipPath id="cask-rack-cask-a-clip"><use href="#cask-rack-cask-a-shape"/></clipPath>
+<path id="cask-rack-cask-a-end-shape" d="M 82 52 L 92 58 L 94 94 L 84 100 Z"/>
+<clipPath id="cask-rack-cask-a-end-clip"><use href="#cask-rack-cask-a-end-shape"/></clipPath>
+<path id="cask-rack-cask-b-shape" d="M 96 44 L 164 44 L 168 74 L 164 104 L 96 104 L 92 74 Z"/>
+<clipPath id="cask-rack-cask-b-clip"><use href="#cask-rack-cask-b-shape"/></clipPath>
+<path id="cask-rack-cask-b-end-shape" d="M 160 50 L 170 56 L 172 92 L 162 98 Z"/>
+<clipPath id="cask-rack-cask-b-end-clip"><use href="#cask-rack-cask-b-end-shape"/></clipPath>
+<path id="cask-rack-cask-c-shape" d="M 174 42 L 242 42 L 246 72 L 242 102 L 174 102 L 170 72 Z"/>
+<clipPath id="cask-rack-cask-c-clip"><use href="#cask-rack-cask-c-shape"/></clipPath>
+<path id="cask-rack-cask-c-end-shape" d="M 238 48 L 248 54 L 250 90 L 240 96 Z"/>
+<clipPath id="cask-rack-cask-c-end-clip"><use href="#cask-rack-cask-c-end-shape"/></clipPath>
+<path id="cask-rack-cask-d-shape" d="M 18 116 L 86 116 L 90 146 L 86 176 L 18 176 L 14 146 Z"/>
+<clipPath id="cask-rack-cask-d-clip"><use href="#cask-rack-cask-d-shape"/></clipPath>
+<path id="cask-rack-cask-d-end-shape" d="M 82 122 L 92 128 L 94 164 L 84 170 Z"/>
+<clipPath id="cask-rack-cask-d-end-clip"><use href="#cask-rack-cask-d-end-shape"/></clipPath>
+<path id="cask-rack-cask-e-shape" d="M 174 112 L 242 112 L 246 142 L 242 172 L 174 172 L 170 142 Z"/>
+<clipPath id="cask-rack-cask-e-clip"><use href="#cask-rack-cask-e-shape"/></clipPath>
+<path id="cask-rack-cask-e-end-shape" d="M 238 118 L 248 124 L 250 160 L 240 166 Z"/>
+<clipPath id="cask-rack-cask-e-end-clip"><use href="#cask-rack-cask-e-end-shape"/></clipPath>
+<path id="cask-rack-cask-f-shape" d="M 96 180 L 164 180 L 168 210 L 164 240 L 96 240 L 92 210 Z"/>
+<clipPath id="cask-rack-cask-f-clip"><use href="#cask-rack-cask-f-shape"/></clipPath>
+<path id="cask-rack-cask-f-end-shape" d="M 160 186 L 170 192 L 172 228 L 162 234 Z"/>
+<clipPath id="cask-rack-cask-f-end-clip"><use href="#cask-rack-cask-f-end-shape"/></clipPath>
+</defs>
+<path id="cask-rack-blot" d="M 0 236 L 250 228 L 260 244 L 10 250 Z" fill="#14110f" opacity="0.55"/>
+<g id="cask-rack-rack">
+<use id="cask-rack-rack-line" href="#cask-rack-rack-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-rack-clip)">
+<use id="cask-rack-rack-lit" href="#cask-rack-rack-shape" fill="#6f5c46"/>
+<path id="cask-rack-rack-mid" d="M 0 150 L 0.1 152.7 L 139.6 147.3 L 145.2 141.8 L 259.9 137.3 L 260 260 L 0 260 Z" transform="translate(4 -0.96)" fill="#4a3c2d"/>
+<path id="cask-rack-rack-dark" d="M 0 150 L 0.1 152.7 L 139.6 147.3 L 145.2 141.8 L 259.9 137.3 L 260 260 L 0 260 Z" fill="#14110f"/>
+<path id="cask-rack-posts" d="M 88.5 40 L 92 238 L 91.5 40 Z M 168.5 38 L 172 236 L 171.5 38 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="cask-rack-cask-a">
+<use id="cask-rack-cask-a-line" href="#cask-rack-cask-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-a-clip)">
+<use id="cask-rack-cask-a-lit" href="#cask-rack-cask-a-shape" fill="#6f5c46"/>
+<use id="cask-rack-cask-a-rim" href="#cask-rack-cask-a-shape" fill="#f4d294" opacity="0.55"/>
+<use id="cask-rack-cask-a-lit-over" href="#cask-rack-cask-a-shape" transform="translate(-1.12 0.84)" fill="#6f5c46"/>
+<path id="cask-rack-cask-a-mid" d="M 2 42 L 36 40.7 L 45.4 67.4 L 41 77.8 L 52.8 111.3 L 2 110 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="cask-rack-cask-a-dark" d="M 2 42 L 36 40.7 L 45.4 67.4 L 41 77.8 L 52.8 111.3 L 2 110 Z" fill="#14110f"/>
+<path id="cask-rack-cask-a-hoop-a" d="M 30 46 L 36 46 L 36 106 L 30 106 Z" fill="#5b6165"/>
+<path id="cask-rack-cask-a-hoop-b" d="M 68 46 L 74 46 L 74 106 L 68 106 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="cask-rack-cask-a-end">
+<use id="cask-rack-cask-a-end-line" href="#cask-rack-cask-a-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-a-end-clip)">
+<use id="cask-rack-cask-a-end-lit" href="#cask-rack-cask-a-end-shape" fill="#6f5c46"/>
+<path id="cask-rack-cask-a-end-dark" d="M 70 48 L 83.8 47.9 L 86.1 72.1 L 84.6 74.1 L 87.4 104.1 L 70 104 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cask-rack-cask-b">
+<use id="cask-rack-cask-b-line" href="#cask-rack-cask-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-b-clip)">
+<use id="cask-rack-cask-b-lit" href="#cask-rack-cask-b-shape" fill="#6f5c46"/>
+<use id="cask-rack-cask-b-rim" href="#cask-rack-cask-b-shape" fill="#f4d294" opacity="0.55"/>
+<use id="cask-rack-cask-b-lit-over" href="#cask-rack-cask-b-shape" transform="translate(-1.12 0.84)" fill="#6f5c46"/>
+<path id="cask-rack-cask-b-mid" d="M 80 40 L 113.6 38.9 L 125.4 72.1 L 121.4 81.6 L 131.2 109.1 L 80 108 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="cask-rack-cask-b-dark" d="M 80 40 L 113.6 38.9 L 125.4 72.1 L 121.4 81.6 L 131.2 109.1 L 80 108 Z" fill="#14110f"/>
+<path id="cask-rack-cask-b-hoop-a" d="M 108 44 L 114 44 L 114 104 L 108 104 Z" fill="#5b6165"/>
+<path id="cask-rack-cask-b-hoop-b" d="M 146 44 L 152 44 L 152 104 L 146 104 Z" fill="#5b6165"/>
+<path id="cask-rack-cask-b-hole" d="M 122 60 L 140 54 L 144 80 L 126 88 L 118 74 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cask-rack-cask-b-end">
+<use id="cask-rack-cask-b-end-line" href="#cask-rack-cask-b-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-b-end-clip)">
+<use id="cask-rack-cask-b-end-lit" href="#cask-rack-cask-b-end-shape" fill="#6f5c46"/>
+<path id="cask-rack-cask-b-end-dark" d="M 148 46 L 161.6 45.9 L 164.2 73 L 163 74.7 L 165.6 102.1 L 148 102 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cask-rack-cask-c">
+<use id="cask-rack-cask-c-line" href="#cask-rack-cask-c-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-c-clip)">
+<use id="cask-rack-cask-c-lit" href="#cask-rack-cask-c-shape" fill="#6f5c46"/>
+<use id="cask-rack-cask-c-rim" href="#cask-rack-cask-c-shape" fill="#f4d294" opacity="0.55"/>
+<use id="cask-rack-cask-c-lit-over" href="#cask-rack-cask-c-shape" transform="translate(-1.12 0.84)" fill="#6f5c46"/>
+<path id="cask-rack-cask-c-mid" d="M 158 38 L 191.7 36.8 L 201.3 64 L 197.3 73.6 L 209.1 107.2 L 158 106 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="cask-rack-cask-c-dark" d="M 158 38 L 191.7 36.8 L 201.3 64 L 197.3 73.6 L 209.1 107.2 L 158 106 Z" fill="#14110f"/>
+<path id="cask-rack-cask-c-hoop-a" d="M 186 42 L 192 42 L 192 102 L 186 102 Z" fill="#5b6165"/>
+<path id="cask-rack-cask-c-hoop-b" d="M 224 42 L 230 42 L 230 102 L 224 102 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="cask-rack-cask-c-end">
+<use id="cask-rack-cask-c-end-line" href="#cask-rack-cask-c-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-c-end-clip)">
+<use id="cask-rack-cask-c-end-lit" href="#cask-rack-cask-c-end-shape" fill="#6f5c46"/>
+<path id="cask-rack-cask-c-end-dark" d="M 226 44 L 239.7 43.9 L 242.8 76.9 L 241.5 78.6 L 243.5 100.1 L 226 100 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cask-rack-cask-d">
+<use id="cask-rack-cask-d-line" href="#cask-rack-cask-d-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-d-clip)">
+<use id="cask-rack-cask-d-lit" href="#cask-rack-cask-d-shape" fill="#6f5c46"/>
+<use id="cask-rack-cask-d-rim" href="#cask-rack-cask-d-shape" fill="#f4d294" opacity="0.55"/>
+<use id="cask-rack-cask-d-lit-over" href="#cask-rack-cask-d-shape" transform="translate(-1.12 0.84)" fill="#6f5c46"/>
+<path id="cask-rack-cask-d-mid" d="M 2 112 L 36 110.7 L 45.5 137.6 L 41.1 148 L 52.8 181.3 L 2 180 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="cask-rack-cask-d-dark" d="M 2 112 L 36 110.7 L 45.5 137.6 L 41.1 148 L 52.8 181.3 L 2 180 Z" fill="#14110f"/>
+<path id="cask-rack-cask-d-hoop-a" d="M 30 116 L 36 116 L 36 176 L 30 176 Z" fill="#5b6165"/>
+<path id="cask-rack-cask-d-hoop-b" d="M 68 116 L 74 116 L 74 176 L 68 176 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="cask-rack-cask-d-end">
+<use id="cask-rack-cask-d-end-line" href="#cask-rack-cask-d-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-d-end-clip)">
+<use id="cask-rack-cask-d-end-lit" href="#cask-rack-cask-d-end-shape" fill="#6f5c46"/>
+<path id="cask-rack-cask-d-end-dark" d="M 70 118 L 83.8 117.9 L 86.6 147.6 L 85.1 149.6 L 87.4 174.1 L 70 174 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cask-rack-cask-e">
+<use id="cask-rack-cask-e-line" href="#cask-rack-cask-e-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-e-clip)">
+<use id="cask-rack-cask-e-lit" href="#cask-rack-cask-e-shape" fill="#6f5c46"/>
+<use id="cask-rack-cask-e-rim" href="#cask-rack-cask-e-shape" fill="#f4d294" opacity="0.55"/>
+<use id="cask-rack-cask-e-lit-over" href="#cask-rack-cask-e-shape" transform="translate(-1.12 0.84)" fill="#6f5c46"/>
+<path id="cask-rack-cask-e-mid" d="M 158 108 L 191.7 106.8 L 201 133 L 196.9 142.7 L 209.1 177.2 L 158 176 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="cask-rack-cask-e-dark" d="M 158 108 L 191.7 106.8 L 201 133 L 196.9 142.7 L 209.1 177.2 L 158 176 Z" fill="#14110f"/>
+<path id="cask-rack-cask-e-hoop-a" d="M 186 112 L 192 112 L 192 172 L 186 172 Z" fill="#5b6165"/>
+<path id="cask-rack-cask-e-hoop-b" d="M 224 112 L 230 112 L 230 172 L 224 172 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="cask-rack-cask-e-end">
+<use id="cask-rack-cask-e-end-line" href="#cask-rack-cask-e-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-e-end-clip)">
+<use id="cask-rack-cask-e-end-lit" href="#cask-rack-cask-e-end-shape" fill="#6f5c46"/>
+<path id="cask-rack-cask-e-end-dark" d="M 226 114 L 239.8 113.9 L 242.7 144.7 L 241.2 146.6 L 243.4 170.1 L 226 170 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cask-rack-cask-f">
+<use id="cask-rack-cask-f-line" href="#cask-rack-cask-f-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-f-clip)">
+<use id="cask-rack-cask-f-lit" href="#cask-rack-cask-f-shape" fill="#6f5c46"/>
+<use id="cask-rack-cask-f-rim" href="#cask-rack-cask-f-shape" fill="#f4d294" opacity="0.55"/>
+<use id="cask-rack-cask-f-lit-over" href="#cask-rack-cask-f-shape" transform="translate(-1.12 0.84)" fill="#6f5c46"/>
+<path id="cask-rack-cask-f-mid" d="M 80 176 L 113.9 174.8 L 127.6 213.6 L 123.3 223.7 L 130.9 245.2 L 80 244 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="cask-rack-cask-f-dark" d="M 80 176 L 113.9 174.8 L 127.6 213.6 L 123.3 223.7 L 130.9 245.2 L 80 244 Z" fill="#14110f"/>
+<path id="cask-rack-cask-f-hoop-a" d="M 108 180 L 114 180 L 114 240 L 108 240 Z" fill="#5b6165"/>
+<path id="cask-rack-cask-f-hoop-b" d="M 146 180 L 152 180 L 152 240 L 146 240 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="cask-rack-cask-f-end">
+<use id="cask-rack-cask-f-end-line" href="#cask-rack-cask-f-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cask-rack-cask-f-end-clip)">
+<use id="cask-rack-cask-f-end-lit" href="#cask-rack-cask-f-end-shape" fill="#6f5c46"/>
+<path id="cask-rack-cask-f-end-dark" d="M 148 182 L 161.8 181.9 L 164 205.1 L 162.5 207.1 L 165.4 238.1 L 148 238 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="cask-rack-gap" d="M 96 116 L 166 114 L 166 176 L 96 178 Z" fill="#14110f"/>
+<path id="cask-rack-spilt" d="M 110 232 L 180 230 L 200 244 L 100 246 Z" fill="#551f1c" opacity="0.7"/>
+<path id="cask-rack-web" d="M 13.4 40.6 L 92 120 L 14.6 39.4 Z M 92.4 120.8 L 246 34 L 91.6 119.2 Z M 59.2 40.3 L 90 120 L 60.8 39.7 Z M 92.8 120.4 L 130 36 L 91.2 119.6 Z M 91.6 120.8 L 200 180 L 92.4 119.2 Z M 30.7 200.6 L 92 120 L 29.3 199.4 Z" fill="#cfc5a8"/>
+</svg>

@@ -1,0 +1,369 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ida" width="416" height="416" viewBox="-80 -80 416 416">
+<g id="ida-shadow-layer" transform="translate(128 240) rotate(0) scale(1 1) translate(-128 -240)">
+<path id="ida-shadow-blot" d="M 74 241 L 89.7 234 L 118.8 232.6 L 156.9 234 L 186 238.8 L 177 245.4 L 141.2 247.4 L 96.4 246 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="ida-leg-back-layer" transform="translate(118 176) rotate(0) scale(1 1) translate(-118 -176)">
+<defs>
+<path id="ida-leg-back-wader-shape" d="M 127.9 173.6 L 125 194.7 L 117.9 223.3 L 102.1 220.7 L 105.3 191.5 L 108.1 170.4 Z"/>
+<clipPath id="ida-leg-back-wader-clip"><use href="#ida-leg-back-wader-shape"/></clipPath>
+<path id="ida-leg-back-boot-shape" d="M 100.5 217 L 118.5 215 L 119.8 227 L 130.4 230 L 136.4 236 L 136.4 240 L 94.4 240 L 92.4 230 Z"/>
+<clipPath id="ida-leg-back-boot-clip"><use href="#ida-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="ida-leg-back-wader">
+<use id="ida-leg-back-wader-line" href="#ida-leg-back-wader-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-leg-back-wader-clip)">
+<use id="ida-leg-back-wader-lit" href="#ida-leg-back-wader-shape" fill="#7b5b3d"/>
+<path id="ida-leg-back-wader-mid" d="M 118.1 169 L 114.6 190.7 L 110.9 193.7 L 106 224.4 L 87.8 221.5 L 96.8 165.6 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="ida-leg-back-wader-dark" d="M 118.1 169 L 114.6 190.7 L 110.9 193.7 L 106 224.4 L 87.8 221.5 L 96.8 165.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-leg-back-boot">
+<use id="ida-leg-back-boot-line" href="#ida-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-leg-back-boot-clip)">
+<use id="ida-leg-back-boot-lit" href="#ida-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="ida-leg-back-boot-mid" d="M 86.4 212 L 110.3 212 L 111.7 226 L 120.5 232 L 140.4 235 L 140.4 244 L 86.4 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ida-leg-back-boot-dark" d="M 86.4 212 L 110.3 212 L 111.7 226 L 120.5 232 L 140.4 235 L 140.4 244 L 86.4 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-leg-back-boot-sole" d="M 92.4 237 L 137.4 237 L 137.4 241.5 L 92.4 241.5 Z" fill="#14110f"/>
+<path id="ida-leg-back-boot-crease" d="M 119 225.8 L 110.3 231 L 120 228.2 Z" fill="#14110f"/>
+</g>
+<g id="ida-leg-front-layer" transform="translate(142 176) rotate(0) scale(1 1) translate(-142 -176)">
+<defs>
+<path id="ida-leg-front-wader-shape" d="M 152.4 170.3 L 156.2 191.3 L 158.4 220.7 L 141.6 223.3 L 135.5 194.6 L 131.6 173.7 Z"/>
+<clipPath id="ida-leg-front-wader-clip"><use href="#ida-leg-front-wader-shape"/></clipPath>
+<path id="ida-leg-front-wader-top-shape" d="M 134 170 L 154 168 L 156 180 L 136 182 Z"/>
+<clipPath id="ida-leg-front-wader-top-clip"><use href="#ida-leg-front-wader-top-shape"/></clipPath>
+<path id="ida-leg-front-boot-shape" d="M 139.9 217 L 159 215 L 164.3 227 L 175.5 230 L 181.5 236 L 181.5 240 L 137.5 240 L 135.5 230 Z"/>
+<clipPath id="ida-leg-front-boot-clip"><use href="#ida-leg-front-boot-shape"/></clipPath>
+</defs>
+<g id="ida-leg-front-wader">
+<use id="ida-leg-front-wader-line" href="#ida-leg-front-wader-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-leg-front-wader-clip)">
+<use id="ida-leg-front-wader-lit" href="#ida-leg-front-wader-shape" fill="#7b5b3d"/>
+<path id="ida-leg-front-wader-mid" d="M 146.4 168.3 L 149.7 189 L 146.5 193.8 L 151.5 224.8 L 132.6 227.8 L 123.7 171.9 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="ida-leg-front-wader-dark" d="M 146.4 168.3 L 149.7 189 L 146.5 193.8 L 151.5 224.8 L 132.6 227.8 L 123.7 171.9 Z" fill="#14110f"/>
+<path id="ida-leg-front-wader-creases" d="M 146.1 194.8 L 158 192 L 145.9 193.2 Z M 148.1 206.8 L 158 205 L 147.9 205.2 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="ida-leg-front-wader-top">
+<use id="ida-leg-front-wader-top-line" href="#ida-leg-front-wader-top-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-leg-front-wader-top-clip)">
+<use id="ida-leg-front-wader-top-lit" href="#ida-leg-front-wader-top-shape" fill="#7b5b3d"/>
+<path id="ida-leg-front-wader-top-dark" d="M 122 164 L 137.8 164 L 143.4 186 L 122 186 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-leg-front-boot">
+<use id="ida-leg-front-boot-line" href="#ida-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-leg-front-boot-clip)">
+<use id="ida-leg-front-boot-lit" href="#ida-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="ida-leg-front-boot-mid" d="M 129.5 212 L 154.2 212 L 155.6 226 L 165 232 L 185.5 235 L 185.5 244 L 129.5 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ida-leg-front-boot-dark" d="M 129.5 212 L 154.2 212 L 155.6 226 L 165 232 L 185.5 235 L 185.5 244 L 129.5 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-leg-front-boot-sole" d="M 135.5 237 L 182.5 237 L 182.5 241.5 L 135.5 241.5 Z" fill="#14110f"/>
+<path id="ida-leg-front-boot-crease" d="M 163.4 225.8 L 154.2 231 L 164.4 228.2 Z" fill="#14110f"/>
+</g>
+<g id="ida-body-layer" transform="translate(132 176) rotate(0) scale(1 1) translate(-132 -176)">
+<defs>
+<path id="ida-body-oilskin-shape" d="M 112 102 L 154 102 L 164 130 L 160 164 L 168 214 L 107.9 217.6 L 111.2 214.3 L 111.4 217.4 L 124.9 216.6 L 127 214.4 L 127 216.5 L 136.1 215.9 L 139 212.9 L 139.1 215.8 L 147.7 215.2 L 151.2 212.2 L 151.9 215 L 162 214.4 L 164.4 211.5 L 164.2 214.2 L 102 218 L 108 164 L 104 130 Z"/>
+<clipPath id="ida-body-oilskin-clip"><use href="#ida-body-oilskin-shape"/></clipPath>
+<path id="ida-body-toggle-0-shape" d="M 148 116 L 156 115 L 156 119 L 148 120 Z"/>
+<path id="ida-body-toggle-1-shape" d="M 148 132 L 156 131 L 156 135 L 148 136 Z"/>
+<path id="ida-body-toggle-2-shape" d="M 148 148 L 156 147 L 156 151 L 148 152 Z"/>
+<path id="ida-body-belt-shape" d="M 105.8 152.5 L 161.8 148.5 L 162.2 155.5 L 106.2 159.5 Z"/>
+<clipPath id="ida-body-belt-clip"><use href="#ida-body-belt-shape"/></clipPath>
+<path id="ida-body-belt-buckle-shape" d="M 140 148 L 150.5 148.5 L 149.9 158.5 L 140.5 157.9 Z"/>
+<clipPath id="ida-body-belt-buckle-clip"><use href="#ida-body-belt-buckle-shape"/></clipPath>
+<path id="ida-body-bailer-shape" d="M 110 160 L 130 158 L 128 174 L 114 176 Z"/>
+<clipPath id="ida-body-bailer-clip"><use href="#ida-body-bailer-shape"/></clipPath>
+<path id="ida-body-bailer-handle-shape" d="M 113.3 160.5 L 101.3 150.5 L 98.7 153.5 L 110.7 163.5 Z"/>
+<clipPath id="ida-body-bailer-handle-clip"><use href="#ida-body-bailer-handle-shape"/></clipPath>
+<path id="ida-body-fares-shape" d="M 140 158 L 152 158 L 152.7 167.8 L 149.6 172 L 141.7 172 L 139.3 167.8 Z"/>
+<clipPath id="ida-body-fares-clip"><use href="#ida-body-fares-shape"/></clipPath>
+</defs>
+<g id="ida-body-oilskin">
+<use id="ida-body-oilskin-line" href="#ida-body-oilskin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-body-oilskin-clip)">
+<use id="ida-body-oilskin-lit" href="#ida-body-oilskin-shape" fill="#5f7480"/>
+<path id="ida-body-oilskin-mid" d="M 86 94 L 122 94 L 124.7 101.9 L 126.9 169.8 L 121.8 175.8 L 123.3 222.1 L 86 224 Z" transform="translate(4 -0.96)" fill="#3f505b"/>
+<path id="ida-body-oilskin-dark" d="M 86 94 L 122 94 L 124.7 101.9 L 126.9 169.8 L 121.8 175.8 L 123.3 222.1 L 86 224 Z" fill="#14110f"/>
+<path id="ida-body-wet" d="M 148.9 112.2 L 154 138 L 151.1 111.8 Z M 154.9 170.2 L 162 204 L 157.1 169.8 Z M 142.9 176.1 L 146 196 L 145.1 175.9 Z" fill="#e9e0c6"/>
+<path id="ida-body-coat-seam" d="M 145.2 108 L 148 212 L 146.8 108 Z" fill="#3f505b"/>
+<path id="ida-body-creases" d="M 133.1 150.5 L 140 160 L 134.9 149.5 Z M 149.2 186.6 L 158 198 L 150.8 185.4 Z" fill="#3f505b"/>
+<path id="ida-body-oilskin-cold" d="M 62 62 L 208 62 L 208 258 L 62 258 Z M 114.3 100.3 L 156.3 100.3 L 166.3 128.3 L 162.3 162.3 L 170.3 212.3 L 110.2 215.9 L 113.5 212.5 L 113.7 215.7 L 127.2 214.9 L 129.3 212.7 L 129.3 214.8 L 138.5 214.2 L 141.3 211.2 L 141.4 214 L 150 213.5 L 153.5 210.5 L 154.2 213.2 L 164.4 212.6 L 166.7 209.8 L 166.5 212.5 L 104.3 216.3 L 110.3 162.3 L 106.3 128.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="ida-body-oilskin-open-0" d="M 162 132 L 164.32 130.26 L 163.32 158.26 L 161 160 Z" fill="#5f7480"/>
+</g>
+<g id="ida-body-toggle-0">
+<use id="ida-body-toggle-0-line" href="#ida-body-toggle-0-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ida-body-toggle-0-lit" href="#ida-body-toggle-0-shape" fill="#cfc5a8"/>
+</g>
+<g id="ida-body-toggle-1">
+<use id="ida-body-toggle-1-line" href="#ida-body-toggle-1-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ida-body-toggle-1-lit" href="#ida-body-toggle-1-shape" fill="#cfc5a8"/>
+</g>
+<g id="ida-body-toggle-2">
+<use id="ida-body-toggle-2-line" href="#ida-body-toggle-2-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ida-body-toggle-2-lit" href="#ida-body-toggle-2-shape" fill="#cfc5a8"/>
+</g>
+<g id="ida-body-belt">
+<use id="ida-body-belt-line" href="#ida-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-body-belt-clip)">
+<use id="ida-body-belt-lit" href="#ida-body-belt-shape" fill="#7b5b3d"/>
+<path id="ida-body-belt-dark" d="M 102.9 154.7 L 141.3 151.9 L 142.6 153 L 165 151.4 L 165.4 157.8 L 103.4 162.2 Z" fill="#14110f"/>
+<path id="ida-body-belt-stitch" d="M 111.8 154.3 L 112.5 156.8 L 112.9 154.2 Z M 117.9 153.9 L 118.7 156.4 L 119.1 153.8 Z M 124.1 153.4 L 124.8 155.9 L 125.3 153.4 Z M 130.2 153 L 131 155.5 L 131.4 152.9 Z M 136.4 152.6 L 137.2 155 L 137.6 152.5 Z M 142.6 152.1 L 143.3 154.6 L 143.7 152 Z M 148.7 151.7 L 149.5 154.2 L 149.9 151.6 Z M 154.9 151.2 L 155.6 153.7 L 156.1 151.2 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="ida-body-belt-buckle">
+<use id="ida-body-belt-buckle-line" href="#ida-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-body-belt-buckle-clip)">
+<use id="ida-body-belt-buckle-lit" href="#ida-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="ida-body-belt-buckle-dark" d="M 128 144 L 141 144 L 145.2 162.5 L 128 162.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-body-belt-pin" d="M 142.6 152.4 L 148.9 152.8 L 148.9 154 L 142.6 153.8 Z" fill="#14110f"/>
+<g id="ida-body-bailer">
+<use id="ida-body-bailer-line" href="#ida-body-bailer-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-body-bailer-clip)">
+<use id="ida-body-bailer-lit" href="#ida-body-bailer-shape" fill="#6f5c46"/>
+<path id="ida-body-bailer-mid" d="M 98 154 L 115.8 153.6 L 118.9 164.8 L 116.9 168.7 L 120.2 180.4 L 98 180 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="ida-body-bailer-dark" d="M 98 154 L 115.8 153.6 L 118.9 164.8 L 116.9 168.7 L 120.2 180.4 L 98 180 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-body-bailer-handle">
+<use id="ida-body-bailer-handle-line" href="#ida-body-bailer-handle-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-body-bailer-handle-clip)">
+<use id="ida-body-bailer-handle-lit" href="#ida-body-bailer-handle-shape" fill="#6f5c46"/>
+<path id="ida-body-bailer-handle-dark" d="M 86.7 146.5 L 101.9 146.5 L 107.2 167.5 L 86.7 167.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-body-fares">
+<use id="ida-body-fares-line" href="#ida-body-fares-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-body-fares-clip)">
+<use id="ida-body-fares-lit" href="#ida-body-fares-shape" fill="#7b5b3d"/>
+<path id="ida-body-fares-mid" d="M 127.3 154 L 141.3 154 L 146.9 176 L 127.3 176 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="ida-body-fares-dark" d="M 127.3 154 L 141.3 154 L 146.9 176 L 127.3 176 Z" fill="#14110f"/>
+<path id="ida-body-fares-flap" d="M 138.8 157 L 153.2 157 L 152 163.9 L 146 165.8 L 140 163.9 Z" fill="#553d29"/>
+<path id="ida-body-fares-seam" d="M 141.8 169.4 L 142.3 171.8 L 142.9 169.4 Z M 144 169.4 L 144.5 171.8 L 145.1 169.4 Z M 146.2 169.4 L 146.8 171.8 L 147.3 169.4 Z M 148.4 169.4 L 149 171.8 L 149.5 169.4 Z" fill="#553d29"/>
+</g>
+</g>
+<path id="ida-body-fares-toggle" d="M 144.4 165 L 146 163.4 L 147.6 165 L 146 166.6 Z" fill="#14110f"/>
+<path id="ida-body-coins-0" d="M 142.4 167.8 L 144 166.2 L 145.6 167.8 L 144 169.4 Z" fill="#14110f"/>
+<path id="ida-body-coins-1" d="M 146.4 167.3 L 148 165.7 L 149.6 167.3 L 148 168.9 Z" fill="#14110f"/>
+</g>
+<g id="ida-pole-layer" transform="translate(138 116) rotate(0) scale(1 1) translate(-138 -116)">
+<defs>
+<path id="ida-pole-arm-back-upper-shape" d="M 130.1 108.3 L 137.8 118.6 L 145 134.9 L 135 141.1 L 124.7 126.6 L 117.9 115.7 Z"/>
+<clipPath id="ida-pole-arm-back-upper-clip"><use href="#ida-pole-arm-back-upper-shape"/></clipPath>
+<path id="ida-pole-arm-back-fore-shape" d="M 140 131.8 L 160.7 131.3 L 189.2 133.4 L 189.2 142.7 L 160.7 143.8 L 140 144.2 Z"/>
+<clipPath id="ida-pole-arm-back-fore-clip"><use href="#ida-pole-arm-back-fore-shape"/></clipPath>
+<path id="ida-pole-arm-back-fist-shape" d="M 178 130 L 190.3 126.9 L 196.1 127.8 L 198.4 132.5 L 201.3 133.4 L 201.5 138.9 L 199 140.3 L 199.9 145.4 L 193.7 149 L 181.4 148.1 L 177.8 140.7 Z"/>
+<clipPath id="ida-pole-arm-back-fist-clip"><use href="#ida-pole-arm-back-fist-shape"/></clipPath>
+<path id="ida-pole-pole-shape" d="M 200 237.7 L 179 -56.2 L 173 -55.8 L 192 238.3 Z"/>
+<clipPath id="ida-pole-pole-clip"><use href="#ida-pole-pole-shape"/></clipPath>
+<path id="ida-pole-binding-shape" d="M 192.7 120.1 L 191.1 99.5 L 182.1 100.1 L 183.3 120.7 Z"/>
+<clipPath id="ida-pole-binding-clip"><use href="#ida-pole-binding-shape"/></clipPath>
+<path id="ida-pole-arm-front-upper-shape" d="M 162.1 107.3 L 171.5 117.5 L 181 134.2 L 171 141.8 L 158.4 127.5 L 149.9 116.7 Z"/>
+<clipPath id="ida-pole-arm-front-upper-clip"><use href="#ida-pole-arm-front-upper-shape"/></clipPath>
+<path id="ida-pole-arm-front-fore-shape" d="M 182 140.9 L 187.4 131.3 L 192.1 116.8 L 183.1 112.3 L 175.3 125.4 L 170 135.1 Z"/>
+<clipPath id="ida-pole-arm-front-fore-clip"><use href="#ida-pole-arm-front-fore-shape"/></clipPath>
+<path id="ida-pole-arm-front-fist-shape" d="M 174.5 121.5 L 177.3 108.1 L 181 102.9 L 186.6 103 L 188.8 100.6 L 194.3 103.1 L 194.5 106.1 L 199.8 107.7 L 200.3 115.4 L 193.6 126.9 L 184.8 126.8 Z"/>
+<clipPath id="ida-pole-arm-front-fist-clip"><use href="#ida-pole-arm-front-fist-shape"/></clipPath>
+</defs>
+<g id="ida-pole-arm-back-upper">
+<use id="ida-pole-arm-back-upper-line" href="#ida-pole-arm-back-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-pole-arm-back-upper-clip)">
+<use id="ida-pole-arm-back-upper-lit" href="#ida-pole-arm-back-upper-shape" fill="#5f7480"/>
+<path id="ida-pole-arm-back-upper-mid" d="M 124.9 107.9 L 132.7 120.7 L 132 124.5 L 141.8 140.4 L 129.6 147.9 L 110.5 116.8 Z" transform="translate(2.5 -0.6)" fill="#3f505b"/>
+<path id="ida-pole-arm-back-upper-dark" d="M 124.9 107.9 L 132.7 120.7 L 132 124.5 L 141.8 140.4 L 129.6 147.9 L 110.5 116.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-pole-arm-back-fore">
+<use id="ida-pole-arm-back-fore-line" href="#ida-pole-arm-back-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-pole-arm-back-fore-clip)">
+<use id="ida-pole-arm-back-fore-lit" href="#ida-pole-arm-back-fore-shape" fill="#5f7480"/>
+<path id="ida-pole-arm-back-fore-mid" d="M 137 135.6 L 166.4 135.6 L 168.9 137.8 L 192.2 137.9 L 192.2 149.7 L 137 149.7 Z" transform="translate(2.5 -0.6)" fill="#3f505b"/>
+<path id="ida-pole-arm-back-fore-dark" d="M 137 135.6 L 166.4 135.6 L 168.9 137.8 L 192.2 137.9 L 192.2 149.7 L 137 149.7 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-pole-arm-back-fold" d="M 136.1 143.7 L 142.1 136.4 L 133.5 140.1 Z" fill="#14110f"/>
+<g id="ida-pole-arm-back-fist">
+<use id="ida-pole-arm-back-fist-line" href="#ida-pole-arm-back-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-pole-arm-back-fist-clip)">
+<use id="ida-pole-arm-back-fist-lit" href="#ida-pole-arm-back-fist-shape" fill="#7b5b3d"/>
+<path id="ida-pole-arm-back-fist-mid" d="M 173.5 141.4 L 204.8 142.7 L 204.8 153.7 L 173.5 153.7 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="ida-pole-arm-back-fist-dark" d="M 173.5 141.4 L 204.8 142.7 L 204.8 153.7 L 173.5 153.7 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-pole-arm-back-fist-fingers" d="M 198.6 131.7 L 191.4 134 L 199 134.1 Z M 199.4 138.4 L 191.9 139.8 L 199.5 140.8 Z" fill="#14110f"/>
+<g id="ida-pole-pole">
+<use id="ida-pole-pole-line" href="#ida-pole-pole-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-pole-pole-clip)">
+<use id="ida-pole-pole-lit" href="#ida-pole-pole-shape" fill="#6f5c46"/>
+<path id="ida-pole-pole-dark" d="M 197.7 240.9 L 187.5 90.5 L 186 89 L 175.9 -59 L 168.6 -58.5 L 189 241.5 Z" fill="#14110f"/>
+<path id="ida-pole-pole-grain" d="M 194.6 208.6 L 192.4 185.1 L 193.4 208.6 Z M 186.6 91 L 184 61.6 L 185.4 91 Z M 181.4 14.5 L 178.8 -14.8 L 180.2 14.6 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<path id="ida-pole-shoe" d="M 200.5 237.7 L 199.4 228.9 L 191.4 229.5 L 191.5 238.3 Z" fill="#14110f"/>
+<g id="ida-pole-binding">
+<use id="ida-pole-binding-line" href="#ida-pole-binding-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-pole-binding-clip)">
+<use id="ida-pole-binding-lit" href="#ida-pole-binding-shape" fill="#7d312b"/>
+<path id="ida-pole-binding-dark" d="M 190 123.3 L 189.4 113.6 L 187.6 111.9 L 186.5 96.8 L 177.4 97.4 L 179.2 124 Z" fill="#14110f"/>
+<path id="ida-pole-binding-turns" d="M 183.7 118.9 L 191.9 111.6 L 183 118 Z M 183.4 114 L 191.6 106.7 L 182.6 113.1 Z M 183.1 109.1 L 191.2 101.8 L 182.3 108.2 Z" fill="#551f1c"/>
+</g>
+</g>
+<path id="ida-pole-hook" d="M 176 -56 L 178 -64 L 190 -66 L 194 -58" fill="none" stroke="#14110f" stroke-width="3.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ida-pole-arm-front-upper">
+<use id="ida-pole-arm-front-upper-line" href="#ida-pole-arm-front-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-pole-arm-front-upper-clip)">
+<use id="ida-pole-arm-front-upper-lit" href="#ida-pole-arm-front-upper-shape" fill="#5f7480"/>
+<path id="ida-pole-arm-front-upper-mid" d="M 156.5 107.9 L 168.7 123.8 L 168.4 127.4 L 178.2 140.1 L 165.8 149.6 L 142.2 118.8 Z" transform="translate(2.5 -0.6)" fill="#3f505b"/>
+<path id="ida-pole-arm-front-upper-dark" d="M 156.5 107.9 L 168.7 123.8 L 168.4 127.4 L 178.2 140.1 L 165.8 149.6 L 142.2 118.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-pole-arm-front-fore">
+<use id="ida-pole-arm-front-fore-line" href="#ida-pole-arm-front-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-pole-arm-front-fore-clip)">
+<use id="ida-pole-arm-front-fore-lit" href="#ida-pole-arm-front-fore-shape" fill="#5f7480"/>
+<path id="ida-pole-arm-front-fore-mid" d="M 176.9 141.8 L 183.3 129.1 L 182.3 125.8 L 189.2 111.9 L 177.6 106.2 L 163.4 135.1 Z" transform="translate(2.5 -0.6)" fill="#3f505b"/>
+<path id="ida-pole-arm-front-fore-dark" d="M 176.9 141.8 L 183.3 129.1 L 182.3 125.8 L 189.2 111.9 L 177.6 106.2 L 163.4 135.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-pole-arm-front-fold" d="M 171.8 144.1 L 178.2 136.3 L 169 140.3 Z" fill="#14110f"/>
+<g id="ida-pole-arm-front-fist">
+<use id="ida-pole-arm-front-fist-line" href="#ida-pole-arm-front-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-pole-arm-front-fist-clip)">
+<use id="ida-pole-arm-front-fist-lit" href="#ida-pole-arm-front-fist-shape" fill="#7b5b3d"/>
+<path id="ida-pole-arm-front-fist-mid" d="M 183.4 131.2 L 199.6 101.6 L 210.2 106.9 L 195.2 137.1 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="ida-pole-arm-front-fist-dark" d="M 183.4 131.2 L 199.6 101.6 L 210.2 106.9 L 195.2 137.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-pole-arm-front-fist-fingers" d="M 186 102.4 L 184.8 110.4 L 188.5 103.2 Z M 192.8 104.8 L 190.6 112.8 L 195.2 105.9 Z" fill="#14110f"/>
+</g>
+<g id="ida-lantern-layer" transform="translate(194 -60) rotate(0) scale(1 1) translate(-194 60)">
+<defs>
+<path id="ida-lantern-lantern-glass-shape" d="M 184.4 -45.6 L 203.6 -45.6 L 206 -23.2 L 182 -23.2 Z"/>
+<clipPath id="ida-lantern-lantern-glass-clip"><use href="#ida-lantern-lantern-glass-shape"/></clipPath>
+</defs>
+<path id="ida-lantern-lantern-ring" d="M 190 -55.2 L 194 -60 L 198 -55.2 L 194 -50.4 L 190 -55.2" fill="none" stroke="#14110f" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ida-lantern-lantern-glass">
+<use id="ida-lantern-lantern-glass-line" href="#ida-lantern-lantern-glass-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-lantern-lantern-glass-clip)">
+<use id="ida-lantern-lantern-glass-lit" href="#ida-lantern-lantern-glass-shape" fill="#eeb040"/>
+<path id="ida-lantern-lantern-low" d="M 181.2 -31.2 L 206.8 -32.8 L 206.8 -21.6 L 181.2 -21.6 Z" fill="#c27a26"/>
+</g>
+</g>
+<path id="ida-lantern-lantern-heart" d="M 190.5 -28 L 189.2 -36 L 194 -43.2 L 198.8 -36 L 197.5 -28 Z" fill="#ffe6a2"/>
+<path id="ida-lantern-lantern-cap" d="M 180.4 -44.8 L 186 -52.8 L 202 -52.8 L 207.6 -44.8 Z" fill="#14110f"/>
+<path id="ida-lantern-lantern-vent" d="M 190 -52 L 198 -52 L 196.4 -56.8 L 191.6 -56.8 Z" fill="#14110f"/>
+<path id="ida-lantern-lantern-foot" d="M 179.6 -24 L 208.4 -24 L 205.2 -17.6 L 182.8 -17.6 Z" fill="#14110f"/>
+<path id="ida-lantern-lantern-bar" d="M 192.6 -45.6 L 195.4 -45.6 L 195.4 -23.2 L 192.6 -23.2 Z" fill="#14110f"/>
+<path id="ida-lantern-lantern-bar-l" d="M 183.8 -45.6 L 186 -45.6 L 184.1 -23.2 L 181.8 -23.2 Z" fill="#14110f"/>
+</g>
+<g id="ida-shoulders-layer" transform="translate(134 104) rotate(0) scale(1 1) translate(-134 -104)">
+<defs>
+<path id="ida-shoulders-cape-shape" d="M 106 112 L 114 96 L 134 90 L 152 92 L 164 104 L 166 120 L 112.2 125.2 L 115 123.3 L 116.3 124.8 L 128.9 123.6 L 131.6 122 L 133 123.2 L 160.4 120.5 L 163.5 117.6 L 164.4 120.2 L 104 126 Z"/>
+<clipPath id="ida-shoulders-cape-clip"><use href="#ida-shoulders-cape-shape"/></clipPath>
+<path id="ida-shoulders-rope-shape" d="M 97 103.2 L 103 96 L 121 96 L 127 103.2 L 125.8 124.8 L 118 132 L 106 132 L 98.2 124.8 Z"/>
+<clipPath id="ida-shoulders-rope-clip"><use href="#ida-shoulders-rope-shape"/></clipPath>
+</defs>
+<g id="ida-shoulders-cape">
+<use id="ida-shoulders-cape-line" href="#ida-shoulders-cape-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-shoulders-cape-clip)">
+<use id="ida-shoulders-cape-lit" href="#ida-shoulders-cape-shape" fill="#5f7480"/>
+<path id="ida-shoulders-cape-mid" d="M 90 84 L 122 84 L 124.2 89.8 L 125.7 105.6 L 121.8 110.9 L 123.8 132.2 L 90 134 Z" transform="translate(8.68 -2.08)" fill="#3f505b"/>
+<path id="ida-shoulders-cape-dark" d="M 90 84 L 122 84 L 124.2 89.8 L 125.7 105.6 L 121.8 110.9 L 123.8 132.2 L 90 134 Z" fill="#14110f"/>
+<path id="ida-shoulders-cape-wet" d="M 149.1 96.5 L 158 110 L 150.9 95.5 Z" fill="#e9e0c6"/>
+<path id="ida-shoulders-cape-cold" d="M 64 50 L 206 50 L 206 166 L 64 166 Z M 108.1 110.4 L 116.1 94.4 L 136.1 88.4 L 154.1 90.4 L 166.1 102.4 L 168.1 118.4 L 114.3 123.6 L 117.1 121.7 L 118.4 123.2 L 131.1 122 L 133.7 120.4 L 135.1 121.6 L 162.5 119 L 165.7 116.1 L 166.5 118.6 L 106.1 124.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="ida-shoulders-rope">
+<use id="ida-shoulders-rope-line" href="#ida-shoulders-rope-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-shoulders-rope-clip)">
+<use id="ida-shoulders-rope-lit" href="#ida-shoulders-rope-shape" fill="#c7ad84"/>
+<path id="ida-shoulders-rope-mid" d="M 85 92 L 105.2 91.3 L 111.2 111 L 108.2 117.3 L 114 136.7 L 85 136 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="ida-shoulders-rope-dark" d="M 85 92 L 105.2 91.3 L 111.2 111 L 108.2 117.3 L 114 136.7 L 85 136 Z" fill="#14110f"/>
+<path id="ida-shoulders-rope-turns" d="M 100 107.6 L 124.6 105.4 L 100 106 Z M 98.8 116.6 L 125.2 114.7 L 98.8 115 Z M 101.2 125.6 L 123.4 124.1 L 101.2 124 Z" fill="#927a58"/>
+</g>
+</g>
+</g>
+<g id="ida-head-layer" transform="translate(142 98) rotate(0) scale(1 1) translate(-142 -98)">
+<defs>
+<path id="ida-head-neck-shape" d="M 138.6 85.4 L 148.5 88.1 L 150.3 99.8 L 136.8 99.8 Z"/>
+<clipPath id="ida-head-neck-clip"><use href="#ida-head-neck-shape"/></clipPath>
+<path id="ida-head-face-shape" d="M 141 74.1 L 145.5 70.5 L 154.5 70.5 L 158.1 74.1 L 160.4 78.2 L 158.6 80.4 L 159.9 82.2 L 164 86.7 L 160.4 88.1 L 160.8 90.8 L 159.5 91.7 L 159.9 93.5 L 157.7 96.3 L 151.8 97.7 L 145.5 92.1 L 141.9 89.4 Z"/>
+<clipPath id="ida-head-face-clip"><use href="#ida-head-face-shape"/></clipPath>
+<path id="ida-head-plait-shape" d="M 128 82 L 134 82 L 132 102 L 126 116 L 121 114 L 126 100 Z"/>
+<clipPath id="ida-head-plait-clip"><use href="#ida-head-plait-shape"/></clipPath>
+<path id="ida-head-scarf-shape" d="M 136 98 L 158 100 L 156 108 L 146 114 L 138 108 Z"/>
+<clipPath id="ida-head-scarf-clip"><use href="#ida-head-scarf-shape"/></clipPath>
+<path id="ida-head-crown-shape" d="M 132 76 L 134 62 L 146 54 L 160 56 L 168 66 L 166 76 Z"/>
+<clipPath id="ida-head-crown-clip"><use href="#ida-head-crown-shape"/></clipPath>
+<path id="ida-head-brim-shape" d="M 106 92 L 112 80 L 130 72 L 166 72 L 182 76 L 180 82 L 162 80 L 134 82 L 122 96 Z"/>
+<clipPath id="ida-head-brim-clip"><use href="#ida-head-brim-shape"/></clipPath>
+</defs>
+<g id="ida-head-neck">
+<use id="ida-head-neck-line" href="#ida-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-neck-clip)">
+<use id="ida-head-neck-lit" href="#ida-head-neck-shape" fill="#c7ad84"/>
+<path id="ida-head-neck-mid" d="M 124.8 81.4 L 140.7 81.4 L 146.4 103.8 L 124.8 103.8 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="ida-head-neck-dark" d="M 124.8 81.4 L 140.7 81.4 L 146.4 103.8 L 124.8 103.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-head-face">
+<use id="ida-head-face-line" href="#ida-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-face-clip)">
+<use id="ida-head-face-lit" href="#ida-head-face-shape" fill="#c7ad84"/>
+<path id="ida-head-face-mid" d="M 137.4 67.8 L 148 68.6 L 149.5 85.9 L 146.7 89.6 L 147.5 98.5 L 137.4 100.2 Z" transform="translate(2.7 -0.65)" fill="#927a58"/>
+<path id="ida-head-face-dark" d="M 137.4 67.8 L 148 68.6 L 149.5 85.9 L 146.7 89.6 L 147.5 98.5 L 137.4 100.2 Z" fill="#14110f"/>
+<path id="ida-head-face-cheek-plane" d="M 150.9 85.4 L 156.3 84.5 L 158.1 87.6 L 156.8 92.1 L 151.8 95.3 L 149.1 90.3 Z" fill="#927a58"/>
+<path id="ida-head-face-chin-plane" d="M 155.4 93.5 L 159.9 93 L 157.7 96.3 L 153.6 96.9 Z" fill="#927a58"/>
+<path id="ida-head-face-socket" d="M 160.8 77.7 L 148.2 76.8 L 149.1 83.1 L 153.6 85.4 L 156.3 83.1 L 159.5 82 Z" fill="#14110f"/>
+<path id="ida-head-face-lines" d="M 157.8 87.7 L 156.8 91.7 L 159.3 88.4 Z M 146.8 91.8 L 153.6 96.3 L 147.8 90.6 Z" fill="#14110f"/>
+<path id="ida-head-face-mouth" d="M 160.6 90 L 155 91.9 L 161 92 Z" fill="#14110f"/>
+<path id="ida-head-face-scar" d="M 153.9 81.6 L 158.1 89.4 L 155.1 81 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="ida-head-face-nostril" d="M 160.8 87.4 L 157.7 86.3 L 159.9 88.7 Z" fill="#14110f"/>
+<g id="ida-head-plait">
+<use id="ida-head-plait-line" href="#ida-head-plait-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-plait-clip)">
+<use id="ida-head-plait-lit" href="#ida-head-plait-shape" fill="#cfc5a8"/>
+<path id="ida-head-plait-mid" d="M 109 78 L 125.6 77.9 L 127.9 94.1 L 126.2 96.6 L 129.4 120.1 L 109 120 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="ida-head-plait-dark" d="M 109 78 L 125.6 77.9 L 127.9 94.1 L 126.2 96.6 L 129.4 120.1 L 109 120 Z" fill="#14110f"/>
+<path id="ida-head-plait-turns" d="M 132.9 87 L 127.1 91 L 133.5 88 Z M 131.1 93.5 L 125.3 97.5 L 131.7 94.5 Z M 129.4 100 L 123.6 104 L 130 101 Z M 127.6 106.5 L 121.8 110.5 L 128.2 107.5 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="ida-head-scarf">
+<use id="ida-head-scarf-line" href="#ida-head-scarf-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-scarf-clip)">
+<use id="ida-head-scarf-lit" href="#ida-head-scarf-shape" fill="#7d312b"/>
+<path id="ida-head-scarf-mid" d="M 124 94 L 141.6 94 L 148 118 L 124 118 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="ida-head-scarf-dark" d="M 124 94 L 141.6 94 L 148 118 L 124 118 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-head-crown">
+<use id="ida-head-crown-line" href="#ida-head-crown-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-crown-clip)">
+<use id="ida-head-crown-lit" href="#ida-head-crown-shape" fill="#5f7480"/>
+<path id="ida-head-crown-mid" d="M 120 50 L 144.9 49.4 L 150 66.7 L 146.7 71.6 L 149.3 80.6 L 120 80 Z" transform="translate(3 -0.72)" fill="#3f505b"/>
+<path id="ida-head-crown-dark" d="M 120 50 L 144.9 49.4 L 150 66.7 L 146.7 71.6 L 149.3 80.6 L 120 80 Z" fill="#14110f"/>
+<path id="ida-head-crown-seams" d="M 149.3 56 L 150 74 L 150.7 56 Z M 139.3 59.9 L 138 76 L 140.7 60.1 Z" fill="#3f505b"/>
+<path id="ida-head-crown-wet" d="M 157.3 60.4 L 162 68 L 158.7 59.6 Z" fill="#e9e0c6"/>
+<path id="ida-head-crown-cold" d="M 92 14 L 208 14 L 208 116 L 92 116 Z M 133.9 74.6 L 135.9 60.6 L 147.9 52.6 L 161.9 54.6 L 169.9 64.6 L 167.9 74.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="ida-head-brim">
+<use id="ida-head-brim-line" href="#ida-head-brim-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-brim-clip)">
+<use id="ida-head-brim-lit" href="#ida-head-brim-shape" fill="#5f7480"/>
+<path id="ida-head-brim-mid" d="M 100 84 L 130 80 L 126 100 L 100 100 Z" transform="translate(2 -0.48)" fill="#3f505b"/>
+<path id="ida-head-brim-dark" d="M 100 84 L 130 80 L 126 100 L 100 100 Z" fill="#14110f"/>
+</g>
+<path id="ida-head-brim-open-0" d="M 168 72.4 L 170.32 70.66 L 182.32 73.26 L 180 75 Z" fill="#5f7480"/>
+</g>
+<path id="ida-head-tie" d="M 142 80 L 150 104" fill="none" stroke="#14110f" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+</g>
+</svg>

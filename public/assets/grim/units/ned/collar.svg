@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ned-collar" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ned-collar-cape-shape" d="M 110 114 L 118 100 L 138 94 L 156 98 L 166 110 L 166 124 L 113.7 127.6 L 116.5 123.8 L 115.9 127.5 L 124.4 126.9 L 127.1 123.1 L 126.3 126.7 L 142.3 125.6 L 145.4 120.5 L 143.9 125.5 L 151.3 125 L 154.3 121.4 L 154.1 124.8 L 161.5 124.3 L 163.5 122.3 L 163.8 124.2 L 108 128 Z"/>
+<clipPath id="ned-collar-cape-clip"><use href="#ned-collar-cape-shape"/></clipPath>
+</defs>
+<g id="ned-collar-cape">
+<use id="ned-collar-cape-line" href="#ned-collar-cape-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-collar-cape-clip)">
+<use id="ned-collar-cape-lit" href="#ned-collar-cape-shape" fill="#4f4944"/>
+<path id="ned-collar-cape-mid" d="M 96 90 L 126 90 L 128.2 95.8 L 130 112.9 L 126.1 118 L 127.8 134.2 L 96 136 Z" transform="translate(8.12 -1.95)" fill="#34302d"/>
+<path id="ned-collar-cape-dark" d="M 96 90 L 126 90 L 128.2 95.8 L 130 112.9 L 126.1 118 L 127.8 134.2 L 96 136 Z" fill="#14110f"/>
+<path id="ned-collar-cape-seam" d="M 118.6 118.4 L 119.4 121.4 L 119.8 118.3 Z M 125.2 118.1 L 125.9 121.1 L 126.4 118 Z M 131.8 117.8 L 132.5 120.8 L 133 117.8 Z M 138.3 117.5 L 139.1 120.5 L 139.5 117.5 Z M 144.9 117.2 L 145.6 120.2 L 146.1 117.2 Z M 151.5 117 L 152.2 119.9 L 152.7 116.9 Z M 158 116.7 L 158.8 119.6 L 159.2 116.6 Z" fill="#34302d"/>
+<path id="ned-collar-cape-cold" d="M 68 54 L 206 54 L 206 168 L 68 168 Z M 112.1 112.4 L 120.1 98.4 L 140.1 92.4 L 158.1 96.4 L 168.1 108.4 L 168.1 122.4 L 115.8 126 L 118.6 122.2 L 118 125.9 L 126.5 125.3 L 129.2 121.6 L 128.4 125.2 L 144.4 124.1 L 147.5 118.9 L 146 123.9 L 153.4 123.4 L 156.4 119.8 L 156.2 123.2 L 163.6 122.7 L 165.7 120.7 L 165.9 122.6 L 110.1 126.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</svg>

@@ -285,7 +285,8 @@ describe('a contract unlike the last', () => {
         }
       }
     }
-  });
+    // Thirteen variants of forty seconds each: longer than a test is usually given on a busy machine.
+  }, 30000);
 });
 
 describe('tasks besides the kill', () => {

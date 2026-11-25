@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-shove" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-shove-pole-shape" d="M 1.1 41.1 L 45.1 27.1 L 46.9 32.9 L 2.9 46.9 Z"/>
+<clipPath id="icon-ability-shove-pole-clip"><use href="#icon-ability-shove-pole-shape"/></clipPath>
+<path id="icon-ability-shove-shoe-shape" d="M 42 26 L 54 22 L 58 32 L 46 36 Z"/>
+<clipPath id="icon-ability-shove-shoe-clip"><use href="#icon-ability-shove-shoe-shape"/></clipPath>
+<path id="icon-ability-shove-binding-shape" d="M 20 34 L 28 32 L 30 40 L 22 42 Z"/>
+<clipPath id="icon-ability-shove-binding-clip"><use href="#icon-ability-shove-binding-shape"/></clipPath>
+</defs>
+<g id="icon-ability-shove-pole">
+<use id="icon-ability-shove-pole-line" href="#icon-ability-shove-pole-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-shove-pole-clip)">
+<use id="icon-ability-shove-pole-lit" href="#icon-ability-shove-pole-shape" fill="#6f5c46"/>
+<path id="icon-ability-shove-pole-dark" d="M -1.2 43.8 L 28.7 34.3 L 30.1 35 L 48.8 29 L 50.5 34.2 L 0.8 50.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-shove-shoe">
+<use id="icon-ability-shove-shoe-line" href="#icon-ability-shove-shoe-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-shove-shoe-clip)">
+<use id="icon-ability-shove-shoe-lit" href="#icon-ability-shove-shoe-shape" fill="#8c9194"/>
+<path id="icon-ability-shove-shoe-dark" d="M 30 18 L 42.9 18 L 45.4 40 L 30 40 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-ability-shove-push" d="M 50.6 11.6 L 60 6 L 49.4 8.4 Z M 58.5 21.6 L 64 18 L 57.5 18.4 Z M 57.1 43.4 L 64 46 L 58.9 40.6 Z M 49 51.4 L 58 56 L 51 48.6 Z" fill="#cfc5a8"/>
+<g id="icon-ability-shove-binding">
+<use id="icon-ability-shove-binding-line" href="#icon-ability-shove-binding-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-shove-binding-clip)">
+<use id="icon-ability-shove-binding-lit" href="#icon-ability-shove-binding-shape" fill="#7d312b"/>
+<path id="icon-ability-shove-binding-dark" d="M 8 28 L 20.5 28 L 22.3 46 L 8 46 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

@@ -13,7 +13,7 @@ import { along, arm, between, blot, boot, chain, face, fist, hem, limb, limbDark
 import { BLOOD, BONE, LAMP, LEAD, LEATHER, MOSS, RUST, SCRATCH, SOOT, TALLOW, WOOD } from '../kit/palette';
 import { poly, type Pt } from '../kit/path';
 import { part, type UnitArt } from '../kit/unit';
-import { BRACE, CLEAVE, FALL, HIT, JAB, POINT, RAISE_LIGHT, REAP, SET_DOWN, SHOULDER_LOOSE, UNDERHAND, WHISTLE } from '../poses';
+import { BRACE, CLEAVE, DODGE, FALL, HIT, JAB, POINT, RAISE_LIGHT, REAP, REST, SET_DOWN, SHOULDER_LOOSE, SIT, UNDERHAND, WHISTLE } from '../poses';
 
 /** The canvas hunters and other people are drawn on, and where they stand on it. */
 export const PERSON: readonly [number, number] = [256, 256];
@@ -57,7 +57,7 @@ const marta: UnitArt = {
   feet: PERSON_FEET,
   margin: PERSON_MARGIN,
   moves: { cleave: CLEAVE, reap: REAP },
-  stills: { brace: BRACE, hit: HIT, fall: FALL },
+  stills: { brace: BRACE, hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: SIT },
   muzzle: [222, 30],
   top: 40,
   parts: [
@@ -222,7 +222,7 @@ const jory: UnitArt = {
   feet: PERSON_FEET,
   margin: PERSON_MARGIN,
   moves: { loose: SHOULDER_LOOSE, set: SET_DOWN },
-  stills: { hit: HIT, fall: FALL },
+  stills: { hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: SIT },
   muzzle: [244, 112],
   top: 50,
   parts: [
@@ -369,7 +369,7 @@ const agnes: UnitArt = {
   feet: PERSON_FEET,
   margin: PERSON_MARGIN,
   moves: { jab: JAB, flare: RAISE_LIGHT, lamp: SET_DOWN },
-  stills: { hit: HIT, fall: FALL },
+  stills: { hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: SIT },
   muzzle: [238, 8],
   top: 30,
   parts: [
@@ -483,7 +483,7 @@ const brask: UnitArt = {
   feet: PERSON_FEET,
   margin: PERSON_MARGIN,
   moves: { thrust: UNDERHAND, setOn: POINT, heel: WHISTLE },
-  stills: { hit: HIT, fall: FALL },
+  stills: { hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: SIT },
   muzzle: [190, 0],
   top: 62,
   parts: [

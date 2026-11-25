@@ -10,7 +10,7 @@
 
 import { Doc, cut } from './kit/draw';
 import { limb, limbDark, rivets, stitches, stud } from './kit/figure';
-import { BLOOD, BONE, GORE, LAMP, LEAD, LEATHER, PAPER, RUST, SOOT, TALLOW, WOOD, type Tone } from './kit/palette';
+import { BLOOD, BONE, GORE, LAMP, LEAD, LEATHER, MOSS, PAPER, RUST, SNOW, SOOT, TALLOW, WOOD, type Tone } from './kit/palette';
 import { poly, type Pt } from './kit/path';
 import type { Thing } from './things';
 import { word, wordWidth } from './ui';
@@ -181,6 +181,106 @@ const ICONS: Record<string, (d: Doc) => void> = {
     d.ink('tine-c', limb([40, 24], [34, 2], 7, 2), WOOD, { dark: 0.4, mid: 0, ...fine });
     d.flat('frost', poly([[40, 22], [56, 6], [58, 8], [44, 24]]), BONE.lit);
     d.ink('cord', poly([[10, 50], [24, 46], [26, 54], [12, 58]]), BLOOD, { dark: 0.3, mid: 0, ...fine });
+  },
+  // ---- The four hunters who came after: two skills each.
+  // Forge Strike: the sledge's head, its face red-hot, sparks off it.
+  'ability-forgestrike': (d) => {
+    d.ink('haft', limb([6, 60], [30, 34], 6, 5), WOOD, { dark: limbDark([6, 60], [30, 34], 6, 6, 'i-fs', 0.4), mid: 0, ...fine });
+    d.ink('head', poly([[18, 30], [36, 12], [56, 30], [38, 48]]), LEAD, { dark: 0.3, mid: 2, rim: 1.6, ...fine });
+    d.ink('face', poly([[36, 12], [56, 30], [60, 26], [40, 8]]), FIRE, { dark: false, ...fine, inner: (c) => c.flat('hot', poly([[42, 12], [56, 26], [54, 28], [40, 14]]), LAMP.hot) });
+    d.strokes('sparks', [[[54, 6], [60, 2]], [[60, 14], [64, 12]], [[48, 2], [50, 0]]], 3, LAMP.lit);
+  },
+  // Anvil: an anvil, falling, with the marks of its fall over it.
+  'ability-anvil': (d) => {
+    d.ink('face', poly([[4, 30], [6, 20], [44, 18], [62, 16], [52, 26], [44, 30]]), LEAD, { dark: 0.3, mid: 2, rim: 1.6, ...fine });
+    d.ink('waist', poly([[18, 30], [38, 30], [40, 42], [16, 42]]), LEAD, { dark: 0.5, mid: 0, ...fine });
+    d.ink('foot', poly([[8, 54], [12, 42], [44, 42], [48, 54]]), LEAD, { dark: 0.4, mid: 2, ...fine });
+    d.strokes('fall', [[[12, 2], [12, 12]], [[24, 0], [24, 12]], [[36, 2], [36, 12]]], 3.4, BONE.lit);
+    d.strokes('ground', [[[2, 60], [56, 60]]], 4);
+  },
+  // Powder Keg: a keg with a burning fuse.
+  'ability-keg': (d) => {
+    d.ink('keg', poly([[10, 24], [44, 20], [52, 36], [48, 58], [14, 60], [6, 42]]), WOOD, {
+      dark: 0.3, mid: 3, ...fine,
+      inner: (c) => {
+        c.flat('hoop-a', poly([[16, 22], [22, 22], [20, 60], [14, 60]]), LEAD.mid);
+        c.flat('hoop-b', poly([[38, 20], [44, 20], [46, 58], [40, 58]]), LEAD.mid);
+        c.strokes('mark', [[[24, 34], [34, 48]], [[34, 34], [24, 48]]], 3, SOOT.mid);
+      },
+    });
+    d.pen('fuse', poly([[44, 22], [52, 14], [54, 8]], false), 2.6);
+    d.ink('spark', poly([[54, 0], [57, 5], [63, 3], [59, 8], [64, 12], [58, 11], [56, 16], [54, 11], [48, 11], [52, 7]]), FIRE, { dark: false, line: 1.4, heavy: 1.8 });
+  },
+  // Cave-in: rocks coming down in a line onto the floor.
+  'ability-cavein': (d) => {
+    d.ink('roof', poly([[0, 0], [64, 0], [64, 8], [44, 12], [30, 8], [14, 12], [0, 8]]), SOOT, { dark: false, ...fine });
+    for (const [i, [x, y, k]] of ([[12, 22, 1], [32, 32, 1.3], [50, 20, 0.9], [22, 48, 1.1], [44, 50, 1]] as Array<[number, number, number]>).entries()) {
+      d.ink(`rock-${i}`, poly([[x - 8 * k, y + 2 * k], [x - 4 * k, y - 7 * k], [x + 6 * k, y - 6 * k], [x + 8 * k, y + 4 * k], [x, y + 8 * k]]), LEAD, { dark: 0.35, mid: 0, ...fine });
+    }
+    d.strokes('fall', [[[12, 10], [12, 14]], [[50, 10], [50, 12]]], 2.4, BONE.lit);
+  },
+  // Shove: the pole's foot driven forward, and the push of it.
+  'ability-shove': (d) => {
+    d.ink('pole', limb([2, 44], [46, 30], 6, 6), WOOD, { dark: limbDark([2, 44], [46, 30], 6, 6, 'i-shove', 0.4), mid: 0, ...fine });
+    d.ink('shoe', poly([[42, 26], [54, 22], [58, 32], [46, 36]]), LEAD, { dark: 0.3, mid: 0, ...fine });
+    d.strokes('push', [[[50, 10], [60, 6]], [[58, 20], [64, 18]], [[58, 42], [64, 46]], [[50, 50], [58, 56]]], 3.4, BONE.lit);
+    d.ink('binding', poly([[20, 34], [28, 32], [30, 40], [22, 42]]), BLOOD, { dark: 0.3, mid: 0, ...fine });
+  },
+  // Lantern Wake: a lantern swinging, and the trail of light it leaves behind it.
+  'ability-wake': (d) => {
+    for (const [i, [x, y, k]] of ([[8, 52, 0.6], [18, 46, 0.8], [28, 40, 1]] as Array<[number, number, number]>).entries()) {
+      d.flat(`patch-${i}`, poly([[x - 8 * k, y], [x, y - 4 * k], [x + 8 * k, y], [x, y + 4 * k]]), LAMP.mid, 0.6 + i * 0.1);
+    }
+    d.pen('hook', poly([[44, 2], [48, 8], [44, 14]], false), 2.6);
+    d.ink('lantern', poly([[34, 16], [54, 16], [52, 40], [36, 40]]), FIRE, { dark: false, ...fine, inner: (c) => c.flat('heart', poly([[40, 36], [44, 24], [48, 36]]), LAMP.hot) });
+    d.black('roof', poly([[30, 18], [38, 10], [50, 10], [58, 18]]));
+    d.black('bar', poly([[43, 16], [45, 16], [45, 40], [43, 40]]));
+  },
+  // Hook: the meat hook on its chain, thrown.
+  'ability-hook': (d) => {
+    d.pen('chain', poly([[4, 60], [14, 48], [24, 40], [32, 30]], false), 3.4);
+    d.strokes('links', [[[8, 56], [12, 50]], [[18, 44], [22, 40]], [[26, 36], [30, 32]]], 2, LEAD.lit);
+    d.ink('hook', poly([[32, 30], [40, 18], [52, 8], [60, 14], [58, 28], [50, 40], [52, 30], [52, 20], [46, 18], [40, 28]]), LEAD, { dark: 0.3, mid: 0, rim: 1.4, ...fine });
+    d.ink('point', poly([[50, 40], [44, 46], [46, 38]]), LEAD, { dark: 0.3, mid: 0, ...fine });
+  },
+  // Hack: the cleaver, and the cuts it leaves, in a row.
+  'ability-hack': (d) => {
+    d.ink('blade', poly([[6, 8], [42, 4], [44, 30], [10, 34]]), LEAD, { dark: 0.3, mid: 2, rim: 1.6, ...fine, inner: (c) => c.black('hole', poly([[34, 10], [38, 10], [38, 14], [34, 14]])) });
+    d.ink('grip', limb([10, 22], [2, 44], 6, 5), WOOD, { dark: 0.4, mid: 0, ...fine });
+    d.strokes('cuts', [[[30, 40], [40, 62]], [[40, 38], [50, 60]], [[50, 36], [60, 58]]], 4, GORE.lit);
+  },
+  // The Spinner's silk: a skein of her grey thread, wound and tied.
+  'trophy-silk': (d) => {
+    d.ink('skein', poly([[10, 30], [18, 14], [34, 8], [50, 14], [56, 30], [50, 48], [34, 56], [18, 50]]), BONE, {
+      dark: poly([[0, 34], [64, 40], [64, 64], [0, 64]]), mid: 3, ...fine,
+      inner: (c) => c.detail('turns', [[[14, 24], [52, 18]], [[12, 32], [56, 28]], [[14, 42], [54, 38]], [[20, 50], [50, 48]]], BONE, 2),
+    });
+    d.ink('tie', poly([[28, 4], [38, 4], [40, 60], [26, 60]]), BLOOD, { dark: 0.3, mid: 0, ...fine });
+    d.pen('loose', poly([[52, 40], [60, 52], [58, 62]], false), 2, BONE.lit);
+  },
+  // The Abbot's bell rope: a length of rope with its tufted grip, green at the end.
+  'trophy-bellrope': (d) => {
+    d.ink('rope', poly([[22, 0], [32, 0], [36, 40], [26, 40]]), TALLOW, { dark: 0.3, mid: 0, ...fine, inner: (c) => c.detail('twist', stitches([26, 4], [32, 38], 6, 6, 0.6), TALLOW, 1.6) });
+    d.ink('sally', poly([[20, 36], [42, 34], [46, 54], [36, 62], [24, 62], [16, 52]]), BLOOD, { dark: 0.35, mid: 3, ...fine, inner: (c) => c.detail('tufts', [[[24, 44], [26, 56]], [[32, 42], [34, 58]], [[40, 42], [40, 54]]], BLOOD, 1.6) });
+    d.flat('weed', poly([[30, 6], [36, 8], [34, 22], [30, 20]]), MOSS.mid);
+  },
+  // The Furnace's grate: a square of iron bars, red-hot behind.
+  'trophy-grate': (d) => {
+    d.ink('frame', poly([[6, 8], [58, 6], [60, 58], [4, 60]]), LEAD, { dark: 0.3, mid: 2, rim: 1.6, ...fine });
+    d.ink('fire', poly([[12, 14], [52, 12], [54, 52], [10, 54]]), FIRE, { dark: false, ...fine, inner: (c) => c.flat('heart', poly([[18, 30], [46, 28], [48, 50], [16, 50]]), LAMP.hot) });
+    for (let i = 0; i < 5; i++) d.black(`bar-${i}`, poly([[14 + i * 9, 12], [18 + i * 9, 12], [19 + i * 9, 54], [15 + i * 9, 54]]));
+    rivets(d, 'bolts', [10, 10], [56, 8], 4, 2);
+  },
+  // The Mirror shard: a long splinter of mirror, bound at its foot, the cold light in it.
+  'trophy-shard': (d) => {
+    d.ink('shard', poly([[18, 60], [14, 44], [38, 4], [52, 0], [44, 22], [30, 52]]), LEAD, {
+      dark: poly([[0, 30], [20, 30], [36, 0], [0, 0]]), mid: 0, rim: 1.6, ...fine,
+      inner: (c) => {
+        c.flat('light', poly([[30, 30], [44, 8], [48, 6], [36, 32]]), SNOW.mid);
+        c.strokes('glint', [[[40, 14], [46, 6]]], 2, SNOW.lit);
+      },
+    });
+    d.ink('binding', poly([[12, 48], [30, 52], [26, 62], [10, 58]]), LEATHER, { dark: 0.3, mid: 0, ...fine });
   },
 };
 

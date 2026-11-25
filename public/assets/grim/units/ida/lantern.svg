@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ida-lantern" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ida-lantern-lantern-glass-shape" d="M 184.4 -45.6 L 203.6 -45.6 L 206 -23.2 L 182 -23.2 Z"/>
+<clipPath id="ida-lantern-lantern-glass-clip"><use href="#ida-lantern-lantern-glass-shape"/></clipPath>
+</defs>
+<path id="ida-lantern-lantern-ring" d="M 190 -55.2 L 194 -60 L 198 -55.2 L 194 -50.4 L 190 -55.2" fill="none" stroke="#14110f" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ida-lantern-lantern-glass">
+<use id="ida-lantern-lantern-glass-line" href="#ida-lantern-lantern-glass-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-lantern-lantern-glass-clip)">
+<use id="ida-lantern-lantern-glass-lit" href="#ida-lantern-lantern-glass-shape" fill="#eeb040"/>
+<path id="ida-lantern-lantern-low" d="M 181.2 -31.2 L 206.8 -32.8 L 206.8 -21.6 L 181.2 -21.6 Z" fill="#c27a26"/>
+</g>
+</g>
+<path id="ida-lantern-lantern-heart" d="M 190.5 -28 L 189.2 -36 L 194 -43.2 L 198.8 -36 L 197.5 -28 Z" fill="#ffe6a2"/>
+<path id="ida-lantern-lantern-cap" d="M 180.4 -44.8 L 186 -52.8 L 202 -52.8 L 207.6 -44.8 Z" fill="#14110f"/>
+<path id="ida-lantern-lantern-vent" d="M 190 -52 L 198 -52 L 196.4 -56.8 L 191.6 -56.8 Z" fill="#14110f"/>
+<path id="ida-lantern-lantern-foot" d="M 179.6 -24 L 208.4 -24 L 205.2 -17.6 L 182.8 -17.6 Z" fill="#14110f"/>
+<path id="ida-lantern-lantern-bar" d="M 192.6 -45.6 L 195.4 -45.6 L 195.4 -23.2 L 192.6 -23.2 Z" fill="#14110f"/>
+<path id="ida-lantern-lantern-bar-l" d="M 183.8 -45.6 L 186 -45.6 L 184.1 -23.2 L 181.8 -23.2 Z" fill="#14110f"/>
+</svg>

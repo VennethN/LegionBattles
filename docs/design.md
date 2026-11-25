@@ -44,8 +44,12 @@ A hunter is a person with a name, a weapon, a way of fighting and two abilities.
 | **Jory Pell**, the Poacher | a heavy windlass crossbow | from far off, always moving | *Jaw Trap*: laid on the ground; what steps in it is held and takes more. *Tar Flask*: a pool that slows, and burns if fire touches it. |
 | **Agnes Thorn**, the Lamplighter | a lamplighter's long pole with a burning wick, and an oil can | middle reach, fire and light | *Flare*: a burst of light that blinds the monster for a moment and burns the small. *Street Lamp*: she stands a lamp on the ground; in its light allies are harder to hurt. |
 | **Old Brask**, the Dog Handler | a boar spear, and two hounds | with his dogs | *Set On*: the hounds go for the mark and hold it. *Heel*: the hounds come back to him and all three mend. |
+| **Greta Hale**, the Smith | a forge hammer | up close, slow huge blows; her blows fill the stagger half as much again as their harm, and the second of her chain stuns what it lands on | *Forge Strike*: a heated blow; the boss burns, and its armor is cracked for six seconds, so that everything fills more stagger. *Anvil*: shown where it will fall, in front of her; it holds what is under it, and stays a while as a stone that blocks a charge. |
+| **Ned Rook**, the Miner | a pick, and blasting powder | middle reach; his pick does three times its harm to small things and to anything that stands still (sacs, mirrors, barrels, markers) | *Powder Keg*: thrown, shown with its fuse, a big blast that hurts a hunter left in it too. *Cave-in*: rocks come down along a strip in front of him a second after it is shown. |
+| **Ida Marsh**, the Ferrywoman | a ferry pole, and a lantern | the longest reach; her jab pushes small things away and her sweep pulls them in | *Shove*: a long push that throws small things back, and timed while the boss winds up, puts it off its blow. *Lantern Wake*: for six seconds she leaves light behind her; hunters in it go faster, enemies slower. |
+| **Silas Grey**, the Butcher | a cleaver, and a meat hook on a chain | close and fast; every cut makes the boss bleed a little more | *Hook*: down a line, a small thing is dragged to him, or with none he is dragged to the boss. *Hack*: six quick cuts where he stands, each a wound more. |
 
-Others are opened by trophies.
+The first four are there from the start or opened by the Gravedigger's and the King's trophies. Each of the four later bosses' trophies opens one more: the Spinner's Greta, the Abbot's Ned, the Furnace's Ida and the Mirror King's Silas. Each of them has a reason to hunt one of them (her brother burned in the foundry; his dig broke into her cellar; she rowed the monks out; the mirror maker owes him a year of meat).
 
 Names are plain words anyone knows. The owner, of a first name for the gravedigger: "dont use sexton name why sexton"; a name that needs a dictionary is the wrong name, so the Lychwarden, the Snaresman, the Kennelman and the Glazier went with it.
 
@@ -84,6 +88,17 @@ Each is one idea, with attacks that teach it. To begin with:
 | **The Bell Abbot** | his bell sends rings across the field that must be stood between; his monks walk in procession | a drowned abbey |
 | **The Furnace** | an iron thing that vents fire in turning lines and must be cooled to be hurt | a foundry |
 | **The Mirror King** | he is not where he seems: a thing of mirror glass in a hall of mirrors, and what is struck may be a reflection | a mirror maker's hall |
+
+They are posted one after another: the Gravedigger, the King, then each later one when the one before has fallen. How each of the later four fights (content.ts, `MONSTERS`; the rules for them in hunt.ts):
+
+| Boss | What it teaches | Its own | Variant |
+| --- | --- | --- | --- |
+| **The Spinner** | *Web Spit* and *Web Rain* land as webs that hold whoever walks into them for a moment (walk round, or roll over); *Drop*: she goes up into the dark, is out of reach while the ring shows, comes down in it, and is soft for her long recovery; *Leg Sweep*, *Bite*, *Frenzy* (difficulty 3). | Three egg sacs that hatch a spiderling every fifteen seconds until broken; *Lay Eggs* puts more down. | Brood Mother: two more sacs. |
+| **The Bell Abbot** | *Bell Toll*: a ring on him and a band far out at once, with safe ground between; *Double Peal* and *Knell* (difficulties 2 and 3) move the safe band outward; *Crook Swing*, *Censer*, *Holy Water* that follows. | *Call the Monks*: monks walk round the abbey in procession and mend him while they live, never past the phase he is in. Four shallows slow everyone by 30%, hunters too. | Full Choir: monks twice as often. |
+| **The Furnace** | Heat: hot (60 and over) it takes under half of any harm, cooled (35 and under) half as much again. A water barrel broken next to it cools it by 55. Left alone it reaches 100 and *Vents*: a big ring, shown first, then it is left cool and open for three seconds. *Vents* in spokes, then the spokes between; *Turning Vent* (difficulty 2) sweeps round; *Pour Iron* lanes; *Slag Throw*; *Hammer Press*. | Four water barrels, rolled in again fourteen seconds after one is broken; cinders that walk. | Stoked: heats up half as fast again. |
+| **The Mirror King** | *Mirror Step*: a ring at every mirror still standing; he steps out of one and a reflection out of each of the others. Reflections fight too, with a small mark of their own; he makes the big marks. A mirror broken takes its reflection with it, and with none standing he only steps to where he was marked. *Glass Cut*, *Shards*, *False Image*, *Shatter*, *Crown of Glass*. | Four mirrors; reflections. | Gallery: two more mirrors. |
+
+Their trophies: the Spinner's Silk (roots and webs hold half as long), the Abbot's Bell Rope (each break mends 20% of health), the Furnace's Grate (skills come back 15% sooner), the Mirror Shard (the first blow after a roll does half as much again).
 
 Each has three **marks** of difficulty: at a higher mark it has attacks it did not have before, and pays more.
 

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="spinner-eggs" width="1220" height="1120" viewBox="-200 -200 1220 1120">
+<defs>
+<path id="spinner-eggs-sac-a-shape" d="M 297 528 L 306 522 L 330 522 L 342 540 L 339 564 L 318 576 L 294 561 Z"/>
+<clipPath id="spinner-eggs-sac-a-clip"><use href="#spinner-eggs-sac-a-shape"/></clipPath>
+<path id="spinner-eggs-sac-b-shape" d="M 343.2 546 L 350.4 541.2 L 369.6 541.2 L 379.2 555.6 L 376.8 574.8 L 360 584.4 L 340.8 572.4 Z"/>
+<clipPath id="spinner-eggs-sac-b-clip"><use href="#spinner-eggs-sac-b-shape"/></clipPath>
+<path id="spinner-eggs-sac-c-shape" d="M 278 560 L 284 556 L 300 556 L 308 568 L 306 584 L 292 592 L 276 582 Z"/>
+<clipPath id="spinner-eggs-sac-c-clip"><use href="#spinner-eggs-sac-c-shape"/></clipPath>
+</defs>
+<path id="spinner-eggs-egg-thread" d="M 330 500 L 320 540 L 350 560" fill="none" stroke="#9c9178" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="spinner-eggs-sac-a">
+<use id="spinner-eggs-sac-a-line" href="#spinner-eggs-sac-a-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-eggs-sac-a-clip)">
+<use id="spinner-eggs-sac-a-lit" href="#spinner-eggs-sac-a-shape" fill="#cfc5a8"/>
+<path id="spinner-eggs-sac-a-mid" d="M 282 518 L 307.6 517.1 L 318.5 549.1 L 315.3 556.5 L 323.6 580.9 L 282 580 Z" transform="translate(4 -0.96)" fill="#9c9178"/>
+<path id="spinner-eggs-sac-a-dark" d="M 282 518 L 307.6 517.1 L 318.5 549.1 L 315.3 556.5 L 323.6 580.9 L 282 580 Z" fill="#14110f"/>
+<path id="spinner-eggs-sac-a-veins" d="M 311.2 527.9 L 306 564 L 312.8 528.1 Z M 326.2 530.9 L 324 567 L 327.8 531.1 Z" fill="#551f1c"/>
+</g>
+</g>
+<g id="spinner-eggs-sac-b">
+<use id="spinner-eggs-sac-b-line" href="#spinner-eggs-sac-b-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-eggs-sac-b-clip)">
+<use id="spinner-eggs-sac-b-lit" href="#spinner-eggs-sac-b-shape" fill="#cfc5a8"/>
+<path id="spinner-eggs-sac-b-mid" d="M 328.8 537.2 L 352.3 536.3 L 361.9 565.4 L 358.5 573 L 363.9 589.3 L 328.8 588.4 Z" transform="translate(4 -0.96)" fill="#9c9178"/>
+<path id="spinner-eggs-sac-b-dark" d="M 328.8 537.2 L 352.3 536.3 L 361.9 565.4 L 358.5 573 L 363.9 589.3 L 328.8 588.4 Z" fill="#14110f"/>
+<path id="spinner-eggs-sac-b-veins" d="M 354.4 545.9 L 350.4 574.8 L 356 546.1 Z M 366.4 548.3 L 364.8 577.2 L 368 548.5 Z" fill="#551f1c"/>
+</g>
+</g>
+<g id="spinner-eggs-sac-c">
+<use id="spinner-eggs-sac-c-line" href="#spinner-eggs-sac-c-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spinner-eggs-sac-c-clip)">
+<use id="spinner-eggs-sac-c-lit" href="#spinner-eggs-sac-c-shape" fill="#cfc5a8"/>
+<path id="spinner-eggs-sac-c-mid" d="M 264 552 L 285.6 551.3 L 290.8 567.3 L 287.8 573.7 L 295.2 596.7 L 264 596 Z" transform="translate(4 -0.96)" fill="#9c9178"/>
+<path id="spinner-eggs-sac-c-dark" d="M 264 552 L 285.6 551.3 L 290.8 567.3 L 287.8 573.7 L 295.2 596.7 L 264 596 Z" fill="#14110f"/>
+<path id="spinner-eggs-sac-c-veins" d="M 287.2 559.9 L 284 584 L 288.8 560.1 Z M 297.2 561.9 L 296 586 L 298.8 562.1 Z" fill="#551f1c"/>
+</g>
+</g>
+</svg>

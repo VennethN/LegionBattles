@@ -34,6 +34,8 @@ export interface PartSpec {
   sway?: number;
   /** True for what hangs by a ring or a chain: it goes where its parent goes and does not turn with it, so a lamp stays upright on a halberd swung over. */
   hangs?: boolean;
+  /** The still this part is shown in, and in no other pose: what water leaves on the Furnace while it is cooled. */
+  only?: string;
   draw: (d: Doc) => void;
 }
 
@@ -69,6 +71,6 @@ export function drawPart(unit: UnitArt, part: PartSpec): Doc {
 }
 
 /** A part, said shortly. */
-export function part(name: string, role: Role, parent: Parent, pivot: Pt, draw: (d: Doc) => void, sway?: number, hangs?: boolean): PartSpec {
-  return { name, role, parent, pivot, draw, ...(sway !== undefined ? { sway } : {}), ...(hangs ? { hangs } : {}) };
+export function part(name: string, role: Role, parent: Parent, pivot: Pt, draw: (d: Doc) => void, sway?: number, hangs?: boolean, only?: string): PartSpec {
+  return { name, role, parent, pivot, draw, ...(sway !== undefined ? { sway } : {}), ...(hangs ? { hangs } : {}), ...(only ? { only } : {}) };
 }

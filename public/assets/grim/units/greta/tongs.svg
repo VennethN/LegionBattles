@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="greta-tongs" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="greta-tongs-tong-a-shape" d="M 112.4 150.5 L 98 216.4 L 94 215.6 L 107.6 149.5 Z"/>
+<clipPath id="greta-tongs-tong-a-clip"><use href="#greta-tongs-tong-a-shape"/></clipPath>
+<path id="greta-tongs-tong-b-shape" d="M 118.5 150.4 L 106 218.3 L 102 217.7 L 113.5 149.6 Z"/>
+<clipPath id="greta-tongs-tong-b-clip"><use href="#greta-tongs-tong-b-shape"/></clipPath>
+<path id="greta-tongs-jaw-a-shape" d="M 92 212 L 98 212 L 94 226 L 88 224 Z"/>
+<path id="greta-tongs-jaw-b-shape" d="M 102 214 L 108 214 L 108 228 L 102 228 Z"/>
+</defs>
+<g id="greta-tongs-tong-a">
+<use id="greta-tongs-tong-a-line" href="#greta-tongs-tong-a-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-tongs-tong-a-clip)">
+<use id="greta-tongs-tong-a-lit" href="#greta-tongs-tong-a-shape" fill="#8c9194"/>
+<path id="greta-tongs-tong-a-dark" d="M 82 145.5 L 100.6 145.3 L 105.3 189.4 L 102.9 192.7 L 105.9 220.6 L 82 220.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="greta-tongs-tong-b">
+<use id="greta-tongs-tong-b-line" href="#greta-tongs-tong-b-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-tongs-tong-b-clip)">
+<use id="greta-tongs-tong-b-lit" href="#greta-tongs-tong-b-shape" fill="#8c9194"/>
+<path id="greta-tongs-tong-b-dark" d="M 90 145.6 L 106.1 145.5 L 110.5 191.5 L 108.4 194.3 L 111.1 222.5 L 90 222.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="greta-tongs-jaw-a">
+<use id="greta-tongs-jaw-a-line" href="#greta-tongs-jaw-a-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="greta-tongs-jaw-a-lit" href="#greta-tongs-jaw-a-shape" fill="#8c9194"/>
+</g>
+<g id="greta-tongs-jaw-b">
+<use id="greta-tongs-jaw-b-line" href="#greta-tongs-jaw-b-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="greta-tongs-jaw-b-lit" href="#greta-tongs-jaw-b-shape" fill="#8c9194"/>
+</g>
+<path id="greta-tongs-rivet" d="M 104 186 L 106 184 L 108 186 L 106 188 Z" fill="#14110f"/>
+<path id="greta-tongs-ring" d="M 110 146 L 106 152 L 112 156 L 116 150 L 110 146" fill="none" stroke="#14110f" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

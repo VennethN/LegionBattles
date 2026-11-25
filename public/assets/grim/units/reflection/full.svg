@@ -1,0 +1,398 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="reflection" width="1040" height="1100" viewBox="-190 -190 1040 1100">
+<g id="reflection-shadow-layer" transform="translate(330 700) rotate(0) scale(1 1) translate(-330 -700)">
+<path id="reflection-shadow-blot" d="M 176 703 L 220.8 687 L 304 683.4 L 412.8 687 L 496 699 L 470.4 715.5 L 368 720.6 L 240 717 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="reflection-glass-arm-layer" transform="translate(280 250) rotate(0) scale(1 1) translate(-280 -250)">
+<defs>
+<path id="reflection-glass-arm-sleeve-upper-shape" d="M 300 259.1 L 282.3 306.8 L 246.4 367.4 L 213.6 352.6 L 239.3 287.2 L 260 240.9 Z"/>
+<clipPath id="reflection-glass-arm-sleeve-upper-clip"><use href="#reflection-glass-arm-sleeve-upper-shape"/></clipPath>
+<path id="reflection-glass-arm-sleeve-fore-shape" d="M 248.4 355.4 L 258.5 388.6 L 264 436.5 L 236 443.5 L 221 397.9 L 211.6 364.6 Z"/>
+<clipPath id="reflection-glass-arm-sleeve-fore-clip"><use href="#reflection-glass-arm-sleeve-fore-shape"/></clipPath>
+<path id="reflection-glass-arm-sleeve-fist-shape" d="M 265.7 400.6 L 284.2 435 L 285.9 453 L 273.5 463.2 L 273 472.5 L 256.5 477.4 L 250.7 471 L 236 477.5 L 220.6 461.5 L 214.1 424.1 L 233.5 408 Z"/>
+<clipPath id="reflection-glass-arm-sleeve-fist-clip"><use href="#reflection-glass-arm-sleeve-fist-shape"/></clipPath>
+<path id="reflection-glass-arm-hand-shape" d="M 230 430 L 262 420 L 282 452 L 262 486 L 232 474 Z"/>
+<clipPath id="reflection-glass-arm-hand-clip"><use href="#reflection-glass-arm-hand-shape"/></clipPath>
+</defs>
+<g id="reflection-glass-arm-sleeve-upper">
+<use id="reflection-glass-arm-sleeve-upper-line" href="#reflection-glass-arm-sleeve-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-glass-arm-sleeve-upper-clip)">
+<use id="reflection-glass-arm-sleeve-upper-lit" href="#reflection-glass-arm-sleeve-upper-shape" fill="#b4bfc0"/>
+<path id="reflection-glass-arm-sleeve-upper-mid" d="M 286.9 249.9 L 264 300.2 L 260.1 301.9 L 231.8 364.1 L 189.4 344.9 L 241.9 229.4 Z" transform="translate(2.5 -0.6)" fill="#84939a"/>
+<path id="reflection-glass-arm-sleeve-upper-dark" d="M 286.9 249.9 L 264 300.2 L 260.1 301.9 L 231.8 364.1 L 189.4 344.9 L 241.9 229.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="reflection-glass-arm-sleeve-fore">
+<use id="reflection-glass-arm-sleeve-fore-line" href="#reflection-glass-arm-sleeve-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-glass-arm-sleeve-fore-clip)">
+<use id="reflection-glass-arm-sleeve-fore-lit" href="#reflection-glass-arm-sleeve-fore-shape" fill="#b4bfc0"/>
+<path id="reflection-glass-arm-sleeve-fore-mid" d="M 235 355.7 L 247.6 406.1 L 244.9 411.2 L 252.7 442.4 L 215.8 451.6 L 194.3 365.8 Z" transform="translate(2.5 -0.6)" fill="#84939a"/>
+<path id="reflection-glass-arm-sleeve-fore-dark" d="M 235 355.7 L 247.6 406.1 L 244.9 411.2 L 252.7 442.4 L 215.8 451.6 L 194.3 365.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="reflection-glass-arm-sleeve-fold" d="M 218.1 377.4 L 236.4 355.2 L 209.9 366.6 Z" fill="#14110f"/>
+<g id="reflection-glass-arm-sleeve-fist">
+<use id="reflection-glass-arm-sleeve-fist-line" href="#reflection-glass-arm-sleeve-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-glass-arm-sleeve-fist-clip)">
+<use id="reflection-glass-arm-sleeve-fist-lit" href="#reflection-glass-arm-sleeve-fist-shape" fill="#b4bfc0"/>
+<path id="reflection-glass-arm-sleeve-fist-mid" d="M 228.3 395.8 L 247.7 490.2 L 215 498.4 L 191.6 405 Z" transform="translate(2 -0.48)" fill="#84939a"/>
+<path id="reflection-glass-arm-sleeve-fist-dark" d="M 228.3 395.8 L 247.7 490.2 L 215 498.4 L 191.6 405 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="reflection-glass-arm-sleeve-fist-fingers" d="M 276 463.4 L 263.7 443.7 L 269 466.3 Z M 256.6 470.8 L 246.7 449.3 L 249.4 472.9 Z" fill="#14110f"/>
+<g id="reflection-glass-arm-hand">
+<use id="reflection-glass-arm-hand-line" href="#reflection-glass-arm-hand-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-glass-arm-hand-clip)">
+<use id="reflection-glass-arm-hand-lit" href="#reflection-glass-arm-hand-shape" fill="#b4bfc0"/>
+<use id="reflection-glass-arm-hand-rim" href="#reflection-glass-arm-hand-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-glass-arm-hand-lit-over" href="#reflection-glass-arm-hand-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-glass-arm-hand-mid" d="M 200 460 L 300 470 L 300 500 L 200 500 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-glass-arm-hand-dark" d="M 200 460 L 300 470 L 300 500 L 200 500 Z" fill="#14110f"/>
+<path id="reflection-glass-arm-hand-facet-0" d="M 240 436 L 262 430 L 258 456 Z" fill="#84939a"/>
+<path id="reflection-glass-arm-hand-facet-1" d="M 246 460 L 268 452 L 262 478 Z" fill="#b4bfc0"/>
+<path id="reflection-glass-arm-hand-crack-0" d="M 240 436 L 262 430 L 258 456 L 240 436" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-glass-arm-hand-crack-1" d="M 246 460 L 268 452 L 262 478 L 246 460" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-glass-arm-hand-glints" d="M 240.3 437 L 251 433 L 239.7 435 Z M 246.3 460.9 L 257 456 L 245.7 459.1 Z" fill="#e9e0c6"/>
+</g>
+</g>
+</g>
+<g id="reflection-leg-back-layer" transform="translate(300 520) rotate(0) scale(1 1) translate(-300 -520)">
+<defs>
+<path id="reflection-leg-back-shin-shape" d="M 322.9 502.6 L 298.9 661.9 L 265.1 658.1 L 277.1 497.4 Z"/>
+<clipPath id="reflection-leg-back-shin-clip"><use href="#reflection-leg-back-shin-shape"/></clipPath>
+<path id="reflection-leg-back-foot-shape" d="M 236 668 L 290 656 L 320 676 L 316 700 L 230 700 Z"/>
+<clipPath id="reflection-leg-back-foot-clip"><use href="#reflection-leg-back-foot-shape"/></clipPath>
+</defs>
+<g id="reflection-leg-back-shin">
+<use id="reflection-leg-back-shin-line" href="#reflection-leg-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-leg-back-shin-clip)">
+<use id="reflection-leg-back-shin-lit" href="#reflection-leg-back-shin-shape" fill="#b4bfc0"/>
+<path id="reflection-leg-back-shin-mid" d="M 293 496.2 L 285.7 560.7 L 281.7 564.2 L 270.8 661.8 L 226.8 656.8 L 245.5 490.8 Z" transform="translate(4 -0.96)" fill="#84939a"/>
+<path id="reflection-leg-back-shin-dark" d="M 293 496.2 L 285.7 560.7 L 281.7 564.2 L 270.8 661.8 L 226.8 656.8 L 245.5 490.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="reflection-leg-back-foot">
+<use id="reflection-leg-back-foot-line" href="#reflection-leg-back-foot-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-leg-back-foot-clip)">
+<use id="reflection-leg-back-foot-lit" href="#reflection-leg-back-foot-shape" fill="#b4bfc0"/>
+<use id="reflection-leg-back-foot-rim" href="#reflection-leg-back-foot-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-leg-back-foot-lit-over" href="#reflection-leg-back-foot-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-leg-back-foot-mid" d="M 220 690 L 330 690 L 330 710 L 220 710 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-leg-back-foot-dark" d="M 220 690 L 330 690 L 330 710 L 220 710 Z" fill="#14110f"/>
+<path id="reflection-leg-back-foot-facet-0" d="M 250 670 L 286 662 L 296 688 Z" fill="#84939a"/>
+<path id="reflection-leg-back-foot-crack-0" d="M 250 670 L 286 662 L 296 688 L 250 670" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-leg-back-foot-glints" d="M 250.2 671 L 268 666 L 249.8 669 Z" fill="#e9e0c6"/>
+</g>
+</g>
+</g>
+<g id="reflection-leg-front-layer" transform="translate(360 520) rotate(0) scale(1 1) translate(-360 -520)">
+<defs>
+<path id="reflection-leg-front-shin-shape" d="M 383.7 496.2 L 403.8 657.1 L 368.2 662.9 L 336.3 503.8 Z"/>
+<clipPath id="reflection-leg-front-shin-clip"><use href="#reflection-leg-front-shin-shape"/></clipPath>
+<path id="reflection-leg-front-foot-shape" d="M 350 664 L 410 652 L 450 674 L 446 700 L 346 700 Z"/>
+<clipPath id="reflection-leg-front-foot-clip"><use href="#reflection-leg-front-foot-shape"/></clipPath>
+</defs>
+<g id="reflection-leg-front-shin">
+<use id="reflection-leg-front-shin-line" href="#reflection-leg-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-leg-front-shin-clip)">
+<use id="reflection-leg-front-shin-lit" href="#reflection-leg-front-shin-shape" fill="#b4bfc0"/>
+<path id="reflection-leg-front-shin-mid" d="M 366.1 496 L 376.5 559.9 L 373.5 564.6 L 389.4 662.5 L 343.8 669.9 L 316.9 504 Z" transform="translate(4 -0.96)" fill="#84939a"/>
+<path id="reflection-leg-front-shin-dark" d="M 366.1 496 L 376.5 559.9 L 373.5 564.6 L 389.4 662.5 L 343.8 669.9 L 316.9 504 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="reflection-leg-front-foot">
+<use id="reflection-leg-front-foot-line" href="#reflection-leg-front-foot-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-leg-front-foot-clip)">
+<use id="reflection-leg-front-foot-lit" href="#reflection-leg-front-foot-shape" fill="#b4bfc0"/>
+<use id="reflection-leg-front-foot-rim" href="#reflection-leg-front-foot-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-leg-front-foot-lit-over" href="#reflection-leg-front-foot-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-leg-front-foot-mid" d="M 340 692 L 460 692 L 460 710 L 340 710 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-leg-front-foot-dark" d="M 340 692 L 460 692 L 460 710 L 340 710 Z" fill="#14110f"/>
+<path id="reflection-leg-front-foot-facet-0" d="M 370 668 L 410 660 L 420 690 Z" fill="#84939a"/>
+<path id="reflection-leg-front-foot-facet-1" d="M 420 668 L 440 676 L 432 694 Z" fill="#b4bfc0"/>
+<path id="reflection-leg-front-foot-crack-0" d="M 370 668 L 410 660 L 420 690 L 370 668" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-leg-front-foot-crack-1" d="M 420 668 L 440 676 L 432 694 L 420 668" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-leg-front-foot-glints" d="M 370.2 669 L 390 664 L 369.8 667 Z M 419.6 668.9 L 430 672 L 420.4 667.1 Z" fill="#e9e0c6"/>
+</g>
+</g>
+</g>
+<g id="reflection-mantle-layer" transform="translate(300 230) rotate(0) scale(1 1) translate(-300 -230)">
+<defs>
+<path id="reflection-mantle-piece-a-shape" d="M 226 270 L 162.2 130 L 170 120 L 183 138 L 278 274 Z"/>
+<clipPath id="reflection-mantle-piece-a-clip"><use href="#reflection-mantle-piece-a-shape"/></clipPath>
+<path id="reflection-mantle-piece-b-shape" d="M 242 240 L 221 70 L 230 60 L 245 78 L 302 244 Z"/>
+<clipPath id="reflection-mantle-piece-b-clip"><use href="#reflection-mantle-piece-b-shape"/></clipPath>
+<path id="reflection-mantle-piece-c-shape" d="M 278 226 L 293.4 80 L 300 70 L 311 88 L 322 230 Z"/>
+<clipPath id="reflection-mantle-piece-c-clip"><use href="#reflection-mantle-piece-c-shape"/></clipPath>
+<path id="reflection-mantle-piece-d-shape" d="M 224 330 L 144 240 L 150 230 L 160 248 L 264 334 Z"/>
+<clipPath id="reflection-mantle-piece-d-clip"><use href="#reflection-mantle-piece-d-shape"/></clipPath>
+</defs>
+<g id="reflection-mantle-piece-a">
+<use id="reflection-mantle-piece-a-line" href="#reflection-mantle-piece-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-mantle-piece-a-clip)">
+<use id="reflection-mantle-piece-a-lit" href="#reflection-mantle-piece-a-shape" fill="#b4bfc0"/>
+<use id="reflection-mantle-piece-a-rim" href="#reflection-mantle-piece-a-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-mantle-piece-a-lit-over" href="#reflection-mantle-piece-a-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-mantle-piece-a-mid" d="M 166 110 L 246.8 110 L 246.8 280 L 166 280 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-mantle-piece-a-dark" d="M 166 110 L 246.8 110 L 246.8 280 L 166 280 Z" fill="#14110f"/>
+<path id="reflection-mantle-piece-a-facet-0" d="M 241.6 264 L 167.4 140 L 259.8 250 Z" fill="#84939a"/>
+<path id="reflection-mantle-piece-a-crack-0" d="M 241.6 264 L 167.4 140 L 259.8 250 L 241.6 264" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-mantle-piece-a-glints" d="M 242.5 263.5 L 204.5 202 L 240.7 264.5 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="reflection-mantle-piece-b">
+<use id="reflection-mantle-piece-b-line" href="#reflection-mantle-piece-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-mantle-piece-b-clip)">
+<use id="reflection-mantle-piece-b-lit" href="#reflection-mantle-piece-b-shape" fill="#b4bfc0"/>
+<use id="reflection-mantle-piece-b-rim" href="#reflection-mantle-piece-b-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-mantle-piece-b-lit-over" href="#reflection-mantle-piece-b-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-mantle-piece-b-mid" d="M 182 50 L 266 50 L 266 250 L 182 250 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-mantle-piece-b-dark" d="M 182 50 L 266 50 L 266 250 L 182 250 Z" fill="#14110f"/>
+<path id="reflection-mantle-piece-b-facet-0" d="M 260 234 L 227 80 L 281 220 Z" fill="#84939a"/>
+<path id="reflection-mantle-piece-b-crack-0" d="M 260 234 L 227 80 L 281 220 L 260 234" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-mantle-piece-b-glints" d="M 261 233.8 L 243.5 157 L 259 234.2 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="reflection-mantle-piece-c">
+<use id="reflection-mantle-piece-c-line" href="#reflection-mantle-piece-c-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-mantle-piece-c-clip)">
+<use id="reflection-mantle-piece-c-lit" href="#reflection-mantle-piece-c-shape" fill="#b4bfc0"/>
+<use id="reflection-mantle-piece-c-rim" href="#reflection-mantle-piece-c-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-mantle-piece-c-lit-over" href="#reflection-mantle-piece-c-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-mantle-piece-c-mid" d="M 218 60 L 295.6 60 L 295.6 236 L 218 236 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-mantle-piece-c-dark" d="M 218 60 L 295.6 60 L 295.6 236 L 218 236 Z" fill="#14110f"/>
+<path id="reflection-mantle-piece-c-facet-0" d="M 291.2 220 L 297.8 90 L 306.6 206 Z" fill="#84939a"/>
+<path id="reflection-mantle-piece-c-crack-0" d="M 291.2 220 L 297.8 90 L 306.6 206 L 291.2 220" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-mantle-piece-c-glints" d="M 292.2 220.1 L 294.5 155 L 290.2 219.9 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="reflection-mantle-piece-d">
+<use id="reflection-mantle-piece-d-line" href="#reflection-mantle-piece-d-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-mantle-piece-d-clip)">
+<use id="reflection-mantle-piece-d-lit" href="#reflection-mantle-piece-d-shape" fill="#b4bfc0"/>
+<use id="reflection-mantle-piece-d-rim" href="#reflection-mantle-piece-d-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-mantle-piece-d-lit-over" href="#reflection-mantle-piece-d-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-mantle-piece-d-mid" d="M 164 220 L 240 220 L 240 340 L 164 340 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-mantle-piece-d-dark" d="M 164 220 L 240 220 L 240 340 L 164 340 Z" fill="#14110f"/>
+<path id="reflection-mantle-piece-d-facet-0" d="M 236 324 L 148 250 L 250 310 Z" fill="#84939a"/>
+<path id="reflection-mantle-piece-d-crack-0" d="M 236 324 L 148 250 L 250 310 L 236 324" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-mantle-piece-d-glints" d="M 236.6 323.2 L 192 287 L 235.4 324.8 Z" fill="#e9e0c6"/>
+</g>
+</g>
+</g>
+<g id="reflection-body-layer" transform="translate(330 520) rotate(0) scale(1 1) translate(-330 -520)">
+<defs>
+<path id="reflection-body-robe-shape" d="M 270 220 L 330 196 L 400 210 L 430 270 L 448 420 L 486 610 L 155.2 638.7 L 165.2 621.1 L 159.8 638.3 L 218.4 633.2 L 227.2 619.4 L 224.1 632.7 L 239.9 631.3 L 248.9 615.7 L 244.3 631 L 281.3 627.7 L 291.9 609.1 L 286.1 627.3 L 326.1 623.9 L 338 603.2 L 331.8 623.4 L 347.9 622 L 360 601.1 L 353.9 621.5 L 371 620 L 383.6 595.3 L 374.6 619.7 L 391.5 618.2 L 402.1 600.5 L 397.3 617.7 L 409.4 616.6 L 418.4 602.9 L 415.5 616.1 L 431.4 614.7 L 438.2 605.7 L 437.2 614.2 L 456.1 612.6 L 463.8 601 L 461.4 612.1 L 140 640 L 176 560 L 216 420 L 240 280 Z"/>
+<clipPath id="reflection-body-robe-clip"><use href="#reflection-body-robe-shape"/></clipPath>
+<path id="reflection-body-chest-shape" d="M 316 230 L 400 222 L 418 300 L 396 380 L 330 390 L 308 320 Z"/>
+<clipPath id="reflection-body-chest-clip"><use href="#reflection-body-chest-shape"/></clipPath>
+</defs>
+<g id="reflection-body-robe">
+<use id="reflection-body-robe-line" href="#reflection-body-robe-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-body-robe-clip)">
+<use id="reflection-body-robe-lit" href="#reflection-body-robe-shape" fill="#b4bfc0"/>
+<path id="reflection-body-robe-mid" d="M 170 180 L 320 180 L 326.7 195.7 L 334.3 361 L 321.6 376.2 L 333.3 630.3 L 170 640 Z" transform="translate(10 -2.4)" fill="#84939a"/>
+<path id="reflection-body-robe-dark" d="M 170 180 L 320 180 L 326.7 195.7 L 334.3 361 L 321.6 376.2 L 333.3 630.3 L 170 640 Z" fill="#14110f"/>
+<path id="reflection-body-robe-folds" d="M 377.5 260.2 L 396 420 L 382.5 259.8 Z M 407.5 440.5 L 440 590 L 412.5 439.5 Z M 357.5 460.2 L 370 600 L 362.5 459.8 Z" fill="#84939a"/>
+<path id="reflection-body-lining" d="M 400 560 L 460 548 L 470 600 L 440 612 L 420 590 L 404 606 Z" fill="#5f7480"/>
+<path id="reflection-body-robe-cold" d="M 100 156 L 526 156 L 526 680 L 100 680 Z M 273.8 217.1 L 333.8 193.1 L 403.8 207.1 L 433.8 267.1 L 451.8 417.1 L 489.8 607.1 L 159 635.8 L 169 618.2 L 163.6 635.4 L 222.2 630.3 L 231.1 616.5 L 227.9 629.8 L 243.7 628.5 L 252.8 612.8 L 248.2 628.1 L 285.2 624.9 L 295.7 606.3 L 289.9 624.5 L 330 621 L 341.8 600.3 L 335.6 620.5 L 351.8 619.1 L 363.9 598.2 L 357.7 618.6 L 374.8 617.1 L 387.5 592.4 L 378.5 616.8 L 395.3 615.3 L 406 597.6 L 401.2 614.8 L 413.3 613.8 L 422.3 600 L 419.4 613.2 L 435.3 611.9 L 442 602.8 L 441 611.4 L 460 609.7 L 467.6 598.1 L 465.3 609.2 L 143.8 637.1 L 179.8 557.1 L 219.8 417.1 L 243.8 277.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="reflection-body-robe-open-0" d="M 430 290 L 432.32 288.26 L 442.32 398.26 L 440 400 Z" fill="#b4bfc0"/>
+</g>
+<g id="reflection-body-chest">
+<use id="reflection-body-chest-line" href="#reflection-body-chest-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-body-chest-clip)">
+<use id="reflection-body-chest-lit" href="#reflection-body-chest-shape" fill="#b4bfc0"/>
+<use id="reflection-body-chest-rim" href="#reflection-body-chest-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-body-chest-lit-over" href="#reflection-body-chest-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-body-chest-mid" d="M 280 200 L 340 200 L 336 400 L 280 400 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-body-chest-dark" d="M 280 200 L 340 200 L 336 400 L 280 400 Z" fill="#14110f"/>
+<path id="reflection-body-chest-facet-0" d="M 324 240 L 380 232 L 370 290 Z" fill="#84939a"/>
+<path id="reflection-body-chest-facet-1" d="M 384 236 L 408 300 L 380 300 Z" fill="#b4bfc0"/>
+<path id="reflection-body-chest-facet-2" d="M 318 300 L 360 300 L 340 370 Z" fill="#84939a"/>
+<path id="reflection-body-chest-facet-3" d="M 364 308 L 396 312 L 384 372 Z" fill="#b4bfc0"/>
+<path id="reflection-body-chest-crack-0" d="M 324 240 L 380 232 L 370 290 L 324 240" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-body-chest-crack-1" d="M 384 236 L 408 300 L 380 300 L 384 236" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-body-chest-crack-2" d="M 318 300 L 360 300 L 340 370 L 318 300" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-body-chest-crack-3" d="M 364 308 L 396 312 L 384 372 L 364 308" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-body-chest-glints" d="M 324.1 241 L 352 236 L 323.9 239 Z M 383.1 236.4 L 396 268 L 384.9 235.6 Z M 318 301 L 339 300 L 318 299 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="reflection-body-office" d="M 312 240 L 404 300" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-body-office-links" d="M 310.7 242.9 L 320.5 243.7 L 311.5 239.8 Z M 319.3 244.6 L 326.5 251.3 L 321.8 242.7 Z M 326.1 252.9 L 335.9 253.7 L 326.8 249.8 Z M 334.6 254.6 L 341.8 261.3 L 337.1 252.7 Z M 341.4 262.9 L 351.2 263.7 L 342.2 259.8 Z M 349.9 264.6 L 357.1 271.3 L 352.5 262.7 Z M 356.7 272.9 L 366.5 273.7 L 357.5 269.8 Z M 365.3 274.6 L 372.5 281.3 L 367.8 272.7 Z M 372.1 282.9 L 381.9 283.7 L 372.8 279.8 Z M 380.6 284.6 L 387.8 291.3 L 383.1 282.7 Z M 387.4 292.9 L 397.2 293.7 L 388.2 289.8 Z M 395.9 294.6 L 403.1 301.3 L 398.5 292.7 Z" fill="#14110f"/>
+</g>
+<g id="reflection-ermine-layer" transform="translate(340 220) rotate(0) scale(1 1) translate(-340 -220)">
+<defs>
+<path id="reflection-ermine-collar-shape" d="M 250 250 L 280 210 L 330 190 L 392 196 L 432 222 L 446 260 L 253.4 269.6 L 259.3 260.4 L 256.2 269.5 L 270.9 268.8 L 276.6 259.5 L 273.4 268.6 L 296.3 267.5 L 303.3 257.7 L 300.9 267.3 L 310.1 266.8 L 313.8 262.9 L 313.8 266.6 L 327.1 265.9 L 333.4 255.7 L 329.9 265.8 L 337.8 265.4 L 342.3 260.6 L 342.3 265.2 L 368.4 263.9 L 374.4 255.6 L 372.5 263.7 L 396.6 262.5 L 401.3 255.5 L 399.5 262.3 L 409.8 261.8 L 416.1 252.8 L 413.8 261.6 L 425.4 261 L 428.6 257.3 L 428.3 260.9 L 438.1 260.4 L 442 256.7 L 442.3 260.2 L 246 270 Z"/>
+<clipPath id="reflection-ermine-collar-clip"><use href="#reflection-ermine-collar-shape"/></clipPath>
+</defs>
+<g id="reflection-ermine-collar">
+<use id="reflection-ermine-collar-line" href="#reflection-ermine-collar-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-ermine-collar-clip)">
+<use id="reflection-ermine-collar-lit" href="#reflection-ermine-collar-shape" fill="#cfc5a8"/>
+<path id="reflection-ermine-collar-mid" d="M 220 180 L 316 180 L 319.8 189.8 L 322.1 227.3 L 314.9 236.2 L 318.2 290.2 L 220 290 Z" transform="translate(5 -1.2)" fill="#9c9178"/>
+<path id="reflection-ermine-collar-dark" d="M 220 180 L 316 180 L 319.8 189.8 L 322.1 227.3 L 314.9 236.2 L 318.2 290.2 L 220 290 Z" fill="#14110f"/>
+<path id="reflection-ermine-fur" d="M 358.5 200.2 L 366 250 L 361.5 199.8 Z M 384.5 204.2 L 394 254 L 387.5 203.8 Z M 408.5 214.3 L 420 256 L 411.5 213.7 Z M 332.5 198.1 L 338 250 L 335.5 197.9 Z" fill="#9c9178"/>
+<path id="reflection-ermine-collar-cold" d="M 206 150 L 486 150 L 486 310 L 206 310 Z M 252.9 247.8 L 282.9 207.8 L 332.9 187.8 L 394.9 193.8 L 434.9 219.8 L 448.9 257.8 L 256.3 267.5 L 262.1 258.3 L 259.1 267.3 L 273.8 266.6 L 279.5 257.3 L 276.3 266.5 L 299.2 265.3 L 306.2 255.6 L 303.7 265.1 L 312.9 264.6 L 316.6 260.8 L 316.7 264.4 L 329.9 263.8 L 336.3 253.6 L 332.8 263.6 L 340.7 263.2 L 345.2 258.4 L 345.2 263 L 371.3 261.7 L 377.3 253.5 L 375.4 261.5 L 399.4 260.3 L 404.2 253.4 L 402.3 260.2 L 412.6 259.7 L 419 250.6 L 416.7 259.4 L 428.3 258.9 L 431.5 255.1 L 431.1 258.7 L 441 258.2 L 444.9 254.5 L 445.2 258 L 248.9 267.8 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</g>
+<g id="reflection-head-layer" transform="translate(350 200) rotate(0) scale(1 1) translate(-350 -200)">
+<defs>
+<path id="reflection-head-face-shape" d="M 320 196 L 326 130 L 352 96 L 384 104 L 400 150 L 392 200 L 366 214 Z"/>
+<clipPath id="reflection-head-face-clip"><use href="#reflection-head-face-shape"/></clipPath>
+<path id="reflection-head-band-shape" d="M 318 118 L 394 106 L 400 126 L 322 138 Z"/>
+<clipPath id="reflection-head-band-clip"><use href="#reflection-head-band-shape"/></clipPath>
+<path id="reflection-head-spike-a-shape" d="M 317 118 L 316 62 L 336 116 Z"/>
+<clipPath id="reflection-head-spike-a-clip"><use href="#reflection-head-spike-a-shape"/></clipPath>
+<path id="reflection-head-spike-b-shape" d="M 335 118 L 340 28 L 354 116 Z"/>
+<clipPath id="reflection-head-spike-b-clip"><use href="#reflection-head-spike-b-shape"/></clipPath>
+<path id="reflection-head-spike-c-shape" d="M 353 118 L 366 8 L 372 116 Z"/>
+<clipPath id="reflection-head-spike-c-clip"><use href="#reflection-head-spike-c-shape"/></clipPath>
+<path id="reflection-head-spike-d-shape" d="M 371 118 L 390 42 L 390 116 Z"/>
+<clipPath id="reflection-head-spike-d-clip"><use href="#reflection-head-spike-d-shape"/></clipPath>
+<path id="reflection-head-spike-e-shape" d="M 385 118 L 408 78 L 404 116 Z"/>
+<clipPath id="reflection-head-spike-e-clip"><use href="#reflection-head-spike-e-shape"/></clipPath>
+</defs>
+<g id="reflection-head-face">
+<use id="reflection-head-face-line" href="#reflection-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-head-face-clip)">
+<use id="reflection-head-face-lit" href="#reflection-head-face-shape" fill="#b4bfc0"/>
+<use id="reflection-head-face-rim" href="#reflection-head-face-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-head-face-lit-over" href="#reflection-head-face-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-head-face-mid" d="M 300 90 L 344 90 L 344 220 L 300 220 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-head-face-dark" d="M 300 90 L 344 90 L 344 220 L 300 220 Z" fill="#14110f"/>
+<path id="reflection-head-face-facet-0" d="M 360 100 L 384 104 L 398 146 L 334 210 L 322 196 L 326 170 Z" fill="#84939a"/>
+<path id="reflection-head-face-crack-0" d="M 360 100 L 384 104 L 398 146 L 334 210 L 322 196 L 326 170 L 360 100" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-head-face-glints" d="M 359.8 101 L 372 102 L 360.2 99 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="reflection-head-face-crack" d="M 324 150 L 350 160 L 362 150 L 398 176" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-head-face-light" d="M 370.7 112.7 L 392 150 L 373.3 111.3 Z M 362.7 122.7 L 376 144 L 365.3 121.3 Z" fill="#e9e0c6"/>
+<g id="reflection-head-band">
+<use id="reflection-head-band-line" href="#reflection-head-band-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-head-band-clip)">
+<use id="reflection-head-band-lit" href="#reflection-head-band-shape" fill="#8c9194"/>
+<path id="reflection-head-band-mid" d="M 306 102 L 347.2 101.1 L 352.9 118.9 L 348.8 125.5 L 354.4 142.9 L 306 142 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="reflection-head-band-dark" d="M 306 102 L 347.2 101.1 L 352.9 118.9 L 348.8 125.5 L 354.4 142.9 L 306 142 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="reflection-head-spike-a">
+<use id="reflection-head-spike-a-line" href="#reflection-head-spike-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-head-spike-a-clip)">
+<use id="reflection-head-spike-a-lit" href="#reflection-head-spike-a-shape" fill="#b4bfc0"/>
+<use id="reflection-head-spike-a-rim" href="#reflection-head-spike-a-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-head-spike-a-lit-over" href="#reflection-head-spike-a-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-head-spike-a-mid" d="M 306 0 L 324 0 L 324 130 L 306 130 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-head-spike-a-dark" d="M 306 0 L 324 0 L 324 130 L 306 130 Z" fill="#14110f"/>
+<path id="reflection-head-spike-a-glints" d="" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="reflection-head-spike-b">
+<use id="reflection-head-spike-b-line" href="#reflection-head-spike-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-head-spike-b-clip)">
+<use id="reflection-head-spike-b-lit" href="#reflection-head-spike-b-shape" fill="#b4bfc0"/>
+<use id="reflection-head-spike-b-rim" href="#reflection-head-spike-b-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-head-spike-b-lit-over" href="#reflection-head-spike-b-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-head-spike-b-mid" d="M 324 0 L 342 0 L 342 130 L 324 130 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-head-spike-b-dark" d="M 324 0 L 342 0 L 342 130 L 324 130 Z" fill="#14110f"/>
+<path id="reflection-head-spike-b-glints" d="" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="reflection-head-spike-c">
+<use id="reflection-head-spike-c-line" href="#reflection-head-spike-c-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-head-spike-c-clip)">
+<use id="reflection-head-spike-c-lit" href="#reflection-head-spike-c-shape" fill="#b4bfc0"/>
+<use id="reflection-head-spike-c-rim" href="#reflection-head-spike-c-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-head-spike-c-lit-over" href="#reflection-head-spike-c-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-head-spike-c-mid" d="M 342 0 L 360 0 L 360 130 L 342 130 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-head-spike-c-dark" d="M 342 0 L 360 0 L 360 130 L 342 130 Z" fill="#14110f"/>
+<path id="reflection-head-spike-c-glints" d="" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="reflection-head-spike-d">
+<use id="reflection-head-spike-d-line" href="#reflection-head-spike-d-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-head-spike-d-clip)">
+<use id="reflection-head-spike-d-lit" href="#reflection-head-spike-d-shape" fill="#b4bfc0"/>
+<use id="reflection-head-spike-d-rim" href="#reflection-head-spike-d-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-head-spike-d-lit-over" href="#reflection-head-spike-d-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-head-spike-d-mid" d="M 360 0 L 378 0 L 378 130 L 360 130 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-head-spike-d-dark" d="M 360 0 L 378 0 L 378 130 L 360 130 Z" fill="#14110f"/>
+<path id="reflection-head-spike-d-glints" d="" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="reflection-head-spike-e">
+<use id="reflection-head-spike-e-line" href="#reflection-head-spike-e-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-head-spike-e-clip)">
+<use id="reflection-head-spike-e-lit" href="#reflection-head-spike-e-shape" fill="#b4bfc0"/>
+<use id="reflection-head-spike-e-rim" href="#reflection-head-spike-e-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-head-spike-e-lit-over" href="#reflection-head-spike-e-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-head-spike-e-mid" d="M 374 0 L 392 0 L 392 130 L 374 130 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-head-spike-e-dark" d="M 374 0 L 392 0 L 392 130 L 374 130 Z" fill="#14110f"/>
+<path id="reflection-head-spike-e-glints" d="" fill="#e9e0c6"/>
+</g>
+</g>
+</g>
+<g id="reflection-blade-layer" transform="translate(420 250) rotate(0) scale(1 1) translate(-420 -250)">
+<defs>
+<path id="reflection-blade-blade-shape" d="M 470 400 L 490 380 L 560 160 L 580 40 L 598 160 L 520 400 L 500 420 Z"/>
+<clipPath id="reflection-blade-blade-clip"><use href="#reflection-blade-blade-shape"/></clipPath>
+<path id="reflection-blade-binding-shape" d="M 468 396 L 510 404 L 504 432 L 462 424 Z"/>
+<clipPath id="reflection-blade-binding-clip"><use href="#reflection-blade-binding-shape"/></clipPath>
+<path id="reflection-blade-sleeve-upper-shape" d="M 440.2 238.8 L 464.5 274.7 L 486.5 330.8 L 453.5 349.2 L 421.1 298.9 L 399.8 261.2 Z"/>
+<clipPath id="reflection-blade-sleeve-upper-clip"><use href="#reflection-blade-sleeve-upper-shape"/></clipPath>
+<path id="reflection-blade-sleeve-fore-shape" d="M 489.4 335.6 L 497.9 364.6 L 500.7 406.6 L 471.3 413.4 L 458.4 373.6 L 450.6 344.4 Z"/>
+<clipPath id="reflection-blade-sleeve-fore-clip"><use href="#reflection-blade-sleeve-fore-shape"/></clipPath>
+<path id="reflection-blade-sleeve-fist-shape" d="M 503.3 369 L 522 405.5 L 523.4 424.4 L 510.2 434.8 L 509.5 444.6 L 492 449.4 L 486 442.6 L 470.5 449.1 L 454.7 432 L 448.7 392.6 L 469.3 376 Z"/>
+<clipPath id="reflection-blade-sleeve-fist-clip"><use href="#reflection-blade-sleeve-fist-shape"/></clipPath>
+</defs>
+<g id="reflection-blade-blade">
+<use id="reflection-blade-blade-line" href="#reflection-blade-blade-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-blade-blade-clip)">
+<use id="reflection-blade-blade-lit" href="#reflection-blade-blade-shape" fill="#b4bfc0"/>
+<use id="reflection-blade-blade-rim" href="#reflection-blade-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-blade-blade-lit-over" href="#reflection-blade-blade-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-blade-blade-mid" d="M 450 380 L 560 30 L 570 30 L 500 440 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-blade-blade-dark" d="M 450 380 L 560 30 L 570 30 L 500 440 Z" fill="#14110f"/>
+<path id="reflection-blade-blade-facet-0" d="M 500 380 L 560 180 L 540 300 Z" fill="#84939a"/>
+<path id="reflection-blade-blade-facet-1" d="M 540 320 L 580 120 L 580 200 Z" fill="#b4bfc0"/>
+<path id="reflection-blade-blade-crack-0" d="M 500 380 L 560 180 L 540 300 L 500 380" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-blade-blade-crack-1" d="M 540 320 L 580 120 L 580 200 L 540 320" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-blade-blade-glints" d="M 501 380.3 L 530 280 L 499 379.7 Z M 541 320.2 L 560 220 L 539 319.8 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="reflection-blade-binding">
+<use id="reflection-blade-binding-line" href="#reflection-blade-binding-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-blade-binding-clip)">
+<use id="reflection-blade-binding-lit" href="#reflection-blade-binding-shape" fill="#7b5b3d"/>
+<path id="reflection-blade-binding-dark" d="M 450 392 L 477.2 391 L 485.3 415.7 L 480.7 423.1 L 485.2 437 L 450 436 Z" fill="#14110f"/>
+<path id="reflection-blade-binding-turns" d="M 469.4 390 L 479.3 416.2 L 470.9 389.5 Z M 478.9 392 L 488.8 418.2 L 480.4 391.5 Z M 488.4 394 L 498.3 420.2 L 489.9 393.5 Z M 497.9 396 L 507.8 422.2 L 499.4 395.5 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="reflection-blade-sleeve-upper">
+<use id="reflection-blade-sleeve-upper-line" href="#reflection-blade-sleeve-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-blade-sleeve-upper-clip)">
+<use id="reflection-blade-sleeve-upper-lit" href="#reflection-blade-sleeve-upper-shape" fill="#b4bfc0"/>
+<path id="reflection-blade-sleeve-upper-mid" d="M 424.2 244.2 L 447.3 285.8 L 446.3 290 L 474.6 340.9 L 431.8 364.7 L 378.9 269.4 Z" transform="translate(2.5 -0.6)" fill="#84939a"/>
+<path id="reflection-blade-sleeve-upper-dark" d="M 424.2 244.2 L 447.3 285.8 L 446.3 290 L 474.6 340.9 L 431.8 364.7 L 378.9 269.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="reflection-blade-sleeve-fore">
+<use id="reflection-blade-sleeve-fore-line" href="#reflection-blade-sleeve-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-blade-sleeve-fore-clip)">
+<use id="reflection-blade-sleeve-fore-lit" href="#reflection-blade-sleeve-fore-shape" fill="#b4bfc0"/>
+<path id="reflection-blade-sleeve-fore-mid" d="M 475.3 335.7 L 485.5 380.3 L 482.7 385.3 L 488.9 412.4 L 449.8 421.3 L 432.5 345.5 Z" transform="translate(2.5 -0.6)" fill="#84939a"/>
+<path id="reflection-blade-sleeve-fore-dark" d="M 475.3 335.7 L 485.5 380.3 L 482.7 385.3 L 488.9 412.4 L 449.8 421.3 L 432.5 345.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="reflection-blade-sleeve-fold" d="M 457.5 358.3 L 476.7 335 L 448.9 346.9 Z" fill="#14110f"/>
+<g id="reflection-blade-sleeve-fist">
+<use id="reflection-blade-sleeve-fist-line" href="#reflection-blade-sleeve-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-blade-sleeve-fist-clip)">
+<use id="reflection-blade-sleeve-fist-lit" href="#reflection-blade-sleeve-fist-shape" fill="#b4bfc0"/>
+<path id="reflection-blade-sleeve-fist-mid" d="M 464.2 363.1 L 482.5 462.7 L 448 470.6 L 425.4 372 Z" transform="translate(2 -0.48)" fill="#84939a"/>
+<path id="reflection-blade-sleeve-fist-dark" d="M 464.2 363.1 L 482.5 462.7 L 448 470.6 L 425.4 372 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="reflection-blade-sleeve-fist-fingers" d="M 512.8 435.1 L 500.3 414.1 L 505.4 438 Z M 492.3 442.5 L 482.3 419.7 L 484.6 444.5 Z" fill="#14110f"/>
+</g>
+</svg>

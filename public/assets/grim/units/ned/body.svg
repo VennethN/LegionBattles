@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ned-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ned-body-coat-shape" d="M 112 108 L 152 106 L 164 130 L 158 162 L 164 194 L 112.8 199.5 L 115 197.2 L 115.5 199.2 L 133.3 197.3 L 135.7 193.4 L 135 197.1 L 140.4 196.5 L 143.2 192.8 L 143 196.2 L 150.7 195.4 L 152.3 193.2 L 152.2 195.3 L 159.9 194.4 L 162.5 190.5 L 161.8 194.2 L 108 200 L 112 164 L 106 136 Z"/>
+<clipPath id="ned-body-coat-clip"><use href="#ned-body-coat-shape"/></clipPath>
+<path id="ned-body-belt-shape" d="M 107.7 150.5 L 159.7 146.5 L 160.3 153.5 L 108.3 157.5 Z"/>
+<clipPath id="ned-body-belt-clip"><use href="#ned-body-belt-shape"/></clipPath>
+<path id="ned-body-belt-buckle-shape" d="M 134 146.4 L 144.5 146.9 L 143.9 156.9 L 134.5 156.3 Z"/>
+<clipPath id="ned-body-belt-buckle-clip"><use href="#ned-body-belt-buckle-shape"/></clipPath>
+<path id="ned-body-tin-shape" d="M 138 158 L 154 157 L 155 172 L 139 173 Z"/>
+<clipPath id="ned-body-tin-clip"><use href="#ned-body-tin-shape"/></clipPath>
+<path id="ned-body-drill-hammer-shape" d="M 124 172 L 128 172 L 128 194 L 124 194 Z"/>
+<clipPath id="ned-body-drill-hammer-clip"><use href="#ned-body-drill-hammer-shape"/></clipPath>
+<path id="ned-body-drill-head-shape" d="M 118 168 L 134 168 L 134 174 L 118 174 Z"/>
+<clipPath id="ned-body-drill-head-clip"><use href="#ned-body-drill-head-shape"/></clipPath>
+</defs>
+<g id="ned-body-coat">
+<use id="ned-body-coat-line" href="#ned-body-coat-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-coat-clip)">
+<use id="ned-body-coat-lit" href="#ned-body-coat-shape" fill="#77786f"/>
+<path id="ned-body-coat-mid" d="M 90 98 L 124 98 L 126.7 105.9 L 128.7 155 L 123.6 161.1 L 125.3 204.1 L 90 206 Z" transform="translate(8.12 -1.95)" fill="#54564f"/>
+<path id="ned-body-coat-dark" d="M 90 98 L 124 98 L 126.7 105.9 L 128.7 155 L 123.6 161.1 L 125.3 204.1 L 90 206 Z" fill="#14110f"/>
+<path id="ned-body-dust" d="M 139.1 120.7 L 146 128 L 140.9 119.3 Z M 149.1 172.7 L 156 180 L 150.9 171.3 Z M 133.1 186.7 L 140 194 L 134.9 185.3 Z M 145.1 140.6 L 150 146 L 146.9 139.4 Z" fill="#54564f"/>
+<path id="ned-body-patch" d="M 136 150 L 152 148 L 154 166 L 138 168 Z" fill="#54564f"/>
+<path id="ned-body-patch-thread" d="M 137.9 148.2 L 138.9 151.2 L 139 148.1 Z M 143.3 147.6 L 144.2 150.5 L 144.4 147.4 Z M 148.6 146.9 L 149.5 149.8 L 149.7 146.8 Z M 139.9 166.2 L 140.9 169.2 L 141 166.1 Z M 145.3 165.6 L 146.2 168.5 L 146.4 165.4 Z M 150.6 164.9 L 151.5 167.8 L 151.7 164.8 Z" fill="#14110f"/>
+<path id="ned-body-coat-cold" d="M 66 66 L 204 66 L 204 240 L 66 240 Z M 114.1 106.4 L 154.1 104.4 L 166.1 128.4 L 160.1 160.4 L 166.1 192.4 L 114.9 197.9 L 117.2 195.6 L 117.6 197.6 L 135.4 195.7 L 137.9 191.8 L 137.1 195.5 L 142.5 194.9 L 145.3 191.2 L 145.2 194.7 L 152.8 193.8 L 154.4 191.6 L 154.3 193.7 L 162 192.9 L 164.6 188.9 L 163.9 192.7 L 110.1 198.4 L 114.1 162.4 L 108.1 134.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="ned-body-coat-open-0" d="M 162 132 L 164.32 130.26 L 161.32 154.26 L 159 156 Z" fill="#77786f"/>
+</g>
+<g id="ned-body-belt">
+<use id="ned-body-belt-line" href="#ned-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-belt-clip)">
+<use id="ned-body-belt-lit" href="#ned-body-belt-shape" fill="#7b5b3d"/>
+<path id="ned-body-belt-dark" d="M 104.9 152.7 L 140.8 149.9 L 142.1 150.9 L 163 149.3 L 163.5 155.8 L 105.5 160.2 Z" fill="#14110f"/>
+<path id="ned-body-belt-stitch" d="M 113.7 152.3 L 114.5 154.8 L 114.9 152.2 Z M 120.2 151.8 L 121 154.3 L 121.4 151.7 Z M 126.8 151.3 L 127.6 153.8 L 128 151.2 Z M 133.3 150.8 L 134.1 153.3 L 134.5 150.7 Z M 139.8 150.3 L 140.6 152.8 L 141 150.2 Z M 146.4 149.8 L 147.2 152.3 L 147.6 149.7 Z M 152.9 149.3 L 153.7 151.7 L 154.1 149.2 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="ned-body-belt-buckle">
+<use id="ned-body-belt-buckle-line" href="#ned-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-belt-buckle-clip)">
+<use id="ned-body-belt-buckle-lit" href="#ned-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="ned-body-belt-buckle-dark" d="M 122 142.4 L 135 142.4 L 139.2 160.9 L 122 160.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-body-belt-pin" d="M 136.6 150.8 L 142.9 151.2 L 142.9 152.4 L 136.6 152.2 Z" fill="#14110f"/>
+<g id="ned-body-tin">
+<use id="ned-body-tin-line" href="#ned-body-tin-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-tin-clip)">
+<use id="ned-body-tin-lit" href="#ned-body-tin-shape" fill="#8c9194"/>
+<path id="ned-body-tin-mid" d="M 126 153 L 141.6 153 L 148 177 L 126 177 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="ned-body-tin-dark" d="M 126 153 L 141.6 153 L 148 177 L 126 177 Z" fill="#14110f"/>
+<path id="ned-body-tin-lid" d="M 138 162.6 L 155 161 L 138 161.4 Z" fill="#5b6165"/>
+</g>
+</g>
+<path id="ned-body-fuse-coil" d="M 118 160 L 112 168 L 120 174 L 126 166 L 118 162" fill="none" stroke="#927a58" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ned-body-drill-hammer">
+<use id="ned-body-drill-hammer-line" href="#ned-body-drill-hammer-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-drill-hammer-clip)">
+<use id="ned-body-drill-hammer-lit" href="#ned-body-drill-hammer-shape" fill="#6f5c46"/>
+<path id="ned-body-drill-hammer-dark" d="M 112 168 L 125 168 L 125.7 179.9 L 125.2 180.4 L 126.2 198 L 112 198 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-body-drill-head">
+<use id="ned-body-drill-head-line" href="#ned-body-drill-head-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-drill-head-clip)">
+<use id="ned-body-drill-head-lit" href="#ned-body-drill-head-shape" fill="#8c9194"/>
+<path id="ned-body-drill-head-dark" d="M 106 164 L 121.6 164 L 124 178 L 106 178 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

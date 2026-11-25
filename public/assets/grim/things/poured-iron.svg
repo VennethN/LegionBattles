@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="poured-iron" width="262" height="56" viewBox="0 0 262 56">
+<defs>
+<path id="poured-iron-melt-shape" d="M 10 26 L 70 16 L 140 22 L 220 14 L 248 26 L 230 38 L 160 40 L 90 36 L 24 42 Z"/>
+<clipPath id="poured-iron-melt-clip"><use href="#poured-iron-melt-shape"/></clipPath>
+</defs>
+<path id="poured-iron-crust" d="M 0 20 L 60 8 L 140 14 L 220 6 L 260 20 L 250 44 L 180 50 L 100 44 L 20 50 Z" fill="#4f4944"/>
+<g id="poured-iron-melt">
+<use id="poured-iron-melt-line" href="#poured-iron-melt-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#poured-iron-melt-clip)">
+<use id="poured-iron-melt-lit" href="#poured-iron-melt-shape" fill="#eeb040"/>
+<path id="poured-iron-heart" d="M 40 28 L 120 24 L 200 22 L 230 28 L 170 32 L 90 32 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<path id="poured-iron-skin-a" d="M 60 24 L 90 22 L 84 30 L 62 30 Z" fill="#34302d" opacity="0.7"/>
+<path id="poured-iron-skin-b" d="M 170 26 L 200 22 L 196 30 L 174 32 Z" fill="#34302d" opacity="0.7"/>
+</svg>

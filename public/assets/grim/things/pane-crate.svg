@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="pane-crate" width="158" height="144" viewBox="0 0 158 144">
+<defs>
+<path id="pane-crate-crate-shape" d="M 10 136 L 12 60 L 140 54 L 144 130 Z"/>
+<clipPath id="pane-crate-crate-clip"><use href="#pane-crate-crate-shape"/></clipPath>
+<path id="pane-crate-pane-0-shape" d="M 40 60 L 44 4 L 64 6 L 62 60 Z"/>
+<clipPath id="pane-crate-pane-0-clip"><use href="#pane-crate-pane-0-shape"/></clipPath>
+<path id="pane-crate-pane-1-shape" d="M 70 60 L 74 12 L 94 14 L 92 60 Z"/>
+<clipPath id="pane-crate-pane-1-clip"><use href="#pane-crate-pane-1-shape"/></clipPath>
+<path id="pane-crate-pane-2-shape" d="M 96 60 L 100 20 L 120 22 L 118 60 Z"/>
+<clipPath id="pane-crate-pane-2-clip"><use href="#pane-crate-pane-2-shape"/></clipPath>
+</defs>
+<path id="pane-crate-blot" d="M 0 130 L 150 124 L 156 138 L 4 142 Z" fill="#14110f" opacity="0.55"/>
+<g id="pane-crate-crate">
+<use id="pane-crate-crate-line" href="#pane-crate-crate-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pane-crate-crate-clip)">
+<use id="pane-crate-crate-lit" href="#pane-crate-crate-shape" fill="#6f5c46"/>
+<path id="pane-crate-crate-mid" d="M 0 100 L 0.1 101.6 L 87.5 98.1 L 90.8 94.8 L 149.9 92.4 L 150 150 L 0 150 Z" transform="translate(4 -0.96)" fill="#4a3c2d"/>
+<path id="pane-crate-crate-dark" d="M 0 100 L 0.1 101.6 L 87.5 98.1 L 90.8 94.8 L 149.9 92.4 L 150 150 L 0 150 Z" fill="#14110f"/>
+<path id="pane-crate-slats" d="M 12.1 81.2 L 142 74 L 11.9 78.8 Z M 12.1 105.2 L 142 98 L 11.9 102.8 Z M 13.4 61 L 140 130 L 14.6 59 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<path id="pane-crate-straw" d="M 21.1 59.5 L 14 46 L 18.9 60.5 Z M 41.2 58.3 L 44 44 L 38.8 57.7 Z M 111.1 55.5 L 104 42 L 108.9 56.5 Z M 131 54.7 L 138 42 L 129 53.3 Z" fill="#927a58"/>
+<g id="pane-crate-pane-0">
+<use id="pane-crate-pane-0-line" href="#pane-crate-pane-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pane-crate-pane-0-clip)">
+<use id="pane-crate-pane-0-lit" href="#pane-crate-pane-0-shape" fill="#5f7480"/>
+<path id="pane-crate-pane-0-dark" d="M 28 0 L 43.5 -0.3 L 50 39.4 L 47.5 43.3 L 50.9 64.3 L 28 64 Z" fill="#14110f"/>
+<path id="pane-crate-pane-0-light" d="M 48 10 L 60 12 L 50 40 Z" fill="#84939a"/>
+</g>
+</g>
+<g id="pane-crate-pane-1">
+<use id="pane-crate-pane-1-line" href="#pane-crate-pane-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pane-crate-pane-1-clip)">
+<use id="pane-crate-pane-1-lit" href="#pane-crate-pane-1-shape" fill="#5f7480"/>
+<path id="pane-crate-pane-1-dark" d="M 58 8 L 73.4 7.7 L 79.1 38 L 76.7 41.9 L 81 64.3 L 58 64 Z" fill="#14110f"/>
+<path id="pane-crate-pane-1-light" d="M 78 18 L 90 20 L 80 40 Z" fill="#84939a"/>
+</g>
+</g>
+<g id="pane-crate-pane-2">
+<use id="pane-crate-pane-2-line" href="#pane-crate-pane-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pane-crate-pane-2-clip)">
+<use id="pane-crate-pane-2-lit" href="#pane-crate-pane-2-shape" fill="#5f7480"/>
+<path id="pane-crate-pane-2-dark" d="M 84 16 L 99.4 15.7 L 104.8 40.4 L 102.6 44.2 L 107 64.3 L 84 64 Z" fill="#14110f"/>
+<path id="pane-crate-pane-2-light" d="M 104 26 L 116 28 L 106 40 Z" fill="#84939a"/>
+</g>
+</g>
+<path id="pane-crate-crack" d="M 74 20 L 82 34 L 76 50" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

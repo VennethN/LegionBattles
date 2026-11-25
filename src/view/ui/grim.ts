@@ -19,6 +19,8 @@ export const UI_PIECES = [
   'icon-ability-brace', 'icon-ability-reap', 'icon-ability-jawtrap', 'icon-ability-tarflask', 'icon-ability-flare', 'icon-ability-lamp',
   'icon-ability-seton', 'icon-ability-heel', 'icon-dodge', 'icon-horn', 'icon-pikemen', 'icon-crossbowmen', 'icon-sappers',
   'icon-barricade', 'icon-watchfire', 'icon-bellpost', 'icon-ballista', 'icon-supply', 'icon-coin', 'icon-trophy-spade', 'icon-trophy-antler',
+  'icon-ability-forgestrike', 'icon-ability-anvil', 'icon-ability-keg', 'icon-ability-cavein', 'icon-ability-shove', 'icon-ability-wake',
+  'icon-ability-hook', 'icon-ability-hack', 'icon-trophy-silk', 'icon-trophy-bellrope', 'icon-trophy-grate', 'icon-trophy-shard',
 ] as const;
 
 export const uiKey = (id: string): string => `ui:${id}`;

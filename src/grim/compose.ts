@@ -24,6 +24,8 @@ export interface ComposeOpts {
   /** Leave the blot on the ground out (for silhouettes). */
   noShadow?: boolean;
   idSuffix?: string;
+  /** The still the figure stands in, so that a part shown only in it is drawn. */
+  still?: string;
 }
 
 /** The figure as svg content on its own canvas. */
@@ -33,6 +35,7 @@ export function composeUnit(unit: UnitArt, opts: ComposeOpts = {}): string {
   const groups: string[] = [];
   unit.parts.forEach((part, i) => {
     if (opts.noShadow && part.role === 'shadow') return;
+    if (part.only && part.only !== opts.still) return;
     const o = out[i];
     const r = (n: number): number => Math.round(n * 100) / 100;
     const transform =

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="far-hall" width="470" height="250" viewBox="0 0 470 250">
+<path id="far-hall-wall" d="M 0 20 L 470 20 L 470 250 L 0 250 Z" fill="#33424b"/>
+<path id="far-hall-window-0" d="M 30 200 L 30 70 L 50 40 L 70 70 L 70 200 Z" fill="#3f505b"/>
+<path id="far-hall-window-0-bars" d="M 48.5 44 L 50 200 L 51.5 44 Z M 30 121.5 L 70 120 L 30 118.5 Z" fill="#242f36"/>
+<path id="far-hall-window-1" d="M 160 200 L 160 70 L 180 40 L 200 70 L 200 200 Z" fill="#3f505b"/>
+<path id="far-hall-window-1-bars" d="M 178.5 44 L 180 200 L 181.5 44 Z M 160 121.5 L 200 120 L 160 118.5 Z" fill="#242f36"/>
+<path id="far-hall-window-2" d="M 290 200 L 290 70 L 310 40 L 330 70 L 330 200 Z" fill="#3f505b"/>
+<path id="far-hall-window-2-bars" d="M 308.5 44 L 310 200 L 311.5 44 Z M 290 121.5 L 330 120 L 290 118.5 Z" fill="#242f36"/>
+<path id="far-hall-window-3" d="M 410 200 L 410 70 L 430 40 L 450 70 L 450 200 Z" fill="#3f505b"/>
+<path id="far-hall-window-3-bars" d="M 428.5 44 L 430 200 L 431.5 44 Z M 410 121.5 L 450 120 L 410 118.5 Z" fill="#242f36"/>
+<path id="far-hall-frame-0" d="M 90 160 L 90 90 L 136 90 L 136 160 Z" fill="#242f36"/>
+<path id="far-hall-frame-0-empty" d="M 98 152 L 98 98 L 128 98 L 128 152 Z" fill="#14110f"/>
+<path id="far-hall-frame-1" d="M 220 160 L 220 90 L 266 90 L 266 160 Z" fill="#242f36"/>
+<path id="far-hall-frame-1-empty" d="M 228 152 L 228 98 L 258 98 L 258 152 Z" fill="#14110f"/>
+<path id="far-hall-frame-2" d="M 350 160 L 350 90 L 396 90 L 396 160 Z" fill="#242f36"/>
+<path id="far-hall-frame-2-empty" d="M 358 152 L 358 98 L 388 98 L 388 152 Z" fill="#14110f"/>
+<path id="far-hall-gallery" d="M 0 200 L 470 196 L 470 214 L 0 218 Z" fill="#242f36"/>
+<path id="far-hall-floor" d="M 0 230 L 470 226 L 470 250 L 0 250 Z" fill="#242f36"/>
+</svg>

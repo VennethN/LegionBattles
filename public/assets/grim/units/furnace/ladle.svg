@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="furnace-ladle" width="1120" height="1120" viewBox="-200 -200 1120 1120">
+<defs>
+<path id="furnace-ladle-upper-shape" d="M 485.6 304.4 L 572.7 397.3 L 547.3 422.7 L 454.4 335.6 Z"/>
+<clipPath id="furnace-ladle-upper-clip"><use href="#furnace-ladle-upper-shape"/></clipPath>
+<path id="furnace-ladle-fore-shape" d="M 576.9 403.8 L 614.1 514.9 L 585.9 525.1 L 543.1 416.2 Z"/>
+<clipPath id="furnace-ladle-fore-clip"><use href="#furnace-ladle-fore-shape"/></clipPath>
+<path id="furnace-ladle-elbow-shape" d="M 540 396 L 578 390 L 584 428 L 546 432 Z"/>
+<clipPath id="furnace-ladle-elbow-clip"><use href="#furnace-ladle-elbow-shape"/></clipPath>
+<path id="furnace-ladle-shoulder-shape" d="M 448 300 L 498 290 L 508 340 L 454 350 Z"/>
+<clipPath id="furnace-ladle-shoulder-clip"><use href="#furnace-ladle-shoulder-shape"/></clipPath>
+<path id="furnace-ladle-bowl-shape" d="M 560 510 L 660 500 L 672 540 L 650 580 L 580 584 L 556 548 Z"/>
+<clipPath id="furnace-ladle-bowl-clip"><use href="#furnace-ladle-bowl-shape"/></clipPath>
+<path id="furnace-ladle-slag-shape" d="M 566 512 L 656 504 L 650 520 L 570 526 Z"/>
+<clipPath id="furnace-ladle-slag-clip"><use href="#furnace-ladle-slag-shape"/></clipPath>
+<path id="furnace-ladle-drip-shape" d="M 660 510 L 672 512 L 670 540 L 664 560 L 660 540 Z"/>
+</defs>
+<g id="furnace-ladle-upper">
+<use id="furnace-ladle-upper-line" href="#furnace-ladle-upper-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-ladle-upper-clip)">
+<use id="furnace-ladle-upper-lit" href="#furnace-ladle-upper-shape" fill="#4f4944"/>
+<path id="furnace-ladle-upper-mid" d="M 472.2 313.5 L 527 368.3 L 527.2 373.5 L 564 410.2 L 534.1 440.1 L 439.9 345.9 Z" transform="translate(4 -0.96)" fill="#34302d"/>
+<path id="furnace-ladle-upper-dark" d="M 472.2 313.5 L 527 368.3 L 527.2 373.5 L 564 410.2 L 534.1 440.1 L 439.9 345.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="furnace-ladle-fore">
+<use id="furnace-ladle-fore-line" href="#furnace-ladle-fore-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-ladle-fore-clip)">
+<use id="furnace-ladle-fore-lit" href="#furnace-ladle-fore-shape" fill="#4f4944"/>
+<path id="furnace-ladle-fore-mid" d="M 563.8 405.4 L 582.7 457.4 L 581 461.7 L 603 522.1 L 570.6 533.9 L 528.5 418.3 Z" transform="translate(4 -0.96)" fill="#34302d"/>
+<path id="furnace-ladle-fore-dark" d="M 563.8 405.4 L 582.7 457.4 L 581 461.7 L 603 522.1 L 570.6 533.9 L 528.5 418.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="furnace-ladle-elbow">
+<use id="furnace-ladle-elbow-line" href="#furnace-ladle-elbow-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-ladle-elbow-clip)">
+<use id="furnace-ladle-elbow-lit" href="#furnace-ladle-elbow-shape" fill="#8c9194"/>
+<use id="furnace-ladle-elbow-rim" href="#furnace-ladle-elbow-shape" fill="#f4d294" opacity="0.55"/>
+<use id="furnace-ladle-elbow-lit-over" href="#furnace-ladle-elbow-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="furnace-ladle-elbow-mid" d="M 528 386 L 552.3 384.9 L 558.7 403.9 L 554.5 412 L 562.9 437.1 L 528 436 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="furnace-ladle-elbow-dark" d="M 528 386 L 552.3 384.9 L 558.7 403.9 L 554.5 412 L 562.9 437.1 L 528 436 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="furnace-ladle-shoulder">
+<use id="furnace-ladle-shoulder-line" href="#furnace-ladle-shoulder-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-ladle-shoulder-clip)">
+<use id="furnace-ladle-shoulder-lit" href="#furnace-ladle-shoulder-shape" fill="#8c9194"/>
+<use id="furnace-ladle-shoulder-rim" href="#furnace-ladle-shoulder-shape" fill="#f4d294" opacity="0.55"/>
+<use id="furnace-ladle-shoulder-lit-over" href="#furnace-ladle-shoulder-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="furnace-ladle-shoulder-mid" d="M 436 286 L 462.7 285.1 L 472.1 311.7 L 468.8 319.4 L 481.3 354.9 L 436 354 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="furnace-ladle-shoulder-dark" d="M 436 286 L 462.7 285.1 L 472.1 311.7 L 468.8 319.4 L 481.3 354.9 L 436 354 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="furnace-ladle-shoulder-bolts-0" d="M 460.3 304.7 L 463.3 301.7 L 466.3 304.7 L 463.3 307.7 Z" fill="#14110f"/>
+<path id="furnace-ladle-shoulder-bolts-1" d="M 475 302 L 478 299 L 481 302 L 478 305 Z" fill="#14110f"/>
+<path id="furnace-ladle-shoulder-bolts-2" d="M 489.7 299.3 L 492.7 296.3 L 495.7 299.3 L 492.7 302.3 Z" fill="#14110f"/>
+<g id="furnace-ladle-bowl">
+<use id="furnace-ladle-bowl-line" href="#furnace-ladle-bowl-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-ladle-bowl-clip)">
+<use id="furnace-ladle-bowl-lit" href="#furnace-ladle-bowl-shape" fill="#8c9194"/>
+<use id="furnace-ladle-bowl-rim" href="#furnace-ladle-bowl-shape" fill="#f4d294" opacity="0.55"/>
+<use id="furnace-ladle-bowl-lit-over" href="#furnace-ladle-bowl-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="furnace-ladle-bowl-mid" d="M 540 560 L 540.2 558.9 L 615.2 553.6 L 621.3 547.2 L 679.8 543.1 L 680 600 L 540 600 Z" transform="translate(5 -1.2)" fill="#5b6165"/>
+<path id="furnace-ladle-bowl-dark" d="M 540 560 L 540.2 558.9 L 615.2 553.6 L 621.3 547.2 L 679.8 543.1 L 680 600 L 540 600 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="furnace-ladle-slag">
+<use id="furnace-ladle-slag-line" href="#furnace-ladle-slag-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#furnace-ladle-slag-clip)">
+<use id="furnace-ladle-slag-lit" href="#furnace-ladle-slag-shape" fill="#eeb040"/>
+<path id="furnace-ladle-slag-hot" d="M 590 512 L 640 508 L 636 518 L 594 520 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="furnace-ladle-drip">
+<use id="furnace-ladle-drip-line" href="#furnace-ladle-drip-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="furnace-ladle-drip-lit" href="#furnace-ladle-drip-shape" fill="#eeb040"/>
+</g>
+</svg>

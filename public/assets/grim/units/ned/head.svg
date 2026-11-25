@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ned-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ned-head-neck-shape" d="M 147 95 L 156.2 97.5 L 157.8 108.3 L 145.3 108.3 Z"/>
+<clipPath id="ned-head-neck-clip"><use href="#ned-head-neck-shape"/></clipPath>
+<path id="ned-head-face-shape" d="M 149.3 84.5 L 153.7 81 L 162.3 81 L 165.8 84.5 L 168 88.4 L 166.2 90.5 L 167.5 92.3 L 171.4 96.6 L 168 97.9 L 168.4 100.5 L 167.1 101.4 L 167.5 103.1 L 165.4 106.6 L 159.7 108.1 L 153.7 101.8 L 150.2 99.2 Z"/>
+<clipPath id="ned-head-face-clip"><use href="#ned-head-face-shape"/></clipPath>
+<path id="ned-head-neckerchief-shape" d="M 140 104 L 164 106 L 162 114 L 150 118 L 142 112 Z"/>
+<clipPath id="ned-head-neckerchief-clip"><use href="#ned-head-neckerchief-shape"/></clipPath>
+<path id="ned-head-crown-shape" d="M 138 82 L 140 68 L 150 60 L 164 60 L 172 68 L 174 80 Z"/>
+<clipPath id="ned-head-crown-clip"><use href="#ned-head-crown-shape"/></clipPath>
+<path id="ned-head-brim-shape" d="M 132 84 L 136 78 L 178 77 L 190 84 L 186 88 L 136 89 Z"/>
+<clipPath id="ned-head-brim-clip"><use href="#ned-head-brim-shape"/></clipPath>
+<path id="ned-head-holder-shape" d="M 160 66 L 180 64 L 178 70 L 162 71 Z"/>
+<clipPath id="ned-head-holder-clip"><use href="#ned-head-holder-shape"/></clipPath>
+<path id="ned-head-candle-shape" d="M 163 52 L 176 51 L 177 65 L 162 66 Z"/>
+<clipPath id="ned-head-candle-clip"><use href="#ned-head-candle-shape"/></clipPath>
+<path id="ned-head-flame-shape" d="M 164 52 L 168 40 L 170 32 L 174 42 L 176 51 L 170 54 Z"/>
+</defs>
+<g id="ned-head-neck">
+<use id="ned-head-neck-line" href="#ned-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-neck-clip)">
+<use id="ned-head-neck-lit" href="#ned-head-neck-shape" fill="#c7ad84"/>
+<path id="ned-head-neck-mid" d="M 133.3 91 L 148.9 91 L 154.3 112.3 L 133.3 112.3 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="ned-head-neck-dark" d="M 133.3 91 L 148.9 91 L 154.3 112.3 L 133.3 112.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-head-face">
+<use id="ned-head-face-line" href="#ned-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-face-clip)">
+<use id="ned-head-face-lit" href="#ned-head-face-shape" fill="#c7ad84"/>
+<path id="ned-head-face-mid" d="M 145.9 78.4 L 156 79.1 L 157.6 95.8 L 154.9 99.4 L 155.6 108 L 145.9 109.6 Z" transform="translate(2.6 -0.62)" fill="#927a58"/>
+<path id="ned-head-face-dark" d="M 145.9 78.4 L 156 79.1 L 157.6 95.8 L 154.9 99.4 L 155.6 108 L 145.9 109.6 Z" fill="#14110f"/>
+<path id="ned-head-face-cheek-plane" d="M 158.9 95.3 L 164.1 94.4 L 165.8 97.5 L 164.5 101.8 L 159.7 105.6 L 157.1 100.1 Z" fill="#927a58"/>
+<path id="ned-head-face-chin-plane" d="M 163.2 103.1 L 167.5 102.7 L 165.4 106.6 L 161.5 107.2 Z" fill="#927a58"/>
+<path id="ned-head-face-socket" d="M 168.4 87.9 L 156.3 87.1 L 157.1 93.1 L 161.5 95.3 L 164.1 93.1 L 167.1 92.1 Z" fill="#14110f"/>
+<path id="ned-head-face-lines" d="M 165.5 97.6 L 164.5 101.4 L 166.9 98.2 Z M 154.9 101.5 L 161.5 106.6 L 155.9 100.4 Z" fill="#14110f"/>
+<path id="ned-head-face-mouth" d="M 168.3 99.8 L 162.8 101.6 L 168.5 101.7 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-head-face-nostril" d="M 168.4 97.3 L 165.4 96.2 L 167.5 98.5 Z" fill="#14110f"/>
+<path id="ned-head-dust" d="M 159.4 98.6 L 164 102 L 160.6 97.4 Z M 151.3 100.4 L 154 104 L 152.7 99.6 Z M 163.6 86.7 L 168 88 L 164.4 85.3 Z" fill="#927a58"/>
+<path id="ned-head-stubble" d="M 155.5 104.3 L 158 107 L 156.5 103.7 Z M 161.5 102.3 L 164 105 L 162.5 101.7 Z M 149.4 103.2 L 151 106 L 150.6 102.8 Z" fill="#927a58"/>
+<g id="ned-head-neckerchief">
+<use id="ned-head-neckerchief-line" href="#ned-head-neckerchief-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-neckerchief-clip)">
+<use id="ned-head-neckerchief-lit" href="#ned-head-neckerchief-shape" fill="#7d312b"/>
+<path id="ned-head-neckerchief-mid" d="M 128 100 L 146.8 100 L 152.4 122 L 128 122 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="ned-head-neckerchief-dark" d="M 128 100 L 146.8 100 L 152.4 122 L 128 122 Z" fill="#14110f"/>
+<path id="ned-head-kerchief-fold" d="M 149.3 107.2 L 152 116 L 150.7 106.8 Z" fill="#551f1c"/>
+</g>
+</g>
+<g id="ned-head-crown">
+<use id="ned-head-crown-line" href="#ned-head-crown-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-crown-clip)">
+<use id="ned-head-crown-lit" href="#ned-head-crown-shape" fill="#7b5b3d"/>
+<path id="ned-head-crown-mid" d="M 126 56 L 150.6 55.5 L 153.6 65.8 L 151 70.5 L 155.7 86.5 L 126 86 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ned-head-crown-dark" d="M 126 56 L 150.6 55.5 L 153.6 65.8 L 151 70.5 L 155.7 86.5 L 126 86 Z" fill="#14110f"/>
+<path id="ned-head-crown-seam" d="M 155.2 61 L 156 80 L 156.8 61 Z" fill="#553d29"/>
+<path id="ned-head-crown-dent" d="M 163.2 66.6 L 168 72 L 164.8 65.4 Z" fill="#553d29"/>
+<path id="ned-head-crown-cold" d="M 98 20 L 214 20 L 214 122 L 98 122 Z M 139.9 80.6 L 141.9 66.6 L 151.9 58.6 L 165.9 58.6 L 173.9 66.6 L 175.9 78.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="ned-head-brim">
+<use id="ned-head-brim-line" href="#ned-head-brim-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-brim-clip)">
+<use id="ned-head-brim-lit" href="#ned-head-brim-shape" fill="#7b5b3d"/>
+<path id="ned-head-brim-mid" d="M 120 73 L 147 73 L 151.8 93 L 120 93 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="ned-head-brim-dark" d="M 120 73 L 147 73 L 151.8 93 L 120 93 Z" fill="#14110f"/>
+</g>
+<path id="ned-head-brim-open-0" d="M 178 77.4 L 180.32 75.66 L 190.32 80.26 L 188 82 Z" fill="#7b5b3d"/>
+</g>
+<g id="ned-head-holder">
+<use id="ned-head-holder-line" href="#ned-head-holder-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-holder-clip)">
+<use id="ned-head-holder-lit" href="#ned-head-holder-shape" fill="#8c9194"/>
+<path id="ned-head-holder-dark" d="M 148 60 L 164.6 60 L 167.4 75 L 148 75 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-head-clip" d="M 166 70 L 168 78" fill="none" stroke="#14110f" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ned-head-candle">
+<use id="ned-head-candle-line" href="#ned-head-candle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-candle-clip)">
+<use id="ned-head-candle-lit" href="#ned-head-candle-shape" fill="#cfc5a8"/>
+<path id="ned-head-candle-mid" d="M 150 47 L 165 47 L 171 70 L 150 70 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="ned-head-candle-dark" d="M 150 47 L 165 47 L 171 70 L 150 70 Z" fill="#14110f"/>
+<path id="ned-head-drips" d="M 165.2 53 L 166 60 L 166.8 53 Z M 171.2 52.1 L 173 58 L 172.8 51.9 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="ned-head-flame">
+<use id="ned-head-flame-line" href="#ned-head-flame-shape" transform="translate(-0.84 0.63)" fill="#14110f" stroke="#14110f" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ned-head-flame-lit" href="#ned-head-flame-shape" fill="#eeb040"/>
+</g>
+<path id="ned-head-flame-heart" d="M 167 51 L 170 39 L 173 51 Z" fill="#ffe6a2"/>
+</svg>

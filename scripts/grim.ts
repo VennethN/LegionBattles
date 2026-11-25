@@ -18,6 +18,7 @@ import { drawPart } from '../src/grim/kit/unit';
 import { SLICES } from '../src/grim/interface';
 import { churchyardGround } from '../src/grim/lair';
 import { woodGround } from '../src/grim/wood';
+import { abbeyGround, cellarGround, foundryGround, hallGround } from '../src/grim/deep';
 import { FALL, HIT, STRIDE, TREAD } from '../src/grim/poses';
 import { UNIT_ART } from '../src/grim/units';
 import { UNIT_NOTES } from '../src/grim/units/notes';
@@ -54,7 +55,7 @@ for (const unit of UNIT_ART) {
   const parts = unit.parts.map((p) => {
     const svg = drawPart(unit, p).svg(cw, ch, unit.margin);
     files.set(`units/${unit.id}/${p.name}.svg`, svg);
-    return { name: p.name, role: p.role, parent: p.parent, pivot: [p.pivot[0], p.pivot[1]], ...(p.sway !== undefined ? { sway: p.sway } : {}), ...(p.hangs ? { hangs: true } : {}), box: boxOf(svg, W, H, unit.margin) };
+    return { name: p.name, role: p.role, parent: p.parent, pivot: [p.pivot[0], p.pivot[1]], ...(p.sway !== undefined ? { sway: p.sway } : {}), ...(p.hangs ? { hangs: true } : {}), ...(p.only ? { only: p.only } : {}), box: boxOf(svg, W, H, unit.margin) };
   });
   const full = page(unit.id, composeUnit(unit), cw, ch, unit.margin);
   files.set(`units/${unit.id}/full.svg`, full);
@@ -63,7 +64,8 @@ for (const unit of UNIT_ART) {
     full: boxOf(full, W, H, unit.margin), parts, moves: unit.moves, stills: unit.stills ?? {},
   };
 }
-for (const t of THINGS) {
+// The bosses' posters are for the contract screen, which does not show them yet: written once it does.
+for (const t of THINGS.filter((x) => x.set !== 'posters')) {
   const d = new Doc(t.id);
   t.draw(d);
   files.set(`things/${t.id}.svg`, d.svg(t.width, t.height));
@@ -72,6 +74,7 @@ for (const t of THINGS) {
 for (const [shape, w, h] of [['wide', FIELD.long, FIELD.short], ['tall', FIELD.short, FIELD.long]] as const) {
   files.set(`grounds/churchyard-${shape}.svg`, churchyardGround(w, h).svg(w, h));
   files.set(`grounds/wood-${shape}.svg`, woodGround(w, h).svg(w, h));
+  for (const [name, ground] of [['cellar', cellarGround], ['abbey', abbeyGround], ['foundry', foundryGround], ['hall', hallGround]] as const) files.set(`grounds/${name}-${shape}.svg`, ground(w, h).svg(w, h));
 }
 files.set('manifest.json', `${JSON.stringify(manifest)}\n`);
 

@@ -1,0 +1,450 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ned" width="416" height="416" viewBox="-80 -80 416 416">
+<g id="ned-shadow-layer" transform="translate(128 240) rotate(0) scale(1 1) translate(-128 -240)">
+<path id="ned-shadow-blot" d="M 70 241 L 86.2 234 L 116.4 232.6 L 155.8 234 L 186 238.8 L 176.7 245.4 L 139.6 247.4 L 93.2 246 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="ned-leg-back-layer" transform="translate(114 170) rotate(0) scale(1 1) translate(-114 -170)">
+<defs>
+<path id="ned-leg-back-thigh-shape" d="M 122.9 169.4 L 117.4 184.7 L 107 204.7 L 93 199.3 L 99.8 177.9 L 105.1 162.6 Z"/>
+<clipPath id="ned-leg-back-thigh-clip"><use href="#ned-leg-back-thigh-shape"/></clipPath>
+<path id="ned-leg-back-shin-shape" d="M 107.2 200.1 L 104.1 211.9 L 97.8 227.6 L 86.2 224.4 L 89.9 207.8 L 92.8 195.9 Z"/>
+<clipPath id="ned-leg-back-shin-clip"><use href="#ned-leg-back-shin-shape"/></clipPath>
+<path id="ned-leg-back-boot-shape" d="M 82.5 219 L 100.5 217 L 103.8 227 L 114.4 230 L 120.4 236 L 120.4 240 L 78.4 240 L 76.4 230 Z"/>
+<clipPath id="ned-leg-back-boot-clip"><use href="#ned-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="ned-leg-back-thigh">
+<use id="ned-leg-back-thigh-line" href="#ned-leg-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-back-thigh-clip)">
+<use id="ned-leg-back-thigh-lit" href="#ned-leg-back-thigh-shape" fill="#6f5c46"/>
+<path id="ned-leg-back-thigh-mid" d="M 114.7 163.1 L 107.5 181.6 L 103.5 183.7 L 95.7 203.6 L 79.4 197.2 L 95.6 155.6 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="ned-leg-back-thigh-dark" d="M 114.7 163.1 L 107.5 181.6 L 103.5 183.7 L 95.7 203.6 L 79.4 197.2 L 95.6 155.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-leg-back-shin">
+<use id="ned-leg-back-shin-line" href="#ned-leg-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-back-shin-clip)">
+<use id="ned-leg-back-shin-lit" href="#ned-leg-back-shin-shape" fill="#6f5c46"/>
+<path id="ned-leg-back-shin-mid" d="M 100.5 195 L 95.1 213.9 L 92.1 215.8 L 88.6 228.1 L 75.3 224.4 L 85 190.6 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="ned-leg-back-shin-dark" d="M 100.5 195 L 95.1 213.9 L 92.1 215.8 L 88.6 228.1 L 75.3 224.4 L 85 190.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-leg-back-boot">
+<use id="ned-leg-back-boot-line" href="#ned-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-back-boot-clip)">
+<use id="ned-leg-back-boot-lit" href="#ned-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="ned-leg-back-boot-mid" d="M 70.4 214 L 94.3 214 L 95.7 226 L 104.5 232 L 124.4 235 L 124.4 244 L 70.4 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ned-leg-back-boot-dark" d="M 70.4 214 L 94.3 214 L 95.7 226 L 104.5 232 L 124.4 235 L 124.4 244 L 70.4 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-leg-back-boot-sole" d="M 76.4 237 L 121.4 237 L 121.4 241.5 L 76.4 241.5 Z" fill="#14110f"/>
+<path id="ned-leg-back-boot-crease" d="M 103 225.8 L 94.3 231 L 104 228.2 Z" fill="#14110f"/>
+</g>
+<g id="ned-keg-layer" transform="translate(98 118) rotate(0) scale(1 1) translate(-98 -118)">
+<defs>
+<path id="ned-keg-keg-shape" d="M 76 96 L 114 92 L 120 110 L 118 150 L 112 162 L 78 164 L 72 150 L 70 112 Z"/>
+<clipPath id="ned-keg-keg-clip"><use href="#ned-keg-keg-shape"/></clipPath>
+<path id="ned-keg-hoop-a-shape" d="M 70 112 L 120 108 L 121 116 L 71 120 Z"/>
+<clipPath id="ned-keg-hoop-a-clip"><use href="#ned-keg-hoop-a-shape"/></clipPath>
+<path id="ned-keg-hoop-b-shape" d="M 72 146 L 119 142 L 119 150 L 73 154 Z"/>
+<clipPath id="ned-keg-hoop-b-clip"><use href="#ned-keg-hoop-b-shape"/></clipPath>
+<path id="ned-keg-lid-shape" d="M 78 94 L 112 90 L 114 96 L 80 100 Z"/>
+<clipPath id="ned-keg-lid-clip"><use href="#ned-keg-lid-shape"/></clipPath>
+<path id="ned-keg-keg-strap-shape" d="M 110.5 91.7 L 118.5 159.7 L 113.5 160.3 L 105.5 92.3 Z"/>
+<clipPath id="ned-keg-keg-strap-clip"><use href="#ned-keg-keg-strap-shape"/></clipPath>
+<path id="ned-keg-keg-strap-buckle-shape" d="M 107.5 115.5 L 115 115.8 L 114.6 123 L 107.8 122.6 Z"/>
+<clipPath id="ned-keg-keg-strap-buckle-clip"><use href="#ned-keg-keg-strap-buckle-shape"/></clipPath>
+</defs>
+<g id="ned-keg-keg">
+<use id="ned-keg-keg-line" href="#ned-keg-keg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-keg-clip)">
+<use id="ned-keg-keg-lit" href="#ned-keg-keg-shape" fill="#6f5c46"/>
+<path id="ned-keg-keg-mid" d="M 60 86 L 92 86 L 94.4 91.9 L 96.2 126.5 L 91.6 132.1 L 93.6 170.1 L 60 172 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="ned-keg-keg-dark" d="M 60 86 L 92 86 L 94.4 91.9 L 96.2 126.5 L 91.6 132.1 L 93.6 170.1 L 60 172 Z" fill="#14110f"/>
+<path id="ned-keg-staves" d="M 99.2 96 L 102 160 L 100.8 96 Z M 109.2 100 L 112 156 L 110.8 100 Z" fill="#4a3c2d"/>
+<path id="ned-keg-keg-cold" d="M 30 52 L 160 52 L 160 204 L 30 204 Z M 78.3 94.3 L 116.3 90.3 L 122.3 108.3 L 120.3 148.3 L 114.3 160.3 L 80.3 162.3 L 74.3 148.3 L 72.3 110.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="ned-keg-hoop-a">
+<use id="ned-keg-hoop-a-line" href="#ned-keg-hoop-a-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-hoop-a-clip)">
+<use id="ned-keg-hoop-a-lit" href="#ned-keg-hoop-a-shape" fill="#8c9194"/>
+<path id="ned-keg-hoop-a-dark" d="M 58 104 L 88 104 L 92.8 124 L 58 124 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-keg-hoop-b">
+<use id="ned-keg-hoop-b-line" href="#ned-keg-hoop-b-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-hoop-b-clip)">
+<use id="ned-keg-hoop-b-lit" href="#ned-keg-hoop-b-shape" fill="#8c9194"/>
+<path id="ned-keg-hoop-b-dark" d="M 60 138 L 88.4 138 L 93.2 158 L 60 158 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-keg-hoop-nails-0" d="M 84.4 115.3 L 85.7 114 L 87 115.3 L 85.7 116.6 Z" fill="#14110f"/>
+<path id="ned-keg-hoop-nails-1" d="M 95.7 114 L 97 112.7 L 98.3 114 L 97 115.3 Z" fill="#14110f"/>
+<path id="ned-keg-hoop-nails-2" d="M 107 112.7 L 108.3 111.4 L 109.6 112.7 L 108.3 114 Z" fill="#14110f"/>
+<path id="ned-keg-mark" d="M 95.2 126.8 L 106 136 L 96.8 125.2 Z M 105.2 125.2 L 96 136 L 106.8 126.8 Z" fill="#14110f"/>
+<g id="ned-keg-lid">
+<use id="ned-keg-lid-line" href="#ned-keg-lid-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-lid-clip)">
+<use id="ned-keg-lid-lit" href="#ned-keg-lid-shape" fill="#6f5c46"/>
+<path id="ned-keg-lid-dark" d="M 66 86 L 90.4 86 L 94.4 104 L 66 104 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-keg-fuse" d="M 96 92 L 88 84 L 100 80 L 110 86 L 98 88 L 92 76" fill="none" stroke="#927a58" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ned-keg-keg-strap">
+<use id="ned-keg-keg-strap-line" href="#ned-keg-keg-strap-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-keg-strap-clip)">
+<use id="ned-keg-keg-strap-lit" href="#ned-keg-keg-strap-shape" fill="#7b5b3d"/>
+<path id="ned-keg-keg-strap-dark" d="M 108.8 88.9 L 113.3 126.6 L 112.4 127.8 L 116.6 163 L 112.1 163.5 L 103.4 89.5 Z" fill="#14110f"/>
+<path id="ned-keg-keg-strap-stitch" d="M 109.7 98.4 L 107.9 99.2 L 109.8 99.6 Z M 110.4 104.4 L 108.6 105.2 L 110.5 105.5 Z M 111.1 110.3 L 109.3 111.1 L 111.2 111.5 Z M 111.8 116.3 L 110.1 117.1 L 111.9 117.5 Z M 112.5 122.3 L 110.8 123.1 L 112.6 123.5 Z M 113.2 128.3 L 111.5 129.1 L 113.3 129.5 Z M 113.9 134.3 L 112.2 135.1 L 114 135.5 Z M 114.6 140.3 L 112.9 141.1 L 114.7 141.5 Z M 115.3 146.2 L 113.6 147 L 115.4 147.4 Z M 116 152.2 L 114.3 153 L 116.1 153.4 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="ned-keg-keg-strap-buckle">
+<use id="ned-keg-keg-strap-buckle-line" href="#ned-keg-keg-strap-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-keg-strap-buckle-clip)">
+<use id="ned-keg-keg-strap-buckle-lit" href="#ned-keg-keg-strap-buckle-shape" fill="#8c9194"/>
+<path id="ned-keg-keg-strap-buckle-dark" d="M 95.5 111.5 L 108.2 111.5 L 111.2 127 L 95.5 127 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-keg-keg-strap-pin" d="M 109.3 118.4 L 113.8 118.8 L 113.8 120 L 109.3 119.8 Z" fill="#14110f"/>
+</g>
+<g id="ned-throw-arm-layer" transform="translate(132 114) rotate(0) scale(1 1) translate(-132 -114)">
+<defs>
+<path id="ned-throw-arm-arm-upper-shape" d="M 138.9 115.7 L 136.7 129.5 L 129.7 147.4 L 118.3 144.6 L 121.8 125.7 L 125.1 112.3 Z"/>
+<clipPath id="ned-throw-arm-arm-upper-clip"><use href="#ned-throw-arm-arm-upper-shape"/></clipPath>
+<path id="ned-throw-arm-arm-fore-shape" d="M 129.9 144.2 L 133.8 154.9 L 136.5 170.6 L 127.5 173.4 L 121.8 158.6 L 118.1 147.8 Z"/>
+<clipPath id="ned-throw-arm-arm-fore-clip"><use href="#ned-throw-arm-arm-fore-shape"/></clipPath>
+<path id="ned-throw-arm-arm-fist-shape" d="M 136.4 158.9 L 143 169.8 L 143.9 175.6 L 140 179.1 L 140 182.2 L 134.8 184 L 132.8 182.1 L 128.1 184.4 L 122.8 179.5 L 120.1 167.5 L 126.1 161.9 Z"/>
+<clipPath id="ned-throw-arm-arm-fist-clip"><use href="#ned-throw-arm-arm-fist-shape"/></clipPath>
+</defs>
+<g id="ned-throw-arm-arm-upper">
+<use id="ned-throw-arm-arm-upper-line" href="#ned-throw-arm-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-throw-arm-arm-upper-clip)">
+<use id="ned-throw-arm-arm-upper-lit" href="#ned-throw-arm-arm-upper-shape" fill="#77786f"/>
+<path id="ned-throw-arm-arm-upper-mid" d="M 135.6 111.8 L 130.8 130.8 L 127.4 133.1 L 123.4 149 L 109.7 145.5 L 119.1 107.7 Z" transform="translate(2.5 -0.6)" fill="#54564f"/>
+<path id="ned-throw-arm-arm-upper-dark" d="M 135.6 111.8 L 130.8 130.8 L 127.4 133.1 L 123.4 149 L 109.7 145.5 L 119.1 107.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-throw-arm-arm-fore">
+<use id="ned-throw-arm-arm-fore-line" href="#ned-throw-arm-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-throw-arm-arm-fore-clip)">
+<use id="ned-throw-arm-arm-fore-lit" href="#ned-throw-arm-arm-fore-shape" fill="#77786f"/>
+<path id="ned-throw-arm-arm-fore-mid" d="M 125.5 142.4 L 129.1 154 L 127.6 157.3 L 132.9 174.8 L 121.7 178.3 L 111.9 146.6 Z" transform="translate(2.5 -0.6)" fill="#54564f"/>
+<path id="ned-throw-arm-arm-fore-dark" d="M 125.5 142.4 L 129.1 154 L 127.6 157.3 L 132.9 174.8 L 121.7 178.3 L 111.9 146.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-throw-arm-arm-fold" d="M 120.1 151.7 L 126.1 144.4 L 117.5 148.1 Z" fill="#14110f"/>
+<g id="ned-throw-arm-arm-fist">
+<use id="ned-throw-arm-arm-fist-line" href="#ned-throw-arm-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-throw-arm-arm-fist-clip)">
+<use id="ned-throw-arm-arm-fist-lit" href="#ned-throw-arm-arm-fist-shape" fill="#7b5b3d"/>
+<path id="ned-throw-arm-arm-fist-mid" d="M 124.2 158 L 132.1 188.3 L 121.6 191.6 L 112.4 161.6 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="ned-throw-arm-arm-fist-dark" d="M 124.2 158 L 132.1 188.3 L 121.6 191.6 L 112.4 161.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-throw-arm-arm-fist-fingers" d="M 140.9 179.1 L 136.5 173 L 138.6 180.2 Z M 134.7 181.9 L 131.1 175.1 L 132.4 182.7 Z" fill="#14110f"/>
+</g>
+<g id="ned-leg-front-layer" transform="translate(134 170) rotate(0) scale(1 1) translate(-134 -170)">
+<defs>
+<path id="ned-leg-front-thigh-shape" d="M 142.8 161.3 L 150.8 175.4 L 159.1 196.3 L 144.9 203.7 L 133.2 184.7 L 125.2 170.7 Z"/>
+<clipPath id="ned-leg-front-thigh-clip"><use href="#ned-leg-front-thigh-shape"/></clipPath>
+<path id="ned-leg-front-shin-shape" d="M 159.8 197.6 L 157.6 210.2 L 152.4 227.3 L 139.6 224.7 L 142.1 207.1 L 144.2 194.4 Z"/>
+<clipPath id="ned-leg-front-shin-clip"><use href="#ned-leg-front-shin-shape"/></clipPath>
+<path id="ned-leg-front-kneepad-shape" d="M 144 190 L 160 188 L 162 206 L 146 208 Z"/>
+<clipPath id="ned-leg-front-kneepad-clip"><use href="#ned-leg-front-kneepad-shape"/></clipPath>
+<path id="ned-leg-front-boot-shape" d="M 135.9 219 L 155 217 L 162.3 227 L 173.5 230 L 179.5 236 L 179.5 240 L 135.5 240 L 133.5 230 Z"/>
+<clipPath id="ned-leg-front-boot-clip"><use href="#ned-leg-front-boot-shape"/></clipPath>
+</defs>
+<g id="ned-leg-front-thigh">
+<use id="ned-leg-front-thigh-line" href="#ned-leg-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-front-thigh-clip)">
+<use id="ned-leg-front-thigh-lit" href="#ned-leg-front-thigh-shape" fill="#6f5c46"/>
+<path id="ned-leg-front-thigh-mid" d="M 136.5 161.3 L 144.8 177.1 L 143.7 181.6 L 154.5 202.1 L 138.2 210.7 L 117.4 171.4 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="ned-leg-front-thigh-dark" d="M 136.5 161.3 L 144.8 177.1 L 143.7 181.6 L 154.5 202.1 L 138.2 210.7 L 117.4 171.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-leg-front-shin">
+<use id="ned-leg-front-shin-line" href="#ned-leg-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-front-shin-clip)">
+<use id="ned-leg-front-shin-lit" href="#ned-leg-front-shin-shape" fill="#6f5c46"/>
+<path id="ned-leg-front-shin-mid" d="M 156.1 193.8 L 152.4 212 L 149.3 214.3 L 146.3 229.1 L 131.9 226.2 L 139.1 190.4 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="ned-leg-front-shin-dark" d="M 156.1 193.8 L 152.4 212 L 149.3 214.3 L 146.3 229.1 L 131.9 226.2 L 139.1 190.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-leg-front-kneepad">
+<use id="ned-leg-front-kneepad-line" href="#ned-leg-front-kneepad-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-front-kneepad-clip)">
+<use id="ned-leg-front-kneepad-lit" href="#ned-leg-front-kneepad-shape" fill="#7b5b3d"/>
+<path id="ned-leg-front-kneepad-mid" d="M 132 184 L 148.4 183.7 L 152.1 196.8 L 150.5 199.9 L 154 212.3 L 132 212 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="ned-leg-front-kneepad-dark" d="M 132 184 L 148.4 183.7 L 152.1 196.8 L 150.5 199.9 L 154 212.3 L 132 212 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-leg-front-kneepad-stud" d="M 151.4 197 L 153 195.4 L 154.6 197 L 153 198.6 Z" fill="#14110f"/>
+<g id="ned-leg-front-boot">
+<use id="ned-leg-front-boot-line" href="#ned-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-front-boot-clip)">
+<use id="ned-leg-front-boot-lit" href="#ned-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="ned-leg-front-boot-mid" d="M 127.5 214 L 152.2 214 L 153.6 226 L 163 232 L 183.5 235 L 183.5 244 L 127.5 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ned-leg-front-boot-dark" d="M 127.5 214 L 152.2 214 L 153.6 226 L 163 232 L 183.5 235 L 183.5 244 L 127.5 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-leg-front-boot-sole" d="M 133.5 237 L 180.5 237 L 180.5 241.5 L 133.5 241.5 Z" fill="#14110f"/>
+<path id="ned-leg-front-boot-crease" d="M 161.4 225.8 L 152.2 231 L 162.4 228.2 Z" fill="#14110f"/>
+</g>
+<g id="ned-body-layer" transform="translate(126 170) rotate(0) scale(1 1) translate(-126 -170)">
+<defs>
+<path id="ned-body-coat-shape" d="M 112 108 L 152 106 L 164 130 L 158 162 L 164 194 L 112.8 199.5 L 115 197.2 L 115.5 199.2 L 133.3 197.3 L 135.7 193.4 L 135 197.1 L 140.4 196.5 L 143.2 192.8 L 143 196.2 L 150.7 195.4 L 152.3 193.2 L 152.2 195.3 L 159.9 194.4 L 162.5 190.5 L 161.8 194.2 L 108 200 L 112 164 L 106 136 Z"/>
+<clipPath id="ned-body-coat-clip"><use href="#ned-body-coat-shape"/></clipPath>
+<path id="ned-body-belt-shape" d="M 107.7 150.5 L 159.7 146.5 L 160.3 153.5 L 108.3 157.5 Z"/>
+<clipPath id="ned-body-belt-clip"><use href="#ned-body-belt-shape"/></clipPath>
+<path id="ned-body-belt-buckle-shape" d="M 134 146.4 L 144.5 146.9 L 143.9 156.9 L 134.5 156.3 Z"/>
+<clipPath id="ned-body-belt-buckle-clip"><use href="#ned-body-belt-buckle-shape"/></clipPath>
+<path id="ned-body-tin-shape" d="M 138 158 L 154 157 L 155 172 L 139 173 Z"/>
+<clipPath id="ned-body-tin-clip"><use href="#ned-body-tin-shape"/></clipPath>
+<path id="ned-body-drill-hammer-shape" d="M 124 172 L 128 172 L 128 194 L 124 194 Z"/>
+<clipPath id="ned-body-drill-hammer-clip"><use href="#ned-body-drill-hammer-shape"/></clipPath>
+<path id="ned-body-drill-head-shape" d="M 118 168 L 134 168 L 134 174 L 118 174 Z"/>
+<clipPath id="ned-body-drill-head-clip"><use href="#ned-body-drill-head-shape"/></clipPath>
+</defs>
+<g id="ned-body-coat">
+<use id="ned-body-coat-line" href="#ned-body-coat-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-coat-clip)">
+<use id="ned-body-coat-lit" href="#ned-body-coat-shape" fill="#77786f"/>
+<path id="ned-body-coat-mid" d="M 90 98 L 124 98 L 126.7 105.9 L 128.7 155 L 123.6 161.1 L 125.3 204.1 L 90 206 Z" transform="translate(8.12 -1.95)" fill="#54564f"/>
+<path id="ned-body-coat-dark" d="M 90 98 L 124 98 L 126.7 105.9 L 128.7 155 L 123.6 161.1 L 125.3 204.1 L 90 206 Z" fill="#14110f"/>
+<path id="ned-body-dust" d="M 139.1 120.7 L 146 128 L 140.9 119.3 Z M 149.1 172.7 L 156 180 L 150.9 171.3 Z M 133.1 186.7 L 140 194 L 134.9 185.3 Z M 145.1 140.6 L 150 146 L 146.9 139.4 Z" fill="#54564f"/>
+<path id="ned-body-patch" d="M 136 150 L 152 148 L 154 166 L 138 168 Z" fill="#54564f"/>
+<path id="ned-body-patch-thread" d="M 137.9 148.2 L 138.9 151.2 L 139 148.1 Z M 143.3 147.6 L 144.2 150.5 L 144.4 147.4 Z M 148.6 146.9 L 149.5 149.8 L 149.7 146.8 Z M 139.9 166.2 L 140.9 169.2 L 141 166.1 Z M 145.3 165.6 L 146.2 168.5 L 146.4 165.4 Z M 150.6 164.9 L 151.5 167.8 L 151.7 164.8 Z" fill="#14110f"/>
+<path id="ned-body-coat-cold" d="M 66 66 L 204 66 L 204 240 L 66 240 Z M 114.1 106.4 L 154.1 104.4 L 166.1 128.4 L 160.1 160.4 L 166.1 192.4 L 114.9 197.9 L 117.2 195.6 L 117.6 197.6 L 135.4 195.7 L 137.9 191.8 L 137.1 195.5 L 142.5 194.9 L 145.3 191.2 L 145.2 194.7 L 152.8 193.8 L 154.4 191.6 L 154.3 193.7 L 162 192.9 L 164.6 188.9 L 163.9 192.7 L 110.1 198.4 L 114.1 162.4 L 108.1 134.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="ned-body-coat-open-0" d="M 162 132 L 164.32 130.26 L 161.32 154.26 L 159 156 Z" fill="#77786f"/>
+</g>
+<g id="ned-body-belt">
+<use id="ned-body-belt-line" href="#ned-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-belt-clip)">
+<use id="ned-body-belt-lit" href="#ned-body-belt-shape" fill="#7b5b3d"/>
+<path id="ned-body-belt-dark" d="M 104.9 152.7 L 140.8 149.9 L 142.1 150.9 L 163 149.3 L 163.5 155.8 L 105.5 160.2 Z" fill="#14110f"/>
+<path id="ned-body-belt-stitch" d="M 113.7 152.3 L 114.5 154.8 L 114.9 152.2 Z M 120.2 151.8 L 121 154.3 L 121.4 151.7 Z M 126.8 151.3 L 127.6 153.8 L 128 151.2 Z M 133.3 150.8 L 134.1 153.3 L 134.5 150.7 Z M 139.8 150.3 L 140.6 152.8 L 141 150.2 Z M 146.4 149.8 L 147.2 152.3 L 147.6 149.7 Z M 152.9 149.3 L 153.7 151.7 L 154.1 149.2 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="ned-body-belt-buckle">
+<use id="ned-body-belt-buckle-line" href="#ned-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-belt-buckle-clip)">
+<use id="ned-body-belt-buckle-lit" href="#ned-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="ned-body-belt-buckle-dark" d="M 122 142.4 L 135 142.4 L 139.2 160.9 L 122 160.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-body-belt-pin" d="M 136.6 150.8 L 142.9 151.2 L 142.9 152.4 L 136.6 152.2 Z" fill="#14110f"/>
+<g id="ned-body-tin">
+<use id="ned-body-tin-line" href="#ned-body-tin-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-tin-clip)">
+<use id="ned-body-tin-lit" href="#ned-body-tin-shape" fill="#8c9194"/>
+<path id="ned-body-tin-mid" d="M 126 153 L 141.6 153 L 148 177 L 126 177 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="ned-body-tin-dark" d="M 126 153 L 141.6 153 L 148 177 L 126 177 Z" fill="#14110f"/>
+<path id="ned-body-tin-lid" d="M 138 162.6 L 155 161 L 138 161.4 Z" fill="#5b6165"/>
+</g>
+</g>
+<path id="ned-body-fuse-coil" d="M 118 160 L 112 168 L 120 174 L 126 166 L 118 162" fill="none" stroke="#927a58" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ned-body-drill-hammer">
+<use id="ned-body-drill-hammer-line" href="#ned-body-drill-hammer-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-drill-hammer-clip)">
+<use id="ned-body-drill-hammer-lit" href="#ned-body-drill-hammer-shape" fill="#6f5c46"/>
+<path id="ned-body-drill-hammer-dark" d="M 112 168 L 125 168 L 125.7 179.9 L 125.2 180.4 L 126.2 198 L 112 198 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-body-drill-head">
+<use id="ned-body-drill-head-line" href="#ned-body-drill-head-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-body-drill-head-clip)">
+<use id="ned-body-drill-head-lit" href="#ned-body-drill-head-shape" fill="#8c9194"/>
+<path id="ned-body-drill-head-dark" d="M 106 164 L 121.6 164 L 124 178 L 106 178 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="ned-pick-layer" transform="translate(144 116) rotate(0) scale(1 1) translate(-144 -116)">
+<defs>
+<path id="ned-pick-haft-shape" d="M 135.3 198.2 L 209.8 84.7 L 204 80.8 L 128.7 193.8 Z"/>
+<clipPath id="ned-pick-haft-clip"><use href="#ned-pick-haft-shape"/></clipPath>
+<path id="ned-pick-rag-shape" d="M 141.4 181.8 L 133.4 185.8 L 127.4 203.8 L 135.4 197.8 L 137.4 209.8 L 147.6 172.4 Z"/>
+<clipPath id="ned-pick-rag-clip"><use href="#ned-pick-rag-shape"/></clipPath>
+<path id="ned-pick-head-shape" d="M 159.3 99.1 L 165.3 89.1 L 185.3 79.1 L 205.3 75.1 L 227.3 77.1 L 247.3 87.1 L 265.3 107.1 L 245.3 95.1 L 225.3 89.1 L 205.3 87.1 L 185.3 91.1 L 165.3 103.1 Z"/>
+<clipPath id="ned-pick-head-clip"><use href="#ned-pick-head-shape"/></clipPath>
+<path id="ned-pick-eye-shape" d="M 198.3 71.1 L 212.3 71.1 L 212.3 93.1 L 198.3 93.1 Z"/>
+<clipPath id="ned-pick-eye-clip"><use href="#ned-pick-eye-shape"/></clipPath>
+<path id="ned-pick-arm-front-upper-shape" d="M 160.5 107.8 L 169.1 118.9 L 177.3 136.6 L 166.7 143.4 L 155.2 127.9 L 147.5 116.2 Z"/>
+<clipPath id="ned-pick-arm-front-upper-clip"><use href="#ned-pick-arm-front-upper-shape"/></clipPath>
+<path id="ned-pick-arm-front-fore-shape" d="M 178.2 142.3 L 180.4 138.3 L 180.4 131.6 L 170.9 128.2 L 167.7 133.6 L 165.8 137.7 Z"/>
+<clipPath id="ned-pick-arm-front-fore-clip"><use href="#ned-pick-arm-front-fore-shape"/></clipPath>
+<path id="ned-pick-arm-front-fist-shape" d="M 163.4 138.3 L 164.8 124.7 L 167.8 119.1 L 173.4 118.6 L 175.4 116 L 181.1 117.8 L 181.6 120.8 L 187.1 121.8 L 188.4 129.4 L 183 141.6 L 174.2 142.4 Z"/>
+<clipPath id="ned-pick-arm-front-fist-clip"><use href="#ned-pick-arm-front-fist-shape"/></clipPath>
+</defs>
+<g id="ned-pick-haft">
+<use id="ned-pick-haft-line" href="#ned-pick-haft-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-pick-haft-clip)">
+<use id="ned-pick-haft-lit" href="#ned-pick-haft-shape" fill="#6f5c46"/>
+<path id="ned-pick-haft-dark" d="M 131.5 199.3 L 160.5 155.4 L 160.2 153.6 L 208.7 80.3 L 202.5 76.2 L 124.3 194.5 Z" fill="#14110f"/>
+<path id="ned-pick-haft-grain" d="M 143.5 179.8 L 152.3 165.3 L 142.4 179.1 Z M 179.3 125.6 L 188.2 111 L 178.3 124.8 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="ned-pick-rag">
+<use id="ned-pick-rag-line" href="#ned-pick-rag-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-pick-rag-clip)">
+<use id="ned-pick-rag-lit" href="#ned-pick-rag-shape" fill="#7d312b"/>
+<path id="ned-pick-rag-dark" d="M 115.4 168.4 L 132.4 168.1 L 137.5 193.9 L 135.3 197.5 L 138.5 214.1 L 115.4 213.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-pick-head">
+<use id="ned-pick-head-line" href="#ned-pick-head-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-pick-head-clip)">
+<use id="ned-pick-head-lit" href="#ned-pick-head-shape" fill="#8c9194"/>
+<use id="ned-pick-head-rim" href="#ned-pick-head-shape" fill="#f4d294" opacity="0.55"/>
+<use id="ned-pick-head-lit-over" href="#ned-pick-head-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="ned-pick-head-mid" d="M 145.3 89.1 L 145.3 90.2 L 209.1 92.1 L 211.6 90 L 275.4 92 L 275.3 125.1 L 145.3 125.1 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="ned-pick-head-dark" d="M 145.3 89.1 L 145.3 90.2 L 209.1 92.1 L 211.6 90 L 275.4 92 L 275.3 125.1 L 145.3 125.1 Z" fill="#14110f"/>
+<path id="ned-pick-head-pits" d="M 216.9 81.7 L 223.3 85.1 L 217.8 80.4 Z M 180.9 85.7 L 187.3 89.1 L 181.8 84.4 Z" fill="#5b6165"/>
+<path id="ned-pick-head-rust" d="M 201.3 79.1 L 213.3 79.1 L 213.3 87.1 L 201.3 87.1 Z" fill="#6a3b24"/>
+</g>
+</g>
+<g id="ned-pick-eye">
+<use id="ned-pick-eye-line" href="#ned-pick-eye-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-pick-eye-clip)">
+<use id="ned-pick-eye-lit" href="#ned-pick-eye-shape" fill="#8c9194"/>
+<path id="ned-pick-eye-dark" d="M 186.3 67.1 L 201.8 66.9 L 205.5 84.5 L 203.9 87.1 L 206 97.3 L 186.3 97.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-pick-wedge" d="M 203.3 69.1 L 205.3 67.1 L 207.3 69.1 L 205.3 71.1 Z" fill="#14110f"/>
+<g id="ned-pick-arm-front-upper">
+<use id="ned-pick-arm-front-upper-line" href="#ned-pick-arm-front-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-pick-arm-front-upper-clip)">
+<use id="ned-pick-arm-front-upper-lit" href="#ned-pick-arm-front-upper-shape" fill="#77786f"/>
+<path id="ned-pick-arm-front-upper-mid" d="M 154.8 107.9 L 165.8 125 L 165.2 128.6 L 174 142.3 L 160.9 150.7 L 139.7 117.7 Z" transform="translate(2.5 -0.6)" fill="#54564f"/>
+<path id="ned-pick-arm-front-upper-dark" d="M 154.8 107.9 L 165.8 125 L 165.2 128.6 L 174 142.3 L 160.9 150.7 L 139.7 117.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-pick-arm-front-fore">
+<use id="ned-pick-arm-front-fore-line" href="#ned-pick-arm-front-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-pick-arm-front-fore-clip)">
+<use id="ned-pick-arm-front-fore-lit" href="#ned-pick-arm-front-fore-shape" fill="#77786f"/>
+<path id="ned-pick-arm-front-fore-mid" d="M 172.3 143.3 L 178 127.6 L 164.9 122.8 L 159.1 138.5 Z" transform="translate(2.5 -0.6)" fill="#54564f"/>
+<path id="ned-pick-arm-front-fore-dark" d="M 172.3 143.3 L 178 127.6 L 164.9 122.8 L 159.1 138.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-pick-arm-front-fold" d="M 167.8 146.1 L 174.2 138.3 L 165 142.3 Z" fill="#14110f"/>
+<g id="ned-pick-arm-front-fist">
+<use id="ned-pick-arm-front-fist-line" href="#ned-pick-arm-front-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-pick-arm-front-fist-clip)">
+<use id="ned-pick-arm-front-fist-lit" href="#ned-pick-arm-front-fist-shape" fill="#7b5b3d"/>
+<path id="ned-pick-arm-front-fist-mid" d="M 173.3 147 L 186.2 115.8 L 197.3 119.9 L 185.7 151.5 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="ned-pick-arm-front-fist-dark" d="M 173.3 147 L 186.2 115.8 L 197.3 119.9 L 185.7 151.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-pick-arm-front-fist-fingers" d="M 172.7 118 L 172.4 126.2 L 175.3 118.6 Z M 179.8 119.7 L 178.5 127.9 L 182.3 120.5 Z" fill="#14110f"/>
+</g>
+<g id="ned-collar-layer" transform="translate(140 106) rotate(0) scale(1 1) translate(-140 -106)">
+<defs>
+<path id="ned-collar-cape-shape" d="M 110 114 L 118 100 L 138 94 L 156 98 L 166 110 L 166 124 L 113.7 127.6 L 116.5 123.8 L 115.9 127.5 L 124.4 126.9 L 127.1 123.1 L 126.3 126.7 L 142.3 125.6 L 145.4 120.5 L 143.9 125.5 L 151.3 125 L 154.3 121.4 L 154.1 124.8 L 161.5 124.3 L 163.5 122.3 L 163.8 124.2 L 108 128 Z"/>
+<clipPath id="ned-collar-cape-clip"><use href="#ned-collar-cape-shape"/></clipPath>
+</defs>
+<g id="ned-collar-cape">
+<use id="ned-collar-cape-line" href="#ned-collar-cape-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-collar-cape-clip)">
+<use id="ned-collar-cape-lit" href="#ned-collar-cape-shape" fill="#4f4944"/>
+<path id="ned-collar-cape-mid" d="M 96 90 L 126 90 L 128.2 95.8 L 130 112.9 L 126.1 118 L 127.8 134.2 L 96 136 Z" transform="translate(8.12 -1.95)" fill="#34302d"/>
+<path id="ned-collar-cape-dark" d="M 96 90 L 126 90 L 128.2 95.8 L 130 112.9 L 126.1 118 L 127.8 134.2 L 96 136 Z" fill="#14110f"/>
+<path id="ned-collar-cape-seam" d="M 118.6 118.4 L 119.4 121.4 L 119.8 118.3 Z M 125.2 118.1 L 125.9 121.1 L 126.4 118 Z M 131.8 117.8 L 132.5 120.8 L 133 117.8 Z M 138.3 117.5 L 139.1 120.5 L 139.5 117.5 Z M 144.9 117.2 L 145.6 120.2 L 146.1 117.2 Z M 151.5 117 L 152.2 119.9 L 152.7 116.9 Z M 158 116.7 L 158.8 119.6 L 159.2 116.6 Z" fill="#34302d"/>
+<path id="ned-collar-cape-cold" d="M 68 54 L 206 54 L 206 168 L 68 168 Z M 112.1 112.4 L 120.1 98.4 L 140.1 92.4 L 158.1 96.4 L 168.1 108.4 L 168.1 122.4 L 115.8 126 L 118.6 122.2 L 118 125.9 L 126.5 125.3 L 129.2 121.6 L 128.4 125.2 L 144.4 124.1 L 147.5 118.9 L 146 123.9 L 153.4 123.4 L 156.4 119.8 L 156.2 123.2 L 163.6 122.7 L 165.7 120.7 L 165.9 122.6 L 110.1 126.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</g>
+<g id="ned-head-layer" transform="translate(152 104) rotate(0) scale(1 1) translate(-152 -104)">
+<defs>
+<path id="ned-head-neck-shape" d="M 147 95 L 156.2 97.5 L 157.8 108.3 L 145.3 108.3 Z"/>
+<clipPath id="ned-head-neck-clip"><use href="#ned-head-neck-shape"/></clipPath>
+<path id="ned-head-face-shape" d="M 149.3 84.5 L 153.7 81 L 162.3 81 L 165.8 84.5 L 168 88.4 L 166.2 90.5 L 167.5 92.3 L 171.4 96.6 L 168 97.9 L 168.4 100.5 L 167.1 101.4 L 167.5 103.1 L 165.4 106.6 L 159.7 108.1 L 153.7 101.8 L 150.2 99.2 Z"/>
+<clipPath id="ned-head-face-clip"><use href="#ned-head-face-shape"/></clipPath>
+<path id="ned-head-neckerchief-shape" d="M 140 104 L 164 106 L 162 114 L 150 118 L 142 112 Z"/>
+<clipPath id="ned-head-neckerchief-clip"><use href="#ned-head-neckerchief-shape"/></clipPath>
+<path id="ned-head-crown-shape" d="M 138 82 L 140 68 L 150 60 L 164 60 L 172 68 L 174 80 Z"/>
+<clipPath id="ned-head-crown-clip"><use href="#ned-head-crown-shape"/></clipPath>
+<path id="ned-head-brim-shape" d="M 132 84 L 136 78 L 178 77 L 190 84 L 186 88 L 136 89 Z"/>
+<clipPath id="ned-head-brim-clip"><use href="#ned-head-brim-shape"/></clipPath>
+<path id="ned-head-holder-shape" d="M 160 66 L 180 64 L 178 70 L 162 71 Z"/>
+<clipPath id="ned-head-holder-clip"><use href="#ned-head-holder-shape"/></clipPath>
+<path id="ned-head-candle-shape" d="M 163 52 L 176 51 L 177 65 L 162 66 Z"/>
+<clipPath id="ned-head-candle-clip"><use href="#ned-head-candle-shape"/></clipPath>
+<path id="ned-head-flame-shape" d="M 164 52 L 168 40 L 170 32 L 174 42 L 176 51 L 170 54 Z"/>
+</defs>
+<g id="ned-head-neck">
+<use id="ned-head-neck-line" href="#ned-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-neck-clip)">
+<use id="ned-head-neck-lit" href="#ned-head-neck-shape" fill="#c7ad84"/>
+<path id="ned-head-neck-mid" d="M 133.3 91 L 148.9 91 L 154.3 112.3 L 133.3 112.3 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="ned-head-neck-dark" d="M 133.3 91 L 148.9 91 L 154.3 112.3 L 133.3 112.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-head-face">
+<use id="ned-head-face-line" href="#ned-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-face-clip)">
+<use id="ned-head-face-lit" href="#ned-head-face-shape" fill="#c7ad84"/>
+<path id="ned-head-face-mid" d="M 145.9 78.4 L 156 79.1 L 157.6 95.8 L 154.9 99.4 L 155.6 108 L 145.9 109.6 Z" transform="translate(2.6 -0.62)" fill="#927a58"/>
+<path id="ned-head-face-dark" d="M 145.9 78.4 L 156 79.1 L 157.6 95.8 L 154.9 99.4 L 155.6 108 L 145.9 109.6 Z" fill="#14110f"/>
+<path id="ned-head-face-cheek-plane" d="M 158.9 95.3 L 164.1 94.4 L 165.8 97.5 L 164.5 101.8 L 159.7 105.6 L 157.1 100.1 Z" fill="#927a58"/>
+<path id="ned-head-face-chin-plane" d="M 163.2 103.1 L 167.5 102.7 L 165.4 106.6 L 161.5 107.2 Z" fill="#927a58"/>
+<path id="ned-head-face-socket" d="M 168.4 87.9 L 156.3 87.1 L 157.1 93.1 L 161.5 95.3 L 164.1 93.1 L 167.1 92.1 Z" fill="#14110f"/>
+<path id="ned-head-face-lines" d="M 165.5 97.6 L 164.5 101.4 L 166.9 98.2 Z M 154.9 101.5 L 161.5 106.6 L 155.9 100.4 Z" fill="#14110f"/>
+<path id="ned-head-face-mouth" d="M 168.3 99.8 L 162.8 101.6 L 168.5 101.7 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-head-face-nostril" d="M 168.4 97.3 L 165.4 96.2 L 167.5 98.5 Z" fill="#14110f"/>
+<path id="ned-head-dust" d="M 159.4 98.6 L 164 102 L 160.6 97.4 Z M 151.3 100.4 L 154 104 L 152.7 99.6 Z M 163.6 86.7 L 168 88 L 164.4 85.3 Z" fill="#927a58"/>
+<path id="ned-head-stubble" d="M 155.5 104.3 L 158 107 L 156.5 103.7 Z M 161.5 102.3 L 164 105 L 162.5 101.7 Z M 149.4 103.2 L 151 106 L 150.6 102.8 Z" fill="#927a58"/>
+<g id="ned-head-neckerchief">
+<use id="ned-head-neckerchief-line" href="#ned-head-neckerchief-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-neckerchief-clip)">
+<use id="ned-head-neckerchief-lit" href="#ned-head-neckerchief-shape" fill="#7d312b"/>
+<path id="ned-head-neckerchief-mid" d="M 128 100 L 146.8 100 L 152.4 122 L 128 122 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="ned-head-neckerchief-dark" d="M 128 100 L 146.8 100 L 152.4 122 L 128 122 Z" fill="#14110f"/>
+<path id="ned-head-kerchief-fold" d="M 149.3 107.2 L 152 116 L 150.7 106.8 Z" fill="#551f1c"/>
+</g>
+</g>
+<g id="ned-head-crown">
+<use id="ned-head-crown-line" href="#ned-head-crown-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-crown-clip)">
+<use id="ned-head-crown-lit" href="#ned-head-crown-shape" fill="#7b5b3d"/>
+<path id="ned-head-crown-mid" d="M 126 56 L 150.6 55.5 L 153.6 65.8 L 151 70.5 L 155.7 86.5 L 126 86 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ned-head-crown-dark" d="M 126 56 L 150.6 55.5 L 153.6 65.8 L 151 70.5 L 155.7 86.5 L 126 86 Z" fill="#14110f"/>
+<path id="ned-head-crown-seam" d="M 155.2 61 L 156 80 L 156.8 61 Z" fill="#553d29"/>
+<path id="ned-head-crown-dent" d="M 163.2 66.6 L 168 72 L 164.8 65.4 Z" fill="#553d29"/>
+<path id="ned-head-crown-cold" d="M 98 20 L 214 20 L 214 122 L 98 122 Z M 139.9 80.6 L 141.9 66.6 L 151.9 58.6 L 165.9 58.6 L 173.9 66.6 L 175.9 78.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="ned-head-brim">
+<use id="ned-head-brim-line" href="#ned-head-brim-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-brim-clip)">
+<use id="ned-head-brim-lit" href="#ned-head-brim-shape" fill="#7b5b3d"/>
+<path id="ned-head-brim-mid" d="M 120 73 L 147 73 L 151.8 93 L 120 93 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="ned-head-brim-dark" d="M 120 73 L 147 73 L 151.8 93 L 120 93 Z" fill="#14110f"/>
+</g>
+<path id="ned-head-brim-open-0" d="M 178 77.4 L 180.32 75.66 L 190.32 80.26 L 188 82 Z" fill="#7b5b3d"/>
+</g>
+<g id="ned-head-holder">
+<use id="ned-head-holder-line" href="#ned-head-holder-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-holder-clip)">
+<use id="ned-head-holder-lit" href="#ned-head-holder-shape" fill="#8c9194"/>
+<path id="ned-head-holder-dark" d="M 148 60 L 164.6 60 L 167.4 75 L 148 75 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-head-clip" d="M 166 70 L 168 78" fill="none" stroke="#14110f" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ned-head-candle">
+<use id="ned-head-candle-line" href="#ned-head-candle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-head-candle-clip)">
+<use id="ned-head-candle-lit" href="#ned-head-candle-shape" fill="#cfc5a8"/>
+<path id="ned-head-candle-mid" d="M 150 47 L 165 47 L 171 70 L 150 70 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="ned-head-candle-dark" d="M 150 47 L 165 47 L 171 70 L 150 70 Z" fill="#14110f"/>
+<path id="ned-head-drips" d="M 165.2 53 L 166 60 L 166.8 53 Z M 171.2 52.1 L 173 58 L 172.8 51.9 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="ned-head-flame">
+<use id="ned-head-flame-line" href="#ned-head-flame-shape" transform="translate(-0.84 0.63)" fill="#14110f" stroke="#14110f" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ned-head-flame-lit" href="#ned-head-flame-shape" fill="#eeb040"/>
+</g>
+<path id="ned-head-flame-heart" d="M 167 51 L 170 39 L 173 51 Z" fill="#ffe6a2"/>
+</g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="far-abbey" width="470" height="250" viewBox="0 0 470 250">
+<path id="far-abbey-back" d="M 0 120 L 470 110 L 470 250 L 0 250 Z" fill="#242f36"/>
+<path id="far-abbey-nave" d="M 40 250 L 40 110 L 80 70 L 120 110 L 120 90 L 200 90 L 200 110 L 240 70 L 280 110 L 280 250 Z" fill="#33424b"/>
+<path id="far-abbey-window-0" d="M 60 220 L 60 140 L 70 118 L 80 140 L 80 220 Z" fill="#14110f"/>
+<path id="far-abbey-window-1" d="M 140 220 L 140 140 L 150 118 L 160 140 L 160 220 Z" fill="#14110f"/>
+<path id="far-abbey-window-2" d="M 220 220 L 220 140 L 230 118 L 240 140 L 240 220 Z" fill="#14110f"/>
+<path id="far-abbey-tower" d="M 320 250 L 322 60 L 340 20 L 360 24 L 376 64 L 370 250 Z" fill="#33424b"/>
+<path id="far-abbey-tower-shade" d="M 320 250 L 322 60 L 340 20 L 344 250 Z" fill="#242f36"/>
+<path id="far-abbey-belfry" d="M 336 70 L 356 70 L 356 104 L 336 104 Z" fill="#14110f"/>
+<path id="far-abbey-water" d="M 0 210 L 470 204 L 470 250 L 0 250 Z" fill="#3f505b" opacity="0.9"/>
+<path id="far-abbey-water-shine" d="M 40 217 L 120 214 L 40 215 Z M 200 221 L 300 218 L 200 219 Z M 360 215 L 440 212 L 360 213 Z" fill="#5f7480"/>
+</svg>

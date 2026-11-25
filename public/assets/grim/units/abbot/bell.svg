@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="abbot-bell" width="1100" height="1100" viewBox="-190 -190 1100 1100">
+<defs>
+<path id="abbot-bell-bell-shape" d="M 262 232 L 282 196 L 300 120 L 320 82 L 360 66 L 404 72 L 428 110 L 444 190 L 470 228 L 476 244 L 258 248 Z"/>
+<clipPath id="abbot-bell-bell-clip"><use href="#abbot-bell-bell-shape"/></clipPath>
+<path id="abbot-bell-crack-shape" d="M 404 80 L 414 108 L 404 136 L 420 168 L 410 204 L 398 170 L 392 136 L 398 108 Z"/>
+<clipPath id="abbot-bell-crack-clip"><use href="#abbot-bell-crack-shape"/></clipPath>
+<path id="abbot-bell-lip-shape" d="M 252 236 L 482 232 L 490 252 L 246 258 Z"/>
+<clipPath id="abbot-bell-lip-clip"><use href="#abbot-bell-lip-shape"/></clipPath>
+<path id="abbot-bell-crown-shape" d="M 336 70 L 346 40 L 376 36 L 388 66 Z"/>
+<clipPath id="abbot-bell-crown-clip"><use href="#abbot-bell-crown-shape"/></clipPath>
+<path id="abbot-bell-rope-stub-shape" d="M 356 40 L 366 40 L 372 6 L 362 0 L 358 14 Z"/>
+<clipPath id="abbot-bell-rope-stub-clip"><use href="#abbot-bell-rope-stub-shape"/></clipPath>
+</defs>
+<g id="abbot-bell-bell">
+<use id="abbot-bell-bell-line" href="#abbot-bell-bell-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-bell-clip)">
+<use id="abbot-bell-bell-lit" href="#abbot-bell-bell-shape" fill="#9a5b38"/>
+<use id="abbot-bell-bell-rim" href="#abbot-bell-bell-shape" fill="#f4d294" opacity="0.55"/>
+<use id="abbot-bell-bell-lit-over" href="#abbot-bell-bell-shape" transform="translate(-3.2 2.4)" fill="#9a5b38"/>
+<path id="abbot-bell-bell-mid" d="M 240 50 L 340 50 L 345.5 65.6 L 351 149.1 L 340.7 162 L 346.5 250.4 L 240 260 Z" transform="translate(10 -2.4)" fill="#6a3b24"/>
+<path id="abbot-bell-bell-dark" d="M 240 50 L 340 50 L 345.5 65.6 L 351 149.1 L 340.7 162 L 346.5 250.4 L 240 260 Z" fill="#14110f"/>
+<path id="abbot-bell-green-a" d="M 380 90 L 420 100 L 434 170 L 404 150 Z" fill="#727646" opacity="0.8"/>
+<path id="abbot-bell-green-b" d="M 300 150 L 340 140 L 330 220 L 296 212 Z" fill="#4b4f2f"/>
+<path id="abbot-bell-bands" d="M 300.1 126 L 430 118 L 299.9 122 Z M 286 202 L 452 196 L 286 198 Z M 280 216 L 458 212 L 280 212 Z" fill="#6a3b24"/>
+<path id="abbot-bell-letters" d="M 373.7 154.9 L 375.1 164.9 L 376.1 154.8 Z M 383.7 154.6 L 385.1 164.6 L 386.1 154.5 Z M 393.7 154.3 L 395.1 164.3 L 396.1 154.3 Z M 403.7 154 L 405.1 164 L 406.1 154 Z M 413.7 153.8 L 415.1 163.7 L 416.1 153.7 Z M 423.7 153.5 L 425.1 163.4 L 426.1 153.4 Z M 433.7 153.2 L 435.1 163.1 L 436.1 153.1 Z" fill="#6a3b24"/>
+<g id="abbot-bell-crack">
+<use id="abbot-bell-crack-line" href="#abbot-bell-crack-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-crack-clip)">
+<use id="abbot-bell-crack-lit" href="#abbot-bell-crack-shape" fill="#c42a2c"/>
+<path id="abbot-bell-crack-deep" d="M 402 110 L 408 128 L 402 150 L 398 130 Z" fill="#8c1a20"/>
+</g>
+</g>
+</g>
+</g>
+<g id="abbot-bell-lip">
+<use id="abbot-bell-lip-line" href="#abbot-bell-lip-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-lip-clip)">
+<use id="abbot-bell-lip-lit" href="#abbot-bell-lip-shape" fill="#9a5b38"/>
+<use id="abbot-bell-lip-rim" href="#abbot-bell-lip-shape" fill="#f4d294" opacity="0.55"/>
+<use id="abbot-bell-lip-lit-over" href="#abbot-bell-lip-shape" transform="translate(-1.6 1.2)" fill="#9a5b38"/>
+<path id="abbot-bell-lip-mid" d="M 234 228 L 353.1 227.2 L 359.1 246.8 L 355.3 252.4 L 358.5 262.8 L 234 262 Z" transform="translate(4 -0.96)" fill="#6a3b24"/>
+<path id="abbot-bell-lip-dark" d="M 234 228 L 353.1 227.2 L 359.1 246.8 L 355.3 252.4 L 358.5 262.8 L 234 262 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-bell-crown">
+<use id="abbot-bell-crown-line" href="#abbot-bell-crown-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-crown-clip)">
+<use id="abbot-bell-crown-lit" href="#abbot-bell-crown-shape" fill="#9a5b38"/>
+<path id="abbot-bell-crown-mid" d="M 324 32 L 355.2 31.2 L 361 49.2 L 357.5 55.8 L 363.6 74.8 L 324 74 Z" transform="translate(3 -0.72)" fill="#6a3b24"/>
+<path id="abbot-bell-crown-dark" d="M 324 32 L 355.2 31.2 L 361 49.2 L 357.5 55.8 L 363.6 74.8 L 324 74 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-bell-crown-eye" d="M 352 52 L 370 50 L 370 60 L 352 62 Z" fill="#14110f"/>
+<g id="abbot-bell-rope-stub">
+<use id="abbot-bell-rope-stub-line" href="#abbot-bell-rope-stub-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-bell-rope-stub-clip)">
+<use id="abbot-bell-rope-stub-lit" href="#abbot-bell-rope-stub-shape" fill="#c7ad84"/>
+<path id="abbot-bell-rope-stub-dark" d="M 344 -4 L 360 -4.2 L 364.3 25.6 L 362.5 28.3 L 364.8 44.2 L 344 44 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

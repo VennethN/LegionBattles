@@ -11,7 +11,7 @@
 // where and when.
 
 import {
-  ABILITIES, ATTACK, BUILDINGS, CAMP, CART, CART_ROAD, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
+  ABILITIES, ATTACK, BLEED, BUILDINGS, CAMP, CART, CART_ROAD, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
   TELL_FLOOR, VARIANTS, VILLAGER, byId,
   type AbilityDef, type AllyDef, type AttackDef, type BlowDef, type BuildingDef, type HelperDef, type HunterDef, type LessonDef, type LessonStep, type Mark, type MonsterDef, type ReinforcementDef,
   type ShapeDef, type TaskKind, type VariantDef,
@@ -153,10 +153,21 @@ export interface Hunter {
   bracing: number;
   /** True once the trophy that saves a life has done so. */
   spared: boolean;
+  /** A flurry of cuts being made where they stand: how many are left, and the seconds to the next. */
+  flurry: { left: number; t: number } | null;
+  /** Light being left behind them: the seconds of it left, and to the next patch. */
+  wakeLeft: number;
+  wakeT: number;
+  /** True from a roll to the next blow that lands on the boss: what the Mirror Shard makes more of. */
+  edge: boolean;
 }
 
 /** Fire left on the ground by a burning blow: a pool that burns and does not slow. */
 const FIRE_GROUND: AbilityDef = { id: 'fire', name: 'Fire', says: '', kind: 'pool', wait: 0, share: 0, dmg: 6 };
+/** A web on the ground: it slows nothing, and holds a hunter who walks into it for `hold` seconds, and tears. */
+const WEB_GROUND: AbilityDef = { id: 'web', name: 'Web', says: '', kind: 'pool', wait: 0, share: 0, hold: 0.8 };
+/** Water lying in a lair: everyone in it is slowed by `share`, hunters too. It does not burn. */
+const WATER_GROUND: AbilityDef = { id: 'water', name: 'Water', says: '', kind: 'pool', wait: 0, share: 0.35 };
 
 /** What the hunter is called in the tally of harm: the player, or a partner by name. */
 const whoOf = (h: Hunter): string => (h.index === 0 ? 'hunter' : h.def.id);
@@ -187,6 +198,21 @@ export interface Monster {
   softBy: number;
   /** How much bigger it and its shapes are than its kind: a Giant. */
   size: number;
+  /** How hot it runs, from 0 to 100, for a boss that runs hot. */
+  heat: number;
+  /** Stacks of bleeding, the seconds until one closes, and who opened the last. */
+  bleed: number;
+  bleedT: number;
+  bleedBy: number;
+  /** Seconds it burns for, the harm a second, and who set it alight. */
+  burn: number;
+  burnDps: number;
+  burnBy: number;
+  /** Seconds its armor is cracked for, and how much more stagger it takes meanwhile. */
+  cracked: number;
+  crackBy: number;
+  /** True while it is up in the dark, coming down where its ring is: nothing reaches it. */
+  aloft: boolean;
 }
 
 /** A shape on the ground that will land. `foe` is false for the one thing of the hunter's side that is shown this way: a sapper's charge. */
@@ -215,6 +241,19 @@ export interface Tell {
   charge?: { speed: number; daze: number; stagger: number };
   root?: number;
   stagger?: number;
+  /** What a hunter's own warning is: an anvil falling, a keg's fuse, rocks coming down. None for a sapper's charge. */
+  own?: 'anvil' | 'keg' | 'cavein';
+  /** What a hunter's own warning does to the party caught in it. */
+  hurt?: number;
+  /** Seconds it holds what it lands on, and how long what it leaves stays. */
+  hold?: number;
+  life?: number;
+  /** A web left where it lands. */
+  web?: { r: number; life: number; root: number };
+  /** The boss steps out here. */
+  swapTo?: boolean;
+  /** The prop a reflection that rises here belongs to. */
+  tie?: number;
 }
 
 export interface Helper {
@@ -230,6 +269,10 @@ export interface Helper {
   moving: boolean;
   /** True while its own blow is shown on the ground. */
   winding: boolean;
+  /** The mirror a reflection breaks with. */
+  tie?: number;
+  /** True for a marker a contract stood on the field: what its task counts. */
+  marker?: boolean;
 }
 
 export interface Ally {
@@ -306,12 +349,17 @@ export interface Ward {
   r: number;
   life: number;
   share: number;
+  /** Light left behind a lantern: how much faster hunters go in it, and how much slower everything else. */
+  haste?: number;
+  slow?: number;
 }
 
 export interface Stone {
   x: number;
   y: number;
   r: number;
+  /** Seconds it still stands, for one put down in the hunt: an anvil. */
+  life?: number;
 }
 
 /** Why the monster can be struck freely just now. */
@@ -363,6 +411,8 @@ export type Ev =
   | { t: 'task'; id: TaskKind; done: boolean }
   /** An Armored boss's armor is broken. */
   | { t: 'armor' }
+  /** Water spilled on a boss that runs hot: how hot it is now. */
+  | { t: 'cool'; x: number; y: number; heat: number }
   | { t: 'end'; won: boolean };
 
 /** What a hunt came to, for the lodge and for the measure. */
@@ -442,7 +492,12 @@ export class Hunt {
   /** Each partner's brain: the bot's, as a partner. None for the player. */
   private readonly brains: Array<Bot | null>;
   /** What the variants do to the boss's numbers, put together. */
-  private readonly vary: { speed: number; tell: number; gap: number; armor: number; ahead: boolean; recover: number; blight: VariantDef['blight']; again: string; escort: number; waves: VariantDef['waves'] };
+  private readonly vary: { speed: number; tell: number; gap: number; armor: number; ahead: boolean; recover: number; blight: VariantDef['blight']; again: string; escort: number; waves: VariantDef['waves']; props: number; heat: number };
+  /** Props of the lair broken that stand again in time: what, where, and when. */
+  private respawns: Array<{ def: HelperDef; x: number; y: number; at: number }> = [];
+  /** Health given back to the boss and not yet told of. */
+  private mended = 0;
+  private mendIn = 1;
   private blightIn = 0;
   private waveIn = 0;
   private againDone = false;
@@ -492,6 +547,7 @@ export class Hunt {
       speed: num((v) => v.speed, 1), tell: num((v) => v.tell, 1), gap: num((v) => v.gap, 1), armor: vs.reduce((k, v) => Math.max(k, v.armor ?? 0), 0),
       ahead: vs.some((v) => v.ahead), recover: num((v) => v.recover, 1), blight: vs.find((v) => v.blight)?.blight, again: vs.find((v) => v.again)?.again ?? '',
       escort: vs.reduce((k, v) => k + (v.escort ?? 0), 0), waves: vs.find((v) => v.waves)?.waves,
+      props: vs.reduce((k, v) => k + (v.props ?? 0), 0), heat: num((v) => v.heat, 1),
     };
     this.blightIn = this.vary.blight?.every ?? 0;
     this.waveIn = this.vary.waves?.every ?? 0;
@@ -511,7 +567,7 @@ export class Hunt {
       def, index, ai: index > 0, abilities: [byId(ABILITIES, def.abilities[0]), byId(ABILITIES, def.abilities[1])], trophy: index === 0 ? (setup.trophy ?? null) : null,
       down: false, help: 0, downAt: 0, downFull: false, wanted: null, wantAt: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
       x, y, face: mx >= x ? 1 : -1, aim: Math.atan2(my - y, mx - x), hp: def.hp, maxHp: def.hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
-      grace: 0, root: 0, waits: [0, 0], bracing: 0, spared: false,
+      grace: 0, root: 0, waits: [0, 0], bracing: 0, spared: false, flurry: null, wakeLeft: 0, wakeT: 0, edge: false,
     });
     this.hunter = make(hd, 0, hx, hy);
     this.party = [this.hunter];
@@ -531,7 +587,7 @@ export class Hunt {
     this.monster = {
       def: md, x: mx, y: my, face: hx >= mx ? 1 : -1, aim: Math.atan2(hy - my, hx - mx), hp, maxHp: hp, part: 0, state: 'asleep', left: 0, stagger: 0,
       staggerMax: Math.round(md.stagger.max * (this.lessonDef?.stagger ?? 1) * (1 + PARTY.stagger * (n - 1))), attack: null,
-      moving: false, enraged: false, soft: 0, softBy: 0, size,
+      moving: false, enraged: false, soft: 0, softBy: 0, size, heat: 0, bleed: 0, bleedT: 0, bleedBy: -1, burn: 0, burnDps: 0, burnBy: -1, cracked: 0, crackBy: 0, aloft: false,
     };
     this.calls = setup.reinforcements.map((r) => ({ def: byId(REINFORCEMENTS, r.id), left: r.charges }));
     for (const b of setup.buildings) {
@@ -545,6 +601,7 @@ export class Hunt {
       const y = this.h / 2 + Math.sin(a) * this.h * 0.27;
       if (dist(x, y, hx, hy) > 120 && dist(x, y, mx, my) > 150) this.stones.push({ x, y, r: 34 });
     }
+    this.setLair(md, hx, hy, mx, my);
     for (const p of this.party) {
       for (let i = 0; i < (p.def.hounds ?? 0); i++) this.allies.push(this.ally(HOUND, 'hound', p.x - 40, p.y + (i === 0 ? -34 : 34), p.index));
     }
@@ -653,11 +710,48 @@ export class Hunt {
           let y = this.h / 2 + Math.sin(a) * (this.h / 2 - e - 30);
           if (dist(x, y, hx, hy) < 160) [x, y] = [this.w - x, this.h - y];
           if (dist(x, y, mx, my) < 160) [x, y] = [this.w / 2 + (x - this.w / 2) * 0.6, this.h / 2 + (y - this.h / 2) * 0.6];
-          const hp = Math.round(hd.hp * (1 + (this.scale.hp - 1) / 2));
-          this.helpers.push({ id: this.nextId++, def: hd, x, y, hp, face: 1, cool: 0, held: 0, moving: false, winding: false });
+          const f = this.prop(hd, x, y);
+          f.marker = true;
+          if (hd.hatch) f.cool = hd.hatch.every * (0.6 + 0.1 * i);
+          this.helpers.push(f);
         }
       }
     }
+  }
+
+  /** What stands and lies in the lair from the start: its props, round the middle, and its water. */
+  private setLair(md: MonsterDef, hx: number, hy: number, mx: number, my: number): void {
+    const e = FIELD.edge;
+    if (md.props) {
+      const def = byId(HELPERS, md.props.id);
+      const n = md.props.n + this.vary.props;
+      for (let i = 0; i < n; i++) {
+        // On a ring well inside the edge, a little off true, and not on top of where either side starts.
+        const a = (i / n) * TAU + 0.9 + this.rng.range(-0.15, 0.15);
+        let x = this.w / 2 + Math.cos(a) * (this.w / 2 - e - 120);
+        let y = this.h / 2 + Math.sin(a) * (this.h / 2 - e - 90);
+        if (dist(x, y, hx, hy) < 170 || dist(x, y, mx, my) < 170) [x, y] = [this.w / 2 + (x - this.w / 2) * 0.55, this.h / 2 + (y - this.h / 2) * 1.0];
+        const f = this.prop(def, x, y);
+        // Sacs do not all hatch together.
+        if (def.hatch) f.cool = def.hatch.every * (0.55 + 0.2 * i);
+        this.helpers.push(f);
+      }
+    }
+    if (md.shallows) {
+      const s = md.shallows;
+      for (let i = 0; i < s.n; i++) {
+        // Spread across the lair, off the two starting places, so that there is dry ground to fight on as well.
+        const a = (i / s.n) * TAU + 0.35;
+        const x = this.w / 2 + Math.cos(a) * this.w * 0.3 + this.rng.range(-30, 30);
+        const y = this.h / 2 + Math.sin(a) * this.h * 0.28 + this.rng.range(-30, 30);
+        this.pools.push({ id: this.nextId++, x, y, r: s.r, life: 1e9, burning: 0, def: { ...WATER_GROUND, share: s.slow } });
+      }
+    }
+  }
+
+  /** A prop of the lair, or a marker: it grows by half of what the monster does at a mark, as helpers do. */
+  private prop(def: HelperDef, x: number, y: number): Helper {
+    return { id: this.nextId++, def, x, y, hp: Math.round(def.hp * (1 + (this.scale.hp - 1) / 2)), face: 1, cool: 0, held: 0, moving: false, winding: false };
   }
 
   private task(id: TaskKind): TaskState | undefined {
@@ -698,7 +792,7 @@ export class Hunt {
           if (t.now >= t.n) this.finish('breaks');
           break;
         case 'markers': {
-          const left = this.helpers.filter((f) => f.def.still).length;
+          const left = this.helpers.filter((f) => f.marker).length;
           t.now = t.n - left;
           if (left === 0) this.finish('markers');
           break;
@@ -909,13 +1003,68 @@ export class Hunt {
     if (steer.a) h.wanted = 0;
     if (steer.b) h.wanted = 1;
     if (steer.a || steer.b) h.wantAt = steer.at ?? null;
-    if (h.wanted !== null && h.roll <= 0 && !(h.blow && !h.blow.landed)) {
-      this.use(h, h.wanted, h.wantAt);
+    if (h.wanted !== null && h.roll <= 0 && !(h.blow && !h.blow.landed) && !h.flurry) {
+      // A skill aimed at a spot (the pointer, or a thumb's drag) goes that way; else as the hunter aims.
+      const t = h.wantAt;
+      this.use(h, h.wanted, t ? { ...steer, aim: Math.atan2(t.y - h.y, t.x - h.x), auto: false } : steer, t);
       h.wanted = null;
       h.wantAt = null;
     }
     this.moveHunter(h, steer, dt);
-    this.attack(h, steer, dt);
+    if (h.flurry) this.cut(h, dt);
+    else this.attack(h, steer, dt);
+    if (h.wakeLeft > 0) this.trail(h, dt);
+  }
+
+  /** One of a flurry's cuts, when its time comes: in front of the hunter, each a wound more. */
+  private cut(h: Hunter, dt: number): void {
+    const f = h.flurry;
+    if (!f) return;
+    f.t -= dt;
+    if (f.t > 0) return;
+    const a = h.abilities.find((x) => x.kind === 'hack') as AbilityDef;
+    f.left--;
+    f.t = a.every ?? 0.15;
+    if (f.left <= 0) h.flurry = null;
+    const m = this.monster;
+    const r = a.r ?? 100;
+    this.events.push({ t: 'strike', who: h.index, n: f.left % 2, heavy: false, x: h.x, y: h.y, angle: h.aim, reach: r, kind: 'arc' });
+    const shape = { kind: 'cone' as const, x: h.x, y: h.y, angle: h.aim, r, half: 62 * RAD, len: 0, w: 0, inner: 0 };
+    if (this.reachable() && inside(shape, m.x, m.y, m.def.r * m.size * 0.8)) {
+      this.harm(a.dmg ?? 5, h.index === 0 ? 'ability' : whoOf(h), h.index);
+      this.wound(1, h.index);
+    }
+    for (const x of [...this.helpers]) if (inside(shape, x.x, x.y, 14)) this.harmHelper(x, (a.dmg ?? 5) * (h.def.wrecker ?? 1));
+  }
+
+  /** Light left behind a lantern as the hunter walks. */
+  private trail(h: Hunter, dt: number): void {
+    h.wakeLeft -= dt;
+    h.wakeT -= dt;
+    if (h.wakeT > 0) return;
+    const a = h.abilities.find((x) => x.kind === 'wake') as AbilityDef;
+    h.wakeT = a.every ?? 0.5;
+    this.wards.push({ id: this.nextId++, x: h.x, y: h.y, r: a.r ?? 70, life: a.life ?? 4, share: 0, haste: a.share ?? 0.3, slow: a.slow ?? 0.35 });
+  }
+
+  /** The state the boss is in now: asked again after something that may have changed it. */
+  private stateOf(): MonsterState {
+    return this.monster.state;
+  }
+
+  /** True while the boss can be reached at all: awake, on the field, and not up in the dark. */
+  private reachable(): boolean {
+    const m = this.monster;
+    return m.state !== 'asleep' && m.state !== 'dead' && !m.aloft;
+  }
+
+  /** Cuts that bleed: so many stacks more on the boss, up to the most it can bear, from this hunter. */
+  private wound(n: number, who: number): void {
+    const m = this.monster;
+    if (!this.reachable()) return;
+    m.bleed = Math.min(BLEED.most, m.bleed + n);
+    m.bleedT = BLEED.close;
+    m.bleedBy = who;
   }
 
   /** What a contract adds as the hunt goes: rot left behind a Blighted boss, and minions that keep coming. */
@@ -978,7 +1127,7 @@ export class Hunt {
       h.y += h.ry * speed * dt;
       h.roll = Math.max(0, h.roll - dt);
       h.moving = true;
-    } else if (h.root > 0 || h.bracing > 0 || (h.blow && !h.blow.landed && h.blow.def.kind !== 'bolt')) {
+    } else if (h.root > 0 || h.bracing > 0 || h.flurry || (h.blow && !h.blow.landed && h.blow.def.kind !== 'bolt')) {
       // Held, braced, or in the wind-up of a swing or a thrust: they stand.
       h.moving = false;
     } else {
@@ -987,7 +1136,7 @@ export class Hunt {
       if (h.moving) {
         const k = Math.min(1, len) / len;
         // Aiming a heavy shot, or in a blow's recovery, they go at half pace.
-        const slow = h.aiming > 0 || h.blow ? 0.5 : 1;
+        const slow = (h.aiming > 0 || h.blow ? 0.5 : 1) * this.paceAt(h);
         h.x += steer.x * k * h.def.speed * slow * dt;
         h.y += steer.y * k * h.def.speed * slow * dt;
         if (Math.abs(steer.x) > 0.1) h.face = steer.x > 0 ? 1 : -1;
@@ -997,6 +1146,24 @@ export class Hunt {
       }
     }
     this.keepOut(h, 12, true);
+    // A web walked into holds them, and tears. A roll goes over it.
+    if (h.roll <= 0 && h.root <= 0 && this.phase === 'hunt') {
+      const web = this.pools.find((p) => p.def.id === 'web' && p.life > 0 && dist(p.x, p.y, h.x, h.y) <= p.r);
+      if (web) {
+        web.life = 0;
+        h.root = (web.def.hold ?? 0.8) * (h.trophy === 'silk' ? 0.5 : 1);
+        this.events.push({ t: 'trap', x: web.x, y: web.y });
+      }
+    }
+  }
+
+  /** How fast a hunter goes where they stand, as a share: water slows, a lantern's light hastens. */
+  private paceAt(h: Hunter): number {
+    let k = 1;
+    for (const p of this.pools) if (p.def.id === 'water' && dist(h.x, h.y, p.x, p.y) <= p.r) k = Math.min(k, 1 - (p.def.share ?? 0) * (h.trophy === 'silk' ? 0.5 : 1));
+    let haste = 0;
+    for (const w of this.wards) if (w.haste && dist(h.x, h.y, w.x, w.y) <= w.r) haste = Math.max(haste, w.haste);
+    return k * (1 + haste);
   }
 
   /** Keeps something on the field and out of what stands on it. */
@@ -1032,6 +1199,8 @@ export class Hunt {
     h.blow = null;
     h.queued = false;
     h.aiming = 0;
+    h.flurry = null;
+    h.edge = true;
     let x = steer.x;
     let y = steer.y;
     if (Math.hypot(x, y) < 0.05 && steer.toward !== undefined) {
@@ -1180,16 +1349,27 @@ export class Hunt {
       this.loose(h.x, h.y, tx, ty, d.speed ?? 800, d.dmg * far, 'hunter', d.reach + 80, whoOf(h));
       return;
     }
-    const awake = m.state !== 'asleep' && m.state !== 'dead';
+    const awake = this.reachable();
     const body = m.def.r * m.size;
     const shape = d.kind === 'arc'
       ? { kind: 'cone' as const, x: h.x, y: h.y, angle: b.aim, r: d.reach, half: (d.half ?? 50) * RAD, len: 0, w: 0, inner: 0 }
       : { kind: 'line' as const, x: h.x, y: h.y, angle: b.aim, len: d.reach, w: d.w ?? 30, r: 0, half: 0, inner: 0 };
     if (awake && inside(shape, m.x, m.y, body * 0.8)) {
-      this.harm(d.dmg, whoOf(h), h.index);
+      // The Mirror Shard: the first blow after a roll bites deeper.
+      const edge = h.edge && h.trophy === 'shard' ? 1.5 : 1;
+      h.edge = false;
+      this.harm(d.dmg * edge, whoOf(h), h.index, h.def.staggerBy ?? 1);
+      if (d.stun) this.addStagger(d.stun.stagger * (h.def.staggerBy ?? 1) * this.crackOf());
+      if (d.bleed) this.wound(d.bleed, h.index);
       if (h.index === 0) this.did('strike');
     }
-    for (const f of [...this.helpers]) if (inside(shape, f.x, f.y, 14)) this.harmHelper(f, d.dmg);
+    for (const f of [...this.helpers]) {
+      if (!inside(shape, f.x, f.y, 14)) continue;
+      this.harmHelper(f, d.dmg * (h.def.wrecker ?? 1));
+      if (!this.helpers.includes(f) || f.def.still) continue;
+      if (d.stun) f.held = Math.max(f.held, d.stun.hold);
+      if (d.push) this.shove(f, h.x, h.y, d.push);
+    }
     if (d.fire) {
       // Fire left on the ground where the blow ends.
       const k = d.reach * 0.7;
@@ -1208,17 +1388,26 @@ export class Hunt {
     }
   }
 
+  /** Throws a helper away from a place by so far, or, for less than nothing, toward it, though never nearer than a pole's length: pulled in to be struck, not into the hunter's arms. */
+  private shove(f: Helper, x: number, y: number, by: number): void {
+    const d = dist(f.x, f.y, x, y) || 1;
+    const step = by >= 0 ? by : -Math.min(-by, Math.max(0, d - 120));
+    f.x += ((f.x - x) / d) * step;
+    f.y += ((f.y - y) / d) * step;
+    this.keepOut(f, 10, false);
+  }
+
   private loose(x: number, y: number, tx: number, ty: number, speed: number, dmg: number, from: Shot['from'], range: number, by: string): void {
     const a = Math.atan2(ty - y, tx - x);
     this.shots.push({ id: this.nextId++, x, y, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, dmg, left: range / speed, from, by });
     this.events.push({ t: 'loose', x, y, angle: a, from });
   }
 
-  private use(h: Hunter, i: 0 | 1, at: { x: number; y: number } | null = null): void {
+  private use(h: Hunter, i: 0 | 1, steer: Steer = { x: 0, y: 0 }, at: { x: number; y: number } | null = null): void {
     const m = this.monster;
     const a = h.abilities[i];
     if (h.waits[i] > 0) return;
-    h.waits[i] = a.wait;
+    h.waits[i] = a.wait * (h.trophy === 'grate' ? 0.85 : 1);
     if (h.index === 0) this.did('skill', 1, i);
     const who = whoOf(h);
     const r = a.r ?? 0;
@@ -1290,6 +1479,113 @@ export class Hunt {
         }
         break;
       }
+      case 'forge': {
+        // A heated blow in front: it burns, and cracks the boss's armor for a while.
+        const aim = this.aimOf(h, steer, r);
+        h.aim = aim;
+        const shape = { kind: 'cone' as const, x: h.x, y: h.y, angle: aim, r, half: 55 * RAD, len: 0, w: 0, inner: 0 };
+        if (this.reachable() && inside(shape, m.x, m.y, m.def.r * m.size * 0.8)) {
+          this.harm(a.dmg ?? 0, h.index === 0 ? 'ability' : who, h.index, h.def.staggerBy ?? 1);
+          this.addStagger((a.stagger ?? 0) * this.crackOf());
+          m.burn = a.life ?? 6;
+          m.burnDps = a.burn ?? 4;
+          m.burnBy = h.index;
+          m.cracked = a.life ?? 6;
+          m.crackBy = a.share ?? 0.5;
+        }
+        for (const f of [...this.helpers]) if (inside(shape, f.x, f.y, 14)) this.harmHelper(f, (a.dmg ?? 0) * (h.def.wrecker ?? 1));
+        tx = h.x + Math.cos(aim) * r;
+        ty = h.y + Math.sin(aim) * r;
+        break;
+      }
+      case 'anvil': {
+        // Shown where it will fall, a little in front: it falls after its fuse.
+        const aim = this.aimOf(h, steer, (a.range ?? 120) + r);
+        h.aim = aim;
+        [tx, ty] = this.onField(h.x + Math.cos(aim) * (a.range ?? 120), h.y + Math.sin(aim) * (a.range ?? 120), r * 0.5);
+        this.own(h, a, 'anvil', { kind: 'ring', x: tx, y: ty, r });
+        break;
+      }
+      case 'keg': {
+        // Thrown where it was aimed, or at the boss; as far that way as it goes if that is out of reach, like tar.
+        const [ax, ay] = at ? [at.x, at.y] : [m.x, m.y];
+        const d = dist(h.x, h.y, ax, ay);
+        const k = Math.min(1, (a.range ?? 300) / (d || 1));
+        [tx, ty] = this.onField(h.x + (ax - h.x) * k, h.y + (ay - h.y) * k, 0);
+        this.own(h, a, 'keg', { kind: 'ring', x: tx, y: ty, r });
+        break;
+      }
+      case 'cavein': {
+        const aim = this.aimOf(h, steer, a.range ?? 300);
+        h.aim = aim;
+        this.own(h, a, 'cavein', { kind: 'line', x: h.x + Math.cos(aim) * 30, y: h.y + Math.sin(aim) * 30, angle: aim, len: a.range ?? 300, w: a.w ?? 80 });
+        tx = h.x + Math.cos(aim) * (a.range ?? 300);
+        ty = h.y + Math.sin(aim) * (a.range ?? 300);
+        break;
+      }
+      case 'shove': {
+        // The pole at full length: small things are thrown back, and a boss caught winding up loses its blow.
+        const aim = this.aimOf(h, steer, r);
+        h.aim = aim;
+        const shape = { kind: 'cone' as const, x: h.x, y: h.y, angle: aim, r, half: 34 * RAD, len: 0, w: 0, inner: 0 };
+        for (const f of [...this.helpers]) {
+          if (!inside(shape, f.x, f.y, 14)) continue;
+          this.harmHelper(f, a.dmg ?? 0);
+          if (this.helpers.includes(f) && !f.def.still) this.shove(f, h.x, h.y, a.push ?? 140);
+        }
+        if (this.reachable() && inside(shape, m.x, m.y, m.def.r * m.size * 0.8)) {
+          const winding = m.state === 'tell';
+          this.harm(a.dmg ?? 0, h.index === 0 ? 'ability' : who, h.index);
+          if (winding && this.stateOf() === 'tell') {
+            this.cancelAttack();
+            this.addStagger(a.stagger ?? 0);
+            if (this.stateOf() !== 'broken') this.openFor('dazed', a.hold ?? 1.2, 'crash');
+          }
+        }
+        tx = h.x + Math.cos(aim) * r;
+        ty = h.y + Math.sin(aim) * r;
+        break;
+      }
+      case 'wake':
+        h.wakeLeft = (a.n ?? 12) * (a.every ?? 0.5);
+        h.wakeT = 0;
+        break;
+      case 'hook': {
+        // Down a line: the nearest small thing on it is dragged to the hunter; with none, the hunter to the boss.
+        const range = a.range ?? 320;
+        const aim = this.aimOf(h, steer, range);
+        h.aim = aim;
+        const line = { kind: 'line' as const, x: h.x, y: h.y, angle: aim, len: range, w: a.w ?? 40, r: 0, half: 0, inner: 0 };
+        const caught = this.helpers.filter((f) => !f.def.still && inside(line, f.x, f.y, 14)).sort((p, q) => dist(p.x, p.y, h.x, h.y) - dist(q.x, q.y, h.x, h.y))[0];
+        if (caught) {
+          caught.x = h.x + Math.cos(aim) * 52;
+          caught.y = h.y + Math.sin(aim) * 52;
+          this.keepOut(caught, 10, false);
+          tx = caught.x;
+          ty = caught.y;
+          this.harmHelper(caught, (a.dmg ?? 10) * (h.def.wrecker ?? 1));
+        } else if (this.reachable() && inside(line, m.x, m.y, m.def.r * m.size * 0.8)) {
+          const body = m.def.r * m.size;
+          h.x = m.x - Math.cos(aim) * (body * 0.7 + 34);
+          h.y = m.y - Math.sin(aim) * (body * 0.7 + 34);
+          this.keepOut(h, 12, true);
+          tx = m.x;
+          ty = m.y;
+          this.harm(a.dmg ?? 10, h.index === 0 ? 'ability' : who, h.index);
+          this.wound(1, h.index);
+        } else {
+          tx = h.x + Math.cos(aim) * range;
+          ty = h.y + Math.sin(aim) * range;
+        }
+        break;
+      }
+      case 'hack': {
+        const aim = this.aimOf(h, steer, r);
+        h.aim = aim;
+        h.blow = null;
+        h.flurry = { left: a.n ?? 6, t: 0 };
+        break;
+      }
       case 'whistle': {
         const by = a.share ?? 0.25;
         this.mend(h, by * h.maxHp);
@@ -1304,6 +1600,23 @@ export class Hunt {
       }
     }
     this.events.push({ t: 'ability', who: h.index, id: a.id, x: h.x, y: h.y, r, tx, ty });
+  }
+
+  /** A place kept on the field, so far in from its rim. */
+  private onField(x: number, y: number, pad: number): [number, number] {
+    const e = FIELD.edge + pad;
+    return [Math.max(e, Math.min(this.w - e, x)), Math.max(e, Math.min(this.h - e, y))];
+  }
+
+  /** A hunter's own thing shown on the ground before it goes: an anvil, a keg, rocks. It is shown as the boss's blows are. */
+  private own(h: Hunter, a: AbilityDef, own: NonNullable<Tell['own']>, at: { kind: 'ring' | 'line'; x: number; y: number; r?: number; angle?: number; len?: number; w?: number }): void {
+    const fuse = a.fuse ?? 1;
+    const tell: Tell = {
+      id: this.nextId++, kind: at.kind, x: at.x, y: at.y, angle: at.angle ?? 0, len: at.len ?? 0, w: at.w ?? 0, r: at.r ?? 0, half: 0, inner: 0, left: fuse, of: fuse,
+      dmg: a.dmg ?? 0, foe: false, attack: a.id, by: h.index, stagger: a.stagger, own, hurt: a.hurt, hold: a.hold, life: a.life,
+    };
+    this.tells.push(tell);
+    this.events.push({ t: 'tell', id: tell.id, attack: a.id, name: a.name, first: false });
   }
 
   private mend(h: Hunter, amount: number): void {
@@ -1361,7 +1674,7 @@ export class Hunt {
     h.hp -= harm;
     h.hits++;
     h.grace = HURT_GRACE;
-    if (root > 0) h.root = root;
+    if (root > 0) h.root = root * (h.trophy === 'silk' ? 0.5 : 1);
     if (h.index === 0) this.tally.taken[by] = (this.tally.taken[by] ?? 0) + harm;
     this.events.push({ t: 'hurt', who: 'hunter', id: h.index, x: h.x, y: h.y, amount: harm, by });
     if (h.hp > 0) return;
@@ -1399,15 +1712,30 @@ export class Hunt {
   /** True if something this wide at a place reaches the monster's body. */
   private struckBy(x: number, y: number, r: number): boolean {
     const m = this.monster;
-    return m.state !== 'asleep' && m.state !== 'dead' && dist(x, y, m.x, m.y) <= r + m.def.r * m.size;
+    return this.reachable() && dist(x, y, m.x, m.y) <= r + m.def.r * m.size;
   }
 
-  private harm(amount: number, by: string, who = -1): void {
+  /** How much more stagger the boss takes just now: its armor cracked by a forge strike. */
+  private crackOf(): number {
     const m = this.monster;
-    if (m.state === 'asleep' || m.state === 'dead' || m.state === 'shift' || amount <= 0) return;
+    return m.cracked > 0 ? 1 + m.crackBy : 1;
+  }
+
+  /** How much of any harm a boss that runs hot takes at the heat it is at. */
+  private heatShare(): number {
+    const m = this.monster;
+    const h = m.def.heat;
+    if (!h) return 1;
+    return m.heat >= h.hot ? h.hotShare : m.heat <= h.cool ? h.coolShare : 1;
+  }
+
+  /** Harm to the boss: `staggerBy` is how much more than the harm its stagger fills, for a heavy hand. */
+  private harm(amount: number, by: string, who = -1, staggerBy = 1): void {
+    const m = this.monster;
+    if (m.state === 'asleep' || m.state === 'dead' || m.state === 'shift' || m.aloft || amount <= 0) return;
     const broken = m.state === 'broken';
     const open = this.open;
-    let dmg = amount * (broken ? m.def.stagger.more : 1) * (m.soft > 0 ? 1 + m.softBy : 1);
+    let dmg = amount * (broken ? m.def.stagger.more : 1) * (m.soft > 0 ? 1 + m.softBy : 1) * this.heatShare();
     // An Armored boss shrugs off half of everything until its stagger has been broken once.
     if (this.vary.armor > 0 && this.tally.breaks === 0) dmg *= 1 - this.vary.armor;
     if (by === 'hound' && this.frenzy > 0) dmg *= this.frenzyBy;
@@ -1438,7 +1766,7 @@ export class Hunt {
       return;
     }
     // Blows in an opening are what break it. At other times a blow counts for little.
-    if (!broken) this.addStagger(amount * (open ? 1 : 0.15));
+    if (!broken) this.addStagger(amount * (open ? 1 : 0.15) * staggerBy * this.crackOf());
   }
 
   private addStagger(amount: number): void {
@@ -1456,6 +1784,8 @@ export class Hunt {
     this.tally.breaks++;
     this.events.push({ t: 'broken', x: m.x, y: m.y });
     if (this.vary.armor > 0 && this.tally.breaks === 1) this.events.push({ t: 'armor' });
+    // The Bell Rope: each break mends whoever wears it.
+    for (const p of this.party) if (p.trophy === 'bellrope' && !p.down) this.mend(p, p.maxHp * 0.2);
     this.did('break');
   }
 
@@ -1467,6 +1797,19 @@ export class Hunt {
     this.helpers = this.helpers.filter((x) => x !== f);
     this.tells = this.tells.filter((t) => t.by !== f.id);
     this.events.push({ t: 'fall', who: 'helper', id: f.id, x: f.x, y: f.y });
+    const m = this.monster;
+    // A barrel's water, on a boss that runs hot and stands near enough.
+    if (f.def.douse && m.def.heat && m.state !== 'dead' && dist(f.x, f.y, m.x, m.y) <= f.def.douse.r + m.def.r * m.size) {
+      m.heat = Math.max(0, m.heat - f.def.douse.by);
+      this.events.push({ t: 'cool', x: m.x, y: m.y, heat: m.heat });
+    }
+    if (f.def.respawn && !f.marker) this.respawns.push({ def: f.def, x: f.x, y: f.y, at: this.time + f.def.respawn });
+    // A mirror takes its reflection with it.
+    for (const r of this.helpers.filter((x) => x.tie === f.id)) {
+      this.helpers = this.helpers.filter((x) => x !== r);
+      this.tells = this.tells.filter((t) => t.by !== r.id);
+      this.events.push({ t: 'fall', who: 'helper', id: r.id, x: r.x, y: r.y });
+    }
   }
 
   // ------------------------------------------------------------ the monster
@@ -1478,6 +1821,8 @@ export class Hunt {
     this.dash = null;
     this.againNext = null;
     this.monster.attack = null;
+    // Up in the dark, it drops where it is.
+    this.monster.aloft = false;
   }
 
   private openFor(state: 'recover' | 'dazed' | 'held', seconds: number, why: Opening): void {
@@ -1536,10 +1881,34 @@ export class Hunt {
     }
   }
 
+  /** What goes on in the boss by itself: wounds bleeding and closing, fire burning out, armor mending, heat rising. */
+  private stepBody(dt: number): void {
+    const m = this.monster;
+    m.cracked = Math.max(0, m.cracked - dt);
+    // Twice a second the wounds bleed and the fire burns.
+    const tick = Math.floor(this.time * 2) !== Math.floor((this.time - dt) * 2);
+    if (m.bleed > 0) {
+      if (tick) this.harm(m.bleed * BLEED.dps * 0.5, 'bleed', m.bleedBy);
+      m.bleedT -= dt;
+      if (m.bleedT <= 0) {
+        m.bleed--;
+        m.bleedT = BLEED.each;
+      }
+    }
+    if (m.burn > 0) {
+      m.burn -= dt;
+      if (tick && this.monster.state !== 'dead') this.harm(m.burnDps * 0.5, 'fire', m.burnBy);
+    }
+    const heat = m.def.heat;
+    if (heat && m.state !== 'broken' && m.state !== 'shift' && m.state !== 'dead') m.heat = Math.min(100, m.heat + heat.rise * this.vary.heat * dt);
+  }
+
   private stepMonster(dt: number): void {
     const m = this.monster;
     m.soft = Math.max(0, m.soft - dt);
     m.moving = false;
+    if (m.state !== 'asleep' && m.state !== 'dead') this.stepBody(dt);
+    if (this.over) return;
     switch (m.state) {
       case 'asleep':
       case 'dead':
@@ -1568,6 +1937,8 @@ export class Hunt {
         if (m.left > 0 || (shown && d > from)) return;
         // A step that shows an attack has it made, however far off the hunter stands, with its warning as long as the step says.
         if (lesson?.step.attack) this.start(byId(m.def.attacks, lesson.step.attack), lesson.step.slow ?? 1);
+        // Too hot to hold: it vents, and nothing in its round comes first.
+        else if (m.def.heat && m.heat >= 100) this.start(m.def.heat.burst, 1);
         else this.begin(d);
         return;
       }
@@ -1675,6 +2046,8 @@ export class Hunt {
     const m = this.monster;
     m.attack = pick;
     m.state = 'tell';
+    // One that drops on its mark leaves the ground as its warning shows.
+    m.aloft = !!pick.leap;
     this.elapsed = 0;
     this.stepRolled = false;
     this.stepHurt = false;
@@ -1696,7 +2069,7 @@ export class Hunt {
     const t = this.target();
     const k = m.size;
     const dmg = attack.dmg * this.scale.dmg * (1 + PARTY.dmg * (this.party.length - 1));
-    const base = { left: seconds, of: seconds, dmg, foe: true, attack: attack.id, by, len: 0, w: 0, r: 0, half: 0, inner: 0, angle: 0, root: attack.root };
+    const base = { left: seconds, of: seconds, dmg, foe: true, attack: attack.id, by, len: 0, w: 0, r: 0, half: 0, inner: 0, angle: 0, root: attack.root, web: attack.web };
     const made: Tell[] = [];
     // What is marked at a target is marked at one more of the party, for an attack that splits, against three or more.
     const up = this.party.filter((p) => !p.down);
@@ -1705,6 +2078,16 @@ export class Hunt {
       if (shape.kind === 'ring') {
         const c = shape.at === 'self' ? m : target;
         made.push({ ...base, id: this.nextId++, kind: 'ring', x: c.x, y: c.y, r: shape.r * k, inner: (shape.inner ?? 0) * k });
+      } else if (shape.kind === 'marks' && shape.at === 'props') {
+        // One at each of the lair's props still standing; it steps out of one of them, picked now and shown now.
+        const id = m.def.props?.id;
+        const props = this.helpers.filter((f) => f.def.still && f.def.id === id && !f.marker);
+        const spots = props.length ? props.map((f) => ({ x: f.x, y: f.y, tie: f.id as number | undefined })) : [{ x: target.x, y: target.y, tie: undefined }];
+        const to = attack.swap ? this.rng.int(spots.length) : -1;
+        spots.forEach((p, n) => {
+          const swap = n === to;
+          made.push({ ...base, id: this.nextId++, kind: 'ring', x: p.x, y: p.y, r: shape.r * k, swapTo: swap || undefined, summon: swap ? undefined : attack.summon, tie: swap ? undefined : p.tie });
+        });
       } else if (shape.kind === 'marks') {
         const e = FIELD.edge + shape.r * 0.5;
         for (let n = 0; n < shape.n; n++) {
@@ -1838,6 +2221,8 @@ export class Hunt {
   private slowAt(x: number, y: number): number {
     let k = 1;
     for (const p of this.pools) if (dist(x, y, p.x, p.y) <= p.r) k = Math.min(k, 1 - (p.def.share ?? 0.4));
+    // A lantern's light behind a hunter slows what is not on their side.
+    for (const w of this.wards) if (w.slow && dist(x, y, w.x, w.y) <= w.r) k = Math.min(k, 1 - w.slow);
     return k;
   }
 
@@ -1867,6 +2252,10 @@ export class Hunt {
   private land(t: Tell): void {
     const m = this.monster;
     this.events.push({ t: 'land', id: t.id, kind: t.kind, x: t.x, y: t.y, r: t.kind === 'line' ? t.len : t.r, foe: t.foe });
+    if (!t.foe && t.own) {
+      this.landOwn(t);
+      return;
+    }
     if (!t.foe) {
       // A sapper's charge goes up.
       this.events.push({ t: 'blast', x: t.x, y: t.y, r: t.r });
@@ -1887,6 +2276,27 @@ export class Hunt {
       this.events.push({ t: 'dash', x: m.x, y: m.y, angle: t.angle });
       return;
     }
+    // Down out of the dark, where the ring is.
+    if (t.by === 0 && m.aloft && m.attack?.leap && t.attack === m.attack.id) {
+      m.aloft = false;
+      m.x = t.x;
+      m.y = t.y;
+      this.keepOut(m, m.def.r * m.size * 0.8, false);
+      m.soft = m.attack.recover * this.vary.recover;
+      m.softBy = m.attack.leap.soft;
+      this.events.push({ t: 'dash', x: m.x, y: m.y, angle: m.aim });
+    }
+    // Out of a mirror.
+    if (t.swapTo && t.by === 0 && m.state === 'tell') {
+      const cx = this.w / 2 - t.x;
+      const cy = this.h / 2 - t.y;
+      const d = Math.hypot(cx, cy) || 1;
+      m.x = t.x + (cx / d) * 64;
+      m.y = t.y + (cy / d) * 64;
+      this.keepOut(m, m.def.r * m.size * 0.8, false);
+      this.events.push({ t: 'dash', x: m.x, y: m.y, angle: m.aim });
+    }
+    if (t.web) this.pools.push({ id: this.nextId++, x: t.x, y: t.y, r: t.web.r * m.size, life: t.web.life, burning: 0, def: { ...WEB_GROUND, hold: t.web.root } });
     for (const p of this.party) {
       if (p.down || !inside(t, p.x, p.y)) continue;
       if (p.roll > 0) this.events.push({ t: 'dodged', who: p.index, x: p.x, y: p.y });
@@ -1903,13 +2313,67 @@ export class Hunt {
     for (const b of [...this.buildings]) if (inside(t, b.x, b.y, b.def.r * 0.5)) this.hurtBuilding(b, t.dmg, t.attack);
     if (t.summon) {
       const def = byId(HELPERS, t.summon);
-      if (this.helpers.filter((f) => !f.def.still).length < def.most) {
+      // Something still is counted with its own kind; the rest with everything else that fights.
+      const count = def.still ? this.helpers.filter((f) => f.def.id === def.id && !f.marker).length : this.helpers.filter((f) => !f.def.still).length;
+      if (count < def.most) {
         // A helper grows by half of what the monster does at a mark: a swarm at full growth leaves no room to fight.
-        const f: Helper = { id: this.nextId++, def, x: t.x, y: t.y, hp: Math.round(def.hp * (1 + (this.scale.hp - 1) / 2)), face: 1, cool: 0.8, held: 0, moving: false, winding: false };
+        const f = this.prop(def, t.x, t.y);
+        f.cool = def.hatch ? def.hatch.every * 0.6 : 0.8;
+        if (t.tie !== undefined) {
+          // A reflection stands out in front of its mirror.
+          f.tie = t.tie;
+          const cx = this.w / 2 - t.x;
+          const cy = this.h / 2 - t.y;
+          const d = Math.hypot(cx, cy) || 1;
+          f.x += (cx / d) * 64;
+          f.y += (cy / d) * 64;
+        }
         this.helpers.push(f);
         this.events.push({ t: 'summon', id: f.id, x: f.x, y: f.y });
       }
     }
+    // A vent: what was too hot is left cooler, and open for a long while.
+    if (t.by === 0 && m.def.heat && t.attack === m.def.heat.burst.id) m.heat = Math.min(m.heat, m.def.heat.after);
+  }
+
+  /** A hunter's own thing goes off: the anvil falls, the keg goes up, the rocks come down. */
+  private landOwn(t: Tell): void {
+    const m = this.monster;
+    const p = this.party[t.by];
+    const by = !p || p.index === 0 ? 'ability' : whoOf(p);
+    const who = p?.index ?? -1;
+    const body = m.def.r * m.size;
+    const onIt = t.kind === 'line' ? this.reachable() && inside(t, m.x, m.y, body * 0.6) : this.struckBy(t.x, t.y, t.r);
+    const r = t.kind === 'line' ? t.w : t.r;
+    const [bx, by2] = t.kind === 'line' ? [t.x + Math.cos(t.angle) * t.len * 0.5, t.y + Math.sin(t.angle) * t.len * 0.5] : [t.x, t.y];
+    this.events.push({ t: 'blast', x: bx, y: by2, r });
+    if (onIt) {
+      this.harm(t.dmg, by, who, p?.def.staggerBy ?? 1);
+      this.addStagger((t.stagger ?? 0) * this.crackOf());
+      const s = this.monster.state;
+      // The anvil holds what it lands on; rocks daze what was walking or getting up.
+      if (t.own === 'anvil' && (s === 'walk' || s === 'tell' || s === 'recover')) {
+        this.cancelAttack();
+        this.openFor('held', t.hold ?? 1.5, 'held');
+      } else if (t.own === 'cavein' && (s === 'walk' || s === 'recover')) this.openFor('dazed', t.hold ?? 0.8, 'crash');
+    }
+    for (const f of [...this.helpers]) {
+      if (!inside(t, f.x, f.y, 10)) continue;
+      this.harmHelper(f, t.dmg * (p?.def.wrecker ?? 1));
+      if (this.helpers.includes(f) && t.hold) f.held = Math.max(f.held, t.hold * 1.5);
+    }
+    if (t.own === 'keg') {
+      for (const pl of this.pools) if (dist(pl.x, pl.y, t.x, t.y) <= t.r + pl.r) this.light(pl);
+      // Powder does not ask whose side anyone is on: a hunter in it is hurt, and a roll still goes through it.
+      for (const h of this.party) {
+        if (h.down || !inside(t, h.x, h.y)) continue;
+        if (h.roll > 0) this.events.push({ t: 'dodged', who: h.index, x: h.x, y: h.y });
+        else this.hurtHunter(h, t.hurt ?? 20, 'keg');
+        if (this.over) return;
+      }
+    }
+    // The anvil stays, as cover and as something a charge runs into.
+    if (t.own === 'anvil') this.stones.push({ x: t.x, y: t.y, r: 28, life: t.life ?? 12 });
   }
 
   private hurtAlly(a: Ally, amount: number, by: string): void {
@@ -1942,13 +2406,21 @@ export class Hunt {
   // ------------------------------------------------------------ helpers
 
   private stepHelpers(dt: number): void {
-    for (const f of this.helpers) {
+    const m = this.monster;
+    for (const f of [...this.helpers]) {
       f.moving = false;
-      // A marker stands where it was put and does nothing.
-      if (f.def.still) continue;
+      // A marker stands where it was put and does nothing. A sac hatches.
+      if (f.def.still) {
+        if (f.def.hatch) this.hatch(f, f.def.hatch, dt);
+        continue;
+      }
       f.cool -= dt;
       if (f.held > 0) {
         f.held -= dt;
+        continue;
+      }
+      if (f.def.walks) {
+        this.walkRound(f, dt);
         continue;
       }
       f.winding = this.tells.some((t) => t.by === f.id);
@@ -1998,6 +2470,29 @@ export class Hunt {
         this.events.push({ t: 'tell', id: tell.id, attack: f.def.id, name: f.def.name, first: false });
       }
     }
+    // Those who sing for it mend it, up to the top of the part it is in: a change is not undone.
+    const singing = this.helpers.reduce((n, f) => n + (f.def.heals ?? 0), 0);
+    if (singing > 0 && m.state !== 'dead' && m.state !== 'shift' && m.state !== 'asleep') {
+      const n = this.parts.length;
+      const top = Math.ceil((m.maxHp * (n - m.part)) / n);
+      const add = Math.min(Math.max(0, top - m.hp), singing * (m.maxHp / m.def.hp) * dt);
+      m.hp += add;
+      this.mended += add;
+    }
+    this.mendIn -= dt;
+    if (this.mendIn <= 0) {
+      this.mendIn = 1;
+      if (this.mended >= 1) this.events.push({ t: 'mend', x: m.x, y: m.y, amount: Math.round(this.mended) });
+      this.mended = 0;
+    }
+    // A prop broken stands again in time.
+    for (const r of [...this.respawns]) {
+      if (this.time < r.at) continue;
+      this.respawns = this.respawns.filter((x) => x !== r);
+      const f = this.prop(r.def, r.x, r.y);
+      this.helpers.push(f);
+      this.events.push({ t: 'summon', id: f.id, x: f.x, y: f.y });
+    }
     // They do not stand in each other.
     for (let i = 0; i < this.helpers.length; i++) {
       for (let j = i + 1; j < this.helpers.length; j++) {
@@ -2013,6 +2508,37 @@ export class Hunt {
         b.y += (b.y - a.y) * k;
       }
     }
+  }
+
+  /** A sac hatches one of its young now and then, while there is room for more. */
+  private hatch(f: Helper, hatch: NonNullable<HelperDef['hatch']>, dt: number): void {
+    f.cool -= dt;
+    if (f.cool > 0) return;
+    f.cool = hatch.every;
+    const def = byId(HELPERS, hatch.into);
+    if (this.helpers.filter((x) => !x.def.still).length >= def.most) return;
+    const a = this.rng.range(0, TAU);
+    const young = this.prop(def, f.x + Math.cos(a) * 34, f.y + Math.sin(a) * 34);
+    young.cool = 0.8;
+    this.keepOut(young, 10, false);
+    this.helpers.push(young);
+    this.events.push({ t: 'summon', id: young.id, x: young.x, y: young.y });
+  }
+
+  /** A monk in procession: round the middle of the lair, the way the rest are going. */
+  private walkRound(f: Helper, dt: number): void {
+    const cx = this.w / 2;
+    const cy = this.h / 2;
+    const a = Math.atan2((f.y - cy) / (this.h * 0.3), (f.x - cx) / (this.w * 0.32)) + 0.4;
+    const tx = cx + Math.cos(a) * this.w * 0.32;
+    const ty = cy + Math.sin(a) * this.h * 0.3;
+    const d = dist(f.x, f.y, tx, ty) || 1;
+    const step = f.def.speed * this.slowAt(f.x, f.y) * dt;
+    f.x += ((tx - f.x) / d) * step;
+    f.y += ((ty - f.y) / d) * step;
+    f.face = tx >= f.x ? 1 : -1;
+    f.moving = true;
+    this.keepOut(f, 10, false);
   }
 
   // ------------------------------------------------------------ those who fight beside the hunter
@@ -2228,6 +2754,12 @@ export class Hunt {
   }
 
   private light(p: Pool): void {
+    // Water does not burn, and a web burns away at once.
+    if (p.def.id === 'water') return;
+    if (p.def.id === 'web') {
+      p.life = 0;
+      return;
+    }
     if (p.burning > 0) return;
     p.burning = 5;
     p.life = Math.max(p.life, 5);
@@ -2265,6 +2797,13 @@ export class Hunt {
     this.traps = this.traps.filter((t) => t.life > 0);
     for (const w of this.wards) w.life -= dt;
     this.wards = this.wards.filter((w) => w.life > 0);
+    // An anvil left as cover is gone in the end.
+    for (let i = this.stones.length - 1; i >= 0; i--) {
+      const st = this.stones[i];
+      if (st.life === undefined) continue;
+      st.life -= dt;
+      if (st.life <= 0) this.stones.splice(i, 1);
+    }
     for (const p of this.pools) {
       p.life -= dt;
       if (p.burning <= 0) continue;

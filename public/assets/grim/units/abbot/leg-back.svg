@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="abbot-leg-back" width="1100" height="1100" viewBox="-190 -190 1100 1100">
+<defs>
+<path id="abbot-leg-back-foot-shape" d="M 260 664 L 320 656 L 350 674 L 346 692 L 256 692 Z"/>
+<clipPath id="abbot-leg-back-foot-clip"><use href="#abbot-leg-back-foot-shape"/></clipPath>
+</defs>
+<g id="abbot-leg-back-foot">
+<use id="abbot-leg-back-foot-line" href="#abbot-leg-back-foot-shape" transform="translate(-2.48 1.86)" fill="#14110f" stroke="#14110f" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-leg-back-foot-clip)">
+<use id="abbot-leg-back-foot-lit" href="#abbot-leg-back-foot-shape" fill="#9aa48c"/>
+<path id="abbot-leg-back-foot-mid" d="M 244 652 L 308 651.1 L 316.2 676.4 L 312.4 683.5 L 316.8 696.9 L 244 696 Z" transform="translate(4 -0.96)" fill="#6b7562"/>
+<path id="abbot-leg-back-foot-dark" d="M 244 652 L 308 651.1 L 316.2 676.4 L 312.4 683.5 L 316.8 696.9 L 244 696 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

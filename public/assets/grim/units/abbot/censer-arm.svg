@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="abbot-censer-arm" width="1100" height="1100" viewBox="-190 -190 1100 1100">
+<defs>
+<path id="abbot-censer-arm-arm-upper-shape" d="M 323.9 308.3 L 311.9 355.8 L 281.6 416.8 L 242.4 403.2 L 260.5 338.1 L 276.1 291.7 Z"/>
+<clipPath id="abbot-censer-arm-arm-upper-clip"><use href="#abbot-censer-arm-arm-upper-shape"/></clipPath>
+<path id="abbot-censer-arm-arm-fore-shape" d="M 283.3 405.3 L 293.6 442.6 L 298.2 496.4 L 265.8 503.6 L 250.3 452.3 L 240.7 414.7 Z"/>
+<clipPath id="abbot-censer-arm-arm-fore-clip"><use href="#abbot-censer-arm-arm-fore-shape"/></clipPath>
+<path id="abbot-censer-arm-arm-fist-shape" d="M 301.2 455.2 L 321.5 495.3 L 322.8 516 L 308.3 527.4 L 307.5 538.1 L 288.4 543.2 L 281.8 535.7 L 264.8 542.7 L 247.6 523.9 L 241.2 480.7 L 264 462.7 Z"/>
+<clipPath id="abbot-censer-arm-arm-fist-clip"><use href="#abbot-censer-arm-arm-fist-shape"/></clipPath>
+</defs>
+<g id="abbot-censer-arm-arm-upper">
+<use id="abbot-censer-arm-arm-upper-line" href="#abbot-censer-arm-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-arm-arm-upper-clip)">
+<use id="abbot-censer-arm-arm-upper-lit" href="#abbot-censer-arm-arm-upper-shape" fill="#4f4944"/>
+<path id="abbot-censer-arm-arm-upper-mid" d="M 307.9 299.5 L 287.8 357.7 L 283.1 360.2 L 264.6 414.1 L 214.1 396.6 L 254 280.9 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="abbot-censer-arm-arm-upper-dark" d="M 307.9 299.5 L 287.8 357.7 L 283.1 360.2 L 264.6 414.1 L 214.1 396.6 L 254 280.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="abbot-censer-arm-arm-fore">
+<use id="abbot-censer-arm-arm-fore-line" href="#abbot-censer-arm-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-arm-arm-fore-clip)">
+<use id="abbot-censer-arm-arm-fore-lit" href="#abbot-censer-arm-arm-fore-shape" fill="#4f4944"/>
+<path id="abbot-censer-arm-arm-fore-mid" d="M 267.7 405.7 L 275.5 440.8 L 272.7 445.7 L 285.3 502.3 L 242.2 511.9 L 220.9 416.1 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="abbot-censer-arm-arm-fore-dark" d="M 267.7 405.7 L 275.5 440.8 L 272.7 445.7 L 285.3 502.3 L 242.2 511.9 L 220.9 416.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-censer-arm-arm-fold" d="M 248.3 430.1 L 269.4 404.5 L 238.9 417.5 Z" fill="#14110f"/>
+<g id="abbot-censer-arm-arm-fist">
+<use id="abbot-censer-arm-arm-fist-line" href="#abbot-censer-arm-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-arm-arm-fist-clip)">
+<use id="abbot-censer-arm-arm-fist-lit" href="#abbot-censer-arm-arm-fist-shape" fill="#9aa48c"/>
+<path id="abbot-censer-arm-arm-fist-mid" d="M 258.4 448.5 L 277.8 557.7 L 239.9 566.1 L 215.9 457.9 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="abbot-censer-arm-arm-fist-dark" d="M 258.4 448.5 L 277.8 557.7 L 239.9 566.1 L 215.9 457.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="abbot-censer-arm-arm-fist-fingers" d="M 311.2 527.7 L 297.6 504.6 L 303.1 530.8 Z M 288.7 535.7 L 277.9 510.6 L 280.3 537.8 Z" fill="#14110f"/>
+</svg>

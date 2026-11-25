@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="silas-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="silas-leg-back-leg-shape" d="M 125.2 186.8 L 122.3 202.8 L 114.3 224.2 L 93.7 219.8 L 96.3 197.4 L 98.8 181.2 Z"/>
+<clipPath id="silas-leg-back-leg-clip"><use href="#silas-leg-back-leg-shape"/></clipPath>
+<path id="silas-leg-back-boot-shape" d="M 91.7 215 L 115 213 L 114.1 227 L 124.7 230 L 130.7 236 L 130.7 240 L 84.7 240 L 82.7 230 Z"/>
+<clipPath id="silas-leg-back-boot-clip"><use href="#silas-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="silas-leg-back-leg">
+<use id="silas-leg-back-leg-line" href="#silas-leg-back-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-leg-back-leg-clip)">
+<use id="silas-leg-back-leg-lit" href="#silas-leg-back-leg-shape" fill="#4f4944"/>
+<path id="silas-leg-back-leg-mid" d="M 111.4 180.8 L 107 201.9 L 102.1 205.4 L 98.3 223.9 L 73.8 218.7 L 83 174.8 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="silas-leg-back-leg-dark" d="M 111.4 180.8 L 107 201.9 L 102.1 205.4 L 98.3 223.9 L 73.8 218.7 L 83 174.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-leg-back-boot">
+<use id="silas-leg-back-boot-line" href="#silas-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-leg-back-boot-clip)">
+<use id="silas-leg-back-boot-lit" href="#silas-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="silas-leg-back-boot-mid" d="M 76.7 210 L 101.8 210 L 103.6 226 L 115 232 L 134.7 235 L 134.7 244 L 76.7 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="silas-leg-back-boot-dark" d="M 76.7 210 L 101.8 210 L 103.6 226 L 115 232 L 134.7 235 L 134.7 244 L 76.7 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-leg-back-boot-sole" d="M 82.7 237 L 131.7 237 L 131.7 241.5 L 82.7 241.5 Z" fill="#14110f"/>
+<path id="silas-leg-back-boot-crease" d="M 113.3 225.8 L 101.8 231 L 114.1 228.2 Z" fill="#14110f"/>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hall-pillar" width="116" height="314" viewBox="0 0 116 314">
+<defs>
+<path id="hall-pillar-pillar-shape" d="M 24 304 L 26 30 L 16 10 L 96 10 L 86 30 L 90 304 Z"/>
+<clipPath id="hall-pillar-pillar-clip"><use href="#hall-pillar-pillar-shape"/></clipPath>
+<path id="hall-pillar-cap-shape" d="M 10 12 L 102 8 L 96 0 L 16 2 Z"/>
+<clipPath id="hall-pillar-cap-clip"><use href="#hall-pillar-cap-shape"/></clipPath>
+<path id="hall-pillar-sconce-shape" d="M 88 160 L 110 150 L 114 162 L 94 172 Z"/>
+<clipPath id="hall-pillar-sconce-clip"><use href="#hall-pillar-sconce-shape"/></clipPath>
+</defs>
+<path id="hall-pillar-blot" d="M 10 300 L 100 294 L 110 306 L 14 310 Z" fill="#14110f" opacity="0.55"/>
+<g id="hall-pillar-pillar">
+<use id="hall-pillar-pillar-line" href="#hall-pillar-pillar-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hall-pillar-pillar-clip)">
+<use id="hall-pillar-pillar-lit" href="#hall-pillar-pillar-shape" fill="#77786f"/>
+<path id="hall-pillar-pillar-mid" d="M 0 0 L 44 0 L 45.4 0 L 47.5 163 L 44.7 166.1 L 46.6 310 L 0 310 Z" transform="translate(6 -1.44)" fill="#54564f"/>
+<path id="hall-pillar-pillar-dark" d="M 0 0 L 44 0 L 45.4 0 L 47.5 163 L 44.7 166.1 L 46.6 310 L 0 310 Z" fill="#14110f"/>
+<path id="hall-pillar-flutes" d="M 47 40 L 48 290 L 49 40 Z M 63 40 L 64 290 L 65 40 Z M 77 40 L 78 290 L 79 40 Z" fill="#54564f"/>
+<path id="hall-pillar-band" d="M 26 120 L 90 118 L 90 132 L 26 134 Z" fill="#9a5b38"/>
+<path id="hall-pillar-pillar-cold" d="M -24 -30 L 136 -30 L 136 344 L -24 344 Z M 26.3 302.3 L 28.3 28.3 L 18.3 8.3 L 98.3 8.3 L 88.3 28.3 L 92.3 302.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="hall-pillar-cap">
+<use id="hall-pillar-cap-line" href="#hall-pillar-cap-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hall-pillar-cap-clip)">
+<use id="hall-pillar-cap-lit" href="#hall-pillar-cap-shape" fill="#77786f"/>
+<path id="hall-pillar-cap-dark" d="M -2 -4 L 35.2 -4 L 40 16 L -2 16 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hall-pillar-sconce">
+<use id="hall-pillar-sconce-line" href="#hall-pillar-sconce-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hall-pillar-sconce-clip)">
+<use id="hall-pillar-sconce-lit" href="#hall-pillar-sconce-shape" fill="#8c9194"/>
+<path id="hall-pillar-sconce-dark" d="M 76 146 L 95.8 145.5 L 99.2 157 L 96.7 161.7 L 101 176.5 L 76 176 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>
