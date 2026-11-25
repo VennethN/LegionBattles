@@ -22,7 +22,8 @@
     "film": "tsx scripts/film.ts",
     "art:pages": "tsx scripts/pages.ts",
     "grim:roster": "tsx scripts/grim/roster.ts",
-    "grim:pages": "tsx scripts/grim/pages.ts"
+    "grim:pages": "tsx scripts/grim/pages.ts",
+    "vfx": "tsx scripts/vfx.ts"
   },
   "dependencies": {
     "@fontsource/fredoka": "^5.3.0",

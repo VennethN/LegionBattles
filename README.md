@@ -38,6 +38,7 @@ A boss hunting game for the browser. A contract names a boss; a hunter goes to i
 | `src/view/pictures.ts` | Which picture stands for what: the game's own Grim style (`src/grim`, copied from `VennethN/game-assets`), and a dark shape for what is not drawn yet |
 | `src/view/scenes` | Boot, the lodge, the lair, the HUD over it, the result |
 | `src/view/light` | The light of a lair: a filter on its camera, lights that follow things, what shines by itself, and a second camera for what must stay sharp (the tells above all) |
+| `src/view/vfx` | What a blow does beyond the figures: sparks, blood, chips and dust thrown (`Bits.ts`), cracks and furrows left on the ground (`Decals.ts`), the screen knocked and flashed (`Feel.ts`), the warnings drawn as marked ground (`Tells.ts`), the lair breathing (fog, leaves, embers, crows), all of it set off from the hunt's events in `Vfx.ts`; the shapes are drawn once onto the sheet (`shapes.ts`) |
 | `src/art` | The Legion art kit, as it came from Lastander |
 | `scripts` | The art build, the walk, the smoke, the film, the measure |
 
@@ -54,6 +55,7 @@ How an attack is written: an entry in a monster's `attacks` with the seconds its
 | `npm run walk` | Pictures of every state to `build/walk`. States: `first lodge camp hunt tells states result pause`. `--size=frame,small,full,phone-wide,phone-tall` |
 | `npm run smoke` | Plays the game through its own buttons and keys, with the mouse and by touch |
 | `npm run film` | Films a hunt frame by frame to `build/film` |
+| `npm run vfx` | Films the effects, each moment as a strip, to `build/vfx`: `blows slam break fall charge hurt skills rest lab tells`, a size such as `390x844`, and `LIGHT=off` for the field without its light. Wants a served build (`URL=`) |
 | `npm run build:crazygames` | The copy for CrazyGames |
 
 `?res=1` on the address draws at one canvas pixel to a window pixel.
@@ -96,6 +98,8 @@ Against the King everything helps, sappers and barricades most. Against the Grav
 - **The music and sounds** were written for this game by rule and measured, not heard. The bank has no long low brass, no choir or organ and no real wind, so horns are short calls and wind is shaped noise.
 - **The lines on a phone**, and how often they come in a real hunt: seen in two pictures at 907x510 only.
 - **The pictures of the walk at `full` and `phone-wide`**, and the film in motion.
+- **The effects** (`src/view/vfx`) were seen as strips of frames in the headless browser, set off by hand and in bot-played hunts, at 907x510 and on a phone upright: not by a person, not moving at speed on a real screen, and not on a slow phone. How many bits are alive at once is held under a most (260, 140 or 90 by the light's setting), but their cost on a real phone was not measured. The cracks of light on a boss, the crows and the fog are faint in the dark lairs and were judged from stills.
+- **The marked ground of the warnings** (`Tells.ts`) was seen held still at three moments of its time for every kind, and in two films; nobody has read one at speed.
 - Whether the tells can be read fast enough by a person at the second and third marks: the bot's quarter second is a guess at a person.
 - **Posted contracts, partners and attacking by hand on screen.** The board of posters is a plain list, the tasks and partners' health are plain lines on the HUD, partners are drawn but have no bars, names or wind-up animations of their own, and nobody has looked at any of it in a picture. A hand for hire, a villager, a cart and a marker are dark stand-ins: none is drawn in the style.
 - **How attacking by hand feels.** J or K held, or a press held on the field, attacks; no pointer aim is read yet (aim follows the way the hunter faces, turned to a boss a little ahead) and there is no ATTACK button for touch. Whether a wind-up of a fifth to a third of a second feels heavy or sluggish, nobody has felt.

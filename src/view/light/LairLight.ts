@@ -76,6 +76,8 @@ export class LairLight {
   private smoke: Phaser.GameObjects.Image[] = [];
   private readonly crispSet = new Set<Seen>();
   private readonly emitSet = new Set<Seen>();
+  /** What others hand over to shine: drawn into the light's picture with the glow, when they are on show. */
+  private readonly shiners: Phaser.GameObjects.Image[] = [];
   private readonly hour: Hour;
   private readonly dark: number;
   private lit: Lit[] = [];
@@ -88,6 +90,12 @@ export class LairLight {
   private slow = 0;
   private budget = 0;
   private gone = false;
+  /** Seconds the boss's own lamp gutters for: broken, it nearly goes out. */
+  private gutterLeft = 0;
+  /** How far the lair's dark has lifted, 0 to 1: the boss is dead and the place breathes again. */
+  private liftK = 0;
+  /** How hurt the hunter is, 0 to 1, and the beat of their heart: the colors drain and the edges close in. */
+  hurt = 0;
   /** The view this frame, in the field's units: its top left corner and its size. */
   private vx = 0;
   private vy = 0;
@@ -187,6 +195,19 @@ export class LairLight {
     if (this.emitSet.has(obj)) obj.cameraFilter = main | crisp;
     else if (this.crispSet.has(obj) || obj.type === 'BitmapText') obj.cameraFilter = main;
     else obj.cameraFilter = crisp;
+  }
+
+  /** A thing that shines by itself: drawn through the light's own picture, so that the dark does not dim it. */
+  shine<T extends Phaser.GameObjects.GameObject>(obj: T): T {
+    this.emitSet.add(obj as unknown as Seen);
+    this.shiners.push(obj as unknown as Phaser.GameObjects.Image);
+    if (this.filter) this.see(obj as unknown as Seen);
+    return obj;
+  }
+
+  /** The boss's lamp gutters for a while, as when he is broken. */
+  gutter(seconds: number): void {
+    this.gutterLeft = Math.max(this.gutterLeft, seconds);
   }
 
   /** A thing that has to stay sharp and bright however dark it is. */
@@ -327,7 +348,8 @@ export class LairLight {
         case 'fall':
           if (e.who === 'monster') {
             this.blast(e.x, e.y - 40, 130, ELEMENTS.holy, true);
-            this.flash(e.x, e.y - 40, 800, ELEMENTS.holy.light, 1.2, 1.4);
+            // A last light, not a white page: the dark is to lift after it, not be blown away.
+            this.flash(e.x, e.y - 40, 560, ELEMENTS.holy.light, 0.7, 1.2);
           }
           break;
         case 'mend':
@@ -375,7 +397,13 @@ export class LairLight {
       const broken = m.state === 'broken';
       const color = broken ? ELEMENTS.holy.light : w.open ? 0xffc890 : ELEMENTS.red.light;
       // It carries its own light, low on its chest: red, and the brighter for being awake.
-      this.light(m.x + m.face * 30, m.y - 150, 440, color, (awake ? 0.7 + 0.08 * Math.sin(clock * 2.2) + (broken ? 0.1 : 0) : 0.45) * (0.5 + 0.5 * lamp));
+      // Drawing back for a blow, its lamp flares: the more, the nearer the blow is.
+      let gather = 0;
+      for (const t of w.tells) if (t.by === 0 && t.foe) gather = Math.max(gather, 1 - t.left / t.of);
+      // Broken, it gutters and nearly goes out.
+      if (this.gutterLeft > 0) this.gutterLeft = Math.max(0, this.gutterLeft - dt);
+      const gutter = this.gutterLeft > 0 ? 0.25 + 0.35 * Math.abs(Math.sin(clock * 23) * Math.sin(clock * 9)) : 1;
+      this.light(m.x + m.face * 30, m.y - 150, 440 * (1 + 0.1 * gather), color, (awake ? 0.7 + 0.08 * Math.sin(clock * 2.2) + (broken ? 0.1 : 0) + 0.22 * gather * gather * gather : 0.45) * (0.5 + 0.5 * lamp) * gutter);
       if (broken && !halted && Math.random() < 0.4 && this.spend()) glow.spawn(m.x + rnd(-40, 40), m.y - rnd(20, 160), ELEMENTS.holy, { dur: rnd(0.4, 0.8), vy: rnd(-60, -20), from: rnd(6, 10), to: 1 });
     }
 
@@ -530,8 +558,15 @@ export class LairLight {
     filter.sun = hour.sun;
     filter.shafts = hour.shafts;
     filter.clouds = hour.clouds;
-    filter.shade = hour.shade;
-    filter.vignette = hour.vignette;
+    // The boss dead, the dark lifts over a few seconds; the hunter hurt, the colors drain and the edges beat red.
+    if (this.hunt.monster.state === 'dead') this.liftK = Math.min(1, this.liftK + 0.006);
+    const lift = 1 + 0.55 * this.liftK;
+    filter.ambient = [hour.ambient[0] * lift, hour.ambient[1] * lift, hour.ambient[2] * lift];
+    const beat = this.hurt > 0 ? 0.6 + 0.4 * Math.max(0, Math.sin(this.clock * 7.2)) ** 6 + 0.25 * Math.max(0, Math.sin(this.clock * 7.2 - 0.9)) ** 6 : 0;
+    const red = this.hurt * beat;
+    filter.shade = [hour.shade[0] + 0.22 * red, hour.shade[1] * (1 - 0.18 * red), hour.shade[2] * (1 - 0.22 * red)];
+    filter.vignette = hour.vignette + 0.3 * red;
+    filter.saturation = 1.06 - 0.45 * this.hurt;
     filter.emitAmount = 0.8 + 0.2 * this.dark;
     // The line of focus is where the hunter stands, so that they and what is round them are always sharp.
     filter.focus = Math.max(0.2, Math.min(0.8, (this.hunt.hunter.y - 30 - this.vy) / this.vh));
@@ -561,6 +596,7 @@ export class LairLight {
     if (!emit) return;
     this.drawn.length = 0;
     glow.alight(this.drawn);
+    for (const img of this.shiners) if (img.visible && img.alpha > 0.01) this.drawn.push(img);
     const cam = this.scene.cameras.main;
     emit.camera.setZoom(cam.zoom * EMIT_SCALE);
     emit.camera.centerOn(this.vx + this.vw / 2, this.vy + this.vh / 2);

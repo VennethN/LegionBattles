@@ -2,6 +2,23 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## The effects, and the warnings as marked ground
+
+The owner asked to "improve the vfx of boss hunters so its more engaging", and then, of the warnings: "Also please update the markings (its just a plain circle)".
+
+**Built** (`src/view/vfx`, hooked into the lair in a few lines):
+
+- **Blows that land**: a star of light at the point, splinters flung the way the blow went, blood (some of it the style's bright red) that falls and lies, chips and clods off a heavy blow, the struck figure flat white for an instant (a boss only on a big blow or one in his opening), a short hold of the lair scaled to the blow, the screen knocked along the blow's line. A blow in his opening stings with gold splinters. A blow that meets nothing is a paler, thinner arc that whistles.
+- **Each hunter's blow left in the air**: Marta's halberd a broad pale crescent, Agnes's pole a ribbon with fire along it, Brask's spear and Jory's bolt a thrust wedge, with a puff and a kick at the bow.
+- **The boss's blows**: the ground darkens where it will fall as the moment comes, dust is drawn in to his feet, his lamp flares; a spade ploughs a furrow and throws earth to both sides, a sweep cracks across its arc, a ring breaks the ground in a star and rolls a wave of dust out; marks stay a while and fade. The King's charge kicks the ground up behind him and leaves hoof marks; what he crashes into flies apart.
+- **Stagger and the break**: cracks of light open in him as the stagger fills; when it breaks they burst into gold splinters, the field behind him goes dark, his lamp gutters, the screen leans in. **His fall**: the lair slows, a last light, ash comes down over him and embers go up, and the dark lifts over a few seconds.
+- **The lair**: fog in layers, leaves blown across the churchyard, embers off fires and burning tar, crows on the walls and trees that take off when something big lands.
+- **The hunter's moments**: a dodge leaves a trail of after-images and a perfect one slows the lair for a breath; an iron ring for Block; teeth and blood for a trap; tar splashing; the flare's white then smoke; streaks behind the dogs; light rising for healing. Badly hurt, the colors drain and the edges beat red.
+- **The warnings as marked ground** (`Tells.ts`): at the rules' own shape and size, darkened inside, a hard dark-red edge with a scratched line along it, a pattern for the kind (a spade's lane raked, grave earth heaving, hoof marks down a charge's lane, frost for the King's gore and stomp), the time as a fill that grows from where the blow comes from and reaches the edge as it lands, a beat that quickens in the last half second, the safe middle of a ring edged in pale, and the one the hunter stands in a little brighter.
+- **EFFECTS: FULL or CALM** in the pause panel, and a most for what is alive at once that follows the light's setting.
+
+**Fixed after looking**: the boss going wholly white on every blow (now only big or open blows, for an instant, by real time); the screen's flash held for seconds by the hold of a blow (it goes by real time now); the wind-up's lamp washing the whole lair red-brown; cracks of light that read as bats (now thin splits); the fall and a badly hurt hunter washing the screen out.
+
 ## Round 3, 25 November 2026: posted contracts, a party, and attacks by hand
 
 The owner asked for three things in one go: the bosses as wanted posters that are random contracts, each unlike the last ("there could be a variant of the boss that is quicker, / Or there could be additional minions, or additional task"); partners on a contract ("one contract can house 2,3,4 hunters and we're just one of the hunters / The rest are AIs on our side"); and "Make it also so attacks are not automatic".
