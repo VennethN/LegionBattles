@@ -32,6 +32,17 @@ Then the owner asked for "a bit better ui", and the interface was given a kit of
 - **The camp shows what can be afforded**: a ware that cannot has an iron button with its price in red, and is dimmed.
 - **A road's card says what it costs and what it pays in the same two places**, to be read across.
 
+Then the owner played it on the published page, and their first words were: "let's fix the wording (its convoluted) and fix the clanky animation when moving hero".
+
+**The movement.** Four things made it clanky, and each is changed:
+
+1. *The wave was drawn where its last step left it.* The wave moves in fixed steps, sixty to the second, and a screen draws when it likes: at any rate but exactly sixty a frame came after no step, or after two, every so often, and the hero and the view jerked. A headless browser steps one frame at a time and never showed it. Everything that moves, and the view, is drawn between the last two steps now (`view/blend.ts`, with a test). `npm run glide` walks the hero with frames of 7, 9, 13, 19 and 23 thousandths of a second and at 75 and 144 a second, and holds every frame to the walk's own speed: the worst was 0.0% off.
+2. *The figure turned to face every blow and back while it ran,* and (from earlier in this same round) stepped toward the blow against the way it was going. On the move it faces the way it goes; it turns to a blow, and steps into it, only standing.
+3. *Walking was a hop:* a bounce with a squash on landing, three times a second. It is a walk now: the legs pass each other, each foot lifted as it comes through, timed to the ground covered so that the feet do not slide, eased in and out.
+4. *Turning round went through nothing:* for a frame the figure was a sliver. It is a quick squash, never thinner than half.
+
+**The wording.** The docs' old-fashioned voice had spilled into the game. Every string the screens show was rewritten in plain game terms (Passive, Skill, Weapon, Damage, Boss, Items, Reroll, Merge, Risk and Reward, Unlock and Locked): "Unlock: reach wave 10", "New companion unlocked: Greta", "Choose 1 of 3", "Wave 8. Killed by: Scarab". The rule and its list of terms are in `CLAUDE.md`. The text that comes from the rules' own data (what a hero's passive and skill say, relics, roads, the names of stats) is being rewritten by the rules agent where it is kept, and still reads the old way on these screens until that is merged.
+
 Not done, and why:
 
 - **Long shadows from the lights of the fight** (a fire throwing a figure's shadow away from it): shadows follow the sun only. It would be a second shadow for every figure near every light.

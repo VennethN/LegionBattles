@@ -227,7 +227,8 @@ export class Deeds {
     sfx.play('claim', 0.8, 0.8);
     this.call(this.world.move?.name.toUpperCase() ?? '');
     this.hero.attack(this.clock, 0.05, true);
-    light.dim(id === 'whiteout' || id === 'vanish' ? 2 : 1.2, 0.5);
+    // The cold that follows a whiteout lasts, and is dimmer for less: frozen enemies still have to be seen for what they are.
+    light.dim(id === 'whiteout' ? 1.6 : id === 'vanish' ? 2 : 1.2, id === 'whiteout' ? 0.3 : 0.5);
     // What every move has: light going up off the hero as it leaves them, and a ring running out along the ground.
     // It all begins a step out from them: light laid on top of the hero is the hero lost, and they are who it is about.
     for (let i = 0; i < 24; i++) {

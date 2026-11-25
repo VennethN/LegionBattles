@@ -89,9 +89,10 @@ export class RoadScene extends Phaser.Scene {
   private card(x: number, y: number, w: number, h: number, mat: Material, icon: string, name: string, lines: Array<{ text: string; color?: string; head?: string }>, button: string, on: () => void): void {
     this.root.add(slabImage(this, x, y, w, h, BONE, 16, 7));
     const tall = view.tall;
-    const pic = tall ? Math.min(92, h - 40) : Math.min(104, h * 0.34);
+    // The picture is no bigger than leaves room for the words under it: a road's card has its risk and its reward to say.
+    const pic = tall ? Math.min(92, h - 40) : Math.min(78, h * 0.26);
     const px = tall ? x + 18 + pic / 2 : x + w / 2;
-    const py = tall ? y + h / 2 - 8 : y + 22 + pic / 2;
+    const py = tall ? y + h / 2 - 8 : y + 20 + pic / 2;
     this.root.add(slabImage(this, px - pic / 2 - 6, py - pic / 2 - 6, pic + 12, pic + 12, mat, 14, 5));
     const img = this.add.image(px, py, SHEET, icon);
     img.setOrigin(0.5, 0.5).setScale(pic / Math.max(img.frame.width, img.frame.height));
@@ -99,7 +100,7 @@ export class RoadScene extends Phaser.Scene {
     const tx = tall ? x + pic + 40 : x + w / 2;
     const tw = tall ? w - pic - 56 : w - 24;
     const align = tall ? 'left' : 'center';
-    let ty = tall ? y + 26 : py + pic / 2 + 30;
+    let ty = tall ? y + 26 : py + pic / 2 + 24;
     this.text(tx, ty, name, { size: 20, color: OUTLINE, stroke: null, align, wrap: tw });
     ty += 16;
     for (const line of lines) {

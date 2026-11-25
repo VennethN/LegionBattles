@@ -181,14 +181,14 @@ export class CampScene extends Phaser.Scene {
       card.add(slabImage(this, -cw / 2, -ch / 2, cw, ch, BONE, 16, 7));
       card.add(slabImage(this, -cw / 2 + 8, -ch / 2 + 8, cw - 16, 30, TIER_MATS[c.tier], 10, 0));
       card.add(label(this, 0, -ch / 2 + 22, TIER_NAMES[c.tier], { size: 16, color: OUTLINE, stroke: null }));
-      const img = this.add.image(0, -28, SHEET, statIcon(info.icon));
-      img.setScale(52 / img.frame.width);
+      const img = this.add.image(0, -36, SHEET, statIcon(info.icon));
+      img.setScale(50 / img.frame.width);
       card.add(img);
       // Dark words on the pale card, and never wider than it: they were pale on pale, and ran to the card's edge.
-      const head = label(this, 0, 22, friend ? info.name : `${statText(c.stat, c.by)} ${info.name}`, { size: friend ? 17 : 20, color: '#2e5f45', stroke: null });
+      const head = label(this, 0, 10, friend ? info.name : `${statText(c.stat, c.by)} ${info.name}`, { size: friend ? 17 : 20, color: '#2e5f45', stroke: null });
       head.setScale(Math.min(1, (cw - 22) / Math.max(1, head.width)));
       card.add(head);
-      card.add(label(this, 0, 40, info.says, { size: 15, color: OUTLINE, stroke: null, wrap: cw - 34 }).setOrigin(0.5, 0));
+      card.add(label(this, 0, 26, info.says, { size: 15, color: OUTLINE, stroke: null, wrap: cw - 34 }).setOrigin(0.5, 0));
       card.setSize(cw, ch).setInteractive({ useHandCursor: true });
       card.on('pointerup', () => {
         choose(this.run, i);
