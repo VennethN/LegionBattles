@@ -18,6 +18,7 @@ import { ads } from '../../platform/ads';
 import { ASSETS, getManifest } from '../app';
 import { ART_SCALE, hex, view } from '../config';
 import { Deeds } from '../Deeds';
+import { Blend, shareOf } from '../blend';
 import { Effects } from '../Effects';
 import { weaponIcon } from '../icons';
 import { Numbers } from '../Numbers';
@@ -135,6 +136,14 @@ export class ArenaScene extends Phaser.Scene {
   private wantAct = false;
   private spare: Phaser.GameObjects.Image[] = [];
   private stamp = 0;
+  /** Where everything was before the last step of the wave, to draw it between that and where it is now (view/blend.ts). */
+  private readonly foesWas = new Blend();
+  private readonly bandWas = new Blend();
+  private readonly shotsWas = new Blend();
+  private readonly picksWas = new Blend();
+  private readonly heroWas = new Blend();
+  /** How far this frame is into the wave's next step. */
+  private share = 1;
   private acc = 0;
   private clock = 0;
   private ready = false;
@@ -178,6 +187,8 @@ export class ArenaScene extends Phaser.Scene {
     this.spare = [];
     this.weapons = [];
     this.acc = 0;
+    this.share = 1;
+    for (const b of [this.foesWas, this.bandWas, this.shotsWas, this.picksWas, this.heroWas]) b.clear();
     this.clock = 0;
     this.level = -1;
     this.ready = false;
@@ -296,12 +307,14 @@ export class ArenaScene extends Phaser.Scene {
       this.wantAct = hud?.controls?.takeAct() || this.wantAct;
       let steps = 0;
       while (this.acc >= STEP && steps++ < 6) {
+        this.remember();
         this.world.step(this.wantAct ? { ...steer, act: true } : steer);
         this.wantAct = false;
         this.acc -= STEP;
       }
       // A frame that took far too long is not caught up on: the wave would lurch.
       if (steps >= 6) this.acc = 0;
+      this.share = shareOf(this.acc, STEP);
       this.react(this.world.drain());
     }
     this.sync(dt);
@@ -309,6 +322,21 @@ export class ArenaScene extends Phaser.Scene {
     this.nums.update(dt);
     this.cheer();
     if (this.world.over && !this.ended) this.finish();
+  }
+
+  /** Keeps where everything is, just before a step of the wave moves it. */
+  private remember(): void {
+    const w = this.world;
+    this.heroWas.keep(0, w.hero.x, w.hero.y);
+    this.heroWas.prune();
+    for (const f of w.foes) this.foesWas.keep(f.id, f.x, f.y);
+    this.foesWas.prune();
+    for (const a of w.band) this.bandWas.keep(a.id, a.x, a.y);
+    this.bandWas.prune();
+    for (const s of w.shots) this.shotsWas.keep(s.id, s.x, s.y);
+    this.shotsWas.prune();
+    for (const p of w.picks) this.picksWas.keep(p.id, p.x, p.y);
+    this.picksWas.prune();
   }
 
   /** A level made in the middle of a wave is seen on the hero at once, though its choice waits for the camp. */
@@ -485,7 +513,8 @@ export class ArenaScene extends Phaser.Scene {
     const h = this.world.hero;
     this.aimFace = Math.cos(angle) >= 0 ? 1 : -1;
     this.aimFor = 0.4;
-    this.lunge = { dx: Math.cos(angle), dy: Math.sin(angle), t: 0 };
+    // The step into the blow is taken standing. On the run it would be a jolt against the way they are going.
+    if (!h.moving) this.lunge = { dx: Math.cos(angle), dy: Math.sin(angle), t: 0 };
     // A blow that was not seen coming (nobody was near a moment ago) is thrown at once.
     if (!this.hero.acting) this.hero.attack(this.clock, 0.05, true);
     const el = WEAPON_LIGHT[id] ?? 'spark';
@@ -566,12 +595,13 @@ export class ArenaScene extends Phaser.Scene {
 
   // ------------------------------------------------------------ the field as it stands
 
-  private follow(): void {
+  private follow(hx = this.world.hero.x, hy = this.world.hero.y): void {
     const w = this.world;
     const cam = this.cameras.main;
     // The view never leaves the field. Where the window shows more than all of it, it sits in the middle.
-    const cx = view.w >= w.w ? w.w / 2 : Math.max(view.w / 2, Math.min(w.w - view.w / 2, w.hero.x));
-    const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2, Math.min(w.h - view.h / 2, w.hero.y - 20));
+    // It goes exactly where the hero is drawn, frame by frame: they are never a pixel ahead of it or behind.
+    const cx = view.w >= w.w ? w.w / 2 : Math.max(view.w / 2, Math.min(w.w - view.w / 2, hx));
+    const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2, Math.min(w.h - view.h / 2, hy - 20));
     cam.centerOn(cx, cy);
   }
 
@@ -580,13 +610,17 @@ export class ArenaScene extends Phaser.Scene {
     const h = w.hero;
     this.stamp++;
     const stamp = this.stamp;
+    // Everything that moves is drawn between where it was before the wave's last step and where it is now.
+    const k = this.share;
+    const hx = this.heroWas.x(0, h.x, k, 90);
+    const hy = this.heroWas.y(0, h.y, k, 90);
 
     const shadows = this.shadows;
     shadows.begin();
     // The hero.
     const fig = this.hero;
-    fig.x = h.x;
-    fig.y = h.y;
+    fig.x = hx;
+    fig.y = hy;
     if (this.lunge) {
       this.lunge.t += dt;
       // Out fast, back slower.
@@ -600,32 +634,33 @@ export class ArenaScene extends Phaser.Scene {
     }
     // They face what they strike while they strike it, and the way they go otherwise.
     if (this.aimFor > 0) this.aimFor -= dt;
-    fig.facing = this.aimFor > 0 ? this.aimFace : h.face;
+    // On the move they face the way they go, whatever they strike: a figure that turned to every blow and back while it ran was half of what made it look clanky.
+    fig.facing = this.aimFor > 0 && !h.moving ? this.aimFace : h.face;
     fig.moving = h.moving && !this.halted;
     // The blow is drawn back a moment before it lands, so that it lands on time: the wave says how long is left.
     const own = w.own;
     if (own && !this.halted && own.cool > 0 && own.cool < WINDUP && !fig.acting && h.hp > 0) {
       const reach = w.rangeOf(own.def) * 1.15;
       let near: Foe | null = null;
-      for (const f of w.foes) if (!f.dead && Math.hypot(f.x - h.x, f.y - h.y) < reach && (!near || Math.abs(f.x - h.x) < Math.abs(near.x - h.x))) near = f;
+      for (const f of w.foes) if (!f.dead && Math.hypot(f.x - hx, f.y - hy) < reach && (!near || Math.abs(f.x - hx) < Math.abs(near.x - hx))) near = f;
       if (near) {
-        this.aimFace = near.x >= h.x ? 1 : -1;
+        this.aimFace = near.x >= hx ? 1 : -1;
         this.aimFor = own.cool + 0.4;
-        fig.facing = this.aimFace;
+        if (!h.moving) fig.facing = this.aimFace;
         fig.attack(this.clock, own.cool, true);
       }
     }
     // Struck, they flicker for the moment nothing can hurt them.
     fig.alpha = h.unseen > 0 ? 0.35 : h.grace > 0 && Math.floor(this.clock * 20) % 2 === 0 ? 0.55 : 1;
     fig.update(this.clock, dt);
-    if (h.hp > 0) shadows.blob(h.x, h.y, 84, 46, fig.alpha);
-    this.heroRing.setVisible(h.hp > 0).setPosition(h.x, h.y - 1).setScale((34 / 60) * INV_ART, (34 / 60) * INV_ART * 0.62).setAlpha(0.62 * fig.alpha);
+    if (h.hp > 0) shadows.blob(hx, hy, 84, 46, fig.alpha);
+    this.heroRing.setVisible(h.hp > 0).setPosition(hx, hy - 1).setScale((34 / 60) * INV_ART, (34 / 60) * INV_ART * 0.62).setAlpha(0.62 * fig.alpha);
     const hurt = h.hp < h.maxHp && h.hp > 0;
     this.heroBarBack.setVisible(hurt);
     this.heroBar.setVisible(hurt);
     if (hurt) {
-      this.heroBarBack.setPosition(h.x, h.y + 12).setDisplaySize(52, 8).setDepth(h.y + 1);
-      this.heroBar.setPosition(h.x - 24, h.y + 12).setDisplaySize(48 * (h.hp / h.maxHp), 4).setDepth(h.y + 2);
+      this.heroBarBack.setPosition(hx, hy + 12).setDisplaySize(52, 8).setDepth(hy + 1);
+      this.heroBar.setPosition(hx - 24, hy + 12).setDisplaySize(48 * (h.hp / h.maxHp), 4).setDepth(hy + 2);
     }
 
     // What they have bought, each in its place beside them.
@@ -637,12 +672,12 @@ export class ArenaScene extends Phaser.Scene {
       const id = slot.def.id;
       if (!img) {
         // Their own: where its head is in the figure's hand, for the light it gives.
-        this.carried[i] = { id, x: h.x + fig.muzzleReach, y: h.y - fig.muzzleHeight + 24, rot: 0, seen: h.hp > 0 };
+        this.carried[i] = { id, x: hx + fig.muzzleReach, y: hy - fig.muzzleHeight + 24, rot: 0, seen: h.hp > 0 };
         continue;
       }
       const place = slotPlace(i - owned, n - owned);
-      let x = h.x + place.x;
-      let y = h.y + place.y + Math.sin(this.clock * 3 + i) * 1.5;
+      let x = hx + place.x;
+      let y = hy + place.y + Math.sin(this.clock * 3 + i) * 1.5;
       // It leans out from the hero at rest, and turns to its mark for a moment when it strikes.
       const rest = Math.atan2(place.y + 30, place.x) * 0.25 + (place.x < 0 ? -0.25 : 0.25);
       const hold = 0.24;
@@ -665,13 +700,13 @@ export class ArenaScene extends Phaser.Scene {
       // Dimmer while it waits, so that the figure is read first.
       const busy = slot.since < 0.5 ? 1 : 0.72;
       // Behind the hero always, but for the moment it strikes: what they have bought is never drawn over who they are.
-      img.setPosition(x, y).setRotation(rot).setScale(WEAPON_SCALE * INV_ART * pop * (slot.since < hold ? 1.3 : 1)).setDepth(slot.since < hold ? h.y + 3 : h.y - 3);
+      img.setPosition(x, y).setRotation(rot).setScale(WEAPON_SCALE * INV_ART * pop * (slot.since < hold ? 1.3 : 1)).setDepth(slot.since < hold ? hy + 3 : hy - 3);
       img.setAlpha(fig.alpha * busy).setVisible(h.hp > 0);
       this.carried[i] = { id, x, y, rot, seen: h.hp > 0 };
     }
     this.carried.length = n;
 
-    this.deeds.update(dt, this.clock, this.halted);
+    this.deeds.update(dt, this.clock, this.halted, hx, hy, (id, x, y) => [this.bandWas.x(id, x, k), this.bandWas.y(id, y, k)]);
     this.road.sync(this.clock, dt);
 
     // Whoever comes at them.
@@ -688,13 +723,15 @@ export class ArenaScene extends Phaser.Scene {
       }
       v.stamp = stamp;
       const size = f.def.size ?? 1;
+      const fx = this.foesWas.x(f.id, f.x, k);
+      const fy = this.foesWas.y(f.id, f.y, k);
       if (v.fig) {
-        v.fig.x = f.x;
-        v.fig.y = f.y;
+        v.fig.x = fx;
+        v.fig.y = fy;
         v.fig.facing = f.face;
         v.fig.moving = f.moving && !this.halted;
         v.fig.update(this.clock, dt);
-        shadows.blob(f.x, f.y, 66 * size, 40 * size);
+        shadows.blob(fx, fy, 66 * size, 40 * size);
         if (v.flash > 0) v.flash -= dt;
         continue;
       }
@@ -707,8 +744,8 @@ export class ArenaScene extends Phaser.Scene {
       const grow = age < 0.18 ? 0.4 + (age / 0.18) * 0.6 : 1;
       const wind = f.state === 'aim' ? 1 + Math.sin(this.clock * 40) * 0.04 : 1;
       const s = (FOE_SCALE * size * grow) / STILL_SCALE;
-      img.setPosition(f.x + (f.stun > 0 ? Math.sin(this.clock * 50) * 1.5 : 0), f.y).setScale(s * wind, s / wind).setFlipX(f.face < 0).setDepth(f.y);
-      shadows.still(img.frame.name, f.x, f.y, s, f.face < 0, Math.min(1, age / 0.18));
+      img.setPosition(fx + (f.stun > 0 ? Math.sin(this.clock * 50) * 1.5 : 0), fy).setScale(s * wind, s / wind).setFlipX(f.face < 0).setDepth(fy);
+      shadows.still(img.frame.name, fx, fy, s, f.face < 0, Math.min(1, age / 0.18));
       // Struck, it is all white for a moment. Burning and slowed, it is tinted, so that a glance says which.
       if (v.flash > 0) {
         v.flash -= dt;
@@ -745,7 +782,9 @@ export class ArenaScene extends Phaser.Scene {
       if (s.art === 'orb-red') img.setTint(0xff6a5a);
       return img;
     }, (img, s) => {
-      let y = s.y;
+      const sx = this.shotsWas.x(s.id, s.x, k);
+      const sy = this.shotsWas.y(s.id, s.y, k);
+      let y = sy;
       let size = s.mine ? 0.9 : 1.1;
       if (s.lob) {
         // A thing thrown rises and falls on its way.
@@ -755,10 +794,10 @@ export class ArenaScene extends Phaser.Scene {
         img.setRotation(this.clock * 8);
       } else if (s.art === 'stone' || s.art === 'bomb') img.setRotation(this.clock * 10);
       else img.setRotation(Math.atan2(s.vy, s.vx));
-      const k = size * INV_ART * (s.art.startsWith('orb') ? 1 : 0.85);
+      const q = size * INV_ART * (s.art.startsWith('orb') ? 1 : 0.85);
       // The band's own bolts are thin and long, an enemy's round and red: the two are never the same shape.
       const thin = s.mine && s.art.startsWith('orb') && !s.lob;
-      img.setPosition(s.x, y).setScale(thin ? k * 1.5 : k, thin ? k * 0.5 : k).setDepth(s.y + 40).setVisible(!this.light.draws(s));
+      img.setPosition(sx, y).setScale(thin ? q * 1.5 : q, thin ? q * 0.5 : q).setDepth(sy + 40).setVisible(!this.light.draws(s));
     });
 
     // Clouds on the ground.
@@ -771,7 +810,9 @@ export class ArenaScene extends Phaser.Scene {
     this.each(this.picks, w.picks, stamp, (p) => this.take(p.kind === 'heart' ? 'icon/heart' : p.kind === 'pack' ? 'pack/thornwood' : p.value >= 10 ? 'icon/sack' : 'icon/coin'), (img, p) => {
       const base = p.kind === 'pack' ? 0.2 : p.kind === 'heart' ? 0.44 : p.value >= 10 ? 0.5 : p.value >= 3 ? 0.42 : 0.3;
       const hop = p.pulled ? 0 : Math.abs(Math.sin(Math.min(1, p.age * 2.2) * Math.PI)) * 14 * Math.max(0, 1 - p.age);
-      img.setPosition(p.x, p.y - 8 - hop + Math.sin(this.clock * 4 + p.id) * 1.2).setScale(base * INV_ART * 2).setDepth(p.y - 6);
+      const px = this.picksWas.x(p.id, p.x, k);
+      const py = this.picksWas.y(p.id, p.y, k);
+      img.setPosition(px, py - 8 - hop + Math.sin(this.clock * 4 + p.id) * 1.2).setScale(base * INV_ART * 2).setDepth(py - 6);
     });
 
     // What is about to happen.
@@ -801,7 +842,7 @@ export class ArenaScene extends Phaser.Scene {
 
     for (const b of this.deeds.standing()) shadows.blob(b.x, b.y, b.tall, b.wide, b.alpha);
     shadows.end();
-    this.follow();
+    this.follow(hx, hy);
     this.light.update(dt, this.clock, this.halted, this.carried);
   }
 

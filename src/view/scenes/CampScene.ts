@@ -166,7 +166,7 @@ export class CampScene extends Phaser.Scene {
     this.text(cx, 118, run.pending > 1 ? `Choose one. ${run.pending - 1} more after this.` : 'Choose one.', { size: 17, color: BONE.fill });
     const cols = view.tall ? 2 : 4;
     const cw = Math.min(210, (view.w - 32 - (cols - 1) * 12) / cols);
-    const ch = 190;
+    const ch = 212;
     const rows = Math.ceil(run.choices.length / cols);
     const x0 = cx - (cols * cw + (cols - 1) * 12) / 2;
     // On a tall screen the cards stand a little above the middle of what is left under the heading, not hard against it with half the screen empty below.

@@ -84,6 +84,10 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
       if (only.length && !only.includes(hero)) continue;
       await arena(page, { hero, wave, level: 9, weapons: RICH.slice(1, 3), items: THINGS, ups: UPS, gold: 90, fury: 1, band });
       await until(page, 'Hud');
+      // The move is kept for the press: left to itself it would go off the moment there was someone to use it on, before the picture.
+      await page.evaluate(() => {
+        ((window as unknown as Win).world() as unknown as { auto: boolean }).auto = false;
+      });
       // A little of the wave, so that there is someone to use it on; then it is let loose, and seen a few frames in and well in.
       await fight(page, 2.6);
       await page.keyboard.down('Space');
@@ -93,6 +97,9 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
       await shot(`move-${hero}`);
       await fight(page, 0.45);
       await shot(`move-${hero}-b`);
+      // And as it lands: a star, a hammer or the cold comes a moment after it is called.
+      await fight(page, 0.6);
+      await shot(`move-${hero}-c`);
     }
   },
   // What each quirk looks like while it is on: Bram set behind his shield, Wren untouched, Isaura at speed, Hroth hurt.
@@ -127,10 +134,47 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await arena(page, { hero: process.env.HERO ?? 'bram', wave: 3, level: 4, weapons: [], gold: 20 });
     await until(page, 'Hud');
     await fight(page, 3.2);
+    // On until a blow is about to be struck at someone in reach: an earlier strip was twelve frames of nobody being struck.
+    for (let i = 0; i < 500; i++) {
+      const ready = await page.evaluate(() => {
+        const w = (window as unknown as Win).world() as unknown as {
+          own: { cool: number; def: unknown } | null; hero: { x: number; y: number }; foes: Array<{ x: number; y: number; dead?: boolean }>; rangeOf(d: unknown): number;
+        };
+        if (!w.own || w.own.cool > 0.2 || w.own.cool <= 0.1) return false;
+        const reach = w.rangeOf(w.own.def);
+        return w.foes.some((f) => !f.dead && Math.hypot(f.x - w.hero.x, f.y - w.hero.y) < reach);
+      });
+      if (ready) break;
+      await fight(page, 1 / 60);
+    }
     for (let i = 0; i < 12; i++) {
-      await fight(page, 0.05);
+      await tick(page, 2);
       await shot(`swing-${String(i).padStart(2, '0')}`);
     }
+  },
+  // The hero walking with nobody about: off to the right, round to the left, and to a stop, every other frame. Laid side by side they show the walk, the turn and the stop.
+  stride: async (page, shot) => {
+    await arena(page, { hero: process.env.HERO ?? 'bram', wave: 1, level: 1, weapons: [], gold: 0 });
+    await until(page, 'Hud');
+    await page.evaluate(() => {
+      const w = (window as unknown as Win).world() as unknown as { foes: unknown[]; marks: unknown[]; wave: { most: number } };
+      w.wave.most = 0;
+      w.foes.length = 0;
+      w.marks.length = 0;
+    });
+    await tick(page, 150);
+    let n = 0;
+    const go = async (key: string | null, pictures: number): Promise<void> => {
+      if (key) await page.keyboard.down(key);
+      for (let i = 0; i < pictures; i++) {
+        await tick(page, 2);
+        await shot(`stride-${String(n++).padStart(2, '0')}`);
+      }
+      if (key) await page.keyboard.up(key);
+    };
+    await go('KeyD', 8);
+    await go('KeyA', 8);
+    await go(null, 4);
   },
   // A companion struck down, counted back up.
   down: async (page, shot) => {

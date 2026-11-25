@@ -672,7 +672,8 @@ export class FieldLight {
       const size = f.def.size ?? 1;
       if (f.boss) {
         // A captain stands in a light of their own: there is no losing sight of them.
-        this.light(f.x, f.y - 30 * size, 260, ELEMENTS.red.light, (0.3 + 0.07 * Math.sin(this.clock * 2.2)) * (0.6 + 0.4 * this.dark));
+        // A warm one, like a fire's, so that the hour does not color them: a captain in a blue night is not a blue captain.
+        this.light(f.x, f.y - 30 * size, 250, 0xffb48a, (0.42 + 0.07 * Math.sin(this.clock * 2.2)) * (0.5 + 0.5 * this.dark));
       }
       if (f.burn > 0) {
         this.burning.add(f.id);

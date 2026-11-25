@@ -26,11 +26,12 @@ const GOLD_TINT = hex(HOLY.fill);
 const RED = hex(RUBY.fill);
 
 /** The element of light each ring, each thing that falls and each move is shown in. */
-const RING_EL: Record<string, string> = { fire: 'fire', bell: 'holy', cry: 'red', frost: 'frost', flare: 'holy', roar: 'red' };
-const RING_TINT: Record<string, number> = { fire: hex(FIRE.fill), bell: GOLD_TINT, cry: RED, frost: hex(FROST.fill), flare: hex(HOLY.light), roar: RED };
+// Nothing of the band's own is red: red on the field is harm that is coming for the hero, and only that.
+const RING_EL: Record<string, string> = { fire: 'fire', bell: 'holy', cry: 'fire', frost: 'frost', flare: 'holy', roar: 'spark' };
+const RING_TINT: Record<string, number> = { fire: hex(FIRE.fill), bell: GOLD_TINT, cry: hex(FIRE.fill), frost: hex(FROST.fill), flare: hex(HOLY.light), roar: hex(BONE.fill) };
 const FALL_EL: Partial<Record<Burst, string>> = { star: 'arcane', light: 'holy', frost: 'frost', fire: 'fire' };
 const MOVE_EL: Record<MoveId, string> = {
-  rush: 'holy', rain: 'spark', starfall: 'arcane', vanish: 'spark', wildfire: 'fire', charge: 'spark', warcry: 'red', toll: 'holy', whiteout: 'frost', judgment: 'holy',
+  rush: 'holy', rain: 'spark', starfall: 'arcane', vanish: 'spark', wildfire: 'fire', charge: 'spark', warcry: 'fire', toll: 'holy', whiteout: 'frost', judgment: 'holy',
 };
 /** The companions that give light of their own, and of what element. */
 const ALLY_LIGHT: Record<string, string | undefined> = { pip: 'holy', ember: 'fire' };
@@ -125,7 +126,7 @@ export class Deeds {
           sfx.play('levelUp', 0.6, 0.6);
         } else if (e.kind === 'cry' || e.kind === 'roar') {
           this.shake(220, 0.009);
-          light.spray(e.x, e.y - 30, 'red', 14, r * 2.4, 0.5);
+          light.spray(e.x, e.y - 30, 'fire', 14, r * 2.4, 0.5);
           sfx.play('blast', 0.5, 0.6);
         } else if (e.kind === 'frost') {
           for (let i = 0; i < 20; i++) {
@@ -160,7 +161,7 @@ export class Deeds {
         sfx.play('blast', 0.8, 0.6);
         this.shake(320, 0.012);
         this.say(`${this.def.short.toUpperCase()} GETS UP`, 'Once in a land');
-        light.boom(e.x, e.y, 120, 'red', true);
+        light.boom(e.x, e.y, 120, 'fire', true);
         this.hold = 0.16;
         return true;
       case 'rescue':
@@ -234,7 +235,7 @@ export class Deeds {
       const d = rnd(38, 70);
       light.bit(x + Math.cos(a) * d, y - 10 + Math.sin(a) * d * 0.6, el, { dur: rnd(0.5, 1), vx: Math.cos(a) * 40, vy: rnd(-240, -110), from: rnd(6, 12), to: 1, stretch: 0.6, alpha: 0.8 });
     }
-    for (let i = 0; i < 2; i++) light.bit(x, y, el, { dur: 0.45 + i * 0.2, from: 110, to: 300 + i * 120, alpha: 0.5 - i * 0.2, flat: 0.62, frame: 'fx/ring' });
+    for (let i = 0; i < 2; i++) light.bit(x, y, el, { dur: 0.45 + i * 0.2, from: 110, to: 300 + i * 120, alpha: 0.32 - i * 0.12, flat: 0.62, frame: 'fx/ring' });
     if (!light.on) this.fx.spawn('fx/ring', x, y - 4, { dur: 0.4, from: 0.4, to: 4.2, tint: GOLD_TINT, alpha: 0.9, flat: 0.62, depth: 5 });
     switch (id) {
       case 'rush':
@@ -336,7 +337,11 @@ export class Deeds {
 
   // ------------------------------------------------------------ every frame
 
-  update(dt: number, clock: number, halted: boolean): void {
+  /**
+   * `hx`, `hy` are where the hero is drawn this frame, and `at` says where a companion is: both are between the
+   * wave's last two steps (view/blend.ts), so that what is drawn on them moves with them and not a step ahead.
+   */
+  update(dt: number, clock: number, halted: boolean, hx = this.world.hero.x, hy = this.world.hero.y, at: (id: number, x: number, y: number) => [number, number] = (_id, x, y) => [x, y]): void {
     this.clock = clock;
     if (this.hold > 0) this.hold -= dt;
     const w = this.world;
@@ -388,13 +393,13 @@ export class Deeds {
         }
         break;
       case 'unburied':
-        // Hroth, hurt: he glows like a coal, the more the nearer he is to falling.
-        tint = RED;
+        // Hroth, hurt: he glows like a coal, the more the nearer he is to falling. A coal's orange, not the red of harm.
+        tint = hex(FIRE.fill);
         sign = 0.1 + 0.75 * t.share;
         signR = 40 + 12 * t.share + (t.share > 0.6 ? beat : 0);
         if (t.share > 0.3) {
-          light.lamp(h.x, h.y - 30, 150, 'red', 0.4 * t.share);
-          if (live && Math.random() < 0.35 * t.share) light.bit(h.x + rnd(-18, 18), h.y - rnd(6, 60), 'red', { dur: rnd(0.4, 0.8), vy: rnd(-90, -40), from: rnd(4, 8), to: 1, sway: 4 });
+          light.lamp(h.x, h.y - 30, 150, 'fire', 0.4 * t.share);
+          if (live && Math.random() < 0.35 * t.share) light.bit(h.x + rnd(-18, 18), h.y - rnd(6, 60), 'fire', { dur: rnd(0.4, 0.8), vy: rnd(-90, -40), from: rnd(4, 8), to: 1, sway: 4 });
         }
         break;
       case 'echo':
@@ -449,12 +454,12 @@ export class Deeds {
       c.setVisible(i < purse);
       if (i >= purse) return;
       const a = clock * 2.4 + (i * Math.PI * 2) / Math.max(1, purse);
-      const cy = h.y - 34 + Math.sin(a) * 12;
-      c.setPosition(h.x + Math.cos(a) * 34, cy).setScale(0.3 * INV_ART * 2 * (0.85 + 0.15 * Math.sin(a))).setDepth(h.y + (Math.sin(a) > 0 ? 2 : -2));
+      const cy = hy - 34 + Math.sin(a) * 12;
+      c.setPosition(hx + Math.cos(a) * 34, cy).setScale(0.3 * INV_ART * 2 * (0.85 + 0.15 * Math.sin(a))).setDepth(h.y + (Math.sin(a) > 0 ? 2 : -2));
     });
     hero.brace += (brace - hero.brace) * Math.min(1, dt * 10);
     this.sign.setVisible(sign > 0.01 && h.hp > 0);
-    if (sign > 0.01) this.sign.setPosition(h.x, h.y).setTint(tint).setAlpha(sign).setScale((signR / 60) * INV_ART, (signR / 60) * INV_ART * 0.62);
+    if (sign > 0.01) this.sign.setPosition(hx, hy).setTint(tint).setAlpha(sign).setScale((signR / 60) * INV_ART, (signR / 60) * INV_ART * 0.62);
 
     // A rush or a charge, while it lasts: light torn off the hero, and the ground kicked up.
     if (h.dash && live) {
@@ -470,7 +475,7 @@ export class Deeds {
     // Unseen: smoke hangs where they are.
     if (h.unseen > 0 && live && Math.random() < 0.12) light.smokeAt(h.x + rnd(-10, 10), h.y - rnd(10, 40), 1);
     // Their blows heal them: the red of it on them.
-    if (h.feast > 0 && h.hp > 0) light.lamp(h.x, h.y - 30, 170, 'red', 0.35 + 0.1 * Math.sin(clock * 9));
+    if (h.feast > 0 && h.hp > 0) light.lamp(h.x, h.y - 30, 170, 'fire', 0.35 + 0.1 * Math.sin(clock * 9));
 
     // A ring of fire running out: a wall of flame all the way round its edge, embers thrown up behind it, and the ground
     // it has crossed left smoking. While it is still close round the hero it is low, so that it does not hide them.
@@ -565,19 +570,20 @@ export class Deeds {
     }
     if (this.omens.some((o) => o.left <= 0)) this.omens = this.omens.filter((o) => o.left > 0);
 
-    this.band(dt, clock, halted);
+    this.band(dt, clock, halted, at);
   }
 
   /** The companions: where the wave says each is, on its feet or down, with its name when it comes on and its health when it is hurt. */
-  private band(dt: number, clock: number, halted: boolean): void {
+  private band(dt: number, clock: number, halted: boolean, at: (id: number, x: number, y: number) => [number, number]): void {
     const light = this.light;
     for (const a of this.world.band) {
       let v = this.allies.get(a.id);
       if (!v) v = this.enlist(a);
       const fig = v.fig;
       const down = a.down > 0;
-      fig.x = a.x;
-      fig.y = a.y;
+      const [ax, ay] = at(a.id, a.x, a.y);
+      fig.x = ax;
+      fig.y = ay;
       if (v.aimFor > 0) v.aimFor -= dt;
       fig.facing = v.aimFor > 0 ? v.aimFace : a.face;
       fig.moving = a.moving && !down && !halted;
@@ -588,30 +594,30 @@ export class Deeds {
       fig.alpha = down ? 0.75 : a.grace > 0 && Math.floor(clock * 20) % 2 === 0 ? 0.6 : 1;
       fig.update(clock, dt);
 
-      const top = a.y - fig.height - 8;
+      const top = ay - fig.height - 8;
       if (v.tagLeft > 0) {
         v.tagLeft -= dt;
-        v.tag.setPosition(a.x, top - 8).setAlpha(Math.min(1, v.tagLeft * 3)).setVisible(true);
+        v.tag.setPosition(ax, top - 8).setAlpha(Math.min(1, v.tagLeft * 3)).setVisible(true);
       } else v.tag.setVisible(false);
       const hurt = a.maxHp > 0 && a.hp < a.maxHp && !down;
       v.back.setVisible(hurt);
       v.bar.setVisible(hurt);
       if (hurt) {
-        v.back.setPosition(a.x, a.y + 10).setDisplaySize(38, 7).setDepth(a.y + 1);
-        v.bar.setPosition(a.x - 17, a.y + 10).setDisplaySize(34 * Math.max(0, a.hp / a.maxHp), 3).setDepth(a.y + 2);
+        v.back.setPosition(ax, ay + 10).setDisplaySize(38, 7).setDepth(ay + 1);
+        v.bar.setPosition(ax - 17, ay + 10).setDisplaySize(34 * Math.max(0, a.hp / a.maxHp), 3).setDepth(ay + 2);
       }
       // How long until it is up again, counted over it.
       v.count.setVisible(down && v.tagLeft <= 0);
-      if (down) v.count.setText(String(Math.ceil(a.down))).setPosition(a.x, a.y - 34);
+      if (down) v.count.setText(String(Math.ceil(a.down))).setPosition(ax, ay - 34);
 
       const el = ALLY_LIGHT[a.def.id];
       if (el && !down) {
-        light.lamp(a.x, a.y - 24, el === 'holy' ? 190 : 120, el, el === 'holy' ? 0.42 : 0.3);
-        if (!halted && Math.random() < 0.25) light.bit(a.x + rnd(-8, 8), a.y - rnd(14, 40), el, { dur: rnd(0.4, 0.8), vy: rnd(-50, -20), from: rnd(5, 9), to: 1, flame: el === 'fire', sway: 3 });
+        light.lamp(ax, ay - 24, el === 'holy' ? 190 : 120, el, el === 'holy' ? 0.42 : 0.3);
+        if (!halted && Math.random() < 0.25) light.bit(ax + rnd(-8, 8), ay - rnd(14, 40), el, { dur: rnd(0.4, 0.8), vy: rnd(-50, -20), from: rnd(5, 9), to: 1, flame: el === 'fire', sway: 3 });
       }
       // Tam's colors: everyone near them strikes faster, and the ground says how near.
       if (a.def.quirk === 'rally' && !down && Math.floor(clock * 2) !== Math.floor((clock - dt) * 2) && !halted) {
-        light.bit(a.x, a.y, 'holy', { dur: 0.5, from: 30, to: 150, alpha: 0.22, flat: 0.62, frame: 'fx/ring' });
+        light.bit(ax, ay, 'holy', { dur: 0.5, from: 30, to: 150, alpha: 0.22, flat: 0.62, frame: 'fx/ring' });
       }
     }
   }
@@ -622,7 +628,7 @@ export class Deeds {
     for (const a of this.world.band) {
       const v = this.allies.get(a.id);
       // One that is down lies flat: it throws next to nothing.
-      if (v) out.push({ x: a.x, y: a.y, tall: Math.min(64, v.fig.height) * (a.down > 0 ? 0.35 : 1), wide: 42, alpha: a.down > 0 ? 0.6 : 1 });
+      if (v) out.push({ x: v.fig.x, y: v.fig.y, tall: Math.min(64, v.fig.height) * (a.down > 0 ? 0.35 : 1), wide: 42, alpha: a.down > 0 ? 0.6 : 1 });
     }
     return out;
   }

@@ -51,6 +51,9 @@ function easeOutBack(t: number): number {
   return 1 + (c + 1) * u * u * u + c * u * u;
 }
 
+/** How much ground one whole stride (two steps) covers, for a figure drawn at full size. A figure half the size takes steps half as long. */
+const STRIDE_LONG = 150;
+
 export class Figure {
   readonly root: Phaser.GameObjects.Container;
   /** Where its feet are. Set these, then call update. */
@@ -83,6 +86,9 @@ export class Figure {
   private turn: number;
   private hopT = 0;
   private hopBlend = 0;
+  private walkT = 0;
+  private walkBlend = 0;
+  private lastY = Number.NaN;
   private actAt = -1;
   private actWindup = 0.3;
   private actBig = false;
@@ -255,16 +261,45 @@ export class Figure {
     // A flag stirs on a building as a plume does on a helm, and harder when there is something to cheer.
     p.extraRot += (fixed && this.cheering ? 9 : 5) * Math.sin(t * (fixed && this.cheering ? 5 : 2.3) + 0.5);
 
-    // Walking, and cheering, are small hops.
-    const hopping = !fixed && (this.moving || this.cheering) && this.deadAt < 0;
+    // How far it has gone since it was last drawn: its steps are timed to the ground covered, so that its feet do not slide.
+    const gone = Number.isNaN(this.lastX) ? 0 : Math.hypot(this.x - this.lastX, this.y - this.lastY);
+    this.lastY = this.y;
+
+    // Walking is a walk: one leg forward as the other goes back, each foot lifted as it comes through, the body
+    // riding up a little as the legs pass. It was a hop once, a bounce and a squash on landing three times a
+    // second, and with every other jolt in the picture the owner called it "clanky". It begins and ends eased.
+    const walking = !fixed && this.moving && !this.cheering && this.deadAt < 0;
+    this.walkBlend += ((walking ? 1 : 0) - this.walkBlend) * Math.min(1, dt * 10);
+    if (walking) this.walkT += Math.min(0.12, gone / (STRIDE_LONG * this.scale));
+    if (this.walkBlend > 0.01) {
+      const b = this.walkBlend;
+      const a = this.walkT * Math.PI * 2;
+      const sw = Math.sin(a);
+      const lift = Math.cos(a);
+      p.legFrontRot += 21 * sw * b;
+      p.legBackRot -= 21 * sw * b;
+      p.legFrontY -= 3.2 * Math.max(0, lift) * b;
+      p.legBackY -= 3.2 * Math.max(0, -lift) * b;
+      p.rootY -= 1.5 * (0.5 + 0.5 * Math.cos(a * 2)) * b;
+      p.bodyRot += 1.3 * sw * b;
+      p.headRot -= 1.1 * sw * b;
+      p.offRot -= 3 * sw * b;
+      p.weaponRot += 2.4 * Math.sin(a + 0.7) * b;
+    } else if (!walking) {
+      // Stood still long enough: the next walk starts on the same foot.
+      this.walkT = 0;
+    }
+
+    // Cheering is small hops.
+    const hopping = !fixed && this.cheering && this.deadAt < 0;
     this.hopBlend += ((hopping ? 1 : 0) - this.hopBlend) * Math.min(1, dt * 12);
     if (hopping || this.hopBlend > 0.02) {
-      this.hopT += dt * (this.cheering ? 2.4 : 2.9 * this.stride);
+      this.hopT += dt * 2.4;
       const h = Math.abs(Math.sin(this.hopT * Math.PI));
       addPose(p, HOP_POSE, h * this.hopBlend);
       const land = 1 - h;
       addPose(p, LAND_POSE, land * land * land * land * this.hopBlend);
-      if (this.cheering) p.weaponRot -= 30 * h * this.hopBlend;
+      p.weaponRot -= 30 * h * this.hopBlend;
     } else {
       this.hopT = 0;
     }
@@ -458,11 +493,13 @@ export class Figure {
     }
 
     // Turning round is a quick flip through flat, like a card.
-    this.turn += (this.facing - this.turn) * Math.min(1, dt * 20);
+    // Turning round is a quick squash through the middle, never a flip from one frame to the next.
+    this.turn += (this.facing - this.turn) * Math.min(1, dt * 15);
     const root = this.root;
     root.x = this.x;
     root.y = this.y;
-    root.scaleX = this.turn * this.scale;
+    // Never thinner than half as it comes round: all the way through nothing, it was a sliver of a figure for a frame.
+    root.scaleX = (this.turn < 0 ? -1 : 1) * Math.max(0.5, Math.abs(this.turn)) * this.scale;
     root.scaleY = this.scale;
     root.alpha = alpha;
     root.depth = this.y + this.lift;

@@ -37,24 +37,25 @@ export const SUN_ANGLE = 0.62;
  * player sees, so it is the golden hour: a low warm sun, long shadows and cool shade. A reviewer said of the
  * first version, which began at noon, that it was "a pale haze over a flat lawn".
  */
+// Night is dark, and only a little blue: a deep blue night turned a captain's grey iron to the hero's own blue.
 const DAYS: Record<Land, Array<[number, Hour]>> = {
   meadow: [
     [0, { ambient: [0.56, 0.62, 0.78], sun: [0.62, 0.4, 0.1], clouds: 0.88, shade: [0.84, 0.92, 1.14], vignette: 0.4, long: 1.15, cast: 0.3 }],
     [0.45, { ambient: [0.62, 0.6, 0.76], sun: [0.56, 0.28, 0.1], clouds: 0.86, shade: [0.9, 0.84, 1.12], vignette: 0.44, long: 1.6, cast: 0.28 }],
     [0.8, { ambient: [0.5, 0.48, 0.72], sun: [0.34, 0.14, 0.14], clouds: 0.7, shade: [0.8, 0.84, 1.2], vignette: 0.46, long: 1.9, cast: 0.18 }],
-    [1, { ambient: [0.32, 0.4, 0.66], sun: [0.1, 0.14, 0.22], clouds: 0.6, shade: [0.78, 0.9, 1.24], vignette: 0.46, long: 0.8, cast: 0.16 }],
+    [1, { ambient: [0.38, 0.42, 0.58], sun: [0.1, 0.13, 0.2], clouds: 0.6, shade: [0.86, 0.92, 1.14], vignette: 0.46, long: 0.8, cast: 0.16 }],
   ],
   desert: [
     [0, { ambient: [0.6, 0.6, 0.72], sun: [0.6, 0.42, 0.14], clouds: 0.72, shade: [0.95, 0.9, 1.08], vignette: 0.38, long: 1.1, cast: 0.3 }],
     [0.5, { ambient: [0.66, 0.54, 0.62], sun: [0.56, 0.24, 0.08], clouds: 0.7, shade: [1.0, 0.8, 1.04], vignette: 0.46, long: 1.7, cast: 0.28 }],
     [0.8, { ambient: [0.52, 0.42, 0.62], sun: [0.3, 0.1, 0.14], clouds: 0.5, shade: [0.84, 0.8, 1.2], vignette: 0.5, long: 2, cast: 0.18 }],
-    [1, { ambient: [0.32, 0.36, 0.64], sun: [0.1, 0.12, 0.2], clouds: 0.4, shade: [0.8, 0.88, 1.24], vignette: 0.46, long: 0.8, cast: 0.16 }],
+    [1, { ambient: [0.38, 0.4, 0.58], sun: [0.1, 0.12, 0.18], clouds: 0.4, shade: [0.88, 0.9, 1.14], vignette: 0.46, long: 0.8, cast: 0.16 }],
   ],
   snow: [
     [0, { ambient: [0.58, 0.68, 0.86], sun: [0.5, 0.36, 0.18], clouds: 0.8, shade: [0.84, 0.94, 1.14], vignette: 0.4, long: 1.4, cast: 0.26 }],
     [0.5, { ambient: [0.48, 0.58, 0.84], sun: [0.3, 0.2, 0.3], clouds: 0.7, shade: [0.78, 0.9, 1.24], vignette: 0.46, long: 1.9, cast: 0.18 }],
     // The last of it is under the northern lights.
-    [1, { ambient: [0.3, 0.4, 0.64], sun: [0.06, 0.24, 0.16], clouds: 0.7, shade: [0.78, 0.92, 1.24], vignette: 0.46, long: 0.8, cast: 0.16 }],
+    [1, { ambient: [0.36, 0.42, 0.58], sun: [0.06, 0.22, 0.16], clouds: 0.7, shade: [0.86, 0.94, 1.14], vignette: 0.46, long: 0.8, cast: 0.16 }],
   ],
 };
 
