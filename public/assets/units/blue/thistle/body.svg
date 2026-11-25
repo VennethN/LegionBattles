@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="thistle-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="thistle-body-hide-shape" d="M 56.5 121.8 C 58.6 115.9 62.4 108.6 69 105.1 C 75.5 101.7 87 101 96 101 C 105 101 116.5 102 123 105.1 C 129.6 108.2 133.4 113.8 135.5 119.7 C 137.6 125.6 137.6 134.9 135.5 140.5 C 133.4 146 129.6 150.4 123 153 C 116.5 155.6 105 156.1 96 156.1 C 87 156.1 75.5 155.6 69 153 C 62.4 150.4 58.6 145.7 56.5 140.5 C 54.4 135.3 54.4 127.7 56.5 121.8 Z"/>
+<clipPath id="thistle-body-hide-clip"><use href="#thistle-body-hide-shape"/></clipPath>
+<clipPath id="thistle-body-hide-lit-clip"><use href="#thistle-body-hide-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="thistle-body-blanket-shape" d="M 75.2 101 L 116.8 98.9 C 116.8 98.9 121.7 126.6 121 134.2 C 120.3 141.9 112.6 144.6 112.6 144.6 L 81.4 146.7 C 81.4 146.7 74.2 143.9 73.1 136.3 C 72.1 128.7 75.2 101 75.2 101 Z"/>
+<clipPath id="thistle-body-blanket-clip"><use href="#thistle-body-blanket-shape"/></clipPath>
+<clipPath id="thistle-body-blanket-lit-clip"><use href="#thistle-body-blanket-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="thistle-body-trim-shape" d="M 69 136.3 L 127.2 136.3 L 127.2 142.6 L 69 142.6 L 69 136.3 Z"/>
+</defs>
+<g id="thistle-body-hide">
+<use id="thistle-body-hide-shade" href="#thistle-body-hide-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-body-hide-clip)">
+<use id="thistle-body-hide-deep" href="#thistle-body-hide-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="thistle-body-hide-shade-over" href="#thistle-body-hide-shape" transform="translate(-3.72 -3.72)" fill="#8c6b42"/>
+<use id="thistle-body-hide-fill" href="#thistle-body-hide-shape" transform="translate(-6 -6)" fill="#b08a5a"/>
+<g clip-path="url(#thistle-body-hide-lit-clip)">
+<use id="thistle-body-hide-lit" href="#thistle-body-hide-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-body-hide-fill-over" href="#thistle-body-hide-shape" transform="translate(4.6 4.6)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="thistle-body-hide-line" href="#thistle-body-hide-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-body-blanket">
+<use id="thistle-body-blanket-shade" href="#thistle-body-blanket-shape" fill="#2f5893"/>
+<g clip-path="url(#thistle-body-blanket-clip)">
+<use id="thistle-body-blanket-fill" href="#thistle-body-blanket-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#thistle-body-blanket-lit-clip)">
+<use id="thistle-body-blanket-lit" href="#thistle-body-blanket-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-body-blanket-fill-over" href="#thistle-body-blanket-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<g id="thistle-body-trim">
+<use id="thistle-body-trim-fill" href="#thistle-body-trim-shape" fill="#c8a24a"/>
+<use id="thistle-body-trim-line" href="#thistle-body-trim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-body-blanket-line" href="#thistle-body-blanket-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

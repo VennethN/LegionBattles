@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="nan-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="nan-leg-front-boot-shape" d="M 98.3 153.4 L 114.5 151.7 L 116 165.4 C 121.1 164.8 125.7 167.8 126.3 172.9 L 126.4 174.6 Q 126.8 178.1 123.4 178.4 L 104.6 180.4 Q 101.1 180.8 100.8 177.3 Z"/>
+<clipPath id="nan-leg-front-boot-clip"><use href="#nan-leg-front-boot-shape"/></clipPath>
+<clipPath id="nan-leg-front-boot-lit-clip"><use href="#nan-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="nan-leg-front-boot">
+<use id="nan-leg-front-boot-shade" href="#nan-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#nan-leg-front-boot-clip)">
+<use id="nan-leg-front-boot-fill" href="#nan-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#nan-leg-front-boot-lit-clip)">
+<use id="nan-leg-front-boot-lit" href="#nan-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="nan-leg-front-boot-fill-over" href="#nan-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="nan-leg-front-sole" d="M 97.3 176.9 L 131.5 173.3 L 132.2 180.1 L 98 183.7 L 97.3 176.9 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="nan-leg-front-cuff" d="M 95.8 163.2 L 119.8 160.6 L 120.2 164.5 L 96.2 167 L 95.8 163.2 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="nan-leg-front-cuff-under" d="M 96.2 167 L 120.2 164.5 L 120.4 166.2 L 96.4 168.7 L 96.2 167 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="nan-leg-front-boot-line" href="#nan-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

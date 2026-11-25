@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="orrin-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="orrin-leg-back-boot-shape" d="M 72.6 147.5 L 91.4 149.1 L 90 164.9 C 95.9 165.4 100.5 169.8 100 175.7 L 99.8 177.7 Q 99.4 181.6 95.5 181.3 L 73.8 179.4 Q 69.9 179 70.2 175.1 Z"/>
+<clipPath id="orrin-leg-back-boot-clip"><use href="#orrin-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="orrin-leg-back-boot">
+<use id="orrin-leg-back-boot-fill" href="#orrin-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#orrin-leg-back-boot-clip)">
+<path id="orrin-leg-back-sole" d="M 66.3 173.8 L 105.8 177.2 L 105.1 185.1 L 65.7 181.6 L 66.3 173.8 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="orrin-leg-back-boot-line" href="#orrin-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

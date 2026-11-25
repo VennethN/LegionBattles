@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="quill" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="quill-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="quill-shadow-shadow" d="M 124 181 C 124 184.3 111.5 187 96 187 C 80.5 187 68 184.3 68 181 C 68 177.7 80.5 175 96 175 C 111.5 175 124 177.7 124 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="quill-wing-far-layer" transform="translate(98 104) rotate(0) scale(1 1) translate(-98 -104)">
+<defs>
+<path id="quill-wing-far-wing-shape" d="M 102 104 C 102 104 91.3 87 84 78 C 76.7 69 67 57 58 50 C 49 43 30 36 30 36 L 42 56 L 30 62 L 48 76 L 40 84 C 40 84 58 91.3 66 96 C 74 100.7 88 112 88 112 L 102 104 Z"/>
+</defs>
+<g id="quill-wing-far-wing">
+<use id="quill-wing-far-wing-fill" href="#quill-wing-far-wing-shape" fill="#77766b"/>
+<use id="quill-wing-far-wing-line" href="#quill-wing-far-wing-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="quill-tail-layer" transform="translate(84 116) rotate(0) scale(1 1) translate(-84 -116)">
+<defs>
+<path id="quill-tail-tail-shape" d="M 90 106 L 56 108 L 44 118 L 58 120 L 48 130 L 64 128 L 60 140 L 80 130 L 94 120 Z"/>
+<clipPath id="quill-tail-tail-clip"><use href="#quill-tail-tail-shape"/></clipPath>
+<clipPath id="quill-tail-tail-lit-clip"><use href="#quill-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="quill-tail-tail">
+<use id="quill-tail-tail-shade" href="#quill-tail-tail-shape" fill="#77766b"/>
+<g clip-path="url(#quill-tail-tail-clip)">
+<use id="quill-tail-tail-fill" href="#quill-tail-tail-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#quill-tail-tail-lit-clip)">
+<use id="quill-tail-tail-lit" href="#quill-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="quill-tail-tail-fill-over" href="#quill-tail-tail-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="quill-tail-tail-line" href="#quill-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="quill-streamer-layer" transform="translate(116 128) rotate(0) scale(1 1) translate(-116 -128)">
+<defs>
+<path id="quill-streamer-streamer-shape" d="M 120 124 C 120 124 108.7 129.7 102 134 C 95.3 138.3 88.3 147.3 80 150 C 71.7 152.7 52 150 52 150 C 52 150 58.3 158 64 160 C 69.7 162 79 164 86 162 C 93 160 100 152.7 106 148 C 112 143.3 122 134 122 134 L 120 124 Z"/>
+<clipPath id="quill-streamer-streamer-clip"><use href="#quill-streamer-streamer-shape"/></clipPath>
+<clipPath id="quill-streamer-streamer-lit-clip"><use href="#quill-streamer-streamer-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="quill-streamer-streamer">
+<use id="quill-streamer-streamer-shade" href="#quill-streamer-streamer-shape" fill="#2f5893"/>
+<g clip-path="url(#quill-streamer-streamer-clip)">
+<use id="quill-streamer-streamer-fill" href="#quill-streamer-streamer-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#quill-streamer-streamer-lit-clip)">
+<use id="quill-streamer-streamer-lit" href="#quill-streamer-streamer-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="quill-streamer-streamer-fill-over" href="#quill-streamer-streamer-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="quill-streamer-streamer-line" href="#quill-streamer-streamer-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="quill-talon-far-layer" transform="translate(118 122) rotate(0) scale(1 1) translate(-118 -122)">
+<defs>
+<path id="quill-talon-far-leg-shape" d="M 119.2 122.8 L 135.2 138.8 C 136.7 140.4 139.3 140.4 140.8 138.8 C 142.4 137.3 142.4 134.7 140.8 133.2 L 124.8 117.2 C 123.3 115.6 120.7 115.6 119.2 117.2 C 117.6 118.7 117.6 121.3 119.2 122.8 Z"/>
+<path id="quill-talon-far-claws-shape" d="M 134 132 L 152 132 L 146 138 L 154 144 L 144 144 L 146 154 L 136 146 L 132 140 Z"/>
+</defs>
+<g id="quill-talon-far-leg">
+<use id="quill-talon-far-leg-fill" href="#quill-talon-far-leg-shape" fill="#9c7c33"/>
+<use id="quill-talon-far-leg-line" href="#quill-talon-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="quill-talon-far-claws">
+<use id="quill-talon-far-claws-fill" href="#quill-talon-far-claws-shape" fill="#9c7c33"/>
+<use id="quill-talon-far-claws-line" href="#quill-talon-far-claws-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="quill-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="quill-body-body-shape" d="M 78 114 C 78.3 108.7 82.7 100 88 96 C 93.3 92 103 90 110 90 C 117 90 125 92.7 130 96 C 135 99.3 140 105 140 110 C 140 115 135.7 122.3 130 126 C 124.3 129.7 113.3 131.7 106 132 C 98.7 132.3 90.7 131 86 128 C 81.3 125 77.7 119.3 78 114 Z"/>
+<clipPath id="quill-body-body-clip"><use href="#quill-body-body-shape"/></clipPath>
+<clipPath id="quill-body-body-lit-clip"><use href="#quill-body-body-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="quill-body-breast-shape" d="M 104 116 L 146 108 C 146 108 140.3 127 134 132 C 127.7 137 113 140.7 108 138 C 103 135.3 104 116 104 116 Z"/>
+</defs>
+<g id="quill-body-body">
+<use id="quill-body-body-shade" href="#quill-body-body-shape" fill="#77766b"/>
+<g clip-path="url(#quill-body-body-clip)">
+<use id="quill-body-body-deep" href="#quill-body-body-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="quill-body-body-shade-over" href="#quill-body-body-shape" transform="translate(-3.1 -3.1)" fill="#77766b"/>
+<use id="quill-body-body-fill" href="#quill-body-body-shape" transform="translate(-5 -5)" fill="#9c9a8c"/>
+<g clip-path="url(#quill-body-body-lit-clip)">
+<use id="quill-body-body-lit" href="#quill-body-body-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="quill-body-body-fill-over" href="#quill-body-body-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<g id="quill-body-breast">
+<use id="quill-body-breast-fill" href="#quill-body-breast-shape" fill="#e9dfc6"/>
+<use id="quill-body-breast-line" href="#quill-body-breast-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="quill-body-body-line" href="#quill-body-body-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="quill-talon-near-layer" transform="translate(112 126) rotate(0) scale(1 1) translate(-112 -126)">
+<defs>
+<path id="quill-talon-near-leg-shape" d="M 111.2 126.8 L 127.2 142.8 C 128.7 144.4 131.3 144.4 132.8 142.8 C 134.4 141.3 134.4 138.7 132.8 137.2 L 116.8 121.2 C 115.3 119.6 112.7 119.6 111.2 121.2 C 109.6 122.7 109.6 125.3 111.2 126.8 Z"/>
+<path id="quill-talon-near-claws-shape" d="M 126 136 L 144 136 L 138 142 L 146 148 L 136 148 L 138 158 L 128 150 L 124 144 Z"/>
+</defs>
+<g id="quill-talon-near-leg">
+<use id="quill-talon-near-leg-fill" href="#quill-talon-near-leg-shape" fill="#c8a24a"/>
+<use id="quill-talon-near-leg-line" href="#quill-talon-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="quill-talon-near-claws">
+<use id="quill-talon-near-claws-fill" href="#quill-talon-near-claws-shape" fill="#c8a24a"/>
+<use id="quill-talon-near-claws-line" href="#quill-talon-near-claws-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="quill-wing-layer" transform="translate(106 102) rotate(0) scale(1 1) translate(-106 -102)">
+<defs>
+<path id="quill-wing-wing-shape" d="M 112 100 C 112 100 109.3 80.3 106 70 C 102.7 59.7 97.3 48 92 38 C 86.7 28 74 10 74 10 L 76 36 L 62 36 L 72 56 L 60 60 C 60 60 72.7 76 78 84 C 83.3 92 92 108 92 108 L 112 100 Z"/>
+<clipPath id="quill-wing-wing-clip"><use href="#quill-wing-wing-shape"/></clipPath>
+<clipPath id="quill-wing-wing-lit-clip"><use href="#quill-wing-wing-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="quill-wing-wing">
+<use id="quill-wing-wing-shade" href="#quill-wing-wing-shape" fill="#77766b"/>
+<g clip-path="url(#quill-wing-wing-clip)">
+<use id="quill-wing-wing-deep" href="#quill-wing-wing-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="quill-wing-wing-shade-over" href="#quill-wing-wing-shape" transform="translate(-3.1 -3.1)" fill="#77766b"/>
+<use id="quill-wing-wing-fill" href="#quill-wing-wing-shape" transform="translate(-5 -5)" fill="#9c9a8c"/>
+<g clip-path="url(#quill-wing-wing-lit-clip)">
+<use id="quill-wing-wing-lit" href="#quill-wing-wing-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="quill-wing-wing-fill-over" href="#quill-wing-wing-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<path id="quill-wing-feather-a" d="M 100 92 Q 92.8 62 80 34 Q 89.4 63.2 100 92 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="quill-wing-feather-b" d="M 92 96 Q 83.7 72.7 70 52 Q 80.5 74.3 92 96 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="quill-wing-wing-line" href="#quill-wing-wing-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="quill-head-layer" transform="translate(128 104) rotate(0) scale(1 1) translate(-128 -104)">
+<defs>
+<path id="quill-head-neck-shape" d="M 124.2 114.3 L 142.2 118.3 C 146.7 119.3 151.3 116.4 152.3 111.8 C 153.3 107.3 150.4 102.7 145.8 101.7 L 127.8 97.7 C 123.3 96.7 118.7 99.6 117.7 104.2 C 116.7 108.7 119.6 113.3 124.2 114.3 Z"/>
+<clipPath id="quill-head-neck-clip"><use href="#quill-head-neck-shape"/></clipPath>
+<clipPath id="quill-head-neck-lit-clip"><use href="#quill-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="quill-head-beak-shape" d="M 158 106 C 158 106 168.3 105.5 171 108 C 173.7 110.5 174 121 174 121 C 174 121 166.8 116.8 164 116 C 161.2 115.2 157 116 157 116 L 158 106 Z"/>
+<path id="quill-head-hood-shape" d="M 136 102 C 136 102 142.3 95.3 146 95 C 149.7 94.7 155.5 96.8 158 100 C 160.5 103.2 161 114 161 114 C 161 114 152.2 120.7 148 121 C 143.8 121.3 138 119.2 136 116 C 134 112.8 136 102 136 102 Z"/>
+<clipPath id="quill-head-hood-clip"><use href="#quill-head-hood-shape"/></clipPath>
+<clipPath id="quill-head-hood-lit-clip"><use href="#quill-head-hood-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="quill-head-plume-shape" d="M 146 96 C 146 96 144 87 142 84 C 140 81 134 78 134 78 C 134 78 143 77 146 80 C 149 83 152 96 152 96 L 146 96 Z"/>
+</defs>
+<g id="quill-head-neck">
+<use id="quill-head-neck-shade" href="#quill-head-neck-shape" fill="#77766b"/>
+<g clip-path="url(#quill-head-neck-clip)">
+<use id="quill-head-neck-fill" href="#quill-head-neck-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#quill-head-neck-lit-clip)">
+<use id="quill-head-neck-lit" href="#quill-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="quill-head-neck-fill-over" href="#quill-head-neck-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="quill-head-neck-line" href="#quill-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="quill-head-beak">
+<use id="quill-head-beak-fill" href="#quill-head-beak-shape" fill="#c8a24a"/>
+<use id="quill-head-beak-line" href="#quill-head-beak-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="quill-head-hood">
+<use id="quill-head-hood-shade" href="#quill-head-hood-shape" fill="#2f5893"/>
+<g clip-path="url(#quill-head-hood-clip)">
+<use id="quill-head-hood-fill" href="#quill-head-hood-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#quill-head-hood-lit-clip)">
+<use id="quill-head-hood-lit" href="#quill-head-hood-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="quill-head-hood-fill-over" href="#quill-head-hood-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="quill-head-hood-line" href="#quill-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="quill-head-plume">
+<use id="quill-head-plume-fill" href="#quill-head-plume-shape" fill="#c8a24a"/>
+<use id="quill-head-plume-line" href="#quill-head-plume-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

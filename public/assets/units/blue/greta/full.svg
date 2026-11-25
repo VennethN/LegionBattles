@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="greta" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="greta-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="greta-shadow-shadow" d="M 149.4 181 C 149.4 186 125.5 190 96 190 C 66.5 190 42.6 186 42.6 181 C 42.6 176 66.5 172 96 172 C 125.5 172 149.4 176 149.4 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="greta-tail-layer" transform="translate(56.56 108.08) rotate(0) scale(1 1) translate(-56.56 -108.08)">
+<defs>
+<path id="greta-tail-tail-shape" d="M 64.7 105.8 C 64.7 110.9 60 115 54.2 115 C 48.5 115 43.8 110.9 43.8 105.8 C 43.8 100.6 48.5 96.5 54.2 96.5 C 60 96.5 64.7 100.6 64.7 105.8 Z"/>
+<clipPath id="greta-tail-tail-clip"><use href="#greta-tail-tail-shape"/></clipPath>
+<clipPath id="greta-tail-tail-lit-clip"><use href="#greta-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="greta-tail-tail">
+<use id="greta-tail-tail-shade" href="#greta-tail-tail-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-tail-tail-clip)">
+<use id="greta-tail-tail-fill" href="#greta-tail-tail-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-tail-tail-lit-clip)">
+<use id="greta-tail-tail-lit" href="#greta-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-tail-tail-fill-over" href="#greta-tail-tail-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="greta-tail-tail-line" href="#greta-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="greta-legs-far-layer" transform="translate(98.32 145.2) rotate(0) scale(1 1) translate(-98.32 -145.2)">
+<defs>
+<path id="greta-legs-far-leg-shape" d="M 66.4 140.6 L 93.1 140.6 L 92.5 155.6 L 101.2 167.2 Q 109.3 168.4 109.3 175.4 L 109.3 180 L 74.5 180 L 74.5 170.7 L 65.8 155.6 Z"/>
+<path id="greta-legs-far-leg-2-shape" d="M 103.5 140.6 L 130.2 140.6 L 129.1 155.6 L 123.3 167.2 Q 131.4 168.4 131.4 175.4 L 131.4 180 L 96.6 180 L 96.6 170.7 L 102.4 155.6 Z"/>
+</defs>
+<g id="greta-legs-far-leg">
+<use id="greta-legs-far-leg-fill" href="#greta-legs-far-leg-shape" fill="#4e3520"/>
+<use id="greta-legs-far-leg-line" href="#greta-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-legs-far-leg-2">
+<use id="greta-legs-far-leg-2-fill" href="#greta-legs-far-leg-2-shape" fill="#4e3520"/>
+<use id="greta-legs-far-leg-2-line" href="#greta-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="greta-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="greta-body-hide-shape" d="M 51.9 115 C 54.2 108.5 58.5 100.3 65.8 96.5 C 73.2 92.6 85.9 91.8 96 91.8 C 106.1 91.8 118.8 93 126.2 96.5 C 133.5 100 137.8 106.1 140.1 112.7 C 142.4 119.3 142.4 129.7 140.1 135.9 C 137.8 142.1 133.5 146.9 126.2 149.8 C 118.8 152.7 106.1 153.3 96 153.3 C 85.9 153.3 73.2 152.7 65.8 149.8 C 58.5 146.9 54.2 141.7 51.9 135.9 C 49.6 130.1 49.6 121.6 51.9 115 Z"/>
+<clipPath id="greta-body-hide-clip"><use href="#greta-body-hide-shape"/></clipPath>
+<clipPath id="greta-body-hide-lit-clip"><use href="#greta-body-hide-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="greta-body-blanket-shape" d="M 72.8 91.8 L 119.2 89.5 C 119.2 89.5 124.6 120.5 123.8 129 C 123.1 137.5 114.6 140.6 114.6 140.6 L 79.8 142.9 C 79.8 142.9 71.6 139.8 70.5 131.3 C 69.3 122.8 72.8 91.8 72.8 91.8 Z"/>
+<clipPath id="greta-body-blanket-clip"><use href="#greta-body-blanket-shape"/></clipPath>
+<clipPath id="greta-body-blanket-lit-clip"><use href="#greta-body-blanket-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="greta-body-trim-shape" d="M 65.8 131.3 L 130.8 131.3 L 130.8 138.2 L 65.8 138.2 L 65.8 131.3 Z"/>
+<path id="greta-body-patch-a-shape" d="M 79.8 98.8 L 91.4 98.8 Q 93.7 98.8 93.7 101.1 L 93.7 111.6 Q 93.7 113.9 91.4 113.9 L 79.8 113.9 Q 77.4 113.9 77.4 111.6 L 77.4 101.1 Q 77.4 98.8 79.8 98.8 Z"/>
+<path id="greta-body-patch-b-shape" d="M 100.6 113.9 L 111.1 113.9 Q 113.4 113.9 113.4 116.2 L 113.4 125.5 Q 113.4 127.8 111.1 127.8 L 100.6 127.8 Q 98.3 127.8 98.3 125.5 L 98.3 116.2 Q 98.3 113.9 100.6 113.9 Z"/>
+<path id="greta-body-hump-shape" d="M 105.3 96.5 C 104.1 91.1 109.9 81.8 114.6 77.9 C 119.2 74.1 127.7 71.7 133.1 73.3 C 138.5 74.8 145.1 81.8 147 87.2 C 149 92.6 149 101.9 144.7 105.8 C 140.5 109.6 128.1 111.9 121.5 110.4 C 114.9 108.9 106.4 101.9 105.3 96.5 Z"/>
+<clipPath id="greta-body-hump-clip"><use href="#greta-body-hump-shape"/></clipPath>
+<clipPath id="greta-body-hump-lit-clip"><use href="#greta-body-hump-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="greta-body-hide">
+<use id="greta-body-hide-shade" href="#greta-body-hide-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-body-hide-clip)">
+<use id="greta-body-hide-deep" href="#greta-body-hide-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="greta-body-hide-shade-over" href="#greta-body-hide-shape" transform="translate(-3.72 -3.72)" fill="#4e3520"/>
+<use id="greta-body-hide-fill" href="#greta-body-hide-shape" transform="translate(-6 -6)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-body-hide-lit-clip)">
+<use id="greta-body-hide-lit" href="#greta-body-hide-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-body-hide-fill-over" href="#greta-body-hide-shape" transform="translate(4.6 4.6)" fill="#6b4a2b"/>
+</g>
+<path id="greta-body-tuft" d="M 64.5 108.6 L 68 117.8 C 68.3 118.6 69.1 118.9 69.8 118.7 C 70.5 118.4 70.9 117.6 70.6 116.9 L 67.1 107.6 C 66.9 106.9 66.1 106.5 65.4 106.8 C 64.6 107 64.3 107.8 64.5 108.6 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="greta-body-tuft-2" d="M 80.8 101.6 L 84.3 110.9 C 84.5 111.6 85.3 112 86 111.7 C 86.8 111.4 87.1 110.6 86.9 109.9 L 83.4 100.6 C 83.1 99.9 82.3 99.5 81.6 99.8 C 80.9 100.1 80.5 100.9 80.8 101.6 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="greta-body-tuft-3" d="M 99.3 99.3 L 102.8 108.6 C 103.1 109.3 103.9 109.7 104.6 109.4 C 105.3 109.1 105.7 108.3 105.4 107.6 L 101.9 98.3 C 101.7 97.6 100.9 97.2 100.2 97.5 C 99.4 97.8 99.1 98.6 99.3 99.3 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="greta-body-tuft-4" d="M 117.9 103.9 L 121.4 113.2 C 121.6 113.9 122.4 114.3 123.2 114 C 123.9 113.8 124.3 113 124 112.2 L 120.5 103 C 120.2 102.2 119.4 101.9 118.7 102.1 C 118 102.4 117.6 103.2 117.9 103.9 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="greta-body-tuft-5" d="M 71.5 124.8 L 75 134.1 C 75.2 134.8 76 135.2 76.8 134.9 C 77.5 134.6 77.9 133.8 77.6 133.1 L 74.1 123.8 C 73.8 123.1 73 122.7 72.3 123 C 71.6 123.3 71.2 124.1 71.5 124.8 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="greta-body-tuft-6" d="M 90.1 120.2 L 93.5 129.4 C 93.8 130.2 94.6 130.5 95.3 130.3 C 96 130 96.4 129.2 96.1 128.5 L 92.7 119.2 C 92.4 118.5 91.6 118.1 90.9 118.4 C 90.2 118.6 89.8 119.4 90.1 120.2 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="greta-body-tuft-7" d="M 110.9 122.5 L 114.4 131.8 C 114.7 132.5 115.5 132.9 116.2 132.6 C 116.9 132.3 117.3 131.5 117 130.8 L 113.5 121.5 C 113.3 120.8 112.5 120.4 111.8 120.7 C 111 121 110.7 121.8 110.9 122.5 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="greta-body-tuft-8" d="M 127.2 120.2 L 130.7 129.4 C 130.9 130.2 131.7 130.5 132.4 130.3 C 133.2 130 133.5 129.2 133.3 128.5 L 129.8 119.2 C 129.5 118.5 128.7 118.1 128 118.4 C 127.3 118.6 126.9 119.4 127.2 120.2 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="greta-body-tuft-9" d="M 80.8 141 L 84.3 150.3 C 84.5 151 85.3 151.4 86 151.1 C 86.8 150.9 87.1 150.1 86.9 149.4 L 83.4 140.1 C 83.1 139.4 82.3 139 81.6 139.3 C 80.9 139.5 80.5 140.3 80.8 141 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="greta-body-tuft-10" d="M 104 141 L 107.5 150.3 C 107.7 151 108.5 151.4 109.2 151.1 C 110 150.9 110.3 150.1 110.1 149.4 L 106.6 140.1 C 106.3 139.4 105.5 139 104.8 139.3 C 104.1 139.5 103.7 140.3 104 141 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="greta-body-hide-line" href="#greta-body-hide-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-body-blanket">
+<use id="greta-body-blanket-shade" href="#greta-body-blanket-shape" fill="#2f5893"/>
+<g clip-path="url(#greta-body-blanket-clip)">
+<use id="greta-body-blanket-fill" href="#greta-body-blanket-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#greta-body-blanket-lit-clip)">
+<use id="greta-body-blanket-lit" href="#greta-body-blanket-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-body-blanket-fill-over" href="#greta-body-blanket-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<g id="greta-body-trim">
+<use id="greta-body-trim-fill" href="#greta-body-trim-shape" fill="#c8a24a"/>
+<use id="greta-body-trim-line" href="#greta-body-trim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="greta-body-blanket-line" href="#greta-body-blanket-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-body-patch-a">
+<use id="greta-body-patch-a-fill" href="#greta-body-patch-a-shape" fill="#d9cdb0"/>
+<use id="greta-body-patch-a-line" href="#greta-body-patch-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-body-patch-b">
+<use id="greta-body-patch-b-fill" href="#greta-body-patch-b-shape" fill="#b08a5a"/>
+<use id="greta-body-patch-b-line" href="#greta-body-patch-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-body-hump">
+<use id="greta-body-hump-shade" href="#greta-body-hump-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-body-hump-clip)">
+<use id="greta-body-hump-deep" href="#greta-body-hump-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="greta-body-hump-shade-over" href="#greta-body-hump-shape" transform="translate(-3.1 -3.1)" fill="#4e3520"/>
+<use id="greta-body-hump-fill" href="#greta-body-hump-shape" transform="translate(-5 -5)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-body-hump-lit-clip)">
+<use id="greta-body-hump-lit" href="#greta-body-hump-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-body-hump-fill-over" href="#greta-body-hump-shape" transform="translate(4.6 4.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="greta-body-hump-line" href="#greta-body-hump-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="greta-legs-near-layer" transform="translate(98.32 145.2) rotate(0) scale(1 1) translate(-98.32 -145.2)">
+<defs>
+<path id="greta-legs-near-leg-shape" d="M 52.5 140.6 L 79.2 140.6 L 68.7 155.6 L 69.9 167.2 Q 78 168.4 78 175.4 L 78 180 L 43.2 180 L 43.2 170.7 L 42.1 155.6 Z"/>
+<clipPath id="greta-legs-near-leg-clip"><use href="#greta-legs-near-leg-shape"/></clipPath>
+<clipPath id="greta-legs-near-leg-lit-clip"><use href="#greta-legs-near-leg-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="greta-legs-near-leg-2-shape" d="M 115.1 140.6 L 141.8 140.6 L 149.9 155.6 L 151.1 167.2 Q 159.2 168.4 159.2 175.4 L 159.2 180 L 124.4 180 L 124.4 170.7 L 123.3 155.6 Z"/>
+<clipPath id="greta-legs-near-leg-2-clip"><use href="#greta-legs-near-leg-2-shape"/></clipPath>
+<clipPath id="greta-legs-near-leg-2-lit-clip"><use href="#greta-legs-near-leg-2-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="greta-legs-near-leg">
+<use id="greta-legs-near-leg-shade" href="#greta-legs-near-leg-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-legs-near-leg-clip)">
+<use id="greta-legs-near-leg-fill" href="#greta-legs-near-leg-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-legs-near-leg-lit-clip)">
+<use id="greta-legs-near-leg-lit" href="#greta-legs-near-leg-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-legs-near-leg-fill-over" href="#greta-legs-near-leg-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="greta-legs-near-leg-line" href="#greta-legs-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-legs-near-leg-2">
+<use id="greta-legs-near-leg-2-shade" href="#greta-legs-near-leg-2-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-legs-near-leg-2-clip)">
+<use id="greta-legs-near-leg-2-fill" href="#greta-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-legs-near-leg-2-lit-clip)">
+<use id="greta-legs-near-leg-2-lit" href="#greta-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-legs-near-leg-2-fill-over" href="#greta-legs-near-leg-2-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="greta-legs-near-leg-2-line" href="#greta-legs-near-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="greta-head-layer" transform="translate(133.12 105.76) rotate(0) scale(1 1) translate(-133.12 -105.76)">
+<defs>
+<path id="greta-head-ear-far-shape" d="M 181.8 55.2 C 181.8 62.1 176.2 67.7 169.3 67.7 C 162.4 67.7 156.8 62.1 156.8 55.2 C 156.8 48.3 162.4 42.7 169.3 42.7 C 176.2 42.7 181.8 48.3 181.8 55.2 Z"/>
+<path id="greta-head-neck-shape" d="M 136.8 133.1 L 161.8 110.8 C 171 102.6 171.9 88.6 163.7 79.4 C 155.5 70.2 141.4 69.3 132.2 77.5 L 107.2 99.8 C 98 108 97.2 122 105.3 131.2 C 113.5 140.4 127.6 141.3 136.8 133.1 Z"/>
+<clipPath id="greta-head-neck-clip"><use href="#greta-head-neck-shape"/></clipPath>
+<clipPath id="greta-head-neck-lit-clip"><use href="#greta-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="greta-head-head-shape" d="M 127.6 83 C 129.2 76.1 132.7 65.9 138.7 60.8 C 144.7 55.6 155.4 51.5 163.7 52.4 C 172.1 53.3 182.5 60.3 188.8 66.3 C 195.1 72.4 201.3 88.6 201.3 88.6 L 202.7 105.3 C 202.7 105.3 189.7 117.1 180.4 119.2 C 171.2 121.3 155.6 120.6 147 117.8 C 138.5 115 132.2 108.3 128.9 102.5 C 125.7 96.7 125.9 90 127.6 83 Z"/>
+<clipPath id="greta-head-head-clip"><use href="#greta-head-head-shape"/></clipPath>
+<clipPath id="greta-head-head-lit-clip"><use href="#greta-head-head-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="greta-head-muzzle-shape" d="M 169.3 83 C 169.3 83 186.7 78.4 193 81.6 C 199.2 84.9 206.9 102.5 206.9 102.5 C 206.9 102.5 190 119 183.2 120.6 C 176.5 122.2 168.8 118.5 166.5 112.3 C 164.2 106 169.3 83 169.3 83 Z"/>
+<clipPath id="greta-head-muzzle-clip"><use href="#greta-head-muzzle-shape"/></clipPath>
+<clipPath id="greta-head-muzzle-lit-clip"><use href="#greta-head-muzzle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="greta-head-ear-shape" d="M 158.2 58 C 158.2 65.7 151.9 71.9 144.3 71.9 C 136.6 71.9 130.3 65.7 130.3 58 C 130.3 50.3 136.6 44 144.3 44 C 151.9 44 158.2 50.3 158.2 58 Z"/>
+<clipPath id="greta-head-ear-clip"><use href="#greta-head-ear-shape"/></clipPath>
+<clipPath id="greta-head-ear-lit-clip"><use href="#greta-head-ear-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="greta-head-ear-far">
+<use id="greta-head-ear-far-fill" href="#greta-head-ear-far-shape" fill="#4e3520"/>
+<use id="greta-head-ear-far-line" href="#greta-head-ear-far-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-head-neck">
+<use id="greta-head-neck-shade" href="#greta-head-neck-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-head-neck-clip)">
+<use id="greta-head-neck-fill" href="#greta-head-neck-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-head-neck-lit-clip)">
+<use id="greta-head-neck-lit" href="#greta-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-head-neck-fill-over" href="#greta-head-neck-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="greta-head-neck-line" href="#greta-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-head-head">
+<use id="greta-head-head-shade" href="#greta-head-head-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-head-head-clip)">
+<use id="greta-head-head-deep" href="#greta-head-head-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="greta-head-head-shade-over" href="#greta-head-head-shape" transform="translate(-3.1 -3.1)" fill="#4e3520"/>
+<use id="greta-head-head-fill" href="#greta-head-head-shape" transform="translate(-5 -5)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-head-head-lit-clip)">
+<use id="greta-head-head-lit" href="#greta-head-head-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-head-head-fill-over" href="#greta-head-head-shape" transform="translate(4.6 4.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="greta-head-head-line" href="#greta-head-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-head-muzzle">
+<use id="greta-head-muzzle-shade" href="#greta-head-muzzle-shape" fill="#434b56"/>
+<g clip-path="url(#greta-head-muzzle-clip)">
+<use id="greta-head-muzzle-fill" href="#greta-head-muzzle-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#greta-head-muzzle-lit-clip)">
+<use id="greta-head-muzzle-lit" href="#greta-head-muzzle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-head-muzzle-fill-over" href="#greta-head-muzzle-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="greta-head-muzzle-sheen" d="M194.76 78.38 L201.16 78.38 L182.75 122.23 L176.34 122.23 Z M204.66 78.38 L207.26 78.38 L188.85 122.23 L186.25 122.23 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="greta-head-muzzle-line" href="#greta-head-muzzle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-head-ear">
+<use id="greta-head-ear-shade" href="#greta-head-ear-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-head-ear-clip)">
+<use id="greta-head-ear-fill" href="#greta-head-ear-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-head-ear-lit-clip)">
+<use id="greta-head-ear-lit" href="#greta-head-ear-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-head-ear-fill-over" href="#greta-head-ear-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="greta-head-ear-line" href="#greta-head-ear-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

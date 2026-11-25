@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="aldous-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="aldous-leg-back-boot-shape" d="M 72.2 147.5 L 91.2 148.5 L 90.4 164.5 C 96.4 164.8 101.1 169 100.8 175 L 100.7 177 Q 100.5 181 96.5 180.8 L 74.5 179.6 Q 70.5 179.4 70.8 175.4 Z"/>
+<clipPath id="aldous-leg-back-boot-clip"><use href="#aldous-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="aldous-leg-back-boot">
+<use id="aldous-leg-back-boot-fill" href="#aldous-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#aldous-leg-back-boot-clip)">
+<path id="aldous-leg-back-sole" d="M 66.8 174.2 L 106.8 176.3 L 106.3 184.3 L 66.4 182.2 L 66.8 174.2 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="aldous-leg-back-boot-line" href="#aldous-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

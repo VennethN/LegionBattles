@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="nan-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="nan-leg-back-boot-shape" d="M 75.6 151.9 L 91.9 153 L 91 166.8 C 96.1 167.1 100.2 170.8 99.8 176 L 99.7 177.7 Q 99.4 181.1 96 180.9 L 77.1 179.6 Q 73.7 179.3 73.9 175.9 Z"/>
+<clipPath id="nan-leg-back-boot-clip"><use href="#nan-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="nan-leg-back-boot">
+<use id="nan-leg-back-boot-fill" href="#nan-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#nan-leg-back-boot-clip)">
+<path id="nan-leg-back-sole" d="M 70.6 174.8 L 104.9 177.2 L 104.4 184.1 L 70.1 181.7 L 70.6 174.8 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="nan-leg-back-boot-line" href="#nan-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

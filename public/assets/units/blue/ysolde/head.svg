@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ysolde-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="ysolde-head-veil-shape" d="M 89.5 29.4 C 97.6 28.7 107.8 30.1 114.4 35.3 C 121.1 40.6 125.8 52 129.5 60.8 C 133.2 69.6 136.5 81.4 136.5 88.1 C 136.5 94.9 129.6 101.6 129.6 101.6 C 129.6 101.6 107.6 108.1 96.4 109.1 C 85.3 110.1 62.5 107.4 62.5 107.4 C 62.5 107.4 54.5 102.1 53.3 95.4 C 52.2 88.7 53.4 76.6 55.5 67.3 C 57.6 58 60.3 45.9 65.9 39.6 C 71.6 33.3 81.4 30.1 89.5 29.4 Z"/>
+<clipPath id="ysolde-head-veil-clip"><use href="#ysolde-head-veil-shape"/></clipPath>
+<clipPath id="ysolde-head-veil-lit-clip"><use href="#ysolde-head-veil-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="ysolde-head-spire-a-shape" d="M 52.5 46.6 L 51.5 21.1 L 66.4 45.4 Z"/>
+<clipPath id="ysolde-head-spire-a-clip"><use href="#ysolde-head-spire-a-shape"/></clipPath>
+<clipPath id="ysolde-head-spire-a-lit-clip"><use href="#ysolde-head-spire-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ysolde-head-spire-e-shape" d="M 115 41.1 L 125.4 14.6 L 128.8 39.9 Z"/>
+<clipPath id="ysolde-head-spire-e-clip"><use href="#ysolde-head-spire-e-shape"/></clipPath>
+<clipPath id="ysolde-head-spire-e-lit-clip"><use href="#ysolde-head-spire-e-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ysolde-head-spire-b-shape" d="M 66.4 45.4 L 67.6 5.7 L 82.6 44 Z"/>
+<clipPath id="ysolde-head-spire-b-clip"><use href="#ysolde-head-spire-b-shape"/></clipPath>
+<clipPath id="ysolde-head-spire-b-lit-clip"><use href="#ysolde-head-spire-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ysolde-head-spire-d-shape" d="M 98.8 42.5 L 106.9 2.2 L 115 41.1 Z"/>
+<clipPath id="ysolde-head-spire-d-clip"><use href="#ysolde-head-spire-d-shape"/></clipPath>
+<clipPath id="ysolde-head-spire-d-lit-clip"><use href="#ysolde-head-spire-d-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ysolde-head-spire-c-shape" d="M 81.4 44.1 L 86 -9.9 L 99.9 42.4 Z"/>
+<clipPath id="ysolde-head-spire-c-clip"><use href="#ysolde-head-spire-c-shape"/></clipPath>
+<clipPath id="ysolde-head-spire-c-lit-clip"><use href="#ysolde-head-spire-c-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ysolde-head-band-shape" d="M 50 44.5 C 56.6 41.4 76.6 37.5 90.1 36.3 C 103.6 35.1 124 35.7 130.9 37.4 C 137.9 39.1 138.4 45.1 131.7 46.6 C 125.1 48.2 104.5 45.3 91 46.7 C 77.5 48.1 57.8 55.2 50.9 54.9 C 44.1 54.5 43.5 47.6 50 44.5 Z"/>
+</defs>
+<path id="ysolde-head-cast" d="M 128.1 98.2 C 128.6 103.9 114.5 109.9 96.6 111.4 C 78.8 113 63.9 109.6 63.4 103.9 C 62.9 98.1 77 92.2 94.8 90.6 C 112.7 89.1 127.6 92.5 128.1 98.2 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="ysolde-head-veil">
+<use id="ysolde-head-veil-shade" href="#ysolde-head-veil-shape" fill="#353041"/>
+<g clip-path="url(#ysolde-head-veil-clip)">
+<use id="ysolde-head-veil-deep" href="#ysolde-head-veil-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="ysolde-head-veil-shade-over" href="#ysolde-head-veil-shape" transform="translate(-3.72 -3.72)" fill="#353041"/>
+<use id="ysolde-head-veil-fill" href="#ysolde-head-veil-shape" transform="translate(-6 -6)" fill="#4a4458"/>
+<g clip-path="url(#ysolde-head-veil-lit-clip)">
+<use id="ysolde-head-veil-lit" href="#ysolde-head-veil-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ysolde-head-veil-fill-over" href="#ysolde-head-veil-shape" transform="translate(4.6 4.6)" fill="#4a4458"/>
+</g>
+<path id="ysolde-head-fold-a" d="M 72 56.5 Q 64.4 79.5 64.5 103.8 Q 69.1 80.3 72 56.5 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="ysolde-head-fold-b" d="M 95.6 59.1 Q 93 82.5 97.3 105.5 Q 97.1 82.3 95.6 59.1 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="ysolde-head-lining" d="M 106.1 46.6 C 112.2 45.6 122.5 49.4 127.7 54 C 133 58.6 137.2 67.1 137.6 74.1 C 138 81 135.9 91.7 130.2 95.7 C 124.5 99.7 110.2 100.1 103.6 98 C 97 95.9 92.8 89.3 90.7 82.8 C 88.5 76.4 88.4 65.6 90.9 59.5 C 93.5 53.5 100 47.5 106.1 46.6 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="ysolde-head-opening" d="M 108.8 51 C 113.4 50.2 120.7 54 124.6 57.8 C 128.4 61.5 131.7 68.2 131.7 73.4 C 131.8 78.7 129 86.1 125 89.2 C 121 92.2 112.5 93.3 107.7 91.8 C 103 90.3 98 84.9 96.2 80 C 94.4 75.1 94.9 67.3 97 62.5 C 99.1 57.6 104.2 51.8 108.8 51 Z" fill="#1e2b17"/>
+<path id="ysolde-head-opening-edge" d="M 108.8 51 C 113.4 50.2 120.7 54 124.6 57.8 C 128.4 61.5 131.7 68.2 131.7 73.4 C 131.8 78.7 129 86.1 125 89.2 C 121 92.2 112.5 93.3 107.7 91.8 C 103 90.3 98 84.9 96.2 80 C 94.4 75.1 94.9 67.3 97 62.5 C 99.1 57.6 104.2 51.8 108.8 51 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="ysolde-head-veil-line" href="#ysolde-head-veil-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ysolde-head-spire-a">
+<use id="ysolde-head-spire-a-shade" href="#ysolde-head-spire-a-shape" fill="#3f97bd"/>
+<g clip-path="url(#ysolde-head-spire-a-clip)">
+<use id="ysolde-head-spire-a-fill" href="#ysolde-head-spire-a-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#ysolde-head-spire-a-lit-clip)">
+<use id="ysolde-head-spire-a-lit" href="#ysolde-head-spire-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ysolde-head-spire-a-fill-over" href="#ysolde-head-spire-a-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="ysolde-head-facet" d="M 52.5 46.6 L 51.5 21.1 L 59.5 46 Z" fill="#f4f1e4" opacity="0.4"/>
+</g>
+<use id="ysolde-head-spire-a-line" href="#ysolde-head-spire-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ysolde-head-spire-e">
+<use id="ysolde-head-spire-e-shade" href="#ysolde-head-spire-e-shape" fill="#3f97bd"/>
+<g clip-path="url(#ysolde-head-spire-e-clip)">
+<use id="ysolde-head-spire-e-fill" href="#ysolde-head-spire-e-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#ysolde-head-spire-e-lit-clip)">
+<use id="ysolde-head-spire-e-lit" href="#ysolde-head-spire-e-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ysolde-head-spire-e-fill-over" href="#ysolde-head-spire-e-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="ysolde-head-facet-2" d="M 115 41.1 L 125.4 14.6 L 121.9 40.5 Z" fill="#f4f1e4" opacity="0.4"/>
+</g>
+<use id="ysolde-head-spire-e-line" href="#ysolde-head-spire-e-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ysolde-head-spire-b">
+<use id="ysolde-head-spire-b-shade" href="#ysolde-head-spire-b-shape" fill="#3f97bd"/>
+<g clip-path="url(#ysolde-head-spire-b-clip)">
+<use id="ysolde-head-spire-b-fill" href="#ysolde-head-spire-b-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#ysolde-head-spire-b-lit-clip)">
+<use id="ysolde-head-spire-b-lit" href="#ysolde-head-spire-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ysolde-head-spire-b-fill-over" href="#ysolde-head-spire-b-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="ysolde-head-facet-3" d="M 66.4 45.4 L 67.6 5.7 L 74.5 44.7 Z" fill="#f4f1e4" opacity="0.4"/>
+</g>
+<use id="ysolde-head-spire-b-line" href="#ysolde-head-spire-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ysolde-head-spire-d">
+<use id="ysolde-head-spire-d-shade" href="#ysolde-head-spire-d-shape" fill="#3f97bd"/>
+<g clip-path="url(#ysolde-head-spire-d-clip)">
+<use id="ysolde-head-spire-d-fill" href="#ysolde-head-spire-d-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#ysolde-head-spire-d-lit-clip)">
+<use id="ysolde-head-spire-d-lit" href="#ysolde-head-spire-d-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ysolde-head-spire-d-fill-over" href="#ysolde-head-spire-d-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="ysolde-head-facet-4" d="M 98.8 42.5 L 106.9 2.2 L 106.9 41.8 Z" fill="#f4f1e4" opacity="0.4"/>
+</g>
+<use id="ysolde-head-spire-d-line" href="#ysolde-head-spire-d-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ysolde-head-spire-c">
+<use id="ysolde-head-spire-c-shade" href="#ysolde-head-spire-c-shape" fill="#3f97bd"/>
+<g clip-path="url(#ysolde-head-spire-c-clip)">
+<use id="ysolde-head-spire-c-fill" href="#ysolde-head-spire-c-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#ysolde-head-spire-c-lit-clip)">
+<use id="ysolde-head-spire-c-lit" href="#ysolde-head-spire-c-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ysolde-head-spire-c-fill-over" href="#ysolde-head-spire-c-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="ysolde-head-spire-c-sheen" d="M102.02 -9.91 L106.02 -9.91 L83.35 44.06 L79.35 44.06 Z M109.52 -9.91 L112.12 -9.91 L89.45 44.06 L86.85 44.06 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="ysolde-head-facet-5" d="M 81.4 44.1 L 86 -9.9 L 90.7 43.2 Z" fill="#f4f1e4" opacity="0.4"/>
+</g>
+<use id="ysolde-head-spire-c-line" href="#ysolde-head-spire-c-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ysolde-head-band">
+<use id="ysolde-head-band-fill" href="#ysolde-head-band-shape" fill="#6fc7e8"/>
+<use id="ysolde-head-band-line" href="#ysolde-head-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

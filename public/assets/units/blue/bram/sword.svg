@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bram-sword" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="bram-sword-blade-shape" d="M 145.3 80.1 L 167.2 35.1 L 182.3 24.7 L 183.4 43 L 161.5 88 Z"/>
+<clipPath id="bram-sword-blade-clip"><use href="#bram-sword-blade-shape"/></clipPath>
+<clipPath id="bram-sword-blade-lit-clip"><use href="#bram-sword-blade-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="bram-sword-pommel-shape" d="M 142.4 99.8 L 147.8 102.4 Q 150.4 103.7 149.1 106.4 L 147.4 110 Q 146.1 112.7 143.4 111.4 L 138 108.8 Q 135.3 107.4 136.6 104.8 L 138.3 101.2 Q 139.7 98.5 142.4 99.8 Z"/>
+<path id="bram-sword-guard-shape" d="M 142.5 72 L 169.5 85.2 Q 172.2 86.5 170.9 89.2 L 169.6 91.9 Q 168.2 94.6 165.6 93.3 L 138.6 80.1 Q 135.9 78.8 137.2 76.1 L 138.5 73.4 Q 139.8 70.7 142.5 72 Z"/>
+<clipPath id="bram-sword-guard-clip"><use href="#bram-sword-guard-shape"/></clipPath>
+<clipPath id="bram-sword-guard-lit-clip"><use href="#bram-sword-guard-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="bram-sword-hand-shape" d="M 156.5 93 C 156.5 97.1 153.1 100.5 149 100.5 C 144.9 100.5 141.5 97.1 141.5 93 C 141.5 88.9 144.9 85.5 149 85.5 C 153.1 85.5 156.5 88.9 156.5 93 Z"/>
+<clipPath id="bram-sword-hand-clip"><use href="#bram-sword-hand-shape"/></clipPath>
+<clipPath id="bram-sword-hand-lit-clip"><use href="#bram-sword-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="bram-sword-blade">
+<use id="bram-sword-blade-shade" href="#bram-sword-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#bram-sword-blade-clip)">
+<use id="bram-sword-blade-fill" href="#bram-sword-blade-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#bram-sword-blade-lit-clip)">
+<use id="bram-sword-blade-lit" href="#bram-sword-blade-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-sword-blade-fill-over" href="#bram-sword-blade-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="bram-sword-blade-sheen" d="M177.63 24.69 L183.34 24.69 L156.77 87.96 L151.06 87.96 Z M186.84 24.69 L189.44 24.69 L162.87 87.96 L160.27 87.96 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="bram-sword-bevel" d="M 145.3 80.1 L 167.2 35.1 L 182.3 24.7 L 153.4 84 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="bram-sword-fuller" d="M 154.3 82.2 L 170.9 48.1" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="bram-sword-blade-line" href="#bram-sword-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bram-sword-pommel">
+<use id="bram-sword-pommel-fill" href="#bram-sword-pommel-shape" fill="#5d6672"/>
+<use id="bram-sword-pommel-line" href="#bram-sword-pommel-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bram-sword-guard">
+<use id="bram-sword-guard-shade" href="#bram-sword-guard-shape" fill="#434b56"/>
+<g clip-path="url(#bram-sword-guard-clip)">
+<use id="bram-sword-guard-fill" href="#bram-sword-guard-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#bram-sword-guard-lit-clip)">
+<use id="bram-sword-guard-lit" href="#bram-sword-guard-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-sword-guard-fill-over" href="#bram-sword-guard-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="bram-sword-guard-sheen" d="M159.05 70.73 L164.5 70.73 L154.47 94.6 L149.03 94.6 Z M168 70.73 L170.6 70.73 L160.57 94.6 L157.97 94.6 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="bram-sword-guard-line" href="#bram-sword-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bram-sword-hand">
+<use id="bram-sword-hand-shade" href="#bram-sword-hand-shape" fill="#434b56"/>
+<g clip-path="url(#bram-sword-hand-clip)">
+<use id="bram-sword-hand-fill" href="#bram-sword-hand-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#bram-sword-hand-lit-clip)">
+<use id="bram-sword-hand-lit" href="#bram-sword-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-sword-hand-fill-over" href="#bram-sword-hand-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="bram-sword-hand-line" href="#bram-sword-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

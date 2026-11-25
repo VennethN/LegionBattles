@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="thistle-legs-far" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="thistle-legs-far-leg-shape" d="M 75.7 140.5 L 87.2 140.5 L 87.2 156.1 L 97.6 168.6 Q 104.8 169.6 104.8 175.8 L 104.8 180 L 86.1 180 L 86.1 171.7 L 75.7 156.1 Z"/>
+<clipPath id="thistle-legs-far-leg-clip"><use href="#thistle-legs-far-leg-shape"/></clipPath>
+<path id="thistle-legs-far-hoof-shape" d="M 84 171.7 L 108 171.7 L 108 182.1 L 84 182.1 L 84 171.7 Z"/>
+<path id="thistle-legs-far-leg-2-shape" d="M 109 140.5 L 120.4 140.5 L 118.9 156.1 L 111.1 168.6 Q 118.4 169.6 118.4 175.8 L 118.4 180 L 99.6 180 L 99.6 171.7 L 107.4 156.1 Z"/>
+<clipPath id="thistle-legs-far-leg-2-clip"><use href="#thistle-legs-far-leg-2-shape"/></clipPath>
+<path id="thistle-legs-far-hoof-2-shape" d="M 97.6 171.7 L 121.5 171.7 L 121.5 182.1 L 97.6 182.1 L 97.6 171.7 Z"/>
+</defs>
+<g id="thistle-legs-far-leg">
+<use id="thistle-legs-far-leg-fill" href="#thistle-legs-far-leg-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-legs-far-leg-clip)">
+<g id="thistle-legs-far-hoof">
+<use id="thistle-legs-far-hoof-fill" href="#thistle-legs-far-hoof-shape" fill="#434b56"/>
+<use id="thistle-legs-far-hoof-line" href="#thistle-legs-far-hoof-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-legs-far-leg-line" href="#thistle-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-legs-far-leg-2">
+<use id="thistle-legs-far-leg-2-fill" href="#thistle-legs-far-leg-2-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-legs-far-leg-2-clip)">
+<g id="thistle-legs-far-hoof-2">
+<use id="thistle-legs-far-hoof-2-fill" href="#thistle-legs-far-hoof-2-shape" fill="#434b56"/>
+<use id="thistle-legs-far-hoof-2-line" href="#thistle-legs-far-hoof-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-legs-far-leg-2-line" href="#thistle-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

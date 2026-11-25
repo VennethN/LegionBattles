@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bram-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="bram-leg-front-boot-shape" d="M 98.8 147.6 L 118.5 145.9 L 119.9 162.5 C 126.1 162 131.7 165.6 132.2 171.9 L 132.4 173.9 Q 132.8 178.1 128.6 178.4 L 105.8 180.4 Q 101.7 180.8 101.3 176.7 Z"/>
+<clipPath id="bram-leg-front-boot-clip"><use href="#bram-leg-front-boot-shape"/></clipPath>
+<clipPath id="bram-leg-front-boot-lit-clip"><use href="#bram-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="bram-leg-front-boot">
+<use id="bram-leg-front-boot-shade" href="#bram-leg-front-boot-shape" fill="#434b56"/>
+<g clip-path="url(#bram-leg-front-boot-clip)">
+<use id="bram-leg-front-boot-fill" href="#bram-leg-front-boot-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#bram-leg-front-boot-lit-clip)">
+<use id="bram-leg-front-boot-lit" href="#bram-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-leg-front-boot-fill-over" href="#bram-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="bram-leg-front-boot-sheen" d="M123.11 145.92 L128.21 145.92 L113.56 180.8 L108.46 180.8 Z M131.71 145.92 L134.31 145.92 L119.66 180.8 L117.06 180.8 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="bram-leg-front-sole" d="M 97.1 176 L 138.5 172.4 L 139.3 180.6 L 97.8 184.3 L 97.1 176 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="bram-leg-front-cuff" d="M 95.6 159.4 L 124.7 156.9 L 125.1 161.5 L 96.1 164.1 L 95.6 159.4 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="bram-leg-front-cuff-under" d="M 96.1 164.1 L 125.1 161.5 L 125.2 163.6 L 96.2 166.1 L 96.1 164.1 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="bram-leg-front-boot-line" href="#bram-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

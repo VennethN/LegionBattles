@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ember-legs-far" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="ember-legs-far-leg-shape" d="M 75.5 156 L 88.5 156 L 89 164 L 95.5 169 Q 102.5 170 102.5 176 L 102.5 180 L 82.5 180 L 82.5 172 L 76 164 Z"/>
+<path id="ember-legs-far-leg-2-shape" d="M 107.5 156 L 120.5 156 L 119.5 164 L 114.5 169 Q 121.5 170 121.5 176 L 121.5 180 L 101.5 180 L 101.5 172 L 106.5 164 Z"/>
+</defs>
+<g id="ember-legs-far-leg">
+<use id="ember-legs-far-leg-fill" href="#ember-legs-far-leg-shape" fill="#434b56"/>
+<use id="ember-legs-far-leg-line" href="#ember-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ember-legs-far-leg-2">
+<use id="ember-legs-far-leg-2-fill" href="#ember-legs-far-leg-2-shape" fill="#434b56"/>
+<use id="ember-legs-far-leg-2-line" href="#ember-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

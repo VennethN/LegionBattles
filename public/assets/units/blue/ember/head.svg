@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ember-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="ember-head-spine-shape" d="M 125 128 L 131 114 L 136 128 Z"/>
+<path id="ember-head-spine-2-shape" d="M 135 128 L 141 114 L 146 128 Z"/>
+<path id="ember-head-spine-3-shape" d="M 145 128 L 151 114 L 156 128 Z"/>
+<path id="ember-head-head-shape" d="M 124 136 C 125.3 132.3 129.3 128 134 126 C 138.7 124 146 123.3 152 124 C 158 124.7 165.3 127 170 130 C 174.7 133 180 142 180 142 C 180 142 172.7 148.3 166 150 C 159.3 151.7 146.7 152.3 140 152 C 133.3 151.7 128.7 150.7 126 148 C 123.3 145.3 122.7 139.7 124 136 Z"/>
+<clipPath id="ember-head-head-clip"><use href="#ember-head-head-shape"/></clipPath>
+<clipPath id="ember-head-head-lit-clip"><use href="#ember-head-head-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="ember-head-plate-shape" d="M 132 126 C 132 126 145.3 121.3 152 122 C 158.7 122.7 167.3 126.8 172 130 C 176.7 133.2 180 141 180 141 C 180 141 167.7 138.7 160 138 C 152.3 137.3 138.7 139 134 137 C 129.3 135 132 126 132 126 Z"/>
+<clipPath id="ember-head-plate-clip"><use href="#ember-head-plate-shape"/></clipPath>
+<clipPath id="ember-head-plate-lit-clip"><use href="#ember-head-plate-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="ember-head-spine">
+<use id="ember-head-spine-fill" href="#ember-head-spine-shape" fill="#f08a3c"/>
+<use id="ember-head-spine-line" href="#ember-head-spine-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ember-head-spine-2">
+<use id="ember-head-spine-2-fill" href="#ember-head-spine-2-shape" fill="#f08a3c"/>
+<use id="ember-head-spine-2-line" href="#ember-head-spine-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ember-head-spine-3">
+<use id="ember-head-spine-3-fill" href="#ember-head-spine-3-shape" fill="#f08a3c"/>
+<use id="ember-head-spine-3-line" href="#ember-head-spine-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ember-head-head">
+<use id="ember-head-head-shade" href="#ember-head-head-shape" fill="#434b56"/>
+<g clip-path="url(#ember-head-head-clip)">
+<use id="ember-head-head-fill" href="#ember-head-head-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#ember-head-head-lit-clip)">
+<use id="ember-head-head-lit" href="#ember-head-head-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ember-head-head-fill-over" href="#ember-head-head-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+</g>
+<use id="ember-head-head-line" href="#ember-head-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ember-head-plate">
+<use id="ember-head-plate-shade" href="#ember-head-plate-shape" fill="#9a6337"/>
+<g clip-path="url(#ember-head-plate-clip)">
+<use id="ember-head-plate-fill" href="#ember-head-plate-shape" transform="translate(-3 -3)" fill="#c98b52"/>
+<g clip-path="url(#ember-head-plate-lit-clip)">
+<use id="ember-head-plate-lit" href="#ember-head-plate-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ember-head-plate-fill-over" href="#ember-head-plate-shape" transform="translate(3.6 3.6)" fill="#c98b52"/>
+</g>
+<path id="ember-head-plate-sheen" d="M158.8 121.33 L166.4 121.33 L158.14 141 L150.54 141 Z M169.9 121.33 L172.5 121.33 L164.24 141 L161.64 141 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="ember-head-plate-line" href="#ember-head-plate-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

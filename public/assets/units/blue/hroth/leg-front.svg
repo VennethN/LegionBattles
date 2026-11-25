@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hroth-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="hroth-leg-front-boot-shape" d="M 100.6 140.3 L 125.1 136.8 L 128 157.4 C 135.7 156.3 142.8 160.6 143.9 168.3 L 144.3 170.9 Q 145 176 139.9 176.8 L 111.5 180.7 Q 106.4 181.5 105.7 176.3 Z"/>
+<clipPath id="hroth-leg-front-boot-clip"><use href="#hroth-leg-front-boot-shape"/></clipPath>
+<clipPath id="hroth-leg-front-boot-lit-clip"><use href="#hroth-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="hroth-leg-front-boot">
+<use id="hroth-leg-front-boot-shade" href="#hroth-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#hroth-leg-front-boot-clip)">
+<use id="hroth-leg-front-boot-fill" href="#hroth-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#hroth-leg-front-boot-lit-clip)">
+<use id="hroth-leg-front-boot-lit" href="#hroth-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="hroth-leg-front-boot-fill-over" href="#hroth-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="hroth-leg-front-sole" d="M 100.3 175.7 L 151.8 168.5 L 153.3 178.8 L 101.8 186 L 100.3 175.7 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="hroth-leg-front-cuff" d="M 97.4 155.1 L 133.5 150.1 L 134.3 155.9 L 98.3 160.9 L 97.4 155.1 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="hroth-leg-front-cuff-under" d="M 98.3 160.9 L 134.3 155.9 L 134.7 158.4 L 98.6 163.5 L 98.3 160.9 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="hroth-leg-front-boot-line" href="#hroth-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

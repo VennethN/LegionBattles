@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="wren-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="wren-head-hood-shape" d="M 102.9 58.9 C 109 60.1 115.7 62.7 119.7 67.6 C 123.7 72.6 126.5 81.9 126.8 88.5 C 127.2 95 125.6 103 121.8 107.2 C 118 111.3 110.3 112.5 103.8 113.4 C 97.4 114.4 88.8 114 83.2 113.1 C 77.5 112.2 73.5 109.8 70.1 108.1 C 66.7 106.5 65.1 104.3 62.6 103.3 C 60.1 102.3 55.1 102.2 55.1 102.2 C 55.1 102.2 59.7 92.6 61.8 87.3 C 63.9 82 64.4 75 67.9 70.5 C 71.5 66 77.3 62.4 83.1 60.4 C 89 58.5 96.8 57.7 102.9 58.9 Z"/>
+<clipPath id="wren-head-hood-clip"><use href="#wren-head-hood-shape"/></clipPath>
+<clipPath id="wren-head-hood-lit-clip"><use href="#wren-head-hood-shape" transform="translate(-6 -6)"/></clipPath>
+</defs>
+<path id="wren-head-cast" d="M 118.8 114.6 C 118.8 119.6 108.2 123.4 95.2 123.2 C 82.2 122.9 71.8 118.8 71.9 113.8 C 71.9 108.9 82.5 105.1 95.5 105.3 C 108.5 105.5 118.9 109.7 118.8 114.6 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="wren-head-hood">
+<use id="wren-head-hood-shade" href="#wren-head-hood-shape" fill="#2e5f45"/>
+<g clip-path="url(#wren-head-hood-clip)">
+<use id="wren-head-hood-deep" href="#wren-head-hood-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="wren-head-hood-shade-over" href="#wren-head-hood-shape" transform="translate(-3.72 -3.72)" fill="#2e5f45"/>
+<use id="wren-head-hood-fill" href="#wren-head-hood-shape" transform="translate(-6 -6)" fill="#3f7a5a"/>
+<g clip-path="url(#wren-head-hood-lit-clip)">
+<use id="wren-head-hood-lit" href="#wren-head-hood-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="wren-head-hood-fill-over" href="#wren-head-hood-shape" transform="translate(4.6 4.6)" fill="#3f7a5a"/>
+</g>
+<path id="wren-head-lining" d="M 108.4 65.6 C 114.2 65.4 122.9 70.2 127.1 75.3 C 131.2 80.4 133.7 89.5 133.3 96.1 C 132.8 102.7 129.7 111.7 124.5 114.7 C 119.3 117.8 107.7 117 101.9 114.3 C 96.2 111.7 91.6 105.4 90 99.1 C 88.4 92.8 89.2 82.2 92.2 76.6 C 95.3 71 102.6 65.8 108.4 65.6 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="wren-head-opening" d="M 110.2 71.2 C 114.4 71 120.3 75.2 123.2 79 C 126.1 82.8 128.1 89.3 127.7 94.1 C 127.3 99 124.5 105.7 120.8 108.1 C 117.2 110.5 110 110.6 105.8 108.8 C 101.6 107 97 102 95.6 97.3 C 94.3 92.6 95.4 84.8 97.8 80.4 C 100.2 76.1 106 71.5 110.2 71.2 Z" fill="#1e2b17"/>
+<path id="wren-head-opening-edge" d="M 110.2 71.2 C 114.4 71 120.3 75.2 123.2 79 C 126.1 82.8 128.1 89.3 127.7 94.1 C 127.3 99 124.5 105.7 120.8 108.1 C 117.2 110.5 110 110.6 105.8 108.8 C 101.6 107 97 102 95.6 97.3 C 94.3 92.6 95.4 84.8 97.8 80.4 C 100.2 76.1 106 71.5 110.2 71.2 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="wren-head-fold-b" d="M 70.5 83.7 Q 66.6 93.7 68.3 104.4 Q 69.9 94.1 70.5 83.7 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="wren-head-crown-lit" d="M 84 63.3 C 85.9 61.9 94.7 60.3 99.1 60.7 C 103.5 61.1 110.3 64.5 110.3 65.6 C 110.3 66.7 102.8 66.7 99 67.3 C 95.2 67.8 90.2 69.6 87.7 69 C 85.2 68.3 82.1 64.6 84 63.3 Z" fill="#f4f1e4" opacity="0.29"/>
+</g>
+<use id="wren-head-hood-line" href="#wren-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="wren-head-fold" d="M 84 67 C 82.7 69.2 77.9 75.4 76.2 80.1 C 74.6 84.7 74.4 92.6 74.1 95.1" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

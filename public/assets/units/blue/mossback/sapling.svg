@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mossback-sapling" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="mossback-sapling-trunk-shape" d="M 75 106 C 75 106 76.5 91.7 76 86 C 75.5 80.3 72 72 72 72 L 78 72 C 78 72 81.5 80.3 82 86 C 82.5 91.7 81 106 81 106 L 75 106 Z"/>
+<path id="mossback-sapling-leaves-shape" d="M 56 74 C 54.7 69 54.7 59.3 58 54 C 61.3 48.7 70 42.3 76 42 C 82 41.7 90.3 47.3 94 52 C 97.7 56.7 99.7 65 98 70 C 96.3 75 89.3 79.7 84 82 C 78.7 84.3 70.7 85.3 66 84 C 61.3 82.7 57.3 79 56 74 Z"/>
+<clipPath id="mossback-sapling-leaves-clip"><use href="#mossback-sapling-leaves-shape"/></clipPath>
+<clipPath id="mossback-sapling-leaves-lit-clip"><use href="#mossback-sapling-leaves-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="mossback-sapling-trunk">
+<use id="mossback-sapling-trunk-fill" href="#mossback-sapling-trunk-shape" fill="#9a6a3a"/>
+<use id="mossback-sapling-trunk-line" href="#mossback-sapling-trunk-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mossback-sapling-leaves">
+<use id="mossback-sapling-leaves-shade" href="#mossback-sapling-leaves-shape" fill="#3b722f"/>
+<g clip-path="url(#mossback-sapling-leaves-clip)">
+<use id="mossback-sapling-leaves-fill" href="#mossback-sapling-leaves-shape" transform="translate(-4 -4)" fill="#4f8f3e"/>
+<g clip-path="url(#mossback-sapling-leaves-lit-clip)">
+<use id="mossback-sapling-leaves-lit" href="#mossback-sapling-leaves-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="mossback-sapling-leaves-fill-over" href="#mossback-sapling-leaves-shape" transform="translate(4.2 4.2)" fill="#4f8f3e"/>
+</g>
+<path id="mossback-sapling-lit" d="M 62 60 C 62 57.3 71.7 48.7 76 48 C 80.3 47.3 88 53.3 88 56 C 88 58.7 80.3 63.3 76 64 C 71.7 64.7 62 62.7 62 60 Z" fill="#f4f1e4" opacity="0.29"/>
+</g>
+<use id="mossback-sapling-leaves-line" href="#mossback-sapling-leaves-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

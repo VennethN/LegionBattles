@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="orrin-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="orrin-leg-front-boot-shape" d="M 97.5 149.7 L 116.2 147.1 L 118.4 162.8 C 124.2 162 129.7 165.2 130.5 171.1 L 130.8 173.1 Q 131.3 177 127.4 177.5 L 105.9 180.6 Q 101.9 181.1 101.4 177.2 Z"/>
+<clipPath id="orrin-leg-front-boot-clip"><use href="#orrin-leg-front-boot-shape"/></clipPath>
+<clipPath id="orrin-leg-front-boot-lit-clip"><use href="#orrin-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="orrin-leg-front-boot">
+<use id="orrin-leg-front-boot-shade" href="#orrin-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#orrin-leg-front-boot-clip)">
+<use id="orrin-leg-front-boot-fill" href="#orrin-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#orrin-leg-front-boot-lit-clip)">
+<use id="orrin-leg-front-boot-lit" href="#orrin-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="orrin-leg-front-boot-fill-over" href="#orrin-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="orrin-leg-front-sole" d="M 97.3 176.8 L 136.5 171.2 L 137.6 179.1 L 98.4 184.6 L 97.3 176.8 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="orrin-leg-front-cuff" d="M 95.1 161.1 L 122.6 157.2 L 123.2 161.6 L 95.7 165.5 L 95.1 161.1 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="orrin-leg-front-cuff-under" d="M 95.7 165.5 L 123.2 161.6 L 123.5 163.6 L 96 167.4 L 95.7 165.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="orrin-leg-front-boot-line" href="#orrin-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

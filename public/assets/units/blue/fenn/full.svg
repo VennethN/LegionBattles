@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="fenn" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="fenn-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="fenn-shadow-shadow" d="M 132 181 C 132 185.4 115.9 189 96 189 C 76.1 189 60 185.4 60 181 C 60 176.6 76.1 173 96 173 C 115.9 173 132 176.6 132 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="fenn-leg-back-layer" transform="translate(70.5 153.7) rotate(0) scale(1 1) translate(-70.5 -153.7)">
+<defs>
+<path id="fenn-leg-back-boot-shape" d="M 72.6 151.2 L 86.3 157.9 L 80.7 169.4 C 85 171.5 87.2 176.1 85.1 180.4 L 84.4 181.9 Q 83 184.7 80.1 183.3 L 64.3 175.6 Q 61.4 174.2 62.8 171.3 Z"/>
+<clipPath id="fenn-leg-back-boot-clip"><use href="#fenn-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="fenn-leg-back-boot">
+<use id="fenn-leg-back-boot-fill" href="#fenn-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#fenn-leg-back-boot-clip)">
+<path id="fenn-leg-back-sole" d="M 60.3 169.2 L 89 183.3 L 86.2 189 L 57.5 175 L 60.3 169.2 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="fenn-leg-back-boot-line" href="#fenn-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="fenn-leg-front-layer" transform="translate(117.8 154.6) rotate(0) scale(1 1) translate(-117.8 -154.6)">
+<defs>
+<path id="fenn-leg-front-boot-shape" d="M 101.8 157.6 L 115.9 151.9 L 120.7 163.8 C 125.1 162 130 163.5 131.8 167.9 L 132.4 169.4 Q 133.6 172.4 130.7 173.6 L 114.3 180.2 Q 111.4 181.4 110.2 178.4 Z"/>
+<clipPath id="fenn-leg-front-boot-clip"><use href="#fenn-leg-front-boot-shape"/></clipPath>
+<clipPath id="fenn-leg-front-boot-lit-clip"><use href="#fenn-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="fenn-leg-front-boot">
+<use id="fenn-leg-front-boot-shade" href="#fenn-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#fenn-leg-front-boot-clip)">
+<use id="fenn-leg-front-boot-fill" href="#fenn-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#fenn-leg-front-boot-lit-clip)">
+<use id="fenn-leg-front-boot-lit" href="#fenn-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-leg-front-boot-fill-over" href="#fenn-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="fenn-leg-front-sole" d="M 106.9 178.9 L 136.6 166.9 L 139 172.8 L 109.3 184.8 L 106.9 178.9 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="fenn-leg-front-cuff" d="M 102.1 167 L 122.9 158.6 L 124.2 161.9 L 103.5 170.3 L 102.1 167 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="fenn-leg-front-cuff-under" d="M 103.5 170.3 L 124.2 161.9 L 124.8 163.4 L 104.1 171.8 L 103.5 170.3 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="fenn-leg-front-boot-line" href="#fenn-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="fenn-coin-layer" transform="translate(50 116) rotate(0) scale(1 1) translate(-50 -116)">
+<defs>
+<path id="fenn-coin-arm-far-shape" d="M 90.6 120.9 L 54.6 111.7 C 51.1 110.8 47.6 112.9 46.7 116.4 C 45.8 119.9 47.9 123.4 51.4 124.3 L 87.4 133.5 C 90.9 134.4 94.4 132.3 95.3 128.8 C 96.2 125.3 94.1 121.8 90.6 120.9 Z"/>
+<clipPath id="fenn-coin-arm-far-clip"><use href="#fenn-coin-arm-far-shape"/></clipPath>
+<clipPath id="fenn-coin-arm-far-lit-clip"><use href="#fenn-coin-arm-far-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="fenn-coin-hand-shape" d="M 58 116 C 58 120.4 54.4 124 50 124 C 45.6 124 42 120.4 42 116 C 42 111.6 45.6 108 50 108 C 54.4 108 58 111.6 58 116 Z"/>
+<clipPath id="fenn-coin-hand-clip"><use href="#fenn-coin-hand-shape"/></clipPath>
+<clipPath id="fenn-coin-hand-lit-clip"><use href="#fenn-coin-hand-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="fenn-coin-rim-shape" d="M 59.7 69.8 C 61.8 77.2 61.4 83.9 58.7 84.6 C 56.1 85.4 52.2 80 50.1 72.6 C 47.9 65.1 48.4 58.5 51 57.7 C 53.7 57 57.6 62.4 59.7 69.8 Z"/>
+<path id="fenn-coin-coin-shape" d="M 56.3 70.8 C 58.5 78.2 58 84.8 55.4 85.6 C 52.7 86.4 48.8 80.9 46.7 73.5 C 44.6 66.1 45 59.4 47.7 58.7 C 50.3 57.9 54.2 63.3 56.3 70.8 Z"/>
+<clipPath id="fenn-coin-coin-clip"><use href="#fenn-coin-coin-shape"/></clipPath>
+<clipPath id="fenn-coin-coin-lit-clip"><use href="#fenn-coin-coin-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="fenn-coin-arm-far-cast" d="M 91.6 124.4 L 55.6 115.2 C 52.1 114.3 48.6 116.4 47.7 119.9 C 46.8 123.4 48.9 126.9 52.4 127.8 L 88.4 137 C 91.9 137.9 95.4 135.8 96.3 132.3 C 97.2 128.8 95.1 125.3 91.6 124.4 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="fenn-coin-arm-far">
+<use id="fenn-coin-arm-far-shade" href="#fenn-coin-arm-far-shape" fill="#2f5893"/>
+<g clip-path="url(#fenn-coin-arm-far-clip)">
+<use id="fenn-coin-arm-far-fill" href="#fenn-coin-arm-far-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#fenn-coin-arm-far-lit-clip)">
+<use id="fenn-coin-arm-far-lit" href="#fenn-coin-arm-far-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-coin-arm-far-fill-over" href="#fenn-coin-arm-far-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="fenn-coin-arm-far-line" href="#fenn-coin-arm-far-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="fenn-coin-hand">
+<use id="fenn-coin-hand-shade" href="#fenn-coin-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#fenn-coin-hand-clip)">
+<use id="fenn-coin-hand-fill" href="#fenn-coin-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#fenn-coin-hand-lit-clip)">
+<use id="fenn-coin-hand-lit" href="#fenn-coin-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-coin-hand-fill-over" href="#fenn-coin-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="fenn-coin-hand-line" href="#fenn-coin-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="fenn-coin-rim">
+<use id="fenn-coin-rim-fill" href="#fenn-coin-rim-shape" fill="#c8a24a"/>
+<use id="fenn-coin-rim-line" href="#fenn-coin-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="fenn-coin-coin">
+<use id="fenn-coin-coin-shade" href="#fenn-coin-coin-shape" fill="#9c7c33"/>
+<g clip-path="url(#fenn-coin-coin-clip)">
+<use id="fenn-coin-coin-fill" href="#fenn-coin-coin-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#fenn-coin-coin-lit-clip)">
+<use id="fenn-coin-coin-lit" href="#fenn-coin-coin-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-coin-coin-fill-over" href="#fenn-coin-coin-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="fenn-coin-coin-line" href="#fenn-coin-coin-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="fenn-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="fenn-body-tunic-shape" d="M 84.9 116.4 C 89.9 113.8 99.1 116.4 105.9 117.9 C 112.7 119.5 122.1 121.3 125.4 125.7 C 128.8 130.2 127.1 138.6 126 144.7 C 124.8 150.9 122.1 159.3 118.5 162.7 C 115 166.1 110.2 165.6 104.8 165.3 C 99.4 165 91.1 163.1 86.1 161 C 81.1 158.9 76.6 157.3 74.9 152.6 C 73.2 148 74.4 139.3 76.1 133.2 C 77.8 127.2 79.9 118.9 84.9 116.4 Z"/>
+<clipPath id="fenn-body-tunic-clip"><use href="#fenn-body-tunic-shape"/></clipPath>
+<clipPath id="fenn-body-tunic-lit-clip"><use href="#fenn-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="fenn-body-belt-shape" d="M 68.1 139.6 L 130.4 154 L 128.8 161 L 66.4 146.6 L 68.1 139.6 Z"/>
+<path id="fenn-body-buckle-shape" d="M 105.8 146.6 L 110.5 147.7 Q 112.9 148.3 112.3 150.6 L 111.1 156.1 Q 110.5 158.4 108.2 157.9 L 103.5 156.8 Q 101.2 156.2 101.7 153.9 L 103 148.4 Q 103.5 146.1 105.8 146.6 Z"/>
+<clipPath id="fenn-body-buckle-clip"><use href="#fenn-body-buckle-shape"/></clipPath>
+<clipPath id="fenn-body-buckle-lit-clip"><use href="#fenn-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="fenn-body-arm-shape" d="M 117.1 140.8 L 139.3 143 C 143.2 143.3 146.6 140.5 147 136.7 C 147.3 132.8 144.5 129.4 140.7 129 L 118.5 126.8 C 114.6 126.5 111.2 129.3 110.8 133.1 C 110.5 137 113.3 140.4 117.1 140.8 Z"/>
+<clipPath id="fenn-body-arm-clip"><use href="#fenn-body-arm-shape"/></clipPath>
+<clipPath id="fenn-body-arm-lit-clip"><use href="#fenn-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="fenn-body-tunic">
+<use id="fenn-body-tunic-shade" href="#fenn-body-tunic-shape" fill="#2f5893"/>
+<g clip-path="url(#fenn-body-tunic-clip)">
+<use id="fenn-body-tunic-deep" href="#fenn-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="fenn-body-tunic-shade-over" href="#fenn-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="fenn-body-tunic-fill" href="#fenn-body-tunic-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#fenn-body-tunic-lit-clip)">
+<use id="fenn-body-tunic-lit" href="#fenn-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-body-tunic-fill-over" href="#fenn-body-tunic-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="fenn-body-crease-a" d="M 86.9 143.1 Q 89.8 136.7 87.5 130.1 Q 86.7 136.6 86.9 143.1 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="fenn-body-crease-b" d="M 116.6 149.9 Q 120.5 145.4 120.6 139.4 Q 118.2 144.5 116.6 149.9 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="fenn-body-belt-cast" d="M 66.3 147.4 L 128.6 161.8 L 127.8 165.3 L 65.5 150.9 L 66.3 147.4 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="fenn-body-belt">
+<use id="fenn-body-belt-fill" href="#fenn-body-belt-shape" fill="#6b4a2b"/>
+<use id="fenn-body-belt-line" href="#fenn-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="fenn-body-buckle">
+<use id="fenn-body-buckle-shade" href="#fenn-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#fenn-body-buckle-clip)">
+<use id="fenn-body-buckle-fill" href="#fenn-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#fenn-body-buckle-lit-clip)">
+<use id="fenn-body-buckle-lit" href="#fenn-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-body-buckle-fill-over" href="#fenn-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="fenn-body-buckle-line" href="#fenn-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="fenn-body-tunic-line" href="#fenn-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="fenn-body-arm-cast" d="M 118.1 144.3 L 140.3 146.5 C 144.2 146.8 147.6 144 148 140.2 C 148.3 136.3 145.5 132.9 141.7 132.5 L 119.5 130.3 C 115.6 130 112.2 132.8 111.8 136.6 C 111.5 140.5 114.3 143.9 118.1 144.3 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="fenn-body-arm">
+<use id="fenn-body-arm-shade" href="#fenn-body-arm-shape" fill="#2f5893"/>
+<g clip-path="url(#fenn-body-arm-clip)">
+<use id="fenn-body-arm-fill" href="#fenn-body-arm-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#fenn-body-arm-lit-clip)">
+<use id="fenn-body-arm-lit" href="#fenn-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-body-arm-fill-over" href="#fenn-body-arm-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="fenn-body-arm-line" href="#fenn-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="fenn-scarf-layer" transform="translate(90.2 116.1) rotate(0) scale(1 1) translate(-90.2 -116.1)">
+<defs>
+<path id="fenn-scarf-tail-far-shape" d="M 90.1 111.7 C 90.1 111.7 77.1 106.4 70.4 106.3 C 63.7 106.2 56 111.6 50 110.9 C 44.1 110.1 34.6 101.8 34.6 101.8 C 34.6 101.8 35.8 112.9 39.6 116.2 C 43.4 119.4 51.3 121 57.3 121.4 C 63.3 121.8 70.2 118.6 75.5 118.7 C 80.9 118.7 89.4 121.7 89.4 121.7 L 90.1 111.7 Z"/>
+<path id="fenn-scarf-tail-shape" d="M 89.8 115.7 C 89.8 115.7 77.4 120.2 71.4 120.4 C 65.4 120.7 59.7 116.2 53.6 117.2 C 47.5 118.1 34.9 125.9 34.9 125.9 C 34.9 125.9 37.9 135.4 42.2 136.4 C 46.5 137.4 54.9 132.3 60.6 131.7 C 66.3 131.1 71.5 133.8 76.6 132.8 C 81.6 131.8 91.1 125.8 91.1 125.8 L 89.8 115.7 Z"/>
+<clipPath id="fenn-scarf-tail-clip"><use href="#fenn-scarf-tail-shape"/></clipPath>
+<clipPath id="fenn-scarf-tail-lit-clip"><use href="#fenn-scarf-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="fenn-scarf-tail-far">
+<use id="fenn-scarf-tail-far-fill" href="#fenn-scarf-tail-far-shape" fill="#2f5893"/>
+<use id="fenn-scarf-tail-far-line" href="#fenn-scarf-tail-far-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="fenn-scarf-tail">
+<use id="fenn-scarf-tail-shade" href="#fenn-scarf-tail-shape" fill="#2f5893"/>
+<g clip-path="url(#fenn-scarf-tail-clip)">
+<use id="fenn-scarf-tail-fill" href="#fenn-scarf-tail-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#fenn-scarf-tail-lit-clip)">
+<use id="fenn-scarf-tail-lit" href="#fenn-scarf-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-scarf-tail-fill-over" href="#fenn-scarf-tail-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+<path id="fenn-scarf-fold" d="M 83.4 121.2 Q 64.8 121.4 46.9 126.7 Q 65.2 124.5 83.4 121.2 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="fenn-scarf-tail-line" href="#fenn-scarf-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="fenn-head-layer" transform="translate(105.8 122) rotate(0) scale(1 1) translate(-105.8 -122)">
+<defs>
+<path id="fenn-head-scarf-shape" d="M 85 109.3 C 86.9 107.7 91.4 107.1 97.2 107 C 103 106.8 113.9 107.6 119.6 108.5 C 125.2 109.5 129.7 110.7 131.3 112.6 C 132.9 114.4 131.4 117.5 129.2 119.6 C 127 121.8 123.9 124.6 118.4 125.3 C 112.9 126 101.4 125.2 96 123.7 C 90.7 122.3 87.9 119 86.1 116.6 C 84.3 114.2 83.2 110.9 85 109.3 Z"/>
+<clipPath id="fenn-head-scarf-clip"><use href="#fenn-head-scarf-shape"/></clipPath>
+<clipPath id="fenn-head-scarf-lit-clip"><use href="#fenn-head-scarf-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="fenn-head-cap-shape" d="M 77.2 94.3 C 77.2 94.3 72.5 84.9 74.9 81.4 C 77.3 77.8 85.1 74 91.6 72.9 C 98.1 71.7 107.1 72.4 113.9 74.5 C 120.7 76.5 126.3 81.5 132.4 85.4 C 138.5 89.3 150.8 97.9 150.8 97.9 C 150.8 97.9 137.4 101.4 129.6 102 C 121.8 102.7 112.7 103.1 104 101.8 C 95.2 100.6 77.2 94.3 77.2 94.3 Z"/>
+<clipPath id="fenn-head-cap-clip"><use href="#fenn-head-cap-shape"/></clipPath>
+<clipPath id="fenn-head-cap-lit-clip"><use href="#fenn-head-cap-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="fenn-head-band-shape" d="M 76 89.4 C 80.8 89.4 91.9 94.8 104.4 95.4 C 116.9 96.1 143.4 92.6 151.1 93.1 C 158.8 93.6 158.6 97.2 150.7 98.7 C 142.9 100.1 116.5 102.3 104 101.8 C 91.4 101.4 80.2 97.9 75.5 95.8 C 70.9 93.8 71.2 89.5 76 89.4 Z"/>
+</defs>
+<path id="fenn-head-cast" d="M 126.3 126.6 C 126 130.8 116.8 133.6 105.8 132.8 C 94.8 132.1 86.1 128 86.4 123.9 C 86.7 119.7 95.9 116.9 106.9 117.7 C 117.9 118.4 126.6 122.5 126.3 126.6 Z" fill="#2a1a10" opacity="0.27"/>
+<path id="fenn-head-shadow-under" d="M 129.9 109.3 C 129.3 118.5 119.1 125.3 107.2 124.5 C 95.3 123.7 86.2 115.5 86.8 106.2 C 87.5 97 97.6 90.2 109.6 91 C 121.5 91.8 130.6 100 129.9 109.3 Z" fill="#1e2b17"/>
+<path id="fenn-head-shadow-under-edge" d="M 129.9 109.3 C 129.3 118.5 119.1 125.3 107.2 124.5 C 95.3 123.7 86.2 115.5 86.8 106.2 C 87.5 97 97.6 90.2 109.6 91 C 121.5 91.8 130.6 100 129.9 109.3 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="fenn-head-scarf">
+<use id="fenn-head-scarf-shade" href="#fenn-head-scarf-shape" fill="#2f5893"/>
+<g clip-path="url(#fenn-head-scarf-clip)">
+<use id="fenn-head-scarf-fill" href="#fenn-head-scarf-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#fenn-head-scarf-lit-clip)">
+<use id="fenn-head-scarf-lit" href="#fenn-head-scarf-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-head-scarf-fill-over" href="#fenn-head-scarf-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<path id="fenn-head-fold" d="M 89.5 114.4 C 92.6 114.3 101.6 112.9 108 113.3 C 114.4 113.8 124.5 116.5 127.8 117.1" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="fenn-head-scarf-line" href="#fenn-head-scarf-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="fenn-head-cap">
+<use id="fenn-head-cap-shade" href="#fenn-head-cap-shape" fill="#353041"/>
+<g clip-path="url(#fenn-head-cap-clip)">
+<use id="fenn-head-cap-deep" href="#fenn-head-cap-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="fenn-head-cap-shade-over" href="#fenn-head-cap-shape" transform="translate(-3.1 -3.1)" fill="#353041"/>
+<use id="fenn-head-cap-fill" href="#fenn-head-cap-shape" transform="translate(-5 -5)" fill="#4a4458"/>
+<g clip-path="url(#fenn-head-cap-lit-clip)">
+<use id="fenn-head-cap-lit" href="#fenn-head-cap-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-head-cap-fill-over" href="#fenn-head-cap-shape" transform="translate(4.6 4.6)" fill="#4a4458"/>
+</g>
+<g id="fenn-head-band">
+<use id="fenn-head-band-fill" href="#fenn-head-band-shape" fill="#c8a24a"/>
+<use id="fenn-head-band-line" href="#fenn-head-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="fenn-head-fold-2" d="M 82.8 83.5 Q 93.3 82.9 102.5 77.7 Q 92.5 80.1 82.8 83.5 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="fenn-head-cap-line" href="#fenn-head-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="fenn-heads-layer" transform="translate(142 136) rotate(0) scale(1 1) translate(-142 -136)">
+<defs>
+<path id="fenn-heads-blade-shape" d="M 149.6 128.3 C 149.6 128.3 163.7 122.5 170.9 121.7 C 178 120.9 192.4 123.2 192.4 123.2 C 192.4 123.2 181.7 133.2 175 136.1 C 168.3 139.1 152.3 141 152.3 141 L 149.6 128.3 Z"/>
+<clipPath id="fenn-heads-blade-clip"><use href="#fenn-heads-blade-shape"/></clipPath>
+<clipPath id="fenn-heads-blade-lit-clip"><use href="#fenn-heads-blade-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="fenn-heads-pommel-shape" d="M 130.4 144.1 C 127.5 144.7 124.5 142.8 123.9 139.8 C 123.3 136.9 125.2 134 128.1 133.3 C 131.1 132.7 134 134.6 134.7 137.6 C 135.3 140.5 133.4 143.5 130.4 144.1 Z"/>
+<path id="fenn-heads-guard-shape" d="M 153.1 125.5 L 156.4 141.1 Q 157 144.1 154.1 144.7 L 153.1 144.9 Q 150.2 145.5 149.5 142.6 L 146.2 126.9 Q 145.6 124 148.5 123.4 L 149.5 123.2 Q 152.4 122.5 153.1 125.5 Z"/>
+<path id="fenn-heads-hand-shape" d="M 149.5 136 C 149.5 140.1 146.1 143.5 142 143.5 C 137.9 143.5 134.5 140.1 134.5 136 C 134.5 131.9 137.9 128.5 142 128.5 C 146.1 128.5 149.5 131.9 149.5 136 Z"/>
+<clipPath id="fenn-heads-hand-clip"><use href="#fenn-heads-hand-shape"/></clipPath>
+<clipPath id="fenn-heads-hand-lit-clip"><use href="#fenn-heads-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="fenn-heads-blade">
+<use id="fenn-heads-blade-shade" href="#fenn-heads-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#fenn-heads-blade-clip)">
+<use id="fenn-heads-blade-fill" href="#fenn-heads-blade-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#fenn-heads-blade-lit-clip)">
+<use id="fenn-heads-blade-lit" href="#fenn-heads-blade-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-heads-blade-fill-over" href="#fenn-heads-blade-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="fenn-heads-blade-sheen" d="M175.23 120.85 L181.66 120.85 L173.21 140.98 L166.78 140.98 Z M185.16 120.85 L187.76 120.85 L179.31 140.98 L176.71 140.98 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="fenn-heads-edge" d="M 149.6 128.3 C 149.6 128.3 163.7 122.5 170.9 121.7 C 178 120.9 192.4 123.2 192.4 123.2 C 192.4 123.2 179.3 126.9 172.3 128.5 C 165.3 130.2 150.6 133.2 150.6 133.2 L 149.6 128.3 Z" fill="#f4f1e4" opacity="0.32"/>
+</g>
+<use id="fenn-heads-blade-line" href="#fenn-heads-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="fenn-heads-pommel">
+<use id="fenn-heads-pommel-fill" href="#fenn-heads-pommel-shape" fill="#c8a24a"/>
+<use id="fenn-heads-pommel-line" href="#fenn-heads-pommel-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="fenn-heads-guard">
+<use id="fenn-heads-guard-fill" href="#fenn-heads-guard-shape" fill="#c8a24a"/>
+<use id="fenn-heads-guard-line" href="#fenn-heads-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="fenn-heads-hand">
+<use id="fenn-heads-hand-shade" href="#fenn-heads-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#fenn-heads-hand-clip)">
+<use id="fenn-heads-hand-fill" href="#fenn-heads-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#fenn-heads-hand-lit-clip)">
+<use id="fenn-heads-hand-lit" href="#fenn-heads-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fenn-heads-hand-fill-over" href="#fenn-heads-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="fenn-heads-hand-line" href="#fenn-heads-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

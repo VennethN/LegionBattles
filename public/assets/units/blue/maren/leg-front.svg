@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="maren-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="maren-leg-front-boot-shape" d="M 102.9 147.8 L 123.1 142.4 L 127.7 159.4 C 134.1 157.7 140.5 160.5 142.2 166.9 L 142.8 169 Q 143.9 173.3 139.7 174.4 L 116.3 180.7 Q 112 181.8 110.9 177.5 Z"/>
+<clipPath id="maren-leg-front-boot-clip"><use href="#maren-leg-front-boot-shape"/></clipPath>
+<clipPath id="maren-leg-front-boot-lit-clip"><use href="#maren-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="maren-leg-front-boot">
+<use id="maren-leg-front-boot-shade" href="#maren-leg-front-boot-shape" fill="#8d97a3"/>
+<g clip-path="url(#maren-leg-front-boot-clip)">
+<use id="maren-leg-front-boot-fill" href="#maren-leg-front-boot-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#maren-leg-front-boot-lit-clip)">
+<use id="maren-leg-front-boot-lit" href="#maren-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="maren-leg-front-boot-fill-over" href="#maren-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="maren-leg-front-boot-sheen" d="M131.71 142.39 L137.85 142.39 L121.3 181.8 L115.15 181.8 Z M141.35 142.39 L143.95 142.39 L127.4 181.8 L124.8 181.8 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="maren-leg-front-sole" d="M 106.4 177.6 L 148.9 166.2 L 151.2 174.7 L 108.7 186.1 L 106.4 177.6 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="maren-leg-front-cuff" d="M 101.8 160.6 L 131.6 152.7 L 132.8 157.4 L 103.1 165.4 L 101.8 160.6 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="maren-leg-front-cuff-under" d="M 103.1 165.4 L 132.8 157.4 L 133.4 159.6 L 103.7 167.5 L 103.1 165.4 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="maren-leg-front-boot-line" href="#maren-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

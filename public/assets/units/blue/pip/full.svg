@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="pip" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="pip-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="pip-shadow-shadow" d="M 120 181 C 120 184.3 109.3 187 96 187 C 82.7 187 72 184.3 72 181 C 72 177.7 82.7 175 96 175 C 109.3 175 120 177.7 120 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="pip-ribbon-layer" transform="translate(92 150) rotate(0) scale(1 1) translate(-92 -150)">
+<defs>
+<path id="pip-ribbon-ribbon-shape" d="M 86 148 C 86 148 83.7 157.3 80 160 C 76.3 162.7 69.7 160.3 64 164 C 58.3 167.7 46 182 46 182 C 46 182 65.3 182.3 74 180 C 82.7 177.7 92.7 173 98 168 C 103.3 163 106 150 106 150 L 86 148 Z"/>
+<clipPath id="pip-ribbon-ribbon-clip"><use href="#pip-ribbon-ribbon-shape"/></clipPath>
+<clipPath id="pip-ribbon-ribbon-lit-clip"><use href="#pip-ribbon-ribbon-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="pip-ribbon-ribbon">
+<use id="pip-ribbon-ribbon-shade" href="#pip-ribbon-ribbon-shape" fill="#2f5893"/>
+<g clip-path="url(#pip-ribbon-ribbon-clip)">
+<use id="pip-ribbon-ribbon-fill" href="#pip-ribbon-ribbon-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#pip-ribbon-ribbon-lit-clip)">
+<use id="pip-ribbon-ribbon-lit" href="#pip-ribbon-ribbon-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="pip-ribbon-ribbon-fill-over" href="#pip-ribbon-ribbon-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="pip-ribbon-ribbon-line" href="#pip-ribbon-ribbon-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="pip-bow-layer" transform="translate(96 70) rotate(0) scale(1 1) translate(-96 -70)">
+<defs>
+<path id="pip-bow-tail-shape" d="M 96 68 L 68 56 L 76 68 L 66 80 Z"/>
+<path id="pip-bow-tail-b-shape" d="M 96 68 L 126 54 L 118 68 L 128 82 Z"/>
+<clipPath id="pip-bow-tail-b-clip"><use href="#pip-bow-tail-b-shape"/></clipPath>
+<clipPath id="pip-bow-tail-b-lit-clip"><use href="#pip-bow-tail-b-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="pip-bow-tail">
+<use id="pip-bow-tail-fill" href="#pip-bow-tail-shape" fill="#3d6fb6"/>
+<use id="pip-bow-tail-line" href="#pip-bow-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pip-bow-tail-b">
+<use id="pip-bow-tail-b-shade" href="#pip-bow-tail-b-shape" fill="#2f5893"/>
+<g clip-path="url(#pip-bow-tail-b-clip)">
+<use id="pip-bow-tail-b-fill" href="#pip-bow-tail-b-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#pip-bow-tail-b-lit-clip)">
+<use id="pip-bow-tail-b-lit" href="#pip-bow-tail-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="pip-bow-tail-b-fill-over" href="#pip-bow-tail-b-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="pip-bow-tail-b-line" href="#pip-bow-tail-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="pip-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="pip-body-cage-shape" d="M 77 88 L 115 88 Q 122 88 122 95 L 122 145 Q 122 152 115 152 L 77 152 Q 70 152 70 145 L 70 95 Q 70 88 77 88 Z"/>
+<clipPath id="pip-body-cage-clip"><use href="#pip-body-cage-shape"/></clipPath>
+<clipPath id="pip-body-cage-lit-clip"><use href="#pip-body-cage-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="pip-body-flame-shape" d="M 96 98 C 96 98 106.7 110.7 109 116 C 111.3 121.3 111 125.7 110 130 C 109 134.3 103 142 103 142 L 89 142 C 89 142 82.8 134.3 82 130 C 81.2 125.7 81.7 121.3 84 116 C 86.3 110.7 96 98 96 98 Z"/>
+<path id="pip-body-cap-shape" d="M 66 90 L 96 70 L 126 90 Z"/>
+<clipPath id="pip-body-cap-clip"><use href="#pip-body-cap-shape"/></clipPath>
+<clipPath id="pip-body-cap-lit-clip"><use href="#pip-body-cap-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="pip-body-foot-shape" d="M 79 150 L 113 150 Q 116 150 116 153 L 116 154 Q 116 157 113 157 L 79 157 Q 76 157 76 154 L 76 153 Q 76 150 79 150 Z"/>
+</defs>
+<path id="pip-body-chain" d="M 96 62 L 96 80" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="pip-body-halo" d="M 138 116 C 138 139.2 119.2 158 96 158 C 72.8 158 54 139.2 54 116 C 54 92.8 72.8 74 96 74 C 119.2 74 138 92.8 138 116 Z" fill="#fff3b8" opacity="0.4"/>
+<g id="pip-body-cage">
+<use id="pip-body-cage-shade" href="#pip-body-cage-shape" fill="#434b56"/>
+<g clip-path="url(#pip-body-cage-clip)">
+<use id="pip-body-cage-fill" href="#pip-body-cage-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#pip-body-cage-lit-clip)">
+<use id="pip-body-cage-lit" href="#pip-body-cage-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="pip-body-cage-fill-over" href="#pip-body-cage-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="pip-body-cage-sheen" d="M109.44 88 L117.24 88 L90.36 152 L82.56 152 Z M120.74 88 L123.34 88 L96.46 152 L93.86 152 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="pip-body-pane" d="M 83 96 L 109 96 Q 113 96 113 100 L 113 140 Q 113 144 109 144 L 83 144 Q 79 144 79 140 L 79 100 Q 79 96 83 96 Z" fill="#c9a53a"/>
+<g id="pip-body-flame">
+<use id="pip-body-flame-fill" href="#pip-body-flame-shape" fill="#f2d264"/>
+</g>
+<path id="pip-body-heart" d="M 96 114 C 96 114 101.2 122 102 126 C 102.8 130 102.8 136 101 138 C 99.2 140 92.8 140 91 138 C 89.2 136 89.2 130 90 126 C 90.8 122 96 114 96 114 Z" fill="#fff3b8"/>
+</g>
+<use id="pip-body-cage-line" href="#pip-body-cage-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pip-body-cap">
+<use id="pip-body-cap-shade" href="#pip-body-cap-shape" fill="#434b56"/>
+<g clip-path="url(#pip-body-cap-clip)">
+<use id="pip-body-cap-fill" href="#pip-body-cap-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#pip-body-cap-lit-clip)">
+<use id="pip-body-cap-lit" href="#pip-body-cap-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="pip-body-cap-fill-over" href="#pip-body-cap-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="pip-body-cap-sheen" d="M100.2 70 L109.2 70 L100.8 90 L91.8 90 Z M112.7 70 L115.3 70 L106.9 90 L104.3 90 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="pip-body-cap-line" href="#pip-body-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="pip-body-foot">
+<use id="pip-body-foot-fill" href="#pip-body-foot-shape" fill="#5d6672"/>
+<use id="pip-body-foot-line" href="#pip-body-foot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

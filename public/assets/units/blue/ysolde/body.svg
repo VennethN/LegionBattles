@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ysolde-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="ysolde-body-gown-shape" d="M 72.1 94 C 76.7 88.2 86.8 88.7 94.2 88.4 C 101.6 88.1 111.7 86.7 116.6 92.1 C 121.6 97.5 121.6 109.5 123.9 120.8 C 126.2 132.1 131.1 151.6 130.6 159.9 C 130 168.3 126.3 168.4 120.7 170.8 C 115 173.2 104.7 173.8 96.6 174.2 C 88.6 174.5 78.2 174.8 72.4 172.9 C 66.7 171 62.9 171.2 61.9 162.9 C 60.9 154.7 64.7 134.8 66.4 123.3 C 68.1 111.8 67.5 99.8 72.1 94 Z"/>
+<clipPath id="ysolde-body-gown-clip"><use href="#ysolde-body-gown-shape"/></clipPath>
+<clipPath id="ysolde-body-gown-lit-clip"><use href="#ysolde-body-gown-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="ysolde-body-hem-shape" d="M 55.4 162.1 C 62.2 160.8 82.8 165.5 96.4 164.9 C 110 164.3 130.2 157.8 137 158.5 C 143.9 159.2 144.1 166.1 137.3 168.9 C 130.6 171.7 110.3 174.8 96.6 175.3 C 83 175.9 62.6 174.7 55.7 172.5 C 48.8 170.3 48.6 163.3 55.4 162.1 Z"/>
+<path id="ysolde-body-bodice-shape" d="M 60.7 84.1 L 127.4 81.1 C 127.4 81.1 127.4 100.1 124.4 106.8 C 121.5 113.5 114.9 118.3 110 121.4 C 105.1 124.5 100.2 125.3 95.3 125.5 C 90.3 125.7 85.3 125.3 80.3 122.7 C 75.3 120 68.4 115.8 65.1 109.4 C 61.8 103 60.7 84.1 60.7 84.1 Z"/>
+<path id="ysolde-body-sleeve-fall-shape" d="M 122 124 L 138 126 C 138 126 135.7 140.3 134 146 C 132.3 151.7 128 160 128 160 C 128 160 119 148 118 142 C 117 136 122 124 122 124 Z"/>
+<clipPath id="ysolde-body-sleeve-fall-clip"><use href="#ysolde-body-sleeve-fall-shape"/></clipPath>
+<clipPath id="ysolde-body-sleeve-fall-lit-clip"><use href="#ysolde-body-sleeve-fall-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="ysolde-body-sleeve-shape" d="M 107.7 109.9 L 135.3 127 C 138.6 129 142.9 128 145 124.7 C 147 121.4 146 117.1 142.7 115 L 115.1 97.9 C 111.8 95.9 107.5 96.9 105.4 100.2 C 103.4 103.5 104.4 107.8 107.7 109.9 Z"/>
+<clipPath id="ysolde-body-sleeve-clip"><use href="#ysolde-body-sleeve-shape"/></clipPath>
+<clipPath id="ysolde-body-sleeve-lit-clip"><use href="#ysolde-body-sleeve-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="ysolde-body-gown">
+<use id="ysolde-body-gown-shade" href="#ysolde-body-gown-shape" fill="#2f5893"/>
+<g clip-path="url(#ysolde-body-gown-clip)">
+<use id="ysolde-body-gown-deep" href="#ysolde-body-gown-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="ysolde-body-gown-shade-over" href="#ysolde-body-gown-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="ysolde-body-gown-fill" href="#ysolde-body-gown-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#ysolde-body-gown-lit-clip)">
+<use id="ysolde-body-gown-lit" href="#ysolde-body-gown-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ysolde-body-gown-fill-over" href="#ysolde-body-gown-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="ysolde-body-fold-a" d="M 78.6 159.9 Q 83.6 137.6 81.9 114.5 Q 79.6 137.1 78.6 159.9 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="ysolde-body-fold-b" d="M 99.1 163.6 Q 100.6 144.2 96.2 125.5 Q 97.1 144.6 99.1 163.6 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="ysolde-body-fold-c" d="M 117.6 159.3 Q 117.8 137.9 111.8 117.8 Q 114 138.7 117.6 159.3 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="ysolde-body-fold-lit-a" d="M 85.1 160.8 Q 90 137.3 87.6 116.5 Q 86.4 139.8 85.1 160.8 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="ysolde-body-fold-lit-b" d="M 104.6 162.2 Q 107.8 143.5 104.6 127.4 Q 103.3 146 104.6 162.2 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="ysolde-body-hem-cast" d="M 55.3 157.4 C 62.1 157.1 82.6 160.9 96.2 160.3 C 109.8 159.7 130.1 154.2 136.9 153.9 C 143.7 153.6 143.8 156.7 137 158.5 C 130.3 160.3 110 164.3 96.4 164.9 C 82.8 165.5 62.3 163.3 55.4 162.1 C 48.6 160.8 48.5 157.7 55.3 157.4 Z" fill="#2a1a10" opacity="0.22"/>
+<g id="ysolde-body-hem">
+<use id="ysolde-body-hem-fill" href="#ysolde-body-hem-shape" fill="#6fc7e8"/>
+<use id="ysolde-body-hem-line" href="#ysolde-body-hem-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ysolde-body-bodice">
+<use id="ysolde-body-bodice-fill" href="#ysolde-body-bodice-shape" fill="#4a4458"/>
+<use id="ysolde-body-bodice-line" href="#ysolde-body-bodice-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="ysolde-body-gown-line" href="#ysolde-body-gown-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ysolde-body-sleeve-fall">
+<use id="ysolde-body-sleeve-fall-shade" href="#ysolde-body-sleeve-fall-shape" fill="#353041"/>
+<g clip-path="url(#ysolde-body-sleeve-fall-clip)">
+<use id="ysolde-body-sleeve-fall-fill" href="#ysolde-body-sleeve-fall-shape" transform="translate(-3 -3)" fill="#4a4458"/>
+<g clip-path="url(#ysolde-body-sleeve-fall-lit-clip)">
+<use id="ysolde-body-sleeve-fall-lit" href="#ysolde-body-sleeve-fall-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ysolde-body-sleeve-fall-fill-over" href="#ysolde-body-sleeve-fall-shape" transform="translate(3.6 3.6)" fill="#4a4458"/>
+</g>
+</g>
+<use id="ysolde-body-sleeve-fall-line" href="#ysolde-body-sleeve-fall-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="ysolde-body-sleeve-cast" d="M 108.7 113.4 L 136.3 130.5 C 139.6 132.5 143.9 131.5 146 128.2 C 148 124.9 147 120.6 143.7 118.5 L 116.1 101.4 C 112.8 99.4 108.5 100.4 106.4 103.7 C 104.4 107 105.4 111.3 108.7 113.4 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="ysolde-body-sleeve">
+<use id="ysolde-body-sleeve-shade" href="#ysolde-body-sleeve-shape" fill="#353041"/>
+<g clip-path="url(#ysolde-body-sleeve-clip)">
+<use id="ysolde-body-sleeve-fill" href="#ysolde-body-sleeve-shape" transform="translate(-3 -3)" fill="#4a4458"/>
+<g clip-path="url(#ysolde-body-sleeve-lit-clip)">
+<use id="ysolde-body-sleeve-lit" href="#ysolde-body-sleeve-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ysolde-body-sleeve-fill-over" href="#ysolde-body-sleeve-shape" transform="translate(3.6 3.6)" fill="#4a4458"/>
+</g>
+</g>
+<use id="ysolde-body-sleeve-line" href="#ysolde-body-sleeve-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

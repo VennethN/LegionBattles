@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="wren-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="wren-body-tunic-shape" d="M 69.1 110.8 C 73.9 106.4 85.2 106.2 93.3 105.8 C 101.4 105.4 112.7 104.3 117.9 108.3 C 123.1 112.2 124 122.2 124.7 129.6 C 125.4 136.9 125 147.3 122.1 152.3 C 119.2 157.3 113.6 158.2 107.4 159.7 C 101.2 161.1 91.2 161.6 84.9 160.8 C 78.6 160.1 72.9 159.7 69.5 155.1 C 66.1 150.4 64.7 140.1 64.6 132.7 C 64.5 125.4 64.3 115.3 69.1 110.8 Z"/>
+<clipPath id="wren-body-tunic-clip"><use href="#wren-body-tunic-shape"/></clipPath>
+<clipPath id="wren-body-tunic-lit-clip"><use href="#wren-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="wren-body-belt-shape" d="M 57.7 144.4 L 132.8 140.5 L 133.2 148.9 L 58.1 152.8 L 57.7 144.4 Z"/>
+<path id="wren-body-arm-shape" d="M 108.7 125.4 L 132.8 143.6 C 135.9 145.9 140.3 145.3 142.6 142.2 C 144.9 139.1 144.3 134.7 141.2 132.4 L 117.1 114.2 C 114 111.9 109.6 112.5 107.3 115.6 C 105 118.7 105.6 123.1 108.7 125.4 Z"/>
+<clipPath id="wren-body-arm-clip"><use href="#wren-body-arm-shape"/></clipPath>
+<clipPath id="wren-body-arm-lit-clip"><use href="#wren-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="wren-body-tunic">
+<use id="wren-body-tunic-shade" href="#wren-body-tunic-shape" fill="#2f5893"/>
+<g clip-path="url(#wren-body-tunic-clip)">
+<use id="wren-body-tunic-deep" href="#wren-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="wren-body-tunic-shade-over" href="#wren-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="wren-body-tunic-fill" href="#wren-body-tunic-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#wren-body-tunic-lit-clip)">
+<use id="wren-body-tunic-lit" href="#wren-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="wren-body-tunic-fill-over" href="#wren-body-tunic-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="wren-body-seam" d="M 108 104.1 L 108.5 104.1 Q 109.5 104 109.5 105 L 112.5 161.3 Q 112.5 162.2 111.6 162.3 L 111 162.3 Q 110.1 162.3 110 161.4 L 107.1 105.1 Q 107 104.1 108 104.1 Z" fill="#2a1a10" opacity="0.24"/>
+<path id="wren-body-lace" d="M 104.2 112.9 L 112.8 114.8 C 113.4 115 114 114.6 114.1 114 C 114.2 113.4 113.9 112.8 113.2 112.6 L 104.7 110.7 C 104.1 110.6 103.5 111 103.3 111.6 C 103.2 112.2 103.6 112.8 104.2 112.9 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="wren-body-lace-2" d="M 104.5 119.5 L 113.1 121.4 C 113.7 121.5 114.3 121.1 114.5 120.5 C 114.6 119.9 114.2 119.3 113.6 119.2 L 105 117.3 C 104.4 117.2 103.8 117.5 103.7 118.1 C 103.5 118.8 103.9 119.4 104.5 119.5 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="wren-body-lace-3" d="M 104.9 126.1 L 113.4 128 C 114.1 128.1 114.7 127.7 114.8 127.1 C 114.9 126.5 114.5 125.9 113.9 125.8 L 105.4 123.9 C 104.8 123.7 104.2 124.1 104 124.7 C 103.9 125.3 104.3 125.9 104.9 126.1 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="wren-body-crease-a" d="M 80.1 142.3 Q 81.3 134.1 76.5 127.4 Q 77.8 135 80.1 142.3 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="wren-body-crease-b" d="M 115.8 140.4 Q 118.8 134 117 127.2 Q 115.9 133.7 115.8 140.4 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="wren-body-belt-cast" d="M 58.2 153.8 L 133.3 149.8 L 133.5 154.1 L 58.4 158 L 58.2 153.8 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="wren-body-belt">
+<use id="wren-body-belt-fill" href="#wren-body-belt-shape" fill="#6b4a2b"/>
+<use id="wren-body-belt-line" href="#wren-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="wren-body-tunic-line" href="#wren-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="wren-body-arm-cast" d="M 109.7 128.9 L 133.8 147.1 C 136.9 149.4 141.3 148.8 143.6 145.7 C 145.9 142.6 145.3 138.2 142.2 135.9 L 118.1 117.7 C 115 115.4 110.6 116 108.3 119.1 C 106 122.2 106.6 126.6 109.7 128.9 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="wren-body-arm">
+<use id="wren-body-arm-shade" href="#wren-body-arm-shape" fill="#2f5893"/>
+<g clip-path="url(#wren-body-arm-clip)">
+<use id="wren-body-arm-fill" href="#wren-body-arm-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#wren-body-arm-lit-clip)">
+<use id="wren-body-arm-lit" href="#wren-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="wren-body-arm-fill-over" href="#wren-body-arm-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="wren-body-arm-line" href="#wren-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

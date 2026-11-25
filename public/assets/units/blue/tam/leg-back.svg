@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="tam-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="tam-leg-back-boot-shape" d="M 77.8 154 L 93 154.8 L 92.3 167.6 C 97.1 167.8 100.9 171.2 100.7 176 L 100.6 177.6 Q 100.4 180.8 97.2 180.6 L 79.6 179.7 Q 76.4 179.6 76.6 176.4 Z"/>
+<clipPath id="tam-leg-back-boot-clip"><use href="#tam-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="tam-leg-back-boot">
+<use id="tam-leg-back-boot-fill" href="#tam-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#tam-leg-back-boot-clip)">
+<path id="tam-leg-back-sole" d="M 73.5 175.4 L 105.4 177.1 L 105.1 183.5 L 73.1 181.8 L 73.5 175.4 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="tam-leg-back-boot-line" href="#tam-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

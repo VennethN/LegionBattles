@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="wren-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="wren-leg-front-boot-shape" d="M 100.1 152.1 L 117.5 148.1 L 120.9 162.8 C 126.4 161.5 131.8 164.1 133.1 169.6 L 133.5 171.4 Q 134.3 175.1 130.7 175.9 L 110.5 180.6 Q 106.9 181.4 106 177.8 Z"/>
+<clipPath id="wren-leg-front-boot-clip"><use href="#wren-leg-front-boot-shape"/></clipPath>
+<clipPath id="wren-leg-front-boot-lit-clip"><use href="#wren-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="wren-leg-front-boot">
+<use id="wren-leg-front-boot-shade" href="#wren-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#wren-leg-front-boot-clip)">
+<use id="wren-leg-front-boot-fill" href="#wren-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#wren-leg-front-boot-lit-clip)">
+<use id="wren-leg-front-boot-lit" href="#wren-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="wren-leg-front-boot-fill-over" href="#wren-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="wren-leg-front-sole" d="M 102.1 177.7 L 138.8 169.2 L 140.5 176.6 L 103.8 185 L 102.1 177.7 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="wren-leg-front-cuff" d="M 98.8 163.1 L 124.4 157.1 L 125.4 161.3 L 99.7 167.2 L 98.8 163.1 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="wren-leg-front-cuff-under" d="M 99.7 167.2 L 125.4 161.3 L 125.8 163.1 L 100.1 169 L 99.7 167.2 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="wren-leg-front-boot-line" href="#wren-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

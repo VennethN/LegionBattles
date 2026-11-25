@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="tam-colors" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="tam-colors-shaft-shape" d="M 137.4 30.1 L 138.4 30.2 Q 141.4 30.3 141.2 33.3 L 133.8 175.1 Q 133.6 178.1 130.6 178 L 129.6 177.9 Q 126.6 177.8 126.8 174.8 L 134.2 33 Q 134.4 30 137.4 30.1 Z"/>
+<clipPath id="tam-colors-shaft-clip"><use href="#tam-colors-shaft-shape"/></clipPath>
+<path id="tam-colors-banner-shape" d="M 119.6 35.2 L 155.5 37.1 L 153.3 79 L 144.8 70.6 L 135.2 80.1 L 126.8 69.6 L 117.4 77.1 Z"/>
+<clipPath id="tam-colors-banner-clip"><use href="#tam-colors-banner-shape"/></clipPath>
+<clipPath id="tam-colors-banner-lit-clip"><use href="#tam-colors-banner-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="tam-colors-mark-shape" d="M 137.2 42.1 L 145.6 53.6 L 136.1 64.1 L 127.7 52.7 Z"/>
+<path id="tam-colors-bar-shape" d="M 118.8 30.2 L 156.8 32.1 Q 159.8 32.3 159.6 35.3 L 159.6 35.3 Q 159.5 38.3 156.5 38.1 L 118.5 36.1 Q 115.5 36 115.7 33 L 115.7 33 Q 115.8 30 118.8 30.2 Z"/>
+<path id="tam-colors-finial-shape" d="M 138.7 14.2 L 144.2 24.5 L 137.8 31.2 L 132.2 23.8 Z"/>
+<path id="tam-colors-hand-shape" d="M 139.5 142 C 139.5 146.1 136.1 149.5 132 149.5 C 127.9 149.5 124.5 146.1 124.5 142 C 124.5 137.9 127.9 134.5 132 134.5 C 136.1 134.5 139.5 137.9 139.5 142 Z"/>
+<clipPath id="tam-colors-hand-clip"><use href="#tam-colors-hand-shape"/></clipPath>
+<clipPath id="tam-colors-hand-lit-clip"><use href="#tam-colors-hand-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="tam-colors-fist-shape" d="M 140 158 C 140 161.9 136.9 165 133 165 C 129.1 165 126 161.9 126 158 C 126 154.1 129.1 151 133 151 C 136.9 151 140 154.1 140 158 Z"/>
+<clipPath id="tam-colors-fist-clip"><use href="#tam-colors-fist-shape"/></clipPath>
+<clipPath id="tam-colors-fist-lit-clip"><use href="#tam-colors-fist-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="tam-colors-shaft">
+<use id="tam-colors-shaft-shade" href="#tam-colors-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#tam-colors-shaft-clip)">
+<use id="tam-colors-shaft-fill" href="#tam-colors-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="tam-colors-shaft-line" href="#tam-colors-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-banner">
+<use id="tam-colors-banner-shade" href="#tam-colors-banner-shape" fill="#2f5893"/>
+<g clip-path="url(#tam-colors-banner-clip)">
+<use id="tam-colors-banner-fill" href="#tam-colors-banner-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#tam-colors-banner-lit-clip)">
+<use id="tam-colors-banner-lit" href="#tam-colors-banner-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-colors-banner-fill-over" href="#tam-colors-banner-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<g id="tam-colors-mark">
+<use id="tam-colors-mark-fill" href="#tam-colors-mark-shape" fill="#c8a24a"/>
+<use id="tam-colors-mark-line" href="#tam-colors-mark-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="tam-colors-fold" d="M 124.6 37.4 L 121.7 73.3 C 121.6 73.8 122 74.3 122.5 74.3 C 123 74.3 123.4 74 123.5 73.5 L 126.4 37.6 C 126.4 37.1 126 36.7 125.5 36.6 C 125 36.6 124.6 36.9 124.6 37.4 Z" fill="#2a1a10" opacity="0.22"/>
+</g>
+<use id="tam-colors-banner-line" href="#tam-colors-banner-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-bar">
+<use id="tam-colors-bar-fill" href="#tam-colors-bar-shape" fill="#9a6a3a"/>
+<use id="tam-colors-bar-line" href="#tam-colors-bar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-finial">
+<use id="tam-colors-finial-fill" href="#tam-colors-finial-shape" fill="#c8a24a"/>
+<use id="tam-colors-finial-line" href="#tam-colors-finial-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-hand">
+<use id="tam-colors-hand-shade" href="#tam-colors-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#tam-colors-hand-clip)">
+<use id="tam-colors-hand-fill" href="#tam-colors-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#tam-colors-hand-lit-clip)">
+<use id="tam-colors-hand-lit" href="#tam-colors-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-colors-hand-fill-over" href="#tam-colors-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="tam-colors-hand-line" href="#tam-colors-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-fist">
+<use id="tam-colors-fist-shade" href="#tam-colors-fist-shape" fill="#4e3520"/>
+<g clip-path="url(#tam-colors-fist-clip)">
+<use id="tam-colors-fist-fill" href="#tam-colors-fist-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#tam-colors-fist-lit-clip)">
+<use id="tam-colors-fist-lit" href="#tam-colors-fist-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-colors-fist-fill-over" href="#tam-colors-fist-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="tam-colors-fist-line" href="#tam-colors-fist-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

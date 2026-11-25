@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="isaura-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="isaura-body-skirt-shape" d="M 67.5 141.8 L 127.5 156.8 L 120 178.2 L 112 167.8 L 101.5 175.8 L 93.8 164.3 L 81.5 170.8 L 76 158.8 L 64.5 162.3 Z"/>
+<clipPath id="isaura-body-skirt-clip"><use href="#isaura-body-skirt-shape"/></clipPath>
+<clipPath id="isaura-body-skirt-lit-clip"><use href="#isaura-body-skirt-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="isaura-body-surcoat-shape" d="M 82.7 97.8 C 89.2 94.7 101 98.2 109.7 100.3 C 118.4 102.5 130.5 105 134.7 110.8 C 138.9 116.6 136.6 127.4 135 135.3 C 133.3 143.2 129.6 153.9 125 158.3 C 120.4 162.6 114.2 161.8 107.2 161.3 C 100.3 160.8 89.6 158.1 83.3 155.3 C 76.9 152.5 71.1 150.3 69 144.3 C 67 138.3 68.7 127.1 71 119.3 C 73.3 111.6 76.3 101 82.7 97.8 Z"/>
+<clipPath id="isaura-body-surcoat-clip"><use href="#isaura-body-surcoat-shape"/></clipPath>
+<clipPath id="isaura-body-surcoat-lit-clip"><use href="#isaura-body-surcoat-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="isaura-body-belt-shape" d="M 60 129.3 L 140 149.3 L 137.7 158.3 L 57.8 138.3 L 60 129.3 Z"/>
+<path id="isaura-body-buckle-shape" d="M 108.5 139.3 L 114.5 140.8 Q 117.5 141.5 116.7 144.5 L 115 151.5 Q 114.2 154.5 111.2 153.8 L 105.2 152.3 Q 102.2 151.5 103 148.5 L 104.7 141.5 Q 105.5 138.5 108.5 139.3 Z"/>
+<clipPath id="isaura-body-buckle-clip"><use href="#isaura-body-buckle-shape"/></clipPath>
+<clipPath id="isaura-body-buckle-lit-clip"><use href="#isaura-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="isaura-body-arm-shape" d="M 117.2 116.6 L 108.2 135.8 C 106.5 139.6 108.1 144 111.8 145.8 C 115.6 147.5 120 145.9 121.8 142.2 L 130.8 123 C 132.5 119.2 130.9 114.8 127.2 113 C 123.4 111.3 119 112.9 117.2 116.6 Z"/>
+<clipPath id="isaura-body-arm-clip"><use href="#isaura-body-arm-shape"/></clipPath>
+<clipPath id="isaura-body-arm-lit-clip"><use href="#isaura-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="isaura-body-pauldron-shape" d="M 137.9 119 C 136.3 125.7 129.1 129.6 122 127.8 C 114.8 126 110.3 119.2 112 112.6 C 113.6 105.9 120.8 102 127.9 103.8 C 135.1 105.6 139.6 112.4 137.9 119 Z"/>
+<clipPath id="isaura-body-pauldron-clip"><use href="#isaura-body-pauldron-shape"/></clipPath>
+<clipPath id="isaura-body-pauldron-lit-clip"><use href="#isaura-body-pauldron-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="isaura-body-skirt">
+<use id="isaura-body-skirt-shade" href="#isaura-body-skirt-shape" fill="#2f5893"/>
+<g clip-path="url(#isaura-body-skirt-clip)">
+<use id="isaura-body-skirt-fill" href="#isaura-body-skirt-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#isaura-body-skirt-lit-clip)">
+<use id="isaura-body-skirt-lit" href="#isaura-body-skirt-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="isaura-body-skirt-fill-over" href="#isaura-body-skirt-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="isaura-body-skirt-line" href="#isaura-body-skirt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="isaura-body-surcoat">
+<use id="isaura-body-surcoat-shade" href="#isaura-body-surcoat-shape" fill="#2f5893"/>
+<g clip-path="url(#isaura-body-surcoat-clip)">
+<use id="isaura-body-surcoat-deep" href="#isaura-body-surcoat-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="isaura-body-surcoat-shade-over" href="#isaura-body-surcoat-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="isaura-body-surcoat-fill" href="#isaura-body-surcoat-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#isaura-body-surcoat-lit-clip)">
+<use id="isaura-body-surcoat-lit" href="#isaura-body-surcoat-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="isaura-body-surcoat-fill-over" href="#isaura-body-surcoat-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="isaura-body-stripe" d="M 116.4 90.3 L 129.4 93.6 L 107 183.5 L 94 180.3 L 116.4 90.3 Z" fill="#f4f1e4" opacity="0.45"/>
+<path id="isaura-body-stripe-edge" d="M 129.4 93.6 L 131.4 94.1 L 109 184 L 107 183.5 L 129.4 93.6 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="isaura-body-crease-a" d="M 84.2 134.3 Q 88 126.1 85.2 117.6 Q 84.1 125.9 84.2 134.3 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="isaura-body-crease-b" d="M 122.2 143.8 Q 127.4 138 127.7 130.3 Q 124.5 136.8 122.2 143.8 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="isaura-body-belt-cast" d="M 57.5 139.3 L 137.5 159.3 L 136.3 163.7 L 56.4 143.8 L 57.5 139.3 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="isaura-body-belt">
+<use id="isaura-body-belt-fill" href="#isaura-body-belt-shape" fill="#6b4a2b"/>
+<use id="isaura-body-belt-line" href="#isaura-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="isaura-body-buckle">
+<use id="isaura-body-buckle-shade" href="#isaura-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#isaura-body-buckle-clip)">
+<use id="isaura-body-buckle-fill" href="#isaura-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#isaura-body-buckle-lit-clip)">
+<use id="isaura-body-buckle-lit" href="#isaura-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="isaura-body-buckle-fill-over" href="#isaura-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="isaura-body-buckle-line" href="#isaura-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="isaura-body-surcoat-line" href="#isaura-body-surcoat-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="isaura-body-arm-cast" d="M 118.2 120.1 L 109.2 139.3 C 107.5 143.1 109.1 147.5 112.8 149.3 C 116.6 151 121 149.4 122.8 145.7 L 131.8 126.5 C 133.5 122.7 131.9 118.3 128.2 116.5 C 124.4 114.8 120 116.4 118.2 120.1 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="isaura-body-arm">
+<use id="isaura-body-arm-shade" href="#isaura-body-arm-shape" fill="#8d97a3"/>
+<g clip-path="url(#isaura-body-arm-clip)">
+<use id="isaura-body-arm-fill" href="#isaura-body-arm-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#isaura-body-arm-lit-clip)">
+<use id="isaura-body-arm-lit" href="#isaura-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="isaura-body-arm-fill-over" href="#isaura-body-arm-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="isaura-body-arm-sheen" d="M127.12 111.25 L131.12 111.25 L115.88 147.55 L111.88 147.55 Z M134.62 111.25 L137.22 111.25 L121.98 147.55 L119.38 147.55 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="isaura-body-arm-line" href="#isaura-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="isaura-body-pauldron-cast" d="M 138.1 122.8 C 136.4 129.4 129.3 133.3 122.1 131.5 C 114.9 129.7 110.4 122.9 112.1 116.3 C 113.7 109.7 120.9 105.8 128.1 107.5 C 135.2 109.3 139.7 116.2 138.1 122.8 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="isaura-body-pauldron">
+<use id="isaura-body-pauldron-shade" href="#isaura-body-pauldron-shape" fill="#8d97a3"/>
+<g clip-path="url(#isaura-body-pauldron-clip)">
+<use id="isaura-body-pauldron-fill" href="#isaura-body-pauldron-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#isaura-body-pauldron-lit-clip)">
+<use id="isaura-body-pauldron-lit" href="#isaura-body-pauldron-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="isaura-body-pauldron-fill-over" href="#isaura-body-pauldron-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="isaura-body-pauldron-sheen" d="M130.74 102.01 L135.13 102.01 L123.56 129.57 L119.16 129.57 Z M138.63 102.01 L141.23 102.01 L129.66 129.57 L127.06 129.57 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="isaura-body-rivet" d="M 130 120.9 C 129.7 121.8 128.8 122.4 127.8 122.1 C 126.9 121.9 126.3 121 126.6 120 C 126.8 119.1 127.7 118.5 128.7 118.7 C 129.6 119 130.2 119.9 130 120.9 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="isaura-body-rivet-lit" d="M 128.6 119.9 C 128.5 120.3 128 120.6 127.6 120.5 C 127.2 120.4 126.9 119.9 127 119.5 C 127.1 119.1 127.6 118.8 128 118.9 C 128.4 119 128.7 119.5 128.6 119.9 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="isaura-body-pauldron-line" href="#isaura-body-pauldron-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

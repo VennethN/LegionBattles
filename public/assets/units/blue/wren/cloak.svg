@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="wren-cloak" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="wren-cloak-cloak-shape" d="M 72.3 101.5 L 111.2 110.6 Q 94.9 134.7 71.4 143.9 L 52.5 133.8 L 36.8 152.2 L 21.4 133.9 L 0.2 149 L -10.4 125.4 L -34.8 129 Q 1.4 103.8 41.5 97.4 Z"/>
+<clipPath id="wren-cloak-cloak-clip"><use href="#wren-cloak-cloak-shape"/></clipPath>
+<clipPath id="wren-cloak-cloak-lit-clip"><use href="#wren-cloak-cloak-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="wren-cloak-cloak">
+<use id="wren-cloak-cloak-shade" href="#wren-cloak-cloak-shape" fill="#2f5893"/>
+<g clip-path="url(#wren-cloak-cloak-clip)">
+<use id="wren-cloak-cloak-deep" href="#wren-cloak-cloak-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="wren-cloak-cloak-shade-over" href="#wren-cloak-cloak-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="wren-cloak-cloak-fill" href="#wren-cloak-cloak-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#wren-cloak-cloak-lit-clip)">
+<use id="wren-cloak-cloak-lit" href="#wren-cloak-cloak-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="wren-cloak-cloak-fill-over" href="#wren-cloak-cloak-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="wren-cloak-billow" d="M 46.7 103.5 C 54.4 101.2 79.3 108 82.7 112.4 C 86.1 116.7 74.8 127 67.1 129.4 C 59.3 131.8 39.6 131 36.2 126.7 C 32.8 122.4 38.9 105.9 46.7 103.5 Z" fill="#f4f1e4" opacity="0.22"/>
+<path id="wren-cloak-fold-a" d="M 82.6 113.8 Q 50.7 119.8 21.4 133.9 Q 52.2 124.6 82.6 113.8 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="wren-cloak-fold-b" d="M 52.2 105.4 Q 17.7 111.7 -14.7 125.1 Q 19 116 52.2 105.4 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="wren-cloak-cloak-line" href="#wren-cloak-cloak-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

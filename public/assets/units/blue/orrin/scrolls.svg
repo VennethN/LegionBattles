@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="orrin-scrolls" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="orrin-scrolls-roll-a-shape" d="M 47.9 87 L 51.1 85.1 Q 53.5 83.6 54.8 86.2 L 67.2 110.5 Q 68.5 113.1 66.1 114.5 L 62.9 116.4 Q 60.6 117.9 59.2 115.3 L 46.9 91 Q 45.5 88.4 47.9 87 Z"/>
+<clipPath id="orrin-scrolls-roll-a-clip"><use href="#orrin-scrolls-roll-a-shape"/></clipPath>
+<clipPath id="orrin-scrolls-roll-a-lit-clip"><use href="#orrin-scrolls-roll-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="orrin-scrolls-roll-a-end-shape" d="M 53.5 83.6 C 54.1 84.9 52.9 87 50.7 88.3 C 48.5 89.6 46.2 89.7 45.5 88.4 C 44.9 87.2 46.2 85.1 48.4 83.8 C 50.6 82.5 52.9 82.4 53.5 83.6 Z"/>
+<path id="orrin-scrolls-roll-b-shape" d="M 63.4 73.7 L 67 73 Q 69.6 72.4 70.2 75.3 L 76.1 108.4 Q 76.6 111.3 73.9 111.9 L 70.3 112.6 Q 67.6 113.2 67.1 110.3 L 61.2 77.2 Q 60.7 74.3 63.4 73.7 Z"/>
+<clipPath id="orrin-scrolls-roll-b-clip"><use href="#orrin-scrolls-roll-b-shape"/></clipPath>
+<clipPath id="orrin-scrolls-roll-b-lit-clip"><use href="#orrin-scrolls-roll-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="orrin-scrolls-roll-b-end-shape" d="M 69.6 72.4 C 69.9 73.8 68.1 75.4 65.6 75.9 C 63.1 76.4 60.9 75.7 60.7 74.3 C 60.4 72.9 62.2 71.4 64.7 70.8 C 67.2 70.3 69.4 71 69.6 72.4 Z"/>
+<path id="orrin-scrolls-roll-c-shape" d="M 81.1 77.4 L 84.8 77.6 Q 87.5 77.8 87.4 80.7 L 86 108.4 Q 85.9 111.4 83.2 111.2 L 79.5 111 Q 76.8 110.9 76.9 107.9 L 78.3 80.2 Q 78.4 77.2 81.1 77.4 Z"/>
+<clipPath id="orrin-scrolls-roll-c-clip"><use href="#orrin-scrolls-roll-c-shape"/></clipPath>
+<clipPath id="orrin-scrolls-roll-c-lit-clip"><use href="#orrin-scrolls-roll-c-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="orrin-scrolls-roll-c-end-shape" d="M 87.5 77.8 C 87.4 79.2 85.4 80.2 82.8 80.1 C 80.3 79.9 78.4 78.7 78.4 77.2 C 78.5 75.8 80.6 74.8 83.1 74.9 C 85.6 75.1 87.6 76.3 87.5 77.8 Z"/>
+<path id="orrin-scrolls-satchel-shape" d="M 62.6 105.4 L 80.8 107.1 Q 87.1 107.7 86.6 114.6 L 84.5 140.2 Q 83.9 147.1 77.6 146.5 L 59.4 144.8 Q 53.1 144.2 53.6 137.3 L 55.7 111.7 Q 56.3 104.8 62.6 105.4 Z"/>
+<clipPath id="orrin-scrolls-satchel-clip"><use href="#orrin-scrolls-satchel-shape"/></clipPath>
+<clipPath id="orrin-scrolls-satchel-lit-clip"><use href="#orrin-scrolls-satchel-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="orrin-scrolls-clasp-shape" d="M 68.3 113.9 L 72.9 114.3 Q 74.7 114.5 74.5 116.4 L 74.1 121.4 Q 74 123.3 72.1 123.2 L 67.6 122.7 Q 65.8 122.6 66 120.6 L 66.4 115.7 Q 66.5 113.7 68.3 113.9 Z"/>
+</defs>
+<g id="orrin-scrolls-roll-a">
+<use id="orrin-scrolls-roll-a-shade" href="#orrin-scrolls-roll-a-shape" fill="#c4b594"/>
+<g clip-path="url(#orrin-scrolls-roll-a-clip)">
+<use id="orrin-scrolls-roll-a-fill" href="#orrin-scrolls-roll-a-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#orrin-scrolls-roll-a-lit-clip)">
+<use id="orrin-scrolls-roll-a-lit" href="#orrin-scrolls-roll-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="orrin-scrolls-roll-a-fill-over" href="#orrin-scrolls-roll-a-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+<path id="orrin-scrolls-band" d="M 47.8 95 L 57.4 89.2 L 58.7 91.8 L 49.2 97.6 L 47.8 95 Z" fill="#2a1a10" opacity="0.34"/>
+</g>
+<use id="orrin-scrolls-roll-a-line" href="#orrin-scrolls-roll-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="orrin-scrolls-roll-a-end">
+<use id="orrin-scrolls-roll-a-end-fill" href="#orrin-scrolls-roll-a-end-shape" fill="#d9cdb0"/>
+<use id="orrin-scrolls-roll-a-end-line" href="#orrin-scrolls-roll-a-end-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="orrin-scrolls-roll-b">
+<use id="orrin-scrolls-roll-b-shade" href="#orrin-scrolls-roll-b-shape" fill="#c4b594"/>
+<g clip-path="url(#orrin-scrolls-roll-b-clip)">
+<use id="orrin-scrolls-roll-b-fill" href="#orrin-scrolls-roll-b-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#orrin-scrolls-roll-b-lit-clip)">
+<use id="orrin-scrolls-roll-b-lit" href="#orrin-scrolls-roll-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="orrin-scrolls-roll-b-fill-over" href="#orrin-scrolls-roll-b-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+<path id="orrin-scrolls-band-2" d="M 61 81.3 L 71.7 79 L 72.3 81.9 L 61.5 84.2 L 61 81.3 Z" fill="#2a1a10" opacity="0.34"/>
+</g>
+<use id="orrin-scrolls-roll-b-line" href="#orrin-scrolls-roll-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="orrin-scrolls-roll-b-end">
+<use id="orrin-scrolls-roll-b-end-fill" href="#orrin-scrolls-roll-b-end-shape" fill="#d9cdb0"/>
+<use id="orrin-scrolls-roll-b-end-line" href="#orrin-scrolls-roll-b-end-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="orrin-scrolls-roll-c">
+<use id="orrin-scrolls-roll-c-shade" href="#orrin-scrolls-roll-c-shape" fill="#c4b594"/>
+<g clip-path="url(#orrin-scrolls-roll-c-clip)">
+<use id="orrin-scrolls-roll-c-fill" href="#orrin-scrolls-roll-c-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#orrin-scrolls-roll-c-lit-clip)">
+<use id="orrin-scrolls-roll-c-lit" href="#orrin-scrolls-roll-c-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="orrin-scrolls-roll-c-fill-over" href="#orrin-scrolls-roll-c-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+<path id="orrin-scrolls-band-3" d="M 77.2 84.1 L 88.1 84.7 L 87.9 87.7 L 77 87.1 L 77.2 84.1 Z" fill="#2a1a10" opacity="0.34"/>
+</g>
+<use id="orrin-scrolls-roll-c-line" href="#orrin-scrolls-roll-c-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="orrin-scrolls-roll-c-end">
+<use id="orrin-scrolls-roll-c-end-fill" href="#orrin-scrolls-roll-c-end-shape" fill="#d9cdb0"/>
+<use id="orrin-scrolls-roll-c-end-line" href="#orrin-scrolls-roll-c-end-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="orrin-scrolls-satchel">
+<use id="orrin-scrolls-satchel-shade" href="#orrin-scrolls-satchel-shape" fill="#4e3520"/>
+<g clip-path="url(#orrin-scrolls-satchel-clip)">
+<use id="orrin-scrolls-satchel-fill" href="#orrin-scrolls-satchel-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#orrin-scrolls-satchel-lit-clip)">
+<use id="orrin-scrolls-satchel-lit" href="#orrin-scrolls-satchel-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="orrin-scrolls-satchel-fill-over" href="#orrin-scrolls-satchel-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="orrin-scrolls-flap" d="M 52.9 100.5 L 91.1 104.1 L 89.8 119.9 L 51.7 116.2 L 52.9 100.5 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="orrin-scrolls-clasp">
+<use id="orrin-scrolls-clasp-fill" href="#orrin-scrolls-clasp-shape" fill="#c8a24a"/>
+<use id="orrin-scrolls-clasp-line" href="#orrin-scrolls-clasp-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="orrin-scrolls-satchel-line" href="#orrin-scrolls-satchel-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="quill-streamer" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="quill-streamer-streamer-shape" d="M 120 124 C 120 124 108.7 129.7 102 134 C 95.3 138.3 88.3 147.3 80 150 C 71.7 152.7 52 150 52 150 C 52 150 58.3 158 64 160 C 69.7 162 79 164 86 162 C 93 160 100 152.7 106 148 C 112 143.3 122 134 122 134 L 120 124 Z"/>
+<clipPath id="quill-streamer-streamer-clip"><use href="#quill-streamer-streamer-shape"/></clipPath>
+<clipPath id="quill-streamer-streamer-lit-clip"><use href="#quill-streamer-streamer-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="quill-streamer-streamer">
+<use id="quill-streamer-streamer-shade" href="#quill-streamer-streamer-shape" fill="#2f5893"/>
+<g clip-path="url(#quill-streamer-streamer-clip)">
+<use id="quill-streamer-streamer-fill" href="#quill-streamer-streamer-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#quill-streamer-streamer-lit-clip)">
+<use id="quill-streamer-streamer-lit" href="#quill-streamer-streamer-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="quill-streamer-streamer-fill-over" href="#quill-streamer-streamer-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="quill-streamer-streamer-line" href="#quill-streamer-streamer-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

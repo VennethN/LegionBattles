@@ -1,0 +1,277 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="tam" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="tam-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="tam-shadow-shadow" d="M 126 181 C 126 185.4 112.6 189 96 189 C 79.4 189 66 185.4 66 181 C 66 176.6 79.4 173 96 173 C 112.6 173 126 176.6 126 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="tam-pack-layer" transform="translate(68.8 132) rotate(0) scale(1 1) translate(-68.8 -132)">
+<defs>
+<path id="tam-pack-pack-shape" d="M 62.4 124 L 75.2 124 Q 81.6 124 81.6 130.4 L 81.6 148 Q 81.6 154.4 75.2 154.4 L 62.4 154.4 Q 56 154.4 56 148 L 56 130.4 Q 56 124 62.4 124 Z"/>
+<clipPath id="tam-pack-pack-clip"><use href="#tam-pack-pack-shape"/></clipPath>
+<clipPath id="tam-pack-pack-lit-clip"><use href="#tam-pack-pack-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="tam-pack-flap-shape" d="M 57.6 120.8 L 80 120.8 Q 84.8 120.8 84.8 125.6 L 84.8 128.8 Q 84.8 133.6 80 133.6 L 57.6 133.6 Q 52.8 133.6 52.8 128.8 L 52.8 125.6 Q 52.8 120.8 57.6 120.8 Z"/>
+<clipPath id="tam-pack-flap-clip"><use href="#tam-pack-flap-shape"/></clipPath>
+<clipPath id="tam-pack-flap-lit-clip"><use href="#tam-pack-flap-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="tam-pack-buckle-shape" d="M 66.4 132 L 70.4 132 Q 72 132 72 133.6 L 72 137.6 Q 72 139.2 70.4 139.2 L 66.4 139.2 Q 64.8 139.2 64.8 137.6 L 64.8 133.6 Q 64.8 132 66.4 132 Z"/>
+<path id="tam-pack-roll-shape" d="M 58.4 114.4 L 79.2 114.4 Q 84.8 114.4 84.8 120 L 84.8 120 Q 84.8 125.6 79.2 125.6 L 58.4 125.6 Q 52.8 125.6 52.8 120 L 52.8 120 Q 52.8 114.4 58.4 114.4 Z"/>
+<clipPath id="tam-pack-roll-clip"><use href="#tam-pack-roll-shape"/></clipPath>
+<clipPath id="tam-pack-roll-lit-clip"><use href="#tam-pack-roll-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="tam-pack-pack">
+<use id="tam-pack-pack-shade" href="#tam-pack-pack-shape" fill="#4e3520"/>
+<g clip-path="url(#tam-pack-pack-clip)">
+<use id="tam-pack-pack-fill" href="#tam-pack-pack-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#tam-pack-pack-lit-clip)">
+<use id="tam-pack-pack-lit" href="#tam-pack-pack-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-pack-pack-fill-over" href="#tam-pack-pack-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<g id="tam-pack-flap">
+<use id="tam-pack-flap-shade" href="#tam-pack-flap-shape" fill="#4e3520"/>
+<g clip-path="url(#tam-pack-flap-clip)">
+<use id="tam-pack-flap-fill" href="#tam-pack-flap-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#tam-pack-flap-lit-clip)">
+<use id="tam-pack-flap-lit" href="#tam-pack-flap-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-pack-flap-fill-over" href="#tam-pack-flap-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="tam-pack-flap-line" href="#tam-pack-flap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-pack-buckle">
+<use id="tam-pack-buckle-fill" href="#tam-pack-buckle-shape" fill="#c8a24a"/>
+<use id="tam-pack-buckle-line" href="#tam-pack-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="tam-pack-pack-line" href="#tam-pack-pack-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-pack-roll">
+<use id="tam-pack-roll-shade" href="#tam-pack-roll-shape" fill="#b3a585"/>
+<g clip-path="url(#tam-pack-roll-clip)">
+<use id="tam-pack-roll-fill" href="#tam-pack-roll-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#tam-pack-roll-lit-clip)">
+<use id="tam-pack-roll-lit" href="#tam-pack-roll-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-pack-roll-fill-over" href="#tam-pack-roll-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+<path id="tam-pack-strap-a" d="M 60 112.8 L 62.4 112.8 L 62.4 127.2 L 60 127.2 L 60 112.8 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="tam-pack-strap-b" d="M 75.2 112.8 L 77.6 112.8 L 77.6 127.2 L 75.2 127.2 L 75.2 112.8 Z" fill="#2a1a10" opacity="0.34"/>
+</g>
+<use id="tam-pack-roll-line" href="#tam-pack-roll-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="tam-leg-back-layer" transform="translate(84 157.5) rotate(0) scale(1 1) translate(-84 -157.5)">
+<defs>
+<path id="tam-leg-back-boot-shape" d="M 77.8 154 L 93 154.8 L 92.3 167.6 C 97.1 167.8 100.9 171.2 100.7 176 L 100.6 177.6 Q 100.4 180.8 97.2 180.6 L 79.6 179.7 Q 76.4 179.6 76.6 176.4 Z"/>
+<clipPath id="tam-leg-back-boot-clip"><use href="#tam-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="tam-leg-back-boot">
+<use id="tam-leg-back-boot-fill" href="#tam-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#tam-leg-back-boot-clip)">
+<path id="tam-leg-back-sole" d="M 73.5 175.4 L 105.4 177.1 L 105.1 183.5 L 73.1 181.8 L 73.5 175.4 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="tam-leg-back-boot-line" href="#tam-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="tam-leg-front-layer" transform="translate(105.6 157.5) rotate(0) scale(1 1) translate(-105.6 -157.5)">
+<defs>
+<path id="tam-leg-front-boot-shape" d="M 95.8 154.8 L 111 154 L 111.7 166.8 C 116.5 166.6 120.6 169.5 120.9 174.3 L 121 175.9 Q 121.2 179.1 118 179.3 L 100.4 180.2 Q 97.2 180.4 97 177.2 Z"/>
+<clipPath id="tam-leg-front-boot-clip"><use href="#tam-leg-front-boot-shape"/></clipPath>
+<clipPath id="tam-leg-front-boot-lit-clip"><use href="#tam-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="tam-leg-front-boot">
+<use id="tam-leg-front-boot-shade" href="#tam-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#tam-leg-front-boot-clip)">
+<use id="tam-leg-front-boot-fill" href="#tam-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#tam-leg-front-boot-lit-clip)">
+<use id="tam-leg-front-boot-lit" href="#tam-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-leg-front-boot-fill-over" href="#tam-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="tam-leg-front-sole" d="M 93.8 176.6 L 125.7 174.9 L 126.1 181.3 L 94.1 183 L 93.8 176.6 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="tam-leg-front-cuff" d="M 93.1 163.8 L 115.5 162.6 L 115.7 166.2 L 93.3 167.4 L 93.1 163.8 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="tam-leg-front-cuff-under" d="M 93.3 167.4 L 115.7 166.2 L 115.7 167.8 L 93.4 169 L 93.3 167.4 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="tam-leg-front-boot-line" href="#tam-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="tam-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="tam-body-tunic-shape" d="M 75.2 120 C 79.5 116.4 89.1 116.8 96 116.8 C 102.9 116.8 112.5 116.4 116.8 120 C 121.1 123.6 121.3 132.1 121.6 138.4 C 121.9 144.7 121.1 153.5 118.4 157.6 C 115.7 161.7 110.9 162.3 105.6 163.2 C 100.3 164.1 91.7 164.1 86.4 163.2 C 81.1 162.3 76.3 161.7 73.6 157.6 C 70.9 153.5 70.1 144.7 70.4 138.4 C 70.7 132.1 70.9 123.6 75.2 120 Z"/>
+<clipPath id="tam-body-tunic-clip"><use href="#tam-body-tunic-shape"/></clipPath>
+<clipPath id="tam-body-tunic-lit-clip"><use href="#tam-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="tam-body-belt-shape" d="M 64 148 L 128 148 L 128 155.2 L 64 155.2 L 64 148 Z"/>
+<path id="tam-body-buckle-shape" d="M 102.4 146.4 L 107.2 146.4 Q 109.6 146.4 109.6 148.8 L 109.6 154.4 Q 109.6 156.8 107.2 156.8 L 102.4 156.8 Q 100 156.8 100 154.4 L 100 148.8 Q 100 146.4 102.4 146.4 Z"/>
+<clipPath id="tam-body-buckle-clip"><use href="#tam-body-buckle-shape"/></clipPath>
+<clipPath id="tam-body-buckle-lit-clip"><use href="#tam-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="tam-body-arm-shape" d="M 107.5 136.2 L 127.1 145.8 C 130.4 147.4 134.3 146.1 135.8 142.9 C 137.4 139.6 136.1 135.7 132.9 134.2 L 113.3 124.6 C 110 123 106.1 124.3 104.6 127.5 C 103 130.8 104.3 134.7 107.5 136.2 Z"/>
+<clipPath id="tam-body-arm-clip"><use href="#tam-body-arm-shape"/></clipPath>
+<clipPath id="tam-body-arm-lit-clip"><use href="#tam-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="tam-body-tunic">
+<use id="tam-body-tunic-shade" href="#tam-body-tunic-shape" fill="#2f5893"/>
+<g clip-path="url(#tam-body-tunic-clip)">
+<use id="tam-body-tunic-deep" href="#tam-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="tam-body-tunic-shade-over" href="#tam-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="tam-body-tunic-fill" href="#tam-body-tunic-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#tam-body-tunic-lit-clip)">
+<use id="tam-body-tunic-lit" href="#tam-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-body-tunic-fill-over" href="#tam-body-tunic-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="tam-body-crease-a" d="M 83.2 147.2 Q 84.5 140.3 80.8 134.4 Q 81.5 140.9 83.2 147.2 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="tam-body-crease-b" d="M 113.6 147.2 Q 116.5 141.9 115.2 136 Q 114 141.5 113.6 147.2 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="tam-body-belt-cast" d="M 64 156 L 128 156 L 128 159.6 L 64 159.6 L 64 156 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="tam-body-belt">
+<use id="tam-body-belt-fill" href="#tam-body-belt-shape" fill="#6b4a2b"/>
+<use id="tam-body-belt-line" href="#tam-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-body-buckle">
+<use id="tam-body-buckle-shade" href="#tam-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#tam-body-buckle-clip)">
+<use id="tam-body-buckle-fill" href="#tam-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#tam-body-buckle-lit-clip)">
+<use id="tam-body-buckle-lit" href="#tam-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-body-buckle-fill-over" href="#tam-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="tam-body-buckle-line" href="#tam-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="tam-body-tunic-line" href="#tam-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="tam-body-arm-cast" d="M 108.5 139.7 L 128.1 149.3 C 131.4 150.9 135.3 149.6 136.8 146.4 C 138.4 143.1 137.1 139.2 133.9 137.7 L 114.3 128.1 C 111 126.5 107.1 127.8 105.6 131 C 104 134.3 105.3 138.2 108.5 139.7 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="tam-body-arm">
+<use id="tam-body-arm-shade" href="#tam-body-arm-shape" fill="#2f5893"/>
+<g clip-path="url(#tam-body-arm-clip)">
+<use id="tam-body-arm-fill" href="#tam-body-arm-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#tam-body-arm-lit-clip)">
+<use id="tam-body-arm-lit" href="#tam-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-body-arm-fill-over" href="#tam-body-arm-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="tam-body-arm-line" href="#tam-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="tam-head-layer" transform="translate(96 120.8) rotate(0) scale(1 1) translate(-96 -120.8)">
+<defs>
+<path id="tam-head-hanging-shape" d="M 79.3 90.4 C 84.5 87.5 95.4 88.9 103.6 90.2 C 111.9 91.5 124 93.8 128.7 98.3 C 133.4 102.7 132.8 111.7 131.8 117 C 130.8 122.2 128.1 127.5 122.7 129.7 C 117.3 131.9 106.8 131.2 99.3 130.1 C 91.9 128.9 82.7 126.4 78.2 122.7 C 73.8 118.9 72.4 113 72.5 107.6 C 72.7 102.2 74.1 93.3 79.3 90.4 Z"/>
+<clipPath id="tam-head-hanging-clip"><use href="#tam-head-hanging-shape"/></clipPath>
+<clipPath id="tam-head-hanging-lit-clip"><use href="#tam-head-hanging-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="tam-head-dome-shape" d="M 82.3 90.9 C 82.3 90.9 82.7 77.5 87.1 73.4 C 91.4 69.4 101.8 65.7 108.4 66.7 C 115 67.7 123.7 74.5 126.6 79.7 C 129.5 84.9 125.7 97.8 125.7 97.8 L 82.3 90.9 Z"/>
+<clipPath id="tam-head-dome-clip"><use href="#tam-head-dome-shape"/></clipPath>
+<clipPath id="tam-head-dome-lit-clip"><use href="#tam-head-dome-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="tam-head-brim-shape" d="M 57.4 88 C 65.5 86.7 88.6 84.8 104.1 87.3 C 119.6 89.7 142.6 98.9 150.3 102.7 C 157.9 106.4 158.3 109.2 150.2 109.8 C 142 110.3 116.9 108.5 101.1 106 C 85.3 103.5 62.6 97.8 55.3 94.7 C 48 91.7 49.3 89.2 57.4 88 Z"/>
+<clipPath id="tam-head-brim-clip"><use href="#tam-head-brim-shape"/></clipPath>
+<clipPath id="tam-head-brim-lit-clip"><use href="#tam-head-brim-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="tam-head-cast" d="M 123.1 133.8 C 122.2 139 110.5 141.5 96.9 139.3 C 83.2 137.1 72.8 131.2 73.7 126 C 74.5 120.8 86.2 118.4 99.8 120.5 C 113.5 122.7 123.9 128.6 123.1 133.8 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="tam-head-hanging">
+<use id="tam-head-hanging-shade" href="#tam-head-hanging-shape" fill="#434b56"/>
+<g clip-path="url(#tam-head-hanging-clip)">
+<use id="tam-head-hanging-deep" href="#tam-head-hanging-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="tam-head-hanging-shade-over" href="#tam-head-hanging-shape" transform="translate(-3.1 -3.1)" fill="#434b56"/>
+<use id="tam-head-hanging-fill" href="#tam-head-hanging-shape" transform="translate(-5 -5)" fill="#5d6672"/>
+<g clip-path="url(#tam-head-hanging-lit-clip)">
+<use id="tam-head-hanging-lit" href="#tam-head-hanging-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-head-hanging-fill-over" href="#tam-head-hanging-shape" transform="translate(4.6 4.6)" fill="#5d6672"/>
+</g>
+<path id="tam-head-hanging-sheen" d="M112.18 87.55 L121.33 87.55 L102.71 131.89 L93.56 131.89 Z M124.83 87.55 L127.43 87.55 L108.81 131.89 L106.21 131.89 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="tam-head-seam" d="M 91.8 94.4 L 92.4 94.5 Q 93.4 94.7 93.3 95.7 L 88.2 127.3 Q 88.1 128.3 87.1 128.1 L 86.5 128 Q 85.5 127.9 85.7 126.9 L 90.7 95.3 Q 90.8 94.3 91.8 94.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="tam-head-slit" d="M 104.5 100.5 L 139.1 106 Q 143.6 106.7 142.8 111.1 L 142.8 111.1 Q 142.1 115.6 137.7 114.9 L 103.1 109.4 Q 98.7 108.7 99.4 104.3 L 99.4 104.3 Q 100.1 99.8 104.5 100.5 Z" fill="#1e2b17"/>
+<path id="tam-head-slit-edge" d="M 104.5 100.5 L 139.1 106 Q 143.6 106.7 142.8 111.1 L 142.8 111.1 Q 142.1 115.6 137.7 114.9 L 103.1 109.4 Q 98.7 108.7 99.4 104.3 L 99.4 104.3 Q 100.1 99.8 104.5 100.5 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="tam-head-hanging-line" href="#tam-head-hanging-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-head-dome">
+<use id="tam-head-dome-shade" href="#tam-head-dome-shape" fill="#8d97a3"/>
+<g clip-path="url(#tam-head-dome-clip)">
+<use id="tam-head-dome-fill" href="#tam-head-dome-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#tam-head-dome-lit-clip)">
+<use id="tam-head-dome-lit" href="#tam-head-dome-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-head-dome-fill-over" href="#tam-head-dome-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="tam-head-dome-sheen" d="M112.61 65.65 L119.69 65.65 L106.19 97.79 L99.11 97.79 Z M123.19 65.65 L125.79 65.65 L112.29 97.79 L109.69 97.79 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="tam-head-crown-seam" d="M 108.7 64.7 L 109.3 64.8 Q 110.3 65 110.1 66 L 105.4 95.6 Q 105.3 96.6 104.3 96.4 L 103.7 96.3 Q 102.7 96.2 102.8 95.2 L 107.5 65.6 Q 107.7 64.6 108.7 64.7 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="tam-head-dome-line" href="#tam-head-dome-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-head-brim">
+<use id="tam-head-brim-shade" href="#tam-head-brim-shape" fill="#8d97a3"/>
+<g clip-path="url(#tam-head-brim-clip)">
+<use id="tam-head-brim-fill" href="#tam-head-brim-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#tam-head-brim-lit-clip)">
+<use id="tam-head-brim-lit" href="#tam-head-brim-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-head-brim-fill-over" href="#tam-head-brim-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="tam-head-brim-sheen" d="M108.55 84.83 L125.09 84.83 L114.38 110.32 L97.84 110.32 Z M128.59 84.83 L131.19 84.83 L120.48 110.32 L117.88 110.32 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="tam-head-brim-line" href="#tam-head-brim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="tam-head-glint" d="M 95.6 79.6 L 101.2 76.4 C 102.2 75.8 102.6 74.5 102 73.4 C 101.4 72.3 100 71.9 98.9 72.5 L 93.4 75.7 C 92.3 76.3 91.9 77.7 92.5 78.8 C 93.1 79.9 94.5 80.2 95.6 79.6 Z" fill="#f4f1e4"/>
+</g>
+<g id="tam-colors-layer" transform="translate(132 142) rotate(0) scale(1 1) translate(-132 -142)">
+<defs>
+<path id="tam-colors-shaft-shape" d="M 137.4 30.1 L 138.4 30.2 Q 141.4 30.3 141.2 33.3 L 133.8 175.1 Q 133.6 178.1 130.6 178 L 129.6 177.9 Q 126.6 177.8 126.8 174.8 L 134.2 33 Q 134.4 30 137.4 30.1 Z"/>
+<clipPath id="tam-colors-shaft-clip"><use href="#tam-colors-shaft-shape"/></clipPath>
+<path id="tam-colors-banner-shape" d="M 119.6 35.2 L 155.5 37.1 L 153.3 79 L 144.8 70.6 L 135.2 80.1 L 126.8 69.6 L 117.4 77.1 Z"/>
+<clipPath id="tam-colors-banner-clip"><use href="#tam-colors-banner-shape"/></clipPath>
+<clipPath id="tam-colors-banner-lit-clip"><use href="#tam-colors-banner-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="tam-colors-mark-shape" d="M 137.2 42.1 L 145.6 53.6 L 136.1 64.1 L 127.7 52.7 Z"/>
+<path id="tam-colors-bar-shape" d="M 118.8 30.2 L 156.8 32.1 Q 159.8 32.3 159.6 35.3 L 159.6 35.3 Q 159.5 38.3 156.5 38.1 L 118.5 36.1 Q 115.5 36 115.7 33 L 115.7 33 Q 115.8 30 118.8 30.2 Z"/>
+<path id="tam-colors-finial-shape" d="M 138.7 14.2 L 144.2 24.5 L 137.8 31.2 L 132.2 23.8 Z"/>
+<path id="tam-colors-hand-shape" d="M 139.5 142 C 139.5 146.1 136.1 149.5 132 149.5 C 127.9 149.5 124.5 146.1 124.5 142 C 124.5 137.9 127.9 134.5 132 134.5 C 136.1 134.5 139.5 137.9 139.5 142 Z"/>
+<clipPath id="tam-colors-hand-clip"><use href="#tam-colors-hand-shape"/></clipPath>
+<clipPath id="tam-colors-hand-lit-clip"><use href="#tam-colors-hand-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="tam-colors-fist-shape" d="M 140 158 C 140 161.9 136.9 165 133 165 C 129.1 165 126 161.9 126 158 C 126 154.1 129.1 151 133 151 C 136.9 151 140 154.1 140 158 Z"/>
+<clipPath id="tam-colors-fist-clip"><use href="#tam-colors-fist-shape"/></clipPath>
+<clipPath id="tam-colors-fist-lit-clip"><use href="#tam-colors-fist-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="tam-colors-shaft">
+<use id="tam-colors-shaft-shade" href="#tam-colors-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#tam-colors-shaft-clip)">
+<use id="tam-colors-shaft-fill" href="#tam-colors-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="tam-colors-shaft-line" href="#tam-colors-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-banner">
+<use id="tam-colors-banner-shade" href="#tam-colors-banner-shape" fill="#2f5893"/>
+<g clip-path="url(#tam-colors-banner-clip)">
+<use id="tam-colors-banner-fill" href="#tam-colors-banner-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#tam-colors-banner-lit-clip)">
+<use id="tam-colors-banner-lit" href="#tam-colors-banner-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-colors-banner-fill-over" href="#tam-colors-banner-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<g id="tam-colors-mark">
+<use id="tam-colors-mark-fill" href="#tam-colors-mark-shape" fill="#c8a24a"/>
+<use id="tam-colors-mark-line" href="#tam-colors-mark-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="tam-colors-fold" d="M 124.6 37.4 L 121.7 73.3 C 121.6 73.8 122 74.3 122.5 74.3 C 123 74.3 123.4 74 123.5 73.5 L 126.4 37.6 C 126.4 37.1 126 36.7 125.5 36.6 C 125 36.6 124.6 36.9 124.6 37.4 Z" fill="#2a1a10" opacity="0.22"/>
+</g>
+<use id="tam-colors-banner-line" href="#tam-colors-banner-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-bar">
+<use id="tam-colors-bar-fill" href="#tam-colors-bar-shape" fill="#9a6a3a"/>
+<use id="tam-colors-bar-line" href="#tam-colors-bar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-finial">
+<use id="tam-colors-finial-fill" href="#tam-colors-finial-shape" fill="#c8a24a"/>
+<use id="tam-colors-finial-line" href="#tam-colors-finial-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-hand">
+<use id="tam-colors-hand-shade" href="#tam-colors-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#tam-colors-hand-clip)">
+<use id="tam-colors-hand-fill" href="#tam-colors-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#tam-colors-hand-lit-clip)">
+<use id="tam-colors-hand-lit" href="#tam-colors-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-colors-hand-fill-over" href="#tam-colors-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="tam-colors-hand-line" href="#tam-colors-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="tam-colors-fist">
+<use id="tam-colors-fist-shade" href="#tam-colors-fist-shape" fill="#4e3520"/>
+<g clip-path="url(#tam-colors-fist-clip)">
+<use id="tam-colors-fist-fill" href="#tam-colors-fist-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#tam-colors-fist-lit-clip)">
+<use id="tam-colors-fist-lit" href="#tam-colors-fist-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="tam-colors-fist-fill-over" href="#tam-colors-fist-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="tam-colors-fist-line" href="#tam-colors-fist-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

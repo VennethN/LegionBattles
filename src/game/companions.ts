@@ -65,42 +65,42 @@ export interface CompanionDef {
 
 export const COMPANIONS: readonly CompanionDef[] = [
   {
-    id: 'biscuit', unit: 'warhound', name: 'Biscuit', kind: 'a war hound', does: 'bite', says: 'Runs down the nearest enemy and bites.',
+    id: 'biscuit', unit: 'biscuit', name: 'Biscuit', kind: 'a war hound', does: 'bite', says: 'Runs down the nearest enemy and bites.',
     quirk: 'fetch', quirkName: 'Fetch', quirkSays: 'Brings in coins that lie far off.',
     hp: 24, dmg: 7, grow: 1.3, every: 0.6, speed: 270, r: 12, reach: 10, knock: 4, unlock: { kind: 'runs', runs: 1 },
   },
   {
-    id: 'pip', unit: 'wisp', name: 'Pip', kind: 'a wisp', does: 'orbit', says: 'Circles the hero and stings what comes close.',
+    id: 'pip', unit: 'pip', name: 'Pip', kind: 'a wisp', does: 'orbit', says: 'Circles the hero and stings what comes close.',
     quirk: 'flare', quirkName: 'Flare', quirkSays: 'When the hero is struck, Pip flashes and stuns those near. It lights the dark.',
     hp: 0, dmg: 4, grow: 0.8, every: 0.7, speed: 2.4, r: 8, reach: 140, knock: 2, unlock: { kind: 'wave', wave: 4 },
   },
   {
-    id: 'mossback', unit: 'siegeturtle', name: 'Mossback', kind: 'an old siege turtle', does: 'guard', says: 'Walks ahead, slow, with a great deal of health.',
+    id: 'mossback', unit: 'mossback', name: 'Mossback', kind: 'an old siege turtle', does: 'guard', says: 'Walks ahead, slow, with a great deal of health.',
     quirk: 'bulwark', quirkName: 'Bulwark', quirkSays: 'Enemies near him go for him, and shots stop on his shell.',
     hp: 55, dmg: 3, grow: 0.5, every: 1.3, speed: 82, r: 22, reach: 30, knock: 10, unlock: { kind: 'wave', wave: 8 },
   },
   {
-    id: 'quill', unit: 'eagle', name: 'Quill', kind: 'an eagle', does: 'stoop', says: 'Stoops on those who shoot from far off.',
+    id: 'quill', unit: 'quill', name: 'Quill', kind: 'an eagle', does: 'stoop', says: 'Stoops on those who shoot from far off.',
     quirk: 'keen', quirkName: 'Keen', quirkSays: 'Whatever she strikes is marked and takes more from all.',
     hp: 0, dmg: 9, grow: 1.5, every: 2.2, speed: 440, r: 12, reach: 14, knock: 8, unlock: { kind: 'kills', kills: 250 },
   },
   {
-    id: 'greta', unit: 'warbear', name: 'Greta', kind: 'a war bear', does: 'maul', says: 'Mauls everyone round her.',
+    id: 'greta', unit: 'greta', name: 'Greta', kind: 'a war bear', does: 'maul', says: 'Mauls everyone round her.',
     quirk: 'roar', quirkName: 'Roar', quirkSays: 'When the hero is under half health she roars, and all near her are stunned.',
     hp: 44, dmg: 6, grow: 1, every: 1.5, speed: 200, r: 20, reach: 52, knock: 22, unlock: { kind: 'boss', boss: 'warlord' },
   },
   {
-    id: 'ember', unit: 'salamander', name: 'Ember', kind: 'a salamander', does: 'spit', says: 'Spits fire at the nearest.',
+    id: 'ember', unit: 'ember', name: 'Ember', kind: 'a salamander', does: 'spit', says: 'Spits fire at the nearest.',
     quirk: 'trail', quirkName: 'Trail', quirkSays: 'Where it scurries the ground burns for a moment.',
     hp: 14, dmg: 4, grow: 0.7, every: 1.6, speed: 210, r: 11, reach: 300, knock: 3, unlock: { kind: 'coins', coins: 350 },
   },
   {
-    id: 'tam', unit: 'herald', name: 'Tam', kind: 'a squire with the banner', does: 'banner', says: 'Stands by the hero with the colors up.',
+    id: 'tam', unit: 'tam', name: 'Tam', kind: 'a squire with the banner', does: 'banner', says: 'Stands by the hero with the colors up.',
     quirk: 'rally', quirkName: 'Rally', quirkSays: 'Everyone near the banner strikes faster. Once in a run he drags a fallen hero back to their feet.',
     hp: 24, dmg: 3, grow: 0.5, every: 1.2, speed: 220, r: 12, reach: 44, knock: 8, unlock: { kind: 'wave', wave: 15 },
   },
   {
-    id: 'thistle', unit: 'greatstag', name: 'Thistle', kind: 'a great stag', does: 'ram', says: 'Charges through the line and scatters it.',
+    id: 'thistle', unit: 'thistle', name: 'Thistle', kind: 'a great stag', does: 'ram', says: 'Charges through the line and scatters it.',
     quirk: 'stampede', quirkName: 'Stampede', quirkSays: 'What he throws aside is stunned.',
     hp: 32, dmg: 8, grow: 1.4, every: 3.2, speed: 190, r: 18, reach: 26, knock: 30, unlock: { kind: 'kills', kills: 2500 },
   },

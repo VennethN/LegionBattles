@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="biscuit-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="biscuit-body-hide-shape" d="M 61.8 129.6 C 63.6 124.5 66.9 118.2 72.6 115.2 C 78.3 112.2 88.2 111.6 96 111.6 C 103.8 111.6 113.7 112.5 119.4 115.2 C 125.1 117.9 128.4 122.7 130.2 127.8 C 132 132.9 132 141 130.2 145.8 C 128.4 150.6 125.1 154.4 119.4 156.6 C 113.7 158.9 103.8 159.3 96 159.3 C 88.2 159.3 78.3 158.9 72.6 156.6 C 66.9 154.4 63.6 150.3 61.8 145.8 C 60 141.3 60 134.7 61.8 129.6 Z"/>
+<clipPath id="biscuit-body-hide-clip"><use href="#biscuit-body-hide-shape"/></clipPath>
+<clipPath id="biscuit-body-hide-lit-clip"><use href="#biscuit-body-hide-shape" transform="translate(-6 -6)"/></clipPath>
+</defs>
+<g id="biscuit-body-hide">
+<use id="biscuit-body-hide-shade" href="#biscuit-body-hide-shape" fill="#c4b594"/>
+<g clip-path="url(#biscuit-body-hide-clip)">
+<use id="biscuit-body-hide-deep" href="#biscuit-body-hide-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="biscuit-body-hide-shade-over" href="#biscuit-body-hide-shape" transform="translate(-3.72 -3.72)" fill="#c4b594"/>
+<use id="biscuit-body-hide-fill" href="#biscuit-body-hide-shape" transform="translate(-6 -6)" fill="#e9dfc6"/>
+<g clip-path="url(#biscuit-body-hide-lit-clip)">
+<use id="biscuit-body-hide-lit" href="#biscuit-body-hide-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="biscuit-body-hide-fill-over" href="#biscuit-body-hide-shape" transform="translate(4.6 4.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="biscuit-body-hide-line" href="#biscuit-body-hide-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="biscuit-body-patch" d="M 69 115.2 C 71.4 112.8 81.3 110.7 85.2 111.6 C 89.1 112.5 92.7 117.6 92.4 120.6 C 92.1 123.6 87 128.7 83.4 129.6 C 79.8 130.5 73.2 128.4 70.8 126 C 68.4 123.6 66.6 117.6 69 115.2 Z" fill="#2a1a10" opacity="0.42"/>
+</svg>

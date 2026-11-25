@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="quill-tail" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="quill-tail-tail-shape" d="M 90 106 L 56 108 L 44 118 L 58 120 L 48 130 L 64 128 L 60 140 L 80 130 L 94 120 Z"/>
+<clipPath id="quill-tail-tail-clip"><use href="#quill-tail-tail-shape"/></clipPath>
+<clipPath id="quill-tail-tail-lit-clip"><use href="#quill-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="quill-tail-tail">
+<use id="quill-tail-tail-shade" href="#quill-tail-tail-shape" fill="#77766b"/>
+<g clip-path="url(#quill-tail-tail-clip)">
+<use id="quill-tail-tail-fill" href="#quill-tail-tail-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#quill-tail-tail-lit-clip)">
+<use id="quill-tail-tail-lit" href="#quill-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="quill-tail-tail-fill-over" href="#quill-tail-tail-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="quill-tail-tail-line" href="#quill-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

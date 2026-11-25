@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="quill-wing-far" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="quill-wing-far-wing-shape" d="M 102 104 C 102 104 91.3 87 84 78 C 76.7 69 67 57 58 50 C 49 43 30 36 30 36 L 42 56 L 30 62 L 48 76 L 40 84 C 40 84 58 91.3 66 96 C 74 100.7 88 112 88 112 L 102 104 Z"/>
+</defs>
+<g id="quill-wing-far-wing">
+<use id="quill-wing-far-wing-fill" href="#quill-wing-far-wing-shape" fill="#77766b"/>
+<use id="quill-wing-far-wing-line" href="#quill-wing-far-wing-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

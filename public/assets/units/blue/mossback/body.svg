@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mossback-body" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="mossback-body-shell-shape" d="M 40 152 C 32 144.3 41.7 126.7 48 118 C 54.3 109.3 66.7 103 78 100 C 89.3 97 105 96.7 116 100 C 127 103.3 138 111.3 144 120 C 150 128.7 160 144.7 152 152 C 144 159.3 114.7 164 96 164 C 77.3 164 48 159.7 40 152 Z"/>
+<clipPath id="mossback-body-shell-clip"><use href="#mossback-body-shell-shape"/></clipPath>
+<clipPath id="mossback-body-shell-lit-clip"><use href="#mossback-body-shell-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="mossback-body-moss-shape" d="M 44 124 C 44 124 53.3 109.3 60 104 C 66.7 98.7 75.3 93.7 84 92 C 92.7 90.3 104.7 92 112 94 C 119.3 96 128 104 128 104 C 128 104 120 111.7 116 112 C 112 112.3 108 105 104 106 C 100 107 96.3 117 92 118 C 87.7 119 82.3 110.3 78 112 C 73.7 113.7 70 126 66 128 C 62 130 57 122.7 54 124 C 51 125.3 48 136 48 136 L 44 124 Z"/>
+<clipPath id="mossback-body-moss-clip"><use href="#mossback-body-moss-shape"/></clipPath>
+<clipPath id="mossback-body-moss-lit-clip"><use href="#mossback-body-moss-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="mossback-body-cloth-shape" d="M 94 116 L 132 112 C 132 112 143.7 135.7 138 142 C 132.3 148.3 98 150 98 150 L 94 116 Z"/>
+<clipPath id="mossback-body-cloth-clip"><use href="#mossback-body-cloth-shape"/></clipPath>
+<clipPath id="mossback-body-cloth-lit-clip"><use href="#mossback-body-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="mossback-body-hem-shape" d="M 90 140 L 144 140 L 144 146 L 90 146 L 90 140 Z"/>
+<path id="mossback-body-stem-shape" d="M 58 100 L 60 100 Q 62 100 62 102 L 62 110 Q 62 112 60 112 L 58 112 Q 56 112 56 110 L 56 102 Q 56 100 58 100 Z"/>
+<path id="mossback-body-mushroom-shape" d="M 48 104 C 48 104 47.8 94 51 92 C 54.2 90 63.8 90 67 92 C 70.2 94 70 104 70 104 L 48 104 Z"/>
+</defs>
+<g id="mossback-body-shell">
+<use id="mossback-body-shell-shade" href="#mossback-body-shell-shape" fill="#77766b"/>
+<g clip-path="url(#mossback-body-shell-clip)">
+<use id="mossback-body-shell-deep" href="#mossback-body-shell-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="mossback-body-shell-shade-over" href="#mossback-body-shell-shape" transform="translate(-3.72 -3.72)" fill="#77766b"/>
+<use id="mossback-body-shell-fill" href="#mossback-body-shell-shape" transform="translate(-6 -6)" fill="#9c9a8c"/>
+<g clip-path="url(#mossback-body-shell-lit-clip)">
+<use id="mossback-body-shell-lit" href="#mossback-body-shell-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="mossback-body-shell-fill-over" href="#mossback-body-shell-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<path id="mossback-body-plate-a" d="M 80 104 L 70 126 L 84 146 L 108 146 L 122 126 L 112 104" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="mossback-body-plate-b" d="M 70 126 L 46 132" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="mossback-body-plate-c" d="M 122 126 L 148 132" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="mossback-body-lip" d="M 40 146 C 49.3 146.7 77.3 158 96 158 C 114.7 158 142.7 146.7 152 146 C 161.3 145.3 161.3 150.7 152 154 C 142.7 157.3 114.7 166 96 166 C 77.3 166 49.3 157.3 40 154 C 30.7 150.7 30.7 145.3 40 146 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="mossback-body-moss">
+<use id="mossback-body-moss-shade" href="#mossback-body-moss-shape" fill="#55813d"/>
+<g clip-path="url(#mossback-body-moss-clip)">
+<use id="mossback-body-moss-fill" href="#mossback-body-moss-shape" transform="translate(-3 -3)" fill="#6fa052"/>
+<g clip-path="url(#mossback-body-moss-lit-clip)">
+<use id="mossback-body-moss-lit" href="#mossback-body-moss-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="mossback-body-moss-fill-over" href="#mossback-body-moss-shape" transform="translate(3.6 3.6)" fill="#6fa052"/>
+</g>
+</g>
+<use id="mossback-body-moss-line" href="#mossback-body-moss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="mossback-body-shell-line" href="#mossback-body-shell-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mossback-body-cloth">
+<use id="mossback-body-cloth-shade" href="#mossback-body-cloth-shape" fill="#2f5893"/>
+<g clip-path="url(#mossback-body-cloth-clip)">
+<use id="mossback-body-cloth-fill" href="#mossback-body-cloth-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#mossback-body-cloth-lit-clip)">
+<use id="mossback-body-cloth-lit" href="#mossback-body-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="mossback-body-cloth-fill-over" href="#mossback-body-cloth-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+<g id="mossback-body-hem">
+<use id="mossback-body-hem-fill" href="#mossback-body-hem-shape" fill="#c8a24a"/>
+<use id="mossback-body-hem-line" href="#mossback-body-hem-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="mossback-body-cloth-line" href="#mossback-body-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mossback-body-stem">
+<use id="mossback-body-stem-fill" href="#mossback-body-stem-shape" fill="#e9dfc6"/>
+<use id="mossback-body-stem-line" href="#mossback-body-stem-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mossback-body-mushroom">
+<use id="mossback-body-mushroom-fill" href="#mossback-body-mushroom-shape" fill="#8a5cd6"/>
+<use id="mossback-body-mushroom-line" href="#mossback-body-mushroom-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

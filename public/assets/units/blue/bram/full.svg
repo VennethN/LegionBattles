@@ -1,0 +1,284 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bram" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="bram-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="bram-shadow-shadow" d="M 142 181 C 142 185.4 121.4 189 96 189 C 70.6 189 50 185.4 50 181 C 50 176.6 70.6 173 96 173 C 121.4 173 142 176.6 142 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="bram-cape-layer" transform="translate(98.1 103.1) rotate(0) scale(1 1) translate(-98.1 -103.1)">
+<defs>
+<path id="bram-cape-cape-shape" d="M 76.8 100.3 L 117.1 101.6 C 117.1 101.6 113.2 119.8 111.2 130.5 C 109.2 141.2 105.1 165.7 105.1 165.7 C 105.1 165.7 93.5 158.4 86.4 158.9 C 79.2 159.4 71 168.1 62.2 168.6 C 53.5 169 34.1 161.5 34.1 161.5 C 34.1 161.5 38.7 145 42.2 136.7 C 45.6 128.5 49.2 118.2 55 112.2 C 60.8 106.1 76.8 100.3 76.8 100.3 Z"/>
+<clipPath id="bram-cape-cape-clip"><use href="#bram-cape-cape-shape"/></clipPath>
+<clipPath id="bram-cape-cape-lit-clip"><use href="#bram-cape-cape-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="bram-cape-cape">
+<use id="bram-cape-cape-shade" href="#bram-cape-cape-shape" fill="#2f5893"/>
+<g clip-path="url(#bram-cape-cape-clip)">
+<use id="bram-cape-cape-deep" href="#bram-cape-cape-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bram-cape-cape-shade-over" href="#bram-cape-cape-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="bram-cape-cape-fill" href="#bram-cape-cape-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#bram-cape-cape-lit-clip)">
+<use id="bram-cape-cape-lit" href="#bram-cape-cape-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-cape-cape-fill-over" href="#bram-cape-cape-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="bram-cape-billow" d="M 78.9 106.6 C 83.4 103.7 93.3 104.3 95.4 111.3 C 97.5 118.3 95 141.5 91.5 148.7 C 88.1 155.8 78.5 157.6 74.7 154.4 C 70.8 151.1 67.8 137.2 68.6 129.2 C 69.3 121.3 74.5 109.6 78.9 106.6 Z" fill="#f4f1e4" opacity="0.22"/>
+<path id="bram-cape-fold-b" d="M 97.7 113.5 Q 91.5 136 93.5 159.1 Q 96.4 136.4 97.7 113.5 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="bram-cape-fold-c" d="M 76.2 114.9 Q 68.2 138.2 67.2 162.5 Q 72.4 138.8 76.2 114.9 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="bram-cape-fold" d="M 61.8 120.7 C 60 124.5 53.7 136.1 51.4 143.3 C 49.1 150.5 48.7 160.5 48.2 164" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="bram-cape-cape-line" href="#bram-cape-cape-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bram-leg-back-layer" transform="translate(68 149.7) rotate(0) scale(1 1) translate(-68 -149.7)">
+<defs>
+<path id="bram-leg-back-boot-shape" d="M 66.5 145.3 L 86.1 148.1 L 83.8 164.5 C 90 165.4 94.5 170.3 93.7 176.4 L 93.4 178.5 Q 92.8 182.6 88.7 182 L 66 178.8 Q 61.9 178.3 62.5 174.1 Z"/>
+<clipPath id="bram-leg-back-boot-clip"><use href="#bram-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="bram-leg-back-boot">
+<use id="bram-leg-back-boot-fill" href="#bram-leg-back-boot-shape" fill="#434b56"/>
+<g clip-path="url(#bram-leg-back-boot-clip)">
+<path id="bram-leg-back-sole" d="M 58.5 172.5 L 99.7 178.3 L 98.5 186.6 L 57.3 180.8 L 58.5 172.5 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="bram-leg-back-boot-line" href="#bram-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bram-leg-front-layer" transform="translate(114.7 150.4) rotate(0) scale(1 1) translate(-114.7 -150.4)">
+<defs>
+<path id="bram-leg-front-boot-shape" d="M 98.8 147.6 L 118.5 145.9 L 119.9 162.5 C 126.1 162 131.7 165.6 132.2 171.9 L 132.4 173.9 Q 132.8 178.1 128.6 178.4 L 105.8 180.4 Q 101.7 180.8 101.3 176.7 Z"/>
+<clipPath id="bram-leg-front-boot-clip"><use href="#bram-leg-front-boot-shape"/></clipPath>
+<clipPath id="bram-leg-front-boot-lit-clip"><use href="#bram-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="bram-leg-front-boot">
+<use id="bram-leg-front-boot-shade" href="#bram-leg-front-boot-shape" fill="#434b56"/>
+<g clip-path="url(#bram-leg-front-boot-clip)">
+<use id="bram-leg-front-boot-fill" href="#bram-leg-front-boot-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#bram-leg-front-boot-lit-clip)">
+<use id="bram-leg-front-boot-lit" href="#bram-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-leg-front-boot-fill-over" href="#bram-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="bram-leg-front-boot-sheen" d="M123.11 145.92 L128.21 145.92 L113.56 180.8 L108.46 180.8 Z M131.71 145.92 L134.31 145.92 L119.66 180.8 L117.06 180.8 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="bram-leg-front-sole" d="M 97.1 176 L 138.5 172.4 L 139.3 180.6 L 97.8 184.3 L 97.1 176 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="bram-leg-front-cuff" d="M 95.6 159.4 L 124.7 156.9 L 125.1 161.5 L 96.1 164.1 L 95.6 159.4 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="bram-leg-front-cuff-under" d="M 96.1 164.1 L 125.1 161.5 L 125.2 163.6 L 96.2 166.1 L 96.1 164.1 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="bram-leg-front-boot-line" href="#bram-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bram-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="bram-body-tabard-shape" d="M 67.3 101.1 C 73.8 96.6 88 97.6 98.3 97.9 C 108.5 98.2 122.8 98.1 128.9 103 C 135.1 107.8 135 118.9 135.1 127.1 C 135.1 135.3 133.5 146.6 129.3 151.9 C 125.2 157.1 118 157.6 110.1 158.6 C 102.1 159.6 89.5 159.2 81.7 157.7 C 73.8 156.3 66.7 155.4 63 149.9 C 59.3 144.4 58.5 132.9 59.2 124.8 C 60 116.6 60.8 105.6 67.3 101.1 Z"/>
+<clipPath id="bram-body-tabard-clip"><use href="#bram-body-tabard-shape"/></clipPath>
+<clipPath id="bram-body-tabard-lit-clip"><use href="#bram-body-tabard-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="bram-body-belt-shape" d="M 49.3 134.9 L 144.1 137.8 L 143.8 147.1 L 49 144.2 L 49.3 134.9 Z"/>
+<path id="bram-body-buckle-shape" d="M 106.3 134.5 L 113.4 134.8 Q 117 134.9 116.8 138 L 116.6 145.3 Q 116.4 148.4 112.9 148.3 L 105.8 148.1 Q 102.2 147.9 102.3 144.8 L 102.6 137.6 Q 102.8 134.4 106.3 134.5 Z"/>
+<clipPath id="bram-body-buckle-clip"><use href="#bram-body-buckle-shape"/></clipPath>
+<clipPath id="bram-body-buckle-lit-clip"><use href="#bram-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="bram-body-arm-shape" d="M 127.4 119.6 L 151.8 101.4 C 155.3 98.8 156.1 93.8 153.4 90.2 C 150.8 86.7 145.8 85.9 142.2 88.6 L 117.8 106.8 C 114.3 109.4 113.5 114.4 116.2 118 C 118.8 121.5 123.8 122.3 127.4 119.6 Z"/>
+<clipPath id="bram-body-arm-clip"><use href="#bram-body-arm-shape"/></clipPath>
+<clipPath id="bram-body-arm-lit-clip"><use href="#bram-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="bram-body-pauldron-shape" d="M 139.3 110.6 C 139 118 131.3 123.9 122.2 123.6 C 113 123.3 105.8 117 106.1 109.6 C 106.4 102.1 114.1 96.3 123.2 96.6 C 132.4 96.8 139.6 103.1 139.3 110.6 Z"/>
+<clipPath id="bram-body-pauldron-clip"><use href="#bram-body-pauldron-shape"/></clipPath>
+<clipPath id="bram-body-pauldron-lit-clip"><use href="#bram-body-pauldron-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="bram-body-tabard">
+<use id="bram-body-tabard-shade" href="#bram-body-tabard-shape" fill="#2f5893"/>
+<g clip-path="url(#bram-body-tabard-clip)">
+<use id="bram-body-tabard-deep" href="#bram-body-tabard-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bram-body-tabard-shade-over" href="#bram-body-tabard-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="bram-body-tabard-fill" href="#bram-body-tabard-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#bram-body-tabard-lit-clip)">
+<use id="bram-body-tabard-lit" href="#bram-body-tabard-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-body-tabard-fill-over" href="#bram-body-tabard-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="bram-body-stripe" d="M 103.5 86.6 L 118.9 87.1 L 115.1 180.6 L 99.7 180.1 L 103.5 86.6 Z" fill="#f4f1e4" opacity="0.45"/>
+<path id="bram-body-stripe-edge" d="M 118.9 87.1 L 121.2 87.1 L 117.5 180.7 L 115.1 180.6 L 118.9 87.1 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="bram-body-crease-a" d="M 77.8 134.7 Q 80.1 125.8 74.9 118 Q 75.6 126.4 77.8 134.7 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="bram-body-crease-b" d="M 122.9 136.1 Q 127.4 129.3 125.8 121.6 Q 123.7 128.8 122.9 136.1 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="bram-body-belt-cast" d="M 48.9 145.3 L 143.7 148.2 L 143.5 152.9 L 48.7 150 L 48.9 145.3 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="bram-body-belt">
+<use id="bram-body-belt-fill" href="#bram-body-belt-shape" fill="#6b4a2b"/>
+<use id="bram-body-belt-line" href="#bram-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bram-body-buckle">
+<use id="bram-body-buckle-shade" href="#bram-body-buckle-shape" fill="#434b56"/>
+<g clip-path="url(#bram-body-buckle-clip)">
+<use id="bram-body-buckle-fill" href="#bram-body-buckle-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#bram-body-buckle-lit-clip)">
+<use id="bram-body-buckle-lit" href="#bram-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-body-buckle-fill-over" href="#bram-body-buckle-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="bram-body-buckle-line" href="#bram-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="bram-body-tabard-line" href="#bram-body-tabard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="bram-body-arm-cast" d="M 128.4 123.1 L 152.8 104.9 C 156.3 102.3 157.1 97.3 154.4 93.7 C 151.8 90.2 146.8 89.4 143.2 92.1 L 118.8 110.3 C 115.3 112.9 114.5 117.9 117.2 121.5 C 119.8 125 124.8 125.8 128.4 123.1 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="bram-body-arm">
+<use id="bram-body-arm-shade" href="#bram-body-arm-shape" fill="#434b56"/>
+<g clip-path="url(#bram-body-arm-clip)">
+<use id="bram-body-arm-fill" href="#bram-body-arm-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#bram-body-arm-lit-clip)">
+<use id="bram-body-arm-lit" href="#bram-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-body-arm-fill-over" href="#bram-body-arm-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="bram-body-arm-sheen" d="M142.42 85.95 L148.8 85.95 L133.55 122.25 L127.18 122.25 Z M152.3 85.95 L154.9 85.95 L139.65 122.25 L137.05 122.25 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="bram-body-arm-line" href="#bram-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="bram-body-pauldron-cast" d="M 140.3 114.3 C 140 121.7 132.4 127.5 123.2 127.3 C 114 127 106.9 120.7 107.2 113.2 C 107.5 105.8 115.1 100 124.3 100.2 C 133.4 100.5 140.6 106.8 140.3 114.3 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="bram-body-pauldron">
+<use id="bram-body-pauldron-shade" href="#bram-body-pauldron-shape" fill="#434b56"/>
+<g clip-path="url(#bram-body-pauldron-clip)">
+<use id="bram-body-pauldron-fill" href="#bram-body-pauldron-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#bram-body-pauldron-lit-clip)">
+<use id="bram-body-pauldron-lit" href="#bram-body-pauldron-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-body-pauldron-fill-over" href="#bram-body-pauldron-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="bram-body-pauldron-sheen" d="M128.5 96.28 L133.56 96.28 L121.98 123.86 L116.91 123.86 Z M137.06 96.28 L139.66 96.28 L128.08 123.86 L125.48 123.86 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="bram-body-rivet" d="M 129.9 114.4 C 129.9 115.3 129 116.1 127.9 116.1 C 126.8 116 125.9 115.2 125.9 114.2 C 126 113.3 126.9 112.5 128 112.5 C 129.1 112.6 130 113.4 129.9 114.4 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-body-rivet-lit" d="M 128.2 113.7 C 128.1 114.1 127.7 114.5 127.2 114.4 C 126.7 114.4 126.3 114.1 126.3 113.6 C 126.4 113.2 126.8 112.8 127.3 112.9 C 127.8 112.9 128.2 113.2 128.2 113.7 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="bram-body-pauldron-line" href="#bram-body-pauldron-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bram-head-layer" transform="translate(97.8 103.1) rotate(0) scale(1 1) translate(-97.8 -103.1)">
+<defs>
+<path id="bram-head-helm-shape" d="M 85.3 104.7 C 78.2 103.1 71.2 100.8 67.9 95.8 C 64.6 90.8 65.3 81.8 65.5 74.9 C 65.7 68 69.3 54.2 69.3 54.2 L 69.9 37.6 L 83.4 38.1 L 83.1 47.4 L 93.5 47.8 L 93.8 38.4 L 108.4 38.9 L 108.1 48.3 L 118.4 48.6 L 118.8 39.3 L 132.3 39.8 L 131.7 56.4 C 131.7 56.4 134.5 70.4 134.1 77.3 C 133.7 84.2 133.2 93.2 129.2 97.9 C 125.2 102.6 117.5 104.5 110.2 105.6 C 102.9 106.7 92.3 106.3 85.3 104.7 Z"/>
+<clipPath id="bram-head-helm-clip"><use href="#bram-head-helm-shape"/></clipPath>
+<clipPath id="bram-head-helm-lit-clip"><use href="#bram-head-helm-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="bram-head-brow-shape" d="M 60 53.9 C 66.6 52 86.1 50.6 99.6 51.1 C 113.1 51.6 134.2 54.4 141.1 56.7 C 147.9 59 147.7 64.6 140.8 65 C 133.8 65.5 112.9 59.9 99.3 59.4 C 85.8 58.9 66.3 63.1 59.7 62.2 C 53.1 61.3 53.3 55.7 60 53.9 Z"/>
+</defs>
+<path id="bram-head-cast" d="M 124.7 108.2 C 124.5 113.6 112.7 117.6 98.4 117.1 C 84 116.6 72.5 111.8 72.7 106.4 C 72.9 100.9 84.7 96.9 99.1 97.4 C 113.4 97.9 124.9 102.7 124.7 108.2 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="bram-head-helm">
+<use id="bram-head-helm-shade" href="#bram-head-helm-shape" fill="#434b56"/>
+<g clip-path="url(#bram-head-helm-clip)">
+<use id="bram-head-helm-deep" href="#bram-head-helm-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bram-head-helm-shade-over" href="#bram-head-helm-shape" transform="translate(-3.72 -3.72)" fill="#434b56"/>
+<use id="bram-head-helm-fill" href="#bram-head-helm-shape" transform="translate(-6 -6)" fill="#5d6672"/>
+<g clip-path="url(#bram-head-helm-lit-clip)">
+<use id="bram-head-helm-lit" href="#bram-head-helm-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-head-helm-fill-over" href="#bram-head-helm-shape" transform="translate(4.6 4.6)" fill="#5d6672"/>
+</g>
+<path id="bram-head-helm-sheen" d="M114.07 37.58 L124.56 37.58 L95.52 106.72 L85.03 106.72 Z M128.06 37.58 L130.66 37.58 L101.62 106.72 L99.02 106.72 Z" fill="#f4f1e4" opacity="0.2"/>
+<g id="bram-head-brow">
+<use id="bram-head-brow-fill" href="#bram-head-brow-shape" fill="#c8a24a"/>
+<use id="bram-head-brow-line" href="#bram-head-brow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="bram-head-plate" d="M 92.9 65.4 L 93.5 65.5 Q 94.5 65.5 94.5 66.5 L 93.4 99.8 Q 93.3 100.8 92.3 100.8 L 91.7 100.8 Q 90.6 100.7 90.6 99.7 L 91.8 66.4 Q 91.8 65.4 92.9 65.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="bram-head-rivet" d="M 74.7 73.1 C 74.7 74.2 73.8 75 72.8 74.9 C 71.7 74.9 70.9 74 71 73 C 71 72 71.9 71.2 72.9 71.2 C 73.9 71.2 74.8 72.1 74.7 73.1 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-head-rivet-lit" d="M 73.1 72.4 C 73 72.9 72.7 73.2 72.2 73.2 C 71.7 73.2 71.4 72.8 71.4 72.4 C 71.4 71.9 71.8 71.5 72.2 71.5 C 72.7 71.6 73.1 71.9 73.1 72.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bram-head-rivet-2" d="M 76.4 83.6 C 76.4 84.6 75.5 85.4 74.5 85.4 C 73.5 85.4 72.7 84.5 72.7 83.5 C 72.7 82.4 73.6 81.6 74.6 81.7 C 75.7 81.7 76.5 82.6 76.4 83.6 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-head-rivet-lit-2" d="M 74.8 82.9 C 74.8 83.3 74.4 83.7 73.9 83.7 C 73.4 83.7 73.1 83.3 73.1 82.8 C 73.1 82.4 73.5 82 74 82 C 74.4 82 74.8 82.4 74.8 82.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bram-head-rivet-3" d="M 81.3 93.1 C 81.3 94.2 80.4 95 79.4 94.9 C 78.3 94.9 77.5 94 77.6 93 C 77.6 92 78.5 91.2 79.5 91.2 C 80.5 91.2 81.3 92.1 81.3 93.1 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-head-rivet-lit-3" d="M 79.6 92.4 C 79.6 92.9 79.2 93.2 78.8 93.2 C 78.3 93.2 77.9 92.8 78 92.4 C 78 91.9 78.4 91.5 78.8 91.5 C 79.3 91.6 79.7 92 79.6 92.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bram-head-slit" d="M 102.5 73.1 L 138.9 74.3 Q 143.6 74.5 143.4 79.2 L 143.4 79.2 Q 143.2 83.8 138.6 83.7 L 102.2 82.4 Q 97.5 82.2 97.7 77.6 L 97.7 77.6 Q 97.8 72.9 102.5 73.1 Z" fill="#1e2b17"/>
+<path id="bram-head-slit-edge" d="M 102.5 73.1 L 138.9 74.3 Q 143.6 74.5 143.4 79.2 L 143.4 79.2 Q 143.2 83.8 138.6 83.7 L 102.2 82.4 Q 97.5 82.2 97.7 77.6 L 97.7 77.6 Q 97.8 72.9 102.5 73.1 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="bram-head-ridge" d="M 115.1 84.9 L 114.4 103.7" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="bram-head-helm-line" href="#bram-head-helm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="bram-head-glint" d="M 77.5 47.4 L 80.8 43.4 C 81.5 42.5 81.3 41.2 80.4 40.4 C 79.5 39.7 78.2 39.9 77.5 40.8 L 74.2 44.8 C 73.5 45.7 73.7 47 74.6 47.7 C 75.5 48.5 76.8 48.3 77.5 47.4 Z" fill="#f4f1e4"/>
+</g>
+<g id="bram-shield-layer" transform="translate(134 140) rotate(0) scale(1 1) translate(-134 -140)">
+<defs>
+<path id="bram-shield-door-shape" d="M 107 175 L 107 116 C 107 100 120.5 96 134 96 C 147.5 96 161 100 161 116 L 161 175 Q 161 179 157 179 L 111 179 Q 107 179 107 175 Z"/>
+<clipPath id="bram-shield-door-clip"><use href="#bram-shield-door-shape"/></clipPath>
+<clipPath id="bram-shield-door-lit-clip"><use href="#bram-shield-door-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="bram-shield-strap-shape" d="M 103 118 L 165 118 L 165 127 L 103 127 L 103 118 Z"/>
+<path id="bram-shield-strap-2-shape" d="M 103 155 L 165 155 L 165 164 L 103 164 L 103 155 Z"/>
+</defs>
+<g id="bram-shield-door">
+<use id="bram-shield-door-shade" href="#bram-shield-door-shape" fill="#75502b"/>
+<g clip-path="url(#bram-shield-door-clip)">
+<use id="bram-shield-door-deep" href="#bram-shield-door-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="bram-shield-door-shade-over" href="#bram-shield-door-shape" transform="translate(-3.72 -3.72)" fill="#75502b"/>
+<use id="bram-shield-door-fill" href="#bram-shield-door-shape" transform="translate(-6 -6)" fill="#9a6a3a"/>
+<g clip-path="url(#bram-shield-door-lit-clip)">
+<use id="bram-shield-door-lit" href="#bram-shield-door-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-shield-door-fill-over" href="#bram-shield-door-shape" transform="translate(4.6 4.6)" fill="#9a6a3a"/>
+</g>
+<path id="bram-shield-plank" d="M 124.8 96 L 127.2 96 L 127.2 179 L 124.8 179 L 124.8 96 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="bram-shield-plank-2" d="M 140.8 96 L 143.2 96 L 143.2 179 L 140.8 179 L 140.8 96 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="bram-shield-grain-a" d="M 117.2 126 L 117.2 140 C 117.2 140.5 117.5 140.9 118 140.9 C 118.5 140.9 118.9 140.5 118.9 140 L 118.9 126 C 118.9 125.5 118.5 125.2 118 125.2 C 117.5 125.2 117.2 125.5 117.2 126 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="bram-shield-grain-b" d="M 134.2 157 L 134.2 167 C 134.2 167.5 134.5 167.9 135 167.9 C 135.5 167.9 135.9 167.5 135.9 167 L 135.9 157 C 135.9 156.5 135.5 156.2 135 156.2 C 134.5 156.2 134.2 156.5 134.2 157 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="bram-shield-grain-c" d="M 149.2 130 L 149.2 142 C 149.2 142.5 149.5 142.9 150 142.9 C 150.5 142.9 150.9 142.5 150.9 142 L 150.9 130 C 150.9 129.5 150.5 129.2 150 129.2 C 149.5 129.2 149.2 129.5 149.2 130 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="bram-shield-strap-cast" d="M 105 127 L 163 127 L 163 130 L 105 130 L 105 127 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="bram-shield-strap">
+<use id="bram-shield-strap-fill" href="#bram-shield-strap-shape" fill="#5d6672"/>
+<use id="bram-shield-strap-line" href="#bram-shield-strap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="bram-shield-rivet" d="M 120 122.5 C 120 123.6 119.1 124.5 118 124.5 C 116.9 124.5 116 123.6 116 122.5 C 116 121.4 116.9 120.5 118 120.5 C 119.1 120.5 120 121.4 120 122.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-shield-rivet-lit" d="M 118.2 121.8 C 118.2 122.3 117.8 122.7 117.3 122.7 C 116.8 122.7 116.4 122.3 116.4 121.8 C 116.4 121.3 116.8 120.9 117.3 120.9 C 117.8 120.9 118.2 121.3 118.2 121.8 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bram-shield-rivet-2" d="M 136 122.5 C 136 123.6 135.1 124.5 134 124.5 C 132.9 124.5 132 123.6 132 122.5 C 132 121.4 132.9 120.5 134 120.5 C 135.1 120.5 136 121.4 136 122.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-shield-rivet-lit-2" d="M 134.2 121.8 C 134.2 122.3 133.8 122.7 133.3 122.7 C 132.8 122.7 132.4 122.3 132.4 121.8 C 132.4 121.3 132.8 120.9 133.3 120.9 C 133.8 120.9 134.2 121.3 134.2 121.8 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bram-shield-rivet-3" d="M 152 122.5 C 152 123.6 151.1 124.5 150 124.5 C 148.9 124.5 148 123.6 148 122.5 C 148 121.4 148.9 120.5 150 120.5 C 151.1 120.5 152 121.4 152 122.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-shield-rivet-lit-3" d="M 150.2 121.8 C 150.2 122.3 149.8 122.7 149.3 122.7 C 148.8 122.7 148.4 122.3 148.4 121.8 C 148.4 121.3 148.8 120.9 149.3 120.9 C 149.8 120.9 150.2 121.3 150.2 121.8 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bram-shield-strap-cast-2" d="M 105 164 L 163 164 L 163 167 L 105 167 L 105 164 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="bram-shield-strap-2">
+<use id="bram-shield-strap-2-fill" href="#bram-shield-strap-2-shape" fill="#5d6672"/>
+<use id="bram-shield-strap-2-line" href="#bram-shield-strap-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="bram-shield-rivet-4" d="M 120 159.5 C 120 160.6 119.1 161.5 118 161.5 C 116.9 161.5 116 160.6 116 159.5 C 116 158.4 116.9 157.5 118 157.5 C 119.1 157.5 120 158.4 120 159.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-shield-rivet-lit-4" d="M 118.2 158.8 C 118.2 159.3 117.8 159.7 117.3 159.7 C 116.8 159.7 116.4 159.3 116.4 158.8 C 116.4 158.3 116.8 157.9 117.3 157.9 C 117.8 157.9 118.2 158.3 118.2 158.8 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bram-shield-rivet-5" d="M 136 159.5 C 136 160.6 135.1 161.5 134 161.5 C 132.9 161.5 132 160.6 132 159.5 C 132 158.4 132.9 157.5 134 157.5 C 135.1 157.5 136 158.4 136 159.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-shield-rivet-lit-5" d="M 134.2 158.8 C 134.2 159.3 133.8 159.7 133.3 159.7 C 132.8 159.7 132.4 159.3 132.4 158.8 C 132.4 158.3 132.8 157.9 133.3 157.9 C 133.8 157.9 134.2 158.3 134.2 158.8 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="bram-shield-rivet-6" d="M 152 159.5 C 152 160.6 151.1 161.5 150 161.5 C 148.9 161.5 148 160.6 148 159.5 C 148 158.4 148.9 157.5 150 157.5 C 151.1 157.5 152 158.4 152 159.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="bram-shield-rivet-lit-6" d="M 150.2 158.8 C 150.2 159.3 149.8 159.7 149.3 159.7 C 148.8 159.7 148.4 159.3 148.4 158.8 C 148.4 158.3 148.8 157.9 149.3 157.9 C 149.8 157.9 150.2 158.3 150.2 158.8 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="bram-shield-door-line" href="#bram-shield-door-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="bram-sword-layer" transform="translate(149 93) rotate(0) scale(1 1) translate(-149 -93)">
+<defs>
+<path id="bram-sword-blade-shape" d="M 145.3 80.1 L 167.2 35.1 L 182.3 24.7 L 183.4 43 L 161.5 88 Z"/>
+<clipPath id="bram-sword-blade-clip"><use href="#bram-sword-blade-shape"/></clipPath>
+<clipPath id="bram-sword-blade-lit-clip"><use href="#bram-sword-blade-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="bram-sword-pommel-shape" d="M 142.4 99.8 L 147.8 102.4 Q 150.4 103.7 149.1 106.4 L 147.4 110 Q 146.1 112.7 143.4 111.4 L 138 108.8 Q 135.3 107.4 136.6 104.8 L 138.3 101.2 Q 139.7 98.5 142.4 99.8 Z"/>
+<path id="bram-sword-guard-shape" d="M 142.5 72 L 169.5 85.2 Q 172.2 86.5 170.9 89.2 L 169.6 91.9 Q 168.2 94.6 165.6 93.3 L 138.6 80.1 Q 135.9 78.8 137.2 76.1 L 138.5 73.4 Q 139.8 70.7 142.5 72 Z"/>
+<clipPath id="bram-sword-guard-clip"><use href="#bram-sword-guard-shape"/></clipPath>
+<clipPath id="bram-sword-guard-lit-clip"><use href="#bram-sword-guard-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="bram-sword-hand-shape" d="M 156.5 93 C 156.5 97.1 153.1 100.5 149 100.5 C 144.9 100.5 141.5 97.1 141.5 93 C 141.5 88.9 144.9 85.5 149 85.5 C 153.1 85.5 156.5 88.9 156.5 93 Z"/>
+<clipPath id="bram-sword-hand-clip"><use href="#bram-sword-hand-shape"/></clipPath>
+<clipPath id="bram-sword-hand-lit-clip"><use href="#bram-sword-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="bram-sword-blade">
+<use id="bram-sword-blade-shade" href="#bram-sword-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#bram-sword-blade-clip)">
+<use id="bram-sword-blade-fill" href="#bram-sword-blade-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#bram-sword-blade-lit-clip)">
+<use id="bram-sword-blade-lit" href="#bram-sword-blade-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-sword-blade-fill-over" href="#bram-sword-blade-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="bram-sword-blade-sheen" d="M177.63 24.69 L183.34 24.69 L156.77 87.96 L151.06 87.96 Z M186.84 24.69 L189.44 24.69 L162.87 87.96 L160.27 87.96 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="bram-sword-bevel" d="M 145.3 80.1 L 167.2 35.1 L 182.3 24.7 L 153.4 84 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="bram-sword-fuller" d="M 154.3 82.2 L 170.9 48.1" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="bram-sword-blade-line" href="#bram-sword-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bram-sword-pommel">
+<use id="bram-sword-pommel-fill" href="#bram-sword-pommel-shape" fill="#5d6672"/>
+<use id="bram-sword-pommel-line" href="#bram-sword-pommel-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bram-sword-guard">
+<use id="bram-sword-guard-shade" href="#bram-sword-guard-shape" fill="#434b56"/>
+<g clip-path="url(#bram-sword-guard-clip)">
+<use id="bram-sword-guard-fill" href="#bram-sword-guard-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#bram-sword-guard-lit-clip)">
+<use id="bram-sword-guard-lit" href="#bram-sword-guard-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-sword-guard-fill-over" href="#bram-sword-guard-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="bram-sword-guard-sheen" d="M159.05 70.73 L164.5 70.73 L154.47 94.6 L149.03 94.6 Z M168 70.73 L170.6 70.73 L160.57 94.6 L157.97 94.6 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="bram-sword-guard-line" href="#bram-sword-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="bram-sword-hand">
+<use id="bram-sword-hand-shade" href="#bram-sword-hand-shape" fill="#434b56"/>
+<g clip-path="url(#bram-sword-hand-clip)">
+<use id="bram-sword-hand-fill" href="#bram-sword-hand-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#bram-sword-hand-lit-clip)">
+<use id="bram-sword-hand-lit" href="#bram-sword-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="bram-sword-hand-fill-over" href="#bram-sword-hand-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="bram-sword-hand-line" href="#bram-sword-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

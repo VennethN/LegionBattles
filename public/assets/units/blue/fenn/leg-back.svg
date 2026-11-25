@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="fenn-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="fenn-leg-back-boot-shape" d="M 72.6 151.2 L 86.3 157.9 L 80.7 169.4 C 85 171.5 87.2 176.1 85.1 180.4 L 84.4 181.9 Q 83 184.7 80.1 183.3 L 64.3 175.6 Q 61.4 174.2 62.8 171.3 Z"/>
+<clipPath id="fenn-leg-back-boot-clip"><use href="#fenn-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="fenn-leg-back-boot">
+<use id="fenn-leg-back-boot-fill" href="#fenn-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#fenn-leg-back-boot-clip)">
+<path id="fenn-leg-back-sole" d="M 60.3 169.2 L 89 183.3 L 86.2 189 L 57.5 175 L 60.3 169.2 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="fenn-leg-back-boot-line" href="#fenn-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

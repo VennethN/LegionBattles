@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="greta-legs-near" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="greta-legs-near-leg-shape" d="M 52.5 140.6 L 79.2 140.6 L 68.7 155.6 L 69.9 167.2 Q 78 168.4 78 175.4 L 78 180 L 43.2 180 L 43.2 170.7 L 42.1 155.6 Z"/>
+<clipPath id="greta-legs-near-leg-clip"><use href="#greta-legs-near-leg-shape"/></clipPath>
+<clipPath id="greta-legs-near-leg-lit-clip"><use href="#greta-legs-near-leg-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="greta-legs-near-leg-2-shape" d="M 115.1 140.6 L 141.8 140.6 L 149.9 155.6 L 151.1 167.2 Q 159.2 168.4 159.2 175.4 L 159.2 180 L 124.4 180 L 124.4 170.7 L 123.3 155.6 Z"/>
+<clipPath id="greta-legs-near-leg-2-clip"><use href="#greta-legs-near-leg-2-shape"/></clipPath>
+<clipPath id="greta-legs-near-leg-2-lit-clip"><use href="#greta-legs-near-leg-2-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="greta-legs-near-leg">
+<use id="greta-legs-near-leg-shade" href="#greta-legs-near-leg-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-legs-near-leg-clip)">
+<use id="greta-legs-near-leg-fill" href="#greta-legs-near-leg-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-legs-near-leg-lit-clip)">
+<use id="greta-legs-near-leg-lit" href="#greta-legs-near-leg-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-legs-near-leg-fill-over" href="#greta-legs-near-leg-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="greta-legs-near-leg-line" href="#greta-legs-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greta-legs-near-leg-2">
+<use id="greta-legs-near-leg-2-shade" href="#greta-legs-near-leg-2-shape" fill="#4e3520"/>
+<g clip-path="url(#greta-legs-near-leg-2-clip)">
+<use id="greta-legs-near-leg-2-fill" href="#greta-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#greta-legs-near-leg-2-lit-clip)">
+<use id="greta-legs-near-leg-2-lit" href="#greta-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greta-legs-near-leg-2-fill-over" href="#greta-legs-near-leg-2-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="greta-legs-near-leg-2-line" href="#greta-legs-near-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

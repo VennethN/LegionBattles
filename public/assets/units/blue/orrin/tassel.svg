@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="orrin-tassel" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="orrin-tassel-tuft-shape" d="M 54.6 70.9 L 60.6 71.2 C 60.6 71.2 62.4 83.8 61.7 87.1 C 61 90.4 58.2 90.9 56.5 90.8 C 54.9 90.7 52.1 89.9 51.8 86.6 C 51.5 83.3 54.6 70.9 54.6 70.9 Z"/>
+<clipPath id="orrin-tassel-tuft-clip"><use href="#orrin-tassel-tuft-shape"/></clipPath>
+<clipPath id="orrin-tassel-tuft-lit-clip"><use href="#orrin-tassel-tuft-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="orrin-tassel-cord" d="M 106 55.7 C 101.3 55.8 85.8 55.6 78.2 56.2 C 70.6 56.8 63.6 56.5 60.2 59.3 C 56.7 62.1 57.9 70.7 57.5 73" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="orrin-tassel-tuft">
+<use id="orrin-tassel-tuft-shade" href="#orrin-tassel-tuft-shape" fill="#9c7c33"/>
+<g clip-path="url(#orrin-tassel-tuft-clip)">
+<use id="orrin-tassel-tuft-fill" href="#orrin-tassel-tuft-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#orrin-tassel-tuft-lit-clip)">
+<use id="orrin-tassel-tuft-lit" href="#orrin-tassel-tuft-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="orrin-tassel-tuft-fill-over" href="#orrin-tassel-tuft-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+<path id="orrin-tassel-tie" d="M 49.5 73.6 L 65.3 74.4 L 65.2 77 L 49.4 76.1 L 49.5 73.6 Z" fill="#2a1a10" opacity="0.34"/>
+</g>
+<use id="orrin-tassel-tuft-line" href="#orrin-tassel-tuft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

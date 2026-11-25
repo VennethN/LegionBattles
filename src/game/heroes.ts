@@ -51,52 +51,52 @@ export interface HeroDef {
 
 export const HEROES: readonly HeroDef[] = [
   {
-    id: 'bram', unit: 'knight', name: 'Bram Oakenhold', short: 'Bram', epithet: 'the Gatewarden', who: 'The last man on a gate that fell. He does not step back.', line: 'The gate is wherever I stand.',
+    id: 'bram', unit: 'bram', name: 'Bram Oakenhold', short: 'Bram', epithet: 'the Gatewarden', who: 'The last man on a gate that fell. He does not step back.', line: 'The gate is wherever I stand.',
     weapon: 'gatekeeper', stats: { maxHp: 6, armor: 1, speed: -5 }, quirk: 'standfast', quirkName: 'Stand Fast',
     says: 'Standing still he sets his shield: blows do far less and his sword is faster. A step drops it.', move: 'rush', unlock: null,
   },
   {
-    id: 'wren', unit: 'archer', name: 'Wren Fallowmere', short: 'Wren', epithet: 'the Quiet Arrow', who: 'A poacher the king could never catch.', line: 'You will not hear the one that matters.',
+    id: 'wren', unit: 'wren', name: 'Wren Fallowmere', short: 'Wren', epithet: 'the Quiet Arrow', who: 'A poacher the king could never catch.', line: 'You will not hear the one that matters.',
     weapon: 'whisper', stats: { aim: 2, reach: 30, maxHp: -4 }, quirk: 'unseen', quirkName: 'Unseen',
     says: 'Every second since she was last struck she hits harder. One blow takes it all away.', move: 'rain', unlock: null,
   },
   {
-    id: 'orrin', unit: 'mage', name: 'Orrin Quillon', short: 'Orrin', epithet: 'the Unfinished', who: 'A magister thrown out before his last lesson.', line: 'I never did learn how it ends.',
+    id: 'orrin', unit: 'orrin', name: 'Orrin Quillon', short: 'Orrin', epithet: 'the Unfinished', who: 'A magister thrown out before his last lesson.', line: 'I never did learn how it ends.',
     weapon: 'unfinished', stats: { lore: 3, maxHp: -2, might: -2 }, quirk: 'echo', quirkName: 'Echo',
     says: 'Every third spell is cast twice. He picks from one more choice at each level.', move: 'starfall', unlock: { kind: 'wave', wave: 5 },
   },
   {
-    id: 'fenn', unit: 'cutpurse', name: 'Fenn Two-Coins', short: 'Fenn', epithet: 'the Lucky', who: 'A thief who has never lost a toss.', line: 'Heads I win. Tails, look behind you.',
+    id: 'fenn', unit: 'fenn', name: 'Fenn Two-Coins', short: 'Fenn', epithet: 'the Lucky', who: 'A thief who has never lost a toss.', line: 'Heads I win. Tails, look behind you.',
     weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 8, maxHp: -4 }, quirk: 'sticky', quirkName: 'Sticky Fingers',
     says: 'A blow may knock a coin loose. The more coins he holds the harder he hits: spending makes him weaker.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
   },
   {
-    id: 'nan', unit: 'pyromancer', name: 'Old Nan Cinderwick', short: 'Old Nan', epithet: 'the Hearthwitch', who: 'She kept one fire lit for sixty years.', line: 'Come in out of the cold, dears.',
+    id: 'nan', unit: 'nan', name: 'Old Nan Cinderwick', short: 'Old Nan', epithet: 'the Hearthwitch', who: 'She kept one fire lit for sixty years.', line: 'Come in out of the cold, dears.',
     weapon: 'hearthbrand', stats: { lore: 2, crit: 5 }, quirk: 'kindling', quirkName: 'Kindling',
     says: 'What dies burning bursts, and the burst sets others alight.', move: 'wildfire', unlock: { kind: 'boss', boss: 'warlord' },
   },
   {
-    id: 'isaura', unit: 'lancer', name: 'Isaura Vane', short: 'Isaura', epithet: 'Captain of the Ninth', who: 'The Ninth Lance is gone. She rides on without it.', line: 'The Ninth does not halt.',
+    id: 'isaura', unit: 'isaura', name: 'Isaura Vane', short: 'Isaura', epithet: 'Captain of the Ninth', who: 'The Ninth Lance is gone. She rides on without it.', line: 'The Ninth does not halt.',
     weapon: 'ninth', stats: { might: 2, speed: 8 }, quirk: 'momentum', quirkName: 'Momentum',
     says: 'The longer she keeps moving the harder she hits. Standing still loses it. Her lance goes through everyone in its line.', move: 'charge', unlock: { kind: 'kills', kills: 600 },
   },
   {
-    id: 'hroth', unit: 'berserker', name: 'Hroth', short: 'Hroth', epithet: 'the Unburied', who: 'They buried him twice.', line: 'Dig deeper next time.',
+    id: 'hroth', unit: 'hroth', name: 'Hroth', short: 'Hroth', epithet: 'the Unburied', who: 'They buried him twice.', line: 'Dig deeper next time.',
     weapon: 'gravecleaver', stats: { might: 3, lifesteal: 4, armor: -2 }, quirk: 'unburied', quirkName: "Won't Stay Down",
     says: 'More harm the more he is hurt. Once in a land he gets up from a killing blow. He does not mend by himself.', move: 'warcry', unlock: { kind: 'wave', wave: 10 },
   },
   {
-    id: 'aldous', unit: 'cleric', name: 'Brother Aldous Bell', short: 'Aldous', epithet: 'the Shepherd', who: 'He rings the dead home, and now the living.', line: 'Stay close. I will count you all at dusk.',
+    id: 'aldous', unit: 'aldous', name: 'Brother Aldous Bell', short: 'Aldous', epithet: 'the Shepherd', who: 'He rings the dead home, and now the living.', line: 'Stay close. I will count you all at dusk.',
     weapon: 'passingbell', stats: { regen: 6, maxHp: 4, damage: -20 }, quirk: 'shepherd', quirkName: 'Shepherd',
     says: 'He brings one companion more. What heals him heals his band, and companions near him strike faster. He himself hits softly.', move: 'toll', unlock: { kind: 'wave', wave: 12 },
   },
   {
-    id: 'ysolde', unit: 'frostwitch', name: 'Ysolde Rimeheart', short: 'Ysolde', epithet: 'the Winter Widow', who: 'The cold took her husband. She took the cold.', line: 'It only hurts until it does not.',
+    id: 'ysolde', unit: 'ysolde', name: 'Ysolde Rimeheart', short: 'Ysolde', epithet: 'the Winter Widow', who: 'The cold took her husband. She took the cold.', line: 'It only hurts until it does not.',
     weapon: 'widowstear', stats: { lore: 2, reach: 20, speed: -4 }, quirk: 'deepcold', quirkName: 'Deep Cold',
     says: 'The slowed, struck again, freeze solid. The frozen take far more and break into shards.', move: 'whiteout', unlock: { kind: 'boss', boss: 'colossus' },
   },
   {
-    id: 'maren', unit: 'paladin', name: 'Maren Dawnguard', short: 'Maren', epithet: 'the Oathkeeper', who: 'She swore to see the morning.', line: 'Hold until the light. Then hold some more.',
+    id: 'maren', unit: 'maren', name: 'Maren Dawnguard', short: 'Maren', epithet: 'the Oathkeeper', who: 'She swore to see the morning.', line: 'Hold until the light. Then hold some more.',
     weapon: 'morningstar', stats: { maxHp: 8, armor: 1, might: 2, haste: -10 }, quirk: 'consecrate', quirkName: 'Consecrate',
     says: 'Her hammer leaves holy ground that mends the band and burns enemies.', move: 'judgment', unlock: { kind: 'wave', wave: 20 },
   },

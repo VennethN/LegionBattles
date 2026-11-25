@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mossback-legs-far" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="mossback-legs-far-leg-a-shape" d="M 86 150 L 90 150 Q 98 150 98 158 L 98 172 Q 98 180 90 180 L 86 180 Q 78 180 78 172 L 78 158 Q 78 150 86 150 Z"/>
+<path id="mossback-legs-far-leg-b-shape" d="M 120 150 L 124 150 Q 132 150 132 158 L 132 172 Q 132 180 124 180 L 120 180 Q 112 180 112 172 L 112 158 Q 112 150 120 150 Z"/>
+</defs>
+<g id="mossback-legs-far-leg-a">
+<use id="mossback-legs-far-leg-a-fill" href="#mossback-legs-far-leg-a-shape" fill="#2e5f45"/>
+<use id="mossback-legs-far-leg-a-line" href="#mossback-legs-far-leg-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="mossback-legs-far-leg-b">
+<use id="mossback-legs-far-leg-b-fill" href="#mossback-legs-far-leg-b-shape" fill="#2e5f45"/>
+<use id="mossback-legs-far-leg-b-line" href="#mossback-legs-far-leg-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

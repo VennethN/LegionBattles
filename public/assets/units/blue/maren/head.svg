@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="maren-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="maren-head-crest-shape" d="M 62.3 56.2 C 62.3 56.2 56.5 43.7 56.9 38.9 C 57.4 34.1 65.2 27.4 65.2 27.4 L 72.1 33.7 C 72.1 33.7 72.9 21.5 75.7 18.1 C 78.4 14.6 88.6 13 88.6 13 L 93.5 21.6 C 93.5 21.6 98.2 12.5 101.8 12.3 C 105.5 12.1 115.5 20.4 115.5 20.4 L 114.9 31.4 C 114.9 31.4 122.8 30.3 124.9 33.1 C 127.1 35.9 127.9 48.4 127.9 48.4 L 62.3 56.2 Z"/>
+<clipPath id="maren-head-crest-clip"><use href="#maren-head-crest-shape"/></clipPath>
+<clipPath id="maren-head-crest-lit-clip"><use href="#maren-head-crest-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="maren-head-helm-shape" d="M 91.1 39.3 C 99.2 38.9 109.5 40.2 115.6 44.6 C 121.7 49.1 126.1 58.8 127.8 66 C 129.4 73.3 127.7 82.2 125.6 88.2 C 123.5 94.1 120.7 98.9 115.3 101.9 C 110 105 100.5 106.2 93.5 106.4 C 86.6 106.5 78.8 105.5 73.5 103 C 68.3 100.5 64.6 97.1 61.9 91.5 C 59.2 85.9 56.6 77.1 57.5 69.7 C 58.4 62.3 61.7 52.2 67.3 47.2 C 72.9 42.1 83.1 39.7 91.1 39.3 Z"/>
+<clipPath id="maren-head-helm-clip"><use href="#maren-head-helm-shape"/></clipPath>
+<clipPath id="maren-head-helm-lit-clip"><use href="#maren-head-helm-shape" transform="translate(-6 -6)"/></clipPath>
+</defs>
+<path id="maren-head-cast" d="M 121.9 101.6 C 122.2 107.3 110.2 112.7 95 113.4 C 79.8 114.2 67.3 110.2 67 104.5 C 66.7 98.7 78.7 93.4 93.9 92.6 C 109.1 91.8 121.6 95.8 121.9 101.6 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="maren-head-crest">
+<use id="maren-head-crest-shade" href="#maren-head-crest-shape" fill="#9c7c33"/>
+<g clip-path="url(#maren-head-crest-clip)">
+<use id="maren-head-crest-fill" href="#maren-head-crest-shape" transform="translate(-4 -4)" fill="#c8a24a"/>
+<g clip-path="url(#maren-head-crest-lit-clip)">
+<use id="maren-head-crest-lit" href="#maren-head-crest-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="maren-head-crest-fill-over" href="#maren-head-crest-shape" transform="translate(4.2 4.2)" fill="#c8a24a"/>
+</g>
+<path id="maren-head-crest-sheen" d="M101.46 12.11 L112.19 12.11 L93.65 56.23 L82.93 56.23 Z M115.69 12.11 L118.29 12.11 L99.75 56.23 L97.15 56.23 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="maren-head-ray-a" d="M 80.7 50.5 L 73.1 31 C 72.9 30.4 72.2 30.1 71.5 30.4 C 70.9 30.6 70.6 31.3 70.9 31.9 L 78.5 51.4 C 78.7 52 79.4 52.3 80 52 C 80.7 51.8 81 51.1 80.7 50.5 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="maren-head-ray-b" d="M 95 47.9 L 93.6 21.5 C 93.6 20.9 93 20.4 92.3 20.4 C 91.7 20.4 91.1 21 91.2 21.7 L 92.6 48 C 92.6 48.7 93.2 49.2 93.8 49.2 C 94.5 49.1 95 48.6 95 47.9 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="maren-head-ray-c" d="M 109.3 49.7 L 114.9 29.6 C 115.1 29 114.7 28.3 114 28.1 C 113.4 28 112.7 28.3 112.6 29 L 107 49.1 C 106.8 49.7 107.2 50.4 107.8 50.6 C 108.5 50.8 109.2 50.4 109.3 49.7 Z" fill="#2a1a10" opacity="0.31"/>
+</g>
+<use id="maren-head-crest-line" href="#maren-head-crest-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="maren-head-helm">
+<use id="maren-head-helm-shade" href="#maren-head-helm-shape" fill="#8d97a3"/>
+<g clip-path="url(#maren-head-helm-clip)">
+<use id="maren-head-helm-deep" href="#maren-head-helm-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="maren-head-helm-shade-over" href="#maren-head-helm-shape" transform="translate(-3.72 -3.72)" fill="#8d97a3"/>
+<use id="maren-head-helm-fill" href="#maren-head-helm-shape" transform="translate(-6 -6)" fill="#b9c2cc"/>
+<g clip-path="url(#maren-head-helm-lit-clip)">
+<use id="maren-head-helm-lit" href="#maren-head-helm-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="maren-head-helm-fill-over" href="#maren-head-helm-shape" transform="translate(4.6 4.6)" fill="#b9c2cc"/>
+</g>
+<path id="maren-head-helm-sheen" d="M107.2 38.88 L118.13 38.88 L89.71 106.55 L78.78 106.55 Z M121.63 38.88 L124.23 38.88 L95.81 106.55 L93.21 106.55 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="maren-head-plate" d="M 86.6 79.2 L 87.3 79.2 Q 88.4 79.1 88.4 80.2 L 89.8 106.6 Q 89.8 107.7 88.7 107.7 L 88.1 107.8 Q 87 107.8 86.9 106.7 L 85.6 80.3 Q 85.5 79.2 86.6 79.2 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="maren-head-slit" d="M 95.4 68.8 L 133.9 66.8 Q 138.8 66.5 139.1 71.5 L 139.1 71.5 Q 139.3 76.4 134.4 76.7 L 95.9 78.7 Q 91 79 90.7 74 L 90.7 74 Q 90.5 69.1 95.4 68.8 Z" fill="#1e2b17"/>
+<path id="maren-head-slit-edge" d="M 95.4 68.8 L 133.9 66.8 Q 138.8 66.5 139.1 71.5 L 139.1 71.5 Q 139.3 76.4 134.4 76.7 L 95.9 78.7 Q 91 79 90.7 74 L 90.7 74 Q 90.5 69.1 95.4 68.8 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="maren-head-ridge" d="M 111 82.3 L 112.1 104.3" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="maren-head-helm-line" href="#maren-head-helm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="maren-head-glint" d="M 72.9 57.4 L 78.1 51.6 C 79 50.6 78.9 49.1 77.9 48.2 C 76.9 47.2 75.3 47.3 74.4 48.3 L 69.2 54.1 C 68.3 55.1 68.4 56.7 69.4 57.6 C 70.4 58.5 72 58.4 72.9 57.4 Z" fill="#f4f1e4"/>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="thistle-legs-near" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="thistle-legs-near-leg-shape" d="M 63.2 140.5 L 74.7 140.5 L 62.2 156.1 L 62.2 168.6 Q 69.5 169.6 69.5 175.8 L 69.5 180 L 50.8 180 L 50.8 171.7 L 50.8 156.1 Z"/>
+<clipPath id="thistle-legs-near-leg-clip"><use href="#thistle-legs-near-leg-shape"/></clipPath>
+<clipPath id="thistle-legs-near-leg-lit-clip"><use href="#thistle-legs-near-leg-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thistle-legs-near-hoof-shape" d="M 48.7 171.7 L 72.6 171.7 L 72.6 182.1 L 48.7 182.1 L 48.7 171.7 Z"/>
+<path id="thistle-legs-near-leg-2-shape" d="M 119.4 140.5 L 130.8 140.5 L 140.2 156.1 L 143.3 168.6 Q 150.6 169.6 150.6 175.8 L 150.6 180 L 131.9 180 L 131.9 171.7 L 128.8 156.1 Z"/>
+<clipPath id="thistle-legs-near-leg-2-clip"><use href="#thistle-legs-near-leg-2-shape"/></clipPath>
+<clipPath id="thistle-legs-near-leg-2-lit-clip"><use href="#thistle-legs-near-leg-2-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thistle-legs-near-hoof-2-shape" d="M 129.8 171.7 L 153.7 171.7 L 153.7 182.1 L 129.8 182.1 L 129.8 171.7 Z"/>
+</defs>
+<g id="thistle-legs-near-leg">
+<use id="thistle-legs-near-leg-shade" href="#thistle-legs-near-leg-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-legs-near-leg-clip)">
+<use id="thistle-legs-near-leg-fill" href="#thistle-legs-near-leg-shape" transform="translate(-3 -3)" fill="#b08a5a"/>
+<g clip-path="url(#thistle-legs-near-leg-lit-clip)">
+<use id="thistle-legs-near-leg-lit" href="#thistle-legs-near-leg-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-legs-near-leg-fill-over" href="#thistle-legs-near-leg-shape" transform="translate(3.6 3.6)" fill="#b08a5a"/>
+</g>
+<g id="thistle-legs-near-hoof">
+<use id="thistle-legs-near-hoof-fill" href="#thistle-legs-near-hoof-shape" fill="#5d6672"/>
+<use id="thistle-legs-near-hoof-line" href="#thistle-legs-near-hoof-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-legs-near-leg-line" href="#thistle-legs-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-legs-near-leg-2">
+<use id="thistle-legs-near-leg-2-shade" href="#thistle-legs-near-leg-2-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-legs-near-leg-2-clip)">
+<use id="thistle-legs-near-leg-2-fill" href="#thistle-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#b08a5a"/>
+<g clip-path="url(#thistle-legs-near-leg-2-lit-clip)">
+<use id="thistle-legs-near-leg-2-lit" href="#thistle-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-legs-near-leg-2-fill-over" href="#thistle-legs-near-leg-2-shape" transform="translate(3.6 3.6)" fill="#b08a5a"/>
+</g>
+<g id="thistle-legs-near-hoof-2">
+<use id="thistle-legs-near-hoof-2-fill" href="#thistle-legs-near-hoof-2-shape" fill="#5d6672"/>
+<use id="thistle-legs-near-hoof-2-line" href="#thistle-legs-near-hoof-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-legs-near-leg-2-line" href="#thistle-legs-near-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="aldous" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="aldous-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="aldous-shadow-shadow" d="M 140 181 C 140 185.4 120.3 189 96 189 C 71.7 189 52 185.4 52 181 C 52 176.6 71.7 173 96 173 C 120.3 173 140 176.6 140 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="aldous-leg-back-layer" transform="translate(79 151.8) rotate(0) scale(1 1) translate(-79 -151.8)">
+<defs>
+<path id="aldous-leg-back-boot-shape" d="M 72.2 147.5 L 91.2 148.5 L 90.4 164.5 C 96.4 164.8 101.1 169 100.8 175 L 100.7 177 Q 100.5 181 96.5 180.8 L 74.5 179.6 Q 70.5 179.4 70.8 175.4 Z"/>
+<clipPath id="aldous-leg-back-boot-clip"><use href="#aldous-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="aldous-leg-back-boot">
+<use id="aldous-leg-back-boot-fill" href="#aldous-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#aldous-leg-back-boot-clip)">
+<path id="aldous-leg-back-sole" d="M 66.8 174.2 L 106.8 176.3 L 106.3 184.3 L 66.4 182.2 L 66.8 174.2 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="aldous-leg-back-boot-line" href="#aldous-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="aldous-leg-front-layer" transform="translate(112 151.7) rotate(0) scale(1 1) translate(-112 -151.7)">
+<defs>
+<path id="aldous-leg-front-boot-shape" d="M 97.7 148.9 L 116.6 147.2 L 118 163.2 C 124 162.6 129.3 166.2 129.8 172.2 L 130 174.2 Q 130.4 178.2 126.4 178.5 L 104.5 180.4 Q 100.5 180.8 100.1 176.8 Z"/>
+<clipPath id="aldous-leg-front-boot-clip"><use href="#aldous-leg-front-boot-shape"/></clipPath>
+<clipPath id="aldous-leg-front-boot-lit-clip"><use href="#aldous-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="aldous-leg-front-boot">
+<use id="aldous-leg-front-boot-shade" href="#aldous-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#aldous-leg-front-boot-clip)">
+<use id="aldous-leg-front-boot-fill" href="#aldous-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#aldous-leg-front-boot-lit-clip)">
+<use id="aldous-leg-front-boot-lit" href="#aldous-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="aldous-leg-front-boot-fill-over" href="#aldous-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="aldous-leg-front-sole" d="M 96.1 176.1 L 135.9 172.6 L 136.6 180.6 L 96.8 184.1 L 96.1 176.1 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="aldous-leg-front-cuff" d="M 94.7 160.2 L 122.6 157.8 L 122.9 162.2 L 95.1 164.7 L 94.7 160.2 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="aldous-leg-front-cuff-under" d="M 95.1 164.7 L 122.9 162.2 L 123.1 164.2 L 95.2 166.7 L 95.1 164.7 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="aldous-leg-front-boot-line" href="#aldous-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="aldous-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="aldous-body-sleeve-far-shape" d="M 110.9 130.7 L 142.6 151.7 C 146.3 154.1 151.2 153.1 153.7 149.4 C 156.1 145.7 155.1 140.8 151.4 138.3 L 119.7 117.3 C 116 114.9 111.1 115.9 108.6 119.6 C 106.2 123.3 107.2 128.2 110.9 130.7 Z"/>
+<clipPath id="aldous-body-sleeve-far-clip"><use href="#aldous-body-sleeve-far-shape"/></clipPath>
+<clipPath id="aldous-body-sleeve-far-lit-clip"><use href="#aldous-body-sleeve-far-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="aldous-body-habit-shape" d="M 76.7 102.2 C 83.4 98.1 95.7 100.4 104.9 101.5 C 114.1 102.6 126.6 103.3 131.8 108.8 C 137 114.3 134.9 124.5 135.8 134.6 C 136.7 144.6 139.3 162.1 137.2 169.1 C 135.1 176.1 130.5 175.5 123.1 176.5 C 115.7 177.4 102.9 176 92.9 174.8 C 83 173.6 70.2 171.9 63.4 169.2 C 56.6 166.5 52 166 52.2 158.8 C 52.4 151.6 60.5 135.4 64.6 125.9 C 68.7 116.5 69.9 106.2 76.7 102.2 Z"/>
+<clipPath id="aldous-body-habit-clip"><use href="#aldous-body-habit-shape"/></clipPath>
+<clipPath id="aldous-body-habit-lit-clip"><use href="#aldous-body-habit-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="aldous-body-hem-shape" d="M 44.3 156.8 C 52.9 157 77.4 164.9 94.2 166.9 C 111.1 168.9 137.1 167.2 145.4 169.1 C 153.7 170.9 152.7 176.8 144 178 C 135.2 179.1 109.6 177.8 92.8 175.8 C 75.9 173.8 50.9 168.9 42.9 165.7 C 34.8 162.6 35.8 156.6 44.3 156.8 Z"/>
+<path id="aldous-body-scapular-shape" d="M 91.9 94.9 L 126.4 99.1 L 113.1 180.3 L 78.7 176.1 L 91.9 94.9 Z"/>
+<path id="aldous-body-sleeve-shape" d="M 123.2 130 L 145.1 134.8 C 149.9 135.9 154.7 132.8 155.8 127.9 C 156.9 123.1 153.8 118.3 148.9 117.2 L 127 112.4 C 122.2 111.3 117.4 114.4 116.3 119.3 C 115.2 124.1 118.3 128.9 123.2 130 Z"/>
+<clipPath id="aldous-body-sleeve-clip"><use href="#aldous-body-sleeve-shape"/></clipPath>
+<clipPath id="aldous-body-sleeve-lit-clip"><use href="#aldous-body-sleeve-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="aldous-body-sleeve-far-cast" d="M 111.9 134.2 L 143.6 155.2 C 147.3 157.6 152.2 156.6 154.7 152.9 C 157.1 149.2 156.1 144.3 152.4 141.8 L 120.7 120.8 C 117 118.4 112.1 119.4 109.6 123.1 C 107.2 126.8 108.2 131.7 111.9 134.2 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="aldous-body-sleeve-far">
+<use id="aldous-body-sleeve-far-shade" href="#aldous-body-sleeve-far-shape" fill="#b3a585"/>
+<g clip-path="url(#aldous-body-sleeve-far-clip)">
+<use id="aldous-body-sleeve-far-fill" href="#aldous-body-sleeve-far-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#aldous-body-sleeve-far-lit-clip)">
+<use id="aldous-body-sleeve-far-lit" href="#aldous-body-sleeve-far-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="aldous-body-sleeve-far-fill-over" href="#aldous-body-sleeve-far-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="aldous-body-sleeve-far-line" href="#aldous-body-sleeve-far-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="aldous-body-habit">
+<use id="aldous-body-habit-shade" href="#aldous-body-habit-shape" fill="#b3a585"/>
+<g clip-path="url(#aldous-body-habit-clip)">
+<use id="aldous-body-habit-deep" href="#aldous-body-habit-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="aldous-body-habit-shade-over" href="#aldous-body-habit-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="aldous-body-habit-fill" href="#aldous-body-habit-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#aldous-body-habit-lit-clip)">
+<use id="aldous-body-habit-lit" href="#aldous-body-habit-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="aldous-body-habit-fill-over" href="#aldous-body-habit-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="aldous-body-fold-a" d="M 73.2 159.3 Q 83.3 141.3 85.2 121.4 Q 78.4 140.1 73.2 159.3 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="aldous-body-fold-b" d="M 97.8 166.3 Q 103 150.1 100.9 133.4 Q 98.6 149.8 97.8 166.3 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="aldous-body-fold-c" d="M 121.3 166.1 Q 125.3 148 121.4 129.8 Q 120.5 148 121.3 166.1 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="aldous-body-fold-lit-a" d="M 81.1 161.3 Q 91.2 142.3 91.8 124.2 Q 86.3 143.7 81.1 161.3 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="aldous-body-fold-lit-b" d="M 104.9 166.2 Q 112.1 150.9 110.9 136.6 Q 106 152.2 104.9 166.2 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="aldous-body-hem-cast" d="M 45 152.8 C 53.4 153.9 78 160.9 94.9 162.9 C 111.7 165 137.6 164.1 146.1 165.1 C 154.5 166.1 154.1 168.8 145.4 169.1 C 136.8 169.4 111.1 168.9 94.2 166.9 C 77.4 164.9 52.5 159.1 44.3 156.8 C 36.1 154.5 36.5 151.8 45 152.8 Z" fill="#2a1a10" opacity="0.22"/>
+<g id="aldous-body-hem">
+<use id="aldous-body-hem-fill" href="#aldous-body-hem-shape" fill="#6b4a2b"/>
+<use id="aldous-body-hem-line" href="#aldous-body-hem-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="aldous-body-scapular">
+<use id="aldous-body-scapular-fill" href="#aldous-body-scapular-shape" fill="#3d6fb6"/>
+<use id="aldous-body-scapular-line" href="#aldous-body-scapular-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="aldous-body-habit-line" href="#aldous-body-habit-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="aldous-body-sleeve-cast" d="M 124.2 133.5 L 146.1 138.3 C 150.9 139.4 155.7 136.3 156.8 131.4 C 157.9 126.6 154.8 121.8 149.9 120.7 L 128 115.9 C 123.2 114.8 118.4 117.9 117.3 122.8 C 116.2 127.6 119.3 132.4 124.2 133.5 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="aldous-body-sleeve">
+<use id="aldous-body-sleeve-shade" href="#aldous-body-sleeve-shape" fill="#b3a585"/>
+<g clip-path="url(#aldous-body-sleeve-clip)">
+<use id="aldous-body-sleeve-fill" href="#aldous-body-sleeve-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#aldous-body-sleeve-lit-clip)">
+<use id="aldous-body-sleeve-lit" href="#aldous-body-sleeve-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="aldous-body-sleeve-fill-over" href="#aldous-body-sleeve-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="aldous-body-sleeve-line" href="#aldous-body-sleeve-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="aldous-head-layer" transform="translate(103 106.5) rotate(0) scale(1 1) translate(-103 -106.5)">
+<defs>
+<path id="aldous-head-cowl-shape" d="M 73.6 97.9 C 80.8 95.5 93.5 95.6 103.8 96.5 C 114.1 97.4 128.3 99.7 135.4 103.3 C 142.4 106.9 145.4 114.2 146.1 118.3 C 146.7 122.4 139.2 127.7 139.2 127.7 C 139.2 127.7 113.2 130.5 101 129.4 C 88.7 128.3 65.5 121.3 65.5 121.3 C 65.5 121.3 59.1 114.7 60.4 110.8 C 61.8 106.9 66.4 100.3 73.6 97.9 Z"/>
+<clipPath id="aldous-head-cowl-clip"><use href="#aldous-head-cowl-shape"/></clipPath>
+<clipPath id="aldous-head-cowl-lit-clip"><use href="#aldous-head-cowl-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="aldous-head-hood-shape" d="M 112.2 47.1 C 119.4 48.7 130.1 53 135.2 59.1 C 140.4 65.3 142.9 76.2 143.1 83.9 C 143.2 91.6 140.9 100.8 136.2 105.4 C 131.4 110 122.2 110.8 114.6 111.5 C 107 112.2 97.2 111 90.7 109.4 C 84.1 107.8 78.9 106.4 75.2 102.1 C 71.6 97.7 68.9 90.1 68.8 83.4 C 68.8 76.7 70.9 67.5 74.7 61.9 C 78.6 56.2 85.7 51.8 91.9 49.3 C 98.1 46.8 105 45.4 112.2 47.1 Z"/>
+<clipPath id="aldous-head-hood-clip"><use href="#aldous-head-hood-shape"/></clipPath>
+<clipPath id="aldous-head-hood-lit-clip"><use href="#aldous-head-hood-shape" transform="translate(-6 -6)"/></clipPath>
+</defs>
+<path id="aldous-head-cast" d="M 135.2 116.3 C 134.8 121.3 120.2 124.1 102.6 122.5 C 85 121 71 115.7 71.5 110.8 C 71.9 105.8 86.5 103 104.1 104.6 C 121.7 106.1 135.7 111.4 135.2 116.3 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="aldous-head-cowl">
+<use id="aldous-head-cowl-shade" href="#aldous-head-cowl-shape" fill="#2f5893"/>
+<g clip-path="url(#aldous-head-cowl-clip)">
+<use id="aldous-head-cowl-fill" href="#aldous-head-cowl-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#aldous-head-cowl-lit-clip)">
+<use id="aldous-head-cowl-lit" href="#aldous-head-cowl-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="aldous-head-cowl-fill-over" href="#aldous-head-cowl-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<path id="aldous-head-fold" d="M 77.1 104.2 Q 70.7 110.6 69.7 119.6 Q 73.9 112.2 77.1 104.2 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="aldous-head-cowl-line" href="#aldous-head-cowl-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="aldous-head-hood">
+<use id="aldous-head-hood-shade" href="#aldous-head-hood-shape" fill="#2f5893"/>
+<g clip-path="url(#aldous-head-hood-clip)">
+<use id="aldous-head-hood-deep" href="#aldous-head-hood-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="aldous-head-hood-shade-over" href="#aldous-head-hood-shape" transform="translate(-3.72 -3.72)" fill="#2f5893"/>
+<use id="aldous-head-hood-fill" href="#aldous-head-hood-shape" transform="translate(-6 -6)" fill="#3d6fb6"/>
+<g clip-path="url(#aldous-head-hood-lit-clip)">
+<use id="aldous-head-hood-lit" href="#aldous-head-hood-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="aldous-head-hood-fill-over" href="#aldous-head-hood-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="aldous-head-lining" d="M 121.3 57.9 C 128.4 58.2 139.5 65.5 144.1 71.9 C 148.8 78.4 150.3 89.2 149 96.5 C 147.7 103.7 143.1 112.7 136.3 115.4 C 129.5 118.2 115.1 116.6 108.4 113 C 101.7 109.4 97.3 101 96 93.8 C 94.8 86.7 96.9 76.2 101.1 70.2 C 105.3 64.2 114.1 57.6 121.3 57.9 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="aldous-head-opening" d="M 122.7 64 C 127.9 64.3 135.6 70.5 138.8 75.5 C 142 80.5 143.2 88.4 142.2 93.9 C 141.2 99.3 137.6 105.8 132.9 108.1 C 128.2 110.4 118.9 110.1 113.9 107.4 C 109 104.8 104.2 98.1 103.2 92.5 C 102.2 86.8 104.6 78.5 107.8 73.8 C 111.1 69.1 117.6 63.8 122.7 64 Z" fill="#1e2b17"/>
+<path id="aldous-head-opening-edge" d="M 122.7 64 C 127.9 64.3 135.6 70.5 138.8 75.5 C 142 80.5 143.2 88.4 142.2 93.9 C 141.2 99.3 137.6 105.8 132.9 108.1 C 128.2 110.4 118.9 110.1 113.9 107.4 C 109 104.8 104.2 98.1 103.2 92.5 C 102.2 86.8 104.6 78.5 107.8 73.8 C 111.1 69.1 117.6 63.8 122.7 64 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="aldous-head-fold-b" d="M 80 70.3 Q 73.9 83.4 73.6 97.9 Q 77.4 84.3 80 70.3 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="aldous-head-hood-line" href="#aldous-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="aldous-head-fold-2" d="M 95.4 55.6 C 93.5 58.1 86.5 64.9 84 70.7 C 81.5 76.5 80.9 87.2 80.3 90.4" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="aldous-bell-layer" transform="translate(150 124) rotate(0) scale(1 1) translate(-150 -124)">
+<defs>
+<path id="aldous-bell-shaft-shape" d="M 154.1 26.1 L 156.1 26.2 Q 159.1 26.3 159 29.3 L 151.8 165.2 Q 151.7 168.1 148.7 168 L 146.7 167.9 Q 143.7 167.7 143.9 164.7 L 151 28.9 Q 151.1 25.9 154.1 26.1 Z"/>
+<clipPath id="aldous-bell-shaft-clip"><use href="#aldous-bell-shaft-shape"/></clipPath>
+<path id="aldous-bell-crook-shape" d="M 151 27.9 C 151 27.9 149.3 16.1 151.9 11.9 C 154.4 7.7 161 3.1 166.4 2.7 C 171.7 2.3 180.2 5.8 184 9.6 C 187.8 13.5 189.2 25.9 189.2 25.9 L 181.2 25.5 C 181.2 25.5 180.2 18.6 177.7 16.3 C 175.1 14 168.9 11.3 165.9 11.7 C 162.9 12 160.7 15.6 159.5 18.4 C 158.4 21.1 159 28.3 159 28.3 L 151 27.9 Z"/>
+<path id="aldous-bell-clapper-shape" d="M 188.5 86 C 188.4 89.6 185.3 92.3 181.7 92.1 C 178.1 91.9 175.4 88.9 175.6 85.3 C 175.7 81.7 178.8 78.9 182.4 79.1 C 186 79.3 188.7 82.4 188.5 86 Z"/>
+<path id="aldous-bell-crown-shape" d="M 181.2 25.5 L 189.2 25.9 Q 191.2 26 191.1 28 L 190.8 34 Q 190.7 36 188.7 35.9 L 180.7 35.5 Q 178.7 35.4 178.8 33.4 L 179.1 27.4 Q 179.2 25.4 181.2 25.5 Z"/>
+<path id="aldous-bell-bell-shape" d="M 174.8 33.2 L 194.8 34.2 C 194.8 34.2 199 48.8 200.7 54.6 C 202.4 60.3 202.9 64.4 205 68.8 C 207.1 73.3 213.3 81.3 213.3 81.3 L 151.4 78 C 151.4 78 158.5 70.7 161 66.5 C 163.6 62.3 164.5 58.3 166.8 52.8 C 169 47.2 174.8 33.2 174.8 33.2 Z"/>
+<clipPath id="aldous-bell-bell-clip"><use href="#aldous-bell-bell-shape"/></clipPath>
+<clipPath id="aldous-bell-bell-lit-clip"><use href="#aldous-bell-bell-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="aldous-bell-lip-shape" d="M 148.8 69.9 L 216.7 73.4 L 216.2 83.4 L 148.3 79.9 L 148.8 69.9 Z"/>
+<path id="aldous-bell-hand-lower-shape" d="M 156.5 144 C 156.5 148.1 153.1 151.5 149 151.5 C 144.8 151.5 141.5 148.1 141.5 144 C 141.5 139.8 144.8 136.5 149 136.5 C 153.1 136.5 156.5 139.8 156.5 144 Z"/>
+<clipPath id="aldous-bell-hand-lower-clip"><use href="#aldous-bell-hand-lower-shape"/></clipPath>
+<clipPath id="aldous-bell-hand-lower-lit-clip"><use href="#aldous-bell-hand-lower-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="aldous-bell-hand-shape" d="M 157.5 124 C 157.5 128.1 154.1 131.5 150 131.5 C 145.9 131.5 142.5 128.1 142.5 124 C 142.5 119.9 145.9 116.5 150 116.5 C 154.1 116.5 157.5 119.9 157.5 124 Z"/>
+<clipPath id="aldous-bell-hand-clip"><use href="#aldous-bell-hand-shape"/></clipPath>
+<clipPath id="aldous-bell-hand-lit-clip"><use href="#aldous-bell-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="aldous-bell-shaft">
+<use id="aldous-bell-shaft-shade" href="#aldous-bell-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#aldous-bell-shaft-clip)">
+<use id="aldous-bell-shaft-fill" href="#aldous-bell-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="aldous-bell-shaft-line" href="#aldous-bell-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="aldous-bell-crook">
+<use id="aldous-bell-crook-fill" href="#aldous-bell-crook-shape" fill="#9a6a3a"/>
+<use id="aldous-bell-crook-line" href="#aldous-bell-crook-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="aldous-bell-clapper">
+<use id="aldous-bell-clapper-fill" href="#aldous-bell-clapper-shape" fill="#5d6672"/>
+<use id="aldous-bell-clapper-line" href="#aldous-bell-clapper-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="aldous-bell-crown">
+<use id="aldous-bell-crown-fill" href="#aldous-bell-crown-shape" fill="#c98b52"/>
+<use id="aldous-bell-crown-line" href="#aldous-bell-crown-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="aldous-bell-bell">
+<use id="aldous-bell-bell-shade" href="#aldous-bell-bell-shape" fill="#9a6337"/>
+<g clip-path="url(#aldous-bell-bell-clip)">
+<use id="aldous-bell-bell-deep" href="#aldous-bell-bell-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="aldous-bell-bell-shade-over" href="#aldous-bell-bell-shape" transform="translate(-3.72 -3.72)" fill="#9a6337"/>
+<use id="aldous-bell-bell-fill" href="#aldous-bell-bell-shape" transform="translate(-6 -6)" fill="#c98b52"/>
+<g clip-path="url(#aldous-bell-bell-lit-clip)">
+<use id="aldous-bell-bell-lit" href="#aldous-bell-bell-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="aldous-bell-bell-fill-over" href="#aldous-bell-bell-shape" transform="translate(4.6 4.6)" fill="#c98b52"/>
+</g>
+<path id="aldous-bell-bell-sheen" d="M192.46 33.17 L201.75 33.17 L181.56 81.26 L172.27 81.26 Z M205.25 33.17 L207.85 33.17 L187.66 81.26 L185.06 81.26 Z" fill="#f4f1e4" opacity="0.2"/>
+<g id="aldous-bell-lip">
+<use id="aldous-bell-lip-fill" href="#aldous-bell-lip-shape" fill="#c8a24a"/>
+</g>
+<path id="aldous-bell-lip-line" d="M 148.9 67.9 L 216.8 71.4 L 216.7 73.8 L 148.8 70.3 L 148.9 67.9 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="aldous-bell-band" d="M 150.1 45.9 L 218 49.5 L 217.9 52.1 L 150 48.5 L 150.1 45.9 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="aldous-bell-bell-line" href="#aldous-bell-bell-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="aldous-bell-glint" d="M 171.5 44.6 L 167.7 58.5 C 167.5 59.4 168 60.4 169 60.6 C 169.9 60.9 170.9 60.3 171.1 59.4 L 174.9 45.6 C 175.1 44.6 174.5 43.7 173.6 43.4 C 172.7 43.2 171.7 43.7 171.5 44.6 Z" fill="#f4f1e4"/>
+<g id="aldous-bell-hand-lower">
+<use id="aldous-bell-hand-lower-shade" href="#aldous-bell-hand-lower-shape" fill="#4e3520"/>
+<g clip-path="url(#aldous-bell-hand-lower-clip)">
+<use id="aldous-bell-hand-lower-fill" href="#aldous-bell-hand-lower-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#aldous-bell-hand-lower-lit-clip)">
+<use id="aldous-bell-hand-lower-lit" href="#aldous-bell-hand-lower-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="aldous-bell-hand-lower-fill-over" href="#aldous-bell-hand-lower-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="aldous-bell-hand-lower-line" href="#aldous-bell-hand-lower-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="aldous-bell-hand">
+<use id="aldous-bell-hand-shade" href="#aldous-bell-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#aldous-bell-hand-clip)">
+<use id="aldous-bell-hand-fill" href="#aldous-bell-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#aldous-bell-hand-lit-clip)">
+<use id="aldous-bell-hand-lit" href="#aldous-bell-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="aldous-bell-hand-fill-over" href="#aldous-bell-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="aldous-bell-hand-line" href="#aldous-bell-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,238 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="thistle" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="thistle-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="thistle-shadow-shadow" d="M 143.8 181 C 143.8 186 122.4 190 96 190 C 69.6 190 48.2 186 48.2 181 C 48.2 176 69.6 172 96 172 C 122.4 172 143.8 176 143.8 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="thistle-tail-layer" transform="translate(60.64 115.52) rotate(0) scale(1 1) translate(-60.64 -115.52)">
+<defs>
+<path id="thistle-tail-tail-shape" d="M 67.9 113.4 C 67.9 118 63.7 121.8 58.6 121.8 C 53.4 121.8 49.2 118 49.2 113.4 C 49.2 108.8 53.4 105.1 58.6 105.1 C 63.7 105.1 67.9 108.8 67.9 113.4 Z"/>
+<clipPath id="thistle-tail-tail-clip"><use href="#thistle-tail-tail-shape"/></clipPath>
+<clipPath id="thistle-tail-tail-lit-clip"><use href="#thistle-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="thistle-tail-tail">
+<use id="thistle-tail-tail-shade" href="#thistle-tail-tail-shape" fill="#c4b594"/>
+<g clip-path="url(#thistle-tail-tail-clip)">
+<use id="thistle-tail-tail-fill" href="#thistle-tail-tail-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#thistle-tail-tail-lit-clip)">
+<use id="thistle-tail-tail-lit" href="#thistle-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-tail-tail-fill-over" href="#thistle-tail-tail-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="thistle-tail-tail-line" href="#thistle-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="thistle-legs-far-layer" transform="translate(98.08 148.8) rotate(0) scale(1 1) translate(-98.08 -148.8)">
+<defs>
+<path id="thistle-legs-far-leg-shape" d="M 75.7 140.5 L 87.2 140.5 L 87.2 156.1 L 97.6 168.6 Q 104.8 169.6 104.8 175.8 L 104.8 180 L 86.1 180 L 86.1 171.7 L 75.7 156.1 Z"/>
+<clipPath id="thistle-legs-far-leg-clip"><use href="#thistle-legs-far-leg-shape"/></clipPath>
+<path id="thistle-legs-far-hoof-shape" d="M 84 171.7 L 108 171.7 L 108 182.1 L 84 182.1 L 84 171.7 Z"/>
+<path id="thistle-legs-far-leg-2-shape" d="M 109 140.5 L 120.4 140.5 L 118.9 156.1 L 111.1 168.6 Q 118.4 169.6 118.4 175.8 L 118.4 180 L 99.6 180 L 99.6 171.7 L 107.4 156.1 Z"/>
+<clipPath id="thistle-legs-far-leg-2-clip"><use href="#thistle-legs-far-leg-2-shape"/></clipPath>
+<path id="thistle-legs-far-hoof-2-shape" d="M 97.6 171.7 L 121.5 171.7 L 121.5 182.1 L 97.6 182.1 L 97.6 171.7 Z"/>
+</defs>
+<g id="thistle-legs-far-leg">
+<use id="thistle-legs-far-leg-fill" href="#thistle-legs-far-leg-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-legs-far-leg-clip)">
+<g id="thistle-legs-far-hoof">
+<use id="thistle-legs-far-hoof-fill" href="#thistle-legs-far-hoof-shape" fill="#434b56"/>
+<use id="thistle-legs-far-hoof-line" href="#thistle-legs-far-hoof-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-legs-far-leg-line" href="#thistle-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-legs-far-leg-2">
+<use id="thistle-legs-far-leg-2-fill" href="#thistle-legs-far-leg-2-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-legs-far-leg-2-clip)">
+<g id="thistle-legs-far-hoof-2">
+<use id="thistle-legs-far-hoof-2-fill" href="#thistle-legs-far-hoof-2-shape" fill="#434b56"/>
+<use id="thistle-legs-far-hoof-2-line" href="#thistle-legs-far-hoof-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-legs-far-leg-2-line" href="#thistle-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="thistle-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="thistle-body-hide-shape" d="M 56.5 121.8 C 58.6 115.9 62.4 108.6 69 105.1 C 75.5 101.7 87 101 96 101 C 105 101 116.5 102 123 105.1 C 129.6 108.2 133.4 113.8 135.5 119.7 C 137.6 125.6 137.6 134.9 135.5 140.5 C 133.4 146 129.6 150.4 123 153 C 116.5 155.6 105 156.1 96 156.1 C 87 156.1 75.5 155.6 69 153 C 62.4 150.4 58.6 145.7 56.5 140.5 C 54.4 135.3 54.4 127.7 56.5 121.8 Z"/>
+<clipPath id="thistle-body-hide-clip"><use href="#thistle-body-hide-shape"/></clipPath>
+<clipPath id="thistle-body-hide-lit-clip"><use href="#thistle-body-hide-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="thistle-body-blanket-shape" d="M 75.2 101 L 116.8 98.9 C 116.8 98.9 121.7 126.6 121 134.2 C 120.3 141.9 112.6 144.6 112.6 144.6 L 81.4 146.7 C 81.4 146.7 74.2 143.9 73.1 136.3 C 72.1 128.7 75.2 101 75.2 101 Z"/>
+<clipPath id="thistle-body-blanket-clip"><use href="#thistle-body-blanket-shape"/></clipPath>
+<clipPath id="thistle-body-blanket-lit-clip"><use href="#thistle-body-blanket-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="thistle-body-trim-shape" d="M 69 136.3 L 127.2 136.3 L 127.2 142.6 L 69 142.6 L 69 136.3 Z"/>
+</defs>
+<g id="thistle-body-hide">
+<use id="thistle-body-hide-shade" href="#thistle-body-hide-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-body-hide-clip)">
+<use id="thistle-body-hide-deep" href="#thistle-body-hide-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="thistle-body-hide-shade-over" href="#thistle-body-hide-shape" transform="translate(-3.72 -3.72)" fill="#8c6b42"/>
+<use id="thistle-body-hide-fill" href="#thistle-body-hide-shape" transform="translate(-6 -6)" fill="#b08a5a"/>
+<g clip-path="url(#thistle-body-hide-lit-clip)">
+<use id="thistle-body-hide-lit" href="#thistle-body-hide-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-body-hide-fill-over" href="#thistle-body-hide-shape" transform="translate(4.6 4.6)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="thistle-body-hide-line" href="#thistle-body-hide-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-body-blanket">
+<use id="thistle-body-blanket-shade" href="#thistle-body-blanket-shape" fill="#2f5893"/>
+<g clip-path="url(#thistle-body-blanket-clip)">
+<use id="thistle-body-blanket-fill" href="#thistle-body-blanket-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#thistle-body-blanket-lit-clip)">
+<use id="thistle-body-blanket-lit" href="#thistle-body-blanket-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-body-blanket-fill-over" href="#thistle-body-blanket-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<g id="thistle-body-trim">
+<use id="thistle-body-trim-fill" href="#thistle-body-trim-shape" fill="#c8a24a"/>
+<use id="thistle-body-trim-line" href="#thistle-body-trim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-body-blanket-line" href="#thistle-body-blanket-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="thistle-legs-near-layer" transform="translate(98.08 148.8) rotate(0) scale(1 1) translate(-98.08 -148.8)">
+<defs>
+<path id="thistle-legs-near-leg-shape" d="M 63.2 140.5 L 74.7 140.5 L 62.2 156.1 L 62.2 168.6 Q 69.5 169.6 69.5 175.8 L 69.5 180 L 50.8 180 L 50.8 171.7 L 50.8 156.1 Z"/>
+<clipPath id="thistle-legs-near-leg-clip"><use href="#thistle-legs-near-leg-shape"/></clipPath>
+<clipPath id="thistle-legs-near-leg-lit-clip"><use href="#thistle-legs-near-leg-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thistle-legs-near-hoof-shape" d="M 48.7 171.7 L 72.6 171.7 L 72.6 182.1 L 48.7 182.1 L 48.7 171.7 Z"/>
+<path id="thistle-legs-near-leg-2-shape" d="M 119.4 140.5 L 130.8 140.5 L 140.2 156.1 L 143.3 168.6 Q 150.6 169.6 150.6 175.8 L 150.6 180 L 131.9 180 L 131.9 171.7 L 128.8 156.1 Z"/>
+<clipPath id="thistle-legs-near-leg-2-clip"><use href="#thistle-legs-near-leg-2-shape"/></clipPath>
+<clipPath id="thistle-legs-near-leg-2-lit-clip"><use href="#thistle-legs-near-leg-2-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thistle-legs-near-hoof-2-shape" d="M 129.8 171.7 L 153.7 171.7 L 153.7 182.1 L 129.8 182.1 L 129.8 171.7 Z"/>
+</defs>
+<g id="thistle-legs-near-leg">
+<use id="thistle-legs-near-leg-shade" href="#thistle-legs-near-leg-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-legs-near-leg-clip)">
+<use id="thistle-legs-near-leg-fill" href="#thistle-legs-near-leg-shape" transform="translate(-3 -3)" fill="#b08a5a"/>
+<g clip-path="url(#thistle-legs-near-leg-lit-clip)">
+<use id="thistle-legs-near-leg-lit" href="#thistle-legs-near-leg-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-legs-near-leg-fill-over" href="#thistle-legs-near-leg-shape" transform="translate(3.6 3.6)" fill="#b08a5a"/>
+</g>
+<g id="thistle-legs-near-hoof">
+<use id="thistle-legs-near-hoof-fill" href="#thistle-legs-near-hoof-shape" fill="#5d6672"/>
+<use id="thistle-legs-near-hoof-line" href="#thistle-legs-near-hoof-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-legs-near-leg-line" href="#thistle-legs-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-legs-near-leg-2">
+<use id="thistle-legs-near-leg-2-shade" href="#thistle-legs-near-leg-2-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-legs-near-leg-2-clip)">
+<use id="thistle-legs-near-leg-2-fill" href="#thistle-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#b08a5a"/>
+<g clip-path="url(#thistle-legs-near-leg-2-lit-clip)">
+<use id="thistle-legs-near-leg-2-lit" href="#thistle-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-legs-near-leg-2-fill-over" href="#thistle-legs-near-leg-2-shape" transform="translate(3.6 3.6)" fill="#b08a5a"/>
+</g>
+<g id="thistle-legs-near-hoof-2">
+<use id="thistle-legs-near-hoof-2-fill" href="#thistle-legs-near-hoof-2-shape" fill="#5d6672"/>
+<use id="thistle-legs-near-hoof-2-line" href="#thistle-legs-near-hoof-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="thistle-legs-near-leg-2-line" href="#thistle-legs-near-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="thistle-head-layer" transform="translate(129.28 113.44) rotate(0) scale(1 1) translate(-129.28 -113.44)">
+<defs>
+<path id="thistle-head-antler-shape" d="M 140.8 107.7 L 165.8 76.5 C 167.2 74.7 167 72.1 165.2 70.7 C 163.4 69.2 160.7 69.5 159.3 71.3 L 134.4 102.5 C 132.9 104.3 133.2 106.9 135 108.4 C 136.8 109.8 139.4 109.5 140.8 107.7 Z"/>
+<path id="thistle-head-antler-2-shape" d="M 150.4 94.2 L 177.4 92.1 C 179.4 92 180.9 90.2 180.7 88.2 C 180.6 86.2 178.8 84.7 176.8 84.9 L 149.8 86.9 C 147.8 87.1 146.3 88.8 146.5 90.8 C 146.6 92.8 148.4 94.3 150.4 94.2 Z"/>
+<path id="thistle-head-antler-3-shape" d="M 160.5 81 L 183.4 64.4 C 185 63.2 185.4 60.9 184.2 59.3 C 183 57.7 180.8 57.3 179.1 58.5 L 156.3 75.1 C 154.6 76.3 154.3 78.6 155.5 80.2 C 156.6 81.8 158.9 82.2 160.5 81 Z"/>
+<path id="thistle-head-antler-4-shape" d="M 159.9 79.4 L 153.6 48.2 C 153.3 46.3 151.3 45 149.4 45.4 C 147.4 45.8 146.1 47.7 146.5 49.7 L 152.8 80.9 C 153.1 82.8 155.1 84.1 157 83.7 C 159 83.3 160.3 81.4 159.9 79.4 Z"/>
+<path id="thistle-head-neck-shape" d="M 125.4 127.7 L 152.4 121.5 C 158 120.2 161.5 114.6 160.2 109 C 158.9 103.4 153.3 99.9 147.7 101.2 L 120.7 107.5 C 115.1 108.8 111.6 114.3 112.9 119.9 C 114.2 125.5 119.8 129 125.4 127.7 Z"/>
+<clipPath id="thistle-head-neck-clip"><use href="#thistle-head-neck-shape"/></clipPath>
+<clipPath id="thistle-head-neck-lit-clip"><use href="#thistle-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thistle-head-ear-shape" d="M 143.8 101 C 143.8 101 133.1 99.2 129.3 96.8 C 125.5 94.4 121 86.4 121 86.4 C 121 86.4 131 85 135.5 86.4 C 140 87.8 146.6 92.3 148 94.7 C 149.4 97.1 143.8 101 143.8 101 Z"/>
+<path id="thistle-head-head-shape" d="M 139.7 105.1 C 141.1 100.6 147.3 97.5 152.2 96.8 C 157 96.1 163.3 98.2 168.8 101 C 174.3 103.7 185.4 113.4 185.4 113.4 L 183.4 123.8 C 183.4 123.8 169.1 128 162.6 128 C 156 128 147.7 127.7 143.8 123.8 C 140 120 138.3 109.6 139.7 105.1 Z"/>
+<clipPath id="thistle-head-head-clip"><use href="#thistle-head-head-shape"/></clipPath>
+<clipPath id="thistle-head-head-lit-clip"><use href="#thistle-head-head-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="thistle-head-antler-5-shape" d="M 153.3 103.6 L 178.3 72.4 C 179.7 70.6 179.4 67.9 177.6 66.5 C 175.8 65.1 173.2 65.4 171.8 67.2 L 146.8 98.4 C 145.4 100.2 145.7 102.8 147.5 104.2 C 149.3 105.6 151.9 105.4 153.3 103.6 Z"/>
+<path id="thistle-head-antler-6-shape" d="M 162.8 90 L 189.9 87.9 C 191.9 87.8 193.4 86 193.2 84 C 193.1 82 191.3 80.5 189.3 80.7 L 162.3 82.8 C 160.3 82.9 158.8 84.7 158.9 86.7 C 159.1 88.7 160.8 90.2 162.8 90 Z"/>
+<path id="thistle-head-antler-7-shape" d="M 173 76.9 L 195.9 60.2 C 197.5 59 197.9 56.8 196.7 55.1 C 195.5 53.5 193.2 53.2 191.6 54.3 L 168.7 71 C 167.1 72.2 166.8 74.4 167.9 76.1 C 169.1 77.7 171.4 78 173 76.9 Z"/>
+<path id="thistle-head-antler-8-shape" d="M 172.4 75.3 L 166.1 44.1 C 165.7 42.1 163.8 40.8 161.8 41.2 C 159.9 41.6 158.6 43.5 159 45.5 L 165.2 76.7 C 165.6 78.7 167.5 80 169.5 79.6 C 171.5 79.2 172.8 77.3 172.4 75.3 Z"/>
+<path id="thistle-head-leaves-shape" d="M 112.6 113.4 C 112.6 113.4 121 105.5 125.1 105.1 C 129.3 104.8 134.8 107.9 137.6 111.4 C 140.4 114.8 141.8 125.9 141.8 125.9 C 141.8 125.9 133.4 131.8 129.3 132.2 C 125.1 132.5 119.6 131.1 116.8 128 C 114 124.9 112.6 113.4 112.6 113.4 Z"/>
+<clipPath id="thistle-head-leaves-clip"><use href="#thistle-head-leaves-shape"/></clipPath>
+<clipPath id="thistle-head-leaves-lit-clip"><use href="#thistle-head-leaves-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thistle-head-tuft-shape" d="M 118.9 123.8 L 122 109.3 L 127.2 119.7 L 132.4 109.3 L 135.5 123.8 Z"/>
+</defs>
+<g id="thistle-head-antler">
+<use id="thistle-head-antler-fill" href="#thistle-head-antler-shape" fill="#c4b594"/>
+<use id="thistle-head-antler-line" href="#thistle-head-antler-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-antler-2">
+<use id="thistle-head-antler-2-fill" href="#thistle-head-antler-2-shape" fill="#c4b594"/>
+<use id="thistle-head-antler-2-line" href="#thistle-head-antler-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-antler-3">
+<use id="thistle-head-antler-3-fill" href="#thistle-head-antler-3-shape" fill="#c4b594"/>
+<use id="thistle-head-antler-3-line" href="#thistle-head-antler-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-antler-4">
+<use id="thistle-head-antler-4-fill" href="#thistle-head-antler-4-shape" fill="#c4b594"/>
+<use id="thistle-head-antler-4-line" href="#thistle-head-antler-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="thistle-head-antler-fill" d="M 139.5 106.6 L 164.4 75.4 C 165.3 74.4 165.1 72.9 164.1 72.1 C 163 71.2 161.5 71.4 160.7 72.4 L 135.7 103.6 C 134.9 104.7 135.1 106.2 136.1 107 C 137.1 107.8 138.6 107.6 139.5 106.6 Z" fill="#c4b594"/>
+<path id="thistle-head-antler-fill-2" d="M 150.2 92.4 L 177.3 90.3 C 178.3 90.3 179.1 89.4 179 88.3 C 178.9 87.3 178 86.5 177 86.6 L 149.9 88.7 C 148.9 88.8 148.1 89.7 148.2 90.7 C 148.3 91.7 149.2 92.5 150.2 92.4 Z" fill="#c4b594"/>
+<path id="thistle-head-antler-fill-3" d="M 159.5 79.6 L 182.4 63 C 183.2 62.3 183.4 61.2 182.8 60.3 C 182.2 59.5 181 59.3 180.2 59.9 L 157.3 76.6 C 156.5 77.2 156.3 78.3 156.9 79.2 C 157.5 80 158.7 80.2 159.5 79.6 Z" fill="#c4b594"/>
+<path id="thistle-head-antler-fill-4" d="M 158.2 79.8 L 151.9 48.6 C 151.7 47.6 150.7 46.9 149.7 47.1 C 148.7 47.3 148 48.3 148.2 49.3 L 154.5 80.5 C 154.7 81.5 155.7 82.2 156.7 82 C 157.7 81.8 158.4 80.8 158.2 79.8 Z" fill="#c4b594"/>
+<g id="thistle-head-neck">
+<use id="thistle-head-neck-shade" href="#thistle-head-neck-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-head-neck-clip)">
+<use id="thistle-head-neck-fill" href="#thistle-head-neck-shape" transform="translate(-3 -3)" fill="#b08a5a"/>
+<g clip-path="url(#thistle-head-neck-lit-clip)">
+<use id="thistle-head-neck-lit" href="#thistle-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-head-neck-fill-over" href="#thistle-head-neck-shape" transform="translate(3.6 3.6)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="thistle-head-neck-line" href="#thistle-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-ear">
+<use id="thistle-head-ear-fill" href="#thistle-head-ear-shape" fill="#b08a5a"/>
+<use id="thistle-head-ear-line" href="#thistle-head-ear-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-head">
+<use id="thistle-head-head-shade" href="#thistle-head-head-shape" fill="#8c6b42"/>
+<g clip-path="url(#thistle-head-head-clip)">
+<use id="thistle-head-head-fill" href="#thistle-head-head-shape" transform="translate(-4 -4)" fill="#b08a5a"/>
+<g clip-path="url(#thistle-head-head-lit-clip)">
+<use id="thistle-head-head-lit" href="#thistle-head-head-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-head-head-fill-over" href="#thistle-head-head-shape" transform="translate(4.2 4.2)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="thistle-head-head-line" href="#thistle-head-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-antler-5">
+<use id="thistle-head-antler-5-fill" href="#thistle-head-antler-5-shape" fill="#e9dfc6"/>
+<use id="thistle-head-antler-5-line" href="#thistle-head-antler-5-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-antler-6">
+<use id="thistle-head-antler-6-fill" href="#thistle-head-antler-6-shape" fill="#e9dfc6"/>
+<use id="thistle-head-antler-6-line" href="#thistle-head-antler-6-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-antler-7">
+<use id="thistle-head-antler-7-fill" href="#thistle-head-antler-7-shape" fill="#e9dfc6"/>
+<use id="thistle-head-antler-7-line" href="#thistle-head-antler-7-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-antler-8">
+<use id="thistle-head-antler-8-fill" href="#thistle-head-antler-8-shape" fill="#e9dfc6"/>
+<use id="thistle-head-antler-8-line" href="#thistle-head-antler-8-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="thistle-head-antler-fill-5" d="M 151.9 102.5 L 176.9 71.3 C 177.7 70.2 177.6 68.7 176.5 67.9 C 175.5 67.1 174 67.2 173.2 68.3 L 148.2 99.5 C 147.4 100.5 147.6 102 148.6 102.8 C 149.6 103.7 151.1 103.5 151.9 102.5 Z" fill="#e9dfc6"/>
+<path id="thistle-head-antler-fill-6" d="M 162.7 88.3 L 189.7 86.2 C 190.8 86.1 191.5 85.2 191.5 84.2 C 191.4 83.1 190.5 82.4 189.5 82.5 L 162.4 84.5 C 161.4 84.6 160.6 85.5 160.7 86.5 C 160.8 87.6 161.7 88.3 162.7 88.3 Z" fill="#e9dfc6"/>
+<path id="thistle-head-antler-fill-7" d="M 172 75.4 L 194.9 58.8 C 195.7 58.2 195.9 57 195.3 56.2 C 194.7 55.3 193.5 55.2 192.7 55.8 L 169.8 72.4 C 168.9 73 168.8 74.2 169.4 75 C 170 75.9 171.1 76 172 75.4 Z" fill="#e9dfc6"/>
+<path id="thistle-head-antler-fill-8" d="M 170.6 75.6 L 164.4 44.4 C 164.2 43.4 163.2 42.8 162.2 43 C 161.2 43.2 160.5 44.2 160.7 45.2 L 167 76.4 C 167.2 77.4 168.2 78 169.2 77.8 C 170.2 77.6 170.8 76.6 170.6 75.6 Z" fill="#e9dfc6"/>
+<g id="thistle-head-leaves">
+<use id="thistle-head-leaves-shade" href="#thistle-head-leaves-shape" fill="#3b722f"/>
+<g clip-path="url(#thistle-head-leaves-clip)">
+<use id="thistle-head-leaves-fill" href="#thistle-head-leaves-shape" transform="translate(-3 -3)" fill="#4f8f3e"/>
+<g clip-path="url(#thistle-head-leaves-lit-clip)">
+<use id="thistle-head-leaves-lit" href="#thistle-head-leaves-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thistle-head-leaves-fill-over" href="#thistle-head-leaves-shape" transform="translate(3.6 3.6)" fill="#4f8f3e"/>
+</g>
+</g>
+<use id="thistle-head-leaves-line" href="#thistle-head-leaves-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thistle-head-tuft">
+<use id="thistle-head-tuft-fill" href="#thistle-head-tuft-shape" fill="#8a5cd6"/>
+<use id="thistle-head-tuft-line" href="#thistle-head-tuft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

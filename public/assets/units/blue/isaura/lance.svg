@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="isaura-lance" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="isaura-lance-shaft-shape" d="M 191.3 130.2 L 191.6 133.2 Q 192 136.2 189 136.6 L 67.9 151.4 Q 64.9 151.8 64.6 148.8 L 64.2 145.8 Q 63.8 142.9 66.8 142.5 L 187.9 127.6 Q 190.9 127.3 191.3 130.2 Z"/>
+<clipPath id="isaura-lance-shaft-clip"><use href="#isaura-lance-shaft-shape"/></clipPath>
+<path id="isaura-lance-pennon-shape" d="M 188 136.2 L 186.7 158.5 Q 165.8 169.1 143 163.9 L 123.6 170.3 L 136.2 157.7 L 113.9 156.4 Q 146.6 144.3 166.1 138.9 Z"/>
+<clipPath id="isaura-lance-pennon-clip"><use href="#isaura-lance-pennon-shape"/></clipPath>
+<clipPath id="isaura-lance-pennon-lit-clip"><use href="#isaura-lance-pennon-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="isaura-lance-blade-shape" d="M 225.2 127.6 L 201.7 141.6 L 189.2 138.1 L 187.7 126.1 L 199 119.7 Z"/>
+<clipPath id="isaura-lance-blade-clip"><use href="#isaura-lance-blade-shape"/></clipPath>
+<clipPath id="isaura-lance-blade-lit-clip"><use href="#isaura-lance-blade-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="isaura-lance-collar-shape" d="M 190.8 126.8 L 192 136.7 Q 192.3 138.7 190.3 138.9 L 187.3 139.3 Q 185.3 139.5 185.1 137.6 L 183.9 127.6 Q 183.6 125.6 185.6 125.4 L 188.6 125 Q 190.6 124.8 190.8 126.8 Z"/>
+<path id="isaura-lance-guard-shape" d="M 147.2 132.1 L 148.4 142.1 L 129.7 154.4 L 126.1 124.6 Z"/>
+<clipPath id="isaura-lance-guard-clip"><use href="#isaura-lance-guard-shape"/></clipPath>
+<clipPath id="isaura-lance-guard-lit-clip"><use href="#isaura-lance-guard-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="isaura-lance-hand-shape" d="M 123.5 141 C 123.5 145.1 120.1 148.5 116 148.5 C 111.9 148.5 108.5 145.1 108.5 141 C 108.5 136.9 111.9 133.5 116 133.5 C 120.1 133.5 123.5 136.9 123.5 141 Z"/>
+<clipPath id="isaura-lance-hand-clip"><use href="#isaura-lance-hand-shape"/></clipPath>
+<clipPath id="isaura-lance-hand-lit-clip"><use href="#isaura-lance-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="isaura-lance-shaft">
+<use id="isaura-lance-shaft-shade" href="#isaura-lance-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#isaura-lance-shaft-clip)">
+<use id="isaura-lance-shaft-fill" href="#isaura-lance-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="isaura-lance-shaft-line" href="#isaura-lance-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="isaura-lance-pennon">
+<use id="isaura-lance-pennon-shade" href="#isaura-lance-pennon-shape" fill="#2f5893"/>
+<g clip-path="url(#isaura-lance-pennon-clip)">
+<use id="isaura-lance-pennon-fill" href="#isaura-lance-pennon-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#isaura-lance-pennon-lit-clip)">
+<use id="isaura-lance-pennon-lit" href="#isaura-lance-pennon-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="isaura-lance-pennon-fill-over" href="#isaura-lance-pennon-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="isaura-lance-pennon-line" href="#isaura-lance-pennon-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="isaura-lance-blade">
+<use id="isaura-lance-blade-shade" href="#isaura-lance-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#isaura-lance-blade-clip)">
+<use id="isaura-lance-blade-fill" href="#isaura-lance-blade-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#isaura-lance-blade-lit-clip)">
+<use id="isaura-lance-blade-lit" href="#isaura-lance-blade-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="isaura-lance-blade-fill-over" href="#isaura-lance-blade-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="isaura-lance-blade-sheen" d="M211.04 119.72 L216.66 119.72 L207.49 141.56 L201.87 141.56 Z M220.16 119.72 L222.76 119.72 L213.59 141.56 L210.99 141.56 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="isaura-lance-far-face" d="M 225.2 127.6 L 201.7 141.6 L 189.2 138.1 L 188.5 132.1 Z" fill="#2a1a10" opacity="0.22"/>
+</g>
+<use id="isaura-lance-blade-line" href="#isaura-lance-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="isaura-lance-collar">
+<use id="isaura-lance-collar-fill" href="#isaura-lance-collar-shape" fill="#c8a24a"/>
+<use id="isaura-lance-collar-line" href="#isaura-lance-collar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="isaura-lance-guard">
+<use id="isaura-lance-guard-shade" href="#isaura-lance-guard-shape" fill="#8d97a3"/>
+<g clip-path="url(#isaura-lance-guard-clip)">
+<use id="isaura-lance-guard-fill" href="#isaura-lance-guard-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#isaura-lance-guard-lit-clip)">
+<use id="isaura-lance-guard-lit" href="#isaura-lance-guard-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="isaura-lance-guard-fill-over" href="#isaura-lance-guard-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="isaura-lance-guard-sheen" d="M143.48 124.65 L147.48 124.65 L134.97 154.43 L130.97 154.43 Z M150.98 124.65 L153.58 124.65 L141.07 154.43 L138.47 154.43 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="isaura-lance-guard-line" href="#isaura-lance-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="isaura-lance-hand">
+<use id="isaura-lance-hand-shade" href="#isaura-lance-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#isaura-lance-hand-clip)">
+<use id="isaura-lance-hand-fill" href="#isaura-lance-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#isaura-lance-hand-lit-clip)">
+<use id="isaura-lance-hand-lit" href="#isaura-lance-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="isaura-lance-hand-fill-over" href="#isaura-lance-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="isaura-lance-hand-line" href="#isaura-lance-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

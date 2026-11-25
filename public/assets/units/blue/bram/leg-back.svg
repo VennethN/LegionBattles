@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bram-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="bram-leg-back-boot-shape" d="M 66.5 145.3 L 86.1 148.1 L 83.8 164.5 C 90 165.4 94.5 170.3 93.7 176.4 L 93.4 178.5 Q 92.8 182.6 88.7 182 L 66 178.8 Q 61.9 178.3 62.5 174.1 Z"/>
+<clipPath id="bram-leg-back-boot-clip"><use href="#bram-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="bram-leg-back-boot">
+<use id="bram-leg-back-boot-fill" href="#bram-leg-back-boot-shape" fill="#434b56"/>
+<g clip-path="url(#bram-leg-back-boot-clip)">
+<path id="bram-leg-back-sole" d="M 58.5 172.5 L 99.7 178.3 L 98.5 186.6 L 57.3 180.8 L 58.5 172.5 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="bram-leg-back-boot-line" href="#bram-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
