@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { botSteer } from '../src/game/bot';
-import { CAPTAIN_SECONDS, ENEMIES, HERO_RADIUS, HEROES, HURT_GRACE, ITEMS, LAST_WAVE, MARK_CLEAR, MARK_SECONDS, UPGRADES, WAVE_SECONDS, WEAPONS, byId, coinShare, enemyAt, landAt, levelNeeds, tierWeights, waveOf } from '../src/game/data';
+import { CAPTAIN_SECONDS, ENEMIES, LANDS, LANDS_DEF, bossWave, HERO_RADIUS, HEROES, HURT_GRACE, ITEMS, LAST_WAVE, MARK_CLEAR, MARK_SECONDS, UPGRADES, WAVE_SECONDS, WEAPONS, byId, coinShare, enemyAt, landAt, levelNeeds, tierWeights, waveOf } from '../src/game/data';
 import { newRun, setupOf, statsOf } from '../src/game/run';
 import { STATS, armorShare, hasteRate, noStats, sumStats, type Stats } from '../src/game/stats';
 import { STEP, World, slotPlace, type Ev, type Foe, type Setup } from '../src/game/world';
@@ -48,8 +48,10 @@ describe('the data', () => {
     expect(new Set(UPGRADES.map((u) => u.stat)).size).toBe(UPGRADES.length);
   });
 
-  it('starts with two heroes open and gives each of the rest a feat', () => {
-    expect(HEROES.filter((h) => h.unlock === null).map((h) => h.id)).toEqual(['bram', 'wren']);
+  it('starts with Wren open and gives each of the rest a feat', () => {
+    expect(HEROES.filter((h) => h.unlock === null).map((h) => h.id)).toEqual(['wren']);
+    expect(HEROES[0].id).toBe('wren');
+    expect(byId(HEROES, 'bram').unlock).toEqual({ kind: 'runs', runs: 1 });
   });
 
   it('makes every weapon better at every tier, and every enemy harder every wave', () => {
@@ -60,27 +62,41 @@ describe('the data', () => {
       }
     }
     for (const e of ENEMIES) {
-      for (let n = 2; n <= 45; n++) {
+      for (let n = 2; n <= LAST_WAVE; n++) {
         expect(enemyAt(e, n).hp, `${e.id} ${n}`).toBeGreaterThanOrEqual(enemyAt(e, n - 1).hp);
         expect(enemyAt(e, n).dmg, `${e.id} ${n}`).toBeGreaterThanOrEqual(enemyAt(e, n - 1).dmg);
       }
     }
-    expect(enemyAt(byId(ENEMIES, 'huscarl'), 40).hp).toBeGreaterThan(enemyAt(byId(ENEMIES, 'huscarl'), 20).hp * 10);
+    // Steep through the first land, gentler after it: the hundredth wave is far harder than the tenth, not past all reach.
+    const cut = byId(ENEMIES, 'cutpurse');
+    expect(enemyAt(cut, 10).hp).toBeGreaterThan(enemyAt(cut, 1).hp * 8);
+    expect(enemyAt(cut, 100).hp).toBeGreaterThan(enemyAt(cut, 10).hp * 30);
+    expect(enemyAt(cut, 100).hp).toBeLessThan(enemyAt(cut, 10).hp * 150);
   });
 
-  it('has waves that lengthen to three quarters of a minute, a boss on three of twenty, and the same twenty again after', () => {
-    expect(waveOf(1).seconds).toBe(20);
-    expect(waveOf(12).seconds).toBe(WAVE_SECONDS);
-    for (let n = 1; n <= 40; n++) expect(waveOf(n).seconds).toBeLessThanOrEqual(waveOf(n).boss ? CAPTAIN_SECONDS : WAVE_SECONDS);
-    // A whole run is about a quarter of an hour of fighting, at the most.
-    expect(Array.from({ length: 20 }, (_, i) => waveOf(i + 1).seconds).reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(15 * 60);
-    expect([7, 14, 20].map((n) => waveOf(n).boss)).toEqual(['warlord', 'colossus', 'jarl']);
-    expect(Array.from({ length: 20 }, (_, i) => waveOf(i + 1).boss).filter(Boolean).length).toBe(3);
-    expect(waveOf(27).boss).toBe('warlord');
-    expect(waveOf(21).land).toBe('meadow');
-    expect(waveOf(21).band).toBeGreaterThan(waveOf(1).band);
+  it('has a hundred waves in ten lands of ten, a boss on every tenth, and the same hundred again after', () => {
+    expect(LAST_WAVE).toBe(100);
+    expect(LANDS.length).toBe(10);
+    expect(waveOf(1).seconds).toBe(WAVE_SECONDS.first);
+    // Waves lengthen from twenty seconds to thirty-five; a boss's wave lasts until its boss falls, or at most this.
+    for (let n = 1; n <= LAST_WAVE; n++) expect(waveOf(n).seconds).toBeLessThanOrEqual(waveOf(n).boss ? CAPTAIN_SECONDS : WAVE_SECONDS.most);
+    expect(waveOf(LAST_WAVE - 1).seconds).toBe(WAVE_SECONDS.most);
+    const bosses = Array.from({ length: LAST_WAVE }, (_, i) => waveOf(i + 1)).filter((w) => w.boss);
+    expect(bosses.map((w) => w.n)).toEqual([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
+    expect(new Set(bosses.map((w) => w.boss)).size).toBe(10);
+    expect(bosses.map((w) => w.land)).toEqual([...LANDS]);
+    for (const b of bosses) expect(byId(ENEMIES, b.boss ?? '').ai, b.boss).toBe('boss');
+    expect(bossWave('warlord')).toBe(10);
+    expect(bossWave('forgelord')).toBe(100);
+    // The fifth wave of each land has its elite.
+    for (let n = 1; n <= LAST_WAVE; n++) expect(waveOf(n).elite, `wave ${n}`).toBe(n % 10 === 5);
+    // Every land fields its own enemies.
+    for (const land of LANDS) expect(LANDS_DEF.find((l) => l.id === land)?.roster.length, land).toBeGreaterThanOrEqual(5);
+    expect(waveOf(101).land).toBe('meadow');
+    expect(waveOf(110).boss).toBe('warlord');
+    expect(waveOf(101).band).toBeGreaterThan(waveOf(1).band);
     // The lands are counted on past the written waves: what happens once in a land asks.
-    expect([1, 7, 8, 14, 15, 20, 21, 28].map(landAt)).toEqual([0, 0, 1, 1, 2, 2, 3, 4]);
+    expect([1, 10, 11, 20, 21, 100, 101, 115].map(landAt)).toEqual([0, 0, 1, 1, 2, 9, 10, 11]);
   });
 
   it('asks more for each level, opens better tiers later, and thins the coins', () => {
@@ -89,7 +105,8 @@ describe('the data', () => {
     expect(tierWeights(12, 0)[3]).toBeGreaterThan(0);
     expect(tierWeights(12, 50)[2]).toBeGreaterThan(tierWeights(12, 0)[2]);
     expect(coinShare(1)).toBe(1);
-    expect(coinShare(20)).toBeLessThan(0.3);
+    expect(coinShare(20)).toBeLessThan(0.5);
+    expect(coinShare(100)).toBeLessThan(0.15);
   });
 });
 
@@ -168,7 +185,7 @@ describe('a wave', () => {
   });
 
   it('a boss wave ends when its boss falls, and the boss leaves a pack', () => {
-    const w = new World(setup({ wave: 7, stats: stats({ maxHp: 99999, might: 5000 }) }));
+    const w = new World(setup({ wave: 10, stats: stats({ maxHp: 99999, might: 5000 }) }));
     play(w, 30);
     expect(w.over).toBe('cleared');
     expect(w.felled).toEqual(['warlord']);

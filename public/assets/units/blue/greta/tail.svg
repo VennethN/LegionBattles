@@ -1,18 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="greta-tail" width="272" height="272" viewBox="-40 -40 272 272">
-<defs>
-<path id="greta-tail-tail-shape" d="M 64.7 105.8 C 64.7 110.9 60 115 54.2 115 C 48.5 115 43.8 110.9 43.8 105.8 C 43.8 100.6 48.5 96.5 54.2 96.5 C 60 96.5 64.7 100.6 64.7 105.8 Z"/>
-<clipPath id="greta-tail-tail-clip"><use href="#greta-tail-tail-shape"/></clipPath>
-<clipPath id="greta-tail-tail-lit-clip"><use href="#greta-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
-</defs>
-<g id="greta-tail-tail">
-<use id="greta-tail-tail-shade" href="#greta-tail-tail-shape" fill="#4e3520"/>
-<g clip-path="url(#greta-tail-tail-clip)">
-<use id="greta-tail-tail-fill" href="#greta-tail-tail-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
-<g clip-path="url(#greta-tail-tail-lit-clip)">
-<use id="greta-tail-tail-lit" href="#greta-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
-<use id="greta-tail-tail-fill-over" href="#greta-tail-tail-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
-</g>
-</g>
-<use id="greta-tail-tail-line" href="#greta-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.c1{fill:#f4f1e4;opacity:.36}</style><defs><path id="i0" d="M64.7 105.8c0 5.1-4.7 9.2-10.5 9.2-5.7 0-10.4-4.1-10.4-9.2 0-5.2 4.7-9.3 10.4-9.3 5.8 0 10.5 4.1 10.5 9.3z"/><clipPath id="i1"><use href="#i0"/></clipPath><clipPath id="i2"><use href="#i0" transform="translate(-3-3)"/></clipPath></defs><g><use href="#i0" fill="#4e3520"/><g clip-path="url(#i1)"><use href="#i0" transform="translate(-3-3)" fill="#6b4a2b"/><g clip-path="url(#i2)"><use href="#i0" transform="translate(-3-3)" class="c1"/><use href="#i0" transform="translate(3.6 3.6)" fill="#6b4a2b"/></g></g><use href="#i0" class="c0"/></g></svg>

@@ -93,7 +93,7 @@ describe('what a weapon of their own learns', () => {
   it('Whisper, 10: at full Unseen her arrows go through everyone', () => {
     const through = (tier: number, safe: number): number => {
       const w = at('wren', tier);
-      w.hero.safe = safe;
+      Object.assign(w, { quiet: safe > 0 ? QUIRKS.unseen.most : 0 });
       // Near enough that an arrow loosed from the hand at the first of them is still at their height when it reaches the last.
       for (let i = 0; i < 5; i++) stand(w, 'bruiser', w.hero.x + 100 + i * 45, w.hero.y, { hp: 99999, dmg: 0 }, true);
       return struck(play(w, 0.9)).size;
@@ -106,7 +106,7 @@ describe('what a weapon of their own learns', () => {
   it('Whisper, 15: a kill at full Unseen looses the next arrow at once', () => {
     const loosed = (tier: number): number => {
       const w = at('wren', tier);
-      w.hero.safe = 100;
+      Object.assign(w, { quiet: QUIRKS.unseen.most });
       stand(w, 'cutpurse', w.hero.x + 150, w.hero.y, { hp: 1, maxHp: 9, dmg: 0 }, true);
       stand(w, 'bruiser', w.hero.x + 150, w.hero.y + 200, { hp: 99999, maxHp: 99999, dmg: 0 }, true);
       return has(play(w, 1), 'loose').length;

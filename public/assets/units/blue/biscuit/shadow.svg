@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="biscuit-shadow" width="272" height="272" viewBox="-40 -40 272 272">
-<path id="biscuit-shadow-shadow" d="M 137.4 181 C 137.4 186 118.9 190 96 190 C 73.1 190 54.6 186 54.6 181 C 54.6 176 73.1 172 96 172 C 118.9 172 137.4 176 137.4 181 Z" fill="#2a1a10" opacity="0.28"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:#2a1a10;opacity:.28}</style><path d="M137.4 181c0 5-18.5 9-41.4 9-22.9 0-41.4-4-41.4-9 0-5 18.5-9 41.4-9 22.9 0 41.4 4 41.4 9z" class="c0"/></svg>

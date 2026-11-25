@@ -8,7 +8,7 @@
 // them.
 
 import Phaser from 'phaser';
-import { BONE, CLOTH, FIRE, FROST, HOLY, OUTLINE, RUBY, VENOM } from '../../art/kit/palette';
+import { BONE, CLOTH, FIRE, FROST, HOLY, LEATHER, OUTLINE, RUBY, VENOM } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { COMPANIONS, LAND_NAMES, ROAD, byId, levelNeeds, omenOf, type Land } from '../../game/data';
@@ -57,7 +57,7 @@ const BURSTS: Record<Burst, number> = {
   star: hex(HOLY.light), frost: hex(FROST.fill), rain: hex(BONE.fill), rise: RED, bolt: hex(HOLY.light),
 };
 /** What each kind of ground that goes on doing something is tinted. */
-const ZONES: Record<ZoneKind, number> = { cloud: hex(VENOM.fill), holy: hex(HOLY.fill), fire: hex(FIRE.fill), rain: hex(BONE.shade), ice: hex(FROST.fill) };
+const ZONES: Record<ZoneKind, number> = { cloud: hex(VENOM.fill), holy: hex(HOLY.fill), fire: hex(FIRE.fill), rain: hex(BONE.shade), ice: hex(FROST.fill), mud: hex(LEATHER.fill) };
 /** Which way each weapon's picture points when it stands upright: most point up; a bow looses to its right. */
 const POINTS_RIGHT = new Set(['bow', 'longbow', 'rimebow']);
 /** What does not turn to its mark at all: it is swung, thrown or shaken where it hangs. */
@@ -218,8 +218,8 @@ export class ArenaScene extends Phaser.Scene {
       if (calls) stills.push({ team: 'red', unit: calls });
     }
     const rigged: UnitKey[] = [{ team: 'blue', unit: hero.unit }, ...run.band.map((b) => ({ team: 'blue' as const, unit: byId(COMPANIONS, b.id).unit }))];
-    // Whoever is in the cage on this road may be let out and fight: their figure is brought in with the band's.
-    if (this.world.omen === 'stray' && run.road.stray) rigged.push({ team: 'blue', unit: byId(COMPANIONS, run.road.stray).unit });
+    // Whoever is in a cage, on the stray's road or found by chance, may be let out and fight: their figure is brought in with the band's.
+    if (this.world.caged) rigged.push({ team: 'blue', unit: byId(COMPANIONS, this.world.caged).unit });
     if (this.world.wave.boss) {
       rigged.push({ team: 'red', unit: this.world.wave.boss });
       const calls = ENEMY_CALLS[this.world.wave.boss];

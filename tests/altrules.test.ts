@@ -5,8 +5,8 @@
 
 import { describe, expect, it } from 'vitest';
 import { ALT, BAND, HEROES, OWN, OWN_ALTS, OWN_GROWS, OWN_RULES, QUIRKS, SIGNATURES, altAt, altChoice, byId, ownRules } from '../src/game/data';
-import { beginRun, setAlt } from '../src/game/hold';
-import { OATHS } from '../src/game/holdData';
+import { beginRun, pickGift } from '../src/game/hold';
+import { LEVEL_XP, trackOf } from '../src/game/mastery';
 import { newRun, setupOf } from '../src/game/run';
 import { freshSave } from '../src/game/state';
 import { World, type Ev, type Setup } from '../src/game/world';
@@ -39,14 +39,18 @@ describe('the second way of a weapon of their own', () => {
     expect(altAt('sword')).toBe(0);
   });
 
-  it('is given to a run by the Hold once the hero\'s oath has unlocked it and the player has chosen it', () => {
+  it('is given to a run by the Hold once the hero\'s track has reached it and the player has picked it', () => {
     const save = freshSave();
-    expect(setAlt(save, 'bram', true)).toBe(false);
+    const level = trackOf('bram').findIndex((lv) => lv.gifts.some((g) => g.kind === 'way' && g.alt));
+    expect(pickGift(save, 'bram', level, 1)).toBe(true);
+    // Picked before it is reached, it waits.
     expect(setupOf(beginRun(save, 'bram', 5)).alt).toBe(false);
-    save.oaths.push(OATHS.find((o) => o.hero === 'bram' && o.opens.kind === 'rule')?.id ?? '');
-    expect(setupOf(beginRun(save, 'bram', 5)).alt).toBe(false);
-    expect(setAlt(save, 'bram', true)).toBe(true);
+    save.mastery.bram = LEVEL_XP[level];
     expect(setupOf(beginRun(save, 'bram', 5)).alt).toBe(true);
+    // The first way can be picked again at any time.
+    pickGift(save, 'bram', level, 0);
+    expect(setupOf(beginRun(save, 'bram', 5)).alt).toBe(false);
+    pickGift(save, 'bram', level, 1);
     // It is the hero's own choice: another hero's runs are as they were.
     expect(setupOf(beginRun(save, 'wren', 5)).alt).toBe(false);
     expect(setupOf(newRun('bram', 5)).alt).toBe(false);
@@ -69,7 +73,7 @@ describe('the second way of a weapon of their own', () => {
   it('Whisper, 10: at full Unseen an arrow bounces to two more, and does not go through', () => {
     const reached = (tier: number, alt: boolean, safe: number): number => {
       const w = at('wren', tier, alt);
-      w.hero.safe = safe;
+      Object.assign(w, { quiet: safe > 0 ? QUIRKS.unseen.most : 0 });
       // Three in a ring round the first, none behind it in the arrow's line.
       stand(w, 'bruiser', w.hero.x + 200, w.hero.y, { hp: 99999, dmg: 0 }, true);
       stand(w, 'bruiser', w.hero.x + 200, w.hero.y - 90, { hp: 99999, dmg: 0 }, true);
@@ -188,10 +192,15 @@ describe('the second way of a weapon of their own', () => {
     };
     const whole = Math.round(20 * BAND.takes);
     const [plain] = turtle(1, true, 100);
-    expect(turtle(2, true, 100)).toEqual([Math.max(1, Math.round(plain * ALT.passingbell.harder)), whole]);
+    const [harder, took] = turtle(2, true, 100);
+    // Each blow is rounded: the bell's share more is within a point of it.
+    expect(Math.abs(harder - plain * ALT.passingbell.harder)).toBeLessThanOrEqual(1);
+    expect(harder).toBeGreaterThan(plain);
+    expect(took).toBe(whole);
     expect(turtle(2, false, 100)[0]).toBe(plain);
     // Strayed from the fold, it strikes as it did.
-    expect(turtle(2, true, QUIRKS.shepherd.r + 150)[0]).toBe(plain);
+    const far = QUIRKS.shepherd.r + 150;
+    expect(turtle(2, true, far)[0]).toBe(turtle(1, true, far)[0]);
   });
 
   it("Widow's Tear, 10: what breaks freezes those near it, and leaves no ice", () => {

@@ -54,8 +54,8 @@ export interface Theme {
 export const BARS = 16;
 export const SLOTS = 8;
 
-/** The themes, by the kind of land (art/board.ts). */
-export const THEMES: Readonly<Record<string, Theme>> = {
+/** The three themes written so far, by the land they were written for. */
+const WRITTEN: Readonly<Record<string, Theme>> = {
   // Thornwood: a dance in D dorian, quick and light, on a flute.
   meadow: {
     bpm: 104,
@@ -107,6 +107,23 @@ export const THEMES: Readonly<Record<string, Theme>> = {
     // A soft drum, and sleigh bells where the tom would be.
     kit: { k: ['bdrum-soft', 0.5], t: ['sleigh', 0.14] },
   },
+};
+
+/**
+ * The themes, by the kind of land (art/board.ts). The seven lands after the
+ * first three have no theme of their own yet: each plays the one nearest it
+ * in mood, as their light borrows an hour (view/light/hours.ts). A theme
+ * that goes on into the next land goes on from where it was.
+ */
+export const THEMES: Readonly<Record<string, Theme>> = {
+  ...WRITTEN,
+  mire: WRITTEN.meadow,
+  coast: WRITTEN.meadow,
+  steppe: WRITTEN.desert,
+  clock: WRITTEN.desert,
+  ember: WRITTEN.desert,
+  mine: WRITTEN.snow,
+  crypt: WRITTEN.snow,
 };
 
 /** A note of the tune: the step of the scale, and how many slots it is held. */

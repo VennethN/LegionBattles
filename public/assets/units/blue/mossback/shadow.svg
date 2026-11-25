@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="mossback-shadow" width="272" height="272" viewBox="-40 -40 272 272">
-<path id="mossback-shadow-shadow" d="M 150 181 C 150 186.5 125.8 191 96 191 C 66.2 191 42 186.5 42 181 C 42 175.5 66.2 171 96 171 C 125.8 171 150 175.5 150 181 Z" fill="#2a1a10" opacity="0.28"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:#2a1a10;opacity:.28}</style><path d="M150 181c0 5.5-24.2 10-54 10-29.8 0-54-4.5-54-10 0-5.5 24.2-10 54-10 29.8 0 54 4.5 54 10z" class="c0"/></svg>

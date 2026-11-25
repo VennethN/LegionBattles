@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="ember-shadow" width="272" height="272" viewBox="-40 -40 272 272">
-<path id="ember-shadow-shadow" d="M 142 181 C 142 186 121.4 190 96 190 C 70.6 190 50 186 50 181 C 50 176 70.6 172 96 172 C 121.4 172 142 176 142 181 Z" fill="#2a1a10" opacity="0.28"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:#2a1a10;opacity:.28}</style><path d="M142 181c0 5-20.6 9-46 9-25.4 0-46-4-46-9 0-5 20.6-9 46-9 25.4 0 46 4 46 9z" class="c0"/></svg>

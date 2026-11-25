@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="tam-shadow" width="272" height="272" viewBox="-40 -40 272 272">
-<path id="tam-shadow-shadow" d="M 126 181 C 126 185.4 112.6 189 96 189 C 79.4 189 66 185.4 66 181 C 66 176.6 79.4 173 96 173 C 112.6 173 126 176.6 126 181 Z" fill="#2a1a10" opacity="0.28"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:#2a1a10;opacity:.28}</style><path d="M126 181c0 4.4-13.4 8-30 8-16.6 0-30-3.6-30-8 0-4.4 13.4-8 30-8 16.6 0 30 3.6 30 8z" class="c0"/></svg>

@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="colossus-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
-<defs>
-<path id="colossus-leg-back-leg-shape" d="M 74 146 L 88 146 Q 95 146 95 153 L 95 173 Q 95 180 88 180 L 74 180 Q 67 180 67 173 L 67 153 Q 67 146 74 146 Z"/>
-</defs>
-<g id="colossus-leg-back-leg">
-<use id="colossus-leg-back-leg-fill" href="#colossus-leg-back-leg-shape" fill="#8c6b42"/>
-<use id="colossus-leg-back-leg-line" href="#colossus-leg-back-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}</style><defs><path id="i0" d="M74 146h14q7 0 7 7v20q0 7-7 7h-14q-7 0-7-7v-20q0-7 7-7z"/></defs><use href="#i0" fill="#8c6b42"/><use href="#i0" class="c0"/></svg>

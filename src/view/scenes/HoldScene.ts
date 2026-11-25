@@ -1,23 +1,23 @@
 // The Hold: what the player keeps between runs, shown plainly. A tab for
-// each part of it (the hall, the kennels, the armory, the board, vows,
-// deeds, the chronicle, the day's road), and under the tabs a list: each thing with what it
-// is, what it costs or what opens it, and a button. It shows the save and
-// asks the Hold's rules (game/hold.ts) for everything: a price is never
-// worked out here.
+// each part of it (each hero's mastery, the companions and their slots,
+// the armory, vows, quests, the Codex, the daily run), and under the tabs
+// a list: each thing with what it is, what unlocks it, and a button where
+// there is a choice. It shows the save and asks the Hold's rules
+// (game/hold.ts) for everything.
 //
-// It is the plainest thing that works. What is not open is dark, with
-// "???" and what opens it.
+// It is the plainest thing that works: the screens agent draws the real
+// one. What is locked is dark, with "???" and what unlocks it.
 
 import Phaser from 'phaser';
 import { BONE, BUSH, GOLD, IRON, LEATHER, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { BAND, BRANCHES, COMPANIONS, CRATES, HEROES, RENOWN, VOWS, byId } from '../../game/data';
+import { BAND, COMPANIONS, CRATES, HEROES, PAY, VOWS, byId } from '../../game/data';
 import {
-  altOpen, badge, boardOf, buyCrate, buyFriend, buyHero, buyNode, buyPlace, chronicleOf, cratePrice, crateThings, dailyOf, dailyTaken, deedsOf, epithetOf, featSays,
-  friendPrice, heroPrice, met, oathsOf, placePrice, refundBoard, setAlt, toggleVow, vowsNext, vowsOpen,
+  badge, chronicleOf, crateThings, dailyOf, dailyTaken, deedsOf, epithetOf, featSays, friendRows, masteryLevel, met, nextLevel, nextSlot, pickGift, slotsOf, toggleVow,
+  trackRows, vowsNext, vowsOpen,
 } from '../../game/hold';
-import { isFriend, isOpen, type SaveData } from '../../game/state';
+import { isOpen, type SaveData } from '../../game/state';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
 import { SHEET } from '../art/Sheet';
@@ -25,7 +25,7 @@ import { commit, save, startDaily } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 
-const TABS = ['BOARD', 'HALL', 'KENNELS', 'ARMORY', 'VOWS', 'DEEDS', 'CHRONICLE', 'DAILY'] as const;
+const TABS = ['HEROES', 'COMPANIONS', 'ARMORY', 'VOWS', 'QUESTS', 'CODEX', 'DAILY'] as const;
 
 /** The day as the day's road counts it: the same day for everyone, wherever they are. */
 const today = (): string => new Date().toISOString().slice(0, 10);
@@ -45,7 +45,7 @@ interface Row {
 
 export class HoldScene extends Phaser.Scene {
   private root!: Phaser.GameObjects.Container;
-  private tab: Tab = 'BOARD';
+  private tab: Tab = 'HEROES';
   private page = 0;
 
   constructor() {
@@ -55,7 +55,7 @@ export class HoldScene extends Phaser.Scene {
   create(data: { tab?: Tab } = {}): void {
     setupCamera(this);
     this.cameras.main.setBackgroundColor('#2e2218');
-    this.tab = data.tab && TABS.includes(data.tab) ? data.tab : 'BOARD';
+    this.tab = data.tab && TABS.includes(data.tab) ? data.tab : 'HEROES';
     this.page = 0;
     this.root = this.add.container(0, 0);
     music.play('meadow', 'calm');
@@ -76,19 +76,19 @@ export class HoldScene extends Phaser.Scene {
     const s = save();
     const tall = view.tall;
     const pad = 14;
-    // The head: where this is, the renown in hand, and the way back.
+    // The head: where this is, and the way back.
     this.text(pad, 30, 'THE HOLD', { size: tall ? 24 : 28, align: 'left' });
-    this.text(view.w - pad - (tall ? 96 : 150), 30, `RENOWN ${s.renown}`, { size: tall ? 19 : 22, align: 'right', color: GOLD.fill });
     this.put(new Button(this, view.w - pad - (tall ? 42 : 66), 30, 'BACK', () => this.scene.start('Title'), { width: tall ? 84 : 132, height: 44, size: 18, mat: IRON }).root);
     // What the last run paid, once there has been one.
     let y = 62;
     if (s.tally) {
-      const lines = s.tally.lines.map((l) => `${l.why}${l.count > 1 ? ` ${l.count}` : ''} +${l.renown}`).join(', ');
-      const t = this.text(pad, y, `The last run paid ${s.tally.total}: ${lines}.`, { size: 15, align: 'left', color: BONE.shade, strokeWidth: 3, wrap: view.w - pad * 2 });
+      const lines = s.tally.lines.map((l) => `${l.why}${l.count > 1 ? ` ${l.count}` : ''} +${l.xp}`).join(', ');
+      const who = HEROES.find((h) => h.id === s.tally?.hero)?.short ?? 'Your hero';
+      const t = this.text(pad, y, `The last run gave ${who} ${s.tally.total} mastery: ${lines}.`, { size: 15, align: 'left', color: BONE.shade, strokeWidth: 3, wrap: view.w - pad * 2 });
       t.setOrigin(0, 0);
       y += t.height + 10;
     } else {
-      const t = this.text(pad, y, `Every run pays renown: ${RENOWN.wave} a wave come through, ${RENOWN.captain} a captain, more for deeds.`, { size: 15, align: 'left', color: BONE.shade, strokeWidth: 3, wrap: view.w - pad * 2 });
+      const t = this.text(pad, y, `Every run gives its hero mastery: ${PAY.wave} a wave cleared, ${PAY.boss} a boss, more for quests. Mastery unlocks upgrades for that hero.`, { size: 15, align: 'left', color: BONE.shade, strokeWidth: 3, wrap: view.w - pad * 2 });
       t.setOrigin(0, 0);
       y += t.height + 10;
     }
@@ -112,65 +112,46 @@ export class HoldScene extends Phaser.Scene {
 
   /** The rows of the tab that is open. */
   private rows(s: SaveData): Row[] {
-    const buy = (price: number | null, press: () => boolean): Row['button'] | undefined =>
-      price === null ? undefined : { text: `BUY ${price}`, can: s.renown >= price, press };
     switch (this.tab) {
-      case 'HALL':
-        return HEROES.map((h): Row => {
-          if (isOpen(s, h.id)) {
-            const won = badge(s, h.id);
-            const oaths = oathsOf(s, h.id);
-            const says = `${h.who} Oaths kept: ${oaths.filter((o) => o.done).length} of ${oaths.length}.${won === null ? '' : won.length === 0 ? ' Has won.' : ` Has won under ${won.length} ${won.length === 1 ? 'vow' : 'vows'}.`}`;
-            // The oath that opens a second rule for their weapon gives the choice between the two.
-            const alt = s.alt.includes(h.id);
-            const button: Row['button'] = altOpen(s, h.id) ? { text: alt ? 'RULE 2' : 'RULE 1', can: true, press: () => setAlt(s, h.id, !alt), mat: BUSH } : undefined;
-            return { title: `${h.name}, ${epithetOf(s, h.id)}`, says, button, note: 'OPEN' };
+      case 'HEROES':
+        // Each hero unlocked, with their mastery track: what each level gives, reached or not, and the picks.
+        return HEROES.flatMap((h): Row[] => {
+          if (!isOpen(s, h.id)) return [{ title: '???', says: h.unlock ? `Unlock: ${featSays(h.unlock)}` : '', dark: true }];
+          const won = badge(s, h.id);
+          const next = nextLevel(s, h.id);
+          const rows: Row[] = [{
+            title: `${h.name}, ${epithetOf(s, h.id)}: mastery level ${masteryLevel(s, h.id)}`,
+            says: `${next ? `${next.left} mastery to the next level.` : 'Mastery full.'}${won === null ? '' : won.length === 0 ? ' Has won.' : ` Has won with ${won.length} ${won.length === 1 ? 'vow' : 'vows'}.`}`,
+            head: true,
+          }];
+          for (const r of trackRows(s, h.id)) {
+            if (r.gifts.length === 1) rows.push({ title: `Level ${r.level}`, says: r.gifts[0].says, dark: !r.reached, note: r.reached ? 'UNLOCKED' : `${r.xp}` });
+            else r.gifts.forEach((g, i) => rows.push({
+              title: `Level ${r.level}, pick ${i + 1} of 2`, says: g.says, dark: !r.reached,
+              button: { text: g.picked ? 'PICKED' : 'PICK', can: !g.picked, press: () => pickGift(s, h.id, r.level - 1, i), mat: g.picked ? BUSH : GOLD },
+            }));
           }
-          return { title: '???', says: h.unlock ? featSays(h.unlock) : '', dark: true, button: buy(heroPrice(s, h.id), () => buyHero(s, h.id)) };
+          return rows;
         });
-      case 'KENNELS': {
-        const place = placePrice(s);
-        const first: Row = {
-          title: `Places in the band: ${s.places} of ${BAND.places}`,
-          says: place === null ? 'Both places are open.' : 'A second companion goes on every run.',
-          button: buy(place, () => buyPlace(s)),
-          note: place === null ? 'OPEN' : undefined,
-        };
-        return [first, ...COMPANIONS.map((c): Row => {
-          if (isFriend(s, c.id)) return { title: `${c.name}, ${c.kind}`, says: c.says, note: 'OPEN' };
-          return { title: '???', says: featSays(c.unlock), dark: true, button: buy(friendPrice(s, c.id), () => buyFriend(s, c.id)) };
-        })];
+      case 'COMPANIONS': {
+        const slots = slotsOf(s);
+        const next = nextSlot(s);
+        return [
+          { title: `Companion slots: ${slots} of ${BAND.places}`, says: next ? `The next slot unlocks at best wave ${next}.` : 'Every slot is unlocked.', note: next ? `WAVE ${next}` : 'ALL' },
+          ...friendRows(s).map((f): Row => (f.unlocked ? { title: `${f.def.name}, ${f.def.kind}`, says: `${f.def.says} ${f.def.quirkName}: ${f.def.quirkSays}`, note: 'UNLOCKED' } : { title: '???', says: f.how, dark: true, note: f.share > 0 ? `${Math.floor(f.share * 100)}%` : '' })),
+        ];
       }
       case 'ARMORY':
         return CRATES.map((c): Row => {
           const open = s.crates.includes(c.id);
           const things = crateThings(s, c).map((t) => t.name).join(', ');
-          return { title: c.name, says: open ? `${c.says} ${things}.` : `${things}. Opened by a deed, or bought: ${c.deedSays}`, dark: !open, button: open ? undefined : buy(cratePrice(s), () => buyCrate(s, c.id)), note: open ? 'OPEN' : undefined };
+          return { title: c.name, says: open ? `${c.says} ${things}.` : `${things}. Unlock: ${c.deedSays}`, dark: !open, note: open ? 'UNLOCKED' : 'LOCKED' };
         });
-      case 'BOARD': {
-        // The board as a list, a branch after a branch, each place under the one it needs. A screen that draws it as a tree has each place's column and row (boardOf).
-        const board = boardOf(s);
-        const owned = board.filter((n) => n.owned).length;
-        const rows: Row[] = [{
-          title: `Lasting upgrades: ${owned} of ${board.length} owned`,
-          says: 'Each makes every run after it stronger. A place is opened by the one before it.',
-          button: owned > 0 ? { text: 'TAKE BACK', can: true, press: () => refundBoard(s) > 0, mat: IRON } : undefined,
-        }];
-        for (const b of BRANCHES) {
-          rows.push({ title: `${b.name}. ${b.says}`, says: '', head: true });
-          for (const n of board.filter((x) => x.node.branch === b.id)) {
-            if (n.owned) rows.push({ title: n.node.name, says: n.says, note: 'OWNED' });
-            else if (n.open) rows.push({ title: n.node.name, says: n.says, button: buy(n.node.price, () => buyNode(s, n.node.id)) });
-            else rows.push({ title: n.node.name, says: `${n.says} After ${board.find((x) => x.node.id === n.node.needs)?.node.name ?? 'the one before it'}.`, dark: true, note: `${n.node.price}` });
-          }
-        }
-        return rows;
-      }
       case 'VOWS': {
         const open = vowsOpen(s);
         const next = vowsNext(s);
         return [
-          { title: 'Vows', says: `A vow is a hard rule sworn before a run. Each one sworn pays ${Math.round(RENOWN.vow * 100)}% more renown. Sworn now: ${s.vows.length}.`, head: false },
+          { title: 'Vows', says: `Vows are optional challenges for more mastery. Each one sworn pays ${Math.round(PAY.vow * 100)}% more. Sworn now: ${s.vows.length}.`, head: false },
           ...VOWS.map((v, i): Row => {
             if (open.includes(v.id)) {
               const sworn = s.vows.includes(v.id);
@@ -181,14 +162,14 @@ export class HoldScene extends Phaser.Scene {
           }),
         ];
       }
-      case 'DEEDS':
+      case 'QUESTS':
         return deedsOf(s).map((d): Row => ({
           title: d.name,
-          says: d.opens && d.kind !== 'opens' ? `${d.says} Opens ${d.opens}.` : d.says,
+          says: d.opens && d.kind !== 'opens' ? `${d.says} Unlocks ${d.opens}.` : d.says,
           dark: !d.done && d.name === '???',
-          note: d.done ? 'DONE' : d.renown > 0 ? `+${d.renown}${d.share > 0 ? `  ${Math.floor(d.share * 100)}%` : ''}` : d.kind === 'oath' ? 'OATH' : d.kind === 'crate' ? 'CRATE' : `OPENS ${d.opens.toUpperCase()}`,
+          note: d.done ? 'DONE' : d.xp > 0 ? `+${d.xp}${d.share > 0 ? `  ${Math.floor(d.share * 100)}%` : ''}` : d.kind === 'crate' ? 'CRATE' : `UNLOCKS ${d.opens.toUpperCase()}`,
         }));
-      case 'CHRONICLE':
+      case 'CODEX':
         // What has been met is listed; the rest of each kind is one dark line, so that the list is as long as what there is to read.
         return chronicleOf(s).flatMap((p): Row[] => [
           { title: `${p.title}: ${p.met} of ${p.entries.length} met`, says: '', head: true },

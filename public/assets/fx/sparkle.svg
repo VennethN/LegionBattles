@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="sparkle" width="48" height="48" viewBox="0 0 48 48">
-<defs>
-<path id="sparkle-star-shape" d="M 24 3 L 28.9 19.1 L 45 24 L 28.9 28.9 L 24 45 L 19.1 28.9 L 3 24 L 19.1 19.1 Z"/>
-</defs>
-<g id="sparkle-star">
-<use id="sparkle-star-fill" href="#sparkle-star-shape" fill="#ffffff"/>
-<use id="sparkle-star-line" href="#sparkle-star-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}</style><defs><path id="i0" d="M24 3l4.9 16.1L45 24 28.9 28.9 24 45 19.1 28.9 3 24l16.1-4.9z"/></defs><use href="#i0" fill="#ffffff"/><use href="#i0" class="c0"/></svg>

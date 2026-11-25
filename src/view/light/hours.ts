@@ -3,7 +3,7 @@
 // wave, so that the lights the fight makes count for more the further in
 // it is. Every number of the light's color is here.
 
-import type { Land } from '../../game/data';
+import { LANDS, LAND_WAVES, LAST_WAVE, type Land } from '../../game/data';
 
 type Rgb = [number, number, number];
 
@@ -38,7 +38,7 @@ export const SUN_ANGLE = 0.62;
  * first version, which began at noon, that it was "a pale haze over a flat lawn".
  */
 // Night is dark, and only a little blue: a deep blue night turned a captain's grey iron to the hero's own blue.
-const DAYS: Record<Land, Array<[number, Hour]>> = {
+const DAYS3: Record<'meadow' | 'desert' | 'snow', Array<[number, Hour]>> = {
   meadow: [
     [0, { ambient: [0.56, 0.62, 0.78], sun: [0.62, 0.4, 0.1], clouds: 0.88, shade: [0.84, 0.92, 1.14], vignette: 0.4, long: 1.15, cast: 0.3 }],
     [0.45, { ambient: [0.62, 0.6, 0.76], sun: [0.56, 0.28, 0.1], clouds: 0.86, shade: [0.9, 0.84, 1.12], vignette: 0.44, long: 1.6, cast: 0.28 }],
@@ -59,21 +59,32 @@ const DAYS: Record<Land, Array<[number, Hour]>> = {
   ],
 };
 
-/** Where each land's waves begin and end in the twenty. */
-const SPANS: Record<Land, [number, number]> = { meadow: [1, 7], desert: [8, 14], snow: [15, 20] };
+/**
+ * The days of the lands that came after the first three: each goes through
+ * the hours of the land most like it, until it has days of its own. The
+ * mire and the coast are green and wet like the meadow, the steppe, the
+ * clockwork city and the forge dry and warm like the dunes, the mines and
+ * the crypt cold and dim like the snow.
+ */
+const DAYS: Record<Land, Array<[number, Hour]>> = {
+  ...DAYS3, mire: DAYS3.meadow, coast: DAYS3.meadow, steppe: DAYS3.desert, clock: DAYS3.desert, ember: DAYS3.desert, mine: DAYS3.snow, crypt: DAYS3.snow,
+};
+
+/** Where each land's waves begin and end among the written waves: ten each. */
+const SPANS = Object.fromEntries(LANDS.map((land, i) => [land, [i * LAND_WAVES + 1, (i + 1) * LAND_WAVES]])) as Record<Land, [number, number]>;
 
 function mix(a: Rgb, b: Rgb, k: number): Rgb {
   return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
 }
 
-/** The hour of a wave. Past the twentieth the days come round again, as the waves do. */
+/** The hour of a wave. Past the last written wave the days come round again, as the waves do. */
 export function hourOf(land: Land, wave: number, night = false): Hour {
   // A night march is the land's last hour, and darker than that: there is no light but what is carried.
   if (night) {
     const last = DAYS[land][DAYS[land].length - 1][1];
     return { ...last, ambient: [last.ambient[0] * 0.82, last.ambient[1] * 0.82, last.ambient[2] * 0.86], sun: [0, 0, 0], clouds: 0, vignette: 0.56, cast: 0.1 };
   }
-  const at = ((wave - 1) % 20) + 1;
+  const at = ((wave - 1) % LAST_WAVE) + 1;
   const [from, to] = SPANS[land];
   const t = Math.max(0, Math.min(1, (at - from) / Math.max(1, to - from)));
   const day = DAYS[land];

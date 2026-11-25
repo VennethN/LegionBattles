@@ -1,68 +1,271 @@
 // The Hold: the rules of what a player keeps and grows between runs. Its
-// lists and numbers are in holdData.ts and what is kept is in the save
-// (state.ts). Everything here is plain functions on a save, so that the
-// pace report can play a whole career without a screen.
+// lists and numbers are in holdData.ts and mastery.ts, and what is kept is
+// in the save (state.ts). Everything here is plain functions on a save, so
+// that the pace report can play a whole career without a screen.
 //
-// A run pays renown when it ends, whatever became of it. Renown buys a
-// hero or a companion whose deed is not done yet, the second place in the
-// band, crates for the armory, and places on the board: lasting upgrades
-// that make every later run stronger. A win opens the vows: hard
-// rules sworn before a run, in any mix, for more renown. Each hero has
-// three oaths of their own, each crate a deed that opens it for nothing,
-// and each day a road that is the same for everyone. The Chronicle
-// remembers everything met.
+// A run pays mastery, when it ends, to the hero who played it (mastery.ts):
+// each level of a hero's track unlocks something for that hero alone.
+// Companions are unlocked by reaching a wave, by a quest, by a hidden quest,
+// or by finding them in a cage on the field; the slots to bring them in are
+// opened by the best wave ever cleared. A win opens the vows: hard rules
+// sworn before a run, in any mix, for more mastery. Each crate of the armory
+// is unlocked by its own quest, and each day has a run that is the same for
+// everyone. The Codex remembers everything met.
 
-import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAST_WAVE, OMENS, RELICS, ROAD, TIERS, WEAPONS, altChoice, byId, weaponOf, type Feat } from './data';
-import {
-  BOARD, CRATES, CRATE_PRICES, DEEDS, HALL, KENNEL, OATHS, PLACE_PRICE, REF, RENOWN, VOW, VOWS, boonsFrom, giftSays, thingKey,
-  type Boons, type CrateDef, type DeedTest, type NodeDef, type OathDef, type Thing, type VowId,
-} from './holdData';
+import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAST_WAVE, OMENS, RELICS, ROAD, SLOT_WAVES, TIERS, WEAPONS, bossWave, byId, ownRules, weaponOf, type CompanionDef, type Feat } from './data';
+import { CRATES, DEEDS, VOW, VOWS, noBoons, thingKey, type Boons, type CrateDef, type DeedTest, type Thing, type VowId } from './holdData';
 import { KINDS } from './kinds';
+import { LEVEL_XP, PAY, PERKS, levelAt, mastered, trackOf, type Gift, type Level } from './mastery';
 import { Rng } from './rng';
 import { kindCounts, newRun, survived, type RunData, type Terms, type Told } from './run';
 import { STATS, STAT_INFO, statText } from './stats';
-import { bandFor, featDone, featShare, isFriend, isOpen, type SaveData } from './state';
+import { bandFor, bestWave, featDone, featShare, isFriend, isOpen, type SaveData } from './state';
 
-// ---------------------------------------------------------------- renown
+// ---------------------------------------------------------------- what a run pays
 
 export interface TallyLine {
   why: string;
-  /** How many of them, where there is a count: waves, captains. */
+  /** How many of them, where there is a count: waves, bosses. */
   count: number;
-  renown: number;
+  xp: number;
 }
 
-/** What a run paid, line by line, for the screen that shows it. */
+/** What a run paid its hero in mastery, line by line, for the screen that shows it. */
 export interface Tally {
+  hero: string;
   lines: TallyLine[];
   /** How many vows the run was sworn under. */
   vows: number;
   total: number;
 }
 
-/** True for a run that has come through the twentieth wave. */
+/** True if a run has come through the last written wave. */
 export function hasWon(run: RunData): boolean {
   return survived(run) >= LAST_WAVE;
 }
 
 /**
- * What a run pays as it stands. The waves, the captains and the win are
- * paid more for each vow the run was sworn under; a deed pays what it pays, once.
+ * What a run pays its hero as it stands. The waves, the bosses and the win
+ * are paid more for each vow the run was sworn under; a quest pays what it
+ * pays, once.
  */
 export function tallyOf(run: RunData): Tally {
   const waves = survived(run);
   const lines: TallyLine[] = [];
-  if (waves > 0) lines.push({ why: 'Waves cleared', count: waves, renown: waves * RENOWN.wave });
-  if (run.felled.length > 0) lines.push({ why: 'Bosses beaten', count: run.felled.length, renown: run.felled.length * RENOWN.captain });
-  if (hasWon(run)) lines.push({ why: 'Wave 20 cleared', count: 1, renown: RENOWN.win });
-  const base = lines.reduce((n, l) => n + l.renown, 0);
-  const more = Math.round(base * RENOWN.vow * run.vows.length);
-  if (more > 0) lines.push({ why: 'Vow bonus', count: run.vows.length, renown: more });
+  if (waves > 0) lines.push({ why: 'Waves cleared', count: waves, xp: waves * PAY.wave });
+  if (run.felled.length > 0) lines.push({ why: 'Bosses beaten', count: run.felled.length, xp: run.felled.length * PAY.boss });
+  if (hasWon(run)) lines.push({ why: `Wave ${LAST_WAVE} cleared`, count: 1, xp: PAY.win });
+  const base = lines.reduce((n, l) => n + l.xp, 0);
+  const more = Math.round(base * PAY.vow * run.vows.length);
+  if (more > 0) lines.push({ why: 'Vow bonus', count: run.vows.length, xp: more });
   for (const id of run.deeds) {
     const deed = DEEDS.find((d) => d.id === id);
-    if (deed) lines.push({ why: deed.name, count: 1, renown: deed.renown });
+    if (deed) lines.push({ why: deed.name, count: 1, xp: deed.xp });
   }
-  return { lines, vows: run.vows.length, total: lines.reduce((n, l) => n + l.renown, 0) };
+  return { hero: run.hero, lines, vows: run.vows.length, total: lines.reduce((n, l) => n + l.xp, 0) };
+}
+
+// ---------------------------------------------------------------- mastery
+
+/** A hero's mastery, and the level it comes to. */
+export function masteryXp(save: SaveData, hero: string): number {
+  return save.mastery[hero] ?? 0;
+}
+
+export function masteryLevel(save: SaveData, hero: string): number {
+  return levelAt(masteryXp(save, hero));
+}
+
+/** What a gift of a hero's track does, in a line a player reads. */
+export function giftSays(hero: string, gift: Gift): string {
+  switch (gift.kind) {
+    case 'stat':
+      return `${statText(gift.stat, gift.by)} ${STAT_INFO[gift.stat].name}`;
+    case 'skill':
+      return gift.part === 'harm'
+        ? `Skill deals ${Math.round(gift.by * 100)}% more damage`
+        : gift.part === 'fill'
+          ? `Fury fills ${Math.round(gift.by * 100)}% faster`
+          : gift.part === 'area'
+            ? `Skill is ${Math.round(gift.by * 100)}% bigger`
+            : `After your skill, Fury starts ${Math.round(gift.by * 100)}% full`;
+    case 'perk': {
+      const p = PERKS.find((x) => x.id === gift.perk);
+      return p ? `New passive, ${p.name}: ${p.says}` : 'A new passive';
+    }
+    case 'way': {
+      const weapon = weaponOf(byId(HEROES, hero).weapon);
+      const alt = ownRules(weapon.id, TIERS - 1, true).find((r) => r.alt);
+      return gift.alt ? `${weapon.name}, second way${alt ? `: ${alt.says}` : ''}` : `${weapon.name}, first way: keep its rules as they are`;
+    }
+    case 'relic':
+      return `Start every run with the relic ${byId(RELICS, gift.relic).name}`;
+    case 'title':
+      return `New title: ${gift.title}`;
+  }
+}
+
+export interface TrackRow {
+  /** The level, counted from 1. */
+  level: number;
+  /** Mastery needed in all to reach it. */
+  xp: number;
+  reached: boolean;
+  /** Its gifts, each with what it says; two where the player picks one. */
+  gifts: Array<{ gift: Gift; says: string; picked: boolean }>;
+}
+
+/** A hero's whole track as a screen shows it: every level, what it gives, whether it is reached, and what was picked. */
+export function trackRows(save: SaveData, hero: string): TrackRow[] {
+  const reached = masteryLevel(save, hero);
+  const picks = save.picks[hero] ?? {};
+  return trackOf(hero).map((lv: Level, i): TrackRow => ({
+    level: i + 1,
+    xp: lv.xp,
+    reached: i < reached,
+    gifts: lv.gifts.map((gift, j) => ({ gift, says: giftSays(hero, gift), picked: lv.gifts.length === 1 || (picks[i] ?? 0) === j })),
+  }));
+}
+
+/** Mastery to the next level, and what that level needs in all; null when the track is full. */
+export function nextLevel(save: SaveData, hero: string): { xp: number; need: number; left: number } | null {
+  const xp = masteryXp(save, hero);
+  const need = LEVEL_XP.find((n) => n > xp);
+  return need === undefined ? null : { xp, need, left: need - xp };
+}
+
+/** Picks one of a pair at a level of a hero's track. It may be picked again at any time; it counts once the level is reached. */
+export function pickGift(save: SaveData, hero: string, level: number, i: number): boolean {
+  const lv = trackOf(hero)[level];
+  if (!lv || lv.gifts.length < 2 || i < 0 || i >= lv.gifts.length) return false;
+  save.picks[hero] = { ...(save.picks[hero] ?? {}), [level]: i };
+  return true;
+}
+
+/** What a hero is called besides their name: the title their track gave, once it has, or the one they began with. */
+export function epithetOf(save: SaveData, hero: string): string {
+  return mastered(hero, masteryXp(save, hero), save.picks[hero]).title || byId(HEROES, hero).epithet;
+}
+
+/** What a run of this hero begins with from their mastery, as the run keeps it. */
+export function masteryBoons(save: SaveData, hero: string): { boons: Boons; relic: string; alt: boolean } {
+  const m = mastered(hero, masteryXp(save, hero), save.picks[hero]);
+  const boons = noBoons();
+  boons.stats = { ...m.stats };
+  boons.fury = Math.round(m.fill * 100);
+  boons.harm = m.harm;
+  boons.area = m.area;
+  boons.again = m.again;
+  boons.perks = [...m.perks];
+  return { boons, relic: m.relic, alt: m.alt };
+}
+
+// ---------------------------------------------------------------- companions and their slots
+
+/** How many companion slots are unlocked: by the best wave ever cleared, with any hero. */
+export function slotsOf(save: SaveData): number {
+  const best = bestWave(save);
+  return Math.min(BAND.places, SLOT_WAVES.filter((w) => best >= w).length);
+}
+
+/** The wave that unlocks the next slot, or 0 when all are unlocked. */
+export function nextSlot(save: SaveData): number {
+  return SLOT_WAVES.find((w) => bestWave(save) < w) ?? 0;
+}
+
+/** How a companion is unlocked, as a line a player reads. A hidden one is a riddle; the deed is not told. */
+export function routeSays(c: CompanionDef): string {
+  const u = c.unlock;
+  switch (u.kind) {
+    case 'start':
+      return 'Unlocked from the start.';
+    case 'wave':
+      return `Unlock: clear wave ${u.wave}.`;
+    case 'deed':
+      return `Unlock: ${u.says[0].toLowerCase()}${u.says.slice(1)}`;
+    case 'hidden':
+      return `Hidden. "${u.riddle}"`;
+    case 'found':
+      return `Found in a cage on the field, from wave ${u.from}. Break the cage to unlock it.`;
+  }
+}
+
+export interface FriendRow {
+  def: CompanionDef;
+  unlocked: boolean;
+  /** Its name, or "???" while it is locked. */
+  name: string;
+  /** How it is unlocked, said as `routeSays` says it. */
+  how: string;
+  /** How far along, 0 to 1, where that can be said from the save. */
+  share: number;
+}
+
+/** Every companion, unlocked or not, for the screen that lists them. */
+export function friendRows(save: SaveData): FriendRow[] {
+  return COMPANIONS.map((def) => {
+    const unlocked = isFriend(save, def.id);
+    const u = def.unlock;
+    const share = unlocked ? 1 : u.kind === 'wave' ? Math.min(1, bestWave(save) / u.wave) : u.kind === 'deed' ? deedShare(save, u.test) : 0;
+    return { def, unlocked, name: unlocked ? def.name : '???', how: routeSays(def), share };
+  });
+}
+
+/** The found companions still locked: a run may meet one of them in a cage. */
+export function seekOf(save: SaveData): string[] {
+  return COMPANIONS.filter((c) => c.unlock.kind === 'found' && !isFriend(save, c.id)).map((c) => c.id);
+}
+
+/** True if a companion's way of being unlocked is done, by the save and the run as they stand. */
+function friendDue(save: SaveData, run: RunData | null, told: Told | null, c: CompanionDef): boolean {
+  const u = c.unlock;
+  switch (u.kind) {
+    case 'start':
+      return true;
+    case 'wave':
+      return bestWave(save) >= u.wave;
+    case 'deed':
+    case 'hidden':
+      return run ? deedMet(save, run, told, u.test) : isFeat(u.test) && featDone(save, u.test);
+    case 'found':
+      return !!run && run.found.includes(c.id);
+  }
+}
+
+const isFeat = (t: DeedTest): t is Feat => t.kind === 'wave' || t.kind === 'boss' || t.kind === 'coins' || t.kind === 'kills' || t.kind === 'runs';
+
+/**
+ * Unlocks every companion whose way is done, and puts each into a slot of
+ * the band that is free. Returns who was unlocked.
+ */
+export function unlockFriends(save: SaveData, run: RunData | null = null, told: Told | null = null): string[] {
+  const out: string[] = [];
+  for (const c of COMPANIONS) {
+    if (isFriend(save, c.id) || !friendDue(save, run, told, c)) continue;
+    save.friends.push(c.id);
+    out.push(c.id);
+  }
+  fillBand(save, out);
+  return out;
+}
+
+/**
+ * Whoever is named takes a slot that is free, and nobody else does: a slot
+ * the player emptied on purpose stays empty (to go alone, for a quest).
+ * The band is also cut to the slots there are.
+ */
+export function fillBand(save: SaveData, who: readonly string[]): void {
+  const slots = slotsOf(save);
+  save.band = save.band.filter((id) => isFriend(save, id)).slice(0, slots);
+  for (const id of who) {
+    if (save.band.length >= slots) break;
+    if (isFriend(save, id) && !save.band.includes(id)) save.band.push(id);
+  }
+}
+
+/** The companions unlocked and waiting, not in the band: whoever a new slot takes first. */
+export function waitingOf(save: SaveData): string[] {
+  return save.friends.filter((id) => !save.band.includes(id));
 }
 
 // ---------------------------------------------------------------- the chronicle
@@ -182,8 +385,13 @@ function deedMet(save: SaveData, run: RunData, told: Told | null, test: DeedTest
       return OMENS.filter((o) => count(save, 'omen', o.id) > 0).length >= (test.count ?? OMENS.length);
     case 'count':
       return (run.counts?.[test.of] ?? 0) >= test.n;
+    case 'brink':
+      return run.phase !== 'over' && run.wave > 1 && run.left > 0 && run.left < BRINK;
   }
 }
+
+/** The share of their health under which a wave cleared is cleared on the brink: a hidden quest asks for it. */
+const BRINK = 0.15;
 
 /** How far along a deed is, 0 to 1, where that can be said from the save alone. */
 function deedShare(save: SaveData, test: DeedTest): number {
@@ -203,13 +411,13 @@ function deedShare(save: SaveData, test: DeedTest): number {
   }
 }
 
-/** What opens a hero or a companion, as a line a player reads. A captain is not named: it may not have been met. */
+/** What unlocks a hero, as a line a player reads. A boss is not named: it may not have been met. */
 export function featSays(feat: Feat): string {
   switch (feat.kind) {
     case 'wave':
       return `Clear wave ${feat.wave}.`;
     case 'boss':
-      return feat.boss === REF.captain.first ? 'Beat the boss of wave 7.' : feat.boss === REF.captain.second ? 'Beat the boss of wave 14.' : 'Beat the boss of wave 20.';
+      return `Beat the boss of wave ${bossWave(feat.boss)}.`;
     case 'coins':
       return `Collect ${feat.coins} coins in one run.`;
     case 'kills':
@@ -221,105 +429,53 @@ export function featSays(feat: Feat): string {
 
 export interface DeedRow {
   id: string;
-  /** What kind of deed it is: one that opens somebody, one that pays renown, a hero's oath, or a crate's own deed. */
-  kind: 'opens' | 'renown' | 'oath' | 'crate';
+  /** What kind of quest it is: one that unlocks a hero or a companion, one that pays mastery, or a crate's own. */
+  kind: 'opens' | 'quest' | 'crate';
   name: string;
   says: string;
   done: boolean;
   /** How far along, 0 to 1. */
   share: number;
-  /** What it pays: renown, or what it opens, as words. */
-  renown: number;
+  /** The mastery it pays the hero who does it, or 0. */
+  xp: number;
+  /** What it unlocks, as words, or ''. */
   opens: string;
-  /** The hero whose oath it is, or ''. */
-  hero: string;
-}
-
-/** What an oath opens, as words. */
-export function oathGift(o: OathDef): string {
-  if (o.opens.kind === 'epithet') return `a new title: ${o.opens.epithet}`;
-  if (o.opens.kind === 'relic') return `start every run with ${byId(RELICS, o.opens.relic).name}`;
-  // The second way of their own weapon, said as it is: the level it comes at and what it does.
-  const weapon = weaponOf(byId(HEROES, o.hero).weapon);
-  const choice = altChoice(weapon.id);
-  return choice ? `a new choice for ${weapon.name} at level ${choice.level}: ${choice.second}` : 'a second rule for their own weapon';
 }
 
 /**
- * Every deed there is, done or not: the ones that open a hero or a
- * companion (the one opened is "???" until they are), the crates' own, the
- * ones that pay renown, and the oaths of every hero who is open. Those
- * still to do come before those done.
+ * Every quest there is, done or not: the ones that unlock a hero or a
+ * companion (whoever it unlocks is "???" until it does; a hidden one says
+ * its riddle and nothing else), the crates' own, and the ones that pay
+ * mastery. Those still to do come before those done.
  */
 export function deedsOf(save: SaveData): DeedRow[] {
   const rows: DeedRow[] = [];
   for (const h of HEROES) {
     if (!h.unlock) continue;
     const done = isOpen(save, h.id);
-    rows.push({ id: `hero-${h.id}`, kind: 'opens', name: done ? h.name : '???', says: featSays(h.unlock), done, share: done ? 1 : featShare(save, h.unlock), renown: 0, opens: done ? h.name : 'a hero', hero: '' });
+    rows.push({ id: `hero-${h.id}`, kind: 'opens', name: done ? h.name : '???', says: featSays(h.unlock), done, share: done ? 1 : featShare(save, h.unlock), xp: 0, opens: done ? h.name : 'a hero' });
   }
-  for (const c of COMPANIONS) {
-    const done = isFriend(save, c.id);
-    rows.push({ id: `friend-${c.id}`, kind: 'opens', name: done ? c.name : '???', says: featSays(c.unlock), done, share: done ? 1 : featShare(save, c.unlock), renown: 0, opens: done ? c.name : 'a companion', hero: '' });
+  for (const f of friendRows(save)) {
+    if (f.def.unlock.kind === 'start') continue;
+    rows.push({ id: `friend-${f.def.id}`, kind: 'opens', name: f.name, says: f.how, done: f.unlocked, share: f.share, xp: 0, opens: f.unlocked ? f.def.name : 'a companion' });
   }
   for (const c of CRATES) {
     const done = save.crates.includes(c.id);
-    rows.push({ id: `crate-${c.id}`, kind: 'crate', name: c.name, says: c.deedSays, done, share: done ? 1 : deedShare(save, c.deed), renown: 0, opens: 'the crate', hero: '' });
+    rows.push({ id: `crate-${c.id}`, kind: 'crate', name: c.name, says: c.deedSays, done, share: done ? 1 : deedShare(save, c.deed), xp: 0, opens: 'the crate' });
   }
   for (const d of DEEDS) {
     const done = save.deeds.includes(d.id);
-    rows.push({ id: d.id, kind: 'renown', name: d.name, says: d.says, done, share: done ? 1 : deedShare(save, d.test), renown: d.renown, opens: '', hero: '' });
-  }
-  for (const o of OATHS) {
-    if (!isOpen(save, o.hero)) continue;
-    const done = save.oaths.includes(o.id);
-    rows.push({ id: o.id, kind: 'oath', name: o.name, says: o.says, done, share: done ? 1 : 0, renown: 0, opens: oathGift(o), hero: o.hero });
+    rows.push({ id: d.id, kind: 'quest', name: d.name, says: d.says, done, share: done ? 1 : deedShare(save, d.test), xp: d.xp, opens: '' });
   }
   return [...rows.filter((r) => !r.done), ...rows.filter((r) => r.done)];
 }
 
-/**
- * The nearest deeds not yet done, for the end of a run: "what next". The
- * ones furthest along come first; after them the oaths of the hero who was
- * just played, which cannot be measured until they are done.
- */
-export function nextDeeds(save: SaveData, hero = '', n = 3): DeedRow[] {
-  const open = deedsOf(save).filter((r) => !r.done);
+/** The nearest quests not yet done, for the end of a run: "what next". The ones furthest along come first. */
+export function nextDeeds(save: SaveData, n = 3): DeedRow[] {
+  const open = deedsOf(save).filter((r) => !r.done && !(r.kind === 'opens' && r.says.startsWith('Hidden')));
   const far = open.filter((r) => r.share > 0).sort((a, b) => b.share - a.share);
-  const own = open.filter((r) => r.share === 0 && r.hero === hero && hero !== '');
-  const rest = open.filter((r) => r.share === 0 && r.kind === 'renown');
-  return [...far, ...own, ...rest].slice(0, Math.max(0, n));
-}
-
-// ---------------------------------------------------------------- oaths
-
-/** A hero's three oaths, each with whether it is done. */
-export function oathsOf(save: SaveData, hero: string): Array<{ oath: OathDef; done: boolean }> {
-  return OATHS.filter((o) => o.hero === hero).map((oath) => ({ oath, done: save.oaths.includes(oath.id) }));
-}
-
-/** What a hero is called besides their name: the epithet their oath opened, once it has, or the one they began with. */
-export function epithetOf(save: SaveData, hero: string): string {
-  const o = OATHS.find((x) => x.hero === hero && x.opens.kind === 'epithet' && save.oaths.includes(x.id));
-  return o && o.opens.kind === 'epithet' ? o.opens.epithet : byId(HEROES, hero).epithet;
-}
-
-/** The relic a hero's runs begin with, once their oath has opened it, or ''. */
-export function startRelic(save: SaveData, hero: string): string {
-  const o = OATHS.find((x) => x.hero === hero && x.opens.kind === 'relic' && save.oaths.includes(x.id));
-  return o && o.opens.kind === 'relic' ? o.opens.relic : '';
-}
-
-/** True if a hero's oath has opened the second rule for their own weapon. */
-export function altOpen(save: SaveData, hero: string): boolean {
-  return OATHS.some((x) => x.hero === hero && x.opens.kind === 'rule' && save.oaths.includes(x.id));
-}
-
-/** Chooses which rule a hero's own weapon follows: the second, or the first again. */
-export function setAlt(save: SaveData, hero: string, on: boolean): boolean {
-  if (!altOpen(save, hero)) return false;
-  save.alt = on ? [...new Set([...save.alt, hero])] : save.alt.filter((id) => id !== hero);
-  return true;
+  const rest = open.filter((r) => r.share === 0 && r.kind === 'quest');
+  return [...far, ...rest].slice(0, Math.max(0, n));
 }
 
 // ---------------------------------------------------------------- vows
@@ -338,7 +494,7 @@ export function vowsOpen(save: SaveData): VowId[] {
 /** What opens the next vows, as a line, or '' when all are open. */
 export function vowsNext(save: SaveData): string {
   const most = mostVows(save);
-  if (most < 0) return 'Clear wave 20.';
+  if (most < 0) return `Clear wave ${LAST_WAVE}.`;
   if (VOW.first + VOW.more * most >= VOWS.length) return '';
   return most === 0 ? 'Win a run with 1 vow.' : `Win a run with ${most + 1} vows.`;
 }
@@ -386,29 +542,32 @@ export function dailyTaken(save: SaveData, date: string): boolean {
 
 /**
  * Sets out on the day's road. It is the same run for everyone: the whole
- * armory, two roads, nothing from the board, no vow, nothing an oath has opened.
+ * armory, two roads, one companion, no mastery and no vow.
  */
 export function beginDaily(save: SaveData, date: string): RunData | null {
   if (dailyTaken(save, date)) return null;
   const d = dailyOf(date);
   save.daily = { date, wave: 0, seconds: 0 };
-  return newRun(d.hero, d.seed, d.band, ROAD.roads, { daily: date });
+  return newRun(d.hero, d.seed, d.band, ROAD.roads, { daily: date, slots: 1 });
 }
 
 // ---------------------------------------------------------------- what a run tells the Hold
 
 export interface Chronicled {
   deeds: string[];
-  oaths: string[];
+  /** Companions unlocked, and crates their quests have unlocked. */
+  friends: string[];
   crates: string[];
+  /** What the run paid its hero, at its end; and the levels of mastery that came with it. */
   tally: Tally | null;
+  levels: number;
 }
 
 /**
  * Takes what a run has to tell, after every wave and at its end: who was
- * met and slain goes into the Chronicle, deeds and oaths done are marked,
- * a crate whose deed is done is opened, a win is counted, the day's road
- * is written down, and when the run is over its renown is paid, once.
+ * met and slain goes into the Codex, quests done are marked, a companion
+ * or a crate whose way is done is unlocked, a win is counted, the day's
+ * run is written down, and when the run is over its hero is paid, once.
  */
 export function chronicle(save: SaveData, run: RunData): Chronicled {
   const told = run.told;
@@ -426,24 +585,20 @@ export function chronicle(save: SaveData, run: RunData): Chronicled {
   for (const id of [...run.relics, ...run.relicChoices]) meet(save, 'relic', id);
   for (const o of run.offers) meet(save, o.kind, o.id);
   for (const r of [run.road, ...run.roads]) meet(save, 'omen', r.omen);
-  // A win is counted when the twentieth wave is come through, though the run may go on. The badge is the win under the most vows.
+  // A win is counted when the last written wave is come through, though the run may go on. The badge is the win under the most vows.
   if (hasWon(run) && !run.won) {
     run.won = true;
     const best = save.won[run.hero];
     if (!best || run.vows.length > best.length) save.won[run.hero] = [...run.vows];
   }
-  const out: Chronicled = { deeds: [], oaths: [], crates: [], tally: null };
+  const out: Chronicled = { deeds: [], friends: [], crates: [], tally: null, levels: 0 };
   for (const d of DEEDS) {
     if (save.deeds.includes(d.id) || !deedMet(save, run, told, d.test)) continue;
     save.deeds.push(d.id);
     run.deeds.push(d.id);
     out.deeds.push(d.id);
   }
-  for (const o of OATHS) {
-    if (o.hero !== run.hero || save.oaths.includes(o.id) || !deedMet(save, run, told, o.test)) continue;
-    save.oaths.push(o.id);
-    out.oaths.push(o.id);
-  }
+  out.friends = unlockFriends(save, run, told);
   for (const c of CRATES) {
     if (save.crates.includes(c.id) || !deedMet(save, run, told, c.deed)) continue;
     save.crates.push(c.id);
@@ -464,57 +619,16 @@ export function chronicle(save: SaveData, run: RunData): Chronicled {
   for (const id of new Set([byId(HEROES, run.hero).weapon, ...run.weapons.map((w) => w.id)])) meet(save, 'weapon', id, 1);
   for (const id of new Set(run.items)) meet(save, 'item', id, 1);
   for (const id of new Set(run.relics)) meet(save, 'relic', id, 1);
+  // The day's run is the same for everyone: it pays no hero.
   const tally = tallyOf(run);
-  save.renown += tally.total;
-  save.earned += tally.total;
+  if (!run.daily) {
+    const was = masteryLevel(save, run.hero);
+    save.mastery[run.hero] = masteryXp(save, run.hero) + tally.total;
+    out.levels = masteryLevel(save, run.hero) - was;
+  }
   save.tally = tally;
   out.tally = tally;
   return out;
-}
-
-// ---------------------------------------------------------------- the hall, the kennels and the band
-
-/** What a hero costs, or null for one who cannot be bought: they are open, or were never for sale. */
-export function heroPrice(save: SaveData, id: string): number | null {
-  return isOpen(save, id) || HALL[id] === undefined ? null : HALL[id];
-}
-
-export function buyHero(save: SaveData, id: string): boolean {
-  const price = heroPrice(save, id);
-  if (price === null || save.renown < price) return false;
-  save.renown -= price;
-  save.open.push(id);
-  return true;
-}
-
-export function friendPrice(save: SaveData, id: string): number | null {
-  return isFriend(save, id) || KENNEL[id] === undefined ? null : KENNEL[id];
-}
-
-/** Buys a companion. One bought while the band has a place free goes straight into it, as one opened by a deed does. */
-export function buyFriend(save: SaveData, id: string): boolean {
-  const price = friendPrice(save, id);
-  if (price === null || save.renown < price) return false;
-  save.renown -= price;
-  save.friends.push(id);
-  if (save.band.length < save.places) save.band.push(id);
-  return true;
-}
-
-/** What the next place in the band costs, or null when there are no more to open. */
-export function placePrice(save: SaveData): number | null {
-  return save.places >= BAND.places ? null : PLACE_PRICE;
-}
-
-export function buyPlace(save: SaveData): boolean {
-  const price = placePrice(save);
-  if (price === null || save.renown < price) return false;
-  save.renown -= price;
-  save.places++;
-  // Whoever is open and waiting takes the new place.
-  const next = save.friends.find((id) => !save.band.includes(id));
-  if (next && save.band.length < save.places) save.band.push(next);
-  return true;
 }
 
 // ---------------------------------------------------------------- the armory
@@ -538,19 +652,6 @@ export function poolOf(save: SaveData): string[] {
   return WEAPONS.filter((w) => inArmory(save, { kind: 'weapon', id: w.id })).map((w) => w.id);
 }
 
-/** What the next crate costs, whichever it is, or null when all are open. It rises with every crate opened, by renown or by its deed. */
-export function cratePrice(save: SaveData): number | null {
-  return save.crates.length >= CRATES.length ? null : CRATE_PRICES[Math.min(save.crates.length, CRATE_PRICES.length - 1)];
-}
-
-export function buyCrate(save: SaveData, id: string): boolean {
-  const price = cratePrice(save);
-  if (price === null || save.crates.includes(id) || !CRATES.some((c) => c.id === id) || save.renown < price) return false;
-  save.renown -= price;
-  save.crates.push(id);
-  return true;
-}
-
 export interface CrateThing extends Thing {
   /** Its name, or "???" for a thing the player has never seen. */
   name: string;
@@ -566,130 +667,24 @@ export function crateThings(save: SaveData, crate: CrateDef): CrateThing[] {
   });
 }
 
-// ---------------------------------------------------------------- the board
-
-export interface NodeRow {
-  node: NodeDef;
-  /** What it gives, in words. */
-  says: string;
-  owned: boolean;
-  /** True if the place before it is owned, or it is the foot of a branch: it may be bought, renown allowing. */
-  open: boolean;
-  /** True if it may be bought now: open, not owned, and renown enough. */
-  can: boolean;
-}
-
-/** True if a place on the board is owned. */
-export function owns(save: SaveData, id: string): boolean {
-  return save.board.includes(id);
-}
-
-/** True if a place may be bought now: it is there, not owned, the place before it is, and there is renown enough. */
-export function canBuyNode(save: SaveData, id: string): boolean {
-  const n = BOARD.find((x) => x.id === id);
-  return !!n && !owns(save, id) && (!n.needs || owns(save, n.needs)) && save.renown >= n.price;
-}
-
-export function buyNode(save: SaveData, id: string): boolean {
-  if (!canBuyNode(save, id)) return false;
-  save.renown -= BOARD.find((x) => x.id === id)?.price ?? 0;
-  save.board.push(id);
-  return true;
-}
-
-/** The whole board as a screen draws it: every place with where it stands, what it gives, what it costs and how it stands with the player. */
-export function boardOf(save: SaveData): NodeRow[] {
-  return BOARD.map((node) => {
-    const owned = owns(save, node.id);
-    const open = !node.needs || owns(save, node.needs);
-    return { node, says: giftSays(node.gift), owned, open, can: !owned && open && save.renown >= node.price };
-  });
-}
-
-/** What the board has given so far, added up: what a run begins with. */
-export function boonsOf(save: SaveData): Boons {
-  return boonsFrom(save.board);
-}
-
-/** Takes the whole board back for what was paid, to be spent again another way. It costs nothing. Returns the renown given back. */
-export function refundBoard(save: SaveData): number {
-  const back = BOARD.filter((n) => owns(save, n.id)).reduce((sum, n) => sum + n.price, 0);
-  save.renown += back;
-  save.board = [];
-  return back;
-}
-
 // ---------------------------------------------------------------- a run begins
 
 /** What the Hold gives a run that a hero begins now. */
 export function termsOf(save: SaveData, hero = ''): Terms {
   const open = vowsOpen(save);
+  const m = hero ? masteryBoons(save, hero) : { boons: noBoons(), relic: '', alt: false };
   return {
-    vows: save.vows.filter((v) => open.includes(v as VowId)), shut: shutOf(save), pool: poolOf(save), boons: boonsOf(save),
-    relic: hero ? startRelic(save, hero) : '', alt: hero !== '' && save.alt.includes(hero) && altOpen(save, hero),
+    vows: save.vows.filter((v) => open.includes(v as VowId)), shut: shutOf(save), pool: poolOf(save), boons: m.boons, relic: m.relic, alt: m.alt,
+    slots: slotsOf(save), friends: [...save.friends], seek: seekOf(save),
   };
 }
 
 /** How many roads a run that begins now is offered at once. */
-export function forksNow(save: SaveData): number {
-  return ROAD.roads + boonsOf(save).road;
+export function forksNow(_save: SaveData): number {
+  return ROAD.roads;
 }
 
-/** A new run as the Hold sends it out: the band chosen, the roads, the vows sworn, the armory as it is, what the board gives and what the hero's oaths have opened. */
+/** A new run as the Hold sends it out: the band chosen, the vows sworn, the armory as it is, and what the hero's mastery has unlocked. */
 export function beginRun(save: SaveData, hero: string, seed: number): RunData {
-  // A player's first run is told that it is one: no run of theirs has ended. Its second wave's road is the stray's.
   return newRun(hero, seed, bandFor(save, hero), forksNow(save), { ...termsOf(save, hero), first: save.ended === 0 });
-}
-
-// ---------------------------------------------------------------- everything the Hold sells
-
-export interface Ware {
-  kind: 'place' | 'hero' | 'friend' | 'crate' | 'node';
-  id: string;
-  name: string;
-  price: number;
-  /** True if there is renown enough. */
-  can: boolean;
-}
-
-/** Everything the Hold sells now, with its price: for the screen, and for a player that buys the cheapest. */
-export function waresOf(save: SaveData): Ware[] {
-  const out: Ware[] = [];
-  const add = (kind: Ware['kind'], id: string, name: string, price: number | null): void => {
-    if (price !== null) out.push({ kind, id, name, price, can: save.renown >= price });
-  };
-  add('place', 'place', 'A 2nd companion slot', placePrice(save));
-  for (const h of HEROES) add('hero', h.id, h.name, heroPrice(save, h.id));
-  for (const c of COMPANIONS) add('friend', c.id, c.name, friendPrice(save, c.id));
-  const crate = cratePrice(save);
-  for (const c of CRATES) if (!save.crates.includes(c.id)) add('crate', c.id, c.name, crate);
-  // Of the board, the places that are open to be bought now: the rest wait for the one before them.
-  for (const n of BOARD) if (!owns(save, n.id) && (!n.needs || owns(save, n.needs))) add('node', n.id, n.name, n.price);
-  return out;
-}
-
-/** Buys one of the Hold's wares, whatever it is. */
-export function buyWare(save: SaveData, ware: Pick<Ware, 'kind' | 'id'>): boolean {
-  switch (ware.kind) {
-    case 'place':
-      return buyPlace(save);
-    case 'hero':
-      return buyHero(save, ware.id);
-    case 'friend':
-      return buyFriend(save, ware.id);
-    case 'crate':
-      return buyCrate(save, ware.id);
-    case 'node':
-      return buyNode(save, ware.id);
-  }
-}
-
-/** True once there is nothing left for the Hold to sell: everyone is open and everything is bought. */
-export function holdFull(save: SaveData): boolean {
-  return waresOf(save).length === 0;
-}
-
-/** True once every place on the board is owned. */
-export function boardFull(save: SaveData): boolean {
-  return BOARD.every((n) => owns(save, n.id));
 }

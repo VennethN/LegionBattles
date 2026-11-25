@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="quill-talon-near" width="272" height="272" viewBox="-40 -40 272 272">
-<defs>
-<path id="quill-talon-near-leg-shape" d="M 111.2 126.8 L 127.2 142.8 C 128.7 144.4 131.3 144.4 132.8 142.8 C 134.4 141.3 134.4 138.7 132.8 137.2 L 116.8 121.2 C 115.3 119.6 112.7 119.6 111.2 121.2 C 109.6 122.7 109.6 125.3 111.2 126.8 Z"/>
-<path id="quill-talon-near-claws-shape" d="M 126 136 L 144 136 L 138 142 L 146 148 L 136 148 L 138 158 L 128 150 L 124 144 Z"/>
-</defs>
-<g id="quill-talon-near-leg">
-<use id="quill-talon-near-leg-fill" href="#quill-talon-near-leg-shape" fill="#c8a24a"/>
-<use id="quill-talon-near-leg-line" href="#quill-talon-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<g id="quill-talon-near-claws">
-<use id="quill-talon-near-claws-fill" href="#quill-talon-near-claws-shape" fill="#c8a24a"/>
-<use id="quill-talon-near-claws-line" href="#quill-talon-near-claws-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}</style><defs><path id="i0" d="M111.2 126.8l16 16c1.5 1.6 4.1 1.6 5.6 0 1.6-1.5 1.6-4.1 0-5.6l-16-16c-1.5-1.6-4.1-1.6-5.6 0-1.6 1.5-1.6 4.1 0 5.6z"/><path id="i1" d="M126 136h18l-6 6 8 6h-10l2 10-10-8-4-6z"/></defs><use href="#i0" fill="#c8a24a"/><use href="#i0" class="c0"/><use href="#i1" fill="#c8a24a"/><use href="#i1" class="c0"/></svg>

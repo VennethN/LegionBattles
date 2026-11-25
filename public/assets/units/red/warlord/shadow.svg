@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="warlord-shadow" width="272" height="272" viewBox="-40 -40 272 272">
-<path id="warlord-shadow-shadow" d="M 138 181 C 138 185.4 119.2 189 96 189 C 72.8 189 54 185.4 54 181 C 54 176.6 72.8 173 96 173 C 119.2 173 138 176.6 138 181 Z" fill="#2a1a10" opacity="0.28"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:#2a1a10;opacity:.28}</style><path d="M138 181c0 4.4-18.8 8-42 8-23.2 0-42-3.6-42-8 0-4.4 18.8-8 42-8 23.2 0 42 3.6 42 8z" class="c0"/></svg>

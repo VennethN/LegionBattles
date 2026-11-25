@@ -11,7 +11,20 @@
 // the wave (world.ts) reads the numbers here, and the run (run.ts) rolls
 // which roads are offered and pays the prize.
 
-export type Omen = 'quiet' | 'horde' | 'champions' | 'forced' | 'toll' | 'duel' | 'wounded' | 'stray' | 'shrine' | 'wagon' | 'burning' | 'night' | 'blizzard';
+export type Omen = 'quiet' | 'horde' | 'champions' | 'forced' | 'toll' | 'duel' | 'wounded' | 'stray' | 'shrine' | 'wagon' | 'burning' | 'night' | 'blizzard' | 'bog' | 'spores' | 'ashfall' | 'forge'
+  | 'squall' | 'smugglers' | 'deepdark' | 'goldvein' | 'gale' | 'stampede' | 'restless' | 'vigil' | 'overclocked' | 'steam';
+
+/**
+ * A land's own road that works as another does, with a name and a prize of
+ * its own: a smugglers' boat is a pay wagon, the deep dark is a long night.
+ * The wave's rules (world.ts) ask what a road is like, by this.
+ */
+export const OMEN_LIKE: Partial<Record<Omen, Omen>> = { smugglers: 'wagon', deepdark: 'night', vigil: 'shrine', steam: 'spores', squall: 'ashfall' };
+
+/** What a road is like in the wave's rules: itself, or the road it works as. */
+export function likeOf(id: Omen): Omen {
+  return OMEN_LIKE[id] ?? id;
+}
 
 /** What a champion has that the rest have not. */
 export type ChampionTrait = 'quick' | 'armored' | 'burning';
@@ -32,8 +45,13 @@ export interface OmenDef {
   says: string;
   /** What coming through it gives, in a few words. */
   prize: string;
-  /** The land it comes in, where it is one land's own: 'meadow', 'desert' or 'snow'. */
-  land?: 'meadow' | 'desert' | 'snow';
+  /** The land it comes in, where it is one land's own. */
+  land?: 'meadow' | 'mire' | 'desert' | 'snow' | 'coast' | 'mine' | 'steppe' | 'crypt' | 'clock' | 'ember';
+  /**
+   * What clearing it gives the run, besides what the wave itself gives (more coins, more experience):
+   * a relic to pick, a chest, the lowest-tier weapon a tier up, or a choice of the best rarity.
+   */
+  pays?: 'relic' | 'chest' | 'tier' | 'best';
   /** The first wave it may lead to. */
   from: number;
   /** How often it is offered beside the others. 0 for the road with no omen, which is never offered. */
@@ -42,22 +60,43 @@ export interface OmenDef {
 
 export const OMENS: readonly OmenDef[] = [
   { id: 'quiet', name: 'The Road', says: 'A normal wave.', prize: 'None', from: 1, weight: 0 },
-  // Anywhere.
-  { id: 'horde', name: 'The Horde', says: '50% more enemies.', prize: '+50% XP', from: 3, weight: 1.5 },
-  { id: 'champions', name: 'Champions', says: '3 champions join the wave.', prize: 'Pick 1 of 3 relics', from: 4, weight: 1.5 },
-  { id: 'forced', name: 'Forced March', says: 'No camp after it. You start the next wave with the HP you have left.', prize: 'Pick 1 of 3 relics', from: 4, weight: 1.8 },
+  // Anywhere. The horde is there from the first camp: Biscuit is along from the start, so the stray's cage is not offered there, and a first camp still has two roads.
+  { id: 'horde', name: 'The Horde', says: '50% more enemies.', prize: '+50% XP', from: 2, weight: 1.5 },
+  { id: 'champions', name: 'Champions', says: '3 champions join the wave.', prize: 'Pick 1 of 3 relics', from: 4, weight: 1.5, pays: 'relic' },
+  { id: 'forced', name: 'Forced March', says: 'No camp after it. You start the next wave with the HP you have left.', prize: 'Pick 1 of 3 relics', from: 4, weight: 1.8, pays: 'relic' },
   { id: 'toll', name: 'Toll Road', says: 'Pay 20% of your coins.', prize: 'The wave is 33% shorter', from: 3, weight: 2 },
   { id: 'duel', name: 'The Duel', says: 'One huge champion and no other enemies, so no other coins.', prize: 'Kill it: pick 1 of 3 relics', from: 5, weight: 1.7 },
-  { id: 'wounded', name: 'The Wounded', says: 'Start the wave at 40% HP.', prize: '1 free upgrade of the best rarity', from: 3, weight: 1.3 },
+  { id: 'wounded', name: 'The Wounded', says: 'Start the wave at 40% HP.', prize: '1 free upgrade of the best rarity', from: 3, weight: 1.3, pays: 'best' },
   // Thornwood's own.
-  { id: 'stray', name: 'The Stray', says: 'A caged creature is on the field, guarded by a champion.', prize: 'Break the cage: it joins you for this run', land: 'meadow', from: 2, weight: 1.6 },
+  { id: 'stray', name: 'The Stray', says: 'A caged companion is on the field, guarded by a champion.', prize: 'Break the cage: it joins you if a slot is free, and is unlocked for good', land: 'meadow', from: 2, weight: 1.6 },
   { id: 'shrine', name: 'The Grove Shrine', says: 'Stand in its ring for 11 s. Enemies spawn 2x as fast while you do.', prize: '1 free upgrade', land: 'meadow', from: 2, weight: 1.8 },
+  // Blackwater Mire's own.
+  { id: 'bog', name: 'The Bog', says: 'Deep mud: you and enemies move 25% slower.', prize: 'Pick 1 of 3 relics', land: 'mire', from: 11, weight: 1.8, pays: 'relic' },
+  { id: 'spores', name: 'Spore Field', says: 'Clouds of spores rise in lanes and poison you. The ground shows where first.', prize: 'A chest', land: 'mire', from: 11, weight: 1.8, pays: 'chest' },
   // The dunes' own.
-  { id: 'wagon', name: 'Pay Caravan', says: 'A guarded wagon crosses the field.', prize: 'Destroy it: a chest', land: 'desert', from: 8, weight: 1.8 },
-  { id: 'burning', name: 'Burning Field', says: 'Fire sweeps the field in lanes. The ground shows where first.', prize: 'Coins are worth 2x', land: 'desert', from: 8, weight: 1.8 },
+  { id: 'wagon', name: 'Pay Caravan', says: 'A guarded wagon crosses the field.', prize: 'Destroy it: a chest', land: 'desert', from: 21, weight: 1.8 },
+  { id: 'burning', name: 'Burning Field', says: 'Fire sweeps the field in lanes. The ground shows where first.', prize: 'Coins are worth 2x', land: 'desert', from: 21, weight: 1.8 },
   // Frostholt's own.
-  { id: 'night', name: 'The Long Night', says: 'It is dark, and enemies move 20% faster.', prize: 'Pick 1 of 3 relics', land: 'snow', from: 15, weight: 1.8 },
-  { id: 'blizzard', name: 'Blizzard', says: 'You move 18% slower, and enemy shots slow you.', prize: 'Your lowest-tier weapon gains a tier', land: 'snow', from: 15, weight: 1.8 },
+  { id: 'night', name: 'The Long Night', says: 'It is dark, and enemies move 20% faster.', prize: 'Pick 1 of 3 relics', land: 'snow', from: 31, weight: 1.8, pays: 'relic' },
+  { id: 'blizzard', name: 'Blizzard', says: 'You move 18% slower, and enemy shots slow you.', prize: 'Your lowest-tier weapon gains a tier', land: 'snow', from: 31, weight: 1.8, pays: 'tier' },
+  // The Salt Coast's own.
+  { id: 'squall', name: 'Squall', says: 'Lightning strikes all over the field. The ground shows where first.', prize: 'Pick 1 of 3 relics', land: 'coast', from: 41, weight: 1.8, pays: 'relic' },
+  { id: 'smugglers', name: "Smugglers' Run", says: 'A guarded cart of contraband crosses the field.', prize: 'Destroy it: a chest', land: 'coast', from: 41, weight: 1.8 },
+  // The Deep Mines' own.
+  { id: 'deepdark', name: 'The Deep Dark', says: 'It is dark, and enemies move 20% faster.', prize: 'A chest', land: 'mine', from: 51, weight: 1.8, pays: 'chest' },
+  { id: 'goldvein', name: 'Gold Vein', says: '30% more enemies.', prize: 'Coins are worth 2x', land: 'mine', from: 51, weight: 1.8 },
+  // The Endless Steppe's own.
+  { id: 'gale', name: 'Gale', says: 'You move 15% slower, and enemy shots fly 40% faster.', prize: 'Your lowest-tier weapon gains a tier', land: 'steppe', from: 61, weight: 1.8, pays: 'tier' },
+  { id: 'stampede', name: 'Stampede', says: 'Every enemy moves 30% faster.', prize: '+50% XP', land: 'steppe', from: 61, weight: 1.8 },
+  // The Hollow Court's own.
+  { id: 'restless', name: 'The Restless Dead', says: 'Every enemy gets up once after it falls.', prize: 'Pick 1 of 3 relics', land: 'crypt', from: 71, weight: 1.8, pays: 'relic' },
+  { id: 'vigil', name: 'The Vigil', says: 'Stand in the candle ring for 11 s. Enemies spawn 2x as fast while you do.', prize: '1 free upgrade', land: 'crypt', from: 71, weight: 1.8 },
+  // The Clockwork City's own.
+  { id: 'overclocked', name: 'Overclocked', says: 'Enemies move 20% faster and their shots fly 20% faster.', prize: '1 free upgrade of the best rarity', land: 'clock', from: 81, weight: 1.8, pays: 'best' },
+  { id: 'steam', name: 'Steam Vents', says: 'Scalding steam rises in lanes. The ground shows where first.', prize: 'A chest', land: 'clock', from: 81, weight: 1.8, pays: 'chest' },
+  // The Ashen Forge's own.
+  { id: 'ashfall', name: 'Ashfall', says: 'Burning stones fall where you stand. The ground shows where first.', prize: 'Your lowest-tier weapon gains a tier', land: 'ember', from: 91, weight: 1.8, pays: 'tier' },
+  { id: 'forge', name: 'The Forge', says: 'Every enemy is armored: it takes 25% less damage.', prize: '1 free upgrade of the best rarity', land: 'ember', from: 91, weight: 1.6, pays: 'best' },
 ];
 
 export function omenOf(id: Omen): OmenDef {
@@ -165,6 +204,50 @@ export const ROAD = {
     lights: 0.6,
     /** How many times the coins on the field are worth. */
     coins: 2,
+  },
+  bog: {
+    /** The share of their speed the mud takes from the hero and from every enemy. */
+    slow: 0.25,
+  },
+  spores: {
+    /** Seconds before the first lane, between lanes, a lane is shown before it rises, and it lasts. How wide, and how many of the wave's plainest blows it is a second. */
+    first: 3,
+    every: 4,
+    warn: 1.4,
+    lasts: 1.6,
+    wide: 110,
+    harm: 1.4,
+  },
+  ashfall: {
+    /** Seconds before the first stone, between stones, a stone is shown before it lands; how wide it lands, and how many of the wave's plainest blows it is. */
+    first: 2.5,
+    every: 2.2,
+    warn: 1.1,
+    wide: 90,
+    harm: 3,
+  },
+  forge: {
+    /** The share of a blow that gets through to an enemy. */
+    lets: 0.75,
+  },
+  goldvein: {
+    /** How many times as many enemies, and how many times the coins. */
+    more: 1.3,
+    coins: 2,
+  },
+  gale: {
+    /** The share of their speed the wind takes from the hero, and how many times as fast enemy shots fly. */
+    slow: 0.15,
+    shots: 1.4,
+  },
+  stampede: {
+    /** How many times as fast enemies come on, and how many times the experience. */
+    faster: 1.3,
+    xp: 1.5,
+  },
+  overclocked: {
+    /** How many times as fast enemies come on and their shots fly. */
+    faster: 1.2,
   },
   blizzard: {
     /** The share of their speed the cold takes from a hero, and the share of it an enemy's shot takes besides for two seconds. */

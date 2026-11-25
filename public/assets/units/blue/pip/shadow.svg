@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="pip-shadow" width="272" height="272" viewBox="-40 -40 272 272">
-<path id="pip-shadow-shadow" d="M 120 181 C 120 184.3 109.3 187 96 187 C 82.7 187 72 184.3 72 181 C 72 177.7 82.7 175 96 175 C 109.3 175 120 177.7 120 181 Z" fill="#2a1a10" opacity="0.28"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:#2a1a10;opacity:.28}</style><path d="M120 181c0 3.3-10.7 6-24 6-13.3 0-24-2.7-24-6 0-3.3 10.7-6 24-6 13.3 0 24 2.7 24 6z" class="c0"/></svg>

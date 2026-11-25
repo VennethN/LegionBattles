@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="greta-legs-far" width="272" height="272" viewBox="-40 -40 272 272">
-<defs>
-<path id="greta-legs-far-leg-shape" d="M 66.4 140.6 L 93.1 140.6 L 92.5 155.6 L 101.2 167.2 Q 109.3 168.4 109.3 175.4 L 109.3 180 L 74.5 180 L 74.5 170.7 L 65.8 155.6 Z"/>
-<path id="greta-legs-far-leg-2-shape" d="M 103.5 140.6 L 130.2 140.6 L 129.1 155.6 L 123.3 167.2 Q 131.4 168.4 131.4 175.4 L 131.4 180 L 96.6 180 L 96.6 170.7 L 102.4 155.6 Z"/>
-</defs>
-<g id="greta-legs-far-leg">
-<use id="greta-legs-far-leg-fill" href="#greta-legs-far-leg-shape" fill="#4e3520"/>
-<use id="greta-legs-far-leg-line" href="#greta-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<g id="greta-legs-far-leg-2">
-<use id="greta-legs-far-leg-2-fill" href="#greta-legs-far-leg-2-shape" fill="#4e3520"/>
-<use id="greta-legs-far-leg-2-line" href="#greta-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}</style><defs><path id="i0" d="M66.4 140.6h26.7l-.6 15 8.7 11.6q8.1 1.2 8.1 8.2v4.6h-34.8v-9.3l-8.7-15.1z"/><path id="i1" d="M103.5 140.6h26.7l-1.1 15-5.8 11.6q8.1 1.2 8.1 8.2v4.6h-34.8v-9.3l5.8-15.1z"/></defs><use href="#i0" fill="#4e3520"/><use href="#i0" class="c0"/><use href="#i1" fill="#4e3520"/><use href="#i1" class="c0"/></svg>

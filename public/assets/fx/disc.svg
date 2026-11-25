@@ -1,4 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="disc" width="64" height="64" viewBox="0 0 64 64">
-<path id="disc-outer" d="M 62 32 C 62 48.6 48.6 62 32 62 C 15.4 62 2 48.6 2 32 C 2 15.4 15.4 2 32 2 C 48.6 2 62 15.4 62 32 Z" fill="#ffffff" opacity="0.35"/>
-<path id="disc-inner" d="M 51 32 C 51 42.5 42.5 51 32 51 C 21.5 51 13 42.5 13 32 C 13 21.5 21.5 13 32 13 C 42.5 13 51 21.5 51 32 Z" fill="#ffffff" opacity="0.6"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><style>.c0{fill:#ffffff;opacity:.35}.c1{fill:#ffffff;opacity:.6}</style><path d="M62 32c0 16.6-13.4 30-30 30C15.4 62 2 48.6 2 32 2 15.4 15.4 2 32 2 48.6 2 62 15.4 62 32z" class="c0"/><path d="M51 32c0 10.5-8.5 19-19 19-10.5 0-19-8.5-19-19 0-10.5 8.5-19 19-19 10.5 0 19 8.5 19 19z" class="c1"/></svg>

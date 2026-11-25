@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { botCamp, botLevel, botSteer } from '../src/game/bot';
-import { ALLY_QUIRKS, BAND, COMPANIONS, ENEMIES, byId, levelNeeds } from '../src/game/data';
+import { ALLY_QUIRKS, BAND, COMPANIONS, HEROES, LAST_WAVE, SLOT_WAVES, byId, levelNeeds } from '../src/game/data';
+import { nextSlot, slotsOf } from '../src/game/hold';
 import { bandSize, choose, endWave, newRun, setupOf, type RunData } from '../src/game/run';
-import { bandFor, featDone, freshSave, isFriend, record, repair, setBand } from '../src/game/state';
+import { bandFor, freshSave, record, repair, setBand } from '../src/game/state';
 import { World, type Ally, type Ev, type Setup } from '../src/game/world';
 import { alone, play, setup, stand, stats } from './field';
 
@@ -14,16 +15,22 @@ const withOne = (id: string, o: Partial<Setup> = {}): [World, Ally] => {
 const has = <T extends Ev['t']>(events: readonly Ev[], t: T): Extract<Ev, { t: T }>[] => events.filter((e): e is Extract<Ev, { t: T }> => e.t === t);
 
 describe('the companions', () => {
-  it('are eight, each with a name, what it is, what it does, a quirk and a deed that opens it', () => {
-    expect(COMPANIONS.map((c) => c.id)).toEqual(['biscuit', 'pip', 'mossback', 'quill', 'greta', 'ember', 'tam', 'thistle']);
+  it('are sixteen, each with a name, what it is, what it does, a passive and a way to be unlocked', () => {
+    expect(COMPANIONS.length).toBe(16);
     expect(new Set(COMPANIONS.map((c) => c.quirk)).size).toBe(COMPANIONS.length);
     expect(new Set(COMPANIONS.map((c) => c.does)).size).toBe(COMPANIONS.length);
+    expect(new Set(COMPANIONS.map((c) => c.unit)).size).toBe(COMPANIONS.length);
     for (const c of COMPANIONS) {
       for (const text of [c.name, c.kind, c.says, c.quirkName, c.quirkSays]) expect(text.length, c.id).toBeGreaterThan(2);
-      if (c.unlock.kind === 'boss') expect(byId(ENEMIES, c.unlock.boss).ai).toBe('boss');
+      const u = c.unlock;
+      if (u.kind === 'wave') expect(u.wave, c.id).toBeLessThanOrEqual(LAST_WAVE);
+      if (u.kind === 'found') expect(u.from, c.id).toBeLessThan(LAST_WAVE);
+      if (u.kind === 'deed') expect(u.says.length, c.id).toBeGreaterThan(8);
+      if (u.kind === 'hidden') expect(u.riddle.length, c.id).toBeGreaterThan(8);
     }
-    // Biscuit comes after the first run ends, however it went.
-    expect(byId(COMPANIONS, 'biscuit').unlock).toEqual({ kind: 'runs', runs: 1 });
+    // Biscuit is there from the start; and every way of being unlocked is used by more than one.
+    expect(COMPANIONS.filter((c) => c.unlock.kind === 'start').map((c) => c.id)).toEqual(['biscuit']);
+    for (const kind of ['wave', 'deed', 'hidden', 'found']) expect(COMPANIONS.filter((c) => c.unlock.kind === kind).length, kind).toBeGreaterThanOrEqual(3);
   });
 
   it('stand beside the hero as the wave begins, and walk at their heel when there is nobody to fight', () => {
@@ -331,39 +338,40 @@ describe('the band and the run', () => {
     expect(run.band[0].bond).toBeGreaterThan(0);
   });
 
-  it('the save keeps who is open, who goes, and how many places there are', () => {
+  it('the save keeps who is unlocked, who goes, and the slots the best wave has unlocked', () => {
     const save = freshSave();
-    expect(save.places).toBe(1);
-    expect(save.band).toEqual([]);
+    expect(save.friends).toEqual(['biscuit']);
+    expect(save.band).toEqual(['biscuit']);
+    expect(slotsOf(save)).toBe(1);
+    expect(nextSlot(save)).toBe(SLOT_WAVES[1]);
     expect(save.auto).toBe(true);
-    expect(isFriend(save, 'biscuit')).toBe(false);
-    expect(setBand(save, 0, 'biscuit')).toBe(false);
-    // The first run ends: Biscuit is opened, and comes along next time without being asked.
-    const run = newRun('bram', 1);
-    run.phase = 'over';
-    expect(record(save, run, 0).friends).toEqual(['biscuit']);
-    expect(save.ended).toBe(1);
-    expect(featDone(save, { kind: 'runs', runs: 1 })).toBe(true);
-    expect(bandFor(save, 'bram')).toEqual(['biscuit']);
-    // One place: a second companion opened waits for the player to choose.
-    save.friends.push('pip');
-    expect(bandFor(save, 'bram')).toEqual(['biscuit']);
+    expect(bandFor(save, 'wren')).toEqual(['biscuit']);
+    expect(setBand(save, 0, 'pip')).toBe(false);
+    // Wave 5 unlocks Pip; one slot, so Biscuit stays where he is and Pip waits to be chosen.
+    const run = { ...newRun('wren', 1, ['biscuit']), wave: 6, phase: 'over' as const };
+    expect(record(save, run, 0).friends).toEqual(['pip']);
+    expect(bandFor(save, 'wren')).toEqual(['biscuit']);
     expect(setBand(save, 0, 'pip')).toBe(true);
-    expect(bandFor(save, 'bram')).toEqual(['pip']);
-    expect(setBand(save, 1, 'biscuit')).toBe(true);
-    expect(save.band).toEqual(['pip', 'biscuit']);
-    // Aldous brings one more than there are places; a second place takes two for anyone.
-    expect(bandFor(save, 'bram')).toEqual(['pip']);
-    expect(bandFor(save, 'aldous')).toEqual(['pip', 'biscuit']);
-    save.places = 2;
-    expect(bandFor(save, 'bram')).toEqual(['pip', 'biscuit']);
-    expect(bandSize('aldous', 2)).toBe(3);
-    // One already in the band changes places, and a place can be emptied.
+    expect(bandFor(save, 'wren')).toEqual(['pip']);
+    expect(setBand(save, 1, 'biscuit')).toBe(false);
+    // Clearing wave 10 unlocks a second slot, and whoever is waiting takes it.
+    const out = record(save, { ...newRun('wren', 2, ['pip']), wave: 11, phase: 'over' as const }, 0);
+    expect(out.slots).toBe(1);
+    expect(slotsOf(save)).toBe(2);
+    expect(bandFor(save, 'wren')).toEqual(['pip', 'biscuit']);
+    // Every hero brings as many as there are slots.
+    for (const h of HEROES) expect(bandSize(h.id, slotsOf(save)), h.id).toBe(2);
+    // One already in the band changes places, and a slot can be emptied.
     expect(setBand(save, 0, 'biscuit')).toBe(true);
     expect(save.band).toEqual(['biscuit', 'pip']);
     expect(setBand(save, 0, '')).toBe(true);
     expect(save.band).toEqual(['pip']);
     expect(repair(JSON.parse(JSON.stringify(save))).band).toEqual(['pip']);
+    // The slots stop at six, at the waves the list says.
+    save.best.wren = LAST_WAVE;
+    expect(slotsOf(save)).toBe(BAND.places);
+    expect(nextSlot(save)).toBe(0);
+    for (const [i, wave] of SLOT_WAVES.entries()) expect(slotsOf({ ...save, best: { wren: wave } }), `wave ${wave}`).toBe(i + 1);
   });
 
   it('a run with a companion is kept in its camp and carried on as it was', () => {

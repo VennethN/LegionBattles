@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="warlord-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
-<defs>
-<path id="warlord-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
-<clipPath id="warlord-leg-back-boot-clip"><use href="#warlord-leg-back-boot-shape"/></clipPath>
-</defs>
-<g id="warlord-leg-back-boot">
-<use id="warlord-leg-back-boot-fill" href="#warlord-leg-back-boot-shape" fill="#434b56"/>
-<g clip-path="url(#warlord-leg-back-boot-clip)">
-<path id="warlord-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
-</g>
-<use id="warlord-leg-back-boot-line" href="#warlord-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.c1{fill:#2a1a10;opacity:.35}</style><defs><path id="i0" d="M75 148h19v16c6 0 11 4 11 10v2q0 4-4 4h-22q-4 0-4-4z"/><clipPath id="i1"><use href="#i0"/></clipPath></defs><g><use href="#i0" fill="#434b56"/><g clip-path="url(#i1)"><path d="M71 175h40v8h-40v-8z" class="c1"/></g><use href="#i0" class="c0"/></g></svg>

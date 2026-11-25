@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { botCamp, botSteer } from '../src/game/bot';
-import { COMPANIONS, ENEMIES, OMENS, ROAD, byId, enemyAt, omenOf, waveOf, type Omen } from '../src/game/data';
+import { COMPANIONS, ENEMIES, LANDS, LAND_WAVES, OMENS, ROAD, byId, enemyAt, omenOf, waveOf, type Omen } from '../src/game/data';
 import { choose, endWave, forksOf, march, newRun, setupOf, takeRelic, takeRoad, tollOf, type RunData } from '../src/game/run';
 import { freshSave, repair } from '../src/game/state';
 import { STEP, World, type Ev, type Setup } from '../src/game/world';
@@ -21,14 +21,14 @@ const cleared = (run: RunData, o: Partial<World> = {}): World => {
 
 describe('the road out of the camp', () => {
   it('has an omen of each kind, each with its name, what it is and its prize', () => {
-    // Twelve that are offered, and the road with no omen, which is the first wave's and a captain's and is never offered.
+    // Six of anywhere and two of each land's that are offered, and the road with no omen, which is the first wave's and a boss's and is never offered.
     const offered = OMENS.filter((o) => o.weight > 0);
-    expect(offered.length).toBe(12);
+    expect(offered.length).toBe(6 + 2 * LANDS.length);
     expect(OMENS.filter((o) => o.weight <= 0).map((o) => o.id)).toEqual(['quiet']);
     for (const o of OMENS) for (const text of [o.name, o.says, o.prize]) expect(text.length, o.id).toBeGreaterThan(3);
     // Six come anywhere, and each land has two that are only its own.
     expect(offered.filter((o) => !o.land).length).toBe(6);
-    for (const land of ['meadow', 'desert', 'snow']) expect(offered.filter((o) => o.land === land).length, land).toBe(2);
+    for (const land of LANDS) expect(offered.filter((o) => o.land === land).length, land).toBe(2);
   });
 
   it('lays out two roads, no two alike, and the one taken is the wave that is fought', () => {
@@ -58,9 +58,9 @@ describe('the road out of the camp', () => {
       march(other);
       for (const r of other.roads) seen.add(r.omen);
     }
-    // Over many camps every omen that may lead to the sixth wave is offered: those of anywhere and Thornwood's own, but
-    // not a forced march, which would leave no camp before the captain, nor the toll road, to one with an empty purse.
-    expect([...seen].sort()).toEqual(OMENS.filter((o) => o.weight > 0 && o.from <= 6 && (!o.land || o.land === 'meadow') && o.id !== 'forced' && o.id !== 'toll').map((o) => o.id).sort());
+    // Over many camps every omen that may lead to the seventh wave is offered: those of anywhere and Thornwood's own, but
+    // not the toll road, to one with an empty purse.
+    expect([...seen].sort()).toEqual(OMENS.filter((o) => o.weight > 0 && o.from <= 6 && (!o.land || o.land === 'meadow') && o.id !== 'toll').map((o) => o.id).sort());
   });
 
   it('offers nothing before its time: the second wave is reached by a gentle road', () => {
@@ -73,8 +73,8 @@ describe('the road out of the camp', () => {
   });
 
   it('has one road to a captain, and the run is on it at once', () => {
-    const run = camp(7);
-    expect(waveOf(7).boss).toBeDefined();
+    const run = camp(10);
+    expect(waveOf(10).boss).toBeDefined();
     march(run);
     expect(run.phase).toBe('fight');
     expect(run.road.omen).toBe('quiet');
@@ -352,7 +352,7 @@ describe('omens', () => {
 });
 
 describe('a run with roads in it', () => {
-  it('offers each land its own: the cage and the shrine in Thornwood, the caravan and the fire in the dunes, the night and the blizzard in Frostholt', () => {
+  it('offers each land its own two roads, and the roads of anywhere, in every one of the ten', () => {
     const offered = (wave: number): Set<string> => {
       const run = camp(wave, { gold: 200 });
       const seen = new Set<string>();
@@ -367,13 +367,13 @@ describe('a run with roads in it', () => {
     expect(own('meadow')).toEqual(['shrine', 'stray']);
     expect(own('desert')).toEqual(['burning', 'wagon']);
     expect(own('snow')).toEqual(['blizzard', 'night']);
-    const at = { meadow: offered(5), desert: offered(10), snow: offered(17) };
-    for (const [land, seen] of Object.entries(at)) {
+    LANDS.forEach((land, i) => {
+      const seen = offered(i * LAND_WAVES + 5);
       for (const id of own(land)) expect(seen.has(id), `${id} in ${land}`).toBe(true);
       for (const o of OMENS) if (o.land && o.land !== land) expect(seen.has(o.id), `${o.id} in ${land}`).toBe(false);
       // And those of anywhere come there too.
       for (const id of ['horde', 'champions', 'toll', 'duel', 'wounded', 'forced']) expect(seen.has(id), `${id} in ${land}`).toBe(true);
-    }
+    });
   });
 
   it('no road is free: the horde is none the weaker, the shrine hurries them on, the cage has its jailer and the wagon a stout guard', () => {
@@ -408,8 +408,8 @@ describe('a run with roads in it', () => {
   });
 
   it('forced march: a relic, no camp after it, and the next wave finds the hero as this one left them', () => {
-    // Never before a captain.
-    const before = camp(6, { gold: 200 });
+    // Never before a boss.
+    const before = camp(9, { gold: 200 });
     for (let i = 0; i < 60; i++) {
       before.phase = 'camp';
       march(before);

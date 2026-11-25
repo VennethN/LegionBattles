@@ -7,7 +7,7 @@ import { WEAPON_ART } from '../src/art/holdout';
 import { allColors } from '../src/art/kit/palette';
 import type { Manifest } from '../src/art/manifest';
 import { UNIT_ART } from '../src/art/units';
-import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAND_NAMES, RELICS, ROAD, WEAPONS } from '../src/game/data';
+import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LANDS_DEF, LAND_NAMES, RELICS, ROAD, WEAPONS, byId } from '../src/game/data';
 import { STAT_INFO, STATS } from '../src/game/stats';
 import { ICONS_USED, THING_ICONS, itemIcon, relicIcon, statIcon, weaponIcon, HOLD_PLACES } from '../src/view/icons';
 import { SkylinePacker } from '../src/view/art/packer';
@@ -149,14 +149,19 @@ describe('the sheet of the field', () => {
     }
   });
 
-  it('holds any hero, the biggest band there can be, every boss and every enemy there is, all at once', () => {
-    const p = kept();
+  it('holds any hero, the biggest band there can be and everyone a land fields, in every one of the ten', () => {
     const size = (unit: string): number => manifest.units[unit].full[3] * manifest.units[unit].full[2];
     const tallest = HEROES.map((h) => h.unit).sort((a, b) => size(b) - size(a))[0];
-    // A band is as many as the Hold opens, one more for the shepherd, and the strays a road may add: the biggest of them, to be sure of the rest.
-    const band = COMPANIONS.map((c) => c.unit).sort((a, b) => size(b) - size(a)).slice(0, BAND.places + 1 + ROAD.stray.most);
-    const all = [...parts(tallest), ...band.flatMap(parts), ...FIGHTERS.flatMap((e) => (e.ai === 'boss' ? parts(e.unit) : stills(e.unit)))].sort((a, b) => b[1] - a[1]);
-    expect(p.fits(all)).toBe(true);
+    // A band is as many as there are slots, and the strays a road may add: the biggest of them, to be sure of the rest.
+    const band = COMPANIONS.map((c) => c.unit).sort((a, b) => size(b) - size(a)).slice(0, BAND.places + ROAD.stray.most);
+    for (const land of LANDS_DEF) {
+      // A field holds one land's: its roster, whoever they call up, and its boss. The sheet is wiped between lands.
+      const foes = land.roster.map(([id]) => id);
+      const called = foes.map((id) => byId(ENEMIES, id).calls).filter((id): id is string => !!id);
+      const p = kept();
+      const all = [...parts(tallest), ...band.flatMap(parts), ...parts(land.boss), ...[...foes, ...called].flatMap(stills)].sort((a, b) => b[1] - a[1]);
+      expect(p.fits(all), land.id).toBe(true);
+    }
   });
 });
 
