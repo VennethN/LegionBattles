@@ -104,15 +104,18 @@ export function find(page: Page, key: string, text: string): Promise<{ x: number
       list?: Node[];
     }
     let hit: { x: number; y: number } | null = null;
-    const walk = (list: Node[], ox: number, oy: number): void => {
+    // A button whose words are exactly these first, then one whose words begin with them: PICK is not PICKED.
+    const walk = (list: Node[], ox: number, oy: number, exact: boolean): void => {
       for (const o of list) {
         if (hit || o.type !== 'Container' || !o.visible) continue;
         const kids = o.list ?? [];
-        if (o.input && kids.some((c) => typeof c.text === 'string' && c.text.trim().startsWith(t))) hit = { x: ox + o.x, y: oy + o.y };
-        walk(kids, ox + o.x, oy + o.y);
+        const says = (c: Node): boolean => typeof c.text === 'string' && (exact ? c.text.trim() === t : c.text.trim().startsWith(t));
+        if (o.input && kids.some(says)) hit = { x: ox + o.x, y: oy + o.y };
+        walk(kids, ox + o.x, oy + o.y, exact);
       }
     };
-    walk(sc.children.list as Node[], 0, 0);
+    walk(sc.children.list as Node[], 0, 0, true);
+    if (!hit) walk(sc.children.list as Node[], 0, 0, false);
     const at = hit as { x: number; y: number } | null;
     return at ? { x: (at.x * w.view.zoom) / w.view.density, y: (at.y * w.view.zoom) / w.view.density } : null;
   }, [key, text] as const);

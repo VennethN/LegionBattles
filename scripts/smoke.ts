@@ -176,7 +176,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await tick(page, 4);
   ok('a full move waits to be asked for', (await fury()) === 1);
   if (!touch) await page.keyboard.press('Space');
-  else ok('the move has a button', await press(page, tap, 'Hud', 'PLANT THE GATE'));
+  else ok('the move has a button', await press(page, tap, 'Hud', 'THE ONE THAT MATTERS'));
   await tick(page, 6);
   ok('the move is let loose when it is asked for', (await fury()) < 1);
 
@@ -199,6 +199,8 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await fight(page, 60 * 24);
   ok('the first wave ends in the camp', await until(page, 'Camp'));
   await tick(page, 20);
+  // SHOTS=folder keeps a picture of the first camp, to see what a press there missed.
+  if (process.env.SHOTS) await page.screenshot({ path: `${process.env.SHOTS}/${label}-camp.png` });
   for (let i = 0; i < 5 && (await run(page))?.phase === 'level'; i++) {
     // A level's choice: the first card says how much of what.
     await tap(size.width * (size.height > size.width ? 0.28 : 0.2), size.height * (size.height > size.width ? 0.2 : 0.55));
@@ -241,14 +243,20 @@ async function play(label: string, { context, page }: { context: Context; page: 
   ok('the run that ended paid Wren mastery', ((await hold()).mastery.wren ?? 0) > 0 && (await hold()).tally !== null);
   ok('THE HOLD opens the Hold', (await press(page, tap, 'Title', 'THE HOLD')) && (await until(page, 'Hold')));
   await tick(page, 10);
-  ok('with each hero\'s mastery said', (await words(page, 'Hold', 'mastery level')) !== null);
+  ok('with each hero\'s mastery said', (await words(page, 'Hold', 'Wren Fallowmere')) !== null);
   ok('COMPANIONS shows the slots', (await press(page, tap, 'Hold', 'COMPANIONS')) && (await words(page, 'Hold', 'Companion slots')) !== null);
   await page.evaluate(() => {
     const w = window as unknown as Win;
-    (w.save() as unknown as { mastery: Record<string, number> }).mastery.wren = 99999;
+    // Enough for the fifth level, the first with a pick.
+    (w.save() as unknown as { mastery: Record<string, number> }).mastery.wren = 170;
     w.game.scene.getScene('Hold').scene.restart({ tab: 'HEROES' });
   });
   await tick(page, 10);
+  // The pick may be on a later page of the track.
+  for (let i = 0; i < 4 && !(await find(page, 'Hold', 'PICK')); i++) {
+    await press(page, tap, 'Hold', 'MORE');
+    await tick(page, 6);
+  }
   ok('PICK makes a level\'s pick', (await press(page, tap, 'Hold', 'PICK')) && Object.keys((await hold()).picks.wren ?? {}).length > 0);
   ok('VOWS says what opens them', (await press(page, tap, 'Hold', 'VOWS')) && (await words(page, 'Hold', 'Clear wave 100')) !== null);
   ok('DAILY shows the day\'s road', (await press(page, tap, 'Hold', 'DAILY')) && (await words(page, 'Hold', 'The road of')) !== null && (await find(page, 'Hold', 'SET OUT')) !== null);
@@ -263,10 +271,20 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await until(page, 'Camp');
   await tick(page, 10);
   const left = await run(page);
+  if (process.env.SHOTS) {
+    const kept = await page.evaluate(() => JSON.stringify(Object.fromEntries(Object.keys(localStorage).map((k) => [k, localStorage.getItem(k)]))));
+    (await import('node:fs')).writeFileSync(`${process.env.SHOTS}/${label}-kept.json`, kept);
+  }
   await page.reload();
   await page.clock.pauseAt(Date.now() + 1000);
   ok('after a reload the list comes up, not a new run', await until(page, 'Title'));
-  ok('with the run to carry on', (await press(page, tap, 'Title', 'CONTINUE')) && (await until(page, 'Camp')) && (await run(page))?.gold === left?.gold && (await run(page))?.wave === left?.wave);
+  const pressed = await press(page, tap, 'Title', 'CONTINUE');
+  // After a reload the field's pictures are all loaded again, a hundred units' worth: that takes the headless browser some seconds.
+  const camp = pressed && (await until(page, 'Camp', 2000));
+  const now = await run(page);
+  if (process.env.SHOTS) await page.screenshot({ path: `${process.env.SHOTS}/${label}-carry.png` });
+  if (process.env.SHOTS) console.log(`carry on: pressed ${pressed}, camp ${camp}, gold ${now?.gold} was ${left?.gold}, wave ${now?.wave} was ${left?.wave}, phase ${now?.phase} was ${left?.phase}`);
+  ok('with the run to carry on', camp && now?.gold === left?.gold && now?.wave === left?.wave);
 
   // A relic won: one of three is taken, and then the camp is there.
   await arena(page, { hero: 'bram', wave: 8, level: 6, gold: 50, phase: 'relic', relicsDue: 1, relicChoices: ['bellows', 'stormglass', 'oldmap'], offers: [] }, { camp: true });
@@ -290,8 +308,10 @@ async function play(label: string, { context, page }: { context: Context; page: 
 }
 
 const browser = await chromium.launch();
-await play('frame', await open(browser, { viewport: { width: 907, height: 510 }, deviceScaleFactor: 1 }), false);
-await play('phone', await open(browser, { viewport: { width: 844, height: 390 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true }), true);
+// ONLY=frame or ONLY=phone plays one of the two.
+const only = process.env.ONLY ?? '';
+if (only !== 'phone') await play('frame', await open(browser, { viewport: { width: 907, height: 510 }, deviceScaleFactor: 1 }), false);
+if (only !== 'frame') await play('phone', await open(browser, { viewport: { width: 844, height: 390 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true }), true);
 await browser.close();
 if (failures.length > 0) {
   console.error(`smoke: ${failures.length} of ${checks} checks failed:\n  ${failures.join('\n  ')}`);

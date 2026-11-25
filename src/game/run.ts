@@ -112,6 +112,9 @@ export interface RunData {
   found: string[];
   /** True once a found companion's cage has stood on the field in this run: it is once a run. */
   caged: boolean;
+  /** The wave whose cage has been rolled for, and who is in it ('' for none): rolled once a wave, so that a wave's setup can be asked for again and is the same. */
+  cageAt: number;
+  cage: string;
   /** The last weapon bought, by name, or '': Orrin's staff is finished as it. */
   taken: string;
   /** True once Fenn has tossed for a ware in this camp. */
@@ -212,7 +215,7 @@ export function newRun(hero: string, seed: number, band: readonly string[] = [],
   const known = [...new Set(band)].filter((id) => COMPANIONS.some((c) => c.id === id));
   const run: RunData = {
     first: !!terms.first, taken: '', tossed: false, forced: false, hurt: 1, bests: 0, counts: {},
-    slots: Math.max(0, Math.min(BAND.places, terms.slots ?? BAND.places)), friends: terms.friends ? [...terms.friends] : null, seek: [...(terms.seek ?? [])], found: [], caged: false,
+    slots: Math.max(0, Math.min(BAND.places, terms.slots ?? BAND.places)), friends: terms.friends ? [...terms.friends] : null, seek: [...(terms.seek ?? [])], found: [], caged: false, cageAt: 0, cage: '',
     hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [], band: known.map((id) => ({ id, bond: 0 })), fury: 0, rose: -1, saved: false,
     items: [], ups: [], packs: 0, kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
     relics: [], relicsDue: 0, relicChoices: [], road: { omen: 'quiet' }, roads: [], forks: Math.max(1, Math.min(ROAD.most, Math.floor(forks))), vigor: 0, whet: 0, left: 1,
@@ -361,14 +364,19 @@ function seekable(run: RunData): string[] {
  * game (random drop)".
  */
 function foundFor(run: RunData): string | undefined {
-  if (run.caged || run.road.omen === 'stray' || waveOf(run.wave).boss) return undefined;
+  if (run.road.omen === 'stray' || waveOf(run.wave).boss) return undefined;
+  if (run.cageAt === run.wave) return run.cage || undefined;
+  run.cageAt = run.wave;
+  run.cage = '';
+  if (run.caged) return undefined;
   const can = seekable(run);
   if (can.length === 0) return undefined;
-  return roll(run, (r) => {
-    if (!r.chance(FOUND.chance)) return undefined;
+  run.cage = roll(run, (r) => {
+    if (!r.chance(FOUND.chance)) return '';
     run.caged = true;
     return r.pick(can);
   });
+  return run.cage || undefined;
 }
 
 /** The stats the Bone Dice may roll: the ones counted in hundredths, where 15 up and 10 down mean the same for each. */

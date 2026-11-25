@@ -257,3 +257,27 @@ describe('the new companions', () => {
     expect(f.hp).toBeLessThan(99999);
   });
 });
+
+describe('a found companion\'s cage', () => {
+  it('stands on about one wave in ten once one may be met, once a run, and asking for the wave again does not change who is in it', () => {
+    let caged = 0;
+    for (let seed = 1; seed <= 400; seed++) {
+      const run = { ...newRun('wren', seed, ['biscuit'], 2, { seek: ['hive'] }), wave: 8, phase: 'fight' as const };
+      const a = setupOf(run).found;
+      // The wave's own dice are another roll each time it is set up; who is in the cage is not.
+      expect(setupOf(run).found, `seed ${seed}`).toBe(a);
+      if (a) {
+        caged++;
+        expect(a).toBe('hive');
+        // Once a run: the next wave has none.
+        run.wave = 9;
+        expect(setupOf(run).found).toBeUndefined();
+      }
+    }
+    expect(caged / 400).toBeGreaterThan(0.06);
+    expect(caged / 400).toBeLessThan(0.14);
+    // Not before its wave, and never on a boss's.
+    expect(setupOf({ ...newRun('wren', 3, [], 2, { seek: ['boom'] }), wave: 8, phase: 'fight' }).found).toBeUndefined();
+    for (let seed = 1; seed <= 100; seed++) expect(setupOf({ ...newRun('wren', seed, [], 2, { seek: ['hive'] }), wave: 10, phase: 'fight' }).found).toBeUndefined();
+  });
+});

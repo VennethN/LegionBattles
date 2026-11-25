@@ -140,6 +140,8 @@ function mendRun(raw: unknown): RunData | null {
   r.seek = names(r.seek);
   r.found = names(r.found);
   r.caged = r.caged === true;
+  r.cageAt = whole(r.cageAt);
+  r.cage = typeof r.cage === 'string' && COMPANIONS.some((c) => c.id === r.cage) ? r.cage : '';
   r.taken = typeof r.taken === 'string' && WEAPONS.some((w) => w.id === r.taken) ? r.taken : '';
   r.tossed = r.tossed === true;
   r.forced = r.forced === true;
