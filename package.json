@@ -18,7 +18,8 @@
     "art:preview": "tsx scripts/preview.ts",
     "check": "tsc --noEmit && vitest run && vite build",
     "art:sheet": "tsx scripts/sheet.ts",
-    "smoke": "tsx scripts/smoke.ts"
+    "smoke": "tsx scripts/smoke.ts",
+    "art:roster": "tsx scripts/roster.ts"
   },
   "dependencies": {
     "@fontsource/fredoka": "^5.3.0",

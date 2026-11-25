@@ -1,0 +1,50 @@
+// npm run art:roster [unit or set ...] [cols=6] [zoom=1.25] [pose=windup|strike|hit] [out=build/roster.png] [both]
+//
+// Draws units in rows with their names, straight from the art's source: no
+// files have to have been written, so it shows the whole kit and not only
+// what one game uses. It is how a batch of new units is looked at, and how
+// the picture of the whole cast is made. Name units, or a set to draw the
+// units of it. "both" draws the enemy's color under the player's.
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { Resvg } from '@resvg/resvg-js';
+import { composeUnit } from '../src/art/compose';
+import { CANVAS } from '../src/art/kit/draw';
+import { GRASS, OUTLINE } from '../src/art/kit/palette';
+import { ATTACK_POSES, HIT_POSE } from '../src/art/poses';
+import type { Pose } from '../src/art/rig';
+import { UNIT_ART } from '../src/art/units';
+import { UNIT_NOTES } from '../src/art/units/notes';
+
+const args = process.argv.slice(2);
+const option = (name: string, fallback: string): string => args.find((a) => a.startsWith(`${name}=`))?.slice(name.length + 1) ?? fallback;
+const names = args.filter((a) => !a.includes('=') && a !== 'both');
+const both = args.includes('both');
+const cols = Number(option('cols', '6'));
+const zoom = Number(option('zoom', '1.25'));
+const poseName = option('pose', '');
+const out = path.resolve(option('out', 'build/roster.png'));
+
+const wanted = UNIT_ART.filter((u) => names.length === 0 || names.includes(u.id) || names.includes(UNIT_NOTES[u.id]?.set ?? ''));
+if (wanted.length === 0) throw new Error(`roster: nothing is named ${names.join(', ')}`);
+
+const cell = CANVAS + 8;
+const rowH = (both ? CANVAS * 2 : CANVAS) + 26;
+const rows = Math.ceil(wanted.length / cols);
+const width = cols * cell + 16;
+const height = rows * rowH + 12;
+let body = `<rect width="${width}" height="${height}" fill="${GRASS.fill}"/>`;
+let n = 0;
+wanted.forEach((unit, i) => {
+  const x = 8 + (i % cols) * cell;
+  const y = 6 + Math.floor(i / cols) * rowH;
+  const pose: Pose | undefined = poseName === 'hit' ? HIT_POSE : poseName === 'windup' || poseName === 'strike' ? ATTACK_POSES[unit.style][poseName] : undefined;
+  body += `<g transform="translate(${x} ${y})">${composeUnit(unit, 'blue', { pose, idSuffix: `-b${n++}` })}</g>`;
+  if (both) body += `<g transform="translate(${x + CANVAS} ${y + CANVAS}) scale(-1 1)">${composeUnit(unit, 'red', { pose, idSuffix: `-r${n++}` })}</g>`;
+  body += `<text x="${x + CANVAS / 2}" y="${y + rowH - 8}" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="${OUTLINE}">${unit.id}</text>`;
+});
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">${body}</svg>`;
+fs.mkdirSync(path.dirname(out), { recursive: true });
+fs.writeFileSync(out, new Resvg(svg, { fitTo: { mode: 'zoom', value: zoom }, font: { loadSystemFonts: true } }).render().asPng());
+console.log(`roster: ${path.relative(process.cwd(), out)} (${wanted.length} units, ${Math.round(width * zoom)} x ${Math.round(height * zoom)})`);

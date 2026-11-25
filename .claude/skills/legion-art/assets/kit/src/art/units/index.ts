@@ -23,6 +23,11 @@ import { warlord } from './warlord';
 import { STRUCTURES_ART } from './structures';
 import { FAITHFUL_ART } from './faithful';
 import { drummer, herald, ringleader, skald } from './summoners';
+import { CROWNLANDS_ART } from './crownlands';
+import { DEEPS_ART } from './deeps';
+import { ORDERS_ART } from './orders';
+import { SHORES_ART } from './shores';
+import { WILDS_ART } from './wilds';
 
 /** Every unit that has art, in the order the contact sheet shows them: set by set. */
 export const UNIT_ART: readonly UnitArt[] = [
@@ -36,7 +41,22 @@ export const UNIT_ART: readonly UnitArt[] = [
   ...STRUCTURES_ART,
   // The Faithful, whom only the rewards give.
   ...FAITHFUL_ART,
+  // The hundred and fifty drawn after the first games were made: set by set.
+  ...CROWNLANDS_ART,
+  ...WILDS_ART,
+  ...DEEPS_ART,
+  ...SHORES_ART,
+  ...ORDERS_ART,
 ];
+
+// Two units of one name would write over each other's files, and only one of them would be seen.
+{
+  const seen = new Set<string>();
+  for (const u of UNIT_ART) {
+    if (seen.has(u.id)) throw new Error(`art: two units are called "${u.id}"`);
+    seen.add(u.id);
+  }
+}
 
 export function unitArt(id: string): UnitArt {
   const art = UNIT_ART.find((u) => u.id === id);
