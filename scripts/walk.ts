@@ -135,7 +135,25 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await shot('board-new');
     await lodge(page, 'board', RICH);
     await shot('board');
+    // The team: the inn, once its people are in; then one of them pressed, which opens what they do and the loadout.
+    const people = async (): Promise<void> => {
+      for (let i = 0; i < 80 && !(await find(page, 'Lodge', 'BRASK')); i++) {
+        await page.clock.runFor(50);
+        await new Promise((r) => setTimeout(r, 30));
+      }
+      await tick(page, 90);
+    };
     await lodge(page, 'muster', RICH);
+    await people();
+    await shot('inn');
+    await lodge(page, 'muster', { ...RICH, felled: {}, trophies: [], worn: {} });
+    await people();
+    await shot('inn-new');
+    await lodge(page, 'muster', RICH);
+    await people();
+    const jory = await find(page, 'Lodge', 'JORY');
+    if (jory) await page.mouse.click(jory.x, jory.y);
+    await tick(page, 30);
     await shot('muster');
     const at = await find(page, 'Lodge', 'BALLISTA');
     if (at) await page.mouse.click(at.x, at.y);

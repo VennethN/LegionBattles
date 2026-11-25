@@ -148,8 +148,13 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
   check(`${label}: and now the shop is open`, (await press(page, tap, 'Result', 'THE LODGE')) && (await until(page, 'Lodge')) && (await tick(page, 20), !!(await find(page, 'Lodge', 'SHOP'))));
   check(`${label}: the team opens`, (await press(page, tap, 'Lodge', 'TEAM')) && (await active(page, 'Lodge')));
   await tick(page, 20);
-  // Jory was opened by the trophy: take him.
-  check(`${label}: a hunter the trophy opened can be taken`, (await press(page, tap, 'Lodge', 'JORY')) && (await saved<string>(page, 's.muster.hunter')) === 'jory');
+  // Jory was opened by the trophy: take him. The team is an inn, its people brought in by the network: wait for them.
+  for (let i = 0; i < 60 && !(await find(page, 'Lodge', 'JORY')); i++) {
+    await page.clock.runFor(50);
+    await new Promise((r) => setTimeout(r, 30));
+  }
+  check(`${label}: a hunter in the inn can be looked at`, (await press(page, tap, 'Lodge', 'JORY')) && (await tick(page, 30), !!(await find(page, 'Lodge', 'HUNT AS THEM'))));
+  check(`${label}: a hunter the trophy opened can be taken`, (await press(page, tap, 'Lodge', 'HUNT AS THEM')) && (await saved<string>(page, 's.muster.hunter')) === 'jory');
   await tick(page, 20);
   check(`${label}: a building is added within the supply`, (await press(page, tap, 'Lodge', 'BARRICADE')) && (await saved<number>(page, 's.muster.buildings.barricade')) === 2);
   await tick(page, 20);
@@ -160,7 +165,7 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
   check(`${label}: the board goes back`, await press(page, tap, 'Lodge', 'BOSSES'));
   await tick(page, 20);
   // The King was posted by the Gravedigger's fall: his bill is taken from the board.
-  check(`${label}: the King's bill can be picked`, await press(page, tap, 'Lodge', 'WANTED: The Antlered King'));
+  check(`${label}: the King's bill can be picked`, await press(page, tap, 'Lodge', 'ANTLERED KING'));
   await tick(page, 20);
   check(`${label}: HUNT goes to a lair`, (await press(page, tap, 'Lodge', 'HUNT')) && (await until(page, 'Hud')));
   await tick(page, 30);

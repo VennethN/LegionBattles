@@ -54,6 +54,10 @@ export class GrimFigure {
   private lastFill = false;
   /** A figure as big as a boss: its recovery is slower and heavier, the opening it leaves plainer. */
   big = false;
+  /** A way of standing put together from the rig's own keys, held under everything else: at ease, at rest, sat. */
+  rest: Pose | null = null;
+  /** How much its weight shifts at rest, foot to foot: none in a hunt, where it stands ready. */
+  shift = 0;
 
   constructor(
     scene: Phaser.Scene,
@@ -133,6 +137,14 @@ export class GrimFigure {
     p.weaponRot += 1.1 * Math.sin(now * 1.7 + this.phase);
     p.headRot += 0.8 * Math.sin(now * 1.3 + this.phase * 2);
     p.extraRot += 2.5 * Math.sin(now * 1.9 + this.phase);
+    if (this.rest) addPose(p, this.rest, 1);
+    if (this.shift) {
+      // Weight from one foot to the other, slowly, now and then.
+      const k = Math.sin(now * 0.45 + this.phase) * this.shift;
+      p.rootX += 2 * k;
+      p.bodyRot += 2.5 * k;
+      p.headRot -= 3 * k;
+    }
 
     // The walk: one foot out, the feet passing, the other foot out, and round again.
     this.walk += ((this.moving && this.deadAt < 0 ? 1 : 0) - this.walk) * Math.min(1, dt * 9);

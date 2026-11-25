@@ -30,7 +30,9 @@ export type Moment =
   // Those who come at the horn.
   | 'called' | 'warn'
   // Whoever keeps the board.
-  | 'taken' | 'trophy';
+  | 'taken' | 'trophy'
+  // At the inn between hunts, said now and then where each hunter sits or stands.
+  | 'rest';
 
 export interface Line {
   /** Who says it: a hunter, a monster, a reinforcement, or `keeper`. */
@@ -179,6 +181,14 @@ export const LINES: readonly Line[] = [
   ...L('bowman', 'help', ['Up!', 'Get up!', 'Come on.', 'On your feet.']),
 
   // ---- Hobb, who keeps the board at the lodge.
+  // ---- At the inn, between hunts. Said to nobody in particular.
+  ...L('marta', 'rest', ['I keep the door. Old habit.', 'Nobody comes in I have not seen.', 'Sit if you like. I stand.', 'The key still weighs on my belt.', 'Eleven years of gates. Now this.', 'Wake me if the dead knock.']),
+  ...L('jory', 'rest', ['Wind is turning. Good for tracks.', 'This string wants waxing.', 'Somebody is out there. Always is.', 'I could take that hare from here.', 'Never sit with your back to glass.', 'Hobb waters the ale. I checked.']),
+  ...L('agnes', 'rest', ['This wick is nearly gone.', 'Fire is just a lamp that ate too much.', 'Every dark street had a lamp once.', 'Hold still. I am trimming.', 'The oil smells of home.', 'Light first. Then talk.']),
+  ...L('brask', 'rest', ['Good dogs.', 'Down, Mutt. Down.', 'They ate better than me today.', 'Hm.', 'Stay. Stay. Good.', 'Do not feed them. They bite.']),
+  ...L('sellsword', 'rest', ['Paid by the day. Day is young.', 'Another round. On the job.', 'I have seen worse. Paid worse.', 'Point me at it.', 'Coin first. Courage after.', 'Who is buying?']),
+  ...L('bowman', 'rest', ['Mostly I hit things.', 'Arrows are extra.', 'I aim where I am paid.', 'Quiet night. Suspicious.', 'Nice bar. Bad light.', 'Wake me when there is pay.']),
+
   ...L('keeper', 'taken', ['Saint Odran\'s. Bring a spade back.', 'He was a good digger once.', 'Do not fall in anything.'], 'sexton'),
   ...L('keeper', 'taken', ['Harrow Wood. Wear something warm.', 'Do not follow the bell.', 'He was our lord. Was.'], 'king'),
   ...L('keeper', 'taken', ['Sign here. Or make your mark.', 'Pay is on return.', 'Try to come back.']),

@@ -24,6 +24,7 @@ import { Button, label } from '../ui/widgets';
 import { uiIcon } from '../ui/grim';
 import { LairScene } from './LairScene';
 import { Talk } from '../../game/talk';
+import { Tavern } from '../Tavern';
 
 type Leaf = 'board' | 'muster' | 'ledger';
 
@@ -37,16 +38,22 @@ export class LodgeScene extends Phaser.Scene {
   private leaf: Leaf = 'board';
   /** What the line under the muster says: what was last pressed, or why it would not go. */
   private note = '';
+  /** Which hunter the TEAM screen is showing, or nothing for the inn they wait in. */
+  private look: string | null = null;
+  private tavern: Tavern | null = null;
 
   constructor() {
     super('Lodge');
   }
 
-  create(data: { leaf?: Leaf; note?: string } = {}): void {
+  create(data: { leaf?: Leaf; note?: string; look?: string | null } = {}): void {
     setupCamera(this);
     this.cameras.main.setBackgroundColor('#1c140e');
     this.leaf = data.leaf ?? 'board';
     this.note = data.note ?? '';
+    this.look = data.look ?? null;
+    this.tavern = null;
+    this.events.once('shutdown', () => this.tavern?.destroy());
     LairScene.applySound();
     music.play('lodge');
     const s = save();
@@ -87,8 +94,12 @@ export class LodgeScene extends Phaser.Scene {
     else this.ledger(top);
   }
 
-  private go(leaf: Leaf, note = ''): void {
-    this.scene.restart({ leaf, note });
+  private go(leaf: Leaf, note = '', look: string | null = null): void {
+    this.scene.restart({ leaf, note, look });
+  }
+
+  override update(_time: number, delta: number): void {
+    this.tavern?.update(Math.min(0.05, delta / 1000));
   }
 
   /** A card: a slab with a press on it. */
@@ -373,54 +384,81 @@ export class LodgeScene extends Phaser.Scene {
 
   // ------------------------------------------------------------ the muster
 
+  /** The party's slots, in a line: the player, the partners chosen, and a hired hand in each slot left. */
+  private partyLine(party: number): string {
+    const s = save();
+    // The partners are named, hands for hire among them by what they are.
+    const { partners } = partyFor(s, party);
+    const names = [`${byId(HUNTERS, s.muster.hunter).short} (you)`, ...partners.map((id) => byId(HUNTERS, id).short)];
+    return `PARTY ${party}: ${names.join(', ')}`;
+  }
+
+  /**
+   * The TEAM screen's first view: the inn the hunters wait in, each at their own place (src/view/Tavern.ts). A press
+   * on a hunter opens what they do and the hunt's loadout; the notice board by the door goes to the contracts.
+   */
+  private inn(top: number): void {
+    const s = save();
+    const w = view.w;
+    const party = theContract().posting ? posterOf(s, theContract().posting as Posting).party : 1;
+    const foot = view.h - (tall() ? 150 : 72);
+    const rw = tall() ? Math.max(w - 12, 820) : w - 12;
+    this.tavern = new Tavern(this, 6, top - 4, rw, foot - top + 4, s, (id) => {
+      const d = byId(HUNTERS, id);
+      if (!d.hired && !isOpen(s, id)) {
+        sfx.play('deny', 0.6);
+        this.go('muster', opensBy(id) || 'Locked');
+        return;
+      }
+      this.go('muster', '', id);
+    }, () => this.go('board'));
+    // Under the room: who is going, what was last said, and the way out.
+    const by = view.h - 42;
+    const hunter = byId(HUNTERS, s.muster.hunter);
+    const going = party > 1 ? this.partyLine(party) : `HUNTING AS ${hunter.short.toUpperCase()}`;
+    const lx = tall() ? w / 2 : 20;
+    label(this, lx, tall() ? foot + 22 : by - 12, going, { size: 15, face: 'display', color: BONE.fill, align: tall() ? 'center' : 'left' });
+    label(this, lx, tall() ? foot + 50 : by + 12, this.note || 'Press a hunter to see them and choose what to bring.', { size: 15, color: HOLY.fill, align: tall() ? 'center' : 'left', wrap: tall() ? w - 40 : w - 300 });
+    new Button(this, tall() ? w / 2 : w - 130, by, 'HUNT', () => this.leave(), { width: 220, height: 58, size: 26, mat: RUBY });
+  }
+
   private muster(top: number): void {
+    if (!this.look) {
+      this.inn(top);
+      return;
+    }
     const s = save();
     const w = view.w;
     const m = s.muster;
     const used = costOf(m);
     const all = supplyOf(s);
-
-    // Who goes: every hunter in one bar of portraits. The one chosen is raised and lit; one not yet unlocked is its
-    // black shape, "???" and how to unlock it, and nothing else.
-    // Hands for hire are not in the bar: they come by themselves when a contract needs more than the player has.
-    const own = HUNTERS.filter((h) => !h.hired);
-    const hw = Math.min(132, (w - 24) / own.length - 8);
-    const hh = tall() ? 120 : 112;
-    const hx0 = w / 2 - ((own.length - 1) * (hw + 8)) / 2;
+    const hunter = byId(HUNTERS, this.look);
+    const chosen = m.hunter === hunter.id;
     // How many the contract picked takes, the player among them.
     const party = theContract().posting ? posterOf(s, theContract().posting as Posting).party : 1;
+
+    // Who is being looked at: their likeness lit on a card, the way back to the room, and choosing them.
+    const hh = tall() ? 120 : 112;
+    const hw = 120;
     this.add.existing(slabImage(this, 6, top - 6, w - 12, hh + 14, WOOD_DARK, 4, 5));
-    own.forEach((h, i) => {
-      const open = isOpen(s, h.id);
-      const chosen = m.hunter === h.id;
-      const x = hx0 + i * (hw + 8);
-      const y = top + hh / 2 + (chosen ? -3 : 1);
-      if (chosen) this.add.image(x, y + 6, SHEET, 'fx/glow').setDisplaySize(hw * 1.6, hh * 1.4).setTint(0xffb85a).setAlpha(0.45);
-      const card = this.card(x, y, hw, hh - (chosen ? 0 : 6), chosen ? BONE : DARK, () => this.act(setHunter(s, h.id), `${h.name}, ${h.epithet}`));
-      this.figure(card, HUNTER_ART[h.id], hh / 2 - 26, hh - 40, open);
-      if (open) card.add(label(this, 0, hh / 2 - 14, h.short.toUpperCase(), { size: 15, color: chosen ? INK : BONE.fill, stroke: chosen ? null : undefined, face: 'display' }));
-      else {
-        card.add(label(this, 0, -hh / 2 + 18, '???', { size: 17, color: BONE.shade, face: 'display' }));
-        const how = label(this, 0, hh / 2 - 14, opensBy(h.id) || 'Locked', { size: 15, color: BONE.shade, wrap: hw - 8 });
-        how.setScale(Math.min(1, 30 / how.height, (hw - 8) / how.width));
-        card.add(how);
+    this.add.image(w / 2, top + hh / 2 + 6, SHEET, 'fx/glow').setDisplaySize(hw * 1.8, hh * 1.4).setTint(0xffb85a).setAlpha(0.45);
+    const card = this.card(w / 2, top + hh / 2, hw, hh, BONE, null);
+    this.figure(card, HUNTER_ART[hunter.id], hh / 2 - 12, hh - 20, true);
+    const side = Math.min(200, w / 2 - hw / 2 - 30);
+    new Button(this, w / 2 - hw / 2 - 12 - side / 2, top + hh / 2, 'BACK', () => this.go('muster'), { width: Math.min(150, side), height: 50, size: 19, mat: IRON });
+    const right = w / 2 + hw / 2 + 12 + side / 2;
+    if (hunter.hired) label(this, right, top + hh / 2, 'Comes by themselves when a contract needs more hunters than you have.', { size: 15, color: BONE.shade, wrap: side });
+    else if (chosen) label(this, right, top + hh / 2, 'YOU HUNT AS THEM', { size: 17, face: 'display', color: HOLY.fill, wrap: side });
+    else {
+      new Button(this, right, top + hh / 2 - (party > 1 ? 28 : 0), 'HUNT AS THEM', () => this.act(setHunter(s, hunter.id), `${hunter.name}, ${hunter.epithet}`), { width: Math.min(190, side), height: 48, size: 17, mat: GOLD });
+      // On a contract for more than one, they can be taken along instead.
+      if (party > 1) {
+        const going = m.partners.includes(hunter.id);
+        new Button(this, right, top + hh / 2 + 28, going ? 'PARTNER: YES' : '+ TAKE ALONG', () => this.act(togglePartner(s, hunter.id), going ? `${hunter.short} stays.` : `${hunter.short} comes along.`), { width: Math.min(190, side), height: 46, size: 15, mat: going ? GOLD : IRON });
       }
-      if (!chosen && open) card.setAlpha(0.9);
-      // On a contract for more than one, an unlocked hunter can be taken along: a tag under their card says so.
-      if (party > 1 && open && !chosen) {
-        const going = m.partners.includes(h.id);
-        const tag = new Button(this, x, y + hh / 2 + 2, going ? 'PARTNER' : '+ TAKE', () => this.act(togglePartner(s, h.id), going ? `${h.short} stays.` : `${h.short} comes along.`), { width: Math.min(hw - 10, 104), height: 44, size: 15, mat: going ? GOLD : IRON });
-        void tag;
-      }
-    });
-    const hunter = byId(HUNTERS, m.hunter);
-    let y = top + hh + (party > 1 ? 44 : 26);
-    if (party > 1) {
-      // The party's slots: the player, the partners chosen, and a hired hand in each slot left.
-      const { partners, hired } = partyFor(s, party);
-      const names = [`${hunter.short} (you)`, ...partners.map((id) => byId(HUNTERS, id).short), ...Array.from({ length: hired }, () => 'Hired hand')];
-      label(this, w / 2, y - 18, `PARTY ${party}: ${names.join(', ')}`, { size: 15, face: 'display', color: BONE.fill });
     }
+    let y = top + hh + (party > 1 ? 44 : 26);
+    if (party > 1) label(this, w / 2, y - 18, this.partyLine(party), { size: 15, face: 'display', color: BONE.fill });
     label(this, w / 2, y, `${hunter.name.toUpperCase()}, ${hunter.epithet.toUpperCase()}`, { size: 19, face: 'display', color: HOLY.fill });
     y += 24;
     label(this, w / 2, y, hunter.way, { size: 15, color: BONE.shade, wrap: w - 40 });
@@ -491,7 +529,7 @@ export class LodgeScene extends Phaser.Scene {
       this.add.image(sx - 96, sy, SHEET, 'icon/sack').setScale(0.3);
       label(this, sx - 70, sy - 1, `SUPPLY ${used} / ${all}`, { size: 20, align: 'left', color: used > all ? RUBY.fill : BONE.fill });
     }
-    if (s.trophies.length) {
+    if (s.trophies.length && chosen) {
       const worn = s.worn[m.hunter];
       const name = worn ? MONSTERS.find((x) => x.trophy.id === worn)?.trophy.name ?? '' : 'none';
       const tyy = view.tall ? by - 70 : by;
@@ -512,7 +550,7 @@ export class LodgeScene extends Phaser.Scene {
   private act(why: string, said: string): void {
     if (why) sfx.play('deny', 0.6);
     commit();
-    this.go('muster', why || said);
+    this.go('muster', why || said, this.look);
   }
 
   // ------------------------------------------------------------ the ledger
