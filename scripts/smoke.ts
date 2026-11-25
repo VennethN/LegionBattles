@@ -210,7 +210,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   ok('BUY buys', (await press(page, tap, 'Camp', 'BUY')) && ((await run(page))?.weapons.length ?? 0) + ((await run(page))?.items.length ?? 0) > hands);
   ok('REROLL shows other items', (await press(page, tap, 'Camp', 'REROLL')) && (await run(page))?.rerolls === 1);
   r = await run(page);
-  ok('the next wave is on its button', await press(page, tap, 'Camp', `WAVE ${r?.wave}`));
+  ok('the next wave is on its button', await press(page, tap, 'Camp', 'NEXT WAVE'));
   // Out of the camp the roads are laid out, and the one taken is the wave that is fought.
   ok('the roads to it are laid out', (await until(page, 'Road')) && (await run(page))?.phase === 'road' && (await run(page))?.roads.length === 2);
   await tick(page, 10);
