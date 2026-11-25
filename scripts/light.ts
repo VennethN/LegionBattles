@@ -32,16 +32,16 @@ const FIRE = [{ id: 'torch', tier: 1 }, { id: 'brazier', tier: 1 }, { id: 'staff
 
 /** A scene: who, in which wave, carrying what, and how many seconds into it the picture is taken. */
 const SCENES: Record<string, { hero: string; wave: number; weapons: unknown[]; seconds: number }> = {
-  'meadow-day': { hero: 'knight', wave: 1, weapons: [{ id: 'sword', tier: 0 }, { id: 'torch', tier: 0 }], seconds: 8 },
-  'meadow-gold': { hero: 'pyromancer', wave: 4, weapons: FIRE, seconds: 10 },
-  'meadow-dusk': { hero: 'mage', wave: 6, weapons: FIRE, seconds: 10 },
-  'meadow-night': { hero: 'archer', wave: 7, weapons: RICH, seconds: 9 },
-  'desert-noon': { hero: 'mage', wave: 8, weapons: FIRE, seconds: 9 },
-  'desert-evening': { hero: 'knight', wave: 11, weapons: RICH, seconds: 16 },
-  'desert-night': { hero: 'pyromancer', wave: 14, weapons: FIRE, seconds: 10 },
-  'snow-day': { hero: 'frostwitch', wave: 15, weapons: RICH, seconds: 9 },
-  'snow-dusk': { hero: 'cleric', wave: 18, weapons: FIRE, seconds: 12 },
-  'snow-night': { hero: 'paladin', wave: 20, weapons: FIRE, seconds: 10 },
+  'meadow-day': { hero: 'bram', wave: 1, weapons: [{ id: 'sword', tier: 0 }, { id: 'torch', tier: 0 }], seconds: 8 },
+  'meadow-gold': { hero: 'nan', wave: 4, weapons: FIRE, seconds: 10 },
+  'meadow-dusk': { hero: 'orrin', wave: 6, weapons: FIRE, seconds: 10 },
+  'meadow-night': { hero: 'wren', wave: 7, weapons: RICH, seconds: 9 },
+  'desert-noon': { hero: 'orrin', wave: 8, weapons: FIRE, seconds: 9 },
+  'desert-evening': { hero: 'bram', wave: 11, weapons: RICH, seconds: 16 },
+  'desert-night': { hero: 'nan', wave: 14, weapons: FIRE, seconds: 10 },
+  'snow-day': { hero: 'ysolde', wave: 15, weapons: RICH, seconds: 9 },
+  'snow-dusk': { hero: 'aldous', wave: 18, weapons: FIRE, seconds: 12 },
+  'snow-night': { hero: 'maren', wave: 20, weapons: FIRE, seconds: 10 },
 };
 
 const browser = await chromium.launch();
