@@ -104,7 +104,7 @@ export const LESSONS: readonly LessonDef[] = [
       { id: 'move', wants: 'move', n: 150, says: { keys: 'Move: W A S D or the arrow keys', touch: 'Drag anywhere to move' } },
       { id: 'avoid', wants: 'avoid', attack: 'spade', slow: 1.5, hold: true, says: { keys: 'Red ground: he hits there. Move out of the red.', touch: 'Red ground: he hits there. Move out of the red.' } },
       { id: 'dodge', wants: 'dodge', attack: 'sweep', slow: 1.5, hold: true, says: { keys: 'Press SPACE to dodge out of the red', touch: 'Tap DODGE to get out of the red' } },
-      { id: 'strike', wants: 'strike', n: 3, says: { keys: 'Go close to him. You attack by yourself.', touch: 'Go close to him. You attack by yourself.' } },
+      { id: 'strike', wants: 'strike', n: 3, says: { keys: 'Press J or click to attack. Press again to chain. Best right after he swings.', touch: 'Tap ATTACK to hit. Tap again to chain. Best right after he swings.' } },
       // Her block lasts 1.4 seconds: the warning here is a little shorter, so that a press as the red shows turns the blow.
       { id: 'block', wants: 'skill', skill: 0, attack: 'spade', slow: 0.85, says: { keys: 'Press Q when the red shows: Block stops his hit', touch: 'Tap BLOCK when the red shows: it stops his hit' } },
       { id: 'sweep', wants: 'skill', skill: 1, says: { keys: 'Press E next to him: Sweep hits hard', touch: 'Tap SWEEP next to him: it hits hard' } },
@@ -131,6 +131,36 @@ export interface StrikeDef {
   /** A bolt loosed from beyond this far does this much more. */
   far?: { beyond: number; by: number };
 }
+
+/**
+ * One blow of a hunter's chain. A press of attack begins the first; pressed again before the chain runs out, the
+ * next. `wind` is the time from the press to the blow landing, in which nothing can stop it and no dodge can be
+ * made: attacking into a warning has a cost. `recover` is after, and a dodge cuts it short.
+ */
+export interface BlowDef {
+  /** A swing through an arc, a thrust down a line, or a bolt that flies. */
+  kind: 'arc' | 'thrust' | 'bolt';
+  reach: number;
+  dmg: number;
+  wind: number;
+  recover: number;
+  /** Half the width of a swing, in degrees. */
+  half?: number;
+  /** The width of a thrust. */
+  w?: number;
+  /** How fast a bolt flies, and how much more it does from beyond a distance. */
+  speed?: number;
+  far?: { beyond: number; by: number };
+  /** Fire left on the ground where it lands: how wide, how long, and what it does each half second. */
+  fire?: { r: number; life: number; dmg: number };
+  /** The dogs bite with it. */
+  hounds?: boolean;
+  /** A held attack: how long it is aimed before it goes, and how much slower the hunter walks meanwhile. */
+  aim?: number;
+}
+
+/** How long after a blow's recovery a press still chains to the next, and how far the aim turns by itself toward a boss in reach. */
+export const ATTACK = { chain: 0.4, help: 35 };
 
 export type AbilityKind = 'brace' | 'sweep' | 'trap' | 'pool' | 'flare' | 'ward' | 'seton' | 'whistle';
 
@@ -195,6 +225,12 @@ export interface HunterDef {
   abilities: readonly [string, string];
   /** How many hounds come with them. */
   hounds?: number;
+  /** Their chain of blows, one a press, the last the heaviest. */
+  combo: readonly BlowDef[];
+  /** What holding attack does, where it is not the chain again: a heavy shot that is aimed first. */
+  heavy?: BlowDef;
+  /** A hand for hire: never a player's own hunter, and they take a share of the reward. */
+  hired?: boolean;
   /** What opens them: nothing, or a monster's trophy. */
   opens: string | null;
 }
@@ -205,30 +241,80 @@ export const HUNTERS: readonly HunterDef[] = [
     way: 'Close range. Slow, heavy hits. 125 Health, takes 22% less damage.',
     hp: 125, speed: 158, armor: 0.22, strike: { kind: 'arc', reach: 98, every: 0.95, dmg: 16, half: 56 },
     dodge: { dist: 118, dur: 0.3, wait: 1.9 }, abilities: ['brace', 'reap'], opens: null,
+    // A wide slow cleave, then a thrust that reaches further and leaves her open longer.
+    combo: [
+      { kind: 'arc', reach: 104, half: 66, dmg: 10, wind: 0.24, recover: 0.3 },
+      { kind: 'thrust', reach: 142, w: 44, dmg: 14, wind: 0.18, recover: 0.58 },
+    ],
   },
   {
     id: 'jory', name: 'Jory Pell', short: 'Jory', epithet: 'the Poacher', who: 'He has never met the thing he could not catch, given a week.',
     way: 'Long range. Fast on his feet. 35% more damage from far away. 84 Health.',
     hp: 84, speed: 186, armor: 0, strike: { kind: 'bolt', reach: 430, every: 1.05, dmg: 11, speed: 900, far: { beyond: 230, by: 0.35 } },
     dodge: { dist: 165, dur: 0.28, wait: 1.3 }, abilities: ['jawtrap', 'tarflask'], opens: 'spade',
+    // A shot, then a shot and the long reload. Held, the crossbow is cranked for a heavy bolt.
+    combo: [
+      { kind: 'bolt', reach: 430, dmg: 7, wind: 0.12, recover: 0.38, speed: 900, far: { beyond: 230, by: 0.35 } },
+      { kind: 'bolt', reach: 430, dmg: 9, wind: 0.12, recover: 0.8, speed: 900, far: { beyond: 230, by: 0.35 } },
+    ],
+    heavy: { kind: 'bolt', reach: 480, dmg: 19, wind: 0.05, recover: 0.45, speed: 1100, far: { beyond: 230, by: 0.35 }, aim: 0.9 },
   },
   {
     id: 'agnes', name: 'Agnes Thorn', short: 'Agnes', epithet: 'the Lamplighter', who: 'She lit the lamps of a town that is dark now. She kept the pole.',
     way: 'Mid range. Fire and light. 112 Health.',
     hp: 112, speed: 170, armor: 0, strike: { kind: 'arc', reach: 152, every: 1.0, dmg: 15, half: 38 },
     dodge: { dist: 140, dur: 0.3, wait: 1.5 }, abilities: ['flare', 'lamp'], opens: 'antler',
+    // A quick jab with the pole, then a swing of its burning end that leaves fire on the ground.
+    combo: [
+      { kind: 'thrust', reach: 168, w: 30, dmg: 5, wind: 0.14, recover: 0.26 },
+      { kind: 'arc', reach: 150, half: 50, dmg: 9, wind: 0.26, recover: 0.5, fire: { r: 56, life: 2.5, dmg: 4 } },
+    ],
   },
   {
     id: 'brask', name: 'Old Brask', short: 'Brask', epithet: 'the Dog Handler', who: 'He talks to the dogs. He does not talk to anyone else.',
     way: 'A spear and two dogs that fight beside him. 104 Health.',
     hp: 104, speed: 166, armor: 0, strike: { kind: 'arc', reach: 118, every: 1.0, dmg: 13, half: 24 },
     dodge: { dist: 140, dur: 0.3, wait: 1.5 }, abilities: ['seton', 'heel'], hounds: 2, opens: 'antler',
+    // Spear thrusts, and on the third the dogs go in with him.
+    combo: [
+      { kind: 'thrust', reach: 128, w: 32, dmg: 6, wind: 0.14, recover: 0.24 },
+      { kind: 'thrust', reach: 128, w: 32, dmg: 6, wind: 0.14, recover: 0.24 },
+      { kind: 'thrust', reach: 140, w: 36, dmg: 10, wind: 0.22, recover: 0.55, hounds: true },
+    ],
+  },
+  // Hands for hire: what fills a place in a party when the player has not unlocked enough hunters. Plainer and weaker
+  // than a hunter, and they take a share of the reward.
+  {
+    id: 'sellsword', name: 'A Sellsword', short: 'Sellsword', epithet: 'for hire', who: 'Paid by the day. Paid in advance.',
+    way: 'Close range. A plain fighter for hire. 96 Health.',
+    hp: 96, speed: 160, armor: 0.1, strike: { kind: 'arc', reach: 100, every: 1, dmg: 11, half: 50 },
+    dodge: { dist: 120, dur: 0.3, wait: 2.1 }, abilities: ['brace', 'reap'], opens: null, hired: true,
+    combo: [
+      { kind: 'arc', reach: 100, half: 56, dmg: 9, wind: 0.3, recover: 0.36 },
+      { kind: 'arc', reach: 100, half: 56, dmg: 12, wind: 0.32, recover: 0.6 },
+    ],
+  },
+  {
+    id: 'bowman', name: 'A Hired Bowman', short: 'Bowman', epithet: 'for hire', who: 'He shoots what he is paid to. Mostly.',
+    way: 'Long range. A plain archer for hire. 70 Health.',
+    hp: 70, speed: 176, armor: 0, strike: { kind: 'bolt', reach: 400, every: 1, dmg: 8, speed: 820 },
+    dodge: { dist: 150, dur: 0.28, wait: 1.6 }, abilities: ['jawtrap', 'tarflask'], opens: null, hired: true,
+    combo: [
+      { kind: 'bolt', reach: 400, dmg: 7, wind: 0.12, recover: 0.5, speed: 820 },
+      { kind: 'bolt', reach: 400, dmg: 8, wind: 0.12, recover: 0.85, speed: 820 },
+    ],
   },
 ];
 
+/** A party: how much each hunter more adds to the boss's health and to its stagger, how much sooner it attacks again, how much more the hunt pays for each, and what a hand for hire takes of it. */
+export const PARTY = { most: 4, hp: 1.6, stagger: 1.1, gap: 0.3, pay: 0.3, hiredCut: 0.2 };
+
+/** Helping a fallen hunter up: how near to stand, for how long, with how much of their health they get up, and how fast the help is lost when nobody stands by them. */
+export const REVIVE = { r: 70, time: 2.8, hp: 0.35, grace: 1.5, fade: 0.5 };
+
 // ------------------------------------------------------------ who fights beside the hunter
 
-export type AllyWay = 'hold' | 'shoot' | 'sap' | 'hound';
+export type AllyWay = 'hold' | 'shoot' | 'sap' | 'hound' | 'cower';
 
 /** One of those who fight beside the hunter by themselves: a man of a reinforcement, or a hound. */
 export interface AllyDef {
@@ -281,7 +367,7 @@ export const REINFORCEMENTS: readonly ReinforcementDef[] = [
 
 // ------------------------------------------------------------ buildings
 
-export type BuildingKind = 'ballista' | 'fire' | 'wall' | 'bell';
+export type BuildingKind = 'ballista' | 'fire' | 'wall' | 'bell' | 'cart';
 
 export interface BuildingDef {
   id: string;
@@ -351,6 +437,10 @@ export interface AttackDef {
   charge?: { speed: number; daze: number; stagger: number };
   /** The hunter struck by it cannot move for this long. */
   root?: number;
+  /** Only when this many hunters or more are on the hunt. */
+  party?: number;
+  /** With three hunters or more, what it marks at its target it marks at a second one too. */
+  split?: boolean;
 }
 
 /** A lesser thing that fights for a monster. */
@@ -366,10 +456,17 @@ export interface HelperDef {
   tell: number;
   /** The most of them a monster keeps on the field. */
   most: number;
+  /** True for a thing that stands and does nothing until it is broken: a contract's marker. */
+  still?: boolean;
 }
 
 export const HELPERS: readonly HelperDef[] = [
   { id: 'risen', name: 'the risen', hp: 34, speed: 78, dmg: 8, reach: 40, every: 1.6, tell: 0.5, most: 6 },
+  // The King's herd, for a contract that says he comes with it: quicker than the dead and harder to pin.
+  { id: 'herd', name: 'a herd beast', hp: 40, speed: 118, dmg: 10, reach: 44, every: 1.5, tell: 0.5, most: 6 },
+  // What a contract asks to be broken first. They stand where they are put and do nothing: a thing to go out of the way for.
+  { id: 'gravemarker', name: 'a grave marker', hp: 70, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
+  { id: 'totem', name: 'an antler totem', hp: 70, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
 ];
 
 export interface MonsterDef {
@@ -419,14 +516,16 @@ export const MONSTERS: readonly MonsterDef[] = [
       { id: 'lantern', name: 'Lantern Burst', tell: 1.3, recover: 1.9, dmg: 24, shapes: [{ kind: 'ring', r: 200, at: 'self' }] },
       // The ground opens under the hunter again and again: keep moving.
       { id: 'bury', name: 'Bury', tell: 0.8, recover: 1.6, dmg: 16, shapes: [{ kind: 'marks', n: 6, r: 50, at: 'follow', every: 0.38 }] },
-      { id: 'grasp', name: 'Grasping Hands', tell: 1.0, recover: 1.2, dmg: 9, root: 1.1, mark: 2, far: 170, shapes: [{ kind: 'ring', r: 82, at: 'target' }] },
+      { id: 'grasp', name: 'Grasping Hands', tell: 1.0, recover: 1.2, dmg: 9, root: 1.1, mark: 2, far: 170, split: true, shapes: [{ kind: 'ring', r: 82, at: 'target' }] },
+      // Only against a party of three or more: his spade round in a half circle, across all of them.
+      { id: 'widesweep', name: 'Wide Sweep', tell: 1.05, recover: 1.5, dmg: 18, party: 3, shapes: [{ kind: 'cone', r: 250, half: 105 }] },
       { id: 'cross', name: 'Four Slams', tell: 1.1, recover: 1.7, dmg: 19, mark: 3, shapes: [{ kind: 'line', len: 360, w: 74 }, { kind: 'line', len: 360, w: 74, turn: 90 }, { kind: 'line', len: 360, w: 74, turn: 180 }, { kind: 'line', len: 360, w: 74, turn: 270 }] },
       { id: 'moregraves', name: 'More Graves', tell: 1.5, recover: 1.8, dmg: 10, summon: 'risen', mark: 3, shapes: [{ kind: 'marks', n: 5, r: 44, at: 'field' }] },
     ],
     parts: [
-      ['spade', 'sweep', 'spade', 'graves', 'grasp'],
-      ['furrow', 'sweep', 'graves', 'lantern', 'spade', 'grasp', 'cross'],
-      ['bury', 'furrow', 'lantern', 'graves', 'sweep', 'cross', 'moregraves'],
+      ['spade', 'sweep', 'spade', 'graves', 'grasp', 'widesweep'],
+      ['furrow', 'sweep', 'graves', 'lantern', 'widesweep', 'spade', 'grasp', 'cross'],
+      ['bury', 'furrow', 'lantern', 'graves', 'widesweep', 'sweep', 'cross', 'moregraves'],
     ],
     trophy: { id: 'spade', name: "The Gravedigger's Spade", says: 'Once per hunt, a hit that would kill you leaves you at 1 Health.' },
     pay: [40, 70, 110], after: null,
@@ -441,16 +540,18 @@ export const MONSTERS: readonly MonsterDef[] = [
       { id: 'gore', name: 'Gore', tell: 0.62, recover: 0.9, dmg: 28, near: 190, shapes: [{ kind: 'cone', r: 150, half: 54 }] },
       { id: 'stomp', name: 'Stomp', tell: 0.8, recover: 1.1, dmg: 26, near: 230, shapes: [{ kind: 'ring', r: 175, at: 'self' }] },
       // Roots break the ground round the hunter.
-      { id: 'thorns', name: 'Thorns', tell: 0.95, recover: 1.2, dmg: 23, shapes: [{ kind: 'marks', n: 5, r: 48, at: 'target', spread: 170 }] },
+      { id: 'thorns', name: 'Thorns', tell: 0.95, recover: 1.2, dmg: 23, split: true, shapes: [{ kind: 'marks', n: 5, r: 48, at: 'target', spread: 170 }] },
+      // Only against a party of three or more: a turn of the antlers through everyone near.
+      { id: 'widegore', name: 'Wide Gore', tell: 0.9, recover: 1.2, dmg: 26, party: 3, near: 260, shapes: [{ kind: 'cone', r: 220, half: 100 }] },
       // His herd: the dead of the wood run the field in lanes, and the hunter stands between.
       { id: 'herd', name: 'Stampede', tell: 1.4, recover: 1.6, dmg: 30, shapes: [{ kind: 'lanes', n: 4, w: 96 }] },
       { id: 'bellow', name: 'Roar', tell: 0.9, recover: 1.0, dmg: 22, mark: 2, shapes: [{ kind: 'ring', r: 280, at: 'self', inner: 120 }] },
       { id: 'crossherd', name: 'Wild Stampede', tell: 1.6, recover: 1.8, dmg: 30, mark: 3, shapes: [{ kind: 'lanes', n: 4, w: 96 }, { kind: 'marks', n: 4, r: 48, at: 'target', spread: 200, after: 0.7 }] },
     ],
     parts: [
-      ['charge', 'gore', 'stomp', 'charge', 'bellow'],
-      ['charge', 'thorns', 'charge', 'gore', 'stomp', 'bellow'],
-      ['herd', 'charge', 'thorns', 'charge', 'stomp', 'crossherd', 'charge'],
+      ['charge', 'gore', 'stomp', 'charge', 'widegore', 'bellow'],
+      ['charge', 'thorns', 'charge', 'gore', 'widegore', 'stomp', 'bellow'],
+      ['herd', 'charge', 'thorns', 'widegore', 'charge', 'stomp', 'crossherd', 'charge'],
     ],
     trophy: { id: 'antler', name: "The King's Tine", says: 'Dodge goes 25% further and has 25% less Cooldown.' },
     pay: [50, 85, 130], after: 'sexton',
@@ -464,3 +565,161 @@ export const TO_COME: ReadonlyArray<{ id: string; after: string }> = [
   { id: 'furnace', after: 'king' },
   { id: 'glazier', after: 'king' },
 ];
+
+// ------------------------------------------------------------ posted contracts
+
+/**
+ * A contract on the board is a boss, a difficulty, and a few things that make
+ * this hunt of it unlike the last: how the boss fights (a variant), more of
+ * its minions, and tasks besides the kill that pay more when they are done.
+ * The board draws them by the save's own dice (lodge.ts); the hunt plays
+ * them (hunt.ts, `Setup.terms`).
+ */
+
+/** How many contracts the board holds, how many hunts before the whole board is posted again, and the free new postings between hunts. */
+export const BOARD = { size: 4, turnEvery: 5, freeReposts: 1 };
+
+/** No warning is ever made shorter than this by a variant: a person has to be able to react. One that was shorter already stays as it was. */
+export const TELL_FLOOR = 0.5;
+
+export type VariantKind = 'boss' | 'minions';
+
+export interface VariantDef {
+  id: string;
+  name: string;
+  /** One plain line, as the poster says it. */
+  says: string;
+  kind: VariantKind;
+  /** Only for this boss. */
+  only?: string;
+  /** Not below this difficulty. */
+  mark?: Mark;
+  /** What it adds to the contract's danger. Each point of it adds a quarter to the pay. */
+  danger: number;
+  /** What cannot come with it. */
+  not?: readonly string[];
+  /** Its numbers, each read by its own rule in hunt.ts. */
+  speed?: number;
+  tell?: number;
+  gap?: number;
+  hp?: number;
+  /** How much bigger every shape it marks is. */
+  size?: number;
+  /** The share of harm taken off, until it is broken once. */
+  armor?: number;
+  /** Fights with the attacks of its next phase. */
+  ahead?: boolean;
+  /** Leaves rot where it walks: a ring every so often, which bursts after its warning. */
+  blight?: { every: number; r: number; tell: number; dmg: number };
+  /** An attack it makes more often: one of these after every so many of its round. */
+  more?: { attack: string; every: number };
+  /** An attack it makes twice in a row. */
+  again?: string;
+  /** Minions with it from the start, and again at each new phase. */
+  escort?: number;
+  /** Minions that keep coming: so many, every so many seconds, each where a mark shows first. */
+  waves?: { every: number; n: number };
+}
+
+export const VARIANTS: readonly VariantDef[] = [
+  { id: 'quick', name: 'Quick', says: 'Moves and attacks 25% faster. Shorter warnings.', kind: 'boss', danger: 2, speed: 1.25, tell: 0.82, gap: 0.8, not: ['giant'] },
+  { id: 'armored', name: 'Armored', says: 'Takes 50% less damage until you break its stagger once.', kind: 'boss', danger: 2, armor: 0.5 },
+  { id: 'furious', name: 'Furious', says: 'Uses its next phase\'s attacks from the start.', kind: 'boss', mark: 2, danger: 2, ahead: true },
+  { id: 'giant', name: 'Giant', says: '30% more Health. Slower, with bigger attacks.', kind: 'boss', danger: 1, hp: 1.3, speed: 0.8, size: 1.2, tell: 1.15, not: ['quick'] },
+  { id: 'blighted', name: 'Blighted', says: 'Leaves rot where it walks. The marked ground bursts.', kind: 'boss', danger: 1, blight: { every: 1.7, r: 54, tell: 1.15, dmg: 9 } },
+  { id: 'restless', name: 'Restless Dead', says: 'Opens graves twice as often.', kind: 'boss', only: 'sexton', danger: 1, more: { attack: 'graves', every: 2 } },
+  { id: 'stampede', name: 'Stampede', says: 'Charges twice in a row. A crash stops the second.', kind: 'boss', only: 'king', danger: 2, again: 'charge' },
+  { id: 'escort', name: 'Escort', says: '3 minions with it, and 3 more at each new phase.', kind: 'minions', danger: 1, escort: 3, not: ['waves'] },
+  { id: 'waves', name: 'Endless Minions', says: '2 more minions every 20 seconds.', kind: 'minions', danger: 1, waves: { every: 20, n: 2 }, not: ['escort'] },
+];
+
+/** Who fights for each boss when a contract brings minions, and what a contract asks to be broken first. */
+export const MINION: Record<string, string> = { sexton: 'risen', king: 'herd' };
+export const MARKER: Record<string, string> = { sexton: 'gravemarker', king: 'totem' };
+
+export type TaskKind = 'swift' | 'careful' | 'breaks' | 'nobuild' | 'markers' | 'villagers' | 'cart' | 'together';
+
+export interface TaskDef {
+  id: TaskKind;
+  name: string;
+  /** What the poster says, with `{n}` for the task's number. */
+  says: string;
+  /** Its number at each difficulty, where it has one. */
+  n?: readonly [number, number, number];
+  /** The bonus it pays when done, as a share of the contract's coin. */
+  pay: number;
+  not?: readonly TaskKind[];
+}
+
+export const TASKS: readonly TaskDef[] = [
+  // Seconds, at each difficulty; a Giant's time is longer by its Health.
+  { id: 'swift', name: 'Fast Kill', says: 'Kill it within {n}.', n: [260, 280, 300], pay: 0.5 },
+  { id: 'careful', name: 'Careful', says: 'Get hit no more than {n} times.', n: [14, 12, 10], pay: 0.5 },
+  { id: 'breaks', name: 'Break It', says: 'Break its stagger {n} times.', n: [4, 5, 5], pay: 0.4 },
+  { id: 'nobuild', name: 'No Camp', says: 'Build nothing in its lair.', pay: 0.4 },
+  { id: 'markers', name: 'Markers', says: 'Break all {n} markers before it dies.', n: [4, 4, 5], pay: 0.5 },
+  // How many of the three must live.
+  { id: 'villagers', name: 'Villagers', says: 'Keep {n} of the 3 villagers alive.', n: [2, 2, 2], pay: 0.5, not: ['cart'] },
+  { id: 'cart', name: 'The Cart', says: 'Do not let the cart be destroyed.', pay: 0.5, not: ['villagers'] },
+  // Only on a contract for two hunters or more.
+  { id: 'together', name: 'No One Falls', says: 'No hunter in the party goes down.', pay: 0.5 },
+];
+
+/** A villager on the field: they stand where they are and hope. */
+export const VILLAGER: AllyDef = { way: 'cower', hp: 80, speed: 0, reach: 0, every: 0, dmg: 0 };
+/** The cart a contract asks to be kept whole. It is not built: it is there. */
+export const CART: BuildingDef = { id: 'cart', name: 'The Cart', says: 'Keep it whole.', cost: 0, hp: 420, r: 30, kind: 'cart', reach: 0, opens: null };
+
+/** Where each boss is hunted, as a poster says it. */
+export const WHERE: Record<string, string> = { sexton: "Saint Odran's churchyard", king: 'The winter wood' };
+
+/** Who puts a contract up. */
+export const POSTED_BY: readonly string[] = [
+  'The village of Harrow', 'Father Aldric', 'The widow Maud', 'Tobin the miller', 'The foreman of the Black Pit', 'The reeve of Coldwater',
+  'The innkeeper at the Crossed Keys', 'Sister Hild', 'The charcoal burners', 'The ferryman', "Lord Vesey's steward", 'Old Gammer Pike',
+  'The gravediggers of Saint Odran', 'A farmer who would not give his name', 'The toll keeper', 'The children of Harrow',
+];
+
+/** Why it was put up: a line each, by the boss. */
+export const WHY: Record<string, readonly string[]> = {
+  sexton: [
+    'He dug up my husband. Then he buried him again, better. I still want him gone.',
+    'The bell rings at night. Nobody is in the tower.',
+    'Three of our dead walked into the river. They could not swim before either.',
+    'He took every spade in the parish.',
+    'Something fills in the graves we dig. Then digs them out again.',
+    'Our priest went to talk to him. Now our priest digs too.',
+    'The lantern on the hill is not ours.',
+    'We buried Old Wick on Monday. He was home for supper on Tuesday.',
+    'Nobody has slept in a week. The digging goes on all night.',
+    'He keeps a list. My name is on it.',
+    'The dead keep walking to the mill. The miller wants them off his floor.',
+    'He opened my family tomb and said it was overdue.',
+    'Funerals are cancelled until he is dead. Properly dead.',
+    'He stole the church bell rope. We have nothing to ring.',
+  ],
+  king: [
+    "Took three cows and the miller's boy. The boy came back. The cows did not.",
+    'The deer do not run from the hunters any more. They run with him.',
+    'Our woodcutters will not go past the old wall.',
+    'He wears a lamp in his antlers. It was my brother\'s.',
+    'Every tree on the north road is scratched at head height.',
+    'A bell rings in the wood when he passes. We took that bell down years ago.',
+    "He broke the gate of the lord's park. Then the lord's carriage. Then the lord.",
+    'Snow came in summer. He came with it.',
+    'Our hunters went into the wood. Their dogs came back alone.',
+    'He knocked down the toll house. Twice.',
+    'The crows follow him. So do the wolves.',
+    'We left him bread at the edge of the wood. He left us a crown of bones.',
+    'The charcoal burners say he stood and watched them all night.',
+    'He walked through the village at dawn. Nobody has fixed the walls since.',
+  ],
+};
+
+/** The chance a contract also pays a thing: a step from the shop, free. Only from difficulty 2. */
+export const THING_CHANCE = 0.3;
+
+/** How many hunters a contract takes, drawn from these at each difficulty. A dangerous contract takes one more, up to four. */
+export const PARTY_SIZES: Record<Mark, readonly number[]> = { 1: [1, 1, 1, 2], 2: [1, 2, 2, 3], 3: [2, 3, 3, 4] };
+/** From this danger on, a contract takes one hunter more. */
+export const PARTY_DANGER = 6;

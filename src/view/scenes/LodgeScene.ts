@@ -12,12 +12,13 @@ import { sfx } from '../../audio/sfx';
 import { ABILITIES, BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, byId, type Mark } from '../../game/content';
 import {
   buy, changeBuilding, chargesOf, contracts, costOf, isOpen, lessonFor, newsOf, openingOf, opensBy, rewardOf, setHunter, supplyOf, toggleReinforcement, wares, wear, type Contract,
+  board as postedBoard, posterOf, posting, repost,
 } from '../../game/lodge';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
 import { ALLY_ART, BUILDING_ART, HUNTER_ART, MONSTER_ART, STAND_IN, isGrim, type Art } from '../pictures';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
-import { commit, save, takeContract, theContract } from '../session';
+import { commit, save, takeContract, takePosting, theContract } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 import { LairScene } from './LairScene';
@@ -114,6 +115,10 @@ export class LodgeScene extends Phaser.Scene {
   // ------------------------------------------------------------ the board
 
   private board(top: number): void {
+    if (posting(save())) {
+      this.posters(top);
+      return;
+    }
     const s = save();
     const w = view.w;
     const list = contracts(s);
@@ -179,6 +184,50 @@ export class LodgeScene extends Phaser.Scene {
     new Button(this, team ? w / 2 + 110 : w / 2, by, 'HUNT', () => this.hunt(), { width: 200, height: 58, size: 26, mat: RUBY });
   }
 
+  /**
+   * The board once contracts are posted: each a bill with the boss, what is unlike it this time, what it asks besides,
+   * how many hunters it takes and what it pays. A plain list for now: the screens are to be made to match the style.
+   */
+  private posters(top: number): void {
+    const s = save();
+    const w = view.w;
+    const list = postedBoard(s);
+    const chosen = theContract();
+    const cols = view.tall ? 1 : 2;
+    const cw = Math.min(view.tall ? w - 24 : 430, (w - 24) / cols - 8);
+    const ch = view.tall ? 104 : 132;
+    const x0 = w / 2 - ((cols - 1) * (cw + 8)) / 2;
+    list.forEach((p, i) => {
+      const poster = posterOf(s, p);
+      const x = x0 + (i % cols) * (cw + 8);
+      const y = top + ch / 2 + Math.floor(i / cols) * (ch + 8);
+      const picked = chosen.posting?.id === p.id;
+      const card = this.card(x, y, cw, ch, picked ? GOLD : BONE, () => {
+        takePosting(p.id);
+        this.go('board');
+      });
+      const left = -cw / 2 + 12;
+      card.add(label(this, left, -ch / 2 + 16, `${poster.title}   Difficulty ${poster.mark}   Danger ${poster.danger}`, { size: 15, align: 'left', color: INK, stroke: null }).setOrigin(0, 0.5));
+      const what = [...poster.variants.map((v) => v.name), poster.partyText].join(' | ');
+      card.add(label(this, left, -ch / 2 + 38, what, { size: 15, align: 'left', color: INK, stroke: null, wrap: cw - 24 }).setOrigin(0, 0.5));
+      const tasks = poster.tasks.map((t) => `${t.name}: ${t.says} (+${t.bonus})`).join('  ');
+      if (tasks) card.add(label(this, left, -ch / 2 + 60, tasks, { size: 15, align: 'left', color: INK, stroke: null, wrap: cw - 24 }).setOrigin(0, 0.5));
+      const pay = `Reward: ${poster.coin} coin${poster.thing ? ` + ${poster.thing}` : ''}${poster.hiredCut ? ` (hired hands take ${poster.hiredCut})` : ''}`;
+      card.add(label(this, left, ch / 2 - 16, pay, { size: 15, align: 'left', color: INK, stroke: null, wrap: cw - 24 }).setOrigin(0, 0.5));
+    });
+    const by = view.h - 44;
+    const picked = list.find((p) => p.id === chosen.posting?.id);
+    if (picked) label(this, w / 2, by - 48, `"${picked.why}" ${picked.by}`, { size: 15, color: HOLY.fill, wrap: w - 40 });
+    new Button(this, w / 2 - 220, by, 'NEW POSTINGS', () => {
+      const why = repost(s);
+      commit();
+      this.go('board', why);
+    }, { width: 200, height: 52, size: 17, mat: IRON });
+    new Button(this, w / 2, by, 'TEAM', () => this.go('muster'), { width: 180, height: 56, size: 22, mat: IRON });
+    const hunt = new Button(this, w / 2 + 210, by, 'HUNT', () => this.hunt(), { width: 180, height: 56, size: 26, mat: RUBY });
+    hunt.setEnabled(!!picked);
+  }
+
   private pick(c: Contract, mark: Mark): void {
     takeContract(c.id, Math.max(1, Math.min(mark, c.upTo)) as Mark);
     this.go('board');
@@ -186,7 +235,8 @@ export class LodgeScene extends Phaser.Scene {
 
   private hunt(): void {
     const c = theContract();
-    takeContract(c.monster, c.mark);
+    // A posted contract is kept as it was taken; before the board is posted, the one the board holds out.
+    if (c.posting === undefined) takeContract(c.monster, c.mark);
     this.leave();
   }
 

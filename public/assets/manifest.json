@@ -10,6 +10,249 @@
   "red"
  ],
  "units": {
+  "militia": {
+   "style": "thrust",
+   "muzzle": [
+    184,
+    124
+   ],
+   "top": 48,
+   "full": [
+    46,
+    45,
+    174,
+    146
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      58,
+      171,
+      76,
+      20
+     ]
+    },
+    {
+     "name": "leg-back",
+     "role": "legBack",
+     "parent": "root",
+     "pivot": [
+      85,
+      152
+     ],
+     "box": [
+      71,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "leg-front",
+     "role": "legFront",
+     "parent": "root",
+     "pivot": [
+      104,
+      152
+     ],
+     "box": [
+      90,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      60,
+      97,
+      76,
+      67
+     ]
+    },
+    {
+     "name": "head",
+     "role": "head",
+     "parent": "body",
+     "pivot": [
+      96,
+      106
+     ],
+     "box": [
+      46,
+      45,
+      102,
+      77
+     ]
+    },
+    {
+     "name": "buckler",
+     "role": "offhand",
+     "parent": "body",
+     "pivot": [
+      80,
+      138
+     ],
+     "box": [
+      59,
+      117,
+      42,
+      42
+     ]
+    },
+    {
+     "name": "spear",
+     "role": "weapon",
+     "parent": "body",
+     "pivot": [
+      124,
+      138
+     ],
+     "box": [
+      86,
+      106,
+      134,
+      47
+     ]
+    }
+   ]
+  },
+  "poacher": {
+   "style": "shoot",
+   "muzzle": [
+    183,
+    126
+   ],
+   "top": 46,
+   "full": [
+    26,
+    43,
+    167,
+    148
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      60,
+      171,
+      72,
+      20
+     ]
+    },
+    {
+     "name": "quiver",
+     "role": "extra",
+     "parent": "body",
+     "pivot": [
+      74,
+      150
+     ],
+     "sway": 0.5,
+     "box": [
+      26,
+      101,
+      61,
+      65
+     ]
+    },
+    {
+     "name": "leg-back",
+     "role": "legBack",
+     "parent": "root",
+     "pivot": [
+      85,
+      152
+     ],
+     "box": [
+      71,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "leg-front",
+     "role": "legFront",
+     "parent": "root",
+     "pivot": [
+      104,
+      152
+     ],
+     "box": [
+      90,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      60,
+      97,
+      87,
+      67
+     ]
+    },
+    {
+     "name": "head",
+     "role": "head",
+     "parent": "body",
+     "pivot": [
+      96,
+      106
+     ],
+     "box": [
+      39,
+      43,
+      116,
+      79
+     ]
+    },
+    {
+     "name": "crossbow",
+     "role": "weapon",
+     "parent": "body",
+     "pivot": [
+      135,
+      131
+     ],
+     "box": [
+      113,
+      98,
+      80,
+      62
+     ]
+    }
+   ]
+  },
   "spiketrap": {
    "style": "slash",
    "muzzle": [
@@ -67,6 +310,126 @@
      139,
      68,
      51
+    ]
+   }
+  },
+  "beekeeper": {
+   "style": "throw",
+   "muzzle": [
+    151,
+    118
+   ],
+   "top": 42,
+   "full": [
+    33,
+    44,
+    135,
+    147
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      58,
+      171,
+      76,
+      20
+     ]
+    },
+    {
+     "name": "leg-back",
+     "role": "legBack",
+     "parent": "root",
+     "pivot": [
+      85,
+      152
+     ],
+     "box": [
+      71,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "leg-front",
+     "role": "legFront",
+     "parent": "root",
+     "pivot": [
+      104,
+      152
+     ],
+     "box": [
+      90,
+      144,
+      38,
+      40
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      55,
+      97,
+      94,
+      82
+     ]
+    },
+    {
+     "name": "head",
+     "role": "head",
+     "parent": "body",
+     "pivot": [
+      96,
+      106
+     ],
+     "box": [
+      33,
+      44,
+      129,
+      78
+     ]
+    },
+    {
+     "name": "hive",
+     "role": "weapon",
+     "parent": "body",
+     "pivot": [
+      141,
+      144
+     ],
+     "box": [
+      119,
+      103,
+      49,
+      57
+     ]
+    }
+   ],
+   "stills": {
+    "a": [
+     33,
+     44,
+     135,
+     147
+    ],
+    "b": [
+     45,
+     34,
+     127,
+     157
     ]
    }
   },
@@ -447,6 +810,111 @@
      ]
     }
    ]
+  },
+  "warwagon": {
+   "style": "ram",
+   "muzzle": [
+    178,
+    126
+   ],
+   "top": 76,
+   "full": [
+    40,
+    76,
+    150,
+    116
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      40,
+      170,
+      112,
+      22
+     ]
+    },
+    {
+     "name": "wheel-back",
+     "role": "legBack",
+     "parent": "root",
+     "pivot": [
+      66,
+      163
+     ],
+     "box": [
+      45,
+      142,
+      42,
+      42
+     ]
+    },
+    {
+     "name": "spears",
+     "role": "weapon",
+     "parent": "body",
+     "pivot": [
+      140,
+      132
+     ],
+     "box": [
+      100,
+      116,
+      90,
+      34
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      40,
+      76,
+      112,
+      84
+     ]
+    },
+    {
+     "name": "wheel-front",
+     "role": "legFront",
+     "parent": "root",
+     "pivot": [
+      126,
+      163
+     ],
+     "box": [
+      105,
+      142,
+      42,
+      42
+     ]
+    }
+   ],
+   "stills": {
+    "a": [
+     40,
+     76,
+     150,
+     116
+    ],
+    "b": [
+     40,
+     65,
+     153,
+     127
+    ]
+   }
   },
   "alarmbell": {
    "style": "cast",

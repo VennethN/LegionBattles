@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="beekeeper-b" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="beekeeper-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="beekeeper-shadow-shadow" d="M 132 181 C 132 185.4 115.9 189 96 189 C 76.1 189 60 185.4 60 181 C 60 176.6 76.1 173 96 173 C 115.9 173 132 176.6 132 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="beekeeper-leg-back-layer" transform="translate(85 146) rotate(26) scale(1 1) translate(-85 -152)">
+<defs>
+<path id="beekeeper-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
+<clipPath id="beekeeper-leg-back-boot-clip"><use href="#beekeeper-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="beekeeper-leg-back-boot">
+<use id="beekeeper-leg-back-boot-fill" href="#beekeeper-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#beekeeper-leg-back-boot-clip)">
+<path id="beekeeper-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="beekeeper-leg-back-boot-line" href="#beekeeper-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="beekeeper-leg-front-layer" transform="translate(104 146) rotate(-24) scale(1 1) translate(-104 -152)">
+<defs>
+<path id="beekeeper-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="beekeeper-leg-front-boot-clip"><use href="#beekeeper-leg-front-boot-shape"/></clipPath>
+<clipPath id="beekeeper-leg-front-boot-lit-clip"><use href="#beekeeper-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="beekeeper-leg-front-boot">
+<use id="beekeeper-leg-front-boot-shade" href="#beekeeper-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#beekeeper-leg-front-boot-clip)">
+<use id="beekeeper-leg-front-boot-fill" href="#beekeeper-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#beekeeper-leg-front-boot-lit-clip)">
+<use id="beekeeper-leg-front-boot-lit" href="#beekeeper-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-leg-front-boot-fill-over" href="#beekeeper-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="beekeeper-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="beekeeper-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="beekeeper-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="beekeeper-leg-front-boot-line" href="#beekeeper-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="beekeeper-body-layer" transform="translate(96 174) rotate(5) scale(0.97 1.05) translate(-96 -180)">
+<defs>
+<path id="beekeeper-body-smock-shape" d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z"/>
+<clipPath id="beekeeper-body-smock-clip"><use href="#beekeeper-body-smock-shape"/></clipPath>
+<clipPath id="beekeeper-body-smock-lit-clip"><use href="#beekeeper-body-smock-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="beekeeper-body-hem-shape" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z"/>
+<path id="beekeeper-body-sleeve-shape" d="M 110.2 125.5 L 131.2 147.5 C 134.3 150.7 139.3 150.8 142.5 147.8 C 145.7 144.7 145.8 139.7 142.8 136.5 L 121.8 114.5 C 118.7 111.3 113.7 111.2 110.5 114.2 C 107.3 117.3 107.2 122.3 110.2 125.5 Z"/>
+<clipPath id="beekeeper-body-sleeve-clip"><use href="#beekeeper-body-sleeve-shape"/></clipPath>
+<clipPath id="beekeeper-body-sleeve-lit-clip"><use href="#beekeeper-body-sleeve-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="beekeeper-body-smock">
+<use id="beekeeper-body-smock-shade" href="#beekeeper-body-smock-shape" fill="#b3a585"/>
+<g clip-path="url(#beekeeper-body-smock-clip)">
+<use id="beekeeper-body-smock-deep" href="#beekeeper-body-smock-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="beekeeper-body-smock-shade-over" href="#beekeeper-body-smock-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="beekeeper-body-smock-fill" href="#beekeeper-body-smock-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#beekeeper-body-smock-lit-clip)">
+<use id="beekeeper-body-smock-lit" href="#beekeeper-body-smock-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-body-smock-fill-over" href="#beekeeper-body-smock-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="beekeeper-body-fold-a" d="M 77 162 Q 83.1 143 82 123 Q 78.8 142.4 77 162 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="beekeeper-body-fold-b" d="M 99 166 Q 101.2 149.3 97 133 Q 97.4 149.5 99 166 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="beekeeper-body-fold-c" d="M 119 163 Q 119.9 144.5 114 127 Q 115.8 145.1 119 163 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="beekeeper-body-fold-lit-a" d="M 84 163 Q 90 143 88 125 Q 86 145 84 163 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="beekeeper-body-fold-lit-b" d="M 105 165 Q 109 149 106 135 Q 104 151 105 165 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="beekeeper-body-hem-cast" d="M 52 159 C 59.3 159 81.3 163 96 163 C 110.7 163 132.7 159 140 159 C 147.3 159 147.3 161.7 140 163 C 132.7 164.3 110.7 167 96 167 C 81.3 167 59.3 164.3 52 163 C 44.7 161.7 44.7 159 52 159 Z" fill="#2a1a10" opacity="0.22"/>
+<g id="beekeeper-body-hem">
+<use id="beekeeper-body-hem-fill" href="#beekeeper-body-hem-shape" fill="#3d6fb6"/>
+<use id="beekeeper-body-hem-line" href="#beekeeper-body-hem-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="beekeeper-body-smock-line" href="#beekeeper-body-smock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="beekeeper-body-sleeve-cast" d="M 111.2 129 L 132.2 151 C 135.3 154.2 140.3 154.3 143.5 151.3 C 146.7 148.2 146.8 143.2 143.8 140 L 122.8 118 C 119.7 114.8 114.7 114.7 111.5 117.7 C 108.3 120.8 108.2 125.8 111.2 129 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="beekeeper-body-sleeve">
+<use id="beekeeper-body-sleeve-shade" href="#beekeeper-body-sleeve-shape" fill="#b3a585"/>
+<g clip-path="url(#beekeeper-body-sleeve-clip)">
+<use id="beekeeper-body-sleeve-fill" href="#beekeeper-body-sleeve-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#beekeeper-body-sleeve-lit-clip)">
+<use id="beekeeper-body-sleeve-lit" href="#beekeeper-body-sleeve-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-body-sleeve-fill-over" href="#beekeeper-body-sleeve-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="beekeeper-body-sleeve-line" href="#beekeeper-body-sleeve-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="beekeeper-head-layer" transform="translate(102.86 95.55) rotate(8) scale(1 1) translate(-96 -106)">
+<defs>
+<path id="beekeeper-head-veil-shape" d="M 67 72 L 127 72 C 127 72 133 87.7 133 94 C 133 100.3 133.2 106.8 127 110 C 120.8 113.2 106 113 96 113 C 86 113 72.8 113.2 67 110 C 61.2 106.8 61 100.3 61 94 C 61 87.7 67 72 67 72 Z"/>
+<clipPath id="beekeeper-head-veil-clip"><use href="#beekeeper-head-veil-shape"/></clipPath>
+<clipPath id="beekeeper-head-veil-lit-clip"><use href="#beekeeper-head-veil-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="beekeeper-head-crown-shape" d="M 78 70 C 78 70 76.8 58.7 80 55 C 83.2 51.3 91.3 48 97 48 C 102.7 48 110.8 51.3 114 55 C 117.2 58.7 116 70 116 70 L 78 70 Z"/>
+<clipPath id="beekeeper-head-crown-clip"><use href="#beekeeper-head-crown-shape"/></clipPath>
+<clipPath id="beekeeper-head-crown-lit-clip"><use href="#beekeeper-head-crown-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="beekeeper-head-band-shape" d="M 70 61 L 124 61 L 124 68 L 70 68 L 70 61 Z"/>
+<path id="beekeeper-head-brim-shape" d="M 44 70 C 52.8 67.5 78.3 62 96 62 C 113.7 62 140.8 67.5 150 70 C 159.2 72.5 160 75.3 151 77 C 142 78.7 114 80 96 80 C 78 80 51.7 78.7 43 77 C 34.3 75.3 35.2 72.5 44 70 Z"/>
+<clipPath id="beekeeper-head-brim-clip"><use href="#beekeeper-head-brim-shape"/></clipPath>
+<clipPath id="beekeeper-head-brim-lit-clip"><use href="#beekeeper-head-brim-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="beekeeper-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="beekeeper-head-veil">
+<use id="beekeeper-head-veil-shade" href="#beekeeper-head-veil-shape" fill="#b3a585"/>
+<g clip-path="url(#beekeeper-head-veil-clip)">
+<use id="beekeeper-head-veil-deep" href="#beekeeper-head-veil-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="beekeeper-head-veil-shade-over" href="#beekeeper-head-veil-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="beekeeper-head-veil-fill" href="#beekeeper-head-veil-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#beekeeper-head-veil-lit-clip)">
+<use id="beekeeper-head-veil-lit" href="#beekeeper-head-veil-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-head-veil-fill-over" href="#beekeeper-head-veil-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="beekeeper-head-net" d="M 108 80 L 134 80 Q 141 80 141 87 L 141 95 Q 141 102 134 102 L 108 102 Q 101 102 101 95 L 101 87 Q 101 80 108 80 Z" fill="#1e2b17"/>
+<path id="beekeeper-head-net-edge" d="M 108 80 L 134 80 Q 141 80 141 87 L 141 95 Q 141 102 134 102 L 108 102 Q 101 102 101 95 L 101 87 Q 101 80 108 80 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="beekeeper-head-fold-a" d="M 76 76 Q 71 91.6 72 108 Q 74.6 92.1 76 76 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="beekeeper-head-fold-b" d="M 90 76 Q 86.9 92.9 89 110 Q 90 93 90 76 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="beekeeper-head-veil-line" href="#beekeeper-head-veil-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beekeeper-head-crown">
+<use id="beekeeper-head-crown-shade" href="#beekeeper-head-crown-shape" fill="#9c7c33"/>
+<g clip-path="url(#beekeeper-head-crown-clip)">
+<use id="beekeeper-head-crown-fill" href="#beekeeper-head-crown-shape" transform="translate(-4 -4)" fill="#c8a24a"/>
+<g clip-path="url(#beekeeper-head-crown-lit-clip)">
+<use id="beekeeper-head-crown-lit" href="#beekeeper-head-crown-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-head-crown-fill-over" href="#beekeeper-head-crown-shape" transform="translate(4.2 4.2)" fill="#c8a24a"/>
+</g>
+<g id="beekeeper-head-band">
+<use id="beekeeper-head-band-fill" href="#beekeeper-head-band-shape" fill="#3d6fb6"/>
+<use id="beekeeper-head-band-line" href="#beekeeper-head-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="beekeeper-head-crown-line" href="#beekeeper-head-crown-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beekeeper-head-brim">
+<use id="beekeeper-head-brim-shade" href="#beekeeper-head-brim-shape" fill="#9c7c33"/>
+<g clip-path="url(#beekeeper-head-brim-clip)">
+<use id="beekeeper-head-brim-fill" href="#beekeeper-head-brim-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#beekeeper-head-brim-lit-clip)">
+<use id="beekeeper-head-brim-lit" href="#beekeeper-head-brim-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-head-brim-fill-over" href="#beekeeper-head-brim-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="beekeeper-head-brim-line" href="#beekeeper-head-brim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="beekeeper-hive-layer" transform="translate(142.78 140.15) rotate(-1) scale(1 1) translate(-141 -144)">
+<defs>
+<path id="beekeeper-hive-hive-shape" d="M 123.5 139.6 C 123.5 139.6 124.2 128.7 126.4 123.9 C 128.7 119.1 132.9 113.6 136.9 111 C 140.8 108.4 146.1 107.1 150 108.1 C 153.8 109.1 157.9 112.7 160.1 116.8 C 162.4 121 163.6 127.8 163.3 133.1 C 163 138.3 158.5 148.4 158.5 148.4 L 123.5 139.6 Z"/>
+<clipPath id="beekeeper-hive-hive-clip"><use href="#beekeeper-hive-hive-shape"/></clipPath>
+<clipPath id="beekeeper-hive-hive-lit-clip"><use href="#beekeeper-hive-hive-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="beekeeper-hive-hand-shape" d="M 148.5 148 C 148.5 152.1 145.1 155.5 141 155.5 C 136.9 155.5 133.5 152.1 133.5 148 C 133.5 143.9 136.9 140.5 141 140.5 C 145.1 140.5 148.5 143.9 148.5 148 Z"/>
+<clipPath id="beekeeper-hive-hand-clip"><use href="#beekeeper-hive-hand-shape"/></clipPath>
+<clipPath id="beekeeper-hive-hand-lit-clip"><use href="#beekeeper-hive-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="beekeeper-hive-hive">
+<use id="beekeeper-hive-hive-shade" href="#beekeeper-hive-hive-shape" fill="#9c7c33"/>
+<g clip-path="url(#beekeeper-hive-hive-clip)">
+<use id="beekeeper-hive-hive-deep" href="#beekeeper-hive-hive-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="beekeeper-hive-hive-shade-over" href="#beekeeper-hive-hive-shape" transform="translate(-3.1 -3.1)" fill="#9c7c33"/>
+<use id="beekeeper-hive-hive-fill" href="#beekeeper-hive-hive-shape" transform="translate(-5 -5)" fill="#c8a24a"/>
+<g clip-path="url(#beekeeper-hive-hive-lit-clip)">
+<use id="beekeeper-hive-hive-lit" href="#beekeeper-hive-hive-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-hive-hive-fill-over" href="#beekeeper-hive-hive-shape" transform="translate(4.6 4.6)" fill="#c8a24a"/>
+</g>
+<path id="beekeeper-hive-coil-a" d="M 122.3 128 L 165 138.6 L 164.4 141.2 L 121.7 130.5 L 122.3 128 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="beekeeper-hive-coil-b" d="M 124.5 119.3 L 167.2 129.9 L 166.6 132.4 L 123.9 121.8 L 124.5 119.3 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="beekeeper-hive-coil-c" d="M 126.7 110.5 L 169.4 121.2 L 168.7 123.7 L 126 113.1 L 126.7 110.5 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="beekeeper-hive-door" d="M 142.2 135 L 144.1 135.5 Q 148.5 136.6 147.4 141 L 147.2 141.9 Q 146.1 146.3 141.7 145.2 L 139.8 144.7 Q 135.4 143.6 136.5 139.3 L 136.8 138.3 Q 137.8 133.9 142.2 135 Z" fill="#1e2b17"/>
+<path id="beekeeper-hive-door-edge" d="M 142.2 135 L 144.1 135.5 Q 148.5 136.6 147.4 141 L 147.2 141.9 Q 146.1 146.3 141.7 145.2 L 139.8 144.7 Q 135.4 143.6 136.5 139.3 L 136.8 138.3 Q 137.8 133.9 142.2 135 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="beekeeper-hive-hive-line" href="#beekeeper-hive-hive-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="beekeeper-hive-hand">
+<use id="beekeeper-hive-hand-shade" href="#beekeeper-hive-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#beekeeper-hive-hand-clip)">
+<use id="beekeeper-hive-hand-fill" href="#beekeeper-hive-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#beekeeper-hive-hand-lit-clip)">
+<use id="beekeeper-hive-hand-lit" href="#beekeeper-hive-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="beekeeper-hive-hand-fill-over" href="#beekeeper-hive-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="beekeeper-hive-hand-line" href="#beekeeper-hive-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

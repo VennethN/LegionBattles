@@ -16,6 +16,8 @@ const KEYS: Record<string, [number, number]> = {
 
 /** What can be asked for with a key or a button, and the key of each. */
 export type Ask = 'dodge' | 'a' | 'b' | 'call0' | 'call1' | 'place0' | 'place1' | 'place2' | 'place3' | 'wake';
+/** The keys that attack while held. */
+const ATTACK_KEYS = new Set(['KeyJ', 'KeyK']);
 const ASKS: Record<string, Ask> = {
   Space: 'dodge', KeyQ: 'a', KeyE: 'b', KeyR: 'call0', KeyF: 'call1', Digit1: 'place0', Digit2: 'place1', Digit3: 'place2', Digit4: 'place3', Enter: 'wake',
 };
@@ -46,7 +48,7 @@ export class Controls {
   /** What has been asked for since the field last took it. */
   private readonly wants = new Set<Ask>();
   private readonly onDown = (e: KeyboardEvent): void => {
-    if (KEYS[e.code]) {
+    if (KEYS[e.code] || ATTACK_KEYS.has(e.code)) {
       this.down.add(e.code);
       e.preventDefault();
     } else if (ASKS[e.code]) {
@@ -101,6 +103,7 @@ export class Controls {
     let x = 0;
     let y = 0;
     for (const code of this.down) {
+      if (!KEYS[code]) continue;
       x += KEYS[code][0];
       y += KEYS[code][1];
     }
@@ -121,6 +124,20 @@ export class Controls {
     }
     return { x: 0, y: 0 };
   }
+
+  /**
+   * True while the player attacks: an attack key held, or a finger or the mouse held down on the field without being
+   * dragged (dragged, it is the stick). A button on the screen may hold it too.
+   */
+  get attacking(): boolean {
+    for (const code of this.down) if (ATTACK_KEYS.has(code)) return true;
+    if (this.attackHeld) return true;
+    if (!this.stick) return false;
+    return Math.hypot(this.stick.x - this.stick.x0, this.stick.y - this.stick.y0) / STICK < 0.18;
+  }
+
+  /** Held by an attack button on the screen. */
+  attackHeld = false;
 
   /** Asks for something: a button on the screen does. */
   ask(what: Ask): void {

@@ -4,6 +4,9 @@ import { ABILITIES, BUILDINGS, CAMP, HELPERS, HUNTERS, LESSONS, MARKS, MONSTERS,
 import { Hunt, STEP, inside, type Ev, type Setup, type Tell } from '../src/game/hunt';
 import { awake, hold, next, of, play, setup } from './lair';
 
+/** Attack held, aimed the way the hunter faces: what a player holding the button does. */
+const ATTACK = { x: 0, y: 0, attack: true };
+
 describe('the tables', () => {
   it('every round names attacks the monster has, and every attack shows before it lands', () => {
     for (const m of MONSTERS) {
@@ -160,7 +163,7 @@ describe('tells', () => {
     play(h, 1.0);
     const hp = h.hunter.hp;
     expect(h.hunter.grace).toBeGreaterThan(0);
-    (h as unknown as { hurtHunter(n: number, by: string): void }).hurtHunter(50, 'spade');
+    (h as unknown as { hurtHunter(who: unknown, n: number, by: string): void }).hurtHunter(h.hunter, 50, 'spade');
     expect(h.hunter.hp).toBe(hp);
   });
 });
@@ -186,14 +189,14 @@ describe('the monster', () => {
     const h = awake();
     h.hunter.x = h.monster.x - 120;
     hold(h, 'walk');
-    play(h, 3);
+    play(h, 3, ATTACK);
     const closed = h.monster.stagger;
     expect(closed).toBeGreaterThan(0);
     const g = awake();
     g.hunter.x = g.monster.x - 120;
     hold(g, 'recover');
     expect(g.open).toBe(true);
-    play(g, 3);
+    play(g, 3, ATTACK);
     expect(g.monster.stagger).toBeGreaterThan(closed * 5);
   });
 
@@ -202,11 +205,13 @@ describe('the monster', () => {
     h.hunter.x = h.monster.x - 120;
     hold(h, 'recover');
     h.monster.stagger = h.monster.staggerMax - 1;
-    const events = play(h, 1.2);
+    const events = play(h, 1.2, ATTACK);
     expect(of(events, 'broken')).toHaveLength(1);
     expect(h.monster.state).toBe('broken');
-    const hits = of(play(h, 2), 'hit').filter((e) => e.who === 'monster');
-    expect(hits.every((e) => e.big && e.amount === byId(HUNTERS, 'marta').strike.dmg * h.monster.def.stagger.more)).toBe(true);
+    const hits = of(play(h, 2, ATTACK), 'hit').filter((e) => e.who === 'monster');
+    const blows = byId(HUNTERS, 'marta').combo.map((b) => b.dmg * h.monster.def.stagger.more);
+    expect(hits.length).toBeGreaterThan(0);
+    expect(hits.every((e) => e.big && blows.includes(e.amount))).toBe(true);
     const max = h.monster.staggerMax;
     h.hunter.x = 60;
     const after = play(h, 4);
@@ -280,15 +285,14 @@ describe('the Sexton', () => {
     h.hunter.x = 200;
     h.hunter.y = 200;
     h.helpers.push({ id: 900, def: byId(HELPERS, 'risen'), x: 230, y: 200, hp: 1000, face: 1, cool: 0, held: 0, moving: false, winding: false });
-    h.hunter.since = -99;
     const events = play(h, 0.3);
     expect(of(events, 'tell').map((e) => e.attack)).toEqual(['risen']);
     expect(h.hunter.hp).toBe(h.hunter.maxHp);
     play(h, 0.4);
     expect(h.hunter.hp).toBeLessThan(h.hunter.maxHp);
     h.helpers[0].hp = 1;
-    h.hunter.since = 99;
-    const fell = play(h, 0.2);
+    h.hunter.grace = 99;
+    const fell = play(h, 0.8, { x: 0, y: 0, attack: true, aim: 0 });
     expect(of(fell, 'fall').some((e) => e.who === 'helper')).toBe(true);
     expect(h.helpers).toHaveLength(0);
   });
@@ -380,26 +384,43 @@ describe('the Antlered King', () => {
 });
 
 describe('the hunter', () => {
-  it('strikes by themselves at what is in reach, and at nothing that is not', () => {
+  it('attacks only when attack is pressed, and a blow lands after its wind-up, on what it reaches', () => {
     const h = awake();
     hold(h, 'recover');
-    h.hunter.x = h.monster.x - 400;
-    expect(of(play(h, 2), 'strike')).toHaveLength(0);
     h.hunter.x = h.monster.x - 110;
-    const events = play(h, 2);
-    expect(of(events, 'strike').length).toBeGreaterThanOrEqual(2);
+    h.hunter.y = h.monster.y;
+    // Not pressed: nothing, however near.
+    expect(of(play(h, 2), 'strike')).toHaveLength(0);
+    expect(h.monster.hp).toBe(h.monster.maxHp);
+    const first = byId(HUNTERS, 'marta').combo[0];
+    h.step({ x: 0, y: 0, attack: true });
+    const began = of(h.drain(), 'blow');
+    expect(began).toHaveLength(1);
+    // The wind-up: it has not landed yet.
+    const before = play(h, first.wind - 0.05);
+    expect(of(before, 'strike')).toHaveLength(0);
+    const after = play(h, 0.1);
+    expect(of(after, 'strike')).toHaveLength(1);
     expect(h.monster.hp).toBeLessThan(h.monster.maxHp);
+    // Out of reach, a blow is made and lands on nothing.
+    const g = awake();
+    hold(g, 'recover');
+    g.hunter.x = g.monster.x - 400;
+    play(g, 2, ATTACK);
+    expect(g.monster.hp).toBe(g.monster.maxHp);
   });
 
   it("Jory's bolts fly, and bite harder from far off", () => {
     const near = awake({ hunter: 'jory' });
     hold(near, 'recover');
     near.hunter.x = near.monster.x - 150;
-    const a = of(play(near, 1.5), 'hit').map((e) => e.amount);
+    const a = of(play(near, 1.5, { x: 0, y: 0, attack: true, aim: 0 }), 'hit').map((e) => e.amount);
     const far = awake({ hunter: 'jory' });
     hold(far, 'recover');
     far.hunter.x = far.monster.x - 380;
-    const b = of(play(far, 1.8), 'hit').map((e) => e.amount);
+    far.hunter.y = far.monster.y;
+    near.hunter.y = near.monster.y;
+    const b = of(play(far, 1.8, (x) => ({ x: 0, y: 0, attack: x.hunter.blow === null, aim: 0 })), 'hit').map((e) => e.amount);
     expect(a.length).toBeGreaterThan(0);
     expect(b[0]).toBeGreaterThan(a[0]);
   });
@@ -633,7 +654,7 @@ describe('buildings', () => {
       hold(h, 'recover');
       h.monster.x = h.hunter.x + 120;
       h.monster.y = h.hunter.y;
-      return of(play(h, 10), 'strike').length;
+      return of(play(h, 10, ATTACK), 'strike').length;
     };
     expect(blows(true)).toBeGreaterThan(blows(false));
   });
@@ -643,16 +664,14 @@ describe('buildings', () => {
     h.monster.x = h.hunter.x + 200;
     h.monster.y = h.hunter.y;
     next(h, 'spade');
-    h.hunter.since = 99;
-    const events = play(h, 0.3);
+    const events = play(h, 0.5, ATTACK);
     expect(of(events, 'bell')).toHaveLength(1);
     expect(h.tells).toHaveLength(0);
     expect(h.monster.state).toBe('dazed');
     expect(h.buildings[0].cool).toBeGreaterThan(10);
     // It cannot be rung again at once.
     next(h, 'spade');
-    h.hunter.since = 99;
-    expect(of(play(h, 0.3), 'bell')).toHaveLength(0);
+    expect(of(play(h, 0.5, ATTACK), 'bell')).toHaveLength(0);
   });
 
   it('what a blow lands on is broken in the end', () => {
@@ -670,12 +689,12 @@ describe('buildings', () => {
 describe('trophies', () => {
   it("the Sexton's spade leaves one health, once", () => {
     const h = awake({ trophy: 'spade' });
-    const call = h as unknown as { hurtHunter(n: number, by: string): void };
-    call.hurtHunter(9999, 'spade');
+    const call = h as unknown as { hurtHunter(who: unknown, n: number, by: string): void };
+    call.hurtHunter(h.hunter, 9999, 'spade');
     expect(h.hunter.hp).toBe(1);
     expect(h.over).toBe(null);
     h.hunter.grace = 0;
-    call.hurtHunter(9999, 'spade');
+    call.hurtHunter(h.hunter, 9999, 'spade');
     expect(h.over).toBe('lost');
   });
 

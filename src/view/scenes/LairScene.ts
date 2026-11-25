@@ -145,7 +145,7 @@ export class LairScene extends Phaser.Scene {
     const groundKey = `ground:${h.monster.def.lair}:${shape}`;
     const groundUrl = 'grim' in lair ? `assets/grim/grounds/${lair.grim}-${shape}.svg` : `assets/arena/${lair.legion}-${shape}.svg`;
     // Everything that can be on this field: the hunter, the monster, and all that either side may bring or call up.
-    const arts: Art[] = [HUNTER_ART[h.hunter.def.id], MONSTER_ART[h.monster.def.id], ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
+    const arts: Art[] = [...h.party.map((p) => HUNTER_ART[p.def.id] ?? HUNTER_ART.marta), MONSTER_ART[h.monster.def.id], ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
     const grim = [...new Set(arts.flatMap((a) => (isGrim(a) ? [a.grim] : [])))].map(wantedUnit);
     const things = 'grim' in lair ? [...new Set(CHURCHYARD.map((c) => c[0]))].map(wantedThing) : [];
     const mon = MONSTER_ART[h.monster.def.id];
@@ -244,7 +244,7 @@ export class LairScene extends Phaser.Scene {
     const hud = this.scene.get('Hud') as HudScene | undefined;
     if (!this.halted) {
       this.acc += dt;
-      const steer: Steer = LairScene.pilot ? LairScene.pilot.steer(this.hunt) : { ...(hud?.controls?.steer ?? { x: 0, y: 0 }) };
+      const steer: Steer = LairScene.pilot ? LairScene.pilot.steer(this.hunt) : { ...(hud?.controls?.steer ?? { x: 0, y: 0 }), attack: hud?.controls?.attacking ?? false };
       // What was asked for is asked once, and the first step of the hunt after that takes it.
       const places = BUILDINGS.filter((b) => b.id in this.hunt.toPlace).map((b) => b.id);
       for (const ask of hud?.controls?.take() ?? []) {
@@ -258,7 +258,7 @@ export class LairScene extends Phaser.Scene {
       let steps = 0;
       while (this.acc >= STEP && steps++ < 6) {
         this.remember();
-        this.hunt.step(steps === 1 ? steer : { x: steer.x, y: steer.y });
+        this.hunt.step(steps === 1 ? steer : { x: steer.x, y: steer.y, attack: steer.attack, aim: steer.aim });
         this.acc -= STEP;
       }
       // A frame that took far too long is not caught up on: the hunt would lurch.
@@ -381,6 +381,10 @@ export class LairScene extends Phaser.Scene {
           }
           break;
         case 'strike':
+          if (e.who !== 0) {
+            this.actors.get(`p${e.who}`)?.fig?.play('', this.clock, 0.07, 0.12);
+            break;
+          }
           this.hunter.play('', this.clock, 0.07, 0.12);
           if (e.kind === 'arc') {
             this.fx.spawn('fx/slash', e.x + Math.cos(e.angle) * e.reach * 0.5, e.y - 30 + Math.sin(e.angle) * e.reach * 0.5, {
@@ -415,7 +419,13 @@ export class LairScene extends Phaser.Scene {
           break;
         }
         case 'hurt':
-          if (e.who === 'hunter') {
+          if (e.who === 'hunter' && e.id !== 0) {
+            // A partner struck: their own flash and number, and nothing of the player's.
+            const s = this.actors.get(`p${e.id}`);
+            if (s) s.flash = 0.12;
+            s?.fig?.hit(this.clock);
+            this.nums.show(e.x, e.y - 60, `-${e.amount}`, RED, 20);
+          } else if (e.who === 'hunter') {
             this.hunter.hit(this.clock);
             // A blow that lands is felt: the lair stops for a breath, longer for a heavier one.
             this.stop(Math.min(0.11, 0.04 + e.amount / 400));
@@ -445,7 +455,7 @@ export class LairScene extends Phaser.Scene {
           break;
         case 'ability':
           sfx.play(e.id === 'heel' ? 'heal' : e.id === 'jawtrap' ? 'place' : 'skill', 0.7);
-          if (ABILITY_MOVES[e.id]) this.hunter.play(ABILITY_MOVES[e.id], this.clock, 0.16, 0.3);
+          if (ABILITY_MOVES[e.id]) (e.who === 0 ? this.hunter : this.actors.get(`p${e.who}`)?.fig)?.play(ABILITY_MOVES[e.id], this.clock, 0.16, 0.3);
           // The ring's picture is 64 units from its middle to its rim.
           if (e.id === 'reap') this.fx.spawn('fx/ring', e.x, e.y, { dur: 0.22, from: (e.r / 64) * 0.5, to: e.r / 64, alpha: 0.7, depth: 4 });
           if (e.id === 'flare') this.fx.spawn('fx/ring', e.x, e.y, { dur: 0.35, from: 0.4, to: e.r / 64, tint: GOLD, alpha: 0.8, depth: 4 });
@@ -713,6 +723,16 @@ export class LairScene extends Phaser.Scene {
       for (const part of mf.root.list) (part as Phaser.GameObjects.Image).setTint(tint).setTintMode(Phaser.TintModes.FILL);
     }
 
+    // The player's partners, each by their own figure; one who is down lies still until helped up.
+    for (const p of w.party) {
+      if (p.index === 0) continue;
+      const [x, y] = this.at(`p${p.index}`, p.x, p.y);
+      const s = this.show(`p${p.index}`, HUNTER_ART[p.def.id] ?? HUNTER_ART.marta, x, y, p.face, p.moving);
+      if (s.fig) {
+        s.fig.hold(p.down ? 'fall' : null);
+        s.fig.alpha = p.down ? 0.7 : 1;
+      } else if (s.img) s.img.setRotation(p.down ? p.face * 1.3 : 0).setAlpha(p.down ? 0.7 : 1);
+    }
     // Those the monster calls up.
     for (const f of w.helpers) {
       const [x, y] = this.at(`h${f.id}`, f.x, f.y);

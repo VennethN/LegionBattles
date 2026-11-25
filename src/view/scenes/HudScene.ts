@@ -44,6 +44,7 @@ interface Pad {
 const SHORT: Record<string, string> = { seton: 'DOGS', heel: 'BACK', pikemen: 'SPEARS', crossbowmen: 'BOWS', sappers: 'BOMBS' };
 
 export class HudScene extends Phaser.Scene {
+  private taskText: Phaser.GameObjects.Text | null = null;
   controls!: Controls;
   private bars!: Phaser.GameObjects.Graphics;
   private hpText!: Phaser.GameObjects.Text;
@@ -135,6 +136,8 @@ export class HudScene extends Phaser.Scene {
     this.underText = label(this, w / 2, view.h * 0.3 + 40, '', { size: 18, color: HOLY.fill, wrap: Math.min(520, w - 40) }).setDepth(20).setAlpha(0);
     this.campText = label(this, w / 2, view.tall ? 150 : 96, '', { size: 16, wrap: Math.min(560, w - 40) }).setDepth(12);
 
+    // The contract's tasks and the party, one line each under the hunter's bar: plain for now.
+    this.taskText = label(this, 14, view.tall ? 150 : 74, '', { size: 15, align: 'left', color: HOLY.fill }).setOrigin(0, 0).setDepth(12);
     this.buildFight(hunt);
     this.buildCamp(hunt);
 
@@ -476,6 +479,11 @@ export class HudScene extends Phaser.Scene {
     const hunt = theHunt();
     if (!hunt || !this.bars) return;
     this.clock += Math.min(0.1, delta / 1000);
+    const lines = [
+      ...hunt.tasks.map((t) => `${t.done ? 'DONE' : t.failed ? 'FAILED' : 'TASK'}: ${t.says}`),
+      ...hunt.party.filter((p) => p.index > 0).map((p) => `${p.def.short}: ${p.down ? 'DOWN, stand by them to help' : `${Math.ceil(p.hp)} / ${p.maxHp}`}`),
+    ].join('\n');
+    if (this.taskText && this.taskText.text !== lines) this.taskText.setText(lines);
     const h = hunt.hunter;
     const m = hunt.monster;
     const camp = hunt.phase === 'camp';
