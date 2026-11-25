@@ -11,7 +11,7 @@
 // where and when.
 
 import {
-  ABILITIES, ATTACK, BUILDINGS, CAMP, CART, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
+  ABILITIES, ATTACK, BUILDINGS, CAMP, CART, CART_ROAD, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
   TELL_FLOOR, VARIANTS, VILLAGER, byId,
   type AbilityDef, type AllyDef, type AttackDef, type BlowDef, type BuildingDef, type HelperDef, type HunterDef, type LessonDef, type LessonStep, type Mark, type MonsterDef, type ReinforcementDef,
   type ShapeDef, type TaskKind, type VariantDef,
@@ -99,6 +99,9 @@ export interface Hunter {
   down: boolean;
   /** Seconds of help given them while down. */
   help: number;
+  /** When they went down, in seconds of the hunt; and whether that down has been counted in full for Stay Standing. */
+  downAt: number;
+  downFull: boolean;
   /** An ability asked for in the middle of a roll, used as the roll ends. */
   wanted: 0 | 1 | null;
   /** The blow being made: which of the chain, seconds since it began, which way, and whether it has landed. */
@@ -396,6 +399,10 @@ export class Hunt {
   /** The contract's variants, by name, and its tasks as they stand. */
   readonly variants: ReadonlySet<string>;
   readonly tasks: TaskState[] = [];
+  /** The cart's road and the next point on it, where a contract has a cart. */
+  cartRoad: { points: Array<[number, number]>; next: number } | null = null;
+  /** Downs counted for Stay Standing: a half for each, and the other half for one not helped up in time. */
+  private fallen = 0;
   /** Which of the party the boss is after, by place. */
   targetWho = 0;
   tells: Tell[] = [];
@@ -490,7 +497,7 @@ export class Hunt {
     const [mx, my] = this.tall ? [this.w / 2, this.h * 0.28] : [this.w * 0.72, this.h / 2];
     const make = (def: HunterDef, index: number, x: number, y: number): Hunter => ({
       def, index, ai: index > 0, abilities: [byId(ABILITIES, def.abilities[0]), byId(ABILITIES, def.abilities[1])], trophy: index === 0 ? (setup.trophy ?? null) : null,
-      down: false, help: 0, wanted: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
+      down: false, help: 0, downAt: 0, downFull: false, wanted: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
       x, y, face: mx >= x ? 1 : -1, aim: Math.atan2(my - y, mx - x), hp: def.hp, maxHp: def.hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
       grace: 0, root: 0, waits: [0, 0], bracing: 0, spared: false,
     });
@@ -621,6 +628,10 @@ export class Hunt {
         // Behind the hunter's start, where the fight is not at first.
         const [x, y] = this.tall ? [this.w / 2 + 150, Math.min(this.h - e, hy + 60)] : [Math.max(e, hx - 90), hy - 170];
         this.buildings.push({ id: this.nextId++, def: CART, x, y, hp: CART.hp, maxHp: CART.hp, cool: 0 });
+        // Its road: along the hunter's side of the field, away from where the boss starts, and back.
+        const far = this.tall ? [this.w - e - 30, y] : [x, this.h - e - 30];
+        const end = this.tall ? [e + 30, y] : [x + (this.w - x) * 0.55, this.h - e - 30];
+        this.cartRoad = { points: [[x, y], [far[0], far[1]], [end[0], end[1]]], next: 1 };
       } else if (def.id === 'markers') {
         const hd = byId(HELPERS, MARKER[md.id] ?? 'gravemarker');
         for (let i = 0; i < n; i++) {
@@ -689,7 +700,14 @@ export class Hunt {
           if (t.now === 0) this.fail('cart');
           break;
         case 'together':
-          t.now = this.tally.downs;
+          // A down helped up within the window counts half; one left longer counts whole.
+          for (const p of this.party) {
+            if (p.down && !p.downFull && this.time - p.downAt > REVIVE.window) {
+              p.downFull = true;
+              this.fallen += 0.5;
+            }
+          }
+          t.now = this.fallen;
           if (t.now > t.n) this.fail('together');
           break;
         case 'nobuild':
@@ -839,6 +857,7 @@ export class Hunt {
     this.stepShots(dt);
     this.stepGround(dt);
     this.stepContract(dt);
+    this.rollCart(dt);
     if (!this.over) this.checkTasks();
   }
 
@@ -910,6 +929,7 @@ export class Hunt {
       if (d.help < REVIVE.time) continue;
       d.down = false;
       d.help = 0;
+      d.downFull = true;
       d.hp = Math.round(d.maxHp * REVIVE.hp);
       d.grace = REVIVE.grace;
       this.events.push({ t: 'helped', who: d.index, by: by.index });
@@ -1304,6 +1324,10 @@ export class Hunt {
     h.bracing = 0;
     h.aiming = 0;
     this.tally.downs++;
+    // Stay Standing: half a down now, and the other half if nobody helps them up in time.
+    h.downAt = this.time;
+    h.downFull = false;
+    this.fallen += 0.5;
     this.events.push({ t: 'down', who: h.index, x: h.x, y: h.y });
     // The boss turns to whoever is still standing.
     if (this.targetWho === h.index) this.pickTarget();
@@ -2003,11 +2027,57 @@ export class Hunt {
           this.hound(a, dt, awake);
           break;
         case 'cower':
-          // A villager stands where they are and keeps their head down.
-          a.face = m.x >= a.x ? 1 : -1;
+          this.cower(a, dt);
           break;
       }
     }
+  }
+
+  /** True if a foe's warning lies on a place: what a villager and the cart keep out of. */
+  private warned(x: number, y: number, pad = 0): boolean {
+    return this.tells.some((t) => t.foe && inside(t, x, y, pad));
+  }
+
+  /**
+   * A villager keeps their head down where they stand, and runs out of a warning they find themselves in: to the
+   * nearest ground nothing is about to land on, at a villager's pace, which is slower than a hunter's.
+   */
+  private cower(a: Ally, dt: number): void {
+    const m = this.monster;
+    a.face = m.x >= a.x ? 1 : -1;
+    if (!this.warned(a.x, a.y, 12)) return;
+    let best: [number, number] | null = null;
+    for (let ring = 1; ring <= 4 && !best; ring++) {
+      for (let k = 0; k < 12; k++) {
+        const ang = (k / 12) * TAU;
+        const x = a.x + Math.cos(ang) * ring * 40;
+        const y = a.y + Math.sin(ang) * ring * 40;
+        const e = FIELD.edge;
+        if (x < e || y < e || x > this.w - e || y > this.h - e || this.warned(x, y, 12)) continue;
+        if (!best || dist(x, y, m.x, m.y) > dist(best[0], best[1], m.x, m.y)) best = [x, y];
+      }
+    }
+    if (best) this.walkTo(a, best[0], best[1], 4, dt);
+    this.keepOut(a, 10, true);
+  }
+
+  /** The cart rolls along its road, and stops while a warning lies on it or just ahead of it. */
+  private rollCart(dt: number): void {
+    const road = this.cartRoad;
+    const cart = this.buildings.find((b) => b.def.id === 'cart');
+    if (!road || !cart || road.next >= road.points.length) return;
+    const [tx, ty] = road.points[road.next];
+    const d = dist(cart.x, cart.y, tx, ty);
+    if (d < 2) {
+      road.next++;
+      return;
+    }
+    const ux = (tx - cart.x) / d;
+    const uy = (ty - cart.y) / d;
+    if (this.warned(cart.x, cart.y, cart.def.r) || this.warned(cart.x + ux * CART_ROAD.ahead, cart.y + uy * CART_ROAD.ahead, cart.def.r)) return;
+    const step = Math.min(d, CART_ROAD.speed * dt);
+    cart.x += ux * step;
+    cart.y += uy * step;
   }
 
   private sap(a: Ally, dt: number): void {

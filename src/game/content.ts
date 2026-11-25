@@ -36,7 +36,7 @@ export const ENRAGE = { at: 420, faster: 0.7 };
 /** What each mark does to a monster: its health, the harm of its blows, how long its tells show, and how long it walks between attacks. */
 export const MARKS: Record<Mark, { hp: number; dmg: number; tell: number; gap: number; name: string }> = {
   1: { hp: 1, dmg: 1, tell: 1, gap: 1, name: 'Difficulty 1' },
-  2: { hp: 1.2, dmg: 1.2, tell: 0.86, gap: 0.82, name: 'Difficulty 2' },
+  2: { hp: 1.16, dmg: 1.13, tell: 0.9, gap: 0.87, name: 'Difficulty 2' },
   3: { hp: 1.4, dmg: 1.45, tell: 0.74, gap: 0.66, name: 'Difficulty 3' },
 };
 
@@ -307,10 +307,10 @@ export const HUNTERS: readonly HunterDef[] = [
 ];
 
 /** A party: how much each hunter more adds to the boss's health, its stagger and the damage of its blows, how much sooner it attacks again, how much more the hunt pays for each, and what a hand for hire takes of it. Set by measure so that 1 to 4 hunters win about the same share of a contract. */
-export const PARTY = { most: 4, hp: 1.6, stagger: 1.2, gap: 0.45, dmg: 0.08, pay: 0.3, hiredCut: 0.2 };
+export const PARTY = { most: 4, hp: 1.2, stagger: 1.0, gap: 0.5, dmg: 0.22, pay: 0.3, hiredCut: 0.2 };
 
-/** Helping a fallen hunter up: how near to stand, for how long, with how much of their health they get up, and how fast the help is lost when nobody stands by them. */
-export const REVIVE = { r: 70, time: 2.8, hp: 0.35, grace: 1.5, fade: 0.5 };
+/** Helping a fallen hunter up: how near to stand, for how long, with how much of their health they get up, how fast the help is lost when nobody stands by them, and the seconds within which a down helped up counts half for Stay Standing. */
+export const REVIVE = { r: 70, time: 2.8, hp: 0.35, grace: 1.5, fade: 0.5, window: 7 };
 
 // ------------------------------------------------------------ who fights beside the hunter
 
@@ -624,7 +624,7 @@ export interface VariantDef {
 }
 
 export const VARIANTS: readonly VariantDef[] = [
-  { id: 'quick', name: 'Quick', says: 'Moves and attacks 25% faster. Shorter warnings.', kind: 'boss', danger: 2, speed: 1.25, tell: 0.82, gap: 0.8, not: ['giant'] },
+  { id: 'quick', name: 'Quick', says: 'Moves and attacks 20% faster. Shorter warnings.', kind: 'boss', danger: 2, speed: 1.2, tell: 0.88, gap: 0.85, not: ['giant'] },
   { id: 'armored', name: 'Armored', says: 'Takes 50% less damage until you break its stagger once.', kind: 'boss', danger: 2, armor: 0.5 },
   { id: 'furious', name: 'Furious', says: 'Uses its next phase\'s attacks from the start.', kind: 'boss', mark: 2, danger: 2, ahead: true },
   // Big and slow: its attacks are bigger, but shown longer, further apart, and it is open longer after each.
@@ -656,8 +656,8 @@ export interface TaskDef {
 
 export const TASKS: readonly TaskDef[] = [
   // Seconds, at each difficulty; longer for a Giant and for each hunter more, as the boss's Health is.
-  { id: 'swift', name: 'Fast Kill', says: 'Kill it within {n}.', n: [300, 330, 360], pay: 0.5 },
-  { id: 'careful', name: 'Careful', says: 'Get hit no more than {n} times.', n: [24, 22, 20], pay: 0.5 },
+  { id: 'swift', name: 'Fast Kill', says: 'Kill it within {n}.', n: [250, 280, 310], pay: 0.5 },
+  { id: 'careful', name: 'Careful', says: 'Get hit no more than {n} times.', n: [20, 18, 16], pay: 0.5 },
   { id: 'breaks', name: 'Break It', says: 'Break its stagger {n} times.', n: [3, 3, 4], pay: 0.4 },
   { id: 'nobuild', name: 'No Camp', says: 'Build nothing in its lair.', pay: 0.4 },
   { id: 'markers', name: 'Markers', says: 'Break all {n} markers before it dies.', n: [6, 6, 7], pay: 0.5 },
@@ -665,13 +665,16 @@ export const TASKS: readonly TaskDef[] = [
   { id: 'villagers', name: 'Villagers', says: 'Keep {n} of the 3 villagers alive.', n: [1, 1, 2], pay: 0.5, not: ['cart'] },
   { id: 'cart', name: 'The Cart', says: 'Do not let the cart be destroyed.', pay: 0.5, not: ['villagers'] },
   // Only on a contract for two hunters or more: how many times the party may go down in all.
-  { id: 'together', name: 'Stay Standing', says: 'The party goes down no more than {n} times.', n: [3, 3, 2], pay: 0.5 },
+  { id: 'together', name: 'Stay Standing', says: 'The party goes down no more than {n} times. Helped up within 7 s counts half.', n: [3, 3, 2], pay: 0.5 },
 ];
 
 /** A villager on the field: they stand where they are and hope. */
-export const VILLAGER: AllyDef = { way: 'cower', hp: 220, speed: 0, reach: 0, every: 0, dmg: 0 };
+/** A villager on the field: they stand and hope, and run out of a warning they find themselves in, slower than a hunter. */
+export const VILLAGER: AllyDef = { way: 'cower', hp: 170, speed: 95, reach: 0, every: 0, dmg: 0 };
 /** The cart a contract asks to be kept whole. It is not built: it is there. */
-export const CART: BuildingDef = { id: 'cart', name: 'The Cart', says: 'Keep it whole.', cost: 0, hp: 1300, r: 30, kind: 'cart', reach: 0, opens: null };
+/** The cart a contract asks to be kept whole. It rolls along its road at `speed`, and stops while a warning lies on its way. */
+export const CART: BuildingDef = { id: 'cart', name: 'The Cart', says: 'Keep it whole.', cost: 0, hp: 900, r: 30, kind: 'cart', reach: 0, opens: null };
+export const CART_ROAD = { speed: 24, ahead: 46 };
 
 /** Where each boss is hunted, as a poster says it. */
 export const WHERE: Record<string, string> = { sexton: "Saint Odran's churchyard", king: 'The winter wood' };

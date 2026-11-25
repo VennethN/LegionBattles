@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BOARD, HUNTERS, MONSTERS, PARTY, TASKS, TELL_FLOOR, VARIANTS, byId } from '../src/game/content';
+import { BOARD, CART_ROAD, HUNTERS, MONSTERS, PARTY, REVIVE, TASKS, TELL_FLOOR, VARIANTS, byId } from '../src/game/content';
 import { Hunt, STEP, type Terms } from '../src/game/hunt';
 import {
   OPENING, board, freshSave, hunterBar, partyFor, payFor, posterOf, repair, repost, rewardFor, setupForPosting, togglePartner, type Posting, type SaveData,
@@ -459,5 +459,82 @@ describe('the board', () => {
     const back = repair(JSON.parse(JSON.stringify(s)));
     expect(back.board).toEqual(s.board);
     expect(back.boardDice).toBe(s.boardDice);
+  });
+});
+
+describe('the people and things a contract asks to be kept', () => {
+  it('the boss never aims at a villager or the cart: its blows go at a hunter, and only a blow aimed at someone else or a helper reaches them', () => {
+    const h = awake({ seed: 5, terms: terms([], [{ id: 'villagers', n: 1 }, { id: 'cart' }]) });
+    h.hunter.hp = h.hunter.maxHp = 1e6;
+    const villagers = new Set(h.allies.filter((a) => a.group === 'villager').map((a) => a.id));
+    const cart = h.buildings.find((b) => b.def.id === 'cart');
+    for (let t = 0; t < 40 && !h.over; t += STEP) {
+      h.step({ x: 0, y: 0 });
+      for (const tell of h.tells) {
+        if (!tell.foe || tell.by !== 0 || tell.kind !== 'ring' || tell.attack === 'blight') continue;
+        // A ring aimed at a target is on a hunter, never on a villager or the cart.
+        for (const a of h.allies) if (villagers.has(a.id)) expect(tell.x === a.x && tell.y === a.y && tell.r < 60).toBe(false);
+        if (cart) expect(tell.x === cart.x && tell.y === cart.y && tell.r < 60).toBe(false);
+      }
+      h.drain();
+    }
+  });
+
+  it('a villager in a warning runs out of it, slower than a hunter', () => {
+    const h = awake({ terms: terms([], [{ id: 'villagers', n: 1 }]) });
+    const v = h.allies.find((a) => a.group === 'villager');
+    if (!v) throw new Error('no villager');
+    hold(h, 'recover', 99);
+    h.tells.push({ id: 999, kind: 'ring', x: v.x, y: v.y, angle: 0, len: 0, w: 0, r: 70, half: 0, inner: 0, left: 3, of: 3, dmg: 1, foe: true, attack: 'test', by: 0 });
+    const x0 = v.x;
+    const y0 = v.y;
+    play(h, 0.5);
+    const moved = Math.hypot(v.x - x0, v.y - y0);
+    expect(moved).toBeGreaterThan(20);
+    expect(moved / 0.5).toBeLessThan(h.hunter.def.speed);
+    play(h, 1.5);
+    expect(Math.hypot(v.x - x0, v.y - y0)).toBeGreaterThan(70);
+  });
+
+  it('the cart rolls along its road, and stops while a warning is on its way', () => {
+    const h = awake({ terms: terms([], [{ id: 'cart' }]) });
+    hold(h, 'recover', 99);
+    const cart = h.buildings.find((b) => b.def.id === 'cart');
+    if (!cart || !h.cartRoad) throw new Error('no cart');
+    const x0 = cart.x;
+    const y0 = cart.y;
+    play(h, 2);
+    const rolled = Math.hypot(cart.x - x0, cart.y - y0);
+    expect(rolled).toBeGreaterThan(CART_ROAD.speed * 1.5);
+    const [tx, ty] = h.cartRoad.points[h.cartRoad.next];
+    const d = Math.hypot(tx - cart.x, ty - cart.y);
+    h.tells.push({ id: 998, kind: 'ring', x: cart.x + ((tx - cart.x) / d) * 60, y: cart.y + ((ty - cart.y) / d) * 60, angle: 0, len: 0, w: 0, r: 30, half: 0, inner: 0, left: 5, of: 5, dmg: 1, foe: true, attack: 'test', by: 0 });
+    const x1 = cart.x;
+    const y1 = cart.y;
+    play(h, 1);
+    expect(Math.hypot(cart.x - x1, cart.y - y1)).toBeLessThan(1);
+  });
+
+  it('Stay Standing counts a down helped up in time as half, and one left too long as whole', () => {
+    const hurt = (h: Hunt, i: number): void => (h as unknown as { hurtHunter(who: unknown, n: number, by: string): void }).hurtHunter(h.party[i], 9999, 'spade');
+    const quick = awake({ partners: ['jory'], terms: terms([], [{ id: 'together', n: 0.5 }]) });
+    hold(quick, 'recover', 99);
+    hurt(quick, 1);
+    quick.hunter.x = quick.party[1].x + 30;
+    quick.hunter.y = quick.party[1].y;
+    play(quick, REVIVE.time + 0.4);
+    expect(quick.party[1].down).toBe(false);
+    play(quick, REVIVE.window + 1);
+    expect(quick.tasks[0].now).toBe(0.5);
+    expect(quick.tasks[0].failed).toBe(false);
+
+    const slow = awake({ partners: ['jory'], terms: terms([], [{ id: 'together', n: 0.5 }]) });
+    hold(slow, 'recover', 99);
+    hurt(slow, 1);
+    slow.hunter.x = 60;
+    slow.party[1].x = slow.w - 60;
+    play(slow, REVIVE.window + 1);
+    expect(slow.tasks[0].now).toBe(1);
+    expect(slow.tasks[0].failed).toBe(true);
   });
 });
