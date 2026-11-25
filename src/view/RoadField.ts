@@ -51,7 +51,8 @@ export class RoadField {
   private shrine: { img: Phaser.GameObjects.Image; ring: Phaser.GameObjects.Image; fill: Phaser.GameObjects.Image } | null = null;
   /** Bram's gates, a row of stakes each, and the lanes of a burning field, a band of color. */
   private readonly walls = new Map<number, Phaser.GameObjects.Image[]>();
-  private readonly lanes = new Map<number, Phaser.GameObjects.Image>();
+  /** A lane of a burning field: its ground, its hard edge, the fill that grows as its warning runs out, and how long that warning was. */
+  private readonly lanes = new Map<number, { base: Phaser.GameObjects.Image; fill: Phaser.GameObjects.Image; edge: Phaser.GameObjects.Graphics; of: number }>();
 
   /** The plain dark of a night march, for when the light of the field is off. */
   private veil: Phaser.GameObjects.Image | null = null;
@@ -233,19 +234,32 @@ export class RoadField {
       for (const img of row) img.destroy();
       this.walls.delete(id);
     }
-    // The lanes of a burning field: red and beating while they are only shown, the color of fire once they burn.
+    // The lanes of a burning field. While they are only warned of, each is a red band with a hard edge, and a fill
+    // that runs along it as the time to fire runs out, as every other warning does: when it is full, it burns. Then
+    // it is the color of fire, flickering, with sparks going up off it.
     for (const p of w.perils) {
-      let img = this.lanes.get(p.id);
-      if (!img) {
-        img = this.scene.add.image(p.x, p.y, SHEET, 'fx/solid').setDepth(3);
-        this.lanes.set(p.id, img);
+      let lane = this.lanes.get(p.id);
+      if (!lane) {
+        const base = this.scene.add.image(p.x, p.y, SHEET, 'fx/solid').setDepth(3);
+        const fill = this.scene.add.image(p.x - p.w / 2, p.y, SHEET, 'fx/solid').setOrigin(0, 0.5).setDepth(3);
+        const edge = this.scene.add.graphics().setDepth(3);
+        lane = { base, fill, edge, of: Math.max(0.1, p.left) };
+        this.lanes.set(p.id, lane);
       }
       const lit = p.left <= 0;
-      img.setPosition(p.x, p.y).setDisplaySize(p.w, p.h).setTint(lit ? hex(FIRE.fill) : RED).setAlpha(lit ? 0.6 : 0.2 + 0.14 * Math.sin(clock * 16) ** 2);
+      const k = lit ? 1 : 1 - p.left / lane.of;
+      lane.base.setPosition(p.x, p.y).setDisplaySize(p.w, p.h).setTint(lit ? hex(FIRE.fill) : RED).setAlpha(lit ? 0.42 + 0.12 * Math.sin(clock * 22 + p.id) : 0.16);
+      lane.fill.setPosition(p.x - p.w / 2, p.y).setDisplaySize(Math.max(1, p.w * k), p.h).setTint(lit ? hex(FIRE.light) : RED).setAlpha(lit ? 0.22 : 0.32);
+      lane.edge.clear().lineStyle(4, lit ? hex(FIRE.shade) : RED, lit ? 0.6 : 0.85).strokeRect(p.x - p.w / 2, p.y - p.h / 2, p.w, p.h);
+      if (lit && Math.random() < 0.35) {
+        this.fx.spawn('fx/sparkle', p.x + (Math.random() - 0.5) * p.w, p.y + (Math.random() - 0.5) * p.h, { dur: 0.5, from: 0.3, to: 0.8, tint: hex(FIRE.light), vy: -70, depth: p.y + p.h / 2 });
+      }
     }
-    for (const [id, img] of this.lanes) {
+    for (const [id, lane] of this.lanes) {
       if (w.perils.some((p) => p.id === id)) continue;
-      img.destroy();
+      lane.base.destroy();
+      lane.fill.destroy();
+      lane.edge.destroy();
       this.lanes.delete(id);
     }
     // The slain who are on their feet for the hero: their own figures, pale and green.

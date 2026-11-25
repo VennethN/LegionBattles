@@ -150,6 +150,19 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     });
     await fight(page, 2);
     await shot('quirk-hroth');
+    // The passives that came with the rules after the first review: Orrin's borrowed staff, Fenn's purse, Nan's banked fire.
+    await arena(page, { hero: 'orrin', wave: 6, level: 6, weapons: [{ id: 'torch', tier: 1 }], taken: 'torch', gold: 20 });
+    await until(page, 'Hud');
+    await fight(page, 4);
+    await shot('quirk-orrin');
+    await arena(page, { hero: 'fenn', wave: 6, level: 6, weapons: [], gold: 240 });
+    await until(page, 'Hud');
+    await fight(page, 4);
+    await shot('quirk-fenn');
+    await arena(page, { hero: 'nan', wave: 8, level: 6, weapons: [], gold: 20 });
+    await until(page, 'Hud');
+    await fight(page, 6);
+    await shot('quirk-nan');
   },
   // Twelve pictures three frames apart of a hero in a fight: laid side by side they show a blow being drawn back, landed and let go.
   swing: async (page, shot) => {
@@ -338,6 +351,22 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await until(page, 'Hud');
     await fight(page, 6);
     await shot('omen-night');
+    // The roads after the first review: lanes of fire warned and then burning, and the duel's one great champion.
+    await arena(page, { ...base, wave: 9, road: { omen: 'burning' } });
+    await until(page, 'Hud');
+    await fight(page, 3);
+    await shot('omen-burning');
+    await fight(page, 3);
+    await shot('omen-burning-b');
+    await arena(page, { ...base, road: { omen: 'duel' } });
+    await until(page, 'Hud');
+    await fight(page, 4);
+    await shot('omen-duel');
+    // The lone champion who comes on wave 3 of every run.
+    await arena(page, { ...base, wave: 3, road: { omen: 'quiet' } });
+    await until(page, 'Hud');
+    await fight(page, 10);
+    await shot('herald');
   },
   // A pack to open.
   pack: async (page, shot) => {

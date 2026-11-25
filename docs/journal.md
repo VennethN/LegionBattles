@@ -2,6 +2,29 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
+## Round 7, the choices made plain, and the Hold's screens begun
+
+The screens agent of round 5 stopped on a usage limit after merging the rules of round 6; this round took over from there.
+
+**The owner changed direction for the Hold** while it was being drawn: "as for permanent upgrades, it'll be hero based", with companions in slots opened by the best wave, up to six, and "can we make it WAY more clearer on the choice you get per wave as to make it clear what that does". A rules agent is building the new Hold in a copy of its own. So the board of 33 upgrades was drawn as a tree here and then taken out again before it was committed: the board is going away. What survives was kept.
+
+**Every choice between waves says what it changes, in numbers, before it is made.** `src/game/preview.ts` makes the choice on a copy of the run and reads the copy's numbers, so a card shows what the rules would do and not a second guess at them (tests in `tests/preview.test.ts`):
+
+- A level's card: the stat big, what it does in a few words, and each number it moves, now and after (Max HP 55 > 58; Attack Speed +10% > +20%; Gatekeeper hits/s 1.10 > 1.20), the better number green.
+- A ware's card: a weapon's damage, hits a second and damage a second as this hero would fight with it; beside it the same weapon held ("Yours: 23.6 DPS, this is better") or that the two would merge; and the set bonus it moves ("Blade 2 > 3: +10% Crit Chance"). An item gives its stats now and after. A relic says its rule.
+- The stats the last choice or buy changed are lit in the camp's list.
+- Fenn's flip says its odds. A road's risk names the wave.
+
+**Fixed from the pictures:** the title's renown no longer covers the hero's name; a weapon card's lines no longer lie on each other at the small frame; a long skill name is no longer cut off at the screen's edge ("THE ONE THAT MATTER"); the result's name stands clear of its ribbon.
+
+**Added:** the result pays out renown line by line and names the three nearest quests with how far along each is; the title has the Daily Run and, once a run is won, the vows; a run's vows show under the coins in the HUD; the Hold speaks plain words, its tabs are Upgrades, Heroes, Companions, Armory, Vows (explained once: "optional challenges for more Renown"), Quests, Codex and Daily Run, and heroes and companions are drawn at a row's left, dark while locked.
+
+**The merged rules on the field:** Bram's gate was a thin bar nobody could see and is a palisade of stakes that rises and sinks; a burning field's lane is a red band with a hard edge and a fill that runs along it before it burns, then fire; Open Grave has a ring of embers and sparks while it lasts, so that it is not Grave Debt's glow; the hand-over of the skill is "Auto-cast is off now. Press SPACE when the skill button glows." Walk states were added for Orrin's, Fenn's and Nan's passives, the burning field, the duel and the champion of wave 3.
+
+**A phone's camp** has taller ware cards with room for their numbers, and the hero (picture, level, own weapon, experience) at the head of the stats.
+
+Not done: hover or a long press for more (everything is on the card), an example for each relic, the Hold's screens for the new model (they wait for the rules), and the smoke ran out of its time limit on its last eight checks once (77 passed, none failed).
+
 ## Round 5, the look, after the first review
 
 A reviewer who had never seen the game went through every picture of it as a demanding player would, with the owner's words beside them ("Essentially make the game beautiful to look at"). The verdict: the drawn figures and the interface were clean and of one hand, and at dusk with magic flying it began to look like the game asked for; but by day, which is the first thirty seconds, the light was "a pale haze over a flat lawn" and looked worse than no light at all, the hero was lost, and "a portal reviewer would pass the menus and doubt the fight".

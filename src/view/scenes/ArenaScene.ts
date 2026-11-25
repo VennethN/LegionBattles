@@ -298,7 +298,7 @@ export class ArenaScene extends Phaser.Scene {
     if (handed) {
       this.time.delayedCall(3200, () => {
         const hud = this.scene.get('Hud') as HudScene | undefined;
-        hud?.plate(hud.byFinger ? 'YOUR SKILL IS YOURS NOW: TAP ITS BUTTON WHEN IT IS FULL.' : 'YOUR SKILL IS YOURS NOW: PRESS SPACE WHEN IT IS FULL.', 5);
+        hud?.plate(hud.byFinger ? 'AUTO-CAST IS OFF NOW. TAP THE SKILL BUTTON WHEN IT GLOWS.' : 'AUTO-CAST IS OFF NOW. PRESS SPACE WHEN THE SKILL BUTTON GLOWS.', 6);
       });
     }
   }

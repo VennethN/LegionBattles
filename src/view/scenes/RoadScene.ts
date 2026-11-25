@@ -154,7 +154,7 @@ export class RoadScene extends Phaser.Scene {
       const o = omenOf(road.omen);
       const look = OMEN_LOOK[road.omen];
       // Who is in the cage is not told: it is found out by letting them out.
-      const lines = [{ head: 'RISK', text: o.says, color: '#952239' }, { head: 'REWARD', text: o.prize[0].toUpperCase() + o.prize.slice(1), color: '#2e5f45' }];
+      const lines = [{ head: 'RISK', text: `Wave ${run.wave}: ${o.says}`, color: '#952239' }, { head: 'REWARD', text: o.prize[0].toUpperCase() + o.prize.slice(1), color: '#2e5f45' }];
       this.card(at.x[i], at.y[i], at.w, at.h, look.mat, look.icon, o.name, lines, 'CHOOSE', () => this.go(i));
     });
     // The companions of the run that a road might add to are counted for the player who has forgotten.

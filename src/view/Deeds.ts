@@ -512,6 +512,12 @@ export class Deeds {
     if (h.unseen > 0 && live && Math.random() < 0.12) light.smokeAt(h.x + rnd(-10, 10), h.y - rnd(10, 40), 1);
     // Their blows heal them: the red of it on them.
     if (h.feast > 0 && h.hp > 0) light.lamp(h.x, h.y - 30, 170, 'fire', 0.35 + 0.1 * Math.sin(clock * 9));
+    // Open Grave: while it lasts the grave stands open under him, a ring of embers on the ground that flares on each
+    // beat, and sparks of his own blood-fire go up off him. It was only a light, and could not be told from Grave Debt.
+    if (h.open > 0 && h.hp > 0 && live) {
+      if (Math.floor(clock * 3) !== Math.floor((clock - dt) * 3)) light.bit(h.x, h.y - 2, 'fire', { dur: 0.45, from: 70, to: 120, alpha: 0.55, flat: 0.62, frame: 'fx/ring' });
+      if (Math.random() < 0.5) light.bit(h.x + rnd(-26, 26), h.y - rnd(4, 70), 'fire', { dur: rnd(0.4, 0.8), vy: rnd(-160, -80), from: rnd(5, 9), to: 1, sway: 5 });
+    }
 
     // A ring of fire running out: a wall of flame all the way round its edge, embers thrown up behind it, and the ground
     // it has crossed left smoking. While it is still close round the hero it is low, so that it does not hide them.
