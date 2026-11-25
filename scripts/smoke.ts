@@ -19,6 +19,8 @@ const failures: string[] = [];
 function check(what: string, ok: boolean): void {
   checks++;
   if (!ok) failures.push(what);
+  // Said as it goes, when asked: a long run can then be seen to be getting on.
+  if (process.env.TELL) console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`);
 }
 
 interface Win {
@@ -119,7 +121,13 @@ async function play(label: string, { context, page }: { context: Context; page: 
 
   await page.clock.install();
   await page.goto(base);
-  await page.evaluate(() => localStorage.clear());
+  // LIGHT=off plays it with the field's light off: a headless browser makes the light in software, many times slower,
+  // and what is held to working here is the buttons and the rules behind them, not the shaders.
+  const light = process.env.LIGHT ?? '';
+  await page.evaluate((mode) => {
+    localStorage.clear();
+    if (mode) localStorage.setItem('lastander-light', mode);
+  }, light);
   await page.reload();
   await page.clock.pauseAt(Date.now() + 1000);
 
@@ -223,9 +231,9 @@ async function play(label: string, { context, page }: { context: Context; page: 
   ok('HEROES goes to the list', (await press(page, tap, 'Result', 'HEROES')) && (await until(page, 'Title')));
   await tick(page, 10);
   // The first run has ended, so Biscuit has been met and comes along; a press on his place sends him home again.
-  ok('a companion goes along after the first run', (await find(page, 'Title', 'WITH BISCUIT')) !== null);
-  ok('and can be left at home', (await press(page, tap, 'Title', 'WITH BISCUIT')) && (await find(page, 'Title', 'WITH NOBODY')) !== null);
-  ok('and taken along again', (await press(page, tap, 'Title', 'WITH NOBODY')) && (await find(page, 'Title', 'WITH BISCUIT')) !== null);
+  ok('a companion goes along after the first run', (await find(page, 'Title', 'Biscuit')) !== null);
+  ok('and can be left at home', (await press(page, tap, 'Title', 'Biscuit')) && (await find(page, 'Title', 'Nobody')) !== null);
+  ok('and taken along again', (await press(page, tap, 'Title', 'Nobody')) && (await find(page, 'Title', 'Biscuit')) !== null);
   ok('Wren can be chosen', await press(page, tap, 'Title', 'Wren'));
   ok('PLAY begins as them', (await press(page, tap, 'Title', 'PLAY')) && (await until(page, 'Hud')) && (await run(page))?.hero === 'wren');
   ok('with the companion on the field', (await page.evaluate(() => ((window as unknown as Win).world() as unknown as { band: Array<{ def: { id: string } }> }).band.map((a) => a.def.id).join())) === 'biscuit');

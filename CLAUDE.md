@@ -26,6 +26,8 @@ npm run light                       # the field under its light, each hour of ea
 
 Read the PNGs with the Read tool. Do this after any change a player will see, at the small frame and on a phone as well: most of what goes wrong is layout. `scripts/walk.ts` sets a state up by standing a run up as described (`window.stage`), so add a state there for a new screen. The smoke finds a button by the words on it, so give a new one words.
 
+With the field's light on, the headless browser makes every frame in software and the smoke takes over half an hour: play it with `LIGHT=off TELL=1 npm run smoke` (about nine minutes; `TELL` says each check as it goes). It holds the buttons and the rules behind them to working, not the shaders: look at those with `npm run light`. Do not change files while a walk or a smoke runs against `npm run dev`: the page reloads under it. Build and serve the build instead (`npm run build`, `npx vite preview --port 5179`, `URL=http://127.0.0.1:5179/`). A picture run cut off by a timeout can leave its browser running and eating a core: `pkill -f chrome-headless-shell` when nothing of yours is running.
+
 The headless browser draws a few frames a second. The scripts take over the page's clock (`page.clock.install()`, then `pauseAt`), and from then on `runFor(1000 / 60)` is one frame of the game. Without the pause real time runs as well, and what is recorded is a timelapse.
 
 ## Rules of the project
@@ -46,7 +48,7 @@ The headless browser draws a few frames a second. The scripts take over the page
 - **Everything on the field is on one sheet,** and a field's pictures always fit. `tests/art.test.ts` fails when they no longer do.
 - **No words smaller than 15 of the layout's units.** That is eleven pixels in the smallest frame a portal shows.
 - **What a player has not opened is dark, with "???".** What opens it is said, and nothing else.
-- **The build stays under 5 MB.**
+- **The build stays under 5 MB,** in bytes: `du -sb dist`. `du -sh` counts a whole disk block for each of three hundred small pictures and says a megabyte more.
 - **Comments say why,** in short plain sentences.
 - **Text for the owner and for the docs is plain, and has no em dashes.**
 - **Say what nobody has looked at.** The README ends with that list: keep it true.
