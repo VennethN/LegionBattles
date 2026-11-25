@@ -50,7 +50,7 @@ export class RoadField {
   private readonly risen = new Map<number, Phaser.GameObjects.Image>();
   private shrine: { img: Phaser.GameObjects.Image; ring: Phaser.GameObjects.Image; fill: Phaser.GameObjects.Image } | null = null;
   /** Bram's gates, a row of stakes each, and the lanes of a burning field, a band of color. */
-  private readonly walls = new Map<number, Phaser.GameObjects.Image[]>();
+  private readonly walls = new Map<number, { beam: Phaser.GameObjects.Image; row: Phaser.GameObjects.Image[] }>();
   /** A lane of a burning field: its ground, its hard edge, the fill that grows as its warning runs out, and how long that warning was. */
   private readonly lanes = new Map<number, { base: Phaser.GameObjects.Image; fill: Phaser.GameObjects.Image; edge: Phaser.GameObjects.Graphics; of: number }>();
 
@@ -211,27 +211,36 @@ export class RoadField {
       ctx.stroke();
     });
     for (const g of w.walls) {
-      let row = this.walls.get(g.id);
+      let wall = this.walls.get(g.id);
       // Along the wall: across the way he faced. Laid out on the ground, which is seen from above and so shorter up and down.
       const ax = -g.ny;
       const ay = g.nx * 0.62;
       const n = Math.max(3, Math.round((g.half * 2) / 16));
-      if (!row) {
-        row = [];
+      if (!wall) {
+        const row: Phaser.GameObjects.Image[] = [];
         for (let i = 0; i < n; i++) row.push(this.scene.add.image(0, 0, stake).setOrigin(0.5, 1).setDisplaySize(18, 62));
-        this.walls.set(g.id, row);
+        // A beam on the ground along the whole of it, under the stakes: a gate that runs up the screen is seen end on, and
+        // its stakes stand one behind another, so the beam is what shows how long it is.
+        const beam = this.scene.add.image(g.x, g.y, SHEET, 'fx/solid').setTint(hex(WOOD.shade)).setAlpha(0.9);
+        wall = { beam, row };
+        this.walls.set(g.id, wall);
       }
       const rise = Math.min(1, g.life * 3);
-      row.forEach((img, i) => {
+      const len = Math.hypot(ax, ay) * g.half * 2;
+      wall.beam.setPosition(g.x, g.y).setDisplaySize(len + 12, 12).setRotation(Math.atan2(ay, ax)).setDepth(g.y - 40).setAlpha(Math.min(0.9, 0.3 + g.life));
+      // Seen end on the stakes are lower, so that they do not stand in one tall column.
+      const tall = 62 * (0.6 + 0.4 * Math.abs(ax));
+      wall.row.forEach((img, i) => {
         const t = (i / (n - 1) - 0.5) * 2 * g.half;
         const px = g.x + ax * t;
         const py = g.y + ay * t + (i % 2) * 3;
-        img.setPosition(px, py).setDisplaySize(18, 62 * rise * (0.9 + 0.1 * (i % 3))).setDepth(py).setAlpha(Math.min(1, 0.4 + g.life));
+        img.setPosition(px, py).setDisplaySize(18, tall * rise * (0.9 + 0.1 * (i % 3))).setDepth(py).setAlpha(Math.min(1, 0.4 + g.life));
       });
     }
-    for (const [id, row] of this.walls) {
+    for (const [id, wall] of this.walls) {
       if (w.walls.some((g) => g.id === id)) continue;
-      for (const img of row) img.destroy();
+      for (const img of wall.row) img.destroy();
+      wall.beam.destroy();
       this.walls.delete(id);
     }
     // The lanes of a burning field. While they are only warned of, each is a red band with a hard edge, and a fill
