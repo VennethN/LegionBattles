@@ -10,6 +10,7 @@
 - Movement
 - Adding a unit: a recipe
 - Adding a unit by hand
+- A hero: a build and a stance of their own
 - Beasts and riders
 - Golems and engines
 - Structures and summoners
@@ -31,6 +32,8 @@ src/art/kit/arms.ts      more of what a hand holds: blades, tools, poles, guns, 
 src/art/kit/gear.ts      shields, what the other hand holds, what is worn on the back, details drawn on a body
 src/art/kit/beasts.ts    the four-legged build: legs, a barrel of a body, tails, and heads that have no face
 src/art/kit/dice.ts      the same numbers every time, from a seed: what places scenery
+src/art/kit/stance.ts    a build and a stance: any part of the kit drawn leaning, bigger, mid stride
+src/art/kit/heroes.ts    what only the named heroes wear and carry (Legion Holdout)
 src/art/kit/unit.ts      what a unit's art is: parts in draw order, each with a role and a pivot
 src/art/units/*.ts       the first cast: one file to a unit (a few hold a family: structures, summoners, faithful, golems)
 src/art/units/figure.ts  a unit from a recipe: a head, a body, a weapon and how it is held, and the rest
@@ -40,6 +43,8 @@ src/art/units/crownlands.ts, wilds.ts, deeps.ts, shores.ts, orders.ts   the sets
 src/art/units/beasts.ts      beasts, and riders on horses
 src/art/units/machines.ts    more golems, and the siege engines
 src/art/units/works.ts       more buildings and traps
+src/art/units/heroes.ts      the ten named heroes of Legion Holdout, each drawn for themselves
+src/art/units/band.ts        their companions: beasts of the kit made into somebody, and a squire
 src/art/units/notes.ts   each unit's line: its set, its role, how it is read
 src/art/units/index.ts   UNIT_ART: every unit there is
 src/art/check.ts         what a program can check of a unit, run over the whole cast
@@ -194,6 +199,37 @@ export const militia: UnitArt = {
 5. **Look at it while you draw.** `npm run art:roster -- <id> both zoom=2` writes `build/roster.png` with the unit on both teams.
 6. **Run `npm run art:roster -- check`**, and look at it at `pose=windup`, `pose=strike` and `pose=hit`. Check: no face, enough team color, parts that stay joined at every pose, a silhouette of its own.
 
+## A hero: a build and a stance of their own
+
+The rank and file all stand straight, on the same neck and the same hips, which is why a recipe can put any head on any body. A named hero is drawn for themselves (`units/heroes.ts`), and `kit/stance.ts` is what lets them be made of the kit's parts all the same:
+
+- **A `Build`** says how big they are beside a soldier (`size`, about the feet), how wide, how far they `lean` from the hips, and how the head is carried (`nod`, `headX`, `headY`). `bodyOf`, `headOf` and `legOf` turn that into a `Turn`: something done to every shape of a part.
+- **`posed(d, turn, draw)`** draws whatever `draw` draws with every shape turned. The turn is done to the shapes, not to the picture, so the shade and the lit rim are still laid from the top left and the line keeps its one width. Any helm, cape or leg of the kit can be worn by a figure that is bent double or half as big again.
+- **`turned(turn, point)`** says where a point of the standing figure ends up: the neck for the head's pivot, a shoulder for where an arm starts, a hip for a leg's pivot.
+- **`stand(build, material, back, front)`** in `units/heroes.ts` gives the two legs, each with its hip moved along and swung: `[-7, 8]` and `[5, -5]` is planted, `[-9, 30]` and `[9, -26]` is a run.
+
+```ts
+const NAN: Build = { size: 0.9, lean: 21, nod: -14, headX: 9, headY: 9 };   // bent double, head up
+const body = bodyOf(NAN);
+const head = headOf(NAN);
+part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => kerchief(c, DARK_CLOTH))),
+```
+
+What makes one a hero and not a soldier with a name, as the ten were drawn:
+
+- **A shape nobody else has.** `npm run art:roster -- Heroes shape` draws them as black shapes on white. Each must be named from that alone: battlements on a helm, a square cap, a headstone on a back, a crown of ice, the sun's rays.
+- **A stance that is what they do.** Planted behind a door of a shield; leaning into a run with a lance; bent under firewood with a fire held high.
+- **Their own weapon, big, as the `weapon` part,** drawn in `kit/heroes.ts` and nowhere else, so that no soldier is given it.
+- **Cloth that moves:** a cape, a scarf's tails, a veil's train, a tassel, a horse's tail on a helm, each an `extra` with `sway`.
+- **One color of their own beside their side's:** a moss hood, a yellow jerkin, a black veil. It goes on cloth or on what they carry, and the side's color stays on enough cloth to tell whose they are.
+- **A sign of who they are:** two coins at a belt, oaths sealed and hung from a shoulder, the stake still in him.
+
+A weapon held level and long (a couched lance) has to stay on its page: 40 past the canvas is all there is. `npm run art:pages` holds every part of every unit to it.
+
+**A companion** (`units/band.ts`) is a beast of the kit made into somebody with one or two things: an ear that never stood up and a purse for what he fetches, a soldier's helmet strapped on a bear, a garden and a lamp on a turtle's shell. The shared beast is left as it was, and the companion is a unit of its own that calls the same parts (`quadruped`, `creature`, `lanternWisp` are exported for that) or lists the beast's parts and adds one.
+
+These files are in Legion Holdout's `src/art`. The copy of the kit in this skill (`assets/kit`) has them only once it has been taken from that project (`scripts/sync.mjs`).
+
 ## Beasts and riders
 
 **A four-legged beast** (`units/beasts.ts`, `quadruped`) is a barrel of a body on four legs from `kit/beasts.ts`, a tail as an `extra` that sways, and a neck and head that the rig moves as the `weapon`, pivoted at the withers, so that its attack is its head thrown forward (`style: 'bite'`). The far legs are `legBack` and the near ones `legFront`, so it walks. `size` scales the whole build about the feet: a hound is 0.84 of it, a bear 1.14. A blanket over its back in its side's color is what says whose it is.
@@ -225,6 +261,9 @@ npm run art:roster -- Mireborn zoom=1.6                  # a set
 npm run art:roster -- beast engine both                  # roles, in both colors
 npm run art:roster -- templar khan pose=strike zoom=2    # units, mid-blow
 npm run art:roster -- cols=14 zoom=0.8 out=build/cast.png   # everyone
+npm run art:roster -- Heroes shape                       # as black shapes on white: are any two alike?
+npm run art:roster -- knight bram archer wren cols=2     # units named one by one are drawn in that order
+npm run art:pages                                        # every part of every unit, held to its page
 npm run art:roster -- check                              # what a program can check, over the whole kit
 npm run art:roster -- list=docs/art/roster.md            # the cast as a list
 ```

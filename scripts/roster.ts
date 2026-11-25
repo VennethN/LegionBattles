@@ -52,7 +52,10 @@ if (list) {
 }
 
 const named = (id: string): boolean => names.includes(id) || names.includes(UNIT_NOTES[id]?.set ?? '') || names.includes(UNIT_NOTES[id]?.role ?? '');
-const wanted = UNIT_ART.filter((u) => names.length === 0 || named(u.id));
+const found = UNIT_ART.filter((u) => names.length === 0 || named(u.id));
+// Units named one by one are drawn in the order they were named, so that two rows can be set against each other.
+const byName = names.length > 0 && names.every((n) => UNIT_ART.some((u) => u.id === n));
+const wanted = byName ? names.map((n) => UNIT_ART.find((u) => u.id === n) as (typeof UNIT_ART)[number]) : found;
 if (wanted.length === 0) throw new Error(`roster: nothing is named ${names.join(', ')}`);
 
 const cell = CANVAS + 8;

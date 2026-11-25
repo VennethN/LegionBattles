@@ -7,7 +7,7 @@
 
 import type { Doc } from '../kit/draw';
 import {
-  ARCANE, BONE, BRONZE, BUSH, CLOTH, DARK_CLOTH, DIRT, FIRE, FROST, GOLD, HOLY, IRON, LEATHER, LINEN, PINE, STEEL, STONE, VENOM, WOOD, type Material, type Team,
+  ARCANE, BONE, BRONZE, BUSH, CLOTH, DARK_CLOTH, DIRT, FIRE, FROST, GOLD, HOLY, IRON, LEATHER, LINEN, PINE, STEEL, STONE, VENOM, WOOD, type Accent, type Material, type Team,
 } from '../kit/palette';
 import {
   barrel, bearHead, beastLeg, blanket, caparison, horseHead, houndHead, lizardHead, ramHead, shag, sized, sizedPt, stagHead, tailBrush, tailHair, tailLizard,
@@ -24,7 +24,7 @@ import { B } from './wearing';
 
 type Size = (p: Path) => Path;
 
-interface Quad {
+export interface Quad {
   set: string;
   role?: UnitRole;
   read: string;
@@ -45,7 +45,7 @@ interface Quad {
   top: number;
 }
 
-function quadruped(id: string, q: Quad): UnitArt {
+export function quadruped(id: string, q: Quad): UnitArt {
   note(id, q.set, q.role ?? 'beast', q.read);
   const k = q.size;
   const s = sized(k);
@@ -78,7 +78,7 @@ function quadruped(id: string, q: Quad): UnitArt {
   };
 }
 
-const plain = (m: Material): Material => ({ fill: m.fill, shade: m.shade });
+export const plain = (m: Material): Material => ({ fill: m.fill, shade: m.shade });
 
 const warhound = quadruped('warhound', {
   set: 'Crownlands', read: 'a pale hound in a mask of leather, ears up, a collar and a coat in its side\'s color',
@@ -126,7 +126,7 @@ const yak = quadruped('yak', {
 });
 
 const SKIN = plain(IRON);
-const salamander = quadruped('salamander', {
+export const salamander = quadruped('salamander', {
   set: 'Emberforged', read: 'a lizard low to the ground, plated on its head, with fire standing along its back',
   size: 1, hide: SKIN, low: 22, legTop: 156, legW: 13, top: 104,
   tail: (d, s) => tailLizard(d, s, SKIN),
@@ -163,7 +163,7 @@ function shellCloth(d: Doc, team: Team, pts: [number, number][]): void {
   });
 }
 
-function creature(id: string, set: string, read: string, top: number, style: UnitArt['style'], muzzle: Pt, parts: PartSpec[], role: UnitRole = 'beast'): UnitArt {
+export function creature(id: string, set: string, read: string, top: number, style: UnitArt['style'], muzzle: Pt, parts: PartSpec[], role: UnitRole = 'beast'): UnitArt {
   note(id, set, role, read);
   return { id, style, muzzle, top, parts };
 }
@@ -225,7 +225,7 @@ const reefcrab = creature('reefcrab', 'Tidewatch', 'a crab as wide as a cart, on
   part('claw', 'weapon', 'body', [128, 140], (d) => claw(d, 126, 142, 1.05, CRAB, 4)),
 ]);
 
-const TURTLE_SKIN = plain(PINE);
+export const TURTLE_SKIN = plain(PINE);
 const siegeturtle = creature('siegeturtle', 'Mireborn', 'a turtle with its head in an iron cap, and a little fort with a crossbow on its shell', 44, 'shoot', [160, 78], [
   part('shadow', 'shadow', 'root', FEET, (d) => shadow(d, 54, 10)),
   part('legs-far', 'legBack', 'root', [96, 160], (d) => {
@@ -297,7 +297,9 @@ const slime = creature('slime', 'Mireborn', 'a green heap of ooze with a spear s
   }),
 ]);
 
-const wisp = creature('wisp', 'Hollow Court', 'a violet flame that goes about in a lantern with no one holding it, a bow tied on its ring and a ribbon trailing', 62, 'cast', [150, 112], [
+/** A flame that goes about in a lantern with no one holding it, in whatever light it burns with. */
+export function lanternWisp(id: string, set: string, read: string, glow: Accent): UnitArt {
+  return creature(id, set, read, 62, 'cast', [150, 112], [
   part('shadow', 'shadow', 'root', FEET, (d) => shadow(d, 24, 6)),
   part('ribbon', 'extra', 'body', [92, 150], (d, team) => {
     d.piece('ribbon', smooth([[86, 148, 'c'], [80, 160], [64, 164], [50, 180, 'c'], [74, 178], [96, 168], [104, 150, 'c']]), CLOTH[team], { shade: 3 });
@@ -308,13 +310,13 @@ const wisp = creature('wisp', 'Hollow Court', 'a violet flame that goes about in
   }, 1),
   part('body', 'body', 'root', FEET, (d) => {
     d.line('chain', path().M(96, 62).L(96, 80));
-    d.flat('halo', circle(96, 116, 40), ARCANE.light, 0.4);
+    d.flat('halo', circle(96, 116, 40), glow.light, 0.4);
     d.piece('cage', roundRect(72, 88, 48, 62, 6), IRON, {
       shade: 4,
       inner: (c) => {
-        c.flat('pane', roundRect(78, 95, 36, 48, 3), ARCANE.shade);
-        c.piece('flame', smooth([[96, 98, 'c'], [106, 114], [108, 128], [102, 140, 'c'], [90, 140, 'c'], [84, 128], [88, 114]]), ARCANE, { shade: 0 });
-        c.flat('heart', smooth([[96, 116, 'c'], [101, 126], [100, 136], [92, 136], [91, 126]]), ARCANE.light);
+        c.flat('pane', roundRect(78, 95, 36, 48, 3), glow.shade);
+        c.piece('flame', smooth([[96, 98, 'c'], [106, 114], [108, 128], [102, 140, 'c'], [90, 140, 'c'], [84, 128], [88, 114]]), glow, { shade: 0 });
+        c.flat('heart', smooth([[96, 116, 'c'], [101, 126], [100, 136], [92, 136], [91, 126]]), glow.light);
         // Two bars and a rail: the flame is seen through six panes.
         c.piece('bar-a', roundRect(86, 90, 3.6, 58, 0), IRON, { shade: 0 });
         c.piece('bar-b', roundRect(102.4, 90, 3.6, 58, 0), IRON, { shade: 0 });
@@ -325,12 +327,15 @@ const wisp = creature('wisp', 'Hollow Court', 'a violet flame that goes about in
     d.piece('foot', roundRect(78, 148, 36, 7, 3), IRON, { shade: 0 });
   }),
   part('spark', 'weapon', 'body', [138, 112], (d) => {
-    d.flat('halo', circle(138, 112, 12), ARCANE.light, 0.45);
-    d.piece('spark', star(138, 112, 4, 8, 3.4), ARCANE, { shade: 0 });
+    d.flat('halo', circle(138, 112, 12), glow.light, 0.45);
+    d.piece('spark', star(138, 112, 4, 8, 3.4), glow, { shade: 0 });
   }),
 ]);
+}
 
-const eagle = creature('eagle', 'Stormriders', 'a hunting eagle hooded in its side\'s color, one wing up, jesses trailing from its legs', 54, 'bite', [160, 98], [
+const wisp = lanternWisp('wisp', 'Hollow Court', 'a violet flame that goes about in a lantern with no one holding it, a bow tied on its ring and a ribbon trailing', ARCANE);
+
+export const eagle = creature('eagle', 'Stormriders', 'a hunting eagle hooded in its side\'s color, one wing up, jesses trailing from its legs', 54, 'bite', [160, 98], [
   part('shadow', 'shadow', 'root', FEET, (d) => shadow(d, 34, 7)),
   part('wing-far', 'extra', 'body', [96, 116], (d) => {
     d.piece('wing', smooth([[100, 120, 'c'], [84, 96], [62, 70], [40, 56, 'c'], [48, 76, 'c'], [36, 78, 'c'], [48, 94, 'c'], [40, 100, 'c'], [60, 112], [84, 126, 'c']]), far(STONE), { shade: 0 });

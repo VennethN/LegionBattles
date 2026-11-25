@@ -68,7 +68,7 @@ export const bram: UnitArt = (() => {
 
 const WREN: Build = { size: 0.97, lean: -4, nod: 5, headX: 1 };
 
-note('wren', 'Heroes', 'ranged', 'a hood with one long barred feather, a moss cloak blown out behind, a bow taller than she is');
+note('wren', 'Heroes', 'ranged', 'a moss green hood with one long barred feather, a cloak blown out behind, a bow taller than she is');
 export const wren: UnitArt = (() => {
   const body = bodyOf(WREN);
   const head = headOf(WREN);
@@ -81,7 +81,7 @@ export const wren: UnitArt = (() => {
     top: 12,
     parts: [
       ground(34),
-      part('cloak', 'extra', 'body', turned(body, [96, 106]), (d) => posed(d, (p) => body(p.rotate(13, 98, 104)), (c) => windCloak(c, PINE)), 2.2),
+      part('cloak', 'extra', 'body', turned(body, [96, 106]), (d, team) => posed(d, (p) => body(p.rotate(13, 98, 104)), (c) => windCloak(c, CLOTH[team])), 2.2),
       part('quiver', 'extra', 'body', turned(body, [74, 150]), (d) => posed(d, body, (c) => quiver(c)), 0.5),
       ...stand(WREN, LEATHER, [-6, 9], [7, -13]),
       part('body', 'body', 'root', FEET, (d, team) => {
@@ -100,7 +100,7 @@ export const wren: UnitArt = (() => {
         d.piece('bracer', capsule(hand[0] - 15, hand[1] - 1, hand[0] - 7, hand[1], 15), LEATHER, { shade: 0 });
       }),
       part('feather', 'extra', 'head', turned(head, [100, 58]), (d) => posed(d, head, (c) => tailFeather(c, [100, 58], BONE, 50)), 1.6),
-      part('head', 'head', 'body', turned(head, NECK), (d, team) => posed(d, head, (c) => hood(c, CLOTH[team], 4))),
+      part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => hood(c, PINE, 4))),
       part('bow', 'weapon', 'body', hand, (d) => longbow(d, { hand, angle: 5 })),
       part('draw-hand', 'offhand', 'body', pull, (d) => nockedArrow(d, pull[0], pull[1], 60)),
     ],
@@ -219,7 +219,7 @@ export const nan: UnitArt = (() => {
         });
         arm(d, 'sleeve', turned(body, [116, 116]), [hand[0] - 2, hand[1] + 2], DARK_CLOTH, 15);
       }),
-      part('head', 'head', 'body', turned(head, NECK), (d, team) => posed(d, head, (c) => kerchief(c, CLOTH[team]))),
+      part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => kerchief(c, DARK_CLOTH))),
       part('staff', 'weapon', 'body', hand, (d) => hearthbrand(d, { hand, angle: 7 }, FIRE, 50)),
     ],
   };

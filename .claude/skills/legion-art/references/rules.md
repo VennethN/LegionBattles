@@ -39,6 +39,10 @@ Watch for accidents, which is where faces come from:
 - **A jagged edge under a head is teeth.** A yak's forelock was cut in points; it hangs in strands.
 - **Spots on a cap over a door are eyes over a mouth.** The mushroom that is a tower has bands. The mushroom caps that are hats keep their spots, because under them is a scarf and no door.
 - **A key with a hole in each wing** is two dark rings side by side. Its wings are solid.
+- **A button on top of a cap is an eye looking up.** A student's square cap had a violet button with a dark line round it in the middle of its board. The cord starts from the bare board now.
+- **Two flowers at a throat are two eyes.** A stag had a collar of leaves with two round thistle heads on it, side by side. It has one.
+- **A round clasp on a dark purse is a pupil.** A hound's purse had a coin for a clasp. It is square.
+- **A small shard beside a stone is a black triangle.** Anything smaller than twice the line's width is only line: a chip of crystal by a staff was taken away, and the shards by a wand were made twice as big.
 
 A creature follows the same rule by the same means, and the kit's beasts all do: a mask of leather or iron over a hound's head, a plate over a bear's muzzle, a hood on a stag and an eagle, a curled horn where a ram's eye would be, a forelock over a yak's whole front, a plate of bronze on a lizard, a chanfron on a horse. A beetle and a crab have a shell and nothing on it. If it cannot be drawn without eyes, draw something else.
 

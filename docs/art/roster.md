@@ -1,6 +1,6 @@
 # The cast
 
-Every unit the kit draws: 202 in 16 sets. Written by `npm run art:roster list=<file>` from `src/art/units/notes.ts`: do not edit it by hand.
+Every unit the kit draws: 220 in 18 sets. Written by `npm run art:roster list=<file>` from `src/art/units/notes.ts`: do not edit it by hand.
 
 A game uses a unit by its id. The role is the part it was drawn to play, and a game may use it otherwise. To see them, `npm run art:roster -- <set, role or id ...>` draws a sheet.
 
@@ -285,3 +285,31 @@ A game uses a unit by its id. The role is the part it was drawn to play, and a g
 | `magetower` | building | a thin tower of stone under a tall pointed roof, a violet stone turning in the air over it |
 | `altar` | building | a block of stone under a cloth, a violet fire in a gold bowl on it, a candle at each end |
 | `runemine` | trap | a ring of small stones round a sign that glows violet on the ground |
+
+## Heroes (10)
+
+| id | role | read it by |
+| --- | --- | --- |
+| `bram` | melee | a helm with battlements like a gate tower, the door of the gate as a shield, a broad sword laid over it |
+| `wren` | ranged | a moss green hood with one long barred feather, a cloak blown out behind, a bow taller than she is |
+| `orrin` | caster | a square student's cap with a tassel, scrolls on his back, an open book, a staff whose ring was never finished |
+| `fenn` | melee | a flat cap pulled low, a long scarf out behind, a yellow half cape, two coins at the belt, a broad knife in each hand |
+| `nan` | caster | bent double under a bundle of firewood, a headscarf tied under the chin, a crooked staff held high with a fire in its basket |
+| `isaura` | melee | leaning into a run, a sallet with a long white tail of horsehair, a torn cape straight out behind, a couched lance with a steel guard and a torn white pennon |
+| `hroth` | melee | huge and hunched, his own headstone roped to his back with a broken stake, a winding sheet and one horn, an axe with a blade like a spade |
+| `aldous` | support | a stout monk in a deep hood, a shepherd's crook, a great bronze bell hung from his fist |
+| `ysolde` | caster | tall and narrow, a black veil over her whole head under a crown of ice spires, its train out behind, a wand held out with one great tear of ice |
+| `maren` | captain | a helm with the sun's rays fanned over it, a long cape, her oaths hung sealed from the shoulder, a hammer for two hands with the sun on its head |
+
+## Band (8)
+
+| id | role | read it by |
+| --- | --- | --- |
+| `biscuit` | beast | a pale hound with one ear up and one down, a neckerchief, and a purse strapped to his side for what he fetches |
+| `pip` | beast | a small gold flame that goes about in a lantern with no one holding it, a bow tied on its ring and a ribbon trailing |
+| `mossback` | beast | an old turtle with a garden grown over his shell, a sapling and a lamp on a pole, his head in an iron cap |
+| `quill` | beast | a hunting eagle hooded in her side's color, one wing up, a long ribbon streaming from her leg |
+| `greta` | beast | a great brown bear in patched barding, a soldier's helmet strapped between her ears, a plate over her muzzle |
+| `ember` | beast | a lizard low to the ground with fire standing along its back, and the camp's kettle set to boil on it |
+| `tam` | support | a boy in a kettle helmet too big for him, tipped down over where his face would be, a pack on his back, the colors on a tall pole in both fists |
+| `thistle` | beast | a stag hooded in his side's color, antlers high, with a collar of leaves and three thistles at his throat |
