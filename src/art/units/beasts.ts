@@ -24,6 +24,8 @@ import { B } from './wearing';
 
 type Size = (p: Path) => Path;
 
+type Step = readonly [number, number];
+
 export interface Quad {
   set: string;
   role?: UnitRole;
@@ -42,6 +44,11 @@ export interface Quad {
   head: (d: Doc, s: Size, team: Team) => void;
   /** Drawn on the body, over the blanket: a crest of spines, a pack. */
   on?: (d: Doc, s: Size, team: Team) => void;
+  /**
+   * Caught in mid stride: for each leg, how far forward its foot is and how far its joint is bent back. The far
+   * hind and fore legs, then the near hind and fore. Without it the beast stands on four straight legs.
+   */
+  gait?: readonly [Step, Step, Step, Step];
   top: number;
 }
 
@@ -61,8 +68,8 @@ export function quadruped(id: string, q: Quad): UnitArt {
       part('shadow', 'shadow', 'root', FEET, (d) => shadow(d, 46 * k, 9)),
       part('tail', 'extra', 'body', sizedPt(k, [62, 118]), (d, team) => q.tail(d, s, team), 1),
       part('legs-far', 'legBack', 'root', sizedPt(k, [98, 150]), (d) => {
-        beastLeg(d, s, 82, q.hide, true, top, w, hoof);
-        beastLeg(d, s, 114, q.hide, true, top, w, hoof);
+        beastLeg(d, s, 82, q.hide, true, top, w, hoof, ...(q.gait?.[0] ?? [0, 0]));
+        beastLeg(d, s, 114, q.hide, true, top, w, hoof, ...(q.gait?.[1] ?? [0, 0]));
       }),
       part('body', 'body', 'root', FEET, (d, team) => {
         d.piece('hide', s(barrel(q.low ?? 0)), q.hide, { shade: 6, inner: q.shaggy ? (c) => shag(c, s, q.low ?? 0) : undefined });
@@ -70,8 +77,8 @@ export function quadruped(id: string, q: Quad): UnitArt {
         q.on?.(d, s, team);
       }),
       part('legs-near', 'legFront', 'root', sizedPt(k, [98, 150]), (d) => {
-        beastLeg(d, s, 70, q.hide, false, top, w, hoof);
-        beastLeg(d, s, 124, q.hide, false, top, w, hoof);
+        beastLeg(d, s, 70, q.hide, false, top, w, hoof, ...(q.gait?.[2] ?? [0, 0]));
+        beastLeg(d, s, 124, q.hide, false, top, w, hoof, ...(q.gait?.[3] ?? [0, 0]));
       }),
       part('head', 'weapon', 'body', sizedPt(k, WITHERS), (d, team) => q.head(d, s, team)),
     ],

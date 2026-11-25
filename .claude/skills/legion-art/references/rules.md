@@ -41,7 +41,16 @@ Watch for accidents, which is where faces come from:
 - **A key with a hole in each wing** is two dark rings side by side. Its wings are solid.
 - **A button on top of a cap is an eye looking up.** A student's square cap had a violet button with a dark line round it in the middle of its board. The cord starts from the bare board now.
 - **Two flowers at a throat are two eyes.** A stag had a collar of leaves with two round thistle heads on it, side by side. It has one.
-- **A round clasp on a dark purse is a pupil.** A hound's purse had a coin for a clasp. It is square.
+- **A round clasp on a dark purse is a pupil.** A hound's purse had a coin for a clasp. The purse went with it, as too small to be seen.
+- **One round thing in the middle of a door is an eye,** with a speck of light on it or without. A hero's shield is the door of a gate, and its boss came off: it has straps and studs in rows.
+- **A line across a scarf under a hat is a mouth.** The fold that most hats' scarves have was left off a hero who is looked at closely.
+- **Rivets over a slit make the slit a mouth.** Three on the brow of an iron cap, over the one gap in a winding sheet, were eyes over it. The cap has a dent.
+- **Two rivets side by side on a head are eyes, and at forty pixels so are three in a row.** An old turtle's iron cap had two, the plainest pair of eyes in the set. A beast that is a companion, and looked at, has none on its mask or its plate (`houndHead` and `lizardHead` take `rivets = false`).
+- **Slits in a muzzle guard are teeth.** A bear's had three. A companion bear has a plain plate.
+- **A dark star in a pale halo is an eye,** beside a lantern as anywhere. The companion wisp has no spark, and one flame in an open frame.
+- **Mail drawn in small arcs, on a small head, is a stubbled chin.** A squire's kettle hat has a plain hanging of iron under it with the slit in it. A toothed hem was thought of and not drawn: a jagged edge under a head is teeth.
+- **A coin seen flat is a pale ring round a dot.** A coin in the air is drawn turning, nearly edge on: a thin oval and its rim.
+- **A veil with no opening is the back of a head.** A widow veiled all over was read as seen from behind. The veil has the one dark opening on the side she faces, like a hood.
 - **A small shard beside a stone is a black triangle.** Anything smaller than twice the line's width is only line: a chip of crystal by a staff was taken away, and the shards by a wand were made twice as big.
 
 A creature follows the same rule by the same means, and the kit's beasts all do: a mask of leather or iron over a hound's head, a plate over a bear's muzzle, a hood on a stag and an eagle, a curled horn where a ram's eye would be, a forelock over a yak's whole front, a plate of bronze on a lizard, a chanfron on a horse. A beetle and a crab have a shell and nothing on it. If it cannot be drawn without eyes, draw something else.
@@ -114,6 +123,8 @@ A material is a fill and a shade; `gloss` is what makes it metal. Straw is gold'
 Look at a new unit in red as well as blue (`npm run art:roster -- <id> both`). A big piece of cloth that is nobody's can read as a side: a mushroom cap in ruby looked like the enemy's and was made violet.
 
 ## Silhouette
+
+**One idea each, drawn big.** A figure the game shows sixty pixels tall can carry one thing that is its own: a headstone on a back, a bell on a crook, a tear of ice as big as a head. The first drawing of the named heroes gave each three or four (a book and a vial and a tassel and a staff), and at that size all of it was mud. What is small is cut, and what is left is made bigger. And no two of a set that is seen together stand the same height and width: ten heroes on one body are ten hats.
 
 Every unit needs a silhouette of its own: a head shape, a weapon and what the other hand holds that no other unit has together. Look at `silhouettes.png`. If two are hard to tell apart, redraw one. The two golems were once the same shape in two colors; the Rime Golem now has a crown of shards.
 

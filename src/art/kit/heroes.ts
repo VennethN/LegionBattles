@@ -10,7 +10,7 @@ import type { Doc } from './draw';
 import { BONE, BRONZE, DIRT, GOLD, IRON, LEATHER, LINEN, RUBY, STEEL, STONE, WOOD, type Accent, type Material } from './palette';
 import { hatFace } from './heads';
 import { at, crease, dark, far, mitt, rivet, under, type Grip } from './parts';
-import { Path, capsule, circle, ellipse, line, path, poly, roundRect, smooth, star, type Pt } from './path';
+import { Path, capsule, circle, ellipse, line, path, poly, roundRect, smooth, type Pt } from './path';
 
 // ---------------------------------------------------------------- Bram Oakenhold
 
@@ -59,8 +59,7 @@ export function gateShield(d: Doc, cx: number, top: number, bottom: number, half
       }
     },
   });
-  d.piece('boss', circle(cx, (top + bottom) / 2 + 2, 7.5), GOLD, { shade: 3 });
-  d.glint('glint', circle(cx - 2, (top + bottom) / 2, 2));
+  // No boss in the middle of it: one round thing on a door, with a speck of light or without, was an eye.
 }
 
 /** Gatekeeper: a broad sword with an iron bar of a guard. */
@@ -120,7 +119,8 @@ export function windCloak(d: Doc, mat: Material): void {
 /** A student's square cap with its tassel, over a scarf: he was thrown out before he could take it off. */
 export function squareCap(d: Doc, cap: Material, scarf: Material): void {
   under(d);
-  hatFace(d, scarf);
+  // No fold in the scarf: one line across it, under a hat, was a mouth.
+  hatFace(d, scarf, false);
   d.piece('skull', smooth([[70, 76, 'c'], [72, 58], [97, 50], [122, 58], [124, 76, 'c'], [97, 80]]), cap, { shade: 4 });
   // The board, seen a little from above: a flat lozenge wider than the head.
   d.piece('board', poly([[42, 54], [96, 40], [152, 52], [100, 68]]), cap, {
@@ -160,48 +160,36 @@ export function scrollPack(d: Doc): void {
   });
 }
 
-/** An open book in the off hand, held up to be read from. */
-export function openBook(d: Doc, cx: number, cy: number, cover: Material, hand: Material = LEATHER): void {
-  d.piece('cover', poly([[cx - 20, cy - 8], [cx, cy - 3], [cx + 20, cy - 10], [cx + 20, cy + 8], [cx, cy + 14], [cx - 20, cy + 9]]), cover, { shade: 0 });
-  const page = (name: string, s: 1 | -1): void => {
-    const x = (v: number): number => cx + v * s;
-    d.piece(name, smooth([[x(0), cy - 6, 'c'], [x(9), cy - 12], [x(18), cy - 13, 'c'], [x(18), cy + 4, 'c'], [x(9), cy + 5], [x(0), cy + 11, 'c']]), BONE, {
-      shade: s === 1 ? 3 : 0,
-      inner: (c) => {
-        // Lines of writing, which at this size are three strokes.
-        for (let i = 0; i < 3; i++) c.shadeOver('writing', capsule(x(4), cy - 6 + i * 4.5, x(14), cy - 8 + i * 4.5, 1.6), 1.3);
-      },
-    });
-  };
-  page('page-far', -1);
-  page('page', 1);
-  mitt(d, cx, cy + 14, hand);
-}
-
 /**
- * The Unfinished Staff. Its head was to be a ring: one horn of it was carved
- * and the other was never begun, and the stone that should sit in it hangs
- * in the gap by itself.
+ * The Unfinished Staff. Its head is a block of wood with one side carved to
+ * a curl and the other still square from the saw, and the stone that should
+ * be set in it is lashed on to one side with cord.
  */
 export function unfinishedStaff(d: Doc, g: Grip, glow: Accent, len = 78, hand: Material = LEATHER): void {
   const t = at(g);
-  d.piece('shaft', t(roundRect(-3.5, -len, 7, len + 40, 3)), WOOD, { shade: 2 });
-  // The carved horn: half a ring, with the marks of the knife still on it.
-  d.piece('horn', t(smooth([
-    [-4, -len + 4, 'c'], [-16, -len - 8], [-18, -len - 26], [-8, -len - 40], [4, -len - 44, 'c'],
-    [-3, -len - 34], [-9, -len - 24], [-8, -len - 12], [4, -len - 2, 'c'],
+  d.piece('shaft', t(roundRect(-4, -len, 8, len + 40, 3)), WOOD, { shade: 2 });
+  d.flat('halo', t(circle(15, -len - 26, 21)), glow.light, 0.42);
+  d.piece('block', t(smooth([
+    [-5, -len + 6, 'c'], [-17, -len - 6], [-20, -len - 24], [-12, -len - 38], [0, -len - 42, 'c'],
+    [12, -len - 42, 'c'], [12, -len + 6, 'c'],
   ])), WOOD, {
-    shade: 3,
+    shade: 4,
     inner: (c) => {
-      c.shadeOver('cut-a', t(capsule(-16, -len - 14, -9, -len - 16, 2)), 1.2);
-      c.shadeOver('cut-b', t(capsule(-15, -len - 26, -8, -len - 26, 2)), 1.2);
+      // The carved side: the curl begun, and the knife's cuts. The other side: the lines the saw left.
+      c.shadeOver('cut-a', t(capsule(-17, -len - 12, -9, -len - 15, 2.2)), 1.2);
+      c.shadeOver('cut-b', t(capsule(-18, -len - 24, -10, -len - 26, 2.2)), 1.2);
+      c.shadeOver('saw-a', t(roundRect(4, -len - 34, 10, 2.2, 0)), 1.1);
+      c.shadeOver('saw-b', t(roundRect(4, -len - 4, 10, 2.2, 0)), 1.1);
     },
   });
-  // The other horn: a block left square, as it came from the saw.
-  d.piece('block', t(poly([[1, -len + 3], [3, -len - 12], [14, -len - 10], [10, -len + 5]])), WOOD, { shade: 0 });
-  d.flat('halo', t(circle(5, -len - 26, 15)), glow.light, 0.45);
-  d.piece('stone', t(poly([[5, -len - 40], [13, -len - 27], [6, -len - 12], [-2, -len - 26]])), glow, { shade: 4 });
-  d.glint('glint', t(poly([[3, -len - 32], [5, -len - 36], [6, -len - 22], [1, -len - 26]])));
+  // The stone, off to one side and crooked, and the cord that holds it there.
+  const lash = (p: Path): Path => t(p.rotate(14, 16, -len - 22));
+  d.piece('stone', lash(poly([[16, -len - 52], [27, -len - 28], [16, -len + 2], [5, -len - 28]])), glow, {
+    shade: 4,
+    inner: (c) => c.lightOver('facet', lash(poly([[16, -len - 52], [16, -len + 2], [5, -len - 28]])), 0.9),
+  });
+  d.line('cord-a', t(line(-8, -len - 12, 26, -len - 20)));
+  d.line('cord-b', t(line(-6, -len - 4, 24, -len - 10)));
   mitt(d, g.hand[0], g.hand[1], hand);
 }
 
@@ -229,15 +217,17 @@ export function scarfTails(d: Doc, mat: Material): void {
   });
 }
 
-/** Two big coins on a cord at the belt: the one he tosses, and the one he never spends. */
-export function twoCoins(d: Doc, x: number, y: number): void {
-  d.line('cord', line(x, y, x - 1, y + 9));
-  d.piece('coin-b', circle(x + 5, y + 19, 7.5), GOLD, { shade: 0 });
-  d.piece('coin-a', circle(x - 3, y + 15, 8), GOLD, {
-    shade: 3,
-    inner: (c) => c.shadeOver('struck', capsule(x - 6, y + 17, x, y + 13, 2.2), 1.1),
-  });
-  d.glint('glint', circle(x - 6, y + 12, 1.8));
+/**
+ * The coin he tosses, over his open hand. It is caught turning, seen nearly
+ * edge on: a thin oval with its rim, and the mark struck across it. Drawn
+ * flat on, a coin is a pale ring round a dot.
+ */
+export function coinToss(d: Doc, x: number, y: number, hand: Material = LEATHER): void {
+  mitt(d, x, y, hand, 8);
+  const cy = y - 44;
+  const turn = (p: Path): Path => p.rotate(-16, x + 2, cy);
+  d.piece('rim', turn(ellipse(x + 5, cy, 5, 14)), GOLD, { shade: 0 });
+  d.piece('coin', turn(ellipse(x + 1.5, cy, 5, 14)), GOLD, { shade: 3 });
 }
 
 /** One of Heads and Tails: a broad knife curved to its point, its pommel a coin. */
@@ -316,6 +306,9 @@ export function hearthbrand(d: Doc, g: Grip, glow: Accent, len = 66, hand: Mater
     },
   });
   d.piece('rim', t(roundRect(-17, -len - 17, 34, 6, 3)), IRON, { shade: 0 });
+  // Both hands on it: she leans on it as much as she carries it.
+  const lower = t(circle(0, 18, 7)).bounds();
+  mitt(d, lower.x + lower.w / 2, lower.y + lower.h / 2, hand, 7, 'hand-lower');
   mitt(d, g.hand[0], g.hand[1], hand);
 }
 
@@ -373,21 +366,21 @@ export function runCape(d: Doc, mat: Material): void {
   });
 }
 
-/** The Ninth's Lance: long, with a steel guard before the hand and what is left of the Ninth's white pennon. */
-export function ninthLance(d: Doc, g: Grip, len = 74, pennon: Material = LINEN, hand: Material = LEATHER): void {
+/** The Ninth's Lance: long, with a steel guard before the hand and the Ninth's pennon, torn to two ribbons. */
+export function ninthLance(d: Doc, g: Grip, len = 74, pennon: Material = LINEN, rear = 46, hand: Material = LEATHER): void {
   const t = at(g);
-  d.piece('shaft', t(roundRect(-4, -len, 8, len + 46, 3)), WOOD, { shade: 2 });
-  // The pennon, torn to two ribbons, blown back along the shaft.
+  d.piece('shaft', t(roundRect(-4.5, -len, 9, len + rear, 3)), WOOD, { shade: 2 });
+  // The pennon, blown back along the shaft.
   d.piece('pennon', t(path()
-    .M(4, -len + 4).L(20, -len + 8).Q(26, -len + 26, 20, -len + 44).L(24, -len + 62).L(15, -len + 50).L(13, -len + 70)
-    .Q(6, -len + 40, 4, -len + 22).Z()), pennon, { shade: 3 });
-  d.piece('blade', t(poly([[0, -len - 30], [9, -len - 8], [5, -len + 3], [-5, -len + 3], [-9, -len - 8]])), STEEL, {
+    .M(4, -len + 4).L(26, -len + 8).Q(34, -len + 30, 26, -len + 52).L(30, -len + 72).L(19, -len + 58).L(15, -len + 80)
+    .Q(7, -len + 46, 4, -len + 26).Z()), pennon, { shade: 4 });
+  d.piece('blade', t(poly([[0, -len - 34], [11, -len - 9], [6, -len + 3], [-6, -len + 3], [-11, -len - 9]])), STEEL, {
     shade: 3,
-    inner: (c) => c.shadeOver('far-face', t(poly([[0, -len - 30], [9, -len - 8], [5, -len + 3], [0, -len + 3]])), 0.8),
+    inner: (c) => c.shadeOver('far-face', t(poly([[0, -len - 34], [11, -len - 9], [6, -len + 3], [0, -len + 3]])), 0.8),
   });
-  d.piece('collar', t(roundRect(-6, -len, 12, 7, 2)), GOLD, { shade: 0 });
+  d.piece('collar', t(roundRect(-7, -len, 14, 7, 2)), GOLD, { shade: 0 });
   // The guard: a cone of steel, its wide end to the hand.
-  d.piece('guard', t(poly([[-4, -30], [4, -30], [13, -12], [-13, -12]])), STEEL, { shade: 3 });
+  d.piece('guard', t(poly([[-5, -32], [5, -32], [15, -12], [-15, -12]])), STEEL, { shade: 3 });
   mitt(d, g.hand[0], g.hand[1], hand);
 }
 
@@ -402,17 +395,14 @@ export function shroudHelm(d: Doc, sheet: Material = LINEN, cap: Material = IRON
     shade: 6,
     inner: (c) => {
       dark(c, 'gap', roundRect(93, 80, 46, 10, 5));
-      c.line('wind-a', smooth([[66, 94], [92, 98], [128, 92]], false));
-      c.line('wind-b', smooth([[70, 104], [96, 106], [120, 102]], false));
+      c.line('wind', smooth([[68, 99], [94, 103], [126, 97]], false));
     },
   });
   d.piece('cap', smooth([[64, 78, 'c'], [70, 60], [97, 50], [124, 60], [130, 76, 'c'], [97, 72]]), cap, {
     shade: 5,
     inner: (c) => {
+      // A dent and nothing else: rivets over the gap made the gap a mouth.
       c.shadeOver('dent', ellipse(84, 62, 6, 4), 1.2);
-      rivet(c, 104, 66, 1.8);
-      rivet(c, 112, 67.5, 1.8);
-      rivet(c, 120, 70, 1.8);
     },
   });
   d.piece('horn', smooth([[112, 66, 'c'], [130, 62], [142, 46], [140, 24, 'c'], [130, 40], [120, 50], [106, 56, 'c']]), horn, {
@@ -425,10 +415,9 @@ export function shroudHelm(d: Doc, sheet: Material = LINEN, cap: Material = IRON
   });
 }
 
-/** His own headstone, roped to his back, and the stake they drove in the second time, snapped off. */
+/** His own headstone, roped to his back. */
 export function headstone(d: Doc): void {
   const t = (p: Path): Path => p.rotate(-14, 62, 150);
-  d.piece('stake', poly([[84, 108], [50, 70], [44, 62], [50, 66], [48, 56], [56, 64], [58, 58], [92, 100]]), WOOD, { shade: 2 });
   d.piece('stone', t(path().M(40, 150).L(40, 84).C(40, 60, 84, 60, 84, 84).L(84, 150).Z()), STONE, {
     shade: 6,
     inner: (c) => {
@@ -448,7 +437,7 @@ export function gravecleaver(d: Doc, g: Grip, len = 84, hand: Material = LEATHER
   d.piece('shaft', t(roundRect(-4.5, -len, 9, len + 24, 3)), WOOD, {
     shade: 2,
     inner: (c) => {
-      for (const y of [-len * 0.45, -len * 0.45 + 7, -len * 0.45 + 14]) c.piece('bind', t(roundRect(-6, y, 12, 4.5, 0)), LINEN, { shade: 0, outline: false });
+      c.piece('bind', t(roundRect(-6, -len * 0.45, 12, 14, 0)), LINEN, { shade: 0, outline: false });
     },
   });
   const blade = path()
@@ -491,30 +480,34 @@ export function monkHood(d: Doc, mat: Material): void {
   d.line('fold', smooth([[84, 56], [74, 72], [72, 92]], false));
 }
 
-/** The Passing Bell: a great bell hung from the hand by its yoke. It is swung, and it is heard. */
-export function passingBell(d: Doc, g: Grip, mat: Material = BRONZE, hand: Material = LEATHER): void {
+/**
+ * The Passing Bell, hung from a shepherd's crook: the crook stands taller
+ * than he does and the bell hangs from its hook, out over his head. Both his
+ * hands are on the shaft.
+ */
+export function bellCrook(d: Doc, g: Grip, mat: Material = BRONZE, len = 96, hand: Material = LEATHER): void {
   const t = at(g);
-  d.piece('clapper', t(circle(0, 62, 6.5)), IRON, { shade: 0 });
-  d.piece('yoke', t(roundRect(-11, -4, 22, 9, 3)), WOOD, { shade: 0 });
-  d.piece('crown', t(roundRect(-6, 4, 12, 10, 2)), mat, { shade: 0 });
-  d.piece('bell', t(smooth([[-10, 11, 'c'], [10, 11, 'c'], [17, 30], [22, 44], [31, 56, 'c'], [-31, 56, 'c'], [-22, 44], [-17, 30]])), mat, {
+  d.piece('shaft', t(roundRect(-4, -len, 8, len + 44, 3)), WOOD, { shade: 2 });
+  d.piece('crook', t(smooth([
+    [-4, -len + 2, 'c'], [-4, -len - 14], [10, -len - 24], [28, -len - 18], [34, -len - 2, 'c'],
+    [26, -len - 2, 'c'], [22, -len - 11], [10, -len - 15], [4, -len - 8], [4, -len + 2, 'c'],
+  ])), WOOD, { shade: 0 });
+  const bx = 30;
+  const by = -len - 2;
+  d.piece('clapper', t(circle(bx, by + 60, 6.5)), IRON, { shade: 0 });
+  d.piece('crown', t(roundRect(bx - 6, by, 12, 10, 2)), mat, { shade: 0 });
+  d.piece('bell', t(smooth([[bx - 10, by + 8, 'c'], [bx + 10, by + 8, 'c'], [bx + 17, by + 28], [bx + 22, by + 42], [bx + 31, by + 54, 'c'], [bx - 31, by + 54, 'c'], [bx - 22, by + 42], [bx - 17, by + 28]])), mat, {
     shade: 6,
     inner: (c) => {
-      c.piece('lip', t(roundRect(-34, 49, 68, 9, 0)), GOLD, { shade: 0, outline: false });
-      c.shadeOver('lip-line', t(roundRect(-34, 47, 68, 2.4, 0)), 1.2);
-      c.shadeOver('band', t(roundRect(-34, 24, 68, 2.6, 0)), 0.9);
-      c.shadeOver('band-b', t(roundRect(-34, 29, 68, 2, 0)), 0.7);
+      c.piece('lip', t(roundRect(bx - 34, by + 46, 68, 10, 0)), GOLD, { shade: 0, outline: false });
+      c.shadeOver('lip-line', t(roundRect(bx - 34, by + 44, 68, 2.4, 0)), 1.2);
+      c.shadeOver('band', t(roundRect(bx - 34, by + 22, 68, 2.6, 0)), 0.9);
     },
   });
-  d.glint('glint', t(capsule(-11, 22, -14, 36, 3.5)));
+  d.glint('glint', t(capsule(bx - 11, by + 20, bx - 14, by + 34, 3.5)));
+  const lower = t(circle(0, 20, 7.5)).bounds();
+  mitt(d, lower.x + lower.w / 2, lower.y + lower.h / 2, hand, 7.5, 'hand-lower');
   mitt(d, g.hand[0], g.hand[1], hand);
-}
-
-/** The two ends of a rope belt, knotted, hanging from the hip. */
-export function ropeEnds(d: Doc, x: number, y: number, mat: Material = BONE): void {
-  d.piece('end', capsule(x + 1, y, x - 2, y + 26, 5.5), mat, { shade: 0 });
-  d.piece('tuft', smooth([[x - 6, y + 26, 'c'], [x + 2, y + 26, 'c'], [x + 4, y + 38], [x - 2, y + 35], [x - 8, y + 38]]), mat, { shade: 0 });
-  d.piece('knot', circle(x + 1, y, 5.5), mat, { shade: 3 });
 }
 
 // ---------------------------------------------------------------- Ysolde Rimeheart
@@ -527,7 +520,9 @@ export function iceCrown(d: Doc, veil: Material, ice: Accent): void {
     inner: (c) => {
       crease(c, 'fold-a', [80, 72], [70, 112], 3.4);
       crease(c, 'fold-b', [100, 76], [98, 116], 3);
-      crease(c, 'fold-c', [118, 74], [126, 112], 3.4);
+      // One dark opening, on the side she faces. Without it she was seen from behind.
+      c.shadeOver('lining', smooth([[110, 66], [128, 74], [135, 92], [127, 110], [104, 110], [94, 96], [96, 76]]), 1.1);
+      dark(c, 'opening', smooth([[112, 70], [125, 77], [130, 91], [123, 104], [108, 105], [99, 94], [101, 79]]));
     },
   });
   const spire = (name: string, x: number, h: number, w: number, leanBy: number): void => {
@@ -555,79 +550,83 @@ export function veilTrain(d: Doc, mat: Material): void {
   });
 }
 
-/** Widow's Tear: a slender wand of silver, and at its tip one great tear of ice with shards about it. */
+/** Widow's Tear: a slender wand of silver, and at its tip one great tear of ice, as big as her head. */
 export function widowsTear(d: Doc, g: Grip, glow: Accent, len = 40, hand: Material = LEATHER): void {
   const t = at(g);
-  d.piece('stem', t(roundRect(-2.5, -len, 5, len + 18, 2.5)), STEEL, { shade: 0 });
-  d.flat('halo', t(circle(0, -len - 20, 22)), glow.light, 0.42);
-  d.piece('shard-a', t(poly([[-24, -len - 2], [-18, -len - 20], [-13, -len]])), glow, { shade: 0 });
-  d.piece('shard-b', t(poly([[15, -len - 30], [23, -len - 46], [27, -len - 28]])), glow, { shade: 0 });
+  const k = 1.75;
+  const up = (y: number): number => -len - 3 - y * k;
+  d.piece('stem', t(roundRect(-3, -len, 6, len + 20, 3)), STEEL, { shade: 0 });
+  d.flat('halo', t(circle(0, up(13), 33)), glow.light, 0.4);
   // A tear: its point up, its belly down.
-  d.piece('tear', t(path().M(0, -len - 44).C(4, -len - 30, 13, -len - 24, 13, -len - 13).C(13, -len + 3, -13, -len + 3, -13, -len - 13).C(-13, -len - 24, -4, -len - 30, 0, -len - 44).Z()), glow, {
-    shade: 4,
-    inner: (c) => c.lightOver('facet', t(path().M(0, -len - 44).C(-4, -len - 30, -13, -len - 24, -13, -len - 13).C(-13, -len - 4, -6, -len, 0, -len + 1).Z()), 0.9),
+  d.piece('tear', t(path().M(0, up(41)).C(4 * k, up(27), 13 * k, up(21), 13 * k, up(10)).C(13 * k, up(-6), -13 * k, up(-6), -13 * k, up(10)).C(-13 * k, up(21), -4 * k, up(27), 0, up(41)).Z()), glow, {
+    shade: 5,
+    inner: (c) => c.lightOver('facet', t(path().M(0, up(41)).C(-4 * k, up(27), -13 * k, up(21), -13 * k, up(10)).C(-13 * k, up(1), -6 * k, up(-3), 0, up(-4)).Z()), 0.9),
   });
-  d.glint('glint', t(capsule(-5, -len - 20, -6, -len - 12, 3)));
-  d.piece('collar', t(roundRect(-5, -len - 3, 10, 6, 2)), STEEL, { shade: 0 });
+  d.glint('glint', t(capsule(-8, up(18), -10, up(8), 4.5)));
+  d.piece('collar', t(roundRect(-6, -len - 4, 12, 7, 2)), STEEL, { shade: 0 });
   mitt(d, g.hand[0], g.hand[1], hand, 6.5);
 }
 
 // ---------------------------------------------------------------- Maren Dawnguard
 
-/** A closed helm with the sun coming up behind it: a fan of rays from ear to ear over the top. */
-export function dawnHelm(d: Doc, mat: Material = STEEL, ray: Material = GOLD): void {
+/**
+ * A smooth closed helm with half a sun standing on it as a crest: one plate
+ * of gold from brow to nape, its edge scalloped. No band round the brow and
+ * no spikes: those are Bram's and Ysolde's.
+ */
+export function dawnHelm(d: Doc, mat: Material = STEEL, crest: Material = GOLD): void {
   under(d);
-  // The rays, behind the helm: seven of them, longest at the top.
-  const rays: [number, number][] = [[-78, 22], [-52, 28], [-26, 34], [0, 38], [26, 34], [52, 28], [78, 22]];
-  rays.forEach(([turn, h], i) => {
-    d.piece(`ray-${i}`, poly([[90, 62], [97, 62 - h], [104, 62]]).rotate(turn * 0.72, 97, 78).translate(-4, 0), ray, { shade: 0 });
+  d.piece('crest', smooth([
+    [70, 66, 'c'], [66, 50], [74, 40, 'c'], [80, 46, 'c'], [84, 32], [96, 28, 'c'], [100, 36, 'c'], [108, 28], [120, 36, 'c'], [119, 46, 'c'], [128, 48], [130, 62, 'c'],
+  ]), crest, {
+    shade: 4,
+    inner: (c) => {
+      c.shadeOver('ray-a', capsule(86, 62, 80, 44, 2.2), 1.1);
+      c.shadeOver('ray-b', capsule(99, 60, 99, 36, 2.2), 1.1);
+      c.shadeOver('ray-c', capsule(112, 62, 118, 44, 2.2), 1.1);
+    },
   });
-  const dome = smooth([[97, 52], [119, 58], [129, 78], [125, 99], [108, 108], [84, 108], [69, 99], [65, 78], [75, 58]]);
+  const dome = smooth([[97, 52], [119, 58], [129, 78], [126, 98], [116, 110], [96, 113], [78, 109], [68, 98], [65, 78], [75, 58]]);
   d.piece('helm', dome, mat, {
     shade: 6,
     inner: (c) => {
-      c.piece('brow', smooth([[60, 68], [96, 64], [134, 68], [134, 75], [96, 71], [60, 75]]), ray, { shade: 0 });
-      c.shadeOver('plate', roundRect(90, 86, 2.6, 22, 1), 0.9);
-      dark(c, 'slit', roundRect(95, 80, 44, 8.5, 4.2));
-      c.line('ridge', line(112, 92, 112, 107));
+      c.shadeOver('plate', roundRect(90, 88, 2.6, 26, 1), 0.9);
+      dark(c, 'slit', roundRect(95, 79, 44, 9, 4.5));
+      c.line('ridge', line(113, 92, 113, 112));
     },
   });
-  d.glint('glint', capsule(78, 62, 83, 58, 4.5));
+  d.glint('glint', capsule(78, 66, 83, 61, 4.5));
 }
 
-/** Morningstar: a hammer for two hands, its head a block of steel with the sun's points on it. */
+/**
+ * Morningstar: a hammer for two hands. Her oath is tied under its head: a
+ * long strip of parchment that hangs straight down however the hammer is
+ * carried, with her seal at its end.
+ */
 export function morningstarHammer(d: Doc, g: Grip, len = 86, hand: Material = LEATHER): void {
   const t = at(g);
-  d.piece('shaft', t(roundRect(-4, -len, 8, len + 24, 3)), WOOD, { shade: 2 });
-  for (const [i, pts] of ([
-    [[-8, -len - 20], [0, -len - 38], [8, -len - 20]],
-    [[-26, -len - 14], [-42, -len - 4], [-26, 6 - len]],
-    [[26, -len - 14], [42, -len - 4], [26, 6 - len]],
-  ] as Pt[][]).entries()) {
-    d.piece(`point-${i}`, t(poly(pts)), GOLD, { shade: 0 });
-  }
-  d.piece('head', t(roundRect(-28, -len - 22, 56, 36, 7)), STEEL, {
-    shade: 6,
+  // The oath hangs from where it is tied, down, as cloth does: it is not turned with the hammer.
+  const tie = t(circle(0, -len + 18, 1)).bounds();
+  const ox = tie.x + 1;
+  const oy = tie.y + 1;
+  d.piece('oath', smooth([[ox - 7, oy, 'c'], [ox + 7, oy, 'c'], [ox + 10, oy + 26], [ox + 4, oy + 50], [ox + 9, oy + 70, 'c'], [ox - 5, oy + 70, 'c'], [ox - 9, oy + 50], [ox - 3, oy + 26]]), BONE, {
+    shade: 3,
     inner: (c) => {
-      c.piece('sun', t(star(0, -len - 4, 8, 13, 6.5)), GOLD, { shade: 0 });
-      c.shadeOver('face-a', t(roundRect(-21, -len - 24, 2.6, 40, 0)), 1);
-      c.shadeOver('face-b', t(roundRect(18.4, -len - 24, 2.6, 40, 0)), 1);
+      for (let i = 0; i < 4; i++) c.shadeOver('writing', capsule(ox - 3 + (i % 2) * 2, oy + 14 + i * 11, ox + 5 + (i % 2) * 2, oy + 14 + i * 11, 2), 1.2);
     },
   });
-  d.piece('collar', t(roundRect(-6, -len + 12, 12, 8, 2)), GOLD, { shade: 0 });
-  const upper = t(circle(0, -28, 7.5)).bounds();
+  d.piece('seal', circle(ox + 2, oy + 72, 8), RUBY, { shade: 0 });
+  d.piece('shaft', t(roundRect(-4.5, -len, 9, len + 24, 3)), WOOD, { shade: 2 });
+  d.piece('head', t(roundRect(-30, -len - 24, 60, 38, 8)), STEEL, {
+    shade: 6,
+    inner: (c) => {
+      c.piece('band-a', t(roundRect(-34, -len - 26, 12, 42, 0)), GOLD, { shade: 0 });
+      c.piece('band-b', t(roundRect(22, -len - 26, 12, 42, 0)), GOLD, { shade: 0 });
+    },
+  });
+  d.piece('collar', t(roundRect(-7, -len + 12, 14, 8, 2)), GOLD, { shade: 0 });
+  const upper = t(circle(0, -30, 7.5)).bounds();
   mitt(d, upper.x + upper.w / 2, upper.y + upper.h / 2, hand, 7.5, 'hand-upper');
   mitt(d, g.hand[0], g.hand[1], hand);
 }
 
-/** Her oaths, written out and sealed, hung from the shoulder. */
-export function oathRibbons(d: Doc, x: number, y: number): void {
-  d.piece('oath-b', smooth([[x + 3, y, 'c'], [x + 12, y, 'c'], [x + 13, y + 30], [x + 9, y + 26], [x + 5, y + 32]]), far(BONE), { shade: 0 });
-  d.piece('oath-a', smooth([[x - 7, y, 'c'], [x + 3, y, 'c'], [x + 2, y + 40], [x - 3, y + 35], [x - 8, y + 42]]), BONE, {
-    shade: 0,
-    inner: (c) => {
-      for (let i = 0; i < 3; i++) c.shadeOver('writing', capsule(x - 5, y + 12 + i * 6, x, y + 12 + i * 6, 1.6), 1.2);
-    },
-  });
-  d.piece('seal', circle(x + 2, y, 6), RUBY, { shade: 0 });
-}

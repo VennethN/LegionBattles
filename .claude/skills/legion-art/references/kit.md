@@ -129,7 +129,7 @@ A unit's file has 40 px of page round the 192 canvas (`MARGIN`), because a long 
 
 ## Movement
 
-`poses.ts` holds the far ends of each movement as offsets from standing still: the windup and the strike for each way of attacking (`slash`, `chop`, `thrust`, `bow`, `cast`, `swing`, `throw`, `shoot` for whoever holds a weapon; `bite` for a beast, whose weapon is its head; `lob` for an engine's throwing arm; `ram` for a log or a drill on wheels), the top of a hop, the landing, being hit, toppling. A unit names its way of attacking with `style`. The game blends between these (`references/runtime.md`); the sheet draws each one.
+`poses.ts` holds the far ends of each movement as offsets from standing still: the windup and the strike for each way of attacking (`slash`, `chop`, `thrust`, `bow`, `cast`, `swing`, `throw`, `shoot` for whoever holds a weapon; `bite` for a beast, whose weapon is its head; `lob` for an engine's throwing arm; `ram` for a log or a drill on wheels), the top of a hop, the landing, being hit, toppling. A unit names its way of attacking with `style`. The named heroes have movements of their own, in which a foot steps and the head stays on the enemy (see "A hero"). The game blends between these (`references/runtime.md`); the sheet draws each one.
 
 A pose is numbers: `rootX`, `rootY`, `bodyRot`, `headRot`, `weaponRot`, `weaponX`, `weaponY`, `offRot`, `legFrontRot`, `legBackRot`, and so on. Negative rotation is counter-clockwise, which for a unit facing right tips a weapon back over the head.
 
@@ -209,16 +209,19 @@ The rank and file all stand straight, on the same neck and the same hips, which 
 - **`stand(build, material, back, front)`** in `units/heroes.ts` gives the two legs, each with its hip moved along and swung: `[-7, 8]` and `[5, -5]` is planted, `[-9, 30]` and `[9, -26]` is a run.
 
 ```ts
-const NAN: Build = { size: 0.9, lean: 21, nod: -14, headX: 9, headY: 9 };   // bent double, head up
+const NAN: Build = { size: 0.86, lean: 21, nod: 8, headX: 12, headY: 14 };   // stooped, her head low and out in front
 const body = bodyOf(NAN);
 const head = headOf(NAN);
-part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => kerchief(c, DARK_CLOTH))),
+part('head', 'head', 'body', turned(head, NECK), (d, team) => posed(d, head, (c) => kerchief(c, CLOTH[team]))),
 ```
 
 What makes one a hero and not a soldier with a name, as the ten were drawn:
 
-- **A shape nobody else has.** `npm run art:roster -- Heroes shape` draws them as black shapes on white. Each must be named from that alone: battlements on a helm, a square cap, a headstone on a back, a crown of ice, the sun's rays.
-- **A stance that is what they do.** Planted behind a door of a shield; leaning into a run with a lance; bent under firewood with a fire held high.
+- **A shape nobody else has.** `npm run art:roster -- Heroes shape` draws them as black shapes on white. Each must be named from that alone: battlements on a helm, a square cap, a headstone on a back, a crown of ice, a bell on a crook.
+- **A body nobody else has.** Hroth is a third bigger than a soldier and hunched, Fenn four fifths of one and low, Ysolde tall and narrow, Bram wide. The game stands every hero on the same spot and hangs its bars from the feet, so height costs nothing.
+- **One idea, drawn big,** and everything small cut (`references/rules.md`, "Silhouette").
+- **A stance that is what they do.** Planted behind a door of a shield; leaning into a run with a lance; stooped over a stick with a fire at its head.
+- **A way of striking that is theirs.** `poses.ts` has movements only heroes use: `guard`, `cleave`, `smite`, `lunge`, `invoke`, `longshot`, `toll` (and `stoop` for a bird that strikes from the air). In each the lead foot steps, the head turns against the body so that it stays on the enemy, and cloth lags and then whips past. A soldier's blow tips the whole figure as one piece, which is right for a crowd and stiff for the one figure a player watches. A weapon can rest somewhere other than in front (a hammer on a shoulder, a bow carried low): its poses are then written from that rest, and the part can be listed before the head so that it lies behind it.
 - **Their own weapon, big, as the `weapon` part,** drawn in `kit/heroes.ts` and nowhere else, so that no soldier is given it.
 - **Cloth that moves:** a cape, a scarf's tails, a veil's train, a tassel, a horse's tail on a helm, each an `extra` with `sway`.
 - **One color of their own beside their side's:** a moss hood, a yellow jerkin, a black veil. It goes on cloth or on what they carry, and the side's color stays on enough cloth to tell whose they are.
@@ -226,7 +229,11 @@ What makes one a hero and not a soldier with a name, as the ten were drawn:
 
 A weapon held level and long (a couched lance) has to stay on its page: 40 past the canvas is all there is. `npm run art:pages` holds every part of every unit to it.
 
-**A companion** (`units/band.ts`) is a beast of the kit made into somebody with one or two things: an ear that never stood up and a purse for what he fetches, a soldier's helmet strapped on a bear, a garden and a lamp on a turtle's shell. The shared beast is left as it was, and the companion is a unit of its own that calls the same parts (`quadruped`, `creature`, `lanternWisp` are exported for that) or lists the beast's parts and adds one.
+**A companion** (`units/band.ts`) is a beast of the kit made into somebody with one thing: an ear that never stood up and a big neckerchief, a hump and patched barding on a bear, a garden and a lamp on a turtle's shell, an eagle caught in her stoop. The shared beast is left as it was, and the companion is a unit of its own that calls the same parts (`quadruped` and `creature` are exported for that). Nothing small is drawn on a companion's head: see the rules on rivets.
+
+**What a pose cannot do.** A pose turns and moves whole parts: the body, the head, each leg, the weapon, the off hand, and every extra by one number. So the arm, which is drawn with the body, does not follow a weapon that is moved far from its rest; the body cannot bend at the waist; an extra can hang only from the root, the body or the head, so cloth tied to a weapon (an oath under a hammer's head) is drawn with the weapon and goes round with it stiffly; and a thing tossed in the air (a coin over a hand) is a piece of the hand's part and does not rise and fall. Each of these would be a change to `rig.ts` and to the game's `Figure`.
+
+**A beast in mid stride.** `quadruped` takes `gait`: for each of the four legs, how far forward its foot is set and how far its joint is bent back. Without it a beast stands on four straight legs, as the shared ones do.
 
 These files are in Legion Holdout's `src/art`. The copy of the kit in this skill (`assets/kit`) has them only once it has been taken from that project (`scripts/sync.mjs`).
 

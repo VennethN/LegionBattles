@@ -290,26 +290,26 @@ A game uses a unit by its id. The role is the part it was drawn to play, and a g
 
 | id | role | read it by |
 | --- | --- | --- |
-| `bram` | melee | a helm with battlements like a gate tower, the door of the gate as a shield, a broad sword laid over it |
-| `wren` | ranged | a moss green hood with one long barred feather, a cloak blown out behind, a bow taller than she is |
-| `orrin` | caster | a square student's cap with a tassel, scrolls on his back, an open book, a staff whose ring was never finished |
-| `fenn` | melee | a flat cap pulled low, a long scarf out behind, a yellow half cape, two coins at the belt, a broad knife in each hand |
-| `nan` | caster | bent double under a bundle of firewood, a headscarf tied under the chin, a crooked staff held high with a fire in its basket |
-| `isaura` | melee | leaning into a run, a sallet with a long white tail of horsehair, a torn cape straight out behind, a couched lance with a steel guard and a torn white pennon |
-| `hroth` | melee | huge and hunched, his own headstone roped to his back with a broken stake, a winding sheet and one horn, an axe with a blade like a spade |
-| `aldous` | support | a stout monk in a deep hood, a shepherd's crook, a great bronze bell hung from his fist |
-| `ysolde` | caster | tall and narrow, a black veil over her whole head under a crown of ice spires, its train out behind, a wand held out with one great tear of ice |
-| `maren` | captain | a helm with the sun's rays fanned over it, a long cape, her oaths hung sealed from the shoulder, a hammer for two hands with the sun on its head |
+| `bram` | melee | wide and planted, a helm with battlements like a gate tower, the door of the gate as a shield, a broad sword laid over it |
+| `wren` | ranged | slight, a moss green hood with one long barred feather, a great cloak blown out behind, a bow taller than she is carried low with the arrow on the string |
+| `orrin` | caster | lanky, a square student's cap with a tassel, scrolls on his back, a staff whose head is half carved with its stone lashed on crooked |
+| `fenn` | melee | small and low, a flat cap, a long scarf out behind, a broad knife thrust forward, and a coin turning in the air over his other hand |
+| `nan` | caster | old and stooped, bent forward over a stick held in both hands with a fire in the basket at its head, a load of firewood high on her back |
+| `isaura` | melee | leaning into a run, a sallet with a long white tail of horsehair, a torn cape straight out behind, a couched lance longer than anyone's with its pennon in ribbons |
+| `hroth` | melee | a third bigger than anyone and hunched, his own headstone roped to his back, a winding sheet and one horn, an axe with a blade like a spade |
+| `aldous` | support | a stout monk bent over a shepherd's crook taller than he is, and a great bronze bell hung from its hook |
+| `ysolde` | caster | the tallest and the narrowest, a black veil under a crown of ice spires, its train out behind, a wand held out with one tear of ice as big as her head |
+| `maren` | captain | tall and easy, weight on one leg, a smooth helm with half a sun for a crest, a great hammer on her shoulder with her oath hung from it, sealed in red |
 
 ## Band (8)
 
 | id | role | read it by |
 | --- | --- | --- |
-| `biscuit` | beast | a pale hound with one ear up and one down, a neckerchief, and a purse strapped to his side for what he fetches |
-| `pip` | beast | a small gold flame that goes about in a lantern with no one holding it, a bow tied on its ring and a ribbon trailing |
-| `mossback` | beast | an old turtle with a garden grown over his shell, a sapling and a lamp on a pole, his head in an iron cap |
-| `quill` | beast | a hunting eagle hooded in her side's color, one wing up, a long ribbon streaming from her leg |
-| `greta` | beast | a great brown bear in patched barding, a soldier's helmet strapped between her ears, a plate over her muzzle |
+| `biscuit` | beast | a pale hound in mid stride, one ear up and one down, a big neckerchief in his side's color |
+| `pip` | beast | a small gold flame in an open lantern that goes about with no one holding it, a bow tied on its ring and a ribbon trailing |
+| `mossback` | beast | an old turtle with a garden grown over his shell, a sapling and a lamp on a pole, his head in a plain iron cap |
+| `quill` | beast | an eagle in her stoop: wings thrown up and back in a V, talons out in front, hooded in her side's color, a ribbon streaming from her leg |
+| `greta` | beast | a great brown bear, a hump over her shoulders, two round ears, short thick legs, barding patched by more than one hand |
 | `ember` | beast | a lizard low to the ground with fire standing along its back, and the camp's kettle set to boil on it |
-| `tam` | support | a boy in a kettle helmet too big for him, tipped down over where his face would be, a pack on his back, the colors on a tall pole in both fists |
-| `thistle` | beast | a stag hooded in his side's color, antlers high, with a collar of leaves and three thistles at his throat |
+| `tam` | support | a boy in a kettle hat too big for him, tipped down over where his face would be, a pack on his back, the colors on a tall pole in both fists |
+| `thistle` | beast | a stag in mid stride, a cloth of his side's color over his back, his bare head held low and his antlers forward, a thistle at his throat |

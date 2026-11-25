@@ -3,17 +3,23 @@
 // own weapon big in the hand, cloth that moves, and one color beside their
 // side's. They are told from each other as black shapes before anything
 // else: look at them that way after changing one.
+//
+// Each has one idea, drawn big. They are shown about sixty pixels tall, and
+// at that size a book, a vial, a seal or a purse is mud: the first drawing
+// of them had all of those, and a second pair of eyes had them taken off.
+// No two are the same height or width, and each strikes in a way of its own
+// (poses.ts), in which the lead foot steps and the head stays on the enemy.
 
 import { ARCANE, BONE, BRONZE, CLOTH, DARK_CLOTH, FIRE, FROST, GOLD, IRON, LEATHER, LINEN, PINE, STEEL, type Material } from '../kit/palette';
-import { FEET, NECK, arm, belt, bulkTorsoPath, cape, hem, hood, lacing, leg, mantle, nockedArrow, patch, pauldron, quiver, robePath, shadow, skirt, stripe, torsoPath } from '../kit/parts';
-import { capsule, line, poly, roundRect, smooth, type Pt } from '../kit/path';
-import { crook, longbow } from '../kit/arms';
-import { breastplate, ropeBelt, sash } from '../kit/gear';
+import { FEET, NECK, arm, belt, bulkTorsoPath, cape, hem, hood, lacing, leg, mantle, nockedArrow, pauldron, robePath, shadow, skirt, stripe, torsoPath } from '../kit/parts';
+import { line, poly, roundRect, smooth, type Path, type Pt } from '../kit/path';
+import { longbow } from '../kit/arms';
+import { sash } from '../kit/gear';
 import { STRAW } from '../kit/heads';
 import {
-  capTassel, dawnHelm, firewood, flatCap, gateHelm, gateShield, gatekeeper, gravecleaver, headstone, hearthbrand, horseTail, iceCrown, kerchief,
-  luckyKnife, monkHood, morningstarHammer, ninthLance, oathRibbons, openBook, passingBell, ropeEnds, runCape, scarfTails, scrollPack, shroudHelm,
-  squareCap, tailFeather, tailedSallet, twoCoins, unfinishedStaff, veilTrain, widowsTear, windCloak,
+  bellCrook, capTassel, coinToss, dawnHelm, firewood, flatCap, gateHelm, gateShield, gatekeeper, gravecleaver, headstone, hearthbrand, horseTail, iceCrown,
+  kerchief, luckyKnife, monkHood, morningstarHammer, ninthLance, runCape, scarfTails, scrollPack, shroudHelm, squareCap, tailFeather, tailedSallet,
+  unfinishedStaff, veilTrain, widowsTear, windCloak,
 } from '../kit/heroes';
 import { bodyOf, headOf, legOf, posed, turned, type Build } from '../kit/stance';
 import type { PartSpec, UnitArt } from '../kit/unit';
@@ -34,22 +40,22 @@ const ground = (rx: number): PartSpec => part('shadow', 'shadow', 'root', FEET, 
 
 // ---------------------------------------------------------------- Bram Oakenhold, the Gatewarden
 
-const BRAM: Build = { size: 1.08, lean: 2 };
+const BRAM: Build = { size: 1.04, wide: 1.14, lean: 2 };
 
-note('bram', 'Heroes', 'melee', 'a helm with battlements like a gate tower, the door of the gate as a shield, a broad sword laid over it');
+note('bram', 'Heroes', 'melee', 'wide and planted, a helm with battlements like a gate tower, the door of the gate as a shield, a broad sword laid over it');
 export const bram: UnitArt = (() => {
   const body = bodyOf(BRAM);
   const head = headOf(BRAM);
-  const hand: Pt = [146, 93];
+  const hand: Pt = [149, 93];
   return {
     id: 'bram',
-    style: 'slash',
-    muzzle: [160, 80],
-    top: 30,
+    style: 'guard',
+    muzzle: [164, 78],
+    top: 34,
     parts: [
-      ground(42),
-      part('cape', 'extra', 'body', turned(body, [96, 106]), (d, team) => posed(d, body, (c) => cape(c, CLOTH[team])), 1.2),
-      ...stand(BRAM, IRON, [-7, 8], [5, -5]),
+      ground(46),
+      part('cape', 'extra', 'body', turned(body, [96, 106]), (d, team) => posed(d, body, (c) => cape(c, CLOTH[team])), 1.4),
+      ...stand(BRAM, IRON, [-8, 8], [5, -5]),
       part('body', 'body', 'root', FEET, (d, team) => {
         posed(d, body, (c) => {
           c.piece('tabard', torsoPath(), CLOTH[team], { inner: (i) => { stripe(i); belt(i, { mat: LEATHER, buckle: IRON }); } });
@@ -58,7 +64,7 @@ export const bram: UnitArt = (() => {
         posed(d, body, (c) => pauldron(c, 117, 112, IRON, 13));
       }),
       part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => gateHelm(c))),
-      part('shield', 'offhand', 'body', [131, 140], (d) => gateShield(d, 131, 96, 179, 26)),
+      part('shield', 'offhand', 'body', [134, 140], (d) => gateShield(d, 134, 96, 179, 27)),
       part('sword', 'weapon', 'body', hand, (d) => gatekeeper(d, { hand, angle: 26 }, 76, IRON)),
     ],
   };
@@ -66,83 +72,75 @@ export const bram: UnitArt = (() => {
 
 // ---------------------------------------------------------------- Wren Fallowmere, the Quiet Arrow
 
-const WREN: Build = { size: 0.97, lean: -4, nod: 5, headX: 1 };
+const WREN: Build = { size: 0.94, lean: -3, nod: 4, headX: 1 };
 
-note('wren', 'Heroes', 'ranged', 'a moss green hood with one long barred feather, a cloak blown out behind, a bow taller than she is');
+note('wren', 'Heroes', 'ranged', 'slight, a moss green hood with one long barred feather, a great cloak blown out behind, a bow taller than she is carried low with the arrow on the string');
 export const wren: UnitArt = (() => {
   const body = bodyOf(WREN);
   const head = headOf(WREN);
-  const hand: Pt = [147, 121];
-  const pull: Pt = [121, 121];
+  // The bow is carried low, pointed at the ground ahead of her, and comes up to shoot (the longshot poses).
+  const hand: Pt = [140, 140];
+  const pull: Pt = [121, 129];
   return {
     id: 'wren',
-    style: 'bow',
-    muzzle: [166, 121],
-    top: 12,
+    style: 'longshot',
+    muzzle: [168, 122],
+    top: 14,
     parts: [
       ground(34),
-      part('cloak', 'extra', 'body', turned(body, [96, 106]), (d, team) => posed(d, (p) => body(p.rotate(13, 98, 104)), (c) => windCloak(c, CLOTH[team])), 2.2),
-      part('quiver', 'extra', 'body', turned(body, [74, 150]), (d) => posed(d, body, (c) => quiver(c)), 0.5),
+      part('cloak', 'extra', 'body', turned(body, [96, 104]), (d, team) => posed(d, (p) => body(p.scale(1.5, 1.5, 106, 102).rotate(8, 100, 104)), (c) => windCloak(c, CLOTH[team])), 2.4),
       ...stand(WREN, LEATHER, [-6, 9], [7, -13]),
       part('body', 'body', 'root', FEET, (d, team) => {
         posed(d, body, (c) => {
           c.piece('tunic', torsoPath(), CLOTH[team], {
             inner: (i) => {
               lacing(i, 112, 108);
-              i.line('strap', line(70, 100, 122, 150));
               belt(i, { y: 140, buckle: null });
             },
           });
-          mantle(c, PINE, null);
         });
-        arm(d, 'arm', turned(body, [116, 116]), [hand[0] - 3, hand[1]], CLOTH[team], 14);
-        // A bracer on the arm the string slaps.
-        d.piece('bracer', capsule(hand[0] - 15, hand[1] - 1, hand[0] - 7, hand[1], 15), LEATHER, { shade: 0 });
+        arm(d, 'arm', turned(body, [116, 117]), [hand[0] - 3, hand[1] - 2], CLOTH[team], 14);
       }),
-      part('feather', 'extra', 'head', turned(head, [100, 58]), (d) => posed(d, head, (c) => tailFeather(c, [100, 58], BONE, 50)), 1.6),
+      part('feather', 'extra', 'head', turned(head, [100, 58]), (d) => posed(d, head, (c) => tailFeather(c, [100, 58], BONE, 56)), 1.8),
       part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => hood(c, PINE, 4))),
-      part('bow', 'weapon', 'body', hand, (d) => longbow(d, { hand, angle: 5 })),
-      part('draw-hand', 'offhand', 'body', pull, (d) => nockedArrow(d, pull[0], pull[1], 60)),
+      part('bow', 'weapon', 'body', hand, (d) => longbow(d, { hand, angle: 30 })),
+      part('draw-hand', 'offhand', 'body', pull, (d) => posed(d, (p) => p.rotate(30, pull[0], pull[1]), (c) => nockedArrow(c, pull[0], pull[1], 62))),
     ],
   };
 })();
 
-
 // ---------------------------------------------------------------- Orrin Quillon, the Unfinished
 
-const ORRIN: Build = { size: 1, lean: 6, nod: -2, headX: 1 };
+const ORRIN: Build = { size: 0.99, wide: 0.92, lean: 5, nod: -2, headX: 1 };
 
-note('orrin', 'Heroes', 'caster', 'a square student\'s cap with a tassel, scrolls on his back, an open book, a staff whose ring was never finished');
+note('orrin', 'Heroes', 'caster', 'lanky, a square student\'s cap with a tassel, scrolls on his back, a staff whose head is half carved with its stone lashed on crooked');
 export const orrin: UnitArt = (() => {
   const body = bodyOf(ORRIN);
   const head = headOf(ORRIN);
-  const hand: Pt = [141, 134];
+  const hand: Pt = [140, 136];
   return {
     id: 'orrin',
-    style: 'cast',
-    muzzle: [150, 34],
-    top: 14,
+    style: 'invoke',
+    muzzle: [166, 30],
+    top: 4,
     parts: [
-      ground(38),
-      part('scrolls', 'extra', 'body', turned(body, [66, 130]), (d) => posed(d, body, (c) => scrollPack(c)), 0.5),
+      ground(36),
+      part('scrolls', 'extra', 'body', turned(body, [66, 130]), (d) => posed(d, body, (c) => scrollPack(c)), 0.6),
       ...stand(ORRIN, LEATHER, [-3, 5], [4, -8]),
       part('body', 'body', 'root', FEET, (d, team) => {
         posed(d, body, (c) => {
           c.piece('robe', robePath(), CLOTH[team], {
             inner: (i) => {
-              hem(i, ARCANE);
-              // A stole of black down the front, spotted with ink.
-              i.piece('stole', roundRect(101, 96, 13, 60, 0), DARK_CLOTH, { shade: 0 });
-              i.shadeOver('ink-a', smooth([[84, 132], [90, 128], [93, 134], [88, 139]]), 1.6);
-              i.shadeOver('ink-b', smooth([[120, 146], [125, 144], [126, 150], [121, 151]]), 1.6);
+              hem(i, DARK_CLOTH);
+              // A stole of black down the front: the one thing he kept of the college.
+              i.piece('stole', roundRect(100, 96, 15, 62, 0), DARK_CLOTH, { shade: 0 });
             },
           });
         });
         arm(d, 'sleeve', turned(body, [116, 117]), [hand[0] - 2, hand[1] - 1], CLOTH[team], 17);
       }),
-      part('tassel', 'extra', 'head', turned(head, [98, 54]), (d) => posed(d, head, (c) => capTassel(c, ARCANE)), 2),
+      part('tassel', 'extra', 'head', turned(head, [98, 54]), (d) => posed(d, head, (c) => capTassel(c, STRAW)), 2.2),
       part('head', 'head', 'body', turned(head, NECK), (d, team) => posed(d, head, (c) => squareCap(c, DARK_CLOTH, CLOTH[team]))),
-      part('book', 'offhand', 'body', [84, 134], (d) => openBook(d, 84, 132, ARCANE)),
       part('staff', 'weapon', 'body', hand, (d) => unfinishedStaff(d, { hand, angle: 9 }, ARCANE, 76)),
     ],
   };
@@ -150,77 +148,71 @@ export const orrin: UnitArt = (() => {
 
 // ---------------------------------------------------------------- Fenn Two-Coins, the Lucky
 
-const FENN: Build = { size: 0.9, lean: 9, nod: -5, headX: 1 };
+const FENN: Build = { size: 0.8, lean: 13, nod: -9, headX: 1 };
 
-note('fenn', 'Heroes', 'melee', 'a flat cap pulled low, a long scarf out behind, a yellow half cape, two coins at the belt, a broad knife in each hand');
+note('fenn', 'Heroes', 'melee', 'small and low, a flat cap, a long scarf out behind, a broad knife thrust forward, and a coin turning in the air over his other hand');
 export const fenn: UnitArt = (() => {
   const body = bodyOf(FENN);
   const head = headOf(FENN);
-  const hand: Pt = [143, 128];
-  const off: Pt = [70, 140];
+  const hand: Pt = [142, 136];
+  const off: Pt = [50, 116];
   return {
     id: 'fenn',
-    style: 'thrust',
-    muzzle: [182, 122],
-    top: 50,
+    style: 'lunge',
+    muzzle: [186, 128],
+    top: 60,
     parts: [
-      ground(34),
-      ...stand(FENN, LEATHER, [-8, 20], [8, -18]),
-      part('tails', 'offhand', 'body', off, (d) => luckyKnife(d, { hand: off, angle: -118 }, 40, IRON)),
+      ground(36),
+      ...stand(FENN, LEATHER, [-11, 26], [10, -22]),
+      part('coin', 'offhand', 'body', off, (d, team) => {
+        arm(d, 'arm-far', turned(body, [78, 117]), [off[0] + 3, off[1] + 2], CLOTH[team], 13);
+        coinToss(d, off[0], off[1]);
+      }),
       part('body', 'body', 'root', FEET, (d, team) => {
-        arm(d, 'arm-far', turned(body, [78, 116]), [off[0] + 2, off[1] - 1], CLOTH[team], 13);
         posed(d, body, (c) => {
-          // A jerkin the yellow of his coins: the one thing about him that is not quiet.
-          c.piece('jerkin', torsoPath(), STRAW, {
-            inner: (i) => {
-              patch(i, 82, 114);
-              belt(i, { y: 138 });
-            },
-          });
+          c.piece('tunic', torsoPath(), CLOTH[team], { inner: (i) => belt(i, { y: 138 }) });
         });
         arm(d, 'arm', turned(body, [115, 117]), [hand[0] - 2, hand[1]], CLOTH[team], 14);
       }),
-      part('coins', 'extra', 'body', turned(body, [112, 142]), (d) => { const [x, y] = turned(body, [112, 142]); twoCoins(d, x, y); }, 2.4),
-      part('scarf', 'extra', 'head', turned(head, [76, 100]), (d, team) => posed(d, head, (c) => scarfTails(c, CLOTH[team])), 2.2),
+      part('scarf', 'extra', 'head', turned(head, [76, 100]), (d, team) => posed(d, (p) => head(p.scale(1.25, 1.25, 78, 102)), (c) => scarfTails(c, CLOTH[team])), 2.4),
       part('head', 'head', 'body', turned(head, NECK), (d, team) => posed(d, head, (c) => flatCap(c, DARK_CLOTH, CLOTH[team]))),
-      part('heads', 'weapon', 'body', hand, (d) => luckyKnife(d, { hand, angle: 76 }, 46, GOLD)),
+      part('heads', 'weapon', 'body', hand, (d) => luckyKnife(d, { hand, angle: 78 }, 52, GOLD)),
     ],
   };
 })();
 
 // ---------------------------------------------------------------- Old Nan Cinderwick, the Hearthwitch
 
-const NAN: Build = { size: 0.9, lean: 21, nod: -14, headX: 9, headY: 9 };
+const NAN: Build = { size: 0.86, lean: 21, nod: 8, headX: 12, headY: 14 };
 
-note('nan', 'Heroes', 'caster', 'bent double under a bundle of firewood, a headscarf tied under the chin, a crooked staff held high with a fire in its basket');
+note('nan', 'Heroes', 'caster', 'old and stooped, bent forward over a stick held in both hands with a fire in the basket at its head, a load of firewood high on her back');
 export const nan: UnitArt = (() => {
   const body = bodyOf(NAN);
   const head = headOf(NAN);
-  const hand: Pt = [142, 112];
+  // The stick stands in front of her, clear of the hood's opening: across it, it was a bar over the one dark place she has.
+  const front = turned(head, [131, 90]);
+  const hand: Pt = [Math.round(front[0] + 15), 122];
+  const wood = (p: Path): Path => body(p.translate(6, -10));
   return {
     id: 'nan',
-    style: 'cast',
-    muzzle: [150, 30],
-    top: 4,
+    style: 'invoke',
+    muzzle: [hand[0] + 6, 30],
+    top: 10,
     parts: [
-      ground(38),
-      part('firewood', 'extra', 'body', turned(body, [62, 112]), (d) => posed(d, body, (c) => firewood(c)), 0.6),
-      ...stand(NAN, LEATHER, [-3, 4], [3, -5]),
+      ground(42),
+      part('firewood', 'extra', 'body', turned(wood, [62, 112]), (d) => posed(d, wood, (c) => firewood(c)), 0.6),
+      ...stand(NAN, LEATHER, [-3, 4], [5, -6]),
       part('body', 'body', 'root', FEET, (d, team) => {
+        arm(d, 'sleeve-far', turned(body, [110, 122]), [hand[0] - 3, hand[1] + 19], CLOTH[team], 14);
         posed(d, body, (c) => {
-          c.piece('dress', robePath(), CLOTH[team], {
-            inner: (i) => {
-              hem(i, FIRE);
-              i.piece('apron', smooth([[92, 126, 'c'], [130, 126, 'c'], [136, 162], [116, 168], [96, 166]]), LINEN, { shade: 0, inner: (a) => patch(a, 108, 144, 12, 10) });
-              i.piece('ties', roundRect(56, 124, 80, 6, 0), LINEN, { shade: 0 });
-            },
-          });
+          c.piece('dress', robePath(), CLOTH[team], { inner: (i) => hem(i, FIRE) });
+          // A shawl over her shoulders, crossed in front.
           mantle(c, DARK_CLOTH, null);
         });
-        arm(d, 'sleeve', turned(body, [116, 116]), [hand[0] - 2, hand[1] + 2], DARK_CLOTH, 15);
+        arm(d, 'sleeve', turned(body, [118, 116]), [hand[0] - 3, hand[1] + 2], CLOTH[team], 15);
       }),
-      part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => kerchief(c, DARK_CLOTH))),
-      part('staff', 'weapon', 'body', hand, (d) => hearthbrand(d, { hand, angle: 7 }, FIRE, 50)),
+      part('head', 'head', 'body', turned(head, NECK), (d, team) => posed(d, head, (c) => kerchief(c, CLOTH[team]))),
+      part('staff', 'weapon', 'body', hand, (d) => hearthbrand(d, { hand, angle: 3 }, FIRE, 54)),
     ],
   };
 })();
@@ -229,188 +221,177 @@ export const nan: UnitArt = (() => {
 
 const ISAURA: Build = { size: 1.03, lean: 14, nod: -9, headX: 2 };
 
-note('isaura', 'Heroes', 'melee', 'leaning into a run, a sallet with a long white tail of horsehair, a torn cape straight out behind, a couched lance with a steel guard and a torn white pennon');
+note('isaura', 'Heroes', 'melee', 'leaning into a run, a sallet with a long white tail of horsehair, a torn cape straight out behind, a couched lance longer than anyone\'s with its pennon in ribbons');
 export const isaura: UnitArt = (() => {
   const body = bodyOf(ISAURA);
   const head = headOf(ISAURA);
-  const hand: Pt = [128, 138];
+  const hand: Pt = [116, 141];
   return {
     id: 'isaura',
-    style: 'thrust',
-    muzzle: [228, 126],
+    style: 'lunge',
+    muzzle: [226, 128],
     top: 34,
     parts: [
-      ground(40),
-      part('cape', 'extra', 'body', turned(body, [96, 104]), (d, team) => posed(d, body, (c) => runCape(c, CLOTH[team])), 2.4),
+      ground(42),
+      part('cape', 'extra', 'body', turned(body, [96, 104]), (d, team) => posed(d, (p) => body(p.scale(1.2, 1.2, 104, 102)), (c) => runCape(c, CLOTH[team])), 2.6),
       ...stand(ISAURA, STEEL, [-9, 30], [9, -26]),
       part('body', 'body', 'root', FEET, (d, team) => {
         posed(d, body, (c) => {
-          c.piece('tabard', torsoPath(), CLOTH[team], {
-            inner: (i) => {
-              breastplate(i, STEEL);
-              belt(i, { y: 140 });
-            },
-          });
+          // A surcoat in her side's color over the steel, and its skirt cut ragged by the road.
+          c.piece('skirt', poly([[66, 150], [126, 150], [124, 172], [114, 164], [106, 174], [96, 165], [86, 174], [78, 164], [68, 170]]), CLOTH[team], { shade: 3 });
+          c.piece('surcoat', torsoPath(), CLOTH[team], { inner: (i) => { stripe(i); belt(i, { y: 140 }); } });
         });
-        arm(d, 'arm', turned(body, [116, 116]), [hand[0] - 1, hand[1] - 2], STEEL, 15);
-        posed(d, body, (c) => pauldron(c, 116, 112, STEEL, 12));
+        arm(d, 'arm', turned(body, [114, 116]), [hand[0] - 1, hand[1] - 2], STEEL, 15);
+        posed(d, body, (c) => pauldron(c, 114, 112, STEEL, 12));
       }),
-      part('tail', 'extra', 'head', turned(head, [92, 54]), (d) => posed(d, head, (c) => horseTail(c, [92, 54], BONE, 66)), 2.6),
-      part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => tailedSallet(c))),
-      part('lance', 'weapon', 'body', hand, (d) => ninthLance(d, { hand, angle: 83 }, 70)),
+      part('tail', 'extra', 'head', turned(head, [92, 54]), (d) => posed(d, head, (c) => horseTail(c, [92, 54], BONE, 70)), 2.8),
+      part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => tailedSallet(c, STEEL, STEEL))),
+      part('lance', 'weapon', 'body', hand, (d, team) => ninthLance(d, { hand, angle: 83 }, 76, CLOTH[team], 52)),
     ],
   };
 })();
 
 // ---------------------------------------------------------------- Hroth the Unburied
 
-const HROTH: Build = { size: 1.16, wide: 1.06, lean: 10, nod: 3, headX: 7, headY: 9 };
+const HROTH: Build = { size: 1.3, wide: 1.02, lean: 12, nod: 4, headX: 8, headY: 11 };
 
-note('hroth', 'Heroes', 'melee', 'huge and hunched, his own headstone roped to his back with a broken stake, a winding sheet and one horn, an axe with a blade like a spade');
+note('hroth', 'Heroes', 'melee', 'a third bigger than anyone and hunched, his own headstone roped to his back, a winding sheet and one horn, an axe with a blade like a spade');
 export const hroth: UnitArt = (() => {
   const body = bodyOf(HROTH);
   const head = headOf(HROTH);
-  const hand: Pt = [146, 150];
+  const stone = (p: Path): Path => body(p.translate(-15, -15));
+  const hand: Pt = [154, 150];
   return {
     id: 'hroth',
-    style: 'chop',
-    muzzle: [176, 96],
-    top: 20,
+    style: 'cleave',
+    muzzle: [190, 90],
+    top: -12,
     parts: [
-      ground(48),
-      part('headstone', 'extra', 'body', turned(body, [70, 130]), (d) => posed(d, body, (c) => headstone(c)), 0.4),
-      ...stand(HROTH, LEATHER, [-8, 7], [6, -7]),
+      ground(52),
+      part('headstone', 'extra', 'body', turned(stone, [70, 130]), (d) => posed(d, stone, (c) => headstone(c)), 0.4),
+      ...stand(HROTH, LEATHER, [-8, 8], [6, -8]),
       part('body', 'body', 'root', FEET, (d, team) => {
         posed(d, body, (c) => {
+          // The rag of his kilt below the body, then the body in its sheet: three windings and no more.
+          c.piece('rag', poly([[68, 154], [126, 154], [122, 172], [113, 163], [104, 174], [96, 164], [87, 174], [79, 163], [70, 170]]), CLOTH[team], { shade: 3 });
           c.piece('shroud', bulkTorsoPath(), LINEN, {
             inner: (i) => {
               sash(i, CLOTH[team]);
-              i.line('rope-a', line(60, 122, 136, 112));
-              i.line('rope-b', line(60, 132, 136, 124));
-              skirt(i, CLOTH[team], 143);
-              ropeBelt(i, 138);
+              i.line('wind-a', line(58, 118, 138, 110));
+              i.line('wind-b', line(58, 131, 138, 124));
+              skirt(i, CLOTH[team], 142);
+              i.line('wind-c', line(56, 142, 138, 142));
             },
           });
-          // The hem of his kilt, cut ragged below the body.
-          c.piece('rag', poly([[70, 156], [124, 156], [120, 170], [112, 162], [104, 172], [96, 163], [88, 172], [80, 162], [72, 168]]), CLOTH[team], { shade: 3 });
         });
-        arm(d, 'arm', turned(body, [118, 118]), [hand[0] - 2, hand[1] - 3], LINEN, 21);
+        arm(d, 'arm', turned(body, [118, 118]), [hand[0] - 2, hand[1] - 3], LINEN, 23);
       }),
       part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => shroudHelm(c))),
-      part('axe', 'weapon', 'body', hand, (d) => gravecleaver(d, { hand, angle: 20 }, 88)),
+      part('axe', 'weapon', 'body', hand, (d) => gravecleaver(d, { hand, angle: 14 }, 98)),
     ],
   };
 })();
 
 // ---------------------------------------------------------------- Brother Aldous Bell
 
-const ALDOUS: Build = { size: 1.02, wide: 1.14, lean: -3 };
+const ALDOUS: Build = { size: 1, wide: 1.16, lean: 8, nod: -3 };
 
-note('aldous', 'Heroes', 'support', 'a stout monk in a deep hood, a shepherd\'s crook, a great bronze bell hung from his fist');
+note('aldous', 'Heroes', 'support', 'a stout monk bent over a shepherd\'s crook taller than he is, and a great bronze bell hung from its hook');
 export const aldous: UnitArt = (() => {
   const body = bodyOf(ALDOUS);
   const head = headOf(ALDOUS);
-  const hand: Pt = [148, 104];
-  const off: Pt = [70, 132];
+  const hand: Pt = [150, 124];
   return {
     id: 'aldous',
-    style: 'swing',
-    muzzle: [150, 150],
-    top: 30,
+    style: 'toll',
+    muzzle: [186, 84],
+    top: 0,
     parts: [
-      ground(42),
-      ...stand(ALDOUS, LEATHER, [-2, 2], [2, -2]),
+      ground(44),
+      ...stand(ALDOUS, LEATHER, [-3, 3], [4, -5]),
       part('body', 'body', 'root', FEET, (d, team) => {
+        arm(d, 'sleeve-far', turned(body, [108, 122]), [hand[0] - 3, hand[1] + 21], LINEN, 16);
         posed(d, body, (c) => {
           c.piece('habit', robePath(), LINEN, {
             inner: (i) => {
               hem(i, LEATHER);
-              i.piece('scapular', roundRect(87, 96, 26, 82, 0), CLOTH[team], { shade: 0 });
-              ropeBelt(i, 136);
+              i.piece('scapular', roundRect(84, 96, 30, 82, 0), CLOTH[team], { shade: 0 });
             },
           });
         });
         arm(d, 'sleeve', turned(body, [116, 118]), [hand[0] - 3, hand[1] + 2], LINEN, 18);
       }),
-      part('rope', 'extra', 'body', turned(body, [108, 138]), (d) => { const [x, y] = turned(body, [108, 140]); ropeEnds(d, x, y); }, 2),
       part('head', 'head', 'body', turned(head, NECK), (d, team) => posed(d, head, (c) => monkHood(c, CLOTH[team]))),
-      part('crook', 'offhand', 'body', off, (d) => crook(d, { hand: off, angle: -4 }, 84)),
-      part('bell', 'weapon', 'body', hand, (d) => passingBell(d, { hand, angle: 0 }, BRONZE)),
+      part('bell', 'weapon', 'body', hand, (d) => bellCrook(d, { hand, angle: 3 }, BRONZE, 98)),
     ],
   };
 })();
 
 // ---------------------------------------------------------------- Ysolde Rimeheart, the Winter Widow
 
-const YSOLDE: Build = { size: 1.07, wide: 0.9, lean: -3, nod: -3 };
+const YSOLDE: Build = { size: 1.16, wide: 0.8, lean: -2, nod: -3 };
 
-note('ysolde', 'Heroes', 'caster', 'tall and narrow, a black veil over her whole head under a crown of ice spires, its train out behind, a wand held out with one great tear of ice');
+note('ysolde', 'Heroes', 'caster', 'the tallest and the narrowest, a black veil under a crown of ice spires, its train out behind, a wand held out with one tear of ice as big as her head');
 export const ysolde: UnitArt = (() => {
   const body = bodyOf(YSOLDE);
   const head = headOf(YSOLDE);
-  const hand: Pt = [150, 108];
+  const hand: Pt = [142, 120];
   return {
     id: 'ysolde',
-    style: 'cast',
-    muzzle: [172, 60],
-    top: -6,
+    style: 'invoke',
+    muzzle: [174, 54],
+    top: -14,
     parts: [
-      ground(34),
-      part('train', 'extra', 'head', turned(head, [76, 66]), (d) => posed(d, head, (c) => veilTrain(c, DARK_CLOTH)), 2.4),
+      ground(32),
+      part('train', 'extra', 'head', turned(head, [76, 66]), (d) => posed(d, head, (c) => veilTrain(c, DARK_CLOTH)), 2.6),
       ...stand(YSOLDE, DARK_CLOTH, [-2, 2], [2, -3]),
       part('body', 'body', 'root', FEET, (d, team) => {
         posed(d, body, (c) => {
           c.piece('gown', robePath(), CLOTH[team], {
             inner: (i) => {
               hem(i, FROST);
-              i.piece('bodice', smooth([[60, 96, 'c'], [132, 96, 'c'], [128, 124], [112, 138], [96, 142], [80, 138], [64, 124]]), DARK_CLOTH, { shade: 0 });
+              i.piece('bodice', smooth([[60, 96, 'c'], [132, 96, 'c'], [128, 118], [112, 130], [96, 133], [80, 130], [64, 118]]), DARK_CLOTH, { shade: 0 });
             },
           });
         });
         // A sleeve that hangs open from the wrist.
-        const sh = turned(body, [114, 115]);
-        d.piece('sleeve-fall', smooth([[hand[0] - 20, hand[1] + 4, 'c'], [hand[0] - 4, hand[1] + 6, 'c'], [hand[0] - 8, hand[1] + 26], [hand[0] - 14, hand[1] + 38, 'c'], [hand[0] - 24, hand[1] + 22]]), DARK_CLOTH, { shade: 3 });
-        arm(d, 'sleeve', sh, [hand[0] - 3, hand[1] + 1], DARK_CLOTH, 14);
+        d.piece('sleeve-fall', smooth([[hand[0] - 20, hand[1] + 4, 'c'], [hand[0] - 4, hand[1] + 6, 'c'], [hand[0] - 8, hand[1] + 26], [hand[0] - 14, hand[1] + 40, 'c'], [hand[0] - 24, hand[1] + 22]]), DARK_CLOTH, { shade: 3 });
+        arm(d, 'sleeve', turned(body, [114, 115]), [hand[0] - 3, hand[1] + 1], DARK_CLOTH, 14);
       }),
       part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => iceCrown(c, DARK_CLOTH, FROST))),
-      part('wand', 'weapon', 'body', hand, (d) => widowsTear(d, { hand, angle: 26 }, FROST, 34)),
+      part('wand', 'weapon', 'body', hand, (d) => widowsTear(d, { hand, angle: 24 }, FROST, 42)),
     ],
   };
 })();
 
 // ---------------------------------------------------------------- Maren Dawnguard, the Oathkeeper
 
-const MAREN: Build = { size: 1.08, lean: -2 };
+const MAREN: Build = { size: 1.1, lean: -3 };
 
-note('maren', 'Heroes', 'captain', 'a helm with the sun\'s rays fanned over it, a long cape, her oaths hung sealed from the shoulder, a hammer for two hands with the sun on its head');
+note('maren', 'Heroes', 'captain', 'tall and easy, weight on one leg, a smooth helm with half a sun for a crest, a great hammer on her shoulder with her oath hung from it, sealed in red');
 export const maren: UnitArt = (() => {
   const body = bodyOf(MAREN);
   const head = headOf(MAREN);
-  const hand: Pt = [140, 142];
+  const hand: Pt = [134, 134];
   return {
     id: 'maren',
-    style: 'chop',
-    muzzle: [166, 60],
-    top: 8,
+    style: 'smite',
+    muzzle: [176, 80],
+    top: 20,
     parts: [
       ground(42),
-      part('cape', 'extra', 'body', turned(body, [96, 106]), (d, team) => posed(d, body, (c) => cape(c, CLOTH[team])), 1.4),
-      ...stand(MAREN, STEEL, [-5, 6], [5, -6]),
+      part('cape', 'extra', 'body', turned(body, [96, 106]), (d, team) => posed(d, body, (c) => cape(c, CLOTH[team])), 1.6),
+      ...stand(MAREN, STEEL, [-3, 0], [9, -15]),
       part('body', 'body', 'root', FEET, (d, team) => {
         posed(d, body, (c) => {
-          c.piece('tabard', torsoPath(), CLOTH[team], {
-            inner: (i) => {
-              stripe(i);
-              belt(i, { y: 142, mat: BONE });
-            },
-          });
+          c.piece('tabard', torsoPath(), CLOTH[team], { inner: (i) => { stripe(i); belt(i, { y: 142, mat: BONE }); } });
         });
         arm(d, 'arm', turned(body, [117, 116]), [hand[0] - 2, hand[1] - 3], STEEL, 16);
-        posed(d, body, (c) => pauldron(c, 117, 112, GOLD, 13));
+        posed(d, body, (c) => pauldron(c, 117, 112, STEEL, 12));
       }),
-      part('oaths', 'extra', 'body', turned(body, [112, 118]), (d) => { const [x, y] = turned(body, [110, 122]); oathRibbons(d, x, y); }, 2.2),
+      // The hammer is drawn before the head: it lies on her shoulder, and its head is seen behind hers.
+      part('hammer', 'weapon', 'body', hand, (d) => morningstarHammer(d, { hand, angle: -58 }, 100)),
       part('head', 'head', 'body', turned(head, NECK), (d) => posed(d, head, (c) => dawnHelm(c))),
-      part('hammer', 'weapon', 'body', hand, (d) => morningstarHammer(d, { hand, angle: 12 }, 92)),
     ],
   };
 })();
