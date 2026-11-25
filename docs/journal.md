@@ -2,6 +2,52 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
+## Round 6, the rules after the first review
+
+A designer who had not seen the game reviewed its rules, and then the owner played it and said one thing: "let's fix the wording (its convoluted)". This round is the answer to both, with the Hold merged into it at the end. `docs/design.md` has every table in the game's own words.
+
+**Dead or false, mended.** Coins on the ground when a wave's time runs out count for half, so Fetch, the Magpie Feather and Pickup Range matter. The Whetstone of Ages sharpens every weapon. The Echo Bell is every 4th hit. The Merchant's Seal halves the most expensive item in each shop and gives no free reroll. Late enemies deal about half of what they did (`ENEMY_GROWTH`). Burn grows with Magic Damage. No wave is longer than 45 seconds; a boss's is 60 at most and ends when the boss falls. Each hero's own weapon has its own numbers: a test fails if one twins a shop weapon.
+
+**A first run has a script.** One road out of its first camp, the Stray's, with Biscuit in the cage, who is let out at the wave's end broken or not. A lone champion on wave 3 of every run drops a relic. Its shop draws from twelve weapons: that pool is the armory as a new player has it, given to the run when it begins. Bram's raised shield lets 40% through and blocks shots from the front.
+
+**Roads that cost.** No free road. Twelve roads, six anywhere and two that are each land's own; all cost something.
+
+**Heroes with verbs.** Five passives replaced (Orrin's staff copies the last weapon bought; Fenn flips a coin for an item; Nan's fire never goes out near her and stacks; Isaura readies a 2.5x thrust by riding straight; Hroth is strongest below 33% HP). War Cry is Open Grave. Every skill asks where, which way or when. Auto-cast is on for a first run only, then handed over and said once. Fury fills for about two casts a wave early and three or four late. Each own weapon learns a rule at levels 5, 10 and 15: thirty rules, a test each.
+
+**The Hold merged in** (`holdout-hold`, 295 tests there, 360 here now):
+
+- **One pool.** `STARTER_POOL` and `RunStart` are gone. A run's terms (`Terms`, hold.ts) carry `first` beside `pool`; `beginRun` marks a first run when no run has ended. The name kept is the Hold's, `pool`.
+- **`run.alt` is real.** One of each weapon's three rules has a second way, chosen in its place once the hero's third oath unlocks the choice: ten second ways, forty rules, a test each (`tests/altrules.test.ts`).
+- **Oaths written again** for the five replaced passives, each counted by the run as it is played (`COUNTS` in heroes.ts, `run.counts`): the staff changes form 10 times, 6 coin flips won, burn stacked to its max on 20 enemies, 40 Tilt kills, 150 kills in Grave Debt. Set from what the plain player counts: half its runs reach 6, 3, 4, 27 and 78 of those, and the best 16, 15, 42, 55 and 391.
+- **Vows and roads add up.** The vow that was Forced March is Double Time, as the road has the name. The vow's champion keeps out of a duel and off wave 3. The night road is not offered under The Early Dark. A forced march and Open Wounds ask the same thing, and the worse holds.
+- **The save** is version 4 still, with a kept run's new fields mended on the way in.
+- **The Wayfarer's crate** asks for 8 different roads, not all of them: the two snow roads are only met from wave 15.
+
+**The wording.** Every string a player reads in `src/game` was rewritten: passives, skills, weapons, weapon rules, companions, relics, weapon types and set bonuses, roads as risk and reward, stats, vows, oaths, quests, upgrades, crates, the Codex's lines. What happens and by how much, numbers as numbers. The stats are Max HP, HP Regen, Life Steal, Damage, Melee, Ranged and Magic Damage, Attack Speed, Crit Chance, Range, Armor, Dodge, Move Speed, Luck, Coin Gain, Pickup Range. Five enemies were renamed (Bandit, Bomber, Tomb Guard, Raider, War Singer). The rule is in `CLAUDE.md`.
+
+**Measured** after the merge, the plain player alone, 32 runs a hero, each stopped at the 26th wave:
+
+| Hero | Nothing bought, a first armory: half / mean of 20 / won | The whole board, the whole armory: half / mean of 20 / won |
+| --- | --- | --- |
+| Bram Oakenhold | 11 / 11.3 / 2 | 28 / 18.8 / 20 |
+| Wren Fallowmere | 10 / 8.8 / 0 | 18 / 17.2 / 9 |
+| Orrin Quillon | 11 / 11.5 / 2 | 27 / 18.7 / 23 |
+| Fenn Two-Coins | 12 / 13.5 / 8 | 31 / 19.3 / 28 |
+| Old Nan Cinderwick | 12 / 12.5 / 2 | 28 / 19.2 / 21 |
+| Isaura Vane | 10 / 8.8 / 0 | 18 / 17.4 / 9 |
+| Hroth | 13 / 14.3 / 7 | 31 / 19.4 / 27 |
+| Brother Aldous Bell | 11 / 10.3 / 0 | 27 / 19.2 / 21 |
+| Ysolde Rimeheart | 12 / 12.8 / 7 | 29 / 19.7 / 28 |
+| Maren Dawnguard | 17 / 15.4 / 7 | 29 / 19.6 / 26 |
+
+- **Nothing bought:** 35 runs of 320 won, one in nine. Nine heroes have half their runs through wave 10 to 13, Bram in the middle at 11. **Maren is too strong** (half through 17) and was not trimmed again after the merge; Hroth is at the top of the band. Wren and Isaura never won: the plain player holds a line for Isaura but does not ride through the thick of them as a person would, and it loses Wren's Unseen to every stray shot.
+- **A run that clears all twenty waves is 12 to 13 minutes of fighting.**
+- **The whole board:** 212 of 320 won, two in three. For the four heroes the Hold was measured with (Bram, Wren, Orrin, Isaura) it is 61 of 128, a little under the Hold's 55 of 96. The others gain more from the board than those four. The vows were not measured again.
+- **A career**, once: everything unlocked and the board full after 65 runs (62 to 79 before the merge).
+- **The roads**, as Bram over 40 runs before the merge (taken, cleared): Horde 54, 78%; Champions 35, 74%; Forced March 30, 100% (its cost is the wave after); Toll Road 28, 96%; Duel 34, 91%; Wounded 34, 82%; Stray 39, 100%; Grove Shrine 62, 98%; Pay Caravan 14, 93%; Burning Field 20, 85%; Long Night 2; Blizzard 3. Within a land no road is taken more than about twice as often as another. Across lands that cannot hold: few runs reach the snow. Horde, Champions and Wounded are lost between 1 in 6 and 1 in 4; the rest are lost less often than the aim.
+
+Not as asked, or not done: a boss's wave may run to 60 seconds, not 45. Fenn keeps coins as damage beside his coin flip, and Hroth keeps his revive. Maren and Hroth want another trim. The second ways are not measured: the plain player never chooses one. The road figures were not taken again after the merge.
+
 ## Round 4, the Hold: what is kept between runs
 
 Built as pure rules with a test each (`src/game/hold.ts`, its lists and numbers in `holdData.ts`, the save in `state.ts`), and shown as plainly as lets it be used (`HoldScene`, behind THE HOLD on the list of heroes). `docs/design.md`, "Between runs: the Hold", is what was built. It was built in a copy of its own, on the road's work, while the screens for heroes and companions were being made in the main copy.

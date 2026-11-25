@@ -164,47 +164,43 @@ The renderer is set to bind two textures (`maxTextures: 2` in `main.ts`): the fi
 
 `npm run pace` is how the numbers were set. Its player steers away from what would hurt and toward what lies about, a fifth of a second late and never quite true, lets the move loose when there is a crowd for it, stands as Bram and keeps moving as Isaura, and buys what it can afford with no plan but a liking for a kind of weapon it holds already. It takes the roads with prizes while it comes out of a wave with more than half its health and the quiet road when it does not, stands in a shrine's ring, goes for a cage and a wagon, and takes the relic it thinks is worth most.
 
-As last measured, with thirty-two runs to a hero, alone, each stopped at the twenty-sixth wave. "Mean" is the mean of the waves come through with every run stopped at the twentieth:
+As last measured (round 6, after the Hold was merged), with thirty-two runs to a hero, alone, each stopped at the twenty-sixth wave. "Mean" is the mean of the waves cleared with every run stopped at the twentieth. The first three columns are a new player's game, nothing bought and the armory's first twelve weapons (`--pool=start`); the last two are with the whole board and the whole armory (`--board=all`):
 
-| Hero | Half come through | Mean of the written 20 | Fewest | Won, of 32 |
-| --- | --- | --- | --- | --- |
-| Bram Oakenhold | 10 | 9.7 | 3 | 0 |
-| Wren Fallowmere | 11 | 11.4 | 3 | 0 |
-| Orrin Quillon | 11 | 12.0 | 5 | 3 |
-| Fenn Two-Coins | 11 | 10.0 | 3 | 4 |
-| Old Nan Cinderwick | 11 | 10.1 | 3 | 1 |
-| Isaura Vane | 11 | 12.3 | 7 | 3 |
-| Hroth | 11 | 12.1 | 4 | 6 |
-| Brother Aldous Bell | 10 | 10.7 | 4 | 2 |
-| Ysolde Rimeheart | 11 | 12.0 | 3 | 5 |
-| Maren Dawnguard | 11 | 12.5 | 7 | 2 |
+| Hero | Half cleared | Mean of the written 20 | Won, of 32 | Whole board: mean of 20 | Whole board: won, of 32 |
+| --- | --- | --- | --- | --- | --- |
+| Bram Oakenhold | 11 | 11.3 | 2 | 18.8 | 20 |
+| Wren Fallowmere | 10 | 8.8 | 0 | 17.2 | 9 |
+| Orrin Quillon | 11 | 11.5 | 2 | 18.7 | 23 |
+| Fenn Two-Coins | 12 | 13.5 | 8 | 19.3 | 28 |
+| Old Nan Cinderwick | 12 | 12.5 | 2 | 19.2 | 21 |
+| Isaura Vane | 10 | 8.8 | 0 | 17.4 | 9 |
+| Hroth | 13 | 14.3 | 7 | 19.4 | 27 |
+| Brother Aldous Bell | 11 | 10.3 | 0 | 19.2 | 21 |
+| Ysolde Rimeheart | 12 | 12.8 | 7 | 19.7 | 28 |
+| Maren Dawnguard | 17 | 15.4 | 7 | 19.6 | 26 |
 
-Half of each hero's runs come through ten or eleven waves, and about one run in twelve wins the twentieth. Before the road, relics and kinds of weapon were in, the same waves let half of Wren's runs through thirty-one: a hero has far more now by the middle of a run, and the enemies were made to grow again from the fourth wave (their health) and the seventh (their harm), with the first waves left as they were. Runs used to end at two walls, the twelfth wave and the eighteenth; those were lowered, and they now end all along the way.
+With nothing bought about one run in nine wins the twentieth wave, and a run that clears all twenty is twelve to thirteen minutes of fighting. Nine heroes have half their runs through wave 10 to 13, with Bram in the middle. Maren is too strong by four waves and Hroth is at the top of the band: both want a trim that has not been made. Wren and Isaura never won for this player, which loses Wren's Unseen to every stray shot and only holds a line for Isaura's Tilt; what a person makes of them is not known. With the whole board two runs in three are won: that is what the vows are for.
 
-What each new thing is worth to the plain player, as Orrin, thirty-two runs each, in the mean of the written 20:
+How the roads went, as Bram over forty runs, before the Hold was merged (they were not taken again after):
 
-| As Orrin | Mean of the written 20 |
-| --- | --- |
-| With everything | 12.0 |
-| Kept to the quiet road | 9.5 |
-| With no relic doing anything | 11.2 |
-| With no gift from the kinds | 11.9 |
-
-The roads are worth the most by far: a blessing is a level's choice, a stray is a companion, a wagon is a camp's worth of coins. Relics come late and to runs that are already going well, so taking them all away costs little. The gifts of the kinds are worth less than the dice move, to this player: it leans toward a kind it holds but does not give up a better weapon for one, as a person building for a gift would.
-
-How the roads went, over all ten heroes:
-
-| Road | Times taken | Come through | Prize had, of those |
+| Road | Times taken | Cleared | Reward had, of those |
 | --- | --- | --- | --- |
-| Quiet road | 123 | 75% | 100% |
-| The horde | 502 | 94% | 100% |
-| Champions | 595 | 80% | 100% |
-| Night march | 280 | 93% | 100% |
-| Pay wagon | 638 | 92% | 86% |
-| The shrine | 941 | 96% | 96% |
-| The stray | 267 | 99% | 97% |
+| The Horde | 54 | 78% | 100% |
+| Champions | 35 | 74% | 100% |
+| Forced March | 30 | 100% | 100% |
+| Toll Road | 28 | 96% | 100% |
+| The Duel | 34 | 91% | 100% |
+| The Wounded | 34 | 82% | 100% |
+| The Stray | 39 | 100% | 77% |
+| The Grove Shrine | 62 | 98% | 93% |
+| Pay Caravan | 14 | 93% | 92% |
+| Burning Field | 20 | 85% | 100% |
+| The Long Night | 2 | 100% | 100% |
+| Blizzard | 3 | 67% | 100% |
 
-Champions are the road that ends runs, as they are meant to be. The quiet road looks worse than it is: the plain player takes it only when it is already hurt.
+Within a land no road is taken much more than twice as often as another. Few of Bram's runs reach the snow, so its two roads are barely measured. A forced march is cleared every time because its cost falls on the wave after it.
+
+The figures below this line are older than round 6: they were taken before the roads were given costs and the late enemies were eased, and say what a companion and the Hold were worth then.
 
 What a companion is worth, with twenty-four runs each, as the mean of the written 20 beside the hero alone:
 
@@ -259,17 +255,18 @@ This was built in a cloud session with no screen and no sound.
 - A full screen (1920 by 1080) under the light was looked at once, at dusk in the meadow. A phone on its side was not looked at.
 - A boss is only told from another by its picture and its numbers: all three fight the same way.
 - The named heroes, their moves and quirks and the companions have their proper showing now (`src/view/Deeds.ts`), and it was looked at only in stills: all ten moves a few frames in and half a second in at a portal's frame; Bram set, Wren untouched, Isaura at speed and Hroth hurt; a companion down; the Hold at three sizes. Nobody has seen any of it move: whether a blow drawn back two tenths of a second before it lands reads as a swing, whether cloth swings or jitters, and whether the breath a move holds the wave for feels like weight or like a stutter, are all unknown. Each companion's own moment (Biscuit's coin, Pip's flare, Mossback's ring, Quill's mark, Greta's roar, Tam's banner, Thistle's stampede) was written and never caught in a picture.
-- Whether a quirk is fun to play round is not known: Bram's standing still, Isaura's never stopping and Wren's not being touched were only ever played by the computer.
+- Whether a passive is fun to play is not known. All ten were only ever played by the computer, which holds a line for Isaura's Tilt but does not ride through a crowd, loses Wren's Unseen to stray shots, and flips Fenn's coin for anything that costs 30 or more. Maren is too strong by about four waves for that player, and Hroth a little.
 - A companion's worth was measured with twenty-four runs to a companion and two heroes, which tells a companion worth nothing from one worth three waves and little finer than that.
 - The road, the relics and the kinds of weapon are rules that were tested and measured, and shown only plainly. What was looked at, at a portal's frame, at the small frame and on a phone held upright: the roads as cards (two and three), a relic's three cards, the camp with relics, kinds and a relic among its wares, the card of the kinds, and one picture each of the shrine, the cage broken open, the wagon under guard, a champion with its ring, and the night. What was not: a wagon getting away, a burning champion's blaze, lightning from the Stormglass, the slain getting up, a shot splitting, or any other relic going off. Nobody has pressed any of it but a script. Since then the road and a relic's choice come up into place with a sound, champions stand in a light of their own kind, and nothing else about those screens was changed.
-- Whether the roads are a real choice is not known. The computer always takes a prize while it is hale; whether a person feels the champions' road is worth a relic, or finds the shrine's eight seconds dull, has to be played.
+- Whether the roads are a real choice is not known. The computer picks by a fixed liking for each; whether a person feels a forced march is worth a relic, or finds the shrine's eleven seconds dull, has to be played. The two snow roads were taken five times in the last measure of them.
 - Night is darker than it was (dark with pools of light, not a grey haze), and a night march darker still with the hero's light small. Both were set from numbers and one look at a desert night; whether an enemy is still easy to find at the edge of a night march has to be judged on a real screen. With the light off a night march is the flat veil it was.
-- Twenty-nine weapons and twenty-six relics is a great deal for a first run to meet at once. The Hold is meant to open them a few at a time; until it does, they are all there from the first camp.
+- The walls of Bram's gate, the lanes of the Burning Field, the duel, the champion of wave 3 and a blocked shot are shown as plainly as lets them be read (a bar, a band on the ground, a banner, a spark), and none of that was looked at in a picture after it was made. The coin flip is a FLIP button on an item, and the own weapon's rules are a card behind its name in the camp.
 - The Hold's screen is the plainest that works and has been seen only in pictures, at 821 by 462 and on a phone held upright. Nobody has bought anything in it but a script. The board is a list with pages there, though it has a column and a row for every place so that a screen can draw it as a tree. The Chronicle has not been looked at with everything met.
 - The board, the vows and the oaths were measured with a computer player. It does not mind quicker enemies and never uses a mark or a second look, so what those are worth to a person is not known. A hero's starting relic was not measured by itself, and one vow at a time only for two heroes.
-- The second rule for a hero's own weapon, which an oath opens, is a choice that is kept and given to the run and changes nothing yet: the rules themselves are being written in another copy.
+- The second way of each hero's own weapon (ten rules, one an oath unlocks for each hero) has a test each and has never been played: the computer player never chooses one, so what each is worth beside the rule it replaces is not known. The Hold shows the choice only as RULE 1 or RULE 2.
 - A captain getting up under Second Wind, a champion walking in under Champions Abroad, the hero left standing by the Second Breath, and a wave begun hurt under Open Wounds tell the screens with events and state (`second`, `champion`, `breath`, the hero's health as the wave begins), and no screen shows the first or the third of those yet. A run's vows are not shown during the run.
 - The day's road takes its day from the player's own clock, in the time the world's clocks are set by. Nothing stops a player who changes their clock.
+- The game's text was rewritten in plain game language and nobody has looked at it on a screen: the stat names are longer than they were ("Ranged Damage", "Attack Speed"), and a camp column or a card made for the old words may not fit them. The screens' own words (`src/view`) are another copy's work and still say wares, hands and captain in places.
 - A first run's smaller armory makes that run a little stronger, not weaker, by under a wave: with fewer weapons to draw from, twins to join and weapons of one kind come more often. Whether a person finds a first run with twelve weapons too thin, nobody knows.
 - The tally of what a run paid and the nearest deeds not yet done are kept and can be asked for (`save.tally`, `nextDeeds`). The result screen does not show them yet.
 - A save from before the road keeps everything but a run that was left in its camp.
