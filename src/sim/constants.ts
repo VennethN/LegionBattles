@@ -15,6 +15,15 @@ export const TICKS_PER_SECOND = 20;
 /** A battle that is not over by now is called for the side with more health left. */
 export const MAX_SECONDS = 90;
 
+/**
+ * Calling a skill. The player's units use their skills by themselves, as the
+ * enemy's do; but for this long before one is ready, in seconds, the player
+ * may call it, and it is used at once.
+ */
+export const CALL_WINDOW = 2.5;
+/** What a called skill does, against one that went off by itself: its damage, its mending, and how long what it leaves lasts. */
+export const CALL_BONUS = 1.25;
+
 export function tileCenterX(col: number): number {
   return (col + 0.5) * TILE;
 }

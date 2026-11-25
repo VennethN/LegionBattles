@@ -8,8 +8,17 @@
 // Each step it fills `events` (the first `eventCount` of them) with what
 // happened, stamped with the time, for the view to animate from. The event
 // objects are reused, so read them before the next step.
+//
+// The player's part in it is calling skills. A unit uses its skill by itself
+// when it is ready; for a short while before that the player may call it,
+// and then it is used at once and does more (CALL_WINDOW, CALL_BONUS). The
+// calls are part of the input: a battle is its input and the list of calls,
+// which unit at which step, and nothing else. A battle with no calls is the
+// battle it was before there were any.
 
 import {
+  CALL_BONUS,
+  CALL_WINDOW,
   DT,
   MAX_SECONDS,
   TICKS_PER_SECOND,
@@ -21,7 +30,7 @@ import {
 import { FIRST_FIELD, type Field } from './field';
 import { Rng } from './rng';
 import { POISON_STACKS, PULSE_TICKS, STATUS, STATUS_IDS, STATUS_INDEX } from './status';
-import type { BattleEvent, BattleInput, EventType, Placement, SkillDef, StatusApply, Summons, UnitDef } from './types';
+import type { BattleEvent, BattleInput, Call, EventType, Placement, SkillDef, StatusApply, Summons, UnitDef } from './types';
 
 const ATTACK = 0;
 const HEAL = 1;
@@ -90,6 +99,10 @@ export interface SimUnit {
   cooldown: number;
   /** Ticks until its skill is ready. */
   skillWait: number;
+  /** The player has called its skill on this step: it is used when the unit's turn comes. */
+  called: boolean;
+  /** What the skill it is using is multiplied by: CALL_BONUS if it was called, 1 if it went off by itself. */
+  boost: number;
   retarget: number;
   /** By status index: ticks left, the status's number, who gave it, doses. */
   stTicks: number[];
@@ -143,6 +156,17 @@ export class Battle {
   private limit = MAX_SECONDS * TICKS_PER_SECOND;
   private defs: Readonly<Record<string, UnitDef>> = {};
   private nextShot = 0;
+  /**
+   * The player's calls, in the order of their steps: those the input came
+   * with, and those made while the battle is stepped (call). Together with
+   * the input they are the whole battle.
+   */
+  readonly calls: Call[] = [];
+  /** The first of them that has not been heard yet. */
+  private nextCall = 0;
+  private readonly callTicks = ticks(CALL_WINDOW);
+  /** What a called skill leaves, lasting longer: made once for each status and kept. */
+  private readonly longer = new Map<StatusApply, StatusApply>();
   /** The field it is fought on, and its size in the simulation's pixels: no one leaves it. */
   readonly field: Field;
   private readonly boardW: number;
@@ -167,6 +191,83 @@ export class Battle {
     }
     this.limit = Math.max(1, Math.round((input.seconds ?? MAX_SECONDS) * TICKS_PER_SECOND));
     this.defs = input.defs;
+    if (input.calls) {
+      for (const c of input.calls) this.calls.push({ tick: c.tick, unit: c.unit });
+      // In the order of their steps, and as they were given within a step.
+      this.calls.sort((x, y) => x.tick - y.tick);
+    }
+  }
+
+  // ------------------------------------------------------------ calling a skill
+
+  /**
+   * Whether the player may call a unit's skill now. It is one of their own,
+   * its skill is ready or within CALL_WINDOW of it, it is free to use it
+   * (not stunned, not in the middle of it already), and there is something
+   * to use it on: an enemy within its reach, or for a skill that mends,
+   * someone hurt. So whatever can be called would do something if it were.
+   */
+  callable(id: number): boolean {
+    const u = this.units[id];
+    if (this.ended || !u || !u.alive || u.team !== 0 || u.trap || u.def.still) return false;
+    const skill = u.def.skill;
+    if (!skill || u.skillWait > this.callTicks) return false;
+    if (u.stTicks[ST_STUN] > 0 || (u.windup > 0 && u.action === SKILL)) return false;
+    return this.aimOf(u, skill) !== null;
+  }
+
+  /**
+   * How near a unit's skill is to going off by itself, from 0 when it may
+   * first be called to 1 when it is ready. For the view, which shows the
+   * player how long they have.
+   */
+  callProgress(id: number): number {
+    const u = this.units[id];
+    if (!u) return 0;
+    return 1 - Math.max(0, Math.min(1, u.skillWait / this.callTicks));
+  }
+
+  /**
+   * The player calls a unit's skill. It is heard on the next step, and used
+   * on it. Returns false, and does nothing, if the skill cannot be called
+   * now. What is asked here while the battle is stepped is the same as a
+   * call on the input's list: `calls` holds both.
+   */
+  call(id: number): boolean {
+    if (!this.callable(id)) return false;
+    const tick = this.tick + 1;
+    const calls = this.calls;
+    // Kept in the order of their steps. A second press in the same moment is the same call.
+    let at = calls.length;
+    while (at > this.nextCall && calls[at - 1].tick > tick) at--;
+    for (let i = this.nextCall; i < at; i++) if (calls[i].tick === tick && calls[i].unit === id) return true;
+    calls.splice(at, 0, { tick, unit: id });
+    return true;
+  }
+
+  /** Whom a unit would use its skill on if it used it now: itself for a skill that mends, an enemy for any other. Null if no one. */
+  private aimOf(u: SimUnit, skill: SkillDef): SimUnit | null {
+    if (skill.kind === 'mend') return this.skillReady(u, skill, 0) ? u : null;
+    const cur = u.target >= 0 && this.units[u.target].alive ? this.units[u.target] : null;
+    if (cur && this.skillReady(u, skill, this.distance(u, cur))) return cur;
+    // The enemy it is after may be out of reach while another is not: a healer that has been mending looks up to find one.
+    const near = this.nearestEnemy(u.team, u.x, u.y, Infinity);
+    return near && near !== cur && this.skillReady(u, skill, this.distance(u, near)) ? near : null;
+  }
+
+  private distance(a: SimUnit, b: SimUnit): number {
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  /** The calls for this step are heard before anyone acts. One for a unit that cannot be called does nothing. */
+  private hearCalls(): void {
+    const calls = this.calls;
+    while (this.nextCall < calls.length && calls[this.nextCall].tick <= this.tick) {
+      const c = calls[this.nextCall++];
+      if (c.tick === this.tick && this.callable(c.unit)) this.units[c.unit].called = true;
+    }
   }
 
   /** Puts a unit in the battle: at the start, or called up in the middle of it. */
@@ -211,6 +312,8 @@ export class Battle {
       skillWait: def.skill
         ? ticks(def.skill.first ?? def.skill.cooldown * (0.4 + 0.5 * this.rng.next()))
         : 0,
+      called: false,
+      boost: 1,
       retarget: 0,
       stTicks: zeros(),
       stPower: zeros(),
@@ -317,6 +420,8 @@ export class Battle {
       s.prevY = s.y;
     }
 
+    if (this.nextCall < this.calls.length) this.hearCalls();
+
     // Whoever is called up this step is at the end of the list, and acts from the next.
     const before = units.length;
     for (let i = 0; i < before; i++) if (units[i].alive) this.callUp(units[i]);
@@ -357,8 +462,22 @@ export class Battle {
     if (u.cooldown > 0) u.cooldown--;
     if (u.skillWait > 0) u.skillWait--;
     if (u.stTicks[ST_STUN] > 0) {
+      // Stunned since the call was heard: the call is lost.
+      u.called = false;
       this.stop(u);
       return;
+    }
+    if (u.called) {
+      // The player called its skill: whatever it was in the middle of is dropped, and the skill is used now, for more.
+      u.called = false;
+      const skill = u.def.skill as SkillDef;
+      const t = this.aimOf(u, skill);
+      if (t) {
+        this.stop(u);
+        if (t !== u) this.face(u, t.x);
+        this.begin(u, SKILL, t.id, CALL_BONUS);
+        return;
+      }
     }
     if (u.windup > 0) {
       u.windup--;
@@ -556,7 +675,7 @@ export class Battle {
 
   // ------------------------------------------------------------ acting
 
-  private begin(u: SimUnit, action: number, target: number): void {
+  private begin(u: SimUnit, action: number, target: number, boost = 1): void {
     const def = u.def;
     const pace = this.pace(u, true);
     const skill = action === SKILL ? (def.skill as SkillDef) : null;
@@ -565,12 +684,14 @@ export class Battle {
     u.windup = w;
     u.action = action;
     u.actionTarget = target;
+    u.boost = boost;
     u.cooldown = Math.max(w + 1, Math.round((def.attackInterval * TICKS_PER_SECOND) / pace));
     let kind = 'attack';
     if (action === HEAL) kind = 'heal';
     if (skill) {
       kind = skill.id;
       u.skillWait = ticks(skill.cooldown);
+      if (boost !== 1) this.emit('call', u.id, target, 0, skill.id);
       this.emit('skill', u.id, target, 0, skill.id);
     }
     this.emit('attackStart', u.id, target, w * DT, kind);
@@ -629,8 +750,14 @@ export class Battle {
   private useSkill(u: SimUnit, skill: SkillDef, t: SimUnit | null): void {
     const def = u.def;
     const units = this.units;
-    const amount = this.outgoing(u, u.damage * (skill.power ?? 1));
-    const status = skill.status ?? null;
+    let amount = this.outgoing(u, u.damage * (skill.power ?? 1));
+    let status = skill.status ?? null;
+    // A skill the player called does more: its blow, its mending, and how long what it leaves lasts.
+    const boost = u.boost;
+    if (boost !== 1) {
+      amount *= boost;
+      if (status) status = this.lengthened(status, boost);
+    }
     const area = (skill.area ?? 0) * TILE;
     this.emit('impact', u.id, t ? t.id : -1, 0, skill.id);
 
@@ -694,7 +821,8 @@ export class Battle {
       }
       case 'mend': {
         const r = (skill.area ?? 2.5) * TILE;
-        const base = (def.heal ? def.heal.amount : def.damage) * u.mult * (skill.power ?? 1);
+        let base = (def.heal ? def.heal.amount : def.damage) * u.mult * (skill.power ?? 1);
+        if (boost !== 1) base *= boost;
         for (let i = 0; i < units.length; i++) {
           const o = units[i];
           if (!o.alive || o.team !== u.team) continue;
@@ -734,6 +862,16 @@ export class Battle {
         return;
       }
     }
+  }
+
+  /** A status as a called skill leaves it: the same, for longer. */
+  private lengthened(status: StatusApply, by: number): StatusApply {
+    let s = this.longer.get(status);
+    if (!s) {
+      s = { ...status, duration: status.duration * by };
+      this.longer.set(status, s);
+    }
+    return s;
   }
 
   /** A blow that lands: on its target, and on the enemies near it if it splashes. */
@@ -813,6 +951,7 @@ export class Battle {
     t.alive = false;
     t.hp = 0;
     t.windup = 0;
+    t.called = false;
     t.moving = false;
     for (let i = 0; i < t.stTicks.length; i++) t.stTicks[i] = 0;
     this.emit('death', t.id, by, 0, '', t.x, t.y);
@@ -1091,10 +1230,16 @@ export interface BattleResult {
   hp: number[];
   /** A number that differs if anything about how the battle went differs. */
   fingerprint: number;
+  /** The calls it was fought with: the input's, and any made as it ran. On the same input they give the same battle again. */
+  calls: Call[];
 }
 
-/** Runs a whole battle at once. For tests, tools and anything that needs only the outcome. */
-export function runBattle(input: BattleInput, keepEvents = true): BattleResult {
+/**
+ * Runs a whole battle at once. For tests, tools and anything that needs only
+ * the outcome. `before` is asked ahead of every step: it is how a tool plays
+ * a player who calls skills (callEverything).
+ */
+export function runBattle(input: BattleInput, keepEvents = true, before?: (battle: Battle) => void): BattleResult {
   const battle = new Battle(input);
   const events: BattleEvent[] = [];
   let print = 2166136261;
@@ -1102,6 +1247,7 @@ export function runBattle(input: BattleInput, keepEvents = true): BattleResult {
     print = Math.imul(print ^ (Math.round(n * 1000) | 0), 16777619);
   };
   while (!battle.ended) {
+    before?.(battle);
     battle.step();
     for (let i = 0; i < battle.eventCount; i++) {
       const e = battle.events[i];
@@ -1125,5 +1271,14 @@ export function runBattle(input: BattleInput, keepEvents = true): BattleResult {
     events,
     hp: battle.units.map((u) => u.hp),
     fingerprint: print >>> 0,
+    calls: battle.calls.map((c) => ({ ...c })),
   };
+}
+
+/**
+ * A player who calls every skill the moment it can be called: the most that
+ * calling can be worth. For runBattle's `before`.
+ */
+export function callEverything(battle: Battle): void {
+  for (let i = 0; i < battle.units.length; i++) if (battle.units[i].team === 0) battle.call(i);
 }

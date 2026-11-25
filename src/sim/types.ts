@@ -165,6 +165,16 @@ export interface Summons {
   total?: number;
 }
 
+/**
+ * The player calls a unit's skill: `unit` is its number in the battle, and
+ * `tick` the step the call is answered on. A call for a unit whose skill
+ * cannot be called on that step does nothing at all.
+ */
+export interface Call {
+  tick: number;
+  unit: number;
+}
+
 export interface BattleInput {
   seed: number;
   defs: Readonly<Record<string, UnitDef>>;
@@ -174,6 +184,12 @@ export interface BattleInput {
   seconds?: number;
   /** The field it is fought on: its teams' tiles are tiles of this. The first field, 8 by 4, if left out. */
   field?: Field;
+  /**
+   * The skills the player called, in the order of their ticks. A battle is
+   * its input and these: the same of both is always the same battle. None,
+   * if left out, and then every skill goes off by itself.
+   */
+  calls?: readonly Call[];
 }
 
 export type EventType =
@@ -191,6 +207,8 @@ export type EventType =
   // A trap went off: `unit` is the trap, `kind` what it is.
   | 'trap'
   | 'skill'
+  // The player called a unit's skill, and it is used at once: it comes just before that use's `skill`.
+  | 'call'
   | 'status'
   | 'statusEnd'
   | 'battleEnd';
@@ -208,6 +226,7 @@ export type EventType =
  *  heal                 unit, target, amount
  *  death                unit = who died, target = who killed it (-1 for none)
  *  skill                unit, target, kind = skill id
+ *  call                 unit, target, kind = skill id
  *  status, statusEnd    unit = who has it, target = who gave it, kind = status id, amount = seconds
  *  battleEnd            amount = winning team, or -1 for a draw
  */
