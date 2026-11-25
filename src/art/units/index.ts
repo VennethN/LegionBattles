@@ -31,6 +31,7 @@ import { ORDERS_ART } from './orders';
 import { SHORES_ART } from './shores';
 import { WILDS_ART } from './wilds';
 import { WORKS_ART } from './works';
+import { HEROES_ART } from './heroes';
 
 /** Every unit that has art, in the order the contact sheet shows them: set by set. */
 export const UNIT_ART: readonly UnitArt[] = [
@@ -53,6 +54,8 @@ export const UNIT_ART: readonly UnitArt[] = [
   ...BEASTS_ART,
   ...MACHINES_ART,
   ...WORKS_ART,
+  // The named heroes of Legion Holdout, each drawn for themselves.
+  ...HEROES_ART,
 ];
 
 // Two units of one name would write over each other's files, and only one of them would be seen.
