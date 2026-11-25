@@ -7,7 +7,7 @@ import { music } from './audio/music';
 import { sfx } from './audio/sfx';
 import { ads } from './platform/ads';
 import { onAccount, startPortal } from './platform/portal';
-import { applyResolution, screenOf, startGraphics, watchFrameRate } from './view/app';
+import { WINDOW, WINDOWED, applyResolution, screenOf, startGraphics, watchFrameRate } from './view/app';
 import { addDays } from './view/clock';
 import { H, RES, W } from './view/config';
 import { BattleScene } from './view/scenes/BattleScene';
@@ -22,7 +22,9 @@ import { VentureScene } from './view/scenes/VentureScene';
 import { MapScene } from './view/scenes/MapScene';
 import { RewardsScene } from './view/scenes/RewardsScene';
 import { SettingsScene } from './view/scenes/SettingsScene';
-import { countPlaytime, reloadSave, save } from './view/session';
+import { startTour } from './game/tutorial';
+import { DIGITS_EM } from './view/Numbers';
+import { commit, countPlaytime, reloadSave, save } from './view/session';
 
 /**
  * Starts the game. A portal is looked for first, because where there is one
@@ -91,6 +93,18 @@ async function start(): Promise<void> {
   (window as unknown as { setRes: (res: number) => void }).setRes = (res) => applyResolution(game, res);
   (window as unknown as { addDays: (n: number) => number }).addDays = addDays;
   (window as unknown as { screenOf: (x: number, y: number) => { x: number; y: number } }).screenOf = (x, y) => screenOf(game, x, y);
+  // For the walk that measures every word on every screen (scripts/legible.mjs): the screens that are windows,
+  // how tall the figures of the bitmap font are for their size, and a way to start a tour without fighting up to it.
+  (window as unknown as { legible: object }).legible = {
+    windowed: [...WINDOWED],
+    window: WINDOW,
+    digitsEm: DIGITS_EM,
+    startTour: (id: string): boolean => {
+      const ok = startTour(save(), id);
+      commit();
+      return ok;
+    },
+  };
 
   // Signed in on the portal in the middle of a visit: the save kept there is the account's now. Whatever is
   // open is shut and the main screen is made again from it. While the game is still loading there is nothing to make again.

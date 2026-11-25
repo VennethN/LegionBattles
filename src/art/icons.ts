@@ -228,6 +228,29 @@ ICONS.book = (d) => {
   d.piece('clasp', star(28, 21, 4, 9, 4), GOLD, { shade: 0 });
 };
 
+// A gloved hand with one finger out: press here. Pale, so that it is seen on any land, with a cuff of the
+// player's own cloth. It is drawn pointing straight up, at `k` of its size, and turned by `deg` about its middle.
+function hand(d: Doc, deg: number, k = 1, dy = 0): void {
+  const t = (p: ReturnType<typeof poly>): ReturnType<typeof poly> => p.scale(k, k, 24, 26).rotate(deg, 24, 26).translate(0, dy);
+  d.piece('cuff', t(roundRect(14, 34, 25, 12, 3)), CLOTH.blue, { shade: 3 });
+  d.piece('fist', t(smooth([[13, 22, 'c'], [34, 18], [40, 24], [40, 32], [35, 37, 'c'], [16, 37, 'c'], [12, 32]])), BONE, {
+    shade: 4,
+    // The three fingers that are curled, as lines across the knuckles.
+    inner: (c) => {
+      for (const x of [30, 35]) c.shadeOver('knuckle', t(roundRect(x - 1, 20, 2.4, 10, 1)), 0.9);
+    },
+  });
+  d.piece('finger', t(roundRect(15, 2, 11, 29, 5.5)), BONE, { shade: 3 });
+  d.piece('thumb', t(smooth([[7, 23, 'c'], [14, 24], [19, 29], [17, 35, 'c'], [10, 34], [6, 29]])), BONE, { shade: 2 });
+}
+// The tutorial's hand: it comes at what it points at from below and to the right.
+ICONS.hand = (d) => hand(d, -20);
+// The mark over a unit whose skill can be called: the same hand, pointing down at it, on a disc of gold.
+ICONS.call = (d) => {
+  d.piece('disc', circle(24, 24, 22), HOLY, { shade: 3 });
+  hand(d, 180, 0.72, -2.5);
+};
+
 // The emblem of each kind of land: a medal in its color with what grows or
 // shines there. A world is known by its land's emblem wherever its stages
 // are numbered.

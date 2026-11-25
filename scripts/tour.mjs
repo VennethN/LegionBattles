@@ -15,7 +15,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
 // Every tour is behind this player, so that none comes up over what is being looked at.
-const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:dungeons', 'tour:raids', 'tour:skills', 'tour:upgrades', 'tour:structures'];
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:dungeons', 'tour:raids', 'tour:skills', 'tour:upgrades', 'tour:structures', 'tour:team'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
@@ -176,8 +176,7 @@ await turned();
 await page.waitForTimeout(500);
 await page.screenshot({ path: `${out}/14-card.png` });
 // DONE, then the Expert Thornwood Pack, of which three are held: all opened at one press.
-const done = await page.evaluate(() => window.game.scene.getScene('Shop').doneRect);
-await click(done.x + done.w / 2, done.y + done.h / 2);
+await press('Shop', 'DONE');
 await page.waitForTimeout(600);
 await click(...slot(2, 1));
 await page.waitForTimeout(300);

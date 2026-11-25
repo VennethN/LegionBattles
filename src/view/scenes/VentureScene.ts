@@ -159,7 +159,7 @@ export class VentureScene extends Phaser.Scene {
     const n = run.roster.length;
     const pitch = Math.min(88, 800 / n);
     const x0 = 196 + pitch / 2;
-    const y = 664;
+    const y = 666;
     run.roster.forEach((r: RosterCard, i) => {
       const x = x0 + i * pitch;
       const card = cardOf(s, r.card);
@@ -168,25 +168,29 @@ export class VentureScene extends Phaser.Scene {
       const root = add(this.add.container(x, y).setDepth(8000));
       const g = this.add.graphics();
       // On the board: a blue rim. Resting: bone. Fallen: iron.
-      if (r.fielded && !fallen) g.fillStyle(hex(CLOTH.blue.fill), 1).fillRoundedRect(-pitch / 2 + 1, -44, pitch - 2, 92, 12);
-      slab(g, -pitch / 2 + 5, -40, pitch - 10, 84, fallen ? IRON : RARITY_MAT[def.rarity], 9, 4);
+      if (r.fielded && !fallen) g.fillStyle(hex(CLOTH.blue.fill), 1).fillRoundedRect(-pitch / 2 + 1, -52, pitch - 2, 104, 12);
+      slab(g, -pitch / 2 + 5, -48, pitch - 10, 96, fallen ? IRON : RARITY_MAT[def.rarity], 9, 4);
       root.add(g);
-      const pic = portrait(this, 0, 22, r.unit, 'blue', 50, false);
+      const pic = portrait(this, 0, 26, r.unit, 'blue', 44, false);
+      if (pic.displayWidth > pitch - 18) pic.setScale((pic.scaleX * (pitch - 18)) / pic.displayWidth);
       if (fallen) pic.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.7);
       root.add(pic);
       if (card) {
-        root.add(gradeBadge(this, -pitch / 2 + 18, -30, card.grade, 13));
-        root.add(label(this, pitch / 2 - 9, -30, String(card.level), { size: 12, align: 'right', strokeWidth: 3 }));
+        // Its grade along the top, at a size that can be read, and its level beside that where the card is
+        // wide enough for both: with a full team, its structures and the reserves, it is not.
+        const both = pitch >= 80;
+        root.add(gradeBadge(this, both ? -pitch / 2 + 24 : 0, -33, card.grade, 19));
+        if (both) root.add(label(this, pitch / 2 - 9, -34, String(card.level), { size: 17, align: 'right', strokeWidth: 4 }));
       }
       // Its health: what it has left of all it has.
       const bw = pitch - 22;
       const bar = this.add.graphics();
-      bar.fillStyle(hex(OUTLINE), 1).fillRoundedRect(-bw / 2 - 2, 28, bw + 4, 11, 4);
-      bar.fillStyle(hex(IRON.shade), 1).fillRoundedRect(-bw / 2, 30, bw, 7, 3);
-      if (r.hp > 0.02) bar.fillStyle(hex(r.hp > 0.5 ? VENOM.fill : r.hp > 0.25 ? GOLD.fill : CLOTH.red.fill), 1).fillRoundedRect(-bw / 2, 30, bw * r.hp, 7, 3);
+      bar.fillStyle(hex(OUTLINE), 1).fillRoundedRect(-bw / 2 - 2, 30, bw + 4, 12, 4);
+      bar.fillStyle(hex(IRON.shade), 1).fillRoundedRect(-bw / 2, 32, bw, 8, 3);
+      if (r.hp > 0.02) bar.fillStyle(hex(r.hp > 0.5 ? VENOM.fill : r.hp > 0.25 ? GOLD.fill : CLOTH.red.fill), 1).fillRoundedRect(-bw / 2, 32, bw * r.hp, 8, 3);
       root.add(bar);
       if (fallen || this.state !== 'camp') return;
-      root.setSize(pitch - 6, 92);
+      root.setSize(pitch - 6, 104);
       root.setInteractive({ useHandCursor: true });
       root.on('pointerup', () => {
         if (this.state !== 'camp' || !toggleFielded(save(), run, r.card)) return;
@@ -195,7 +199,7 @@ export class VentureScene extends Phaser.Scene {
       });
     });
     const on = unitsIn(fielded(run));
-    add(label(this, x0 + ((n - 1) * pitch) / 2, 606, `${on} of ${teamSize(s)} sent in. Press a card to send it in or rest it. Nothing heals here.`, { size: 15, weight: 600, color: HIGHLIGHT, strokeWidth: 4 }).setDepth(8000));
+    add(label(this, x0 + ((n - 1) * pitch) / 2, 600, `${on} of ${teamSize(s)} sent in. Tap a card to send it in or rest it.`, { size: 18, weight: 600, color: HIGHLIGHT, strokeWidth: 4 }).setDepth(8000));
   }
 
   private refreshButtons(): void {
@@ -330,7 +334,7 @@ export class VentureScene extends Phaser.Scene {
       rows.push({ icon: [CARDS, `pack/${prize.packs[0].split('@')[0]}`, 0.15], text: `${packById(prize.packs[0]).name} x${prize.packs.length}` });
       if (prize.first && this.tier + 1 < TIER_MARKS.length) rows.push({ text: `${TIER_MARKS[this.tier + 1]} is open here`, color: VENOM.light });
     }
-    rows.push({ icon: [SHEET, 'icon/star', 0.36], text: `+${xp} experience each` });
+    rows.push({ icon: [SHEET, 'icon/star', 0.36], text: `+${xp} XP each` });
     if (ups.length > 0) {
       const names = ups.slice(0, 2).map((l) => `${UNITS[l.unit].name} level ${l.to}`);
       if (ups.length > 2) names.push(`and ${ups.length - 2} more`);

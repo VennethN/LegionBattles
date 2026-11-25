@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="call" width="128" height="128" viewBox="0 0 128 128">
+<defs>
+<path id="call-ring-shape" d="M 123 64 C 123 96.6 96.6 123 64 123 C 31.4 123 5 96.6 5 64 C 5 31.4 31.4 5 64 5 C 96.6 5 123 31.4 123 64 Z M 21 64 C 21 87.7 40.3 107 64 107 C 87.7 107 107 87.7 107 64 C 107 40.3 87.7 21 64 21 C 40.3 21 21 40.3 21 64 Z"/>
+</defs>
+<g id="call-ring">
+<use id="call-ring-fill" href="#call-ring-shape" fill="#f2d264" fill-rule="evenodd"/>
+<use id="call-ring-line" href="#call-ring-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

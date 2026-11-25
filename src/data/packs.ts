@@ -115,6 +115,16 @@ export function packById(id: string): PackDef {
   return packAt(p, n);
 }
 
+/**
+ * A pack in a word, for under its picture where there is room for no more:
+ * its difficulty, if it is a land's pack of a later one, and its own name
+ * without "Pack" if not. The picture says which land's it is.
+ */
+export function packWord(id: string): string {
+  const pack = packById(id);
+  return pack.lap ? LAPS[pack.lap].name : pack.name.replace(' Pack', '');
+}
+
 /** Every pack there is, on every lap. */
 export function allPacks(): PackDef[] {
   const out: PackDef[] = [];

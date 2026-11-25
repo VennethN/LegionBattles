@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="call" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="call-disc-shape" d="M 46 24 C 46 36.2 36.2 46 24 46 C 11.8 46 2 36.2 2 24 C 2 11.8 11.8 2 24 2 C 36.2 2 46 11.8 46 24 Z"/>
+<clipPath id="call-disc-clip"><use href="#call-disc-shape"/></clipPath>
+<clipPath id="call-disc-lit-clip"><use href="#call-disc-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="call-cuff-shape" d="M 29 17.7 L 15.4 17.7 Q 13.2 17.7 13.2 15.6 L 13.2 11.3 Q 13.2 9.1 15.4 9.1 L 29 9.1 Q 31.2 9.1 31.2 11.3 L 31.2 15.6 Q 31.2 17.7 29 17.7 Z"/>
+<clipPath id="call-cuff-clip"><use href="#call-cuff-shape"/></clipPath>
+<clipPath id="call-cuff-lit-clip"><use href="#call-cuff-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="call-fist-shape" d="M 31.9 26.4 C 31.9 26.4 20 29.5 16.8 29.3 C 13.6 29 13.2 26.6 12.5 24.9 C 11.8 23.3 11.9 20.7 12.5 19.2 C 13.1 17.6 16.1 15.6 16.1 15.6 L 29.8 15.6 C 29.8 15.6 32.3 17.4 32.6 19.2 C 33 21 31.9 26.4 31.9 26.4 Z"/>
+<clipPath id="call-fist-clip"><use href="#call-fist-shape"/></clipPath>
+<clipPath id="call-fist-lit-clip"><use href="#call-fist-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="call-finger-shape" d="M 26.5 40.8 L 26.5 40.8 Q 22.6 40.8 22.6 36.8 L 22.6 23.9 Q 22.6 19.9 26.5 19.9 L 26.5 19.9 Q 30.5 19.9 30.5 23.9 L 30.5 36.8 Q 30.5 40.8 26.5 40.8 Z"/>
+<clipPath id="call-finger-clip"><use href="#call-finger-shape"/></clipPath>
+<clipPath id="call-finger-lit-clip"><use href="#call-finger-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="call-thumb-shape" d="M 36.2 25.7 C 36.2 25.7 32.6 25.7 31.2 24.9 C 29.8 24.2 28 22.7 27.6 21.3 C 27.2 20 29 17 29 17 C 29 17 32.8 17 34.1 17.7 C 35.4 18.5 36.6 20 37 21.3 C 37.3 22.7 36.2 25.7 36.2 25.7 Z"/>
+<clipPath id="call-thumb-clip"><use href="#call-thumb-shape"/></clipPath>
+</defs>
+<g id="call-disc">
+<use id="call-disc-shade" href="#call-disc-shape" fill="#c9a53a"/>
+<g clip-path="url(#call-disc-clip)">
+<use id="call-disc-fill" href="#call-disc-shape" transform="translate(-3 -3)" fill="#f2d264"/>
+<g clip-path="url(#call-disc-lit-clip)">
+<use id="call-disc-lit" href="#call-disc-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="call-disc-fill-over" href="#call-disc-shape" transform="translate(3.6 3.6)" fill="#f2d264"/>
+</g>
+</g>
+<use id="call-disc-line" href="#call-disc-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="call-cuff">
+<use id="call-cuff-shade" href="#call-cuff-shape" fill="#2f5893"/>
+<g clip-path="url(#call-cuff-clip)">
+<use id="call-cuff-fill" href="#call-cuff-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#call-cuff-lit-clip)">
+<use id="call-cuff-lit" href="#call-cuff-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="call-cuff-fill-over" href="#call-cuff-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="call-cuff-line" href="#call-cuff-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="call-fist">
+<use id="call-fist-shade" href="#call-fist-shape" fill="#c4b594"/>
+<g clip-path="url(#call-fist-clip)">
+<use id="call-fist-fill" href="#call-fist-shape" transform="translate(-4 -4)" fill="#e9dfc6"/>
+<g clip-path="url(#call-fist-lit-clip)">
+<use id="call-fist-lit" href="#call-fist-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="call-fist-fill-over" href="#call-fist-shape" transform="translate(4.2 4.2)" fill="#e9dfc6"/>
+</g>
+<path id="call-knuckle" d="M 19.7 27.8 L 19.4 27.8 Q 18.7 27.8 18.7 27.1 L 18.7 21.3 Q 18.7 20.6 19.4 20.6 L 19.7 20.6 Q 20.4 20.6 20.4 21.3 L 20.4 27.1 Q 20.4 27.8 19.7 27.8 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="call-knuckle-2" d="M 16.1 27.8 L 15.8 27.8 Q 15.1 27.8 15.1 27.1 L 15.1 21.3 Q 15.1 20.6 15.8 20.6 L 16.1 20.6 Q 16.8 20.6 16.8 21.3 L 16.8 27.1 Q 16.8 27.8 16.1 27.8 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="call-fist-line" href="#call-fist-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="call-finger">
+<use id="call-finger-shade" href="#call-finger-shape" fill="#c4b594"/>
+<g clip-path="url(#call-finger-clip)">
+<use id="call-finger-fill" href="#call-finger-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#call-finger-lit-clip)">
+<use id="call-finger-lit" href="#call-finger-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="call-finger-fill-over" href="#call-finger-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="call-finger-line" href="#call-finger-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="call-thumb">
+<use id="call-thumb-shade" href="#call-thumb-shape" fill="#c4b594"/>
+<g clip-path="url(#call-thumb-clip)">
+<use id="call-thumb-fill" href="#call-thumb-shape" transform="translate(-2 -2)" fill="#e9dfc6"/>
+</g>
+<use id="call-thumb-line" href="#call-thumb-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

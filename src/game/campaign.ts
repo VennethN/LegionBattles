@@ -20,6 +20,8 @@ import type { SaveData } from './state';
  * is being dragged, so it is never too short to change the team in.
  */
 export const COUNTDOWN = {
+  /** A new player's very first battle: they land in it, and it begins as soon as it has been seen to be a field with two sides. */
+  fresh: 0.8,
   /** After the game is opened. */
   first: 2,
   /** After the player last changed something. */

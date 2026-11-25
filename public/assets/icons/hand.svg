@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hand" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="hand-cuff-shape" d="M 20.2 35.9 L 38 29.4 Q 40.8 28.4 41.9 31.2 L 43.9 36.8 Q 44.9 39.7 42.1 40.7 L 24.3 47.2 Q 21.4 48.2 20.4 45.4 L 18.4 39.8 Q 17.3 36.9 20.2 35.9 Z"/>
+<clipPath id="hand-cuff-clip"><use href="#hand-cuff-shape"/></clipPath>
+<clipPath id="hand-cuff-lit-clip"><use href="#hand-cuff-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="hand-fist-shape" d="M 12.3 26 C 12.3 26 26.3 16.3 30.7 15.1 C 35 13.8 36.6 16.8 38.4 18.6 C 40.1 20.5 41.1 23.8 41.1 26.2 C 41 28.5 38.1 32.6 38.1 32.6 L 20.2 39.1 C 20.2 39.1 16.1 37.9 14.8 35.7 C 13.5 33.6 12.3 26 12.3 26 Z"/>
+<clipPath id="hand-fist-clip"><use href="#hand-fist-shape"/></clipPath>
+<clipPath id="hand-fist-lit-clip"><use href="#hand-fist-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="hand-finger-shape" d="M 12.5 4.6 L 12.5 4.6 Q 17.7 2.8 19.6 7.9 L 25.7 24.8 Q 27.6 30 22.4 31.9 L 22.4 31.9 Q 17.3 33.8 15.4 28.6 L 9.2 11.7 Q 7.3 6.5 12.5 4.6 Z"/>
+<clipPath id="hand-finger-clip"><use href="#hand-finger-shape"/></clipPath>
+<clipPath id="hand-finger-lit-clip"><use href="#hand-finger-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="hand-thumb-shape" d="M 7 29 C 7 29 11.7 27.3 13.9 27.5 C 16.1 27.8 19.2 29 20.3 30.5 C 21.4 32.1 20.5 36.9 20.5 36.9 C 20.5 36.9 15.6 38.6 13.6 38.3 C 11.5 38 9.2 36.5 8.1 35 C 7 33.4 7 29 7 29 Z"/>
+<clipPath id="hand-thumb-clip"><use href="#hand-thumb-shape"/></clipPath>
+</defs>
+<g id="hand-cuff">
+<use id="hand-cuff-shade" href="#hand-cuff-shape" fill="#2f5893"/>
+<g clip-path="url(#hand-cuff-clip)">
+<use id="hand-cuff-fill" href="#hand-cuff-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#hand-cuff-lit-clip)">
+<use id="hand-cuff-lit" href="#hand-cuff-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="hand-cuff-fill-over" href="#hand-cuff-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="hand-cuff-line" href="#hand-cuff-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="hand-fist">
+<use id="hand-fist-shade" href="#hand-fist-shape" fill="#c4b594"/>
+<g clip-path="url(#hand-fist-clip)">
+<use id="hand-fist-fill" href="#hand-fist-shape" transform="translate(-4 -4)" fill="#e9dfc6"/>
+<g clip-path="url(#hand-fist-lit-clip)">
+<use id="hand-fist-lit" href="#hand-fist-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="hand-fist-fill-over" href="#hand-fist-shape" transform="translate(4.2 4.2)" fill="#e9dfc6"/>
+</g>
+<path id="hand-knuckle" d="M 27.6 18.3 L 28 18.2 Q 28.9 17.8 29.2 18.8 L 32 26.3 Q 32.3 27.2 31.4 27.6 L 31 27.7 Q 30.1 28 29.7 27.1 L 27 19.6 Q 26.6 18.7 27.6 18.3 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="hand-knuckle-2" d="M 32.3 16.6 L 32.7 16.5 Q 33.6 16.1 33.9 17.1 L 36.7 24.6 Q 37 25.5 36.1 25.9 L 35.7 26 Q 34.8 26.3 34.4 25.4 L 31.7 17.9 Q 31.3 16.9 32.3 16.6 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="hand-fist-line" href="#hand-fist-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="hand-finger">
+<use id="hand-finger-shade" href="#hand-finger-shape" fill="#c4b594"/>
+<g clip-path="url(#hand-finger-clip)">
+<use id="hand-finger-fill" href="#hand-finger-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#hand-finger-lit-clip)">
+<use id="hand-finger-lit" href="#hand-finger-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="hand-finger-fill-over" href="#hand-finger-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="hand-finger-line" href="#hand-finger-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="hand-thumb">
+<use id="hand-thumb-shade" href="#hand-thumb-shape" fill="#c4b594"/>
+<g clip-path="url(#hand-thumb-clip)">
+<use id="hand-thumb-fill" href="#hand-thumb-shape" transform="translate(-2 -2)" fill="#e9dfc6"/>
+</g>
+<use id="hand-thumb-line" href="#hand-thumb-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

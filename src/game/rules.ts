@@ -8,7 +8,7 @@ import { PACKS, allPacks, packById, type PackDef } from '../data/packs';
 import { STAGES, WORLDS, landStart, stageAt, worldOf, type Stage } from '../data/stages';
 import { UNITS, isFrontline, isStructure, type UnitInfo } from '../data/units';
 import { FIELDS } from '../data/fields';
-import { FIRST_FIELD, halfOf, isEnemyTile as enemyTile, rowsFromMiddle, seatTeam, shiftOf, standEnemy, type Field } from '../sim/field';
+import { FIRST_FIELD, halfOf, isEnemyTile as enemyTile, isPlayerTile, rowsFromMiddle, seatTeam, shiftOf, standEnemy, type Field } from '../sim/field';
 import { Rng, hash32 } from '../sim/rng';
 import { defaultFormation } from '../sim/setup';
 import type { BattleInput, Placement } from '../sim/types';
@@ -38,6 +38,24 @@ export const STARTERS: readonly string[] = ['archer', 'knight', 'cleric', 'watch
  * journey, 24 November 2026).
  */
 export const STARTER_GRADE = 1;
+
+/**
+ * The pack a new player's first win drops, whatever land it is won in: the
+ * tutorial has them open it where it lies and put its card on the field
+ * themselves (game/tutorial.ts), so it has to turn over someone who fights,
+ * for the fourth place in their team. A land's own pack turns over a
+ * structure one time in five, and a new player has no place for a second.
+ */
+export const FIRST_PACK = 'recruit';
+
+/**
+ * The seed of a new player's very first battle. Every new player fights the
+ * same one: it was picked so that the Archer's skill can be called about two
+ * seconds in and the Knight's a little after, and so that it is won in ten
+ * to twelve seconds whether a skill is called or not (tests/tutorial.test.ts
+ * holds it to that).
+ */
+export const FIRST_SEED = 15;
 
 export function startingSave(seed: number): SaveData {
   const save = newSave(seed);
@@ -260,6 +278,31 @@ export function toggleTeam(save: SaveData, card: number): boolean {
   return true;
 }
 
+/**
+ * The tile a card would be given if it joined the team by itself, written as
+ * the first field's are: for a screen to point at.
+ */
+export function tileFor(save: SaveData, unit: string): [number, number] {
+  return freeTile(save.team, isFrontline(unit), fieldAt(save));
+}
+
+/**
+ * Puts a card the player holds on a tile of their choosing. Returns false,
+ * and changes nothing, if the card is not held or fights already, the team
+ * has no place for it, or the tile is not a free one of the player's half
+ * on the field they are at. The tile is written as the first field's are.
+ */
+export function fieldCard(save: SaveData, card: number, col: number, row: number): boolean {
+  const held = cardOf(save, card);
+  if (!held || inTeam(save, card) || !roomFor(save, held.unit)) return false;
+  const field = fieldAt(save);
+  const shift = shiftOf(field);
+  if (!isPlayerTile(col + shift.col, row + shift.row, field)) return false;
+  if (save.team.some((p) => p.col === col && p.row === row)) return false;
+  save.team.push({ card, unit: held.unit, col, row });
+  return true;
+}
+
 /** The team as it must be to fight: only cards the player holds, each once, no more units and no more structures than may be fielded, each on its own tile of the player's half. */
 export function tidyTeam(save: SaveData): void {
   const seen = new Set<number>();
@@ -464,6 +507,8 @@ export function fieldOf(def: StageDef, grade: number, level: number, extra: numb
 
 /** A different fight each time a stage is tried, and the same one if the page is reloaded before it is fought. */
 export function stageSeed(save: SaveData, index: number): number {
+  // The first battle of all is the one the tutorial was made for.
+  if (save.stats.battles === 0 && index === 0) return FIRST_SEED;
   return hash32(hash32(save.rng) ^ Math.imul(save.stats.battles + 1, 0x9e3779b1) ^ Math.imul(index + 1, 40503));
 }
 
@@ -600,8 +645,10 @@ export function finishStage(save: SaveData, index: number, won: boolean): StageR
 
   if (first) {
     clearStage(save, stage.index);
-    // A first clear of a boss or a miniboss always drops, and the very first stage does, to show what a pack is.
-    if (def.kind !== 'normal' || stage.index === 0) result.packs.push(stage.pack);
+    // A first clear of a boss or a miniboss always drops. The very first stage does too, to show what a pack
+    // is, and what it drops is the pack the tutorial opens.
+    if (stage.index === 0) result.packs.push(FIRST_PACK);
+    else if (def.kind !== 'normal') result.packs.push(stage.pack);
     if (def.kind === 'boss') result.packs.push(stage.pack);
   }
   if (rng.chance(DROP_CHANCE + bonus(save, 'drops'))) result.packs.push(stage.pack);
@@ -740,8 +787,12 @@ export function rollPack(save: SaveData, pack: PackDef, rng: Rng): { unit: UnitI
   return { unit, grade };
 }
 
-/** Opens one pack the player holds. Changes the save. Null if they hold none. */
-export function openPack(save: SaveData, packId: string): Pull | null {
+/**
+ * Opens one pack the player holds. Changes the save. Null if they hold none.
+ * With `join` false the card is only held: it is the player's to put on the
+ * field, as the tutorial has them do with their first.
+ */
+export function openPack(save: SaveData, packId: string, join = true): Pull | null {
   if ((save.packs[packId] ?? 0) <= 0) return null;
   const pack = packNow(save, packById(packId));
   if (packPool(save, pack).length === 0) return null;
@@ -751,7 +802,7 @@ export function openPack(save: SaveData, packId: string): Pull | null {
   const before = cardsOf(save, unit.id);
   const card = addCard(save, unit.id, grade);
   // A card walks straight into the team if there is a place for it, a copy too.
-  const joined = roomFor(save, card.unit) && toggleTeam(save, card.id);
+  const joined = join && roomFor(save, card.unit) && toggleTeam(save, card.id);
   return {
     pack: packId,
     unit: unit.id,

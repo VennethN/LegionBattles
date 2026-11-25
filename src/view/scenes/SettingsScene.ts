@@ -94,8 +94,8 @@ export class SettingsScene extends Phaser.Scene {
 
   /** A row's name, on the left of a panel. */
   private name(add: Adder, x: number, y: number, text: string, sub = ''): void {
-    add(label(this, x, sub ? y - 10 : y, text, { size: 22, align: 'left', color: OUTLINE, stroke: null }));
-    if (sub) add(label(this, x, y + 16, sub, { size: 13, weight: 600, align: 'left', color: IRON.shade, stroke: null, wrap: 300 }));
+    add(label(this, x, sub ? y - 12 : y, text, { size: 22, align: 'left', color: OUTLINE, stroke: null }));
+    if (sub) add(label(this, x, y + 14, sub, { size: 18, weight: 600, align: 'left', color: IRON.shade, stroke: null, wrap: 300 }));
   }
 
   /** A switch: a button that says how it stands, in green when on. */
@@ -213,7 +213,7 @@ export class SettingsScene extends Phaser.Scene {
     slab(g, W / 2 - 300, H / 2 - 150, 600, 300, BONE, 22, 8);
     add(label(this, W / 2, H / 2 - 100, 'Start over?', { size: 34 }).setDepth(9002));
     add(label(this, W / 2, H / 2 - 30, 'All your cards, coins and progress will be wiped. This cannot be undone.', {
-      size: 17, weight: 600, color: OUTLINE, stroke: null, wrap: 520,
+      size: 20, weight: 600, color: OUTLINE, stroke: null, wrap: 520,
     }).setDepth(9002));
     const keep = new Button(this, W / 2 - 140, H / 2 + 88, 'KEEP PLAYING', () => shut(), { width: 250, height: 60, size: 22 }).setDepth(9002);
     add(keep.root);
@@ -236,36 +236,37 @@ export class SettingsScene extends Phaser.Scene {
   private drawGuides(add: Adder): void {
     const s = save();
     this.firstView = null;
-    add(label(this, 216, 40, 'View any tutorial again.', {
-      size: 17, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
+    add(label(this, 250, 40, 'View any tutorial again.', {
+      size: 19, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
     }));
     const x = 40;
     const w = W - 80;
-    const h = 70;
+    // As tall as lets every tour have a row over the tabs: there are eight of them.
+    const h = 64;
     TOURS.forEach((tour, i) => {
-      const y = 84 + i * (h + 8);
+      const y = 82 + i * (h + 6);
       const known = tourKnown(s, tour);
       const seen = tourSeen(s, tour.id);
       const mat: Material = known ? BONE : IRON;
       const g = add(this.add.graphics());
       slab(g, x, y, w, h, mat, 16, 6);
-      slab(g, x + 10, y + 9, 50, 50, known ? (seen ? GOLD : { fill: IRON.fill, shade: IRON.shade }) : { fill: IRON.shade, shade: IRON.shade }, 10, 3);
-      add(this.add.image(x + 35, y + 33, SHEET, known ? 'icon/book' : 'icon/lock').setScale(known ? 0.36 : 0.32));
+      slab(g, x + 10, y + 7, 48, 48, known ? (seen ? GOLD : { fill: IRON.fill, shade: IRON.shade }) : { fill: IRON.shade, shade: IRON.shade }, 10, 3);
+      add(this.add.image(x + 34, y + 30, SHEET, known ? 'icon/book' : 'icon/lock').setScale(known ? 0.36 : 0.32));
       if (!known) {
         // Not come to yet: nothing is said of it but that it is there.
         add(label(this, x + 78, y + h / 2 - 3, '???', { size: 22, align: 'left' }));
         return;
       }
-      add(label(this, x + 78, y + 24, tour.name, { size: 21, align: 'left', color: OUTLINE, stroke: null }));
-      add(label(this, x + 78, y + 48, tour.blurb, { size: 14, weight: 600, align: 'left', color: IRON.shade, stroke: null }));
-      if (seen) add(this.add.image(x + w - 250, y + h / 2 - 3, SHEET, 'icon/check').setScale(0.34));
-      add(label(this, x + w - 228, y + h / 2 - 3, seen ? 'seen' : 'new', { size: 14, weight: 600, align: 'left', color: seen ? IRON.shade : CLOTH.blue.shade, stroke: null }));
+      add(label(this, x + 76, y + 19, tour.name, { size: 21, align: 'left', color: OUTLINE, stroke: null }));
+      add(label(this, x + 76, y + 42, tour.blurb, { size: 18, weight: 600, align: 'left', color: IRON.shade, stroke: null }));
+      if (seen) add(this.add.image(x + w - 256, y + h / 2 - 3, SHEET, 'icon/check').setScale(0.34));
+      add(label(this, x + w - 234, y + h / 2 - 3, seen ? 'seen' : 'new', { size: 18, weight: 600, align: 'left', color: seen ? IRON.shade : CLOTH.blue.shade, stroke: null }));
       const view = new Button(this, x + w - 96, y + h / 2 - 1, seen ? 'VIEW AGAIN' : 'VIEW', () => {
         // It starts on the field: this screen shuts, and the tour's first step is there.
         if (!startTour(s, tour.id)) return;
         commit();
         closeOverlay(this);
-      }, { width: 168, height: 50, size: 17 });
+      }, { width: 168, height: 46, size: 18 });
       add(view.root);
       if (!this.firstView) this.firstView = view.rect;
     });

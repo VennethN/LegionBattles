@@ -18,7 +18,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
-const SEEN = ['tour:basics', 'tour:packs', 'tour:dungeons', 'tour:raids', 'tour:skills', 'tour:upgrades', 'tour:structures'];
+const SEEN = ['tour:basics', 'tour:packs', 'tour:dungeons', 'tour:raids', 'tour:skills', 'tour:upgrades', 'tour:structures', 'tour:team'];
 const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const slow = Number(process.env.CPU ?? 4);
 const stages = Number(process.env.STAGES ?? 3);

@@ -2,115 +2,236 @@ import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 import { addPlayerXp } from '../src/game/player';
 import { claimDaily } from '../src/game/rewards';
-import { finishStage, openPack, startingSave } from '../src/game/rules';
+import { addCard } from '../src/game/cards';
+import { FIRST_PACK, FIRST_SEED, fieldCard, finishStage, openPack, stageInput, startingSave } from '../src/game/rules';
 import { repair, type SaveData } from '../src/game/state';
 import {
-  STEPS, TOURS, TOUR_GAP, advanceTour, endTour, markSeen, skipTutorial, startTour, tourById, tourDue, tourKnown, tourSeen, tutorialStep,
+  STEPS, TAP_SLOW, TOURS, TOUR_GAP, advanceTour, cardToPlace, endTour, markSeen, placeTile, skipTutorial, startTour, tourById, tourDue, tourKnown,
+  tourSeen, tutorialStep,
   type GuideContext,
   type GuideScene,
 } from '../src/game/tutorial';
+import { Battle, callEverything, runBattle } from '../src/sim/battle';
 
-const main: GuideContext = { scene: 'Main' };
 const id = (save: ReturnType<typeof startingSave>, ctx: GuideContext): string | null => tutorialStep(save, ctx)?.id ?? null;
+/** The main screen with the team standing ready, in a battle, and with a battle's result up. */
+const ready: GuideContext = { scene: 'Main', phase: 'ready', busy: false };
+const fighting: GuideContext = { scene: 'Main', phase: 'fighting', busy: true };
+const after: GuideContext = { scene: 'Main', phase: 'after', busy: true };
 
-describe('the tutorial', () => {
-  it('walks a new player from the first battle to the packs, the team and a last word', () => {
+describe('the first tutorial', () => {
+  it('is three things done: a skill called, a pack opened, a card put on the field', () => {
     const save = startingSave(1);
-    // The first battle is watched, and nothing waits for the player.
-    expect(id(save, main)).toBe('hello');
-    expect(tutorialStep(save, main)?.holds).toBe(false);
-    expect(tutorialStep(save, main)?.blocks).toBe(false);
+    // A new player lands in a battle: before it there is nothing to press and nothing to read.
+    expect(tutorialStep(save, ready)).toBeNull();
+    expect(save.tutorial.done).toBe(false);
 
-    finishStage(save, 0, true);
-    expect(id(save, main)).toBe('packs');
-    expect(id(save, { scene: 'Shop', show: 'none' })).toBe('open');
-    expect(id(save, { scene: 'Shop', show: 'pouch' })).toBe('tear');
-    openPack(save, 'recruit');
-    expect(id(save, { scene: 'Shop', show: 'reveal' })).toBe('card');
-    expect(id(save, { scene: 'Shop', show: 'none' })).toBe('close-packs');
-    // Back on the field before the packs are shut behind them: still the packs.
-    expect(id(save, main)).toBe('packs');
-    markSeen(save, 'packs');
+    // In it, nothing until a skill of theirs can be called. Then the hand: it holds nothing back and blocks nothing.
+    expect(tutorialStep(save, fighting)).toBeNull();
+    const tap = tutorialStep(save, { ...fighting, callable: true });
+    expect(tap?.id).toBe('tap');
+    expect([tap?.hand, tap?.holds, tap?.blocks]).toEqual([true, false, false]);
+    // It stays for as long as the skill can be called and has not been.
+    expect(id(save, { ...fighting, callable: true })).toBe('tap');
+    markSeen(save, 'tap');
+    // Once is enough: the next skill that can be called says so by itself.
+    expect(tutorialStep(save, { ...fighting, callable: true })).toBeNull();
 
-    expect(id(save, main)).toBe('units');
-    expect(id(save, { scene: 'Team', page: 'units' })).toBe('fill');
-    markSeen(save, 'fill');
-    expect(id(save, { scene: 'Team', page: 'units' })).toBe('close-units');
-    // The structures' screen has no part in this step.
-    expect(id(save, { scene: 'Team', page: 'structures' })).toBeNull();
-    markSeen(save, 'team');
+    // The first win drops a pack of soldiers, and the result waits for it to be opened.
+    const won = finishStage(save, 0, true);
+    expect(won.packs).toContain(FIRST_PACK);
+    const open = tutorialStep(save, after);
+    expect(open?.id).toBe('open');
+    expect([open?.hand, open?.holds, open?.blocks]).toEqual([true, true, true]);
+    // While it is being opened nothing points at anything.
+    expect(tutorialStep(save, { ...after, show: 'pouch' })).toBeNull();
+    const pull = openPack(save, FIRST_PACK, false);
+    expect(pull?.joined).toBe(false);
+    expect(tutorialStep(save, { ...after, show: 'reveal' })).toBeNull();
+    expect(cardToPlace(save)).toBe(pull?.card);
+    // The card waits for the field to be on show again, and the result does not wait for it.
+    expect(tutorialStep(save, after)).toBeNull();
+    expect(save.tutorial.done).toBe(false);
 
-    // Then the tower they started with: its own button, its own screen, and out again.
-    expect(id(save, main)).toBe('structures');
-    expect(id(save, { scene: 'Team', page: 'units' })).toBeNull();
-    expect(id(save, { scene: 'Team', page: 'structures' })).toBe('close-structures');
-    markSeen(save, 'structures');
-
-    expect(id(save, main)).toBe('word');
-    expect(tutorialStep(save, main)?.ok).toBe(true);
-    markSeen(save, 'word');
+    // On the field: the hand points at the tile the card would take by itself, and any free tile will do.
+    const place = tutorialStep(save, ready);
+    expect(place?.id).toBe('place');
+    expect([place?.hand, place?.holds, place?.blocks]).toEqual([true, true, false]);
+    const tile = placeTile(save);
+    expect(tile).not.toBeNull();
+    const before = save.team.length;
+    // The back corner, not the tile pointed at: it is the player's to choose.
+    expect(fieldCard(save, pull?.card ?? -1, 0, 3)).toBe(true);
+    expect(save.team.length).toBe(before + 1);
+    markSeen(save, 'place');
     expect(save.tutorial.done).toBe(true);
-    expect(tutorialStep(save, main)).toBeNull();
+    expect(tutorialStep(save, ready)).toBeNull();
+    expect(cardToPlace(save)).toBeNull();
   });
 
-  it('every step after the first holds the battles and lets nothing else be pressed', () => {
-    for (const step of STEPS.slice(1)) {
-      expect(step.holds, step.id).toBe(true);
-      expect(step.blocks, step.id).toBe(true);
+  it('every step is a hand and a word, with a thing of its own to point at', () => {
+    expect(STEPS.map((s) => s.id)).toEqual(['tap', 'open', 'place']);
+    for (const step of STEPS) {
+      expect(step.hand, step.id).toBe(true);
       expect(step.target.length, step.id).toBeGreaterThan(0);
-      expect(step.text.length, step.id).toBeLessThanOrEqual(72);
+      // "Limits the use of text": a word, said loud.
+      expect(step.text.split(' ').length, step.id).toBeLessThanOrEqual(2);
+      expect(step.text.length, step.id).toBeLessThanOrEqual(8);
+      expect(step.text, step.id).toBe(step.text.toUpperCase());
+      expect(step.ok, step.id).toBeUndefined();
     }
-    expect(new Set(STEPS.map((s) => s.id)).size).toBe(STEPS.length);
+    expect(new Set(STEPS.map((s) => s.target)).size).toBe(STEPS.length);
+    // The battle is all but stopped while the first hand waits.
+    expect(TAP_SLOW).toBeGreaterThan(0);
+    expect(TAP_SLOW).toBeLessThan(0.1);
   });
 
-  it('shows nothing on a screen a step does not belong to, or under another screen', () => {
+  it('shows nothing on any other screen, or under one', () => {
     const save = startingSave(1);
-    expect(tutorialStep(save, { scene: 'Shop', show: 'none' })).toBeNull();
-    expect(tutorialStep(save, { scene: 'Main', covered: true })).toBeNull();
     finishStage(save, 0, true);
-    expect(tutorialStep(save, { scene: 'Team' })).toBeNull();
-    expect(tutorialStep(save, { scene: 'Worlds' })).toBeNull();
+    expect(id(save, ready)).toBe('open');
+    expect(tutorialStep(save, { ...ready, covered: true })).toBeNull();
+    for (const scene of ['Shop', 'Team', 'Worlds', 'Rewards', 'Hall', 'Player', 'Settings'] as GuideScene[]) {
+      expect(tutorialStep(save, { scene }), scene).toBeNull();
+      expect(tutorialStep(save, { scene, show: 'none', page: 'units' }), scene).toBeNull();
+    }
+    expect(save.tutorial.done).toBe(false);
   });
 
-  it('picks up where it was after a reload', () => {
+  it('carries on after a reload: with a pack to open, and then with a card in hand', () => {
     const save = startingSave(1);
     finishStage(save, 0, true);
-    openPack(save, 'recruit');
-    markSeen(save, 'packs');
-    const back = repair(JSON.parse(JSON.stringify(save)), 9);
+    // They left with the result up. Back on the field, the pack is still to be opened.
+    let back = repair(JSON.parse(JSON.stringify(save)), 9);
     expect(back.tutorial.done).toBe(false);
-    expect(id(back, main)).toBe('units');
+    expect(id(back, ready)).toBe('open');
+    // They left with the card in hand.
+    const pull = openPack(back, FIRST_PACK, false);
+    back = repair(JSON.parse(JSON.stringify(back)), 9);
+    expect(id(back, ready)).toBe('place');
+    expect(cardToPlace(back)).toBe(pull?.card);
+    // And a new player who leaves in the middle of the first battle lands in it again.
+    const fresh = repair(JSON.parse(JSON.stringify(startingSave(1))), 9);
+    expect(tutorialStep(fresh, ready)).toBeNull();
+    expect(id(fresh, { ...fighting, callable: true })).toBe('tap');
   });
 
-  it('skips the packs when there are none to open', () => {
+  it('opens a pack even after a first battle that was lost: they came with two', () => {
     const save = startingSave(1);
-    save.packs = {};
-    save.stats.battles = 3;
-    expect(id(save, main)).toBe('units');
+    expect(save.packs[FIRST_PACK]).toBe(2);
+    const lost = finishStage(save, 0, false);
+    expect(lost.packs).toHaveLength(0);
+    expect(id(save, after)).toBe('open');
   });
 
-  it('can be skipped, and is over for good', () => {
+  it('is over when there is nothing left of it to do', () => {
+    // The pack was opened some other way and its card walked into the team.
     const save = startingSave(1);
-    skipTutorial(save);
-    expect(save.tutorial.done).toBe(true);
-    expect(tutorialStep(save, main)).toBeNull();
-    // None of its steps comes back, whatever is played after.
     finishStage(save, 0, true);
-    const first = new Set(STEPS.map((s) => s.id));
-    for (const ctx of [main, { scene: 'Shop', show: 'none' }, { scene: 'Team' }] as GuideContext[]) {
-      const step = tutorialStep(save, ctx);
-      expect(step === null || !first.has(step.id)).toBe(true);
+    expect(openPack(save, FIRST_PACK)?.joined).toBe(true);
+    expect(cardToPlace(save)).toBeNull();
+    // On the result it only shows nothing; it is ended when the field is still.
+    expect(tutorialStep(save, after)).toBeNull();
+    expect(save.tutorial.done).toBe(false);
+    expect(tutorialStep(save, ready)).toBeNull();
+    expect(save.tutorial.done).toBe(true);
+    // And for a player with no pack to open.
+    const bare = startingSave(1);
+    bare.packs = {};
+    bare.stats.battles = 1;
+    expect(tutorialStep(bare, ready)).toBeNull();
+    expect(bare.tutorial.done).toBe(true);
+    // Not before a battle has been fought, though.
+    const first = startingSave(1);
+    expect(tutorialStep(first, ready)).toBeNull();
+    expect(first.tutorial.done).toBe(false);
+  });
+
+  it('can be skipped at every step, and is over for good', () => {
+    // At the hand in the battle.
+    const a = startingSave(1);
+    expect(id(a, { ...fighting, callable: true })).toBe('tap');
+    skipTutorial(a);
+    expect(a.tutorial.done).toBe(true);
+    // At the pack.
+    const b = startingSave(1);
+    finishStage(b, 0, true);
+    expect(id(b, after)).toBe('open');
+    skipTutorial(b);
+    expect(b.tutorial.done).toBe(true);
+    // The pack is still theirs, to open where packs are opened.
+    expect(b.packs[FIRST_PACK]).toBe(3);
+    // With a card in hand: it walks into the team, as a card does anywhere else.
+    const c = startingSave(1);
+    finishStage(c, 0, true);
+    const pull = openPack(c, FIRST_PACK, false);
+    expect(id(c, ready)).toBe('place');
+    skipTutorial(c);
+    expect(c.tutorial.done).toBe(true);
+    expect(c.team.some((p) => p.card === pull?.card)).toBe(true);
+    // None of its steps comes back, whatever is played after.
+    for (const save of [a, b, c]) {
+      finishStage(save, 1, true);
+      const first = new Set(STEPS.map((s) => s.id));
+      for (const ctx of [ready, after, { ...fighting, callable: true }] as GuideContext[]) {
+        const step = tutorialStep(save, ctx);
+        expect(step === null || !first.has(step.id)).toBe(true);
+      }
     }
   });
 });
 
-describe('the tutorial and a battle', () => {
-  it('asks for no press while a battle is on or its result is up, and still says its first word', () => {
-    const save = startingSave(1);
-    expect(tutorialStep(save, { scene: 'Main', busy: true })?.id).toBe('hello');
-    finishStage(save, 0, true);
-    expect(tutorialStep(save, { scene: 'Main', busy: true })).toBeNull();
-    expect(tutorialStep(save, { scene: 'Main', busy: false })?.id).toBe('packs');
+describe('a new player\'s first battle', () => {
+  it('is the same battle for every new player', () => {
+    const one = stageInput(startingSave(1), 0);
+    for (const seed of [2, 99, 123456789]) expect(stageInput(startingSave(seed), 0)).toEqual(one);
+    expect(one.seed).toBe(FIRST_SEED);
+    // The second battle is each player's own.
+    const a = startingSave(1);
+    const b = startingSave(2);
+    finishStage(a, 0, true);
+    finishStage(b, 0, true);
+    expect(stageInput(a, 1).seed).not.toBe(stageInput(b, 1).seed);
+  });
+
+  it('has a skill to call about two seconds in: the Archer\'s, and soon after it the Knight\'s', () => {
+    const input = stageInput(startingSave(1), 0);
+    const b = new Battle(input);
+    const first = new Map<string, number>();
+    while (!b.ended) {
+      for (let i = 0; i < b.units.length; i++) {
+        if (b.units[i].team === 0 && b.callable(i) && !first.has(b.units[i].def.id)) first.set(b.units[i].def.id, b.time);
+      }
+      b.step();
+    }
+    const order = [...first.entries()].sort((x, y) => x[1] - y[1]);
+    expect(order[0][0]).toBe('archer');
+    expect(order[0][1]).toBeGreaterThanOrEqual(1);
+    expect(order[0][1]).toBeLessThanOrEqual(3);
+    expect(order[1][0]).toBe('knight');
+    expect(order[1][1]).toBeLessThanOrEqual(5);
+  });
+
+  it('is won in ten to fifteen seconds, whether a skill is called or not', () => {
+    const input = stageInput(startingSave(1), 0);
+    const untouched = runBattle(input, false);
+    // The tutorial's player: the first skill that can be called, and nothing after.
+    const b = new Battle(input);
+    let call = -1;
+    while (!b.ended && call < 0) {
+      for (let i = 0; i < b.units.length && call < 0; i++) if (b.callable(i)) call = i;
+      if (call < 0) b.step();
+    }
+    const once = runBattle({ ...input, calls: [{ tick: b.tick + 1, unit: call }] }, true);
+    const always = runBattle(input, false, callEverything);
+    expect(once.events.filter((e) => e.type === 'call')).toHaveLength(1);
+    for (const r of [untouched, once, always]) {
+      expect(r.winner).toBe(0);
+      expect(r.seconds).toBeGreaterThanOrEqual(8.5);
+      expect(r.seconds).toBeLessThanOrEqual(15);
+    }
+    // Calling is worth something even here: the player who calls everything is done sooner.
+    expect(always.seconds).toBeLessThan(untouched.seconds);
   });
 });
 
@@ -119,12 +240,14 @@ describe('the tutorial and a battle', () => {
 const DAY = 20000;
 const at = (scene: GuideScene, more: Partial<GuideContext> = {}): GuideContext => ({ scene, day: DAY, ...more });
 
-/** A player whose first tutorial is behind them, with a few battles fought. */
+/** A player whose first tutorial is behind them, with a few battles fought and the packs they came with opened. */
 function played(): SaveData {
   const save = startingSave(1);
   save.tutorial.done = true;
-  // As the first tutorial leaves it: the basics and the tower have been shown.
-  save.tutorial.seen.push('tour:basics', 'tour:structures');
+  // As the first tutorial leaves it: what it taught is what the basics say.
+  save.tutorial.seen.push('tap', 'place', 'tour:basics');
+  save.packs = {};
+  save.stats.opened = 3;
   save.stats.battles = 6;
   save.coins = 0;
   // Today's day of the calendar is claimed, so that nothing waits unless a test says so.
@@ -212,9 +335,9 @@ describe('the tours', () => {
         expect(source.get(name), `${tour.id}: ${step.scene} marks "${step.target}"`).toContain(`mark('${step.target}'`);
       }
     }
-    // And the first tutorial's steps, on the three screens it goes through.
-    const all = ['MainScene', 'ShopScene', 'TeamScene'].map((n) => fs.readFileSync(`src/view/scenes/${n}.ts`, 'utf8')).join('\n');
-    for (const step of STEPS) expect(all, step.id).toContain(`mark('${step.target}'`);
+    // And the first tutorial's steps, all of them on the main screen: it leads into no other.
+    const mainScreen = fs.readFileSync('src/view/scenes/MainScene.ts', 'utf8');
+    for (const step of STEPS) expect(mainScreen, step.id).toContain(`mark('${step.target}'`);
   });
 
   it('none starts while the first tutorial runs, and the basics never start by themselves', () => {
@@ -223,45 +346,41 @@ describe('the tours', () => {
     save.stats.battles = 9;
     addPlayerXp(save, 5000);
     expect(tourDue(save, DAY)).toBeNull();
-    expect(tutorialStep(save, at('Main'))?.tour).toBeUndefined();
+    expect(tutorialStep(save, at('Main', { phase: 'after', busy: true }))?.tour).toBeUndefined();
     expect(tourById('basics')?.when).toBeUndefined();
     // Ending the first tutorial is having seen the basics.
     skipTutorial(save);
     expect(tourSeen(save, 'basics')).toBe(true);
     const walked = startingSave(1);
-    walked.stats.battles = 2;
-    walked.packs = {};
-    markSeen(walked, 'team');
-    markSeen(walked, 'structures');
-    markSeen(walked, 'word');
+    finishStage(walked, 0, true);
+    const pull = openPack(walked, FIRST_PACK, false);
+    fieldCard(walked, pull?.card ?? -1, 0, 3);
+    markSeen(walked, 'place');
     expect(walked.tutorial.done).toBe(true);
     expect(tourSeen(walked, 'basics')).toBe(true);
-    // The other tours wait for a couple of battles.
-    walked.coins = 99999;
+    // The first tutorial led into no screen, so every other tour is still to come, and waits for a couple of battles.
+    for (const tour of TOURS) if (tour.id !== 'basics') expect(tourSeen(walked, tour.id), tour.id).toBe(false);
     expect(walked.tutorial.tour).toBeNull();
     expect(tourDue(walked, DAY)).toBeNull();
     walked.stats.battles += TOUR_GAP - 1;
     expect(tourDue(walked, DAY)).toBeNull();
     walked.stats.battles++;
-    // The packs wait a few battles more: the first tutorial has only just opened one.
-    expect(tourDue(walked, DAY)?.id).not.toBe('packs');
-    walked.stats.battles = 6;
+    // Then the packs: they hold the two they came with, and have been shown no screen to open them on.
     expect(tourDue(walked, DAY)?.id).toBe('packs');
   });
 
   it('nothing follows the first tutorial: no tour, no screen, and no word of the rewards', () => {
     const save = startingSave(1);
-    save.stats.battles = 2;
-    save.packs = {};
-    markSeen(save, 'team');
-    markSeen(save, 'structures');
-    expect(tutorialStep(save, at('Main'))?.id).toBe('word');
-    markSeen(save, 'word');
+    finishStage(save, 0, true);
+    const pull = openPack(save, FIRST_PACK, false);
+    expect(tutorialStep(save, at('Main', { phase: 'ready' }))?.id).toBe('place');
+    fieldCard(save, pull?.card ?? -1, 0, 3);
+    markSeen(save, 'place');
     expect(save.tutorial.done).toBe(true);
     expect(save.tutorial.tour).toBeNull();
     // A reward waits from the first day, and still nothing is shown for it, today or tomorrow.
     for (const day of [DAY, DAY + 1]) {
-      expect(tutorialStep(save, at('Main', { day }))).toBeNull();
+      expect(tutorialStep(save, at('Main', { day, phase: 'ready' }))).toBeNull();
       expect(tutorialStep(save, at('Rewards', { day }))).toBeNull();
     }
     save.stats.battles += 10;
@@ -274,9 +393,10 @@ describe('the tours', () => {
     expect(tutorialStep(skipped, at('Main'))).toBeNull();
     expect(tutorialStep(skipped, at('Rewards'))).toBeNull();
     // And a save that was in the middle of the old tour of the rewards comes back with no tour up.
-    const old = JSON.parse(JSON.stringify(save)) as { tutorial: { tour: unknown; show?: string } };
+    const old = JSON.parse(JSON.stringify(save)) as { tutorial: { tour: unknown; show?: string }; stats: { battles: number } };
     old.tutorial.tour = { id: 'rewards', step: 1, open: true };
     old.tutorial.show = 'Rewards';
+    old.stats.battles = 1;
     const back = repair(old, 3);
     expect(back.tutorial.tour).toBeNull();
     expect(tutorialStep(back, at('Main'))).toBeNull();
@@ -285,10 +405,26 @@ describe('the tours', () => {
   it('each starts the first time its part of the game matters', () => {
     const save = played();
     expect(tourDue(save, DAY)).toBeNull();
-    // Coins enough for a pack.
+    // A pack held, or coins enough for one: the screen of packs has something on it for them.
+    save.packs = { recruit: 1 };
+    expect(tourDue(save, DAY)?.id).toBe('packs');
+    save.packs = {};
+    expect(tourDue(save, DAY)).toBeNull();
     save.coins = 60;
     expect(tourDue(save, DAY)?.id).toBe('packs');
     endTourOf(save, 'packs');
+    // A card that fights and is in no team: there is a choice to make, and a screen to make it on.
+    save.coins = 0;
+    expect(tourDue(save, DAY)).toBeNull();
+    addCard(save, 'militia', 2);
+    addCard(save, 'mage', 1);
+    expect(tourDue(save, DAY)?.id).toBe('team');
+    endTourOf(save, 'team');
+    // A second structure, with the tower standing in the one place there is.
+    expect(tourDue(save, DAY)).toBeNull();
+    addCard(save, 'spiketrap', 0);
+    expect(tourDue(save, DAY)?.id).toBe('structures');
+    endTourOf(save, 'structures');
     // A level made: a point to spend.
     save.coins = 0;
     addPlayerXp(save, 60);
@@ -338,8 +474,9 @@ describe('the tours', () => {
       save.stats.battles++;
     }
     for (let i = 1; i < when.length; i++) expect(when[i] - when[i - 1]).toBe(TOUR_GAP);
-    // Every tour that has a time of its own, in the order of the list. The raids wait for a raid, and the tower was shown by the first tutorial.
-    expect(seen).toEqual(TOURS.filter((t) => t.when && !['raids', 'structures'].includes(t.id)).map((t) => t.id));
+    // Every tour that has a time of its own and whose time has come, in the order of the list. The raids wait
+    // for a raid, and the team's and the structures' for a card that stands in no team.
+    expect(seen).toEqual(TOURS.filter((t) => t.when && !['raids', 'team', 'structures'].includes(t.id)).map((t) => t.id));
   });
 
   it('do not start under another screen or in the middle of a battle', () => {
@@ -456,7 +593,7 @@ describe('the tours', () => {
     delete old.tutorial.at;
     old.tutorial.seen = [];
     const back = repair(old, 3);
-    for (const id of ['basics', 'packs', 'skills', 'structures']) expect(tourSeen(back, id), id).toBe(true);
+    for (const id of ['basics', 'packs', 'team', 'skills', 'structures']) expect(tourSeen(back, id), id).toBe(true);
     // Nothing says they have bought an upgrade or been in a dungeon: those are still to come.
     for (const id of ['upgrades', 'dungeons', 'raids']) expect(tourSeen(back, id), id).toBe(false);
     // And a player who has never stood a structure is shown where they go.

@@ -17,7 +17,7 @@ import { sfx } from '../../audio/sfx';
 import {
   BRANCH_NAME, EFFECT_NAME, PLAYER_MAX_LEVEL, TREE, UPGRADES, playerXpToNext, treeNode, type Branch, type TreeNode,
 } from '../../data/player';
-import { bonusParts, bonuses } from '../../game/bonuses';
+import { bonuses } from '../../game/bonuses';
 import { buyUpgrade, pointsFree, rankOf, rankUp, resetTree, upgradeCost, upgradeLevel, whyNoRank } from '../../game/player';
 import { setupCamera } from '../app';
 import { hex } from '../config';
@@ -51,6 +51,10 @@ const NODE = 100;
 function nodeAt(node: TreeNode): [number, number] {
   return [116 + node.at[0] * 176, 150 + node.at[1] * 128];
 }
+
+/** Where the list of everything the player has begins, on each of the two pages. */
+const TOTALS_SKILLS = PY + 336;
+const TOTALS_UPGRADES = PY + 150;
 
 /** A share as a percent: "+12%". */
 function percent(share: number): string {
@@ -107,7 +111,7 @@ export class PlayerScene extends Phaser.Scene {
     guide.mark('tree', () => (this.page === 'skills' ? { x: 24, y: 84, w: 844, h: 560 } : null));
     guide.mark('spend', () => (this.page === 'skills' ? { x: PX + 16, y: PY + PH - 148, w: PW - 32, h: 136 } : null));
     guide.mark('upgrades', () => (this.page === 'upgrades' ? { x: 30, y: 82, w: 836, h: UPGRADES.length * 110 - 10 } : null));
-    guide.mark('totals', () => ({ x: PX + 12, y: PY + (this.page === 'skills' ? 356 : 174), w: PW - 24, h: 150 }));
+    guide.mark('totals', () => ({ x: PX + 12, y: (this.page === 'skills' ? TOTALS_SKILLS : TOTALS_UPGRADES) - 18, w: PW - 24, h: 150 }));
     guide.mark('close', () => this.head.close.rect);
     guide.refresh();
   }
@@ -201,7 +205,7 @@ export class PlayerScene extends Phaser.Scene {
       const first = TREE.find((n) => n.branch === branch);
       if (!first) continue;
       const [x, y] = nodeAt(first);
-      add(label(this, x, y - NODE / 2 - 16, BRANCH_NAME[branch].toUpperCase(), { size: 14, color: BRANCH_MAT[branch].fill, strokeWidth: 4 }));
+      add(label(this, x, y - NODE / 2 - 15, BRANCH_NAME[branch].toUpperCase(), { size: 18, color: BRANCH_MAT[branch].fill, strokeWidth: 4 }));
     }
     this.drawNode(add);
   }
@@ -215,27 +219,29 @@ export class PlayerScene extends Phaser.Scene {
     const cx = PX + PW / 2;
     const dark = { color: OUTLINE, stroke: null as null };
     add(slabImage(this, PX, PY, PW, PH, BONE, 22, 8));
-    add(slabImage(this, PX + 14, PY + 14, PW - 28, 132, BRANCH_MAT[node.branch], 16, 5));
-    add(this.add.image(cx, PY + 78, SHEET, `icon/${node.icon}`).setScale(1));
-    add(label(this, cx, PY + 174, node.name, { size: 28 }));
-    add(label(this, cx, PY + 204, `${BRANCH_NAME[node.branch]}  ·  rank ${rank} of ${node.ranks}`, { size: 15, weight: 600, ...dark }));
+    // Its mark's window is kept low: the words under it are what the panel is for, and they are written to be read.
+    add(slabImage(this, PX + 14, PY + 14, PW - 28, 96, BRANCH_MAT[node.branch], 16, 5));
+    add(this.add.image(cx, PY + 60, SHEET, `icon/${node.icon}`).setScale(0.8));
+    add(label(this, cx, PY + 136, node.name, { size: 28 }));
+    add(label(this, cx, PY + 166, `${BRANCH_NAME[node.branch]}  ·  rank ${rank} of ${node.ranks}`, { size: 18, weight: 600, ...dark }));
 
     // What it gives: at the rank it has, and at the next.
     const said = (r: number): string => node.text.replace('{amount}', percent(node.perRank * r));
-    let y = PY + 232;
-    const now = add(label(this, PX + 24, y, rank > 0 ? said(rank) : said(1), { size: 15, weight: 600, align: 'left', wrap: PW - 48, ...dark }).setOrigin(0, 0));
-    y += now.height + 10;
+    let y = PY + 186;
+    const now = add(label(this, PX + 22, y, rank > 0 ? said(rank) : said(1), { size: 18, weight: 600, align: 'left', wrap: PW - 44, ...dark }).setOrigin(0, 0));
+    now.setLineSpacing(-2);
+    y += now.height + 6;
     if (rank > 0 && rank < node.ranks) {
-      const then = add(label(this, PX + 24, y, `Next rank: ${percent(node.perRank * (rank + 1))}`, { size: 15, align: 'left', color: CLOTH.blue.shade, stroke: null }).setOrigin(0, 0));
-      y += then.height + 10;
+      const then = add(label(this, PX + 22, y, `Next rank: ${percent(node.perRank * (rank + 1))}`, { size: 18, align: 'left', color: CLOTH.blue.shade, stroke: null }).setOrigin(0, 0));
+      y += then.height + 6;
     }
     if (node.needs && rankOf(s, node.needs.node) < node.needs.ranks) {
       const from = treeNode(node.needs.node);
-      add(label(this, PX + 24, y, `Needs ${node.needs.ranks} ${node.needs.ranks === 1 ? 'rank' : 'ranks'} of ${from?.name ?? '?'}.`, { size: 15, align: 'left', color: CLOTH.red.shade, stroke: null }).setOrigin(0, 0));
+      add(label(this, PX + 22, y, `Needs ${node.needs.ranks} ${node.needs.ranks === 1 ? 'rank' : 'ranks'} of ${from?.name ?? '?'}.`, { size: 18, align: 'left', wrap: PW - 44, color: CLOTH.red.shade, stroke: null }).setOrigin(0, 0));
     }
 
     // Everything the player has, from every source, in one list.
-    this.drawTotals(add, PY + 372);
+    this.drawTotals(add, TOTALS_SKILLS);
 
     const by = PY + PH - 112;
     const text = why === null ? 'SPEND A POINT' : why === 'full' ? 'FULL' : why === 'needs' ? 'LOCKED' : 'NO POINTS';
@@ -260,26 +266,29 @@ export class PlayerScene extends Phaser.Scene {
       commit();
       this.sure = false;
       this.redraw();
-    }, { width: 300, height: 50, size: 17, mat: BONE, color: OUTLINE }));
+    }, { width: 300, height: 50, size: 18, mat: BONE, color: OUTLINE }));
     reset.setEnabled(spent);
     add(reset.root);
   }
 
-  /** What every source adds up to, effect by effect: the one list of all the player's bonuses. */
+  /**
+   * What every source adds up to, effect by effect: the one list of all the
+   * player's bonuses, in two columns. Which source gives how much of each is
+   * not said here: the tree's nodes and the upgrades' rows each say what
+   * they give, and a line with all of it was too small to read.
+   */
   private drawTotals(add: Adder, y: number): void {
     const s = save();
     const dark = { color: OUTLINE, stroke: null as null };
-    add(label(this, PX + 24, y, 'ALL YOU HAVE', { size: 14, align: 'left', color: IRON.shade, stroke: null }).setOrigin(0, 0.5));
+    add(label(this, PX + 22, y, 'ALL YOU HAVE', { size: 18, align: 'left', color: IRON.shade, stroke: null }).setOrigin(0, 0.5));
     const all = bonuses(s);
     if (all.length === 0) {
-      add(label(this, PX + 24, y + 26, 'Nothing yet. A level is a point, and coins buy upgrades.', { size: 14, weight: 600, align: 'left', wrap: PW - 48, ...dark }).setOrigin(0, 0));
+      add(label(this, PX + 22, y + 18, 'Nothing yet. A level is a point, and coins buy upgrades.', { size: 18, weight: 600, align: 'left', wrap: PW - 44, ...dark }).setOrigin(0, 0));
       return;
     }
     all.forEach((b, i) => {
-      const parts = bonusParts(s, b.effect).map((part) => `${part.name.toLowerCase()} ${percent(part.amount)}`).join(', ');
-      const line = `${b.effect === 'packCost' ? '' : '+'}${percent(b.amount)} ${EFFECT_NAME[b.effect]}`;
-      add(label(this, PX + 24, y + 26 + i * 22, line, { size: 15, align: 'left', ...dark }).setOrigin(0, 0.5));
-      add(label(this, PX + PW - 24, y + 26 + i * 22, parts, { size: 12, weight: 600, align: 'right', color: IRON.shade, stroke: null }));
+      const line = `${b.effect === 'packCost' ? '-' : '+'}${percent(b.amount)} ${EFFECT_NAME[b.effect]}`;
+      add(label(this, PX + 22 + (i % 2) * ((PW - 44) / 2 + 6), y + 28 + Math.floor(i / 2) * 25, line, { size: 18, align: 'left', ...dark }).setOrigin(0, 0.5));
     });
   }
 
@@ -298,11 +307,13 @@ export class PlayerScene extends Phaser.Scene {
       add(slabImage(this, x, y, w, h, BONE, 16, 6));
       add(slabImage(this, x + 12, y + 12, 76, 76, level > 0 ? GOLD : IRON, 12, 4));
       add(this.add.image(x + 50, y + 48, SHEET, `icon/${up.icon}`).setScale(0.62));
-      add(label(this, x + 106, y + 28, up.name, { size: 22, align: 'left' }));
-      add(label(this, x + 106, y + 56, up.text.replace('{amount}', percent(up.perLevel * Math.max(1, level))).replace(/\.$/, level > 0 ? '.' : ', a level.'), { size: 14, weight: 600, align: 'left', ...dark }));
-      // What the next level makes it: the first, for one not bought yet, which gives nothing so far.
-      const then = level >= up.levels ? '' : level > 0 ? `  ·  next: ${percent(up.perLevel * (level + 1))}` : '  ·  not bought yet';
-      add(label(this, x + 106, y + 78, `Level ${level} of ${up.levels}${then}`, { size: 14, align: 'left', color: CLOTH.blue.shade, stroke: null }));
+      const name = add(label(this, x + 106, y + 24, up.name, { size: 22, align: 'left' }));
+      add(label(this, x + 122 + name.width, y + 25, `Level ${level} of ${up.levels}`, { size: 18, align: 'left', color: CLOTH.blue.shade, stroke: null }));
+      // What it gives now, and what the next level makes it: the first, for one not bought yet, which gives nothing so far.
+      const gives = up.text.replace('{amount}', percent(up.perLevel * Math.max(1, level))).replace(/\.$/, level > 0 ? '.' : ', a level.');
+      const then = level > 0 && level < up.levels ? ` Next: ${percent(up.perLevel * (level + 1))}.` : '';
+      const words = add(label(this, x + 106, y + 41, `${gives}${then}`, { size: 18, weight: 600, align: 'left', wrap: w - 320, ...dark }).setOrigin(0, 0));
+      words.setLineSpacing(-3);
       if (cost === null) {
         add(label(this, x + w - 110, y + h / 2, 'ALL BOUGHT', { size: 20, color: GOLD.shade, stroke: null }));
         return;
@@ -313,7 +324,7 @@ export class PlayerScene extends Phaser.Scene {
           commit();
           this.redraw();
         }
-      }, { width: 180, height: 60, size: cost >= 100000 ? 18 : 22, mat: VENOM });
+      }, { width: 180, height: 60, size: cost >= 100000 ? 19 : 22, mat: VENOM });
       b.root.add(this.add.image(-66, -3, SHEET, 'icon/coin').setScale(0.36));
       b.setEnabled(s.coins >= cost);
       add(b.root);
@@ -321,9 +332,9 @@ export class PlayerScene extends Phaser.Scene {
     // On the right, what it all adds up to.
     add(slabImage(this, PX, PY, PW, PH, BONE, 22, 8));
     add(label(this, PX + PW / 2, PY + 40, 'Upgrades', { size: 28 }));
-    add(label(this, PX + 24, PY + 74, 'Coins buy these for good. Each level costs more than the last, and what they give is added to what the skill tree gives.', {
-      size: 15, weight: 600, align: 'left', wrap: PW - 48, ...dark,
+    add(label(this, PX + 22, PY + 68, 'Coins buy these for good. Each level costs more than the last.', {
+      size: 18, weight: 600, align: 'left', wrap: PW - 44, ...dark,
     }).setOrigin(0, 0));
-    this.drawTotals(add, PY + 190);
+    this.drawTotals(add, TOTALS_UPGRADES);
   }
 }

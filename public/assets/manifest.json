@@ -4594,6 +4594,22 @@
     0.5
    ]
   },
+  "call": {
+   "width": 128,
+   "height": 128,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "hoop": {
+   "width": 128,
+   "height": 128,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
   "disc": {
    "width": 64,
    "height": 64,
@@ -4949,6 +4965,22 @@
    ]
   },
   "book": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "hand": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "call": {
    "width": 48,
    "height": 48,
    "origin": [

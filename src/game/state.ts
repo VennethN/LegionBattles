@@ -323,11 +323,14 @@ export function repair(raw: unknown, seed: number): SaveData {
       at: Math.max(0, Math.floor(num(at, 0))),
       tour: null,
     };
+    // The first tutorial used to lead through the screen of units. Whoever was led through it needs no tour of it.
+    if (out.tutorial.seen.includes('team') && !out.tutorial.seen.includes('tour:team')) out.tutorial.seen.push('tour:team');
     // A save from before there were tours: whatever its player has plainly used already needs no tour.
     if (at === undefined && out.tutorial.done) {
       const used: Array<[string, boolean]> = [
         ['basics', true],
         ['packs', num(r.stats?.opened, 0) > 2],
+        ['team', true],
         ['dungeons', Object.values(out.dungeons).some((n) => n > 0)],
         ['raids', Object.values(out.raids).some((n) => n > 0)],
         ['skills', Object.keys(out.tree).length > 0],

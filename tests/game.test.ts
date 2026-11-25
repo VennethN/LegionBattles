@@ -8,10 +8,10 @@ import { COUNTDOWN, afterBattle, goTo, settle, teamChanged } from '../src/game/c
 import { COPY_XP, OTHER_UNIT, addCard, cardOf, cardsOf, combine, combinePreview, spare, whyNot, worth, xpHeld } from '../src/game/cards';
 import { GRADES, MAX_LEVEL, RARITIES, cardMult, gradeMult, xpToNext } from '../src/game/rarity';
 import {
-  BASE_TEAM, MAX_STRUCTURES, MAX_TEAM, STRUCTURES_AT, STRUCTURE_PACK, STRUCTURE_SHARE, TEAM_AT, addXp, beaten, bestTeam, buyPack, cardPower,
-  buyPacks, cleared, clearedIn, finishStage, frontier, inTeam, isEnemyTile, known, lineDone, openPack, openPacks, packHolds, packOdds, packOpen,
+  BASE_TEAM, FIRST_PACK, MAX_STRUCTURES, MAX_TEAM, STRUCTURES_AT, STRUCTURE_PACK, STRUCTURE_SHARE, TEAM_AT, addXp, beaten, bestTeam, buyPack, cardPower,
+  buyPacks, cleared, clearedIn, fieldCard, finishStage, frontier, inTeam, isEnemyTile, known, lineDone, openPack, openPacks, packHolds, packOdds, packOpen,
   packPool, packsHeld, rollPack, roomFor,
-  stageCleared, stageEnemies, stageInput, stageOpen, stagePay, stageXp, startingSave, structuresIn, structuresSize, teamSize, tidyTeam, toggleTeam,
+  stageCleared, stageEnemies, stageInput, stageOpen, stagePay, stageXp, startingSave, structuresIn, structuresSize, teamSize, tidyTeam, tileFor, toggleTeam,
   unitsIn, worldDone, worldNeeds, worldOpen, worldReached, type StageResult,
 } from '../src/game/rules';
 import { SORTS, SORT_NAME, cardDamage, cardHealth, isSort, nextSort, sortCards, type Sort } from '../src/game/sorting';
@@ -230,8 +230,8 @@ describe('the line of stages', () => {
         expect(kinds.has(extra.unit)).toBe(true);
       }
     }
-    // The line's first stage is two Cutpurses on the first lap, and filled up to the second lap's fewest when it is met again.
-    expect(stageEnemies(0)).toHaveLength(2);
+    // The line's first stage is four Cutpurses on the first lap, and filled up to the second lap's fewest when it is met again.
+    expect(stageEnemies(0)).toHaveLength(4);
     expect(stageEnemies(PER_LAP)).toHaveLength(LAPS[1].least);
   });
 
@@ -419,12 +419,88 @@ describe('a new player', () => {
   });
 
   it('can win the first stage with what they start with', () => {
+    // Their very first battle is one battle for everyone (FIRST_SEED): here it is fought as a player who comes back to the stage fights it.
     let wins = 0;
     for (let seed = 1; seed <= 20; seed++) {
       const save = startingSave(seed);
-      if (runBattle(stageInput(save, 0), false).winner === 0) wins++;
+      if (runBattle({ ...stageInput(save, 0), seed }, false).winner === 0) wins++;
     }
     expect(wins).toBeGreaterThanOrEqual(18);
+  });
+
+  it('fights about ten to fifteen seconds at each of the first three stages, and wins', () => {
+    // A new player as the tutorial leaves them: the three they start with and their tower, and from the
+    // second stage on the card of their first pack beside them. Nobody calls a skill here.
+    for (let stage = 0; stage < 3; stage++) {
+      const times: number[] = [];
+      for (let n = 1; n <= 24; n++) {
+        const save = startingSave(n * 7919);
+        for (let k = 0; k < stage; k++) {
+          finishStage(save, k, true);
+          if (k === 0) openPack(save, FIRST_PACK);
+        }
+        const r = runBattle({ ...stageInput(save, stage), seed: n * 31 + stage }, false);
+        expect(r.winner, `stage ${stage + 1}, player ${n}`).toBe(0);
+        times.push(r.seconds);
+      }
+      times.sort((a, b) => a - b);
+      const half = times[Math.floor(times.length / 2)];
+      expect(half, `stage ${stage + 1}: half of its battles`).toBeGreaterThanOrEqual(10);
+      expect(half, `stage ${stage + 1}: half of its battles`).toBeLessThanOrEqual(15);
+      expect(times[0], `stage ${stage + 1}: its shortest`).toBeGreaterThanOrEqual(8);
+      expect(times[times.length - 1], `stage ${stage + 1}: its longest`).toBeLessThanOrEqual(18);
+    }
+  });
+
+  it('is dropped a pack of soldiers by their first win, whatever land it is won in', () => {
+    const save = startingSave(1);
+    const r = finishStage(save, 0, true);
+    expect(r.packs).toContain(FIRST_PACK);
+    expect(packById(FIRST_PACK).structures).toBe('none');
+    expect(save.packs[FIRST_PACK]).toBe(2 + r.packs.filter((p) => p === FIRST_PACK).length);
+    // Every card of it is someone who fights: there is a place in the team for whoever it turns over.
+    for (let seed = 1; seed <= 30; seed++) {
+      const s = startingSave(seed);
+      finishStage(s, 0, true);
+      const pull = openPack(s, FIRST_PACK, false);
+      expect(pull && isStructure(pull.unit)).toBe(false);
+      expect(pull && roomFor(s, pull.unit)).toBe(true);
+    }
+    // A win there again is a win at any plain stage: its land's pack, if one drops.
+    const again = finishStage(save, 0, true);
+    expect(again.packs.every((p) => p === STAGES[0].pack)).toBe(true);
+  });
+
+  it('a pack can be opened into the hand, and its card put on a tile of the player\'s choosing', () => {
+    const save = startingSave(1);
+    finishStage(save, 0, true);
+    const pull = openPack(save, FIRST_PACK, false);
+    if (!pull) throw new Error('no card');
+    // It is held, and stands nowhere.
+    expect(pull.joined).toBe(false);
+    expect(inTeam(save, pull.card)).toBe(false);
+    expect(save.team).toHaveLength(4);
+    // Not on a tile someone has, not on the enemy's half, not off the field.
+    const taken = save.team[0];
+    expect(fieldCard(save, pull.card, taken.col, taken.row)).toBe(false);
+    expect(fieldCard(save, pull.card, 4, 1)).toBe(false);
+    expect(fieldCard(save, pull.card, 0, 4)).toBe(false);
+    expect(fieldCard(save, pull.card, -1, 0)).toBe(false);
+    expect(fieldCard(save, 999, 0, 3)).toBe(false);
+    expect(save.team).toHaveLength(4);
+    // The tile it would take by itself is free, and so is the back corner: either will do.
+    const own = tileFor(save, pull.unit);
+    expect(save.team.some((p) => p.col === own[0] && p.row === own[1])).toBe(false);
+    expect(fieldCard(save, pull.card, 0, 3)).toBe(true);
+    expect(save.team[4]).toMatchObject({ card: pull.card, unit: pull.unit, col: 0, row: 3 });
+    // Once is all: it stands there now, and the team is full.
+    expect(fieldCard(save, pull.card, 0, 2)).toBe(false);
+    const more = openPack(save, FIRST_PACK, false);
+    expect(more && fieldCard(save, more.card, 0, 2)).toBe(false);
+    // The team is one the game will fight with as it is.
+    const before = save.team.map((p) => ({ ...p }));
+    tidyTeam(save);
+    expect(save.team).toEqual(before);
   });
 });
 
@@ -1252,12 +1328,24 @@ describe('the save', () => {
     save.packs.dunes = 2;
     save.packs['thornwood@1'] = 1;
     save.lostAt = 13;
-    save.tutorial = { done: true, seen: ['team'], at: 3, tour: null };
+    save.tutorial = { done: true, seen: ['tap', 'place', 'tour:basics'], at: 3, tour: null };
     expect(repair(JSON.parse(JSON.stringify(save)), 1)).toEqual(save);
     // A new player's save comes back as it went, tutorial and all.
     const fresh = startingSave(4);
-    fresh.tutorial.seen.push('team');
+    fresh.tutorial.seen.push('tap');
     expect(repair(JSON.parse(JSON.stringify(fresh)), 1)).toEqual(fresh);
+  });
+
+  it('a player the old tutorial led through the screen of units is not given the tour of it', () => {
+    // The first tutorial used to open UNITS and have FILL TEAM pressed, and wrote that down as "team".
+    const save = at(14);
+    save.tutorial = { done: true, seen: ['packs', 'fill', 'team', 'structures', 'word', 'tour:basics', 'tour:structures'], at: 3, tour: null };
+    const back = repair(JSON.parse(JSON.stringify(save)), 1);
+    expect(back.tutorial.seen).toContain('tour:team');
+    expect(back.tutorial.seen).toContain('tour:structures');
+    // One who skipped it was led nowhere, and is.
+    save.tutorial.seen = ['tour:basics', 'tour:structures'];
+    expect(repair(JSON.parse(JSON.stringify(save)), 1).tutorial.seen).not.toContain('tour:team');
   });
 
   it('is started again when it is not a save, and mended when parts are missing', () => {
@@ -1409,7 +1497,7 @@ describe('the run of battles', () => {
     expect(save.lostAt).toBeNull();
   });
 
-  it('counts down two seconds before a battle starts by itself', () => {
-    expect(COUNTDOWN).toEqual({ first: 2, changed: 2, next: 2 });
+  it('counts down two seconds before a battle starts by itself, and under one before a new player\'s first', () => {
+    expect(COUNTDOWN).toEqual({ fresh: 0.8, first: 2, changed: 2, next: 2 });
   });
 });

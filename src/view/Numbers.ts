@@ -8,10 +8,20 @@ import { FONT } from './config';
 import { SHEET, type Sheet } from './Sheet';
 
 export const DIGITS_KEY = 'digits';
-// The digits, and the letters of the grades for the plate over a unit.
-const CHARS = '0123456789+-FEDCBAS';
+// The digits, the letters of the grades for the plate over a unit, and a K for health in thousands.
+const CHARS = '0123456789+-FEDCBASK';
 const CELL_W = 44;
 const CELL_H = 60;
+/** The size the figures are drawn at in a cell: a bitmap text of size `n` has letters this share of `n` tall, as a font's size counts them. */
+const DRAWN = 46;
+export const DIGITS_EM = DRAWN / CELL_H;
+/**
+ * The smallest size a bitmap text is shown at where it is to be read: the
+ * plate over a unit, a number that floats up from a blow. A portal shows
+ * the game in frames down to 821 by 462, where the 1280 layout is drawn at
+ * 64%: 23 here is letters of 17.6 on the layout, and 11 px there.
+ */
+export const PLATE_TEXT = 23;
 
 /**
  * Draws the digits and registers them as a bitmap font. They go on the
@@ -24,7 +34,7 @@ export function makeDigitFont(scene: Phaser.Scene, sheet: Sheet): void {
   canvas.width = CELL_W * CHARS.length;
   canvas.height = CELL_H;
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-  ctx.font = `700 46px ${FONT}, sans-serif`;
+  ctx.font = `700 ${DRAWN}px ${FONT}, sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.lineJoin = 'round';
@@ -83,7 +93,7 @@ export class Numbers {
     return { text, active: false, t: 0, x: 0, y: 0, vx: 0, size: 26 };
   }
 
-  /** The zoom of the field on show. Numbers shrink with it, but less: they are read, not looked at. */
+  /** The zoom of the field on show: how far a number rises goes by it. Its size does not: it is read, not looked at. */
   zoom = 1;
 
   show(x: number, y: number, value: string, color: number, size = 26): void {
@@ -105,7 +115,8 @@ export class Numbers {
     n.x = x + this.flip * 6;
     n.y = y;
     n.vx = this.flip * 16;
-    n.size = size * Math.max(0.8, this.zoom);
+    // They are read, so they do not shrink with the field, and none is smaller than the plate's figures.
+    n.size = Math.max(PLATE_TEXT, size);
     n.text.setText(value);
     n.text.setTint(color);
     n.text.setActive(true).setVisible(true);
@@ -124,7 +135,7 @@ export class Numbers {
       const k = n.t / LIFE;
       // Up fast, then slower; a pop at the start; gone over the last third.
       const rise = 1 - (1 - k) * (1 - k);
-      const pop = k < 0.15 ? 0.6 + (k / 0.15) * 0.65 : 1.25 - Math.min(1, (k - 0.15) / 0.2) * 0.25;
+      const pop = k < 0.15 ? 1 + (k / 0.15) * 0.3 : 1.3 - Math.min(1, (k - 0.15) / 0.2) * 0.3;
       n.text.x = n.x + n.vx * k;
       n.text.y = n.y - 44 * this.zoom * rise;
       n.text.setFontSize(n.size * pop);

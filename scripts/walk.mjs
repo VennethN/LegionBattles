@@ -5,9 +5,23 @@
 
 /** Ways to press things on a page the game is running in. */
 export function walker(page) {
-  /** Presses at a place on the game's layout. A menu is drawn in a window (view/app.ts), so that is not always where it is on the page. */
+  /**
+   * Where a place on the game's 1280 by 720 layout is on the page. A menu is drawn in a window (view/app.ts), so
+   * that is not always where it is on the canvas; and the canvas is as big as the page lets it be, which in a
+   * portal's frame is smaller than the layout.
+   */
+  const at = async (x, y) => {
+    return page.evaluate(([a, b]) => {
+      const p = window.screenOf?.(a, b) ?? { x: a, y: b };
+      const box = window.game.canvas.getBoundingClientRect();
+      const k = box.width / 1280;
+      return { x: box.left + p.x * k, y: box.top + p.y * k };
+    }, [x, y]);
+  };
+
+  /** Presses at a place on the game's layout. */
   const click = async (x, y) => {
-    const p = await page.evaluate(([a, b]) => window.screenOf?.(a, b) ?? { x: a, y: b }, [x, y]);
+    const p = await at(x, y);
     await page.mouse.click(p.x, p.y);
   };
 
@@ -42,7 +56,7 @@ export function walker(page) {
   };
 
   /** The middle of a card on the units side screen, by its place on the page: 0 is the first. */
-  const card = (i) => [14 + 50 + (i % 4) * 106, 78 + 52 + Math.floor(i / 4) * 110];
+  const card = (i) => [14 + 52 + (i % 3) * 110, 78 + 52 + Math.floor(i / 3) * 110];
 
-  return { click, find, press, mark, card };
+  return { at, click, find, press, mark, card };
 }

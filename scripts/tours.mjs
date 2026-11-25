@@ -38,7 +38,8 @@ const fail = async (why) => {
 };
 
 const cards = [];
-for (const [u, g, l] of [['knight', 4, 12], ['paladin', 4, 12], ['archer', 4, 12], ['mage', 4, 12], ['cleric', 4, 12], ['militia', 4, 12], ['watchtower', 3, 6], ['spiketrap', 2, 3]]) {
+// Six who fight, which is as many as may at the twelfth stage, a seventh who stands in no team, and two structures for one place.
+for (const [u, g, l] of [['knight', 4, 12], ['paladin', 4, 12], ['archer', 4, 12], ['mage', 4, 12], ['cleric', 4, 12], ['militia', 4, 12], ['watchtower', 3, 6], ['spiketrap', 2, 3], ['berserker', 2, 4]]) {
   cards.push({ id: cards.length + 1, unit: u, grade: g, level: l, xp: 0 });
 }
 const team = cards.slice(0, 6).map((c, i) => ({ card: c.id, unit: c.unit, col: 3 - (i % 2), row: i % 4 }));
@@ -121,7 +122,7 @@ async function onward() {
     const top = await page.evaluate((screens) => screens.find((key) => window.game.scene.isActive(key)), SCREENS);
     if (top === 'Main') break;
     // The screen of cards is a side screen, and its CLOSE is at its own edge.
-    if (top === 'Team') await click(824 - 76, 37);
+    if (top === 'Team') await click(724 - 62, 37);
     else await click(1280 - 262, 37);
     await page.waitForTimeout(400);
   }
@@ -145,11 +146,11 @@ for (let i = 0; i < 20; i++) {
     await walk('first');
     const after = await guide();
     if (!after.seen.includes(`tour:${up.id}`)) await fail(`the tour ${up.id} ended and is not marked as seen`);
-  } else if (order.length >= 5) break;
+  } else if (order.length >= 6) break;
   await onward();
 }
 console.log(JSON.stringify({ order, walked }, null, 1));
-if (order.length < 5) await fail(`only ${order.length} tours started by themselves: ${order.join(', ')}`);
+if (order.length < 6) await fail(`only ${order.length} tours started by themselves: ${order.join(', ')}`);
 // The rewards are left out of the tutorials, by the owner's word: no tour is theirs, and their button says it all.
 if (order.includes('rewards')) await fail('a tour of the rewards started: they are to be left out of the tutorials');
 const gift = await page.evaluate(() => {
@@ -182,7 +183,7 @@ console.log(JSON.stringify({ again: walked.basics }));
 // 4. The raids have a tour of their own, which waits for the first raid to be open. The dungeons' tour once
 // pointed at a raid before there was one to enter, and the owner was shown a thing that was not there.
 if ((walked.dungeons ?? []).some((step) => /raid/i.test(step))) await fail(`the tour of the dungeons points at a raid: ${walked.dungeons.join(', ')}`);
-const everyOther = ['basics', 'rewards', 'packs', 'dungeons', 'skills', 'upgrades', 'structures'].map((id) => `tour:${id}`);
+const everyOther = ['basics', 'rewards', 'packs', 'team', 'dungeons', 'skills', 'upgrades', 'structures'].map((id) => `tour:${id}`);
 const later = { ...save, cleared: 22, tutorial: { done: true, seen: everyOther, at: 0, tour: null } };
 await page.evaluate((v) => localStorage.setItem('legion-battles-save', JSON.stringify(v)), later);
 await page.reload();

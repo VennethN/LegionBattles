@@ -32,11 +32,26 @@ export const WINDOWED: ReadonlySet<string> = new Set(['Index', 'Shop', 'Map', 'H
  * screen" and "we dont need to see enemy when we're selecting our units ...
  * put the unit selection ui on the left side, then the field on the right".
  */
-export const DRAWER_W = 824;
-export const FIELD_WINDOW = { x: DRAWER_W + 12, y: 130, w: W - DRAWER_W - 24, h: 460 };
+export const DRAWER_W = 724;
+/**
+ * It is wide and tall enough to show that half of the field at its own
+ * size or a little over: the plates over the units there are read, and
+ * drawn smaller they could not be.
+ */
+export const FIELD_WINDOW = { x: DRAWER_W + 12, y: 70, w: W - DRAWER_W - 24, h: 548 };
 
-/** How much of the screen such a window takes, each way. */
-export const WINDOW = 0.9;
+/**
+ * How much of the screen such a window takes, each way. It was nine tenths;
+ * but a window's words are drawn as much smaller as the window is, and in a
+ * portal's smallest frame, 821 by 462, that was the difference between words
+ * that can be read and words that cannot. At this, a word written at 18 is
+ * 11 px there, and the field still shows all round. So the smallest a word
+ * is written is 18 in a window and 17 on the field and beside it, where
+ * nothing is drawn smaller than the layout: scripts/legible.mjs measures
+ * every screen against that.
+ */
+export const WINDOW = 0.95;
+
 /** Where the window is on the 1280 by 720 layout. */
 export const WINDOW_RECT = { x: (W * (1 - WINDOW)) / 2, y: (H * (1 - WINDOW)) / 2, w: W * WINDOW, h: H * WINDOW };
 

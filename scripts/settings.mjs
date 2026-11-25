@@ -17,7 +17,7 @@ const base = process.argv[2] ?? 'http://127.0.0.1:5173/';
 const out = process.env.OUT ?? 'docs/screens';
 fs.mkdirSync(out, { recursive: true });
 // Every tour is behind this player, so that none comes up over what is being pressed.
-const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:dungeons', 'tour:raids', 'tour:skills', 'tour:upgrades', 'tour:structures'];
+const SEEN = ['tour:basics', 'tour:rewards', 'tour:packs', 'tour:dungeons', 'tour:raids', 'tour:skills', 'tour:upgrades', 'tour:structures', 'tour:team'];
 const browser = await chromium.launch();
 // A dense screen, so that SHARP and FAST draw at different sizes.
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 2 });
@@ -141,9 +141,9 @@ const fresh = await stored();
 await expect('after starting over', { coins: fresh.coins, cleared: fresh.cleared, cards: fresh.cards.length, done: fresh.tutorial.done, level: fresh.player.level, tree: fresh.tree, claimed: fresh.rewards.claimed },
   { coins: 40, cleared: 0, cards: 4, done: false, level: 1, tree: {}, claimed: 0 });
 await expect('the settings after starting over', fresh.settings, kept);
-// The first tutorial is up again, for whoever is new.
-const step = await page.evaluate(() => window.game.scene.getScene('Main').guide.step?.id ?? null);
-await expect('the tutorial after starting over', step, 'hello');
+// The first tutorial runs again, for whoever is new: they land in a battle, with no menu on the screen.
+const menus = await page.evaluate(() => window.game.scene.getScene('Main').packsButton.root.visible);
+await expect('the menus after starting over', menus, false);
 if (errors.length) await fail('the page threw');
 console.log('no errors');
 await browser.close();

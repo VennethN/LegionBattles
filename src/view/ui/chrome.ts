@@ -89,7 +89,7 @@ export class CountChip {
   private visible = true;
 
   constructor(private readonly scene: Phaser.Scene, private readonly x: number, private readonly y: number, private readonly depth = 8001) {
-    this.text = label(scene, x, y - 1, '', { size: 14, strokeWidth: 3 }).setDepth(depth + 1);
+    this.text = label(scene, x, y - 1, '', { size: 17, strokeWidth: 4 }).setDepth(depth + 1);
   }
 
   /** `lit` is for a count that asks for something: packs to open, a place that is free with a card to stand in it. */
@@ -102,8 +102,8 @@ export class CountChip {
     this.pill = null;
     if (!said) return;
     // Its plate is a picture made once for each width and color it has had (bake.ts).
-    const w = Math.max(24, Math.ceil((this.text.width + 12) / 4) * 4);
-    this.pill = pillImage(this.scene, this.x, this.y, w, 22, lit ? CLOTH.red.fill : IRON.fill).setDepth(this.depth).setVisible(this.visible);
+    const w = Math.max(26, Math.ceil((this.text.width + 10) / 4) * 4);
+    this.pill = pillImage(this.scene, this.x, this.y, w, 26, lit ? CLOTH.red.fill : IRON.fill).setDepth(this.depth).setVisible(this.visible);
   }
 
   setVisible(on: boolean): void {
@@ -127,7 +127,6 @@ export class RewardsPill {
   private readonly hot: Phaser.GameObjects.Container;
   private readonly soon: Phaser.GameObjects.Text;
   private readonly count: Phaser.GameObjects.Text;
-  private readonly sub: Phaser.GameObjects.Text;
   private readonly zone: Phaser.GameObjects.Zone;
   private shown = -1;
   private mins = -2;
@@ -138,7 +137,7 @@ export class RewardsPill {
     const c = RewardsPill.CALM;
     this.calm = scene.add.container(c.x + c.w / 2, c.y + c.h / 2).setDepth(depth);
     const plate = slabImage(scene, -c.w / 2, -c.h / 2, c.w, c.h, IRON, 12, 5);
-    this.soon = label(scene, -c.w / 2 + 40, -2, 'REWARDS', { size: 15, align: 'left', strokeWidth: 4 });
+    this.soon = label(scene, -c.w / 2 + 40, -2, 'REWARDS', { size: 17, align: 'left', strokeWidth: 4 });
     this.calm.add([plate, scene.add.image(-c.w / 2 + 21, -2, SHEET, 'icon/gift').setScale(0.34), this.soon]);
 
     // The one that asks to be pressed.
@@ -156,12 +155,12 @@ export class RewardsPill {
     rays.setPosition(gx, -3);
     const gold = slabImage(scene, -h.w / 2, -h.h / 2, h.w, h.h, GOLD, 14, 7);
     const gift = scene.add.image(gx, -4, SHEET, 'icon/gift').setScale(0.56);
-    const claim = label(scene, gx + 24, -10, 'CLAIM!', { size: 20, align: 'left', strokeWidth: 6 });
-    this.sub = label(scene, gx + 25, 12, '', { size: 12, weight: 600, align: 'left', color: OUTLINE, stroke: null });
-    const dot = pillImage(scene, h.w / 2 - 6, -h.h / 2 + 4, 22, 22, CLOTH.red.fill);
-    this.count = label(scene, h.w / 2 - 6, -h.h / 2 + 3, '', { size: 16, strokeWidth: 3 });
+    // One word, big. How many wait is the number on its corner: a line under the word said it again, too small to read.
+    const claim = label(scene, gx + 24, -4, 'CLAIM!', { size: 23, align: 'left', strokeWidth: 6 });
+    const dot = pillImage(scene, h.w / 2 - 6, -h.h / 2 + 4, 26, 26, CLOTH.red.fill);
+    this.count = label(scene, h.w / 2 - 6, -h.h / 2 + 3, '', { size: 17, strokeWidth: 4 });
     // The plate hides the middle of the star, so the rays show only round its edge and through the gift's corner.
-    this.hot.add([gold, rays, gift, claim, this.sub, dot, this.count]);
+    this.hot.add([gold, rays, gift, claim, dot, this.count]);
     // It breathes, the light turns, and the gift shakes every second or so: none of it stops while it waits.
     scene.tweens.add({ targets: this.hot, scale: 1.07, duration: 520, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     scene.tweens.add({ targets: rays, angle: 360, duration: 5000, repeat: -1 });
@@ -209,11 +208,11 @@ export class RewardsPill {
       this.calm.setVisible(this.visible && waiting <= 0);
       this.hot.setVisible(this.visible && waiting > 0);
       this.count.setText(waiting > 0 ? String(waiting) : '');
-      this.sub.setText(waiting === 1 ? '1 free gift' : `${waiting} free gifts`);
     }
     if (mins !== this.mins) {
       this.mins = mins;
-      this.soon.setText(mins > 0 ? `GIFT IN ${mins} MIN` : 'REWARDS').setFontSize(mins > 0 ? 12 : 15);
+      // The gift beside it says what the minutes are to.
+      this.soon.setText(mins > 0 ? `${mins} MIN` : 'REWARDS');
     }
     // A gift that comes ready while the field is on show is heard.
     if (woke && this.visible) sfx.play('coin', 0.7);

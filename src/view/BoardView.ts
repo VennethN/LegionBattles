@@ -54,7 +54,12 @@ export interface BoardHooks {
   standingOf?: (p: Placement, team: 'blue' | 'red') => { level: number; grade: number } | undefined;
   /** One of the player's own was tapped, and not dragged, while no battle was on. */
   onTapOwn?: (p: Placement) => void;
+  /** The player called a skill, and the battle took the call. */
+  onCall?: () => void;
 }
+
+/** How far from the middle of a unit a press still calls its skill, at the least: a finger is not a pointer. */
+const CALL_REACH = 70;
 
 export class BoardView {
   battle: Battle | null = null;
@@ -84,6 +89,10 @@ export class BoardView {
   private mine: UnitView[] = [];
   private zones: Phaser.GameObjects.Zone[] = [];
   private acc = 0;
+  /** Seconds on the wall since the board was made: what beats to it does not slow when the battle does. */
+  private real = 0;
+  /** True from a press that called a skill until it is let go: that press is no one's tap. */
+  private calledDown = false;
   private endAt = -1;
   private told = false;
   private readonly fx: Effects;
@@ -118,13 +127,23 @@ export class BoardView {
     // A tap on anyone on the field, the enemy's or the player's own, says who they are.
     let downX = 0;
     let downY = 0;
-    scene.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
+    scene.input.on('pointerdown', (p: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[]) => {
       downX = p.worldX;
       downY = p.worldY;
+      // A press on or near one of the player's own whose skill can be called calls it, on the way down:
+      // nothing is waited for, and no card comes up over it. A press on a button is the button's.
+      this.calledDown = over.length === 0 && this.callAt(p.worldX, p.worldY);
     });
-    scene.input.on('pointerup', (p: Phaser.Input.Pointer) => {
+    scene.input.on('pointerup', (p: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[]) => {
       const had = this.tipFor;
       this.hideTip();
+      if (this.calledDown) {
+        this.calledDown = false;
+        return;
+      }
+      // A press on something that takes presses (a button, a pack to open, a card held up) is that thing's.
+      // What stands over the player's own units to be dragged by is theirs all the same.
+      if (over.some((o) => !this.zones.includes(o as Phaser.GameObjects.Zone))) return;
       // A drag is not a tap.
       if (Math.abs(p.worldX - downX) > 12 || Math.abs(p.worldY - downY) > 12) return;
       const v = this.viewAt(p.worldX, p.worldY);
@@ -153,9 +172,9 @@ export class BoardView {
     // The player's half, marked while they may arrange it. Drawn when a field is shown.
     this.tileHints = scene.add.container(0, 0).setDepth(2).setVisible(false);
     this.debugG = scene.add.graphics().setDepth(8500).setVisible(false);
-    this.debugText = label(scene, 12, H - 4, '', { size: 13, weight: 600, align: 'left' }).setOrigin(0, 1).setDepth(8501).setVisible(false);
+    this.debugText = label(scene, 12, H - 4, '', { size: 17, weight: 600, align: 'left' }).setOrigin(0, 1).setDepth(8501).setVisible(false);
     for (let i = 0; i < 6; i++) {
-      this.callouts.push(label(scene, 0, 0, '', { size: 18, color: HOLY.fill }).setDepth(7200).setVisible(false));
+      this.callouts.push(label(scene, 0, 0, '', { size: 20, color: HOLY.fill, strokeWidth: 5 }).setDepth(7200).setVisible(false));
       this.calloutAt.push(-1);
     }
   }
@@ -346,6 +365,150 @@ export class BoardView {
 
   private offWipe: (() => void) | null = null;
 
+  // ------------------------------------------------------------ calling a skill
+
+  /**
+   * Calls the skill of whichever of the player's units stands at a point of
+   * the screen and can be called: the unit itself and room round it, and the
+   * nearest if two are in reach. Returns true if a call was made. Whether a
+   * skill can be called, and what calling it does, is the battle's to say
+   * (sim/battle.ts): this only passes the press on.
+   */
+  private callAt(x: number, y: number): boolean {
+    const battle = this.battle;
+    if (!battle || this.told || battle.ended) return false;
+    let best = -1;
+    let bestD = 1;
+    for (let i = 0; i < this.views.length; i++) {
+      const v = this.views[i];
+      if (!v || v.team !== 'blue' || !this.canCall(battle, i)) continue;
+      // From the ring under its feet to the hand over its plate, and as far to either side as a thumb is wide.
+      const rx = Math.max(CALL_REACH, v.height * 0.6);
+      const ry = v.height * 0.5 + 64;
+      const dx = (x - v.x) / rx;
+      const dy = (y - (v.y - v.height * 0.5 - 14)) / ry;
+      const d = dx * dx + dy * dy;
+      if (d <= bestD) {
+        bestD = d;
+        best = i;
+      }
+    }
+    if (best < 0 || !battle.call(best)) return false;
+    this.calledOn[best] = battle.tick;
+    const v = this.views[best];
+    // The press is answered at once, before the battle's next step answers it with the skill.
+    v.called();
+    v.setCallable(false);
+    sfx.play('place', 0.9, 1.3);
+    this.fx.spawn('fx/ring', v.x, v.y - 4, { dur: 0.3, from: 0.5, to: 2.4, flat: Y_SCALE * 0.62, alpha: 1, hold: 0.3, tint: hex(HOLY.fill), depth: 6 });
+    this.hooks.onCall?.();
+    return true;
+  }
+
+  /** True while the tutorial's own hand is on a unit that can be called: the units' badges are away, their rings stay. */
+  handsOff = false;
+
+  /** The step of the battle each unit's skill was last called on, by its place in the battle. */
+  private calledOn: number[] = [];
+
+  /**
+   * Whether a unit's skill can be called now, as the board shows it. A call
+   * is answered on the battle's next step: until that step is taken the
+   * battle still says the skill can be called, and the board does not.
+   */
+  private canCall(battle: Battle, i: number): boolean {
+    return this.calledOn[i] !== battle.tick && battle.callable(i);
+  }
+
+  /**
+   * Where one of the player's units stands whose skill can be called now,
+   * as a rectangle round it: for the tutorial's hand. Null if none can.
+   */
+  callableRect(): { x: number; y: number; w: number; h: number } | null {
+    const battle = this.battle;
+    if (!battle || this.told || battle.ended) return null;
+    for (let i = 0; i < this.views.length; i++) {
+      const v = this.views[i];
+      if (!v || v.team !== 'blue' || !this.canCall(battle, i)) continue;
+      const w = Math.max(96, v.height * 0.9);
+      return { x: v.x - w / 2, y: v.crown, w, h: v.y - v.crown + 8 };
+    }
+    return null;
+  }
+
+  // ------------------------------------------------------------ a tile for a new card
+
+  private askMarks: Phaser.GameObjects.Image[] = [];
+  private askTween: Phaser.Tweens.Tween | null = null;
+
+  /**
+   * Lights every free tile of the player's half, or puts the lights out:
+   * while a card waits to be put on the field, any of them will take it.
+   */
+  askTile(on: boolean): void {
+    for (const m of this.askMarks) m.destroy();
+    this.askMarks = [];
+    this.askTween?.stop();
+    this.askTween = null;
+    if (!on) return;
+    const { tileW, tileH, zoom } = this.lay;
+    const w = tileW - 12 * zoom;
+    const h = tileH - 12 * zoom;
+    const key = baked(this.scene, `ask:${Math.round(w)}x${Math.round(h)}`, w, h, (ctx) => {
+      ctx.fillStyle = HOLY.fill;
+      ctx.globalAlpha = 0.55;
+      roundRect(ctx, 0, 0, w, h, 10 * zoom);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = HOLY.light;
+      roundRect(ctx, 3, 3, w - 6, h - 6, 8 * zoom);
+      ctx.stroke();
+    });
+    for (let row = 0; row < this.lay.rows; row++) {
+      for (let col = 0; col < this.lay.half; col++) {
+        if (this.seats.some((s) => s[0] === col && s[1] === row)) continue;
+        this.askMarks.push(this.scene.add.image(BOARD_X + col * tileW + 6 * zoom, BOARD_Y + row * tileH + 6 * zoom, key).setOrigin(0, 0).setDisplaySize(w, h).setDepth(2.5));
+      }
+    }
+    this.askTween = this.scene.tweens.add({ targets: this.askMarks, alpha: 0.5, duration: 520, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+  }
+
+  /**
+   * The free tile of the player's half under a point of the screen, written
+   * as the first field's tiles are, as the team keeps them. Null if the
+   * point is off the player's half or someone stands there.
+   */
+  freeTileAt(x: number, y: number): [number, number] | null {
+    const t = this.lay.tileAt(x, y);
+    if (!t || !isPlayerTile(t.col, t.row, this.lay.field)) return null;
+    if (this.seats.some((s) => s[0] === t.col && s[1] === t.row)) return null;
+    return writtenTile(this.lay.field, t.col, t.row);
+  }
+
+  /** One of the player's own, by its place in the team, comes down onto its tile from a little over it: a card just put on the field. */
+  land(index: number): void {
+    const v = this.mine[index];
+    if (!v) return;
+    v.lift = 46;
+    this.scene.tweens.add({
+      targets: v, lift: 0, duration: 260, ease: 'Bounce.easeOut',
+      onComplete: () => {
+        sfx.play('place');
+        const z = this.lay.zoom;
+        for (let i = 0; i < 4; i++) {
+          this.fx.spawn('fx/dust', v.x + (i - 1.5) * 16 * z, v.y - 4 * z, { dur: 0.45, vx: (i - 1.5) * 50, vy: -30, from: 0.3, to: 0.8, hold: 0.3, alpha: 0.9, depth: v.y + 3 });
+        }
+      },
+    });
+  }
+
+  /** Where a tile is on the screen, given as the team keeps it: for the tutorial's hand. */
+  tileRect(col: number, row: number): { x: number; y: number; w: number; h: number } {
+    const [c, r] = seatTeam([{ col, row }], this.lay.field)[0];
+    return { x: BOARD_X + c * this.lay.tileW + 6, y: BOARD_Y + r * this.lay.tileH + 6, w: this.lay.tileW - 12, h: this.lay.tileH - 12 };
+  }
+
   // ------------------------------------------------------------ who is that
 
   private tip: Phaser.GameObjects.GameObject[] = [];
@@ -386,7 +549,7 @@ export class BoardView {
       this.tip.push(o);
       return o;
     };
-    const w = 320;
+    const w = 380;
     const pad = 14;
     const dark = { color: OUTLINE, stroke: null as null, align: 'left' as const };
     const texts: Phaser.GameObjects.Text[] = [];
@@ -395,19 +558,19 @@ export class BoardView {
     };
     const role = def.kind === 'trap' ? 'Trap' : def.kind === 'building' ? 'Building' : ROLE_NAME[def.role];
     const at = v.standing;
-    line(at ? `${RARITY[def.rarity].name} ${role}  ·  Level ${at.level}  ·  Grade ${GRADES[Math.max(0, Math.min(GRADES.length - 1, at.grade))]}` : `${RARITY[def.rarity].name} ${role}`, 14, 700);
+    line(at ? `${RARITY[def.rarity].name} ${role}  ·  Lv ${at.level}  ·  Grade ${GRADES[Math.max(0, Math.min(GRADES.length - 1, at.grade))]}` : `${RARITY[def.rarity].name} ${role}`, 17, 700);
     // What it has now, while a battle is on: the battle's own numbers, with everything that changes them counted.
     const i = this.battle ? this.views.indexOf(v) : -1;
     const u = i >= 0 ? this.battle?.units[i] : undefined;
-    if (u && !def.trap) line(`Health ${Math.max(0, Math.ceil(u.hp))} of ${Math.round(u.maxHp)}${u.damage > 0 ? `  ·  Damage ${Math.round(u.damage)}` : ''}`, 14, 700);
+    if (u && !def.trap) line(`Health ${Math.max(0, Math.ceil(u.hp))} of ${Math.round(u.maxHp)}${u.damage > 0 ? `  ·  Damage ${Math.round(u.damage)}` : ''}`, 17, 700);
     else if (!def.trap && at) {
       // Before the battle: what it will walk in with, as near as its level and grade say.
       const m = cardMult(at.grade, at.level);
-      line(`Health ${Math.round(def.hp * m)}${def.damage > 0 ? `  ·  Damage ${Math.round(def.damage * m)}` : ''}`, 14, 700);
+      line(`Health ${Math.round(def.hp * m)}${def.damage > 0 ? `  ·  Damage ${Math.round(def.damage * m)}` : ''}`, 17, 700);
     }
-    if (def.text) line(def.text, 14);
-    if (def.skill) line(`${def.skill.name}: ${def.skill.text}`, 14);
-    let tall = 44;
+    if (def.text) line(def.text, 17);
+    if (def.skill) line(`${def.skill.name}: ${def.skill.text}`, 17);
+    let tall = 48;
     for (const t of texts) tall += t.height + 6;
     tall += pad - 6;
     // Beside it, on the side with more room, and wholly on the screen.
@@ -415,10 +578,12 @@ export class BoardView {
     const y = Phaser.Math.Clamp(v.y - v.height * 0.6 - tall / 2, 118, H - 100 - tall);
     const g = add(scene.add.graphics().setDepth(8600));
     slab(g, x, y, w, tall, BONE, 14, 6);
-    slab(g, x + 6, y + 6, w - 12, 32, RARITY_MAT[def.rarity], 9, 3);
-    add(label(scene, x + pad + 2, y + 21, def.name, { size: 19, align: 'left', strokeWidth: 4 }).setDepth(8602));
-    add(label(scene, x + w - pad, y + 21, 'ENEMY', { size: 12, align: 'right', strokeWidth: 3, color: CLOTH.red.fill }).setDepth(8602));
-    let ty = y + 46;
+    slab(g, x + 6, y + 6, w - 12, 36, RARITY_MAT[def.rarity], 9, 3);
+    add(label(scene, x + pad + 2, y + 23, def.name, { size: 21, align: 'left', strokeWidth: 4 }).setDepth(8602));
+    // Whose it is: in a battle the player's own say who they are here too.
+    const foe = v.team === 'red';
+    add(label(scene, x + w - pad, y + 23, foe ? 'ENEMY' : 'YOURS', { size: 17, align: 'right', strokeWidth: 4, color: foe ? CLOTH.red.fill : CLOTH.blue.fill }).setDepth(8602));
+    let ty = y + 50;
     for (const t of texts) {
       t.setPosition(x + pad, ty);
       ty += t.height + 6;
@@ -432,6 +597,7 @@ export class BoardView {
     this.hideTip();
     this.hovered = null;
     this.hover?.setVisible(false);
+    this.askTile(false);
     this.setPlacement(false);
     for (const v of this.views) v.destroy();
     this.views = [];
@@ -546,6 +712,8 @@ export class BoardView {
   start(input: BattleInput): void {
     if (this.loading || this.battle) return;
     this.setPlacement(false);
+    // A card that was up over the field goes: the battle has the field to itself.
+    this.hideTip();
     this.scene.tweens.killTweensOf(this.mine);
     const battle = new Battle(input);
     // The simulation numbers units turn about; put the views in its order.
@@ -563,6 +731,7 @@ export class BoardView {
     this.acc = 0;
     this.endAt = -1;
     this.told = false;
+    this.calledOn = [];
     sfx.play('fight');
     // The land's theme goes on, with its drums under it.
     music.play(this.ground, 'battle');
@@ -572,6 +741,7 @@ export class BoardView {
     // A long frame (a tab coming back) must not become a burst of steps.
     const dt = (Math.min(deltaMs, 100) / 1000) * speed;
     this.clock += dt;
+    this.real += Math.min(deltaMs, 100) / 1000;
     const battle = this.battle;
 
     if (battle && !this.told) {
@@ -605,6 +775,11 @@ export class BoardView {
           v.moving = u.moving;
           v.health = u.hp / u.maxHp;
           v.hp = u.hp;
+          // One of the player's own whose skill can be called says so, for as long as it can.
+          if (u.team === 0) {
+            const can = !this.told && this.canCall(battle, i);
+            if (can || v.callable) v.setCallable(can, 1 - battle.callProgress(i), this.handsOff);
+          }
           let pips = 0;
           for (let k = 0; k < u.stTicks.length && pips < 4; k++) {
             if (u.stTicks[k] > 0) this.pipIds[pips++] = k;
@@ -621,12 +796,13 @@ export class BoardView {
         } else {
           v.health = 0;
           v.hp = -1;
+          if (v.callable) v.setCallable(false);
         }
       }
       this.syncShots(battle, a);
     }
 
-    for (let i = 0; i < this.views.length; i++) this.views[i].update(this.clock, dt);
+    for (let i = 0; i < this.views.length; i++) this.views[i].update(this.clock, dt, this.real);
     this.fx.update(dt);
     this.numbers.update(dt);
     this.updateCallouts();
@@ -793,11 +969,26 @@ export class BoardView {
         }
         break;
       }
+      case 'call': {
+        // A called skill is seen to be more than one that went off by itself: light flies up off the unit.
+        const v = this.views[e.unit];
+        sfx.play('levelUp', 0.7, 1.4);
+        for (let i = 0; i < 6; i++) {
+          this.fx.spawn('fx/sparkle', v.x + (i - 2.5) * 14 * z, v.y - v.height * 0.4, {
+            dur: 0.6, delay: i * 0.03, vx: (i - 2.5) * 46, vy: -150 - (i % 2) * 60, from: 0.35, to: 0.8, hold: 0.5, tint: hex(HOLY.fill), spin: 4, depth: v.y + 3,
+          });
+        }
+        this.called = e.unit;
+        break;
+      }
       case 'skill': {
         const v = this.views[e.unit];
         const skill = battle.units[e.unit].def.skill;
         sfx.play('skill', 0.9, 0.9 + (e.unit % 4) * 0.08);
-        if (skill) this.callout(v.x, v.y - v.height - 24 * z, skill.name);
+        // The name of a skill the player called is bigger, with a mark after it: it was theirs.
+        const mine = this.called === e.unit;
+        this.called = -1;
+        if (skill) this.callout(v.x, v.y - v.height - 46, mine ? `${skill.name}!` : skill.name, mine);
         break;
       }
       case 'status': {
@@ -824,7 +1015,10 @@ export class BoardView {
     }
   }
 
-  private callout(x: number, y: number, text: string): void {
+  /** The unit whose skill was called on this step, between its `call` and its `skill`. */
+  private called = -1;
+
+  private callout(x: number, y: number, text: string, big = false): void {
     let slot = 0;
     for (let i = 0; i < this.callouts.length; i++) {
       if (this.calloutAt[i] < 0) {
@@ -834,7 +1028,7 @@ export class BoardView {
       if (this.calloutAt[i] < this.calloutAt[slot]) slot = i;
     }
     const t = this.callouts[slot];
-    t.setText(text).setPosition(Phaser.Math.Clamp(x, 90, W - 90), y).setVisible(true).setAlpha(1).setScale(1);
+    t.setText(text).setFontSize(big ? 28 : 20).setPosition(Phaser.Math.Clamp(x, 110, W - 110), y).setVisible(true).setAlpha(1).setScale(1);
     this.calloutAt[slot] = this.clock;
   }
 
@@ -849,7 +1043,8 @@ export class BoardView {
         this.calloutAt[i] = -1;
         continue;
       }
-      t.setScale(k < 0.12 ? 0.6 + (k / 0.12) * 0.5 : 1.1 - Math.min(1, (k - 0.12) / 0.15) * 0.1);
+      // It comes in a little over its size and settles: never under it, as it is read from its first frame.
+      t.setScale(k < 0.12 ? 1 + (k / 0.12) * 0.15 : 1.15 - Math.min(1, (k - 0.12) / 0.15) * 0.15);
       t.alpha = k < 0.7 ? 1 : 1 - (k - 0.7) / 0.3;
     }
   }

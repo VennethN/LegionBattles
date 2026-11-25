@@ -57,7 +57,7 @@ const SCALE = 2.25;
  */
 const FAST = process.env.FAST !== '0';
 
-const TOURS = ['basics', 'packs', 'dungeons', 'raids', 'skills', 'upgrades', 'structures'].map((id) => `tour:${id}`);
+const TOURS = ['basics', 'packs', 'team', 'dungeons', 'raids', 'skills', 'upgrades', 'structures'].map((id) => `tour:${id}`);
 
 /** The eight who fight and the three things built: one of each kind of fighter, so that a battle shows blades, arrows, spells and mending. */
 const LEGION = ['paladin', 'knight', 'berserker', 'honorguard', 'mage', 'archer', 'cleric', 'frostwitch', 'watchtower', 'barracks', 'warbanner'];

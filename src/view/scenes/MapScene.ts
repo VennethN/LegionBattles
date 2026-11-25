@@ -75,7 +75,7 @@ export class MapScene extends Phaser.Scene {
       const b = new Button(this, x, row, open ? name.toUpperCase() : '', () => {
         if (open) this.scene.restart({ world: to } satisfies MapData);
         else this.showNeeds(to);
-      }, { width: chipW, height: 38, size: 15, mat: open ? DIFFICULTY_MAT[d] : IRON }).setDepth(8000);
+      }, { width: chipW, height: 40, size: 18, mat: open ? DIFFICULTY_MAT[d] : IRON }).setDepth(8000);
       if (!open) b.root.add(this.add.image(0, -3, SHEET, 'icon/lock').setScale(0.26));
       if (to === world.index) {
         const ring = this.add.graphics().setDepth(8001);
@@ -164,7 +164,7 @@ export class MapScene extends Phaser.Scene {
     const small = { size: 18, weight: 600 as const, align: 'left' as const, strokeWidth: 4 };
     const name = label(this, 0, y, `Stage ${stageNumber(index)}  ·  ${stage.def.name}`, { ...small, weight: 700 }).setDepth(61);
     const pay = label(this, 0, y, String(payOf(s, index, first)), small).setDepth(61);
-    const level = label(this, 0, y, `level ${stage.level}`, small).setDepth(61);
+    const level = label(this, 0, y, `LV ${stage.level}`, small).setDepth(61);
     const total = name.width + 26 + 26 + pay.width + 34 + 46 + level.width;
     const g = this.add.graphics().setDepth(60);
     slab(g, W / 2 - total / 2 - 22, y - 24, total + 44, 46, IRON, 14, 5);
@@ -175,7 +175,7 @@ export class MapScene extends Phaser.Scene {
     pay.setX(x + 26);
     x += 26 + pay.width + 34;
     // Room on both sides of the badge: the better grades have wings.
-    const badge = gradeBadge(this, x + 16, y, stage.grade, 19).setDepth(61);
+    const badge = gradeBadge(this, x + 16, y, stage.grade, 21).setDepth(61);
     level.setX(x + 46);
     this.note.push(g, name, pay, level, coin, badge);
   }

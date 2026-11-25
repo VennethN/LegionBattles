@@ -26,15 +26,19 @@ export type Effect =
 
 export const EFFECTS: readonly Effect[] = ['health', 'damage', 'structures', 'coins', 'xp', 'drops', 'packCost'];
 
-/** How an effect is said: "+12% health". */
+/**
+ * How an effect is said, after its share: "+12% health", "-4% pack price".
+ * A word or two each: they stand in a list, two to a row, at a size that can
+ * be read in a small frame.
+ */
 export const EFFECT_NAME: Readonly<Record<Effect, string>> = {
   health: 'health',
   damage: 'damage',
-  structures: 'to structures',
+  structures: 'structures',
   coins: 'coins',
-  xp: 'experience',
-  drops: 'chance of a pack',
-  packCost: 'off the price of packs',
+  xp: 'XP',
+  drops: 'pack drops',
+  packCost: 'pack price',
 };
 
 // ------------------------------------------------------------ levels

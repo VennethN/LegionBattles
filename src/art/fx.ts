@@ -3,7 +3,7 @@
 // palette, so one drawing serves every kind of magic.
 
 import { Doc } from './kit/draw';
-import { BONE, HIGHLIGHT, LINEN, OUTLINE, STEEL, WOOD, type Accent } from './kit/palette';
+import { BONE, HIGHLIGHT, HOLY, LINEN, OUTLINE, STEEL, WOOD, type Accent } from './kit/palette';
 import { arrowShape } from './kit/parts';
 import { circle, ellipse, path, poly, roundRect, smooth, star } from './kit/path';
 
@@ -93,6 +93,28 @@ export function fxArt(accents: Record<string, Accent>): FxArt[] {
       draw: (d) => {
         const ring = ellipse(64, 64, 60, 60).add(ellipse(64, 64, 46, 46).map((x, y) => [128 - x, y]));
         d.flat('ring', ring, WHITE);
+      },
+    },
+    {
+      // The ring under a unit whose skill can be called: gold, with the dark line round it, to be seen on any ground.
+      name: 'call',
+      width: 128,
+      height: 128,
+      origin: [0.5, 0.5],
+      draw: (d) => {
+        const ring = ellipse(64, 64, 59, 59).add(ellipse(64, 64, 43, 43).map((x, y) => [128 - x, y]));
+        d.piece('ring', ring, HOLY, { shade: 0, holes: true, finish: false });
+      },
+    },
+    {
+      // A thin hoop: it closes on that unit as the time to call its skill runs out.
+      name: 'hoop',
+      width: 128,
+      height: 128,
+      origin: [0.5, 0.5],
+      draw: (d) => {
+        const ring = ellipse(64, 64, 62, 62).add(ellipse(64, 64, 55, 55).map((x, y) => [128 - x, y]));
+        d.flat('hoop', ring, WHITE);
       },
     },
     {

@@ -28,9 +28,8 @@ import { DIFFICULTIES, LAPS } from '../../data/laps';
 import { PACKS, packAt, type PackDef } from '../../data/packs';
 import { WORLDS, stageSaid } from '../../data/stages';
 import { UNITS } from '../../data/units';
-import { RARITIES, RARITY } from '../../game/rarity';
+import { RARITIES } from '../../game/rarity';
 import { buyPacks, known, openPacks, packNow, packOdds, packOpen, packShown, priceOf, worldNeeds, type Pull } from '../../game/rules';
-import { markSeen } from '../../game/tutorial';
 import { setupCamera } from '../app';
 import { H, W, hex } from '../config';
 import { CARDS, SHEET } from '../Sheet';
@@ -99,9 +98,6 @@ export class ShopScene extends Phaser.Scene {
   private detail: Phaser.GameObjects.GameObject[] = [];
   private show: Phaser.GameObjects.GameObject[] = [];
   private busy = false;
-  /** Where the tutorial's OPEN is, if the pack on show is held. */
-  private firstOpen: Rect | null = null;
-  private doneRect: Rect | null = null;
   /** Where the buttons that open and buy the pack on show are, if it is one that is sold. */
   private buyRect: Rect | null = null;
   /** Ends the show at once, while cards are still being turned. */
@@ -116,22 +112,14 @@ export class ShopScene extends Phaser.Scene {
     this.detail = [];
     this.show = [];
     this.busy = false;
-    this.firstOpen = null;
-    this.doneRect = null;
     this.skip = null;
   }
 
   create(): void {
     setupCamera(this);
     const s = save();
-    this.head = new OverlayHead(this, 'Packs', s, () => {
-      // The tutorial's look at the packs is over once one has been opened and the screen shut.
-      if (s.stats.opened > 0) markSeen(s, 'packs');
-      commit();
-    });
-    label(this, 190, 40, 'Every pack holds one card. Press a pack to see what is in it.', {
-      size: 17, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
-    });
+    this.head = new OverlayHead(this, 'Packs', s, () => commit());
+    label(this, 190, 40, 'Every pack holds one card.', { size: 20, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
 
     this.slots = packSlots();
     // It opens on the pack last looked at, if any of it are held still; or on the first pack held, so
@@ -144,10 +132,7 @@ export class ShopScene extends Phaser.Scene {
     this.selected = pick.pack.id;
 
     this.guide = new Guide(this, 'Shop');
-    this.guide.mark('open', () => this.firstOpen);
     this.guide.mark('close', () => this.head.close.rect);
-    this.guide.mark('pouch', () => ({ x: W / 2 - 130, y: H / 2 - 190, w: 260, h: 340 }));
-    this.guide.mark('reveal:done', () => this.doneRect);
     // What the tour of the packs points at: the slots, the pack on show, and the buttons that buy it.
     this.guide.mark('slots', () => ({ x: 26, y: 74, w: 704, h: 560 }));
     this.guide.mark('detail', () => ({ x: PX + 8, y: PY + 8, w: PW - 16, h: PH - 156 }));
@@ -180,25 +165,25 @@ export class ShopScene extends Phaser.Scene {
       const root = add(this.add.container(x, y));
       // A slot's plate, its chip and its count are pictures made once (ui/bake.ts): there are twenty slots.
       root.add(slabImage(this, -SLOT_W / 2, -SLOT_H / 2, SLOT_W, SLOT_H, open ? BONE : IRON, 14, 6));
-      const art = this.add.image(0, -16, CARDS, `pack/${sl.base.id}`).setScale(0.25);
+      const art = this.add.image(0, -18, CARDS, `pack/${sl.base.id}`).setScale(0.24);
       root.add(art);
       const lap = sl.pack.lap ?? 0;
       if (!open) {
         // Not sold yet: its own shape in the dark, and nothing said of it.
         art.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.8);
         root.add(this.add.image(0, -16, SHEET, 'icon/lock').setScale(0.36));
-        root.add(label(this, 0, SLOT_H / 2 - 18, '???', { size: 15, strokeWidth: 4 }));
+        root.add(label(this, 0, SLOT_H / 2 - 19, '???', { size: 19, strokeWidth: 4 }));
       } else if (sl.base.land) {
         // Which difficulty's pack it is, on that difficulty's color.
-        root.add(slabImage(this, -SLOT_W / 2 + 8, SLOT_H / 2 - 32, SLOT_W - 16, 24, DIFFICULTY_MAT[lap], 8, 3));
-        root.add(label(this, 0, SLOT_H / 2 - 21, DIFFICULTIES[lap].toUpperCase(), { size: 13, strokeWidth: 4 }));
+        root.add(slabImage(this, -SLOT_W / 2 + 5, SLOT_H / 2 - 34, SLOT_W - 10, 28, DIFFICULTY_MAT[lap], 8, 3));
+        root.add(label(this, 0, SLOT_H / 2 - 21, DIFFICULTIES[lap].toUpperCase(), { size: 18, strokeWidth: 4 }));
       } else {
-        root.add(label(this, 0, SLOT_H / 2 - 20, sl.base.name.replace(' Pack', ''), { size: 15, color: OUTLINE, stroke: null }));
+        root.add(label(this, 0, SLOT_H / 2 - 19, sl.base.name.replace(' Pack', ''), { size: 19, color: OUTLINE, stroke: null }));
       }
       if (held > 0) {
         // How many are held, on a red disc in the corner, as the PACKS button on the main screen counts them.
-        root.add(pillImage(this, SLOT_W / 2 - 16, -SLOT_H / 2 + 16, 26, 26, CLOTH.red.fill));
-        root.add(label(this, SLOT_W / 2 - 16, -SLOT_H / 2 + 15, String(Math.min(held, 99)), { size: 15, strokeWidth: 3 }));
+        root.add(pillImage(this, SLOT_W / 2 - 17, -SLOT_H / 2 + 17, 30, 30, CLOTH.red.fill));
+        root.add(label(this, SLOT_W / 2 - 17, -SLOT_H / 2 + 16, String(Math.min(held, 99)), { size: 19, strokeWidth: 4 }));
       }
       root.setSize(SLOT_W, SLOT_H);
       root.setInteractive({ useHandCursor: true });
@@ -223,7 +208,6 @@ export class ShopScene extends Phaser.Scene {
   private showDetail(): void {
     for (const o of this.detail) o.destroy();
     this.detail = [];
-    this.firstOpen = null;
     this.buyRect = null;
     const add: Adder = (o) => {
       this.detail.push(o);
@@ -241,14 +225,14 @@ export class ShopScene extends Phaser.Scene {
     const g = this.add.graphics();
     slab(g, PX, PY, PW, PH, BONE, 22, 8);
     const window: Material = !open ? IRON : sl.base.land ? DIFFICULTY_MAT[lap] : GOLD;
-    slab(g, PX + 14, PY + 14, PW - 28, 196, window, 16, 5);
+    slab(g, PX + 14, PY + 14, PW - 28, 150, window, 16, 5);
     add(freeze(g, PX - 4, PY - 4, PW + 8, PH + 8));
-    const art = add(this.add.image(cx, PY + 112, CARDS, `pack/${sl.base.id}`).setScale(0.5));
+    const art = add(this.add.image(cx, PY + 89, CARDS, `pack/${sl.base.id}`).setScale(0.39));
 
     if (!open) {
       art.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.8);
-      add(label(this, cx, PY + 244, '???', { size: 30 }));
-      add(this.add.image(cx, PY + 310, SHEET, 'icon/lock').setScale(0.6));
+      add(label(this, cx, PY + 200, '???', { size: 30 }));
+      add(this.add.image(cx, PY + 270, SHEET, 'icon/lock').setScale(0.6));
       // What opens it: its land on its difficulty, or a stage of the line.
       let how = 'Not sold yet.';
       if (pack.gift) how = 'No shop sells it.\nIt is one of the REWARDS\nfor time played.';
@@ -257,20 +241,22 @@ export class ShopScene extends Phaser.Scene {
         const needs = worldNeeds(s, lap * LANDS.length + land).map((w) => `${WORLDS[w].name} on ${DIFFICULTIES[WORLDS[w].lap]}`);
         if (needs.length > 0) how = `Sold once you have beaten\n${needs.join('\nand ')}.`;
       } else if (pack.after !== undefined) how = `Sold once ${stageSaid(pack.after)} is cleared.`;
-      add(label(this, cx, PY + 392, how, { size: 17, weight: 600, ...dark }));
+      add(label(this, cx, PY + 370, how, { size: 19, weight: 600, wrap: PW - 40, ...dark }));
       return;
     }
 
-    add(label(this, cx, PY + 234, pack.name, { size: pack.name.length > 20 ? 20 : 24 }));
-    add(label(this, cx, PY + 262, sl.base.blurb, { size: 14, weight: 600, ...dark }));
+    add(label(this, cx, PY + 188, pack.name, { size: pack.name.length > 20 ? 21 : 25 }));
+    const blurb = add(label(this, cx, PY + 206, sl.base.blurb, { size: 18, weight: 600, wrap: PW - 36, ...dark }).setOrigin(0.5, 0));
+    blurb.setLineSpacing(-2);
 
     // The grades it hands out, from its worst to its best, and how many are held.
-    add(gradeBadge(this, PX + 64, PY + 298, pack.gradeMin, 22));
-    add(label(this, PX + 108, PY + 298, 'to', { size: 15, weight: 600, ...dark }));
-    add(gradeBadge(this, PX + 152, PY + 298, pack.gradeMax, 22));
+    const gy = PY + 272;
+    add(gradeBadge(this, PX + 44, gy, pack.gradeMin, 24));
+    add(label(this, PX + 82, gy, 'to', { size: 18, weight: 600, ...dark }));
+    add(gradeBadge(this, PX + 120, gy, pack.gradeMax, 24));
     const held = s.packs[pack.id] ?? 0;
-    add(label(this, PX + PW - 24, PY + 298, held > 0 ? `You hold ${held}` : 'None held', {
-      size: 17, align: 'right', color: held > 0 ? CLOTH.blue.shade : IRON.shade, stroke: null,
+    add(label(this, PX + PW - 22, gy, held > 0 ? `You hold ${held}` : 'None held', {
+      size: 19, align: 'right', color: held > 0 ? CLOTH.blue.shade : IRON.shade, stroke: null,
     }));
 
     // Everything it can turn over, the rarest last: a small tile each, in its tier's color.
@@ -278,10 +264,10 @@ export class ShopScene extends Phaser.Scene {
     const per = 7;
     const pitch = 48;
     const x0 = cx - ((per - 1) * pitch) / 2;
-    const y0 = PY + 352;
+    const y0 = PY + 320;
     const rows = Math.ceil(odds.length / per);
     const ny = y0 + rows * pitch - 4;
-    const note = add(label(this, cx, ny, `${odds.length} kinds of card inside`, { size: 14, weight: 600, ...dark }));
+    const note = add(label(this, cx, ny, `${odds.length} kinds of card inside`, { size: 18, weight: 600, ...dark }));
     odds.forEach(({ unit, chance }, i) => {
       const x = x0 + (i % per) * pitch;
       const y = y0 + Math.floor(i / per) * pitch;
@@ -293,20 +279,20 @@ export class ShopScene extends Phaser.Scene {
       // Pressing one says what it is, if it is known, and how likely.
       const zone = add(this.add.zone(x, y, 46, 46).setInteractive({ useHandCursor: true }));
       const say = (): void => {
-        note.setText(`${met ? unit.name : '???'}  ·  ${RARITY[unit.rarity].name}  ·  ${percent(chance)}`);
+        note.setText(`${met ? unit.name : '???'}  ·  ${percent(chance)}`);
       };
       zone.on('pointerover', say);
       zone.on('pointerdown', say);
     });
     // Under them, how likely each tier is: its color, and its share.
     const tiers = RARITIES.filter((r) => odds.some((o) => o.unit.rarity === r));
-    const tw = 66;
+    const tw = 68;
     const tx0 = cx - ((tiers.length - 1) * tw) / 2;
     tiers.forEach((r, i) => {
       const x = tx0 + i * tw;
       const share = odds.filter((o) => o.unit.rarity === r).reduce((n, o) => n + o.chance, 0);
-      add(slabImage(this, x - 28, ny + 16, 14, 14, RARITY_MAT[r], 4, 2));
-      add(label(this, x - 10, ny + 23, percent(share), { size: 13, weight: 600, align: 'left', ...dark }));
+      add(slabImage(this, x - 31, ny + 19, 16, 16, RARITY_MAT[r], 4, 2));
+      add(label(this, x - 11, ny + 27, percent(share), { size: 18, weight: 600, align: 'left', ...dark }));
     });
 
     // OPEN one, or as many as are held up to ten; BUY one, or ten.
@@ -315,13 +301,12 @@ export class ShopScene extends Phaser.Scene {
     const one = new Button(this, cx - 88, by, 'OPEN', () => this.open(pack, sl.base, 1), { width: 164, height: 58, size: 24 });
     one.setEnabled(held > 0);
     add(one.root);
-    if (held > 0) this.firstOpen = one.rect;
     const all = new Button(this, cx + 88, by, many > 1 ? `OPEN ${many}` : 'OPEN 10', () => this.open(pack, sl.base, many), { width: 164, height: 58, size: 22 });
     all.setEnabled(many > 1);
     add(all.root);
     if (pack.gift) {
       // Coins never buy it: where the buttons would be, it says where it comes from.
-      add(label(this, cx, by + 66, 'No shop sells it. Time played gives it:\nsee REWARDS on the main screen.', { size: 15, weight: 600, ...dark }));
+      add(label(this, cx, by + 66, 'No shop sells it.\nPlay to earn it: see REWARDS.', { size: 18, weight: 600, ...dark }));
       return;
     }
     const buy = (n: number): void => {
@@ -341,7 +326,7 @@ export class ShopScene extends Phaser.Scene {
     b1.root.add(this.add.image(-58, -3, SHEET, 'icon/coin').setScale(0.34));
     b1.setEnabled(s.coins >= price);
     add(b1.root);
-    const b10 = new Button(this, cx + 88, by + 66, `x10   ${price * 10}`, () => buy(10), { width: 164, height: 58, size: price * 10 >= 10000 ? 17 : 20, mat: VENOM });
+    const b10 = new Button(this, cx + 88, by + 66, `x10   ${price * 10}`, () => buy(10), { width: 164, height: 58, size: price * 10 >= 10000 ? 18 : 20, mat: VENOM });
     b10.setEnabled(s.coins >= price * 10);
     add(b10.root);
   }
@@ -351,7 +336,6 @@ export class ShopScene extends Phaser.Scene {
   private clearShow(): void {
     for (const o of this.show) o.destroy();
     this.show = [];
-    this.doneRect = null;
     this.skip = null;
   }
 
@@ -501,9 +485,9 @@ export class ShopScene extends Phaser.Scene {
       if (pull.outcome === 'new' || pull.best) {
         // What is worth a second look says so, on a ribbon across its corner.
         const tag = this.add.graphics();
-        slab(tag, w / 2 - 62, -h / 2 + 10, 56, 24, pull.outcome === 'new' ? HOLY : GOLD, 8, 3);
+        slab(tag, w / 2 - 70, -h / 2 + 8, 64, 30, pull.outcome === 'new' ? HOLY : GOLD, 8, 3);
         front.add(tag);
-        front.add(label(this, w / 2 - 34, -h / 2 + 21, pull.outcome === 'new' ? 'NEW' : 'BEST', { size: 13, strokeWidth: 4 }));
+        front.add(label(this, w / 2 - 38, -h / 2 + 22, pull.outcome === 'new' ? 'NEW' : 'BEST', { size: 18, strokeWidth: 4 }));
       }
       root.add([back, front]);
       cards.push({ root, back, front, pull, turned: false, x, y });
@@ -585,7 +569,6 @@ export class ShopScene extends Phaser.Scene {
       add(again.root);
     }
     add(done.root);
-    this.doneRect = done.rect;
     this.busy = false;
     this.guide.refresh({ show: 'reveal' });
   }

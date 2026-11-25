@@ -1,23 +1,33 @@
 // The tutorials. There are two kinds.
 //
-// The first is the one a new player is walked through: a few steps that
-// lead from their first battle to their first packs and their team. Which
-// of its steps is up is worked out afresh each time, from the save and from
-// what is on the screen. So a reload, or a player who wanders, comes back to
-// the right step, and nothing in it can get stuck out of order.
+// The first is the one a new player plays through, and it is three things
+// done, not read: in their first battle they call a skill, on its result
+// they open the pack it dropped, and they put its card on the field. Each
+// is shown by a hand that taps on the thing, with a word. Nothing else is
+// shown to them: the packs, the units and the structures have screens of
+// their own, and a tour each for the first time they matter. It was not
+// always so. The first tutorial used to say "Your units fight on their own.
+// Watch!", play the first battle by itself, and then point at eleven
+// buttons across three menus; a portal sent the game back for it, asking
+// for onboarding "in gameplay" that "prioritizes visuals and limits the use
+// of text".
+//
+// Which of its steps is up is worked out afresh each time, from the save
+// and from what is on the screen. So a reload in the middle carries on:
+// with a pack to open, or a card in hand and a place for it.
 //
 // The second kind is a tour: a few notes on one part of the game (the
-// packs, the dungeons, the raids, skill points, upgrades, structures),
-// each pointing at the thing it is about. The rewards have none: the owner
-// asked for them to be left out of the tutorials, and their button says
-// enough. A tour starts by
-// itself the first time its part of the game matters, and never straight
-// after another: a couple of battles are fought between two of them. Once seen it is on the list in the settings,
-// where any of them can be viewed again. By the owner's word of 24 November
-// 2026: "Make sure that we have tutorial drivers for important things / E.g
-// the game itself, dungeons and raids, skill points, upgrades, packs / and
-// show them appropriately / and allow players to view them again once they
-// are already seen".
+// packs, the team, the dungeons, the raids, skill points, upgrades,
+// structures), each pointing at the thing it is about. The rewards have
+// none: the owner asked for them to be left out of the tutorials, and their
+// button says enough. A tour starts by itself the first time its part of
+// the game matters, and never straight after another: a couple of battles
+// are fought between two of them. Once seen it is on the list in the
+// settings, where any of them can be viewed again. By the owner's word of
+// 24 November 2026: "Make sure that we have tutorial drivers for important
+// things / E.g the game itself, dungeons and raids, skill points, upgrades,
+// packs / and show them appropriately / and allow players to view them
+// again once they are already seen".
 //
 // A tour is data: TOURS below. What a step points at is found by name among
 // what the screen has marked (view/ui/Guide.ts).
@@ -25,24 +35,25 @@
 // The words are few. By the owner's word of 24 November 2026, of a note
 // three sentences long: "the tutorial text are too long and ai-ish / Please
 // simplify them to the thing that users only needed to know, we want to
-// minimize reading". A step says one thing, in a line; a test holds every
-// one of them to sixty characters.
+// minimize reading". A step of a tour says one thing, in a line; a step of
+// the first tutorial says a word. Tests hold both.
 //
 // A tour ends on the screen it led into, with everything there free to be
 // pressed: it never ends by asking for CLOSE. The owner, of a last step that
 // said "Buy what you like. Press CLOSE." with the buttons under the shade:
 // "how does this make sense, i cant buy anything if you cover it".
 //
-// While a step points at something, nothing else can be pressed, and battles
-// do not start by themselves: a tutorial leads the player out of whatever it
-// led them into.
+// While a step of a tour points at something, nothing else can be pressed,
+// and battles do not start by themselves: a tutorial leads the player out of
+// whatever it led them into.
 
 import { DUNGEONS, RAIDS } from '../data/expeditions';
 import { PACKS as SHELF } from '../data/packs';
 import { UPGRADES } from '../data/player';
+import { isStructure } from '../data/units';
 import { placeOpen } from './expeditions';
 import { pointsFree, upgradeCost } from './player';
-import { packOpen, packsHeld, priceOf, structuresSize } from './rules';
+import { FIRST_PACK, inTeam, packOpen, packsHeld, priceOf, roomFor, structuresSize, tileFor, toggleTeam } from './rules';
 import type { SaveData } from './state';
 
 export type GuideScene = 'Main' | 'Shop' | 'Team' | 'Worlds' | 'Rewards' | 'Hall' | 'Player' | 'Settings';
@@ -54,7 +65,11 @@ export interface GuideContext {
   covered?: boolean;
   /** On the main screen: a battle is being fought, or what it came to is being shown. */
   busy?: boolean;
-  /** In the packs: a pouch is waiting to be torn, or a card has been turned over. */
+  /** On the main screen: what the board is doing. The team is standing ready, a battle is being fought, or its result is up. */
+  phase?: 'ready' | 'fighting' | 'after';
+  /** On the main screen, in a battle: a skill of one of the player's units can be called now. */
+  callable?: boolean;
+  /** A pack is being opened: a pouch is waiting to be torn, or a card has been turned over. */
   show?: 'none' | 'pouch' | 'reveal';
   /** Today, by the player's own clock (view/clock.ts): the rewards' tour asks whether anything waits. */
   day?: number;
@@ -71,6 +86,14 @@ export interface Step {
   holds: boolean;
   /** Nothing but what it points at can be pressed. */
   blocks: boolean;
+  /**
+   * It is shown by a hand that taps on what it points at, with its word
+   * beside it, and no bubble: a step of the first tutorial, which is done
+   * and not read.
+   */
+  hand?: boolean;
+  /** What it points at shows itself, with a ring of its own: no ring is drawn round it. */
+  bare?: boolean;
   /** It has a button of its own, and is over when that is pressed. */
   ok?: boolean;
   /** What that button says. GOT IT, if left out. */
@@ -83,57 +106,21 @@ export interface Step {
   press?: boolean;
 }
 
-const HELLO: Step = {
-  id: 'hello', target: 'battle', holds: false, blocks: false,
-  text: 'Your units fight on their own. Watch!',
-};
-const PACKS: Step = {
-  id: 'packs', target: 'packs', holds: true, blocks: true,
-  text: 'You have packs. Tap PACKS.',
-};
-const OPEN: Step = {
-  id: 'open', target: 'open', holds: true, blocks: true,
-  text: 'Tap OPEN.',
-};
-const TEAR: Step = {
-  id: 'tear', target: 'pouch', holds: true, blocks: true,
-  text: 'Tap the pack.',
-};
-const CARD: Step = {
-  id: 'card', target: 'reveal:done', holds: true, blocks: true,
-  text: 'Grades run from F up to S. Tap DONE.',
-};
-const CLOSE_PACKS: Step = {
-  id: 'close-packs', target: 'close', holds: true, blocks: true,
-  text: 'Tap CLOSE.',
-};
-const UNITS: Step = {
-  id: 'units', target: 'units', holds: true, blocks: true,
-  text: 'Tap UNITS to see your team.',
-};
-const FILL: Step = {
-  id: 'fill', target: 'fill', holds: true, blocks: true,
-  text: 'FILL TEAM picks your best. Tap it.',
-};
-const CLOSE_UNITS: Step = {
-  id: 'close-units', target: 'close', holds: true, blocks: true,
-  text: 'Tap CLOSE.',
-};
-const STRUCTS: Step = {
-  id: 'structures', target: 'structures', holds: true, blocks: true,
-  text: 'You have a tower too. Tap STRUCTURES.',
-};
-const CLOSE_STRUCTS: Step = {
-  id: 'close-structures', target: 'close', holds: true, blocks: true,
-  text: 'Towers fight from where they stand. Tap CLOSE.',
-};
-const WORD: Step = {
-  id: 'word', target: 'stages', holds: true, blocks: true, ok: true,
-  text: 'Win to move on. Lose and you drop back a stage. Tap here for the map.',
-};
+// In a battle, the first time a skill of theirs can be called: the battle all but stops until it is.
+const TAP: Step = { id: 'tap', target: 'callable', holds: false, blocks: false, hand: true, bare: true, text: 'TAP!' };
+// On the result of their first battle: the pack it dropped, opened where it lies.
+const OPEN: Step = { id: 'open', target: 'gift', holds: true, blocks: true, hand: true, text: 'OPEN!' };
+// And the card that came out of it, put on a tile of their choosing.
+const PLACE: Step = { id: 'place', target: 'tile', holds: true, blocks: false, hand: true, text: 'PLACE!' };
+
+/**
+ * How fast the first battle runs while its hand waits for the first skill to
+ * be called: all but stopped, so that nothing is lost by reading the screen.
+ */
+export const TAP_SLOW = 0.03;
 
 /** Every step, for the tests and for whoever wants to read them in order. */
-export const STEPS: readonly Step[] = [HELLO, PACKS, OPEN, TEAR, CARD, CLOSE_PACKS, UNITS, FILL, CLOSE_UNITS, STRUCTS, CLOSE_STRUCTS, WORD];
+export const STEPS: readonly Step[] = [TAP, OPEN, PLACE];
 
 export function seen(save: SaveData, id: string): boolean {
   return save.tutorial.seen.includes(id);
@@ -152,56 +139,75 @@ export function seen(save: SaveData, id: string): boolean {
 function endFirst(save: SaveData): void {
   save.tutorial.done = true;
   save.tutorial.at = save.stats.battles;
-  // The first tutorial showed the tower and its screen: the structures need no tour of their own after it.
-  for (const id of ['tour:basics', 'tour:structures']) if (!seen(save, id)) save.tutorial.seen.push(id);
+  // What the first tutorial taught is what the basics say: that tour is on the list as seen, to be viewed again.
+  if (!seen(save, 'tour:basics')) save.tutorial.seen.push('tour:basics');
 }
 
 /** Notes that a part of the tutorial is behind the player. Ends the tutorial with its last part. */
 export function markSeen(save: SaveData, id: string): void {
   if (save.tutorial.done) return;
   if (!seen(save, id)) save.tutorial.seen.push(id);
-  if (id === 'word') endFirst(save);
+  if (id === 'place') endFirst(save);
 }
 
-/** SKIP: ends the first tutorial, or the tour that is up. */
+/**
+ * The card the first tutorial has the player put on the field: the newest
+ * they hold that fights and is in no team, once a pack has been opened, if
+ * the team has a place for it. Null if there is none, or the tutorial is
+ * over.
+ */
+export function cardToPlace(save: SaveData): number | null {
+  if (save.tutorial.done || seen(save, 'place') || save.stats.opened === 0) return null;
+  let best = -1;
+  let unit = '';
+  for (const c of save.cards) {
+    if (c.id > best && !isStructure(c.unit) && !inTeam(save, c.id)) {
+      best = c.id;
+      unit = c.unit;
+    }
+  }
+  return best >= 0 && roomFor(save, unit) ? best : null;
+}
+
+/** The tile the tutorial's hand points at for that card, written as the first field's are: where it would go by itself. */
+export function placeTile(save: SaveData): [number, number] | null {
+  const card = cardToPlace(save);
+  const held = card === null ? undefined : save.cards.find((c) => c.id === card);
+  return held ? tileFor(save, held.unit) : null;
+}
+
+/** SKIP: ends the first tutorial, or the tour that is up. A card that was waiting to be put on the field walks onto it. */
 export function skipTutorial(save: SaveData): void {
-  if (!save.tutorial.done) endFirst(save);
-  else endTour(save);
+  if (!save.tutorial.done) {
+    const card = cardToPlace(save);
+    if (card !== null) toggleTeam(save, card);
+    endFirst(save);
+  } else endTour(save);
 }
 
 /** The step of the first tutorial to show now, or null for none. */
 function firstStep(save: SaveData, ctx: GuideContext): Step | null {
-  const watching = ctx.scene === 'Main' && !ctx.covered;
-  // A step that asks for a press waits until the board is still.
-  const onMain = watching && !ctx.busy;
+  if (ctx.scene !== 'Main' || ctx.covered) return null;
+  // In a battle there is one thing to learn, the first time it can be done.
+  if (ctx.phase === 'fighting') return !seen(save, 'tap') && ctx.callable ? TAP : null;
+  // While a pack is being opened nothing points at anything.
+  if (ctx.show === 'pouch' || ctx.show === 'reveal') return null;
+  // The first battle starts by itself: there is nothing to press before it.
+  if (save.stats.battles === 0) return null;
+  // The card first, if one is in hand: it goes on the field once the field is on show again.
+  if (cardToPlace(save) !== null) return ctx.phase === 'ready' ? PLACE : null;
+  if (save.stats.opened === 0 && (save.packs[FIRST_PACK] ?? 0) > 0) return OPEN;
+  return null;
+}
 
-  // The first battle is only watched.
-  if (save.stats.battles === 0) return watching ? HELLO : null;
-
-  // Then the packs. With none held and none ever opened there is nothing to show.
-  if (!seen(save, 'packs') && (save.stats.opened > 0 || packsHeld(save) > 0)) {
-    if (onMain) return PACKS;
-    if (ctx.scene !== 'Shop') return null;
-    if (ctx.show === 'pouch') return TEAR;
-    if (ctx.show === 'reveal') return CARD;
-    return save.stats.opened === 0 ? OPEN : CLOSE_PACKS;
-  }
-
-  // Then the team.
-  if (!seen(save, 'team')) {
-    if (onMain) return UNITS;
-    if (ctx.scene !== 'Team' || ctx.page === 'structures') return null;
-    return seen(save, 'fill') ? CLOSE_UNITS : FILL;
-  }
-
-  // Then the tower they started with, which has a screen of its own.
-  if (!seen(save, 'structures')) {
-    if (onMain) return STRUCTS;
-    return ctx.scene === 'Team' && ctx.page === 'structures' ? CLOSE_STRUCTS : null;
-  }
-
-  // And a last word.
-  return onMain ? WORD : null;
+/**
+ * True when the first tutorial has nothing left to show: a battle has been
+ * fought, the field is still, and there is neither a pack to open nor a
+ * card to place. A player who opened their pack and placed their card some
+ * other way has done what it teaches.
+ */
+function firstOver(save: SaveData, ctx: GuideContext): boolean {
+  return ctx.scene === 'Main' && !ctx.covered && ctx.phase === 'ready' && ctx.show !== 'pouch' && ctx.show !== 'reveal' && save.stats.battles > 0;
 }
 
 // ------------------------------------------------------------ tours
@@ -248,6 +254,10 @@ function canBuyUpgrade(save: SaveData): boolean {
     return cost !== null && save.coins >= cost;
   });
 }
+/** True when the player holds a card that is in no team: one that fights, or a structure. */
+function spareCard(save: SaveData, structure: boolean): boolean {
+  return save.cards.some((c) => isStructure(c.unit) === structure && !inTeam(save, c.id));
+}
 export function dungeonOpen(save: SaveData): boolean {
   return DUNGEONS.some((d) => placeOpen(save, d));
 }
@@ -264,7 +274,7 @@ export const TOURS: readonly Tour[] = [
     // What the first tutorial taught, as notes on the main screen: it is on the list from the start, and is never started by itself.
     id: 'basics', name: 'The basics', blurb: 'Battles, and where everything is.',
     steps: [
-      note('Main', 'board', 'Your units fight by themselves. Drag to move them.'),
+      note('Main', 'board', 'Tap a glowing unit for its skill. Drag units to move them.'),
       note('Main', 'battle', 'BATTLE starts the fight.'),
       note('Main', 'auto', 'AUTO keeps battles going. 2x doubles the speed.'),
       note('Main', 'stages', 'Win to move on. Tap for the map.'),
@@ -276,13 +286,23 @@ export const TOURS: readonly Tour[] = [
   },
   {
     id: 'packs', name: 'Packs', blurb: 'Buying and opening packs.',
-    // The first tutorial has just opened a pack with them: this waits a few battles, and for coins enough to buy one.
-    when: (save) => save.stats.battles >= 6 && canBuyPack(save),
+    // The first tutorial opened one pack with them, on the field. The screen of packs matters once they hold
+    // another, which a new player does from the start, or have coins enough to buy one.
+    when: (save) => packsHeld(save) > 0 || (save.stats.battles >= 6 && canBuyPack(save)),
     steps: [
-      press('Main', 'packs', 'You can afford a pack. Tap PACKS.'),
+      press('Main', 'packs', 'Packs give cards. Tap PACKS.'),
       note('Shop', 'slots', 'Harder packs give better grades.'),
       note('Shop', 'detail', 'This is what the pack can give.'),
       note('Shop', 'buy', 'Green buys. Gold opens.'),
+    ],
+  },
+  {
+    // The team's own screen matters the first time there is a choice to make: a card that fights and is in no team.
+    id: 'team', name: 'Your team', blurb: 'Who fights, and where.',
+    when: (save) => spareCard(save, false),
+    steps: [
+      press('Main', 'units', 'You hold more cards. Tap UNITS.'),
+      note('Team', 'fill', 'FILL TEAM picks your best.'),
     ],
   },
   {
@@ -325,10 +345,11 @@ export const TOURS: readonly Tour[] = [
   },
   {
     id: 'structures', name: 'Structures', blurb: 'Towers and traps.',
-    when: (save) => structuresSize(save) > 0,
+    // A new player's tower stands from the start and needs no words. Its screen matters when there is a second to choose from.
+    when: (save) => spareCard(save, true),
     known: (save) => structuresSize(save) > 0,
     steps: [
-      press('Main', 'structures', 'You can field a structure. Tap STRUCTURES.'),
+      press('Main', 'structures', 'A new structure! Tap STRUCTURES.'),
       note('Team', 'grid', 'Towers shoot. Traps go off once.'),
     ],
   },
@@ -436,7 +457,11 @@ function tourStep(save: SaveData, ctx: GuideContext): Step | null {
  * started here, when the main screen is still and nothing is open over it.
  */
 export function tutorialStep(save: SaveData, ctx: GuideContext): Step | null {
-  if (!save.tutorial.done) return firstStep(save, ctx);
+  if (!save.tutorial.done) {
+    const step = firstStep(save, ctx);
+    if (step || !firstOver(save, ctx)) return step;
+    endFirst(save);
+  }
   if (!save.tutorial.tour && ctx.scene === 'Main' && !ctx.covered && !ctx.busy) {
     const due = tourDue(save, ctx.day ?? 0);
     if (due) startTour(save, due.id);

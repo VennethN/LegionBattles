@@ -11,7 +11,7 @@ import Phaser from 'phaser';
 import { BONE, GOLD, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { packById } from '../../data/packs';
+import { packById, packWord } from '../../data/packs';
 import { DAILY, PLAYTIME, type Reward } from '../../data/rewards';
 import { UNITS } from '../../data/units';
 import { RARITIES } from '../../game/rarity';
@@ -88,11 +88,11 @@ export class RewardsScene extends Phaser.Scene {
 
     label(this, 44, 92, 'DAILY', { size: 24, align: 'left' });
     label(this, 136, 93, 'Claim one each day.', {
-      size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
+      size: 19, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4,
     });
     label(this, 44, 366, 'TIME PLAYED TODAY', { size: 24, align: 'left' });
     this.played = label(this, 300, 366, '', { size: 24, align: 'left', color: HOLY.fill });
-    label(this, 44, 686, 'Resets every day.', { size: 16, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
+    label(this, 44, 686, 'Resets every day.', { size: 19, weight: 600, align: 'left', color: HIGHLIGHT, strokeWidth: 4 });
     this.bar = this.add.graphics().setDepth(5);
 
     this.guide = new Guide(this, 'Rewards');
@@ -142,7 +142,7 @@ export class RewardsScene extends Phaser.Scene {
     if (reward.kind === 'coins') {
       add(this.add.image(x, y, SHEET, 'icon/coin').setScale(0.8));
       add(label(this, x, y + 50, `+${rewardCoins(s, reward)}`, { size: 22, color: GOLD.fill, strokeWidth: 6 }));
-      add(label(this, x, y + 74, 'coins', { size: 13, weight: 600, ...dark }));
+      add(label(this, x, y + 76, 'coins', { size: 18, weight: 600, ...dark }));
       return;
     }
     if (reward.kind === 'packs') {
@@ -152,8 +152,8 @@ export class RewardsScene extends Phaser.Scene {
       const art = add(this.add.image(x, y, CARDS, `pack/${id.split('@')[0]}`).setScale(0.27));
       if (!shown) art.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.85);
       add(label(this, x, y + 50, reward.count > 1 ? `x${reward.count}` : 'PACK', { size: 22, color: HOLY.fill, strokeWidth: 6 }));
-      const name = shown ? pack.name : '???';
-      add(label(this, x, y + 74, name, { size: name.length > 18 ? 11 : 13, weight: 600, ...dark }));
+      // One word under it: the picture says which land's pack it is.
+      add(label(this, x, y + 76, shown ? packWord(id) : '???', { size: 18, weight: 600, ...dark }));
       return;
     }
     const def = UNITS[reward.unit];
@@ -165,8 +165,8 @@ export class RewardsScene extends Phaser.Scene {
     if (pic.displayWidth > 84) pic.setScale((pic.scaleX * 84) / pic.displayWidth);
     // What is not known tells nothing of itself, its grade among the rest.
     if (met) add(gradeBadge(this, x - 40, y - 36, rewardGrade(reward, round), 20));
-    add(label(this, x, y + 54, met ? def.name : '???', { size: 17, strokeWidth: 5 }));
-    add(label(this, x, y + 74, 'special unit', { size: 12, weight: 600, ...dark }));
+    // Its name and no more: that no pack holds it is what the rewards are, and need not be said under each.
+    add(label(this, x, y + 62, met ? def.name : '???', { size: 18, strokeWidth: 5, wrap: 150 }).setLineSpacing(-4));
   }
 
   // ------------------------------------------------------------ the two tracks
@@ -197,7 +197,7 @@ export class RewardsScene extends Phaser.Scene {
       const g = add(this.add.graphics());
       slab(g, r.x, r.y, r.w, r.h, mat, 16, 7);
       g.fillStyle(hex(HIGHLIGHT), done ? 0.12 : 0.5).fillRoundedRect(r.x + 8, r.y + 34, r.w - 16, r.h - 86, 10);
-      add(label(this, cx, r.y + 18, `DAY ${i + 1}`, { size: 17, strokeWidth: 5 }));
+      add(label(this, cx, r.y + 18, `DAY ${i + 1}`, { size: 19, strokeWidth: 5 }));
       const before = this.things.length;
       this.picture(add, reward, round, cx, r.y + 82);
       if (done) {
@@ -211,7 +211,7 @@ export class RewardsScene extends Phaser.Scene {
         const ring = add(this.add.graphics().setDepth(40));
         ring.lineStyle(5, hex(HIGHLIGHT), 1).strokeRoundedRect(r.x - 5, r.y - 5, r.w + 10, r.h + 10, 19);
       } else {
-        add(label(this, cx, r.y + r.h - 27, now ? 'TOMORROW' : '', { size: 15, color: OUTLINE, stroke: null }));
+        add(label(this, cx, r.y + r.h - 27, now ? 'TOMORROW' : '', { size: 18, color: OUTLINE, stroke: null }));
       }
     });
 
@@ -223,7 +223,7 @@ export class RewardsScene extends Phaser.Scene {
       const g = add(this.add.graphics());
       slab(g, r.x, r.y, r.w, r.h, mat, 16, 7);
       g.fillStyle(hex(HIGHLIGHT), state === 'taken' ? 0.12 : 0.5).fillRoundedRect(r.x + 8, r.y + 34, r.w - 16, r.h - 86, 10);
-      add(label(this, cx, r.y + 18, `${step.minutes} MINUTES`, { size: 17, strokeWidth: 5 }));
+      add(label(this, cx, r.y + 18, `${step.minutes} MINUTES`, { size: 19, strokeWidth: 5 }));
       const before = this.things.length;
       this.picture(add, step.reward, 0, cx, r.y + 82);
       if (state === 'taken') {
@@ -284,7 +284,7 @@ export class RewardsScene extends Phaser.Scene {
     for (let i = 0; i < PLAYTIME.length; i++) {
       if (playtimeState(s, i, day) !== 'ahead') continue;
       const r = this.stepRect(i);
-      this.left.push(label(this, r.x + r.w / 2, r.y + r.h - 27, `in ${clock(PLAYTIME[i].minutes * 60 - seconds)}`, { size: 15, color: OUTLINE, stroke: null }).setDepth(6));
+      this.left.push(label(this, r.x + r.w / 2, r.y + r.h - 27, `in ${clock(PLAYTIME[i].minutes * 60 - seconds)}`, { size: 19, color: OUTLINE, stroke: null }).setDepth(6));
     }
   }
 

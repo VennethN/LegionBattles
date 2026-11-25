@@ -1,4 +1,4 @@
-// npm run journey [players] [--worlds=N] [--losses] [--copies] [--player=N]
+// npm run journey [players] [--worlds=N] [--losses] [--copies] [--player=N] [--first=N] [--calls]
 //
 // Plays new players along the line of stages by the game's own rules, in
 // seconds, and says for each world how many battles it took, how many were
@@ -18,6 +18,10 @@
 // what they have saved on upgrades, whatever those cost. With --copies they combine nothing
 // and field copies as cards of their own, which says which of the two a
 // card is better used for. With --player=N only the Nth of them plays, to look at one who stalled.
+// With --first=N it also says how long a battle at each of the first N stages lasts: a new player's
+// first minutes, which are to be short. With --calls the players call every skill the moment it can be
+// called, which no person will: it is the most that calling can be worth, to set beside what it is worth
+// to call none, which is what they do without it.
 
 import { allPacks } from '../src/data/packs';
 import { UPGRADES } from '../src/data/player';
@@ -31,7 +35,7 @@ import {
   teamSize,
 } from '../src/game/rules';
 import type { SaveData } from '../src/game/state';
-import { runBattle } from '../src/sim/battle';
+import { callEverything, runBattle } from '../src/sim/battle';
 
 const args = process.argv.slice(2);
 const players = Number(args.find((a) => /^\d+$/.test(a)) ?? 12);
@@ -42,6 +46,11 @@ const KEEP_COPIES = args.includes('--copies');
 const BARE = args.includes('--bare');
 /** --player=N: only the Nth player, counted from 1. */
 const ONLY = Number(args.find((a) => a.startsWith('--player='))?.split('=')[1] ?? 0);
+/** --calls: players who call every skill as soon as it can be called. */
+const CALLS = args.includes('--calls');
+const before = CALLS ? callEverything : undefined;
+/** --first=N: how long the battles at each of the first N stages last. */
+const FIRST = Number(args.find((a) => a.startsWith('--first='))?.split('=')[1] ?? 0);
 /** A world that takes more battles than this is a wall: the player gives up there. */
 const WALL = 500;
 
@@ -119,7 +128,7 @@ function prepare(save: SaveData, stuck = false): void {
 
 /** How a battle at a wall goes: who has it, and how soon. */
 function lastOf(input: Parameters<typeof runBattle>[0]): string {
-  const r = runBattle(input, false);
+  const r = runBattle(input, false, before);
   const left = r.hp.filter((h) => h > 0).length;
   return `${r.winner === 0 ? 'won' : r.winner === 1 ? 'lost' : 'drawn'} in ${r.seconds.toFixed(0)} s, with ${left} left standing on the field`;
 }
@@ -135,6 +144,9 @@ interface Stall {
   last: string;
 }
 
+/** How long each battle at one of the first stages lasted, and whether it was won: by stage. */
+const early = new Map<number, Array<{ seconds: number; won: boolean }>>();
+
 function play(seed: number): { legs: Leg[]; lost: Map<number, number>; battles: number; stall: Stall | null } {
   const save = startingSave(seed);
   const legs: Leg[] = [];
@@ -147,12 +159,14 @@ function play(seed: number): { legs: Leg[]; lost: Map<number, number>; battles: 
     legs.push(leg);
     let stumbles = 0;
     while (leg.battles < WALL && cleared(save) <= world.last) {
-      prepare(save, stumbles >= 3);
+      // A new player lands in their first battle with what they came with: the packs are opened after it.
+      if (battles > 0) prepare(save, stumbles >= 3);
       const front = cleared(save);
       // After a loss, a stage further back each time, until the team has grown enough to go on.
       const stage = Math.max(0, front - stumbles);
-      const r = runBattle(stageInput(save, stage), false);
+      const r = runBattle(stageInput(save, stage), false, before);
       const won = r.winner === 0;
+      if (stage < FIRST) early.set(stage, [...(early.get(stage) ?? []), { seconds: r.seconds, won }]);
       finishStage(save, stage, won);
       battles++;
       leg.battles++;
@@ -193,7 +207,7 @@ const runs = Array.from({ length: players }, (_, i) => i).filter((i) => !ONLY ||
 const mid = (xs: number[]): number => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
 const avg = (xs: number[]): number => xs.reduce((a, b) => a + b, 0) / Math.max(1, xs.length);
 
-console.log(`${runs.length} new ${runs.length === 1 ? 'player' : 'players'}, ${depth} ${depth === 1 ? 'world' : 'worlds'} of ${WORLDS.length}, ${WORLDS[depth - 1].last + 1} stages of ${STAGES.length}`);
+console.log(`${runs.length} new ${runs.length === 1 ? 'player' : 'players'}${CALLS ? ' who call every skill at once' : ''}, ${depth} ${depth === 1 ? 'world' : 'worlds'} of ${WORLDS.length}, ${WORLDS[depth - 1].last + 1} stages of ${STAGES.length}`);
 console.log('world                           stages   strength  battles: half took under / average / slowest   lost   a battle   boss fell with');
 for (let w = 0; w < depth; w++) {
   const world = WORLDS[w];
@@ -223,6 +237,20 @@ runs.forEach((r, i) => {
   console.log(`  holding: ${r.stall.purse}`);
   console.log(`  a battle there: ${r.stall.last}`);
 });
+
+if (FIRST > 0) {
+  console.log('\nthe first stages, every battle fought at each:');
+  for (let k = 0; k < FIRST; k++) {
+    const all = early.get(k) ?? [];
+    if (all.length === 0) continue;
+    const t = all.map((b) => b.seconds).sort((a, b) => a - b);
+    const won = all.filter((b) => b.won).length;
+    console.log(
+      `  stage ${String(k + 1).padStart(2)} ${STAGES[k].def.name.padEnd(20)} half under ${t[Math.floor(t.length / 2)].toFixed(1).padStart(5)} s, from ${t[0].toFixed(1)} to ${t[t.length - 1].toFixed(1)} s, ` +
+        `won ${Math.round((100 * won) / all.length)}% of ${all.length}`,
+    );
+  }
+}
 
 if (showLosses) {
   const total = new Map<number, number>();

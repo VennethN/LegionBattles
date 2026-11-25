@@ -17,12 +17,12 @@ import { label } from './widgets';
 /** The banner with its middle at (x, y). `big` is for a heading. */
 export function worldBanner(scene: Phaser.Scene, x: number, y: number, world: World, big = false): Phaser.GameObjects.Container {
   const land = LANDS[world.land];
-  const size = big ? 24 : 17;
-  const h = big ? 44 : 32;
+  const size = big ? 24 : 18;
+  const h = big ? 44 : 34;
   const root = scene.add.container(x, y);
   // A world's number is its land's: World 1 is Thornwood on every difficulty.
   const text = label(scene, 0, -2, `WORLD ${world.land + 1}  ·  ${world.name.toUpperCase()}`, { size, strokeWidth: big ? 6 : 5 });
-  const chipText = label(scene, 0, -2, DIFFICULTIES[world.lap].toUpperCase(), { size: big ? 18 : 14, strokeWidth: big ? 5 : 4 });
+  const chipText = label(scene, 0, -2, DIFFICULTIES[world.lap].toUpperCase(), { size: big ? 20 : 17, strokeWidth: big ? 5 : 4 });
   const w = text.width + h + 34;
   const chipW = chipText.width + (big ? 28 : 22);
   const gap = 20;

@@ -48,7 +48,11 @@ export function rays(scene: Phaser.Scene, add: Adder, x: number, y: number, colo
   scene.tweens.add({ targets: g, angle: 360, duration: 14000, repeat: -1 });
 }
 
-/** The face of a card: its tier's color, the unit, its name and its tier. */
+/**
+ * The face of a card: its tier's color, the unit and its name. A big one
+ * says its tier under the name; a small one leaves that to its color, as
+ * there is no room on it for two lines that can be read.
+ */
 export function cardFace(scene: Phaser.Scene, unit: string, rarity: Rarity, w: number, h: number): Phaser.GameObjects.Container {
   const def = UNITS[unit];
   const mat = RARITY_MAT[rarity];
@@ -57,14 +61,17 @@ export function cardFace(scene: Phaser.Scene, unit: string, rarity: Rarity, w: n
   const g = scene.add.graphics();
   slab(g, -w / 2, -h / 2, w, h, mat, big ? 22 : 14, big ? 9 : 6);
   const edge = big ? 14 : 8;
-  g.fillStyle(hex(HIGHLIGHT), 0.4).fillRoundedRect(-w / 2 + edge, -h / 2 + edge, w - edge * 2, h - (big ? 110 : 58), big ? 14 : 9);
+  // The name first, to know how much room it takes: a long one on a small card goes on two lines.
+  const name = label(scene, 0, 0, def.name, { size: big ? (def.name.length > 14 ? 22 : 28) : 18, strokeWidth: big ? 6 : 4, wrap: w - 12 }).setOrigin(0.5, 1);
+  name.setLineSpacing(-4);
+  const foot = big ? 110 : name.height + 18;
+  g.fillStyle(hex(HIGHLIGHT), 0.4).fillRoundedRect(-w / 2 + edge, -h / 2 + edge, w - edge * 2, h - foot, big ? 14 : 9);
   card.add(g);
-  const pic = portrait(scene, 0, h / 2 - (big ? 104 : 54), def.id, 'blue', big ? 176 : 92);
+  const pic = portrait(scene, 0, h / 2 - foot + (big ? 6 : 4), def.id, 'blue', big ? 176 : h - foot - 30);
   // A wide one, or one that carries something long, is kept inside the card.
   if (pic.displayWidth > w - edge * 2) pic.setScale((pic.scaleX * (w - edge * 2)) / pic.displayWidth);
   card.add(pic);
-  const nameSize = big ? (def.name.length > 14 ? 22 : 28) : def.name.length > 12 ? 13 : 16;
-  card.add(label(scene, 0, h / 2 - (big ? 70 : 36), def.name, { size: nameSize, strokeWidth: big ? 6 : 4 }));
-  card.add(label(scene, 0, h / 2 - (big ? 34 : 16), RARITY[rarity].name, { size: big ? 18 : 12, weight: 600, color: OUTLINE, stroke: null }));
+  card.add(name.setPosition(0, h / 2 - (big ? 52 : 8)));
+  if (big) card.add(label(scene, 0, h / 2 - 34, RARITY[rarity].name, { size: 19, weight: 600, color: OUTLINE, stroke: null }));
   return card;
 }

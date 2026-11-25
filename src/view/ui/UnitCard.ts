@@ -23,7 +23,12 @@ export interface CardOpts {
   height?: number;
   /** Shows the enemy's colors, with no grade or level: for a stage's line-up. */
   enemy?: boolean;
-  /** Leaves the name off, for small cards. */
+  /**
+   * Leaves the name off: for a card too small to hold a name that can be
+   * read. Its picture says who it is, and the panel beside the cards says
+   * its name when it is pressed. One the player does not know still says
+   * "???".
+   */
   bare?: boolean;
   /** The card shown. Without one the tile is the unit alone: one not held, or not known. */
   card?: Card;
@@ -67,8 +72,13 @@ export function unitCard(
   const root = scene.add.container(x, y);
   // The tile is a picture made once for its size and tier (bake.ts): a screen of twenty cards drew twenty of these as shapes, every frame.
   const mat = isKnown ? RARITY_MAT[def.rarity] : IRON;
-  const windowH = h - (o.bare ? 22 : 40);
-  const tile = baked(scene, `card:${w}x${h}:${mat.fill}${mat.shade}:${isKnown ? 1 : 0}:${windowH}`, w + BAKE_PAD * 2, h + BAKE_PAD * 2, (ctx) => {
+  // The name, if the card has one: a long one goes on two lines, and the figure over it is that much shorter.
+  const named = !o.bare || !isKnown;
+  const name = named ? label(scene, 0, 0, isKnown ? def.name : '???', { size: 18, strokeWidth: 4, wrap: w - 10 }).setOrigin(0.5, 1) : null;
+  if (name) name.setLineSpacing(-4);
+  const nameRoom = name ? name.height + 2 : 8;
+  const windowH = h - nameRoom - 14;
+  const tile = baked(scene, `card:${w}x${h}:${mat.fill}${mat.shade}:${isKnown ? 1 : 0}:${Math.round(windowH)}`, w + BAKE_PAD * 2, h + BAKE_PAD * 2, (ctx) => {
     slabOn(ctx, BAKE_PAD, BAKE_PAD, w, h, mat, 14, 6);
     // A lighter window behind the figure, so that it stands out from its tier's color.
     ctx.globalAlpha = isKnown ? 0.35 : 0.3;
@@ -79,18 +89,17 @@ export function unitCard(
   });
   root.add(scene.add.image(0, 0, tile).setDisplaySize(w + BAKE_PAD * 2, h + BAKE_PAD * 2));
 
-  const nameRoom = o.bare ? 8 : 26;
   const pic = portrait(scene, 0, h / 2 - nameRoom - 8, unit, o.enemy ? 'red' : 'blue', h - nameRoom - 26, !isKnown);
+  // A wall or a trap is wider than it is tall: it is kept inside its card.
+  if (pic.displayWidth > w - 14) pic.setScale((pic.scaleX * (w - 14)) / pic.displayWidth);
   if (isKnown && !card && !o.enemy && !o.held) pic.setAlpha(0.55);
   root.add(pic);
 
-  if (!o.bare) {
-    root.add(label(scene, 0, h / 2 - 18, isKnown ? def.name : '???', { size: def.name.length > 12 ? 12 : 15, strokeWidth: 4, wrap: w - 8 }));
-  }
+  if (name) root.add(name.setPosition(0, h / 2 - 7));
   if (card && !o.enemy) {
     root.add(gradeBadge(scene, -w / 2 + 24, -h / 2 + 20, card.grade, 24));
-    root.add(label(scene, w / 2 - 8, -h / 2 + 18, `Lv ${card.level}`, { size: 14, align: 'right', strokeWidth: 4 }));
-    if (inTeam(save, card.id)) root.add(scene.add.image(w / 2 - 16, h / 2 - 44, SHEET, 'icon/check').setScale(0.3));
+    root.add(label(scene, w / 2 - 7, -h / 2 + 19, `Lv ${card.level}`, { size: 18, align: 'right', strokeWidth: 4 }));
+    if (inTeam(save, card.id)) root.add(scene.add.image(w / 2 - 17, h / 2 - nameRoom - 16, SHEET, 'icon/check').setScale(0.32));
   }
   root.setSize(w, h);
   return root;

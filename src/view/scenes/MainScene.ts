@@ -16,11 +16,16 @@
 // There is one line of stages, numbered from 1 (data/stages.ts), and the
 // top of the screen shows only the one the player is on. Pressing it opens
 // the map, where another can be picked.
+//
+// A new player sees a third face, for as long as the first tutorial runs:
+// the field and the battle's own button, and no menu at all. They land in
+// their first battle, call a skill in it, open the pack it drops and put
+// its card on the field (game/tutorial.ts), and then the menus come.
 
 import Phaser from 'phaser';
 import { ARCANE, BONE, CLOTH, GOLD, HIGHLIGHT, HOLY, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
-import { packById } from '../../data/packs';
+import { packWord } from '../../data/packs';
 import { PLAYER_MAX_LEVEL, playerXpToNext } from '../../data/player';
 import { fieldName } from '../../data/fields';
 import { DIFFICULTIES } from '../../data/laps';
@@ -29,9 +34,9 @@ import { UNITS, isStructure } from '../../data/units';
 import { COUNTDOWN, afterBattle, settle, teamChanged } from '../../game/campaign';
 import { cardOf } from '../../game/cards';
 import { playtimeLeft, rewardsWaiting } from '../../game/rewards';
-import { raidOpen } from '../../game/tutorial';
+import { TAP_SLOW, cardToPlace, markSeen, placeTile, raidOpen } from '../../game/tutorial';
 import {
-  finishStage, packsHeld, payOf, stageCleared, stageEnemies, stageInput, stageSeed, structuresIn, structuresSize, teamSize, tidyTeam, unitsIn,
+  FIRST_PACK, finishStage, packsHeld, payOf, stageCleared, stageEnemies, stageInput, stageSeed, structuresIn, structuresSize, teamSize, tidyTeam, unitsIn,
   type StageResult,
 } from '../../game/rules';
 import type { Fielded } from '../../game/state';
@@ -48,8 +53,9 @@ import { commit, save } from '../session';
 import { CoinPill, CountChip, LevelPill, OVERLAY_CLOSED, OVERLAY_SWAP, RewardsPill, TEAM_CHANGED } from '../ui/chrome';
 import { RARITY_MAT } from '../ui/colors';
 import { gradeBadge } from '../ui/grade';
-import { Guide } from '../ui/Guide';
+import { Guide, type Rect } from '../ui/Guide';
 import { portrait } from '../ui/UnitCard';
+import { Welcome } from '../ui/Welcome';
 import { worldBanner } from '../ui/WorldBanner';
 import { Button, label, plain, slab } from '../ui/widgets';
 
@@ -58,6 +64,12 @@ type State = 'loading' | 'ready' | 'fighting' | 'after';
 export class MainScene extends Phaser.Scene {
   private board!: BoardView;
   private guide!: Guide;
+  /** The first tutorial's pack and card. */
+  private welcome!: Welcome;
+  /** In the first tutorial: whether a skill can be called now, where the unit stood when it first could, and how fast the battle runs. */
+  private canCall = false;
+  private tapRect: Rect | null = null;
+  private pace = 1;
   /** The stage on show, as its place in the line, and the one the battle just fought leads to. */
   private at = 0;
   private next = 0;
@@ -137,6 +149,9 @@ export class MainScene extends Phaser.Scene {
     this.bannerOf = -1;
     this.leaving = false;
     this.quick = !!data?.quick;
+    this.canCall = false;
+    this.tapRect = null;
+    this.pace = 1;
   }
 
   create(): void {
@@ -152,7 +167,7 @@ export class MainScene extends Phaser.Scene {
       // A tap on one of the player's own opens its card on the screen it is on.
       onTapOwn: (p) => {
         const card = (p as Fielded).card;
-        if (this.overlay || this.state !== 'ready' || card === undefined) return;
+        if (this.overlay || this.state !== 'ready' || card === undefined || this.learning) return;
         this.pressUnits(isStructure(p.unit) ? 'structures' : 'units', `c${card}`);
       },
       onPlaced: () => {
@@ -164,6 +179,26 @@ export class MainScene extends Phaser.Scene {
       // The player's units show their card's level and grade, the enemy's what the stage stands at.
       standingOf: (p, team) =>
         team === 'blue' ? cardOf(save(), (p as Fielded).card) : stageAt(this.at),
+      // The first skill a new player calls is the first thing the tutorial teaches: it is behind them now.
+      onCall: () => {
+        const now = save();
+        if (now.tutorial.done || now.tutorial.seen.includes('tap')) return;
+        markSeen(now, 'tap');
+        commit();
+        this.guide.refresh();
+      },
+    });
+    this.welcome = new Welcome(this, this.board, {
+      show: (state) => this.guide.refresh({ show: state }),
+      // The card has been seen: the result goes, and the field comes back for the card to be put on.
+      opened: () => {
+        this.afterUntil = 0;
+        if (this.state !== 'after') this.syncTutorial();
+      },
+      placed: (card) => {
+        this.teamKey = '';
+        this.arrive(COUNTDOWN.changed, false, card);
+      },
     });
     this.coins = new CoinPill(this, s);
     // The player's own level, under the coins: it opens the skill tree and the upgrades.
@@ -182,7 +217,15 @@ export class MainScene extends Phaser.Scene {
     this.buildBottom();
     this.note = label(this, W / 2, 612, '', { size: 18, weight: 600, color: HIGHLIGHT }).setDepth(8000);
 
-    this.guide = new Guide(this, 'Main', () => this.refreshBottom());
+    this.guide = new Guide(this, 'Main', () => this.guideChanged());
+    // What the first tutorial points at: a unit whose skill can be called, where it stood when the hand came;
+    // the pack to open; and the tile a new card would take by itself.
+    this.guide.mark('callable', () => this.tapRect);
+    this.guide.mark('gift', () => this.welcome.giftRect);
+    this.guide.mark('tile', () => {
+      const tile = placeTile(save());
+      return tile && this.state === 'ready' ? this.board.tileRect(tile[0], tile[1]) : null;
+    });
     this.guide.mark('battle', () => this.battleButton.rect);
     this.guide.mark('packs', () => this.packsButton.rect);
     this.guide.mark('units', () => this.unitsRect);
@@ -227,7 +270,42 @@ export class MainScene extends Phaser.Scene {
     });
 
     if (!this.quick) this.cameras.main.fadeIn(220);
-    this.arrive(this.quick ? COUNTDOWN.next : COUNTDOWN.first);
+    // A new player lands in their first battle: it begins as soon as the field has been seen.
+    const fresh = !s.tutorial.done && s.stats.battles === 0;
+    this.arrive(this.quick ? COUNTDOWN.next : fresh ? COUNTDOWN.fresh : COUNTDOWN.first);
+  }
+
+  /** True while the first tutorial runs: the menus are away until it is over. */
+  private get learning(): boolean {
+    return !save().tutorial.done;
+  }
+
+  /** The tutorial's step changed, or went: at a press on SKIP, or on a tour's own button. */
+  private guideChanged(): void {
+    this.refreshBottom();
+    this.syncTutorial();
+    // SKIP with a card in hand walks the card into the team: the field is stood up again with it.
+    if (this.state === 'ready' && this.keyOf() !== this.teamKey) this.arrive(COUNTDOWN.changed);
+  }
+
+  /**
+   * Puts on the screen what the first tutorial's step points at, where that
+   * is not there by itself: the pack to open, for a player who comes back
+   * to one with no result up, and the card in hand with the tiles it may
+   * stand on. And takes them away when the step has gone.
+   */
+  private syncTutorial(): void {
+    const want = this.guide.wanted?.id;
+    if (this.state === 'ready') {
+      if (want === 'open' && !this.welcome.giftRect && !this.welcome.busy) {
+        this.welcome.offerPack();
+        this.guide.refresh();
+      } else if (want !== 'open') this.welcome.clearGift();
+    }
+    const card = want === 'place' ? cardToPlace(save()) : null;
+    if (card !== null) this.welcome.offerCard(card);
+    else this.welcome.clearCard();
+    this.hud();
   }
 
   /** The tour that is up, if one is: for the walks (scripts/tours.mjs), which cannot wait for the save to be written. */
@@ -238,10 +316,10 @@ export class MainScene extends Phaser.Scene {
   // ------------------------------------------------------------ the top
 
   /**
-   * The stage on show, and only that one: the banner of its world, its
-   * number on a plate under that, and a line with its name, what a win pays
-   * and what its enemies stand at. Banner and plate open the map of the
-   * world's stages.
+   * The stage on show, and only that one: the banner of its world, and under
+   * that its number on a plate, with its name to the plate's left and what a
+   * win pays and what its enemies stand at to its right. Banner and plate
+   * open the map of the world's stages.
    */
   private refreshTop(): void {
     for (const o of this.top) o.destroy();
@@ -273,26 +351,20 @@ export class MainScene extends Phaser.Scene {
     const mark = stage.def.kind === 'boss' ? 'icon/crown' : stage.def.kind === 'miniboss' ? 'icon/banner' : 'icon/flag';
     plate.root.add(this.add.image(-92, -3, SHEET, mark).setScale(0.32));
 
-    // One line under it: its name, what a win pays, and what its enemies stand at. It is kept close under the
-    // plate and short: the plates of whoever stands in the back row come up just beneath it.
-    const small = { size: 15, weight: 600 as const, color: HIGHLIGHT, strokeWidth: 4, align: 'left' as const };
-    const y = 100;
-    const name = add(label(this, 0, y, stage.def.name, { ...small, weight: 700 }).setDepth(8000));
-    const coin = add(this.add.image(0, y, SHEET, 'icon/coin').setScale(0.28).setDepth(8000));
-    const pay = add(label(this, 0, y, String(payOf(s, this.at, first)), small).setDepth(8000));
-    const badge = add(gradeBadge(this, 0, y, stage.grade, 18).setDepth(8000));
-    const level = add(label(this, 0, y, `level ${stage.level}`, small).setDepth(8000));
-    const total = name.width + 20 + 24 + pay.width + 24 + 28 + 6 + level.width;
-    let x = 640 - total / 2;
-    name.setX(x);
-    x += name.width + 20;
-    coin.setX(x + 10);
-    pay.setX(x + 24);
-    x += 24 + pay.width + 24;
-    badge.setX(x + 11);
-    level.setX(x + 33);
-    const w = Math.max(banner.width, total) + 20;
-    this.plate = { x: 640 - w / 2, y: 2, w, h: 114 };
+    // Beside the plate, on its own row: its name to the left, and to the right what a win pays and what its
+    // enemies stand at. They stood in a line under the plate once, in letters too small to read in a portal's
+    // frame; bigger, that line ran into the plates of whoever stands in the back row, which come up just there.
+    const small = { size: 18, weight: 700 as const, color: HIGHLIGHT, strokeWidth: 5, align: 'left' as const };
+    const y = 62;
+    const name = add(label(this, 640 - 139, y, stage.def.name, { ...small, align: 'right' }).setDepth(8000));
+    let x = 640 + 139;
+    const coin = add(this.add.image(x + 13, y, SHEET, 'icon/coin').setScale(0.3).setDepth(8000));
+    const pay = add(label(this, x + 30, y, String(payOf(s, this.at, first)), small).setDepth(8000));
+    x += 30 + pay.width + 18;
+    const badge = add(gradeBadge(this, x + 14, y, stage.grade, 22).setDepth(8000));
+    const level = add(label(this, x + 34, y, `LV ${stage.level}`, small).setDepth(8000));
+    const half = Math.max(banner.width / 2, 139 + name.width, x + 34 + level.width - 640) + 10;
+    this.plate = { x: 640 - half, y: 2, w: half * 2, h: 92 };
     this.info = [name, coin, pay, badge, level];
     for (const o of this.info) o.setVisible(this.state !== 'fighting' && this.state !== 'after');
 
@@ -305,7 +377,7 @@ export class MainScene extends Phaser.Scene {
 
   /** The map of the world's stages. It is one of the menus, and is not opened in the middle of a battle. */
   private openMap(): void {
-    if (this.state === 'fighting' || this.state === 'after') return;
+    if (this.state === 'fighting' || this.state === 'after' || this.learning) return;
     this.open('Map');
   }
 
@@ -327,9 +399,9 @@ export class MainScene extends Phaser.Scene {
     this.packsButton.root.add(this.add.image(-48, -3, SHEET, 'icon/pack').setScale(0.32));
     // On the corner of each: how many stand of how many may, and how many packs wait. The owner, of the main
     // screen: "Make it also so it shows a unit count and structure count limit".
-    this.unitsChip = new CountChip(this, 146, 636);
-    this.builtChip = new CountChip(this, 328, 636);
-    this.packsChip = new CountChip(this, 494, 636);
+    this.unitsChip = new CountChip(this, 146, 634);
+    this.builtChip = new CountChip(this, 328, 634);
+    this.packsChip = new CountChip(this, 494, 634);
 
     this.battleButton = new Button(this, 644, y, 'BATTLE', () => this.pressBattle(), { width: 264, height: 74, size: 34 }).setDepth(8000);
     this.autoButton = new Button(this, 916, y, '', () => this.toggleAuto(), { width: 170, height: 62, size: 22 }).setDepth(8000);
@@ -354,8 +426,8 @@ export class MainScene extends Phaser.Scene {
       this.shownCount = n;
       this.battleButton.setText(n >= 0 ? `BATTLE  ${n}` : 'BATTLE').setMaterial(GOLD).setEnabled(this.state === 'ready' && !empty);
     }
-    // The tutorial's bubble stands where the note does, so the note waits for it.
-    const quiet = this.state !== 'ready' || !!this.guide.step;
+    // The tutorial's bubble stands where the note does, so the note waits for it. A new player is told nothing here: they are shown.
+    const quiet = this.state !== 'ready' || !!this.guide.step || this.learning;
     this.note.setText(empty ? 'Your team is empty. Press UNITS and put someone in it.' : quiet ? '' : 'Drag your units to arrange them. Tap anyone to see who they are.');
 
     // A count is lit when it asks for something: a place that is free, with a card that could stand in it.
@@ -379,11 +451,16 @@ export class MainScene extends Phaser.Scene {
    */
   private hud(): void {
     const drawer = this.overlay === 'Team';
-    const menus = this.state !== 'fighting' && this.state !== 'after';
+    // While the first tutorial runs there are no menus: there is the field, and the one thing the tutorial points at.
+    const learning = this.learning;
+    const menus = this.state !== 'fighting' && this.state !== 'after' && !learning;
     const raid = raidOpen(save());
-    const key = (menus ? 1 : 0) | (drawer ? 2 : 0) | (raid ? 4 : 0);
+    const key = (menus ? 1 : 0) | (drawer ? 2 : 0) | (raid ? 4 : 0) | (learning ? 8 : 0);
     if (key === this.hudKey) return;
     this.hudKey = key;
+    // AUTO and the speed are for someone who has seen a battle through: a new player has one button, the battle's.
+    this.autoButton.setVisible(!learning);
+    this.speedButton.setVisible(!learning);
     for (const b of [this.unitsButton, this.builtButton, this.packsButton, this.gear, this.hall]) b.setVisible(menus);
     this.raids.setVisible(menus && raid && !drawer);
     this.level.setVisible(menus);
@@ -414,7 +491,7 @@ export class MainScene extends Phaser.Scene {
    * level loaded", and the stage's art was brought in while the result was
    * read (bringNext).
    */
-  private arrive(seconds: number, after = false): void {
+  private arrive(seconds: number, after = false, landed = -1): void {
     const token = ++this.arrival;
     const s = save();
     tidyTeam(s);
@@ -439,9 +516,12 @@ export class MainScene extends Phaser.Scene {
         this.board.setPlacement(true);
         // Everyone's plate is up before the fight: what they stand at, and the health they start with.
         this.board.preview(stageInput(s, this.at));
+        // A card the player has just put on the field comes down onto its tile.
+        if (landed >= 0) this.board.land(s.team.findIndex((p) => p.card === landed));
         if (this.side) this.board.hideEnemiesFrom(this.side);
         this.count = s.auto && seconds >= 0 ? seconds : -1;
-        this.guide.refresh({ covered: !!this.overlay, busy: false });
+        this.guide.refresh({ covered: !!this.overlay, busy: false, phase: 'ready', callable: false, show: 'none' });
+        this.syncTutorial();
         this.refreshBottom();
       });
   }
@@ -455,7 +535,11 @@ export class MainScene extends Phaser.Scene {
     this.board.start(stageInput(s, this.at));
     for (const o of this.info) o.setVisible(false);
     ads().gameplayStart();
-    this.guide.refresh({ busy: true });
+    this.canCall = false;
+    this.pace = 1;
+    this.welcome.clearGift();
+    this.welcome.clearCard();
+    this.guide.refresh({ busy: true, phase: 'fighting', callable: false });
     this.refreshBottom();
   }
 
@@ -479,7 +563,9 @@ export class MainScene extends Phaser.Scene {
     this.coins.refresh();
     this.level.refresh();
     this.refreshBottom();
-    this.guide.refresh({ busy: true });
+    this.canCall = false;
+    this.pace = 1;
+    this.guide.refresh({ busy: true, phase: 'after', callable: false });
     // A boss's first fall is the portal's to cheer as well.
     if (boss) ads().happy();
     // And while the result is read, the next stage's art comes in: once the result's own things have had their moment.
@@ -504,8 +590,9 @@ export class MainScene extends Phaser.Scene {
 
   /** A press on the result, or on CONTINUE: on to the next battle now. */
   private pressOn(): void {
-    // A press that was meant for the battle that has just ended is not one for its result.
-    if (this.state !== 'after' || this.overlay || this.time.now < this.afterFrom + 350) return;
+    // A press that was meant for the battle that has just ended is not one for its result. And a result
+    // the tutorial is pointing into waits for what it points at.
+    if (this.state !== 'after' || this.overlay || this.time.now < this.afterFrom + 350 || this.guide.holds || this.welcome.busy) return;
     this.afterUntil = 0;
   }
 
@@ -523,7 +610,22 @@ export class MainScene extends Phaser.Scene {
 
   override update(time: number, deltaMs: number): void {
     this.board.debugNote = `${this.state}${this.overlay ? ` under ${this.overlay}` : ''}`;
-    this.board.update(deltaMs, this.speed);
+    // A new player's first battle all but stops the first time a skill can be called, until they call it.
+    let pace = 1;
+    if (this.state === 'fighting' && this.learning) {
+      const at = this.board.callableRect();
+      if (!!at !== this.canCall) {
+        this.canCall = !!at;
+        // The hand comes down where the unit stands now. It is not moved after: the battle is all but still.
+        if (at) this.tapRect = at;
+        this.guide.refresh({ callable: this.canCall });
+      }
+      if (this.guide.step?.id === 'tap') pace = TAP_SLOW;
+    }
+    this.board.handsOff = pace < 1;
+    // It slows quickly and not at once, so that it is seen to slow and not to stick.
+    this.pace = pace >= 1 ? 1 : this.pace + (pace - this.pace) * Math.min(1, deltaMs / 120);
+    this.board.update(deltaMs, this.speed * this.pace);
     // A reward comes ready as the minutes pass: the count on its button keeps up.
     const day = today();
     this.rewards.refresh(rewardsWaiting(save(), day), playtimeLeft(save(), day));
@@ -535,7 +637,8 @@ export class MainScene extends Phaser.Scene {
     } else if (this.state === 'ready' && this.shownCount >= 0 && this.waits()) {
       this.refreshBottom();
     }
-    if (this.state === 'after' && time >= this.afterUntil) this.proceed();
+    // A result the tutorial points into, or a pack being opened over it, is not gone on from by itself.
+    if (this.state === 'after' && time >= this.afterUntil && !this.guide.holds && !this.welcome.busy) this.proceed();
   }
 
   // ------------------------------------------------------------ what the player presses
@@ -607,10 +710,11 @@ export class MainScene extends Phaser.Scene {
     this.cameras.main.setVisible(!drawer);
     if (drawer && !this.side) {
       const r = FIELD_WINDOW;
-      // The player's half and a little round it, with room over the back row for heads and plates.
-      const zoom = r.w / (BOARD_PX_W / 2 + 36);
+      // The player's half and a little round it, with room over the back row for heads and plates. Never
+      // smaller than it is on the field itself: what is on the plates is read here too.
+      const zoom = Math.max(1, Math.min(r.w / (BOARD_PX_W / 2 + 24), r.h / (BOARD_PX_H + 104)));
       this.side = this.cameras.add(r.x * RES, r.y * RES, r.w * RES, r.h * RES).setZoom(zoom * RES);
-      this.side.centerOn(BOARD_X + BOARD_PX_W / 4 - 6, BOARD_Y + BOARD_PX_H / 2 - 48);
+      this.side.centerOn(BOARD_X + BOARD_PX_W / 4, BOARD_Y + BOARD_PX_H / 2 - 44);
       this.side.setBackgroundColor(GROUND[landOf(this.at).ground].around);
       this.board.hideEnemiesFrom(this.side);
     }
@@ -706,20 +810,29 @@ export class MainScene extends Phaser.Scene {
       color?: string;
       sound?: 'coin' | 'lift';
       w: number;
+      /** True for the pack the first tutorial has the player open here. */
+      gift?: boolean;
     }
     const loot: Loot[] = [];
     if (r.coins > 0) {
-      loot.push({ draw: (x, y) => [this.add.image(x, y, SHEET, 'icon/coin').setScale(0.62)], big: `+${r.coins}`, small: 'coins', color: GOLD.fill, sound: 'coin', w: 112 });
+      loot.push({ draw: (x, y) => [this.add.image(x, y, SHEET, 'icon/coin').setScale(0.62)], big: `+${r.coins}`, small: 'coins', color: GOLD.fill, sound: 'coin', w: 136 });
     }
     const drops = new Map<string, number>();
     for (const id of r.packs) drops.set(id, (drops.get(id) ?? 0) + 1);
+    // The first tutorial has a new player open a pack on this result: the one this win dropped, or, if it
+    // dropped none, one of those they came with. Its tile is where the hand points.
+    const s0 = save();
+    const gift = !s0.tutorial.done && s0.stats.opened === 0 && (s0.packs[FIRST_PACK] ?? 0) > 0;
+    if (gift && !drops.has(FIRST_PACK)) drops.set(FIRST_PACK, 1);
     for (const [id, n] of drops) {
       loot.push({
         draw: (x, y) => [this.add.image(x, y, CARDS, `pack/${id.split('@')[0]}`).setScale(0.19)],
-        big: n > 1 ? `x${n}` : 'PACK', small: packById(id).name.replace(' Pack', ''), color: HOLY.fill, sound: 'lift', w: 136,
+        // Its picture says which land's it is: under it, the one word that is its own, its difficulty or its name.
+        big: n > 1 ? `x${n}` : 'PACK', small: packWord(id), color: HOLY.fill, sound: 'lift', w: 136,
+        gift: gift && id === FIRST_PACK,
       });
     }
-    loot.push({ draw: (x, y) => [this.add.image(x, y, SHEET, 'icon/star').setScale(0.58)], big: `+${r.xp}`, small: 'experience each', w: 136 });
+    loot.push({ draw: (x, y) => [this.add.image(x, y, SHEET, 'icon/star').setScale(0.58)], big: `+${r.xp}`, small: 'XP each', w: 136 });
 
     // How tall it will be, so that it can be stood in the middle of the board.
     const ups = r.levelUps.slice(0, 6);
@@ -738,14 +851,14 @@ export class MainScene extends Phaser.Scene {
     if (r.field) news.push({ text: `The field is bigger from here: ${fieldName(r.field)}`, color: ARCANE.light });
     if (r.finished) news.push({ text: 'That was the last stage of all. Well fought.', color: ARCANE.light });
     if (!won && this.next < this.at) news.push({ text: 'Back one stage, to grow stronger', color: HIGHLIGHT });
-    const lootH = 138;
+    const lootH = 146;
     const upsH = ups.length > 0 ? 130 : 0;
-    const barH = 42;
+    const barH = 44;
     // A boss's first fall can say five things at once, with levels made besides: then the lines stand closer, to stay clear of the buttons.
     const crowded = ups.length > 0 && news.length > 3;
     const lineH = crowded ? 23 : 30;
     const tall = 70 + lootH + upsH + barH + news.length * lineH + 12;
-    const top = Math.max(108, Math.min(196, 364 - tall / 2));
+    const top = Math.max(96, Math.min(196, 364 - tall / 2));
 
     // A dark sheet behind it all, so that it reads over any land and any fight.
     const lootW = loot.reduce((n, l) => n + l.w + 10, -10);
@@ -788,10 +901,17 @@ export class MainScene extends Phaser.Scene {
         const mid = lx + l.w / 2;
         const tile = this.add.graphics();
         slab(tile, lx, ly, l.w, lootH - 14, BONE, 14, 6);
-        const big = label(this, mid, ly + 82, l.big, { size: 22, color: l.color ?? HIGHLIGHT, strokeWidth: 6 });
-        const small = label(this, mid, ly + 106, l.small, { size: l.small.length > 14 ? 11 : 13, weight: 600, color: OUTLINE, stroke: null });
+        const big = label(this, mid, ly + 82, l.big, { size: 24, color: l.color ?? HIGHLIGHT, strokeWidth: 6 });
+        const small = label(this, mid, ly + 110, l.small, { size: 17, color: OUTLINE, stroke: null });
         return [tile, ...l.draw(mid, ly + 36), big, small];
-      }, wait, sound ? () => sfx.play(sound, 0.8) : undefined);
+      }, wait, () => {
+        if (sound) sfx.play(sound, 0.8);
+        // The pack to open is on the screen now: the tutorial's hand can come down on it.
+        if (l.gift) {
+          this.welcome.usePackTile({ x: lx, y: ly, w: l.w, h: lootH - 14 });
+          this.guide.refresh();
+        }
+      });
       x += l.w + 10;
       wait += 130;
     }
@@ -830,15 +950,15 @@ export class MainScene extends Phaser.Scene {
       pop(() => {
         const p = save().player;
         const need = playerXpToNext(p.level);
-        const bw = 300;
-        const bx = cx - bw / 2 + 40;
+        const bw = 270;
+        const bx = cx - bw / 2 + 50;
         const bar = this.add.graphics();
         bar.fillStyle(hex(OUTLINE), 1).fillRoundedRect(bx - 4, by + 8, bw + 8, 22, 10);
         bar.fillStyle(hex(IRON.fill), 1).fillRoundedRect(bx, by + 12, bw, 14, 6);
         const share = p.level >= PLAYER_MAX_LEVEL ? 1 : Math.min(1, p.xp / need);
         if (share > 0.02) bar.fillStyle(hex(HOLY.fill), 1).fillRoundedRect(bx, by + 12, bw * share, 14, 6);
-        const name = label(this, bx - 14, by + 18, `YOUR LEVEL ${p.level}`, { size: 16, align: 'right', strokeWidth: 5 });
-        const got = label(this, bx + bw + 12, by + 18, `+${r.playerXp}`, { size: 16, align: 'left', color: HOLY.fill, strokeWidth: 5 });
+        const name = label(this, bx - 14, by + 18, `YOUR LEVEL ${p.level}`, { size: 18, align: 'right', strokeWidth: 5 });
+        const got = label(this, bx + bw + 12, by + 18, `+${r.playerXp}`, { size: 18, align: 'left', color: HOLY.fill, strokeWidth: 5 });
         return [bar, name, got];
       }, wait, r.playerLevels > 0 ? () => sfx.play('levelUp', 1, 1.25) : undefined);
       y += barH;
@@ -850,9 +970,10 @@ export class MainScene extends Phaser.Scene {
       pop(() => [label(this, cx, ny, n.text, { size: crowded ? 17 : 20, color: n.color, strokeWidth: crowded ? 5 : 6 })], wait + 160 + i * 110);
     });
 
-    // Under it all, once there has been time to see it: it need not be waited for.
-    pop(() => {
-      const hint = label(this, cx, top + tall + 22, 'TAP TO CONTINUE', { size: 15, color: HIGHLIGHT, strokeWidth: 5 });
+    // Under it all, once there has been time to see it: it need not be waited for. A result so full that it
+    // comes down to the buttons leaves it out: CONTINUE, right under it, says the same.
+    if (top + tall + 24 < 606) pop(() => {
+      const hint = label(this, cx, top + tall + 24, 'TAP TO CONTINUE', { size: 18, color: HIGHLIGHT, strokeWidth: 5 });
       this.tweens.add({ targets: hint, alpha: 0.45, duration: 600, yoyo: true, repeat: -1 });
       return [hint];
     }, 650);

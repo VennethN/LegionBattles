@@ -13,9 +13,9 @@ import Phaser from 'phaser';
 import type { ManifestUnit } from '../art/manifest';
 import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE } from '../art/poses';
 import { FEET_X, FEET_Y, addPose, clearPose, makeXforms, restPose, solve, type PartXform, type Pose } from '../art/rig';
-import { OUTLINE } from '../art/kit/palette';
+import { HOLY, OUTLINE } from '../art/kit/palette';
 import { ART_SCALE, hex } from './config';
-import { DIGITS_KEY } from './Numbers';
+import { DIGITS_KEY, PLATE_TEXT } from './Numbers';
 import { UNIT_SCALE } from './layout';
 import { SHEET, Sheet } from './Sheet';
 
@@ -48,11 +48,37 @@ const TRAP_DEPTH = 3;
 const MARK_W = 108;
 const MARK_FLAT = 0.5;
 
-const BAR_W = 50;
-const BAR_H = 11;
-/** The chip with a unit's level stands a little taller than the bar it is beside. */
-const CHIP_H = 13;
-const GRADE_W = 17;
+/**
+ * The plate over a unit: its health as a bar with the number on it, its
+ * level on a chip at the bar's left and, on the first field, its grade on
+ * one at its right. Its figures are never smaller than PLATE_TEXT, on any
+ * field: they are read in a frame of 821 by 462 on a portal's page, where
+ * the layout is drawn at two thirds of its size. So on a bigger field, where
+ * a unit is drawn smaller, the plate is not, and there it has no grade: all
+ * three at a size that can be read are half as wide again as a tile of the
+ * biggest field, and plates that lapped that far were a row of figures no
+ * one could tell apart. The grade is still told there: on the card a tap on
+ * the unit shows, and for the enemy on the stage's own line, as all of a
+ * stage stand at one grade.
+ *
+ * It is one row, never two: a column of units is the common thing, and a
+ * plate two rows tall hid most of whoever stood in the row above it.
+ */
+const BAR_W = 54;
+/** The bar on a field of smaller tiles: room for four figures and no more. */
+const BAR_W_SMALL = 50;
+const BAR_H = 18;
+/** How far over a unit's head the middle of its bar is: the plate's dark edge just clears the head. */
+const PLATE_UP = 11;
+/**
+ * A chip is as tall as the bar, and wider than its figures by enough of its
+ * own color to be seen as a box: one figure, or two. With less, a level, a
+ * health and a grade ran together and read as one number.
+ */
+const CHIP_W = 25;
+const CHIP_W_TWO = 35;
+/** The dark between a chip and the bar. */
+const CHIP_GAP = 6;
 
 /** What the plate over a unit says besides its health. */
 export interface UnitPlate {
@@ -64,8 +90,13 @@ export interface UnitPlate {
   gradeColor: number;
 }
 const MAX_PIPS = 4;
-/** How big a status's icon is over a unit, on the first field. */
-const PIP = 22;
+/** How big a status's icon is over a unit. */
+const PIP = 24;
+/** The ring under a unit whose skill can be called: how wide on the screen at the least, and how flat, as the ground is seen from above. */
+const CALL_RING = 92;
+const CALL_FLAT = 0.55;
+/** How big the badge over it is: a hand on gold, pointing down at it. */
+const CALL_BADGE = 52;
 /** The frame of each status's icon, by its place in STATUS_IDS. */
 const STATUS_FRAMES: readonly string[] = STATUS_IDS.map((id) => `icon/status-${id}`);
 
@@ -155,11 +186,26 @@ export class UnitView {
   private readonly side: 1 | -1;
   /** How big its canvas is drawn: the usual scale, times the zoom of its field. */
   private readonly unit: number;
-  /** The plate's own scale, and its parts' sizes at it. */
-  private readonly ps: number;
-  private readonly barH: number;
-  private readonly chipH: number;
   private readonly gradeW: number;
+  /** How far right of the unit's middle the bar's middle is: the plate as a whole stands over the unit, whatever chips it has. */
+  private readonly barShift: number;
+
+  /**
+   * What says its skill can be called: a ring of gold under it on a patch
+   * of light, a hoop that closes on it as its time runs out, and over it a
+   * badge with a hand that points down at it. They are made the first time
+   * they are wanted, as only the player's own units ever want them.
+   */
+  private callRing: Phaser.GameObjects.Image | null = null;
+  private callGlow: Phaser.GameObjects.Image | null = null;
+  private callClose: Phaser.GameObjects.Image | null = null;
+  private callHand: Phaser.GameObjects.Image | null = null;
+  private callOn = false;
+  private callLeft = 1;
+  /** True while the tutorial's own hand is on it: then the badge is away. */
+  private callQuiet = false;
+  /** Counts down from a call, for the jump a unit gives when it is called. */
+  private calledFor = 0;
 
   constructor(
     scene: Phaser.Scene,
@@ -178,12 +224,7 @@ export class UnitView {
     zoom = 1,
   ) {
     this.unit = UNIT_SCALE * zoom;
-    // The plate shrinks with the field, but not as far: it is read.
-    const ps = Math.max(0.75, zoom);
-    this.ps = ps;
-    this.barH = Math.max(5, Math.round(BAR_H * ps));
-    this.chipH = Math.round(CHIP_H * ps);
-    this.gradeW = Math.round(GRADE_W * ps);
+    this.gradeW = CHIP_W;
     this.root = scene.add.container(0, 0);
     this.xf = makeXforms(art.parts.length);
     let weapon = -1;
@@ -211,27 +252,35 @@ export class UnitView {
     this.barBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setOrigin(0.5, 0.5);
     this.barLag = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(0xffffff).setOrigin(0, 0.5);
     this.barFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(barColor).setOrigin(0, 0.5);
-    this.barW = Math.round(BAR_W * ps * (1 + (size - 1) * 1.6));
-    this.barBack.setDisplaySize(this.barW + 6, this.barH + 6);
+    this.barW = Math.round((zoom < 1 ? BAR_W_SMALL : BAR_W) * (1 + (size - 1) * 1.6));
+    this.barBack.setDisplaySize(this.barW + 6, BAR_H + 6);
     // The health left, in figures, over the bar: the bar says how much of it, this says how much.
-    this.hpText = scene.add.bitmapText(0, 0, DIGITS_KEY, '', 13 * ps).setOrigin(0.5).setVisible(false);
-    this.hpText.setLetterSpacing(-13);
+    this.hpText = scene.add.bitmapText(0, 0, DIGITS_KEY, '', PLATE_TEXT).setOrigin(0.5).setVisible(false);
+    this.hpText.setLetterSpacing(-14);
     for (let i = 0; i < MAX_PIPS; i++) {
       // Each is the icon of a status (art/icons.ts), big enough to be told apart in a fight.
-      this.pips.push(scene.add.image(0, 0, SHEET, STATUS_FRAMES[0]).setDisplaySize(PIP * ps, PIP * ps).setVisible(false));
+      this.pips.push(scene.add.image(0, 0, SHEET, STATUS_FRAMES[0]).setDisplaySize(PIP, PIP).setVisible(false));
       this.pipIds.push(0);
     }
+    let shift = 0;
     if (plate && kind !== 'trap') {
       // Wide enough for the number: one digit or two.
-      this.chipW = Math.round((plate.level >= 10 ? 28 : 19) * ps);
-      this.chipBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(this.chipW + 6, this.chipH + 6);
-      this.chipFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.color).setDisplaySize(this.chipW, this.chipH);
-      this.chipText = scene.add.bitmapText(0, 0, DIGITS_KEY, String(plate.level), 15 * ps).setOrigin(0.5);
-      this.chipText.setLetterSpacing(-13);
-      this.gradeBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(this.gradeW + 6, this.chipH + 6);
-      this.gradeFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.gradeColor).setDisplaySize(this.gradeW, this.chipH);
-      this.gradeText = scene.add.bitmapText(0, 0, DIGITS_KEY, plate.grade, 15 * ps).setOrigin(0.5);
+      this.chipW = plate.level >= 10 ? CHIP_W_TWO : CHIP_W;
+      shift = (this.chipW + CHIP_GAP) / 2;
+      this.chipBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(this.chipW + 6, BAR_H + 6);
+      this.chipFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.color).setDisplaySize(this.chipW, BAR_H);
+      // The level is in gold and the health beside it in white: two numbers side by side, told apart by color.
+      this.chipText = scene.add.bitmapText(0, 0, DIGITS_KEY, String(plate.level), PLATE_TEXT).setOrigin(0.5).setTint(hex(HOLY.fill));
+      this.chipText.setLetterSpacing(-14);
+      if (zoom >= 1) {
+        // The grade, where the field's tiles are wide enough for it.
+        this.gradeBack = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(hex(OUTLINE)).setDisplaySize(this.gradeW + 6, BAR_H + 6);
+        this.gradeFill = scene.add.image(0, 0, SHEET, 'fx/pixel').setTint(plate.gradeColor).setDisplaySize(this.gradeW, BAR_H);
+        this.gradeText = scene.add.bitmapText(0, 0, DIGITS_KEY, plate.grade, PLATE_TEXT).setOrigin(0.5);
+        shift -= (this.gradeW + CHIP_GAP) / 2;
+      }
     }
+    this.barShift = shift;
     this.setBarsVisible(false);
 
     // Its own rhythm, so that a row of units does not breathe as one.
@@ -300,7 +349,7 @@ export class UnitView {
       if (this.pipIds[i] === ids[i]) continue;
       this.pipIds[i] = ids[i];
       this.pips[i].setFrame(STATUS_FRAMES[ids[i]]);
-      this.pips[i].setDisplaySize(PIP * this.ps, PIP * this.ps);
+      this.pips[i].setDisplaySize(PIP, PIP);
     }
     this.pipCount = n;
   }
@@ -309,9 +358,47 @@ export class UnitView {
   things(): Phaser.GameObjects.GameObject[] {
     const out: Array<Phaser.GameObjects.GameObject | null> = [
       this.root, this.mark, this.barBack, this.barLag, this.barFill, this.hpText, this.chipBack, this.chipFill, this.chipText, this.gradeBack,
-      this.gradeFill, this.gradeText, ...this.pips,
+      this.gradeFill, this.gradeText, this.callRing, this.callGlow, this.callClose, this.callHand, ...this.pips,
     ];
     return out.filter((o): o is Phaser.GameObjects.GameObject => !!o);
+  }
+
+  /**
+   * Says whether its skill can be called now, and how much of its time is
+   * left before the skill goes off by itself: 1 when it can first be called,
+   * 0 when it is ready. The board asks the battle and tells it every frame.
+   */
+  setCallable(on: boolean, left = 1, quiet = false): void {
+    this.callLeft = left;
+    if (on === this.callOn && quiet === this.callQuiet) return;
+    this.callOn = on;
+    this.callQuiet = quiet;
+    if (on && !this.callRing) {
+      const scene = this.root.scene;
+      this.callGlow = scene.add.image(0, 0, SHEET, 'fx/disc').setTint(hex(HOLY.fill));
+      this.callRing = scene.add.image(0, 0, SHEET, 'fx/call');
+      this.callClose = scene.add.image(0, 0, SHEET, 'fx/hoop');
+      this.callHand = scene.add.image(0, 0, SHEET, 'icon/call').setDisplaySize(CALL_BADGE, CALL_BADGE);
+    }
+    this.callRing?.setVisible(on);
+    this.callGlow?.setVisible(on);
+    this.callClose?.setVisible(on);
+    this.callHand?.setVisible(on && !quiet);
+  }
+
+  /** The top of everything that stands over it, its plate included: for a hand that comes down on it from above. */
+  get crown(): number {
+    return this.y - this.height - PLATE_UP - (BAR_H / 2 + 3);
+  }
+
+  /** True while its skill can be called. */
+  get callable(): boolean {
+    return this.callOn;
+  }
+
+  /** The player called its skill: it jumps, so that the press is seen to have landed before the skill is. */
+  called(): void {
+    this.calledFor = 0.22;
   }
 
   /** The health bar shows only while there is a fight on. */
@@ -332,7 +419,12 @@ export class UnitView {
     this.barsOn = on;
   }
 
-  update(now: number, dt: number): void {
+  /**
+   * `real` is the time on the wall, in seconds: what says a skill can be
+   * called beats to it and not to the battle's clock, which the first
+   * tutorial all but stops.
+   */
+  update(now: number, dt: number, real = now): void {
     if (this.gone) return;
     const p = this.pose;
     clearPose(p);
@@ -490,6 +582,13 @@ export class UnitView {
     }
 
     p.rootY -= this.lift;
+    if (this.calledFor > 0) {
+      // Called: a quick jump, up and back.
+      this.calledFor = Math.max(0, this.calledFor - dt);
+      const k = Math.sin((1 - this.calledFor / 0.22) * Math.PI);
+      p.rootY -= 9 * k;
+      p.bodySy += 0.08 * k;
+    }
 
     solve(this.art.parts, p, this.xf);
     for (let i = 0; i < this.sprites.length; i++) {
@@ -543,16 +642,37 @@ export class UnitView {
     if (this.health < this.lagHealth) this.lagHealth = Math.max(this.health, this.lagHealth - dt * 0.6);
     else this.lagHealth = this.health;
     const BAR_W = this.barW;
-    const bx = this.x - BAR_W / 2;
-    const by = this.y - this.height - 9 * this.ps - this.lift;
-    this.barBack.x = this.x;
+    const mid = this.x + this.barShift;
+    const bx = mid - BAR_W / 2;
+    const by = this.y - this.height - PLATE_UP - this.lift;
+    // The top of the plate, for what stands over it.
+    const plateTop = by - BAR_H / 2 - 3;
+
+    if (this.callOn && this.callRing && this.callGlow && this.callClose && this.callHand && this.deadAt < 0) {
+      // A ring of gold under it that beats, a hoop that closes on it as its time runs out, and the badge bobbing over its plate.
+      const beat = 0.5 + 0.5 * Math.sin(real * 11);
+      const w = Math.max(CALL_RING, this.height * 0.95) * (1 + 0.1 * beat);
+      const cy = this.y - 4;
+      this.callGlow.setPosition(this.x, cy).setDisplaySize(w * 1.1, w * CALL_FLAT * 1.1);
+      this.callGlow.alpha = 0.55 + 0.3 * beat;
+      this.callGlow.depth = 4.8;
+      this.callRing.setPosition(this.x, cy).setDisplaySize(w, w * CALL_FLAT);
+      this.callRing.depth = 5;
+      const far = 1.08 + 0.6 * this.callLeft;
+      this.callClose.setPosition(this.x, cy).setDisplaySize(w * far, w * CALL_FLAT * far);
+      this.callClose.alpha = 0.7;
+      this.callClose.depth = 5.1;
+      this.callHand.setPosition(this.x, (this.barsOn ? plateTop : this.y - this.height) - CALL_BADGE * 0.5 - 2 - 8 * beat);
+      this.callHand.depth = 7100;
+    }
+    this.barBack.x = mid;
     this.barBack.y = by;
     this.barLag.x = bx;
     this.barLag.y = by;
     this.barFill.x = bx;
     this.barFill.y = by;
-    this.barLag.setDisplaySize(Math.max(0.001, BAR_W * this.lagHealth), this.barH);
-    this.barFill.setDisplaySize(Math.max(0.001, BAR_W * this.health), this.barH);
+    this.barLag.setDisplaySize(Math.max(0.001, BAR_W * this.lagHealth), BAR_H);
+    this.barFill.setDisplaySize(Math.max(0.001, BAR_W * this.health), BAR_H);
     const depth = 5000 + this.y;
     this.barBack.depth = depth;
     this.barLag.depth = depth + 0.1;
@@ -563,9 +683,10 @@ export class UnitView {
       const whole = Math.ceil(this.hp);
       if (whole !== this.hpShown) {
         this.hpShown = whole;
-        this.hpText.setText(String(whole));
+        // Five figures do not fit the bar at a size that can be read: ten thousand and over is said in thousands.
+        this.hpText.setText(whole >= 10000 ? `${Math.floor(whole / 1000)}K` : String(whole));
       }
-      this.hpText.setPosition(this.x, by - 1);
+      this.hpText.setPosition(mid, by - 1);
       this.hpText.depth = depth + 0.35;
       this.hpText.alpha = alpha;
     }
@@ -574,7 +695,7 @@ export class UnitView {
     this.barFill.alpha = alpha;
     if (this.chipBack && this.chipFill && this.chipText) {
       // The chip stands at the bar's left end, touching it, so the two read as one plate.
-      const cx = bx - 3 - this.chipW / 2;
+      const cx = bx - CHIP_GAP - this.chipW / 2;
       this.chipBack.setPosition(cx, by);
       this.chipFill.setPosition(cx, by);
       this.chipText.setPosition(cx, by - 1);
@@ -587,7 +708,7 @@ export class UnitView {
     }
     if (this.gradeBack && this.gradeFill && this.gradeText) {
       // And the grade at the bar's right end, so that the bar stays over the middle of the unit.
-      const gx = bx + BAR_W + 3 + this.gradeW / 2;
+      const gx = bx + BAR_W + CHIP_GAP + this.gradeW / 2;
       this.gradeBack.setPosition(gx, by);
       this.gradeFill.setPosition(gx, by);
       this.gradeText.setPosition(gx, by - 1);
@@ -604,8 +725,8 @@ export class UnitView {
       const on = this.barsOn && i < this.pipCount && this.deadAt < 0;
       if (pip.visible !== on) pip.setVisible(on);
       if (!on) continue;
-      pip.x = this.x - ((this.pipCount - 1) * (PIP + 2) * this.ps) / 2 + i * (PIP + 2) * this.ps;
-      pip.y = by - (PIP / 2 + 9) * this.ps;
+      pip.x = this.x - ((this.pipCount - 1) * (PIP + 2)) / 2 + i * (PIP + 2);
+      pip.y = plateTop - PIP / 2 - 2;
       pip.depth = depth + 0.3;
     }
   }
@@ -623,6 +744,10 @@ export class UnitView {
     this.gradeBack?.destroy();
     this.gradeFill?.destroy();
     this.gradeText?.destroy();
+    this.callRing?.destroy();
+    this.callGlow?.destroy();
+    this.callClose?.destroy();
+    this.callHand?.destroy();
     for (const pip of this.pips) pip.destroy();
   }
 }

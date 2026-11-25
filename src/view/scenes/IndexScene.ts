@@ -127,11 +127,11 @@ export class IndexScene extends Phaser.Scene {
     if (!def) return;
     const held = cardsOf(s, def.id).length;
     const pack = PACKS.find((p) => packHolds(p, def));
-    const from = pack ? `Found in the ${pack.name}.` : '';
     // The numbers are those of a card fresh from its pack, at the worst grade.
     unitPanel(this, add, def, {
       known: known(s, def),
-      line: held > 0 ? `You hold ${held}. ${from}` : `Not held. ${from}`,
+      // How many are held, and the pack it comes out of: a prize of the rewards comes out of none.
+      line: `${held > 0 ? `You hold ${held}` : 'Not held'}${pack ? `  ·  ${pack.name}` : ''}`,
     });
   }
 }

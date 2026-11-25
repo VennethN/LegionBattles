@@ -83,8 +83,10 @@ export const LANDS: readonly LandDef[] = [
     coins: [40, 150],
     weight: 1.3,
     stages: [
-      stage("Wood's Edge", 'normal', 0, 1, 'cutpurse@4,1 cutpurse@5,2'),
-      stage('The Deer Trail', 'normal', 0, 1, 'cutpurse@4,1 cutpurse@4,2 poacher@6,1'),
+      // Four, two of them a walk behind the others: a new player's first battle lasts ten seconds or a little
+      // more, long enough to call a skill in and be seen to matter. With two it was over in six (npm run journey --first=3).
+      stage("Wood's Edge", 'normal', 0, 1, 'cutpurse@4,1 cutpurse@5,2 cutpurse@7,0 cutpurse@7,3'),
+      stage('The Deer Trail', 'normal', 0, 1, 'cutpurse@4,1 cutpurse@4,2 cutpurse@7,3 poacher@6,1'),
       stage('Snare Hollow', 'normal', 0, 1, 'cutpurse@4,0 cutpurse@4,2 cutpurse@5,3 poacher@6,1 bramblesnare@4,1'),
       stage('The Toll Bridge', 'normal', 0, 2, 'cutpurse@4,1 cutpurse@4,2 poacher@6,0 poacher@6,3 lookout@7,1'),
       stage("Bruiser's Camp", 'miniboss', 0, 2, 'bruiser@4,1+ cutpurse@5,0 cutpurse@5,3 poacher@7,2'),
