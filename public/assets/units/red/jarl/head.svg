@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jarl-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="jarl-head-horn-far-shape" d="M 126 60 C 126 60 138.3 50.3 144 50 C 149.7 49.7 156.7 53.7 160 58 C 163.3 62.3 164.7 70.3 164 76 C 163.3 81.7 159.7 89 156 92 C 152.3 95 142 94 142 94 C 142 94 148.7 86 150 82 C 151.3 78 151.7 72.7 150 70 C 148.3 67.3 144 65.7 140 66 C 136 66.3 126 72 126 72 L 126 60 Z"/>
+<path id="jarl-head-crown-shape" d="M 72 60 L 70 40 L 82 52 L 90 36 L 98 52 L 106 36 L 114 52 L 126 40 L 124 60 Z"/>
+<clipPath id="jarl-head-crown-clip"><use href="#jarl-head-crown-shape"/></clipPath>
+<clipPath id="jarl-head-crown-lit-clip"><use href="#jarl-head-crown-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="jarl-head-helm-shape" d="M 97 52 C 104.3 52 113.7 54.3 119 59 C 124.3 63.7 128 73 129 80 C 130 87 128.5 96 125 101 C 121.5 106 114.8 108.5 108 110 C 101.2 111.5 90.5 111.5 84 110 C 77.5 108.5 72.2 106 69 101 C 65.8 96 64 87 65 80 C 66 73 69.7 63.7 75 59 C 80.3 54.3 89.7 52 97 52 Z"/>
+<clipPath id="jarl-head-helm-clip"><use href="#jarl-head-helm-shape"/></clipPath>
+<clipPath id="jarl-head-helm-lit-clip"><use href="#jarl-head-helm-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="jarl-head-brow-shape" d="M 60 62 C 66 59.5 83.7 58 96 58 C 108.3 58 127.7 59.7 134 62 C 140.3 64.3 140.3 70.8 134 72 C 127.7 73.2 108.3 68.8 96 69 C 83.7 69.2 66 74.2 60 73 C 54 71.8 54 64.5 60 62 Z"/>
+<path id="jarl-head-horn-shape" d="M 76 62 C 76 62 63.7 52.3 58 52 C 52.3 51.7 45.3 55.7 42 60 C 38.7 64.3 37.3 72.3 38 78 C 38.7 83.7 42.3 91 46 94 C 49.7 97 60 96 60 96 C 60 96 53.3 88 52 84 C 50.7 80 50.3 74.7 52 72 C 53.7 69.3 58 67.7 62 68 C 66 68.3 76 74 76 74 L 76 62 Z"/>
+<clipPath id="jarl-head-horn-clip"><use href="#jarl-head-horn-shape"/></clipPath>
+<clipPath id="jarl-head-horn-lit-clip"><use href="#jarl-head-horn-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<path id="jarl-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="jarl-head-horn-far">
+<use id="jarl-head-horn-far-fill" href="#jarl-head-horn-far-shape" fill="#c4b594"/>
+<use id="jarl-head-horn-far-line" href="#jarl-head-horn-far-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-head-crown">
+<use id="jarl-head-crown-shade" href="#jarl-head-crown-shape" fill="#9c7c33"/>
+<g clip-path="url(#jarl-head-crown-clip)">
+<use id="jarl-head-crown-fill" href="#jarl-head-crown-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#jarl-head-crown-lit-clip)">
+<use id="jarl-head-crown-lit" href="#jarl-head-crown-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="jarl-head-crown-fill-over" href="#jarl-head-crown-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+<path id="jarl-head-crown-sheen" d="M103.04 36 L111.44 36 L101.36 60 L92.96 60 Z M114.94 36 L117.54 36 L107.46 60 L104.86 60 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="jarl-head-crown-line" href="#jarl-head-crown-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-head-helm">
+<use id="jarl-head-helm-shade" href="#jarl-head-helm-shape" fill="#434b56"/>
+<g clip-path="url(#jarl-head-helm-clip)">
+<use id="jarl-head-helm-deep" href="#jarl-head-helm-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="jarl-head-helm-shade-over" href="#jarl-head-helm-shape" transform="translate(-3.72 -3.72)" fill="#434b56"/>
+<use id="jarl-head-helm-fill" href="#jarl-head-helm-shape" transform="translate(-6 -6)" fill="#5d6672"/>
+<g clip-path="url(#jarl-head-helm-lit-clip)">
+<use id="jarl-head-helm-lit" href="#jarl-head-helm-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="jarl-head-helm-fill-over" href="#jarl-head-helm-shape" transform="translate(4.6 4.6)" fill="#5d6672"/>
+</g>
+<path id="jarl-head-helm-sheen" d="M109.5 52 L119.4 52 L94.41 111.5 L84.51 111.5 Z M122.9 52 L125.5 52 L100.51 111.5 L97.91 111.5 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="jarl-head-slit" d="M 111.5 74 L 111.5 74 Q 116 74 116 78.5 L 116 101.5 Q 116 106 111.5 106 L 111.5 106 Q 107 106 107 101.5 L 107 78.5 Q 107 74 111.5 74 Z" fill="#1e2b17"/>
+<path id="jarl-head-slit-edge" d="M 111.5 74 L 111.5 74 Q 116 74 116 78.5 L 116 101.5 Q 116 106 111.5 106 L 111.5 106 Q 107 106 107 101.5 L 107 78.5 Q 107 74 111.5 74 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="jarl-head-brow">
+<use id="jarl-head-brow-fill" href="#jarl-head-brow-shape" fill="#c8a24a"/>
+<use id="jarl-head-brow-line" href="#jarl-head-brow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="jarl-head-helm-line" href="#jarl-head-helm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="jarl-head-horn">
+<use id="jarl-head-horn-shade" href="#jarl-head-horn-shape" fill="#c4b594"/>
+<g clip-path="url(#jarl-head-horn-clip)">
+<use id="jarl-head-horn-fill" href="#jarl-head-horn-shape" transform="translate(-4 -4)" fill="#e9dfc6"/>
+<g clip-path="url(#jarl-head-horn-lit-clip)">
+<use id="jarl-head-horn-lit" href="#jarl-head-horn-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="jarl-head-horn-fill-over" href="#jarl-head-horn-shape" transform="translate(4.2 4.2)" fill="#e9dfc6"/>
+</g>
+<path id="jarl-head-ring-a" d="M 64.8 54.1 L 66.8 70.1 C 66.9 70.8 67.5 71.3 68.1 71.2 C 68.8 71.1 69.3 70.5 69.2 69.9 L 67.2 53.9 C 67.1 53.2 66.5 52.7 65.9 52.8 C 65.2 52.9 64.7 53.5 64.8 54.1 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="jarl-head-ring-b" d="M 52.9 54.5 L 58.9 68.5 C 59.2 69.1 59.9 69.4 60.5 69.1 C 61.1 68.8 61.4 68.1 61.1 67.5 L 55.1 53.5 C 54.8 52.9 54.1 52.6 53.5 52.9 C 52.9 53.2 52.6 53.9 52.9 54.5 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="jarl-head-ring-c" d="M 39.3 65 L 51.3 73 C 51.9 73.4 52.6 73.2 53 72.7 C 53.4 72.1 53.2 71.4 52.7 71 L 40.7 63 C 40.1 62.6 39.4 62.8 39 63.3 C 38.6 63.9 38.8 64.6 39.3 65 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="jarl-head-ring-d" d="M 40.2 83.2 L 52.2 81.2 C 52.9 81.1 53.3 80.5 53.2 79.8 C 53.1 79.1 52.5 78.7 51.8 78.8 L 39.8 80.8 C 39.1 80.9 38.7 81.5 38.8 82.2 C 38.9 82.9 39.5 83.3 40.2 83.2 Z" fill="#2a1a10" opacity="0.31"/>
+</g>
+<use id="jarl-head-horn-line" href="#jarl-head-horn-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

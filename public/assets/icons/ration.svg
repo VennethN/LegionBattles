@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ration" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="ration-loaf-shape" d="M 5 33 C 5 33 4.2 24.3 6 21 C 7.8 17.7 11.7 14.3 16 13 C 20.3 11.7 27.7 11.7 32 13 C 36.3 14.3 40.2 17.7 42 21 C 43.8 24.3 43 33 43 33 L 5 33 Z"/>
+<clipPath id="ration-loaf-clip"><use href="#ration-loaf-shape"/></clipPath>
+<clipPath id="ration-loaf-lit-clip"><use href="#ration-loaf-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="ration-cloth-shape" d="M 3 32 L 45 32 L 41 41 L 7 41 Z"/>
+</defs>
+<g id="ration-loaf">
+<use id="ration-loaf-shade" href="#ration-loaf-shape" fill="#8c6b42"/>
+<g clip-path="url(#ration-loaf-clip)">
+<use id="ration-loaf-deep" href="#ration-loaf-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="ration-loaf-shade-over" href="#ration-loaf-shape" transform="translate(-3.1 -3.1)" fill="#8c6b42"/>
+<use id="ration-loaf-fill" href="#ration-loaf-shape" transform="translate(-5 -5)" fill="#b08a5a"/>
+<g clip-path="url(#ration-loaf-lit-clip)">
+<use id="ration-loaf-lit" href="#ration-loaf-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="ration-loaf-fill-over" href="#ration-loaf-shape" transform="translate(4.6 4.6)" fill="#b08a5a"/>
+</g>
+<path id="ration-cut" d="M 12 17.5 L 17 28.5 C 17.2 29 17.9 29.3 18.5 29 C 19 28.8 19.3 28.1 19 27.5 L 14 16.5 C 13.8 16 13.1 15.7 12.5 16 C 12 16.2 11.7 16.9 12 17.5 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="ration-cut-2" d="M 21 17.5 L 26 28.5 C 26.2 29 26.9 29.3 27.5 29 C 28 28.8 28.3 28.1 28 27.5 L 23 16.5 C 22.8 16 22.1 15.7 21.5 16 C 21 16.2 20.7 16.9 21 17.5 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="ration-cut-3" d="M 30 17.5 L 35 28.5 C 35.2 29 35.9 29.3 36.5 29 C 37 28.8 37.3 28.1 37 27.5 L 32 16.5 C 31.8 16 31.1 15.7 30.5 16 C 30 16.2 29.7 16.9 30 17.5 Z" fill="#2a1a10" opacity="0.31"/>
+</g>
+<use id="ration-loaf-line" href="#ration-loaf-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ration-cloth">
+<use id="ration-cloth-fill" href="#ration-cloth-shape" fill="#d9cdb0"/>
+<use id="ration-cloth-line" href="#ration-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="wardrum" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="wardrum-shell-shape" d="M 14 17 L 34 17 Q 41 17 41 24 L 41 38 Q 41 45 34 45 L 14 45 Q 7 45 7 38 L 7 24 Q 7 17 14 17 Z"/>
+<clipPath id="wardrum-shell-clip"><use href="#wardrum-shell-shape"/></clipPath>
+<clipPath id="wardrum-shell-lit-clip"><use href="#wardrum-shell-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="wardrum-hoop-shape" d="M 5 39 L 43 39 L 43 45 L 5 45 L 5 39 Z"/>
+<path id="wardrum-skin-shape" d="M 41 17 C 41 20.9 33.4 24 24 24 C 14.6 24 7 20.9 7 17 C 7 13.1 14.6 10 24 10 C 33.4 10 41 13.1 41 17 Z"/>
+</defs>
+<g id="wardrum-shell">
+<use id="wardrum-shell-shade" href="#wardrum-shell-shape" fill="#2f5893"/>
+<g clip-path="url(#wardrum-shell-clip)">
+<use id="wardrum-shell-fill" href="#wardrum-shell-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#wardrum-shell-lit-clip)">
+<use id="wardrum-shell-lit" href="#wardrum-shell-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="wardrum-shell-fill-over" href="#wardrum-shell-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<path id="wardrum-lacing" d="M 11 21 L 15.3 41 L 19.7 21 L 24 41 L 28.3 21 L 32.7 41 L 37 21" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="wardrum-hoop">
+<use id="wardrum-hoop-fill" href="#wardrum-hoop-shape" fill="#c8a24a"/>
+<use id="wardrum-hoop-line" href="#wardrum-hoop-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="wardrum-shell-line" href="#wardrum-shell-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="wardrum-skin">
+<use id="wardrum-skin-fill" href="#wardrum-skin-shape" fill="#e9dfc6"/>
+<use id="wardrum-skin-line" href="#wardrum-skin-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

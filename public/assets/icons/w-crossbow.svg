@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-crossbow" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-crossbow-limbs-shape" d="M 23 99 Q 50 76 77 99 L 73 104 Q 50 86 27 104 Z"/>
+<path id="w-crossbow-stock-shape" d="M 49 86 L 51 86 Q 55 86 55 90 L 55 140 Q 55 144 51 144 L 49 144 Q 45 144 45 140 L 45 90 Q 45 86 49 86 Z"/>
+<clipPath id="w-crossbow-stock-clip"><use href="#w-crossbow-stock-shape"/></clipPath>
+<clipPath id="w-crossbow-stock-lit-clip"><use href="#w-crossbow-stock-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="w-crossbow-bolt-shape" d="M 45.5 86 L 50 72 L 54.5 86 Z"/>
+<path id="w-crossbow-hand-shape" d="M 57.5 126 C 57.5 130.1 54.1 133.5 50 133.5 C 45.9 133.5 42.5 130.1 42.5 126 C 42.5 121.9 45.9 118.5 50 118.5 C 54.1 118.5 57.5 121.9 57.5 126 Z"/>
+<clipPath id="w-crossbow-hand-clip"><use href="#w-crossbow-hand-shape"/></clipPath>
+<clipPath id="w-crossbow-hand-lit-clip"><use href="#w-crossbow-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="w-crossbow-string" d="M 25 96 L 50 116 L 75 96" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="w-crossbow-limbs">
+<use id="w-crossbow-limbs-fill" href="#w-crossbow-limbs-shape" fill="#b9c2cc"/>
+<use id="w-crossbow-limbs-line" href="#w-crossbow-limbs-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-crossbow-stock">
+<use id="w-crossbow-stock-shade" href="#w-crossbow-stock-shape" fill="#75502b"/>
+<g clip-path="url(#w-crossbow-stock-clip)">
+<use id="w-crossbow-stock-fill" href="#w-crossbow-stock-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#w-crossbow-stock-lit-clip)">
+<use id="w-crossbow-stock-lit" href="#w-crossbow-stock-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-crossbow-stock-fill-over" href="#w-crossbow-stock-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="w-crossbow-stock-line" href="#w-crossbow-stock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-crossbow-bolt">
+<use id="w-crossbow-bolt-fill" href="#w-crossbow-bolt-shape" fill="#e9dfc6"/>
+<use id="w-crossbow-bolt-line" href="#w-crossbow-bolt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-crossbow-hand">
+<use id="w-crossbow-hand-shade" href="#w-crossbow-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-crossbow-hand-clip)">
+<use id="w-crossbow-hand-fill" href="#w-crossbow-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-crossbow-hand-lit-clip)">
+<use id="w-crossbow-hand-lit" href="#w-crossbow-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-crossbow-hand-fill-over" href="#w-crossbow-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-crossbow-hand-line" href="#w-crossbow-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

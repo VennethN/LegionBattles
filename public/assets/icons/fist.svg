@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="fist" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="fist-hand-shape" d="M 37 24 C 37 31.2 31.2 37 24 37 C 16.8 37 11 31.2 11 24 C 11 16.8 16.8 11 24 11 C 31.2 11 37 16.8 37 24 Z"/>
+<clipPath id="fist-hand-clip"><use href="#fist-hand-shape"/></clipPath>
+<clipPath id="fist-hand-lit-clip"><use href="#fist-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="fist-hand">
+<use id="fist-hand-shade" href="#fist-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#fist-hand-clip)">
+<use id="fist-hand-fill" href="#fist-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#fist-hand-lit-clip)">
+<use id="fist-hand-lit" href="#fist-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="fist-hand-fill-over" href="#fist-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="fist-hand-line" href="#fist-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="archer-draw-hand" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="archer-draw-hand-fletch-shape" d="M 98 121.5 L 109 121.5 L 114 128 L 109 134.5 L 98 134.5 L 103 128 Z"/>
+<path id="archer-draw-hand-head-shape" d="M 139 121 L 154 128 L 139 135 Z"/>
+<path id="archer-draw-hand-hand-shape" d="M 125.5 128 C 125.5 132.1 122.1 135.5 118 135.5 C 113.9 135.5 110.5 132.1 110.5 128 C 110.5 123.9 113.9 120.5 118 120.5 C 122.1 120.5 125.5 123.9 125.5 128 Z"/>
+<clipPath id="archer-draw-hand-hand-clip"><use href="#archer-draw-hand-hand-shape"/></clipPath>
+<clipPath id="archer-draw-hand-hand-lit-clip"><use href="#archer-draw-hand-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="archer-draw-hand-shaft" d="M 104 128 L 142 128" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="archer-draw-hand-fletch">
+<use id="archer-draw-hand-fletch-fill" href="#archer-draw-hand-fletch-shape" fill="#e9dfc6"/>
+<use id="archer-draw-hand-fletch-line" href="#archer-draw-hand-fletch-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-draw-hand-head">
+<use id="archer-draw-hand-head-fill" href="#archer-draw-hand-head-shape" fill="#b9c2cc"/>
+<use id="archer-draw-hand-head-line" href="#archer-draw-hand-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-draw-hand-hand">
+<use id="archer-draw-hand-hand-shade" href="#archer-draw-hand-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#archer-draw-hand-hand-clip)">
+<use id="archer-draw-hand-hand-fill" href="#archer-draw-hand-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#archer-draw-hand-hand-lit-clip)">
+<use id="archer-draw-hand-hand-lit" href="#archer-draw-hand-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="archer-draw-hand-hand-fill-over" href="#archer-draw-hand-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="archer-draw-hand-hand-line" href="#archer-draw-hand-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

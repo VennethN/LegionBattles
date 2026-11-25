@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-bow" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-bow-limbs-shape" d="M 38 78 C 56 86 65 108 64 126 C 65 144 56 166 38 174 L 36 164 C 48 156 54 140 54 126 C 54 112 48 96 36 88 Z"/>
+<clipPath id="w-bow-limbs-clip"><use href="#w-bow-limbs-shape"/></clipPath>
+<clipPath id="w-bow-limbs-lit-clip"><use href="#w-bow-limbs-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="w-bow-grip-shape" d="M 56 117 L 61 117 Q 65 117 65 121 L 65 131 Q 65 135 61 135 L 56 135 Q 52 135 52 131 L 52 121 Q 52 117 56 117 Z"/>
+<path id="w-bow-hand-shape" d="M 63.5 126 C 63.5 130.1 60.1 133.5 56 133.5 C 51.9 133.5 48.5 130.1 48.5 126 C 48.5 121.9 51.9 118.5 56 118.5 C 60.1 118.5 63.5 121.9 63.5 126 Z"/>
+<clipPath id="w-bow-hand-clip"><use href="#w-bow-hand-shape"/></clipPath>
+<clipPath id="w-bow-hand-lit-clip"><use href="#w-bow-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="w-bow-string" d="M 41 84 L 41 168" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="w-bow-limbs">
+<use id="w-bow-limbs-shade" href="#w-bow-limbs-shape" fill="#75502b"/>
+<g clip-path="url(#w-bow-limbs-clip)">
+<use id="w-bow-limbs-fill" href="#w-bow-limbs-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#w-bow-limbs-lit-clip)">
+<use id="w-bow-limbs-lit" href="#w-bow-limbs-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-bow-limbs-fill-over" href="#w-bow-limbs-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="w-bow-limbs-line" href="#w-bow-limbs-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-bow-grip">
+<use id="w-bow-grip-fill" href="#w-bow-grip-shape" fill="#6b4a2b"/>
+<use id="w-bow-grip-line" href="#w-bow-grip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-bow-hand">
+<use id="w-bow-hand-shade" href="#w-bow-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-bow-hand-clip)">
+<use id="w-bow-hand-fill" href="#w-bow-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-bow-hand-lit-clip)">
+<use id="w-bow-hand-lit" href="#w-bow-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-bow-hand-fill-over" href="#w-bow-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-bow-hand-line" href="#w-bow-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

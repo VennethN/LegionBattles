@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="laurel" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="laurel-branch-l-shape" d="M 17.8 40.3 L 10.6 42.5 L 10.8 34.9 L 3.5 33.1 L 7.6 26.7 L 2.3 21.4 L 9 18 L 7.3 10.7 L 14.8 11.3 L 17 4.1 L 23.1 8.5 L 23.4 13.5 L 18.5 14.9 L 14.6 18.3 L 12.7 23.1 L 13 28.2 L 15.5 32.7 L 19.7 35.7 Z"/>
+<clipPath id="laurel-branch-l-clip"><use href="#laurel-branch-l-shape"/></clipPath>
+<clipPath id="laurel-branch-l-lit-clip"><use href="#laurel-branch-l-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="laurel-branch-r-shape" d="M 30.2 40.3 L 37.4 42.5 L 37.2 34.9 L 44.5 33.1 L 40.4 26.7 L 45.7 21.4 L 39 18 L 40.7 10.7 L 33.2 11.3 L 31 4.1 L 24.9 8.5 L 24.6 13.5 L 29.5 14.9 L 33.4 18.3 L 35.3 23.1 L 35 28.2 L 32.5 32.7 L 28.3 35.7 Z"/>
+<clipPath id="laurel-branch-r-clip"><use href="#laurel-branch-r-shape"/></clipPath>
+<clipPath id="laurel-branch-r-lit-clip"><use href="#laurel-branch-r-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="laurel-tie-shape" d="M 18 36 L 30 36 L 28 40 L 33 46 L 24 43 L 15 46 L 20 40 Z"/>
+</defs>
+<g id="laurel-branch-l">
+<use id="laurel-branch-l-shade" href="#laurel-branch-l-shape" fill="#3b722f"/>
+<g clip-path="url(#laurel-branch-l-clip)">
+<use id="laurel-branch-l-fill" href="#laurel-branch-l-shape" transform="translate(-3 -3)" fill="#4f8f3e"/>
+<g clip-path="url(#laurel-branch-l-lit-clip)">
+<use id="laurel-branch-l-lit" href="#laurel-branch-l-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="laurel-branch-l-fill-over" href="#laurel-branch-l-shape" transform="translate(3.6 3.6)" fill="#4f8f3e"/>
+</g>
+</g>
+<use id="laurel-branch-l-line" href="#laurel-branch-l-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="laurel-branch-r">
+<use id="laurel-branch-r-shade" href="#laurel-branch-r-shape" fill="#3b722f"/>
+<g clip-path="url(#laurel-branch-r-clip)">
+<use id="laurel-branch-r-fill" href="#laurel-branch-r-shape" transform="translate(-3 -3)" fill="#4f8f3e"/>
+<g clip-path="url(#laurel-branch-r-lit-clip)">
+<use id="laurel-branch-r-lit" href="#laurel-branch-r-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="laurel-branch-r-fill-over" href="#laurel-branch-r-shape" transform="translate(3.6 3.6)" fill="#4f8f3e"/>
+</g>
+</g>
+<use id="laurel-branch-r-line" href="#laurel-branch-r-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="laurel-tie">
+<use id="laurel-tie-fill" href="#laurel-tie-shape" fill="#c2453a"/>
+<use id="laurel-tie-line" href="#laurel-tie-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

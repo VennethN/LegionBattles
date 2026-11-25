@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-brazier" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-brazier-shaft-shape" d="M 49.5 56 L 50.5 56 Q 53.5 56 53.5 59 L 53.5 163 Q 53.5 166 50.5 166 L 49.5 166 Q 46.5 166 46.5 163 L 46.5 59 Q 46.5 56 49.5 56 Z"/>
+<clipPath id="w-brazier-shaft-clip"><use href="#w-brazier-shaft-shape"/></clipPath>
+<path id="w-brazier-flame-shape" d="M 41 50 C 41 50 38.2 41.3 39 38 C 39.8 34.7 44.5 33.3 46 30 C 47.5 26.7 48 18 48 18 C 48 18 53.8 24.7 56 28 C 58.2 31.3 60.5 34.3 61 38 C 61.5 41.7 59 50 59 50 L 41 50 Z"/>
+<clipPath id="w-brazier-flame-clip"><use href="#w-brazier-flame-shape"/></clipPath>
+<clipPath id="w-brazier-flame-lit-clip"><use href="#w-brazier-flame-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="w-brazier-bowl-shape" d="M 37 48 C 37 48 37.8 55.7 40 58 C 42.2 60.3 46.7 62 50 62 C 53.3 62 57.8 60.3 60 58 C 62.2 55.7 63 48 63 48 L 37 48 Z"/>
+<path id="w-brazier-hand-shape" d="M 57.5 126 C 57.5 130.1 54.1 133.5 50 133.5 C 45.9 133.5 42.5 130.1 42.5 126 C 42.5 121.9 45.9 118.5 50 118.5 C 54.1 118.5 57.5 121.9 57.5 126 Z"/>
+<clipPath id="w-brazier-hand-clip"><use href="#w-brazier-hand-shape"/></clipPath>
+<clipPath id="w-brazier-hand-lit-clip"><use href="#w-brazier-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="w-brazier-shaft">
+<use id="w-brazier-shaft-shade" href="#w-brazier-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#w-brazier-shaft-clip)">
+<use id="w-brazier-shaft-fill" href="#w-brazier-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="w-brazier-shaft-line" href="#w-brazier-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="w-brazier-halo" d="M 67 38 C 67 47.4 59.4 55 50 55 C 40.6 55 33 47.4 33 38 C 33 28.6 40.6 21 50 21 C 59.4 21 67 28.6 67 38 Z" fill="#ffd27a" opacity="0.45"/>
+<g id="w-brazier-flame">
+<use id="w-brazier-flame-shade" href="#w-brazier-flame-shape" fill="#c45f22"/>
+<g clip-path="url(#w-brazier-flame-clip)">
+<use id="w-brazier-flame-fill" href="#w-brazier-flame-shape" transform="translate(-3 -3)" fill="#f08a3c"/>
+<g clip-path="url(#w-brazier-flame-lit-clip)">
+<use id="w-brazier-flame-lit" href="#w-brazier-flame-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-brazier-flame-fill-over" href="#w-brazier-flame-shape" transform="translate(3.6 3.6)" fill="#f08a3c"/>
+</g>
+</g>
+<use id="w-brazier-flame-line" href="#w-brazier-flame-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="w-brazier-flame-core" d="M 46 48 C 46 48 44.3 42.7 45 40 C 45.7 37.3 50 32 50 32 C 50 32 54.3 37.3 55 40 C 55.7 42.7 54 48 54 48 L 46 48 Z" fill="#ffd27a"/>
+<g id="w-brazier-bowl">
+<use id="w-brazier-bowl-fill" href="#w-brazier-bowl-shape" fill="#5d6672"/>
+<use id="w-brazier-bowl-line" href="#w-brazier-bowl-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-brazier-hand">
+<use id="w-brazier-hand-shade" href="#w-brazier-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-brazier-hand-clip)">
+<use id="w-brazier-hand-fill" href="#w-brazier-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-brazier-hand-lit-clip)">
+<use id="w-brazier-hand-lit" href="#w-brazier-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-brazier-hand-fill-over" href="#w-brazier-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-brazier-hand-line" href="#w-brazier-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

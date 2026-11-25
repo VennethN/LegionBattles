@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="arrows" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="arrows-shaft-11-shape" d="M 7.7 6.3 L 8.1 6.2 Q 9.5 6 9.8 7.5 L 14.5 34 Q 14.8 35.5 13.3 35.8 L 12.9 35.9 Q 11.4 36.1 11.1 34.6 L 6.5 8 Q 6.2 6.6 7.7 6.3 Z"/>
+<path id="arrows-fletch-11-shape" d="M 2.4 4.2 L 8 7.3 L 12.3 2.5 L 13.7 10.3 L 9.4 15.1 L 3.8 12.1 Z"/>
+<path id="arrows-head-11-shape" d="M 6.8 34.9 L 18.6 32.8 L 14.8 45.7 Z"/>
+<path id="arrows-shaft-24-shape" d="M 23.8 6 L 24.2 6 Q 25.7 6 25.7 7.5 L 25.7 34.5 Q 25.7 36 24.2 36 L 23.8 36 Q 22.3 36 22.3 34.5 L 22.3 7.5 Q 22.3 6 23.8 6 Z"/>
+<path id="arrows-fletch-24-shape" d="M 19 3 L 24 7 L 29 3 L 29 11 L 24 15 L 19 11 Z"/>
+<path id="arrows-head-24-shape" d="M 18 34 L 30 34 L 24 46 Z"/>
+<path id="arrows-shaft-37-shape" d="M 39.9 6.2 L 40.3 6.3 Q 41.8 6.6 41.5 8 L 36.9 34.6 Q 36.6 36.1 35.1 35.9 L 34.7 35.8 Q 33.2 35.5 33.5 34 L 38.2 7.5 Q 38.5 6 39.9 6.2 Z"/>
+<path id="arrows-fletch-37-shape" d="M 35.7 2.5 L 40 7.3 L 45.6 4.2 L 44.2 12.1 L 38.6 15.1 L 34.3 10.3 Z"/>
+<path id="arrows-head-37-shape" d="M 29.4 32.8 L 41.2 34.9 L 33.2 45.7 Z"/>
+</defs>
+<g id="arrows-shaft-11">
+<use id="arrows-shaft-11-fill" href="#arrows-shaft-11-shape" fill="#9a6a3a"/>
+<use id="arrows-shaft-11-line" href="#arrows-shaft-11-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="arrows-fletch-11">
+<use id="arrows-fletch-11-fill" href="#arrows-fletch-11-shape" fill="#e9dfc6"/>
+<use id="arrows-fletch-11-line" href="#arrows-fletch-11-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="arrows-head-11">
+<use id="arrows-head-11-fill" href="#arrows-head-11-shape" fill="#b9c2cc"/>
+<use id="arrows-head-11-line" href="#arrows-head-11-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="arrows-shaft-24">
+<use id="arrows-shaft-24-fill" href="#arrows-shaft-24-shape" fill="#9a6a3a"/>
+<use id="arrows-shaft-24-line" href="#arrows-shaft-24-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="arrows-fletch-24">
+<use id="arrows-fletch-24-fill" href="#arrows-fletch-24-shape" fill="#e9dfc6"/>
+<use id="arrows-fletch-24-line" href="#arrows-fletch-24-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="arrows-head-24">
+<use id="arrows-head-24-fill" href="#arrows-head-24-shape" fill="#b9c2cc"/>
+<use id="arrows-head-24-line" href="#arrows-head-24-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="arrows-shaft-37">
+<use id="arrows-shaft-37-fill" href="#arrows-shaft-37-shape" fill="#9a6a3a"/>
+<use id="arrows-shaft-37-line" href="#arrows-shaft-37-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="arrows-fletch-37">
+<use id="arrows-fletch-37-fill" href="#arrows-fletch-37-shape" fill="#e9dfc6"/>
+<use id="arrows-fletch-37-line" href="#arrows-fletch-37-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="arrows-head-37">
+<use id="arrows-head-37-fill" href="#arrows-head-37-shape" fill="#b9c2cc"/>
+<use id="arrows-head-37-line" href="#arrows-head-37-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

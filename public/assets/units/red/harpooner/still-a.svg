@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="harpooner-a" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="harpooner-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="harpooner-shadow-shadow" d="M 130 181 C 130 185.4 114.8 189 96 189 C 77.2 189 62 185.4 62 181 C 62 176.6 77.2 173 96 173 C 114.8 173 130 176.6 130 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="harpooner-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<defs>
+<path id="harpooner-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
+<clipPath id="harpooner-leg-back-boot-clip"><use href="#harpooner-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="harpooner-leg-back-boot">
+<use id="harpooner-leg-back-boot-fill" href="#harpooner-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#harpooner-leg-back-boot-clip)">
+<path id="harpooner-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="harpooner-leg-back-boot-line" href="#harpooner-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="harpooner-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<path id="harpooner-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="harpooner-leg-front-boot-clip"><use href="#harpooner-leg-front-boot-shape"/></clipPath>
+<clipPath id="harpooner-leg-front-boot-lit-clip"><use href="#harpooner-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="harpooner-leg-front-boot">
+<use id="harpooner-leg-front-boot-shade" href="#harpooner-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#harpooner-leg-front-boot-clip)">
+<use id="harpooner-leg-front-boot-fill" href="#harpooner-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#harpooner-leg-front-boot-lit-clip)">
+<use id="harpooner-leg-front-boot-lit" href="#harpooner-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-leg-front-boot-fill-over" href="#harpooner-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="harpooner-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="harpooner-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="harpooner-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="harpooner-leg-front-boot-line" href="#harpooner-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="harpooner-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="harpooner-body-coat-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="harpooner-body-coat-clip"><use href="#harpooner-body-coat-shape"/></clipPath>
+<clipPath id="harpooner-body-coat-lit-clip"><use href="#harpooner-body-coat-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="harpooner-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="harpooner-body-arm-shape" d="M 116.8 123 L 126.8 119 C 130.6 117.4 132.5 113.1 131 109.2 C 129.4 105.4 125.1 103.5 121.2 105 L 111.2 109 C 107.4 110.6 105.5 114.9 107 118.8 C 108.6 122.6 112.9 124.5 116.8 123 Z"/>
+<clipPath id="harpooner-body-arm-clip"><use href="#harpooner-body-arm-shape"/></clipPath>
+<clipPath id="harpooner-body-arm-lit-clip"><use href="#harpooner-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="harpooner-body-coat">
+<use id="harpooner-body-coat-shade" href="#harpooner-body-coat-shape" fill="#933027"/>
+<g clip-path="url(#harpooner-body-coat-clip)">
+<use id="harpooner-body-coat-deep" href="#harpooner-body-coat-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="harpooner-body-coat-shade-over" href="#harpooner-body-coat-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="harpooner-body-coat-fill" href="#harpooner-body-coat-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#harpooner-body-coat-lit-clip)">
+<use id="harpooner-body-coat-lit" href="#harpooner-body-coat-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-body-coat-fill-over" href="#harpooner-body-coat-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
+<path id="harpooner-body-seam" d="M 104.7 100 L 105.3 100 Q 106.3 100 106.3 101 L 106.3 161 Q 106.3 162 105.3 162 L 104.7 162 Q 103.7 162 103.7 161 L 103.7 101 Q 103.7 100 104.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<path id="harpooner-body-rivet" d="M 112.2 112 C 112.2 113.2 111.2 114.2 110 114.2 C 108.8 114.2 107.8 113.2 107.8 112 C 107.8 110.8 108.8 109.8 110 109.8 C 111.2 109.8 112.2 110.8 112.2 112 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="harpooner-body-rivet-lit" d="M 110.2 111.2 C 110.2 111.8 109.8 112.2 109.2 112.2 C 108.7 112.2 108.2 111.8 108.2 111.2 C 108.2 110.7 108.7 110.2 109.2 110.2 C 109.8 110.2 110.2 110.7 110.2 111.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="harpooner-body-rivet-2" d="M 112.2 121 C 112.2 122.2 111.2 123.2 110 123.2 C 108.8 123.2 107.8 122.2 107.8 121 C 107.8 119.8 108.8 118.8 110 118.8 C 111.2 118.8 112.2 119.8 112.2 121 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="harpooner-body-rivet-lit-2" d="M 110.2 120.2 C 110.2 120.8 109.8 121.2 109.2 121.2 C 108.7 121.2 108.2 120.8 108.2 120.2 C 108.2 119.7 108.7 119.2 109.2 119.2 C 109.8 119.2 110.2 119.7 110.2 120.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="harpooner-body-rivet-3" d="M 112.2 130 C 112.2 131.2 111.2 132.2 110 132.2 C 108.8 132.2 107.8 131.2 107.8 130 C 107.8 128.8 108.8 127.8 110 127.8 C 111.2 127.8 112.2 128.8 112.2 130 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="harpooner-body-rivet-lit-3" d="M 110.2 129.2 C 110.2 129.8 109.8 130.2 109.2 130.2 C 108.7 130.2 108.2 129.8 108.2 129.2 C 108.2 128.7 108.7 128.2 109.2 128.2 C 109.8 128.2 110.2 128.7 110.2 129.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="harpooner-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="harpooner-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="harpooner-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="harpooner-body-belt">
+<use id="harpooner-body-belt-fill" href="#harpooner-body-belt-shape" fill="#e9dfc6"/>
+<use id="harpooner-body-belt-line" href="#harpooner-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="harpooner-body-coat-line" href="#harpooner-body-coat-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="harpooner-body-arm-cast" d="M 117.8 126.5 L 127.8 122.5 C 131.6 120.9 133.5 116.6 132 112.7 C 130.4 108.9 126.1 107 122.2 108.5 L 112.2 112.5 C 108.4 114.1 106.5 118.4 108 122.3 C 109.6 126.1 113.9 128 117.8 126.5 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="harpooner-body-arm">
+<use id="harpooner-body-arm-shade" href="#harpooner-body-arm-shape" fill="#933027"/>
+<g clip-path="url(#harpooner-body-arm-clip)">
+<use id="harpooner-body-arm-fill" href="#harpooner-body-arm-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#harpooner-body-arm-lit-clip)">
+<use id="harpooner-body-arm-lit" href="#harpooner-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-body-arm-fill-over" href="#harpooner-body-arm-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="harpooner-body-arm-line" href="#harpooner-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="harpooner-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<path id="harpooner-head-hood-shape" d="M 100 50 C 106.5 50.8 116 53 121 58 C 126 63 129.2 72.8 130 80 C 130.8 87.2 129.7 96.2 126 101 C 122.3 105.8 115 107.7 108 109 C 101 110.3 90.5 110.2 84 109 C 77.5 107.8 72.3 106.2 69 102 C 65.7 97.8 64.2 90.3 64 84 C 63.8 77.7 65 69.2 68 64 C 71 58.8 76.7 55.3 82 53 C 87.3 50.7 93.5 49.2 100 50 Z"/>
+<clipPath id="harpooner-head-hood-clip"><use href="#harpooner-head-hood-shape"/></clipPath>
+<clipPath id="harpooner-head-hood-lit-clip"><use href="#harpooner-head-hood-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="harpooner-head-brow-shape" d="M 92 58 C 93 54 99.3 47.7 104 46 C 108.7 44.3 115.3 45.7 120 48 C 124.7 50.3 129 55.7 132 60 C 135 64.3 138.3 71 138 74 C 137.7 77 133 79.3 130 78 C 127 76.7 123.7 68.7 120 66 C 116.3 63.3 111.7 61.3 108 62 C 104.3 62.7 100.7 70.7 98 70 C 95.3 69.3 91 62 92 58 Z"/>
+<clipPath id="harpooner-head-brow-clip"><use href="#harpooner-head-brow-shape"/></clipPath>
+<clipPath id="harpooner-head-brow-lit-clip"><use href="#harpooner-head-brow-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="harpooner-head-collar-shape" d="M 66 98 C 69.7 97.3 77 102.7 84 104 C 91 105.3 100.3 107 108 106 C 115.7 105 125.7 97.7 130 98 C 134.3 98.3 137 104.8 134 108 C 131 111.2 120.3 115.7 112 117 C 103.7 118.3 92.3 117.5 84 116 C 75.7 114.5 65 111 62 108 C 59 105 62.3 98.7 66 98 Z"/>
+<clipPath id="harpooner-head-collar-clip"><use href="#harpooner-head-collar-shape"/></clipPath>
+<clipPath id="harpooner-head-collar-lit-clip"><use href="#harpooner-head-collar-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="harpooner-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="harpooner-head-hood">
+<use id="harpooner-head-hood-shade" href="#harpooner-head-hood-shape" fill="#4e3520"/>
+<g clip-path="url(#harpooner-head-hood-clip)">
+<use id="harpooner-head-hood-deep" href="#harpooner-head-hood-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="harpooner-head-hood-shade-over" href="#harpooner-head-hood-shape" transform="translate(-3.72 -3.72)" fill="#4e3520"/>
+<use id="harpooner-head-hood-fill" href="#harpooner-head-hood-shape" transform="translate(-6 -6)" fill="#6b4a2b"/>
+<g clip-path="url(#harpooner-head-hood-lit-clip)">
+<use id="harpooner-head-hood-lit" href="#harpooner-head-hood-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-head-hood-fill-over" href="#harpooner-head-hood-shape" transform="translate(4.6 4.6)" fill="#6b4a2b"/>
+</g>
+<path id="harpooner-head-lining" d="M 108 60 C 114.3 59.3 124.8 63 130 68 C 135.2 73 139 82.8 139 90 C 139 97.2 135.8 107.5 130 111 C 124.2 114.5 110.7 113.7 104 111 C 97.3 108.3 92 101.5 90 95 C 88 88.5 89 77.8 92 72 C 95 66.2 101.7 60.7 108 60 Z" fill="#2a1a10" opacity="0.31"/>
+<path id="harpooner-head-opening" d="M 110 66 C 114.7 65.3 122.2 68.3 126 72 C 129.8 75.7 133 82.7 133 88 C 133 93.3 130.2 101.2 126 104 C 121.8 106.8 113 106.8 108 105 C 103 103.2 97.7 97.8 96 93 C 94.3 88.2 95.7 80.5 98 76 C 100.3 71.5 105.3 66.7 110 66 Z" fill="#1e2b17"/>
+<path id="harpooner-head-opening-edge" d="M 110 66 C 114.7 65.3 122.2 68.3 126 72 C 129.8 75.7 133 82.7 133 88 C 133 93.3 130.2 101.2 126 104 C 121.8 106.8 113 106.8 108 105 C 103 103.2 97.7 97.8 96 93 C 94.3 88.2 95.7 80.5 98 76 C 100.3 71.5 105.3 66.7 110 66 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="harpooner-head-fold-b" d="M 72 70 Q 67.5 82.7 69 96 Q 71.1 83.1 72 70 Z" fill="#2a1a10" opacity="0.21"/>
+</g>
+<use id="harpooner-head-hood-line" href="#harpooner-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="harpooner-head-brow">
+<use id="harpooner-head-brow-shade" href="#harpooner-head-brow-shape" fill="#c4b594"/>
+<g clip-path="url(#harpooner-head-brow-clip)">
+<use id="harpooner-head-brow-fill" href="#harpooner-head-brow-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#harpooner-head-brow-lit-clip)">
+<use id="harpooner-head-brow-lit" href="#harpooner-head-brow-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-head-brow-fill-over" href="#harpooner-head-brow-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="harpooner-head-brow-line" href="#harpooner-head-brow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="harpooner-head-collar">
+<use id="harpooner-head-collar-shade" href="#harpooner-head-collar-shape" fill="#c4b594"/>
+<g clip-path="url(#harpooner-head-collar-clip)">
+<use id="harpooner-head-collar-fill" href="#harpooner-head-collar-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#harpooner-head-collar-lit-clip)">
+<use id="harpooner-head-collar-lit" href="#harpooner-head-collar-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-head-collar-fill-over" href="#harpooner-head-collar-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="harpooner-head-collar-line" href="#harpooner-head-collar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="harpooner-rope-layer" transform="translate(76 132) rotate(0) scale(1 1) translate(-76 -132)">
+<defs>
+<path id="harpooner-rope-coil-shape" d="M 91 146 C 91 155.9 84.3 164 76 164 C 67.7 164 61 155.9 61 146 C 61 136.1 67.7 128 76 128 C 84.3 128 91 136.1 91 146 Z"/>
+<clipPath id="harpooner-rope-coil-clip"><use href="#harpooner-rope-coil-shape"/></clipPath>
+<clipPath id="harpooner-rope-coil-lit-clip"><use href="#harpooner-rope-coil-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="harpooner-rope-hand-shape" d="M 83.5 130 C 83.5 134.1 80.1 137.5 76 137.5 C 71.9 137.5 68.5 134.1 68.5 130 C 68.5 125.9 71.9 122.5 76 122.5 C 80.1 122.5 83.5 125.9 83.5 130 Z"/>
+<clipPath id="harpooner-rope-hand-clip"><use href="#harpooner-rope-hand-shape"/></clipPath>
+<clipPath id="harpooner-rope-hand-lit-clip"><use href="#harpooner-rope-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="harpooner-rope-coil">
+<use id="harpooner-rope-coil-shade" href="#harpooner-rope-coil-shape" fill="#b3a585"/>
+<g clip-path="url(#harpooner-rope-coil-clip)">
+<use id="harpooner-rope-coil-fill" href="#harpooner-rope-coil-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#harpooner-rope-coil-lit-clip)">
+<use id="harpooner-rope-coil-lit" href="#harpooner-rope-coil-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-rope-coil-fill-over" href="#harpooner-rope-coil-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="harpooner-rope-coil-line" href="#harpooner-rope-coil-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="harpooner-rope-coil-hole" d="M 82 146 C 82 151 79.3 155 76 155 C 72.7 155 70 151 70 146 C 70 141 72.7 137 76 137 C 79.3 137 82 141 82 146 Z" fill="#1e2b17"/>
+<path id="harpooner-rope-coil-hole-edge" d="M 82 146 C 82 151 79.3 155 76 155 C 72.7 155 70 151 70 146 C 70 141 72.7 137 76 137 C 79.3 137 82 141 82 146 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="harpooner-rope-hand">
+<use id="harpooner-rope-hand-shade" href="#harpooner-rope-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#harpooner-rope-hand-clip)">
+<use id="harpooner-rope-hand-fill" href="#harpooner-rope-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#harpooner-rope-hand-lit-clip)">
+<use id="harpooner-rope-hand-lit" href="#harpooner-rope-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-rope-hand-fill-over" href="#harpooner-rope-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="harpooner-rope-hand-line" href="#harpooner-rope-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="harpooner-harpoon-layer" transform="translate(126 112) rotate(0) scale(1 1) translate(-126 -112)">
+<defs>
+<path id="harpooner-harpoon-shaft-shape" d="M 169.9 92.5 L 169.9 92.5 Q 170.9 94.8 168.6 95.8 L 96.4 127.9 Q 94.1 128.9 93.1 126.6 L 93.1 126.6 Q 92.1 124.4 94.4 123.3 L 166.5 91.2 Q 168.8 90.2 169.9 92.5 Z"/>
+<path id="harpooner-harpoon-head-shape" d="M 191.8 82.7 L 175.3 99.9 L 176.6 92.8 L 167.4 96.8 L 165 91.4 L 174.1 87.3 L 168 83.4 Z"/>
+<path id="harpooner-harpoon-hand-shape" d="M 133.5 112 C 133.5 116.1 130.1 119.5 126 119.5 C 121.9 119.5 118.5 116.1 118.5 112 C 118.5 107.9 121.9 104.5 126 104.5 C 130.1 104.5 133.5 107.9 133.5 112 Z"/>
+<clipPath id="harpooner-harpoon-hand-clip"><use href="#harpooner-harpoon-hand-shape"/></clipPath>
+<clipPath id="harpooner-harpoon-hand-lit-clip"><use href="#harpooner-harpoon-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="harpooner-harpoon-shaft">
+<use id="harpooner-harpoon-shaft-fill" href="#harpooner-harpoon-shaft-shape" fill="#9a6a3a"/>
+<use id="harpooner-harpoon-shaft-line" href="#harpooner-harpoon-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="harpooner-harpoon-head">
+<use id="harpooner-harpoon-head-fill" href="#harpooner-harpoon-head-shape" fill="#b9c2cc"/>
+<use id="harpooner-harpoon-head-line" href="#harpooner-harpoon-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="harpooner-harpoon-hand">
+<use id="harpooner-harpoon-hand-shade" href="#harpooner-harpoon-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#harpooner-harpoon-hand-clip)">
+<use id="harpooner-harpoon-hand-fill" href="#harpooner-harpoon-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#harpooner-harpoon-hand-lit-clip)">
+<use id="harpooner-harpoon-hand-lit" href="#harpooner-harpoon-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="harpooner-harpoon-hand-fill-over" href="#harpooner-harpoon-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="harpooner-harpoon-hand-line" href="#harpooner-harpoon-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

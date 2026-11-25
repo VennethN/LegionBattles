@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="feather" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="feather-vane-shape" d="M 9 41 C 9 41 8.2 30.8 10 26 C 11.8 21.2 15.3 15.5 20 12 C 24.7 8.5 38 5 38 5 C 38 5 38 17.2 36 22 C 34 26.8 29.7 31 26 34 C 22.3 37 16.8 38.8 14 40 C 11.2 41.2 9 41 9 41 Z"/>
+<clipPath id="feather-vane-clip"><use href="#feather-vane-shape"/></clipPath>
+<clipPath id="feather-vane-lit-clip"><use href="#feather-vane-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="feather-vane">
+<use id="feather-vane-shade" href="#feather-vane-shape" fill="#c4b594"/>
+<g clip-path="url(#feather-vane-clip)">
+<use id="feather-vane-fill" href="#feather-vane-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#feather-vane-lit-clip)">
+<use id="feather-vane-lit" href="#feather-vane-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="feather-vane-fill-over" href="#feather-vane-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+<path id="feather-barb" d="M 17.3 22.4 L 22.3 31.4 C 22.5 31.8 23 31.9 23.4 31.7 C 23.8 31.5 23.9 31 23.7 30.6 L 18.7 21.6 C 18.5 21.2 18 21.1 17.6 21.3 C 17.2 21.5 17.1 22 17.3 22.4 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="feather-barb-2" d="M 23.3 17.4 L 28.3 26.4 C 28.5 26.8 29 26.9 29.4 26.7 C 29.8 26.5 29.9 26 29.7 25.6 L 24.7 16.6 C 24.5 16.2 24 16.1 23.6 16.3 C 23.2 16.5 23.1 17 23.3 17.4 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="feather-barb-3" d="M 29.3 13.4 L 34.3 22.4 C 34.5 22.8 35 22.9 35.4 22.7 C 35.8 22.5 35.9 22 35.7 21.6 L 30.7 12.6 C 30.5 12.2 30 12.1 29.6 12.3 C 29.2 12.5 29.1 13 29.3 13.4 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="feather-vane-line" href="#feather-vane-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="feather-quill" d="M 6 45 L 34 9" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

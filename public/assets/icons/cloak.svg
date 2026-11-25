@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cloak" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="cloak-cloak-shape" d="M 16 9 C 16 9 21.3 6 24 6 C 26.7 6 32 9 32 9 C 32 9 39 20.3 41 26 C 43 31.7 44 43 44 43 C 44 43 37.3 38.8 34 39 C 30.7 39.2 27.3 44 24 44 C 20.7 44 17.3 39.2 14 39 C 10.7 38.8 4 43 4 43 C 4 43 5 31.7 7 26 C 9 20.3 16 9 16 9 Z"/>
+<clipPath id="cloak-cloak-clip"><use href="#cloak-cloak-shape"/></clipPath>
+<clipPath id="cloak-cloak-lit-clip"><use href="#cloak-cloak-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="cloak-clasp-shape" d="M 28.5 10 C 28.5 12.5 26.5 14.5 24 14.5 C 21.5 14.5 19.5 12.5 19.5 10 C 19.5 7.5 21.5 5.5 24 5.5 C 26.5 5.5 28.5 7.5 28.5 10 Z"/>
+</defs>
+<g id="cloak-cloak">
+<use id="cloak-cloak-shade" href="#cloak-cloak-shape" fill="#353041"/>
+<g clip-path="url(#cloak-cloak-clip)">
+<use id="cloak-cloak-deep" href="#cloak-cloak-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="cloak-cloak-shade-over" href="#cloak-cloak-shape" transform="translate(-3.1 -3.1)" fill="#353041"/>
+<use id="cloak-cloak-fill" href="#cloak-cloak-shape" transform="translate(-5 -5)" fill="#4a4458"/>
+<g clip-path="url(#cloak-cloak-lit-clip)">
+<use id="cloak-cloak-lit" href="#cloak-cloak-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cloak-cloak-fill-over" href="#cloak-cloak-shape" transform="translate(4.6 4.6)" fill="#4a4458"/>
+</g>
+<path id="cloak-fold-a" d="M 15.8 15.9 L 12.8 39.9 C 12.7 40.5 13.2 41.1 13.9 41.2 C 14.5 41.3 15.1 40.8 15.2 40.1 L 18.2 16.1 C 18.3 15.5 17.8 14.9 17.1 14.8 C 16.5 14.7 15.9 15.2 15.8 15.9 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="cloak-fold-b" d="M 29.8 16.1 L 32.8 40.1 C 32.9 40.8 33.5 41.3 34.1 41.2 C 34.8 41.1 35.3 40.5 35.2 39.9 L 32.2 15.9 C 32.1 15.2 31.5 14.7 30.9 14.8 C 30.2 14.9 29.7 15.5 29.8 16.1 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="cloak-cloak-line" href="#cloak-cloak-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cloak-clasp">
+<use id="cloak-clasp-fill" href="#cloak-clasp-shape" fill="#c8a24a"/>
+<use id="cloak-clasp-line" href="#cloak-clasp-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

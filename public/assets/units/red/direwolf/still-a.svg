@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="direwolf-a" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="direwolf-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="direwolf-shadow-shadow" d="M 142.9 181 C 142.9 186 121.9 190 96 190 C 70.1 190 49.1 186 49.1 181 C 49.1 176 70.1 172 96 172 C 121.9 172 142.9 176 142.9 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="direwolf-tail-layer" transform="translate(61.32 116.76) rotate(0) scale(1 1) translate(-61.32 -116.75999999999999)">
+<defs>
+<path id="direwolf-tail-tail-shape" d="M 61.3 112.7 C 61.3 112.7 50.4 109.3 45 110.6 C 39.6 112 32.8 116.1 28.7 120.8 C 24.6 125.6 20.5 139.2 20.5 139.2 C 20.5 139.2 30 134.8 34.8 133.1 C 39.6 131.4 44.3 130.4 49.1 129 C 53.8 127.6 63.4 124.9 63.4 124.9 L 61.3 112.7 Z"/>
+<clipPath id="direwolf-tail-tail-clip"><use href="#direwolf-tail-tail-shape"/></clipPath>
+<clipPath id="direwolf-tail-tail-lit-clip"><use href="#direwolf-tail-tail-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="direwolf-tail-tip-shape" d="M 36.8 135.1 C 36.8 141.9 31.4 147.4 24.6 147.4 C 17.8 147.4 12.4 141.9 12.4 135.1 C 12.4 128.4 17.8 122.9 24.6 122.9 C 31.4 122.9 36.8 128.4 36.8 135.1 Z"/>
+</defs>
+<g id="direwolf-tail-tail">
+<use id="direwolf-tail-tail-shade" href="#direwolf-tail-tail-shape" fill="#77766b"/>
+<g clip-path="url(#direwolf-tail-tail-clip)">
+<use id="direwolf-tail-tail-fill" href="#direwolf-tail-tail-shape" transform="translate(-4 -4)" fill="#9c9a8c"/>
+<g clip-path="url(#direwolf-tail-tail-lit-clip)">
+<use id="direwolf-tail-tail-lit" href="#direwolf-tail-tail-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="direwolf-tail-tail-fill-over" href="#direwolf-tail-tail-shape" transform="translate(4.2 4.2)" fill="#9c9a8c"/>
+</g>
+<g id="direwolf-tail-tip">
+<use id="direwolf-tail-tip-fill" href="#direwolf-tail-tip-shape" fill="#e9dfc6"/>
+<use id="direwolf-tail-tip-line" href="#direwolf-tail-tip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="direwolf-tail-tail-line" href="#direwolf-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="direwolf-legs-far-layer" transform="translate(98.04 149.4) rotate(0) scale(1 1) translate(-98.04 -149.4)">
+<defs>
+<path id="direwolf-legs-far-leg-shape" d="M 74.1 141.2 L 89.4 141.2 L 89.4 168.8 Q 96.5 169.8 96.5 175.9 L 96.5 180 L 74.1 180 Z"/>
+<path id="direwolf-legs-far-leg-2-shape" d="M 106.7 141.2 L 122 141.2 L 122 168.8 Q 129.2 169.8 129.2 175.9 L 129.2 180 L 106.7 180 Z"/>
+</defs>
+<g id="direwolf-legs-far-leg">
+<use id="direwolf-legs-far-leg-fill" href="#direwolf-legs-far-leg-shape" fill="#77766b"/>
+<use id="direwolf-legs-far-leg-line" href="#direwolf-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="direwolf-legs-far-leg-2">
+<use id="direwolf-legs-far-leg-2-fill" href="#direwolf-legs-far-leg-2-shape" fill="#77766b"/>
+<use id="direwolf-legs-far-leg-2-line" href="#direwolf-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="direwolf-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="direwolf-body-hide-shape" d="M 57.2 122.9 C 59.3 117.1 63 110 69.5 106.6 C 75.9 103.2 87.2 102.5 96 102.5 C 104.8 102.5 116.1 103.5 122.5 106.6 C 129 109.6 132.7 115.1 134.8 120.8 C 136.8 126.6 136.8 135.8 134.8 141.2 C 132.7 146.7 129 150.9 122.5 153.5 C 116.1 156 104.8 156.5 96 156.5 C 87.2 156.5 75.9 156 69.5 153.5 C 63 150.9 59.3 146.3 57.2 141.2 C 55.2 136.1 55.2 128.7 57.2 122.9 Z"/>
+<clipPath id="direwolf-body-hide-clip"><use href="#direwolf-body-hide-shape"/></clipPath>
+<clipPath id="direwolf-body-hide-lit-clip"><use href="#direwolf-body-hide-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="direwolf-body-blanket-shape" d="M 75.6 102.5 L 116.4 100.4 C 116.4 100.4 121.2 127.6 120.5 135.1 C 119.8 142.6 112.3 145.3 112.3 145.3 L 81.7 147.4 C 81.7 147.4 74.6 144.6 73.6 137.2 C 72.5 129.7 75.6 102.5 75.6 102.5 Z"/>
+<clipPath id="direwolf-body-blanket-clip"><use href="#direwolf-body-blanket-shape"/></clipPath>
+<clipPath id="direwolf-body-blanket-lit-clip"><use href="#direwolf-body-blanket-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="direwolf-body-trim-shape" d="M 69.5 137.2 L 126.6 137.2 L 126.6 143.3 L 69.5 143.3 L 69.5 137.2 Z"/>
+</defs>
+<g id="direwolf-body-hide">
+<use id="direwolf-body-hide-shade" href="#direwolf-body-hide-shape" fill="#77766b"/>
+<g clip-path="url(#direwolf-body-hide-clip)">
+<use id="direwolf-body-hide-deep" href="#direwolf-body-hide-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="direwolf-body-hide-shade-over" href="#direwolf-body-hide-shape" transform="translate(-3.72 -3.72)" fill="#77766b"/>
+<use id="direwolf-body-hide-fill" href="#direwolf-body-hide-shape" transform="translate(-6 -6)" fill="#9c9a8c"/>
+<g clip-path="url(#direwolf-body-hide-lit-clip)">
+<use id="direwolf-body-hide-lit" href="#direwolf-body-hide-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="direwolf-body-hide-fill-over" href="#direwolf-body-hide-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<path id="direwolf-body-tuft" d="M 68.3 117.2 L 71.4 125.3 C 71.6 126 72.3 126.3 73 126.1 C 73.6 125.8 73.9 125.1 73.7 124.5 L 70.6 116.3 C 70.4 115.7 69.7 115.4 69.1 115.6 C 68.4 115.9 68.1 116.6 68.3 117.2 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="direwolf-body-tuft-2" d="M 82.6 111.1 L 85.7 119.2 C 85.9 119.9 86.6 120.2 87.2 119.9 C 87.9 119.7 88.2 119 88 118.4 L 84.9 110.2 C 84.7 109.6 84 109.3 83.3 109.5 C 82.7 109.7 82.4 110.4 82.6 111.1 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="direwolf-body-tuft-3" d="M 98.9 109 L 102 117.2 C 102.2 117.8 102.9 118.1 103.6 117.9 C 104.2 117.7 104.5 117 104.3 116.3 L 101.2 108.2 C 101 107.5 100.3 107.2 99.7 107.5 C 99 107.7 98.7 108.4 98.9 109 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="direwolf-body-tuft-4" d="M 115.3 113.1 L 118.3 121.3 C 118.6 121.9 119.3 122.2 119.9 122 C 120.5 121.7 120.8 121 120.6 120.4 L 117.5 112.3 C 117.3 111.6 116.6 111.3 116 111.5 C 115.3 111.8 115 112.5 115.3 113.1 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="direwolf-body-tuft-5" d="M 74.5 131.5 L 77.5 139.6 C 77.8 140.3 78.5 140.6 79.1 140.3 C 79.7 140.1 80 139.4 79.8 138.8 L 76.7 130.6 C 76.5 130 75.8 129.7 75.2 129.9 C 74.5 130.1 74.2 130.8 74.5 131.5 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="direwolf-body-tuft-6" d="M 90.8 127.4 L 93.8 135.5 C 94.1 136.2 94.8 136.5 95.4 136.3 C 96 136 96.4 135.3 96.1 134.7 L 93.1 126.5 C 92.8 125.9 92.1 125.6 91.5 125.8 C 90.9 126.1 90.5 126.8 90.8 127.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="direwolf-body-tuft-7" d="M 109.1 129.4 L 112.2 137.6 C 112.4 138.2 113.1 138.5 113.8 138.3 C 114.4 138.1 114.7 137.4 114.5 136.7 L 111.4 128.6 C 111.2 127.9 110.5 127.6 109.9 127.9 C 109.2 128.1 108.9 128.8 109.1 129.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="direwolf-body-tuft-8" d="M 123.4 127.4 L 126.5 135.5 C 126.7 136.2 127.4 136.5 128 136.3 C 128.7 136 129 135.3 128.8 134.7 L 125.7 126.5 C 125.5 125.9 124.8 125.6 124.1 125.8 C 123.5 126.1 123.2 126.8 123.4 127.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="direwolf-body-tuft-9" d="M 82.6 145.7 L 85.7 153.9 C 85.9 154.5 86.6 154.9 87.2 154.6 C 87.9 154.4 88.2 153.7 88 153.1 L 84.9 144.9 C 84.7 144.3 84 143.9 83.3 144.2 C 82.7 144.4 82.4 145.1 82.6 145.7 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="direwolf-body-tuft-10" d="M 103 145.7 L 106.1 153.9 C 106.3 154.5 107 154.9 107.6 154.6 C 108.3 154.4 108.6 153.7 108.4 153.1 L 105.3 144.9 C 105.1 144.3 104.4 143.9 103.7 144.2 C 103.1 144.4 102.8 145.1 103 145.7 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="direwolf-body-hide-line" href="#direwolf-body-hide-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="direwolf-body-blanket">
+<use id="direwolf-body-blanket-shade" href="#direwolf-body-blanket-shape" fill="#933027"/>
+<g clip-path="url(#direwolf-body-blanket-clip)">
+<use id="direwolf-body-blanket-fill" href="#direwolf-body-blanket-shape" transform="translate(-4 -4)" fill="#c2453a"/>
+<g clip-path="url(#direwolf-body-blanket-lit-clip)">
+<use id="direwolf-body-blanket-lit" href="#direwolf-body-blanket-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="direwolf-body-blanket-fill-over" href="#direwolf-body-blanket-shape" transform="translate(4.2 4.2)" fill="#c2453a"/>
+</g>
+<g id="direwolf-body-trim">
+<use id="direwolf-body-trim-fill" href="#direwolf-body-trim-shape" fill="#c8a24a"/>
+<use id="direwolf-body-trim-line" href="#direwolf-body-trim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="direwolf-body-blanket-line" href="#direwolf-body-blanket-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="direwolf-legs-near-layer" transform="translate(98.04 149.4) rotate(0) scale(1 1) translate(-98.04 -149.4)">
+<defs>
+<path id="direwolf-legs-near-leg-shape" d="M 61.8 141.2 L 77.1 141.2 L 77.1 168.8 Q 84.3 169.8 84.3 175.9 L 84.3 180 L 61.8 180 Z"/>
+<clipPath id="direwolf-legs-near-leg-clip"><use href="#direwolf-legs-near-leg-shape"/></clipPath>
+<clipPath id="direwolf-legs-near-leg-lit-clip"><use href="#direwolf-legs-near-leg-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="direwolf-legs-near-leg-2-shape" d="M 116.9 141.2 L 132.2 141.2 L 132.2 168.8 Q 139.4 169.8 139.4 175.9 L 139.4 180 L 116.9 180 Z"/>
+<clipPath id="direwolf-legs-near-leg-2-clip"><use href="#direwolf-legs-near-leg-2-shape"/></clipPath>
+<clipPath id="direwolf-legs-near-leg-2-lit-clip"><use href="#direwolf-legs-near-leg-2-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="direwolf-legs-near-leg">
+<use id="direwolf-legs-near-leg-shade" href="#direwolf-legs-near-leg-shape" fill="#77766b"/>
+<g clip-path="url(#direwolf-legs-near-leg-clip)">
+<use id="direwolf-legs-near-leg-fill" href="#direwolf-legs-near-leg-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#direwolf-legs-near-leg-lit-clip)">
+<use id="direwolf-legs-near-leg-lit" href="#direwolf-legs-near-leg-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="direwolf-legs-near-leg-fill-over" href="#direwolf-legs-near-leg-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="direwolf-legs-near-leg-line" href="#direwolf-legs-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="direwolf-legs-near-leg-2">
+<use id="direwolf-legs-near-leg-2-shade" href="#direwolf-legs-near-leg-2-shape" fill="#77766b"/>
+<g clip-path="url(#direwolf-legs-near-leg-2-clip)">
+<use id="direwolf-legs-near-leg-2-fill" href="#direwolf-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#direwolf-legs-near-leg-2-lit-clip)">
+<use id="direwolf-legs-near-leg-2-lit" href="#direwolf-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="direwolf-legs-near-leg-2-fill-over" href="#direwolf-legs-near-leg-2-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="direwolf-legs-near-leg-2-line" href="#direwolf-legs-near-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="direwolf-head-layer" transform="translate(128.64 114.72) rotate(0) scale(1 1) translate(-128.64 -114.72)">
+<defs>
+<path id="direwolf-head-ear-far-shape" d="M 142.9 90.2 L 147 67.8 L 155.2 88.2 Z"/>
+<path id="direwolf-head-neck-shape" d="M 132.9 130.3 L 149.3 112 C 153.4 107.3 153 100.3 148.3 96.1 C 143.7 92 136.6 92.4 132.5 97.1 L 116.2 115.4 C 112.1 120.1 112.5 127.1 117.1 131.3 C 121.7 135.4 128.8 135 132.9 130.3 Z"/>
+<clipPath id="direwolf-head-neck-clip"><use href="#direwolf-head-neck-shape"/></clipPath>
+<clipPath id="direwolf-head-neck-lit-clip"><use href="#direwolf-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="direwolf-head-collar-shape" d="M 120.5 108.6 L 142.9 120.8 L 138.8 130 L 116.4 117.8 Z"/>
+<path id="direwolf-head-head-shape" d="M 130.7 98.4 C 131.4 93.8 136.5 88.2 140.9 86.2 C 145.3 84.1 151.4 83.8 157.2 86.2 C 163 88.5 175.6 100.4 175.6 100.4 L 174.5 110.6 C 174.5 110.6 161.5 115.2 155.2 115.7 C 148.9 116.3 140.9 116.6 136.8 113.7 C 132.7 110.8 130 103 130.7 98.4 Z"/>
+<clipPath id="direwolf-head-head-clip"><use href="#direwolf-head-head-shape"/></clipPath>
+<clipPath id="direwolf-head-head-lit-clip"><use href="#direwolf-head-head-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="direwolf-head-ear-shape" d="M 132.7 94.3 L 130.7 67.8 L 147 86.2 Z"/>
+<clipPath id="direwolf-head-ear-clip"><use href="#direwolf-head-ear-shape"/></clipPath>
+<clipPath id="direwolf-head-ear-lit-clip"><use href="#direwolf-head-ear-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="direwolf-head-ear-far">
+<use id="direwolf-head-ear-far-fill" href="#direwolf-head-ear-far-shape" fill="#77766b"/>
+<use id="direwolf-head-ear-far-line" href="#direwolf-head-ear-far-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="direwolf-head-neck">
+<use id="direwolf-head-neck-shade" href="#direwolf-head-neck-shape" fill="#77766b"/>
+<g clip-path="url(#direwolf-head-neck-clip)">
+<use id="direwolf-head-neck-fill" href="#direwolf-head-neck-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#direwolf-head-neck-lit-clip)">
+<use id="direwolf-head-neck-lit" href="#direwolf-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="direwolf-head-neck-fill-over" href="#direwolf-head-neck-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="direwolf-head-neck-line" href="#direwolf-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="direwolf-head-collar">
+<use id="direwolf-head-collar-fill" href="#direwolf-head-collar-shape" fill="#c2453a"/>
+<use id="direwolf-head-collar-line" href="#direwolf-head-collar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="direwolf-head-head">
+<use id="direwolf-head-head-shade" href="#direwolf-head-head-shape" fill="#434b56"/>
+<g clip-path="url(#direwolf-head-head-clip)">
+<use id="direwolf-head-head-fill" href="#direwolf-head-head-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#direwolf-head-head-lit-clip)">
+<use id="direwolf-head-head-lit" href="#direwolf-head-head-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="direwolf-head-head-fill-over" href="#direwolf-head-head-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="direwolf-head-head-sheen" d="M159.67 83.78 L166.5 83.78 L152.72 116.59 L145.89 116.59 Z M170 83.78 L172.6 83.78 L158.82 116.59 L156.22 116.59 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="direwolf-head-seam" d="M 148.2 84.2 L 151.3 116.8 C 151.3 117.3 151.7 117.6 152.2 117.6 C 152.6 117.5 153 117.1 152.9 116.7 L 149.9 84 C 149.8 83.6 149.4 83.3 149 83.3 C 148.5 83.3 148.2 83.7 148.2 84.2 Z" fill="#2a1a10" opacity="0.36"/>
+<path id="direwolf-head-rivet" d="M 160.9 94.3 C 160.9 95.2 160.2 96 159.2 96 C 158.3 96 157.5 95.2 157.5 94.3 C 157.5 93.4 158.3 92.6 159.2 92.6 C 160.2 92.6 160.9 93.4 160.9 94.3 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="direwolf-head-rivet-lit" d="M 159.4 93.7 C 159.4 94.1 159.1 94.5 158.6 94.5 C 158.2 94.5 157.9 94.1 157.9 93.7 C 157.9 93.3 158.2 92.9 158.6 92.9 C 159.1 92.9 159.4 93.3 159.4 93.7 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="direwolf-head-rivet-2" d="M 167 98.4 C 167 99.3 166.3 100.1 165.3 100.1 C 164.4 100.1 163.6 99.3 163.6 98.4 C 163.6 97.5 164.4 96.7 165.3 96.7 C 166.3 96.7 167 97.5 167 98.4 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="direwolf-head-rivet-lit-2" d="M 165.5 97.8 C 165.5 98.2 165.2 98.6 164.8 98.6 C 164.3 98.6 164 98.2 164 97.8 C 164 97.4 164.3 97 164.8 97 C 165.2 97 165.5 97.4 165.5 97.8 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="direwolf-head-rivet-3" d="M 172.1 103.5 C 172.1 104.4 171.4 105.2 170.4 105.2 C 169.5 105.2 168.7 104.4 168.7 103.5 C 168.7 102.6 169.5 101.8 170.4 101.8 C 171.4 101.8 172.1 102.6 172.1 103.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="direwolf-head-rivet-lit-3" d="M 170.6 102.9 C 170.6 103.3 170.3 103.7 169.9 103.7 C 169.4 103.7 169.1 103.3 169.1 102.9 C 169.1 102.5 169.4 102.1 169.9 102.1 C 170.3 102.1 170.6 102.5 170.6 102.9 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="direwolf-head-head-line" href="#direwolf-head-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="direwolf-head-ear">
+<use id="direwolf-head-ear-shade" href="#direwolf-head-ear-shape" fill="#77766b"/>
+<g clip-path="url(#direwolf-head-ear-clip)">
+<use id="direwolf-head-ear-fill" href="#direwolf-head-ear-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#direwolf-head-ear-lit-clip)">
+<use id="direwolf-head-ear-lit" href="#direwolf-head-ear-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="direwolf-head-ear-fill-over" href="#direwolf-head-ear-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="direwolf-head-ear-line" href="#direwolf-head-ear-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

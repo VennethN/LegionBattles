@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cutpurse" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="cutpurse-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="cutpurse-shadow-shadow" d="M 128 181 C 128 185.4 113.7 189 96 189 C 78.3 189 64 185.4 64 181 C 64 176.6 78.3 173 96 173 C 113.7 173 128 176.6 128 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="cutpurse-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<defs>
+<path id="cutpurse-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
+<clipPath id="cutpurse-leg-back-boot-clip"><use href="#cutpurse-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="cutpurse-leg-back-boot">
+<use id="cutpurse-leg-back-boot-fill" href="#cutpurse-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#cutpurse-leg-back-boot-clip)">
+<path id="cutpurse-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="cutpurse-leg-back-boot-line" href="#cutpurse-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cutpurse-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<path id="cutpurse-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="cutpurse-leg-front-boot-clip"><use href="#cutpurse-leg-front-boot-shape"/></clipPath>
+<clipPath id="cutpurse-leg-front-boot-lit-clip"><use href="#cutpurse-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="cutpurse-leg-front-boot">
+<use id="cutpurse-leg-front-boot-shade" href="#cutpurse-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#cutpurse-leg-front-boot-clip)">
+<use id="cutpurse-leg-front-boot-fill" href="#cutpurse-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#cutpurse-leg-front-boot-lit-clip)">
+<use id="cutpurse-leg-front-boot-lit" href="#cutpurse-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-leg-front-boot-fill-over" href="#cutpurse-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="cutpurse-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="cutpurse-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="cutpurse-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="cutpurse-leg-front-boot-line" href="#cutpurse-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cutpurse-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="cutpurse-body-jerkin-shape" d="M 72.1 105 C 77 100.5 88 101 96 101 C 104 101 115 100.5 119.9 105 C 124.8 109.5 125.1 120.2 125.4 128 C 125.7 135.8 124.8 146.8 121.8 152 C 118.7 157.2 113.2 157.8 107 159 C 100.9 160.2 91.1 160.2 85 159 C 78.8 157.8 73.3 157.2 70.2 152 C 67.2 146.8 66.3 135.8 66.6 128 C 66.9 120.2 67.2 109.5 72.1 105 Z"/>
+<clipPath id="cutpurse-body-jerkin-clip"><use href="#cutpurse-body-jerkin-shape"/></clipPath>
+<clipPath id="cutpurse-body-jerkin-lit-clip"><use href="#cutpurse-body-jerkin-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="cutpurse-body-belt-shape" d="M 56 138 L 136 138 L 136 147 L 56 147 L 56 138 Z"/>
+<path id="cutpurse-body-arm-shape" d="M 109.8 123 L 121.8 133 C 124.6 135.3 128.7 134.9 131 132.2 C 133.3 129.4 132.9 125.3 130.2 123 L 118.2 113 C 115.4 110.7 111.3 111.1 109 113.8 C 106.7 116.6 107.1 120.7 109.8 123 Z"/>
+<clipPath id="cutpurse-body-arm-clip"><use href="#cutpurse-body-arm-shape"/></clipPath>
+<clipPath id="cutpurse-body-arm-lit-clip"><use href="#cutpurse-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="cutpurse-body-jerkin">
+<use id="cutpurse-body-jerkin-shade" href="#cutpurse-body-jerkin-shape" fill="#353041"/>
+<g clip-path="url(#cutpurse-body-jerkin-clip)">
+<use id="cutpurse-body-jerkin-deep" href="#cutpurse-body-jerkin-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="cutpurse-body-jerkin-shade-over" href="#cutpurse-body-jerkin-shape" transform="translate(-3.1 -3.1)" fill="#353041"/>
+<use id="cutpurse-body-jerkin-fill" href="#cutpurse-body-jerkin-shape" transform="translate(-5 -5)" fill="#4a4458"/>
+<g clip-path="url(#cutpurse-body-jerkin-lit-clip)">
+<use id="cutpurse-body-jerkin-lit" href="#cutpurse-body-jerkin-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-body-jerkin-fill-over" href="#cutpurse-body-jerkin-shape" transform="translate(4.6 4.6)" fill="#4a4458"/>
+</g>
+<path id="cutpurse-body-seam" d="M 107.7 100 L 108.3 100 Q 109.3 100 109.3 101 L 109.3 161 Q 109.3 162 108.3 162 L 107.7 162 Q 106.7 162 106.7 161 L 106.7 101 Q 106.7 100 107.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<path id="cutpurse-body-lace" d="M 103.2 109.2 L 112.2 111.7 C 112.8 111.8 113.5 111.5 113.7 110.8 C 113.8 110.2 113.5 109.5 112.8 109.3 L 103.8 106.8 C 103.2 106.7 102.5 107 102.3 107.7 C 102.2 108.3 102.5 109 103.2 109.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="cutpurse-body-lace-2" d="M 103.2 116.2 L 112.2 118.7 C 112.8 118.8 113.5 118.5 113.7 117.8 C 113.8 117.2 113.5 116.5 112.8 116.3 L 103.8 113.8 C 103.2 113.7 102.5 114 102.3 114.7 C 102.2 115.3 102.5 116 103.2 116.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="cutpurse-body-lace-3" d="M 103.2 123.2 L 112.2 125.7 C 112.8 125.8 113.5 125.5 113.7 124.8 C 113.8 124.2 113.5 123.5 112.8 123.3 L 103.8 120.8 C 103.2 120.7 102.5 121 102.3 121.7 C 102.2 122.3 102.5 123 103.2 123.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="cutpurse-body-crease-a" d="M 80 137 Q 81.6 128.4 77 121 Q 77.9 129.1 80 137 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="cutpurse-body-crease-b" d="M 118 137 Q 121.6 130.4 120 123 Q 118.5 129.9 118 137 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="cutpurse-body-belt-cast" d="M 56 148 L 136 148 L 136 152.5 L 56 152.5 L 56 148 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="cutpurse-body-belt">
+<use id="cutpurse-body-belt-fill" href="#cutpurse-body-belt-shape" fill="#3d6fb6"/>
+<use id="cutpurse-body-belt-line" href="#cutpurse-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="cutpurse-body-jerkin-line" href="#cutpurse-body-jerkin-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="cutpurse-body-arm-cast" d="M 110.8 126.5 L 122.8 136.5 C 125.6 138.8 129.7 138.4 132 135.7 C 134.3 132.9 133.9 128.8 131.2 126.5 L 119.2 116.5 C 116.4 114.2 112.3 114.6 110 117.3 C 107.7 120.1 108.1 124.2 110.8 126.5 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="cutpurse-body-arm">
+<use id="cutpurse-body-arm-shade" href="#cutpurse-body-arm-shape" fill="#353041"/>
+<g clip-path="url(#cutpurse-body-arm-clip)">
+<use id="cutpurse-body-arm-fill" href="#cutpurse-body-arm-shape" transform="translate(-3 -3)" fill="#4a4458"/>
+<g clip-path="url(#cutpurse-body-arm-lit-clip)">
+<use id="cutpurse-body-arm-lit" href="#cutpurse-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-body-arm-fill-over" href="#cutpurse-body-arm-shape" transform="translate(3.6 3.6)" fill="#4a4458"/>
+</g>
+</g>
+<use id="cutpurse-body-arm-line" href="#cutpurse-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cutpurse-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<path id="cutpurse-head-tail-a-shape" d="M 72 78 C 72 78 61 76.3 56 78 C 51 79.7 42 88 42 88 C 42 88 51.3 90 56 90 C 60.7 90 70 88 70 88 L 72 78 Z"/>
+<path id="cutpurse-head-tail-b-shape" d="M 72 86 C 72 86 62 88.7 58 92 C 54 95.3 48 106 48 106 C 48 106 58 104 62 102 C 66 100 72 94 72 94 L 72 86 Z"/>
+<clipPath id="cutpurse-head-tail-b-clip"><use href="#cutpurse-head-tail-b-shape"/></clipPath>
+<clipPath id="cutpurse-head-tail-b-lit-clip"><use href="#cutpurse-head-tail-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="cutpurse-head-wrap-shape" d="M 97 50 C 104.3 50 113.7 52.3 119 57 C 124.3 61.7 128 71 129 78 C 130 85 128.5 94 125 99 C 121.5 104 114.8 106.5 108 108 C 101.2 109.5 90.5 109.5 84 108 C 77.5 106.5 72.2 104 69 99 C 65.8 94 64 85 65 78 C 66 71 69.7 61.7 75 57 C 80.3 52.3 89.7 50 97 50 Z"/>
+<clipPath id="cutpurse-head-wrap-clip"><use href="#cutpurse-head-wrap-shape"/></clipPath>
+<clipPath id="cutpurse-head-wrap-lit-clip"><use href="#cutpurse-head-wrap-shape" transform="translate(-6 -6)"/></clipPath>
+</defs>
+<path id="cutpurse-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="cutpurse-head-tail-a">
+<use id="cutpurse-head-tail-a-fill" href="#cutpurse-head-tail-a-shape" fill="#2f5893"/>
+<use id="cutpurse-head-tail-a-line" href="#cutpurse-head-tail-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cutpurse-head-tail-b">
+<use id="cutpurse-head-tail-b-shade" href="#cutpurse-head-tail-b-shape" fill="#2f5893"/>
+<g clip-path="url(#cutpurse-head-tail-b-clip)">
+<use id="cutpurse-head-tail-b-fill" href="#cutpurse-head-tail-b-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#cutpurse-head-tail-b-lit-clip)">
+<use id="cutpurse-head-tail-b-lit" href="#cutpurse-head-tail-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-head-tail-b-fill-over" href="#cutpurse-head-tail-b-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="cutpurse-head-tail-b-line" href="#cutpurse-head-tail-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cutpurse-head-wrap">
+<use id="cutpurse-head-wrap-shade" href="#cutpurse-head-wrap-shape" fill="#2f5893"/>
+<g clip-path="url(#cutpurse-head-wrap-clip)">
+<use id="cutpurse-head-wrap-deep" href="#cutpurse-head-wrap-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="cutpurse-head-wrap-shade-over" href="#cutpurse-head-wrap-shape" transform="translate(-3.72 -3.72)" fill="#2f5893"/>
+<use id="cutpurse-head-wrap-fill" href="#cutpurse-head-wrap-shape" transform="translate(-6 -6)" fill="#3d6fb6"/>
+<g clip-path="url(#cutpurse-head-wrap-lit-clip)">
+<use id="cutpurse-head-wrap-lit" href="#cutpurse-head-wrap-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-head-wrap-fill-over" href="#cutpurse-head-wrap-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<path id="cutpurse-head-gap" d="M 98 73 L 132 73 Q 138 73 138 79 L 138 79 Q 138 85 132 85 L 98 85 Q 92 85 92 79 L 92 79 Q 92 73 98 73 Z" fill="#1e2b17"/>
+<path id="cutpurse-head-gap-edge" d="M 98 73 L 132 73 Q 138 73 138 79 L 138 79 Q 138 85 132 85 L 98 85 Q 92 85 92 79 L 92 79 Q 92 73 98 73 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="cutpurse-head-fold-a" d="M 68 66 C 71.3 64.7 80.7 59.7 88 58 C 95.3 56.3 108 56.3 112 56" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="cutpurse-head-fold-b" d="M 70 96 C 73.7 95.3 82.7 92 92 92 C 101.3 92 120.3 95.3 126 96" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="cutpurse-head-wrap-line" href="#cutpurse-head-wrap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cutpurse-knife-back-layer" transform="translate(74 134) rotate(0) scale(1 1) translate(-74 -134)">
+<defs>
+<path id="cutpurse-knife-back-blade-shape" d="M 69.3 142.2 L 56 149.2 L 45.7 149 L 51.3 140.4 L 64.6 133.3 Z"/>
+<clipPath id="cutpurse-knife-back-blade-clip"><use href="#cutpurse-knife-back-blade-shape"/></clipPath>
+<clipPath id="cutpurse-knife-back-blade-lit-clip"><use href="#cutpurse-knife-back-blade-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="cutpurse-knife-back-guard-shape" d="M 67.1 144.5 L 61.5 133.9 Q 60.1 131.2 62.7 129.8 L 62.7 129.8 Q 65.4 128.4 66.8 131 L 72.4 141.6 Q 73.8 144.3 71.2 145.7 L 71.2 145.7 Q 68.5 147.1 67.1 144.5 Z"/>
+<path id="cutpurse-knife-back-hand-shape" d="M 81.5 134 C 81.5 138.1 78.1 141.5 74 141.5 C 69.9 141.5 66.5 138.1 66.5 134 C 66.5 129.9 69.9 126.5 74 126.5 C 78.1 126.5 81.5 129.9 81.5 134 Z"/>
+<clipPath id="cutpurse-knife-back-hand-clip"><use href="#cutpurse-knife-back-hand-shape"/></clipPath>
+<clipPath id="cutpurse-knife-back-hand-lit-clip"><use href="#cutpurse-knife-back-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="cutpurse-knife-back-blade">
+<use id="cutpurse-knife-back-blade-shade" href="#cutpurse-knife-back-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#cutpurse-knife-back-blade-clip)">
+<use id="cutpurse-knife-back-blade-fill" href="#cutpurse-knife-back-blade-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#cutpurse-knife-back-blade-lit-clip)">
+<use id="cutpurse-knife-back-blade-lit" href="#cutpurse-knife-back-blade-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-knife-back-blade-fill-over" href="#cutpurse-knife-back-blade-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="cutpurse-knife-back-far-face" d="M 66.9 137.8 L 45.7 149 L 51.3 140.4 L 64.6 133.3 Z" fill="#2a1a10" opacity="0.22"/>
+</g>
+<use id="cutpurse-knife-back-blade-line" href="#cutpurse-knife-back-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cutpurse-knife-back-guard">
+<use id="cutpurse-knife-back-guard-fill" href="#cutpurse-knife-back-guard-shape" fill="#c8a24a"/>
+<use id="cutpurse-knife-back-guard-line" href="#cutpurse-knife-back-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cutpurse-knife-back-hand">
+<use id="cutpurse-knife-back-hand-shade" href="#cutpurse-knife-back-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#cutpurse-knife-back-hand-clip)">
+<use id="cutpurse-knife-back-hand-fill" href="#cutpurse-knife-back-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#cutpurse-knife-back-hand-lit-clip)">
+<use id="cutpurse-knife-back-hand-lit" href="#cutpurse-knife-back-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-knife-back-hand-fill-over" href="#cutpurse-knife-back-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="cutpurse-knife-back-hand-line" href="#cutpurse-knife-back-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cutpurse-knife-layer" transform="translate(128 128) rotate(0) scale(1 1) translate(-128 -128)">
+<defs>
+<path id="cutpurse-knife-blade-shape" d="M 134.3 121 L 152.6 115.8 L 162.6 118.1 L 155.3 125.4 L 137.1 130.6 Z"/>
+<clipPath id="cutpurse-knife-blade-clip"><use href="#cutpurse-knife-blade-shape"/></clipPath>
+<clipPath id="cutpurse-knife-blade-lit-clip"><use href="#cutpurse-knife-blade-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="cutpurse-knife-guard-shape" d="M 136.9 119.2 L 140.2 130.7 Q 141.1 133.6 138.2 134.4 L 138.2 134.4 Q 135.3 135.3 134.5 132.4 L 131.2 120.9 Q 130.3 118 133.2 117.1 L 133.2 117.1 Q 136.1 116.3 136.9 119.2 Z"/>
+<path id="cutpurse-knife-hand-shape" d="M 135.5 128 C 135.5 132.1 132.1 135.5 128 135.5 C 123.9 135.5 120.5 132.1 120.5 128 C 120.5 123.9 123.9 120.5 128 120.5 C 132.1 120.5 135.5 123.9 135.5 128 Z"/>
+<clipPath id="cutpurse-knife-hand-clip"><use href="#cutpurse-knife-hand-shape"/></clipPath>
+<clipPath id="cutpurse-knife-hand-lit-clip"><use href="#cutpurse-knife-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="cutpurse-knife-blade">
+<use id="cutpurse-knife-blade-shade" href="#cutpurse-knife-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#cutpurse-knife-blade-clip)">
+<use id="cutpurse-knife-blade-fill" href="#cutpurse-knife-blade-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#cutpurse-knife-blade-lit-clip)">
+<use id="cutpurse-knife-blade-lit" href="#cutpurse-knife-blade-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-knife-blade-fill-over" href="#cutpurse-knife-blade-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="cutpurse-knife-far-face" d="M 135.7 125.8 L 162.6 118.1 L 155.3 125.4 L 137.1 130.6 Z" fill="#2a1a10" opacity="0.22"/>
+</g>
+<use id="cutpurse-knife-blade-line" href="#cutpurse-knife-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cutpurse-knife-guard">
+<use id="cutpurse-knife-guard-fill" href="#cutpurse-knife-guard-shape" fill="#c8a24a"/>
+<use id="cutpurse-knife-guard-line" href="#cutpurse-knife-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cutpurse-knife-hand">
+<use id="cutpurse-knife-hand-shade" href="#cutpurse-knife-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#cutpurse-knife-hand-clip)">
+<use id="cutpurse-knife-hand-fill" href="#cutpurse-knife-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#cutpurse-knife-hand-lit-clip)">
+<use id="cutpurse-knife-hand-lit" href="#cutpurse-knife-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cutpurse-knife-hand-fill-over" href="#cutpurse-knife-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="cutpurse-knife-hand-line" href="#cutpurse-knife-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

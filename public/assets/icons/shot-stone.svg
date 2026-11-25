@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="shot-stone" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="shot-stone-stone-shape" d="M 14 24 C 13.7 20.8 15.5 16.7 18 15 C 20.5 13.3 26.2 12.8 29 14 C 31.8 15.2 34.5 19 35 22 C 35.5 25 34.5 30 32 32 C 29.5 34 23 35.3 20 34 C 17 32.7 14.3 27.2 14 24 Z"/>
+<clipPath id="shot-stone-stone-clip"><use href="#shot-stone-stone-shape"/></clipPath>
+<clipPath id="shot-stone-stone-lit-clip"><use href="#shot-stone-stone-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="shot-stone-stone">
+<use id="shot-stone-stone-shade" href="#shot-stone-stone-shape" fill="#77766b"/>
+<g clip-path="url(#shot-stone-stone-clip)">
+<use id="shot-stone-stone-fill" href="#shot-stone-stone-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#shot-stone-stone-lit-clip)">
+<use id="shot-stone-stone-lit" href="#shot-stone-stone-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="shot-stone-stone-fill-over" href="#shot-stone-stone-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="shot-stone-stone-line" href="#shot-stone-stone-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

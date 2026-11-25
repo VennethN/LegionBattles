@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="drop" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="drop-drop-shape" d="M 24 4 C 33 17 39 24 39 31 C 39 39 32 45 24 45 C 16 45 9 39 9 31 C 9 24 15 17 24 4 Z"/>
+<clipPath id="drop-drop-clip"><use href="#drop-drop-shape"/></clipPath>
+<clipPath id="drop-drop-lit-clip"><use href="#drop-drop-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="drop-drop">
+<use id="drop-drop-shade" href="#drop-drop-shape" fill="#952239"/>
+<g clip-path="url(#drop-drop-clip)">
+<use id="drop-drop-fill" href="#drop-drop-shape" transform="translate(-4 -4)" fill="#c7364f"/>
+<g clip-path="url(#drop-drop-lit-clip)">
+<use id="drop-drop-lit" href="#drop-drop-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="drop-drop-fill-over" href="#drop-drop-shape" transform="translate(4.2 4.2)" fill="#c7364f"/>
+</g>
+<path id="drop-drop-sheen" d="M32.61 4 L37.11 4 L19.89 45 L15.39 45 Z M40.61 4 L43.21 4 L25.99 45 L23.39 45 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="drop-drop-line" href="#drop-drop-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="drop-glint" d="M 18.9 30.6 L 20.9 24.6 C 21.2 23.6 20.7 22.5 19.6 22.1 C 18.6 21.8 17.5 22.3 17.1 23.4 L 15.1 29.4 C 14.8 30.4 15.3 31.5 16.4 31.9 C 17.4 32.2 18.5 31.7 18.9 30.6 Z" fill="#f4f1e4"/>
+</svg>

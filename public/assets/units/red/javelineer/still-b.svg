@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="javelineer-b" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="javelineer-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="javelineer-shadow-shadow" d="M 130 181 C 130 185.4 114.8 189 96 189 C 77.2 189 62 185.4 62 181 C 62 176.6 77.2 173 96 173 C 114.8 173 130 176.6 130 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="javelineer-leg-back-layer" transform="translate(85 146) rotate(26) scale(1 1) translate(-85 -152)">
+<defs>
+<path id="javelineer-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
+<clipPath id="javelineer-leg-back-boot-clip"><use href="#javelineer-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="javelineer-leg-back-boot">
+<use id="javelineer-leg-back-boot-fill" href="#javelineer-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#javelineer-leg-back-boot-clip)">
+<path id="javelineer-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="javelineer-leg-back-boot-line" href="#javelineer-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="javelineer-leg-front-layer" transform="translate(104 146) rotate(-24) scale(1 1) translate(-104 -152)">
+<defs>
+<path id="javelineer-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="javelineer-leg-front-boot-clip"><use href="#javelineer-leg-front-boot-shape"/></clipPath>
+<clipPath id="javelineer-leg-front-boot-lit-clip"><use href="#javelineer-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="javelineer-leg-front-boot">
+<use id="javelineer-leg-front-boot-shade" href="#javelineer-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#javelineer-leg-front-boot-clip)">
+<use id="javelineer-leg-front-boot-fill" href="#javelineer-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#javelineer-leg-front-boot-lit-clip)">
+<use id="javelineer-leg-front-boot-lit" href="#javelineer-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-leg-front-boot-fill-over" href="#javelineer-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="javelineer-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="javelineer-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="javelineer-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="javelineer-leg-front-boot-line" href="#javelineer-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="javelineer-body-layer" transform="translate(96 174) rotate(5) scale(0.97 1.05) translate(-96 -180)">
+<defs>
+<path id="javelineer-body-tunic-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="javelineer-body-tunic-clip"><use href="#javelineer-body-tunic-shape"/></clipPath>
+<clipPath id="javelineer-body-tunic-lit-clip"><use href="#javelineer-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="javelineer-body-skirt-shape" d="M 52 147 L 140 147 L 140 171 L 52 171 L 52 147 Z"/>
+<path id="javelineer-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="javelineer-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
+<clipPath id="javelineer-body-buckle-clip"><use href="#javelineer-body-buckle-shape"/></clipPath>
+<clipPath id="javelineer-body-buckle-lit-clip"><use href="#javelineer-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="javelineer-body-arm-shape" d="M 115.5 123.4 L 125.5 121.4 C 129.5 120.5 132.2 116.6 131.4 112.5 C 130.5 108.5 126.6 105.8 122.5 106.6 L 112.5 108.6 C 108.5 109.5 105.8 113.4 106.6 117.5 C 107.5 121.5 111.4 124.2 115.5 123.4 Z"/>
+<clipPath id="javelineer-body-arm-clip"><use href="#javelineer-body-arm-shape"/></clipPath>
+<clipPath id="javelineer-body-arm-lit-clip"><use href="#javelineer-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="javelineer-body-tunic">
+<use id="javelineer-body-tunic-shade" href="#javelineer-body-tunic-shape" fill="#b3a585"/>
+<g clip-path="url(#javelineer-body-tunic-clip)">
+<use id="javelineer-body-tunic-deep" href="#javelineer-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="javelineer-body-tunic-shade-over" href="#javelineer-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="javelineer-body-tunic-fill" href="#javelineer-body-tunic-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#javelineer-body-tunic-lit-clip)">
+<use id="javelineer-body-tunic-lit" href="#javelineer-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-body-tunic-fill-over" href="#javelineer-body-tunic-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="javelineer-body-seam" d="M 107.7 100 L 108.3 100 Q 109.3 100 109.3 101 L 109.3 145 Q 109.3 146 108.3 146 L 107.7 146 Q 106.7 146 106.7 145 L 106.7 101 Q 106.7 100 107.7 100 Z" fill="#2a1a10" opacity="0.24"/>
+<g id="javelineer-body-skirt">
+<use id="javelineer-body-skirt-fill" href="#javelineer-body-skirt-shape" fill="#c2453a"/>
+<use id="javelineer-body-skirt-line" href="#javelineer-body-skirt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="javelineer-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="javelineer-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="javelineer-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="javelineer-body-belt">
+<use id="javelineer-body-belt-fill" href="#javelineer-body-belt-shape" fill="#6b4a2b"/>
+<use id="javelineer-body-belt-line" href="#javelineer-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-body-buckle">
+<use id="javelineer-body-buckle-shade" href="#javelineer-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#javelineer-body-buckle-clip)">
+<use id="javelineer-body-buckle-fill" href="#javelineer-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#javelineer-body-buckle-lit-clip)">
+<use id="javelineer-body-buckle-lit" href="#javelineer-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-body-buckle-fill-over" href="#javelineer-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="javelineer-body-buckle-line" href="#javelineer-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="javelineer-body-tunic-line" href="#javelineer-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="javelineer-body-arm-cast" d="M 116.5 126.9 L 126.5 124.9 C 130.5 124 133.2 120.1 132.4 116 C 131.5 112 127.6 109.3 123.5 110.1 L 113.5 112.1 C 109.5 113 106.8 116.9 107.6 121 C 108.5 125 112.4 127.7 116.5 126.9 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="javelineer-body-arm">
+<use id="javelineer-body-arm-shade" href="#javelineer-body-arm-shape" fill="#b3a585"/>
+<g clip-path="url(#javelineer-body-arm-clip)">
+<use id="javelineer-body-arm-fill" href="#javelineer-body-arm-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#javelineer-body-arm-lit-clip)">
+<use id="javelineer-body-arm-lit" href="#javelineer-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-body-arm-fill-over" href="#javelineer-body-arm-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="javelineer-body-arm-line" href="#javelineer-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="javelineer-head-layer" transform="translate(102.86 95.55) rotate(8) scale(1 1) translate(-96 -106)">
+<defs>
+<path id="javelineer-head-drape-shape" d="M 66 72 L 128 72 C 128 72 131.7 87.2 131 93 C 130.3 98.8 129.3 104 124 107 C 118.7 110 107.5 111 99 111 C 90.5 111 78.7 110 73 107 C 67.3 104 66.2 98.8 65 93 C 63.8 87.2 66 72 66 72 Z"/>
+<clipPath id="javelineer-head-drape-clip"><use href="#javelineer-head-drape-shape"/></clipPath>
+<clipPath id="javelineer-head-drape-lit-clip"><use href="#javelineer-head-drape-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="javelineer-head-spike-shape" d="M 91 50 L 97 24 L 103 50 Z"/>
+<path id="javelineer-head-helm-shape" d="M 68 76 C 68 76 69.2 63 74 58 C 78.8 53 89.3 46 97 46 C 104.7 46 115.2 53 120 58 C 124.8 63 126 76 126 76 L 68 76 Z"/>
+<clipPath id="javelineer-head-helm-clip"><use href="#javelineer-head-helm-shape"/></clipPath>
+<clipPath id="javelineer-head-helm-lit-clip"><use href="#javelineer-head-helm-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="javelineer-head-rim-shape" d="M 60 68 L 136 68 L 136 78 L 60 78 L 60 68 Z"/>
+</defs>
+<path id="javelineer-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="javelineer-head-drape">
+<use id="javelineer-head-drape-shade" href="#javelineer-head-drape-shape" fill="#933027"/>
+<g clip-path="url(#javelineer-head-drape-clip)">
+<use id="javelineer-head-drape-deep" href="#javelineer-head-drape-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="javelineer-head-drape-shade-over" href="#javelineer-head-drape-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="javelineer-head-drape-fill" href="#javelineer-head-drape-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#javelineer-head-drape-lit-clip)">
+<use id="javelineer-head-drape-lit" href="#javelineer-head-drape-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-head-drape-fill-over" href="#javelineer-head-drape-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
+<path id="javelineer-head-slit" d="M 97.5 78 L 134.5 78 Q 139 78 139 82.5 L 139 82.5 Q 139 87 134.5 87 L 97.5 87 Q 93 87 93 82.5 L 93 82.5 Q 93 78 97.5 78 Z" fill="#1e2b17"/>
+<path id="javelineer-head-slit-edge" d="M 97.5 78 L 134.5 78 Q 139 78 139 82.5 L 139 82.5 Q 139 87 134.5 87 L 97.5 87 Q 93 87 93 82.5 L 93 82.5 Q 93 78 97.5 78 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="javelineer-head-drape-line" href="#javelineer-head-drape-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-head-spike">
+<use id="javelineer-head-spike-fill" href="#javelineer-head-spike-shape" fill="#b9c2cc"/>
+<use id="javelineer-head-spike-line" href="#javelineer-head-spike-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-head-helm">
+<use id="javelineer-head-helm-shade" href="#javelineer-head-helm-shape" fill="#8d97a3"/>
+<g clip-path="url(#javelineer-head-helm-clip)">
+<use id="javelineer-head-helm-deep" href="#javelineer-head-helm-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="javelineer-head-helm-shade-over" href="#javelineer-head-helm-shape" transform="translate(-3.1 -3.1)" fill="#8d97a3"/>
+<use id="javelineer-head-helm-fill" href="#javelineer-head-helm-shape" transform="translate(-5 -5)" fill="#b9c2cc"/>
+<g clip-path="url(#javelineer-head-helm-lit-clip)">
+<use id="javelineer-head-helm-lit" href="#javelineer-head-helm-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-head-helm-fill-over" href="#javelineer-head-helm-shape" transform="translate(4.6 4.6)" fill="#b9c2cc"/>
+</g>
+<path id="javelineer-head-helm-sheen" d="M103.3 46 L112 46 L99.4 76 L90.7 76 Z M115.5 46 L118.1 46 L105.5 76 L102.9 76 Z" fill="#f4f1e4" opacity="0.2"/>
+<g id="javelineer-head-rim">
+<use id="javelineer-head-rim-fill" href="#javelineer-head-rim-shape" fill="#c8a24a"/>
+<use id="javelineer-head-rim-line" href="#javelineer-head-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="javelineer-head-helm-line" href="#javelineer-head-helm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="javelineer-head-glint" d="M 83.4 61.8 L 88.4 57.8 C 89.4 57 89.5 55.6 88.8 54.6 C 88 53.6 86.6 53.5 85.6 54.2 L 80.6 58.2 C 79.6 59 79.5 60.4 80.2 61.4 C 81 62.4 82.4 62.5 83.4 61.8 Z" fill="#f4f1e4"/>
+</g>
+<g id="javelineer-shield-layer" transform="translate(82.45 128.55) rotate(10) scale(1 1) translate(-78 -138)">
+<defs>
+<path id="javelineer-shield-face-shape" d="M 95 138 C 95 147.4 87.4 155 78 155 C 68.6 155 61 147.4 61 138 C 61 128.6 68.6 121 78 121 C 87.4 121 95 128.6 95 138 Z"/>
+<clipPath id="javelineer-shield-face-clip"><use href="#javelineer-shield-face-shape"/></clipPath>
+<clipPath id="javelineer-shield-face-lit-clip"><use href="#javelineer-shield-face-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="javelineer-shield-boss-shape" d="M 84.8 138 C 84.8 141.8 81.8 144.8 78 144.8 C 74.2 144.8 71.2 141.8 71.2 138 C 71.2 134.2 74.2 131.2 78 131.2 C 81.8 131.2 84.8 134.2 84.8 138 Z"/>
+<clipPath id="javelineer-shield-boss-clip"><use href="#javelineer-shield-boss-shape"/></clipPath>
+</defs>
+<g id="javelineer-shield-face">
+<use id="javelineer-shield-face-shade" href="#javelineer-shield-face-shape" fill="#75502b"/>
+<g clip-path="url(#javelineer-shield-face-clip)">
+<use id="javelineer-shield-face-fill" href="#javelineer-shield-face-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#javelineer-shield-face-lit-clip)">
+<use id="javelineer-shield-face-lit" href="#javelineer-shield-face-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-shield-face-fill-over" href="#javelineer-shield-face-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="javelineer-shield-rivet" d="M 89.8 143.5 C 89.8 144.5 89 145.2 88.1 145.2 C 87.2 145.2 86.4 144.5 86.4 143.5 C 86.4 142.6 87.2 141.8 88.1 141.8 C 89 141.8 89.8 142.6 89.8 143.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="javelineer-shield-rivet-lit" d="M 88.3 142.9 C 88.3 143.3 87.9 143.7 87.5 143.7 C 87.1 143.7 86.7 143.3 86.7 142.9 C 86.7 142.5 87.1 142.2 87.5 142.2 C 87.9 142.2 88.3 142.5 88.3 142.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="javelineer-shield-rivet-2" d="M 80 149.5 C 80 150.4 79.2 151.2 78.3 151.2 C 77.3 151.2 76.6 150.4 76.6 149.5 C 76.6 148.6 77.3 147.8 78.3 147.8 C 79.2 147.8 80 148.6 80 149.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="javelineer-shield-rivet-lit-2" d="M 78.4 148.9 C 78.4 149.3 78.1 149.7 77.7 149.7 C 77.3 149.7 76.9 149.3 76.9 148.9 C 76.9 148.5 77.3 148.1 77.7 148.1 C 78.1 148.1 78.4 148.5 78.4 148.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="javelineer-shield-rivet-3" d="M 69.9 144 C 69.9 144.9 69.1 145.7 68.2 145.7 C 67.2 145.7 66.5 144.9 66.5 144 C 66.5 143 67.2 142.3 68.2 142.3 C 69.1 142.3 69.9 143 69.9 144 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="javelineer-shield-rivet-lit-3" d="M 68.3 143.4 C 68.3 143.8 68 144.2 67.6 144.2 C 67.2 144.2 66.8 143.8 66.8 143.4 C 66.8 143 67.2 142.6 67.6 142.6 C 68 142.6 68.3 143 68.3 143.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="javelineer-shield-rivet-4" d="M 69.6 132.5 C 69.6 133.4 68.8 134.2 67.9 134.2 C 67 134.2 66.2 133.4 66.2 132.5 C 66.2 131.5 67 130.8 67.9 130.8 C 68.8 130.8 69.6 131.5 69.6 132.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="javelineer-shield-rivet-lit-4" d="M 68.1 131.9 C 68.1 132.3 67.7 132.7 67.3 132.7 C 66.9 132.7 66.5 132.3 66.5 131.9 C 66.5 131.5 66.9 131.1 67.3 131.1 C 67.7 131.1 68.1 131.5 68.1 131.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="javelineer-shield-rivet-5" d="M 79.4 126.5 C 79.4 127.4 78.7 128.2 77.7 128.2 C 76.8 128.2 76 127.4 76 126.5 C 76 125.6 76.8 124.8 77.7 124.8 C 78.7 124.8 79.4 125.6 79.4 126.5 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="javelineer-shield-rivet-lit-5" d="M 77.9 125.9 C 77.9 126.3 77.6 126.7 77.1 126.7 C 76.7 126.7 76.4 126.3 76.4 125.9 C 76.4 125.5 76.7 125.1 77.1 125.1 C 77.6 125.1 77.9 125.5 77.9 125.9 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="javelineer-shield-rivet-6" d="M 89.5 132 C 89.5 133 88.8 133.7 87.8 133.7 C 86.9 133.7 86.1 133 86.1 132 C 86.1 131.1 86.9 130.3 87.8 130.3 C 88.8 130.3 89.5 131.1 89.5 132 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="javelineer-shield-rivet-lit-6" d="M 88 131.4 C 88 131.8 87.6 132.2 87.2 132.2 C 86.8 132.2 86.5 131.8 86.5 131.4 C 86.5 131 86.8 130.7 87.2 130.7 C 87.6 130.7 88 131 88 131.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="javelineer-shield-boss-cast" d="M 88.3 140 C 88.3 144.9 84.4 148.8 79.5 148.8 C 74.6 148.8 70.7 144.9 70.7 140 C 70.7 135.1 74.6 131.2 79.5 131.2 C 84.4 131.2 88.3 135.1 88.3 140 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="javelineer-shield-face-line" href="#javelineer-shield-face-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-shield-boss">
+<use id="javelineer-shield-boss-shade" href="#javelineer-shield-boss-shape" fill="#9c7c33"/>
+<g clip-path="url(#javelineer-shield-boss-clip)">
+<use id="javelineer-shield-boss-fill" href="#javelineer-shield-boss-shape" transform="translate(-2 -2)" fill="#c8a24a"/>
+</g>
+<use id="javelineer-shield-boss-line" href="#javelineer-shield-boss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="javelineer-javelin-layer" transform="translate(131.03 107.5) rotate(-1) scale(1 1) translate(-126 -114)">
+<defs>
+<path id="javelineer-javelin-shaft-shape" d="M 166.8 97.5 L 166.8 97.5 Q 167.7 99.8 165.4 100.8 L 95.9 128.9 Q 93.6 129.8 92.6 127.5 L 92.6 127.5 Q 91.7 125.2 94 124.2 L 163.5 96.1 Q 165.9 95.2 166.8 97.5 Z"/>
+<path id="javelineer-javelin-head-shape" d="M 187.2 89.3 L 173.1 102.5 L 165.1 101.4 L 162.9 95.9 L 167.9 89.5 Z"/>
+<path id="javelineer-javelin-hand-shape" d="M 133.5 114 C 133.5 118.1 130.1 121.5 126 121.5 C 121.9 121.5 118.5 118.1 118.5 114 C 118.5 109.9 121.9 106.5 126 106.5 C 130.1 106.5 133.5 109.9 133.5 114 Z"/>
+<clipPath id="javelineer-javelin-hand-clip"><use href="#javelineer-javelin-hand-shape"/></clipPath>
+<clipPath id="javelineer-javelin-hand-lit-clip"><use href="#javelineer-javelin-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="javelineer-javelin-shaft">
+<use id="javelineer-javelin-shaft-fill" href="#javelineer-javelin-shaft-shape" fill="#9a6a3a"/>
+<use id="javelineer-javelin-shaft-line" href="#javelineer-javelin-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-javelin-head">
+<use id="javelineer-javelin-head-fill" href="#javelineer-javelin-head-shape" fill="#b9c2cc"/>
+<use id="javelineer-javelin-head-line" href="#javelineer-javelin-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="javelineer-javelin-hand">
+<use id="javelineer-javelin-hand-shade" href="#javelineer-javelin-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#javelineer-javelin-hand-clip)">
+<use id="javelineer-javelin-hand-fill" href="#javelineer-javelin-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#javelineer-javelin-hand-lit-clip)">
+<use id="javelineer-javelin-hand-lit" href="#javelineer-javelin-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="javelineer-javelin-hand-fill-over" href="#javelineer-javelin-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="javelineer-javelin-hand-line" href="#javelineer-javelin-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

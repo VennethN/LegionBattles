@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cleric-book" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="cleric-book-pages-shape" d="M 64 134 L 86 134 Q 89 134 89 137 L 89 161 Q 89 164 86 164 L 64 164 Q 61 164 61 161 L 61 137 Q 61 134 64 134 Z"/>
+<path id="cleric-book-cover-shape" d="M 59 129 L 81 129 Q 84 129 84 132 L 84 156 Q 84 159 81 159 L 59 159 Q 56 159 56 156 L 56 132 Q 56 129 59 129 Z"/>
+<clipPath id="cleric-book-cover-clip"><use href="#cleric-book-cover-shape"/></clipPath>
+<clipPath id="cleric-book-cover-lit-clip"><use href="#cleric-book-cover-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="cleric-book-clasp-shape" d="M 67 138 L 73 138 Q 75 138 75 140 L 75 148 Q 75 150 73 150 L 67 150 Q 65 150 65 148 L 65 140 Q 65 138 67 138 Z"/>
+<path id="cleric-book-hand-shape" d="M 77.5 161 C 77.5 165.1 74.1 168.5 70 168.5 C 65.9 168.5 62.5 165.1 62.5 161 C 62.5 156.9 65.9 153.5 70 153.5 C 74.1 153.5 77.5 156.9 77.5 161 Z"/>
+<clipPath id="cleric-book-hand-clip"><use href="#cleric-book-hand-shape"/></clipPath>
+<clipPath id="cleric-book-hand-lit-clip"><use href="#cleric-book-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="cleric-book-pages">
+<use id="cleric-book-pages-fill" href="#cleric-book-pages-shape" fill="#e9dfc6"/>
+<use id="cleric-book-pages-line" href="#cleric-book-pages-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-book-cover">
+<use id="cleric-book-cover-shade" href="#cleric-book-cover-shape" fill="#2f5893"/>
+<g clip-path="url(#cleric-book-cover-clip)">
+<use id="cleric-book-cover-fill" href="#cleric-book-cover-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#cleric-book-cover-lit-clip)">
+<use id="cleric-book-cover-lit" href="#cleric-book-cover-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-book-cover-fill-over" href="#cleric-book-cover-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="cleric-book-cover-line" href="#cleric-book-cover-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-book-clasp">
+<use id="cleric-book-clasp-fill" href="#cleric-book-clasp-shape" fill="#c8a24a"/>
+<use id="cleric-book-clasp-line" href="#cleric-book-clasp-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-book-hand">
+<use id="cleric-book-hand-shade" href="#cleric-book-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#cleric-book-hand-clip)">
+<use id="cleric-book-hand-fill" href="#cleric-book-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#cleric-book-hand-lit-clip)">
+<use id="cleric-book-hand-lit" href="#cleric-book-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-book-hand-fill-over" href="#cleric-book-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="cleric-book-hand-line" href="#cleric-book-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

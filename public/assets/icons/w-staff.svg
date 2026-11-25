@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-staff" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-staff-shaft-shape" d="M 49.5 52 L 50.5 52 Q 53.5 52 53.5 55 L 53.5 163 Q 53.5 166 50.5 166 L 49.5 166 Q 46.5 166 46.5 163 L 46.5 55 Q 46.5 52 49.5 52 Z"/>
+<clipPath id="w-staff-shaft-clip"><use href="#w-staff-shaft-shape"/></clipPath>
+<path id="w-staff-claw-shape" d="M 38 50 C 38 50 39 58.7 41 61 C 43 63.3 47 64 50 64 C 53 64 57 63.3 59 61 C 61 58.7 62 50 62 50 C 62 50 57.8 54.2 55 55 C 52.2 55.8 47.8 55.8 45 55 C 42.2 54.2 38 50 38 50 Z"/>
+<path id="w-staff-orb-shape" d="M 59.5 42 C 59.5 47.2 55.2 51.5 50 51.5 C 44.8 51.5 40.5 47.2 40.5 42 C 40.5 36.8 44.8 32.5 50 32.5 C 55.2 32.5 59.5 36.8 59.5 42 Z"/>
+<clipPath id="w-staff-orb-clip"><use href="#w-staff-orb-shape"/></clipPath>
+<clipPath id="w-staff-orb-lit-clip"><use href="#w-staff-orb-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="w-staff-hand-shape" d="M 57.5 126 C 57.5 130.1 54.1 133.5 50 133.5 C 45.9 133.5 42.5 130.1 42.5 126 C 42.5 121.9 45.9 118.5 50 118.5 C 54.1 118.5 57.5 121.9 57.5 126 Z"/>
+<clipPath id="w-staff-hand-clip"><use href="#w-staff-hand-shape"/></clipPath>
+<clipPath id="w-staff-hand-lit-clip"><use href="#w-staff-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="w-staff-shaft">
+<use id="w-staff-shaft-shade" href="#w-staff-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#w-staff-shaft-clip)">
+<use id="w-staff-shaft-fill" href="#w-staff-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="w-staff-shaft-line" href="#w-staff-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-staff-claw">
+<use id="w-staff-claw-fill" href="#w-staff-claw-shape" fill="#c8a24a"/>
+<use id="w-staff-claw-line" href="#w-staff-claw-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="w-staff-halo" d="M 65 42 C 65 50.3 58.3 57 50 57 C 41.7 57 35 50.3 35 42 C 35 33.7 41.7 27 50 27 C 58.3 27 65 33.7 65 42 Z" fill="#cdb6f7" opacity="0.45"/>
+<g id="w-staff-orb">
+<use id="w-staff-orb-shade" href="#w-staff-orb-shape" fill="#6541a8"/>
+<g clip-path="url(#w-staff-orb-clip)">
+<use id="w-staff-orb-fill" href="#w-staff-orb-shape" transform="translate(-3 -3)" fill="#8a5cd6"/>
+<g clip-path="url(#w-staff-orb-lit-clip)">
+<use id="w-staff-orb-lit" href="#w-staff-orb-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-staff-orb-fill-over" href="#w-staff-orb-shape" transform="translate(3.6 3.6)" fill="#8a5cd6"/>
+</g>
+</g>
+<use id="w-staff-orb-line" href="#w-staff-orb-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="w-staff-glint" d="M 49.5 39 C 49.5 40.4 48.4 41.5 47 41.5 C 45.6 41.5 44.5 40.4 44.5 39 C 44.5 37.6 45.6 36.5 47 36.5 C 48.4 36.5 49.5 37.6 49.5 39 Z" fill="#f4f1e4"/>
+<g id="w-staff-hand">
+<use id="w-staff-hand-shade" href="#w-staff-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-staff-hand-clip)">
+<use id="w-staff-hand-fill" href="#w-staff-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-staff-hand-lit-clip)">
+<use id="w-staff-hand-lit" href="#w-staff-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-staff-hand-fill-over" href="#w-staff-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-staff-hand-line" href="#w-staff-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

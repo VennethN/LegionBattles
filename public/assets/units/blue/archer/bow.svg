@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="archer-bow" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="archer-bow-limbs-shape" d="M 122 80 C 140 88 149 110 148 128 C 149 146 140 168 122 176 L 120 166 C 132 158 138 142 138 128 C 138 114 132 98 120 90 Z"/>
+<clipPath id="archer-bow-limbs-clip"><use href="#archer-bow-limbs-shape"/></clipPath>
+<clipPath id="archer-bow-limbs-lit-clip"><use href="#archer-bow-limbs-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="archer-bow-grip-shape" d="M 140 119 L 145 119 Q 149 119 149 123 L 149 133 Q 149 137 145 137 L 140 137 Q 136 137 136 133 L 136 123 Q 136 119 140 119 Z"/>
+<path id="archer-bow-hand-shape" d="M 147.5 128 C 147.5 132.1 144.1 135.5 140 135.5 C 135.9 135.5 132.5 132.1 132.5 128 C 132.5 123.9 135.9 120.5 140 120.5 C 144.1 120.5 147.5 123.9 147.5 128 Z"/>
+<clipPath id="archer-bow-hand-clip"><use href="#archer-bow-hand-shape"/></clipPath>
+<clipPath id="archer-bow-hand-lit-clip"><use href="#archer-bow-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="archer-bow-string" d="M 125 86 L 125 170" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="archer-bow-limbs">
+<use id="archer-bow-limbs-shade" href="#archer-bow-limbs-shape" fill="#75502b"/>
+<g clip-path="url(#archer-bow-limbs-clip)">
+<use id="archer-bow-limbs-fill" href="#archer-bow-limbs-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#archer-bow-limbs-lit-clip)">
+<use id="archer-bow-limbs-lit" href="#archer-bow-limbs-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="archer-bow-limbs-fill-over" href="#archer-bow-limbs-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="archer-bow-limbs-line" href="#archer-bow-limbs-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-bow-grip">
+<use id="archer-bow-grip-fill" href="#archer-bow-grip-shape" fill="#6b4a2b"/>
+<use id="archer-bow-grip-line" href="#archer-bow-grip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="archer-bow-hand">
+<use id="archer-bow-hand-shade" href="#archer-bow-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#archer-bow-hand-clip)">
+<use id="archer-bow-hand-fill" href="#archer-bow-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#archer-bow-hand-lit-clip)">
+<use id="archer-bow-hand-lit" href="#archer-bow-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="archer-bow-hand-fill-over" href="#archer-bow-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="archer-bow-hand-line" href="#archer-bow-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

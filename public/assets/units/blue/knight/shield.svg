@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="knight-shield" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="knight-shield-rim-shape" d="M 101 141 C 101 154.8 89.8 166 76 166 C 62.2 166 51 154.8 51 141 C 51 127.2 62.2 116 76 116 C 89.8 116 101 127.2 101 141 Z"/>
+<clipPath id="knight-shield-rim-clip"><use href="#knight-shield-rim-shape"/></clipPath>
+<clipPath id="knight-shield-rim-lit-clip"><use href="#knight-shield-rim-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="knight-shield-face-shape" d="M 94 141 C 94 150.9 85.9 159 76 159 C 66.1 159 58 150.9 58 141 C 58 131.1 66.1 123 76 123 C 85.9 123 94 131.1 94 141 Z"/>
+<clipPath id="knight-shield-face-clip"><use href="#knight-shield-face-shape"/></clipPath>
+<clipPath id="knight-shield-face-lit-clip"><use href="#knight-shield-face-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="knight-shield-boss-shape" d="M 83 141 C 83 144.9 79.9 148 76 148 C 72.1 148 69 144.9 69 141 C 69 137.1 72.1 134 76 134 C 79.9 134 83 137.1 83 141 Z"/>
+<clipPath id="knight-shield-boss-clip"><use href="#knight-shield-boss-shape"/></clipPath>
+<clipPath id="knight-shield-boss-lit-clip"><use href="#knight-shield-boss-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="knight-shield-rim">
+<use id="knight-shield-rim-shade" href="#knight-shield-rim-shape" fill="#8d97a3"/>
+<g clip-path="url(#knight-shield-rim-clip)">
+<use id="knight-shield-rim-deep" href="#knight-shield-rim-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="knight-shield-rim-shade-over" href="#knight-shield-rim-shape" transform="translate(-3.1 -3.1)" fill="#8d97a3"/>
+<use id="knight-shield-rim-fill" href="#knight-shield-rim-shape" transform="translate(-5 -5)" fill="#b9c2cc"/>
+<g clip-path="url(#knight-shield-rim-lit-clip)">
+<use id="knight-shield-rim-lit" href="#knight-shield-rim-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="knight-shield-rim-fill-over" href="#knight-shield-rim-shape" transform="translate(4.6 4.6)" fill="#b9c2cc"/>
+</g>
+<path id="knight-shield-rim-sheen" d="M86.5 116 L94 116 L73 166 L65.5 166 Z M97.5 116 L100.1 116 L79.1 166 L76.5 166 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="knight-shield-rim-line" href="#knight-shield-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="knight-shield-face">
+<use id="knight-shield-face-shade" href="#knight-shield-face-shape" fill="#75502b"/>
+<g clip-path="url(#knight-shield-face-clip)">
+<use id="knight-shield-face-fill" href="#knight-shield-face-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#knight-shield-face-lit-clip)">
+<use id="knight-shield-face-lit" href="#knight-shield-face-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="knight-shield-face-fill-over" href="#knight-shield-face-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="knight-shield-grain-a" d="M 62.2 133 L 62.2 146 C 62.2 146.5 62.5 146.9 63 146.9 C 63.5 146.9 63.9 146.5 63.9 146 L 63.9 133 C 63.9 132.5 63.5 132.2 63 132.2 C 62.5 132.2 62.2 132.5 62.2 133 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="knight-shield-grain-b" d="M 76.2 150 L 76.2 156 C 76.2 156.5 76.5 156.9 77 156.9 C 77.5 156.9 77.9 156.5 77.9 156 L 77.9 150 C 77.9 149.5 77.5 149.2 77 149.2 C 76.5 149.2 76.2 149.5 76.2 150 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="knight-shield-grain-c" d="M 88.2 132 L 88.2 144 C 88.2 144.5 88.5 144.9 89 144.9 C 89.5 144.9 89.9 144.5 89.9 144 L 89.9 132 C 89.9 131.5 89.5 131.2 89 131.2 C 88.5 131.2 88.2 131.5 88.2 132 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="knight-shield-boss-cast" d="M 86.5 143.5 C 86.5 148.5 82.5 152.5 77.5 152.5 C 72.5 152.5 68.5 148.5 68.5 143.5 C 68.5 138.5 72.5 134.5 77.5 134.5 C 82.5 134.5 86.5 138.5 86.5 143.5 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="knight-shield-plank-a" d="M 69 116 L 69 166" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="knight-shield-plank-b" d="M 84 116 L 84 166" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="knight-shield-face-line" href="#knight-shield-face-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="knight-shield-boss">
+<use id="knight-shield-boss-shade" href="#knight-shield-boss-shape" fill="#9c7c33"/>
+<g clip-path="url(#knight-shield-boss-clip)">
+<use id="knight-shield-boss-fill" href="#knight-shield-boss-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#knight-shield-boss-lit-clip)">
+<use id="knight-shield-boss-lit" href="#knight-shield-boss-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="knight-shield-boss-fill-over" href="#knight-shield-boss-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="knight-shield-boss-line" href="#knight-shield-boss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="knight-shield-glint" d="M 76 139 C 76 140.1 75.1 141 74 141 C 72.9 141 72 140.1 72 139 C 72 137.9 72.9 137 74 137 C 75.1 137 76 137.9 76 139 Z" fill="#f4f1e4"/>
+</svg>

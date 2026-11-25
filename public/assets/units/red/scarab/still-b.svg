@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="scarab-b" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="scarab-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="scarab-shadow-shadow" d="M 142 181 C 142 186 121.4 190 96 190 C 70.6 190 50 186 50 181 C 50 176 70.6 172 96 172 C 121.4 172 142 176 142 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="scarab-legs-far-layer" transform="translate(96 146) rotate(26) scale(1 1) translate(-96 -152)">
+<defs>
+<path id="scarab-legs-far-limb-shape" d="M 76 150 L 84 150 L 76 166 L 74 180 L 66 180 L 70 166 Z"/>
+<path id="scarab-legs-far-limb-2-shape" d="M 100 150 L 108 150 L 116 166 L 122 180 L 114 180 L 106 166 Z"/>
+<path id="scarab-legs-far-limb-3-shape" d="M 122 150 L 130 150 L 138 166 L 144 180 L 136 180 L 128 166 Z"/>
+</defs>
+<g id="scarab-legs-far-limb">
+<use id="scarab-legs-far-limb-fill" href="#scarab-legs-far-limb-shape" fill="#434b56"/>
+<use id="scarab-legs-far-limb-line" href="#scarab-legs-far-limb-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="scarab-legs-far-limb-2">
+<use id="scarab-legs-far-limb-2-fill" href="#scarab-legs-far-limb-2-shape" fill="#434b56"/>
+<use id="scarab-legs-far-limb-2-line" href="#scarab-legs-far-limb-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="scarab-legs-far-limb-3">
+<use id="scarab-legs-far-limb-3-fill" href="#scarab-legs-far-limb-3-shape" fill="#434b56"/>
+<use id="scarab-legs-far-limb-3-line" href="#scarab-legs-far-limb-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="scarab-body-layer" transform="translate(96 174) rotate(5) scale(0.97 1.05) translate(-96 -180)">
+<defs>
+<path id="scarab-body-shell-shape" d="M 50 150 C 47.7 143.3 52.7 128 58 120 C 63.3 112 73 105 82 102 C 91 99 103.3 99.7 112 102 C 120.7 104.3 129 108.7 134 116 C 139 123.3 144 139 142 146 C 140 153 133.7 155.7 122 158 C 110.3 160.3 84 161.3 72 160 C 60 158.7 52.3 156.7 50 150 Z"/>
+<clipPath id="scarab-body-shell-clip"><use href="#scarab-body-shell-shape"/></clipPath>
+<clipPath id="scarab-body-shell-lit-clip"><use href="#scarab-body-shell-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="scarab-body-cloth-shape" d="M 70 110 L 102 103 L 106 138 L 72 144 L 70 110 Z"/>
+<clipPath id="scarab-body-cloth-clip"><use href="#scarab-body-cloth-shape"/></clipPath>
+<clipPath id="scarab-body-cloth-lit-clip"><use href="#scarab-body-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="scarab-body-hem-shape" d="M 70 139 L 108 133 L 108 140 L 70 146 Z"/>
+<path id="scarab-body-shield-shape" d="M 120 110 C 120 110 132.7 107.7 138 110 C 143.3 112.3 149.7 118 152 124 C 154.3 130 155 140.7 152 146 C 149 151.3 134 156 134 156 C 134 156 130.3 141.7 128 134 C 125.7 126.3 120 110 120 110 Z"/>
+<clipPath id="scarab-body-shield-clip"><use href="#scarab-body-shield-shape"/></clipPath>
+<clipPath id="scarab-body-shield-lit-clip"><use href="#scarab-body-shield-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="scarab-body-shell">
+<use id="scarab-body-shell-shade" href="#scarab-body-shell-shape" fill="#9c7c33"/>
+<g clip-path="url(#scarab-body-shell-clip)">
+<use id="scarab-body-shell-deep" href="#scarab-body-shell-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="scarab-body-shell-shade-over" href="#scarab-body-shell-shape" transform="translate(-3.72 -3.72)" fill="#9c7c33"/>
+<use id="scarab-body-shell-fill" href="#scarab-body-shell-shape" transform="translate(-6 -6)" fill="#c8a24a"/>
+<g clip-path="url(#scarab-body-shell-lit-clip)">
+<use id="scarab-body-shell-lit" href="#scarab-body-shell-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="scarab-body-shell-fill-over" href="#scarab-body-shell-shape" transform="translate(4.6 4.6)" fill="#c8a24a"/>
+</g>
+<path id="scarab-body-wings" d="M 98 100 C 97.3 105 94 119.7 94 130 C 94 140.3 97.3 156.7 98 162" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="scarab-body-band-a" d="M 60 124 C 63.7 118 77 111.7 80 116 C 83 120.3 81.7 144 78 150 C 74.3 156 61 156.3 58 152 C 55 147.7 56.3 130 60 124 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="scarab-body-shine" d="M 84 108 C 87.3 105 101.3 103.7 104 106 C 106.7 108.3 103.3 119 100 122 C 96.7 125 86.7 126.3 84 124 C 81.3 121.7 80.7 111 84 108 Z" fill="#f4f1e4" opacity="0.29"/>
+</g>
+<use id="scarab-body-shell-line" href="#scarab-body-shell-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="scarab-body-cloth">
+<use id="scarab-body-cloth-shade" href="#scarab-body-cloth-shape" fill="#933027"/>
+<g clip-path="url(#scarab-body-cloth-clip)">
+<use id="scarab-body-cloth-fill" href="#scarab-body-cloth-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#scarab-body-cloth-lit-clip)">
+<use id="scarab-body-cloth-lit" href="#scarab-body-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="scarab-body-cloth-fill-over" href="#scarab-body-cloth-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+<g id="scarab-body-hem">
+<use id="scarab-body-hem-fill" href="#scarab-body-hem-shape" fill="#c8a24a"/>
+<use id="scarab-body-hem-line" href="#scarab-body-hem-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="scarab-body-cloth-line" href="#scarab-body-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="scarab-body-shield">
+<use id="scarab-body-shield-shade" href="#scarab-body-shield-shape" fill="#434b56"/>
+<g clip-path="url(#scarab-body-shield-clip)">
+<use id="scarab-body-shield-fill" href="#scarab-body-shield-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#scarab-body-shield-lit-clip)">
+<use id="scarab-body-shield-lit" href="#scarab-body-shield-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="scarab-body-shield-fill-over" href="#scarab-body-shield-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="scarab-body-shield-sheen" d="M147.65 107.67 L152.9 107.67 L132.6 156 L127.35 156 Z M156.4 107.67 L159 107.67 L138.7 156 L136.1 156 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="scarab-body-shield-line" href="#scarab-body-shield-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="scarab-legs-near-layer" transform="translate(96 146) rotate(-24) scale(1 1) translate(-96 -152)">
+<defs>
+<path id="scarab-legs-near-limb-shape" d="M 66 150 L 74 150 L 66 166 L 64 180 L 56 180 L 60 166 Z"/>
+<path id="scarab-legs-near-limb-2-shape" d="M 92 150 L 100 150 L 100 166 L 102 180 L 94 180 L 92 166 Z"/>
+<path id="scarab-legs-near-limb-3-shape" d="M 116 150 L 124 150 L 132 166 L 138 180 L 130 180 L 122 166 Z"/>
+</defs>
+<g id="scarab-legs-near-limb">
+<use id="scarab-legs-near-limb-fill" href="#scarab-legs-near-limb-shape" fill="#5d6672"/>
+<use id="scarab-legs-near-limb-line" href="#scarab-legs-near-limb-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="scarab-legs-near-limb-2">
+<use id="scarab-legs-near-limb-2-fill" href="#scarab-legs-near-limb-2-shape" fill="#5d6672"/>
+<use id="scarab-legs-near-limb-2-line" href="#scarab-legs-near-limb-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="scarab-legs-near-limb-3">
+<use id="scarab-legs-near-limb-3-fill" href="#scarab-legs-near-limb-3-shape" fill="#5d6672"/>
+<use id="scarab-legs-near-limb-3-line" href="#scarab-legs-near-limb-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="scarab-pennon-layer" transform="translate(118.42 95.86) rotate(-3) scale(1 1) translate(-112 -104)">
+<defs>
+<path id="scarab-pennon-stick-shape" d="M 111.5 68 L 112.5 68 Q 114.5 68 114.5 70 L 114.5 102 Q 114.5 104 112.5 104 L 111.5 104 Q 109.5 104 109.5 102 L 109.5 70 Q 109.5 68 111.5 68 Z"/>
+<path id="scarab-pennon-cloth-shape" d="M 114 69 L 140 74 L 132 79 L 140 85 L 114 88 Z"/>
+<clipPath id="scarab-pennon-cloth-clip"><use href="#scarab-pennon-cloth-shape"/></clipPath>
+<clipPath id="scarab-pennon-cloth-lit-clip"><use href="#scarab-pennon-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="scarab-pennon-stick">
+<use id="scarab-pennon-stick-fill" href="#scarab-pennon-stick-shape" fill="#9a6a3a"/>
+<use id="scarab-pennon-stick-line" href="#scarab-pennon-stick-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="scarab-pennon-cloth">
+<use id="scarab-pennon-cloth-shade" href="#scarab-pennon-cloth-shape" fill="#933027"/>
+<g clip-path="url(#scarab-pennon-cloth-clip)">
+<use id="scarab-pennon-cloth-fill" href="#scarab-pennon-cloth-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#scarab-pennon-cloth-lit-clip)">
+<use id="scarab-pennon-cloth-lit" href="#scarab-pennon-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="scarab-pennon-cloth-fill-over" href="#scarab-pennon-cloth-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="scarab-pennon-cloth-line" href="#scarab-pennon-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="scarab-horn-layer" transform="translate(149.62 117.56) rotate(-1) scale(1 1) translate(-146 -122)">
+<defs>
+<path id="scarab-horn-horn-shape" d="M 142 126 C 142 126 148.3 114.7 152 110 C 155.7 105.3 160 102 164 98 C 168 94 176 86 176 86 C 176 86 171 97 172 100 C 173 103 182 104 182 104 C 182 104 170 107.3 166 110 C 162 112.7 160.7 116.3 158 120 C 155.3 123.7 150 132 150 132 L 142 126 Z"/>
+<clipPath id="scarab-horn-horn-clip"><use href="#scarab-horn-horn-shape"/></clipPath>
+<clipPath id="scarab-horn-horn-lit-clip"><use href="#scarab-horn-horn-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="scarab-horn-horn">
+<use id="scarab-horn-horn-shade" href="#scarab-horn-horn-shape" fill="#434b56"/>
+<g clip-path="url(#scarab-horn-horn-clip)">
+<use id="scarab-horn-horn-fill" href="#scarab-horn-horn-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#scarab-horn-horn-lit-clip)">
+<use id="scarab-horn-horn-lit" href="#scarab-horn-horn-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="scarab-horn-horn-fill-over" href="#scarab-horn-horn-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="scarab-horn-horn-sheen" d="M171.66 86 L177.66 86 L158.34 132 L152.34 132 Z M181.16 86 L183.76 86 L164.44 132 L161.84 132 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="scarab-horn-horn-line" href="#scarab-horn-horn-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

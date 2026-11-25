@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-javelin" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-javelin-shaft-shape" d="M 50 74 L 50 74 Q 52.5 74 52.5 76.5 L 52.5 159.5 Q 52.5 162 50 162 L 50 162 Q 47.5 162 47.5 159.5 L 47.5 76.5 Q 47.5 74 50 74 Z"/>
+<path id="w-javelin-head-shape" d="M 50 52 L 57 70 L 53 77 L 47 77 L 43 70 Z"/>
+<path id="w-javelin-hand-shape" d="M 57.5 126 C 57.5 130.1 54.1 133.5 50 133.5 C 45.9 133.5 42.5 130.1 42.5 126 C 42.5 121.9 45.9 118.5 50 118.5 C 54.1 118.5 57.5 121.9 57.5 126 Z"/>
+<clipPath id="w-javelin-hand-clip"><use href="#w-javelin-hand-shape"/></clipPath>
+<clipPath id="w-javelin-hand-lit-clip"><use href="#w-javelin-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="w-javelin-shaft">
+<use id="w-javelin-shaft-fill" href="#w-javelin-shaft-shape" fill="#9a6a3a"/>
+<use id="w-javelin-shaft-line" href="#w-javelin-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-javelin-head">
+<use id="w-javelin-head-fill" href="#w-javelin-head-shape" fill="#b9c2cc"/>
+<use id="w-javelin-head-line" href="#w-javelin-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-javelin-hand">
+<use id="w-javelin-hand-shade" href="#w-javelin-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-javelin-hand-clip)">
+<use id="w-javelin-hand-fill" href="#w-javelin-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-javelin-hand-lit-clip)">
+<use id="w-javelin-hand-lit" href="#w-javelin-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-javelin-hand-fill-over" href="#w-javelin-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-javelin-hand-line" href="#w-javelin-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="colossus-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="colossus-leg-front-leg-shape" d="M 104 146 L 118 146 Q 125 146 125 153 L 125 173 Q 125 180 118 180 L 104 180 Q 97 180 97 173 L 97 153 Q 97 146 104 146 Z"/>
+<clipPath id="colossus-leg-front-leg-clip"><use href="#colossus-leg-front-leg-shape"/></clipPath>
+<clipPath id="colossus-leg-front-leg-lit-clip"><use href="#colossus-leg-front-leg-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="colossus-leg-front-leg">
+<use id="colossus-leg-front-leg-shade" href="#colossus-leg-front-leg-shape" fill="#8c6b42"/>
+<g clip-path="url(#colossus-leg-front-leg-clip)">
+<use id="colossus-leg-front-leg-fill" href="#colossus-leg-front-leg-shape" transform="translate(-4 -4)" fill="#b08a5a"/>
+<g clip-path="url(#colossus-leg-front-leg-lit-clip)">
+<use id="colossus-leg-front-leg-lit" href="#colossus-leg-front-leg-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="colossus-leg-front-leg-fill-over" href="#colossus-leg-front-leg-shape" transform="translate(4.2 4.2)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="colossus-leg-front-leg-line" href="#colossus-leg-front-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-sword" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-sword-blade-shape" d="M 42.5 116 L 42.5 79 L 50 66 L 57.5 79 L 57.5 116 Z"/>
+<clipPath id="w-sword-blade-clip"><use href="#w-sword-blade-shape"/></clipPath>
+<clipPath id="w-sword-blade-lit-clip"><use href="#w-sword-blade-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="w-sword-pommel-shape" d="M 55 139 C 55 141.8 52.8 144 50 144 C 47.2 144 45 141.8 45 139 C 45 136.2 47.2 134 50 134 C 52.8 134 55 136.2 55 139 Z"/>
+<path id="w-sword-guard-shape" d="M 39 111 L 61 111 Q 65 111 65 115 L 65 115 Q 65 119 61 119 L 39 119 Q 35 119 35 115 L 35 115 Q 35 111 39 111 Z"/>
+<clipPath id="w-sword-guard-clip"><use href="#w-sword-guard-shape"/></clipPath>
+<clipPath id="w-sword-guard-lit-clip"><use href="#w-sword-guard-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="w-sword-hand-shape" d="M 57.5 126 C 57.5 130.1 54.1 133.5 50 133.5 C 45.9 133.5 42.5 130.1 42.5 126 C 42.5 121.9 45.9 118.5 50 118.5 C 54.1 118.5 57.5 121.9 57.5 126 Z"/>
+<clipPath id="w-sword-hand-clip"><use href="#w-sword-hand-shape"/></clipPath>
+<clipPath id="w-sword-hand-lit-clip"><use href="#w-sword-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="w-sword-blade">
+<use id="w-sword-blade-shade" href="#w-sword-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#w-sword-blade-clip)">
+<use id="w-sword-blade-fill" href="#w-sword-blade-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#w-sword-blade-lit-clip)">
+<use id="w-sword-blade-lit" href="#w-sword-blade-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-sword-blade-fill-over" href="#w-sword-blade-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="w-sword-bevel" d="M 42.5 116 L 42.5 79 L 50 66 L 50 116 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="w-sword-fuller" d="M 50 114 L 50 86" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="w-sword-blade-line" href="#w-sword-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-sword-pommel">
+<use id="w-sword-pommel-fill" href="#w-sword-pommel-shape" fill="#c8a24a"/>
+<use id="w-sword-pommel-line" href="#w-sword-pommel-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-sword-guard">
+<use id="w-sword-guard-shade" href="#w-sword-guard-shape" fill="#9c7c33"/>
+<g clip-path="url(#w-sword-guard-clip)">
+<use id="w-sword-guard-fill" href="#w-sword-guard-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#w-sword-guard-lit-clip)">
+<use id="w-sword-guard-lit" href="#w-sword-guard-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-sword-guard-fill-over" href="#w-sword-guard-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="w-sword-guard-line" href="#w-sword-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-sword-hand">
+<use id="w-sword-hand-shade" href="#w-sword-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-sword-hand-clip)">
+<use id="w-sword-hand-fill" href="#w-sword-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-sword-hand-lit-clip)">
+<use id="w-sword-hand-lit" href="#w-sword-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-sword-hand-fill-over" href="#w-sword-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-sword-hand-line" href="#w-sword-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

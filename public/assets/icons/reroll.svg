@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="reroll" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="reroll-turn-a-shape" d="M 8 22 C 8 9 28 3 38 14 L 42 9 L 43 25 L 27 23 L 32 19 C 26 13 16 15 16 22 Z"/>
+<clipPath id="reroll-turn-a-clip"><use href="#reroll-turn-a-shape"/></clipPath>
+<clipPath id="reroll-turn-a-lit-clip"><use href="#reroll-turn-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="reroll-turn-b-shape" d="M 40 26 C 40 39 20 45 10 34 L 6 39 L 5 23 L 21 25 L 16 29 C 22 35 32 33 32 26 Z"/>
+<clipPath id="reroll-turn-b-clip"><use href="#reroll-turn-b-shape"/></clipPath>
+<clipPath id="reroll-turn-b-lit-clip"><use href="#reroll-turn-b-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="reroll-turn-a">
+<use id="reroll-turn-a-shade" href="#reroll-turn-a-shape" fill="#c4b594"/>
+<g clip-path="url(#reroll-turn-a-clip)">
+<use id="reroll-turn-a-fill" href="#reroll-turn-a-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#reroll-turn-a-lit-clip)">
+<use id="reroll-turn-a-lit" href="#reroll-turn-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="reroll-turn-a-fill-over" href="#reroll-turn-a-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="reroll-turn-a-line" href="#reroll-turn-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="reroll-turn-b">
+<use id="reroll-turn-b-shade" href="#reroll-turn-b-shape" fill="#c4b594"/>
+<g clip-path="url(#reroll-turn-b-clip)">
+<use id="reroll-turn-b-fill" href="#reroll-turn-b-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#reroll-turn-b-lit-clip)">
+<use id="reroll-turn-b-lit" href="#reroll-turn-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="reroll-turn-b-fill-over" href="#reroll-turn-b-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="reroll-turn-b-line" href="#reroll-turn-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

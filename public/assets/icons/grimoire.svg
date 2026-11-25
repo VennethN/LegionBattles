@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="grimoire" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="grimoire-pages-shape" d="M 16 14 L 38 14 Q 41 14 41 17 L 41 41 Q 41 44 38 44 L 16 44 Q 13 44 13 41 L 13 17 Q 13 14 16 14 Z"/>
+<path id="grimoire-cover-shape" d="M 11 9 L 33 9 Q 36 9 36 12 L 36 36 Q 36 39 33 39 L 11 39 Q 8 39 8 36 L 8 12 Q 8 9 11 9 Z"/>
+<clipPath id="grimoire-cover-clip"><use href="#grimoire-cover-shape"/></clipPath>
+<clipPath id="grimoire-cover-lit-clip"><use href="#grimoire-cover-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="grimoire-clasp-shape" d="M 19 18 L 25 18 Q 27 18 27 20 L 27 28 Q 27 30 25 30 L 19 30 Q 17 30 17 28 L 17 20 Q 17 18 19 18 Z"/>
+<path id="grimoire-hand-shape" d="M 29.5 41 C 29.5 45.1 26.1 48.5 22 48.5 C 17.9 48.5 14.5 45.1 14.5 41 C 14.5 36.9 17.9 33.5 22 33.5 C 26.1 33.5 29.5 36.9 29.5 41 Z"/>
+<clipPath id="grimoire-hand-clip"><use href="#grimoire-hand-shape"/></clipPath>
+<clipPath id="grimoire-hand-lit-clip"><use href="#grimoire-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="grimoire-pages">
+<use id="grimoire-pages-fill" href="#grimoire-pages-shape" fill="#e9dfc6"/>
+<use id="grimoire-pages-line" href="#grimoire-pages-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="grimoire-cover">
+<use id="grimoire-cover-shade" href="#grimoire-cover-shape" fill="#6541a8"/>
+<g clip-path="url(#grimoire-cover-clip)">
+<use id="grimoire-cover-fill" href="#grimoire-cover-shape" transform="translate(-4 -4)" fill="#8a5cd6"/>
+<g clip-path="url(#grimoire-cover-lit-clip)">
+<use id="grimoire-cover-lit" href="#grimoire-cover-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="grimoire-cover-fill-over" href="#grimoire-cover-shape" transform="translate(4.2 4.2)" fill="#8a5cd6"/>
+</g>
+</g>
+<use id="grimoire-cover-line" href="#grimoire-cover-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="grimoire-clasp">
+<use id="grimoire-clasp-fill" href="#grimoire-clasp-shape" fill="#c8a24a"/>
+<use id="grimoire-clasp-line" href="#grimoire-clasp-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="grimoire-hand">
+<use id="grimoire-hand-shade" href="#grimoire-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#grimoire-hand-clip)">
+<use id="grimoire-hand-fill" href="#grimoire-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#grimoire-hand-lit-clip)">
+<use id="grimoire-hand-lit" href="#grimoire-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="grimoire-hand-fill-over" href="#grimoire-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="grimoire-hand-line" href="#grimoire-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
