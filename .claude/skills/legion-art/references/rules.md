@@ -32,8 +32,15 @@ Watch for accidents, which is where faces come from:
 - **Two dots side by side read as eyes** whatever they are meant to be. Rivets on a helm go in a row of three or more along an edge, behind the opening, or not at all.
 - **Two dark openings must not sit side by side, or meet.** The Beekeeper's hive has a door and its veil has a window. The first drawing held the hive up beside the head, and the two dark shapes sat at the height of a face. The hive is carried low now. Before giving anything a second dark opening (a lantern's pane, a horn's mouth, a door), look at where it sits against the first.
 - A single jewel on a turban or a sign on a golem's chest is fine. Anything where a face would be is not.
+- **One round light over a door is an eye over a mouth.** A mine's lamp hung on the middle of its lintel; it hangs off the end now.
+- **A dark hollow on a round body is an eye.** A turtle's head was drawn in, leaving one dark hole in the shell. It has a head in an iron cap instead.
+- **A flame behind one bar is a slit pupil.** A lantern's pane was pale, its flame a dark almond, and one bar ran down the middle of it. It has two bars and a rail now, and the flame has a pale heart.
+- **Things seen inside something are a face if there are three of them.** A slime had a buckle, a bone and a coin in it: two dots and a dash. It has one helmet and a string of bubbles that climbs.
+- **A jagged edge under a head is teeth.** A yak's forelock was cut in points; it hangs in strands.
+- **Spots on a cap over a door are eyes over a mouth.** The mushroom that is a tower has bands. The mushroom caps that are hats keep their spots, because under them is a scarf and no door.
+- **A key with a hole in each wing** is two dark rings side by side. Its wings are solid.
 
-A creature follows the same rule by the same means: a muzzle in a hood's shadow, a mask, a helm. If it cannot be drawn without eyes, draw something else.
+A creature follows the same rule by the same means, and the kit's beasts all do: a mask of leather or iron over a hound's head, a plate over a bear's muzzle, a hood on a stag and an eagle, a curled horn where a ram's eye would be, a forelock over a yak's whole front, a plate of bronze on a lizard, a chanfron on a horse. A beetle and a crab have a shell and nothing on it. If it cannot be drawn without eyes, draw something else.
 
 ## Proportions
 
@@ -98,11 +105,15 @@ A material is a fill and a shade; `gloss` is what makes it metal. Straw is gold'
 
 ## Team color
 
-**Team color goes on cloth only.** A tunic, a hood, a cape, a plume, a sash, a pennant. Never on steel, wood or a shield's face. Every unit needs enough cloth to be told for its side at a glance; where armor covers the body, give it a cape, a skirt below the belt, or a plume. A building shows whose it is in its roof, its flag or a band.
+**Team color goes on cloth only.** A tunic, a hood, a cape, a plume, a sash, a pennant. Never on steel, wood or a shield's face. Every unit needs enough cloth to be told for its side at a glance; where armor covers the body, give it a cape, a skirt below the belt, or a plume. A building shows whose it is in its roof, its flag or a band. A beast wears a blanket or a hood, an engine flies a pennant or has a drape over its bed, and a creature with a shell has a cloth thrown over it: a small pennon alone did not say whose a crab was. A trap shows no side at all.
+
+Look at a new unit in red as well as blue (`npm run art:roster -- <id> both`). A big piece of cloth that is nobody's can read as a side: a mushroom cap in ruby looked like the enemy's and was made violet.
 
 ## Silhouette
 
 Every unit needs a silhouette of its own: a head shape, a weapon and what the other hand holds that no other unit has together. Look at `silhouettes.png`. If two are hard to tell apart, redraw one. The two golems were once the same shape in two colors; the Rime Golem now has a crown of shards.
+
+Small things with a thick line are a dark tangle. Five caltrops were drawn, each smaller than the line round it is wide twice over, and nothing of the steel showed: there are three now, bigger. The same goes for pebbles, rivets and the weights on a net.
 
 Not every unit is a soldier. The Ballista is an engine on wheels, the golems are stone and ice, the Faithful are townsfolk read by the hat of their trade and the tool they carry. A set is better for one that is not a person.
 
@@ -125,6 +136,6 @@ The files are meant to be opened and edited in Inkscape: attributes only, no sty
 
 ## What a program checks, and what only looking can
 
-`npm run art:sheet` fails on: a color off the palette, a dark line of another width, SVG that is not plain, a unit part that runs off its page.
+`npm run art:sheet` fails on: a color off the palette, a dark line of another width, SVG that is not plain, a unit part that runs off its page. It looks at the files a game shows. `npm run art:roster -- check` looks at every unit in the kit, shown or not, for the same, and for a shadow, a body, a line in the notes, a movement that has poses, and cloth of its side on everything but a trap.
 
 Only looking can tell: a face, by design or by accident; whether a unit reads as its side; whether two silhouettes are too alike; whether a part comes away from the body in a pose. So every change to the art ends with the sheets open.

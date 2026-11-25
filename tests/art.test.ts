@@ -2,7 +2,12 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { castList } from '../src/art/cast';
+import { checkCast, checkUnit } from '../src/art/check';
+import { circle } from '../src/art/kit/path';
 import { allColors } from '../src/art/kit/palette';
+import { UNIT_ART } from '../src/art/units';
+import { UNIT_NOTES } from '../src/art/units/notes';
 import type { Manifest } from '../src/art/manifest';
 import { CAMP, HEROES, LANDS } from '../src/game/data';
 import { THEMES } from '../src/audio/music';
@@ -75,6 +80,29 @@ describe('the pictures', () => {
   it('fit the build: the whole of the art is well under what a portal takes', () => {
     const bytes = files('public/assets').reduce((a, f) => a + fs.statSync(f).size, 0);
     expect(bytes).toBeLessThan(4_200_000);
+  });
+});
+
+describe('the whole cast, whether this game shows a unit or not', () => {
+  it('is in the palette, in one line width, with a shadow, a body, a line in the notes, and cloth of its side unless it is a trap', () => {
+    expect(checkCast()).toEqual([]);
+    expect(UNIT_ART.length).toBe(Object.keys(UNIT_NOTES).length);
+  });
+
+  it('is caught when a unit breaks the style: a color of its own, or no side', () => {
+    const knight = UNIT_ART.find((u) => u.id === 'knight')!;
+    const painted = { ...knight, parts: [...knight.parts, { ...knight.parts[1], name: 'spot', draw: (d: Parameters<typeof knight.parts[1]['draw']>[0]) => void d.flat('spot', circle(96, 96, 4), '#123456') }] };
+    expect(checkUnit(painted).join(' ')).toContain('#123456 is not in the palette');
+    const trap = UNIT_ART.find((u) => u.id === 'spiketrap')!;
+    expect(checkUnit({ ...trap, id: 'knight' }).join(' ')).toContain('shows no side');
+    expect(checkUnit({ ...knight, id: 'spiketrap' }).join(' ')).toContain('is a trap and shows its side');
+    expect(checkUnit({ ...knight, id: 'nobody' }).join(' ')).toContain('has no line in units/notes.ts');
+  });
+
+  it('is listed for a person to read, in the docs and in the skill, as it is drawn', () => {
+    for (const file of ['docs/art/roster.md', '.claude/skills/legion-art/references/roster.md']) {
+      expect(fs.readFileSync(file, 'utf8'), `${file}: run npm run art:roster -- list=${file}`).toBe(castList());
+    }
   });
 });
 

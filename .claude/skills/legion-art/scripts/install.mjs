@@ -56,8 +56,9 @@ console.log(`install: ${copied} files copied into ${target}${kept ? `, ${kept} a
 console.log(`
 Next:
   npm install --save-dev @resvg/resvg-js tsx typescript     (and phaser, for the runtime under src/view)
-  add to package.json scripts:  "art": "tsx scripts/art.ts",  "art:sheet": "tsx scripts/sheet.ts"
+  add to package.json scripts:  "art": "tsx scripts/art.ts",  "art:sheet": "tsx scripts/sheet.ts",  "art:roster": "tsx scripts/roster.ts"
   say what the game shows in scripts/art.game.ts: as it comes, it shows everything
   npm run art          writes public/assets and its manifest.json
   npm run art:sheet    draws docs/art/*.png and checks colors and lines
+  npm run art:roster   draws any units or sets from the source (-- check holds the whole cast to the style)
 Read references/rules.md before drawing anything.`);

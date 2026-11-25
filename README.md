@@ -22,6 +22,7 @@ Other things to run:
 | `npm run art` | Writes every picture the game uses to `public/assets`, and the manifest that says how figures are put together. Run it after changing anything under `src/art`. |
 | `npm run art:sheet` | Draws the contact sheets to `docs/art` (every unit, part, pose and silhouette, the grounds, the logo) and fails on a color off the palette or a line of the wrong width. Look at them after drawing anything: no program can see a face. |
 | `npm run art:preview [unit ...]` | Draws units side by side to `build/preview.png`, to look at while drawing one. |
+| `npm run art:roster -- [unit, set or role ...] [both] [pose=strike] [zoom=2]` | Draws any of the kit's units to `build/roster.png`, from the source, whether this game shows them or not. `-- check` holds every unit in the kit to what a program can see of the style, and `-- list=docs/art/roster.md` writes the cast as a list. |
 | `npm run pace -- --hours=3 [--taps=4] [--each]` | Plays the game by its own rules in seconds and says how long each stretch of the road takes. The numbers in `src/game/data.ts` are set by what it prints. |
 | `npm run walk [state ...]` | With `npm run dev` running: pictures of the game in every state a player meets, on a wide screen and a phone, to `build/walk`. |
 | `npm run smoke` | With `npm run dev` running: plays the game through its interface on a wide screen and by touch on a phone, and fails if a press does not do what it says. About a minute. |
@@ -59,22 +60,22 @@ Other things to run:
 | `src/game/state.ts` | The save, and how one read from storage is made safe to use. |
 | `src/game/format.ts` | How a number is written: 999, 1.23K, 7.70aa. |
 | `src/game/storage.ts` | Where the save is kept. |
-| `src/art` | The art kit and everything drawn with it. `march.ts` is the ground the legion marches over, `icons-idle.ts` this game's icons, `logo.ts` its title. |
+| `src/art` | The art kit and everything drawn with it. `march.ts` is the ground the legion marches over, `icons-idle.ts` this game's icons, `logo.ts` its title. The kit draws 202 units in sixteen sets (soldiers, townsfolk, beasts, riders, golems, siege engines, buildings, traps), of which this game shows forty: `docs/art/roster.md` lists every one, with its set, its role and how it is read. |
 | `src/view/StageView.ts` | The fight as it is seen: the ground, the legion in ranks, the camp, the enemy, coins and packs. |
 | `src/view/scenes` | `BootScene` loads, `GameScene` is the one screen, `ListScene` is the scrolling lists, `ModalScene` the cards that come up over everything, `AssetsScene` loads pictures while the game runs. |
 | `src/view/art` | The art's runtime: `Sheet` packs pictures onto one texture, `Figure` moves a figure's parts by the rig. |
 | `src/view/config.ts`, `src/view/app.ts` | How the screen is fitted to a window, and how it is cut into the fight and the lists. |
 | `src/audio` | The sounds and the music, which is written as notes and played on recorded instruments. The recordings are the first game's bank (`public/assets/audio/bank.bin`), cut from two libraries that are free to use; `public/assets/audio/CREDITS.txt` names them and is shipped with the game. |
 | `src/platform` | The portal: CrazyGames' SDK for the save, the player's name and ads. |
-| `scripts` | `art` and `sheet` are the kit's and the same for every game; `art.game.ts` says what this game shows of the kit. `pace`, `walk` and `cover` are this game's. |
+| `scripts` | `art`, `sheet` and `roster` are the kit's and the same for every game; `art.game.ts` says what this game shows of the kit. `pace`, `walk` and `cover` are this game's. |
 | `tests` | Vitest. |
 | `.claude/skills/legion-art` | The art style as a skill: its rules, the kit, and how to draw with it. |
 
 ## Adding to it
 
-**A hero.** A line in `HEROES` in `data.ts`: its unit (a figure the kit draws), its name, how often it strikes, whether it shoots, where it stands in the ranks (file from the front, rank from the top), and what it gives the legion at level 25. A hero that shoots or casts gets a line in `SHOTS` in `StageView.ts`. Then `npm run art`, and `npm run pace` to see what it did to the road. `tests/sheet.test.ts` fails if the art no longer fits its sheet.
+**A hero.** A line in `HEROES` in `data.ts`: its unit (any figure in `docs/art/roster.md`; the art build writes whoever the data names), its name, how often it strikes, whether it shoots, where it stands in the ranks (file from the front, rank from the top), and what it gives the legion at level 25. A hero that shoots or casts gets a line in `SHOTS` in `StageView.ts`. Then `npm run art`, and `npm run pace` to see what it did to the road. `tests/sheet.test.ts` fails if the art no longer fits its sheet.
 
-**A land.** An entry in `LANDS`: its name, its kind of ground, four or five troops from lightest to heaviest, a captain and a boss. A new kind of ground needs its colors in `src/art/ground.ts`, its scenery in `LOOKS` in `src/art/march.ts`, an emblem icon named `land-` and the ground, a pack in `PACKS` in `StageView.ts`, and a tune in `THEMES` in `src/audio/music.ts`. `tests/art.test.ts` says which of those is missing.
+**A land.** An entry in `LANDS`: its name, its kind of ground, four or five troops from lightest to heaviest, a captain and a boss, each a unit of the kit's. The sets in `docs/art/roster.md` were drawn for this: a marsh, a deep wood, the steppe, a forge, a mine, a crypt, a coast, a desert court, a workshop and a hidden order each have their troops, a captain and a boss, and most have a beast, an engine, buildings and traps besides. A new kind of ground needs its colors in `src/art/ground.ts`, its scenery in `LOOKS` in `src/art/march.ts`, an emblem icon named `land-` and the ground, a pack in `PACKS` in `StageView.ts`, and a tune in `THEMES` in `src/audio/music.ts`. `tests/art.test.ts` says which of those is missing.
 
 **Something for the camp, an honor, a feat.** A line in `CAMP`, `HONORS` or `FEATS`. A new kind of effect also needs its rule in `rules.ts` and its words in `src/view/ui/texts.ts`.
 
@@ -101,3 +102,4 @@ This was built in a cloud session with no screen and no sound.
 - Touch has been tried only as a headless browser makes it (`npm run smoke`): taps land where they should. Dragging the lists with a real finger, and tapping the fight with more than one, have not been.
 - The CrazyGames build has not been run on their page. Its code is the first game's, which has.
 - The pace is measured by a program that buys perfectly. A person does not.
+- The 155 units drawn after the game was finished are in the kit and in no game yet. Each was looked at on a sheet, standing still and at the far end of its blow, in blue and many in red. None has been seen walking, struck or falling, at the size a game shows it, or beside the first cast in a fight. The three movements written for them (a beast's bite, an engine's lob, a ram) have been seen only as their two end poses.

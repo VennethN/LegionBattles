@@ -1,14 +1,19 @@
 // npm run art:roster [unit or set ...] [cols=6] [zoom=1.25] [pose=windup|strike|hit] [out=build/roster.png] [both]
+// npm run art:roster check              what a program can check, over every unit the kit draws
+// npm run art:roster list=docs/art/roster.md    the cast as a list: each set, each unit, its role, how it is read
 //
 // Draws units in rows with their names, straight from the art's source: no
 // files have to have been written, so it shows the whole kit and not only
 // what one game uses. It is how a batch of new units is looked at, and how
 // the picture of the whole cast is made. Name units, or a set to draw the
-// units of it. "both" draws the enemy's color under the player's.
+// units of it, or a role (beast, engine, building ...). "both" draws the
+// enemy's color under the player's.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
+import { castList, castSets } from '../src/art/cast';
+import { checkCast } from '../src/art/check';
 import { composeUnit } from '../src/art/compose';
 import { CANVAS } from '../src/art/kit/draw';
 import { GRASS, OUTLINE } from '../src/art/kit/palette';
@@ -19,14 +24,33 @@ import { UNIT_NOTES } from '../src/art/units/notes';
 
 const args = process.argv.slice(2);
 const option = (name: string, fallback: string): string => args.find((a) => a.startsWith(`${name}=`))?.slice(name.length + 1) ?? fallback;
-const names = args.filter((a) => !a.includes('=') && a !== 'both');
+const names = args.filter((a) => !a.includes('=') && a !== 'both' && a !== 'check');
 const both = args.includes('both');
 const cols = Number(option('cols', '6'));
 const zoom = Number(option('zoom', '1.25'));
 const poseName = option('pose', '');
 const out = path.resolve(option('out', 'build/roster.png'));
 
-const wanted = UNIT_ART.filter((u) => names.length === 0 || names.includes(u.id) || names.includes(UNIT_NOTES[u.id]?.set ?? ''));
+if (args.includes('check')) {
+  const problems = checkCast();
+  if (problems.length > 0) {
+    console.error(`roster: ${problems.length} problem(s):\n  ${problems.slice(0, 60).join('\n  ')}`);
+    process.exit(1);
+  }
+  console.log(`roster: ${UNIT_ART.length} units, each in the palette, with one line width, a shadow, a body, a line in the notes, and cloth of its side unless it is a trap`);
+  process.exit(0);
+}
+
+const list = option('list', '');
+if (list) {
+  fs.mkdirSync(path.dirname(path.resolve(list)), { recursive: true });
+  fs.writeFileSync(path.resolve(list), castList());
+  console.log(`roster: ${list} (${UNIT_ART.length} units in ${castSets().length} sets)`);
+  process.exit(0);
+}
+
+const named = (id: string): boolean => names.includes(id) || names.includes(UNIT_NOTES[id]?.set ?? '') || names.includes(UNIT_NOTES[id]?.role ?? '');
+const wanted = UNIT_ART.filter((u) => names.length === 0 || named(u.id));
 if (wanted.length === 0) throw new Error(`roster: nothing is named ${names.join(', ')}`);
 
 const cell = CANVAS + 8;
