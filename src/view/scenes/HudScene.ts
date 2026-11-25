@@ -23,6 +23,7 @@ import { commit, save, theHunt } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 import { LIGHT_NAMES, lightMode, nextLightMode, setLightMode } from '../light/setting';
+import { FEEL_NAMES, feelMode, nextFeelMode, setFeelMode } from '../vfx/setting';
 import { LairScene } from './LairScene';
 
 const ICON = 0.5;
@@ -367,7 +368,7 @@ export class HudScene extends Phaser.Scene {
     const veil = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.6).setInteractive();
     const cx = view.w / 2;
     const cy = view.h / 2;
-    c.add([veil, slabImage(this, cx - 150, cy - 200, 300, 456, BONE, 18, 8), label(this, cx, cy - 162, 'PAUSED', { size: 30 })]);
+    c.add([veil, slabImage(this, cx - 150, cy - 229, 300, 514, BONE, 18, 8), label(this, cx, cy - 191, 'PAUSED', { size: 30 })]);
     const s = save();
     const toggle = (y: number, name: string, get: () => boolean, set: (v: boolean) => void): void => {
       const b = new Button(this, cx, y, `${name}: ${get() ? 'ON' : 'OFF'}`, () => {
@@ -378,23 +379,29 @@ export class HudScene extends Phaser.Scene {
       }, { width: 220, height: 46, size: 19, mat: IRON });
       c.add(b.root);
     };
-    c.add(new Button(this, cx, cy - 102, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
-    toggle(cy - 38, 'SOUND', () => s.sound, (v) => (s.sound = v));
-    toggle(cy + 20, 'MUSIC', () => s.music, (v) => (s.music = v));
+    c.add(new Button(this, cx, cy - 131, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
+    toggle(cy - 67, 'SOUND', () => s.sound, (v) => (s.sound = v));
+    toggle(cy - 9, 'MUSIC', () => s.music, (v) => (s.music = v));
     // The lines said in a hunt are spice: some would rather play in silence.
-    toggle(cy + 78, 'LINES', () => s.talk !== false, (v) => {
+    toggle(cy + 49, 'LINES', () => s.talk !== false, (v) => {
       s.talk = v;
       lair.talk.on = v;
       if (!v) lair.talk.drop();
     });
     // How much of the light is made: all of it, the cheap part, or none. A slow machine wants less.
-    const light = new Button(this, cx, cy + 136, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
+    const light = new Button(this, cx, cy + 107, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
       setLightMode(nextLightMode(lightMode()), true);
       lair.setLight(lightMode());
       light.setText(`LIGHT: ${LIGHT_NAMES[lightMode()]}`);
     }, { width: 220, height: 46, size: 19, mat: IRON });
     c.add(light.root);
-    c.add(new Button(this, cx, cy + 204, 'GIVE UP', () => {
+    // How hard the screen is shaken and flashed by a blow: some players want it felt, some find it hard to watch.
+    const feel = new Button(this, cx, cy + 165, `EFFECTS: ${FEEL_NAMES[feelMode()]}`, () => {
+      setFeelMode(nextFeelMode(feelMode()));
+      feel.setText(`EFFECTS: ${FEEL_NAMES[feelMode()]}`);
+    }, { width: 220, height: 46, size: 19, mat: IRON });
+    c.add(feel.root);
+    c.add(new Button(this, cx, cy + 233, 'GIVE UP', () => {
       hunt.giveUp();
       this.paused?.destroy();
       this.paused = null;

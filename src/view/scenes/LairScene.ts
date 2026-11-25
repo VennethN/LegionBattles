@@ -22,6 +22,8 @@ import { Effects } from '../Effects';
 import { LairLight } from '../light/LairLight';
 import type { LightMode } from '../light/setting';
 import { Numbers } from '../Numbers';
+import { drawTell as drawMarkedTell } from '../vfx/Tells';
+import { Vfx } from '../vfx/Vfx';
 import {
   ABILITY_MOVES, ALLY_ART, BUILDING_ART, GRIM_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, isGrim, type Art,
 } from '../pictures';
@@ -69,6 +71,8 @@ const WOOD: Array<[string, number, number, number, 'far' | 'back' | 'field' | 'n
   ['trunk-flat', 0.04, 1.04, 1.3, 'near'], ['trunk-flat', 0.95, 1.05, 1.3, 'near'],
 ];
 const DRESSING: Record<string, typeof CHURCHYARD> = { churchyard: CHURCHYARD, wood: WOOD };
+/** What a crow will sit on. */
+const PERCHED = new Set(['wall', 'lych-gate', 'dead-tree', 'hunting-wall', 'fallen-tree', 'standing-stone']);
 
 export class LairScene extends Phaser.Scene {
   private hunt!: Hunt;
@@ -79,6 +83,8 @@ export class LairScene extends Phaser.Scene {
   private fx!: Effects;
   private nums!: Numbers;
   private light!: LairLight;
+  /** What flies off a blow, what it leaves on the ground, how the screen takes it, and the lair breathing (vfx/). */
+  private vfx: Vfx | null = null;
   /** What lies on the ground and is lit with it: tar. */
   private ground!: Phaser.GameObjects.Graphics;
   /** What is drawn over the dark, sharp: the tells, the rings, the bars. */
@@ -127,6 +133,7 @@ export class LairScene extends Phaser.Scene {
     this.before.clear();
     this.monster = null;
     this.standIn = null;
+    this.vfx = null;
     this.spare = [];
     this.acc = 0;
     this.clock = 0;
@@ -190,6 +197,8 @@ export class LairScene extends Phaser.Scene {
     // A stand-in ground is another style's: it is darkened to sit under this one's figures.
     if (!dressed) floor.setTint(0x6a7a8c);
     const torches: Array<[number, number]> = [];
+    // Where crows sit: the tops of walls, the gate and the trees.
+    const perches: Array<[number, number]> = [];
     if (dressed) {
       // The lair as a stage set, in layers: far off, the back wall, what stands on the field's rim, and black flats in front.
       for (const [id, fx, fy, scale, layer] of DRESSING[h.monster.def.lair] ?? []) {
@@ -199,6 +208,10 @@ export class LairScene extends Phaser.Scene {
         else if (layer === 'near') img.setDepth(9000).setScrollFactor(1.12, 1.06);
         else img.setDepth(fy * h.h);
         if (id === 'torch-post') torches.push([fx * h.w, fy * h.h - 150 * scale]);
+        if (PERCHED.has(id) && layer !== 'far' && layer !== 'near') {
+          const top = img.y - img.displayHeight * img.originY;
+          for (const at of [-0.25, 0.2]) if (Math.random() < 0.6) perches.push([img.x + at * img.displayWidth, top + img.displayHeight * (id === 'dead-tree' ? 0.25 : 0.04)]);
+        }
         // Every other piece faces the other way, so that two of a kind are not twins.
         if (fx > 0.5 && id !== 'far-church' && id !== 'lych-gate') img.setFlipX(true);
       }
@@ -214,6 +227,11 @@ export class LairScene extends Phaser.Scene {
     else this.standIn = new Figure(this, mp.legion, mp.team, getManifest().units[mp.legion], mp.scale, 'unit', 2);
     this.light = new LairLight(this, h, torches);
     this.marks = this.light.crisp(this.add.graphics().setDepth(2));
+    this.vfx = new Vfx({
+      scene: this, hunt: h, light: this.light, perches,
+      hunter: () => this.hunter, monster: () => this.monster, tall: () => this.tall(),
+      stop: (s) => this.stop(s), slow: (s, by) => this.slow(s, by),
+    });
     this.ready = true;
     this.sync(0);
     // Before the boss wakes, the lair's near silence; once it is up, its own piece at the step its health has come to.
@@ -301,7 +319,7 @@ export class LairScene extends Phaser.Scene {
       this.monster?.die(this.clock);
       this.standIn?.die(this.clock);
     } else this.hunter.die(this.clock);
-    this.cameras.main.shake(320, 0.01);
+    this.shake(320, 0.01);
     // The fall is watched before anything is said of it.
     this.time.delayedCall(won ? 1700 : 1300, () => {
       this.halted = true;
@@ -327,7 +345,9 @@ export class LairScene extends Phaser.Scene {
     // One shake at a time, the bigger: many small ones on top of each other are only noise.
     if (this.clock < this.shook) return;
     this.shook = this.clock + ms / 1000;
-    this.cameras.main.shake(ms, by);
+    // The effects shake the view and the tells' camera with it, so that a tell never slides off its ground.
+    if (this.vfx) this.vfx.rumble(ms, by);
+    else this.cameras.main.shake(ms, by);
   }
 
   private react(events: Ev[]): void {
@@ -335,6 +355,7 @@ export class LairScene extends Phaser.Scene {
     const h = w.hunter;
     const m = w.monster;
     this.light.react(events);
+    this.vfx?.react(events);
     this.talk.hear(events, this.hunt);
     const hud = this.scene.get('Hud') as HudScene | undefined;
     for (const e of events) {
@@ -608,6 +629,7 @@ export class LairScene extends Phaser.Scene {
     const cx = view.w >= w.w ? w.w / 2 : Math.max(view.w / 2, Math.min(w.w - view.w / 2, hx));
     const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2, Math.min(w.h - view.h / 2, hy));
     cam.centerOn(cx, cy);
+    this.vfx?.apply(cam, view.zoom);
   }
 
   /** How tall the monster stands on the field, for what floats over it. */
@@ -784,6 +806,7 @@ export class LairScene extends Phaser.Scene {
 
     this.drawMarks();
 
+    this.vfx?.update(dt, this.clock, this.halted);
     this.follow();
     this.light.update(dt, this.clock, this.halted);
   }
@@ -865,53 +888,11 @@ export class LairScene extends Phaser.Scene {
     g.closePath().fillPath();
   }
 
-  /** A band between two circles, as one shape: out along the outer rim and back along the inner. */
-  private band(g: Phaser.GameObjects.Graphics, x: number, y: number, inner: number, outer: number, color: number, alpha: number): void {
-    const n = 40;
-    const pts: Phaser.Math.Vector2[] = [];
-    for (let i = 0; i <= n; i++) pts.push(new Phaser.Math.Vector2(x + Math.cos((i / n) * Math.PI * 2) * outer, y + Math.sin((i / n) * Math.PI * 2) * outer));
-    for (let i = n; i >= 0; i--) pts.push(new Phaser.Math.Vector2(x + Math.cos((i / n) * Math.PI * 2) * inner, y + Math.sin((i / n) * Math.PI * 2) * inner));
-    g.fillStyle(color, alpha).fillPoints(pts, true);
+  private drawTell(g: Phaser.GameObjects.Graphics, t: Tell): void {
+    // Marked ground in the style, at the rules' own shape and size, with the time shown as a fill that reaches its edge as it lands (vfx/Tells.ts).
+    drawMarkedTell(g, t, this.clock, this.hunt.hunter, this.hunt.monster.def.lair);
   }
 
-  private drawTell(g: Phaser.GameObjects.Graphics, t: Tell): void {
-    const k = Math.max(0, Math.min(1, 1 - t.left / t.of));
-    const color = t.foe ? RED : GOLD;
-    // In its last moments it flickers: now.
-    const last = t.left < 0.18 ? 0.25 : 0;
-    if (t.kind === 'ring') {
-      if (t.inner > 0) {
-        // A ring with a safe middle: a band, filling outward from its inner rim.
-        this.band(g, t.x, t.y, t.inner, t.r, color, 0.14 + last);
-        if (k > 0.03) this.band(g, t.x, t.y, t.inner, t.inner + (t.r - t.inner) * k, color, 0.26);
-        g.lineStyle(3, color, 0.9).strokeCircle(t.x, t.y, t.r).strokeCircle(t.x, t.y, t.inner);
-        return;
-      }
-      g.fillStyle(color, 0.14 + last).fillCircle(t.x, t.y, t.r);
-      if (t.r * k > 2) g.fillStyle(color, 0.28).fillCircle(t.x, t.y, t.r * k);
-      g.lineStyle(3, color, 0.9).strokeCircle(t.x, t.y, t.r);
-      return;
-    }
-    if (t.kind === 'cone') {
-      g.fillStyle(color, 0.14 + last).slice(t.x, t.y, t.r, t.angle - t.half, t.angle + t.half, false).fillPath();
-      // A wedge of no size is not drawn at all: the arc of one cannot be worked out.
-      if (t.r * k > 4) g.fillStyle(color, 0.28).slice(t.x, t.y, t.r * k, t.angle - t.half, t.angle + t.half, false).fillPath();
-      g.lineStyle(3, color, 0.9).slice(t.x, t.y, t.r, t.angle - t.half, t.angle + t.half, false).strokePath();
-      return;
-    }
-    this.strip(g, t.x, t.y, t.angle, t.len, t.w, color, 0.14 + last);
-    if (k > 0.01) this.strip(g, t.x, t.y, t.angle, t.len * k, t.w, color, 0.28);
-    const cx = Math.cos(t.angle);
-    const cy = Math.sin(t.angle);
-    const nx = -cy * (t.w / 2);
-    const ny = cx * (t.w / 2);
-    g.lineStyle(3, color, 0.9).beginPath();
-    g.moveTo(t.x + nx, t.y + ny);
-    g.lineTo(t.x + cx * t.len + nx, t.y + cy * t.len + ny);
-    g.lineTo(t.x + cx * t.len - nx, t.y + cy * t.len - ny);
-    g.lineTo(t.x - nx, t.y - ny);
-    g.closePath().strokePath();
-  }
 }
 
 /** The step of a boss's piece for a part of its health: a hunt of three parts plays all three, a shorter one ends on the last. */

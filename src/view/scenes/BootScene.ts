@@ -14,6 +14,7 @@ import { ads } from '../../platform/ads';
 import { ASSETS, getManifest, setManifest, setupCamera } from '../app';
 import { ART_SCALE, FONT, TEXT_FONT, view } from '../config';
 import { makeDigitFont } from '../Numbers';
+import { keepVfxShapes } from '../vfx/shapes';
 import { cardSheet, portraitFrame, sheet } from '../art/Sheet';
 import { WHOLE } from '../pictures';
 import { save } from '../session';
@@ -90,6 +91,8 @@ export class BootScene extends Phaser.Scene {
         art.keepFolder(this, 'fx', 'fx');
         art.inner('fx/pixel', 'fx/solid', 5);
         art.keepFolder(this, 'icons', 'icon');
+        // The shapes the effects are made of: on the sheet with everything else, so that a spark is drawn in the same batch.
+        keepVfxShapes(art);
         makeDigitFont(this, art);
         // From here down, the sheet is for the figures of the field.
         art.seal();

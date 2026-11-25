@@ -34,6 +34,8 @@ export class GrimFigure {
   pace = 1;
   /** A tint laid on every part, or white for none. */
   tint = 0xffffff;
+  /** True to lay the tint on as a flat color, not a shade: a figure struck goes white for a moment. */
+  fill = false;
 
   private readonly sprites: Phaser.GameObjects.Image[] = [];
   private readonly xf;
@@ -49,6 +51,7 @@ export class GrimFigure {
   private hitAt = -9;
   private deadAt = -1;
   private lastTint = 0xffffff;
+  private lastFill = false;
   /** A figure as big as a boss: its recovery is slower and heavier, the opening it leaves plainer. */
   big = false;
 
@@ -108,6 +111,11 @@ export class GrimFigure {
     if (this.deadAt < 0) this.deadAt = now;
     this.act = null;
     this.moving = false;
+  }
+
+  /** Its parts as they are drawn: an after-image is made of copies of them. */
+  get parts(): readonly Phaser.GameObjects.Image[] {
+    return this.sprites;
   }
 
   /** How tall it stands, for what floats over it. */
@@ -198,9 +206,10 @@ export class GrimFigure {
       s.scaleX = o.sx * INV;
       s.scaleY = o.sy * INV;
     }
-    if (this.tint !== this.lastTint) {
+    if (this.tint !== this.lastTint || this.fill !== this.lastFill) {
       this.lastTint = this.tint;
-      for (const s of this.sprites) s.setTint(this.tint);
+      this.lastFill = this.fill;
+      for (const s of this.sprites) s.setTint(this.tint).setTintMode(this.fill ? Phaser.TintModes.FILL : Phaser.TintModes.MULTIPLY);
     }
 
     // A turn is eased through flat, as a card is turned, over a fifth of a second: never from one frame to the next.
