@@ -221,6 +221,13 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await put('broken', 4);
     await tick(page, 50);
     await shot('state-broken');
+    // Near death: the bar drains after a blow, the screen's edge is red.
+    await page.evaluate(() => {
+      const h = (window as unknown as Win).hunt();
+      if (h) h.hunter.hp = Math.round(h.hunter.maxHp * 0.22);
+    });
+    await tick(page, 4);
+    await shot('state-low');
     await page.evaluate(() => {
       const h = (window as unknown as Win).hunt() as unknown as { harm(n: number, by: string): void; monster: { state: string } } | null;
       if (h) {

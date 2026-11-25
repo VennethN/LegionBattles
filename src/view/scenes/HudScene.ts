@@ -9,16 +9,16 @@
 // stick.
 
 import Phaser from 'phaser';
-import { BONE, GOLD, HOLY, IRON, OUTLINE, RUBY, STEEL, type Material } from '../../art/kit/palette';
+import { BONE, GOLD, HOLY, IRON, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { BUILDINGS } from '../../game/content';
 import type { Ev, Hunt } from '../../game/hunt';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
-import { abilityIcon } from '../icons';
 import { Controls, KEY_NAMES, type Ask } from '../input';
-import { SHEET } from '../art/Sheet';
+import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
+import { uiIcon, uiKey } from '../ui/grim';
 import { commit, save, theHunt } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
@@ -32,7 +32,7 @@ const PAD = 70;
 interface Pad {
   ask: Ask;
   root: Phaser.GameObjects.Container;
-  veil: Phaser.GameObjects.Image;
+  veil: Phaser.GameObjects.Graphics;
   count: Phaser.GameObjects.Text | null;
   /** How much of its wait is left, as a share, and how many it has left where it counts. */
   wait: (h: Hunt) => number;
@@ -72,7 +72,15 @@ export class HudScene extends Phaser.Scene {
   private campPads: Array<{ root: Phaser.GameObjects.Container; text: Phaser.GameObjects.Text; id: string; n: number }> = [];
   private camp: Phaser.GameObjects.Container | null = null;
   private fight: Phaser.GameObjects.Container | null = null;
-  private drawn = '';
+  /** Health as it is drawn: what is left, and the part a blow took that drains away after it, the hunter's and the boss's. */
+  private hpShown = 0;
+  private hpLag = 0;
+  private bossLag = 0;
+  private bossShown = 0;
+  /** Seconds a bar flashes white for after a blow, the hunter's and the boss's. */
+  private hpFlash = 0;
+  private bossFlash = 0;
+  private low!: Phaser.GameObjects.Graphics;
   private clock = 0;
   private touch = false;
   /** Where the monster's bar is, and how wide. */
@@ -87,7 +95,6 @@ export class HudScene extends Phaser.Scene {
   create(data: { fresh?: boolean }): void {
     setupCamera(this);
     this.controls = new Controls(this);
-    this.drawn = '';
     this.paused = null;
     this.hint = null;
     this.pads = [];
@@ -102,15 +109,29 @@ export class HudScene extends Phaser.Scene {
     this.flash = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(RUBY.fill)).setAlpha(0).setDepth(1);
 
     this.bars = this.add.graphics().setDepth(10);
-    this.add.image(26, 26, SHEET, 'icon/heart').setScale(ICON * 0.62).setDepth(11);
-    this.hpText = label(this, 132, 25, '', { size: 15 }).setDepth(12);
-    label(this, 46, 50, hunt.hunter.def.short.toUpperCase(), { size: 15, align: 'left' }).setDepth(12);
+    // The hunter's plate: an iron plate with their likeness in a round slot, their name, and their health in a trough
+    // of their own. The bars are drawn every frame (bars), so that a blow's loss can drain after it.
+    this.add.existing(slabImage(this, 6, 6, 244, 56, IRON, 2, 4)).setDepth(9);
+    this.add.image(32, 34, uiKey('slot')).setDisplaySize(50, 52).setDepth(11);
+    const face = this.add.image(32, 34, CARDS, portraitFrame('grim', hunt.hunter.def.id)).setDepth(11);
+    face.setScale(Math.min(36 / face.width, 38 / face.height));
+    label(this, 62, 20, hunt.hunter.def.short.toUpperCase(), { size: 15, align: 'left', face: 'display' }).setDepth(12);
+    this.hpText = label(this, 238, 20, '', { size: 15, align: 'right', face: 'display' }).setDepth(12);
+    this.hpLag = hunt.hunter.hp;
+    this.hpShown = hunt.hunter.hp;
+    this.bossLag = hunt.monster.hp;
+    // Under 30% of health the edges of the screen go red, and pulse.
+    this.low = this.add.graphics().setDepth(2).setAlpha(0);
+    for (let i = 0; i < 10; i++) {
+      this.low.lineStyle(10, 0x8a1010, 0.1 + i * 0.02);
+      this.low.strokeRect(i * 6, i * 6, view.w - i * 12, view.h - i * 12);
+    }
 
     // The monster's bar: across the top of a wide window, and under the hunter's in a tall one, where there is no room beside it.
     this.bw = view.tall ? w - 60 : Math.min(360, w - 420);
     this.bx = view.tall ? 30 : w / 2 - this.bw / 2;
     this.by = view.tall ? 88 : 30;
-    label(this, this.bx + this.bw / 2, this.by - 15, hunt.monster.def.name.toUpperCase(), { size: 16, color: RUBY.fill }).setDepth(12);
+    label(this, this.bx + this.bw / 2, this.by - 15, hunt.monster.def.name.toUpperCase(), { size: 17, color: '#d0503c', face: 'display' }).setDepth(12);
     this.stateText = label(this, this.bx + this.bw / 2, this.by + 40, '', { size: 15, color: HOLY.fill }).setDepth(12);
 
     // Pause: a button, and the P key. Escape is the browser's, for leaving full screen.
@@ -155,13 +176,16 @@ export class HudScene extends Phaser.Scene {
   /** One button of the hunt: a picture, a word, its key, a veil that drains as its wait runs out. */
   private pad(parent: Phaser.GameObjects.Container, x: number, y: number, icon: string, word: string, ask: Ask, mat: Material, wait: (h: Hunt) => number, left: ((h: Hunt) => number) | null): void {
     const c = this.add.container(x, y);
-    c.add(slabImage(this, -PAD / 2, -PAD / 2, PAD, PAD, mat, 14, 6));
-    c.add(this.add.image(0, -12, SHEET, icon).setScale(ICON * 0.72));
-    c.add(label(this, 0, 20, word, { size: 15 }));
-    const veil = this.add.image(-PAD / 2 + 3, -PAD / 2 + 3, SHEET, 'fx/solid').setOrigin(0, 0).setTint(hex(OUTLINE)).setAlpha(0.72).setDisplaySize(PAD - 6, 0);
+    // The style's round iron slot, its icon on it, and the word under: the slot is the button.
+    c.add(this.add.image(0, -4, uiKey('slot')).setDisplaySize(PAD + 6, PAD + 10).setTint(mat === GOLD ? 0xf0d8a8 : 0xffffff));
+    const kit = uiIcon(icon);
+    c.add(kit ? this.add.image(0, -8, kit).setDisplaySize(40, 40) : this.add.image(0, -8, SHEET, `icon/${icon}`).setScale(ICON * 0.66));
+    c.add(label(this, 0, PAD / 2 - 2, word, { size: 15, face: 'display' }));
+    // The wait still to run, as a dark sweep round the slot from the top, as a clock's hand goes.
+    const veil = this.add.graphics();
     c.add(veil);
-    // The key that does the same, where there are keys.
-    if (!this.touch) c.add(label(this, -PAD / 2 + 4, -PAD / 2 - 9, KEY_NAMES[ask], { size: 15, align: 'left', color: HOLY.fill }));
+    // The key that does the same, small in the slot's corner, where there are keys.
+    if (!this.touch) c.add(label(this, -PAD / 2 + 2, -PAD / 2 + 4, KEY_NAMES[ask], { size: 15, align: 'left', color: HOLY.fill, face: 'display' }));
     const count = left ? label(this, PAD / 2 - 6, -PAD / 2 + 12, '', { size: 16, align: 'right', color: HOLY.fill }) : null;
     if (count) c.add(count);
     c.setSize(PAD, PAD).setInteractive({ useHandCursor: true });
@@ -179,14 +203,14 @@ export class HudScene extends Phaser.Scene {
     const step = PAD + 8;
     const h = hunt.hunter;
     const [a, b] = hunt.skills;
-    this.pad(c, x, y, 'icon/boot', 'DODGE', 'dodge', BONE, (n) => n.hunter.rollWait / h.def.dodge.wait, null);
+    this.pad(c, x, y, 'dodge', 'DODGE', 'dodge', BONE, (n) => n.hunter.rollWait / h.def.dodge.wait, null);
     x -= step;
-    this.pad(c, x, y, abilityIcon(b.id), SHORT[b.id] ?? b.name.toUpperCase(), 'b', IRON, (n) => n.hunter.waits[1] / b.wait, null);
+    this.pad(c, x, y, b.id, SHORT[b.id] ?? b.name.toUpperCase(), 'b', IRON, (n) => n.hunter.waits[1] / b.wait, null);
     x -= step;
-    this.pad(c, x, y, abilityIcon(a.id), SHORT[a.id] ?? a.name.toUpperCase(), 'a', IRON, (n) => n.hunter.waits[0] / a.wait, null);
+    this.pad(c, x, y, a.id, SHORT[a.id] ?? a.name.toUpperCase(), 'a', IRON, (n) => n.hunter.waits[0] / a.wait, null);
     hunt.calls.forEach((call, i) => {
       x -= step;
-      this.pad(c, x, y, 'icon/horn', SHORT[call.def.id] ?? call.def.name.toUpperCase(), `call${i}` as Ask, GOLD, (n) => (n.calls[i].left > 0 ? n.hornWait / 5 : 1), (n) => n.calls[i].left);
+      this.pad(c, x, y, `icon-${call.def.id}`, SHORT[call.def.id] ?? call.def.name.toUpperCase(), `call${i}` as Ask, GOLD, (n) => (n.calls[i].left > 0 ? n.hornWait / 5 : 1), (n) => n.calls[i].left);
     });
   }
 
@@ -405,6 +429,79 @@ export class HudScene extends Phaser.Scene {
   }
 
   /**
+   * Both health bars, drawn each frame in the style's hand: an iron trough with a dark rim and rivets, blood that is
+   * deep red with a lit top, and behind it the part a blow took, paler, draining away after a breath so that a player
+   * sees how much it took. A blow flashes the bar white; healing rises pale. The boss's bar has an iron post at each
+   * change of phase with the phase's number over it, and under it the stagger in a trough of its own toward a gold
+   * break mark.
+   */
+  private drawBars(hunt: Hunt, dt: number): void {
+    const g = this.bars;
+    const h = hunt.hunter;
+    const m = hunt.monster;
+    g.clear();
+    const trough = (x: number, y: number, w: number, hgt: number): void => {
+      g.fillStyle(0x0d0b09, 1).fillRect(x - 3, y - 3, w + 6, hgt + 6);
+      g.fillStyle(0x4a4640, 1).fillRect(x - 2, y - 2, w + 4, 1.5);
+      g.fillStyle(0x050404, 1).fillRect(x, y, w, hgt);
+    };
+    const blood = (x: number, y: number, w: number, hgt: number, share: number, deep: number, lit: number): void => {
+      if (share <= 0) return;
+      g.fillStyle(deep, 1).fillRect(x, y, w * share, hgt);
+      g.fillStyle(lit, 1).fillRect(x, y, w * share, Math.max(2, hgt * 0.32));
+    };
+    // The hunter's.
+    if (h.hp < this.hpShown - 0.5) this.hpFlash = 0.14;
+    const healing = h.hp > this.hpShown + 0.5;
+    this.hpShown = healing ? Math.min(h.hp, this.hpShown + h.maxHp * dt * 0.8) : h.hp;
+    this.hpLag = this.hpLag > h.hp ? Math.max(h.hp, this.hpLag - h.maxHp * dt * (this.hpFlash > 0 ? 0 : 0.35)) : h.hp;
+    const hx = 62;
+    const hy = 32;
+    const hw = 176;
+    trough(hx, hy, hw, 14);
+    blood(hx, hy, hw, 14, this.hpLag / h.maxHp, 0x5a3a30, 0x7a5a4a);
+    if (healing) blood(hx, hy, hw, 14, h.hp / h.maxHp, 0xb8a080, 0xe0d0b0);
+    blood(hx, hy, hw, 14, this.hpShown / h.maxHp, 0x7a1a14, 0xb8382a);
+    if (this.hpFlash > 0) g.fillStyle(0xffffff, Math.min(1, this.hpFlash * 6)).fillRect(hx, hy, hw * (this.hpLag / h.maxHp), 14);
+    this.hpFlash = Math.max(0, this.hpFlash - dt);
+    for (let k = 1; k < 4; k++) g.fillStyle(0x0d0b09, 0.6).fillRect(hx + (hw * k) / 4 - 0.5, hy, 1, 14);
+    this.hpText.setText(`${Math.ceil(h.hp)} / ${h.maxHp}`);
+    // Near death: the bar's text goes red, the screen's edge goes red and pulses.
+    const near = h.hp > 0 && h.hp / h.maxHp < 0.3;
+    this.hpText.setColor(near ? '#e05040' : BONE.fill);
+    this.low.setAlpha(near ? 0.55 + 0.35 * Math.sin(this.clock * 6) : Math.max(0, this.low.alpha - dt * 2));
+
+    // The boss's.
+    const { bx, by, bw } = this;
+    if (m.hp < this.bossShown - 0.5) this.bossFlash = 0.1;
+    this.bossShown = m.hp;
+    this.bossLag = this.bossLag > m.hp ? Math.max(m.hp, this.bossLag - m.maxHp * dt * (this.bossFlash > 0 ? 0 : 0.12)) : m.hp;
+    trough(bx, by, bw, 14);
+    const broken = m.state === 'broken';
+    blood(bx, by, bw, 14, this.bossLag / m.maxHp, 0x5a3a30, 0x7a5a4a);
+    blood(bx, by, bw, 14, m.hp / m.maxHp, broken ? 0xa07428 : 0x7a1a14, broken ? 0xf0d080 : 0xb8382a);
+    if (this.bossFlash > 0) g.fillStyle(0xffffff, Math.min(0.8, this.bossFlash * 7)).fillRect(bx, by, bw * (this.bossLag / m.maxHp), 14);
+    this.bossFlash = Math.max(0, this.bossFlash - dt);
+    // An iron post at each change of phase, with a rivet on it.
+    for (const cut of hunt.cuts) {
+      const x = bx + bw * cut;
+      g.fillStyle(0x0d0b09, 1).fillRect(x - 3, by - 5, 6, 24);
+      g.fillStyle(0x6a645a, 1).fillRect(x - 2, by - 4, 4, 22);
+      g.fillStyle(0xb0a890, 1).fillCircle(x, by + 7, 1.6);
+    }
+    // The stagger, toward its break mark.
+    const sy = by + 24;
+    trough(bx, sy, bw, 7);
+    const st = Math.min(1, m.stagger / m.staggerMax);
+    if (st > 0) {
+      g.fillStyle(0xa07428, 1).fillRect(bx, sy, bw * st, 7);
+      g.fillStyle(0xf0d080, 1).fillRect(bx, sy, bw * st, 2);
+    }
+    g.fillStyle(st >= 1 ? 0xffe8a0 : 0xc89a4a, 1);
+    g.fillTriangle(bx + bw + 4, sy - 3, bx + bw + 11, sy + 3.5, bx + bw + 4, sy + 10);
+  }
+
+  /**
    * The line being said, as a small caption that hangs by whoever says it, or under the boss's bars for something
    * heard. It is moved as they move. Where it would lie over a warning on the ground or over the hunter it is tried
    * on the other side of the speaker, and if there is no room there either it is dropped: a line never hides what
@@ -434,8 +531,8 @@ export class HudScene extends Phaser.Scene {
       name?.setPosition(0, -h / 2 + 7 + (name?.height ?? 0) / 2);
       line.setPosition(0, h / 2 - 7 - line.height / 2);
       const g = this.add.graphics();
-      g.fillStyle(hex(OUTLINE), now.heard ? 0.6 : 0.82).fillRoundedRect(-w / 2, -h / 2, w, h, 9);
-      if (!now.heard) g.lineStyle(2, hex(now.matters ? RUBY.fill : STEEL.shade), 0.9).strokeRoundedRect(-w / 2, -h / 2, w, h, 9);
+      g.fillStyle(0x0d0b09, now.heard ? 0.6 : 0.85).fillRect(-w / 2, -h / 2, w, h);
+      if (!now.heard) g.lineStyle(1.5, now.matters ? 0x9a2a20 : 0x7a7064, 0.9).strokeRect(-w / 2, -h / 2, w, h);
       c.add([g, ...(name ? [name] : []), line]);
       this.saidW = w;
       this.saidH = h;
@@ -483,25 +580,7 @@ export class HudScene extends Phaser.Scene {
     this.camp?.setVisible(camp);
     this.fight?.setVisible(!camp);
 
-    const key = `${Math.ceil(h.hp)}/${Math.ceil((m.hp / m.maxHp) * 300)}/${Math.round((m.stagger / m.staggerMax) * 100)}/${m.state}`;
-    if (key !== this.drawn) {
-      this.drawn = key;
-      const g = this.bars;
-      g.clear();
-      g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(44, 13, 180, 24, 9);
-      g.fillStyle(hex(RUBY.shade), 1).fillRoundedRect(48, 17, 172, 16, 6);
-      if (h.hp > 0) g.fillStyle(hex(RUBY.fill), 1).fillRoundedRect(48, 17, Math.max(10, 172 * (h.hp / h.maxHp)), 16, 6);
-      this.hpText.setText(`${Math.ceil(h.hp)} / ${h.maxHp}`);
-      // The monster: its health in three parts, and under it the stagger that blows in its openings fill.
-      const { bx, by, bw } = this;
-      g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(bx - 4, by - 4, bw + 8, 22, 8);
-      g.fillStyle(hex(RUBY.shade), 1).fillRect(bx, by, bw, 14);
-      g.fillStyle(m.state === 'broken' ? hex(HOLY.fill) : hex(RUBY.fill), 1).fillRect(bx, by, bw * (m.hp / m.maxHp), 14);
-      for (const cut of hunt.cuts) g.fillStyle(hex(OUTLINE), 1).fillRect(bx + bw * cut - 2, by - 2, 4, 18);
-      g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(bx - 4, by + 20, bw + 8, 12, 5);
-      g.fillStyle(hex(STEEL.shade), 1).fillRect(bx, by + 23, bw, 6);
-      g.fillStyle(hex(HOLY.fill), 1).fillRect(bx, by + 23, bw * Math.min(1, m.stagger / m.staggerMax), 6);
-    }
+    this.drawBars(hunt, Math.min(0.1, delta / 1000));
     // Under its bars: what it is doing, by name, while it prepares it; and that it is open, or broken, when it is.
     const doing = m.state === 'tell' || m.state === 'dash' ? (m.attack?.name ?? '').toUpperCase() : '';
     const state = doing || (m.state === 'asleep' ? 'ASLEEP' : m.state === 'broken' ? 'STUNNED' : m.state === 'shift' ? '' : hunt.open ? 'OPEN: ATTACK' : '');
@@ -532,7 +611,11 @@ export class HudScene extends Phaser.Scene {
       for (const p of this.pads) {
         if (!this.tweens.isTweening(p.root)) p.root.setScale(p.ask === wanted ? 1.08 + 0.08 * Math.sin(this.clock * 9) : 1);
         const wait = Math.max(0, Math.min(1, p.wait(hunt)));
-        p.veil.setDisplaySize(PAD - 6, (PAD - 10) * wait);
+        p.veil.clear();
+        if (wait > 0.001) {
+          p.veil.fillStyle(0x0b0908, 0.72);
+          p.veil.slice(0, -8, PAD / 2 - 4, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * wait, false).fillPath();
+        }
         if (p.count && p.left) p.count.setText(`x${p.left(hunt)}`);
         const ready = wait <= 0;
         if (ready && !p.ready) this.tweens.add({ targets: p.root, scale: { from: 1.14, to: 1 }, duration: 180 });

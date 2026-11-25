@@ -17,7 +17,8 @@ const KEYS: Record<string, [number, number]> = {
 /** What can be asked for with a key or a button, and the key of each. */
 export type Ask = 'dodge' | 'a' | 'b' | 'call0' | 'call1' | 'place0' | 'place1' | 'place2' | 'place3' | 'wake';
 const ASKS: Record<string, Ask> = {
-  Space: 'dodge', KeyQ: 'a', KeyE: 'b', KeyR: 'call0', KeyF: 'call1', Digit1: 'place0', Digit2: 'place1', Digit3: 'place2', Digit4: 'place3', Enter: 'wake',
+  // K beside Space for the dodge, so that a hand on J and K has both. J is kept for the attack the rules will give.
+  Space: 'dodge', KeyK: 'dodge', KeyQ: 'a', KeyE: 'b', KeyR: 'call0', KeyF: 'call1', Digit1: 'place0', Digit2: 'place1', Digit3: 'place2', Digit4: 'place3', Enter: 'wake',
 };
 /** The letter on the key of each thing, as most keyboards have it, for the buttons to show. */
 export const KEY_NAMES: Record<Ask, string> = { dodge: 'SPACE', a: 'Q', b: 'E', call0: 'R', call1: 'F', place0: '1', place1: '2', place2: '3', place3: '4', wake: 'ENTER' };

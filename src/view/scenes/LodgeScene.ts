@@ -127,17 +127,20 @@ export class LodgeScene extends Phaser.Scene {
   private board(top: number): void {
     const s = save();
     const w = view.w;
-    const list = contracts(s);
+    const all = contracts(s);
+    // The wall holds only what can be hunted: a boss still to come is a dark shape in a line under it, not a dead bill.
+    const list = all.filter((c) => c.posted);
+    const later = all.filter((c) => !c.posted);
     const chosen = theContract();
     const tall = view.tall;
     // The wall: planks across the whole width, behind every bill.
     const wallH = tall ? Math.min(view.h * 0.5, 420) : Math.min(view.h * 0.5, 250);
     this.add.existing(slabImage(this, 6, top - 4, w - 12, wallH, WOOD_DARK, 4, 6));
-    const cols = tall ? Math.min(3, list.length) : list.length;
+    const cols = tall ? Math.min(2, list.length) : Math.min(5, list.length);
     const rows = Math.ceil(list.length / cols);
     const gap = 10;
-    const bw = Math.min(150, (w - 30) / cols - gap);
-    const bh = Math.min(bw * 1.32, (wallH - 16) / rows - gap);
+    const bw = Math.min(170, (w - 30) / cols - gap, tall ? 999 : 170);
+    const bh = Math.min(bw * 1.32, (wallH - 40) / rows - gap);
     const x0 = w / 2 - ((cols - 1) * (bw + gap)) / 2;
     list.forEach((c, i) => {
       const x = x0 + (i % cols) * (bw + gap);
@@ -154,19 +157,20 @@ export class LodgeScene extends Phaser.Scene {
       card.add(this.add.circle(0, -bh / 2 + 7, 3, 0x2a221a).setStrokeStyle(1, 0x8a7a60));
       if (c.monster) this.figure(card, MONSTER_ART[c.id], bh * 0.14, bh * 0.46, c.posted);
       if (c.posted && c.monster) {
-        // The bill's own seal sits low on its right: the lines are set to its left.
-        const name = label(this, -bw * 0.08, bh * 0.22, c.monster.name.replace(/^The /, '').toUpperCase(), { size: 17, color: INK, stroke: null, face: 'display' });
-        name.setScale(Math.min(1, (bw * 0.66) / name.width));
+        // The name on a dark strip of its own across the bill, clear of everything printed on it.
+        card.add(slabImage(this, -bw / 2 + 6, bh * 0.22 - 13, bw - 12, 26, DARK, 2, 3));
+        const name = label(this, 0, bh * 0.22, c.monster.name.replace(/^The /, '').toUpperCase(), { size: 17, color: BONE.fill, face: 'display' });
+        name.setScale(Math.min(1, (bw - 24) / name.width));
         card.add(name);
         // Danger, in red marks of blood: one for each mark of difficulty it will be hunted at.
         const mark = picked ? Math.min(chosen.mark, c.upTo) : Math.min(c.upTo, Math.max(1, c.felled + 1));
         for (let k = 0; k < 3; k++) {
-          const d = this.add.rectangle(-bw * 0.08 + (k - 1) * 14, bh * 0.31, 8, 8, k < mark ? 0x8a1e16 : 0x6b5a48, k < mark ? 1 : 0.35).setAngle(45);
+          const d = this.add.rectangle(-bw * 0.24 + (k - 1) * 14, bh * 0.34, 8, 8, k < mark ? 0x8a1e16 : 0x6b5a48, k < mark ? 1 : 0.35).setAngle(45);
           card.add(d);
         }
         const { coin } = rewardOf(s, c.id, mark as Mark);
-        const pay = label(this, -bw * 0.08, bh * 0.4, `${coin} COIN`, { size: 15, color: '#6b4a1a', stroke: null, face: 'display' });
-        pay.setScale(Math.min(1, (bw * 0.6) / pay.width));
+        const pay = label(this, -bw * 0.22, bh * 0.43, `${coin} COIN`, { size: 15, color: '#3a2410', stroke: null, face: 'display' });
+        pay.setScale(Math.min(1, (bw * 0.42) / pay.width));
         // Who may go: a party of more than the hunter is said on the bill (the contract's own number, when contracts have one).
         const party = (c as Contract & { party?: number }).party ?? 1;
         if (party > 1) card.add(label(this, -bw * 0.08, bh * 0.47, `PARTY: ${party}`, { size: 15, color: INK, stroke: null, face: 'display' }));
@@ -193,6 +197,14 @@ export class LodgeScene extends Phaser.Scene {
         card.setScale(1.06);
       }
     });
+
+    // Bosses still to come: their dark shapes in a line at the foot of the wall, ??? and what must fall first.
+    if (later.length) {
+      const ly = top + wallH - 22;
+      const first = later[0].needs.replace(/^Beat The /, 'Beat the ');
+      const t = label(this, w - 20, ly, `MORE TO HUNT: ${later.map(() => '???').join('  ')}   ${first}`, { size: 15, align: 'right', color: BONE.shade });
+      t.setScale(Math.min(1, (w - 40) / t.width));
+    }
 
     // The contract picked: what is known of it, the difficulty, what it pays, and the way out to it.
     const py = top + wallH + 6;
