@@ -55,7 +55,7 @@ export const UNIT_ART: readonly UnitArt[] = [
   ...BEASTS_ART,
   ...MACHINES_ART,
   ...WORKS_ART,
-  // The named heroes of Last Stander, each drawn for themselves.
+  // The named heroes of Lastander, each drawn for themselves.
   ...HEROES_ART,
   // The companions who fight beside them.
   ...BAND_ART,

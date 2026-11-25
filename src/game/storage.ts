@@ -7,7 +7,7 @@
 
 import { repair, type SaveData } from './state';
 
-export const SAVE_KEY = 'last-stander-save';
+export const SAVE_KEY = 'lastander-save';
 
 /** As much of the browser's storage as the save needs. A portal's own storage has the same three calls. */
 export interface Store {

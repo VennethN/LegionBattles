@@ -1,4 +1,4 @@
-// The named heroes of Last Stander. Each is drawn for themselves: a build
+// The named heroes of Lastander. Each is drawn for themselves: a build
 // and a stance of their own (kit/stance.ts), a head nobody else has, their
 // own weapon big in the hand, cloth that moves, and one color beside their
 // side's. They are told from each other as black shapes before anything

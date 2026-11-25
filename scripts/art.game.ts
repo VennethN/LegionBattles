@@ -7,6 +7,7 @@
 // is still a file a player has to wait for. So only what is named here is
 // written.
 
+import { lastanderLogoSvg, lastanderMarkSvg } from '../src/art/lastander';
 import { GROUNDS } from '../src/art/ground';
 import { arenaGround, holdoutIcons, weaponIcons } from '../src/art/holdout';
 import type { IconArt } from '../src/art/icons';
@@ -46,6 +47,8 @@ export interface ArtGame {
   grades: readonly string[];
   /** The word across the shield in the logo, where a game has a name of its own: LEGION if it is not given. */
   logoFirst?: string;
+  /** A logo and a mark of the game's own, drawn elsewhere: the family's shield with the words on it if it is not given. */
+  logo?: { svg(): string; mark(): string };
   /** The word on the ribbon under it. */
   logoWord: string;
   scenes: readonly Scene[];
@@ -72,8 +75,8 @@ export const GAME: ArtGame = {
   // A pack is what a boss leaves: one picture serves.
   onlyPacks: new Set(['thornwood']),
   grades: [],
-  logoFirst: 'LAST',
-  logoWord: 'STANDER',
+  logoWord: 'LASTANDER',
+  logo: { svg: lastanderLogoSvg, mark: lastanderMarkSvg },
   // The ground of the arena, one picture to each kind of land, lying down for a wide window and stood up for a tall one.
   scenes: GROUNDS.flatMap((ground) =>
     (['wide', 'tall'] as const).map((shape) => {

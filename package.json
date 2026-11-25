@@ -1,5 +1,5 @@
 {
-  "name": "last-stander",
+  "name": "lastander",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,7 +7,7 @@
     "dev": "vite --port 5175 --strictPort",
     "build": "tsc --noEmit && vite build",
     "build:crazygames": "tsc --noEmit && vite build --mode crazygames --outDir dist-crazygames",
-    "package:crazygames": "npm run build:crazygames && mkdir -p build && rm -f build/last-stander-crazygames.zip && cd dist-crazygames && zip -q -r -9 ../build/last-stander-crazygames.zip .",
+    "package:crazygames": "npm run build:crazygames && mkdir -p build && rm -f build/lastander-crazygames.zip && cd dist-crazygames && zip -q -r -9 ../build/lastander-crazygames.zip .",
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",

@@ -1,4 +1,4 @@
-// The band: the companions of Last Stander, who fight beside a hero. Most
+// The band: the companions of Lastander, who fight beside a hero. Most
 // are a beast of the kit made into somebody with one idea, drawn big: the
 // hound has one ear down and a neckerchief, the bear has a hump and patched
 // barding, the old turtle carries a garden and a lamp. They are caught in

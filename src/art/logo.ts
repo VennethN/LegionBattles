@@ -20,7 +20,7 @@ export { LOGO_H, LOGO_SCALE, LOGO_W, MARK_SIZE };
 
 // The letters, each on a box 24 wide and 28 tall, as the grades' are (grades.ts): chunky, like the font's.
 // `w` is how wide the letter is, for setting them side by side.
-const LETTERS: Record<string, { w: number; draw: () => Path }> = {
+export const LETTERS: Record<string, { w: number; draw: () => Path }> = {
   L: { w: 21, draw: () => poly([[1, 0], [9.5, 0], [9.5, 20.5], [21, 20.5], [21, 28], [1, 28]]) },
   E: { w: 22, draw: () => poly([[1, 0], [22, 0], [22, 7.5], [9.5, 7.5], [9.5, 10.3], [19, 10.3], [19, 17.7], [9.5, 17.7], [9.5, 20.5], [22, 20.5], [22, 28], [1, 28]]) },
   G: {
@@ -96,7 +96,7 @@ const LETTERS: Record<string, { w: number; draw: () => Path }> = {
  * whole logo, outside its dark line, so that it reads on a dark ground,
  * where the dark line alone is lost, as well as on a light one.
  */
-interface Painter {
+export interface Painter {
   pass: 'edge' | 'art';
   piece: (name: string, shape: Path, mat: Material, opts?: PieceOpts) => void;
   /** A shadow cast on what is behind: only in the second pass. */
@@ -104,7 +104,7 @@ interface Painter {
 }
 const EDGE = 10;
 
-function painter(d: Doc, pass: 'edge' | 'art'): Painter {
+export function painter(d: Doc, pass: 'edge' | 'art'): Painter {
   if (pass === 'edge') {
     return {
       pass,

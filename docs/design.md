@@ -1,4 +1,4 @@
-# Last Stander: the design
+# Lastander: the design
 
 This is what the game is being reworked into. It is the brief every agent works from. Where it and the code differ, the code is behind, unless `docs/journal.md` says a thing was tried and changed.
 

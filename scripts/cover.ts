@@ -5,6 +5,7 @@
 // in the middle with what they carry about them, the horde closing in from
 // both sides, a captain behind, and the title small at the top.
 
+import { lastanderLogoSvg } from '../src/art/lastander';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
@@ -13,7 +14,7 @@ import { arenaGround, weaponIcons, WEAPON_HAND } from '../src/art/holdout';
 import { iconArt } from '../src/art/icons';
 import { Doc } from '../src/art/kit/draw';
 import { OUTLINE, type Team } from '../src/art/kit/palette';
-import { LOGO_H, LOGO_W, logoSvg } from '../src/art/logo';
+import { LOGO_H, LOGO_W } from '../src/art/logo';
 import { FEET_X, FEET_Y, pose, type Pose } from '../src/art/rig';
 import { UNIT_ART } from '../src/art/units';
 
@@ -59,7 +60,7 @@ function coin(x: number, y: number, size: number): string {
 /** The game's title, its middle at (x, y), `wide` across. */
 function title(x: number, y: number, wide: number): string {
   const s = wide / LOGO_W;
-  const inner = withIdSuffix(innerOf(logoSvg('STANDER', 'LAST')), `-c${serial++}`);
+  const inner = withIdSuffix(innerOf(lastanderLogoSvg()), `-c${serial++}`);
   // The logo's file is written three times the size it is drawn; its own page is that of the drawing.
   return `<g transform="translate(${r(x - wide / 2)} ${r(y - (LOGO_H * s) / 2)}) scale(${r(s)})">${inner}</g>`;
 }
