@@ -15,7 +15,7 @@ import { Path, capsule, circle, ellipse, line, path, poly, roundRect, smooth, ty
 export const STRAW: Material = { fill: GOLD.fill, shade: GOLD.shade };
 
 /** The shadow under a hat's brim, where a face would be, and a scarf up to it. Most hats are worn over this. */
-function hatFace(d: Doc, scarf: Material, fold = true): void {
+export function hatFace(d: Doc, scarf: Material, fold = true): void {
   const face = ellipse(98, 88, 27, 21);
   d.flat('shadow-under', face, HOOD_INTERIOR);
   d.line('shadow-under-edge', face);

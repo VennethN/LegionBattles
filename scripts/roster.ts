@@ -1,4 +1,4 @@
-// npm run art:roster [unit or set ...] [cols=6] [zoom=1.25] [pose=windup|strike|hit] [out=build/roster.png] [both]
+// npm run art:roster [unit or set ...] [cols=6] [zoom=1.25] [pose=windup|strike|hit] [out=build/roster.png] [both] [shape]
 // npm run art:roster check              what a program can check, over every unit the kit draws
 // npm run art:roster list=docs/art/roster.md    the cast as a list: each set, each unit, its role, how it is read
 //
@@ -7,7 +7,8 @@
 // what one game uses. It is how a batch of new units is looked at, and how
 // the picture of the whole cast is made. Name units, or a set to draw the
 // units of it, or a role (beast, engine, building ...). "both" draws the
-// enemy's color under the player's.
+// enemy's color under the player's. "shape" draws each as a black shape on
+// white, which is how two units that are too alike are found.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -24,7 +25,8 @@ import { UNIT_NOTES } from '../src/art/units/notes';
 
 const args = process.argv.slice(2);
 const option = (name: string, fallback: string): string => args.find((a) => a.startsWith(`${name}=`))?.slice(name.length + 1) ?? fallback;
-const names = args.filter((a) => !a.includes('=') && a !== 'both' && a !== 'check');
+const names = args.filter((a) => !a.includes('=') && a !== 'both' && a !== 'check' && a !== 'shape');
+const shape = args.includes('shape');
 const both = args.includes('both');
 const cols = Number(option('cols', '6'));
 const zoom = Number(option('zoom', '1.25'));
@@ -50,7 +52,10 @@ if (list) {
 }
 
 const named = (id: string): boolean => names.includes(id) || names.includes(UNIT_NOTES[id]?.set ?? '') || names.includes(UNIT_NOTES[id]?.role ?? '');
-const wanted = UNIT_ART.filter((u) => names.length === 0 || named(u.id));
+const found = UNIT_ART.filter((u) => names.length === 0 || named(u.id));
+// Units named one by one are drawn in the order they were named, so that two rows can be set against each other.
+const byName = names.length > 0 && names.every((n) => UNIT_ART.some((u) => u.id === n));
+const wanted = byName ? names.map((n) => UNIT_ART.find((u) => u.id === n) as (typeof UNIT_ART)[number]) : found;
 if (wanted.length === 0) throw new Error(`roster: nothing is named ${names.join(', ')}`);
 
 const cell = CANVAS + 8;
@@ -60,13 +65,15 @@ const rowH = (both ? CANVAS * 2 : CANVAS) + 26 + HEAD;
 const rows = Math.ceil(wanted.length / cols);
 const width = cols * cell + 16;
 const height = rows * rowH + 12;
-let body = `<rect width="${width}" height="${height}" fill="${GRASS.fill}"/>`;
+// A black shape: every color to black, and whatever is half seen through (the shadow on the ground) to nothing.
+const INK = '<filter id="ink" x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 20 -10"/></filter>';
+let body = shape ? `<defs>${INK}</defs><rect width="${width}" height="${height}" fill="#ffffff"/>` : `<rect width="${width}" height="${height}" fill="${GRASS.fill}"/>`;
 let n = 0;
 wanted.forEach((unit, i) => {
   const x = 8 + (i % cols) * cell;
   const y = 6 + HEAD + Math.floor(i / cols) * rowH;
   const pose: Pose | undefined = poseName === 'hit' ? HIT_POSE : poseName === 'windup' || poseName === 'strike' ? ATTACK_POSES[unit.style][poseName] : undefined;
-  body += `<g transform="translate(${x} ${y})">${composeUnit(unit, 'blue', { pose, idSuffix: `-b${n++}` })}</g>`;
+  body += `<g transform="translate(${x} ${y})"${shape ? ' filter="url(#ink)"' : ''}>${composeUnit(unit, 'blue', { pose, idSuffix: `-b${n++}` })}</g>`;
   if (both) body += `<g transform="translate(${x + CANVAS} ${y + CANVAS}) scale(-1 1)">${composeUnit(unit, 'red', { pose, idSuffix: `-r${n++}` })}</g>`;
   body += `<text x="${x + CANVAS / 2}" y="${y + rowH - HEAD - 8}" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="${OUTLINE}">${unit.id}</text>`;
 });

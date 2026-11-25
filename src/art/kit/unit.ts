@@ -24,7 +24,10 @@ export type Role =
 export type Parent = 'root' | 'body' | 'head';
 
 /** How the main hand attacks, which picks the animation. */
-export type AttackStyle = 'slash' | 'chop' | 'thrust' | 'bow' | 'cast' | 'swing' | 'throw' | 'shoot' | 'bite' | 'lob' | 'ram';
+export type AttackStyle =
+  | 'slash' | 'chop' | 'thrust' | 'bow' | 'cast' | 'swing' | 'throw' | 'shoot' | 'bite' | 'lob' | 'ram'
+  // The heroes' own (poses.ts): they step into a blow, and the head and the cloth do not go with the body.
+  | 'guard' | 'cleave' | 'smite' | 'lunge' | 'invoke' | 'longshot' | 'toll' | 'stoop';
 
 export interface PartSpec {
   name: string;

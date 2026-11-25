@@ -27,8 +27,20 @@ export function sizedPt(k: number, p: Pt): Pt {
 // ---------------------------------------------------------------- the body
 
 /** A leg of a beast, with a paw or a hoof forward. `x` is where it joins the body, `top` how high that is. */
-export function beastLeg(d: Doc, s: (p: Path) => Path, x: number, mat: Material, isFar: boolean, top = 142, w = 15, hoof: Material | null = null): void {
-  const leg = path().M(x - w / 2, top).L(x + w / 2, top).L(x + w / 2, 169).Q(x + w / 2 + 7, 170, x + w / 2 + 7, 176).L(x + w / 2 + 7, 180).L(x - w / 2, 180).Z();
+export function beastLeg(
+  d: Doc, s: (p: Path) => Path, x: number, mat: Material, isFar: boolean, top = 142, w = 15, hoof: Material | null = null,
+  /** How far forward of the hip the foot is set down, and how far its joint is bent back from the straight line between them. */
+  step = 0, bend = 0,
+): void {
+  const h = w / 2;
+  const px = x + step;
+  // The joint, half way down: a straight leg has none, and is the table leg the first beasts stood on.
+  const kx = x + step / 2 - bend;
+  const ky = (top + 172) / 2;
+  const leg = step === 0 && bend === 0
+    ? path().M(x - h, top).L(x + h, top).L(x + h, 169).Q(x + h + 7, 170, x + h + 7, 176).L(x + h + 7, 180).L(x - h, 180).Z()
+    : path().M(x - h, top).L(x + h, top).L(kx + h, ky).L(px + h, 169).Q(px + h + 7, 170, px + h + 7, 176).L(px + h + 7, 180).L(px - h, 180).L(px - h, 172).L(kx - h, ky).Z();
+  x = px;
   d.piece('leg', s(leg), isFar ? far(mat) : mat, {
     shade: isFar ? 0 : 3,
     inner: hoof ? (c) => c.piece('hoof', s(roundRect(x - w / 2 - 2, 172, w + 12, 10, 0)), isFar ? far(hoof) : hoof, { shade: 0 }) : undefined,
@@ -109,7 +121,7 @@ export function tailLizard(d: Doc, s: (p: Path) => Path, mat: Material): void {
 // Each draws a neck and a head from the withers forward. None has an eye.
 
 /** A hound's head in a mask of leather: ears up, a muzzle, a seam and three studs, and a collar. */
-export function houndHead(d: Doc, s: (p: Path) => Path, fur: Material, mask: Material = LEATHER, collar: Material | null = null): void {
+export function houndHead(d: Doc, s: (p: Path) => Path, fur: Material, mask: Material = LEATHER, collar: Material | null = null, rivets = true): void {
   d.piece('ear-far', s(poly([[142, 92], [146, 70], [154, 90]])), far(fur), { shade: 0 });
   d.piece('neck', s(capsule(124, 124, 140, 106, 22)), fur, { shade: 3 });
   if (collar) d.piece('collar', s(poly([[120, 110], [142, 122], [138, 131], [116, 119]])), collar, { shade: 0 });
@@ -117,7 +129,8 @@ export function houndHead(d: Doc, s: (p: Path) => Path, fur: Material, mask: Mat
     shade: 4,
     inner: (c) => {
       c.shadeOver('seam', s(capsule(148, 86, 151, 118, 1.6)), 1.3);
-      for (const [x, y] of [[158, 96], [164, 100], [169, 105]] as const) rivetAt(c, s, x, y);
+      // Shown small, three rivets on a mask are dots where a face would be: a beast that is looked at closely goes without.
+      if (rivets) for (const [x, y] of [[158, 96], [164, 100], [169, 105]] as const) rivetAt(c, s, x, y);
     },
   });
   d.piece('ear', s(poly([[132, 96], [130, 70], [146, 88]])), fur, { shade: 3 });
@@ -196,13 +209,13 @@ export function yakHead(d: Doc, s: (p: Path) => Path, fur: Material, horn: Mater
 }
 
 /** A lizard's head: low and flat, plated on top, with a crest of spines. */
-export function lizardHead(d: Doc, s: (p: Path) => Path, skin: Material, plate: Material = IRON, spine: Material = BONE): void {
+export function lizardHead(d: Doc, s: (p: Path) => Path, skin: Material, plate: Material = IRON, spine: Material = BONE, rivets = true): void {
   for (const x of [130, 140, 150]) d.piece('spine', s(poly([[x - 5, 128], [x + 1, 114], [x + 6, 128]])), spine, { shade: 0 });
   d.piece('head', s(smooth([[124, 136], [134, 126], [152, 124], [170, 130], [180, 142, 'c'], [166, 150], [140, 152], [126, 148]])), skin, { shade: 4 });
   d.piece('plate', s(smooth([[132, 126, 'c'], [152, 122], [172, 130], [180, 141, 'c'], [160, 138], [134, 137]])), plate, {
     shade: 3,
     inner: (c) => {
-      for (const [x, y] of [[146, 130], [156, 132], [166, 135]] as const) rivetAt(c, s, x, y);
+      if (rivets) for (const [x, y] of [[146, 130], [156, 132], [166, 135]] as const) rivetAt(c, s, x, y);
     },
   });
 }
