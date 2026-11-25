@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
-  BAND, BLESSINGS, BREATH, COMPANIONS, CRATES, CRATE_PRICES, DEEDS, ENEMIES, HALL, HEROES, ITEMS, KENNEL, KINDS, LAST_WAVE, OATHS, OMENS, PLACE_PRICE, REF, RELICS, RENOWN, ROAD, SLOTS, TIERS, VOW, VOWS,
+  BAND, BOARD, BRANCHES, BREATH, COMPANIONS, CRATES, CRATE_PRICES, DEEDS, ENEMIES, HALL, HEROES, ITEMS, KENNEL, KINDS, LAST_WAVE, OATHS, OMENS, PLACE_PRICE, REF, RELICS, RENOWN, ROAD, SLOTS, TIERS, VOW, VOWS,
   WEAPONS, thingKey, waveOf,
 } from '../src/game/data';
 import {
-  altOpen, badge, beginDaily, beginRun, blessPrice, blessSays, blessStep, buyBlessing, buyCrate, buyFriend, buyHero, buyPlace, buyWare, chronicleOf, count, cratePrice, crateThings, dailyOf, dailyTaken,
+  altOpen, badge, beginDaily, beginRun, boardFull, boardOf, boonsOf, buyCrate, buyNode, canBuyNode, owns, refundBoard, buyFriend, buyHero, buyPlace, buyWare, chronicleOf, count, cratePrice, crateThings, dailyOf, dailyTaken,
   deedsOf, epithetOf, featSays, forksNow, friendPrice, hasWon, heroPrice, holdFull, inArmory, met, nextDeeds, oathsOf, placePrice, poolOf, setAlt, shutOf, startRelic, tallyOf, termsOf, toggleVow,
   vowsNext, vowsOpen, waresOf,
 } from '../src/game/hold';
@@ -66,17 +66,27 @@ describe('the lists of the Hold', () => {
     for (const c of COMPANIONS) expect(KENNEL[c.id], c.id).toBeGreaterThan(0);
   });
 
-  it('has blessings that give a choice, in steps that cost more each time, and eight vows', () => {
-    for (const b of BLESSINGS) {
-      expect(b.prices.length, b.id).toBe(b.by.length);
-      for (let i = 1; i < b.prices.length; i++) {
-        expect(b.prices[i]).toBeGreaterThan(b.prices[i - 1]);
-        expect(b.by[i]).toBeGreaterThan(b.by[i - 1]);
-      }
-      for (const by of b.by) expect(b.says(by).length).toBeGreaterThan(8);
+  it('has a board of four branches, each place after the one it needs and dearer than it, and eight vows', () => {
+    expect(new Set(BOARD.map((n) => n.id)).size).toBe(BOARD.length);
+    expect(BOARD.length).toBeGreaterThanOrEqual(30);
+    for (const b of BRANCHES) expect(BOARD.filter((n) => n.branch === b.id && !n.needs).length, b.id).toBe(1);
+    const places = new Set<string>();
+    for (const n of BOARD) {
+      expect(n.name.length, n.id).toBeGreaterThan(3);
+      expect(n.price, n.id).toBeGreaterThan(0);
+      // No two places stand in the same spot of the board.
+      const spot = `${n.at.col},${n.at.row}`;
+      expect(places.has(spot), n.id).toBe(false);
+      places.add(spot);
+      if (!n.needs) continue;
+      const before = BOARD.find((x) => x.id === n.needs);
+      expect(before, n.id).toBeDefined();
+      expect(before?.branch).toBe(n.branch);
+      expect(n.price).toBeGreaterThan(before?.price ?? 0);
+      expect(n.at.row).toBeGreaterThan(before?.at.row ?? 99);
     }
-    // None of them is plain health, harm or coins: those only move what the enemies' growth takes back.
-    expect(BLESSINGS.map((b) => b.id).sort()).toEqual(['banish', 'breath', 'path', 'quarter', 'relook']);
+    // There is always something a new player can nearly afford: the feet of the branches are cheap.
+    expect(Math.max(...BOARD.filter((n) => !n.needs).map((n) => n.price))).toBeLessThanOrEqual(40);
     expect(VOWS.length).toBe(8);
     expect(new Set(VOWS.map((v) => v.id)).size).toBe(8);
     for (const v of VOWS) expect(v.says.length, v.id).toBeGreaterThan(8);
@@ -277,116 +287,164 @@ describe('the armory', () => {
   });
 });
 
-describe('blessings', () => {
-  it('are bought a step at a time, each step dearer, until there are no more', () => {
-    const save = rich();
-    const quarter = BLESSINGS.find((b) => b.id === 'quarter');
-    if (!quarter) throw new Error('no blessing');
-    expect(blessSays(save, 'quarter')).toEqual({ now: '', next: quarter.says(quarter.by[0]) });
-    for (let i = 0; i < quarter.prices.length; i++) {
-      expect(blessPrice(save, 'quarter')).toBe(quarter.prices[i]);
-      expect(buyBlessing(save, 'quarter')).toBe(true);
-      expect(blessStep(save, 'quarter')).toBe(i + 1);
-    }
-    expect(blessPrice(save, 'quarter')).toBeNull();
-    expect(buyBlessing(save, 'quarter')).toBe(false);
-    expect(blessSays(save, 'quarter').next).toBe('');
-    expect(buyBlessing(rich(5), 'path')).toBe(false);
-  });
-
-  it('give a hero no health, harm or coins to begin with', () => {
+describe('the board', () => {
+  /** A save that owns these places and whatever each needs first. */
+  const owning = (...ids: string[]): SaveData => {
     const save = rich(100000);
-    const before = beginRun(save, 'bram', 1);
-    for (const b of BLESSINGS) while (buyBlessing(save, b.id));
-    const after = beginRun(save, 'bram', 1);
-    expect(statsOf(after)).toEqual(statsOf(before));
-    expect(after.gold).toBe(before.gold);
+    const want = (id: string): void => {
+      const n = BOARD.find((x) => x.id === id);
+      if (!n) throw new Error(id);
+      if (n.needs && !owns(save, n.needs)) want(n.needs);
+      if (!owns(save, id)) expect(buyNode(save, id), id).toBe(true);
+    };
+    ids.forEach(want);
+    return save;
+  };
+
+  it('sells a place once, for its price, after the one before it', () => {
+    const cost = (id: string): number => BOARD.find((n) => n.id === id)?.price ?? 0;
+    const save = rich(cost('hero-1') + cost('body-1') + cost('arm-1') - 1);
+    const had = save.renown;
+    expect(canBuyNode(save, 'hero-1')).toBe(true);
+    expect(canBuyNode(save, 'body-1')).toBe(false);
+    expect(buyNode(save, 'body-1')).toBe(false);
+    expect(buyNode(save, 'hero-1')).toBe(true);
+    expect(save.renown).toBe(had - cost('hero-1'));
+    expect(buyNode(save, 'hero-1')).toBe(false);
+    expect(canBuyNode(save, 'body-1')).toBe(true);
+    expect(canBuyNode(save, 'arm-1')).toBe(true);
+    expect(buyNode(save, 'body-1')).toBe(true);
+    // Renown short, or no such place.
+    expect(buyNode(save, 'arm-1')).toBe(false);
+    expect(buyNode(save, 'nothing')).toBe(false);
+    const rows = boardOf(save);
+    expect(rows.length).toBe(BOARD.length);
+    expect(rows.find((r) => r.node.id === 'hero-1')).toMatchObject({ owned: true, open: true, can: false });
+    expect(rows.find((r) => r.node.id === 'arm-1')).toMatchObject({ owned: false, open: true, can: false });
+    expect(rows.find((r) => r.node.id === 'arm-2')).toMatchObject({ owned: false, open: false, can: false });
+    for (const r of rows) expect(r.says.length, r.node.id).toBeGreaterThan(8);
   });
 
-  it("The Quartermaster's Favor: the first looks at other wares in each camp are free", () => {
-    const save = rich();
-    buyBlessing(save, 'quarter');
-    const run = { ...beginRun(save, 'bram', 1), wave: 5, phase: 'camp' as const, gold: 100 };
+  it('can be taken back whole for what was paid, and spent again another way', () => {
+    const save = owning('body-2', 'band-1');
+    const spent = 100000 - save.renown;
+    expect(spent).toBe(['hero-1', 'body-1', 'body-2', 'band-1'].reduce((n, id) => n + (BOARD.find((x) => x.id === id)?.price ?? 0), 0));
+    expect(refundBoard(save)).toBe(spent);
+    expect(save.renown).toBe(100000);
+    expect(save.board).toEqual([]);
+    expect(refundBoard(save)).toBe(0);
+    expect(buyNode(save, 'arm-1')).toBe(false);
+    expect(buyNode(save, 'hero-1')).toBe(true);
+  });
+
+  it('the hero grows for good: health, armor, harm, speed of striking and of foot, luck, reach', () => {
+    const plain = statsOf(beginRun(freshSave(), 'bram', 1));
+    const save = owning('body-5', 'arm-5', 'fortune-5');
+    const grown = statsOf(beginRun(save, 'bram', 1));
+    expect(grown.maxHp).toBe(plain.maxHp + 3 + 3 + 4);
+    expect(grown.armor).toBe(plain.armor + 2);
+    expect(grown.speed).toBe(plain.speed + 4);
+    expect(grown.damage).toBe(plain.damage + 4 + 5 + 6);
+    expect(grown.haste).toBe(plain.haste + 4 + 5);
+    expect(grown.luck).toBe(plain.luck + 5 + 8);
+    expect(grown.pickup).toBe(plain.pickup + 15);
+    expect(new World(setupOf(beginRun(save, 'bram', 1))).hero.maxHp).toBe(grown.maxHp);
+    expect(boonsOf(save).stats).toEqual({ maxHp: 10, armor: 2, speed: 4, damage: 15, haste: 9, luck: 13, pickup: 15 });
+  });
+
+  it('the purse: coins to begin with, free looks at other wares, and marks to strike a ware from the table', () => {
+    const save = owning('purse-7');
+    const run = { ...beginRun(save, 'bram', 31), wave: 5, phase: 'camp' as const };
+    expect(run.gold).toBe(10 + 15 + 20);
+    expect(beginRun(freshSave(), 'bram', 31).gold).toBe(0);
+    // Two free looks in each camp; with the Merchant's Seal one more.
+    run.gold = 1000;
     expect(rerollPrice(run)).toBe(0);
-    expect(reroll(run)).toBe(true);
-    expect(run.gold).toBe(100);
-    expect(rerollPrice(run)).toBeGreaterThan(0);
-    buyBlessing(save, 'quarter');
-    const two = { ...beginRun(save, 'bram', 1), wave: 5, phase: 'camp' as const, gold: 100 };
-    reroll(two);
-    expect(rerollPrice(two)).toBe(0);
-    // With the Merchant's Seal as well there is one more.
-    two.relics = ['seal'];
-    reroll(two);
-    expect(rerollPrice(two)).toBe(0);
-    reroll(two);
-    expect(rerollPrice(two)).toBeGreaterThan(0);
-  });
-
-  it('The Black Mark: a ware struck from the table is not offered again in that run', () => {
-    const save = rich();
-    buyBlessing(save, 'banish');
-    const run = { ...beginRun(save, 'bram', 31), wave: 5, phase: 'camp' as const, gold: 1e9 };
-    expect(run.banishes).toBe(2);
     reroll(run);
+    expect(rerollPrice(run)).toBe(0);
+    reroll(run);
+    expect(rerollPrice(run)).toBeGreaterThan(0);
+    expect(run.gold).toBe(1000);
+    run.relics = ['seal'];
+    expect(rerollPrice(run)).toBe(0);
+    // Four marks: a ware struck is not offered again in that run.
+    expect(run.banishes).toBe(4);
+    run.gold = 1e9;
     const struck = run.offers[0];
     expect(banish(run, 0)).toBe(true);
-    expect(run.banishes).toBe(1);
+    expect(run.banishes).toBe(3);
     expect(run.shut).toContain(thingKey(struck));
-    // Another has taken its place, and over many camps it never comes back.
-    expect(run.offers[0]).toBeDefined();
     for (let n = 0; n < 300; n++) {
       run.wave = 3 + (n % 16);
       reroll(run);
       for (const o of run.offers) expect(thingKey(o) === thingKey(struck)).toBe(false);
     }
-    expect(banish(run, 1)).toBe(true);
-    expect(banish(run, 2)).toBe(false);
-    // Without the blessing there is none to give.
     const bare = { ...beginRun(freshSave(), 'bram', 31), wave: 5, phase: 'camp' as const };
     reroll(bare);
     expect(banish(bare, 0)).toBe(false);
   });
 
-  it('The Third Road: three roads to choose from', () => {
-    const save = rich();
-    expect(forksNow(save)).toBe(ROAD.roads);
-    buyBlessing(save, 'path');
+  it('fortune: more experience, a third road, and a second look at a relic\'s choice', () => {
+    const save = owning('fortune-7');
+    const plain = beginRun(freshSave(), 'bram', 1);
+    endWave(plain, cleared(plain, { xp: 10 }));
+    const run = beginRun(save, 'bram', 1);
+    endWave(run, cleared(run, { xp: 10 }));
+    expect(run.xp).toBeCloseTo(plain.xp * 1.14);
+    expect(forksNow(freshSave())).toBe(ROAD.roads);
     expect(forksNow(save)).toBe(ROAD.roads + 1);
-    const run = { ...beginRun(save, 'bram', 77), wave: 6, phase: 'camp' as const };
-    march(run);
-    expect(run.roads.length).toBe(3);
-  });
-
-  it('A Second Look: once at each choice of a relic, three others are shown', () => {
-    const save = rich();
-    buyBlessing(save, 'relook');
-    const run = beginRun(save, 'bram', 5);
-    endWave(run, cleared(run, { felled: ['warlord'] }));
-    while ((run.phase as string) === 'level') (run.pending = 0), endWave({ ...run }, cleared(run)), (run.phase = 'relic');
-    expect(run.phase).toBe('relic');
-    const first = [...run.relicChoices];
-    expect(relook(run)).toBe(true);
-    expect(run.relicChoices.length).toBe(first.length);
-    for (const id of run.relicChoices) expect(first).not.toContain(id);
-    expect(relook(run)).toBe(false);
-    // The next choice has its own second look.
-    takeRelic(run, 0);
-    run.phase = 'fight';
-    run.pending = 0;
-    endWave(run, cleared(run, { felled: ['colossus'] }));
-    if ((run.phase as string) === 'level') (run.pending = 0), (run.phase = 'relic');
-    expect(run.relooked).toBe(false);
-    // Without the blessing there is no second look.
+    const camp = { ...beginRun(save, 'bram', 77), wave: 6, phase: 'camp' as const };
+    march(camp);
+    expect(camp.roads.length).toBe(3);
+    // A second look, once at each choice.
+    const pick = beginRun(save, 'bram', 5);
+    endWave(pick, cleared(pick, { felled: ['warlord'] }));
+    pick.pending = 0;
+    pick.phase = 'relic';
+    const first = [...pick.relicChoices];
+    expect(first.length).toBeGreaterThan(0);
+    expect(relook(pick)).toBe(true);
+    for (const id of pick.relicChoices) expect(first).not.toContain(id);
+    expect(relook(pick)).toBe(false);
     const bare = beginRun(freshSave(), 'bram', 5);
     endWave(bare, cleared(bare, { felled: ['warlord'] }));
     bare.phase = 'relic';
     expect(relook(bare)).toBe(false);
   });
 
+  it('the band: companions with more health, harder blows, and sooner on their feet', () => {
+    const band = (save: SaveData): World => new World(setupOf(beginRun({ ...save, friends: ['greta'], band: ['greta'] }, 'bram', 1)));
+    const plain = band(freshSave());
+    const grown = band(owning('band-6'));
+    expect(grown.band[0].maxHp).toBe(Math.round(plain.band[0].maxHp * 1.35));
+    // A companion's blow is a small whole number, so a quarter more is a quarter more or the next whole number up.
+    expect(grown.allyHarm(grown.band[0])).toBe(Math.max(1, Math.round((plain.band[0].def.dmg + plain.band[0].def.grow * plain.band[0].bond * 0) * 1.25)));
+    const downFor = (w: World): number => {
+      const a = w.band[0];
+      stand(alone(w), 'bruiser', a.x + 4, a.y, { hp: 99999999, dmg: 99999 }, true);
+      for (let i = 0; i < 600 && a.down <= 0; i++) w.step({ x: 0, y: 0 });
+      return a.down;
+    };
+    const was = downFor(plain);
+    expect(was).toBeGreaterThan(0);
+    expect(downFor(grown) / was).toBeCloseTo(0.5, 1);
+  });
+
+  it('fury fills faster', () => {
+    const filled = (save: SaveData): number => {
+      const run = beginRun(save, 'bram', 1);
+      const w = alone(new World({ ...setupOf(run), stats: stats({ maxHp: 9999, damage: 100000 }) }));
+      for (let i = 0; i < 3; i++) stand(w, 'cutpurse', w.hero.x + 50 + i, w.hero.y, { hp: 1 }, true);
+      play(w, 3);
+      return w.fury;
+    };
+    const plain = filled(freshSave());
+    expect(plain).toBeGreaterThan(0);
+    expect(filled(owning('arm-6')) / plain).toBeCloseTo(1.15, 1);
+  });
+
   it('A Second Breath: once in a run, a killing blow leaves the hero standing', () => {
-    const save = rich();
-    buyBlessing(save, 'breath');
+    const save = owning('body-6');
     const run = beginRun(save, 'bram', 1);
     expect(setupOf(run).breath).toBe(true);
     const w = alone(new World(setup({ stats: stats({ maxHp: 20 }), breath: true })));
@@ -403,7 +461,7 @@ describe('blessings', () => {
     endWave(run, cleared(run, { breathed: true }));
     expect(run.breathed).toBe(true);
     expect(setupOf(run).breath).toBe(false);
-    // Without the blessing there is none.
+    // Without that place on the board there is none.
     const bare = alone(new World(setup({ stats: stats({ maxHp: 20 }) })));
     stand(bare, 'bruiser', bare.hero.x + 6, bare.hero.y, { hp: 99999, dmg: 500 }, true);
     play(bare, 0.2);
@@ -898,7 +956,7 @@ describe('the day\'s road', () => {
 
   it('is one run a day, the same run whatever the Hold has, and its best is kept', () => {
     const save = rich(100000);
-    for (const b of BLESSINGS) while (buyBlessing(save, b.id));
+    save.board = BOARD.map((n) => n.id);
     save.won = { bram: VOWS.map((v) => v.id) };
     save.vows = ['march'];
     const date = '2026-11-25';
@@ -906,7 +964,8 @@ describe('the day\'s road', () => {
     const run = beginDaily(save, date);
     if (!run) throw new Error('no run');
     const d = dailyOf(date);
-    expect(run).toMatchObject({ hero: d.hero, daily: date, vows: [], shut: [], pool: null, bless: {}, relics: [], forks: ROAD.roads });
+    expect(run).toMatchObject({ hero: d.hero, daily: date, vows: [], shut: [], pool: null, gold: 0, relics: [], forks: ROAD.roads });
+    expect(run.boons).toEqual(boonsOf(freshSave()));
     expect(run.band.map((b) => b.id)).toEqual(d.band);
     expect(run).toEqual(beginDaily(freshSave(), date));
     expect(dailyTaken(save, date)).toBe(true);
@@ -938,13 +997,15 @@ describe('what the Hold sells, all of it', () => {
     expect(wares.filter((w) => w.kind === 'hero').length).toBe(HEROES.filter((h) => h.unlock).length);
     expect(wares.filter((w) => w.kind === 'friend').length).toBe(COMPANIONS.length);
     expect(wares.filter((w) => w.kind === 'crate').length).toBe(CRATES.length);
-    expect(wares.filter((w) => w.kind === 'blessing').length).toBe(BLESSINGS.length);
+    // Of the board, only the places that may be bought now are for sale: the foot of each branch.
+    expect(wares.filter((w) => w.kind === 'node').map((w) => w.id).sort()).toEqual(BOARD.filter((n) => !n.needs).map((n) => n.id).sort());
     expect(wares.filter((w) => w.kind === 'place').length).toBe(1);
     expect(wares.every((w) => w.can && w.price > 0 && w.name.length > 2)).toBe(true);
     expect(holdFull(save)).toBe(false);
     let guard = 0;
     while (!holdFull(save) && guard++ < 200) expect(buyWare(save, waresOf(save)[0])).toBe(true);
     expect(holdFull(save)).toBe(true);
+    expect(boardFull(save)).toBe(true);
     for (const h of HEROES) expect(isOpen(save, h.id)).toBe(true);
     for (const c of COMPANIONS) expect(isFriend(save, c.id)).toBe(true);
     expect(shutOf(save)).toEqual([]);
@@ -964,7 +1025,8 @@ describe('the save and the Hold', () => {
   it('keeps what the Hold has through being written and read', () => {
     const save = rich(4321);
     buyCrate(save, CRATES[1].id);
-    buyBlessing(save, 'banish');
+    buyNode(save, 'hero-1');
+    buyNode(save, 'arm-1');
     // The screens count a run as it begins (session.ts): a save never has more runs ended than begun.
     save.runs = 3;
     record(save, ended('bram', LAST_WAVE, { told: { met: [], slain: {}, roads: [], unstruck: ['warlord'] } }), 0);
@@ -982,11 +1044,11 @@ describe('the save and the Hold', () => {
   it('mends a save from before the Hold, and carries its run on', () => {
     const old = JSON.parse(JSON.stringify(freshSave())) as Record<string, unknown>;
     const run = JSON.parse(JSON.stringify({ ...newRun('wren', 8), wave: 4, phase: 'camp' })) as Record<string, unknown>;
-    for (const k of ['vows', 'shut', 'pool', 'bless', 'daily', 'alt', 'time', 'clean', 'banishes', 'relooked', 'breathed', 'deeds', 'told', 'paid', 'won']) delete run[k];
-    for (const k of ['renown', 'earned', 'crates', 'bless', 'vows', 'won', 'deeds', 'oaths', 'alt', 'daily', 'dailyBest', 'seen', 'tally']) delete old[k];
+    for (const k of ['vows', 'shut', 'pool', 'boons', 'daily', 'alt', 'time', 'clean', 'banishes', 'relooked', 'breathed', 'deeds', 'told', 'paid', 'won']) delete run[k];
+    for (const k of ['renown', 'earned', 'crates', 'board', 'vows', 'won', 'deeds', 'oaths', 'alt', 'daily', 'dailyBest', 'seen', 'tally']) delete old[k];
     const back = repair({ ...old, v: 3, best: { bram: 6 }, felled: ['warlord'], run });
-    expect(back).toMatchObject({ v: SAVE_VERSION, renown: 0, crates: [], bless: {}, vows: [], won: {}, deeds: [], oaths: [], alt: [], daily: null, dailyBest: 0, tally: null });
-    expect(back.run).toMatchObject({ hero: 'wren', wave: 4, vows: [], shut: [], pool: null, bless: {}, daily: '', alt: false, time: 0, clean: 0, banishes: 0, relooked: false, breathed: false, deeds: [], told: null, paid: false, won: false });
+    expect(back).toMatchObject({ v: SAVE_VERSION, renown: 0, crates: [], board: [], vows: [], won: {}, deeds: [], oaths: [], alt: [], daily: null, dailyBest: 0, tally: null });
+    expect(back.run).toMatchObject({ hero: 'wren', wave: 4, vows: [], shut: [], pool: null, daily: '', alt: false, time: 0, clean: 0, banishes: 0, relooked: false, breathed: false, deeds: [], told: null, paid: false, won: false });
     // Whoever it has played and beaten is in the Chronicle.
     expect(met(back, 'hero', 'bram')).toBe(true);
     expect(met(back, 'foe', 'warlord')).toBe(true);
@@ -998,12 +1060,13 @@ describe('the save and the Hold', () => {
 
   it('throws out what is not the Hold\'s', () => {
     const back = repair({
-      ...freshSave(), renown: -5, earned: 'lots', crates: ['fletcher', 'nonsense', 'fletcher'], bless: { quarter: 99, path: -2, nothing: 3 }, vows: ['march', 'made-up'], won: { bram: ['wind', 'no'], nobody: [] },
+      ...freshSave(), renown: -5, earned: 'lots', crates: ['fletcher', 'nonsense', 'fletcher'], board: ['body-1', 'purse-1', 'purse-2', 'nonsense', 'purse-1'], vows: ['march', 'made-up'], won: { bram: ['wind', 'no'], nobody: [] },
       deeds: ['win', 'made-up'], oaths: ['bram-win', 'nobody-win'], alt: ['bram', 'wren'], daily: { date: 5 }, dailyBest: -3, seen: { 'foe:cutpurse': 4, bad: -1, worse: 'x' }, tally: 'no',
     });
     expect(back.renown).toBe(0);
     expect(back.crates).toEqual(['fletcher']);
-    expect(back.bless).toEqual({ quarter: 2 });
+    // A place whose way to it is missing is let go: the body's first step needs the hero's.
+    expect(back.board).toEqual(['purse-1', 'purse-2']);
     expect(back.vows).toEqual(['march']);
     expect(back.won).toEqual({ bram: ['wind'] });
     expect(back.deeds).toEqual(['win']);

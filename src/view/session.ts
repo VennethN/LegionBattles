@@ -48,7 +48,7 @@ export function theWorld(): World | null {
 /** Begins a new run with a hero. A run that was left in its camp is let go. */
 export function startRun(hero: string): RunData {
   const s = save();
-  // The Hold sends it out: the band chosen, the danger, the armory as it stands and the blessings.
+  // The Hold sends it out: the band chosen, the vows sworn, the armory as it stands and what the board gives.
   run = beginRun(s, hero, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1);
   world = null;
   opened = [];

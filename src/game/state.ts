@@ -1,14 +1,14 @@
 // What is kept between visits: which heroes and companions are open, how
 // far each hero has come, who goes on the next run, a run that was left in
 // its camp, how the player likes the sound, and what the Hold has: renown,
-// what it has bought, the dangers won at, deeds done and everything met
+// what it has bought, the vows won under, deeds and oaths done, everything met
 // (hold.ts has the rules of those). A save may be from an older copy of the
 // game, or not a save at all, so it is mended on the way in.
 
 import { BAND, COMPANIONS, HEROES, OLD_HEROES, OMENS, RELICS, type Feat } from './data';
 import { chronicle, type Tally } from './hold';
-import { BLESSINGS, CRATES, DEEDS, OATHS, VOWS } from './holdData';
-import { bandSize, survived, type Blessings, type RunData } from './run';
+import { BOARD, CRATES, DEEDS, OATHS, VOWS, noBoons, type Boons } from './holdData';
+import { bandSize, survived, type RunData } from './run';
 
 /** 1: heroes without names. 2: named heroes, companions. 3: the road, relics, kinds of weapon. 4: the Hold. */
 export const SAVE_VERSION = 4;
@@ -49,8 +49,8 @@ export interface SaveData {
   earned: number;
   /** The armory's crates that have been bought (holdData.ts). */
   crates: string[];
-  /** The steps of each blessing bought. */
-  bless: Blessings;
+  /** The places of the board that are owned (holdData.ts). */
+  board: string[];
   /** The vows sworn for the next run, by name (holdData.ts). */
   vows: string[];
   /** The vows each hero's best win was sworn under: their badge. None for a plain win. A hero who has not won is not here. */
@@ -78,7 +78,7 @@ export interface SaveData {
 export function freshSave(): SaveData {
   return {
     v: SAVE_VERSION, best: {}, open: [], kills: 0, coins: 0, felled: [], runs: 0, ended: 0, last: HEROES[0].id, friends: [], band: [], places: 1, auto: true, run: null, sound: true, music: true,
-    told: [], renown: 0, earned: 0, crates: [], bless: {}, vows: [], won: {}, deeds: [], oaths: [], alt: [], daily: null, dailyBest: 0, seen: {}, tally: null,
+    told: [], renown: 0, earned: 0, crates: [], board: [], vows: [], won: {}, deeds: [], oaths: [], alt: [], daily: null, dailyBest: 0, seen: {}, tally: null,
   };
 }
 
@@ -106,7 +106,7 @@ function mendRun(raw: unknown): RunData | null {
     isRecord(r.road) && OMEN_IDS.has(String(r.road.omen)) && Array.isArray(r.roads) && r.roads.every((x) => isRecord(x) && OMEN_IDS.has(String(x.omen))) &&
     typeof r.forks === 'number' && typeof r.vigor === 'number' && typeof r.whet === 'number' && typeof r.left === 'number';
   if (!ok) return null;
-  // What a run has had since the Hold. One from just before it is carried on as a run under no vow, with everything open and no blessing.
+  // What a run has had since the Hold. One from just before it is carried on as a run under no vow, with everything open and nothing from the board.
   r.vows = names(r.vows, VOW_IDS);
   r.shut = names(r.shut);
   r.pool = Array.isArray(r.pool) ? names(r.pool) : null;
@@ -116,7 +116,7 @@ function mendRun(raw: unknown): RunData | null {
   r.clean = whole(r.clean);
   r.banishes = whole(r.banishes);
   r.relooked = r.relooked === true;
-  r.bless = mendBless(r.bless);
+  r.boons = mendBoons(r.boons);
   r.breathed = r.breathed === true;
   r.deeds = names(r.deeds);
   r.paid = r.paid === true;
@@ -133,14 +133,24 @@ function counts(v: unknown): Record<string, number> {
   return out;
 }
 
-/** The steps of each blessing, none above what there is. */
-function mendBless(v: unknown): Blessings {
-  const out: Blessings = {};
+/** What the board had given a run, with anything that is not a number left out. */
+function mendBoons(v: unknown): Boons {
+  const out = noBoons();
   if (!isRecord(v)) return out;
-  for (const b of BLESSINGS) {
-    const step = Math.min(b.prices.length, whole(v[b.id]));
-    if (step > 0) out[b.id] = step;
+  for (const k of Object.keys(out) as Array<keyof Boons>) {
+    if (k === 'stats') continue;
+    const n = v[k];
+    if (typeof n === 'number' && Number.isFinite(n) && n >= 0) out[k] = n;
   }
+  if (isRecord(v.stats)) for (const [k, n] of Object.entries(v.stats)) if (typeof n === 'number' && Number.isFinite(n) && n >= 0) (out.stats as Record<string, number>)[k] = n;
+  return out;
+}
+
+/** The places of the board that are owned, each with the one before it: a place whose way to it is missing is let go. */
+function mendBoard(v: unknown): string[] {
+  const had = names(v, new Set(BOARD.map((n) => n.id)));
+  const out: string[] = [];
+  for (const n of BOARD) if (had.includes(n.id) && (!n.needs || out.includes(n.needs))) out.push(n.id);
   return out;
 }
 
@@ -172,7 +182,7 @@ export function repair(raw: unknown, _seed = 1): SaveData {
   s.renown = whole(raw.renown);
   s.earned = Math.max(s.renown, whole(raw.earned));
   s.crates = names(raw.crates, new Set(CRATES.map((c) => c.id)));
-  s.bless = mendBless(raw.bless);
+  s.board = mendBoard(raw.board);
   if (isRecord(raw.won)) for (const [id, v] of Object.entries(raw.won)) if (heroes.has(id)) s.won[id] = names(v, VOW_IDS);
   s.vows = names(raw.vows, VOW_IDS);
   s.deeds = names(raw.deeds, new Set(DEEDS.map((d) => d.id)));

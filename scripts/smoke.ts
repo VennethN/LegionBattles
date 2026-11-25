@@ -240,6 +240,8 @@ async function play(label: string, { context, page }: { context: Context; page: 
   });
   await tick(page, 10);
   ok('BUY buys the second place', (await press(page, tap, 'Hold', 'BUY')) && (await hold()).places === 2 && (await hold()).renown < 500);
+  ok('VOWS says what opens them', (await press(page, tap, 'Hold', 'VOWS')) && (await words(page, 'Hold', 'Win the twentieth wave')) !== null);
+  ok('DAILY shows the day\'s road', (await press(page, tap, 'Hold', 'DAILY')) && (await words(page, 'Hold', 'The road of')) !== null && (await find(page, 'Hold', 'SET OUT')) !== null);
   ok('BACK goes back to the list', (await press(page, tap, 'Hold', 'BACK')) && (await until(page, 'Title')));
   await tick(page, 10);
   ok('Wren can be chosen', await press(page, tap, 'Title', 'Wren'));

@@ -8,7 +8,7 @@ import {
   BAND, BASE_STATS, CHOICES, COMPANIONS, HEROES, ITEMS, KIND_AGAIN, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId, landAt, levelNeeds,
   ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type HeroDef,
 } from './data';
-import { BLESSINGS, VOW, VOWS, type BlessingId, type Thing, thingKey } from './holdData';
+import { VOW, VOWS, noBoons, type Boons, type Thing, thingKey } from './holdData';
 import { KINDS, KIND_STEPS, countKinds, giftLine, kindStep, type Kind, type KindCounts } from './kinds';
 import { RELIC, RELICS } from './relics';
 import { OMENS, ROAD, type Omen, type Road } from './road';
@@ -114,8 +114,8 @@ export interface RunData {
   relooked: boolean;
   /** What the armory had not opened when the run began: the weapons, wares and relics this run is never offered. */
   shut: string[];
-  /** The steps of each blessing the Hold had when the run began. */
-  bless: Blessings;
+  /** What the board had given when the run began, added up (holdData.ts). */
+  boons: Boons;
   /** True once the Second Breath has been drawn: it is once in a run. */
   breathed: boolean;
   /** Deeds done in this run, for the tally at its end. */
@@ -127,15 +127,13 @@ export interface RunData {
   won: boolean;
 }
 
-export type Blessings = Partial<Record<BlessingId, number>>;
-
-/** What the Hold gives a run to begin with: its vows, what is shut to it or the weapons it may be offered, the blessings, and what the hero's oaths have opened. */
+/** What the Hold gives a run to begin with: its vows, what is shut to it or the weapons it may be offered, what the board gives, and what the hero's oaths have opened. */
 export interface Terms {
   vows?: readonly string[];
   shut?: readonly string[];
   /** The weapons the run may be offered, by name: all that are not shut, if it is not given. */
   pool?: readonly string[] | null;
-  bless?: Blessings;
+  boons?: Boons;
   /** A relic the run begins with. */
   relic?: string;
   alt?: boolean;
@@ -147,14 +145,6 @@ export interface Told {
   slain: Record<string, number>;
   roads: string[];
   unstruck: string[];
-}
-
-/** What a blessing gives a run, at the step the run began with: 0 for none of it. */
-export function blessed(run: RunData, id: BlessingId): number {
-  const step = run.bless?.[id] ?? 0;
-  if (step <= 0) return 0;
-  const def = BLESSINGS.find((b) => b.id === id);
-  return def ? def.by[Math.min(def.by.length, step) - 1] : 0;
 }
 
 /** True if the armory had this open when the run began. */
@@ -191,12 +181,14 @@ export function newRun(hero: string, seed: number, band: readonly string[] = [],
     hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [], band: known.map((id) => ({ id, bond: 0 })), fury: 0, rose: -1, saved: false,
     items: [], ups: [], packs: 0, kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
     relics: [], relicsDue: 0, relicChoices: [], road: { omen: 'quiet' }, roads: [], forks: Math.max(1, Math.min(ROAD.most, Math.floor(forks))), vigor: 0, whet: 0, left: 1,
-    vows: VOWS.filter((v) => (terms.vows ?? []).includes(v.id)).map((v) => v.id), shut: [...(terms.shut ?? [])], pool: terms.pool ? [...terms.pool] : null, bless: { ...(terms.bless ?? {}) },
+    vows: VOWS.filter((v) => (terms.vows ?? []).includes(v.id)).map((v) => v.id), shut: [...(terms.shut ?? [])], pool: terms.pool ? [...terms.pool] : null, boons: terms.boons ? { ...terms.boons, stats: { ...terms.boons.stats } } : noBoons(),
     daily: terms.daily ?? '', alt: !!terms.alt, time: 0, clean: 0, banishes: 0, relooked: false, breathed: false, deeds: [], told: null, paid: false, won: false,
   };
   // What an oath of the hero's has opened: a relic to begin with.
   if (terms.relic && RELICS.some((r) => r.id === terms.relic)) run.relics.push(terms.relic);
-  run.banishes = blessed(run, 'banish');
+  // What the board gives a run to begin with: coins, and marks to strike wares with.
+  run.gold = run.boons.gold;
+  run.banishes = run.boons.banish;
   return run;
 }
 
@@ -229,8 +221,9 @@ export function statLines(run: RunData): StatLine[] {
     ...run.ups.map((u) => ({ [u.stat]: u.by }) as StatLine),
     // What the kinds of weapon held give as plain stats.
     giftLine(kindCounts(run)),
-    // The health the Banner of the Fallen has given.
+    // The health the Banner of the Fallen has given, and what the board gives for good.
     { maxHp: run.vigor },
+    run.boons.stats,
   ];
 }
 
@@ -292,7 +285,8 @@ export function setupOf(run: RunData, tall = false, auto = true): Setup {
     seed, wave: run.wave, stats, quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
     band: run.band, level: run.level, fury: run.fury, auto, purse: run.gold, spare: run.rose !== landAt(run.wave), rescue: !run.saved, tall,
     omen: run.road.omen, stray: run.road.stray, relics: run.relics, whet: run.whet, tithe, bones,
-    vows: run.vows, hurt: run.vows.includes('wounds') ? Math.max(0.05, run.left) : 1, breath: blessed(run, 'breath') > 0 && !run.breathed,
+    vows: run.vows, hurt: run.vows.includes('wounds') ? Math.max(0.05, run.left) : 1, breath: run.boons.breath > 0 && !run.breathed,
+    furyBy: 1 + run.boons.fury / 100, bandHp: 1 + run.boons.bandHp / 100, bandDmg: 1 + run.boons.bandDmg / 100, bandUp: run.boons.bandUp / 100,
   };
 }
 
@@ -316,7 +310,8 @@ export function endWave(run: RunData, world: World): void {
   if (world.over === 'cleared' && !told.roads.includes(world.omen)) told.roads.push(world.omen);
   run.time += world.time;
   if (world.over === 'cleared' && !world.struck) run.clean++;
-  run.xp += world.xp;
+  // The board's tales: more is learned from the same wave.
+  run.xp += world.xp * (1 + run.boons.xp / 100);
   run.kills += world.kills;
   run.packs += world.packs;
   for (const b of world.felled) if (!run.felled.includes(b)) run.felled.push(b);
@@ -509,7 +504,7 @@ export function banish(run: RunData, i: number): boolean {
 
 /** A Second Look: once at each choice of a relic, three others are shown instead, where there are others. */
 export function relook(run: RunData): boolean {
-  if (run.phase !== 'relic' || run.relooked || blessed(run, 'relook') <= 0) return false;
+  if (run.phase !== 'relic' || run.relooked || run.boons.relook <= 0) return false;
   const others = openRelics(run).filter((r) => !hasRelic(run, r.id) && !run.relicChoices.includes(r.id)).map((r) => r.id);
   if (others.length === 0) return false;
   run.relooked = true;
@@ -580,8 +575,8 @@ export function sell(run: RunData, slot: number): boolean {
 
 export function rerollPrice(run: RunData): number {
   // The Merchant's Seal: the first look at other wares in each camp is free.
-  // The Quartermaster's Favor gives a free look or two as well: the seal's is one more.
-  const free = (hasRelic(run, 'seal') ? 1 : 0) + blessed(run, 'quarter');
+  // The board's quartermaster gives a free look or two as well: the seal's is one more.
+  const free = (hasRelic(run, 'seal') ? 1 : 0) + run.boons.reroll;
   if (run.rerolls < free) return 0;
   // A free look still counts as a look: the next one costs what a second would.
   return dear(run, rerollCost(run.wave, run.rerolls));

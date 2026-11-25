@@ -1,5 +1,5 @@
 // The Hold: what the player keeps between runs, shown plainly. A tab for
-// each part of it (the hall, the kennels, the armory, blessings, vows,
+// each part of it (the hall, the kennels, the armory, the board, vows,
 // deeds, the chronicle, the day's road), and under the tabs a list: each thing with what it
 // is, what it costs or what opens it, and a button. It shows the save and
 // asks the Hold's rules (game/hold.ts) for everything: a price is never
@@ -12,10 +12,10 @@ import Phaser from 'phaser';
 import { BONE, BUSH, GOLD, IRON, LEATHER, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { BAND, BLESSINGS, COMPANIONS, CRATES, HEROES, RENOWN, VOWS, byId } from '../../game/data';
+import { BAND, BRANCHES, COMPANIONS, CRATES, HEROES, RENOWN, VOWS, byId } from '../../game/data';
 import {
-  altOpen, badge, blessPrice, blessSays, blessStep, buyBlessing, buyCrate, buyFriend, buyHero, buyPlace, chronicleOf, cratePrice, crateThings, dailyOf, dailyTaken, deedsOf, epithetOf, featSays,
-  friendPrice, heroPrice, met, oathsOf, placePrice, setAlt, toggleVow, vowsNext, vowsOpen,
+  altOpen, badge, boardOf, buyCrate, buyFriend, buyHero, buyNode, buyPlace, chronicleOf, cratePrice, crateThings, dailyOf, dailyTaken, deedsOf, epithetOf, featSays,
+  friendPrice, heroPrice, met, oathsOf, placePrice, refundBoard, setAlt, toggleVow, vowsNext, vowsOpen,
 } from '../../game/hold';
 import { isFriend, isOpen, type SaveData } from '../../game/state';
 import { setupCamera } from '../app';
@@ -25,7 +25,7 @@ import { commit, save, startDaily } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 
-const TABS = ['HALL', 'KENNELS', 'ARMORY', 'BLESSINGS', 'VOWS', 'DEEDS', 'CHRONICLE', 'DAILY'] as const;
+const TABS = ['BOARD', 'HALL', 'KENNELS', 'ARMORY', 'VOWS', 'DEEDS', 'CHRONICLE', 'DAILY'] as const;
 
 /** The day as the day's road counts it: the same day for everyone, wherever they are. */
 const today = (): string => new Date().toISOString().slice(0, 10);
@@ -45,7 +45,7 @@ interface Row {
 
 export class HoldScene extends Phaser.Scene {
   private root!: Phaser.GameObjects.Container;
-  private tab: Tab = 'HALL';
+  private tab: Tab = 'BOARD';
   private page = 0;
 
   constructor() {
@@ -55,7 +55,7 @@ export class HoldScene extends Phaser.Scene {
   create(data: { tab?: Tab } = {}): void {
     setupCamera(this);
     this.cameras.main.setBackgroundColor('#2e2218');
-    this.tab = data.tab && TABS.includes(data.tab) ? data.tab : 'HALL';
+    this.tab = data.tab && TABS.includes(data.tab) ? data.tab : 'BOARD';
     this.page = 0;
     this.root = this.add.container(0, 0);
     music.play('meadow', 'calm');
@@ -147,13 +147,25 @@ export class HoldScene extends Phaser.Scene {
           const things = crateThings(s, c).map((t) => t.name).join(', ');
           return { title: c.name, says: open ? `${c.says} ${things}.` : `${things}. Opened by a deed, or bought: ${c.deedSays}`, dark: !open, button: open ? undefined : buy(cratePrice(s), () => buyCrate(s, c.id)), note: open ? 'OPEN' : undefined };
         });
-      case 'BLESSINGS':
-        return BLESSINGS.map((b): Row => {
-          const says = blessSays(s, b.id);
-          const step = blessStep(s, b.id);
-          const line = says.next ? (says.now ? `${says.now} Next: ${says.next}` : says.next) : says.now;
-          return { title: `${b.name}${b.prices.length > 1 ? ` (${step} of ${b.prices.length})` : ''}`, says: line, button: buy(blessPrice(s, b.id), () => buyBlessing(s, b.id)), note: says.next ? undefined : 'ALL' };
-        });
+      case 'BOARD': {
+        // The board as a list, a branch after a branch, each place under the one it needs. A screen that draws it as a tree has each place's column and row (boardOf).
+        const board = boardOf(s);
+        const owned = board.filter((n) => n.owned).length;
+        const rows: Row[] = [{
+          title: `Lasting upgrades: ${owned} of ${board.length} owned`,
+          says: 'Each makes every run after it stronger. A place is opened by the one before it.',
+          button: owned > 0 ? { text: 'TAKE BACK', can: true, press: () => refundBoard(s) > 0, mat: IRON } : undefined,
+        }];
+        for (const b of BRANCHES) {
+          rows.push({ title: `${b.name}. ${b.says}`, says: '', head: true });
+          for (const n of board.filter((x) => x.node.branch === b.id)) {
+            if (n.owned) rows.push({ title: n.node.name, says: n.says, note: 'OWNED' });
+            else if (n.open) rows.push({ title: n.node.name, says: n.says, button: buy(n.node.price, () => buyNode(s, n.node.id)) });
+            else rows.push({ title: n.node.name, says: `${n.says} After ${board.find((x) => x.node.id === n.node.needs)?.node.name ?? 'the one before it'}.`, dark: true, note: `${n.node.price}` });
+          }
+        }
+        return rows;
+      }
       case 'VOWS': {
         const open = vowsOpen(s);
         const next = vowsNext(s);
@@ -194,7 +206,7 @@ export class HoldScene extends Phaser.Scene {
         return [
           {
             title: `The road of ${date}`,
-            says: `${who}. One run a day, the same for everyone: the whole armory, no blessing, no vow.`,
+            says: `${who}. One run a day, the same for everyone: the whole armory, nothing from the board, no vow.`,
             button: taken ? undefined : { text: 'SET OUT', can: true, press: () => (this.setOut(date), false) },
             note: taken && s.daily ? `WAVE ${s.daily.wave}` : undefined,
           },

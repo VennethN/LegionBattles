@@ -5,7 +5,8 @@
 //
 // A run pays renown when it ends, whatever became of it. Renown buys a
 // hero or a companion whose deed is not done yet, the second place in the
-// band, crates for the armory and blessings. A win opens the vows: hard
+// band, crates for the armory, and places on the board: lasting upgrades
+// that make every later run stronger. A win opens the vows: hard
 // rules sworn before a run, in any mix, for more renown. Each hero has
 // three oaths of their own, each crate a deed that opens it for nothing,
 // and each day a road that is the same for everyone. The Chronicle
@@ -13,11 +14,11 @@
 
 import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAST_WAVE, OMENS, RELICS, ROAD, TIERS, WEAPONS, byId, weaponOf, type Feat } from './data';
 import {
-  BLESSINGS, CRATES, CRATE_PRICES, DEEDS, HALL, KENNEL, OATHS, PLACE_PRICE, RENOWN, VOW, VOWS, thingKey,
-  type BlessingId, type CrateDef, type DeedTest, type OathDef, type Thing, type VowId,
+  BOARD, CRATES, CRATE_PRICES, DEEDS, HALL, KENNEL, OATHS, PLACE_PRICE, RENOWN, VOW, VOWS, boonsFrom, giftSays, thingKey,
+  type Boons, type CrateDef, type DeedTest, type NodeDef, type OathDef, type Thing, type VowId,
 } from './holdData';
 import { Rng } from './rng';
-import { blessed, kindCounts, newRun, survived, type RunData, type Terms, type Told } from './run';
+import { kindCounts, newRun, survived, type RunData, type Terms, type Told } from './run';
 import { bandFor, featDone, featShare, isFriend, isOpen, type SaveData } from './state';
 
 // ---------------------------------------------------------------- renown
@@ -378,7 +379,7 @@ export function dailyTaken(save: SaveData, date: string): boolean {
 
 /**
  * Sets out on the day's road. It is the same run for everyone: the whole
- * armory, two roads, no blessing, no vow, nothing an oath has opened.
+ * armory, two roads, nothing from the board, no vow, nothing an oath has opened.
  */
 export function beginDaily(save: SaveData, date: string): RunData | null {
   if (dailyTaken(save, date)) return null;
@@ -558,33 +559,57 @@ export function crateThings(save: SaveData, crate: CrateDef): CrateThing[] {
   });
 }
 
-// ---------------------------------------------------------------- blessings
+// ---------------------------------------------------------------- the board
 
-export function blessStep(save: SaveData, id: BlessingId): number {
-  return save.bless[id] ?? 0;
+export interface NodeRow {
+  node: NodeDef;
+  /** What it gives, in words. */
+  says: string;
+  owned: boolean;
+  /** True if the place before it is owned, or it is the foot of a branch: it may be bought, renown allowing. */
+  open: boolean;
+  /** True if it may be bought now: open, not owned, and renown enough. */
+  can: boolean;
 }
 
-/** What the next step of a blessing costs, or null when it has them all. */
-export function blessPrice(save: SaveData, id: BlessingId): number | null {
-  const def = BLESSINGS.find((b) => b.id === id);
-  const step = blessStep(save, id);
-  return !def || step >= def.prices.length ? null : def.prices[step];
+/** True if a place on the board is owned. */
+export function owns(save: SaveData, id: string): boolean {
+  return save.board.includes(id);
 }
 
-export function buyBlessing(save: SaveData, id: BlessingId): boolean {
-  const price = blessPrice(save, id);
-  if (price === null || save.renown < price) return false;
-  save.renown -= price;
-  save.bless[id] = blessStep(save, id) + 1;
+/** True if a place may be bought now: it is there, not owned, the place before it is, and there is renown enough. */
+export function canBuyNode(save: SaveData, id: string): boolean {
+  const n = BOARD.find((x) => x.id === id);
+  return !!n && !owns(save, id) && (!n.needs || owns(save, n.needs)) && save.renown >= n.price;
+}
+
+export function buyNode(save: SaveData, id: string): boolean {
+  if (!canBuyNode(save, id)) return false;
+  save.renown -= BOARD.find((x) => x.id === id)?.price ?? 0;
+  save.board.push(id);
   return true;
 }
 
-/** What a blessing gives as it stands and what its next step would, each as a line. '' for none. */
-export function blessSays(save: SaveData, id: BlessingId): { now: string; next: string } {
-  const def = BLESSINGS.find((b) => b.id === id);
-  if (!def) return { now: '', next: '' };
-  const step = blessStep(save, id);
-  return { now: step > 0 ? def.says(def.by[step - 1]) : '', next: step < def.by.length ? def.says(def.by[step]) : '' };
+/** The whole board as a screen draws it: every place with where it stands, what it gives, what it costs and how it stands with the player. */
+export function boardOf(save: SaveData): NodeRow[] {
+  return BOARD.map((node) => {
+    const owned = owns(save, node.id);
+    const open = !node.needs || owns(save, node.needs);
+    return { node, says: giftSays(node.gift), owned, open, can: !owned && open && save.renown >= node.price };
+  });
+}
+
+/** What the board has given so far, added up: what a run begins with. */
+export function boonsOf(save: SaveData): Boons {
+  return boonsFrom(save.board);
+}
+
+/** Takes the whole board back for what was paid, to be spent again another way. It costs nothing. Returns the renown given back. */
+export function refundBoard(save: SaveData): number {
+  const back = BOARD.filter((n) => owns(save, n.id)).reduce((sum, n) => sum + n.price, 0);
+  save.renown += back;
+  save.board = [];
+  return back;
 }
 
 // ---------------------------------------------------------------- a run begins
@@ -593,17 +618,17 @@ export function blessSays(save: SaveData, id: BlessingId): { now: string; next: 
 export function termsOf(save: SaveData, hero = ''): Terms {
   const open = vowsOpen(save);
   return {
-    vows: save.vows.filter((v) => open.includes(v as VowId)), shut: shutOf(save), pool: poolOf(save), bless: { ...save.bless },
+    vows: save.vows.filter((v) => open.includes(v as VowId)), shut: shutOf(save), pool: poolOf(save), boons: boonsOf(save),
     relic: hero ? startRelic(save, hero) : '', alt: hero !== '' && save.alt.includes(hero) && altOpen(save, hero),
   };
 }
 
 /** How many roads a run that begins now is offered at once. */
 export function forksNow(save: SaveData): number {
-  return ROAD.roads + blessStep(save, 'path');
+  return ROAD.roads + boonsOf(save).road;
 }
 
-/** A new run as the Hold sends it out: the band chosen, the roads, the vows sworn, the armory as it is, the blessings and what the hero's oaths have opened. */
+/** A new run as the Hold sends it out: the band chosen, the roads, the vows sworn, the armory as it is, what the board gives and what the hero's oaths have opened. */
 export function beginRun(save: SaveData, hero: string, seed: number): RunData {
   return newRun(hero, seed, bandFor(save, hero), forksNow(save), termsOf(save, hero));
 }
@@ -611,7 +636,7 @@ export function beginRun(save: SaveData, hero: string, seed: number): RunData {
 // ---------------------------------------------------------------- everything the Hold sells
 
 export interface Ware {
-  kind: 'place' | 'hero' | 'friend' | 'crate' | 'blessing';
+  kind: 'place' | 'hero' | 'friend' | 'crate' | 'node';
   id: string;
   name: string;
   price: number;
@@ -630,7 +655,8 @@ export function waresOf(save: SaveData): Ware[] {
   for (const c of COMPANIONS) add('friend', c.id, c.name, friendPrice(save, c.id));
   const crate = cratePrice(save);
   for (const c of CRATES) if (!save.crates.includes(c.id)) add('crate', c.id, c.name, crate);
-  for (const b of BLESSINGS) add('blessing', b.id, b.name, blessPrice(save, b.id));
+  // Of the board, the places that are open to be bought now: the rest wait for the one before them.
+  for (const n of BOARD) if (!owns(save, n.id) && (!n.needs || owns(save, n.needs))) add('node', n.id, n.name, n.price);
   return out;
 }
 
@@ -645,8 +671,8 @@ export function buyWare(save: SaveData, ware: Pick<Ware, 'kind' | 'id'>): boolea
       return buyFriend(save, ware.id);
     case 'crate':
       return buyCrate(save, ware.id);
-    case 'blessing':
-      return buyBlessing(save, ware.id as BlessingId);
+    case 'node':
+      return buyNode(save, ware.id);
   }
 }
 
@@ -655,7 +681,7 @@ export function holdFull(save: SaveData): boolean {
   return waresOf(save).length === 0;
 }
 
-/** What a run begun now has from its blessings, for a line on the screen before it: '' for none. */
-export function blessingsLine(run: RunData): string {
-  return BLESSINGS.filter((b) => blessed(run, b.id) > 0).map((b) => b.name).join(', ');
+/** True once every place on the board is owned. */
+export function boardFull(save: SaveData): boolean {
+  return BOARD.every((n) => owns(save, n.id));
 }

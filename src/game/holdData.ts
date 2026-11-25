@@ -3,9 +3,9 @@
 //
 // Renown is what every run pays, whatever became of it. It buys what the
 // Hold sells: a hero or a companion whose deed has not been done, a second
-// place in the band, crates for the armory, and blessings. Nothing here
-// makes a hero much stronger: it makes later runs have more in them, and
-// gives every run a next thing to go for (a deed, an oath of the hero's, a
+// place in the band, crates for the armory, and places on the board,
+// which make a hero stronger for good. Besides what renown buys, every
+// run has a next thing to go for (a deed, an oath of the hero's, a
 // crate's own deed, a vow to win under, the day's road).
 
 import type { Feat } from './data';
@@ -45,7 +45,7 @@ export const RENOWN = {
 /**
  * What a hero costs who has not been opened by their deed. The deed is
  * always the better way: a price is two to five good runs' renown, more
- * than a crate or a blessing asks, so that it is paid only by someone
+ * than a crate or a place on the board asks, so that it is paid only by someone
  * stuck behind a deed they cannot do.
  */
 export const HALL: Record<string, number> = {
@@ -159,37 +159,152 @@ export const CRATE_PRICES: readonly number[] = [100, 150, 200, 250, 300, 360, 42
 /** A thing's name in a run's list of what is shut to it. */
 export const thingKey = (t: Thing): string => `${t.kind}:${t.id}`;
 
-// ---------------------------------------------------------------- blessings
-
-export type BlessingId = 'quarter' | 'banish' | 'path' | 'relook' | 'breath';
-
-export interface BlessingDef {
-  id: BlessingId;
-  name: string;
-  /** What each step costs. */
-  prices: readonly number[];
-  /** What each step gives in all, in the blessing's own measure. */
-  by: readonly number[];
-  /** What a step gives, said with its number. */
-  says: (by: number) => string;
-}
+// ---------------------------------------------------------------- the board
 
 /**
- * The blessings: a few lasting gifts. Each gives a choice, not a number:
- * more health or more harm would only move what the enemies' growth then
- * takes back. (A lock on a ware already holds through to the next camp,
- * for everyone, so it is not one of them.)
+ * What a place on the board gives. A stat is added to the hero's own. The
+ * rest are what a run begins with or how it goes: coins, experience and
+ * fury as shares more, the band's health, harm and getting up, and the
+ * gifts that give a choice (a free look at other wares, a mark to strike a
+ * ware from the table, a third road, a second look at a relic's choice,
+ * one getting-up in a run).
  */
-export const BLESSINGS: readonly BlessingDef[] = [
-  { id: 'quarter', name: "The Quartermaster's Favor", prices: [200, 400], by: [1, 2], says: (by) => (by === 1 ? 'The first look at other wares in each camp is free.' : 'The first two looks at other wares in each camp are free.') },
-  { id: 'banish', name: 'The Black Mark', prices: [200, 400], by: [2, 4], says: (by) => `${by} times in a run, strike a ware from the table: it is not offered again that run.` },
-  { id: 'path', name: 'The Third Road', prices: [350], by: [1], says: () => 'Three roads to choose from, not two.' },
-  { id: 'relook', name: 'A Second Look', prices: [300], by: [1], says: () => 'Once at each choice of a relic, see three others instead.' },
-  { id: 'breath', name: 'A Second Breath', prices: [900], by: [1], says: () => 'Once in a run, a killing blow leaves the hero standing.' },
+export type Gift =
+  | { kind: 'stat'; stat: 'maxHp' | 'damage' | 'haste' | 'speed' | 'armor' | 'pickup' | 'luck'; by: number }
+  | { kind: 'gold' | 'xp' | 'fury' | 'bandHp' | 'bandDmg' | 'bandUp' | 'reroll' | 'banish' | 'road' | 'relook' | 'breath'; by: number };
+
+export type Branch = 'hero' | 'band' | 'purse' | 'fortune';
+
+export interface NodeDef {
+  id: string;
+  branch: Branch;
+  name: string;
+  gift: Gift;
+  price: number;
+  /** The place that has to be owned first, or none for the foot of a branch. */
+  needs?: string;
+  /** Where a screen draws it: a column and a row of the board, the foot of each branch in the first row. */
+  at: { col: number; row: number };
+}
+
+export const BRANCHES: ReadonlyArray<{ id: Branch; name: string; says: string }> = [
+  { id: 'hero', name: 'The Hero', says: 'Health, harm, and one getting-up.' },
+  { id: 'band', name: 'The Band', says: 'Companions who last, hit and get up.' },
+  { id: 'purse', name: 'The Purse', says: 'Coins, and a say in what the camp sells.' },
+  { id: 'fortune', name: 'Fortune', says: 'Luck, learning and the roads.' },
 ];
+
+/** A chain of places down one column: each needs the one above it, and the first needs `from`. */
+function chain(branch: Branch, col: number, row: number, from: string | undefined, steps: ReadonlyArray<readonly [string, string, Gift, number]>): NodeDef[] {
+  return steps.map(([id, name, gift, price], i): NodeDef => ({ id, branch, name, gift, price, needs: i === 0 ? from : steps[i - 1][0], at: { col, row: row + i } }));
+}
+
+const st = (stat: 'maxHp' | 'damage' | 'haste' | 'speed' | 'armor' | 'pickup' | 'luck', by: number): Gift => ({ kind: 'stat', stat, by });
+const g = (kind: Exclude<Gift['kind'], 'stat'>, by: number): Gift => ({ kind, by }) as Gift;
+
+/**
+ * The board: lasting upgrades bought with renown, each making every later
+ * run stronger or giving it a choice. The owner asked for exactly this of
+ * a roguelite: "can we add upgrades we can spend on to make permanent per
+ * run". Four branches, each grown from its foot; the hero's forks in two,
+ * the body and the arm, so there is a choice of where to grow first.
+ * Prices rise gently down a branch, each about what a run pays, so that
+ * the first thirty runs nearly always leave enough for a place, and the last place of each branch is
+ * dear: something to save for. The enemies are not made stronger to take
+ * this back: the vows are what a strong player adds to keep it hard.
+ */
+export const BOARD: readonly NodeDef[] = [
+  ...chain('hero', 0, 0, undefined, [['hero-1', 'Hearth Bread', st('maxHp', 3), 30]]),
+  ...chain('hero', 0, 1, 'hero-1', [
+    ['body-1', 'A Thick Coat', st('maxHp', 3), 50], ['body-2', 'Boiled Leather', st('armor', 1), 65], ['body-3', 'Road Bread', st('maxHp', 4), 80],
+    ['body-4', 'Good Boots', st('speed', 4), 95], ['body-5', 'A Mail Shirt', st('armor', 1), 110], ['body-6', 'A Second Breath', g('breath', 1), 1100],
+  ]),
+  ...chain('hero', 1, 1, 'hero-1', [
+    ['arm-1', 'A Keen Edge', st('damage', 4), 50], ['arm-2', 'A Loose Wrist', st('haste', 4), 65], ['arm-3', 'A Heavy Hand', st('damage', 5), 80],
+    ['arm-4', 'Drilled', st('haste', 5), 95], ['arm-5', 'A Killing Stroke', st('damage', 6), 110], ['arm-6', 'Quick to Anger', g('fury', 15), 500],
+  ]),
+  ...chain('band', 2, 0, undefined, [
+    ['band-1', 'Well Fed', g('bandHp', 15), 40], ['band-2', 'Sharp Teeth', g('bandDmg', 10), 60], ['band-3', 'On Your Feet', g('bandUp', 25), 75],
+    ['band-4', 'Barded', g('bandHp', 20), 90], ['band-5', 'Blooded', g('bandDmg', 15), 110], ['band-6', 'Never Down Long', g('bandUp', 25), 450],
+  ]),
+  ...chain('purse', 3, 0, undefined, [
+    ['purse-1', 'A Full Purse', g('gold', 10), 30], ['purse-2', "The Quartermaster's Favor", g('reroll', 1), 55], ['purse-3', 'A Fuller Purse', g('gold', 15), 70],
+    ['purse-4', 'The Black Mark', g('banish', 2), 85], ['purse-5', 'A Heavy Purse', g('gold', 20), 100], ['purse-6', 'The Quartermaster Again', g('reroll', 1), 120],
+    ['purse-7', 'A Blacker Mark', g('banish', 2), 550],
+  ]),
+  ...chain('fortune', 4, 0, undefined, [
+    ['fortune-1', 'A Lucky Coin', st('luck', 5), 40], ['fortune-2', "Old Soldiers' Tales", g('xp', 6), 60], ['fortune-3', 'Long Arms', st('pickup', 15), 75],
+    ['fortune-4', 'The Third Road', g('road', 1), 110], ['fortune-5', 'A Luckier Coin', st('luck', 8), 120], ['fortune-6', 'More Tales', g('xp', 8), 135],
+    ['fortune-7', 'A Second Look', g('relook', 1), 600],
+  ]),
+];
+
+/** What a gift gives, in words with its number. */
+export function giftSays(gift: Gift): string {
+  const by = gift.by;
+  switch (gift.kind) {
+    case 'stat':
+      return gift.stat === 'maxHp' ? `${by} more health.` : gift.stat === 'damage' ? `${by}% more harm.` : gift.stat === 'haste' ? `Strikes ${by}% faster.` : gift.stat === 'speed' ? `${by}% faster on foot.`
+        : gift.stat === 'armor' ? `${by} more armor.` : gift.stat === 'pickup' ? `Coins come from ${by}% further off.` : `${by} more luck.`;
+    case 'gold':
+      return `${by} more coins to begin a run with.`;
+    case 'xp':
+      return `${by}% more experience.`;
+    case 'fury':
+      return `Fury fills ${by}% faster.`;
+    case 'bandHp':
+      return `Companions have ${by}% more health.`;
+    case 'bandDmg':
+      return `Companions hit ${by}% harder.`;
+    case 'bandUp':
+      return `A fallen companion gets up ${by}% sooner.`;
+    case 'reroll':
+      return 'One more free look at other wares in each camp.';
+    case 'banish':
+      return `${by} more times in a run, strike a ware from the table: it is not offered again that run.`;
+    case 'road':
+      return 'Three roads to choose from, not two.';
+    case 'relook':
+      return 'Once at each choice of a relic, see three others instead.';
+    case 'breath':
+      return 'Once in a run, a killing blow leaves the hero standing.';
+  }
+}
+
+/** What everything a player owns of the board comes to: a run begins with it. */
+export interface Boons {
+  stats: Partial<Record<'maxHp' | 'damage' | 'haste' | 'speed' | 'armor' | 'pickup' | 'luck', number>>;
+  gold: number;
+  xp: number;
+  fury: number;
+  bandHp: number;
+  bandDmg: number;
+  bandUp: number;
+  reroll: number;
+  banish: number;
+  road: number;
+  relook: number;
+  breath: number;
+}
+
+export const noBoons = (): Boons => ({ stats: {}, gold: 0, xp: 0, fury: 0, bandHp: 0, bandDmg: 0, bandUp: 0, reroll: 0, banish: 0, road: 0, relook: 0, breath: 0 });
+
+/** The gifts of these places of the board, added up. */
+export function boonsFrom(owned: readonly string[]): Boons {
+  const out = noBoons();
+  for (const n of BOARD) {
+    if (!owned.includes(n.id)) continue;
+    if (n.gift.kind === 'stat') out.stats[n.gift.stat] = (out.stats[n.gift.stat] ?? 0) + n.gift.by;
+    else out[n.gift.kind] += n.gift.by;
+  }
+  return out;
+}
 
 /** A Second Breath: the share of their health the hero gets up with, and how long nothing can hurt them. */
 export const BREATH = { rises: 0.35, grace: 1.5 };
+
+/** The least a fallen companion's wait can come down to, as a share of what it was. */
+export const BAND_UP_LEAST = 0.4;
 
 // ---------------------------------------------------------------- vows
 

@@ -14,7 +14,7 @@ import {
   ENEMIES, byId, coinShare, enemyAt, waveOf, weaponOf,
   type AllyQuirk, type CompanionDef, type EnemyDef, type MoveDef, type MoveId, type Quirk, type WaveDef, type WeaponDef,
 } from './data';
-import { BREATH, VOW } from './holdData';
+import { BAND_UP_LEAST, BREATH, VOW } from './holdData';
 import { countKinds, giftsOf, type Gifts } from './kinds';
 import { RELIC } from './relics';
 import { ROAD, type ChampionTrait, type Omen } from './road';
@@ -81,6 +81,11 @@ export interface Setup {
   hurt?: number;
   /** True if the Hold's Second Breath is still to be drawn in this run. */
   breath?: boolean;
+  /** What the Hold's board gives: how many times as fast fury fills, how many times the band's health and harm, and the share sooner a fallen companion gets up. */
+  furyBy?: number;
+  bandHp?: number;
+  bandDmg?: number;
+  bandUp?: number;
 }
 
 /** Which way the hero is steered: a length of 1 is flat out. `act` lets the move loose, if it is full. */
@@ -507,6 +512,11 @@ export class World {
   banners = 0;
   /** The vows the wave is fought under. */
   private readonly vows: ReadonlySet<string>;
+  /** What the board gives (see Setup). */
+  private readonly furyBy: number;
+  private readonly bandHp: number;
+  private readonly bandDmg: number;
+  private readonly bandUp: number;
   /** True once the Hold's Second Breath has been drawn in this wave. */
   breathed = false;
   private breath: boolean;
@@ -566,6 +576,10 @@ export class World {
   constructor(setup: Setup) {
     this.relics = new Set(setup.relics ?? []);
     this.vows = new Set(setup.vows ?? []);
+    this.furyBy = Math.max(0, setup.furyBy ?? 1);
+    this.bandHp = Math.max(0.1, setup.bandHp ?? 1);
+    this.bandDmg = Math.max(0.1, setup.bandDmg ?? 1);
+    this.bandUp = Math.max(0, Math.min(1 - BAND_UP_LEAST, setup.bandUp ?? 0));
     this.breath = !!setup.breath;
     // A captain's wave is the captain's: no omen changes it.
     const plain = waveOf(setup.wave);
@@ -639,7 +653,7 @@ export class World {
   private enlist(b: Banded, i: number, n: number): Ally {
     const def = byId(COMPANIONS, b.id);
     const bond = Math.max(0, Math.min(BAND.bonds, b.bond));
-    const maxHp = def.hp > 0 ? Math.max(1, Math.round(def.hp * (1 + BAND.hpGrow * this.level) * (1 + BAND.bond * bond))) : 0;
+    const maxHp = def.hp > 0 ? Math.max(1, Math.round(def.hp * this.bandHp * (1 + BAND.hpGrow * this.level) * (1 + BAND.bond * bond))) : 0;
     const a = (i / Math.max(1, n)) * TAU + Math.PI;
     return {
       id: this.ids++, def, bond, x: this.hero.x + Math.cos(a) * 74, y: this.hero.y + Math.sin(a) * 46, hp: maxHp, maxHp, face: 1, moving: false, state: 'with',
@@ -988,7 +1002,7 @@ export class World {
   /** Adds to the fury bar, and says when it is full. */
   private fill(by: number): void {
     if (!this.move || this.fury >= 1) return;
-    this.fury = Math.min(1, this.fury + by * (this.has('sands') ? RELIC.sands.fury : 1));
+    this.fury = Math.min(1, this.fury + by * this.furyBy * (this.has('sands') ? RELIC.sands.fury : 1));
     if (this.fury >= 1) this.events.push({ t: 'fury' });
   }
 
@@ -1640,7 +1654,7 @@ export class World {
     this.events.push({ t: 'allyHurt', id: a.id, amount });
     if (a.hp > 0) return;
     a.hp = 0;
-    a.down = BAND.down * (this.has('whistle') ? RELIC.whistle.down : 1);
+    a.down = BAND.down * (1 - this.bandUp) * (this.has('whistle') ? RELIC.whistle.down : 1);
     a.state = 'with';
     this.events.push({ t: 'allyDown', id: a.id });
   }
@@ -1689,7 +1703,7 @@ export class World {
 
   /** What one blow of a companion does: it grows with the hero's level, a share of their Damage, and its bond. */
   allyHarm(a: Ally): number {
-    const by = (1 + (Math.max(-80, this.stats.damage) * BAND.share) / 100) * (1 + BAND.bond * a.bond) * (this.has('whistle') ? RELIC.whistle.harder : 1);
+    const by = (1 + (Math.max(-80, this.stats.damage) * BAND.share) / 100) * (1 + BAND.bond * a.bond) * this.bandDmg * (this.has('whistle') ? RELIC.whistle.harder : 1);
     return Math.max(1, Math.round((a.def.dmg + a.def.grow * this.level) * by));
   }
 
