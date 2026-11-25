@@ -1,4 +1,6 @@
 // npm run pace -- [--runs=12] [--hero=bram] [--band=biscuit,pip] [--friends] [--waves=40] [--brief] [--each] [--why] [--quiet] [--norelics] [--nokinds]
+//                 [--danger=0] [--bless=none|all] [--pool=all|start]
+// npm run pace -- --career[=3] [--danger=0]
 //
 // Plays runs with the plain player (src/game/bot.ts) and says how they go:
 // how many come through each wave, how much health is left at its end, how
@@ -15,10 +17,22 @@
 // weapon were built up. --quiet keeps every run to the quiet road,
 // --norelics fights every wave as if no relic were held, and --nokinds
 // leaves the gifts of the kinds out: what each of the three is worth.
+//
+// What the Hold gives a run is an input: --danger is the danger the runs
+// are played at, --bless=all gives them every blessing, and --pool=start
+// offers them only what the armory has before any crate is bought (all of
+// it is offered otherwise, as before the Hold).
+//
+// --career plays a player's whole time with the game, from a new save:
+// run after run with whoever is open, the renown spent on the cheapest
+// thing the Hold sells, until there is nothing left to open. It says how
+// many runs that took and when each thing came.
 
-import { COMPANIONS, HEROES, LAST_WAVE, OMENS, relicOf, type Omen } from '../src/game/data';
+import { BLESSINGS, COMPANIONS, CRATES, DANGERS, HEROES, LAST_WAVE, OMENS, relicOf, type Omen } from '../src/game/data';
 import { botCamp, botSteer } from '../src/game/bot';
+import { beginRun, buyWare, count, forksNow, holdFull, termsOf, waresOf, type Ware } from '../src/game/hold';
 import { endWave, kindsOf, newRun, setupOf, survived } from '../src/game/run';
+import { featShare, freshSave, isFriend, isOpen, record, type SaveData } from '../src/game/state';
 import { STEP, World } from '../src/game/world';
 
 const args = process.argv.slice(2);
@@ -32,6 +46,18 @@ const each = args.includes('--each');
 const brief = args.includes('--brief') || friends;
 // --why says who hurt the hero on each wave: how a wall is found.
 const why = args.includes('--why');
+const danger = Math.max(0, Math.min(DANGERS.length, Number(option('danger', '0'))));
+
+/** The Hold as the measure's options have it: what its runs begin with. */
+function holdOf(): SaveData {
+  const save = freshSave();
+  save.dangers = DANGERS.length;
+  save.danger = danger;
+  if (option('pool', 'all') === 'all') save.crates = CRATES.map((c) => c.id);
+  if (option('bless', 'none') === 'all') for (const b of BLESSINGS) save.bless[b.id] = b.prices.length;
+  return save;
+}
+const hold = holdOf();
 
 interface WaveRow {
   came: number;
@@ -64,7 +90,7 @@ function measure(hero: string, who: readonly string[], label: string): void {
   let steps3 = 0;
   let strays = 0;
   for (let n = 0; n < runs; n++) {
-    const run = newRun(hero, 1000 + n * 7919, who);
+    const run = newRun(hero, 1000 + n * 7919, who, forksNow(hold), termsOf(hold));
     while (run.phase !== 'over' && run.wave <= most) {
       if (args.includes('--quiet')) run.road = { omen: 'quiet' };
       const setup = setupOf(run);
@@ -155,7 +181,85 @@ function measure(hero: string, who: readonly string[], label: string): void {
   });
 }
 
-if (friends) {
+// ---------------------------------------------------------------- a whole career
+
+/** Plays one run to its end as the game does, the save taking what each wave leaves. */
+function playRun(save: SaveData, hero: string, seed: number): number {
+  const run = beginRun(save, hero, seed);
+  save.runs++;
+  while (run.phase !== 'over' && run.wave <= most) {
+    const world = new World(setupOf(run));
+    let guard = 0;
+    while (!world.over && guard++ < 60 * 200) world.step(botSteer(world), STEP);
+    const kills = world.kills;
+    endWave(run, world);
+    if ((run.phase as string) !== 'over') {
+      record(save, run, kills);
+      botCamp(run);
+    } else record(save, run, kills);
+  }
+  // A run stopped at the measure's last wave ends there.
+  if (run.phase !== 'over') {
+    run.phase = 'over';
+    record(save, run, 0);
+  }
+  return survived(run);
+}
+
+/** What a careful player buys next: the place in the band first, then the cheapest thing, but nobody whose deed is nearly done. */
+function wish(save: SaveData): Ware | null {
+  const wares = waresOf(save).filter((w) => {
+    const hero = w.kind === 'hero' ? HEROES.find((h) => h.id === w.id) : undefined;
+    const friend = w.kind === 'friend' ? COMPANIONS.find((c) => c.id === w.id) : undefined;
+    const feat = hero?.unlock ?? friend?.unlock;
+    return !feat || featShare(save, feat) < 0.6;
+  });
+  const place = wares.find((w) => w.kind === 'place');
+  if (place) return place.can ? place : null;
+  const can = wares.filter((w) => w.can).sort((a, b) => a.price - b.price);
+  return can[0] ?? null;
+}
+
+function career(n: number): number {
+  const save = freshSave();
+  save.dangers = danger;
+  save.danger = danger;
+  const came: string[] = [];
+  const open = new Set<string>([...HEROES.filter((h) => isOpen(save, h.id)).map((h) => h.id)]);
+  let runs = 0;
+  let waves = 0;
+  let place = 0;
+  let wins = 0;
+  const marks: Record<number, number> = {};
+  while (!holdFull(save) && runs < 400) {
+    runs++;
+    // Whoever is open and has been out the least goes: a player tries the new one.
+    const hero = HEROES.filter((h) => isOpen(save, h.id)).sort((a, b) => count(save, 'hero', a.id) - count(save, 'hero', b.id))[0].id;
+    const got = playRun(save, hero, 5000 + n * 104729 + runs * 7919);
+    waves += Math.min(got, LAST_WAVE);
+    if (got >= LAST_WAVE) wins++;
+    for (let w = wish(save); w; w = wish(save)) {
+      if (!buyWare(save, w)) break;
+      came.push(`${runs}: ${w.name} (bought, ${w.price})`);
+      if (w.kind === 'place') place = runs;
+    }
+    for (const h of HEROES) if (isOpen(save, h.id) && !open.has(h.id)) (open.add(h.id), came.push(`${runs}: ${h.name}${came.some((c) => c.includes(h.name)) ? '' : ' (deed)'}`));
+    for (const c of COMPANIONS) if (isFriend(save, c.id) && !open.has(c.id)) (open.add(c.id), came.push(`${runs}: ${c.name}${came.some((x) => x.includes(c.name)) ? '' : ' (deed)'}`));
+    for (const at of [5, 10, 20, 40]) if (runs === at) marks[at] = open.size - 2;
+  }
+  console.log(`\ncareer ${n + 1}: everything open after ${runs} runs${holdFull(save) ? '' : ' (not all of it: stopped)'}; second place in the band after run ${place}; ${wins} runs won; mean ${(waves / runs).toFixed(1)} waves;`);
+  console.log(`  renown earned ${save.earned} (${(save.earned / runs).toFixed(1)} a run), deeds done ${save.deeds.length}; heroes and companions opened by run 5, 10, 20, 40: ${[5, 10, 20, 40].map((a) => marks[a] ?? open.size - 2).join(', ')} of ${HEROES.length + COMPANIONS.length - 2}`);
+  if (!brief) for (const line of came.filter((c) => !/^\d+: .*\(bought/.test(c) || true)) console.log(`  ${line}`);
+  return runs;
+}
+
+const careers = args.find((a) => a === '--career' || a.startsWith('--career='));
+if (careers) {
+  const n = Number(careers.split('=')[1] ?? '3');
+  const all: number[] = [];
+  for (let i = 0; i < n; i++) all.push(career(i));
+  console.log(`\n${n} careers: everything open after ${all.join(', ')} runs`);
+} else if (friends) {
   const hero = only || HEROES[0].id;
   measure(hero, [], `${hero} alone`);
   for (const c of COMPANIONS) measure(hero, [c.id], `${hero} with ${c.name}`);

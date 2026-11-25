@@ -174,6 +174,9 @@ export class TitleScene extends Phaser.Scene {
     }
     if (!tall && places > 0 && s.friends.length > 0) put(label(this, 16 + lw / 2, 150, 'COMPANIONS', { size: 15, color: BONE.fill, strokeWidth: 3 }));
 
+    // The way into the Hold: what is kept between runs.
+    this.root.add(new Button(this, tall ? 16 + 50 : 158, tall ? 36 : view.h - 40, tall ? 'HOLD' : 'THE HOLD', () => this.scene.start('Hold'), { width: tall ? 100 : 176, height: 44, size: 17, mat: GOLD }).root);
+
     // Sound, small, in a corner.
     const mute = this.add.container(tall ? view.w - 40 : 40, tall ? 36 : view.h - 40);
     mute.add(slabImage(this, -22, -22, 44, 44, IRON, 12, 5));

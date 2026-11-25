@@ -78,17 +78,17 @@ export const HEROES: readonly HeroDef[] = [
   {
     id: 'isaura', unit: 'isaura', name: 'Isaura Vane', short: 'Isaura', epithet: 'Captain of the Ninth', who: 'The Ninth Lance is gone. She rides on without it.', line: 'The Ninth does not halt.',
     weapon: 'ninth', stats: { might: 2, speed: 8 }, quirk: 'momentum', quirkName: 'Momentum',
-    says: 'The longer she keeps moving the harder she hits. Standing still loses it. Her lance goes through everyone in its line.', move: 'charge', unlock: { kind: 'kills', kills: 600 },
+    says: 'The longer she keeps moving the harder she hits. Standing still loses it. Her lance goes through everyone in its line.', move: 'charge', unlock: { kind: 'runs', runs: 7 },
   },
   {
     id: 'hroth', unit: 'hroth', name: 'Hroth', short: 'Hroth', epithet: 'the Unburied', who: 'They buried him twice.', line: 'Dig deeper next time.',
     weapon: 'gravecleaver', stats: { might: 3, lifesteal: 2, armor: -2 }, quirk: 'unburied', quirkName: "Won't Stay Down",
-    says: 'More harm the more he is hurt. Once in a land he gets up from a killing blow. He does not mend by himself.', move: 'warcry', unlock: { kind: 'wave', wave: 10 },
+    says: 'More harm the more he is hurt. Once in a land he gets up from a killing blow. He does not mend by himself.', move: 'warcry', unlock: { kind: 'runs', runs: 12 },
   },
   {
     id: 'aldous', unit: 'aldous', name: 'Brother Aldous Bell', short: 'Aldous', epithet: 'the Shepherd', who: 'He rings the dead home, and now the living.', line: 'Stay close. I will count you all at dusk.',
     weapon: 'passingbell', stats: { regen: 6, maxHp: 4, damage: -20 }, quirk: 'shepherd', quirkName: 'Shepherd',
-    says: 'He brings one companion more. What heals him heals his band, and companions near him strike faster. He himself hits softly.', move: 'toll', unlock: { kind: 'wave', wave: 12 },
+    says: 'He brings one companion more. What heals him heals his band, and companions near him strike faster. He himself hits softly.', move: 'toll', unlock: { kind: 'runs', runs: 18 },
   },
   {
     id: 'ysolde', unit: 'ysolde', name: 'Ysolde Rimeheart', short: 'Ysolde', epithet: 'the Winter Widow', who: 'The cold took her husband. She took the cold.', line: 'It only hurts until it does not.',

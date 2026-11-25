@@ -2,6 +2,40 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
+## Round 4, the Hold: what is kept between runs
+
+Built as pure rules with a test each (`src/game/hold.ts`, its lists and numbers in `holdData.ts`, the save in `state.ts`), and shown as plainly as lets it be used (`HoldScene`, behind THE HOLD on the list of heroes). `docs/design.md`, "Between runs: the Hold", is what was built. It was built in a copy of its own, on the road's work, while the screens for heroes and companions were being made in the main copy.
+
+- **Renown.** Every run pays when it ends: 2 a wave come through, 10 a captain, 25 for the twentieth wave, a quarter more of all that for each step of danger, and what each deed done for the first time pays. `record` gives back the tally line by line and the save keeps the last one.
+- **The hall and the kennels.** A hero or a companion is opened by their deed, as before, or bought: at prices above a crate's or a blessing's, so that renown goes there only for someone stuck. The second place in the band is 100. The deeds that open people were spread out: seven of them asked for a wave, a captain or a count of kills that a good first evening reaches, and now ask for runs ended, so that whoever plays meets someone new every two or three runs (Quill 3 runs, Mossback 5, Isaura 7, Greta 9, Hroth 12, Aldous 18, Thistle 22). The rest are still deeds of skill: a wave, a captain, coins in one run.
+- **The armory.** A run is offered only what is open: twelve weapons, sixteen wares and ten relics to begin with, the other forty-three things in nine crates by theme, bought in any order at a price that rises with each. A run keeps the armory it began with.
+- **Blessings.** Six: coins to begin with, health, experience, free looks at other wares, a third road, and one getting-up in a run.
+- **Danger.** Five, each a rule on top of the ones below: quicker, dearer, a champion in every wave, a captain that gets up once, half mending and sturdier enemies. Winning at one opens the next; a hero's badge is the highest they have won at.
+- **Deeds.** Thirty-eight that pay renown once each, beside the sixteen that open people.
+- **The Chronicle.** Everything met, with a count; the world now tells who stood on the field, how many of each were slain, and a captain felled with no blow landed.
+
+Measured with the plain player, twenty-four runs to a measure, four heroes (Bram, Wren, Orrin, Isaura), each alone and stopped at the twenty-sixth wave. The number is the mean of the waves come through with every run stopped at the twentieth, over the four:
+
+| What the run began with | Mean of 20 | Won, of 96 |
+| --- | --- | --- |
+| A first run's armory, no blessing | 12.1 | 10 |
+| A first run's armory, every blessing | 14.4 | 10 |
+| The whole armory, every blessing, no danger | 14.4 | 19 |
+| The same at danger 1 | 14.1 | 18 |
+| Danger 2 | 13.1 | 8 |
+| Danger 3 | 12.7 | 4 |
+| Danger 4 | 12.4 | 4 |
+| Danger 5 | 10.8 | 3 |
+
+- **Every blessing together is worth a little over two waves** (2.3), as aimed.
+- **The five dangers together take about three and a half away,** a little more than the blessings give, so the last danger with everything bought is harder than a first run and is still won now and then (3 runs of 96).
+- **The dangers are not even steps to this player.** Quicker enemies cost it nothing it can be measured by, though they were made quicker again after the first measure (a tenth, then 15%); dearer wares cost it over a wave; the last danger costs it most. A person will feel the first far more than this player does, which steps out of the way a fifth of a second late however fast they come. Dangers 2 to 5 were measured before the first was made quicker.
+- **A career**, played three times from a new save, a run after a run with whoever is open and has been out least, the renown spent on the cheapest thing: everything open and bought after 60, 64 and 64 runs. The second place in the band comes after the first or second run. The player's first run goes far enough to do eight of the sixteen opening deeds at once; after that someone new comes every two to four runs until the twenty-second. It earns about 65 renown a run and wins about one run in four with two companions and its blessings, which is why the dangers are there.
+
+What was changed from the numbers first written down: the Hold's prices were about doubled after the first career opened everything in 28 runs; heroes and companions were priced above crates and blessings after the plain player bought twelve of the sixteen in its first five runs.
+
+What is not as it was asked: the smaller armory of a first run makes a run a little stronger, not weaker (about a wave, at the edge of what the measure can tell): with fewer weapons to draw from, twins to join and weapons of one kind come more often. A crate adds things to do and thins that out. Nobody has pressed any of it but a script.
+
 ## Round 2, the road: roads, relics and kinds of weapon
 
 Built as pure rules with a test each, and shown as plainly as lets them be played. `docs/design.md`, "A run", is what was built.

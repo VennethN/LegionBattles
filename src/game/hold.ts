@@ -109,7 +109,7 @@ export function chronicleOf(save: SaveData): ChroniclePage[] {
     return { kind, title, met: entries.filter((e) => e.met).length, entries };
   };
   return [
-    page('hero', 'Heroes', 'runs', HEROES.map((h) => ({ id: h.id, name: h.name, says: `${h.epithet}. ${h.who}` }))),
+    page('hero', 'Heroes', 'runs', HEROES.map((h) => ({ id: h.id, name: h.name, says: `${h.epithet[0].toUpperCase()}${h.epithet.slice(1)}. ${h.who}` }))),
     page('friend', 'Companions', 'runs', COMPANIONS.map((c) => ({ id: c.id, name: c.name, says: `${c.kind[0].toUpperCase()}${c.kind.slice(1)}. ${c.says}` }))),
     page('foe', 'Enemies', 'slain', ENEMIES.filter((e) => !e.prop).map((e) => ({ id: e.id, name: e.name, says: e.ai === 'boss' ? 'A captain.' : FOE_SAYS[e.ai] ?? '' }))),
     page('weapon', 'Weapons', 'runs held', [...HEROES.map((h) => weaponOf(h.weapon)), ...WEAPONS].map((w) => ({ id: w.id, name: w.name, says: w.own ? 'A hero\'s own.' : w.kinds.join(' and ') }))),

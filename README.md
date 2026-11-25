@@ -23,7 +23,13 @@ It was made in one sitting, in a cloud session with no screen and no sound. The 
 - **Relics.** Twenty-six, each one of a kind, each bending a rule: what dies burning sets its neighbors alight, every tenth blow lands twice, the first blow that would kill leaves one health, lightning strikes the strongest every eight seconds, one in eight of the slain gets up on your side, double harm dealt and double taken. A captain leaves one of three to choose, so do the champions' road and the night march, and now and then the last of the camp's wares is one, at a high price. A run holds as many as it finds, and the camp shows them.
 - **After the twentieth wave** the same twenty come round again, far harder each time. How many waves a hero came through is the score.
 - **Heroes.** Ten, each with a name, of whom two are open at the start. Each has a weapon of their own, numbers of their own, a quirk that asks to be played round, and a move. Bram Oakenhold sets his shield when he stands still. Wren Fallowmere hits harder every second nothing touches her. Every third spell of Orrin Quillon's is cast twice. Fenn Two-Coins hits harder the more coins he holds. What dies burning by Old Nan Cinderwick bursts and lights its neighbors. Isaura Vane hits harder the longer she keeps moving. Hroth gets up once from a killing blow. Brother Aldous Bell brings one companion more. What Ysolde Rimeheart has slowed, struck again, freezes. Maren Dawnguard's hammer leaves holy ground. `docs/design.md` has them all, with their moves. The rest are opened by feats: coming through a wave, beating a boss, gathering coins in one run, felling enemies over all runs. One who is not open is a dark shape with no name, and what opens them is said.
-- **Companions.** Eight, opened by feats as the heroes are; the first, Biscuit the war hound, comes when the first run ends. One goes on a run (two once the Hold opens a second place, which is not built yet; Aldous brings one more). Each fights by itself and has a quirk of its own: Biscuit fetches coins, Pip the wisp flashes when the hero is struck, enemies go for Mossback the turtle, Quill the eagle hunts those who shoot, Greta the bear roars, Ember the salamander leaves fire where it runs, everyone strikes faster by Tam's banner and once in a run he gets a fallen hero up, and Thistle the stag charges through the line. A companion has health: struck down, it sits out for a few seconds and gets up, and it is whole again at each camp. It grows with the hero's level.
+- **Companions.** Eight, opened by feats as the heroes are; the first, Biscuit the war hound, comes when the first run ends. One goes on a run (two once the second place has been bought in the Hold; Aldous brings one more). Each fights by itself and has a quirk of its own: Biscuit fetches coins, Pip the wisp flashes when the hero is struck, enemies go for Mossback the turtle, Quill the eagle hunts those who shoot, Greta the bear roars, Ember the salamander leaves fire where it runs, everyone strikes faster by Tam's banner and once in a run he gets a fallen hero up, and Thistle the stag charges through the line. A companion has health: struck down, it sits out for a few seconds and gets up, and it is whole again at each camp. It grows with the hero's level.
+- **The Hold** is what is kept between runs, behind THE HOLD on the list of heroes. Every run pays **renown** when it ends, whatever became of it: for each wave come through, each captain beaten, the win, and each deed done for the first time. Renown buys a hero or a companion whose deed has not been done (the deed is the cheaper way), the second place in the band, **crates** for the armory, and **blessings**.
+- **The armory.** A first run is offered twelve of the weapons, sixteen of the wares and ten of the relics. The rest come in nine crates, each a theme (the Fletcher's is bows, the Chandler's is everything that burns), bought in any order, each dearer than the last. A crate's contents are shown before it is bought, "???" for what has never been met. A run keeps the armory it began with.
+- **Blessings**, in steps: coins to begin a run with, a little health, a little more experience, a free look or two at other wares in every camp, a third road, and, dear, one getting-up in a run when nothing else has kept the hero standing.
+- **Danger.** Coming through the twentieth wave at a danger opens the next, five in all, chosen in the Hold before a run. Each adds its rule to those below it: they come quicker; the camp costs more; a champion walks in every wave from the third; a captain that falls gets up once; mending gives half and they are sturdier. Each pays a quarter more renown. A hero's badge is the highest they have won at.
+- **Deeds.** Besides the ones that open heroes and companions there are thirty-eight that pay renown once each: far waves, each captain, kills over all runs, a win with each hero, a win alone, four of a kind, eight relics, a captain beaten without a blow landing, a win at each danger.
+- **The Chronicle** remembers every hero, companion, enemy, weapon, ware, relic and road that has been met, with a count for each (slain, runs, times taken). The rest are "???".
 - **A run left in its camp** is kept: shut the page there and it can be carried on.
 
 A new player lands in the field at once, as Bram, with the keys shown. The list of heroes comes after the first fall, and Biscuit with it.
@@ -71,6 +77,8 @@ That is the type check, every test and a build. All three have to pass before a 
 | `src/game/relics.ts` | The relics, and the numbers of each. |
 | `src/game/road.ts` | The omens, and the numbers of the road and of each. |
 | `src/game/run.ts` | A run: who goes on it, what a wave leaves it with, levels and bonds, relics won and chosen, the camp's wares, buying, joining, selling, and the roads out of it. |
+| `src/game/holdData.ts` | The Hold's lists and numbers: what renown is paid for, the prices of heroes, companions and the second place, the crates, the blessings, the dangers, the deeds. |
+| `src/game/hold.ts` | The Hold's rules, as functions on a save: what a run pays, buying, what the armory has shut, what a run begins with, deeds, the Chronicle. `record` in `state.ts` hands every wave and every run's end to it. |
 | `src/game/stats.ts` | What a hero is, as numbers, and how lines of them add up. |
 | `src/game/state.ts`, `storage.ts` | What is kept between visits, and where. |
 | `src/game/bot.ts` | The plain computer player the pace report and the tests use. The game never does. |
@@ -179,6 +187,21 @@ A companion is worth two to three waves, more to Bram, who is the weakest alone,
 
 Thirty-two runs are not many, and that player is not a person. A person plans what to buy, which it does not, and sees less of the field at once than it does. Two measures of the same thing with other dice differ by a wave or more: a difference smaller than that between two heroes or two companions says nothing.
 
+What the Hold changes was measured the same way, twenty-four runs each for Bram, Wren, Orrin and Isaura alone (`--pool=start`, `--bless=all`, `--danger=N`). The mean of the written twenty, over the four:
+
+| What the run began with | Mean of 20 | Won, of 96 |
+| --- | --- | --- |
+| A first run's armory, no blessing | 12.1 | 10 |
+| A first run's armory, every blessing | 14.4 | 10 |
+| The whole armory, every blessing, no danger | 14.4 | 19 |
+| Danger 1 | 14.1 | 18 |
+| Danger 2 | 13.1 | 8 |
+| Danger 3 | 12.7 | 4 |
+| Danger 4 | 12.4 | 4 |
+| Danger 5 | 10.8 | 3 |
+
+Every blessing together is worth a little over two waves, and the five dangers together take about three and a half away. They are not even steps to this player: it does not mind quicker enemies, and minds dearer wares a good deal. `npm run pace -- --career` plays a whole career from a new save: everything was open and bought after 60, 64 and 64 runs, the second place in the band after the first or second, and after a first run that does eight of the opening deeds at once, someone new every two to four runs until the twenty-second.
+
 ## For a portal
 
 - It lands in play: a new player is in the field on the first frame after loading, and anyone else is one press away.
@@ -205,7 +228,10 @@ This was built in a cloud session with no screen and no sound.
 - The road, the relics and the kinds of weapon are rules that were tested and measured, and shown only plainly. What was looked at, at a portal's frame, at the small frame and on a phone held upright: the roads as cards (two and three), a relic's three cards, the camp with relics, kinds and a relic among its wares, the card of the kinds, and one picture each of the shrine, the cage broken open, the wagon under guard, a champion with its ring, and the night. What was not: a wagon getting away, a burning champion's blaze, lightning from the Stormglass, the slain getting up, a shot splitting, or any other relic going off. Nobody has pressed any of it but a script.
 - Whether the roads are a real choice is not known. The computer always takes a prize while it is hale; whether a person feels the champions' road is worth a relic, or finds the shrine's eight seconds dull, has to be played.
 - The night march is a flat dark veil over the field, until the light that is being made for the field takes it over.
-- Twenty-nine weapons and twenty-six relics is a great deal for a first run to meet at once. The Hold is meant to open them a few at a time; until it does, they are all there from the first camp.
+- The armory now opens weapons, wares and relics a crate at a time. A first run's smaller armory makes that run a little stronger, not weaker, by about a wave, at the edge of what the measure can tell: with fewer weapons to draw from, twins to join and weapons of one kind come more often. Whether a person finds a first run with twelve weapons too thin, nobody knows.
+- The Hold's screen is the plainest that works and has been seen only in pictures, at 821 by 462 and on a phone held upright. Nobody has bought anything in it but a script. The Chronicle is a list with pages, and has not been looked at with everything met.
+- The first danger, quicker enemies, costs the computer player nothing it can be measured by. A person will feel it; how much, nobody knows. A captain getting up at the fourth danger, a champion walking in at the third, and the hero left standing by the Second Breath tell the screens with events (`second`, `champion`, `breath`), and no screen shows the first or the last of those yet.
+- The tally of what a run paid is kept in the save and shown in the Hold. The result screen does not show it yet.
 - A save from before the road keeps everything but a run that was left in its camp.
 - A save from before the heroes had names keeps its bests and who was open, and loses a run that was left in its camp.
 - Past the twentieth wave the game is the same twenty waves again, harder. It has not been played that far by anyone but the computer.

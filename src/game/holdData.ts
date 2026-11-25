@@ -27,30 +27,31 @@ export const RENOWN = {
 
 /**
  * What a hero costs who has not been opened by their deed. The deed is
- * always the better way: a price is two or three runs' renown, so that
- * nobody is stuck behind a deed they cannot do.
+ * always the better way: a price is two to five good runs' renown, more
+ * than a crate or a blessing asks, so that it is paid only by someone
+ * stuck behind a deed they cannot do.
  */
 export const HALL: Record<string, number> = {
-  orrin: 50,
-  fenn: 70,
-  nan: 90,
-  isaura: 80,
-  hroth: 110,
-  aldous: 130,
-  ysolde: 150,
-  maren: 200,
+  orrin: 120,
+  fenn: 150,
+  nan: 180,
+  isaura: 220,
+  hroth: 280,
+  aldous: 320,
+  ysolde: 260,
+  maren: 400,
 };
 
 /** What a companion costs, the same way. */
 export const KENNEL: Record<string, number> = {
-  biscuit: 20,
-  pip: 30,
-  mossback: 60,
-  quill: 50,
-  greta: 80,
-  ember: 90,
-  tam: 130,
-  thistle: 120,
+  biscuit: 60,
+  pip: 90,
+  mossback: 150,
+  quill: 130,
+  greta: 200,
+  ember: 180,
+  tam: 240,
+  thistle: 350,
 };
 
 /** What the second place in the band costs. It is the first thing most players will buy. */
@@ -95,7 +96,7 @@ export const CRATES: readonly CrateDef[] = [
 ];
 
 /** What the first crate bought costs, the second, and so on: whichever they are. The player picks the order. */
-export const CRATE_PRICES: readonly number[] = [30, 40, 55, 70, 85, 100, 115, 130, 150];
+export const CRATE_PRICES: readonly number[] = [60, 90, 120, 150, 190, 230, 270, 320, 380];
 
 /** A thing's name in a run's list of what is shut to it. */
 export const thingKey = (t: Thing): string => `${t.kind}:${t.id}`;
@@ -120,12 +121,12 @@ export interface BlessingDef {
  * felt in the first minute of a run, not in a line of sums.
  */
 export const BLESSINGS: readonly BlessingDef[] = [
-  { id: 'purse', name: 'A Full Purse', prices: [20, 40, 80], by: [10, 20, 30], says: (by) => `A run begins with ${by} coins.` },
-  { id: 'hearty', name: 'Hearth Bread', prices: [20, 40, 80], by: [2, 4, 6], says: (by) => `${by} more health.` },
-  { id: 'study', name: "Old Soldiers' Tales", prices: [20, 40, 80], by: [6, 12, 18], says: (by) => `${by}% more experience.` },
-  { id: 'quarter', name: "The Quartermaster's Favor", prices: [50, 120], by: [1, 2], says: (by) => (by === 1 ? 'The first look at other wares in each camp is free.' : 'The first two looks at other wares in each camp are free.') },
-  { id: 'path', name: 'The Third Road', prices: [100], by: [1], says: () => 'Three roads to choose from, not two.' },
-  { id: 'breath', name: 'A Second Breath', prices: [300], by: [1], says: () => 'Once in a run, a killing blow leaves the hero standing.' },
+  { id: 'purse', name: 'A Full Purse', prices: [40, 90, 180], by: [10, 20, 30], says: (by) => `A run begins with ${by} coins.` },
+  { id: 'hearty', name: 'Hearth Bread', prices: [40, 90, 180], by: [2, 4, 6], says: (by) => `${by} more health.` },
+  { id: 'study', name: "Old Soldiers' Tales", prices: [40, 90, 180], by: [6, 12, 18], says: (by) => `${by}% more experience.` },
+  { id: 'quarter', name: "The Quartermaster's Favor", prices: [120, 260], by: [1, 2], says: (by) => (by === 1 ? 'The first look at other wares in each camp is free.' : 'The first two looks at other wares in each camp are free.') },
+  { id: 'path', name: 'The Third Road', prices: [220], by: [1], says: () => 'Three roads to choose from, not two.' },
+  { id: 'breath', name: 'A Second Breath', prices: [600], by: [1], says: () => 'Once in a run, a killing blow leaves the hero standing.' },
 ];
 
 /** A Second Breath: the share of their health the hero gets up with, and how long nothing can hurt them. */
@@ -142,7 +143,7 @@ export interface DangerDef {
 
 /** Each danger adds its rule to all the ones below it. */
 export const DANGERS: readonly DangerDef[] = [
-  { n: 1, name: 'Forced March', says: 'They come a tenth quicker.' },
+  { n: 1, name: 'Forced March', says: 'They come a good deal quicker.' },
   { n: 2, name: 'Lean Coffers', says: 'Everything in the camp costs a fifth more.' },
   { n: 3, name: 'Champions Abroad', says: 'A champion walks in every wave from the third.' },
   { n: 4, name: 'Second Wind', says: 'A captain that falls gets up once.' },
@@ -151,7 +152,7 @@ export const DANGERS: readonly DangerDef[] = [
 
 export const DANGER = {
   /** 1: how many times as fast they walk. */
-  quick: 1.1,
+  quick: 1.15,
   /** 2: how many times the price of wares and of other wares. */
   prices: 1.2,
   /** 3: the first wave a champion walks in, and the share of the wave's time at which it is marked. */

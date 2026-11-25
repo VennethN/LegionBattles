@@ -2,8 +2,9 @@
 // being fought. Every screen asks here, so that there is one of each
 // however many screens are open.
 
+import { beginRun } from '../game/hold';
 import { endWave, newRun, setupOf, type RunData } from '../game/run';
-import { bandFor, record, type SaveData } from '../game/state';
+import { record, type SaveData } from '../game/state';
 import { loadSave, storeSave, wipeSave } from '../game/storage';
 import { World } from '../game/world';
 
@@ -47,7 +48,8 @@ export function theWorld(): World | null {
 /** Begins a new run with a hero. A run that was left in its camp is let go. */
 export function startRun(hero: string): RunData {
   const s = save();
-  run = newRun(hero, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1, bandFor(s, hero));
+  // The Hold sends it out: the band chosen, the danger, the armory as it stands and the blessings.
+  run = beginRun(s, hero, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1);
   world = null;
   opened = [];
   friends = [];
