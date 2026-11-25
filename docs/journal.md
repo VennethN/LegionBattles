@@ -2,6 +2,29 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
+## Round 9, the new direction merged, the heroes brought level, the Hold drawn
+
+The rules round of the owner's new direction (Round 8) was merged into the copy with the screens of Round 7: one Hold for the new model, the result paying mastery, and both rounds' smokes kept.
+
+**The build** had come to 4,999,670 bytes, a hair under the portal's 5 MB. It is about 4.6 MB now, with nothing seen lost: the build rounds the figures' and the grounds' path numbers to whole units (a test holds that no point drifts more than half a unit along a path, however long), writes the manifest without its spaces, and ships only the woff2 fonts. A test fails the build over 4.8 MB, and `npm run check` builds before it tests so that the test measures the build it made.
+
+**The heroes, brought level.** Measured with 24 runs a hero and Biscuit along. Before: half the runs at the start came through wave 5 to 14 (Bram, Fenn and Isaura lowest, Ysolde highest), and with a full mastery track 7 to 110 (Hroth half his runs to the end, Maren 54, Orrin 38; Isaura 7 and Bram 9, their tracks doing nothing for them). After: 7 to 9 at the start for every hero, and 22 to 37 with a full track. What moved:
+- Bram starts with 14 Max HP, 3 Armor and 1 Melee Damage (was 8, 1 and slower feet); his track gives Melee Damage, Armor, 25% Damage and 15 Max HP.
+- Isaura starts with 10 Max HP and 2 Armor besides her Melee Damage; her track gives 5 Melee Damage, 30 Max HP, 60% Damage and 6 Armor, so that a person who cannot hold a Tilt still grows.
+- Fenn starts sturdier (10 Max HP, 1 Armor) and with less dodge (10); his coins add at most 20% damage, full at 80 held (it was 60% at 240, and a rich run ran away with itself); Lucky Break gives 2 crits, not 3; his track's stat steps are small.
+- Ysolde starts with less (1 Magic Damage and 10 Range, was 2 and 20) and her track gives more.
+- Hroth's and Maren's tracks give small stat steps; Bloodied and Dawnlight take 10% off a blow, not 20%; Radiance is 0.4x weapon damage in a smaller ring; Hungry Axe heals at most four times a second, as Grave Debt's healing already did, so a sweep through a crowd is one mouthful and not ten.
+- Wren's, Orrin's, Old Nan's and Aldous's tracks were set again by the same measure.
+Fenn's runs are the most bimodal (half 37, mean 56): one that gets rich still runs far. A person plays Tilt, Stand Fast and the coin toss better or worse than this player; that is not known.
+
+**The Hold, drawn.** The HEROES tab is a row of the heroes (the locked ones dark, with "???") and the chosen one's card (picture, title, mastery level, a bar to the next) beside their mastery track, drawn as a path of twelve medallions: each shows what it gives, lit gold once reached; a level pressed says what it gives under the path, and a pick of two shows the two side by side with PICK. A pick reached and never made is picked out first, so a player sees it. The COMPANIONS tab is the six slots (who is in each; the locked ones with the best wave that opens them) over every companion, unlocked or dark with "???"; pressing one puts it in the band or takes it out, and the foot says what it does or how it is unlocked. The other tabs are the lists they were. The title no longer shows renown, which is gone. The result says a new companion slot or a new mastery level when the run unlocked one.
+
+**A companion in a cage** is seen behind its bars, pacing, and leaps out with a burst of light when the cage breaks.
+
+**The seven new lands** each have their own hours of light (a misty green mire, a bright coast with a pink sunset, the lamplit dark of the mines, a huge low sun on the steppe, a violet gloom in the Hollow Court, a brass haze in the Clockwork City, a forge's smoke lit from below) and their own retelling of one of the three themes, in a key, a mode, a pace, a voice and a drum of its own; no two lands play the same theme now. Each land's first wave and its boss were looked at once in a still.
+
+Not done: the Hold's other tabs (vows, quests, Codex, armory, daily run) are still lists; the found cage was not seen in a picture; nobody has heard the retold themes.
+
 ## Round 8, the owner's new direction
 
 The owner, after playing: "let's make it so you start with a ranged hero instead + 1 companion, / then rework companions into slots that you unlock as you get further into the waves (best wave) up to a max of 6 companions / then the companions themselves are unlocked some of them by completing waves, some of them by doing specific things/ hidden things, you can also get them by collecting them in game (random drop) / as for permanent upgrades, it'll be hero based, so as you finish more with your hero, you get to unlock permanent upgrades for that hero, e.g more skill, more quirks of the hero unlocked as you go", and then "let's make 100 waves". The last part of the first message, the choice between waves made clearer, is the screens' work and is not in this round.

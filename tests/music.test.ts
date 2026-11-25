@@ -248,7 +248,8 @@ describe('the band on recorded instruments', () => {
       expect(battle.length, land).toBeGreaterThan(calm.length);
     }
     expect(drums.size).toBe(Object.keys(tune).length);
-    expect(new Set(Object.values(THEMES)).size).toBe(Object.keys(tune).length);
+    // The other seven lands each retell one of the three in a mood of their own: no two lands play the same theme.
+    expect(new Set(Object.values(THEMES)).size).toBe(Object.keys(THEMES).length);
   });
 
   it('no note is played far from where its instrument was recorded', () => {

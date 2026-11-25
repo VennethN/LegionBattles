@@ -109,21 +109,33 @@ const WRITTEN: Readonly<Record<string, Theme>> = {
   },
 };
 
+/** A written theme played another way: its tune and chords, in another key, mode, pace, voice and drum. */
+function retold(theme: Theme, how: Partial<Theme>): Theme {
+  return { ...theme, ...how };
+}
+
 /**
- * The themes, by the kind of land (art/board.ts). The seven lands after the
- * first three have no theme of their own yet: each plays the one nearest it
- * in mood, as their light borrows an hour (view/light/hours.ts). A theme
- * that goes on into the next land goes on from where it was.
+ * The themes, by land. The seven lands after the first three are not new
+ * tunes: each retells one of the three written ones in a mood of its own (a
+ * key, a mode, a pace, a voice and a drum), so that each land sounds like
+ * itself and a player hears the music change as the land does.
  */
 export const THEMES: Readonly<Record<string, Theme>> = {
   ...WRITTEN,
-  mire: WRITTEN.meadow,
-  coast: WRITTEN.meadow,
-  steppe: WRITTEN.desert,
-  clock: WRITTEN.desert,
-  ember: WRITTEN.desert,
-  mine: WRITTEN.snow,
-  crypt: WRITTEN.snow,
+  // Blackwater Mire: Thornwood's dance gone slow and murky, low, on a reed, with a hand drum like a wading step.
+  mire: retold(WRITTEN.meadow, { bpm: 78, root: 60, scale: [0, 2, 3, 5, 7, 8, 10], voice: 'reed', drums: 'k...t.t.k...t...', kit: { k: ['tumba', 0.5], t: ['conga', 0.3] } }),
+  // The Salt Coast: the same dance bright and rolling, a step higher, rung on a bell like a ship's.
+  coast: retold(WRITTEN.meadow, { bpm: 96, root: 64, scale: [0, 2, 4, 5, 7, 9, 10], voice: 'bell', drums: 'k..sk..sk..sk.ss', kit: { k: ['bdrum-soft', 0.5], s: ['snare-soft', 0.25] } }),
+  // The Deep Mines: the snows' slow tune in the dark, a half step lower, its drum a pick on stone.
+  mine: retold(WRITTEN.snow, { bpm: 70, root: 56, scale: [0, 1, 3, 5, 7, 8, 10], voice: 'bell', drums: 'k.......t...t...', kit: { k: ['tumba', 0.55], t: ['conga', 0.2] } }),
+  // The Endless Steppe: the dunes' march at a gallop, on a flute, with the hooves in the drum.
+  steppe: retold(WRITTEN.desert, { bpm: 118, root: 64, scale: [0, 2, 3, 5, 7, 9, 10], voice: 'flute', drums: 'k.tk.tk.k.tk.tkt', kit: { k: ['tumba', 0.6], t: ['conga', 0.45] } }),
+  // The Hollow Court: the snows' tune as a slow procession, rung on a bell, almost no drum.
+  crypt: retold(WRITTEN.snow, { bpm: 64, root: 57, scale: [0, 1, 3, 5, 6, 8, 10], voice: 'bell', drums: 'k...............', kit: { k: ['bdrum-soft', 0.45] } }),
+  // The Clockwork City: the dance turned to clockwork, even and quick, the hats ticking.
+  clock: retold(WRITTEN.meadow, { bpm: 112, root: 60, scale: [0, 2, 3, 5, 7, 8, 11], voice: 'bell', drums: 'khshkhshkhshkhsh', kit: { k: ['bdrum-soft', 0.45], s: ['snare-soft', 0.25], h: ['tamb', 0.08] } }),
+  // The Ashen Forge: the dunes' march slow and heavy, low, with the hammer in the drum.
+  ember: retold(WRITTEN.desert, { bpm: 84, root: 60, scale: [0, 1, 4, 5, 7, 8, 10], voice: 'reed', drums: 'k..kt...k..kt.k.', kit: { k: ['tumba', 0.7], t: ['snare-soft', 0.35] } }),
 };
 
 /** A note of the tune: the step of the scale, and how many slots it is held. */

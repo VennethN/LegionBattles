@@ -69,7 +69,7 @@ The headless browser draws a few frames a second. The scripts take over the page
   - A hero's two lines of story keep their flavor, in simple sentences.
   - The smoke finds buttons by their words: change a button's words and the smoke together.
   - This is for what the player reads. Names in the code stay as they are (`quirk`, `move`, `omen`, `kinds`, `gifts`, `boons`), and comments and docs for the owner keep the project's own plain style.
-- **The build stays under 5 MB,** in bytes: `du -sb dist`. With a hundred units it is close to it (4,999,425 bytes on 25 November 2026), though every picture is written slim (`slim` in `scripts/art.ts`: no names nothing points at, short paths, the dark line said once as a class), which draws the same. A new land or unit has to find its room. `du -sh` counts a whole disk block for each of three hundred small pictures and says a megabyte more.
+- **The build stays under 5 MB,** in bytes: `du -sb dist`, and `tests/build.test.ts` fails it over 4.8 MB (the check builds before it tests, so that it measures the build). It is about 4.6 MB with a hundred units: every picture is written slim (`slim` in `scripts/art.ts`), the build rounds the figures' and grounds' path numbers to whole units (`roundPath` in `vite.config.ts`, which never lets a point drift more than half a unit), the manifest is written without spaces and only the woff2 fonts ship. A new land or unit has to find its room. `du -sh` counts a whole disk block for each of the small pictures and says a megabyte more.
 - **Comments say why,** in short plain sentences.
 - **Text for the owner and for the docs is plain, and has no em dashes.**
 - **Say what nobody has looked at.** The README ends with that list: keep it true.

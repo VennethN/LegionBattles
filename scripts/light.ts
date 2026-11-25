@@ -14,7 +14,8 @@
 import fs from 'node:fs';
 
 import { chromium, open, type Page } from './browser';
-import { RICH, THINGS, UPS, arena, fight, until } from './drive';
+import { RICH, THINGS, UPS, arena, fight, until, type Win } from './drive';
+import { LANDS } from '../src/game/data';
 
 const args = process.argv.slice(2);
 const want = args.filter((a) => !a.startsWith('--'));
@@ -31,7 +32,7 @@ const base = process.env.URL ?? 'http://127.0.0.1:5175/';
 const FIRE = [{ id: 'torch', tier: 1 }, { id: 'brazier', tier: 1 }, { id: 'staff', tier: 1 }, { id: 'bomb', tier: 1 }, { id: 'frost', tier: 0 }, { id: 'censer', tier: 0 }];
 
 /** A scene: who, in which wave, carrying what, and how many seconds into it the picture is taken. */
-const SCENES: Record<string, { hero: string; wave: number; weapons: unknown[]; seconds: number }> = {
+const SCENES: Record<string, { hero: string; wave: number; weapons: unknown[]; seconds: number; level?: number }> = {
   'meadow-day': { hero: 'bram', wave: 1, weapons: [{ id: 'sword', tier: 0 }, { id: 'torch', tier: 0 }], seconds: 8 },
   'meadow-gold': { hero: 'nan', wave: 4, weapons: FIRE, seconds: 10 },
   'meadow-dusk': { hero: 'orrin', wave: 6, weapons: FIRE, seconds: 10 },
@@ -42,6 +43,12 @@ const SCENES: Record<string, { hero: string; wave: number; weapons: unknown[]; s
   'snow-day': { hero: 'ysolde', wave: 15, weapons: RICH, seconds: 9 },
   'snow-dusk': { hero: 'aldous', wave: 18, weapons: FIRE, seconds: 12 },
   'snow-night': { hero: 'maren', wave: 20, weapons: FIRE, seconds: 10 },
+  // Every land's first wave and its boss, by the land's name: the hundred waves are ten lands of ten.
+  ...Object.fromEntries(LANDS.flatMap((land, i) => [
+    // A hero as far on as the land asks, so that the picture is of the fight and not of the hero fallen.
+    [`${land}-first`, { hero: (['wren', 'bram', 'orrin', 'fenn', 'nan'] as const)[i % 5], wave: i * 10 + 1, weapons: RICH, seconds: 6, level: 10 + i * 6 }],
+    [`${land}-boss`, { hero: (['isaura', 'hroth', 'aldous', 'ysolde', 'maren'] as const)[i % 5], wave: i * 10 + 10, weapons: FIRE, seconds: 5, level: 14 + i * 6 }],
+  ])),
 };
 
 const browser = await chromium.launch();
@@ -64,8 +71,15 @@ for (const mode of modes) {
   for (const [name, scene] of Object.entries(SCENES)) {
     if (want.length && !want.some((w) => name.includes(w))) continue;
     try {
-      await arena(page as Page, { hero: scene.hero, wave: scene.wave, weapons: scene.weapons, items: THINGS, ups: UPS, level: 10, gold: 120 });
+      await arena(page as Page, { hero: scene.hero, wave: scene.wave, weapons: scene.weapons, items: THINGS, ups: UPS, level: scene.level ?? 10, gold: 120 });
       await until(page, 'Hud');
+      // A land far on would fell the hero of a picture in seconds: the hero of a land's picture cannot fall, so that
+      // the picture is of the fight.
+      if (scene.level !== undefined) await page.evaluate(() => {
+        const h = ((window as unknown as Win).world() as unknown as { hero: { hp: number; maxHp: number } }).hero;
+        h.maxHp = 99999;
+        h.hp = 99999;
+      });
       await fight(page, Math.round(scene.seconds * 60));
       await page.screenshot({ path: `${out}/${name}${mode === 'full' ? '' : `-${mode}`}.png` });
       if (film > 0) {

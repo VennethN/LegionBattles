@@ -45,17 +45,18 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
   // The list of heroes, with some open and some not, and a run left in its camp.
   // The Hold: each of its tabs, for a player a few runs in.
   hold: async (page, shot) => {
-    for (const tab of ['BOARD', 'HALL', 'KENNELS', 'ARMORY', 'VOWS', 'DEEDS', 'CHRONICLE', 'DAILY']) {
+    for (const tab of ['HEROES', 'COMPANIONS', 'VOWS', 'QUESTS', 'CODEX', 'ARMORY', 'DAILY']) {
       await page.evaluate((t) => {
         const w = window as unknown as Win;
         const s = w.save() as Record<string, unknown>;
+        // A player some twenty runs in: four heroes, a third slot, a few companions, mastery here and there.
         Object.assign(s, {
-          best: { bram: 20, wren: 4, orrin: 6 }, open: ['orrin', 'fenn'], kills: 2420, coins: 260, runs: 7, ended: 7, last: 'orrin', friends: ['biscuit', 'pip', 'quill'], band: ['pip'], told: ['move'],
-          renown: 340, earned: 720, crates: ['chandler'], board: ['hero-1', 'body-1', 'arm-1', 'purse-1', 'band-1'], vows: ['march'], won: { bram: ['march'] }, deeds: ['wave5', 'wave10', 'captain1', 'kills1', 'win', 'vows1'],
-          oaths: ['bram-win', 'bram-vow', 'bram-quirk'], alt: ['bram'], daily: null, dailyBest: 9,
-          seen: { 'hero:bram': 4, 'hero:wren': 2, 'hero:orrin': 1, 'friend:pip': 3, 'friend:biscuit': 2, 'foe:cutpurse': 512, 'foe:warhound': 233, 'foe:poacher': 77, 'foe:warlord': 2, 'weapon:sword': 3, 'weapon:bow': 2, 'weapon:bomb': 1,
-            'weapon:gatekeeper': 4, 'item:ration': 5, 'item:keg': 1, 'relic:echobell': 2, 'relic:bellows': 0, 'omen:quiet': 30, 'omen:horde': 6, 'omen:shrine': 2 },
-          tally: { lines: [{ why: 'Waves cleared', count: 9, renown: 18 }, { why: 'Bosses beaten', count: 1, renown: 10 }, { why: 'Half the Road', count: 1, renown: 15 }], vows: 0, total: 43 },
+          best: { wren: 31, bram: 18, orrin: 12, fenn: 6 }, open: ['bram', 'orrin', 'fenn'], kills: 4420, coins: 260, runs: 21, ended: 21, last: 'wren',
+          friends: ['biscuit', 'pip', 'quill', 'hive', 'greta'], band: ['biscuit', 'hive', 'pip'],
+          mastery: { wren: 260, bram: 90, orrin: 30, fenn: 8 }, picks: { wren: { 4: 1 } },
+          crates: ['chandler'], vows: ['march'], won: {}, deeds: ['wave5', 'wave10', 'captain1', 'kills1'], daily: null, dailyBest: 9,
+          seen: { 'hero:wren': 12, 'hero:bram': 4, 'friend:pip': 3, 'friend:biscuit': 9, 'foe:cutpurse': 512, 'foe:warhound': 233, 'weapon:bow': 2, 'relic:echobell': 2, 'omen:horde': 6 },
+          tally: { hero: 'wren', lines: [{ why: 'Waves cleared', count: 31, xp: 62 }, { why: 'Bosses beaten', count: 3, xp: 30 }], vows: 0, total: 92 },
         });
         for (const key of ['Hud', 'Camp', 'Result', 'Arena', 'Title', 'Hold']) w.game.scene.stop(key);
         w.game.scene.start('Hold', { tab: t });

@@ -166,22 +166,22 @@ The renderer is set to bind two textures (`maxTextures: 2` in `main.ts`): the fi
 
 `npm run pace` is how the numbers were set. Its player steers away from what would hurt and toward what lies about, a fifth of a second late and never quite true, lets the move loose when there is a crowd for it, stands as Bram and keeps moving as Isaura, and buys what it can afford with no plan but a liking for a kind of weapon it holds already. It takes the roads with prizes while it comes out of a wave with more than half its health and the quiet road when it does not, stands in a shrine's ring, goes for a cage and a wagon, and takes the relic it thinks is worth most.
 
-As last measured (round 8, a hundred waves, slots and mastery), with fewer runs than the rule asks: 8 runs to a hero at the start and 6 with the whole track. Every hero had Biscuit along. "Half" is the wave half the runs came through.
+As last measured (round 9, after bringing the heroes level), with 24 runs to a hero and Biscuit along. "Half" is the wave half the runs came through.
 
-| Hero | Start: half | Start: mean | Whole track: half | Whole track: mean | Whole track: won, of 6 |
+| Hero | Start: half | Start: mean | Whole track: half | Whole track: mean | Whole track: won, of 24 |
 | --- | --- | --- | --- | --- | --- |
-| Wren Fallowmere | 8 | 12.4 | 14 | 22.0 | 0 |
-| Bram Oakenhold | 5 | 5.4 | 9 | 9.2 | 0 |
-| Orrin Quillon | 17 | 13.3 | 43 | 43.8 | 1 |
-| Fenn Two-Coins | 7 | 5.8 | 9 | 41.5 | 2 |
-| Old Nan Cinderwick | 14 | 14.1 | 25 | 22.7 | 0 |
-| Isaura Vane | 8 | 8.0 | 5 | 5.5 | 0 |
-| Hroth | 15 | 13.8 | 53 | 56.8 | 2 |
-| Brother Aldous Bell | 10 | 11.5 | 24 | 21.8 | 0 |
-| Ysolde Rimeheart | 17 | 15.9 | 16 | 13.0 | 0 |
-| Maren Dawnguard | 15 | 14.5 | 44 | 49.2 | 1 |
+| Wren Fallowmere | 8 | 13.8 | 36 | 43.6 | 3 |
+| Bram Oakenhold | 8 | 11.8 | 27 | 38.3 | 2 |
+| Orrin Quillon | 9 | 12.4 | 28 | 34.7 | 2 |
+| Fenn Two-Coins | 7 | 13.8 | 37 | 55.7 | 7 |
+| Old Nan Cinderwick | 7 | 10.6 | 29 | 29.8 | 0 |
+| Isaura Vane | 8 | 9.6 | 30 | 37.4 | 2 |
+| Hroth | 8 | 13.3 | 26 | 34.7 | 2 |
+| Brother Aldous Bell | 9 | 10.6 | 22 | 30.2 | 1 |
+| Ysolde Rimeheart | 9 | 13.3 | 28 | 26.8 | 0 |
+| Maren Dawnguard | 9 | 11.5 | 24 | 31.5 | 1 |
 
-"Start" is a first run's armory and no mastery (`--first --pool=start`); "whole track" is every level of the hero's mastery and the whole armory (`--mastery=all`). A run is bimodal: one that gets through the first walls runs on far, so read the half before the mean. Bram and Isaura are the weakest for this player at both ends, and their tracks lift them least: it stands still for Bram and rides a line for Isaura, and what a person makes of them is not known. A full hundred waves is about 41 minutes of fighting as this player plays it. `docs/journal.md`, Round 8, has the careers (when each slot, hero and companion came) and one companion against six.
+"Start" is a first run's armory and no mastery (`--pool=start`); "whole track" is every level of the hero's mastery and the whole armory (`--mastery=all`). A run is bimodal: one that gets through the first walls runs on far, so read the half before the mean. Fenn's runs are the most bimodal: a run that gets rich runs away with the coins he holds. Before this round the heroes were 5 to 17 at the start and 5 to 110 with a full track. A full hundred waves is about 41 minutes of fighting as this player plays it. `docs/journal.md`, Rounds 8 and 9, have the careers (when each slot, hero and companion came) and one companion against six.
 
 The figures of the rounds before, with twenty waves and the board, are in the journal and no longer hold.
 
@@ -191,7 +191,7 @@ The figures of the rounds before, with twenty waves and the board, are in the jo
 - It fits any frame with no bars, and was looked at in 907 by 510, 821 by 462, 1920 by 1080 and on a phone both ways.
 - Keys are read by where they are on the keyboard, so the same four steer on a keyboard laid out another way. Escape is not used. The arrow keys, the space bar and the wheel do not scroll the page it is in.
 - It has no full screen button of its own, no links out, and nothing in it but its own drawings and the recorded sounds it credits.
-- The build is 3.7 MB, as the sum of its files.
+- The build is about 4.6 MB, as the sum of its files, and a test fails it over 4.8 MB.
 - On CrazyGames it keeps the save with the player's account, says when play starts and stops, and may show something between waves. Its code for that is the first game's.
 
 ## Not yet looked at
@@ -229,12 +229,13 @@ This was built in a cloud session with no screen and no sound.
 - The day's road takes its day from the player's own clock, in the time the world's clocks are set by. Nothing stops a player who changes their clock.
 - The game's text was rewritten in plain game language and nobody has looked at it on a screen: the stat names are longer than they were ("Ranged Damage", "Attack Speed"), and a camp column or a card made for the old words may not fit them. The screens' own words (`src/view`) are another copy's work and still say wares, hands and captain in places.
 - A first run's smaller armory makes that run a little stronger, not weaker, by under a wave: with fewer weapons to draw from, twins to join and weapons of one kind come more often. Whether a person finds a first run with twelve weapons too thin, nobody knows.
-- The result pays out renown line by line, counted in one after another, with the three nearest quests and how far along each is. It was seen in stills at a portal's frame and on a phone upright; the counting in was not seen moving.
+- The result pays out mastery line by line, counted in one after another, with the three nearest quests and how far along each is, and says a new companion slot or a new mastery level when the run unlocked one. The new lines were not seen in a picture.
+- The Hold's HEROES tab draws a hero's mastery track as a path of twelve medallions, and its COMPANIONS tab the six slots over every companion. Both were looked at in stills at a portal's frame, the small frame and on a phone upright; pressing them has been done only by the smoke. A companion found in a cage is seen behind its bars and leaps out when it breaks: that was not seen in a picture.
 - A save from before the road keeps everything but a run that was left in its camp.
 - A save from before mastery (version 4) keeps its heroes, companions, bests, crates and Codex, and what it had spent on the board and held in renown becomes mastery for the hero it played most. It loses a run left in a camp. Tried by a test, not on a real player's save.
 - A save from before the heroes had names keeps its bests and who was open, and loses a run that was left in its camp.
-- Past the hundredth wave the game is the same hundred waves again, harder. Nobody but the computer has played past the first land. The seven new lands' grounds, enemies, bosses and roads have not been looked at on a screen at all; their light borrows one of the first three lands' hours and their music one of the three themes.
-- The build is 4,999,439 bytes, just under 5 MB, with a hundred units; every picture is written slim to get there (`slim` in `scripts/art.ts`). Four pictures were compared pixel by pixel in the browser with how they were drawn before: the same, but for a few pixels at edges where a path's numbers were rounded to a hundredth. The rest were not compared one by one.
+- Past the hundredth wave the game is the same hundred waves again, harder. Nobody but the computer has played past the first land. The seven new lands each have hours of light of their own and their own retelling of one of the three themes (a key, a mode, a pace, a voice and a drum); each land's first wave and its boss were looked at once in a still picture, and nobody has heard the retold themes.
+- The build is about 4.6 MB. To get there from just under 5 MB, the build rounds the figures' and the grounds' path numbers to whole units (a test holds that no point drifts more than half a unit), writes the manifest without spaces, and ships only the woff2 fonts. One figure and one hero's head were compared drawn before and after, side by side at twice their size in the game, and looked the same; the rest were not compared one by one.
 - The hero is drawn bigger than those who come at them (0.64 of a figure's canvas to their 0.46), and what can hurt them is the same small circle at their feet. Whether that feels fair or feels like being missed by blows that looked to land has not been played.
 - Rings on the ground (clouds, burning ground, the red rings an enemy warns with) were drawn about twice as wide as they reach, and are drawn at their true width now. They are still drawn flatter than they are (0.62 of their height), as everything on the ground is, so what reaches up and down the screen reaches a little further than it looks.
 - This game added three things to the art kit (whole pictures at a pose in the art build and on the sheet, a bare hand on a figure, two letters for the logo). They are here and not yet in the copy of the art skill that the other two games carry.

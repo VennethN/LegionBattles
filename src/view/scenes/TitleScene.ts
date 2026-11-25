@@ -326,19 +326,9 @@ export class TitleScene extends Phaser.Scene {
       this.root.add(card);
     });
 
-    // What is kept between runs. The count of renown stands by the logo, and a button opens the Hold's board, where
-    // it is spent. Both are shown as soon as the rules of the Hold are in the game (a save with renown in it, a
-    // screen named Hold); until then there is nothing to show and nothing is.
-    const renown = (s as unknown as { renown?: number }).renown;
+    // What is kept between runs: a button opens the Hold, where each hero's mastery and the band are.
+    // Renown is gone: what a player keeps is each hero's mastery, said on the Hold's HEROES tab.
     const board = 'Hold' in this.scene.manager.keys;
-    if (renown !== undefined) {
-      // Beside the Hold's button, where it is spent: never over the hero's name.
-      const rx0 = tall ? W - 70 : W - 38 - 34 - 148 - 8 - 56;
-      const ry0 = tall ? 36 : 36;
-      put(slabImage(this, rx0 - 48, ry0 - 18, 96, 36, IRON, 12, 4));
-      put(this.add.image(rx0 - 28, ry0 - 1, SHEET, 'icon/laurel')).setScale(0.22);
-      put(label(this, rx0 + 12, ry0 - 2, String(renown), { size: 18, color: HOLY.fill }));
-    }
     if (board) {
       const hold = new Button(this, tall ? W - 86 : W - 38 - 34 - 74, tall ? 80 : 36, 'THE HOLD', () => this.scene.start('Hold'), { width: 148, height: 44, size: 17, mat: GOLD });
       this.root.add(hold.root);

@@ -17,7 +17,7 @@ import type { Ev, Foe, World } from '../game/world';
 import { ART_SCALE, hex } from './config';
 import type { Effects } from './Effects';
 import { THING_ICONS } from './icons';
-import { SHEET, Sheet } from './art/Sheet';
+import { CARDS, SHEET, Sheet, portraitFrame } from './art/Sheet';
 import { STILL_SCALE } from './art/scale';
 
 const INV_ART = 1 / ART_SCALE;
@@ -36,6 +36,8 @@ interface Thing {
   back: Phaser.GameObjects.Image;
   bar: Phaser.GameObjects.Image;
   flash: number;
+  /** Who is in a cage, standing behind its bars: a cage with nobody seen in it was only a box. */
+  inside?: Phaser.GameObjects.Image;
 }
 
 /** What the field's scene hands over: how to say something across the screen, and how big a foe's picture is shown. */
@@ -94,6 +96,15 @@ export class RoadField {
         if (t) {
           this.fx.spawn('fx/dust', e.x, e.y - 20, { dur: 0.35, from: 0.6, to: 1.8, alpha: 0.8, depth: e.y + 2 });
           for (const img of [t.img, t.back, t.bar]) img.destroy();
+          // Who was in the cage leaps out of it as it breaks: a moment before they join the band, or go home.
+          if (t.inside) {
+            const out = t.inside;
+            this.scene.tweens.add({ targets: out, y: out.y - 46, scale: out.scale * 1.3, alpha: 0, duration: 520, ease: 'Quad.easeOut', onComplete: () => out.destroy() });
+            for (let i = 0; i < 10; i++) {
+              const a = (i / 10) * Math.PI * 2;
+              this.fx.spawn('fx/sparkle', e.x + Math.cos(a) * 34, e.y - 30 + Math.sin(a) * 22, { dur: 0.6, from: 0.5, to: 1.3, tint: hex(HOLY.fill), vy: -60, delay: i * 0.02, depth: e.y + 80 });
+            }
+          }
           this.things.delete(e.id);
         }
         this.rings.get(e.id)?.destroy();
@@ -167,6 +178,8 @@ export class RoadField {
       } else t.img.clearTint().setTintMode(Phaser.TintModes.MULTIPLY);
       const up = kind === 'wagon' ? 98 : 74;
       t.back.setPosition(f.x, f.y - up).setDisplaySize(54, 8).setDepth(f.y + 1);
+      // Whoever is in it paces behind the bars.
+      if (t.inside) t.inside.setPosition(f.x + Math.sin(clock * 1.3) * 4, f.y - 6).setDepth(f.y - 0.5);
       t.bar.setPosition(f.x - 25, f.y - up).setDisplaySize(50 * Math.max(0, f.hp / f.maxHp), 4).setDepth(f.y + 2);
     }
     // A ring under each champion, which follows it.
@@ -297,7 +310,17 @@ export class RoadField {
     const img = this.scene.add.image(f.x, f.y, SHEET, THING_ICONS[kind]).setOrigin(0.5, 0.94);
     const back = this.scene.add.image(f.x, f.y, SHEET, 'fx/solid').setTint(hex(OUTLINE));
     const bar = this.scene.add.image(f.x, f.y, SHEET, 'fx/solid').setTint(kind === 'wagon' ? RED : hex(FROST.fill)).setOrigin(0, 0.5);
-    const t = { img, back, bar, flash: 0 };
+    const t: Thing = { img, back, bar, flash: 0 };
+    // A cage holds someone, and they are seen: the stray's road's companion, or one found in the wild.
+    const who = kind === 'cage' ? this.world.caged : '';
+    if (who) {
+      const unit = byId(COMPANIONS, who).unit;
+      if (this.scene.textures.getFrame(CARDS, portraitFrame('blue', unit))) {
+        const inside = this.scene.add.image(f.x, f.y - 6, CARDS, portraitFrame('blue', unit)).setOrigin(0.5, 1);
+        inside.setScale(52 / Math.max(1, inside.frame.height));
+        t.inside = inside;
+      }
+    }
     this.things.set(f.id, t);
     return t;
   }

@@ -56,7 +56,11 @@ export class ResultScene extends Phaser.Scene {
     // Each thing under the rows has a line of its own: the best yet, a companion who will come, the heroes opened.
     // They were placed by fixed numbers once, and wrote over each other on a small screen.
     const extra = (isBest ? 28 : 0) + (friends.length > 0 ? 30 : 0) + (gained.slots > 0 ? 30 : 0) + (gained.levels > 0 ? 30 : 0);
-    const ph = under + extra + 28 + (opened.length > 0 ? 150 : 0) + 70;
+    // The heroes a run unlocked are shown in pictures, unless that would push the buttons off the screen: then they
+    // are named on one line. A long run can unlock companions, slots, a level and heroes all at once.
+    const room = view.h - 28 - (side ? 0 : sideH + 14);
+    const compact = opened.length > 0 && under + extra + 28 + 150 + 70 > room;
+    const ph = under + extra + 28 + (opened.length > 0 ? (compact ? 34 : 150) : 0) + 70;
     const py = side ? Math.max(14, (view.h - Math.max(ph, sideH)) / 2) : Math.max(14, (view.h - ph - sideH - 14) / 2);
     this.add.existing(slabImage(this, cx - pw / 2, py, pw, ph, BONE, 20, 8));
     if (sideH > 0) this.renown(side ? cx + pw / 2 + 14 : cx - pw / 2, side ? py : py + ph + 14, side ? sw : pw, tally, quests);
@@ -109,7 +113,12 @@ export class ResultScene extends Phaser.Scene {
     }
 
     // Whoever this run opened is shown, by name now.
-    if (opened.length > 0) {
+    if (opened.length > 0 && compact) {
+      const names = opened.map((id) => byId(HEROES, id).short.toUpperCase()).join(', ');
+      const line = label(this, cx, at + 4, `${opened.length > 1 ? 'NEW HEROES' : 'NEW HERO'} UNLOCKED: ${names}`, { size: 16, color: HOLY.shade, stroke: null });
+      line.setScale(Math.min(1, (pw - 40) / Math.max(1, line.width)));
+      this.time.delayedCall(350, () => sfx.play('claim', 0.8));
+    } else if (opened.length > 0) {
       const y = at + 58;
       label(this, cx, y - 36, opened.length > 1 ? 'NEW HEROES UNLOCKED' : 'NEW HERO UNLOCKED', { size: 20, color: HOLY.shade, stroke: null });
       const step = Math.min(110, (pw - 60) / opened.length);

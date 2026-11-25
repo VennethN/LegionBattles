@@ -60,14 +60,51 @@ const DAYS3: Record<'meadow' | 'desert' | 'snow', Array<[number, Hour]>> = {
 };
 
 /**
- * The days of the lands that came after the first three: each goes through
- * the hours of the land most like it, until it has days of its own. The
- * mire and the coast are green and wet like the meadow, the steppe, the
- * clockwork city and the forge dry and warm like the dunes, the mines and
- * the crypt cold and dim like the snow.
+ * The days of the seven lands that came after the first three, each its own: the hour a player comes into it and
+ * the hour its boss is met, as the land is. None is so dark that a red figure is lost on its ground, and none is
+ * red all over, so that an enemy's red stays its own.
  */
 const DAYS: Record<Land, Array<[number, Hour]>> = {
-  ...DAYS3, mire: DAYS3.meadow, coast: DAYS3.meadow, steppe: DAYS3.desert, clock: DAYS3.desert, ember: DAYS3.desert, mine: DAYS3.snow, crypt: DAYS3.snow,
+  ...DAYS3,
+  // Blackwater Mire: a green, misty day that goes down into a murky night. The shade leans green.
+  mire: [
+    [0, { ambient: [0.54, 0.62, 0.56], sun: [0.46, 0.38, 0.12], clouds: 0.92, shade: [0.86, 1.04, 0.94], vignette: 0.46, long: 1.1, cast: 0.24 }],
+    [0.6, { ambient: [0.48, 0.56, 0.52], sun: [0.3, 0.26, 0.1], clouds: 0.9, shade: [0.84, 1.06, 0.98], vignette: 0.5, long: 1.6, cast: 0.2 }],
+    [1, { ambient: [0.36, 0.44, 0.42], sun: [0.06, 0.12, 0.08], clouds: 0.8, shade: [0.84, 1.02, 0.98], vignette: 0.5, long: 0.8, cast: 0.14 }],
+  ],
+  // The Salt Coast: a bright sea light, a pink sunset over the water, a clear blue night.
+  coast: [
+    [0, { ambient: [0.62, 0.68, 0.8], sun: [0.58, 0.46, 0.22], clouds: 0.76, shade: [0.88, 0.96, 1.12], vignette: 0.36, long: 1.1, cast: 0.28 }],
+    [0.55, { ambient: [0.66, 0.58, 0.72], sun: [0.6, 0.26, 0.2], clouds: 0.72, shade: [0.96, 0.86, 1.1], vignette: 0.42, long: 1.8, cast: 0.26 }],
+    [1, { ambient: [0.38, 0.44, 0.6], sun: [0.08, 0.14, 0.22], clouds: 0.66, shade: [0.84, 0.92, 1.16], vignette: 0.46, long: 0.8, cast: 0.16 }],
+  ],
+  // The Deep Mines: under the earth there is no sun, only a warm lamplit dark; the lights of the fight carry it.
+  mine: [
+    [0, { ambient: [0.5, 0.46, 0.42], sun: [0.14, 0.1, 0.04], clouds: 0.5, shade: [1.04, 0.96, 0.88], vignette: 0.56, long: 0.5, cast: 0.2 }],
+    [1, { ambient: [0.4, 0.37, 0.36], sun: [0.06, 0.05, 0.03], clouds: 0.5, shade: [1.0, 0.94, 0.9], vignette: 0.6, long: 0.4, cast: 0.18 }],
+  ],
+  // The Endless Steppe: a huge low sun and the longest shadows of any land, then a red dusk and the stars.
+  steppe: [
+    [0, { ambient: [0.6, 0.58, 0.66], sun: [0.7, 0.46, 0.16], clouds: 0.6, shade: [0.96, 0.9, 1.06], vignette: 0.36, long: 2.1, cast: 0.3 }],
+    [0.6, { ambient: [0.62, 0.48, 0.56], sun: [0.62, 0.22, 0.08], clouds: 0.56, shade: [1.02, 0.84, 1.02], vignette: 0.44, long: 2.4, cast: 0.28 }],
+    [1, { ambient: [0.36, 0.38, 0.56], sun: [0.08, 0.1, 0.2], clouds: 0.5, shade: [0.86, 0.9, 1.16], vignette: 0.46, long: 0.8, cast: 0.16 }],
+  ],
+  // The Hollow Court: never day. A cold violet gloom under a pale moon, darker toward its king.
+  crypt: [
+    [0, { ambient: [0.48, 0.46, 0.6], sun: [0.16, 0.18, 0.28], clouds: 0.7, shade: [0.9, 0.88, 1.16], vignette: 0.5, long: 1.2, cast: 0.2 }],
+    [1, { ambient: [0.38, 0.36, 0.52], sun: [0.1, 0.1, 0.2], clouds: 0.7, shade: [0.9, 0.86, 1.18], vignette: 0.56, long: 1.0, cast: 0.18 }],
+  ],
+  // The Clockwork City: a smoky brass haze that hides the sun, then the street lamps' night.
+  clock: [
+    [0, { ambient: [0.6, 0.55, 0.48], sun: [0.4, 0.32, 0.14], clouds: 0.9, shade: [1.02, 0.94, 0.86], vignette: 0.44, long: 1.0, cast: 0.24 }],
+    [0.6, { ambient: [0.54, 0.48, 0.46], sun: [0.32, 0.18, 0.08], clouds: 0.9, shade: [1.02, 0.92, 0.9], vignette: 0.48, long: 1.4, cast: 0.22 }],
+    [1, { ambient: [0.4, 0.38, 0.44], sun: [0.08, 0.08, 0.12], clouds: 0.8, shade: [0.96, 0.92, 1.04], vignette: 0.5, long: 0.8, cast: 0.16 }],
+  ],
+  // The Ashen Forge: a sky of smoke lit from below by the fires: orange shade, the sun a dull coal.
+  ember: [
+    [0, { ambient: [0.6, 0.48, 0.44], sun: [0.46, 0.2, 0.08], clouds: 0.84, shade: [1.06, 0.88, 0.82], vignette: 0.46, long: 1.2, cast: 0.24 }],
+    [1, { ambient: [0.44, 0.36, 0.36], sun: [0.24, 0.08, 0.04], clouds: 0.8, shade: [1.06, 0.86, 0.84], vignette: 0.52, long: 0.9, cast: 0.2 }],
+  ],
 };
 
 /** Where each land's waves begin and end among the written waves: ten each. */
