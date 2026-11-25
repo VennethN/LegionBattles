@@ -129,7 +129,7 @@ describe('renown', () => {
   it('is paid for waves, captains and the win, more for each vow sworn, and for deeds as they are', () => {
     const run = ended('bram', 8, { felled: ['warlord'] });
     expect(tallyOf(run).total).toBe(8 * RENOWN.wave + RENOWN.captain);
-    expect(tallyOf(run).lines.map((l) => l.why)).toEqual(['Waves come through', 'Captains beaten']);
+    expect(tallyOf(run).lines.map((l) => l.why)).toEqual(['Waves cleared', 'Bosses beaten']);
     const won = ended('bram', LAST_WAVE, { felled: ['warlord', 'colossus', 'jarl'] });
     const base = LAST_WAVE * RENOWN.wave + 3 * RENOWN.captain + RENOWN.win;
     expect(hasWon(won)).toBe(true);
@@ -138,7 +138,7 @@ describe('renown', () => {
     const deed = DEEDS.find((d) => d.id === 'win')?.renown ?? 0;
     // Each vow pays more of the run's own renown, and a deed pays what it pays.
     expect(tallyOf(hard).total).toBe(base + Math.round(base * RENOWN.vow * 2) + deed);
-    expect(tallyOf(hard).lines.some((l) => l.why === 'Vows kept')).toBe(true);
+    expect(tallyOf(hard).lines.some((l) => l.why === 'Vow bonus')).toBe(true);
     expect(tallyOf(ended('bram', 0)).total).toBe(0);
   });
 
@@ -322,7 +322,7 @@ describe('the board', () => {
     expect(rows.find((r) => r.node.id === 'hero-1')).toMatchObject({ owned: true, open: true, can: false });
     expect(rows.find((r) => r.node.id === 'arm-1')).toMatchObject({ owned: false, open: true, can: false });
     expect(rows.find((r) => r.node.id === 'arm-2')).toMatchObject({ owned: false, open: false, can: false });
-    for (const r of rows) expect(r.says.length, r.node.id).toBeGreaterThan(8);
+    for (const r of rows) expect(r.says.length, r.node.id).toBeGreaterThan(5);
   });
 
   it('can be taken back whole for what was paid, and spent again another way', () => {
@@ -475,13 +475,13 @@ describe('vows', () => {
   it('are opened by winning: the first few by a first win, more for each vow a win was sworn under', () => {
     const save = freshSave();
     expect(vowsOpen(save)).toEqual([]);
-    expect(vowsNext(save)).toBe('Win the twentieth wave.');
+    expect(vowsNext(save)).toBe('Clear wave 20.');
     expect(toggleVow(save, 'march')).toBe(false);
     expect(badge(save, 'bram')).toBeNull();
     record(save, ended('bram', LAST_WAVE), 0);
     expect(badge(save, 'bram')).toEqual([]);
     expect(vowsOpen(save)).toEqual(all.slice(0, VOW.first));
-    expect(vowsNext(save)).toBe('Win a run under a vow.');
+    expect(vowsNext(save)).toBe('Win a run with 1 vow.');
     expect(toggleVow(save, all[VOW.first])).toBe(false);
     expect(toggleVow(save, 'march')).toBe(true);
     expect(toggleVow(save, 'lean')).toBe(true);
@@ -687,7 +687,7 @@ describe('the chronicle', () => {
     const foes = pages[2];
     expect(foes.met).toBe(1);
     const cutpurse = foes.entries.find((e) => e.id === 'cutpurse');
-    expect(cutpurse).toMatchObject({ name: 'Cutpurse', met: true, count: 12, counted: 'slain' });
+    expect(cutpurse).toMatchObject({ name: 'Bandit', met: true, count: 12, counted: 'killed' });
     for (const e of foes.entries) if (e.id !== 'cutpurse') expect(e).toMatchObject({ name: '???', says: '', met: false });
     // What is only a thing on the field, a wagon or a cage, is no enemy to chronicle.
     expect(foes.entries.some((e) => e.id === 'paywagon' || e.id === 'cage')).toBe(false);
@@ -872,14 +872,19 @@ describe('oaths', () => {
     const four = (id: string): RunData['weapons'] => [{ id, tier: 0 }, { id, tier: 0 }, { id, tier: 0 }];
     expect(kept('wren', { clean: 5 })).toBe(true);
     expect(kept('wren', { clean: 4 })).toBe(false);
-    expect(kept('orrin', { weapons: four('staff') })).toBe(true);
-    expect(kept('orrin', { weapons: four('sword') })).toBe(false);
-    expect(kept('fenn', { gold: 400 })).toBe(true);
-    expect(kept('nan', { weapons: four('torch') })).toBe(true);
-    expect(kept('isaura', { kills: 1500 })).toBe(true);
-    expect(kept('isaura', { kills: 1499 })).toBe(false);
-    expect(kept('hroth', { rose: 0 })).toBe(true);
-    expect(kept('hroth', { rose: -1 })).toBe(false);
+    // The five whose oaths are about what they do on the field: the run counts it (heroes.ts, COUNTS).
+    expect(kept('orrin', { counts: { finished: 10 } })).toBe(true);
+    expect(kept('orrin', { counts: { finished: 9 } })).toBe(false);
+    expect(kept('fenn', { counts: { toss: 6 } })).toBe(true);
+    expect(kept('fenn', { gold: 400 })).toBe(false);
+    expect(kept('nan', { counts: { banked: 20 } })).toBe(true);
+    expect(kept('nan', { weapons: four('torch') })).toBe(false);
+    expect(kept('isaura', { counts: { tilt: 40 } })).toBe(true);
+    expect(kept('isaura', { counts: { tilt: 39 }, kills: 1500 })).toBe(false);
+    expect(kept('hroth', { counts: { debt: 150 } })).toBe(true);
+    expect(kept('hroth', { rose: 0 })).toBe(false);
+    // Another hero's count is not theirs.
+    expect(kept('bram', { counts: { tilt: 40 } })).toBe(false);
     expect(kept('aldous', { band: [{ id: 'pip', bond: BAND.bonds }] })).toBe(true);
     expect(kept('ysolde', { weapons: four('frost') })).toBe(true);
     expect(kept('maren', { weapons: four('censer') })).toBe(true);

@@ -5,7 +5,7 @@
 // (hold.ts has the rules of those). A save may be from an older copy of the
 // game, or not a save at all, so it is mended on the way in.
 
-import { BAND, COMPANIONS, HEROES, OLD_HEROES, OMENS, RELICS, WEAPONS, type Feat } from './data';
+import { BAND, COMPANIONS, COUNTS, HEROES, OLD_HEROES, OMENS, RELICS, WEAPONS, type Feat } from './data';
 import { chronicle, type Tally } from './hold';
 import { BOARD, CRATES, DEEDS, OATHS, VOWS, noBoons, type Boons } from './holdData';
 import { bandSize, survived, type RunData } from './run';
@@ -129,6 +129,7 @@ function mendRun(raw: unknown): RunData | null {
   r.forced = r.forced === true;
   r.hurt = typeof r.hurt === 'number' && r.hurt > 0 && r.hurt <= 1 ? r.hurt : 1;
   r.bests = whole(r.bests);
+  r.counts = Object.fromEntries(COUNTS.map((c) => [c, whole(isRecord(r.counts) ? r.counts[c] : 0)]).filter(([, n]) => n !== 0));
   const t: unknown = r.told;
   r.told = isRecord(t) ? { met: names(t.met), slain: counts(t.slain), roads: names(t.roads), unstruck: names(t.unstruck) } : null;
   return r;

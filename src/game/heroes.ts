@@ -54,52 +54,52 @@ export const HEROES: readonly HeroDef[] = [
   {
     id: 'bram', unit: 'bram', name: 'Bram Oakenhold', short: 'Bram', epithet: 'the Gatewarden', who: 'The last man on a gate that fell. He does not step back.', line: 'The gate is wherever I stand.',
     weapon: 'gatekeeper', stats: { maxHp: 8, armor: 1, speed: -5 }, quirk: 'standfast', quirkName: 'Stand Fast',
-    says: 'Standing still he sets his shield: blows do far less, shots from in front stop on it, and his sword is faster. A step drops it.', move: 'gate', unlock: null,
+    says: 'Stand still to raise your shield: take 60% less damage, block shots from the front, and attack 25% faster. Moving lowers it.', move: 'gate', unlock: null,
   },
   {
     id: 'wren', unit: 'wren', name: 'Wren Fallowmere', short: 'Wren', epithet: 'the Quiet Arrow', who: 'A poacher the king could never catch.', line: 'You will not hear the one that matters.',
     weapon: 'whisper', stats: { aim: 2, reach: 30, maxHp: -3 }, quirk: 'unseen', quirkName: 'Unseen',
-    says: 'Every second since she was last struck she hits harder. One blow takes it all away.', move: 'oneshot', unlock: null,
+    says: 'Deal 4% more damage for each second you are not hit, up to 60%. Getting hit resets it.', move: 'oneshot', unlock: null,
   },
   {
-    id: 'orrin', unit: 'orrin', name: 'Orrin Quillon', short: 'Orrin', epithet: 'the Unfinished', who: 'A magister thrown out before his last lesson.', line: 'I never did learn how it ends.',
+    id: 'orrin', unit: 'orrin', name: 'Orrin Quillon', short: 'Orrin', epithet: 'the Unfinished', who: 'A wizard expelled before his last lesson.', line: 'I never did learn how it ends.',
     weapon: 'unfinished', stats: { lore: 3, maxHp: -2, might: -2 }, quirk: 'unfinished', quirkName: 'Unfinished',
-    says: 'His staff finishes itself as the last weapon he bought: it takes its kinds and what it does. He picks from one more choice at each level.', move: 'starfall', unlock: { kind: 'wave', wave: 5 },
+    says: 'Your staff copies the last weapon you bought: its weapon types and its effects. Level ups offer 1 more choice.', move: 'starfall', unlock: { kind: 'wave', wave: 5 },
   },
   {
     id: 'fenn', unit: 'fenn', name: 'Fenn Two-Coins', short: 'Fenn', epithet: 'the Lucky', who: 'A thief who has never lost a toss.', line: 'Heads I win. Tails, look behind you.',
     weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 8, maxHp: -2 }, quirk: 'double', quirkName: 'Double or Nothing',
-    says: 'Once in a camp he may toss for a ware: heads it is free, tails it is paid for and gone. The more coins he holds the harder he hits.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
+    says: 'Once per camp, flip a coin for an item: heads it is free, tails you pay and lose it. Deal 1% more damage per 4 coins held, up to 60%.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
   },
   {
     id: 'nan', unit: 'nan', name: 'Old Nan Cinderwick', short: 'Old Nan', epithet: 'the Hearthwitch', who: 'She kept one fire lit for sixty years.', line: 'Come in out of the cold, dears.',
     weapon: 'hearthbrand', stats: { lore: 2, crit: 5 }, quirk: 'banked', quirkName: 'Banked Fire',
-    says: 'Fire never goes out on those near her, and one she lights again burns hotter. She has to stay close.', move: 'wildfire', unlock: { kind: 'boss', boss: 'warlord' },
+    says: 'Burning enemies near you never stop burning. Hitting a burning enemy with your staff adds 35% to its burn, up to 3x.', move: 'wildfire', unlock: { kind: 'boss', boss: 'warlord' },
   },
   {
-    id: 'isaura', unit: 'isaura', name: 'Isaura Vane', short: 'Isaura', epithet: 'Captain of the Ninth', who: 'The Ninth Lance is gone. She rides on without it.', line: 'The Ninth does not halt.',
+    id: 'isaura', unit: 'isaura', name: 'Isaura Vane', short: 'Isaura', epithet: 'Captain of the Ninth', who: 'Her company, the Ninth, is gone. She rides on alone.', line: 'The Ninth does not halt.',
     weapon: 'ninth', stats: { might: 2, speed: 8 }, quirk: 'tilt', quirkName: 'Tilt',
-    says: 'Riding straight couches her lance: the next thrust lands far harder. A sharp turn or a halt loses it. Her lance goes through everyone in its line.', move: 'charge', unlock: { kind: 'runs', runs: 7 },
+    says: 'Ride in a straight line for 1.5 s to ready your lance: the next thrust deals 2.5x damage. Turning sharply or stopping loses it.', move: 'charge', unlock: { kind: 'runs', runs: 7 },
   },
   {
     id: 'hroth', unit: 'hroth', name: 'Hroth', short: 'Hroth', epithet: 'the Unburied', who: 'They buried him twice.', line: 'Dig deeper next time.',
     weapon: 'gravecleaver', stats: { might: 2, armor: -2 }, quirk: 'gravedebt', quirkName: 'Grave Debt',
-    says: "Under a third of his health he hits far harder and his axe's kills give health back. Once in a land he gets up from a killing blow. He does not mend by himself.", move: 'opengrave', unlock: { kind: 'runs', runs: 12 },
+    says: 'Below 33% HP: deal 40% more damage, and axe kills heal 1 HP. Once per land, survive a killing blow with 25% HP. No health regen.', move: 'opengrave', unlock: { kind: 'runs', runs: 12 },
   },
   {
-    id: 'aldous', unit: 'aldous', name: 'Brother Aldous Bell', short: 'Aldous', epithet: 'the Shepherd', who: 'He rings the dead home, and now the living.', line: 'Stay close. I will count you all at dusk.',
+    id: 'aldous', unit: 'aldous', name: 'Brother Aldous Bell', short: 'Aldous', epithet: 'the Shepherd', who: 'He rang the bell for the dead. Now he rings it for the living.', line: 'Stay close. I will count you all at dusk.',
     weapon: 'passingbell', stats: { regen: 6, maxHp: 4, damage: -20 }, quirk: 'shepherd', quirkName: 'Shepherd',
-    says: 'He brings one companion more. What heals him heals those in his fold, and they strike faster there. He himself hits softly.', move: 'toll', unlock: { kind: 'runs', runs: 18 },
+    says: 'Bring 1 more companion. Companions near you attack 20% faster and are healed whenever you are. You deal 20% less damage.', move: 'toll', unlock: { kind: 'runs', runs: 18 },
   },
   {
     id: 'ysolde', unit: 'ysolde', name: 'Ysolde Rimeheart', short: 'Ysolde', epithet: 'the Winter Widow', who: 'The cold took her husband. She took the cold.', line: 'It only hurts until it does not.',
     weapon: 'widowstear', stats: { lore: 2, reach: 20, speed: -4 }, quirk: 'deepcold', quirkName: 'Deep Cold',
-    says: 'The slowed, struck again, freeze solid. The frozen take far more and break into shards.', move: 'whiteout', unlock: { kind: 'boss', boss: 'colossus' },
+    says: 'Hit a slowed enemy to freeze it for 0.9 s. Frozen enemies take 30% more damage and shatter when they die, hitting enemies nearby.', move: 'whiteout', unlock: { kind: 'boss', boss: 'colossus' },
   },
   {
     id: 'maren', unit: 'maren', name: 'Maren Dawnguard', short: 'Maren', epithet: 'the Oathkeeper', who: 'She swore to see the morning.', line: 'Hold until the light. Then hold some more.',
     weapon: 'morningstar', stats: { maxHp: 6, armor: 1, might: 1, haste: -10 }, quirk: 'consecrate', quirkName: 'Consecrate',
-    says: 'Her hammer leaves holy ground that mends the band and burns enemies.', move: 'judgment', unlock: { kind: 'wave', wave: 20 },
+    says: 'Your hammer leaves holy ground for 4 s. It burns enemies and heals you and your companions.', move: 'judgment', unlock: { kind: 'wave', wave: 20 },
   },
 ];
 
@@ -117,16 +117,16 @@ export const OLD_HEROES: Readonly<Record<string, string>> = {
  * with until it has one of its own.
  */
 export const SIGNATURES: readonly WeaponDef[] = [
-  { id: 'gatekeeper', name: 'Gatekeeper', own: true, icon: 'sword', kinds: ['blade'], kind: 'melee', motion: 'sweep', dmg: [9, 14, 22, 34], scale: { might: 1 }, every: [1, 0.93, 0.86, 0.78], range: 96, crit: 5, critBy: 2, knock: 18, arc: 100, price: 0, says: 'Sword and shield: a wide sweep in front of him.' },
-  { id: 'whisper', name: 'Whisper', own: true, icon: 'bow', kinds: ['bow'], kind: 'ranged', motion: 'shoot', dmg: [8, 13, 19, 29], scale: { aim: 1 }, every: [1.12, 1.04, 0.96, 0.88], range: 410, crit: 8, critBy: 2, knock: 6, pierce: 1, flies: 680, shot: 'arrow', price: 0, says: 'A longbow: an arrow through two.' },
-  { id: 'unfinished', name: 'The Unfinished Staff', own: true, icon: 'staff', kinds: ['arcane'], kind: 'magic', motion: 'cast', dmg: [11, 17, 26, 39], scale: { lore: 1 }, every: [1.1, 1.02, 0.94, 0.85], range: 390, crit: 5, critBy: 2, knock: 5, pierce: 1, flies: 430, shot: 'orb-arcane', price: 0, says: 'A bolt that bends to its mark, and on through it.' },
-  { id: 'headstails', name: 'Heads and Tails', own: true, icon: 'dagger', kinds: ['blade'], kind: 'melee', motion: 'thrust', dmg: [6, 9, 13, 20], scale: { might: 0.7 }, every: [0.52, 0.48, 0.44, 0.39], range: 82, crit: 20, critBy: 2.5, knock: 4, pierce: 2, price: 0, says: 'A knife and a coin: quick, and they often find the gap.' },
-  { id: 'hearthbrand', name: 'Hearthbrand', own: true, icon: 'brazier', kinds: ['fire', 'arcane'], kind: 'magic', motion: 'cast', dmg: [9, 14, 20, 30], scale: { lore: 0.8 }, every: [1.3, 1.21, 1.13, 1.04], range: 330, crit: 0, critBy: 2, knock: 8, burst: 60, burn: [4, 6, 9, 13], flies: 400, shot: 'orb-fire', price: 0, says: 'A burning staff: its fire bursts and keeps burning.' },
-  { id: 'ninth', name: "The Ninth's Lance", own: true, icon: 'spear', kinds: ['pole'], kind: 'melee', motion: 'thrust', dmg: [11, 18, 27, 41], scale: { might: 1 }, every: [1.2, 1.12, 1.03, 0.94], range: 165, crit: 5, critBy: 2, knock: 20, pierce: 99, price: 0, says: 'A long thrust through everyone in its line.' },
-  { id: 'gravecleaver', name: 'Gravecleaver', own: true, icon: 'greataxe', kinds: ['blade', 'blunt'], kind: 'melee', motion: 'sweep', dmg: [17, 26, 40, 60], scale: { might: 1.6 }, every: [1.75, 1.63, 1.51, 1.4], range: 110, crit: 5, critBy: 2, knock: 26, arc: 140, price: 0, says: 'A great axe: slow, wide and heavy.' },
-  { id: 'passingbell', name: 'The Passing Bell', own: true, icon: 'censer', kinds: ['holy'], kind: 'magic', motion: 'pulse', dmg: [7, 12, 18, 27], scale: { lore: 0.7 }, every: [3.4, 3.15, 2.9, 2.65], range: 116, crit: 0, critBy: 2, knock: 18, burst: 118, mends: [1, 1, 2, 2], price: 0, says: 'A ring of sound that throws them back and mends the band.' },
-  { id: 'widowstear', name: "Widow's Tear", own: true, icon: 'frost', kinds: ['frost', 'arcane'], kind: 'magic', motion: 'cast', dmg: [7, 11, 16, 24], scale: { lore: 0.7 }, every: [1.2, 1.12, 1.04, 0.95], range: 370, crit: 0, critBy: 2, knock: 2, pierce: 2, slow: 0.45, flies: 460, shot: 'orb-frost', price: 0, says: 'A wand of ice: slows three in a line.' },
-  { id: 'morningstar', name: 'Morningstar', own: true, icon: 'hammer', kinds: ['blunt', 'holy'], kind: 'melee', motion: 'slam', dmg: [14, 22, 34, 51], scale: { might: 1.3 }, every: [1.6, 1.49, 1.38, 1.27], range: 100, crit: 0, critBy: 2, knock: 10, burst: 62, stun: 0.8, price: 0, says: 'A hammer: stuns everyone where it lands.' },
+  { id: 'gatekeeper', name: 'Gatekeeper', own: true, icon: 'sword', kinds: ['blade'], kind: 'melee', motion: 'sweep', dmg: [9, 14, 22, 34], scale: { might: 1 }, every: [1, 0.93, 0.86, 0.78], range: 96, crit: 5, critBy: 2, knock: 18, arc: 100, price: 0, says: 'Sword and shield. Sweeps a wide arc in front of you.' },
+  { id: 'whisper', name: 'Whisper', own: true, icon: 'bow', kinds: ['bow'], kind: 'ranged', motion: 'shoot', dmg: [8, 13, 19, 29], scale: { aim: 1 }, every: [1.12, 1.04, 0.96, 0.88], range: 410, crit: 8, critBy: 2, knock: 6, pierce: 1, flies: 680, shot: 'arrow', price: 0, says: 'Longbow. Each arrow hits up to 2 enemies in a line.' },
+  { id: 'unfinished', name: 'The Unfinished Staff', own: true, icon: 'staff', kinds: ['arcane'], kind: 'magic', motion: 'cast', dmg: [11, 17, 26, 39], scale: { lore: 1 }, every: [1.1, 1.02, 0.94, 0.85], range: 390, crit: 5, critBy: 2, knock: 5, pierce: 1, flies: 430, shot: 'orb-arcane', price: 0, says: 'Homing bolt. Hits up to 2 enemies.' },
+  { id: 'headstails', name: 'Heads and Tails', own: true, icon: 'dagger', kinds: ['blade'], kind: 'melee', motion: 'thrust', dmg: [6, 9, 13, 20], scale: { might: 0.7 }, every: [0.52, 0.48, 0.44, 0.39], range: 82, crit: 20, critBy: 2.5, knock: 4, pierce: 2, price: 0, says: 'Fast knife with a 20% crit chance. Each hit has a 4% chance to knock a coin loose.' },
+  { id: 'hearthbrand', name: 'Hearthbrand', own: true, icon: 'brazier', kinds: ['fire', 'arcane'], kind: 'magic', motion: 'cast', dmg: [9, 14, 20, 30], scale: { lore: 0.8 }, every: [1.3, 1.21, 1.13, 1.04], range: 330, crit: 0, critBy: 2, knock: 8, burst: 60, burn: [4, 6, 9, 13], flies: 400, shot: 'orb-fire', price: 0, says: 'Fireball. Explodes on hit and sets enemies on fire.' },
+  { id: 'ninth', name: "The Ninth's Lance", own: true, icon: 'spear', kinds: ['pole'], kind: 'melee', motion: 'thrust', dmg: [11, 18, 27, 41], scale: { might: 1 }, every: [1.2, 1.12, 1.03, 0.94], range: 165, crit: 5, critBy: 2, knock: 20, pierce: 99, price: 0, says: 'Long lance. Hits every enemy in a line.' },
+  { id: 'gravecleaver', name: 'Gravecleaver', own: true, icon: 'greataxe', kinds: ['blade', 'blunt'], kind: 'melee', motion: 'sweep', dmg: [17, 26, 40, 60], scale: { might: 1.6 }, every: [1.75, 1.63, 1.51, 1.4], range: 110, crit: 5, critBy: 2, knock: 26, arc: 140, price: 0, says: 'Great axe. Slow, wide, heavy sweeps.' },
+  { id: 'passingbell', name: 'The Passing Bell', own: true, icon: 'censer', kinds: ['holy'], kind: 'magic', motion: 'pulse', dmg: [7, 12, 18, 27], scale: { lore: 0.7 }, every: [3.4, 3.15, 2.9, 2.65], range: 116, crit: 0, critBy: 2, knock: 18, burst: 118, mends: [1, 1, 2, 2], price: 0, says: 'Bell. Each ring knocks nearby enemies back and heals you.' },
+  { id: 'widowstear', name: "Widow's Tear", own: true, icon: 'frost', kinds: ['frost', 'arcane'], kind: 'magic', motion: 'cast', dmg: [7, 11, 16, 24], scale: { lore: 0.7 }, every: [1.2, 1.12, 1.04, 0.95], range: 370, crit: 0, critBy: 2, knock: 2, pierce: 2, slow: 0.45, flies: 460, shot: 'orb-frost', price: 0, says: 'Ice wand. Slows up to 3 enemies in a line by 45%.' },
+  { id: 'morningstar', name: 'Morningstar', own: true, icon: 'hammer', kinds: ['blunt', 'holy'], kind: 'melee', motion: 'slam', dmg: [14, 22, 34, 51], scale: { might: 1.3 }, every: [1.6, 1.49, 1.38, 1.27], range: 100, crit: 0, critBy: 2, knock: 10, burst: 62, stun: 0.8, price: 0, says: 'Hammer. Stuns every enemy it lands on for 0.8 s.' },
 ];
 
 /** The hero levels at which their own weapon grows a tier by itself. */
@@ -150,42 +150,107 @@ export interface OwnRule {
 }
 
 export const OWN_RULES: readonly OwnRule[] = [
-  { weapon: 'gatekeeper', at: 1, says: 'A set shield throws shots back at who loosed them.' },
-  { weapon: 'gatekeeper', at: 2, says: 'The first sweep from behind a shield just set goes all the way round, and stuns.' },
-  { weapon: 'gatekeeper', at: 3, says: 'Who strikes a set shield up close is thrown back and stunned.' },
-  { weapon: 'whisper', at: 1, says: 'An arrow that finds someone unhurt pins them for a second.' },
-  { weapon: 'whisper', at: 2, says: 'At full Unseen her arrows go through everyone.' },
-  { weapon: 'whisper', at: 3, says: 'A kill at full Unseen looses the next arrow at once.' },
-  { weapon: 'unfinished', at: 1, says: 'Every third bolt is cast twice.' },
-  { weapon: 'unfinished', at: 2, says: 'A bolt that fells its mark flies on to another.' },
-  { weapon: 'unfinished', at: 3, says: 'A bolt splits in two on the first it strikes.' },
-  { weapon: 'headstails', at: 1, says: 'A critical blow knocks a coin loose.' },
-  { weapon: 'headstails', at: 2, says: 'A coin picked up makes his next blow critical.' },
-  { weapon: 'headstails', at: 3, says: 'The knife strikes behind him as well as before.' },
-  { weapon: 'hearthbrand', at: 1, says: 'Where its fire bursts the ground burns on.' },
-  { weapon: 'hearthbrand', at: 2, says: 'What dies burning near her bursts, and lights those round it.' },
-  { weapon: 'hearthbrand', at: 3, says: 'Its bursts are half as wide again.' },
-  { weapon: 'ninth', at: 1, says: 'A couched thrust throws back all it meets, and stuns them.' },
-  { weapon: 'ninth', at: 2, says: 'A kill with the lance gives the thrust back at once.' },
-  { weapon: 'ninth', at: 3, says: 'A couched thrust lands harder still, and reaches half as far again.' },
-  { weapon: 'gravecleaver', at: 1, says: 'In debt his axe goes all the way round him.' },
-  { weapon: 'gravecleaver', at: 2, says: 'What his axe fells in debt bursts where it drops.' },
-  { weapon: 'gravecleaver', at: 3, says: 'He gets up from a killing blow with the grave open.' },
-  { weapon: 'passingbell', at: 1, says: 'Each ring of the bell takes seconds off a fallen companion\'s rest.' },
-  { weapon: 'passingbell', at: 2, says: 'Companions in his fold take half the harm.' },
-  { weapon: 'passingbell', at: 3, says: 'At each ring every companion in his fold strikes at once.' },
-  { weapon: 'widowstear', at: 1, says: 'Its bolt goes through everyone in its line.' },
-  { weapon: 'widowstear', at: 2, says: 'What breaks leaves ice on the ground that slows who crosses it.' },
-  { weapon: 'widowstear', at: 3, says: 'A captain freezes as long as anyone.' },
-  { weapon: 'morningstar', at: 1, says: 'Her holy ground lasts twice as long.' },
-  { weapon: 'morningstar', at: 2, says: 'On holy ground her hammer strikes a third faster.' },
-  { weapon: 'morningstar', at: 3, says: 'What dies on holy ground gives her health back.' },
+  { weapon: 'gatekeeper', at: 1, says: 'Your raised shield reflects shots back at the shooter.' },
+  { weapon: 'gatekeeper', at: 2, says: 'The first sweep after raising your shield hits all around you and stuns for 0.6 s.' },
+  { weapon: 'gatekeeper', at: 3, says: 'Enemies that hit your raised shield in melee are knocked back and stunned for 0.8 s.' },
+  { weapon: 'whisper', at: 1, says: 'Arrows pin full-health enemies in place for 1 s.' },
+  { weapon: 'whisper', at: 2, says: 'At full Unseen, arrows pierce every enemy.' },
+  { weapon: 'whisper', at: 3, says: 'At full Unseen, a kill fires the next arrow instantly.' },
+  { weapon: 'unfinished', at: 1, says: 'Every 3rd bolt casts twice.' },
+  { weapon: 'unfinished', at: 2, says: 'A bolt that kills its target jumps to another enemy.' },
+  { weapon: 'unfinished', at: 3, says: 'Bolts split in two on the first enemy hit. Each half deals 60% damage.' },
+  { weapon: 'headstails', at: 1, says: 'Crits knock a coin loose (once every 1.5 s).' },
+  { weapon: 'headstails', at: 2, says: 'Picking up a coin makes your next hit a crit.' },
+  { weapon: 'headstails', at: 3, says: 'The knife also strikes behind you.' },
+  { weapon: 'hearthbrand', at: 1, says: 'Explosions leave the ground burning for 2 s.' },
+  { weapon: 'hearthbrand', at: 2, says: 'Burning enemies that die near you explode and set nearby enemies on fire.' },
+  { weapon: 'hearthbrand', at: 3, says: 'Explosions are 50% wider.' },
+  { weapon: 'ninth', at: 1, says: 'Tilt thrusts knock enemies back and stun them for 0.6 s.' },
+  { weapon: 'ninth', at: 2, says: 'A kill with the lance readies the next thrust at once.' },
+  { weapon: 'ninth', at: 3, says: 'Tilt thrusts deal 3.5x damage and reach 50% farther.' },
+  { weapon: 'gravecleaver', at: 1, says: 'In Grave Debt, your axe hits all around you.' },
+  { weapon: 'gravecleaver', at: 2, says: 'Enemies your axe kills in Grave Debt explode.' },
+  { weapon: 'gravecleaver', at: 3, says: 'Surviving a killing blow also casts Open Grave for free.' },
+  { weapon: 'passingbell', at: 1, says: 'Each ring takes 3 s off a downed companion\'s recovery.' },
+  { weapon: 'passingbell', at: 2, says: 'Companions near you take 50% less damage.' },
+  { weapon: 'passingbell', at: 3, says: 'Each ring makes every companion near you attack at once.' },
+  { weapon: 'widowstear', at: 1, says: 'Bolts pierce every enemy in their line.' },
+  { weapon: 'widowstear', at: 2, says: 'Shattered enemies leave ice on the ground for 3 s. It slows enemies by 40%.' },
+  { weapon: 'widowstear', at: 3, says: 'Bosses stay frozen for the full time.' },
+  { weapon: 'morningstar', at: 1, says: 'Holy ground lasts 2x as long.' },
+  { weapon: 'morningstar', at: 2, says: 'On holy ground, your hammer attacks 33% faster.' },
+  { weapon: 'morningstar', at: 3, says: 'Enemies that die on holy ground heal you 1 HP.' },
 ];
 
-/** The rules a hero's own weapon has, each with the level it comes at and whether it is on at this tier. */
-export function ownRules(weapon: string, tier: number): Array<{ level: number; says: string; on: boolean }> {
-  return OWN_RULES.filter((r) => r.weapon === weapon).map((r) => ({ level: OWN_GROWS[r.at - 1], says: r.says, on: tier >= r.at }));
+/**
+ * The second way: one rule of each hero's own weapon has another that may be chosen in its place, once an oath of
+ * theirs has unlocked the choice (hold.ts). It is another way to play, not a better one.
+ */
+export const OWN_ALTS: readonly OwnRule[] = [
+  { weapon: 'gatekeeper', at: 1, says: 'Each shot your raised shield blocks fills 6% of your Fury.' },
+  { weapon: 'whisper', at: 2, says: 'At full Unseen, arrows bounce to 2 more enemies.' },
+  { weapon: 'unfinished', at: 1, says: 'Every 5th bolt deals 3x damage.' },
+  { weapon: 'headstails', at: 1, says: 'Crits heal 1 HP (once every 1.5 s).' },
+  { weapon: 'hearthbrand', at: 3, says: 'Its burn deals 50% more damage.' },
+  { weapon: 'ninth', at: 2, says: 'After a Tilt thrust, you cannot be hurt for 0.8 s.' },
+  { weapon: 'gravecleaver', at: 2, says: 'In Grave Debt, attack 30% faster.' },
+  { weapon: 'passingbell', at: 2, says: 'Companions near you deal 40% more damage.' },
+  { weapon: 'widowstear', at: 2, says: 'Shattered enemies freeze the enemies near them for 0.8 s.' },
+  { weapon: 'morningstar', at: 1, says: 'Holy ground is 40% wider.' },
+];
+
+/** The level slot (1, 2 or 3) at which a weapon's second way stands in for its first, or 0 for a weapon with none. */
+export function altAt(weapon: string): number {
+  return OWN_ALTS.find((r) => r.weapon === weapon)?.at ?? 0;
 }
+
+/** The rules a hero's own weapon has, each with the level it comes at and whether it is on at this tier. With `alt`, the second way stands where it replaces the first. */
+export function ownRules(weapon: string, tier: number, alt = false): Array<{ level: number; says: string; on: boolean; alt: boolean }> {
+  const second = alt ? OWN_ALTS.find((r) => r.weapon === weapon) : undefined;
+  return OWN_RULES.filter((r) => r.weapon === weapon).map((r) => {
+    const swap = second?.at === r.at;
+    return { level: OWN_GROWS[r.at - 1], says: swap ? second.says : r.says, on: tier >= r.at, alt: swap };
+  });
+}
+
+/** A weapon's choice of ways, for the screen that offers it: the level, the first rule and the second. */
+export function altChoice(weapon: string): { level: number; first: string; second: string } | null {
+  const second = OWN_ALTS.find((r) => r.weapon === weapon);
+  const first = second && OWN_RULES.find((r) => r.weapon === weapon && r.at === second.at);
+  return second && first ? { level: OWN_GROWS[second.at - 1], first: first.says, second: second.says } : null;
+}
+
+/**
+ * What a run counts of the way a hero was played, for the oaths that are about their passive (holdData.ts): kills by
+ * a couched thrust, kills made in debt, enemies whose burn was stacked to its most, coin tosses won, and the times
+ * the staff took a new form.
+ */
+export const COUNTS = ['tilt', 'debt', 'banked', 'toss', 'finished'] as const;
+export type Count = (typeof COUNTS)[number];
+
+/** The numbers of the second ways. */
+export const ALT = {
+  /** Bram: the share of Fury a blocked shot fills. */
+  gatekeeper: { fury: 0.06 },
+  /** Wren: how many more an arrow bounces to at full Unseen. */
+  whisper: { leaps: 2 },
+  /** Orrin: every this many bolts, one does this many times the damage. */
+  unfinished: { every: 5, times: 3 },
+  /** Fenn: health a crit gives back, and the seconds between one and the next. */
+  headstails: { heals: 1, gap: 1.5 },
+  /** Nan: how many times the burn of her staff. */
+  hearthbrand: { hotter: 1.5 },
+  /** Isaura: seconds nothing can hurt her after a couched thrust. */
+  ninth: { grace: 0.8 },
+  /** Hroth: how many times as fast his axe is in debt. */
+  gravecleaver: { faster: 1.3 },
+  /** Aldous: how many times the damage of a companion in his fold. */
+  passingbell: { harder: 1.4 },
+  /** Ysolde: seconds those near one that breaks are frozen. */
+  widowstear: { freeze: 0.8 },
+  /** Maren: how many times as wide her holy ground is. */
+  morningstar: { wider: 1.4 },
+} as const;
 
 /** The numbers of those rules. */
 export const OWN = {
@@ -362,7 +427,7 @@ export function finishedAs(staff: WeaponDef, from: WeaponDef | null): WeaponDef 
     stun: has('blunt') ? q.blunt : undefined,
     range: staff.range + (has('bow') ? q.bow : 0),
     leaps: has('thrown') ? q.thrown : 0,
-    says: `Finished as ${from.name}: it takes its kinds and what it does.`,
+    says: `Copies ${from.name}: its weapon types and its effects.`,
   };
 }
 
@@ -401,16 +466,16 @@ export interface MoveDef {
  * judgment: where she stands is where it falls.
  */
 export const MOVES: readonly MoveDef[] = [
-  { id: 'gate', name: 'Plant the Gate', says: 'A gate stands before him for five seconds. Nothing passes it, and what it lands on is thrown back.', reach: 150, harm: 2.5, r: 100, seconds: 5, stun: 1.2 },
-  { id: 'oneshot', name: 'The One That Matters', says: 'One arrow at the strongest of them in reach. At full Unseen it is worth two.', reach: 520, harm: 12, r: 0, seconds: 0, stun: 0 },
-  { id: 'starfall', name: 'Starfall', says: 'Stars come down in a line the way he faces.', reach: 420, harm: 1.7, r: 68, seconds: 1.2, stun: 0.3 },
-  { id: 'vanish', name: 'Vanish', says: 'Two seconds unseen. Enemies lose him, and his next blows are critical.', reach: 120, harm: 0, r: 0, seconds: 2, stun: 0 },
-  { id: 'wildfire', name: 'Wildfire', says: 'A ring of fire runs out from her.', reach: 250, harm: 2, r: 330, seconds: 5, stun: 0 },
-  { id: 'charge', name: 'Charge', says: 'A long run through whatever is in the way.', reach: 240, harm: 3, r: 38, seconds: 0.6, stun: 0.4 },
-  { id: 'opengrave', name: 'Open Grave', says: 'He pays with his own health. For five seconds he does double harm and every blow gives health back.', reach: 150, harm: 2, r: 0, seconds: 5, stun: 0 },
-  { id: 'toll', name: 'Toll', says: 'The bell heals the band and stuns all who hear it.', reach: 250, harm: 1.5, r: 320, seconds: 0, stun: 1.6 },
-  { id: 'whiteout', name: 'Whiteout', says: 'Everything on the field freezes for two seconds.', reach: 420, harm: 0, r: 0, seconds: 2, stun: 2 },
-  { id: 'judgment', name: 'Judgment', says: 'A hammer of light falls where she stands, and the ground there is holy.', reach: 170, harm: 3, r: 165, seconds: 4, stun: 1.3 },
+  { id: 'gate', name: 'Plant the Gate', says: 'Plant a gate in front of you for 5 s. Enemies cannot pass it. Enemies it lands on take 2.5x weapon damage and are stunned for 1.2 s.', reach: 150, harm: 2.5, r: 100, seconds: 5, stun: 1.2 },
+  { id: 'oneshot', name: 'The One That Matters', says: 'Fire one arrow at the toughest enemy in range: 12x weapon damage. At full Unseen: 24x.', reach: 520, harm: 12, r: 0, seconds: 0, stun: 0 },
+  { id: 'starfall', name: 'Starfall', says: '6 stars fall in a line in front of you. Each deals 1.7x weapon damage in an area.', reach: 420, harm: 1.7, r: 68, seconds: 1.2, stun: 0.3 },
+  { id: 'vanish', name: 'Vanish', says: 'Turn invisible for 2 s: enemies lose track of you. Every hit is a crit for 4 s.', reach: 120, harm: 0, r: 0, seconds: 2, stun: 0 },
+  { id: 'wildfire', name: 'Wildfire', says: 'A ring of fire spreads out from you: 2x weapon damage, and enemies burn for 5 s.', reach: 250, harm: 2, r: 330, seconds: 5, stun: 0 },
+  { id: 'charge', name: 'Charge', says: 'Dash the way you are moving. Enemies in your path take 3x weapon damage and are stunned for 0.4 s.', reach: 240, harm: 3, r: 38, seconds: 0.6, stun: 0.4 },
+  { id: 'opengrave', name: 'Open Grave', says: 'Costs 30% of your max HP. For 5 s deal 2x damage, and your hits heal you.', reach: 150, harm: 2, r: 0, seconds: 5, stun: 0 },
+  { id: 'toll', name: 'Toll', says: 'Heal yourself and your companions for 25% HP and revive downed companions. Nearby enemies take 1.5x weapon damage and are stunned for 1.6 s.', reach: 250, harm: 1.5, r: 320, seconds: 0, stun: 1.6 },
+  { id: 'whiteout', name: 'Whiteout', says: 'Freeze every enemy for 2 s. Enemy shots in the air are destroyed.', reach: 420, harm: 0, r: 0, seconds: 2, stun: 2 },
+  { id: 'judgment', name: 'Judgment', says: 'A hammer of light lands on you: enemies around you take 3x weapon damage and are stunned for 1.3 s. Leaves holy ground for 4 s.', reach: 170, harm: 3, r: 165, seconds: 4, stun: 1.3 },
 ];
 
 /** The numbers every move shares. */

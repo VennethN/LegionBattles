@@ -55,7 +55,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
           oaths: ['bram-win', 'bram-vow', 'bram-quirk'], alt: ['bram'], daily: null, dailyBest: 9,
           seen: { 'hero:bram': 4, 'hero:wren': 2, 'hero:orrin': 1, 'friend:pip': 3, 'friend:biscuit': 2, 'foe:cutpurse': 512, 'foe:warhound': 233, 'foe:poacher': 77, 'foe:warlord': 2, 'weapon:sword': 3, 'weapon:bow': 2, 'weapon:bomb': 1,
             'weapon:gatekeeper': 4, 'item:ration': 5, 'item:keg': 1, 'relic:echobell': 2, 'relic:bellows': 0, 'omen:quiet': 30, 'omen:horde': 6, 'omen:shrine': 2 },
-          tally: { lines: [{ why: 'Waves come through', count: 9, renown: 18 }, { why: 'Captains beaten', count: 1, renown: 10 }, { why: 'Half the Road', count: 1, renown: 15 }], vows: 0, total: 43 },
+          tally: { lines: [{ why: 'Waves cleared', count: 9, renown: 18 }, { why: 'Bosses beaten', count: 1, renown: 10 }, { why: 'Half the Road', count: 1, renown: 15 }], vows: 0, total: 43 },
         });
         for (const key of ['Hud', 'Camp', 'Result', 'Arena', 'Title', 'Hold']) w.game.scene.stop(key);
         w.game.scene.start('Hold', { tab: t });

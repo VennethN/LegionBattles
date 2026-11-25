@@ -12,13 +12,15 @@
 // and each day a road that is the same for everyone. The Chronicle
 // remembers everything met.
 
-import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAST_WAVE, OMENS, RELICS, ROAD, TIERS, WEAPONS, byId, weaponOf, type Feat } from './data';
+import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAST_WAVE, OMENS, RELICS, ROAD, TIERS, WEAPONS, altChoice, byId, weaponOf, type Feat } from './data';
 import {
-  BOARD, CRATES, CRATE_PRICES, DEEDS, HALL, KENNEL, OATHS, PLACE_PRICE, RENOWN, VOW, VOWS, boonsFrom, giftSays, thingKey,
+  BOARD, CRATES, CRATE_PRICES, DEEDS, HALL, KENNEL, OATHS, PLACE_PRICE, REF, RENOWN, VOW, VOWS, boonsFrom, giftSays, thingKey,
   type Boons, type CrateDef, type DeedTest, type NodeDef, type OathDef, type Thing, type VowId,
 } from './holdData';
+import { KINDS } from './kinds';
 import { Rng } from './rng';
 import { kindCounts, newRun, survived, type RunData, type Terms, type Told } from './run';
+import { STATS, STAT_INFO, statText } from './stats';
 import { bandFor, featDone, featShare, isFriend, isOpen, type SaveData } from './state';
 
 // ---------------------------------------------------------------- renown
@@ -50,12 +52,12 @@ export function hasWon(run: RunData): boolean {
 export function tallyOf(run: RunData): Tally {
   const waves = survived(run);
   const lines: TallyLine[] = [];
-  if (waves > 0) lines.push({ why: 'Waves come through', count: waves, renown: waves * RENOWN.wave });
-  if (run.felled.length > 0) lines.push({ why: 'Captains beaten', count: run.felled.length, renown: run.felled.length * RENOWN.captain });
-  if (hasWon(run)) lines.push({ why: 'The twentieth wave won', count: 1, renown: RENOWN.win });
+  if (waves > 0) lines.push({ why: 'Waves cleared', count: waves, renown: waves * RENOWN.wave });
+  if (run.felled.length > 0) lines.push({ why: 'Bosses beaten', count: run.felled.length, renown: run.felled.length * RENOWN.captain });
+  if (hasWon(run)) lines.push({ why: 'Wave 20 cleared', count: 1, renown: RENOWN.win });
   const base = lines.reduce((n, l) => n + l.renown, 0);
   const more = Math.round(base * RENOWN.vow * run.vows.length);
-  if (more > 0) lines.push({ why: run.vows.length === 1 ? 'A vow kept' : 'Vows kept', count: run.vows.length, renown: more });
+  if (more > 0) lines.push({ why: 'Vow bonus', count: run.vows.length, renown: more });
   for (const id of run.deeds) {
     const deed = DEEDS.find((d) => d.id === id);
     if (deed) lines.push({ why: deed.name, count: 1, renown: deed.renown });
@@ -117,23 +119,23 @@ export function chronicleOf(save: SaveData): ChroniclePage[] {
   return [
     page('hero', 'Heroes', 'runs', HEROES.map((h) => ({ id: h.id, name: h.name, says: `${h.epithet[0].toUpperCase()}${h.epithet.slice(1)}. ${h.who}` }))),
     page('friend', 'Companions', 'runs', COMPANIONS.map((c) => ({ id: c.id, name: c.name, says: `${c.kind[0].toUpperCase()}${c.kind.slice(1)}. ${c.says}` }))),
-    page('foe', 'Enemies', 'slain', ENEMIES.filter((e) => !e.prop).map((e) => ({ id: e.id, name: e.name, says: e.ai === 'boss' ? 'A captain.' : FOE_SAYS[e.ai] ?? '' }))),
-    page('weapon', 'Weapons', 'runs held', [...HEROES.map((h) => weaponOf(h.weapon)), ...WEAPONS].map((w) => ({ id: w.id, name: w.name, says: w.own ? 'A hero\'s own.' : w.kinds.join(' and ') }))),
-    page('item', 'Wares', 'runs held', ITEMS.map((it) => ({ id: it.id, name: it.name, says: '' }))),
+    page('foe', 'Enemies', 'killed', ENEMIES.filter((e) => !e.prop).map((e) => ({ id: e.id, name: e.name, says: e.ai === 'boss' ? 'A boss.' : FOE_SAYS[e.ai] ?? '' }))),
+    page('weapon', 'Weapons', 'runs held', [...HEROES.map((h) => weaponOf(h.weapon)), ...WEAPONS].map((w) => ({ id: w.id, name: w.name, says: `${w.kinds.map((k) => byId(KINDS, k).name).join(' and ')}. ${w.says}` }))),
+    page('item', 'Items', 'runs held', ITEMS.map((it) => ({ id: it.id, name: it.name, says: STATS.filter((st) => it.stats[st]).map((st) => `${statText(st, it.stats[st] ?? 0)} ${STAT_INFO[st].name}`).join(', ') }))),
     page('relic', 'Relics', 'runs held', RELICS.map((r) => ({ id: r.id, name: r.name, says: r.says }))),
-    page('omen', 'Roads', 'times taken', OMENS.map((o) => ({ id: o.id, name: o.name, says: `${o.says} ${o.prize}.` }))),
+    page('omen', 'Roads', 'times taken', OMENS.map((o) => ({ id: o.id, name: o.name, says: `Risk: ${o.says} Reward: ${o.prize}.` }))),
   ];
 }
 
 /** How each way of fighting is told in the Chronicle. */
 const FOE_SAYS: Record<string, string> = {
-  walk: 'Walks at the hero.',
-  shoot: 'Keeps off and shoots.',
-  charge: 'Turns and runs the hero down.',
-  bomb: 'Runs in and bursts.',
-  summon: 'Calls others up.',
-  boost: 'Drums the rest on.',
-  still: 'Stands where it is.',
+  walk: 'Walks at you.',
+  shoot: 'Keeps its distance and shoots.',
+  charge: 'Charges at you in a line.',
+  bomb: 'Runs in and explodes.',
+  summon: 'Summons other enemies.',
+  boost: 'Makes nearby enemies faster.',
+  still: 'Does not move.',
 };
 
 // ---------------------------------------------------------------- deeds
@@ -177,7 +179,9 @@ function deedMet(save: SaveData, run: RunData, told: Told | null, test: DeedTest
     case 'tier':
       return run.weapons.some((w) => w.tier >= TIERS - 1);
     case 'roads':
-      return OMENS.every((o) => count(save, 'omen', o.id) > 0);
+      return OMENS.filter((o) => count(save, 'omen', o.id) > 0).length >= (test.count ?? OMENS.length);
+    case 'count':
+      return (run.counts?.[test.of] ?? 0) >= test.n;
   }
 }
 
@@ -193,7 +197,7 @@ function deedShare(save: SaveData, test: DeedTest): number {
     case 'wins':
       return Math.min(1, Object.keys(save.won).length / test.heroes);
     case 'roads':
-      return OMENS.filter((o) => count(save, 'omen', o.id) > 0).length / OMENS.length;
+      return Math.min(1, OMENS.filter((o) => count(save, 'omen', o.id) > 0).length / (test.count ?? OMENS.length));
     default:
       return 0;
   }
@@ -203,13 +207,13 @@ function deedShare(save: SaveData, test: DeedTest): number {
 export function featSays(feat: Feat): string {
   switch (feat.kind) {
     case 'wave':
-      return `Come through wave ${feat.wave}.`;
+      return `Clear wave ${feat.wave}.`;
     case 'boss':
-      return feat.boss === 'warlord' ? 'Beat the captain of wave 7.' : feat.boss === 'colossus' ? 'Beat the captain of wave 14.' : 'Beat the captain of wave 20.';
+      return feat.boss === REF.captain.first ? 'Beat the boss of wave 7.' : feat.boss === REF.captain.second ? 'Beat the boss of wave 14.' : 'Beat the boss of wave 20.';
     case 'coins':
-      return `Gather ${feat.coins} coins in one run.`;
+      return `Collect ${feat.coins} coins in one run.`;
     case 'kills':
-      return `Fell ${feat.kills} enemies in all.`;
+      return `Kill ${feat.kills} enemies in total.`;
     case 'runs':
       return feat.runs === 1 ? 'Finish a run.' : `Finish ${feat.runs} runs.`;
   }
@@ -233,9 +237,12 @@ export interface DeedRow {
 
 /** What an oath opens, as words. */
 export function oathGift(o: OathDef): string {
-  if (o.opens.kind === 'epithet') return `a new name: ${o.opens.epithet}`;
-  if (o.opens.kind === 'relic') return `${byId(RELICS, o.opens.relic).name} to begin every run with`;
-  return 'a second rule for their own weapon';
+  if (o.opens.kind === 'epithet') return `a new title: ${o.opens.epithet}`;
+  if (o.opens.kind === 'relic') return `start every run with ${byId(RELICS, o.opens.relic).name}`;
+  // The second way of their own weapon, said as it is: the level it comes at and what it does.
+  const weapon = weaponOf(byId(HEROES, o.hero).weapon);
+  const choice = altChoice(weapon.id);
+  return choice ? `a new choice for ${weapon.name} at level ${choice.level}: ${choice.second}` : 'a second rule for their own weapon';
 }
 
 /**
@@ -331,9 +338,9 @@ export function vowsOpen(save: SaveData): VowId[] {
 /** What opens the next vows, as a line, or '' when all are open. */
 export function vowsNext(save: SaveData): string {
   const most = mostVows(save);
-  if (most < 0) return 'Win the twentieth wave.';
+  if (most < 0) return 'Clear wave 20.';
   if (VOW.first + VOW.more * most >= VOWS.length) return '';
-  return most === 0 ? 'Win a run under a vow.' : `Win a run under ${most + 1} vows.`;
+  return most === 0 ? 'Win a run with 1 vow.' : `Win a run with ${most + 1} vows.`;
 }
 
 /** Swears a vow for the next run, or takes it back. */
@@ -651,7 +658,7 @@ export function waresOf(save: SaveData): Ware[] {
   const add = (kind: Ware['kind'], id: string, name: string, price: number | null): void => {
     if (price !== null) out.push({ kind, id, name, price, can: save.renown >= price });
   };
-  add('place', 'place', 'A second place in the band', placePrice(save));
+  add('place', 'place', 'A 2nd companion slot', placePrice(save));
   for (const h of HEROES) add('hero', h.id, h.name, heroPrice(save, h.id));
   for (const c of COMPANIONS) add('friend', c.id, c.name, friendPrice(save, c.id));
   const crate = cratePrice(save);

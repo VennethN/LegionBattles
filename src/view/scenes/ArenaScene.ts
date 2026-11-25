@@ -246,7 +246,7 @@ export class ArenaScene extends Phaser.Scene {
     // A road with an omen says which it was as the wave begins.
     const omen = w.omen === 'quiet' ? '' : omenOf(w.omen).name;
     // The run in which the move stops playing itself says so, once, in place of the land's name.
-    const handed = w.wave.n === 1 && takeHanded() ? 'Your move waits for you now: SPACE, or its button' : '';
+    const handed = w.wave.n === 1 && takeHanded() ? 'Auto-cast is off now: press SPACE or the skill button' : '';
     const under = handed || omen || (w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'A captain leads them' : '');
     // A run begins as its hero's: who they are is said before the wave is.
     if (w.wave.n === 1) this.scene.launch('Hud', { banner: def.name.toUpperCase(), under: def.epithet, line: `"${def.line}"`, then: { banner: `WAVE ${w.wave.n}`, under } });

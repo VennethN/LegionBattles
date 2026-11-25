@@ -41,23 +41,23 @@ export interface OmenDef {
 }
 
 export const OMENS: readonly OmenDef[] = [
-  { id: 'quiet', name: 'The Road', says: 'The wave as it is.', prize: 'Nothing more', from: 1, weight: 0 },
+  { id: 'quiet', name: 'The Road', says: 'A normal wave.', prize: 'None', from: 1, weight: 0 },
   // Anywhere.
-  { id: 'horde', name: 'The Horde', says: 'Half as many again, and none the weaker for it.', prize: 'Half as much experience again', from: 3, weight: 1.5 },
-  { id: 'champions', name: 'Champions', says: 'Three champions come among them.', prize: 'A relic, one of three', from: 4, weight: 1.5 },
-  { id: 'forced', name: 'Forced March', says: 'No camp after it: the next wave finds you as this one leaves you.', prize: 'A relic, one of three', from: 4, weight: 1.8 },
-  { id: 'toll', name: 'Toll Road', says: 'The keepers take a fifth of your purse.', prize: 'A wave a third shorter', from: 3, weight: 2 },
-  { id: 'duel', name: 'The Duel', says: 'One great champion, alone. Nobody else comes, and nobody else pays.', prize: 'A relic if it falls', from: 5, weight: 1.7 },
-  { id: 'wounded', name: 'The Wounded', says: 'You begin at two fifths of your health.', prize: 'A blessing of the best kind', from: 3, weight: 1.3 },
+  { id: 'horde', name: 'The Horde', says: '50% more enemies.', prize: '+50% XP', from: 3, weight: 1.5 },
+  { id: 'champions', name: 'Champions', says: '3 champions join the wave.', prize: 'Pick 1 of 3 relics', from: 4, weight: 1.5 },
+  { id: 'forced', name: 'Forced March', says: 'No camp after it. You start the next wave with the HP you have left.', prize: 'Pick 1 of 3 relics', from: 4, weight: 1.8 },
+  { id: 'toll', name: 'Toll Road', says: 'Pay 20% of your coins.', prize: 'The wave is 33% shorter', from: 3, weight: 2 },
+  { id: 'duel', name: 'The Duel', says: 'One huge champion and no other enemies, so no other coins.', prize: 'Kill it: pick 1 of 3 relics', from: 5, weight: 1.7 },
+  { id: 'wounded', name: 'The Wounded', says: 'Start the wave at 40% HP.', prize: '1 free upgrade of the best rarity', from: 3, weight: 1.3 },
   // Thornwood's own.
-  { id: 'stray', name: 'The Stray', says: 'A creature is caged on the field, and its jailer stands by.', prize: 'It fights beside you for the run', land: 'meadow', from: 2, weight: 1.6 },
-  { id: 'shrine', name: 'The Grove Shrine', says: 'Stand in its ring. While you do, they come faster.', prize: 'A blessing: a choice as for a level', land: 'meadow', from: 2, weight: 1.8 },
+  { id: 'stray', name: 'The Stray', says: 'A caged creature is on the field, guarded by a champion.', prize: 'Break the cage: it joins you for this run', land: 'meadow', from: 2, weight: 1.6 },
+  { id: 'shrine', name: 'The Grove Shrine', says: 'Stand in its ring for 11 s. Enemies spawn 2x as fast while you do.', prize: '1 free upgrade', land: 'meadow', from: 2, weight: 1.8 },
   // The dunes' own.
-  { id: 'wagon', name: 'Pay Caravan', says: 'A wagon crosses the field under a stout guard.', prize: 'Its chest, if you break it', land: 'desert', from: 8, weight: 1.8 },
-  { id: 'burning', name: 'Burning Field', says: 'Fire sweeps the field in lanes. The ground shows where.', prize: 'Every coin counts double', land: 'desert', from: 8, weight: 1.8 },
+  { id: 'wagon', name: 'Pay Caravan', says: 'A guarded wagon crosses the field.', prize: 'Destroy it: a chest', land: 'desert', from: 8, weight: 1.8 },
+  { id: 'burning', name: 'Burning Field', says: 'Fire sweeps the field in lanes. The ground shows where first.', prize: 'Coins are worth 2x', land: 'desert', from: 8, weight: 1.8 },
   // Frostholt's own.
-  { id: 'night', name: 'The Long Night', says: 'It is dark, and they come on faster.', prize: 'A relic, one of three', land: 'snow', from: 15, weight: 1.8 },
-  { id: 'blizzard', name: 'Blizzard', says: 'The cold slows you, and what they loose chills.', prize: 'Your plainest weapon gains a tier', land: 'snow', from: 15, weight: 1.8 },
+  { id: 'night', name: 'The Long Night', says: 'It is dark, and enemies move 20% faster.', prize: 'Pick 1 of 3 relics', land: 'snow', from: 15, weight: 1.8 },
+  { id: 'blizzard', name: 'Blizzard', says: 'You move 18% slower, and enemy shots slow you.', prize: 'Your lowest-tier weapon gains a tier', land: 'snow', from: 15, weight: 1.8 },
 ];
 
 export function omenOf(id: Omen): OmenDef {

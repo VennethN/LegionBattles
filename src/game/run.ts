@@ -6,7 +6,7 @@
 
 import {
   BAND, BASE_STATS, CHOICES, COMPANIONS, HEROES, ITEMS, KIND_AGAIN, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId,
-  finishedAs, landAt, levelNeeds, ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type HeroDef, type WeaponDef,
+  finishedAs, landAt, levelNeeds, ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type Count, type HeroDef, type WeaponDef,
 } from './data';
 import { VOW, VOWS, noBoons, type Boons, type Thing, thingKey } from './holdData';
 import { KINDS, KIND_STEPS, countKinds, giftLine, kindStep, type Kind, type KindCounts } from './kinds';
@@ -112,6 +112,8 @@ export interface RunData {
   hurt: number;
   /** Choices as for a level that are owed at the best tier: the prize of the road of the wounded. */
   bests: number;
+  /** What the run has counted of the way its hero was played (heroes.ts, COUNTS): the oaths about a passive ask after it. */
+  counts: Partial<Record<Count, number>>;
   /** The vows the run was sworn under, by name (holdData.ts). */
   vows: string[];
   /** The weapons the run may be offered, by name, or null for all the armory has not shut. */
@@ -197,7 +199,7 @@ export function newRun(hero: string, seed: number, band: readonly string[] = [],
   byId(HEROES, hero);
   const known = [...new Set(band)].filter((id) => COMPANIONS.some((c) => c.id === id));
   const run: RunData = {
-    first: !!terms.first, taken: '', tossed: false, forced: false, hurt: 1, bests: 0,
+    first: !!terms.first, taken: '', tossed: false, forced: false, hurt: 1, bests: 0, counts: {},
     hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [], band: known.map((id) => ({ id, bond: 0 })), fury: 0, rose: -1, saved: false,
     items: [], ups: [], packs: 0, kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
     relics: [], relicsDue: 0, relicChoices: [], road: { omen: 'quiet' }, roads: [], forks: Math.max(1, Math.min(ROAD.most, Math.floor(forks))), vigor: 0, whet: 0, left: 1,
@@ -210,6 +212,11 @@ export function newRun(hero: string, seed: number, band: readonly string[] = [],
   run.gold = run.boons.gold;
   run.banishes = run.boons.banish;
   return run;
+}
+
+/** Adds to one of the run's counts. */
+function counted(run: RunData, of: Count, n: number): void {
+  run.counts = { ...(run.counts ?? {}), [of]: (run.counts?.[of] ?? 0) + n };
 }
 
 /** True if the run holds a relic. */
@@ -317,7 +324,7 @@ export function setupOf(run: RunData, tall = false, auto = true): Setup {
     seed, wave: run.wave, stats, quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
     band: run.band, level: run.level, fury: run.fury, auto, purse: run.gold, spare: run.rose !== landAt(run.wave), rescue: !run.saved, tall,
     omen: run.road.omen, stray: run.road.stray, relics: run.relics, whet: run.whet, tithe, bones,
-    vows: run.vows, breath: run.boons.breath > 0 && !run.breathed,
+    vows: run.vows, alt: run.alt, breath: run.boons.breath > 0 && !run.breathed,
     furyBy: 1 + run.boons.fury / 100, bandHp: 1 + run.boons.bandHp / 100, bandDmg: 1 + run.boons.bandDmg / 100, bandUp: run.boons.bandUp / 100,
   };
 }
@@ -342,6 +349,7 @@ export function endWave(run: RunData, world: World): void {
   for (const id of world.met) if (!told.met.includes(id)) told.met.push(id);
   for (const [id, n] of Object.entries(world.slain)) told.slain[id] = (told.slain[id] ?? 0) + n;
   for (const id of world.unstruck) if (!told.unstruck.includes(id)) told.unstruck.push(id);
+  for (const [of, n] of Object.entries(world.counts)) counted(run, of as Count, n);
   if (world.over === 'cleared' && !told.roads.includes(world.omen)) told.roads.push(world.omen);
   run.time += world.time;
   if (world.over === 'cleared' && !world.struck) run.clean++;
@@ -622,7 +630,8 @@ export function buy(run: RunData, i: number): boolean {
   else {
     if (run.weapons.length < handsOf(run)) run.weapons.push({ id: o.id, tier: o.tier });
     else run.weapons[twinOf(run, o.id, o.tier)].tier++;
-    // The last weapon bought: Orrin's staff is finished as it.
+    // The last weapon bought: Orrin's staff is finished as it. A new form is counted.
+    if (heroOf(run).quirk === 'unfinished' && run.taken !== o.id) counted(run, 'finished', 1);
     run.taken = o.id;
   }
   return true;
@@ -650,6 +659,7 @@ export function toss(run: RunData, i: number): 'heads' | 'tails' | null {
   const heads = roll(run, (rng) => rng.chance(tossOdds(run)));
   run.tossed = true;
   if (heads) {
+    counted(run, 'toss', 1);
     const price = o.price;
     o.price = 0;
     buy(run, i);
@@ -757,6 +767,8 @@ function roadOpen(run: RunData, id: Omen, stray: string | undefined): boolean {
   if (id === 'stray') return stray !== undefined;
   // A forced march leaves no camp after it: never before a captain, who is hard enough rested.
   if (id === 'forced') return !waveOf(run.wave + 1).boss;
+  // Under the vow that makes every wave a night, the night road would cost nothing.
+  if (id === 'night') return !run.vows.includes('dusk');
   // The keepers want a purse worth taking from.
   if (id === 'toll') return run.gold >= ROAD.toll.least;
   return true;

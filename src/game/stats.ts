@@ -12,22 +12,22 @@ export type StatLine = Partial<Stats>;
 
 /** What each stat is, for the screens and for whoever tunes the numbers. */
 export const STAT_INFO: Record<Stat, { name: string; icon: string; says: string; percent?: boolean }> = {
-  maxHp: { name: 'Health', icon: 'heart', says: 'How much you can take.' },
-  regen: { name: 'Mending', icon: 'herb', says: 'Health that comes back by itself: this much every ten seconds.' },
-  lifesteal: { name: 'Leech', icon: 'drop', says: 'The chance that a blow gives back one health.', percent: true },
-  damage: { name: 'Damage', icon: 'burst', says: 'More harm from everything you carry.', percent: true },
-  might: { name: 'Might', icon: 'sword', says: 'Makes blades, spears, axes and hammers hit harder.' },
-  aim: { name: 'Aim', icon: 'arrows', says: 'Makes bows, bolts and things thrown hit harder.' },
-  lore: { name: 'Lore', icon: 'rune', says: 'Makes staffs and other magic hit harder.' },
-  haste: { name: 'Haste', icon: 'hourglass', says: 'Everything you carry strikes more often.', percent: true },
-  crit: { name: 'Edge', icon: 'spark', says: 'The chance of a blow that hits twice as hard.', percent: true },
-  reach: { name: 'Reach', icon: 'range', says: 'How far off you can strike.' },
-  armor: { name: 'Armor', icon: 'shield', says: 'Takes a share off every blow that lands on you.' },
-  dodge: { name: 'Dodge', icon: 'feather', says: 'The chance a blow misses you altogether.', percent: true },
-  speed: { name: 'Speed', icon: 'boot', says: 'How fast you run.', percent: true },
-  luck: { name: 'Luck', icon: 'clover', says: 'Better things in the camp, and more left behind by the fallen.', percent: true },
-  bounty: { name: 'Bounty', icon: 'coin', says: 'More coins from every coin picked up.', percent: true },
-  pickup: { name: 'Gather', icon: 'magnet', says: 'From how far coins come to you.', percent: true },
+  maxHp: { name: 'Max HP', icon: 'heart', says: 'How much damage you can take.' },
+  regen: { name: 'HP Regen', icon: 'herb', says: 'HP restored every 10 seconds.' },
+  lifesteal: { name: 'Life Steal', icon: 'drop', says: 'Chance for a hit to heal 1 HP.', percent: true },
+  damage: { name: 'Damage', icon: 'burst', says: 'More damage from every weapon.', percent: true },
+  might: { name: 'Melee Damage', icon: 'sword', says: 'More damage for swords, spears, axes and hammers.' },
+  aim: { name: 'Ranged Damage', icon: 'arrows', says: 'More damage for bows and thrown weapons.' },
+  lore: { name: 'Magic Damage', icon: 'rune', says: 'More damage for staffs and other magic.' },
+  haste: { name: 'Attack Speed', icon: 'hourglass', says: 'Every weapon attacks faster.', percent: true },
+  crit: { name: 'Crit Chance', icon: 'spark', says: 'Chance for a hit to deal 2x damage.', percent: true },
+  reach: { name: 'Range', icon: 'range', says: 'How far your weapons reach.' },
+  armor: { name: 'Armor', icon: 'shield', says: 'Reduces the damage you take.' },
+  dodge: { name: 'Dodge', icon: 'feather', says: 'Chance to avoid a hit completely.', percent: true },
+  speed: { name: 'Move Speed', icon: 'boot', says: 'How fast you move.', percent: true },
+  luck: { name: 'Luck', icon: 'clover', says: 'Better items in the shop, and more drops from enemies.', percent: true },
+  bounty: { name: 'Coin Gain', icon: 'coin', says: 'More coins from every coin you pick up.', percent: true },
+  pickup: { name: 'Pickup Range', icon: 'magnet', says: 'How far away you pick up coins.', percent: true },
 };
 
 export function noStats(): Stats {

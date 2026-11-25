@@ -130,12 +130,12 @@ export class RoadField {
         this.fx.spawn('fx/dust', e.x, e.y - 6, { dur: 0.3, from: 0.4, to: 1, alpha: 0.7, flat: 0.5, depth: e.y - 1 });
         return true;
       case 'herald':
-        this.o.banner('THE CHAMPION FALLS', 'It leaves a relic');
+        this.o.banner('CHAMPION DEFEATED', 'It dropped a relic');
         sfx.play('claim', 0.8);
         return true;
       case 'duel':
-        if (e.how === 'on') this.o.banner('THE DUEL', 'Nobody else comes');
-        else this.o.banner('THE DUEL IS WON', 'It leaves a relic');
+        if (e.how === 'on') this.o.banner('THE DUEL', 'One champion. No other enemies.');
+        else this.o.banner('DUEL WON', 'It dropped a relic');
         return true;
       case 'block':
         this.fx.spawn('fx/sparkle', e.x, e.y, { dur: 0.25, from: 0.4, to: 1, tint: e.back ? GOLD : hex(STEEL.fill), depth: e.y + 60 });

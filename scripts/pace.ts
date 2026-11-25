@@ -97,6 +97,8 @@ function measure(hero: string, who: readonly string[], label: string): void {
   const wonMinutes: number[] = [];
   const roads = Object.fromEntries(OMENS.map((o) => [o.id, { taken: 0, through: 0, prize: 0 }])) as Record<Omen, { taken: number; through: number; prize: number }>;
   const relics: Record<string, number> = {};
+  /** What the runs counted for the oaths about a passive (heroes.ts, COUNTS). */
+  const counts: Record<string, number[]> = {};
   let held = 0;
   let steps3 = 0;
   let strays = 0;
@@ -157,6 +159,7 @@ function measure(hero: string, who: readonly string[], label: string): void {
     minutes.push(fought / 60);
     if (survived(run) >= LAST_WAVE) wonMinutes.push(fought / 60);
     held += run.relics.length;
+    for (const [of, c] of Object.entries(run.counts)) (counts[of] ??= []).push(c);
     for (const id of run.relics) relics[id] = (relics[id] ?? 0) + 1;
     steps3 += Math.max(0, ...kindsOf(run).map((k) => k.step));
     strays += run.band.filter((b) => b.stray).length;
@@ -170,6 +173,9 @@ function measure(hero: string, who: readonly string[], label: string): void {
   console.log(`${''.padEnd(34)} minutes fought: ${avg(minutes)} a run, ${avg(wonMinutes)} for one that came through all ${LAST_WAVE}`);
   const top = Object.entries(relics).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([id, n]) => `${relicOf(id).name} ${n}`).join(', ');
   console.log(`${''.padEnd(34)} relics held at the end ${(held / runs).toFixed(1)}${brief ? '' : ` (${top})`}, best kind's step ${(steps3 / runs).toFixed(1)} of 3, strays ${(strays / runs).toFixed(1)}`);
+  // What half the runs counted at least, and the most any did: an oath about a passive is priced from this.
+  const said = Object.entries(counts).map(([of, list]) => `${of} ${median([...list, ...new Array<number>(runs - list.length).fill(0)])} (most ${Math.max(...list)})`);
+  if (said.length) console.log(`${''.padEnd(34)} counted in a run, half reach: ${said.join(', ')}`);
   if (brief) return;
   console.log('road        taken  come through  prize had');
   for (const o of OMENS) {

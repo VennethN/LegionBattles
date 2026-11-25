@@ -8,7 +8,7 @@
 // run has a next thing to go for (a deed, an oath of the hero's, a
 // crate's own deed, a vow to win under, the day's road).
 
-import type { Feat } from './data';
+import type { Count, Feat } from './data';
 
 // ---------------------------------------------------------------- what this file names
 
@@ -109,8 +109,10 @@ export type DeedTest =
   | { kind: 'purse'; gold: number }
   /** A weapon joined up to its last tier. */
   | { kind: 'tier' }
-  /** Every kind of road come through at least once. */
-  | { kind: 'roads' };
+  /** Every kind of road come through at least once, or this many kinds of them. */
+  | { kind: 'roads'; count?: number }
+  /** This many of something a run counts of the way its hero was played (heroes.ts, COUNTS). */
+  | { kind: 'count'; of: Count; n: number };
 
 // ---------------------------------------------------------------- the armory
 
@@ -142,15 +144,15 @@ const r = (id: string): Thing => ({ kind: 'relic', id });
  * is opened by its deed or bought with renown, whichever comes first.
  */
 export const CRATES: readonly CrateDef[] = [
-  { id: 'fletcher', name: "The Fletcher's Crate", says: 'Bows, and what makes one shot two.', things: [w('longbow'), w('rimebow'), w('blowpipe'), i('quiver'), r('twinquiver')], deed: { kind: 'kinds', held: 3, of: REF.kind.bow }, deedSays: 'Hold three bows in one run.' },
-  { id: 'chandler', name: "The Chandler's Crate", says: 'Powder, oil and everything that burns.', things: [w('bomb'), w('brazier'), w('sunbrand'), i('keg'), r('bellows'), r('emberheart')], deed: { kind: 'kinds', held: 3, of: REF.kind.fire }, deedSays: 'Hold three weapons of fire in one run.' },
-  { id: 'winter', name: 'The Winter Crate', says: 'Packed in straw and still cold.', things: [w('trident'), w('hail'), i('cloak'), r('frostbite')], deed: { kind: 'kinds', held: 3, of: REF.kind.frost }, deedSays: 'Hold three weapons of frost in one run.' },
-  { id: 'reliquary', name: 'The Reliquary', says: 'What the chapel kept under the altar.', things: [w('mace'), w('holywater'), i('relic'), r('bowl'), r('fallen')], deed: { kind: 'kinds', held: 3, of: REF.kind.holy }, deedSays: 'Hold three holy weapons in one run.' },
-  { id: 'apothecary', name: "The Apothecary's Crate", says: 'Do not open the green jars.', things: [w('venom'), w('gourd'), w('fang'), r('spade')], deed: { kind: 'kills', kills: 5000 }, deedSays: 'Fell 5000 enemies in all.' },
-  { id: 'armorer', name: "The Armorer's Crate", says: 'Heavy iron, and a stone to keep it keen.', things: [w('greataxe'), w('halberd'), w('hatchet'), i('gauntlets'), r('ageswhet'), r('mirror')], deed: { kind: 'tier' }, deedSays: 'Join a weapon up to its last tier.' },
-  { id: 'scholar', name: "The Scholar's Crate", says: 'Glass, sand and things that count.', things: [w('wand'), i('spyglass'), i('hourglass'), r('stormglass'), r('sands')], deed: { kind: 'level', level: 15 }, deedSays: 'Reach level fifteen in one run.' },
-  { id: 'gambler', name: "The Gambler's Crate", says: 'Everything in it is a wager.', things: [i('crown'), i('lodestone'), r('bonedice'), r('crown'), r('tithe')], deed: { kind: 'purse', gold: 300 }, deedSays: 'Hold three hundred coins at once.' },
-  { id: 'wayfarer', name: "The Wayfarer's Crate", says: 'Maps, spurs and a horn to be heard by.', things: [i('horn'), r('oldmap'), r('spurs')], deed: { kind: 'roads' }, deedSays: 'Come through every kind of road.' },
+  { id: 'fletcher', name: "The Fletcher's Crate", says: 'Bows, and a relic that splits shots.', things: [w('longbow'), w('rimebow'), w('blowpipe'), i('quiver'), r('twinquiver')], deed: { kind: 'kinds', held: 3, of: REF.kind.bow }, deedSays: 'Hold 3 Bow weapons in one run.' },
+  { id: 'chandler', name: "The Chandler's Crate", says: 'Bombs, fire and things that burn.', things: [w('bomb'), w('brazier'), w('sunbrand'), i('keg'), r('bellows'), r('emberheart')], deed: { kind: 'kinds', held: 3, of: REF.kind.fire }, deedSays: 'Hold 3 Fire weapons in one run.' },
+  { id: 'winter', name: 'The Winter Crate', says: 'Frost weapons, packed in straw and still cold.', things: [w('trident'), w('hail'), i('cloak'), r('frostbite')], deed: { kind: 'kinds', held: 3, of: REF.kind.frost }, deedSays: 'Hold 3 Frost weapons in one run.' },
+  { id: 'reliquary', name: 'The Reliquary', says: 'Holy weapons and relics from under the altar.', things: [w('mace'), w('holywater'), i('relic'), r('bowl'), r('fallen')], deed: { kind: 'kinds', held: 3, of: REF.kind.holy }, deedSays: 'Hold 3 Holy weapons in one run.' },
+  { id: 'apothecary', name: "The Apothecary's Crate", says: 'Poison weapons. Do not open the green jars.', things: [w('venom'), w('gourd'), w('fang'), r('spade')], deed: { kind: 'kills', kills: 5000 }, deedSays: 'Kill 5000 enemies in total.' },
+  { id: 'armorer', name: "The Armorer's Crate", says: 'Heavy weapons, and a stone that sharpens them.', things: [w('greataxe'), w('halberd'), w('hatchet'), i('gauntlets'), r('ageswhet'), r('mirror')], deed: { kind: 'tier' }, deedSays: 'Upgrade a weapon to tier IV.' },
+  { id: 'scholar', name: "The Scholar's Crate", says: 'A wand, lenses and hourglasses.', things: [w('wand'), i('spyglass'), i('hourglass'), r('stormglass'), r('sands')], deed: { kind: 'level', level: 15 }, deedSays: 'Reach level 15 in one run.' },
+  { id: 'gambler', name: "The Gambler's Crate", says: 'High-risk items and relics.', things: [i('crown'), i('lodestone'), r('bonedice'), r('crown'), r('tithe')], deed: { kind: 'purse', gold: 300 }, deedSays: 'Hold 300 coins at once.' },
+  { id: 'wayfarer', name: "The Wayfarer's Crate", says: 'A map, spurs and a war horn.', things: [i('horn'), r('oldmap'), r('spurs')], deed: { kind: 'roads', count: 8 }, deedSays: 'Clear 8 different kinds of road.' },
 ];
 
 /** What a crate costs when this many are open already, however they were opened. The player picks the order. */
@@ -188,10 +190,10 @@ export interface NodeDef {
 }
 
 export const BRANCHES: ReadonlyArray<{ id: Branch; name: string; says: string }> = [
-  { id: 'hero', name: 'The Hero', says: 'Health, harm, and one getting-up.' },
-  { id: 'band', name: 'The Band', says: 'Companions who last, hit and get up.' },
-  { id: 'purse', name: 'The Purse', says: 'Coins, and a say in what the camp sells.' },
-  { id: 'fortune', name: 'Fortune', says: 'Luck, learning and the roads.' },
+  { id: 'hero', name: 'Hero', says: 'HP, damage, and one revive.' },
+  { id: 'band', name: 'Companions', says: 'Tougher, stronger companions that recover faster.' },
+  { id: 'purse', name: 'Coins', says: 'Starting coins, free rerolls and item bans.' },
+  { id: 'fortune', name: 'Fortune', says: 'Luck, XP and more choices.' },
 ];
 
 /** A chain of places down one column: each needs the one above it, and the first needs `from`. */
@@ -244,30 +246,30 @@ export function giftSays(gift: Gift): string {
   const by = gift.by;
   switch (gift.kind) {
     case 'stat':
-      return gift.stat === 'maxHp' ? `${by} more health.` : gift.stat === 'damage' ? `${by}% more harm.` : gift.stat === 'haste' ? `Strikes ${by}% faster.` : gift.stat === 'speed' ? `${by}% faster on foot.`
-        : gift.stat === 'armor' ? `${by} more armor.` : gift.stat === 'pickup' ? `Coins come from ${by}% further off.` : `${by} more luck.`;
+      return gift.stat === 'maxHp' ? `+${by} Max HP.` : gift.stat === 'damage' ? `+${by}% Damage.` : gift.stat === 'haste' ? `+${by}% Attack Speed.` : gift.stat === 'speed' ? `+${by}% Move Speed.`
+        : gift.stat === 'armor' ? `+${by} Armor.` : gift.stat === 'pickup' ? `+${by}% Pickup Range.` : `+${by}% Luck.`;
     case 'gold':
-      return `${by} more coins to begin a run with.`;
+      return `Start every run with ${by} more coins.`;
     case 'xp':
-      return `${by}% more experience.`;
+      return `+${by}% XP.`;
     case 'fury':
       return `Fury fills ${by}% faster.`;
     case 'bandHp':
-      return `Companions have ${by}% more health.`;
+      return `Companions have ${by}% more HP.`;
     case 'bandDmg':
-      return `Companions hit ${by}% harder.`;
+      return `Companions deal ${by}% more damage.`;
     case 'bandUp':
-      return `A fallen companion gets up ${by}% sooner.`;
+      return `Downed companions recover ${by}% faster.`;
     case 'reroll':
-      return 'One more free look at other wares in each camp.';
+      return '+1 free reroll in every shop.';
     case 'banish':
-      return `${by} more times in a run, strike a ware from the table: it is not offered again that run.`;
+      return `+${by} bans per run. A banned item is not offered again that run.`;
     case 'road':
-      return 'Three roads to choose from, not two.';
+      return '3 roads to choose from instead of 2.';
     case 'relook':
-      return 'Once at each choice of a relic, see three others instead.';
+      return 'Once per relic choice, reroll the 3 relics.';
     case 'breath':
-      return 'Once in a run, a killing blow leaves the hero standing.';
+      return `Once per run, survive a killing blow with ${Math.round(BREATH.rises * 100)}% HP.`;
   }
 }
 
@@ -323,14 +325,14 @@ export interface VowDef {
  * three by a first win, two more for each vow a win was sworn under.
  */
 export const VOWS: readonly VowDef[] = [
-  { id: 'march', name: 'Forced March', says: 'They come a good deal quicker.' },
-  { id: 'lean', name: 'Lean Coffers', says: 'Everything in the camp costs a fifth more.' },
-  { id: 'famine', name: 'Bare Fields', says: 'The fallen leave no hearts.' },
-  { id: 'champions', name: 'Champions Abroad', says: 'A champion walks in every wave from the third.' },
-  { id: 'hand', name: 'One Hand Fewer', says: 'One hand fewer for what is bought.' },
-  { id: 'dusk', name: 'The Early Dark', says: 'Every wave is fought by night.' },
-  { id: 'wounds', name: 'Open Wounds', says: 'No rest between waves: each is begun with the health the last one left.' },
-  { id: 'wind', name: 'Second Wind', says: 'A captain that falls gets up once.' },
+  { id: 'march', name: 'Double Time', says: 'Enemies move 15% faster.' },
+  { id: 'lean', name: 'Lean Coffers', says: 'Everything in the shop costs 20% more.' },
+  { id: 'famine', name: 'Bare Fields', says: 'Enemies drop no hearts.' },
+  { id: 'champions', name: 'Champions Abroad', says: 'A champion joins every wave from wave 3.' },
+  { id: 'hand', name: 'One Hand Fewer', says: '1 less weapon slot.' },
+  { id: 'dusk', name: 'The Early Dark', says: 'Every wave is at night: it is dark, and enemies move 20% faster.' },
+  { id: 'wounds', name: 'Open Wounds', says: 'No healing between waves: you start each wave with the HP you had left.' },
+  { id: 'wind', name: 'Second Wind', says: 'Every boss revives once with 40% HP.' },
 ];
 
 export const VOW = {
@@ -369,34 +371,34 @@ export interface DeedDef {
  * some are done in a first evening, some ask for a win under every vow.
  */
 export const DEEDS: readonly DeedDef[] = [
-  { id: 'wave5', name: 'Still Standing', says: 'Come through the fifth wave.', test: { kind: 'wave', wave: 5 }, renown: 10 },
-  { id: 'wave10', name: 'Half the Road', says: 'Come through the tenth wave.', test: { kind: 'wave', wave: 10 }, renown: 15 },
-  { id: 'wave15', name: 'Into the Snow', says: 'Come through the fifteenth wave.', test: { kind: 'wave', wave: 15 }, renown: 20 },
-  { id: 'captain1', name: 'The First Captain', says: 'Beat the captain of wave 7.', test: { kind: 'boss', boss: REF.captain.first }, renown: 15 },
-  { id: 'captain2', name: 'The Second Captain', says: 'Beat the captain of wave 14.', test: { kind: 'boss', boss: REF.captain.second }, renown: 20 },
-  { id: 'captain3', name: 'The Third Captain', says: 'Beat the captain of wave 20.', test: { kind: 'boss', boss: REF.captain.third }, renown: 25 },
-  { id: 'kills1', name: 'A Thousand', says: 'Fell a thousand, over all runs.', test: { kind: 'kills', kills: 1000 }, renown: 10 },
-  { id: 'kills2', name: 'Five Thousand', says: 'Fell five thousand, over all runs.', test: { kind: 'kills', kills: 5000 }, renown: 15 },
-  { id: 'kills3', name: 'A Legion', says: 'Fell twenty thousand, over all runs.', test: { kind: 'kills', kills: 20000 }, renown: 25 },
-  { id: 'runs10', name: 'Ten Times Out', says: 'End ten runs.', test: { kind: 'runs', runs: 10 }, renown: 10 },
-  { id: 'runs40', name: 'An Old Hand', says: 'End forty runs.', test: { kind: 'runs', runs: 40 }, renown: 20 },
-  { id: 'level15', name: 'Seasoned', says: 'Reach level fifteen in one run.', test: { kind: 'level', level: 15 }, renown: 15 },
-  { id: 'purse', name: 'Deep Pockets', says: 'Hold three hundred coins at once.', test: { kind: 'purse', gold: 300 }, renown: 15 },
-  { id: 'kinds4', name: 'Of a Kind', says: 'Hold four weapons of one kind.', test: { kind: 'kinds', held: 4 }, renown: 15 },
-  { id: 'tier', name: 'Masterwork', says: 'Join a weapon up to its last tier.', test: { kind: 'tier' }, renown: 15 },
-  { id: 'relics5', name: 'A Collector', says: 'Hold five relics in one run.', test: { kind: 'relics', held: 5 }, renown: 10 },
-  { id: 'relics8', name: 'A Hoard', says: 'Hold eight relics in one run.', test: { kind: 'relics', held: 8 }, renown: 20 },
-  { id: 'bond', name: 'Fast Friends', says: 'Take a bond with a companion to its last step.', test: { kind: 'bond' }, renown: 15 },
-  { id: 'roads', name: 'Every Road', says: 'Come through every kind of road.', test: { kind: 'roads' }, renown: 15 },
-  { id: 'unstruck', name: 'Untouched', says: 'Beat a captain without one blow landing on the hero in that wave.', test: { kind: 'unstruck' }, renown: 25 },
-  { id: 'win', name: 'The Morning', says: 'Come through the twentieth wave.', test: { kind: 'win' }, renown: 30 },
-  { id: 'alone', name: 'The Last Stander', says: 'Win a run with nobody in the band.', test: { kind: 'alone' }, renown: 30 },
-  { id: 'wins5', name: 'Five Banners', says: 'Win with five different heroes.', test: { kind: 'wins', heroes: 5 }, renown: 30 },
+  { id: 'wave5', name: 'Still Standing', says: 'Clear wave 5.', test: { kind: 'wave', wave: 5 }, renown: 10 },
+  { id: 'wave10', name: 'Half the Road', says: 'Clear wave 10.', test: { kind: 'wave', wave: 10 }, renown: 15 },
+  { id: 'wave15', name: 'Into the Snow', says: 'Clear wave 15.', test: { kind: 'wave', wave: 15 }, renown: 20 },
+  { id: 'captain1', name: 'The First Boss', says: 'Beat the boss of wave 7.', test: { kind: 'boss', boss: REF.captain.first }, renown: 15 },
+  { id: 'captain2', name: 'The Second Boss', says: 'Beat the boss of wave 14.', test: { kind: 'boss', boss: REF.captain.second }, renown: 20 },
+  { id: 'captain3', name: 'The Third Boss', says: 'Beat the boss of wave 20.', test: { kind: 'boss', boss: REF.captain.third }, renown: 25 },
+  { id: 'kills1', name: 'A Thousand', says: 'Kill 1000 enemies in total.', test: { kind: 'kills', kills: 1000 }, renown: 10 },
+  { id: 'kills2', name: 'Five Thousand', says: 'Kill 5000 enemies in total.', test: { kind: 'kills', kills: 5000 }, renown: 15 },
+  { id: 'kills3', name: 'A Legion', says: 'Kill 20000 enemies in total.', test: { kind: 'kills', kills: 20000 }, renown: 25 },
+  { id: 'runs10', name: 'Ten Times Out', says: 'Finish 10 runs.', test: { kind: 'runs', runs: 10 }, renown: 10 },
+  { id: 'runs40', name: 'An Old Hand', says: 'Finish 40 runs.', test: { kind: 'runs', runs: 40 }, renown: 20 },
+  { id: 'level15', name: 'Seasoned', says: 'Reach level 15 in one run.', test: { kind: 'level', level: 15 }, renown: 15 },
+  { id: 'purse', name: 'Deep Pockets', says: 'Hold 300 coins at once.', test: { kind: 'purse', gold: 300 }, renown: 15 },
+  { id: 'kinds4', name: 'Of a Kind', says: 'Hold 4 weapons of one type.', test: { kind: 'kinds', held: 4 }, renown: 15 },
+  { id: 'tier', name: 'Masterwork', says: 'Upgrade a weapon to tier IV.', test: { kind: 'tier' }, renown: 15 },
+  { id: 'relics5', name: 'A Collector', says: 'Hold 5 relics in one run.', test: { kind: 'relics', held: 5 }, renown: 10 },
+  { id: 'relics8', name: 'A Hoard', says: 'Hold 8 relics in one run.', test: { kind: 'relics', held: 8 }, renown: 20 },
+  { id: 'bond', name: 'Fast Friends', says: 'Max out your bond with a companion.', test: { kind: 'bond' }, renown: 15 },
+  { id: 'roads', name: 'Every Road', says: 'Clear every kind of road.', test: { kind: 'roads' }, renown: 15 },
+  { id: 'unstruck', name: 'Untouched', says: 'Beat a boss without getting hit in that wave.', test: { kind: 'unstruck' }, renown: 25 },
+  { id: 'win', name: 'The Morning', says: 'Clear wave 20.', test: { kind: 'win' }, renown: 30 },
+  { id: 'alone', name: 'The Last Stander', says: 'Win a run with no companions.', test: { kind: 'alone' }, renown: 30 },
+  { id: 'wins5', name: 'Five Banners', says: 'Win with 5 different heroes.', test: { kind: 'wins', heroes: 5 }, renown: 30 },
   { id: 'wins10', name: 'Every Banner', says: 'Win with every hero.', test: { kind: 'wins', heroes: 10 }, renown: 50 },
-  { id: 'vows1', name: 'Sworn', says: 'Win a run under a vow.', test: { kind: 'win', vows: 1 }, renown: 30 },
-  { id: 'vows2', name: 'Twice Sworn', says: 'Win a run under two vows.', test: { kind: 'win', vows: 2 }, renown: 40 },
-  { id: 'vows4', name: 'Oathbound', says: 'Win a run under four vows.', test: { kind: 'win', vows: 4 }, renown: 60 },
-  { id: 'vows8', name: 'The Long Night', says: 'Win a run under every vow.', test: { kind: 'win', vows: 8 }, renown: 100 },
+  { id: 'vows1', name: 'Sworn', says: 'Win a run with 1 vow.', test: { kind: 'win', vows: 1 }, renown: 30 },
+  { id: 'vows2', name: 'Twice Sworn', says: 'Win a run with 2 vows.', test: { kind: 'win', vows: 2 }, renown: 40 },
+  { id: 'vows4', name: 'Oathbound', says: 'Win a run with 4 vows.', test: { kind: 'win', vows: 4 }, renown: 60 },
+  { id: 'vows8', name: 'Every Vow', says: 'Win a run with all 8 vows.', test: { kind: 'win', vows: 8 }, renown: 100 },
 ];
 
 // ---------------------------------------------------------------- oaths
@@ -420,20 +422,20 @@ export interface OathDef {
  * A hero is told here by a line each, so that another is one line more.
  */
 const OATH_LINES: ReadonlyArray<{ hero: string; name: string; epithet: string; quirk: { name: string; says: string; test: DeedTest } }> = [
-  { hero: 'bram', name: 'Bram', epithet: 'the Gate That Held', quirk: { name: 'Not One Step', says: 'Beat a captain without one blow landing.', test: { kind: 'unstruck' } } },
-  { hero: 'wren', name: 'Wren', epithet: 'the Uncaught', quirk: { name: 'Never Seen', says: 'Come through five waves of one run untouched.', test: { kind: 'clean', waves: 5 } } },
-  { hero: 'orrin', name: 'Orrin', epithet: 'the Finished', quirk: { name: 'The Last Lesson', says: 'Hold four arcane weapons.', test: { kind: 'kinds', held: 4, of: REF.kind.arcane } } },
-  { hero: 'fenn', name: 'Fenn', epithet: 'the Rich', quirk: { name: 'Heads Every Time', says: 'Hold four hundred coins at once.', test: { kind: 'purse', gold: 400 } } },
-  { hero: 'nan', name: 'Old Nan', epithet: 'the Last Hearth', quirk: { name: 'Banked High', says: 'Hold four weapons of fire.', test: { kind: 'kinds', held: 4, of: REF.kind.fire } } },
-  { hero: 'isaura', name: 'Isaura', epithet: 'Captain of the Dawn', quirk: { name: 'The Ninth Rides', says: 'Fell fifteen hundred in one run.', test: { kind: 'slain', kills: 1500 } } },
-  { hero: 'hroth', name: 'Hroth', epithet: 'the Thrice Buried', quirk: { name: 'Up Again', says: 'Come through the tenth wave of a run in which he got up.', test: { kind: 'risen', wave: 10 } } },
-  { hero: 'aldous', name: 'Aldous', epithet: 'the Morning Bell', quirk: { name: 'The Flock', says: 'Take a bond with a companion to its last step.', test: { kind: 'bond' } } },
-  { hero: 'ysolde', name: 'Ysolde', epithet: 'the Thaw', quirk: { name: 'Deep Winter', says: 'Hold four weapons of frost.', test: { kind: 'kinds', held: 4, of: REF.kind.frost } } },
-  { hero: 'maren', name: 'Maren', epithet: 'the Oath Kept', quirk: { name: 'Hallowed', says: 'Hold four holy weapons.', test: { kind: 'kinds', held: 4, of: REF.kind.holy } } },
+  { hero: 'bram', name: 'Bram', epithet: 'the Gate That Held', quirk: { name: 'Not One Step', says: 'Beat a boss without getting hit in that wave.', test: { kind: 'unstruck' } } },
+  { hero: 'wren', name: 'Wren', epithet: 'the Uncaught', quirk: { name: 'Never Seen', says: 'Clear 5 waves in one run without getting hit.', test: { kind: 'clean', waves: 5 } } },
+  { hero: 'orrin', name: 'Orrin', epithet: 'the Finished', quirk: { name: 'The Last Lesson', says: 'Change the form of your staff 10 times in one run.', test: { kind: 'count', of: 'finished', n: 10 } } },
+  { hero: 'fenn', name: 'Fenn', epithet: 'the Rich', quirk: { name: 'Heads Every Time', says: 'Win 6 coin flips in one run.', test: { kind: 'count', of: 'toss', n: 6 } } },
+  { hero: 'nan', name: 'Old Nan', epithet: 'the Last Hearth', quirk: { name: 'Banked High', says: 'Stack burn to its max on 20 enemies in one run.', test: { kind: 'count', of: 'banked', n: 20 } } },
+  { hero: 'isaura', name: 'Isaura', epithet: 'Captain of the Dawn', quirk: { name: 'The Ninth Rides', says: 'Kill 40 enemies with Tilt thrusts in one run.', test: { kind: 'count', of: 'tilt', n: 40 } } },
+  { hero: 'hroth', name: 'Hroth', epithet: 'the Thrice Buried', quirk: { name: 'Paid in Full', says: 'Kill 150 enemies while in Grave Debt in one run.', test: { kind: 'count', of: 'debt', n: 150 } } },
+  { hero: 'aldous', name: 'Aldous', epithet: 'the Morning Bell', quirk: { name: 'The Flock', says: 'Max out your bond with a companion.', test: { kind: 'bond' } } },
+  { hero: 'ysolde', name: 'Ysolde', epithet: 'the Thaw', quirk: { name: 'Deep Winter', says: 'Hold 4 Frost weapons.', test: { kind: 'kinds', held: 4, of: REF.kind.frost } } },
+  { hero: 'maren', name: 'Maren', epithet: 'the Oath Kept', quirk: { name: 'Hallowed', says: 'Hold 4 Holy weapons.', test: { kind: 'kinds', held: 4, of: REF.kind.holy } } },
 ];
 
 export const OATHS: readonly OathDef[] = OATH_LINES.flatMap((h): OathDef[] => [
   { id: `${h.hero}-win`, hero: h.hero, name: `${h.name}'s Morning`, says: `Win a run as ${h.name}.`, test: { kind: 'win' }, opens: { kind: 'epithet', epithet: h.epithet } },
-  { id: `${h.hero}-vow`, hero: h.hero, name: `${h.name}, Sworn`, says: `Win a run as ${h.name} under a vow.`, test: { kind: 'win', vows: 1 }, opens: { kind: 'relic', relic: REF.relic[h.hero as keyof typeof REF.relic] } },
+  { id: `${h.hero}-vow`, hero: h.hero, name: `${h.name}, Sworn`, says: `Win a run as ${h.name} with at least 1 vow.`, test: { kind: 'win', vows: 1 }, opens: { kind: 'relic', relic: REF.relic[h.hero as keyof typeof REF.relic] } },
   { id: `${h.hero}-quirk`, hero: h.hero, name: h.quirk.name, says: `As ${h.name}: ${h.quirk.says[0].toLowerCase()}${h.quirk.says.slice(1)}`, test: h.quirk.test, opens: { kind: 'rule' } },
 ]);

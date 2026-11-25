@@ -353,7 +353,7 @@ export class CampScene extends Phaser.Scene {
     b.setEnabled(why === '');
     // Fenn may toss for it, once in a camp: heads it is free, tails it is paid for and gone.
     if (canToss(run, i)) {
-      this.button(x + w - 44, y + 24, 'TOSS', () => {
+      this.button(x + w - 44, y + 24, 'FLIP', () => {
         const how = toss(this.run, i);
         this.act(how !== null, how === 'heads' ? 'claim' : 'tick');
       }, { width: 72, height: 34, size: 15, mat: IRON });
@@ -513,7 +513,7 @@ export class CampScene extends Phaser.Scene {
     this.add2(slabImage(this, cx - w / 2, top, w, h, BONE, 18, 8));
     this.text(cx, top + 28, `${def.name} ${TIER_NAMES[own.tier]}`, { size: 20, color: OUTLINE, stroke: null });
     this.text(cx, top + 46, def.says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 36 }).setOrigin(0.5, 0);
-    ownRules(def.id, own.tier).forEach((r, i) => {
+    ownRules(def.id, own.tier, this.run.alt).forEach((r, i) => {
       const y = top + 104 + i * 56;
       this.text(cx - w / 2 + 18, y, `Level ${r.level}`, { size: 16, align: 'left', color: r.on ? '#2e5f45' : OUTLINE, stroke: null });
       this.text(cx - w / 2 + 104, y - 10, r.says, { size: 15, align: 'left', color: r.on ? '#2e5f45' : '#6b4a2b', stroke: null, wrap: w - 122 }).setOrigin(0, 0);

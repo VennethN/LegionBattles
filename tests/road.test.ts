@@ -25,7 +25,7 @@ describe('the road out of the camp', () => {
     const offered = OMENS.filter((o) => o.weight > 0);
     expect(offered.length).toBe(12);
     expect(OMENS.filter((o) => o.weight <= 0).map((o) => o.id)).toEqual(['quiet']);
-    for (const o of OMENS) for (const text of [o.name, o.says, o.prize]) expect(text.length, o.id).toBeGreaterThan(5);
+    for (const o of OMENS) for (const text of [o.name, o.says, o.prize]) expect(text.length, o.id).toBeGreaterThan(3);
     // Six come anywhere, and each land has two that are only its own.
     expect(offered.filter((o) => !o.land).length).toBe(6);
     for (const land of ['meadow', 'desert', 'snow']) expect(offered.filter((o) => o.land === land).length, land).toBe(2);

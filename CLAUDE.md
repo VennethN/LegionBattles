@@ -55,7 +55,14 @@ The headless browser draws a few frames a second. The scripts take over the page
 - **The art build writes only what the game shows,** which `scripts/art.game.ts` says from the game's own data. A picture a screen names has to be on the list in `src/view/icons.ts`: a test says so if it is not.
 - **Everything on the field is on one sheet,** and a field's pictures always fit. `tests/art.test.ts` fails when they no longer do.
 - **No words smaller than 15 of the layout's units.** That is eleven pixels in the smallest frame a portal shows.
-- **What a player has not opened is dark, with "???".** What opens it is said, and nothing else.
+- **What a player has not unlocked is dark, with "???".** What unlocks it is said ("Unlock: clear wave 10."), and nothing else.
+- **In-game text is plain game language.** The owner, after playing: "let's fix the wording (its convoluted)". Every string a player reads is written the way a player of this genre reads without thinking:
+  - The usual terms: Passive (the code's `quirk`), Skill (`move`), Weapon, Damage (not harm), Attack Speed (not haste), HP or Max HP, HP Regen, Life Steal, Armor, Crit, Range, Move Speed, Pickup Range, Coin Gain, Melee, Ranged and Magic Damage, Unlock and Locked (not open, opened), Boss (not captain), Items (not wares), Camp or Shop, Weapon slots (not hands), Chest (not pack), Companion, Relic, Level up, Upgrade, Reroll, Ban, Risk and Reward on a road (not omen and prize), Upgrades (the board), Quests (not deeds), Codex (not chronicle), Daily Run, Weapon types and Set bonus (not kinds and gifts), Revive, Downed, Stun, Slow, Freeze, Burn, Poison, Knockback. Renown, Vow, Oath, Fury and the Hold stay as names, each explained once where it is met.
+  - Short and concrete: what happens and by how much, with the player as "you" or no subject at all. "Stand still to raise your shield: take 60% less damage." "Every 3rd bolt casts twice." "Unlock: clear wave 10."
+  - Numbers as numbers and percents: "25%", "2x", "0.8 s", "5th". Never "a quarter", "half as much again", "a fifth more".
+  - One line each where it can be. A relic or an upgrade says exactly what it does.
+  - A hero's two lines of story keep their flavor, in simple sentences.
+  - This is for what the player reads. Names in the code stay as they are (`quirk`, `move`, `omen`, `kinds`, `gifts`, `boons`), and comments and docs for the owner keep the project's own plain style.
 - **The build stays under 5 MB,** in bytes: `du -sb dist`. `du -sh` counts a whole disk block for each of three hundred small pictures and says a megabyte more.
 - **Comments say why,** in short plain sentences.
 - **Text for the owner and for the docs is plain, and has no em dashes.**

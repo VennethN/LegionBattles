@@ -10,9 +10,9 @@
 // Distances are in the arena's units and times in seconds.
 
 import {
-  ALLY_QUIRKS, ARENA, BAND, BURN_LORE, COMPANIONS, GATHER_SECONDS, HEART, HERO_RADIUS, HERO_SPEED, HURT_GRACE, LATE_COIN, LEECH_GAP, MARK_CLEAR, MARK_SECONDS, MOVE, MOVES, OWN, PICKUP_RADIUS,
-  QUIRKS, RING_SHARE, ENEMIES, byId, coinShare, enemyAt, finishedAs, waveOf, weaponOf,
-  type AllyQuirk, type CompanionDef, type EnemyDef, type MoveDef, type MoveId, type Quirk, type WaveDef, type WeaponDef,
+  ALLY_QUIRKS, ALT, ARENA, BAND, BURN_LORE, COMPANIONS, GATHER_SECONDS, HEART, HERO_RADIUS, HERO_SPEED, HURT_GRACE, LATE_COIN, LEECH_GAP, MARK_CLEAR, MARK_SECONDS, MOVE, MOVES, OWN, PICKUP_RADIUS,
+  QUIRKS, RING_SHARE, ENEMIES, altAt, byId, coinShare, enemyAt, finishedAs, waveOf, weaponOf,
+  type AllyQuirk, type CompanionDef, type Count, type EnemyDef, type MoveDef, type MoveId, type Quirk, type WaveDef, type WeaponDef,
 } from './data';
 import { BAND_UP_LEAST, BREATH, VOW } from './holdData';
 import { countKinds, giftsOf, type Gifts } from './kinds';
@@ -83,6 +83,8 @@ export interface Setup {
   given?: boolean;
   /** The vows the run was sworn under, by name: each is a rule (holdData.ts). */
   vows?: readonly string[];
+  /** True if the hero's own weapon follows its second way (heroes.ts, OWN_ALTS): an oath unlocks the choice. */
+  alt?: boolean;
   /** The share of their health the hero begins the wave with, where that is not all of it: after a forced march, or under a vow that gives no rest between waves. */
   hurt?: number;
   /** True if the Hold's Second Breath is still to be drawn in this run. */
@@ -575,12 +577,20 @@ export class World {
   private readonly vows: ReadonlySet<string>;
   /** What the board gives (see Setup). */
   private readonly furyBy: number;
+  /** True if the hero's own weapon follows its second way. */
+  private readonly alt: boolean;
+  /** True once Orrin's staff has taken the form of a weapon he bought. */
+  private finished = false;
+  /** How many times the damage of the bolt being cast: Orrin's fifth, by the second way. */
+  private surge = 1;
   private readonly bandHp: number;
   private readonly bandDmg: number;
   private readonly bandUp: number;
   /** True once the Hold's Second Breath has been drawn in this wave. */
   breathed = false;
   private breath: boolean;
+  /** What the wave counted of the way the hero was played (heroes.ts, COUNTS): a run adds them up for the oaths. */
+  counts: Partial<Record<Count, number>> = {};
   /** Who has stood on the field in this wave, and how many of each were slain: the Chronicle keeps them. */
   met: string[] = [];
   slain: Record<string, number> = {};
@@ -653,6 +663,7 @@ export class World {
     this.relics = new Set(setup.relics ?? []);
     this.vows = new Set(setup.vows ?? []);
     this.furyBy = Math.max(0, setup.furyBy ?? 1);
+    this.alt = setup.alt ?? false;
     this.bandHp = Math.max(0.1, setup.bandHp ?? 1);
     this.bandDmg = Math.max(0.1, setup.bandDmg ?? 1);
     this.bandUp = Math.max(0, Math.min(1 - BAND_UP_LEAST, setup.bandUp ?? 0));
@@ -684,6 +695,7 @@ export class World {
     };
     // Orrin's staff is finished as the last weapon he bought.
     const taken = this.quirk === 'unfinished' && setup.taken ? weaponOf(setup.taken) : null;
+    this.finished = taken !== null && setup.own !== null && setup.own !== undefined;
     const slot = (c: Carried, own: boolean): Slot => ({ def: own ? finishedAs(weaponOf(c.id), taken) : weaponOf(c.id), tier: c.tier, cool: 0.35, angle: 0, since: 9, own });
     this.slots = [...(setup.own ? [slot(setup.own, true)] : []), ...setup.weapons.map((c) => slot(c, false))];
     this.band = (setup.band ?? []).map((b, i, all) => this.enlist(b, i, all.length));
@@ -698,8 +710,9 @@ export class World {
     this.goldBy = this.omen === 'burning' ? ROAD.burning.coins : 1;
     // What the road puts on the field.
     if (this.omen === 'champions') this.champsDue = ROAD.champions.at.slice(0, ROAD.champions.count).map((share) => share * this.wave.seconds);
-    // Champions Abroad: a champion walks in every wave from the third, but not beside a captain and not on the road that is all champions.
-    else if (this.vows.has('champions') && !this.wave.boss && this.wave.n >= VOW.champion.from) this.champsDue = [VOW.champion.at * this.wave.seconds];
+    // Champions Abroad: a champion walks in every wave from the third, but not beside a captain, not on the road that is all
+    // champions, not into a duel, which is fought alone, and not beside the lone champion of the third wave, who is the vow's own there.
+    else if (this.vows.has('champions') && !this.wave.boss && this.wave.n >= VOW.champion.from && this.omen !== 'duel' && !setup.herald) this.champsDue = [VOW.champion.at * this.wave.seconds];
     if (this.omen === 'wagon') this.wagonDue = ROAD.wagon.at * this.wave.seconds;
     if (this.omen === 'stray' && this.stray) this.cageDue = 1.2;
     if (this.omen === 'duel') this.duelDue = ROAD.duel.at;
@@ -762,7 +775,7 @@ export class World {
       }
       case 'unfinished':
         // Finished as something or not yet.
-        return { on: this.own !== null && this.own.def.says.startsWith('Finished'), share: this.own?.def.says.startsWith('Finished') ? 1 : 0 };
+        return { on: this.finished, share: this.finished ? 1 : 0 };
       case 'double': {
         const share = Math.min(1, this.held / QUIRKS.double.coins / 100 / QUIRKS.double.most);
         return { on: share > 0, share };
@@ -848,13 +861,27 @@ export class World {
     const haste = this.stats.haste + (slot.def.kind === 'ranged' ? this.gifts.bowHaste : 0);
     // Maren's hammer, once it has learned to, is faster while she stands on holy ground.
     const hallowed = slot.own && this.ruled('morningstar', 2) && this.onHoly(this.hero.x, this.hero.y) ? OWN.morningstar.faster : 1;
-    return slot.def.every[slot.tier] / (hasteRate(haste) * set * hallowed * (1 + this.rally));
+    // Hroth's axe, by its second way: faster while he is in debt.
+    const owed = slot.own && this.indebted && this.alted('gravecleaver') ? ALT.gravecleaver.faster : 1;
+    return slot.def.every[slot.tier] / (hasteRate(haste) * set * hallowed * owed * (1 + this.rally));
   }
 
   /** True if the hero's own weapon is this one and has learned its rule: the first at level 5, the second at 10, the third at 15. */
   private ruled(weapon: string, at: 1 | 2 | 3): boolean {
     const own = this.own;
-    return own !== null && own.def.id === weapon && own.tier >= at;
+    // Where the second way was chosen, it stands in for the rule of its level.
+    return own !== null && own.def.id === weapon && own.tier >= at && !(this.alt && altAt(weapon) === at);
+  }
+
+  /** Counts one more of something an oath asks after. */
+  private count(of: Count): void {
+    this.counts[of] = (this.counts[of] ?? 0) + 1;
+  }
+
+  /** True if the hero's own weapon is this one, follows its second way, and has reached the level that comes at. */
+  private alted(weapon: string): boolean {
+    const own = this.own;
+    return this.alt && own !== null && own.def.id === weapon && own.tier >= altAt(weapon);
   }
 
   /** True while Bram's shield is set. */
@@ -2005,7 +2032,9 @@ export class World {
 
   /** What one blow of a companion does: it grows with the hero's level, a share of their Damage, and its bond. */
   allyHarm(a: Ally): number {
-    const by = (1 + (Math.max(-80, this.stats.damage) * BAND.share) / 100) * (1 + BAND.bond * a.bond) * this.bandDmg * (this.has('whistle') ? RELIC.whistle.harder : 1);
+    // The Passing Bell, by its second way: a companion in his fold strikes harder.
+    const fold = this.alted('passingbell') && Math.hypot(a.x - this.hero.x, a.y - this.hero.y) <= QUIRKS.shepherd.r ? ALT.passingbell.harder : 1;
+    const by = fold * (1 + (Math.max(-80, this.stats.damage) * BAND.share) / 100) * (1 + BAND.bond * a.bond) * this.bandDmg * (this.has('whistle') ? RELIC.whistle.harder : 1);
     return Math.max(1, Math.round((a.def.dmg + a.def.grow * this.level) * by));
   }
 
@@ -2395,6 +2424,11 @@ export class World {
         if (this.gifts.free > 0 && this.casts % this.gifts.free === 0) slot.cool = Math.min(slot.cool, 0.12);
       }
       // Orrin's staff, once it has learned to: every third bolt is cast twice.
+      // By its second way, every fifth is one great bolt.
+      if (slot.own && this.alted('unfinished')) {
+        this.spells++;
+        if (this.spells % ALT.unfinished.every === ALT.unfinished.every - 1) this.surge = ALT.unfinished.times;
+      }
       if (slot.own && this.ruled('unfinished', 1)) {
         this.spells++;
         if (this.spells % OWN.unfinished.every === 0) {
@@ -2432,6 +2466,8 @@ export class World {
         // Isaura's lance, couched: one great thrust, and the count begins again.
         const tilted = slot.own && this.couched;
         const great = tilted && this.ruled('ninth', 3);
+        // By its second way nothing can hurt her for a moment after a couched thrust.
+        if (tilted && this.alted('ninth')) h.grace = Math.max(h.grace, ALT.ninth.grace);
         const times = tilted ? (great ? OWN.ninth.times : QUIRKS.tilt.times) : 1;
         const far = range * (great ? OWN.ninth.reach : 1);
         // Everyone in a line from the hero, nearest first, as many as it goes through.
@@ -2452,7 +2488,10 @@ export class World {
         let felled = false;
         for (const f of inLine) {
           this.blow(f, slot, h.x, h.y, times);
-          if (f.dead) felled = true;
+          if (f.dead) {
+            felled = true;
+            if (tilted) this.count('tilt');
+          }
           else if (tilted && this.ruled('ninth', 1)) {
             const d = Math.hypot(f.x - h.x, f.y - h.y) || 1;
             this.shove(f, (f.x - h.x) / d, (f.y - h.y) / d, OWN.ninth.knock);
@@ -2513,7 +2552,9 @@ export class World {
           const q = QUIRKS.consecrate;
           // Once it has learned to, her ground stays holy twice as long.
           const life = q.seconds * (this.ruled('morningstar', 1) ? OWN.morningstar.longer : 1);
-          this.zones.push({ id: this.ids++, x: target.x, y: target.y, r: r + 14, by: Math.max(1, harm * q.harm), life, tick: 0.5, kind: 'holy', mend: q.mends });
+          // By its second way it is wider.
+          const wide = (r + 14) * (this.alted('morningstar') ? ALT.morningstar.wider : 1);
+          this.zones.push({ id: this.ids++, x: target.x, y: target.y, r: wide, by: Math.max(1, harm * q.harm), life, tick: 0.5, kind: 'holy', mend: q.mends });
         }
         break;
       }
@@ -2540,7 +2581,14 @@ export class World {
         break;
       }
       default: {
-        const { amount, crit } = this.roll(slot);
+        const rolled = this.roll(slot);
+        const crit = rolled.crit;
+        // Orrin's great bolt, by his staff's second way.
+        const amount = slot.own && this.surge > 1 ? Math.round(rolled.amount * this.surge) : rolled.amount;
+        if (slot.own && this.surge > 1) {
+          this.surge = 1;
+          this.events.push({ t: 'quirk', on: true });
+        }
         const speed = def.flies ?? 500;
         // The hero's own weapon is in their hand; the rest float beside them.
         // What their own weapon looses leaves from the side the mark is on: their figure turns to it.
@@ -2553,7 +2601,7 @@ export class World {
           id: this.ids++, mine: true, x: x0, y: y0, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, r: 9, dmg: amount, crit,
           // The gift of thrown things: what is thrown straight skips on.
           // Wren's arrows at full Unseen, and the Widow's Tear, go through everyone once they have learned to.
-          pierce: slot.own && ((this.hidden && this.ruled('whisper', 2)) || this.ruled('widowstear', 1)) ? 99 : (def.pierce ?? 0), leaps: (def.leaps ?? 0) + (def.motion === 'shoot' && def.kinds.includes('thrown') ? this.gifts.leaps : 0),
+          pierce: slot.own && ((this.hidden && this.ruled('whisper', 2)) || this.ruled('widowstear', 1)) ? 99 : (def.pierce ?? 0), leaps: (def.leaps ?? 0) + (def.motion === 'shoot' && def.kinds.includes('thrown') ? this.gifts.leaps : 0) + (slot.own && this.hidden && this.alted('whisper') ? ALT.whisper.leaps : 0),
           life: lobbed ? 2 : (range * 1.35) / speed, art: def.shot ?? 'arrow', knock: def.knock, seen: [], from: def, tier: slot.tier, mark: def.motion === 'cast' ? target.id : 0,
           lob: lobbed ? { x0, y0, x1: target.x, y1: target.y, of: Math.max(0.35, Math.min(0.9, far / speed)), at: 0 } : null, chills: 0, by: '', burns: 0,
           split: false, src: 0,
@@ -2587,10 +2635,15 @@ export class World {
       f.slowBy = Math.max(f.slowBy, Math.min(0.85, def.slow + this.gifts.slowBy));
     }
     if (def?.burn) {
-      const fire = this.fireOf(def.burn[tier]) * this.gifts.burnBy;
+      // Nan's staff, by its second way, burns hotter.
+      const fire = this.fireOf(def.burn[tier]) * this.gifts.burnBy * (def.id === 'hearthbrand' && this.alted('hearthbrand') ? ALT.hearthbrand.hotter : 1);
       // Nan: one who burns already, lit again by her own staff, burns hotter, up to so many times the staff's fire.
       const again = this.quirk === 'banked' && def.own && f.burn > 0;
-      f.burnBy = again ? Math.max(f.burnBy, Math.min(fire * QUIRKS.banked.most, Math.max(f.burnBy, fire) + fire * QUIRKS.banked.hotter)) : Math.max(f.burnBy, fire);
+      const most = fire * QUIRKS.banked.most;
+      const was = f.burnBy;
+      f.burnBy = again ? Math.max(f.burnBy, Math.min(most, Math.max(f.burnBy, fire) + fire * QUIRKS.banked.hotter)) : Math.max(f.burnBy, fire);
+      // One banked as high as her fire goes: counted once, when it gets there.
+      if (again && was < most && f.burnBy >= most) this.count('banked');
       f.burn = Math.max(f.burn, 3 + this.gifts.burnMore);
     }
     // A bolt that stuns: Orrin's staff finished as something blunt.
@@ -2605,6 +2658,10 @@ export class World {
       else if (crit && this.coinAt <= 0 && this.ruled('headstails', 1)) {
         this.coinAt = OWN.headstails.gap;
         this.drop('coin', f.x, f.y, 1);
+      } else if (crit && this.coinAt <= 0 && this.alted('headstails')) {
+        // By its second way a critical blow gives him health back, no more often than a coin would fall.
+        this.coinAt = ALT.headstails.gap;
+        this.mend(ALT.headstails.heals);
       }
     }
     if (f.boss && def) this.fill(MOVE.bossBlow);
@@ -2616,6 +2673,7 @@ export class World {
         this.leechAt = this.time + LEECH_GAP;
         this.mend(QUIRKS.gravedebt.mends);
       }
+      if (debt && this.quirk === 'gravedebt') this.count('debt');
       // Whisper, once it has learned to: a kill at full Unseen looses the next arrow at once.
       const own = this.own;
       if (own && def.id === 'whisper' && this.hidden && this.ruled('whisper', 3)) own.cool = Math.min(own.cool, OWN.whisper.again);
@@ -2725,12 +2783,15 @@ export class World {
     if (this.quirk === 'deepcold' && f.frozen > 0) {
       const q = QUIRKS.deepcold;
       const harm = Math.max(1, Math.round(f.maxHp * q.shards));
+      const second = this.alted('widowstear');
       this.events.push({ t: 'burst', x: f.x, y: f.y, r: q.r, kind: 'frost' });
       for (const o of this.foes) {
         if (o.dead || Math.hypot(o.x - f.x, o.y - f.y) > q.r + o.def.r) continue;
         o.slow = Math.max(o.slow, 2);
         o.slowBy = Math.max(o.slowBy, 0.4);
         this.wound(o, harm, false, true);
+        // Her wand, by its second way: those near one that breaks are frozen for a moment, if they can be.
+        if (!o.dead && second && o.numb <= 0) this.freeze(o, ALT.widowstear.freeze);
       }
       // Her wand, once it has learned to: what breaks leaves ice where it stood.
       if (this.ruled('widowstear', 2)) this.zones.push({ id: this.ids++, x: f.x, y: f.y, r: OWN.widowstear.r, by: 0, life: OWN.widowstear.seconds, tick: 0, kind: 'ice', mend: 0 });
@@ -2833,6 +2894,8 @@ export class World {
             // Bram's set shield stops what comes from the side he faces, and once his sword has learned to, throws it back.
             const back = this.ruled('gatekeeper', 1);
             this.events.push({ t: 'block', x: s.x, y: s.y, back });
+            // By its second way a shot stopped fills his fury.
+            if (this.alted('gatekeeper')) this.fill(ALT.gatekeeper.fury);
             if (back) {
               born.push({
                 ...s, id: this.ids++, mine: true, vx: -s.vx * 1.8, vy: -s.vy * 1.8, dmg: this.ownBlow(OWN.gatekeeper.back), life: 1.6, knock: 8, seen: [], from: null, tier: 0, mark: 0, chills: 0,
