@@ -1,4 +1,4 @@
-// The pictures Legion Holdout has that the kit did not: what a hero carries,
+// The pictures Last Stander has that the kit did not: what a hero carries,
 // drawn by itself so that it can float at their side; the things the camp
 // sells; a mark for each of a hero's stats; and the ground of the arena.
 // All of it is drawn with the kit's own pieces, by its rules.

@@ -44,7 +44,9 @@ export interface ArtGame {
   onlyPacks: ReadonlySet<string> | null;
   /** The letters of the grade badges to write, plainest first. None, if the game has no grades. */
   grades: readonly string[];
-  /** The word on the ribbon under LEGION in the logo. */
+  /** The word across the shield in the logo, where a game has a name of its own: LEGION if it is not given. */
+  logoFirst?: string;
+  /** The word on the ribbon under it. */
   logoWord: string;
   scenes: readonly Scene[];
 }
@@ -70,7 +72,8 @@ export const GAME: ArtGame = {
   // A pack is what a boss leaves: one picture serves.
   onlyPacks: new Set(['thornwood']),
   grades: [],
-  logoWord: 'HOLDOUT',
+  logoFirst: 'LAST',
+  logoWord: 'STANDER',
   // The ground of the arena, one picture to each kind of land, lying down for a wide window and stood up for a tall one.
   scenes: GROUNDS.flatMap((ground) =>
     (['wide', 'tall'] as const).map((shape) => {

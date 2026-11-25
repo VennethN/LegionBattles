@@ -33,7 +33,7 @@ src/art/kit/gear.ts      shields, what the other hand holds, what is worn on the
 src/art/kit/beasts.ts    the four-legged build: legs, a barrel of a body, tails, and heads that have no face
 src/art/kit/dice.ts      the same numbers every time, from a seed: what places scenery
 src/art/kit/stance.ts    a build and a stance: any part of the kit drawn leaning, bigger, mid stride
-src/art/kit/heroes.ts    what only the named heroes wear and carry (Legion Holdout)
+src/art/kit/heroes.ts    what only the named heroes wear and carry (Last Stander)
 src/art/kit/unit.ts      what a unit's art is: parts in draw order, each with a role and a pivot
 src/art/units/*.ts       the first cast: one file to a unit (a few hold a family: structures, summoners, faithful, golems)
 src/art/units/figure.ts  a unit from a recipe: a head, a body, a weapon and how it is held, and the rest
@@ -43,7 +43,7 @@ src/art/units/crownlands.ts, wilds.ts, deeps.ts, shores.ts, orders.ts   the sets
 src/art/units/beasts.ts      beasts, and riders on horses
 src/art/units/machines.ts    more golems, and the siege engines
 src/art/units/works.ts       more buildings and traps
-src/art/units/heroes.ts      the ten named heroes of Legion Holdout, each drawn for themselves
+src/art/units/heroes.ts      the ten named heroes of Last Stander, each drawn for themselves
 src/art/units/band.ts        their companions: beasts of the kit made into somebody, and a squire
 src/art/units/notes.ts   each unit's line: its set, its role, how it is read
 src/art/units/index.ts   UNIT_ART: every unit there is
@@ -235,7 +235,7 @@ A weapon held level and long (a couched lance) has to stay on its page: 40 past 
 
 **A beast in mid stride.** `quadruped` takes `gait`: for each of the four legs, how far forward its foot is set and how far its joint is bent back. Without it a beast stands on four straight legs, as the shared ones do.
 
-These files are in Legion Holdout's `src/art`. The copy of the kit in this skill (`assets/kit`) has them only once it has been taken from that project (`scripts/sync.mjs`).
+These files are in Last Stander's `src/art`. The copy of the kit in this skill (`assets/kit`) has them only once it has been taken from that project (`scripts/sync.mjs`).
 
 ## Beasts and riders
 

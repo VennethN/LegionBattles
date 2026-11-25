@@ -222,7 +222,7 @@ export function buildArt(): Manifest {
   // The game's own painted scenes. Each is one picture, loaded by itself when it is wanted and not packed on a sheet.
   for (const scene of GAME.scenes) write(scene.file, scene.svg());
   // The logo, and its mark alone: each one picture, loaded by itself where it is shown.
-  write('logo/logo.svg', logoSvg(GAME.logoWord));
+  write('logo/logo.svg', logoSvg(GAME.logoWord, GAME.logoFirst));
   write('logo/mark.svg', logoMarkSvg());
   const icons = [...iconArt(), ...GAME.icons()].filter((i) => !GAME.onlyIcons || GAME.onlyIcons.has(i.name));
   for (const name of GAME.onlyIcons ?? []) if (!icons.some((i) => i.name === name)) throw new Error(`art: no icon is drawn by the name "${name}"`);

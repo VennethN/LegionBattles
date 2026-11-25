@@ -1,4 +1,4 @@
-# Legion Holdout
+# Last Stander
 
 A hero survival game for the browser. You choose a hero, who has a name, a weapon of their own, a quirk and one great move, and a companion to go with them, and the waves come. You steer; what you carry strikes by itself. Between waves you level and trade in the camp. You hold out for as long as you can.
 
@@ -54,7 +54,7 @@ That is the type check, every test and a build. All three have to pass before a 
 | `npm run smoke` | With `npm run dev` running: plays the game through its own buttons, with keys and mouse and then by touch, and fails if a press does not do what it says. |
 | `npm run film` | With `npm run dev` running: films the game frame by frame to `build/film`, and says how to make a clip of it. It is how the game is seen moving where there is no screen. |
 | `npm run cover` | Draws the three covers a portal asks for to `docs/covers`. |
-| `npm run build:crazygames` | The copy to upload to CrazyGames, into `dist-crazygames`. `npm run package:crazygames` zips it to `build/legion-holdout-crazygames.zip`. |
+| `npm run build:crazygames` | The copy to upload to CrazyGames, into `dist-crazygames`. `npm run package:crazygames` zips it to `build/last-stander-crazygames.zip`. |
 
 ## Where things are
 

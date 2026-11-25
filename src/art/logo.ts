@@ -70,6 +70,13 @@ const LETTERS: Record<string, { w: number; draw: () => Path }> = {
         .M(7.5, 0).L(16.5, 0).L(24, 28).L(15.5, 28).L(14.5, 23.5).L(9.5, 23.5).L(8.5, 28).L(0, 28).Z()
         .M(10.8, 17).L(13.2, 17).L(12, 10.5).Z(),
   },
+  R: {
+    w: 24,
+    draw: () =>
+      path()
+        .M(0, 0).L(12.5, 0).C(19.5, 0, 23, 3.4, 23, 9).C(23, 13, 21, 15.6, 17.8, 16.9).L(24, 28).L(15, 28).L(10.2, 18.2).L(8.5, 18.2).L(8.5, 28).L(0, 28).Z()
+        .M(8.5, 6.8).L(8.5, 11.6).L(11.8, 11.6).C(13.8, 11.6, 14.8, 10.7, 14.8, 9.2).C(14.8, 7.7, 13.8, 6.8, 11.8, 6.8).Z(),
+  },
   T: { w: 23, draw: () => poly([[0, 0], [23, 0], [23, 7.5], [15.75, 7.5], [15.75, 28], [7.25, 28], [7.25, 7.5], [0, 7.5]]) },
   S: {
     w: 24,
@@ -187,14 +194,17 @@ function shield(p: Painter, d: Doc, cx: number, top: number, w: number, h: numbe
   d.piece('shield-star', star(cx, top + h * 0.34, 4, w * 0.2, w * 0.085), GOLD, { shade: 2 });
 }
 
-function paintLogo(d: Doc, pass: 'edge' | 'art', second: string): void {
+function paintLogo(d: Doc, pass: 'edge' | 'art', second: string, first: string): void {
   const p = painter(d, pass);
   const cx = LOGO_W / 2;
   // The standards end behind the word: nothing of them shows under it.
   standard(p, 'blue', [cx + 44, 104], [cx - 60, 12], CLOTH.blue, -1);
   standard(p, 'red', [cx - 44, 104], [cx + 60, 12], CLOTH.red, 1);
   shield(p, d, cx, 6, 96, 112);
-  word(p, 'LEGION', cx, 62, 1.95, 4.5, GOLD, 5);
+  // The family's word is drawn as it always was. Another first word is made as wide as it, up to a height that still clears the ribbon.
+  const raw = [...first].reduce((n, ch) => n + LETTERS[ch].w, 0);
+  const k = first === 'LEGION' ? 1.95 : Math.min(2.1, 232 / raw);
+  word(p, first, cx, 62 - (28 * k - 28 * 1.95) / 2, k, first === 'LEGION' ? 4.5 : 6, GOLD, 5);
   // The ribbon the second word is written on: its two tails first, folded back, then the band over them.
   // It is as long as its word asks: a short word's letters are set a little apart, so that it is not lost on it.
   const ry = 131;
@@ -210,11 +220,11 @@ function paintLogo(d: Doc, pass: 'edge' | 'art', second: string): void {
   if (pass === 'art') word(p, second, cx, ry + 6, 1, gap, BONE, 3);
 }
 
-/** The whole logo. `second` is the word on the ribbon: a sister game keeps the shield and changes it. */
-export function logo(second = 'BATTLES'): Doc {
+/** The whole logo. `second` is the word on the ribbon: a sister game keeps the shield and changes it. `first` is the word across the shield, for a game with a name of its own. */
+export function logo(second = 'BATTLES', first = 'LEGION'): Doc {
   const d = new Doc('logo');
-  paintLogo(d, 'edge', second);
-  paintLogo(d, 'art', second);
+  paintLogo(d, 'edge', second, first);
+  paintLogo(d, 'art', second, first);
   return d;
 }
 
@@ -237,10 +247,10 @@ export function logoMark(): Doc {
 }
 
 /** The logo's file, three times the size it is drawn. */
-export function logoSvg(second = 'BATTLES'): string {
+export function logoSvg(second = 'BATTLES', first = 'LEGION'): string {
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" id="logo" width="${LOGO_W * LOGO_SCALE}" height="${LOGO_H * LOGO_SCALE}" ` +
-    `viewBox="0 0 ${LOGO_W} ${LOGO_H}">\n${logo(second).inner()}\n</svg>\n`
+    `viewBox="0 0 ${LOGO_W} ${LOGO_H}">\n${logo(second, first).inner()}\n</svg>\n`
   );
 }
 
