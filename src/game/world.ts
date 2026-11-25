@@ -362,8 +362,10 @@ const TAU = Math.PI * 2;
  * the first at their side still.
  */
 export function slotPlace(i: number, n: number): { x: number; y: number } {
-  const a = (i * TAU) / Math.max(1, n);
-  return { x: Math.cos(a) * 42, y: -30 + Math.sin(a) * 26 };
+  // A wide ring that leaves the hero's figure clear, begun up and to one side so that none hangs over their head
+  // or under their feet. `i` and `n` count what floats: the hero's own weapon is in their hand, not here.
+  const a = (i * TAU) / Math.max(1, n) - Math.PI / 3;
+  return { x: Math.cos(a) * 66, y: -42 + Math.sin(a) * 44 };
 }
 
 export class World {
@@ -1675,7 +1677,8 @@ export class World {
     slot.angle = angle;
     const ux = Math.cos(angle);
     const uy = Math.sin(angle);
-    const place = slotPlace(i, n);
+    const owned = this.slots[0]?.own ? 1 : 0;
+    const place = slotPlace(Math.max(0, i - owned), n - owned);
     switch (def.motion) {
       case 'thrust': {
         // Everyone in a line from the hero, nearest first, as many as it goes through.
@@ -1740,7 +1743,8 @@ export class World {
         const { amount, crit } = this.roll(slot);
         const speed = def.flies ?? 500;
         // The hero's own weapon is in their hand; the rest float beside them.
-        const x0 = h.x + (slot.own ? h.face * 16 : place.x);
+        // What their own weapon looses leaves from the side the mark is on: their figure turns to it.
+        const x0 = h.x + (slot.own ? (target.x >= h.x ? 16 : -16) : place.x);
         const y0 = h.y + (slot.own ? -26 : place.y);
         const a = Math.atan2(target.y - 14 - y0, target.x - x0) + twist;
         const lobbed = def.motion === 'lob';

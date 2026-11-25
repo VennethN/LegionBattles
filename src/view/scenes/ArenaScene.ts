@@ -29,11 +29,19 @@ import { beginWave, finishWave, save, theRun, theWorld } from '../session';
 import type { HudScene } from './HudScene';
 
 const INV_ART = 1 / ART_SCALE;
-/** How big a figure's canvas is drawn on the field: a hero stands about 64 of the field's units tall. */
-const HERO_SCALE = 0.5;
+/**
+ * How big a figure's canvas is drawn on the field. The hero is drawn a good deal bigger than those who come at
+ * them (about 78 of the field's units tall to their 60): the hero is who the player is and has to be found at a
+ * glance in a crowd. What can hurt them is still the same small circle at their feet (HERO_RADIUS).
+ */
+const HERO_SCALE = 0.6;
+/** A captain's and a companion's figure, before its own size. */
+const FIGURE_SCALE = 0.5;
 const FOE_SCALE = 0.46;
-/** How big what a hero carries is drawn beside them. */
-const WEAPON_SCALE = 0.44;
+/** How big what a hero has bought is drawn beside them: small, so that it does not hide them. */
+const WEAPON_SCALE = 0.3;
+/** How long before their own weapon strikes the figure begins to draw it back. */
+const WINDUP = 0.2;
 
 const WHITE = 0xffffff;
 const RED = hex(RUBY.fill);
@@ -77,7 +85,11 @@ export class ArenaScene extends Phaser.Scene {
   private hero!: Figure;
   private heroBar!: Phaser.GameObjects.Image;
   private heroBarBack!: Phaser.GameObjects.Image;
-  private weapons: Phaser.GameObjects.Image[] = [];
+  /** A picture for each weapon that floats. The hero's own weapon has none: it is in their figure's hand. */
+  private weapons: Array<Phaser.GameObjects.Image | null> = [];
+  /** Which way their own weapon last struck, and for how long the figure goes on facing it. */
+  private aimFace: 1 | -1 = 1;
+  private aimFor = 0;
   private fx!: Effects;
   /** The hour, the lights and what burns (view/light). It is told what the field shows and changes nothing of it. */
   private light!: FieldLight;
@@ -197,13 +209,13 @@ export class ArenaScene extends Phaser.Scene {
     const w = this.world;
     this.add.image(0, 0, groundKey).setOrigin(0, 0).setDisplaySize(w.w, w.h).setDepth(-100);
     const def = heroOf(this.run);
+    // Their own weapon is in their figure's hand, and the figure swings it. What they have bought floats beside them.
     this.hero = new Figure(this, def.unit, 'blue', getManifest().units[def.unit], HERO_SCALE, 'unit', 1);
-    // What the hero carries floats beside them, so the hand that held it in their picture is bare.
-    this.hero.bareHand('icon/fist');
+    this.aimFor = 0;
     this.heroBarBack = this.add.image(0, 0, SHEET, 'fx/solid').setTint(hex(OUTLINE)).setVisible(false);
     this.heroBar = this.add.image(0, 0, SHEET, 'fx/solid').setTint(RED).setOrigin(0, 0.5).setVisible(false);
     w.slots.forEach((slot) => {
-      this.weapons.push(this.add.image(0, 0, SHEET, weaponIcon(slot.def.id)).setScale(WEAPON_SCALE * INV_ART));
+      this.weapons.push(slot.own ? null : this.add.image(0, 0, SHEET, weaponIcon(slot.def.id)).setScale(WEAPON_SCALE * INV_ART));
     });
     this.light = new FieldLight(this, w, def.id);
     this.light.crisp(this.heroBarBack);
@@ -316,6 +328,7 @@ export class ArenaScene extends Phaser.Scene {
         case 'strike': {
           const slot = w.slots[e.slot];
           const melee = slot.def.kind === 'melee';
+          if (slot.own) this.swing(e.angle);
           if (slot.def.motion === 'sweep') {
             this.fx.spawn('fx/slash', h.x + Math.cos(e.angle) * e.range * 0.55, h.y - 24 + Math.sin(e.angle) * e.range * 0.55, {
               dur: 0.16, from: (e.range / 60) * 0.9, to: (e.range / 60) * 1.15, rotation: e.angle, alpha: 0.9, depth: h.y + 40,
@@ -327,6 +340,7 @@ export class ArenaScene extends Phaser.Scene {
           break;
         }
         case 'loose':
+          if (w.slots[e.slot].own) this.swing(e.angle);
           sfx.play(w.slots[e.slot].def.kind === 'magic' ? 'cast' : 'shoot', 0.4, 0.95 + (e.slot % 3) * 0.06);
           break;
         case 'hit': {
@@ -408,6 +422,14 @@ export class ArenaScene extends Phaser.Scene {
     }
   }
 
+  /** Their own weapon strikes that way: the figure turns to it, and its blow lands now. */
+  private swing(angle: number): void {
+    this.aimFace = Math.cos(angle) >= 0 ? 1 : -1;
+    this.aimFor = 0.4;
+    // A blow that was not seen coming (nobody was near a moment ago) is thrown at once.
+    if (!this.hero.acting) this.hero.attack(this.clock, 0.05);
+  }
+
   /** A foe that is about to do something says so on the ground: a line it will run down, a ring it will burst in. */
   private warn(e: Extract<Ev, { t: 'aim' }>): void {
     const f = this.world.foes.find((x) => x.id === e.id);
@@ -472,8 +494,23 @@ export class ArenaScene extends Phaser.Scene {
     const fig = this.hero;
     fig.x = h.x;
     fig.y = h.y;
-    fig.facing = h.face;
+    // They face what they strike while they strike it, and the way they go otherwise.
+    if (this.aimFor > 0) this.aimFor -= dt;
+    fig.facing = this.aimFor > 0 ? this.aimFace : h.face;
     fig.moving = h.moving && !this.halted;
+    // The blow is drawn back a moment before it lands, so that it lands on time: the wave says how long is left.
+    const own = w.own;
+    if (own && !this.halted && own.cool > 0 && own.cool < WINDUP && !fig.acting && h.hp > 0) {
+      const reach = w.rangeOf(own.def) * 1.15;
+      let near: Foe | null = null;
+      for (const f of w.foes) if (!f.dead && Math.hypot(f.x - h.x, f.y - h.y) < reach && (!near || Math.abs(f.x - h.x) < Math.abs(near.x - h.x))) near = f;
+      if (near) {
+        this.aimFace = near.x >= h.x ? 1 : -1;
+        this.aimFor = own.cool + 0.4;
+        fig.facing = this.aimFace;
+        fig.attack(this.clock, own.cool, own.def.motion === 'slam');
+      }
+    }
     // Struck, they flicker for the moment nothing can hurt them.
     fig.alpha = h.unseen > 0 ? 0.35 : h.grace > 0 && Math.floor(this.clock * 20) % 2 === 0 ? 0.55 : 1;
     fig.update(this.clock, dt);
@@ -481,17 +518,23 @@ export class ArenaScene extends Phaser.Scene {
     this.heroBarBack.setVisible(hurt);
     this.heroBar.setVisible(hurt);
     if (hurt) {
-      this.heroBarBack.setPosition(h.x, h.y + 10).setDisplaySize(44, 8).setDepth(h.y + 1);
-      this.heroBar.setPosition(h.x - 20, h.y + 10).setDisplaySize(40 * (h.hp / h.maxHp), 4).setDepth(h.y + 2);
+      this.heroBarBack.setPosition(h.x, h.y + 12).setDisplaySize(52, 8).setDepth(h.y + 1);
+      this.heroBar.setPosition(h.x - 24, h.y + 12).setDisplaySize(48 * (h.hp / h.maxHp), 4).setDepth(h.y + 2);
     }
 
-    // What they carry, each in its place beside them.
+    // What they have bought, each in its place beside them.
     const n = w.slots.length;
+    const owned = own ? 1 : 0;
     for (let i = 0; i < n; i++) {
       const slot = w.slots[i];
       const img = this.weapons[i];
-      const place = slotPlace(i, n);
       const id = slot.def.id;
+      if (!img) {
+        // Their own: where its head is in the figure's hand, for the light it gives.
+        this.carried[i] = { id, x: h.x + fig.muzzleReach, y: h.y - fig.muzzleHeight + 24, rot: 0, seen: h.hp > 0 };
+        continue;
+      }
+      const place = slotPlace(i - owned, n - owned);
       let x = h.x + place.x;
       let y = h.y + place.y + Math.sin(this.clock * 3 + i) * 1.5;
       // It leans out from the hero at rest, and turns to its mark for a moment when it strikes.
@@ -513,8 +556,10 @@ export class ArenaScene extends Phaser.Scene {
         }
       } else if (k > 0) rot = rest + Math.sin(k * Math.PI * 2) * 0.5;
       const pop = slot.def.motion === 'pulse' && k > 0 ? 1 + k * 0.35 : 1;
-      img.setPosition(x, y).setRotation(rot).setScale(WEAPON_SCALE * INV_ART * pop).setDepth(h.y + (place.y > -30 ? 3 : -3));
-      img.setAlpha(fig.alpha).setVisible(h.hp > 0);
+      // Behind the hero when it hangs above their middle, in front when below; and dimmer while it waits, so that the figure is read first.
+      const busy = slot.since < 0.5 ? 1 : 0.72;
+      img.setPosition(x, y).setRotation(rot).setScale(WEAPON_SCALE * INV_ART * pop * (slot.since < hold ? 1.25 : 1)).setDepth(h.y + (place.y > -42 ? 3 : -3));
+      img.setAlpha(fig.alpha * busy).setVisible(h.hp > 0);
       this.carried[i] = { id, x, y, rot, seen: h.hp > 0 };
     }
     this.carried.length = n;
@@ -527,7 +572,7 @@ export class ArenaScene extends Phaser.Scene {
       if (!v) {
         v = { foe: f, img: null, fig: null, flash: 0, born: this.clock, stamp };
         if (f.boss) {
-          v.fig = new Figure(this, f.def.unit, 'red', getManifest().units[f.def.unit], HERO_SCALE * (f.def.size ?? 1.5), 'unit', f.id);
+          v.fig = new Figure(this, f.def.unit, 'red', getManifest().units[f.def.unit], FIGURE_SCALE * (f.def.size ?? 1.5), 'unit', f.id);
         } else v.img = this.take(Sheet.stillFrame('red', f.def.unit, 'a'));
         this.foes.set(f.id, v);
       }
@@ -677,7 +722,7 @@ export class ArenaScene extends Phaser.Scene {
     for (const a of this.world.band) {
       let fig = this.allies.get(a.id);
       if (!fig) {
-        fig = new Figure(this, a.def.unit, 'blue', getManifest().units[a.def.unit], HERO_SCALE * 0.9, 'unit', a.id);
+        fig = new Figure(this, a.def.unit, 'blue', getManifest().units[a.def.unit], FIGURE_SCALE * 0.92, 'unit', a.id);
         this.allies.set(a.id, fig);
       }
       fig.x = a.x;

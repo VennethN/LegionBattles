@@ -285,8 +285,10 @@ describe('weapons', () => {
   it('an arrow stops at the first it hits, and a bolt goes on through three', () => {
     const hits = (id: string): number => {
       const w = new World(setup({ weapons: [{ id, tier: 0 }], stats: stats({ maxHp: 9999 }) }));
+      // In a row level with where the one weapon hangs, so that what it looses flies straight along them.
+      const level = w.hero.y + slotPlace(0, 1).y + 14;
       for (let i = 0; i < 6; i++) {
-        const f = stand(w, 'bruiser', w.hero.x + 120 + i * 30, w.hero.y - 30, { hp: 99999 });
+        const f = stand(w, 'bruiser', w.hero.x + 120 + i * 30, level, { hp: 99999 });
         f.def = { ...f.def, speed: 0 };
       }
       return play(w, 1).filter((e) => e.t === 'hit').length;

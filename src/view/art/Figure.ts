@@ -68,6 +68,10 @@ export class Figure {
   lift = 0;
   /** How see-through it is besides its own fading: 1 is not at all. */
   alpha = 1;
+  /** 0 to 1: how firmly it has set itself behind what its off hand holds. A shield is raised and the knees bend. */
+  brace = 0;
+  /** True while it lies where it was struck down, to get up again: it is not dead and does not fade. */
+  down = false;
 
   private readonly sprites: Phaser.GameObjects.Image[] = [];
   private readonly xf: PartXform[];
@@ -88,6 +92,14 @@ export class Figure {
   private deadAt = -1;
   private quick = false;
   private isGone = false;
+  // Cloth is not posed, it follows: a spring pulled by how the figure moves, so that a cape trails a run, swings on
+  // past when the run stops, and settles.
+  private cloth = 0;
+  private clothV = 0;
+  private lastX = Number.NaN;
+  private runBlend = 0;
+  private downBlend = 0;
+  private shadeOf: number | null = null;
 
   constructor(
     scene: Phaser.Scene,
@@ -156,6 +168,24 @@ export class Figure {
     this.moving = false;
   }
 
+  /** True while a blow is being wound up or is coming back to rest. */
+  get acting(): boolean {
+    return this.actAt >= 0;
+  }
+
+  /** Tints all of it but its shadow: cased in ice, or grey while it is down. Null for its own colors. */
+  shade(color: number | null): void {
+    if (color === this.shadeOf) return;
+    this.shadeOf = color;
+    this.flashOn = false;
+    for (let i = 0; i < this.sprites.length; i++) {
+      if (this.art.parts[i].role === 'shadow') continue;
+      const s = this.sprites[i].setTintMode(Phaser.TintModes.MULTIPLY);
+      if (color === null) s.clearTint();
+      else s.setTint(color);
+    }
+  }
+
   /** Stands it up again as new: a figure that has fallen and gone is used for the next of its kind. */
   revive(): void {
     this.deadAt = -1;
@@ -167,6 +197,8 @@ export class Figure {
     this.moving = false;
     this.cheering = false;
     this.alpha = 1;
+    this.down = false;
+    this.downBlend = 0;
     this.turn = this.facing;
     this.root.setVisible(true);
     this.root.alpha = 1;
@@ -237,6 +269,37 @@ export class Figure {
       this.hopT = 0;
     }
 
+    if (!fixed) {
+      // How fast it is going, forward as it faces: what its cloth is pulled by, and how far it leans into its run.
+      const vx = Number.isNaN(this.lastX) || dt <= 0 ? 0 : (this.x - this.lastX) / dt;
+      this.lastX = this.x;
+      const fwd = Math.max(-1.4, Math.min(1.4, (vx * this.turn) / 170));
+      const run = this.moving && this.deadAt < 0 ? 1 : 0;
+      this.runBlend += (run - this.runBlend) * Math.min(1, dt * 9);
+      p.bodyRot += 6 * this.runBlend * Math.max(0.5, Math.abs(fwd));
+      p.headRot -= 2.5 * this.runBlend;
+      p.weaponRot += 5 * this.runBlend;
+      // The spring: pulled back by a run, and let go when it ends. Two small steps, so that a long frame does not throw it.
+      const pull = fwd * 15 + this.runBlend * 3 * Math.sin(t * 13);
+      const h = Math.min(0.033, dt) / 2;
+      for (let i = 0; i < 2; i++) {
+        this.clothV += ((pull - this.cloth) * 90 - this.clothV * 7.5) * h;
+        this.cloth += this.clothV * h;
+      }
+      p.extraRot += this.cloth;
+      // Set behind a shield: it is brought up and forward, and the figure sinks a little onto bent knees.
+      if (this.brace > 0.01) {
+        const b = this.brace;
+        p.offY -= 7 * b;
+        p.offX += 4 * b;
+        p.offRot -= 5 * b;
+        p.bodySy -= 0.035 * b;
+        p.bodyRot += 3 * b;
+        p.headY += 1.5 * b;
+        p.weaponRot -= 14 * b;
+      }
+    }
+
     // A blow: back, a held breath, then through, to arrive exactly on time.
     let charge = 0;
     if (this.actAt >= 0 && fixed) {
@@ -272,6 +335,12 @@ export class Figure {
         if (r >= 1) this.actAt = -1;
         else {
           addPose(p, poses.strike, (1 - easeOutBack(Math.min(1, r * 1.1))) * reach);
+          // Its weight comes down behind the blow as it lands: wide and low for a moment.
+          const land = Math.max(0, 1 - r * 2.6);
+          p.bodySx += 0.07 * land * land;
+          p.bodySy -= 0.07 * land * land;
+          // And the cloth is thrown on past by it.
+          if (r < 0.12) this.clothV -= 260 * dt * reach;
           charge = Math.max(0, 1 - r * 3);
         }
       }
@@ -302,8 +371,20 @@ export class Figure {
         const s = this.sprites[i];
         if (this.art.parts[i].role === 'shadow') continue;
         if (flash) s.setTint(0xffffff).setTintMode(Phaser.TintModes.FILL);
+        else if (this.shadeOf !== null) s.setTint(this.shadeOf).setTintMode(Phaser.TintModes.MULTIPLY);
         else s.clearTint().setTintMode(Phaser.TintModes.MULTIPLY);
       }
+    }
+
+    // Struck down, to get up again: over on its back, and up with a little spring.
+    this.downBlend += ((this.down ? 1 : 0) - this.downBlend) * Math.min(1, dt * (this.down ? 9 : 6));
+    if (this.downBlend > 0.01 && this.deadAt < 0) {
+      const k = this.downBlend;
+      p.rootRot += -82 * k;
+      p.rootX += -8 * k;
+      p.rootY += -6 * Math.sin(k * Math.PI);
+      p.headRot += -10 * k;
+      p.weaponRot += -30 * k;
     }
 
     // Falling: over backwards, a small bounce, a moment on the ground, gone.
