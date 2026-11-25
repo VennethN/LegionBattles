@@ -8,12 +8,12 @@
 
 import { Doc, cut } from '../kit/draw';
 import { arm, between, blot, boot, chain, face, hem, limb, limbDark, stitches, stud } from '../kit/figure';
-import { BONE, EARTH, GORE, LAMP, LEAD, LEATHER, PALLOR, RUST, SOOT, TALLOW, WOOD } from '../kit/palette';
+import { BLOOD, BONE, EARTH, GORE, LAMP, LEAD, LEATHER, PALLOR, RUST, SNOW, SOOT, TALLOW, WOOD } from '../kit/palette';
 import { poly, type Pt } from '../kit/path';
 import { part, type Move, type UnitArt } from '../kit/unit';
 import { CLAW, FALL, HIT } from '../poses';
 import { pose, type Pose } from '../rig';
-import { PERSON, PERSON_FEET, PERSON_MARGIN } from './hunters';
+import { PERSON, PERSON_FEET, PERSON_MARGIN, lantern } from './hunters';
 
 /** A candle stuck in its own wax, lit. `at` is its foot. */
 function candle(d: Doc, name: string, at: Pt, h: number): void {
@@ -23,7 +23,7 @@ function candle(d: Doc, name: string, at: Pt, h: number): void {
   d.flat(`${name}-heart`, poly([[x - 1.6, y - h - 3], [x, y - h - 11], [x + 1.6, y - h - 3]]), LAMP.hot);
 }
 
-// The Sexton's own movements. His spade is carried blade up, and his far hand holds the bell he rings them up with.
+// The Gravedigger's own movements. His spade is carried blade up, and his far hand holds the bell he rings them up with.
 const SLAM: Move = {
   windup: pose({ weaponRot: -92, weaponY: -20, weaponX: -14, bodyRot: -10, headRot: 8, rootX: -10, legFrontRot: -8, extraRot: 12 }),
   strike: pose({ weaponRot: 66, weaponX: 26, weaponY: 30, bodyRot: 16, bodySy: -0.04, headRot: -10, rootX: 22, legFrontRot: -12, legBackRot: 10, extraRot: -20 }),
@@ -50,7 +50,7 @@ function bone(d: Doc, name: string, a: Pt, b: Pt, w: number): void {
 }
 
 /**
- * The Sexton. A gravedigger grown huge on his work: a back like a barrow, the candles of a hundred burials
+ * The Gravedigger. A gravedigger grown huge on his work: a back like a barrow, the candles of a hundred burials
  * guttering on it and their wax run down him, a head too small and tied shut like a corpse's, bowed legs, one
  * arm so long its knuckles drag, the bell he rings the dead up with in that fist, and a grave spade the size of
  * a door in the other. The cage on his chest is where he keeps what he has taken, and where he can be hurt.
@@ -266,7 +266,7 @@ const sexton: UnitArt = {
 };
 
 /**
- * One of the risen: what gets up when the Sexton rings. Bent at the middle, its head hanging, both arms
+ * One of the risen: what gets up when the Gravedigger rings. Bent at the middle, its head hanging, both arms
  * reaching, the shroud it was sewn into torn open and the earth of its grave still on it.
  */
 const risen: UnitArt = {
@@ -329,4 +329,253 @@ const risen: UnitArt = {
   ],
 };
 
-export const MONSTERS: UnitArt[] = [sexton, risen];
+// The Antlered King's own movements. He goes on four legs, and his weapon is what he wears on his head.
+const K_CHARGE: Move = {
+  // Pawing the ground: his weight back, his head down and the points lowered at what he will run through.
+  windup: pose({ rootX: -20, bodyRot: 9, bodyY: 10, headRot: 26, weaponRot: 8, legFrontRot: 22, legBackRot: -8, extraRot: 10 }),
+  // Flat out: forelegs thrown forward, hind legs behind, everything on him streaming back.
+  strike: pose({ rootX: 34, rootY: -10, bodyRot: 5, headRot: 20, weaponRot: 6, legFrontRot: -40, legBackRot: 36, extraRot: -34 }),
+};
+const K_GORE: Move = {
+  windup: pose({ headRot: -22, weaponRot: -10, bodyRot: -5, rootX: -10, legFrontRot: 6, extraRot: 10 }),
+  strike: pose({ headRot: 30, weaponRot: 16, bodyRot: 7, rootX: 26, legFrontRot: -12, legBackRot: 10, extraRot: -20 }),
+};
+const K_STOMP: Move = {
+  // He rears, and comes down with both forefeet.
+  windup: pose({ rootY: -30, bodyRot: -20, headRot: -8, legFrontRot: -34, legFrontY: -26, legBackRot: 10, extraRot: 14 }),
+  strike: pose({ rootY: 6, bodyRot: 7, bodySy: -0.05, headRot: 14, legFrontRot: 10, legBackRot: -4, extraRot: -18 }),
+};
+const K_BELLOW: Move = {
+  windup: pose({ headRot: 16, bodyRot: 4, bodyY: 4, weaponRot: 4 }),
+  strike: pose({ headRot: -38, weaponRot: -10, bodyRot: -9, bodySy: 0.03, rootX: -6, legFrontRot: -6, extraRot: 12 }),
+};
+/** The other half of his stride: gathered, all four feet under him. With the charge's blow it makes a gallop. */
+const K_GATHER: Pose = pose({ rootX: 10, rootY: 4, bodyRot: -3, headRot: 22, weaponRot: 6, legFrontRot: 30, legBackRot: -34, extraRot: -16 });
+/** What a wall does to him: stopped dead, sat back on his haunches, his head thrown up and aside. */
+const K_DAZE: Pose = pose({ rootX: -26, bodyRot: -15, bodyY: 8, headRot: -34, weaponRot: -14, legFrontRot: -18, legBackRot: 24, extraRot: 26 });
+/** Broken: down on his knees in front, his crown on the ground. */
+const K_STAGGER: Pose = pose({ rootX: 8, bodyRot: 17, bodyY: 34, headRot: 22, headY: 20, weaponRot: 12, legFrontRot: 62, legFrontY: -26, legBackRot: -8, extraRot: -12 });
+
+const K_FEET: Pt = [430, 680];
+
+/** A tine or a beam of antler: a branch that tapers, barked like a tree, with frost along its top. */
+function tine(d: Doc, name: string, a: Pt, b: Pt, w: number): void {
+  d.ink(name, limb(a, b, w, w * 0.22), WOOD, {
+    dark: limbDark(a, b, w, w, name, 0.5), mid: 2, line: 2.2, heavy: 3,
+    inner: (c) => c.flat(`${name}-frost`, limb(between(a, b, 0.2), between(a, b, 0.9), w * 0.5, w * 0.12).translate(w * 0.22, -w * 0.22), SNOW.lit),
+  });
+}
+
+/**
+ * The Antlered King. What a starving winter makes of a great stag, and what it has taken hangs on him: his
+ * antlers have grown into a dead tree, with frost on every branch, and in that tree hang a lost hunter's
+ * lamp still alight, a bell, a snared crow, a rag of the lodge's red. He is all shoulder and no belly, pale as
+ * old snow, his ribs showing, an iron crown grown into his brow. The spears still in his shoulder are where
+ * he can be hurt.
+ */
+const king: UnitArt = {
+  id: 'king',
+  canvas: [860, 720],
+  feet: K_FEET,
+  margin: 190,
+  moves: { charge: K_CHARGE, gore: K_GORE, stomp: K_STOMP, bellow: K_BELLOW },
+  stills: { gather: K_GATHER, daze: K_DAZE, stagger: K_STAGGER, hit: HIT, fall: FALL },
+  muzzle: [760, 470],
+  top: 20,
+  parts: [
+    part('shadow', 'shadow', 'root', K_FEET, (d) => blot(d, [440, 682], 520, 34)),
+    part('tail', 'extra', 'body', [236, 440], (d) => {
+      d.ink('tail', poly([[240, 430], [252, 446], [226, 480], [200, 530], [206, 476]]), BONE, { dark: 0.5, mid: 3, cold: 2.4 });
+    }, 1),
+    part('hind-far', 'legBack', 'root', [300, 470], (d) => {
+      d.ink('thigh', limb([300, 460], [336, 540], 60, 34, 4), BONE, { dark: limbDark([300, 460], [336, 540], 60, 40, 'k-hf-t', 0.7) });
+      d.ink('shank', limb([336, 534], [296, 606], 30, 20), BONE, { dark: limbDark([336, 534], [296, 606], 30, 22, 'k-hf-s', 0.7), mid: 3 });
+      d.ink('cannon', limb([296, 600], [312, 668], 20, 16), BONE, { dark: limbDark([296, 600], [312, 668], 20, 17, 'k-hf-c', 0.7), mid: 3 });
+      d.black('hoof', poly([[298, 664], [326, 662], [334, 680], [296, 680]]));
+    }),
+    part('fore-far', 'legFront', 'root', [500, 450], (d) => {
+      d.ink('arm', limb([500, 440], [486, 566], 58, 36, 4), BONE, { dark: limbDark([500, 440], [486, 566], 58, 40, 'k-ff-a', 0.7) });
+      d.ink('cannon', limb([486, 560], [498, 664], 30, 22), BONE, { dark: limbDark([486, 560], [498, 664], 30, 24, 'k-ff-c', 0.7), mid: 3 });
+      d.black('hoof', poly([[482, 660], [516, 658], [526, 680], [480, 680]]));
+    }),
+    part('body', 'body', 'root', [400, 470], (d) => {
+      // All shoulder: a hump over the forelegs higher than his head, and a loin a man could put his arms round.
+      d.ink('trunk', poly([
+        [240, 430], [300, 396], [380, 350], [450, 270], [520, 236], [580, 262], [612, 330], [618, 430], [590, 520], [540, 552], [460, 530], [380, 500], [310, 512], [262, 496],
+      ]), BONE, {
+        dark: poly([[200, 380], [330, 384], ...cut([340, 400], [600, 560], 'k-trunk', 1, 20), [600, 600], [200, 600]]),
+        mid: 14,
+        cold: 4,
+        open: [[[582, 264], [610, 326]]],
+        inner: (c) => {
+          // Starved: every rib shows, and the hollow behind them.
+          c.black('hollow', poly([[330, 470], [400, 452], [460, 474], [440, 520], [360, 506]]));
+          c.strokes('ribs', [[[420, 392], [398, 470]], [[446, 380], [428, 474]], [[472, 372], [458, 484]], [[498, 368], [488, 494]], [[524, 368], [518, 506]]], 9);
+          c.detail('rib-planes', [[[432, 388], [414, 462]], [[458, 378], [444, 470]], [[484, 372], [474, 480]], [[510, 370], [504, 490]]], BONE, 5);
+          // The spine along his back, and the planes of the shoulder.
+          c.detail('spine', stitches([300, 404], [450, 284], 9, 12, 0.3), BONE, 3);
+          c.detail('shoulder', [[[540, 270], [560, 360]], [[572, 300], [596, 420]], [[560, 420], [540, 520]]], BONE, 6);
+          // Old scars, and mange where the hide has gone.
+          c.strokes('scars', [[[360, 420], [392, 432]], [[366, 432], [396, 446]], [[556, 448], [588, 470]]], 3);
+          c.flat('mange', poly([[330, 400], [372, 386], [384, 420], [346, 436]]), PALLOR.mid, 0.7);
+          // Snow lying on him where he is flat enough to hold it.
+          c.flat('snow', poly([[452, 268], [520, 236], [580, 262], [590, 288], [540, 264], [500, 268], [470, 290]]), SNOW.lit);
+        },
+      });
+      // What is left of a winter coat, shedding off the hump in strips.
+      d.ink('ruff', poly([[470, 262], [520, 240], [584, 270], [606, 330], [596, 380], [580, 352], [566, 396], [548, 356], [530, 404], [516, 352], [498, 388], [486, 330]]), SOOT, {
+        dark: poly([[440, 220], [500, 220], ...cut([506, 244], [520, 410], 'k-ruff', -1, 10), [440, 420]]), mid: 6, cold: 3,
+        inner: (c) => {
+          c.detail('ruff-hair', [[[530, 262], [540, 340]], [[556, 266], [566, 340]], [[580, 286], [588, 340]]], SOOT, 4);
+          c.flat('ruff-snow', poly([[496, 250], [524, 240], [570, 262], [540, 258], [510, 264]]), SNOW.lit);
+        },
+      });
+    }),
+    part('spears', 'extra', 'body', [520, 330], (d) => {
+      // The spears of those who came before, broken off in his shoulder, and the wound that has never closed.
+      d.ink('wound', poly([[496, 318], [530, 306], [552, 326], [546, 356], [514, 364], [494, 344]]), GORE, { dark: false, line: 2, heavy: 3, inner: (c) => c.flat('wound-deep', poly([[508, 326], [532, 320], [540, 340], [518, 350]]), GORE.mid) });
+      d.ink('shaft-a', limb([516, 332], [470, 204], 9, 8), WOOD, { dark: limbDark([516, 332], [470, 204], 9, 9, 'k-sp-a', 0.4), mid: 0, line: 1.8, heavy: 2.4 });
+      d.ink('shaft-b', limb([532, 338], [520, 190], 9, 8), WOOD, { dark: limbDark([532, 338], [520, 190], 9, 9, 'k-sp-b', 0.4), mid: 0, line: 1.8, heavy: 2.4 });
+      d.black('break-a', poly([[462, 206], [478, 200], [470, 190], [466, 198]]));
+      d.ink('rag', poly([[520, 200], [508, 214], [488, 250], [500, 244], [498, 268], [512, 240], [522, 222]]), BLOOD, { dark: 0.45, mid: 2, line: 1.6, heavy: 2.2 });
+    }, 0.1),
+    part('strips', 'extra', 'body', [420, 500], (d) => {
+      // Hide hanging off his belly in strips, frozen stiff.
+      d.ink('strips', poly([[380, 498], [460, 526], [540, 548], [536, 574], [520, 610], [512, 572], [492, 600], [484, 560], [460, 592], [452, 546], [428, 576], [420, 530], [398, 552]]), SOOT, { dark: 0.4, mid: 4, inner: (c) => c.flat('ice', poly([[500, 580], [514, 584], [508, 606]]), SNOW.lit) });
+    }, 0.7),
+    part('hind-near', 'legBack', 'root', [280, 470], (d) => {
+      d.ink('thigh', limb([280, 456], [322, 544], 70, 38, 5), BONE, {
+        dark: limbDark([280, 456], [322, 544], 70, 44, 'k-hn-t', 0.42), cold: 3,
+        inner: (c) => c.detail('thigh-planes', [[[300, 470], [326, 530]]], BONE, 5),
+      });
+      d.ink('shank', limb([322, 538], [276, 612], 32, 22), BONE, { dark: limbDark([322, 538], [276, 612], 32, 24, 'k-hn-s', 0.42), mid: 3 });
+      d.ink('cannon', limb([276, 606], [296, 668], 22, 17), BONE, { dark: limbDark([276, 606], [296, 668], 22, 18, 'k-hn-c', 0.42), mid: 3, inner: (c) => c.detail('tendon', [[[280, 612], [296, 660]]], BONE, 3) });
+      d.black('hoof', poly([[280, 664], [312, 662], [322, 680], [278, 680]]));
+      d.flat('hoof-snow', poly([[274, 676], [326, 676], [330, 682], [270, 682]]), SNOW.mid);
+    }),
+    part('fore-near', 'legFront', 'root', [556, 460], (d) => {
+      d.ink('arm', limb([556, 446], [566, 572], 68, 40, 5), BONE, {
+        dark: limbDark([556, 446], [566, 572], 68, 46, 'k-fn-a', 0.4),
+        inner: (c) => c.detail('arm-planes', [[[566, 460], [576, 550]], [[548, 480], [552, 540]]], BONE, 5),
+      });
+      d.ink('knee', poly([[546, 560], [588, 556], [592, 590], [550, 594]]), BONE, { dark: 0.4, mid: 4 });
+      d.ink('cannon', limb([568, 586], [560, 664], 34, 26), BONE, { dark: limbDark([568, 586], [560, 664], 34, 28, 'k-fn-c', 0.4), mid: 3, inner: (c) => c.detail('tendon', [[[572, 596], [566, 656]]], BONE, 3) });
+      d.black('hoof', poly([[540, 658], [582, 656], [596, 680], [538, 680]]));
+      d.strokes('cleft', [[[566, 660], [570, 680]]], 4, BONE.mid);
+      d.flat('hoof-snow', poly([[532, 676], [600, 676], [604, 682], [528, 682]]), SNOW.mid);
+    }),
+    part('head', 'head', 'body', [604, 350], (d) => {
+      // A long heavy head, carried low. Under the brow there is nothing to see.
+      d.ink('neck', poly([[580, 290], [640, 300], [660, 380], [620, 440], [584, 420]]), BONE, { dark: 0.36, mid: 6, inner: (c) => c.detail('neck-cords', [[[600, 310], [612, 420]], [[624, 320], [632, 410]]], BONE, 5) });
+      d.ink('skull', poly([[610, 300], [668, 296], [704, 338], [740, 420], [752, 470], [730, 496], [700, 490], [668, 456], [632, 440], [610, 396]]), BONE, {
+        dark: poly([[590, 280], [650, 280], ...cut([650, 300], [690, 500], 'k-skull', -1, 8), [590, 500]]),
+        mid: 6,
+        inner: (c) => {
+          // The socket: black from the brow back, as on everything in this style.
+          c.black('socket', poly([[664, 318], [706, 342], [716, 372], [692, 384], [668, 366], [654, 340]]));
+          c.flat('cheek-plane', poly([[690, 392], [724, 410], [736, 452], [706, 470], [680, 440]]), BONE.mid);
+          c.strokes('muzzle-lines', [[[736, 430], [716, 436]], [[746, 462], [724, 470]]], 3.4);
+          c.detail('face-cracks', [[[700, 400], [712, 430]], [[676, 420], [684, 446]]], BONE, 3);
+        },
+      });
+      d.black('nostril', poly([[738, 470], [750, 466], [750, 478], [740, 482]]));
+      // His breath, in the cold.
+      d.flat('breath', poly([[754, 470], [786, 452], [808, 462], [822, 446], [830, 466], [806, 484], [780, 480]]), SNOW.lit, 0.35);
+      // A beard of hair and ice under his jaw.
+      d.ink('beard', poly([[664, 456], [700, 490], [730, 496], [722, 520], [712, 560], [704, 524], [694, 566], [686, 520], [674, 548], [668, 500]]), SOOT, { dark: 0.4, mid: 4, inner: (c) => c.flat('beard-ice', poly([[706, 536], [714, 532], [712, 560]]), SNOW.lit) });
+      // The crown: iron, grown into his brow, rusted, its points bent.
+      d.ink('crown', poly([[604, 302], [610, 270], [624, 286], [632, 258], [646, 284], [660, 256], [668, 284], [684, 270], [682, 304], [644, 312]]), LEAD, {
+        dark: 0.36, mid: 4, rim: 2,
+        inner: (c) => {
+          c.flat('crown-rust', poly([[604, 296], [640, 304], [684, 296], [684, 312], [604, 312]]), RUST.mid);
+          c.detail('crown-pits', [[[618, 282], [622, 296]], [[652, 276], [656, 294]]], LEAD, 3);
+        },
+      });
+      d.ink('ear', poly([[600, 318], [572, 300], [556, 318], [586, 340]]), BONE, { dark: 0.5, mid: 3, cold: 2 });
+    }),
+    part('antlers', 'weapon', 'head', [644, 290], (d) => {
+      // The far beam first, then the near: a dead tree's worth, frosted, spread wide enough to fill a lane.
+      tine(d, 'far-beam', [628, 284], [596, 150], 36);
+      tine(d, 'far-beam-2', [598, 158], [640, 40], 28);
+      tine(d, 'far-t1', [606, 190], [540, 120], 20);
+      tine(d, 'far-t2', [612, 110], [566, 30], 17);
+      tine(d, 'far-t3', [628, 70], [680, -10], 14);
+      tine(d, 'near-beam', [656, 286], [722, 170], 42);
+      tine(d, 'near-beam-2', [718, 178], [800, 60], 34);
+      tine(d, 'near-t1', [686, 232], [640, 130], 20);
+      tine(d, 'near-t2', [712, 190], [780, 180], 22);
+      tine(d, 'near-t3', [740, 146], [716, 40], 20);
+      tine(d, 'near-t4', [768, 104], [846, 96], 20);
+      tine(d, 'near-t5', [790, 74], [800, -24], 17);
+      tine(d, 'brow', [664, 280], [760, 300], 22);
+      tine(d, 'brow-2', [742, 296], [800, 250], 14);
+    }),
+    part('lamp', 'extra', 'weapon', [782, 182], (d) => lantern(d, 'lamp', [782, 182], 2.2), 0.7, true),
+    part('bell', 'extra', 'weapon', [642, 132], (d) => {
+      chain(d, 'bell-chain', [642, 132], [642, 164], 7);
+      d.ink('bell', poly([[630, 164], [654, 164], [660, 190], [668, 206], [616, 206], [624, 190]]), LEAD, { dark: 0.4, mid: 3, rim: 1.6, inner: (c) => c.flat('bell-rust', poly([[640, 190], [662, 194], [668, 208], [640, 208]]), RUST.mid) });
+      d.black('clapper', poly([[638, 206], [646, 206], [645, 216], [639, 216]]));
+    }, 0.9, true),
+    part('crow', 'extra', 'weapon', [844, 100], (d) => {
+      // A crow, caught in a snare and frozen there, head down.
+      d.pen('snare', poly([[844, 100], [842, 126]], false), 2);
+      d.black('crow', poly([[838, 126], [848, 126], [856, 150], [866, 176], [850, 168], [846, 190], [838, 170], [826, 180], [834, 150]]));
+      d.flat('crow-frost', poly([[840, 130], [846, 130], [850, 148], [842, 146]]), SNOW.mid);
+    }, 1, true),
+    part('pennon', 'extra', 'weapon', [566, 36], (d) => {
+      d.ink('pennon', poly([[566, 34], [574, 40], [560, 70], [544, 110], [548, 80], [536, 96], [546, 60]]), BLOOD, { dark: 0.45, mid: 2, line: 1.6, heavy: 2.2 });
+    }, 1.2, true),
+  ],
+};
+
+/**
+ * One of the herd: the dead of the winter wood, that run the field in lanes when he calls. A hart with nothing
+ * left on it but hide and frost, its head down, running.
+ */
+const herdbeast: UnitArt = {
+  id: 'herdbeast',
+  canvas: PERSON,
+  feet: PERSON_FEET,
+  margin: PERSON_MARGIN,
+  moves: { run: { windup: pose({ legFrontRot: 30, legBackRot: -30, rootY: 3, bodyRot: -3 }), strike: pose({ legFrontRot: -36, legBackRot: 34, rootY: -6, bodyRot: 4, extraRot: -20 }) } },
+  stills: { hit: HIT, fall: FALL },
+  muzzle: [214, 150],
+  top: 96,
+  parts: [
+    part('shadow', 'shadow', 'root', [128, 240], (d) => blot(d, [128, 240], 130, 10)),
+    part('hind', 'legBack', 'root', [84, 170], (d) => {
+      d.ink('thigh', limb([86, 166], [96, 198], 20, 11, 1), BONE, { dark: limbDark([86, 166], [96, 198], 20, 13, 'hb-ht', 0.5), mid: 2 });
+      d.ink('shank', limb([96, 196], [80, 218], 10, 7), BONE, { dark: 0.5, mid: 0, line: 2, heavy: 2.6 });
+      d.ink('cannon', limb([80, 216], [88, 238], 7, 6), BONE, { dark: 0.5, mid: 0, line: 2, heavy: 2.6 });
+      d.black('hoof', poly([[84, 234], [94, 234], [96, 240], [82, 240]]));
+    }),
+    part('body', 'body', 'root', [124, 168], (d) => {
+      d.ink('trunk', poly([[72, 160], [100, 150], [150, 146], [176, 154], [180, 176], [160, 190], [120, 180], [90, 184]]), BONE, {
+        dark: poly([[60, 172], ...cut([70, 174], [186, 186], 'hb-trunk', 1, 4), [186, 200], [60, 200]]), cold: 2,
+        inner: (c) => {
+          c.strokes('ribs', [[[128, 152], [124, 178]], [[140, 152], [138, 182]], [[152, 152], [152, 184]]], 3);
+          c.black('hollow', poly([[94, 172], [116, 166], [120, 182], [98, 184]]));
+          c.flat('frost', poly([[100, 150], [150, 146], [170, 152], [140, 152], [104, 156]]), SNOW.lit);
+        },
+      });
+      d.ink('tail', poly([[72, 158], [78, 166], [62, 178]]), BONE, { dark: 0.5, mid: 0, line: 1.8, heavy: 2.4 });
+    }),
+    part('fore', 'legFront', 'root', [164, 176], (d) => {
+      d.ink('arm', limb([164, 172], [170, 210], 14, 8, 1), BONE, { dark: limbDark([164, 172], [170, 210], 14, 9, 'hb-fa', 0.4), mid: 2 });
+      d.ink('cannon', limb([170, 208], [166, 238], 7, 6), BONE, { dark: 0.4, mid: 0, line: 2, heavy: 2.6 });
+      d.black('hoof', poly([[162, 234], [172, 234], [174, 240], [160, 240]]));
+    }),
+    part('head', 'head', 'body', [176, 156], (d) => {
+      d.ink('neck', poly([[166, 148], [184, 144], [196, 152], [184, 170], [170, 168]]), BONE, { dark: 0.4, mid: 2 });
+      d.ink('skull', poly([[184, 138], [200, 138], [214, 152], [220, 164], [208, 170], [194, 160], [184, 154]]), BONE, {
+        dark: false, line: 2.2, heavy: 3,
+        inner: (c) => c.black('socket', poly([[190, 142], [202, 146], [204, 154], [194, 154]])),
+      });
+      d.ink('antler-a', limb([190, 140], [176, 108], 6, 2), WOOD, { dark: 0.5, mid: 0, line: 1.8, heavy: 2.4 });
+      d.ink('antler-b', limb([196, 138], [204, 102], 6, 2), WOOD, { dark: 0.3, mid: 0, line: 1.8, heavy: 2.4 });
+      d.ink('antler-c', limb([200, 122], [216, 114], 4, 1.5), WOOD, { dark: false, line: 1.6, heavy: 2 });
+    }),
+  ],
+};
+
+export const MONSTERS: UnitArt[] = [sexton, risen, king, herdbeast];

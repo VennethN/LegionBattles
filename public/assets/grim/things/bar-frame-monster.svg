@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bar-frame-monster" width="520" height="38" viewBox="0 0 520 38">
+<defs>
+<path id="bar-frame-monster-frame-shape" d="M 2 4 L 516 2 L 518 34 L 4 36 Z"/>
+<clipPath id="bar-frame-monster-frame-clip"><use href="#bar-frame-monster-frame-shape"/></clipPath>
+<path id="bar-frame-monster-post-1-shape" d="M 172.7 3 L 180.7 3 L 181.7 35 L 171.7 35 Z"/>
+<clipPath id="bar-frame-monster-post-1-clip"><use href="#bar-frame-monster-post-1-shape"/></clipPath>
+<path id="bar-frame-monster-post-2-shape" d="M 339.3 3 L 347.3 3 L 348.3 35 L 338.3 35 Z"/>
+<clipPath id="bar-frame-monster-post-2-clip"><use href="#bar-frame-monster-post-2-shape"/></clipPath>
+</defs>
+<g id="bar-frame-monster-frame">
+<use id="bar-frame-monster-frame-line" href="#bar-frame-monster-frame-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-frame-monster-frame-clip)">
+<use id="bar-frame-monster-frame-lit" href="#bar-frame-monster-frame-shape" fill="#8c9194"/>
+<use id="bar-frame-monster-frame-rim" href="#bar-frame-monster-frame-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bar-frame-monster-frame-lit-over" href="#bar-frame-monster-frame-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="bar-frame-monster-frame-mid" d="M 0 22.8 L 520 21.3 L 520 38 L 0 38 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="bar-frame-monster-frame-dark" d="M 0 22.8 L 520 21.3 L 520 38 L 0 38 Z" fill="#14110f"/>
+<path id="bar-frame-monster-rust" d="M 156 22.8 L 260 22 L 260 38 L 156 38 Z" fill="#6a3b24" opacity="0.6"/>
+</g>
+</g>
+<path id="bar-frame-monster-trough" d="M 10 9 L 510 8 L 510 29 L 10 30 Z" fill="#14110f"/>
+<g id="bar-frame-monster-post-1">
+<use id="bar-frame-monster-post-1-line" href="#bar-frame-monster-post-1-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-frame-monster-post-1-clip)">
+<use id="bar-frame-monster-post-1-lit" href="#bar-frame-monster-post-1-shape" fill="#8c9194"/>
+<path id="bar-frame-monster-post-1-dark" d="M 159.7 -1 L 174 -1.1 L 175.6 12.9 L 174.6 14.4 L 177.3 39.1 L 159.7 39 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bar-frame-monster-post-1-nail" d="M 174.7 19 L 176.7 17 L 178.7 19 L 176.7 21 Z" fill="#14110f"/>
+<g id="bar-frame-monster-post-2">
+<use id="bar-frame-monster-post-2-line" href="#bar-frame-monster-post-2-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-frame-monster-post-2-clip)">
+<use id="bar-frame-monster-post-2-lit" href="#bar-frame-monster-post-2-shape" fill="#8c9194"/>
+<path id="bar-frame-monster-post-2-dark" d="M 326.3 -1 L 340.9 -1.1 L 343 18 L 341.6 19.8 L 343.8 39.1 L 326.3 39 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bar-frame-monster-post-2-nail" d="M 341.3 19 L 343.3 17 L 345.3 19 L 343.3 21 Z" fill="#14110f"/>
+<path id="bar-frame-monster-caps-0" d="M 4 19 L 6 17 L 8 19 L 6 21 Z" fill="#14110f"/>
+</svg>

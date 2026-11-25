@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sapper-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="sapper-body-coat-shape" d="M 104 116 L 148 106 L 166 132 L 160 176 L 106 186 L 98 148 Z"/>
+<clipPath id="sapper-body-coat-clip"><use href="#sapper-body-coat-shape"/></clipPath>
+<path id="sapper-body-apron-shape" d="M 130 130 L 162 126 L 164 190 L 150 196 L 144 186 L 134 192 Z"/>
+<clipPath id="sapper-body-apron-clip"><use href="#sapper-body-apron-shape"/></clipPath>
+<path id="sapper-body-belt-shape" d="M 99.7 152.5 L 161.7 146.5 L 162.3 153.5 L 100.3 159.5 Z"/>
+<clipPath id="sapper-body-belt-clip"><use href="#sapper-body-belt-shape"/></clipPath>
+<path id="sapper-body-belt-buckle-shape" d="M 119.6 148.4 L 130.1 148.9 L 129.5 158.9 L 120.1 158.3 Z"/>
+<clipPath id="sapper-body-belt-buckle-clip"><use href="#sapper-body-belt-buckle-shape"/></clipPath>
+<path id="sapper-body-pouch-shape" d="M 105 158 L 119 158 L 119.8 169.2 L 116.2 174 L 107 174 L 104.2 169.2 Z"/>
+<clipPath id="sapper-body-pouch-clip"><use href="#sapper-body-pouch-shape"/></clipPath>
+</defs>
+<g id="sapper-body-coat">
+<use id="sapper-body-coat-line" href="#sapper-body-coat-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sapper-body-coat-clip)">
+<use id="sapper-body-coat-lit" href="#sapper-body-coat-shape" fill="#9a5b38"/>
+<path id="sapper-body-coat-mid" d="M 84 100 L 116 100 L 118.7 109.9 L 120.7 150.1 L 115.6 156.3 L 117.3 190.1 L 84 192 Z" transform="translate(9 -2.16)" fill="#6a3b24"/>
+<path id="sapper-body-coat-dark" d="M 84 100 L 116 100 L 118.7 109.9 L 120.7 150.1 L 115.6 156.3 L 117.3 190.1 L 84 192 Z" fill="#14110f"/>
+<path id="sapper-body-coat-seams" d="M 139.1 112.1 L 146 180 L 140.9 111.9 Z M 153.8 139.1 L 130 146 L 154.2 140.9 Z" fill="#6a3b24"/>
+<path id="sapper-body-coat-cold" d="M 58 66 L 206 66 L 206 226 L 58 226 Z M 105.9 114.6 L 149.9 104.6 L 167.9 130.6 L 161.9 174.6 L 107.9 184.6 L 99.9 146.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="sapper-body-apron">
+<use id="sapper-body-apron-line" href="#sapper-body-apron-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sapper-body-apron-clip)">
+<use id="sapper-body-apron-lit" href="#sapper-body-apron-shape" fill="#7b5b3d"/>
+<path id="sapper-body-apron-mid" d="M 118 122 L 131.2 121.6 L 137.8 155.7 L 134.8 160.7 L 142.4 200.4 L 118 200 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="sapper-body-apron-dark" d="M 118 122 L 131.2 121.6 L 137.8 155.7 L 134.8 160.7 L 142.4 200.4 L 118 200 Z" fill="#14110f"/>
+<path id="sapper-body-scorch" d="M 146 150 L 152 148 L 153 158 L 147 160 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sapper-body-belt">
+<use id="sapper-body-belt-line" href="#sapper-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sapper-body-belt-clip)">
+<use id="sapper-body-belt-lit" href="#sapper-body-belt-shape" fill="#4f4944"/>
+<path id="sapper-body-belt-dark" d="M 96.9 154.8 L 139 150.7 L 140.3 151.7 L 164.9 149.3 L 165.6 155.7 L 97.6 162.3 Z" fill="#14110f"/>
+<path id="sapper-body-belt-stitch" d="M 106 154.2 L 106.9 156.6 L 107.2 154 Z M 112.1 153.6 L 112.9 156 L 113.3 153.4 Z M 118.2 153 L 119 155.4 L 119.4 152.9 Z M 124.2 152.4 L 125.1 154.8 L 125.4 152.3 Z M 130.3 151.8 L 131.1 154.3 L 131.5 151.7 Z M 136.3 151.2 L 137.2 153.7 L 137.5 151.1 Z M 142.4 150.6 L 143.2 153.1 L 143.6 150.5 Z M 148.5 150 L 149.3 152.5 L 149.7 149.9 Z M 154.5 149.5 L 155.4 151.9 L 155.7 149.3 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="sapper-body-belt-buckle">
+<use id="sapper-body-belt-buckle-line" href="#sapper-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sapper-body-belt-buckle-clip)">
+<use id="sapper-body-belt-buckle-lit" href="#sapper-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="sapper-body-belt-buckle-dark" d="M 107.6 144.4 L 120.6 144.4 L 124.8 162.9 L 107.6 162.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sapper-body-belt-pin" d="M 122.2 152.8 L 128.5 153.2 L 128.5 154.4 L 122.2 154.2 Z" fill="#14110f"/>
+<g id="sapper-body-pouch">
+<use id="sapper-body-pouch-line" href="#sapper-body-pouch-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sapper-body-pouch-clip)">
+<use id="sapper-body-pouch-lit" href="#sapper-body-pouch-shape" fill="#7b5b3d"/>
+<path id="sapper-body-pouch-mid" d="M 92.2 154 L 106.6 154 L 113 178 L 92.2 178 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="sapper-body-pouch-dark" d="M 92.2 154 L 106.6 154 L 113 178 L 92.2 178 Z" fill="#14110f"/>
+<path id="sapper-body-pouch-flap" d="M 103.6 157 L 120.4 157 L 119 164.7 L 112 167 L 105 164.7 Z" fill="#553d29"/>
+<path id="sapper-body-pouch-seam" d="M 107.1 171.2 L 107.7 173.6 L 108.2 171.2 Z M 109.7 171.2 L 110.3 173.6 L 110.8 171.2 Z M 112.3 171.2 L 112.9 173.6 L 113.4 171.2 Z M 114.9 171.2 L 115.5 173.6 L 116 171.2 Z" fill="#553d29"/>
+</g>
+</g>
+<path id="sapper-body-pouch-toggle" d="M 110.4 166 L 112 164.4 L 113.6 166 L 112 167.6 Z" fill="#14110f"/>
+</svg>

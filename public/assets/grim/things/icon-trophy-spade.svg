@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trophy-spade" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trophy-spade-shaft-shape" d="M 36 62 L 35.5 34 L 28.5 34 L 28 62 Z"/>
+<clipPath id="icon-trophy-spade-shaft-clip"><use href="#icon-trophy-spade-shaft-shape"/></clipPath>
+<path id="icon-trophy-spade-blade-shape" d="M 14 36 L 12 26 L 18 10 L 32 0 L 46 10 L 52 26 L 50 36 L 38 32 L 26 32 Z"/>
+<clipPath id="icon-trophy-spade-blade-clip"><use href="#icon-trophy-spade-blade-shape"/></clipPath>
+<path id="icon-trophy-spade-step-shape" d="M 10 32 L 54 32 L 52 40 L 12 40 Z"/>
+<clipPath id="icon-trophy-spade-step-clip"><use href="#icon-trophy-spade-step-shape"/></clipPath>
+</defs>
+<g id="icon-trophy-spade-shaft">
+<use id="icon-trophy-spade-shaft-line" href="#icon-trophy-spade-shaft-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-spade-shaft-clip)">
+<use id="icon-trophy-spade-shaft-lit" href="#icon-trophy-spade-shaft-shape" fill="#6f5c46"/>
+<path id="icon-trophy-spade-shaft-dark" d="M 16 30 L 29.2 30 L 29.9 46.1 L 28.9 47.4 L 29.7 66 L 16 66 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trophy-spade-blade">
+<use id="icon-trophy-spade-blade-line" href="#icon-trophy-spade-blade-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-spade-blade-clip)">
+<use id="icon-trophy-spade-blade-lit" href="#icon-trophy-spade-blade-shape" fill="#8c9194"/>
+<use id="icon-trophy-spade-blade-rim" href="#icon-trophy-spade-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-trophy-spade-blade-lit-over" href="#icon-trophy-spade-blade-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="icon-trophy-spade-blade-mid" d="M 6 0 L 28 0 L 29.2 1.9 L 29.9 15.1 L 27.7 17.8 L 28.8 40.1 L 6 40 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="icon-trophy-spade-blade-dark" d="M 6 0 L 28 0 L 29.2 1.9 L 29.9 15.1 L 27.7 17.8 L 28.8 40.1 L 6 40 Z" fill="#14110f"/>
+<path id="icon-trophy-spade-rust" d="M 34 20 L 46 20 L 48 34 L 36 32 Z" fill="#6a3b24"/>
+</g>
+</g>
+<g id="icon-trophy-spade-step">
+<use id="icon-trophy-spade-step-line" href="#icon-trophy-spade-step-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-spade-step-clip)">
+<use id="icon-trophy-spade-step-lit" href="#icon-trophy-spade-step-shape" fill="#8c9194"/>
+<path id="icon-trophy-spade-step-dark" d="M -2 28 L 15.2 28 L 16.7 44 L -2 44 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

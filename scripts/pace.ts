@@ -73,6 +73,44 @@ function shares(o: Out, key: 'dealt' | 'taken'): string {
   return Object.entries(by).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${k} ${Math.round((n / (all || 1)) * 100)}%`).join(', ');
 }
 
+if (flag('lesson') || flag('opening')) {
+  // The opening hunts: the lesson with its steps, by a careful player and a careless one, and how long each step took;
+  // then the Gravedigger for real with what the second and the third hunt allow.
+  for (const [name, opts] of [['careful', {}], ['careless', { react: 0.4, slip: 0.2 }]] as const) {
+    let won = 0;
+    let time = 0;
+    let least = 1;
+    const steps: Record<string, number> = {};
+    for (let i = 0; i < runs; i++) {
+      const h = new Hunt({ seed: 1000 + i * 37, monster: 'sexton', mark: 1, hunter: 'marta', reinforcements: [], buildings: [], lesson: 'first' });
+      const b = new Bot(i * 7 + 3, opts);
+      let since = 0;
+      for (let t = 0; t < 600 && !h.over; t += STEP) {
+        h.step(b.steer(h));
+        least = Math.min(least, h.hunter.hp / h.hunter.maxHp);
+        for (const e of h.drain()) if (e.t === 'learned') {
+          steps[e.id] = (steps[e.id] ?? 0) + (h.time - since);
+          since = h.time;
+        }
+      }
+      if (h.over === 'won') {
+        won++;
+        time += h.tally.time;
+      }
+    }
+    console.log(`the lesson, ${name}: won ${won}/${runs}, ${(time / Math.max(1, won) / 60).toFixed(1)} minutes, lowest health ${Math.round(least * 100)}%`);
+    console.log(`  seconds a step: ${Object.entries(steps).map(([k, v]) => `${k} ${(v / runs).toFixed(1)}`).join(', ')}`);
+  }
+  for (const [name, base] of [
+    ['second hunt (a barricade)', { reinforcements: [], buildings: [{ id: 'barricade', n: 1 }] }],
+    ['third hunt (and spearmen)', { reinforcements: [{ id: 'pikemen', charges: 1 }], buildings: [{ id: 'barricade', n: 1 }] }],
+  ] as const) {
+    const o = measure({ monster: 'sexton', mark: 1, hunter: 'marta', ...base });
+    console.log(`${name}: the Gravedigger at difficulty 1: won ${pct(o.won)}, ${mins(o)}, killed by ${killers(o)}`);
+  }
+  process.exit(0);
+}
+
 const FIRST = { reinforcements: [{ id: 'pikemen', charges: 1 }], buildings: [{ id: 'barricade', n: 1 }, { id: 'watchfire', n: 1 }] };
 
 if (flag('things')) {

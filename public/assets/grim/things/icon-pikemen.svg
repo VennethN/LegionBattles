@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-pikemen" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-pikemen-shaft-0-shape" d="M 10.5 62.4 L 16.2 24.3 L 11.8 23.7 L 5.5 61.6 Z"/>
+<clipPath id="icon-pikemen-shaft-0-clip"><use href="#icon-pikemen-shaft-0-shape"/></clipPath>
+<path id="icon-pikemen-head-0-shape" d="M 9 26 L 20 24 L 18 2 L 11 14 Z"/>
+<clipPath id="icon-pikemen-head-0-clip"><use href="#icon-pikemen-head-0-shape"/></clipPath>
+<path id="icon-pikemen-shaft-1-shape" d="M 28.5 62.4 L 34.2 24.3 L 29.8 23.7 L 23.5 61.6 Z"/>
+<clipPath id="icon-pikemen-shaft-1-clip"><use href="#icon-pikemen-shaft-1-shape"/></clipPath>
+<path id="icon-pikemen-head-1-shape" d="M 27 26 L 38 24 L 36 2 L 29 14 Z"/>
+<clipPath id="icon-pikemen-head-1-clip"><use href="#icon-pikemen-head-1-shape"/></clipPath>
+<path id="icon-pikemen-shaft-2-shape" d="M 46.5 62.4 L 52.2 24.3 L 47.8 23.7 L 41.5 61.6 Z"/>
+<clipPath id="icon-pikemen-shaft-2-clip"><use href="#icon-pikemen-shaft-2-shape"/></clipPath>
+<path id="icon-pikemen-head-2-shape" d="M 45 26 L 56 24 L 54 2 L 47 14 Z"/>
+<clipPath id="icon-pikemen-head-2-clip"><use href="#icon-pikemen-head-2-shape"/></clipPath>
+<path id="icon-pikemen-rag-shape" d="M 14 28 L 24 30 L 22 44 L 16 38 Z"/>
+<clipPath id="icon-pikemen-rag-clip"><use href="#icon-pikemen-rag-shape"/></clipPath>
+</defs>
+<g id="icon-pikemen-shaft-0">
+<use id="icon-pikemen-shaft-0-line" href="#icon-pikemen-shaft-0-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-pikemen-shaft-0-clip)">
+<use id="icon-pikemen-shaft-0-lit" href="#icon-pikemen-shaft-0-shape" fill="#6f5c46"/>
+<path id="icon-pikemen-shaft-0-dark" d="M -6.5 19.7 L 7.1 19.6 L 7.9 37.4 L 6.6 38.9 L 7.8 66.4 L -6.5 66.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-pikemen-head-0">
+<use id="icon-pikemen-head-0-line" href="#icon-pikemen-head-0-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-pikemen-head-0-clip)">
+<use id="icon-pikemen-head-0-lit" href="#icon-pikemen-head-0-shape" fill="#8c9194"/>
+<use id="icon-pikemen-head-0-rim" href="#icon-pikemen-head-0-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-pikemen-head-0-lit-over" href="#icon-pikemen-head-0-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="icon-pikemen-head-0-dark" d="M -3 -2 L 10.3 -2 L 11.6 16.1 L 10.4 17.6 L 11.2 30 L -3 30 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-pikemen-shaft-1">
+<use id="icon-pikemen-shaft-1-line" href="#icon-pikemen-shaft-1-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-pikemen-shaft-1-clip)">
+<use id="icon-pikemen-shaft-1-lit" href="#icon-pikemen-shaft-1-shape" fill="#6f5c46"/>
+<path id="icon-pikemen-shaft-1-dark" d="M 11.5 19.7 L 25.1 19.6 L 26.4 48.6 L 25.1 50.1 L 25.8 66.4 L 11.5 66.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-pikemen-head-1">
+<use id="icon-pikemen-head-1-line" href="#icon-pikemen-head-1-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-pikemen-head-1-clip)">
+<use id="icon-pikemen-head-1-lit" href="#icon-pikemen-head-1-shape" fill="#8c9194"/>
+<use id="icon-pikemen-head-1-rim" href="#icon-pikemen-head-1-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-pikemen-head-1-lit-over" href="#icon-pikemen-head-1-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="icon-pikemen-head-1-dark" d="M 15 -2 L 28.5 -2.1 L 29.7 16.2 L 28.3 18.1 L 29.1 30.1 L 15 30 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-pikemen-shaft-2">
+<use id="icon-pikemen-shaft-2-line" href="#icon-pikemen-shaft-2-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-pikemen-shaft-2-clip)">
+<use id="icon-pikemen-shaft-2-lit" href="#icon-pikemen-shaft-2-shape" fill="#6f5c46"/>
+<path id="icon-pikemen-shaft-2-dark" d="M 29.5 19.7 L 43 19.6 L 44.1 43.8 L 42.9 45.3 L 43.9 66.4 L 29.5 66.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-pikemen-head-2">
+<use id="icon-pikemen-head-2-line" href="#icon-pikemen-head-2-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-pikemen-head-2-clip)">
+<use id="icon-pikemen-head-2-lit" href="#icon-pikemen-head-2-shape" fill="#8c9194"/>
+<use id="icon-pikemen-head-2-rim" href="#icon-pikemen-head-2-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-pikemen-head-2-lit-over" href="#icon-pikemen-head-2-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="icon-pikemen-head-2-dark" d="M 33 -2 L 46.6 -2.1 L 47.7 14.3 L 46.1 16.3 L 47 30.1 L 33 30 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-pikemen-rag">
+<use id="icon-pikemen-rag-line" href="#icon-pikemen-rag-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-pikemen-rag-clip)">
+<use id="icon-pikemen-rag-lit" href="#icon-pikemen-rag-shape" fill="#7d312b"/>
+<path id="icon-pikemen-rag-dark" d="M 2 24 L 14.8 24 L 16.8 48 L 2 48 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-lamp" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-lamp-post-shape" d="M 29 40 L 35 40 L 36 60 L 28 60 Z"/>
+<clipPath id="icon-ability-lamp-post-clip"><use href="#icon-ability-lamp-post-shape"/></clipPath>
+<path id="icon-ability-lamp-foot-shape" d="M 18 62 L 22 56 L 42 56 L 46 62 Z"/>
+<clipPath id="icon-ability-lamp-foot-clip"><use href="#icon-ability-lamp-foot-shape"/></clipPath>
+<path id="icon-ability-lamp-glass-shape" d="M 20 18 L 44 18 L 40 42 L 24 42 Z"/>
+</defs>
+<g id="icon-ability-lamp-post">
+<use id="icon-ability-lamp-post-line" href="#icon-ability-lamp-post-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-lamp-post-clip)">
+<use id="icon-ability-lamp-post-lit" href="#icon-ability-lamp-post-shape" fill="#8c9194"/>
+<path id="icon-ability-lamp-post-dark" d="M 16 36 L 29.2 36 L 29.8 47.2 L 28.8 48.4 L 29.7 64 L 16 64 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-lamp-foot">
+<use id="icon-ability-lamp-foot-line" href="#icon-ability-lamp-foot-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-lamp-foot-clip)">
+<use id="icon-ability-lamp-foot-lit" href="#icon-ability-lamp-foot-shape" fill="#8c9194"/>
+<path id="icon-ability-lamp-foot-dark" d="M 6 52 L 22.5 52 L 23.6 66 L 6 66 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-lamp-glass">
+<use id="icon-ability-lamp-glass-line" href="#icon-ability-lamp-glass-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-ability-lamp-glass-lit" href="#icon-ability-lamp-glass-shape" fill="#eeb040"/>
+</g>
+<path id="icon-ability-lamp-heart" d="M 30 38 L 28 28 L 32 22 L 36 28 L 34 38 Z" fill="#ffe6a2"/>
+<path id="icon-ability-lamp-roof" d="M 14 20 L 26 6 L 38 6 L 50 20 Z" fill="#14110f"/>
+<path id="icon-ability-lamp-bar" d="M 31 18 L 33 18 L 33 42 L 31 42 Z" fill="#14110f"/>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-heel" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-heel-whistle-shape" d="M 6 30 L 34 22 L 40 26 L 42 40 L 36 44 L 8 40 Z"/>
+<clipPath id="icon-ability-heel-whistle-clip"><use href="#icon-ability-heel-whistle-shape"/></clipPath>
+</defs>
+<g id="icon-ability-heel-whistle">
+<use id="icon-ability-heel-whistle-line" href="#icon-ability-heel-whistle-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-heel-whistle-clip)">
+<use id="icon-ability-heel-whistle-lit" href="#icon-ability-heel-whistle-shape" fill="#cfc5a8"/>
+<path id="icon-ability-heel-whistle-mid" d="M -6 18 L 10.7 17.8 L 12.5 31.4 L 9.3 35.5 L 11 48.2 L -6 48 Z" transform="translate(3 -0.72)" fill="#9c9178"/>
+<path id="icon-ability-heel-whistle-dark" d="M -6 18 L 10.7 17.8 L 12.5 31.4 L 9.3 35.5 L 11 48.2 L -6 48 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-ability-heel-hole" d="M 26 26 L 32 24 L 33 30 L 27 31 Z" fill="#14110f"/>
+<path id="icon-ability-heel-cord" d="M 8 38 L 4 52 L 14 60" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="icon-ability-heel-sound" d="M 47.4 23.7 L 58 12 L 44.6 20.3 Z M 48 34.3 L 62 32 L 48 29.8 Z M 44.6 43.7 L 58 52 L 47.4 40.3 Z" fill="#eeb040"/>
+</svg>

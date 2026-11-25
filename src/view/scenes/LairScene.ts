@@ -88,6 +88,12 @@ export class LairScene extends Phaser.Scene {
   static pilot: Bot | null = null;
   private overlay = '';
   private resumed = false;
+  /** Time in the lair, slowed or held for a moment: a first warning to be read, a heavy blow to be felt. Seconds of real time left, and the share of its pace. */
+  private slowLeft = 0;
+  private slowBy = 1;
+  private stopLeft = 0;
+  /** True once a step of a lesson has asked for its first warning to be held. */
+  private holdNext = false;
 
   constructor() {
     super('Lair');
@@ -109,6 +115,9 @@ export class LairScene extends Phaser.Scene {
     this.ready = false;
     this.ended = false;
     this.halted = false;
+    this.slowLeft = 0;
+    this.stopLeft = 0;
+    this.holdNext = false;
 
     const cam = this.cameras.main;
     cam.setViewport(0, 0, view.width, view.height);
@@ -206,7 +215,18 @@ export class LairScene extends Phaser.Scene {
 
   override update(_time: number, delta: number): void {
     if (!this.ready) return;
-    const dt = Math.min(0.1, delta / 1000);
+    const real = Math.min(0.1, delta / 1000);
+    // The lair's own time: held for a breath on a heavy blow, slow while a first warning is read.
+    let pace = 1;
+    if (this.stopLeft > 0) {
+      this.stopLeft -= real;
+      pace = 0.04;
+    } else if (this.slowLeft > 0) {
+      this.slowLeft -= real;
+      // It comes back to its pace over the last third of a second, not at a stroke.
+      pace = this.slowBy + (1 - this.slowBy) * (1 - Math.min(1, this.slowLeft / 0.35));
+    }
+    const dt = real * pace;
     this.clock += dt;
     const hud = this.scene.get('Hud') as HudScene | undefined;
     if (!this.halted) {
@@ -266,6 +286,17 @@ export class LairScene extends Phaser.Scene {
 
   // ------------------------------------------------------------ what has happened
 
+  /** Holds the lair nearly still for a moment: a blow that lands is felt. */
+  stop(seconds: number): void {
+    this.stopLeft = Math.max(this.stopLeft, seconds);
+  }
+
+  /** Slows the lair for some real seconds, to a share of its pace. */
+  slow(seconds: number, by: number): void {
+    this.slowLeft = seconds;
+    this.slowBy = by;
+  }
+
   private shake(ms: number, by: number): void {
     // One shake at a time, the bigger: many small ones on top of each other are only noise.
     if (this.clock < this.shook) return;
@@ -289,8 +320,16 @@ export class LairScene extends Phaser.Scene {
           this.shake(500, 0.012);
           hud?.banner(m.def.name.toUpperCase(), 'The boss is awake');
           break;
+        case 'lesson':
+          this.holdNext = e.hold;
+          break;
         case 'tell': {
           const t = w.tells.find((x) => x.id === e.id);
+          if (e.first && t && this.holdNext) {
+            // The first warning of a step that teaches it: the moment is held, so that it is seen before it is over.
+            this.holdNext = false;
+            this.slow(1.7, 0.22);
+          }
           if (e.first && t) {
             // The monster draws back for as long as the tell shows, and its blow falls as the tell lands: its own move
             // for that attack where it has one, and else the one for the shape it marks.

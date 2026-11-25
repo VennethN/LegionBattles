@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="king-spears" width="1240" height="1100" viewBox="-190 -190 1240 1100">
+<defs>
+<path id="king-spears-wound-shape" d="M 496 318 L 530 306 L 552 326 L 546 356 L 514 364 L 494 344 Z"/>
+<clipPath id="king-spears-wound-clip"><use href="#king-spears-wound-shape"/></clipPath>
+<path id="king-spears-shaft-a-shape" d="M 520.2 330.5 L 473.8 202.6 L 466.2 205.4 L 511.8 333.5 Z"/>
+<clipPath id="king-spears-shaft-a-clip"><use href="#king-spears-shaft-a-shape"/></clipPath>
+<path id="king-spears-shaft-b-shape" d="M 536.5 337.6 L 524 189.7 L 516 190.3 L 527.5 338.4 Z"/>
+<clipPath id="king-spears-shaft-b-clip"><use href="#king-spears-shaft-b-shape"/></clipPath>
+<path id="king-spears-rag-shape" d="M 520 200 L 508 214 L 488 250 L 500 244 L 498 268 L 512 240 L 522 222 Z"/>
+<clipPath id="king-spears-rag-clip"><use href="#king-spears-rag-shape"/></clipPath>
+</defs>
+<g id="king-spears-wound">
+<use id="king-spears-wound-line" href="#king-spears-wound-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-spears-wound-clip)">
+<use id="king-spears-wound-lit" href="#king-spears-wound-shape" fill="#c42a2c"/>
+<path id="king-spears-wound-deep" d="M 508 326 L 532 320 L 540 340 L 518 350 Z" fill="#8c1a20"/>
+</g>
+</g>
+<g id="king-spears-shaft-a">
+<use id="king-spears-shaft-a-line" href="#king-spears-shaft-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-spears-shaft-a-clip)">
+<use id="king-spears-shaft-a-lit" href="#king-spears-shaft-a-shape" fill="#6f5c46"/>
+<path id="king-spears-shaft-a-dark" d="M 518.6 334.3 L 494.1 266.1 L 492.1 265 L 469.1 201.1 L 461.4 203.9 L 509.4 337.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="king-spears-shaft-b">
+<use id="king-spears-shaft-b-line" href="#king-spears-shaft-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-spears-shaft-b-clip)">
+<use id="king-spears-shaft-b-lit" href="#king-spears-shaft-b-shape" fill="#6f5c46"/>
+<path id="king-spears-shaft-b-dark" d="M 534 340.9 L 528.3 271.7 L 526.6 270 L 519.8 187 L 511.7 187.7 L 524.2 341.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="king-spears-break-a" d="M 462 206 L 478 200 L 470 190 L 466 198 Z" fill="#14110f"/>
+<g id="king-spears-rag">
+<use id="king-spears-rag-line" href="#king-spears-rag-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-spears-rag-clip)">
+<use id="king-spears-rag-lit" href="#king-spears-rag-shape" fill="#7d312b"/>
+<path id="king-spears-rag-mid" d="M 476 196 L 498 195.6 L 504.8 229.7 L 501.3 235.5 L 508.6 272.4 L 476 272 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="king-spears-rag-dark" d="M 476 196 L 498 195.6 L 504.8 229.7 L 501.3 235.5 L 508.6 272.4 L 476 272 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

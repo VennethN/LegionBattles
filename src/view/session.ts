@@ -84,6 +84,12 @@ export function leaveHunt(): void {
  */
 export function stage(o: Partial<Setup> & { monster: string; awake?: boolean }): Hunt {
   const base = setupOf(save(), o.monster, o.mark ?? 1, o.seed ?? 12345, !!o.tall);
+  // A hunt stood up by hand is the hunt described: a lesson only if one is asked for.
+  if (!o.lesson) {
+    delete base.lesson;
+    delete base.taught;
+    base.hunter = save().muster.hunter;
+  }
   contract = { monster: o.monster, mark: o.mark ?? 1 };
   pay = null;
   hunt = new Hunt({ ...base, ...o });

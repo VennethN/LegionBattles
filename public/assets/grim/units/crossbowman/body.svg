@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="crossbowman-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="crossbowman-body-jack-shape" d="M 102 108 L 150 106 L 158 138 L 152 180 L 104 184 L 98 142 Z"/>
+<clipPath id="crossbowman-body-jack-clip"><use href="#crossbowman-body-jack-shape"/></clipPath>
+<path id="crossbowman-body-belt-shape" d="M 97.7 144 L 155.7 140 L 156.3 148 L 98.3 152 Z"/>
+<clipPath id="crossbowman-body-belt-clip"><use href="#crossbowman-body-belt-shape"/></clipPath>
+<path id="crossbowman-body-belt-buckle-shape" d="M 121 140 L 133 140.6 L 132.4 152 L 121.6 151.4 Z"/>
+<clipPath id="crossbowman-body-belt-buckle-clip"><use href="#crossbowman-body-belt-buckle-shape"/></clipPath>
+<path id="crossbowman-body-case-shape" d="M 138 150 L 150 149 L 154 184 L 142 186 Z"/>
+<clipPath id="crossbowman-body-case-clip"><use href="#crossbowman-body-case-shape"/></clipPath>
+</defs>
+<g id="crossbowman-body-jack">
+<use id="crossbowman-body-jack-line" href="#crossbowman-body-jack-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-body-jack-clip)">
+<use id="crossbowman-body-jack-lit" href="#crossbowman-body-jack-shape" fill="#7b5b3d"/>
+<path id="crossbowman-body-jack-mid" d="M 84 98 L 114 98 L 117.1 105.8 L 118.7 139.2 L 112.8 146.3 L 114.9 188.2 L 84 190 Z" transform="translate(8.4 -2.02)" fill="#553d29"/>
+<path id="crossbowman-body-jack-dark" d="M 84 98 L 114 98 L 117.1 105.8 L 118.7 139.2 L 112.8 146.3 L 114.9 188.2 L 84 190 Z" fill="#14110f"/>
+<path id="crossbowman-body-lacing" d="M 149.6 113.2 L 142.2 119 L 150.5 114.6 Z M 149.9 122.1 L 142.5 127.8 L 150.8 123.4 Z M 150.2 130.9 L 142.8 136.7 L 151.1 132.3 Z M 150.5 139.8 L 143.1 145.5 L 151.4 141.1 Z M 150.8 148.7 L 143.4 154.4 L 151.6 150 Z M 151.1 157.5 L 143.7 163.2 L 151.9 158.9 Z M 151.3 166.4 L 143.9 172.1 L 152.2 167.7 Z" fill="#553d29"/>
+<path id="crossbowman-body-patch" d="M 124 150 L 140 148 L 142 168 L 126 170 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="crossbowman-body-belt">
+<use id="crossbowman-body-belt-line" href="#crossbowman-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-body-belt-clip)">
+<use id="crossbowman-body-belt-lit" href="#crossbowman-body-belt-shape" fill="#4f4944"/>
+<path id="crossbowman-body-belt-dark" d="M 94.9 146.5 L 134.5 143.7 L 136 144.9 L 159 143.3 L 159.5 150.7 L 95.5 155.1 Z" fill="#14110f"/>
+<path id="crossbowman-body-belt-stitch" d="M 104 146.1 L 104.8 149 L 105.2 146.1 Z M 110.4 145.7 L 111.1 148.5 L 111.5 145.6 Z M 116.7 145.3 L 117.5 148.1 L 117.9 145.2 Z M 123.1 144.8 L 123.9 147.7 L 124.3 144.7 Z M 129.5 144.4 L 130.3 147.2 L 130.7 144.3 Z M 135.9 143.9 L 136.7 146.8 L 137.1 143.9 Z M 142.3 143.5 L 143 146.3 L 143.4 143.4 Z M 148.6 143.1 L 149.4 145.9 L 149.8 143 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="crossbowman-body-belt-buckle">
+<use id="crossbowman-body-belt-buckle-line" href="#crossbowman-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-body-belt-buckle-clip)">
+<use id="crossbowman-body-belt-buckle-lit" href="#crossbowman-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="crossbowman-body-belt-buckle-dark" d="M 109 136 L 122.2 136 L 127 156 L 109 156 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-body-belt-pin" d="M 124 145.2 L 131.2 145.6 L 131.2 146.8 L 124 146.6 Z" fill="#14110f"/>
+<g id="crossbowman-body-case">
+<use id="crossbowman-body-case-line" href="#crossbowman-body-case-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-body-case-clip)">
+<use id="crossbowman-body-case-lit" href="#crossbowman-body-case-shape" fill="#4f4944"/>
+<path id="crossbowman-body-case-mid" d="M 126 145 L 141.9 144.8 L 145.5 168.1 L 143.9 170.6 L 146.9 190.2 L 126 190 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="crossbowman-body-case-dark" d="M 126 145 L 141.9 144.8 L 145.5 168.1 L 143.9 170.6 L 146.9 190.2 L 126 190 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-body-bolts" d="M 142.2 149.8 L 139 139 L 139.8 150.2 Z M 146.2 149.9 L 144 137 L 143.8 150.1 Z M 150.2 149.1 L 150 139 L 147.8 148.9 Z" fill="#14110f"/>
+<path id="crossbowman-body-span-hook" d="M 120 152 L 118 168 L 124 174 L 128 168" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-supply" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-supply-crate-shape" d="M 8 18 L 54 14 L 58 54 L 10 58 Z"/>
+<clipPath id="icon-supply-crate-clip"><use href="#icon-supply-crate-shape"/></clipPath>
+<path id="icon-supply-rope-a-shape" d="M 28 15 L 36 14 L 38 56 L 30 57 Z"/>
+<clipPath id="icon-supply-rope-a-clip"><use href="#icon-supply-rope-a-shape"/></clipPath>
+<path id="icon-supply-rope-b-shape" d="M 8 32 L 56 28 L 57 36 L 9 40 Z"/>
+<clipPath id="icon-supply-rope-b-clip"><use href="#icon-supply-rope-b-shape"/></clipPath>
+<path id="icon-supply-seal-shape" d="M 27 28 L 38 27 L 40 38 L 29 40 Z"/>
+<clipPath id="icon-supply-seal-clip"><use href="#icon-supply-seal-shape"/></clipPath>
+</defs>
+<g id="icon-supply-crate">
+<use id="icon-supply-crate-line" href="#icon-supply-crate-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-supply-crate-clip)">
+<use id="icon-supply-crate-lit" href="#icon-supply-crate-shape" fill="#6f5c46"/>
+<path id="icon-supply-crate-mid" d="M -4 10 L 14.7 9.4 L 19.1 38.6 L 12.3 46.1 L 14.8 62.6 L -4 62 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="icon-supply-crate-dark" d="M -4 10 L 14.7 9.4 L 19.1 38.6 L 12.3 46.1 L 14.8 62.6 L -4 62 Z" fill="#14110f"/>
+<path id="icon-supply-boards" d="M 8.1 30.9 L 56 27 L 7.9 29.1 Z M 9.1 44.9 L 57 41 L 8.9 43.1 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="icon-supply-rope-a">
+<use id="icon-supply-rope-a-line" href="#icon-supply-rope-a-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-supply-rope-a-clip)">
+<use id="icon-supply-rope-a-lit" href="#icon-supply-rope-a-shape" fill="#c7ad84"/>
+<path id="icon-supply-rope-a-dark" d="M 16 10 L 29 10 L 30.1 37.3 L 28.8 38.8 L 29.7 61 L 16 61 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-supply-rope-b">
+<use id="icon-supply-rope-b-line" href="#icon-supply-rope-b-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-supply-rope-b-clip)">
+<use id="icon-supply-rope-b-lit" href="#icon-supply-rope-b-shape" fill="#c7ad84"/>
+<path id="icon-supply-rope-b-dark" d="M -4 24 L 13.5 24 L 15.7 44 L -4 44 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-supply-seal">
+<use id="icon-supply-seal-line" href="#icon-supply-seal-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-supply-seal-clip)">
+<use id="icon-supply-seal-lit" href="#icon-supply-seal-shape" fill="#7d312b"/>
+<path id="icon-supply-seal-dark" d="M 15 23 L 27.6 23 L 29.9 44 L 15 44 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

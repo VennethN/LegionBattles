@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="panel" width="362" height="264" viewBox="0 0 362 264">
+<defs>
+<path id="panel-boards-shape" d="M 6 6 L 354 4 L 356 250 L 4 254 Z"/>
+<clipPath id="panel-boards-clip"><use href="#panel-boards-shape"/></clipPath>
+<path id="panel-c-tl-shape" d="M 4 4 L 38 4 L 38 14 L 14 14 L 14 38 L 4 38 Z"/>
+<clipPath id="panel-c-tl-clip"><use href="#panel-c-tl-shape"/></clipPath>
+<path id="panel-c-tr-shape" d="M 356 2 L 322 2 L 322 12 L 346 12 L 346 36 L 356 36 Z"/>
+<clipPath id="panel-c-tr-clip"><use href="#panel-c-tr-shape"/></clipPath>
+<path id="panel-c-bl-shape" d="M 2 254 L 36 254 L 36 244 L 12 244 L 12 220 L 2 220 Z"/>
+<clipPath id="panel-c-bl-clip"><use href="#panel-c-bl-shape"/></clipPath>
+<path id="panel-c-br-shape" d="M 358 252 L 324 252 L 324 242 L 348 242 L 348 218 L 358 218 Z"/>
+<clipPath id="panel-c-br-clip"><use href="#panel-c-br-shape"/></clipPath>
+</defs>
+<path id="panel-drop" d="M 8 12 L 356 8 L 358 258 L 6 260 Z" fill="#14110f"/>
+<g id="panel-boards">
+<use id="panel-boards-line" href="#panel-boards-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#panel-boards-clip)">
+<use id="panel-boards-lit" href="#panel-boards-shape" fill="#6f5c46"/>
+<path id="panel-boards-mid" d="M 0 226 L 0 230 L 130.1 227.8 L 134.3 223.8 L 360 220 L 360 262 L 0 262 Z" transform="translate(5 -1.2)" fill="#4a3c2d"/>
+<path id="panel-boards-dark" d="M 0 226 L 0 230 L 130.1 227.8 L 134.3 223.8 L 360 220 L 360 262 L 0 262 Z" fill="#14110f"/>
+<path id="panel-gaps" d="M 6 89.3 L 354 86 L 6 86.7 Z M 6 171.3 L 354 168 L 6 168.7 Z" fill="#14110f"/>
+<path id="panel-grain" d="M 40 31 L 160 28 L 40 29 Z M 200 57 L 320 54 L 200 55 Z M 60 121 L 200 118 L 60 119 Z M 220 141 L 330 138 L 220 139 Z M 40 201 L 180 198 L 40 199 Z M 230 217 L 320 214 L 230 215 Z" fill="#4a3c2d"/>
+<path id="panel-knots" d="M 279.5 111.1 L 292 116 L 280.5 108.9 Z M 291.5 114.9 L 280 122 L 292.5 117.1 Z M 89.4 197 L 100 202 L 90.6 195 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="panel-c-tl">
+<use id="panel-c-tl-line" href="#panel-c-tl-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#panel-c-tl-clip)">
+<use id="panel-c-tl-lit" href="#panel-c-tl-shape" fill="#8c9194"/>
+<use id="panel-c-tl-rim" href="#panel-c-tl-shape" fill="#f4d294" opacity="0.55"/>
+<use id="panel-c-tl-lit-over" href="#panel-c-tl-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="panel-c-tl-mid" d="M -8 0 L 7.6 -0.7 L 14.5 20.4 L 11.5 26.9 L 16.7 42.7 L -8 42 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="panel-c-tl-dark" d="M -8 0 L 7.6 -0.7 L 14.5 20.4 L 11.5 26.9 L 16.7 42.7 L -8 42 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="panel-c-tl-a" d="M 6.6 9 L 9 6.6 L 11.4 9 L 9 11.4 Z" fill="#14110f"/>
+<path id="panel-c-tl-b" d="M 28 9 L 30 7 L 32 9 L 30 11 Z" fill="#14110f"/>
+<path id="panel-c-tl-c" d="M 7 30 L 9 28 L 11 30 L 9 32 Z" fill="#14110f"/>
+<g id="panel-c-tr">
+<use id="panel-c-tr-line" href="#panel-c-tr-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#panel-c-tr-clip)">
+<use id="panel-c-tr-lit" href="#panel-c-tr-shape" fill="#8c9194"/>
+<use id="panel-c-tr-rim" href="#panel-c-tr-shape" fill="#f4d294" opacity="0.55"/>
+<use id="panel-c-tr-lit-over" href="#panel-c-tr-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="panel-c-tr-mid" d="M 310 -2 L 325.4 -2.7 L 330.7 13.5 L 328 19.3 L 334.9 40.7 L 310 40 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="panel-c-tr-dark" d="M 310 -2 L 325.4 -2.7 L 330.7 13.5 L 328 19.3 L 334.9 40.7 L 310 40 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="panel-c-tr-a" d="M 348.6 7 L 351 4.6 L 353.4 7 L 351 9.4 Z" fill="#14110f"/>
+<path id="panel-c-tr-b" d="M 328 7 L 330 5 L 332 7 L 330 9 Z" fill="#14110f"/>
+<path id="panel-c-tr-c" d="M 349 28 L 351 26 L 353 28 L 351 30 Z" fill="#14110f"/>
+<g id="panel-c-bl">
+<use id="panel-c-bl-line" href="#panel-c-bl-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#panel-c-bl-clip)">
+<use id="panel-c-bl-lit" href="#panel-c-bl-shape" fill="#8c9194"/>
+<path id="panel-c-bl-mid" d="M -10 216 L 17.7 215.3 L 24.1 235 L 21.4 241.1 L 27.1 258.7 L -10 258 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="panel-c-bl-dark" d="M -10 216 L 17.7 215.3 L 24.1 235 L 21.4 241.1 L 27.1 258.7 L -10 258 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="panel-c-bl-a" d="M 4.6 249 L 7 246.6 L 9.4 249 L 7 251.4 Z" fill="#14110f"/>
+<path id="panel-c-bl-b" d="M 26 249 L 28 247 L 30 249 L 28 251 Z" fill="#14110f"/>
+<path id="panel-c-bl-c" d="M 5 228 L 7 226 L 9 228 L 7 230 Z" fill="#14110f"/>
+<g id="panel-c-br">
+<use id="panel-c-br-line" href="#panel-c-br-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#panel-c-br-clip)">
+<use id="panel-c-br-lit" href="#panel-c-br-shape" fill="#8c9194"/>
+<path id="panel-c-br-mid" d="M 312 214 L 340 213.2 L 345.5 230.1 L 342.3 236.7 L 348.8 256.8 L 312 256 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="panel-c-br-dark" d="M 312 214 L 340 213.2 L 345.5 230.1 L 342.3 236.7 L 348.8 256.8 L 312 256 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="panel-c-br-a" d="M 350.6 247 L 353 244.6 L 355.4 247 L 353 249.4 Z" fill="#14110f"/>
+<path id="panel-c-br-b" d="M 330 247 L 332 245 L 334 247 L 332 249 Z" fill="#14110f"/>
+<path id="panel-c-br-c" d="M 351 226 L 353 224 L 355 226 L 353 228 Z" fill="#14110f"/>
+</svg>

@@ -30,6 +30,7 @@ const PAD = 70;
 
 /** A button of the hunt: what it asks for, and how it reads whether it is ready. */
 interface Pad {
+  ask: Ask;
   root: Phaser.GameObjects.Container;
   veil: Phaser.GameObjects.Image;
   count: Phaser.GameObjects.Text | null;
@@ -50,6 +51,13 @@ export class HudScene extends Phaser.Scene {
   private bannerText!: Phaser.GameObjects.Text;
   private underText!: Phaser.GameObjects.Text;
   private campText!: Phaser.GameObjects.Text;
+  /** The plate of a hunt that teaches: what to do now, off the fight. */
+  private plate: Phaser.GameObjects.Container | null = null;
+  private plateText!: Phaser.GameObjects.Text;
+  private plateStep!: Phaser.GameObjects.Text;
+  private plateBack!: Phaser.GameObjects.Image;
+  private shownStep = '';
+  private plateUntil = 0;
   private hint: Phaser.GameObjects.Container | null = null;
   private stick!: Phaser.GameObjects.Graphics;
   private flash!: Phaser.GameObjects.Image;
@@ -125,7 +133,11 @@ export class HudScene extends Phaser.Scene {
     this.buildCamp(hunt);
 
     this.stick = this.add.graphics().setDepth(5);
-    if (!save().told.includes('move')) this.showHint();
+    this.plate = null;
+    this.shownStep = '';
+    this.plateUntil = 0;
+    if (!hunt.camps) this.buildPlate();
+    else if (!save().told.includes('move')) this.showHint();
     if (data.fresh && hunt.phase === 'camp') {
       const things = Object.values(hunt.toPlace).some((n) => n > 0);
       this.banner(things ? 'BUILD YOUR CAMP' : hunt.monster.def.name.toUpperCase(), things ? 'The boss is asleep. Build, then wake it.' : 'The boss is asleep. Wake it when you are ready.');
@@ -150,7 +162,7 @@ export class HudScene extends Phaser.Scene {
     // It acts as it is pressed, not as it is let go: a roll cannot wait for a finger to lift.
     c.on('pointerdown', () => this.controls.ask(ask));
     parent.add(c);
-    this.pads.push({ root: c, veil, count, wait, left, ready: true });
+    this.pads.push({ ask, root: c, veil, count, wait, left, ready: true });
   }
 
   private buildFight(hunt: Hunt): void {
@@ -226,6 +238,48 @@ export class HudScene extends Phaser.Scene {
     this.tweens.add({ targets: this.flash, alpha: 0, duration: 320 });
   }
 
+  /**
+   * The plate of a hunt that teaches: one short line saying what to do now, and how far through the steps it is. It
+   * sits off the fight: beside the buttons at the foot of a wide window, over them in a tall one.
+   */
+  private buildPlate(): void {
+    const padsW = 3 * (PAD + 8) + 12;
+    const pw = view.tall ? view.w - 24 : Math.min(600, view.w - padsW - 28);
+    const ph = 62;
+    const x = view.tall ? view.w / 2 : 14 + pw / 2;
+    const y = view.tall ? view.h - PAD - 36 - ph / 2 : view.h - 14 - ph / 2;
+    const c = this.add.container(x, y).setDepth(14);
+    this.plateBack = slabImage(this, -pw / 2, -ph / 2, pw, ph, IRON, 12, 6);
+    this.plateText = label(this, 0, -8, '', { size: 18, wrap: pw - 28 });
+    this.plateStep = label(this, 0, ph / 2 - 15, '', { size: 15, color: HOLY.fill });
+    c.add([this.plateBack, this.plateText, this.plateStep]);
+    c.setAlpha(0);
+    this.plate = c;
+  }
+
+  /** Shows the step waited on, or what is said when the last is done, and lets the plate go when there is nothing to say. */
+  private showPlate(hunt: Hunt): void {
+    const c = this.plate;
+    if (!c) return;
+    const t = hunt.teaching;
+    const id = t ? t.step.id : this.clock < this.plateUntil ? 'after' : '';
+    if (id === this.shownStep) return;
+    this.shownStep = id;
+    this.tweens.killTweensOf(c);
+    if (!id) {
+      this.tweens.add({ targets: c, alpha: 0, duration: 400 });
+      return;
+    }
+    if (t) {
+      this.plateText.setText(this.touch ? t.step.says.touch : t.step.says.keys);
+      this.plateStep.setText(`${t.index + 1} / ${t.of}`);
+    }
+    // Long lines sit a little higher, so that the count under them is clear.
+    this.plateText.setY(this.plateText.height > 30 ? -12 : -8);
+    c.setAlpha(1).setScale(1.12);
+    this.tweens.add({ targets: c, scale: 1, duration: 260, ease: 'Back.easeOut' });
+  }
+
   /** Says a thing once in a player's life: the first time it matters. */
   private teach(key: string, text: string): void {
     const s = save();
@@ -237,6 +291,27 @@ export class HudScene extends Phaser.Scene {
 
   /** What has just happened in the lair, for what it teaches: the tells are the lesson, and these are its few words. */
   noted(e: Ev): void {
+    const hunt = theHunt();
+    if (hunt && !hunt.camps) {
+      // A hunt that teaches says everything on its plate, and nothing across the lair.
+      if (e.t === 'learned') {
+        sfx.play('click', 0.7, 1.4);
+        if (e.id === 'move' && !save().told.includes('move')) {
+          save().told.push('move');
+          commit();
+        }
+      } else if (e.t === 'taught' && this.plate) {
+        this.plateText.setText(e.says);
+        this.plateStep.setText('');
+        this.plateUntil = this.clock + 3.5;
+      }
+      return;
+    }
+    // The horn, the first time there is something to call.
+    if (e.t === 'wake' && hunt && hunt.calls.length > 0) {
+      const name = hunt.calls[0].def.name;
+      this.teach('horn', this.touch ? `TAP THE HORN TO CALL YOUR ${name.toUpperCase()}.` : `PRESS ${KEY_NAMES.call0} TO CALL YOUR ${name.toUpperCase()}.`);
+    }
     if (save().wins > 2) return;
     if (e.t === 'tell' && e.first) this.teach('tell', 'RED ON THE GROUND IS WHERE THE BOSS WILL HIT. GET OUT OF IT.');
     else if (e.t === 'hurt' && e.who === 'hunter') this.teach('roll', this.touch ? 'DODGE GOES THROUGH A HIT.' : 'SPACE: DODGE THROUGH A HIT.');
@@ -366,9 +441,15 @@ export class HudScene extends Phaser.Scene {
       this.campText.setText(any ? (this.touch ? 'Stand where you want it and press its button.' : 'Stand where you want it and press its button or number.') : 'Walk into the red ring, or press WAKE BOSS.');
     } else this.campText.setText('');
 
+    // A hunt that teaches: its plate, and the button the step is about beats so that it is found.
+    this.showPlate(hunt);
+    const step = hunt.teaching?.step;
+    const wanted: Ask | null = step?.wants === 'dodge' ? 'dodge' : step?.wants === 'skill' ? (step.skill === 0 ? 'a' : 'b') : null;
+
     // Each button: its veil is as tall as the share of its wait still to run.
     if (!camp) {
       for (const p of this.pads) {
+        if (!this.tweens.isTweening(p.root)) p.root.setScale(p.ask === wanted ? 1.08 + 0.08 * Math.sin(this.clock * 9) : 1);
         const wait = Math.max(0, Math.min(1, p.wait(hunt)));
         p.veil.setDisplaySize(PAD - 6, (PAD - 10) * wait);
         if (p.count && p.left) p.count.setText(`x${p.left(hunt)}`);

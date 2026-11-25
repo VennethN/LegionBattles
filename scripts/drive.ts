@@ -20,6 +20,7 @@ export interface HuntWin {
   calls: Array<{ left: number }>;
   hornWait: number;
   giveUp(): void;
+  teaching: { step: { id: string; attack?: string }; index: number } | null;
 }
 
 /** What the game puts on its window for these scripts (src/main.ts). */
@@ -54,7 +55,7 @@ export async function lair(page: Page, hunt: Record<string, unknown>, save: Reco
     const w = window as unknown as Win;
     Object.assign(w.save(), s);
     w.pilot(false);
-    for (const key of ['Hud', 'Result', 'Lodge', 'Lair']) w.game.scene.stop(key);
+    for (const key of ['Title', 'Hud', 'Result', 'Lodge', 'Lair']) w.game.scene.stop(key);
     // A lair is stood up for the window it is shown in, as the game does it: lying down, or on end for a tall one.
     w.stage({ tall: w.view.tall, ...h });
     w.game.scene.start('Lair');
@@ -118,7 +119,7 @@ export async function playKeys(page: Page, frames: number, each?: (frame: number
 }
 
 /** A lodge well on: both monsters felled, coin in hand, everything opened. */
-export const RICH = { coin: 260, supply: 2, felled: { sexton: 2, king: 1 }, trophies: ['spade', 'antler'], worn: { marta: 'spade' }, steps: ['more:pikemen'], hunts: 9, wins: 5, told: ['move', 'tell', 'roll', 'open', 'summon', 'crash'] };
+export const RICH = { opening: 3, coin: 260, supply: 2, felled: { sexton: 2, king: 1 }, trophies: ['spade', 'antler'], worn: { marta: 'spade' }, steps: ['more:pikemen'], hunts: 9, wins: 5, told: ['move', 'tell', 'roll', 'open', 'summon', 'crash', 'horn', 'lesson:first'] };
 
 /** Where on the page the middle of the first thing on a screen that says words starting with `text` is, or null. */
 export function find(page: Page, key: string, text: string): Promise<{ x: number; y: number } | null> {

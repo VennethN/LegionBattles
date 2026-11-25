@@ -11,8 +11,8 @@
 // where and when.
 
 import {
-  ABILITIES, BUILDINGS, CAMP, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, MARKS, MONSTERS, REINFORCEMENTS, byId,
-  type AbilityDef, type AllyDef, type AttackDef, type BuildingDef, type HelperDef, type HunterDef, type Mark, type MonsterDef, type ReinforcementDef, type ShapeDef,
+  ABILITIES, BUILDINGS, CAMP, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKS, MONSTERS, REINFORCEMENTS, byId,
+  type AbilityDef, type AllyDef, type AttackDef, type BuildingDef, type HelperDef, type HunterDef, type LessonDef, type LessonStep, type Mark, type MonsterDef, type ReinforcementDef, type ShapeDef,
 } from './content';
 import { Rng } from './rng';
 
@@ -41,6 +41,10 @@ export interface Setup {
   monster: string;
   mark: Mark;
   hunter: string;
+  /** A hunt that teaches, by the lesson's name (content.ts, LESSONS): its simpler monster, no camp, and its steps. */
+  lesson?: string;
+  /** True if the lesson's steps have been done before: the same gentle hunt, without the waiting. */
+  taught?: boolean;
   /** What comes at the horn, each with how many times it can be called. */
   reinforcements: ReadonlyArray<{ id: string; charges: number }>;
   /** What can be built in camp, each with how many, and whether a sturdier one was bought. */
@@ -260,6 +264,9 @@ export type Ev =
   | { t: 'loose'; x: number; y: number; angle: number; from: Shot['from'] }
   | { t: 'spared' }
   | { t: 'enrage' }
+  | { t: 'lesson'; id: string; index: number; hold: boolean }
+  | { t: 'learned'; id: string }
+  | { t: 'taught'; says: string }
   | { t: 'end'; won: boolean };
 
 /** What a hunt came to, for the lodge and for the measure. */
@@ -274,6 +281,8 @@ export interface Tally {
   killedBy: string | null;
   /** How many times the monster was broken. */
   breaks: number;
+  /** True if the hunt was a lesson and every step of it was done. */
+  taught: boolean;
 }
 
 interface Pending {
@@ -339,7 +348,7 @@ export class Hunt {
   hornWait = 0;
   /** Seconds the hounds bite harder for, after being set on. */
   frenzy = 0;
-  readonly tally: Tally = { time: 0, dealt: {}, taken: {}, killedBy: null, breaks: 0 };
+  readonly tally: Tally = { time: 0, dealt: {}, taken: {}, killedBy: null, breaks: 0, taught: false };
 
   private readonly rng: Rng;
   private readonly sturdy = new Set<string>();
@@ -355,6 +364,16 @@ export class Hunt {
   private dash: { angle: number; left: number; speed: number; daze: number; stagger: number; dmg: number; id: number; struck: boolean } | null = null;
   private frenzyBy = 1;
   private wanted: 0 | 1 | null = null;
+  /** What a mark, or a lesson in its place, does to the monster's numbers. */
+  private readonly scale: { hp: number; dmg: number; tell: number; gap: number };
+  /** The monster's rounds, part by part: its own, or a lesson's. */
+  private readonly parts: readonly (readonly string[])[];
+  /** The lesson this hunt teaches, the step it waits on, and how far that step has got. */
+  private readonly lessonDef: LessonDef | null;
+  private stepAt = 0;
+  private stepN = 0;
+  private stepRolled = false;
+  private stepHurt = false;
 
   constructor(setup: Setup) {
     this.rng = new Rng(setup.seed);
@@ -363,8 +382,15 @@ export class Hunt {
     this.h = this.tall ? FIELD.long : FIELD.short;
     this.mark = setup.mark;
     this.trophy = setup.trophy ?? null;
+    this.lessonDef = setup.lesson ? byId(LESSONS, setup.lesson) : null;
     const hd = byId(HUNTERS, setup.hunter);
     const md = byId(MONSTERS, setup.monster);
+    this.scale = this.lessonDef?.scale ?? MARKS[setup.mark];
+    this.parts = this.lessonDef?.parts ?? md.parts;
+    if (this.lessonDef && setup.taught) {
+      this.stepAt = this.lessonDef.steps.length;
+      this.tally.taught = true;
+    }
     this.abilities = [byId(ABILITIES, hd.abilities[0]), byId(ABILITIES, hd.abilities[1])];
     const [hx, hy] = this.tall ? [this.w / 2, this.h * 0.78] : [this.w * 0.2, this.h / 2];
     const [mx, my] = this.tall ? [this.w / 2, this.h * 0.28] : [this.w * 0.72, this.h / 2];
@@ -372,9 +398,9 @@ export class Hunt {
       def: hd, x: hx, y: hy, face: mx >= hx ? 1 : -1, aim: Math.atan2(my - hy, mx - hx), hp: hd.hp, maxHp: hd.hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
       grace: 0, root: 0, waits: [0, 0], bracing: 0, spared: false,
     };
-    const hp = Math.round(md.hp * MARKS[setup.mark].hp);
+    const hp = Math.round(md.hp * this.scale.hp);
     this.monster = {
-      def: md, x: mx, y: my, face: hx >= mx ? 1 : -1, aim: Math.atan2(hy - my, hx - mx), hp, maxHp: hp, part: 0, state: 'asleep', left: 0, stagger: 0, staggerMax: md.stagger.max, attack: null,
+      def: md, x: mx, y: my, face: hx >= mx ? 1 : -1, aim: Math.atan2(hy - my, hx - mx), hp, maxHp: hp, part: 0, state: 'asleep', left: 0, stagger: 0, staggerMax: Math.round(md.stagger.max * (this.lessonDef?.stagger ?? 1)), attack: null,
       moving: false, enraged: false, soft: 0, softBy: 0,
     };
     this.calls = setup.reinforcements.map((r) => ({ def: byId(REINFORCEMENTS, r.id), left: r.charges }));
@@ -392,6 +418,57 @@ export class Hunt {
     for (let i = 0; i < (hd.hounds ?? 0); i++) {
       this.allies.push(this.ally(HOUND, 'hound', hx - 40, hy + (i === 0 ? -34 : 34)));
     }
+    // A lesson has no camp: the monster is awake as the hunter walks in, and the first step is on.
+    if (this.lessonDef) {
+      this.wake();
+      this.nextStep();
+    }
+  }
+
+  /** The step of the lesson the hunt is waiting on, if it is waiting on one: what the plate shows. */
+  get teaching(): { step: LessonStep; index: number; of: number } | null {
+    const l = this.lessonDef;
+    return l && this.stepAt < l.steps.length ? { step: l.steps[this.stepAt], index: this.stepAt, of: l.steps.length } : null;
+  }
+
+  /** True if this hunt has a camp before it: a lesson has none. */
+  get camps(): boolean {
+    return !this.lessonDef;
+  }
+
+  /** Says that the step waited on has begun. */
+  private nextStep(): void {
+    const t = this.teaching;
+    this.stepN = 0;
+    this.stepRolled = false;
+    this.stepHurt = false;
+    if (!t) return;
+    // An ability to be shown is ready to be used.
+    if (t.step.wants === 'skill' && t.step.skill !== undefined) this.hunter.waits[t.step.skill] = 0;
+    this.events.push({ t: 'lesson', id: t.step.id, index: t.index, hold: !!t.step.hold });
+  }
+
+  /** The step waited on has been done: on to the next, or to the hunt itself. */
+  private learn(): void {
+    const l = this.lessonDef;
+    const t = this.teaching;
+    if (!l || !t) return;
+    this.events.push({ t: 'learned', id: t.step.id });
+    this.stepAt++;
+    if (this.stepAt >= l.steps.length) {
+      this.tally.taught = true;
+      this.events.push({ t: 'taught', says: l.after });
+    }
+    else this.nextStep();
+  }
+
+  /** Something the step may have been waiting for has happened. */
+  private did(what: LessonStep['wants'], n = 1, skill?: 0 | 1): void {
+    const t = this.teaching;
+    if (!t || t.step.wants !== what) return;
+    if (what === 'skill' && t.step.skill !== skill) return;
+    this.stepN += n;
+    if (this.stepN >= (t.step.n ?? 1)) this.learn();
   }
 
   /** How the hunt ended, once it has. */
@@ -411,8 +488,9 @@ export class Hunt {
   }
 
   /** How far through its health the monster's next change is, as shares of all of it: the bar is cut there. */
-  get cuts(): readonly [number, number] {
-    return [2 / 3, 1 / 3];
+  get cuts(): readonly number[] {
+    const n = this.parts.length;
+    return Array.from({ length: n - 1 }, (_, i) => (n - 1 - i) / n);
   }
 
   /** The run the monster is making, if it is making one: where it is headed and how far it has still to go. Its line is as deadly as a tell. */
@@ -544,6 +622,7 @@ export class Hunt {
         h.x += steer.x * k * h.def.speed * dt;
         h.y += steer.y * k * h.def.speed * dt;
         if (Math.abs(steer.x) > 0.1) h.face = steer.x > 0 ? 1 : -1;
+        this.did('move', Math.min(1, len) * h.def.speed * dt);
         // In camp there is nothing to aim at: they look where they walk, and build there.
         if (this.phase === 'camp') h.aim = Math.atan2(steer.y, steer.x);
       }
@@ -594,6 +673,7 @@ export class Hunt {
     h.rollWait = h.def.dodge.wait * (this.trophy === 'antler' ? 0.75 : 1);
     h.bracing = 0;
     this.events.push({ t: 'roll', x: h.x, y: h.y });
+    if (this.tells.some((t) => t.foe && t.by === 0)) this.stepRolled = true;
   }
 
   /** How much faster someone strikes where they stand: a watchfire's doing. */
@@ -655,7 +735,10 @@ export class Hunt {
       return;
     }
     const half = (s.half ?? 50) * RAD;
-    if (awake && dm <= s.reach + m.def.r && Math.abs(turn(h.aim, Math.atan2(m.y - h.y, m.x - h.x))) <= half + 0.3) this.harm(s.dmg, 'hunter');
+    if (awake && dm <= s.reach + m.def.r && Math.abs(turn(h.aim, Math.atan2(m.y - h.y, m.x - h.x))) <= half + 0.3) {
+      this.harm(s.dmg, 'hunter');
+      this.did('strike');
+    }
     for (const f of [...this.helpers]) {
       if (dist(h.x, h.y, f.x, f.y) <= s.reach + 14 && Math.abs(turn(h.aim, Math.atan2(f.y - h.y, f.x - h.x))) <= half) this.harmHelper(f, s.dmg);
     }
@@ -673,6 +756,7 @@ export class Hunt {
     const a = this.abilities[i];
     if (h.waits[i] > 0) return;
     h.waits[i] = a.wait;
+    this.did('skill', 1, i);
     const r = a.r ?? 0;
     let tx = h.x;
     let ty = h.y;
@@ -806,6 +890,10 @@ export class Hunt {
     let harm = amount * (1 - h.def.armor);
     for (const w of this.wards) if (dist(h.x, h.y, w.x, w.y) <= w.r) harm *= 1 - w.share;
     harm = Math.max(1, Math.round(harm));
+    // While a lesson's steps are left, nothing takes them far down: nobody dies learning to walk.
+    const t = this.teaching;
+    if (t && this.lessonDef) harm = Math.max(0, Math.min(harm, Math.floor(h.hp - h.maxHp * this.lessonDef.spare)));
+    if (t) this.stepHurt = true;
     h.hp -= harm;
     h.grace = HURT_GRACE;
     if (root > 0) h.root = root;
@@ -842,7 +930,8 @@ export class Hunt {
     if (by === 'hound' && this.frenzy > 0) dmg *= this.frenzyBy;
     dmg = Math.max(1, Math.round(dmg));
     // It does not go from one part into the next in one blow: it changes first.
-    const floor = m.part < 2 ? Math.ceil((m.maxHp * (2 - m.part)) / 3) : 0;
+    const last = this.parts.length - 1;
+    const floor = m.part < last ? Math.ceil((m.maxHp * (last - m.part)) / this.parts.length) : 0;
     const done = Math.min(dmg, m.hp - floor);
     m.hp -= done;
     this.tally.dealt[by] = (this.tally.dealt[by] ?? 0) + done;
@@ -858,7 +947,7 @@ export class Hunt {
       this.events.push({ t: 'fall', who: 'monster', id: 0, x: m.x, y: m.y }, { t: 'end', won: true });
       return;
     }
-    if (m.part < 2 && m.hp <= floor) {
+    if (m.part < last && m.hp <= floor) {
       this.shift();
       return;
     }
@@ -869,6 +958,9 @@ export class Hunt {
   private addStagger(amount: number): void {
     const m = this.monster;
     if (amount <= 0 || m.state === 'broken' || m.state === 'shift' || m.state === 'dead' || m.state === 'asleep') return;
+    // In a lesson the stagger waits for its own step: the bar is to be seen filling when it is spoken of.
+    const lesson = this.teaching;
+    if (lesson && lesson.step.wants !== 'break') return;
     m.stagger += amount;
     if (m.stagger < m.staggerMax) return;
     m.stagger = m.staggerMax;
@@ -877,6 +969,7 @@ export class Hunt {
     m.left = m.def.stagger.down;
     this.tally.breaks++;
     this.events.push({ t: 'broken', x: m.x, y: m.y });
+    this.did('break');
   }
 
   private harmHelper(f: Helper, amount: number): void {
@@ -938,8 +1031,14 @@ export class Hunt {
         const d = dist(m.x, m.y, t.x, t.y);
         m.aim = Math.atan2(t.y - m.y, t.x - m.x);
         m.face = t.x >= m.x ? 1 : -1;
+        // A step of a lesson that shows no attack: it stands and waits to be shown what the step wants.
+        const lesson = this.teaching;
+        if (lesson && !lesson.step.attack) return;
+        // An attack that is shown to teach is made from where it will reach: it comes up first, and briskly.
+        const shown = lesson?.step.attack ? byId(m.def.attacks, lesson.step.attack).shapes[0] : null;
+        const from = shown ? Math.max(m.def.reach, (shown.kind === 'line' ? shown.len : shown.kind === 'marks' || shown.kind === 'lanes' ? 9999 : shown.r) * 0.8) : m.def.reach;
         if (d > m.def.reach) {
-          const speed = m.def.speed * this.slowAt(m.x, m.y);
+          const speed = m.def.speed * this.slowAt(m.x, m.y) * (shown && d > from ? 1.8 : 1);
           m.x += Math.cos(m.aim) * speed * dt;
           m.y += Math.sin(m.aim) * speed * dt;
           m.moving = true;
@@ -948,7 +1047,10 @@ export class Hunt {
         this.caught();
         if (m.state !== 'walk') return;
         m.left -= dt;
-        if (m.left <= 0) this.begin(d);
+        if (m.left > 0 || (shown && d > from)) return;
+        // A step that shows an attack has it made, however far off the hunter stands, with its warning as long as the step says.
+        if (lesson?.step.attack) this.start(byId(m.def.attacks, lesson.step.attack), lesson.step.slow ?? 1);
+        else this.begin(d);
         return;
       }
       case 'tell': {
@@ -961,6 +1063,11 @@ export class Hunt {
           const a = m.attack as AttackDef;
           m.attack = null;
           this.openFor('recover', a.recover, 'recover');
+          // The attack is over. If it missed, the step that asked for that is done; if not, it is made again.
+          if (!this.stepHurt) {
+            this.did('avoid');
+            if (this.stepRolled) this.did('dodge');
+          }
         }
         return;
       }
@@ -997,7 +1104,7 @@ export class Hunt {
   private walkOn(): void {
     const m = this.monster;
     m.state = 'walk';
-    m.left = this.rng.range(m.def.gap[0], m.def.gap[1]) * MARKS[this.mark].gap * (m.enraged ? ENRAGE.faster : 1);
+    m.left = this.rng.range(m.def.gap[0], m.def.gap[1]) * this.scale.gap * (m.enraged ? ENRAGE.faster : 1);
     // Sometimes it turns on those who stand against it, and not on the hunter.
     this.targetAlly = 0;
     const draws = this.allies.filter((a) => a.state !== 'down' && byIdOr(REINFORCEMENTS, a.group)?.draws && dist(a.x, a.y, m.x, m.y) < 330);
@@ -1010,7 +1117,7 @@ export class Hunt {
   /** Takes the next attack of its round that suits where its mark stands, and begins it. */
   private begin(d: number): void {
     const m = this.monster;
-    const round = m.def.parts[m.part];
+    const round = this.parts[m.part];
     let pick: AttackDef | null = null;
     for (let tries = 0; tries < round.length && !pick; tries++) {
       const a = byId(m.def.attacks, round[this.round % round.length]);
@@ -1025,10 +1132,18 @@ export class Hunt {
       m.left = 0.4;
       return;
     }
+    this.start(pick, 1);
+  }
+
+  /** Begins an attack: its shapes are put down as their times come, each shown for the attack's warning. */
+  private start(pick: AttackDef, slow: number): void {
+    const m = this.monster;
     m.attack = pick;
     m.state = 'tell';
     this.elapsed = 0;
-    this.tellFor = pick.tell * MARKS[this.mark].tell * (m.enraged ? ENRAGE.faster : 1);
+    this.stepRolled = false;
+    this.stepHurt = false;
+    this.tellFor = pick.tell * this.scale.tell * slow * (m.enraged ? ENRAGE.faster : 1);
     this.pending = [];
     pick.shapes.forEach((shape, i) => {
       if (shape.kind === 'marks' && shape.at === 'follow') {
@@ -1042,7 +1157,7 @@ export class Hunt {
   private tell(shape: ShapeDef, seconds: number, attack: AttackDef, aim: number, first: boolean): void {
     const m = this.monster;
     const t = this.target();
-    const dmg = attack.dmg * MARKS[this.mark].dmg;
+    const dmg = attack.dmg * this.scale.dmg;
     const base = { left: seconds, of: seconds, dmg, foe: true, attack: attack.id, by: 0, len: 0, w: 0, r: 0, half: 0, inner: 0, angle: 0, root: attack.root };
     const made: Tell[] = [];
     if (shape.kind === 'line') {
@@ -1235,7 +1350,7 @@ export class Hunt {
       const def = byId(HELPERS, t.summon);
       if (this.helpers.length < def.most) {
         // A helper grows by half of what the monster does at a mark: a swarm at full growth leaves no room to fight.
-        const f: Helper = { id: this.nextId++, def, x: t.x, y: t.y, hp: Math.round(def.hp * (1 + (MARKS[this.mark].hp - 1) / 2)), face: 1, cool: 0.8, held: 0, moving: false, winding: false };
+        const f: Helper = { id: this.nextId++, def, x: t.x, y: t.y, hp: Math.round(def.hp * (1 + (this.scale.hp - 1) / 2)), face: 1, cool: 0.8, held: 0, moving: false, winding: false };
         this.helpers.push(f);
         this.events.push({ t: 'summon', id: f.id, x: f.x, y: f.y });
       }
@@ -1310,9 +1425,9 @@ export class Hunt {
         }
       } else if (f.cool <= 0) {
         f.cool = f.def.every;
-        const seconds = f.def.tell * MARKS[this.mark].tell;
+        const seconds = f.def.tell * this.scale.tell;
         const tell: Tell = {
-          id: this.nextId++, kind: 'ring', x: tx, y: ty, angle: 0, len: 0, w: 0, r: 34, half: 0, inner: 0, left: seconds, of: seconds, dmg: f.def.dmg * (1 + (MARKS[this.mark].dmg - 1) / 2), foe: true,
+          id: this.nextId++, kind: 'ring', x: tx, y: ty, angle: 0, len: 0, w: 0, r: 34, half: 0, inner: 0, left: seconds, of: seconds, dmg: f.def.dmg * (1 + (this.scale.dmg - 1) / 2), foe: true,
           attack: f.def.id, by: f.id,
         };
         this.tells.push(tell);

@@ -49,7 +49,21 @@ export class Bot {
 
   /** How it is steered now, in camp or in the hunt. */
   steer(h: Hunt): Steer {
-    return h.phase === 'camp' ? this.camp(h) : this.fight(h);
+    if (h.phase === 'camp') return this.camp(h);
+    const s = this.fight(h);
+    // In a hunt that teaches it does what the step asks for, as someone reading the plate would.
+    const t = h.teaching;
+    if (t) {
+      if (t.step.wants === 'skill') {
+        // It waits for the red to show where the step shows an attack, and presses a moment after.
+        const shown = h.tells.some((x) => x.foe && x.of - x.left > this.react);
+        if (!t.step.attack || shown) {
+          if (t.step.skill === 0) s.a = true;
+          else s.b = true;
+        }
+      } else if (t.step.wants === 'dodge' && this.seen(h).length > 0) s.dodge = true;
+    }
+    return s;
   }
 
   // ------------------------------------------------------------ camp

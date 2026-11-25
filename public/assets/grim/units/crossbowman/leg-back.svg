@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="crossbowman-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="crossbowman-leg-back-leg-shape" d="M 121.8 171.9 L 117.9 193.8 L 109.4 223.4 L 94.6 220.6 L 98.8 190.1 L 102.2 168.1 Z"/>
+<clipPath id="crossbowman-leg-back-leg-clip"><use href="#crossbowman-leg-back-leg-shape"/></clipPath>
+<path id="crossbowman-leg-back-boot-shape" d="M 92.5 217 L 110.5 215 L 109.8 227 L 118 230 L 124 236 L 124 240 L 86 240 L 84 230 Z"/>
+<clipPath id="crossbowman-leg-back-boot-clip"><use href="#crossbowman-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="crossbowman-leg-back-leg">
+<use id="crossbowman-leg-back-leg-line" href="#crossbowman-leg-back-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-leg-back-leg-clip)">
+<use id="crossbowman-leg-back-leg-lit" href="#crossbowman-leg-back-leg-shape" fill="#6f5c46"/>
+<path id="crossbowman-leg-back-leg-mid" d="M 112.2 167 L 107.1 193.6 L 103.1 196.6 L 97.8 224.3 L 79.8 220.8 L 91 162.9 Z" transform="translate(3.81 -0.91)" fill="#4a3c2d"/>
+<path id="crossbowman-leg-back-leg-dark" d="M 112.2 167 L 107.1 193.6 L 103.1 196.6 L 97.8 224.3 L 79.8 220.8 L 91 162.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="crossbowman-leg-back-boot">
+<use id="crossbowman-leg-back-boot-line" href="#crossbowman-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-leg-back-boot-clip)">
+<use id="crossbowman-leg-back-boot-lit" href="#crossbowman-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="crossbowman-leg-back-boot-mid" d="M 78 212 L 100.3 212 L 101.7 226 L 110.5 232 L 128 235 L 128 244 L 78 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="crossbowman-leg-back-boot-dark" d="M 78 212 L 100.3 212 L 101.7 226 L 110.5 232 L 128 235 L 128 244 L 78 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-leg-back-boot-sole" d="M 84 237 L 125 237 L 125 241.5 L 84 241.5 Z" fill="#14110f"/>
+<path id="crossbowman-leg-back-boot-crease" d="M 109 225.8 L 100.3 231 L 110 228.2 Z" fill="#14110f"/>
+</svg>

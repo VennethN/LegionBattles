@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="tar-pool-alight" width="198" height="100" viewBox="0 0 198 100">
+<defs>
+<path id="tar-pool-alight-flame-0-shape" d="M 50 60 L 52 44 L 58 50 L 62 30 L 68 48 L 72 42 L 70 60 Z"/>
+<clipPath id="tar-pool-alight-flame-0-clip"><use href="#tar-pool-alight-flame-0-shape"/></clipPath>
+<path id="tar-pool-alight-flame-1-shape" d="M 86 50 L 88.8 27.6 L 97.2 36 L 102.8 8 L 111.2 33.2 L 116.8 24.8 L 114 50 Z"/>
+<clipPath id="tar-pool-alight-flame-1-clip"><use href="#tar-pool-alight-flame-1-shape"/></clipPath>
+<path id="tar-pool-alight-flame-2-shape" d="M 130 58 L 132 42 L 138 48 L 142 28 L 148 46 L 152 40 L 150 58 Z"/>
+<clipPath id="tar-pool-alight-flame-2-clip"><use href="#tar-pool-alight-flame-2-shape"/></clipPath>
+<path id="tar-pool-alight-flame-3-shape" d="M 76 72 L 77.6 59.2 L 82.4 64 L 85.6 48 L 90.4 62.4 L 93.6 57.6 L 92 72 Z"/>
+<clipPath id="tar-pool-alight-flame-3-clip"><use href="#tar-pool-alight-flame-3-shape"/></clipPath>
+<path id="tar-pool-alight-flame-4-shape" d="M 113 70 L 114.8 55.6 L 120.2 61 L 123.8 43 L 129.2 59.2 L 132.8 53.8 L 131 70 Z"/>
+<clipPath id="tar-pool-alight-flame-4-clip"><use href="#tar-pool-alight-flame-4-shape"/></clipPath>
+</defs>
+<path id="tar-pool-alight-pool" d="M 10 40 L 40 18 L 96 10 L 150 20 L 186 44 L 176 78 L 128 96 L 60 94 L 20 72 Z" fill="#14110f"/>
+<path id="tar-pool-alight-rim" d="M 26 44 L 50 26 L 96 20 L 144 28 L 170 46 L 162 70 L 124 84 L 64 82 L 34 66 Z" fill="#34302d"/>
+<path id="tar-pool-alight-deep" d="M 40 46 L 60 32 L 98 28 L 138 36 L 156 48 L 148 66 L 118 76 L 70 74 L 46 62 Z" fill="#14110f"/>
+<path id="tar-pool-alight-shine" d="M 70 38 L 104 34 L 112 38 L 78 42 Z" fill="#4f4944"/>
+<path id="tar-pool-alight-splash-a" d="M 0 60 L 10 54 L 12 62 Z" fill="#14110f"/>
+<path id="tar-pool-alight-splash-b" d="M 186 70 L 196 74 L 188 80 Z" fill="#14110f"/>
+<g id="tar-pool-alight-flame-0">
+<use id="tar-pool-alight-flame-0-line" href="#tar-pool-alight-flame-0-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#tar-pool-alight-flame-0-clip)">
+<use id="tar-pool-alight-flame-0-lit" href="#tar-pool-alight-flame-0-shape" fill="#eeb040"/>
+<path id="tar-pool-alight-heart-0" d="M 57 60 L 60 46 L 64 60 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="tar-pool-alight-flame-1">
+<use id="tar-pool-alight-flame-1-line" href="#tar-pool-alight-flame-1-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#tar-pool-alight-flame-1-clip)">
+<use id="tar-pool-alight-flame-1-lit" href="#tar-pool-alight-flame-1-shape" fill="#eeb040"/>
+<path id="tar-pool-alight-heart-1" d="M 95.8 50 L 100 30.4 L 105.6 50 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="tar-pool-alight-flame-2">
+<use id="tar-pool-alight-flame-2-line" href="#tar-pool-alight-flame-2-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#tar-pool-alight-flame-2-clip)">
+<use id="tar-pool-alight-flame-2-lit" href="#tar-pool-alight-flame-2-shape" fill="#eeb040"/>
+<path id="tar-pool-alight-heart-2" d="M 137 58 L 140 44 L 144 58 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="tar-pool-alight-flame-3">
+<use id="tar-pool-alight-flame-3-line" href="#tar-pool-alight-flame-3-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#tar-pool-alight-flame-3-clip)">
+<use id="tar-pool-alight-flame-3-lit" href="#tar-pool-alight-flame-3-shape" fill="#eeb040"/>
+<path id="tar-pool-alight-heart-3" d="M 81.6 72 L 84 60.8 L 87.2 72 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="tar-pool-alight-flame-4">
+<use id="tar-pool-alight-flame-4-line" href="#tar-pool-alight-flame-4-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#tar-pool-alight-flame-4-clip)">
+<use id="tar-pool-alight-flame-4-lit" href="#tar-pool-alight-flame-4-shape" fill="#eeb040"/>
+<path id="tar-pool-alight-heart-4" d="M 119.3 70 L 122 57.4 L 125.6 70 Z" fill="#ffe6a2"/>
+</g>
+</g>
+</svg>

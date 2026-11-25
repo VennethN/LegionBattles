@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-reap" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-reap-sweep-shape" d="M 6 40 L 16 20 L 36 8 L 58 10 L 40 16 L 26 26 L 18 44 Z"/>
+<path id="icon-ability-reap-blade-shape" d="M 30 34 L 50 22 L 62 34 L 56 52 L 44 44 L 36 46 Z"/>
+<clipPath id="icon-ability-reap-blade-clip"><use href="#icon-ability-reap-blade-shape"/></clipPath>
+<path id="icon-ability-reap-shaft-shape" d="M 6.3 57.6 L 34.5 38 L 37.5 42 L 9.7 62.4 Z"/>
+<clipPath id="icon-ability-reap-shaft-clip"><use href="#icon-ability-reap-shaft-shape"/></clipPath>
+</defs>
+<g id="icon-ability-reap-sweep">
+<use id="icon-ability-reap-sweep-line" href="#icon-ability-reap-sweep-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-ability-reap-sweep-lit" href="#icon-ability-reap-sweep-shape" fill="#cfc5a8"/>
+</g>
+<g id="icon-ability-reap-blade">
+<use id="icon-ability-reap-blade-line" href="#icon-ability-reap-blade-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-reap-blade-clip)">
+<use id="icon-ability-reap-blade-lit" href="#icon-ability-reap-blade-shape" fill="#8c9194"/>
+<use id="icon-ability-reap-blade-rim" href="#icon-ability-reap-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-ability-reap-blade-lit-over" href="#icon-ability-reap-blade-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="icon-ability-reap-blade-mid" d="M 18 18 L 33.6 17.7 L 35.8 33.2 L 32.5 38.1 L 35.1 56.3 L 18 56 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="icon-ability-reap-blade-dark" d="M 18 18 L 33.6 17.7 L 35.8 33.2 L 32.5 38.1 L 35.1 56.3 L 18 56 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-reap-shaft">
+<use id="icon-ability-reap-shaft-line" href="#icon-ability-reap-shaft-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-reap-shaft-clip)">
+<use id="icon-ability-reap-shaft-lit" href="#icon-ability-reap-shaft-shape" fill="#6f5c46"/>
+<path id="icon-ability-reap-shaft-dark" d="M -5.7 34 L 11.7 33.7 L 14.2 51.9 L 10.6 56.4 L 12 66.7 L -5.7 66.4 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-coin" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-coin-coin-shape" d="M 20 6 L 42 4 L 58 18 L 60 40 L 46 58 L 24 60 L 8 46 L 4 24 Z"/>
+<clipPath id="icon-coin-coin-clip"><use href="#icon-coin-coin-shape"/></clipPath>
+</defs>
+<g id="icon-coin-coin">
+<use id="icon-coin-coin-line" href="#icon-coin-coin-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-coin-coin-clip)">
+<use id="icon-coin-coin-lit" href="#icon-coin-coin-shape" fill="#eeb040"/>
+<use id="icon-coin-coin-rim" href="#icon-coin-coin-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-coin-coin-lit-over" href="#icon-coin-coin-shape" transform="translate(-1.6 1.2)" fill="#eeb040"/>
+<path id="icon-coin-coin-mid" d="M 0 34 L 64 44 L 64 64 L 0 64 Z" transform="translate(3 -0.72)" fill="#c27a26"/>
+<path id="icon-coin-coin-dark" d="M 0 34 L 64 44 L 64 64 L 0 64 Z" fill="#14110f"/>
+<path id="icon-coin-hook" d="M 23.7 19 L 36 42 L 28.3 17 Z M 36.4 39.5 L 24 40 L 35.6 44.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-coin-clip" d="M 52 12 L 60 20 L 50 20 Z" fill="#14110f"/>
+</svg>

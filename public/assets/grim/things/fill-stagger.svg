@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="fill-stagger" width="16" height="18" viewBox="0 0 16 18">
+<path id="fill-stagger-fill" d="M 0 0 L 16 0 L 16 18 L 0 18 Z" fill="#eeb040"/>
+<path id="fill-stagger-foot" d="M 0 11 L 16 11 L 16 18 L 0 18 Z" fill="#c27a26"/>
+<path id="fill-stagger-top" d="M 0 0 L 16 0 L 16 3 L 0 3 Z" fill="#ffe6a2"/>
+</svg>

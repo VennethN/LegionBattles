@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { ABILITIES, BUILDINGS, CAMP, HELPERS, HUNTERS, MARKS, MONSTERS, REINFORCEMENTS, byId } from '../src/game/content';
-import { Hunt, STEP, inside, type Tell } from '../src/game/hunt';
+import { Bot } from '../src/game/bot';
+import { ABILITIES, BUILDINGS, CAMP, HELPERS, HUNTERS, LESSONS, MARKS, MONSTERS, REINFORCEMENTS, byId } from '../src/game/content';
+import { Hunt, STEP, inside, type Ev, type Setup, type Tell } from '../src/game/hunt';
 import { awake, hold, next, of, play, setup } from './lair';
 
 describe('the tables', () => {
@@ -719,5 +720,118 @@ describe('a hunt as a whole', () => {
     const h = new Hunt(setup({ tall: true }));
     expect(h.h).toBeGreaterThan(h.w);
     expect(h.monster.y).toBeLessThan(h.hunter.y);
+  });
+});
+
+describe('a hunt that teaches', () => {
+  const lesson = byId(LESSONS, 'first');
+  const taught = (o: Partial<Setup> = {}): Hunt => new Hunt(setup({ lesson: 'first', ...o }));
+  /** Plays until the step named is the one waited on, or fails. */
+  const until = (h: Hunt, bot: Bot, id: string, seconds = 60): Ev[] => {
+    const all: Ev[] = [];
+    for (let t = 0; t < seconds && !h.over && h.teaching?.step.id !== id; t += STEP) {
+      h.step(bot.steer(h));
+      all.push(...h.drain());
+    }
+    expect(h.teaching?.step.id, id).toBe(id);
+    return all;
+  };
+
+  it('its table names attacks the monster has and abilities its hunter has, and says each step two ways', () => {
+    const m = byId(MONSTERS, lesson.monster);
+    for (const round of lesson.parts) for (const id of round) expect(m.attacks.some((a) => a.id === id), id).toBe(true);
+    for (const step of lesson.steps) {
+      if (step.attack) expect(m.attacks.some((a) => a.id === step.attack), step.id).toBe(true);
+      expect(step.says.keys.length, step.id).toBeGreaterThan(8);
+      expect(step.says.touch.length, step.id).toBeGreaterThan(8);
+      expect(/[\u2014]/.test(step.says.keys + step.says.touch)).toBe(false);
+    }
+    expect(lesson.parts.length).toBeLessThanOrEqual(2);
+  });
+
+  it('has no camp: the monster is awake at once, and stands until the hunter has walked', () => {
+    const h = taught();
+    expect(h.phase).toBe('hunt');
+    expect(of(h.drain(), 'lesson')[0]).toMatchObject({ id: 'move', index: 0 });
+    const at = [h.monster.x, h.monster.y];
+    const ev = play(h, 6);
+    expect(of(ev, 'tell')).toEqual([]);
+    expect([h.monster.x, h.monster.y]).toEqual(at);
+    expect(h.teaching?.step.id).toBe('move');
+    const walked = play(h, 1.2, { x: 0, y: 1 });
+    expect(of(walked, 'learned').map((e) => e.id)).toEqual(['move']);
+    expect(h.teaching?.step.id).toBe('avoid');
+  });
+
+  it('shows the step its attack, slow, and makes it again until it has missed', () => {
+    const h = taught();
+    play(h, 1.2, { x: 0, y: 1 });
+    // Standing in it: struck, and the step is not done.
+    const first = play(h, 14);
+    const tells = of(first, 'tell');
+    expect(tells.length).toBeGreaterThan(0);
+    expect(tells.every((t) => t.attack === 'spade')).toBe(true);
+    expect(of(first, 'hurt').length).toBeGreaterThan(0);
+    expect(h.teaching?.step.id).toBe('avoid');
+    // Its warning is longer than the attack's own, by the lesson and by the step.
+    const spade = byId(byId(MONSTERS, 'sexton').attacks, 'spade');
+    const step = lesson.steps[1];
+    play(h, 12, () => ({ x: 0, y: 0 }));
+    const shown = h.tells[0] ?? null;
+    if (shown) expect(shown.of).toBeCloseTo(spade.tell * lesson.scale.tell * (step.slow ?? 1), 5);
+    // Walking out of it: done.
+    const bot = new Bot(3, { slip: 0 });
+    until(h, bot, 'dodge');
+  });
+
+  it('nothing takes the hunter far down while steps are left', () => {
+    const h = taught();
+    play(h, 1.2, { x: 0, y: 1 });
+    play(h, 120);
+    expect(h.over).toBe(null);
+    expect(h.hunter.hp).toBeGreaterThanOrEqual(Math.floor(h.hunter.maxHp * lesson.spare));
+    expect(h.teaching?.step.id).toBe('avoid');
+  });
+
+  it('a careful player is taken through every step in order, the stagger waiting for its own, and then wins', () => {
+    for (const seed of [1, 2, 3, 4, 5, 6]) {
+      const h = taught({ seed });
+      const bot = new Bot(seed, { slip: 0 });
+      const learned: string[] = [];
+      let beforeBreak = 0;
+      for (let t = 0; t < 400 && !h.over; t += STEP) {
+        h.step(bot.steer(h));
+        for (const e of h.drain()) {
+          if (e.t === 'learned') learned.push(e.id);
+          if (e.t === 'broken' && h.teaching && h.teaching.step.id !== 'break' && !learned.includes('break')) beforeBreak++;
+        }
+        if (h.teaching && h.teaching.step.wants !== 'break') expect(h.monster.stagger).toBe(0);
+      }
+      expect(learned, `seed ${seed}`).toEqual(lesson.steps.map((s) => s.id));
+      expect(beforeBreak).toBe(0);
+      expect(h.over, `seed ${seed}`).toBe('won');
+      expect(h.tally.taught).toBe(true);
+      // A few minutes at the most.
+      expect(h.tally.time, `seed ${seed}`).toBeLessThan(240);
+    }
+  });
+
+  it('changes once, half way, and has only the attacks its lesson gives it', () => {
+    const h = taught({ taught: true });
+    expect(h.teaching).toBe(null);
+    expect(h.cuts).toEqual([0.5]);
+    const bot = new Bot(2, { slip: 0 });
+    const names = new Set<string>();
+    const parts: number[] = [];
+    for (let t = 0; t < 400 && !h.over; t += STEP) {
+      h.step(bot.steer(h));
+      for (const e of h.drain()) {
+        if (e.t === 'tell') names.add(e.attack);
+        if (e.t === 'part') parts.push(e.part);
+      }
+    }
+    expect(parts).toEqual([1]);
+    names.delete('shift');
+    for (const n of names) expect(lesson.parts.flat()).toContain(n);
   });
 });

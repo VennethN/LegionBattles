@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hunting-wall" width="290" height="134" viewBox="0 0 290 134">
+<defs>
+<path id="hunting-wall-wall-shape" d="M 4 124 L 6 56 L 60 50 L 96 62 L 150 46 L 200 54 L 236 76 L 276 84 L 280 120 Z"/>
+<clipPath id="hunting-wall-wall-clip"><use href="#hunting-wall-wall-shape"/></clipPath>
+<path id="hunting-wall-snow-a-shape" d="M 4 58 L 60 48 L 96 62 L 84 62 L 58 56 L 8 66 Z"/>
+<path id="hunting-wall-snow-b-shape" d="M 150 44 L 200 52 L 236 76 L 222 74 L 196 60 L 152 54 Z"/>
+<path id="hunting-wall-fallen-a-shape" d="M 236 124 L 246 104 L 268 106 L 276 124 Z"/>
+<clipPath id="hunting-wall-fallen-a-clip"><use href="#hunting-wall-fallen-a-shape"/></clipPath>
+<path id="hunting-wall-fallen-b-shape" d="M 98 128 L 104 114 L 124 116 L 128 130 Z"/>
+<clipPath id="hunting-wall-fallen-b-clip"><use href="#hunting-wall-fallen-b-shape"/></clipPath>
+</defs>
+<path id="hunting-wall-blot" d="M 0 118 L 270 112 L 286 124 L 10 130 Z" fill="#14110f" opacity="0.55"/>
+<g id="hunting-wall-wall">
+<use id="hunting-wall-wall-line" href="#hunting-wall-wall-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hunting-wall-wall-clip)">
+<use id="hunting-wall-wall-lit" href="#hunting-wall-wall-shape" fill="#77786f"/>
+<path id="hunting-wall-wall-mid" d="M 0 92 L 0 92.2 L 101.9 94.3 L 106.8 90.1 L 286 93.8 L 286 132 L 0 132 Z" transform="translate(6 -1.44)" fill="#54564f"/>
+<path id="hunting-wall-wall-dark" d="M 0 92 L 0 92.2 L 101.9 94.3 L 106.8 90.1 L 286 93.8 L 286 132 L 0 132 Z" fill="#14110f"/>
+<path id="hunting-wall-stones" d="M 8 77.2 L 90 74 L 8 74.8 Z M 100 81.2 L 230 84 L 100 78.8 Z M 38.8 56.1 L 42 74 L 41.2 55.9 Z M 68.8 60.1 L 72 76 L 71.2 59.9 Z M 128.8 54.1 L 132 80 L 131.2 53.9 Z M 174.8 54.1 L 178 82 L 177.2 53.9 Z M 208.8 64.1 L 212 84 L 211.2 63.9 Z M 22.8 78.2 L 26 92 L 25.2 77.8 Z M 108.8 82.2 L 112 96 L 111.2 81.8 Z M 158.8 84.2 L 162 98 L 161.2 83.8 Z" fill="#54564f"/>
+<path id="hunting-wall-moss-a" d="M 16 60 L 50 56 L 44 70 L 20 72 Z" fill="#4b4f2f"/>
+<path id="hunting-wall-lichen" d="M 152 50 L 186 54 L 180 66 L 156 64 Z" fill="#727646" opacity="0.8"/>
+<path id="hunting-wall-wall-cold" d="M -36 6 L 320 6 L 320 164 L -36 164 Z M 6.3 122.3 L 8.3 54.3 L 62.3 48.3 L 98.3 60.3 L 152.3 44.3 L 202.3 52.3 L 238.3 74.3 L 278.3 82.3 L 282.3 118.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="hunting-wall-snow-a">
+<use id="hunting-wall-snow-a-line" href="#hunting-wall-snow-a-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="hunting-wall-snow-a-lit" href="#hunting-wall-snow-a-shape" fill="#b4bfc0"/>
+</g>
+<g id="hunting-wall-snow-b">
+<use id="hunting-wall-snow-b-line" href="#hunting-wall-snow-b-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="hunting-wall-snow-b-lit" href="#hunting-wall-snow-b-shape" fill="#b4bfc0"/>
+</g>
+<g id="hunting-wall-fallen-a">
+<use id="hunting-wall-fallen-a-line" href="#hunting-wall-fallen-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hunting-wall-fallen-a-clip)">
+<use id="hunting-wall-fallen-a-lit" href="#hunting-wall-fallen-a-shape" fill="#77786f"/>
+<path id="hunting-wall-fallen-a-mid" d="M 224 100 L 250.1 99.4 L 254.8 115.7 L 251.5 120.3 L 253.9 128.6 L 224 128 Z" transform="translate(3 -0.72)" fill="#54564f"/>
+<path id="hunting-wall-fallen-a-dark" d="M 224 100 L 250.1 99.4 L 254.8 115.7 L 251.5 120.3 L 253.9 128.6 L 224 128 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hunting-wall-fallen-b">
+<use id="hunting-wall-fallen-b-line" href="#hunting-wall-fallen-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hunting-wall-fallen-b-clip)">
+<use id="hunting-wall-fallen-b-lit" href="#hunting-wall-fallen-b-shape" fill="#77786f"/>
+<path id="hunting-wall-fallen-b-mid" d="M 86 110 L 106.8 110 L 113.2 134 L 86 134 Z" transform="translate(3 -0.72)" fill="#54564f"/>
+<path id="hunting-wall-fallen-b-dark" d="M 86 110 L 106.8 110 L 113.2 134 L 86 134 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="hunting-wall-ring" d="M 38 88 L 32 96 L 38 104 L 44 96 L 38 88" fill="none" stroke="#14110f" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="hunting-wall-ring-rust" d="M 36 100 L 42 98 L 41 104 L 37 105 Z" fill="#6a3b24"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="trunk-flat" width="300" height="300" viewBox="0 0 300 300">
+<path id="trunk-flat-ground" d="M 0 300 L 0 262 L 50 250 L 120 258 L 200 246 L 260 262 L 300 256 L 300 300 Z" fill="#14110f"/>
+<path id="trunk-flat-trunk-a" d="M 40 262 L 52 120 L 44 0 L 84 0 L 92 130 L 110 264 Z" fill="#14110f"/>
+<path id="trunk-flat-branch" d="M 84 60 L 150 40 L 230 44 L 296 20 L 300 30 L 232 56 L 152 54 L 88 80 Z" fill="#14110f"/>
+<path id="trunk-flat-trunk-b" d="M 214 262 L 222 150 L 216 60 L 240 60 L 246 160 L 262 262 Z" fill="#14110f"/>
+<path id="trunk-flat-charm" d="M 168 52 L 172 52 L 172 96 L 182 96 L 184 126 L 158 126 L 160 96 L 168 96 Z" fill="#14110f"/>
+<path id="trunk-flat-bracken" d="M 13.4 261.1 L 0 226 L 6.6 262.9 Z M 21.5 260.2 L 20 220 L 14.5 259.8 Z M 29.1 259.6 L 42 228 L 22.9 256.4 Z M 133.4 257.2 L 122 226 L 126.6 258.8 Z M 143.3 257 L 150 224 L 136.7 255 Z M 273.4 259.1 L 262 230 L 266.6 260.9 Z M 285.2 259.5 L 294 232 L 278.8 256.5 Z" fill="#14110f"/>
+</svg>

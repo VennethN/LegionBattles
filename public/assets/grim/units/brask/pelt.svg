@@ -4,6 +4,14 @@
 <clipPath id="brask-pelt-pelt-clip"><use href="#brask-pelt-pelt-shape"/></clipPath>
 <path id="brask-pelt-paw-shape" d="M 160 110 L 172 110 L 174 130 L 170 136 L 167 130 L 164 137 L 160 130 Z"/>
 <clipPath id="brask-pelt-paw-clip"><use href="#brask-pelt-paw-shape"/></clipPath>
+<path id="brask-pelt-wolf-head-shape" d="M 86 100 L 100 88 L 116 92 L 112 108 L 96 116 Z"/>
+<clipPath id="brask-pelt-wolf-head-clip"><use href="#brask-pelt-wolf-head-shape"/></clipPath>
+<path id="brask-pelt-wolf-ear-shape" d="M 98 90 L 96 76 L 108 88 Z"/>
+<clipPath id="brask-pelt-wolf-ear-clip"><use href="#brask-pelt-wolf-ear-shape"/></clipPath>
+<path id="brask-pelt-pelt-thong-shape" d="M 131.7 82.9 L 151.7 114.9 L 148.3 117.1 L 128.3 85.1 Z"/>
+<clipPath id="brask-pelt-pelt-thong-clip"><use href="#brask-pelt-pelt-thong-shape"/></clipPath>
+<path id="brask-pelt-pelt-thong-buckle-shape" d="M 139 100.2 L 145 100.5 L 144.7 106.2 L 139.3 105.9 Z"/>
+<clipPath id="brask-pelt-pelt-thong-buckle-clip"><use href="#brask-pelt-pelt-thong-buckle-shape"/></clipPath>
 </defs>
 <g id="brask-pelt-pelt">
 <use id="brask-pelt-pelt-line" href="#brask-pelt-pelt-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
@@ -22,4 +30,37 @@
 <path id="brask-pelt-paw-dark" d="M 148 106 L 162 105.8 L 165.1 123.6 L 163.7 125.8 L 166.4 141.2 L 148 141 Z" fill="#14110f"/>
 </g>
 </g>
+<g id="brask-pelt-wolf-head">
+<use id="brask-pelt-wolf-head-line" href="#brask-pelt-wolf-head-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-pelt-wolf-head-clip)">
+<use id="brask-pelt-wolf-head-lit" href="#brask-pelt-wolf-head-shape" fill="#4f4944"/>
+<path id="brask-pelt-wolf-head-mid" d="M 74 84 L 97.3 83.4 L 101.2 95.9 L 98.7 101.2 L 104.7 120.6 L 74 120 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="brask-pelt-wolf-head-dark" d="M 74 84 L 97.3 83.4 L 101.2 95.9 L 98.7 101.2 L 104.7 120.6 L 74 120 Z" fill="#14110f"/>
+<path id="brask-pelt-wolf-seam" d="M 92.5 102.1 L 95.5 105.3 L 93.6 101.3 Z M 97 101.1 L 100 104.3 L 98.1 100.3 Z M 101.5 100.1 L 104.5 103.3 L 102.6 99.3 Z M 106 99.1 L 109 102.3 L 107.1 98.3 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="brask-pelt-wolf-ear">
+<use id="brask-pelt-wolf-ear-line" href="#brask-pelt-wolf-ear-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-pelt-wolf-ear-clip)">
+<use id="brask-pelt-wolf-ear-lit" href="#brask-pelt-wolf-ear-shape" fill="#4f4944"/>
+<path id="brask-pelt-wolf-ear-dark" d="M 84 72 L 99.4 72 L 104.6 94 L 84 94 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="brask-pelt-pelt-thong">
+<use id="brask-pelt-pelt-thong-line" href="#brask-pelt-pelt-thong-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-pelt-pelt-thong-clip)">
+<use id="brask-pelt-pelt-thong-lit" href="#brask-pelt-pelt-thong-shape" fill="#7b5b3d"/>
+<path id="brask-pelt-pelt-thong-dark" d="M 129.1 81 L 141.1 100.1 L 140.9 101 L 151.8 118.4 L 148.7 120.4 L 125.5 83.3 Z" fill="#14110f"/>
+<path id="brask-pelt-pelt-thong-stitch" d="M 133.3 87.8 L 132.3 89.1 L 133.9 88.9 Z M 136.8 93.5 L 135.9 94.7 L 137.4 94.5 Z M 140.3 99.1 L 139.4 100.4 L 140.9 100.1 Z M 143.8 104.7 L 142.9 106 L 144.4 105.8 Z M 147.3 110.4 L 146.4 111.6 L 148 111.4 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="brask-pelt-pelt-thong-buckle">
+<use id="brask-pelt-pelt-thong-buckle-line" href="#brask-pelt-pelt-thong-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-pelt-pelt-thong-buckle-clip)">
+<use id="brask-pelt-pelt-thong-buckle-lit" href="#brask-pelt-pelt-thong-buckle-shape" fill="#8c9194"/>
+<path id="brask-pelt-pelt-thong-buckle-dark" d="M 127 96.2 L 139.6 96.2 L 142 110.2 L 127 110.2 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="brask-pelt-pelt-thong-pin" d="M 140.5 102.4 L 144.1 102.8 L 144.1 104 L 140.5 103.8 Z" fill="#14110f"/>
+<path id="brask-pelt-claws" d="M 159.8 131.9 L 160 140 L 162.2 132.1 Z M 164.8 134 L 166 142 L 167.2 134 Z M 169.8 132.1 L 172 140 L 172.2 131.9 Z" fill="#cfc5a8"/>
 </svg>

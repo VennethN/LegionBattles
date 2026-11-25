@@ -46,7 +46,7 @@ function keyOn(d: Doc, name: string, at: Pt, deg: number, len = 14): void {
 }
 
 /**
- * Marta Voss, the Lychwarden: keeper of the gate the dead are carried through. Heavy and planted. A plain iron
+ * Marta Voss, the Warden: keeper of the gate the dead are carried through. Heavy and planted. A plain iron
  * kettle helm strapped under her jaw, a hide across shoulders as wide as a door, a short quilted jack belted
  * with the lodge's red, the gate's keys at her hip, fists like mallets on a halberd stood upright, and her
  * lamp hung low on its shaft.
@@ -169,11 +169,11 @@ const marta: UnitArt = {
         cold: 2.6,
         open: [[[160, 92], [174, 95]]],
         inner: (c) => {
-          c.detail('hair', [[[140, 96], [144, 114]], [[150, 96], [155, 112]], [[160, 96], [166, 112]], [[170, 100], [176, 112]], [[130, 96], [132, 114]]], LEATHER, 2.4);
+          c.detail('hair', [[[150, 96], [155, 112]], [[166, 98], [172, 112]]], LEATHER, 2.4);
           c.detail('seam', stitches([120, 88], [124, 122], 6, 4, 0.2), LEATHER, 1.3);
         },
       });
-      strap(d, 'mantle-strap', [124, 86], [150, 124], 6, SOOT, 0.55, LEAD);
+      strap(d, 'mantle-strap', [122, 86], [136, 122], 5, SOOT, 0.6, LEAD);
     }, 0.12),
     part('head', 'head', 'body', [142, 98], (d) => {
       // Her braid, grey, down her back.
@@ -212,7 +212,7 @@ export function jawTrap(d: Doc, name: string, at: Pt, k = 1): void {
 }
 
 /**
- * Jory Pell, the Snaresman. Lean and wary under a deep hood, his eyes somewhere in it: a heavy olive coat with
+ * Jory Pell, the Poacher. Lean and wary under a deep hood, his eyes somewhere in it: a heavy olive coat with
  * its frogs done up, a pack on his back with his jaw traps swinging off it, and a windlass crossbow as long as
  * his body held hard into his shoulder.
  */
@@ -288,7 +288,7 @@ const jory: UnitArt = {
     }),
     part('crossbow', 'weapon', 'body', [142, 114], (d) => {
       // The arm that is further off, under the fore end.
-      arm(d, 'arm-back', [136, 112], [166, 136], [200, 122], MOSS, LEATHER, 13);
+      arm(d, 'arm-back', [136, 112], [170, 126], [200, 120], MOSS, LEATHER, 12);
       // The tiller: a long heavy stock, its butt in his shoulder.
       d.ink('stock', poly([[136, 108], [148, 106], [232, 108], [234, 118], [150, 124], [138, 122]]), WOOD, {
         dark: poly([[130, 117], [240, 113], [240, 128], [130, 128]]), mid: 2,
@@ -310,7 +310,7 @@ const jory: UnitArt = {
       d.ink('bolt', poly([[190, 105], [232, 104.4], [246, 107.6], [232, 110], [190, 109.4]]), BONE, { dark: false, line: 1.2, heavy: 1.6 });
       d.ink('stirrup', poly([[234, 102], [246, 100], [248, 122], [236, 122], [237, 117], [242, 117], [241, 106], [235, 107]]), LEAD, { dark: false, line: 1.4, heavy: 2 });
       // The near arm: his hand on the tickler.
-      arm(d, 'arm-front', [150, 114], [158, 140], [176, 124], MOSS, LEATHER, 14.5);
+      arm(d, 'arm-front', [150, 114], [160, 134], [176, 122], MOSS, LEATHER, 13.5);
     }),
     part('cowl', 'extra', 'body', [140, 104], (d) => {
       // The cape of his hood over both shoulders, which hides where the arms begin.
@@ -473,7 +473,7 @@ const agnes: UnitArt = {
 };
 
 /**
- * Old Brask, the Kennelman. Wide as a cart and bent with it: a wolf's pelt with its ragged edge over his
+ * Old Brask, the Dog Handler. Wide as a cart and bent with it: a wolf's pelt with its ragged edge over his
  * shoulders, a bald head and a beard like a spade, a kennel apron, a leash coiled in one fist and a boar spear
  * stood upright in the other. A hound goes at his knee, and is a figure of its own.
  */
@@ -534,6 +534,10 @@ const brask: UnitArt = {
       });
       d.ink('whistle', poly([[118, 164], [124, 164], [125, 180], [119, 180]]), BONE, { dark: false, line: 1.3, heavy: 1.6 });
       pouch(d, 'pouch', [104, 166], 14, 16, LEATHER);
+      // A spare collar on his belt, studded, and a bag of bones for them.
+      d.ink('collar', poly([[122, 172], [136, 170], [138, 180], [124, 182]]), SOOT, { dark: false, line: 1.6, heavy: 2 });
+      rivets(d, 'collar-studs', [124, 176], [137, 175], 3, 1.3);
+      d.ink('bone-bag', poly([[108, 184], [122, 184], [126, 204], [116, 210], [106, 204]]), TALLOW, { dark: 0.4, mid: 2, line: 1.8, heavy: 2.4, inner: (c) => c.detail('bag-tie', [[[108, 190], [124, 190]]], TALLOW, 1.4) });
     }),
     part('spear', 'weapon', 'body', [148, 116], (d) => {
       const butt: Pt = [180, 240];
@@ -572,6 +576,11 @@ const brask: UnitArt = {
         inner: (c) => c.detail('fur', [[[122, 90], [126, 110]], [[134, 88], [139, 108]], [[146, 90], [152, 106]], [[158, 96], [164, 110]], [[112, 96], [112, 118]], [[108, 126], [106, 146]]], SOOT, 2.6),
       });
       d.ink('paw', poly([[160, 110], [172, 110], [174, 130], [170, 136], [167, 130], [164, 137], [160, 130]]), SOOT, { dark: 0.3, mid: 0, line: 1.8, heavy: 2.4 });
+      // The wolf's own head, flat on his far shoulder, its jaw sewn shut; and the thong that ties the pelt on.
+      d.ink('wolf-head', poly([[86, 100], [100, 88], [116, 92], [112, 108], [96, 116]]), SOOT, { dark: 0.5, mid: 2, line: 1.8, heavy: 2.4, inner: (c) => c.detail('wolf-seam', stitches([92, 104], [110, 100], 4, 4, 0.2), SOOT, 1.4) });
+      d.ink('wolf-ear', poly([[98, 90], [96, 76], [108, 88]]), SOOT, { dark: 0.5, mid: 0, line: 1.8, heavy: 2.4 });
+      strap(d, 'pelt-thong', [130, 84], [150, 116], 4, LEATHER, 0.6, LEAD);
+      d.strokes('claws', [[[161, 132], [160, 140]], [[166, 134], [166, 142]], [[171, 132], [172, 140]]], 2.4, BONE.lit);
     }, 0.3),
     part('head', 'head', 'body', [140, 100], (d) => {
       neck(d, 'neck', [142, 80], TALLOW, 28);

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-crossbowmen" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-crossbowmen-stock-shape" d="M 26 20 L 38 20 L 36 62 L 28 62 Z"/>
+<clipPath id="icon-crossbowmen-stock-clip"><use href="#icon-crossbowmen-stock-shape"/></clipPath>
+<path id="icon-crossbowmen-prod-shape" d="M 2 26 L 12 16 L 32 12 L 52 16 L 62 26 L 56 28 L 48 22 L 32 19 L 16 22 L 8 28 Z"/>
+<clipPath id="icon-crossbowmen-prod-clip"><use href="#icon-crossbowmen-prod-shape"/></clipPath>
+<path id="icon-crossbowmen-bolt-shape" d="M 30 40 L 34 40 L 35 8 L 32 0 L 29 8 Z"/>
+</defs>
+<g id="icon-crossbowmen-stock">
+<use id="icon-crossbowmen-stock-line" href="#icon-crossbowmen-stock-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-crossbowmen-stock-clip)">
+<use id="icon-crossbowmen-stock-lit" href="#icon-crossbowmen-stock-shape" fill="#6f5c46"/>
+<path id="icon-crossbowmen-stock-mid" d="M 14 16 L 27.8 16 L 29 40.8 L 27.4 42.8 L 28.5 66 L 14 66 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="icon-crossbowmen-stock-dark" d="M 14 16 L 27.8 16 L 29 40.8 L 27.4 42.8 L 28.5 66 L 14 66 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-crossbowmen-prod">
+<use id="icon-crossbowmen-prod-line" href="#icon-crossbowmen-prod-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-crossbowmen-prod-clip)">
+<use id="icon-crossbowmen-prod-lit" href="#icon-crossbowmen-prod-shape" fill="#8c9194"/>
+<use id="icon-crossbowmen-prod-rim" href="#icon-crossbowmen-prod-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-crossbowmen-prod-lit-over" href="#icon-crossbowmen-prod-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="icon-crossbowmen-prod-dark" d="M 0 22 L 64 22 L 64 32 L 0 32 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-crossbowmen-string" d="M 5 27 L 32 40 L 59 27" fill="none" stroke="#14110f" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="icon-crossbowmen-bolt">
+<use id="icon-crossbowmen-bolt-line" href="#icon-crossbowmen-bolt-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-crossbowmen-bolt-lit" href="#icon-crossbowmen-bolt-shape" fill="#cfc5a8"/>
+</g>
+</svg>

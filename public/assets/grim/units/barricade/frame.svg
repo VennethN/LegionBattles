@@ -20,6 +20,10 @@
 <clipPath id="barricade-frame-rope-b-clip"><use href="#barricade-frame-rope-b-shape"/></clipPath>
 <path id="barricade-frame-plate-shape" d="M 136 172 L 150 171 L 151 188 L 137 189 Z"/>
 <clipPath id="barricade-frame-plate-clip"><use href="#barricade-frame-plate-shape"/></clipPath>
+<path id="barricade-frame-shield-shape" d="M 56 168 L 78 160 L 92 176 L 86 202 L 66 206 L 54 190 Z"/>
+<clipPath id="barricade-frame-shield-clip"><use href="#barricade-frame-shield-shape"/></clipPath>
+<path id="barricade-frame-rag-shape" d="M 200 150 L 210 152 L 208 176 L 202 170 L 198 180 Z"/>
+<clipPath id="barricade-frame-rag-clip"><use href="#barricade-frame-rag-shape"/></clipPath>
 </defs>
 <g id="barricade-frame-stake-a">
 <use id="barricade-frame-stake-a-line" href="#barricade-frame-stake-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
@@ -96,6 +100,30 @@
 <g clip-path="url(#barricade-frame-plate-clip)">
 <use id="barricade-frame-plate-lit" href="#barricade-frame-plate-shape" fill="#9a5b38"/>
 <path id="barricade-frame-plate-dark" d="M 124 167 L 138 166.8 L 141.1 178.8 L 139.9 181.1 L 143 193.2 L 124 193 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="barricade-frame-plank-nails-0" d="M 92.9 181.5 L 94.7 179.7 L 96.5 181.5 L 94.7 183.3 Z" fill="#14110f"/>
+<path id="barricade-frame-plank-nails-1" d="M 110.2 180.5 L 112 178.7 L 113.8 180.5 L 112 182.3 Z" fill="#14110f"/>
+<path id="barricade-frame-plank-nails-2" d="M 127.5 179.5 L 129.3 177.7 L 131.1 179.5 L 129.3 181.3 Z" fill="#14110f"/>
+<path id="barricade-frame-plank-nails-3" d="M 144.9 178.5 L 146.7 176.7 L 148.5 178.5 L 146.7 180.3 Z" fill="#14110f"/>
+<path id="barricade-frame-plank-nails-4" d="M 162.2 177.5 L 164 175.7 L 165.8 177.5 L 164 179.3 Z" fill="#14110f"/>
+<path id="barricade-frame-plank-nails-5" d="M 179.5 176.5 L 181.3 174.7 L 183.1 176.5 L 181.3 178.3 Z" fill="#14110f"/>
+<path id="barricade-frame-splits" d="M 60 207 L 120 204 L 60 205 Z M 150 205 L 200 202 L 150 203 Z M 111 150.3 L 124 190 L 113 149.7 Z" fill="#14110f"/>
+<g id="barricade-frame-shield">
+<use id="barricade-frame-shield-line" href="#barricade-frame-shield-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barricade-frame-shield-clip)">
+<use id="barricade-frame-shield-lit" href="#barricade-frame-shield-shape" fill="#8c9194"/>
+<path id="barricade-frame-shield-mid" d="M 42 156 L 63.5 155.2 L 69.4 174.2 L 65.9 181.8 L 74.9 210.8 L 42 210 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="barricade-frame-shield-dark" d="M 42 156 L 63.5 155.2 L 69.4 174.2 L 65.9 181.8 L 74.9 210.8 L 42 210 Z" fill="#14110f"/>
+<path id="barricade-frame-shield-rust" d="M 60 190 L 88 184 L 86 206 L 62 208 Z" fill="#6a3b24"/>
+<path id="barricade-frame-shield-dent" d="M 65.2 172.6 L 76 184 L 66.8 171.4 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="barricade-frame-rag">
+<use id="barricade-frame-rag-line" href="#barricade-frame-rag-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barricade-frame-rag-clip)">
+<use id="barricade-frame-rag-lit" href="#barricade-frame-rag-shape" fill="#7d312b"/>
+<path id="barricade-frame-rag-dark" d="M 186 146 L 201.1 145.9 L 203.9 166.2 L 202.4 168.4 L 204.5 184.1 L 186 184 Z" fill="#14110f"/>
 </g>
 </g>
 </svg>

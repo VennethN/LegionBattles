@@ -30,8 +30,10 @@
 </g>
 <g id="pikeman-leg-front-layer" transform="translate(136 172) rotate(0) scale(1 1) translate(-136 -172)">
 <defs>
-<path id="pikeman-leg-front-leg-shape" d="M 146.2 165.4 L 157.7 220 L 142.3 224 L 125.8 170.6 Z"/>
+<path id="pikeman-leg-front-leg-shape" d="M 146.2 165.4 L 152.3 188 L 157.7 220 L 142.3 224 L 132.5 193.1 L 125.8 170.6 Z"/>
 <clipPath id="pikeman-leg-front-leg-clip"><use href="#pikeman-leg-front-leg-shape"/></clipPath>
+<path id="pikeman-leg-front-garter-shape" d="M 137.8 206 L 155.8 204 L 156.2 208 L 138.2 210 Z"/>
+<clipPath id="pikeman-leg-front-garter-clip"><use href="#pikeman-leg-front-garter-shape"/></clipPath>
 <path id="pikeman-leg-front-boot-shape" d="M 139.9 217 L 159 215 L 164.3 227 L 173.2 230 L 179.2 236 L 179.2 240 L 139.2 240 L 137.2 230 Z"/>
 <clipPath id="pikeman-leg-front-boot-clip"><use href="#pikeman-leg-front-boot-shape"/></clipPath>
 </defs>
@@ -41,6 +43,16 @@
 <use id="pikeman-leg-front-leg-lit" href="#pikeman-leg-front-leg-shape" fill="#4f4944"/>
 <path id="pikeman-leg-front-leg-mid" d="M 138.8 164.2 L 145.7 190.8 L 143.5 195 L 151.3 224.8 L 132.5 229.6 L 117 169.8 Z" transform="translate(4.47 -1.07)" fill="#34302d"/>
 <path id="pikeman-leg-front-leg-dark" d="M 138.8 164.2 L 145.7 190.8 L 143.5 195 L 151.3 224.8 L 132.5 229.6 L 117 169.8 Z" fill="#14110f"/>
+<path id="pikeman-leg-front-knee-patch" d="M 140 192 L 154 190 L 156 204 L 142 206 Z" fill="#34302d"/>
+<path id="pikeman-leg-front-knee-thread" d="M 141.5 190.3 L 142.5 193.2 L 142.7 190.1 Z M 146.2 189.6 L 147.2 192.5 L 147.4 189.4 Z M 150.9 188.9 L 151.9 191.8 L 152 188.8 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="pikeman-leg-front-garter">
+<use id="pikeman-leg-front-garter-line" href="#pikeman-leg-front-garter-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-leg-front-garter-clip)">
+<use id="pikeman-leg-front-garter-lit" href="#pikeman-leg-front-garter-shape" fill="#7b5b3d"/>
+<path id="pikeman-leg-front-garter-dark" d="M 135 207.8 L 158.9 205.1 L 159.4 209.1 L 135.4 211.8 Z" fill="#14110f"/>
+<path id="pikeman-leg-front-garter-stitch" d="M 141 206.9 L 141.8 208.3 L 142.2 206.8 Z M 146.3 206.4 L 147.1 207.7 L 147.5 206.2 Z M 151.6 205.8 L 152.4 207.1 L 152.8 205.6 Z" fill="#553d29"/>
 </g>
 </g>
 <g id="pikeman-leg-front-boot">
@@ -60,8 +72,15 @@
 <clipPath id="pikeman-body-jack-clip"><use href="#pikeman-body-jack-shape"/></clipPath>
 <path id="pikeman-body-tabard-shape" d="M 118 104 L 146 104 L 150 158 L 144 150 L 140 168 L 134 152 L 128 162 L 124 146 L 120 156 Z"/>
 <clipPath id="pikeman-body-tabard-clip"><use href="#pikeman-body-tabard-shape"/></clipPath>
-<path id="pikeman-body-belt-shape" d="M 97 144 L 156 140 L 156 150 L 98 154 Z"/>
+<path id="pikeman-body-belt-shape" d="M 96.7 145 L 155.7 141 L 156.3 149 L 97.3 153 Z"/>
 <clipPath id="pikeman-body-belt-clip"><use href="#pikeman-body-belt-shape"/></clipPath>
+<path id="pikeman-body-belt-buckle-shape" d="M 108.7 141.8 L 120.7 142.4 L 120.1 153.8 L 109.3 153.2 Z"/>
+<clipPath id="pikeman-body-belt-buckle-clip"><use href="#pikeman-body-belt-buckle-shape"/></clipPath>
+<path id="pikeman-body-pouch-shape" d="M 101.5 152 L 114.5 152 L 115.3 162.5 L 111.9 167 L 103.3 167 L 100.7 162.5 Z"/>
+<clipPath id="pikeman-body-pouch-clip"><use href="#pikeman-body-pouch-shape"/></clipPath>
+<path id="pikeman-body-dagger-shape" d="M 146 150 L 152 150 L 156 178 L 152 184 L 148 178 Z"/>
+<clipPath id="pikeman-body-dagger-clip"><use href="#pikeman-body-dagger-shape"/></clipPath>
+<path id="pikeman-body-dagger-hilt-shape" d="M 144 142 L 154 142 L 154 150 L 144 150 Z"/>
 </defs>
 <g id="pikeman-body-jack">
 <use id="pikeman-body-jack-line" href="#pikeman-body-jack-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
@@ -88,9 +107,39 @@
 <use id="pikeman-body-belt-line" href="#pikeman-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
 <g clip-path="url(#pikeman-body-belt-clip)">
 <use id="pikeman-body-belt-lit" href="#pikeman-body-belt-shape" fill="#7b5b3d"/>
-<path id="pikeman-body-belt-mid" d="M 85 136 L 117.8 136 L 123.4 158 L 85 158 Z" transform="translate(2 -0.48)" fill="#553d29"/>
-<path id="pikeman-body-belt-dark" d="M 85 136 L 117.8 136 L 123.4 158 L 85 158 Z" fill="#14110f"/>
+<path id="pikeman-body-belt-dark" d="M 93.9 147.5 L 134.2 144.7 L 135.6 145.9 L 159 144.3 L 159.5 151.7 L 94.5 156.1 Z" fill="#14110f"/>
+<path id="pikeman-body-belt-stitch" d="M 103.1 147.1 L 103.9 150 L 104.3 147.1 Z M 109.6 146.7 L 110.4 149.5 L 110.8 146.6 Z M 116.1 146.3 L 116.9 149.1 L 117.3 146.2 Z M 122.6 145.8 L 123.4 148.7 L 123.8 145.7 Z M 129 145.4 L 129.8 148.2 L 130.2 145.3 Z M 135.5 144.9 L 136.3 147.8 L 136.7 144.9 Z M 142 144.5 L 142.8 147.3 L 143.2 144.4 Z M 148.5 144.1 L 149.3 146.9 L 149.7 144 Z" fill="#553d29"/>
 </g>
+</g>
+<g id="pikeman-body-belt-buckle">
+<use id="pikeman-body-belt-buckle-line" href="#pikeman-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-body-belt-buckle-clip)">
+<use id="pikeman-body-belt-buckle-lit" href="#pikeman-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="pikeman-body-belt-buckle-dark" d="M 96.7 137.8 L 109.9 137.8 L 114.7 157.8 L 96.7 157.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="pikeman-body-belt-pin" d="M 111.7 147 L 118.9 147.4 L 118.9 148.6 L 111.7 148.4 Z" fill="#14110f"/>
+<g id="pikeman-body-pouch">
+<use id="pikeman-body-pouch-line" href="#pikeman-body-pouch-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-body-pouch-clip)">
+<use id="pikeman-body-pouch-lit" href="#pikeman-body-pouch-shape" fill="#7b5b3d"/>
+<path id="pikeman-body-pouch-mid" d="M 88.7 148 L 103 148 L 109 171 L 88.7 171 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="pikeman-body-pouch-dark" d="M 88.7 148 L 103 148 L 109 171 L 88.7 171 Z" fill="#14110f"/>
+<path id="pikeman-body-pouch-flap" d="M 100.2 151 L 115.8 151 L 114.5 158.3 L 108 160.4 L 101.5 158.3 Z" fill="#553d29"/>
+<path id="pikeman-body-pouch-seam" d="M 103.5 164.3 L 104 166.7 L 104.6 164.3 Z M 105.9 164.3 L 106.4 166.7 L 107 164.3 Z M 108.3 164.3 L 108.8 166.7 L 109.4 164.3 Z M 110.7 164.3 L 111.2 166.7 L 111.8 164.3 Z" fill="#553d29"/>
+</g>
+</g>
+<path id="pikeman-body-pouch-toggle" d="M 106.4 159.5 L 108 157.9 L 109.6 159.5 L 108 161.1 Z" fill="#14110f"/>
+<g id="pikeman-body-dagger">
+<use id="pikeman-body-dagger-line" href="#pikeman-body-dagger-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-body-dagger-clip)">
+<use id="pikeman-body-dagger-lit" href="#pikeman-body-dagger-shape" fill="#4f4944"/>
+<path id="pikeman-body-dagger-dark" d="M 134 146 L 148.4 145.9 L 150.8 169 L 149.7 170.5 L 151.6 188.1 L 134 188 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="pikeman-body-dagger-hilt">
+<use id="pikeman-body-dagger-hilt-line" href="#pikeman-body-dagger-hilt-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="pikeman-body-dagger-hilt-lit" href="#pikeman-body-dagger-hilt-shape" fill="#8c9194"/>
 </g>
 </g>
 <g id="pikeman-pike-layer" transform="translate(136 112) rotate(0) scale(1 1) translate(-136 -112)">
@@ -214,6 +263,7 @@
 <use id="pikeman-head-mail-lit" href="#pikeman-head-mail-shape" fill="#8c9194"/>
 <path id="pikeman-head-mail-mid" d="M 106 68 L 126.2 67.7 L 130.1 87.3 L 127.7 91.4 L 131.8 112.3 L 106 112 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
 <path id="pikeman-head-mail-dark" d="M 106 68 L 126.2 67.7 L 130.1 87.3 L 127.7 91.4 L 131.8 112.3 L 106 112 Z" fill="#14110f"/>
+<path id="pikeman-head-links" d="M 129.5 78 L 122.4 85.5 L 130.3 78.9 Z M 129.8 82 L 122.8 89.5 L 130.6 82.9 Z M 130.1 86 L 123.1 93.5 L 131 86.9 Z M 130.5 90 L 123.4 97.5 L 131.3 90.9 Z M 130.8 94 L 123.8 101.5 L 131.6 94.9 Z M 131.1 98 L 124.1 105.5 L 132 98.9 Z M 133.6 81.1 L 128.4 86.9 L 134.4 82 Z M 134 85.5 L 128.8 91.3 L 134.8 86.4 Z M 134.4 89.9 L 129.2 95.7 L 135.2 90.8 Z M 134.8 94.3 L 129.6 100.1 L 135.6 95.2 Z M 135.2 98.7 L 130 104.5 L 136 99.6 Z" fill="#5b6165"/>
 </g>
 </g>
 <g id="pikeman-head-cap">

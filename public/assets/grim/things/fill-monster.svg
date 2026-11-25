@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="fill-monster" width="16" height="18" viewBox="0 0 16 18">
+<path id="fill-monster-fill" d="M 0 0 L 16 0 L 16 18 L 0 18 Z" fill="#c42a2c"/>
+<path id="fill-monster-foot" d="M 0 11 L 16 11 L 16 18 L 0 18 Z" fill="#8c1a20"/>
+<path id="fill-monster-top" d="M 0 0 L 16 0 L 16 3 L 0 3 Z" fill="#e0564a"/>
+</svg>

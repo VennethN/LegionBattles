@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="grave-hand" width="86" height="86" viewBox="0 0 86 86">
+<defs>
+<path id="grave-hand-arm-shape" d="M 51 69.3 L 45.5 29.5 L 34.5 30.5 L 37 70.7 Z"/>
+<clipPath id="grave-hand-arm-clip"><use href="#grave-hand-arm-shape"/></clipPath>
+<path id="grave-hand-palm-shape" d="M 30 34 L 50 30 L 54 18 L 44 12 L 32 18 Z"/>
+<clipPath id="grave-hand-palm-clip"><use href="#grave-hand-palm-shape"/></clipPath>
+<path id="grave-hand-rag-shape" d="M 36 44 L 50 42 L 54 58 L 46 52 L 40 60 Z"/>
+<clipPath id="grave-hand-rag-clip"><use href="#grave-hand-rag-shape"/></clipPath>
+</defs>
+<path id="grave-hand-earth" d="M 4 70 L 24 56 L 60 54 L 80 66 L 70 80 L 20 82 Z" fill="#434134"/>
+<g id="grave-hand-arm">
+<use id="grave-hand-arm-line" href="#grave-hand-arm-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#grave-hand-arm-clip)">
+<use id="grave-hand-arm-lit" href="#grave-hand-arm-shape" fill="#9aa48c"/>
+<path id="grave-hand-arm-mid" d="M 22.5 25.5 L 39.5 25.3 L 42.4 45.4 L 40.5 48.4 L 44.4 74.9 L 22.5 74.7 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="grave-hand-arm-dark" d="M 22.5 25.5 L 39.5 25.3 L 42.4 45.4 L 40.5 48.4 L 44.4 74.9 L 22.5 74.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="grave-hand-palm">
+<use id="grave-hand-palm-line" href="#grave-hand-palm-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#grave-hand-palm-clip)">
+<use id="grave-hand-palm-lit" href="#grave-hand-palm-shape" fill="#9aa48c"/>
+<path id="grave-hand-palm-mid" d="M 18 8 L 36 7.5 L 41.4 25.8 L 38.9 30.4 L 41.3 38.5 L 18 38 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="grave-hand-palm-dark" d="M 18 8 L 36 7.5 L 41.4 25.8 L 38.9 30.4 L 41.3 38.5 L 18 38 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="grave-hand-fingers" d="M 36.3 15 L 28 2 L 31.7 17 Z M 42.5 12.7 L 38 -2 L 37.5 13.3 Z M 48.5 13.4 L 48 0 L 43.5 12.6 Z M 54.1 19.3 L 58 8 L 49.9 16.7 Z M 30.9 25.7 L 20 24 L 29.1 30.3 Z" fill="#9aa48c"/>
+<path id="grave-hand-dirt" d="M 36 60 L 52 56 L 54 72 L 34 74 Z" fill="#5a5645"/>
+<g id="grave-hand-rag">
+<use id="grave-hand-rag-line" href="#grave-hand-rag-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#grave-hand-rag-clip)">
+<use id="grave-hand-rag-lit" href="#grave-hand-rag-shape" fill="#cfc5a8"/>
+<path id="grave-hand-rag-dark" d="M 24 38 L 40.9 37.6 L 44.4 50.3 L 42.6 54 L 45.5 64.4 L 24 64 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

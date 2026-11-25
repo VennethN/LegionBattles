@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bolt-ballista" width="124" height="20" viewBox="0 0 124 20">
+<defs>
+<path id="bolt-ballista-shaft-shape" d="M 4 7.5 L 108 7.5 L 108 12.5 L 4 12.5 Z"/>
+<path id="bolt-ballista-head-shape" d="M 105 3 L 120 10 L 105 17 Z"/>
+<clipPath id="bolt-ballista-head-clip"><use href="#bolt-ballista-head-shape"/></clipPath>
+<path id="bolt-ballista-flight-shape" d="M 2 3 L 17 7 L 17 13 L 2 17 L 6 10 Z"/>
+</defs>
+<g id="bolt-ballista-shaft">
+<use id="bolt-ballista-shaft-line" href="#bolt-ballista-shaft-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="bolt-ballista-shaft-lit" href="#bolt-ballista-shaft-shape" fill="#6f5c46"/>
+</g>
+<g id="bolt-ballista-head">
+<use id="bolt-ballista-head-line" href="#bolt-ballista-head-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bolt-ballista-head-clip)">
+<use id="bolt-ballista-head-lit" href="#bolt-ballista-head-shape" fill="#8c9194"/>
+<use id="bolt-ballista-head-rim" href="#bolt-ballista-head-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bolt-ballista-head-lit-over" href="#bolt-ballista-head-shape" transform="translate(-0.8 0.6)" fill="#8c9194"/>
+</g>
+</g>
+<g id="bolt-ballista-flight">
+<use id="bolt-ballista-flight-line" href="#bolt-ballista-flight-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="bolt-ballista-flight-lit" href="#bolt-ballista-flight-shape" fill="#cfc5a8"/>
+</g>
+</svg>

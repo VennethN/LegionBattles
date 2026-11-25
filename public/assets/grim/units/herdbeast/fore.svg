@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="herdbeast-fore" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="herdbeast-fore-arm-shape" d="M 170.9 170.9 L 172.9 186.9 L 174 209.4 L 166 210.6 L 160.8 188.9 L 157.1 173.1 Z"/>
+<clipPath id="herdbeast-fore-arm-clip"><use href="#herdbeast-fore-arm-shape"/></clipPath>
+<path id="herdbeast-fore-cannon-shape" d="M 173.5 208.5 L 169 238.4 L 163 237.6 L 166.5 207.5 Z"/>
+<clipPath id="herdbeast-fore-cannon-clip"><use href="#herdbeast-fore-cannon-shape"/></clipPath>
+</defs>
+<g id="herdbeast-fore-arm">
+<use id="herdbeast-fore-arm-line" href="#herdbeast-fore-arm-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#herdbeast-fore-arm-clip)">
+<use id="herdbeast-fore-arm-lit" href="#herdbeast-fore-arm-shape" fill="#cfc5a8"/>
+<path id="herdbeast-fore-arm-mid" d="M 166.1 168.6 L 170 193.5 L 168.1 196.3 L 170.7 212.9 L 158 214.9 L 151.1 171 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="herdbeast-fore-arm-dark" d="M 166.1 168.6 L 170 193.5 L 168.1 196.3 L 170.7 212.9 L 158 214.9 L 151.1 171 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="herdbeast-fore-cannon">
+<use id="herdbeast-fore-cannon-line" href="#herdbeast-fore-cannon-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#herdbeast-fore-cannon-clip)">
+<use id="herdbeast-fore-cannon-lit" href="#herdbeast-fore-cannon-shape" fill="#cfc5a8"/>
+<path id="herdbeast-fore-cannon-dark" d="M 151 203.5 L 165.5 203.5 L 167.9 223.5 L 166.8 225 L 168.9 242.5 L 151 242.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="herdbeast-fore-hoof" d="M 162 234 L 172 234 L 174 240 L 160 240 Z" fill="#14110f"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-flare" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-flare-burst-shape" d="M 32 2 L 38 20 L 56 8 L 46 26 L 62 32 L 46 38 L 56 56 L 38 44 L 32 62 L 26 44 L 8 56 L 18 38 L 2 32 L 18 26 L 8 8 L 26 20 Z"/>
+</defs>
+<g id="icon-ability-flare-burst">
+<use id="icon-ability-flare-burst-line" href="#icon-ability-flare-burst-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-ability-flare-burst-lit" href="#icon-ability-flare-burst-shape" fill="#eeb040"/>
+</g>
+<path id="icon-ability-flare-heart" d="M 32 18 L 42 28 L 38 42 L 26 42 L 22 28 Z" fill="#ffe6a2"/>
+</svg>

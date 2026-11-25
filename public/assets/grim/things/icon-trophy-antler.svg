@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trophy-antler" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trophy-antler-beam-shape" d="M 19 63.4 L 43.3 24.3 L 36.7 19.7 L 9 56.6 Z"/>
+<clipPath id="icon-trophy-antler-beam-clip"><use href="#icon-trophy-antler-beam-shape"/></clipPath>
+<path id="icon-trophy-antler-tine-a-shape" d="M 41 28.7 L 58.7 4.7 L 57.3 3.3 L 35 23.3 Z"/>
+<clipPath id="icon-trophy-antler-tine-a-clip"><use href="#icon-trophy-antler-tine-a-shape"/></clipPath>
+<path id="icon-trophy-antler-tine-b-shape" d="M 32.8 35.2 L 8.7 15.3 L 7.3 16.7 L 27.2 40.8 Z"/>
+<clipPath id="icon-trophy-antler-tine-b-clip"><use href="#icon-trophy-antler-tine-b-shape"/></clipPath>
+<path id="icon-trophy-antler-tine-c-shape" d="M 43.4 23.1 L 35 1.7 L 33 2.3 L 36.6 24.9 Z"/>
+<clipPath id="icon-trophy-antler-tine-c-clip"><use href="#icon-trophy-antler-tine-c-shape"/></clipPath>
+<path id="icon-trophy-antler-cord-shape" d="M 10 50 L 24 46 L 26 54 L 12 58 Z"/>
+<clipPath id="icon-trophy-antler-cord-clip"><use href="#icon-trophy-antler-cord-shape"/></clipPath>
+</defs>
+<g id="icon-trophy-antler-beam">
+<use id="icon-trophy-antler-beam-line" href="#icon-trophy-antler-beam-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-antler-beam-clip)">
+<use id="icon-trophy-antler-beam-lit" href="#icon-trophy-antler-beam-shape" fill="#6f5c46"/>
+<path id="icon-trophy-antler-beam-mid" d="M 13.1 63 L 31.1 36.8 L 30.6 33.9 L 40.9 19 L 31.8 12.7 L 2.4 55.7 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="icon-trophy-antler-beam-dark" d="M 13.1 63 L 31.1 36.8 L 30.6 33.9 L 40.9 19 L 31.8 12.7 L 2.4 55.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trophy-antler-tine-a">
+<use id="icon-trophy-antler-tine-a-line" href="#icon-trophy-antler-tine-a-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-antler-tine-a-clip)">
+<use id="icon-trophy-antler-tine-a-lit" href="#icon-trophy-antler-tine-a-shape" fill="#6f5c46"/>
+<path id="icon-trophy-antler-tine-a-dark" d="M 23 -0.7 L 38.9 -0.9 L 41 14.8 L 37.9 19.3 L 39.7 32.9 L 23 32.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trophy-antler-tine-b">
+<use id="icon-trophy-antler-tine-b-line" href="#icon-trophy-antler-tine-b-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-antler-tine-b-clip)">
+<use id="icon-trophy-antler-tine-b-lit" href="#icon-trophy-antler-tine-b-shape" fill="#6f5c46"/>
+<path id="icon-trophy-antler-tine-b-dark" d="M -4.7 11.3 L 12.4 11.1 L 15 30.1 L 12.2 34.3 L 13.7 45.1 L -4.7 44.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trophy-antler-tine-c">
+<use id="icon-trophy-antler-tine-c-line" href="#icon-trophy-antler-tine-c-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-antler-tine-c-clip)">
+<use id="icon-trophy-antler-tine-c-lit" href="#icon-trophy-antler-tine-c-shape" fill="#6f5c46"/>
+<path id="icon-trophy-antler-tine-c-dark" d="M 21 -2.3 L 34.5 -2.3 L 35.3 8.6 L 34 10.2 L 35.3 29 L 21 28.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-trophy-antler-frost" d="M 40 22 L 56 6 L 58 8 L 44 24 Z" fill="#cfc5a8"/>
+<g id="icon-trophy-antler-cord">
+<use id="icon-trophy-antler-cord-line" href="#icon-trophy-antler-cord-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-antler-cord-clip)">
+<use id="icon-trophy-antler-cord-lit" href="#icon-trophy-antler-cord-shape" fill="#7d312b"/>
+<path id="icon-trophy-antler-cord-dark" d="M -2 42 L 11.1 42 L 13.2 62 L -2 62 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

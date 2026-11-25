@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="king-pennon" width="1240" height="1100" viewBox="-190 -190 1240 1100">
+<defs>
+<path id="king-pennon-pennon-shape" d="M 566 34 L 574 40 L 560 70 L 544 110 L 548 80 L 536 96 L 546 60 Z"/>
+<clipPath id="king-pennon-pennon-clip"><use href="#king-pennon-pennon-shape"/></clipPath>
+</defs>
+<g id="king-pennon-pennon">
+<use id="king-pennon-pennon-line" href="#king-pennon-pennon-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-pennon-pennon-clip)">
+<use id="king-pennon-pennon-lit" href="#king-pennon-pennon-shape" fill="#7d312b"/>
+<path id="king-pennon-pennon-mid" d="M 524 30 L 546.8 29.6 L 557.1 80.9 L 553.8 86.4 L 559.4 114.4 L 524 114 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="king-pennon-pennon-dark" d="M 524 30 L 546.8 29.6 L 557.1 80.9 L 553.8 86.4 L 559.4 114.4 L 524 114 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

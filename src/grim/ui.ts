@@ -40,6 +40,24 @@ export const LETTERS: Record<string, { w: number; outer: Pt[]; holes?: Pt[][] }>
   X: { w: 22, outer: [[0, 0], [8, 0], [11, 9], [14, 0], [22, 0], [15, 15], [22, 30], [14, 30], [11, 21], [8, 30], [0, 30], [7, 15]] },
   Y: { w: 22, outer: [[0, 0], [8, 0], [11, 10], [14, 0], [22, 0], [15, 18], [15, 30], [7, 30], [7, 18]] },
   Z: { w: 22, outer: [[0, 0], [22, 0], [22, 7], [10, 23], [22, 23], [22, 30], [0, 30], [0, 23], [12, 7], [0, 7]] },
+  '0': { w: 22, outer: [[5, 0], [17, 0], [22, 5], [22, 25], [17, 30], [5, 30], [0, 25], [0, 5]], holes: [[[8, 7], [14, 7], [14, 23], [8, 23]]] },
+  '1': { w: 14, outer: [[4, 0], [12, 0], [12, 30], [4, 30], [4, 9], [0, 9], [0, 4]] },
+  '2': { w: 22, outer: [[4, 0], [17, 0], [22, 5], [22, 14], [10, 23], [22, 23], [22, 30], [0, 30], [0, 23], [14, 12], [14, 8], [13, 7], [9, 7], [8, 9], [0, 9], [0, 4]] },
+  '3': { w: 22, outer: [[2, 0], [17, 0], [22, 5], [22, 12], [19, 15], [22, 18], [22, 25], [17, 30], [2, 30], [2, 23], [13, 23], [14, 22], [14, 19], [8, 19], [8, 11], [14, 11], [14, 8], [13, 7], [2, 7]] },
+  '4': { w: 22, outer: [[11, 0], [20, 0], [20, 17], [22, 17], [22, 24], [20, 24], [20, 30], [12, 30], [12, 24], [0, 24], [0, 17]], holes: [[[8, 17], [12, 17], [12, 9]]] },
+  '5': { w: 22, outer: [[1, 0], [21, 0], [21, 7], [9, 7], [9, 11], [17, 11], [22, 16], [22, 25], [17, 30], [1, 30], [1, 23], [13, 23], [14, 22], [14, 19], [13, 18], [1, 18]] },
+  '6': { w: 22, outer: [[5, 0], [19, 0], [19, 7], [9, 7], [8, 8], [8, 11], [17, 11], [22, 16], [22, 25], [17, 30], [5, 30], [0, 25], [0, 5]], holes: [[[8, 18], [13, 18], [14, 19], [14, 22], [13, 23], [9, 23], [8, 22]]] },
+  '7': { w: 21, outer: [[0, 0], [21, 0], [21, 7], [12, 30], [4, 30], [12, 7], [0, 7]] },
+  '8': { w: 22, outer: [[5, 0], [17, 0], [22, 5], [22, 11], [19, 15], [22, 19], [22, 25], [17, 30], [5, 30], [0, 25], [0, 19], [3, 15], [0, 11], [0, 5]], holes: [[[8, 6], [14, 6], [14, 12], [8, 12]], [[8, 18], [14, 18], [14, 24], [8, 24]]] },
+  '9': { w: 22, outer: [[5, 0], [17, 0], [22, 5], [22, 25], [17, 30], [3, 30], [3, 23], [13, 23], [14, 22], [14, 19], [5, 19], [0, 14], [0, 5]], holes: [[[8, 7], [13, 7], [14, 8], [14, 12], [9, 12], [8, 11]]] },
+  '+': { w: 20, outer: [[6, 5], [14, 5], [14, 11], [20, 11], [20, 19], [14, 19], [14, 25], [6, 25], [6, 19], [0, 19], [0, 11], [6, 11]] },
+  '-': { w: 16, outer: [[0, 11], [16, 11], [16, 19], [0, 19]] },
+  '/': { w: 18, outer: [[11, 0], [18, 0], [7, 30], [0, 30]] },
+  ':': { w: 9, outer: [[0, 6], [9, 6], [9, 13], [0, 13]], holes: [] },
+  '.': { w: 9, outer: [[0, 22], [9, 22], [9, 30], [0, 30]] },
+  '%': { w: 26, outer: [[19, 0], [26, 0], [7, 30], [0, 30]] },
+  '!': { w: 9, outer: [[0, 0], [9, 0], [8, 19], [1, 19]] },
+  '?': { w: 20, outer: [[3, 0], [15, 0], [20, 5], [20, 13], [13, 18], [13, 21], [6, 21], [6, 14], [12, 10], [12, 8], [11, 7], [8, 7], [8, 9], [0, 9], [0, 4]] },
   ' ': { w: 10, outer: [] },
 };
 
@@ -66,10 +84,18 @@ export function word(d: Doc, text: string, x: number, y: number, k: number, tone
     const p = new Path();
     p.add(place(l.outer));
     for (const h of l.holes ?? []) p.add(place(h));
+    // The marks that are in two pieces: their second piece.
+    const more: Record<string, Pt[][]> = {
+      ':': [[[0, 19], [9, 19], [9, 26], [0, 26]]],
+      '!': [[[0, 23], [9, 23], [9, 30], [0, 30]]],
+      '?': [[[6, 24], [13, 24], [13, 30], [6, 30]]],
+      '%': [[[1, 2], [9, 2], [9, 11], [1, 11]], [[17, 19], [25, 19], [25, 28], [17, 28]]],
+    };
+    for (const extra of more[ch] ?? []) p.add(place(extra));
     // A letter has no shadow side: a third of it in black and it is no longer a letter. Its weight is in its
     // outline, and its foot is in the middle tone, as if lit from above.
     const foot = poly([[x - 6, y + 20 * k], [x + l.w * k + 6, y + 18.5 * k], [x + l.w * k + 6, y + 34 * k], [x - 6, y + 34 * k]]);
-    d.ink(`${text}-${i}`, p, tone, { holes: true, dark: false, line, heavy: line * 1.4, inner: (c) => c.flat('foot', foot, tone.mid) });
+    d.ink(`${text}-${i}`, p, tone, { holes: (l.holes ?? []).length > 0, dark: false, line, heavy: line * 1.4, inner: (c) => c.flat('foot', foot, tone.mid) });
     x += l.w * k + gap;
   });
   return x;
@@ -114,8 +140,9 @@ function bill(d: Doc): void {
   d.ink('nail-b', poly([[104, 250], [114, 248], [116, 260], [106, 262]]), LEAD, { dark: 0.4, mid: 0, line: 1.8, heavy: 2.4, rim: 1.2 });
 }
 
-/** A button: a board split along its grain, with iron straps nailed across its ends. Words go across its middle. */
-function button(d: Doc): void {
+// eslint-disable-next-line
+/** A button as it was first drawn, kept for the look of its split: the set's buttons are in interface.ts. A board split along its grain, with iron straps nailed across its ends. Words go across its middle. */
+export function splitBoard(d: Doc): void {
   d.ink('board', poly([[8, 12], [120, 8], [232, 6], [236, 30], [232, 34], [236, 58], [128, 62], [6, 64], [10, 40], [6, 36]]), WOOD, {
     dark: poly([[0, 46], ...cut([0, 48], [240, 42], 'button-dark', 1, 4), [240, 70], [0, 70]]),
     mid: 4,
@@ -185,7 +212,6 @@ function alphabet(d: Doc): void {
 
 export const UI: Thing[] = [
   { id: 'bill', set: 'ui', width: 222, height: 292, origin: [110, 146], draw: bill },
-  { id: 'button', set: 'ui', width: 244, height: 72, origin: [122, 36], draw: button },
   { id: 'trophy-plate', set: 'ui', width: 156, height: 196, origin: [78, 98], draw: trophyPlate },
   { id: 'title', set: 'ui', width: 444, height: 214, origin: [222, 107], draw: title },
   { id: 'alphabet', set: 'ui', width: 470, height: 134, origin: [235, 67], draw: alphabet },

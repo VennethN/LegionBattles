@@ -1,4 +1,4 @@
-// The churchyard: the Sexton's lair. A lair is a stage set, painted in the
+// The churchyard: the Gravedigger's lair. A lair is a stage set, painted in the
 // same flat shapes as the figures: a floor, and things stood on it. It is
 // dark, and what light there is in it is firelight, which the game adds;
 // the pictures here only say where the stone, the timber and the earth are.

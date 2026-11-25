@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jawtrap-shut" width="84" height="60" viewBox="0 0 84 60">
+<defs>
+<path id="jawtrap-shut-jaws-shape" d="M 18 40 L 24 22 L 30 34 L 36 18 L 42 32 L 48 18 L 54 34 L 60 22 L 66 40 L 62 48 L 22 48 Z"/>
+<clipPath id="jawtrap-shut-jaws-clip"><use href="#jawtrap-shut-jaws-shape"/></clipPath>
+</defs>
+<path id="jawtrap-shut-blot" d="M 6 44 L 40 38 L 78 44 L 60 52 L 20 52 Z" fill="#14110f" opacity="0.55"/>
+<path id="jawtrap-shut-chain" d="M 14 46 L 6 50 L 2 44" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="jawtrap-shut-jaws">
+<use id="jawtrap-shut-jaws-line" href="#jawtrap-shut-jaws-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jawtrap-shut-jaws-clip)">
+<use id="jawtrap-shut-jaws-lit" href="#jawtrap-shut-jaws-shape" fill="#8c9194"/>
+<use id="jawtrap-shut-jaws-rim" href="#jawtrap-shut-jaws-shape" fill="#f4d294" opacity="0.55"/>
+<use id="jawtrap-shut-jaws-lit-over" href="#jawtrap-shut-jaws-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="jawtrap-shut-jaws-mid" d="M 6 14 L 32.3 13.1 L 39.3 35.2 L 34.7 41.6 L 38.3 52.9 L 6 52 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="jawtrap-shut-jaws-dark" d="M 6 14 L 32.3 13.1 L 39.3 35.2 L 34.7 41.6 L 38.3 52.9 L 6 52 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

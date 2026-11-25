@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bolt" width="46" height="12" viewBox="0 0 46 12">
+<defs>
+<path id="bolt-shaft-shape" d="M 4 4.5 L 36.8 4.5 L 36.8 7.5 L 4 7.5 Z"/>
+<path id="bolt-head-shape" d="M 35 1.8 L 44 6 L 35 10.2 Z"/>
+<clipPath id="bolt-head-clip"><use href="#bolt-head-shape"/></clipPath>
+<path id="bolt-flight-shape" d="M 2 1.8 L 10.2 4.2 L 10.2 7.8 L 2 10.2 L 3.6 6 Z"/>
+</defs>
+<g id="bolt-shaft">
+<use id="bolt-shaft-line" href="#bolt-shaft-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="bolt-shaft-lit" href="#bolt-shaft-shape" fill="#6f5c46"/>
+</g>
+<g id="bolt-head">
+<use id="bolt-head-line" href="#bolt-head-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bolt-head-clip)">
+<use id="bolt-head-lit" href="#bolt-head-shape" fill="#8c9194"/>
+<use id="bolt-head-rim" href="#bolt-head-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bolt-head-lit-over" href="#bolt-head-shape" transform="translate(-0.8 0.6)" fill="#8c9194"/>
+</g>
+</g>
+<g id="bolt-flight">
+<use id="bolt-flight-line" href="#bolt-flight-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="bolt-flight-lit" href="#bolt-flight-shape" fill="#cfc5a8"/>
+</g>
+</svg>

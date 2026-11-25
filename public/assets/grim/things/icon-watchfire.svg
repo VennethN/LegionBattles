@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-watchfire" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-watchfire-flame-shape" d="M 14 38 L 10 22 L 20 28 L 20 8 L 32 22 L 36 2 L 44 22 L 52 14 L 50 38 Z"/>
+<clipPath id="icon-watchfire-flame-clip"><use href="#icon-watchfire-flame-shape"/></clipPath>
+<path id="icon-watchfire-bowl-shape" d="M 8 36 L 56 36 L 50 50 L 14 50 Z"/>
+<clipPath id="icon-watchfire-bowl-clip"><use href="#icon-watchfire-bowl-shape"/></clipPath>
+<path id="icon-watchfire-leg-a-shape" d="M 22.1 51.4 L 13.7 63.1 L 10.3 60.9 L 17.9 48.6 Z"/>
+<clipPath id="icon-watchfire-leg-a-clip"><use href="#icon-watchfire-leg-a-shape"/></clipPath>
+<path id="icon-watchfire-leg-b-shape" d="M 46.1 48.6 L 53.7 60.9 L 50.3 63.1 L 41.9 51.4 Z"/>
+</defs>
+<g id="icon-watchfire-flame">
+<use id="icon-watchfire-flame-line" href="#icon-watchfire-flame-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-watchfire-flame-clip)">
+<use id="icon-watchfire-flame-lit" href="#icon-watchfire-flame-shape" fill="#eeb040"/>
+<path id="icon-watchfire-heart" d="M 24 38 L 26 24 L 34 14 L 40 28 L 42 38 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="icon-watchfire-bowl">
+<use id="icon-watchfire-bowl-line" href="#icon-watchfire-bowl-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-watchfire-bowl-clip)">
+<use id="icon-watchfire-bowl-lit" href="#icon-watchfire-bowl-shape" fill="#8c9194"/>
+<path id="icon-watchfire-bowl-mid" d="M -4 32 L 14.5 32 L 17 54 L -4 54 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="icon-watchfire-bowl-dark" d="M -4 32 L 14.5 32 L 17 54 L -4 54 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-watchfire-leg-a">
+<use id="icon-watchfire-leg-a-line" href="#icon-watchfire-leg-a-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-watchfire-leg-a-clip)">
+<use id="icon-watchfire-leg-a-lit" href="#icon-watchfire-leg-a-shape" fill="#8c9194"/>
+<path id="icon-watchfire-leg-a-dark" d="M -1.7 44.6 L 11.8 44.6 L 14.1 67.1 L -1.7 67.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-watchfire-leg-b">
+<use id="icon-watchfire-leg-b-line" href="#icon-watchfire-leg-b-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-watchfire-leg-b-lit" href="#icon-watchfire-leg-b-shape" fill="#8c9194"/>
+</g>
+</svg>

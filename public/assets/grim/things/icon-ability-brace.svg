@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-brace" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-brace-shaft-shape" d="M 10 54.2 L 45.7 21.9 L 42.3 18.1 L 6 49.8 Z"/>
+<clipPath id="icon-ability-brace-shaft-clip"><use href="#icon-ability-brace-shaft-shape"/></clipPath>
+<path id="icon-ability-brace-blade-shape" d="M 40 24 L 36 12 L 54 4 L 60 18 L 52 30 L 46 22 Z"/>
+<clipPath id="icon-ability-brace-blade-clip"><use href="#icon-ability-brace-blade-shape"/></clipPath>
+<path id="icon-ability-brace-heel-shape" d="M 2 50 L 16 46 L 20 58 L 4 60 Z"/>
+<clipPath id="icon-ability-brace-heel-clip"><use href="#icon-ability-brace-heel-shape"/></clipPath>
+</defs>
+<g id="icon-ability-brace-shaft">
+<use id="icon-ability-brace-shaft-line" href="#icon-ability-brace-shaft-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-brace-shaft-clip)">
+<use id="icon-ability-brace-shaft-lit" href="#icon-ability-brace-shaft-shape" fill="#6f5c46"/>
+<path id="icon-ability-brace-shaft-dark" d="M 6.5 54.8 L 26.4 37.2 L 26.5 35.6 L 46.3 18.1 L 42.7 14 L 2.2 50 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-brace-blade">
+<use id="icon-ability-brace-blade-line" href="#icon-ability-brace-blade-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-brace-blade-clip)">
+<use id="icon-ability-brace-blade-lit" href="#icon-ability-brace-blade-shape" fill="#8c9194"/>
+<use id="icon-ability-brace-blade-rim" href="#icon-ability-brace-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-ability-brace-blade-lit-over" href="#icon-ability-brace-blade-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="icon-ability-brace-blade-mid" d="M 24 0 L 38.7 -0.3 L 40.5 12.8 L 37.4 17.3 L 39.8 34.3 L 24 34 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="icon-ability-brace-blade-dark" d="M 24 0 L 38.7 -0.3 L 40.5 12.8 L 37.4 17.3 L 39.8 34.3 L 24 34 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-brace-heel">
+<use id="icon-ability-brace-heel-line" href="#icon-ability-brace-heel-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-brace-heel-clip)">
+<use id="icon-ability-brace-heel-lit" href="#icon-ability-brace-heel-shape" fill="#4f4944"/>
+<path id="icon-ability-brace-heel-dark" d="M -10 42 L 4 42 L 6.5 64 L -10 64 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-ability-brace-set" d="M 26 58 L 40 56 L 26 54 Z M 44 58 L 58 56 L 44 54 Z" fill="#14110f"/>
+</svg>

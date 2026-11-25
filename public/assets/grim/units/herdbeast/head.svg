@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="herdbeast-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="herdbeast-head-neck-shape" d="M 166 148 L 184 144 L 196 152 L 184 170 L 170 168 Z"/>
+<clipPath id="herdbeast-head-neck-clip"><use href="#herdbeast-head-neck-shape"/></clipPath>
+<path id="herdbeast-head-skull-shape" d="M 184 138 L 200 138 L 214 152 L 220 164 L 208 170 L 194 160 L 184 154 Z"/>
+<clipPath id="herdbeast-head-skull-clip"><use href="#herdbeast-head-skull-shape"/></clipPath>
+<path id="herdbeast-head-antler-a-shape" d="M 192.7 138.8 L 176.9 107.6 L 175.1 108.4 L 187.3 141.2 Z"/>
+<clipPath id="herdbeast-head-antler-a-clip"><use href="#herdbeast-head-antler-a-shape"/></clipPath>
+<path id="herdbeast-head-antler-b-shape" d="M 198.9 138.7 L 205 102.2 L 203 101.8 L 193.1 137.3 Z"/>
+<clipPath id="herdbeast-head-antler-b-clip"><use href="#herdbeast-head-antler-b-shape"/></clipPath>
+<path id="herdbeast-head-antler-c-shape" d="M 199.1 120.2 L 215.7 113.3 L 216.3 114.7 L 200.9 123.8 Z"/>
+</defs>
+<g id="herdbeast-head-neck">
+<use id="herdbeast-head-neck-line" href="#herdbeast-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#herdbeast-head-neck-clip)">
+<use id="herdbeast-head-neck-lit" href="#herdbeast-head-neck-shape" fill="#cfc5a8"/>
+<path id="herdbeast-head-neck-mid" d="M 154 140 L 174.9 139.3 L 179.4 154 L 176.4 159.4 L 181.1 174.7 L 154 174 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="herdbeast-head-neck-dark" d="M 154 140 L 174.9 139.3 L 179.4 154 L 176.4 159.4 L 181.1 174.7 L 154 174 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="herdbeast-head-skull">
+<use id="herdbeast-head-skull-line" href="#herdbeast-head-skull-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#herdbeast-head-skull-clip)">
+<use id="herdbeast-head-skull-lit" href="#herdbeast-head-skull-shape" fill="#cfc5a8"/>
+<path id="herdbeast-head-socket" d="M 190 142 L 202 146 L 204 154 L 194 154 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="herdbeast-head-antler-a">
+<use id="herdbeast-head-antler-a-line" href="#herdbeast-head-antler-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#herdbeast-head-antler-a-clip)">
+<use id="herdbeast-head-antler-a-lit" href="#herdbeast-head-antler-a-shape" fill="#6f5c46"/>
+<path id="herdbeast-head-antler-a-dark" d="M 163.1 103.6 L 181 103.4 L 183.9 118.5 L 182.2 121.1 L 186.8 145.4 L 163.1 145.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="herdbeast-head-antler-b">
+<use id="herdbeast-head-antler-b-line" href="#herdbeast-head-antler-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#herdbeast-head-antler-b-clip)">
+<use id="herdbeast-head-antler-b-lit" href="#herdbeast-head-antler-b-shape" fill="#6f5c46"/>
+<path id="herdbeast-head-antler-b-dark" d="M 181.1 97.8 L 194.8 97.7 L 196.8 114.7 L 195.4 116.6 L 198.5 142.7 L 181.1 142.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="herdbeast-head-antler-c">
+<use id="herdbeast-head-antler-c-line" href="#herdbeast-head-antler-c-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="herdbeast-head-antler-c-lit" href="#herdbeast-head-antler-c-shape" fill="#6f5c46"/>
+</g>
+</svg>

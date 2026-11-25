@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="tar-pool" width="198" height="100" viewBox="0 0 198 100">
+<path id="tar-pool-pool" d="M 10 40 L 40 18 L 96 10 L 150 20 L 186 44 L 176 78 L 128 96 L 60 94 L 20 72 Z" fill="#14110f"/>
+<path id="tar-pool-rim" d="M 26 44 L 50 26 L 96 20 L 144 28 L 170 46 L 162 70 L 124 84 L 64 82 L 34 66 Z" fill="#34302d"/>
+<path id="tar-pool-deep" d="M 40 46 L 60 32 L 98 28 L 138 36 L 156 48 L 148 66 L 118 76 L 70 74 L 46 62 Z" fill="#14110f"/>
+<path id="tar-pool-shine" d="M 70 38 L 104 34 L 112 38 L 78 42 Z" fill="#4f4944"/>
+<path id="tar-pool-splash-a" d="M 0 60 L 10 54 L 12 62 Z" fill="#14110f"/>
+<path id="tar-pool-splash-b" d="M 186 70 L 196 74 L 188 80 Z" fill="#14110f"/>
+</svg>

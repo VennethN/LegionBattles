@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="far-trees" width="470" height="250" viewBox="0 0 470 250">
+<path id="far-trees-far-0" d="M 21 250 L 23.7 100 L 15.6 60 L 28.2 90 L 30 40 L 32.7 86 L 46.2 66 L 36.3 110 L 39 250 Z" fill="#242f36"/>
+<path id="far-trees-far-1" d="M 83 250 L 85.1 80 L 78.8 40 L 88.6 70 L 90 20 L 92.1 66 L 102.6 46 L 94.9 90 L 97 250 Z" fill="#242f36"/>
+<path id="far-trees-far-2" d="M 140 250 L 143 110 L 134 70 L 148 100 L 150 50 L 153 96 L 168 76 L 157 120 L 160 250 Z" fill="#242f36"/>
+<path id="far-trees-far-3" d="M 204 250 L 205.8 70 L 200.4 30 L 208.8 60 L 210 10 L 211.8 56 L 220.8 36 L 214.2 80 L 216 250 Z" fill="#242f36"/>
+<path id="far-trees-far-4" d="M 261 250 L 263.7 96 L 255.6 56 L 268.2 86 L 270 36 L 272.7 82 L 286.2 62 L 276.3 106 L 279 250 Z" fill="#242f36"/>
+<path id="far-trees-far-5" d="M 333 250 L 335.1 76 L 328.8 36 L 338.6 66 L 340 16 L 342.1 62 L 352.6 42 L 344.9 86 L 347 250 Z" fill="#242f36"/>
+<path id="far-trees-far-6" d="M 390 250 L 393 104 L 384 64 L 398 94 L 400 44 L 403 90 L 418 70 L 407 114 L 410 250 Z" fill="#242f36"/>
+<path id="far-trees-far-7" d="M 450 250 L 451.8 84 L 446.4 44 L 454.8 74 L 456 24 L 457.8 70 L 466.8 50 L 460.2 94 L 462 250 Z" fill="#242f36"/>
+<path id="far-trees-floor" d="M 0 232 L 470 226 L 470 250 L 0 250 Z" fill="#242f36"/>
+<path id="far-trees-near-0" d="M 46 250 L 50.2 60 L 37.6 20 L 57.2 50 L 60 0 L 64.2 46 L 85.2 26 L 69.8 70 L 74 250 Z" fill="#33424b"/>
+<path id="far-trees-near-1" d="M 170 250 L 174.8 40 L 160.4 0 L 182.8 30 L 186 -20 L 190.8 26 L 214.8 6 L 197.2 50 L 202 250 Z" fill="#33424b"/>
+<path id="far-trees-near-2" d="M 297 250 L 300.9 64 L 289.2 24 L 307.4 54 L 310 4 L 313.9 50 L 333.4 30 L 319.1 74 L 323 250 Z" fill="#33424b"/>
+<path id="far-trees-near-3" d="M 415 250 L 419.5 50 L 406 10 L 427 40 L 430 -10 L 434.5 36 L 457 16 L 440.5 60 L 445 250 Z" fill="#33424b"/>
+</svg>

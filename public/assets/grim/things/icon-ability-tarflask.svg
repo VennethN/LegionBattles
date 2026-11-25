@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-tarflask" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-tarflask-flask-shape" d="M 24 20 L 40 20 L 42 28 L 52 40 L 50 56 L 14 56 L 12 40 L 22 28 Z"/>
+<clipPath id="icon-ability-tarflask-flask-clip"><use href="#icon-ability-tarflask-flask-shape"/></clipPath>
+<path id="icon-ability-tarflask-cork-shape" d="M 26 10 L 38 10 L 39 20 L 25 20 Z"/>
+<clipPath id="icon-ability-tarflask-cork-clip"><use href="#icon-ability-tarflask-cork-shape"/></clipPath>
+</defs>
+<g id="icon-ability-tarflask-flask">
+<use id="icon-ability-tarflask-flask-line" href="#icon-ability-tarflask-flask-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-tarflask-flask-clip)">
+<use id="icon-ability-tarflask-flask-lit" href="#icon-ability-tarflask-flask-shape" fill="#8c9194"/>
+<use id="icon-ability-tarflask-flask-rim" href="#icon-ability-tarflask-flask-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-ability-tarflask-flask-lit-over" href="#icon-ability-tarflask-flask-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="icon-ability-tarflask-flask-mid" d="M 0 16 L 18.4 15.5 L 22.2 41.5 L 16.7 47.7 L 18.6 60.5 L 0 60 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="icon-ability-tarflask-flask-dark" d="M 0 16 L 18.4 15.5 L 22.2 41.5 L 16.7 47.7 L 18.6 60.5 L 0 60 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-tarflask-cork">
+<use id="icon-ability-tarflask-cork-line" href="#icon-ability-tarflask-cork-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-tarflask-cork-clip)">
+<use id="icon-ability-tarflask-cork-lit" href="#icon-ability-tarflask-cork-shape" fill="#c7ad84"/>
+<path id="icon-ability-tarflask-cork-dark" d="M 13 6 L 26 6 L 27.8 24 L 13 24 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-ability-tarflask-tar" d="M 30 34 L 50 40 L 58 52 L 62 62 L 20 62 L 26 50 Z" fill="#14110f"/>
+<path id="icon-ability-tarflask-shine" d="M 33.6 44.9 L 44 48 L 34.4 43.1 Z" fill="#e9e0c6"/>
+</svg>

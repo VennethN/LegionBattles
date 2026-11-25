@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-jawtrap" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-jawtrap-jaw-far-shape" d="M 8 34 L 12 18 L 18 28 L 24 12 L 30 26 L 36 10 L 42 26 L 48 14 L 54 30 L 58 36 L 8 40 Z"/>
+<clipPath id="icon-ability-jawtrap-jaw-far-clip"><use href="#icon-ability-jawtrap-jaw-far-shape"/></clipPath>
+<path id="icon-ability-jawtrap-base-shape" d="M 4 38 L 60 36 L 62 48 L 2 50 Z"/>
+<clipPath id="icon-ability-jawtrap-base-clip"><use href="#icon-ability-jawtrap-base-shape"/></clipPath>
+<path id="icon-ability-jawtrap-pan-shape" d="M 24 40 L 40 39 L 42 47 L 22 48 Z"/>
+</defs>
+<g id="icon-ability-jawtrap-jaw-far">
+<use id="icon-ability-jawtrap-jaw-far-line" href="#icon-ability-jawtrap-jaw-far-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-jawtrap-jaw-far-clip)">
+<use id="icon-ability-jawtrap-jaw-far-lit" href="#icon-ability-jawtrap-jaw-far-shape" fill="#8c9194"/>
+<path id="icon-ability-jawtrap-jaw-far-dark" d="M -4 6 L 19.4 5.6 L 21.6 20.8 L 16.5 26.2 L 19.1 44.4 L -4 44 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-jawtrap-base">
+<use id="icon-ability-jawtrap-base-line" href="#icon-ability-jawtrap-base-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-jawtrap-base-clip)">
+<use id="icon-ability-jawtrap-base-lit" href="#icon-ability-jawtrap-base-shape" fill="#8c9194"/>
+<path id="icon-ability-jawtrap-base-mid" d="M -10 32 L 11.5 32 L 14.1 54 L -10 54 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="icon-ability-jawtrap-base-dark" d="M -10 32 L 11.5 32 L 14.1 54 L -10 54 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-jawtrap-pan">
+<use id="icon-ability-jawtrap-pan-line" href="#icon-ability-jawtrap-pan-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-ability-jawtrap-pan-lit" href="#icon-ability-jawtrap-pan-shape" fill="#9a5b38"/>
+</g>
+<path id="icon-ability-jawtrap-chain" d="M 8 50 L 4 58 L 12 62" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

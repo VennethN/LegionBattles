@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sapper-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="sapper-leg-back-leg-shape" d="M 121.5 175 L 115 196.1 L 103.1 224.3 L 88.9 219.7 L 96.5 190.2 L 102.5 169 Z"/>
+<clipPath id="sapper-leg-back-leg-clip"><use href="#sapper-leg-back-leg-shape"/></clipPath>
+<path id="sapper-leg-back-boot-shape" d="M 86.5 217 L 104.5 215 L 105.8 227 L 114 230 L 120 236 L 120 240 L 82 240 L 80 230 Z"/>
+<clipPath id="sapper-leg-back-boot-clip"><use href="#sapper-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="sapper-leg-back-leg">
+<use id="sapper-leg-back-leg-line" href="#sapper-leg-back-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sapper-leg-back-leg-clip)">
+<use id="sapper-leg-back-leg-lit" href="#sapper-leg-back-leg-shape" fill="#4f4944"/>
+<path id="sapper-leg-back-leg-mid" d="M 112.7 169.1 L 101.8 203.2 L 97.2 205.9 L 91.5 223.7 L 74.1 218.2 L 92 162.4 Z" transform="translate(4.57 -1.1)" fill="#34302d"/>
+<path id="sapper-leg-back-leg-dark" d="M 112.7 169.1 L 101.8 203.2 L 97.2 205.9 L 91.5 223.7 L 74.1 218.2 L 92 162.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sapper-leg-back-boot">
+<use id="sapper-leg-back-boot-line" href="#sapper-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sapper-leg-back-boot-clip)">
+<use id="sapper-leg-back-boot-lit" href="#sapper-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="sapper-leg-back-boot-mid" d="M 74 212 L 96.3 212 L 97.7 226 L 106.5 232 L 124 235 L 124 244 L 74 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="sapper-leg-back-boot-dark" d="M 74 212 L 96.3 212 L 97.7 226 L 106.5 232 L 124 235 L 124 244 L 74 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sapper-leg-back-boot-sole" d="M 80 237 L 121 237 L 121 241.5 L 80 241.5 Z" fill="#14110f"/>
+<path id="sapper-leg-back-boot-crease" d="M 105 225.8 L 96.3 231 L 106 228.2 Z" fill="#14110f"/>
+</svg>

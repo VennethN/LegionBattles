@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jawtrap-set" width="84" height="60" viewBox="0 0 84 60">
+<defs>
+<path id="jawtrap-set-jaw-far-shape" d="M 14 34 L 18 22 L 24 30 L 30 18 L 36 28 L 42 16 L 48 28 L 54 18 L 60 30 L 66 22 L 70 34 Z"/>
+<clipPath id="jawtrap-set-jaw-far-clip"><use href="#jawtrap-set-jaw-far-shape"/></clipPath>
+<path id="jawtrap-set-base-shape" d="M 10 34 L 74 34 L 70 46 L 14 46 Z"/>
+<clipPath id="jawtrap-set-base-clip"><use href="#jawtrap-set-base-shape"/></clipPath>
+<path id="jawtrap-set-pan-shape" d="M 32 36 L 52 36 L 50 44 L 34 44 Z"/>
+<path id="jawtrap-set-jaw-near-shape" d="M 12 46 L 16 54 L 22 48 L 28 56 L 34 48 L 42 57 L 50 48 L 56 56 L 62 48 L 68 54 L 72 46 Z"/>
+<clipPath id="jawtrap-set-jaw-near-clip"><use href="#jawtrap-set-jaw-near-shape"/></clipPath>
+</defs>
+<path id="jawtrap-set-blot" d="M 6 44 L 40 38 L 78 44 L 60 52 L 20 52 Z" fill="#14110f" opacity="0.55"/>
+<path id="jawtrap-set-chain" d="M 14 46 L 6 50 L 2 44" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="jawtrap-set-jaw-far">
+<use id="jawtrap-set-jaw-far-line" href="#jawtrap-set-jaw-far-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jawtrap-set-jaw-far-clip)">
+<use id="jawtrap-set-jaw-far-lit" href="#jawtrap-set-jaw-far-shape" fill="#8c9194"/>
+<path id="jawtrap-set-jaw-far-dark" d="M 2 12 L 40.3 11.5 L 43 21.1 L 40 25.3 L 43.7 38.5 L 2 38 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jawtrap-set-base">
+<use id="jawtrap-set-base-line" href="#jawtrap-set-base-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jawtrap-set-base-clip)">
+<use id="jawtrap-set-base-lit" href="#jawtrap-set-base-shape" fill="#8c9194"/>
+<path id="jawtrap-set-base-mid" d="M -2 30 L 26.8 30 L 31.6 50 L -2 50 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="jawtrap-set-base-dark" d="M -2 30 L 26.8 30 L 31.6 50 L -2 50 Z" fill="#14110f"/>
+<path id="jawtrap-set-rust" d="M 40 40 L 72 38 L 70 48 L 40 48 Z" fill="#6a3b24"/>
+</g>
+</g>
+<g id="jawtrap-set-pan">
+<use id="jawtrap-set-pan-line" href="#jawtrap-set-pan-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jawtrap-set-pan-lit" href="#jawtrap-set-pan-shape" fill="#9a5b38"/>
+</g>
+<g id="jawtrap-set-jaw-near">
+<use id="jawtrap-set-jaw-near-line" href="#jawtrap-set-jaw-near-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jawtrap-set-jaw-near-clip)">
+<use id="jawtrap-set-jaw-near-lit" href="#jawtrap-set-jaw-near-shape" fill="#8c9194"/>
+<use id="jawtrap-set-jaw-near-rim" href="#jawtrap-set-jaw-near-shape" fill="#f4d294" opacity="0.55"/>
+<use id="jawtrap-set-jaw-near-lit-over" href="#jawtrap-set-jaw-near-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+</g>
+</g>
+</svg>

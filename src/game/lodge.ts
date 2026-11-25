@@ -3,7 +3,7 @@
 // a hunt pays. Pure, like the hunt itself: the screens ask here what
 // something costs and whether it can be done, and never work it out.
 
-import { BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, TO_COME, byId, type Mark, type MonsterDef } from './content';
+import { BUILDINGS, HUNTERS, LESSONS, MONSTERS, REINFORCEMENTS, TO_COME, byId, type LessonDef, type Mark, type MonsterDef } from './content';
 import type { Setup, Tally } from './hunt';
 
 /** What goes on a hunt: who, what the horn calls, and how many of each building. */
@@ -28,6 +28,8 @@ export interface SaveData {
   muster: Muster;
   hunts: number;
   wins: number;
+  /** How far through the opening hunts the player is: an index into OPENING, and its length once everything is open. */
+  opening: number;
   sound: boolean;
   music: boolean;
   /** What the player has been shown once and need not be shown again. */
@@ -43,14 +45,77 @@ export const MOST = { reinforcements: 2, ofOne: 3 };
 /** What a lost hunt pays for each part of the monster got through: nobody goes home with nothing. */
 export const CONSOLATION = 6;
 
-/** What a new player goes out with: enough to see what each kind of thing is for. */
+/** What a player goes out with once everything is open: enough to see what each kind of thing is for. */
 export const FIRST_MUSTER: Muster = { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1, watchfire: 1 } };
+
+/**
+ * The opening hunts: what each allows, one new thing a hunt. The first is a lesson, with nothing brought and no
+ * camp. The next brings one building and the camp to set it in, the one after that one reinforcement and the horn.
+ * After them the muster is whatever the supply carries, and the shop is open.
+ */
+export interface OpeningStep {
+  /** The lesson that is this hunt, where it is one. */
+  lesson?: string;
+  /** The most buildings and kinds of reinforcement that can go. */
+  buildings: number;
+  reinforcements: number;
+  /** What is put on the muster as this step is come to, so that the new thing is in the player's hand. */
+  gives?: { building?: string; reinforcement?: string };
+  /** The one line the lodge says of what is new. */
+  says: string;
+}
+
+export const OPENING: readonly OpeningStep[] = [
+  { lesson: 'first', buildings: 0, reinforcements: 0, says: '' },
+  { buildings: 1, reinforcements: 0, gives: { building: 'barricade' }, says: 'New: a Barricade. Build it in the lair, then wake the boss.' },
+  { buildings: 1, reinforcements: 1, gives: { reinforcement: 'pikemen' }, says: 'New: Spearmen. Call them in the hunt when you need help.' },
+];
+/** Said once the opening is behind the player. */
+export const OPEN_SAYS = 'New: Supply and the Shop. Bring more to each hunt, up to your Supply.';
+/** What the lesson's win pays: there is no mark to it. */
+export const LESSON_PAY = 30;
+
+/** What the muster is held to now: a step of the opening, or nothing once everything is open. */
+export function openingOf(save: SaveData): OpeningStep | null {
+  return OPENING[save.opening] ?? null;
+}
+
+/** The lesson a hunt of this contract would be now, if it would be one. */
+export function lessonFor(save: SaveData, monster: string, mark: number): LessonDef | null {
+  const id = openingOf(save)?.lesson;
+  const lesson = id ? byId(LESSONS, id) : null;
+  return lesson && lesson.monster === monster && mark === 1 ? lesson : null;
+}
+
+/** What the lodge says of what is new at this hunt, or nothing. */
+export function newsOf(save: SaveData): string {
+  const step = openingOf(save);
+  if (step) return step.says;
+  return save.told.includes('open') ? '' : OPEN_SAYS;
+}
+
+/** Comes to the next step of the opening, and puts what it brings on the muster. */
+function advance(save: SaveData): void {
+  if (save.opening >= OPENING.length) return;
+  save.opening++;
+  const step = openingOf(save);
+  const m = save.muster;
+  if (!step) {
+    // Everything is open: the muster a player starts from, if theirs fits inside it.
+    for (const id of FIRST_MUSTER.reinforcements) if (!m.reinforcements.includes(id)) m.reinforcements.push(id);
+    for (const [id, n] of Object.entries(FIRST_MUSTER.buildings)) m.buildings[id] = Math.max(m.buildings[id] ?? 0, n);
+    if (costOf(m) > supplyOf(save)) save.muster = { hunter: m.hunter, reinforcements: [...FIRST_MUSTER.reinforcements], buildings: { ...FIRST_MUSTER.buildings } };
+    return;
+  }
+  if (step.gives?.building && Object.keys(m.buildings).length === 0) m.buildings[step.gives.building] = 1;
+  if (step.gives?.reinforcement && m.reinforcements.length === 0) m.reinforcements.push(step.gives.reinforcement);
+}
 
 export function freshSave(): SaveData {
   return {
     v: 1, coin: 0, supply: 0, felled: {}, trophies: [], worn: {}, steps: [],
-    muster: { hunter: FIRST_MUSTER.hunter, reinforcements: [...FIRST_MUSTER.reinforcements], buildings: { ...FIRST_MUSTER.buildings } },
-    hunts: 0, wins: 0, sound: true, music: true, told: [],
+    muster: { hunter: FIRST_MUSTER.hunter, reinforcements: [], buildings: {} },
+    hunts: 0, wins: 0, opening: 0, sound: true, music: true, told: [],
   };
 }
 
@@ -78,6 +143,9 @@ export function repair(raw: unknown): SaveData {
   if (Array.isArray(r.steps)) s.steps = [...new Set(r.steps.filter((t): t is string => typeof t === 'string' && stepKnown(t)))];
   if (typeof r.hunts === 'number') s.hunts = Math.max(0, Math.floor(r.hunts));
   if (typeof r.wins === 'number') s.wins = Math.max(0, Math.floor(r.wins));
+  // A save from before there was an opening: one that has won is past it, and one that has not starts it.
+  if (typeof r.opening === 'number') s.opening = Math.max(0, Math.min(OPENING.length, Math.floor(r.opening)));
+  else if (s.wins > 0 || s.trophies.length > 0) s.opening = OPENING.length;
   if (typeof r.sound === 'boolean') s.sound = r.sound;
   if (typeof r.music === 'boolean') s.music = r.music;
   if (Array.isArray(r.told)) s.told = r.told.filter((t): t is string => typeof t === 'string');
@@ -94,6 +162,19 @@ export function repair(raw: unknown): SaveData {
     }
     // A muster that no longer fits its supply is cut back to one that does.
     if (costOf(s.muster) > supplyOf(s)) s.muster = { hunter: s.muster.hunter, reinforcements: [...FIRST_MUSTER.reinforcements], buildings: { ...FIRST_MUSTER.buildings } };
+  }
+  // And one that holds more than its step of the opening allows, to what that allows.
+  const step = openingOf(s);
+  if (step) {
+    s.muster.reinforcements = s.muster.reinforcements.slice(0, step.reinforcements);
+    const kept: Record<string, number> = {};
+    let n = 0;
+    for (const [id, have] of Object.entries(s.muster.buildings)) {
+      const take = Math.min(have, step.buildings - n);
+      if (take > 0) kept[id] = take;
+      n += Math.max(0, take);
+    }
+    s.muster.buildings = kept;
   }
   return s;
 }
@@ -187,6 +268,9 @@ export function toggleReinforcement(save: SaveData, id: string): string {
     return '';
   }
   if (!isOpen(save, id)) return `Locked: ${opensBy(id)}`;
+  const step = openingOf(save);
+  if (step && step.reinforcements === 0) return 'Locked: play 1 more hunt';
+  if (step && m.reinforcements.length >= step.reinforcements) return 'Only 1 this hunt. Take the other off first.';
   if (m.reinforcements.length >= MOST.reinforcements) return `No more than ${MOST.reinforcements} kinds`;
   if (costOf(m) + byId(REINFORCEMENTS, id).cost > supplyOf(save)) return 'Not enough Supply';
   m.reinforcements.push(id);
@@ -204,6 +288,8 @@ export function changeBuilding(save: SaveData, id: string, by: 1 | -1): string {
     return '';
   }
   if (!isOpen(save, id)) return `Locked: ${opensBy(id)}`;
+  const step = openingOf(save);
+  if (step && Object.values(m.buildings).reduce((a, n) => a + n, 0) >= step.buildings) return step.buildings === 0 ? 'Locked: win your first hunt' : 'Only 1 building this hunt. Take the other off first.';
   if (now >= MOST.ofOne) return `No more than ${MOST.ofOne} of one`;
   if (costOf(m) + byId(BUILDINGS, id).cost > supplyOf(save)) return 'Not enough Supply';
   m.buildings[id] = now + 1;
@@ -231,12 +317,22 @@ export function chargesOf(save: SaveData, id: string): number {
 /** The hunt the muster makes of a contract. */
 export function setupOf(save: SaveData, monster: string, mark: Mark, seed: number, tall: boolean): Setup {
   const m = save.muster;
+  const lesson = lessonFor(save, monster, mark);
+  // A lesson is its own hunt: its hunter, nothing brought, no trophy, and its steps unless they were done before.
+  if (lesson) return { seed, monster, mark, hunter: lesson.hunter, tall, reinforcements: [], buildings: [], trophy: null, lesson: lesson.id, taught: save.told.includes(`lesson:${lesson.id}`) };
   return {
     seed, monster, mark, hunter: m.hunter, tall,
     reinforcements: m.reinforcements.map((id) => ({ id, charges: chargesOf(save, id) })),
     buildings: BUILDINGS.filter((b) => (m.buildings[b.id] ?? 0) > 0).map((b) => ({ id: b.id, n: m.buildings[b.id], sturdy: save.steps.includes(`sturdy:${b.id}`) })),
     trophy: save.worn[m.hunter] ?? null,
   };
+}
+
+/** What winning a contract at a mark would pay now, and whether that is the doubled pay of a first win. */
+export function rewardOf(save: SaveData, monster: string, mark: Mark): { coin: number; first: boolean } {
+  if (lessonFor(save, monster, mark)) return { coin: LESSON_PAY, first: false };
+  const first = (save.felled[monster] ?? 0) < mark;
+  return { coin: byId(MONSTERS, monster).pay[mark - 1] * (first ? 2 : 1), first };
 }
 
 // ------------------------------------------------------------ what coin buys
@@ -295,19 +391,38 @@ export interface Pay {
   opened: string[];
   /** The contract that is posted because of it, by the monster's name. */
   posted: string[];
+  /** True if the hunt was a lesson: its win is not the contract's. */
+  lesson: boolean;
 }
 
 /** Writes a hunt's end into the save and says what it paid. */
 export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean, tally: Tally, part: number): Pay {
   const def = byId(MONSTERS, monster);
+  const lesson = lessonFor(save, monster, mark);
   save.hunts++;
-  void tally;
+  // A lesson whose steps were all done is not taught again, win or lose.
+  if (lesson && tally.taught && !save.told.includes(`lesson:${lesson.id}`)) save.told.push(`lesson:${lesson.id}`);
+  // Past the lesson, each hunt of the opening brings in the next thing, however it ended.
+  if (!lesson) advance(save);
   if (!won) {
     const coin = CONSOLATION * part;
     save.coin += coin;
-    return { won, coin, first: false, trophy: null, opened: [], posted: [] };
+    return { won, coin, first: false, trophy: null, opened: [], posted: [], lesson: !!lesson };
   }
   save.wins++;
+  if (lesson) {
+    // The lesson's win: its coin and the trophy, and the lodge. The contract itself is still to be won.
+    save.coin += LESSON_PAY;
+    let trophy: string | null = null;
+    let opened: string[] = [];
+    if (!save.trophies.includes(def.trophy.id)) {
+      trophy = def.trophy.id;
+      save.trophies.push(trophy);
+      opened = opensWith(trophy);
+    }
+    advance(save);
+    return { won, coin: LESSON_PAY, first: false, trophy, opened, posted: [], lesson: true };
+  }
   const before = save.felled[monster] ?? 0;
   const first = before < mark;
   const coin = def.pay[mark - 1] * (first ? 2 : 1);
@@ -324,5 +439,5 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
     }
     for (const m of MONSTERS) if (m.after === monster) posted.push(m.name);
   }
-  return { won, coin, first, trophy, opened, posted };
+  return { won, coin, first, trophy, opened, posted, lesson: false };
 }

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="king-fore-far" width="1240" height="1100" viewBox="-190 -190 1240 1100">
+<defs>
+<path id="king-fore-far-arm-shape" d="M 528.8 443.2 L 521.5 496 L 503.9 568 L 468.1 564 L 469.6 490.2 L 471.2 436.8 Z"/>
+<clipPath id="king-fore-far-arm-clip"><use href="#king-fore-far-arm-shape"/></clipPath>
+<path id="king-fore-far-cannon-shape" d="M 500.9 558.3 L 508.9 662.7 L 487.1 665.3 L 471.1 561.7 Z"/>
+<clipPath id="king-fore-far-cannon-clip"><use href="#king-fore-far-cannon-shape"/></clipPath>
+</defs>
+<g id="king-fore-far-arm">
+<use id="king-fore-far-arm-line" href="#king-fore-far-arm-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-fore-far-arm-clip)">
+<use id="king-fore-far-arm-lit" href="#king-fore-far-arm-shape" fill="#cfc5a8"/>
+<path id="king-fore-far-arm-mid" d="M 490.4 435.9 L 483.4 499.2 L 479.8 502.3 L 472.5 567.5 L 416.5 561.3 L 431.2 429.3 Z" transform="translate(8.5 -2.04)" fill="#9c9178"/>
+<path id="king-fore-far-arm-dark" d="M 490.4 435.9 L 483.4 499.2 L 479.8 502.3 L 472.5 567.5 L 416.5 561.3 L 431.2 429.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="king-fore-far-cannon">
+<use id="king-fore-far-cannon-line" href="#king-fore-far-cannon-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-fore-far-cannon-clip)">
+<use id="king-fore-far-cannon-lit" href="#king-fore-far-cannon-shape" fill="#cfc5a8"/>
+<path id="king-fore-far-cannon-mid" d="M 481.6 557.5 L 489.2 623.2 L 485.8 627.9 L 490.4 667.9 L 462.6 671.1 L 449.9 561.1 Z" transform="translate(3 -0.72)" fill="#9c9178"/>
+<path id="king-fore-far-cannon-dark" d="M 481.6 557.5 L 489.2 623.2 L 485.8 627.9 L 490.4 667.9 L 462.6 671.1 L 449.9 561.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="king-fore-far-hoof" d="M 482 660 L 516 658 L 526 680 L 480 680 Z" fill="#14110f"/>
+</svg>

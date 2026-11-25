@@ -40,6 +40,80 @@ export const MARKS: Record<Mark, { hp: number; dmg: number; tell: number; gap: n
   3: { hp: 1.4, dmg: 1.45, tell: 0.74, gap: 0.66, name: 'Difficulty 3' },
 };
 
+// ------------------------------------------------------------ the first hunt
+
+/**
+ * One thing taught, by having it done. The monster does what the step says, again and again, and the hunt does not
+ * go on to the next until the hunter has done what it wants once.
+ */
+export interface LessonStep {
+  id: string;
+  /**
+   * What ends it: `move` so many units walked; `avoid` an attack landed and missed; `dodge` a dodge made while an
+   * attack was shown, which then missed; `strike` so many of the hunter's own blows landed; `skill` one of the two
+   * abilities used; `break` the monster's stagger filled.
+   */
+  wants: 'move' | 'avoid' | 'dodge' | 'strike' | 'skill' | 'break';
+  /** How many, for `move` and `strike`. */
+  n?: number;
+  /** Which ability, for `skill`. */
+  skill?: 0 | 1;
+  /** The attack the monster makes while the step waits. Without one it stands and does nothing. */
+  attack?: string;
+  /** How much longer than usual that attack's warning is shown here. */
+  slow?: number;
+  /** True if the first warning of this step is worth holding the moment for: the view slows time as it appears. */
+  hold?: boolean;
+  /** What the plate says: where there are keys, and by touch. */
+  says: { keys: string; touch: string };
+}
+
+/**
+ * A hunt that teaches: a simpler monster, nothing brought, no camp, and steps the hunt waits on. What a contract
+ * allows is here and not in a screen: the lodge makes a hunt of a lesson where one is due (lodge.ts, `lessonFor`).
+ */
+export interface LessonDef {
+  id: string;
+  monster: string;
+  /** Who goes: the one hunter a new player has. */
+  hunter: string;
+  /** No camp: the monster is awake as the hunter walks in. */
+  camp: false;
+  /** What this hunt does to the monster in place of a mark: its health, the harm of its blows, how long its warnings show, how long it walks between attacks. */
+  scale: { hp: number; dmg: number; tell: number; gap: number };
+  /** Its rounds for this hunt, in place of its own parts: fewer attacks, and fewer parts. */
+  parts: readonly (readonly string[])[];
+  /** The share of its stagger it takes to break it here: the break is to be seen. */
+  stagger: number;
+  /** While steps are left, no blow takes the hunter under this share of their health. */
+  spare: number;
+  steps: readonly LessonStep[];
+  /** Said when the last step is done. */
+  after: string;
+}
+
+export const LESSONS: readonly LessonDef[] = [
+  {
+    // The Gravedigger for someone who has never played: two attacks, then a third when he changes, all slow.
+    // About two minutes with the steps. Measured by `npm run pace -- --lesson`.
+    id: 'first', monster: 'sexton', hunter: 'marta', camp: false,
+    scale: { hp: 0.38, dmg: 0.6, tell: 1.6, gap: 1.5 },
+    parts: [['spade', 'sweep'], ['spade', 'lantern', 'sweep']],
+    stagger: 0.3, spare: 0.4,
+    steps: [
+      { id: 'move', wants: 'move', n: 150, says: { keys: 'Move: W A S D or the arrow keys', touch: 'Drag anywhere to move' } },
+      { id: 'avoid', wants: 'avoid', attack: 'spade', slow: 1.5, hold: true, says: { keys: 'Red ground: he hits there. Move out of the red.', touch: 'Red ground: he hits there. Move out of the red.' } },
+      { id: 'dodge', wants: 'dodge', attack: 'sweep', slow: 1.5, hold: true, says: { keys: 'Press SPACE to dodge out of the red', touch: 'Tap DODGE to get out of the red' } },
+      { id: 'strike', wants: 'strike', n: 3, says: { keys: 'Go close to him. You attack by yourself.', touch: 'Go close to him. You attack by yourself.' } },
+      // Her block lasts 1.4 seconds: the warning here is a little shorter, so that a press as the red shows turns the blow.
+      { id: 'block', wants: 'skill', skill: 0, attack: 'spade', slow: 0.85, says: { keys: 'Press Q when the red shows: Block stops his hit', touch: 'Tap BLOCK when the red shows: it stops his hit' } },
+      { id: 'sweep', wants: 'skill', skill: 1, says: { keys: 'Press E next to him: Sweep hits hard', touch: 'Tap SWEEP next to him: it hits hard' } },
+      { id: 'break', wants: 'break', attack: 'spade', says: { keys: 'Hit him right after he swings. Fill the gold bar.', touch: 'Hit him right after he swings. Fill the gold bar.' } },
+    ],
+    after: 'Now finish him.',
+  },
+];
+
 // ------------------------------------------------------------ hunters
 
 /** How a hunter strikes by themselves: a swing through an arc, or a bolt that flies. */

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="fill-wait" width="16" height="18" viewBox="0 0 16 18">
+<path id="fill-wait-fill" d="M 0 0 L 16 0 L 16 18 L 0 18 Z" fill="#8c9194"/>
+<path id="fill-wait-foot" d="M 0 11 L 16 11 L 16 18 L 0 18 Z" fill="#5b6165"/>
+<path id="fill-wait-top" d="M 0 0 L 16 0 L 16 3 L 0 3 Z" fill="#cfc5a8"/>
+</svg>

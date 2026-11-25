@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bellpost-bell" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="bellpost-bell-bell-shape" d="M 142 76 L 170 76 L 176 104 L 186 124 L 126 124 L 136 104 Z"/>
+<clipPath id="bellpost-bell-bell-clip"><use href="#bellpost-bell-bell-shape"/></clipPath>
+</defs>
+<path id="bellpost-bell-bell-chain" d="M 156 60 L 156 76" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="bellpost-bell-bell-chain-links" d="M 153 60.8 L 157.6 65.3 L 155.8 59.2 Z M 156.2 64.5 L 154.4 70.7 L 159 66.2 Z M 153 71.5 L 157.6 76 L 155.8 69.8 Z" fill="#14110f"/>
+<g id="bellpost-bell-bell">
+<use id="bellpost-bell-bell-line" href="#bellpost-bell-bell-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bellpost-bell-bell-clip)">
+<use id="bellpost-bell-bell-lit" href="#bellpost-bell-bell-shape" fill="#8c9194"/>
+<use id="bellpost-bell-bell-rim" href="#bellpost-bell-bell-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bellpost-bell-bell-lit-over" href="#bellpost-bell-bell-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="bellpost-bell-bell-mid" d="M 114 72 L 141 71 L 148.3 92.5 L 144.6 101 L 154.2 129 L 114 128 Z" transform="translate(4 -0.96)" fill="#5b6165"/>
+<path id="bellpost-bell-bell-dark" d="M 114 72 L 141 71 L 148.3 92.5 L 144.6 101 L 154.2 129 L 114 128 Z" fill="#14110f"/>
+<path id="bellpost-bell-bell-band" d="M 136 111 L 178 108 L 136 109 Z M 140.1 89 L 174 86 L 139.9 87 Z" fill="#5b6165"/>
+<path id="bellpost-bell-bell-rust" d="M 150 106 L 176 110 L 184 126 L 150 126 Z" fill="#6a3b24"/>
+</g>
+</g>
+<path id="bellpost-bell-clapper" d="M 152 124 L 160 124 L 159 136 L 153 136 Z" fill="#14110f"/>
+<path id="bellpost-bell-rope" d="M 156 136 L 154 160 L 158 186" fill="none" stroke="#c7ad84" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="bellpost-bell-rope-end" d="M 154 184 L 162 184 L 161 194 L 155 194 Z" fill="#14110f"/>
+</svg>

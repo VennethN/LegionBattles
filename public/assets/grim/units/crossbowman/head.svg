@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="crossbowman-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="crossbowman-head-face-shape" d="M 133 78.1 L 137.5 74.5 L 146.5 74.5 L 150.1 78.1 L 152.4 82.2 L 150.6 84.4 L 151.9 86.2 L 156 90.7 L 152.4 92.1 L 152.8 94.8 L 151.5 95.7 L 151.9 97.5 L 149.7 99.7 L 143.8 101.1 L 137.5 96.1 L 133.9 93.4 Z"/>
+<clipPath id="crossbowman-head-face-clip"><use href="#crossbowman-head-face-shape"/></clipPath>
+<path id="crossbowman-head-cap-shape" d="M 122 104 L 122 80 L 130 70 L 146 68 L 154 74 L 152 80 L 140 82 L 138 104 Z"/>
+<clipPath id="crossbowman-head-cap-clip"><use href="#crossbowman-head-cap-shape"/></clipPath>
+<path id="crossbowman-head-band-shape" d="M 128 76 L 152 72 L 156 78 L 130 82 Z"/>
+<clipPath id="crossbowman-head-band-clip"><use href="#crossbowman-head-band-shape"/></clipPath>
+</defs>
+<g id="crossbowman-head-face">
+<use id="crossbowman-head-face-line" href="#crossbowman-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-head-face-clip)">
+<use id="crossbowman-head-face-lit" href="#crossbowman-head-face-shape" fill="#c7ad84"/>
+<path id="crossbowman-head-face-mid" d="M 129.4 71.8 L 140 72.6 L 141.5 89.9 L 138.7 93.6 L 139.5 102.5 L 129.4 104.2 Z" transform="translate(2.7 -0.65)" fill="#927a58"/>
+<path id="crossbowman-head-face-dark" d="M 129.4 71.8 L 140 72.6 L 141.5 89.9 L 138.7 93.6 L 139.5 102.5 L 129.4 104.2 Z" fill="#14110f"/>
+<path id="crossbowman-head-face-cheek-plane" d="M 142.9 89.4 L 148.3 88.5 L 150.1 91.6 L 148.8 96.1 L 143.8 98.8 L 141.1 94.3 Z" fill="#927a58"/>
+<path id="crossbowman-head-face-chin-plane" d="M 147.4 97.5 L 151.9 97 L 149.7 99.7 L 145.6 100.2 Z" fill="#927a58"/>
+<path id="crossbowman-head-face-socket" d="M 152.8 81.7 L 140.2 80.8 L 141.1 87.1 L 145.6 89.4 L 148.3 87.1 L 151.5 86 Z" fill="#14110f"/>
+<path id="crossbowman-head-face-lines" d="M 149.8 91.7 L 148.8 95.7 L 151.3 92.4 Z M 138.8 95.9 L 145.6 99.7 L 139.8 94.5 Z" fill="#14110f"/>
+<path id="crossbowman-head-face-mouth" d="M 152.6 94 L 147 95.9 L 153 96 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-head-face-nostril" d="M 152.8 91.4 L 149.7 90.3 L 151.9 92.7 Z" fill="#14110f"/>
+<g id="crossbowman-head-cap">
+<use id="crossbowman-head-cap-line" href="#crossbowman-head-cap-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-head-cap-clip)">
+<use id="crossbowman-head-cap-lit" href="#crossbowman-head-cap-shape" fill="#c7ad84"/>
+<path id="crossbowman-head-cap-mid" d="M 110 64 L 133.2 63.3 L 140.5 86.1 L 137.6 92.4 L 142.8 108.7 L 110 108 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="crossbowman-head-cap-dark" d="M 110 64 L 133.2 63.3 L 140.5 86.1 L 137.6 92.4 L 142.8 108.7 L 110 108 Z" fill="#14110f"/>
+<path id="crossbowman-head-cap-quilt" d="M 129.4 74 L 128 102 L 130.6 74 Z M 135.4 74 L 134 100 L 136.6 74 Z" fill="#927a58"/>
+<path id="crossbowman-head-cap-cold" d="M 82 28 L 194 28 L 194 144 L 82 144 Z M 123.7 102.7 L 123.7 78.7 L 131.7 68.7 L 147.7 66.7 L 155.7 72.7 L 153.7 78.7 L 141.7 80.7 L 139.7 102.7 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="crossbowman-head-band">
+<use id="crossbowman-head-band-line" href="#crossbowman-head-band-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-head-band-clip)">
+<use id="crossbowman-head-band-lit" href="#crossbowman-head-band-shape" fill="#8c9194"/>
+<use id="crossbowman-head-band-rim" href="#crossbowman-head-band-shape" fill="#f4d294" opacity="0.55"/>
+<use id="crossbowman-head-band-lit-over" href="#crossbowman-head-band-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="crossbowman-head-band-dark" d="M 116 68 L 134.4 68 L 138.4 86 L 116 86 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-head-tie" d="M 138 98 L 146 104 L 142 110" fill="none" stroke="#14110f" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

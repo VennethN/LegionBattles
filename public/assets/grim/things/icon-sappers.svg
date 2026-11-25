@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-sappers" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-sappers-keg-shape" d="M 14 22 L 50 22 L 54 40 L 50 60 L 14 60 L 10 40 Z"/>
+<clipPath id="icon-sappers-keg-clip"><use href="#icon-sappers-keg-shape"/></clipPath>
+<path id="icon-sappers-spark-shape" d="M 46 0 L 50 7 L 58 4 L 53 11 L 60 16 L 51 15 L 48 22 L 45 14 L 38 14 L 44 9 Z"/>
+</defs>
+<g id="icon-sappers-keg">
+<use id="icon-sappers-keg-line" href="#icon-sappers-keg-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-sappers-keg-clip)">
+<use id="icon-sappers-keg-lit" href="#icon-sappers-keg-shape" fill="#6f5c46"/>
+<path id="icon-sappers-keg-mid" d="M -2 18 L 16.8 17.5 L 19.9 38.6 L 14.6 45.1 L 17.4 64.5 L -2 64 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="icon-sappers-keg-dark" d="M -2 18 L 16.8 17.5 L 19.9 38.6 L 14.6 45.1 L 17.4 64.5 L -2 64 Z" fill="#14110f"/>
+<path id="icon-sappers-hoop-a" d="M 8 28 L 56 28 L 56 33 L 8 33 Z" fill="#5b6165"/>
+<path id="icon-sappers-hoop-b" d="M 8 49 L 56 49 L 56 54 L 8 54 Z" fill="#5b6165"/>
+<path id="icon-sappers-staves" d="M 23.1 22 L 22 60 L 24.9 22 Z M 39.1 22 L 42 60 L 40.9 22 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<path id="icon-sappers-fuse" d="M 32 22 L 36 12 L 46 10" fill="none" stroke="#14110f" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="icon-sappers-spark">
+<use id="icon-sappers-spark-line" href="#icon-sappers-spark-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-sappers-spark-lit" href="#icon-sappers-spark-shape" fill="#eeb040"/>
+</g>
+</svg>

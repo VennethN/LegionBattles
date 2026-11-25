@@ -1,7 +1,10 @@
 // Everything that is not a figure, in one list.
 
+import { FIELD } from './field';
+import { INTERFACE } from './interface';
 import { CHURCHYARD } from './lair';
 import type { Thing } from './things';
+import { WOODLAND } from './wood';
 import { UI } from './ui';
 
-export const THINGS: Thing[] = [...CHURCHYARD, ...UI];
+export const THINGS: Thing[] = [...CHURCHYARD, ...WOODLAND, ...FIELD, ...UI, ...INTERFACE];

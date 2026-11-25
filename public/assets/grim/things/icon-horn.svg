@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-horn" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-horn-horn-shape" d="M 6 46 L 10 36 L 30 34 L 46 22 L 50 8 L 62 10 L 60 30 L 44 46 L 24 54 L 10 54 Z"/>
+<clipPath id="icon-horn-horn-clip"><use href="#icon-horn-horn-shape"/></clipPath>
+</defs>
+<g id="icon-horn-horn">
+<use id="icon-horn-horn-line" href="#icon-horn-horn-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-horn-horn-clip)">
+<use id="icon-horn-horn-lit" href="#icon-horn-horn-shape" fill="#cfc5a8"/>
+<path id="icon-horn-horn-mid" d="M 0 46 L 28 46 L 46 34 L 58 20 L 64 30 L 46 50 L 24 58 L 0 58 Z" transform="translate(3 -0.72)" fill="#9c9178"/>
+<path id="icon-horn-horn-dark" d="M 0 46 L 28 46 L 46 34 L 58 20 L 64 30 L 46 50 L 24 58 L 0 58 Z" fill="#14110f"/>
+<path id="icon-horn-band" d="M 28 32 L 36 28 L 42 46 L 34 50 Z" fill="#8c9194"/>
+</g>
+</g>
+<path id="icon-horn-mouth" d="M 50 8 L 62 10 L 61 16 L 50 14 Z" fill="#14110f"/>
+<path id="icon-horn-strap" d="M 12 54 L 20 62 L 40 60 L 50 44" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

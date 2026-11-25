@@ -15,6 +15,7 @@ import { HudScene } from './view/scenes/HudScene';
 import { LairScene } from './view/scenes/LairScene';
 import { LodgeScene } from './view/scenes/LodgeScene';
 import { ResultScene } from './view/scenes/ResultScene';
+import { TitleScene } from './view/scenes/TitleScene';
 import { commit, reloadSave, save, stage, theHunt } from './view/session';
 
 /**
@@ -50,7 +51,7 @@ async function start(): Promise<void> {
     input: { activePointers: 3 },
     // One texture to a batch, on every device: all the art of the field is on one sheet, and it is what phones get anyway.
     render: { antialias: true, antialiasGL: view.density <= 1, roundPixels: false, maxTextures: 2, powerPreference: 'high-performance' },
-    scene: [BootScene, AssetsScene, LodgeScene, LairScene, HudScene, ResultScene],
+    scene: [BootScene, AssetsScene, TitleScene, LodgeScene, LairScene, HudScene, ResultScene],
   });
 
   let pending = 0;
@@ -66,6 +67,7 @@ async function start(): Promise<void> {
       if (game.scene.isActive('Boot')) return;
       const m = game.scene;
       if (m.isActive('Lodge')) m.getScene('Lodge').scene.restart();
+      else if (m.isActive('Title')) m.getScene('Title').scene.restart();
       else if (m.isActive('Lair') || m.isPaused('Lair')) {
         const over = m.isActive('Result') ? 'Result' : '';
         m.stop('Hud');

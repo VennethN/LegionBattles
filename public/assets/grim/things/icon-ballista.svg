@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ballista" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ballista-stock-shape" d="M 4 44 L 10 36 L 58 20 L 60 28 L 12 48 Z"/>
+<clipPath id="icon-ballista-stock-clip"><use href="#icon-ballista-stock-shape"/></clipPath>
+<path id="icon-ballista-prod-shape" d="M 40 4 L 48 6 L 56 24 L 54 40 L 46 44 L 50 26 Z"/>
+<clipPath id="icon-ballista-prod-clip"><use href="#icon-ballista-prod-shape"/></clipPath>
+<path id="icon-ballista-bolt-shape" d="M 14 38 L 52 24 L 64 22 L 54 30 L 16 42 Z"/>
+<path id="icon-ballista-leg-shape" d="M 28.8 44.9 L 22.4 62.8 L 17.6 61.2 L 23.2 43.1 Z"/>
+<clipPath id="icon-ballista-leg-clip"><use href="#icon-ballista-leg-shape"/></clipPath>
+<path id="icon-ballista-leg-b-shape" d="M 36.7 40.7 L 46.2 60.9 L 41.8 63.1 L 31.3 43.3 Z"/>
+</defs>
+<g id="icon-ballista-stock">
+<use id="icon-ballista-stock-line" href="#icon-ballista-stock-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ballista-stock-clip)">
+<use id="icon-ballista-stock-lit" href="#icon-ballista-stock-shape" fill="#6f5c46"/>
+<path id="icon-ballista-stock-mid" d="M 0 42 L 62 24 L 62 34 L 0 54 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="icon-ballista-stock-dark" d="M 0 42 L 62 24 L 62 34 L 0 54 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ballista-prod">
+<use id="icon-ballista-prod-line" href="#icon-ballista-prod-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ballista-prod-clip)">
+<use id="icon-ballista-prod-lit" href="#icon-ballista-prod-shape" fill="#8c9194"/>
+<use id="icon-ballista-prod-rim" href="#icon-ballista-prod-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-ballista-prod-lit-over" href="#icon-ballista-prod-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="icon-ballista-prod-dark" d="M 28 0 L 42 -0.1 L 44 29.5 L 42.1 31.8 L 43.2 48.1 L 28 48 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ballista-bolt">
+<use id="icon-ballista-bolt-line" href="#icon-ballista-bolt-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-ballista-bolt-lit" href="#icon-ballista-bolt-shape" fill="#cfc5a8"/>
+</g>
+<g id="icon-ballista-leg">
+<use id="icon-ballista-leg-line" href="#icon-ballista-leg-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ballista-leg-clip)">
+<use id="icon-ballista-leg-lit" href="#icon-ballista-leg-shape" fill="#6f5c46"/>
+<path id="icon-ballista-leg-dark" d="M 5.6 39.1 L 19.9 39 L 21.2 55.5 L 19.7 57.4 L 20.4 66.9 L 5.6 66.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ballista-leg-b">
+<use id="icon-ballista-leg-b-line" href="#icon-ballista-leg-b-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-ballista-leg-b-lit" href="#icon-ballista-leg-b-shape" fill="#6f5c46"/>
+</g>
+</svg>

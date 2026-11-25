@@ -118,9 +118,9 @@ export class BootScene extends Phaser.Scene {
         cards.refresh();
         ads().loadingDone();
         this.scene.launch(ASSETS);
-        // Someone who has never hunted is in a lair at once, with the first contract and a muster already made: the
-        // lodge can wait until there is a reason to choose. Anyone else starts there.
-        this.scene.start(save().hunts === 0 ? 'Lair' : 'Lodge');
+        // Someone who has never hunted presses PLAY and is in a lair, against the first boss: the lodge can wait
+        // until there is a reason to choose. Anyone else starts there.
+        this.scene.start(save().hunts === 0 ? 'Title' : 'Lodge');
       };
       fonts.then(go, go);
     });

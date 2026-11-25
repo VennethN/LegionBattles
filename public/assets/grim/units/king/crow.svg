@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="king-crow" width="1240" height="1100" viewBox="-190 -190 1240 1100">
+<path id="king-crow-snare" d="M 844 100 L 842 126" fill="none" stroke="#14110f" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="king-crow-crow" d="M 838 126 L 848 126 L 856 150 L 866 176 L 850 168 L 846 190 L 838 170 L 826 180 L 834 150 Z" fill="#14110f"/>
+<path id="king-crow-crow-frost" d="M 840 130 L 846 130 L 850 148 L 842 146 Z" fill="#84939a"/>
+</svg>

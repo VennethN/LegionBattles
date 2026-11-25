@@ -41,12 +41,13 @@ export class ResultScene extends Phaser.Scene {
     if (pay.trophy) notes.push(`Trophy: ${m.trophy.name}. ${m.trophy.says}`);
     if (pay.opened.length) notes.push(`Unlocked: ${pay.opened.join(', ')}.`);
     if (pay.posted.length) notes.push(`New boss: ${pay.posted.join(', ')}.`);
+    if (pay.lesson && pay.won) notes.push('That was him going easy. Next: the real fight.');
     if (!pay.won) notes.push(hunt.tally.killedBy ? 'You can try again at once.' : 'You gave up.');
     const ph = 190 + lines.length * 30 + notes.length * 50 + 80;
     const py = Math.max(12, (view.h - ph) / 2);
     this.add.existing(slabImage(this, cx - pw / 2, py, pw, ph, BONE, 20, 8));
     label(this, cx, py + 44, pay.won ? 'BOSS DEFEATED' : 'DEFEATED', { size: 36, color: pay.won ? HOLY.fill : RUBY.fill });
-    label(this, cx, py + 82, `${m.name}, difficulty ${c.mark}`, { size: 17, color: OUTLINE, stroke: null });
+    label(this, cx, py + 82, pay.lesson ? `${m.name}, your first hunt` : `${m.name}, difficulty ${c.mark}`, { size: 17, color: OUTLINE, stroke: null });
     let y = py + 124;
     for (const [name, value] of lines) {
       label(this, cx - pw / 2 + 36, y, name, { size: 17, align: 'left', color: OUTLINE, stroke: null });
@@ -65,7 +66,7 @@ export class ResultScene extends Phaser.Scene {
       this.leave('Lair');
     };
     // The first win goes to the lodge: there is something new there. A loss is tried again at once.
-    const first = pay.won && save().wins <= 1;
+    const first = pay.won && (pay.lesson || save().wins <= 1);
     new Button(this, cx - (first ? 0 : 112), by, 'THE LODGE', () => this.leave('Lodge'), { width: 200, height: 56, size: 22, mat: pay.won ? GOLD : IRON });
     if (!first) new Button(this, cx + 112, by, pay.won ? 'HUNT AGAIN' : 'TRY AGAIN', again, { width: 200, height: 56, size: 22, mat: pay.won ? IRON : GOLD });
     sfx.play('open', 0.6);

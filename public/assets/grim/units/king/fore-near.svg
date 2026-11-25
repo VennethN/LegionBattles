@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="king-fore-near" width="1240" height="1100" viewBox="-190 -190 1240 1100">
+<defs>
+<path id="king-fore-near-arm-shape" d="M 589.9 443.3 L 592.1 496.4 L 585.9 570.4 L 546.1 573.6 L 531.8 501.2 L 522.1 448.7 Z"/>
+<clipPath id="king-fore-near-arm-clip"><use href="#king-fore-near-arm-shape"/></clipPath>
+<path id="king-fore-near-knee-shape" d="M 546 560 L 588 556 L 592 590 L 550 594 Z"/>
+<clipPath id="king-fore-near-knee-clip"><use href="#king-fore-near-knee-shape"/></clipPath>
+<path id="king-fore-near-cannon-shape" d="M 584.9 587.7 L 572.9 665.3 L 547.1 662.7 L 551.1 584.3 Z"/>
+<clipPath id="king-fore-near-cannon-clip"><use href="#king-fore-near-cannon-shape"/></clipPath>
+</defs>
+<g id="king-fore-near-arm">
+<use id="king-fore-near-arm-line" href="#king-fore-near-arm-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-fore-near-arm-clip)">
+<use id="king-fore-near-arm-lit" href="#king-fore-near-arm-shape" fill="#cfc5a8"/>
+<path id="king-fore-near-arm-mid" d="M 564.2 442.3 L 569.1 503.9 L 566.1 507.8 L 571.4 574.6 L 505.2 579.8 L 494.8 447.9 Z" transform="translate(9 -2.16)" fill="#9c9178"/>
+<path id="king-fore-near-arm-dark" d="M 564.2 442.3 L 569.1 503.9 L 566.1 507.8 L 571.4 574.6 L 505.2 579.8 L 494.8 447.9 Z" fill="#14110f"/>
+<path id="king-fore-near-arm-planes" d="M 563.5 460.3 L 576 550 L 568.5 459.7 Z M 545.5 480.2 L 552 540 L 550.5 479.8 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="king-fore-near-knee">
+<use id="king-fore-near-knee-line" href="#king-fore-near-knee-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-fore-near-knee-clip)">
+<use id="king-fore-near-knee-lit" href="#king-fore-near-knee-shape" fill="#cfc5a8"/>
+<path id="king-fore-near-knee-mid" d="M 534 552 L 560.1 550.9 L 566 568.8 L 561.2 576.5 L 568.7 599.1 L 534 598 Z" transform="translate(4 -0.96)" fill="#9c9178"/>
+<path id="king-fore-near-knee-dark" d="M 534 552 L 560.1 550.9 L 566 568.8 L 561.2 576.5 L 568.7 599.1 L 534 598 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="king-fore-near-cannon">
+<use id="king-fore-near-cannon-line" href="#king-fore-near-cannon-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-fore-near-cannon-clip)">
+<use id="king-fore-near-cannon-lit" href="#king-fore-near-cannon-shape" fill="#cfc5a8"/>
+<path id="king-fore-near-cannon-mid" d="M 573.3 583.5 L 568.8 626.8 L 565.3 629.9 L 561.5 667.2 L 529.3 663.9 L 537.9 579.9 Z" transform="translate(3 -0.72)" fill="#9c9178"/>
+<path id="king-fore-near-cannon-dark" d="M 573.3 583.5 L 568.8 626.8 L 565.3 629.9 L 561.5 667.2 L 529.3 663.9 L 537.9 579.9 Z" fill="#14110f"/>
+<path id="king-fore-near-tendon" d="M 570.5 595.9 L 566 656 L 573.5 596.1 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="king-fore-near-hoof" d="M 540 658 L 582 656 L 596 680 L 538 680 Z" fill="#14110f"/>
+<path id="king-fore-near-cleft" d="M 564 660.4 L 570 680 L 568 659.6 Z" fill="#9c9178"/>
+<path id="king-fore-near-hoof-snow" d="M 532 676 L 600 676 L 604 682 L 528 682 Z" fill="#84939a"/>
+</svg>

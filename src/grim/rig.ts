@@ -8,7 +8,9 @@
 // from it round that point, where the Legion's short figures turn about
 // their feet. And an extra may hang from a weapon or an off hand, so that a
 // pennon goes with its lance and a lantern with the arm that holds it; one
-// marked as hanging goes where its parent goes without turning with it.
+// marked as hanging goes where its parent goes without turning with it. A
+// weapon may itself be worn on the head, as antlers are, and what hangs from
+// it then goes with both.
 //
 // No Phaser and no DOM here. Nothing is allocated when a pose is solved.
 
@@ -170,10 +172,20 @@ export function solve(parts: readonly RigPart[], feet: readonly [number, number]
         break;
     }
 
-    // Carried by a head, a weapon or an off hand: round that part's pivot by its turn, and on with it.
-    if (part.parent === 'head' || part.parent === 'weapon' || part.parent === 'offhand') {
-      const role: Role = part.parent;
-      const c = pivotOf(parts, role, part.pivot);
+    // Carried by a head, a weapon or an off hand: round that part's pivot by its turn, and on with it. And if
+    // what carries it is itself carried by the head (antlers are a weapon worn on a head), round the head as well.
+    let carrier: Parent = part.parent;
+    for (let hop = 0; hop < 2 && (carrier === 'head' || carrier === 'weapon' || carrier === 'offhand'); hop++) {
+      const role: Role = carrier;
+      let c: readonly [number, number] = part.pivot;
+      let next: Parent = 'body';
+      for (let k = 0; k < parts.length; k++) {
+        if (parts[k].role === role) {
+          c = parts[k].pivot;
+          next = parts[k].parent;
+          break;
+        }
+      }
       const turn = role === 'head' ? p.headRot : role === 'weapon' ? p.weaponRot : p.offRot;
       const ox = role === 'weapon' ? p.weaponX : role === 'offhand' ? p.offX : 0;
       const oy = role === 'head' ? p.headY : role === 'weapon' ? p.weaponY : p.offY;
@@ -186,6 +198,7 @@ export function solve(parts: readonly RigPart[], feet: readonly [number, number]
       x = cx + dx * cs - dy * sn + ox;
       y = cy + dx * sn + dy * cs + oy;
       rot += turn;
+      carrier = next;
     }
 
     // Carried by the body: stretched and turned about the hips.

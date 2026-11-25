@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="king-hind-near" width="1240" height="1100" viewBox="-190 -190 1240 1100">
+<defs>
+<path id="king-hind-near-thigh-shape" d="M 311.6 440.9 L 326.5 479.2 L 339.1 535.8 L 304.9 552.2 L 271.9 505.2 L 248.4 471.1 Z"/>
+<clipPath id="king-hind-near-thigh-clip"><use href="#king-hind-near-thigh-shape"/></clipPath>
+<path id="king-hind-near-shank-shape" d="M 335.6 546.4 L 285.3 617.8 L 266.7 606.2 L 308.4 529.6 Z"/>
+<clipPath id="king-hind-near-shank-clip"><use href="#king-hind-near-shank-shape"/></clipPath>
+<path id="king-hind-near-cannon-shape" d="M 286.5 602.6 L 304.1 665.4 L 287.9 670.6 L 265.5 609.4 Z"/>
+<clipPath id="king-hind-near-cannon-clip"><use href="#king-hind-near-cannon-shape"/></clipPath>
+</defs>
+<g id="king-hind-near-thigh">
+<use id="king-hind-near-thigh-line" href="#king-hind-near-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-hind-near-thigh-clip)">
+<use id="king-hind-near-thigh-lit" href="#king-hind-near-thigh-shape" fill="#cfc5a8"/>
+<path id="king-hind-near-thigh-mid" d="M 285.1 450.3 L 308 498.3 L 306.8 502.5 L 327 544.9 L 265.2 574.4 L 220.6 481 Z" transform="translate(9 -2.16)" fill="#9c9178"/>
+<path id="king-hind-near-thigh-dark" d="M 285.1 450.3 L 308 498.3 L 306.8 502.5 L 327 544.9 L 265.2 574.4 L 220.6 481 Z" fill="#14110f"/>
+<path id="king-hind-near-thigh-planes" d="M 297.7 471 L 326 530 L 302.3 469 Z" fill="#9c9178"/>
+<path id="king-hind-near-thigh-cold" d="M 208.41 400.92 L 379.15 400.92 L 379.15 592.18 L 208.41 592.18 Z M 314.5 438.8 L 329.4 477 L 342 533.7 L 307.7 550 L 274.8 503.1 L 251.3 468.9 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="king-hind-near-shank">
+<use id="king-hind-near-shank-line" href="#king-hind-near-shank-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-hind-near-shank-clip)">
+<use id="king-hind-near-shank-lit" href="#king-hind-near-shank-shape" fill="#cfc5a8"/>
+<path id="king-hind-near-shank-mid" d="M 327.2 537.7 L 306.1 571.7 L 301.3 573 L 275.2 615 L 249.4 599 L 298.6 519.9 Z" transform="translate(3 -0.72)" fill="#9c9178"/>
+<path id="king-hind-near-shank-dark" d="M 327.2 537.7 L 306.1 571.7 L 301.3 573 L 275.2 615 L 249.4 599 L 298.6 519.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="king-hind-near-cannon">
+<use id="king-hind-near-cannon-line" href="#king-hind-near-cannon-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-hind-near-cannon-clip)">
+<use id="king-hind-near-cannon-lit" href="#king-hind-near-cannon-shape" fill="#cfc5a8"/>
+<path id="king-hind-near-cannon-mid" d="M 278.3 602.1 L 289.5 636.9 L 287.5 641.3 L 297.1 670.8 L 277.7 677.1 L 255.8 609.4 Z" transform="translate(3 -0.72)" fill="#9c9178"/>
+<path id="king-hind-near-cannon-dark" d="M 278.3 602.1 L 289.5 636.9 L 287.5 641.3 L 297.1 670.8 L 277.7 677.1 L 255.8 609.4 Z" fill="#14110f"/>
+<path id="king-hind-near-tendon" d="M 278.6 612.5 L 296 660 L 281.4 611.5 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="king-hind-near-hoof" d="M 280 664 L 312 662 L 322 680 L 278 680 Z" fill="#14110f"/>
+<path id="king-hind-near-hoof-snow" d="M 274 676 L 326 676 L 330 682 L 270 682 Z" fill="#84939a"/>
+</svg>

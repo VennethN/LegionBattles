@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="standing-stone-low" width="160" height="246" viewBox="0 0 160 246">
+<defs>
+<path id="standing-stone-low-stone-shape" d="M 26 232 L 34 136 L 50 90 L 78 76 L 104 98 L 112 156 L 118 230 Z"/>
+<clipPath id="standing-stone-low-stone-clip"><use href="#standing-stone-low-stone-shape"/></clipPath>
+<path id="standing-stone-low-snow-shape" d="M 48 94 L 78 74 L 106 98 L 96 94 L 78 84 L 58 98 Z"/>
+</defs>
+<path id="standing-stone-low-blot" d="M 10 226 L 110 220 L 150 232 L 100 242 L 20 238 Z" fill="#14110f" opacity="0.55"/>
+<g id="standing-stone-low-stone">
+<use id="standing-stone-low-stone-line" href="#standing-stone-low-stone-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#standing-stone-low-stone-clip)">
+<use id="standing-stone-low-stone-lit" href="#standing-stone-low-stone-shape" fill="#77786f"/>
+<path id="standing-stone-low-stone-mid" d="M 0 66 L 58 66 L 61.3 75.8 L 65.6 163.1 L 59.3 170.8 L 62.7 240.2 L 0 240 Z" transform="translate(8 -1.92)" fill="#54564f"/>
+<path id="standing-stone-low-stone-dark" d="M 0 66 L 58 66 L 61.3 75.8 L 65.6 163.1 L 59.3 170.8 L 62.7 240.2 L 0 240 Z" fill="#14110f"/>
+<path id="standing-stone-low-cuts" d="M 77.9 137.5 L 100 138 L 78.1 134.5 Z M 77.9 151.5 L 98 152 L 78.1 148.5 Z M 79.9 165.5 L 102 166 L 80.1 162.5 Z M 84.7 117.3 L 96 110 L 83.3 114.7 Z M 94.6 110.5 L 100 122 L 97.4 109.5 Z M 99.4 120.6 L 90 126 L 100.6 123.4 Z" fill="#54564f"/>
+<path id="standing-stone-low-crack" d="M 90.9 79.6 L 84 106 L 93.1 80.4 Z M 82.8 106.3 L 90 132 L 85.2 105.7 Z" fill="#14110f"/>
+<path id="standing-stone-low-lichen" d="M 72 150 L 96 146 L 104 170 L 80 176 Z" fill="#727646" opacity="0.8"/>
+<path id="standing-stone-low-moss" d="M 60 200 L 118 196 L 120 236 L 58 236 Z" fill="#4b4f2f"/>
+<path id="standing-stone-low-stone-cold" d="M -14 36 L 158 36 L 158 272 L -14 272 Z M 28.9 229.8 L 36.9 133.8 L 52.9 87.8 L 80.9 73.8 L 106.9 95.8 L 114.9 153.8 L 120.9 227.8 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="standing-stone-low-snow">
+<use id="standing-stone-low-snow-line" href="#standing-stone-low-snow-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="standing-stone-low-snow-lit" href="#standing-stone-low-snow-shape" fill="#b4bfc0"/>
+</g>
+<path id="standing-stone-low-drift" d="M 6 232 L 40 220 L 120 222 L 150 234 L 120 240 L 20 240 Z" fill="#b4bfc0"/>
+</svg>

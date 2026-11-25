@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="crossbowman-crossbow" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="crossbowman-crossbow-arm-back-upper-shape" d="M 136.2 108.6 L 148.7 116.9 L 163.5 131.6 L 156.5 140.4 L 139.6 128.6 L 127.8 119.4 Z"/>
+<clipPath id="crossbowman-crossbow-arm-back-upper-clip"><use href="#crossbowman-crossbow-arm-back-upper-shape"/></clipPath>
+<path id="crossbowman-crossbow-arm-back-fore-shape" d="M 157.9 130.4 L 171.2 124.9 L 190.4 119.8 L 193.6 128.2 L 175.4 136.2 L 162.1 141.6 Z"/>
+<clipPath id="crossbowman-crossbow-arm-back-fore-clip"><use href="#crossbowman-crossbow-arm-back-fore-shape"/></clipPath>
+<path id="crossbowman-crossbow-arm-back-fist-shape" d="M 179.2 120.5 L 189.2 113.6 L 194.8 112.4 L 198.4 115.9 L 201.3 115.7 L 203.4 120.7 L 201.6 122.7 L 204.2 127 L 199.7 132.4 L 188.4 135.7 L 182.6 130.3 Z"/>
+<clipPath id="crossbowman-crossbow-arm-back-fist-clip"><use href="#crossbowman-crossbow-arm-back-fist-shape"/></clipPath>
+<path id="crossbowman-crossbow-stock-shape" d="M 134 112 L 146 110 L 216 112 L 218 122 L 148 128 L 136 126 Z"/>
+<clipPath id="crossbowman-crossbow-stock-clip"><use href="#crossbowman-crossbow-stock-shape"/></clipPath>
+<path id="crossbowman-crossbow-prod-shape" d="M 200 70 L 208 72 L 220 106 L 222 128 L 212 162 L 204 164 L 212 128 L 210 108 Z"/>
+<clipPath id="crossbowman-crossbow-prod-clip"><use href="#crossbowman-crossbow-prod-shape"/></clipPath>
+<path id="crossbowman-crossbow-bolt-shape" d="M 178 110 L 216 109.4 L 228 112.4 L 216 115 L 178 114.4 Z"/>
+<path id="crossbowman-crossbow-arm-front-upper-shape" d="M 153.3 113.6 L 157.9 123.2 L 160 138 L 148 142 L 142.2 128.5 L 138.7 118.4 Z"/>
+<clipPath id="crossbowman-crossbow-arm-front-upper-clip"><use href="#crossbowman-crossbow-arm-front-upper-shape"/></clipPath>
+<path id="crossbowman-crossbow-arm-front-fore-shape" d="M 158.4 145 L 165.5 139.6 L 173.3 129.8 L 166.7 122.2 L 156.6 129.4 L 149.6 135 Z"/>
+<clipPath id="crossbowman-crossbow-arm-front-fore-clip"><use href="#crossbowman-crossbow-arm-front-fore-shape"/></clipPath>
+<path id="crossbowman-crossbow-arm-front-fist-shape" d="M 155.2 127.4 L 163 116.1 L 168.3 112.7 L 173.5 115 L 176.5 113.6 L 180.6 118 L 179.6 120.8 L 183.9 124.4 L 181.4 131.7 L 170.8 139.7 L 162.7 136.3 Z"/>
+<clipPath id="crossbowman-crossbow-arm-front-fist-clip"><use href="#crossbowman-crossbow-arm-front-fist-shape"/></clipPath>
+</defs>
+<g id="crossbowman-crossbow-arm-back-upper">
+<use id="crossbowman-crossbow-arm-back-upper-line" href="#crossbowman-crossbow-arm-back-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-crossbow-arm-back-upper-clip)">
+<use id="crossbowman-crossbow-arm-back-upper-lit" href="#crossbowman-crossbow-arm-back-upper-shape" fill="#7b5b3d"/>
+<path id="crossbowman-crossbow-arm-back-upper-mid" d="M 131.3 110 L 144.7 120.5 L 145.4 124.2 L 162.5 137.7 L 154 148.5 L 121.3 122.8 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="crossbowman-crossbow-arm-back-upper-dark" d="M 131.3 110 L 144.7 120.5 L 145.4 124.2 L 162.5 137.7 L 154 148.5 L 121.3 122.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="crossbowman-crossbow-arm-back-fore">
+<use id="crossbowman-crossbow-arm-back-fore-line" href="#crossbowman-crossbow-arm-back-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-crossbow-arm-back-fore-clip)">
+<use id="crossbowman-crossbow-arm-back-fore-lit" href="#crossbowman-crossbow-arm-back-fore-shape" fill="#7b5b3d"/>
+<path id="crossbowman-crossbow-arm-back-fore-mid" d="M 156.4 134.9 L 176.4 127.4 L 179.4 128.5 L 194.7 122.8 L 198.8 133.5 L 161.1 147.6 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="crossbowman-crossbow-arm-back-fore-dark" d="M 156.4 134.9 L 176.4 127.4 L 179.4 128.5 L 194.7 122.8 L 198.8 133.5 L 161.1 147.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-crossbow-arm-back-fold" d="M 156.3 141.5 L 162 134.5 L 153.7 138.1 Z" fill="#14110f"/>
+<g id="crossbowman-crossbow-arm-back-fist">
+<use id="crossbowman-crossbow-arm-back-fist-line" href="#crossbowman-crossbow-arm-back-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-crossbow-arm-back-fist-clip)">
+<use id="crossbowman-crossbow-arm-back-fist-lit" href="#crossbowman-crossbow-arm-back-fist-shape" fill="#c7ad84"/>
+<path id="crossbowman-crossbow-arm-back-fist-mid" d="M 179 132.3 L 207.7 122.9 L 211.4 132.8 L 183.2 143.4 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="crossbowman-crossbow-arm-back-fist-dark" d="M 179 132.3 L 207.7 122.9 L 211.4 132.8 L 183.2 143.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-crossbow-arm-back-fist-fingers" d="M 198.3 115.1 L 192.7 119.6 L 199.5 117.2 Z M 201.3 120.8 L 195 124.7 L 202.2 123 Z" fill="#14110f"/>
+<g id="crossbowman-crossbow-stock">
+<use id="crossbowman-crossbow-stock-line" href="#crossbowman-crossbow-stock-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-crossbow-stock-clip)">
+<use id="crossbowman-crossbow-stock-lit" href="#crossbowman-crossbow-stock-shape" fill="#6f5c46"/>
+<path id="crossbowman-crossbow-stock-mid" d="M 128 121 L 224 117 L 224 132 L 128 132 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="crossbowman-crossbow-stock-dark" d="M 128 121 L 224 117 L 224 132 L 128 132 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="crossbowman-crossbow-prod">
+<use id="crossbowman-crossbow-prod-line" href="#crossbowman-crossbow-prod-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-crossbow-prod-clip)">
+<use id="crossbowman-crossbow-prod-lit" href="#crossbowman-crossbow-prod-shape" fill="#8c9194"/>
+<use id="crossbowman-crossbow-prod-rim" href="#crossbowman-crossbow-prod-shape" fill="#f4d294" opacity="0.55"/>
+<use id="crossbowman-crossbow-prod-lit-over" href="#crossbowman-crossbow-prod-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="crossbowman-crossbow-prod-mid" d="M 194 66 L 204 70 L 214 108 L 216 128 L 207 166 L 194 168 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="crossbowman-crossbow-prod-dark" d="M 194 66 L 204 70 L 214 108 L 216 128 L 207 166 L 194 168 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-crossbow-string" d="M 203 72 L 178 114 L 207 163" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="crossbowman-crossbow-bolt">
+<use id="crossbowman-crossbow-bolt-line" href="#crossbowman-crossbow-bolt-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="crossbowman-crossbow-bolt-lit" href="#crossbowman-crossbow-bolt-shape" fill="#cfc5a8"/>
+</g>
+<g id="crossbowman-crossbow-arm-front-upper">
+<use id="crossbowman-crossbow-arm-front-upper-line" href="#crossbowman-crossbow-arm-front-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-crossbow-arm-front-upper-clip)">
+<use id="crossbowman-crossbow-arm-front-upper-lit" href="#crossbowman-crossbow-arm-front-upper-shape" fill="#7b5b3d"/>
+<path id="crossbowman-crossbow-arm-front-upper-mid" d="M 147.8 112.2 L 152.9 127.6 L 151.5 130.9 L 155.4 142.7 L 140.6 147.6 L 130.7 117.9 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="crossbowman-crossbow-arm-front-upper-dark" d="M 147.8 112.2 L 152.9 127.6 L 151.5 130.9 L 155.4 142.7 L 140.6 147.6 L 130.7 117.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="crossbowman-crossbow-arm-front-fore">
+<use id="crossbowman-crossbow-arm-front-fore-line" href="#crossbowman-crossbow-arm-front-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-crossbow-arm-front-fore-clip)">
+<use id="crossbowman-crossbow-arm-front-fore-lit" href="#crossbowman-crossbow-arm-front-fore-shape" fill="#7b5b3d"/>
+<path id="crossbowman-crossbow-arm-front-fore-mid" d="M 153.4 143.9 L 162.5 135.9 L 162.9 132.6 L 172.4 124.2 L 164 114.5 L 143.4 132.5 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="crossbowman-crossbow-arm-front-fore-dark" d="M 153.4 143.9 L 162.5 135.9 L 162.9 132.6 L 172.4 124.2 L 164 114.5 L 143.4 132.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-crossbow-arm-front-fold" d="M 149.8 146.1 L 156.2 138.3 L 147 142.3 Z" fill="#14110f"/>
+<g id="crossbowman-crossbow-arm-front-fist">
+<use id="crossbowman-crossbow-arm-front-fist-line" href="#crossbowman-crossbow-arm-front-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#crossbowman-crossbow-arm-front-fist-clip)">
+<use id="crossbowman-crossbow-arm-front-fist-lit" href="#crossbowman-crossbow-arm-front-fist-shape" fill="#c7ad84"/>
+<path id="crossbowman-crossbow-arm-front-fist-mid" d="M 159.7 139.8 L 186 118.7 L 193.8 127.6 L 168.4 149.8 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="crossbowman-crossbow-arm-front-fist-dark" d="M 159.7 139.8 L 186 118.7 L 193.8 127.6 L 168.4 149.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="crossbowman-crossbow-arm-front-fist-fingers" d="M 173.1 114.2 L 169 121.2 L 175.2 115.9 Z M 178.5 119 L 173.4 125.5 L 180.3 120.9 Z" fill="#14110f"/>
+</svg>

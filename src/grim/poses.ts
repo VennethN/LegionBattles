@@ -85,13 +85,13 @@ export const UNDERHAND: Move = {
 /** A hand to the mouth: a whistle that brings the dogs in. */
 export const WHISTLE: Move = {
   windup: pose({ offRot: -30, bodyRot: 3, headRot: 2 }),
-  strike: pose({ offRot: -112, offX: 8, offY: -8, bodyRot: -5, headRot: -8, extraRot: 6 }),
+  strike: pose({ offRot: -112, offX: 8, offY: -8, bodyRot: -9, bodySy: 0.03, headRot: -16, weaponRot: -9, rootX: -4, extraRot: 10 }),
 };
 
-/** An arm thrown out to point: a kennelman setting his dogs on, a captain's order. */
+/** An arm thrown out to point: a dog handler setting his dogs on, a captain's order. */
 export const POINT: Move = {
   windup: pose({ offRot: 30, bodyRot: -5, headRot: 4 }),
-  strike: pose({ offRot: -82, offX: 6, offY: -6, bodyRot: 8, headRot: -5, rootX: 4, extraRot: -10 }),
+  strike: pose({ offRot: -82, offX: 6, offY: -6, bodyRot: 11, headRot: -8, rootX: 8, weaponRot: 16, weaponX: 6, legFrontRot: -8, extraRot: -12 }),
 };
 
 // ---- Beasts and the small dead, whose weapon is the head or the arms.

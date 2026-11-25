@@ -34,7 +34,7 @@ const lodge = async (page: Page, leaf: string, save: Record<string, unknown>): P
   await page.evaluate(([l, s]) => {
     const w = window as unknown as Win;
     Object.assign(w.save(), s);
-    for (const key of ['Hud', 'Result', 'Lair', 'Lodge']) w.game.scene.stop(key);
+    for (const key of ['Title', 'Hud', 'Result', 'Lair', 'Lodge']) w.game.scene.stop(key);
     w.game.scene.start('Lodge', { leaf: l });
   }, [leaf, save] as const);
   await until(page, 'Lodge');
@@ -67,19 +67,71 @@ const tell = async (page: Page, monster: string, part: number, attack: string): 
 };
 
 const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>) => Promise<void>> = {
-  // What someone who has never played sees: a lair at once, a camp to set, and how to walk.
+  // What someone who has never played sees: the title, PLAY, and the first hunt, which teaches. A picture at each step
+  // of the lesson with its plate up (and its warning on the ground where it has one), then the win and the lodge after.
   first: async (page, shot) => {
+    await shot('title');
+    const play = await find(page, 'Title', 'PLAY');
+    if (play) await page.mouse.click(play.x, play.y);
     await until(page, 'Hud');
-    await tick(page, 30);
-    await shot('first');
-    await pilot(page, 9);
-    await shot('first-camp');
-    await pilot(page, 14);
-    await shot('first-hunt');
+    await tick(page, 50);
+    await shot('lesson-1-move');
+    const step = (): Promise<string> => page.evaluate(() => (window as unknown as Win).hunt()?.teaching?.step.id ?? '');
+    const shown = (): Promise<boolean> => page.evaluate(() => {
+      const h = (window as unknown as Win).hunt();
+      return !!h && h.tells.some((t) => t.of - t.left > 0.5);
+    });
+    let n = 1;
+    let last = await step();
+    for (let f = 0; f < 60 * 240; f++) {
+      // The bot plays; when a new step comes up it stands still until the step's warning shows, for the picture.
+      const now = await step();
+      if (now !== last) {
+        last = now;
+        n++;
+        if (!now) break;
+        await page.evaluate(() => (window as unknown as Win).pilot(false));
+        const attack = await page.evaluate(() => !!(window as unknown as Win).hunt()?.teaching?.step.attack);
+        for (let w = 0; w < (attack ? 900 : 30); w++) {
+          await tick(page, 1);
+          if (attack && (await shown())) break;
+        }
+        await shot(`lesson-${n}-${now}`);
+      }
+      await page.evaluate(() => (window as unknown as Win).pilot(true));
+      await tick(page, 1);
+    }
+    await page.evaluate(() => (window as unknown as Win).pilot(false));
+    await tick(page, 40);
+    await shot('lesson-after');
+    await page.evaluate(() => (window as unknown as Win).pilot(true));
+    for (let f = 0; f < 60 * 240; f += 20) {
+      await tick(page, 20);
+      if (await page.evaluate(() => !!(window as unknown as Win).hunt()?.over)) break;
+    }
+    await page.evaluate(() => (window as unknown as Win).pilot(false));
+    await tick(page, 60 * 3);
+    await until(page, 'Result');
+    await tick(page, 20);
+    await shot('lesson-won');
+    const lodge = await find(page, 'Result', 'THE LODGE');
+    if (lodge) await page.mouse.click(lodge.x, lodge.y);
+    await until(page, 'Lodge');
+    await tick(page, 20);
+    await shot('lodge-second-hunt');
+    const team = await find(page, 'Lodge', 'TEAM');
+    if (team) await page.mouse.click(team.x, team.y);
+    await tick(page, 20);
+    await shot('team-second-hunt');
+    const hunt = await find(page, 'Lodge', 'HUNT');
+    if (hunt) await page.mouse.click(hunt.x, hunt.y);
+    await until(page, 'Hud');
+    await tick(page, 40);
+    await shot('second-hunt-camp');
   },
   // The lodge: the board with one contract posted, then with more, the muster and the ledger.
   lodge: async (page, shot) => {
-    await lodge(page, 'board', { hunts: 1, wins: 0, coin: 12 });
+    await lodge(page, 'board', { hunts: 1, wins: 0, coin: 12, opening: 0 });
     await shot('board-new');
     await lodge(page, 'board', RICH);
     await shot('board');
@@ -89,7 +141,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     if (at) await page.mouse.click(at.x, at.y);
     await tick(page, 12);
     await shot('muster-note');
-    await lodge(page, 'muster', { hunts: 1, wins: 0, coin: 12, trophies: [], felled: {}, worn: {}, steps: [], supply: 0, muster: { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1, watchfire: 1 } } });
+    await lodge(page, 'muster', { opening: 2, hunts: 2, wins: 1, coin: 42, trophies: ['spade'], felled: {}, worn: {}, steps: [], supply: 0, muster: { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1 } } });
     await shot('muster-new');
     await lodge(page, 'ledger', RICH);
     await shot('ledger');
@@ -159,7 +211,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
   },
   // How a hunt ends, both ways.
   result: async (page, shot) => {
-    await lair(page, { monster: 'sexton', mark: 1, hunter: 'marta', awake: true }, { hunts: 0, wins: 0, trophies: [], felled: {}, coin: 0 });
+    await lair(page, { monster: 'sexton', mark: 1, hunter: 'marta', awake: true }, { opening: 3, hunts: 3, wins: 1, trophies: [], felled: {}, coin: 0 });
     await page.evaluate(() => {
       const h = (window as unknown as Win).hunt();
       if (h) {
@@ -213,8 +265,8 @@ for (const [label, width, height, dpr] of sizes) {
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   await page.clock.pauseAt(Date.now() + 1000);
-  // The game has to have loaded before a state can be stood up in it: a new player lands in a lair, so that is waited for.
-  await until(page, 'Hud');
+  // The game has to have loaded before a state can be stood up in it: a new player lands on the title, so that is waited for.
+  await until(page, 'Title');
   const shot = async (name: string): Promise<void> => {
     await page.screenshot({ path: `${out}/${label}-${name}.png` });
   };

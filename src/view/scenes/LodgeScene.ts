@@ -10,7 +10,9 @@ import { BONE, GOLD, HOLY, IRON, LEATHER, OUTLINE, RUBY, type Material } from '.
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { ABILITIES, BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, byId, type Mark } from '../../game/content';
-import { buy, changeBuilding, chargesOf, contracts, costOf, isOpen, opensBy, setHunter, supplyOf, toggleReinforcement, wares, wear, type Contract } from '../../game/lodge';
+import {
+  buy, changeBuilding, chargesOf, contracts, costOf, isOpen, lessonFor, newsOf, openingOf, opensBy, rewardOf, setHunter, supplyOf, toggleReinforcement, wares, wear, type Contract,
+} from '../../game/lodge';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
 import { ALLY_ART, BUILDING_ART, HUNTER_ART, MONSTER_ART, STAND_IN, isGrim, type Art } from '../pictures';
@@ -47,11 +49,16 @@ export class LodgeScene extends Phaser.Scene {
     // Along the top: the game's name, the three leaves, the coin and the sound.
     const lw = view.tall ? 116 : 132;
     this.add.image(10 + lw / 2, 34, 'logo').setDisplaySize(lw, (lw * 214) / 444);
-    const leaves: Array<[Leaf, string]> = [['board', 'BOSSES'], ['muster', 'TEAM'], ['ledger', 'SHOP']];
+    // The leaves there are yet: the team once there is something to choose, the shop once the opening hunts are done.
+    const step = openingOf(s);
+    const leaves: Array<[Leaf, string]> = [['board', 'BOSSES']];
+    if (!step || !step.lesson) leaves.push(['muster', 'TEAM']);
+    if (!step) leaves.push(['ledger', 'SHOP']);
+    if (!leaves.some((l) => l[0] === this.leaf)) this.leaf = 'board';
     const tw = view.tall ? 104 : 118;
     const tx = view.tall ? w / 2 + 34 : w / 2;
     leaves.forEach(([leaf, name], i) => {
-      new Button(this, tx + (i - 1) * (tw + 6), 34, name, () => this.go(leaf), { width: tw, height: 46, size: 17, mat: leaf === this.leaf ? GOLD : IRON });
+      new Button(this, tx + (i - (leaves.length - 1) / 2) * (tw + 6), 34, name, () => this.go(leaf), { width: tw, height: 46, size: 17, mat: leaf === this.leaf ? GOLD : IRON });
     });
     const coinY = view.tall ? 82 : 34;
     const coinX = view.tall ? w - 70 : w - 130;
@@ -157,15 +164,19 @@ export class LodgeScene extends Phaser.Scene {
       const b = new Button(this, mx + 46 + (k - 1) * 58, my, String(k), () => this.pick(c, k as Mark), { width: 52, height: 46, size: 19, mat: k === mark ? GOLD : IRON });
       b.setEnabled(k <= c.upTo);
     }
-    const pay = m.pay[mark - 1];
-    const first = c.felled < mark;
+    const { coin: pay, first } = rewardOf(s, c.id, mark);
+    const lesson = !!lessonFor(s, c.id, mark);
     const lineY = view.tall ? py + 206 : py + 84;
     const lineX = view.tall ? left : mx - 30;
-    label(this, lineX, lineY, `Reward: ${first ? pay * 2 : pay} coin${first ? ' (double for the first win)' : ''}`, { size: 15, align: 'left', color: HOLY.fill, wrap: view.tall ? pw - 48 : 250 }).setOrigin(0, 0.5);
-    if (c.felled === 0) label(this, lineX, lineY + (view.tall ? 30 : 44), 'First win: a trophy and new unlocks.', { size: 15, align: 'left', color: BONE.shade });
+    label(this, lineX, lineY, `Reward: ${pay} coin${first ? ' (double for the first win)' : ''}`, { size: 15, align: 'left', color: HOLY.fill, wrap: view.tall ? pw - 48 : 250 }).setOrigin(0, 0.5);
+    if (lesson) label(this, lineX, lineY + (view.tall ? 30 : 44), 'First win: a trophy and new unlocks.', { size: 15, align: 'left', color: BONE.shade });
     const by = py + ph - 44;
-    new Button(this, w / 2 - 110, by, 'TEAM', () => this.go('muster'), { width: 200, height: 58, size: 22, mat: IRON });
-    new Button(this, w / 2 + 110, by, 'HUNT', () => this.hunt(), { width: 200, height: 58, size: 26, mat: RUBY });
+    // What is new at this hunt, in one line over the way out.
+    const news = newsOf(s);
+    if (news) label(this, w / 2, by - 50, news, { size: 16, color: HOLY.fill, wrap: pw - 40 });
+    const team = !openingOf(s)?.lesson;
+    if (team) new Button(this, w / 2 - 110, by, 'TEAM', () => this.go('muster'), { width: 200, height: 58, size: 22, mat: IRON });
+    new Button(this, team ? w / 2 + 110 : w / 2, by, 'HUNT', () => this.hunt(), { width: 200, height: 58, size: 26, mat: RUBY });
   }
 
   private pick(c: Contract, mark: Mark): void {
@@ -176,6 +187,16 @@ export class LodgeScene extends Phaser.Scene {
   private hunt(): void {
     const c = theContract();
     takeContract(c.monster, c.mark);
+    this.leave();
+  }
+
+  /** Out to the lair. What the lodge had to say once about what is new has now been said. */
+  private leave(): void {
+    const s = save();
+    if (!openingOf(s) && !s.told.includes('open')) {
+      s.told.push('open');
+      commit();
+    }
     this.scene.start('Lair');
   }
 
@@ -211,9 +232,11 @@ export class LodgeScene extends Phaser.Scene {
     }
 
     // What comes at the horn and what is built: one row in a wide window, two in a tall one.
+    // In the opening hunts only what has been brought in so far is shown: the rest is not yet spoken of.
+    const step = openingOf(s);
     const things: Array<{ id: string; name: string; says: string; cost: number; art: Art; kind: 'r' | 'b' }> = [
-      ...REINFORCEMENTS.map((r) => ({ id: r.id, name: r.name, says: r.says, cost: r.cost, art: ALLY_ART[r.id], kind: 'r' as const })),
-      ...BUILDINGS.map((b) => ({ id: b.id, name: b.name, says: b.says, cost: b.cost, art: BUILDING_ART[b.id], kind: 'b' as const })),
+      ...(!step || step.reinforcements > 0 ? REINFORCEMENTS : []).map((r) => ({ id: r.id, name: r.name, says: r.says, cost: r.cost, art: ALLY_ART[r.id], kind: 'r' as const })),
+      ...(!step || step.buildings > 0 ? BUILDINGS : []).map((b) => ({ id: b.id, name: b.name, says: b.says, cost: b.cost, art: BUILDING_ART[b.id], kind: 'b' as const })),
     ];
     const cols = view.tall ? 4 : things.length;
     const cw = Math.min(118, (w - 20) / cols - 6);
@@ -235,7 +258,7 @@ export class LodgeScene extends Phaser.Scene {
       this.figure(card, t.art, 8, 62, open);
       card.add(label(this, 0, 26, open ? t.name.toUpperCase() : 'LOCKED', { size: 15, color: open ? INK : BONE.shade, stroke: null }).setScale(Math.min(1, (cw - 6) / (t.name.length * 9.6))));
       if (open) {
-        card.add(label(this, -cw / 2 + 8, -ch / 2 + 14, `${t.cost}`, { size: 17, align: 'left', color: HOLY.fill }));
+        if (!step) card.add(label(this, -cw / 2 + 8, -ch / 2 + 14, `${t.cost}`, { size: 17, align: 'left', color: HOLY.fill }));
         card.add(label(this, 0, 48, n > 0 ? (t.kind === 'r' ? 'GOING' : `x${n}`) : t.kind === 'r' ? 'take' : 'add', { size: 15, color: n > 0 ? '#2e5f45' : '#6b5a48', stroke: null }));
         // A building that is going can be taken off again by its own small button.
         if (t.kind === 'b' && n > 0) {
@@ -252,14 +275,16 @@ export class LodgeScene extends Phaser.Scene {
     y += Math.ceil(things.length / cols) * (ch + 6) + 4;
 
     // What was last pressed, or why it would not go.
-    label(this, w / 2, y + 12, this.note, { size: 15, color: HOLY.fill, wrap: Math.min(w - 30, 760) });
+    label(this, w / 2, y + 12, this.note || newsOf(s), { size: 15, color: HOLY.fill, wrap: Math.min(w - 30, 760) });
 
     // Along the bottom: the supply, the trophy worn, and the way out.
     const by = view.h - 42;
     const sx = view.tall ? w / 2 : 150;
     const sy = view.tall ? by - 128 : by;
-    this.add.image(sx - 96, sy, SHEET, 'icon/sack').setScale(0.3);
-    label(this, sx - 70, sy - 1, `SUPPLY ${used} / ${all}`, { size: 20, align: 'left', color: used > all ? RUBY.fill : BONE.fill });
+    if (!step) {
+      this.add.image(sx - 96, sy, SHEET, 'icon/sack').setScale(0.3);
+      label(this, sx - 70, sy - 1, `SUPPLY ${used} / ${all}`, { size: 20, align: 'left', color: used > all ? RUBY.fill : BONE.fill });
+    }
     if (s.trophies.length) {
       const worn = s.worn[m.hunter];
       const name = worn ? MONSTERS.find((x) => x.trophy.id === worn)?.trophy.name ?? '' : 'none';
@@ -274,7 +299,7 @@ export class LodgeScene extends Phaser.Scene {
       };
       new Button(this, w / 2, tyy, `TROPHY: ${name.toUpperCase()}`, next, { width: Math.min(330, w - 40), height: 46, size: 15, mat: IRON });
     }
-    new Button(this, view.tall ? w / 2 : w - 130, by, 'HUNT', () => this.scene.start('Lair'), { width: 220, height: 58, size: 26, mat: RUBY });
+    new Button(this, view.tall ? w / 2 : w - 130, by, 'HUNT', () => this.leave(), { width: 220, height: 58, size: 26, mat: RUBY });
   }
 
   /** Something was pressed on the muster: it is written down, and the line says what it was or why not. */

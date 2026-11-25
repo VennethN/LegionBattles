@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="pikeman-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
 <defs>
-<path id="pikeman-leg-front-leg-shape" d="M 146.2 165.4 L 157.7 220 L 142.3 224 L 125.8 170.6 Z"/>
+<path id="pikeman-leg-front-leg-shape" d="M 146.2 165.4 L 152.3 188 L 157.7 220 L 142.3 224 L 132.5 193.1 L 125.8 170.6 Z"/>
 <clipPath id="pikeman-leg-front-leg-clip"><use href="#pikeman-leg-front-leg-shape"/></clipPath>
+<path id="pikeman-leg-front-garter-shape" d="M 137.8 206 L 155.8 204 L 156.2 208 L 138.2 210 Z"/>
+<clipPath id="pikeman-leg-front-garter-clip"><use href="#pikeman-leg-front-garter-shape"/></clipPath>
 <path id="pikeman-leg-front-boot-shape" d="M 139.9 217 L 159 215 L 164.3 227 L 173.2 230 L 179.2 236 L 179.2 240 L 139.2 240 L 137.2 230 Z"/>
 <clipPath id="pikeman-leg-front-boot-clip"><use href="#pikeman-leg-front-boot-shape"/></clipPath>
 </defs>
@@ -11,6 +13,16 @@
 <use id="pikeman-leg-front-leg-lit" href="#pikeman-leg-front-leg-shape" fill="#4f4944"/>
 <path id="pikeman-leg-front-leg-mid" d="M 138.8 164.2 L 145.7 190.8 L 143.5 195 L 151.3 224.8 L 132.5 229.6 L 117 169.8 Z" transform="translate(4.47 -1.07)" fill="#34302d"/>
 <path id="pikeman-leg-front-leg-dark" d="M 138.8 164.2 L 145.7 190.8 L 143.5 195 L 151.3 224.8 L 132.5 229.6 L 117 169.8 Z" fill="#14110f"/>
+<path id="pikeman-leg-front-knee-patch" d="M 140 192 L 154 190 L 156 204 L 142 206 Z" fill="#34302d"/>
+<path id="pikeman-leg-front-knee-thread" d="M 141.5 190.3 L 142.5 193.2 L 142.7 190.1 Z M 146.2 189.6 L 147.2 192.5 L 147.4 189.4 Z M 150.9 188.9 L 151.9 191.8 L 152 188.8 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="pikeman-leg-front-garter">
+<use id="pikeman-leg-front-garter-line" href="#pikeman-leg-front-garter-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-leg-front-garter-clip)">
+<use id="pikeman-leg-front-garter-lit" href="#pikeman-leg-front-garter-shape" fill="#7b5b3d"/>
+<path id="pikeman-leg-front-garter-dark" d="M 135 207.8 L 158.9 205.1 L 159.4 209.1 L 135.4 211.8 Z" fill="#14110f"/>
+<path id="pikeman-leg-front-garter-stitch" d="M 141 206.9 L 141.8 208.3 L 142.2 206.8 Z M 146.3 206.4 L 147.1 207.7 L 147.5 206.2 Z M 151.6 205.8 L 152.4 207.1 L 152.8 205.6 Z" fill="#553d29"/>
 </g>
 </g>
 <g id="pikeman-leg-front-boot">

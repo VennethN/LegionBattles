@@ -169,6 +169,8 @@ export class Doc {
   private stack: string[][] = [];
   private used = new Set<string>();
   private stamps = new Map<(d: Doc) => void, string>();
+  /** How much of a piece's own back shadow is kept, where it is given as a share. An icon keeps less: it has to read on a dark plate. */
+  darkScale = 1;
 
   constructor(public readonly prefix: string) {}
 
@@ -207,8 +209,8 @@ export class Doc {
     if (want instanceof Path) dark = want;
     else if (want !== false && want > 0) {
       // The back of the piece, behind an edge that leans with the light: further back at the top, where the light gets round it.
-      const x = b.x + b.w * want;
-      const lean = Math.min(b.w * 0.22, b.h * 0.2);
+      const x = b.x + b.w * want * this.darkScale;
+      const lean = Math.min(b.w * 0.22, b.h * 0.2) * this.darkScale;
       const top: Pt = [x - lean, b.y - 4];
       const foot: Pt = [x + lean, b.y + b.h + 4];
       dark = poly([[b.x - 12, b.y - 4], ...cut(top, foot, id, -1, Math.min(8, b.w * 0.16)), [b.x - 12, b.y + b.h + 4]]);

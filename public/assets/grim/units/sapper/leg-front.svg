@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sapper-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="sapper-leg-front-leg-shape" d="M 148 168.8 L 155 189.7 L 161.6 219.6 L 146.4 224.4 L 135.5 196 L 128 175.2 Z"/>
+<clipPath id="sapper-leg-front-leg-clip"><use href="#sapper-leg-front-leg-shape"/></clipPath>
+<path id="sapper-leg-front-boot-shape" d="M 143.9 217 L 163 215 L 168.3 227 L 177.2 230 L 183.2 236 L 183.2 240 L 143.2 240 L 141.2 230 Z"/>
+<clipPath id="sapper-leg-front-boot-clip"><use href="#sapper-leg-front-boot-shape"/></clipPath>
+</defs>
+<g id="sapper-leg-front-leg">
+<use id="sapper-leg-front-leg-line" href="#sapper-leg-front-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sapper-leg-front-leg-clip)">
+<use id="sapper-leg-front-leg-lit" href="#sapper-leg-front-leg-shape" fill="#4f4944"/>
+<path id="sapper-leg-front-leg-mid" d="M 140.5 168.1 L 147.2 189.1 L 145.4 193 L 155.5 224.7 L 136.9 230.6 L 119.1 174.9 Z" transform="translate(4.71 -1.13)" fill="#34302d"/>
+<path id="sapper-leg-front-leg-dark" d="M 140.5 168.1 L 147.2 189.1 L 145.4 193 L 155.5 224.7 L 136.9 230.6 L 119.1 174.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sapper-leg-front-boot">
+<use id="sapper-leg-front-boot-line" href="#sapper-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sapper-leg-front-boot-clip)">
+<use id="sapper-leg-front-boot-lit" href="#sapper-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="sapper-leg-front-boot-mid" d="M 135.2 212 L 158.2 212 L 159.6 226 L 169 232 L 187.2 235 L 187.2 244 L 135.2 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="sapper-leg-front-boot-dark" d="M 135.2 212 L 158.2 212 L 159.6 226 L 169 232 L 187.2 235 L 187.2 244 L 135.2 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sapper-leg-front-boot-sole" d="M 141.2 237 L 184.2 237 L 184.2 241.5 L 141.2 241.5 Z" fill="#14110f"/>
+<path id="sapper-leg-front-boot-crease" d="M 167.4 225.8 L 158.2 231 L 168.4 228.2 Z" fill="#14110f"/>
+</svg>

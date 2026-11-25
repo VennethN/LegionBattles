@@ -15,7 +15,9 @@ import { THINGS } from '../src/grim/all';
 import { composeUnit } from '../src/grim/compose';
 import { Doc, page } from '../src/grim/kit/draw';
 import { drawPart } from '../src/grim/kit/unit';
+import { SLICES } from '../src/grim/interface';
 import { churchyardGround } from '../src/grim/lair';
+import { woodGround } from '../src/grim/wood';
 import { FALL, HIT, STRIDE, TREAD } from '../src/grim/poses';
 import { UNIT_ART } from '../src/grim/units';
 import { UNIT_NOTES } from '../src/grim/units/notes';
@@ -65,10 +67,11 @@ for (const t of THINGS) {
   const d = new Doc(t.id);
   t.draw(d);
   files.set(`things/${t.id}.svg`, d.svg(t.width, t.height));
-  manifest.things[t.id] = { set: t.set, width: t.width, height: t.height, origin: [t.origin[0], t.origin[1]] };
+  manifest.things[t.id] = { set: t.set, width: t.width, height: t.height, origin: [t.origin[0], t.origin[1]], ...(SLICES[t.id] ? { slice: SLICES[t.id] } : {}) };
 }
 for (const [shape, w, h] of [['wide', FIELD.long, FIELD.short], ['tall', FIELD.short, FIELD.long]] as const) {
   files.set(`grounds/churchyard-${shape}.svg`, churchyardGround(w, h).svg(w, h));
+  files.set(`grounds/wood-${shape}.svg`, woodGround(w, h).svg(w, h));
 }
 files.set('manifest.json', `${JSON.stringify(manifest)}\n`);
 

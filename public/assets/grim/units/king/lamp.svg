@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="king-lamp" width="1240" height="1100" viewBox="-190 -190 1240 1100">
+<defs>
+<path id="king-lamp-lamp-glass-shape" d="M 768.8 201.8 L 795.2 201.8 L 798.5 232.6 L 765.5 232.6 Z"/>
+<clipPath id="king-lamp-lamp-glass-clip"><use href="#king-lamp-lamp-glass-shape"/></clipPath>
+</defs>
+<path id="king-lamp-lamp-ring" d="M 776.5 188.6 L 782 182 L 787.5 188.6 L 782 195.2 L 776.5 188.6" fill="none" stroke="#14110f" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="king-lamp-lamp-glass">
+<use id="king-lamp-lamp-glass-line" href="#king-lamp-lamp-glass-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#king-lamp-lamp-glass-clip)">
+<use id="king-lamp-lamp-glass-lit" href="#king-lamp-lamp-glass-shape" fill="#eeb040"/>
+<path id="king-lamp-lamp-low" d="M 764.4 221.6 L 799.6 219.4 L 799.6 234.8 L 764.4 234.8 Z" fill="#c27a26"/>
+</g>
+</g>
+<path id="king-lamp-lamp-heart" d="M 777.2 226 L 775.4 215 L 782 205.1 L 788.6 215 L 786.8 226 Z" fill="#ffe6a2"/>
+<path id="king-lamp-lamp-cap" d="M 763.3 202.9 L 771 191.9 L 793 191.9 L 800.7 202.9 Z" fill="#14110f"/>
+<path id="king-lamp-lamp-vent" d="M 776.5 193 L 787.5 193 L 785.3 186.4 L 778.7 186.4 Z" fill="#14110f"/>
+<path id="king-lamp-lamp-foot" d="M 762.2 231.5 L 801.8 231.5 L 797.4 240.3 L 766.6 240.3 Z" fill="#14110f"/>
+<path id="king-lamp-lamp-bar" d="M 780 201.8 L 784 201.8 L 784 232.6 L 780 232.6 Z" fill="#14110f"/>
+<path id="king-lamp-lamp-bar-l" d="M 767.9 201.8 L 771 201.8 L 768.4 232.6 L 765.3 232.6 Z" fill="#14110f"/>
+</svg>

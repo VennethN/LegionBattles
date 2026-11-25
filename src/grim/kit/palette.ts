@@ -56,6 +56,11 @@ export const EARTH: Tone = { lit: '#5a5645', mid: '#434134' };
 export const STONE: Tone = { lit: '#77786f', mid: '#54564f' };
 export const DEADGRASS: Tone = { lit: '#666a45', mid: '#4a4e33' };
 
+/** Snow, as it is at night: never white. The winter wood's floor, and what lies on a branch. */
+export const SNOW: Tone = { lit: '#b4bfc0', mid: '#84939a' };
+/** Dead bracken and beech leaves under it. */
+export const BRACKEN: Tone = { lit: '#80603c', mid: '#5a4229' };
+
 /** What stands far off in the dark: a church, a line of yews. Cold, and only just lighter than black. */
 export const NIGHT: Tone = { lit: '#33424b', mid: '#242f36' };
 
@@ -63,7 +68,7 @@ export const NIGHT: Tone = { lit: '#33424b', mid: '#242f36' };
 export function allColors(): Set<string> {
   const out = new Set<string>([INK, SCRATCH, FIRELIGHT, COLD]);
   const tones: Array<object> = [
-    PAPER, BONE, TALLOW, RUST, BLOOD, MOSS, LEAD, SOOT, SLATE, LEATHER, WOOD, PALLOR, LAMP, GORE, EARTH, STONE, DEADGRASS, NIGHT,
+    PAPER, BONE, TALLOW, RUST, BLOOD, MOSS, LEAD, SOOT, SLATE, LEATHER, WOOD, PALLOR, LAMP, GORE, EARTH, STONE, DEADGRASS, NIGHT, SNOW, BRACKEN,
   ];
   for (const t of tones) for (const v of Object.values(t)) out.add(v as string);
   return out;
