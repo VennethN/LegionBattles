@@ -11,7 +11,7 @@
 // where and when.
 
 import {
-  ABILITIES, ATTACK, BUILDINGS, CAMP, CART, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
+  ABILITIES, ATTACK, BUILDINGS, CAMP, CART, CART_ROAD, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
   TELL_FLOOR, VARIANTS, VILLAGER, byId,
   type AbilityDef, type AllyDef, type AttackDef, type BlowDef, type BuildingDef, type HelperDef, type HunterDef, type LessonDef, type LessonStep, type Mark, type MonsterDef, type ReinforcementDef,
   type ShapeDef, type TaskKind, type VariantDef,
@@ -99,6 +99,9 @@ export interface Hunter {
   down: boolean;
   /** Seconds of help given them while down. */
   help: number;
+  /** When they went down, in seconds of the hunt; and whether that down has been counted in full for Stay Standing. */
+  downAt: number;
+  downFull: boolean;
   /** An ability asked for in the middle of a roll, used as the roll ends. */
   wanted: 0 | 1 | null;
   /** The blow being made: which of the chain, seconds since it began, which way, and whether it has landed. */
@@ -396,6 +399,10 @@ export class Hunt {
   /** The contract's variants, by name, and its tasks as they stand. */
   readonly variants: ReadonlySet<string>;
   readonly tasks: TaskState[] = [];
+  /** The cart's road and the next point on it, where a contract has a cart. */
+  cartRoad: { points: Array<[number, number]>; next: number } | null = null;
+  /** Downs counted for Stay Standing: a half for each, and the other half for one not helped up in time. */
+  private fallen = 0;
   /** Which of the party the boss is after, by place. */
   targetWho = 0;
   tells: Tell[] = [];
@@ -423,10 +430,12 @@ export class Hunt {
   /** Each partner's brain: the bot's, as a partner. None for the player. */
   private readonly brains: Array<Bot | null>;
   /** What the variants do to the boss's numbers, put together. */
-  private readonly vary: { speed: number; tell: number; gap: number; armor: number; ahead: boolean; blight: VariantDef['blight']; again: string; escort: number; waves: VariantDef['waves'] };
+  private readonly vary: { speed: number; tell: number; gap: number; armor: number; ahead: boolean; recover: number; blight: VariantDef['blight']; again: string; escort: number; waves: VariantDef['waves'] };
   private blightIn = 0;
   private waveIn = 0;
   private againDone = false;
+  /** A Stampede's second charge, waiting for its pause to end. Anything that dazes or holds it in between stops it. */
+  private againNext: AttackDef | null = null;
   /** Harm done to the boss by each of the party: who hurt it most is one it turns on. */
   private readonly dealtBy: number[];
   private nextId = 1;
@@ -469,7 +478,7 @@ export class Hunt {
     const num = (f: (v: VariantDef) => number | undefined, base: number): number => vs.reduce((k, v) => k * (f(v) ?? 1), base);
     this.vary = {
       speed: num((v) => v.speed, 1), tell: num((v) => v.tell, 1), gap: num((v) => v.gap, 1), armor: vs.reduce((k, v) => Math.max(k, v.armor ?? 0), 0),
-      ahead: vs.some((v) => v.ahead), blight: vs.find((v) => v.blight)?.blight, again: vs.find((v) => v.again)?.again ?? '',
+      ahead: vs.some((v) => v.ahead), recover: num((v) => v.recover, 1), blight: vs.find((v) => v.blight)?.blight, again: vs.find((v) => v.again)?.again ?? '',
       escort: vs.reduce((k, v) => k + (v.escort ?? 0), 0), waves: vs.find((v) => v.waves)?.waves,
     };
     this.blightIn = this.vary.blight?.every ?? 0;
@@ -488,7 +497,7 @@ export class Hunt {
     const [mx, my] = this.tall ? [this.w / 2, this.h * 0.28] : [this.w * 0.72, this.h / 2];
     const make = (def: HunterDef, index: number, x: number, y: number): Hunter => ({
       def, index, ai: index > 0, abilities: [byId(ABILITIES, def.abilities[0]), byId(ABILITIES, def.abilities[1])], trophy: index === 0 ? (setup.trophy ?? null) : null,
-      down: false, help: 0, wanted: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
+      down: false, help: 0, downAt: 0, downFull: false, wanted: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
       x, y, face: mx >= x ? 1 : -1, aim: Math.atan2(my - y, mx - x), hp: def.hp, maxHp: def.hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
       grace: 0, root: 0, waits: [0, 0], bracing: 0, spared: false,
     });
@@ -619,6 +628,10 @@ export class Hunt {
         // Behind the hunter's start, where the fight is not at first.
         const [x, y] = this.tall ? [this.w / 2 + 150, Math.min(this.h - e, hy + 60)] : [Math.max(e, hx - 90), hy - 170];
         this.buildings.push({ id: this.nextId++, def: CART, x, y, hp: CART.hp, maxHp: CART.hp, cool: 0 });
+        // Its road: along the hunter's side of the field, away from where the boss starts, and back.
+        const far = this.tall ? [this.w - e - 30, y] : [x, this.h - e - 30];
+        const end = this.tall ? [e + 30, y] : [x + (this.w - x) * 0.55, this.h - e - 30];
+        this.cartRoad = { points: [[x, y], [far[0], far[1]], [end[0], end[1]]], next: 1 };
       } else if (def.id === 'markers') {
         const hd = byId(HELPERS, MARKER[md.id] ?? 'gravemarker');
         for (let i = 0; i < n; i++) {
@@ -687,7 +700,14 @@ export class Hunt {
           if (t.now === 0) this.fail('cart');
           break;
         case 'together':
-          t.now = this.tally.downs;
+          // A down helped up within the window counts half; one left longer counts whole.
+          for (const p of this.party) {
+            if (p.down && !p.downFull && this.time - p.downAt > REVIVE.window) {
+              p.downFull = true;
+              this.fallen += 0.5;
+            }
+          }
+          t.now = this.fallen;
           if (t.now > t.n) this.fail('together');
           break;
         case 'nobuild':
@@ -837,6 +857,7 @@ export class Hunt {
     this.stepShots(dt);
     this.stepGround(dt);
     this.stepContract(dt);
+    this.rollCart(dt);
     if (!this.over) this.checkTasks();
   }
 
@@ -908,6 +929,7 @@ export class Hunt {
       if (d.help < REVIVE.time) continue;
       d.down = false;
       d.help = 0;
+      d.downFull = true;
       d.hp = Math.round(d.maxHp * REVIVE.hp);
       d.grace = REVIVE.grace;
       this.events.push({ t: 'helped', who: d.index, by: by.index });
@@ -1302,6 +1324,10 @@ export class Hunt {
     h.bracing = 0;
     h.aiming = 0;
     this.tally.downs++;
+    // Stay Standing: half a down now, and the other half if nobody helps them up in time.
+    h.downAt = this.time;
+    h.downFull = false;
+    this.fallen += 0.5;
     this.events.push({ t: 'down', who: h.index, x: h.x, y: h.y });
     // The boss turns to whoever is still standing.
     if (this.targetWho === h.index) this.pickTarget();
@@ -1394,6 +1420,7 @@ export class Hunt {
     this.tells = this.tells.filter((t) => !(t.foe && t.by === 0));
     this.pending = [];
     this.dash = null;
+    this.againNext = null;
     this.monster.attack = null;
   }
 
@@ -1497,7 +1524,7 @@ export class Hunt {
         if (this.pending.length === 0 && !this.tells.some((t) => t.foe && t.by === 0) && !this.dash) {
           const a = m.attack as AttackDef;
           m.attack = null;
-          this.openFor('recover', a.recover, 'recover');
+          this.openFor('recover', a.recover * this.vary.recover, 'recover');
           // The attack is over. If it missed, the step that asked for that is done; if not, it is made again.
           if (!this.stepHurt) {
             this.did('avoid');
@@ -1513,7 +1540,17 @@ export class Hunt {
       case 'dazed':
       case 'held':
         m.left -= dt;
-        if (m.left <= 0) this.walkOn();
+        if (m.left > 0) return;
+        if (this.againNext && m.state === 'recover') {
+          const a = this.againNext;
+          this.againNext = null;
+          m.aim = Math.atan2(this.target().y - m.y, this.target().x - m.x);
+          // The second charge is shown a third longer: it comes when the hunter is still getting up from the first.
+          this.start(a, 1.15);
+          return;
+        }
+        this.againNext = null;
+        this.walkOn();
         return;
       case 'broken':
         m.left -= dt;
@@ -1602,7 +1639,7 @@ export class Hunt {
     const m = this.monster;
     const t = this.target();
     const k = m.size;
-    const dmg = attack.dmg * this.scale.dmg;
+    const dmg = attack.dmg * this.scale.dmg * (1 + PARTY.dmg * (this.party.length - 1));
     const base = { left: seconds, of: seconds, dmg, foe: true, attack: attack.id, by, len: 0, w: 0, r: 0, half: 0, inner: 0, angle: 0, root: attack.root };
     const made: Tell[] = [];
     // What is marked at a target is marked at one more of the party, for an attack that splits, against three or more.
@@ -1717,9 +1754,10 @@ export class Hunt {
       m.attack = null;
       // A Stampede: the charge again at once, unless a crash stopped it.
       if (this.vary.again && !this.againDone && a?.id === this.vary.again) {
+        // A Stampede: it turns, paws for a moment, and charges again. A crash on the first stops the second.
         this.againDone = true;
-        m.aim = Math.atan2(this.target().y - m.y, this.target().x - m.x);
-        this.start(a, 1);
+        this.againNext = a;
+        this.openFor('recover', 0.75, 'recover');
         return;
       }
       this.openFor('recover', a?.recover ?? 0.8, 'recover');
@@ -1873,9 +1911,12 @@ export class Hunt {
         const d = dist(f.x, f.y, a.x, a.y);
         if (d < best) [best, tx, ty] = [d, a.x, a.y];
       }
-      for (const b of this.buildings) {
-        const d = dist(f.x, f.y, b.x, b.y) - b.def.r;
-        if (d < best) [best, tx, ty] = [d, b.x, b.y];
+      // What was built, or the cart, only when no hunter is near: a helper goes for people first.
+      if (best > 220) {
+        for (const b of this.buildings) {
+          const d = dist(f.x, f.y, b.x, b.y) - b.def.r;
+          if (d < best) [best, tx, ty] = [d, b.x, b.y];
+        }
       }
       f.face = tx >= f.x ? 1 : -1;
       if (best > f.def.reach) {
@@ -1989,11 +2030,57 @@ export class Hunt {
           this.hound(a, dt, awake);
           break;
         case 'cower':
-          // A villager stands where they are and keeps their head down.
-          a.face = m.x >= a.x ? 1 : -1;
+          this.cower(a, dt);
           break;
       }
     }
+  }
+
+  /** True if a foe's warning lies on a place: what a villager and the cart keep out of. */
+  private warned(x: number, y: number, pad = 0): boolean {
+    return this.tells.some((t) => t.foe && inside(t, x, y, pad));
+  }
+
+  /**
+   * A villager keeps their head down where they stand, and runs out of a warning they find themselves in: to the
+   * nearest ground nothing is about to land on, at a villager's pace, which is slower than a hunter's.
+   */
+  private cower(a: Ally, dt: number): void {
+    const m = this.monster;
+    a.face = m.x >= a.x ? 1 : -1;
+    if (!this.warned(a.x, a.y, 12)) return;
+    let best: [number, number] | null = null;
+    for (let ring = 1; ring <= 4 && !best; ring++) {
+      for (let k = 0; k < 12; k++) {
+        const ang = (k / 12) * TAU;
+        const x = a.x + Math.cos(ang) * ring * 40;
+        const y = a.y + Math.sin(ang) * ring * 40;
+        const e = FIELD.edge;
+        if (x < e || y < e || x > this.w - e || y > this.h - e || this.warned(x, y, 12)) continue;
+        if (!best || dist(x, y, m.x, m.y) > dist(best[0], best[1], m.x, m.y)) best = [x, y];
+      }
+    }
+    if (best) this.walkTo(a, best[0], best[1], 4, dt);
+    this.keepOut(a, 10, true);
+  }
+
+  /** The cart rolls along its road, and stops while a warning lies on it or just ahead of it. */
+  private rollCart(dt: number): void {
+    const road = this.cartRoad;
+    const cart = this.buildings.find((b) => b.def.id === 'cart');
+    if (!road || !cart || road.next >= road.points.length) return;
+    const [tx, ty] = road.points[road.next];
+    const d = dist(cart.x, cart.y, tx, ty);
+    if (d < 2) {
+      road.next++;
+      return;
+    }
+    const ux = (tx - cart.x) / d;
+    const uy = (ty - cart.y) / d;
+    if (this.warned(cart.x, cart.y, cart.def.r) || this.warned(cart.x + ux * CART_ROAD.ahead, cart.y + uy * CART_ROAD.ahead, cart.def.r)) return;
+    const step = Math.min(d, CART_ROAD.speed * dt);
+    cart.x += ux * step;
+    cart.y += uy * step;
   }
 
   private sap(a: Ally, dt: number): void {

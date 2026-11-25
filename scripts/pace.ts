@@ -156,7 +156,8 @@ if (flag('contracts') || arg('contracts')) {
         byVariant[v].n++;
         if (r.won) byVariant[v].won++;
       }
-      for (const t of p.tasks) {
+      // A task is counted over won hunts: a lost hunt pays nothing for it, done or not.
+      if (r.won) for (const t of p.tasks) {
         byTask[t.id] ??= { n: 0, done: 0 };
         byTask[t.id].n++;
         if (r.tally.tasks[t.id]) byTask[t.id].done++;
@@ -172,7 +173,7 @@ if (flag('contracts') || arg('contracts')) {
   console.log(`${played} posted contracts at difficulties 1 to 3, the bot as Marta.`);
   console.log('variant: contracts, won');
   for (const [k, v] of Object.entries(byVariant)) console.log(`  ${k.padEnd(14)} ${String(v.n).padStart(3)}  ${p100(v.won, v.n)}`);
-  console.log('task: contracts, done');
+  console.log('task: won hunts with it, done');
   for (const [k, v] of Object.entries(byTask)) console.log(`  ${k.padEnd(14)} ${String(v.n).padStart(3)}  ${p100(v.done, v.n)}`);
   console.log('party: contracts, won');
   for (const [k, v] of Object.entries(byParty)) console.log(`  ${k.padEnd(14)} ${String(v.n).padStart(3)}  ${p100(v.won, v.n)}`);
