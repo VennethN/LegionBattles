@@ -20,6 +20,9 @@ const BACK = 0.26;
 const WINDUP_OVER = 0.18;
 const STRIKE_OVER = 0.22;
 
+/** How dark a figure's shadow lies on the ground. */
+const SHADOW = 0.45;
+
 const easeOut = (t: number): number => 1 - (1 - t) * (1 - t) * (1 - t);
 
 export class GrimFigure {
@@ -71,6 +74,8 @@ export class GrimFigure {
     this.xf = makeXforms(art.parts.length);
     for (const part of art.parts) {
       const img = scene.add.image(0, 0, SHEET, grimFrame(id, part.name)).setScale(INV);
+      // A shadow is the ground darkened, not a hole in it: the floor shows through.
+      if (part.role === 'shadow') img.setAlpha(SHADOW);
       this.sprites.push(img);
       this.root.add(img);
     }

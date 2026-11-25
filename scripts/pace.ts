@@ -1,4 +1,4 @@
-// npm run pace [-- --runs=12 --monster=sexton --hunter=marta --mark=1 --things --why]
+// npm run pace [-- --runs=12 --monster=sexton --hunter=marta --mark=1 --things --why --rank=4 --trinkets=whetstone,salt]
 //
 // The measure: hunts played by the bot (src/game/bot.ts), and how they
 // went. For each monster and mark, with each hunter and the first muster:
@@ -13,6 +13,7 @@
 import { BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, type Mark } from '../src/game/content';
 import { Bot, type BotOpts } from '../src/game/bot';
 import { Hunt, STEP, type Setup, type Tally } from '../src/game/hunt';
+import { RANKS } from '../src/game/growth';
 
 const arg = (name: string): string | undefined => process.argv.find((a) => a.startsWith(`--${name}=`))?.split('=')[1];
 const flag = (name: string): boolean => process.argv.includes(`--${name}`);
@@ -40,10 +41,18 @@ export function hunt(setup: Setup, bot: BotOpts = {}): { won: boolean; tally: Ta
   return { won: h.over === 'won', tally: h.tally, part: h.monster.part };
 }
 
+// A rank and trinkets for every hunter going: what growth between hunts is worth (`--rank=4 --trinkets=whetstone,salt`).
+const rank = Number(arg('rank') ?? 0);
+const trinkets = (arg('trinkets') ?? '').split(',').filter(Boolean);
+function grownAll(base: Omit<Setup, 'seed'>): Setup['grown'] {
+  if (!rank && trinkets.length === 0) return undefined;
+  return Object.fromEntries([base.hunter, ...(base.partners ?? [])].map((id) => [id, { gain: RANKS[rank].gain, trinkets }]));
+}
+
 function measure(base: Omit<Setup, 'seed'>, bot: BotOpts = careless): Out {
   const out: Out = { won: 0, time: 0, tallies: [], parts: 0 };
   for (let i = 0; i < runs; i++) {
-    const r = hunt({ ...base, seed: 1000 + i * 37 }, bot);
+    const r = hunt({ ...base, seed: 1000 + i * 37, grown: grownAll(base) }, bot);
     if (r.won) {
       out.won++;
       out.time += r.tally.time;

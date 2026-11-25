@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { MONSTERS } from '../src/game/content';
+import { HUNTERS, MONSTERS, byId } from '../src/game/content';
+import { Hunt } from '../src/game/hunt';
+import { OPENING, type SaveData, board, buy, freshSave, growthOf, payFor, posterOf, setWeek, setupOf, wares, wearTrinket } from '../src/game/lodge';
 import { CHAINS, RANKS, TRINKETS, chainNext, dropChance, dropOf, rankOf, rankXpFor, toNextRank, weekOf, wornBy } from '../src/game/growth';
 
 describe('ranks', () => {
@@ -62,5 +64,83 @@ describe('the week and the chains', () => {
       expect(chainNext(c, { [c.opensAfter]: 1 }, { [c.id]: 1 })).toBe(c.steps.length > 1 ? 1 : null);
       expect(chainNext(c, { [c.opensAfter]: 1 }, { [c.id]: c.steps.length })).toBeNull();
     }
+  });
+});
+
+describe('growth in the lodge and the hunt', () => {
+  const tally = { time: 100, dealt: {}, taken: {}, killedBy: null, breaks: 0, taught: false, tasks: {}, downs: 0 };
+  /** A lodge past its opening, with the Gravedigger felled once: the board is posted. */
+  const posted = (): SaveData => {
+    const s = freshSave();
+    s.opening = OPENING.length;
+    s.trophies = ['spade'];
+    s.felled = { sexton: 1 };
+    return s;
+  };
+
+  it('a hunt gives the hunter who led it experience, and a rank gives more health and damage in the hunt', () => {
+    const s = posted();
+    const p = board(s)[0];
+    const pay = payFor(s, p.monster, p.mark, true, tally, 2, p);
+    expect(pay.ranks[0]).toMatchObject({ hunter: 'marta' });
+    expect(s.xp?.marta).toBeGreaterThan(0);
+    s.xp = { marta: RANKS[2].need };
+    expect(growthOf(s, 'marta')).toMatchObject({ rank: 2, slots: 2 });
+    const plain = new Hunt(setupOf(freshSave(), 'king', 1, 1, false));
+    const grown = new Hunt(setupOf(s, 'king', 1, 1, false));
+    expect(grown.hunter.maxHp).toBe(Math.round(plain.hunter.maxHp * (1 + RANKS[2].gain)));
+  });
+
+  it('a trinket is bought, worn in a slot its rank gives, and reaches the hunt', () => {
+    const s = posted();
+    s.coin = 1000;
+    expect(wares(s).some((w) => w.id === 'trinket:bread')).toBe(true);
+    expect(wares(s).some((w) => TRINKETS.find((t) => t.rare && w.id === `trinket:${t.id}`))).toBe(false);
+    expect(buy(s, 'trinket:bread')).toBe('');
+    expect(buy(s, 'trinket:boots')).toBe('');
+    expect(wearTrinket(s, 'marta', 'bread')).toBe('');
+    // One slot at the first rank: a second trinket takes the first one's place.
+    expect(wearTrinket(s, 'marta', 'boots')).toBe('');
+    expect(growthOf(s, 'marta').worn).toEqual(['boots']);
+    expect(wearTrinket(s, 'marta', 'bread')).toBe('');
+    const h = new Hunt(setupOf(s, 'king', 1, 1, false));
+    expect(h.hunter.trinkets).toEqual(['bread']);
+    expect(h.hunter.maxHp).toBe(byId(HUNTERS, 'marta').hp + 12);
+    expect(wearTrinket(s, 'marta', 'nail')).toBe('Not held');
+  });
+
+  it('the week\'s contract is posted once a week, pays three times and always drops a trinket', () => {
+    const s = posted();
+    setWeek(s, 40);
+    const w = board(s).find((p) => p.weekly);
+    expect(w).toBeDefined();
+    if (!w) return;
+    expect(w.variants).toHaveLength(2);
+    expect(posterOf(s, w).banner).toBe('THE WEEK\'S CONTRACT');
+    const pay = payFor(s, w.monster, w.mark, true, tally, 2, w);
+    expect(pay.weekly).toBe(true);
+    expect(pay.trinket).not.toBeNull();
+    expect(board(s).some((p) => p.weekly)).toBe(false);
+    // The next week, a new one.
+    setWeek(s, 41);
+    expect(board(s).some((p) => p.weekly)).toBe(true);
+  });
+
+  it('a chain posts its steps one after another, each telling the next part, and pays a prize at its end', () => {
+    const s = posted();
+    s.felled = { sexton: 2, king: 2, spinner: 2, abbot: 2, furnace: 1 };
+    const chainOf = (): ReturnType<typeof board>[number] | undefined => board(s).find((p) => p.chain?.id === 'parish');
+    const seen: string[] = [];
+    for (let i = 0; i < 3; i++) {
+      const p = chainOf();
+      expect(p, `step ${i}`).toBeDefined();
+      if (!p) return;
+      expect(p.chain?.step).toBe(i);
+      seen.push(p.why);
+      const pay = payFor(s, p.monster, p.mark, true, tally, 2, p);
+      if (i === 2) expect(pay.prize).toBe(260);
+    }
+    expect(new Set(seen).size).toBe(3);
+    expect(chainOf()).toBeUndefined();
   });
 });

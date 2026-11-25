@@ -17,6 +17,7 @@ import {
   type ShapeDef, type TaskKind, type VariantDef, ROOM } from './content';
 import { Bot } from './bot';
 import { Rng } from './rng';
+import { TRINKET_EFFECT } from './growth';
 import { dist, inside, turn } from './geometry';
 
 export const STEP = 1 / 60;
@@ -74,6 +75,8 @@ export interface Setup {
   partners?: readonly string[];
   /** What this contract makes of the hunt: how the boss is unlike itself, and the tasks besides the kill. */
   terms?: Terms;
+  /** What each hunter going has grown into, by the hunter's name: their rank's gain and the trinkets they wear (growth.ts). */
+  grown?: Readonly<Record<string, { gain: number; trinkets: readonly string[] }>>;
 }
 
 /** A contract's terms, as the board drew them (lodge.ts). */
@@ -104,6 +107,11 @@ export interface Hunter {
   abilities: readonly [AbilityDef, AbilityDef];
   /** The trophy they wear: only the player's. */
   trophy: string | null;
+  /** More health and damage from their rank, as a share, and the trinkets they wear (growth.ts). */
+  gain: number;
+  trinkets: readonly string[];
+  /** True once the Coffin Nail has taken the edge off a hit in this phase. */
+  nailed: boolean;
   /** True while they are down: nothing they do until someone helps them up, and nothing can hurt them. */
   down: boolean;
   /** Seconds of help given them while down. */
@@ -562,12 +570,19 @@ export class Hunt {
     }
     const [hx, hy] = this.tall ? [this.w / 2, this.h * 0.78] : [this.w * 0.2, this.h / 2];
     const [mx, my] = this.tall ? [this.w / 2, this.h * 0.28] : [this.w * 0.72, this.h / 2];
-    const make = (def: HunterDef, index: number, x: number, y: number): Hunter => ({
+    const make = (def: HunterDef, index: number, x: number, y: number): Hunter => {
+      const grown = setup.grown?.[def.id];
+      const gain = grown?.gain ?? 0;
+      const trinkets = grown?.trinkets ?? [];
+      const hp = Math.round(def.hp * (1 + gain)) + (trinkets.includes('bread') ? TRINKET_EFFECT.bread : 0);
+      return {
       def, index, ai: index > 0, abilities: [byId(ABILITIES, def.abilities[0]), byId(ABILITIES, def.abilities[1])], trophy: index === 0 ? (setup.trophy ?? null) : null,
+      gain, trinkets, nailed: false,
       down: false, help: 0, downAt: 0, downFull: false, wanted: null, wantAt: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
-      x, y, face: mx >= x ? 1 : -1, aim: Math.atan2(my - y, mx - x), hp: def.hp, maxHp: def.hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
+      x, y, face: mx >= x ? 1 : -1, aim: Math.atan2(my - y, mx - x), hp, maxHp: hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
       grace: 0, root: 0, waits: [0, 0], bracing: 0, spared: false, flurry: null, wakeLeft: 0, wakeT: 0, edge: false,
-    });
+      };
+    };
     this.hunter = make(hd, 0, hx, hy);
     this.party = [this.hunter];
     // Partners stand behind and beside the player as they come in.
@@ -1137,8 +1152,9 @@ export class Hunt {
         const k = Math.min(1, len) / len;
         // Aiming a heavy shot, or in a blow's recovery, they go at half pace.
         const slow = (h.aiming > 0 || h.blow ? 0.5 : 1) * this.paceAt(h);
-        h.x += steer.x * k * h.def.speed * slow * dt;
-        h.y += steer.y * k * h.def.speed * slow * dt;
+        const boots = h.trinkets.includes('boots') ? 1 + TRINKET_EFFECT.boots : 1;
+        h.x += steer.x * k * h.def.speed * slow * boots * dt;
+        h.y += steer.y * k * h.def.speed * slow * boots * dt;
         if (Math.abs(steer.x) > 0.1) h.face = steer.x > 0 ? 1 : -1;
         if (h.index === 0) this.did('move', Math.min(1, len) * h.def.speed * dt);
         // They look where they walk, and attack that way unless told otherwise.
@@ -1675,6 +1691,11 @@ export class Hunt {
     if (h.down || h.grace > 0 || this.over) return;
     let harm = amount * (1 - h.def.armor);
     for (const w of this.wards) if (dist(h.x, h.y, w.x, w.y) <= w.r) harm *= 1 - w.share;
+    // The Coffin Nail: the first hit of each phase is blunted.
+    if (h.trinkets.includes('nail') && !h.nailed) {
+      h.nailed = true;
+      harm *= 1 - TRINKET_EFFECT.nail;
+    }
     harm = Math.max(1, Math.round(harm));
     // While a lesson's steps are left, nothing takes them far down: nobody dies learning to walk.
     const t = this.teaching;
@@ -1744,7 +1765,15 @@ export class Hunt {
     if (m.state === 'asleep' || m.state === 'dead' || m.state === 'shift' || m.aloft || amount <= 0) return;
     const broken = m.state === 'broken';
     const open = this.open;
-    let dmg = amount * (broken ? m.def.stagger.more : 1) * (m.soft > 0 ? 1 + m.softBy : 1) * this.heatShare();
+    // A hunter's rank and trinkets: what they do themselves, and what their partners do for a Red Ribbon's wearer.
+    const p = who >= 0 && by !== 'hound' ? this.party[who] : undefined;
+    let grow = 1;
+    if (p) {
+      grow = (1 + p.gain) * (p.trinkets.includes('whetstone') ? 1 + TRINKET_EFFECT.whetstone : 1);
+      if (p.index > 0 && this.hunter.trinkets.includes('ribbon')) grow *= 1 + TRINKET_EFFECT.ribbon;
+      if (p.trinkets.includes('salt')) staggerBy *= 1 + TRINKET_EFFECT.salt;
+    }
+    let dmg = amount * grow * (broken ? m.def.stagger.more : 1) * (m.soft > 0 ? 1 + m.softBy : 1) * this.heatShare();
     // An Armored boss shrugs off half of everything until its stagger has been broken once.
     if (this.vary.armor > 0 && this.tally.breaks === 0) dmg *= 1 - this.vary.armor;
     if (by === 'hound' && this.frenzy > 0) dmg *= this.frenzyBy;
@@ -1793,8 +1822,9 @@ export class Hunt {
     this.tally.breaks++;
     this.events.push({ t: 'broken', x: m.x, y: m.y });
     if (this.vary.armor > 0 && this.tally.breaks === 1) this.events.push({ t: 'armor' });
-    // The Bell Rope: each break mends whoever wears it.
+    // The Bell Rope: each break mends whoever wears it; so does a Hip Flask, by a little.
     for (const p of this.party) if (p.trophy === 'bellrope' && !p.down) this.mend(p, p.maxHp * 0.2);
+    for (const p of this.party) if (p.trinkets.includes('flask') && !p.down) this.mend(p, TRINKET_EFFECT.flask);
     this.did('break');
   }
 
@@ -1848,6 +1878,7 @@ export class Hunt {
     m.state = 'shift';
     m.left = 1.9;
     m.stagger = 0;
+    for (const p of this.party) p.nailed = false;
     this.events.push({ t: 'shift', part: m.part + 1 });
     // It throws off whoever is on it as it changes: a ring to step out of.
     this.tell({ kind: 'ring', r: 190, at: 'self' }, 1.0, { id: 'shift', name: 'It changes', tell: 1, recover: 0, dmg: 9, shapes: [] }, m.aim, true);

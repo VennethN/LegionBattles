@@ -289,6 +289,10 @@ export class LairScene extends Phaser.Scene {
     this.echo = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, HUNTER_SCALE, 1);
     this.echo.tint = 0xffe2a0;
     this.echo.fill = true;
+    // Only the figure is outlined, never its shadow.
+    this.echo.parts.forEach((img, i) => {
+      if (g.units[this.echo.id].parts[i]?.role === 'shadow') img.setAlpha(0);
+    });
     this.halo = this.add.image(0, 0, SHEET, 'fx/glow').setBlendMode(Phaser.BlendModes.ADD).setTint(0xffb060).setAlpha(0.55);
     const mp = MONSTER_ART[h.monster.def.id];
     if (isGrim(mp)) {
@@ -1188,12 +1192,54 @@ export class LairScene extends Phaser.Scene {
   }
 
   /** Everything that is drawn over the dark: what is about to land, where it is safe to build, when the monster is open. */
+  /**
+   * What a contract's tasks are about, marked on the field: a gold ring and a mark over each villager and the cart to
+   * be kept, a red one over each marker to be broken, and an arrow at the edge of the screen toward one out of sight.
+   */
+  private taskMarks(g: Phaser.GameObjects.Graphics): void {
+    const w = this.hunt;
+    const open = (id: string): boolean => w.tasks.some((t) => t.id === id && !t.done && !t.failed);
+    const things: Array<{ x: number; y: number; tall: number; color: number; keep: boolean }> = [];
+    if (open('villagers')) for (const a of w.allies) if (a.group === 'villager' && a.state !== 'down') things.push({ x: a.x, y: a.y, tall: 64, color: GOLD, keep: true });
+    if (open('cart')) for (const b of w.buildings) if (b.def.id === 'cart') things.push({ x: b.x, y: b.y + 12, tall: 72, color: GOLD, keep: true });
+    if (open('markers')) for (const f of w.helpers) if (f.marker) things.push({ x: f.x, y: f.y, tall: 70, color: RED, keep: false });
+    if (things.length === 0) return;
+    const view = this.cameras.main.worldView;
+    const beat = 0.75 + 0.25 * Math.sin(this.clock * 5);
+    for (const t of things) {
+      // On the ground: a ring. Over the head: a mark pointing down at it, a shield's for what is kept and a cross for what is broken.
+      g.lineStyle(3, t.color, 0.7 * beat).strokeEllipse(t.x, t.y, 58, 24);
+      const top = t.y - t.tall - 14 - 3 * Math.sin(this.clock * 4);
+      g.fillStyle(0x0d0b09, 0.85).fillTriangle(t.x - 13, top - 4, t.x + 13, top - 4, t.x, top + 13);
+      g.fillStyle(t.color, 0.95).fillTriangle(t.x - 9, top - 2, t.x + 9, top - 2, t.x, top + 9);
+      if (!t.keep) g.lineStyle(3, 0xffe2c0, 0.95).lineBetween(t.x - 6, top - 14, t.x + 6, top - 26).lineBetween(t.x + 6, top - 14, t.x - 6, top - 26);
+      else g.lineStyle(3, 0xffe2c0, 0.95).strokeCircle(t.x, top - 20, 6);
+      // Out of sight: an arrow at the edge of the screen, toward it.
+      const m = 30;
+      if (t.x > view.x + m && t.x < view.right - m && t.y - t.tall / 2 > view.y + m && t.y < view.bottom - m) continue;
+      const cx = view.centerX;
+      const cy = view.centerY;
+      const a = Math.atan2(t.y - t.tall / 2 - cy, t.x - cx);
+      const k = Math.min((view.width / 2 - m) / Math.max(1e-3, Math.abs(Math.cos(a))), (view.height / 2 - m) / Math.max(1e-3, Math.abs(Math.sin(a))));
+      const ex = cx + Math.cos(a) * k;
+      const ey = cy + Math.sin(a) * k;
+      const tip = (r: number, d: number): [number, number] => [ex + Math.cos(a + d) * r, ey + Math.sin(a + d) * r];
+      g.fillStyle(0x0d0b09, 0.85).fillCircle(ex, ey, 19);
+      g.fillStyle(t.color, beat);
+      const [ax, ay] = tip(15, 0);
+      const [bx, by] = tip(11, 2.4);
+      const [qx, qy] = tip(11, -2.4);
+      g.fillTriangle(ax, ay, bx, by, qx, qy);
+    }
+  }
+
   private drawMarks(): void {
     const w = this.hunt;
     const h = w.hunter;
     const m = w.monster;
     const g = this.marks;
     g.clear();
+    this.taskMarks(g);
 
     if (w.phase === 'camp') {
       // How near it nothing can be built, and how near it wakes.

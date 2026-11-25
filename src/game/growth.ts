@@ -27,10 +27,10 @@ export interface RankDef {
 
 export const RANKS: readonly RankDef[] = [
   { need: 0, name: 'Hired', gain: 0, slots: 1, look: '' },
-  { need: 60, name: 'Blooded', gain: 0.04, slots: 1, look: 'A blooded cord at the belt' },
-  { need: 170, name: 'Sworn', gain: 0.08, slots: 2, look: 'A hunter\'s cloak' },
-  { need: 340, name: 'Feared', gain: 0.12, slots: 2, look: 'A trophy worn on the shoulder' },
-  { need: 600, name: 'Legend', gain: 0.16, slots: 2, look: 'A gold-edged cloak' },
+  { need: 60, name: 'Blooded', gain: 0.03, slots: 1, look: 'A blooded cord at the belt' },
+  { need: 170, name: 'Sworn', gain: 0.06, slots: 2, look: 'A hunter\'s cloak' },
+  { need: 340, name: 'Feared', gain: 0.09, slots: 2, look: 'A trophy worn on the shoulder' },
+  { need: 600, name: 'Legend', gain: 0.12, slots: 2, look: 'A gold-edged cloak' },
 ];
 
 /** Experience a hunt gives the hunter who led it: for going, for winning, for each task done and each phase reached. */

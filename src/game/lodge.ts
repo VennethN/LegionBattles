@@ -9,6 +9,7 @@ import {
 } from './content';
 import type { Setup, Tally } from './hunt';
 import { Rng } from './rng';
+import { CHAINS, RANKS, TRINKETS, TRINKET_EFFECT, WEEKLY, chainNext, dropChance, dropOf, rankOf, rankXpFor, toNextRank, wornBy } from './growth';
 
 /** What goes on a hunt: who, what the horn calls, and how many of each building. */
 export interface Muster {
@@ -36,6 +37,10 @@ export interface Posting {
   why: string;
   /** A free step from the shop, paid besides the coin, if this contract pays one. */
   thing: string | null;
+  /** True for the week's hard contract (growth.ts, WEEKLY). */
+  weekly?: boolean;
+  /** The step of a chain of contracts this is, if it is one (growth.ts, CHAINS). */
+  chain?: { id: string; step: number };
 }
 
 export interface SaveData {
@@ -72,6 +77,15 @@ export interface SaveData {
   /** Hunts since the whole board was last posted again, and the free new postings left before the next hunt. */
   sincePosted: number;
   reposts: number;
+  /** Each hunter's experience, by name: their rank (growth.ts). */
+  xp?: Record<string, number>;
+  /** The trinkets the lodge holds, and which each hunter wears. */
+  trinkets?: string[];
+  charms?: Record<string, string[]>;
+  /** The week the board was last posted in, and whether its hard contract has been won. */
+  week?: { n: number; won: boolean };
+  /** How many steps of each chain of contracts have been won. */
+  chains?: Record<string, number>;
 }
 
 /** The supply a new lodge has, and what each step more costs. */
@@ -219,7 +233,31 @@ export function repair(raw: unknown): SaveData {
   if (typeof r.nextPosting === 'number') s.nextPosting = Math.max(1, Math.floor(r.nextPosting));
   if (typeof r.sincePosted === 'number') s.sincePosted = Math.max(0, Math.floor(r.sincePosted));
   if (typeof r.reposts === 'number') s.reposts = Math.max(0, Math.min(BOARD.freeReposts, Math.floor(r.reposts)));
-  if (Array.isArray(r.board)) s.board = r.board.filter(postingKnown).map((p) => ({ ...p, variants: [...p.variants], tasks: p.tasks.map((t) => ({ ...t })) }));
+  if (Array.isArray(r.board)) s.board = r.board.filter(postingKnown).map((p) => ({ ...p, variants: [...p.variants], tasks: p.tasks.map((t) => ({ ...t })), ...(p.chain ? { chain: { ...p.chain } } : {}) }));
+  // What has grown: experience, trinkets held and worn, the week, the chains.
+  if (r.xp && typeof r.xp === 'object') {
+    s.xp = {};
+    for (const h of HUNTERS) {
+      const n = (r.xp as Record<string, unknown>)[h.id];
+      if (typeof n === 'number' && n > 0) s.xp[h.id] = Math.floor(n);
+    }
+  }
+  if (Array.isArray(r.trinkets)) s.trinkets = [...new Set(r.trinkets.filter((t): t is string => typeof t === 'string' && TRINKETS.some((d) => d.id === t)))];
+  if (r.charms && typeof r.charms === 'object') {
+    s.charms = {};
+    for (const h of HUNTERS) {
+      const list = (r.charms as Record<string, unknown>)[h.id];
+      if (Array.isArray(list)) s.charms[h.id] = list.filter((t): t is string => typeof t === 'string' && (s.trinkets ?? []).includes(t)).slice(0, 2);
+    }
+  }
+  if (r.week && typeof r.week === 'object' && typeof r.week.n === 'number') s.week = { n: Math.floor(r.week.n), won: !!r.week.won };
+  if (r.chains && typeof r.chains === 'object') {
+    s.chains = {};
+    for (const c of CHAINS) {
+      const n = (r.chains as Record<string, unknown>)[c.id];
+      if (typeof n === 'number' && n > 0) s.chains[c.id] = Math.min(c.steps.length, Math.floor(n));
+    }
+  }
   // And one that holds more than its step of the opening allows, to what that allows.
   const step = openingOf(s);
   if (step) {
@@ -242,7 +280,7 @@ function postingKnown(p: unknown): p is Posting {
   const x = p as Posting;
   return typeof x.id === 'number' && MONSTERS.some((m) => m.id === x.monster) && [1, 2, 3].includes(x.mark) && Array.isArray(x.variants) && x.variants.every((v) => VARIANTS.some((d) => d.id === v))
     && Array.isArray(x.tasks) && x.tasks.every((t) => TASKS.some((d) => d.id === t.id)) && typeof x.party === 'number' && x.party >= 1 && x.party <= PARTY.most
-    && typeof x.by === 'string' && typeof x.why === 'string';
+    && typeof x.by === 'string' && typeof x.why === 'string' && (x.chain === undefined || CHAINS.some((c) => c.id === x.chain?.id && typeof x.chain.step === 'number' && !!c.steps[x.chain.step]));
 }
 
 function stepKnown(step: string): boolean {
@@ -341,6 +379,22 @@ export function fillBoard(save: SaveData): void {
   const can = huntable(save);
   if (can.length === 0) return;
   const rng = new Rng(save.boardDice);
+  // The next step of each chain that is open, if its boss can be hunted at its difficulty.
+  for (const c of CHAINS) {
+    const at = chainNext(c, save.felled, save.chains ?? {});
+    if (at === null || save.board.some((p) => p.chain?.id === c.id)) continue;
+    const step = c.steps[at];
+    const m = can.find((x) => x.m.id === step.monster);
+    if (!m || m.upTo < step.mark) continue;
+    save.board.push({ ...draw(save, rng, m.m, step.mark, false), by: step.by, why: step.why, chain: { id: c.id, step: at } });
+  }
+  // The week's hard contract, once the week is known and until it is won. The same boss for everyone that week.
+  if (save.week && !save.week.won && !save.board.some((p) => p.weekly)) {
+    const week = new Rng(save.week.n * 7919 + 13);
+    const c = can[save.week.n % can.length];
+    const mark = Math.min(WEEKLY.mark, c.upTo) as Mark;
+    save.board.push({ ...draw(save, week, c.m, mark, false, WEEKLY.variants), by: 'The lodge', why: 'This week\'s hard contract. Three times the pay, and a trinket for certain.', weekly: true, thing: null });
+  }
   for (const c of can) {
     // Its first contract is plain: one hunter, the first difficulty, nothing unlike itself. It is how a boss is learned.
     if (c.first && !save.board.some((p) => p.monster === c.m.id && p.mark === 1)) save.board.push(draw(save, rng, c.m, 1, true));
@@ -359,6 +413,13 @@ export function fillBoard(save: SaveData): void {
   save.boardDice = rng.state;
 }
 
+/** Tells the lodge what week it is: a new week takes down last week's hard contract and posts this one's. */
+export function setWeek(save: SaveData, n: number): void {
+  if (save.week?.n === n) return;
+  save.week = { n, won: false };
+  save.board = save.board.filter((p) => !p.weekly);
+}
+
 /** Takes the whole board down and posts it again. Free once between hunts. Says why not, or nothing if it was done. */
 export function repost(save: SaveData): string {
   if (!posting(save)) return 'Locked: finish the first hunts';
@@ -370,12 +431,12 @@ export function repost(save: SaveData): string {
 }
 
 /** One contract, drawn by the board's dice. */
-function draw(save: SaveData, rng: Rng, m: MonsterDef, mark: Mark, plain: boolean): Posting {
+function draw(save: SaveData, rng: Rng, m: MonsterDef, mark: Mark, plain: boolean, variantsAsked?: number): Posting {
   const variants: string[] = [];
   const tasks: Array<{ id: TaskKind; n?: number }> = [];
   if (!plain) {
     // More, and stronger, at a higher difficulty.
-    const nv = mark === 1 ? (rng.chance(0.5) ? 1 : 0) : mark === 2 ? 1 : rng.chance(0.5) ? 2 : 1;
+    const nv = variantsAsked ?? (mark === 1 ? (rng.chance(0.5) ? 1 : 0) : mark === 2 ? 1 : rng.chance(0.5) ? 2 : 1);
     const nt = mark === 1 ? (rng.chance(0.6) ? 1 : 0) : mark === 2 ? 1 : rng.chance(0.4) ? 2 : 1;
     for (let i = 0; i < nv; i++) {
       const can = VARIANTS.filter((v) => (!v.only || v.only === m.id) && (v.mark ?? 1) <= mark && !variants.includes(v.id) && !variants.some((x) => v.not?.includes(x) || byId(VARIANTS, x).not?.includes(v.id))
@@ -437,6 +498,10 @@ export interface Poster {
   thing: string | null;
   /** True for the first win at its difficulty, which pays the coin twice. */
   first: boolean;
+  /** "THE WEEK'S CONTRACT", or a chain's name with how far along it is, or nothing. */
+  banner: string;
+  /** What winning the last step of a chain pays besides, or 0. */
+  prize: number;
 }
 
 export function posterOf(save: SaveData, p: Posting): Poster {
@@ -457,7 +522,21 @@ export function posterOf(save: SaveData, p: Posting): Poster {
       return { id: d.id, name: d.name, says, bonus: Math.round(r.base * d.pay) };
     }),
     coin: r.coin, bonus: r.bonus, hiredCut: r.cut, thing: p.thing ? (wares(save).find((w) => w.id === p.thing)?.name ?? null) : null, first: r.first,
+    banner: bannerOf(p), prize: prizeOf(p),
   };
+}
+
+/** The line over a poster that is more than a contract: the week's, or a step of a chain. */
+function bannerOf(p: Posting): string {
+  if (p.weekly) return 'THE WEEK\'S CONTRACT';
+  const c = p.chain ? CHAINS.find((x) => x.id === p.chain?.id) : undefined;
+  return c && p.chain ? `${c.name.toUpperCase()}: ${p.chain.step + 1} OF ${c.steps.length}` : '';
+}
+
+/** What winning a chain's last step pays besides. */
+function prizeOf(p: Posting): number {
+  const c = p.chain ? CHAINS.find((x) => x.id === p.chain?.id) : undefined;
+  return c && p.chain && p.chain.step === c.steps.length - 1 ? c.prize : 0;
 }
 
 /** What a posted contract pays: the coin of its boss and difficulty, more for its danger and its party, less what hands for hire take. */
@@ -465,7 +544,9 @@ export function rewardFor(save: SaveData, p: Posting): { coin: number; base: num
   const m = byId(MONSTERS, p.monster);
   const first = (save.felled[p.monster] ?? 0) < p.mark;
   const extra = p.variants.reduce((n, v) => n + byId(VARIANTS, v).danger, 0);
-  const base = Math.round(m.pay[p.mark - 1] * (1 + 0.25 * extra) * (1 + PARTY.pay * (p.party - 1)));
+  // The week's contract pays three times; a Moleskin Purse on the hunter who goes pays a little more.
+  const purse = worn(save, save.muster.hunter).includes('purse') ? 1 + TRINKET_EFFECT.purse : 1;
+  const base = Math.round(m.pay[p.mark - 1] * (1 + 0.25 * extra) * (1 + PARTY.pay * (p.party - 1)) * (p.weekly ? WEEKLY.pay : 1) * purse);
   const bonus = p.tasks.reduce((n, t) => n + Math.round(base * byId(TASKS, t.id).pay), 0);
   const { hired } = partyFor(save, p.party);
   const gross = base * (first ? 2 : 1);
@@ -609,7 +690,13 @@ export function chargesOf(save: SaveData, id: string): number {
 /** The hunt the muster makes of a posted contract: its boss and difficulty, its terms, and the party it takes. */
 export function setupForPosting(save: SaveData, p: Posting, seed: number, tall: boolean): Setup {
   const base = setupOf(save, p.monster, p.mark, seed, tall);
-  return { ...base, partners: partyFor(save, p.party).partners, terms: { variants: [...p.variants], tasks: p.tasks.map((t) => ({ ...t })) } };
+  const partners = partyFor(save, p.party).partners;
+  return { ...base, partners, grown: grownFor(save, [base.hunter, ...partners]), terms: { variants: [...p.variants], tasks: p.tasks.map((t) => ({ ...t })) } };
+}
+
+/** What each of these hunters has grown into, for the hunt: their rank's gain and the trinkets they wear. */
+function grownFor(save: SaveData, ids: readonly string[]): Record<string, { gain: number; trinkets: string[] }> {
+  return Object.fromEntries(ids.filter((id) => !byId(HUNTERS, id).hired).map((id) => [id, { gain: RANKS[rankOf(save.xp?.[id] ?? 0)].gain, trinkets: worn(save, id) }]));
 }
 
 /** The hunt the muster makes of a contract. */
@@ -623,7 +710,57 @@ export function setupOf(save: SaveData, monster: string, mark: Mark, seed: numbe
     reinforcements: m.reinforcements.map((id) => ({ id, charges: chargesOf(save, id) })),
     buildings: BUILDINGS.filter((b) => (m.buildings[b.id] ?? 0) > 0).map((b) => ({ id: b.id, n: m.buildings[b.id], sturdy: save.steps.includes(`sturdy:${b.id}`) })),
     trophy: save.worn[m.hunter] ?? null,
+    grown: grownFor(save, [m.hunter]),
   };
+}
+
+// ------------------------------------------------------------ ranks and trinkets
+
+/** A hunter's rank as a screen shows it: its name, what it gives, how far to the next, and the trinkets worn. */
+export interface Growth {
+  rank: number;
+  name: string;
+  /** "+8% Health and Damage", or nothing at the first rank. */
+  gives: string;
+  look: string;
+  /** How far to the next rank, as a share, and its name; null at the last. */
+  next: { share: number; name: string; left: number } | null;
+  slots: number;
+  worn: string[];
+}
+
+export function growthOf(save: SaveData, hunter: string): Growth {
+  const xp = save.xp?.[hunter] ?? 0;
+  const r = rankOf(xp);
+  const d = RANKS[r];
+  const n = toNextRank(xp);
+  return {
+    rank: r, name: d.name, gives: d.gain > 0 ? `+${Math.round(d.gain * 100)}% Health and Damage` : '', look: d.look,
+    next: n ? { share: n.share, name: n.next.name, left: n.left } : null, slots: d.slots, worn: worn(save, hunter),
+  };
+}
+
+/** The trinkets a hunter wears, cut to the slots of their rank. */
+export function worn(save: SaveData, hunter: string): string[] {
+  return wornBy((save.charms?.[hunter] ?? []).filter((t) => (save.trinkets ?? []).includes(t)), save.xp?.[hunter] ?? 0);
+}
+
+/** Puts a trinket on a hunter, or takes it off if they wear it. Says why not, or nothing if it was done. */
+export function wearTrinket(save: SaveData, hunter: string, trinket: string): string {
+  if (!(save.trinkets ?? []).includes(trinket)) return 'Not held';
+  const charms = { ...(save.charms ?? {}) };
+  const now = worn(save, hunter);
+  if (now.includes(trinket)) {
+    charms[hunter] = now.filter((t) => t !== trinket);
+    save.charms = charms;
+    return '';
+  }
+  const slots = RANKS[rankOf(save.xp?.[hunter] ?? 0)].slots;
+  // One trinket is worn by one hunter at a time: it comes off whoever had it.
+  for (const [id, list] of Object.entries(charms)) charms[id] = list.filter((t) => t !== trinket);
+  charms[hunter] = now.length < slots ? [...now, trinket] : [...now.slice(0, slots - 1), trinket];
+  save.charms = charms;
+  return '';
 }
 
 /** What winning a contract at a mark would pay now, and whether that is the doubled pay of a first win. */
@@ -661,6 +798,13 @@ export function wares(save: SaveData): Ware[] {
     if (!isOpen(save, b.id)) continue;
     list.push({ id: `sturdy:${b.id}`, name: `${b.name}: stronger`, says: '+50% Health.', price: STEP_COST.sturdy, had: save.steps.includes(`sturdy:${b.id}`) });
   }
+  // The plain trinkets are sold too, once the lodge is open; the rare ones only come from contracts.
+  if (!openingOf(save)) {
+    for (const t of TRINKETS) {
+      if (t.rare) continue;
+      list.push({ id: `trinket:${t.id}`, name: t.name, says: t.says, price: t.price, had: (save.trinkets ?? []).includes(t.id) });
+    }
+  }
   return list;
 }
 
@@ -672,6 +816,7 @@ export function buy(save: SaveData, id: string): string {
   if (save.coin < w.price) return 'Not enough coin';
   save.coin -= w.price;
   if (id === 'supply') save.supply++;
+  else if (id.startsWith('trinket:')) save.trinkets = [...(save.trinkets ?? []), id.slice(8)];
   else save.steps.push(id);
   return '';
 }
@@ -696,6 +841,31 @@ export interface Pay {
   /** What hands for hire took, and the shop's step paid besides, by name. */
   cut: number;
   thing: string | null;
+  /** Experience each hunter who went earned, and the rank they rose to, if they rose. */
+  ranks: Array<{ hunter: string; xp: number; rose: string | null }>;
+  /** The trinket found, by its id, if one was. */
+  trinket: string | null;
+  /** A chain's step won, said as a line ("The Parish Debt: 1 of 3"), and what its end paid besides. */
+  chain: string | null;
+  prize: number;
+  /** True if the week's contract was won. */
+  weekly: boolean;
+}
+
+/** Gives experience to the hunters who went, and says who rose. */
+function giveXp(save: SaveData, lead: string, partners: readonly string[], won: boolean, tasksDone: number, phases: number, danger: number): Pay['ranks'] {
+  const out: Pay['ranks'] = [];
+  const xp = { ...(save.xp ?? {}) };
+  for (const id of [lead, ...partners]) {
+    if (byId(HUNTERS, id).hired) continue;
+    const before = xp[id] ?? 0;
+    const got = rankXpFor(won, tasksDone, phases, danger, id !== lead);
+    xp[id] = before + got;
+    const rose = rankOf(xp[id]) > rankOf(before) ? RANKS[rankOf(xp[id])].name : null;
+    out.push({ hunter: id, xp: got, rose });
+  }
+  save.xp = xp;
+  return out;
 }
 
 /** Writes a hunt's end into the save and says what it paid. */
@@ -716,13 +886,35 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
       save.sincePosted = 0;
       save.board = [];
     }
+    const danger = Math.min(6, taken.mark + taken.variants.reduce((n, v) => n + byId(VARIANTS, v).danger, 0));
+    const partners = partyFor(save, taken.party).partners;
+    const tasksDone = taken.tasks.filter((t) => tally.tasks[t.id]).length;
+    const ranks = giveXp(save, save.muster.hunter, partners, won, won ? tasksDone : 0, won ? 3 : part, danger);
     if (!won) {
       const coin = CONSOLATION * part;
       save.coin += coin;
       fillBoard(save);
-      return { won, coin, first: false, trophy: null, opened: [], posted: [], lesson: false, tasks: [], cut: 0, thing: null };
+      return { won, coin, first: false, trophy: null, opened: [], posted: [], lesson: false, tasks: [], cut: 0, thing: null, ranks, trinket: null, chain: null, prize: 0, weekly: false };
     }
     save.wins++;
+    // A trinket, now and then: always for the week's contract.
+    const dice = new Rng((save.hunts * 7919 + save.boardDice) >>> 0);
+    const held = save.trinkets ?? [];
+    const trinket = dice.next() < dropChance(danger, !!taken.weekly) ? dropOf(held, dice.next()) : null;
+    if (trinket) save.trinkets = [...held, trinket];
+    if (taken.weekly && save.week) save.week.won = true;
+    let chain: string | null = null;
+    let prize = 0;
+    const c = taken.chain ? CHAINS.find((x) => x.id === taken.chain?.id) : undefined;
+    if (c && taken.chain && (save.chains?.[c.id] ?? 0) === taken.chain.step) {
+      save.chains = { ...(save.chains ?? {}), [c.id]: taken.chain.step + 1 };
+      chain = `${c.name}: ${taken.chain.step + 1} of ${c.steps.length}`;
+      if (taken.chain.step === c.steps.length - 1) {
+        prize = c.prize;
+        save.coin += prize;
+        chain = `${c.name}: done`;
+      }
+    }
     const tasks = taken.tasks.map((t) => {
       const d = byId(TASKS, t.id);
       const done = !!tally.tasks[t.id];
@@ -750,16 +942,18 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
       thing = wares(save).find((w) => w.id === step)?.name ?? step;
     }
     fillBoard(save);
-    return { won, coin, first: r.first, trophy, opened, posted: newly, lesson: false, tasks, cut: r.cut, thing };
+    return { won, coin, first: r.first, trophy, opened, posted: newly, lesson: false, tasks, cut: r.cut, thing, ranks, trinket, chain, prize, weekly: !!taken.weekly };
   }
   // A lesson whose steps were all done is not taught again, win or lose.
   if (lesson && tally.taught && !save.told.includes(`lesson:${lesson.id}`)) save.told.push(`lesson:${lesson.id}`);
   // Past the lesson, each hunt of the opening brings in the next thing, however it ended.
   if (!lesson) advance(save);
+  const none = { trinket: null, chain: null, prize: 0, weekly: false };
+  const ranks = giveXp(save, lesson ? lesson.hunter : save.muster.hunter, [], won, 0, won ? 3 : part, mark);
   if (!won) {
     const coin = CONSOLATION * part;
     save.coin += coin;
-    return { won, coin, first: false, trophy: null, opened: [], posted: [], lesson: !!lesson, tasks: [], cut: 0, thing: null };
+    return { won, coin, first: false, trophy: null, opened: [], posted: [], lesson: !!lesson, tasks: [], cut: 0, thing: null, ranks, ...none };
   }
   save.wins++;
   if (lesson) {
@@ -773,7 +967,7 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
       opened = opensWith(trophy);
     }
     advance(save);
-    return { won, coin: LESSON_PAY, first: false, trophy, opened, posted: [], lesson: true, tasks: [], cut: 0, thing: null };
+    return { won, coin: LESSON_PAY, first: false, trophy, opened, posted: [], lesson: true, tasks: [], cut: 0, thing: null, ranks, ...none };
   }
   const before = save.felled[monster] ?? 0;
   const first = before < mark;
@@ -791,7 +985,7 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
     }
     for (const m of MONSTERS) if (m.after === monster) posted.push(m.name);
   }
-  return { won, coin, first, trophy, opened, posted, lesson: false, tasks: [], cut: 0, thing: null };
+  return { won, coin, first, trophy, opened, posted, lesson: false, tasks: [], cut: 0, thing: null, ranks, ...none };
 }
 
 /** What a contract tells of its boss: each attack and how it is shown on the ground, its weak place, its phases. */
