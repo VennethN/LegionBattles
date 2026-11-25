@@ -39,6 +39,12 @@ export interface UnitKey {
   unit: string;
 }
 
+/** Pictures to bring onto the sheet together, under one name: a unit's parts, or its whole pictures. */
+interface Wanted {
+  id: string;
+  files: Array<{ frame: string; key: string; url: string; scale: number; sx: number; sy: number; w: number; h: number; origin: readonly [number, number] }>;
+}
+
 export class Sheet {
   private texture: Phaser.Textures.CanvasTexture;
   private packer: SkylinePacker;
@@ -239,51 +245,96 @@ export class Sheet {
     return `still/${team}/${unit}/${pose}`;
   }
 
+  /** The pictures of a unit's parts, as things to load and pack. */
+  private partsOf(k: UnitKey): Wanted {
+    const m = this.manifest.margin;
+    return {
+      id: `${k.team}/${k.unit}`,
+      files: this.manifest.units[k.unit].parts.map((part) => {
+        const [bx, by, bw, bh] = part.box;
+        const frame = Sheet.unitFrame(k.team, k.unit, part.name);
+        return {
+          frame, key: `svg:${frame}`, url: `assets/units/${k.team}/${k.unit}/${part.name}.svg`, scale: ART_SCALE,
+          sx: (bx + m) * ART_SCALE, sy: (by + m) * ART_SCALE, w: bw * ART_SCALE, h: bh * ART_SCALE, origin: [(part.pivot[0] - bx) / bw, (part.pivot[1] - by) / bh] as const,
+        };
+      }),
+    };
+  }
+
   /**
-   * Loads and packs the whole pictures of these units, each at every pose
-   * the art build wrote for it. They stand on their feet: a sprite given
-   * one turns about the middle of the ground under it. They are drawn at
-   * the size of the canvas, not twice it as parts are: a crowd is shown
-   * small. They share the units' part of the sheet, and nothing is taken
-   * off to make room for them: a game that uses them must fit.
+   * A unit's whole pictures, one to each pose the art build wrote for it.
+   * They stand on their feet: a sprite given one turns about the middle of
+   * the ground under it. They are drawn at the size of the canvas, not
+   * twice it as parts are: a crowd is shown small.
    */
-  ensureStills(scene: Phaser.Scene, wanted: readonly UnitKey[]): Promise<void> {
-    const missing = wanted.filter((k, i) => !this.packed.has(`still:${k.team}/${k.unit}`) && wanted.findIndex((o) => o.team === k.team && o.unit === k.unit) === i);
+  private stillsOf(k: UnitKey): Wanted {
+    const m = this.manifest.margin;
+    return {
+      id: `still:${k.team}/${k.unit}`,
+      files: Object.entries(this.manifest.units[k.unit]?.stills ?? {}).map(([pose, [bx, by, bw, bh]]) => {
+        const frame = Sheet.stillFrame(k.team, k.unit, pose);
+        return {
+          frame, key: `svg:${frame}`, url: `assets/units/${k.team}/${k.unit}/still-${pose}.svg`, scale: STILL_SCALE,
+          sx: (bx + m) * STILL_SCALE, sy: (by + m) * STILL_SCALE, w: bw * STILL_SCALE, h: bh * STILL_SCALE, origin: [(96 - bx) / bw, (180 - by) / bh] as const,
+        };
+      }),
+    };
+  }
+
+  /**
+   * Brings in everything a field needs at once: the units that are moved
+   * part by part, and those shown as whole pictures. What is on the sheet
+   * already stays. If there is no room for the rest, every unit is taken
+   * off and only these are packed: so call it when a field is being stood
+   * up, before anything is drawn with what was there.
+   */
+  ensureField(scene: Phaser.Scene, rigged: readonly UnitKey[], stills: readonly UnitKey[]): Promise<void> {
+    const all = new Map<string, Wanted>();
+    for (const k of rigged) all.set(`${k.team}/${k.unit}`, this.partsOf(k));
+    for (const k of stills) all.set(`still:${k.team}/${k.unit}`, this.stillsOf(k));
+    const missing = [...all.values()].filter((w) => !this.packed.has(w.id));
     if (missing.length === 0) return Promise.resolve();
-    const files: Array<{ k: UnitKey; pose: string; key: string; box: [number, number, number, number] }> = [];
-    for (const k of missing) {
-      for (const [pose, box] of Object.entries(this.manifest.units[k.unit]?.stills ?? {})) {
-        files.push({ k, pose, key: `svg:${Sheet.stillFrame(k.team, k.unit, pose)}`, box });
-      }
-    }
+    return this.loadWanted(scene, missing).then(() => {
+      if (this.packWanted(scene, missing)) return undefined;
+      this.wipe();
+      return this.loadWanted(scene, [...all.values()]).then(() => {
+        if (!this.packWanted(scene, [...all.values()])) throw new Error(`sheet "${this.key}": one field does not fit`);
+      });
+    });
+  }
+
+  private loadWanted(scene: Phaser.Scene, list: readonly Wanted[]): Promise<void> {
     return new Promise((resolve) => {
       let queued = 0;
-      for (const f of files) {
-        if (scene.textures.exists(f.key)) continue;
-        scene.load.svg(f.key, `assets/units/${f.k.team}/${f.k.unit}/still-${f.pose}.svg`, { scale: STILL_SCALE });
-        queued++;
-      }
-      const pack = (): void => {
-        const m = this.manifest.margin;
-        for (const f of files.sort((a, b) => b.box[3] - a.box[3])) {
-          const [bx, by, bw, bh] = f.box;
-          const source = scene.textures.get(f.key).getSourceImage() as HTMLImageElement;
-          const frame = Sheet.stillFrame(f.k.team, f.k.unit, f.pose);
-          const ok = this.draw(frame, source, (bx + m) * STILL_SCALE, (by + m) * STILL_SCALE, bw * STILL_SCALE, bh * STILL_SCALE, [(96 - bx) / bw, (180 - by) / bh]);
-          if (!ok) throw new Error(`sheet "${this.key}": no room for ${frame}`);
-          this.unitFrames.push(frame);
-          scene.textures.remove(f.key);
+      for (const w of list) {
+        for (const f of w.files) {
+          if (scene.textures.exists(f.key)) continue;
+          scene.load.svg(f.key, f.url, { scale: f.scale });
+          queued++;
         }
-        for (const k of missing) this.packed.add(`still:${k.team}/${k.unit}`);
-        this.texture.refresh();
-        resolve();
-      };
-      if (queued === 0) pack();
-      else {
-        scene.load.once(Phaser.Loader.Events.COMPLETE, pack);
-        scene.load.start();
       }
+      if (queued === 0) {
+        resolve();
+        return;
+      }
+      scene.load.once(Phaser.Loader.Events.COMPLETE, () => resolve());
+      scene.load.start();
     });
+  }
+
+  /** All of these, or none of them. The tallest go in first, which wastes least. */
+  private packWanted(scene: Phaser.Scene, list: readonly Wanted[]): boolean {
+    const files = list.flatMap((w) => w.files).sort((a, b) => b.h - a.h);
+    if (!this.packer.fits(files.map((f) => [f.w, f.h] as const))) return false;
+    for (const f of files) {
+      const source = scene.textures.get(f.key).getSourceImage() as HTMLImageElement;
+      this.draw(f.frame, source, f.sx, f.sy, f.w, f.h, f.origin);
+      this.unitFrames.push(f.frame);
+      scene.textures.remove(f.key);
+    }
+    for (const w of list) this.packed.add(w.id);
+    this.texture.refresh();
+    return true;
   }
 
   /** Whoever draws with the units' pictures, to be told before those are taken away. */

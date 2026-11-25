@@ -198,7 +198,7 @@ export class CampScene extends Phaser.Scene {
     const cols = tall ? 2 : 4;
     const gap = 10;
     const cw = (waresW - (cols - 1) * gap) / cols;
-    const ch = tall ? 212 : 284;
+    const ch = tall ? 240 : 284;
     const top = 58;
     run.offers.forEach((o, i) => this.offer(o, i, waresX + (i % cols) * (cw + gap), top + Math.floor(i / cols) * (ch + gap), cw, ch));
     const under = top + Math.ceil(run.offers.length / cols) * (ch + gap) + 2;
@@ -253,6 +253,7 @@ export class CampScene extends Phaser.Scene {
 
     if (!tall) this.hero(pad, top, left - pad);
     else this.heroStrip(pad, thingsY + (run.items.length > 0 ? 104 : 16), view.w - pad * 2, by - 44);
+
     if (this.picked >= 0 && run.weapons[this.picked]) this.weaponCard(this.picked);
   }
 
@@ -276,7 +277,7 @@ export class CampScene extends Phaser.Scene {
       const img = this.add2(this.add.image(x + w / 2, picY + (view.tall ? 14 : 22), SHEET, weaponIcon(o.id)));
       img.setScale((view.tall ? 72 : WEAPON_TALL) / 184);
     } else this.icon(x + w / 2, picY, itemIcon(o.id), 62);
-    const nameY = y + (view.tall ? 118 : 150);
+    const nameY = y + (view.tall ? 122 : 150);
     this.text(x + w / 2, nameY, name, { size: 18, color: OUTLINE, stroke: null, wrap: w - 16 });
     if (weapon) {
       const n = weaponNumbers(run, o.id, o.tier);
@@ -320,26 +321,29 @@ export class CampScene extends Phaser.Scene {
     this.statGrid(x + 12, y + 122, w - 24, 1, h - 134);
   }
 
-  /** The same under a tall screen's wares, in four columns. */
-  private heroStrip(x: number, y: number, w: number, bottom: number): void {
-    if (bottom - y < 96) return;
-    this.add2(slabImage(this, x, y, w, bottom - y, DARK, 14, 5));
-    this.statGrid(x + 10, y + 12, w - 20, 4, bottom - y - 20);
+  /** The same under a tall screen's wares: two columns, as tall as they need and no taller, just over the buttons. */
+  private heroStrip(x: number, top: number, w: number, bottom: number): void {
+    const rows = Math.ceil(STATS.length / 2);
+    const h = Math.min(bottom - top, rows * 26 + 22);
+    if (h < rows * 20 + 22) return;
+    const y = bottom - h;
+    this.add2(slabImage(this, x, y, w, h, DARK, 14, 5));
+    this.statGrid(x + 12, y + 12, w - 24, 2, h - 20);
   }
 
   private statGrid(x: number, y: number, w: number, cols: number, h: number): void {
     const s = statsOf(this.run);
     const rows = Math.ceil(STATS.length / cols);
     const rh = Math.min(26, h / rows);
+    const cw = w / cols;
     STATS.forEach((stat, i) => {
-      const cx = x + (i % cols) * (w / cols);
-      const cy = y + Math.floor(i / cols) * rh + rh / 2;
+      // Down each column in turn, so that the stats read in their own order.
+      const cx = x + Math.floor(i / rows) * cw;
+      const cy = y + (i % rows) * rh + rh / 2;
       this.icon(cx + 11, cy, statIcon(STAT_INFO[stat].icon), 20);
       const v = Math.round(s[stat] * 10) / 10;
-      if (cols === 1) this.text(cx + 30, cy, STAT_INFO[stat].name, { size: 15, align: 'left', color: BONE.fill, strokeWidth: 3 });
-      this.text(cols === 1 ? cx + w - 6 : cx + 28, cy, `${v}${STAT_INFO[stat].percent ? '%' : ''}`, {
-        size: 15, align: cols === 1 ? 'right' : 'left', color: v < 0 ? RUBY.fill : v > 0 ? VENOM.light : BONE.shade, strokeWidth: 3,
-      });
+      this.text(cx + 30, cy, STAT_INFO[stat].name, { size: 15, align: 'left', color: BONE.fill, strokeWidth: 3 });
+      this.text(cx + cw - 10, cy, `${v}${STAT_INFO[stat].percent ? '%' : ''}`, { size: 15, align: 'right', color: v < 0 ? RUBY.fill : v > 0 ? VENOM.light : BONE.shade, strokeWidth: 3 });
     });
   }
 

@@ -166,8 +166,7 @@ export class ArenaScene extends Phaser.Scene {
       loader.load.start();
     });
     void ground
-      .then(() => art.ensure(loader, rigged))
-      .then(() => art.ensureStills(loader, stills))
+      .then(() => art.ensureField(loader, rigged, stills))
       .then(() => {
         if (!this.scene.isActive()) return;
         this.build(groundKey, land);

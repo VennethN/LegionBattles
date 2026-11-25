@@ -8,14 +8,14 @@
 
 import fs from 'node:fs';
 
-import { chromium } from './browser';
+import { chromium, open } from './browser';
 
 const [w, h, seconds, name] = [Number(process.argv[2] ?? 907), Number(process.argv[3] ?? 510), Number(process.argv[4] ?? 8), process.argv[5] ?? 'look'];
 const out = 'build/look';
 fs.mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch();
-const page = await (await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 })).newPage();
+const { page } = await open(browser, { viewport: { width: w, height: h }, deviceScaleFactor: 1 });
 const errors: string[] = [];
 page.on('pageerror', (e) => errors.push(String(e.stack ?? e.message)));
 page.on('console', (m) => {

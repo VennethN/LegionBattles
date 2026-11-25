@@ -22,6 +22,10 @@ export interface Page {
 
 export interface Context {
   newPage(): Promise<Page>;
+  /** Runs in every page of the context before the page's own scripts. */
+  addInitScript(script: string): Promise<void>;
+  /** The browser's own wire, for what the page's calls cannot do: a finger dragged across the screen. */
+  newCDPSession(page: Page): Promise<{ send(method: string, params: object): Promise<unknown> }>;
   close(): Promise<void>;
 }
 
@@ -32,3 +36,15 @@ export interface Browser {
 
 const require = createRequire(import.meta.url);
 export const { chromium } = require('playwright') as { chromium: { launch(o?: object): Promise<Browser> } };
+
+/**
+ * A page in a new window of this size. The scripts hand the page functions
+ * to run, and the tool that runs these scripts marks every function it
+ * compiles with a helper of its own, which a page has never heard of: it
+ * is given one that does nothing.
+ */
+export async function open(browser: Browser, o: Parameters<Browser['newContext']>[0]): Promise<{ context: Context; page: Page }> {
+  const context = await browser.newContext(o);
+  await context.addInitScript('globalThis.__name = (f) => f;');
+  return { context, page: await context.newPage() };
+}

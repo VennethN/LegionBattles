@@ -11,7 +11,7 @@
 
 import fs from 'node:fs';
 
-import { chromium, type Page } from './browser';
+import { chromium, open, type Page } from './browser';
 
 const args = process.argv.slice(2);
 const want = args.filter((a) => !a.startsWith('--'));
@@ -227,8 +227,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
 
 const browser = await chromium.launch();
 for (const [label, width, height, dpr] of sizes) {
-  const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: dpr, hasTouch: label.startsWith('phone'), isMobile: label.startsWith('phone') });
-  const page = await context.newPage();
+  const { context, page } = await open(browser, { viewport: { width, height }, deviceScaleFactor: dpr, hasTouch: label.startsWith('phone'), isMobile: label.startsWith('phone') });
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(String(e.stack ?? e.message).split('\n').slice(0, 3).join(' | ')));
   page.on('console', (m) => {

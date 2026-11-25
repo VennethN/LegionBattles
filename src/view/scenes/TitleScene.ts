@@ -77,8 +77,8 @@ export class TitleScene extends Phaser.Scene {
     const cw = (areaW - (cols - 1) * gap) / cols;
     const rows = Math.ceil(HEROES.length / cols);
     const top = tall ? 150 : 14;
-    const below = tall ? 250 : 150;
-    const ch = Math.min(tall ? 150 : 200, (view.h - top - below - (rows - 1) * gap) / rows);
+    const below = tall ? 290 : 150;
+    const ch = Math.min(tall ? 196 : 200, (view.h - top - below - (rows - 1) * gap) / rows);
     HEROES.forEach((h, i) => {
       const x = areaX + (i % cols) * (cw + gap);
       const y = top + Math.floor(i / cols) * (ch + gap);
@@ -125,9 +125,8 @@ export class TitleScene extends Phaser.Scene {
     if (open) {
       const wdef = byId(WEAPONS, hero.weapon);
       // What they carry at the start, inside the panel: a weapon's picture turns about its hand, two thirds of the way down it.
-      const tallest = Math.min(96, ph - 24);
-      const wimg = put(this.add.image(px + 44, py + 12 + tallest * 0.685, SHEET, weaponIcon(hero.weapon)));
-      wimg.setScale(tallest / 184);
+      const wimg = put(this.add.image(px + 44, py + 88, SHEET, weaponIcon(hero.weapon)));
+      wimg.setScale(150 / wimg.frame.height);
       put(label(this, px + 84, py + 26, hero.name, { size: 24, align: 'left' }));
       put(label(this, px + 84, py + 54, `Carries the ${wdef.name}. ${hero.says}`, { size: 16, align: 'left', color: BONE.fill, wrap: textW, strokeWidth: 3 })).setOrigin(0, 0);
       const lines = STATS.filter((k) => hero.stats[k]).map((k) => `${statText(k, hero.stats[k] as number)} ${STAT_INFO[k].name}`);
