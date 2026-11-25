@@ -7,7 +7,7 @@ import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { COMPANIONS, ENEMIES, HEROES, byId } from '../../game/data';
 import { heroOf, survived } from '../../game/run';
-import { hasWon, masteryLevel, nextDeeds, type Tally } from '../../game/hold';
+import { giftShort, hasWon, masteryLevel, nextDeeds, nextLevel, trackRows, type Tally } from '../../game/hold';
 import { comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
@@ -151,7 +151,7 @@ export class ResultScene extends Phaser.Scene {
 
   /** The mastery the run paid its hero, a line for each reason with its total, and under it the next quests with how far along each is. */
   private renown(x: number, y: number, w: number, tally: Tally | null, quests: ReturnType<typeof nextDeeds>): void {
-    const h = (tally ? 62 + tally.lines.length * 26 + 34 : 0) + (quests.length > 0 ? 40 + quests.length * 58 : 0);
+    const h = (tally ? 62 + tally.lines.length * 26 + 34 + 22 : 0) + (quests.length > 0 ? 40 + quests.length * 58 : 0);
     this.add.existing(slabImage(this, x, y, w, h, BONE, 20, 8));
     let at = y + 30;
     const ink = OUTLINE;
@@ -175,6 +175,16 @@ export class ResultScene extends Phaser.Scene {
       total.setAlpha(0);
       this.tweens.add({ targets: total, alpha: 1, scale: { from: 1.6, to: 1 }, duration: 320, delay: 300 + tally.lines.length * 160, ease: 'Back.easeOut', onStart: () => sfx.play('coin', 0.7) });
       at += 44;
+      // And what the next mastery level brings, and how far off it is.
+      const run = theRun();
+      if (run) {
+        const next = nextLevel(save(), run.hero);
+        const lv = masteryLevel(save(), run.hero);
+        const row = trackRows(save(), run.hero)[lv];
+        const line = next && row ? `Next level: ${row.gifts.length > 1 ? 'a choice of two' : giftShort(row.gifts[0].gift)}, in ${next.left} mastery` : 'Mastery full.';
+        label(this, x + 22, at - 6, line, { size: 15, align: 'left', color: '#7a5a12', stroke: null, wrap: w - 44 });
+        at += 22;
+      }
     }
     if (quests.length > 0) {
       label(this, x + 22, at, 'NEXT QUESTS', { size: 19, align: 'left', color: ink, stroke: null });

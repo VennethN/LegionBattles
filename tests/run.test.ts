@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { botCamp, botSteer } from '../src/game/bot';
 import { HEROES, ITEMS, OFFERS, SLOTS, WEAPONS, byId, levelNeeds, priceAt, rerollCost, weaponOf } from '../src/game/data';
 import {
-  buy, choose, combine, endWave, held, lock, march, newRun, openPack, ownOf, reroll, rerollPrice, sell, sellPrice, setupOf, statsOf, survived, twinOf, weaponNumbers, whyNot, type RunData,
+  buy, canSwap, choose, combine, endWave, held, lock, march, newRun, openPack, ownOf, reroll, rerollPrice, sell, sellPrice, setupOf, statsOf, survived, swap, twinOf, weaponNumbers, whyNot, type RunData,
 } from '../src/game/run';
 import { SAVE_VERSION, bestWave, featDone, featShare, freshSave, isOpen, record, repair } from '../src/game/state';
 import { World } from '../src/game/world';
@@ -173,6 +173,32 @@ describe('the camp', () => {
     expect(buy(run, 1)).toBe(true);
     expect(run.weapons.length).toBe(SLOTS);
     expect(run.weapons.filter((w) => w.tier === 1).length).toBe(1);
+  });
+
+  it('with every slot full, swaps a held weapon for one on offer from the offer\'s own card, if the sale pays for it', () => {
+    const run = inCamp('bram', 0);
+    run.weapons = Array.from({ length: SLOTS }, () => ({ id: 'bow', tier: 0 }));
+    run.weapons[2] = { id: 'crossbow', tier: 2 };
+    run.offers[0] = { kind: 'weapon', id: 'spear', tier: 1, price: sellPrice(run.weapons[2]) + 3, sold: false, locked: false };
+    // The sale alone is not enough: three coins short.
+    expect(canSwap(run, 0, 2)).toBe(false);
+    run.gold = 3;
+    expect(canSwap(run, 0, 2)).toBe(true);
+    expect(swap(run, 0, 2)).toBe(true);
+    expect(run.gold).toBe(0);
+    expect(run.weapons.length).toBe(SLOTS);
+    expect(run.weapons.some((w) => w.id === 'crossbow')).toBe(false);
+    expect(run.weapons.filter((w) => w.id === 'spear' && w.tier === 1).length).toBe(1);
+    expect(swap(run, 0, 0)).toBe(false);
+    // A twin is merged by buying it; an item is not a weapon; a free slot needs no swap.
+    run.gold = 999;
+    run.offers[1] = { kind: 'weapon', id: 'bow', tier: 0, price: 5, sold: false, locked: false };
+    run.offers[2] = { kind: 'item', id: 'mail', tier: 0, price: 5, sold: false, locked: false };
+    expect(canSwap(run, 1, 0)).toBe(false);
+    expect(canSwap(run, 2, 0)).toBe(false);
+    run.weapons.pop();
+    run.offers[3] = { kind: 'weapon', id: 'sword', tier: 0, price: 5, sold: false, locked: false };
+    expect(canSwap(run, 3, 0)).toBe(false);
   });
 
   it('joins two of a kind into one of the next tier, and nothing past the last', () => {

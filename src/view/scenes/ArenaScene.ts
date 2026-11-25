@@ -20,7 +20,7 @@ import { ART_SCALE, hex, view } from '../config';
 import { Deeds } from '../Deeds';
 import { Blend, shareOf } from '../blend';
 import { Effects } from '../Effects';
-import { weaponIcon } from '../icons';
+import { THING_ICONS, weaponIcon } from '../icons';
 import { Numbers } from '../Numbers';
 import { RoadField } from '../RoadField';
 import { Figure } from '../art/Figure';
@@ -104,6 +104,11 @@ const STIR = 0x241a12;
 export class ArenaScene extends Phaser.Scene {
   private run!: RunData;
   private world!: World;
+  /** A pale light behind the hero, shown while something stands over them. */
+  private heroHalo!: Phaser.GameObjects.Image;
+  /** Where the camp's fire burns between waves, at its feet; null while a wave is fought. */
+  private campAt: { x: number; y: number } | null = null;
+  private focusAt = { x: 0.5, y: 0.5 };
   private hero!: Figure;
   private heroBar!: Phaser.GameObjects.Image;
   /** The ring the hero stands in, in their side's blue, always: it is how they are found in a crowd or in the dark. */
@@ -194,6 +199,8 @@ export class ArenaScene extends Phaser.Scene {
     this.ready = false;
     this.ended = false;
     this.halted = false;
+    this.campAt = null;
+    this.focusAt = { x: 0.5, y: 0.5 };
 
     const cam = this.cameras.main;
     cam.setViewport(0, 0, view.width, view.height);
@@ -252,6 +259,7 @@ export class ArenaScene extends Phaser.Scene {
     const def = heroOf(this.run);
     // Their own weapon is in their figure's hand, and the figure swings it. What they have bought floats beside them.
     this.hero = new Figure(this, def.unit, 'blue', getManifest().units[def.unit], HERO_SCALE, 'unit', 1);
+    this.heroHalo = this.add.image(0, 0, SHEET, 'fx/glow').setTint(0xfff4d0).setScale(1.1 * INV_ART).setAlpha(0).setBlendMode(Phaser.BlendModes.ADD);
     this.aimFor = 0;
     this.heroBarBack = this.add.image(0, 0, SHEET, 'fx/solid').setTint(hex(OUTLINE)).setVisible(false);
     this.heroBar = this.add.image(0, 0, SHEET, 'fx/solid').setTint(RED).setOrigin(0, 0.5).setVisible(false);
@@ -276,6 +284,8 @@ export class ArenaScene extends Phaser.Scene {
     if (this.still) {
       this.ended = true;
       this.halted = true;
+      // Behind the camp, the road, the relics and the level ups, the band sits at a fire; behind the end of a run, the field where it ended.
+      if (this.overlay && this.overlay !== 'Result' && this.world.over !== 'dead') this.makeCamp();
       if (this.overlay) this.scene.launch(this.overlay);
       return;
     }
@@ -379,6 +389,7 @@ export class ArenaScene extends Phaser.Scene {
       music.play(this.world.wave.land, 'calm');
       this.time.delayedCall(650, () => {
         this.scene.stop('Hud');
+        this.makeCamp();
         this.scene.launch('Camp');
       });
     } else {
@@ -390,6 +401,41 @@ export class ArenaScene extends Phaser.Scene {
         this.scene.launch('Result');
       });
     }
+  }
+
+  /**
+   * The wave is won: dusk falls on the field, a fire is lit beside the hero and the band gathers round it. The screens
+   * between waves are shown over this, so that the camp is a place and not a sheet on black.
+   */
+  private makeCamp(): void {
+    if (this.campAt) return;
+    const w = this.world;
+    const h = w.hero;
+    // The camp is made in the middle of the field, so that the view can put it wherever the screen over it has room.
+    h.x = w.w / 2 - 32;
+    h.y = w.h / 2;
+    h.moving = false;
+    this.heroWas.clear();
+    this.bandWas.clear();
+    const fire = { x: w.w / 2 + 32, y: w.h / 2 + 8 };
+    this.campAt = fire;
+    this.add.image(fire.x, fire.y, SHEET, THING_ICONS.campfire).setOrigin(0.5, 0.86).setScale(0.8 * INV_ART).setDepth(fire.y);
+    this.light.camp(fire.x, fire.y);
+    // The others in a ring round it, on the far side from the hero, each facing the fire.
+    const gather = new Map<number, { x: number; y: number; face: 1 | -1 }>();
+    const n = w.band.length;
+    w.band.forEach((a, i) => {
+      const angle = Math.PI + ((i + 1) * 2 * Math.PI) / (n + 1);
+      const x = fire.x + Math.cos(angle) * 72;
+      const y = fire.y + Math.sin(angle) * 40;
+      gather.set(a.id, { x, y, face: x <= fire.x ? 1 : -1 });
+    });
+    this.deeds.gather = gather;
+  }
+
+  /** Where on the screen the camp's fire is to be seen, as shares of its width and height: the screen over it says where it has room. */
+  campFocus(x: number, y: number): void {
+    this.focusAt = { x, y };
   }
 
   // ------------------------------------------------------------ what has happened
@@ -435,7 +481,9 @@ export class ArenaScene extends Phaser.Scene {
           // A number that would be written over the hero is set to one side of them: who they are is never under figures.
           let nx = e.x + (Math.random() - 0.5) * 14;
           if (Math.abs(nx - h.x) < 34 && e.y - 44 > h.y - 110 && e.y - 44 < h.y + 6) nx = h.x + (nx >= h.x ? 40 : -40);
-          this.nums.show(nx, e.y - 44, String(e.amount), e.crit ? hex(HOLY.fill) : e.soft ? hex(BONE.shade) : WHITE, e.crit ? 28 : e.soft ? 15 : 20);
+          // Burning and clouds are not written: they tick on dozens at once and made a carpet of small numbers. The foe's
+          // tint already says it burns. Blows on one foe in a moment are added up on one number.
+          if (!e.soft) this.nums.show(nx, e.y - 44, String(e.amount), e.crit ? hex(HOLY.fill) : WHITE, e.crit ? 28 : 20, e.id, e.crit);
           if (!e.soft) this.fx.spawn('fx/spark', e.x, e.y - 22, { dur: 0.12, from: 0.3, to: 0.8, alpha: 0.9, depth: e.y + 30 });
           break;
         }
@@ -472,7 +520,7 @@ export class ArenaScene extends Phaser.Scene {
         case 'hurt':
           this.hero.hit(this.clock, e.x);
           this.cameras.main.shake(140, 0.006);
-          this.nums.show(h.x, h.y - 108, `-${e.amount}`, RED, 30);
+          this.nums.show(h.x, h.y - 108, `-${e.amount}`, RED, 30, -1, true);
           sfx.play('bigHit', 0.8);
           (this.scene.get('Hud') as HudScene | undefined)?.hurt();
           (this.scene.get('Hud') as HudScene | undefined)?.teach('hurt', 'ENEMIES HURT YOU ON TOUCH. KEEP MOVING.');
@@ -644,7 +692,7 @@ export class ArenaScene extends Phaser.Scene {
     // They face what they strike while they strike it, and the way they go otherwise.
     if (this.aimFor > 0) this.aimFor -= dt;
     // On the move they face the way they go, whatever they strike: a figure that turned to every blow and back while it ran was half of what made it look clanky.
-    fig.facing = this.aimFor > 0 && !h.moving ? this.aimFace : h.face;
+    fig.facing = this.campAt ? (this.campAt.x >= hx ? 1 : -1) : this.aimFor > 0 && !h.moving ? this.aimFace : h.face;
     fig.moving = h.moving && !this.halted;
     // The blow is drawn back a moment before it lands, so that it lands on time: the wave says how long is left.
     const own = w.own;
@@ -718,7 +766,10 @@ export class ArenaScene extends Phaser.Scene {
     this.deeds.update(dt, this.clock, this.halted, hx, hy, (id, x, y) => [this.bandWas.x(id, x, k), this.bandWas.y(id, y, k)]);
     this.road.sync(this.clock, dt);
 
-    // Whoever comes at them.
+    // Whoever comes at them. One that stands in front of the hero, over them on the screen, is seen through, so that
+    // the hero is never under a crowd or a champion: a reviewer found Wren under one.
+    let over = false;
+    const before = (fx: number, fy: number, size: number): boolean => fy > hy && fy - hy < 70 * size && Math.abs(fx - hx) < 34 * size;
     for (const f of w.foes) {
       // A wagon or a cage is a thing, shown with the rest of what a road puts on the field.
       if (f.def.prop) continue;
@@ -740,6 +791,9 @@ export class ArenaScene extends Phaser.Scene {
         v.fig.facing = f.face;
         v.fig.moving = f.moving && !this.halted;
         v.fig.update(this.clock, dt);
+        const seen = before(fx, fy, size);
+        v.fig.alpha = seen ? 0.45 : 1;
+        over ||= seen;
         shadows.blob(fx, fy, 66 * size, 40 * size);
         if (v.flash > 0) v.flash -= dt;
         continue;
@@ -755,6 +809,9 @@ export class ArenaScene extends Phaser.Scene {
       const s = (FOE_SCALE * size * grow) / STILL_SCALE;
       img.setPosition(fx + (f.stun > 0 ? Math.sin(this.clock * 50) * 1.5 : 0), fy).setScale(s * wind, s / wind).setFlipX(f.face < 0).setDepth(fy);
       shadows.still(img.frame.name, fx, fy, s, f.face < 0, Math.min(1, age / 0.18));
+      const seeThrough = before(fx, fy, size);
+      img.setAlpha(seeThrough ? 0.45 : 1);
+      over ||= seeThrough;
       // Struck, it is all white for a moment. Burning and slowed, it is tinted, so that a glance says which.
       if (v.flash > 0) {
         v.flash -= dt;
@@ -767,6 +824,8 @@ export class ArenaScene extends Phaser.Scene {
         else img.clearTint();
       }
     }
+    // And when anything stands over them, a pale light behind them marks where they are.
+    this.heroHalo.setPosition(hx, hy - 34).setAlpha(over && h.hp > 0 ? 0.55 : 0).setDepth(hy - 0.5);
     for (const [id, v] of this.foes) {
       if (v.stamp === stamp) continue;
       // Gone without a word: taken away as it is.
@@ -851,7 +910,9 @@ export class ArenaScene extends Phaser.Scene {
 
     for (const b of this.deeds.standing()) shadows.blob(b.x, b.y, b.tall, b.wide, b.alpha);
     shadows.end();
-    this.follow(hx, hy);
+    // At the camp the view is on the hero and the fire together.
+    if (this.campAt) this.follow(this.campAt.x - 32 + (0.5 - this.focusAt.x) * view.w, this.campAt.y - 4 + (0.5 - this.focusAt.y) * view.h);
+    else this.follow(hx, hy);
     this.light.update(dt, this.clock, this.halted, this.carried);
   }
 

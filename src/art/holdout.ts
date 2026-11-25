@@ -11,7 +11,7 @@ import {
   type Material,
 } from './kit/palette';
 import { book, drum, mitt } from './kit/parts';
-import { capsule, circle, ellipse, path, poly, roundRect, smooth, star, type Pt } from './kit/path';
+import { Path, capsule, circle, ellipse, path, poly, roundRect, smooth, star, type Pt } from './kit/path';
 import { GROUND, type Ground } from './ground';
 import type { IconArt } from './icons';
 import { bush, cairn, drift, dryShrub, flowers, iceSpike, mushrooms, rock, sandrock, stump, tuft, type Scenery } from './scenery';
@@ -543,7 +543,57 @@ const THINGS: IconArt[] = [
       d.piece('moss', smooth([[18, 133, 'c'], [26, 128], [38, 132], [46, 129, 'c'], [42, 137], [26, 138]]), BUSH, { shade: 0 });
     },
   },
+  {
+    // The camp between waves: a ring of stones, logs laid crossed and a fire on them. The light makes it glow; with the light off it is still a fire.
+    name: 'thing-campfire', width: 112, height: 104, origin: [0.5, 0.86],
+    draw: (d) => {
+      d.shadeOver('shadow', ellipse(56, 90, 48, 9), 0.35);
+      // The far stones, behind the logs.
+      for (const [x, y] of [[22, 74], [38, 68], [56, 66], [74, 68], [90, 74]] as const) d.piece('stone', ellipse(x, y, 10, 6.5), STONE, { shade: 2 });
+      d.piece('log-a', capsule(24, 86, 84, 64, 13), WOOD, { shade: 2, inner: (c) => c.shadeOver('grain', capsule(30, 83, 76, 67, 2), 1) });
+      d.piece('log-b', capsule(28, 64, 88, 86, 13), WOOD, { shade: 2, inner: (c) => c.shadeOver('grain', capsule(34, 67, 80, 83, 2), 1) });
+      d.piece('flame', smooth([[34, 76, 'c'], [32, 52], [44, 34], [50, 44], [56, 12, 'c'], [66, 38], [72, 30], [80, 52], [78, 76, 'c']]), FIRE, {
+        shade: 0,
+        inner: (c) => c.flat('heart', smooth([[44, 76, 'c'], [46, 58], [56, 40, 'c'], [66, 58], [68, 76, 'c']]), FIRE.light),
+      });
+      // The near stones, in front of it all.
+      for (const [x, y] of [[16, 86], [36, 92], [56, 94], [76, 92], [96, 86]] as const) d.piece('stone', ellipse(x, y, 11, 7), STONE, { shade: 2 });
+    },
+  },
 ];
+
+/**
+ * A drawing made smaller and moved, with every shape it draws taken through the change and its lines kept their one
+ * width: a drawing scaled as a whole would draw thin lines.
+ */
+function moved<T extends object>(o: T, k: number, dx: number, dy: number): T {
+  const shift = (a: unknown): unknown => {
+    if (a instanceof Path) return a.scale(k).translate(dx, dy);
+    if (typeof a === 'function') return (c: object) => (a as (c: object) => unknown)(moved(c, k, dx, dy));
+    if (a && typeof a === 'object' && 'inner' in a && typeof (a as { inner: unknown }).inner === 'function') return { ...a, inner: shift((a as { inner: unknown }).inner) };
+    return a;
+  };
+  const proxy: T = new Proxy(o, {
+    get(t, prop) {
+      const v = Reflect.get(t, prop, t) as unknown;
+      if (typeof v !== 'function') return v;
+      return (...args: unknown[]) => {
+        const out = (v as (...a: unknown[]) => unknown).apply(t, args.map(shift));
+        return out === t ? proxy : out;
+      };
+    },
+  });
+  return proxy;
+}
+
+// The relics made of two: the two halves' own pictures, smaller, one over the other, and a gold spark for the more they do.
+for (const [id, a, b] of [['forgeheart', 'r-bellows', 'r-emberheart'], ['thunderbell', 'r-echobell', 'r-stormglass'], ['packbanner', 'r-wolfskin', 'r-whistle']] as const) {
+  ICONS[`r-${id}`] = (d) => {
+    ICONS[a](moved(d, 0.76, -2, -2));
+    ICONS[b](moved(d, 0.76, 12, 12));
+    d.piece('spark', star(40, 8, 4, 8, 3.2), HOLY, { shade: 0 });
+  };
+}
 
 /** The game's own small pictures, beside the kit's, and the things a road puts on the field. */
 export function holdoutIcons(): IconArt[] {

@@ -7,7 +7,7 @@ import { WEAPON_ART } from '../src/art/holdout';
 import { allColors } from '../src/art/kit/palette';
 import type { Manifest } from '../src/art/manifest';
 import { UNIT_ART } from '../src/art/units';
-import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LANDS_DEF, LAND_NAMES, RELICS, ROAD, WEAPONS, byId } from '../src/game/data';
+import { BAND, COMPANIONS, ENEMIES, FUSED, HEROES, ITEMS, LANDS_DEF, LAND_NAMES, RELICS, ROAD, WEAPONS, byId } from '../src/game/data';
 import { STAT_INFO, STATS } from '../src/game/stats';
 import { ICONS_USED, THING_ICONS, itemIcon, relicIcon, statIcon, weaponIcon, HOLD_PLACES } from '../src/view/icons';
 import { SkylinePacker } from '../src/view/art/packer';
@@ -60,7 +60,7 @@ describe('what the game asks the art for', () => {
     for (const w of WEAPONS) expect(drawn.has(weaponIcon(w.id)), w.id).toBe(true);
     expect([...WEAPON_ART].sort()).toEqual(WEAPONS.map((w) => w.id).sort());
     for (const it of ITEMS) expect(drawn.has(itemIcon(it.id)), it.id).toBe(true);
-    for (const r of RELICS) expect(drawn.has(relicIcon(r.id)), r.id).toBe(true);
+    for (const r of [...RELICS, ...FUSED]) expect(drawn.has(relicIcon(r.id)), r.id).toBe(true);
     // What a road puts on the field is a picture of its own, not a figure.
     for (const e of ENEMIES.filter((x) => x.prop)) expect(drawn.has(THING_ICONS[e.prop as keyof typeof THING_ICONS]), e.id).toBe(true);
     expect(drawn.has(THING_ICONS.shrine)).toBe(true);

@@ -20,7 +20,7 @@ import type { Land } from '../../game/data';
 import type { Ev, Shot, World } from '../../game/world';
 import { SHEET } from '../art/Sheet';
 import { Glow, type BitOpts, glowScale } from './Glow';
-import { ELEMENTS, HERO_LIGHT, LANTERN, SUN_ANGLE, WEAPON_LIGHT, darkness, hourOf, type Element, type Hour } from './hours';
+import { ELEMENTS, HERO_LIGHT, LANTERN, SUN_ANGLE, WEAPON_LIGHT, darkness, duskOf, hourOf, type Element, type Hour } from './hours';
 import { lightMode, stepLightDown, type LightMode } from './setting';
 import { MAX_LIGHTS } from './shaders';
 import { StageFilter, lightPossible, registerStage } from './StageFilter';
@@ -96,9 +96,11 @@ export class FieldLight {
   private smoke: Phaser.GameObjects.Image[] = [];
   private readonly crispSet = new Set<Seen>();
   private readonly emitSet = new Set<Seen>();
-  /** The hour of this wave: its light, and how long its shadows are. */
-  readonly hour: Hour;
-  private readonly dark: number;
+  /** The hour of this wave: its light, and how long its shadows are. At the camp it is the land's dusk. */
+  hour: Hour;
+  private dark: number;
+  /** Where the camp's fire burns, between waves: it gives light and flames while everything else is held still. */
+  private fire: { x: number; y: number } | null = null;
   /** The ground's own picture again, soft, laid over the far and near edges of the view: what is out of focus there is the ground, never a figure. */
   private soft: Phaser.GameObjects.Image[] = [];
   private fieldH = 0;
@@ -280,6 +282,13 @@ export class FieldLight {
 
   private light(x: number, y: number, r: number, color: number, strength: number, first = false): void {
     this.lit.push({ x, y, r, color, strength, first });
+  }
+
+  /** The wave is over and the camp is made: dusk falls and a fire burns at (x, y), its feet. */
+  camp(x: number, y: number): void {
+    this.fire = { x, y };
+    this.hour = duskOf(this.land);
+    this.dark = darkness(this.hour);
   }
 
   /** A light that dies away by itself. */
@@ -547,6 +556,14 @@ export class FieldLight {
       }
     });
 
+    // The camp's fire: the strongest light there is between waves, flickering, and flames that go on while the rest is still.
+    const fire = this.fire;
+    if (fire) {
+      this.light(fire.x, fire.y - 22, 380, ELEMENTS.fire.light, 0.95 * flick(7));
+      if (Math.random() < 0.7) glow.spawn(fire.x + rnd(-16, 16), fire.y - 26 + rnd(-3, 3), ELEMENTS.fire, { dur: rnd(0.35, 0.6), vx: rnd(-8, 8), vy: rnd(-110, -60), from: rnd(16, 24), to: 3, flame: true, sway: 3, alpha: 0.65 });
+      if (Math.random() < 0.08) glow.spawn(fire.x + rnd(-8, 8), fire.y - 30, ELEMENTS.spark, { dur: rnd(0.8, 1.4), vx: rnd(-20, 20), vy: rnd(-120, -60), from: 4, to: 1, sway: 5 });
+    }
+
     this.showShots(halted, reach);
     this.showFoes(halted, reach, flick);
 
@@ -592,7 +609,7 @@ export class FieldLight {
     this.focus();
     this.moveAir(dt, halted);
     this.moveSmoke(dt);
-    if (!halted) glow.update(dt);
+    if (!halted || fire) glow.update(dt);
     this.tell(filter);
     this.drawEmit(filter, glow);
   }

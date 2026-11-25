@@ -5,11 +5,12 @@
 // button. It shows the run and asks its rules (game/run.ts) for everything.
 
 import Phaser from 'phaser';
+import type { ArenaScene } from './ArenaScene';
 import { BONE, BUSH, GOLD, HOLY, IRON, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { COMPANIONS, byId, omenOf, relicOf, waveOf, type Omen } from '../../game/data';
-import { takeRelic, takeRoad, type RunData } from '../../game/run';
+import { fusesInto, takeRelic, takeRoad, type RunData } from '../../game/run';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
@@ -66,7 +67,7 @@ export class RoadScene extends Phaser.Scene {
     }
     this.run = run;
     setupCamera(this);
-    this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.88).setInteractive();
+    this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.6).setInteractive();
     this.root = this.add.container(0, 0);
     music.play(waveOf(run.wave).land, 'calm');
     this.draw();
@@ -91,18 +92,44 @@ export class RoadScene extends Phaser.Scene {
     else this.scene.start('Camp');
   }
 
-  /** Cards in a row on a wide screen, in a column on a tall one. Returns where each goes and how big it is. */
-  private cards(n: number, top: number): { x: number[]; y: number[]; w: number; h: number } {
+  /**
+   * Cards in a row on a wide screen, in a column on a tall one, each as tall as the most any of them says (`need`, at
+   * the card's width). A tall screen's stand at the bottom, where a thumb is. The band at its fire is seen in the room
+   * that is left: under a wide screen's cards, between a tall screen's heading and its cards.
+   */
+  private cards(n: number, top: number, need: (w: number) => number): { x: number[]; y: number[]; w: number; h: number } {
     const gap = 12;
+    const arena = this.scene.get('Arena') as ArenaScene | null;
     if (view.tall) {
-      const h = Math.min(210, (view.h - top - 16 - (n - 1) * gap) / n);
       const w = Math.min(420, view.w - 28);
-      return { x: Array.from({ length: n }, () => (view.w - w) / 2), y: Array.from({ length: n }, (_, i) => top + i * (h + gap)), w, h };
+      const h = Math.max(150, Math.min(210, need(w), (view.h - top - 16 - (n - 1) * gap) / n));
+      const y0 = view.h - 16 - n * h - (n - 1) * gap;
+      arena?.campFocus?.(0.5, (top + y0) / 2 / view.h);
+      return { x: Array.from({ length: n }, () => (view.w - w) / 2), y: Array.from({ length: n }, (_, i) => y0 + i * (h + gap)), w, h };
     }
     const w = Math.min(250, (view.w - 32 - (n - 1) * gap) / n);
-    const h = Math.min(330, view.h - top - 20);
+    const h = Math.max(240, Math.min(view.h - top - 20, need(w)));
     const x0 = (view.w - (n * w + (n - 1) * gap)) / 2;
-    return { x: Array.from({ length: n }, (_, i) => x0 + i * (w + gap)), y: Array.from({ length: n }, () => top + (view.h - top - 20 - h) / 2), w, h };
+    arena?.campFocus?.(0.5, Math.min(0.9, (top + h + view.h) / 2 / view.h));
+    return { x: Array.from({ length: n }, (_, i) => x0 + i * (w + gap)), y: Array.from({ length: n }, () => top), w, h };
+  }
+
+  /** How tall a card has to be for its name and lines at a width: measured with the words themselves, as card() lays them, then let go. */
+  private need(w: number, name: string, lines: Array<{ text: string; head?: string }>): number {
+    const tall = view.tall;
+    const pic = tall ? 92 : 78;
+    const tw = tall ? w - pic - 56 : w - 24;
+    const tallOf = (t: string, size: number): number => {
+      const probe = label(this, 0, 0, t, { size, stroke: null, wrap: tw });
+      const h = probe.height;
+      probe.destroy();
+      return h;
+    };
+    // Where the first line starts, as in card(): under the name, and on a wide card under the picture too.
+    let h = (tall ? 26 : 20 + pic + 24) + 16 + Math.max(0, tallOf(name, 20) - 26);
+    for (const line of lines) h += (line.head ? 22 : 0) + tallOf(line.text, 15) + 4;
+    // The button under the words, and the card's edge.
+    return h + (tall ? 64 : 76);
   }
 
   /** One card: a picture, a name, what it is in a line or two, and a button. A tall screen's is laid on its side. */
@@ -144,10 +171,16 @@ export class RoadScene extends Phaser.Scene {
     const cx = view.w / 2;
     this.root.add(heading(this, cx, 40, 'CHOOSE A RELIC', GOLD));
     this.text(cx, 76, run.relicsDue > 1 ? `Choose 1. ${run.relicsDue - 1} more after this.` : 'Choose 1 of 3.', { size: 17, color: BONE.fill });
-    const at = this.cards(run.relicChoices.length, 100);
+    // A relic that would make one of two with a relic held says so: the one it makes is what there is to chase.
+    const linesOf = (id: string): Array<{ text: string; color?: string }> => {
+      const f = fusesInto(run, id);
+      const other = f?.of?.find((part) => part !== id);
+      return [{ text: relicOf(id).says }, ...(f && other ? [{ text: `With your ${relicOf(other).name}, becomes ${f.name}: ${f.says.split(': ')[1] ?? f.says}`, color: '#2e7d3a' }] : [])];
+    };
+    const at = this.cards(run.relicChoices.length, 100, (w) => Math.max(...run.relicChoices.map((id) => this.need(w, relicOf(id).name, linesOf(id)))));
     run.relicChoices.forEach((id, i) => {
       const r = relicOf(id);
-      this.card(at.x[i], at.y[i], at.w, at.h, GOLD, relicIcon(id), r.name, [{ text: r.says }], 'TAKE', () => {
+      this.card(at.x[i], at.y[i], at.w, at.h, GOLD, relicIcon(id), r.name, linesOf(id), 'TAKE', () => {
         takeRelic(this.run, i);
         sfx.play('claim', 0.8);
         keepRun();
@@ -163,12 +196,16 @@ export class RoadScene extends Phaser.Scene {
     const cx = view.w / 2;
     this.root.add(heading(this, cx, 40, 'CHOOSE YOUR ROAD'));
     this.text(cx, 78, `Wave ${run.wave} is next. Each road has a risk and a reward.`, { size: 16, color: BONE.fill });
-    const at = this.cards(run.roads.length, 100);
+    // Who is in the cage is not told: it is found out by letting them out.
+    const linesOf = (omen: string): Array<{ head: string; text: string; color: string }> => {
+      const o = omenOf(omen as Parameters<typeof omenOf>[0]);
+      return [{ head: 'RISK', text: `Wave ${run.wave}: ${o.says}`, color: '#952239' }, { head: 'REWARD', text: o.prize[0].toUpperCase() + o.prize.slice(1), color: '#2e5f45' }];
+    };
+    const at = this.cards(run.roads.length, 100, (w) => Math.max(...run.roads.map((r) => this.need(w, omenOf(r.omen).name, linesOf(r.omen)))));
     run.roads.forEach((road, i) => {
       const o = omenOf(road.omen);
       const look = OMEN_LOOK[road.omen];
-      // Who is in the cage is not told: it is found out by letting them out.
-      const lines = [{ head: 'RISK', text: `Wave ${run.wave}: ${o.says}`, color: '#952239' }, { head: 'REWARD', text: o.prize[0].toUpperCase() + o.prize.slice(1), color: '#2e5f45' }];
+      const lines = linesOf(road.omen);
       this.card(at.x[i], at.y[i], at.w, at.h, look.mat, look.icon, o.name, lines, 'CHOOSE', () => this.go(i));
     });
     // The companions of the run that a road might add to are counted for the player who has forgotten.

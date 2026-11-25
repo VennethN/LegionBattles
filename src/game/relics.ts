@@ -13,6 +13,8 @@ export interface RelicDef {
   name: string;
   /** What it does, in a line a player reads. */
   says: string;
+  /** A relic made of two others when both are held: it does what both did, and more. Never offered by itself. */
+  of?: readonly [string, string];
 }
 
 /** The numbers of each relic. */
@@ -140,6 +142,19 @@ export const RELIC = {
     coins: 10,
     more: 0.25,
   },
+  // The relics made of two: what each does more than its two halves.
+  forgeheart: {
+    /** Every this many kills one bursts, in place of Ember Heart's 5th. */
+    every: 3,
+  },
+  thunderbell: {
+    /** Seconds between strikes, in place of Stormglass's 8. */
+    every: 5,
+  },
+  packbanner: {
+    /** How near a companion has to be for Wolfskin's damage, in place of its 180. */
+    r: 360,
+  },
 } as const;
 
 export const RELICS: readonly RelicDef[] = [
@@ -171,8 +186,23 @@ export const RELICS: readonly RelicDef[] = [
   { id: 'seal', name: "Merchant's Seal", says: 'The most expensive item in every shop costs 50% less.' },
 ];
 
+/**
+ * The relics made of two others. Holding both halves makes one of these in their place, at once: it does what both
+ * did and more, and takes one place in the row where it took two. They are a thing to chase once a run holds many.
+ */
+export const FUSED: readonly RelicDef[] = [
+  { id: 'forgeheart', name: 'Forge Heart', says: 'Bellows and Ember Heart in one: every 3rd kill explodes in flames.', of: ['bellows', 'emberheart'] },
+  { id: 'thunderbell', name: 'Thunder Bell', says: 'Echo Bell and Stormglass in one: lightning strikes every 5 s.', of: ['echobell', 'stormglass'] },
+  { id: 'packbanner', name: 'Pack Banner', says: 'Wolfskin and Kennel Whistle in one: +20% damage with a companion twice as far.', of: ['wolfskin', 'whistle'] },
+];
+
+/** The two relics a fused one is made of, or none for a plain one: what the fused one counts as holding. */
+export function partsOf(id: string): readonly string[] {
+  return FUSED.find((r) => r.id === id)?.of ?? [];
+}
+
 export function relicOf(id: string): RelicDef {
-  const found = RELICS.find((r) => r.id === id);
+  const found = RELICS.find((r) => r.id === id) ?? FUSED.find((r) => r.id === id);
   if (!found) throw new Error(`relics: no relic is called "${id}"`);
   return found;
 }

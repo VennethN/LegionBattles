@@ -17,6 +17,7 @@ import { CRATES, DEEDS, VOW, VOWS, noBoons, thingKey, type Boons, type CrateDef,
 import { KINDS } from './kinds';
 import { LEVEL_XP, PAY, PERKS, levelAt, mastered, trackOf, type Gift, type Level } from './mastery';
 import { Rng } from './rng';
+import type { Stat } from './stats';
 import { kindCounts, newRun, survived, type RunData, type Terms, type Told } from './run';
 import { STATS, STAT_INFO, statText } from './stats';
 import { bandFor, bestWave, featDone, featShare, isFriend, isOpen, type SaveData } from './state';
@@ -105,6 +106,26 @@ export function giftSays(hero: string, gift: Gift): string {
   }
 }
 
+/** A gift in two or three words, for under its medallion on the track: what it gives at a glance. */
+export function giftShort(gift: Gift): string {
+  switch (gift.kind) {
+    case 'stat': {
+      const short: Partial<Record<Stat, string>> = { maxHp: 'HP', regen: 'REGEN', lifesteal: 'LEECH', damage: 'DMG', might: 'MELEE', aim: 'RANGED', lore: 'MAGIC', haste: 'ATK SPD', crit: 'CRIT', reach: 'RANGE', armor: 'ARMOR', dodge: 'DODGE', speed: 'SPEED', luck: 'LUCK', bounty: 'COINS', pickup: 'PICKUP' };
+      return `${statText(gift.stat, gift.by)} ${short[gift.stat] ?? STAT_INFO[gift.stat].name.toUpperCase()}`;
+    }
+    case 'skill':
+      return gift.part === 'harm' ? 'SKILL DMG' : gift.part === 'fill' ? 'FURY' : gift.part === 'area' ? 'BIG SKILL' : 'FURY KEPT';
+    case 'perk':
+      return 'PASSIVE';
+    case 'way':
+      return 'WEAPON';
+    case 'relic':
+      return 'RELIC';
+    case 'title':
+      return 'TITLE';
+  }
+}
+
 export interface TrackRow {
   /** The level, counted from 1. */
   level: number;
@@ -182,6 +203,8 @@ export function routeSays(c: CompanionDef): string {
     case 'wave':
       return `Unlock: clear wave ${u.wave}.`;
     case 'deed':
+      // A boss's wave is taken from its land, so a longer road never leaves the line wrong.
+      if (u.test.kind === 'boss') return `Unlock: ${featSays(u.test)[0].toLowerCase()}${featSays(u.test).slice(1)}`;
       return `Unlock: ${u.says[0].toLowerCase()}${u.says.slice(1)}`;
     case 'hidden':
       return `Hidden. "${u.riddle}"`;
@@ -465,7 +488,7 @@ export function deedsOf(save: SaveData): DeedRow[] {
   }
   for (const d of DEEDS) {
     const done = save.deeds.includes(d.id);
-    rows.push({ id: d.id, kind: 'quest', name: d.name, says: d.says, done, share: done ? 1 : deedShare(save, d.test), xp: d.xp, opens: '' });
+    rows.push({ id: d.id, kind: 'quest', name: d.name, says: d.test.kind === 'boss' ? featSays(d.test) : d.says, done, share: done ? 1 : deedShare(save, d.test), xp: d.xp, opens: '' });
   }
   return [...rows.filter((r) => !r.done), ...rows.filter((r) => r.done)];
 }

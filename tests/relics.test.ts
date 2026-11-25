@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { BAND, MOVE, RELIC, RELICS, OFFERS, relicOf, rerollCost, waveOf } from '../src/game/data';
-import { RELIC_CHOICES, buy, endWave, hasRelic, lock, march, newRun, reroll, rerollPrice, setupOf, statsOf, takeRelic, whyNot, type RunData } from '../src/game/run';
+import { BAND, FUSED, MOVE, RELIC, RELICS, OFFERS, relicOf, rerollCost, waveOf } from '../src/game/data';
+import { RELIC_CHOICES, buy, endWave, fusesInto, hasRelic, lock, march, newRun, reroll, rerollPrice, setupOf, statsOf, takeRelic, whyNot, type RunData } from '../src/game/run';
 import { World, type Ev, type Pick, type Setup } from '../src/game/world';
 import { alone, blows, play, setup, stand, stats } from './field';
 
@@ -51,6 +51,49 @@ describe('relics', () => {
     expect(takeRelic(run, 0)).toBe(true);
     expect(run.relics.length).toBe(3);
     expect(run.phase).toBe('camp');
+  });
+
+  it('two that make one become it as soon as both are held, won or bought, and count as both', () => {
+    for (const f of FUSED) {
+      expect(f.of?.length, f.id).toBe(2);
+      for (const part of f.of ?? []) expect(RELICS.some((r) => r.id === part), part).toBe(true);
+      expect(relicOf(f.id)).toBe(f);
+    }
+    const run = camp({ phase: 'relic', relics: ['crown', 'bellows'], relicChoices: ['emberheart', 'stormglass', 'horn'], relicsDue: 1 });
+    expect(fusesInto(run, 'emberheart')?.id).toBe('forgeheart');
+    expect(fusesInto(run, 'stormglass')).toBeNull();
+    expect(takeRelic(run, 0)).toBe(true);
+    expect(run.relics).toEqual(['crown', 'forgeheart']);
+    expect(hasRelic(run, 'bellows') && hasRelic(run, 'emberheart') && hasRelic(run, 'forgeheart')).toBe(true);
+    // Bought among the wares, the same.
+    const shop = camp({ relics: ['echobell'], gold: 999 });
+    shop.offers[OFFERS - 1] = { kind: 'relic', id: 'stormglass', tier: 3, price: 10, sold: false, locked: false };
+    expect(buy(shop, OFFERS - 1)).toBe(true);
+    expect(shop.relics).toEqual(['thunderbell']);
+    // Neither half is offered again to a run that holds the one they make.
+    for (let i = 0; i < 40; i++) {
+      shop.gold = 9999;
+      reroll(shop);
+      for (const o of shop.offers) if (o.kind === 'relic') expect(['echobell', 'stormglass']).not.toContain(o.id);
+    }
+  });
+
+  it('Forge Heart: does what Bellows and Ember Heart do, and every third kill bursts', () => {
+    const w = holding(['forgeheart']);
+    w.slots[0].cool = 999;
+    for (let i = 0; i < 3; i++) stand(w, 'cutpurse', w.hero.x + 300 + i * 4, w.hero.y, { hp: 1, burn: 2, burnBy: 1 }, true);
+    const events = play(w, 0.6);
+    expect(w.kills).toBe(3);
+    expect(told(events, 'emberheart')).toBe(true);
+    expect(told(events, 'bellows')).toBe(true);
+  });
+
+  it('Thunder Bell: lightning every five seconds, not eight', () => {
+    const w = holding(['thunderbell']);
+    w.slots[0].cool = 999;
+    stand(w, 'bruiser', w.hero.x - 300, w.hero.y, { hp: 5000 }, true);
+    expect(play(w, RELIC.thunderbell.every - 0.5).some((e) => e.t === 'warn')).toBe(false);
+    expect(has(play(w, 0.6), 'warn').some((e) => e.kind === 'bolt')).toBe(true);
   });
 
   it('a run that holds them all takes coins in place of another', () => {

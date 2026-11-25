@@ -242,6 +242,18 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await until(page, 'Hud');
     await fight(page, 8);
     await shot('land-snow');
+    // The late lands in a horde, where a crowd once became a carpet of red and numbers.
+    for (const [land, wave, hero] of [['steppe', 65, 'maren'], ['court', 75, 'hroth'], ['city', 85, 'aldous'], ['forge', 95, 'nan']] as const) {
+      await arena(page, { hero, wave, weapons: RICH, items: THINGS, ups: UPS, level: 30 });
+      await until(page, 'Hud');
+      // Kept standing, so that the picture is of the fight at its thickest and not of the end of a run.
+      const stand = (): Promise<void> => page.evaluate(() => {
+        const w = (window as unknown as Win).world() as unknown as { hero: { hp: number; maxHp: number } };
+        w.hero.hp = w.hero.maxHp;
+      });
+      await fightFrames(page, 240, async (f: number) => (f % 10 === 0 ? stand() : undefined));
+      await shot(`land-${land}`);
+    }
   },
   // A level's choice, then the wares.
   camp: async (page, shot) => {
@@ -310,6 +322,16 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await until(page, 'Camp');
     await tick(page, 10);
     await shot('relics');
+    // Every slot full: a weapon on offer is swapped for one in hand from its own card.
+    const swap = await words(page, 'Camp', 'SWAP');
+    if (swap) {
+      await page.mouse.click(swap.x, swap.y);
+      await tick(page, 10);
+      await shot('swap');
+      const cancel = await words(page, 'Camp', 'CANCEL');
+      if (cancel) await page.mouse.click(cancel.x, cancel.y);
+      await tick(page, 10);
+    }
     const at = await words(page, 'Camp', 'Blade');
     if (at) {
       await page.mouse.click(at.x, at.y);

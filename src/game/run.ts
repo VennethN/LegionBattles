@@ -10,7 +10,7 @@ import {
 } from './data';
 import { VOW, VOWS, noBoons, type Boons, type Thing, thingKey } from './holdData';
 import { KINDS, KIND_STEPS, countKinds, giftLine, kindStep, type Kind, type KindCounts } from './kinds';
-import { RELIC, RELICS } from './relics';
+import { FUSED, RELIC, RELICS, partsOf, type RelicDef } from './relics';
 import { OMENS, ROAD, type Omen, type Road } from './road';
 import { Rng } from './rng';
 import { hasteRate, sumStats, type Stat, type StatLine, type Stats } from './stats';
@@ -236,8 +236,26 @@ function counted(run: RunData, of: Count, n: number): void {
 }
 
 /** True if the run holds a relic. */
+/** True if the run holds the relic, or one made of it and another. */
 export function hasRelic(run: RunData, id: string): boolean {
-  return run.relics.includes(id);
+  return run.relics.some((r) => r === id || partsOf(r).includes(id));
+}
+
+/** The relic that taking this one would make with one already held, or null. The relic screens say so on its card. */
+export function fusesInto(run: RunData, id: string): RelicDef | null {
+  return FUSED.find((f) => f.of?.includes(id) && f.of.every((part) => part === id || run.relics.includes(part))) ?? null;
+}
+
+/** Both halves of a fused relic held: they become the one, at once, in the place of the first. */
+function fuse(run: RunData): void {
+  for (const f of FUSED) {
+    if (!f.of) continue;
+    const [a, b] = f.of;
+    const i = run.relics.indexOf(a);
+    if (i < 0 || !run.relics.includes(b)) continue;
+    run.relics[i] = f.id;
+    run.relics.splice(run.relics.indexOf(b), 1);
+  }
 }
 
 /** The hero's own weapon as it stands: it grows a tier by itself at set levels. */
@@ -504,6 +522,7 @@ export function takeRelic(run: RunData, i: number): boolean {
   const id = run.relicChoices[i];
   if (run.phase !== 'relic' || !id) return false;
   run.relics.push(id);
+  fuse(run);
   run.relicsDue = Math.max(0, run.relicsDue - 1);
   settle(run);
   return true;
@@ -680,7 +699,10 @@ export function buy(run: RunData, i: number): boolean {
   o.sold = true;
   o.locked = false;
   if (o.kind === 'item') run.items.push(o.id);
-  else if (o.kind === 'relic') run.relics.push(o.id);
+  else if (o.kind === 'relic') {
+    run.relics.push(o.id);
+    fuse(run);
+  }
   else {
     if (run.weapons.length < handsOf(run)) run.weapons.push({ id: o.id, tier: o.tier });
     else run.weapons[twinOf(run, o.id, o.tier)].tier++;
@@ -748,6 +770,25 @@ export function sell(run: RunData, slot: number): boolean {
   run.gold += sellPrice(run.weapons[slot]);
   run.weapons.splice(slot, 1);
   return true;
+}
+
+/**
+ * True if a weapon on offer can be had by selling the one in `slot` for it, from the offer's own card: every slot is
+ * full, it is not a twin of one held (that is merged at once by buy), and the sale with the coins held pays for it.
+ */
+export function canSwap(run: RunData, i: number, slot: number): boolean {
+  const o = run.offers[i];
+  const w = run.weapons[slot];
+  if (run.phase !== 'camp' || !o || o.sold || o.kind !== 'weapon' || !w) return false;
+  if (run.weapons.length < handsOf(run) || twinOf(run, o.id, o.tier) >= 0) return false;
+  return run.gold + sellPrice(w) >= o.price;
+}
+
+/** Sells the weapon in `slot` and buys the one on offer in its place, in one step. */
+export function swap(run: RunData, i: number, slot: number): boolean {
+  if (!canSwap(run, i, slot)) return false;
+  sell(run, slot);
+  return buy(run, i);
 }
 
 export function rerollPrice(run: RunData): number {

@@ -101,6 +101,9 @@ export class HudScene extends Phaser.Scene {
     this.lvText = label(this, 48, 91, '', { size: 15 }).setDepth(12);
     // What only this hero has, and how it stands: its name, gold while it is on, over a bar of how near it is.
     this.quirkText = label(this, 90, 79, '', { size: 15, align: 'left' }).setDepth(12);
+    // The bars are named on themselves: a new player could not tell fury from experience.
+    if (theWorld()?.move) label(this, 246, 45, 'FURY', { size: 15, align: 'right', color: BONE.fill, strokeWidth: 3 }).setOrigin(1, 0.5).setDepth(12);
+    label(this, 246, 60, 'XP', { size: 15, align: 'right', color: BONE.fill, strokeWidth: 3 }).setOrigin(1, 0.5).setDepth(12);
 
     // The wave and what is left of it, on a small plate of their own.
     // On a narrow screen the hero's plate reaches past the middle: the wave's plate stands clear of it, and a captain's name and health go under both.
@@ -165,9 +168,14 @@ export class HudScene extends Phaser.Scene {
       const bh = 70;
       const c = this.add.container(w - bw / 2 - 12, view.h - bh / 2 - 12).setDepth(12);
       this.moveName = move.name.toUpperCase();
-      this.moveText = label(this, 0, -15, this.moveName, { size: 17 });
+      this.moveText = label(this, 0, -12, this.moveName, { size: 17 });
+      // A long name is set smaller, never under what can be read, and kept off the button's edges.
+      if (this.moveText.width > bw - 20) this.moveText.setFontSize(15);
       this.moveGold = slabImage(this, -bw / 2, -bh / 2, bw, bh, GOLD, 14, 6).setVisible(false);
-      c.add([slabImage(this, -bw / 2, -bh / 2, bw, bh, IRON, 14, 6), this.moveGold, this.moveText]);
+      // Its key in a corner, so that it is known before it is full.
+      const keyName = byFinger(this.game) ? 'TAP' : 'SPACE';
+      const tag = label(this, -bw / 2 + 8, -bh / 2 - 6, keyName, { size: 15, align: 'left', color: OUTLINE, stroke: HOLY.light, strokeWidth: 3 }).setOrigin(0, 0.5);
+      c.add([slabImage(this, -bw / 2, -bh / 2, bw, bh, IRON, 14, 6), this.moveGold, this.moveText, tag]);
       c.setSize(bw, bh).setInteractive({ useHandCursor: true });
       c.on('pointerdown', () => this.controls.act());
       this.moveBox = c;
@@ -386,7 +394,7 @@ export class HudScene extends Phaser.Scene {
         g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(w / 2 - 150, this.bossY + 12, 300, 18, 7);
         g.fillStyle(hex(RUBY.fill), 1).fillRoundedRect(w / 2 - 146, this.bossY + 16, Math.max(8, 292 * (boss.hp / boss.maxHp)), 10, 4);
       }
-      this.hpText.setText(`${h.hp} / ${h.maxHp}`);
+      this.hpText.setText(`HP ${h.hp} / ${h.maxHp}`);
     }
     this.lvText.setText(pending > 0 ? `LV ${run.level} +${pending}` : `LV ${run.level}`).setColor(pending > 0 ? HOLY.fill : BONE.fill);
     this.waveText.setText(`WAVE ${world.wave.n}`);

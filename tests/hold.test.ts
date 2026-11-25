@@ -653,3 +653,42 @@ describe('the save and the Hold', () => {
     expect(back.tally).toBeNull();
   });
 });
+
+describe('what unlocks a thing says the wave its boss truly stands on', () => {
+  it('names the land boss wave for every boss quest, hero and companion', async () => {
+    const { bossWave } = await import('../src/game/data');
+    const { deedsOf, routeSays } = await import('../src/game/hold');
+    const save = freshSave();
+    const bossWaves = (text: string): number[] => [...text.matchAll(/boss of wave (\d+)/gi)].map((m) => Number(m[1]));
+    for (const d of DEEDS) {
+      if (d.test.kind !== 'boss') continue;
+      const row = deedsOf(save).find((r) => r.id === d.id);
+      expect(bossWaves(row?.says ?? '')).toEqual([bossWave(d.test.boss)]);
+    }
+    for (const c of COMPANIONS) {
+      if (c.unlock.kind !== 'deed' || c.unlock.test.kind !== 'boss') continue;
+      expect(bossWaves(routeSays(c))).toEqual([bossWave(c.unlock.test.boss)]);
+    }
+    for (const h of HEROES) {
+      if (h.unlock?.kind !== 'boss') continue;
+      const row = deedsOf(save).find((r) => r.id === `hero-${h.id}`);
+      expect(bossWaves(row?.says ?? '')).toEqual([bossWave(h.unlock.boss)]);
+    }
+  });
+});
+
+describe('each mastery level says what it gives in a few words', () => {
+  it('has a short label for every gift of every hero, short enough to sit under a medallion', async () => {
+    const { giftShort, trackRows } = await import('../src/game/hold');
+    const save = freshSave();
+    for (const h of HEROES) {
+      for (const row of trackRows(save, h.id)) {
+        for (const g of row.gifts) {
+          const s = giftShort(g.gift);
+          expect(s.length).toBeGreaterThan(0);
+          expect(s.length).toBeLessThanOrEqual(14);
+        }
+      }
+    }
+  });
+});

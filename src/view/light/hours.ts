@@ -144,6 +144,16 @@ export function hourOf(land: Land, wave: number, night = false): Hour {
   return day[day.length - 1][1];
 }
 
+/**
+ * The hour of the camp between waves: the land's dusk, three parts of the way through its day and a little darker,
+ * so that the camp's fire is the light the hero and the band are seen by.
+ */
+export function duskOf(land: Land): Hour {
+  const [from, to] = SPANS[land];
+  const h = hourOf(land, from + Math.round((to - from) * 0.75));
+  return { ...h, ambient: [h.ambient[0] * 0.8, h.ambient[1] * 0.8, h.ambient[2] * 0.86], sun: [h.sun[0] * 0.6, h.sun[1] * 0.6, h.sun[2] * 0.6], vignette: Math.max(h.vignette, 0.5) };
+}
+
 /** How dark an hour is: 0 in the last of the day's sun, 1 in the deepest night there is. Lights count for more the darker it is. */
 export function darkness(hour: Hour): number {
   // What falls where the sun does, which is most of the field.

@@ -6,7 +6,7 @@
 // those). A save may be from an older copy of the game, or not a save at
 // all, so it is mended on the way in.
 
-import { BAND, COMPANIONS, COUNTS, HEROES, OLD_HEROES, OMENS, RELICS, SLOT_WAVES, WEAPONS, type Feat } from './data';
+import { BAND, COMPANIONS, COUNTS, HEROES, OLD_HEROES, FUSED, OMENS, RELICS, SLOT_WAVES, WEAPONS, type Feat } from './data';
 import { chronicle, fillBand, unlockFriends, waitingOf, type Tally } from './hold';
 import { CRATES, DEEDS, VOWS, noBoons, type Boons } from './holdData';
 import { LEVEL_XP } from './mastery';
@@ -97,7 +97,7 @@ const whole = (v: unknown, least = 0): number => (typeof v === 'number' && Numbe
 const names = (v: unknown, known: ReadonlySet<string> | null = null): string[] =>
   Array.isArray(v) ? [...new Set(v.filter((x): x is string => typeof x === 'string' && (!known || known.has(x))))] : [];
 
-const RELIC_IDS: ReadonlySet<string> = new Set(RELICS.map((r) => r.id));
+const RELIC_IDS: ReadonlySet<string> = new Set([...RELICS, ...FUSED].map((r) => r.id));
 const OMEN_IDS: ReadonlySet<string> = new Set(OMENS.map((o) => o.id));
 const VOW_IDS: ReadonlySet<string> = new Set(VOWS.map((v) => v.id));
 

@@ -12629,6 +12629,30 @@
     0.5
    ]
   },
+  "r-forgeheart": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-thunderbell": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-packbanner": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
   "thing-wagon": {
    "width": 150,
    "height": 124,
@@ -12651,6 +12675,14 @@
    "origin": [
     0.5,
     0.94
+   ]
+  },
+  "thing-campfire": {
+   "width": 112,
+   "height": 104,
+   "origin": [
+    0.5,
+    0.86
    ]
   },
   "w-sword": {

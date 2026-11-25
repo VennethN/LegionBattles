@@ -62,6 +62,8 @@ interface Omen {
 export class Deeds {
   /** Seconds the wave is held still for: the breath in which a move is seen to begin. The field does not step it while this is above 0. */
   hold = 0;
+  /** Between waves, where each companion sits round the camp's fire and which way it faces: on its feet, whatever the wave left it as. */
+  gather: Map<number, { x: number; y: number; face: 1 | -1 }> | null = null;
   private readonly allies = new Map<number, AllyView>();
   private omens: Omen[] = [];
   /** The quirk's sign on the ground under the hero: Bram's shield set, Aldous's fold. */
@@ -622,12 +624,13 @@ export class Deeds {
       let v = this.allies.get(a.id);
       if (!v) v = this.enlist(a);
       const fig = v.fig;
-      const down = a.down > 0;
-      const [ax, ay] = at(a.id, a.x, a.y);
+      const spot = this.gather?.get(a.id);
+      const down = a.down > 0 && !spot;
+      const [ax, ay] = spot ? [spot.x, spot.y] : at(a.id, a.x, a.y);
       fig.x = ax;
       fig.y = ay;
       if (v.aimFor > 0) v.aimFor -= dt;
-      fig.facing = v.aimFor > 0 ? v.aimFace : a.face;
+      fig.facing = spot ? spot.face : v.aimFor > 0 ? v.aimFace : a.face;
       fig.moving = a.moving && !down && !halted;
       fig.stride = a.state === 'dash' || a.state === 'fetch' ? 1.6 : 1;
       fig.down = down;
@@ -649,6 +652,7 @@ export class Deeds {
         v.bar.setPosition(ax - 17, ay + 10).setDisplaySize(34 * Math.max(0, a.hp / a.maxHp), 3).setDepth(ay + 2);
       }
       // How long until it is up again, counted over it.
+      if (spot) v.tag.setVisible(false);
       v.count.setVisible(down && v.tagLeft <= 0);
       if (down) v.count.setText(String(Math.ceil(a.down))).setPosition(ax, ay - 34);
 
@@ -670,7 +674,8 @@ export class Deeds {
     for (const a of this.world.band) {
       const v = this.allies.get(a.id);
       // One that is down lies flat: it throws next to nothing.
-      if (v) out.push({ x: v.fig.x, y: v.fig.y, tall: Math.min(64, v.fig.height) * (a.down > 0 ? 0.35 : 1), wide: 42, alpha: a.down > 0 ? 0.6 : 1 });
+      const down = a.down > 0 && !this.gather?.has(a.id);
+      if (v) out.push({ x: v.fig.x, y: v.fig.y, tall: Math.min(64, v.fig.height) * (down ? 0.35 : 1), wide: 42, alpha: down ? 0.6 : 1 });
     }
     return out;
   }

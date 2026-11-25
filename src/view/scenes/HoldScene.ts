@@ -9,13 +9,13 @@
 // one. What is locked is dark, with "???" and what unlocks it.
 
 import Phaser from 'phaser';
-import { BONE, BUSH, GOLD, HOLY, IRON, LEATHER, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
+import { BONE, BUSH, GOLD, HOLY, IRON, LEATHER, OUTLINE, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { BAND, COMPANIONS, CRATES, HEROES, PAY, VOWS, byId } from '../../game/data';
 import {
   badge, chronicleOf, crateThings, dailyOf, dailyTaken, deedsOf, epithetOf, featSays, friendRows, masteryLevel, met, nextLevel, nextSlot, pickGift, slotsOf, toggleVow,
-  trackRows, vowsNext, vowsOpen, type TrackRow,
+  giftShort, trackRows, vowsNext, vowsOpen, type TrackRow,
 } from '../../game/hold';
 import { LEVEL_XP, type Gift } from '../../game/mastery';
 import { STAT_INFO } from '../../game/stats';
@@ -35,6 +35,12 @@ const TABS = ['HEROES', 'COMPANIONS', 'ARMORY', 'VOWS', 'QUESTS', 'CODEX', 'DAIL
 
 /** The day as the day's road counts it: the same day for everyone, wherever they are. */
 const today = (): string => new Date().toISOString().slice(0, 10);
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+/** A day as a player reads it, "25 Nov", not as a computer keeps it. */
+const dayName = (date: string): string => {
+  const [, m, d] = date.split('-').map(Number);
+  return `${d} ${MONTHS[(m || 1) - 1]}`;
+};
 type Tab = (typeof TABS)[number];
 
 /** One line of a list: what it is, what there is to say of it, and at its right a button, or a word where there is nothing to press. */
@@ -161,25 +167,29 @@ export class HoldScene extends Phaser.Scene {
         return CRATES.map((c): Row => {
           const open = s.crates.includes(c.id);
           const things = crateThings(s, c).map((t) => t.name).join(', ');
-          return { title: c.name, says: open ? `${c.says} ${things}.` : `${things}. Unlock: ${c.deedSays}`, dark: !open, note: open ? 'UNLOCKED' : 'LOCKED' };
+          // What a crate holds is named once it is unlocked: a "???" in a crate already open read as broken.
+          const named = open ? crateThings(s, c).map((t) => (t.name === '???' ? null : t.name)).filter(Boolean).join(', ') : things;
+          return { title: c.name, says: open ? `${c.says}${named ? ` ${named}.` : ''}` : `${things}. Unlock: ${c.deedSays}`, dark: !open, note: open ? 'UNLOCKED' : 'LOCKED' };
         });
       case 'VOWS': {
         const open = vowsOpen(s);
         const next = vowsNext(s);
         return [
           { title: 'Vows', says: `Vows are optional challenges for more mastery. Each one sworn pays ${Math.round(PAY.vow * 100)}% more. Sworn now: ${s.vows.length}.`, head: false },
-          ...VOWS.map((v, i): Row => {
+          ...VOWS.map((v): Row => {
             if (open.includes(v.id)) {
               const sworn = s.vows.includes(v.id);
               return { title: v.name, says: v.says, button: { text: sworn ? 'SWORN' : 'SWEAR', can: true, press: () => toggleVow(s, v.id), mat: sworn ? BUSH : GOLD } };
             }
-            // The first that is shut says what opens it; those past it say nothing yet.
-            return { title: '???', says: i === open.length ? next : '', dark: true };
-          }),
+            // The first that is shut says what opens it; those past it are not listed: blank rows only say nothing.
+            return { title: '???', says: next, dark: true };
+          }).filter((_, i) => open.includes(VOWS[i].id) || i === open.length),
+          ...(open.length < VOWS.length - 1 ? [{ title: `${VOWS.length - open.length - 1} more vows to unlock`, says: '', dark: true }] : []),
         ];
       }
       case 'QUESTS':
-        return deedsOf(s).map((d): Row => ({
+        // The nearest goals first, then the rest, then what is done: thirteen pages in the order they were written hid them.
+        return [...deedsOf(s)].sort((a, b) => Number(a.done) - Number(b.done) || b.share - a.share).map((d): Row => ({
           title: d.name,
           says: d.opens && d.kind !== 'opens' ? `${d.says} Unlocks ${d.opens}.` : d.says,
           dark: !d.done && d.name === '???',
@@ -198,12 +208,12 @@ export class HoldScene extends Phaser.Scene {
         const hero = byId(HEROES, d.hero);
         const friend = byId(COMPANIONS, d.band[0]);
         // Whoever has not been met is not named: the road itself is the way to meet them.
-        const who = `${met(s, 'hero', hero.id) ? hero.name : 'A hero not yet met'} with ${met(s, 'friend', friend.id) ? friend.name : 'a companion not yet met'}`;
+        const who = `Play ${met(s, 'hero', hero.id) ? hero.name : 'a surprise hero'} with ${met(s, 'friend', friend.id) ? friend.name : 'a surprise companion'}`;
         const taken = dailyTaken(s, date);
         return [
           {
-            title: `The road of ${date}`,
-            says: `${who}. One run a day, the same for everyone: the whole armory, nothing from the board, no vow.`,
+            title: `Daily Run, ${dayName(date)}`,
+            says: `${who}. One try a day, the same run for everyone: every weapon and item, one companion, no vows and no mastery bonuses.`,
             button: taken ? undefined : { text: 'SET OUT', can: true, press: () => (this.setOut(date), false) },
             note: taken && s.daily ? `WAVE ${s.daily.wave}` : undefined,
           },
@@ -325,10 +335,12 @@ export class HoldScene extends Phaser.Scene {
     const lines = Math.ceil(rows.length / cols);
     const step = aw / cols;
     const r = Math.min(27, step / 2 - 10);
-    const rowH = r * 2 + 34;
+    // Room under each medallion for its level and what it gives.
+    const rowH = r * 2 + 52;
+    // Every row reads left to right: the second ran backwards once, with 12 on the left.
     const at = (i: number): [number, number] => {
       const row = Math.floor(i / cols);
-      const col = row % 2 === 0 ? i % cols : cols - 1 - (i % cols);
+      const col = i % cols;
       return [ax + step * (col + 0.5), ay + 12 + r + row * rowH];
     };
     // Picked out at first: a pick reached and never made, which the player should see; else the next level to reach,
@@ -340,6 +352,8 @@ export class HoldScene extends Phaser.Scene {
     }
     const path = this.put(this.add.graphics());
     for (let i = 1; i < rows.length; i++) {
+      // No line from the end of one row to the start of the next: it crossed the whole path.
+      if (i % cols === 0) continue;
       const [x1, y1] = at(i - 1);
       const [x2, y2] = at(i);
       path.lineStyle(10, hex(OUTLINE), 1).lineBetween(x1, y1, x2, y2);
@@ -362,6 +376,9 @@ export class HoldScene extends Phaser.Scene {
         if (!row.reached) icon.setTint(isNext ? 0xd8cfc0 : 0x6b6b6b);
       });
       this.text(x, y + r + 12, row.gifts.length > 1 ? `${row.level}: PICK` : String(row.level), { size: 15, color: row.reached ? GOLD.fill : BONE.fill });
+      // What it gives, in two or three words: the pictures alone could not be read.
+      const said = this.text(x, y + r + 29, row.gifts.length > 1 ? 'CHOOSE 1 OF 2' : giftShort(row.gifts[0].gift), { size: 15, color: row.reached ? BONE.fill : BONE.shade });
+      if (said.width > step - 6) said.setText(row.gifts.length > 1 ? 'PICK' : giftShort(row.gifts[0].gift).replace(/^[+-]?[\d.]+%?\s*/, ''));
       this.hit(x - r - 4, y - r - 4, r * 2 + 8, r * 2 + 26, () => {
         this.level = i;
         this.draw();
@@ -370,9 +387,10 @@ export class HoldScene extends Phaser.Scene {
     // What the picked-out level gives, under the path.
     const dy = ay + 12 + lines * rowH;
     // On a tall screen the box is as tall as what it may hold, not the rest of the screen.
-    const dh = Math.min(H - dy - pad, tall ? 220 : H);
-    if (dh < 60) return;
     const row = rows[this.level];
+    // The box is as tall as what it holds: one line of a single gift stood in a big empty panel.
+    const dh = Math.min(H - dy - pad, tall ? 220 : H, row.gifts.length === 1 ? 92 : 170);
+    if (dh < 60) return;
     this.put(slabImage(this, ax, dy, aw, dh, BONE, 12, 5));
     const head = row.reached ? `LEVEL ${row.level}: UNLOCKED` : `LEVEL ${row.level}: ${row.xp} MASTERY`;
     this.text(ax + 16, dy + 22, head, { size: 17, align: 'left', color: row.reached ? '#2e5f45' : ink, stroke: null });
@@ -531,7 +549,9 @@ export class HoldScene extends Phaser.Scene {
         b.setEnabled(r.button.can);
         this.put(b.root);
       } else if (r.note) {
-        this.text(bx, y + rh / 2, r.note, { size: 15, color: r.dark ? BONE.fill : RUBY.shade, stroke: r.dark ? OUTLINE : null, strokeWidth: 3, wrap: bw + 10 });
+        // Red is the game's color for harm: what is unlocked or done is green, the rest the card's own brown.
+        const good = r.note === 'UNLOCKED' || r.note === 'DONE' || r.note === 'ALL';
+        this.text(bx, y + rh / 2, r.note, { size: 15, color: r.dark ? BONE.fill : good ? '#2e7d3a' : '#6b4a2b', stroke: r.dark ? OUTLINE : null, strokeWidth: 3, wrap: bw + 10 });
       }
     });
     void s;

@@ -56,6 +56,10 @@ export function makeDigitFont(scene: Phaser.Scene, sheet: Sheet): void {
 interface Num {
   text: Phaser.GameObjects.BitmapText;
   active: boolean;
+  /** Whose number it is, so that blows on one foe in a moment add up on one number. */
+  key: number;
+  /** What it says, as a number, while it can still be added to. */
+  sum: number;
   t: number;
   x: number;
   y: number;
@@ -64,6 +68,10 @@ interface Num {
 }
 
 const LIFE = 0.8;
+/** How long a number may still be added to by the next blow on the same foe. */
+const MERGE = 0.3;
+/** The most numbers on the field at once: past it, plain blows are not written, so what is written can be read. */
+const MOST = 18;
 
 export class Numbers {
   private pool: Num[] = [];
@@ -80,13 +88,31 @@ export class Numbers {
     const text = this.scene.add.bitmapText(0, 0, DIGITS_KEY, '0', 26).setOrigin(0.5).setVisible(false).setActive(false);
     text.setLetterSpacing(-14);
     text.depth = 7000;
-    return { text, active: false, t: 0, x: 0, y: 0, vx: 0, size: 26 };
+    return { text, active: false, key: -1, sum: 0, t: 0, x: 0, y: 0, vx: 0, size: 26 };
   }
 
   /** The zoom of the field on show. Numbers shrink with it, but less: they are read, not looked at. */
   zoom = 1;
 
-  show(x: number, y: number, value: string, color: number, size = 26): void {
+  /**
+   * Writes a number. Given a `key` (a foe's id), a blow that lands on the same foe while its last number is young adds
+   * to that number instead of writing another beside it: a reviewer found a carpet of 4s and two numbers run together.
+   */
+  show(x: number, y: number, value: string, color: number, size = 26, key = -1, must = false): void {
+    if (key >= 0) {
+      const amount = Number(value);
+      for (const m of this.pool) {
+        if (m.active && m.key === key && m.t < MERGE && Number.isFinite(amount)) {
+          m.sum += amount;
+          m.t = 0;
+          m.text.setText(String(m.sum));
+          m.size = Math.max(m.size, size * Math.max(0.8, this.zoom));
+          if (color !== 0xffffff) m.text.setTint(color);
+          return;
+        }
+      }
+    }
+    if (!must && this.pool.reduce((k, m) => k + (m.active ? 1 : 0), 0) >= MOST) return;
     let n: Num | null = null;
     for (let i = 0; i < this.pool.length; i++) {
       if (!this.pool[i].active) {
@@ -99,11 +125,22 @@ export class Numbers {
       this.pool.push(n);
     }
     n.active = true;
+    n.key = key;
+    n.sum = Number(value) || 0;
     n.t = 0;
-    // Numbers that come together drift apart, left then right.
+    // Numbers that come together drift apart, left then right; one that would start on another is moved clear of it,
+    // so that two numbers are never read as one ("5619").
     this.flip = -this.flip;
-    n.x = x + this.flip * 6;
-    n.y = y;
+    let nx = x + this.flip * 6;
+    let ny = y;
+    for (let tries = 0; tries < 3; tries++) {
+      const near = this.pool.find((m) => m !== n && m.active && m.t < 0.35 && Math.abs(m.text.x - nx) < 30 && Math.abs(m.text.y - ny) < 18);
+      if (!near) break;
+      nx += near.text.x <= nx ? 30 : -30;
+      ny -= 6;
+    }
+    n.x = nx;
+    n.y = ny;
     n.vx = this.flip * 16;
     n.size = size * Math.max(0.8, this.zoom);
     n.text.setText(value);

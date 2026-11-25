@@ -17,7 +17,7 @@ import {
 import { BAND_UP_LEAST, BREATH, VOW } from './holdData';
 import { PERK, type Perk } from './mastery';
 import { countKinds, giftsOf, type Gifts } from './kinds';
-import { RELIC } from './relics';
+import { RELIC, partsOf } from './relics';
 import { ROAD, likeOf, type ChampionTrait, type Omen } from './road';
 import { Rng } from './rng';
 import { DODGE_CAP, armorShare, hasteRate, type Stat, type Stats } from './stats';
@@ -731,7 +731,9 @@ export class World {
   private bossId = 0;
 
   constructor(setup: Setup) {
-    this.relics = new Set(setup.relics ?? []);
+    // A relic made of two does what both of its halves do: it is held as them, and as itself for what it does more.
+    this.relics = new Set((setup.relics ?? []).flatMap((id) => [id, ...partsOf(id)]));
+    if (this.relics.has('thunderbell')) this.storm = RELIC.thunderbell.every;
     this.vows = new Set(setup.vows ?? []);
     this.furyBy = Math.max(0, setup.furyBy ?? 1);
     this.alt = setup.alt ?? false;
@@ -1771,7 +1773,7 @@ export class World {
         for (const f of this.foes) if (!f.dead && (!most || f.hp > most.hp)) most = f;
         if (most) {
           const q = RELIC.stormglass;
-          this.storm = q.every;
+          this.storm = this.has('thunderbell') ? RELIC.thunderbell.every : q.every;
           this.events.push({ t: 'relic', id: 'stormglass', x: most.x, y: most.y });
           this.fall(most.x, most.y, q.r, MOVE.warn, this.ownBlow(q.harm), q.stun, 'bolt');
         }
@@ -2929,7 +2931,8 @@ export class World {
     // The open grave: for as long as it is open, double.
     if (h.open > 0) by *= byId(MOVES, 'opengrave').harm;
     if (this.tithe) by *= 1 + RELIC.tithe.more;
-    if (this.has('wolfskin') && this.band.some((a) => a.down <= 0 && Math.hypot(a.x - h.x, a.y - h.y) < RELIC.wolfskin.r)) by *= 1 + RELIC.wolfskin.more;
+    const near = this.has('packbanner') ? RELIC.packbanner.r : RELIC.wolfskin.r;
+    if (this.has('wolfskin') && this.band.some((a) => a.down <= 0 && Math.hypot(a.x - h.x, a.y - h.y) < near)) by *= 1 + RELIC.wolfskin.more;
     if (this.perks.has('flock')) by *= 1 + PERK.flock.each * this.band.filter((a) => a.down <= 0).length;
     return by;
   }
@@ -3364,7 +3367,7 @@ export class World {
       }
     }
     // The Ember Heart: every fifth kill bursts into flame, and leaves those it reaches burning.
-    if (this.has('emberheart') && this.kills % RELIC.emberheart.every === 0) {
+    if (this.has('emberheart') && this.kills % (this.has('forgeheart') ? RELIC.forgeheart.every : RELIC.emberheart.every) === 0) {
       const q = RELIC.emberheart;
       this.events.push({ t: 'relic', id: 'emberheart', x: f.x, y: f.y });
       for (const o of this.foes) {

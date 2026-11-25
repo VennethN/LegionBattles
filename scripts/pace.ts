@@ -107,6 +107,8 @@ function measure(hero: string, who: readonly string[], label: string): void {
   /** What the runs counted for the oaths about a passive (heroes.ts, COUNTS). */
   const counts: Record<string, number[]> = {};
   let held = 0;
+  /** Relics held as waves 10, 30 and 60 begin, by the runs that came that far: how fast they come, which leaves room or does not. */
+  const heldAt: Record<number, number[]> = { 10: [], 30: [], 60: [] };
   let steps3 = 0;
   let strays = 0;
   for (let n = 0; n < runs; n++) {
@@ -114,6 +116,7 @@ function measure(hero: string, who: readonly string[], label: string): void {
     let fought = 0;
     while (run.phase !== 'over' && run.wave <= most) {
       if (args.includes('--quiet')) run.road = { omen: 'quiet' };
+      heldAt[run.wave]?.push(run.relics.length);
       const setup = setupOf(run);
       if (args.includes('--norelics')) setup.relics = [];
       // For finding out what a part of a hero is worth: the same runs without their move, their quirk, or their own weapon's growing.
@@ -180,6 +183,7 @@ function measure(hero: string, who: readonly string[], label: string): void {
   console.log(`${''.padEnd(34)} minutes fought: ${avg(minutes)} a run, ${avg(wonMinutes)} for one that came through all ${LAST_WAVE}`);
   const top = Object.entries(relics).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([id, n]) => `${relicOf(id).name} ${n}`).join(', ');
   console.log(`${''.padEnd(34)} relics held at the end ${(held / runs).toFixed(1)}${brief ? '' : ` (${top})`}, best kind's step ${(steps3 / runs).toFixed(1)} of 3, strays ${(strays / runs).toFixed(1)}`);
+  console.log(`${''.padEnd(34)} relics held as a wave begins: ${Object.entries(heldAt).map(([w, list]) => `wave ${w} ${avg(list)}`).join(', ')}`);
   // What half the runs counted at least, and the most any did: an oath about a passive is priced from this.
   const said = Object.entries(counts).map(([of, list]) => `${of} ${median([...list, ...new Array<number>(runs - list.length).fill(0)])} (most ${Math.max(...list)})`);
   if (said.length) console.log(`${''.padEnd(34)} counted in a run, half reach: ${said.join(', ')}`);

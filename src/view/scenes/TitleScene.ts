@@ -12,9 +12,10 @@ import { LOGO_H, LOGO_W } from '../../art/logoSize';
 import { BONE, BUSH, FIRE, GOLD, HOLY, IRON, OUTLINE, RUBY, VENOM, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { COMPANIONS, HEROES, MOVES, byId, weaponOf, type Feat, type HeroDef } from '../../game/data';
+import { COMPANIONS, HEROES, MOVES, bossWave, byId, weaponOf, type Feat, type HeroDef } from '../../game/data';
 import { bandSize } from '../../game/run';
-import { routeSays, slotsOf } from '../../game/hold';
+import { giftShort, masteryLevel, nextLevel, routeSays, slotsOf, trackRows } from '../../game/hold';
+import type { SaveData } from '../../game/state';
 import { featShare, isOpen, bandFor, setBand } from '../../game/state';
 import { comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
@@ -36,7 +37,7 @@ export function featText(feat: Feat): string {
     case 'wave':
       return `Reach wave ${feat.wave}`;
     case 'boss':
-      return feat.boss === 'warlord' ? 'Beat the wave 7 boss' : feat.boss === 'colossus' ? 'Beat the wave 14 boss' : 'Beat the wave 20 boss';
+      return `Beat the wave ${bossWave(feat.boss)} boss`;
     case 'coins':
       return `Collect ${feat.coins} coins in one run`;
     case 'kills':
@@ -52,7 +53,7 @@ function featShort(feat: Feat): string {
     case 'wave':
       return `WAVE\n${feat.wave}`;
     case 'boss':
-      return `BOSS\nWAVE ${feat.boss === 'warlord' ? 7 : feat.boss === 'colossus' ? 14 : 20}`;
+      return `BOSS\nWAVE ${bossWave(feat.boss)}`;
     case 'coins':
       return `${feat.coins}\nCOINS`;
     case 'kills':
@@ -60,6 +61,16 @@ function featShort(feat: Feat): string {
     case 'runs':
       return feat.runs === 1 ? '1\nRUN' : `${feat.runs}\nRUNS`;
   }
+}
+
+/** Where a hero's mastery stands and what the next level is, in one line: the reason to play them again. */
+function masteryLine(s: SaveData, hero: string): string {
+  const lv = masteryLevel(s, hero);
+  const next = nextLevel(s, hero);
+  const row = trackRows(s, hero)[lv];
+  if (!next || !row) return `MASTERY ${lv}: FULL`;
+  const what = row.gifts.length > 1 ? 'a choice of two' : giftShort(row.gifts[0].gift);
+  return `MASTERY ${lv}: next level, ${what}, in ${next.left} mastery`;
 }
 
 /** The color the dusk lays over what stands in the Hold away from the fire. */
@@ -184,10 +195,12 @@ export class TitleScene extends Phaser.Scene {
         say(`PASSIVE: ${hero.quirkName.toUpperCase()}  ${hero.says}`, 15, BONE.fill, 6, x, w);
         say(`SKILL: ${move.name.toUpperCase()}  ${move.says}`, 15, HOLY.fill, 6, x, w);
         say(`WEAPON: ${wdef.name}${best > 0 ? `     BEST: WAVE ${best}` : ''}`, 15, BONE.shade, 6, x, w);
+        say(masteryLine(s, hero.id), 15, GOLD.fill, 6, x, w);
       } else {
         say(`PASSIVE: ${hero.quirkName.toUpperCase()}  ${hero.says}`, 15, BONE.fill, 8);
         say(`SKILL: ${move.name.toUpperCase()}  ${move.says}`, 15, HOLY.fill, 8);
         say(`WEAPON: ${wdef.name}${best > 0 ? `     BEST: WAVE ${best}` : ''}`, 15, BONE.shade, 8);
+        say(masteryLine(s, hero.id), 15, GOLD.fill, 8);
       }
     } else {
       // Not opened: dark, with what opens them and how near that is, and nothing else.
@@ -234,10 +247,10 @@ export class TitleScene extends Phaser.Scene {
       const vw = vowsCan ? (tall ? (w2 - 8) * 0.4 : 130) : 0;
       const dw = w2 - vw - (vowsCan ? 8 : 0);
       const y2 = tall ? by - playH / 2 - 8 - 28 : by;
-      const who = (kind: 'hero' | 'friend', id: string, name: string): string => (met(s, kind, id) ? name : '???');
       const hero2 = byId(HEROES, d.hero);
-      const friend2 = byId(COMPANIONS, d.band[0]);
-      const daily = new Button(this, rx + dw / 2, y2, taken ? `DAILY RUN: WAVE ${s.daily?.wave ?? 0}` : `DAILY RUN: ${who('hero', hero2.id, hero2.short)} + ${who('friend', friend2.id, friend2.name)}`, () => {
+      // Who has not been met is a surprise, said in words: "??? + ???" read as broken.
+      const today = met(s, 'hero', hero2.id) ? `DAILY RUN: ${hero2.short.toUpperCase()}` : 'DAILY RUN: SURPRISE HERO';
+      const daily = new Button(this, rx + dw / 2, y2, taken ? `DAILY RUN: WAVE ${s.daily?.wave ?? 0}` : today, () => {
         if (!startDaily(date)) return;
         this.scene.start('Arena');
       }, { width: dw, height: 52, size: 15, mat: taken ? IRON : GOLD });
