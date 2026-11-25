@@ -24,12 +24,13 @@ export const HUNTER_ART: Record<string, Art> = { marta: { grim: 'marta' }, jory:
 
 export const MONSTER_ART: Record<string, Art> = {
   sexton: { grim: 'sexton' },
-  king: { legion: 'greatstag', team: 'red', scale: 1.9 },
+  king: { grim: 'king' },
 };
 
 /** Which of a monster's own moves shows each of its attacks, by the attack's name. One not named here is shown by the shape it marks. */
 export const MONSTER_MOVES: Record<string, Record<string, string>> = {
   sexton: { spade: 'slam', furrow: 'slam', cross: 'slam', sweep: 'sweep', lantern: 'ring', graves: 'ring', moregraves: 'ring', bury: 'ring', grasp: 'ring', shift: 'ring' },
+  king: { charge: 'charge', gore: 'gore', stomp: 'stomp', bellow: 'bellow', thorns: 'bellow', herd: 'bellow', crossherd: 'bellow', shift: 'bellow' },
 };
 
 /** Which of a hunter's moves shows each ability, by the ability's name. Their first move is their own blow. */
@@ -41,15 +42,15 @@ export const HELPER_ART: Record<string, Art> = { risen: { grim: 'risen' } };
 export const ALLY_ART: Record<string, Art> = {
   pikemen: { grim: 'pikeman' },
   hound: { grim: 'hound' },
-  crossbowmen: { legion: 'crossbowman', team: 'blue', scale: 0.62 },
-  sappers: { legion: 'blaster', team: 'blue', scale: 0.62 },
+  crossbowmen: { grim: 'crossbowman' },
+  sappers: { grim: 'sapper' },
 };
 
 export const BUILDING_ART: Record<string, Art> = {
   barricade: { grim: 'barricade' },
   watchfire: { grim: 'watchfire' },
   ballista: { grim: 'ballista' },
-  bellpost: { legion: 'alarmbell', team: 'blue', scale: 0.7 },
+  bellpost: { grim: 'bellpost' },
 };
 
 /** What stands or lies on the field besides: a lair's stones, a trap laid, the lamp Agnes stands on the ground. */
@@ -58,7 +59,7 @@ export const TRAP_ART: Art = { legion: 'spiketrap', team: 'blue', scale: 0.4 };
 export const LAMP_ART: Art = { grim: 'streetlamp' };
 
 /** The ground of each kind of lair: the style's own, or one of the Legion kit's by name until the style has it. */
-export const LAIR_GROUND: Record<string, { grim: string } | { legion: 'meadow' | 'desert' | 'snow' }> = { churchyard: { grim: 'churchyard' }, wood: { legion: 'snow' } };
+export const LAIR_GROUND: Record<string, { grim: string } | { legion: 'meadow' | 'desert' | 'snow' }> = { churchyard: { grim: 'churchyard' }, wood: { grim: 'wood' } };
 
 
 const ALL: Art[] = [...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART), ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];

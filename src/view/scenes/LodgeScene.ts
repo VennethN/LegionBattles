@@ -20,11 +20,15 @@ import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
 import { commit, save, takeContract, theContract } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
+import { uiIcon } from '../ui/grim';
 import { LairScene } from './LairScene';
 
 type Leaf = 'board' | 'muster' | 'ledger';
 
 const DARK: Material = { fill: '#3a2a1e', shade: '#2a1c12' };
+/** The wall the bills are pinned to, and the bar the hunters stand in: dark timber. */
+const WOOD_DARK: Material = { fill: '#3b2a1c', shade: '#2a1d13' };
+const tall = (): boolean => view.tall;
 const INK = OUTLINE;
 
 export class LodgeScene extends Phaser.Scene {
@@ -113,70 +117,117 @@ export class LodgeScene extends Phaser.Scene {
 
   // ------------------------------------------------------------ the board
 
+  /**
+   * The board: a wall of timber with the contracts posted on it as wanted bills, each pinned a little askew, with
+   * the boss's likeness, its name, what is known of it in a line, its danger and its reward. One not yet posted is a
+   * dark bill with the boss's black shape, "???" and what must fall first: nothing else of it is told. The bill
+   * picked is lifted off the wall, straight and lit; under the wall, what it asks and pays, and the way out.
+   * The wall lays out three to five bills of any length of words: each shrinks its words to its own width.
+   */
   private board(top: number): void {
     const s = save();
     const w = view.w;
     const list = contracts(s);
     const chosen = theContract();
-    const cols = view.tall ? 3 : list.length;
-    const cw = Math.min(150, (w - 24) / cols - 8);
-    const ch = view.tall ? 150 : 170;
-    const x0 = w / 2 - ((cols - 1) * (cw + 8)) / 2;
+    const tall = view.tall;
+    // The wall: planks across the whole width, behind every bill.
+    const wallH = tall ? Math.min(view.h * 0.5, 420) : Math.min(view.h * 0.5, 250);
+    this.add.existing(slabImage(this, 6, top - 4, w - 12, wallH, WOOD_DARK, 4, 6));
+    const cols = tall ? Math.min(3, list.length) : list.length;
+    const rows = Math.ceil(list.length / cols);
+    const gap = 10;
+    const bw = Math.min(150, (w - 30) / cols - gap);
+    const bh = Math.min(bw * 1.32, (wallH - 16) / rows - gap);
+    const x0 = w / 2 - ((cols - 1) * (bw + gap)) / 2;
     list.forEach((c, i) => {
-      const x = x0 + (i % cols) * (cw + 8);
-      const y = top + ch / 2 + Math.floor(i / cols) * (ch + 8);
-      const picked = c.id === chosen.monster;
-      const card = this.card(x, y, cw, ch, c.posted ? (picked ? GOLD : BONE) : DARK, c.posted ? () => this.pick(c, Math.min(c.upTo, Math.max(1, c.felled + 1)) as Mark) : null);
-      // A contract that can be hunted is a posted bill, in the style's own hand.
-      if (c.posted) card.addAt(this.add.image(0, 0, 'bill').setDisplaySize(cw - 8, ch - 8).setTint(picked ? 0xffffff : 0xb8b0a0), 1);
-      if (c.monster && c.posted) {
-        this.figure(card, MONSTER_ART[c.id], ch / 2 - 46, ch - 70, true);
-        card.add(label(this, 0, ch / 2 - 32, c.monster.name.replace('The ', '').toUpperCase(), { size: 15, color: INK, stroke: null, wrap: cw - 8 }));
-        // Its three marks: gold for those it has fallen at.
-        for (let k = 0; k < 3; k++) card.add(this.add.image((k - 1) * 22, ch / 2 - 13, SHEET, 'icon/star').setScale(0.16).setTint(k < c.felled ? 0xffffff : 0x3a2a1e).setAlpha(k < c.felled ? 1 : 0.55));
+      const x = x0 + (i % cols) * (bw + gap);
+      const y = top + 6 + bh / 2 + Math.floor(i / cols) * (bh + gap);
+      const picked = c.posted && c.id === chosen.monster;
+      // Pinned askew, each its own way; the one picked hangs straight and stands out.
+      const tilt = picked ? 0 : ((i * 37) % 7) - 3;
+      const card = this.add.container(x, y + (picked ? -4 : 0)).setAngle(tilt);
+      const bill = this.add.image(0, 0, 'bill').setDisplaySize(bw, bh);
+      if (!c.posted) bill.setTint(0x4a4038);
+      else bill.setTint(picked ? 0xffffff : 0xcfc4ae);
+      card.add(bill);
+      // A nail at the top: what holds it to the wall.
+      card.add(this.add.circle(0, -bh / 2 + 7, 3, 0x2a221a).setStrokeStyle(1, 0x8a7a60));
+      if (c.monster) this.figure(card, MONSTER_ART[c.id], bh * 0.14, bh * 0.46, c.posted);
+      if (c.posted && c.monster) {
+        // The bill's own seal sits low on its right: the lines are set to its left.
+        const name = label(this, -bw * 0.08, bh * 0.22, c.monster.name.replace(/^The /, '').toUpperCase(), { size: 17, color: INK, stroke: null, face: 'display' });
+        name.setScale(Math.min(1, (bw * 0.66) / name.width));
+        card.add(name);
+        // Danger, in red marks of blood: one for each mark of difficulty it will be hunted at.
+        const mark = picked ? Math.min(chosen.mark, c.upTo) : Math.min(c.upTo, Math.max(1, c.felled + 1));
+        for (let k = 0; k < 3; k++) {
+          const d = this.add.rectangle(-bw * 0.08 + (k - 1) * 14, bh * 0.31, 8, 8, k < mark ? 0x8a1e16 : 0x6b5a48, k < mark ? 1 : 0.35).setAngle(45);
+          card.add(d);
+        }
+        const { coin } = rewardOf(s, c.id, mark as Mark);
+        const pay = label(this, -bw * 0.08, bh * 0.4, `${coin} COIN`, { size: 15, color: '#6b4a1a', stroke: null, face: 'display' });
+        pay.setScale(Math.min(1, (bw * 0.6) / pay.width));
+        // Who may go: a party of more than the hunter is said on the bill (the contract's own number, when contracts have one).
+        const party = (c as Contract & { party?: number }).party ?? 1;
+        if (party > 1) card.add(label(this, -bw * 0.08, bh * 0.47, `PARTY: ${party}`, { size: 15, color: INK, stroke: null, face: 'display' }));
+        card.add(pay);
       } else {
-        // Not posted: a dark bill, and what must fall first. Nothing else of it is told.
-        if (c.monster) this.figure(card, MONSTER_ART[c.id], ch / 2 - 46, ch - 76, false);
-        else card.add(this.add.image(0, -ch / 2 + 44, SHEET, 'icon/lock').setScale(0.34).setAlpha(0.6));
-        card.add(label(this, 0, ch / 2 - 62, 'LOCKED', { size: 16, color: BONE.shade }));
-        card.add(label(this, 0, ch / 2 - 28, c.needs, { size: 15, color: BONE.shade, wrap: cw - 10 }));
+        card.add(label(this, -bw * 0.08, bh * 0.22, '???', { size: 20, color: BONE.shade, face: 'display' }));
+        const need = label(this, -bw * 0.06, bh * 0.36, c.needs, { size: 15, color: BONE.shade, wrap: bw * 0.72 });
+        need.setScale(Math.min(1, (bh * 0.2) / need.height));
+        card.add(need);
+      }
+      if (c.posted) {
+        card.setSize(bw, bh).setInteractive({ useHandCursor: true });
+        card.on('pointerup', () => {
+          sfx.play('click');
+          this.pick(c, Math.min(c.upTo, Math.max(1, c.felled + 1)) as Mark);
+        });
+        card.on('pointerover', () => !picked && this.tweens.add({ targets: card, y: y - 3, angle: tilt / 2, duration: 120 }));
+        card.on('pointerout', () => !picked && this.tweens.add({ targets: card, y, angle: tilt, duration: 120 }));
+      }
+      if (picked) {
+        // Lifted off the wall: a shadow under it and a little larger.
+        const shade = this.add.rectangle(x + 5, y + 2, bw, bh, 0x000000, 0.45);
+        shade.setDepth(-1);
+        card.setScale(1.06);
       }
     });
 
-    // The contract picked: what is known of it, its marks, what it pays, and the way out to it.
-    const rows = Math.ceil(list.length / cols);
-    const py = top + rows * (ch + 8) + 6;
-    const ph = view.h - py - 10;
+    // The contract picked: what is known of it, the difficulty, what it pays, and the way out to it.
+    const py = top + wallH + 6;
+    const ph = view.h - py - 8;
     const c = list.find((x) => x.id === chosen.monster && x.posted) ?? list[0];
     const m = c.monster ?? MONSTERS[0];
-    const pw = Math.min(w - 20, 900);
-    this.add.existing(slabImage(this, w / 2 - pw / 2, py, pw, ph, LEATHER, 16, 7));
-    const left = w / 2 - pw / 2 + 24;
+    const pw = Math.min(w - 12, 900);
+    this.add.existing(slabImage(this, w / 2 - pw / 2, py, pw, ph, LEATHER, 4, 6));
+    const left = w / 2 - pw / 2 + 20;
     const mark = Math.min(chosen.mark, Math.max(1, c.upTo)) as Mark;
-    label(this, left, py + 30, m.name.toUpperCase(), { size: 24, align: 'left' });
-    const textW = view.tall ? pw - 48 : pw - 300;
-    label(this, left, py + (view.tall ? 86 : 80), c.felled > 0 || s.hunts > 0 ? m.known : m.rumor, { size: 16, align: 'left', wrap: textW, color: BONE.fill }).setOrigin(0, 0.5);
-    // The marks: one, two, three. A mark not yet reached cannot be pressed.
-    const mx = view.tall ? left + 30 : w / 2 + pw / 2 - 236;
-    const my = view.tall ? py + 156 : py + 34;
-    label(this, mx - 30, my - 30, 'DIFFICULTY', { size: 15, align: 'left', color: BONE.shade });
+    const head = label(this, left, py + 24, m.name.toUpperCase(), { size: 24, align: 'left', face: 'display' });
+    const textW = tall ? pw - 40 : pw - 290;
+    label(this, left, py + 48, c.felled > 0 || s.hunts > 0 ? m.known : m.rumor, { size: 15, align: 'left', wrap: textW, color: BONE.fill }).setOrigin(0, 0);
+    void head;
+    // The difficulty: one, two, three. One not yet reached cannot be pressed.
+    const mx = tall ? left : w / 2 + pw / 2 - 250;
+    const my = tall ? py + 132 : py + 30;
+    label(this, mx, my, 'DIFFICULTY', { size: 15, align: 'left', color: BONE.shade, face: 'display' });
     for (let k = 1; k <= 3; k++) {
-      const b = new Button(this, mx + 46 + (k - 1) * 58, my, String(k), () => this.pick(c, k as Mark), { width: 52, height: 46, size: 19, mat: k === mark ? GOLD : IRON });
+      const b = new Button(this, mx + 128 + (k - 1) * 46, my, String(k), () => this.pick(c, k as Mark), { width: 44, height: 44, size: 19, mat: k === mark ? GOLD : IRON });
       b.setEnabled(k <= c.upTo);
     }
     const { coin: pay, first } = rewardOf(s, c.id, mark);
     const lesson = !!lessonFor(s, c.id, mark);
-    const lineY = view.tall ? py + 206 : py + 84;
-    const lineX = view.tall ? left : mx - 30;
-    label(this, lineX, lineY, `Reward: ${pay} coin${first ? ' (double for the first win)' : ''}`, { size: 15, align: 'left', color: HOLY.fill, wrap: view.tall ? pw - 48 : 250 }).setOrigin(0, 0.5);
-    if (lesson) label(this, lineX, lineY + (view.tall ? 30 : 44), 'First win: a trophy and new unlocks.', { size: 15, align: 'left', color: BONE.shade });
-    const by = py + ph - 44;
+    const lineY = tall ? py + 172 : py + 66;
+    const lineX = mx;
+    label(this, lineX, lineY, `Reward: ${pay} coin${first ? ', doubled for the first win' : ''}`, { size: 15, align: 'left', color: HOLY.fill, wrap: tall ? pw - 40 : 240 }).setOrigin(0, 0.5);
+    if (lesson) label(this, lineX, lineY + 26, 'First win: a trophy and new unlocks.', { size: 15, align: 'left', color: BONE.shade });
+    const by = py + ph - 36;
     // What is new at this hunt, in one line over the way out.
     const news = newsOf(s);
-    if (news) label(this, w / 2, by - 50, news, { size: 16, color: HOLY.fill, wrap: pw - 40 });
+    if (news) label(this, w / 2, by - 44, news, { size: 15, color: HOLY.fill, wrap: pw - 40 });
     const team = !openingOf(s)?.lesson;
-    if (team) new Button(this, w / 2 - 110, by, 'TEAM', () => this.go('muster'), { width: 200, height: 58, size: 22, mat: IRON });
-    new Button(this, team ? w / 2 + 110 : w / 2, by, 'HUNT', () => this.hunt(), { width: 200, height: 58, size: 26, mat: RUBY });
+    if (team) new Button(this, w / 2 - 110, by, 'TEAM', () => this.go('muster'), { width: 200, height: 56, size: 22, mat: IRON });
+    new Button(this, team ? w / 2 + 110 : w / 2, by, 'HUNT', () => this.hunt(), { width: 200, height: 56, size: 26, mat: RUBY });
   }
 
   private pick(c: Contract, mark: Mark): void {
@@ -209,26 +260,42 @@ export class LodgeScene extends Phaser.Scene {
     const used = costOf(m);
     const all = supplyOf(s);
 
-    // Who goes.
-    const hw = Math.min(150, (w - 24) / HUNTERS.length - 8);
-    const hh = view.tall ? 118 : 108;
+    // Who goes: every hunter in one bar of portraits. The one chosen is raised and lit; one not yet unlocked is its
+    // black shape, "???" and how to unlock it, and nothing else.
+    const hw = Math.min(132, (w - 24) / HUNTERS.length - 8);
+    const hh = tall() ? 120 : 112;
     const hx0 = w / 2 - ((HUNTERS.length - 1) * (hw + 8)) / 2;
+    this.add.existing(slabImage(this, 6, top - 6, w - 12, hh + 14, WOOD_DARK, 4, 5));
     HUNTERS.forEach((h, i) => {
       const open = isOpen(s, h.id);
-      const card = this.card(hx0 + i * (hw + 8), top + hh / 2, hw, hh, !open ? DARK : m.hunter === h.id ? GOLD : BONE, () => this.act(setHunter(s, h.id), `${h.name}, ${h.epithet}`));
-      this.figure(card, HUNTER_ART[h.id], hh / 2 - 26, hh - 38, open);
-      card.add(label(this, 0, hh / 2 - 14, open ? h.short.toUpperCase() : 'LOCKED', { size: 15, color: open ? INK : BONE.shade, stroke: null }));
+      const chosen = m.hunter === h.id;
+      const x = hx0 + i * (hw + 8);
+      const y = top + hh / 2 + (chosen ? -3 : 1);
+      if (chosen) this.add.image(x, y + 6, SHEET, 'fx/glow').setDisplaySize(hw * 1.6, hh * 1.4).setTint(0xffb85a).setAlpha(0.45);
+      const card = this.card(x, y, hw, hh - (chosen ? 0 : 6), chosen ? BONE : DARK, () => this.act(setHunter(s, h.id), `${h.name}, ${h.epithet}`));
+      this.figure(card, HUNTER_ART[h.id], hh / 2 - 26, hh - 40, open);
+      if (open) card.add(label(this, 0, hh / 2 - 14, h.short.toUpperCase(), { size: 15, color: chosen ? INK : BONE.fill, stroke: chosen ? null : undefined, face: 'display' }));
+      else {
+        card.add(label(this, 0, -hh / 2 + 18, '???', { size: 17, color: BONE.shade, face: 'display' }));
+        const how = label(this, 0, hh / 2 - 14, opensBy(h.id) || 'Locked', { size: 15, color: BONE.shade, wrap: hw - 8 });
+        how.setScale(Math.min(1, 30 / how.height, (hw - 8) / how.width));
+        card.add(how);
+      }
+      if (!chosen && open) card.setAlpha(0.9);
     });
     const hunter = byId(HUNTERS, m.hunter);
-    let y = top + hh + 20;
-    label(this, w / 2, y, `${hunter.name.toUpperCase()}, ${hunter.epithet}`, { size: 18 });
-    y += 26;
+    let y = top + hh + 26;
+    label(this, w / 2, y, `${hunter.name.toUpperCase()}, ${hunter.epithet.toUpperCase()}`, { size: 19, face: 'display', color: HOLY.fill });
+    y += 24;
     label(this, w / 2, y, hunter.way, { size: 15, color: BONE.shade, wrap: w - 40 });
-    y += view.tall ? 34 : 24;
+    y += tall() ? 34 : 26;
+    // The two skills, each with its own mark from the style.
     for (const id of hunter.abilities) {
       const a = byId(ABILITIES, id);
-      label(this, w / 2, y + 6, `${a.name}: ${a.says}`, { size: 15, wrap: Math.min(w - 30, 720) });
-      y += view.tall ? 44 : 26;
+      const line = label(this, w / 2 + 14, y + 4, `${a.name}: ${a.says}`, { size: 15, wrap: Math.min(w - 60, 700) });
+      const icon = uiIcon(id);
+      if (icon) this.add.image(w / 2 + 14 - line.displayWidth / 2 - 16, y + 4, icon).setDisplaySize(26, 26);
+      y += tall() ? 44 : 26;
     }
 
     // What comes at the horn and what is built: one row in a wide window, two in a tall one.
@@ -254,12 +321,15 @@ export class LodgeScene extends Phaser.Scene {
         if (t.kind === 'r') this.act(toggleReinforcement(s, t.id), `${t.name}: ${t.says}${chargesOf(s, t.id) > 1 ? ' 2 calls.' : ''}`);
         else this.act(changeBuilding(s, t.id, 1), `${t.name}: ${t.says}`);
       };
-      const card = this.card(x, cy, cw, ch, !open ? DARK : n > 0 ? GOLD : BONE, press);
+      const card = this.card(x, cy, cw, ch, !open ? DARK : BONE, press);
+      if (open && n === 0) card.setAlpha(0.72);
+      // Going on the hunt: a brass edge round it.
+      if (n > 0) card.add(this.add.rectangle(0, 0, cw - 4, ch - 4).setStrokeStyle(3, 0xb08a48));
       this.figure(card, t.art, 8, 62, open);
       card.add(label(this, 0, 26, open ? t.name.toUpperCase() : 'LOCKED', { size: 15, color: open ? INK : BONE.shade, stroke: null }).setScale(Math.min(1, (cw - 6) / (t.name.length * 9.6))));
       if (open) {
         if (!step) card.add(label(this, -cw / 2 + 8, -ch / 2 + 14, `${t.cost}`, { size: 17, align: 'left', color: HOLY.fill }));
-        card.add(label(this, 0, 48, n > 0 ? (t.kind === 'r' ? 'GOING' : `x${n}`) : t.kind === 'r' ? 'take' : 'add', { size: 15, color: n > 0 ? '#2e5f45' : '#6b5a48', stroke: null }));
+        card.add(label(this, 0, 48, n > 0 ? (t.kind === 'r' ? 'GOING' : `x${n}`) : t.kind === 'r' ? 'take' : 'add', { size: 15, color: n > 0 ? '#7a1e16' : '#5a4a38', stroke: null, face: 'display' }));
         // A building that is going can be taken off again by its own small button.
         if (t.kind === 'b' && n > 0) {
           const off = this.add.container(cw / 2 - 16, -ch / 2 + 16);

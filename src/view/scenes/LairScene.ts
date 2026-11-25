@@ -59,6 +59,17 @@ const CHURCHYARD: Array<[string, number, number, number, 'far' | 'back' | 'field
   ['near-flat', 0.1, 1.04, 1.3, 'near'], ['near-flat', 0.92, 1.05, 1.3, 'near'],
 ];
 
+/** The winter wood the Antlered King is hunted in, dressed the same way. */
+const WOOD: Array<[string, number, number, number, 'far' | 'back' | 'field' | 'near']> = [
+  ['far-trees', 0.25, 0.05, 1.4, 'far'], ['far-trees', 0.75, 0.05, 1.4, 'far'],
+  ['hunting-wall', 0.15, 0.09, 1, 'back'], ['hunting-wall', 0.85, 0.09, 1, 'back'],
+  ['fallen-tree', 0.5, 0.11, 1, 'back'],
+  ['hanging-charm', 0.06, 0.24, 0.9, 'field'], ['hanging-charm', 0.95, 0.3, 0.9, 'field'],
+  ['standing-stone', 0.03, 0.42, 0.9, 'field'], ['standing-stone-low', 0.97, 0.5, 0.9, 'field'], ['standing-stone', 0.96, 0.9, 0.9, 'field'], ['standing-stone-low', 0.05, 0.92, 0.9, 'field'],
+  ['trunk-flat', 0.04, 1.04, 1.3, 'near'], ['trunk-flat', 0.95, 1.05, 1.3, 'near'],
+];
+const DRESSING: Record<string, typeof CHURCHYARD> = { churchyard: CHURCHYARD, wood: WOOD };
+
 export class LairScene extends Phaser.Scene {
   private hunt!: Hunt;
   private hunter!: GrimFigure;
@@ -147,7 +158,8 @@ export class LairScene extends Phaser.Scene {
     // Everything that can be on this field: the hunter, the monster, and all that either side may bring or call up.
     const arts: Art[] = [HUNTER_ART[h.hunter.def.id], MONSTER_ART[h.monster.def.id], ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
     const grim = [...new Set(arts.flatMap((a) => (isGrim(a) ? [a.grim] : [])))].map(wantedUnit);
-    const things = 'grim' in lair ? [...new Set(CHURCHYARD.map((c) => c[0]))].map(wantedThing) : [];
+    const dressing = DRESSING[h.monster.def.lair] ?? [];
+    const things = 'grim' in lair ? [...new Set(dressing.map((c) => c[0]))].map(wantedThing) : [];
     const mon = MONSTER_ART[h.monster.def.id];
     const rigged: UnitKey[] = isGrim(mon) ? [] : [{ team: mon.team, unit: mon.legion }];
     const stills: UnitKey[] = arts.flatMap((a) => (isGrim(a) || a === mon ? [] : [{ team: a.team, unit: a.legion }]));
@@ -180,7 +192,7 @@ export class LairScene extends Phaser.Scene {
     const torches: Array<[number, number]> = [];
     if (dressed) {
       // The lair as a stage set, in layers: far off, the back wall, what stands on the field's rim, and black flats in front.
-      for (const [id, fx, fy, scale, layer] of CHURCHYARD) {
+      for (const [id, fx, fy, scale, layer] of DRESSING[h.monster.def.lair] ?? []) {
         const img = this.add.image(fx * h.w, fy * h.h, SHEET, thingFrame(id)).setScale(scale);
         if (layer === 'far') img.setDepth(-90).setScrollFactor(0.86, 0.9).setAlpha(0.9);
         else if (layer === 'back') img.setDepth(-80);
