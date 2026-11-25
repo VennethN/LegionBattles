@@ -36,6 +36,35 @@ async function press(page: Page, tap: Press, key: string, text: string): Promise
   return true;
 }
 
+/**
+ * Where on the page a barricade may be set down: clear ground a little way from the hunter, found by the rules and
+ * turned into a place on the page through the lair's own camera.
+ */
+async function ground(page: Page): Promise<{ x: number; y: number } | null> {
+  return page.evaluate(() => {
+    const w = window as unknown as Win;
+    const h = w.hunt() as unknown as { hunter: { x: number; y: number }; whyNotAt(id: string, x: number, y: number): string };
+    const cam = (w.game.scene.getScene('Lair') as unknown as { cameras: { main: { worldView: { x: number; y: number }; zoom: number; x: number; y: number } } }).cameras.main;
+    for (let r = 90; r <= 260; r += 40) {
+      for (let a = 0; a < Math.PI * 2; a += Math.PI / 6) {
+        const x = h.hunter.x + Math.cos(a) * r;
+        const y = h.hunter.y + Math.sin(a) * r;
+        if (h.whyNotAt('barricade', x, y)) continue;
+        // On the canvas, then on the page; and only where the cards and the waking at the foot are not.
+        const cx = (x - cam.worldView.x) * cam.zoom + cam.x;
+        const cy = (y - cam.worldView.y) * cam.zoom + cam.y;
+        const px = cx / w.view.density;
+        const py = cy / w.view.density;
+        const vh = window.innerHeight;
+        const vw = window.innerWidth;
+        if (px < 40 || px > vw - 40 || py < 140 || py > vh - 220) continue;
+        return { x: px, y: py };
+      }
+    }
+    return null;
+  });
+}
+
 const hunt = <T>(page: Page, read: string): Promise<T> => page.evaluate((r) => new Function('h', `return h ? (${r}) : null`)((window as unknown as Win).hunt()) as T, read);
 const saved = <T>(page: Page, read: string): Promise<T> => page.evaluate((r) => new Function('s', `return ${r}`)((window as unknown as Win).save()) as T, read);
 const active = (page: Page, key: string): Promise<boolean> => page.evaluate((k) => !!(window as unknown as Win).game?.scene?.isActive(k), key);
@@ -134,8 +163,25 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
   await tick(page, 20);
   check(`${label}: a barricade is given for the next hunt`, (await saved<number>(page, 's.muster.buildings.barricade')) === 1);
   check(`${label}: HUNT goes to a lair, in camp`, (await press(page, tap, 'Lodge', 'HUNT')) && (await until(page, 'Hud')) && (await tick(page, 30), (await hunt<string>(page, 'h.phase')) === 'camp'));
-  check(`${label}: a building's button sets it down`, ((await press(page, tap, 'Hud', 'BARRICADE')) || (await press(page, tap, 'Hud', '1  BARRICADE'))) && (await hunt<number>(page, 'h.buildings.length')) === 1);
-  check(`${label}: WAKE BOSS wakes it`, (await press(page, tap, 'Hud', 'WAKE BOSS')) && (await hunt<string>(page, 'h.phase')) === 'hunt');
+  // A building's card is picked up, and a press on clear ground sets it down there; pressed again, it is picked up.
+  check(`${label}: a building's card is picked up`, (await press(page, tap, 'Hud', 'BARRICADE')) && (await page.evaluate(() => ((window as unknown as Win).game.scene.getScene('Hud') as unknown as { controls: { picking: string | null } }).controls.picking)) === 'barricade');
+  const spot = await ground(page);
+  if (spot) {
+    await tap(spot.x, spot.y);
+    await tick(page, 10);
+  }
+  check(`${label}: a press on the ground sets it down there`, !!spot && (await hunt<number>(page, 'h.buildings.length')) === 1);
+  if (spot) {
+    await tap(spot.x, spot.y);
+    await tick(page, 10);
+  }
+  check(`${label}: pressed again, it is picked up`, (await hunt<number>(page, 'h.buildings.length')) === 0 && (await hunt<number>(page, 'h.toPlace.barricade')) === 1);
+  await press(page, tap, 'Hud', 'BARRICADE');
+  if (spot) {
+    await tap(spot.x, spot.y);
+    await tick(page, 10);
+  }
+  check(`${label}: WAKE THE BOSS wakes it`, (await press(page, tap, 'Hud', 'WAKE THE BOSS')) && (await hunt<string>(page, 'h.phase')) === 'hunt');
   await tick(page, 30);
   const before = await hunt<number>(page, 'h.hunter.rollWait');
   check(`${label}: DODGE dodges`, (await press(page, tap, 'Hud', 'DODGE')) && (await hunt<number>(page, 'h.hunter.rollWait')) > before);
@@ -150,7 +196,7 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
   check(`${label}: spearmen are given for the next hunt`, (await saved<string>(page, 's.muster.reinforcements.join()')) === 'pikemen');
   check(`${label}: HUNT again`, (await press(page, tap, 'Lodge', 'HUNT')) && (await until(page, 'Hud')));
   await tick(page, 30);
-  await press(page, tap, 'Hud', 'WAKE BOSS');
+  await press(page, tap, 'Hud', 'WAKE THE BOSS');
   await tick(page, 30);
   check(`${label}: the horn's button calls them`, (await press(page, tap, 'Hud', 'SPEARS')) && (await hunt<number>(page, 'h.allies.length')) >= 4);
   await finish(page);
