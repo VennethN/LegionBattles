@@ -157,7 +157,7 @@ This was built in a cloud session with no screen and no sound.
 - Touch was tried only as a headless browser makes it: a finger dragged, a button tapped. Two fingers at once were not.
 - The CrazyGames copy has not been run on their page. Its code is the first game's, which has.
 - The light has only been seen in a headless browser, which draws it in software, a few frames a second. How fast it runs on a real graphics card, a school laptop's or a phone's, is not known, and neither is whether the step down for slow frames comes at the right time: it has never been set off. The code that changes the light during a wave was tried by pressing the button (`npm run walk light`).
-- The light has been looked at in stills and not moving: fire, trails and the flicker of lights were tuned from single frames.
+- The light has hardly been seen moving. Three scenes were filmed for four seconds each and looked at as strips of frames; fire, trails and the flicker of lights were tuned from stills. `docs/light` has six of the stills and one wave with the light off and on.
 - A full screen (1920 by 1080) under the light was looked at once, at dusk in the meadow. A phone on its side was not looked at.
 - A boss is only told from another by its picture and its numbers: all three fight the same way.
 - Past the twentieth wave the game is the same twenty waves again, harder. It has not been played that far by anyone but the computer.
