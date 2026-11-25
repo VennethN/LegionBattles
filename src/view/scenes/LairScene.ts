@@ -12,7 +12,7 @@ import { BONE, HOLY, OUTLINE, RUBY } from '../../art/kit/palette';
 import { huntOf, music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import type { Bot } from '../../game/bot';
-import { BUILDINGS, CAMP } from '../../game/content';
+import { BUILDINGS, CAMP, REVIVE } from '../../game/content';
 import { STEP, type Ev, type Hunt, type Steer, type Tell } from '../../game/hunt';
 import { Talk } from '../../game/talk';
 import { ads } from '../../platform/ads';
@@ -919,6 +919,40 @@ export class LairScene extends Phaser.Scene {
       g.fillStyle(hex(RUBY.fill), 1).fillRect(h.x - 22, h.y + 10, 44 * (h.hp / h.maxHp), 4);
     }
     if (h.root > 0) g.lineStyle(4, 0x9be07a, 0.9).strokeCircle(h.x, h.y, 22);
+
+    // Partners: their health over them once hurt; one who is down, a ring that fills as someone stands by them.
+    for (const p of w.party) {
+      if (p.index === 0) continue;
+      if (p.down) {
+        const k = Math.min(1, p.help / REVIVE.time);
+        g.lineStyle(2, 0xe8dcc0, 0.5).strokeCircle(p.x, p.y, REVIVE.r);
+        if (k > 0) g.lineStyle(5, GOLD, 0.95).beginPath().arc(p.x, p.y, REVIVE.r, -Math.PI / 2, -Math.PI / 2 + k * Math.PI * 2).strokePath();
+      } else if (p.hp < p.maxHp) {
+        g.fillStyle(hex(OUTLINE), 0.9).fillRect(p.x - 22, p.y + 8, 44, 7);
+        g.fillStyle(0xb8382a, 1).fillRect(p.x - 20, p.y + 10, 40 * (p.hp / p.maxHp), 3);
+      }
+    }
+
+    // Whom the boss is about to strike: a red mark that beats over their head. Only when it is not plain who.
+    const tw = w.party[w.targetWho];
+    if (tw && w.party.length > 1 && !tw.down && m.state !== 'dead') {
+      const [tx, ty] = tw.index === 0 ? [this.hunter.x, this.hunter.y - this.hunter.height - 18] : [tw.x, tw.y - 112];
+      const b = 1 + 0.15 * Math.sin(this.clock * 9);
+      g.fillStyle(RED, 0.95).fillTriangle(tx - 9 * b, ty - 12 * b, tx + 9 * b, ty - 12 * b, tx, ty);
+      g.lineStyle(2, 0x0d0b09, 1).strokeTriangle(tx - 9 * b, ty - 12 * b, tx + 9 * b, ty - 12 * b, tx, ty);
+    }
+
+    // With a mouse, where the next blow goes: a faint wedge at the hunter's feet.
+    const aim = this.aimed();
+    if (aim !== undefined && w.phase !== 'camp' && h.hp > 0) {
+      const r0 = 26;
+      const r1 = 58;
+      g.fillStyle(0xe8b860, 0.28).beginPath();
+      g.moveTo(h.x + Math.cos(aim - 0.32) * r0, h.y + Math.sin(aim - 0.32) * r0 * 0.6);
+      g.lineTo(h.x + Math.cos(aim) * r1, h.y + Math.sin(aim) * r1 * 0.6);
+      g.lineTo(h.x + Math.cos(aim + 0.32) * r0, h.y + Math.sin(aim + 0.32) * r0 * 0.6);
+      g.closePath().fillPath();
+    }
   }
 
   private strip(g: Phaser.GameObjects.Graphics, x: number, y: number, angle: number, len: number, wide: number, color: number, alpha: number): void {

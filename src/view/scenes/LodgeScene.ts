@@ -12,7 +12,7 @@ import { sfx } from '../../audio/sfx';
 import { ABILITIES, BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, byId, type Mark } from '../../game/content';
 import {
   buy, changeBuilding, chargesOf, contracts, costOf, isOpen, lessonFor, newsOf, openingOf, opensBy, rewardOf, setHunter, supplyOf, toggleReinforcement, wares, wear, type Contract,
-  board as postedBoard, posterOf, posting, repost,
+  board as postedBoard, partyFor, posterOf, posting, repost, togglePartner, type Posting,
 } from '../../game/lodge';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
@@ -23,6 +23,7 @@ import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 import { uiIcon } from '../ui/grim';
 import { LairScene } from './LairScene';
+import { Talk } from '../../game/talk';
 
 type Leaf = 'board' | 'muster' | 'ledger';
 
@@ -317,6 +318,12 @@ export class LodgeScene extends Phaser.Scene {
     const left = w / 2 - pw / 2 + 18;
     const by = py + ph - 34;
     if (picked) {
+      // Hobb, who keeps the board, says a word about the bill taken down: his own dice, the same word for the same bill.
+      const hobb = new Talk(picked.id * 131 + 7, 'keeper', picked.monster).pick('keeper', 'taken');
+      if (hobb) {
+        const hl = label(this, w / 2 + pw / 2 - 18, top + wallH - 22, `Hobb: "${hobb}"`, { size: 15, align: 'right', color: BONE.shade });
+        hl.setScale(Math.min(1, (w - 40) / hl.width));
+      }
       const poster = posterOf(s, picked);
       const head = label(this, left, py + 22, poster.title.toUpperCase(), { size: 22, align: 'left', face: 'display' });
       head.setScale(Math.min(1, (pw - 36) / head.width));
@@ -374,11 +381,15 @@ export class LodgeScene extends Phaser.Scene {
 
     // Who goes: every hunter in one bar of portraits. The one chosen is raised and lit; one not yet unlocked is its
     // black shape, "???" and how to unlock it, and nothing else.
-    const hw = Math.min(132, (w - 24) / HUNTERS.length - 8);
+    // Hands for hire are not in the bar: they come by themselves when a contract needs more than the player has.
+    const own = HUNTERS.filter((h) => !h.hired);
+    const hw = Math.min(132, (w - 24) / own.length - 8);
     const hh = tall() ? 120 : 112;
-    const hx0 = w / 2 - ((HUNTERS.length - 1) * (hw + 8)) / 2;
+    const hx0 = w / 2 - ((own.length - 1) * (hw + 8)) / 2;
+    // How many the contract picked takes, the player among them.
+    const party = theContract().posting ? posterOf(s, theContract().posting as Posting).party : 1;
     this.add.existing(slabImage(this, 6, top - 6, w - 12, hh + 14, WOOD_DARK, 4, 5));
-    HUNTERS.forEach((h, i) => {
+    own.forEach((h, i) => {
       const open = isOpen(s, h.id);
       const chosen = m.hunter === h.id;
       const x = hx0 + i * (hw + 8);
@@ -394,9 +405,21 @@ export class LodgeScene extends Phaser.Scene {
         card.add(how);
       }
       if (!chosen && open) card.setAlpha(0.9);
+      // On a contract for more than one, an unlocked hunter can be taken along: a tag under their card says so.
+      if (party > 1 && open && !chosen) {
+        const going = m.partners.includes(h.id);
+        const tag = new Button(this, x, y + hh / 2 + 2, going ? 'PARTNER' : '+ TAKE', () => this.act(togglePartner(s, h.id), going ? `${h.short} stays.` : `${h.short} comes along.`), { width: Math.min(hw - 10, 104), height: 44, size: 15, mat: going ? GOLD : IRON });
+        void tag;
+      }
     });
     const hunter = byId(HUNTERS, m.hunter);
-    let y = top + hh + 26;
+    let y = top + hh + (party > 1 ? 44 : 26);
+    if (party > 1) {
+      // The party's slots: the player, the partners chosen, and a hired hand in each slot left.
+      const { partners, hired } = partyFor(s, party);
+      const names = [`${hunter.short} (you)`, ...partners.map((id) => byId(HUNTERS, id).short), ...Array.from({ length: hired }, () => 'Hired hand')];
+      label(this, w / 2, y - 18, `PARTY ${party}: ${names.join(', ')}`, { size: 15, face: 'display', color: BONE.fill });
+    }
     label(this, w / 2, y, `${hunter.name.toUpperCase()}, ${hunter.epithet.toUpperCase()}`, { size: 19, face: 'display', color: HOLY.fill });
     y += 24;
     label(this, w / 2, y, hunter.way, { size: 15, color: BONE.shade, wrap: w - 40 });

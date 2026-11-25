@@ -11,7 +11,7 @@
 import Phaser from 'phaser';
 import { BONE, GOLD, HOLY, IRON, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
-import { BUILDINGS } from '../../game/content';
+import { BUILDINGS, REVIVE } from '../../game/content';
 import type { Ev, Hunt } from '../../game/hunt';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
@@ -45,7 +45,14 @@ interface Pad {
 const SHORT: Record<string, string> = { seton: 'DOGS', heel: 'BACK', pikemen: 'SPEARS', crossbowmen: 'BOWS', sappers: 'BOMBS' };
 
 export class HudScene extends Phaser.Scene {
-  private taskText: Phaser.GameObjects.Text | null = null;
+  /** The partners' plates under the hunter's, and the tasks' strip: what each shows, and the drawing redone each frame. */
+  private partyBars: Phaser.GameObjects.Graphics | null = null;
+  /** The ATTACK button: it beats while the lesson waits for a blow. */
+  private atk: Phaser.GameObjects.Container | null = null;
+  private partyMarks: Phaser.GameObjects.Text[] = [];
+  private taskLines: Phaser.GameObjects.Text[] = [];
+  private partyTop = 0;
+  private taskTop = 0;
   controls!: Controls;
   private bars!: Phaser.GameObjects.Graphics;
   private hpText!: Phaser.GameObjects.Text;
@@ -160,7 +167,8 @@ export class HudScene extends Phaser.Scene {
     this.campText = label(this, w / 2, view.tall ? 150 : 96, '', { size: 16, wrap: Math.min(560, w - 40) }).setDepth(12);
 
     // The contract's tasks and the party, one line each under the hunter's bar: plain for now.
-    this.taskText = label(this, 14, view.tall ? 150 : 74, '', { size: 15, align: 'left', color: HOLY.fill }).setOrigin(0, 0).setDepth(12);
+    // Under the hunter's plate: a small plate for each partner, and the contract's tasks on a strip of old paper.
+    this.buildParty(hunt);
     this.buildFight(hunt);
     this.buildCamp(hunt);
 
@@ -227,6 +235,7 @@ export class HudScene extends Phaser.Scene {
     atk.on('pointerup', () => hold(false));
     atk.on('pointerout', () => hold(false));
     c.add(atk);
+    this.atk = atk;
     x = ax - big / 2 - PAD / 2 - 8;
     this.pad(c, x, y, 'dodge', 'DODGE', 'dodge', BONE, (n) => n.hunter.rollWait / h.def.dodge.wait, null);
     x -= step;
@@ -463,6 +472,67 @@ export class HudScene extends Phaser.Scene {
     sfx.play('open', 0.6);
   }
 
+  /** Plates for the partners and a strip for the tasks, built once; their bars and ticks are drawn each frame. */
+  private buildParty(hunt: Hunt): void {
+    this.partyMarks = [];
+    this.taskLines = [];
+    this.partyTop = 68;
+    const partners = hunt.party.filter((p) => p.index > 0);
+    partners.forEach((p, i) => {
+      const y = this.partyTop + i * 40;
+      this.add.existing(slabImage(this, 10, y, 170, 34, IRON, 2, 3)).setDepth(9);
+      // A hand for hire has no likeness drawn yet: the plate goes without.
+      if (this.textures.get(CARDS).has(portraitFrame('grim', p.def.id))) {
+        const face = this.add.image(28, y + 17, CARDS, portraitFrame('grim', p.def.id)).setDepth(11);
+        face.setScale(Math.min(26 / face.width, 28 / face.height));
+      }
+      label(this, 46, y + 10, p.def.short.toUpperCase(), { size: 15, align: 'left', face: 'display' }).setDepth(12);
+      this.partyMarks.push(label(this, 172, y + 10, '', { size: 15, align: 'right', color: '#e05040', face: 'display' }).setDepth(12));
+    });
+    this.taskTop = this.partyTop + partners.length * 40 + (partners.length ? 4 : 0);
+    if (hunt.tasks.length) {
+      const h = 10 + hunt.tasks.length * 22;
+      this.add.existing(slabImage(this, 10, this.taskTop, 230, h, BONE, 2, 3)).setDepth(9);
+      hunt.tasks.forEach((t, i) => {
+        const line = label(this, 36, this.taskTop + 16 + i * 22, t.says, { size: 15, align: 'left', color: '#2a1c10', stroke: null });
+        line.setScale(Math.min(1, 196 / line.width)).setDepth(12);
+        this.taskLines.push(line);
+      });
+    }
+    this.partyBars = this.add.graphics().setDepth(11);
+  }
+
+  /** The partners' health, a down mark and the help ring's share; each task's box, ticked or struck out. */
+  private drawParty(hunt: Hunt): void {
+    const g = this.partyBars;
+    if (!g) return;
+    g.clear();
+    hunt.party.filter((p) => p.index > 0).forEach((p, i) => {
+      const y = this.partyTop + i * 40;
+      g.fillStyle(0x050404, 1).fillRect(46, y + 21, 122, 7);
+      if (p.down) {
+        // Down: the bar is the help they are being given, filling toward getting up.
+        g.fillStyle(0xc89a4a, 1).fillRect(46, y + 21, 122 * Math.min(1, p.help / REVIVE.time), 7);
+        this.partyMarks[i]?.setText('DOWN');
+      } else {
+        g.fillStyle(0x7a1a14, 1).fillRect(46, y + 21, 122 * (p.hp / p.maxHp), 7);
+        g.fillStyle(0xb8382a, 1).fillRect(46, y + 21, 122 * (p.hp / p.maxHp), 2);
+        this.partyMarks[i]?.setText(hunt.targetWho === p.index ? 'TARGET' : '');
+      }
+    });
+    hunt.tasks.forEach((t, i) => {
+      const y = this.taskTop + 16 + i * 22;
+      g.lineStyle(2, 0x2a1c10, 1).strokeRect(18, y - 7, 13, 13);
+      if (t.done) {
+        g.lineStyle(3, 0x2e5f2a, 1).beginPath().moveTo(19, y).lineTo(24, y + 5).lineTo(33, y - 9).strokePath();
+        this.taskLines[i]?.setColor('#2e5f2a');
+      } else if (t.failed) {
+        g.lineStyle(3, 0x8a1e16, 1).beginPath().moveTo(18, y - 7).lineTo(31, y + 6).moveTo(31, y - 7).lineTo(18, y + 6).strokePath();
+        this.taskLines[i]?.setColor('#8a1e16');
+      }
+    });
+  }
+
   /**
    * Both health bars, drawn each frame in the style's hand: an iron trough with a dark rim and rivets, blood that is
    * deep red with a lit top, and behind it the part a blow took, paler, draining away after a breath so that a player
@@ -610,11 +680,7 @@ export class HudScene extends Phaser.Scene {
     const hunt = theHunt();
     if (!hunt || !this.bars) return;
     this.clock += Math.min(0.1, delta / 1000);
-    const lines = [
-      ...hunt.tasks.map((t) => `${t.done ? 'DONE' : t.failed ? 'FAILED' : 'TASK'}: ${t.says}`),
-      ...hunt.party.filter((p) => p.index > 0).map((p) => `${p.def.short}: ${p.down ? 'DOWN, stand by them to help' : `${Math.ceil(p.hp)} / ${p.maxHp}`}`),
-    ].join('\n');
-    if (this.taskText && this.taskText.text !== lines) this.taskText.setText(lines);
+    this.drawParty(hunt);
     const h = hunt.hunter;
     const m = hunt.monster;
     const camp = hunt.phase === 'camp';
@@ -646,6 +712,7 @@ export class HudScene extends Phaser.Scene {
     // A hunt that teaches: its plate, and the button the step is about beats so that it is found.
     this.showPlate(hunt);
     const step = hunt.teaching?.step;
+    if (this.atk && !this.controls.attackHeld) this.atk.setScale(step?.wants === 'strike' ? 1.06 + 0.07 * Math.sin(this.clock * 9) : 1);
     const wanted: Ask | null = step?.wants === 'dodge' ? 'dodge' : step?.wants === 'skill' ? (step.skill === 0 ? 'a' : 'b') : null;
 
     // Each button: its veil is as tall as the share of its wait still to run.

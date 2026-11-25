@@ -3,12 +3,13 @@
 // the session what the hunt paid; it works nothing out.
 
 import Phaser from 'phaser';
-import { BONE, GOLD, HOLY, IRON, OUTLINE, RUBY } from '../../art/kit/palette';
+import { BONE, GOLD, IRON, OUTLINE } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { MONSTERS, byId } from '../../game/content';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
-import { SHEET } from '../art/Sheet';
+import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
+import { uiIcon, uiKey } from '../ui/grim';
 import { leaveHunt, save, takeContract, theContract, theHunt, thePay } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
@@ -43,20 +44,36 @@ export class ResultScene extends Phaser.Scene {
     if (pay.posted.length) notes.push(`New boss: ${pay.posted.join(', ')}.`);
     if (pay.lesson && pay.won) notes.push('That was him going easy. Next: the real fight.');
     if (!pay.won) notes.push(hunt.tally.killedBy ? 'You can try again at once.' : 'You gave up.');
+    // The hunter's record: a page of old paper with the hunter's likeness, the hunt's lines, and the trophy on its plate.
     const ph = 190 + lines.length * 30 + notes.length * 50 + 80;
     const py = Math.max(12, (view.h - ph) / 2);
-    this.add.existing(slabImage(this, cx - pw / 2, py, pw, ph, BONE, 20, 8));
-    label(this, cx, py + 44, pay.won ? 'BOSS DEFEATED' : 'DEFEATED', { size: 36, color: pay.won ? HOLY.fill : RUBY.fill });
-    label(this, cx, py + 82, pay.lesson ? `${m.name}, your first hunt` : `${m.name}, difficulty ${c.mark}`, { size: 17, color: OUTLINE, stroke: null });
-    let y = py + 124;
+    this.add.existing(slabImage(this, cx - pw / 2, py, pw, ph, BONE, 2, 8));
+    label(this, cx, py + 30, "HUNTER'S RECORD", { size: 15, color: '#5a4a38', stroke: null, face: 'display' });
+    label(this, cx, py + 60, pay.won ? 'BOSS DEFEATED' : 'DEFEATED', { size: 34, color: pay.won ? '#6b4a1a' : '#8a1e16', stroke: null, face: 'display' });
+    label(this, cx, py + 92, pay.lesson ? `${m.name}, your first hunt` : `${m.name}, difficulty ${c.mark}`, { size: 16, color: OUTLINE, stroke: null });
+    // The hunter who went, at the page's left; the trophy, if one was won, on its plate at the right.
+    const id = hunt.hunter.def.id;
+    if (this.textures.get(CARDS).has(portraitFrame('grim', id)) && pw > 400) {
+      const face = this.add.image(cx - pw / 2 + 46, py + 70, CARDS, portraitFrame('grim', id));
+      face.setScale(Math.min(70 / face.width, 80 / face.height));
+      if (!pay.won) face.setTint(0x7a6a5a);
+    }
+    if (pay.trophy && pw > 400) {
+      this.add.image(cx + pw / 2 - 52, py + 76, uiKey('trophy-plate')).setDisplaySize(70, 88);
+      const icon = uiIcon(`icon-trophy-${pay.trophy}`);
+      if (icon) this.add.image(cx + pw / 2 - 52, py + 72, icon).setDisplaySize(44, 44);
+    }
+    let y = py + 132;
     for (const [name, value] of lines) {
       label(this, cx - pw / 2 + 36, y, name, { size: 17, align: 'left', color: OUTLINE, stroke: null });
-      label(this, cx + pw / 2 - 36, y, value, { size: 19, align: 'right', color: OUTLINE, stroke: null });
+      label(this, cx + pw / 2 - 36, y, value, { size: 19, align: 'right', color: OUTLINE, stroke: null, face: 'display' });
+      // A ruled line under each, as a ledger has.
+      this.add.rectangle(cx, y + 13, pw - 64, 1, 0x8d7650, 0.6);
       y += 30;
     }
     y += 8;
     for (const note of notes) {
-      label(this, cx, y + 14, note, { size: 16, color: '#2e5f45', stroke: null, wrap: pw - 60 });
+      label(this, cx, y + 14, note, { size: 16, color: '#2e5f2a', stroke: null, wrap: pw - 60 });
       y += 50;
     }
     const by = py + ph - 52;
