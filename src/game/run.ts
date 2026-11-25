@@ -5,7 +5,7 @@
 // pace report can play one without a screen.
 
 import {
-  BAND, BASE_STATS, CHOICES, COMPANIONS, FOUND, HEROES, ITEMS, KIND_AGAIN, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId,
+  BAND, BASE_STATS, CHOICES, COMPANIONS, FOUND, HEROES, ITEMS, KIND_AGAIN, LAND_WAVES, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId,
   finishedAs, landAt, levelNeeds, ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type Count, type HeroDef, type WeaponDef,
 } from './data';
 import { VOW, VOWS, noBoons, type Boons, type Thing, thingKey } from './holdData';
@@ -391,7 +391,8 @@ export function endWave(run: RunData, world: World): void {
   for (const [of, n] of Object.entries(world.counts)) counted(run, of as Count, n);
   if (world.over === 'cleared' && !told.roads.includes(world.omen)) told.roads.push(world.omen);
   run.time += world.time;
-  if (world.over === 'cleared' && !world.struck) run.clean++;
+  // Only past the first land: its first waves are come through untouched by nearly anyone, and a quest asks for more than that.
+  if (world.over === 'cleared' && !world.struck && run.wave > LAND_WAVES) run.clean++;
   // The board's tales: more is learned from the same wave.
   run.xp += world.xp * (1 + run.boons.xp / 100);
   run.kills += world.kills;

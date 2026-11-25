@@ -166,72 +166,24 @@ The renderer is set to bind two textures (`maxTextures: 2` in `main.ts`): the fi
 
 `npm run pace` is how the numbers were set. Its player steers away from what would hurt and toward what lies about, a fifth of a second late and never quite true, lets the move loose when there is a crowd for it, stands as Bram and keeps moving as Isaura, and buys what it can afford with no plan but a liking for a kind of weapon it holds already. It takes the roads with prizes while it comes out of a wave with more than half its health and the quiet road when it does not, stands in a shrine's ring, goes for a cage and a wagon, and takes the relic it thinks is worth most.
 
-As last measured (round 6, after the Hold was merged), with thirty-two runs to a hero, alone, each stopped at the twenty-sixth wave. "Mean" is the mean of the waves cleared with every run stopped at the twentieth. The first three columns are a new player's game, nothing bought and the armory's first twelve weapons (`--pool=start`); the last two are with the whole board and the whole armory (`--board=all`):
+As last measured (round 8, a hundred waves, slots and mastery), with fewer runs than the rule asks: 8 runs to a hero at the start and 6 with the whole track. Every hero had Biscuit along. "Half" is the wave half the runs came through.
 
-| Hero | Half cleared | Mean of the written 20 | Won, of 32 | Whole board: mean of 20 | Whole board: won, of 32 |
+| Hero | Start: half | Start: mean | Whole track: half | Whole track: mean | Whole track: won, of 6 |
 | --- | --- | --- | --- | --- | --- |
-| Bram Oakenhold | 11 | 11.3 | 2 | 18.8 | 20 |
-| Wren Fallowmere | 10 | 8.8 | 0 | 17.2 | 9 |
-| Orrin Quillon | 11 | 11.5 | 2 | 18.7 | 23 |
-| Fenn Two-Coins | 12 | 13.5 | 8 | 19.3 | 28 |
-| Old Nan Cinderwick | 12 | 12.5 | 2 | 19.2 | 21 |
-| Isaura Vane | 10 | 8.8 | 0 | 17.4 | 9 |
-| Hroth | 13 | 14.3 | 7 | 19.4 | 27 |
-| Brother Aldous Bell | 11 | 10.3 | 0 | 19.2 | 21 |
-| Ysolde Rimeheart | 12 | 12.8 | 7 | 19.7 | 28 |
-| Maren Dawnguard | 17 | 15.4 | 7 | 19.6 | 26 |
+| Wren Fallowmere | 8 | 12.4 | 14 | 22.0 | 0 |
+| Bram Oakenhold | 5 | 5.4 | 9 | 9.2 | 0 |
+| Orrin Quillon | 17 | 13.3 | 43 | 43.8 | 1 |
+| Fenn Two-Coins | 7 | 5.8 | 9 | 41.5 | 2 |
+| Old Nan Cinderwick | 14 | 14.1 | 25 | 22.7 | 0 |
+| Isaura Vane | 8 | 8.0 | 5 | 5.5 | 0 |
+| Hroth | 15 | 13.8 | 53 | 56.8 | 2 |
+| Brother Aldous Bell | 10 | 11.5 | 24 | 21.8 | 0 |
+| Ysolde Rimeheart | 17 | 15.9 | 16 | 13.0 | 0 |
+| Maren Dawnguard | 15 | 14.5 | 44 | 49.2 | 1 |
 
-With nothing bought about one run in nine wins the twentieth wave, and a run that clears all twenty is twelve to thirteen minutes of fighting. Nine heroes have half their runs through wave 10 to 13, with Bram in the middle. Maren is too strong by four waves and Hroth is at the top of the band: both want a trim that has not been made. Wren and Isaura never won for this player, which loses Wren's Unseen to every stray shot and only holds a line for Isaura's Tilt; what a person makes of them is not known. With the whole board two runs in three are won: that is what the vows are for.
+"Start" is a first run's armory and no mastery (`--first --pool=start`); "whole track" is every level of the hero's mastery and the whole armory (`--mastery=all`). A run is bimodal: one that gets through the first walls runs on far, so read the half before the mean. Bram and Isaura are the weakest for this player at both ends, and their tracks lift them least: it stands still for Bram and rides a line for Isaura, and what a person makes of them is not known. A full hundred waves is about 41 minutes of fighting as this player plays it. `docs/journal.md`, Round 8, has the careers (when each slot, hero and companion came) and one companion against six.
 
-How the roads went, as Bram over forty runs, before the Hold was merged (they were not taken again after):
-
-| Road | Times taken | Cleared | Reward had, of those |
-| --- | --- | --- | --- |
-| The Horde | 54 | 78% | 100% |
-| Champions | 35 | 74% | 100% |
-| Forced March | 30 | 100% | 100% |
-| Toll Road | 28 | 96% | 100% |
-| The Duel | 34 | 91% | 100% |
-| The Wounded | 34 | 82% | 100% |
-| The Stray | 39 | 100% | 77% |
-| The Grove Shrine | 62 | 98% | 93% |
-| Pay Caravan | 14 | 93% | 92% |
-| Burning Field | 20 | 85% | 100% |
-| The Long Night | 2 | 100% | 100% |
-| Blizzard | 3 | 67% | 100% |
-
-Within a land no road is taken much more than twice as often as another. Few of Bram's runs reach the snow, so its two roads are barely measured. A forced march is cleared every time because its cost falls on the wave after it.
-
-The figures below this line are older than round 6: they were taken before the roads were given costs and the late enemies were eased, and say what a companion and the Hold were worth then.
-
-What a companion is worth, with twenty-four runs each, as the mean of the written 20 beside the hero alone:
-
-| With | Bram (9.1 alone) | Wren (11.0 alone) |
-| --- | --- | --- |
-| Biscuit | 12.0 | 11.4 |
-| Pip | 11.7 | 12.2 |
-| Mossback | 11.3 | 12.8 |
-| Quill | 11.0 | 13.3 |
-| Greta | 12.0 | 13.7 |
-| Ember | 12.6 | 13.0 |
-| Tam | 12.2 | 12.3 |
-| Thistle | 13.1 | 13.9 |
-
-A companion is worth two to three waves, more to Bram, who is the weakest alone, than to Wren. That is a little more than it was before the enemies were made to grow again: a companion's blows grow with the hero's level whatever the hero has found. A stray is one more of them, which is why a run takes in only one.
-
-Thirty-two runs are not many, and that player is not a person. A person plans what to buy, which it does not, and sees less of the field at once than it does. Two measures of the same thing with other dice differ by a wave or more: a difference smaller than that between two heroes or two companions says nothing.
-
-What the Hold changes was measured the same way, twenty-four runs each for Bram, Wren, Orrin and Isaura alone (`--pool=start`, `--board=all`, `--vows=N` or `--vows=march,wind`). The mean of the written twenty, over the four:
-
-| What the run began with | Mean of 20 | Won, of 96 |
-| --- | --- | --- |
-| Nothing bought, a first run's armory | 12.1 | 10 |
-| The whole board, the whole armory | 18.1 | 55 |
-| The same under three vows | 16.1 | 28 |
-| Under five vows | 15.3 | 26 |
-| Under all eight | 12.8 | 12 |
-
-The board is meant to be felt, and the enemies are not made stronger to take it back: with all of it the plain player wins more than half its runs alone and three in four with two companions. The vows are what bring it back. `npm run pace -- --career` plays a whole career from a new save: everything was open and the board full after 79, 67 and 62 runs, the second place in the band after the first or second, something bought after about two runs in three of the first thirty, and after a first run that does most of the opening deeds of skill at once, someone new every two to four runs until the twenty-second.
+The figures of the rounds before, with twenty waves and the board, are in the journal and no longer hold.
 
 ## For a portal
 
@@ -262,7 +214,7 @@ This was built in a cloud session with no screen and no sound.
 - The light has only been seen in a headless browser, which draws it in software, a few frames a second. How fast it runs on a real graphics card, a school laptop's or a phone's, is not known, and neither is whether the step down for slow frames comes at the right time: it has never been set off. The code that changes the light during a wave was tried by pressing the button (`npm run walk light`).
 - The light has hardly been seen moving. Three scenes were filmed for four seconds each and looked at as strips of frames; fire, trails and the flicker of lights were tuned from stills. `docs/light` has six of the stills and one wave with the light off and on.
 - A full screen (1920 by 1080) under the light was looked at once, at dusk in the meadow. A phone on its side was not looked at.
-- A boss is only told from another by its picture and its numbers: all three fight the same way.
+- Three of the ten bosses (the Warlord, the Colossus, the Jarl) are only told from another by their picture and their numbers; the other seven have a way of their own, tested and played by the computer only.
 - The named heroes, their moves and quirks and the companions have their proper showing now (`src/view/Deeds.ts`), and it was looked at only in stills: all ten moves a few frames in and half a second in at a portal's frame; Bram set, Wren untouched, Isaura at speed and Hroth hurt; a companion down; the Hold at three sizes. Nobody has seen any of it move: whether a blow drawn back two tenths of a second before it lands reads as a swing, whether cloth swings or jitters, and whether the breath a move holds the wave for feels like weight or like a stutter, are all unknown. Each companion's own moment (Biscuit's coin, Pip's flare, Mossback's ring, Quill's mark, Greta's roar, Tam's banner, Thistle's stampede) was written and never caught in a picture.
 - Whether a passive is fun to play is not known. All ten were only ever played by the computer, which holds a line for Isaura's Tilt but does not ride through a crowd, loses Wren's Unseen to stray shots, and flips Fenn's coin for anything that costs 30 or more. Maren is too strong by about four waves for that player, and Hroth a little.
 - A companion's worth was measured with twenty-four runs to a companion and two heroes, which tells a companion worth nothing from one worth three waves and little finer than that.
@@ -270,18 +222,19 @@ This was built in a cloud session with no screen and no sound.
 - Whether the roads are a real choice is not known. The computer picks by a fixed liking for each; whether a person feels a forced march is worth a relic, or finds the shrine's eleven seconds dull, has to be played. The two snow roads were taken five times in the last measure of them.
 - Night is darker than it was (dark with pools of light, not a grey haze), and a night march darker still with the hero's light small. Both were set from numbers and one look at a desert night; whether an enemy is still easy to find at the edge of a night march has to be judged on a real screen. With the light off a night march is the flat veil it was.
 - The walls of Bram's gate, the lanes of the Burning Field, the duel, the champion of wave 3 and a blocked shot are shown as plainly as lets them be read (a bar, a band on the ground, a banner, a spark), and none of that was looked at in a picture after it was made. The coin flip is a FLIP button on an item, and the own weapon's rules are a card behind its name in the camp.
-- The Hold's screen is the plainest that works and has been seen only in pictures, at 821 by 462 and on a phone held upright. Nobody has bought anything in it but a script. The board is a list with pages there, though it has a column and a row for every place so that a screen can draw it as a tree. The Chronicle has not been looked at with everything met.
-- The board, the vows and the oaths were measured with a computer player. It does not mind quicker enemies and never uses a mark or a second look, so what those are worth to a person is not known. A hero's starting relic was not measured by itself, and one vow at a time only for two heroes.
-- The second way of each hero's own weapon (ten rules, one an oath unlocks for each hero) has a test each and has never been played: the computer player never chooses one, so what each is worth beside the rule it replaces is not known. The Hold shows the choice only as RULE 1 or RULE 2.
+- The Hold's screen (mastery tracks, the companions and their slots, quests, the Codex) was made to work with the new rules and has not been looked at since: no picture of it was taken in this round. The choice between waves made clearer is not in yet.
+- Mastery, the slots and the vows were measured with a computer player, with few runs (`docs/journal.md`, Round 8). It never changes a pick on a track, never empties a slot, and plays Bram and Isaura poorly, so what a track is worth to a person is not known. None of the twenty new passives, the eight new companions or a found cage has been seen on a screen.
+- The second way of each hero's own weapon (ten rules, picked at level 5 of the hero's track) has a test each and has never been played: the computer player always picks the first.
 - A captain getting up under Second Wind, a champion walking in under Champions Abroad, the hero left standing by the Second Breath, and a wave begun hurt under Open Wounds tell the screens with events and state (`second`, `champion`, `breath`, the hero's health as the wave begins), and no screen shows the first or the third of those yet. A run's vows are not shown during the run.
 - The day's road takes its day from the player's own clock, in the time the world's clocks are set by. Nothing stops a player who changes their clock.
 - The game's text was rewritten in plain game language and nobody has looked at it on a screen: the stat names are longer than they were ("Ranged Damage", "Attack Speed"), and a camp column or a card made for the old words may not fit them. The screens' own words (`src/view`) are another copy's work and still say wares, hands and captain in places.
 - A first run's smaller armory makes that run a little stronger, not weaker, by under a wave: with fewer weapons to draw from, twins to join and weapons of one kind come more often. Whether a person finds a first run with twelve weapons too thin, nobody knows.
 - The tally of what a run paid and the nearest deeds not yet done are kept and can be asked for (`save.tally`, `nextDeeds`). The result screen does not show them yet.
 - A save from before the road keeps everything but a run that was left in its camp.
+- A save from before mastery (version 4) keeps its heroes, companions, bests, crates and Codex, and what it had spent on the board and held in renown becomes mastery for the hero it played most. It loses a run left in a camp. Tried by a test, not on a real player's save.
 - A save from before the heroes had names keeps its bests and who was open, and loses a run that was left in its camp.
-- Past the twentieth wave the game is the same twenty waves again, harder. It has not been played that far by anyone but the computer.
-- The build is 3.8 MB in bytes and 1.2 MB zipped. `du -sh dist` says 4.7 MB, because it counts whole disk blocks for three hundred small pictures: measure with `du -sb dist`.
+- Past the hundredth wave the game is the same hundred waves again, harder. Nobody but the computer has played past the first land. The seven new lands' grounds, enemies, bosses and roads have not been looked at on a screen at all; their light borrows one of the first three lands' hours and their music one of the three themes.
+- The build is 4,999,439 bytes, just under 5 MB, with a hundred units; every picture is written slim to get there (`slim` in `scripts/art.ts`). Four pictures were compared pixel by pixel in the browser with how they were drawn before: the same, but for a few pixels at edges where a path's numbers were rounded to a hundredth. The rest were not compared one by one.
 - The hero is drawn bigger than those who come at them (0.64 of a figure's canvas to their 0.46), and what can hurt them is the same small circle at their feet. Whether that feels fair or feels like being missed by blows that looked to land has not been played.
 - Rings on the ground (clouds, burning ground, the red rings an enemy warns with) were drawn about twice as wide as they reach, and are drawn at their true width now. They are still drawn flatter than they are (0.62 of their height), as everything on the ground is, so what reaches up and down the screen reaches a little further than it looks.
 - This game added three things to the art kit (whole pictures at a pose in the art build and on the sheet, a bare hand on a figure, two letters for the logo). They are here and not yet in the copy of the art skill that the other two games carry.

@@ -173,7 +173,7 @@ export const COMPANIONS: readonly CompanionDef[] = [
     id: 'smoke', unit: 'direwolf', name: 'Smoke', kind: 'a grey wolf', does: 'hunt', says: 'Runs down the weakest enemy on the field.',
     quirk: 'cull', quirkName: 'Cull', quirkSays: 'Its bite kills any enemy below 20% HP. Not bosses.',
     hp: 26, dmg: 8, grow: 1.4, every: 0.8, speed: 330, r: 14, reach: 10, knock: 4,
-    unlock: { kind: 'hidden', test: { kind: 'clean', waves: 3 }, riddle: 'Run three waves where nothing touches you.' },
+    unlock: { kind: 'hidden', test: { kind: 'clean', waves: 3 }, riddle: 'Run three waves past the first land where nothing touches you.' },
   },
   {
     id: 'gilt', unit: 'scarab', name: 'Gilt', kind: 'a golden beetle', does: 'burrow', says: 'Every 4 s, digs under the nearest enemy and bursts up, stunning enemies around it for 0.5 s.',

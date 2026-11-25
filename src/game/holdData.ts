@@ -42,7 +42,7 @@ export type DeedTest =
   | { kind: 'relics'; held: number }
   /** A captain beaten in a wave in which no blow landed on the hero. */
   | { kind: 'unstruck' }
-  /** This many waves of one run come through with no blow landed. */
+  /** This many waves of one run come through with no blow landed, past the first land. */
   | { kind: 'clean'; waves: number }
   /** This many felled in one run. */
   | { kind: 'slain'; kills: number }
