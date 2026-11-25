@@ -19,7 +19,7 @@ import Phaser from 'phaser';
 import type { Land } from '../../game/data';
 import type { Ev, Shot, World } from '../../game/world';
 import { SHEET } from '../art/Sheet';
-import { Glow, glowScale } from './Glow';
+import { Glow, type BitOpts, glowScale } from './Glow';
 import { ELEMENTS, HERO_LIGHT, LANTERN, WEAPON_LIGHT, darkness, hourOf, type Element, type Hour } from './hours';
 import { lightMode, stepLightDown, type LightMode } from './setting';
 import { MAX_LIGHTS } from './shaders';
@@ -100,6 +100,8 @@ export class FieldLight {
   private readonly dark: number;
   private readonly land: Land;
   private lit: Lit[] = [];
+  /** Lights asked for from outside for the frame to come (a companion that glows, a move): taken up by the next update. */
+  private asked: Lit[] = [];
   private flashes: Flash[] = [];
   private readonly shots = new Map<number, ShotView>();
   private readonly burning = new Set<number>();
@@ -240,7 +242,40 @@ export class FieldLight {
   /** A light that dies away by itself. */
   flash(x: number, y: number, r: number, color: number, strength: number, dur: number): void {
     if (!this.filter) return;
+    // A flash on top of the hero is held down: lit past white, they would bloom away to a blob and be lost.
+    const h = this.world.hero;
+    if (Math.hypot(x - h.x, y - (h.y - 26)) < 70) strength = Math.min(strength, 0.42);
     this.flashes.push({ x, y, r, color, strength, t: 0, dur });
+  }
+
+  /** A light for the frame to come, for whoever shows something that glows and is not the wave's own to tell of. */
+  lamp(x: number, y: number, r: number, el: string, strength: number): void {
+    if (!this.filter) return;
+    this.asked.push({ x, y, r, color: (ELEMENTS[el] ?? ELEMENTS.holy).light, strength: strength * this.reach, first: false });
+  }
+
+  /** A bit of light of an element: a flame, a spark, a mote. Nothing, with the light off. */
+  bit(x: number, y: number, el: string, o: BitOpts = {}): void {
+    if (!this.filter || !this.glow) return;
+    // A big bright bit over the hero would hide them as a flash would.
+    const h = this.world.hero;
+    if ((o.from ?? 0) > 34 && !o.frame && Math.hypot(x - h.x, y - (h.y - 26)) < 60) o = { ...o, alpha: Math.min(o.alpha ?? 1, 0.3) };
+    this.glow.spawn(x, y, ELEMENTS[el] ?? ELEMENTS.holy, o);
+  }
+
+  /** Something of an element goes up, as a burst of the wave's own does. */
+  boom(x: number, y: number, r: number, el: string, smoke = false): void {
+    if (this.filter && this.glow) this.blast(x, y, r, ELEMENTS[el] ?? ELEMENTS.fire, smoke);
+  }
+
+  /** Sparks thrown out from a place. */
+  spray(x: number, y: number, el: string, n: number, speed: number, dur: number): void {
+    if (this.filter && this.glow) this.sparks(x, y, ELEMENTS[el] ?? ELEMENTS.spark, n, speed, dur);
+  }
+
+  /** Smoke from a place. */
+  smokeAt(x: number, y: number, n: number): void {
+    if (this.filter) this.puff(x, y, n);
   }
 
   /** How much a light made by the fight counts at this hour: a fire at noon lights little. */
@@ -263,8 +298,15 @@ export class FieldLight {
             this.sparks(e.x, e.y - 6, ELEMENTS.spark, 6, 260, 0.4);
             break;
           }
-          const el = e.kind === 'light' ? ELEMENTS.holy : e.kind === 'venom' ? ELEMENTS.venom : e.kind === 'foe' ? ELEMENTS.red : ELEMENTS.fire;
-          this.blast(e.x, e.y, e.r, el, e.kind !== 'venom' && e.kind !== 'light');
+          if (e.kind === 'rain') {
+            // Arrows coming down: no fire in it, only what they strike out of the ground.
+            this.sparks(e.x, e.y - 4, ELEMENTS.spark, 3, 150, 0.3);
+            break;
+          }
+          const el =
+            e.kind === 'light' ? ELEMENTS.holy : e.kind === 'venom' ? ELEMENTS.venom : e.kind === 'foe' || e.kind === 'rise' ? ELEMENTS.red
+              : e.kind === 'frost' ? ELEMENTS.frost : e.kind === 'star' ? ELEMENTS.arcane : ELEMENTS.fire;
+          this.blast(e.x, e.y, e.r, el, e.kind === 'powder' || e.kind === 'fire' || e.kind === 'foe');
           break;
         }
         case 'strike': {
@@ -335,11 +377,12 @@ export class FieldLight {
   levelUp(x: number, y: number): void {
     const glow = this.glow;
     if (!this.filter || !glow) return;
-    this.flash(x, y - 30, 330, ELEMENTS.holy.light, 0.7, 0.6);
+    this.flash(x, y - 30, 330, ELEMENTS.holy.light, 0.6, 0.6);
     for (let i = 0; i < 22; i++) {
       glow.spawn(x + rnd(-22, 22), y - rnd(0, 20), ELEMENTS.holy, { dur: rnd(0.5, 1), vy: rnd(-190, -70), drag: 0.8, from: rnd(6, 13), to: 1, stretch: 0.6, alpha: 0.95 });
     }
-    glow.spawn(x, y - 34, ELEMENTS.holy, { dur: 0.45, from: 70, to: 150, alpha: 0.75 });
+    // A ring going out along the ground, not a ball of light on top of them.
+    glow.spawn(x, y - 4, ELEMENTS.holy, { dur: 0.5, from: 30, to: 150, alpha: 0.7, flat: 0.62, frame: 'fx/ring' });
   }
 
   /** True while there is room this frame for one more bit of light. A horde can ask for hundreds. */
@@ -414,6 +457,8 @@ export class FieldLight {
     this.vy = cam.scrollY + cam.height / 2 - this.vh / 2;
     this.crispCam?.setZoom(cam.zoom).setScroll(cam.scrollX, cam.scrollY);
     this.lit.length = 0;
+    for (const a of this.asked) this.lit.push(a);
+    this.asked.length = 0;
     this.budget = this.mode === 'full' ? 46 : 20;
     this.stamp++;
     const reach = this.reach;
@@ -448,11 +493,27 @@ export class FieldLight {
 
     // Clouds on the ground glow a little, and breathe motes.
     for (const z of w.zones) {
-      this.light(z.x, z.y, z.r * 1.4, ELEMENTS.venom.light, 0.16 * reach * Math.min(1, z.life));
-      if (!halted && Math.random() < 0.3 && this.spend()) {
+      // Arrows coming down give no light; what burns, what is blessed and what is poisoned each glow in their own color.
+      if (z.kind === 'rain') continue;
+      const el = z.kind === 'fire' ? ELEMENTS.fire : z.kind === 'holy' ? ELEMENTS.holy : ELEMENTS.venom;
+      const live = Math.min(1, z.life);
+      this.light(z.x, z.y, z.r * 1.5, el.light, (z.kind === 'fire' ? 0.3 * flick(z.id) : z.kind === 'holy' ? 0.26 : 0.16) * reach * live);
+      if (halted) continue;
+      const at = (): [number, number] => {
         const a = rnd(0, Math.PI * 2);
         const d = Math.sqrt(Math.random()) * z.r;
-        glow.spawn(z.x + Math.cos(a) * d, z.y + Math.sin(a) * d * 0.62, ELEMENTS.venom, { dur: rnd(0.7, 1.2), vy: rnd(-34, -14), from: rnd(6, 11), to: 1, alpha: 0.7, sway: 4 });
+        return [z.x + Math.cos(a) * d, z.y + Math.sin(a) * d * 0.62];
+      };
+      if (z.kind === 'fire') {
+        // Ground that burns: flames standing all over it, as many as it is wide.
+        const n = Math.min(3, Math.ceil(z.r / 40));
+        for (let i = 0; i < n && Math.random() < 0.7 * live && this.spend(); i++) {
+          const [x, y] = at();
+          glow.spawn(x, y, el, { dur: rnd(0.3, 0.55), vx: rnd(-8, 8), vy: rnd(-90, -50), from: rnd(13, 21), to: 2, flame: true, sway: 3, alpha: 0.6 });
+        }
+      } else if (Math.random() < 0.3 && this.spend()) {
+        const [x, y] = at();
+        glow.spawn(x, y, el, { dur: rnd(0.7, 1.2), vy: rnd(-34, -14), from: rnd(6, 11), to: 1, alpha: 0.7, sway: 4 });
       }
     }
 

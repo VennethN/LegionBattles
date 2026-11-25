@@ -72,6 +72,69 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await fight(page, 7);
     await shot('band-fight');
   },
+  // Each hero's move as it goes off, and a moment after: the ten are told apart by these.
+  moves: async (page, shot) => {
+    const each: Array<[string, number, Array<{ id: string; bond: number }>]> = [
+      ['bram', 5, []], ['wren', 6, []], ['orrin', 9, []], ['fenn', 4, []], ['nan', 13, []],
+      ['isaura', 10, []], ['hroth', 7, []], ['aldous', 12, [{ id: 'biscuit', bond: 0 }, { id: 'tam', bond: 0 }]], ['ysolde', 17, []], ['maren', 19, []],
+    ];
+    // MOVES=bram,nan takes only those.
+    const only = (process.env.MOVES ?? '').split(',').filter(Boolean);
+    for (const [hero, wave, band] of each) {
+      if (only.length && !only.includes(hero)) continue;
+      await arena(page, { hero, wave, level: 9, weapons: RICH.slice(1, 3), items: THINGS, ups: UPS, gold: 90, fury: 1, band });
+      await until(page, 'Hud');
+      // A little of the wave, so that there is someone to use it on; then it is let loose, and seen a few frames in and well in.
+      await fight(page, 2.6);
+      await page.keyboard.down('Space');
+      await tick(page, 2);
+      await page.keyboard.up('Space');
+      await tick(page, 7);
+      await shot(`move-${hero}`);
+      await fight(page, 0.45);
+      await shot(`move-${hero}-b`);
+    }
+  },
+  // What each quirk looks like while it is on: Bram set behind his shield, Wren untouched, Isaura at speed, Hroth hurt.
+  quirks: async (page, shot) => {
+    await arena(page, { hero: 'bram', wave: 3, level: 4, weapons: [], gold: 20 });
+    await until(page, 'Hud');
+    await tick(page, 150);
+    await shot('quirk-bram');
+    await arena(page, { hero: 'wren', wave: 3, level: 4, weapons: [], gold: 20 });
+    await until(page, 'Hud');
+    await page.evaluate(() => {
+      const w = (window as unknown as Win).world() as unknown as { hero: { safe: number } };
+      w.hero.safe = 14;
+    });
+    await tick(page, 30);
+    await shot('quirk-wren');
+    await arena(page, { hero: 'isaura', wave: 9, level: 6, weapons: [], gold: 20 });
+    await until(page, 'Hud');
+    await fight(page, 4);
+    await shot('quirk-isaura');
+    await arena(page, { hero: 'hroth', wave: 16, level: 8, weapons: [], gold: 20 });
+    await until(page, 'Hud');
+    await page.evaluate(() => {
+      const w = (window as unknown as Win).world() as unknown as { hero: { hp: number; maxHp: number } };
+      w.hero.hp = Math.ceil(w.hero.maxHp * 0.25);
+    });
+    await fight(page, 2);
+    await shot('quirk-hroth');
+  },
+  // A companion struck down, counted back up.
+  down: async (page, shot) => {
+    await arena(page, { hero: 'bram', wave: 5, level: 5, weapons: RICH.slice(0, 2), band: [{ id: 'biscuit', bond: 0 }, { id: 'greta', bond: 1 }] });
+    await until(page, 'Hud');
+    await fight(page, 2);
+    await page.evaluate(() => {
+      const w = (window as unknown as Win).world() as unknown as { band: Array<{ hp: number; down: number }> };
+      w.band[0].hp = 0;
+      w.band[0].down = 5;
+    });
+    await tick(page, 40);
+    await shot('down');
+  },
   // A boss.
   boss: async (page, shot) => {
     await arena(page, { hero: 'wren', wave: 7, weapons: RICH, items: THINGS, ups: UPS, level: 8, gold: 120 });

@@ -8,9 +8,10 @@
 // stick.
 
 import Phaser from 'phaser';
-import { BONE, GOLD, HOLY, IRON, OUTLINE, RUBY, VENOM } from '../../art/kit/palette';
+import { BONE, FIRE, GOLD, HOLY, IRON, OUTLINE, RUBY, VENOM } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { levelNeeds } from '../../game/data';
+import { heroOf } from '../../game/run';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
@@ -35,6 +36,11 @@ export class HudScene extends Phaser.Scene {
   private bossText!: Phaser.GameObjects.Text;
   private bannerText!: Phaser.GameObjects.Text;
   private underText!: Phaser.GameObjects.Text;
+  private lineText!: Phaser.GameObjects.Text;
+  private quirkText!: Phaser.GameObjects.Text;
+  private moveGold: Phaser.GameObjects.Image | null = null;
+  private moveBox: Phaser.GameObjects.Container | null = null;
+  private ripe = false;
   private hint: Phaser.GameObjects.Container | null = null;
   private stick!: Phaser.GameObjects.Graphics;
   /** The move: its button, the bar that fills it, and its name. */
@@ -56,7 +62,7 @@ export class HudScene extends Phaser.Scene {
     super('Hud');
   }
 
-  create(data: { banner?: string; under?: string }): void {
+  create(data: { banner?: string; under?: string; line?: string; then?: { banner: string; under: string } }): void {
     setupCamera(this);
     this.controls = new Controls(this);
     this.drawn = '';
@@ -75,7 +81,9 @@ export class HudScene extends Phaser.Scene {
     this.bars = this.add.graphics().setDepth(10);
     this.add.image(26, 26, SHEET, 'icon/heart').setScale(ICON * 0.62).setDepth(11);
     this.hpText = label(this, 132, 25, '', { size: 15 }).setDepth(12);
-    this.lvText = label(this, 46, 49, '', { size: 15, align: 'left' }).setDepth(12);
+    this.lvText = label(this, 46, 63, '', { size: 15, align: 'left' }).setDepth(12);
+    // What only this hero has, and how it stands: its name, gold while it is on, over a bar of how near it is.
+    this.quirkText = label(this, 46, 86, '', { size: 15, align: 'left' }).setDepth(12);
 
     this.waveText = label(this, w / 2, 16, '', { size: 16, color: BONE.fill }).setDepth(12);
     this.timeText = label(this, w / 2, 44, '', { size: 34 }).setDepth(12);
@@ -105,7 +113,11 @@ export class HudScene extends Phaser.Scene {
 
     this.bannerText = label(this, w / 2, view.h * 0.3, '', { size: 46 }).setDepth(20).setAlpha(0);
     this.underText = label(this, w / 2, view.h * 0.3 + 40, '', { size: 18, color: HOLY.fill }).setDepth(20).setAlpha(0);
-    if (data.banner) this.banner(data.banner, data.under ?? '');
+    this.lineText = label(this, w / 2, view.h * 0.3 + 70, '', { size: 16, color: BONE.fill, wrap: Math.min(520, w - 40) }).setDepth(20).setAlpha(0);
+    if (data.banner) this.banner(data.banner, data.under ?? '', data.line ?? '');
+    // Who the hero is was said first: the wave is said after.
+    const then = data.then;
+    if (then) this.time.delayedCall(1900, () => this.banner(then.banner, then.under));
 
     // The hero's move, in a corner where a thumb is: its name, the bar that kills fill, and a press that lets it loose.
     // Plain for now: the proper showing of it is still to be made.
@@ -113,15 +125,21 @@ export class HudScene extends Phaser.Scene {
     this.moveBar = null;
     this.moveText = null;
     this.fury = -1;
+    this.moveGold = null;
+    this.moveBox = null;
+    this.ripe = false;
     if (move) {
-      const bw = 176;
-      const bh = 58;
+      // Big enough for a thumb, in the corner a thumb rests in. It turns gold when the move is full.
+      const bw = 188;
+      const bh = 70;
       const c = this.add.container(w - bw / 2 - 12, view.h - bh / 2 - 12).setDepth(12);
       this.moveName = move.name.toUpperCase();
-      this.moveText = label(this, 0, -12, this.moveName, { size: 15 });
-      c.add([slabImage(this, -bw / 2, -bh / 2, bw, bh, IRON, 12, 5), this.moveText]);
+      this.moveText = label(this, 0, -15, this.moveName, { size: 17 });
+      this.moveGold = slabImage(this, -bw / 2, -bh / 2, bw, bh, GOLD, 14, 6).setVisible(false);
+      c.add([slabImage(this, -bw / 2, -bh / 2, bw, bh, IRON, 14, 6), this.moveGold, this.moveText]);
       c.setSize(bw, bh).setInteractive({ useHandCursor: true });
       c.on('pointerdown', () => this.controls.act());
+      this.moveBox = c;
       this.moveBar = this.add.graphics().setDepth(13);
     }
 
@@ -131,13 +149,18 @@ export class HudScene extends Phaser.Scene {
   }
 
   /** Words across the middle of the screen for a moment: the wave's number, that it is cleared. */
-  banner(text: string, under: string): void {
+  banner(text: string, under: string, line = ''): void {
+    // A long name is drawn smaller rather than run off a narrow screen.
     this.bannerText.setText(text).setAlpha(0).setScale(0.7);
+    const fit = Math.min(1, (view.w - 30) / Math.max(1, this.bannerText.width / 0.7));
+    this.bannerText.setScale(0.7 * fit);
     this.underText.setText(under).setAlpha(0);
-    this.tweens.killTweensOf([this.bannerText, this.underText]);
-    this.tweens.add({ targets: this.bannerText, alpha: 1, scale: 1, duration: 180, ease: 'Back.easeOut' });
+    this.lineText.setText(line).setAlpha(0);
+    this.tweens.killTweensOf([this.bannerText, this.underText, this.lineText]);
+    this.tweens.add({ targets: this.bannerText, alpha: 1, scale: fit, duration: 180, ease: 'Back.easeOut' });
     this.tweens.add({ targets: this.underText, alpha: 1, duration: 180, delay: 80 });
-    this.tweens.add({ targets: [this.bannerText, this.underText], alpha: 0, duration: 320, delay: 1300 });
+    if (line) this.tweens.add({ targets: this.lineText, alpha: 1, duration: 260, delay: 260 });
+    this.tweens.add({ targets: [this.bannerText, this.underText, this.lineText], alpha: 0, duration: 320, delay: line ? 1600 : 1300 });
   }
 
   /** The hero was struck. */
@@ -249,7 +272,8 @@ export class HudScene extends Phaser.Scene {
     }
     this.pending = pending;
     const boss = world.boss;
-    const key = `${h.hp}/${h.maxHp}/${Math.round((xp / levelNeeds(level)) * 100)}/${boss ? Math.ceil((boss.hp / boss.maxHp) * 100) : -1}`;
+    const trait = world.trait;
+    const key = `${h.hp}/${h.maxHp}/${Math.round((xp / levelNeeds(level)) * 100)}/${boss ? Math.ceil((boss.hp / boss.maxHp) * 100) : -1}/${Math.round(world.fury * 60)}/${Math.round(trait.share * 30)}${trait.on}`;
     if (key !== this.drawn) {
       this.drawn = key;
       const g = this.bars;
@@ -257,8 +281,19 @@ export class HudScene extends Phaser.Scene {
       g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(44, 13, 180, 24, 9);
       g.fillStyle(hex(RUBY.shade), 1).fillRoundedRect(48, 17, 172, 16, 6);
       if (h.hp > 0) g.fillStyle(hex(RUBY.fill), 1).fillRoundedRect(48, 17, Math.max(10, 172 * (h.hp / h.maxHp)), 16, 6);
-      g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(96, 43, 128, 12, 5);
-      g.fillStyle(hex(VENOM.fill), 1).fillRoundedRect(99, 46, Math.max(4, 122 * (xp / levelNeeds(level))), 6, 3);
+      // Fury, under their health: what kills fill, and the move is let loose from.
+      if (world.move) {
+        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(44, 39, 180, 13, 5);
+        g.fillStyle(hex(world.fury >= 1 ? HOLY.fill : FIRE.fill), 1).fillRoundedRect(47, 42, Math.max(4, 174 * Math.min(1, world.fury)), 7, 3);
+      }
+      g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(96, 57, 128, 12, 5);
+      g.fillStyle(hex(VENOM.fill), 1).fillRoundedRect(99, 60, Math.max(4, 122 * (xp / levelNeeds(level))), 6, 3);
+      // The quirk's bar: how near it is to being on.
+      if (world.quirk && world.quirk !== 'kindling' && world.quirk !== 'deepcold') {
+        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(44, 97, 124, 10, 4);
+        g.fillStyle(hex(trait.on ? HOLY.fill : BONE.shade), 1).fillRoundedRect(47, 100, Math.max(3, 118 * trait.share), 4, 2);
+      }
+      this.quirkText.setText(world.quirk ? heroOf(run).quirkName.toUpperCase() : '').setColor(trait.on ? HOLY.fill : BONE.shade);
       if (boss) {
         g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(w / 2 - 150, 88, 300, 18, 7);
         g.fillStyle(hex(RUBY.fill), 1).fillRoundedRect(w / 2 - 146, 92, Math.max(8, 292 * (boss.hp / boss.maxHp)), 10, 4);
@@ -302,14 +337,24 @@ export class HudScene extends Phaser.Scene {
       const shown = full ? 100 + (Math.floor(this.clock * 2) % 2) : Math.round(world.fury * 100);
       if (shown !== this.fury) {
         this.fury = shown;
-        const bx = w - 176 - 12 + 16;
-        const by = view.h - 12 - 24;
+        const bx = w - 188 - 12 + 22;
+        const by = view.h - 12 - 26;
         const g = this.moveBar;
         g.clear();
         g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(bx, by, 144, 14, 6);
         g.fillStyle(hex(full ? HOLY.fill : VENOM.fill), 1).fillRoundedRect(bx + 3, by + 3, Math.max(4, 138 * Math.min(1, world.fury)), 8, 4);
         const touch = this.sys.game.device.input.touch && !this.sys.game.device.os.desktop;
-        this.moveText.setText(full && shown === 101 ? (touch ? 'TAP!' : 'PRESS SPACE') : this.moveName).setColor(full ? HOLY.fill : BONE.fill);
+        this.moveText.setText(full && shown === 101 ? (touch ? 'TAP!' : 'PRESS SPACE') : this.moveName).setColor(full ? OUTLINE : BONE.fill).setStroke(full ? HOLY.light : OUTLINE, full ? 3 : 5);
+        this.moveGold?.setVisible(full);
+      }
+      // Full: the button beats, so that it is seen without being looked for.
+      if (full !== this.ripe) {
+        this.ripe = full;
+        if (this.moveBox) {
+          this.tweens.killTweensOf(this.moveBox);
+          this.moveBox.setScale(1);
+          if (full) this.tweens.add({ targets: this.moveBox, scale: 1.07, duration: 320, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+        }
       }
     }
 

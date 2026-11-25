@@ -17,6 +17,7 @@ import { STEP, slotPlace, type Burst, type Ev, type Foe, type World, type ZoneKi
 import { ads } from '../../platform/ads';
 import { ASSETS, getManifest } from '../app';
 import { ART_SCALE, hex, view } from '../config';
+import { Deeds } from '../Deeds';
 import { Effects } from '../Effects';
 import { weaponIcon } from '../icons';
 import { Numbers } from '../Numbers';
@@ -101,9 +102,8 @@ export class ArenaScene extends Phaser.Scene {
   private marks = new Map<number, Thing>();
   private zones = new Map<number, Thing>();
   private warnings: Warning[] = [];
-  /** The companions' figures, and the ground marked for what a move is about to land on it. */
-  private allies = new Map<number, Figure>();
-  private omens: Array<{ img: Phaser.GameObjects.Image; left: number; of: number; r: number }> = [];
+  /** The move, the quirk and the band, as they are shown (view/Deeds.ts). */
+  private deeds!: Deeds;
   private wantAct = false;
   private spare: Phaser.GameObjects.Image[] = [];
   private stamp = 0;
@@ -146,8 +146,6 @@ export class ArenaScene extends Phaser.Scene {
     this.marks.clear();
     this.zones.clear();
     this.warnings = [];
-    this.allies.clear();
-    this.omens = [];
     this.wantAct = false;
     this.spare = [];
     this.weapons = [];
@@ -218,6 +216,9 @@ export class ArenaScene extends Phaser.Scene {
       this.weapons.push(slot.own ? null : this.add.image(0, 0, SHEET, weaponIcon(slot.def.id)).setScale(WEAPON_SCALE * INV_ART));
     });
     this.light = new FieldLight(this, w, def.id);
+    this.deeds = new Deeds(this, w, this.fx, this.light, this.hero, def,
+      (big, under) => (this.scene.get('Hud') as HudScene | undefined)?.banner(big, under),
+      (ms, by) => this.cameras.main.shake(ms, by));
     this.light.crisp(this.heroBarBack);
     this.light.crisp(this.heroBar);
     this.ready = true;
@@ -235,7 +236,10 @@ export class ArenaScene extends Phaser.Scene {
       return;
     }
     sfx.play('fight', 0.7);
-    this.scene.launch('Hud', { banner: `WAVE ${w.wave.n}`, under: w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'A captain leads them' : '' });
+    const under = w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'A captain leads them' : '';
+    // A run begins as its hero's: who they are is said before the wave is.
+    if (w.wave.n === 1) this.scene.launch('Hud', { banner: def.name.toUpperCase(), under: def.epithet, line: `"${def.line}"`, then: { banner: `WAVE ${w.wave.n}`, under } });
+    else this.scene.launch('Hud', { banner: `WAVE ${w.wave.n}`, under });
   }
 
   override update(_time: number, delta: number): void {
@@ -243,7 +247,8 @@ export class ArenaScene extends Phaser.Scene {
     const dt = Math.min(0.1, delta / 1000);
     this.clock += dt;
     const hud = this.scene.get('Hud') as HudScene | undefined;
-    if (!this.halted) {
+    // A move holds the wave still for a breath as it begins: it is seen to begin.
+    if (!this.halted && this.deeds.hold <= 0) {
       this.acc += dt;
       const steer = hud?.controls?.steer ?? { x: 0, y: 0 };
       // The move is asked for once, and the first step of the wave after that takes it.
@@ -316,6 +321,7 @@ export class ArenaScene extends Phaser.Scene {
     const h = w.hero;
     this.light.react(events);
     for (const e of events) {
+      this.deeds.react(e);
       switch (e.t) {
         case 'mark':
           if (e.boss) sfx.play('spawn', 0.9, 0.7);
@@ -417,7 +423,7 @@ export class ArenaScene extends Phaser.Scene {
         case 'end':
           break;
         default:
-          this.reactBand(e);
+          break;
       }
     }
   }
@@ -564,7 +570,7 @@ export class ArenaScene extends Phaser.Scene {
     }
     this.carried.length = n;
 
-    this.syncBand(dt);
+    this.deeds.update(dt, this.clock, this.halted);
 
     // Whoever comes at them.
     for (const f of w.foes) {
@@ -647,7 +653,7 @@ export class ArenaScene extends Phaser.Scene {
     // Clouds on the ground.
     this.each(this.zones, w.zones, stamp, (z) => this.take('fx/disc').setTint(ZONES[z.kind]), (img, z) => {
       const breath = 1 + Math.sin(this.clock * 5 + z.id) * 0.06;
-      img.setPosition(z.x, z.y).setScale((z.r / 32) * breath, (z.r / 32) * 0.62 * breath).setAlpha(Math.min(0.42, z.life * 0.5)).setDepth(1);
+      img.setPosition(z.x, z.y).setScale((z.r / 30) * INV_ART * breath, (z.r / 30) * INV_ART * 0.62 * breath).setAlpha(Math.min(0.42, z.life * 0.5)).setDepth(1);
     });
 
     // What lies about.
@@ -668,7 +674,7 @@ export class ArenaScene extends Phaser.Scene {
       }
       const k = 1 - x.left / x.of;
       if (x.kind === 'line') x.img.setPosition(f.x, f.y - 6).setAlpha(0.18 + 0.3 * k);
-      else x.img.setPosition(f.x, f.y).setScale((x.r / 32) * (0.3 + 0.7 * k), (x.r / 32) * (0.3 + 0.7 * k) * 0.62).setAlpha(0.2 + 0.25 * k);
+      else x.img.setPosition(f.x, f.y).setScale((x.r / 30) * INV_ART * (0.3 + 0.7 * k), (x.r / 30) * INV_ART * (0.3 + 0.7 * k) * 0.62).setAlpha(0.2 + 0.25 * k);
     }
     if (this.warnings.some((x) => x.left < 0)) this.warnings = this.warnings.filter((x) => x.left >= 0);
 
@@ -708,89 +714,6 @@ export class ArenaScene extends Phaser.Scene {
       if (v.stamp === stamp) continue;
       this.free(v.img);
       held.delete(id);
-    }
-  }
-
-  // ------------------------------------------------------------ the band and the move, plainly
-  //
-  // The least that shows what the rules do: the companions as figures where
-  // the wave says they are, the ground marked for what a move is about to
-  // land on it, and a ring where one runs out. The proper showing of all of
-  // it is still to be made.
-
-  private syncBand(dt: number): void {
-    for (const a of this.world.band) {
-      let fig = this.allies.get(a.id);
-      if (!fig) {
-        fig = new Figure(this, a.def.unit, 'blue', getManifest().units[a.def.unit], FIGURE_SCALE * 0.92, 'unit', a.id);
-        this.allies.set(a.id, fig);
-      }
-      fig.x = a.x;
-      fig.y = a.y;
-      fig.facing = a.face;
-      fig.moving = a.moving && a.down <= 0 && !this.halted;
-      // One that is down is a shade of itself until it gets up; one that was just struck flickers.
-      fig.alpha = a.down > 0 ? 0.3 : a.grace > 0 && Math.floor(this.clock * 20) % 2 === 0 ? 0.6 : 1;
-      fig.update(this.clock, dt);
-    }
-    for (const o of this.omens) {
-      o.left -= this.halted ? 0 : dt;
-      if (o.left <= 0) {
-        this.free(o.img);
-        continue;
-      }
-      const k = 1 - o.left / o.of;
-      o.img.setScale((o.r / 32) * (0.4 + 0.6 * k), (o.r / 32) * (0.4 + 0.6 * k) * 0.62).setAlpha(0.2 + 0.3 * k);
-    }
-    if (this.omens.some((o) => o.left <= 0)) this.omens = this.omens.filter((o) => o.left > 0);
-  }
-
-  private reactBand(e: Ev): void {
-    const h = this.world.hero;
-    const ring = (x: number, y: number, r: number, seconds: number, tint: number): void => {
-      this.fx.spawn('fx/ring', x, y, { dur: Math.max(0.2, seconds), from: 0.3, to: (r / 32) * 1.05, tint, alpha: 0.9, flat: 0.62, depth: 5 });
-    };
-    switch (e.t) {
-      case 'move':
-        sfx.play('claim', 0.8, 0.8);
-        this.cameras.main.shake(120, 0.004);
-        (this.scene.get('Hud') as HudScene | undefined)?.banner('', this.world.move?.name.toUpperCase() ?? '');
-        this.fx.spawn('fx/ring', e.x, e.y - 20, { dur: 0.35, from: 0.4, to: 3, tint: hex(HOLY.fill), alpha: 0.9, depth: e.y + 60 });
-        break;
-      case 'warn': {
-        // The player's own: marked in gold, not in the red of what is coming for them.
-        const img = this.take('fx/disc').setTint(hex(HOLY.fill)).setDepth(3).setPosition(e.x, e.y);
-        this.omens.push({ img, left: e.seconds, of: e.seconds, r: e.r });
-        break;
-      }
-      case 'ring':
-        ring(e.x, e.y, Math.min(e.r, 700), e.seconds, e.kind === 'fire' ? hex(FIRE.fill) : e.kind === 'frost' ? hex(FROST.fill) : e.kind === 'cry' || e.kind === 'roar' ? RED : hex(HOLY.fill));
-        break;
-      case 'fury':
-        sfx.play('levelUp', 0.5, 1.3);
-        break;
-      case 'quirk':
-        if (e.on) this.fx.spawn('fx/sparkle', h.x, h.y - 64, { dur: 0.35, from: 0.4, to: 1, tint: hex(HOLY.fill), depth: h.y + 60 });
-        break;
-      case 'rise':
-      case 'rescue':
-        sfx.play('heal', 0.9, 0.8);
-        (this.scene.get('Hud') as HudScene | undefined)?.banner('', e.t === 'rise' ? 'He gets up.' : 'Tam drags you up.');
-        break;
-      case 'allyStrike':
-        this.allies.get(e.id)?.attack(this.clock, 0.08);
-        break;
-      case 'allyHurt':
-        this.allies.get(e.id)?.hit(this.clock, 0);
-        break;
-      case 'allyDown':
-        sfx.play('death', 0.5, 0.7);
-        break;
-      case 'allyUp':
-        sfx.play('heal', 0.5);
-        break;
-      default:
-        break;
     }
   }
 
