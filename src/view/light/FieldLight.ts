@@ -430,12 +430,12 @@ export class FieldLight {
       const tx = c.x + Math.sin(c.rot) * 24;
       const ty = c.y - Math.cos(c.rot) * 24;
       if (el === ELEMENTS.fire) {
-        if (!halted && Math.random() < 0.55) glow.spawn(tx + rnd(-2, 2), ty + rnd(-2, 2), el, { dur: rnd(0.26, 0.44), vx: rnd(-6, 6), vy: rnd(-70, -40), from: rnd(9, 13), to: 2, flame: true, sway: 2, alpha: 0.75 });
+        if (!halted && Math.random() < 0.5) glow.spawn(tx + rnd(-2, 2), ty + rnd(-1, 2), el, { dur: rnd(0.24, 0.4), vx: rnd(-6, 6), vy: rnd(-105, -60), from: rnd(8, 11), to: 2, flame: true, sway: 2, alpha: 0.6 });
         if (!halted && Math.random() < 0.06) glow.spawn(tx, ty, ELEMENTS.spark, { dur: rnd(0.6, 1.1), vx: rnd(-24, 24), vy: rnd(-110, -60), from: 4, to: 1, sway: 5 });
         this.light(tx, ty, 140, el.light, 0.34 * reach * share * flick(i));
       } else {
         if (!halted && Math.random() < 0.16) glow.spawn(tx + rnd(-5, 5), ty + rnd(-5, 5), el, { dur: rnd(0.4, 0.8), vx: rnd(-10, 10), vy: rnd(-34, -10), from: rnd(6, 10), to: 1 });
-        glow.spawn(tx, ty, el, { dur: 0.05, from: 15 + 2 * Math.sin(clock * 5 + i), to: 15, alpha: 0.2 });
+        glow.spawn(tx, ty, el, { dur: 0.05, from: 13 + 2 * Math.sin(clock * 5 + i), to: 13, alpha: 0.1 });
         this.light(tx, ty, 100, el.light, 0.2 * reach * share);
       }
     });
@@ -462,7 +462,7 @@ export class FieldLight {
     for (const f of this.flashes) {
       f.t += dt;
       const k = Math.max(0, 1 - f.t / f.dur);
-      this.light(f.x, f.y, f.r * (0.7 + 0.3 * k), f.color, f.strength * k * k * (0.55 + 0.45 * this.dark));
+      this.light(f.x, f.y, f.r * (0.7 + 0.3 * k), f.color, f.strength * k * k * (0.36 + 0.64 * this.dark));
     }
     if (this.flashes.some((f) => f.t >= f.dur)) this.flashes = this.flashes.filter((f) => f.t < f.dur);
 
@@ -492,14 +492,14 @@ export class FieldLight {
       if (el && v.halo && v.core) {
         const big = s.mine ? 1 : 1.15;
         const pulse = 1 + 0.08 * Math.sin(this.clock * 30 + s.id);
-        v.halo.setPosition(s.x, y - 2).setRotation(angle).setScale(glowScale(58 * big) * 1.35 * pulse, glowScale(58 * big) * pulse).setTint(el.mid).setAlpha(0.95);
-        v.core.setPosition(s.x, y - 2).setRotation(angle).setScale(glowScale(24 * big) * 1.5, glowScale(24 * big)).setTint(el.hot).setAlpha(s.mine ? 1 : 0);
+        v.halo.setPosition(s.x, y - 2).setRotation(angle).setScale(glowScale(42 * big) * 1.4 * pulse, glowScale(42 * big) * pulse).setTint(el.mid).setAlpha(0.78);
+        v.core.setPosition(s.x, y - 2).setRotation(angle).setScale(glowScale(16 * big) * 1.6, glowScale(16 * big)).setTint(el.hot).setAlpha(s.mine ? 1 : 0);
         if (!s.mine) v.halo.setTint(el.cool).setAlpha(0.8);
         // What it leaves behind: a tail that cools, and now and then a bit that falls away.
         while (v.since > 7 && !halted) {
           v.since -= 7;
           if (!this.spend()) break;
-          glow.spawn(s.x + rnd(-2, 2), y - 2 + rnd(-2, 2), el, { dur: rnd(0.22, 0.34), vx: -s.vx * 0.06 + rnd(-14, 14), vy: -s.vy * 0.06 + rnd(-14, 14) - (el === ELEMENTS.fire ? 22 : 0), from: 24 * big, to: 3, alpha: 0.8, flame: el === ELEMENTS.fire });
+          glow.spawn(s.x + rnd(-2, 2), y - 2 + rnd(-2, 2), el, { dur: rnd(0.22, 0.34), vx: -s.vx * 0.06 + rnd(-14, 14), vy: -s.vy * 0.06 + rnd(-14, 14) - (el === ELEMENTS.fire ? 22 : 0), from: 17 * big, to: 2, alpha: 0.7, flame: el === ELEMENTS.fire });
           if (Math.random() < 0.22) glow.spawn(s.x, y, el, { dur: rnd(0.4, 0.7), vx: rnd(-40, 40), vy: rnd(-40, 30), gravity: el === ELEMENTS.fire ? -60 : 90, from: 5, to: 1 });
         }
         this.light(s.x, y, s.mine ? 105 : 110, el.light, (s.mine ? 0.34 : 0.38) * reach);
@@ -660,7 +660,7 @@ export class FieldLight {
     filter.shade = hour.shade;
     filter.vignette = hour.vignette;
     // A flame in full sun is a pale thing; at night it is all there is to see.
-    filter.emitAmount = 0.72 + 0.28 * this.dark;
+    filter.emitAmount = 0.8 + 0.2 * this.dark;
     // The line of focus is where the hero stands, so that they and what is round them are always sharp.
     filter.focus = Math.max(0.2, Math.min(0.8, (this.world.hero.y - 30 - this.vy) / this.vh));
     const cx = this.vx + this.vw / 2;

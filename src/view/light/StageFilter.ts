@@ -70,7 +70,7 @@ export class StageFilter extends Phaser.Filters.Controller {
   full = true;
   /** How bright a lit thing must be before it glows, and where it glows fully. One is white as drawn. */
   glow: [number, number] = [1.0, 1.55];
-  bloom = 0.7;
+  bloom = 0.62;
   /** How far out of focus the edge furthest from the hero is, in pixels of a view 510 high. */
   blur = 4.2;
   /** Where the blur begins and where it is whole, from the line of focus (0) to the further edge (1). */
@@ -80,7 +80,7 @@ export class StageFilter extends Phaser.Filters.Controller {
   vignette = 0.42;
   shade: [number, number, number] = [0.9, 0.94, 1.08];
   contrast = 0.2;
-  saturation = 1.1;
+  saturation = 1.06;
   grain = 0.022;
 
   constructor(camera: Phaser.Cameras.Scene2D.Camera) {

@@ -24,22 +24,22 @@ export interface Hour {
 /** The hours a land passes through, by how far through its waves it is: 0 at its first, 1 at its captain's. */
 const DAYS: Record<Land, Array<[number, Hour]>> = {
   meadow: [
-    [0, { ambient: [1.04, 1.0, 0.9], sun: [1.0, 0.9, 0.6], shafts: 0.2, clouds: 0.24, shade: [0.84, 0.95, 1.12], vignette: 0.34 }],
-    [0.45, { ambient: [1.0, 0.9, 0.74], sun: [1.0, 0.62, 0.3], shafts: 0.24, clouds: 0.18, shade: [0.95, 0.84, 1.08], vignette: 0.42 }],
-    [0.8, { ambient: [0.72, 0.58, 0.76], sun: [1.0, 0.5, 0.46], shafts: 0.16, clouds: 0.12, shade: [0.8, 0.84, 1.2], vignette: 0.5 }],
-    [1, { ambient: [0.52, 0.58, 0.8], sun: [0.55, 0.72, 1.0], shafts: 0.1, clouds: 0.1, shade: [0.74, 0.9, 1.3], vignette: 0.56 }],
+    [0, { ambient: [0.96, 0.96, 0.9], sun: [1.0, 0.9, 0.6], shafts: 0.22, clouds: 0.26, shade: [0.84, 0.95, 1.12], vignette: 0.34 }],
+    [0.45, { ambient: [0.98, 0.88, 0.8], sun: [1.0, 0.58, 0.3], shafts: 0.24, clouds: 0.22, shade: [0.95, 0.84, 1.08], vignette: 0.42 }],
+    [0.8, { ambient: [0.72, 0.58, 0.76], sun: [1.0, 0.5, 0.46], shafts: 0.16, clouds: 0.12, shade: [0.8, 0.84, 1.2], vignette: 0.44 }],
+    [1, { ambient: [0.58, 0.63, 0.84], sun: [0.55, 0.72, 1.0], shafts: 0.1, clouds: 0.1, shade: [0.78, 0.9, 1.24], vignette: 0.44 }],
   ],
   desert: [
-    [0, { ambient: [1.08, 1.0, 0.84], sun: [1.0, 0.94, 0.72], shafts: 0.12, clouds: 0, shade: [0.95, 0.9, 1.05], vignette: 0.32 }],
-    [0.5, { ambient: [1.0, 0.82, 0.66], sun: [1.0, 0.52, 0.26], shafts: 0.2, clouds: 0, shade: [1.0, 0.8, 1.0], vignette: 0.44 }],
+    [0, { ambient: [0.97, 0.94, 0.86], sun: [1.0, 0.94, 0.72], shafts: 0.14, clouds: 0.1, shade: [0.95, 0.9, 1.05], vignette: 0.32 }],
+    [0.5, { ambient: [0.96, 0.8, 0.68], sun: [1.0, 0.52, 0.26], shafts: 0.22, clouds: 0.1, shade: [1.0, 0.8, 1.0], vignette: 0.44 }],
     [0.8, { ambient: [0.72, 0.54, 0.66], sun: [0.9, 0.42, 0.5], shafts: 0.12, clouds: 0, shade: [0.84, 0.8, 1.2], vignette: 0.5 }],
-    [1, { ambient: [0.52, 0.52, 0.78], sun: [0.6, 0.7, 1.0], shafts: 0.08, clouds: 0, shade: [0.76, 0.86, 1.3], vignette: 0.56 }],
+    [1, { ambient: [0.56, 0.56, 0.8], sun: [0.6, 0.7, 1.0], shafts: 0.08, clouds: 0, shade: [0.8, 0.88, 1.24], vignette: 0.44 }],
   ],
   snow: [
-    [0, { ambient: [0.94, 0.99, 1.06], sun: [1.0, 0.95, 0.84], shafts: 0.16, clouds: 0.28, shade: [0.84, 0.94, 1.14], vignette: 0.36 }],
+    [0, { ambient: [0.9, 0.95, 1.02], sun: [1.0, 0.95, 0.84], shafts: 0.16, clouds: 0.28, shade: [0.84, 0.94, 1.14], vignette: 0.36 }],
     [0.5, { ambient: [0.62, 0.72, 0.98], sun: [0.8, 0.76, 1.0], shafts: 0.12, clouds: 0.16, shade: [0.78, 0.9, 1.24], vignette: 0.46 }],
     // The last of it is under the northern lights.
-    [1, { ambient: [0.48, 0.57, 0.8], sun: [0.36, 1.0, 0.7], shafts: 0.14, clouds: 0.08, shade: [0.72, 0.92, 1.3], vignette: 0.56 }],
+    [1, { ambient: [0.52, 0.6, 0.82], sun: [0.36, 1.0, 0.7], shafts: 0.14, clouds: 0.08, shade: [0.78, 0.92, 1.24], vignette: 0.44 }],
   ],
 };
 

@@ -12,7 +12,7 @@
 import fs from 'node:fs';
 
 import { chromium, open, type Page } from './browser';
-import { RICH, THINGS, UPS, arena, fight as fightFrames, tick, until, type Win } from './drive';
+import { RICH, THINGS, UPS, arena, fight as fightFrames, find, tick, until, type Win } from './drive';
 
 /** Fights for some seconds. */
 const fight = (page: Page, seconds: number): Promise<void> => fightFrames(page, Math.round(seconds * 60));
@@ -154,6 +154,24 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await until(page, 'Result');
     await tick(page, 60);
     await shot('result');
+  },
+  // The light changed while a wave goes on: all of it, the cheap part, none, and all of it again.
+  light: async (page, shot) => {
+    await arena(page, { hero: 'pyromancer', wave: 7, weapons: RICH, items: THINGS, ups: UPS, level: 8, gold: 120 });
+    await until(page, 'Hud');
+    await fight(page, 6);
+    await shot('light-full');
+    for (const name of ['low', 'off', 'full-again']) {
+      await page.keyboard.press('KeyP');
+      await tick(page, 10);
+      if (name === 'low') await shot('light-pause');
+      const at = await find(page, 'Hud', 'LIGHT');
+      if (at) await page.mouse.click(at.x, at.y);
+      await tick(page, 4);
+      await page.keyboard.press('KeyP');
+      await fight(page, 2.5);
+      await shot(`light-${name}`);
+    }
   },
   // The game held still.
   pause: async (page, shot) => {

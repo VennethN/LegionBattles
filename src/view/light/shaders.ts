@@ -71,7 +71,7 @@ void main() {
     float beam = noise(vec2(u, uTime * 0.035)) * 0.62 + noise(vec2(u * 2.9 + 7.0, uTime * 0.06)) * 0.38;
     beam = smoothstep(0.5, 0.86, beam);
     light += uSun * (beam * uShafts);
-    air += uSun * (beam * uShafts * 0.22 * (0.4 + 0.6 * outTexCoord.y));
+    air += uSun * (beam * uShafts * 0.1 * (0.4 + 0.6 * outTexCoord.y));
   }
   for (int i = 0; i < ${MAX_LIGHTS}; i++) {
     vec4 l = uLights[i];
@@ -86,14 +86,17 @@ void main() {
     }
   }
   vec3 shine = texture2D(uEmit, outTexCoord).rgb * uEmitAmount;
-  vec3 c = base.rgb * light + air + shine;
+  // What shines hides a little of what is behind it, as well as adding to it: a bolt keeps its color on bright sand,
+  // where adding alone would only turn everything white.
+  float solid = min(0.85, max(shine.r, max(shine.g, shine.b)) * 0.9);
+  vec3 c = (base.rgb * light + air) * (1.0 - solid) + shine;
   // How much of this glows afterwards, kept beside the color: what is lit past white, and whatever shines by itself.
   // It is measured before the color is brought back under white, which is the only time it can be.
   float top = max(c.r, max(c.g, c.b));
-  float glow = max(smoothstep(uGlow.x, uGlow.y, top), min(1.0, dot(shine, vec3(0.7))));
-  // Past three quarters, brightness is eased toward white and not cut off at it, so that a strong light keeps its color.
-  vec3 over = max(c - 0.75, 0.0);
-  c = min(c, 0.75) + 0.25 * (1.0 - exp(-over * 4.0));
+  float glow = max(smoothstep(uGlow.x, uGlow.y, top), min(1.0, dot(shine, vec3(0.42))));
+  // Near white, brightness is eased toward it and not cut off at it, so that a strong light keeps its color.
+  vec3 over = max(c - 0.85, 0.0);
+  c = min(c, 0.85) + 0.15 * (1.0 - exp(-over * 5.0));
   gl_FragColor = vec4(c, glow);
 }
 `;

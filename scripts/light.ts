@@ -6,6 +6,10 @@
 // every land, a captain's wave among them, with a hero who carries fire and
 // one who does not. `--mode=off` is the field as it was drawn before there
 // was any light, to set beside the others.
+//
+// `--film=6` films each scene asked for instead, for that many seconds, a
+// picture to every other frame, to <out>/film-<scene>, and says how to make
+// a clip of them: fire and bolts are only half seen in a still.
 
 import fs from 'node:fs';
 
@@ -19,6 +23,7 @@ const modes = arg('mode', 'full').split(',');
 const [width, height] = arg('size', '907x510').split('x').map(Number);
 const dpr = Number(arg('dpr', '1'));
 const out = arg('out', 'build/light');
+const film = Number(arg('film', '0'));
 fs.mkdirSync(out, { recursive: true });
 const base = process.env.URL ?? 'http://127.0.0.1:5175/';
 
@@ -63,6 +68,16 @@ for (const mode of modes) {
       await until(page, 'Hud');
       await fight(page, Math.round(scene.seconds * 60));
       await page.screenshot({ path: `${out}/${name}${mode === 'full' ? '' : `-${mode}`}.png` });
+      if (film > 0) {
+        const dir = `${out}/film-${name}`;
+        fs.rmSync(dir, { recursive: true, force: true });
+        fs.mkdirSync(dir, { recursive: true });
+        let n = 0;
+        await fight(page, Math.round(film * 60), async (f) => {
+          if (f % 2 === 0) await page.screenshot({ path: `${dir}/f-${String(n++).padStart(4, '0')}.jpg`, type: 'jpeg', quality: 90 });
+        });
+        console.log(`  ffmpeg -y -framerate 30 -i ${dir}/f-%04d.jpg -c:v libx264 -pix_fmt yuv420p -crf 20 ${out}/${name}.mp4`);
+      }
     } catch (e) {
       errors.push(`${name}: ${String(e)}`);
     }
