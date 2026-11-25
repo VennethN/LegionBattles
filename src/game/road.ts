@@ -80,7 +80,7 @@ export const OMENS: readonly OmenDef[] = [
   { id: 'night', name: 'The Long Night', says: 'It is dark, and enemies move 20% faster.', prize: 'Pick 1 of 3 relics', land: 'snow', from: 31, weight: 1.8, pays: 'relic' },
   { id: 'blizzard', name: 'Blizzard', says: 'You move 18% slower, and enemy shots slow you.', prize: 'Your lowest-tier weapon gains a tier', land: 'snow', from: 31, weight: 1.8, pays: 'tier' },
   // The Salt Coast's own.
-  { id: 'squall', name: 'Squall', says: 'Lightning strikes all over the field. The ground shows where first.', prize: 'Pick 1 of 3 relics', land: 'coast', from: 41, weight: 1.8, pays: 'relic' },
+  { id: 'squall', name: 'Squall', says: 'Lightning strikes where you stand, again and again. The ground shows where first.', prize: 'Pick 1 of 3 relics', land: 'coast', from: 41, weight: 1.8, pays: 'relic' },
   { id: 'smugglers', name: "Smugglers' Run", says: 'A guarded cart of contraband crosses the field.', prize: 'Destroy it: a chest', land: 'coast', from: 41, weight: 1.8 },
   // The Deep Mines' own.
   { id: 'deepdark', name: 'The Deep Dark', says: 'It is dark, and enemies move 20% faster.', prize: 'A chest', land: 'mine', from: 51, weight: 1.8, pays: 'chest' },

@@ -17,11 +17,11 @@
 // weapon were built up. --quiet keeps every run to the quiet road,
 // --norelics fights every wave as if no relic were held, and --nokinds
 // leaves the gifts of the kinds out: what each of the three is worth.
-// --first plays every run as a player's first: Biscuit in the cage on the
-// second wave, and with --pool=start, only the armory's first weapons in the camps.
+// --first plays every run as a player's first, and with --pool=start, only
+// the armory's first weapons in the camps.
 //
 // It says how long the fighting of a run took, in minutes of the game's
-// own time, for the runs that came through all twenty waves and for all.
+// own time, for the runs that came through all hundred waves and for all.
 //
 // What the Hold gives a run is an input: --vows is the vows the runs are
 // sworn under (a number for the first so many, or their names),
@@ -30,7 +30,8 @@
 // of it is offered otherwise). --six brings six companions: the first six
 // unlocked, or those --band names.
 //
-// --career plays a player's whole time with the game, from a new save:
+// --career plays a player's whole time with the game, from a new save
+// (--upto=N stops each after N runs):
 // run after run with whoever is unlocked, until every hero's mastery track
 // is full and every companion and slot unlocked. It says how many runs that
 // took and when each thing came.
@@ -251,7 +252,9 @@ function career(n: number): number {
   const full: Record<string, number> = {};
   const ways: Record<string, string> = {};
   const done = (): boolean => HEROES.every((h) => isOpen(save, h.id) && masteryLevel(save, h.id) >= LEVEL_XP.length) && COMPANIONS.every((c) => isFriend(save, c.id));
-  while (!done() && runs < 500) {
+  // A career may be stopped after so many runs: a whole one is hundreds of runs, and the first forty are what a new player meets.
+  const cap = Number(option('upto', '500'));
+  while (!done() && runs < cap) {
     runs++;
     // A player tries whoever is newest among the unlocked, then plays whoever they have played least.
     const hero = HEROES.filter((h) => isOpen(save, h.id)).sort((a, b) => count(save, 'hero', a.id) - count(save, 'hero', b.id))[0].id;
@@ -277,6 +280,7 @@ function career(n: number): number {
   console.log(`  slots 2 to 6 at runs ${slotAt.slice(2).join(', ')}`);
   console.log(`  companions: ${COMPANIONS.map((c) => `${c.name} ${ways[c.id] ?? (isFriend(save, c.id) ? 'start' : '-')}`).join(', ')}`);
   console.log(`  tracks full at run (runs with that hero): ${HEROES.map((h) => `${h.short} ${full[h.id] ?? '-'} (${heroRuns[h.id]})`).join(', ')}`);
+  console.log(`  mastery levels at the end: ${HEROES.map((h) => `${h.short} ${masteryLevel(save, h.id)}`).join(', ')}; best wave ${Math.max(0, ...Object.values(save.best))}`);
   if (!brief) for (const line of came) console.log(`  ${line}`);
   return runs;
 }
@@ -285,7 +289,9 @@ const careers = args.find((a) => a === '--career' || a.startsWith('--career='));
 if (careers) {
   const n = Number(careers.split('=')[1] ?? '3');
   const all: number[] = [];
-  for (let i = 0; i < n; i++) all.push(career(i));
+  // --seed=N starts the careers' dice further on, so that careers played side by side are other careers.
+  const from = Number(option('seed', '0'));
+  for (let i = 0; i < n; i++) all.push(career(from + i));
   console.log(`\n${n} careers: everything open after ${all.join(', ')} runs`);
 } else if (friends) {
   const hero = only || HEROES[0].id;
