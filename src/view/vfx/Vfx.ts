@@ -456,7 +456,8 @@ export class Vfx {
     const x = e.x - Math.cos(a) * (boss ? s.hunt.monster.def.r * 0.4 : 6);
     if (boss) {
       // A boss is half the screen: struck, he goes white only for a big blow or one in his opening, and for an instant.
-      if (e.big || e.open) this.monsterWhite = 0.035;
+      // CALM leaves it out: half the screen going white, even for an instant, is the flash some players cannot take.
+      if ((e.big || e.open) && feelShare().flash >= 1) this.monsterWhite = 0.035;
       this.sparks(x, e.y, a, e.big ? 14 : 8, e.big ? 560 : 420, SPARK, z);
       this.blood(x, e.y, a, e.big ? 7 : 3, z);
       if (e.big) this.throw(x, e.y, 6, { shape: 'chip', size: 10, speed: 260, up: 300, angle: a, cone: 0.8, tint: this.ground.chip, spread: 8, dur: 1, front: 40 });
