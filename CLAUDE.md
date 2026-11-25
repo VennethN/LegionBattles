@@ -21,6 +21,7 @@ npm run walk                        # every state at a portal's frame, to build/
 npm run walk camp title --size=small,phone-tall
 npm run smoke                       # plays it through its own buttons, with mouse and by touch
 npm run film                        # films it frame by frame, to see it move
+npm run light                       # the field under its light, each hour of each land, to build/light
 ```
 
 Read the PNGs with the Read tool. Do this after any change a player will see, at the small frame and on a phone as well: most of what goes wrong is layout. `scripts/walk.ts` sets a state up by standing a run up as described (`window.stage`), so add a state there for a new screen. The smoke finds a button by the words on it, so give a new one words.
@@ -36,6 +37,8 @@ The headless browser draws a few frames a second. The scripts take over the page
 - **What the screens show of a hero's quirk, their move and the band, the wave tells them:** `World.trait`, `World.fury`, the companions in `World.band`, and the events. A screen never works a quirk out for itself.
 - **Everything an enemy is about to do is shown before it does it:** a mark where it will stand, a line it will run down, a ring it will burst in. A new way of fighting comes with its warning.
 - **The art is drawn in code, in the kit's style.** No image files, no AI pictures, no art copied from another game. Nothing has a face: no eyes, mouths, noses or brows, and no two dark openings side by side that could be read as eyes. A pale ring round a dark middle is an eye too: an orb with a halo was, and is a cut stone now.
+- **The pictures are flat and the game lights them.** The rule against gradients is about figures and things. The two pictures of light in `src/art/fx.ts` (`glow`, `flame`) fade to nothing, because light has no edge; they are only ever colored and added by `src/view/light`, never shown as things. Everything about the light is in that folder: the color of each hour in `hours.ts`, how strong each light is in `FieldLight.ts`, the lens's numbers on `StageFilter`. Look at a change with `npm run light`, at noon and at night both, and with `--mode=off` beside it.
+- **Under the light an enemy is still easy to find, and what has to be read is not lit.** No hour is so dark that a red figure is lost on the ground. Numbers, the hero's health and the red warnings go through `light.crisp`, which keeps them off the lit camera.
 - **It is a game in a genre, not a copy of another game.** Its heroes, weapons, wares, enemies, names and looks are its own.
 - **The art build writes only what the game shows,** which `scripts/art.game.ts` says from the game's own data. A picture a screen names has to be on the list in `src/view/icons.ts`: a test says so if it is not.
 - **Everything on the field is on one sheet,** and a field's pictures always fit. `tests/art.test.ts` fails when they no longer do.

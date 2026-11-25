@@ -53,6 +53,7 @@ That is the type check, every test and a build. All three have to pass before a 
 | `npm run walk [state ...] [--size=frame,small,full,phone-wide,phone-tall]` | With `npm run dev` running: pictures of every state of the game to `build/walk`, at a portal's frame sizes and on a phone. |
 | `npm run smoke` | With `npm run dev` running: plays the game through its own buttons, with keys and mouse and then by touch, and fails if a press does not do what it says. |
 | `npm run film` | With `npm run dev` running: films the game frame by frame to `build/film`, and says how to make a clip of it. It is how the game is seen moving where there is no screen. |
+| `npm run light [scene ...] [--mode=full,low,off] [--size=907x510] [--film=6]` | With `npm run dev` running: pictures of the field under its light at each hour of each land, to `build/light`. `--mode=off` is the field with no light, to set beside them. `--film` films a scene. |
 | `npm run cover` | Draws the three covers a portal asks for to `docs/covers`. |
 | `npm run build:crazygames` | The copy to upload to CrazyGames, into `dist-crazygames`. `npm run package:crazygames` zips it to `build/lastander-crazygames.zip`. |
 
@@ -71,6 +72,7 @@ That is the type check, every test and a build. All three have to pass before a 
 | `src/art` | The art kit and everything drawn with it. `holdout.ts` is this game's own: the weapons as pictures, the wares, the marks of the stats, the arena's ground. |
 | `src/view/scenes` | `BootScene` loads. `ArenaScene` is the field. `HudScene` lies over it and takes the steering. `CampScene` is the camp, `TitleScene` the list of heroes, `ResultScene` the end of a run. `AssetsScene` loads pictures while the game runs. |
 | `src/view/art` | The art's runtime: `Sheet` packs pictures onto one texture, `Figure` moves a figure's parts by the rig. |
+| `src/view/light` | The light laid over the field: the hours, the lights, what burns, the air, and the shaders. See "The light" below. |
 | `src/view/config.ts` | How the screen is fitted to a window. |
 | `src/view/input.ts` | The keys and the stick. |
 | `src/audio` | The sounds and the music, which are the first game's. `public/assets/audio/CREDITS.txt` names where the recordings came from and is shipped with the game. |
@@ -89,6 +91,23 @@ That is the type check, every test and a build. All three have to pass before a 
 
 **The screen has no fixed shape.** A wide window is 600 of the layout's units high, a tall one 600 wide. That is fewer than the sister games have, so that the smallest words are still eleven pixels tall in the smallest frame a portal shows a game in (821 by 462). The arena lies down in a wide window and stands on end in a tall one.
 
+## The light
+
+The figures and the ground are drawn flat, in the kit's style. The game lays light over them when it shows the field (`src/view/light`):
+
+- **Every wave has an hour.** A land is come into in the afternoon and its captain is met at night. `hours.ts` has the color of each hour, and nothing else decides how dark a wave is.
+- **Things give light.** The hero carries a lantern's worth, more the darker it is. A torch, a brazier, a bolt of fire or frost, an enemy's shot, a burst, a burning enemy, a captain, a cloud of venom, a heart on the ground: each brightens the ground and the figures round it. A frame has sixteen lights; the hero's first, then the strongest.
+- **What shines is drawn as light.** A bolt is a hot heart in a glow with a tail that cools behind it; a flame is many small tongues, white where they lie thick; a blast throws sparks and leaves smoke. They are the kit's two pictures of light (`fx/glow`, `fx/flame`), colored and added (`Glow.ts`). An enemy's shot keeps its drawn picture inside its glow, so that it is told from the hero's at a glance.
+- **A lens.** What is lit past white glows. The top and the bottom of the view are a little out of focus and the line of focus follows the hero. The rim is darkened, the color graded, and there is a little grain.
+- **The air.** Pollen by day and fireflies by night in the meadow, sand on the wind and embers in the desert, snow in the snow.
+- **What has to be read stays sharp.** The numbers over the field, the hero's health and the red warnings of what an enemy is about to do are drawn by a second camera that has no light on it.
+
+How it is made: the field's camera has one filter (`StageFilter.ts`) of four small programs (`shaders.ts`). The first multiplies the picture by the hour and the lights. What shines by itself is drawn apart, half the size, and added after, so that night does not dim a flame. The second and third take what glows and blur it at a sixteenth of the size. The fourth is the lens. That is two passes over the whole picture and five small ones.
+
+The player can turn it to LOW (the hour and the lights, without the glow, the focus or the grain) or OFF (the field as it is drawn), in the pause panel and on the title. The choice is kept on the machine under `lastander-light`, beside the save and not in it. The game takes it down a step by itself when frames stay slow for four seconds, until the player has chosen.
+
+The renderer is set to bind two textures (`maxTextures: 2` in `main.ts`): the filter reads the picture and one more beside it. With one, the second is silently not bound and reads as black.
+
 ## Adding to it
 
 **A hero.** An entry in `HEROES` in `src/game/heroes.ts`: who they are, the kit's unit that draws them, their numbers, and what opens them; a weapon of their own in `SIGNATURES`; a quirk (a name in `Quirk`, its numbers in `QUIRKS`, its lines in `world.ts`, what the screen can read of it in `World.trait`); and a move (a line in `MOVES`, its case in `deed` in `world.ts`). A test for each, in `tests/heroes.test.ts`. Then `npm run art`, and `npm run pace -- --hero=<id>`, with `--nomove` and `--noquirk` to see what each part is worth.
@@ -100,6 +119,8 @@ That is the type check, every test and a build. All three have to pass before a 
 **A ware.** A line in `ITEMS`, and its picture's name in `src/view/icons.ts`.
 
 **An enemy.** A line in `ENEMIES` with the way it fights, and its name in the waves it comes on (`MIXES`). Any unit in `docs/art/roster.md` can be one.
+
+**A thing that gives light.** A weapon that burns or glows gets its element in `WEAPON_LIGHT` in `src/view/light/hours.ts`; a hero's own light a line in `HERO_LIGHT`. Anything else is a call to `light` or `flash` in `FieldLight.ts`, which reads the wave as the field's screen does. Look at it with `npm run light`, by day and by night: a light that is right at night is a white blot at noon.
 
 **A way of fighting.** A name in `Ai`, its case in `think` and `loose` in `world.ts`, its warning in `warn` in `ArenaScene.ts`, and a test.
 
@@ -162,6 +183,9 @@ This was built in a cloud session with no screen and no sound.
 - How fast it runs on a real device is not known. A hundred enemies are a hundred sprites and their numbers, which the headless browser's software drawing says nothing about.
 - Touch was tried only as a headless browser makes it: a finger dragged, a button tapped. Two fingers at once were not.
 - The CrazyGames copy has not been run on their page. Its code is the first game's, which has.
+- The light has only been seen in a headless browser, which draws it in software, a few frames a second. How fast it runs on a real graphics card, a school laptop's or a phone's, is not known, and neither is whether the step down for slow frames comes at the right time: it has never been set off. The code that changes the light during a wave was tried by pressing the button (`npm run walk light`).
+- The light has hardly been seen moving. Three scenes were filmed for four seconds each and looked at as strips of frames; fire, trails and the flicker of lights were tuned from stills. `docs/light` has six of the stills and one wave with the light off and on.
+- A full screen (1920 by 1080) under the light was looked at once, at dusk in the meadow. A phone on its side was not looked at.
 - A boss is only told from another by its picture and its numbers: all three fight the same way.
 - The named heroes, their quirks and moves, and the companions are rules that were tested and measured, and shown only plainly: a hero's own weapon still floats beside them with the rest, a move is a ring and a line of words, a companion is its figure and nothing more, and what a quirk is doing is not shown on the screen at all. The proper screens for all of it are the next piece of work. What was looked at: the list of heroes with the companion's button at the small frame and on a phone, and a wave with a band at a portal's frame.
 - Whether a quirk is fun to play round is not known: Bram's standing still, Isaura's never stopping and Wren's not being touched were only ever played by the computer.
