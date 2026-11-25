@@ -27,7 +27,7 @@ import { FieldLight } from '../light/FieldLight';
 import type { LightMode } from '../light/setting';
 import { SHEET, Sheet, sheet, type UnitKey } from '../art/Sheet';
 import { STILL_SCALE } from '../art/scale';
-import { beginWave, finishWave, save, theRun, theWorld } from '../session';
+import { beginWave, finishWave, save, takeHanded, theRun, theWorld } from '../session';
 import type { HudScene } from './HudScene';
 
 const INV_ART = 1 / ART_SCALE;
@@ -52,7 +52,7 @@ const BURSTS: Record<Burst, number> = {
   star: hex(HOLY.light), frost: hex(FROST.fill), rain: hex(BONE.fill), rise: RED, bolt: hex(HOLY.light),
 };
 /** What each kind of ground that goes on doing something is tinted. */
-const ZONES: Record<ZoneKind, number> = { cloud: hex(VENOM.fill), holy: hex(HOLY.fill), fire: hex(FIRE.fill), rain: hex(BONE.shade) };
+const ZONES: Record<ZoneKind, number> = { cloud: hex(VENOM.fill), holy: hex(HOLY.fill), fire: hex(FIRE.fill), rain: hex(BONE.shade), ice: hex(FROST.fill) };
 /** Which way each weapon's picture points when it stands upright: most point up; a bow looses to its right. */
 const POINTS_RIGHT = new Set(['bow', 'longbow', 'rimebow']);
 /** What does not turn to its mark at all: it is swung, thrown or shaken where it hangs. */
@@ -245,7 +245,9 @@ export class ArenaScene extends Phaser.Scene {
     sfx.play('fight', 0.7);
     // A road with an omen says which it was as the wave begins.
     const omen = w.omen === 'quiet' ? '' : omenOf(w.omen).name;
-    const under = omen || (w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'A captain leads them' : '');
+    // The run in which the move stops playing itself says so, once, in place of the land's name.
+    const handed = w.wave.n === 1 && takeHanded() ? 'Your move waits for you now: SPACE, or its button' : '';
+    const under = handed || omen || (w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'A captain leads them' : '');
     // A run begins as its hero's: who they are is said before the wave is.
     if (w.wave.n === 1) this.scene.launch('Hud', { banner: def.name.toUpperCase(), under: def.epithet, line: `"${def.line}"`, then: { banner: `WAVE ${w.wave.n}`, under } });
     else this.scene.launch('Hud', { banner: `WAVE ${w.wave.n}`, under });

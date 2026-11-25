@@ -2,6 +2,7 @@
 // being fought. Every screen asks here, so that there is one of each
 // however many screens are open.
 
+import { handOver } from '../game/handover';
 import { endWave, newRun, setupOf, type RunData } from '../game/run';
 import { bandFor, record, type SaveData } from '../game/state';
 import { loadSave, storeSave, wipeSave } from '../game/storage';
@@ -36,6 +37,14 @@ export function startOver(): void {
   reloadSave();
 }
 
+/** True once, for the run in which the move was handed over to the player: the field says so. */
+let handed = false;
+export function takeHanded(): boolean {
+  const was = handed;
+  handed = false;
+  return was;
+}
+
 export function theRun(): RunData | null {
   return run;
 }
@@ -47,7 +56,10 @@ export function theWorld(): World | null {
 /** Begins a new run with a hero. A run that was left in its camp is let go. */
 export function startRun(hero: string): RunData {
   const s = save();
-  run = newRun(hero, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1, bandFor(s, hero));
+  // A player's first run is told so: it has a companion to find on its second wave, and few weapons in its camps.
+  run = newRun(hero, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1, bandFor(s, hero), undefined, { first: s.ended === 0 });
+  // From the second run on the move waits for the player, and the game says so once.
+  handed = handOver(s);
   world = null;
   opened = [];
   friends = [];

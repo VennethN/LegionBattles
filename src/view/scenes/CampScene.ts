@@ -10,9 +10,9 @@ import Phaser from 'phaser';
 import { BONE, BUSH, GOLD, HOLY, IRON, LINEN, OUTLINE, RUBY, VENOM, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { COMPANIONS, ITEMS, SLOTS, TIER_NAMES, WEAPONS, byId, levelNeeds, relicOf, waveOf, weaponOf } from '../../game/data';
+import { COMPANIONS, ITEMS, SLOTS, TIER_NAMES, WEAPONS, byId, levelNeeds, ownRules, relicOf, waveOf, weaponOf } from '../../game/data';
 import {
-  buy, choose, combine, heroOf, kindsOf, lock, march, openPack, ownOf, reroll, rerollPrice, sell, sellPrice, statsOf, twinOf, weaponNumbers, whyNot, type Offer, type RunData,
+  buy, canToss, choose, combine, heroOf, kindsOf, lock, march, openPack, ownDef, ownOf, reroll, rerollPrice, sell, sellPrice, statsOf, toss, twinOf, weaponNumbers, whyNot, type Offer, type RunData,
 } from '../../game/run';
 import { STAT_INFO, STATS, statText, type StatLine } from '../../game/stats';
 import { ads } from '../../platform/ads';
@@ -35,6 +35,8 @@ export class CampScene extends Phaser.Scene {
   private loot: string | null = null;
   /** The weapon the player has pressed, whose card is up. */
   private picked = -1;
+  /** True while the card of the hero's own weapon is shown. */
+  private owned = false;
   /** The thing the player has pressed, whose card is up. */
   private thing: string | null = null;
   /** The relic the player has pressed, and whether the card of the kinds of weapon is up. */
@@ -308,6 +310,7 @@ export class CampScene extends Phaser.Scene {
     if (this.picked >= 0 && run.weapons[this.picked]) this.weaponCard(this.picked);
     else if (this.thing) this.thingCard(this.thing);
     else if (this.relic) this.relicCard(this.relic);
+    else if (this.owned) this.ownCard();
     else if (this.kinds) this.kindsCard();
   }
 
@@ -348,6 +351,13 @@ export class CampScene extends Phaser.Scene {
     const why = whyNot(run, i);
     const b = this.button(x + w / 2 - 22, y + h - 34, why === 'hands' ? 'HANDS FULL' : `BUY   ${o.price}`, () => this.act(buy(this.run, i)), { width: w - 68, height: 46, size: why === 'hands' ? 15 : 19, mat: GOLD });
     b.setEnabled(why === '');
+    // Fenn may toss for it, once in a camp: heads it is free, tails it is paid for and gone.
+    if (canToss(run, i)) {
+      this.button(x + w - 44, y + 24, 'TOSS', () => {
+        const how = toss(this.run, i);
+        this.act(how !== null, how === 'heads' ? 'claim' : 'tick');
+      }, { width: 72, height: 34, size: 15, mat: IRON });
+    }
     // Kept for the next camp, or for after the wares are changed.
     const keep = this.add.container(x + w - 30, y + h - 34);
     keep.add(slabImage(this, -22, -23, 44, 46, o.locked ? HOLY : LINEN, 12, 6));
@@ -381,7 +391,12 @@ export class CampScene extends Phaser.Scene {
     this.text(x + 96, y + 76, `${Math.floor(run.xp)} / ${levelNeeds(run.level)}`, { size: 15, align: 'left', color: BONE.shade });
     // Their own weapon, which takes no hand and grows by itself: named with its tier, plainly, until it has a place of its own here.
     const own = ownOf(run);
-    this.text(x + 14, y + 126, `${weaponOf(own.id).name} ${TIER_NAMES[own.tier]}`, { size: 15, align: 'left', color: BONE.fill, strokeWidth: 3 });
+    const named = this.text(x + 14, y + 126, `${weaponOf(own.id).name} ${TIER_NAMES[own.tier]}`, { size: 15, align: 'left', color: BONE.fill, strokeWidth: 3 });
+    // Pressed, it shows what it is and what it learns as the hero grows.
+    named.setInteractive({ useHandCursor: true }).on('pointerup', () => {
+      this.owned = true;
+      this.draw();
+    });
     this.statGrid(x + 12, y + 142, w - 24, 1, h - 154);
   }
 
@@ -479,6 +494,31 @@ export class CampScene extends Phaser.Scene {
     this.text(cx, cy - 6, r.name, { size: 20, color: OUTLINE, stroke: null });
     this.text(cx, cy + 14, r.says, { size: 16, color: '#6b4a2b', stroke: null, wrap: 264 }).setOrigin(0.5, 0);
     this.button(cx, cy + 100, 'CLOSE', shut, { width: 180, height: 46, size: 19, mat: IRON });
+  }
+
+  /** The hero's own weapon: what it is now, and the rule it learns at each of three levels. */
+  private ownCard(): void {
+    const run = this.run;
+    const own = ownOf(run);
+    const def = ownDef(run);
+    const cx = view.w / 2;
+    const w = Math.min(460, view.w - 24);
+    const h = 330;
+    const top = Math.max(8, (view.h - h) / 2);
+    const shut = (): void => {
+      this.owned = false;
+      this.draw();
+    };
+    this.add2(this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.55).setInteractive()).on('pointerup', shut);
+    this.add2(slabImage(this, cx - w / 2, top, w, h, BONE, 18, 8));
+    this.text(cx, top + 28, `${def.name} ${TIER_NAMES[own.tier]}`, { size: 20, color: OUTLINE, stroke: null });
+    this.text(cx, top + 46, def.says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 36 }).setOrigin(0.5, 0);
+    ownRules(def.id, own.tier).forEach((r, i) => {
+      const y = top + 104 + i * 56;
+      this.text(cx - w / 2 + 18, y, `Level ${r.level}`, { size: 16, align: 'left', color: r.on ? '#2e5f45' : OUTLINE, stroke: null });
+      this.text(cx - w / 2 + 104, y - 10, r.says, { size: 15, align: 'left', color: r.on ? '#2e5f45' : '#6b4a2b', stroke: null, wrap: w - 122 }).setOrigin(0, 0);
+    });
+    this.button(cx, top + h - 36, 'CLOSE', shut, { width: 180, height: 46, size: 19, mat: IRON });
   }
 
   /** The kinds of weapon held: how many of each, what that gives, and what the next one would. */

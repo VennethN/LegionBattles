@@ -10,8 +10,8 @@
 // Distances are in the arena's units and times in seconds.
 
 import {
-  ALLY_QUIRKS, ARENA, BAND, COMPANIONS, GATHER_SECONDS, HEART, HERO_RADIUS, HERO_SPEED, HURT_GRACE, LEECH_GAP, MARK_CLEAR, MARK_SECONDS, MOVE, MOVES, PICKUP_RADIUS, QUIRKS, RING_SHARE,
-  ENEMIES, byId, coinShare, enemyAt, waveOf, weaponOf,
+  ALLY_QUIRKS, ARENA, BAND, BURN_LORE, COMPANIONS, GATHER_SECONDS, HEART, HERO_RADIUS, HERO_SPEED, HURT_GRACE, LATE_COIN, LEECH_GAP, MARK_CLEAR, MARK_SECONDS, MOVE, MOVES, OWN, PICKUP_RADIUS,
+  QUIRKS, RING_SHARE, ENEMIES, byId, coinShare, enemyAt, finishedAs, waveOf, weaponOf,
   type AllyQuirk, type CompanionDef, type EnemyDef, type MoveDef, type MoveId, type Quirk, type WaveDef, type WeaponDef,
 } from './data';
 import { countKinds, giftsOf, type Gifts } from './kinds';
@@ -74,6 +74,12 @@ export interface Setup {
   tithe?: boolean;
   /** What the Bone Dice rolled for this wave: it is in `stats` already, and is here to be shown. */
   bones?: { up: Stat; down: Stat } | null;
+  /** The last weapon Orrin bought, by name: his staff is finished as it. */
+  taken?: string;
+  /** The share of their health the hero begins with, where that is not all of it: after a forced march. */
+  hurt?: number;
+  /** True on the wave that has the lone champion who leaves a relic: the third of every run. */
+  herald?: boolean;
 }
 
 /** Which way the hero is steered: a length of 1 is flat out. `act` lets the move loose, if it is full. */
@@ -83,9 +89,9 @@ export interface Steer {
   act?: boolean;
 }
 
-/** A hero running through whatever is in the way: Bram's rush, Isaura's charge. */
+/** A hero running through whatever is in the way: Isaura's charge. */
 export interface Dash {
-  kind: 'rush' | 'charge';
+  kind: 'charge';
   dx: number;
   dy: number;
   left: number;
@@ -105,7 +111,7 @@ export interface Hero {
   /** Seconds they are slowed for, and by what share. */
   chill: number;
   chillBy: number;
-  /** Seconds they have stood still, and seconds they have kept moving. */
+  /** Seconds they have stood still, and seconds they have kept moving one way: Isaura's lance is couched by riding straight. */
   still: number;
   ran: number;
   /** Seconds since a blow last landed on them. */
@@ -115,6 +121,8 @@ export interface Hero {
   sure: number;
   /** Seconds left in which their own blows heal them. */
   feast: number;
+  /** Seconds left of Hroth's open grave: double harm. */
+  open: number;
   dash: Dash | null;
 }
 
@@ -242,12 +250,12 @@ export interface Shot {
   src: number;
 }
 
-export type ZoneKind = 'cloud' | 'holy' | 'fire' | 'rain';
+export type ZoneKind = 'cloud' | 'holy' | 'fire' | 'rain' | 'ice';
 
 /**
- * A place that goes on doing harm: a cloud, fire on the ground, arrows
- * coming down, holy ground. `by` is its harm a second. Holy ground mends
- * the band that stands on it besides.
+ * A place that goes on doing harm: a cloud, fire on the ground, holy
+ * ground. `by` is its harm a second. Holy ground mends the band that
+ * stands on it besides. Ice does no harm: it slows whoever crosses it.
  */
 export interface Zone {
   id: number;
@@ -294,6 +302,38 @@ export interface Ring {
   seconds: number;
   seen: number[];
   kind: 'fire';
+}
+
+/** Bram's gate: a wall across the way he faced. No foe passes it and no shot of theirs, until its time is up. */
+export interface Wall {
+  id: number;
+  /** Its middle, the way it faces (out from where Bram stood), and half its length. */
+  x: number;
+  y: number;
+  nx: number;
+  ny: number;
+  half: number;
+  /** Seconds left of it. */
+  life: number;
+}
+
+/** Something the field does to whoever stands in it, shown before it happens: a lane of the burning field. */
+export interface Peril {
+  id: number;
+  kind: 'fire';
+  /** Its middle and its size. */
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  /** Seconds until it burns, and seconds it then burns for. */
+  left: number;
+  life: number;
+  /** What it does to the hero, and how hot it leaves an enemy burning. */
+  dmg: number;
+  burns: number;
+  /** Seconds until it next catches whoever stands in it, once it burns. */
+  tick: number;
 }
 
 export interface Mark {
@@ -348,6 +388,8 @@ export interface Pick {
   /** True once it is coming to the hero. */
   pulled: boolean;
   age: number;
+  /** True for a coin that still lay on the ground when the wave ended: it is worth a share of itself (LATE_COIN). */
+  late?: boolean;
 }
 
 export interface Slot {
@@ -374,7 +416,8 @@ export interface Trait {
 export type Ev =
   | { t: 'mark'; id: number; x: number; y: number; boss: boolean }
   | { t: 'stand'; id: number }
-  | { t: 'strike'; slot: number; angle: number; x: number; y: number; range: number }
+  // `great` is a blow that is more than the weapon's usual: Isaura's couched thrust, a sweep that goes all the way round.
+  | { t: 'strike'; slot: number; angle: number; x: number; y: number; range: number; great?: boolean }
   | { t: 'loose'; slot: number; angle: number; shot: number }
   | { t: 'hit'; id: number; x: number; y: number; amount: number; crit: boolean; soft: boolean }
   | { t: 'fall'; id: number; x: number; y: number; boss: boolean; swept: boolean }
@@ -419,7 +462,17 @@ export type Ev =
   // A relic does what it does, where it can be seen.
   | { t: 'relic'; id: string; x: number; y: number }
   // One of the slain gets up on the hero's side.
-  | { t: 'risen'; id: number; x: number; y: number };
+  | { t: 'risen'; id: number; x: number; y: number }
+  // A shot stops on Bram's set shield; `back` if it is thrown back at who loosed it.
+  | { t: 'block'; x: number; y: number; back: boolean }
+  // Bram's gate is planted: its middle, the way it faces, half its length and how long it stands.
+  | { t: 'gate'; id: number; x: number; y: number; nx: number; ny: number; half: number; seconds: number }
+  // A lane of the field is about to burn: its middle and size, and the seconds until it does.
+  | { t: 'peril'; id: number; kind: 'fire'; x: number; y: number; w: number; h: number; seconds: number }
+  // The duelist stands (`on`), or has fallen (`won`).
+  | { t: 'duel'; id: number; how: 'on' | 'won' }
+  // The lone champion of the third wave has fallen: it leaves a relic.
+  | { t: 'herald'; x: number; y: number };
 
 const TAU = Math.PI * 2;
 
@@ -453,6 +506,9 @@ export class World {
   picks: Pick[] = [];
   falls: Fall[] = [];
   rings: Ring[] = [];
+  /** Bram's gates that stand, and the lanes of a burning field. */
+  walls: Wall[] = [];
+  perils: Peril[] = [];
   /** How full the fury bar is, 0 to 1. A full bar is a move. */
   fury = 0;
   /** True while Hroth can still get up from a killing blow in this wave, and true once he has. */
@@ -494,6 +550,9 @@ export class World {
   risen: Risen[] = [];
   /** Champions and captains killed this wave. */
   banners = 0;
+  /** True once the lone champion of the third wave has fallen, and once the duelist has. */
+  herald = false;
+  dueled = false;
   /** What the Bone Dice rolled for this wave, if the run holds them. */
   readonly bones: { up: Stat; down: Stat } | null;
   /** What the kinds of weapon held do (kinds.ts). */
@@ -504,8 +563,22 @@ export class World {
   private readonly whet: number;
   private readonly tithe: boolean;
   private readonly stray: string;
-  /** How many times the experience a coin is worth here. */
+  /** How many times the experience a coin is worth here, and how many times the coins. */
   private readonly xpBy: number;
+  private readonly goldBy: number;
+  /** When the lone champion, the duelist and the next lane of fire are due, or -1; who the champion and the duelist are once they stand. */
+  private heraldDue = -1;
+  private duelDue = -1;
+  private fireDue = -1;
+  private heraldId = 0;
+  private duelId = 0;
+  /** The way Isaura set out on, for her tilt. */
+  private tiltX = 0;
+  private tiltY = 0;
+  /** True from the moment Bram's shield is set until his sword next strikes; blows of Fenn's that are sure; seconds until a critical blow of his next knocks a coin loose. */
+  private fresh = false;
+  private lucky = 0;
+  private coinAt = 0;
   private candle = true;
   /** Seconds the hero has run since a blow last landed, for the spurs; seconds until the shell next mends; until lightning next strikes. */
   private spur = 0;
@@ -526,7 +599,7 @@ export class World {
   private rescue = false;
   /** How much more often the hero strikes for the banner near them, or 0. */
   private rally = 0;
-  /** Orrin's spells, counted. */
+  /** The bolts of Orrin's staff, counted. */
   private spells = 0;
   /** Every spell, counted, for the gift of the arcane. */
   private casts = 0;
@@ -557,14 +630,18 @@ export class World {
     this.auto = setup.auto ?? false;
     this.purse = Math.max(0, setup.purse ?? 0);
     this.fury = Math.max(0, Math.min(1, setup.fury ?? 0));
-    this.spare = this.quirk === 'unburied' && (setup.spare ?? true);
+    this.spare = this.quirk === 'gravedebt' && (setup.spare ?? true);
     this.rescue = setup.rescue ?? true;
     const maxHp = Math.max(1, Math.round(setup.stats.maxHp));
+    // A hero is whole at the start of a wave, but for one a forced march brought here, and on the road of the wounded.
+    const whole = Math.min(Math.max(0.05, Math.min(1, setup.hurt ?? 1)), this.omen === 'wounded' ? ROAD.wounded.hp : 1);
     this.hero = {
-      x: this.w / 2, y: this.h / 2, hp: maxHp, maxHp, face: 1, moving: false, grace: 0, chill: 0, chillBy: 0,
-      still: 0, ran: 0, safe: 0, unseen: 0, sure: 0, feast: 0, dash: null,
+      x: this.w / 2, y: this.h / 2, hp: Math.max(1, Math.round(maxHp * whole)), maxHp, face: 1, moving: false, grace: 0, chill: 0, chillBy: 0,
+      still: 0, ran: 0, safe: 0, unseen: 0, sure: 0, feast: 0, open: 0, dash: null,
     };
-    const slot = (c: Carried, own: boolean): Slot => ({ def: weaponOf(c.id), tier: c.tier, cool: 0.35, angle: 0, since: 9, own });
+    // Orrin's staff is finished as the last weapon he bought.
+    const taken = this.quirk === 'unfinished' && setup.taken ? weaponOf(setup.taken) : null;
+    const slot = (c: Carried, own: boolean): Slot => ({ def: own ? finishedAs(weaponOf(c.id), taken) : weaponOf(c.id), tier: c.tier, cool: 0.35, angle: 0, since: 9, own });
     this.slots = [...(setup.own ? [slot(setup.own, true)] : []), ...setup.weapons.map((c) => slot(c, false))];
     this.band = (setup.band ?? []).map((b, i, all) => this.enlist(b, i, all.length));
     this.bossDue = this.wave.boss;
@@ -574,10 +651,14 @@ export class World {
     this.bones = setup.bones ?? null;
     this.stray = setup.stray ?? '';
     this.xpBy = this.omen === 'horde' ? ROAD.horde.xp : 1;
+    this.goldBy = this.omen === 'burning' ? ROAD.burning.coins : 1;
     // What the road puts on the field.
     if (this.omen === 'champions') this.champsDue = ROAD.champions.at.slice(0, ROAD.champions.count).map((share) => share * this.wave.seconds);
     if (this.omen === 'wagon') this.wagonDue = ROAD.wagon.at * this.wave.seconds;
     if (this.omen === 'stray' && this.stray) this.cageDue = 1.2;
+    if (this.omen === 'duel') this.duelDue = ROAD.duel.at;
+    if (this.omen === 'burning') this.fireDue = ROAD.burning.first;
+    if (setup.herald && !plain.boss) this.heraldDue = ROAD.herald.at * this.wave.seconds;
     if (this.omen === 'shrine') {
       const at = this.farFrom(this.hero.x, this.hero.y, ROAD.shrine.clear);
       const r = ROAD.shrine.r;
@@ -601,6 +682,7 @@ export class World {
       most = Math.round(most * ROAD.horde.more);
     }
     if (this.omen === 'champions') band = Math.max(2, Math.round(band * ROAD.champions.fewer));
+    if (this.omen === 'toll') seconds = Math.round(seconds * ROAD.toll.seconds);
     if (this.has('sands')) seconds = Math.max(RELIC.sands.least, seconds - RELIC.sands.shorter);
     return { ...w, seconds, band, most };
   }
@@ -632,20 +714,28 @@ export class World {
         const share = Math.min(1, (h.safe * QUIRKS.unseen.each) / QUIRKS.unseen.most);
         return { on: share >= 1, share };
       }
-      case 'echo': {
-        const at = this.spells % QUIRKS.echo.every;
-        return { on: at === QUIRKS.echo.every - 1, share: at / (QUIRKS.echo.every - 1) };
-      }
-      case 'sticky': {
-        const share = Math.min(1, this.held / QUIRKS.sticky.coins / 100 / QUIRKS.sticky.most);
+      case 'unfinished':
+        // Finished as something or not yet.
+        return { on: this.own !== null && this.own.def.says.startsWith('Finished'), share: this.own?.def.says.startsWith('Finished') ? 1 : 0 };
+      case 'double': {
+        const share = Math.min(1, this.held / QUIRKS.double.coins / 100 / QUIRKS.double.most);
         return { on: share > 0, share };
       }
-      case 'momentum': {
-        const share = Math.min(1, h.ran / QUIRKS.momentum.seconds);
+      case 'banked': {
+        // How many burn within her reach, of a handful.
+        let n = 0;
+        for (const f of this.foes) if (!f.dead && f.burn > 0 && Math.hypot(f.x - h.x, f.y - h.y) <= QUIRKS.banked.r + f.def.r) n++;
+        return { on: n > 0, share: Math.min(1, n / 6) };
+      }
+      case 'tilt': {
+        const share = Math.min(1, h.ran / QUIRKS.tilt.seconds);
         return { on: share >= 1, share };
       }
-      case 'unburied':
-        return { on: this.spare, share: 1 - h.hp / h.maxHp };
+      case 'gravedebt': {
+        // The bar fills as he is hurt, and is full at the edge of his debt.
+        const debt = h.hp / h.maxHp < QUIRKS.gravedebt.under;
+        return { on: debt, share: Math.min(1, (1 - h.hp / h.maxHp) / (1 - QUIRKS.gravedebt.under)) };
+      }
       case 'shepherd': {
         const up = this.band.filter((a) => a.down <= 0);
         const near = up.filter((a) => Math.hypot(a.x - h.x, a.y - h.y) < QUIRKS.shepherd.r).length;
@@ -671,12 +761,17 @@ export class World {
     if (!m || this.fury < 1 || this.gathering >= 0) return false;
     const h = this.hero;
     let near = 0;
+    let strong = false;
     for (const f of this.foes) {
       if (f.dead || Math.hypot(f.x - h.x, f.y - h.y) - f.def.r > m.reach) continue;
-      if (f.boss) return true;
+      if (f.boss || f.champion) strong = true;
       near++;
     }
-    return near >= MOVE.crowd || (near > 0 && h.hp / h.maxHp < MOVE.trouble);
+    const hale = h.hp / h.maxHp;
+    // One arrow is for one worth it. The grave is not opened by one who cannot pay for it.
+    if (m.id === 'oneshot') return strong || (near > 0 && hale < MOVE.trouble);
+    if (m.id === 'opengrave') return hale > MOVE.graveCost + 0.15 && (strong || near >= MOVE.crowd);
+    return strong || near >= MOVE.crowd || (near > 0 && hale < MOVE.trouble);
   }
 
   /** Seconds left of the wave. */
@@ -701,7 +796,40 @@ export class World {
     const set = this.quirk === 'standfast' && slot.own && this.hero.still >= QUIRKS.standfast.after ? QUIRKS.standfast.faster : 1;
     // The gift of bows quickens whatever shoots or is thrown.
     const haste = this.stats.haste + (slot.def.kind === 'ranged' ? this.gifts.bowHaste : 0);
-    return slot.def.every[slot.tier] / (hasteRate(haste) * set * (1 + this.rally));
+    // Maren's hammer, once it has learned to, is faster while she stands on holy ground.
+    const hallowed = slot.own && this.ruled('morningstar', 2) && this.onHoly(this.hero.x, this.hero.y) ? OWN.morningstar.faster : 1;
+    return slot.def.every[slot.tier] / (hasteRate(haste) * set * hallowed * (1 + this.rally));
+  }
+
+  /** True if the hero's own weapon is this one and has learned its rule: the first at level 5, the second at 10, the third at 15. */
+  private ruled(weapon: string, at: 1 | 2 | 3): boolean {
+    const own = this.own;
+    return own !== null && own.def.id === weapon && own.tier >= at;
+  }
+
+  /** True while Bram's shield is set. */
+  private get shielded(): boolean {
+    return this.quirk === 'standfast' && this.hero.still >= QUIRKS.standfast.after;
+  }
+
+  /** True while nothing has struck Wren for long enough that her harm is at its most. */
+  private get hidden(): boolean {
+    return this.quirk === 'unseen' && this.hero.safe * QUIRKS.unseen.each >= QUIRKS.unseen.most;
+  }
+
+  /** True while Hroth is under the share of his health at which he is in debt. */
+  private get indebted(): boolean {
+    return this.quirk === 'gravedebt' && this.hero.hp / this.hero.maxHp < QUIRKS.gravedebt.under;
+  }
+
+  /** True while Isaura's lance is couched. */
+  private get couched(): boolean {
+    return this.quirk === 'tilt' && this.hero.ran >= QUIRKS.tilt.seconds;
+  }
+
+  /** True if a place is on holy ground. */
+  private onHoly(x: number, y: number): boolean {
+    return this.zones.some((z) => z.kind === 'holy' && Math.hypot(z.x - x, z.y - y) <= z.r);
   }
 
   step(steer: Steer, dt = STEP): void {
@@ -714,6 +842,8 @@ export class World {
       this.signs(dt);
       this.standMarks(dt);
       this.moveFoes(dt);
+      this.gates(dt);
+      this.lanes(dt);
       this.moveBand(dt);
       this.moveRisen(dt);
       this.strike(dt);
@@ -736,6 +866,8 @@ export class World {
     h.unseen = Math.max(0, h.unseen - dt);
     h.sure = Math.max(0, h.sure - dt);
     h.feast = Math.max(0, h.feast - dt);
+    h.open = Math.max(0, h.open - dt);
+    this.coinAt = Math.max(0, this.coinAt - dt);
     h.safe += dt;
     let x = steer.x;
     let y = steer.y;
@@ -747,11 +879,14 @@ export class World {
     // The spurs: the longer they have run unstruck, the faster.
     const spurred = this.has('spurs') ? 1 + RELIC.spurs.most * Math.min(1, this.spur / RELIC.spurs.seconds) : 1;
     const speed = HERO_SPEED * Math.max(0.3, 1 + this.stats.speed / 100) * spurred;
+    const fromX = h.x;
+    const fromY = h.y;
     if (h.dash) this.run(h.dash, speed, dt);
     else {
       h.moving = len > 0.08;
       if (h.moving) {
-        const pace = speed * (h.chill > 0 ? 1 - h.chillBy : 1);
+        // A blizzard takes a share of their speed for as long as it blows.
+        const pace = speed * (h.chill > 0 ? 1 - h.chillBy : 1) * (this.omen === 'blizzard' ? 1 - ROAD.blizzard.slow : 1);
         h.x += x * pace * dt;
         h.y += y * pace * dt;
         if (Math.abs(x) > 0.15) h.face = x > 0 ? 1 : -1;
@@ -759,14 +894,25 @@ export class World {
     }
     h.x = Math.max(ARENA.edge, Math.min(this.w - ARENA.edge, h.x));
     h.y = Math.max(ARENA.edge + 30, Math.min(this.h - ARENA.edge, h.y));
-    // How long they have stood, and how long they have run: Bram's shield and Isaura's lance go by these.
+    // How long they have stood, and how long they have run one way: Bram's shield and Isaura's lance go by these.
     if (h.moving) {
       h.still = 0;
-      h.ran += dt;
       this.spur += dt;
+      // The way they go now. A turn of more than so much from the way they set out begins the count again, that way.
+      const m = Math.hypot(x, y) || 1;
+      const ux = h.dash ? h.dash.dx : x / m;
+      const uy = h.dash ? h.dash.dy : y / m;
+      // Riding into a wall is not riding.
+      const went = Math.hypot(h.x - fromX, h.y - fromY) > 0.4;
+      if (went && ux * this.tiltX + uy * this.tiltY >= Math.cos((QUIRKS.tilt.turn * Math.PI) / 180)) h.ran += dt;
+      else {
+        this.tiltX = ux;
+        this.tiltY = uy;
+        h.ran = 0;
+      }
     } else {
       h.still += dt;
-      if (h.still > QUIRKS.momentum.slack) h.ran = 0;
+      if (h.still > QUIRKS.tilt.slack) h.ran = 0;
       // The pilgrim's shell: one who stands in one place begins to mend.
       if (this.has('shell') && h.still >= RELIC.shell.after && h.hp < h.maxHp && this.gathering < 0) {
         this.shellAt -= dt;
@@ -778,7 +924,7 @@ export class World {
     }
     if (h.unseen <= 0) this.seenAt = { x: h.x, y: h.y };
     // Mending is a trickle: this much every ten seconds. Hroth does not mend by himself.
-    if (this.stats.regen > 0 && h.hp < h.maxHp && this.quirk !== 'unburied') {
+    if (this.stats.regen > 0 && h.hp < h.maxHp && this.quirk !== 'gravedebt') {
       this.regen += (this.stats.regen / 10) * dt;
       if (this.regen >= 1) {
         this.regen -= 1;
@@ -786,11 +932,15 @@ export class World {
       }
     }
     const on = this.trait.on;
-    if (on !== this.traitOn && (this.quirk === 'standfast' || this.quirk === 'unseen' || this.quirk === 'momentum')) this.events.push({ t: 'quirk', on });
+    if (on !== this.traitOn && (this.quirk === 'standfast' || this.quirk === 'unseen' || this.quirk === 'tilt' || this.quirk === 'gravedebt' || this.quirk === 'banked')) {
+      this.events.push({ t: 'quirk', on });
+      // A shield just set: the next sweep from behind it is the first.
+      if (this.quirk === 'standfast') this.fresh = on;
+    }
     this.traitOn = on;
   }
 
-  /** A rush or a charge: the hero runs one way, faster than anything, and whoever is met is struck and thrown aside. */
+  /** A charge: the hero runs one way, faster than anything, and whoever is met is struck and thrown aside. */
   private run(d: Dash, speed: number, dt: number): void {
     const h = this.hero;
     const m = this.move as MoveDef;
@@ -829,7 +979,8 @@ export class World {
     if (this.over) return;
     const h = this.hero;
     if (this.quirk === 'shepherd') {
-      for (const a of this.band) if (a.down <= 0 && a.maxHp > 0) a.hp = Math.min(a.maxHp, a.hp + amount);
+      // Those in his fold: a companion who has strayed off is not mended.
+      for (const a of this.band) if (a.down <= 0 && a.maxHp > 0 && Math.hypot(a.x - h.x, a.y - h.y) <= QUIRKS.shepherd.r) a.hp = Math.min(a.maxHp, a.hp + amount);
     }
     if (h.hp >= h.maxHp) return;
     const before = h.hp;
@@ -853,7 +1004,15 @@ export class World {
     }
     let amount = Math.max(1, Math.round(dmg * armorShare(this.stats.armor) * (this.has('crown') ? RELIC.crown.taken : 1)));
     // Bram's set shield takes its share.
-    if (this.quirk === 'standfast' && h.still >= QUIRKS.standfast.after) amount = Math.max(1, Math.round(amount * QUIRKS.standfast.lets));
+    if (this.shielded) {
+      amount = Math.max(1, Math.round(amount * QUIRKS.standfast.lets));
+      // Once his sword has learned to, who strikes the shield up close is thrown back and stunned.
+      if (close && src && !src.dead && this.ruled('gatekeeper', 3)) {
+        const d = Math.hypot(src.x - h.x, src.y - h.y) || 1;
+        this.shove(src, (src.x - h.x) / d, (src.y - h.y) / d, OWN.gatekeeper.bash);
+        src.stun = Math.max(src.stun, OWN.gatekeeper.bashStun * (src.boss ? MOVE.bossShare : 1));
+      }
+    }
     h.hp -= amount;
     h.grace = HURT_GRACE;
     h.safe = 0;
@@ -883,11 +1042,16 @@ export class World {
     }
     if (this.spare) {
       // Hroth gets up, and everything round him is thrown down.
-      const q = QUIRKS.unburied;
+      const q = QUIRKS.gravedebt;
       this.spare = false;
       this.rose = true;
       h.hp = Math.max(1, Math.round(h.maxHp * q.rises));
       h.grace = 1.5;
+      // Once his axe has learned to, he gets up with the grave open.
+      if (this.ruled('gravecleaver', 3) && this.move) {
+        h.open = Math.max(h.open, this.move.seconds);
+        h.feast = Math.max(h.feast, this.move.seconds);
+      }
       this.events.push({ t: 'rise', x: h.x, y: h.y });
       this.blast(h.x, h.y, q.r, this.ownBlow(q.harm), 1, 'rise', 40);
       return;
@@ -989,31 +1153,60 @@ export class World {
       dx = steer.x / len;
       dy = steer.y / len;
     }
+    // The one arrow goes at the strongest of them in reach: the one with the most health left. The move points at it.
+    let strongest: Foe | null = null;
+    if (m.id === 'oneshot') {
+      for (const f of this.foes) {
+        if (f.dead || f.def.prop || Math.hypot(f.x - h.x, f.y - h.y) - f.def.r > m.reach) continue;
+        if (!strongest || f.hp > strongest.hp) strongest = f;
+      }
+      if (strongest) {
+        const d = Math.hypot(strongest.x - h.x, strongest.y - h.y) || 1;
+        dx = (strongest.x - h.x) / d;
+        dy = (strongest.y - h.y) / d;
+        h.face = dx >= 0 ? 1 : -1;
+      }
+    }
     this.events.push({ t: 'move', id: m.id, x: h.x, y: h.y, dx, dy });
-    const thick = this.thickest(h.x, h.y, m.reach);
-    const at = thick ?? { x: h.x + dx * 160, y: h.y + dy * 160 };
     switch (m.id) {
-      case 'rush':
       case 'charge':
-        h.dash = { kind: m.id, dx, dy, left: m.seconds, seen: [] };
+        h.dash = { kind: 'charge', dx, dy, left: m.seconds, seen: [] };
         break;
-      case 'rain':
-        this.fall(at.x, at.y, m.r, MOVE.warn, 0, 0, 'rain', 'rain', m.seconds, this.ownBlow(m.harm) * 4);
-        break;
-      case 'starfall': {
-        // One on the thickest of them, the rest on whoever else is near, one after another.
-        const seen: number[] = [];
-        for (let i = 0; i < MOVE.stars; i++) {
-          const to = (i === 0 ? thick : null) ?? this.someone(h.x, h.y, m.reach, seen);
-          const a = this.rng.next() * TAU;
-          const d = to ? this.rng.range(0, 16) : this.rng.range(60, 220);
-          const x = (to ? to.x : h.x) + Math.cos(a) * d;
-          const y = (to ? to.y : h.y) + Math.sin(a) * d;
-          if (to) seen.push(to.id);
-          this.fall(x, y, m.r, MOVE.warn + (i * m.seconds) / MOVE.stars, this.ownBlow(m.harm), m.stun, 'star');
+      case 'gate': {
+        // The gate goes across the way he faces, a little before him. What it lands on is thrown back from it.
+        const wall: Wall = { id: this.ids++, x: h.x + dx * MOVE.gateAhead, y: h.y + dy * MOVE.gateAhead, nx: dx, ny: dy, half: m.r, life: m.seconds };
+        this.walls.push(wall);
+        this.events.push({ t: 'gate', id: wall.id, x: wall.x, y: wall.y, nx: dx, ny: dy, half: m.r, seconds: m.seconds });
+        const dmg = this.ownBlow(m.harm);
+        for (const f of this.foes) {
+          if (f.dead) continue;
+          const along = (f.x - wall.x) * -dy + (f.y - wall.y) * dx;
+          const off = (f.x - wall.x) * dx + (f.y - wall.y) * dy;
+          if (Math.abs(along) > m.r + f.def.r || Math.abs(off) > MOVE.gateNear + f.def.r) continue;
+          this.shove(f, dx, dy, 46);
+          f.stun = Math.max(f.stun, m.stun * (f.boss ? MOVE.bossShare : 1));
+          this.wound(f, dmg, false, false);
         }
         break;
       }
+      case 'oneshot': {
+        // One arrow, worth a dozen. Out of the dark, with nothing having touched her for long enough, it is worth two dozen.
+        const dmg = this.ownBlow(m.harm) * (this.hidden ? 2 : 1);
+        this.shots.push({
+          id: this.ids++, mine: true, x: h.x + dx * 18, y: h.y - 26, vx: dx * MOVE.oneFlies, vy: dy * MOVE.oneFlies, r: 12, dmg, crit: this.hidden, pierce: 0, leaps: 0, life: 1.2, art: 'arrow',
+          knock: 30, seen: [], from: null, tier: 0, mark: strongest ? strongest.id : 0, lob: null, chills: 0, by: '', burns: 0, split: true, src: 0,
+        });
+        break;
+      }
+      case 'starfall':
+        // They come down one after another along the way he faces: he aims them by how he stands.
+        for (let i = 0; i < MOVE.stars; i++) {
+          const d = MOVE.starsFrom + i * MOVE.starsApart;
+          const x = Math.max(ARENA.edge, Math.min(this.w - ARENA.edge, h.x + dx * d + this.rng.range(-16, 16)));
+          const y = Math.max(ARENA.edge + 30, Math.min(this.h - ARENA.edge, h.y + dy * d + this.rng.range(-16, 16)));
+          this.fall(x, y, m.r, MOVE.warn + (i * m.seconds) / MOVE.stars, this.ownBlow(m.harm), m.stun, 'star');
+        }
+        break;
       case 'vanish':
         h.unseen = m.seconds;
         // Their next blows are sure ones: while they are unseen, and for as long again after.
@@ -1021,28 +1214,22 @@ export class World {
         break;
       case 'wildfire': {
         const own = this.own;
-        const burns = Math.max(3, (own?.def.burn?.[own.tier] ?? 3) * 1.5);
+        const burns = Math.max(3, this.fireOf(own?.def.burn?.[own.tier] ?? 3) * 1.5);
         const speed = 520;
         this.rings.push({ id: this.ids++, x: h.x, y: h.y, r: 10, to: m.r, speed, dmg: this.ownBlow(m.harm), burns, seconds: m.seconds, seen: [], kind: 'fire' });
         this.events.push({ t: 'ring', x: h.x, y: h.y, r: m.r, seconds: m.r / speed, kind: 'fire' });
         break;
       }
-      case 'warcry':
-        for (const f of this.foes) {
-          if (f.dead || Math.hypot(f.x - h.x, f.y - h.y) > m.r + f.def.r) continue;
-          // A captain does not run. It is checked for a moment.
-          if (f.boss) f.stun = Math.max(f.stun, m.stun);
-          else if (!f.def.prop) {
-            f.flee = 2;
-            if (f.state !== 'walk') {
-              f.state = 'walk';
-              f.doing = '';
-            }
-          }
-        }
+      case 'opengrave': {
+        // He pays for it with his own health, though never with the last of it.
+        const cost = Math.max(0, Math.min(h.hp - 1, Math.round(h.maxHp * MOVE.graveCost)));
+        h.hp -= cost;
+        if (cost > 0) this.events.push({ t: 'hurt', amount: cost, x: h.x, y: h.y });
+        h.open = m.seconds;
         h.feast = m.seconds;
-        this.events.push({ t: 'ring', x: h.x, y: h.y, r: m.r, seconds: 0.3, kind: 'cry' });
+        this.events.push({ t: 'ring', x: h.x, y: h.y, r: 130, seconds: 0.3, kind: 'cry' });
         break;
+      }
       case 'toll':
         this.events.push({ t: 'ring', x: h.x, y: h.y, r: m.r, seconds: 0.3, kind: 'bell' });
         this.blast(h.x, h.y, m.r, this.ownBlow(m.harm), m.stun, 'light', 14);
@@ -1060,17 +1247,15 @@ export class World {
         this.events.push({ t: 'ring', x: h.x, y: h.y, r: Math.max(this.w, this.h), seconds: 0.4, kind: 'frost' });
         break;
       case 'judgment':
-        this.fall(at.x, at.y, m.r, MOVE.warn + 0.15, this.ownBlow(m.harm), m.stun, 'light', 'holy', m.seconds, this.ownBlow(QUIRKS.consecrate.harm));
+        // It falls where she stands: she has to be in the thick of them for it to count.
+        this.fall(h.x, h.y, m.r, MOVE.warn + 0.15, this.ownBlow(m.harm), m.stun, 'light', 'holy', m.seconds * (this.ruled('morningstar', 1) ? OWN.morningstar.longer : 1), this.ownBlow(QUIRKS.consecrate.harm));
         break;
     }
   }
 
-  /** Anyone within a distance of a place who has not been picked yet, by the wave's dice. */
-  private someone(x: number, y: number, range: number, not: readonly number[]): Foe | null {
-    const list = this.foes.filter((f) => !f.dead && Math.hypot(f.x - x, f.y - y) <= range);
-    const fresh = list.filter((f) => !not.includes(f.id));
-    const from = fresh.length ? fresh : list;
-    return from.length ? this.rng.pick(from) : null;
+  /** How hot a fire of the hero's burns, a second: what the weapon gives, and a share of their Lore. */
+  private fireOf(base: number): number {
+    return base + Math.max(0, this.stats.lore) * BURN_LORE;
   }
 
   /** What was marked on the ground lands. */
@@ -1104,7 +1289,8 @@ export class World {
 
   /** Freezes a foe solid: it can do nothing, takes more from Ysolde, and cannot be frozen again at once. */
   private freeze(f: Foe, seconds: number): void {
-    const s = seconds * (f.boss ? MOVE.bossShare : 1);
+    // A captain is frozen for a share of it, until Ysolde's wand has learned otherwise.
+    const s = seconds * (f.boss && !this.ruled('widowstear', 3) ? MOVE.bossShare : 1);
     f.frozen = Math.max(f.frozen, s);
     f.stun = Math.max(f.stun, s);
     f.numb = s + QUIRKS.deepcold.numb;
@@ -1121,8 +1307,13 @@ export class World {
       const at = this.farFrom(this.hero.x, this.hero.y, 380);
       this.mark(def, at.x, at.y, true);
     }
+    // A duel is between two: nobody else comes.
+    if (this.omen === 'duel') return;
     if (this.time < this.nextBand) return;
-    this.nextBand = this.time + this.wave.gap * this.rng.range(0.85, 1.15);
+    // While the hero stands in a shrine's ring they come faster: the blessing is paid for.
+    const sh = this.shrine;
+    const hurried = sh && !sh.done && Math.hypot(this.hero.x - sh.x, this.hero.y - sh.y) <= sh.r ? ROAD.shrine.hurry : 1;
+    this.nextBand = this.time + this.wave.gap * this.rng.range(0.85, 1.15) * hurried;
     const room = this.wave.most - this.foes.length - this.marks.length;
     if (room <= 0) return;
     const n = Math.min(room, this.wave.band);
@@ -1164,7 +1355,8 @@ export class World {
     return best;
   }
 
-  private mark(def: EnemyDef, x: number, y: number, boss: boolean, champion: ChampionTrait | '' = ''): void {
+  /** Marks the ground where someone will stand. Gives back the number they will go by once they do. */
+  private mark(def: EnemyDef, x: number, y: number, boss: boolean, champion: ChampionTrait | '' = ''): number {
     const m: Mark = {
       id: this.ids++,
       x: Math.max(ARENA.edge, Math.min(this.w - ARENA.edge, x)),
@@ -1176,6 +1368,7 @@ export class World {
     };
     this.marks.push(m);
     this.events.push({ t: 'mark', id: m.id, x: m.x, y: m.y, boss });
+    return m.id;
   }
 
   private standMarks(dt: number): void {
@@ -1193,6 +1386,7 @@ export class World {
         champion: m.champion, blaze: c.every * 0.5,
       };
       if (m.boss) this.bossId = f.id;
+      if (f.id === this.duelId) this.events.push({ t: 'duel', id: f.id, how: 'on' });
       if (m.def.ai === 'cross') {
         // The wagon goes over the field from the side it was marked on.
         f.dx = m.x < this.w / 2 ? 1 : -1;
@@ -1223,14 +1417,47 @@ export class World {
   private signs(dt: number): void {
     const h = this.hero;
     const c = ROAD.champions;
+    // A champion is the same fighter, bigger: its own picture, its own way of fighting.
+    const champion = (trait: ChampionTrait): EnemyDef => {
+      const from = this.sturdiest();
+      return { ...from, size: (from.size ?? 1) * c.size, r: Math.round(from.r * 1.15), coins: from.coins * c.coins, speed: from.speed * (trait === 'quick' ? c.quick : 1) };
+    };
     while (this.champsDue.length > 0 && this.time >= this.champsDue[0]) {
       this.champsDue.shift();
-      const from = this.sturdiest();
       const trait = this.rng.pick(['quick', 'armored', 'burning'] as const);
-      // A champion is the same fighter, bigger: its own picture, its own way of fighting.
-      const def: EnemyDef = { ...from, size: (from.size ?? 1) * c.size, r: Math.round(from.r * 1.15), coins: from.coins * c.coins, speed: from.speed * (trait === 'quick' ? c.quick : 1) };
       const at = this.ringed(this.rng.next() * TAU);
-      this.mark(def, at.x, at.y, false, trait);
+      this.mark(champion(trait), at.x, at.y, false, trait);
+    }
+    if (this.heraldDue >= 0 && this.time >= this.heraldDue) {
+      // The lone champion of the third wave: the plainest kind, so that the first one anyone meets can be read.
+      this.heraldDue = -1;
+      const at = this.ringed(this.rng.next() * TAU);
+      this.heraldId = this.mark(champion('armored'), at.x, at.y, false, 'armored');
+    }
+    if (this.duelDue >= 0 && this.time >= this.duelDue) {
+      // The duelist: far more than a champion, quick, and it blazes. What a champion is given is taken off what it is made from first.
+      this.duelDue = -1;
+      const d = ROAD.duel;
+      const from = this.sturdiest();
+      const def: EnemyDef = {
+        ...from, name: 'The Duelist', size: (from.size ?? 1) * 1.5, r: Math.round(from.r * 1.3), coins: from.coins * c.coins * 3, speed: from.speed * d.speed,
+        hp: (from.hp * d.hp) / c.hp, dmg: (from.dmg * d.dmg) / c.dmg,
+      };
+      const at = this.farFrom(h.x, h.y, 330);
+      this.duelId = this.mark(def, at.x, at.y, false, 'burning');
+    }
+    if (this.fireDue >= 0 && this.time >= this.fireDue && this.left > ROAD.burning.warn + ROAD.burning.burns) {
+      // A lane of the field burns: through where the hero stands, across the field or down it. The ground shows it first.
+      const q = ROAD.burning;
+      this.fireDue = this.time + q.every;
+      const base = enemyAt(this.sturdiest(), this.wave.n).dmg;
+      const across = this.rng.chance(0.5);
+      const p: Peril = {
+        id: this.ids++, kind: 'fire', x: across ? this.w / 2 : h.x + this.rng.range(-30, 30), y: across ? h.y + this.rng.range(-30, 30) : this.h / 2, w: across ? this.w : q.wide, h: across ? q.wide : this.h,
+        left: q.warn, life: q.burns, dmg: Math.max(1, Math.round(base * q.harm)), burns: Math.max(1, base * q.harm * q.lights), tick: 0,
+      };
+      this.perils.push(p);
+      this.events.push({ t: 'peril', id: p.id, kind: 'fire', x: p.x, y: p.y, w: p.w, h: p.h, seconds: p.left });
     }
     if (this.wagonDue >= 0 && this.time >= this.wagonDue) {
       this.wagonDue = -1;
@@ -1241,7 +1468,9 @@ export class World {
       const y = this.rng.range(this.h * 0.3, this.h * 0.7);
       this.wagonSpeed = (this.w - ARENA.edge * 2) / (ROAD.wagon.crossing * this.wave.seconds);
       this.mark(def, x, y, false);
-      const guard = this.sturdiest();
+      // Its guard is stout: the chest is not had for the asking.
+      const stout = this.sturdiest();
+      const guard: EnemyDef = { ...stout, hp: stout.hp * ROAD.wagon.stout };
       for (let i = 0; i < ROAD.wagon.guards; i++) {
         const a = (i / ROAD.wagon.guards) * TAU;
         this.mark(guard, x + (left ? 60 : -60) + Math.cos(a) * 54, y + Math.sin(a) * 54, false);
@@ -1251,6 +1480,9 @@ export class World {
       this.cageDue = -1;
       const at = this.farFrom(this.w / 2, this.h / 2, ROAD.stray.clear);
       this.mark(byId(ENEMIES, 'cage'), at.x, at.y, false);
+      // Its jailer stands by it: a champion, between the hero and the cage.
+      const to = Math.atan2(h.y - at.y, h.x - at.x);
+      this.mark(champion('armored'), at.x + Math.cos(to) * 70, at.y + Math.sin(to) * 70, false, 'armored');
     }
     const sh = this.shrine;
     if (sh && !sh.done && Math.hypot(h.x - sh.x, h.y - sh.y) <= sh.r) {
@@ -1568,10 +1800,12 @@ export class World {
 
   private foeShot(f: Foe, ux: number, uy: number, share = 1): void {
     const speed = f.def.flies ?? 210;
+    // In a blizzard everything they loose chills.
+    const chills = f.def.chills ?? (this.omen === 'blizzard' ? ROAD.blizzard.chills : 0);
     const numbed = f.slow > 0 && this.has('frostbite') ? RELIC.frostbite.lets : 1;
     const s: Shot = {
       id: this.ids++, mine: false, x: f.x + ux * (f.def.r + 6), y: f.y - 14 + uy * (f.def.r + 6), vx: ux * speed, vy: uy * speed, r: 7, dmg: Math.max(1, Math.round(f.dmg * share * numbed)), crit: false,
-      pierce: 0, leaps: 0, life: 3.4, art: f.def.chills ? 'orb-frost' : 'orb-red', knock: 0, seen: [], from: null, tier: 0, mark: 0, lob: null, chills: f.def.chills ?? 0, by: f.def.id, burns: 0,
+      pierce: 0, leaps: 0, life: 3.4, art: chills ? 'orb-frost' : 'orb-red', knock: 0, seen: [], from: null, tier: 0, mark: 0, lob: null, chills, by: f.def.id, burns: 0,
       split: false, src: f.id,
     };
     this.shots.push(s);
@@ -1593,7 +1827,8 @@ export class World {
   /** A blow lands on a companion. One with no health cannot be hurt, and nor can one in the middle of its charge. */
   private hurtAlly(a: Ally, dmg: number): void {
     if (a.maxHp <= 0 || a.down > 0 || a.grace > 0 || a.state === 'dash' || this.over || this.gathering >= 0) return;
-    const amount = Math.max(1, Math.round(dmg * BAND.takes));
+    const fold = this.ruled('passingbell', 2) && Math.hypot(a.x - this.hero.x, a.y - this.hero.y) <= QUIRKS.shepherd.r ? OWN.passingbell.lets : 1;
+    const amount = Math.max(1, Math.round(dmg * BAND.takes * fold));
     a.hp -= amount;
     a.grace = BAND.grace;
     this.events.push({ t: 'allyHurt', id: a.id, amount });
@@ -1642,6 +1877,67 @@ export class World {
         b.y += uy * push * (1 - sa) * 2;
       }
     }
+  }
+
+  // ------------------------------------------------------------ what stands in the way
+
+  /** Bram's gates: no foe passes one, a charge stops on it, and no shot of theirs gets through. */
+  private gates(dt: number): void {
+    if (this.walls.length === 0) return;
+    for (const w of this.walls) {
+      w.life -= dt;
+      for (const f of this.foes) {
+        if (f.dead || f.def.prop) continue;
+        const along = (f.x - w.x) * -w.ny + (f.y - w.y) * w.nx;
+        if (Math.abs(along) > w.half + f.def.r * 0.5) continue;
+        const off = (f.x - w.x) * w.nx + (f.y - w.y) * w.ny;
+        const need = f.def.r + 8;
+        if (Math.abs(off) >= need) continue;
+        // It is put back on the side it came from.
+        const side = off >= 0 ? 1 : -1;
+        f.x += w.nx * (need * side - off);
+        f.y += w.ny * (need * side - off);
+        if (f.state === 'dash') {
+          f.state = 'rest';
+          f.left = 0.7;
+        }
+      }
+      for (const sh of this.shots) {
+        if (sh.mine || sh.life <= 0) continue;
+        const along = (sh.x - w.x) * -w.ny + (sh.y - w.y) * w.nx;
+        const off = (sh.x - w.x) * w.nx + (sh.y - w.y) * w.ny;
+        if (Math.abs(along) > w.half || Math.abs(off) > sh.r + 6) continue;
+        sh.life = -1;
+        this.events.push({ t: 'block', x: sh.x, y: sh.y, back: false });
+      }
+    }
+    this.walls = this.walls.filter((w) => w.life > 0);
+  }
+
+  /** The lanes of a burning field: shown, then alight. A hero in one is burnt; an enemy in one is set burning. */
+  private lanes(dt: number): void {
+    if (this.perils.length === 0) return;
+    const h = this.hero;
+    for (const p of this.perils) {
+      if (p.left > 0) {
+        p.left -= dt;
+        if (p.left <= 0) this.events.push({ t: 'burst', x: p.x, y: p.y, r: Math.min(p.w, p.h) / 2, kind: 'fire' });
+        continue;
+      }
+      p.life -= dt;
+      p.tick -= dt;
+      if (p.tick > 0) continue;
+      p.tick = 0.2;
+      const inside = (x: number, y: number): boolean => Math.abs(x - p.x) <= p.w / 2 && Math.abs(y - p.y) <= p.h / 2;
+      if (inside(h.x, h.y)) this.hurt(p.dmg, h.x, h.y + 1, 'fire');
+      for (const a of this.band) if (inside(a.x, a.y)) this.hurtAlly(a, p.dmg);
+      for (const f of this.foes) {
+        if (f.dead || f.def.prop || !inside(f.x, f.y)) continue;
+        f.burn = Math.max(f.burn, 3);
+        f.burnBy = Math.max(f.burnBy, p.burns);
+      }
+    }
+    this.perils = this.perils.filter((p) => p.left > 0 || p.life > 0);
   }
 
   // ------------------------------------------------------------ the band
@@ -1963,6 +2259,8 @@ export class World {
     const h = this.hero;
     let by = 1;
     if (this.has('crown')) by *= RELIC.crown.dealt;
+    // The open grave: for as long as it is open, double.
+    if (h.open > 0) by *= byId(MOVES, 'opengrave').harm;
     if (this.tithe) by *= 1 + RELIC.tithe.more;
     if (this.has('wolfskin') && this.band.some((a) => a.down <= 0 && Math.hypot(a.x - h.x, a.y - h.y) < RELIC.wolfskin.r)) by *= 1 + RELIC.wolfskin.more;
     return by;
@@ -1974,12 +2272,10 @@ export class World {
     switch (this.quirk) {
       case 'unseen':
         return 1 + Math.min(QUIRKS.unseen.most, h.safe * QUIRKS.unseen.each);
-      case 'momentum':
-        return 1 + QUIRKS.momentum.most * Math.min(1, h.ran / QUIRKS.momentum.seconds);
-      case 'sticky':
-        return 1 + Math.min(QUIRKS.sticky.most, Math.floor(this.held / QUIRKS.sticky.coins) / 100);
-      case 'unburied':
-        return 1 + QUIRKS.unburied.most * (1 - h.hp / h.maxHp);
+      case 'double':
+        return 1 + Math.min(QUIRKS.double.most, Math.floor(this.held / QUIRKS.double.coins) / 100);
+      case 'gravedebt':
+        return this.indebted ? 1 + QUIRKS.gravedebt.more : 1;
       default:
         return 1;
     }
@@ -1990,10 +2286,12 @@ export class World {
     const def = slot.def;
     const s = this.stats;
     const base = def.dmg[slot.tier] + (def.scale.might ?? 0) * s.might + (def.scale.aim ?? 0) * s.aim + (def.scale.lore ?? 0) * s.lore;
-    // The Whetstone of Ages is on the hero's own weapon and no other.
-    let amount = Math.max(1, Math.round(base * Math.max(0.1, 1 + s.damage / 100) * this.edge() * this.boon() * (slot.own ? this.whet : 1)));
-    // Out of the dark every blow finds the gap.
-    const crit = lucky && (this.hero.sure > 0 || this.rng.chance(Math.max(0, def.crit + s.crit) / 100));
+    // The Whetstone of Ages is on everything the hero carries.
+    let amount = Math.max(1, Math.round(base * Math.max(0.1, 1 + s.damage / 100) * this.edge() * this.boon() * this.whet));
+    // Out of the dark every blow finds the gap, and so does Fenn's next after a coin, once his knife has learned to.
+    const sure = this.hero.sure > 0 || (slot.own && this.lucky > 0);
+    const crit = lucky && (sure || this.rng.chance(Math.max(0, def.crit + s.crit) / 100));
+    if (lucky && slot.own) this.lucky = 0;
     if (crit) amount = Math.round(amount * def.critBy);
     return { amount, crit };
   }
@@ -2035,15 +2333,15 @@ export class World {
         // The gift of the arcane: every so-many-th spell is not waited for.
         if (this.gifts.free > 0 && this.casts % this.gifts.free === 0) slot.cool = Math.min(slot.cool, 0.12);
       }
-      // Every third spell of Orrin's is cast twice.
-      if (this.quirk === 'echo' && def.kind === 'magic') {
+      // Orrin's staff, once it has learned to: every third bolt is cast twice.
+      if (slot.own && this.ruled('unfinished', 1)) {
         this.spells++;
-        if (this.spells % QUIRKS.echo.every === 0) {
+        if (this.spells % OWN.unfinished.every === 0) {
           this.fire(i, slot, target, 0.2);
           this.events.push({ t: 'quirk', on: true });
         }
       }
-      // The Echo Bell: every tenth blow of the hero's own weapon lands twice.
+      // The Echo Bell: every fourth blow of the hero's own weapon lands twice.
       if (slot.own && this.has('echobell')) {
         this.ownBlows++;
         if (this.ownBlows % RELIC.echobell.every === 0) {
@@ -2066,27 +2364,55 @@ export class World {
     const uy = Math.sin(angle);
     const owned = this.slots[0]?.own ? 1 : 0;
     const place = slotPlace(Math.max(0, i - owned), n - owned);
+    // The hero turns to what their own weapon strikes at, unless they are being steered: it is the way Bram's shield faces.
+    if (slot.own && !h.moving) h.face = target.x >= h.x ? 1 : -1;
     switch (def.motion) {
       case 'thrust': {
+        // Isaura's lance, couched: one great thrust, and the count begins again.
+        const tilted = slot.own && this.couched;
+        const great = tilted && this.ruled('ninth', 3);
+        const times = tilted ? (great ? OWN.ninth.times : QUIRKS.tilt.times) : 1;
+        const far = range * (great ? OWN.ninth.reach : 1);
         // Everyone in a line from the hero, nearest first, as many as it goes through.
         const most = (def.pierce ?? 1) + this.gifts.thrust;
-        const inLine = this.foes
-          .filter((f) => {
-            if (f.dead) return false;
-            const along = (f.x - h.x) * ux + (f.y - h.y) * uy;
-            const off = Math.abs((f.x - h.x) * -uy + (f.y - h.y) * ux);
-            return along > -f.def.r && along < range + f.def.r && off < 20 + f.def.r;
-          })
-          .sort((a, b) => Math.hypot(a.x - h.x, a.y - h.y) - Math.hypot(b.x - h.x, b.y - h.y))
-          .slice(0, most);
-        for (const f of inLine) this.blow(f, slot, h.x, h.y);
+        const line = (ax: number, ay: number): Foe[] =>
+          this.foes
+            .filter((f) => {
+              if (f.dead) return false;
+              const along = (f.x - h.x) * ax + (f.y - h.y) * ay;
+              const off = Math.abs((f.x - h.x) * -ay + (f.y - h.y) * ax);
+              return along > -f.def.r && along < far + f.def.r && off < 20 + f.def.r;
+            })
+            .sort((a, b) => Math.hypot(a.x - h.x, a.y - h.y) - Math.hypot(b.x - h.x, b.y - h.y))
+            .slice(0, most);
+        const inLine = line(ux, uy);
+        // Fenn's knife, once it has learned to, strikes behind him as well.
+        if (slot.own && this.ruled('headstails', 3)) for (const f of line(-ux, -uy)) if (!inLine.includes(f)) inLine.push(f);
+        let felled = false;
+        for (const f of inLine) {
+          this.blow(f, slot, h.x, h.y, times);
+          if (f.dead) felled = true;
+          else if (tilted && this.ruled('ninth', 1)) {
+            const d = Math.hypot(f.x - h.x, f.y - h.y) || 1;
+            this.shove(f, (f.x - h.x) / d, (f.y - h.y) / d, OWN.ninth.knock);
+            f.stun = Math.max(f.stun, OWN.ninth.stun * (f.boss ? MOVE.bossShare : 1));
+          }
+        }
+        if (tilted) h.ran = 0;
+        // A kill gives the lance back at once, once it has learned to.
+        if (felled && slot.own && this.ruled('ninth', 2)) slot.cool = Math.min(slot.cool, OWN.ninth.again);
         // A venomed blade leaves its cloud where the first it cut stood.
         if (def.cloud && inLine.length > 0) this.cloud(inLine[0].x, inLine[0].y, def.burst ?? 34, def.cloud[slot.tier]);
-        this.events.push({ t: 'strike', slot: i, angle, x: h.x + ux * range, y: h.y + uy * range, range });
+        this.events.push({ t: 'strike', slot: i, angle, x: h.x + ux * far, y: h.y + uy * far, range: far, great: tilted });
         break;
       }
       case 'sweep': {
-        const half = (((def.arc ?? 90) / 2) * Math.PI) / 180;
+        // All the way round, once their weapons have learned to: Bram's first sweep from behind a shield just set, and Hroth's while he is in debt.
+        const first = slot.own && this.fresh && this.shielded && this.ruled('gatekeeper', 2);
+        const debt = slot.own && this.indebted;
+        const round = first || (debt && this.ruled('gravecleaver', 1));
+        const graves: Array<{ x: number; y: number }> = [];
+        const half = round ? Math.PI : (((def.arc ?? 90) / 2) * Math.PI) / 180;
         for (const f of this.foes) {
           if (f.dead) continue;
           const d = Math.hypot(f.x - h.x, f.y - h.y);
@@ -2095,9 +2421,15 @@ export class World {
           while (off > Math.PI) off -= TAU;
           while (off < -Math.PI) off += TAU;
           // Whoever is right on top of the hero is in the sweep whichever way it goes.
-          if (Math.abs(off) <= half || d < f.def.r + 20) this.blow(f, slot, h.x, h.y);
+          if (Math.abs(off) > half && d >= f.def.r + 20) continue;
+          this.blow(f, slot, h.x, h.y);
+          if (first && !f.dead) f.stun = Math.max(f.stun, OWN.gatekeeper.roundStun * (f.boss ? MOVE.bossShare : 1));
+          // What Hroth's axe fells in debt bursts where it drops, once it has learned to.
+          if (f.dead && debt && this.ruled('gravecleaver', 2)) graves.push({ x: f.x, y: f.y });
         }
-        this.events.push({ t: 'strike', slot: i, angle, x: h.x + ux * range, y: h.y + uy * range, range });
+        if (slot.own) this.fresh = false;
+        for (const g of graves) this.blast(g.x, g.y, OWN.gravecleaver.r, this.ownBlow(OWN.gravecleaver.harm), 0, 'rise', 12);
+        this.events.push({ t: 'strike', slot: i, angle, x: h.x + ux * range, y: h.y + uy * range, range, great: round });
         break;
       }
       case 'slam': {
@@ -2118,7 +2450,9 @@ export class World {
         // Maren's hammer leaves the ground holy.
         if (this.quirk === 'consecrate' && slot.own) {
           const q = QUIRKS.consecrate;
-          this.zones.push({ id: this.ids++, x: target.x, y: target.y, r: r + 14, by: Math.max(1, harm * q.harm), life: q.seconds, tick: 0.5, kind: 'holy', mend: q.mends });
+          // Once it has learned to, her ground stays holy twice as long.
+          const life = q.seconds * (this.ruled('morningstar', 1) ? OWN.morningstar.longer : 1);
+          this.zones.push({ id: this.ids++, x: target.x, y: target.y, r: r + 14, by: Math.max(1, harm * q.harm), life, tick: 0.5, kind: 'holy', mend: q.mends });
         }
         break;
       }
@@ -2128,6 +2462,18 @@ export class World {
           if (!f.dead && Math.hypot(f.x - h.x, f.y - h.y) <= r + f.def.r) this.blow(f, slot, h.x, h.y);
         }
         this.mend(def.mends?.[slot.tier] ?? 1);
+        if (slot.own && this.ruled('passingbell', 1)) {
+          // Each ring takes seconds off a fallen companion's rest.
+          for (const a of this.band) {
+            if (a.down <= 0) continue;
+            a.down -= OWN.passingbell.wakes;
+            if (a.down <= 0) this.getUp(a);
+          }
+        }
+        if (slot.own && this.ruled('passingbell', 3)) {
+          // And every companion in the fold strikes at once.
+          for (const a of this.band) if (a.down <= 0 && Math.hypot(a.x - h.x, a.y - h.y) <= QUIRKS.shepherd.r) a.cool = 0;
+        }
         this.events.push({ t: 'strike', slot: i, angle, x: h.x, y: h.y, range: r });
         this.events.push({ t: 'burst', x: h.x, y: h.y, r, kind: 'light' });
         break;
@@ -2145,7 +2491,8 @@ export class World {
         const s: Shot = {
           id: this.ids++, mine: true, x: x0, y: y0, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, r: 9, dmg: amount, crit,
           // The gift of thrown things: what is thrown straight skips on.
-          pierce: def.pierce ?? 0, leaps: (def.leaps ?? 0) + (def.motion === 'shoot' && def.kinds.includes('thrown') ? this.gifts.leaps : 0),
+          // Wren's arrows at full Unseen, and the Widow's Tear, go through everyone once they have learned to.
+          pierce: slot.own && ((this.hidden && this.ruled('whisper', 2)) || this.ruled('widowstear', 1)) ? 99 : (def.pierce ?? 0), leaps: (def.leaps ?? 0) + (def.motion === 'shoot' && def.kinds.includes('thrown') ? this.gifts.leaps : 0),
           life: lobbed ? 2 : (range * 1.35) / speed, art: def.shot ?? 'arrow', knock: def.knock, seen: [], from: def, tier: slot.tier, mark: def.motion === 'cast' ? target.id : 0,
           lob: lobbed ? { x0, y0, x1: target.x, y1: target.y, of: Math.max(0.35, Math.min(0.9, far / speed)), at: 0 } : null, chills: 0, by: '', burns: 0,
           split: false, src: 0,
@@ -2157,8 +2504,9 @@ export class World {
   }
 
   /** A weapon's blow lands on a foe: rolled afresh for each one it lands on. Gives back what it did. */
-  private blow(f: Foe, slot: Slot, fromX: number, fromY: number): number {
-    const { amount, crit } = this.roll(slot);
+  private blow(f: Foe, slot: Slot, fromX: number, fromY: number, times = 1): number {
+    const { amount: rolled, crit } = this.roll(slot);
+    const amount = Math.max(1, Math.round(rolled * times));
     this.land(f, amount, crit, fromX, fromY, slot.def.knock, slot.def, slot.tier);
     return amount;
   }
@@ -2178,15 +2526,36 @@ export class World {
       f.slowBy = Math.max(f.slowBy, Math.min(0.85, def.slow + this.gifts.slowBy));
     }
     if (def?.burn) {
+      const fire = this.fireOf(def.burn[tier]) * this.gifts.burnBy;
+      // Nan: one who burns already, lit again by her own staff, burns hotter, up to so many times the staff's fire.
+      const again = this.quirk === 'banked' && def.own && f.burn > 0;
+      f.burnBy = again ? Math.max(f.burnBy, Math.min(fire * QUIRKS.banked.most, Math.max(f.burnBy, fire) + fire * QUIRKS.banked.hotter)) : Math.max(f.burnBy, fire);
       f.burn = Math.max(f.burn, 3 + this.gifts.burnMore);
-      f.burnBy = Math.max(f.burnBy, def.burn[tier] * this.gifts.burnBy);
     }
+    // A bolt that stuns: Orrin's staff finished as something blunt.
+    if (def?.stun && def.motion === 'cast') f.stun = Math.max(f.stun, def.stun * (f.boss ? MOVE.bossShare : 1));
+    // Whisper, once it has learned to, pins one it finds unhurt.
+    if (def?.id === 'whisper' && f.hp >= f.maxHp && this.ruled('whisper', 1)) f.stun = Math.max(f.stun, OWN.whisper.pin * (f.boss ? MOVE.bossShare : 1));
     const d = Math.hypot(f.x - fromX, f.y - fromY) || 1;
     this.shove(f, (f.x - fromX) / d, (f.y - fromY) / d, knock * (def ? this.gifts.knock : 1));
-    // Fenn: a blow may knock a coin loose.
-    if (this.quirk === 'sticky' && def?.own && this.rng.chance(QUIRKS.sticky.chance)) this.drop('coin', f.x, f.y, 1);
+    // Fenn: a blow may knock a coin loose, and a critical one does, once his knife has learned to, though not more often than so.
+    if (this.quirk === 'double' && def?.own) {
+      if (this.rng.chance(QUIRKS.double.chance)) this.drop('coin', f.x, f.y, 1);
+      else if (crit && this.coinAt <= 0 && this.ruled('headstails', 1)) {
+        this.coinAt = OWN.headstails.gap;
+        this.drop('coin', f.x, f.y, 1);
+      }
+    }
     if (f.boss && def) this.fill(MOVE.bossBlow);
+    const debt = this.indebted;
     this.wound(f, amount, crit, false);
+    if (f.dead && def?.own) {
+      // Hroth in debt: what his axe fells gives health back.
+      if (debt) this.mend(QUIRKS.gravedebt.mends);
+      // Whisper, once it has learned to: a kill at full Unseen looses the next arrow at once.
+      const own = this.own;
+      if (own && def.id === 'whisper' && this.hidden && this.ruled('whisper', 3)) own.cool = Math.min(own.cool, OWN.whisper.again);
+    }
     const feast = this.hero.feast > 0 && def !== null;
     if ((feast || this.stats.lifesteal > 0) && this.time >= this.leechAt && (feast || this.rng.chance(this.stats.lifesteal / 100))) {
       this.leechAt = this.time + LEECH_GAP;
@@ -2218,6 +2587,19 @@ export class World {
     }
     this.kills++;
     this.fill(1 / (MOVE.kills + MOVE.more * (this.wave.n - 1)));
+    if (f.id === this.heraldId) {
+      this.herald = true;
+      this.events.push({ t: 'herald', x: f.x, y: f.y });
+    }
+    if (f.id === this.duelId) {
+      this.dueled = true;
+      this.events.push({ t: 'duel', id: f.id, how: 'won' });
+    }
+    // Maren's hammer, once it has learned to: what dies on holy ground gives her health back.
+    if (this.ruled('morningstar', 3) && this.time >= this.leechAt && this.onHoly(f.x, f.y)) {
+      this.leechAt = this.time + OWN.morningstar.gap;
+      this.mend(1);
+    }
     if (f.boss) this.felled.push(f.def.id);
     this.leave(f);
     if (f.boss || f.champion) {
@@ -2251,9 +2633,9 @@ export class World {
       }
       this.blast(f.x, f.y, q.r, this.ownBlow(q.harm), 0, 'fire', 8);
     }
-    // Nan: what dies burning bursts, and lights those near it.
-    if (this.quirk === 'kindling' && f.burnBy > 0) {
-      const q = QUIRKS.kindling;
+    // Nan's staff, once it has learned to: what dies burning near her bursts, and lights those round it.
+    if (f.burnBy > 0 && this.ruled('hearthbrand', 2) && Math.hypot(f.x - this.hero.x, f.y - this.hero.y) <= QUIRKS.banked.r + f.def.r) {
+      const q = OWN.hearthbrand;
       const harm = Math.max(1, Math.round(f.burnBy * q.harm));
       this.events.push({ t: 'burst', x: f.x, y: f.y, r: q.r, kind: 'fire' });
       for (const o of this.foes) {
@@ -2274,12 +2656,16 @@ export class World {
         o.slowBy = Math.max(o.slowBy, 0.4);
         this.wound(o, harm, false, true);
       }
+      // Her wand, once it has learned to: what breaks leaves ice where it stood.
+      if (this.ruled('widowstear', 2)) this.zones.push({ id: this.ids++, x: f.x, y: f.y, r: OWN.widowstear.r, by: 0, life: OWN.widowstear.seconds, tick: 0, kind: 'ice', mend: 0 });
     }
   }
 
   /** Fire on a foe burns twice a second. */
   private smolder(f: Foe, dt: number): void {
-    f.burn -= dt;
+    // Nan: a fire near her does not burn down.
+    const banked = this.quirk === 'banked' && Math.hypot(f.x - this.hero.x, f.y - this.hero.y) <= QUIRKS.banked.r + f.def.r;
+    if (!banked) f.burn -= dt;
     f.burnTick -= dt;
     if (f.burnTick > 0) return;
     f.burnTick = 0.5;
@@ -2366,7 +2752,17 @@ export class World {
           this.hurtAlly(shell, s.dmg * ALLY_QUIRKS.bulwark.shell * 2);
           s.life = -1;
         } else if (Math.hypot(h.x - s.x, h.y - 14 - s.y) < HERO_RADIUS + s.r) {
-          this.hurt(s.dmg, s.x - s.vx, s.y - s.vy, s.by, s.chills, this.foes.find((f) => f.id === s.src && !f.dead) ?? null);
+          if (this.shielded && (s.x - h.x) * h.face >= 0) {
+            // Bram's set shield stops what comes from the side he faces, and once his sword has learned to, throws it back.
+            const back = this.ruled('gatekeeper', 1);
+            this.events.push({ t: 'block', x: s.x, y: s.y, back });
+            if (back) {
+              born.push({
+                ...s, id: this.ids++, mine: true, vx: -s.vx * 1.8, vy: -s.vy * 1.8, dmg: this.ownBlow(OWN.gatekeeper.back), life: 1.6, knock: 8, seen: [], from: null, tier: 0, mark: 0, chills: 0,
+                by: '', split: true, src: 0,
+              });
+            }
+          } else this.hurt(s.dmg, s.x - s.vx, s.y - s.vy, s.by, s.chills, this.foes.find((f) => f.id === s.src && !f.dead) ?? null);
           s.life = -1;
         }
         continue;
@@ -2385,10 +2781,13 @@ export class World {
           f.burnBy = Math.max(f.burnBy, s.burns);
         }
         this.land(f, s.dmg, s.crit, s.x - s.vx, s.y - s.vy, s.knock, s.from, s.tier);
-        // The Twin Quiver: a shot splits in two when it first hits, and the halves fly on to either side.
-        if (!s.split && s.from?.motion === 'shoot' && this.has('twinquiver')) {
+        // Orrin's staff, once it has learned to: a bolt that fells its mark flies on to another.
+        if (f.dead && s.from?.id === 'unfinished' && this.ruled('unfinished', 2)) s.leaps++;
+        // The Twin Quiver: a shot splits in two when it first hits, and the halves fly on to either side. So does a bolt of Orrin's staff, at the last.
+        const forked = s.from?.id === 'unfinished' && this.ruled('unfinished', 3);
+        if (!s.split && ((s.from?.motion === 'shoot' && this.has('twinquiver')) || forked)) {
           s.split = true;
-          const q = RELIC.twinquiver;
+          const q = forked ? { spread: RELIC.twinquiver.spread, share: OWN.unfinished.half } : RELIC.twinquiver;
           const speed = Math.hypot(s.vx, s.vy);
           const a = Math.atan2(s.vy, s.vx);
           for (const turn of [-q.spread, q.spread]) {
@@ -2427,7 +2826,12 @@ export class World {
   private burst(s: Shot, x: number, y: number): void {
     const def = s.from;
     if (!def) return;
-    const r = (def.burst ?? 60) * this.gifts.burst;
+    // Nan's staff: its bursts are wider at the last, and before that the ground burns on where they were.
+    const hearth = def.id === 'hearthbrand';
+    const r = (def.burst ?? 60) * this.gifts.burst * (hearth && this.ruled('hearthbrand', 3) ? OWN.hearthbrand.wider : 1);
+    if (hearth && def.burn && this.ruled('hearthbrand', 1)) {
+      this.zones.push({ id: this.ids++, x, y, r, by: this.fireOf(def.burn[s.tier]), life: OWN.hearthbrand.ground, tick: 0.25, kind: 'fire', mend: 0 });
+    }
     const kind: Burst = def.cloud ? 'venom' : def.holy ? 'light' : def.burn ? 'fire' : 'powder';
     this.events.push({ t: 'burst', x, y, r, kind });
     for (const f of this.foes) {
@@ -2459,6 +2863,15 @@ export class World {
           if (Math.hypot(h.x - z.x, h.y - z.y) <= z.r) this.mend(1);
           for (const a of this.band) if (a.down <= 0 && a.maxHp > 0 && Math.hypot(a.x - z.x, a.y - z.y) <= z.r) a.hp = Math.min(a.maxHp, a.hp + 1);
         }
+      }
+      if (z.kind === 'ice') {
+        // Ice does no harm: whoever crosses it is slowed for as long as they are on it.
+        for (const f of this.foes) {
+          if (f.dead || Math.hypot(f.x - z.x, f.y - z.y) > z.r + f.def.r) continue;
+          f.slow = Math.max(f.slow, 0.4);
+          f.slowBy = Math.max(f.slowBy, OWN.widowstear.slow);
+        }
+        continue;
       }
       if (z.tick > 0) continue;
       const every = z.kind === 'fire' || z.kind === 'rain' ? 0.25 : 0.5;
@@ -2511,11 +2924,14 @@ export class World {
   }
 
   private take(p: Pick): void {
-    const value = Math.abs(p.value);
+    // A coin that still lay on the ground when the wave ended is worth a share of itself. On a burning field every coin counts double.
+    const value = Math.abs(p.value) * (p.kind === 'coin' ? (p.late ? LATE_COIN : 1) * this.goldBy : 1);
     if (p.kind === 'coin') {
       this.gold += value * Math.max(0.1, 1 + this.stats.bounty / 100);
       this.xp += value * this.xpBy;
       this.coins += value;
+      // Fenn's knife, once it has learned to: a coin picked up makes his next blow a sure one.
+      if (!p.late && this.ruled('headstails', 2)) this.lucky = 1;
     } else if (p.kind === 'heart') {
       // The Beggar's Bowl: a heart mends double and fills the fury bar.
       const bowl = this.has('bowl');
@@ -2545,9 +2961,12 @@ export class World {
       }
       return;
     }
-    const bossDown = this.wave.boss !== undefined && this.felled.includes(this.wave.boss);
+    // A captain's wave ends when the captain falls, and a duel when the duelist does.
+    const bossDown = (this.wave.boss !== undefined && this.felled.includes(this.wave.boss)) || this.dueled;
     if (this.time < this.wave.seconds && !bossDown) return;
-    // The wave is over: whoever is left leaves the field, and what lies on it comes in.
+    // The wave is over: whoever is left leaves the field, and what lies on it comes in. A coin nobody went for before
+    // the time ran out is worth a share of itself. One who has felled a captain has the field, and loses nothing.
+    if (!bossDown) for (const p of this.picks) if (p.kind === 'coin' && !p.pulled) p.late = true;
     for (const f of this.foes) this.events.push({ t: 'fall', id: f.id, x: f.x, y: f.y, boss: f.boss, swept: true });
     this.foes = [];
     this.marks = [];
@@ -2555,6 +2974,8 @@ export class World {
     this.zones = [];
     this.risen = [];
     this.falls = [];
+    this.walls = [];
+    this.perils = [];
     this.gathering = GATHER_SECONDS;
     this.events.push({ t: 'gather' });
   }

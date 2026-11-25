@@ -1,7 +1,8 @@
 // Relics. Each is one of a kind and bends a rule: it is not a line of
-// stats. A run finds them: one of three from every captain, one of three
-// for coming through a road of champions or a night march, and now and
-// then one among the camp's wares at a high price. A run holds as many as
+// stats. A run finds them: one of three from every captain, one from the
+// lone champion of the third wave, one of three for coming through a road
+// that pays one (road.ts), and now and then one among the camp's wares at
+// a high price. A run holds as many as
 // it finds.
 //
 // What each does is in the wave (world.ts) or the run (run.ts), which read
@@ -29,7 +30,7 @@ export const RELIC = {
   },
   echobell: {
     /** Every this many blows of the hero's own weapon, one lands twice. */
-    every: 10,
+    every: 4,
   },
   wolfskin: {
     /** How near a companion has to be, and how much more the hero's blows do then. */
@@ -67,8 +68,12 @@ export const RELIC = {
     share: 0.6,
   },
   ageswhet: {
-    /** What each wave come through adds to the hero's own weapon. */
-    each: 0.03,
+    /** What each wave come through adds to every weapon the hero carries. */
+    each: 0.02,
+  },
+  seal: {
+    /** The share of its price the dearest ware in a camp costs. */
+    share: 0.5,
   },
   crown: {
     /** How many times the harm, dealt and taken. */
@@ -139,7 +144,7 @@ export const RELIC = {
 
 export const RELICS: readonly RelicDef[] = [
   { id: 'bellows', name: 'Bellows', says: 'What dies burning sets its neighbors alight.' },
-  { id: 'echobell', name: 'Echo Bell', says: `Every tenth blow of your own weapon lands twice.` },
+  { id: 'echobell', name: 'Echo Bell', says: `Every fourth blow of your own weapon lands twice.` },
   { id: 'wolfskin', name: 'Wolfskin', says: 'A fifth more harm while a companion is close by.' },
   { id: 'lastcandle', name: 'Last Candle', says: 'The first blow that would kill you in a wave leaves one health.' },
   { id: 'magpie', name: 'Magpie Feather', says: 'Coins fly to you from anywhere on the field.' },
@@ -148,7 +153,7 @@ export const RELICS: readonly RelicDef[] = [
   { id: 'horn', name: "Hunter's Horn", says: 'The first blow on anyone unhurt is critical.' },
   { id: 'spade', name: "Gravedigger's Spade", says: 'One in eight of the slain gets up on your side for a while.' },
   { id: 'twinquiver', name: 'Twin Quiver', says: 'A shot splits in two when it first hits.' },
-  { id: 'ageswhet', name: 'Whetstone of Ages', says: 'Each wave you come through, your own weapon does 3% more.' },
+  { id: 'ageswhet', name: 'Whetstone of Ages', says: 'Each wave you come through, every weapon you carry does 2% more.' },
   { id: 'crown', name: 'Cracked Crown', says: 'You deal double harm, and take double.' },
   { id: 'ledger', name: "Paymaster's Ledger", says: 'Coins not spent in a camp earn a tenth more, 30 at most.' },
   { id: 'shell', name: "Pilgrim's Shell", says: 'Standing in one place for two seconds starts mending you.' },
@@ -163,7 +168,7 @@ export const RELICS: readonly RelicDef[] = [
   { id: 'bowl', name: "Beggar's Bowl", says: 'Hearts mend double, and fill your fury.' },
   { id: 'tithe', name: 'Tithe Box', says: 'Takes ten coins at each wave. If it gets them, a quarter more harm.' },
   { id: 'oldmap', name: 'Old Map', says: 'One more road to choose from.' },
-  { id: 'seal', name: "Merchant's Seal", says: 'The first look at other wares in each camp is free.' },
+  { id: 'seal', name: "Merchant's Seal", says: 'The dearest ware in every camp is half its price.' },
 ];
 
 export function relicOf(id: string): RelicDef {

@@ -23,6 +23,10 @@ export const LEECH_GAP = 0.25;
 export const HURT_GRACE = 0.5;
 /** The most weapons a hero carries. */
 export const SLOTS = 6;
+/** What each point of Lore adds to the harm a second of a fire the hero's weapons light. */
+export const BURN_LORE = 0.25;
+/** The share that a coin still on the ground when a wave ends is worth: in coins, and in what coins give. */
+export const LATE_COIN = 0.5;
 
 /** A thing a player does once that opens a hero or a companion for good. */
 export type Feat =
@@ -152,6 +156,12 @@ export function weaponOf(id: string): WeaponDef {
   if (!found) throw new Error(`data: no weapon is called "${id}"`);
   return found;
 }
+
+/**
+ * The weapons a first run's camps offer: one or two of most kinds, and none that needs explaining. A run is given
+ * its pool when it begins (run.ts); with none it is offered everything.
+ */
+export const STARTER_POOL: readonly string[] = ['sword', 'dagger', 'spear', 'hammer', 'torch', 'bow', 'sling', 'staff', 'frost', 'censer'];
 
 /** How much dearer each tier is than the first. */
 export const TIER_PRICE = [1, 2.1, 4.3, 8.5] as const;
@@ -355,7 +365,7 @@ export const ENEMIES: readonly EnemyDef[] = [
  * for every wave past `dmgFrom`. The early waves are left as they were: there an enemy's harm is 1 or 2, and the
  * smallest change in it is a half or a whole again.
  */
-export const ENEMY_GROWTH = { hp: 0.17, hpMore: 0.016, dmg: 0.06, dmgMore: 0.007, hpFrom: 4, hpLate: 0.09, dmgFrom: 7, dmgLate: 0.06 };
+export const ENEMY_GROWTH = { hp: 0.17, hpMore: 0.016, dmg: 0.06, dmgMore: 0.007, hpFrom: 4, hpLate: 0.09, dmgFrom: 7, dmgLate: 0.03 };
 /** How fast coins thin out: the waves grow far faster than the camp's prices do. */
 export const COIN_THINNING = 0.22;
 /** Past the last of the written waves, health grows by this share of itself every wave besides. */
@@ -383,6 +393,9 @@ export interface WaveDef {
 
 /** The written waves: after the last of them the lands come round again, harder each time. */
 export const LAST_WAVE = 20;
+/** The longest a wave is, and how long a captain's is if the captain does not fall first: a whole run is about a quarter of an hour of fighting. */
+export const WAVE_SECONDS = 45;
+export const CAPTAIN_SECONDS = 60;
 
 const MIXES: ReadonlyArray<ReadonlyArray<readonly [string, number]>> = [
   [['cutpurse', 1]],
@@ -417,7 +430,7 @@ export function waveOf(n: number): WaveDef {
   const boss = BOSSES[at];
   return {
     n,
-    seconds: boss ? 75 : Math.min(60, 20 + 5 * (at - 1)),
+    seconds: boss ? CAPTAIN_SECONDS : Math.min(WAVE_SECONDS, 20 + 5 * (at - 1)),
     land: LANDS[at <= 7 ? 0 : at <= 14 ? 1 : 2],
     mix: MIXES[at - 1],
     gap: Math.max(1.2, 2.6 - 0.07 * Math.min(n, 30)),

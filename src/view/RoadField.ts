@@ -48,6 +48,9 @@ export class RoadField {
   private readonly rings = new Map<number, Phaser.GameObjects.Image>();
   private readonly risen = new Map<number, Phaser.GameObjects.Image>();
   private shrine: { img: Phaser.GameObjects.Image; ring: Phaser.GameObjects.Image; fill: Phaser.GameObjects.Image } | null = null;
+  /** Bram's gates and the lanes of a burning field, shown plainly: a bar and a band of color. */
+  private readonly walls = new Map<number, Phaser.GameObjects.Image>();
+  private readonly lanes = new Map<number, Phaser.GameObjects.Image>();
 
   /** The plain dark of a night march, for when the light of the field is off. */
   private veil: Phaser.GameObjects.Image | null = null;
@@ -126,6 +129,18 @@ export class RoadField {
       case 'risen':
         this.fx.spawn('fx/dust', e.x, e.y - 6, { dur: 0.3, from: 0.4, to: 1, alpha: 0.7, flat: 0.5, depth: e.y - 1 });
         return true;
+      case 'herald':
+        this.o.banner('THE CHAMPION FALLS', 'It leaves a relic');
+        sfx.play('claim', 0.8);
+        return true;
+      case 'duel':
+        if (e.how === 'on') this.o.banner('THE DUEL', 'Nobody else comes');
+        else this.o.banner('THE DUEL IS WON', 'It leaves a relic');
+        return true;
+      case 'block':
+        this.fx.spawn('fx/sparkle', e.x, e.y, { dur: 0.25, from: 0.4, to: 1, tint: e.back ? GOLD : hex(STEEL.fill), depth: e.y + 60 });
+        sfx.play('tick', 0.4, 0.7);
+        return true;
       default:
         return false;
     }
@@ -171,6 +186,35 @@ export class RoadField {
       const r = (sh.r / DISC_R) * Math.max(0.02, share);
       this.shrine.fill.setScale(r, r * 0.62).setAlpha(sh.done ? 0.12 : 0.34);
       this.shrine.ring.setAlpha(sh.done ? 0.25 : 0.55 + Math.sin(clock * 4) * 0.25);
+    }
+    // Bram's gates: a bar across the way he faced, fading as its time runs out.
+    for (const g of w.walls) {
+      let img = this.walls.get(g.id);
+      if (!img) {
+        img = this.scene.add.image(g.x, g.y, SHEET, 'fx/solid').setTint(hex(STEEL.fill));
+        this.walls.set(g.id, img);
+      }
+      img.setPosition(g.x, g.y - 18).setDisplaySize(g.half * 2, 16).setRotation(Math.atan2(g.nx, -g.ny)).setAlpha(Math.min(0.95, 0.35 + g.life * 0.4)).setDepth(g.y);
+    }
+    for (const [id, img] of this.walls) {
+      if (w.walls.some((g) => g.id === id)) continue;
+      img.destroy();
+      this.walls.delete(id);
+    }
+    // The lanes of a burning field: red and beating while they are only shown, the color of fire once they burn.
+    for (const p of w.perils) {
+      let img = this.lanes.get(p.id);
+      if (!img) {
+        img = this.scene.add.image(p.x, p.y, SHEET, 'fx/solid').setDepth(3);
+        this.lanes.set(p.id, img);
+      }
+      const lit = p.left <= 0;
+      img.setPosition(p.x, p.y).setDisplaySize(p.w, p.h).setTint(lit ? hex(FIRE.fill) : RED).setAlpha(lit ? 0.6 : 0.2 + 0.14 * Math.sin(clock * 16) ** 2);
+    }
+    for (const [id, img] of this.lanes) {
+      if (w.perils.some((p) => p.id === id)) continue;
+      img.destroy();
+      this.lanes.delete(id);
     }
     // The slain who are on their feet for the hero: their own figures, pale and green.
     const seen = new Set<number>();

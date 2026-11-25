@@ -289,7 +289,7 @@ export class HudScene extends Phaser.Scene {
       g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(96, 57, 128, 12, 5);
       g.fillStyle(hex(VENOM.fill), 1).fillRoundedRect(99, 60, Math.max(4, 122 * (xp / levelNeeds(level))), 6, 3);
       // The quirk's bar: how near it is to being on.
-      if (world.quirk && world.quirk !== 'kindling' && world.quirk !== 'deepcold') {
+      if (world.quirk && world.quirk !== 'unfinished' && world.quirk !== 'deepcold') {
         g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(44, 97, 124, 10, 4);
         g.fillStyle(hex(trait.on ? HOLY.fill : BONE.shade), 1).fillRoundedRect(47, 100, Math.max(3, 118 * trait.share), 4, 2);
       }

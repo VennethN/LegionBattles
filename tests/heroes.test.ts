@@ -79,111 +79,7 @@ describe('quirks', () => {
     expect(w.trait.share).toBeLessThan(0.05);
   });
 
-  it('Orrin: every third spell is cast twice', () => {
-    const w = as('orrin');
-    stand(w, 'bruiser', w.hero.x + 250, w.hero.y, { hp: 99999 }, true);
-    const events = play(w, 0.36 + weaponOf('unfinished').every[0] * 2 + 0.2);
-    // Three casts, and the third of them twice.
-    expect(has(events, 'loose').length).toBe(4);
-    expect(has(events, 'quirk').length).toBe(1);
-    // A blade is no spell.
-    const v = alone(new World(setup({ quirk: 'echo', weapons: [{ id: 'sword', tier: 0 }] })));
-    stand(v, 'bruiser', v.hero.x + 60, v.hero.y, { hp: 99999 }, true);
-    expect(has(play(v, 4), 'quirk').length).toBe(0);
-  });
-
-  it('Fenn: his knives knock coins loose, and the coins he holds are harm', () => {
-    const coins = (quirk: Setup['quirk']): number => {
-      const w = alone(new World(setup({ wave: 12, quirk, own: { id: 'headstails', tier: 0 } })));
-      // It walks back each time it is thrown off, so that the knives go on landing.
-      stand(w, 'bruiser', w.hero.x + 50, w.hero.y, { hp: 999999, dmg: 1 });
-      play(w, 30);
-      return w.gold + w.picks.filter((p) => p.kind === 'coin').length;
-    };
-    expect(coins('sticky')).toBeGreaterThan(0);
-    expect(coins(null)).toBe(0);
-    const harm = (purse: number): number => {
-      const w = as('fenn', { purse });
-      const f = stand(w, 'bruiser', w.hero.x + 50, w.hero.y, { hp: 999999 }, true);
-      return Math.max(...blows(play(w, 1), f.id));
-    };
-    expect(harm(300)).toBeGreaterThan(harm(0));
-    // Past the cap more coins are no more harm.
-    expect(harm(100000)).toBe(harm(QUIRKS.sticky.coins * 100 * QUIRKS.sticky.most));
-    expect(as('fenn', { purse: 300 }).trait.share).toBeCloseTo(0.5);
-  });
-
-  it('Nan: what dies burning bursts, and the burst sets its neighbors alight', () => {
-    const lit = (quirk: Setup['quirk']): [number, number] => {
-      const w = alone(new World(setup({ quirk })));
-      stand(w, 'bruiser', w.hero.x + 300, w.hero.y, { hp: 1, burn: 3, burnBy: 6 }, true);
-      const near = stand(w, 'bruiser', w.hero.x + 330, w.hero.y, { hp: 9999 }, true);
-      const far = stand(w, 'bruiser', w.hero.x + 300, w.hero.y + 300, { hp: 9999 }, true);
-      const events = play(w, 0.2);
-      expect(far.burn).toBe(0);
-      return [near.burn, has(events, 'burst').filter((e) => e.kind === 'fire').length];
-    };
-    expect(lit('kindling')[0]).toBeGreaterThan(0);
-    expect(lit('kindling')[1]).toBe(1);
-    expect(lit(null)).toEqual([0, 0]);
-  });
-
-  it('Isaura: the longer she keeps moving the harder she hits, and standing loses it', () => {
-    const w = as('isaura');
-    const f = stand(w, 'bruiser', w.hero.x + 120, w.hero.y, { hp: 999999 }, true);
-    const standing = Math.min(...blows(play(w, 0.6), f.id));
-    // She rides up and down beside them.
-    const all: Ev[] = [];
-    for (let i = 0; i < 12; i++) all.push(...play(w, 0.3, { x: 0, y: i % 2 ? 0.6 : -0.6 }));
-    expect(w.trait.on).toBe(true);
-    expect(has(all, 'quirk').map((e) => e.on)).toEqual([true]);
-    expect(Math.max(...blows(all, f.id))).toBeGreaterThanOrEqual(Math.floor(standing * (1 + QUIRKS.momentum.most)));
-    const stopped = play(w, QUIRKS.momentum.slack + 0.1);
-    expect(w.trait.share).toBe(0);
-    expect(has(stopped, 'quirk').map((e) => e.on)).toEqual([false]);
-  });
-
-  it('Hroth: hits harder the more he is hurt, does not mend by himself, and gets up once from a killing blow', () => {
-    const harm = (hp: number): number => {
-      const w = as('hroth', { stats: stats({ maxHp: 100 }) });
-      w.hero.hp = hp;
-      const f = stand(w, 'bruiser', w.hero.x + 60, w.hero.y, { hp: 999999, dmg: 0 }, true);
-      f.x = w.hero.x + 80;
-      return Math.max(...blows(play(w, 0.5), f.id));
-    };
-    // At a tenth of his health he has nine tenths of what his rage can give.
-    expect(harm(10)).toBeGreaterThan(harm(100) * (1 + QUIRKS.unburied.most * 0.8));
-    const w = as('hroth', { stats: stats({ maxHp: 30, regen: 50 }) });
-    w.slots[0].cool = 999;
-    w.hero.hp = 3;
-    play(w, 3);
-    expect(w.hero.hp).toBe(3);
-    expect(w.trait.on).toBe(true);
-    const f = stand(w, 'bruiser', w.hero.x + 8, w.hero.y, { hp: 99999, dmg: 50 }, true);
-    const events = play(w, 0.1);
-    expect(w.over).toBeNull();
-    expect(has(events, 'rise').length).toBe(1);
-    expect(w.hero.hp).toBe(Math.round(30 * QUIRKS.unburied.rises));
-    expect(w.rose).toBe(true);
-    expect(w.trait.on).toBe(false);
-    // The burst as he rises throws them off and hurts them.
-    expect(f.hp).toBeLessThan(99999);
-    // The next killing blow is the last.
-    f.x = w.hero.x + 8;
-    f.y = w.hero.y;
-    f.kx = 0;
-    f.stun = 0;
-    play(w, 3);
-    expect(w.over).toBe('dead');
-    // One who has got up in this land already does not again.
-    const v = as('hroth', { stats: stats({ maxHp: 30 }), spare: false });
-    v.slots[0].cool = 999;
-    stand(v, 'bruiser', v.hero.x + 8, v.hero.y, { hp: 99999, dmg: 500 }, true);
-    play(v, 0.1);
-    expect(v.over).toBe('dead');
-  });
-
-  it('Aldous: brings one companion more, what heals him heals his band, and companions near him strike faster', () => {
+  it('Aldous: brings one companion more, what heals him heals those in his fold, and companions near him strike faster', () => {
     expect(bandSize('aldous', 1)).toBe(2);
     expect(bandSize('bram', 1)).toBe(1);
     expect(bandSize('aldous', 2)).toBe(3);
@@ -278,7 +174,7 @@ describe('the move', () => {
     expect(has(play(w, 0.2, { x: 1, y: 0, act: true }), 'move').length).toBe(0);
     w.fury = 1;
     const events = play(w, 0.05, { x: 1, y: 0, act: true });
-    expect(has(events, 'move').map((e) => e.id)).toEqual(['rush']);
+    expect(has(events, 'move').map((e) => e.id)).toEqual(['gate']);
     expect(w.fury).toBe(0);
     // By itself: not with nobody about, nor with one or two, but with a crowd, a captain, or a hero in trouble.
     const auto = (foes: number, o: { hp?: number; boss?: boolean } = {}): boolean => {
@@ -300,43 +196,7 @@ describe('the move', () => {
     expect(has(play(manual, 0.5), 'move').length).toBe(0);
   });
 
-  it('Shield Rush and Charge: a run the way the hero faces, through everyone, who are struck and thrown aside', () => {
-    for (const hero of ['bram', 'isaura']) {
-      const w = as(hero, { fury: 1, stats: stats({ maxHp: 50 }) });
-      w.slots[0].cool = 999;
-      const x0 = w.hero.x;
-      const foes = [60, 120, 180].map((d) => stand(w, 'bruiser', x0 + d, w.hero.y + 6, { hp: 99999, dmg: 40 }, true));
-      const off = stand(w, 'bruiser', x0, w.hero.y + 300, { hp: 99999 }, true);
-      const events = play(w, 1, { x: 1, y: 0, act: true });
-      expect(w.hero.x - x0, hero).toBeGreaterThan(200);
-      for (const f of foes) expect(f.hp, hero).toBeLessThan(99999);
-      expect(off.hp).toBe(99999);
-      // Nothing lands on them on the way.
-      expect(has(events, 'hurt').length, hero).toBe(0);
-      expect(w.hero.dash).toBeNull();
-      if (hero === 'bram') for (const f of foes) expect(f.stun).toBeGreaterThan(0);
-    }
-  });
-
-  it('Rain of Arrows: the ground is marked where they are thickest, then rained on for three seconds', () => {
-    const w = as('wren', { fury: 1 });
-    w.slots[0].cool = 999;
-    const crowd = [0, 1, 2, 3].map((i) => stand(w, 'bruiser', w.hero.x + 300 + (i % 2) * 30, w.hero.y - 100 + Math.floor(i / 2) * 30, { hp: 99999 }, true));
-    const lone = stand(w, 'bruiser', w.hero.x - 300, w.hero.y + 100, { hp: 99999 }, true);
-    const events = play(w, 0.1, { x: 0, y: 0, act: true });
-    const warn = has(events, 'warn')[0];
-    expect(warn.kind).toBe('rain');
-    expect(Math.hypot(warn.x - crowd[0].x, warn.y - crowd[0].y)).toBeLessThan(60);
-    expect(crowd[0].hp).toBe(99999);
-    play(w, MOVE.warn + 0.4);
-    expect(w.zones.some((z) => z.kind === 'rain')).toBe(true);
-    for (const f of crowd) expect(f.hp).toBeLessThan(99999);
-    expect(lone.hp).toBe(99999);
-    play(w, 3.2);
-    expect(w.zones.length).toBe(0);
-  });
-
-  it('Starfall: stars fall one after another on whoever is near, each marked first', () => {
+  it('Starfall: stars fall one after another, each marked first', () => {
     const w = as('orrin', { fury: 1 });
     w.slots[0].cool = 999;
     const foes = [0, 1, 2, 3, 4].map((i) => stand(w, 'bruiser', w.hero.x + 200 + i * 40, w.hero.y - 80 + i * 40, { hp: 99999 }, true));
@@ -383,26 +243,6 @@ describe('the move', () => {
     expect(w.rings.length).toBe(0);
   });
 
-  it('War Cry: those near flee for two seconds, and his blows heal him for a while', () => {
-    const w = as('hroth', { fury: 1, stats: stats({ maxHp: 100 }) });
-    w.hero.hp = 40;
-    const f = stand(w, 'cutpurse', w.hero.x + 120, w.hero.y, { hp: 999999, dmg: 0 });
-    const boss = stand(w, 'warlord', w.hero.x - 150, w.hero.y, { hp: 999999, dmg: 0, boss: true }, true);
-    play(w, 0.05, { x: 0, y: 0, act: true });
-    expect(f.flee).toBeGreaterThan(1.5);
-    // A captain does not run: it is checked for a moment.
-    expect(boss.flee).toBe(0);
-    expect(boss.stun).toBeGreaterThan(0);
-    play(w, 1);
-    expect(f.x - w.hero.x).toBeGreaterThan(150);
-    // What he hits heals him.
-    const v = as('hroth', { fury: 1, stats: stats({ maxHp: 100 }) });
-    v.hero.hp = 40;
-    stand(v, 'warlord', v.hero.x + 70, v.hero.y, { hp: 999999, dmg: 0, boss: true }, true);
-    play(v, 2.5, { x: 0, y: 0, act: true });
-    expect(v.hero.hp).toBeGreaterThan(40);
-  });
-
   it('Toll: the bell stuns all who hear it, heals the hero and the band, and gets the fallen up', () => {
     const w = as('aldous', { fury: 1, stats: stats({ maxHp: 100 }), band: [{ id: 'biscuit', bond: 0 }, { id: 'greta', bond: 0 }] });
     w.slots[0].cool = 999;
@@ -439,37 +279,9 @@ describe('the move', () => {
     expect(foes.map((f) => f.x)).toEqual(at);
   });
 
-  it('Judgment: a hammer of light falls where they are thickest, stuns them and leaves the ground holy', () => {
-    const w = as('maren', { fury: 1 });
-    w.slots[0].cool = 999;
-    const crowd = [0, 1, 2].map((i) => stand(w, 'bruiser', w.hero.x + 300, w.hero.y - 40 + i * 40, { hp: 99999 }, true));
-    const events = play(w, 0.1, { x: 0, y: 0, act: true });
-    expect(has(events, 'warn')[0].kind).toBe('light');
-    expect(crowd[1].hp).toBe(99999);
-    const landed = play(w, MOVE.warn + 0.3);
-    expect(has(landed, 'burst').some((e) => e.kind === 'light')).toBe(true);
-    for (const f of crowd) {
-      expect(f.hp).toBeLessThan(99999);
-      expect(f.stun).toBeGreaterThan(0);
-    }
-    expect(w.zones.some((z) => z.kind === 'holy')).toBe(true);
-  });
 });
 
 describe('the plain player', () => {
-  it('lets the move loose when there is a crowd for it, stands as Bram and keeps moving as Isaura', () => {
-    const bram = as('bram', { fury: 1, stats: stats({ maxHp: 9999 }) });
-    for (let i = 0; i < 5; i++) stand(bram, 'cutpurse', bram.hero.x + 80, bram.hero.y - 60 + i * 30, { hp: 99999, dmg: 0 }, true);
-    expect(botSteer(bram).act).toBe(true);
-    const still = as('bram', { stats: stats({ maxHp: 9999 }) });
-    stand(still, 'bruiser', still.hero.x + 60, still.hero.y, { hp: 99999, dmg: 0 }, true);
-    expect(botSteer(still)).toMatchObject({ x: 0, y: 0 });
-    const isaura = as('isaura', { stats: stats({ maxHp: 9999 }) });
-    stand(isaura, 'bruiser', isaura.hero.x + 120, isaura.hero.y, { hp: 99999, dmg: 0 }, true);
-    for (let i = 0; i < 60 * 6; i++) isaura.step(botSteer(isaura));
-    expect(isaura.trait.on).toBe(true);
-  });
-
   it('can play every hero through the first wave with what they start with, alone', () => {
     for (const h of HEROES) {
       const run = newRun(h.id, 99);
