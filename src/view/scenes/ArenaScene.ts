@@ -37,7 +37,7 @@ const WHITE = 0xffffff;
 const RED = hex(RUBY.fill);
 const BURSTS: Record<Burst, number> = {
   powder: hex(FIRE.fill), fire: hex(FIRE.fill), slam: hex(BONE.fill), light: hex(HOLY.fill), venom: hex(VENOM.fill), foe: RED,
-  star: hex(HOLY.light), frost: hex(FROST.fill), rain: hex(BONE.fill), rise: RED,
+  star: hex(HOLY.light), frost: hex(FROST.fill), rain: hex(BONE.fill), rise: RED, bolt: hex(HOLY.light),
 };
 /** What each kind of ground that goes on doing something is tinted. */
 const ZONES: Record<ZoneKind, number> = { cloud: hex(VENOM.fill), holy: hex(HOLY.fill), fire: hex(FIRE.fill), rain: hex(BONE.shade) };

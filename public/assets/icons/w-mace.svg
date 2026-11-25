@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-mace" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-mace-shaft-shape" d="M 49.5 76 L 50.5 76 Q 53.5 76 53.5 79 L 53.5 139 Q 53.5 142 50.5 142 L 49.5 142 Q 46.5 142 46.5 139 L 46.5 79 Q 46.5 76 49.5 76 Z"/>
+<clipPath id="w-mace-shaft-clip"><use href="#w-mace-shaft-shape"/></clipPath>
+<path id="w-mace-head-shape" d="M 50 53 L 55 61.3 L 64.7 61.5 L 60 70 L 64.7 78.5 L 55 78.7 L 50 87 L 45 78.7 L 35.3 78.5 L 40 70 L 35.3 61.5 L 45 61.3 Z"/>
+<clipPath id="w-mace-head-clip"><use href="#w-mace-head-shape"/></clipPath>
+<clipPath id="w-mace-head-lit-clip"><use href="#w-mace-head-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="w-mace-collar-shape" d="M 46 82 L 54 82 Q 56 82 56 84 L 56 87 Q 56 89 54 89 L 46 89 Q 44 89 44 87 L 44 84 Q 44 82 46 82 Z"/>
+<path id="w-mace-hand-shape" d="M 57.5 126 C 57.5 130.1 54.1 133.5 50 133.5 C 45.9 133.5 42.5 130.1 42.5 126 C 42.5 121.9 45.9 118.5 50 118.5 C 54.1 118.5 57.5 121.9 57.5 126 Z"/>
+<clipPath id="w-mace-hand-clip"><use href="#w-mace-hand-shape"/></clipPath>
+<clipPath id="w-mace-hand-lit-clip"><use href="#w-mace-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="w-mace-shaft">
+<use id="w-mace-shaft-shade" href="#w-mace-shaft-shape" fill="#75502b"/>
+<g clip-path="url(#w-mace-shaft-clip)">
+<use id="w-mace-shaft-fill" href="#w-mace-shaft-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="w-mace-shaft-line" href="#w-mace-shaft-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-mace-head">
+<use id="w-mace-head-shade" href="#w-mace-head-shape" fill="#8d97a3"/>
+<g clip-path="url(#w-mace-head-clip)">
+<use id="w-mace-head-fill" href="#w-mace-head-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#w-mace-head-lit-clip)">
+<use id="w-mace-head-lit" href="#w-mace-head-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-mace-head-fill-over" href="#w-mace-head-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="w-mace-head-sheen" d="M57.14 53 L61.56 53 L47.28 87 L42.86 87 Z M65.06 53 L67.66 53 L53.38 87 L50.78 87 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="w-mace-head-line" href="#w-mace-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-mace-collar">
+<use id="w-mace-collar-fill" href="#w-mace-collar-shape" fill="#c8a24a"/>
+<use id="w-mace-collar-line" href="#w-mace-collar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-mace-hand">
+<use id="w-mace-hand-shade" href="#w-mace-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-mace-hand-clip)">
+<use id="w-mace-hand-fill" href="#w-mace-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-mace-hand-lit-clip)">
+<use id="w-mace-hand-lit" href="#w-mace-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-mace-hand-fill-over" href="#w-mace-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-mace-hand-line" href="#w-mace-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

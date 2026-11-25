@@ -24,7 +24,7 @@ function stand(w: World, id: string, x: number, y: number, o: Partial<Foe> = {})
   const at = enemyAt(def, w.wave.n);
   const f: Foe = {
     id: 9000 + w.foes.length, def, x, y, kx: 0, ky: 0, hp: at.hp, maxHp: at.hp, dmg: at.dmg, face: 1, state: 'walk', left: 0, cool: 99, dx: 0, dy: 0, doing: '', turn: 0,
-    slow: 0, slowBy: 0, stun: 0, burn: 0, burnBy: 0, burnTick: 0, frozen: 0, numb: 0, marked: 0, markedBy: 0, flee: 0, moving: false, spurred: false, boss: false, dead: false, ...o,
+    slow: 0, slowBy: 0, stun: 0, burn: 0, burnBy: 0, burnTick: 0, frozen: 0, numb: 0, marked: 0, markedBy: 0, flee: 0, moving: false, spurred: false, boss: false, dead: false, champion: '', blaze: 0, ...o,
   };
   w.foes.push(f);
   return f;

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="r-lastcandle" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="r-lastcandle-flame-shape" d="M 20 21 C 20 21 18.3 16.7 19 14 C 19.7 11.3 24 5 24 5 C 24 5 28.3 11.3 29 14 C 29.7 16.7 28 21 28 21 L 20 21 Z"/>
+<path id="r-lastcandle-pool-shape" d="M 5 40 C 5 40 4.5 35 10 34 C 15.5 33 32.5 33 38 34 C 43.5 35 43 40 43 40 C 43 40 41.2 44.2 36 45 C 30.8 45.8 17.2 45.8 12 45 C 6.8 44.2 5 40 5 40 Z"/>
+<clipPath id="r-lastcandle-pool-clip"><use href="#r-lastcandle-pool-shape"/></clipPath>
+<clipPath id="r-lastcandle-pool-lit-clip"><use href="#r-lastcandle-pool-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="r-lastcandle-stub-shape" d="M 16 38 L 16 24 C 18 20 30 20 32 24 L 32 38 Z"/>
+<clipPath id="r-lastcandle-stub-clip"><use href="#r-lastcandle-stub-shape"/></clipPath>
+<clipPath id="r-lastcandle-stub-lit-clip"><use href="#r-lastcandle-stub-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="r-lastcandle-drip-shape" d="M 17.3 26 L 17.3 33 C 17.3 33.9 18.1 34.7 19 34.7 C 19.9 34.7 20.7 33.9 20.7 33 L 20.7 26 C 20.7 25.1 19.9 24.3 19 24.3 C 18.1 24.3 17.3 25.1 17.3 26 Z"/>
+</defs>
+<path id="r-lastcandle-halo" d="M 36 15 C 36 21.6 30.6 27 24 27 C 17.4 27 12 21.6 12 15 C 12 8.4 17.4 3 24 3 C 30.6 3 36 8.4 36 15 Z" fill="#ffd27a" opacity="0.45"/>
+<g id="r-lastcandle-flame">
+<use id="r-lastcandle-flame-fill" href="#r-lastcandle-flame-shape" fill="#f08a3c"/>
+<use id="r-lastcandle-flame-line" href="#r-lastcandle-flame-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-lastcandle-pool">
+<use id="r-lastcandle-pool-shade" href="#r-lastcandle-pool-shape" fill="#c4b594"/>
+<g clip-path="url(#r-lastcandle-pool-clip)">
+<use id="r-lastcandle-pool-fill" href="#r-lastcandle-pool-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#r-lastcandle-pool-lit-clip)">
+<use id="r-lastcandle-pool-lit" href="#r-lastcandle-pool-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-lastcandle-pool-fill-over" href="#r-lastcandle-pool-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="r-lastcandle-pool-line" href="#r-lastcandle-pool-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-lastcandle-stub">
+<use id="r-lastcandle-stub-shade" href="#r-lastcandle-stub-shape" fill="#c4b594"/>
+<g clip-path="url(#r-lastcandle-stub-clip)">
+<use id="r-lastcandle-stub-fill" href="#r-lastcandle-stub-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#r-lastcandle-stub-lit-clip)">
+<use id="r-lastcandle-stub-lit" href="#r-lastcandle-stub-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-lastcandle-stub-fill-over" href="#r-lastcandle-stub-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="r-lastcandle-stub-line" href="#r-lastcandle-stub-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-lastcandle-drip">
+<use id="r-lastcandle-drip-fill" href="#r-lastcandle-drip-shape" fill="#c4b594"/>
+<use id="r-lastcandle-drip-line" href="#r-lastcandle-drip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

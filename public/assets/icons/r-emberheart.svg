@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="r-emberheart" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="r-emberheart-heart-shape" d="M 24 42 C 4 28 3 12 14 9 C 20 8 24 13 24 16 C 24 13 28 8 34 9 C 45 12 44 28 24 42 Z"/>
+<clipPath id="r-emberheart-heart-clip"><use href="#r-emberheart-heart-shape"/></clipPath>
+<clipPath id="r-emberheart-heart-lit-clip"><use href="#r-emberheart-heart-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="r-emberheart-flame-shape" d="M 20 10 C 20 10 18.3 6.7 19 5 C 19.7 3.3 24 0 24 0 C 24 0 28.3 3.3 29 5 C 29.7 6.7 28 10 28 10 L 20 10 Z"/>
+</defs>
+<path id="r-emberheart-halo" d="M 46 25 C 46 37.2 36.2 47 24 47 C 11.8 47 2 37.2 2 25 C 2 12.8 11.8 3 24 3 C 36.2 3 46 12.8 46 25 Z" fill="#ffd27a" opacity="0.4"/>
+<g id="r-emberheart-heart">
+<use id="r-emberheart-heart-shade" href="#r-emberheart-heart-shape" fill="#c45f22"/>
+<g clip-path="url(#r-emberheart-heart-clip)">
+<use id="r-emberheart-heart-deep" href="#r-emberheart-heart-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="r-emberheart-heart-shade-over" href="#r-emberheart-heart-shape" transform="translate(-3.1 -3.1)" fill="#c45f22"/>
+<use id="r-emberheart-heart-fill" href="#r-emberheart-heart-shape" transform="translate(-5 -5)" fill="#f08a3c"/>
+<g clip-path="url(#r-emberheart-heart-lit-clip)">
+<use id="r-emberheart-heart-lit" href="#r-emberheart-heart-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-emberheart-heart-fill-over" href="#r-emberheart-heart-shape" transform="translate(4.6 4.6)" fill="#f08a3c"/>
+</g>
+<path id="r-emberheart-core" d="M 24 34 C 24 34 16.3 28.8 15 26 C 13.7 23.2 15 18.5 16 17 C 17 15.5 19.7 16.3 21 17 C 22.3 17.7 23 21 24 21 C 25 21 25.7 17.7 27 17 C 28.3 16.3 31 15.5 32 17 C 33 18.5 34.3 23.2 33 26 C 31.7 28.8 24 34 24 34 Z" fill="#f4f1e4" opacity="0.36"/>
+</g>
+<use id="r-emberheart-heart-line" href="#r-emberheart-heart-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-emberheart-flame">
+<use id="r-emberheart-flame-fill" href="#r-emberheart-flame-shape" fill="#f08a3c"/>
+<use id="r-emberheart-flame-line" href="#r-emberheart-flame-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

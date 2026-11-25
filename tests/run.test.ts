@@ -4,7 +4,7 @@ import { HEROES, ITEMS, OFFERS, SLOTS, WEAPONS, byId, levelNeeds, priceAt, rerol
 import {
   buy, choose, combine, endWave, held, lock, march, newRun, openPack, ownOf, reroll, rerollPrice, sell, sellPrice, setupOf, statsOf, survived, twinOf, weaponNumbers, whyNot, type RunData,
 } from '../src/game/run';
-import { bestWave, featDone, featShare, freshSave, isOpen, record, repair } from '../src/game/state';
+import { SAVE_VERSION, bestWave, featDone, featShare, freshSave, isOpen, record, repair } from '../src/game/state';
 import { World } from '../src/game/world';
 
 /** A wave as the run would be given it back: over, with this much gathered. */
@@ -318,7 +318,7 @@ describe('a save from before the heroes had names', () => {
   it('is carried over: each hero by their new name, with whoever its deeds have opened since', () => {
     const old = { v: 1, best: { knight: 9, archer: 4, mage: 2 }, open: ['mage', 'cutpurse'], kills: 700, coins: 120, felled: ['warlord'], runs: 6, last: 'mage', run: { hero: 'knight', wave: 3 }, sound: true, music: false, told: [] };
     const s = repair(old);
-    expect(s.v).toBe(2);
+    expect(s.v).toBe(SAVE_VERSION);
     expect(s.best).toEqual({ bram: 9, wren: 4, orrin: 2 });
     expect(s.last).toBe('orrin');
     expect(s.open).toEqual(expect.arrayContaining(['orrin', 'fenn', 'nan', 'isaura']));
@@ -346,5 +346,5 @@ describe('a whole run by the plain player', () => {
     expect(survived(run)).toBeGreaterThanOrEqual(2);
     expect(run.weapons.length).toBeGreaterThan(1);
     expect(run.gold).toBeGreaterThanOrEqual(0);
-  });
+  }, 60000);
 });

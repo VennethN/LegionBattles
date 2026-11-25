@@ -51,7 +51,8 @@ export interface ArtGame {
 
 // The player's side: the heroes, and the companions who go with them.
 const HERO_UNITS = new Set([...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit)]);
-const FOE_UNITS = new Set(ENEMIES.map((e) => e.unit));
+// A thing a road puts on the field (a wagon, a cage) is a picture of its own, not a figure.
+const FOE_UNITS = new Set(ENEMIES.filter((e) => !e.prop).map((e) => e.unit));
 const BOSS_UNITS = new Set(ENEMIES.filter((e) => e.ai === 'boss').map((e) => e.unit));
 
 /** A step in the middle of its stride: what a foe's picture is changed to and back as it comes on. */

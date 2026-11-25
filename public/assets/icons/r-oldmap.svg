@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="r-oldmap" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="r-oldmap-sheet-shape" d="M 7 9 L 18 5 L 30 9 L 42 5 L 42 39 L 30 43 L 18 39 L 7 43 Z"/>
+<clipPath id="r-oldmap-sheet-clip"><use href="#r-oldmap-sheet-shape"/></clipPath>
+</defs>
+<g id="r-oldmap-sheet">
+<use id="r-oldmap-sheet-fill" href="#r-oldmap-sheet-shape" fill="#d9cdb0"/>
+<g clip-path="url(#r-oldmap-sheet-clip)">
+<path id="r-oldmap-fold-a" d="M 18 5 L 30 9 L 30 43 L 18 39 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="r-oldmap-sheet-line" href="#r-oldmap-sheet-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="r-oldmap-step" d="M 12.6 34.6 L 15.1 32.1 C 15.4 31.8 15.4 31.2 15.1 30.9 C 14.8 30.6 14.2 30.6 13.9 30.9 L 11.4 33.4 C 11.1 33.7 11.1 34.3 11.4 34.6 C 11.7 34.9 12.3 34.9 12.6 34.6 Z" fill="#8c6b42"/>
+<path id="r-oldmap-step-2" d="M 17.6 28.6 L 20.1 26.1 C 20.4 25.8 20.4 25.2 20.1 24.9 C 19.8 24.6 19.2 24.6 18.9 24.9 L 16.4 27.4 C 16.1 27.7 16.1 28.3 16.4 28.6 C 16.7 28.9 17.3 28.9 17.6 28.6 Z" fill="#8c6b42"/>
+<path id="r-oldmap-step-3" d="M 23.6 24.6 L 26.1 22.1 C 26.4 21.8 26.4 21.2 26.1 20.9 C 25.8 20.6 25.2 20.6 24.9 20.9 L 22.4 23.4 C 22.1 23.7 22.1 24.3 22.4 24.6 C 22.7 24.9 23.3 24.9 23.6 24.6 Z" fill="#8c6b42"/>
+<path id="r-oldmap-cross-a" d="M 28.3 14.7 L 36.3 22.7 C 36.7 23.1 37.3 23.1 37.7 22.7 C 38.1 22.3 38.1 21.7 37.7 21.3 L 29.7 13.3 C 29.3 12.9 28.7 12.9 28.3 13.3 C 27.9 13.7 27.9 14.3 28.3 14.7 Z" fill="#c7364f"/>
+<path id="r-oldmap-cross-b" d="M 36.3 13.3 L 28.3 21.3 C 27.9 21.7 27.9 22.3 28.3 22.7 C 28.7 23.1 29.3 23.1 29.7 22.7 L 37.7 14.7 C 38.1 14.3 38.1 13.7 37.7 13.3 C 37.3 12.9 36.7 12.9 36.3 13.3 Z" fill="#c7364f"/>
+</svg>

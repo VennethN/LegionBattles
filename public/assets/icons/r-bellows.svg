@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="r-bellows" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="r-bellows-nozzle-shape" d="M 21 36 L 27 36 L 25.5 46 L 22.5 46 Z"/>
+<path id="r-bellows-pleats-shape" d="M 9 16 L 39 16 L 35 34 L 24 39 L 13 34 Z"/>
+<clipPath id="r-bellows-pleats-clip"><use href="#r-bellows-pleats-shape"/></clipPath>
+<clipPath id="r-bellows-pleats-lit-clip"><use href="#r-bellows-pleats-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="r-bellows-board-shape" d="M 24 4 C 24 4 35.2 4 38 6 C 40.8 8 41 16 41 16 L 7 16 C 7 16 7.2 8 10 6 C 12.8 4 24 4 24 4 Z"/>
+<clipPath id="r-bellows-board-clip"><use href="#r-bellows-board-shape"/></clipPath>
+<clipPath id="r-bellows-board-lit-clip"><use href="#r-bellows-board-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="r-bellows-grip-shape" d="M 23 1 L 25 1 Q 28 1 28 4 L 28 5 Q 28 8 25 8 L 23 8 Q 20 8 20 5 L 20 4 Q 20 1 23 1 Z"/>
+</defs>
+<g id="r-bellows-nozzle">
+<use id="r-bellows-nozzle-fill" href="#r-bellows-nozzle-shape" fill="#5d6672"/>
+<use id="r-bellows-nozzle-line" href="#r-bellows-nozzle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-bellows-pleats">
+<use id="r-bellows-pleats-shade" href="#r-bellows-pleats-shape" fill="#4e3520"/>
+<g clip-path="url(#r-bellows-pleats-clip)">
+<use id="r-bellows-pleats-fill" href="#r-bellows-pleats-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#r-bellows-pleats-lit-clip)">
+<use id="r-bellows-pleats-lit" href="#r-bellows-pleats-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-bellows-pleats-fill-over" href="#r-bellows-pleats-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="r-bellows-pleat" d="M 13 21.8 L 35 21.8 C 35.4 21.8 35.8 21.4 35.8 21 C 35.8 20.6 35.4 20.3 35 20.3 L 13 20.3 C 12.6 20.3 12.3 20.6 12.3 21 C 12.3 21.4 12.6 21.8 13 21.8 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="r-bellows-pleat-2" d="M 13 26.8 L 35 26.8 C 35.4 26.8 35.8 26.4 35.8 26 C 35.8 25.6 35.4 25.3 35 25.3 L 13 25.3 C 12.6 25.3 12.3 25.6 12.3 26 C 12.3 26.4 12.6 26.8 13 26.8 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="r-bellows-pleat-3" d="M 13 31.8 L 35 31.8 C 35.4 31.8 35.8 31.4 35.8 31 C 35.8 30.6 35.4 30.3 35 30.3 L 13 30.3 C 12.6 30.3 12.3 30.6 12.3 31 C 12.3 31.4 12.6 31.8 13 31.8 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="r-bellows-pleats-line" href="#r-bellows-pleats-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-bellows-board">
+<use id="r-bellows-board-shade" href="#r-bellows-board-shape" fill="#75502b"/>
+<g clip-path="url(#r-bellows-board-clip)">
+<use id="r-bellows-board-fill" href="#r-bellows-board-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#r-bellows-board-lit-clip)">
+<use id="r-bellows-board-lit" href="#r-bellows-board-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-bellows-board-fill-over" href="#r-bellows-board-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="r-bellows-board-line" href="#r-bellows-board-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-bellows-grip">
+<use id="r-bellows-grip-fill" href="#r-bellows-grip-shape" fill="#75502b"/>
+<use id="r-bellows-grip-line" href="#r-bellows-grip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

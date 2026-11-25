@@ -7,9 +7,9 @@ import { WEAPON_ART } from '../src/art/holdout';
 import { allColors } from '../src/art/kit/palette';
 import type { Manifest } from '../src/art/manifest';
 import { UNIT_ART } from '../src/art/units';
-import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAND_NAMES, WEAPONS } from '../src/game/data';
+import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAND_NAMES, RELICS, ROAD, WEAPONS } from '../src/game/data';
 import { STAT_INFO, STATS } from '../src/game/stats';
-import { ICONS_USED, itemIcon, statIcon, weaponIcon } from '../src/view/icons';
+import { ICONS_USED, THING_ICONS, itemIcon, relicIcon, statIcon, weaponIcon } from '../src/view/icons';
 import { SkylinePacker } from '../src/view/art/packer';
 
 const manifest = JSON.parse(fs.readFileSync('public/assets/manifest.json', 'utf8')) as Manifest;
@@ -25,6 +25,8 @@ function files(dir: string, out: string[] = []): string[] {
 }
 
 const has = (rel: string): boolean => fs.existsSync(path.join('public/assets', rel));
+/** Those who fight: a wagon and a cage are things, with pictures of their own. */
+const FIGHTERS = ENEMIES.filter((e) => !e.prop);
 
 describe('what the game asks the art for', () => {
   it('every hero is drawn part by part and whole, in blue', () => {
@@ -39,7 +41,7 @@ describe('what the game asks the art for', () => {
   });
 
   it('every enemy is drawn in red: a boss part by part, the rest as two whole pictures to walk between', () => {
-    for (const e of ENEMIES) {
+    for (const e of FIGHTERS) {
       const unit = manifest.units[e.unit];
       expect(unit, e.id).toBeDefined();
       if (e.ai === 'boss') {
@@ -58,6 +60,10 @@ describe('what the game asks the art for', () => {
     for (const w of WEAPONS) expect(drawn.has(weaponIcon(w.id)), w.id).toBe(true);
     expect([...WEAPON_ART].sort()).toEqual(WEAPONS.map((w) => w.id).sort());
     for (const it of ITEMS) expect(drawn.has(itemIcon(it.id)), it.id).toBe(true);
+    for (const r of RELICS) expect(drawn.has(relicIcon(r.id)), r.id).toBe(true);
+    // What a road puts on the field is a picture of its own, not a figure.
+    for (const e of ENEMIES.filter((x) => x.prop)) expect(drawn.has(THING_ICONS[e.prop as keyof typeof THING_ICONS]), e.id).toBe(true);
+    expect(drawn.has(THING_ICONS.shrine)).toBe(true);
     for (const s of STATS) expect(drawn.has(statIcon(STAT_INFO[s].icon)), s).toBe(true);
     // Whatever a screen asks for by name is on the list the art build writes from.
     const asked = new Set<string>();
@@ -70,7 +76,7 @@ describe('what the game asks the art for', () => {
 
   it('nothing is written that the game does not show', () => {
     expect(Object.keys(manifest.icons).sort()).toEqual([...ICONS_USED].sort());
-    const cast = new Set([...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit), ...ENEMIES.map((e) => e.unit)]);
+    const cast = new Set([...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit), ...FIGHTERS.map((e) => e.unit)]);
     expect(Object.keys(manifest.units).sort()).toEqual([...cast].sort());
     expect(Object.keys(manifest.grades)).toEqual([]);
   });
@@ -129,8 +135,9 @@ describe('the sheet of the field', () => {
   const parts = (unit: string): Array<readonly [number, number]> => manifest.units[unit].parts.map((part) => [part.box[2] * 2, part.box[3] * 2] as const);
   const stills = (unit: string): Array<readonly [number, number]> => Object.values(manifest.units[unit].stills ?? {}).map((b) => [b[2], b[3]] as const);
 
-  it('holds what is kept from the start in a third of itself', () => {
-    expect(kept().used()).toBeLessThan(0.34);
+  // It was a third before the road: thirteen more weapons, a picture for every relic and the things of the road took it to under a half.
+  it('holds what is kept from the start in under half of itself', () => {
+    expect(kept().used()).toBeLessThan(0.48);
   });
 
   it('every companion is drawn part by part, in blue', () => {
@@ -145,9 +152,9 @@ describe('the sheet of the field', () => {
     const p = kept();
     const size = (unit: string): number => manifest.units[unit].full[3] * manifest.units[unit].full[2];
     const tallest = HEROES.map((h) => h.unit).sort((a, b) => size(b) - size(a))[0];
-    // A band is as many as the Hold opens and one more for the shepherd: the biggest of them, to be sure of the rest.
-    const band = COMPANIONS.map((c) => c.unit).sort((a, b) => size(b) - size(a)).slice(0, BAND.places + 1);
-    const all = [...parts(tallest), ...band.flatMap(parts), ...ENEMIES.flatMap((e) => (e.ai === 'boss' ? parts(e.unit) : stills(e.unit)))].sort((a, b) => b[1] - a[1]);
+    // A band is as many as the Hold opens, one more for the shepherd, and the strays a road may add: the biggest of them, to be sure of the rest.
+    const band = COMPANIONS.map((c) => c.unit).sort((a, b) => size(b) - size(a)).slice(0, BAND.places + 1 + ROAD.stray.most);
+    const all = [...parts(tallest), ...band.flatMap(parts), ...FIGHTERS.flatMap((e) => (e.ai === 'boss' ? parts(e.unit) : stills(e.unit)))].sort((a, b) => b[1] - a[1]);
     expect(p.fits(all)).toBe(true);
   });
 });

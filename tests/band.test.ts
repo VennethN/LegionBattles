@@ -136,7 +136,7 @@ describe('the companions', () => {
     stand(v, 'bruiser', v.hero.x + 400, v.hero.y, { hp: 99999, dmg: 0 }, true);
     shell.x = v.hero.x + 110;
     shell.y = v.hero.y;
-    v.shots.push({ id: 5, mine: false, x: v.hero.x + 260, y: v.hero.y - 12, vx: -220, vy: 0, r: 7, dmg: 6, crit: false, pierce: 0, leaps: 0, life: 3, art: 'orb-red', knock: 0, seen: [], from: null, tier: 0, mark: 0, lob: null, chills: 0, by: 'poacher', burns: 0 });
+    v.shots.push({ id: 5, mine: false, x: v.hero.x + 260, y: v.hero.y - 12, vx: -220, vy: 0, r: 7, dmg: 6, crit: false, pierce: 0, leaps: 0, life: 3, art: 'orb-red', knock: 0, seen: [], from: null, tier: 0, mark: 0, lob: null, chills: 0, by: 'poacher', burns: 0, split: false, src: 0 });
     const hp = shell.hp;
     const events = play(v, 1.2);
     expect(has(events, 'hurt').length).toBe(0);

@@ -5,15 +5,19 @@
 // pace report can play one without a screen.
 
 import {
-  BAND, BASE_STATS, CHOICES, COMPANIONS, HEROES, ITEMS, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId, landAt, levelNeeds,
-  ownTier, priceAt, rerollCost, tierWeights, weaponOf, type HeroDef,
+  BAND, BASE_STATS, CHOICES, COMPANIONS, HEROES, ITEMS, KIND_AGAIN, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId, landAt, levelNeeds,
+  ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type HeroDef,
 } from './data';
+import { KINDS, KIND_STEPS, countKinds, giftLine, kindStep, type Kind, type KindCounts } from './kinds';
+import { RELIC, RELICS } from './relics';
+import { OMENS, ROAD, type Omen, type Road } from './road';
 import { Rng } from './rng';
 import { hasteRate, sumStats, type Stat, type StatLine, type Stats } from './stats';
 import type { Banded, Carried, Setup, World } from './world';
 
 export interface Offer {
-  kind: 'weapon' | 'item';
+  /** A relic among the wares has no tier of its own: it is offered as the rarest are. */
+  kind: 'weapon' | 'item' | 'relic';
   id: string;
   tier: number;
   price: number;
@@ -33,10 +37,12 @@ export interface Choice {
 /**
  * fight: a wave is being fought, or is about to be.
  * level: a level was made and its choice is waiting.
+ * relic: a relic was won and one of three is to be chosen.
  * camp: trading before the next wave.
+ * road: the camp is left and a road to the next wave is to be chosen.
  * over: the hero has fallen.
  */
-export type Phase = 'fight' | 'level' | 'camp' | 'over';
+export type Phase = 'fight' | 'level' | 'relic' | 'camp' | 'road' | 'over';
 
 export interface RunData {
   hero: string;
@@ -74,6 +80,23 @@ export interface RunData {
   offers: Offer[];
   rerolls: number;
   choices: Choice[];
+  /** The relics held, by name (relics.ts). */
+  relics: string[];
+  /** Relics won and not chosen yet, and the ones on offer while one is being chosen. */
+  relicsDue: number;
+  relicChoices: string[];
+  /** The road taken to the wave that is being fought, or will be next. */
+  road: Road;
+  /** The roads on offer while one is being chosen. */
+  roads: Road[];
+  /** How many roads are offered at once, before what a relic adds: the Hold opens a third. */
+  forks: number;
+  /** Health the Banner of the Fallen has given. */
+  vigor: number;
+  /** Waves come through with the Whetstone of Ages in hand. */
+  whet: number;
+  /** The share of the hero's health that was left when the last wave ended: a player picks a road by it, and so does the plain player. */
+  left: number;
 }
 
 export function heroOf(run: RunData): HeroDef {
@@ -86,13 +109,19 @@ export function bandSize(hero: string, places: number): number {
 }
 
 /** A new run: a hero, and the companions who go with them. The hero's own weapon is all they carry. */
-export function newRun(hero: string, seed: number, band: readonly string[] = []): RunData {
+export function newRun(hero: string, seed: number, band: readonly string[] = [], forks: number = ROAD.roads): RunData {
   byId(HEROES, hero);
   const known = [...new Set(band)].filter((id) => COMPANIONS.some((c) => c.id === id));
   return {
     hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [], band: known.map((id) => ({ id, bond: 0 })), fury: 0, rose: -1, saved: false,
     items: [], ups: [], packs: 0, kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
+    relics: [], relicsDue: 0, relicChoices: [], road: { omen: 'quiet' }, roads: [], forks: Math.max(1, Math.min(ROAD.most, Math.floor(forks))), vigor: 0, whet: 0, left: 1,
   };
+}
+
+/** True if the run holds a relic. */
+export function hasRelic(run: RunData, id: string): boolean {
+  return run.relics.includes(id);
 }
 
 /** The hero's own weapon as it stands: it grows a tier by itself at set levels. */
@@ -117,7 +146,40 @@ export function statLines(run: RunData): StatLine[] {
     { maxHp: run.level },
     ...run.items.map((id) => byId(ITEMS, id).stats),
     ...run.ups.map((u) => ({ [u.stat]: u.by }) as StatLine),
+    // What the kinds of weapon held give as plain stats, and the health the Banner of the Fallen has given.
+    giftLine(kindCounts(run)),
+    { maxHp: run.vigor },
   ];
+}
+
+/** How many of each kind of weapon the hero holds, their own among them. */
+export function kindCounts(run: RunData): KindCounts {
+  return countKinds([weaponOf(heroOf(run).weapon), ...run.weapons.map((w) => weaponOf(w.id))]);
+}
+
+/** A kind of weapon as the camp shows it: how many are held, the step of its gift that gives, and what the next step asks for and gives. */
+export interface KindHeld {
+  kind: Kind;
+  name: string;
+  held: number;
+  /** 0 for no gift yet, 3 for all of it. */
+  step: number;
+  /** What it gives now, or '' for nothing yet. */
+  says: string;
+  /** How many have to be held for the next step and what that gives, or null when there is no further step. */
+  next: { at: number; says: string } | null;
+}
+
+/** Every kind the hero holds at least one of, most first. */
+export function kindsOf(run: RunData): KindHeld[] {
+  const counts = kindCounts(run);
+  return KINDS.filter((k) => counts[k.id] > 0)
+    .map((k) => {
+      const held = counts[k.id];
+      const step = kindStep(held);
+      return { kind: k.id, name: k.name, held, step, says: step > 0 ? k.says[step - 1] : '', next: step < KIND_STEPS.length ? { at: KIND_STEPS[step], says: k.says[step] } : null };
+    })
+    .sort((a, b) => b.held - a.held);
 }
 
 export function statsOf(run: RunData): Stats {
@@ -129,17 +191,37 @@ export function statsOf(run: RunData): Stats {
 /** What a wave is fought with. The wave's own dice come off the run's, so no two waves are alike. */
 export function setupOf(run: RunData, tall = false, auto = true): Setup {
   const hero = heroOf(run);
+  const seed = roll(run, (r) => Math.floor(r.next() * 0x7fffffff) + 1);
+  const stats = statsOf(run);
+  // The Bone Dice: one stat up and another down, for this wave only.
+  let bones: Setup['bones'] = null;
+  if (hasRelic(run, 'bonedice')) {
+    bones = roll(run, (r) => {
+      const up = r.pick(DICE_STATS);
+      return { up, down: r.pick(DICE_STATS.filter((st) => st !== up)) };
+    });
+    stats[bones.up] += RELIC.bonedice.up;
+    stats[bones.down] -= RELIC.bonedice.down;
+  }
+  // The Tithe Box takes its coins if they are there.
+  const tithe = hasRelic(run, 'tithe') && run.gold >= RELIC.tithe.coins;
+  if (tithe) run.gold -= RELIC.tithe.coins;
   return {
-    seed: roll(run, (r) => Math.floor(r.next() * 0x7fffffff) + 1), wave: run.wave, stats: statsOf(run), quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
+    seed, wave: run.wave, stats, quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
     band: run.band, level: run.level, fury: run.fury, auto, purse: run.gold, spare: run.rose !== landAt(run.wave), rescue: !run.saved, tall,
+    omen: run.road.omen, stray: run.road.stray, relics: run.relics, whet: run.whet, tithe, bones,
   };
 }
+
+/** The stats the Bone Dice may roll: the ones counted in hundredths, where 15 up and 10 down mean the same for each. */
+const DICE_STATS: readonly Stat[] = ['damage', 'haste', 'crit', 'dodge', 'speed', 'luck', 'bounty'];
 
 /** A wave has ended: the run takes what it left, and goes on to a level, to the camp, or to its end. */
 export function endWave(run: RunData, world: World): void {
   run.gold += Math.round(world.gold);
-  run.coins += Math.round(world.xp);
+  run.coins += Math.round(world.coins);
   run.fury = world.fury;
+  run.left = Math.max(0, world.hero.hp / world.hero.maxHp);
   if (world.rose) run.rose = landAt(run.wave);
   if (world.rescued) run.saved = true;
   run.xp += world.xp;
@@ -155,14 +237,64 @@ export function endWave(run: RunData, world: World): void {
     run.level++;
     run.pending++;
   }
+  // What the road promised, and what the wave gave besides.
+  const omen = world.omen;
+  // A captain leaves a relic, and so does a road of champions or a night march come through.
+  run.relicsDue += world.felled.length + (omen === 'champions' || omen === 'night' ? 1 : 0);
+  // The shrine's blessing is a choice as for a level, with no level made.
+  if (world.blessed) run.pending++;
+  // Whoever was let out of the cage stays for the run, beyond the band's places.
+  if (world.freed && !run.band.some((b) => b.id === world.freed)) run.band.push({ id: world.freed, bond: 0, stray: true });
+  if (hasRelic(run, 'fallen')) run.vigor += RELIC.fallen.health * world.banners;
+  if (hasRelic(run, 'ageswhet')) run.whet++;
   run.wave++;
   run.rerolls = 0;
+  run.road = { omen: 'quiet' };
   // What was locked is still on the table; the rest of the wares are new.
   rollOffers(run, false);
+  settle(run);
+}
+
+/** After a wave, and after each choice: a level's choice first, then a relic's, then the camp. */
+function settle(run: RunData): void {
   if (run.pending > 0) {
     run.phase = 'level';
     rollChoices(run);
-  } else run.phase = 'camp';
+    return;
+  }
+  run.choices = [];
+  if (run.relicsDue > 0) {
+    const left = RELICS.filter((r) => !hasRelic(run, r.id));
+    if (left.length === 0) {
+      // A run that holds every relic there is takes coins instead.
+      run.gold += RELIC.instead * run.relicsDue;
+      run.relicsDue = 0;
+    } else {
+      run.relicChoices = roll(run, (rng) => {
+        const pool = left.map((r) => r.id);
+        const out: string[] = [];
+        while (out.length < RELIC_CHOICES && pool.length > 0) out.push(pool.splice(rng.int(pool.length), 1)[0]);
+        return out;
+      });
+      run.phase = 'relic';
+      return;
+    }
+  }
+  run.relicChoices = [];
+  run.phase = 'camp';
+}
+
+/** How many relics are offered when one is won. */
+export const RELIC_CHOICES = 3;
+
+/** Takes one of the relics on offer. */
+export function takeRelic(run: RunData, i: number): boolean {
+  const id = run.relicChoices[i];
+  if (run.phase !== 'relic' || !id) return false;
+  run.relics.push(id);
+  run.relicsDue = Math.max(0, run.relicsDue - 1);
+  settle(run);
+  return true;
 }
 
 /** How many waves the run has come through. */
@@ -208,11 +340,7 @@ export function choose(run: RunData, i: number): boolean {
   if (bonded) bonded.bond = Math.min(BAND.bonds, bonded.bond + 1);
   else run.ups.push({ stat: c.stat, by: c.by });
   run.pending--;
-  if (run.pending > 0) rollChoices(run);
-  else {
-    run.choices = [];
-    run.phase = 'camp';
-  }
+  settle(run);
   return true;
 }
 
@@ -231,7 +359,10 @@ function rollOffer(run: RunData, rng: Rng, slot: number): Offer {
       id = mine.id;
       tier = mine.tier;
     } else {
-      id = rng.pick(WEAPONS).id;
+      // Now and then one of a kind the hero holds already: a kind is built up over a run, and the camp helps.
+      const counts = kindCounts(run);
+      const kin = WEAPONS.filter((w) => w.kinds.some((k) => counts[k] > 0));
+      id = (kin.length > 0 && rng.chance(KIND_AGAIN) ? rng.pick(kin) : rng.pick(WEAPONS)).id;
       tier = rollTier(rng, run.wave, luck);
     }
     const def = byId(WEAPONS, id);
@@ -254,6 +385,12 @@ function rollOffers(run: RunData, all: boolean): void {
     for (let i = 0; i < OFFERS; i++) {
       const old = run.offers[i];
       next.push(old && old.locked && !old.sold && !all ? old : rollOffer(run, rng, i));
+    }
+    // Rarely the last of the wares is a relic, at a high price: never two at once, and never one the run holds.
+    const last = next[OFFERS - 1];
+    const left = RELICS.filter((r) => !hasRelic(run, r.id));
+    if (run.wave >= RELIC.wareFrom && left.length > 0 && !(last.locked && !last.sold) && !next.some((o) => o.kind === 'relic') && rng.chance(RELIC.ware)) {
+      next[OFFERS - 1] = { kind: 'relic', id: rng.pick(left).id, tier: TIERS - 1, price: priceAt(RELIC.price, run.wave), sold: false, locked: false };
     }
     run.offers = next;
   });
@@ -286,6 +423,7 @@ export function buy(run: RunData, i: number): boolean {
   o.sold = true;
   o.locked = false;
   if (o.kind === 'item') run.items.push(o.id);
+  else if (o.kind === 'relic') run.relics.push(o.id);
   else if (run.weapons.length < SLOTS) run.weapons.push({ id: o.id, tier: o.tier });
   else run.weapons[twinOf(run, o.id, o.tier)].tier++;
   return true;
@@ -316,6 +454,8 @@ export function sell(run: RunData, slot: number): boolean {
 }
 
 export function rerollPrice(run: RunData): number {
+  // The Merchant's Seal: the first look at other wares in each camp is free.
+  if (run.rerolls === 0 && hasRelic(run, 'seal')) return 0;
   return rerollCost(run.wave, run.rerolls);
 }
 
@@ -359,9 +499,67 @@ export function weaponNumbers(run: RunData, id: string, tier: number): { harm: n
   return { harm: Math.max(1, Math.round(base * Math.max(0.1, 1 + s.damage / 100))), every: def.every[tier] / hasteRate(s.haste) };
 }
 
-/** Leaves the camp for the next wave. */
+// ---------------------------------------------------------------- the road
+
+/** How many roads the run is offered at once: what it began with, and one more for the Old Map. */
+export function forksOf(run: RunData): number {
+  return Math.min(ROAD.most, run.forks + (hasRelic(run, 'oldmap') ? 1 : 0));
+}
+
+/** The companion who is in the cage, if a cage is offered now: one who is not on the run, by the run's dice. */
+function strayFor(run: RunData, rng: Rng): string | undefined {
+  if (run.band.filter((b) => b.stray).length >= ROAD.stray.most) return undefined;
+  const free = COMPANIONS.filter((c) => !run.band.some((b) => b.id === c.id));
+  return free.length > 0 ? rng.pick(free).id : undefined;
+}
+
+/** The roads to the run's next wave: no two alike, each with what it needs to be told. */
+function rollRoads(run: RunData, n: number): Road[] {
+  return roll(run, (rng) => {
+    const stray = strayFor(run, rng);
+    const pool = OMENS.filter((o) => run.wave >= o.from && (o.id !== 'stray' || stray !== undefined));
+    const out: Road[] = [];
+    while (out.length < n && pool.length > 0) {
+      const o = rng.weighted(pool, (x) => x.weight);
+      pool.splice(pool.indexOf(o), 1);
+      out.push(o.id === 'stray' ? { omen: o.id, stray } : { omen: o.id });
+    }
+    return out;
+  });
+}
+
+/**
+ * Leaves the camp. Where there is more than one road to the next wave, they
+ * are laid out to choose from; a captain's wave has one road, and the run
+ * is on it at once.
+ */
 export function march(run: RunData): boolean {
   if (run.phase !== 'camp') return false;
+  // The Paymaster's Ledger: what was not spent earns.
+  if (hasRelic(run, 'ledger')) run.gold += Math.min(RELIC.ledger.most, Math.floor(run.gold * RELIC.ledger.share));
+  const n = waveOf(run.wave).boss ? 1 : forksOf(run);
+  if (n <= 1) {
+    run.road = { omen: 'quiet' };
+    run.roads = [];
+    run.phase = 'fight';
+    return true;
+  }
+  run.roads = rollRoads(run, n);
+  run.phase = 'road';
+  return true;
+}
+
+/** Takes one of the roads on offer, and the run is on its way to the wave. */
+export function takeRoad(run: RunData, i: number): boolean {
+  const road = run.roads[i];
+  if (run.phase !== 'road' || !road) return false;
+  run.road = road;
+  run.roads = [];
   run.phase = 'fight';
   return true;
+}
+
+/** The omen of the road the run is on. */
+export function omenNow(run: RunData): Omen {
+  return run.road.omen;
 }

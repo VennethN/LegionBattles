@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="r-ledger" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="r-ledger-pages-shape" d="M 14 12 L 36 12 Q 39 12 39 15 L 39 39 Q 39 42 36 42 L 14 42 Q 11 42 11 39 L 11 15 Q 11 12 14 12 Z"/>
+<path id="r-ledger-cover-shape" d="M 9 7 L 31 7 Q 34 7 34 10 L 34 34 Q 34 37 31 37 L 9 37 Q 6 37 6 34 L 6 10 Q 6 7 9 7 Z"/>
+<clipPath id="r-ledger-cover-clip"><use href="#r-ledger-cover-shape"/></clipPath>
+<clipPath id="r-ledger-cover-lit-clip"><use href="#r-ledger-cover-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="r-ledger-clasp-shape" d="M 17 16 L 23 16 Q 25 16 25 18 L 25 26 Q 25 28 23 28 L 17 28 Q 15 28 15 26 L 15 18 Q 15 16 17 16 Z"/>
+<path id="r-ledger-hand-shape" d="M 27.5 39 C 27.5 43.1 24.1 46.5 20 46.5 C 15.9 46.5 12.5 43.1 12.5 39 C 12.5 34.9 15.9 31.5 20 31.5 C 24.1 31.5 27.5 34.9 27.5 39 Z"/>
+<clipPath id="r-ledger-hand-clip"><use href="#r-ledger-hand-shape"/></clipPath>
+<clipPath id="r-ledger-hand-lit-clip"><use href="#r-ledger-hand-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="r-ledger-ribbon-shape" d="M 13 30 L 19 30 L 19 46 L 16 42 L 13 46 Z"/>
+<path id="r-ledger-coin-shape" d="M 44 36 C 44 40.4 40.4 44 36 44 C 31.6 44 28 40.4 28 36 C 28 31.6 31.6 28 36 28 C 40.4 28 44 31.6 44 36 Z"/>
+<clipPath id="r-ledger-coin-clip"><use href="#r-ledger-coin-shape"/></clipPath>
+<clipPath id="r-ledger-coin-lit-clip"><use href="#r-ledger-coin-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="r-ledger-stamp-shape" d="M 36 31.4 L 37.3 34.2 L 40.4 34.6 L 38.1 36.7 L 38.7 39.7 L 36 38.2 L 33.3 39.7 L 33.9 36.7 L 31.6 34.6 L 34.7 34.2 Z"/>
+</defs>
+<g id="r-ledger-pages">
+<use id="r-ledger-pages-fill" href="#r-ledger-pages-shape" fill="#e9dfc6"/>
+<use id="r-ledger-pages-line" href="#r-ledger-pages-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-ledger-cover">
+<use id="r-ledger-cover-shade" href="#r-ledger-cover-shape" fill="#4e3520"/>
+<g clip-path="url(#r-ledger-cover-clip)">
+<use id="r-ledger-cover-fill" href="#r-ledger-cover-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#r-ledger-cover-lit-clip)">
+<use id="r-ledger-cover-lit" href="#r-ledger-cover-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-ledger-cover-fill-over" href="#r-ledger-cover-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="r-ledger-cover-line" href="#r-ledger-cover-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-ledger-clasp">
+<use id="r-ledger-clasp-fill" href="#r-ledger-clasp-shape" fill="#c8a24a"/>
+<use id="r-ledger-clasp-line" href="#r-ledger-clasp-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-ledger-hand">
+<use id="r-ledger-hand-shade" href="#r-ledger-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#r-ledger-hand-clip)">
+<use id="r-ledger-hand-fill" href="#r-ledger-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#r-ledger-hand-lit-clip)">
+<use id="r-ledger-hand-lit" href="#r-ledger-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-ledger-hand-fill-over" href="#r-ledger-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="r-ledger-hand-line" href="#r-ledger-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-ledger-ribbon">
+<use id="r-ledger-ribbon-fill" href="#r-ledger-ribbon-shape" fill="#c7364f"/>
+<use id="r-ledger-ribbon-line" href="#r-ledger-ribbon-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-ledger-coin">
+<use id="r-ledger-coin-shade" href="#r-ledger-coin-shape" fill="#9c7c33"/>
+<g clip-path="url(#r-ledger-coin-clip)">
+<use id="r-ledger-coin-fill" href="#r-ledger-coin-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#r-ledger-coin-lit-clip)">
+<use id="r-ledger-coin-lit" href="#r-ledger-coin-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-ledger-coin-fill-over" href="#r-ledger-coin-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="r-ledger-coin-line" href="#r-ledger-coin-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-ledger-stamp">
+<use id="r-ledger-stamp-fill" href="#r-ledger-stamp-shape" fill="#9c7c33"/>
+<use id="r-ledger-stamp-line" href="#r-ledger-stamp-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

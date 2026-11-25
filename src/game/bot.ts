@@ -5,8 +5,9 @@
 // about where a first run sits. The pace report and the tests use it; the
 // game never does.
 
-import { SLOTS } from './data';
-import { buy, choose, combine, march, openPack, reroll, rerollPrice, twinOf, whyNot, type RunData } from './run';
+import { SLOTS, weaponOf } from './data';
+import type { Omen } from './road';
+import { buy, choose, combine, kindCounts, march, openPack, reroll, rerollPrice, takeRelic, takeRoad, twinOf, whyNot, type RunData } from './run';
 import type { Stat } from './stats';
 import type { Steer, World } from './world';
 
@@ -103,6 +104,25 @@ function think(w: World): Steer {
     x += (nx / d) * 0.9;
     y += (ny / d) * 0.9;
   }
+  // What the road has put on the field is gone for when nothing presses: the shrine's ring is stood in, the cage and the wagon are closed with.
+  if (!dodging) {
+    const sh = w.shrine;
+    if (sh && !sh.done) {
+      const d = Math.hypot(sh.x - h.x, sh.y - h.y);
+      // In the ring it stays put, well inside the edge, unless it is being hurt badly.
+      if (d < sh.r * 0.55 && h.hp / h.maxHp > 0.35) return { x: 0, y: 0 };
+      x += ((sh.x - h.x) / (d || 1)) * 2.2;
+      y += ((sh.y - h.y) / (d || 1)) * 2.2;
+    }
+    const thing = w.foes.find((f) => f.def.prop);
+    if (thing) {
+      const d = Math.hypot(thing.x - h.x, thing.y - h.y);
+      if (d > stand) {
+        x += ((thing.x - h.x) / (d || 1)) * 1.6;
+        y += ((thing.y - h.y) / (d || 1)) * 1.6;
+      }
+    }
+  }
   // Goes for what lies near, when it is not being pressed.
   if (!pressed) {
     let best = Infinity;
@@ -159,9 +179,50 @@ export function botLevel(run: RunData): void {
   }
 }
 
-/** Trades in the camp as the plain player does, and leaves for the next wave. */
+/**
+ * What the plain player thinks each relic is worth. The ones that are plainly more harm come first; the ones that ask
+ * to be played round, which it does not do, come last.
+ */
+const RELIC_WANT: Record<string, number> = {
+  ageswhet: 9, echobell: 8, stormglass: 8, emberheart: 8, horn: 7.5, lastcandle: 7.5, fallen: 7, twinquiver: 7, bellows: 6.5, wolfskin: 6.5, spade: 6.5, thornmail: 6, frostbite: 6,
+  whistle: 6, bowl: 5.5, sands: 5.5, shell: 5, mirror: 5, magpie: 5, ledger: 4.5, spurs: 4, seal: 4, oldmap: 4, tithe: 3.5, bonedice: 3, crown: 2,
+};
+
+/** Takes a relic for every one that is waiting to be chosen. */
+export function botRelic(run: RunData): void {
+  let guard = 0;
+  while (run.phase === 'relic' && guard++ < 20) {
+    let best = 0;
+    run.relicChoices.forEach((id, i) => {
+      if ((RELIC_WANT[id] ?? 5) > (RELIC_WANT[run.relicChoices[best]] ?? 5)) best = i;
+    });
+    takeRelic(run, best);
+    // A choice for a level may follow a relic, and a relic a level.
+    botLevel(run);
+  }
+}
+
+/** How much the plain player wants each road, hale and hurt: it takes the prizes while it is winning and the quiet road when it is not. */
+const ROAD_WANT: Record<Omen, readonly [number, number]> = {
+  quiet: [1, 5], horde: [2.2, 0.6], champions: [3.4, 0.4], night: [3, 0.5], wagon: [2.6, 1.6], shrine: [3.2, 2.4], stray: [4, 3],
+};
+
+/** Picks a road, if roads are laid out. */
+export function botRoad(run: RunData): void {
+  if (run.phase !== 'road') return;
+  // Hale is having come out of the last wave with more than half its health.
+  const hurt = run.left < 0.5 ? 1 : 0;
+  let best = 0;
+  run.roads.forEach((r, i) => {
+    if (ROAD_WANT[r.omen][hurt] > ROAD_WANT[run.roads[best].omen][hurt]) best = i;
+  });
+  takeRoad(run, best);
+}
+
+/** Trades in the camp as the plain player does, and leaves for the next wave by one of its roads. */
 export function botCamp(run: RunData): void {
   botLevel(run);
+  botRelic(run);
   while (run.packs > 0) openPack(run);
   let guard = 0;
   while (run.phase === 'camp' && guard++ < 40) {
@@ -175,7 +236,12 @@ export function botCamp(run: RunData): void {
     let bestScore = 0;
     run.offers.forEach((o, i) => {
       if (whyNot(run, i) !== '') return;
-      const score = o.kind === 'weapon' ? (run.weapons.length < SLOTS ? 100 : 70) + o.tier * 40 : 30 + o.tier * 25;
+      // A relic before anything; then weapons, more so one of a kind it holds already; then things.
+      let score = o.kind === 'relic' ? 200 : o.kind === 'weapon' ? (run.weapons.length < SLOTS ? 100 : 70) + o.tier * 40 : 30 + o.tier * 25;
+      if (o.kind === 'weapon') {
+        const counts = kindCounts(run);
+        for (const k of weaponOf(o.id).kinds) if (counts[k] > 0 && counts[k] < 4) score += 22;
+      }
       if (score > bestScore) {
         bestScore = score;
         best = i;
@@ -193,4 +259,5 @@ export function botCamp(run: RunData): void {
     break;
   }
   march(run);
+  botRoad(run);
 }
