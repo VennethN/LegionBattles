@@ -370,7 +370,8 @@ function draw(save: SaveData, rng: Rng, m: MonsterDef, mark: Mark, plain: boolea
       if (can.length) variants.push(rng.pick(can).id);
     }
     for (let i = 0; i < nt; i++) {
-      const can = TASKS.filter((t) => !tasks.some((x) => x.id === t.id || t.not?.includes(x.id)) && (t.id !== 'markers' || !!MARKER[m.id]) && t.id !== 'together');
+      // No Camp is not posted: building nothing was a choice, not a challenge.
+      const can = TASKS.filter((t) => !tasks.some((x) => x.id === t.id || t.not?.includes(x.id)) && (t.id !== 'markers' || !!MARKER[m.id]) && t.id !== 'together' && t.id !== 'nobuild');
       if (can.length) tasks.push({ id: rng.pick(can).id });
     }
   }

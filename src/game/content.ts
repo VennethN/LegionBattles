@@ -624,12 +624,12 @@ export interface VariantDef {
 }
 
 export const VARIANTS: readonly VariantDef[] = [
-  { id: 'quick', name: 'Quick', says: 'Moves and attacks 20% faster. Shorter warnings.', kind: 'boss', danger: 2, speed: 1.2, tell: 0.88, gap: 0.85, not: ['giant'] },
+  { id: 'quick', name: 'Quick', says: 'Moves and attacks 25% faster. Shorter warnings.', kind: 'boss', danger: 2, speed: 1.25, tell: 0.83, gap: 0.8, not: ['giant'] },
   { id: 'armored', name: 'Armored', says: 'Takes 50% less damage until you break its stagger once.', kind: 'boss', danger: 2, armor: 0.5 },
   { id: 'furious', name: 'Furious', says: 'Uses its next phase\'s attacks from the start.', kind: 'boss', mark: 2, danger: 2, ahead: true },
   // Big and slow: its attacks are bigger, but shown longer, further apart, and it is open longer after each.
   { id: 'giant', name: 'Giant', says: '20% more Health and bigger attacks. Slower, and open longer after each.', kind: 'boss', danger: 1, hp: 1.2, speed: 0.75, size: 1.15, tell: 1.35, gap: 1.35, recover: 1.5, not: ['quick'] },
-  { id: 'blighted', name: 'Blighted', says: 'Leaves rot where it walks. The marked ground bursts.', kind: 'boss', danger: 1, blight: { every: 1.7, r: 54, tell: 1.15, dmg: 9 } },
+  { id: 'blighted', name: 'Blighted', says: 'Leaves rot where it walks. The marked ground bursts.', kind: 'boss', danger: 1, blight: { every: 1.3, r: 60, tell: 1.1, dmg: 13 } },
   { id: 'restless', name: 'Restless Dead', says: 'Opens graves twice as often.', kind: 'boss', only: 'sexton', danger: 1, more: { attack: 'graves', every: 2 } },
   { id: 'stampede', name: 'Stampede', says: 'Charges twice in a row. A crash stops the second.', kind: 'boss', only: 'king', mark: 2, danger: 2, again: 'charge' },
   { id: 'escort', name: 'Escort', says: '3 minions with it, and 3 more at each new phase.', kind: 'minions', danger: 1, escort: 3, not: ['waves'] },
@@ -656,16 +656,17 @@ export interface TaskDef {
 
 export const TASKS: readonly TaskDef[] = [
   // Seconds, at each difficulty; longer for a Giant and for each hunter more, as the boss's Health is.
-  { id: 'swift', name: 'Fast Kill', says: 'Kill it within {n}.', n: [250, 280, 310], pay: 0.5 },
+  { id: 'swift', name: 'Fast Kill', says: 'Kill it within {n}.', n: [215, 240, 265], pay: 0.5 },
   { id: 'careful', name: 'Careful', says: 'Get hit no more than {n} times.', n: [20, 18, 16], pay: 0.5 },
   { id: 'breaks', name: 'Break It', says: 'Break its stagger {n} times.', n: [3, 3, 4], pay: 0.4 },
+  // Not posted: building nothing was no challenge, only a choice. The rule stays for a contract that may want it later.
   { id: 'nobuild', name: 'No Camp', says: 'Build nothing in its lair.', pay: 0.4 },
   { id: 'markers', name: 'Markers', says: 'Break all {n} markers before it dies.', n: [6, 6, 7], pay: 0.5 },
   // How many of the three must live.
   { id: 'villagers', name: 'Villagers', says: 'Keep {n} of the 3 villagers alive.', n: [1, 1, 2], pay: 0.5, not: ['cart'] },
   { id: 'cart', name: 'The Cart', says: 'Do not let the cart be destroyed.', pay: 0.5, not: ['villagers'] },
   // Only on a contract for two hunters or more: how many times the party may go down in all.
-  { id: 'together', name: 'Stay Standing', says: 'The party goes down no more than {n} times. Helped up within 7 s counts half.', n: [3, 3, 2], pay: 0.5 },
+  { id: 'together', name: 'Stay Standing', says: 'The party goes down no more than {n} times. Helped up within 7 s counts half.', n: [4, 4, 3], pay: 0.5 },
 ];
 
 /** A villager on the field: they stand where they are and hope. */

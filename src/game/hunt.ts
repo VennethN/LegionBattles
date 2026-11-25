@@ -1546,7 +1546,7 @@ export class Hunt {
           this.againNext = null;
           m.aim = Math.atan2(this.target().y - m.y, this.target().x - m.x);
           // The second charge is shown a third longer: it comes when the hunter is still getting up from the first.
-          this.start(a, 1.35);
+          this.start(a, 1.15);
           return;
         }
         this.againNext = null;
@@ -1757,7 +1757,7 @@ export class Hunt {
         // A Stampede: it turns, paws for a moment, and charges again. A crash on the first stops the second.
         this.againDone = true;
         this.againNext = a;
-        this.openFor('recover', 1.1, 'recover');
+        this.openFor('recover', 0.75, 'recover');
         return;
       }
       this.openFor('recover', a?.recover ?? 0.8, 'recover');
@@ -1911,9 +1911,12 @@ export class Hunt {
         const d = dist(f.x, f.y, a.x, a.y);
         if (d < best) [best, tx, ty] = [d, a.x, a.y];
       }
-      for (const b of this.buildings) {
-        const d = dist(f.x, f.y, b.x, b.y) - b.def.r;
-        if (d < best) [best, tx, ty] = [d, b.x, b.y];
+      // What was built, or the cart, only when no hunter is near: a helper goes for people first.
+      if (best > 220) {
+        for (const b of this.buildings) {
+          const d = dist(f.x, f.y, b.x, b.y) - b.def.r;
+          if (d < best) [best, tx, ty] = [d, b.x, b.y];
+        }
       }
       f.face = tx >= f.x ? 1 : -1;
       if (best > f.def.reach) {
