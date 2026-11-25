@@ -278,6 +278,8 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await page.reload();
   await page.clock.pauseAt(Date.now() + 1000);
   ok('after a reload the list comes up, not a new run', await until(page, 'Title'));
+  // The list comes up into place: a press while it is still moving can miss on a phone.
+  await tick(page, 20);
   const pressed = await press(page, tap, 'Title', 'CONTINUE');
   // After a reload the field's pictures are all loaded again, a hundred units' worth: that takes the headless browser some seconds.
   const camp = pressed && (await until(page, 'Camp', 2000));

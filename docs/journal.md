@@ -2,7 +2,23 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
-## Round 9, the new direction merged, the heroes brought level, the Hold drawn
+## Round 10, after the second review
+
+A fresh reviewer played the pictures of Round 9 and listed what was wrong and what to build next, in five steps. What was done, step by step:
+
+1. **The fix pass.** Boss quests and unlocks name the boss wave from the land's own number (`bossWave`), never a number written in a scene. Shop and relic cards have a fixed layout: name, numbers, one line of what it does cut to fit, and the set bonus; nothing lies on anything else and nothing is shrunk under 15 units. The Hold hides its empty rows, shows UNLOCKED in green and lists the nearest quests first. The Daily tab says the day in words, and the title says DAILY RUN: SURPRISE HERO for a hero not met, where it said "??? + ???". Level-up cards say COMMON, UNCOMMON, RARE or EPIC on their color, where they said I to IV, and are only as tall as what they say. The result no longer says RENOWN EARNED.
+2. **The hero always found.** Whoever stands in front of the hero is drawn see-through, and a pale halo shows behind the hero when anything covers them. Damage numbers on one enemy within 0.3 s are added into one, a poison or burn tick is not a number, at most 18 are on screen (a crit and the hero's own hurt always show), and a new one is nudged off one still young. The late lands (steppe, court, city, forge) were looked at in a horde at waves 65 to 95: the enemies are told apart and the hero is found in each, so no land was changed.
+3. **Progress readable.** The HUD's bars say HP, FURY and XP, the skill button says SPACE or TAP, and a long skill name is set smaller rather than run over. Each medallion of the mastery track has a label under it (`giftShort` in `hold.ts`: "+16% DMG", "PASSIVE", "CHOOSE 1 OF 2"), both rows run left to right, and the detail box is as tall as its text. The title and the result say the next mastery level and how much mastery it needs.
+4. **A lit camp.** When a wave is won the field goes to the land's dusk (`duskOf` in `hours.ts`), a campfire is lit beside the hero (a new picture, `thing-campfire`, which the light makes glow and flicker while the rest of the field is still), and the band stands round it facing the fire. The camp, road, relic and level screens are laid over it with a lighter veil, and each says where on the screen it has room for the fire (`ArenaScene.campFocus`). On a phone the relic, road and level cards stand at the bottom, in thumb reach, with the fire seen above them; a road or relic card is as tall as its words. The hero stands at the fire: there is no sitting pose in the kit.
+5. **Something to chase.** Begun, not finished:
+   - A weapon on offer with every slot full has SWAP on its card, which opens a list of the weapons held, each with what it sells for; the sale pays for the new one (`canSwap`, `swap` in `run.ts`).
+   - Three relics made of two (`FUSED` in `relics.ts`): Bellows and Ember Heart make the Forge Heart (every 3rd kill bursts), Echo Bell and Stormglass the Thunder Bell (lightning every 5 s), Wolfskin and Kennel Whistle the Pack Banner (a companion counts twice as far away). Holding both halves makes the one at once, in one place in the row; it does what both did. A relic card says when taking it would make one.
+   - `npm run pace` says how many relics are held as waves 10, 30 and 60 begin. Bram with a full track (12 runs): 4.1 at wave 10, 11.0 at wave 30, none reached 60. One wave rarely gives more than one, so a cap of one a wave changed nothing; most come from roads that pay a relic, which the player chooses. Relics made of two take one place where they took two. The pace itself was not changed.
+   - Not built: a fifth form for weapons past tier IV, and two shop items of each land's own.
+
+The smoke passes all 85 checks. It had failed one on a phone: after a reload it pressed CONTINUE while the list was still coming up into place, and the press missed. It waits a moment now, as it does before its other presses.
+
+, the heroes brought level, the Hold drawn
 
 The rules round of the owner's new direction (Round 8) was merged into the copy with the screens of Round 7: one Hold for the new model, the result paying mastery, and both rounds' smokes kept.
 
