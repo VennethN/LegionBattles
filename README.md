@@ -97,3 +97,6 @@ Against the King everything helps, sappers and barricades most. Against the Grav
 - **The lines on a phone**, and how often they come in a real hunt: seen in two pictures at 907x510 only.
 - **The pictures of the walk at `full` and `phone-wide`**, and the film in motion.
 - Whether the tells can be read fast enough by a person at the second and third marks: the bot's quarter second is a guess at a person.
+- **Posted contracts, partners and attacking by hand on screen.** The board of posters is a plain list, the tasks and partners' health are plain lines on the HUD, partners are drawn but have no bars, names or wind-up animations of their own, and nobody has looked at any of it in a picture. A hand for hire, a villager, a cart and a marker are dark stand-ins: none is drawn in the style.
+- **How attacking by hand feels.** J or K held, or a press held on the field, attacks; no pointer aim is read yet (aim follows the way the hunter faces, turned to a boss a little ahead) and there is no ATTACK button for touch. Whether a wind-up of a fifth to a third of a second feels heavy or sluggish, nobody has felt.
+- **Partners as people.** They were measured by the bot playing with them, not watched: whether they read as helpful, get in the way, or stand on the player is unknown.

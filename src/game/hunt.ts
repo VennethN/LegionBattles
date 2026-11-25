@@ -688,7 +688,7 @@ export class Hunt {
           break;
         case 'together':
           t.now = this.tally.downs;
-          if (t.now > 0) this.fail('together');
+          if (t.now > t.n) this.fail('together');
           break;
         case 'nobuild':
           t.now = this.buildings.filter((b) => b.def.id !== 'cart').length;

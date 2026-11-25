@@ -223,7 +223,7 @@ describe('a contract unlike the last', () => {
   it('Giant: more health, and bigger shapes', () => {
     const plain = awake();
     const giant = variant('giant');
-    expect(giant.monster.maxHp).toBeGreaterThan(plain.monster.maxHp * 1.25);
+    expect(giant.monster.maxHp).toBeGreaterThan(plain.monster.maxHp * 1.15);
     for (const h of [plain, giant]) {
       h.hunter.x = h.monster.x - 160;
       next(h, 'spade');
@@ -268,7 +268,7 @@ describe('a contract unlike the last', () => {
 
     const waves = variant('waves');
     waves.hunter.hp = waves.hunter.maxHp = 1e6;
-    const more = of(play(waves, 25, (x) => ({ x: 0, y: x.time % 2 < 1 ? 1 : -1 })), 'tell').filter((e) => e.attack === 'waves');
+    const more = of(play(waves, 32, (x) => ({ x: 0, y: x.time % 2 < 1 ? 1 : -1 })), 'tell').filter((e) => e.attack === 'waves');
     expect(more.length).toBeGreaterThan(0);
   });
 
@@ -333,7 +333,7 @@ describe('tasks besides the kill', () => {
     expect(g.tally.tasks.markers).toBe(false);
   });
 
-  it('Villagers and the Cart stand on the field to be kept; No Camp fails if anything is built; No One Falls fails when one does', () => {
+  it('Villagers and the Cart stand on the field to be kept; No Camp fails if anything is built; Stay Standing fails past its downs', () => {
     const v = awake({ terms: terms([], [{ id: 'villagers', n: 3 }]) });
     expect(v.allies.filter((a) => a.group === 'villager')).toHaveLength(3);
     v.allies = v.allies.filter((a) => a.group !== 'villager' || a !== v.allies.find((x) => x.group === 'villager'));
@@ -352,7 +352,7 @@ describe('tasks besides the kill', () => {
     play(n, 0.1);
     expect(n.tasks[0].failed).toBe(true);
 
-    const t = awake({ partners: ['jory'], terms: terms([], [{ id: 'together' }]) });
+    const t = awake({ partners: ['jory'], terms: terms([], [{ id: 'together', n: 0 }]) });
     (t as unknown as { hurtHunter(who: unknown, n: number, by: string): void }).hurtHunter(t.party[1], 9999, 'spade');
     play(t, 0.1);
     expect(t.tasks[0].failed).toBe(true);

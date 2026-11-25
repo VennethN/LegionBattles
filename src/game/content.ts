@@ -465,8 +465,8 @@ export const HELPERS: readonly HelperDef[] = [
   // The King's herd, for a contract that says he comes with it: quicker than the dead and harder to pin.
   { id: 'herd', name: 'a herd beast', hp: 40, speed: 118, dmg: 10, reach: 44, every: 1.5, tell: 0.5, most: 6 },
   // What a contract asks to be broken first. They stand where they are put and do nothing: a thing to go out of the way for.
-  { id: 'gravemarker', name: 'a grave marker', hp: 70, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
-  { id: 'totem', name: 'an antler totem', hp: 70, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
+  { id: 'gravemarker', name: 'a grave marker', hp: 240, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
+  { id: 'totem', name: 'an antler totem', hp: 240, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
 ];
 
 export interface MonsterDef {
@@ -625,12 +625,12 @@ export const VARIANTS: readonly VariantDef[] = [
   { id: 'quick', name: 'Quick', says: 'Moves and attacks 25% faster. Shorter warnings.', kind: 'boss', danger: 2, speed: 1.25, tell: 0.82, gap: 0.8, not: ['giant'] },
   { id: 'armored', name: 'Armored', says: 'Takes 50% less damage until you break its stagger once.', kind: 'boss', danger: 2, armor: 0.5 },
   { id: 'furious', name: 'Furious', says: 'Uses its next phase\'s attacks from the start.', kind: 'boss', mark: 2, danger: 2, ahead: true },
-  { id: 'giant', name: 'Giant', says: '30% more Health. Slower, with bigger attacks.', kind: 'boss', danger: 1, hp: 1.3, speed: 0.8, size: 1.2, tell: 1.15, not: ['quick'] },
+  { id: 'giant', name: 'Giant', says: '20% more Health. Slower, with bigger attacks.', kind: 'boss', danger: 1, hp: 1.2, speed: 0.8, size: 1.15, tell: 1.15, not: ['quick'] },
   { id: 'blighted', name: 'Blighted', says: 'Leaves rot where it walks. The marked ground bursts.', kind: 'boss', danger: 1, blight: { every: 1.7, r: 54, tell: 1.15, dmg: 9 } },
   { id: 'restless', name: 'Restless Dead', says: 'Opens graves twice as often.', kind: 'boss', only: 'sexton', danger: 1, more: { attack: 'graves', every: 2 } },
-  { id: 'stampede', name: 'Stampede', says: 'Charges twice in a row. A crash stops the second.', kind: 'boss', only: 'king', danger: 2, again: 'charge' },
+  { id: 'stampede', name: 'Stampede', says: 'Charges twice in a row. A crash stops the second.', kind: 'boss', only: 'king', mark: 2, danger: 2, again: 'charge' },
   { id: 'escort', name: 'Escort', says: '3 minions with it, and 3 more at each new phase.', kind: 'minions', danger: 1, escort: 3, not: ['waves'] },
-  { id: 'waves', name: 'Endless Minions', says: '2 more minions every 20 seconds.', kind: 'minions', danger: 1, waves: { every: 20, n: 2 }, not: ['escort'] },
+  { id: 'waves', name: 'Endless Minions', says: '2 more minions every 28 seconds.', kind: 'minions', danger: 1, waves: { every: 28, n: 2 }, not: ['escort'] },
 ];
 
 /** Who fights for each boss when a contract brings minions, and what a contract asks to be broken first. */
@@ -652,23 +652,23 @@ export interface TaskDef {
 }
 
 export const TASKS: readonly TaskDef[] = [
-  // Seconds, at each difficulty; a Giant's time is longer by its Health.
-  { id: 'swift', name: 'Fast Kill', says: 'Kill it within {n}.', n: [260, 280, 300], pay: 0.5 },
-  { id: 'careful', name: 'Careful', says: 'Get hit no more than {n} times.', n: [14, 12, 10], pay: 0.5 },
-  { id: 'breaks', name: 'Break It', says: 'Break its stagger {n} times.', n: [4, 5, 5], pay: 0.4 },
+  // Seconds, at each difficulty; longer for a Giant and for each hunter more, as the boss's Health is.
+  { id: 'swift', name: 'Fast Kill', says: 'Kill it within {n}.', n: [300, 330, 360], pay: 0.5 },
+  { id: 'careful', name: 'Careful', says: 'Get hit no more than {n} times.', n: [24, 22, 20], pay: 0.5 },
+  { id: 'breaks', name: 'Break It', says: 'Break its stagger {n} times.', n: [3, 3, 4], pay: 0.4 },
   { id: 'nobuild', name: 'No Camp', says: 'Build nothing in its lair.', pay: 0.4 },
-  { id: 'markers', name: 'Markers', says: 'Break all {n} markers before it dies.', n: [4, 4, 5], pay: 0.5 },
+  { id: 'markers', name: 'Markers', says: 'Break all {n} markers before it dies.', n: [6, 6, 7], pay: 0.5 },
   // How many of the three must live.
-  { id: 'villagers', name: 'Villagers', says: 'Keep {n} of the 3 villagers alive.', n: [2, 2, 2], pay: 0.5, not: ['cart'] },
+  { id: 'villagers', name: 'Villagers', says: 'Keep {n} of the 3 villagers alive.', n: [1, 1, 2], pay: 0.5, not: ['cart'] },
   { id: 'cart', name: 'The Cart', says: 'Do not let the cart be destroyed.', pay: 0.5, not: ['villagers'] },
-  // Only on a contract for two hunters or more.
-  { id: 'together', name: 'No One Falls', says: 'No hunter in the party goes down.', pay: 0.5 },
+  // Only on a contract for two hunters or more: how many times the party may go down in all.
+  { id: 'together', name: 'Stay Standing', says: 'The party goes down no more than {n} times.', n: [3, 3, 2], pay: 0.5 },
 ];
 
 /** A villager on the field: they stand where they are and hope. */
-export const VILLAGER: AllyDef = { way: 'cower', hp: 80, speed: 0, reach: 0, every: 0, dmg: 0 };
+export const VILLAGER: AllyDef = { way: 'cower', hp: 220, speed: 0, reach: 0, every: 0, dmg: 0 };
 /** The cart a contract asks to be kept whole. It is not built: it is there. */
-export const CART: BuildingDef = { id: 'cart', name: 'The Cart', says: 'Keep it whole.', cost: 0, hp: 420, r: 30, kind: 'cart', reach: 0, opens: null };
+export const CART: BuildingDef = { id: 'cart', name: 'The Cart', says: 'Keep it whole.', cost: 0, hp: 1300, r: 30, kind: 'cart', reach: 0, opens: null };
 
 /** Where each boss is hunted, as a poster says it. */
 export const WHERE: Record<string, string> = { sexton: "Saint Odran's churchyard", king: 'The winter wood' };

@@ -379,12 +379,14 @@ function draw(save: SaveData, rng: Rng, m: MonsterDef, mark: Mark, plain: boolea
   const party = plain ? 1 : Math.min(PARTY.most, rng.pick(sizes) + (danger >= PARTY_DANGER ? 1 : 0));
   // With two hunters or more, keeping everyone standing may be asked too.
   if (!plain && party >= 2 && tasks.length < 2 && rng.chance(0.3)) tasks.push({ id: 'together' });
-  // A fast kill with a Giant gets the time its Health asks for.
+  // A fast kill with a Giant or a party gets the time their Health asks for; so does breaking it often with a party.
   const swift = tasks.find((t) => t.id === 'swift');
   if (swift) {
-    const base = byId(TASKS, 'swift').n?.[mark - 1] ?? 240;
-    swift.n = Math.round((base * (variants.includes('giant') ? 1.4 : 1)) / 10) * 10;
+    const base = byId(TASKS, 'swift').n?.[mark - 1] ?? 300;
+    swift.n = Math.round((base * (variants.includes('giant') ? 1.25 : 1) * (1 + 0.3 * (party - 1))) / 10) * 10;
   }
+  const breaks = tasks.find((t) => t.id === 'breaks');
+  if (breaks) breaks.n = (byId(TASKS, 'breaks').n?.[mark - 1] ?? 4) + (party - 1);
   const open = wares(save).filter((w) => !w.had && w.id !== 'supply');
   const thing = !plain && mark >= 2 && open.length > 0 && rng.chance(THING_CHANCE) ? rng.pick(open).id : null;
   return { id: save.nextPosting++, monster: m.id, mark, variants, tasks, party, by: rng.pick(POSTED_BY), why: rng.pick(WHY[m.id] ?? ['It must die.']), thing };
