@@ -2,11 +2,12 @@
 // what that opened, and the way back in.
 
 import Phaser from 'phaser';
-import { BONE, BUSH, CLOTH, HOLY, IRON, OUTLINE } from '../../art/kit/palette';
+import { BONE, BUSH, CLOTH, GOLD, HOLY, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { COMPANIONS, ENEMIES, HEROES, byId } from '../../game/data';
 import { heroOf, survived } from '../../game/run';
+import { hasWon, nextDeeds } from '../../game/hold';
 import { comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
@@ -34,7 +35,16 @@ export class ResultScene extends Phaser.Scene {
     const opened = takeOpened();
     music.play('meadow', 'calm');
     this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.8).setInteractive();
-    const cx = view.w / 2;
+    // What the run paid in renown, line by line, and the quests nearest to done: the reasons to go again. On a wide
+    // screen they are a second column beside the run; on a tall one they are under it.
+    const tally = s.tally;
+    const quests = nextDeeds(s, hero.id, 3);
+    const side = !view.tall;
+    const tallyH = tally ? 62 + tally.lines.length * 26 + 34 : 0;
+    const questH = quests.length > 0 ? 40 + quests.length * 58 : 0;
+    const sideH = tallyH + questH;
+    const sw = side ? Math.min(380, view.w - 28 - 460 - 14) : 0;
+    const cx = side ? view.w / 2 - (sw + 14) / 2 : view.w / 2;
     const pw = Math.min(460, view.w - 28);
     // As tall as what it has to say: the rows, and whoever this run opened.
     const lines = 4 + (run.relics.length > 0 ? 1 : 0) + (run.band.length > 0 ? 1 : 0);
@@ -46,16 +56,17 @@ export class ResultScene extends Phaser.Scene {
     // They were placed by fixed numbers once, and wrote over each other on a small screen.
     const extra = (isBest ? 28 : 0) + (friends.length > 0 ? 30 : 0);
     const ph = under + extra + 28 + (opened.length > 0 ? 150 : 0) + 70;
-    const py = Math.max(14, (view.h - ph) / 2);
+    const py = side ? Math.max(14, (view.h - Math.max(ph, sideH)) / 2) : Math.max(14, (view.h - ph - sideH - 14) / 2);
     this.add.existing(slabImage(this, cx - pw / 2, py, pw, ph, BONE, 20, 8));
+    if (sideH > 0) this.renown(side ? cx + pw / 2 + 14 : cx - pw / 2, side ? py : py + ph + 14, side ? sw : pw, tally, quests);
     // Whose run it was: their picture, their name and what they are called, before how it ended.
     const pic = this.add.image(cx - pw / 2 + 70, py + 118, CARDS, portraitFrame('blue', hero.unit));
     pic.setScale(Math.min(96 / (pic.frame.height || 1), 100 / (pic.frame.width || 1)));
     const nx = cx - pw / 2 + 132;
-    const name = label(this, nx, py + 40, hero.name.toUpperCase(), { size: 24, align: 'left', color: OUTLINE, stroke: null });
+    const name = label(this, nx, py + 50, hero.name.toUpperCase(), { size: 24, align: 'left', color: OUTLINE, stroke: null });
     name.setScale(Math.min(1, (pw - 150) / Math.max(1, name.width)));
-    label(this, nx, py + 66, hero.epithet, { size: 17, align: 'left', color: HOLY.shade, stroke: null });
-    heading(this, cx, py + 2, 'DEFEATED', CLOTH.red);
+    label(this, nx, py + 76, hero.epithet, { size: 17, align: 'left', color: HOLY.shade, stroke: null });
+    heading(this, cx, py + 2, hasWon(run) ? 'VICTORY' : 'DEFEATED', hasWon(run) ? GOLD : CLOTH.red);
     // Who landed the last blow, if anyone did: a hero who gave up fell to no one.
     const by = world?.lastBy ? ENEMIES.find((e) => e.id === world.lastBy)?.name : '';
     label(this, nx, py + 104, by ? `Wave ${run.wave}. Killed by: ${by}` : `Wave ${run.wave}`, { size: 17, align: 'left', color: OUTLINE, stroke: null });
@@ -116,5 +127,50 @@ export class ResultScene extends Phaser.Scene {
       this.scene.get('Arena').scene.restart();
     }, { width: bw, height: 56, size: 26, mat: BUSH });
     void BONE;
+  }
+
+  /** The renown the run paid, a line for each reason with its total, and under it the next quests with how far along each is. */
+  private renown(x: number, y: number, w: number, tally: { lines: Array<{ why: string; count: number; renown: number }>; total: number } | null, quests: ReturnType<typeof nextDeeds>): void {
+    const h = (tally ? 62 + tally.lines.length * 26 + 34 : 0) + (quests.length > 0 ? 40 + quests.length * 58 : 0);
+    this.add.existing(slabImage(this, x, y, w, h, BONE, 20, 8));
+    let at = y + 30;
+    const ink = OUTLINE;
+    if (tally) {
+      label(this, x + 22, at, 'RENOWN EARNED', { size: 19, align: 'left', color: ink, stroke: null });
+      at += 32;
+      tally.lines.forEach((l, i) => {
+        // Each line comes in after the one before it, and the total last: the pay is counted out.
+        const name = label(this, x + 22, at, l.count > 1 ? `${l.why} x${l.count}` : l.why, { size: 16, align: 'left', color: ink, stroke: null });
+        const val = label(this, x + w - 22, at, `+${l.renown}`, { size: 17, align: 'right', color: '#7a5a12', stroke: null });
+        for (const t of [name, val]) {
+          t.setAlpha(0);
+          this.tweens.add({ targets: t, alpha: 1, duration: 200, delay: 250 + i * 160 });
+        }
+        at += 26;
+      });
+      const g = this.add.graphics();
+      g.lineStyle(3, hex(OUTLINE), 0.5).lineBetween(x + 22, at - 8, x + w - 22, at - 8);
+      label(this, x + 22, at + 8, 'TOTAL', { size: 18, align: 'left', color: ink, stroke: null });
+      const total = label(this, x + w - 22, at + 8, `+${tally.total}`, { size: 22, align: 'right', color: '#7a5a12', stroke: null });
+      total.setAlpha(0);
+      this.tweens.add({ targets: total, alpha: 1, scale: { from: 1.6, to: 1 }, duration: 320, delay: 300 + tally.lines.length * 160, ease: 'Back.easeOut', onStart: () => sfx.play('coin', 0.7) });
+      at += 44;
+    }
+    if (quests.length > 0) {
+      label(this, x + 22, at, 'NEXT QUESTS', { size: 19, align: 'left', color: ink, stroke: null });
+      at += 26;
+      for (const q of quests) {
+        const reward = q.renown > 0 ? `+${q.renown}` : q.kind === 'oath' ? 'OATH' : q.kind === 'crate' ? 'CRATE' : 'UNLOCK';
+        const t = label(this, x + 22, at + 8, q.name === '???' ? 'Unlock someone new' : q.name, { size: 16, align: 'left', color: ink, stroke: null });
+        t.setScale(Math.min(1, (w - 120) / Math.max(1, t.width)));
+        label(this, x + w - 22, at + 8, reward, { size: 16, align: 'right', color: '#7a5a12', stroke: null });
+        const says = label(this, x + 22, at + 28, q.says, { size: 15, align: 'left', color: '#4a3a2a', stroke: null, weight: 600 });
+        says.setScale(Math.min(1, (w - 44) / Math.max(1, says.width)));
+        const g = this.add.graphics();
+        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(x + 22, at + 42, w - 44, 10, 4);
+        if (q.share > 0) g.fillStyle(hex(VENOM.fill), 1).fillRoundedRect(x + 24, at + 44, Math.max(4, (w - 48) * q.share), 6, 3);
+        at += 58;
+      }
+    }
   }
 }

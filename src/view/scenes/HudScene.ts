@@ -114,6 +114,12 @@ export class HudScene extends Phaser.Scene {
     pillImage(this, w - 122, 26, 104, 30, IRON.shade).setDepth(10);
     this.add.image(w - 160, 26, SHEET, 'icon/coin').setScale(ICON * 0.6).setDepth(11);
     this.goldText = label(this, w - 110, 25, '0', { size: 20, color: HOLY.fill }).setDepth(12);
+    // The vows the run was sworn under, small under the coins: a run that is harder on purpose says so.
+    const vows = who?.vows ?? [];
+    if (vows.length > 0) {
+      pillImage(this, w - 122, 60, 104, 26, RUBY.shade).setDepth(10);
+      label(this, w - 122, 59, vows.length === 1 ? '1 VOW' : `${vows.length} VOWS`, { size: 15, color: BONE.fill, strokeWidth: 3 }).setDepth(12);
+    }
 
     // Pause: a button, and the P key. Escape is the browser's, for leaving full screen.
     const pause = this.add.container(w - 34, 26).setDepth(12);
@@ -265,8 +271,11 @@ export class HudScene extends Phaser.Scene {
     const t = this.callText;
     if (!t) return;
     this.tweens.killTweensOf(t);
-    t.setText(name).setAlpha(1).setScale(1.5);
-    this.tweens.add({ targets: t, scale: 1, duration: 220, ease: 'Back.easeOut' });
+    // A long name is brought in to the screen's edge: it was cut off on the right ("THE ONE THAT MATTER").
+    t.setText(name).setAlpha(1).setScale(1);
+    const fit = Math.min(1, (2 * (view.w - t.x) - 16) / Math.max(1, t.width));
+    t.setScale(fit * 1.5);
+    this.tweens.add({ targets: t, scale: fit, duration: 220, ease: 'Back.easeOut' });
     this.tweens.add({ targets: t, alpha: 0, duration: 400, delay: 1100 });
   }
 

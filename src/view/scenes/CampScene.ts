@@ -12,9 +12,10 @@ import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { COMPANIONS, ITEMS, SLOTS, TIER_NAMES, WEAPONS, byId, levelNeeds, ownRules, relicOf, waveOf, weaponOf } from '../../game/data';
 import {
-  buy, canToss, choose, combine, heroOf, kindsOf, lock, march, openPack, ownDef, ownOf, reroll, rerollPrice, sell, sellPrice, statsOf, toss, twinOf, weaponNumbers, whyNot, type Offer, type RunData,
+  buy, canToss, choose, combine, heroOf, kindsOf, lock, march, openPack, ownDef, ownOf, reroll, rerollPrice, sell, sellPrice, statsOf, toss, tossOdds, twinOf, whyNot, type Offer, type RunData,
 } from '../../game/run';
-import { STAT_INFO, STATS, statText, type StatLine } from '../../game/stats';
+import { STAT_INFO, STATS, statText, type Stat, type StatLine } from '../../game/stats';
+import { compare, previewLevel, previewOffer, weaponFacts, type Change, type Preview } from '../../game/preview';
 import { ads } from '../../platform/ads';
 import { TIER_MATS, comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
@@ -25,8 +26,6 @@ import { pillImage, slabImage } from '../ui/bake';
 import { Button, heading, label, plain } from '../ui/widgets';
 
 const DARK: Material = { fill: '#3b2a1c', shade: '#2a1a10' };
-/** A weapon's picture is 100 by 184; this is how big its tallest is shown on a card. */
-const WEAPON_TALL = 88;
 
 export class CampScene extends Phaser.Scene {
   private run!: RunData;
@@ -42,6 +41,8 @@ export class CampScene extends Phaser.Scene {
   /** The relic the player has pressed, and whether the card of the kinds of weapon is up. */
   private relic: string | null = null;
   private kinds = false;
+  /** The stats the last choice or buy changed: lit in the list of stats, so that a player sees what they just got. */
+  private lit = new Set<Stat>();
 
   constructor() {
     super('Camp');
@@ -59,6 +60,7 @@ export class CampScene extends Phaser.Scene {
     this.thing = null;
     this.relic = null;
     this.kinds = false;
+    this.lit = new Set();
     setupCamera(this);
     this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.88).setInteractive();
     this.root = this.add.container(0, 0);
@@ -86,6 +88,37 @@ export class CampScene extends Phaser.Scene {
     const b = new Button(this, x, y, t, on, o);
     this.root.add(b.root);
     return b;
+  }
+
+  /** Does what `fn` does to the run and remembers which stats it moved, to light them in the list. */
+  private moving(fn: () => boolean): boolean {
+    const before = statsOf(this.run);
+    const done = fn();
+    if (done) this.lit = new Set(compare(before, statsOf(this.run)).map((c) => c.stat).filter((x): x is Stat => x !== ''));
+    return done;
+  }
+
+  /**
+   * What a choice changes, a line for each number: its name at the left, and at the right what it is now, an arrow,
+   * and what it would be, the new number green when it is better and red when it is worse. Returns the height used.
+   */
+  private changeLines(x: number, y: number, w: number, changes: readonly Change[], most: number, into?: Phaser.GameObjects.Container): number {
+    const add = <T extends Phaser.GameObjects.GameObject>(o: T): T => {
+      if (into) into.add(o);
+      else this.add2(o);
+      return o;
+    };
+    const rh = 22;
+    changes.slice(0, most).forEach((c, i) => {
+      const cy = y + i * rh + rh / 2;
+      const name = add(label(this, x, cy, c.name, { size: 15, align: 'left', color: OUTLINE, stroke: null, weight: 600 }));
+      const after = add(label(this, x + w, cy, c.after, { size: 16, align: 'right', color: c.up ? '#2e7d3a' : RUBY.shade, stroke: null }));
+      const arrow = add(label(this, after.x - after.width - 4, cy, '>', { size: 15, align: 'right', color: '#8a6a3a', stroke: null }));
+      const before = add(label(this, arrow.x - arrow.width - 4, cy, c.before, { size: 15, align: 'right', color: '#6b4a2b', stroke: null, weight: 600 }));
+      // A long name gives way to the numbers: it is narrowed, never written under them.
+      name.setScale(Math.min(1, (before.x - before.width - 6 - x) / Math.max(1, name.width)), 1);
+    });
+    return Math.min(most, changes.length) * rh;
   }
 
   private act(done: boolean, sound: Parameters<typeof sfx.play>[0] = 'buy'): void {
@@ -167,12 +200,12 @@ export class CampScene extends Phaser.Scene {
     this.root.add(heading(this, cx, 84, 'LEVEL UP', GOLD));
     this.text(cx, 118, run.pending > 1 ? `Choose 1 upgrade. ${run.pending - 1} more after this.` : 'Choose 1 upgrade.', { size: 17, color: BONE.fill });
     const cols = view.tall ? 2 : 4;
-    const cw = Math.min(210, (view.w - 32 - (cols - 1) * 12) / cols);
-    const ch = 212;
+    const cw = Math.min(232, (view.w - 32 - (cols - 1) * 12) / cols);
+    const ch = view.tall ? 300 : 318;
     const rows = Math.ceil(run.choices.length / cols);
     const x0 = cx - (cols * cw + (cols - 1) * 12) / 2;
     // On a tall screen the cards stand a little above the middle of what is left under the heading, not hard against it with half the screen empty below.
-    const y0 = view.tall ? 150 + Math.max(0, (view.h - 170 - rows * (ch + 12)) * 0.4) : (view.h - 150 - rows * ch) / 2 + 150;
+    const y0 = view.tall ? 150 + Math.max(0, (view.h - 170 - rows * (ch + 12)) * 0.4) : Math.max(140, (view.h - 150 - rows * ch) / 2 + 150);
     run.choices.forEach((c, i) => {
       const x = x0 + (i % cols) * (cw + 12);
       const y = y0 + Math.floor(i / cols) * (ch + 12);
@@ -183,17 +216,28 @@ export class CampScene extends Phaser.Scene {
       card.add(slabImage(this, -cw / 2, -ch / 2, cw, ch, BONE, 16, 7));
       card.add(slabImage(this, -cw / 2 + 8, -ch / 2 + 8, cw - 16, 30, TIER_MATS[c.tier], 10, 0));
       card.add(label(this, 0, -ch / 2 + 22, TIER_NAMES[c.tier], { size: 16, color: OUTLINE, stroke: null }));
-      const img = this.add.image(0, -36, SHEET, statIcon(info.icon));
-      img.setScale(50 / img.frame.width);
+      const img = this.add.image(0, -ch / 2 + 78, SHEET, statIcon(info.icon));
+      img.setScale(56 / img.frame.width);
       card.add(img);
-      // Dark words on the pale card, and never wider than it: they were pale on pale, and ran to the card's edge.
-      const head = label(this, 0, 10, friend ? info.name : `${statText(c.stat, c.by)} ${info.name}`, { size: friend ? 17 : 20, color: '#2e5f45', stroke: null });
+      // What it is, big: the number and the stat. Dark words on the pale card, and never wider than it.
+      const head = label(this, 0, -ch / 2 + 128, friend ? info.name : `${statText(c.stat, c.by)} ${info.name}`, { size: friend ? 18 : 22, color: '#2e5f45', stroke: null });
       head.setScale(Math.min(1, (cw - 22) / Math.max(1, head.width)));
       card.add(head);
-      card.add(label(this, 0, 26, info.says, { size: 15, color: OUTLINE, stroke: null, wrap: cw - 34 }).setOrigin(0.5, 0));
+      // What the stat does, in a few words, for whoever does not know it.
+      const says = label(this, 0, -ch / 2 + 146, info.says, { size: 15, color: '#6b4a2b', stroke: null, wrap: cw - 30, weight: 600 }).setOrigin(0.5, 0);
+      card.add(says);
+      // And what it changes, from the rules: each number now and after.
+      const p = previewLevel(run, i);
+      const top = -ch / 2 + 152 + says.height + 10;
+      if (p.changes.length > 0) {
+        const g = this.add.graphics();
+        g.fillStyle(hex(LINEN.shade), 0.55).fillRoundedRect(-cw / 2 + 10, top - 4, cw - 20, Math.min(3, p.changes.length) * 22 + 8, 8);
+        card.add(g);
+        this.changeLines(-cw / 2 + 18, top, cw - 36, p.changes, 3, card);
+      }
       card.setSize(cw, ch).setInteractive({ useHandCursor: true });
       card.on('pointerup', () => {
-        choose(this.run, i);
+        this.moving(() => choose(this.run, i));
         sfx.play('levelUp', 0.7);
         keepRun();
         this.draw();
@@ -217,7 +261,8 @@ export class CampScene extends Phaser.Scene {
     const cols = tall ? 2 : 4;
     const gap = 10;
     const cw = (waresW - (cols - 1) * gap) / cols;
-    const ch = tall ? 240 : 284;
+    // A tall screen has the height to give each ware room for all its numbers: what it does is what the card is for.
+    const ch = tall ? 320 : 284;
     const top = 58;
     run.offers.forEach((o, i) => this.offer(o, i, waresX + (i % cols) * (cw + gap), top + Math.floor(i / cols) * (ch + gap), cw, ch));
     const under = top + Math.ceil(run.offers.length / cols) * (ch + gap) + 2;
@@ -335,36 +380,61 @@ export class CampScene extends Phaser.Scene {
     const name = weapon ? byId(WEAPONS, o.id).name : relic ? relicOf(o.id).name : byId(ITEMS, o.id).name;
     // A weapon says its kinds where it said only how it strikes: a kind is what a hand is filled for.
     const tag = weapon ? `${TIER_NAMES[o.tier]}  ${byId(WEAPONS, o.id).kinds.join(' ').toUpperCase()}` : relic ? 'RELIC' : 'ITEM';
-    // A relic's card has more to say than a ware's, so its picture and its name stand higher.
-    const high = view.tall || o.kind === 'relic';
-    const picY = y + (high ? 76 : 86);
+    // The picture is small and high: what a ware does, in numbers, is what the card is for.
+    const picY = y + 70;
     if (weapon) {
       // A weapon's picture turns about its hand, which is two thirds of the way down it.
-      const img = this.add2(this.add.image(x + w / 2, picY + (view.tall ? 14 : 22), SHEET, weaponIcon(o.id)));
-      img.setScale((view.tall ? 72 : WEAPON_TALL) / 184);
-    } else this.icon(x + w / 2, picY, relic ? relicIcon(o.id) : itemIcon(o.id), 62);
-    const nameY = y + (high ? 122 : 150);
+      const img = this.add2(this.add.image(x + w / 2, picY + 12, SHEET, weaponIcon(o.id)));
+      img.setScale(62 / 184);
+    } else this.icon(x + w / 2, picY, relic ? relicIcon(o.id) : itemIcon(o.id), 50);
     // Written after the picture: a tall weapon's stands up into the band, and the words lie over it.
     this.text(x + 16, y + 21, tag, { size: 15, align: 'left', color: OUTLINE, stroke: null });
-    const named = this.text(x + w / 2, nameY, name, { size: 18, color: OUTLINE, stroke: null, wrap: w - 16 });
-    if (weapon) {
-      const n = weaponNumbers(run, o.id, o.tier);
-      this.text(x + w / 2, nameY + 24, `${n.harm} damage every ${n.every.toFixed(1)}s`, { size: 15, color: OUTLINE, stroke: null });
-      if (!view.tall) this.text(x + w / 2, nameY + 50, byId(WEAPONS, o.id).says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 20 });
-    } else if (relic) this.text(x + w / 2, nameY + named.height / 2 + 4, relicOf(o.id).says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 20 }).setOrigin(0.5, 0);
-    else this.statLinesDark(x + w / 2, nameY + 24, byId(ITEMS, o.id).stats);
+    const named = this.text(x + w / 2, y + 112, name, { size: 18, color: OUTLINE, stroke: null });
+    named.setScale(Math.min(1, (w - 16) / Math.max(1, named.width)));
+    const room = y + h - 62;
+    let at = y + 128;
+    const p: Preview = previewOffer(run, i);
+    if (weapon && p.weapon) {
+      const f = p.weapon.facts;
+      // Its numbers as this hero would fight with it, and beside them the same weapon already held.
+      const nums = this.text(x + w / 2, at + 8, `${f.dmg} DMG   ${f.rate.toFixed(2)}/s   ${f.dps} DPS`, { size: 15, color: OUTLINE, stroke: null });
+      nums.setScale(Math.min(1, (w - 12) / Math.max(1, nums.width)), 1);
+      at += 20;
+      if (p.weapon.joins) {
+        this.text(x + w / 2, at + 8, `Merges with yours: ${TIER_NAMES[o.tier + 1]}`, { size: 15, color: '#2e7d3a', stroke: null });
+        at += 24;
+      } else if (p.weapon.held) {
+        const better = f.dps > p.weapon.held.dps;
+        this.text(x + w / 2, at + 8, `Yours: ${p.weapon.held.dps} DPS (${better ? 'this is better' : 'yours is better'})`, { size: 15, color: better ? '#2e7d3a' : RUBY.shade, stroke: null });
+        at += 24;
+      }
+      // The set bonus it moves: how many of its type are held now and after, and what the bonus becomes. Each line
+      // is wrapped to the card and stops where the card does: it was narrowed to fit once, below what can be read.
+      for (const st of p.sets) {
+        const t = this.text(x + 10, at + 2, `${st.name} ${st.held} > ${st.after}: ${st.steps ? st.then : `at ${st.at}, ${st.then || 'a bonus'}`}`, { size: 15, align: 'left', color: st.steps ? '#2e7d3a' : '#6b4a2b', stroke: null, wrap: w - 20, weight: 600 }).setOrigin(0, 0);
+        if (at + t.height > room) {
+          t.destroy();
+          break;
+        }
+        at += t.height + 4;
+      }
+      // What it does, last, where there is room for it.
+      const says = this.text(x + w / 2, at + 2, byId(WEAPONS, o.id).says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 20 }).setOrigin(0.5, 0);
+      if (at + says.height > room) says.destroy();
+    } else if (relic) this.text(x + w / 2, at, relicOf(o.id).says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 20 }).setOrigin(0.5, 0);
+    else this.changeLines(x + 12, at, w - 24, p.changes, Math.max(1, Math.floor((room - at) / 22)));
     const why = whyNot(run, i);
     // What cannot be afforded is seen to be so at a glance: its button is iron, not gold, and its price is in red.
     const poor = why === 'coins';
-    const b = this.button(x + w / 2 - 22, y + h - 34, why === 'hands' ? 'SLOTS FULL' : `BUY   ${o.price}`, () => this.act(buy(this.run, i)), { width: w - 68, height: 46, size: why === 'hands' ? 15 : 19, mat: poor ? IRON : GOLD, color: poor ? '#ff8f7a' : undefined });
+    const b = this.button(x + w / 2 - 22, y + h - 34, why === 'hands' ? 'SLOTS FULL' : `BUY   ${o.price}`, () => this.act(this.moving(() => buy(this.run, i))), { width: w - 68, height: 46, size: why === 'hands' ? 15 : 19, mat: poor ? IRON : GOLD, color: poor ? '#ff8f7a' : undefined });
     b.setEnabled(why === '');
     if (poor) this.add2(this.add.image(x + 6, y + 6, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(w - 12, h - 62).setTint(hex(OUTLINE)).setAlpha(0.22));
     // Fenn may toss for it, once in a camp: heads it is free, tails it is paid for and gone.
     if (canToss(run, i)) {
-      this.button(x + w - 44, y + 24, 'FLIP', () => {
-        const how = toss(this.run, i);
-        this.act(how !== null, how === 'heads' ? 'claim' : 'tick');
-      }, { width: 72, height: 34, size: 15, mat: IRON });
+      this.button(x + w - 52, y + 24, `FLIP ${Math.round(tossOdds(run) * 100)}%`, () => {
+        const how = this.moving(() => toss(this.run, i) === 'heads') ? 'heads' : 'tails';
+        this.act(true, how === 'heads' ? 'claim' : 'tick');
+      }, { width: 92, height: 44, size: 15, mat: IRON });
     }
     // Kept for the next camp, or for after the wares are changed.
     const keep = this.add.container(x + w - 30, y + h - 34);
@@ -410,12 +480,26 @@ export class CampScene extends Phaser.Scene {
 
   /** The same under a tall screen's wares: two columns, as tall as they need and no taller, just over the buttons. */
   private heroStrip(x: number, top: number, w: number, bottom: number): void {
+    const run = this.run;
     const rows = Math.ceil(STATS.length / 2);
-    const h = Math.min(bottom - top, rows * 26 + 22);
-    if (h < rows * 20 + 22) return;
+    // Who the hero is heads the strip: their picture, level and own weapon, as a wide screen has them down its left.
+    const headH = 58;
+    const h = Math.min(bottom - top, rows * 26 + 22 + headH);
+    if (h < rows * 20 + 22 + headH) return;
     const y = bottom - h;
     this.add2(slabImage(this, x, y, w, h, DARK, 14, 5));
-    this.statGrid(x + 12, y + 12, w - 24, 2, h - 20);
+    const def = heroOf(run);
+    const img = this.add2(this.add.image(x + 36, y + headH - 4, CARDS, portraitFrame('blue', def.unit)));
+    img.setScale(Math.min(52 / (img.frame.height || 1), 52 / (img.frame.width || 1)));
+    this.text(x + 72, y + 20, `${def.short}  Level ${run.level}`, { size: 18, align: 'left' });
+    const own = ownOf(run);
+    const named = this.text(x + 72, y + 42, `${weaponOf(own.id).name} ${TIER_NAMES[own.tier]}  (tap for its rules)`, { size: 15, align: 'left', color: HOLY.fill, strokeWidth: 3 });
+    named.setInteractive({ useHandCursor: true }).on('pointerup', () => {
+      this.owned = true;
+      this.draw();
+    });
+    this.text(x + w - 14, y + 20, `${Math.floor(run.xp)} / ${levelNeeds(run.level)} XP`, { size: 15, align: 'right', color: BONE.shade });
+    this.statGrid(x + 12, y + headH + 8, w - 24, 2, h - headH - 16);
   }
 
   private statGrid(x: number, y: number, w: number, cols: number, h: number): void {
@@ -427,10 +511,17 @@ export class CampScene extends Phaser.Scene {
       // Down each column in turn, so that the stats read in their own order.
       const cx = x + Math.floor(i / rows) * cw;
       const cy = y + (i % rows) * rh + rh / 2;
+      // What the last choice or buy changed is lit: a player sees at once what they just got.
+      if (this.lit.has(stat)) {
+        const glow = this.add2(this.add.image(cx + cw / 2 - 4, cy, SHEET, 'fx/solid').setDisplaySize(cw - 4, rh - 2).setTint(hex(HOLY.fill)).setAlpha(0.28));
+        this.tweens.add({ targets: glow, alpha: 0.08, duration: 600, yoyo: true, repeat: 3 });
+      }
       this.icon(cx + 11, cy, statIcon(STAT_INFO[stat].icon), 20);
       const v = Math.round(s[stat] * 10) / 10;
-      this.text(cx + 30, cy, STAT_INFO[stat].name, { size: 15, align: 'left', color: BONE.fill, strokeWidth: 3 });
-      this.text(cx + cw - 10, cy, `${v}${STAT_INFO[stat].percent ? '%' : ''}`, { size: 15, align: 'right', color: v < 0 ? RUBY.fill : v > 0 ? VENOM.light : BONE.shade, strokeWidth: 3 });
+      const named = this.text(cx + 30, cy, STAT_INFO[stat].name, { size: 15, align: 'left', color: this.lit.has(stat) ? HOLY.fill : BONE.fill, strokeWidth: 3 });
+      const value = this.text(cx + cw - 10, cy, `${v}${STAT_INFO[stat].percent ? '%' : ''}`, { size: 15, align: 'right', color: v < 0 ? RUBY.fill : v > 0 ? VENOM.light : BONE.shade, strokeWidth: 3 });
+      // A long name gives way to its number.
+      named.setScale(Math.min(1, (value.x - value.width - 6 - named.x) / Math.max(1, named.width)), 1);
     });
   }
 
@@ -451,8 +542,8 @@ export class CampScene extends Phaser.Scene {
     this.text(cx, cy - 145, `${def.name}  ${TIER_NAMES[w.tier]}`, { size: 17, color: OUTLINE, stroke: null });
     const img = this.add2(this.add.image(cx, cy - 60, SHEET, weaponIcon(w.id)));
     img.setScale(100 / 184);
-    const n = weaponNumbers(run, w.id, w.tier);
-    this.text(cx, cy + 2, `${n.harm} damage every ${n.every.toFixed(1)}s`, { size: 17, color: OUTLINE, stroke: null });
+    const f = weaponFacts(run, w.id, w.tier);
+    this.text(cx, cy + 2, `${f.dmg} DMG   ${f.rate.toFixed(2)} hits/s   ${f.dps} DPS`, { size: 17, color: OUTLINE, stroke: null });
     this.text(cx, cy + 28, def.says, { size: 15, color: '#6b4a2b', stroke: null, wrap: 280 });
     const twin = twinOf(run, w.id, w.tier, i) >= 0;
     const join = plain(this.button(cx, cy + 76, twin ? `MERGE INTO TIER ${TIER_NAMES[w.tier + 1]}` : 'NEED 2 TO MERGE', () => {

@@ -240,8 +240,8 @@ async function play(label: string, { context, page }: { context: Context; page: 
   ok('the run that ended paid renown', (await hold()).renown > 0 && (await hold()).tally !== null);
   ok('THE HOLD opens the Hold', (await press(page, tap, 'Title', 'THE HOLD')) && (await until(page, 'Hold')));
   await tick(page, 10);
-  ok('with its renown said', (await words(page, 'Hold', 'RENOWN')) !== null);
-  ok('KENNELS shows the band', (await press(page, tap, 'Hold', 'KENNELS')) && (await words(page, 'Hold', 'Places in the band')) !== null);
+  ok('with its heading said', (await words(page, 'Hold', 'THE HOLD')) !== null);
+  ok('COMPANIONS shows the slots', (await press(page, tap, 'Hold', 'COMPANIONS')) && (await words(page, 'Hold', 'Companion slots')) !== null);
   await page.evaluate(() => {
     const w = window as unknown as Win;
     (w.save() as unknown as { renown: number }).renown = 500;
@@ -250,7 +250,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await tick(page, 10);
   ok('BUY buys the second place', (await press(page, tap, 'Hold', 'BUY')) && (await hold()).places === 2 && (await hold()).renown < 500);
   ok('VOWS says what opens them', (await press(page, tap, 'Hold', 'VOWS')) && (await words(page, 'Hold', 'Clear wave 20')) !== null);
-  ok('DAILY shows the day\'s road', (await press(page, tap, 'Hold', 'DAILY')) && (await words(page, 'Hold', 'The road of')) !== null && (await find(page, 'Hold', 'SET OUT')) !== null);
+  ok('DAILY RUN shows the day\'s run', (await press(page, tap, 'Hold', 'DAILY RUN')) && (await words(page, 'Hold', 'Daily Run:')) !== null && (await find(page, 'Hold', 'PLAY')) !== null);
   ok('BACK goes back to the list', (await press(page, tap, 'Hold', 'BACK')) && (await until(page, 'Title')));
   await tick(page, 10);
   ok('Wren can be chosen', await press(page, tap, 'Title', 'Wren'));

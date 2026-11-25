@@ -9,7 +9,7 @@
 
 import Phaser from 'phaser';
 import { LOGO_H, LOGO_W } from '../../art/logoSize';
-import { BONE, BUSH, FIRE, GOLD, HOLY, IRON, OUTLINE, VENOM, type Material } from '../../art/kit/palette';
+import { BONE, BUSH, FIRE, GOLD, HOLY, IRON, OUTLINE, RUBY, VENOM, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { COMPANIONS, HEROES, MOVES, byId, weaponOf, type Feat, type HeroDef } from '../../game/data';
@@ -18,7 +18,8 @@ import { featShare, isOpen, bandFor, setBand } from '../../game/state';
 import { comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
-import { commit, resumeRun, save, startRun } from '../session';
+import { commit, resumeRun, save, startDaily, startRun } from '../session';
+import { dailyOf, dailyTaken, met, vowsOpen } from '../../game/hold';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 import { HERO_LIGHT, LANTERN } from '../light/hours';
@@ -112,7 +113,7 @@ export class TitleScene extends Phaser.Scene {
     const sw = col;
     // On a tall screen the stage takes what the rest leaves, up to a height past which it would only be empty.
     const chTall = 84 + 66 * k;
-    const sh = tall ? Math.max(170, Math.min(400, H - sy - 110 - (2 * chTall + 8) - 88 - 84 - 30 - (s.run ? 58 : 0))) : H - sy - 14;
+    const sh = tall ? Math.max(170, Math.min(400, H - sy - 110 - (2 * chTall + 8) - 88 - 84 - 30 - (s.run ? 58 : 'Hold' in this.scene.manager.keys ? 60 : 0))) : H - sy - 14;
     // The Hold is a place: the meadow at dusk, the gate the runs go out by, a fire, and whoever is chosen standing
     // by it with those who go along. It was a flat green page with a dark panel on it, which a reviewer took for
     // a settings menu.
@@ -159,7 +160,9 @@ export class TitleScene extends Phaser.Scene {
     // Who they are. On a wide screen it is beside the stage, on a tall one inside it and under it.
     const tx = tall ? sx + 222 : sx + sw + 18;
     const tw = tall ? W - tx - 26 : W - tx - 16;
-    let ty = tall ? sy + 16 : 18;
+    // On a wide screen the top of the column is a bar of its own (renown, the Hold, the cog): the words start under it.
+    const barred = !tall && 'Hold' in this.scene.manager.keys;
+    let ty = tall ? sy + 16 : barred ? 64 : 18;
     const say = (text: string, size: number, color: string, gap = 6, x = tx, w = tw): void => {
       const t = put(label(this, x, ty, text, { size, align: 'left', color, wrap: w, strokeWidth: size > 20 ? 5 : 3 })).setOrigin(0, 0);
       ty += t.height + gap;
@@ -217,6 +220,33 @@ export class TitleScene extends Phaser.Scene {
       const on = new Button(this, tall ? W / 2 : rx + cw2 / 2, tall ? by - playH / 2 - 8 - 25 : by, `CONTINUE: ${name}, WAVE ${kept.wave}`, () => this.carryOn(), { width: cw2, height: 50, size: 16, mat: GOLD });
       this.root.add(on.root);
       if (tall) floor -= 58;
+    }
+
+    // The day's run and the vows, when there is no run waiting: a card for the one run a day that is the same for
+    // everyone, and the vows sworn for the next run, which open after a first win.
+    if (!kept && 'Hold' in this.scene.manager.keys) {
+      const date = new Date().toISOString().slice(0, 10);
+      const d = dailyOf(date);
+      const taken = dailyTaken(s, date);
+      const vowsCan = vowsOpen(s).length > 0;
+      const w2 = tall ? rw : Math.min(380, rw - bw - 10);
+      const vw = vowsCan ? (tall ? (w2 - 8) * 0.4 : 130) : 0;
+      const dw = w2 - vw - (vowsCan ? 8 : 0);
+      const y2 = tall ? by - playH / 2 - 8 - 28 : by;
+      const who = (kind: 'hero' | 'friend', id: string, name: string): string => (met(s, kind, id) ? name : '???');
+      const hero2 = byId(HEROES, d.hero);
+      const friend2 = byId(COMPANIONS, d.band[0]);
+      const daily = new Button(this, rx + dw / 2, y2, taken ? `DAILY RUN: WAVE ${s.daily?.wave ?? 0}` : `DAILY RUN: ${who('hero', hero2.id, hero2.short)} + ${who('friend', friend2.id, friend2.name)}`, () => {
+        if (!startDaily(date)) return;
+        this.scene.start('Arena');
+      }, { width: dw, height: 52, size: 15, mat: taken ? IRON : GOLD });
+      daily.setEnabled(!taken);
+      this.root.add(daily.root);
+      if (vowsCan) {
+        const vows = new Button(this, rx + dw + 8 + vw / 2, y2, s.vows.length > 0 ? `VOWS: ${s.vows.length}` : 'VOWS', () => this.scene.start('Hold', { tab: 'VOWS' }), { width: vw, height: 52, size: 16, mat: s.vows.length > 0 ? RUBY : IRON });
+        this.root.add(vows.root);
+      }
+      if (tall) floor -= 60;
     }
 
     // The band: a card for each place, with whoever goes in it. A press goes round those who are open.
@@ -301,7 +331,8 @@ export class TitleScene extends Phaser.Scene {
     const renown = (s as unknown as { renown?: number }).renown;
     const board = 'Hold' in this.scene.manager.keys;
     if (renown !== undefined) {
-      const rx0 = tall ? W - 70 : 14 + lw + 58;
+      // Beside the Hold's button, where it is spent: never over the hero's name.
+      const rx0 = tall ? W - 70 : W - 38 - 34 - 148 - 8 - 56;
       const ry0 = tall ? 36 : 36;
       put(slabImage(this, rx0 - 48, ry0 - 18, 96, 36, IRON, 12, 4));
       put(this.add.image(rx0 - 28, ry0 - 1, SHEET, 'icon/laurel')).setScale(0.22);
