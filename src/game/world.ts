@@ -14,6 +14,7 @@ import {
   QUIRKS, RING_SHARE, ENEMIES, byId, coinShare, enemyAt, finishedAs, waveOf, weaponOf,
   type AllyQuirk, type CompanionDef, type EnemyDef, type MoveDef, type MoveId, type Quirk, type WaveDef, type WeaponDef,
 } from './data';
+import { BAND_UP_LEAST, BREATH, VOW } from './holdData';
 import { countKinds, giftsOf, type Gifts } from './kinds';
 import { RELIC } from './relics';
 import { ROAD, type ChampionTrait, type Omen } from './road';
@@ -76,12 +77,21 @@ export interface Setup {
   bones?: { up: Stat; down: Stat } | null;
   /** The last weapon Orrin bought, by name: his staff is finished as it. */
   taken?: string;
-  /** The share of their health the hero begins with, where that is not all of it: after a forced march. */
-  hurt?: number;
   /** True on the wave that has the lone champion who leaves a relic: the third of every run. */
   herald?: boolean;
   /** True where whoever is in the cage is let out when the wave ends, broken or not: a first run's Biscuit is not to be missed. */
   given?: boolean;
+  /** The vows the run was sworn under, by name: each is a rule (holdData.ts). */
+  vows?: readonly string[];
+  /** The share of their health the hero begins the wave with, where that is not all of it: after a forced march, or under a vow that gives no rest between waves. */
+  hurt?: number;
+  /** True if the Hold's Second Breath is still to be drawn in this run. */
+  breath?: boolean;
+  /** What the Hold's board gives: how many times as fast fury fills, how many times the band's health and harm, and the share sooner a fallen companion gets up. */
+  furyBy?: number;
+  bandHp?: number;
+  bandDmg?: number;
+  bandUp?: number;
 }
 
 /** Which way the hero is steered: a length of 1 is flat out. `act` lets the move loose, if it is full. */
@@ -177,6 +187,8 @@ export interface Foe {
   dead: boolean;
   /** What a champion has that the rest have not, or '' for one of the rest. */
   champion: ChampionTrait | '';
+  /** True for a captain that has got up once already (the vow of the second wind). */
+  second?: boolean;
   /** Seconds until a burning champion may blaze again. */
   blaze: number;
 }
@@ -423,6 +435,10 @@ export type Ev =
   | { t: 'loose'; slot: number; angle: number; shot: number }
   | { t: 'hit'; id: number; x: number; y: number; amount: number; crit: boolean; soft: boolean }
   | { t: 'fall'; id: number; x: number; y: number; boss: boolean; swept: boolean }
+  // A captain that fell gets up again: the vow of the second wind.
+  | { t: 'second'; id: number; x: number; y: number }
+  // The hero was left standing by the Hold's Second Breath.
+  | { t: 'breath'; x: number; y: number }
   | { t: 'burst'; x: number; y: number; r: number; kind: Burst }
   | { t: 'hurt'; amount: number; x: number; y: number }
   | { t: 'dodge' }
@@ -555,6 +571,23 @@ export class World {
   /** True once the lone champion of the third wave has fallen, and once the duelist has. */
   herald = false;
   dueled = false;
+  /** The vows the wave is fought under. */
+  private readonly vows: ReadonlySet<string>;
+  /** What the board gives (see Setup). */
+  private readonly furyBy: number;
+  private readonly bandHp: number;
+  private readonly bandDmg: number;
+  private readonly bandUp: number;
+  /** True once the Hold's Second Breath has been drawn in this wave. */
+  breathed = false;
+  private breath: boolean;
+  /** Who has stood on the field in this wave, and how many of each were slain: the Chronicle keeps them. */
+  met: string[] = [];
+  slain: Record<string, number> = {};
+  /** True once a blow has landed on the hero in this wave, and the captains that fell before one did. */
+  struck = false;
+  unstruck: string[] = [];
+
   /** What the Bone Dice rolled for this wave, if the run holds them. */
   readonly bones: { up: Stat; down: Stat } | null;
   /** What the kinds of weapon held do (kinds.ts). */
@@ -618,10 +651,17 @@ export class World {
 
   constructor(setup: Setup) {
     this.relics = new Set(setup.relics ?? []);
+    this.vows = new Set(setup.vows ?? []);
+    this.furyBy = Math.max(0, setup.furyBy ?? 1);
+    this.bandHp = Math.max(0.1, setup.bandHp ?? 1);
+    this.bandDmg = Math.max(0.1, setup.bandDmg ?? 1);
+    this.bandUp = Math.max(0, Math.min(1 - BAND_UP_LEAST, setup.bandUp ?? 0));
+    this.breath = !!setup.breath;
     // A captain's wave is the captain's: no omen changes it.
     const plain = waveOf(setup.wave);
     this.omen = plain.boss ? 'quiet' : (setup.omen ?? 'quiet');
-    this.night = this.omen === 'night';
+    // The Early Dark: every wave is fought by night, whatever road led to it.
+    this.night = this.omen === 'night' || this.vows.has('dusk');
     this.wave = this.omened(plain);
     this.w = setup.tall ? ARENA.short : ARENA.long;
     this.h = setup.tall ? ARENA.long : ARENA.short;
@@ -636,7 +676,7 @@ export class World {
     this.spare = this.quirk === 'gravedebt' && (setup.spare ?? true);
     this.rescue = setup.rescue ?? true;
     const maxHp = Math.max(1, Math.round(setup.stats.maxHp));
-    // A hero is whole at the start of a wave, but for one a forced march brought here, and on the road of the wounded.
+    // A hero is whole at the start of a wave, but for one a forced march brought here, one sworn to Open Wounds, and on the road of the wounded.
     const whole = Math.min(Math.max(0.05, Math.min(1, setup.hurt ?? 1)), this.omen === 'wounded' ? ROAD.wounded.hp : 1);
     this.hero = {
       x: this.w / 2, y: this.h / 2, hp: Math.max(1, Math.round(maxHp * whole)), maxHp, face: 1, moving: false, grace: 0, chill: 0, chillBy: 0,
@@ -658,6 +698,8 @@ export class World {
     this.goldBy = this.omen === 'burning' ? ROAD.burning.coins : 1;
     // What the road puts on the field.
     if (this.omen === 'champions') this.champsDue = ROAD.champions.at.slice(0, ROAD.champions.count).map((share) => share * this.wave.seconds);
+    // Champions Abroad: a champion walks in every wave from the third, but not beside a captain and not on the road that is all champions.
+    else if (this.vows.has('champions') && !this.wave.boss && this.wave.n >= VOW.champion.from) this.champsDue = [VOW.champion.at * this.wave.seconds];
     if (this.omen === 'wagon') this.wagonDue = ROAD.wagon.at * this.wave.seconds;
     if (this.omen === 'stray' && this.stray) this.cageDue = 1.2;
     if (this.omen === 'duel') this.duelDue = ROAD.duel.at;
@@ -695,7 +737,7 @@ export class World {
   private enlist(b: Banded, i: number, n: number): Ally {
     const def = byId(COMPANIONS, b.id);
     const bond = Math.max(0, Math.min(BAND.bonds, b.bond));
-    const maxHp = def.hp > 0 ? Math.max(1, Math.round(def.hp * (1 + BAND.hpGrow * this.level) * (1 + BAND.bond * bond))) : 0;
+    const maxHp = def.hp > 0 ? Math.max(1, Math.round(def.hp * this.bandHp * (1 + BAND.hpGrow * this.level) * (1 + BAND.bond * bond))) : 0;
     const a = (i / Math.max(1, n)) * TAU + Math.PI;
     return {
       id: this.ids++, def, bond, x: this.hero.x + Math.cos(a) * 74, y: this.hero.y + Math.sin(a) * 46, hp: maxHp, maxHp, face: 1, moving: false, state: 'with',
@@ -1022,6 +1064,7 @@ export class World {
       }
     }
     h.hp -= amount;
+    this.struck = true;
     h.grace = HURT_GRACE;
     h.safe = 0;
     this.spur = 0;
@@ -1073,6 +1116,15 @@ export class World {
       this.events.push({ t: 'rescue', id: tam.id });
       return;
     }
+    if (this.breath) {
+      // The Hold's Second Breath: once in a run, when nothing else has kept them up.
+      this.breath = false;
+      this.breathed = true;
+      h.hp = Math.max(1, Math.round(h.maxHp * BREATH.rises));
+      h.grace = BREATH.grace;
+      this.events.push({ t: 'breath', x: h.x, y: h.y });
+      return;
+    }
     this.over = 'dead';
     this.events.push({ t: 'end', cleared: false });
   }
@@ -1120,7 +1172,7 @@ export class World {
   /** Adds to the fury bar, and says when it is full. */
   private fill(by: number): void {
     if (!this.move || this.fury >= 1) return;
-    this.fury = Math.min(1, this.fury + by * (this.has('sands') ? RELIC.sands.fury : 1));
+    this.fury = Math.min(1, this.fury + by * this.furyBy * (this.has('sands') ? RELIC.sands.fury : 1));
     if (this.fury >= 1) this.events.push({ t: 'fury' });
   }
 
@@ -1387,6 +1439,7 @@ export class World {
       // The horde is many and each a little weaker. A champion is far more than the one it is made from.
       const c = ROAD.champions;
       const hp = Math.max(1, Math.round(at.hp * (m.champion ? c.hp : this.omen === 'horde' && !m.def.prop ? ROAD.horde.hp : 1)));
+      if (!m.def.prop && !this.met.includes(m.def.id)) this.met.push(m.def.id);
       const f: Foe = {
         id: m.id, def: m.def, x: m.x, y: m.y, kx: 0, ky: 0, hp, maxHp: hp, dmg: m.champion ? Math.max(1, Math.round(at.dmg * c.dmg)) : at.dmg, face: this.hero.x >= m.x ? 1 : -1,
         state: 'walk', left: 0, cool: (m.def.every ?? 2) * this.rng.range(0.4, 1), dx: 0, dy: 0, doing: '', turn: 0,
@@ -1616,7 +1669,7 @@ export class World {
           break;
         }
       }
-      const pace = (f.def.ai === 'cross' ? this.wagonSpeed : f.def.speed) * (f.slow > 0 ? 1 - f.slowBy : 1) * (f.spurred ? 1.3 : 1) * (this.night ? ROAD.night.faster : 1);
+      const pace = (f.def.ai === 'cross' ? this.wagonSpeed : f.def.speed) * (f.slow > 0 ? 1 - f.slowBy : 1) * (f.spurred ? 1.3 : 1) * (this.night ? ROAD.night.faster : 1) * (this.vows.has('march') && !f.def.prop ? VOW.quick : 1);
       if (f.def.prop) {
         // A thing: the wagon goes on over the field and away, and a cage stands where it is.
         this.cart(f, pace, dt);
@@ -1842,7 +1895,7 @@ export class World {
     this.events.push({ t: 'allyHurt', id: a.id, amount });
     if (a.hp > 0) return;
     a.hp = 0;
-    a.down = BAND.down * (this.has('whistle') ? RELIC.whistle.down : 1);
+    a.down = BAND.down * (1 - this.bandUp) * (this.has('whistle') ? RELIC.whistle.down : 1);
     a.state = 'with';
     this.events.push({ t: 'allyDown', id: a.id });
   }
@@ -1952,7 +2005,7 @@ export class World {
 
   /** What one blow of a companion does: it grows with the hero's level, a share of their Damage, and its bond. */
   allyHarm(a: Ally): number {
-    const by = (1 + (Math.max(-80, this.stats.damage) * BAND.share) / 100) * (1 + BAND.bond * a.bond) * (this.has('whistle') ? RELIC.whistle.harder : 1);
+    const by = (1 + (Math.max(-80, this.stats.damage) * BAND.share) / 100) * (1 + BAND.bond * a.bond) * this.bandDmg * (this.has('whistle') ? RELIC.whistle.harder : 1);
     return Math.max(1, Math.round((a.def.dmg + a.def.grow * this.level) * by));
   }
 
@@ -2586,6 +2639,14 @@ export class World {
     f.hp -= by;
     this.events.push({ t: 'hit', id: f.id, x: f.x, y: f.y, amount: by, crit, soft });
     if (f.hp > 0) return;
+    if (f.boss && this.vows.has('wind') && !f.second) {
+      // Second Wind: a captain that falls gets up once. It is down for a moment first, so the player sees it coming.
+      f.second = true;
+      f.hp = Math.max(1, Math.round(f.maxHp * VOW.wind));
+      f.stun = Math.max(f.stun, VOW.windStun);
+      this.events.push({ t: 'second', id: f.id, x: f.x, y: f.y });
+      return;
+    }
     f.dead = true;
     this.events.push({ t: 'fall', id: f.id, x: f.x, y: f.y, boss: f.boss, swept: false });
     if (f.def.prop) {
@@ -2597,6 +2658,7 @@ export class World {
       return;
     }
     this.kills++;
+    this.slain[f.def.id] = (this.slain[f.def.id] ?? 0) + 1;
     this.fill(1 / (MOVE.kills + MOVE.more * (this.wave.n - 1)));
     if (f.id === this.heraldId) {
       this.herald = true;
@@ -2611,7 +2673,10 @@ export class World {
       this.leechAt = this.time + OWN.morningstar.gap;
       this.mend(1);
     }
-    if (f.boss) this.felled.push(f.def.id);
+    if (f.boss) {
+      this.felled.push(f.def.id);
+      if (!this.struck) this.unstruck.push(f.def.id);
+    }
     this.leave(f);
     if (f.boss || f.champion) {
       this.banners++;
@@ -2694,7 +2759,8 @@ export class World {
     this.spill(f.x, f.y, coins);
     if (f.boss) this.drop('pack', f.x, f.y, 1);
     else if (this.rng.chance(0.006 * lucky)) this.drop('pack', f.x, f.y, 1);
-    if (this.rng.chance(HEART.chance * lucky)) this.drop('heart', f.x, f.y, HEART.mends);
+    // Bare Fields: the fallen leave no hearts.
+    if (!this.vows.has('famine') && this.rng.chance(HEART.chance * lucky)) this.drop('heart', f.x, f.y, HEART.mends);
   }
 
   /** Coins of ten, of three and of one: a boss or a chest leaves a heap, not a hundred of them. */

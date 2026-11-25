@@ -235,6 +235,9 @@ export class TitleScene extends Phaser.Scene {
       this.root.add(card);
     });
 
+    // The way into the Hold: what is kept between runs. Plain, and out of the way of the rest, until the Hold has its screens.
+    this.root.add(new Button(this, tall ? W / 2 : W - 250, 36, 'THE HOLD', () => this.scene.start('Hold'), { width: 130, height: 40, size: 16, mat: GOLD }).root);
+
     // Sound and how much of the light is made, small, in the top corners.
     const mute = this.add.container(tall ? 38 : W - 38, 36);
     mute.add(slabImage(this, -22, -22, 44, 44, IRON, 12, 5));

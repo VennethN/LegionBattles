@@ -43,6 +43,7 @@ export * from './companions';
 export * from './kinds';
 export * from './relics';
 export * from './road';
+export * from './holdData';
 
 // ---------------------------------------------------------------- weapons
 
@@ -156,12 +157,6 @@ export function weaponOf(id: string): WeaponDef {
   if (!found) throw new Error(`data: no weapon is called "${id}"`);
   return found;
 }
-
-/**
- * The weapons a first run's camps offer: one or two of most kinds, and none that needs explaining. A run is given
- * its pool when it begins (run.ts); with none it is offered everything.
- */
-export const STARTER_POOL: readonly string[] = ['sword', 'dagger', 'spear', 'hammer', 'torch', 'bow', 'sling', 'staff', 'frost', 'censer'];
 
 /** How much dearer each tier is than the first. */
 export const TIER_PRICE = [1, 2.1, 4.3, 8.5] as const;

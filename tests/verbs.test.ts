@@ -4,8 +4,9 @@
 
 import { describe, expect, it } from 'vitest';
 import { botSteer } from '../src/game/bot';
-import { HEROES, LATE_COIN, MOVE, MOVES, QUIRKS, ROAD, SIGNATURES, STARTER_POOL, WEAPONS, byId, finishedAs, weaponOf } from '../src/game/data';
+import { HEROES, LATE_COIN, MOVE, MOVES, QUIRKS, ROAD, SIGNATURES, WEAPONS, byId, finishedAs, weaponOf } from '../src/game/data';
 import { HANDED, handOver } from '../src/game/handover';
+import { beginRun, poolOf } from '../src/game/hold';
 import { FIRST_STRAY, HERALD_WAVE, buy, canToss, endWave, kindCounts, march, newRun, ownDef, reroll, setupOf, takeRoad, toss, tossOdds, type Offer, type RunData } from '../src/game/run';
 import { freshSave } from '../src/game/state';
 import { World, type Ev, type Setup } from '../src/game/world';
@@ -442,10 +443,15 @@ describe('a first run', () => {
     expect(with1.roads.length).toBe(ROAD.roads);
   });
 
-  it('is offered weapons from a small pool, which a run is given when it begins', () => {
-    const run = newRun('bram', 3, [], ROAD.roads, { first: true });
-    expect(run.pool).toEqual([...STARTER_POOL]);
-    expect(STARTER_POOL.length).toBe(10);
+  it('is offered weapons from a small pool, which is the armory as a new player has it: one input, given when it begins', () => {
+    const save = freshSave();
+    const start = poolOf(save);
+    const run = beginRun(save, 'bram', 3);
+    expect(run.first).toBe(true);
+    expect(run.pool).toEqual(start);
+    // About ten, and at least one of every plain kind but venom, which needs explaining.
+    expect(start.length).toBeGreaterThanOrEqual(10);
+    expect(start.length).toBeLessThanOrEqual(12);
     through(run);
     run.gold = 99999;
     const seen = new Set<string>();
@@ -453,12 +459,22 @@ describe('a first run', () => {
       for (const o of run.offers) if (o.kind === 'weapon') seen.add(o.id);
       reroll(run);
     }
-    for (const id of seen) expect(STARTER_POOL, id).toContain(id);
+    for (const id of seen) expect(start, id).toContain(id);
     expect(seen.size).toBeGreaterThan(6);
-    // A run that is not a first has them all, unless it is given a pool of its own.
+    // A run that has ended makes the next one no first run, with the same armory until a crate is opened.
+    save.ended = 1;
+    const next = beginRun(save, 'bram', 3);
+    expect(next.first).toBe(false);
+    expect(next.pool).toEqual(start);
+    // A run begun with no terms has every weapon, and one given a pool keeps to it.
     expect(newRun('bram', 3).pool).toBeNull();
-    expect(newRun('bram', 3, [], ROAD.roads, { pool: ['bow', 'nothing'] }).pool).toEqual(['bow']);
-    expect(newRun('bram', 3, [], ROAD.roads, { first: true, pool: null }).pool).toBeNull();
+    const few = newRun('bram', 3, [], ROAD.roads, { pool: ['bow', 'nothing'] });
+    through(few);
+    few.gold = 99999;
+    for (let i = 0; i < 20; i++) {
+      for (const o of few.offers) if (o.kind === 'weapon') expect(o.id).toBe('bow');
+      reroll(few);
+    }
   });
 
   it('and every run: a lone champion comes on the third wave, and felled it leaves a relic', () => {

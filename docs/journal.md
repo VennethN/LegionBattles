@@ -2,6 +2,54 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
+## Round 4, the Hold: what is kept between runs
+
+Built as pure rules with a test each (`src/game/hold.ts`, its lists and numbers in `holdData.ts`, the save in `state.ts`), and shown as plainly as lets it be used (`HoldScene`, behind THE HOLD on the list of heroes). `docs/design.md`, "Between runs: the Hold", is what was built. It was built in a copy of its own, on the road's work, while the screens for heroes and companions were being made in the main copy.
+
+It was built three times over in one round, and what stands is the third:
+
+1. **First**, as the design then said: renown, prices, six blessings, five steps of danger, deeds, the Chronicle.
+2. **Then a designer who had not seen the game read the rules** and said two things of the Hold that were right. Five fixed steps of danger are one other game's exact scheme: so they became **vows**, eight hard rules sworn in any mix. And the Hold was a list of prices, with deeds opening most people in the first few runs and nothing but renown to carry the next fifty: so each hero got **three oaths**, each crate a **deed that opens it for nothing**, each day **a road that is the same for everyone**, and every run's end the **nearest deeds not yet done**. The designer also asked that blessings give choices and no plain numbers.
+3. **Then the owner spoke**, and that last point went the other way: "since its roguelite, can we add upgrades we can spend on to make permanent per run". So the blessings became **the board**: thirty-three lasting upgrades on four branches, plain strength among them, and the gifts that give a choice are branches of the same board.
+
+What stands:
+
+- **Renown.** Every run pays when it ends: 2 a wave come through, 10 a captain, 25 for the twentieth wave, a fifth more of all that for each vow it was sworn under, and what each deed done for the first time pays. `record` gives back the tally line by line and the save keeps the last one.
+- **The board** (`BOARD`). The hero (health, armor, speed of foot down one side; harm, speed of striking, fury down the other; one getting-up a run at the foot of the first, dear), the band (companions' health, harm, getting up sooner), the purse (coins to begin with, free looks at other wares, marks to strike a ware from the table) and fortune (luck, experience, reach, a third road, a second look at a relic's choice). A place needs the one before it and each has a column and a row for a screen to draw a tree by. `refundBoard` takes it all back for what was paid.
+- **The hall and the kennels.** A hero or a companion is opened by their deed, as before, or bought, at prices above the board's, so that renown goes there only for someone stuck. The second place in the band is 100. Seven of the deeds that open people now ask for runs ended (Quill 3, Mossback 5, Isaura 7, Greta 9, Hroth 12, Aldous 18, Thistle 22), so that whoever plays meets someone new every two or three runs; the rest are still deeds of skill.
+- **The armory.** A run is offered only what is open: twelve weapons, sixteen wares and ten relics to begin with, the other forty-three things in nine crates by theme. A crate is opened by its own deed or bought. The weapons a run may be offered are an input it is given (`pool`), as the heroes' weapons agent asked.
+- **Vows.** Eight: quicker enemies, a dearer camp, no hearts, a champion in every wave, one hand fewer, every wave by night, no rest between waves, a captain that gets up once. A first win opens three and two more open for each vow a win was sworn under. A hero's badge is the vows of their best win.
+- **Oaths.** Thirty, three to a hero, as lines of one table: a win (a new name), a win under a vow (a relic to begin every run with), a deed about their quirk (the choice of a second rule for their own weapon: the choice is kept and given to the run as `alt`, and does nothing until the weapons' rules arrive from the other copy).
+- **The Daily Road.** `dailyOf(date)` gives a hero, a companion and a seed from the date; one try a day; the whole armory, nothing from the board, no vow.
+- **Deeds.** Twenty-eight that pay renown once each, and `nextDeeds` for the end of a run.
+- **The Chronicle.** Everything met, with a count; the world now tells who stood on the field, how many of each were slain, a captain felled with no blow landed and a wave come through untouched.
+- **One table of names** (`REF`): the captains, kinds of weapon and relics that the Hold's lists lean on, so that one renamed elsewhere is one line.
+
+Measured with the plain player, twenty-four runs to a measure, Bram, Wren, Orrin and Isaura each alone and stopped at the twenty-sixth wave. The number is the mean of the waves come through with every run stopped at the twentieth, over the four:
+
+| What the run began with | Mean of 20 | Won, of 96 |
+| --- | --- | --- |
+| Nothing bought, a first run's armory | 12.1 | 10 |
+| The whole board, the whole armory | 18.1 | 55 |
+| The same under three vows (quicker, dearer, no hearts) | 16.1 | 28 |
+| Under five vows | 15.3 | 26 |
+| Under all eight | 12.8 | 12 |
+
+- **With nothing bought it is as the rules before it left it:** about one run in ten won.
+- **With the whole board the plain player wins more than half its runs alone** (and three in four with two companions: Bram with Greta and Pip won 18 of 24). The enemies were not moved to take that back, as the owner's upgrades are meant to be felt.
+- **The vows bring it back:** under all eight, with everything bought, it is about where a new player with nothing stands, and still won one run in eight.
+- **One vow at a time** was measured only for two heroes and is at the edge of what the measure can tell. Before the board: quicker enemies cost this player nothing, a dearer camp and no hearts each a wave or so, no rest between waves two or three. Second Wind showed nothing: this player seldom reaches a captain in a state to lose to its getting up.
+- **A career**, played three times from a new save, a run after a run with whoever is open and has been out least, the renown spent on the cheapest thing: everything open and the board full after 79, 67 and 62 runs. The second place in the band comes after the first or second run. Something is bought after about two runs in three of the first thirty (19 to 21 of 30): a place costs about what a run pays, but a run that ends on the fifth wave pays a tenth of one that is won, so some runs buy two places and some none. Its first run goes far enough to do most of the opening deeds of skill at once; after that someone new comes every two to four runs until the twenty-second. All nine crates were opened by their deeds, not bought. Eighteen to twenty of the thirty oaths were kept by the time the board was full: the oaths outlast it.
+
+What is not as it was asked, or not known:
+
+- **"Something to buy after nearly every run for the first thirty"** is two runs in three for this player, for the reason above.
+- **A lock that holds through a camp** was asked for as a gift and is not one: a locked ware already stays for the next camp, for everyone.
+- **The second rule for a hero's own weapon is a choice with nothing behind it yet** in this copy.
+- **A hero's starting relic was not measured** by itself.
+- **The first run's smaller armory makes that run a little stronger,** not weaker, by under a wave: fewer weapons to draw from means more twins to join and more of one kind.
+- Nobody has pressed any of it but a script, and the board is shown as a list, not yet as a tree.
+
 ## Round 3, the screens: the hero found again, moves, quirks, the band, the Hold
 
 The light, the art and both rounds of rules were brought together in the main copy, and what the screens show of them was made properly.

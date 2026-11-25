@@ -79,17 +79,17 @@ export const HEROES: readonly HeroDef[] = [
   {
     id: 'isaura', unit: 'isaura', name: 'Isaura Vane', short: 'Isaura', epithet: 'Captain of the Ninth', who: 'The Ninth Lance is gone. She rides on without it.', line: 'The Ninth does not halt.',
     weapon: 'ninth', stats: { might: 2, speed: 8 }, quirk: 'tilt', quirkName: 'Tilt',
-    says: 'Riding straight couches her lance: the next thrust lands far harder. A sharp turn or a halt loses it. Her lance goes through everyone in its line.', move: 'charge', unlock: { kind: 'kills', kills: 600 },
+    says: 'Riding straight couches her lance: the next thrust lands far harder. A sharp turn or a halt loses it. Her lance goes through everyone in its line.', move: 'charge', unlock: { kind: 'runs', runs: 7 },
   },
   {
     id: 'hroth', unit: 'hroth', name: 'Hroth', short: 'Hroth', epithet: 'the Unburied', who: 'They buried him twice.', line: 'Dig deeper next time.',
     weapon: 'gravecleaver', stats: { might: 2, armor: -2 }, quirk: 'gravedebt', quirkName: 'Grave Debt',
-    says: "Under a third of his health he hits far harder and his axe's kills give health back. Once in a land he gets up from a killing blow. He does not mend by himself.", move: 'opengrave', unlock: { kind: 'wave', wave: 10 },
+    says: "Under a third of his health he hits far harder and his axe's kills give health back. Once in a land he gets up from a killing blow. He does not mend by himself.", move: 'opengrave', unlock: { kind: 'runs', runs: 12 },
   },
   {
     id: 'aldous', unit: 'aldous', name: 'Brother Aldous Bell', short: 'Aldous', epithet: 'the Shepherd', who: 'He rings the dead home, and now the living.', line: 'Stay close. I will count you all at dusk.',
     weapon: 'passingbell', stats: { regen: 6, maxHp: 4, damage: -20 }, quirk: 'shepherd', quirkName: 'Shepherd',
-    says: 'He brings one companion more. What heals him heals those in his fold, and they strike faster there. He himself hits softly.', move: 'toll', unlock: { kind: 'wave', wave: 12 },
+    says: 'He brings one companion more. What heals him heals those in his fold, and they strike faster there. He himself hits softly.', move: 'toll', unlock: { kind: 'runs', runs: 18 },
   },
   {
     id: 'ysolde', unit: 'ysolde', name: 'Ysolde Rimeheart', short: 'Ysolde', epithet: 'the Winter Widow', who: 'The cold took her husband. She took the cold.', line: 'It only hurts until it does not.',

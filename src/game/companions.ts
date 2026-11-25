@@ -77,17 +77,17 @@ export const COMPANIONS: readonly CompanionDef[] = [
   {
     id: 'mossback', unit: 'mossback', name: 'Mossback', kind: 'an old siege turtle', does: 'guard', says: 'Walks ahead, slow, with a great deal of health.',
     quirk: 'bulwark', quirkName: 'Bulwark', quirkSays: 'Enemies near him go for him, and shots stop on his shell.',
-    hp: 55, dmg: 3, grow: 0.5, every: 1.3, speed: 82, r: 22, reach: 30, knock: 10, unlock: { kind: 'wave', wave: 8 },
+    hp: 55, dmg: 3, grow: 0.5, every: 1.3, speed: 82, r: 22, reach: 30, knock: 10, unlock: { kind: 'runs', runs: 5 },
   },
   {
     id: 'quill', unit: 'quill', name: 'Quill', kind: 'an eagle', does: 'stoop', says: 'Stoops on those who shoot from far off.',
     quirk: 'keen', quirkName: 'Keen', quirkSays: 'Whatever she strikes is marked and takes more from all.',
-    hp: 0, dmg: 9, grow: 1.5, every: 2.2, speed: 440, r: 12, reach: 14, knock: 8, unlock: { kind: 'kills', kills: 250 },
+    hp: 0, dmg: 9, grow: 1.5, every: 2.2, speed: 440, r: 12, reach: 14, knock: 8, unlock: { kind: 'runs', runs: 3 },
   },
   {
     id: 'greta', unit: 'greta', name: 'Greta', kind: 'a war bear', does: 'maul', says: 'Mauls everyone round her.',
     quirk: 'roar', quirkName: 'Roar', quirkSays: 'When the hero is under half health she roars, and all near her are stunned.',
-    hp: 44, dmg: 6, grow: 1, every: 1.5, speed: 200, r: 20, reach: 52, knock: 22, unlock: { kind: 'boss', boss: 'warlord' },
+    hp: 44, dmg: 6, grow: 1, every: 1.5, speed: 200, r: 20, reach: 52, knock: 22, unlock: { kind: 'runs', runs: 9 },
   },
   {
     id: 'ember', unit: 'ember', name: 'Ember', kind: 'a salamander', does: 'spit', says: 'Spits fire at the nearest.',
@@ -102,7 +102,7 @@ export const COMPANIONS: readonly CompanionDef[] = [
   {
     id: 'thistle', unit: 'thistle', name: 'Thistle', kind: 'a great stag', does: 'ram', says: 'Charges through the line and scatters it.',
     quirk: 'stampede', quirkName: 'Stampede', quirkSays: 'What he throws aside is stunned.',
-    hp: 32, dmg: 8, grow: 1.4, every: 3.2, speed: 190, r: 18, reach: 26, knock: 30, unlock: { kind: 'kills', kills: 2500 },
+    hp: 32, dmg: 8, grow: 1.4, every: 3.2, speed: 190, r: 18, reach: 26, knock: 30, unlock: { kind: 'runs', runs: 22 },
   },
 ];
 

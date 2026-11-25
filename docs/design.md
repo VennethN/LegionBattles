@@ -113,14 +113,17 @@ Each is opened by a deed or bought with renown. Biscuit comes after the first ru
 
 ## Between runs: the Hold
 
-The title screen becomes the Hold, the place the runs go out from. It keeps:
+The title screen becomes the Hold, the place the runs go out from. Deeds open most heroes and companions within a player's first evenings, so the Hold has two things at its heart: lasting upgrades that renown buys, and for every run a next thing to go for. It keeps:
 
-- **Renown**, earned by every run: for waves come through, captains beaten, deeds done for the first time.
-- **The Hall**: the heroes. Those not opened are dark, with "???" and the deed that opens them.
+- **Renown**, earned by every run: for waves come through, captains beaten, the win, deeds done for the first time, and more for every vow the run was sworn under.
+- **The Hall**: the heroes. Those not opened are dark, with "???" and the deed that opens them (or a price in renown, dear, for whoever is stuck).
+- **Oaths**: three for each hero, deeds done as that hero. A win gives them a new name, shown on the title. A win under a vow gives them a relic every run of theirs begins with. And a deed that is about their quirk opens a second rule for their own weapon, to choose instead of the first. Thirty in all.
 - **The Kennels**: the companions, the same way, and the places in the band.
-- **The Armory**: weapons, wares and relics start as a smaller pool and more are opened with renown, a few at a time, so that later runs have more in them than the first.
-- **Blessings**: a few lasting gifts in steps, each small (coins to start with, a free reroll in every camp, a third road, a little health).
-- **Danger**: once the twentieth wave has been won, the next danger opens (five in all). Each adds a rule (enemies faster, prices higher, champions in every wave, captains with a second wind) and more renown. A hero's badge shows the highest they have won at.
+- **The Armory**: weapons, wares and relics start as a smaller pool and the rest come in crates by theme. A crate is opened by its own deed (three bows held in one run opens the fletcher's) or bought with renown, so that playing a way opens more of that way.
+- **The Board**: lasting upgrades bought with renown, each making every run after it stronger. The owner asked for this in so many words: "since its roguelite, can we add upgrades we can spend on to make permanent per run". Four branches, each grown from its foot, a deeper place needing the one before it: the hero (health, armor and speed of foot down one side, harm and speed of striking down the other, one getting-up a run at the bottom, dear), the band (companions' health, harm, and how soon a fallen one gets up), the purse (coins to begin with, free looks at other wares, marks that strike a ware from a run's table) and fortune (luck, experience, reach, a third road, a second look at a relic's choice). Prices rise down a branch and a new player can always nearly afford something. It can be taken back whole for what was paid, to be spent another way. The enemies are not made stronger to take it back: the vows are what a strong player adds.
+- **Vows**: hard rules sworn before a run, in any mix: they come quicker; the camp costs more; the fallen leave no hearts; a champion walks in every wave; one hand fewer; every wave by night; no rest between waves; a captain gets up once. A first win opens the first of them and more open as runs are won under vows. Each vow sworn pays more renown, and a hero's badge is the most vows they have won under, and which. (This was first written as five steps of "danger", each on top of the last. A designer who had not seen the game pointed out that fixed steps of difficulty are one other game's exact scheme, and that a mix chosen by the player is both more ours and more to play with.)
+- **The Daily Road**: one run a day with a hero, a companion and a seed that are the same for everyone, worked out from the date. Its best wave and its time are kept, for a portal's board later.
+- **Deeds**, and at the end of every run the nearest ones not yet done and how far along each is.
 - **The Chronicle**: every hero, companion, enemy, weapon and relic met, and "???" for the rest.
 
 ## How it looks
