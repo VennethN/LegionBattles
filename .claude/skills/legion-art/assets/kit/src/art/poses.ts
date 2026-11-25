@@ -53,6 +53,22 @@ export const ATTACK_POSES: Record<AttackStyle, AttackPoses> = {
     windup: pose({ weaponRot: -70, weaponX: -8, weaponY: -8, bodyRot: -10, headRot: -5, rootX: -4 }),
     strike: pose({ weaponRot: 70, weaponX: 10, bodyRot: 12, headRot: 5, rootX: 8, legBackRot: 12, extraRot: -10 }),
   },
+  // A beast, whose weapon is its head: drawn back, then snapped forward and down. It moves less than a
+  // spear does, because a head that goes as far as a spear comes off its neck.
+  bite: {
+    windup: pose({ weaponRot: -14, weaponX: -5, bodyRot: -6, rootX: -6, legFrontRot: -8 }),
+    strike: pose({ weaponRot: 12, weaponX: 8, bodyRot: 7, rootX: 16, legBackRot: 12, extraRot: -12 }),
+  },
+  // An engine's throwing arm: held down, then over the top. The frame under it hardly stirs.
+  lob: {
+    windup: pose({ weaponRot: -8, bodyRot: -2, bodySy: -0.02 }),
+    strike: pose({ weaponRot: 64, bodyRot: 3, rootX: 2, bodySy: 0.03, extraRot: -8 }),
+  },
+  // A log or a drill on wheels: drawn back, then run forward. It stays on its wheels, and they turn.
+  ram: {
+    windup: pose({ weaponX: -14, rootX: -4, bodyRot: -2, legBackRot: -16, legFrontRot: -16 }),
+    strike: pose({ weaponX: 20, rootX: 10, bodyRot: 3, legBackRot: 24, legFrontRot: 24, extraRot: -10 }),
+  },
 };
 
 /** The top of a walking hop. */

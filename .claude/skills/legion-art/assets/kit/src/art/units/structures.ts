@@ -18,15 +18,15 @@ import { part } from './common';
 
 const X = 96;
 const Y = 180;
-const SNOWCAP: Material = { fill: SNOW.light, shade: SNOW.shade };
-const SANDSTONE: Material = { fill: SAND.dark, shade: DIRT.fill };
+export const SNOWCAP: Material = { fill: SNOW.light, shade: SNOW.shade };
+export const SANDSTONE: Material = { fill: SAND.dark, shade: DIRT.fill };
 
-function structure(id: string, top: number, style: AttackStyle, muzzle: Pt, parts: PartSpec[]): UnitArt {
+export function structure(id: string, top: number, style: AttackStyle, muzzle: Pt, parts: PartSpec[]): UnitArt {
   return { id, style, muzzle, top, parts };
 }
 
 /** A flag on a staff, its foot at (x, y): the one part of a building that moves. */
-function flag(x: number, y: number, tall: number, ragged = false): PartSpec {
+export function flag(x: number, y: number, tall: number, ragged = false): PartSpec {
   return part('flag', 'extra', 'body', [x, y], (d, team) => {
     d.piece('staff', roundRect(x - 2.5, y - tall, 5, tall, 2), WOOD, { shade: 0 });
     const top = y - tall;
@@ -39,12 +39,12 @@ function flag(x: number, y: number, tall: number, ragged = false): PartSpec {
 }
 
 /** Planks: the dark lines between the boards of a timber wall. */
-function planks(c: Doc, x0: number, x1: number, y0: number, y1: number, step = 11): void {
+export function planks(c: Doc, x0: number, x1: number, y0: number, y1: number, step = 11): void {
   for (let x = x0 + step; x < x1 - 2; x += step) c.shadeOver('plank', roundRect(x - 1.2, y0, 2.4, y1 - y0, 0), 0.9);
 }
 
 /** A door: one arch of shadow. */
-function door(c: Doc, x: number, y: number, w: number, h: number): void {
+export function door(c: Doc, x: number, y: number, w: number, h: number): void {
   c.flat('door', path().M(x - w / 2, y).L(x - w / 2, y - h + w / 2).Q(x - w / 2, y - h, x, y - h).Q(x + w / 2, y - h, x + w / 2, y - h + w / 2).L(x + w / 2, y).Z(), HOOD_INTERIOR);
 }
 

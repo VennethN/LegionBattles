@@ -108,23 +108,29 @@ export function held(p: Pt, hold: readonly [number, number, number]): Pt {
   return [Math.round(hold[0] + p[0] * c - p[1] * s), Math.round(hold[1] + p[0] * s + p[1] * c)];
 }
 
-/** A unit from its recipe. Its line in the notes is written as it is made. */
-export function figure(id: string, r: Recipe): UnitArt {
-  note(id, r.set, r.role, r.read);
+/** The parts of whoever a recipe describes, from the hips up: everything but the shadow and the legs. */
+export function upper(r: Recipe): { back: PartSpec[]; front: PartSpec[] } {
   const hand: Pt = [r.hold[0], r.hold[1]];
   const g: Grip = { hand, angle: r.hold[2] };
   const weapon = part('weapon', 'weapon', 'body', hand, (d, team) => r.arm.draw(d, g, team));
-  const parts: PartSpec[] = [
-    ground(r.shadow),
-    ...(r.back ?? []),
-    ...legs(r.legs ?? LEATHER),
-    part('body', 'body', 'root', FEET, (d, team) => r.body(d, team, hand)),
-    ...(r.crest ?? []),
-    part('head', 'head', 'body', NECK, r.head.draw),
-    ...(r.off && !r.offOver ? [r.off] : []),
-    weapon,
-    ...(r.off && r.offOver ? [r.off] : []),
-  ];
+  return {
+    back: r.back ?? [],
+    front: [
+      part('body', 'body', 'root', FEET, (d, team) => r.body(d, team, hand)),
+      ...(r.crest ?? []),
+      part('head', 'head', 'body', NECK, r.head.draw),
+      ...(r.off && !r.offOver ? [r.off] : []),
+      weapon,
+      ...(r.off && r.offOver ? [r.off] : []),
+    ],
+  };
+}
+
+/** A unit from its recipe. Its line in the notes is written as it is made. */
+export function figure(id: string, r: Recipe): UnitArt {
+  note(id, r.set, r.role, r.read);
+  const u = upper(r);
+  const parts: PartSpec[] = [ground(r.shadow), ...u.back, ...legs(r.legs ?? LEATHER), ...u.front];
   return { id, style: r.style ?? r.arm.style, muzzle: held(r.arm.tip, r.hold), top: r.top ?? r.head.top, parts };
 }
 

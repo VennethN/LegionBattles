@@ -30,7 +30,9 @@ const wanted = UNIT_ART.filter((u) => names.length === 0 || names.includes(u.id)
 if (wanted.length === 0) throw new Error(`roster: nothing is named ${names.join(', ')}`);
 
 const cell = CANVAS + 8;
-const rowH = (both ? CANVAS * 2 : CANVAS) + 26;
+// Riders, towers and a treant's crown stand over the top of the canvas, so a row has room above it.
+const HEAD = 30;
+const rowH = (both ? CANVAS * 2 : CANVAS) + 26 + HEAD;
 const rows = Math.ceil(wanted.length / cols);
 const width = cols * cell + 16;
 const height = rows * rowH + 12;
@@ -38,11 +40,11 @@ let body = `<rect width="${width}" height="${height}" fill="${GRASS.fill}"/>`;
 let n = 0;
 wanted.forEach((unit, i) => {
   const x = 8 + (i % cols) * cell;
-  const y = 6 + Math.floor(i / cols) * rowH;
+  const y = 6 + HEAD + Math.floor(i / cols) * rowH;
   const pose: Pose | undefined = poseName === 'hit' ? HIT_POSE : poseName === 'windup' || poseName === 'strike' ? ATTACK_POSES[unit.style][poseName] : undefined;
   body += `<g transform="translate(${x} ${y})">${composeUnit(unit, 'blue', { pose, idSuffix: `-b${n++}` })}</g>`;
   if (both) body += `<g transform="translate(${x + CANVAS} ${y + CANVAS}) scale(-1 1)">${composeUnit(unit, 'red', { pose, idSuffix: `-r${n++}` })}</g>`;
-  body += `<text x="${x + CANVAS / 2}" y="${y + rowH - 8}" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="${OUTLINE}">${unit.id}</text>`;
+  body += `<text x="${x + CANVAS / 2}" y="${y + rowH - HEAD - 8}" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="${OUTLINE}">${unit.id}</text>`;
 });
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">${body}</svg>`;
 fs.mkdirSync(path.dirname(out), { recursive: true });
