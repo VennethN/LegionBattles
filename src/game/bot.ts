@@ -281,6 +281,15 @@ export class Bot {
       return steer;
     }
 
+    // ---- what the contract asks: who to keep the boss away from, and whether to play safe
+    const live = (id: string): boolean => h.tasks.some((t) => t.id === id && !t.done && !t.failed);
+    const kept = [
+      ...(live('villagers') ? h.allies.filter((x) => x.group === 'villager') : []),
+      ...(live('cart') ? h.buildings.filter((x) => x.def.id === 'cart') : []),
+    ];
+    const guard = kept.length ? { x: kept.reduce((n, k) => n + k.x, 0) / kept.length, y: kept.reduce((n, k) => n + k.y, 0) / kept.length } : null;
+    const safeOnly = live('careful') || live('together');
+
     // ---- where to stand
     const s = hu.def.strike;
     let tx = hu.x;
@@ -290,7 +299,9 @@ export class Bot {
     if (s.kind === 'bolt') {
       // At a distance: far enough for the bolt's bite, and going round rather than straight back into a wall.
       const want = Math.min(s.reach - 40, (s.far?.beyond ?? 200) + 70);
-      const ang = Math.atan2(hu.y - m.y, hu.x - m.x) + this.side * 0.25 + spread * 0.3;
+      // Kept people behind the boss: stand on the far side of it from them, so that it turns and strikes away from them.
+      const away = guard ? Math.atan2(m.y - guard.y, m.x - guard.x) : null;
+      const ang = (away ?? Math.atan2(hu.y - m.y, hu.x - m.x)) + this.side * 0.25 + spread * 0.3;
       tx = m.x + Math.cos(ang) * want;
       ty = m.y + Math.sin(ang) * want;
       const e = FIELD.edge + 30;
@@ -304,8 +315,10 @@ export class Bot {
       if (stone && m.state === 'walk') [tx, ty] = stone;
     } else {
       // Up close: within reach of it, and of a helper if one is nearer.
-      const want = Math.min(blow.reach, s.reach) + m.def.r * m.size - 22;
-      const ang = Math.atan2(hu.y - m.y, hu.x - m.x) + (this.partner ? spread * 0.6 : 0);
+      // Playing safe, it waits at the edge of reach until the boss is open.
+      const want = Math.min(blow.reach, s.reach) + m.def.r * m.size - 22 + (safeOnly && !open ? 60 : 0);
+      const away = guard ? Math.atan2(m.y - guard.y, m.x - guard.x) : null;
+      const ang = (away ?? Math.atan2(hu.y - m.y, hu.x - m.x)) + (this.partner ? spread * 0.6 : 0);
       tx = m.x + Math.cos(ang) * want;
       ty = m.y + Math.sin(ang) * want;
       const helper = h.helpers.find((f) => !f.def.still && dist(f.x, f.y, hu.x, hu.y) < 150);
@@ -340,7 +353,9 @@ export class Bot {
     const awake = m.state !== 'asleep' && m.state !== 'dead' && m.state !== 'shift';
     const reach = blow.kind === 'bolt' ? blow.reach - 30 : blow.reach + m.def.r * m.size - 10;
     const helperNear = h.helpers.find((f) => !f.def.still && dist(f.x, f.y, hu.x, hu.y) < blow.reach + 10);
-    if (awake && dm <= reach) {
+    // Playing safe, it attacks only into an opening, or from far off.
+    const may = !safeOnly || open || blow.kind === 'bolt';
+    if (awake && dm <= reach && may) {
       steer.attack = true;
       steer.aim = Math.atan2(m.y - hu.y, m.x - hu.x);
       // A melee hunter stands to strike: walking out of reach mid-chain wastes the blow.

@@ -306,8 +306,8 @@ export const HUNTERS: readonly HunterDef[] = [
   },
 ];
 
-/** A party: how much each hunter more adds to the boss's health and to its stagger, how much sooner it attacks again, how much more the hunt pays for each, and what a hand for hire takes of it. */
-export const PARTY = { most: 4, hp: 1.6, stagger: 1.1, gap: 0.3, pay: 0.3, hiredCut: 0.2 };
+/** A party: how much each hunter more adds to the boss's health, its stagger and the damage of its blows, how much sooner it attacks again, how much more the hunt pays for each, and what a hand for hire takes of it. Set by measure so that 1 to 4 hunters win about the same share of a contract. */
+export const PARTY = { most: 4, hp: 1.6, stagger: 1.2, gap: 0.45, dmg: 0.08, pay: 0.3, hiredCut: 0.2 };
 
 /** Helping a fallen hunter up: how near to stand, for how long, with how much of their health they get up, and how fast the help is lost when nobody stands by them. */
 export const REVIVE = { r: 70, time: 2.8, hp: 0.35, grace: 1.5, fade: 0.5 };
@@ -609,6 +609,8 @@ export interface VariantDef {
   armor?: number;
   /** Fights with the attacks of its next phase. */
   ahead?: boolean;
+  /** How much longer it is open after an attack. */
+  recover?: number;
   /** Leaves rot where it walks: a ring every so often, which bursts after its warning. */
   blight?: { every: number; r: number; tell: number; dmg: number };
   /** An attack it makes more often: one of these after every so many of its round. */
@@ -625,7 +627,8 @@ export const VARIANTS: readonly VariantDef[] = [
   { id: 'quick', name: 'Quick', says: 'Moves and attacks 25% faster. Shorter warnings.', kind: 'boss', danger: 2, speed: 1.25, tell: 0.82, gap: 0.8, not: ['giant'] },
   { id: 'armored', name: 'Armored', says: 'Takes 50% less damage until you break its stagger once.', kind: 'boss', danger: 2, armor: 0.5 },
   { id: 'furious', name: 'Furious', says: 'Uses its next phase\'s attacks from the start.', kind: 'boss', mark: 2, danger: 2, ahead: true },
-  { id: 'giant', name: 'Giant', says: '20% more Health. Slower, with bigger attacks.', kind: 'boss', danger: 1, hp: 1.2, speed: 0.8, size: 1.15, tell: 1.15, not: ['quick'] },
+  // Big and slow: its attacks are bigger, but shown longer, further apart, and it is open longer after each.
+  { id: 'giant', name: 'Giant', says: '20% more Health and bigger attacks. Slower, and open longer after each.', kind: 'boss', danger: 1, hp: 1.2, speed: 0.75, size: 1.15, tell: 1.35, gap: 1.35, recover: 1.5, not: ['quick'] },
   { id: 'blighted', name: 'Blighted', says: 'Leaves rot where it walks. The marked ground bursts.', kind: 'boss', danger: 1, blight: { every: 1.7, r: 54, tell: 1.15, dmg: 9 } },
   { id: 'restless', name: 'Restless Dead', says: 'Opens graves twice as often.', kind: 'boss', only: 'sexton', danger: 1, more: { attack: 'graves', every: 2 } },
   { id: 'stampede', name: 'Stampede', says: 'Charges twice in a row. A crash stops the second.', kind: 'boss', only: 'king', mark: 2, danger: 2, again: 'charge' },

@@ -423,10 +423,12 @@ export class Hunt {
   /** Each partner's brain: the bot's, as a partner. None for the player. */
   private readonly brains: Array<Bot | null>;
   /** What the variants do to the boss's numbers, put together. */
-  private readonly vary: { speed: number; tell: number; gap: number; armor: number; ahead: boolean; blight: VariantDef['blight']; again: string; escort: number; waves: VariantDef['waves'] };
+  private readonly vary: { speed: number; tell: number; gap: number; armor: number; ahead: boolean; recover: number; blight: VariantDef['blight']; again: string; escort: number; waves: VariantDef['waves'] };
   private blightIn = 0;
   private waveIn = 0;
   private againDone = false;
+  /** A Stampede's second charge, waiting for its pause to end. Anything that dazes or holds it in between stops it. */
+  private againNext: AttackDef | null = null;
   /** Harm done to the boss by each of the party: who hurt it most is one it turns on. */
   private readonly dealtBy: number[];
   private nextId = 1;
@@ -469,7 +471,7 @@ export class Hunt {
     const num = (f: (v: VariantDef) => number | undefined, base: number): number => vs.reduce((k, v) => k * (f(v) ?? 1), base);
     this.vary = {
       speed: num((v) => v.speed, 1), tell: num((v) => v.tell, 1), gap: num((v) => v.gap, 1), armor: vs.reduce((k, v) => Math.max(k, v.armor ?? 0), 0),
-      ahead: vs.some((v) => v.ahead), blight: vs.find((v) => v.blight)?.blight, again: vs.find((v) => v.again)?.again ?? '',
+      ahead: vs.some((v) => v.ahead), recover: num((v) => v.recover, 1), blight: vs.find((v) => v.blight)?.blight, again: vs.find((v) => v.again)?.again ?? '',
       escort: vs.reduce((k, v) => k + (v.escort ?? 0), 0), waves: vs.find((v) => v.waves)?.waves,
     };
     this.blightIn = this.vary.blight?.every ?? 0;
@@ -1394,6 +1396,7 @@ export class Hunt {
     this.tells = this.tells.filter((t) => !(t.foe && t.by === 0));
     this.pending = [];
     this.dash = null;
+    this.againNext = null;
     this.monster.attack = null;
   }
 
@@ -1497,7 +1500,7 @@ export class Hunt {
         if (this.pending.length === 0 && !this.tells.some((t) => t.foe && t.by === 0) && !this.dash) {
           const a = m.attack as AttackDef;
           m.attack = null;
-          this.openFor('recover', a.recover, 'recover');
+          this.openFor('recover', a.recover * this.vary.recover, 'recover');
           // The attack is over. If it missed, the step that asked for that is done; if not, it is made again.
           if (!this.stepHurt) {
             this.did('avoid');
@@ -1513,7 +1516,17 @@ export class Hunt {
       case 'dazed':
       case 'held':
         m.left -= dt;
-        if (m.left <= 0) this.walkOn();
+        if (m.left > 0) return;
+        if (this.againNext && m.state === 'recover') {
+          const a = this.againNext;
+          this.againNext = null;
+          m.aim = Math.atan2(this.target().y - m.y, this.target().x - m.x);
+          // The second charge is shown a third longer: it comes when the hunter is still getting up from the first.
+          this.start(a, 1.35);
+          return;
+        }
+        this.againNext = null;
+        this.walkOn();
         return;
       case 'broken':
         m.left -= dt;
@@ -1602,7 +1615,7 @@ export class Hunt {
     const m = this.monster;
     const t = this.target();
     const k = m.size;
-    const dmg = attack.dmg * this.scale.dmg;
+    const dmg = attack.dmg * this.scale.dmg * (1 + PARTY.dmg * (this.party.length - 1));
     const base = { left: seconds, of: seconds, dmg, foe: true, attack: attack.id, by, len: 0, w: 0, r: 0, half: 0, inner: 0, angle: 0, root: attack.root };
     const made: Tell[] = [];
     // What is marked at a target is marked at one more of the party, for an attack that splits, against three or more.
@@ -1717,9 +1730,10 @@ export class Hunt {
       m.attack = null;
       // A Stampede: the charge again at once, unless a crash stopped it.
       if (this.vary.again && !this.againDone && a?.id === this.vary.again) {
+        // A Stampede: it turns, paws for a moment, and charges again. A crash on the first stops the second.
         this.againDone = true;
-        m.aim = Math.atan2(this.target().y - m.y, this.target().x - m.x);
-        this.start(a, 1);
+        this.againNext = a;
+        this.openFor('recover', 1.1, 'recover');
         return;
       }
       this.openFor('recover', a?.recover ?? 0.8, 'recover');
