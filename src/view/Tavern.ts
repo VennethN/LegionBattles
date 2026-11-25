@@ -46,26 +46,38 @@ interface Plan {
 }
 
 const WIDE: Plan = {
-  door: 0.07, board: 0.19, window: 0.33, hearth: 0.53, stair: 0.7, table: [0.6, 0.76, 0.9], bar: [0.8, 1.0, 0.82], floor: 0.6,
+  door: 0.05, board: 0.13, window: 0.27, hearth: 0.5, stair: 0.74, table: [0.66, 0.8, 0.9], bar: [0.84, 1.0, 0.82], floor: 0.6,
   at: {
-    marta: { x: 0.12, y: 0.9, face: 1 },
-    jory: { x: 0.32, y: 0.84, face: -1 },
-    agnes: { x: 0.45, y: 0.86, face: 1 },
-    brask: { x: 0.68, y: 0.92, face: -1 },
-    sellsword: { x: 0.86, y: 0.86, face: -1 },
-    bowman: { x: 0.95, y: 0.88, face: -1 },
+    // In the door to the river, with her pole: the ferry is just outside.
+    ida: { x: 0.035, y: 0.88, face: 1 },
+    marta: { x: 0.11, y: 0.9, face: 1 },
+    jory: { x: 0.235, y: 0.84, face: -1 },
+    // At his block, the cleaver in it.
+    silas: { x: 0.35, y: 0.88, face: 1 },
+    agnes: { x: 0.44, y: 0.86, face: 1 },
+    // In the corner by the fire, where an anvil stands.
+    greta: { x: 0.575, y: 0.9, face: -1 },
+    brask: { x: 0.66, y: 0.92, face: -1 },
+    // At the end of the long table, a candle in his hat.
+    ned: { x: 0.78, y: 0.86, face: -1 },
+    sellsword: { x: 0.89, y: 0.86, face: -1 },
+    bowman: { x: 0.96, y: 0.88, face: -1 },
   },
 };
 
 const TALL: Plan = {
-  door: 0.08, board: 0.3, window: 0.52, hearth: 0.82, stair: 0.6, table: [0.04, 0.46, 0.93], bar: [0.6, 1.0, 0.82], floor: 0.42,
+  door: 0.08, board: 0.3, window: 0.52, hearth: 0.82, stair: 0.6, table: [0.44, 0.64, 0.93], bar: [0.72, 1.0, 0.82], floor: 0.42,
   at: {
-    marta: { x: 0.16, y: 0.6, face: 1 },
-    jory: { x: 0.5, y: 0.56, face: -1 },
-    agnes: { x: 0.7, y: 0.6, face: 1 },
-    brask: { x: 0.24, y: 0.95, face: 1 },
-    sellsword: { x: 0.7, y: 0.86, face: -1 },
-    bowman: { x: 0.88, y: 0.88, face: -1 },
+    marta: { x: 0.14, y: 0.6, face: 1 },
+    jory: { x: 0.45, y: 0.56, face: -1 },
+    agnes: { x: 0.66, y: 0.6, face: 1 },
+    greta: { x: 0.92, y: 0.6, face: -1 },
+    ida: { x: 0.05, y: 0.95, face: 1 },
+    brask: { x: 0.2, y: 0.95, face: 1 },
+    silas: { x: 0.36, y: 0.93, face: 1 },
+    ned: { x: 0.54, y: 0.95, face: -1 },
+    sellsword: { x: 0.74, y: 0.86, face: -1 },
+    bowman: { x: 0.9, y: 0.88, face: -1 },
   },
 };
 
@@ -82,6 +94,14 @@ const RESTS: Record<string, Partial<Pose>> = {
   agnes: { weaponRot: 18, weaponY: 2, bodyRot: 5, headRot: 8, extraRot: 6 },
   // By the bench, the spear grounded, looking down at the dogs. Sat on it, once the kit has a sitting pose.
   brask: { weaponRot: -12, weaponY: 8, headRot: 12, bodyRot: 4 },
+  // The hammer's head on the floor, both hands on the haft, by the anvil.
+  greta: { weaponRot: 14, weaponY: 10, bodyRot: 4, headRot: 6 },
+  // Leant on the table's end, the pick shouldered, the candle on his hat lit.
+  ned: { weaponRot: -16, weaponY: -2, bodyRot: 6, headRot: 8 },
+  // In the doorway, the pole grounded and leant on, looking out at the river.
+  ida: { weaponRot: -6, weaponY: 6, bodyRot: -3, headRot: -6 },
+  // At the block, the cleaver let down, the hook hung at his side.
+  silas: { weaponRot: 22, weaponY: 6, bodyRot: 5, headRot: 10 },
 };
 
 /** How tall a hunter stands in the room, in the layout's units: never under about 60 screen pixels on a phone. */
@@ -134,7 +154,7 @@ export class Tavern {
     const plan = view.tall ? TALL : WIDE;
     this.root = scene.add.container(x, y);
     // In a tall window the room is a little wider than the screen, and starts on the hearth.
-    if (view.tall && w > view.w - 12) {
+    if (w > view.w - 12) {
       this.scrollMin = view.w - 6 - w;
       this.root.x = Math.max(this.scrollMin + 6, Math.min(6, view.w / 2 - plan.hearth * w));
       this.dragging(y);
@@ -151,7 +171,9 @@ export class Tavern {
     // The figures come once their pictures are in; the room stands meanwhile.
     const loader = scene.scene.get(ASSETS);
     const art = sheet(scene.game, getManifest());
-    const wanted = ['marta', 'jory', 'agnes', 'brask', 'hound'].map(wantedUnit);
+    // Every hunter drawn in the style, and the dogs at Brask's feet.
+    const drawn = HUNTERS.map((d) => HUNTER_ART[d.id]).filter(isGrim).map((a) => a.grim);
+    const wanted = [...new Set([...drawn, 'hound'])].map(wantedUnit);
     void art.ensureWanted(loader, wanted).then(() => {
       if (this.gone || !scene.scene.isActive()) return;
       this.people(plan);
@@ -190,6 +212,9 @@ export class Tavern {
     this.bar(g, plan, fy);
     this.hearth(g, plan.hearth * w, fy);
     this.table(g, plan);
+    // The new hunters' own corners: a butcher's block for Silas, an anvil for Greta by the fire.
+    if (plan.at.silas) this.block(g, plan.at.silas.x * w + plan.at.silas.face * 46, plan.at.silas.y * this.h);
+    if (plan.at.greta) this.anvil(g, plan.at.greta.x * w - plan.at.greta.face * 50, plan.at.greta.y * this.h);
     // Lanterns from the beam: one over the table, one over the bar.
     for (const lx of [plan.table[0] + 0.04, plan.bar[0] + 0.08]) this.lantern(g, lx * w, h * 0.06 + 20);
   }
@@ -326,6 +351,31 @@ export class Tavern {
     this.glow(x0 + (x1 - x0) * 0.5 + 2, y - 16, 70, 0xffc070, 0.5);
   }
 
+  /** A butcher's block: a round of a trunk on its legs, scored on top, a cleaver stood in it. */
+  private block(g: Phaser.GameObjects.Graphics, x: number, foot: number): void {
+    const y = foot - 40;
+    g.fillStyle(0x0c0704, 1).fillRect(x - 26, y - 4, 52, 46);
+    g.fillStyle(0x5a3a22, 1).fillRect(x - 23, y, 46, 12);
+    g.fillStyle(0x3a2416, 1).fillRect(x - 23, y + 12, 46, 10);
+    for (const lx of [x - 20, x + 12]) g.fillStyle(0x24170e, 1).fillRect(lx, y + 22, 8, 18);
+    g.lineStyle(1, 0x2a1a10, 0.8).lineBetween(x - 16, y + 3, x - 4, y + 9).lineBetween(x + 2, y + 2, x + 14, y + 8);
+    // The cleaver stood in it, and a dark stain down its side.
+    g.fillStyle(0x0c0704, 1).fillRect(x + 4, y - 22, 16, 22);
+    g.fillStyle(0x9aa0a6, 1).fillRect(x + 6, y - 20, 12, 14);
+    g.fillStyle(0x3a1010, 0.9).fillRect(x - 10, y + 12, 6, 12);
+  }
+
+  /** An anvil on its stump, in the corner by the fire: the smith's. */
+  private anvil(g: Phaser.GameObjects.Graphics, x: number, foot: number): void {
+    const y = foot - 34;
+    g.fillStyle(0x0c0704, 1).fillRect(x - 16, y + 12, 32, 24);
+    g.fillStyle(0x3a2416, 1).fillRect(x - 13, y + 14, 26, 22);
+    g.fillStyle(0x0c0704, 1).fillTriangle(x - 34, y - 2, x - 18, y - 2, x - 18, y + 6).fillRect(x - 20, y - 6, 42, 16);
+    g.fillStyle(0x4a4e54, 1).fillRect(x - 17, y - 3, 36, 8);
+    g.fillStyle(0x6e747a, 1).fillRect(x - 17, y - 3, 36, 3);
+    this.glow(x, y - 4, 40, 0xff9040, 0.35);
+  }
+
   private lantern(g: Phaser.GameObjects.Graphics, x: number, y: number): void {
     g.lineStyle(2, 0x0c0704, 1).lineBetween(x, y, x, y + 22);
     g.fillStyle(0x0c0704, 1).fillRect(x - 9, y + 22, 18, 24);
@@ -422,9 +472,12 @@ export class Tavern {
         spot.img = img;
         spot.height = img.displayHeight;
       }
+      // One shut away is a black shape and ???; how to open them is said only while they are pointed at or tapped,
+      // so that ten people in a row do not bury each other in words.
+      let how: Phaser.GameObjects.Text | null = null;
       if (!open) {
         this.root.add(label(this.scene, x, y - spot.height - 14, '???', { size: 20, face: 'display', color: BONE.shade }));
-        const how = label(this.scene, x, y + 18, opensBy(id) || 'Locked', { size: 15, color: BONE.shade, wrap: 150 });
+        how = label(this.scene, x, y + 18, opensBy(id) || 'Locked', { size: 15, color: BONE.fill, wrap: 160 }).setVisible(false).setDepth(5);
         this.root.add(how);
       }
       // A zone round them to press, and their name over them while the pointer is on them.
@@ -434,15 +487,25 @@ export class Tavern {
       zone.setSize(96, spot.height + 24).setInteractive({ useHandCursor: true });
       this.root.add(zone);
       zone.on('pointerover', () => {
+        how?.setVisible(true);
         if (!open) return;
         spot.name ??= label(this.scene, x, y - spot.height - 14, def.short.toUpperCase(), { size: 17, face: 'display', color: HOLY.fill });
         this.root.add(spot.name);
         spot.name.setVisible(true);
         spot.lit = Math.max(spot.lit, 0.5);
       });
-      zone.on('pointerout', () => spot.name?.setVisible(false));
+      zone.on('pointerout', () => {
+        spot.name?.setVisible(false);
+        how?.setVisible(false);
+      });
       zone.on('pointerup', () => {
         if (this.dragged > 8) return;
+        // A tap on one shut away says how to open them, and nothing more.
+        if (how) {
+          how.setVisible(true);
+          this.scene.time.delayedCall(2600, () => how?.setVisible(false));
+          return;
+        }
         sfx.play('click');
         // A light comes up on them and they step forward, and then the detail opens.
         spot.lit = 2;

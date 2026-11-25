@@ -73,9 +73,45 @@ const WOOD: Array<[string, number, number, number, 'far' | 'back' | 'field' | 'n
   ['standing-stone', 0.03, 0.42, 0.9, 'field'], ['standing-stone-low', 0.97, 0.5, 0.9, 'field'], ['standing-stone', 0.96, 0.9, 0.9, 'field'], ['standing-stone-low', 0.05, 0.92, 0.9, 'field'],
   ['trunk-flat', 0.04, 1.04, 1.3, 'near'], ['trunk-flat', 0.95, 1.05, 1.3, 'near'],
 ];
-const DRESSING: Record<string, typeof CHURCHYARD> = { churchyard: CHURCHYARD, wood: WOOD };
+/** The rotten cellar under Harrow, where the Spinner hangs: vaults far off, cask racks, pillars, broken casks. */
+const CELLAR: typeof CHURCHYARD = [
+  ['far-vaults', 0.3, 0.045, 1.4, 'far'], ['far-vaults', 0.72, 0.045, 1.4, 'far'],
+  ['cask-rack', 0.14, 0.09, 1, 'back'], ['cask-rack', 0.86, 0.09, 1, 'back'],
+  ['cellar-pillar', 0.04, 0.3, 0.95, 'field'], ['cellar-pillar', 0.96, 0.34, 0.95, 'field'], ['cellar-pillar', 0.05, 0.78, 0.95, 'field'], ['cellar-pillar', 0.95, 0.8, 0.95, 'field'],
+  ['broken-casks', 0.035, 0.55, 0.9, 'field'], ['broken-casks', 0.965, 0.58, 0.9, 'field'], ['broken-casks', 0.14, 0.95, 0.9, 'field'],
+  ['cellar-flat', 0.08, 1.04, 1.3, 'near'], ['cellar-flat', 0.93, 1.05, 1.3, 'near'],
+];
+
+/** The drowned abbey of Saint Wenna, where the Bell Abbot rings: its far arches, fallen columns, pews and the font. */
+const ABBEY: typeof CHURCHYARD = [
+  ['far-abbey', 0.5, 0.045, 1.5, 'far'],
+  ['fallen-column', 0.18, 0.1, 1, 'back'], ['fallen-column', 0.82, 0.1, 1, 'back'],
+  ['pew', 0.04, 0.32, 0.9, 'field'], ['pew', 0.96, 0.3, 0.9, 'field'], ['pew', 0.035, 0.6, 0.9, 'field'], ['pew', 0.965, 0.64, 0.9, 'field'],
+  ['font', 0.05, 0.9, 0.9, 'field'], ['font', 0.94, 0.92, 0.9, 'field'],
+  ['abbey-flat', 0.08, 1.04, 1.3, 'near'], ['abbey-flat', 0.93, 1.05, 1.3, 'near'],
+];
+
+/** The old foundry at Black Pit, where the Furnace burns: its far chimneys, hoists, mould racks and heaps of coal. */
+const FOUNDRY: typeof CHURCHYARD = [
+  ['far-foundry', 0.3, 0.045, 1.4, 'far'], ['far-foundry', 0.74, 0.045, 1.4, 'far'],
+  ['hoist', 0.12, 0.1, 1, 'back'], ['mould-rack', 0.5, 0.09, 1, 'back'], ['hoist', 0.88, 0.1, 1, 'back'],
+  ['coal-heap', 0.04, 0.4, 0.9, 'field'], ['coal-heap', 0.96, 0.44, 0.9, 'field'], ['mould-rack', 0.04, 0.78, 0.9, 'field'],
+  ['poured-iron', 0.95, 0.8, 0.9, 'field'],
+  ['foundry-flat', 0.08, 1.04, 1.3, 'near'], ['foundry-flat', 0.93, 1.05, 1.3, 'near'],
+];
+
+/** The mirror maker's hall, where the Mirror King is not where he seems: far pillars, benches, crates of panes. */
+const HALL: typeof CHURCHYARD = [
+  ['far-hall', 0.5, 0.045, 1.5, 'far'],
+  ['hall-pillar', 0.1, 0.1, 1, 'back'], ['hall-pillar', 0.36, 0.09, 1, 'back'], ['hall-pillar', 0.64, 0.09, 1, 'back'], ['hall-pillar', 0.9, 0.1, 1, 'back'],
+  ['bench', 0.04, 0.36, 0.9, 'field'], ['bench', 0.96, 0.4, 0.9, 'field'],
+  ['pane-crate', 0.04, 0.72, 0.9, 'field'], ['pane-crate', 0.96, 0.76, 0.9, 'field'],
+  ['hall-flat', 0.08, 1.04, 1.3, 'near'], ['hall-flat', 0.93, 1.05, 1.3, 'near'],
+];
+
+const DRESSING: Record<string, typeof CHURCHYARD> = { churchyard: CHURCHYARD, wood: WOOD, cellar: CELLAR, abbey: ABBEY, foundry: FOUNDRY, hall: HALL };
 /** What a crow will sit on. */
-const PERCHED = new Set(['wall', 'lych-gate', 'dead-tree', 'hunting-wall', 'fallen-tree', 'standing-stone']);
+const PERCHED = new Set(['wall', 'lych-gate', 'dead-tree', 'hunting-wall', 'fallen-tree', 'standing-stone', 'fallen-column', 'hoist', 'cask-rack']);
 
 export class LairScene extends Phaser.Scene {
   private hunt!: Hunt;
@@ -761,7 +797,11 @@ export class LairScene extends Phaser.Scene {
     const hy = hy0 - 20 + (my - this.tall() * 0.45 - (hy0 - 20)) * lean;
     // Never so far toward the boss that the hunter is near the edge of the view: they stay in its middle part.
     const kx = Math.max(hx0 - view.w * 0.28, Math.min(hx0 + view.w * 0.28, hx));
-    const ky = Math.max(hy0 - view.h * 0.24, Math.min(hy0 + view.h * 0.2, hy));
+    let ky = Math.max(hy0 - view.h * 0.24, Math.min(hy0 + view.h * 0.2, hy));
+    // A tall boss's head is kept below the bars across the top, as long as the hunter can still be seen above the
+    // buttons at the foot: the view rises to show it rather than letting the bars cut it off.
+    const bars = view.tall ? 170 : 84;
+    ky = Math.max(Math.min(ky, my - this.tall() - bars + view.h / 2), hy0 + 130 - view.h / 2);
     const cx = view.w >= w.w ? w.w / 2 : Math.max(view.w / 2, Math.min(w.w - view.w / 2, kx));
     const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2, Math.min(w.h - view.h / 2, ky));
     cam.centerOn(cx, cy);

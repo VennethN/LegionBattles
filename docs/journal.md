@@ -2,6 +2,15 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## The contract screen, the camp's cards and the inn's ten places
+
+The owner: "contracts on one side and the selected contract details on the other / Selecting it will show more details about the contract / Plus the boss you'll be facing", and of the camp: "Make sure to make the items clearer / Not just words / But cards with pictures".
+
+- **The board** is a column of posted contracts beside a dossier of the one picked: the boss large and lit, the lair, who posted it and why (and a word from Hobb), what is unlike it this time with the tasks, the party's places, everything it pays, and "Know your quarry": each of its attacks with how its warning looks and what to do, its weak place, its three phases. What has not been seen is "???" until a hunt reaches it (`quarryOf` in lodge.ts; the save keeps how far into each boss a player has been, `met`).
+- **Camp** is a row of cards, one for each building brought, with its picture, its name and how many are left. A card picked up stands as a ghost on the ground with its true reach, green where it may go and red where not; a press on the ground sets it down there with a thump and dust; a building set down is picked up again by pressing it. Number keys pick the cards. `whyNotAt`, `placeAt` and `lift` in hunt.ts, with a test.
+- **The inn** has places for the four new hunters (Ida in the door to the river, Silas at a butcher's block, Greta by an anvil in the corner by the fire, Ned at the end of the long table). With ten people the room is wider than the screen and is dragged sideways. A hunter shut away is a black shape and ???; how to open them is said only when they are pointed at or tapped.
+- **The four later lairs** are dressed from the kit's pieces (cellar, abbey, foundry, hall), the Furnace's heat is a bar under its stagger with what it means now, a tall boss's head is kept below the bars, and long skill names have a short word on their buttons.
+
 ## Four more hunters and four more bosses
 
 The owner: "Add more hunters as well / and bosses".

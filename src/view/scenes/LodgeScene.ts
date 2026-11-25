@@ -548,7 +548,8 @@ export class LodgeScene extends Phaser.Scene {
     const w = view.w;
     const party = theContract().posting ? posterOf(s, theContract().posting as Posting).party : 1;
     const foot = view.h - (tall() ? 150 : 72);
-    const rw = tall() ? Math.max(w - 12, 820) : w - 12;
+    // Wider than the screen, and dragged sideways: ten people need the room.
+    const rw = tall() ? Math.max(w - 12, 820) : Math.max(w - 12, 1360);
     this.tavern = new Tavern(this, 6, top - 4, rw, foot - top + 4, s, (id) => {
       const d = byId(HUNTERS, id);
       if (!d.hired && !isOpen(s, id)) {
@@ -564,7 +565,7 @@ export class LodgeScene extends Phaser.Scene {
     const going = party > 1 ? this.partyLine(party) : `HUNTING AS ${hunter.short.toUpperCase()}`;
     const lx = tall() ? w / 2 : 20;
     label(this, lx, tall() ? foot + 22 : by - 12, going, { size: 15, face: 'display', color: BONE.fill, align: tall() ? 'center' : 'left' });
-    label(this, lx, tall() ? foot + 50 : by + 12, this.note || 'Press a hunter to see them and choose what to bring.', { size: 15, color: HOLY.fill, align: tall() ? 'center' : 'left', wrap: tall() ? w - 40 : w - 300 });
+    label(this, lx, tall() ? foot + 50 : by + 12, this.note || 'Drag to look round the room. Press a hunter to see them and choose what to bring.', { size: 15, color: HOLY.fill, align: tall() ? 'center' : 'left', wrap: tall() ? w - 40 : w - 300 });
     new Button(this, tall() ? w / 2 : w - 130, by, 'HUNT', () => this.leave(), { width: 220, height: 58, size: 26, mat: RUBY });
   }
 

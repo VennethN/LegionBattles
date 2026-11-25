@@ -48,7 +48,7 @@ interface Pad {
 }
 
 /** The short word on a pad for each thing: a pad is narrow. */
-const SHORT: Record<string, string> = { seton: 'DOGS', heel: 'BACK', pikemen: 'SPEARS', crossbowmen: 'BOWS', sappers: 'BOMBS' };
+const SHORT: Record<string, string> = { seton: 'DOGS', heel: 'BACK', pikemen: 'SPEARS', crossbowmen: 'BOWS', sappers: 'BOMBS', forgestrike: 'FORGE', keg: 'KEG', wake: 'LANTERN' };
 
 export class HudScene extends Phaser.Scene {
   /** The partners' plates under the hunter's, and the tasks' strip: what each shows, and the drawing redone each frame. */
@@ -89,6 +89,9 @@ export class HudScene extends Phaser.Scene {
   private campPads: Array<{ root: Phaser.GameObjects.Container; count: Phaser.GameObjects.Text; edge: Phaser.GameObjects.Rectangle; id: string; n: number; picked: boolean }> = [];
   /** Over the row of cards: what the card picked does, in a line with its number. */
   private campSays: Phaser.GameObjects.Text | null = null;
+  /** For a boss that runs hot: what its heat means now, said on the line under its bars. */
+  private heatSays = '';
+  private heatColor = '#ffb060';
   private camp: Phaser.GameObjects.Container | null = null;
   private fight: Phaser.GameObjects.Container | null = null;
   /** Health as it is drawn: what is left, and the part a blow took that drains away after it, the hunter's and the boss's. */
@@ -734,6 +737,23 @@ export class HudScene extends Phaser.Scene {
     }
     g.fillStyle(st >= 1 ? 0xffe8a0 : 0xc89a4a, 1);
     g.fillTriangle(bx + bw + 4, sy - 3, bx + bw + 11, sy + 3.5, bx + bw + 4, sy + 10);
+
+    // A boss that runs hot: how hot, as a glowing bar under the stagger with its two marks, cool and hot. Cooled under
+    // the first it takes more; over the second it takes less; full, it vents.
+    const heat = m.def.heat;
+    if (heat) {
+      const hy2 = sy + 13;
+      trough(bx, hy2, bw, 7);
+      const k = Math.min(1, m.heat / 100);
+      const hot = m.heat >= heat.hot;
+      const cool = m.heat <= heat.cool;
+      g.fillStyle(cool ? 0x4a8ab0 : hot ? 0xe0601a : 0xb04a1a, 1).fillRect(bx, hy2, bw * k, 7);
+      g.fillStyle(cool ? 0xa8d8f0 : 0xffc060, hot ? 0.6 + 0.4 * Math.sin(this.clock * 10) : 0.8).fillRect(bx, hy2, bw * k, 2);
+      for (const at of [heat.cool, heat.hot]) g.fillStyle(0xe8dcc0, 0.9).fillRect(bx + (bw * at) / 100 - 1, hy2 - 2, 2, 11);
+      // What its heat means now, on the line under its bars when that line has nothing else to say.
+      this.heatSays = cool ? 'COOLED: IT TAKES MORE' : hot ? 'TOO HOT: IT TAKES LESS. COOL IT' : '';
+      this.heatColor = cool ? '#a8d8f0' : '#ffb060';
+    } else this.heatSays = '';
   }
 
   /**
@@ -823,7 +843,10 @@ export class HudScene extends Phaser.Scene {
     // Under its bars: what it is doing, by name, while it prepares it; and that it is open, or broken, when it is.
     const doing = m.state === 'tell' || m.state === 'dash' ? (m.attack?.name ?? '').toUpperCase() : '';
     const state = doing || (m.state === 'asleep' ? 'ASLEEP' : m.state === 'broken' ? 'STUNNED' : m.state === 'shift' ? '' : hunt.open ? 'OPEN: ATTACK' : '');
-    this.stateText.setText(state).setColor(doing ? RUBY.fill : HOLY.fill).setAlpha(state === 'STUNNED' ? 0.6 + 0.4 * Math.sin(this.clock * 12) ** 2 : 1);
+    const said = state || this.heatSays;
+    this.stateText.setText(said).setColor(doing ? RUBY.fill : state ? HOLY.fill : this.heatColor).setAlpha(state === 'STUNNED' ? 0.6 + 0.4 * Math.sin(this.clock * 12) ** 2 : 1);
+    // Under the heat bar, for a boss that has one.
+    this.stateText.setY(this.by + (m.def.heat ? 56 : 40));
 
     // Camp: what is left to build, and what to do.
     if (camp) {
