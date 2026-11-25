@@ -27,10 +27,18 @@ import type { Manifest, ManifestImage, ManifestPart } from '../src/art/manifest'
 import { FEET_X, FEET_Y } from '../src/art/rig';
 import { UNIT_ART } from '../src/art/units';
 import { LANDS } from '../src/data/lands';
+import { UNITS } from '../src/data/units';
 import { GRADES } from '../src/game/rarity';
 
 const OUT = path.resolve('public/assets');
 const OVERRIDES = path.resolve('art/overrides');
+
+/**
+ * The kit draws more units than this game has: other games use the same kit, and whoever is drawn for
+ * one is there for all of them. Only the units the game's own data names are written, since a picture
+ * nobody is shown is still a file a player waits for.
+ */
+const CAST = UNIT_ART.filter((u) => u.id in UNITS);
 
 const GENERATED = ['units', 'fx', 'board', 'tiles', 'maps', 'icons', 'packs', 'grades', 'logo'];
 const written = new Set<string>();
@@ -148,7 +156,7 @@ export function buildArt(): Manifest {
 
   let files = 0;
   let overridden = 0;
-  for (const unit of UNIT_ART) {
+  for (const unit of CAST) {
     const parts: ManifestPart[] = [];
     const shown = new Map<string, string>();
     for (const part of unit.parts) {
@@ -237,7 +245,7 @@ export function buildArt(): Manifest {
   write('manifest.json', JSON.stringify(manifest, null, 1) + '\n');
   for (const dir of GENERATED) sweep(path.join(OUT, dir));
   console.log(
-    `art: ${UNIT_ART.length} units, ${files} files under public/assets` +
+    `art: ${CAST.length} of the kit's ${UNIT_ART.length} units, ${files} files under public/assets` +
       (overridden ? `, ${overridden} measured from art/overrides` : ''),
   );
   return manifest;

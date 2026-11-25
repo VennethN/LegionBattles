@@ -12,6 +12,7 @@
     "test": "vitest run",
     "art": "tsx scripts/art.ts",
     "art:sheet": "tsx scripts/sheet.ts",
+    "art:roster": "tsx scripts/roster.ts",
     "cover": "tsx scripts/cover.ts",
     "video:film": "tsx scripts/video.ts",
     "video:cut": "tsx scripts/videocut.ts",

@@ -45,7 +45,7 @@ export function rivet(d: Doc, x: number, y: number, r = 2): void {
  * drawn before anything else of it, so it lies on the body and moves with the
  * head. It is kept inside the shoulders: nothing of it shows past them.
  */
-function under(d: Doc, cx = 97, cy = 110, rx = 25, ry = 9.5): void {
+export function under(d: Doc, cx = 97, cy = 110, rx = 25, ry = 9.5): void {
   d.shadeOver('cast', ellipse(cx, cy, rx, ry), 0.95);
 }
 
@@ -223,7 +223,7 @@ export function mitt(d: Doc, x: number, y: number, mat: Material = LEATHER, r = 
 // ---------------------------------------------------------------- heads
 
 /** The dark where a face would be, cut to the shape it is drawn inside. */
-function dark(d: Doc, name: string, p: Path): void {
+export function dark(d: Doc, name: string, p: Path): void {
   d.flat(name, p, HOOD_INTERIOR);
   d.line(`${name}-edge`, p);
 }
@@ -424,7 +424,8 @@ export interface Grip {
   angle: number;
 }
 
-function at(g: Grip): (p: Path) => Path {
+/** Turns and moves a shape drawn upright about the hand to how it is held. */
+export function at(g: Grip): (p: Path) => Path {
   return (p) => p.rotate(g.angle).translate(g.hand[0], g.hand[1]);
 }
 
@@ -670,7 +671,8 @@ export function furCollar(d: Doc, mat: Material): void {
 
 // ================================================================ more heads
 
-function domePath(): Path {
+/** The round of a head: what most helms and wraps are cut from. */
+export function domePath(): Path {
   return smooth([[97, 50], [119, 57], [129, 78], [125, 99], [108, 108], [84, 108], [69, 99], [65, 78], [75, 57]]);
 }
 

@@ -28,6 +28,7 @@ import { UNIT_ART } from '../src/art/units';
 import { LOGO_H, LOGO_SCALE, LOGO_W, MARK_SIZE } from '../src/art/logo';
 import { FIELDS } from '../src/data/fields';
 import { LANDS } from '../src/data/lands';
+import { UNITS } from '../src/data/units';
 import { COLS, ROWS } from '../src/sim/constants';
 import { buildArt } from './art';
 
@@ -67,7 +68,9 @@ function save(name: string, width: number, height: number, body: string, zoom = 
 }
 
 const only = process.argv.slice(2);
-const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
+// The sheets are of this game's cast. The rest of the kit is looked at with npm run art:roster.
+const cast = UNIT_ART.filter((u) => u.id in UNITS);
+const units = cast.filter((u) => only.length === 0 || only.includes(u.id));
 
 // ------------------------------------------------------------ contact sheet
 {
@@ -181,7 +184,7 @@ const units = UNIT_ART.filter((u) => only.length === 0 || only.includes(u.id));
 {
   // Every unit as one black shape, 48 px tall from its top to its feet. A trap is low and wide:
   // at that height it would lie over its neighbors, so nothing is drawn bigger than a unit is.
-  const all = UNIT_ART;
+  const all = cast;
   const gap = 78;
   const perRow = Math.ceil(all.length / Math.ceil(all.length / 11));
   const rows = Math.ceil(all.length / perRow);

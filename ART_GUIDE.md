@@ -105,8 +105,13 @@ src/art/kit/palette.ts   every color
 src/art/kit/path.ts      shapes: circles, rounded rectangles, soft outlines through points
 src/art/kit/draw.ts      Doc: a picture in the making. piece, flat, line, glint, shadeOver, lightOver, at
 src/art/kit/parts.ts     the reusable parts: legs, torsos, helms, hoods, weapons, shields, capes
+src/art/kit/heads.ts, arms.ts, gear.ts   more heads, more of what a hand holds, shields and what is worn on the back
+src/art/kit/beasts.ts    the four-legged build, and heads that have no face
 src/art/kit/unit.ts      what a unit's art is: parts in draw order, each with a role and a pivot
-src/art/units/*.ts       one file to a unit
+src/art/units/*.ts       the first cast, one file to a unit, and the sets drawn since, one file to a few sets
+src/art/units/figure.ts, catalogue.ts, wearing.ts   a unit from a recipe, and the parts a recipe names
+src/art/units/notes.ts   each unit's line: its set, its role, how it is read
+src/art/check.ts         what a program can check of a unit, run over the whole cast by the tests
 src/art/rig.ts           where each part is, given a pose
 src/art/poses.ts         the far ends of each movement
 src/art/fx.ts            projectiles and effects
@@ -142,11 +147,15 @@ Because the game animates by role, a new unit moves without any code of its own.
 
 ### Movement
 
-`poses.ts` holds the far ends of each movement as offsets from standing still: the windup and the strike for each way of attacking (`slash`, `chop`, `thrust`, `bow`, `cast`, `swing`, `throw`, `shoot`), the top of a hop, the landing, being hit, toppling. A unit names its way of attacking with `style`. The game blends between these; the contact sheet draws each one.
+`poses.ts` holds the far ends of each movement as offsets from standing still: the windup and the strike for each way of attacking (`slash`, `chop`, `thrust`, `bow`, `cast`, `swing`, `throw`, `shoot`, and `bite`, `lob` and `ram` for a beast, an engine's throwing arm and a log on wheels), the top of a hop, the landing, being hit, toppling. A unit names its way of attacking with `style`. The game blends between these; the contact sheet draws each one.
 
 ## Adding a unit
 
-1. **Decide how it is read.** Three things in a sentence: its head, its weapon, what else. Write that sentence as the comment at the top of its file.
+**Look at who is drawn already.** The kit has 202 units and the game 47: `docs/art/roster.md` lists them, and `npm run art:roster -- <set, role or id> both zoom=2` draws any of them to `build/roster.png`. One of those needs only its numbers in `src/data/units.ts`.
+
+**Most new units are a recipe**: a head, a body, a weapon and how it is held, an off hand and something for the back, each picked by name from `src/art/units/catalogue.ts`, a few lines in all. Beasts, riders, golems and engines have builds of their own. `.claude/skills/legion-art/references/kit.md` says how each is made ("Adding a unit: a recipe", "Beasts and riders", "Golems and engines"), and its `rules.md` what the 155 drawn that way taught about faces. What follows is the long hand, for a figure no recipe says.
+
+1. **Decide how it is read.** Three things in a sentence: its head, its weapon, what else. Write it with `note(id, set, role, read)` in `src/art/units/notes.ts`, or the test of the cast fails.
 2. **Reuse what fits** from `kit/parts.ts`: `legs`, `torsoPath` or `robePath`, `belt`, `arm`, `cape`, a shield, a weapon. Add new parts there, not in the unit's file, so the next unit can use them.
 3. **Write `src/art/units/<id>.ts`.** Copy one that is close. A plain foot soldier is about twenty lines:
 
@@ -171,7 +180,7 @@ export const militia: UnitArt = {
 ```
 
 4. **Add it to `src/art/units/index.ts`**, and its numbers to `src/data/units.ts` under the same id.
-5. **Look at it while you draw.** `npx tsx scripts/preview.ts <id>` writes `build/preview.png` with the unit on both teams, in seconds.
+5. **Look at it while you draw.** `npm run art:roster -- <id> both zoom=2` writes `build/roster.png` with the unit on both teams, in seconds, and `pose=strike` shows it mid-blow.
 6. **Run `npm run art:sheet`** and open all four sheets. Check: no face, enough team color, parts that stay joined at every pose, a silhouette of its own.
 7. **Run `npm test`.**
 

@@ -31,7 +31,7 @@ function area(unit: string): number {
 }
 
 describe('the art manifest', () => {
-  it('has art for every unit the game has, and the game has every unit there is art for', () => {
+  it('has art for every unit the game has, and for none it has not: the kit draws more, and they are not written', () => {
     expect(Object.keys(manifest.units).sort()).toEqual(Object.keys(UNITS).sort());
   });
 

@@ -92,6 +92,9 @@ const READY: Record<AttackStyle, Pose> = {
   swing: pose({ weaponRot: -58, weaponY: -7, bodyRot: -5, headRot: -4, offRot: 6 }),
   shoot: ATTACK_POSES.shoot.windup,
   throw: ATTACK_POSES.throw.windup,
+  bite: ATTACK_POSES.bite.windup,
+  lob: ATTACK_POSES.lob.windup,
+  ram: ATTACK_POSES.ram.windup,
 };
 
 // ------------------------------------------------------------ the pieces
