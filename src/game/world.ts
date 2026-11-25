@@ -14,7 +14,7 @@ import {
   ENEMIES, byId, coinShare, enemyAt, waveOf, weaponOf,
   type AllyQuirk, type CompanionDef, type EnemyDef, type MoveDef, type MoveId, type Quirk, type WaveDef, type WeaponDef,
 } from './data';
-import { BREATH, DANGER } from './holdData';
+import { BREATH, VOW } from './holdData';
 import { countKinds, giftsOf, type Gifts } from './kinds';
 import { RELIC } from './relics';
 import { ROAD, type ChampionTrait, type Omen } from './road';
@@ -75,8 +75,10 @@ export interface Setup {
   tithe?: boolean;
   /** What the Bone Dice rolled for this wave: it is in `stats` already, and is here to be shown. */
   bones?: { up: Stat; down: Stat } | null;
-  /** The danger the run is played at, 0 to 5: each step adds a rule (holdData.ts). */
-  danger?: number;
+  /** The vows the run was sworn under, by name: each is a rule (holdData.ts). */
+  vows?: readonly string[];
+  /** The share of their health the hero begins the wave with, where a vow gives no rest between waves. */
+  hurt?: number;
   /** True if the Hold's Second Breath is still to be drawn in this run. */
   breath?: boolean;
 }
@@ -172,7 +174,7 @@ export interface Foe {
   dead: boolean;
   /** What a champion has that the rest have not, or '' for one of the rest. */
   champion: ChampionTrait | '';
-  /** True for a captain that has got up once already (the fourth danger). */
+  /** True for a captain that has got up once already (the vow of the second wind). */
   second?: boolean;
   /** Seconds until a burning champion may blaze again. */
   blaze: number;
@@ -385,7 +387,7 @@ export type Ev =
   | { t: 'loose'; slot: number; angle: number; shot: number }
   | { t: 'hit'; id: number; x: number; y: number; amount: number; crit: boolean; soft: boolean }
   | { t: 'fall'; id: number; x: number; y: number; boss: boolean; swept: boolean }
-  // A captain that fell gets up again: the fourth danger.
+  // A captain that fell gets up again: the vow of the second wind.
   | { t: 'second'; id: number; x: number; y: number }
   // The hero was left standing by the Hold's Second Breath.
   | { t: 'breath'; x: number; y: number }
@@ -503,8 +505,8 @@ export class World {
   risen: Risen[] = [];
   /** Champions and captains killed this wave. */
   banners = 0;
-  /** The danger the wave is fought at, 0 to 5. */
-  readonly danger: number;
+  /** The vows the wave is fought under. */
+  private readonly vows: ReadonlySet<string>;
   /** True once the Hold's Second Breath has been drawn in this wave. */
   breathed = false;
   private breath: boolean;
@@ -514,8 +516,7 @@ export class World {
   /** True once a blow has landed on the hero in this wave, and the captains that fell before one did. */
   struck = false;
   unstruck: string[] = [];
-  /** Mending that the last danger has halved and not yet given. */
-  private mendOwed = 0;
+
   /** What the Bone Dice rolled for this wave, if the run holds them. */
   readonly bones: { up: Stat; down: Stat } | null;
   /** What the kinds of weapon held do (kinds.ts). */
@@ -564,12 +565,13 @@ export class World {
 
   constructor(setup: Setup) {
     this.relics = new Set(setup.relics ?? []);
-    this.danger = Math.max(0, Math.floor(setup.danger ?? 0));
+    this.vows = new Set(setup.vows ?? []);
     this.breath = !!setup.breath;
     // A captain's wave is the captain's: no omen changes it.
     const plain = waveOf(setup.wave);
     this.omen = plain.boss ? 'quiet' : (setup.omen ?? 'quiet');
-    this.night = this.omen === 'night';
+    // The Early Dark: every wave is fought by night, whatever road led to it.
+    this.night = this.omen === 'night' || this.vows.has('dusk');
     this.wave = this.omened(plain);
     this.w = setup.tall ? ARENA.short : ARENA.long;
     this.h = setup.tall ? ARENA.long : ARENA.short;
@@ -584,8 +586,10 @@ export class World {
     this.spare = this.quirk === 'unburied' && (setup.spare ?? true);
     this.rescue = setup.rescue ?? true;
     const maxHp = Math.max(1, Math.round(setup.stats.maxHp));
+    // Open Wounds: the wave is begun with what the last one left.
+    const hp = Math.max(1, Math.min(maxHp, Math.round(maxHp * (setup.hurt ?? 1))));
     this.hero = {
-      x: this.w / 2, y: this.h / 2, hp: maxHp, maxHp, face: 1, moving: false, grace: 0, chill: 0, chillBy: 0,
+      x: this.w / 2, y: this.h / 2, hp, maxHp, face: 1, moving: false, grace: 0, chill: 0, chillBy: 0,
       still: 0, ran: 0, safe: 0, unseen: 0, sure: 0, feast: 0, dash: null,
     };
     const slot = (c: Carried, own: boolean): Slot => ({ def: weaponOf(c.id), tier: c.tier, cool: 0.35, angle: 0, since: 9, own });
@@ -600,8 +604,8 @@ export class World {
     this.xpBy = this.omen === 'horde' ? ROAD.horde.xp : 1;
     // What the road puts on the field.
     if (this.omen === 'champions') this.champsDue = ROAD.champions.at.slice(0, ROAD.champions.count).map((share) => share * this.wave.seconds);
-    // The third danger: a champion walks in every wave from the third, but not beside a captain and not on the road that is all champions.
-    else if (this.danger >= 3 && !this.wave.boss && this.wave.n >= DANGER.champion.from) this.champsDue = [DANGER.champion.at * this.wave.seconds];
+    // Champions Abroad: a champion walks in every wave from the third, but not beside a captain and not on the road that is all champions.
+    else if (this.vows.has('champions') && !this.wave.boss && this.wave.n >= VOW.champion.from) this.champsDue = [VOW.champion.at * this.wave.seconds];
     if (this.omen === 'wagon') this.wagonDue = ROAD.wagon.at * this.wave.seconds;
     if (this.omen === 'stray' && this.stray) this.cageDue = 1.2;
     if (this.omen === 'shrine') {
@@ -853,13 +857,6 @@ export class World {
   /** Gives the hero health back. What heals the shepherd heals his band. */
   private mend(amount: number): void {
     if (this.over) return;
-    if (this.danger >= 5) {
-      // The last danger: mending gives half. Most mending is a point at a time, so the halves are kept until they make one.
-      this.mendOwed += amount * DANGER.mend;
-      amount = Math.floor(this.mendOwed);
-      this.mendOwed -= amount;
-      if (amount <= 0) return;
-    }
     const h = this.hero;
     if (this.quirk === 'shepherd') {
       for (const a of this.band) if (a.down <= 0 && a.maxHp > 0) a.hp = Math.min(a.maxHp, a.hp + amount);
@@ -1228,9 +1225,7 @@ export class World {
       const at = enemyAt(m.def, this.wave.n);
       // The horde is many and each a little weaker. A champion is far more than the one it is made from.
       const c = ROAD.champions;
-      // The last danger: all of them are sturdier.
-      const sturdy = this.danger >= 5 && !m.def.prop ? DANGER.hp : 1;
-      const hp = Math.max(1, Math.round(at.hp * sturdy * (m.champion ? c.hp : this.omen === 'horde' && !m.def.prop ? ROAD.horde.hp : 1)));
+      const hp = Math.max(1, Math.round(at.hp * (m.champion ? c.hp : this.omen === 'horde' && !m.def.prop ? ROAD.horde.hp : 1)));
       if (!m.def.prop && !this.met.includes(m.def.id)) this.met.push(m.def.id);
       const f: Foe = {
         id: m.id, def: m.def, x: m.x, y: m.y, kx: 0, ky: 0, hp, maxHp: hp, dmg: m.champion ? Math.max(1, Math.round(at.dmg * c.dmg)) : at.dmg, face: this.hero.x >= m.x ? 1 : -1,
@@ -1422,7 +1417,7 @@ export class World {
           break;
         }
       }
-      const pace = (f.def.ai === 'cross' ? this.wagonSpeed : f.def.speed) * (f.slow > 0 ? 1 - f.slowBy : 1) * (f.spurred ? 1.3 : 1) * (this.night ? ROAD.night.faster : 1) * (this.danger >= 1 && !f.def.prop ? DANGER.quick : 1);
+      const pace = (f.def.ai === 'cross' ? this.wagonSpeed : f.def.speed) * (f.slow > 0 ? 1 - f.slowBy : 1) * (f.spurred ? 1.3 : 1) * (this.night ? ROAD.night.faster : 1) * (this.vows.has('march') && !f.def.prop ? VOW.quick : 1);
       if (f.def.prop) {
         // A thing: the wagon goes on over the field and away, and a cage stands where it is.
         this.cart(f, pace, dt);
@@ -2250,11 +2245,11 @@ export class World {
     f.hp -= by;
     this.events.push({ t: 'hit', id: f.id, x: f.x, y: f.y, amount: by, crit, soft });
     if (f.hp > 0) return;
-    if (f.boss && this.danger >= 4 && !f.second) {
-      // The fourth danger: a captain that falls gets up once. It is down for a moment first, so the player sees it coming.
+    if (f.boss && this.vows.has('wind') && !f.second) {
+      // Second Wind: a captain that falls gets up once. It is down for a moment first, so the player sees it coming.
       f.second = true;
-      f.hp = Math.max(1, Math.round(f.maxHp * DANGER.wind));
-      f.stun = Math.max(f.stun, DANGER.windStun);
+      f.hp = Math.max(1, Math.round(f.maxHp * VOW.wind));
+      f.stun = Math.max(f.stun, VOW.windStun);
       this.events.push({ t: 'second', id: f.id, x: f.x, y: f.y });
       return;
     }
@@ -2353,7 +2348,8 @@ export class World {
     this.spill(f.x, f.y, coins);
     if (f.boss) this.drop('pack', f.x, f.y, 1);
     else if (this.rng.chance(0.006 * lucky)) this.drop('pack', f.x, f.y, 1);
-    if (this.rng.chance(HEART.chance * lucky)) this.drop('heart', f.x, f.y, HEART.mends);
+    // Bare Fields: the fallen leave no hearts.
+    if (!this.vows.has('famine') && this.rng.chance(HEART.chance * lucky)) this.drop('heart', f.x, f.y, HEART.mends);
   }
 
   /** Coins of ten, of three and of one: a boss or a chest leaves a heap, not a hundred of them. */

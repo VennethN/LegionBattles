@@ -7,7 +7,7 @@
 
 import { BAND, COMPANIONS, HEROES, OLD_HEROES, OMENS, RELICS, type Feat } from './data';
 import { chronicle, type Tally } from './hold';
-import { BLESSINGS, CRATES, DANGERS, DEEDS } from './holdData';
+import { BLESSINGS, CRATES, DEEDS, OATHS, VOWS } from './holdData';
 import { bandSize, survived, type Blessings, type RunData } from './run';
 
 /** 1: heroes without names. 2: named heroes, companions. 3: the road, relics, kinds of weapon. 4: the Hold. */
@@ -51,13 +51,18 @@ export interface SaveData {
   crates: string[];
   /** The steps of each blessing bought. */
   bless: Blessings;
-  /** The danger the next run is played at, and the highest that is open: winning at one opens the next. */
-  danger: number;
-  dangers: number;
-  /** The highest danger each hero has won the twentieth wave at: their badge. A hero who has not won is not here. */
-  won: Record<string, number>;
-  /** Deeds done (holdData.ts). */
+  /** The vows sworn for the next run, by name (holdData.ts). */
+  vows: string[];
+  /** The vows each hero's best win was sworn under: their badge. None for a plain win. A hero who has not won is not here. */
+  won: Record<string, string[]>;
+  /** Deeds done, and the heroes' oaths done (holdData.ts). */
   deeds: string[];
+  oaths: string[];
+  /** The heroes whose own weapon follows its second rule: an oath opens the choice. */
+  alt: string[];
+  /** The day's road as it was last taken: the day, how far it went and how long it was fought. One try a day. And the furthest any day's road has gone. */
+  daily: { date: string; wave: number; seconds: number } | null;
+  dailyBest: number;
   /**
    * The Chronicle: everything met, by kind and name ("foe:warhound"), and
    * a count with it. For an enemy it is how many were slain, for a hero or
@@ -73,7 +78,7 @@ export interface SaveData {
 export function freshSave(): SaveData {
   return {
     v: SAVE_VERSION, best: {}, open: [], kills: 0, coins: 0, felled: [], runs: 0, ended: 0, last: HEROES[0].id, friends: [], band: [], places: 1, auto: true, run: null, sound: true, music: true,
-    told: [], renown: 0, earned: 0, crates: [], bless: {}, danger: 0, dangers: 0, won: {}, deeds: [], seen: {}, tally: null,
+    told: [], renown: 0, earned: 0, crates: [], bless: {}, vows: [], won: {}, deeds: [], oaths: [], alt: [], daily: null, dailyBest: 0, seen: {}, tally: null,
   };
 }
 
@@ -84,6 +89,7 @@ const names = (v: unknown, known: ReadonlySet<string> | null = null): string[] =
 
 const RELIC_IDS: ReadonlySet<string> = new Set(RELICS.map((r) => r.id));
 const OMEN_IDS: ReadonlySet<string> = new Set(OMENS.map((o) => o.id));
+const VOW_IDS: ReadonlySet<string> = new Set(VOWS.map((v) => v.id));
 
 /** A run as it was saved, if it can still be carried on. Anything odd about it and it is let go. */
 function mendRun(raw: unknown): RunData | null {
@@ -100,9 +106,16 @@ function mendRun(raw: unknown): RunData | null {
     isRecord(r.road) && OMEN_IDS.has(String(r.road.omen)) && Array.isArray(r.roads) && r.roads.every((x) => isRecord(x) && OMEN_IDS.has(String(x.omen))) &&
     typeof r.forks === 'number' && typeof r.vigor === 'number' && typeof r.whet === 'number' && typeof r.left === 'number';
   if (!ok) return null;
-  // What a run has had since the Hold. One from just before it is carried on as a run at no danger, with everything open and no blessing.
-  r.danger = Math.max(0, Math.min(DANGERS.length, whole(r.danger)));
+  // What a run has had since the Hold. One from just before it is carried on as a run under no vow, with everything open and no blessing.
+  r.vows = names(r.vows, VOW_IDS);
   r.shut = names(r.shut);
+  r.pool = Array.isArray(r.pool) ? names(r.pool) : null;
+  r.daily = typeof r.daily === 'string' ? r.daily : '';
+  r.alt = r.alt === true;
+  r.time = typeof r.time === 'number' && r.time >= 0 ? r.time : 0;
+  r.clean = whole(r.clean);
+  r.banishes = whole(r.banishes);
+  r.relooked = r.relooked === true;
   r.bless = mendBless(r.bless);
   r.breathed = r.breathed === true;
   r.deeds = names(r.deeds);
@@ -160,10 +173,15 @@ export function repair(raw: unknown, _seed = 1): SaveData {
   s.earned = Math.max(s.renown, whole(raw.earned));
   s.crates = names(raw.crates, new Set(CRATES.map((c) => c.id)));
   s.bless = mendBless(raw.bless);
-  s.dangers = Math.min(DANGERS.length, whole(raw.dangers));
-  s.danger = Math.min(s.dangers, whole(raw.danger));
-  if (isRecord(raw.won)) for (const [id, n] of Object.entries(raw.won)) if (heroes.has(id)) s.won[id] = Math.min(DANGERS.length, whole(n));
+  if (isRecord(raw.won)) for (const [id, v] of Object.entries(raw.won)) if (heroes.has(id)) s.won[id] = names(v, VOW_IDS);
+  s.vows = names(raw.vows, VOW_IDS);
   s.deeds = names(raw.deeds, new Set(DEEDS.map((d) => d.id)));
+  s.oaths = names(raw.oaths, new Set(OATHS.map((o) => o.id)));
+  // Only a hero whose oath opened the choice can have it made.
+  s.alt = names(raw.alt, heroes).filter((id) => OATHS.some((o) => o.hero === id && o.opens.kind === 'rule' && s.oaths.includes(o.id)));
+  const d: unknown = raw.daily;
+  s.daily = isRecord(d) && typeof d.date === 'string' ? { date: d.date, wave: whole(d.wave), seconds: typeof d.seconds === 'number' && d.seconds >= 0 ? d.seconds : 0 } : null;
+  s.dailyBest = whole(raw.dailyBest);
   s.seen = counts(raw.seen);
   s.tally = isRecord(raw.tally) && Array.isArray(raw.tally.lines) && typeof raw.tally.total === 'number' ? (raw.tally as unknown as Tally) : null;
   // A save from before the Chronicle has met whoever it has played and beaten.
@@ -253,6 +271,9 @@ export interface Opened {
   heroes: string[];
   friends: string[];
   deeds: string[];
+  /** Oaths of the hero's done, and crates their own deeds have opened. */
+  oaths: string[];
+  crates: string[];
   tally: Tally | null;
 }
 
@@ -269,7 +290,7 @@ export function record(save: SaveData, run: RunData, kills: number): Opened {
   for (const b of run.felled) if (!save.felled.includes(b)) save.felled.push(b);
   save.last = run.hero;
   if (run.phase === 'over') save.ended++;
-  const opened: Opened = { heroes: [], friends: [], deeds: [], tally: null };
+  const opened: Opened = { heroes: [], friends: [], deeds: [], oaths: [], crates: [], tally: null };
   for (const h of HEROES) {
     if (h.unlock && !save.open.includes(h.id) && featDone(save, h.unlock)) {
       save.open.push(h.id);
@@ -285,6 +306,8 @@ export function record(save: SaveData, run: RunData, kills: number): Opened {
   // The Hold takes what the run has to tell: the Chronicle, the deeds, and at the end its renown.
   const told = chronicle(save, run);
   opened.deeds = told.deeds;
+  opened.oaths = told.oaths;
+  opened.crates = told.crates;
   opened.tally = told.tally;
   return opened;
 }

@@ -1,6 +1,6 @@
 // npm run pace -- [--runs=12] [--hero=bram] [--band=biscuit,pip] [--friends] [--waves=40] [--brief] [--each] [--why] [--quiet] [--norelics] [--nokinds]
-//                 [--danger=0] [--bless=none|all] [--pool=all|start]
-// npm run pace -- --career[=3] [--danger=0]
+//                 [--vows=3|march,lean] [--bless=none|all] [--pool=all|start]
+// npm run pace -- --career[=3]
 //
 // Plays runs with the plain player (src/game/bot.ts) and says how they go:
 // how many come through each wave, how much health is left at its end, how
@@ -18,8 +18,9 @@
 // --norelics fights every wave as if no relic were held, and --nokinds
 // leaves the gifts of the kinds out: what each of the three is worth.
 //
-// What the Hold gives a run is an input: --danger is the danger the runs
-// are played at, --bless=all gives them every blessing, and --pool=start
+// What the Hold gives a run is an input: --vows is the vows the runs are
+// sworn under (a number for the first so many, or their names),
+// --bless=all gives them every blessing, and --pool=start
 // offers them only what the armory has before any crate is bought (all of
 // it is offered otherwise, as before the Hold).
 //
@@ -28,7 +29,7 @@
 // thing the Hold sells, until there is nothing left to open. It says how
 // many runs that took and when each thing came.
 
-import { BLESSINGS, COMPANIONS, CRATES, DANGERS, HEROES, LAST_WAVE, OMENS, relicOf, type Omen } from '../src/game/data';
+import { BLESSINGS, COMPANIONS, CRATES, HEROES, LAST_WAVE, OMENS, VOWS, relicOf, type Omen } from '../src/game/data';
 import { botCamp, botSteer } from '../src/game/bot';
 import { beginRun, buyWare, count, forksNow, holdFull, termsOf, waresOf, type Ware } from '../src/game/hold';
 import { endWave, kindsOf, newRun, setupOf, survived } from '../src/game/run';
@@ -46,13 +47,15 @@ const each = args.includes('--each');
 const brief = args.includes('--brief') || friends;
 // --why says who hurt the hero on each wave: how a wall is found.
 const why = args.includes('--why');
-const danger = Math.max(0, Math.min(DANGERS.length, Number(option('danger', '0'))));
+const asked = option('vows', '');
+const vows: string[] = /^\d+$/.test(asked) ? VOWS.slice(0, Number(asked)).map((v) => v.id) : VOWS.filter((v) => asked.split(',').includes(v.id)).map((v) => v.id);
 
 /** The Hold as the measure's options have it: what its runs begin with. */
 function holdOf(): SaveData {
   const save = freshSave();
-  save.dangers = DANGERS.length;
-  save.danger = danger;
+  // Every vow is open to the measure: a win under all of them is on its record.
+  save.won = { [HEROES[0].id]: VOWS.map((v) => v.id) };
+  save.vows = vows;
   if (option('pool', 'all') === 'all') save.crates = CRATES.map((c) => c.id);
   if (option('bless', 'none') === 'all') for (const b of BLESSINGS) save.bless[b.id] = b.prices.length;
   return save;
@@ -90,7 +93,7 @@ function measure(hero: string, who: readonly string[], label: string): void {
   let steps3 = 0;
   let strays = 0;
   for (let n = 0; n < runs; n++) {
-    const run = newRun(hero, 1000 + n * 7919, who, forksNow(hold), termsOf(hold));
+    const run = newRun(hero, 1000 + n * 7919, who, forksNow(hold), termsOf(hold, hero));
     while (run.phase !== 'over' && run.wave <= most) {
       if (args.includes('--quiet')) run.road = { omen: 'quiet' };
       const setup = setupOf(run);
@@ -222,8 +225,6 @@ function wish(save: SaveData): Ware | null {
 
 function career(n: number): number {
   const save = freshSave();
-  save.dangers = danger;
-  save.danger = danger;
   const came: string[] = [];
   const open = new Set<string>([...HEROES.filter((h) => isOpen(save, h.id)).map((h) => h.id)]);
   let runs = 0;
@@ -247,7 +248,8 @@ function career(n: number): number {
     for (const c of COMPANIONS) if (isFriend(save, c.id) && !open.has(c.id)) (open.add(c.id), came.push(`${runs}: ${c.name}${came.some((x) => x.includes(c.name)) ? '' : ' (deed)'}`));
     for (const at of [5, 10, 20, 40]) if (runs === at) marks[at] = open.size - 2;
   }
-  console.log(`\ncareer ${n + 1}: everything open after ${runs} runs${holdFull(save) ? '' : ' (not all of it: stopped)'}; second place in the band after run ${place}; ${wins} runs won; mean ${(waves / runs).toFixed(1)} waves;`);
+  console.log(`\ncareer ${n + 1}: oaths kept ${save.oaths.length} of 30, crates opened by their deeds ${CRATES.length - came.filter((c) => /Crate|Reliquary/.test(c)).length} of ${CRATES.length};`);
+  console.log(`career ${n + 1}: everything open after ${runs} runs${holdFull(save) ? '' : ' (not all of it: stopped)'}; second place in the band after run ${place}; ${wins} runs won; mean ${(waves / runs).toFixed(1)} waves;`);
   console.log(`  renown earned ${save.earned} (${(save.earned / runs).toFixed(1)} a run), deeds done ${save.deeds.length}; heroes and companions opened by run 5, 10, 20, 40: ${[5, 10, 20, 40].map((a) => marks[a] ?? open.size - 2).join(', ')} of ${HEROES.length + COMPANIONS.length - 2}`);
   if (!brief) for (const line of came.filter((c) => !/^\d+: .*\(bought/.test(c) || true)) console.log(`  ${line}`);
   return runs;

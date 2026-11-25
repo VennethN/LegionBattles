@@ -1,6 +1,6 @@
 // The Hold: what the player keeps between runs, shown plainly. A tab for
-// each part of it (the hall, the kennels, the armory, blessings, danger,
-// deeds, the chronicle), and under the tabs a list: each thing with what it
+// each part of it (the hall, the kennels, the armory, blessings, vows,
+// deeds, the chronicle, the day's road), and under the tabs a list: each thing with what it
 // is, what it costs or what opens it, and a button. It shows the save and
 // asks the Hold's rules (game/hold.ts) for everything: a price is never
 // worked out here.
@@ -12,20 +12,23 @@ import Phaser from 'phaser';
 import { BONE, BUSH, GOLD, IRON, LEATHER, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { BAND, BLESSINGS, COMPANIONS, CRATES, DANGERS, HEROES, RENOWN } from '../../game/data';
+import { BAND, BLESSINGS, COMPANIONS, CRATES, HEROES, RENOWN, VOWS, byId } from '../../game/data';
 import {
-  badge, blessPrice, blessSays, blessStep, buyBlessing, buyCrate, buyFriend, buyHero, buyPlace, chronicleOf, cratePrice, crateThings, deedsOf, featSays, friendPrice, heroPrice, placePrice,
-  setDanger,
+  altOpen, badge, blessPrice, blessSays, blessStep, buyBlessing, buyCrate, buyFriend, buyHero, buyPlace, chronicleOf, cratePrice, crateThings, dailyOf, dailyTaken, deedsOf, epithetOf, featSays,
+  friendPrice, heroPrice, met, oathsOf, placePrice, setAlt, toggleVow, vowsNext, vowsOpen,
 } from '../../game/hold';
 import { isFriend, isOpen, type SaveData } from '../../game/state';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
 import { SHEET } from '../art/Sheet';
-import { commit, save } from '../session';
+import { commit, save, startDaily } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 
-const TABS = ['HALL', 'KENNELS', 'ARMORY', 'BLESSINGS', 'DANGER', 'DEEDS', 'CHRONICLE'] as const;
+const TABS = ['HALL', 'KENNELS', 'ARMORY', 'BLESSINGS', 'VOWS', 'DEEDS', 'CHRONICLE', 'DAILY'] as const;
+
+/** The day as the day's road counts it: the same day for everyone, wherever they are. */
+const today = (): string => new Date().toISOString().slice(0, 10);
 type Tab = (typeof TABS)[number];
 
 /** One line of a list: what it is, what there is to say of it, and at its right a button, or a word where there is nothing to press. */
@@ -100,7 +103,7 @@ export class HoldScene extends Phaser.Scene {
         this.page = 0;
         sfx.play('click', 0.5);
         this.draw();
-      }, { width: tw, height: 44, size: tall ? 15 : 16, mat: tab === this.tab ? GOLD : LEATHER });
+      }, { width: tw, height: 44, size: 15, mat: tab === this.tab ? GOLD : LEATHER });
       this.put(b.root);
     });
     y += Math.ceil(TABS.length / perRow) * 50 + 6;
@@ -116,7 +119,12 @@ export class HoldScene extends Phaser.Scene {
         return HEROES.map((h): Row => {
           if (isOpen(s, h.id)) {
             const won = badge(s, h.id);
-            return { title: `${h.name}, ${h.epithet}`, says: h.who, note: won < 0 ? 'OPEN' : `WON AT ${won}` };
+            const oaths = oathsOf(s, h.id);
+            const says = `${h.who} Oaths kept: ${oaths.filter((o) => o.done).length} of ${oaths.length}.${won === null ? '' : won.length === 0 ? ' Has won.' : ` Has won under ${won.length} ${won.length === 1 ? 'vow' : 'vows'}.`}`;
+            // The oath that opens a second rule for their weapon gives the choice between the two.
+            const alt = s.alt.includes(h.id);
+            const button: Row['button'] = altOpen(s, h.id) ? { text: alt ? 'RULE 2' : 'RULE 1', can: true, press: () => setAlt(s, h.id, !alt), mat: BUSH } : undefined;
+            return { title: `${h.name}, ${epithetOf(s, h.id)}`, says, button, note: 'OPEN' };
           }
           return { title: '???', says: h.unlock ? featSays(h.unlock) : '', dark: true, button: buy(heroPrice(s, h.id), () => buyHero(s, h.id)) };
         });
@@ -137,7 +145,7 @@ export class HoldScene extends Phaser.Scene {
         return CRATES.map((c): Row => {
           const open = s.crates.includes(c.id);
           const things = crateThings(s, c).map((t) => t.name).join(', ');
-          return { title: c.name, says: `${c.says} ${things}.`, dark: !open, button: open ? undefined : buy(cratePrice(s), () => buyCrate(s, c.id)), note: open ? 'OPEN' : undefined };
+          return { title: c.name, says: open ? `${c.says} ${things}.` : `${things}. Opened by a deed, or bought: ${c.deedSays}`, dark: !open, button: open ? undefined : buy(cratePrice(s), () => buyCrate(s, c.id)), note: open ? 'OPEN' : undefined };
         });
       case 'BLESSINGS':
         return BLESSINGS.map((b): Row => {
@@ -146,24 +154,27 @@ export class HoldScene extends Phaser.Scene {
           const line = says.next ? (says.now ? `${says.now} Next: ${says.next}` : says.next) : says.now;
           return { title: `${b.name}${b.prices.length > 1 ? ` (${step} of ${b.prices.length})` : ''}`, says: line, button: buy(blessPrice(s, b.id), () => buyBlessing(s, b.id)), note: says.next ? undefined : 'ALL' };
         });
-      case 'DANGER': {
-        const pick = (n: number): Row['button'] => ({ text: s.danger === n ? 'CHOSEN' : 'CHOOSE', can: s.danger !== n, press: () => setDanger(s, n), mat: s.danger === n ? BUSH : GOLD });
-        const more = (n: number): string => `${Math.round(RENOWN.danger * n * 100)}% more renown.`;
+      case 'VOWS': {
+        const open = vowsOpen(s);
+        const next = vowsNext(s);
         return [
-          { title: 'Danger 0', says: 'The game as it is.', button: pick(0) },
-          ...DANGERS.map((d): Row => {
-            if (d.n <= s.dangers) return { title: `Danger ${d.n}: ${d.name}`, says: `${d.says} And all the ones before it. ${more(d.n)}`, button: pick(d.n) };
-            // The next one says what opens it; those past it say nothing yet.
-            return { title: `Danger ${d.n}: ???`, says: d.n === s.dangers + 1 ? `Win the twentieth wave at danger ${d.n - 1}.` : '', dark: true };
+          { title: 'Vows', says: `A vow is a hard rule sworn before a run. Each one sworn pays ${Math.round(RENOWN.vow * 100)}% more renown. Sworn now: ${s.vows.length}.`, head: false },
+          ...VOWS.map((v, i): Row => {
+            if (open.includes(v.id)) {
+              const sworn = s.vows.includes(v.id);
+              return { title: v.name, says: v.says, button: { text: sworn ? 'SWORN' : 'SWEAR', can: true, press: () => toggleVow(s, v.id), mat: sworn ? BUSH : GOLD } };
+            }
+            // The first that is shut says what opens it; those past it say nothing yet.
+            return { title: '???', says: i === open.length ? next : '', dark: true };
           }),
         ];
       }
       case 'DEEDS':
         return deedsOf(s).map((d): Row => ({
           title: d.name,
-          says: d.says,
+          says: d.opens && d.kind !== 'opens' ? `${d.says} Opens ${d.opens}.` : d.says,
           dark: !d.done && d.name === '???',
-          note: d.done ? 'DONE' : d.renown > 0 ? `+${d.renown}${d.share > 0 ? `  ${Math.floor(d.share * 100)}%` : ''}` : `OPENS ${d.opens.toUpperCase()}`,
+          note: d.done ? 'DONE' : d.renown > 0 ? `+${d.renown}${d.share > 0 ? `  ${Math.floor(d.share * 100)}%` : ''}` : d.kind === 'oath' ? 'OATH' : d.kind === 'crate' ? 'CRATE' : `OPENS ${d.opens.toUpperCase()}`,
         }));
       case 'CHRONICLE':
         // What has been met is listed; the rest of each kind is one dark line, so that the list is as long as what there is to read.
@@ -172,7 +183,32 @@ export class HoldScene extends Phaser.Scene {
           ...p.entries.filter((e) => e.met).map((e): Row => ({ title: e.name, says: e.says, note: e.count > 0 ? `${e.count} ${e.counted}`.toUpperCase() : '' })),
           ...(p.met < p.entries.length ? [{ title: '???', says: `${p.entries.length - p.met} more not met yet.`, dark: true }] : []),
         ]);
+      case 'DAILY': {
+        const date = today();
+        const d = dailyOf(date);
+        const hero = byId(HEROES, d.hero);
+        const friend = byId(COMPANIONS, d.band[0]);
+        // Whoever has not been met is not named: the road itself is the way to meet them.
+        const who = `${met(s, 'hero', hero.id) ? hero.name : 'A hero not yet met'} with ${met(s, 'friend', friend.id) ? friend.name : 'a companion not yet met'}`;
+        const taken = dailyTaken(s, date);
+        return [
+          {
+            title: `The road of ${date}`,
+            says: `${who}. One run a day, the same for everyone: the whole armory, no blessing, no vow.`,
+            button: taken ? undefined : { text: 'SET OUT', can: true, press: () => (this.setOut(date), false) },
+            note: taken && s.daily ? `WAVE ${s.daily.wave}` : undefined,
+          },
+          { title: `Furthest on any day's road: wave ${s.dailyBest}`, says: taken && s.daily ? `Today: wave ${s.daily.wave}, in ${Math.floor(s.daily.seconds / 60)} min ${s.daily.seconds % 60} s of fighting.` : 'Not taken today.' },
+        ];
+      }
     }
+  }
+
+  /** Sets out on the day's road. */
+  private setOut(date: string): void {
+    if (!startDaily(date)) return;
+    sfx.play('click', 0.6);
+    this.scene.start('Arena');
   }
 
   /** The list, a page of it at a time: there is no scrolling here, only the next page and the one before. */

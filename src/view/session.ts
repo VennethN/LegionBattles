@@ -2,7 +2,7 @@
 // being fought. Every screen asks here, so that there is one of each
 // however many screens are open.
 
-import { beginRun } from '../game/hold';
+import { beginDaily, beginRun } from '../game/hold';
 import { endWave, newRun, setupOf, type RunData } from '../game/run';
 import { record, type SaveData } from '../game/state';
 import { loadSave, storeSave, wipeSave } from '../game/storage';
@@ -56,6 +56,21 @@ export function startRun(hero: string): RunData {
   s.run = null;
   s.runs++;
   s.last = hero;
+  commit();
+  return run;
+}
+
+/** Sets out on the day's road, if it has not been taken today. A run left in its camp is let go. */
+export function startDaily(date: string): RunData | null {
+  const s = save();
+  const daily = beginDaily(s, date);
+  if (!daily) return null;
+  run = daily;
+  world = null;
+  opened = [];
+  friends = [];
+  s.run = null;
+  s.runs++;
   commit();
   return run;
 }

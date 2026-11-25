@@ -5,14 +5,18 @@
 //
 // A run pays renown when it ends, whatever became of it. Renown buys a
 // hero or a companion whose deed is not done yet, the second place in the
-// band, crates for the armory and blessings. Winning the twentieth wave at
-// a danger opens the next. The Chronicle remembers everything met.
+// band, crates for the armory and blessings. A win opens the vows: hard
+// rules sworn before a run, in any mix, for more renown. Each hero has
+// three oaths of their own, each crate a deed that opens it for nothing,
+// and each day a road that is the same for everyone. The Chronicle
+// remembers everything met.
 
 import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAST_WAVE, OMENS, RELICS, ROAD, TIERS, WEAPONS, byId, weaponOf, type Feat } from './data';
 import {
-  BLESSINGS, CRATES, CRATE_PRICES, DANGERS, DEEDS, HALL, KENNEL, PLACE_PRICE, RENOWN, thingKey,
-  type BlessingId, type CrateDef, type DeedDef, type DeedTest, type Thing,
+  BLESSINGS, CRATES, CRATE_PRICES, DEEDS, HALL, KENNEL, OATHS, PLACE_PRICE, RENOWN, VOW, VOWS, thingKey,
+  type BlessingId, type CrateDef, type DeedTest, type OathDef, type Thing, type VowId,
 } from './holdData';
+import { Rng } from './rng';
 import { blessed, kindCounts, newRun, survived, type RunData, type Terms, type Told } from './run';
 import { bandFor, featDone, featShare, isFriend, isOpen, type SaveData } from './state';
 
@@ -28,7 +32,8 @@ export interface TallyLine {
 /** What a run paid, line by line, for the screen that shows it. */
 export interface Tally {
   lines: TallyLine[];
-  danger: number;
+  /** How many vows the run was sworn under. */
+  vows: number;
   total: number;
 }
 
@@ -39,7 +44,7 @@ export function hasWon(run: RunData): boolean {
 
 /**
  * What a run pays as it stands. The waves, the captains and the win are
- * paid more at a higher danger; a deed pays what it pays, once.
+ * paid more for each vow the run was sworn under; a deed pays what it pays, once.
  */
 export function tallyOf(run: RunData): Tally {
   const waves = survived(run);
@@ -48,13 +53,13 @@ export function tallyOf(run: RunData): Tally {
   if (run.felled.length > 0) lines.push({ why: 'Captains beaten', count: run.felled.length, renown: run.felled.length * RENOWN.captain });
   if (hasWon(run)) lines.push({ why: 'The twentieth wave won', count: 1, renown: RENOWN.win });
   const base = lines.reduce((n, l) => n + l.renown, 0);
-  const more = Math.round(base * RENOWN.danger * run.danger);
-  if (more > 0) lines.push({ why: `Danger ${run.danger}`, count: run.danger, renown: more });
+  const more = Math.round(base * RENOWN.vow * run.vows.length);
+  if (more > 0) lines.push({ why: run.vows.length === 1 ? 'A vow kept' : 'Vows kept', count: run.vows.length, renown: more });
   for (const id of run.deeds) {
     const deed = DEEDS.find((d) => d.id === id);
     if (deed) lines.push({ why: deed.name, count: 1, renown: deed.renown });
   }
-  return { lines, danger: run.danger, total: lines.reduce((n, l) => n + l.renown, 0) };
+  return { lines, vows: run.vows.length, total: lines.reduce((n, l) => n + l.renown, 0) };
 }
 
 // ---------------------------------------------------------------- the chronicle
@@ -142,18 +147,26 @@ function deedMet(save: SaveData, run: RunData, told: Told | null, test: DeedTest
     case 'runs':
       return featDone(save, test);
     case 'win':
-      return hasWon(run) && (!test.hero || run.hero === test.hero) && run.danger >= (test.danger ?? 0);
+      return hasWon(run) && run.vows.length >= (test.vows ?? 0);
     case 'wins':
       return Object.keys(save.won).length >= test.heroes;
     case 'alone':
       // A stray let out of a cage on the way is not a band that was brought.
       return hasWon(run) && run.band.every((b) => b.stray);
-    case 'kinds':
-      return Math.max(0, ...Object.values(kindCounts(run))) >= test.held;
+    case 'kinds': {
+      const counts = kindCounts(run) as Record<string, number>;
+      return (test.of ? (counts[test.of] ?? 0) : Math.max(0, ...Object.values(counts))) >= test.held;
+    }
     case 'relics':
       return run.relics.length >= test.held;
     case 'unstruck':
       return !!told && told.unstruck.length > 0;
+    case 'clean':
+      return run.clean >= test.waves;
+    case 'slain':
+      return run.kills >= test.kills;
+    case 'risen':
+      return run.rose >= 0 && survived(run) >= test.wave;
     case 'level':
       return run.level >= test.level;
     case 'bond':
@@ -203,63 +216,193 @@ export function featSays(feat: Feat): string {
 
 export interface DeedRow {
   id: string;
+  /** What kind of deed it is: one that opens somebody, one that pays renown, a hero's oath, or a crate's own deed. */
+  kind: 'opens' | 'renown' | 'oath' | 'crate';
   name: string;
   says: string;
   done: boolean;
   /** How far along, 0 to 1. */
   share: number;
-  /** What it pays: renown, or who it opens. */
+  /** What it pays: renown, or what it opens, as words. */
   renown: number;
   opens: string;
+  /** The hero whose oath it is, or ''. */
+  hero: string;
+}
+
+/** What an oath opens, as words. */
+export function oathGift(o: OathDef): string {
+  if (o.opens.kind === 'epithet') return `a new name: ${o.opens.epithet}`;
+  if (o.opens.kind === 'relic') return `${byId(RELICS, o.opens.relic).name} to begin every run with`;
+  return 'a second rule for their own weapon';
 }
 
 /**
  * Every deed there is, done or not: the ones that open a hero or a
- * companion first (the one opened is "???" until they are), then the ones
- * that pay renown. Those still to do come before those done.
+ * companion (the one opened is "???" until they are), the crates' own, the
+ * ones that pay renown, and the oaths of every hero who is open. Those
+ * still to do come before those done.
  */
 export function deedsOf(save: SaveData): DeedRow[] {
   const rows: DeedRow[] = [];
   for (const h of HEROES) {
     if (!h.unlock) continue;
     const done = isOpen(save, h.id);
-    rows.push({ id: `hero-${h.id}`, name: done ? h.name : '???', says: featSays(h.unlock), done, share: done ? 1 : featShare(save, h.unlock), renown: 0, opens: done ? h.name : 'a hero' });
+    rows.push({ id: `hero-${h.id}`, kind: 'opens', name: done ? h.name : '???', says: featSays(h.unlock), done, share: done ? 1 : featShare(save, h.unlock), renown: 0, opens: done ? h.name : 'a hero', hero: '' });
   }
   for (const c of COMPANIONS) {
     const done = isFriend(save, c.id);
-    rows.push({ id: `friend-${c.id}`, name: done ? c.name : '???', says: featSays(c.unlock), done, share: done ? 1 : featShare(save, c.unlock), renown: 0, opens: done ? c.name : 'a companion' });
+    rows.push({ id: `friend-${c.id}`, kind: 'opens', name: done ? c.name : '???', says: featSays(c.unlock), done, share: done ? 1 : featShare(save, c.unlock), renown: 0, opens: done ? c.name : 'a companion', hero: '' });
+  }
+  for (const c of CRATES) {
+    const done = save.crates.includes(c.id);
+    rows.push({ id: `crate-${c.id}`, kind: 'crate', name: c.name, says: c.deedSays, done, share: done ? 1 : deedShare(save, c.deed), renown: 0, opens: 'the crate', hero: '' });
   }
   for (const d of DEEDS) {
     const done = save.deeds.includes(d.id);
-    rows.push({ id: d.id, name: d.name, says: d.says, done, share: done ? 1 : deedShare(save, d.test), renown: d.renown, opens: '' });
+    rows.push({ id: d.id, kind: 'renown', name: d.name, says: d.says, done, share: done ? 1 : deedShare(save, d.test), renown: d.renown, opens: '', hero: '' });
+  }
+  for (const o of OATHS) {
+    if (!isOpen(save, o.hero)) continue;
+    const done = save.oaths.includes(o.id);
+    rows.push({ id: o.id, kind: 'oath', name: o.name, says: o.says, done, share: done ? 1 : 0, renown: 0, opens: oathGift(o), hero: o.hero });
   }
   return [...rows.filter((r) => !r.done), ...rows.filter((r) => r.done)];
 }
 
-/** The deed that pays renown and is nearest done: the next thing to go for. */
-export function nextDeed(save: SaveData): DeedDef | null {
-  let best: DeedDef | null = null;
-  let share = -1;
-  for (const d of DEEDS) {
-    if (save.deeds.includes(d.id)) continue;
-    const s = deedShare(save, d.test);
-    if (s > share) {
-      share = s;
-      best = d;
-    }
-  }
-  return best;
+/**
+ * The nearest deeds not yet done, for the end of a run: "what next". The
+ * ones furthest along come first; after them the oaths of the hero who was
+ * just played, which cannot be measured until they are done.
+ */
+export function nextDeeds(save: SaveData, hero = '', n = 3): DeedRow[] {
+  const open = deedsOf(save).filter((r) => !r.done);
+  const far = open.filter((r) => r.share > 0).sort((a, b) => b.share - a.share);
+  const own = open.filter((r) => r.share === 0 && r.hero === hero && hero !== '');
+  const rest = open.filter((r) => r.share === 0 && r.kind === 'renown');
+  return [...far, ...own, ...rest].slice(0, Math.max(0, n));
+}
+
+// ---------------------------------------------------------------- oaths
+
+/** A hero's three oaths, each with whether it is done. */
+export function oathsOf(save: SaveData, hero: string): Array<{ oath: OathDef; done: boolean }> {
+  return OATHS.filter((o) => o.hero === hero).map((oath) => ({ oath, done: save.oaths.includes(oath.id) }));
+}
+
+/** What a hero is called besides their name: the epithet their oath opened, once it has, or the one they began with. */
+export function epithetOf(save: SaveData, hero: string): string {
+  const o = OATHS.find((x) => x.hero === hero && x.opens.kind === 'epithet' && save.oaths.includes(x.id));
+  return o && o.opens.kind === 'epithet' ? o.opens.epithet : byId(HEROES, hero).epithet;
+}
+
+/** The relic a hero's runs begin with, once their oath has opened it, or ''. */
+export function startRelic(save: SaveData, hero: string): string {
+  const o = OATHS.find((x) => x.hero === hero && x.opens.kind === 'relic' && save.oaths.includes(x.id));
+  return o && o.opens.kind === 'relic' ? o.opens.relic : '';
+}
+
+/** True if a hero's oath has opened the second rule for their own weapon. */
+export function altOpen(save: SaveData, hero: string): boolean {
+  return OATHS.some((x) => x.hero === hero && x.opens.kind === 'rule' && save.oaths.includes(x.id));
+}
+
+/** Chooses which rule a hero's own weapon follows: the second, or the first again. */
+export function setAlt(save: SaveData, hero: string, on: boolean): boolean {
+  if (!altOpen(save, hero)) return false;
+  save.alt = on ? [...new Set([...save.alt, hero])] : save.alt.filter((id) => id !== hero);
+  return true;
+}
+
+// ---------------------------------------------------------------- vows
+
+/** How many vows a win has ever been sworn under at most, or -1 if nothing has been won. */
+function mostVows(save: SaveData): number {
+  return Math.max(-1, ...Object.values(save.won).map((v) => v.length));
+}
+
+/** The vows that may be sworn: none until a run is won, then the first few, and more for each vow a win was sworn under. */
+export function vowsOpen(save: SaveData): VowId[] {
+  const most = mostVows(save);
+  return most < 0 ? [] : VOWS.slice(0, VOW.first + VOW.more * most).map((v) => v.id);
+}
+
+/** What opens the next vows, as a line, or '' when all are open. */
+export function vowsNext(save: SaveData): string {
+  const most = mostVows(save);
+  if (most < 0) return 'Win the twentieth wave.';
+  if (VOW.first + VOW.more * most >= VOWS.length) return '';
+  return most === 0 ? 'Win a run under a vow.' : `Win a run under ${most + 1} vows.`;
+}
+
+/** Swears a vow for the next run, or takes it back. */
+export function toggleVow(save: SaveData, id: string): boolean {
+  if (!vowsOpen(save).includes(id as VowId)) return false;
+  save.vows = save.vows.includes(id) ? save.vows.filter((v) => v !== id) : VOWS.filter((v) => v.id === id || save.vows.includes(v.id)).map((v) => v.id);
+  return true;
+}
+
+/** The vows a hero's best win was sworn under: their badge. None for a plain win; null for a hero who has not won. */
+export function badge(save: SaveData, hero: string): string[] | null {
+  return save.won[hero] ?? null;
+}
+
+// ---------------------------------------------------------------- the day's road
+
+export interface Daily {
+  date: string;
+  hero: string;
+  band: string[];
+  seed: number;
+}
+
+/**
+ * The day's road: one hero, one companion and one seed for a day, the same
+ * for everyone, worked out from the date by the rules' own dice. Every
+ * hero may come up, opened or not: it is a way to meet them.
+ */
+export function dailyOf(date: string): Daily {
+  // The date as a number to seed the dice with: any day gives another.
+  let h = 2166136261;
+  for (let i = 0; i < date.length; i++) h = Math.imul(h ^ date.charCodeAt(i), 16777619) >>> 0;
+  const rng = new Rng(h || 1);
+  const hero = rng.pick(HEROES).id;
+  const band = [rng.pick(COMPANIONS).id];
+  return { date, hero, band, seed: rng.int(0x7ffffffe) + 1 };
+}
+
+/** True if the day's road has been taken already: it is one try a day. */
+export function dailyTaken(save: SaveData, date: string): boolean {
+  return save.daily?.date === date;
+}
+
+/**
+ * Sets out on the day's road. It is the same run for everyone: the whole
+ * armory, two roads, no blessing, no vow, nothing an oath has opened.
+ */
+export function beginDaily(save: SaveData, date: string): RunData | null {
+  if (dailyTaken(save, date)) return null;
+  const d = dailyOf(date);
+  save.daily = { date, wave: 0, seconds: 0 };
+  return newRun(d.hero, d.seed, d.band, ROAD.roads, { daily: date });
 }
 
 // ---------------------------------------------------------------- what a run tells the Hold
 
+export interface Chronicled {
+  deeds: string[];
+  oaths: string[];
+  crates: string[];
+  tally: Tally | null;
+}
+
 /**
  * Takes what a run has to tell, after every wave and at its end: who was
- * met and slain goes into the Chronicle, deeds done are marked, a win is
- * counted, and when the run is over its renown is paid, once. Returns the
- * deeds this call found done, and the tally if this call paid it.
+ * met and slain goes into the Chronicle, deeds and oaths done are marked,
+ * a crate whose deed is done is opened, a win is counted, the day's road
+ * is written down, and when the run is over its renown is paid, once.
  */
-export function chronicle(save: SaveData, run: RunData): { deeds: string[]; tally: Tally | null } {
+export function chronicle(save: SaveData, run: RunData): Chronicled {
   const told = run.told;
   if (told) {
     for (const id of told.met) meet(save, 'foe', id);
@@ -275,33 +418,50 @@ export function chronicle(save: SaveData, run: RunData): { deeds: string[]; tall
   for (const id of [...run.relics, ...run.relicChoices]) meet(save, 'relic', id);
   for (const o of run.offers) meet(save, o.kind, o.id);
   for (const r of [run.road, ...run.roads]) meet(save, 'omen', r.omen);
-  // A win is counted when the twentieth wave is come through, though the run may go on.
+  // A win is counted when the twentieth wave is come through, though the run may go on. The badge is the win under the most vows.
   if (hasWon(run) && !run.won) {
     run.won = true;
-    save.won[run.hero] = Math.max(save.won[run.hero] ?? 0, run.danger);
-    save.dangers = Math.max(save.dangers, Math.min(DANGERS.length, run.danger + 1));
+    const best = save.won[run.hero];
+    if (!best || run.vows.length > best.length) save.won[run.hero] = [...run.vows];
   }
-  const deeds: string[] = [];
+  const out: Chronicled = { deeds: [], oaths: [], crates: [], tally: null };
   for (const d of DEEDS) {
     if (save.deeds.includes(d.id) || !deedMet(save, run, told, d.test)) continue;
     save.deeds.push(d.id);
     run.deeds.push(d.id);
-    deeds.push(d.id);
+    out.deeds.push(d.id);
+  }
+  for (const o of OATHS) {
+    if (o.hero !== run.hero || save.oaths.includes(o.id) || !deedMet(save, run, told, o.test)) continue;
+    save.oaths.push(o.id);
+    out.oaths.push(o.id);
+  }
+  for (const c of CRATES) {
+    if (save.crates.includes(c.id) || !deedMet(save, run, told, c.deed)) continue;
+    save.crates.push(c.id);
+    out.crates.push(c.id);
+  }
+  // The day's road is written down as it goes, so that a day's try that is shut half way still counts for what it came to.
+  if (run.daily && save.daily?.date === run.daily) {
+    save.daily.wave = Math.max(save.daily.wave, survived(run));
+    save.daily.seconds = Math.round(run.time);
+    save.dailyBest = Math.max(save.dailyBest, save.daily.wave);
   }
   run.told = null;
-  if (run.phase !== 'over' || run.paid) return { deeds, tally: null };
+  if (run.phase !== 'over' || run.paid) return out;
   // The run has ended: what it held is counted, and it is paid.
   run.paid = true;
   meet(save, 'hero', run.hero, 1);
   for (const b of run.band) meet(save, 'friend', b.id, 1);
   for (const id of new Set([byId(HEROES, run.hero).weapon, ...run.weapons.map((w) => w.id)])) meet(save, 'weapon', id, 1);
   for (const id of new Set(run.items)) meet(save, 'item', id, 1);
-  for (const id of run.relics) meet(save, 'relic', id, 1);
+  for (const id of new Set(run.relics)) meet(save, 'relic', id, 1);
   const tally = tallyOf(run);
   save.renown += tally.total;
   save.earned += tally.total;
   save.tally = tally;
-  return { deeds, tally };
+  out.tally = tally;
+  return out;
 }
 
 // ---------------------------------------------------------------- the hall, the kennels and the band
@@ -354,18 +514,23 @@ export function buyPlace(save: SaveData): boolean {
 /** Everything a crate holds, for the list of what is shut. */
 const CRATED: ReadonlySet<string> = new Set(CRATES.flatMap((c) => c.things.map(thingKey)));
 
-/** True if the armory offers a thing: it was there from the start, or its crate has been bought. */
+/** True if the armory offers a thing: it was there from the start, or its crate is open. */
 export function inArmory(save: SaveData, t: Thing): boolean {
   if (!CRATED.has(thingKey(t))) return true;
   return CRATES.some((c) => save.crates.includes(c.id) && c.things.some((x) => x.kind === t.kind && x.id === t.id));
 }
 
-/** What a run that begins now is never offered: the things in the crates not bought. */
+/** What a run that begins now is never offered: the things in the crates not open. */
 export function shutOf(save: SaveData): string[] {
   return CRATES.filter((c) => !save.crates.includes(c.id)).flatMap((c) => c.things.map(thingKey));
 }
 
-/** What the next crate costs, whichever it is, or null when all are bought. */
+/** The weapons a run that begins now may be offered, by name. */
+export function poolOf(save: SaveData): string[] {
+  return WEAPONS.filter((w) => inArmory(save, { kind: 'weapon', id: w.id })).map((w) => w.id);
+}
+
+/** What the next crate costs, whichever it is, or null when all are open. It rises with every crate opened, by renown or by its deed. */
 export function cratePrice(save: SaveData): number | null {
   return save.crates.length >= CRATES.length ? null : CRATE_PRICES[Math.min(save.crates.length, CRATE_PRICES.length - 1)];
 }
@@ -384,7 +549,7 @@ export interface CrateThing extends Thing {
   met: boolean;
 }
 
-/** A crate's contents as they may be shown before it is bought: what has been met by name, the rest dark. */
+/** A crate's contents as they may be shown before it is opened: what has been met by name, the rest dark. */
 export function crateThings(save: SaveData, crate: CrateDef): CrateThing[] {
   return crate.things.map((t) => {
     const known = met(save, t.kind, t.id);
@@ -422,25 +587,15 @@ export function blessSays(save: SaveData, id: BlessingId): { now: string; next: 
   return { now: step > 0 ? def.says(def.by[step - 1]) : '', next: step < def.by.length ? def.says(def.by[step]) : '' };
 }
 
-// ---------------------------------------------------------------- danger
-
-/** Picks the danger the next run is played at: any that is open. */
-export function setDanger(save: SaveData, n: number): boolean {
-  if (!Number.isInteger(n) || n < 0 || n > save.dangers) return false;
-  save.danger = n;
-  return true;
-}
-
-/** The highest danger a hero has won at: their badge. -1 for a hero who has not won. */
-export function badge(save: SaveData, hero: string): number {
-  return save.won[hero] ?? -1;
-}
-
 // ---------------------------------------------------------------- a run begins
 
-/** What the Hold gives a run that begins now. */
-export function termsOf(save: SaveData): Terms {
-  return { danger: Math.min(save.danger, save.dangers), shut: shutOf(save), bless: { ...save.bless } };
+/** What the Hold gives a run that a hero begins now. */
+export function termsOf(save: SaveData, hero = ''): Terms {
+  const open = vowsOpen(save);
+  return {
+    vows: save.vows.filter((v) => open.includes(v as VowId)), shut: shutOf(save), pool: poolOf(save), bless: { ...save.bless },
+    relic: hero ? startRelic(save, hero) : '', alt: hero !== '' && save.alt.includes(hero) && altOpen(save, hero),
+  };
 }
 
 /** How many roads a run that begins now is offered at once. */
@@ -448,9 +603,9 @@ export function forksNow(save: SaveData): number {
   return ROAD.roads + blessStep(save, 'path');
 }
 
-/** A new run as the Hold sends it out: the band chosen, the roads, the danger, the armory as it is and the blessings. */
+/** A new run as the Hold sends it out: the band chosen, the roads, the vows sworn, the armory as it is, the blessings and what the hero's oaths have opened. */
 export function beginRun(save: SaveData, hero: string, seed: number): RunData {
-  return newRun(hero, seed, bandFor(save, hero), forksNow(save), termsOf(save));
+  return newRun(hero, seed, bandFor(save, hero), forksNow(save), termsOf(save, hero));
 }
 
 // ---------------------------------------------------------------- everything the Hold sells
