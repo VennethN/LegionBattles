@@ -78,15 +78,19 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
   // The four bosses that came after the King, and the four hunters they open: each later hunter in each later lair as
   // it wakes, then the later bosses' attacks.
   later: async (page, shot) => {
+    await STATES.woken(page, shot);
+    for (const [monster, part, attack] of LATER) {
+      await tell(page, monster, part, attack);
+      await shot(`tell-${monster}-${attack}`);
+    }
+  },
+  // Only each later boss as it wakes, with the hunter it opens: quick, for its lair, its bars and its framing.
+  woken: async (page, shot) => {
     const pairs: Array<[string, string]> = [['spinner', 'greta'], ['abbot', 'ned'], ['furnace', 'ida'], ['mirror', 'silas']];
     for (const [monster, hunter] of pairs) {
       await lair(page, { monster, mark: 1, hunter, reinforcements: [], buildings: [], awake: true });
       await tick(page, 60 * 4);
       await shot(`later-${monster}-${hunter}`);
-    }
-    for (const [monster, part, attack] of LATER) {
-      await tell(page, monster, part, attack);
-      await shot(`tell-${monster}-${attack}`);
     }
   },
   // What someone who has never played sees: the title, PLAY, and the first hunt, which teaches. A picture at each step

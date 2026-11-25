@@ -803,7 +803,10 @@ export class LairScene extends Phaser.Scene {
     const bars = view.tall ? 170 : 84;
     ky = Math.max(Math.min(ky, my - this.tall() - bars + view.h / 2), hy0 + 130 - view.h / 2);
     const cx = view.w >= w.w ? w.w / 2 : Math.max(view.w / 2, Math.min(w.w - view.w / 2, kx));
-    const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2, Math.min(w.h - view.h / 2, ky));
+    // The view may rise a little above the field's top edge, where the far layer stands, so that a tall boss stood
+    // near it keeps its head below the bars.
+    const above = Math.max(0, this.tall() + bars - my);
+    const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2 - Math.min(110, above), Math.min(w.h - view.h / 2, ky));
     cam.centerOn(cx, cy);
     this.vfx?.apply(cam, view.zoom);
   }
