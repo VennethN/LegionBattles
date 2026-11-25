@@ -2048,7 +2048,11 @@ export class Hunt {
   private cower(a: Ally, dt: number): void {
     const m = this.monster;
     a.face = m.x >= a.x ? 1 : -1;
-    if (!this.warned(a.x, a.y, 12)) return;
+    // Out of the red, they stop where they are: a warning gone mid-run leaves them still, not running on the spot.
+    if (!this.warned(a.x, a.y, 12)) {
+      a.moving = false;
+      return;
+    }
     let best: [number, number] | null = null;
     for (let ring = 1; ring <= 4 && !best; ring++) {
       for (let k = 0; k < 12; k++) {

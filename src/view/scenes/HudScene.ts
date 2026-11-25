@@ -12,7 +12,7 @@ import Phaser from 'phaser';
 import { BONE, GOLD, HOLY, IRON, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { BUILDINGS, REVIVE } from '../../game/content';
-import type { Ev, Hunt } from '../../game/hunt';
+import type { Ev, Hunt, TaskState } from '../../game/hunt';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
@@ -51,6 +51,7 @@ export class HudScene extends Phaser.Scene {
   private atk: Phaser.GameObjects.Container | null = null;
   private partyMarks: Phaser.GameObjects.Text[] = [];
   private taskLines: Phaser.GameObjects.Text[] = [];
+  private taskCounts: Phaser.GameObjects.Text[] = [];
   private partyTop = 0;
   private taskTop = 0;
   controls!: Controls;
@@ -476,6 +477,7 @@ export class HudScene extends Phaser.Scene {
   private buildParty(hunt: Hunt): void {
     this.partyMarks = [];
     this.taskLines = [];
+    this.taskCounts = [];
     this.partyTop = 68;
     const partners = hunt.party.filter((p) => p.index > 0);
     partners.forEach((p, i) => {
@@ -494,9 +496,11 @@ export class HudScene extends Phaser.Scene {
       const h = 10 + hunt.tasks.length * 22;
       this.add.existing(slabImage(this, 10, this.taskTop, 230, h, BONE, 2, 3)).setDepth(9);
       hunt.tasks.forEach((t, i) => {
-        const line = label(this, 36, this.taskTop + 16 + i * 22, t.says, { size: 15, align: 'left', color: '#2a1c10', stroke: null });
-        line.setScale(Math.min(1, 196 / line.width)).setDepth(12);
+        // The task's name and how far along it is: what it asks in full is on its bill at the lodge.
+        const line = label(this, 36, this.taskTop + 16 + i * 22, t.name, { size: 15, align: 'left', color: '#2a1c10', stroke: null });
+        line.setScale(Math.min(1, 120 / line.width)).setDepth(12);
         this.taskLines.push(line);
+        this.taskCounts.push(label(this, 232, this.taskTop + 16 + i * 22, '', { size: 15, align: 'right', color: '#2a1c10', stroke: null }).setDepth(12));
       });
     }
     this.partyBars = this.add.graphics().setDepth(11);
@@ -522,13 +526,16 @@ export class HudScene extends Phaser.Scene {
     });
     hunt.tasks.forEach((t, i) => {
       const y = this.taskTop + 16 + i * 22;
+      this.taskCounts[i]?.setText(taskCount(t));
       g.lineStyle(2, 0x2a1c10, 1).strokeRect(18, y - 7, 13, 13);
       if (t.done) {
         g.lineStyle(3, 0x2e5f2a, 1).beginPath().moveTo(19, y).lineTo(24, y + 5).lineTo(33, y - 9).strokePath();
         this.taskLines[i]?.setColor('#2e5f2a');
+        this.taskCounts[i]?.setColor('#2e5f2a');
       } else if (t.failed) {
         g.lineStyle(3, 0x8a1e16, 1).beginPath().moveTo(18, y - 7).lineTo(31, y + 6).moveTo(31, y - 7).lineTo(18, y + 6).strokePath();
         this.taskLines[i]?.setColor('#8a1e16');
+        this.taskCounts[i]?.setColor('#8a1e16');
       }
     });
   }
@@ -757,5 +764,25 @@ export class HudScene extends Phaser.Scene {
       save().told.push('move');
       commit();
     }
+  }
+}
+
+/** How far along a task is, short, for the end of its line: halves of a down as halves. */
+function taskCount(t: TaskState): string {
+  const n = (v: number): string => (Number.isInteger(v) ? String(v) : v.toFixed(1));
+  switch (t.id) {
+    case 'swift':
+      return `${t.now} / ${t.n} s`;
+    case 'careful':
+      return `hit ${t.now} / ${t.n}`;
+    case 'breaks':
+    case 'markers':
+      return `${t.now} / ${t.n}`;
+    case 'villagers':
+      return `${t.now} left`;
+    case 'together':
+      return `down ${n(t.now)} / ${t.n}`;
+    default:
+      return '';
   }
 }

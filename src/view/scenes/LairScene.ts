@@ -801,6 +801,11 @@ export class LairScene extends Phaser.Scene {
         s.fig.hold(a.state === 'down' ? 'fall' : null);
         s.fig.alpha = a.state === 'down' ? 0.7 : 1;
       } else if (s.img && a.state === 'down') s.img.setRotation(a.face * 1.3).setAlpha(0.7);
+      else if (s.img && a.group === 'villager') {
+        // A villager running out of a warning: bent forward, bobbing, as someone fleeing runs.
+        const run = a.moving && !this.halted;
+        s.img.setRotation(run ? a.face * 0.22 : 0).setY(y - (run ? Math.abs(Math.sin(this.clock * 16)) * 5 : 0));
+      }
     }
     for (const b of w.buildings) {
       const s = this.show(`b${b.id}`, BUILDING_ART[b.def.id], b.x, b.y + 12, 1, false);
@@ -882,6 +887,25 @@ export class LairScene extends Phaser.Scene {
       const a = Math.min(1, d.life);
       g.fillStyle(GOLD, 0.1 * a).fillCircle(d.x, d.y, d.r);
       g.lineStyle(3, GOLD, 0.8 * a).strokeCircle(d.x, d.y, d.r);
+    }
+    // The cart's road, faintly: two ruts in the ground from where it stands to where it is going.
+    const road = w.cartRoad;
+    if (road && w.buildings.some((b) => b.def.id === 'cart')) {
+      const cart = w.buildings.find((b) => b.def.id === 'cart') as (typeof w.buildings)[number];
+      const pts: Array<[number, number]> = [[cart.x, cart.y], ...road.points.slice(road.next)];
+      for (const side of [-1, 1]) {
+        g.lineStyle(3, 0xc8a878, 0.16).beginPath();
+        pts.forEach(([x, y], i) => {
+          const [nx, ny] = pts[Math.min(i + 1, pts.length - 1)];
+          const [px, py] = pts[Math.max(i - 1, 0)];
+          const d = Math.hypot(nx - px, ny - py) || 1;
+          const ox = (-(ny - py) / d) * 13 * side;
+          const oy = ((nx - px) / d) * 13 * side;
+          if (i === 0) g.moveTo(x + ox, y + oy + 10);
+          else g.lineTo(x + ox, y + oy + 10);
+        });
+        g.strokePath();
+      }
     }
     // A watchfire's reach, faintly: where blows come faster.
     for (const b of w.buildings) {
