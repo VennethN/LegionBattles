@@ -489,18 +489,19 @@ describe('a run with roads in it', () => {
     expect(ran.relicsDue).toBe(0);
   });
 
-  it('the wounded: the hero begins at half their health, and coming through pays a choice of the best kind', () => {
+  it('the wounded: the hero begins hurt, and coming through pays a choice of the best kind', () => {
     const w = on('wounded', { stats: stats({ maxHp: 40 }) });
-    expect(w.hero.hp).toBe(20);
+    expect(w.hero.hp).toBe(Math.round(40 * ROAD.wounded.hp));
+    expect(ROAD.wounded.hp).toBeLessThanOrEqual(0.5);
     expect(w.hero.maxHp).toBe(40);
     const run = camp(5, { phase: 'fight', road: { omen: 'wounded' } });
     endWave(run, cleared(run));
     expect(run.phase).toBe('level');
-    expect(run.boons).toBe(1);
+    expect(run.bests).toBe(1);
     expect(run.choices.length).toBeGreaterThan(2);
     for (const c of run.choices) expect(c.tier).toBe(3);
     choose(run, 0);
-    expect(run.boons).toBe(0);
+    expect(run.bests).toBe(0);
   });
 
   it('burning field: lanes of fire are shown and then burn; a hero in one is burnt, an enemy in one is set alight, and every coin counts double', () => {

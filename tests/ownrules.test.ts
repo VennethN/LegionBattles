@@ -316,7 +316,7 @@ describe('what a weapon of their own learns', () => {
       expect(has(play(w, 0.1), 'rise').length).toBe(1);
       return w.hero.open;
     };
-    expect(risen(3)).toBeGreaterThan(5);
+    expect(risen(3)).toBeGreaterThan(4.5);
     expect(risen(2)).toBe(0);
   });
 

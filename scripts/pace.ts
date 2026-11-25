@@ -1,4 +1,4 @@
-// npm run pace -- [--runs=12] [--hero=bram] [--band=biscuit,pip] [--friends] [--waves=40] [--brief] [--each] [--why] [--quiet] [--norelics] [--nokinds]
+// npm run pace -- [--runs=12] [--hero=bram] [--band=biscuit,pip] [--friends] [--waves=40] [--brief] [--each] [--why] [--quiet] [--norelics] [--nokinds] [--first]
 //
 // Plays runs with the plain player (src/game/bot.ts) and says how they go:
 // how many come through each wave, how much health is left at its end, how
@@ -15,6 +15,11 @@
 // weapon were built up. --quiet keeps every run to the quiet road,
 // --norelics fights every wave as if no relic were held, and --nokinds
 // leaves the gifts of the kinds out: what each of the three is worth.
+// --first plays every run as a player's first: Biscuit in the cage on the
+// second wave, and the starter's few weapons in the camps.
+//
+// It says how long the fighting of a run took, in minutes of the game's
+// own time, for the runs that came through all twenty waves and for all.
 
 import { COMPANIONS, HEROES, LAST_WAVE, OMENS, relicOf, type Omen } from '../src/game/data';
 import { botCamp, botSteer } from '../src/game/bot';
@@ -58,13 +63,17 @@ const median = (list: number[]): number => {
 function measure(hero: string, who: readonly string[], label: string): void {
   const rows: WaveRow[] = [];
   const ends: number[] = [];
+  /** Minutes of fighting in the written waves: of every run, and of those that came through all of them. */
+  const minutes: number[] = [];
+  const wonMinutes: number[] = [];
   const roads = Object.fromEntries(OMENS.map((o) => [o.id, { taken: 0, through: 0, prize: 0 }])) as Record<Omen, { taken: number; through: number; prize: number }>;
   const relics: Record<string, number> = {};
   let held = 0;
   let steps3 = 0;
   let strays = 0;
   for (let n = 0; n < runs; n++) {
-    const run = newRun(hero, 1000 + n * 7919, who);
+    const run = newRun(hero, 1000 + n * 7919, who, undefined, { first: args.includes('--first') });
+    let fought = 0;
     while (run.phase !== 'over' && run.wave <= most) {
       if (args.includes('--quiet')) run.road = { omen: 'quiet' };
       const setup = setupOf(run);
@@ -94,6 +103,7 @@ function measure(hero: string, who: readonly string[], label: string): void {
         }
       }
       row.up += steps ? up / steps : 0;
+      if (run.wave <= LAST_WAVE) fought += world.time;
       if (world.over === 'cleared') {
         row.through++;
         row.hpLeft += world.hero.hp / world.hero.maxHp;
@@ -115,6 +125,8 @@ function measure(hero: string, who: readonly string[], label: string): void {
       }
     }
     ends.push(survived(run));
+    minutes.push(fought / 60);
+    if (survived(run) >= LAST_WAVE) wonMinutes.push(fought / 60);
     held += run.relics.length;
     for (const id of run.relics) relics[id] = (relics[id] ?? 0) + 1;
     steps3 += Math.max(0, ...kindsOf(run).map((k) => k.step));
@@ -125,6 +137,8 @@ function measure(hero: string, who: readonly string[], label: string): void {
   const written = ends.reduce((a, b) => a + Math.min(b, LAST_WAVE), 0) / ends.length;
   const won = ends.filter((e) => e >= LAST_WAVE).length;
   console.log(`${brief ? '' : '\n'}${label.padEnd(34)} ${runs} runs, waves come through: half ${String(median(ends)).padStart(2)}, mean ${mean.toFixed(1).padStart(4)} (${written.toFixed(1).padStart(4)} of the written ${LAST_WAVE}, ${won} won), least ${String(Math.min(...ends)).padStart(2)}, most ${String(Math.max(...ends)).padStart(2)}${each ? `  [${ends.join(' ')}]` : ''}`);
+  const avg = (list: number[]): string => (list.length ? (list.reduce((a, b) => a + b, 0) / list.length).toFixed(1) : '-');
+  console.log(`${''.padEnd(34)} minutes fought: ${avg(minutes)} a run, ${avg(wonMinutes)} for one that came through all ${LAST_WAVE}`);
   const top = Object.entries(relics).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([id, n]) => `${relicOf(id).name} ${n}`).join(', ');
   console.log(`${''.padEnd(34)} relics held at the end ${(held / runs).toFixed(1)}${brief ? '' : ` (${top})`}, best kind's step ${(steps3 / runs).toFixed(1)} of 3, strays ${(strays / runs).toFixed(1)}`);
   if (brief) return;

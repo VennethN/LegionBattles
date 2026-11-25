@@ -344,7 +344,7 @@ export const ENEMIES: readonly EnemyDef[] = [
   { id: 'colossus', unit: 'colossus', name: 'The Colossus', ai: 'boss', hp: 700, dmg: 5, speed: 66, r: 32, coins: 70, size: 1.7, every: 2.4, flies: 220, dash: 380, calls: 'scarab' },
   // Frostholt.
   { id: 'huscarl', unit: 'huscarl', name: 'Huscarl', ai: 'walk', hp: 14, dmg: 3, speed: 102, r: 14, coins: 2 },
-  { id: 'harpooner', unit: 'harpooner', name: 'Harpooner', ai: 'shoot', hp: 11, dmg: 2, speed: 72, r: 13, coins: 2, keep: 280, every: 2.5, flies: 240 },
+  { id: 'harpooner', unit: 'harpooner', name: 'Harpooner', ai: 'shoot', hp: 11, dmg: 2, speed: 72, r: 13, coins: 2, keep: 280, every: 2.9, flies: 240 },
   { id: 'frostwitch', unit: 'frostwitch', name: 'Frost Witch', ai: 'shoot', hp: 13, dmg: 2, speed: 66, r: 13, coins: 4, keep: 300, every: 3, flies: 200, chills: 0.35 },
   { id: 'icegolem', unit: 'icegolem', name: 'Rime Golem', ai: 'walk', hp: 70, dmg: 5, speed: 60, r: 24, coins: 8, size: 1.3 },
   { id: 'skald', unit: 'skald', name: 'Skald', ai: 'boost', hp: 24, dmg: 2, speed: 66, r: 14, coins: 6, keep: 300, aura: 230 },
@@ -365,7 +365,7 @@ export const ENEMIES: readonly EnemyDef[] = [
  * for every wave past `dmgFrom`. The early waves are left as they were: there an enemy's harm is 1 or 2, and the
  * smallest change in it is a half or a whole again.
  */
-export const ENEMY_GROWTH = { hp: 0.17, hpMore: 0.016, dmg: 0.06, dmgMore: 0.007, hpFrom: 4, hpLate: 0.09, dmgFrom: 7, dmgLate: 0.03 };
+export const ENEMY_GROWTH = { hp: 0.17, hpMore: 0.016, dmg: 0.06, dmgMore: 0.007, hpFrom: 4, hpLate: 0.07, dmgFrom: 7, dmgLate: 0.03 };
 /** How fast coins thin out: the waves grow far faster than the camp's prices do. */
 export const COIN_THINNING = 0.22;
 /** Past the last of the written waves, health grows by this share of itself every wave besides. */
@@ -415,8 +415,8 @@ const MIXES: ReadonlyArray<ReadonlyArray<readonly [string, number]>> = [
   [['huscarl', 2], ['direwolf', 3]],
   [['huscarl', 2], ['direwolf', 3], ['harpooner', 1.5]],
   [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8]],
-  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8], ['icegolem', 0.3], ['warbear', 0.5]],
-  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8], ['icegolem', 0.5], ['warbear', 0.7], ['skald', 0.22]],
+  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.4], ['frostwitch', 0.7], ['icegolem', 0.25], ['warbear', 0.4]],
+  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.4], ['frostwitch', 0.7], ['icegolem', 0.4], ['warbear', 0.55], ['skald', 0.2]],
   [['huscarl', 2], ['direwolf', 3], ['harpooner', 1.5]],
 ];
 

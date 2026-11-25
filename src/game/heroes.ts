@@ -58,7 +58,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'wren', unit: 'wren', name: 'Wren Fallowmere', short: 'Wren', epithet: 'the Quiet Arrow', who: 'A poacher the king could never catch.', line: 'You will not hear the one that matters.',
-    weapon: 'whisper', stats: { aim: 2, reach: 30, maxHp: -4 }, quirk: 'unseen', quirkName: 'Unseen',
+    weapon: 'whisper', stats: { aim: 2, reach: 30, maxHp: -3 }, quirk: 'unseen', quirkName: 'Unseen',
     says: 'Every second since she was last struck she hits harder. One blow takes it all away.', move: 'oneshot', unlock: null,
   },
   {
@@ -83,7 +83,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'hroth', unit: 'hroth', name: 'Hroth', short: 'Hroth', epithet: 'the Unburied', who: 'They buried him twice.', line: 'Dig deeper next time.',
-    weapon: 'gravecleaver', stats: { might: 3, lifesteal: 2, armor: -2 }, quirk: 'gravedebt', quirkName: 'Grave Debt',
+    weapon: 'gravecleaver', stats: { might: 2, armor: -2 }, quirk: 'gravedebt', quirkName: 'Grave Debt',
     says: "Under a third of his health he hits far harder and his axe's kills give health back. Once in a land he gets up from a killing blow. He does not mend by himself.", move: 'opengrave', unlock: { kind: 'wave', wave: 10 },
   },
   {
@@ -98,7 +98,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'maren', unit: 'maren', name: 'Maren Dawnguard', short: 'Maren', epithet: 'the Oathkeeper', who: 'She swore to see the morning.', line: 'Hold until the light. Then hold some more.',
-    weapon: 'morningstar', stats: { maxHp: 8, armor: 1, might: 2, haste: -10 }, quirk: 'consecrate', quirkName: 'Consecrate',
+    weapon: 'morningstar', stats: { maxHp: 6, armor: 1, might: 1, haste: -10 }, quirk: 'consecrate', quirkName: 'Consecrate',
     says: 'Her hammer leaves holy ground that mends the band and burns enemies.', move: 'judgment', unlock: { kind: 'wave', wave: 20 },
   },
 ];
@@ -120,10 +120,10 @@ export const SIGNATURES: readonly WeaponDef[] = [
   { id: 'gatekeeper', name: 'Gatekeeper', own: true, icon: 'sword', kinds: ['blade'], kind: 'melee', motion: 'sweep', dmg: [9, 14, 22, 34], scale: { might: 1 }, every: [1, 0.93, 0.86, 0.78], range: 96, crit: 5, critBy: 2, knock: 18, arc: 100, price: 0, says: 'Sword and shield: a wide sweep in front of him.' },
   { id: 'whisper', name: 'Whisper', own: true, icon: 'bow', kinds: ['bow'], kind: 'ranged', motion: 'shoot', dmg: [8, 13, 19, 29], scale: { aim: 1 }, every: [1.12, 1.04, 0.96, 0.88], range: 410, crit: 8, critBy: 2, knock: 6, pierce: 1, flies: 680, shot: 'arrow', price: 0, says: 'A longbow: an arrow through two.' },
   { id: 'unfinished', name: 'The Unfinished Staff', own: true, icon: 'staff', kinds: ['arcane'], kind: 'magic', motion: 'cast', dmg: [11, 17, 26, 39], scale: { lore: 1 }, every: [1.1, 1.02, 0.94, 0.85], range: 390, crit: 5, critBy: 2, knock: 5, pierce: 1, flies: 430, shot: 'orb-arcane', price: 0, says: 'A bolt that bends to its mark, and on through it.' },
-  { id: 'headstails', name: 'Heads and Tails', own: true, icon: 'dagger', kinds: ['blade'], kind: 'melee', motion: 'thrust', dmg: [6, 10, 14, 22], scale: { might: 0.7 }, every: [0.52, 0.48, 0.44, 0.39], range: 82, crit: 20, critBy: 2.5, knock: 4, pierce: 2, price: 0, says: 'A knife and a coin: quick, and they often find the gap.' },
+  { id: 'headstails', name: 'Heads and Tails', own: true, icon: 'dagger', kinds: ['blade'], kind: 'melee', motion: 'thrust', dmg: [6, 9, 13, 20], scale: { might: 0.7 }, every: [0.52, 0.48, 0.44, 0.39], range: 82, crit: 20, critBy: 2.5, knock: 4, pierce: 2, price: 0, says: 'A knife and a coin: quick, and they often find the gap.' },
   { id: 'hearthbrand', name: 'Hearthbrand', own: true, icon: 'brazier', kinds: ['fire', 'arcane'], kind: 'magic', motion: 'cast', dmg: [9, 14, 20, 30], scale: { lore: 0.8 }, every: [1.3, 1.21, 1.13, 1.04], range: 330, crit: 0, critBy: 2, knock: 8, burst: 60, burn: [4, 6, 9, 13], flies: 400, shot: 'orb-fire', price: 0, says: 'A burning staff: its fire bursts and keeps burning.' },
   { id: 'ninth', name: "The Ninth's Lance", own: true, icon: 'spear', kinds: ['pole'], kind: 'melee', motion: 'thrust', dmg: [11, 18, 27, 41], scale: { might: 1 }, every: [1.2, 1.12, 1.03, 0.94], range: 165, crit: 5, critBy: 2, knock: 20, pierce: 99, price: 0, says: 'A long thrust through everyone in its line.' },
-  { id: 'gravecleaver', name: 'Gravecleaver', own: true, icon: 'greataxe', kinds: ['blade', 'blunt'], kind: 'melee', motion: 'sweep', dmg: [18, 28, 42, 63], scale: { might: 1.6 }, every: [1.75, 1.63, 1.51, 1.4], range: 110, crit: 5, critBy: 2, knock: 26, arc: 140, price: 0, says: 'A great axe: slow, wide and heavy.' },
+  { id: 'gravecleaver', name: 'Gravecleaver', own: true, icon: 'greataxe', kinds: ['blade', 'blunt'], kind: 'melee', motion: 'sweep', dmg: [17, 26, 40, 60], scale: { might: 1.6 }, every: [1.75, 1.63, 1.51, 1.4], range: 110, crit: 5, critBy: 2, knock: 26, arc: 140, price: 0, says: 'A great axe: slow, wide and heavy.' },
   { id: 'passingbell', name: 'The Passing Bell', own: true, icon: 'censer', kinds: ['holy'], kind: 'magic', motion: 'pulse', dmg: [7, 12, 18, 27], scale: { lore: 0.7 }, every: [3.4, 3.15, 2.9, 2.65], range: 116, crit: 0, critBy: 2, knock: 18, burst: 118, mends: [1, 1, 2, 2], price: 0, says: 'A ring of sound that throws them back and mends the band.' },
   { id: 'widowstear', name: "Widow's Tear", own: true, icon: 'frost', kinds: ['frost', 'arcane'], kind: 'magic', motion: 'cast', dmg: [7, 11, 16, 24], scale: { lore: 0.7 }, every: [1.2, 1.12, 1.04, 0.95], range: 370, crit: 0, critBy: 2, knock: 2, pierce: 2, slow: 0.45, flies: 460, shot: 'orb-frost', price: 0, says: 'A wand of ice: slows three in a line.' },
   { id: 'morningstar', name: 'Morningstar', own: true, icon: 'hammer', kinds: ['blunt', 'holy'], kind: 'melee', motion: 'slam', dmg: [14, 22, 34, 51], scale: { might: 1.3 }, every: [1.6, 1.49, 1.38, 1.27], range: 100, crit: 0, critBy: 2, knock: 10, burst: 62, stun: 0.8, price: 0, says: 'A hammer: stuns everyone where it lands.' },
@@ -307,7 +307,7 @@ export const QUIRKS = {
   gravedebt: {
     /** The share of his health under which he is in debt, how much more he hits then, and what a kill of his axe gives back. */
     under: 1 / 3,
-    more: 0.6,
+    more: 0.4,
     mends: 1,
     /** The share of his health he gets up with, how wide the burst is and how many of his blows it is worth. */
     rises: 0.25,
@@ -407,7 +407,7 @@ export const MOVES: readonly MoveDef[] = [
   { id: 'vanish', name: 'Vanish', says: 'Two seconds unseen. Enemies lose him, and his next blows are critical.', reach: 120, harm: 0, r: 0, seconds: 2, stun: 0 },
   { id: 'wildfire', name: 'Wildfire', says: 'A ring of fire runs out from her.', reach: 250, harm: 2, r: 330, seconds: 5, stun: 0 },
   { id: 'charge', name: 'Charge', says: 'A long run through whatever is in the way.', reach: 240, harm: 3, r: 38, seconds: 0.6, stun: 0.4 },
-  { id: 'opengrave', name: 'Open Grave', says: 'He pays with his own health. For six seconds he does double harm and every blow gives health back.', reach: 150, harm: 2, r: 0, seconds: 6, stun: 0 },
+  { id: 'opengrave', name: 'Open Grave', says: 'He pays with his own health. For five seconds he does double harm and every blow gives health back.', reach: 150, harm: 2, r: 0, seconds: 5, stun: 0 },
   { id: 'toll', name: 'Toll', says: 'The bell heals the band and stuns all who hear it.', reach: 250, harm: 1.5, r: 320, seconds: 0, stun: 1.6 },
   { id: 'whiteout', name: 'Whiteout', says: 'Everything on the field freezes for two seconds.', reach: 420, harm: 0, r: 0, seconds: 2, stun: 2 },
   { id: 'judgment', name: 'Judgment', says: 'A hammer of light falls where she stands, and the ground there is holy.', reach: 170, harm: 3, r: 165, seconds: 4, stun: 1.3 },
@@ -417,7 +417,7 @@ export const MOVES: readonly MoveDef[] = [
 export const MOVE = {
   /** Kills that fill the fury bar on the first wave, and how many more each wave after: the waves grow. Set so that a move comes about twice a wave early and three or four times late. */
   kills: 12,
-  more: 5,
+  more: 3.5,
   /** What a blow on a captain adds to the bar: there is little else to kill beside one. */
   bossBlow: 0.006,
   /** A move that goes off by itself waits for this many in its reach, or a captain, or the hero in trouble. */

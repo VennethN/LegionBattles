@@ -112,7 +112,7 @@ export interface RunData {
   /** The share of their health the hero begins the next wave with: 1 but after a forced march. */
   hurt: number;
   /** Choices as for a level that are owed at the best tier: the prize of the road of the wounded. */
-  boons: number;
+  bests: number;
 }
 
 /** What a run is begun with besides who goes. */
@@ -141,7 +141,7 @@ export function newRun(hero: string, seed: number, band: readonly string[] = [],
   const known = [...new Set(band)].filter((id) => COMPANIONS.some((c) => c.id === id));
   const pool = start.pool === undefined ? (start.first ? STARTER_POOL : null) : start.pool;
   return {
-    first: !!start.first, pool: pool ? pool.filter((id) => WEAPONS.some((w) => w.id === id)) : null, taken: '', tossed: false, forced: false, hurt: 1, boons: 0,
+    first: !!start.first, pool: pool ? pool.filter((id) => WEAPONS.some((w) => w.id === id)) : null, taken: '', tossed: false, forced: false, hurt: 1, bests: 0,
     hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [], band: known.map((id) => ({ id, bond: 0 })), fury: 0, rose: -1, saved: false,
     items: [], ups: [], packs: 0, kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
     relics: [], relicsDue: 0, relicChoices: [], road: { omen: 'quiet' }, roads: [], forks: Math.max(1, Math.min(ROAD.most, Math.floor(forks))), vigor: 0, whet: 0, left: 1,
@@ -246,7 +246,7 @@ export function setupOf(run: RunData, tall = false, auto = true): Setup {
   const hurt = run.hurt ?? 1;
   run.hurt = 1;
   return {
-    taken: run.taken ?? '', hurt, herald: run.wave === HERALD_WAVE,
+    taken: run.taken ?? '', hurt, herald: run.wave === HERALD_WAVE, given: !!run.first && run.wave === 2,
     seed, wave: run.wave, stats, quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
     band: run.band, level: run.level, fury: run.fury, auto, purse: run.gold, spare: run.rose !== landAt(run.wave), rescue: !run.saved, tall,
     omen: run.road.omen, stray: run.road.stray, relics: run.relics, whet: run.whet, tithe, bones,
@@ -288,7 +288,7 @@ export function endWave(run: RunData, world: World): void {
   if (world.blessed) run.pending++;
   if (omen === 'wounded') {
     run.pending++;
-    run.boons = (run.boons ?? 0) + 1;
+    run.bests = (run.bests ?? 0) + 1;
   }
   // The blizzard's spoils: the plainest weapon bought gains a tier, or a pack for one who has bought none that can.
   if (omen === 'blizzard' && !whet(run)) run.packs++;
@@ -385,7 +385,7 @@ function rollChoices(run: RunData): void {
   // Orrin picks from one more.
   const n = CHOICES + (heroOf(run).quirk === 'unfinished' ? QUIRKS.unfinished.choices : 0);
   // A blessing of the best kind: every choice at the best tier.
-  const best = (run.boons ?? 0) > 0;
+  const best = (run.bests ?? 0) > 0;
   run.choices = roll(run, (rng) => {
     const pool = [...UPGRADES];
     const out: Choice[] = [];
@@ -413,7 +413,7 @@ export function choose(run: RunData, i: number): boolean {
   if (bonded) bonded.bond = Math.min(BAND.bonds, bonded.bond + 1);
   else run.ups.push({ stat: c.stat, by: c.by });
   run.pending--;
-  if ((run.boons ?? 0) > 0) run.boons--;
+  if ((run.bests ?? 0) > 0) run.bests--;
   settle(run);
   return true;
 }
@@ -635,7 +635,7 @@ function strayFor(run: RunData, rng: Rng): string | undefined {
 }
 
 /** True if an omen may be offered to the run now. */
-function offered(run: RunData, id: Omen, stray: string | undefined): boolean {
+function roadOpen(run: RunData, id: Omen, stray: string | undefined): boolean {
   const o = OMENS.find((x) => x.id === id);
   if (!o || o.weight <= 0 || run.wave < o.from) return false;
   // An omen that is one land's own comes only there.
@@ -652,7 +652,7 @@ function offered(run: RunData, id: Omen, stray: string | undefined): boolean {
 function rollRoads(run: RunData, n: number): Road[] {
   return roll(run, (rng) => {
     const stray = strayFor(run, rng);
-    const pool = OMENS.filter((o) => offered(run, o.id, stray));
+    const pool = OMENS.filter((o) => roadOpen(run, o.id, stray));
     const out: Road[] = [];
     while (out.length < n && pool.length > 0) {
       const o = rng.weighted(pool, (x) => x.weight);

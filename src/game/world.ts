@@ -80,6 +80,8 @@ export interface Setup {
   hurt?: number;
   /** True on the wave that has the lone champion who leaves a relic: the third of every run. */
   herald?: boolean;
+  /** True where whoever is in the cage is let out when the wave ends, broken or not: a first run's Biscuit is not to be missed. */
+  given?: boolean;
 }
 
 /** Which way the hero is steered: a length of 1 is flat out. `act` lets the move loose, if it is full. */
@@ -563,6 +565,7 @@ export class World {
   private readonly whet: number;
   private readonly tithe: boolean;
   private readonly stray: string;
+  private readonly given: boolean;
   /** How many times the experience a coin is worth here, and how many times the coins. */
   private readonly xpBy: number;
   private readonly goldBy: number;
@@ -650,6 +653,7 @@ export class World {
     this.tithe = !!setup.tithe;
     this.bones = setup.bones ?? null;
     this.stray = setup.stray ?? '';
+    this.given = !!setup.given;
     this.xpBy = this.omen === 'horde' ? ROAD.horde.xp : 1;
     this.goldBy = this.omen === 'burning' ? ROAD.burning.coins : 1;
     // What the road puts on the field.
@@ -762,14 +766,18 @@ export class World {
     const h = this.hero;
     let near = 0;
     let strong = false;
+    let worth = false;
+    const sturdy = this.ownBlow(3);
     for (const f of this.foes) {
       if (f.dead || Math.hypot(f.x - h.x, f.y - h.y) - f.def.r > m.reach) continue;
       if (f.boss || f.champion) strong = true;
+      // One worth an arrow of its own: a captain, a champion, or anyone who would take several blows to bring down.
+      if (f.boss || f.champion || f.hp >= sturdy) worth = true;
       near++;
     }
     const hale = h.hp / h.maxHp;
     // One arrow is for one worth it. The grave is not opened by one who cannot pay for it.
-    if (m.id === 'oneshot') return strong || (near > 0 && hale < MOVE.trouble);
+    if (m.id === 'oneshot') return worth || (near > 0 && hale < MOVE.trouble);
     if (m.id === 'opengrave') return hale > MOVE.graveCost + 0.15 && (strong || near >= MOVE.crowd);
     return strong || near >= MOVE.crowd || (near > 0 && hale < MOVE.trouble);
   }
@@ -2550,8 +2558,11 @@ export class World {
     const debt = this.indebted;
     this.wound(f, amount, crit, false);
     if (f.dead && def?.own) {
-      // Hroth in debt: what his axe fells gives health back.
-      if (debt) this.mend(QUIRKS.gravedebt.mends);
+      // Hroth in debt: what his axe fells gives health back, though a sweep through a crowd is one mouthful and not ten.
+      if (debt && this.time >= this.leechAt) {
+        this.leechAt = this.time + LEECH_GAP;
+        this.mend(QUIRKS.gravedebt.mends);
+      }
       // Whisper, once it has learned to: a kill at full Unseen looses the next arrow at once.
       const own = this.own;
       if (own && def.id === 'whisper' && this.hidden && this.ruled('whisper', 3)) own.cool = Math.min(own.cool, OWN.whisper.again);
@@ -2967,6 +2978,9 @@ export class World {
     // The wave is over: whoever is left leaves the field, and what lies on it comes in. A coin nobody went for before
     // the time ran out is worth a share of itself. One who has felled a captain has the field, and loses nothing.
     if (!bossDown) for (const p of this.picks) if (p.kind === 'coin' && !p.pulled) p.late = true;
+    // A first run's cage opens in any case: whoever is in it comes along.
+    const cage = this.given ? this.foes.find((f) => f.def.ai === 'still' && !f.dead) : undefined;
+    if (cage) this.free(cage);
     for (const f of this.foes) this.events.push({ t: 'fall', id: f.id, x: f.x, y: f.y, boss: f.boss, swept: true });
     this.foes = [];
     this.marks = [];

@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { botSteer } from '../src/game/bot';
 import { HEROES, LATE_COIN, MOVE, MOVES, QUIRKS, ROAD, SIGNATURES, STARTER_POOL, WEAPONS, byId, finishedAs, weaponOf } from '../src/game/data';
 import { HANDED, handOver } from '../src/game/handover';
-import { FIRST_STRAY, HERALD_WAVE, buy, canToss, endWave, kindCounts, march, newRun, ownDef, reroll, setupOf, toss, tossOdds, type Offer, type RunData } from '../src/game/run';
+import { FIRST_STRAY, HERALD_WAVE, buy, canToss, endWave, kindCounts, march, newRun, ownDef, reroll, setupOf, takeRoad, toss, tossOdds, type Offer, type RunData } from '../src/game/run';
 import { freshSave } from '../src/game/state';
 import { World, type Ev, type Setup } from '../src/game/world';
 import { alone, blows, play, setup, shotAt, stand, stats } from './field';
@@ -306,7 +306,7 @@ describe('moves that are aimed', () => {
     expect(hidden.amount).toBeGreaterThan(fresh.amount * 2);
     // By itself it waits for one worth it: a crowd of the weak is not.
     const w = as('wren', { fury: 1, auto: true });
-    for (let i = 0; i < 6; i++) stand(w, 'cutpurse', w.hero.x + 200, w.hero.y - 60 + i * 24, { hp: 9999, dmg: 0 }, true);
+    for (let i = 0; i < 6; i++) stand(w, 'cutpurse', w.hero.x + 200, w.hero.y - 60 + i * 24, { hp: 5, dmg: 0 }, true);
     expect(w.ripe).toBe(false);
     stand(w, 'bruiser', w.hero.x + 300, w.hero.y, { hp: 9999, dmg: 0, champion: 'armored' }, true);
     expect(w.ripe).toBe(true);
@@ -344,7 +344,7 @@ describe('moves that are aimed', () => {
     expect(w.hero.dash).toBeNull();
   });
 
-  it('Open Grave: he pays a share of his health, though never the last of it, and for six seconds does double harm and is fed by every blow', () => {
+  it('Open Grave: he pays a share of his health, though never the last of it, and for some seconds does double harm and is fed by every blow', () => {
     const w = as('hroth', { stats: stats({ maxHp: 100 }) });
     const f = stand(w, 'bruiser', w.hero.x + 80, w.hero.y, { hp: 999999, dmg: 0 }, true);
     const before = Math.max(...blows(play(w, 2.2), f.id));
@@ -421,6 +421,15 @@ describe('a first run', () => {
     march(run);
     expect(run.phase).toBe('road');
     expect(run.roads).toEqual([{ omen: 'stray', stray: FIRST_STRAY }]);
+    // Whoever is in that cage is out by the wave's end, broken or not: a first run's Biscuit is not to be missed.
+    run.phase = 'road';
+    takeRoad(run, 0);
+    const second = setupOf(run);
+    expect(second.given).toBe(true);
+    const w = alone(new World(second));
+    for (let t = 0; t < w.wave.seconds + 5 && !w.over; t += 1 / 60) w.step({ x: 0, y: 0 });
+    expect(w.over).toBe('cleared');
+    expect(w.freed).toBe(FIRST_STRAY);
     // Any other run has its roads by the dice.
     const later = newRun('bram', 11);
     through(later);

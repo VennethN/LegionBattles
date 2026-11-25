@@ -43,12 +43,12 @@ export interface OmenDef {
 export const OMENS: readonly OmenDef[] = [
   { id: 'quiet', name: 'The Road', says: 'The wave as it is.', prize: 'Nothing more', from: 1, weight: 0 },
   // Anywhere.
-  { id: 'horde', name: 'The Horde', says: 'Half as many again, and none the weaker for it.', prize: 'Half as much experience again', from: 2, weight: 2 },
+  { id: 'horde', name: 'The Horde', says: 'Half as many again, and none the weaker for it.', prize: 'Half as much experience again', from: 3, weight: 1.5 },
   { id: 'champions', name: 'Champions', says: 'Three champions come among them.', prize: 'A relic, one of three', from: 4, weight: 1.5 },
-  { id: 'forced', name: 'Forced March', says: 'No camp after it: the next wave finds you as this one leaves you.', prize: 'A relic, one of three', from: 4, weight: 1.3 },
-  { id: 'toll', name: 'Toll Road', says: 'The keepers take a fifth of your purse.', prize: 'A wave a third shorter', from: 3, weight: 1.6 },
-  { id: 'duel', name: 'The Duel', says: 'One great champion, alone. Nobody else comes, and nobody else pays.', prize: 'A relic if it falls', from: 5, weight: 1.3 },
-  { id: 'wounded', name: 'The Wounded', says: 'You begin at half your health.', prize: 'A blessing of the best kind', from: 3, weight: 1.5 },
+  { id: 'forced', name: 'Forced March', says: 'No camp after it: the next wave finds you as this one leaves you.', prize: 'A relic, one of three', from: 4, weight: 1.8 },
+  { id: 'toll', name: 'Toll Road', says: 'The keepers take a fifth of your purse.', prize: 'A wave a third shorter', from: 3, weight: 2 },
+  { id: 'duel', name: 'The Duel', says: 'One great champion, alone. Nobody else comes, and nobody else pays.', prize: 'A relic if it falls', from: 5, weight: 1.7 },
+  { id: 'wounded', name: 'The Wounded', says: 'You begin at two fifths of your health.', prize: 'A blessing of the best kind', from: 3, weight: 1.3 },
   // Thornwood's own.
   { id: 'stray', name: 'The Stray', says: 'A creature is caged on the field, and its jailer stands by.', prize: 'It fights beside you for the run', land: 'meadow', from: 2, weight: 1.6 },
   { id: 'shrine', name: 'The Grove Shrine', says: 'Stand in its ring. While you do, they come faster.', prize: 'A blessing: a choice as for a level', land: 'meadow', from: 2, weight: 1.8 },
@@ -116,12 +116,12 @@ export const ROAD = {
     /** Seconds before the duelist is marked; how many times the health, harm and speed of the one it is made from. It blazes as a burning champion does. */
     at: 1.2,
     hp: 16,
-    dmg: 2,
-    speed: 1.3,
+    dmg: 2.4,
+    speed: 1.4,
   },
   wounded: {
     /** The share of their health a hero begins with. */
-    hp: 0.5,
+    hp: 0.4,
   },
   night: {
     /** How many times as fast they come on in the dark. */
@@ -141,11 +141,11 @@ export const ROAD = {
   shrine: {
     /** How wide its ring is, and the seconds of standing in it, in all, that bless. */
     r: 78,
-    seconds: 10,
+    seconds: 11,
     /** No nearer the middle of the field, where the hero begins, than this. */
     clear: 270,
     /** While the hero stands in the ring, the share of the usual time between one band of them and the next. */
-    hurry: 0.55,
+    hurry: 0.45,
   },
   stray: {
     /** The most strays a run takes in. */

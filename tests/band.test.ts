@@ -374,6 +374,8 @@ describe('the band and the run', () => {
         expect(w.over, c.id).toBe('cleared');
         endWave(run, w);
         botCamp(run);
+        // By the road with no omen: this is about the companions, not about what a road costs.
+        run.road = { omen: 'quiet' };
       }
       // Tam is there for his banner, not his spear.
       if (c.id !== 'tam') expect(struck, c.id).toBeGreaterThan(3);
