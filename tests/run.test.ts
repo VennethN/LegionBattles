@@ -111,7 +111,7 @@ describe('a run', () => {
     // He got up in this land already; in the next he can again. Tam's rescue is once in a run.
     expect(next.spare).toBe(false);
     expect(next.rescue).toBe(false);
-    run.wave = 8;
+    run.wave = 11;
     expect(setupOf(run).spare).toBe(true);
   });
 
@@ -248,23 +248,25 @@ describe('the camp', () => {
 describe('the save', () => {
   it('opens a hero when their feat is done, once, and says so', () => {
     const save = freshSave();
-    expect(isOpen(save, 'bram')).toBe(true);
+    // Wren is the first hero; Bram is unlocked by finishing a run.
+    expect(isOpen(save, 'wren')).toBe(true);
+    expect(isOpen(save, 'bram')).toBe(false);
     expect(isOpen(save, 'orrin')).toBe(false);
-    const run = newRun('bram', 1);
+    const run = newRun('wren', 1, ['biscuit']);
     run.wave = 4;
     expect(record(save, run, 30)).toMatchObject({ heroes: [], friends: [] });
-    run.wave = 5;
-    // The fourth wave come through opens Pip, who goes straight into the empty place in the band.
-    expect(record(save, run, 0)).toMatchObject({ heroes: [], friends: ["pip"] });
-    expect(save.band).toEqual(['pip']);
-    expect(bestWave(save)).toBe(4);
-    expect(featShare(save, { kind: 'wave', wave: 5 })).toBeCloseTo(0.8);
+    expect(bestWave(save)).toBe(3);
+    expect(featShare(save, { kind: 'wave', wave: 5 })).toBeCloseTo(0.6);
     run.wave = 6;
-    expect(record(save, run, 30).heroes).toEqual(['orrin']);
+    // The fifth wave come through unlocks Orrin and Pip. Biscuit has the only slot, and keeps it.
+    expect(record(save, run, 30)).toMatchObject({ heroes: ['orrin'], friends: ['pip'] });
+    expect(save.band).toEqual(['biscuit']);
     expect(record(save, run, 0)).toMatchObject({ heroes: [], friends: [] });
     expect(isOpen(save, 'orrin')).toBe(true);
+    (run as RunData).phase = 'over';
+    expect(record(save, run, 0).heroes).toEqual(['bram']);
     expect(save.kills).toBe(60);
-    expect(save.last).toBe('bram');
+    expect(save.last).toBe('wren');
   });
 
   it('counts a boss beaten, coins gathered in one run, and kills over every run', () => {
@@ -291,10 +293,10 @@ describe('the save', () => {
     expect(odd.best).toEqual({ bram: 3 });
     expect(odd.open).toEqual(['orrin']);
     expect(odd.kills).toBe(0);
-    expect(odd.last).toBe('bram');
-    // Nobody goes along who has not been opened, and no more places are open than there are.
+    expect(odd.last).toBe('wren');
+    // Nobody goes along who has not been unlocked, and the slots are the best wave's, not the save's say.
     expect(odd.band).toEqual([]);
-    expect(odd.places).toBe(2);
+    expect(odd).not.toHaveProperty('places');
     expect(odd.auto).toBe(false);
     expect(odd.sound).toBe(false);
     expect(odd.music).toBe(true);
@@ -326,9 +328,9 @@ describe('a save from before the heroes had names', () => {
     // The run it left in a camp carried other things, and is let go.
     expect(s.run).toBeNull();
     expect(s.ended).toBe(5);
-    // Its deeds open companions too, and the first of them goes along.
-    expect(s.friends).toEqual(expect.arrayContaining(['biscuit', 'pip', 'mossback', 'quill']));
-    expect(s.band).toEqual([s.friends[0]]);
+    // Its deeds unlock companions too: Pip by the wave, Greta by the boss, Thistle by the kills. Biscuit goes along, in its one slot.
+    expect(s.friends.sort()).toEqual(['biscuit', 'greta', 'pip', 'thistle']);
+    expect(s.band).toEqual(['biscuit']);
     expect(s.music).toBe(false);
   });
 });

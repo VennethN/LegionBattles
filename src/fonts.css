@@ -1,0 +1,17 @@
+/* The game's font, Fredoka (SIL Open Font License, from @fontsource/fredoka),
+   in the two weights it uses. Only woff2: every browser a portal serves reads
+   it, and the woff copies the package's own CSS also lists were 40 KB more. */
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(@fontsource/fredoka/files/fredoka-latin-600-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(@fontsource/fredoka/files/fredoka-latin-700-normal.woff2) format('woff2');
+}

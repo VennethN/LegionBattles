@@ -38,11 +38,149 @@ const GENERATED = [...new Set(['units', 'fx', 'icons', 'packs', 'grades', 'logo'
 const written = new Set<string>();
 
 /**
+ * A picture as it is sent to a player: the same drawing in fewer bytes. The
+ * kit names every shape and wraps every layer in a turn of nothing, which
+ * helps whoever reads the drawing and costs a player who has to wait for it.
+ * With a hundred units the art came to twice what a portal takes. So the
+ * names nothing points at, the turns that do nothing and the line breaks
+ * between tags are left out. Nothing that is drawn changes.
+ */
+export function slim(svg: string): string {
+  // Each name something points at is given a short one: a picture is a document of its own, so they need only differ in it.
+  const short = new Map<string, string>();
+  for (const m of svg.matchAll(/(?:href="#|url\(#)([^")]+)/g)) if (!short.has(m[1])) short.set(m[1], `i${short.size.toString(36)}`);
+  return svg
+    .replace(/ id="([^"]+)"/g, (_all, id: string) => (short.has(id) ? ` id="${short.get(id)}"` : ''))
+    .replace(/(href="#|url\(#)([^")]+)/g, (_all, how: string, id: string) => `${how}${short.get(id) ?? id}`)
+    .replace(/ d="([^"]+)"/g, (all, d: string) => ` d="${tightPath(d) ?? all.slice(4, -1)}"`)
+    .replace(/ transform="translate\((-?[\d.]+) (-?[\d.]+)\) rotate\(0\) scale\(1 1\) translate\(-?[\d.]+ -?[\d.]+\)"/g, (all: string, x: string, y: string) =>
+      // Only a turn of nothing about a point and back again is nothing.
+      all.endsWith(`translate(${-Number(x)} ${-Number(y)})"`) ? '' : all,
+    )
+    // And the numbers of a turn or a shade, as short as they read.
+    .replace(/ (transform|opacity)="([^"]+)"/g, (_all, name: string, v: string) => ` ${name}="${v.replace(/(^|[ (])0\./g, '$1.').replace(/ -/g, '-')}"`)
+    .replace(/<g>((?:(?!<g[ >]|<\/g>).)*)<\/g>/gs, '$1')
+    .replace(/>\s+</g, '><')
+    .replace(/^([\s\S]*)$/, (whole) => lined(whole));
+}
+
+/** A number as short as it can be written, to a hundredth: "0.5" is ".5", "2.00" is "2". */
+function num(n: number): string {
+  const t = String(Math.round(n * 100) / 100);
+  return t.replace(/^(-?)0\./, '$1.');
+}
+
+/** Text that follows other text in a path, with room only where it would otherwise run into a number before it. */
+function glue(out: string, t: string): string {
+  if (out === '' || /[a-zA-Z]/.test(t[0]) || /[a-zA-Z]$/.test(out) || t.startsWith('-')) return out + t;
+  // ".5" after "1.2" reads as a new number; after "12" it would not.
+  if (t.startsWith('.') && /\.\d*$/.test(out)) return out + t;
+  return `${out} ${t}`;
+}
+
+/** Numbers one after another, with room only where the next would otherwise run into the last. */
+function nums(list: readonly number[]): string {
+  return list.reduce((out, n) => glue(out, num(n)), '');
+}
+
+/**
+ * A path written as short as it can be and drawn the same: each step from
+ * where the last left off, where that is shorter, and a letter said again
+ * only when it changes. Half of every picture is its paths. The point each
+ * step starts from is the one the browser will have come to, so nothing is
+ * thrown off by the rounding. Null for a path with letters it does not know,
+ * which is written as it was.
+ */
+export function tightPath(d: string): string | null {
+  const parts = d.match(/[a-zA-Z]|-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?/g);
+  if (!parts) return null;
+  const ARGS: Record<string, number> = { M: 2, L: 2, Q: 4, C: 6, Z: 0 };
+  let out = '';
+  let was = '';
+  let x = 0;
+  let y = 0;
+  let sx = 0;
+  let sy = 0;
+  let i = 0;
+  const round = (k: number): number => Math.round(k * 100) / 100;
+  while (i < parts.length) {
+    let cmd = parts[i++];
+    if (!(cmd in ARGS)) return null;
+    if (cmd === 'Z') {
+      out += 'z';
+      was = 'z';
+      x = sx;
+      y = sy;
+      continue;
+    }
+    const n = ARGS[cmd];
+    // A letter may be followed by more than one step of its kind; after a move, they are lines.
+    do {
+      const v = parts.slice(i, i + n).map(Number);
+      if (v.length < n || v.some((k) => !Number.isFinite(k))) return null;
+      i += n;
+      const rel = v.map((k, j) => k - (j % 2 === 0 ? x : y));
+      // A line straight across or straight down is one number.
+      if (cmd === 'L' && (round(rel[0]) === 0 || round(rel[1]) === 0)) {
+        const across = round(rel[1]) === 0;
+        const letter = across ? 'h' : 'v';
+        if (letter !== was) out += letter;
+        out = glue(out, num(across ? rel[0] : rel[1]));
+        was = letter;
+        if (across) x = round(x + round(rel[0]));
+        else y = round(y + round(rel[1]));
+        continue;
+      }
+      const a = nums(v);
+      const r = nums(rel);
+      const useRel = r.length < a.length;
+      const letter = useRel ? cmd.toLowerCase() : cmd;
+      // A move is always said: a step after it with no letter of its own would be read as a line.
+      if (letter !== was || cmd === 'M') out += letter;
+      out = glue(out, useRel ? r : a);
+      was = letter;
+      // Where the browser will be after the step, as it reads what was written.
+      const end = (useRel ? rel : v).slice(-2).map(round);
+      x = useRel ? round(x + end[0]) : end[0];
+      y = useRel ? round(y + end[1]) : end[1];
+      if (cmd === 'M') {
+        sx = x;
+        sy = y;
+        cmd = 'L';
+      }
+    } while (i < parts.length && !/[a-zA-Z]/.test(parts[i]));
+  }
+  return out;
+}
+
+/**
+ * The one dark line round every shape is written the same way thousands of
+ * times. Each width of it that a picture draws is said once, as a class, and
+ * each shape that is lined names it: the line is drawn as it was.
+ */
+function lined(svg: string): string {
+  const LINE = / fill="none" stroke="(#[0-9a-f]{6})" stroke-width="([\d.]+)" stroke-linecap="round" stroke-linejoin="round"/g;
+  // So are the light and the shade laid over each shape: a color seen through.
+  const SEEN = / fill="(#[0-9a-f]{6})" opacity="([\d.]+)"/g;
+  const rules = new Map<string, string>();
+  const named = (rule: string): string => {
+    if (!rules.has(rule)) rules.set(rule, `c${rules.size.toString(36)}`);
+    return ` class="${rules.get(rule)}"`;
+  };
+  const out = svg
+    .replace(LINE, (_all, color: string, width: string) => named(`fill:none;stroke:${color};stroke-width:${width};stroke-linecap:round;stroke-linejoin:round`))
+    .replace(SEEN, (_all, color: string, opacity: string) => named(`fill:${color};opacity:${opacity.replace(/^0\./, '.')}`));
+  if (rules.size === 0) return svg;
+  return out.replace(/^(<svg[^>]*>)/, `$1<style>${[...rules].map(([rule, name]) => `.${name}{${rule}}`).join('')}</style>`);
+}
+
+/**
  * Writes a file only if it has changed, and remembers it. A file that is
  * the same as before is left alone, so a dev server that is running does
  * not see everything vanish and come back.
  */
-function write(rel: string, content: string): void {
+function write(rel: string, drawn: string): void {
+  const content = rel.endsWith('.svg') ? slim(drawn) : drawn;
   const file = path.join(OUT, rel);
   written.add(file);
   if (fs.existsSync(file) && fs.readFileSync(file, 'utf8') === content) return;

@@ -11,18 +11,30 @@
 
 import {
   ALLY_QUIRKS, ALT, ARENA, BAND, BURN_LORE, COMPANIONS, GATHER_SECONDS, HEART, HERO_RADIUS, HERO_SPEED, HURT_GRACE, LATE_COIN, LEECH_GAP, MARK_CLEAR, MARK_SECONDS, MOVE, MOVES, OWN, PICKUP_RADIUS,
-  QUIRKS, RING_SHARE, ENEMIES, altAt, byId, coinShare, enemyAt, finishedAs, waveOf, weaponOf,
+  QUIRKS, RING_SHARE, ENEMIES, FOUND, altAt, byId, coinShare, enemyAt, finishedAs, waveOf, weaponOf,
   type AllyQuirk, type CompanionDef, type Count, type EnemyDef, type MoveDef, type MoveId, type Quirk, type WaveDef, type WeaponDef,
 } from './data';
 import { BAND_UP_LEAST, BREATH, VOW } from './holdData';
+import { PERK, type Perk } from './mastery';
 import { countKinds, giftsOf, type Gifts } from './kinds';
 import { RELIC } from './relics';
-import { ROAD, type ChampionTrait, type Omen } from './road';
+import { ROAD, likeOf, type ChampionTrait, type Omen } from './road';
 import { Rng } from './rng';
 import { DODGE_CAP, armorShare, hasteRate, type Stat, type Stats } from './stats';
 
 /** The step the wave is worked out in. A screen that draws faster or slower takes as many of these as the time needs. */
 export const STEP = 1 / 60;
+
+/** How long an enemy's throw is in the air: the ground is marked for that long. */
+export const LOB_FLIES = 1.1;
+/** What a healer gives back, as a share of health, and the share of a blow that gets through to one near a warder. */
+export const FOE_HEAL = 0.12;
+export const FOE_WARD = 0.6;
+/** The dead that get up: with this share of their health, after this long down. */
+export const UNDYING = { rises: 0.4, down: 1.2 };
+
+/** The Mire Lord's mud: how wide each patch is, how long it stays, seconds between patches as it walks, and the share of the hero's speed it takes. */
+export const MUD = { r: 56, seconds: 5, every: 0.45, slow: 0.4 };
 
 export interface Carried {
   id: string;
@@ -94,6 +106,16 @@ export interface Setup {
   bandHp?: number;
   bandDmg?: number;
   bandUp?: number;
+  /** The hero's passives past their first, unlocked by their mastery (mastery.ts). */
+  perks?: readonly string[];
+  /** More from the skill, from their mastery: a share more damage, a share wider, and the share of the Fury bar left after it. */
+  skillHarm?: number;
+  skillArea?: number;
+  skillAgain?: number;
+  /** How many companions the run has room for: one let out of a cage joins only a slot that is free. */
+  slots?: number;
+  /** A companion in a cage on the field on a wave that is not the stray's road: found, and still locked. */
+  found?: string;
 }
 
 /** Which way the hero is steered: a length of 1 is flat out. `act` lets the move loose, if it is full. */
@@ -142,7 +164,7 @@ export interface Hero {
 
 export type FoeState = 'walk' | 'aim' | 'dash' | 'rest';
 
-export type AllyState = 'with' | 'go' | 'dash' | 'back' | 'fetch';
+export type AllyState = 'with' | 'go' | 'dash' | 'back' | 'fetch' | 'hold';
 
 export interface Foe {
   id: number;
@@ -165,7 +187,7 @@ export interface Foe {
   dx: number;
   dy: number;
   /** What it is winding up to do, while it aims. */
-  doing: 'shot' | 'charge' | 'burst' | 'call' | 'ring' | 'blaze' | '';
+  doing: 'shot' | 'charge' | 'burst' | 'call' | 'ring' | 'blaze' | 'lob' | 'volley' | '';
   /** A boss's place in its round of things to do. */
   turn: number;
   slow: number;
@@ -266,7 +288,7 @@ export interface Shot {
   src: number;
 }
 
-export type ZoneKind = 'cloud' | 'holy' | 'fire' | 'rain' | 'ice';
+export type ZoneKind = 'cloud' | 'holy' | 'fire' | 'rain' | 'ice' | 'mud';
 
 /**
  * A place that goes on doing harm: a cloud, fire on the ground, holy
@@ -301,6 +323,8 @@ export interface Fall {
   leaves: ZoneKind | '';
   seconds: number;
   by: number;
+  /** True for one an enemy threw: it lands on the hero and the band, not on enemies. */
+  foe?: boolean;
 }
 
 /** A ring that runs out from where it began and does its harm to each as it passes. */
@@ -336,7 +360,8 @@ export interface Wall {
 /** Something the field does to whoever stands in it, shown before it happens: a lane of the burning field. */
 export interface Peril {
   id: number;
-  kind: 'fire';
+  /** Fire burns, spores poison; a stone falls once. */
+  kind: 'fire' | 'spores' | 'stone';
   /** Its middle and its size. */
   x: number;
   y: number;
@@ -476,7 +501,12 @@ export type Ev =
   // The shrine's ring is full: the hero is blessed.
   | { t: 'bless'; x: number; y: number }
   // The cage is broken: whoever was in it is the companion of this id from here on.
-  | { t: 'free'; id: number; who: string; x: number; y: number }
+  /** A cage broken: who was in it, and whether they joined (a slot was free). */
+  | { t: 'free'; id: number; who: string; x: number; y: number; joined: boolean }
+  /** A ward took a blow that would have landed on the hero: Clank's or Orrin's. */
+  | { t: 'ward'; x: number; y: number }
+  /** A passive past a hero's first went off (mastery.ts): where, for the screen to show it. */
+  | { t: 'perk'; perk: Perk; x: number; y: number }
   // The pay wagon is on the field (`on`), broken open, or away over the far side with its chest.
   | { t: 'wagon'; id: number; how: 'on' | 'broken' | 'away' }
   // A relic does what it does, where it can be seen.
@@ -488,7 +518,7 @@ export type Ev =
   // Bram's gate is planted: its middle, the way it faces, half its length and how long it stands.
   | { t: 'gate'; id: number; x: number; y: number; nx: number; ny: number; half: number; seconds: number }
   // A lane of the field is about to burn: its middle and size, and the seconds until it does.
-  | { t: 'peril'; id: number; kind: 'fire'; x: number; y: number; w: number; h: number; seconds: number }
+  | { t: 'peril'; id: number; kind: Peril['kind']; x: number; y: number; w: number; h: number; seconds: number }
   // The duelist stands (`on`), or has fallen (`won`).
   | { t: 'duel'; id: number; how: 'on' | 'won' }
   // The lone champion of the third wave has fallen: it leaves a relic.
@@ -559,6 +589,8 @@ export class World {
   gathering = -1;
   /** The road that was taken here, and whether it is night. */
   readonly omen: Omen;
+  /** What the road is like in these rules: itself, or the road it works as (road.ts, OMEN_LIKE). */
+  readonly like: Omen;
   readonly night: boolean;
   /** The shrine, on the shrine's road. */
   shrine: Shrine | null = null;
@@ -566,6 +598,11 @@ export class World {
   blessed = false;
   /** Who was freed from the cage, by name, once the cage is broken. */
   freed = '';
+
+  /** Who is in a cage on this field, by name, or '': the stray's road's, or a found companion's. The screen brings in their figure. */
+  get caged(): string {
+    return this.stray;
+  }
   /** Those of the slain who are on their feet for the hero. */
   risen: Risen[] = [];
   /** Champions and captains killed this wave. */
@@ -607,8 +644,41 @@ export class World {
   /** The Whetstone of Ages: how many times the harm of the hero's own weapon. */
   private readonly whet: number;
   private readonly tithe: boolean;
-  private readonly stray: string;
+  private stray: string;
   private readonly given: boolean;
+  /** The hero's passives past their first, and more from their skill (mastery.ts). */
+  private readonly perks: ReadonlySet<string>;
+  private readonly skillHarm: number;
+  private readonly skillArea: number;
+  private readonly skillAgain: number;
+  /** How many companions the run has room for, and the share of its full strength each has: six are about two and a half of one. */
+  private readonly room: number;
+  private readonly bandShare: number;
+  /** True if a ward will take the next blow; seconds until Orrin's next. */
+  private warded = false;
+  private arcAt = 0;
+  /** How much more Wren's blows do for Unseen. */
+  private quiet = 0;
+  /** Kills counted for Overflow; hits left that Lucky Break makes sure; seconds left of Slip Away and of For the Ninth. */
+  private flowKills = 0;
+  private sureHits = 0;
+  private slipLeft = 0;
+  private ninthLeft = 0;
+  /** Seconds until Hearth's next ring and Snowfall's next gust, and until Warm Hands heals. */
+  private hearthAt = 0;
+  private snowAt = 0;
+  private warmAt = 0;
+  /** Seconds until Hold the Line next heals; when each foe was last trampled. */
+  private holdAt = 0;
+  private trampled = new Map<number, number>();
+  /** Seconds until the next spore lane or stone, or -1; seconds until a boss leaves its next mud. */
+  private sporeDue = -1;
+  private stoneDue = -1;
+  private mudAt = 0;
+  /** True once Nettle's tonic has been drunk this wave. */
+  private tonicked = false;
+  /** Enemies that ward those near them, as they stood this step. */
+  private wards: Foe[] = [];
   /** How many times the experience a coin is worth here, and how many times the coins. */
   private readonly xpBy: number;
   private readonly goldBy: number;
@@ -669,11 +739,21 @@ export class World {
     this.bandDmg = Math.max(0.1, setup.bandDmg ?? 1);
     this.bandUp = Math.max(0, Math.min(1 - BAND_UP_LEAST, setup.bandUp ?? 0));
     this.breath = !!setup.breath;
+    this.perks = new Set(setup.perks ?? []);
+    this.skillHarm = 1 + Math.max(0, setup.skillHarm ?? 0);
+    this.skillArea = 1 + Math.max(0, setup.skillArea ?? 0);
+    this.skillAgain = Math.max(0, Math.min(0.9, setup.skillAgain ?? 0));
+    this.room = Math.max(0, setup.slots ?? BAND.places);
+    // A band is stronger with more in it, but not by as many times: each is the square root's share of one alone.
+    this.bandShare = 1 / Math.sqrt(Math.max(1, (setup.band ?? []).length));
+    this.arcAt = PERK.arcward.every;
+    this.snowAt = PERK.snowfall.every;
     // A captain's wave is the captain's: no omen changes it.
     const plain = waveOf(setup.wave);
     this.omen = plain.boss ? 'quiet' : (setup.omen ?? 'quiet');
+    this.like = likeOf(this.omen);
     // The Early Dark: every wave is fought by night, whatever road led to it.
-    this.night = this.omen === 'night' || this.vows.has('dusk');
+    this.night = this.like === 'night' || this.vows.has('dusk');
     this.wave = this.omened(plain);
     this.w = setup.tall ? ARENA.short : ARENA.long;
     this.h = setup.tall ? ARENA.long : ARENA.short;
@@ -707,19 +787,28 @@ export class World {
     this.bones = setup.bones ?? null;
     this.stray = setup.stray ?? '';
     this.given = !!setup.given;
-    this.xpBy = this.omen === 'horde' ? ROAD.horde.xp : 1;
-    this.goldBy = this.omen === 'burning' ? ROAD.burning.coins : 1;
+    this.xpBy = this.omen === 'horde' ? ROAD.horde.xp : this.omen === 'stampede' ? ROAD.stampede.xp : 1;
+    this.goldBy = this.omen === 'burning' ? ROAD.burning.coins : this.omen === 'goldvein' ? ROAD.goldvein.coins : 1;
     // What the road puts on the field.
     if (this.omen === 'champions') this.champsDue = ROAD.champions.at.slice(0, ROAD.champions.count).map((share) => share * this.wave.seconds);
     // Champions Abroad: a champion walks in every wave from the third, but not beside a captain, not on the road that is all
     // champions, not into a duel, which is fought alone, and not beside the lone champion of the third wave, who is the vow's own there.
     else if (this.vows.has('champions') && !this.wave.boss && this.wave.n >= VOW.champion.from && this.omen !== 'duel' && !setup.herald) this.champsDue = [VOW.champion.at * this.wave.seconds];
-    if (this.omen === 'wagon') this.wagonDue = ROAD.wagon.at * this.wave.seconds;
+    // A land's fifth wave brings its elite: a champion of the land.
+    else if (this.wave.elite && this.omen !== 'duel' && !setup.herald) this.champsDue = [0.3 * this.wave.seconds];
+    if (this.like === 'wagon') this.wagonDue = ROAD.wagon.at * this.wave.seconds;
     if (this.omen === 'stray' && this.stray) this.cageDue = 1.2;
+    // A found companion's cage: on its own, with nobody guarding it.
+    else if (setup.found && COMPANIONS.some((c) => c.id === setup.found) && !plain.boss) {
+      this.stray = setup.found;
+      this.cageDue = FOUND.at;
+    }
+    if (this.like === 'spores') this.sporeDue = ROAD.spores.first;
+    if (this.like === 'ashfall') this.stoneDue = ROAD.ashfall.first;
     if (this.omen === 'duel') this.duelDue = ROAD.duel.at;
     if (this.omen === 'burning') this.fireDue = ROAD.burning.first;
     if (setup.herald && !plain.boss) this.heraldDue = ROAD.herald.at * this.wave.seconds;
-    if (this.omen === 'shrine') {
+    if (this.like === 'shrine') {
       const at = this.farFrom(this.hero.x, this.hero.y, ROAD.shrine.clear);
       const r = ROAD.shrine.r;
       this.shrine = {
@@ -737,9 +826,10 @@ export class World {
   /** The wave as its omen and the relics change it. */
   private omened(w: WaveDef): WaveDef {
     let { seconds, band, most } = w;
-    if (this.omen === 'horde') {
-      band = Math.round(band * ROAD.horde.more);
-      most = Math.round(most * ROAD.horde.more);
+    if (this.omen === 'horde' || this.omen === 'goldvein') {
+      const more = this.omen === 'horde' ? ROAD.horde.more : ROAD.goldvein.more;
+      band = Math.round(band * more);
+      most = Math.round(most * more);
     }
     if (this.omen === 'champions') band = Math.max(2, Math.round(band * ROAD.champions.fewer));
     if (this.omen === 'toll') seconds = Math.round(seconds * ROAD.toll.seconds);
@@ -751,7 +841,7 @@ export class World {
   private enlist(b: Banded, i: number, n: number): Ally {
     const def = byId(COMPANIONS, b.id);
     const bond = Math.max(0, Math.min(BAND.bonds, b.bond));
-    const maxHp = def.hp > 0 ? Math.max(1, Math.round(def.hp * this.bandHp * (1 + BAND.hpGrow * this.level) * (1 + BAND.bond * bond))) : 0;
+    const maxHp = def.hp > 0 ? Math.max(1, Math.round(def.hp * this.bandHp * this.bandShare * (1 + BAND.hpGrow * this.level) * (1 + BAND.bond * bond))) : 0;
     const a = (i / Math.max(1, n)) * TAU + Math.PI;
     return {
       id: this.ids++, def, bond, x: this.hero.x + Math.cos(a) * 74, y: this.hero.y + Math.sin(a) * 46, hp: maxHp, maxHp, face: 1, moving: false, state: 'with',
@@ -771,7 +861,7 @@ export class World {
       case 'standfast':
         return { on: h.still >= QUIRKS.standfast.after, share: Math.min(1, h.still / QUIRKS.standfast.after) };
       case 'unseen': {
-        const share = Math.min(1, (h.safe * QUIRKS.unseen.each) / QUIRKS.unseen.most);
+        const share = Math.min(1, this.quiet / QUIRKS.unseen.most);
         return { on: share >= 1, share };
       }
       case 'unfinished':
@@ -864,7 +954,7 @@ export class World {
     const hallowed = slot.own && this.ruled('morningstar', 2) && this.onHoly(this.hero.x, this.hero.y) ? OWN.morningstar.faster : 1;
     // Hroth's axe, by its second way: faster while he is in debt.
     const owed = slot.own && this.indebted && this.alted('gravecleaver') ? ALT.gravecleaver.faster : 1;
-    return slot.def.every[slot.tier] / (hasteRate(haste) * set * hallowed * owed * (1 + this.rally));
+    return slot.def.every[slot.tier] / (hasteRate(haste) * set * hallowed * owed * (1 + this.rally) * (this.ninthLeft > 0 ? 1 + PERK.ninth.faster : 1));
   }
 
   /** True if the hero's own weapon is this one and has learned its rule: the first at level 5, the second at 10, the third at 15. */
@@ -892,7 +982,7 @@ export class World {
 
   /** True while nothing has struck Wren for long enough that her harm is at its most. */
   private get hidden(): boolean {
-    return this.quirk === 'unseen' && this.hero.safe * QUIRKS.unseen.each >= QUIRKS.unseen.most;
+    return this.quirk === 'unseen' && this.quiet >= QUIRKS.unseen.most;
   }
 
   /** True while Hroth is under the share of his health at which he is in debt. */
@@ -920,9 +1010,11 @@ export class World {
       this.signs(dt);
       this.standMarks(dt);
       this.moveFoes(dt);
+      this.muddy(dt);
       this.gates(dt);
       this.lanes(dt);
       this.moveBand(dt);
+      this.perkTick(dt);
       this.moveRisen(dt);
       this.strike(dt);
       this.landFalls(dt);
@@ -947,6 +1039,12 @@ export class World {
     h.open = Math.max(0, h.open - dt);
     this.coinAt = Math.max(0, this.coinAt - dt);
     h.safe += dt;
+    // Wren's Unseen grows while nothing strikes her, and twice as fast with nobody near her: she is a hunter who keeps her distance.
+    if (this.quirk === 'unseen' && this.gathering < 0) {
+      const q = QUIRKS.unseen;
+      const alone = !this.foes.some((f) => !f.dead && !f.def.prop && Math.hypot(f.x - h.x, f.y - h.y) < q.far + f.def.r);
+      this.quiet = Math.min(q.most, this.quiet + dt * q.each * (alone ? q.alone : 1));
+    }
     let x = steer.x;
     let y = steer.y;
     const len = Math.hypot(x, y);
@@ -964,7 +1062,9 @@ export class World {
       h.moving = len > 0.08;
       if (h.moving) {
         // A blizzard takes a share of their speed for as long as it blows.
-        const pace = speed * (h.chill > 0 ? 1 - h.chillBy : 1) * (this.omen === 'blizzard' ? 1 - ROAD.blizzard.slow : 1);
+        const mud = this.zones.some((z) => z.kind === 'mud' && Math.hypot(z.x - h.x, z.y - h.y) <= z.r) ? 1 - MUD.slow : 1;
+        const pace = speed * (h.chill > 0 ? 1 - h.chillBy : 1) * (this.omen === 'blizzard' ? 1 - ROAD.blizzard.slow : 1) * (this.omen === 'bog' ? 1 - ROAD.bog.slow : 1) * (this.omen === 'gale' ? 1 - ROAD.gale.slow : 1) * mud *
+          (this.slipLeft > 0 ? 1 + PERK.slip.faster : 1);
         h.x += x * pace * dt;
         h.y += y * pace * dt;
         if (Math.abs(x) > 0.15) h.face = x > 0 ? 1 : -1;
@@ -1073,6 +1173,11 @@ export class World {
     if (this.rng.chance(Math.min(DODGE_CAP, Math.max(0, this.stats.dodge)) / 100)) {
       h.grace = HURT_GRACE * 0.5;
       this.events.push({ t: 'dodge' });
+      // Lucky Break: the next few hits are sure.
+      if (this.perks.has('luckybreak')) {
+        this.sureHits = PERK.luckybreak.hits;
+        this.events.push({ t: 'perk', perk: 'luckybreak', x: h.x, y: h.y });
+      }
       // The mirror shard throws a dodged blow back at who struck.
       if (src && !src.dead && this.has('mirror')) {
         this.events.push({ t: 'relic', id: 'mirror', x: src.x, y: src.y });
@@ -1080,7 +1185,33 @@ export class World {
       }
       return;
     }
+    // A ward takes the whole blow, and is gone.
+    if (this.warded) {
+      this.warded = false;
+      h.grace = HURT_GRACE * 0.5;
+      this.events.push({ t: 'ward', x: h.x, y: h.y });
+      return;
+    }
     let amount = Math.max(1, Math.round(dmg * armorShare(this.stats.armor) * (this.has('crown') ? RELIC.crown.taken : 1)));
+    // Bloodied and Dawnlight: less of it gets through.
+    if (this.perks.has('bloodied') && h.hp / h.maxHp < PERK.bloodied.under) amount = Math.max(1, Math.round(amount * PERK.bloodied.takes));
+    if (this.perks.has('dawnlight') && this.onHoly(h.x, h.y)) amount = Math.max(1, Math.round(amount * PERK.dawnlight.takes));
+    if (close && src && !src.dead) {
+      // Shield Bash: who strikes the raised shield up close is thrown back and stunned.
+      if (this.perks.has('bash') && this.shielded) {
+        const d = Math.hypot(src.x - h.x, src.y - h.y) || 1;
+        this.shove(src, (src.x - h.x) / d, (src.y - h.y) / d, PERK.bash.knock);
+        src.stun = Math.max(src.stun, PERK.bash.stun * (src.boss ? MOVE.bossShare : 1));
+        this.events.push({ t: 'perk', perk: 'bash', x: src.x, y: src.y });
+      }
+      // Cold Skin: who strikes her up close is slowed.
+      if (this.perks.has('coldskin')) {
+        src.slow = Math.max(src.slow, PERK.coldskin.seconds);
+        src.slowBy = Math.max(src.slowBy, PERK.coldskin.slow);
+        this.events.push({ t: 'perk', perk: 'coldskin', x: src.x, y: src.y });
+      }
+    }
+    if (this.perks.has('slip')) this.slipLeft = PERK.slip.seconds;
     // Bram's set shield takes its share.
     if (this.shielded) {
       amount = Math.max(1, Math.round(amount * QUIRKS.standfast.lets));
@@ -1095,6 +1226,8 @@ export class World {
     this.struck = true;
     h.grace = HURT_GRACE;
     h.safe = 0;
+    // A blow takes part of Unseen, not all of it.
+    this.quiet *= QUIRKS.unseen.keeps;
     this.spur = 0;
     // Thornmail: who strikes up close takes it back.
     if (close && src && !src.dead && this.has('thornmail')) {
@@ -1227,13 +1360,26 @@ export class World {
     this.events.push({ t: 'warn', id: f.id, x, y, r, seconds: left, kind });
   }
 
+  /** Marks the ground for something an enemy threw: it lands on the hero and the band. */
+  private foeFall(x: number, y: number, r: number, left: number, dmg: number): void {
+    const cx = Math.max(ARENA.edge, Math.min(this.w - ARENA.edge, x));
+    const cy = Math.max(ARENA.edge + 30, Math.min(this.h - ARENA.edge, y));
+    const f: Fall = { id: this.ids++, x: cx, y: cy, r, left, dmg, stun: 0, kind: 'foe', leaves: '', seconds: 0, by: 0, foe: true };
+    this.falls.push(f);
+    this.events.push({ t: 'warn', id: f.id, x: cx, y: cy, r, seconds: left, kind: 'foe' });
+  }
+
   /** Lets the move loose, if it is full and it was asked for, or it goes off by itself and there is something to hit. */
   private deed(steer: Steer): void {
-    const m = this.move;
+    let m = this.move;
     const h = this.hero;
     if (!m || this.fury < 1 || h.dash) return;
     if (!steer.act && !(this.auto && this.ripe)) return;
-    this.fury = 0;
+    // Mastery may leave the bar partly full after it, so the next comes sooner.
+    this.fury = this.skillAgain;
+    // Mastery: more harm, and wider.
+    const base = byId(MOVES, m.id);
+    m = { ...base, harm: base.harm * this.skillHarm, r: base.r * this.skillArea, reach: base.reach * this.skillArea };
     let dx: number = h.face;
     let dy = 0;
     const len = Math.hypot(steer.x, steer.y);
@@ -1352,6 +1498,14 @@ export class World {
     for (const f of this.falls) {
       f.left -= dt;
       if (f.left > 0) continue;
+      if (f.foe) {
+        // An enemy's throw: it hurts whoever of the hero's side stands where it lands.
+        const h = this.hero;
+        this.events.push({ t: 'burst', x: f.x, y: f.y, r: f.r, kind: 'foe' });
+        if (Math.hypot(h.x - f.x, h.y - f.y) < f.r + HERO_RADIUS) this.hurt(f.dmg, f.x, f.y, 'thrown');
+        for (const a of this.band) if (Math.hypot(a.x - f.x, a.y - f.y) < f.r + a.def.r) this.hurtAlly(a, f.dmg);
+        continue;
+      }
       if (f.dmg > 0) this.blast(f.x, f.y, f.r, f.dmg, f.stun, f.kind, f.kind === 'star' ? 8 : 20);
       else this.events.push({ t: 'burst', x: f.x, y: f.y, r: f.r, kind: f.kind });
       if (f.leaves) this.zones.push({ id: this.ids++, x: f.x, y: f.y, r: f.r, by: f.by, life: f.seconds, tick: 0, kind: f.leaves, mend: QUIRKS.consecrate.mends });
@@ -1548,6 +1702,33 @@ export class World {
       this.perils.push(p);
       this.events.push({ t: 'peril', id: p.id, kind: 'fire', x: p.x, y: p.y, w: p.w, h: p.h, seconds: p.left });
     }
+    if (this.sporeDue >= 0 && this.time >= this.sporeDue && this.left > ROAD.spores.warn + ROAD.spores.lasts) {
+      // A lane of spores rises: through where the hero stands. The ground shows it first.
+      const q = ROAD.spores;
+      this.sporeDue = this.time + q.every;
+      const base = enemyAt(this.sturdiest(), this.wave.n).dmg;
+      const across = this.rng.chance(0.5);
+      const p: Peril = {
+        id: this.ids++, kind: 'spores', x: across ? this.w / 2 : h.x + this.rng.range(-30, 30), y: across ? h.y + this.rng.range(-30, 30) : this.h / 2, w: across ? this.w : q.wide, h: across ? q.wide : this.h,
+        left: q.warn, life: q.lasts, dmg: Math.max(1, Math.round(base * q.harm)), burns: 0, tick: 0,
+      };
+      this.perils.push(p);
+      this.events.push({ t: 'peril', id: p.id, kind: 'spores', x: p.x, y: p.y, w: p.w, h: p.h, seconds: p.left });
+    }
+    if (this.stoneDue >= 0 && this.time >= this.stoneDue && this.left > ROAD.ashfall.warn) {
+      // A burning stone falls where the hero is: the ground shows it first.
+      const q = ROAD.ashfall;
+      this.stoneDue = this.time + q.every * (this.omen === 'squall' ? 0.45 : 1);
+      const base = enemyAt(this.sturdiest(), this.wave.n).dmg;
+      const p: Peril = {
+        // A squall's lightning strikes anywhere on the field; ash falls where the hero is.
+        id: this.ids++, kind: 'stone', x: this.omen === 'squall' ? this.rng.range(ARENA.edge + 60, this.w - ARENA.edge - 60) : h.x + this.rng.range(-40, 40),
+        y: this.omen === 'squall' ? this.rng.range(ARENA.edge + 80, this.h - ARENA.edge - 60) : h.y + this.rng.range(-40, 40), w: q.wide, h: q.wide,
+        left: q.warn, life: 0.01, dmg: Math.max(1, Math.round(base * q.harm)), burns: base, tick: 0,
+      };
+      this.perils.push(p);
+      this.events.push({ t: 'peril', id: p.id, kind: 'stone', x: p.x, y: p.y, w: p.w, h: p.h, seconds: p.left });
+    }
     if (this.wagonDue >= 0 && this.time >= this.wagonDue) {
       this.wagonDue = -1;
       const def = byId(ENEMIES, 'paywagon');
@@ -1569,9 +1750,9 @@ export class World {
       this.cageDue = -1;
       const at = this.farFrom(this.w / 2, this.h / 2, ROAD.stray.clear);
       this.mark(byId(ENEMIES, 'cage'), at.x, at.y, false);
-      // Its jailer stands by it: a champion, between the hero and the cage.
+      // On the stray's road its jailer stands by it: a champion, between the hero and the cage. One found by chance stands alone.
       const to = Math.atan2(h.y - at.y, h.x - at.x);
-      this.mark(champion('armored'), at.x + Math.cos(to) * 70, at.y + Math.sin(to) * 70, false, 'armored');
+      if (this.omen === 'stray') this.mark(champion('armored'), at.x + Math.cos(to) * 70, at.y + Math.sin(to) * 70, false, 'armored');
     }
     const sh = this.shrine;
     if (sh && !sh.done && Math.hypot(h.x - sh.x, h.y - sh.y) <= sh.r) {
@@ -1601,13 +1782,18 @@ export class World {
   /** The cage is broken: whoever was in it joins the band where it stood. */
   private free(f: Foe): void {
     if (this.freed || !this.stray || !COMPANIONS.some((c) => c.id === this.stray)) return;
+    this.freed = this.stray;
+    // It joins if there is a slot free for it, and is unlocked for good either way (run.ts, state.ts).
+    if (this.band.length >= this.room || this.band.some((b) => b.def.id === this.stray)) {
+      this.events.push({ t: 'free', id: 0, who: this.stray, x: f.x, y: f.y, joined: false });
+      return;
+    }
     const a = this.enlist({ id: this.stray, bond: 0 }, this.band.length, this.band.length + 1);
     a.x = f.x;
     a.y = f.y;
     a.grace = 1;
     this.band.push(a);
-    this.freed = this.stray;
-    this.events.push({ t: 'free', id: a.id, who: this.stray, x: f.x, y: f.y });
+    this.events.push({ t: 'free', id: a.id, who: this.stray, x: f.x, y: f.y, joined: true });
   }
 
   /** The Gravedigger's Spade: one of the slain gets up on the hero's side. */
@@ -1668,7 +1854,8 @@ export class World {
   }
 
   private moveFoes(dt: number): void {
-    const drums = this.foes.filter((f) => f.def.ai === 'boost' && !f.dead);
+    const drums = this.foes.filter((f) => (f.def.ai === 'boost' || f.def.way === 'overclock') && !f.dead);
+    this.wards = this.foes.filter((f) => f.def.ai === 'ward' && !f.dead);
     for (const f of this.foes) {
       if (f.dead) continue;
       f.cool -= dt;
@@ -1697,7 +1884,8 @@ export class World {
           break;
         }
       }
-      const pace = (f.def.ai === 'cross' ? this.wagonSpeed : f.def.speed) * (f.slow > 0 ? 1 - f.slowBy : 1) * (f.spurred ? 1.3 : 1) * (this.night ? ROAD.night.faster : 1) * (this.vows.has('march') && !f.def.prop ? VOW.quick : 1);
+      const pace = (f.def.ai === 'cross' ? this.wagonSpeed : f.def.speed) * (f.slow > 0 ? 1 - f.slowBy : 1) * (f.spurred ? 1.3 : 1) * (this.night ? ROAD.night.faster : 1) * (this.vows.has('march') && !f.def.prop ? VOW.quick : 1) * (this.omen === 'bog' ? 1 - ROAD.bog.slow : 1) *
+        (f.def.prop ? 1 : this.omen === 'stampede' ? ROAD.stampede.faster : this.omen === 'overclocked' ? ROAD.overclocked.faster : 1);
       if (f.def.prop) {
         // A thing: the wagon goes on over the field and away, and a cage stands where it is.
         this.cart(f, pace, dt);
@@ -1814,17 +2002,60 @@ export class World {
         if (f.cool <= 0) aim('call', 0.6);
         break;
       case 'boost':
+      case 'ward':
         hold(f.def.keep ?? 300);
         break;
+      case 'heal':
+        hold(f.def.keep ?? 320);
+        if (f.cool <= 0) {
+          // It mends whoever is near it, a share of their health, and is seen to.
+          f.cool = f.def.every ?? 3;
+          const r = f.def.wide ?? 220;
+          let any = false;
+          for (const o of this.foes) {
+            if (o.dead || o === f || o.def.prop || o.hp >= o.maxHp || Math.hypot(o.x - f.x, o.y - f.y) > r) continue;
+            o.hp = Math.min(o.maxHp, o.hp + Math.ceil(o.maxHp * FOE_HEAL));
+            any = true;
+          }
+          if (any) this.events.push({ t: 'ring', x: f.x, y: f.y, r, seconds: 0.35, kind: 'bell' });
+        }
+        break;
+      case 'lob':
+        hold(f.def.keep ?? 300);
+        if (f.cool <= 0 && d < (f.def.keep ?? 300) + 200) aim('lob', 0.5);
+        break;
+      case 'circle': {
+        // It rides round the hero at its distance, and shoots as it goes.
+        const keep = f.def.keep ?? 260;
+        const turn = f.id % 2 ? 1 : -1;
+        const pull = d > keep + 40 ? 1 : d < keep - 40 ? -1 : 0;
+        const mx = -uy * turn + ux * pull;
+        const my = ux * turn + uy * pull;
+        const ml = Math.hypot(mx, my) || 1;
+        go(mx / ml, my / ml);
+        if (f.cool <= 0 && d < keep + 180) {
+          const to = this.prey(f);
+          const dd = Math.hypot(to.x - f.x, to.y - f.y) || 1;
+          this.foeShot(f, (to.x - f.x) / dd, (to.y - f.y) / dd);
+          f.cool = (f.def.every ?? 2.2) * this.rng.range(0.85, 1.15);
+        }
+        break;
+      }
       case 'boss': {
         go(ux, uy);
         if (f.cool > 0) break;
-        // A boss does its things in a round: a charge, a ring of shots, a call.
-        const round: Foe['doing'][] = ['charge', 'ring', 'call'];
+        // A boss does its things in a round: a charge, a ring of shots, a call; and what it has of its own between them.
+        const way = f.def.way;
+        const round: Foe['doing'][] =
+          way === 'slam' ? ['charge', 'blaze', 'ring', 'blaze', 'call']
+          : way === 'broadside' || way === 'cavein' ? ['charge', 'volley', 'ring', 'volley', 'call']
+          : way === 'thrice' ? ['charge', 'charge', 'charge', 'ring', 'call']
+          : ['charge', 'ring', 'call'];
         const doing = round[f.turn % round.length];
         f.turn++;
         if (doing === 'charge' && d > 360) aim('ring', 0.7);
-        else aim(doing, doing === 'charge' ? 0.8 : 0.7);
+        else if (doing === 'blaze' && d > (f.def.slam ?? 0) + 60) aim('ring', 0.7);
+        else aim(doing, doing === 'charge' ? (way === 'thrice' ? 0.6 : 0.8) : doing === 'blaze' ? 1 : 0.7);
         break;
       }
     }
@@ -1864,11 +2095,39 @@ export class World {
         this.events.push({ t: 'fall', id: f.id, x: f.x, y: f.y, boss: false, swept: true });
         break;
       case 'blaze': {
-        const r = ROAD.champions.blaze;
+        const r = f.def.slam ?? ROAD.champions.blaze;
         this.events.push({ t: 'burst', x: f.x, y: f.y, r, kind: 'foe' });
         if (Math.hypot(h.x - f.x, h.y - f.y) < r + HERO_RADIUS) this.hurt(f.dmg, f.x, f.y, def.id, 0, f);
         for (const a of this.band) if (Math.hypot(a.x - f.x, a.y - f.y) < r + a.def.r) this.hurtAlly(a, f.dmg);
         f.blaze = ROAD.champions.every;
+        if (f.boss) f.cool = def.every ?? 2.4;
+        break;
+      }
+      case 'lob': {
+        // What it throws lands where the hero is now: the ground is marked first, and there is time to step out.
+        const to = this.prey(f);
+        this.foeFall(to.x + this.rng.range(-20, 20), to.y + this.rng.range(-20, 20), def.wide ?? 70, LOB_FLIES, f.dmg);
+        f.cool = (def.every ?? 3) * this.rng.range(0.85, 1.15);
+        break;
+      }
+      case 'volley': {
+        const to = this.prey(f);
+        const r = def.wide ?? 70;
+        if (def.way === 'cavein') {
+          // Rocks come down in a ring round the hero, a gap left to slip through.
+          const gap = this.rng.int(6);
+          for (let i = 0; i < 6; i++) if (i !== gap) this.foeFall(to.x + Math.cos((i * TAU) / 6) * r * 1.6, to.y + Math.sin((i * TAU) / 6) * r * 1.2, r, LOB_FLIES + 0.2, f.dmg);
+        } else {
+          // A broadside: shells in a line from the boss toward the hero, landing one after another.
+          const dx = to.x - f.x;
+          const dy = to.y - f.y;
+          const dl = Math.hypot(dx, dy) || 1;
+          for (let i = 1; i <= 5; i++) {
+            const at = Math.min(dl + 120, i * 120);
+            this.foeFall(f.x + (dx / dl) * at, f.y + (dy / dl) * at, r, LOB_FLIES + i * 0.15, f.dmg);
+          }
+        }
+        f.cool = def.every ?? 2.4;
         break;
       }
       case 'call': {
@@ -1888,7 +2147,7 @@ export class World {
   }
 
   private foeShot(f: Foe, ux: number, uy: number, share = 1): void {
-    const speed = f.def.flies ?? 210;
+    const speed = (f.def.flies ?? 210) * (this.omen === 'gale' ? ROAD.gale.shots : this.omen === 'overclocked' ? ROAD.overclocked.faster : 1);
     // In a blizzard everything they loose chills.
     const chills = f.def.chills ?? (this.omen === 'blizzard' ? ROAD.blizzard.chills : 0);
     const numbed = f.slow > 0 && this.has('frostbite') ? RELIC.frostbite.lets : 1;
@@ -1917,7 +2176,8 @@ export class World {
   private hurtAlly(a: Ally, dmg: number): void {
     if (a.maxHp <= 0 || a.down > 0 || a.grace > 0 || a.state === 'dash' || this.over || this.gathering >= 0) return;
     const fold = this.ruled('passingbell', 2) && Math.hypot(a.x - this.hero.x, a.y - this.hero.y) <= QUIRKS.shepherd.r ? OWN.passingbell.lets : 1;
-    const amount = Math.max(1, Math.round(dmg * BAND.takes * fold));
+    const shell = a.def.quirk === 'hardshell' ? Math.max(0.2, ALLY_QUIRKS.hardshell.takes - ALLY_QUIRKS.hardshell.bond * a.bond) : 1;
+    const amount = Math.max(1, Math.round(dmg * BAND.takes * fold * shell));
     a.hp -= amount;
     a.grace = BAND.grace;
     this.events.push({ t: 'allyHurt', id: a.id, amount });
@@ -1926,6 +2186,12 @@ export class World {
     a.down = BAND.down * (1 - this.bandUp) * (this.has('whistle') ? RELIC.whistle.down : 1);
     a.state = 'with';
     this.events.push({ t: 'allyDown', id: a.id });
+    // Last Rites: those round one who goes down are stunned.
+    if (this.perks.has('lastrites')) {
+      this.daze(a.x, a.y, PERK.lastrites.r, PERK.lastrites.stun);
+      this.events.push({ t: 'perk', perk: 'lastrites', x: a.x, y: a.y });
+      this.events.push({ t: 'ring', x: a.x, y: a.y, r: PERK.lastrites.r, seconds: 0.3, kind: 'bell' });
+    }
   }
 
   private getUp(a: Ally): void {
@@ -2010,7 +2276,7 @@ export class World {
     for (const p of this.perils) {
       if (p.left > 0) {
         p.left -= dt;
-        if (p.left <= 0) this.events.push({ t: 'burst', x: p.x, y: p.y, r: Math.min(p.w, p.h) / 2, kind: 'fire' });
+        if (p.left <= 0) this.events.push({ t: 'burst', x: p.x, y: p.y, r: Math.min(p.w, p.h) / 2, kind: p.kind === 'spores' ? 'venom' : 'fire' });
         continue;
       }
       p.life -= dt;
@@ -2020,6 +2286,8 @@ export class World {
       const inside = (x: number, y: number): boolean => Math.abs(x - p.x) <= p.w / 2 && Math.abs(y - p.y) <= p.h / 2;
       if (inside(h.x, h.y)) this.hurt(p.dmg, h.x, h.y + 1, 'fire');
       for (const a of this.band) if (inside(a.x, a.y)) this.hurtAlly(a, p.dmg);
+      // Spores choke only the hero's side; fire and a stone light enemies too.
+      if (p.kind === 'spores') continue;
       for (const f of this.foes) {
         if (f.dead || f.def.prop || !inside(f.x, f.y)) continue;
         f.burn = Math.max(f.burn, 3);
@@ -2029,14 +2297,124 @@ export class World {
     this.perils = this.perils.filter((p) => p.left > 0 || p.life > 0);
   }
 
+  /** The Mire Lord leaves mud behind it as it walks. */
+  private muddy(dt: number): void {
+    this.mudAt -= dt;
+    if (this.mudAt > 0) return;
+    for (const f of this.foes) {
+      if (f.dead || f.def.way !== 'mud' || !f.moving) continue;
+      this.mudAt = MUD.every;
+      this.zones.push({ id: this.ids++, x: f.x, y: f.y + 6, r: MUD.r, by: 0, life: MUD.seconds, tick: 0, kind: 'mud', mend: 0 });
+    }
+  }
+
+  /** The passives of a hero's mastery that keep time: what each does this step (mastery.ts). */
+  private perkTick(dt: number): void {
+    const h = this.hero;
+    this.slipLeft = Math.max(0, this.slipLeft - dt);
+    this.ninthLeft = Math.max(0, this.ninthLeft - dt);
+    if (this.perks.size === 0) return;
+    // Arcane Ward: a ward comes back after a while, if it is not up already.
+    if (this.perks.has('arcward') && !this.warded) {
+      this.arcAt -= dt;
+      if (this.arcAt <= 0) {
+        this.arcAt = PERK.arcward.every;
+        this.warded = true;
+        this.events.push({ t: 'perk', perk: 'arcward', x: h.x, y: h.y });
+      }
+    }
+    // Hold the Line: the raised shield heals him.
+    if (this.perks.has('holdline') && this.shielded && h.hp < h.maxHp) {
+      this.holdAt -= dt;
+      if (this.holdAt <= 0) {
+        this.holdAt = 1;
+        this.mend(Math.max(1, Math.round(h.maxHp * PERK.holdline.heals)));
+      }
+    }
+    // Warm Hands: the fires near her warm her.
+    if (this.perks.has('warmth')) {
+      this.warmAt -= dt;
+      if (this.warmAt <= 0) {
+        this.warmAt = 1;
+        const near = this.foes.filter((f) => !f.dead && f.burn > 0 && Math.hypot(f.x - h.x, f.y - h.y) <= PERK.warmth.r).length;
+        if (near > 0 && h.hp < h.maxHp) this.mend(Math.min(PERK.warmth.most, near * PERK.warmth.each));
+      }
+    }
+    // Hearth: standing still lights a ring of fire round her, and again while she stands.
+    if (this.perks.has('hearth')) {
+      this.hearthAt -= dt;
+      if (h.still >= PERK.hearth.still && this.hearthAt <= 0) {
+        this.hearthAt = PERK.hearth.seconds;
+        const own = this.own;
+        const burn = this.fireOf(own?.def.burn?.[own.tier] ?? 3);
+        this.zones.push({ id: this.ids++, x: h.x, y: h.y, r: PERK.hearth.r, by: Math.max(1, burn * PERK.hearth.harm * 2), life: PERK.hearth.seconds, tick: 0, kind: 'fire', mend: 0 });
+        this.events.push({ t: 'perk', perk: 'hearth', x: h.x, y: h.y });
+      }
+    }
+    // Snowfall: a gust now and then slows everyone near her.
+    if (this.perks.has('snowfall')) {
+      this.snowAt -= dt;
+      if (this.snowAt <= 0) {
+        const q = PERK.snowfall;
+        this.snowAt = q.every;
+        for (const f of this.foes) {
+          if (f.dead || Math.hypot(f.x - h.x, f.y - h.y) > q.r + f.def.r) continue;
+          f.slow = Math.max(f.slow, q.seconds);
+          f.slowBy = Math.max(f.slowBy, q.slow);
+        }
+        this.events.push({ t: 'perk', perk: 'snowfall', x: h.x, y: h.y });
+        this.events.push({ t: 'ring', x: h.x, y: h.y, r: q.r, seconds: 0.35, kind: 'frost' });
+      }
+    }
+    // Trample: riding with her lance couched, she runs down whoever she meets, each no more than so often.
+    if (this.perks.has('trample') && this.couched && h.moving) {
+      const q = PERK.trample;
+      for (const f of this.foes) {
+        if (f.dead || f.def.prop || Math.hypot(f.x - h.x, f.y - h.y) > q.r + f.def.r || (this.trampled.get(f.id) ?? -9) > this.time - q.again) continue;
+        this.trampled.set(f.id, this.time);
+        const d = Math.hypot(f.x - h.x, f.y - h.y) || 1;
+        // Thrown aside, off the line she rides.
+        const side = (f.x - h.x) * -this.tiltY + (f.y - h.y) * this.tiltX >= 0 ? 1 : -1;
+        this.shove(f, -this.tiltY * side || (f.x - h.x) / d, this.tiltX * side || (f.y - h.y) / d, q.knock);
+        this.wound(f, this.ownBlow(q.harm), false, false);
+        this.events.push({ t: 'perk', perk: 'trample', x: f.x, y: f.y });
+      }
+    }
+  }
+
+  /** The passives of a hero's mastery that go off on a kill (mastery.ts). */
+  private perkKill(f: Foe): void {
+    if (this.perks.size === 0) return;
+    // Overflow: every so many kills burst with magic.
+    if (this.perks.has('overflow')) {
+      this.flowKills++;
+      if (this.flowKills >= PERK.overflow.every) {
+        this.flowKills = 0;
+        this.events.push({ t: 'perk', perk: 'overflow', x: f.x, y: f.y });
+        this.blast(f.x, f.y, PERK.overflow.r, this.ownBlow(PERK.overflow.harm), 0, 'star', 12);
+      }
+    }
+    // Pickpocket: now and then a coin more.
+    if (this.perks.has('pickpocket') && this.rng.chance(PERK.pickpocket.chance)) {
+      this.drop('coin', f.x, f.y, 1);
+      this.events.push({ t: 'perk', perk: 'pickpocket', x: f.x, y: f.y });
+    }
+    // Radiance: what dies on holy ground bursts with light.
+    if (this.perks.has('radiance') && this.onHoly(f.x, f.y)) {
+      this.events.push({ t: 'perk', perk: 'radiance', x: f.x, y: f.y });
+      this.blast(f.x, f.y, PERK.radiance.r, this.ownBlow(PERK.radiance.harm), 0, 'light', 10);
+    }
+  }
+
   // ------------------------------------------------------------ the band
 
   /** What one blow of a companion does: it grows with the hero's level, a share of their Damage, and its bond. */
   allyHarm(a: Ally): number {
     // The Passing Bell, by its second way: a companion in his fold strikes harder.
-    const fold = this.alted('passingbell') && Math.hypot(a.x - this.hero.x, a.y - this.hero.y) <= QUIRKS.shepherd.r ? ALT.passingbell.harder : 1;
+    const near = Math.hypot(a.x - this.hero.x, a.y - this.hero.y) <= QUIRKS.shepherd.r;
+    const fold = (this.alted('passingbell') && near ? ALT.passingbell.harder : 1) * (this.quirk === 'shepherd' && near ? QUIRKS.shepherd.harder : 1);
     const by = fold * (1 + (Math.max(-80, this.stats.damage) * BAND.share) / 100) * (1 + BAND.bond * a.bond) * this.bandDmg * (this.has('whistle') ? RELIC.whistle.harder : 1);
-    return Math.max(1, Math.round((a.def.dmg + a.def.grow * this.level) * by));
+    return Math.max(1, Math.round((a.def.dmg + a.def.grow * this.level) * by * this.bandShare));
   }
 
   /** Seconds between a companion's blows: a share of the hero's Haste counts, the banner, and the shepherd's nearness. */
@@ -2326,6 +2704,183 @@ export class World {
         }
         break;
       }
+      case 'mend': {
+        // Nettle stays by the hero, heals them now and then, and pokes at what comes close.
+        const q = ALLY_QUIRKS.mend;
+        this.heel(a, dt);
+        a.trail -= dt;
+        if (a.trail <= 0 && Math.hypot(a.x - h.x, a.y - h.y) < 260) {
+          a.trail = q.every;
+          const heal = Math.max(1, Math.round((q.heals + q.grow * this.level) * (1 + BAND.bond * a.bond)));
+          if (h.hp < h.maxHp) {
+            this.mend(heal);
+            this.events.push({ t: 'allyQuirk', id: a.id, quirk: 'tonic', x: h.x, y: h.y });
+          }
+          for (const o of this.band) if (o !== a && o.down <= 0 && o.maxHp > 0) o.hp = Math.min(o.maxHp, o.hp + heal);
+        }
+        // The tonic: once a wave, when the hero is nearly down.
+        const t = ALLY_QUIRKS.tonic;
+        if (!this.tonicked && h.hp > 0 && h.hp / h.maxHp < t.under) {
+          this.tonicked = true;
+          this.mend(Math.max(1, Math.round(h.maxHp * (t.heals + t.bond * a.bond))));
+          this.events.push({ t: 'allyQuirk', id: a.id, quirk: 'tonic', x: h.x, y: h.y });
+        }
+        if (a.cool > 0) break;
+        const f = this.nearest(def.reach + def.r, [], a.x, a.y);
+        if (f) {
+          strike(f);
+          this.allyHit(a, f, Math.cos(a.angle), Math.sin(a.angle));
+        }
+        break;
+      }
+      case 'chill': {
+        // Rime walks by the hero: enemies near it are slowed, and now and then frozen.
+        const q = ALLY_QUIRKS.snap;
+        this.heel(a, dt);
+        for (const f of this.foes) {
+          if (f.dead || f.def.prop || Math.hypot(f.x - a.x, f.y - a.y) > q.r + f.def.r) continue;
+          f.slow = Math.max(f.slow, 0.3);
+          f.slowBy = Math.max(f.slowBy, q.slow);
+        }
+        if (a.quirkCool <= 0 && this.nearest(q.r, [], a.x, a.y)) {
+          a.quirkCool = q.every - q.bond * a.bond;
+          for (const f of this.foes) if (!f.dead && !f.def.prop && f.numb <= 0 && Math.hypot(f.x - a.x, f.y - a.y) <= q.r + f.def.r) this.freeze(f, q.freeze);
+          this.events.push({ t: 'allyQuirk', id: a.id, quirk: 'snap', x: a.x, y: a.y });
+          this.events.push({ t: 'ring', x: a.x, y: a.y, r: q.r, seconds: 0.3, kind: 'frost' });
+        }
+        if (a.cool > 0) break;
+        const f = this.nearest(def.reach + def.r, [], a.x, a.y);
+        if (f) {
+          strike(f);
+          this.allyHit(a, f, Math.cos(a.angle), Math.sin(a.angle));
+        }
+        break;
+      }
+      case 'ward': {
+        // Clank stands by the hero, punches what comes close, and keeps a ward up on them.
+        const q = ALLY_QUIRKS.aegis;
+        this.heel(a, dt);
+        if (!this.warded && a.quirkCool <= 0) {
+          a.quirkCool = q.every - q.bond * a.bond;
+          this.warded = true;
+          this.events.push({ t: 'allyQuirk', id: a.id, quirk: 'aegis', x: h.x, y: h.y });
+        }
+        if (a.cool > 0) break;
+        const f = this.nearest(def.reach + def.r, [], a.x, a.y);
+        if (f) {
+          strike(f);
+          this.allyHit(a, f, Math.cos(a.angle), Math.sin(a.angle));
+        }
+        break;
+      }
+      case 'shell': {
+        // Boom stays well behind the hero and lobs a shell where they are thickest. The ground is marked first.
+        const q = ALLY_QUIRKS.powder;
+        this.allyGo(a, h.x - h.face * 110, h.y + 30, Math.max(def.speed, HERO_SPEED * 1.1), dt, 14);
+        if (a.cool > 0) break;
+        const f = this.thickest(h.x, h.y, def.reach);
+        if (!f) break;
+        strike(f);
+        this.fall(f.x, f.y, q.r, q.warn, this.allyHarm(a), q.stun + q.bond * a.bond, 'powder');
+        this.events.push({ t: 'allyQuirk', id: a.id, quirk: 'powder', x: f.x, y: f.y });
+        break;
+      }
+      case 'swarm': {
+        // Hive keeps off a little and sends bees: a poison cloud where they are thickest. Now and then a heart.
+        const q = ALLY_QUIRKS.honey;
+        this.heel(a, dt);
+        if (a.quirkCool <= 0) {
+          a.quirkCool = q.every - q.bond * a.bond;
+          if (this.gathering < 0) {
+            this.drop('heart', h.x + this.rng.range(-50, 50), h.y + this.rng.range(30, 60), 1);
+            this.events.push({ t: 'allyQuirk', id: a.id, quirk: 'honey', x: h.x, y: h.y });
+          }
+        }
+        if (a.cool > 0) break;
+        const f = this.thickest(a.x, a.y, def.reach);
+        if (!f) break;
+        strike(f);
+        this.zones.push({ id: this.ids++, x: f.x, y: f.y, r: q.r, by: Math.max(1, this.allyHarm(a) * q.harm), life: q.seconds, tick: 0, kind: 'cloud', mend: 0 });
+        break;
+      }
+      case 'grab': {
+        // Snap holds the toughest enemy near the hero still and pinches it.
+        const held = a.state === 'hold' ? this.foes.find((x) => x.id === a.target && !x.dead) : undefined;
+        if (held) {
+          a.left -= dt;
+          held.stun = Math.max(held.stun, 0.1);
+          this.allyGo(a, held.x - held.def.r - def.r, held.y, def.speed, dt, 2);
+          if (a.cool <= 0) {
+            strike(held);
+            this.allyHit(a, held, 0, 0);
+          }
+          if (a.left <= 0 || held.dead) {
+            a.state = 'with';
+            a.quirkCool = 1.5;
+          }
+          break;
+        }
+        a.state = 'with';
+        let best: Foe | null = null;
+        for (const f of this.foes) {
+          if (f.dead || f.boss || f.def.prop || Math.hypot(f.x - h.x, f.y - h.y) > BAND.leash) continue;
+          if (!best || f.hp > best.hp) best = f;
+        }
+        if (!best || a.quirkCool > 0) {
+          this.heel(a, dt);
+          break;
+        }
+        if (this.allyGo(a, best.x, best.y, def.speed, dt, def.r + best.def.r) <= def.r + best.def.r + def.reach) {
+          a.state = 'hold';
+          a.target = best.id;
+          a.left = ALLY_QUIRKS.hardshell.hold;
+        }
+        break;
+      }
+      case 'hunt': {
+        // Smoke runs down the weakest enemy in reach, and finishes one that is nearly dead.
+        let best: Foe | null = null;
+        for (const f of this.foes) {
+          if (f.dead || f.def.prop || Math.hypot(f.x - h.x, f.y - h.y) > BAND.leash + 120) continue;
+          if (!best || f.hp < best.hp) best = f;
+        }
+        if (!best) {
+          this.heel(a, dt);
+          break;
+        }
+        if (this.allyGo(a, best.x, best.y, def.speed, dt, def.r + best.def.r + def.reach - 4) <= def.r + best.def.r + def.reach && a.cool <= 0) {
+          strike(best);
+          const q = ALLY_QUIRKS.cull;
+          if (!best.boss && best.hp / best.maxHp < q.under + q.bond * a.bond) {
+            this.events.push({ t: 'allyQuirk', id: a.id, quirk: 'cull', x: best.x, y: best.y });
+            this.wound(best, best.hp, true, false);
+          } else this.allyHit(a, best, Math.cos(a.angle), Math.sin(a.angle));
+        }
+        break;
+      }
+      case 'burrow': {
+        // Gilt digs under the nearest enemy and bursts up: everyone round it is thrown and stunned, and a coin may come up.
+        const q = ALLY_QUIRKS.treasure;
+        this.heel(a, dt);
+        if (a.cool > 0) break;
+        const f = this.nearest(BAND.leash, [], a.x, a.y);
+        if (!f) break;
+        strike(f);
+        a.x = f.x - def.r;
+        a.y = f.y + 4;
+        for (const o of this.foes) {
+          const d = Math.hypot(o.x - f.x, o.y - f.y);
+          if (o.dead || o.def.prop || d > def.reach + o.def.r) continue;
+          o.stun = Math.max(o.stun, q.stun * (o.boss ? MOVE.bossShare : 1));
+          this.allyHit(a, o, (o.x - f.x) / (d || 1), (o.y - f.y) / (d || 1));
+        }
+        this.events.push({ t: 'burst', x: f.x, y: f.y, r: def.reach, kind: 'slam' });
+        if (this.rng.chance(q.chance + q.bond * a.bond)) {
+          this.drop('coin', f.x, f.y, Math.max(1, Math.round(1 + q.each * this.wave.n)));
+          this.events.push({ t: 'allyQuirk', id: a.id, quirk: 'treasure', x: f.x, y: f.y });
+        }
+        break;
+      }
       case 'ram': {
         const q = ALLY_QUIRKS.stampede;
         if (a.state === 'dash') {
@@ -2375,15 +2930,15 @@ export class World {
     if (h.open > 0) by *= byId(MOVES, 'opengrave').harm;
     if (this.tithe) by *= 1 + RELIC.tithe.more;
     if (this.has('wolfskin') && this.band.some((a) => a.down <= 0 && Math.hypot(a.x - h.x, a.y - h.y) < RELIC.wolfskin.r)) by *= 1 + RELIC.wolfskin.more;
+    if (this.perks.has('flock')) by *= 1 + PERK.flock.each * this.band.filter((a) => a.down <= 0).length;
     return by;
   }
 
   /** How much more the hero's blows do for their quirk. */
   private edge(): number {
-    const h = this.hero;
     switch (this.quirk) {
       case 'unseen':
-        return 1 + Math.min(QUIRKS.unseen.most, h.safe * QUIRKS.unseen.each);
+        return 1 + this.quiet;
       case 'double':
         return 1 + Math.min(QUIRKS.double.most, Math.floor(this.held / QUIRKS.double.coins) / 100);
       case 'gravedebt':
@@ -2401,7 +2956,8 @@ export class World {
     // The Whetstone of Ages is on everything the hero carries.
     let amount = Math.max(1, Math.round(base * Math.max(0.1, 1 + s.damage / 100) * this.edge() * this.boon() * this.whet));
     // Out of the dark every blow finds the gap, and so does Fenn's next after a coin, once his knife has learned to.
-    const sure = this.hero.sure > 0 || (slot.own && this.lucky > 0);
+    const sure = this.hero.sure > 0 || (slot.own && this.lucky > 0) || (lucky && this.sureHits > 0);
+    if (lucky && this.sureHits > 0) this.sureHits--;
     const crit = lucky && (sure || this.rng.chance(Math.max(0, def.crit + s.crit) / 100));
     if (lucky && slot.own) this.lucky = 0;
     if (crit) amount = Math.round(amount * def.critBy);
@@ -2512,7 +3068,14 @@ export class World {
           this.blow(f, slot, h.x, h.y, times);
           if (f.dead) {
             felled = true;
-            if (tilted) this.count('tilt');
+            if (tilted) {
+              this.count('tilt');
+              // For the Ninth: a kill with a Tilt thrust quickens her.
+              if (this.perks.has('ninth')) {
+                this.ninthLeft = PERK.ninth.seconds;
+                this.events.push({ t: 'perk', perk: 'ninth', x: h.x, y: h.y });
+              }
+            }
           }
           else if (tilted && this.ruled('ninth', 1)) {
             const d = Math.hypot(f.x - h.x, f.y - h.y) || 1;
@@ -2645,6 +3208,8 @@ export class World {
   /** Harm reaches a foe, with whatever the weapon leaves on them. */
   private land(f: Foe, amount: number, crit: boolean, fromX: number, fromY: number, knock: number, def: WeaponDef | null, tier: number): void {
     if (f.dead) return;
+    // Long Shot: the farther the mark, the harder.
+    if (def && this.perks.has('longshot')) amount = Math.round(amount * (1 + PERK.longshot.most * Math.min(1, Math.hypot(f.x - this.hero.x, f.y - this.hero.y) / PERK.longshot.full)));
     // Ysolde: one that was slowed already, struck again, freezes solid.
     if (this.quirk === 'deepcold' && def && f.slow > 0 && f.numb <= 0) this.freeze(f, QUIRKS.deepcold.freeze);
     // The Hunter's Horn: the first blow on anyone unhurt finds the gap.
@@ -2696,6 +3261,8 @@ export class World {
         this.mend(QUIRKS.gravedebt.mends);
       }
       if (debt && this.quirk === 'gravedebt') this.count('debt');
+      // Hungry Axe: every kill of his axe feeds him a little.
+      else if (this.perks.has('hungry')) this.mend(PERK.hungry.heals);
       // Whisper, once it has learned to: a kill at full Unseen looses the next arrow at once.
       const own = this.own;
       if (own && def.id === 'whisper' && this.hidden && this.ruled('whisper', 3)) own.cool = Math.min(own.cool, OWN.whisper.again);
@@ -2715,10 +3282,22 @@ export class World {
     if (f.frozen > 0 && this.quirk === 'deepcold') by *= QUIRKS.deepcold.more;
     // An armored champion turns part of every blow. What burns and eats at it is no blow.
     if (f.champion === 'armored' && !soft) by *= ROAD.champions.armored;
+    // The Forge: every enemy is armored.
+    if (this.omen === 'forge' && !f.def.prop) by *= ROAD.forge.lets;
+    // One near a warder takes less from a blow.
+    if (!soft && this.wards.length > 0 && this.wards.some((w) => w !== f && !w.dead && Math.hypot(w.x - f.x, w.y - f.y) <= (w.def.wide ?? 220))) by *= FOE_WARD;
     by = Math.max(1, Math.round(by));
     f.hp -= by;
     this.events.push({ t: 'hit', id: f.id, x: f.x, y: f.y, amount: by, crit, soft });
     if (f.hp > 0) return;
+    // The dead that get up: once, after a moment down. The Restless road raises every enemy so.
+    if (!f.boss && !f.def.prop && !f.second && !f.champion && (f.def.undying || this.omen === 'restless')) {
+      f.second = true;
+      f.hp = Math.max(1, Math.round(f.maxHp * UNDYING.rises));
+      f.stun = Math.max(f.stun, UNDYING.down);
+      this.events.push({ t: 'second', id: f.id, x: f.x, y: f.y });
+      return;
+    }
     if (f.boss && this.vows.has('wind') && !f.second) {
       // Second Wind: a captain that falls gets up once. It is down for a moment first, so the player sees it coming.
       f.second = true;
@@ -2739,6 +3318,8 @@ export class World {
     }
     this.kills++;
     this.slain[f.def.id] = (this.slain[f.def.id] ?? 0) + 1;
+    // A slime breaks into two smaller.
+    if (f.def.splits) for (let i = 0; i < 2; i++) this.mark(byId(ENEMIES, f.def.splits), f.x + (i ? 20 : -20), f.y, false);
     this.fill(1 / (MOVE.kills + MOVE.more * (this.wave.n - 1)));
     if (f.id === this.heraldId) {
       this.herald = true;
@@ -2768,6 +3349,7 @@ export class World {
       }
     }
     if (this.has('spade')) this.raise(f);
+    this.perkKill(f);
     // The Bellows: what dies burning sets its neighbors alight.
     if (f.burnBy > 0 && this.has('bellows')) {
       const q = RELIC.bellows;
@@ -3026,6 +3608,8 @@ export class World {
           for (const a of this.band) if (a.down <= 0 && a.maxHp > 0 && Math.hypot(a.x - z.x, a.y - z.y) <= z.r) a.hp = Math.min(a.maxHp, a.hp + 1);
         }
       }
+      // Mud does no harm: the hero is slowed while they stand in it (moveHero).
+      if (z.kind === 'mud') continue;
       if (z.kind === 'ice') {
         // Ice does no harm: whoever crosses it is slowed for as long as they are on it.
         for (const f of this.foes) {

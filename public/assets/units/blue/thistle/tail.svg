@@ -1,18 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="thistle-tail" width="272" height="272" viewBox="-40 -40 272 272">
-<defs>
-<path id="thistle-tail-tail-shape" d="M 67.9 113.4 C 67.9 118 63.7 121.8 58.6 121.8 C 53.4 121.8 49.2 118 49.2 113.4 C 49.2 108.8 53.4 105.1 58.6 105.1 C 63.7 105.1 67.9 108.8 67.9 113.4 Z"/>
-<clipPath id="thistle-tail-tail-clip"><use href="#thistle-tail-tail-shape"/></clipPath>
-<clipPath id="thistle-tail-tail-lit-clip"><use href="#thistle-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
-</defs>
-<g id="thistle-tail-tail">
-<use id="thistle-tail-tail-shade" href="#thistle-tail-tail-shape" fill="#c4b594"/>
-<g clip-path="url(#thistle-tail-tail-clip)">
-<use id="thistle-tail-tail-fill" href="#thistle-tail-tail-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
-<g clip-path="url(#thistle-tail-tail-lit-clip)">
-<use id="thistle-tail-tail-lit" href="#thistle-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
-<use id="thistle-tail-tail-fill-over" href="#thistle-tail-tail-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
-</g>
-</g>
-<use id="thistle-tail-tail-line" href="#thistle-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.c1{fill:#f4f1e4;opacity:.36}</style><defs><path id="i0" d="M67.9 113.4c0 4.6-4.2 8.4-9.3 8.4-5.2 0-9.4-3.8-9.4-8.4 0-4.6 4.2-8.3 9.4-8.3 5.1 0 9.3 3.7 9.3 8.3z"/><clipPath id="i1"><use href="#i0"/></clipPath><clipPath id="i2"><use href="#i0" transform="translate(-3-3)"/></clipPath></defs><g><use href="#i0" fill="#c4b594"/><g clip-path="url(#i1)"><use href="#i0" transform="translate(-3-3)" fill="#e9dfc6"/><g clip-path="url(#i2)"><use href="#i0" transform="translate(-3-3)" class="c1"/><use href="#i0" transform="translate(3.6 3.6)" fill="#e9dfc6"/></g></g><use href="#i0" class="c0"/></g></svg>

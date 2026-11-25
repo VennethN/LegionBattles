@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="biscuit-legs-far" width="272" height="272" viewBox="-40 -40 272 272">
-<defs>
-<path id="biscuit-legs-far-leg-shape" d="M 76.7 145.8 L 90.2 145.8 L 89.7 159.3 L 98.3 170.1 Q 104.6 171 104.6 176.4 L 104.6 180 L 84.8 180 L 84.8 172.8 L 76.2 159.3 Z"/>
-<path id="biscuit-legs-far-leg-2-shape" d="M 105.5 145.8 L 119 145.8 L 118.1 159.3 L 111.8 170.1 Q 118.1 171 118.1 176.4 L 118.1 180 L 98.3 180 L 98.3 172.8 L 104.6 159.3 Z"/>
-</defs>
-<g id="biscuit-legs-far-leg">
-<use id="biscuit-legs-far-leg-fill" href="#biscuit-legs-far-leg-shape" fill="#c4b594"/>
-<use id="biscuit-legs-far-leg-line" href="#biscuit-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<g id="biscuit-legs-far-leg-2">
-<use id="biscuit-legs-far-leg-2-fill" href="#biscuit-legs-far-leg-2-shape" fill="#c4b594"/>
-<use id="biscuit-legs-far-leg-2-line" href="#biscuit-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}</style><defs><path id="i0" d="M76.7 145.8h13.5l-.5 13.5 8.6 10.8q6.3.9 6.3 6.3v3.6h-19.8v-7.2l-8.6-13.5z"/><path id="i1" d="M105.5 145.8h13.5l-.9 13.5-6.3 10.8q6.3.9 6.3 6.3v3.6h-19.8v-7.2l6.3-13.5z"/></defs><use href="#i0" fill="#c4b594"/><use href="#i0" class="c0"/><use href="#i1" fill="#c4b594"/><use href="#i1" class="c0"/></svg>

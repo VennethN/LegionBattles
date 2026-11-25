@@ -117,6 +117,8 @@ export function finishWave(): void {
   const now = record(s, run, kills);
   opened.push(...now.heroes);
   friends.push(...now.friends);
+  gained.slots += now.slots;
+  gained.levels += now.levels;
   s.run = run.phase === 'over' ? null : run;
   commit();
 }
@@ -134,6 +136,14 @@ export function takeOpened(): string[] {
   const o = opened;
   opened = [];
   return o;
+}
+
+/** The companion slots and mastery levels the run has unlocked, once: the result says each. */
+let gained = { slots: 0, levels: 0 };
+export function takeGained(): { slots: number; levels: number } {
+  const g = gained;
+  gained = { slots: 0, levels: 0 };
+  return g;
 }
 
 /** The companions the run has opened, once. */

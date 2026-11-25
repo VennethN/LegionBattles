@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="check" width="48" height="48" viewBox="0 0 48 48">
-<defs>
-<path id="check-check-shape" d="M 6 25 L 12 19 L 20 27 L 36 9 L 42 15 L 20 39 Z"/>
-</defs>
-<g id="check-check">
-<use id="check-check-fill" href="#check-check-shape" fill="#8fce4a"/>
-<use id="check-check-line" href="#check-check-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}</style><defs><path id="i0" d="M6 25l6-6 8 8L36 9l6 6L20 39z"/></defs><use href="#i0" fill="#8fce4a"/><use href="#i0" class="c0"/></svg>

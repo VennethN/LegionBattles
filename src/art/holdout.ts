@@ -591,7 +591,14 @@ function speck(d: Doc, ground: Ground, dice: Dice, px: number, py: number): void
 const EDGES: Record<Ground, Scenery[]> = {
   meadow: [bush, rock(STONE, BUSH), stump, mushrooms, flowers(SNOW.light), tuft(GRASS.light, GRASS.dark), bush, flowers(HOLY.fill)],
   desert: [sandrock, dryShrub, sandrock, tuft(SAND.light, SAND.dark), dryShrub, rock(STONE, null)],
-  snow: [iceSpike, cairn, drift, rock(STONE, { fill: SNOW.light, shade: SNOW.shade }), drift, tuft(SNOW.light, SNOW.dark)],
+  snow: [iceSpike, cairn, drift, rock(STONE, { fill: SNOW.light, shade: SNOW.shade }), drift, tuft(SNOW.light, SNOW.dark)],  // The later lands borrow the scenery of the land most like them, until they have their own.
+  mire: [bush, mushrooms, stump, rock(STONE, BUSH), mushrooms, tuft(GRASS.dark, GRASS.shade)],
+  coast: [sandrock, rock(STONE, null), tuft(SAND.light, SAND.dark), sandrock, rock(STONE, null)],
+  mine: [cairn, rock(STONE, null), cairn, rock(STONE, null)],
+  steppe: [dryShrub, tuft(SAND.light, SAND.dark), dryShrub, sandrock, tuft(SAND.fill, SAND.dark)],
+  crypt: [cairn, rock(STONE, null), stump, cairn, mushrooms],
+  clock: [cairn, rock(STONE, null), cairn],
+  ember: [sandrock, rock(STONE, null), cairn, dryShrub],
 };
 
 /**

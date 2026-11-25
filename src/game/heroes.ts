@@ -52,14 +52,14 @@ export interface HeroDef {
 
 export const HEROES: readonly HeroDef[] = [
   {
-    id: 'bram', unit: 'bram', name: 'Bram Oakenhold', short: 'Bram', epithet: 'the Gatewarden', who: 'The last man on a gate that fell. He does not step back.', line: 'The gate is wherever I stand.',
-    weapon: 'gatekeeper', stats: { maxHp: 8, armor: 1, speed: -5 }, quirk: 'standfast', quirkName: 'Stand Fast',
-    says: 'Stand still to raise your shield: take 60% less damage, block shots from the front, and attack 25% faster. Moving lowers it.', move: 'gate', unlock: null,
-  },
-  {
     id: 'wren', unit: 'wren', name: 'Wren Fallowmere', short: 'Wren', epithet: 'the Quiet Arrow', who: 'A poacher the king could never catch.', line: 'You will not hear the one that matters.',
     weapon: 'whisper', stats: { aim: 2, reach: 30, maxHp: -3 }, quirk: 'unseen', quirkName: 'Unseen',
-    says: 'Deal 4% more damage for each second you are not hit, up to 60%. Getting hit resets it.', move: 'oneshot', unlock: null,
+    says: 'Deal 4% more damage for each second you are not hit, up to 60%: 2x as fast with no enemy near you. Getting hit halves it.', move: 'oneshot', unlock: null,
+  },
+  {
+    id: 'bram', unit: 'bram', name: 'Bram Oakenhold', short: 'Bram', epithet: 'the Gatewarden', who: 'The last man on a gate that fell. He does not step back.', line: 'The gate is wherever I stand.',
+    weapon: 'gatekeeper', stats: { maxHp: 8, armor: 1, speed: -5 }, quirk: 'standfast', quirkName: 'Stand Fast',
+    says: 'Stand still to raise your shield: take 60% less damage, block shots from the front, and attack 25% faster. Moving lowers it.', move: 'gate', unlock: { kind: 'runs', runs: 1 },
   },
   {
     id: 'orrin', unit: 'orrin', name: 'Orrin Quillon', short: 'Orrin', epithet: 'the Unfinished', who: 'A wizard expelled before his last lesson.', line: 'I never did learn how it ends.',
@@ -89,7 +89,7 @@ export const HEROES: readonly HeroDef[] = [
   {
     id: 'aldous', unit: 'aldous', name: 'Brother Aldous Bell', short: 'Aldous', epithet: 'the Shepherd', who: 'He rang the bell for the dead. Now he rings it for the living.', line: 'Stay close. I will count you all at dusk.',
     weapon: 'passingbell', stats: { regen: 6, maxHp: 4, damage: -20 }, quirk: 'shepherd', quirkName: 'Shepherd',
-    says: 'Bring 1 more companion. Companions near you attack 20% faster and are healed whenever you are. You deal 20% less damage.', move: 'toll', unlock: { kind: 'runs', runs: 18 },
+    says: 'Companions near you attack 20% faster, deal 30% more damage and are healed whenever you are. You deal 20% less damage.', move: 'toll', unlock: { kind: 'runs', runs: 18 },
   },
   {
     id: 'ysolde', unit: 'ysolde', name: 'Ysolde Rimeheart', short: 'Ysolde', epithet: 'the Winter Widow', who: 'The cold took her husband. She took the cold.', line: 'It only hurts until it does not.',
@@ -99,7 +99,7 @@ export const HEROES: readonly HeroDef[] = [
   {
     id: 'maren', unit: 'maren', name: 'Maren Dawnguard', short: 'Maren', epithet: 'the Oathkeeper', who: 'She swore to see the morning.', line: 'Hold until the light. Then hold some more.',
     weapon: 'morningstar', stats: { maxHp: 6, armor: 1, might: 1, haste: -10 }, quirk: 'consecrate', quirkName: 'Consecrate',
-    says: 'Your hammer leaves holy ground for 4 s. It burns enemies and heals you and your companions.', move: 'judgment', unlock: { kind: 'wave', wave: 20 },
+    says: 'Your hammer leaves holy ground for 4 s. It burns enemies and heals you and your companions.', move: 'judgment', unlock: { kind: 'wave', wave: 50 },
   },
 ];
 
@@ -329,9 +329,12 @@ export const QUIRKS = {
     faster: 1.25,
   },
   unseen: {
-    /** What each second untouched adds to her harm, and the most it comes to. */
+    /** What each second untouched adds to her harm, and the most it comes to. With nobody within `far`, it grows `alone` times as fast. A blow leaves `keeps` of it. */
     each: 0.04,
     most: 0.6,
+    far: 180,
+    alone: 2,
+    keeps: 0.5,
   },
   unfinished: {
     /** How many more choices a level offers him. */
@@ -380,9 +383,10 @@ export const QUIRKS = {
     harm: 3,
   },
   shepherd: {
-    /** How near him a companion is in his fold: it strikes faster there, by this much, and what heals him heals it. */
+    /** How near him a companion is in his fold: it strikes faster there, by this much, harder by this much, and what heals him heals it. */
     r: 230,
     faster: 1.2,
+    harder: 1.3,
   },
   deepcold: {
     /** Seconds the slowed, struck again, are frozen for. A captain is frozen for a share of it, as it is stunned (MOVE.bossShare). */

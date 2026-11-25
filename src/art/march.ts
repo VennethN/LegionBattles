@@ -35,7 +35,7 @@ interface Look {
   low: Scenery[];
 }
 
-const LOOKS: Record<Ground, Look> = {
+const LOOKS3: Record<'meadow' | 'desert' | 'snow', Look> = {
   meadow: {
     road: DIRT.fill,
     roadEdge: DIRT.shade,
@@ -54,6 +54,11 @@ const LOOKS: Record<Ground, Look> = {
     tall: [pine, pine, bareTree, rock(STONE, { fill: SNOW.light, shade: SNOW.shade }), pine],
     low: [iceSpike, cairn, drift, drift, fence(true), tuft(SNOW.light, SNOW.dark)],
   },
+};
+
+/** The march of a later land looks as the land most like it does (the kit is shared with Legion Idle, which has three). */
+const LOOKS: Record<Ground, Look> = {
+  ...LOOKS3, mire: LOOKS3.meadow, coast: LOOKS3.desert, steppe: LOOKS3.desert, clock: LOOKS3.desert, ember: LOOKS3.desert, mine: LOOKS3.snow, crypt: LOOKS3.snow,
 };
 
 /** A soft shape of no particular outline, about a point. */

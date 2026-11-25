@@ -1,5 +1,4 @@
-import '@fontsource/fredoka/latin-600.css';
-import '@fontsource/fredoka/latin-700.css';
+import './fonts.css';
 import Phaser from 'phaser';
 import { OUTLINE } from './art/kit/palette';
 import { bank } from './audio/bank';

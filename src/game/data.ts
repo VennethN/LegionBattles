@@ -44,6 +44,7 @@ export * from './kinds';
 export * from './relics';
 export * from './road';
 export * from './holdData';
+export * from './mastery';
 
 // ---------------------------------------------------------------- weapons
 
@@ -247,7 +248,7 @@ export function tierWeights(step: number, luck: number): [number, number, number
 /** Wares on offer at once. */
 export const OFFERS = 4;
 /** How much dearer everything is each wave. */
-export const PRICE_RISE = 0.07;
+export const PRICE_RISE = 0.05;
 /** A weapon sold gives back this share of what its tier costs at the first wave's prices. */
 export const SELL_SHARE = 0.5;
 /** The share of offers that are weapons, while there is a hand free and after. */
@@ -279,8 +280,24 @@ export function rerollCost(wave: number, times: number): number {
  * boss: all of it, in turns.
  * cross: goes over the field from one side to the other and hurts nobody (the pay wagon).
  * still: stands where it is and hurts nobody (a cage).
+ * lob: stays back and throws something that lands where the hero stands: the ground is marked first.
+ * circle: rides round the hero at a distance, fast, and shoots as it goes.
+ * ward: stays back; whoever is near it takes less from every blow.
+ * heal: stays back, and now and then heals whoever is near it.
  */
-export type Ai = 'walk' | 'shoot' | 'charge' | 'bomb' | 'summon' | 'boost' | 'boss' | 'cross' | 'still';
+export type Ai = 'walk' | 'shoot' | 'charge' | 'bomb' | 'summon' | 'boost' | 'boss' | 'cross' | 'still' | 'lob' | 'circle' | 'ward' | 'heal';
+
+/**
+ * What a boss does that no other does, besides its round of charge, ring of shots and call.
+ * mud: where it walks it leaves mud that slows the hero.
+ * slam: it brings its hammer down in a ring round itself, shown first.
+ * broadside: it fires a line of shells toward the hero, each landing on marked ground.
+ * cavein: rocks fall in a ring round the hero, on marked ground.
+ * thrice: it charges three times in a row.
+ * overclock: enemies near it move 30% faster, as a drummer's do.
+ * raise: what it calls gets up once when it falls.
+ */
+export type BossWay = 'mud' | 'slam' | 'broadside' | 'cavein' | 'thrice' | 'overclock' | 'raise';
 
 export interface EnemyDef {
   id: string;
@@ -316,6 +333,15 @@ export interface EnemyDef {
   aura?: number;
   /** A thing, not a fighter: the picture it is shown with in place of a figure. It is only ever put on the field by a road's omen (road.ts). */
   prop?: string;
+  /** A boss's way of its own (BossWay), and for a slam how wide its ring is. */
+  way?: BossWay;
+  slam?: number;
+  /** Gets up once when it falls, with a share of its health, after a moment down. */
+  undying?: boolean;
+  /** Breaks into two of this when it falls. */
+  splits?: string;
+  /** lob: how wide what it throws lands. ward, heal: how far it reaches. */
+  wide?: number;
 }
 
 export const ENEMIES: readonly EnemyDef[] = [
@@ -337,6 +363,15 @@ export const ENEMIES: readonly EnemyDef[] = [
   { id: 'drummer', unit: 'drummer', name: 'War Drummer', ai: 'boost', hp: 22, dmg: 2, speed: 66, r: 14, coins: 6, keep: 300, aura: 230 },
   { id: 'medjay', unit: 'medjay', name: 'Tomb Guard', ai: 'walk', hp: 40, dmg: 3, speed: 76, r: 17, coins: 5, size: 1.15 },
   { id: 'colossus', unit: 'colossus', name: 'The Colossus', ai: 'boss', hp: 700, dmg: 5, speed: 66, r: 32, coins: 70, size: 1.7, every: 2.4, flies: 220, dash: 380, calls: 'scarab' },
+  // Blackwater Mire.
+  { id: 'bogspear', unit: 'bogspear', name: 'Bog Spear', ai: 'walk', hp: 11, dmg: 2, speed: 96, r: 13, coins: 1 },
+  { id: 'slime', unit: 'slime', name: 'Slime', ai: 'walk', hp: 22, dmg: 2, speed: 54, r: 18, coins: 2, size: 1.05, splits: 'slimelet' },
+  { id: 'slimelet', unit: 'slime', name: 'Slimelet', ai: 'walk', hp: 7, dmg: 1, speed: 84, r: 11, coins: 1, size: 0.6 },
+  { id: 'netter', unit: 'netter', name: 'Netter', ai: 'shoot', hp: 10, dmg: 1, speed: 70, r: 13, coins: 2, keep: 260, every: 3, flies: 190, chills: 0.3 },
+  { id: 'mudbrute', unit: 'mudbrute', name: 'Mud Brute', ai: 'charge', hp: 34, dmg: 3, speed: 60, r: 19, coins: 5, dash: 400, size: 1.15 },
+  { id: 'sporecaller', unit: 'sporecaller', name: 'Spore Caller', ai: 'summon', hp: 22, dmg: 2, speed: 60, r: 14, coins: 5, keep: 320, every: 5.5, calls: 'slime' },
+  { id: 'bogwitch', unit: 'bogwitch', name: 'Bog Witch', ai: 'boost', hp: 22, dmg: 2, speed: 64, r: 14, coins: 6, keep: 300, aura: 230 },
+  { id: 'mirelord', unit: 'mirelord', name: 'The Mire Lord', ai: 'boss', hp: 560, dmg: 3, speed: 74, r: 30, coins: 55, size: 1.65, every: 2.6, flies: 200, dash: 380, calls: 'slime', way: 'mud' },
   // Frostholt.
   { id: 'huscarl', unit: 'huscarl', name: 'Raider', ai: 'walk', hp: 14, dmg: 3, speed: 102, r: 14, coins: 2 },
   { id: 'harpooner', unit: 'harpooner', name: 'Harpooner', ai: 'shoot', hp: 11, dmg: 2, speed: 72, r: 13, coins: 2, keep: 280, every: 2.9, flies: 240 },
@@ -345,6 +380,50 @@ export const ENEMIES: readonly EnemyDef[] = [
   { id: 'skald', unit: 'skald', name: 'War Singer', ai: 'boost', hp: 24, dmg: 2, speed: 66, r: 14, coins: 6, keep: 300, aura: 230 },
   { id: 'warbear', unit: 'warbear', name: 'War Bear', ai: 'charge', hp: 40, dmg: 5, speed: 66, r: 21, coins: 6, dash: 420, size: 1.1 },
   { id: 'jarl', unit: 'jarl', name: 'The Jarl', ai: 'boss', hp: 900, dmg: 6, speed: 80, r: 28, coins: 120, size: 1.6, every: 2.2, flies: 240, dash: 430, calls: 'direwolf' },
+  // The Ashen Forge.
+  { id: 'brandbearer', unit: 'brandbearer', name: 'Brand Bearer', ai: 'walk', hp: 16, dmg: 3, speed: 116, r: 13, coins: 2 },
+  { id: 'cinderguard', unit: 'cinderguard', name: 'Cinder Guard', ai: 'walk', hp: 48, dmg: 4, speed: 70, r: 17, coins: 5, size: 1.15 },
+  { id: 'ashcaster', unit: 'ashcaster', name: 'Ash Caster', ai: 'shoot', hp: 14, dmg: 3, speed: 70, r: 13, coins: 3, keep: 290, every: 2.6, flies: 240 },
+  { id: 'slagthrower', unit: 'slagthrower', name: 'Slag Thrower', ai: 'bomb', hp: 10, dmg: 7, speed: 128, r: 12, coins: 2, burst: 90 },
+  { id: 'emberbrute', unit: 'emberbrute', name: 'Ember Brute', ai: 'charge', hp: 46, dmg: 6, speed: 64, r: 20, coins: 6, dash: 440, size: 1.1 },
+  { id: 'taskmaster', unit: 'taskmaster', name: 'Taskmaster', ai: 'boost', hp: 28, dmg: 3, speed: 66, r: 14, coins: 7, keep: 300, aura: 240 },
+  { id: 'forgelord', unit: 'forgelord', name: 'The Forge Lord', ai: 'boss', hp: 1150, dmg: 7, speed: 76, r: 30, coins: 160, size: 1.7, every: 2.2, flies: 250, dash: 420, calls: 'brandbearer', way: 'slam', slam: 160 },
+  // The Salt Coast.
+  { id: 'deckhand', unit: 'deckhand', name: 'Deckhand', ai: 'walk', hp: 14, dmg: 3, speed: 108, r: 13, coins: 1 },
+  { id: 'marine', unit: 'marine', name: 'Marine', ai: 'shoot', hp: 14, dmg: 3, speed: 70, r: 13, coins: 2, keep: 300, every: 2.6, flies: 260 },
+  { id: 'anchorman', unit: 'anchorman', name: 'Anchorman', ai: 'charge', hp: 40, dmg: 5, speed: 64, r: 19, coins: 5, dash: 430, size: 1.15 },
+  { id: 'seawitch', unit: 'seawitch', name: 'Sea Witch', ai: 'lob', hp: 18, dmg: 4, speed: 64, r: 14, coins: 4, keep: 320, every: 3.2, wide: 70 },
+  { id: 'quartermaster', unit: 'quartermaster', name: 'Quartermaster', ai: 'summon', hp: 30, dmg: 3, speed: 60, r: 14, coins: 6, keep: 330, every: 5.5, calls: 'deckhand' },
+  { id: 'corsair', unit: 'corsair', name: 'The Corsair', ai: 'boss', hp: 820, dmg: 5, speed: 82, r: 28, coins: 90, size: 1.6, every: 2.4, flies: 250, dash: 420, calls: 'deckhand', way: 'broadside', wide: 70 },
+  // The Deep Mines.
+  { id: 'delver', unit: 'delver', name: 'Delver', ai: 'walk', hp: 16, dmg: 3, speed: 100, r: 13, coins: 1 },
+  { id: 'tunnelguard', unit: 'tunnelguard', name: 'Tunnel Guard', ai: 'walk', hp: 50, dmg: 4, speed: 62, r: 18, coins: 5, size: 1.15 },
+  { id: 'blaster', unit: 'blaster', name: 'Blaster', ai: 'lob', hp: 14, dmg: 5, speed: 70, r: 13, coins: 3, keep: 300, every: 3, wide: 80 },
+  { id: 'runesmith', unit: 'runesmith', name: 'Runesmith', ai: 'ward', hp: 30, dmg: 3, speed: 60, r: 15, coins: 7, keep: 300, wide: 220 },
+  { id: 'foreman', unit: 'foreman', name: 'Foreman', ai: 'boost', hp: 28, dmg: 3, speed: 64, r: 14, coins: 7, keep: 300, aura: 240 },
+  { id: 'underking', unit: 'underking', name: 'The Under King', ai: 'boss', hp: 900, dmg: 6, speed: 72, r: 30, coins: 110, size: 1.65, every: 2.4, flies: 230, dash: 400, calls: 'delver', way: 'cavein', wide: 80 },
+  // The Endless Steppe.
+  { id: 'lamellar', unit: 'lamellar', name: 'Steppe Rider', ai: 'walk', hp: 17, dmg: 3, speed: 118, r: 13, coins: 1 },
+  { id: 'skirmisher', unit: 'skirmisher', name: 'Skirmisher', ai: 'circle', hp: 14, dmg: 3, speed: 150, r: 13, coins: 2, keep: 260, every: 2.2, flies: 260 },
+  { id: 'wrangler', unit: 'wrangler', name: 'Wrangler', ai: 'shoot', hp: 16, dmg: 3, speed: 72, r: 13, coins: 2, keep: 280, every: 2.8, flies: 230, chills: 0.3 },
+  { id: 'outrider', unit: 'outrider', name: 'Outrider', ai: 'circle', hp: 30, dmg: 4, speed: 175, r: 18, coins: 5, keep: 300, every: 2, flies: 280, size: 1.1 },
+  { id: 'bannerlord', unit: 'bannerlord', name: 'Bannerlord', ai: 'boost', hp: 32, dmg: 3, speed: 66, r: 14, coins: 7, keep: 300, aura: 250 },
+  { id: 'khan', unit: 'khan', name: 'The Khan', ai: 'boss', hp: 1000, dmg: 6, speed: 96, r: 30, coins: 130, size: 1.6, every: 2.2, flies: 260, dash: 480, calls: 'lamellar', way: 'thrice' },
+  // The Hollow Court.
+  { id: 'shroud', unit: 'shroud', name: 'Shroud', ai: 'walk', hp: 15, dmg: 4, speed: 124, r: 13, coins: 1 },
+  { id: 'cryptguard', unit: 'cryptguard', name: 'Crypt Guard', ai: 'walk', hp: 40, dmg: 4, speed: 66, r: 17, coins: 4, size: 1.1, undying: true },
+  { id: 'urnbearer', unit: 'urnbearer', name: 'Urn Bearer', ai: 'lob', hp: 16, dmg: 4, speed: 64, r: 14, coins: 3, keep: 310, every: 3, wide: 75 },
+  { id: 'mourner', unit: 'mourner', name: 'Mourner', ai: 'heal', hp: 26, dmg: 3, speed: 60, r: 14, coins: 7, keep: 320, every: 3, wide: 220 },
+  { id: 'ferryman', unit: 'ferryman', name: 'Ferryman', ai: 'charge', hp: 44, dmg: 5, speed: 66, r: 18, coins: 6, dash: 440, size: 1.1 },
+  { id: 'cryptkeeper', unit: 'cryptkeeper', name: 'Crypt Keeper', ai: 'summon', hp: 32, dmg: 3, speed: 60, r: 14, coins: 7, keep: 330, every: 5.5, calls: 'shroud' },
+  { id: 'hollowking', unit: 'hollowking', name: 'The Hollow King', ai: 'boss', hp: 1150, dmg: 6, speed: 78, r: 28, coins: 150, size: 1.6, every: 2.2, flies: 240, dash: 420, calls: 'cryptguard', way: 'raise' },
+  // The Clockwork City.
+  { id: 'tinker', unit: 'tinker', name: 'Tinker', ai: 'walk', hp: 18, dmg: 4, speed: 104, r: 13, coins: 1 },
+  { id: 'rifleman', unit: 'rifleman', name: 'Rifleman', ai: 'shoot', hp: 16, dmg: 4, speed: 66, r: 13, coins: 2, keep: 380, every: 2.8, flies: 340 },
+  { id: 'sapper', unit: 'sapper', name: 'Sapper', ai: 'bomb', hp: 14, dmg: 8, speed: 130, r: 12, coins: 2, burst: 90 },
+  { id: 'gearwright', unit: 'gearwright', name: 'Gearwright', ai: 'heal', hp: 30, dmg: 3, speed: 60, r: 14, coins: 7, keep: 320, every: 3, wide: 230 },
+  { id: 'clockmage', unit: 'clockmage', name: 'Clock Mage', ai: 'ward', hp: 28, dmg: 3, speed: 60, r: 14, coins: 7, keep: 320, wide: 230 },
+  { id: 'ironmonger', unit: 'ironmonger', name: 'The Ironmonger', ai: 'boss', hp: 1250, dmg: 7, speed: 74, r: 30, coins: 160, size: 1.65, every: 2.2, flies: 260, dash: 420, calls: 'tinker', way: 'overclock', aura: 300 },
   // What a road may put on the field. Their health grows with the wave as an enemy's does; neither is in any wave's mix.
   { id: 'paywagon', unit: '', name: 'Pay Wagon', ai: 'cross', hp: 70, dmg: 0, speed: 30, r: 30, coins: 0, size: 1.2, prop: 'wagon' },
   { id: 'cage', unit: '', name: 'Cage', ai: 'still', hp: 26, dmg: 0, speed: 0, r: 24, coins: 0, prop: 'cage' },
@@ -360,16 +439,53 @@ export const ENEMIES: readonly EnemyDef[] = [
  * for every wave past `dmgFrom`. The early waves are left as they were: there an enemy's harm is 1 or 2, and the
  * smallest change in it is a half or a whole again.
  */
-export const ENEMY_GROWTH = { hp: 0.17, hpMore: 0.016, dmg: 0.06, dmgMore: 0.007, hpFrom: 4, hpLate: 0.07, dmgFrom: 7, dmgLate: 0.03 };
+export const ENEMY_GROWTH = { hp: 0.17, hpMore: 0.016, dmg: 0.06, dmgMore: 0.007, hpFrom: 4, hpLate: 0.07, dmgFrom: 7, dmgLate: 0.03, early: 1.6, knee: 10, late: 0.8 };
 /** How fast coins thin out: the waves grow far faster than the camp's prices do. */
-export const COIN_THINNING = 0.22;
+export const COIN_THINNING = 0.07;
 /** Past the last of the written waves, health grows by this share of itself every wave besides. */
 export const ENDLESS_GROWTH = 0.16;
 
 // ---------------------------------------------------------------- waves
 
-export type Land = 'meadow' | 'desert' | 'snow';
-export const LAND_NAMES: Record<Land, string> = { meadow: 'Thornwood', desert: 'Sunscar Dunes', snow: 'Frostholt' };
+export type Land = 'meadow' | 'mire' | 'desert' | 'snow' | 'coast' | 'mine' | 'steppe' | 'crypt' | 'clock' | 'ember';
+
+/**
+ * A land of the run: ten waves, its own enemies and its boss. `roster` is
+ * who comes, the wave of the land each first comes on, and how often each
+ * beside the others. The fifth wave of a land brings an elite (a champion)
+ * and the tenth its boss. Lands later in the run bring new ways of fighting,
+ * not only bigger numbers: things thrown onto marked ground, riders that
+ * circle, wards and healers, the dead that get up.
+ */
+export interface LandDef {
+  id: Land;
+  name: string;
+  roster: ReadonlyArray<readonly [string, number, number]>;
+  boss: string;
+  /**
+   * How many times the health and harm written on its enemies they have. The
+   * lands were first written for a run of twenty waves, each land's enemies
+   * stronger than the last's; the curve of the waves (ENEMY_GROWTH) now does
+   * that, so a later land's are brought back toward the first's.
+   */
+  scale: number;
+}
+
+export const LANDS_DEF: readonly LandDef[] = [
+  { id: 'meadow', name: 'Thornwood', scale: 1, boss: 'warlord', roster: [['cutpurse', 1, 3], ['warhound', 2, 2], ['poacher', 3, 1.4], ['bruiser', 4, 0.7], ['packram', 5, 0.8], ['direwolf', 6, 2], ['hexer', 7, 0.3]] },
+  { id: 'mire', name: 'Blackwater Mire', scale: 0.62, boss: 'mirelord', roster: [['bogspear', 1, 3], ['slime', 1, 1.5], ['netter', 2, 1.3], ['mudbrute', 4, 0.7], ['sporecaller', 6, 0.3], ['bogwitch', 8, 0.2]] },
+  { id: 'desert', name: 'Sunscar Dunes', scale: 0.6, boss: 'colossus', roster: [['lancer', 1, 3], ['scarab', 1, 2], ['javelineer', 2, 1.4], ['powdermonkey', 3, 1], ['yak', 5, 0.6], ['medjay', 6, 0.4], ['drummer', 8, 0.2]] },
+  { id: 'snow', name: 'Frostholt', scale: 0.5, boss: 'jarl', roster: [['huscarl', 1, 2], ['direwolf', 1, 2.5], ['harpooner', 2, 1.5], ['frostwitch', 3, 0.8], ['warbear', 5, 0.5], ['icegolem', 6, 0.35], ['skald', 8, 0.2]] },
+  { id: 'coast', name: 'The Salt Coast', scale: 0.48, boss: 'corsair', roster: [['deckhand', 1, 3], ['marine', 2, 1.3], ['anchorman', 3, 0.8], ['seawitch', 4, 0.8], ['quartermaster', 7, 0.25]] },
+  { id: 'mine', name: 'The Deep Mines', scale: 0.42, boss: 'underking', roster: [['delver', 1, 3], ['tunnelguard', 2, 1], ['blaster', 3, 1], ['runesmith', 5, 0.4], ['foreman', 7, 0.25]] },
+  { id: 'steppe', name: 'The Endless Steppe', scale: 0.42, boss: 'khan', roster: [['lamellar', 1, 3], ['skirmisher', 1, 1.5], ['wrangler', 3, 1], ['outrider', 4, 0.8], ['bannerlord', 7, 0.25]] },
+  { id: 'crypt', name: 'The Hollow Court', scale: 0.4, boss: 'hollowking', roster: [['shroud', 1, 3], ['cryptguard', 2, 1], ['urnbearer', 3, 1], ['mourner', 5, 0.4], ['ferryman', 6, 0.6], ['cryptkeeper', 8, 0.2]] },
+  { id: 'clock', name: 'The Clockwork City', scale: 0.36, boss: 'ironmonger', roster: [['tinker', 1, 3], ['rifleman', 2, 1.3], ['sapper', 3, 1], ['gearwright', 5, 0.4], ['clockmage', 6, 0.4]] },
+  { id: 'ember', name: 'The Ashen Forge', scale: 0.36, boss: 'forgelord', roster: [['brandbearer', 1, 3], ['cinderguard', 1, 1.3], ['ashcaster', 2, 1.4], ['slagthrower', 3, 1], ['emberbrute', 5, 0.8], ['taskmaster', 7, 0.3]] },
+];
+
+export const LANDS: readonly Land[] = LANDS_DEF.map((l) => l.id);
+export const LAND_NAMES: Record<Land, string> = Object.fromEntries(LANDS_DEF.map((l) => [l.id, l.name])) as Record<Land, string>;
 
 export interface WaveDef {
   n: number;
@@ -384,62 +500,69 @@ export interface WaveDef {
   most: number;
   /** Who leads them, on a wave that has a boss. */
   boss?: string;
+  /** True on the fifth wave of a land: an elite comes, a champion of the land. */
+  elite?: boolean;
 }
 
-/** The written waves: after the last of them the lands come round again, harder each time. */
-export const LAST_WAVE = 20;
-/** The longest a wave is, and how long a captain's is if the captain does not fall first: a whole run is about a quarter of an hour of fighting. */
-export const WAVE_SECONDS = 45;
-export const CAPTAIN_SECONDS = 60;
+/**
+ * The written waves: ten lands of ten waves, a boss on every tenth. After
+ * the last of them the lands come round again, harder each time. The
+ * owner, of 25 November 2026: "let's make 100 waves". Reaching the
+ * hundredth is the long goal, after many runs and much of a hero's mastery.
+ */
+export const LAST_WAVE = 100;
+/** How many waves a land has. */
+export const LAND_WAVES = 10;
+/** How long a wave is at the start of a run and at most, and how long a boss's is if the boss does not fall first. */
+export const WAVE_SECONDS = { first: 20, most: 35, boss: 48 };
+/** Kept for what asks how long a boss's wave is. */
+export const CAPTAIN_SECONDS = WAVE_SECONDS.boss;
 
-const MIXES: ReadonlyArray<ReadonlyArray<readonly [string, number]>> = [
-  [['cutpurse', 1]],
-  [['cutpurse', 3], ['warhound', 1]],
-  [['cutpurse', 3], ['warhound', 2], ['poacher', 1]],
-  [['cutpurse', 3], ['warhound', 2], ['poacher', 1], ['bruiser', 0.5]],
-  [['cutpurse', 3], ['warhound', 2], ['poacher', 1.4], ['bruiser', 0.9], ['packram', 0.7]],
-  [['cutpurse', 2], ['direwolf', 2], ['poacher', 1.4], ['bruiser', 1], ['packram', 1], ['hexer', 0.3]],
-  [['cutpurse', 3], ['direwolf', 2], ['poacher', 1]],
-  [['lancer', 3], ['scarab', 1]],
-  [['lancer', 3], ['scarab', 2], ['javelineer', 1]],
-  [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1]],
-  [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1], ['yak', 0.6]],
-  [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1], ['yak', 0.6], ['medjay', 0.3], ['drummer', 0.1]],
-  [['lancer', 2], ['scarab', 2], ['javelineer', 1.6], ['powdermonkey', 1.2], ['yak', 0.8], ['medjay', 0.6], ['drummer', 0.25]],
-  [['lancer', 3], ['scarab', 2], ['javelineer', 1], ['powdermonkey', 1]],
-  [['huscarl', 2], ['direwolf', 3]],
-  [['huscarl', 2], ['direwolf', 3], ['harpooner', 1.5]],
-  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8]],
-  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.4], ['frostwitch', 0.7], ['icegolem', 0.25], ['warbear', 0.4]],
-  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.4], ['frostwitch', 0.7], ['icegolem', 0.4], ['warbear', 0.55], ['skald', 0.2]],
-  [['huscarl', 2], ['direwolf', 3], ['harpooner', 1.5]],
-];
+/** The wave a boss leads, among the written ones. */
+export function bossWave(id: string): number {
+  const i = LANDS_DEF.findIndex((l) => l.boss === id);
+  return i < 0 ? 0 : (i + 1) * LAND_WAVES;
+}
 
-const BOSSES: Record<number, string> = { 7: 'warlord', 14: 'colossus', 20: 'jarl' };
-const LANDS: readonly Land[] = ['meadow', 'desert', 'snow'];
+/** Who comes on the wave of a land, counted from 1: each of the land's roster from its own wave on, the newest a little less often. */
+function mixOf(land: LandDef, k: number): Array<readonly [string, number]> {
+  const out: Array<readonly [string, number]> = [];
+  for (const [id, from, weight] of land.roster) {
+    if (k < from) continue;
+    // One just come on is seen less at first.
+    out.push([id, weight * (k === from ? 0.6 : 1)]);
+  }
+  return out;
+}
 
 /** The wave of a number, however high. */
 export function waveOf(n: number): WaveDef {
-  // Past the written waves the same twenty come round again: only their number, which is what makes them harder, goes on.
+  // Past the written waves the same hundred come round again: only their number, which is what makes them harder, goes on.
   const at = ((n - 1) % LAST_WAVE) + 1;
-  const boss = BOSSES[at];
+  const land = LANDS_DEF[Math.floor((at - 1) / LAND_WAVES)];
+  const k = ((at - 1) % LAND_WAVES) + 1;
+  const boss = k === LAND_WAVES ? land.boss : undefined;
+  const s = WAVE_SECONDS;
+  // A boss's wave brings only the first of the land's roster, besides the boss: the boss is the wave.
+  const mix = boss ? mixOf(land, 3) : mixOf(land, k);
+  const seconds = boss ? s.boss : Math.round(Math.min(s.most, s.first + (s.most - s.first) * Math.min(1, (at - 1) / 60) + (k - 1) * 0.6));
   return {
     n,
-    seconds: boss ? CAPTAIN_SECONDS : Math.min(WAVE_SECONDS, 20 + 5 * (at - 1)),
-    land: LANDS[at <= 7 ? 0 : at <= 14 ? 1 : 2],
-    mix: MIXES[at - 1],
-    gap: Math.max(1.2, 2.6 - 0.07 * Math.min(n, 30)),
-    // A wave with a boss in it has fewer of the rest: the boss is the wave.
-    band: Math.max(2, Math.round((3 + Math.floor(Math.min(n, 40) / 3)) * (boss ? 0.6 : 1))),
-    most: Math.min(110, 22 + 5 * n),
+    seconds,
+    land: land.id,
+    mix,
+    gap: Math.max(1.1, 2.4 - 0.012 * Math.min(n, 120)),
+    // A wave with a boss in it has fewer of the rest.
+    band: Math.max(2, Math.round((3 + Math.min(n, 140) / 9) * (boss ? 0.6 : 1))),
+    most: Math.min(110, 22 + 1.2 * n),
     boss,
+    elite: k === 5,
   };
 }
 
 /** Which land a wave is fought in, counted from 0 and on past the written waves: what happens once in a land asks this. */
 export function landAt(n: number): number {
-  const at = ((n - 1) % LAST_WAVE) + 1;
-  return Math.floor((n - 1) / LAST_WAVE) * LANDS.length + (at <= 7 ? 0 : at <= 14 ? 1 : 2);
+  return Math.floor((n - 1) / LAND_WAVES);
 }
 
 /** The chance that each coin an enemy carries is left on the ground, on a wave. */
@@ -448,12 +571,29 @@ export function coinShare(wave: number): number {
 }
 
 /** An enemy's health and harm on a wave. */
+/** Each enemy's land's scale, by its name (LandDef.scale). One in no land's roster, such as a boss's helper, is its caller's land's. */
+const SCALE: Readonly<Record<string, number>> = (() => {
+  const out: Record<string, number> = {};
+  for (const land of LANDS_DEF) {
+    for (const [id] of land.roster) out[id] ??= land.scale;
+    out[land.boss] ??= land.scale;
+  }
+  for (const e of ENEMIES) if (e.splits) out[e.splits] ??= out[e.id] ?? 1;
+  for (const e of ENEMIES) if (e.calls) out[e.calls] ??= out[e.id] ?? 1;
+  return out;
+})();
+
 export function enemyAt(def: EnemyDef, wave: number): { hp: number; dmg: number } {
+  const scale = SCALE[def.id] ?? 1;
   const past = Math.max(0, wave - LAST_WAVE);
-  const w = wave - 1;
   const g = ENEMY_GROWTH;
-  const hp = def.hp * (1 + g.hp * w + g.hpMore * w * w) * (1 + g.hpLate * Math.max(0, wave - g.hpFrom)) * Math.pow(1 + ENDLESS_GROWTH, past);
-  const dmg = def.dmg * (1 + g.dmg * w + g.dmgMore * w * w) * (1 + g.dmgLate * Math.max(0, wave - g.dmgFrom)) * Math.pow(1 + ENDLESS_GROWTH * 0.5, past);
+  // The curve was set for a run of twenty waves. A run of a hundred walks it at `early` the pace up to the `knee`, where a
+  // first run ends, and at `late` the pace after it: past there a hero grows by many camps, a long mastery and a full band.
+  const w100 = Math.min(wave, LAST_WAVE);
+  const at = 1 + (Math.min(w100, g.knee) - 1) * g.early + Math.max(0, w100 - g.knee) * g.late;
+  const w = at - 1;
+  const hp = scale * def.hp * (1 + g.hp * w + g.hpMore * w * w) * (1 + g.hpLate * Math.max(0, at - g.hpFrom)) * Math.pow(1 + ENDLESS_GROWTH, past);
+  const dmg = scale * def.dmg * (1 + g.dmg * w + g.dmgMore * w * w) * (1 + g.dmgLate * Math.max(0, at - g.dmgFrom)) * Math.pow(1 + ENDLESS_GROWTH * 0.5, past);
   return { hp: Math.max(1, Math.round(hp)), dmg: Math.max(1, Math.round(dmg)) };
 }
 

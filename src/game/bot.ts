@@ -264,7 +264,9 @@ export function botRelic(run: RunData): void {
  */
 const ROAD_WANT: Record<Omen, readonly [number, number]> = {
   quiet: [1, 1], horde: [2.2, 0.6], champions: [2.4, 0.3], forced: [2.4, 0.2], toll: [1.6, 4], duel: [2.4, 0.5], wounded: [2.2, 0.8], stray: [3.2, 2.6], shrine: [2.6, 1.6], wagon: [2.6, 1.2],
-  burning: [2.6, 0.9], night: [2.4, 0.4], blizzard: [2.6, 1.2],
+  burning: [2.6, 0.9], night: [2.4, 0.4], blizzard: [2.6, 1.2], bog: [2.2, 0.8], spores: [2.4, 0.9], ashfall: [2.2, 0.6], forge: [2.2, 0.6],
+  squall: [2.4, 0.8], smugglers: [2.6, 1.2], deepdark: [2.2, 0.4], goldvein: [2.4, 0.7], gale: [2.2, 0.9], stampede: [2.2, 0.6], restless: [2.2, 0.5], vigil: [2.6, 1.6],
+  overclocked: [2.2, 0.5], steam: [2.4, 0.9],
 };
 
 /** Picks a road, if roads are laid out: each as likely as it is wanted. */

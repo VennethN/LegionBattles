@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="wren-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
-<defs>
-<path id="wren-leg-back-boot-shape" d="M 71.3 148.5 L 89 151.3 L 86.6 166.1 C 92.2 167 96.2 171.5 95.4 177 L 95.1 178.9 Q 94.5 182.6 90.8 182 L 70.3 178.8 Q 66.6 178.2 67.2 174.5 Z"/>
-<clipPath id="wren-leg-back-boot-clip"><use href="#wren-leg-back-boot-shape"/></clipPath>
-</defs>
-<g id="wren-leg-back-boot">
-<use id="wren-leg-back-boot-fill" href="#wren-leg-back-boot-shape" fill="#4e3520"/>
-<g clip-path="url(#wren-leg-back-boot-clip)">
-<path id="wren-leg-back-sole" d="M 63.6 173 L 100.8 178.9 L 99.6 186.3 L 62.5 180.4 L 63.6 173 Z" fill="#2a1a10" opacity="0.35"/>
-</g>
-<use id="wren-leg-back-boot-line" href="#wren-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.c1{fill:#2a1a10;opacity:.35}</style><defs><path id="i0" d="M71.3 148.5L89 151.3l-2.4 14.8c5.6.9 9.6 5.4 8.8 10.9l-.3 1.9q-.6 3.7-4.3 3.1l-20.5-3.2q-3.7-.6-3.1-4.3z"/><clipPath id="i1"><use href="#i0"/></clipPath></defs><g><use href="#i0" fill="#4e3520"/><g clip-path="url(#i1)"><path d="M63.6 173l37.2 5.9-1.2 7.4-37.1-5.9 1.1-7.4z" class="c1"/></g><use href="#i0" class="c0"/></g></svg>

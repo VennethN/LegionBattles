@@ -14,6 +14,7 @@ import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { COMPANIONS, HEROES, MOVES, byId, weaponOf, type Feat, type HeroDef } from '../../game/data';
 import { bandSize } from '../../game/run';
+import { routeSays, slotsOf } from '../../game/hold';
 import { featShare, isOpen, bandFor, setBand } from '../../game/state';
 import { comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
@@ -250,7 +251,7 @@ export class TitleScene extends Phaser.Scene {
     }
 
     // The band: a card for each place, with whoever goes in it. A press goes round those who are open.
-    const places = open ? bandSize(hero.id, s.places) : 0;
+    const places = open ? bandSize(hero.id, slotsOf(s)) : 0;
     const goes = bandFor(s, hero.id);
     const bandH = 62;
     if (places > 0) {
@@ -266,7 +267,7 @@ export class TitleScene extends Phaser.Scene {
         if (none) {
           // Nobody has been met yet: dark, and what opens the first of them is said.
           card.add(label(this, -cwid / 2 + 14, -12, '???', { size: 17, align: 'left', color: BONE.shade }));
-          card.add(label(this, -cwid / 2 + 14, 10, `Unlock: ${featText(COMPANIONS[0].unlock)}`, { size: 15, align: 'left', color: BONE.shade, strokeWidth: 3 }));
+          card.add(label(this, -cwid / 2 + 14, 10, routeSays(COMPANIONS[0]), { size: 15, align: 'left', color: BONE.shade, strokeWidth: 3 }));
         } else {
           if (who) {
             const img = this.add.image(-cwid / 2 + 34, bandH / 2 - 10, CARDS, portraitFrame('blue', who.unit));

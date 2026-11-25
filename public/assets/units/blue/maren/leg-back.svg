@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="maren-leg-back" width="272" height="272" viewBox="-40 -40 272 272">
-<defs>
-<path id="maren-leg-back-boot-shape" d="M 69.6 144.8 L 90.5 144.8 L 90.5 162.4 C 97.1 162.4 102.6 166.8 102.6 173.4 L 102.6 175.6 Q 102.6 180 98.2 180 L 74 180 Q 69.6 180 69.6 175.6 Z"/>
-<clipPath id="maren-leg-back-boot-clip"><use href="#maren-leg-back-boot-shape"/></clipPath>
-</defs>
-<g id="maren-leg-back-boot">
-<use id="maren-leg-back-boot-fill" href="#maren-leg-back-boot-shape" fill="#8d97a3"/>
-<g clip-path="url(#maren-leg-back-boot-clip)">
-<path id="maren-leg-back-sole" d="M 65.2 174.5 L 109.2 174.5 L 109.2 183.3 L 65.2 183.3 L 65.2 174.5 Z" fill="#2a1a10" opacity="0.35"/>
-</g>
-<use id="maren-leg-back-boot-line" href="#maren-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.c1{fill:#2a1a10;opacity:.35}</style><defs><path id="i0" d="M69.6 144.8h20.9v17.6c6.6 0 12.1 4.4 12.1 11v2.2q0 4.4-4.4 4.4h-24.2q-4.4 0-4.4-4.4z"/><clipPath id="i1"><use href="#i0"/></clipPath></defs><g><use href="#i0" fill="#8d97a3"/><g clip-path="url(#i1)"><path d="M65.2 174.5h44v8.8h-44v-8.8z" class="c1"/></g><use href="#i0" class="c0"/></g></svg>

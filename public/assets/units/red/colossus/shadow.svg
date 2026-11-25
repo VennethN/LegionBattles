@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="colossus-shadow" width="272" height="272" viewBox="-40 -40 272 272">
-<path id="colossus-shadow-shadow" d="M 144 181 C 144 186.5 122.5 191 96 191 C 69.5 191 48 186.5 48 181 C 48 175.5 69.5 171 96 171 C 122.5 171 144 175.5 144 181 Z" fill="#2a1a10" opacity="0.28"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:#2a1a10;opacity:.28}</style><path d="M144 181c0 5.5-21.5 10-48 10-26.5 0-48-4.5-48-10 0-5.5 21.5-10 48-10 26.5 0 48 4.5 48 10z" class="c0"/></svg>

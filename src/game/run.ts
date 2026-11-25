@@ -5,7 +5,7 @@
 // pace report can play one without a screen.
 
 import {
-  BAND, BASE_STATS, CHOICES, COMPANIONS, HEROES, ITEMS, KIND_AGAIN, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId,
+  BAND, BASE_STATS, CHOICES, COMPANIONS, FOUND, HEROES, ITEMS, KIND_AGAIN, LAND_WAVES, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId,
   finishedAs, landAt, levelNeeds, ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type Count, type HeroDef, type WeaponDef,
 } from './data';
 import { VOW, VOWS, noBoons, type Boons, type Thing, thingKey } from './holdData';
@@ -100,8 +100,21 @@ export interface RunData {
   whet: number;
   /** The share of the hero's health that was left when the last wave ended: a player picks a road by it, and so does the plain player. */
   left: number;
-  /** True for a player's first run: its second wave's road is the stray's, with Biscuit in the cage. */
+  /** True for a player's first run. */
   first: boolean;
+  /** How many companions the run has room for (companions.ts, SLOT_WAVES). One let out of a cage joins only a free slot. */
+  slots: number;
+  /** The companions the player has unlocked, by name: the stray's cage holds one of them, or a found one. Null for any. */
+  friends: string[] | null;
+  /** Found companions still locked (companions.ts, Route 'found'): one may be met in a cage on the field. */
+  seek: string[];
+  /** Companions let out of a cage in this run, by name: each is unlocked for good when the save takes the run. */
+  found: string[];
+  /** True once a found companion's cage has stood on the field in this run: it is once a run. */
+  caged: boolean;
+  /** The wave whose cage has been rolled for, and who is in it ('' for none): rolled once a wave, so that a wave's setup can be asked for again and is the same. */
+  cageAt: number;
+  cage: string;
   /** The last weapon bought, by name, or '': Orrin's staff is finished as it. */
   taken: string;
   /** True once Fenn has tossed for a ware in this camp. */
@@ -145,8 +158,12 @@ export interface RunData {
 
 /** What the Hold gives a run to begin with: its vows, what is shut to it or the weapons it may be offered, what the board gives, and what the hero's oaths have opened. */
 export interface Terms {
-  /** True for a player's first run: its second wave's road is the stray's, with Biscuit in the cage. */
+  /** True for a player's first run. */
   first?: boolean;
+  /** How many companions the run has room for, the companions unlocked, and the found ones still locked. */
+  slots?: number;
+  friends?: readonly string[] | null;
+  seek?: readonly string[];
   vows?: readonly string[];
   shut?: readonly string[];
   /** The weapons the run may be offered, by name: all that are not shut, if it is not given. */
@@ -182,16 +199,14 @@ export function handsOf(run: RunData): number {
   return SLOTS - (run.vows.includes('hand') ? VOW.hands : 0);
 }
 
-/** Who is in the cage on a first run. */
-export const FIRST_STRAY = 'biscuit';
-
 export function heroOf(run: RunData): HeroDef {
   return byId(HEROES, run.hero);
 }
 
-/** How many companions a hero may bring, with this many places open in the Hold. The shepherd brings one more. */
-export function bandSize(hero: string, places: number): number {
-  return Math.max(0, Math.min(BAND.places, places)) + (byId(HEROES, hero).quirk === 'shepherd' ? 1 : 0);
+/** How many companions a hero may bring, with this many slots unlocked. */
+export function bandSize(hero: string, slots: number): number {
+  byId(HEROES, hero);
+  return Math.max(0, Math.min(BAND.places, slots));
 }
 
 /** A new run: a hero, and the companions who go with them. The hero's own weapon is all they carry. */
@@ -200,6 +215,7 @@ export function newRun(hero: string, seed: number, band: readonly string[] = [],
   const known = [...new Set(band)].filter((id) => COMPANIONS.some((c) => c.id === id));
   const run: RunData = {
     first: !!terms.first, taken: '', tossed: false, forced: false, hurt: 1, bests: 0, counts: {},
+    slots: Math.max(0, Math.min(BAND.places, terms.slots ?? BAND.places)), friends: terms.friends ? [...terms.friends] : null, seek: [...(terms.seek ?? [])], found: [], caged: false, cageAt: 0, cage: '',
     hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [], band: known.map((id) => ({ id, bond: 0 })), fury: 0, rose: -1, saved: false,
     items: [], ups: [], packs: 0, kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
     relics: [], relicsDue: 0, relicChoices: [], road: { omen: 'quiet' }, roads: [], forks: Math.max(1, Math.min(ROAD.most, Math.floor(forks))), vigor: 0, whet: 0, left: 1,
@@ -320,7 +336,8 @@ export function setupOf(run: RunData, tall = false, auto = true): Setup {
   const hurt = Math.min(run.hurt ?? 1, run.vows.includes('wounds') ? Math.max(0.05, run.left) : 1);
   run.hurt = 1;
   return {
-    taken: run.taken ?? '', hurt, herald: run.wave === HERALD_WAVE, given: !!run.first && run.wave === 2,
+    taken: run.taken ?? '', hurt, herald: run.wave === HERALD_WAVE, found: foundFor(run),
+    perks: run.boons.perks ?? [], skillHarm: run.boons.harm ?? 0, skillArea: run.boons.area ?? 0, skillAgain: run.boons.again ?? 0, slots: run.slots ?? BAND.places,
     seed, wave: run.wave, stats, quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
     band: run.band, level: run.level, fury: run.fury, auto, purse: run.gold, spare: run.rose !== landAt(run.wave), rescue: !run.saved, tall,
     omen: run.road.omen, stray: run.road.stray, relics: run.relics, whet: run.whet, tithe, bones,
@@ -331,6 +348,36 @@ export function setupOf(run: RunData, tall = false, auto = true): Setup {
 
 /** The wave on which a lone champion comes, in every run, and leaves a relic if it falls. */
 export const HERALD_WAVE = 3;
+
+/** The found companions still locked who may be met on the run's next wave. */
+function seekable(run: RunData): string[] {
+  return (run.seek ?? []).filter((id) => {
+    const c = COMPANIONS.find((x) => x.id === id);
+    return !!c && c.unlock.kind === 'found' && run.wave >= c.unlock.from && !run.band.some((b) => b.id === id) && !(run.found ?? []).includes(id);
+  });
+}
+
+/**
+ * Whether a found companion's cage stands on the next wave, and who is in
+ * it: once a run, by chance, on a wave that is not a boss's and not the
+ * stray's road. The owner: "you can also get them by collecting them in
+ * game (random drop)".
+ */
+function foundFor(run: RunData): string | undefined {
+  if (run.road.omen === 'stray' || waveOf(run.wave).boss) return undefined;
+  if (run.cageAt === run.wave) return run.cage || undefined;
+  run.cageAt = run.wave;
+  run.cage = '';
+  if (run.caged) return undefined;
+  const can = seekable(run);
+  if (can.length === 0) return undefined;
+  run.cage = roll(run, (r) => {
+    if (!r.chance(FOUND.chance)) return '';
+    run.caged = true;
+    return r.pick(can);
+  });
+  return run.cage || undefined;
+}
 
 /** The stats the Bone Dice may roll: the ones counted in hundredths, where 15 up and 10 down mean the same for each. */
 const DICE_STATS: readonly Stat[] = ['damage', 'haste', 'crit', 'dodge', 'speed', 'luck', 'bounty'];
@@ -352,7 +399,8 @@ export function endWave(run: RunData, world: World): void {
   for (const [of, n] of Object.entries(world.counts)) counted(run, of as Count, n);
   if (world.over === 'cleared' && !told.roads.includes(world.omen)) told.roads.push(world.omen);
   run.time += world.time;
-  if (world.over === 'cleared' && !world.struck) run.clean++;
+  // Only past the first land: its first waves are come through untouched by nearly anyone, and a quest asks for more than that.
+  if (world.over === 'cleared' && !world.struck && run.wave > LAND_WAVES) run.clean++;
   // The board's tales: more is learned from the same wave.
   run.xp += world.xp * (1 + run.boons.xp / 100);
   run.kills += world.kills;
@@ -370,22 +418,28 @@ export function endWave(run: RunData, world: World): void {
   // What the road promised, and what the wave gave besides.
   const omen = world.omen;
   // A captain leaves a relic. So do the roads that pay one, come through, a duelist who fell, and the lone champion of the third wave.
-  run.relicsDue += world.felled.length + (omen === 'champions' || omen === 'night' || omen === 'forced' ? 1 : 0) + (world.dueled ? 1 : 0) + (world.herald ? 1 : 0);
+  const pays = OMENS.find((o) => o.id === omen)?.pays;
+  run.relicsDue += world.felled.length + (pays === 'relic' ? 1 : 0) + (world.dueled ? 1 : 0) + (world.herald ? 1 : 0);
+  // A road that pays a chest.
+  if (pays === 'chest') run.packs++;
   // The shrine's blessing is a choice as for a level, with no level made. The road of the wounded pays one of the best kind.
   if (world.blessed) run.pending++;
-  if (omen === 'wounded') {
+  if (pays === 'best') {
     run.pending++;
     run.bests = (run.bests ?? 0) + 1;
   }
   // The blizzard's spoils: the plainest weapon bought gains a tier, or a pack for one who has bought none that can.
-  if (omen === 'blizzard' && !whet(run)) run.packs++;
+  if (pays === 'tier' && !whet(run)) run.packs++;
   // A forced march: no camp after it, and the next wave finds the hero as this one left them.
   if (omen === 'forced') {
     run.forced = true;
     run.hurt = Math.max(ROAD.forced.least, run.left);
   }
-  // Whoever was let out of the cage stays for the run, beyond the band's places.
-  if (world.freed && !run.band.some((b) => b.id === world.freed)) run.band.push({ id: world.freed, bond: 0, stray: true });
+  // Whoever was let out of a cage is unlocked for good (state.ts takes `found`), and stays for the run if a slot was free.
+  if (world.freed) {
+    if (!run.found.includes(world.freed)) run.found.push(world.freed);
+    if (!run.band.some((b) => b.id === world.freed) && run.band.length < run.slots) run.band.push({ id: world.freed, bond: 0, stray: true });
+  }
   if (hasRelic(run, 'fallen')) run.vigor += RELIC.fallen.health * world.banners;
   if (hasRelic(run, 'ageswhet')) run.whet++;
   run.wave++;
@@ -751,10 +805,18 @@ export function forksOf(run: RunData): number {
   return Math.min(ROAD.most, run.forks + (hasRelic(run, 'oldmap') ? 1 : 0));
 }
 
-/** The companion who is in the cage, if a cage is offered now: one who is not on the run, by the run's dice. */
+/**
+ * The companion who is in the cage, if a cage is offered now, by the run's
+ * dice: a found one still locked first, for whom the road is worth taking
+ * though every slot is full; else one unlocked who is not on the run, if a
+ * slot is free for them.
+ */
 function strayFor(run: RunData, rng: Rng): string | undefined {
   if (run.band.filter((b) => b.stray).length >= ROAD.stray.most) return undefined;
-  const free = COMPANIONS.filter((c) => !run.band.some((b) => b.id === c.id));
+  const seek = seekable(run);
+  if (seek.length > 0) return rng.pick(seek);
+  if (run.band.length >= run.slots) return undefined;
+  const free = COMPANIONS.filter((c) => !run.band.some((b) => b.id === c.id) && (run.friends ? run.friends.includes(c.id) : true));
   return free.length > 0 ? rng.pick(free).id : undefined;
 }
 
@@ -791,12 +853,6 @@ function rollRoads(run: RunData, n: number): Road[] {
 
 /** The roads are laid out, or, where there is one road, the run is on it at once. */
 function leave(run: RunData): void {
-  // A first run's second wave: the stray's road and no other, with Biscuit in the cage, so that a companion is met in the first minutes.
-  if (run.first && run.wave === 2 && !run.band.some((b) => b.id === FIRST_STRAY)) {
-    run.roads = [{ omen: 'stray', stray: FIRST_STRAY }];
-    run.phase = 'road';
-    return;
-  }
   const n = waveOf(run.wave).boss ? 1 : forksOf(run);
   const roads = n <= 1 ? [] : rollRoads(run, n);
   if (roads.length === 0) {

@@ -15,6 +15,114 @@ const here = path.dirname(fileURLToPath(import.meta.url));
  * in a build, an id that nothing points at goes, one that something points
  * at gets a short name, and the space a path does not need goes.
  */
+/**
+ * A path's numbers rounded to whole units, for the figures' pictures. A
+ * figure's canvas is 192 units and it is drawn at well under its size, so a
+ * unit is a fraction of a pixel; the tenths the kit writes are a fifth of a
+ * figure's bytes. Relative numbers are rounded from the absolute points they
+ * lead to, so that no error adds up along a path: every point lands within
+ * half a unit of where it was drawn.
+ */
+export function roundPath(d: string): string {
+  const tokens = d.match(/[MmLlHhVvCcSsQqTtAaZz]|-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?/g) ?? [];
+  const sizes: Record<string, number> = { m: 2, l: 2, h: 1, v: 1, c: 6, s: 4, q: 4, t: 2, a: 7, z: 0 };
+  let out = '';
+  let cmd = '';
+  // Where the pen truly is, and where it is in the rounded path.
+  let x = 0;
+  let y = 0;
+  let rx = 0;
+  let ry = 0;
+  let sx = 0;
+  let sy = 0;
+  let rsx = 0;
+  let rsy = 0;
+  let i = 0;
+  const write = (vals: number[]): void => {
+    // A minus or a letter already parts two numbers.
+    for (const v of vals) out += (v < 0 || /[A-Za-z]$/.test(out) ? '' : ' ') + String(v === 0 ? 0 : v);
+  };
+  while (i < tokens.length) {
+    const t = tokens[i];
+    if (/[A-Za-z]/.test(t)) {
+      cmd = t;
+      i++;
+      if (cmd === 'Z' || cmd === 'z') {
+        out += cmd;
+        x = sx;
+        y = sy;
+        rx = rsx;
+        ry = rsy;
+        continue;
+      }
+      out += cmd;
+    } else if (!cmd) return d;
+    const lower = cmd.toLowerCase();
+    const n = sizes[lower];
+    if (n === undefined || n === 0) return d;
+    const vals = tokens.slice(i, i + n).map(Number);
+    if (vals.length < n || vals.some((v) => Number.isNaN(v))) return d;
+    i += n;
+    const rel = cmd === lower;
+    if (lower === 'a') {
+      // Radii and the angle rounded as they are; the flags kept; the end point as any other.
+      const ex = rel ? x + vals[5] : vals[5];
+      const ey = rel ? y + vals[6] : vals[6];
+      const rex = Math.round(ex);
+      const rey = Math.round(ey);
+      write([Math.max(1, Math.round(vals[0])), Math.max(1, Math.round(vals[1])), Math.round(vals[2]), vals[3], vals[4], rel ? rex - rx : rex, rel ? rey - ry : rey]);
+      x = ex;
+      y = ey;
+      rx = rex;
+      ry = rey;
+      continue;
+    }
+    const pts: number[] = [];
+    if (lower === 'h') {
+      const ex = rel ? x + vals[0] : vals[0];
+      const rex = Math.round(ex);
+      pts.push(rel ? rex - rx : rex);
+      x = ex;
+      rx = rex;
+    } else if (lower === 'v') {
+      const ey = rel ? y + vals[0] : vals[0];
+      const rey = Math.round(ey);
+      pts.push(rel ? rey - ry : rey);
+      y = ey;
+      ry = rey;
+    } else {
+      // Every pair is a point measured from where the segment began.
+      let ex = x;
+      let ey = y;
+      for (let k = 0; k < n; k += 2) {
+        const px = rel ? x + vals[k] : vals[k];
+        const py = rel ? y + vals[k + 1] : vals[k + 1];
+        const rpx = Math.round(px);
+        const rpy = Math.round(py);
+        pts.push(rel ? rpx - rx : rpx, rel ? rpy - ry : rpy);
+        ex = px;
+        ey = py;
+      }
+      const rex = Math.round(ex);
+      const rey = Math.round(ey);
+      x = ex;
+      y = ey;
+      rx = rex;
+      ry = rey;
+    }
+    if (lower === 'm') {
+      sx = x;
+      sy = y;
+      rsx = rx;
+      rsy = ry;
+      // Pairs after the first of a move are lines.
+      cmd = rel ? 'l' : 'L';
+    }
+    write(pts);
+  }
+  return out;
+}
+
 export function minifySvg(svg: string): string {
   const pointed = new Set<string>();
   for (const m of svg.matchAll(/(?:href="#|url\(#)([^")]+)/g)) pointed.add(m[1]);
@@ -78,16 +186,25 @@ function artOverrides(): Plugin {
     },
     closeBundle() {
       copy(root, path.join(outDir, 'assets'));
-      // Then every picture in the build is made small. The manifest is left as it is.
+      // Then every picture in the build is made small.
       const shrink = (dir: string): void => {
         if (!fs.existsSync(dir)) return;
         for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
           const file = path.join(dir, entry.name);
           if (entry.isDirectory()) shrink(file);
-          else if (entry.name.endsWith('.svg')) fs.writeFileSync(file, minifySvg(fs.readFileSync(file, 'utf8')));
+          else if (entry.name.endsWith('.svg')) {
+            let svg = minifySvg(fs.readFileSync(file, 'utf8'));
+            // The figures are drawn small, and a whole unit is a fraction of a pixel there; a field's ground is grass and
+            // stone, where half a unit is nothing anyone sees.
+            if (file.includes(`${path.sep}units${path.sep}`) || file.includes(`${path.sep}arena${path.sep}`)) svg = svg.replace(/ d="([^"]+)"/g, (_all, d: string) => ` d="${roundPath(d)}"`);
+            fs.writeFileSync(file, svg);
+          }
         }
       };
       shrink(path.join(outDir, 'assets'));
+      // The manifest without the spaces that make it readable: the same data in half the bytes.
+      const manifest = path.join(outDir, 'assets', 'manifest.json');
+      if (fs.existsSync(manifest)) fs.writeFileSync(manifest, JSON.stringify(JSON.parse(fs.readFileSync(manifest, 'utf8'))));
     },
   };
 }

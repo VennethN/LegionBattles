@@ -62,9 +62,9 @@ describe('quirks', () => {
     expect(has(play(v, 0.1, { x: 0, y: 0.2 }), 'hurt')[0].amount).toBe(10);
   });
 
-  it('Wren: every second untouched she hits harder, up to a cap, and one blow takes it all away', () => {
-    // A long wave: the first lasts twenty seconds, and she needs fifteen untouched.
-    const w = as('wren', { wave: 12 });
+  it('Wren: every second untouched she hits harder, up to a cap, and one blow takes half of it away', () => {
+    // A long wave, as the first lasts twenty seconds. With nobody near her she needs under eight untouched.
+    const w = as('wren', { wave: 58 });
     const f = stand(w, 'bruiser', w.hero.x + 200, w.hero.y, { hp: 99999 }, true);
     const first = Math.min(...blows(play(w, 1.5), f.id));
     play(w, 20);
@@ -76,13 +76,14 @@ describe('quirks', () => {
     const struck = play(w, 0.1);
     expect(has(struck, 'hurt').length).toBe(1);
     expect(has(struck, 'quirk').map((e) => e.on)).toEqual([false]);
-    expect(w.trait.share).toBeLessThan(0.05);
+    // A blow halves it: it is not all lost.
+    expect(w.trait.share).toBeCloseTo(QUIRKS.unseen.keeps, 1);
   });
 
-  it('Aldous: brings one companion more, what heals him heals those in his fold, and companions near him strike faster', () => {
-    expect(bandSize('aldous', 1)).toBe(2);
+  it('Aldous: what heals him heals those in his fold, and companions near him strike faster and harder', () => {
+    // He brings as many as anyone: the slots are the player's, and the same for every hero.
+    expect(bandSize('aldous', 1)).toBe(1);
     expect(bandSize('bram', 1)).toBe(1);
-    expect(bandSize('aldous', 2)).toBe(3);
     const w = as('aldous', { band: [{ id: 'biscuit', bond: 0 }], stats: stats({ maxHp: 30 }) });
     w.slots[0].cool = 999;
     const dog = w.band[0];

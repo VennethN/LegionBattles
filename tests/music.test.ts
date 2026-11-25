@@ -232,7 +232,9 @@ describe('the band on recorded instruments', () => {
       return sampled(f);
     };
     const drums = new Set<string>();
-    for (const [land, theme] of Object.entries(THEMES)) {
+    // The three themes written so far: the other lands play one of them.
+    for (const land of Object.keys(tune)) {
+      const theme = THEMES[land];
       const calm = heardIn(land, 'calm');
       expect(calm.some((n) => n.startsWith(tune[land])), land).toBe(true);
       const kit = Object.values(theme.kit).map(([name]) => name);
@@ -245,7 +247,8 @@ describe('the band on recorded instruments', () => {
       // A battle has more in it than the calm has.
       expect(battle.length, land).toBeGreaterThan(calm.length);
     }
-    expect(drums.size).toBe(Object.keys(THEMES).length);
+    expect(drums.size).toBe(Object.keys(tune).length);
+    expect(new Set(Object.values(THEMES)).size).toBe(Object.keys(tune).length);
   });
 
   it('no note is played far from where its instrument was recorded', () => {

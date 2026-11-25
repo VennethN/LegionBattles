@@ -7,11 +7,11 @@ import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { COMPANIONS, ENEMIES, HEROES, byId } from '../../game/data';
 import { heroOf, survived } from '../../game/run';
-import { hasWon, nextDeeds } from '../../game/hold';
+import { hasWon, masteryLevel, nextDeeds, type Tally } from '../../game/hold';
 import { comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
-import { endRun, save, startRun, takeFriends, takeOpened, theRun, theWorld } from '../session';
+import { endRun, save, startRun, takeFriends, takeGained, takeOpened, theRun, theWorld } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, heading, label } from '../ui/widgets';
 
@@ -38,7 +38,8 @@ export class ResultScene extends Phaser.Scene {
     // What the run paid in renown, line by line, and the quests nearest to done: the reasons to go again. On a wide
     // screen they are a second column beside the run; on a tall one they are under it.
     const tally = s.tally;
-    const quests = nextDeeds(s, hero.id, 3);
+    const quests = nextDeeds(s, 3);
+    const gained = takeGained();
     const side = !view.tall;
     const tallyH = tally ? 62 + tally.lines.length * 26 + 34 : 0;
     const questH = quests.length > 0 ? 40 + quests.length * 58 : 0;
@@ -54,7 +55,7 @@ export class ResultScene extends Phaser.Scene {
     const friends = takeFriends();
     // Each thing under the rows has a line of its own: the best yet, a companion who will come, the heroes opened.
     // They were placed by fixed numbers once, and wrote over each other on a small screen.
-    const extra = (isBest ? 28 : 0) + (friends.length > 0 ? 30 : 0);
+    const extra = (isBest ? 28 : 0) + (friends.length > 0 ? 30 : 0) + (gained.slots > 0 ? 30 : 0) + (gained.levels > 0 ? 30 : 0);
     const ph = under + extra + 28 + (opened.length > 0 ? 150 : 0) + 70;
     const py = side ? Math.max(14, (view.h - Math.max(ph, sideH)) / 2) : Math.max(14, (view.h - ph - sideH - 14) / 2);
     this.add.existing(slabImage(this, cx - pw / 2, py, pw, ph, BONE, 20, 8));
@@ -97,6 +98,16 @@ export class ResultScene extends Phaser.Scene {
       at += 30;
     }
 
+    // A slot or a mastery level the run unlocked: the reasons this run counted for something even if it was lost.
+    if (gained.slots > 0) {
+      label(this, cx, at, gained.slots > 1 ? `${gained.slots} NEW COMPANION SLOTS UNLOCKED` : 'NEW COMPANION SLOT UNLOCKED', { size: 16, color: '#2e5f45', stroke: null });
+      at += 30;
+    }
+    if (gained.levels > 0) {
+      label(this, cx, at, `${hero.short.toUpperCase()} REACHED MASTERY LEVEL ${masteryLevel(s, hero.id)}`, { size: 16, color: '#7a5a12', stroke: null });
+      at += 30;
+    }
+
     // Whoever this run opened is shown, by name now.
     if (opened.length > 0) {
       const y = at + 58;
@@ -129,19 +140,19 @@ export class ResultScene extends Phaser.Scene {
     void BONE;
   }
 
-  /** The renown the run paid, a line for each reason with its total, and under it the next quests with how far along each is. */
-  private renown(x: number, y: number, w: number, tally: { lines: Array<{ why: string; count: number; renown: number }>; total: number } | null, quests: ReturnType<typeof nextDeeds>): void {
+  /** The mastery the run paid its hero, a line for each reason with its total, and under it the next quests with how far along each is. */
+  private renown(x: number, y: number, w: number, tally: Tally | null, quests: ReturnType<typeof nextDeeds>): void {
     const h = (tally ? 62 + tally.lines.length * 26 + 34 : 0) + (quests.length > 0 ? 40 + quests.length * 58 : 0);
     this.add.existing(slabImage(this, x, y, w, h, BONE, 20, 8));
     let at = y + 30;
     const ink = OUTLINE;
     if (tally) {
-      label(this, x + 22, at, 'RENOWN EARNED', { size: 19, align: 'left', color: ink, stroke: null });
+      label(this, x + 22, at, 'MASTERY EARNED', { size: 19, align: 'left', color: ink, stroke: null });
       at += 32;
       tally.lines.forEach((l, i) => {
         // Each line comes in after the one before it, and the total last: the pay is counted out.
         const name = label(this, x + 22, at, l.count > 1 ? `${l.why} x${l.count}` : l.why, { size: 16, align: 'left', color: ink, stroke: null });
-        const val = label(this, x + w - 22, at, `+${l.renown}`, { size: 17, align: 'right', color: '#7a5a12', stroke: null });
+        const val = label(this, x + w - 22, at, `+${l.xp}`, { size: 17, align: 'right', color: '#7a5a12', stroke: null });
         for (const t of [name, val]) {
           t.setAlpha(0);
           this.tweens.add({ targets: t, alpha: 1, duration: 200, delay: 250 + i * 160 });
@@ -160,7 +171,7 @@ export class ResultScene extends Phaser.Scene {
       label(this, x + 22, at, 'NEXT QUESTS', { size: 19, align: 'left', color: ink, stroke: null });
       at += 26;
       for (const q of quests) {
-        const reward = q.renown > 0 ? `+${q.renown}` : q.kind === 'oath' ? 'OATH' : q.kind === 'crate' ? 'CRATE' : 'UNLOCK';
+        const reward = q.xp > 0 ? `+${q.xp}` : q.kind === 'crate' ? 'CRATE' : 'UNLOCK';
         const t = label(this, x + 22, at + 8, q.name === '???' ? 'Unlock someone new' : q.name, { size: 16, align: 'left', color: ink, stroke: null });
         t.setScale(Math.min(1, (w - 120) / Math.max(1, t.width)));
         label(this, x + w - 22, at + 8, reward, { size: 16, align: 'right', color: '#7a5a12', stroke: null });

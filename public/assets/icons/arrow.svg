@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="arrow" width="48" height="48" viewBox="0 0 48 48">
-<defs>
-<path id="arrow-arrow-shape" d="M 14 8 L 34 24 L 14 40 L 20 24 Z"/>
-</defs>
-<g id="arrow-arrow">
-<use id="arrow-arrow-fill" href="#arrow-arrow-shape" fill="#e9dfc6"/>
-<use id="arrow-arrow-line" href="#arrow-arrow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><style>.c0{fill:none;stroke:#2a1a10;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}</style><defs><path id="i0" d="M14 8L34 24 14 40l6-16z"/></defs><use href="#i0" fill="#e9dfc6"/><use href="#i0" class="c0"/></svg>

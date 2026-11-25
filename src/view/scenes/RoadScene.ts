@@ -34,6 +34,20 @@ const OMEN_LOOK: Record<Omen, { icon: string; mat: Material }> = {
   blizzard: { icon: 'icon/w-frost', mat: IRON },
   shrine: { icon: THING_ICONS.shrine, mat: HOLY },
   stray: { icon: THING_ICONS.cage, mat: BONE },
+  bog: { icon: 'icon/boot', mat: BUSH },
+  spores: { icon: 'icon/drop', mat: BUSH },
+  ashfall: { icon: 'icon/w-torch', mat: RUBY },
+  forge: { icon: 'icon/shield', mat: IRON },
+  squall: { icon: 'icon/spark', mat: HOLY },
+  smugglers: { icon: THING_ICONS.wagon, mat: GOLD },
+  deepdark: { icon: 'icon/candle', mat: IRON },
+  goldvein: { icon: 'icon/coin', mat: GOLD },
+  gale: { icon: 'icon/feather', mat: IRON },
+  stampede: { icon: 'icon/boot', mat: RUBY },
+  restless: { icon: 'icon/rune', mat: IRON },
+  vigil: { icon: THING_ICONS.shrine, mat: HOLY },
+  overclocked: { icon: 'icon/hourglass', mat: GOLD },
+  steam: { icon: 'icon/drop', mat: IRON },
 };
 
 export class RoadScene extends Phaser.Scene {

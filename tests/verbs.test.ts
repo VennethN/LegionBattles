@@ -7,7 +7,7 @@ import { botSteer } from '../src/game/bot';
 import { HEROES, LATE_COIN, MOVE, MOVES, QUIRKS, ROAD, SIGNATURES, WEAPONS, byId, finishedAs, weaponOf } from '../src/game/data';
 import { HANDED, handOver } from '../src/game/handover';
 import { beginRun, poolOf } from '../src/game/hold';
-import { FIRST_STRAY, HERALD_WAVE, buy, canToss, endWave, kindCounts, march, newRun, ownDef, reroll, setupOf, takeRoad, toss, tossOdds, type Offer, type RunData } from '../src/game/run';
+import { HERALD_WAVE, buy, canToss, endWave, kindCounts, march, newRun, ownDef, reroll, setupOf, toss, tossOdds, type Offer, type RunData } from '../src/game/run';
 import { freshSave } from '../src/game/state';
 import { World, type Ev, type Setup } from '../src/game/world';
 import { alone, blows, play, setup, shotAt, stand, stats } from './field';
@@ -284,7 +284,7 @@ describe('moves that are aimed', () => {
     const one = (safe: number): { amount: number; crit: boolean; weak: number } => {
       const w = as('wren', { fury: 1 });
       w.slots[0].cool = 999;
-      w.hero.safe = safe;
+      Object.assign(w, { quiet: safe > 0 ? QUIRKS.unseen.most : 0 });
       const weak = stand(w, 'cutpurse', w.hero.x + 100, w.hero.y, { hp: 50, dmg: 0 }, true);
       const strong = stand(w, 'bruiser', w.hero.x - 300, w.hero.y + 100, { hp: 99999, dmg: 0 }, true);
       const events = play(w, 0.6, { x: 0, y: 0, act: true });
@@ -414,33 +414,24 @@ describe('a first run', () => {
     return w;
   };
 
-  it('has one road out of its first camp: the stray\'s, with Biscuit in the cage', () => {
-    const run = newRun('bram', 11, [], ROAD.roads, { first: true });
+  it('is Wren with Biscuit along, and has its roads by the dice like any run', () => {
+    const save = freshSave();
+    const run = beginRun(save, save.last, 11);
+    expect(run.hero).toBe('wren');
     expect(run.first).toBe(true);
+    expect(run.band.map((b) => b.id)).toEqual(['biscuit']);
+    expect(run.slots).toBe(1);
     through(run);
     expect(run.phase).toBe('camp');
     march(run);
     expect(run.phase).toBe('road');
-    expect(run.roads).toEqual([{ omen: 'stray', stray: FIRST_STRAY }]);
-    // Whoever is in that cage is out by the wave's end, broken or not: a first run's Biscuit is not to be missed.
-    run.phase = 'road';
-    takeRoad(run, 0);
-    const second = setupOf(run);
-    expect(second.given).toBe(true);
-    const w = alone(new World(second));
-    for (let t = 0; t < w.wave.seconds + 5 && !w.over; t += 1 / 60) w.step({ x: 0, y: 0 });
-    expect(w.over).toBe('cleared');
-    expect(w.freed).toBe(FIRST_STRAY);
-    // Any other run has its roads by the dice.
-    const later = newRun('bram', 11);
-    through(later);
-    march(later);
-    expect(later.roads.length).toBe(ROAD.roads);
-    // One who has Biscuit along already has roads like anyone.
-    const with1 = newRun('bram', 11, ['biscuit'], ROAD.roads, { first: true });
-    through(with1);
-    march(with1);
-    expect(with1.roads.length).toBe(ROAD.roads);
+    expect(run.roads.length).toBe(ROAD.roads);
+    // The one slot is Biscuit's: no cage on the road offers another who could not join.
+    for (let i = 0; i < 30; i++) {
+      run.phase = 'camp';
+      march(run);
+      expect(run.roads.some((r) => r.omen === 'stray'), `try ${i}`).toBe(false);
+    }
   });
 
   it('is offered weapons from a small pool, which is the armory as a new player has it: one input, given when it begins', () => {
@@ -562,7 +553,7 @@ describe('coins at the bell', () => {
     coin(dog, 420);
     play(dog, dog.wave.seconds + 3);
     expect(dog.coins).toBe(10);
-    const captain = alone(new World(setup({ wave: 7 })));
+    const captain = alone(new World(setup({ wave: 10 })));
     coin(captain, 500);
     captain.felled.push('warlord');
     play(captain, 3);

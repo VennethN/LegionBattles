@@ -15,7 +15,7 @@
     "pace": "tsx scripts/pace.ts",
     "walk": "tsx scripts/walk.ts",
     "art:preview": "tsx scripts/preview.ts",
-    "check": "tsc --noEmit && vitest run && vite build",
+    "check": "tsc --noEmit && vite build && vitest run",
     "art:sheet": "tsx scripts/sheet.ts",
     "smoke": "tsx scripts/smoke.ts",
     "art:roster": "tsx scripts/roster.ts",

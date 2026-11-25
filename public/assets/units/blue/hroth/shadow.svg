@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="hroth-shadow" width="272" height="272" viewBox="-40 -40 272 272">
-<path id="hroth-shadow-shadow" d="M 148 181 C 148 185.4 124.7 189 96 189 C 67.3 189 44 185.4 44 181 C 44 176.6 67.3 173 96 173 C 124.7 173 148 176.6 148 181 Z" fill="#2a1a10" opacity="0.28"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="272" viewBox="-40 -40 272 272"><style>.c0{fill:#2a1a10;opacity:.28}</style><path d="M148 181c0 4.4-23.3 8-52 8-28.7 0-52-3.6-52-8 0-4.4 23.3-8 52-8 28.7 0 52 3.6 52 8z" class="c0"/></svg>

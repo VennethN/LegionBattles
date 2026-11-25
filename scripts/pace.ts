@@ -1,5 +1,5 @@
-// npm run pace -- [--runs=12] [--hero=bram] [--band=biscuit,pip] [--friends] [--waves=40] [--brief] [--each] [--why] [--quiet] [--norelics] [--nokinds] [--first]
-//                 [--vows=3|march,lean] [--board=none|all] [--pool=all|start]
+// npm run pace -- [--runs=12] [--hero=wren] [--band=biscuit,pip] [--friends] [--waves=110] [--brief] [--each] [--why] [--quiet] [--norelics] [--nokinds] [--first]
+//                 [--vows=3|march,lean] [--mastery=none|all] [--pool=all|start] [--six]
 // npm run pace -- --career[=3]
 //
 // Plays runs with the plain player (src/game/bot.ts) and says how they go:
@@ -17,36 +17,40 @@
 // weapon were built up. --quiet keeps every run to the quiet road,
 // --norelics fights every wave as if no relic were held, and --nokinds
 // leaves the gifts of the kinds out: what each of the three is worth.
-// --first plays every run as a player's first: Biscuit in the cage on the
-// second wave, and with --pool=start, only the armory's first weapons in the camps.
+// --first plays every run as a player's first, and with --pool=start, only
+// the armory's first weapons in the camps.
 //
 // It says how long the fighting of a run took, in minutes of the game's
-// own time, for the runs that came through all twenty waves and for all.
+// own time, for the runs that came through all hundred waves and for all.
 //
 // What the Hold gives a run is an input: --vows is the vows the runs are
 // sworn under (a number for the first so many, or their names),
-// --board=all gives them every place on the board, and --pool=start
-// offers them only what the armory has before any crate is bought (all of
-// it is offered otherwise, as before the Hold).
+// --mastery=all gives the hero their whole mastery track, and --pool=start
+// offers them only what the armory has before any crate is unlocked (all
+// of it is offered otherwise). --six brings six companions: the first six
+// unlocked, or those --band names.
 //
-// --career plays a player's whole time with the game, from a new save:
-// run after run with whoever is open, the renown spent on the cheapest
-// thing the Hold sells, until there is nothing left to open. It says how
-// many runs that took and when each thing came.
+// --career plays a player's whole time with the game, from a new save
+// (--upto=N stops each after N runs):
+// run after run with whoever is unlocked, until every hero's mastery track
+// is full and every companion and slot unlocked. It says how many runs that
+// took and when each thing came.
 
-import { BOARD, COMPANIONS, CRATES, HEROES, LAST_WAVE, OMENS, VOWS, relicOf, type Omen } from '../src/game/data';
+import { COMPANIONS, CRATES, HEROES, LAST_WAVE, LEVEL_XP, OMENS, SLOT_WAVES, VOWS, relicOf, type Omen } from '../src/game/data';
 import { botCamp, botSteer } from '../src/game/bot';
-import { beginRun, boardFull, buyWare, count, forksNow, holdFull, termsOf, waresOf, type Ware } from '../src/game/hold';
+import { beginRun, count, forksNow, masteryLevel, slotsOf, termsOf } from '../src/game/hold';
 import { endWave, kindsOf, newRun, setupOf, survived } from '../src/game/run';
-import { featShare, freshSave, isFriend, isOpen, record, type SaveData } from '../src/game/state';
+import { freshSave, isFriend, isOpen, record, type SaveData } from '../src/game/state';
 import { STEP, World } from '../src/game/world';
 
 const args = process.argv.slice(2);
 const option = (name: string, fallback: string): string => args.find((a) => a.startsWith(`--${name}=`))?.slice(name.length + 3) ?? fallback;
 const runs = Number(option('runs', '12'));
-const most = Number(option('waves', '40'));
+const most = Number(option('waves', '110'));
 const only = option('hero', '');
-const band = option('band', '').split(',').filter(Boolean);
+const named = option('band', '').split(',').filter(Boolean);
+// --six brings six: those named first, then the first unlocked by the list.
+const band = args.includes('--six') ? [...new Set([...named, ...COMPANIONS.map((c) => c.id)])].slice(0, 6) : named;
 const friends = args.includes('--friends');
 const each = args.includes('--each');
 const brief = args.includes('--brief') || friends;
@@ -62,7 +66,10 @@ function holdOf(): SaveData {
   save.won = { [HEROES[0].id]: VOWS.map((v) => v.id) };
   save.vows = vows;
   if (option('pool', 'all') === 'all') save.crates = CRATES.map((c) => c.id);
-  if (option('board', 'none') === 'all') save.board = BOARD.map((n) => n.id);
+  if (option('mastery', 'none') === 'all') for (const h of HEROES) save.mastery[h.id] = LEVEL_XP[LEVEL_XP.length - 1];
+  // Every slot, so that the band asked for goes.
+  save.best = { [HEROES[0].id]: SLOT_WAVES[SLOT_WAVES.length - 1] };
+  save.friends = COMPANIONS.map((c) => c.id);
   return save;
 }
 const hold = holdOf();
@@ -103,7 +110,7 @@ function measure(hero: string, who: readonly string[], label: string): void {
   let steps3 = 0;
   let strays = 0;
   for (let n = 0; n < runs; n++) {
-    const run = newRun(hero, 1000 + n * 7919, who, forksNow(hold), { ...termsOf(hold, hero), first: args.includes('--first') });
+    const run = newRun(hero, 1000 + n * 7919, who, forksNow(hold), { ...termsOf(hold, hero), slots: Math.max(1, who.length), first: args.includes('--first') });
     let fought = 0;
     while (run.phase !== 'over' && run.wave <= most) {
       if (args.includes('--quiet')) run.road = { omen: 'quiet' };
@@ -206,14 +213,19 @@ function measure(hero: string, who: readonly string[], label: string): void {
 
 // ---------------------------------------------------------------- a whole career
 
+/** Minutes of fighting in the last run played. */
+let lastFought = 0;
+
 /** Plays one run to its end as the game does, the save taking what each wave leaves. */
 function playRun(save: SaveData, hero: string, seed: number): number {
   const run = beginRun(save, hero, seed);
   save.runs++;
+  lastFought = 0;
   while (run.phase !== 'over' && run.wave <= most) {
     const world = new World(setupOf(run));
     let guard = 0;
     while (!world.over && guard++ < 60 * 200) world.step(botSteer(world), STEP);
+    lastFought += world.time / 60;
     const kills = world.kills;
     endWave(run, world);
     if ((run.phase as string) !== 'over') {
@@ -229,56 +241,47 @@ function playRun(save: SaveData, hero: string, seed: number): number {
   return survived(run);
 }
 
-/** What a careful player buys next: the place in the band first, then the cheapest thing, but nobody whose deed is nearly done. */
-function wish(save: SaveData): Ware | null {
-  const wares = waresOf(save).filter((w) => {
-    const hero = w.kind === 'hero' ? HEROES.find((h) => h.id === w.id) : undefined;
-    const friend = w.kind === 'friend' ? COMPANIONS.find((c) => c.id === w.id) : undefined;
-    const feat = hero?.unlock ?? friend?.unlock;
-    return !feat || featShare(save, feat) < 0.6;
-  });
-  const place = wares.find((w) => w.kind === 'place');
-  if (place) return place.can ? place : null;
-  const can = wares.filter((w) => w.can).sort((a, b) => a.price - b.price);
-  return can[0] ?? null;
-}
-
 function career(n: number): number {
   const save = freshSave();
   const came: string[] = [];
-  const open = new Set<string>([...HEROES.filter((h) => isOpen(save, h.id)).map((h) => h.id)]);
+  const open = new Set<string>([...HEROES.filter((h) => isOpen(save, h.id)).map((h) => h.id), ...save.friends]);
   let runs = 0;
   let waves = 0;
-  let place = 0;
-  let wins = 0;
-  const marks: Record<number, number> = {};
-  let bought30 = 0;
-  let boardAt = 0;
-  while (!holdFull(save) && runs < 400) {
+  let fought = 0;
+  const slotAt: number[] = [];
+  const full: Record<string, number> = {};
+  const ways: Record<string, string> = {};
+  const done = (): boolean => HEROES.every((h) => isOpen(save, h.id) && masteryLevel(save, h.id) >= LEVEL_XP.length) && COMPANIONS.every((c) => isFriend(save, c.id));
+  // A career may be stopped after so many runs: a whole one is hundreds of runs, and the first forty are what a new player meets.
+  const cap = Number(option('upto', '500'));
+  while (!done() && runs < cap) {
     runs++;
-    // Whoever is open and has been out the least goes: a player tries the new one.
+    // A player tries whoever is newest among the unlocked, then plays whoever they have played least.
     const hero = HEROES.filter((h) => isOpen(save, h.id)).sort((a, b) => count(save, 'hero', a.id) - count(save, 'hero', b.id))[0].id;
+    const slots = slotsOf(save);
     const got = playRun(save, hero, 5000 + n * 104729 + runs * 7919);
     waves += Math.min(got, LAST_WAVE);
-    if (got >= LAST_WAVE) wins++;
-    let any = false;
-    for (let w = wish(save); w; w = wish(save)) {
-      if (!buyWare(save, w)) break;
-      any = true;
-      came.push(`${runs}: ${w.name} (bought, ${w.price})`);
-      if (w.kind === 'place') place = runs;
+    fought += lastFought;
+    for (let s = slots + 1; s <= slotsOf(save); s++) slotAt[s] = runs;
+    for (const h of HEROES) {
+      if (isOpen(save, h.id) && !open.has(h.id)) (open.add(h.id), came.push(`${runs}: ${h.name}`));
+      if (!full[h.id] && masteryLevel(save, h.id) >= LEVEL_XP.length) full[h.id] = runs;
     }
-    if (any && runs <= 30) bought30++;
-    if (!boardAt && boardFull(save)) boardAt = runs;
-    for (const h of HEROES) if (isOpen(save, h.id) && !open.has(h.id)) (open.add(h.id), came.push(`${runs}: ${h.name}${came.some((c) => c.includes(h.name)) ? '' : ' (deed)'}`));
-    for (const c of COMPANIONS) if (isFriend(save, c.id) && !open.has(c.id)) (open.add(c.id), came.push(`${runs}: ${c.name}${came.some((x) => x.includes(c.name)) ? '' : ' (deed)'}`));
-    for (const at of [5, 10, 20, 40]) if (runs === at) marks[at] = open.size - 2;
+    for (const c of COMPANIONS) {
+      if (isFriend(save, c.id) && !open.has(c.id)) {
+        open.add(c.id);
+        ways[c.id] = `${runs} (${c.unlock.kind})`;
+        came.push(`${runs}: ${c.name} (${c.unlock.kind})`);
+      }
+    }
   }
-  console.log(`\ncareer ${n + 1}: something bought after ${bought30} of the first 30 runs; the board full after run ${boardAt || '-'};`);
-  console.log(`career ${n + 1}: oaths kept ${save.oaths.length} of 30, crates opened by their deeds ${CRATES.length - came.filter((c) => /Crate|Reliquary/.test(c)).length} of ${CRATES.length};`);
-  console.log(`career ${n + 1}: everything open after ${runs} runs${holdFull(save) ? '' : ' (not all of it: stopped)'}; second place in the band after run ${place}; ${wins} runs won; mean ${(waves / runs).toFixed(1)} waves;`);
-  console.log(`  renown earned ${save.earned} (${(save.earned / runs).toFixed(1)} a run), deeds done ${save.deeds.length}; heroes and companions opened by run 5, 10, 20, 40: ${[5, 10, 20, 40].map((a) => marks[a] ?? open.size - 2).join(', ')} of ${HEROES.length + COMPANIONS.length - 2}`);
-  if (!brief) for (const line of came.filter((c) => !/^\d+: .*\(bought/.test(c) || true)) console.log(`  ${line}`);
+  const heroRuns = Object.fromEntries(HEROES.map((h) => [h.id, count(save, 'hero', h.id)]));
+  console.log(`\ncareer ${n + 1}: ${runs} runs${done() ? '' : ' (stopped)'}, mean ${(waves / runs).toFixed(1)} waves a run, ${(fought / runs).toFixed(1)} minutes of fighting a run`);
+  console.log(`  slots 2 to 6 at runs ${slotAt.slice(2).join(', ')}`);
+  console.log(`  companions: ${COMPANIONS.map((c) => `${c.name} ${ways[c.id] ?? (isFriend(save, c.id) ? 'start' : '-')}`).join(', ')}`);
+  console.log(`  tracks full at run (runs with that hero): ${HEROES.map((h) => `${h.short} ${full[h.id] ?? '-'} (${heroRuns[h.id]})`).join(', ')}`);
+  console.log(`  mastery levels at the end: ${HEROES.map((h) => `${h.short} ${masteryLevel(save, h.id)}`).join(', ')}; best wave ${Math.max(0, ...Object.values(save.best))}`);
+  if (!brief) for (const line of came) console.log(`  ${line}`);
   return runs;
 }
 
@@ -286,7 +289,9 @@ const careers = args.find((a) => a === '--career' || a.startsWith('--career='));
 if (careers) {
   const n = Number(careers.split('=')[1] ?? '3');
   const all: number[] = [];
-  for (let i = 0; i < n; i++) all.push(career(i));
+  // --seed=N starts the careers' dice further on, so that careers played side by side are other careers.
+  const from = Number(option('seed', '0'));
+  for (let i = 0; i < n; i++) all.push(career(from + i));
   console.log(`\n${n} careers: everything open after ${all.join(', ')} runs`);
 } else if (friends) {
   const hero = only || HEROES[0].id;
