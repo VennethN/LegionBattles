@@ -1,24 +1,23 @@
 // The screen. The game has no fixed shape: it is laid out afresh for
 // whatever window it is given, wide or tall, so that it fills a monitor, a
-// phone held upright and a portal's frame alike, with no bars round it.
+// phone held either way and a portal's frame alike, with no bars round it.
 //
-// Everything is placed in the layout's own units. A wide window is 720 of
-// them high and as wide as its shape makes it; a tall one is 720 wide and as
-// high as its shape makes it. A window that is nearly square is neither
-// wide enough for the lists to stand beside the fight nor tall enough for
-// them to stand under it, at that size: it is given more units, so that
-// both have their room and everything in it is a little smaller. The
-// cameras zoom those units up to the canvas, which is drawn at up to twice
-// the window's own pixels on a dense screen so that the art, rasterized at
-// 2x, stays sharp.
+// Everything is placed in the layout's own units. A wide window is 600 of
+// them high and as wide as its shape makes it; a tall one is 600 wide and
+// as high as its shape makes it. That is fewer units than the sister games
+// have, on purpose: a portal shows a game in a frame as small as 821 by
+// 462, and at 600 units high the smallest words here are still eleven of
+// that frame's pixels tall. The cameras zoom the units up to the canvas,
+// which is drawn at up to twice the window's own pixels on a dense screen
+// so that the art stays sharp.
 
 /** A wide window's height and a tall window's width, in the layout's units. */
-export const BASE = 720;
-/** A window narrower than this for its height is laid out tall: the fight above, the lists below. */
+export const BASE = 600;
+/** A window narrower than this for its height is laid out tall. */
 export const TALL_BELOW = 1;
-/** The least a wide layout is across, and the least a tall one is high: what the fight and the lists need between them. */
-export const WIDE_LEAST = 940;
-export const TALL_LEAST = 900;
+/** The least a wide layout is across, and the least a tall one is high: what the camp's wares need side by side, and one over another. */
+export const WIDE_LEAST = 760;
+export const TALL_LEAST = 860;
 
 export interface View {
   /** The window in the layout's units. */

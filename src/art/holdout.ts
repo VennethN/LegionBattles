@@ -113,7 +113,8 @@ const ICONS: Record<string, (d: Doc) => void> = {
     d.piece('tip-b', roundRect(29, 34, 13, 9, 2), STEEL, { shade: 0 });
   },
   // ------------------------------------------------ the field
-  fist: (d) => mitt(d, 24, 24, LEATHER, 13),
+  // A bare hand, the size the kit draws one: it is shown at the end of a hero's arm in place of what they hold.
+  fist: (d) => mitt(d, 24, 24, LEATHER, 7.5),
   'shot-bomb': (d) => {
     d.line('fuse', path().M(30, 14).L(36, 7));
     d.piece('spark', star(38, 6, 5, 6, 2.6), FIRE, { shade: 0 });

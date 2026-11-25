@@ -123,6 +123,14 @@ export class Figure {
     this.turn = this.facing;
   }
 
+  /**
+   * Shows another picture in place of what it holds: a bare hand, for a game in which what a hero carries is drawn
+   * beside them and not in their grip. The picture turns about its own middle, at the hand.
+   */
+  bareHand(frame: string): void {
+    if (this.weaponIndex >= 0) this.sprites[this.weaponIndex].setFrame(frame);
+  }
+
   /** A blow, a shot or a cast begins and will land in `windup` seconds. */
   attack(now: number, windup: number, big = false): void {
     if (this.deadAt >= 0) return;

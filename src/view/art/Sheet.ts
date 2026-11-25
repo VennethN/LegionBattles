@@ -16,7 +16,7 @@
 
 import Phaser from 'phaser';
 import type { Manifest, ManifestImage, ManifestPart } from '../../art/manifest';
-import { ART_SCALE } from './scale';
+import { ART_SCALE, STILL_SCALE } from './scale';
 import { SkylinePacker, type Mark } from './packer';
 
 /** Everything a battle draws but the ground under it: effects, icons, digits, unit parts. */
@@ -232,6 +232,58 @@ export class Sheet {
     for (const k of keys) this.packed.add(`${k.team}/${k.unit}`);
     this.texture.refresh();
     return true;
+  }
+
+  /** The name of a unit's whole picture at a pose, where the art build wrote any (a manifest unit's `stills`). */
+  static stillFrame(team: string, unit: string, pose: string): string {
+    return `still/${team}/${unit}/${pose}`;
+  }
+
+  /**
+   * Loads and packs the whole pictures of these units, each at every pose
+   * the art build wrote for it. They stand on their feet: a sprite given
+   * one turns about the middle of the ground under it. They are drawn at
+   * the size of the canvas, not twice it as parts are: a crowd is shown
+   * small. They share the units' part of the sheet, and nothing is taken
+   * off to make room for them: a game that uses them must fit.
+   */
+  ensureStills(scene: Phaser.Scene, wanted: readonly UnitKey[]): Promise<void> {
+    const missing = wanted.filter((k, i) => !this.packed.has(`still:${k.team}/${k.unit}`) && wanted.findIndex((o) => o.team === k.team && o.unit === k.unit) === i);
+    if (missing.length === 0) return Promise.resolve();
+    const files: Array<{ k: UnitKey; pose: string; key: string; box: [number, number, number, number] }> = [];
+    for (const k of missing) {
+      for (const [pose, box] of Object.entries(this.manifest.units[k.unit]?.stills ?? {})) {
+        files.push({ k, pose, key: `svg:${Sheet.stillFrame(k.team, k.unit, pose)}`, box });
+      }
+    }
+    return new Promise((resolve) => {
+      let queued = 0;
+      for (const f of files) {
+        if (scene.textures.exists(f.key)) continue;
+        scene.load.svg(f.key, `assets/units/${f.k.team}/${f.k.unit}/still-${f.pose}.svg`, { scale: STILL_SCALE });
+        queued++;
+      }
+      const pack = (): void => {
+        const m = this.manifest.margin;
+        for (const f of files.sort((a, b) => b.box[3] - a.box[3])) {
+          const [bx, by, bw, bh] = f.box;
+          const source = scene.textures.get(f.key).getSourceImage() as HTMLImageElement;
+          const frame = Sheet.stillFrame(f.k.team, f.k.unit, f.pose);
+          const ok = this.draw(frame, source, (bx + m) * STILL_SCALE, (by + m) * STILL_SCALE, bw * STILL_SCALE, bh * STILL_SCALE, [(96 - bx) / bw, (180 - by) / bh]);
+          if (!ok) throw new Error(`sheet "${this.key}": no room for ${frame}`);
+          this.unitFrames.push(frame);
+          scene.textures.remove(f.key);
+        }
+        for (const k of missing) this.packed.add(`still:${k.team}/${k.unit}`);
+        this.texture.refresh();
+        resolve();
+      };
+      if (queued === 0) pack();
+      else {
+        scene.load.once(Phaser.Loader.Events.COMPLETE, pack);
+        scene.load.start();
+      }
+    });
   }
 
   /** Whoever draws with the units' pictures, to be told before those are taken away. */

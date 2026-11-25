@@ -192,10 +192,14 @@ export type Ev =
 
 const TAU = Math.PI * 2;
 
-/** Where a weapon floats beside the hero, from their feet: the first of `n` is over their head and the rest go round. */
+/**
+ * Where a weapon floats beside the hero, from their feet. One alone is at
+ * their side, where a hand would hold it; more go round them in a ring,
+ * the first at their side still.
+ */
 export function slotPlace(i: number, n: number): { x: number; y: number } {
-  const a = -Math.PI / 2 + (i * TAU) / Math.max(1, n) + (n === 2 ? Math.PI / 2 : 0);
-  return { x: Math.cos(a) * 34, y: -30 + Math.sin(a) * 20 };
+  const a = (i * TAU) / Math.max(1, n);
+  return { x: Math.cos(a) * 42, y: -30 + Math.sin(a) * 26 };
 }
 
 export class World {

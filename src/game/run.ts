@@ -9,7 +9,7 @@ import {
   tierWeights, type HeroDef,
 } from './data';
 import { Rng } from './rng';
-import { sumStats, type Stat, type StatLine, type Stats } from './stats';
+import { hasteRate, sumStats, type Stat, type StatLine, type Stats } from './stats';
 import type { Carried, Setup, World } from './world';
 
 export interface Offer {
@@ -309,6 +309,15 @@ export function openPack(run: RunData): string | null {
   });
   run.items.push(id);
   return id;
+}
+
+/** What a weapon would do in this hero's hands, for the card that offers it: its harm, and the seconds between its blows. */
+export function weaponNumbers(run: RunData, id: string, tier: number): { harm: number; every: number } {
+  const def = byId(WEAPONS, id);
+  const s = statsOf(run);
+  const base = def.dmg[tier] + (def.scale.might ?? 0) * s.might + (def.scale.aim ?? 0) * s.aim + (def.scale.lore ?? 0) * s.lore;
+  const focus = heroOf(run).flag === 'focus' && def.kind === 'magic' ? 1.2 : 1;
+  return { harm: Math.max(1, Math.round(base * Math.max(0.1, 1 + s.damage / 100))), every: def.every[tier] / (hasteRate(s.haste) * focus) };
 }
 
 /** Leaves the camp for the next wave. */
