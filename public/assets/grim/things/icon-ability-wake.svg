@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-wake" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-wake-lantern-shape" d="M 34 16 L 54 16 L 52 40 L 36 40 Z"/>
+<clipPath id="icon-ability-wake-lantern-clip"><use href="#icon-ability-wake-lantern-shape"/></clipPath>
+</defs>
+<path id="icon-ability-wake-patch-0" d="M 3.2 52 L 8 49.6 L 12.8 52 L 8 54.4 Z" fill="#c27a26" opacity="0.6"/>
+<path id="icon-ability-wake-patch-1" d="M 11.6 46 L 18 42.8 L 24.4 46 L 18 49.2 Z" fill="#c27a26" opacity="0.7"/>
+<path id="icon-ability-wake-patch-2" d="M 20 40 L 28 36 L 36 40 L 28 44 Z" fill="#c27a26" opacity="0.8"/>
+<path id="icon-ability-wake-hook" d="M 44 2 L 48 8 L 44 14" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="icon-ability-wake-lantern">
+<use id="icon-ability-wake-lantern-line" href="#icon-ability-wake-lantern-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-wake-lantern-clip)">
+<use id="icon-ability-wake-lantern-lit" href="#icon-ability-wake-lantern-shape" fill="#eeb040"/>
+<path id="icon-ability-wake-heart" d="M 40 36 L 44 24 L 48 36 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<path id="icon-ability-wake-roof" d="M 30 18 L 38 10 L 50 10 L 58 18 Z" fill="#14110f"/>
+<path id="icon-ability-wake-bar" d="M 43 16 L 45 16 L 45 40 L 43 40 Z" fill="#14110f"/>
+</svg>

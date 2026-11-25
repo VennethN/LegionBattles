@@ -10,6 +10,8 @@ import type { Wanted } from './Sheet';
 
 export interface GrimPart extends RigPart {
   box: [number, number, number, number];
+  /** Shown only while the figure stands in this still: the Furnace's water, only while it is cooled. */
+  only?: string;
 }
 
 export interface GrimUnit {

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="fallen-column" width="330" height="136" viewBox="0 0 330 136">
+<defs>
+<path id="fallen-column-drum-a-shape" d="M 10 116 L 14 66 L 90 60 L 96 110 Z"/>
+<clipPath id="fallen-column-drum-a-clip"><use href="#fallen-column-drum-a-shape"/></clipPath>
+<path id="fallen-column-drum-a-end-shape" d="M 90 60 L 104 70 L 108 106 L 96 110 Z"/>
+<clipPath id="fallen-column-drum-a-end-clip"><use href="#fallen-column-drum-a-end-shape"/></clipPath>
+<path id="fallen-column-drum-b-shape" d="M 110 112 L 114 62 L 180 56 L 186 106 Z"/>
+<clipPath id="fallen-column-drum-b-clip"><use href="#fallen-column-drum-b-shape"/></clipPath>
+<path id="fallen-column-drum-b-end-shape" d="M 180 56 L 194 66 L 198 102 L 186 106 Z"/>
+<clipPath id="fallen-column-drum-b-end-clip"><use href="#fallen-column-drum-b-end-shape"/></clipPath>
+<path id="fallen-column-drum-c-shape" d="M 196 108 L 200 58 L 256 52 L 262 102 Z"/>
+<clipPath id="fallen-column-drum-c-clip"><use href="#fallen-column-drum-c-shape"/></clipPath>
+<path id="fallen-column-drum-c-end-shape" d="M 256 52 L 270 62 L 274 98 L 262 102 Z"/>
+<clipPath id="fallen-column-drum-c-end-clip"><use href="#fallen-column-drum-c-end-shape"/></clipPath>
+<path id="fallen-column-capital-shape" d="M 262 50 L 306 40 L 318 64 L 314 104 L 272 112 L 260 96 Z"/>
+<clipPath id="fallen-column-capital-clip"><use href="#fallen-column-capital-shape"/></clipPath>
+</defs>
+<path id="fallen-column-blot" d="M 0 120 L 320 108 L 330 124 L 6 134 Z" fill="#14110f" opacity="0.55"/>
+<g id="fallen-column-drum-a">
+<use id="fallen-column-drum-a-line" href="#fallen-column-drum-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#fallen-column-drum-a-clip)">
+<use id="fallen-column-drum-a-lit" href="#fallen-column-drum-a-shape" fill="#77786f"/>
+<path id="fallen-column-drum-a-mid" d="M 0 92 L 0.1 93.7 L 60.4 90.1 L 63.9 86.5 L 99.9 84.3 L 100 126 L 0 126 Z" transform="translate(4 -0.96)" fill="#54564f"/>
+<path id="fallen-column-drum-a-dark" d="M 0 92 L 0.1 93.7 L 60.4 90.1 L 63.9 86.5 L 99.9 84.3 L 100 126 L 0 126 Z" fill="#14110f"/>
+<path id="fallen-column-drum-a-weed" d="M 20 68 L 58 64 L 50 78 L 24 80 Z" fill="#4b4f2f"/>
+<path id="fallen-column-drum-a-cold" d="M -30 20 L 136 20 L 136 156 L -30 156 Z M 11.7 114.7 L 15.7 64.7 L 91.7 58.7 L 97.7 108.7 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="fallen-column-drum-a-end">
+<use id="fallen-column-drum-a-end-line" href="#fallen-column-drum-a-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#fallen-column-drum-a-end-clip)">
+<use id="fallen-column-drum-a-end-lit" href="#fallen-column-drum-a-end-shape" fill="#77786f"/>
+<path id="fallen-column-drum-a-end-dark" d="M 78 56 L 92.7 55.8 L 96.4 82.9 L 94.2 86.1 L 98.1 114.2 L 78 114 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="fallen-column-drum-b">
+<use id="fallen-column-drum-b-line" href="#fallen-column-drum-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#fallen-column-drum-b-clip)">
+<use id="fallen-column-drum-b-lit" href="#fallen-column-drum-b-shape" fill="#77786f"/>
+<path id="fallen-column-drum-b-mid" d="M 100 88 L 100.1 89.7 L 143.2 86.8 L 146.7 83.2 L 189.9 80.3 L 190 122 L 100 122 Z" transform="translate(4 -0.96)" fill="#54564f"/>
+<path id="fallen-column-drum-b-dark" d="M 100 88 L 100.1 89.7 L 143.2 86.8 L 146.7 83.2 L 189.9 80.3 L 190 122 L 100 122 Z" fill="#14110f"/>
+<path id="fallen-column-drum-b-weed" d="M 120 64 L 152 60 L 145 74 L 124 76 Z" fill="#4b4f2f"/>
+<path id="fallen-column-drum-b-cold" d="M 70 16 L 226 16 L 226 152 L 70 152 Z M 111.7 110.7 L 115.7 60.7 L 181.7 54.7 L 187.7 104.7 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="fallen-column-drum-b-end">
+<use id="fallen-column-drum-b-end-line" href="#fallen-column-drum-b-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#fallen-column-drum-b-end-clip)">
+<use id="fallen-column-drum-b-end-lit" href="#fallen-column-drum-b-end-shape" fill="#77786f"/>
+<path id="fallen-column-drum-b-end-dark" d="M 168 52 L 182.7 51.8 L 186.5 79.4 L 184.3 82.5 L 188.1 110.2 L 168 110 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="fallen-column-drum-c">
+<use id="fallen-column-drum-c-line" href="#fallen-column-drum-c-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#fallen-column-drum-c-clip)">
+<use id="fallen-column-drum-c-lit" href="#fallen-column-drum-c-shape" fill="#77786f"/>
+<path id="fallen-column-drum-c-mid" d="M 186 84 L 186.1 86 L 230.3 82.7 L 234.4 78.4 L 265.9 76 L 266 118 L 186 118 Z" transform="translate(4 -0.96)" fill="#54564f"/>
+<path id="fallen-column-drum-c-dark" d="M 186 84 L 186.1 86 L 230.3 82.7 L 234.4 78.4 L 265.9 76 L 266 118 L 186 118 Z" fill="#14110f"/>
+<path id="fallen-column-drum-c-weed" d="M 206 60 L 232 56 L 226 70 L 210 72 Z" fill="#4b4f2f"/>
+<path id="fallen-column-drum-c-cold" d="M 156 12 L 302 12 L 302 148 L 156 148 Z M 197.7 106.7 L 201.7 56.7 L 257.7 50.7 L 263.7 100.7 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="fallen-column-drum-c-end">
+<use id="fallen-column-drum-c-end-line" href="#fallen-column-drum-c-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#fallen-column-drum-c-end-clip)">
+<use id="fallen-column-drum-c-end-lit" href="#fallen-column-drum-c-end-shape" fill="#77786f"/>
+<path id="fallen-column-drum-c-end-dark" d="M 244 48 L 258.7 47.8 L 262.9 78.7 L 260.8 81.8 L 264.1 106.2 L 244 106 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="fallen-column-capital">
+<use id="fallen-column-capital-line" href="#fallen-column-capital-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#fallen-column-capital-clip)">
+<use id="fallen-column-capital-lit" href="#fallen-column-capital-shape" fill="#77786f"/>
+<path id="fallen-column-capital-mid" d="M 248 36 L 273.3 35.1 L 288.9 84 L 285.2 92.1 L 293.1 116.9 L 248 116 Z" transform="translate(3 -0.72)" fill="#54564f"/>
+<path id="fallen-column-capital-dark" d="M 248 36 L 273.3 35.1 L 288.9 84 L 285.2 92.1 L 293.1 116.9 L 248 116 Z" fill="#14110f"/>
+<path id="fallen-column-carving" d="M 276.2 61 L 300 54 L 275.8 59 Z M 280.2 73 L 304 66 L 279.8 71 Z M 289.4 84.8 L 306 96 L 290.6 83.2 Z" fill="#54564f"/>
+<path id="fallen-column-capital-cold" d="M 220 0 L 358 0 L 358 152 L 220 152 Z M 263.5 48.8 L 307.5 38.8 L 319.5 62.8 L 315.5 102.8 L 273.5 110.8 L 261.5 94.8 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<path id="fallen-column-water-line" d="M 0 116 L 320 104 L 320 112 L 0 124 Z" fill="#5f7480" opacity="0.7"/>
+</svg>

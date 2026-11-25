@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ida-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ida-head-neck-shape" d="M 138.6 85.4 L 148.5 88.1 L 150.3 99.8 L 136.8 99.8 Z"/>
+<clipPath id="ida-head-neck-clip"><use href="#ida-head-neck-shape"/></clipPath>
+<path id="ida-head-face-shape" d="M 141 74.1 L 145.5 70.5 L 154.5 70.5 L 158.1 74.1 L 160.4 78.2 L 158.6 80.4 L 159.9 82.2 L 164 86.7 L 160.4 88.1 L 160.8 90.8 L 159.5 91.7 L 159.9 93.5 L 157.7 96.3 L 151.8 97.7 L 145.5 92.1 L 141.9 89.4 Z"/>
+<clipPath id="ida-head-face-clip"><use href="#ida-head-face-shape"/></clipPath>
+<path id="ida-head-plait-shape" d="M 128 82 L 134 82 L 132 102 L 126 116 L 121 114 L 126 100 Z"/>
+<clipPath id="ida-head-plait-clip"><use href="#ida-head-plait-shape"/></clipPath>
+<path id="ida-head-scarf-shape" d="M 136 98 L 158 100 L 156 108 L 146 114 L 138 108 Z"/>
+<clipPath id="ida-head-scarf-clip"><use href="#ida-head-scarf-shape"/></clipPath>
+<path id="ida-head-crown-shape" d="M 132 76 L 134 62 L 146 54 L 160 56 L 168 66 L 166 76 Z"/>
+<clipPath id="ida-head-crown-clip"><use href="#ida-head-crown-shape"/></clipPath>
+<path id="ida-head-brim-shape" d="M 106 92 L 112 80 L 130 72 L 166 72 L 182 76 L 180 82 L 162 80 L 134 82 L 122 96 Z"/>
+<clipPath id="ida-head-brim-clip"><use href="#ida-head-brim-shape"/></clipPath>
+</defs>
+<g id="ida-head-neck">
+<use id="ida-head-neck-line" href="#ida-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-neck-clip)">
+<use id="ida-head-neck-lit" href="#ida-head-neck-shape" fill="#c7ad84"/>
+<path id="ida-head-neck-mid" d="M 124.8 81.4 L 140.7 81.4 L 146.4 103.8 L 124.8 103.8 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="ida-head-neck-dark" d="M 124.8 81.4 L 140.7 81.4 L 146.4 103.8 L 124.8 103.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-head-face">
+<use id="ida-head-face-line" href="#ida-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-face-clip)">
+<use id="ida-head-face-lit" href="#ida-head-face-shape" fill="#c7ad84"/>
+<path id="ida-head-face-mid" d="M 137.4 67.8 L 148 68.6 L 149.5 85.9 L 146.7 89.6 L 147.5 98.5 L 137.4 100.2 Z" transform="translate(2.7 -0.65)" fill="#927a58"/>
+<path id="ida-head-face-dark" d="M 137.4 67.8 L 148 68.6 L 149.5 85.9 L 146.7 89.6 L 147.5 98.5 L 137.4 100.2 Z" fill="#14110f"/>
+<path id="ida-head-face-cheek-plane" d="M 150.9 85.4 L 156.3 84.5 L 158.1 87.6 L 156.8 92.1 L 151.8 95.3 L 149.1 90.3 Z" fill="#927a58"/>
+<path id="ida-head-face-chin-plane" d="M 155.4 93.5 L 159.9 93 L 157.7 96.3 L 153.6 96.9 Z" fill="#927a58"/>
+<path id="ida-head-face-socket" d="M 160.8 77.7 L 148.2 76.8 L 149.1 83.1 L 153.6 85.4 L 156.3 83.1 L 159.5 82 Z" fill="#14110f"/>
+<path id="ida-head-face-lines" d="M 157.8 87.7 L 156.8 91.7 L 159.3 88.4 Z M 146.8 91.8 L 153.6 96.3 L 147.8 90.6 Z" fill="#14110f"/>
+<path id="ida-head-face-mouth" d="M 160.6 90 L 155 91.9 L 161 92 Z" fill="#14110f"/>
+<path id="ida-head-face-scar" d="M 153.9 81.6 L 158.1 89.4 L 155.1 81 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="ida-head-face-nostril" d="M 160.8 87.4 L 157.7 86.3 L 159.9 88.7 Z" fill="#14110f"/>
+<g id="ida-head-plait">
+<use id="ida-head-plait-line" href="#ida-head-plait-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-plait-clip)">
+<use id="ida-head-plait-lit" href="#ida-head-plait-shape" fill="#cfc5a8"/>
+<path id="ida-head-plait-mid" d="M 109 78 L 125.6 77.9 L 127.9 94.1 L 126.2 96.6 L 129.4 120.1 L 109 120 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="ida-head-plait-dark" d="M 109 78 L 125.6 77.9 L 127.9 94.1 L 126.2 96.6 L 129.4 120.1 L 109 120 Z" fill="#14110f"/>
+<path id="ida-head-plait-turns" d="M 132.9 87 L 127.1 91 L 133.5 88 Z M 131.1 93.5 L 125.3 97.5 L 131.7 94.5 Z M 129.4 100 L 123.6 104 L 130 101 Z M 127.6 106.5 L 121.8 110.5 L 128.2 107.5 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="ida-head-scarf">
+<use id="ida-head-scarf-line" href="#ida-head-scarf-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-scarf-clip)">
+<use id="ida-head-scarf-lit" href="#ida-head-scarf-shape" fill="#7d312b"/>
+<path id="ida-head-scarf-mid" d="M 124 94 L 141.6 94 L 148 118 L 124 118 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="ida-head-scarf-dark" d="M 124 94 L 141.6 94 L 148 118 L 124 118 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-head-crown">
+<use id="ida-head-crown-line" href="#ida-head-crown-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-crown-clip)">
+<use id="ida-head-crown-lit" href="#ida-head-crown-shape" fill="#5f7480"/>
+<path id="ida-head-crown-mid" d="M 120 50 L 144.9 49.4 L 150 66.7 L 146.7 71.6 L 149.3 80.6 L 120 80 Z" transform="translate(3 -0.72)" fill="#3f505b"/>
+<path id="ida-head-crown-dark" d="M 120 50 L 144.9 49.4 L 150 66.7 L 146.7 71.6 L 149.3 80.6 L 120 80 Z" fill="#14110f"/>
+<path id="ida-head-crown-seams" d="M 149.3 56 L 150 74 L 150.7 56 Z M 139.3 59.9 L 138 76 L 140.7 60.1 Z" fill="#3f505b"/>
+<path id="ida-head-crown-wet" d="M 157.3 60.4 L 162 68 L 158.7 59.6 Z" fill="#e9e0c6"/>
+<path id="ida-head-crown-cold" d="M 92 14 L 208 14 L 208 116 L 92 116 Z M 133.9 74.6 L 135.9 60.6 L 147.9 52.6 L 161.9 54.6 L 169.9 64.6 L 167.9 74.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="ida-head-brim">
+<use id="ida-head-brim-line" href="#ida-head-brim-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-head-brim-clip)">
+<use id="ida-head-brim-lit" href="#ida-head-brim-shape" fill="#5f7480"/>
+<path id="ida-head-brim-mid" d="M 100 84 L 130 80 L 126 100 L 100 100 Z" transform="translate(2 -0.48)" fill="#3f505b"/>
+<path id="ida-head-brim-dark" d="M 100 84 L 130 80 L 126 100 L 100 100 Z" fill="#14110f"/>
+</g>
+<path id="ida-head-brim-open-0" d="M 168 72.4 L 170.32 70.66 L 182.32 73.26 L 180 75 Z" fill="#5f7480"/>
+</g>
+<path id="ida-head-tie" d="M 142 80 L 150 104" fill="none" stroke="#14110f" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

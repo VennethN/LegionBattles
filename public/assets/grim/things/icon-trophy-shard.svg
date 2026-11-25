@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trophy-shard" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trophy-shard-shard-shape" d="M 18 60 L 14 44 L 38 4 L 52 0 L 44 22 L 30 52 Z"/>
+<clipPath id="icon-trophy-shard-shard-clip"><use href="#icon-trophy-shard-shard-shape"/></clipPath>
+<path id="icon-trophy-shard-binding-shape" d="M 12 48 L 30 52 L 26 62 L 10 58 Z"/>
+<clipPath id="icon-trophy-shard-binding-clip"><use href="#icon-trophy-shard-binding-shape"/></clipPath>
+</defs>
+<g id="icon-trophy-shard-shard">
+<use id="icon-trophy-shard-shard-line" href="#icon-trophy-shard-shard-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-shard-shard-clip)">
+<use id="icon-trophy-shard-shard-lit" href="#icon-trophy-shard-shard-shape" fill="#8c9194"/>
+<use id="icon-trophy-shard-shard-rim" href="#icon-trophy-shard-shard-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-trophy-shard-shard-lit-over" href="#icon-trophy-shard-shard-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="icon-trophy-shard-shard-dark" d="M 0 30 L 20 30 L 36 0 L 0 0 Z" fill="#14110f"/>
+<path id="icon-trophy-shard-light" d="M 30 30 L 44 8 L 48 6 L 36 32 Z" fill="#84939a"/>
+<path id="icon-trophy-shard-glint" d="M 40.8 14.6 L 46 6 L 39.2 13.4 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="icon-trophy-shard-binding">
+<use id="icon-trophy-shard-binding-line" href="#icon-trophy-shard-binding-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-shard-binding-clip)">
+<use id="icon-trophy-shard-binding-lit" href="#icon-trophy-shard-binding-shape" fill="#7b5b3d"/>
+<path id="icon-trophy-shard-binding-dark" d="M -2 44 L 11.4 44 L 14 66 L -2 66 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

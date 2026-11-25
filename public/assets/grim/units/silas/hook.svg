@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="silas-hook" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="silas-hook-hook-shape" d="M 118.9 200 L 125.2 200 L 125.2 210.5 L 130.4 218.9 L 130.4 231.5 L 124.1 239.9 L 113.6 239.9 L 107.3 231.5 L 107.3 223.1 L 113.6 223.1 L 113.6 229.4 L 117.8 233.6 L 122 231.5 L 124.1 225.2 L 118.9 214.7 Z"/>
+<clipPath id="silas-hook-hook-clip"><use href="#silas-hook-hook-shape"/></clipPath>
+</defs>
+<path id="silas-hook-chain" d="M 120 182 L 122 200" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="silas-hook-chain-links" d="M 117.2 183.2 L 122.1 186.3 L 119.6 181.1 Z M 120.7 185.5 L 119.4 191.2 L 123.5 187.1 Z M 118.2 192.2 L 123.1 195.3 L 120.6 190.1 Z M 121.7 194.5 L 120.4 200.2 L 124.5 196.1 Z" fill="#14110f"/>
+<g id="silas-hook-hook">
+<use id="silas-hook-hook-line" href="#silas-hook-hook-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-hook-hook-clip)">
+<use id="silas-hook-hook-lit" href="#silas-hook-hook-shape" fill="#8c9194"/>
+<use id="silas-hook-hook-rim" href="#silas-hook-hook-shape" fill="#f4d294" opacity="0.55"/>
+<use id="silas-hook-hook-lit-over" href="#silas-hook-hook-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="silas-hook-hook-dark" d="M 95.3 196 L 113.1 195.7 L 119.2 224.8 L 116.8 229 L 120 244.2 L 95.3 243.9 Z" fill="#14110f"/>
+<path id="silas-hook-hook-rust" d="M 113.6 231.5 L 122 231.5 L 122 239.9 L 113.6 239.9 Z" fill="#6a3b24"/>
+</g>
+</g>
+<path id="silas-hook-hook-point" d="M 107.3 223.1 L 105.2 214.7 L 111.5 223.1 Z" fill="#14110f"/>
+</svg>

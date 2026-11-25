@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mould-rack" width="220" height="164" viewBox="0 0 220 164">
+<defs>
+<path id="mould-rack-rack-shape" d="M 10 154 L 12 40 L 200 34 L 204 150 Z"/>
+<clipPath id="mould-rack-rack-clip"><use href="#mould-rack-rack-shape"/></clipPath>
+<path id="mould-rack-bar-0-0-shape" d="M 22 50 L 58 48 L 60 66 L 24 68 Z"/>
+<clipPath id="mould-rack-bar-0-0-clip"><use href="#mould-rack-bar-0-0-shape"/></clipPath>
+<path id="mould-rack-bar-0-1-shape" d="M 66 50 L 102 48 L 104 66 L 68 68 Z"/>
+<clipPath id="mould-rack-bar-0-1-clip"><use href="#mould-rack-bar-0-1-shape"/></clipPath>
+<path id="mould-rack-bar-0-2-shape" d="M 110 50 L 146 48 L 148 66 L 112 68 Z"/>
+<clipPath id="mould-rack-bar-0-2-clip"><use href="#mould-rack-bar-0-2-shape"/></clipPath>
+<path id="mould-rack-bar-0-3-shape" d="M 154 50 L 190 48 L 192 66 L 156 68 Z"/>
+<clipPath id="mould-rack-bar-0-3-clip"><use href="#mould-rack-bar-0-3-shape"/></clipPath>
+<path id="mould-rack-bar-1-0-shape" d="M 22 76 L 58 74 L 60 92 L 24 94 Z"/>
+<clipPath id="mould-rack-bar-1-0-clip"><use href="#mould-rack-bar-1-0-shape"/></clipPath>
+<path id="mould-rack-bar-1-1-shape" d="M 66 76 L 102 74 L 104 92 L 68 94 Z"/>
+<clipPath id="mould-rack-bar-1-1-clip"><use href="#mould-rack-bar-1-1-shape"/></clipPath>
+<path id="mould-rack-bar-1-2-shape" d="M 110 76 L 146 74 L 148 92 L 112 94 Z"/>
+<clipPath id="mould-rack-bar-1-2-clip"><use href="#mould-rack-bar-1-2-shape"/></clipPath>
+<path id="mould-rack-bar-1-3-shape" d="M 154 76 L 190 74 L 192 92 L 156 94 Z"/>
+<clipPath id="mould-rack-bar-1-3-clip"><use href="#mould-rack-bar-1-3-shape"/></clipPath>
+<path id="mould-rack-bar-2-0-shape" d="M 22 102 L 58 100 L 60 118 L 24 120 Z"/>
+<clipPath id="mould-rack-bar-2-0-clip"><use href="#mould-rack-bar-2-0-shape"/></clipPath>
+<path id="mould-rack-bar-2-1-shape" d="M 66 102 L 102 100 L 104 118 L 68 120 Z"/>
+<clipPath id="mould-rack-bar-2-1-clip"><use href="#mould-rack-bar-2-1-shape"/></clipPath>
+<path id="mould-rack-bar-2-2-shape" d="M 110 102 L 146 100 L 148 118 L 112 120 Z"/>
+<clipPath id="mould-rack-bar-2-2-clip"><use href="#mould-rack-bar-2-2-shape"/></clipPath>
+<path id="mould-rack-bar-2-3-shape" d="M 154 102 L 190 100 L 192 118 L 156 120 Z"/>
+<clipPath id="mould-rack-bar-2-3-clip"><use href="#mould-rack-bar-2-3-shape"/></clipPath>
+<path id="mould-rack-bar-3-0-shape" d="M 22 128 L 58 126 L 60 144 L 24 146 Z"/>
+<clipPath id="mould-rack-bar-3-0-clip"><use href="#mould-rack-bar-3-0-shape"/></clipPath>
+<path id="mould-rack-bar-3-1-shape" d="M 66 128 L 102 126 L 104 144 L 68 146 Z"/>
+<clipPath id="mould-rack-bar-3-1-clip"><use href="#mould-rack-bar-3-1-shape"/></clipPath>
+<path id="mould-rack-bar-3-2-shape" d="M 110 128 L 146 126 L 148 144 L 112 146 Z"/>
+<clipPath id="mould-rack-bar-3-2-clip"><use href="#mould-rack-bar-3-2-shape"/></clipPath>
+<path id="mould-rack-bar-3-3-shape" d="M 154 128 L 190 126 L 192 144 L 156 146 Z"/>
+<clipPath id="mould-rack-bar-3-3-clip"><use href="#mould-rack-bar-3-3-shape"/></clipPath>
+</defs>
+<path id="mould-rack-blot" d="M 0 150 L 210 144 L 220 158 L 6 162 Z" fill="#14110f" opacity="0.55"/>
+<g id="mould-rack-rack">
+<use id="mould-rack-rack-line" href="#mould-rack-rack-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-rack-clip)">
+<use id="mould-rack-rack-lit" href="#mould-rack-rack-shape" fill="#8c9194"/>
+<use id="mould-rack-rack-rim" href="#mould-rack-rack-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mould-rack-rack-lit-over" href="#mould-rack-rack-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="mould-rack-rack-mid" d="M 0 90 L 0.1 92.1 L 86.5 89.6 L 90.9 85.3 L 209.9 81.9 L 210 170 L 0 170 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="mould-rack-rack-dark" d="M 0 90 L 0.1 92.1 L 86.5 89.6 L 90.9 85.3 L 209.9 81.9 L 210 170 L 0 170 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-0-0">
+<use id="mould-rack-bar-0-0-line" href="#mould-rack-bar-0-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-0-0-clip)">
+<use id="mould-rack-bar-0-0-lit" href="#mould-rack-bar-0-0-shape" fill="#8c9194"/>
+<path id="mould-rack-bar-0-0-dark" d="M 10 44 L 31.1 43.5 L 34.7 56 L 32.2 60.4 L 35.7 72.5 L 10 72 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-0-1">
+<use id="mould-rack-bar-0-1-line" href="#mould-rack-bar-0-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-0-1-clip)">
+<use id="mould-rack-bar-0-1-lit" href="#mould-rack-bar-0-1-shape" fill="#8c9194"/>
+<path id="mould-rack-bar-0-1-dark" d="M 54 44 L 75.3 43.5 L 78.1 53.2 L 75.2 57.6 L 79.5 72.5 L 54 72 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-0-2">
+<use id="mould-rack-bar-0-2-line" href="#mould-rack-bar-0-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-0-2-clip)">
+<use id="mould-rack-bar-0-2-lit" href="#mould-rack-bar-0-2-shape" fill="#8c9194"/>
+<path id="mould-rack-bar-0-2-dark" d="M 98 44 L 119.5 43.4 L 124.2 60.1 L 121.1 64.6 L 123.3 72.6 L 98 72 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-0-3">
+<use id="mould-rack-bar-0-3-line" href="#mould-rack-bar-0-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-0-3-clip)">
+<use id="mould-rack-bar-0-3-lit" href="#mould-rack-bar-0-3-shape" fill="#8c9194"/>
+<path id="mould-rack-bar-0-3-dark" d="M 142 44 L 163.6 43.4 L 167.2 56.2 L 163.9 60.8 L 167.2 72.6 L 142 72 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-1-0">
+<use id="mould-rack-bar-1-0-line" href="#mould-rack-bar-1-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-1-0-clip)">
+<use id="mould-rack-bar-1-0-lit" href="#mould-rack-bar-1-0-shape" fill="#9a5b38"/>
+<path id="mould-rack-bar-1-0-dark" d="M 10 70 L 31.6 69.4 L 34.8 80.5 L 31.4 85.1 L 35.2 98.6 L 10 98 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-1-1">
+<use id="mould-rack-bar-1-1-line" href="#mould-rack-bar-1-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-1-1-clip)">
+<use id="mould-rack-bar-1-1-lit" href="#mould-rack-bar-1-1-shape" fill="#9a5b38"/>
+<path id="mould-rack-bar-1-1-dark" d="M 54 70 L 75.6 69.4 L 79.2 81.7 L 75.7 86.4 L 79.2 98.6 L 54 98 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-1-2">
+<use id="mould-rack-bar-1-2-line" href="#mould-rack-bar-1-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-1-2-clip)">
+<use id="mould-rack-bar-1-2-lit" href="#mould-rack-bar-1-2-shape" fill="#9a5b38"/>
+<path id="mould-rack-bar-1-2-dark" d="M 98 70 L 119.6 69.4 L 123.6 83.4 L 120.2 88 L 123.2 98.6 L 98 98 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-1-3">
+<use id="mould-rack-bar-1-3-line" href="#mould-rack-bar-1-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-1-3-clip)">
+<use id="mould-rack-bar-1-3-lit" href="#mould-rack-bar-1-3-shape" fill="#9a5b38"/>
+<path id="mould-rack-bar-1-3-dark" d="M 142 70 L 163.3 69.5 L 166.7 81.1 L 163.8 85.6 L 167.5 98.5 L 142 98 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-2-0">
+<use id="mould-rack-bar-2-0-line" href="#mould-rack-bar-2-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-2-0-clip)">
+<use id="mould-rack-bar-2-0-lit" href="#mould-rack-bar-2-0-shape" fill="#8c9194"/>
+<path id="mould-rack-bar-2-0-dark" d="M 10 96 L 31.1 95.5 L 35 109.4 L 32.6 113.7 L 35.7 124.5 L 10 124 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-2-1">
+<use id="mould-rack-bar-2-1-line" href="#mould-rack-bar-2-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-2-1-clip)">
+<use id="mould-rack-bar-2-1-lit" href="#mould-rack-bar-2-1-shape" fill="#8c9194"/>
+<path id="mould-rack-bar-2-1-dark" d="M 54 96 L 75.3 95.4 L 80.2 112.3 L 77.2 116.8 L 79.5 124.6 L 54 124 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-2-2">
+<use id="mould-rack-bar-2-2-line" href="#mould-rack-bar-2-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-2-2-clip)">
+<use id="mould-rack-bar-2-2-lit" href="#mould-rack-bar-2-2-shape" fill="#8c9194"/>
+<path id="mould-rack-bar-2-2-dark" d="M 98 96 L 119.5 95.4 L 123.9 110.7 L 120.6 115.3 L 123.3 124.6 L 98 124 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-2-3">
+<use id="mould-rack-bar-2-3-line" href="#mould-rack-bar-2-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-2-3-clip)">
+<use id="mould-rack-bar-2-3-lit" href="#mould-rack-bar-2-3-shape" fill="#8c9194"/>
+<path id="mould-rack-bar-2-3-dark" d="M 142 96 L 163.6 95.4 L 168.5 112.6 L 165.1 117.2 L 167.2 124.6 L 142 124 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-3-0">
+<use id="mould-rack-bar-3-0-line" href="#mould-rack-bar-3-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-3-0-clip)">
+<use id="mould-rack-bar-3-0-lit" href="#mould-rack-bar-3-0-shape" fill="#9a5b38"/>
+<path id="mould-rack-bar-3-0-dark" d="M 10 122 L 31.5 121.4 L 34.6 132.1 L 31.3 136.7 L 35.3 150.6 L 10 150 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-3-1">
+<use id="mould-rack-bar-3-1-line" href="#mould-rack-bar-3-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-3-1-clip)">
+<use id="mould-rack-bar-3-1-lit" href="#mould-rack-bar-3-1-shape" fill="#9a5b38"/>
+<path id="mould-rack-bar-3-1-dark" d="M 54 122 L 75.5 121.4 L 79.9 136.8 L 76.7 141.3 L 79.3 150.6 L 54 150 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-3-2">
+<use id="mould-rack-bar-3-2-line" href="#mould-rack-bar-3-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-3-2-clip)">
+<use id="mould-rack-bar-3-2-lit" href="#mould-rack-bar-3-2-shape" fill="#9a5b38"/>
+<path id="mould-rack-bar-3-2-dark" d="M 98 122 L 119.2 121.5 L 122.2 131.9 L 119.6 136.3 L 123.6 150.5 L 98 150 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mould-rack-bar-3-3">
+<use id="mould-rack-bar-3-3-line" href="#mould-rack-bar-3-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mould-rack-bar-3-3-clip)">
+<use id="mould-rack-bar-3-3-lit" href="#mould-rack-bar-3-3-shape" fill="#9a5b38"/>
+<path id="mould-rack-bar-3-3-dark" d="M 142 122 L 163.1 121.5 L 167 135.2 L 164.6 139.6 L 167.7 150.5 L 142 150 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="mould-rack-hot-bar" d="M 68 128 L 102 126 L 104 140 L 70 142 Z" fill="#c27a26"/>
+</svg>

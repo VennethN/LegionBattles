@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-hack" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-hack-blade-shape" d="M 6 8 L 42 4 L 44 30 L 10 34 Z"/>
+<clipPath id="icon-ability-hack-blade-clip"><use href="#icon-ability-hack-blade-shape"/></clipPath>
+<path id="icon-ability-hack-grip-shape" d="M 12.8 23 L 4.3 44.9 L -0.3 43.1 L 7.2 21 Z"/>
+<clipPath id="icon-ability-hack-grip-clip"><use href="#icon-ability-hack-grip-shape"/></clipPath>
+</defs>
+<g id="icon-ability-hack-blade">
+<use id="icon-ability-hack-blade-line" href="#icon-ability-hack-blade-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-hack-blade-clip)">
+<use id="icon-ability-hack-blade-lit" href="#icon-ability-hack-blade-shape" fill="#8c9194"/>
+<use id="icon-ability-hack-blade-rim" href="#icon-ability-hack-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-ability-hack-blade-lit-over" href="#icon-ability-hack-blade-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="icon-ability-hack-blade-mid" d="M -6 0 L 11.1 -0.4 L 14.1 21.1 L 9.5 26.4 L 11.2 38.4 L -6 38 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="icon-ability-hack-blade-dark" d="M -6 0 L 11.1 -0.4 L 14.1 21.1 L 9.5 26.4 L 11.2 38.4 L -6 38 Z" fill="#14110f"/>
+<path id="icon-ability-hack-hole" d="M 34 10 L 38 10 L 38 14 L 34 14 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-hack-grip">
+<use id="icon-ability-hack-grip-line" href="#icon-ability-hack-grip-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-hack-grip-clip)">
+<use id="icon-ability-hack-grip-lit" href="#icon-ability-hack-grip-shape" fill="#6f5c46"/>
+<path id="icon-ability-hack-grip-dark" d="M -12.3 17 L 1.6 16.9 L 2.9 32.8 L 1.3 34.9 L 2.4 48.9 L -12.3 48.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-ability-hack-cuts" d="M 28.2 40.8 L 40 62 L 31.8 39.2 Z M 38.2 38.8 L 50 60 L 41.8 37.2 Z M 48.2 36.8 L 60 58 L 51.8 35.2 Z" fill="#c42a2c"/>
+</svg>

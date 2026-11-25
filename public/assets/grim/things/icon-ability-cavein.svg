@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-cavein" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-cavein-roof-shape" d="M 0 0 L 64 0 L 64 8 L 44 12 L 30 8 L 14 12 L 0 8 Z"/>
+<path id="icon-ability-cavein-rock-0-shape" d="M 4 24 L 8 15 L 18 16 L 20 26 L 12 30 Z"/>
+<clipPath id="icon-ability-cavein-rock-0-clip"><use href="#icon-ability-cavein-rock-0-shape"/></clipPath>
+<path id="icon-ability-cavein-rock-1-shape" d="M 21.6 34.6 L 26.8 22.9 L 39.8 24.2 L 42.4 37.2 L 32 42.4 Z"/>
+<clipPath id="icon-ability-cavein-rock-1-clip"><use href="#icon-ability-cavein-rock-1-shape"/></clipPath>
+<path id="icon-ability-cavein-rock-2-shape" d="M 42.8 21.8 L 46.4 13.7 L 55.4 14.6 L 57.2 23.6 L 50 27.2 Z"/>
+<clipPath id="icon-ability-cavein-rock-2-clip"><use href="#icon-ability-cavein-rock-2-shape"/></clipPath>
+<path id="icon-ability-cavein-rock-3-shape" d="M 13.2 50.2 L 17.6 40.3 L 28.6 41.4 L 30.8 52.4 L 22 56.8 Z"/>
+<clipPath id="icon-ability-cavein-rock-3-clip"><use href="#icon-ability-cavein-rock-3-shape"/></clipPath>
+<path id="icon-ability-cavein-rock-4-shape" d="M 36 52 L 40 43 L 50 44 L 52 54 L 44 58 Z"/>
+<clipPath id="icon-ability-cavein-rock-4-clip"><use href="#icon-ability-cavein-rock-4-shape"/></clipPath>
+</defs>
+<g id="icon-ability-cavein-roof">
+<use id="icon-ability-cavein-roof-line" href="#icon-ability-cavein-roof-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-ability-cavein-roof-lit" href="#icon-ability-cavein-roof-shape" fill="#4f4944"/>
+</g>
+<g id="icon-ability-cavein-rock-0">
+<use id="icon-ability-cavein-rock-0-line" href="#icon-ability-cavein-rock-0-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-cavein-rock-0-clip)">
+<use id="icon-ability-cavein-rock-0-lit" href="#icon-ability-cavein-rock-0-shape" fill="#8c9194"/>
+<path id="icon-ability-cavein-rock-0-dark" d="M -8 11 L 5.2 11 L 7.9 34 L -8 34 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-cavein-rock-1">
+<use id="icon-ability-cavein-rock-1-line" href="#icon-ability-cavein-rock-1-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-cavein-rock-1-clip)">
+<use id="icon-ability-cavein-rock-1-lit" href="#icon-ability-cavein-rock-1-shape" fill="#8c9194"/>
+<path id="icon-ability-cavein-rock-1-dark" d="M 9.6 18.9 L 24.4 18.7 L 25.9 30.4 L 23.7 33.6 L 25.3 46.6 L 9.6 46.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-cavein-rock-2">
+<use id="icon-ability-cavein-rock-2-line" href="#icon-ability-cavein-rock-2-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-cavein-rock-2-clip)">
+<use id="icon-ability-cavein-rock-2-lit" href="#icon-ability-cavein-rock-2-shape" fill="#8c9194"/>
+<path id="icon-ability-cavein-rock-2-dark" d="M 30.8 9.7 L 43.9 9.7 L 46.3 31.2 L 30.8 31.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-cavein-rock-3">
+<use id="icon-ability-cavein-rock-3-line" href="#icon-ability-cavein-rock-3-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-cavein-rock-3-clip)">
+<use id="icon-ability-cavein-rock-3-lit" href="#icon-ability-cavein-rock-3-shape" fill="#8c9194"/>
+<path id="icon-ability-cavein-rock-3-dark" d="M 1.2 36.3 L 14.5 36.3 L 17.5 60.8 L 1.2 60.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-ability-cavein-rock-4">
+<use id="icon-ability-cavein-rock-4-line" href="#icon-ability-cavein-rock-4-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-cavein-rock-4-clip)">
+<use id="icon-ability-cavein-rock-4-lit" href="#icon-ability-cavein-rock-4-shape" fill="#8c9194"/>
+<path id="icon-ability-cavein-rock-4-dark" d="M 24 39 L 37.2 39 L 39.9 62 L 24 62 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-ability-cavein-fall" d="M 10.8 10 L 12 14 L 13.2 10 Z M 48.8 10 L 50 12 L 51.2 10 Z" fill="#cfc5a8"/>
+</svg>

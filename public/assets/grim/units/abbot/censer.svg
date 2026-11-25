@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="abbot-censer" width="1100" height="1100" viewBox="-190 -190 1100 1100">
+<defs>
+<path id="abbot-censer-censer-lid-shape" d="M 262 596 L 276 580 L 294 580 L 306 596 Z"/>
+<clipPath id="abbot-censer-censer-lid-clip"><use href="#abbot-censer-censer-lid-shape"/></clipPath>
+<path id="abbot-censer-censer-pot-shape" d="M 256 598 L 312 598 L 306 630 L 290 644 L 276 644 L 260 630 Z"/>
+<clipPath id="abbot-censer-censer-pot-clip"><use href="#abbot-censer-censer-pot-shape"/></clipPath>
+</defs>
+<path id="abbot-censer-censer-chain" d="M 282 506 L 284 586" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="abbot-censer-censer-chain-links" d="M 279 506.7 L 283.8 513.2 L 281.8 505.4 Z M 282.3 512.6 L 280.8 520.6 L 285.3 513.8 Z M 279.3 521.3 L 284.1 527.8 L 282.2 519.9 Z M 282.7 527.2 L 281.1 535.1 L 285.6 528.4 Z M 279.7 535.8 L 284.5 542.3 L 282.6 534.5 Z M 283 541.7 L 281.5 549.7 L 286 542.9 Z M 280 550.4 L 284.9 556.9 L 282.9 549 Z M 283.4 556.3 L 281.9 564.2 L 286.4 557.5 Z M 280.4 564.9 L 285.2 571.4 L 283.3 563.5 Z M 283.8 570.8 L 282.2 578.8 L 286.7 572 Z M 280.8 579.4 L 285.6 586 L 283.7 578.1 Z" fill="#14110f"/>
+<g id="abbot-censer-censer-lid">
+<use id="abbot-censer-censer-lid-line" href="#abbot-censer-censer-lid-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-censer-lid-clip)">
+<use id="abbot-censer-censer-lid-lit" href="#abbot-censer-censer-lid-shape" fill="#9a5b38"/>
+<path id="abbot-censer-censer-lid-mid" d="M 250 576 L 276.4 576 L 282.8 600 L 250 600 Z" transform="translate(2 -0.48)" fill="#6a3b24"/>
+<path id="abbot-censer-censer-lid-dark" d="M 250 576 L 276.4 576 L 282.8 600 L 250 600 Z" fill="#14110f"/>
+<path id="abbot-censer-lid-green" d="M 280 584 L 294 584 L 300 594 L 284 594 Z" fill="#727646" opacity="0.8"/>
+</g>
+</g>
+<g id="abbot-censer-censer-pot">
+<use id="abbot-censer-censer-pot-line" href="#abbot-censer-censer-pot-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#abbot-censer-censer-pot-clip)">
+<use id="abbot-censer-censer-pot-lit" href="#abbot-censer-censer-pot-shape" fill="#9a5b38"/>
+<use id="abbot-censer-censer-pot-rim" href="#abbot-censer-censer-pot-shape" fill="#f4d294" opacity="0.55"/>
+<use id="abbot-censer-censer-pot-lit-over" href="#abbot-censer-censer-pot-shape" transform="translate(-1.28 0.96)" fill="#9a5b38"/>
+<path id="abbot-censer-censer-pot-mid" d="M 244 594 L 275.6 592.8 L 282.6 613.4 L 277.7 622.4 L 286.8 649.2 L 244 648 Z" transform="translate(3 -0.72)" fill="#6a3b24"/>
+<path id="abbot-censer-censer-pot-dark" d="M 244 594 L 275.6 592.8 L 282.6 613.4 L 277.7 622.4 L 286.8 649.2 L 244 648 Z" fill="#14110f"/>
+<path id="abbot-censer-pot-green" d="M 262 606 L 284 604 L 280 630 L 266 626 Z" fill="#4b4f2f"/>
+<path id="abbot-censer-holes" d="M 288 610 L 294 610 L 294 618 L 288 618 Z" fill="#14110f"/>
+<path id="abbot-censer-ember" d="M 296 612 L 302 612 L 301 620 L 296 620 Z" fill="#c27a26"/>
+</g>
+</g>
+<path id="abbot-censer-smoke-a" d="M 300 590 L 326 566 L 344 576 L 338 548 L 360 530 L 364 560 L 340 590 Z" fill="#5f7480" opacity="0.6"/>
+<path id="abbot-censer-smoke-b" d="M 252 600 L 230 580 L 240 560 L 222 540 L 248 548 L 262 590 Z" fill="#5f7480" opacity="0.45"/>
+</svg>

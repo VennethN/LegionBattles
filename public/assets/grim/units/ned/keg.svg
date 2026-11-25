@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ned-keg" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ned-keg-keg-shape" d="M 76 96 L 114 92 L 120 110 L 118 150 L 112 162 L 78 164 L 72 150 L 70 112 Z"/>
+<clipPath id="ned-keg-keg-clip"><use href="#ned-keg-keg-shape"/></clipPath>
+<path id="ned-keg-hoop-a-shape" d="M 70 112 L 120 108 L 121 116 L 71 120 Z"/>
+<clipPath id="ned-keg-hoop-a-clip"><use href="#ned-keg-hoop-a-shape"/></clipPath>
+<path id="ned-keg-hoop-b-shape" d="M 72 146 L 119 142 L 119 150 L 73 154 Z"/>
+<clipPath id="ned-keg-hoop-b-clip"><use href="#ned-keg-hoop-b-shape"/></clipPath>
+<path id="ned-keg-lid-shape" d="M 78 94 L 112 90 L 114 96 L 80 100 Z"/>
+<clipPath id="ned-keg-lid-clip"><use href="#ned-keg-lid-shape"/></clipPath>
+<path id="ned-keg-keg-strap-shape" d="M 110.5 91.7 L 118.5 159.7 L 113.5 160.3 L 105.5 92.3 Z"/>
+<clipPath id="ned-keg-keg-strap-clip"><use href="#ned-keg-keg-strap-shape"/></clipPath>
+<path id="ned-keg-keg-strap-buckle-shape" d="M 107.5 115.5 L 115 115.8 L 114.6 123 L 107.8 122.6 Z"/>
+<clipPath id="ned-keg-keg-strap-buckle-clip"><use href="#ned-keg-keg-strap-buckle-shape"/></clipPath>
+</defs>
+<g id="ned-keg-keg">
+<use id="ned-keg-keg-line" href="#ned-keg-keg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-keg-clip)">
+<use id="ned-keg-keg-lit" href="#ned-keg-keg-shape" fill="#6f5c46"/>
+<path id="ned-keg-keg-mid" d="M 60 86 L 92 86 L 94.4 91.9 L 96.2 126.5 L 91.6 132.1 L 93.6 170.1 L 60 172 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="ned-keg-keg-dark" d="M 60 86 L 92 86 L 94.4 91.9 L 96.2 126.5 L 91.6 132.1 L 93.6 170.1 L 60 172 Z" fill="#14110f"/>
+<path id="ned-keg-staves" d="M 99.2 96 L 102 160 L 100.8 96 Z M 109.2 100 L 112 156 L 110.8 100 Z" fill="#4a3c2d"/>
+<path id="ned-keg-keg-cold" d="M 30 52 L 160 52 L 160 204 L 30 204 Z M 78.3 94.3 L 116.3 90.3 L 122.3 108.3 L 120.3 148.3 L 114.3 160.3 L 80.3 162.3 L 74.3 148.3 L 72.3 110.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="ned-keg-hoop-a">
+<use id="ned-keg-hoop-a-line" href="#ned-keg-hoop-a-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-hoop-a-clip)">
+<use id="ned-keg-hoop-a-lit" href="#ned-keg-hoop-a-shape" fill="#8c9194"/>
+<path id="ned-keg-hoop-a-dark" d="M 58 104 L 88 104 L 92.8 124 L 58 124 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-keg-hoop-b">
+<use id="ned-keg-hoop-b-line" href="#ned-keg-hoop-b-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-hoop-b-clip)">
+<use id="ned-keg-hoop-b-lit" href="#ned-keg-hoop-b-shape" fill="#8c9194"/>
+<path id="ned-keg-hoop-b-dark" d="M 60 138 L 88.4 138 L 93.2 158 L 60 158 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-keg-hoop-nails-0" d="M 84.4 115.3 L 85.7 114 L 87 115.3 L 85.7 116.6 Z" fill="#14110f"/>
+<path id="ned-keg-hoop-nails-1" d="M 95.7 114 L 97 112.7 L 98.3 114 L 97 115.3 Z" fill="#14110f"/>
+<path id="ned-keg-hoop-nails-2" d="M 107 112.7 L 108.3 111.4 L 109.6 112.7 L 108.3 114 Z" fill="#14110f"/>
+<path id="ned-keg-mark" d="M 95.2 126.8 L 106 136 L 96.8 125.2 Z M 105.2 125.2 L 96 136 L 106.8 126.8 Z" fill="#14110f"/>
+<g id="ned-keg-lid">
+<use id="ned-keg-lid-line" href="#ned-keg-lid-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-lid-clip)">
+<use id="ned-keg-lid-lit" href="#ned-keg-lid-shape" fill="#6f5c46"/>
+<path id="ned-keg-lid-dark" d="M 66 86 L 90.4 86 L 94.4 104 L 66 104 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-keg-fuse" d="M 96 92 L 88 84 L 100 80 L 110 86 L 98 88 L 92 76" fill="none" stroke="#927a58" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ned-keg-keg-strap">
+<use id="ned-keg-keg-strap-line" href="#ned-keg-keg-strap-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-keg-strap-clip)">
+<use id="ned-keg-keg-strap-lit" href="#ned-keg-keg-strap-shape" fill="#7b5b3d"/>
+<path id="ned-keg-keg-strap-dark" d="M 108.8 88.9 L 113.3 126.6 L 112.4 127.8 L 116.6 163 L 112.1 163.5 L 103.4 89.5 Z" fill="#14110f"/>
+<path id="ned-keg-keg-strap-stitch" d="M 109.7 98.4 L 107.9 99.2 L 109.8 99.6 Z M 110.4 104.4 L 108.6 105.2 L 110.5 105.5 Z M 111.1 110.3 L 109.3 111.1 L 111.2 111.5 Z M 111.8 116.3 L 110.1 117.1 L 111.9 117.5 Z M 112.5 122.3 L 110.8 123.1 L 112.6 123.5 Z M 113.2 128.3 L 111.5 129.1 L 113.3 129.5 Z M 113.9 134.3 L 112.2 135.1 L 114 135.5 Z M 114.6 140.3 L 112.9 141.1 L 114.7 141.5 Z M 115.3 146.2 L 113.6 147 L 115.4 147.4 Z M 116 152.2 L 114.3 153 L 116.1 153.4 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="ned-keg-keg-strap-buckle">
+<use id="ned-keg-keg-strap-buckle-line" href="#ned-keg-keg-strap-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-keg-keg-strap-buckle-clip)">
+<use id="ned-keg-keg-strap-buckle-lit" href="#ned-keg-keg-strap-buckle-shape" fill="#8c9194"/>
+<path id="ned-keg-keg-strap-buckle-dark" d="M 95.5 111.5 L 108.2 111.5 L 111.2 127 L 95.5 127 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-keg-keg-strap-pin" d="M 109.3 118.4 L 113.8 118.8 L 113.8 120 L 109.3 119.8 Z" fill="#14110f"/>
+</svg>

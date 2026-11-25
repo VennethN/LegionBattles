@@ -332,6 +332,14 @@ export class Doc {
     return this;
   }
 
+  /** Svg drawn elsewhere (a whole figure), put in as it is, moved by `transform` and cut to `clip` if given. */
+  embed(name: string, content: string, transform: string, clip?: Path): this {
+    const id = this.id(name);
+    if (clip) this.defs.push(`<clipPath id="${id}-clip"><path d="${clip.toString()}"/></clipPath>`);
+    this.push(`<g id="${id}"${clip ? ` clip-path="url(#${id}-clip)"` : ''}><g transform="${transform}">\n${content}\n</g></g>`);
+    return this;
+  }
+
   /** What is inside the svg element, for stacking parts into one picture. */
   inner(): string {
     const defs = this.defs.length ? `<defs>\n${this.defs.join('\n')}\n</defs>\n` : '';

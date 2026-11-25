@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cinder-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="cinder-leg-back-stub-shape" d="M 108 214 L 124 214 L 126 238 L 104 238 Z"/>
+<clipPath id="cinder-leg-back-stub-clip"><use href="#cinder-leg-back-stub-shape"/></clipPath>
+</defs>
+<g id="cinder-leg-back-stub">
+<use id="cinder-leg-back-stub-line" href="#cinder-leg-back-stub-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cinder-leg-back-stub-clip)">
+<use id="cinder-leg-back-stub-lit" href="#cinder-leg-back-stub-shape" fill="#4f4944"/>
+<path id="cinder-leg-back-stub-dark" d="M 92 210 L 113.8 209.6 L 119.4 228.3 L 117.5 232.1 L 120.6 242.4 L 92 242 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

@@ -66,7 +66,29 @@ const tell = async (page: Page, monster: string, part: number, attack: string): 
   }
 };
 
+/** The attacks of the four bosses that came after the King. */
+const LATER: Array<[string, number, string]> = [
+  ['spinner', 0, 'bite'], ['spinner', 0, 'spit'], ['spinner', 0, 'drop'], ['spinner', 0, 'legs'], ['spinner', 1, 'brood'], ['spinner', 1, 'webfield'], ['spinner', 2, 'frenzy'],
+  ['abbot', 0, 'crook'], ['abbot', 0, 'toll'], ['abbot', 0, 'censer'], ['abbot', 0, 'procession'], ['abbot', 1, 'peal'], ['abbot', 2, 'drown'], ['abbot', 2, 'knell'],
+  ['furnace', 0, 'press'], ['furnace', 0, 'vent'], ['furnace', 0, 'slag'], ['furnace', 0, 'cinders'], ['furnace', 1, 'spokes'], ['furnace', 2, 'pour'],
+  ['mirror', 0, 'cut'], ['mirror', 0, 'shards'], ['mirror', 0, 'step'], ['mirror', 1, 'lure'], ['mirror', 1, 'shatter'], ['mirror', 2, 'crown'],
+];
+
 const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>) => Promise<void>> = {
+  // The four bosses that came after the King, and the four hunters they open: each later hunter in each later lair as
+  // it wakes, then the later bosses' attacks.
+  later: async (page, shot) => {
+    const pairs: Array<[string, string]> = [['spinner', 'greta'], ['abbot', 'ned'], ['furnace', 'ida'], ['mirror', 'silas']];
+    for (const [monster, hunter] of pairs) {
+      await lair(page, { monster, mark: 1, hunter, reinforcements: [], buildings: [], awake: true });
+      await tick(page, 60 * 4);
+      await shot(`later-${monster}-${hunter}`);
+    }
+    for (const [monster, part, attack] of LATER) {
+      await tell(page, monster, part, attack);
+      await shot(`tell-${monster}-${attack}`);
+    }
+  },
   // What someone who has never played sees: the title, PLAY, and the first hunt, which teaches. A picture at each step
   // of the lesson with its plate up (and its warning on the ground where it has one), then the win and the lodge after.
   first: async (page, shot) => {
@@ -231,6 +253,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
       ['sexton', 0, 'spade'], ['sexton', 0, 'sweep'], ['sexton', 0, 'graves'], ['sexton', 0, 'grasp'], ['sexton', 1, 'furrow'], ['sexton', 1, 'lantern'], ['sexton', 1, 'cross'],
       ['sexton', 2, 'bury'], ['sexton', 2, 'moregraves'],
       ['king', 0, 'charge'], ['king', 0, 'gore'], ['king', 0, 'stomp'], ['king', 0, 'bellow'], ['king', 1, 'thorns'], ['king', 2, 'herd'], ['king', 2, 'crossherd'],
+      ...LATER,
     ];
     for (const [monster, part, attack] of all) {
       await tell(page, monster, part, attack);

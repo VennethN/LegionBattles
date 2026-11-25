@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="silas-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="silas-body-smock-shape" d="M 96 104 L 168 102 L 180 132 L 178 172 L 170 212 L 107.8 215.6 L 109.6 213.8 L 109.8 215.4 L 130.5 214.3 L 133.2 212.1 L 133.8 214.1 L 142.8 213.6 L 144.6 211.7 L 144.7 213.4 L 152.9 213 L 155.6 210.6 L 156 212.8 L 100 216 L 94 172 L 92 132 Z"/>
+<clipPath id="silas-body-smock-clip"><use href="#silas-body-smock-shape"/></clipPath>
+<path id="silas-body-apron-shape" d="M 126 128 L 174 124 L 180 156 L 174 206 L 130 210 Z"/>
+<clipPath id="silas-body-apron-clip"><use href="#silas-body-apron-shape"/></clipPath>
+<path id="silas-body-strings-shape" d="M 95.8 127.5 L 177.8 121.5 L 178.2 126.5 L 96.2 132.5 Z"/>
+<clipPath id="silas-body-strings-clip"><use href="#silas-body-strings-shape"/></clipPath>
+<path id="silas-body-strings-buckle-shape" d="M 98.8 125.8 L 106.3 126.1 L 105.9 133.3 L 99.2 132.9 Z"/>
+<clipPath id="silas-body-strings-buckle-clip"><use href="#silas-body-strings-buckle-shape"/></clipPath>
+<path id="silas-body-string-end-shape" d="M 98 132 L 90 140 L 88 156 L 94 150 L 96 162 L 100 140 Z"/>
+<clipPath id="silas-body-string-end-clip"><use href="#silas-body-string-end-shape"/></clipPath>
+<path id="silas-body-belt-shape" d="M 95.8 158 L 177.8 154 L 178.2 162 L 96.2 166 Z"/>
+<clipPath id="silas-body-belt-clip"><use href="#silas-body-belt-shape"/></clipPath>
+<path id="silas-body-belt-buckle-shape" d="M 114.6 154.8 L 126.6 155.4 L 126 166.8 L 115.2 166.2 Z"/>
+<clipPath id="silas-body-belt-buckle-clip"><use href="#silas-body-belt-buckle-shape"/></clipPath>
+<path id="silas-body-steel-shape" d="M 114.2 166.3 L 107.7 204.3 L 104.3 203.7 L 109.8 165.7 Z"/>
+<clipPath id="silas-body-steel-clip"><use href="#silas-body-steel-shape"/></clipPath>
+<path id="silas-body-steel-grip-shape" d="M 108 158 L 116 158 L 115 168 L 109 168 Z"/>
+<clipPath id="silas-body-steel-grip-clip"><use href="#silas-body-steel-grip-shape"/></clipPath>
+<path id="silas-body-lamp-glass-shape" d="M 133.7 177.5 L 146.3 177.5 L 147.9 192.2 L 132.1 192.2 Z"/>
+<clipPath id="silas-body-lamp-glass-clip"><use href="#silas-body-lamp-glass-shape"/></clipPath>
+</defs>
+<g id="silas-body-smock">
+<use id="silas-body-smock-line" href="#silas-body-smock-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-smock-clip)">
+<use id="silas-body-smock-lit" href="#silas-body-smock-shape" fill="#cfc5a8"/>
+<path id="silas-body-smock-mid" d="M 76 94 L 114 94 L 118.1 101.8 L 121.2 163 L 113.4 172.5 L 115.9 222.2 L 76 224 Z" transform="translate(4 -0.96)" fill="#9c9178"/>
+<path id="silas-body-smock-dark" d="M 76 94 L 114 94 L 118.1 101.8 L 121.2 163 L 113.4 172.5 L 115.9 222.2 L 76 224 Z" fill="#14110f"/>
+<path id="silas-body-stain-a" d="M 150 140 L 172 136 L 176 160 L 156 168 L 148 156 Z" fill="#551f1c" opacity="0.7"/>
+<path id="silas-body-stain-b" d="M 140 186 L 160 184 L 162 204 L 144 206 Z" fill="#551f1c" opacity="0.6"/>
+<path id="silas-body-stain-c" d="M 164 176 L 174 174 L 172 190 L 164 190 Z" fill="#551f1c" opacity="0.5"/>
+<path id="silas-body-smock-folds" d="M 135 110 L 134 150 L 137 110 Z M 155 172.1 L 160 206 L 157 171.9 Z" fill="#9c9178"/>
+<path id="silas-body-smock-cold" d="M 52 62 L 220 62 L 220 256 L 52 256 Z M 98.3 102.3 L 170.3 100.3 L 182.3 130.3 L 180.3 170.3 L 172.3 210.3 L 110.1 213.8 L 112 212.1 L 112.1 213.7 L 132.8 212.5 L 135.5 210.3 L 136.1 212.3 L 145.1 211.8 L 146.9 210 L 147 211.7 L 155.2 211.2 L 157.9 208.9 L 158.3 211.1 L 102.3 214.3 L 96.3 170.3 L 94.3 130.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="silas-body-smock-open-0" d="M 178 134 L 180.32 132.26 L 180.32 164.26 L 178 166 Z" fill="#cfc5a8"/>
+</g>
+<g id="silas-body-apron">
+<use id="silas-body-apron-line" href="#silas-body-apron-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-apron-clip)">
+<use id="silas-body-apron-lit" href="#silas-body-apron-shape" fill="#7b5b3d"/>
+<path id="silas-body-apron-mid" d="M 114 120 L 127.7 119.3 L 138 160 L 134 167.5 L 145.9 214.7 L 114 214 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="silas-body-apron-dark" d="M 114 120 L 127.7 119.3 L 138 160 L 134 167.5 L 145.9 214.7 L 114 214 Z" fill="#14110f"/>
+<path id="silas-body-apron-scores" d="M 145.5 140.7 L 160 150 L 146.5 139.3 Z M 149.6 168.8 L 164 176 L 150.4 167.2 Z M 139.6 186.8 L 154 194 L 140.4 185.2 Z" fill="#553d29"/>
+<path id="silas-body-apron-stain" d="M 156 136 L 172 134 L 174 150 L 158 152 Z" fill="#551f1c" opacity="0.6"/>
+</g>
+</g>
+<g id="silas-body-strings">
+<use id="silas-body-strings-line" href="#silas-body-strings-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-strings-clip)">
+<use id="silas-body-strings-lit" href="#silas-body-strings-shape" fill="#7d312b"/>
+<path id="silas-body-strings-dark" d="M 92.9 129.1 L 137.4 125.9 L 138.4 126.6 L 181 123.5 L 181.3 128.1 L 93.3 134.5 Z" fill="#14110f"/>
+<path id="silas-body-strings-stitch" d="M 103.3 128.6 L 104 130.3 L 104.5 128.5 Z M 109.3 128.1 L 110 129.9 L 110.5 128 Z M 115.3 127.7 L 116 129.4 L 116.5 127.6 Z M 121.3 127.2 L 122 129 L 122.5 127.2 Z M 127.3 126.8 L 128 128.6 L 128.5 126.7 Z M 133.3 126.4 L 134.1 128.1 L 134.5 126.3 Z M 139.3 125.9 L 140.1 127.7 L 140.5 125.8 Z M 145.4 125.5 L 146.1 127.2 L 146.6 125.4 Z M 151.4 125 L 152.1 126.8 L 152.6 125 Z M 157.4 124.6 L 158.1 126.4 L 158.6 124.5 Z M 163.4 124.2 L 164.1 125.9 L 164.6 124.1 Z M 169.4 123.7 L 170.1 125.5 L 170.6 123.6 Z" fill="#551f1c"/>
+</g>
+</g>
+<g id="silas-body-strings-buckle">
+<use id="silas-body-strings-buckle-line" href="#silas-body-strings-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-strings-buckle-clip)">
+<use id="silas-body-strings-buckle-lit" href="#silas-body-strings-buckle-shape" fill="#8c9194"/>
+<path id="silas-body-strings-buckle-dark" d="M 86.8 121.8 L 99.6 121.8 L 102.6 137.3 L 86.8 137.3 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-body-strings-pin" d="M 100.7 128.7 L 105.2 129.1 L 105.2 130.3 L 100.7 130.1 Z" fill="#14110f"/>
+<g id="silas-body-string-end">
+<use id="silas-body-string-end-line" href="#silas-body-string-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-string-end-clip)">
+<use id="silas-body-string-end-lit" href="#silas-body-string-end-shape" fill="#7d312b"/>
+<path id="silas-body-string-end-dark" d="M 76 128 L 91 127.9 L 94.2 150.5 L 92.7 152.7 L 94.6 166.1 L 76 166 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-body-belt">
+<use id="silas-body-belt-line" href="#silas-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-belt-clip)">
+<use id="silas-body-belt-lit" href="#silas-body-belt-shape" fill="#7b5b3d"/>
+<path id="silas-body-belt-dark" d="M 92.9 160.4 L 147.5 157.7 L 148.9 158.9 L 181 157.4 L 181.3 164.7 L 93.3 169 Z" fill="#14110f"/>
+<path id="silas-body-belt-stitch" d="M 103.3 160.2 L 104 163.1 L 104.5 160.1 Z M 109.3 159.9 L 110 162.8 L 110.5 159.9 Z M 115.3 159.6 L 116 162.5 L 116.5 159.6 Z M 121.3 159.3 L 122 162.2 L 122.5 159.3 Z M 127.3 159 L 128.1 161.9 L 128.5 159 Z M 133.3 158.7 L 134.1 161.6 L 134.5 158.7 Z M 139.3 158.4 L 140.1 161.3 L 140.5 158.4 Z M 145.4 158.2 L 146.1 161 L 146.5 158.1 Z M 151.4 157.9 L 152.1 160.7 L 152.6 157.8 Z M 157.4 157.6 L 158.1 160.4 L 158.6 157.5 Z M 163.4 157.3 L 164.1 160.1 L 164.6 157.2 Z M 169.4 157 L 170.1 159.8 L 170.6 156.9 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="silas-body-belt-buckle">
+<use id="silas-body-belt-buckle-line" href="#silas-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-belt-buckle-clip)">
+<use id="silas-body-belt-buckle-lit" href="#silas-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="silas-body-belt-buckle-dark" d="M 102.6 150.8 L 115.8 150.8 L 120.6 170.8 L 102.6 170.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-body-belt-pin" d="M 117.6 160 L 124.8 160.4 L 124.8 161.6 L 117.6 161.4 Z" fill="#14110f"/>
+<g id="silas-body-steel">
+<use id="silas-body-steel-line" href="#silas-body-steel-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-steel-clip)">
+<use id="silas-body-steel-lit" href="#silas-body-steel-shape" fill="#8c9194"/>
+<path id="silas-body-steel-dark" d="M 92.3 161.7 L 106.7 161.6 L 109.1 187.4 L 108 189 L 109.8 208.3 L 92.3 208.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="silas-body-steel-grip">
+<use id="silas-body-steel-grip-line" href="#silas-body-steel-grip-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-steel-grip-clip)">
+<use id="silas-body-steel-grip-lit" href="#silas-body-steel-grip-shape" fill="#6f5c46"/>
+<path id="silas-body-steel-grip-dark" d="M 96 154 L 109.4 154 L 113 172 L 96 172 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="silas-body-lamp-hook" d="M 138 162 L 142 162 L 142 170 L 138 170 Z" fill="#14110f"/>
+<path id="silas-body-lamp-ring" d="M 137.4 171.2 L 140 168 L 142.6 171.2 L 140 174.3 L 137.4 171.2" fill="none" stroke="#14110f" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="silas-body-lamp-glass">
+<use id="silas-body-lamp-glass-line" href="#silas-body-lamp-glass-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-body-lamp-glass-clip)">
+<use id="silas-body-lamp-glass-lit" href="#silas-body-lamp-glass-shape" fill="#eeb040"/>
+<path id="silas-body-lamp-low" d="M 131.6 186.9 L 148.4 185.9 L 148.4 193.2 L 131.6 193.2 Z" fill="#c27a26"/>
+</g>
+</g>
+<path id="silas-body-lamp-heart" d="M 137.7 189 L 136.9 183.8 L 140 179 L 143.2 183.8 L 142.3 189 Z" fill="#ffe6a2"/>
+<path id="silas-body-lamp-cap" d="M 131.1 178 L 134.8 172.7 L 145.3 172.7 L 148.9 178 Z" fill="#14110f"/>
+<path id="silas-body-lamp-vent" d="M 137.4 173.3 L 142.6 173.3 L 141.6 170.1 L 138.4 170.1 Z" fill="#14110f"/>
+<path id="silas-body-lamp-foot" d="M 130.6 191.6 L 149.5 191.6 L 147.4 195.8 L 132.7 195.8 Z" fill="#14110f"/>
+<path id="silas-body-lamp-bar" d="M 139.1 177.5 L 140.9 177.5 L 140.9 192.2 L 139.1 192.2 Z" fill="#14110f"/>
+<path id="silas-body-lamp-bar-l" d="M 133.3 177.5 L 134.8 177.5 L 133.5 192.2 L 132 192.2 Z" fill="#14110f"/>
+</svg>

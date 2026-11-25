@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="furnace-quench" width="1120" height="1120" viewBox="-200 -200 1120 1120">
+<defs>
+<path id="furnace-quench-quench-seam-shape" d="M 480 330 L 500 336 L 494 380 L 510 420 L 496 470 L 480 430 L 486 390 L 476 360 Z"/>
+</defs>
+<path id="furnace-quench-quench-a" d="M 300 236 L 420 228 L 470 270 L 440 330 L 380 316 L 330 360 L 270 330 L 240 290 Z" fill="#34302d" opacity="0.94"/>
+<path id="furnace-quench-quench-b" d="M 220 340 L 380 340 L 520 350 L 530 400 L 380 410 L 214 404 Z" fill="#34302d" opacity="0.96"/>
+<path id="furnace-quench-quench-door" d="M 410 460 L 494 452 L 498 534 L 414 542 Z" fill="#34302d" opacity="0.92"/>
+<path id="furnace-quench-runs" d="M 298 409.9 L 296 470 L 302 410.1 Z M 348 412.1 L 352 490 L 352 411.9 Z M 438 408.3 L 446 450 L 442 407.7 Z M 478 404.2 L 484 440 L 482 403.8 Z M 258 399.8 L 254 450 L 262 400.2 Z" fill="#34302d"/>
+<path id="furnace-quench-wet" d="M 330.2 251.2 L 360 244 L 329.8 248.8 Z M 260.5 301.1 L 280 290 L 259.5 298.9 Z M 420.1 381.2 L 460 376 L 419.9 378.8 Z" fill="#5f7480"/>
+<g id="furnace-quench-quench-seam">
+<use id="furnace-quench-quench-seam-line" href="#furnace-quench-quench-seam-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="furnace-quench-quench-seam-lit" href="#furnace-quench-quench-seam-shape" fill="#c42a2c"/>
+</g>
+<path id="furnace-quench-steam-a" d="M 260 230 L 300 180 L 340 200 L 330 140 L 370 120 L 380 170 L 360 220 Z" fill="#b4bfc0" opacity="0.7"/>
+<path id="furnace-quench-steam-b" d="M 420 220 L 450 160 L 500 170 L 480 110 L 520 90 L 540 150 L 490 230 Z" fill="#b4bfc0" opacity="0.6"/>
+<path id="furnace-quench-steam-c" d="M 180 380 L 140 330 L 170 300 L 150 250 L 200 270 L 214 340 Z" fill="#b4bfc0" opacity="0.5"/>
+</svg>

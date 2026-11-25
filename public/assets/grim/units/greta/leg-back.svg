@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="greta-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="greta-leg-back-hose-shape" d="M 126.1 185 L 122.7 202 L 113.7 224.4 L 94.3 219.6 L 98.3 195.9 L 101.9 179 Z"/>
+<clipPath id="greta-leg-back-hose-clip"><use href="#greta-leg-back-hose-shape"/></clipPath>
+<path id="greta-leg-back-boot-shape" d="M 91.7 215 L 115 213 L 114.1 227 L 124.7 230 L 130.7 236 L 130.7 240 L 84.7 240 L 82.7 230 Z"/>
+<clipPath id="greta-leg-back-boot-clip"><use href="#greta-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="greta-leg-back-hose">
+<use id="greta-leg-back-hose-line" href="#greta-leg-back-hose-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-leg-back-hose-clip)">
+<use id="greta-leg-back-hose-lit" href="#greta-leg-back-hose-shape" fill="#6f5c46"/>
+<path id="greta-leg-back-hose-mid" d="M 113.6 178.8 L 107.1 205 L 102.5 208.1 L 98.6 223.7 L 76.1 218.1 L 87.6 172.3 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="greta-leg-back-hose-dark" d="M 113.6 178.8 L 107.1 205 L 102.5 208.1 L 98.6 223.7 L 76.1 218.1 L 87.6 172.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="greta-leg-back-boot">
+<use id="greta-leg-back-boot-line" href="#greta-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-leg-back-boot-clip)">
+<use id="greta-leg-back-boot-lit" href="#greta-leg-back-boot-shape" fill="#4f4944"/>
+<path id="greta-leg-back-boot-mid" d="M 76.7 210 L 101.8 210 L 103.6 226 L 115 232 L 134.7 235 L 134.7 244 L 76.7 244 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="greta-leg-back-boot-dark" d="M 76.7 210 L 101.8 210 L 103.6 226 L 115 232 L 134.7 235 L 134.7 244 L 76.7 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="greta-leg-back-boot-sole" d="M 82.7 237 L 131.7 237 L 131.7 241.5 L 82.7 241.5 Z" fill="#14110f"/>
+<path id="greta-leg-back-boot-crease" d="M 113.3 225.8 L 101.8 231 L 114.1 228.2 Z" fill="#14110f"/>
+</svg>

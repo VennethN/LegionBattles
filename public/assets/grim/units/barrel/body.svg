@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="barrel-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="barrel-body-staves-shape" d="M 86 236 L 80 190 L 84 140 L 92 122 L 164 122 L 172 140 L 176 190 L 170 236 Z"/>
+<clipPath id="barrel-body-staves-clip"><use href="#barrel-body-staves-shape"/></clipPath>
+<path id="barrel-body-hoop-0-shape" d="M 82 134 L 174 134 L 175 143 L 81 143 Z"/>
+<clipPath id="barrel-body-hoop-0-clip"><use href="#barrel-body-hoop-0-shape"/></clipPath>
+<path id="barrel-body-hoop-1-shape" d="M 82 184 L 174 184 L 175 193 L 81 193 Z"/>
+<clipPath id="barrel-body-hoop-1-clip"><use href="#barrel-body-hoop-1-shape"/></clipPath>
+<path id="barrel-body-hoop-2-shape" d="M 82 226 L 174 226 L 175 235 L 81 235 Z"/>
+<clipPath id="barrel-body-hoop-2-clip"><use href="#barrel-body-hoop-2-shape"/></clipPath>
+<path id="barrel-body-top-shape" d="M 92 122 L 164 122 L 158 112 L 98 112 Z"/>
+<path id="barrel-body-ladle-shape" d="M 150 116 L 176 84 L 182 88 L 158 120 Z"/>
+<clipPath id="barrel-body-ladle-clip"><use href="#barrel-body-ladle-shape"/></clipPath>
+</defs>
+<g id="barrel-body-staves">
+<use id="barrel-body-staves-line" href="#barrel-body-staves-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrel-body-staves-clip)">
+<use id="barrel-body-staves-lit" href="#barrel-body-staves-shape" fill="#6f5c46"/>
+<use id="barrel-body-staves-rim" href="#barrel-body-staves-shape" fill="#f4d294" opacity="0.55"/>
+<use id="barrel-body-staves-lit-over" href="#barrel-body-staves-shape" transform="translate(-1.6 1.2)" fill="#6f5c46"/>
+<path id="barrel-body-staves-mid" d="M 60 110 L 116 110 L 118.1 121.9 L 120 176.9 L 115.9 181.6 L 117.9 240.1 L 60 240 Z" transform="translate(5 -1.2)" fill="#4a3c2d"/>
+<path id="barrel-body-staves-dark" d="M 60 110 L 116 110 L 118.1 121.9 L 120 176.9 L 115.9 181.6 L 117.9 240.1 L 60 240 Z" fill="#14110f"/>
+<path id="barrel-body-stave-lines" d="M 106.8 126 L 104 234 L 109.2 126 Z M 126.8 124 L 128 236 L 129.2 124 Z M 148.8 126 L 154 234 L 151.2 126 Z" fill="#4a3c2d"/>
+<path id="barrel-body-wet" d="M 158.8 150.1 L 162 190 L 161.2 149.9 Z M 138.8 170 L 141 214 L 141.2 170 Z M 164.8 200.1 L 168 230 L 167.2 199.9 Z" fill="#5f7480"/>
+</g>
+</g>
+<g id="barrel-body-hoop-0">
+<use id="barrel-body-hoop-0-line" href="#barrel-body-hoop-0-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrel-body-hoop-0-clip)">
+<use id="barrel-body-hoop-0-lit" href="#barrel-body-hoop-0-shape" fill="#8c9194"/>
+<use id="barrel-body-hoop-0-rim" href="#barrel-body-hoop-0-shape" fill="#f4d294" opacity="0.55"/>
+<use id="barrel-body-hoop-0-lit-over" href="#barrel-body-hoop-0-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="barrel-body-hoop-0-dark" d="M 69 130 L 121.5 130 L 125.1 147 L 69 147 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="barrel-body-hoop-1">
+<use id="barrel-body-hoop-1-line" href="#barrel-body-hoop-1-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrel-body-hoop-1-clip)">
+<use id="barrel-body-hoop-1-lit" href="#barrel-body-hoop-1-shape" fill="#8c9194"/>
+<use id="barrel-body-hoop-1-rim" href="#barrel-body-hoop-1-shape" fill="#f4d294" opacity="0.55"/>
+<use id="barrel-body-hoop-1-lit-over" href="#barrel-body-hoop-1-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="barrel-body-hoop-1-dark" d="M 69 180 L 121.5 180 L 125.1 197 L 69 197 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="barrel-body-hoop-2">
+<use id="barrel-body-hoop-2-line" href="#barrel-body-hoop-2-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrel-body-hoop-2-clip)">
+<use id="barrel-body-hoop-2-lit" href="#barrel-body-hoop-2-shape" fill="#8c9194"/>
+<use id="barrel-body-hoop-2-rim" href="#barrel-body-hoop-2-shape" fill="#f4d294" opacity="0.55"/>
+<use id="barrel-body-hoop-2-lit-over" href="#barrel-body-hoop-2-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="barrel-body-hoop-2-dark" d="M 69 222 L 121.5 222 L 125.1 239 L 69 239 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="barrel-body-top">
+<use id="barrel-body-top-line" href="#barrel-body-top-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="barrel-body-top-lit" href="#barrel-body-top-shape" fill="#6f5c46"/>
+</g>
+<path id="barrel-body-water" d="M 100 118 L 156 118 L 152 114 L 104 114 Z" fill="#5f7480"/>
+<g id="barrel-body-ladle">
+<use id="barrel-body-ladle-line" href="#barrel-body-ladle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrel-body-ladle-clip)">
+<use id="barrel-body-ladle-lit" href="#barrel-body-ladle-shape" fill="#8c9194"/>
+<path id="barrel-body-ladle-dark" d="M 138 80 L 157.7 79.4 L 163.8 98.5 L 161.3 103.9 L 167.9 124.6 L 138 124 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

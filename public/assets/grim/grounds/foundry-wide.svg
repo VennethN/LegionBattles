@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="foundry-ground" width="1180" height="800" viewBox="0 0 1180 800">
+<path id="foundry-ground-cinders" d="M 0 0 L 1180 0 L 1180 800 L 0 800 Z" fill="#34302d"/>
+<path id="foundry-ground-ash-0" d="M 1180.7 381.3 L 1138.8 440.1 L 987.8 448.7 L 809.8 424 L 851.7 346.8 L 986.7 311.9 L 1138.6 322.5 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-1" d="M 1188.9 530.7 L 1166.6 560.1 L 1084.4 576.3 L 1004.7 551.5 L 1042.9 517.4 L 1086.9 489.6 L 1162.4 503.4 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-2" d="M 717.4 535.6 L 670.2 574.8 L 565.9 587.1 L 488.4 556.7 L 474.8 511.8 L 566.1 484.4 L 645.5 509.2 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-3" d="M 114.4 730.4 L 55.4 753.5 L -12.9 772.8 L -78.2 748 L -85.8 711.2 L -12.4 688.9 L 55.8 707 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-4" d="M 209.1 109.8 L 159.9 150.2 L 57.8 153.3 L 5.4 125 L -1.4 93.3 L 56.1 63.3 L 152.7 73.2 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-5" d="M 525.5 163.2 L 456.5 238.1 L 278.9 222.5 L 88.8 207.5 L 106.2 122.4 L 257.1 64.6 L 437.7 98 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-6" d="M 737.1 214.3 L 661.5 257.8 L 551.3 261.7 L 491.8 231.3 L 480 195 L 552.9 169.9 L 654.7 174.4 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-7" d="M 741 183.5 L 723.8 239.9 L 577.1 251.6 L 511.9 203.9 L 497.6 160.2 L 589.2 137.3 L 686.3 146.5 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-8" d="M 420.7 792.9 L 323.6 838.4 L 206.7 845.1 L 114.4 816.9 L 132.1 772.3 L 193.4 716.7 L 349.7 733.8 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-9" d="M 167.3 283.9 L 85.5 313.8 L 1 332.3 L -108.8 311.1 L -105.9 257.4 L -4.9 225 L 117.9 237.3 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-ash-10" d="M 1272 179.8 L 1259.2 243.9 L 1097.7 247.7 L 997 207.3 L 956 144.2 L 1094 105.3 L 1251.5 119.7 Z" fill="#434134" opacity="0.6"/>
+<path id="foundry-ground-plate-0" d="M 190.1 743.7 L 287.9 739.7 L 291.9 792.6 L 192.1 794.6 Z" fill="#4f4944"/>
+<path id="foundry-ground-plate-0-bolt-0" d="M 195.1 749.7 L 198.1 746.7 L 201.1 749.7 L 198.1 752.7 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-0-bolt-1" d="M 278.9 745.7 L 281.9 742.7 L 284.9 745.7 L 281.9 748.7 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-0-bolt-2" d="M 280.9 788.7 L 283.9 785.7 L 286.9 788.7 L 283.9 791.7 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-0-bolt-3" d="M 197.1 788.7 L 200.1 785.7 L 203.1 788.7 L 200.1 791.7 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-1" d="M 746 704.1 L 838.8 700.1 L 842.8 750.5 L 748 752.3 Z" fill="#4f4944"/>
+<path id="foundry-ground-plate-1-bolt-0" d="M 751 710.1 L 754 707.1 L 757 710.1 L 754 713.1 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-1-bolt-1" d="M 829.8 706.1 L 832.8 703.1 L 835.8 706.1 L 832.8 709.1 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-1-bolt-2" d="M 831.8 746.7 L 834.8 743.7 L 837.8 746.7 L 834.8 749.7 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-1-bolt-3" d="M 753 746.7 L 756 743.7 L 759 746.7 L 756 749.7 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-2" d="M 44.2 553.5 L 187.1 549.5 L 191.1 625 L 46.2 627.8 Z" fill="#4f4944"/>
+<path id="foundry-ground-plate-2-bolt-0" d="M 49.2 559.5 L 52.2 556.5 L 55.2 559.5 L 52.2 562.5 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-2-bolt-1" d="M 178.1 555.5 L 181.1 552.5 L 184.1 555.5 L 181.1 558.5 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-2-bolt-2" d="M 180.1 619.2 L 183.1 616.2 L 186.1 619.2 L 183.1 622.2 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-2-bolt-3" d="M 51.2 619.2 L 54.2 616.2 L 57.2 619.2 L 54.2 622.2 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-3" d="M 936 110.4 L 1049.2 106.4 L 1053.2 167 L 938 169.3 Z" fill="#4f4944"/>
+<path id="foundry-ground-plate-3-bolt-0" d="M 941 116.4 L 944 113.4 L 947 116.4 L 944 119.4 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-3-bolt-1" d="M 1040.2 112.4 L 1043.2 109.4 L 1046.2 112.4 L 1043.2 115.4 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-3-bolt-2" d="M 1042.2 162.5 L 1045.2 159.5 L 1048.2 162.5 L 1045.2 165.5 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-3-bolt-3" d="M 943 162.5 L 946 159.5 L 949 162.5 L 946 165.5 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-4" d="M 395.3 155.6 L 548.1 151.6 L 552.1 231.9 L 397.3 235 Z" fill="#4f4944"/>
+<path id="foundry-ground-plate-4-bolt-0" d="M 400.3 161.6 L 403.3 158.6 L 406.3 161.6 L 403.3 164.6 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-4-bolt-1" d="M 539.1 157.6 L 542.1 154.6 L 545.1 157.6 L 542.1 160.6 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-4-bolt-2" d="M 541.1 225.8 L 544.1 222.8 L 547.1 225.8 L 544.1 228.8 Z" fill="#5b6165"/>
+<path id="foundry-ground-plate-4-bolt-3" d="M 402.3 225.8 L 405.3 222.8 L 408.3 225.8 L 405.3 228.8 Z" fill="#5b6165"/>
+<path id="foundry-ground-sleeper-0-10" d="M 10 480.2 L 28 480.2 L 28 528.2 L 10 528.2 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-56" d="M 56 480.9 L 74 480.9 L 74 528.9 L 56 528.9 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-102" d="M 102 481.5 L 120 481.5 L 120 529.5 L 102 529.5 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-148" d="M 148 482.2 L 166 482.2 L 166 530.2 L 148 530.2 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-194" d="M 194 482.8 L 212 482.8 L 212 530.8 L 194 530.8 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-240" d="M 240 483.4 L 258 483.4 L 258 531.4 L 240 531.4 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-286" d="M 286 484.1 L 304 484.1 L 304 532.1 L 286 532.1 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-332" d="M 332 484.7 L 350 484.7 L 350 532.7 L 332 532.7 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-378" d="M 378 485.3 L 396 485.3 L 396 533.3 L 378 533.3 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-424" d="M 424 486 L 442 486 L 442 534 L 424 534 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-470" d="M 470 486.6 L 488 486.6 L 488 534.6 L 470 534.6 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-516" d="M 516 487.2 L 534 487.2 L 534 535.2 L 516 535.2 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-562" d="M 562 487.9 L 580 487.9 L 580 535.9 L 562 535.9 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-608" d="M 608 488.5 L 626 488.5 L 626 536.5 L 608 536.5 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-654" d="M 654 489.1 L 672 489.1 L 672 537.1 L 654 537.1 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-700" d="M 700 489.8 L 718 489.8 L 718 537.8 L 700 537.8 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-746" d="M 746 490.4 L 764 490.4 L 764 538.4 L 746 538.4 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-792" d="M 792 491 L 810 491 L 810 539 L 792 539 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-838" d="M 838 491.7 L 856 491.7 L 856 539.7 L 838 539.7 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-884" d="M 884 492.3 L 902 492.3 L 902 540.3 L 884 540.3 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-930" d="M 930 493 L 948 493 L 948 541 L 930 541 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-976" d="M 976 493.6 L 994 493.6 L 994 541.6 L 976 541.6 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-1022" d="M 1022 494.2 L 1040 494.2 L 1040 542.2 L 1022 542.2 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-1068" d="M 1068 494.9 L 1086 494.9 L 1086 542.9 L 1068 542.9 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-1114" d="M 1114 495.5 L 1132 495.5 L 1132 543.5 L 1114 543.5 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-0-1160" d="M 1160 496.1 L 1178 496.1 L 1178 544.1 L 1160 544.1 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-rail-0-a" d="M 0 488.1 L 1180 504.4 L 1180 510.4 L 0 494.1 Z" fill="#5b6165"/>
+<path id="foundry-ground-rail-0-b" d="M 0 514.1 L 1180 530.4 L 1180 536.4 L 0 520.1 Z" fill="#5b6165"/>
+<path id="foundry-ground-sleeper-1-10" d="M 10 431.5 L 28 431.5 L 28 479.5 L 10 479.5 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-56" d="M 56 432.3 L 74 432.3 L 74 480.3 L 56 480.3 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-102" d="M 102 433.1 L 120 433.1 L 120 481.1 L 102 481.1 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-148" d="M 148 433.9 L 166 433.9 L 166 481.9 L 148 481.9 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-194" d="M 194 434.7 L 212 434.7 L 212 482.7 L 194 482.7 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-240" d="M 240 435.5 L 258 435.5 L 258 483.5 L 240 483.5 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-286" d="M 286 436.3 L 304 436.3 L 304 484.3 L 286 484.3 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-332" d="M 332 437 L 350 437 L 350 485 L 332 485 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-378" d="M 378 437.8 L 396 437.8 L 396 485.8 L 378 485.8 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-424" d="M 424 438.6 L 442 438.6 L 442 486.6 L 424 486.6 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-470" d="M 470 439.4 L 488 439.4 L 488 487.4 L 470 487.4 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-516" d="M 516 440.2 L 534 440.2 L 534 488.2 L 516 488.2 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-562" d="M 562 441 L 580 441 L 580 489 L 562 489 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-608" d="M 608 441.8 L 626 441.8 L 626 489.8 L 608 489.8 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-654" d="M 654 442.6 L 672 442.6 L 672 490.6 L 654 490.6 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-700" d="M 700 443.4 L 718 443.4 L 718 491.4 L 700 491.4 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-746" d="M 746 444.1 L 764 444.1 L 764 492.1 L 746 492.1 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-792" d="M 792 444.9 L 810 444.9 L 810 492.9 L 792 492.9 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-838" d="M 838 445.7 L 856 445.7 L 856 493.7 L 838 493.7 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-884" d="M 884 446.5 L 902 446.5 L 902 494.5 L 884 494.5 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-930" d="M 930 447.3 L 948 447.3 L 948 495.3 L 930 495.3 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-976" d="M 976 448.1 L 994 448.1 L 994 496.1 L 976 496.1 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-1022" d="M 1022 448.9 L 1040 448.9 L 1040 496.9 L 1022 496.9 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-1068" d="M 1068 449.7 L 1086 449.7 L 1086 497.7 L 1068 497.7 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-1114" d="M 1114 450.5 L 1132 450.5 L 1132 498.5 L 1114 498.5 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-sleeper-1-1160" d="M 1160 451.3 L 1178 451.3 L 1178 499.3 L 1160 499.3 Z" fill="#4a3c2d"/>
+<path id="foundry-ground-rail-1-a" d="M 0 439.3 L 1180 459.6 L 1180 465.6 L 0 445.3 Z" fill="#5b6165"/>
+<path id="foundry-ground-rail-1-b" d="M 0 465.3 L 1180 485.6 L 1180 491.6 L 0 471.3 Z" fill="#5b6165"/>
+<path id="foundry-ground-slag-0" d="M 217.4 148.5 L 237.4 136.5 L 271.4 138.5 L 283.4 152.5 L 253.4 160.5 L 223.4 158.5 Z" fill="#4f4944"/>
+<path id="foundry-ground-slag-0-glow" d="M 233.6 149.5 L 251.4 144.5 L 233.2 147.6 Z M 251 145.5 L 267.4 150.5 L 251.7 143.6 Z" fill="#c27a26"/>
+<path id="foundry-ground-slag-1" d="M 1149.1 482.5 L 1169.1 470.5 L 1203.1 472.5 L 1215.1 486.5 L 1185.1 494.5 L 1155.1 492.5 Z" fill="#4f4944"/>
+<path id="foundry-ground-slag-1-glow" d="M 1165.3 483.5 L 1183.1 478.5 L 1164.9 481.5 Z M 1182.8 479.4 L 1199.1 484.5 L 1183.5 477.6 Z" fill="#c27a26"/>
+<path id="foundry-ground-slag-2" d="M 958.4 88.3 L 978.4 76.3 L 1012.4 78.3 L 1024.4 92.3 L 994.4 100.3 L 964.4 98.3 Z" fill="#4f4944"/>
+<path id="foundry-ground-slag-2-glow" d="M 974.6 89.3 L 992.4 84.3 L 974.2 87.4 Z M 992.1 85.3 L 1008.4 90.3 L 992.8 83.4 Z" fill="#c27a26"/>
+<path id="foundry-ground-slag-3" d="M 1149.2 329.5 L 1169.2 317.5 L 1203.2 319.5 L 1215.2 333.5 L 1185.2 341.5 L 1155.2 339.5 Z" fill="#4f4944"/>
+<path id="foundry-ground-slag-3-glow" d="M 1165.4 330.4 L 1183.2 325.5 L 1165 328.5 Z M 1182.9 326.4 L 1199.2 331.5 L 1183.6 324.5 Z" fill="#c27a26"/>
+<path id="foundry-ground-slag-4" d="M 645 111.8 L 665 99.8 L 699 101.8 L 711 115.8 L 681 123.8 L 651 121.8 Z" fill="#4f4944"/>
+<path id="foundry-ground-slag-4-glow" d="M 661.2 112.8 L 679 107.8 L 660.7 110.8 Z M 678.6 108.7 L 695 113.8 L 679.3 106.8 Z" fill="#c27a26"/>
+<path id="foundry-ground-slag-5" d="M 417.3 105.9 L 437.3 93.9 L 471.3 95.9 L 483.3 109.9 L 453.3 117.9 L 423.3 115.9 Z" fill="#4f4944"/>
+<path id="foundry-ground-slag-5-glow" d="M 433.5 106.9 L 451.3 101.9 L 433.1 104.9 Z M 450.9 102.8 L 467.3 107.9 L 451.6 101 Z" fill="#c27a26"/>
+<path id="foundry-ground-slag-6" d="M 1125.8 677.3 L 1145.8 665.3 L 1179.8 667.3 L 1191.8 681.3 L 1161.8 689.3 L 1131.8 687.3 Z" fill="#4f4944"/>
+<path id="foundry-ground-slag-6-glow" d="M 1142 678.3 L 1159.8 673.3 L 1141.6 676.3 Z M 1159.4 674.3 L 1175.8 679.3 L 1160.1 672.4 Z" fill="#c27a26"/>
+<path id="foundry-ground-coal-0" d="M 720.4 570.6 L 723.4 564.6 L 730.4 566.6 L 729.4 571.6 Z" fill="#6a3b24"/>
+<path id="foundry-ground-coal-1" d="M 346.5 113.3 L 349.5 107.3 L 356.5 109.3 L 355.5 114.3 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-2" d="M 992.9 776.6 L 995.9 770.6 L 1002.9 772.6 L 1001.9 777.6 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-3" d="M 410.8 469.2 L 413.8 463.2 L 420.8 465.2 L 419.8 470.2 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-4" d="M 538.3 267 L 541.3 261 L 548.3 263 L 547.3 268 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-5" d="M 443.7 293.8 L 446.7 287.8 L 453.7 289.8 L 452.7 294.8 Z" fill="#6a3b24"/>
+<path id="foundry-ground-coal-6" d="M 117.1 121.3 L 120.1 115.3 L 127.1 117.3 L 126.1 122.3 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-7" d="M 866.6 729 L 869.6 723 L 876.6 725 L 875.6 730 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-8" d="M 944.5 527.2 L 947.5 521.2 L 954.5 523.2 L 953.5 528.2 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-9" d="M 1005.2 160.5 L 1008.2 154.5 L 1015.2 156.5 L 1014.2 161.5 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-10" d="M 731.7 754.7 L 734.7 748.7 L 741.7 750.7 L 740.7 755.7 Z" fill="#6a3b24"/>
+<path id="foundry-ground-coal-11" d="M 940.8 136.8 L 943.8 130.8 L 950.8 132.8 L 949.8 137.8 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-12" d="M 633 204.4 L 636 198.4 L 643 200.4 L 642 205.4 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-13" d="M 141.4 240.1 L 144.4 234.1 L 151.4 236.1 L 150.4 241.1 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-14" d="M 155.8 209.7 L 158.8 203.7 L 165.8 205.7 L 164.8 210.7 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-15" d="M 354.1 158 L 357.1 152 L 364.1 154 L 363.1 159 Z" fill="#6a3b24"/>
+<path id="foundry-ground-coal-16" d="M 882.4 184.3 L 885.4 178.3 L 892.4 180.3 L 891.4 185.3 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-17" d="M 1113.9 174 L 1116.9 168 L 1123.9 170 L 1122.9 175 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-18" d="M 1107.3 316.6 L 1110.3 310.6 L 1117.3 312.6 L 1116.3 317.6 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-19" d="M 891.5 360.1 L 894.5 354.1 L 901.5 356.1 L 900.5 361.1 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-20" d="M 1127.4 377.8 L 1130.4 371.8 L 1137.4 373.8 L 1136.4 378.8 Z" fill="#6a3b24"/>
+<path id="foundry-ground-coal-21" d="M 705.8 461.9 L 708.8 455.9 L 715.8 457.9 L 714.8 462.9 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-22" d="M 306 650.7 L 309 644.7 L 316 646.7 L 315 651.7 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-23" d="M 785.6 383.7 L 788.6 377.7 L 795.6 379.7 L 794.6 384.7 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-24" d="M 22.1 264.2 L 25.1 258.2 L 32.1 260.2 L 31.1 265.2 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-25" d="M 259.2 624.6 L 262.2 618.6 L 269.2 620.6 L 268.2 625.6 Z" fill="#6a3b24"/>
+<path id="foundry-ground-coal-26" d="M 683.4 381.4 L 686.4 375.4 L 693.4 377.4 L 692.4 382.4 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-27" d="M 863.3 580.5 L 866.3 574.5 L 873.3 576.5 L 872.3 581.5 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-28" d="M 372.4 515.5 L 375.4 509.5 L 382.4 511.5 L 381.4 516.5 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-29" d="M 1004.6 741.1 L 1007.6 735.1 L 1014.6 737.1 L 1013.6 742.1 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-30" d="M -1.3 684.6 L 1.7 678.6 L 8.7 680.6 L 7.7 685.6 Z" fill="#6a3b24"/>
+<path id="foundry-ground-coal-31" d="M 832 175.9 L 835 169.9 L 842 171.9 L 841 176.9 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-32" d="M 536.3 140.6 L 539.3 134.6 L 546.3 136.6 L 545.3 141.6 Z" fill="#4f4944"/>
+<path id="foundry-ground-coal-33" d="M 63.7 732.5 L 66.7 726.5 L 73.7 728.5 L 72.7 733.5 Z" fill="#4f4944"/>
+</svg>

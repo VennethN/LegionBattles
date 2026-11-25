@@ -26,27 +26,56 @@ export const HUNTER_ART: Record<string, Art> = {
   marta: { grim: 'marta' }, jory: { grim: 'jory' }, agnes: { grim: 'agnes' }, brask: { grim: 'brask' },
   // Hands for hire are not drawn yet: a dark shape of a fighter and of an archer.
   sellsword: { legion: 'militia', team: 'blue', scale: 0.62 }, bowman: { legion: 'poacher', team: 'blue', scale: 0.62 },
+  greta: { grim: 'greta' }, ned: { grim: 'ned' }, ida: { grim: 'ida' }, silas: { grim: 'silas' },
 };
 
 export const MONSTER_ART: Record<string, Art> = {
   sexton: { grim: 'sexton' },
   king: { grim: 'king' },
+  spinner: { grim: 'spinner' },
+  abbot: { grim: 'abbot' },
+  furnace: { grim: 'furnace' },
+  mirror: { grim: 'mirror' },
 };
 
 /** Which of a monster's own moves shows each of its attacks, by the attack's name. One not named here is shown by the shape it marks. */
 export const MONSTER_MOVES: Record<string, Record<string, string>> = {
   sexton: { spade: 'slam', furrow: 'slam', cross: 'slam', sweep: 'sweep', lantern: 'ring', graves: 'ring', moregraves: 'ring', bury: 'ring', grasp: 'ring', shift: 'ring' },
   king: { charge: 'charge', gore: 'gore', stomp: 'stomp', bellow: 'bellow', thorns: 'bellow', herd: 'bellow', crossherd: 'bellow', shift: 'bellow' },
+  // The later four: an attack with no move of its own is shown by the nearest one it has.
+  spinner: { bite: 'bite', widebite: 'bite', frenzy: 'bite', legs: 'legs', spit: 'spit', webfield: 'spit', drop: 'drop', brood: 'brood', shift: 'legs' },
+  abbot: { crook: 'crook', widecrook: 'crook', toll: 'toll', peal: 'toll', knell: 'knell', censer: 'censer', drown: 'censer', procession: 'procession', shift: 'toll' },
+  furnace: { press: 'press', widepress: 'press', vent: 'vent', spokes: 'vent', overheat: 'vent', slag: 'slag', cinders: 'cinders', pour: 'pour', shift: 'vent' },
+  mirror: { cut: 'cut', widecut: 'cut', shards: 'shards', step: 'step', lure: 'lure', shatter: 'shatter', crown: 'crown', shift: 'crown' },
+};
+
+/** Which of a hunter's own moves shows each blow of their chain, by its place in the chain. One not named here is shown by their first move. */
+export const BLOW_MOVES: Record<string, readonly string[]> = {
+  greta: ['smash', 'swing'], ned: ['jab', 'pick'], ida: ['jab', 'sweep'], silas: ['chop', 'backhand', 'chop'],
 };
 
 /** Which of a hunter's moves shows each ability, by the ability's name. Their first move is their own blow. */
-export const ABILITY_MOVES: Record<string, string> = { reap: 'reap', jawtrap: 'set', tarflask: 'set', flare: 'flare', lamp: 'lamp', seton: 'setOn', heel: 'heel' };
+export const ABILITY_MOVES: Record<string, string> = {
+  reap: 'reap', jawtrap: 'set', tarflask: 'set', flare: 'flare', lamp: 'lamp', seton: 'setOn', heel: 'heel',
+  forgestrike: 'forgestrike', anvil: 'anvil', keg: 'keg', cavein: 'cavein', shove: 'shove', wake: 'wake', hook: 'hook', hack: 'hack',
+};
 
 export const HELPER_ART: Record<string, Art> = {
   risen: { grim: 'risen' }, herd: { grim: 'herdbeast' },
   // What a contract asks to be broken first: not drawn yet, a dark stone.
   gravemarker: { legion: 'barrowstone', team: 'red', scale: 0.7 }, totem: { legion: 'barrowstone', team: 'red', scale: 0.7 },
+  // The later bosses' own, and the props of their lairs, which stand as figures until they are broken.
+  spiderling: { grim: 'spiderling' }, eggsac: { grim: 'eggsac' }, monk: { grim: 'monk' }, cinder: { grim: 'cinder' },
+  barrel: { grim: 'barrel' }, mirror: { grim: 'mirror-stand' }, reflection: { grim: 'reflection' },
 };
+
+/** How see-through a helper is drawn: a reflection is a little, so that the true one is told from it. */
+export const HELPER_ALPHA: Record<string, number> = { reflection: 0.62 };
+
+/** What lies on the field of the later lairs, by the kit's name for it: drawn at the size of the thing in the rules. */
+export const FIELD_THINGS = { web: 'web', water: 'shallows', wake: 'wake-light', anvil: 'anvil', keg: 'powderkeg', iron: 'poured-iron' } as const;
+/** How wide the kit drew each of those, in the rules' units: what a picture is scaled by. */
+export const FIELD_THING_R: Record<string, number> = { shallows: 112 };
 
 /** Those who fight beside the hunter, by the reinforcement they came with. */
 export const ALLY_ART: Record<string, Art> = {
@@ -73,7 +102,10 @@ export const TRAP_ART: Art = { legion: 'spiketrap', team: 'blue', scale: 0.4 };
 export const LAMP_ART: Art = { grim: 'streetlamp' };
 
 /** The ground of each kind of lair: the style's own, or one of the Legion kit's by name until the style has it. */
-export const LAIR_GROUND: Record<string, { grim: string } | { legion: 'meadow' | 'desert' | 'snow' }> = { churchyard: { grim: 'churchyard' }, wood: { grim: 'wood' } };
+export const LAIR_GROUND: Record<string, { grim: string } | { legion: 'meadow' | 'desert' | 'snow' }> = {
+  churchyard: { grim: 'churchyard' }, wood: { grim: 'wood' },
+  cellar: { grim: 'cellar' }, abbey: { grim: 'abbey' }, foundry: { grim: 'foundry' }, hall: { grim: 'hall' },
+};
 
 
 const ALL: Art[] = [...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART), ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];

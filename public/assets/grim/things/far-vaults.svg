@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="far-vaults" width="470" height="250" viewBox="0 0 470 250">
+<path id="far-vaults-back" d="M 0 0 L 470 0 L 470 250 L 0 250 Z" fill="#242f36"/>
+<path id="far-vaults-pier-0" d="M 0 250 L 0 90 L 30 60 L 90 60 L 120 90 L 120 250 L 96 250 L 96 110 L 80 86 L 40 86 L 24 110 L 24 250 Z" fill="#33424b"/>
+<path id="far-vaults-deep-0" d="M 36 250 L 36 120 L 50 104 L 70 104 L 84 120 L 84 250 Z" fill="#14110f"/>
+<path id="far-vaults-pier-1" d="M 120 250 L 120 90 L 150 60 L 210 60 L 240 90 L 240 250 L 216 250 L 216 110 L 200 86 L 160 86 L 144 110 L 144 250 Z" fill="#33424b"/>
+<path id="far-vaults-deep-1" d="M 156 250 L 156 120 L 170 104 L 190 104 L 204 120 L 204 250 Z" fill="#14110f"/>
+<path id="far-vaults-pier-2" d="M 240 250 L 240 90 L 270 60 L 330 60 L 360 90 L 360 250 L 336 250 L 336 110 L 320 86 L 280 86 L 264 110 L 264 250 Z" fill="#33424b"/>
+<path id="far-vaults-deep-2" d="M 276 250 L 276 120 L 290 104 L 310 104 L 324 120 L 324 250 Z" fill="#14110f"/>
+<path id="far-vaults-pier-3" d="M 360 250 L 360 90 L 390 60 L 450 60 L 480 90 L 480 250 L 456 250 L 456 110 L 440 86 L 400 86 L 384 110 L 384 250 Z" fill="#33424b"/>
+<path id="far-vaults-deep-3" d="M 396 250 L 396 120 L 410 104 L 430 104 L 444 120 L 444 250 Z" fill="#14110f"/>
+<path id="far-vaults-far-web" d="M 59.6 90.6 L 140 140 L 60.4 89.4 Z M 179.6 70.6 L 250 120 L 180.4 69.4 Z M 300.1 100.7 L 420 90 L 299.9 99.3 Z" fill="#33424b"/>
+</svg>

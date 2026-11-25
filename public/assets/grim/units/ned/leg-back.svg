@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ned-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ned-leg-back-thigh-shape" d="M 122.9 169.4 L 117.4 184.7 L 107 204.7 L 93 199.3 L 99.8 177.9 L 105.1 162.6 Z"/>
+<clipPath id="ned-leg-back-thigh-clip"><use href="#ned-leg-back-thigh-shape"/></clipPath>
+<path id="ned-leg-back-shin-shape" d="M 107.2 200.1 L 104.1 211.9 L 97.8 227.6 L 86.2 224.4 L 89.9 207.8 L 92.8 195.9 Z"/>
+<clipPath id="ned-leg-back-shin-clip"><use href="#ned-leg-back-shin-shape"/></clipPath>
+<path id="ned-leg-back-boot-shape" d="M 82.5 219 L 100.5 217 L 103.8 227 L 114.4 230 L 120.4 236 L 120.4 240 L 78.4 240 L 76.4 230 Z"/>
+<clipPath id="ned-leg-back-boot-clip"><use href="#ned-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="ned-leg-back-thigh">
+<use id="ned-leg-back-thigh-line" href="#ned-leg-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-back-thigh-clip)">
+<use id="ned-leg-back-thigh-lit" href="#ned-leg-back-thigh-shape" fill="#6f5c46"/>
+<path id="ned-leg-back-thigh-mid" d="M 114.7 163.1 L 107.5 181.6 L 103.5 183.7 L 95.7 203.6 L 79.4 197.2 L 95.6 155.6 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="ned-leg-back-thigh-dark" d="M 114.7 163.1 L 107.5 181.6 L 103.5 183.7 L 95.7 203.6 L 79.4 197.2 L 95.6 155.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-leg-back-shin">
+<use id="ned-leg-back-shin-line" href="#ned-leg-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-back-shin-clip)">
+<use id="ned-leg-back-shin-lit" href="#ned-leg-back-shin-shape" fill="#6f5c46"/>
+<path id="ned-leg-back-shin-mid" d="M 100.5 195 L 95.1 213.9 L 92.1 215.8 L 88.6 228.1 L 75.3 224.4 L 85 190.6 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="ned-leg-back-shin-dark" d="M 100.5 195 L 95.1 213.9 L 92.1 215.8 L 88.6 228.1 L 75.3 224.4 L 85 190.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ned-leg-back-boot">
+<use id="ned-leg-back-boot-line" href="#ned-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-leg-back-boot-clip)">
+<use id="ned-leg-back-boot-lit" href="#ned-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="ned-leg-back-boot-mid" d="M 70.4 214 L 94.3 214 L 95.7 226 L 104.5 232 L 124.4 235 L 124.4 244 L 70.4 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ned-leg-back-boot-dark" d="M 70.4 214 L 94.3 214 L 95.7 226 L 104.5 232 L 124.4 235 L 124.4 244 L 70.4 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ned-leg-back-boot-sole" d="M 76.4 237 L 121.4 237 L 121.4 241.5 L 76.4 241.5 Z" fill="#14110f"/>
+<path id="ned-leg-back-boot-crease" d="M 103 225.8 L 94.3 231 L 104 228.2 Z" fill="#14110f"/>
+</svg>

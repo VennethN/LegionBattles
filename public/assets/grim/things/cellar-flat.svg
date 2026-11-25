@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cellar-flat" width="300" height="300" viewBox="0 0 300 300">
+<path id="cellar-flat-ground" d="M 0 300 L 0 262 L 60 256 L 140 266 L 220 254 L 300 262 L 300 300 Z" fill="#14110f"/>
+<path id="cellar-flat-beam" d="M 0 20 L 300 10 L 300 40 L 0 50 Z" fill="#14110f"/>
+<path id="cellar-flat-post" d="M 30 40 L 56 40 L 60 264 L 26 264 Z" fill="#14110f"/>
+<path id="cellar-flat-web" d="M 55.1 51.2 L 200 160 L 56.9 48.8 Z M 98.9 47 L 200 160 L 101.1 45 Z M 158.6 42.5 L 200 160 L 161.4 41.5 Z M 238.6 35.5 L 200 160 L 241.4 36.5 Z M 288.8 33.1 L 200 160 L 291.2 34.9 Z M 70.1 101.5 L 270 90 L 69.9 98.5 Z M 110 131.5 L 250 130 L 110 128.5 Z" fill="#14110f"/>
+<path id="cellar-flat-wrapped" d="M 180 150 L 200 140 L 220 156 L 222 220 L 204 240 L 184 226 Z" fill="#14110f"/>
+</svg>

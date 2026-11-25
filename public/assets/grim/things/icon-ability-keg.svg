@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-ability-keg" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-ability-keg-keg-shape" d="M 10 24 L 44 20 L 52 36 L 48 58 L 14 60 L 6 42 Z"/>
+<clipPath id="icon-ability-keg-keg-clip"><use href="#icon-ability-keg-keg-shape"/></clipPath>
+<path id="icon-ability-keg-spark-shape" d="M 54 0 L 57 5 L 63 3 L 59 8 L 64 12 L 58 11 L 56 16 L 54 11 L 48 11 L 52 7 Z"/>
+</defs>
+<g id="icon-ability-keg-keg">
+<use id="icon-ability-keg-keg-line" href="#icon-ability-keg-keg-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-ability-keg-keg-clip)">
+<use id="icon-ability-keg-keg-lit" href="#icon-ability-keg-keg-shape" fill="#6f5c46"/>
+<path id="icon-ability-keg-keg-mid" d="M -6 16 L 12.2 15.5 L 16.6 44.5 L 10.2 51.3 L 12.2 64.5 L -6 64 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="icon-ability-keg-keg-dark" d="M -6 16 L 12.2 15.5 L 16.6 44.5 L 10.2 51.3 L 12.2 64.5 L -6 64 Z" fill="#14110f"/>
+<path id="icon-ability-keg-hoop-a" d="M 16 22 L 22 22 L 20 60 L 14 60 Z" fill="#5b6165"/>
+<path id="icon-ability-keg-hoop-b" d="M 38 20 L 44 20 L 46 58 L 40 58 Z" fill="#5b6165"/>
+<path id="icon-ability-keg-mark" d="M 22.8 34.9 L 34 48 L 25.2 33.1 Z M 32.8 33.1 L 24 48 L 35.2 34.9 Z" fill="#34302d"/>
+</g>
+</g>
+<path id="icon-ability-keg-fuse" d="M 44 22 L 52 14 L 54 8" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="icon-ability-keg-spark">
+<use id="icon-ability-keg-spark-line" href="#icon-ability-keg-spark-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-ability-keg-spark-lit" href="#icon-ability-keg-spark-shape" fill="#eeb040"/>
+</g>
+</svg>

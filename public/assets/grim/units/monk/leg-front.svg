@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="monk-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="monk-leg-front-foot-shape" d="M 136 232 L 160 230 L 170 240 L 134 240 Z"/>
+<clipPath id="monk-leg-front-foot-clip"><use href="#monk-leg-front-foot-shape"/></clipPath>
+</defs>
+<g id="monk-leg-front-foot">
+<use id="monk-leg-front-foot-line" href="#monk-leg-front-foot-shape" transform="translate(-1.98 1.49)" fill="#14110f" stroke="#14110f" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#monk-leg-front-foot-clip)">
+<use id="monk-leg-front-foot-lit" href="#monk-leg-front-foot-shape" fill="#9aa48c"/>
+<path id="monk-leg-front-foot-mid" d="M 122 226 L 146.4 226 L 150.4 244 L 122 244 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="monk-leg-front-foot-dark" d="M 122 226 L 146.4 226 L 150.4 244 L 122 244 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

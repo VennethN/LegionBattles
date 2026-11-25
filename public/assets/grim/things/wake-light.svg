@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="wake-light" width="128" height="60" viewBox="0 0 128 60">
+<path id="wake-light-outer" d="M 4 30 L 24 12 L 64 4 L 104 12 L 124 30 L 104 48 L 64 56 L 24 48 Z" fill="#c27a26" opacity="0.35"/>
+<path id="wake-light-inner" d="M 24 30 L 40 18 L 64 14 L 88 18 L 104 30 L 88 42 L 64 46 L 40 42 Z" fill="#eeb040" opacity="0.45"/>
+<path id="wake-light-heart" d="M 46 30 L 56 24 L 72 24 L 82 30 L 72 36 L 56 36 Z" fill="#ffe6a2" opacity="0.5"/>
+</svg>

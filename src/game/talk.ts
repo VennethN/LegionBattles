@@ -51,8 +51,16 @@ export const VOICES: Record<string, { name: string; heard?: boolean }> = {
   brask: { name: 'Brask' },
   sellsword: { name: 'Sellsword' },
   bowman: { name: 'Bowman' },
+  greta: { name: 'Greta' },
+  ned: { name: 'Ned' },
+  ida: { name: 'Ida' },
+  silas: { name: 'Silas' },
   sexton: { name: 'The Gravedigger' },
   king: { name: 'The Antlered King', heard: true },
+  spinner: { name: 'The Spinner', heard: true },
+  abbot: { name: 'The Bell Abbot' },
+  furnace: { name: 'The Furnace', heard: true },
+  mirror: { name: 'The Mirror King' },
   pikemen: { name: 'Spearman' },
   crossbowmen: { name: 'Crossbowman' },
   sappers: { name: 'Bomber' },
@@ -149,6 +157,135 @@ export const LINES: readonly Line[] = [
   ...L('king', 'reel', ['The antlers drag in the snow.', 'He kneels like a man would.', 'The bell is quiet.', 'He shakes his head, slowly.']),
   ...L('king', 'die', ['The bell falls. It is only a bell.', 'For a moment he looks like a man.']),
 
+  // ---- Greta Hale, the Smith. The foundry at Black Pit woke and burned her brother Wil. She shod horses; now she shoes bosses.
+  ...L('greta', 'enter', ['Black Pit. I swore I would not come back.', 'Smell that? Hot iron. Wil.', 'I made half the tools in here.'], 'furnace'),
+  ...L('greta', 'sight', ['There you are. Still burning.', 'Wil worked your bellows. Remember him?'], 'furnace'),
+  ...L('greta', 'enter', ['Cellars. Damp ruins good iron.', 'Mind the steps. Mind the silk.'], 'spinner'),
+  ...L('greta', 'sight', ['Eight legs. Eight shoes. No.'], 'spinner'),
+  ...L('greta', 'enter', ['Wet feet. A smith hates wet feet.', 'Mind the hammer near the water.'], 'abbot'),
+  ...L('greta', 'enter', ['Glass. I can work with glass.', 'Too many of him. Fine. More to hit.'], 'mirror'),
+  ...L('greta', 'enter', ['Right. Work to do.', 'Hammer is hot. Let us go.', 'Like any job. Strike while it is hot.']),
+  ...L('greta', 'miss', ['Not on my anvil.', 'Too slow for a smith.', 'Missed. Good.', 'I have dodged worse sparks.', 'Close. Hot, but close.', 'Steady hands. Steady feet.']),
+  ...L('greta', 'skill', ['Hot iron!', 'Mind your head.', 'Anvil coming down!', 'That is how you temper it.', 'Stay there. Good.', 'Feel the heat now.']),
+  ...L('greta', 'hurt', ['Burns heal.', 'Ow. Like a slipped tong.', 'Still standing.', 'That will leave a mark.', 'Hit me again. Go on.', 'Worse at the forge.']),
+  ...L('greta', 'break', ['Down! Hammer it!', 'Now, while it is soft!', 'Cracked. Hit the crack.', 'There. Shape it now.']),
+  ...L('greta', 'kill', ['For you, Wil.', 'Let it go cold.'], 'furnace'),
+  ...L('greta', 'kill', ['Done. Back to the forge.', 'That took some shaping.']),
+  ...L('greta', 'fall', ['Tell the forge I tried.', 'Too hot. Too hot.'], 'furnace'),
+  ...L('greta', 'fall', ['Pick up the hammer...', 'Someone finish the job.']),
+  ...L('greta', 'up', ['Up. Back to work.', 'Thanks. Mind the hammer.', 'Still hot. Still here.', 'I owe you a horseshoe.', 'Right. Where was I.', 'Not done yet.']),
+  ...L('greta', 'help', ['Up. Lean on me.', 'On your feet.', 'Come on. Up.', 'I have you.']),
+  ...L('greta', 'rest', ['This edge wants work.', 'Pass the whetstone.', 'Wil liked this ale.', 'Every nail I ever made, I remember.', 'Good iron is patient.', 'Quiet. I am counting rivets.']),
+
+  // ---- Ned Rook, the Miner. He dug the cellars under Harrow, and broke into whatever lives below them.
+  ...L('ned', 'enter', ['I dug these. I am sorry.', 'Third cellar on the left. That was mine.', 'I heard her down here. Nobody listened.'], 'spinner'),
+  ...L('ned', 'sight', ['That is what I broke into.', 'Hello again, you.'], 'spinner'),
+  ...L('ned', 'enter', ['Black Pit. Worked the seam here.', 'Good rock. Bad neighbor.'], 'furnace'),
+  ...L('ned', 'enter', ['Water in a dig is bad news.', 'Never trusted a flooded shaft.'], 'abbot'),
+  ...L('ned', 'enter', ['Nothing in here is solid.', 'Glass breaks. That I know.'], 'mirror'),
+  ...L('ned', 'enter', ['Mind your heads.', 'Right then. Lamp on.', 'Smells like a bad seam.']),
+  ...L('ned', 'miss', ['Duck! Ha.', 'Missed me.', 'Like a falling roof. Seen worse.', 'Not today.', 'Keep your head down, Ned.', 'Close. Very close.']),
+  ...L('ned', 'skill', ['Fire in the hole!', 'Stand back!', 'Rocks coming!', 'Short fuse. Run.', 'That should loosen it.', 'Down she comes!']),
+  ...L('ned', 'hurt', ['My back.', 'Like a cave-in. Fine.', 'Ow. That is a bruise.', 'Still digging.', 'Hard head. Lucky.', 'Not the lamp!']),
+  ...L('ned', 'break', ['It is down! Dig in!', 'Now! Swing!', 'Cracked it!', 'Open seam. Go!']),
+  ...L('ned', 'kill', ['Sealed. For good this time.', 'I will fill the hole in myself.'], 'spinner'),
+  ...L('ned', 'kill', ['That is that.', 'Back to the pit.']),
+  ...L('ned', 'fall', ['Should have stayed up top.', 'Bury me shallow. I hate digging.']),
+  ...L('ned', 'up', ['Up. Thanks.', 'Dug out again.', 'Light still on. Good.', 'Owe you a pint.', 'Still breathing.', 'Back to it.']),
+  ...L('ned', 'help', ['Grab my arm.', 'Up you come.', 'Out of the hole.', 'Up. Quick.']),
+  ...L('ned', 'rest', ['Powder is dry. Good.', 'I can hear the ground settle.', 'Never sit under a beam.', 'One more fuse. Just in case.', 'My lamp is older than me.', 'Ale tastes like rock dust.']),
+
+  // ---- Ida Marsh, the Ferrywoman. She rowed the monks out to Saint Wenna before the lake took it.
+  ...L('ida', 'enter', ['I rowed them here. Every one.', 'The lake was lower then.', 'Vespers. He is ringing for me.'], 'abbot'),
+  ...L('ida', 'sight', ['Father Anselm. Put the bell down.', 'You still owe me the fare.'], 'abbot'),
+  ...L('ida', 'enter', ['Dry. Too dry.', 'No water. No boat. Fine.'], 'furnace'),
+  ...L('ida', 'enter', ['Damp cellar. Almost like home.', 'Cobwebs. Plenty of them.'], 'spinner'),
+  ...L('ida', 'enter', ['I do not like reflections.', 'Still water shows this too.'], 'mirror'),
+  ...L('ida', 'enter', ['Keep to the pole.', 'Mind the deep parts.', 'Steady. Like crossing in fog.']),
+  ...L('ida', 'miss', ['Too slow.', 'Missed me.', 'Like dodging a log.', 'Keep your distance.', 'Not close enough.', 'Pole length. Always.']),
+  ...L('ida', 'skill', ['Back you go.', 'Off my bank!', 'Follow the light.', 'Push off.', 'Shove!', 'This way. Stay close.']),
+  ...L('ida', 'hurt', ['Wet and hurt. Lovely.', 'That got through.', 'Still afloat.', 'Ow. Rough water.', 'Hold on, Ida.', 'Fine. Bailing out.']),
+  ...L('ida', 'break', ['It is down!', 'Now! In close!', 'It is sinking. Hit it.', 'Down. Go.']),
+  ...L('ida', 'kill', ['Fare paid, Father.', 'Rest under the water.'], 'abbot'),
+  ...L('ida', 'kill', ['Done. Back to the boat.', 'That is the last crossing.']),
+  ...L('ida', 'fall', ['Take the oars...', 'The water is so cold.']),
+  ...L('ida', 'up', ['Up. Thank you.', 'Pulled out again.', 'Still afloat.', 'I owe you a crossing.', 'Right. Steady now.', 'Back on my feet.']),
+  ...L('ida', 'help', ['Take the pole.', 'Up. I have you.', 'Out of the water.', 'Grab hold.']),
+  ...L('ida', 'rest', ['The lake is high tonight.', 'Nobody tips the ferrywoman.', 'This lantern has seen fog.', 'Oars need oil.', 'I count bells. Old habit.', 'Sit. The floor does not move.']),
+
+  // ---- Silas Grey, the Butcher. The mirror maker owed him for a year of meat, and paid in glass.
+  ...L('silas', 'enter', ['A year of meat. Pay up.', 'His shop. His bill. My hook.', 'I count the mirrors first.'], 'mirror'),
+  ...L('silas', 'sight', ['Which of you owes me?', 'All of you, then.'], 'mirror'),
+  ...L('silas', 'enter', ['Smells like a bad larder.', 'Webs on the hams. Shame.'], 'spinner'),
+  ...L('silas', 'enter', ['Wet meat spoils.', 'Monks never paid either.'], 'abbot'),
+  ...L('silas', 'enter', ['Hot in here. Good for roasting.', 'I prefer my cuts cold.'], 'furnace'),
+  ...L('silas', 'enter', ['Right. Where to start cutting.', 'Sharp cleaver. Short temper.', 'Fresh one.']),
+  ...L('silas', 'miss', ['Missed.', 'Too slow, joint.', 'Not my apron.', 'Ha.', 'Nearly.', 'Watch the cleaver.']),
+  ...L('silas', 'skill', ['Hooked!', 'Come here.', 'Chop, chop.', 'Fine cuts.', 'Over the block.', 'Bleed for me.']),
+  ...L('silas', 'hurt', ['Ow. That is my cut.', 'Bleeding. Both of us.', 'Still sharp.', 'Not the apron.', 'Mind yourself.', 'That costs you.']),
+  ...L('silas', 'break', ['Down! Carve it!', 'On the block!', 'Now. Cut deep.', 'It is open.']),
+  ...L('silas', 'kill', ['Paid in full.', 'Now the glass is mine.'], 'mirror'),
+  ...L('silas', 'kill', ['Clean cut.', 'Hang it up.']),
+  ...L('silas', 'fall', ['Keep the bill...', 'Cut... short.']),
+  ...L('silas', 'up', ['Up. Thanks.', 'Still sharp.', 'Back to the block.', 'Owe you a joint.', 'Right.', 'Again.']),
+  ...L('silas', 'help', ['Up you get.', 'On the hook. Up.', 'Get up.', 'Come on.']),
+  ...L('silas', 'rest', ['Cleaver wants honing.', 'Everybody owes me something.', 'I can price a pig by eye.', 'Glass is no payment.', 'I know what is in this stew.', 'Sit. Do not touch the hooks.']),
+
+  // ---- The four who were here first, to the four bosses that came after.
+  ...L('marta', 'enter', ['Cellars. No gate to keep here.', 'Webs on the door. I hate webs.'], 'spinner'),
+  ...L('marta', 'enter', ['A church under water. Poor souls.', 'I knew an abbot once. Better one.'], 'abbot'),
+  ...L('marta', 'enter', ['Heat. My coat will cook.', 'A furnace is a gate of fire.'], 'furnace'),
+  ...L('marta', 'enter', ['Mirrors. I see myself. Old.', 'Which one do I hit?'], 'mirror'),
+  ...L('jory', 'enter', ['Spiders. I am leaving. No. Fine.', 'Never set a snare for a spider.'], 'spinner'),
+  ...L('jory', 'enter', ['A church. In a lake. Why not.', 'My boots will never dry.'], 'abbot'),
+  ...L('jory', 'enter', ['Hot. My string will snap.', 'Never poached in a furnace.'], 'furnace'),
+  ...L('jory', 'enter', ['I hate shooting at myself.', 'Too many of him to miss.'], 'mirror'),
+  ...L('agnes', 'enter', ['Dark cellars. My kind of work.', 'Webs burn. Good.'], 'spinner'),
+  ...L('agnes', 'enter', ['Candles under water. Sad.', 'Their bell never needed my lamps.'], 'abbot'),
+  ...L('agnes', 'enter', ['Too much fire. Even for me.', 'It does not need my lamp.'], 'furnace'),
+  ...L('agnes', 'enter', ['Light in mirrors. Watch the true one.', 'Every lamp here lit twice.'], 'mirror'),
+  ...L('brask', 'enter', ['Easy, girls. Little ones about.', 'Spiders. The girls hate spiders.'], 'spinner'),
+  ...L('brask', 'enter', ['Wet dogs. Lovely.', 'Bells. They will howl all night.'], 'abbot'),
+  ...L('brask', 'enter', ['Mind your paws, girls.', 'Hot floor. Hot dogs.'], 'furnace'),
+  ...L('brask', 'enter', ['They bark at the mirrors.', 'Smell which one is real, girls.'], 'mirror'),
+
+  // ---- The Spinner. She was down there before the cellars were dug. She does not speak: what is heard and seen.
+  ...L('spinner', 'wake', ['Something taps. Eight times.', 'Silk shivers across the whole ceiling.', 'Eyes open in the dark. Many.', 'A dry clicking, very close.']),
+  ...L('spinner', 'wake', ['She knows the sound of his pick.'], 'ned'),
+  ...L('spinner', 'change', ['The egg sacs pulse.', 'She pulls the silk tighter.', 'Old wine casks crack under her.']),
+  ...L('spinner', 'last', ['Every web in the cellar shakes.', 'She drags her legs. She hisses.', 'The sacs split open.']),
+  ...L('spinner', 'big', ['She climbs out of sight.', 'Silk falls like rain.', 'The clicking stops.', 'She rears up.', 'Legs spread wide.', 'Dust falls from above.']),
+  ...L('spinner', 'reel', ['Her legs fold.', 'She hangs by one thread.', 'A thin scream, then quiet.', 'She curls up tight.']),
+  ...L('spinner', 'die', ['The webs go slack.', 'Her legs close like a hand.']),
+
+  // ---- The Bell Abbot. Father Anselm rang the bell as the lake came in, and would not leave it.
+  ...L('abbot', 'wake', ['Vespers. Kneel.', 'Who rings at my door?', 'The bell calls. You came.', 'Silence in the choir.']),
+  ...L('abbot', 'wake', ['Ida. You did not row us back.', 'Ferrywoman. The fare is your life.'], 'ida'),
+  ...L('abbot', 'change', ['Brothers. Sing.', 'The water rises for the faithful.', 'One more hour of prayer.']),
+  ...L('abbot', 'last', ['I rang until the lake took me.', 'The bell does not stop. Neither do I.', 'Drown with us.']),
+  ...L('abbot', 'big', ['Hear it.', 'The hour strikes.', 'Kneel.', 'Again the bell.', 'Bow your head.', 'Hear the knell.']),
+  ...L('abbot', 'reel', ['My bell...', 'Brothers, help me.', 'The rope slips.', 'Not yet. Not yet.']),
+  ...L('abbot', 'die', ['Let it ring for me.', 'The water is quiet now.']),
+  ...L('abbot', 'die', ['Row me home, Ida.'], 'ida'),
+
+  // ---- The Furnace. The foundry fire that never went out. It does not speak: what is heard and seen.
+  ...L('furnace', 'wake', ['The grate glows white.', 'The bellows draw a long breath.', 'Every rivet in it groans.', 'Sparks climb the chimney.']),
+  ...L('furnace', 'wake', ['It knows her hammer.'], 'greta'),
+  ...L('furnace', 'change', ['Its doors bang open.', 'Slag runs down its sides.', 'The chimney roars.']),
+  ...L('furnace', 'last', ['It glows through its own walls.', 'The floor softens under it.', 'The roar never stops now.']),
+  ...L('furnace', 'big', ['The vents open.', 'It draws breath.', 'Heat shimmers round it.', 'Iron rings inside it.', 'The grate flares.', 'A long hiss.']),
+  ...L('furnace', 'reel', ['Steam pours out of it.', 'It sags and cracks.', 'The fire gutters.', 'A door hangs open.']),
+  ...L('furnace', 'die', ['The fire goes out at last.', 'It ticks as it cools.']),
+
+  // ---- The Mirror King. The mirror maker, who looked into his best glass too long, and something looked back.
+  ...L('mirror', 'wake', ['Which of me will you fight?', 'Look closer.', 'You are in my glass now.', 'Welcome. All of you.']),
+  ...L('mirror', 'wake', ['Butcher. I paid in glass.', 'Silas. Your bill is in a mirror.'], 'silas'),
+  ...L('mirror', 'change', ['More of me. Always more.', 'Every mirror is a door.', 'You struck a copy.']),
+  ...L('mirror', 'last', ['Break them and I am alone.', 'I was a man once. Which one?', 'Do not look at me.']),
+  ...L('mirror', 'big', ['Here. No, here.', 'Look closely.', 'Glass cuts.', 'Behind you.', 'See yourself.', 'Choose.']),
+  ...L('mirror', 'reel', ['Cracked...', 'You found me.', 'The glass... is breaking.', 'Not my face.']),
+  ...L('mirror', 'die', ['At last, just one of me.', 'Cover the mirrors.']),
+
   // ---- Those who come at the horn.
   ...L('pikemen', 'called', ['Spears up!', 'Form a line!', 'Hold here!', 'Points forward!', 'With you!', 'Brace, lads!']),
   ...L('crossbowmen', 'called', ['Loose!', 'Pick your mark.', 'Wind and loose!', 'Eyes on the big one.', 'Do not hit the hunter.', 'From back here, thanks.']),
@@ -191,6 +328,10 @@ export const LINES: readonly Line[] = [
 
   ...L('keeper', 'taken', ['Saint Odran\'s. Bring a spade back.', 'He was a good digger once.', 'Do not fall in anything.'], 'sexton'),
   ...L('keeper', 'taken', ['Harrow Wood. Wear something warm.', 'Do not follow the bell.', 'He was our lord. Was.'], 'king'),
+  ...L('keeper', 'taken', ['The cellars. Take a lamp.', 'Watch the ceiling.', 'Tread round the webs.'], 'spinner'),
+  ...L('keeper', 'taken', ['Saint Wenna. Bring dry socks.', 'Count the bells.', 'Kill the monks first.'], 'abbot'),
+  ...L('keeper', 'taken', ['Black Pit. Take water.', 'Cool it, then hit it.', 'Do not stand by the vents.'], 'furnace'),
+  ...L('keeper', 'taken', ['The glass hall. Break everything.', 'Hit the one that hits hardest.', 'Do not trust your eyes.'], 'mirror'),
   ...L('keeper', 'taken', ['Sign here. Or make your mark.', 'Pay is on return.', 'Try to come back.']),
   ...L('keeper', 'trophy', ['On the wall it goes.', 'That will draw a crowd.', 'Did not think you would.', 'Wipe it first.']),
 ];
@@ -324,7 +465,7 @@ export class Talk {
     }
     // A sapper's charge is on the ground: the one thing of the hunter's side that is shown before it goes.
     for (const t of hunt.tells) {
-      if (t.foe || this.seenCharges.has(t.id)) continue;
+      if (t.foe || t.own || this.seenCharges.has(t.id)) continue;
       this.seenCharges.add(t.id);
       this.offer('sappers', 'warn');
     }
@@ -357,6 +498,10 @@ export class Talk {
         case 'open':
           if (e.why === 'held' || e.why === 'blind') this.offer(this.hunter, 'skill');
           break;
+        case 'ability':
+          // The newer hunters say something as they use a skill: theirs are not turned blows or held bosses.
+          if (SAYS_SKILL.has(e.id)) this.offer(hunt.party[e.who]?.def.id ?? this.hunter, 'skill');
+          break;
         case 'hurt':
           if (e.who !== 'hunter') break;
           if (e.id !== 0) {
@@ -386,6 +531,9 @@ export class Talk {
     }
   }
 }
+
+/** Skills spoken to as they are used. */
+const SAYS_SKILL: ReadonlySet<string> = new Set(['forgestrike', 'anvil', 'keg', 'cavein', 'shove', 'wake', 'hook', 'hack']);
 
 /** True if an attack is among the monster's heaviest: the top third of what its blows do. */
 function isBig(hunt: Hunt, attack: string): boolean {

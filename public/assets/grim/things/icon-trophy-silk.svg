@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trophy-silk" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trophy-silk-skein-shape" d="M 10 30 L 18 14 L 34 8 L 50 14 L 56 30 L 50 48 L 34 56 L 18 50 Z"/>
+<clipPath id="icon-trophy-silk-skein-clip"><use href="#icon-trophy-silk-skein-shape"/></clipPath>
+<path id="icon-trophy-silk-tie-shape" d="M 28 4 L 38 4 L 40 60 L 26 60 Z"/>
+<clipPath id="icon-trophy-silk-tie-clip"><use href="#icon-trophy-silk-tie-shape"/></clipPath>
+</defs>
+<g id="icon-trophy-silk-skein">
+<use id="icon-trophy-silk-skein-line" href="#icon-trophy-silk-skein-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-silk-skein-clip)">
+<use id="icon-trophy-silk-skein-lit" href="#icon-trophy-silk-skein-shape" fill="#cfc5a8"/>
+<path id="icon-trophy-silk-skein-mid" d="M 0 34 L 64 40 L 64 64 L 0 64 Z" transform="translate(3 -0.72)" fill="#9c9178"/>
+<path id="icon-trophy-silk-skein-dark" d="M 0 34 L 64 40 L 64 64 L 0 64 Z" fill="#14110f"/>
+<path id="icon-trophy-silk-turns" d="M 14.2 25 L 52 18 L 13.8 23 Z M 12.1 33 L 56 28 L 11.9 31 Z M 14.1 43 L 54 38 L 13.9 41 Z M 20.1 51 L 50 48 L 19.9 49 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="icon-trophy-silk-tie">
+<use id="icon-trophy-silk-tie-line" href="#icon-trophy-silk-tie-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-silk-tie-clip)">
+<use id="icon-trophy-silk-tie-lit" href="#icon-trophy-silk-tie-shape" fill="#7d312b"/>
+<path id="icon-trophy-silk-tie-dark" d="M 14 0 L 27.5 0 L 28.9 32.6 L 27 35 L 28.3 64 L 14 64 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-trophy-silk-loose" d="M 52 40 L 60 52 L 58 62" fill="none" stroke="#cfc5a8" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mirror-leg-back" width="1040" height="1100" viewBox="-190 -190 1040 1100">
+<defs>
+<path id="mirror-leg-back-shin-shape" d="M 322.9 502.6 L 298.9 661.9 L 265.1 658.1 L 277.1 497.4 Z"/>
+<clipPath id="mirror-leg-back-shin-clip"><use href="#mirror-leg-back-shin-shape"/></clipPath>
+<path id="mirror-leg-back-foot-shape" d="M 236 668 L 290 656 L 320 676 L 316 700 L 230 700 Z"/>
+<clipPath id="mirror-leg-back-foot-clip"><use href="#mirror-leg-back-foot-shape"/></clipPath>
+</defs>
+<g id="mirror-leg-back-shin">
+<use id="mirror-leg-back-shin-line" href="#mirror-leg-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-leg-back-shin-clip)">
+<use id="mirror-leg-back-shin-lit" href="#mirror-leg-back-shin-shape" fill="#4f4944"/>
+<path id="mirror-leg-back-shin-mid" d="M 292.7 496.2 L 284.2 571.6 L 280.9 574.5 L 271 661.8 L 226.8 656.8 L 245.5 490.8 Z" transform="translate(4 -0.96)" fill="#34302d"/>
+<path id="mirror-leg-back-shin-dark" d="M 292.7 496.2 L 284.2 571.6 L 280.9 574.5 L 271 661.8 L 226.8 656.8 L 245.5 490.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mirror-leg-back-foot">
+<use id="mirror-leg-back-foot-line" href="#mirror-leg-back-foot-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-leg-back-foot-clip)">
+<use id="mirror-leg-back-foot-lit" href="#mirror-leg-back-foot-shape" fill="#5f7480"/>
+<use id="mirror-leg-back-foot-rim" href="#mirror-leg-back-foot-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-leg-back-foot-lit-over" href="#mirror-leg-back-foot-shape" transform="translate(-1.6 1.2)" fill="#5f7480"/>
+<path id="mirror-leg-back-foot-mid" d="M 220 690 L 330 690 L 330 710 L 220 710 Z" transform="translate(6 -1.44)" fill="#3f505b"/>
+<path id="mirror-leg-back-foot-dark" d="M 220 690 L 330 690 L 330 710 L 220 710 Z" fill="#14110f"/>
+<path id="mirror-leg-back-foot-facet-0" d="M 250 670 L 286 662 L 296 688 Z" fill="#3f505b"/>
+<path id="mirror-leg-back-foot-crack-0" d="M 250 670 L 286 662 L 296 688 L 250 670" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="mirror-leg-back-foot-glints" d="M 250.2 671 L 268 666 L 249.8 669 Z" fill="#b4bfc0"/>
+</g>
+</g>
+</svg>

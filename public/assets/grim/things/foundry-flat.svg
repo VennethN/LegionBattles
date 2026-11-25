@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="foundry-flat" width="300" height="300" viewBox="0 0 300 300">
+<path id="foundry-flat-ground" d="M 0 300 L 0 262 L 100 256 L 180 266 L 300 256 L 300 300 Z" fill="#14110f"/>
+<path id="foundry-flat-beam" d="M 0 0 L 300 0 L 300 26 L 0 30 Z" fill="#14110f"/>
+<path id="foundry-flat-chain-0" d="M 57 26.1 L 62 100 L 63 25.9 Z" fill="#14110f"/>
+<path id="foundry-flat-chain-1" d="M 117 26.1 L 122 140 L 123 25.9 Z" fill="#14110f"/>
+<path id="foundry-flat-chain-2" d="M 227 26 L 232 180 L 233 26 Z" fill="#14110f"/>
+<path id="foundry-flat-hook" d="M 116 180 L 130 180 L 134 210 L 120 230 L 104 222 L 100 206 L 110 212 L 122 206 Z" fill="#14110f"/>
+<path id="foundry-flat-crucible" d="M 180 262 L 196 220 L 250 214 L 270 236 L 262 262 Z" fill="#14110f"/>
+</svg>

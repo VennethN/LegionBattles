@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="reflection-leg-front" width="1040" height="1100" viewBox="-190 -190 1040 1100">
+<defs>
+<path id="reflection-leg-front-shin-shape" d="M 383.7 496.2 L 403.8 657.1 L 368.2 662.9 L 336.3 503.8 Z"/>
+<clipPath id="reflection-leg-front-shin-clip"><use href="#reflection-leg-front-shin-shape"/></clipPath>
+<path id="reflection-leg-front-foot-shape" d="M 350 664 L 410 652 L 450 674 L 446 700 L 346 700 Z"/>
+<clipPath id="reflection-leg-front-foot-clip"><use href="#reflection-leg-front-foot-shape"/></clipPath>
+</defs>
+<g id="reflection-leg-front-shin">
+<use id="reflection-leg-front-shin-line" href="#reflection-leg-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-leg-front-shin-clip)">
+<use id="reflection-leg-front-shin-lit" href="#reflection-leg-front-shin-shape" fill="#b4bfc0"/>
+<path id="reflection-leg-front-shin-mid" d="M 366.1 496 L 376.5 559.9 L 373.5 564.6 L 389.4 662.5 L 343.8 669.9 L 316.9 504 Z" transform="translate(4 -0.96)" fill="#84939a"/>
+<path id="reflection-leg-front-shin-dark" d="M 366.1 496 L 376.5 559.9 L 373.5 564.6 L 389.4 662.5 L 343.8 669.9 L 316.9 504 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="reflection-leg-front-foot">
+<use id="reflection-leg-front-foot-line" href="#reflection-leg-front-foot-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#reflection-leg-front-foot-clip)">
+<use id="reflection-leg-front-foot-lit" href="#reflection-leg-front-foot-shape" fill="#b4bfc0"/>
+<use id="reflection-leg-front-foot-rim" href="#reflection-leg-front-foot-shape" fill="#f4d294" opacity="0.55"/>
+<use id="reflection-leg-front-foot-lit-over" href="#reflection-leg-front-foot-shape" transform="translate(-1.6 1.2)" fill="#b4bfc0"/>
+<path id="reflection-leg-front-foot-mid" d="M 340 692 L 460 692 L 460 710 L 340 710 Z" transform="translate(6 -1.44)" fill="#84939a"/>
+<path id="reflection-leg-front-foot-dark" d="M 340 692 L 460 692 L 460 710 L 340 710 Z" fill="#14110f"/>
+<path id="reflection-leg-front-foot-facet-0" d="M 370 668 L 410 660 L 420 690 Z" fill="#84939a"/>
+<path id="reflection-leg-front-foot-facet-1" d="M 420 668 L 440 676 L 432 694 Z" fill="#b4bfc0"/>
+<path id="reflection-leg-front-foot-crack-0" d="M 370 668 L 410 660 L 420 690 L 370 668" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-leg-front-foot-crack-1" d="M 420 668 L 440 676 L 432 694 L 420 668" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="reflection-leg-front-foot-glints" d="M 370.2 669 L 390 664 L 369.8 667 Z M 419.6 668.9 L 430 672 L 420.4 667.1 Z" fill="#e9e0c6"/>
+</g>
+</g>
+</svg>

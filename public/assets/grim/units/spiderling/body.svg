@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="spiderling-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="spiderling-body-bobbin-shape" d="M 150 190 L 140 172 L 116 162 L 92 168 L 80 186 L 86 206 L 108 216 L 134 212 Z"/>
+<clipPath id="spiderling-body-bobbin-clip"><use href="#spiderling-body-bobbin-shape"/></clipPath>
+<path id="spiderling-body-fore-shape" d="M 140 184 L 162 180 L 176 192 L 168 206 L 146 208 Z"/>
+<clipPath id="spiderling-body-fore-clip"><use href="#spiderling-body-fore-shape"/></clipPath>
+<path id="spiderling-body-veil-shape" d="M 160 180 L 176 176 L 190 186 L 188 198 L 178 196 L 168 190 Z"/>
+<clipPath id="spiderling-body-veil-clip"><use href="#spiderling-body-veil-shape"/></clipPath>
+<path id="spiderling-body-fang-shape" d="M 180 198 L 190 202 L 192 214 L 184 210 Z"/>
+<clipPath id="spiderling-body-fang-clip"><use href="#spiderling-body-fang-shape"/></clipPath>
+</defs>
+<g id="spiderling-body-bobbin">
+<use id="spiderling-body-bobbin-line" href="#spiderling-body-bobbin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spiderling-body-bobbin-clip)">
+<use id="spiderling-body-bobbin-lit" href="#spiderling-body-bobbin-shape" fill="#cfc5a8"/>
+<path id="spiderling-body-bobbin-mid" d="M 68 158 L 104.5 156.7 L 113.9 183.8 L 109 193.9 L 118.5 221.3 L 68 220 Z" transform="translate(3 -0.72)" fill="#9c9178"/>
+<path id="spiderling-body-bobbin-dark" d="M 68 158 L 104.5 156.7 L 113.9 183.8 L 109 193.9 L 118.5 221.3 L 68 220 Z" fill="#14110f"/>
+<path id="spiderling-body-turn-0" d="M 80.1 176.8 L 148 168 L 79.9 175.2 Z" fill="#9c9178"/>
+<path id="spiderling-body-turn-1" d="M 80.1 186.8 L 148 178 L 79.9 185.2 Z" fill="#9c9178"/>
+<path id="spiderling-body-turn-2" d="M 80.1 196.8 L 148 188 L 79.9 195.2 Z" fill="#9c9178"/>
+<path id="spiderling-body-turn-3" d="M 80.1 206.8 L 148 198 L 79.9 205.2 Z" fill="#9c9178"/>
+<path id="spiderling-body-bobbin-cold" d="M 40 122 L 190 122 L 190 256 L 40 256 Z M 151.7 188.7 L 141.7 170.7 L 117.7 160.7 L 93.7 166.7 L 81.7 184.7 L 87.7 204.7 L 109.7 214.7 L 135.7 210.7 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="spiderling-body-fore">
+<use id="spiderling-body-fore-line" href="#spiderling-body-fore-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spiderling-body-fore-clip)">
+<use id="spiderling-body-fore-lit" href="#spiderling-body-fore-shape" fill="#4f4944"/>
+<path id="spiderling-body-fore-mid" d="M 128 176 L 152.6 175.4 L 157.3 190.5 L 154.6 196.1 L 159.8 212.6 L 128 212 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="spiderling-body-fore-dark" d="M 128 176 L 152.6 175.4 L 157.3 190.5 L 154.6 196.1 L 159.8 212.6 L 128 212 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="spiderling-body-veil">
+<use id="spiderling-body-veil-line" href="#spiderling-body-veil-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spiderling-body-veil-clip)">
+<use id="spiderling-body-veil-lit" href="#spiderling-body-veil-shape" fill="#cfc5a8"/>
+<path id="spiderling-body-veil-dark" d="M 148 172 L 166.9 171.3 L 171.1 185.8 L 167.6 190.7 L 171.1 202.7 L 148 202 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="spiderling-body-fang">
+<use id="spiderling-body-fang-line" href="#spiderling-body-fang-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#spiderling-body-fang-clip)">
+<use id="spiderling-body-fang-lit" href="#spiderling-body-fang-shape" fill="#cfc5a8"/>
+<path id="spiderling-body-fang-dark" d="M 168 194 L 181 194 L 186.2 218 L 168 218 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

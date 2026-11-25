@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="abbey-flat" width="300" height="300" viewBox="0 0 300 300">
+<path id="abbey-flat-ground" d="M 0 300 L 0 266 L 80 260 L 160 270 L 240 258 L 300 266 L 300 300 Z" fill="#14110f"/>
+<path id="abbey-flat-arch" d="M 10 266 L 14 90 L 40 40 L 90 12 L 140 14 L 176 40 L 196 76 L 180 84 L 184 70 L 160 50 L 130 38 L 96 40 L 66 62 L 48 100 L 46 266 Z" fill="#14110f"/>
+<path id="abbey-flat-jamb" d="M 180 266 L 182 120 L 196 110 L 214 118 L 216 266 Z" fill="#14110f"/>
+<path id="abbey-flat-reeds" d="M 163 267.7 L 150 180 L 157 268.3 Z M 173 266.2 L 176 170 L 167 265.8 Z M 182.9 266.6 L 196 190 L 177.1 265.4 Z M 243 261.7 L 232 186 L 237 262.3 Z M 253 262.4 L 262 176 L 247 261.6 Z M 264.9 264.9 L 282 200 L 259.1 263.1 Z M 103 269.6 L 92 214 L 97 270.4 Z" fill="#14110f"/>
+<path id="abbey-flat-reed-head" d="M 172 168 L 180 168 L 180 194 L 172 194 Z" fill="#14110f"/>
+</svg>

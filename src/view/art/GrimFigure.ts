@@ -103,7 +103,11 @@ export class GrimFigure {
     if (p) this.still = p;
     else if (!still) this.stillOff = true;
     if (p) this.stillOff = false;
+    if (p || !still) this.stillName = p ? still : null;
   }
+
+  /** The still it stands in, by name: what a part drawn for one still is shown in. */
+  private stillName: string | null = null;
 
   private stillOff = true;
 
@@ -219,6 +223,8 @@ export class GrimFigure {
       s.rotation = o.rot * RAD;
       s.scaleX = o.sx * INV;
       s.scaleY = o.sy * INV;
+      const only = this.art.parts[i].only;
+      if (only) s.visible = only === this.stillName;
     }
     if (this.tint !== this.lastTint || this.fill !== this.lastFill) {
       this.lastTint = this.tint;

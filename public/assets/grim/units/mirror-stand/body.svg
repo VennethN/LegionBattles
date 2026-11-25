@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mirror-stand-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="mirror-stand-body-frame-shape" d="M 78 230 L 74 40 L 92 10 L 128 0 L 164 10 L 182 40 L 178 230 Z"/>
+<clipPath id="mirror-stand-body-frame-clip"><use href="#mirror-stand-body-frame-shape"/></clipPath>
+<path id="mirror-stand-body-glass-shape" d="M 90 214 L 88 52 L 102 28 L 128 20 L 154 28 L 168 52 L 166 214 Z"/>
+<clipPath id="mirror-stand-body-glass-clip"><use href="#mirror-stand-body-glass-shape"/></clipPath>
+<path id="mirror-stand-body-claw-0-shape" d="M 76 226 L 94 226 L 98 240 L 72 240 Z"/>
+<clipPath id="mirror-stand-body-claw-0-clip"><use href="#mirror-stand-body-claw-0-shape"/></clipPath>
+<path id="mirror-stand-body-claw-1-shape" d="M 164 226 L 182 226 L 186 240 L 160 240 Z"/>
+<clipPath id="mirror-stand-body-claw-1-clip"><use href="#mirror-stand-body-claw-1-shape"/></clipPath>
+</defs>
+<g id="mirror-stand-body-frame">
+<use id="mirror-stand-body-frame-line" href="#mirror-stand-body-frame-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-body-frame-clip)">
+<use id="mirror-stand-body-frame-lit" href="#mirror-stand-body-frame-shape" fill="#6f5c46"/>
+<use id="mirror-stand-body-frame-rim" href="#mirror-stand-body-frame-shape" fill="#f4d294" opacity="0.55"/>
+<use id="mirror-stand-body-frame-lit-over" href="#mirror-stand-body-frame-shape" transform="translate(-1.6 1.2)" fill="#6f5c46"/>
+<path id="mirror-stand-body-frame-mid" d="M 50 0 L 110 0 L 112.5 0 L 114.7 135.8 L 109.9 141.4 L 111.5 240 L 50 240 Z" transform="translate(4 -0.96)" fill="#4a3c2d"/>
+<path id="mirror-stand-body-frame-dark" d="M 50 0 L 110 0 L 112.5 0 L 114.7 135.8 L 109.9 141.4 L 111.5 240 L 50 240 Z" fill="#14110f"/>
+<path id="mirror-stand-body-carving" d="M 92.7 25 L 110 12 L 91.3 23 Z M 145.3 13 L 164 24 L 146.7 11 Z M 82.8 120 L 84 160 L 85.2 120 Z M 170.8 120 L 172 160 L 173.2 120 Z" fill="#4a3c2d"/>
+<path id="mirror-stand-body-gilt" d="M 120 4 L 136 4 L 140 14 L 116 14 Z" fill="#9a5b38"/>
+</g>
+</g>
+<g id="mirror-stand-body-glass">
+<use id="mirror-stand-body-glass-line" href="#mirror-stand-body-glass-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-body-glass-clip)">
+<use id="mirror-stand-body-glass-lit" href="#mirror-stand-body-glass-shape" fill="#5f7480"/>
+<path id="mirror-stand-body-glass-dark" d="M 80 20 L 110 20 L 100 220 L 80 220 Z" fill="#14110f"/>
+<path id="mirror-stand-body-glass-light" d="M 120 40 L 150 36 L 166 80 L 166 120 L 110 200 L 96 200 L 96 170 Z" fill="#84939a"/>
+<path id="mirror-stand-body-glints" d="M 138.9 48.5 L 156 80 L 141.1 47.5 Z M 144.9 44.4 L 150 54 L 147.1 43.6 Z" fill="#b4bfc0"/>
+</g>
+</g>
+<g id="mirror-stand-body-claw-0">
+<use id="mirror-stand-body-claw-0-line" href="#mirror-stand-body-claw-0-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-body-claw-0-clip)">
+<use id="mirror-stand-body-claw-0-lit" href="#mirror-stand-body-claw-0-shape" fill="#8c9194"/>
+<path id="mirror-stand-body-claw-0-dark" d="M 60 222 L 80.9 222 L 86.5 244 L 60 244 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="mirror-stand-body-claw-1">
+<use id="mirror-stand-body-claw-1-line" href="#mirror-stand-body-claw-1-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#mirror-stand-body-claw-1-clip)">
+<use id="mirror-stand-body-claw-1-lit" href="#mirror-stand-body-claw-1-shape" fill="#8c9194"/>
+<path id="mirror-stand-body-claw-1-dark" d="M 148 222 L 168.9 222 L 174.5 244 L 148 244 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>
