@@ -273,13 +273,13 @@ export class HoldScene extends Phaser.Scene {
     // The pages.
     if (pages > 1) {
       const y = view.h - foot / 2 - 2;
-      const prev = new Button(this, pad + 70, y, 'BACK', () => {
+      const prev = new Button(this, pad + 70, y, '< PREV', () => {
         this.page--;
         sfx.play('click', 0.5);
         this.draw();
       }, { width: 140, height: 44, size: 17, mat: IRON });
       prev.setEnabled(this.page > 0);
-      const next = new Button(this, view.w - pad - 70, y, 'NEXT', () => {
+      const next = new Button(this, view.w - pad - 70, y, 'NEXT >', () => {
         this.page++;
         sfx.play('click', 0.5);
         this.draw();
