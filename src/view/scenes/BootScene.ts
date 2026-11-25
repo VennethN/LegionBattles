@@ -8,7 +8,7 @@ import { LOGO_H, LOGO_SCALE, LOGO_W } from '../../art/logoSize';
 import type { Manifest } from '../../art/manifest';
 import { BONE, OUTLINE } from '../../art/kit/palette';
 import { fillBank } from '../../audio/bank';
-import { HEROES } from '../../game/data';
+import { HEROES, COMPANIONS } from '../../game/data';
 import { ads } from '../../platform/ads';
 import { ASSETS, getManifest, setManifest, setupCamera } from '../app';
 import { ART_SCALE, FONT, hex, view } from '../config';
@@ -60,7 +60,8 @@ export class BootScene extends Phaser.Scene {
     art.queue(this, 'packs');
     // Whole figures for the list of heroes.
     const cards = cardSheet(this.game, manifest);
-    const heroes = HEROES.map((h) => h.unit);
+    // The companions' too: the Hold shows who can go along.
+    const heroes = [...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit)];
     for (const unit of heroes) this.load.svg(`svg:portrait/blue/${unit}`, `assets/units/blue/${unit}/full.svg`, { scale: ART_SCALE });
     // The recorded sounds, in one file. They are read while the game goes on: nothing waits for them.
     this.load.binary('audio-bank', 'assets/audio/bank.bin');
