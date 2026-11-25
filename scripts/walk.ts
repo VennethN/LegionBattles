@@ -122,6 +122,16 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await fight(page, 2);
     await shot('quirk-hroth');
   },
+  // Twelve pictures three frames apart of a hero in a fight: laid side by side they show a blow being drawn back, landed and let go.
+  swing: async (page, shot) => {
+    await arena(page, { hero: process.env.HERO ?? 'bram', wave: 3, level: 4, weapons: [], gold: 20 });
+    await until(page, 'Hud');
+    await fight(page, 3.2);
+    for (let i = 0; i < 12; i++) {
+      await fight(page, 0.05);
+      await shot(`swing-${String(i).padStart(2, '0')}`);
+    }
+  },
   // A companion struck down, counted back up.
   down: async (page, shot) => {
     await arena(page, { hero: 'bram', wave: 5, level: 5, weapons: RICH.slice(0, 2), band: [{ id: 'biscuit', bond: 0 }, { id: 'greta', bond: 1 }] });
