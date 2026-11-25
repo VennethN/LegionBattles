@@ -201,7 +201,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await tick(page, 20);
   for (let i = 0; i < 5 && (await run(page))?.phase === 'level'; i++) {
     // A level's choice: the first card says how much of what.
-    await tap(size.width * (size.height > size.width ? 0.28 : 0.2), size.height * (size.height > size.width ? 0.2 : 0.55));
+    await tap(size.width * (size.height > size.width ? 0.28 : 0.2), size.height * (size.height > size.width ? 0.4 : 0.55));
     await tick(page, 10);
   }
   let r = await run(page);
@@ -265,7 +265,11 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await page.reload();
   await page.clock.pauseAt(Date.now() + 1000);
   ok('after a reload the list comes up, not a new run', await until(page, 'Title'));
-  ok('with the run to carry on', (await press(page, tap, 'Title', 'CONTINUE')) && (await until(page, 'Camp')) && (await run(page))?.gold === left?.gold && (await run(page))?.wave === left?.wave);
+  const carried = (await press(page, tap, 'Title', 'CONTINUE')) && (await until(page, 'Camp'));
+  const now = await run(page);
+  // Said with its numbers when it fails, so that a failure says what came back.
+  if (!(carried && now?.gold === left?.gold && now?.wave === left?.wave)) console.log(`     continue: pressed ${carried}, gold ${left?.gold} > ${now?.gold}, wave ${left?.wave} > ${now?.wave}`);
+  ok('with the run to carry on', carried && now?.gold === left?.gold && now?.wave === left?.wave);
 
   // A relic won: one of three is taken, and then the camp is there.
   await arena(page, { hero: 'bram', wave: 8, level: 6, gold: 50, phase: 'relic', relicsDue: 1, relicChoices: ['bellows', 'stormglass', 'oldmap'], offers: [] }, { camp: true });

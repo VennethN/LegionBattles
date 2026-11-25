@@ -23,7 +23,7 @@ The screens agent of round 5 stopped on a usage limit after merging the rules of
 
 **A phone's camp** has taller ware cards with room for their numbers, and the hero (picture, level, own weapon, experience) at the head of the stats.
 
-Not done: hover or a long press for more (everything is on the card), an example for each relic, the Hold's screens for the new model (they wait for the rules), and the smoke ran out of its time limit on its last eight checks once (77 passed, none failed).
+Not done: hover or a long press for more (everything is on the card), an example for each relic, and the Hold's screens for the new model (they wait for the rules). The smoke passes all 85 checks, with the light off against a served build; its tap on a phone's level card was moved to where the taller cards now stand, and the check that a run is carried on after a reload failed once under load and passed after, so it now says what came back when it fails.
 
 ## Round 5, the look, after the first review
 
