@@ -252,16 +252,16 @@ describe('the save', () => {
     expect(isOpen(save, 'orrin')).toBe(false);
     const run = newRun('bram', 1);
     run.wave = 4;
-    expect(record(save, run, 30)).toEqual({ heroes: [], friends: [] });
+    expect(record(save, run, 30)).toMatchObject({ heroes: [], friends: [] });
     run.wave = 5;
     // The fourth wave come through opens Pip, who goes straight into the empty place in the band.
-    expect(record(save, run, 0)).toEqual({ heroes: [], friends: ['pip'] });
+    expect(record(save, run, 0)).toMatchObject({ heroes: [], friends: ["pip"] });
     expect(save.band).toEqual(['pip']);
     expect(bestWave(save)).toBe(4);
     expect(featShare(save, { kind: 'wave', wave: 5 })).toBeCloseTo(0.8);
     run.wave = 6;
     expect(record(save, run, 30).heroes).toEqual(['orrin']);
-    expect(record(save, run, 0)).toEqual({ heroes: [], friends: [] });
+    expect(record(save, run, 0)).toMatchObject({ heroes: [], friends: [] });
     expect(isOpen(save, 'orrin')).toBe(true);
     expect(save.kills).toBe(60);
     expect(save.last).toBe('bram');

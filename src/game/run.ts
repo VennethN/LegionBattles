@@ -8,6 +8,7 @@ import {
   BAND, BASE_STATS, CHOICES, COMPANIONS, HEROES, ITEMS, KIND_AGAIN, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId, landAt, levelNeeds,
   ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type HeroDef,
 } from './data';
+import { BLESSINGS, DANGER, type BlessingId, type Thing, thingKey } from './holdData';
 import { KINDS, KIND_STEPS, countKinds, giftLine, kindStep, type Kind, type KindCounts } from './kinds';
 import { RELIC, RELICS } from './relics';
 import { OMENS, ROAD, type Omen, type Road } from './road';
@@ -97,7 +98,58 @@ export interface RunData {
   whet: number;
   /** The share of the hero's health that was left when the last wave ended: a player picks a road by it, and so does the plain player. */
   left: number;
+  /** The danger the run is played at, 0 to 5 (holdData.ts). */
+  danger: number;
+  /** What the armory had not opened when the run began: the weapons, wares and relics this run is never offered. */
+  shut: string[];
+  /** The steps of each blessing the Hold had when the run began. */
+  bless: Blessings;
+  /** True once the Second Breath has been drawn: it is once in a run. */
+  breathed: boolean;
+  /** Deeds done in this run, for the tally at its end. */
+  deeds: string[];
+  /** What the waves have told since the save last took it: who stood on the field, who was slain, which roads were come through, which captains fell with no blow landed. */
+  told: Told | null;
+  /** True once the run's renown has been paid, and once its win has been counted. */
+  paid: boolean;
+  won: boolean;
 }
+
+export type Blessings = Partial<Record<BlessingId, number>>;
+
+/** What the Hold gives a run to begin with: its danger, what is shut to it, and the blessings. */
+export interface Terms {
+  danger?: number;
+  shut?: readonly string[];
+  bless?: Blessings;
+}
+
+export interface Told {
+  met: string[];
+  slain: Record<string, number>;
+  roads: string[];
+  unstruck: string[];
+}
+
+/** What a blessing gives a run, at the step the run began with: 0 for none of it. */
+export function blessed(run: RunData, id: BlessingId): number {
+  const step = run.bless?.[id] ?? 0;
+  if (step <= 0) return 0;
+  const def = BLESSINGS.find((b) => b.id === id);
+  return def ? def.by[Math.min(def.by.length, step) - 1] : 0;
+}
+
+/** True if the armory had this open when the run began. */
+export function offered(run: RunData, kind: Thing['kind'], id: string): boolean {
+  return !run.shut.includes(thingKey({ kind, id }));
+}
+
+const openWeapons = (run: RunData): typeof WEAPONS => WEAPONS.filter((w) => offered(run, 'weapon', w.id));
+const openItems = (run: RunData): typeof ITEMS => ITEMS.filter((it) => offered(run, 'item', it.id));
+const openRelics = (run: RunData): typeof RELICS => RELICS.filter((r) => offered(run, 'relic', r.id));
+
+/** A price in the camp as the run's danger has it: dearer from the second danger on. */
+const dear = (run: RunData, price: number): number => (run.danger >= 2 ? Math.max(1, Math.round(price * DANGER.prices)) : price);
 
 export function heroOf(run: RunData): HeroDef {
   return byId(HEROES, run.hero);
@@ -109,15 +161,22 @@ export function bandSize(hero: string, places: number): number {
 }
 
 /** A new run: a hero, and the companions who go with them. The hero's own weapon is all they carry. */
-export function newRun(hero: string, seed: number, band: readonly string[] = [], forks: number = ROAD.roads): RunData {
+export function newRun(hero: string, seed: number, band: readonly string[] = [], forks: number = ROAD.roads, terms: Terms = {}): RunData {
   byId(HEROES, hero);
   const known = [...new Set(band)].filter((id) => COMPANIONS.some((c) => c.id === id));
-  return {
+  const run: RunData = {
     hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [], band: known.map((id) => ({ id, bond: 0 })), fury: 0, rose: -1, saved: false,
     items: [], ups: [], packs: 0, kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
     relics: [], relicsDue: 0, relicChoices: [], road: { omen: 'quiet' }, roads: [], forks: Math.max(1, Math.min(ROAD.most, Math.floor(forks))), vigor: 0, whet: 0, left: 1,
+    danger: Math.max(0, Math.min(DANGERS_MOST, Math.floor(terms.danger ?? 0))), shut: [...(terms.shut ?? [])], bless: { ...(terms.bless ?? {}) }, breathed: false, deeds: [], told: null, paid: false, won: false,
   };
+  // A Full Purse: coins to begin with.
+  run.gold = blessed(run, 'purse');
+  return run;
 }
+
+/** The highest danger there is. */
+const DANGERS_MOST = 5;
 
 /** True if the run holds a relic. */
 export function hasRelic(run: RunData, id: string): boolean {
@@ -146,9 +205,10 @@ export function statLines(run: RunData): StatLine[] {
     { maxHp: run.level },
     ...run.items.map((id) => byId(ITEMS, id).stats),
     ...run.ups.map((u) => ({ [u.stat]: u.by }) as StatLine),
-    // What the kinds of weapon held give as plain stats, and the health the Banner of the Fallen has given.
+    // What the kinds of weapon held give as plain stats.
     giftLine(kindCounts(run)),
-    { maxHp: run.vigor },
+    // The Banner of the Fallen's health, and Hearth Bread's.
+    { maxHp: run.vigor + blessed(run, 'hearty') },
   ];
 }
 
@@ -210,6 +270,7 @@ export function setupOf(run: RunData, tall = false, auto = true): Setup {
     seed, wave: run.wave, stats, quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
     band: run.band, level: run.level, fury: run.fury, auto, purse: run.gold, spare: run.rose !== landAt(run.wave), rescue: !run.saved, tall,
     omen: run.road.omen, stray: run.road.stray, relics: run.relics, whet: run.whet, tithe, bones,
+    danger: run.danger, breath: blessed(run, 'breath') > 0 && !run.breathed,
   };
 }
 
@@ -224,7 +285,15 @@ export function endWave(run: RunData, world: World): void {
   run.left = Math.max(0, world.hero.hp / world.hero.maxHp);
   if (world.rose) run.rose = landAt(run.wave);
   if (world.rescued) run.saved = true;
-  run.xp += world.xp;
+  if (world.breathed) run.breathed = true;
+  // What the wave told, kept until the save takes it (hold.ts).
+  const told = (run.told ??= { met: [], slain: {}, roads: [], unstruck: [] });
+  for (const id of world.met) if (!told.met.includes(id)) told.met.push(id);
+  for (const [id, n] of Object.entries(world.slain)) told.slain[id] = (told.slain[id] ?? 0) + n;
+  for (const id of world.unstruck) if (!told.unstruck.includes(id)) told.unstruck.push(id);
+  if (world.over === 'cleared' && !told.roads.includes(world.omen)) told.roads.push(world.omen);
+  // Old Soldiers' Tales: more is learned from the same wave.
+  run.xp += world.xp * (1 + blessed(run, 'study') / 100);
   run.kills += world.kills;
   run.packs += world.packs;
   for (const b of world.felled) if (!run.felled.includes(b)) run.felled.push(b);
@@ -264,7 +333,7 @@ function settle(run: RunData): void {
   }
   run.choices = [];
   if (run.relicsDue > 0) {
-    const left = RELICS.filter((r) => !hasRelic(run, r.id));
+    const left = openRelics(run).filter((r) => !hasRelic(run, r.id));
     if (left.length === 0) {
       // A run that holds every relic there is takes coins instead.
       run.gold += RELIC.instead * run.relicsDue;
@@ -361,21 +430,23 @@ function rollOffer(run: RunData, rng: Rng, slot: number): Offer {
     } else {
       // Now and then one of a kind the hero holds already: a kind is built up over a run, and the camp helps.
       const counts = kindCounts(run);
-      const kin = WEAPONS.filter((w) => w.kinds.some((k) => counts[k] > 0));
-      id = (kin.length > 0 && rng.chance(KIND_AGAIN) ? rng.pick(kin) : rng.pick(WEAPONS)).id;
+      const open = openWeapons(run);
+      const kin = open.filter((w) => w.kinds.some((k) => counts[k] > 0));
+      id = (kin.length > 0 && rng.chance(KIND_AGAIN) ? rng.pick(kin) : rng.pick(open)).id;
       tier = rollTier(rng, run.wave, luck);
     }
     const def = byId(WEAPONS, id);
-    return { kind: 'weapon', id, tier, price: priceAt(def.price * TIER_PRICE[tier], run.wave), sold: false, locked: false };
+    return { kind: 'weapon', id, tier, price: dear(run, priceAt(def.price * TIER_PRICE[tier], run.wave)), sold: false, locked: false };
   }
+  const wares = openItems(run);
   let tier = rollTier(rng, run.wave, luck);
-  let pool = ITEMS.filter((it) => it.tier === tier && held(run, it.id) < (it.most ?? 99));
+  let pool = wares.filter((it) => it.tier === tier && held(run, it.id) < (it.most ?? 99));
   while (pool.length === 0 && tier > 0) {
     tier--;
-    pool = ITEMS.filter((it) => it.tier === tier);
+    pool = wares.filter((it) => it.tier === tier);
   }
   const item = rng.pick(pool);
-  return { kind: 'item', id: item.id, tier: item.tier, price: priceAt(item.price, run.wave), sold: false, locked: false };
+  return { kind: 'item', id: item.id, tier: item.tier, price: dear(run, priceAt(item.price, run.wave)), sold: false, locked: false };
 }
 
 /** New wares. What is locked stays, unless it was sold. `all` changes even those. */
@@ -388,9 +459,9 @@ function rollOffers(run: RunData, all: boolean): void {
     }
     // Rarely the last of the wares is a relic, at a high price: never two at once, and never one the run holds.
     const last = next[OFFERS - 1];
-    const left = RELICS.filter((r) => !hasRelic(run, r.id));
+    const left = openRelics(run).filter((r) => !hasRelic(run, r.id));
     if (run.wave >= RELIC.wareFrom && left.length > 0 && !(last.locked && !last.sold) && !next.some((o) => o.kind === 'relic') && rng.chance(RELIC.ware)) {
-      next[OFFERS - 1] = { kind: 'relic', id: rng.pick(left).id, tier: TIERS - 1, price: priceAt(RELIC.price, run.wave), sold: false, locked: false };
+      next[OFFERS - 1] = { kind: 'relic', id: rng.pick(left).id, tier: TIERS - 1, price: dear(run, priceAt(RELIC.price, run.wave)), sold: false, locked: false };
     }
     run.offers = next;
   });
@@ -455,8 +526,11 @@ export function sell(run: RunData, slot: number): boolean {
 
 export function rerollPrice(run: RunData): number {
   // The Merchant's Seal: the first look at other wares in each camp is free.
-  if (run.rerolls === 0 && hasRelic(run, 'seal')) return 0;
-  return rerollCost(run.wave, run.rerolls);
+  // The Quartermaster's Favor gives a free look or two as well: the seal's is one more.
+  const free = (hasRelic(run, 'seal') ? 1 : 0) + blessed(run, 'quarter');
+  if (run.rerolls < free) return 0;
+  // A free look still counts as a look: the next one costs what a second would.
+  return dear(run, rerollCost(run.wave, run.rerolls));
 }
 
 /** Pays to see other wares. What is locked stays. */
@@ -483,8 +557,9 @@ export function openPack(run: RunData): string | null {
   const luck = statsOf(run).luck;
   const id = roll(run, (rng) => {
     let tier = rollTier(rng, run.wave + 3, luck);
-    let pool = ITEMS.filter((it) => it.tier === tier);
-    while (pool.length === 0 && tier > 0) pool = ITEMS.filter((it) => it.tier === --tier);
+    const wares = openItems(run);
+    let pool = wares.filter((it) => it.tier === tier);
+    while (pool.length === 0 && tier > 0) pool = wares.filter((it) => it.tier === --tier);
     return rng.pick(pool).id;
   });
   run.items.push(id);

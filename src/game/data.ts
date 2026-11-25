@@ -39,6 +39,7 @@ export * from './companions';
 export * from './kinds';
 export * from './relics';
 export * from './road';
+export * from './holdData';
 
 // ---------------------------------------------------------------- weapons
 

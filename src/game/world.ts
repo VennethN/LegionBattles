@@ -14,6 +14,7 @@ import {
   ENEMIES, byId, coinShare, enemyAt, waveOf, weaponOf,
   type AllyQuirk, type CompanionDef, type EnemyDef, type MoveDef, type MoveId, type Quirk, type WaveDef, type WeaponDef,
 } from './data';
+import { BREATH, DANGER } from './holdData';
 import { countKinds, giftsOf, type Gifts } from './kinds';
 import { RELIC } from './relics';
 import { ROAD, type ChampionTrait, type Omen } from './road';
@@ -74,6 +75,10 @@ export interface Setup {
   tithe?: boolean;
   /** What the Bone Dice rolled for this wave: it is in `stats` already, and is here to be shown. */
   bones?: { up: Stat; down: Stat } | null;
+  /** The danger the run is played at, 0 to 5: each step adds a rule (holdData.ts). */
+  danger?: number;
+  /** True if the Hold's Second Breath is still to be drawn in this run. */
+  breath?: boolean;
 }
 
 /** Which way the hero is steered: a length of 1 is flat out. `act` lets the move loose, if it is full. */
@@ -167,6 +172,8 @@ export interface Foe {
   dead: boolean;
   /** What a champion has that the rest have not, or '' for one of the rest. */
   champion: ChampionTrait | '';
+  /** True for a captain that has got up once already (the fourth danger). */
+  second?: boolean;
   /** Seconds until a burning champion may blaze again. */
   blaze: number;
 }
@@ -378,6 +385,10 @@ export type Ev =
   | { t: 'loose'; slot: number; angle: number; shot: number }
   | { t: 'hit'; id: number; x: number; y: number; amount: number; crit: boolean; soft: boolean }
   | { t: 'fall'; id: number; x: number; y: number; boss: boolean; swept: boolean }
+  // A captain that fell gets up again: the fourth danger.
+  | { t: 'second'; id: number; x: number; y: number }
+  // The hero was left standing by the Hold's Second Breath.
+  | { t: 'breath'; x: number; y: number }
   | { t: 'burst'; x: number; y: number; r: number; kind: Burst }
   | { t: 'hurt'; amount: number; x: number; y: number }
   | { t: 'dodge' }
@@ -492,6 +503,19 @@ export class World {
   risen: Risen[] = [];
   /** Champions and captains killed this wave. */
   banners = 0;
+  /** The danger the wave is fought at, 0 to 5. */
+  readonly danger: number;
+  /** True once the Hold's Second Breath has been drawn in this wave. */
+  breathed = false;
+  private breath: boolean;
+  /** Who has stood on the field in this wave, and how many of each were slain: the Chronicle keeps them. */
+  met: string[] = [];
+  slain: Record<string, number> = {};
+  /** True once a blow has landed on the hero in this wave, and the captains that fell before one did. */
+  struck = false;
+  unstruck: string[] = [];
+  /** Mending that the last danger has halved and not yet given. */
+  private mendOwed = 0;
   /** What the Bone Dice rolled for this wave, if the run holds them. */
   readonly bones: { up: Stat; down: Stat } | null;
   /** What the kinds of weapon held do (kinds.ts). */
@@ -540,6 +564,8 @@ export class World {
 
   constructor(setup: Setup) {
     this.relics = new Set(setup.relics ?? []);
+    this.danger = Math.max(0, Math.floor(setup.danger ?? 0));
+    this.breath = !!setup.breath;
     // A captain's wave is the captain's: no omen changes it.
     const plain = waveOf(setup.wave);
     this.omen = plain.boss ? 'quiet' : (setup.omen ?? 'quiet');
@@ -574,6 +600,8 @@ export class World {
     this.xpBy = this.omen === 'horde' ? ROAD.horde.xp : 1;
     // What the road puts on the field.
     if (this.omen === 'champions') this.champsDue = ROAD.champions.at.slice(0, ROAD.champions.count).map((share) => share * this.wave.seconds);
+    // The third danger: a champion walks in every wave from the third, but not beside a captain and not on the road that is all champions.
+    else if (this.danger >= 3 && !this.wave.boss && this.wave.n >= DANGER.champion.from) this.champsDue = [DANGER.champion.at * this.wave.seconds];
     if (this.omen === 'wagon') this.wagonDue = ROAD.wagon.at * this.wave.seconds;
     if (this.omen === 'stray' && this.stray) this.cageDue = 1.2;
     if (this.omen === 'shrine') {
@@ -825,6 +853,13 @@ export class World {
   /** Gives the hero health back. What heals the shepherd heals his band. */
   private mend(amount: number): void {
     if (this.over) return;
+    if (this.danger >= 5) {
+      // The last danger: mending gives half. Most mending is a point at a time, so the halves are kept until they make one.
+      this.mendOwed += amount * DANGER.mend;
+      amount = Math.floor(this.mendOwed);
+      this.mendOwed -= amount;
+      if (amount <= 0) return;
+    }
     const h = this.hero;
     if (this.quirk === 'shepherd') {
       for (const a of this.band) if (a.down <= 0 && a.maxHp > 0) a.hp = Math.min(a.maxHp, a.hp + amount);
@@ -853,6 +888,7 @@ export class World {
     // Bram's set shield takes its share.
     if (this.quirk === 'standfast' && h.still >= QUIRKS.standfast.after) amount = Math.max(1, Math.round(amount * QUIRKS.standfast.lets));
     h.hp -= amount;
+    this.struck = true;
     h.grace = HURT_GRACE;
     h.safe = 0;
     this.spur = 0;
@@ -897,6 +933,15 @@ export class World {
       h.hp = Math.max(1, Math.round(h.maxHp * ALLY_QUIRKS.rally.rises));
       h.grace = ALLY_QUIRKS.rally.grace;
       this.events.push({ t: 'rescue', id: tam.id });
+      return;
+    }
+    if (this.breath) {
+      // The Hold's Second Breath: once in a run, when nothing else has kept them up.
+      this.breath = false;
+      this.breathed = true;
+      h.hp = Math.max(1, Math.round(h.maxHp * BREATH.rises));
+      h.grace = BREATH.grace;
+      this.events.push({ t: 'breath', x: h.x, y: h.y });
       return;
     }
     this.over = 'dead';
@@ -1183,7 +1228,10 @@ export class World {
       const at = enemyAt(m.def, this.wave.n);
       // The horde is many and each a little weaker. A champion is far more than the one it is made from.
       const c = ROAD.champions;
-      const hp = Math.max(1, Math.round(at.hp * (m.champion ? c.hp : this.omen === 'horde' && !m.def.prop ? ROAD.horde.hp : 1)));
+      // The last danger: all of them are sturdier.
+      const sturdy = this.danger >= 5 && !m.def.prop ? DANGER.hp : 1;
+      const hp = Math.max(1, Math.round(at.hp * sturdy * (m.champion ? c.hp : this.omen === 'horde' && !m.def.prop ? ROAD.horde.hp : 1)));
+      if (!m.def.prop && !this.met.includes(m.def.id)) this.met.push(m.def.id);
       const f: Foe = {
         id: m.id, def: m.def, x: m.x, y: m.y, kx: 0, ky: 0, hp, maxHp: hp, dmg: m.champion ? Math.max(1, Math.round(at.dmg * c.dmg)) : at.dmg, face: this.hero.x >= m.x ? 1 : -1,
         state: 'walk', left: 0, cool: (m.def.every ?? 2) * this.rng.range(0.4, 1), dx: 0, dy: 0, doing: '', turn: 0,
@@ -1374,7 +1422,7 @@ export class World {
           break;
         }
       }
-      const pace = (f.def.ai === 'cross' ? this.wagonSpeed : f.def.speed) * (f.slow > 0 ? 1 - f.slowBy : 1) * (f.spurred ? 1.3 : 1) * (this.night ? ROAD.night.faster : 1);
+      const pace = (f.def.ai === 'cross' ? this.wagonSpeed : f.def.speed) * (f.slow > 0 ? 1 - f.slowBy : 1) * (f.spurred ? 1.3 : 1) * (this.night ? ROAD.night.faster : 1) * (this.danger >= 1 && !f.def.prop ? DANGER.quick : 1);
       if (f.def.prop) {
         // A thing: the wagon goes on over the field and away, and a cage stands where it is.
         this.cart(f, pace, dt);
@@ -2202,6 +2250,14 @@ export class World {
     f.hp -= by;
     this.events.push({ t: 'hit', id: f.id, x: f.x, y: f.y, amount: by, crit, soft });
     if (f.hp > 0) return;
+    if (f.boss && this.danger >= 4 && !f.second) {
+      // The fourth danger: a captain that falls gets up once. It is down for a moment first, so the player sees it coming.
+      f.second = true;
+      f.hp = Math.max(1, Math.round(f.maxHp * DANGER.wind));
+      f.stun = Math.max(f.stun, DANGER.windStun);
+      this.events.push({ t: 'second', id: f.id, x: f.x, y: f.y });
+      return;
+    }
     f.dead = true;
     this.events.push({ t: 'fall', id: f.id, x: f.x, y: f.y, boss: f.boss, swept: false });
     if (f.def.prop) {
@@ -2213,8 +2269,12 @@ export class World {
       return;
     }
     this.kills++;
+    this.slain[f.def.id] = (this.slain[f.def.id] ?? 0) + 1;
     this.fill(1 / (MOVE.kills + MOVE.more * (this.wave.n - 1)));
-    if (f.boss) this.felled.push(f.def.id);
+    if (f.boss) {
+      this.felled.push(f.def.id);
+      if (!this.struck) this.unstruck.push(f.def.id);
+    }
     this.leave(f);
     if (f.boss || f.champion) {
       this.banners++;
