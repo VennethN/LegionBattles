@@ -306,7 +306,11 @@ export class LodgeScene extends Phaser.Scene {
       if (on) this.add.image(x, y, SHEET, 'fx/glow').setDisplaySize(rw * 1.3, rowH * 2).setTint(0xffb85a).setAlpha(0.35);
       const row = this.add.container(x, y);
       if (on) this.add.rectangle(x + 5, y + 4, rw, rowH, 0x000000, 0.45);
-      row.add(slabImage(this, -rw / 2, -rowH / 2, rw, rowH, on ? BONE : { fill: '#b8ab90', shade: '#8a7e66' }, 3, 3));
+      // Every bill is paper that can be read; the one picked stands forward, lit, and the rest sit back a little dimmer.
+      row.add(slabImage(this, -rw / 2, -rowH / 2, rw, rowH, BONE, 3, 3));
+      if (!on) row.setAlpha(0.72);
+      // The one picked has a gold edge, so it is found at once.
+      else row.add(this.add.rectangle(0, 0, rw + 4, rowH + 4).setStrokeStyle(3, 0xd8a24a));
       // Nails at its corners.
       for (const sx of [-1, 1]) row.add(this.add.circle(sx * (rw / 2 - 7), -rowH / 2 + 7, 2.5, 0x2a221a).setStrokeStyle(1, 0x8a7a60));
       const face = this.add.image(-rw / 2 + 34, rowH / 2 - 6, CARDS, isGrim(MONSTER_ART[p.monster]) ? portraitFrame('grim', (MONSTER_ART[p.monster] as { grim: string }).grim) : portraitFrame('blue', 'militia')).setOrigin(0.5, 1);

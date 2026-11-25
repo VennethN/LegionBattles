@@ -159,7 +159,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     if (at) await page.mouse.click(at.x, at.y);
     await tick(page, 12);
     await shot('muster-note');
-    await lodge(page, 'muster', { opening: 2, hunts: 2, wins: 1, coin: 42, trophies: ['spade'], felled: {}, worn: {}, steps: [], supply: 0, muster: { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1 } } });
+    await lodge(page, 'muster', { opening: 2, hunts: 2, wins: 1, coin: 42, trophies: ['spade'], felled: {}, worn: {}, steps: [], supply: 0, muster: { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1 }, partners: [] } });
     await shot('muster-new');
     await lodge(page, 'ledger', RICH);
     await shot('ledger');
@@ -169,6 +169,16 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await lair(page, { monster: 'king', mark: 1, hunter: 'jory', reinforcements: [{ id: 'crossbowmen', charges: 1 }], buildings: [{ id: 'barricade', n: 2 }, { id: 'watchfire', n: 1 }, { id: 'bellpost', n: 1 }, { id: 'ballista', n: 1 }] }, RICH);
     await tick(page, 20);
     await shot('camp');
+    // A card picked up: its ghost stands where the pointer is, with its reach; then set down there with a click.
+    const card = await find(page, 'Hud', 'BALLISTA');
+    if (card) await page.mouse.click(card.x, card.y);
+    const vp = page.viewportSize() ?? { width: 907, height: 510 };
+    await page.mouse.move(vp.width * 0.42, vp.height * 0.6);
+    await tick(page, 6);
+    await shot('camp-ghost');
+    await page.mouse.click(vp.width * 0.42, vp.height * 0.6);
+    await tick(page, 12);
+    await shot('camp-placed');
     await pilot(page, 7);
     await shot('camp-built');
   },

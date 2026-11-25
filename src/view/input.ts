@@ -97,6 +97,15 @@ export class Controls {
   /** Held by the ATTACK button by any means (a script presses it too). */
   attackHeld = false;
 
+  /** True while the lair is in camp: a press on the field sets down or picks up, it does not attack. */
+  camp = false;
+  /** In camp, the card picked up: the building a press on the field sets down. */
+  picking: string | null = null;
+  /** In camp on a touch screen, where a finger last was on the field: the picked card's ghost stands there. */
+  ground: { x: number; y: number } | null = null;
+  /** Presses on the field in camp, in the canvas's pixels: to set the picked card down there, or pick a building up. */
+  private readonly spots: Array<{ kind: 'place' | 'lift'; x: number; y: number }> = [];
+
   private readonly down = new Set<string>();
   private readonly wants: Asked[] = [];
   private readonly onDown = (e: KeyboardEvent): void => {
@@ -135,6 +144,14 @@ export class Controls {
     scene.input.on('pointerdown', (p: Phaser.Input.Pointer, over: unknown[]) => {
       this.use(isTouch(p) ? 'touch' : 'mouse');
       const [x, y] = at(p);
+      // In camp a press on the field, not on a button, sets the picked card down there or picks a building up.
+      if (this.camp && over.length === 0 && !p.rightButtonDown()) {
+        this.spots.push({ kind: this.picking ? 'place' : 'lift', x: p.x, y: p.y });
+        if (this.scheme === 'mouse') this.mouse = { x: p.x, y: p.y };
+        else this.ground = { x: p.x, y: p.y };
+        // A thumb that set something down is not also a push on the stick.
+        if (this.picking || this.scheme === 'mouse') return;
+      }
       if (this.scheme === 'mouse') {
         this.mouse = { x: p.x, y: p.y };
         // The other button of the mouse is the dodge, wherever it is pressed.
@@ -159,6 +176,7 @@ export class Controls {
     });
     scene.input.on('pointermove', (p: Phaser.Input.Pointer) => {
       if (!isTouch(p)) this.mouse = { x: p.x, y: p.y };
+      else if (this.camp && this.picking && p.id !== this.stickId) this.ground = { x: p.x, y: p.y };
       const [x, y] = at(p);
       if (p.id === this.stickId) this.push(x, y);
       for (const d of [this.attackDrag, this.skillDrag, this.dodgeDrag]) if (d && d.id === p.id) [d.x, d.y] = [x, y];
@@ -287,6 +305,11 @@ export class Controls {
     this.wants.push(at ? { ask: what, at } : { ask: what });
   }
 
+  /** The presses on the field in camp since this was last called. */
+  takeSpots(): Array<{ kind: 'place' | 'lift'; x: number; y: number }> {
+    return this.spots.splice(0, this.spots.length);
+  }
+
   /** Everything asked for since this was last called. */
   take(): Asked[] {
     return this.wants.splice(0, this.wants.length);
@@ -295,6 +318,8 @@ export class Controls {
   /** Lets go of everything: when the hunt stops, so that the hunter does not run on when it starts again. */
   release(): void {
     this.wants.length = 0;
+    this.spots.length = 0;
+    this.ground = null;
     this.down.clear();
     this.stickId = -1;
     this.knob = { x: 0, y: 0 };

@@ -46,6 +46,10 @@ export interface Steer {
   call?: number;
   /** In camp: set this building down where the hunter stands. */
   place?: string;
+  /** In camp: set this building down at a spot on the field: where the pointer or a finger put its card's ghost. */
+  placeAt?: { id: string; x: number; y: number };
+  /** In camp: pick up a building already set down, by its id, so it can go somewhere else. */
+  lift?: number;
   /** In camp: wake the monster. */
   wake?: boolean;
 }
@@ -338,6 +342,7 @@ export type Ev =
   | { t: 'fall'; who: 'helper' | 'ally' | 'building' | 'monster' | 'hunter'; id: number; x: number; y: number }
   | { t: 'call'; id: string; x: number; y: number }
   | { t: 'place'; id: string; x: number; y: number }
+  | { t: 'lift'; id: string; x: number; y: number }
   | { t: 'bell'; x: number; y: number }
   | { t: 'blast'; x: number; y: number; r: number }
   | { t: 'alight'; x: number; y: number; r: number }
@@ -770,10 +775,17 @@ export class Hunt {
 
   /** Why a building cannot be set down where the hunter stands, or nothing if it can. */
   whyNot(id: string): string {
+    const [x, y] = this.spot();
+    return this.whyNotAt(id, x, y);
+  }
+
+  /** Why a building cannot be set down at a spot on the field, or nothing if it can: what a card's ghost is green or red by. */
+  whyNotAt(id: string, x: number, y: number): string {
     if (this.phase !== 'camp') return 'It is awake';
     if (!this.toPlace[id]) return 'None left';
     const def = byId(BUILDINGS, id);
-    const [x, y] = this.spot();
+    const e = FIELD.edge + def.r;
+    if (x < e || y < e || x > this.w - e || y > this.h - e) return 'Off the field';
     if (dist(x, y, this.monster.x, this.monster.y) < CAMP.clear) return 'Too near it';
     if (this.buildings.some((b) => dist(x, y, b.x, b.y) < CAMP.apart)) return 'Too near another';
     if (this.stones.some((s) => dist(x, y, s.x, s.y) < s.r + def.r + 8)) return 'A stone is in the way';
@@ -787,14 +799,24 @@ export class Hunt {
     return [Math.max(e, Math.min(this.w - e, h.x + Math.cos(h.aim) * 46)), Math.max(e, Math.min(this.h - e, h.y + Math.sin(h.aim) * 46))];
   }
 
-  private place(id: string): void {
-    if (this.whyNot(id)) return;
+  private place(id: string, at?: { x: number; y: number }): void {
+    const [x, y] = at ? [at.x, at.y] : this.spot();
+    if (this.whyNotAt(id, x, y)) return;
     const def = byId(BUILDINGS, id);
-    const [x, y] = this.spot();
     const hp = Math.round(def.hp * (this.sturdy.has(id) ? 1.5 : 1));
     this.buildings.push({ id: this.nextId++, def, x, y, hp, maxHp: hp, cool: def.kind === 'ballista' ? 1.5 : 0 });
     this.toPlace[id]--;
     this.events.push({ t: 'place', id, x, y });
+  }
+
+  /** Picks a building set down in camp back up: it is one more to place again. Nothing is lifted once it is awake. */
+  private lift(id: number): void {
+    if (this.phase !== 'camp') return;
+    const i = this.buildings.findIndex((b) => b.id === id && b.def.id in this.toPlace);
+    if (i < 0) return;
+    const [b] = this.buildings.splice(i, 1);
+    this.toPlace[b.def.id]++;
+    this.events.push({ t: 'lift', id: b.def.id, x: b.x, y: b.y });
   }
 
   private wake(): void {
@@ -836,6 +858,8 @@ export class Hunt {
       for (const p of this.party) if (p.ai) this.moveHunter(p, this.brains[p.index]?.steer(this) ?? { x: 0, y: 0 }, dt);
       this.heel(dt);
       if (steer.place) this.place(steer.place);
+      if (steer.placeAt) this.place(steer.placeAt.id, steer.placeAt);
+      if (steer.lift !== undefined) this.lift(steer.lift);
       if (steer.wake || dist(h.x, h.y, m.x, m.y) < CAMP.wakeAt) this.wake();
       return;
     }

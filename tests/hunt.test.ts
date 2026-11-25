@@ -73,6 +73,32 @@ describe('camp', () => {
     expect(h.buildings).toHaveLength(0);
   });
 
+  it('a building can be set down at a spot the player picks, and picked up again while it sleeps', () => {
+    const h = new Hunt(setup({ buildings: [{ id: 'barricade', n: 2 }] }));
+    const x = h.monster.x - CAMP.clear - 80;
+    const y = h.monster.y;
+    expect(h.whyNotAt('barricade', x, y)).toBe('');
+    // Not beside the monster, not off the field.
+    expect(h.whyNotAt('barricade', h.monster.x - 20, y)).toBe('Too near it');
+    expect(h.whyNotAt('barricade', -50, y)).toBe('Off the field');
+    h.step({ x: 0, y: 0, placeAt: { id: 'barricade', x, y } });
+    expect(h.buildings).toHaveLength(1);
+    expect(h.buildings[0].x).toBe(x);
+    expect(h.toPlace.barricade).toBe(1);
+    expect(h.whyNotAt('barricade', x + 10, y)).toBe('Too near another');
+    // Picked up, it is one to place again, and the spot is free.
+    h.step({ x: 0, y: 0, lift: h.buildings[0].id });
+    expect(h.buildings).toHaveLength(0);
+    expect(h.toPlace.barricade).toBe(2);
+    expect(of(h.drain(), 'lift')).toHaveLength(1);
+    expect(h.whyNotAt('barricade', x, y)).toBe('');
+    // Once it is awake, nothing is lifted.
+    h.step({ x: 0, y: 0, placeAt: { id: 'barricade', x, y } });
+    h.step({ x: 0, y: 0, wake: true });
+    h.step({ x: 0, y: 0, lift: h.buildings[0].id });
+    expect(h.buildings).toHaveLength(1);
+  });
+
   it('walking up to it wakes it, and it does nothing before it is woken', () => {
     const h = new Hunt(setup());
     expect(of(play(h, 5), 'tell')).toHaveLength(0);

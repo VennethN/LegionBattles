@@ -85,7 +85,10 @@ export class HudScene extends Phaser.Scene {
   private saidH = 0;
   private saidHeard = false;
   private pads: Pad[] = [];
-  private campPads: Array<{ root: Phaser.GameObjects.Container; text: Phaser.GameObjects.Text; id: string; n: number }> = [];
+  /** The camp's cards: one for each building brought, with its picture, its name and how many are left to set down. */
+  private campPads: Array<{ root: Phaser.GameObjects.Container; count: Phaser.GameObjects.Text; edge: Phaser.GameObjects.Rectangle; id: string; n: number; picked: boolean }> = [];
+  /** Over the row of cards: what the card picked does, in a line with its number. */
+  private campSays: Phaser.GameObjects.Text | null = null;
   private camp: Phaser.GameObjects.Container | null = null;
   private fight: Phaser.GameObjects.Container | null = null;
   /** Health as it is drawn: what is left, and the part a blow took that drains away after it, the hunter's and the boss's. */
@@ -320,40 +323,80 @@ export class HudScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * Camp: a card for each building brought, along the bottom, with the thing's picture, its name and how many are left.
+   * A card pressed is picked up; its ghost then stands on the ground where the pointer or a finger is, with its true
+   * reach, green where it may stand and red where not, and a press on the ground sets it down there (LairScene). A
+   * building set down is picked up again by pressing it. Number keys pick the cards. WAKE THE BOSS when it is ready.
+   */
   private buildCamp(hunt: Hunt): void {
     const c = this.add.container(0, 0).setDepth(12);
     this.camp = c;
+    this.campPads = [];
     const brought = BUILDINGS.filter((b) => b.id in hunt.toPlace);
-    const bw = view.tall ? Math.min(138, (view.w - 24) / Math.max(1, brought.length) - 8) : 136;
-    const y = view.h - 44;
-    const wakeW = 170;
-    // What there is to build in a row along the bottom; the waking on the right, or over the row where the window is narrow.
-    const row = brought.length * (bw + 8);
-    const x0 = view.tall ? view.w / 2 - row / 2 + bw / 2 + 4 : 16 + bw / 2;
+    const n = Math.max(1, brought.length);
+    const wakeW = view.tall ? Math.min(260, view.w - 40) : 190;
+    // Cards as big as the room allows: big enough for a thumb on a phone, never so wide that they reach the waking.
+    const room = view.tall ? view.w - 24 : view.w - wakeW - 48;
+    const cw = Math.max(86, Math.min(124, room / n - 10));
+    const ch = Math.round(cw * 1.12);
+    const y = view.h - ch / 2 - (view.tall ? 18 : 12);
+    const row = n * (cw + 10) - 10;
+    const x0 = view.tall ? view.w / 2 - row / 2 + cw / 2 : 16 + cw / 2;
     brought.forEach((b, i) => {
-      const x = x0 + i * (bw + 8);
-      const box = this.add.container(x, y);
-      box.add(slabImage(this, -bw / 2, -30, bw, 60, IRON, 12, 6));
-      const key = this.touch ? '' : `${KEY_NAMES[`place${i}` as Ask]}  `;
-      const text = label(this, 0, -3, '', { size: 15 });
-      box.add(text);
-      box.setSize(bw, 60).setInteractive({ useHandCursor: true });
-      box.on('pointerdown', () => {
-        // Why it will not go down here is said: the rules know.
-        const why = hunt.whyNot(b.id);
-        if (why) {
-          sfx.play('deny', 0.6);
-          this.banner('', why.toUpperCase());
-        } else this.controls.ask(`place${i}` as Ask);
-      });
+      const x = x0 + i * (cw + 10);
+      const box = this.add.container(x, y).setData('y0', y);
+      box.add(slabImage(this, -cw / 2, -ch / 2, cw, ch, BONE, 4, 4));
+      // Nails at its top corners, as a bill pinned up.
+      for (const sx of [-1, 1]) box.add(this.add.circle(sx * (cw / 2 - 8), -ch / 2 + 8, 2.5, 0x2a221a).setStrokeStyle(1, 0x8a7a60));
+      // Its picture: the kit's drawing of the thing.
+      const kit = uiIcon(`icon-${b.id}`);
+      const pic = ch * 0.5;
+      if (kit) box.add(this.add.image(0, -ch * 0.12, kit).setDisplaySize(pic, pic));
+      const name = label(this, 0, ch * 0.24, b.name.toUpperCase(), { size: 15, color: '#2a1a10', stroke: null, face: 'display' });
+      name.setScale(Math.min(1, (cw - 10) / name.width));
+      box.add(name);
+      const count = label(this, cw / 2 - 8, -ch / 2 + 14, '', { size: 17, align: 'right', color: '#7a1e14', stroke: null, face: 'display' });
+      box.add(count);
+      if (!this.touch) box.add(label(this, -cw / 2 + 8, -ch / 2 + 14, KEY_NAMES[`place${i}` as Ask], { size: 15, align: 'left', color: '#5a3a20', stroke: null, face: 'display' }));
+      // The gold edge of the card picked up.
+      const edge = this.add.rectangle(0, 0, cw + 6, ch + 6).setStrokeStyle(4, 0xe8b04a).setVisible(false);
+      box.add(edge);
+      box.setSize(cw, ch).setInteractive({ useHandCursor: true });
+      box.on('pointerdown', () => this.pickCard(b.id));
+      box.on('pointerover', () => this.campSays?.setText(this.saysOf(b.id)));
+      box.on('pointerout', () => this.campSays?.setText(this.controls.picking ? this.saysOf(this.controls.picking) : ''));
       c.add(box);
-      this.campPads.push({ root: box, text, id: b.id, n: -1 });
-      text.setData('key', key).setData('name', b.name.toUpperCase());
+      this.campPads.push({ root: box, count, edge, id: b.id, n: -1, picked: false });
     });
-    const wx = view.tall ? view.w / 2 : view.w - wakeW / 2 - 14;
-    const wy = view.tall && brought.length ? y - 76 : y;
-    const wake = new Button(this, wx, wy, 'WAKE BOSS', () => this.controls.ask('wake'), { width: wakeW, height: 60, size: 24, mat: RUBY });
+    this.campSays = label(this, view.tall ? view.w / 2 : x0 - cw / 2 + row / 2, y - ch / 2 - 16, '', { size: 15, wrap: view.tall ? view.w - 30 : Math.max(row, 300), color: HOLY.fill });
+    c.add(this.campSays);
+    const wx = view.tall ? view.w / 2 : view.w - wakeW / 2 - 16;
+    const wy = view.tall ? y - ch / 2 - 66 : y;
+    // What to do now goes by the cards, not under the bars, where the banners are.
+    this.campText.setPosition(view.tall ? view.w / 2 : x0 - cw / 2 + row / 2, view.tall ? wy - 52 : y - ch / 2 - 40);
+    const wake = new Button(this, wx, wy, 'WAKE THE BOSS', () => this.controls.ask('wake'), { width: wakeW, height: 62, size: 22, mat: RUBY });
     c.add(wake.root);
+  }
+
+  /** What a building does, in a line with its number, and how many are left to set down. */
+  private saysOf(id: string): string {
+    const b = BUILDINGS.find((x) => x.id === id);
+    return b ? `${b.name}: ${b.says}` : '';
+  }
+
+  /** A card pressed, or its number: it is picked up, or put back if it was already. None left, and it says so. */
+  pickCard(id: string): void {
+    const hunt = theHunt();
+    if (!hunt) return;
+    if (!hunt.toPlace[id]) {
+      sfx.play('deny', 0.6);
+      this.banner('', 'NONE LEFT');
+      return;
+    }
+    sfx.play('click', 0.7);
+    this.controls.picking = this.controls.picking === id ? null : id;
+    this.campSays?.setText(this.controls.picking ? this.saysOf(id) : '');
   }
 
   // ------------------------------------------------------------ what is said
@@ -772,6 +815,8 @@ export class HudScene extends Phaser.Scene {
     const camp = hunt.phase === 'camp';
     this.showSaid();
     this.camp?.setVisible(camp);
+    this.controls.camp = camp;
+    if (!camp) this.controls.picking = null;
     this.fight?.setVisible(!camp);
 
     this.drawBars(hunt, Math.min(0.1, delta / 1000));
@@ -783,16 +828,30 @@ export class HudScene extends Phaser.Scene {
     // Camp: what is left to build, and what to do.
     if (camp) {
       let any = false;
+      // A card with none left is put down, so that the next press does not set down nothing.
+      if (this.controls.picking && !hunt.toPlace[this.controls.picking]) {
+        this.controls.picking = null;
+        this.campSays?.setText('');
+      }
       for (const p of this.campPads) {
         const n = hunt.toPlace[p.id] ?? 0;
         if (n > 0) any = true;
         if (n !== p.n) {
           p.n = n;
-          p.text.setText(`${p.text.getData('key') as string}${p.text.getData('name') as string} x${n}`);
-          p.root.setAlpha(n > 0 ? 1 : 0.4);
+          p.count.setText(n > 0 ? `${n} LEFT` : 'ALL SET');
+          p.root.setAlpha(n > 0 ? 1 : 0.5);
+        }
+        const picked = this.controls.picking === p.id;
+        if (picked !== p.picked) {
+          p.picked = picked;
+          p.edge.setVisible(picked);
+          // Picked up, it lifts out of the row.
+          const y0 = p.root.getData('y0') as number;
+          p.root.setY(picked ? y0 - 12 : y0);
         }
       }
-      this.campText.setText(any ? (this.touch ? 'Stand where you want it and press its button.' : 'Stand where you want it and press its button or number.') : 'Walk into the red ring, or press WAKE BOSS.');
+      const pick = this.touch ? 'Tap a card, then tap the ground to set it down. Tap a building to pick it up.' : 'Pick a card, then click the ground to set it down. Click a building to pick it up.';
+      this.campText.setText(this.controls.picking ? (this.touch ? 'Tap the ground where it should stand.' : 'Click the ground where it should stand.') : any ? pick : 'All set. Press WAKE THE BOSS, or walk into the red ring.');
     } else this.campText.setText('');
 
     // A hunt that teaches: its plate, and the button the step is about beats so that it is found.

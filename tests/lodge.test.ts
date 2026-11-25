@@ -240,6 +240,10 @@ describe('what a contract tells of its boss', () => {
     expect(q.attacks.every((a) => a && a.how.length > 0)).toBe(true);
   });
 
+  it('the save keeps what has been seen of each boss', () => {
+    expect(repair({ met: { sexton: 2, king: 9, nobody: 1 } }).met).toEqual({ sexton: 2, king: 3 });
+  });
+
   it('every attack of every boss is told in plain words', () => {
     for (const m of MONSTERS) for (const a of m.attacks) expect(toldBy(a).length, `${m.id} ${a.id}`).toBeGreaterThan(10);
   });

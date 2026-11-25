@@ -295,7 +295,30 @@ export class LairScene extends Phaser.Scene {
           if (t) steer.at = t;
         } else if (ask === 'wake') steer.wake = true;
         else if (ask.startsWith('call')) steer.call = Number(ask.slice(4));
-        else if (ask.startsWith('place')) steer.place = places[Number(ask.slice(5))];
+        else if (ask.startsWith('place')) {
+          // A number picks its card. Pressed again with no pointer on the field, it is set down where the hunter faces.
+          const id = places[Number(ask.slice(5))];
+          const c = hud?.controls;
+          if (!id || !hud || !c) continue;
+          if (c.picking === id && !(c.scheme === 'mouse' && c.mouse)) steer.place = id;
+          else hud.pickCard(id);
+        }
+      }
+      // A press on the ground in camp: the picked card set down there, or a building there picked up.
+      for (const spot of hud?.controls?.takeSpots() ?? []) {
+        if (this.hunt.phase !== 'camp') break;
+        const p = this.cameras.main.getWorldPoint(spot.x, spot.y);
+        const id = hud?.controls?.picking;
+        if (spot.kind === 'place' && id) {
+          const why = this.hunt.whyNotAt(id, p.x, p.y);
+          if (why) {
+            sfx.play('deny', 0.6);
+            hud?.banner('', why.toUpperCase());
+          } else steer.placeAt = { id, x: p.x, y: p.y };
+        } else if (spot.kind === 'lift') {
+          const b = this.hunt.buildings.find((x) => x.def.id in this.hunt.toPlace && Math.hypot(x.x - p.x, x.y - p.y) < x.def.r + 18);
+          if (b) steer.lift = b.id;
+        }
       }
       let steps = 0;
       while (this.acc >= STEP && steps++ < 6) {
@@ -385,6 +408,21 @@ export class LairScene extends Phaser.Scene {
     const far = what === 'dodge' ? h.def.dodge.dist : (h.abilities[what].range ?? h.abilities[what].r ?? 100);
     const k = Math.min(1, len / DRAG_FAR) * far;
     return { x: h.x + (at.dx / len) * k, y: h.y + (at.dy / len) * k };
+  }
+
+  /**
+   * Where the card picked up in camp would stand, and whether it may: under the mouse, or where a finger last was on
+   * the ground, or a step in front of the hunter when neither is known.
+   */
+  private ghostAt(): { id: string; x: number; y: number; ok: boolean } | null {
+    const w = this.hunt;
+    const c = (this.scene.get('Hud') as HudScene | undefined)?.controls;
+    const id = c?.picking;
+    if (!c || !id || w.phase !== 'camp' || !w.toPlace[id]) return null;
+    const at = c.scheme === 'mouse' ? c.mouse : c.ground;
+    const h = w.hunter;
+    const p = at ? this.cameras.main.getWorldPoint(at.x, at.y) : { x: h.x + Math.cos(h.aim) * 46, y: h.y + Math.sin(h.aim) * 46 };
+    return { id, x: p.x, y: p.y, ok: w.whyNotAt(id, p.x, p.y) === '' };
   }
 
   /** Holds the lair nearly still for a moment: a blow that lands is felt. */
@@ -594,8 +632,18 @@ export class LairScene extends Phaser.Scene {
           hud?.banner('', 'REINFORCEMENTS');
           break;
         case 'place':
-          sfx.play('place', 0.8);
-          this.fx.spawn('fx/dust', e.x, e.y, { dur: 0.3, from: 0.6, to: 1.4, alpha: 0.7, depth: e.y - 1 });
+          // Set down with weight: a thump, a shake and dust thrown out round its foot.
+          sfx.play('place', 0.9);
+          this.shake(90, 0.004);
+          this.fx.spawn('fx/dust', e.x, e.y, { dur: 0.35, from: 0.6, to: 1.8, alpha: 0.75, depth: e.y - 1 });
+          for (let k = 0; k < 6; k++) {
+            const a = (k / 6) * Math.PI * 2;
+            this.fx.spawn('fx/dust', e.x + Math.cos(a) * 18, e.y + Math.sin(a) * 9, { dur: 0.3, from: 0.3, to: 0.8, alpha: 0.6, vx: Math.cos(a) * 60, vy: Math.sin(a) * 30, depth: e.y - 1 });
+          }
+          break;
+        case 'lift':
+          sfx.play('click', 0.7);
+          this.fx.spawn('fx/dust', e.x, e.y, { dur: 0.25, from: 0.4, to: 1, alpha: 0.5, depth: e.y - 1 });
           break;
         case 'bell':
           sfx.play('levelUp', 0.9, 0.7);
@@ -854,6 +902,17 @@ export class LairScene extends Phaser.Scene {
       // A bell that has been rung hangs dull until it can be rung again.
       if (s.img && b.def.kind === 'bell' && b.cool > 0 && s.flash <= 0) s.img.setTint(0x0e1418);
     }
+    // In camp, the card picked up stands as a ghost where it would go: pale, and red where it may not stand.
+    const ghost = this.ghostAt();
+    if (ghost) {
+      const s = this.show(`ghost-${ghost.id}`, BUILDING_ART[ghost.id], ghost.x, ghost.y + 12, 1, false);
+      const tint = ghost.ok ? 0xc8f0b0 : 0xff8070;
+      if (s.fig) {
+        s.fig.alpha = 0.55;
+        s.fig.tint = tint;
+      }
+      s.img?.setAlpha(0.55).setTint(tint);
+    }
     w.stones.forEach((st, i) => this.show(`s${i}`, STONE_ART, st.x, st.y + 16, 1, false));
     // The lamp Agnes stands on the ground, in the middle of its light.
     for (const d of w.wards) this.show(`w${d.id}`, LAMP_ART, d.x, d.y + 6, 1, false);
@@ -916,11 +975,18 @@ export class LairScene extends Phaser.Scene {
       // How near it nothing can be built, and how near it wakes.
       g.lineStyle(2, GOLD, 0.35).strokeCircle(m.x, m.y, CAMP.clear);
       g.lineStyle(3, RED, 0.5 + 0.2 * Math.sin(this.clock * 4)).strokeCircle(m.x, m.y, CAMP.wakeAt);
-      // Where a building would go if it were set down now.
-      const left = BUILDINGS.find((b) => w.toPlace[b.id] > 0);
-      if (left) {
-        const ok = w.whyNot(left.id) === '';
-        g.lineStyle(3, ok ? 0x9be07a : RED, 0.9).strokeCircle(h.x + Math.cos(h.aim) * 46, h.y + Math.sin(h.aim) * 46, left.r);
+      // The card picked up: its ground and its true reach, green where it may stand and red where not.
+      const ghost = this.ghostAt();
+      if (ghost) {
+        const def = BUILDINGS.find((b) => b.id === ghost.id) as (typeof BUILDINGS)[number];
+        const col = ghost.ok ? 0x9be07a : RED;
+        g.fillStyle(col, 0.22).fillCircle(ghost.x, ghost.y, def.r + 4);
+        g.lineStyle(3, col, 0.95).strokeCircle(ghost.x, ghost.y, def.r + 4);
+        // What it reaches: a fire's light, a bell's ring, a ballista's range.
+        if (def.reach > 0) {
+          g.fillStyle(col, 0.06).fillCircle(ghost.x, ghost.y, def.reach);
+          g.lineStyle(2, col, 0.55).strokeCircle(ghost.x, ghost.y, def.reach);
+        }
       }
     }
 

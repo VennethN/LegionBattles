@@ -191,6 +191,15 @@ export function repair(raw: unknown): SaveData {
   if (typeof r.music === 'boolean') s.music = r.music;
   if (typeof r.talk === 'boolean') s.talk = r.talk;
   if (Array.isArray(r.told)) s.told = r.told.filter((t): t is string => typeof t === 'string');
+  // What has been seen of each boss: a phase from 1 to 3, for what its contract can tell.
+  if (r.met && typeof r.met === 'object') {
+    const met: Record<string, number> = {};
+    for (const m of MONSTERS) {
+      const n = (r.met as Record<string, unknown>)[m.id];
+      if (typeof n === 'number' && n >= 1) met[m.id] = Math.min(3, Math.floor(n));
+    }
+    s.met = met;
+  }
   const m = r.muster;
   if (m && typeof m === 'object') {
     if (typeof m.hunter === 'string' && HUNTERS.some((h) => h.id === m.hunter) && isOpen(s, m.hunter)) s.muster.hunter = m.hunter;
