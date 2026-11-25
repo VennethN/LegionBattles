@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="packmaster-cloak" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="packmaster-cloak-cloak-shape" d="M 78 104 L 112 104 Q 110 132 106 158 L 98 166 L 92 156 L 84 168 L 76 158 L 66 170 L 58 158 L 46 166 Q 50 140 60 116 Z"/>
+<clipPath id="packmaster-cloak-cloak-clip"><use href="#packmaster-cloak-cloak-shape"/></clipPath>
+<clipPath id="packmaster-cloak-cloak-lit-clip"><use href="#packmaster-cloak-cloak-shape" transform="translate(-5 -5)"/></clipPath>
+</defs>
+<g id="packmaster-cloak-cloak">
+<use id="packmaster-cloak-cloak-shade" href="#packmaster-cloak-cloak-shape" fill="#77766b"/>
+<g clip-path="url(#packmaster-cloak-cloak-clip)">
+<use id="packmaster-cloak-cloak-deep" href="#packmaster-cloak-cloak-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="packmaster-cloak-cloak-shade-over" href="#packmaster-cloak-cloak-shape" transform="translate(-3.1 -3.1)" fill="#77766b"/>
+<use id="packmaster-cloak-cloak-fill" href="#packmaster-cloak-cloak-shape" transform="translate(-5 -5)" fill="#9c9a8c"/>
+<g clip-path="url(#packmaster-cloak-cloak-lit-clip)">
+<use id="packmaster-cloak-cloak-lit" href="#packmaster-cloak-cloak-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="packmaster-cloak-cloak-fill-over" href="#packmaster-cloak-cloak-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<path id="packmaster-cloak-tuft" d="M 69 118.4 L 71.5 125.4 C 71.7 125.9 72.3 126.2 72.9 126 C 73.4 125.8 73.7 125.2 73.5 124.6 L 71 117.6 C 70.8 117.1 70.2 116.8 69.6 117 C 69.1 117.2 68.8 117.8 69 118.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="packmaster-cloak-tuft-2" d="M 83 114.4 L 85.5 121.4 C 85.7 121.9 86.3 122.2 86.9 122 C 87.4 121.8 87.7 121.2 87.5 120.6 L 85 113.6 C 84.8 113.1 84.2 112.8 83.6 113 C 83.1 113.2 82.8 113.8 83 114.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="packmaster-cloak-tuft-3" d="M 97 120.4 L 99.5 127.4 C 99.7 127.9 100.3 128.2 100.9 128 C 101.4 127.8 101.7 127.2 101.5 126.6 L 99 119.6 C 98.8 119.1 98.2 118.8 97.6 119 C 97.1 119.2 96.8 119.8 97 120.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="packmaster-cloak-tuft-4" d="M 63 136.4 L 65.5 143.4 C 65.7 143.9 66.3 144.2 66.9 144 C 67.4 143.8 67.7 143.2 67.5 142.6 L 65 135.6 C 64.8 135.1 64.2 134.8 63.6 135 C 63.1 135.2 62.8 135.8 63 136.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="packmaster-cloak-tuft-5" d="M 79 134.4 L 81.5 141.4 C 81.7 141.9 82.3 142.2 82.9 142 C 83.4 141.8 83.7 141.2 83.5 140.6 L 81 133.6 C 80.8 133.1 80.2 132.8 79.6 133 C 79.1 133.2 78.8 133.8 79 134.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="packmaster-cloak-tuft-6" d="M 95 140.4 L 97.5 147.4 C 97.7 147.9 98.3 148.2 98.9 148 C 99.4 147.8 99.7 147.2 99.5 146.6 L 97 139.6 C 96.8 139.1 96.2 138.8 95.6 139 C 95.1 139.2 94.8 139.8 95 140.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="packmaster-cloak-tuft-7" d="M 71 152.4 L 73.5 159.4 C 73.7 159.9 74.3 160.2 74.9 160 C 75.4 159.8 75.7 159.2 75.5 158.6 L 73 151.6 C 72.8 151.1 72.2 150.8 71.6 151 C 71.1 151.2 70.8 151.8 71 152.4 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="packmaster-cloak-tuft-8" d="M 89 152.4 L 91.5 159.4 C 91.7 159.9 92.3 160.2 92.9 160 C 93.4 159.8 93.7 159.2 93.5 158.6 L 91 151.6 C 90.8 151.1 90.2 150.8 89.6 151 C 89.1 151.2 88.8 151.8 89 152.4 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="packmaster-cloak-cloak-line" href="#packmaster-cloak-cloak-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

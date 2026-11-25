@@ -1,0 +1,259 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="crossbowman-b" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="crossbowman-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="crossbowman-shadow-shadow" d="M 132 181 C 132 185.4 115.9 189 96 189 C 76.1 189 60 185.4 60 181 C 60 176.6 76.1 173 96 173 C 115.9 173 132 176.6 132 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="crossbowman-slung-layer" transform="translate(84.83 101.35) rotate(2) scale(1 1) translate(-78 -112)">
+<defs>
+<path id="crossbowman-slung-rim-shape" d="M 96 126 C 96 140.4 84.4 152 70 152 C 55.6 152 44 140.4 44 126 C 44 111.6 55.6 100 70 100 C 84.4 100 96 111.6 96 126 Z"/>
+<clipPath id="crossbowman-slung-rim-clip"><use href="#crossbowman-slung-rim-shape"/></clipPath>
+<clipPath id="crossbowman-slung-rim-lit-clip"><use href="#crossbowman-slung-rim-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="crossbowman-slung-face-shape" d="M 90 126 C 90 137 81 146 70 146 C 59 146 50 137 50 126 C 50 115 59 106 70 106 C 81 106 90 115 90 126 Z"/>
+<clipPath id="crossbowman-slung-face-clip"><use href="#crossbowman-slung-face-shape"/></clipPath>
+<clipPath id="crossbowman-slung-face-lit-clip"><use href="#crossbowman-slung-face-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="crossbowman-slung-rim">
+<use id="crossbowman-slung-rim-shade" href="#crossbowman-slung-rim-shape" fill="#434b56"/>
+<g clip-path="url(#crossbowman-slung-rim-clip)">
+<use id="crossbowman-slung-rim-fill" href="#crossbowman-slung-rim-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#crossbowman-slung-rim-lit-clip)">
+<use id="crossbowman-slung-rim-lit" href="#crossbowman-slung-rim-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-slung-rim-fill-over" href="#crossbowman-slung-rim-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="crossbowman-slung-rim-sheen" d="M80.92 100 L88.72 100 L66.88 152 L59.08 152 Z M92.22 100 L94.82 100 L72.98 152 L70.38 152 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="crossbowman-slung-rim-line" href="#crossbowman-slung-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-slung-face">
+<use id="crossbowman-slung-face-shade" href="#crossbowman-slung-face-shape" fill="#75502b"/>
+<g clip-path="url(#crossbowman-slung-face-clip)">
+<use id="crossbowman-slung-face-fill" href="#crossbowman-slung-face-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#crossbowman-slung-face-lit-clip)">
+<use id="crossbowman-slung-face-lit" href="#crossbowman-slung-face-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-slung-face-fill-over" href="#crossbowman-slung-face-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="crossbowman-slung-face-line" href="#crossbowman-slung-face-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="crossbowman-leg-back-layer" transform="translate(85 146) rotate(26) scale(1 1) translate(-85 -152)">
+<defs>
+<path id="crossbowman-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
+<clipPath id="crossbowman-leg-back-boot-clip"><use href="#crossbowman-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="crossbowman-leg-back-boot">
+<use id="crossbowman-leg-back-boot-fill" href="#crossbowman-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#crossbowman-leg-back-boot-clip)">
+<path id="crossbowman-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="crossbowman-leg-back-boot-line" href="#crossbowman-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="crossbowman-leg-front-layer" transform="translate(104 146) rotate(-24) scale(1 1) translate(-104 -152)">
+<defs>
+<path id="crossbowman-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="crossbowman-leg-front-boot-clip"><use href="#crossbowman-leg-front-boot-shape"/></clipPath>
+<clipPath id="crossbowman-leg-front-boot-lit-clip"><use href="#crossbowman-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="crossbowman-leg-front-boot">
+<use id="crossbowman-leg-front-boot-shade" href="#crossbowman-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#crossbowman-leg-front-boot-clip)">
+<use id="crossbowman-leg-front-boot-fill" href="#crossbowman-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#crossbowman-leg-front-boot-lit-clip)">
+<use id="crossbowman-leg-front-boot-lit" href="#crossbowman-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-leg-front-boot-fill-over" href="#crossbowman-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="crossbowman-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="crossbowman-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="crossbowman-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="crossbowman-leg-front-boot-line" href="#crossbowman-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="crossbowman-body-layer" transform="translate(96 174) rotate(5) scale(0.97 1.05) translate(-96 -180)">
+<defs>
+<path id="crossbowman-body-tunic-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="crossbowman-body-tunic-clip"><use href="#crossbowman-body-tunic-shape"/></clipPath>
+<clipPath id="crossbowman-body-tunic-lit-clip"><use href="#crossbowman-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="crossbowman-body-strap-shape" d="M 60 106 L 70 100 L 132 146 L 126 156 Z"/>
+<path id="crossbowman-body-pouch-shape" d="M 81.3 109.4 L 86.8 113.7 Q 88.4 115 87.2 116.5 L 82.3 122.8 Q 81 124.4 79.5 123.2 L 73.9 118.9 Q 72.4 117.6 73.6 116.1 L 78.5 109.8 Q 79.8 108.2 81.3 109.4 Z"/>
+<path id="crossbowman-body-pouch-2-shape" d="M 97.3 121.4 L 102.8 125.7 Q 104.4 127 103.2 128.5 L 98.3 134.8 Q 97 136.4 95.5 135.2 L 89.9 130.9 Q 88.4 129.6 89.6 128.1 L 94.5 121.8 Q 95.8 120.2 97.3 121.4 Z"/>
+<path id="crossbowman-body-pouch-3-shape" d="M 113.3 133.4 L 118.8 137.7 Q 120.4 139 119.2 140.5 L 114.3 146.8 Q 113 148.4 111.5 147.2 L 105.9 142.9 Q 104.4 141.6 105.6 140.1 L 110.5 133.8 Q 111.8 132.2 113.3 133.4 Z"/>
+<path id="crossbowman-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="crossbowman-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
+<clipPath id="crossbowman-body-buckle-clip"><use href="#crossbowman-body-buckle-shape"/></clipPath>
+<clipPath id="crossbowman-body-buckle-lit-clip"><use href="#crossbowman-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="crossbowman-body-arm-shape" d="M 110.5 122.1 L 121.5 134.1 C 124.3 137.1 129 137.3 132.1 134.5 C 135.1 131.7 135.3 127 132.5 123.9 L 121.5 111.9 C 118.7 108.9 114 108.7 110.9 111.5 C 107.9 114.3 107.7 119 110.5 122.1 Z"/>
+<clipPath id="crossbowman-body-arm-clip"><use href="#crossbowman-body-arm-shape"/></clipPath>
+<clipPath id="crossbowman-body-arm-lit-clip"><use href="#crossbowman-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="crossbowman-body-tunic">
+<use id="crossbowman-body-tunic-shade" href="#crossbowman-body-tunic-shape" fill="#2f5893"/>
+<g clip-path="url(#crossbowman-body-tunic-clip)">
+<use id="crossbowman-body-tunic-deep" href="#crossbowman-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="crossbowman-body-tunic-shade-over" href="#crossbowman-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="crossbowman-body-tunic-fill" href="#crossbowman-body-tunic-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#crossbowman-body-tunic-lit-clip)">
+<use id="crossbowman-body-tunic-lit" href="#crossbowman-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-body-tunic-fill-over" href="#crossbowman-body-tunic-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<g id="crossbowman-body-strap">
+<use id="crossbowman-body-strap-fill" href="#crossbowman-body-strap-shape" fill="#6b4a2b"/>
+<use id="crossbowman-body-strap-line" href="#crossbowman-body-strap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-body-pouch">
+<use id="crossbowman-body-pouch-fill" href="#crossbowman-body-pouch-shape" fill="#d9cdb0"/>
+<use id="crossbowman-body-pouch-line" href="#crossbowman-body-pouch-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-body-pouch-2">
+<use id="crossbowman-body-pouch-2-fill" href="#crossbowman-body-pouch-2-shape" fill="#d9cdb0"/>
+<use id="crossbowman-body-pouch-2-line" href="#crossbowman-body-pouch-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-body-pouch-3">
+<use id="crossbowman-body-pouch-3-fill" href="#crossbowman-body-pouch-3-shape" fill="#d9cdb0"/>
+<use id="crossbowman-body-pouch-3-line" href="#crossbowman-body-pouch-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="crossbowman-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="crossbowman-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="crossbowman-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="crossbowman-body-belt">
+<use id="crossbowman-body-belt-fill" href="#crossbowman-body-belt-shape" fill="#6b4a2b"/>
+<use id="crossbowman-body-belt-line" href="#crossbowman-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-body-buckle">
+<use id="crossbowman-body-buckle-shade" href="#crossbowman-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#crossbowman-body-buckle-clip)">
+<use id="crossbowman-body-buckle-fill" href="#crossbowman-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#crossbowman-body-buckle-lit-clip)">
+<use id="crossbowman-body-buckle-lit" href="#crossbowman-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-body-buckle-fill-over" href="#crossbowman-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="crossbowman-body-buckle-line" href="#crossbowman-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="crossbowman-body-tunic-line" href="#crossbowman-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="crossbowman-body-arm-cast" d="M 111.5 125.6 L 122.5 137.6 C 125.3 140.6 130 140.8 133.1 138 C 136.1 135.2 136.3 130.5 133.5 127.4 L 122.5 115.4 C 119.7 112.4 115 112.2 111.9 115 C 108.9 117.8 108.7 122.5 111.5 125.6 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="crossbowman-body-arm">
+<use id="crossbowman-body-arm-shade" href="#crossbowman-body-arm-shape" fill="#2f5893"/>
+<g clip-path="url(#crossbowman-body-arm-clip)">
+<use id="crossbowman-body-arm-fill" href="#crossbowman-body-arm-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#crossbowman-body-arm-lit-clip)">
+<use id="crossbowman-body-arm-lit" href="#crossbowman-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-body-arm-fill-over" href="#crossbowman-body-arm-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="crossbowman-body-arm-line" href="#crossbowman-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="crossbowman-head-layer" transform="translate(102.86 95.55) rotate(8) scale(1 1) translate(-96 -106)">
+<defs>
+<path id="crossbowman-head-coif-shape" d="M 72 74 C 76.7 70.3 87.7 70 96 70 C 104.3 70 116.7 70.3 122 74 C 127.3 77.7 128.2 86.7 128 92 C 127.8 97.3 126 103 121 106 C 116 109 105.5 110 98 110 C 90.5 110 81 109 76 106 C 71 103 68.7 97.3 68 92 C 67.3 86.7 67.3 77.7 72 74 Z"/>
+<clipPath id="crossbowman-head-coif-clip"><use href="#crossbowman-head-coif-shape"/></clipPath>
+<clipPath id="crossbowman-head-coif-lit-clip"><use href="#crossbowman-head-coif-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="crossbowman-head-dome-shape" d="M 77 74 C 77 74 75.7 62.2 79 58 C 82.3 53.8 91 49 97 49 C 103 49 111.7 53.8 115 58 C 118.3 62.2 117 74 117 74 L 77 74 Z"/>
+<clipPath id="crossbowman-head-dome-clip"><use href="#crossbowman-head-dome-shape"/></clipPath>
+<clipPath id="crossbowman-head-dome-lit-clip"><use href="#crossbowman-head-dome-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="crossbowman-head-brim-shape" d="M 56 75 C 62.8 72.8 82.3 68 96 68 C 109.7 68 130.8 72.8 138 75 C 145.2 77.2 146 79.3 139 81 C 132 82.7 110 85 96 85 C 82 85 61.7 82.7 55 81 C 48.3 79.3 49.2 77.2 56 75 Z"/>
+<clipPath id="crossbowman-head-brim-clip"><use href="#crossbowman-head-brim-shape"/></clipPath>
+<clipPath id="crossbowman-head-brim-lit-clip"><use href="#crossbowman-head-brim-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="crossbowman-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="crossbowman-head-coif">
+<use id="crossbowman-head-coif-shade" href="#crossbowman-head-coif-shape" fill="#434b56"/>
+<g clip-path="url(#crossbowman-head-coif-clip)">
+<use id="crossbowman-head-coif-deep" href="#crossbowman-head-coif-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="crossbowman-head-coif-shade-over" href="#crossbowman-head-coif-shape" transform="translate(-3.1 -3.1)" fill="#434b56"/>
+<use id="crossbowman-head-coif-fill" href="#crossbowman-head-coif-shape" transform="translate(-5 -5)" fill="#5d6672"/>
+<g clip-path="url(#crossbowman-head-coif-lit-clip)">
+<use id="crossbowman-head-coif-lit" href="#crossbowman-head-coif-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-head-coif-fill-over" href="#crossbowman-head-coif-shape" transform="translate(4.6 4.6)" fill="#5d6672"/>
+</g>
+<path id="crossbowman-head-coif-sheen" d="M106.15 70 L115.28 70 L98.48 110 L89.35 110 Z M118.78 70 L121.38 70 L104.58 110 L101.98 110 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="crossbowman-head-ring" d="M 67.8 88 Q 70 91.2 72.2 88 Q 70 89.4 67.8 88 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-2" d="M 74.8 88 Q 77 91.2 79.2 88 Q 77 89.4 74.8 88 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-3" d="M 81.8 88 Q 84 91.2 86.2 88 Q 84 89.4 81.8 88 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-4" d="M 71.3 93.6 Q 73.5 96.8 75.7 93.6 Q 73.5 95 71.3 93.6 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-5" d="M 78.3 93.6 Q 80.5 96.8 82.7 93.6 Q 80.5 95 78.3 93.6 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-6" d="M 85.3 93.6 Q 87.5 96.8 89.7 93.6 Q 87.5 95 85.3 93.6 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-7" d="M 67.8 99.2 Q 70 102.4 72.2 99.2 Q 70 100.6 67.8 99.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-8" d="M 74.8 99.2 Q 77 102.4 79.2 99.2 Q 77 100.6 74.8 99.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-9" d="M 81.8 99.2 Q 84 102.4 86.2 99.2 Q 84 100.6 81.8 99.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-10" d="M 71.3 104.8 Q 73.5 108 75.7 104.8 Q 73.5 106.2 71.3 104.8 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-11" d="M 78.3 104.8 Q 80.5 108 82.7 104.8 Q 80.5 106.2 78.3 104.8 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-ring-12" d="M 85.3 104.8 Q 87.5 108 89.7 104.8 Q 87.5 106.2 85.3 104.8 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="crossbowman-head-slit" d="M 98.5 80 L 133.5 80 Q 138 80 138 84.5 L 138 84.5 Q 138 89 133.5 89 L 98.5 89 Q 94 89 94 84.5 L 94 84.5 Q 94 80 98.5 80 Z" fill="#1e2b17"/>
+<path id="crossbowman-head-slit-edge" d="M 98.5 80 L 133.5 80 Q 138 80 138 84.5 L 138 84.5 Q 138 89 133.5 89 L 98.5 89 Q 94 89 94 84.5 L 94 84.5 Q 94 80 98.5 80 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="crossbowman-head-coif-line" href="#crossbowman-head-coif-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-head-dome">
+<use id="crossbowman-head-dome-shade" href="#crossbowman-head-dome-shape" fill="#8d97a3"/>
+<g clip-path="url(#crossbowman-head-dome-clip)">
+<use id="crossbowman-head-dome-fill" href="#crossbowman-head-dome-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#crossbowman-head-dome-lit-clip)">
+<use id="crossbowman-head-dome-lit" href="#crossbowman-head-dome-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-head-dome-fill-over" href="#crossbowman-head-dome-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="crossbowman-head-dome-sheen" d="M102.25 49 L108.65 49 L98.15 74 L91.75 74 Z M112.15 49 L114.75 49 L104.25 74 L101.65 74 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="crossbowman-head-crown-seam" d="M 97 46 L 97.6 46 Q 98.6 46 98.6 47 L 98.6 75 Q 98.6 76 97.6 76 L 97 76 Q 96 76 96 75 L 96 47 Q 96 46 97 46 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="crossbowman-head-dome-line" href="#crossbowman-head-dome-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-head-brim">
+<use id="crossbowman-head-brim-shade" href="#crossbowman-head-brim-shape" fill="#8d97a3"/>
+<g clip-path="url(#crossbowman-head-brim-clip)">
+<use id="crossbowman-head-brim-fill" href="#crossbowman-head-brim-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#crossbowman-head-brim-lit-clip)">
+<use id="crossbowman-head-brim-lit" href="#crossbowman-head-brim-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-head-brim-fill-over" href="#crossbowman-head-brim-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+</g>
+<use id="crossbowman-head-brim-line" href="#crossbowman-head-brim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="crossbowman-head-glint" d="M 87.4 61.8 L 92.4 57.8 C 93.4 57 93.5 55.6 92.8 54.6 C 92 53.6 90.6 53.5 89.6 54.2 L 84.6 58.2 C 83.6 59 83.5 60.4 84.2 61.4 C 85 62.4 86.4 62.5 87.4 61.8 Z" fill="#f4f1e4"/>
+</g>
+<g id="crossbowman-weapon-layer" transform="translate(131.41 125.45) rotate(-1) scale(1 1) translate(-128 -131)">
+<defs>
+<path id="crossbowman-weapon-limbs-shape" d="M 153.1 102.2 Q 177.9 127.5 156.8 156.1 L 151.6 152.4 Q 167.9 128.2 148.3 106.5 Z"/>
+<path id="crossbowman-weapon-stock-shape" d="M 167.8 127.2 L 168 129.2 Q 168.3 133.2 164.3 133.5 L 114.4 137 Q 110.4 137.2 110.1 133.3 L 110 131.3 Q 109.7 127.3 113.7 127 L 163.6 123.5 Q 167.6 123.2 167.8 127.2 Z"/>
+<clipPath id="crossbowman-weapon-stock-clip"><use href="#crossbowman-weapon-stock-shape"/></clipPath>
+<clipPath id="crossbowman-weapon-stock-lit-clip"><use href="#crossbowman-weapon-stock-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="crossbowman-weapon-bolt-shape" d="M 167.6 123.7 L 181.9 127.2 L 168.2 132.7 Z"/>
+<path id="crossbowman-weapon-hand-shape" d="M 135.5 131 C 135.5 135.1 132.1 138.5 128 138.5 C 123.9 138.5 120.5 135.1 120.5 131 C 120.5 126.9 123.9 123.5 128 123.5 C 132.1 123.5 135.5 126.9 135.5 131 Z"/>
+<clipPath id="crossbowman-weapon-hand-clip"><use href="#crossbowman-weapon-hand-shape"/></clipPath>
+<clipPath id="crossbowman-weapon-hand-lit-clip"><use href="#crossbowman-weapon-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="crossbowman-weapon-string" d="M 156.2 104 L 138 130.3 L 159.7 153.8" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="crossbowman-weapon-limbs">
+<use id="crossbowman-weapon-limbs-fill" href="#crossbowman-weapon-limbs-shape" fill="#b9c2cc"/>
+<use id="crossbowman-weapon-limbs-line" href="#crossbowman-weapon-limbs-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-weapon-stock">
+<use id="crossbowman-weapon-stock-shade" href="#crossbowman-weapon-stock-shape" fill="#75502b"/>
+<g clip-path="url(#crossbowman-weapon-stock-clip)">
+<use id="crossbowman-weapon-stock-fill" href="#crossbowman-weapon-stock-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#crossbowman-weapon-stock-lit-clip)">
+<use id="crossbowman-weapon-stock-lit" href="#crossbowman-weapon-stock-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-weapon-stock-fill-over" href="#crossbowman-weapon-stock-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="crossbowman-weapon-stock-line" href="#crossbowman-weapon-stock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-weapon-bolt">
+<use id="crossbowman-weapon-bolt-fill" href="#crossbowman-weapon-bolt-shape" fill="#e9dfc6"/>
+<use id="crossbowman-weapon-bolt-line" href="#crossbowman-weapon-bolt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="crossbowman-weapon-hand">
+<use id="crossbowman-weapon-hand-shade" href="#crossbowman-weapon-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#crossbowman-weapon-hand-clip)">
+<use id="crossbowman-weapon-hand-fill" href="#crossbowman-weapon-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#crossbowman-weapon-hand-lit-clip)">
+<use id="crossbowman-weapon-hand-lit" href="#crossbowman-weapon-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="crossbowman-weapon-hand-fill-over" href="#crossbowman-weapon-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="crossbowman-weapon-hand-line" href="#crossbowman-weapon-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

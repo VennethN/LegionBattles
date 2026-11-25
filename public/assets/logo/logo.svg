@@ -1,0 +1,277 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="logo" width="1080" height="570" viewBox="0 0 360 190">
+<defs>
+<path id="logo-blue-pole-shape" d="M 225.8 101.9 L 121.8 9.9 C 120.7 8.9 118.9 9 117.9 10.2 C 116.9 11.3 117 13.1 118.2 14.1 L 222.2 106.1 C 223.3 107.1 225.1 107 226.1 105.8 C 227.1 104.7 227 102.9 225.8 101.9 Z"/>
+<clipPath id="logo-blue-pole-clip"><use href="#logo-blue-pole-shape"/></clipPath>
+<path id="logo-blue-cloth-shape" d="M 140.8 30.4 L 100.8 34.4 L 111.8 45.4 L 98.8 57.4 L 176.2 61.7 Z"/>
+<clipPath id="logo-blue-cloth-clip"><use href="#logo-blue-cloth-shape"/></clipPath>
+<clipPath id="logo-blue-cloth-lit-clip"><use href="#logo-blue-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="logo-blue-blade-shape" d="M 108.8 2.1 L 122.8 5.8 L 122.2 14 L 114.2 15.5 Z"/>
+<clipPath id="logo-blue-blade-clip"><use href="#logo-blue-blade-shape"/></clipPath>
+<path id="logo-red-pole-shape" d="M 137.8 106.1 L 241.8 14.1 C 243 13.1 243.1 11.3 242.1 10.2 C 241.1 9 239.3 8.9 238.2 9.9 L 134.2 101.9 C 133 102.9 132.9 104.7 133.9 105.8 C 134.9 107 136.7 107.1 137.8 106.1 Z"/>
+<clipPath id="logo-red-pole-clip"><use href="#logo-red-pole-shape"/></clipPath>
+<path id="logo-red-cloth-shape" d="M 219.2 30.4 L 259.2 34.4 L 248.2 45.4 L 261.2 57.4 L 183.8 61.7 Z"/>
+<clipPath id="logo-red-cloth-clip"><use href="#logo-red-cloth-shape"/></clipPath>
+<clipPath id="logo-red-cloth-lit-clip"><use href="#logo-red-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="logo-red-blade-shape" d="M 251.2 2.1 L 245.8 15.5 L 237.8 14 L 237.2 5.8 Z"/>
+<clipPath id="logo-red-blade-clip"><use href="#logo-red-blade-shape"/></clipPath>
+<path id="logo-shield-rim-shape" d="M 144.5 6 L 180 12.2 L 215.5 6 L 228 18.5 L 228 62 C 228 96.7 204 109 180 118 C 156 109 132 96.7 132 62 L 132 18.5 Z"/>
+<clipPath id="logo-shield-rim-clip"><use href="#logo-shield-rim-shape"/></clipPath>
+<clipPath id="logo-shield-rim-lit-clip"><use href="#logo-shield-rim-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="logo-shield-field-shape" d="M 152.5 14 L 180 20.2 L 207.5 14 L 220 26.5 L 220 60.8 C 220 89.8 200 100.1 180 107.6 C 160 100.1 140 89.8 140 60.8 L 140 26.5 Z"/>
+<clipPath id="logo-shield-field-clip"><use href="#logo-shield-field-shape"/></clipPath>
+<clipPath id="logo-shield-field-lit-clip"><use href="#logo-shield-field-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="logo-shield-red-shape" d="M 180 6 L 276 6 L 276 118 L 180 118 Z"/>
+<clipPath id="logo-shield-red-clip"><use href="#logo-shield-red-shape"/></clipPath>
+<clipPath id="logo-shield-red-lit-clip"><use href="#logo-shield-red-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="logo-shield-star-shape" d="M 180 24.9 L 185.8 38.3 L 199.2 44.1 L 185.8 49.8 L 180 63.3 L 174.2 49.8 L 160.8 44.1 L 174.2 38.3 Z"/>
+<clipPath id="logo-shield-star-clip"><use href="#logo-shield-star-shape"/></clipPath>
+<path id="logo-BOSS-0-shape" d="M 70.2 59.9 L 96.4 59.9 C 111.2 59.9 117.5 66.2 117.5 75.7 C 117.5 82 114.3 86.2 110.1 88.5 C 116.4 90.6 120.6 95.6 120.6 103 C 120.6 112.4 113.3 118.7 98.5 118.7 L 70.2 118.7 Z M 88 73.8 L 88 82.8 L 94.6 82.8 C 98.8 82.8 100.6 80.9 100.6 78.2 C 100.6 75.4 98.8 73.8 94.6 73.8 Z M 88 95 L 88 104.8 L 96.4 104.8 C 101.1 104.8 103.2 103 103.2 99.8 C 103.2 96.9 101.1 95 96.4 95 Z"/>
+<clipPath id="logo-BOSS-0-clip"><use href="#logo-BOSS-0-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-BOSS-1-shape" d="M 151.8 59.9 C 167.6 59.9 177 72.5 177 89.3 C 177 106.1 167.6 118.7 151.8 118.7 C 136 118.7 126.6 106.1 126.6 89.3 C 126.6 72.5 136 59.9 151.8 59.9 Z M 151.8 75.9 C 146.3 75.9 144.7 82.2 144.7 89.3 C 144.7 96.4 146.3 102.7 151.8 102.7 C 157.3 102.7 158.9 96.4 158.9 89.3 C 158.9 82.2 157.3 75.9 151.8 75.9 Z"/>
+<clipPath id="logo-BOSS-1-clip"><use href="#logo-BOSS-1-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-BOSS-2-shape" d="M 230.3 77.5 C 228.2 66.2 219.8 59.9 208.2 59.9 C 194.6 59.9 186.2 67.3 186.2 78.4 C 186.2 89.3 194.6 92.7 206.5 95.2 C 212.4 96.4 214.5 97.5 214.5 100.2 C 214.5 103 212.2 104.4 208.4 104.4 C 203.6 104.4 201.1 101.9 200.4 97.3 L 184.1 100.2 C 186.2 112.4 195.2 118.7 208.6 118.7 C 223.3 118.7 231.9 111.1 231.9 99.4 C 231.9 88.5 224.2 84.7 211.1 82.2 C 205.3 81.1 203.4 80.3 203.4 77.8 C 203.4 75.4 205.3 74.2 208.6 74.2 C 212.4 74.2 214.5 76.1 215.1 80.1 Z"/>
+<clipPath id="logo-BOSS-2-clip"><use href="#logo-BOSS-2-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-BOSS-3-shape" d="M 286.7 77.5 C 284.6 66.2 276.2 59.9 264.6 59.9 C 251 59.9 242.6 67.3 242.6 78.4 C 242.6 89.3 251 92.7 262.9 95.2 C 268.8 96.4 270.9 97.5 270.9 100.2 C 270.9 103 268.6 104.4 264.8 104.4 C 260 104.4 257.5 101.9 256.8 97.3 L 240.5 100.2 C 242.6 112.4 251.6 118.7 265 118.7 C 279.7 118.7 288.3 111.1 288.3 99.4 C 288.3 88.5 280.6 84.7 267.5 82.2 C 261.7 81.1 259.8 80.3 259.8 77.8 C 259.8 75.4 261.7 74.2 265 74.2 C 268.8 74.2 270.9 76.1 271.5 80.1 Z"/>
+<clipPath id="logo-BOSS-3-clip"><use href="#logo-BOSS-3-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-ribbon-tail-a-shape" d="M 76 140 L 36 140 L 48 158 L 36 176 L 76 176 Z"/>
+<path id="logo-ribbon-tail-b-shape" d="M 284 140 L 324 140 L 312 158 L 324 176 L 284 176 Z"/>
+<path id="logo-ribbon-shape" d="M 62 131 L 298 131 L 298 171 L 62 171 Z"/>
+<clipPath id="logo-ribbon-clip"><use href="#logo-ribbon-shape"/></clipPath>
+<clipPath id="logo-ribbon-lit-clip"><use href="#logo-ribbon-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="logo-HUNTERS-0-shape" d="M 86.5 137 L 95 137 L 95 147.3 L 100 147.3 L 100 137 L 108.5 137 L 108.5 165 L 100 165 L 100 154.7 L 95 154.7 L 95 165 L 86.5 165 Z"/>
+<clipPath id="logo-HUNTERS-0-clip"><use href="#logo-HUNTERS-0-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-HUNTERS-1-shape" d="M 114.5 137 L 123 137 L 123 153 C 123 156.2 124.1 157.5 125.5 157.5 C 126.9 157.5 128 156.2 128 153 L 128 137 L 136.5 137 L 136.5 153.5 C 136.5 161 132 165 125.5 165 C 119 165 114.5 161 114.5 153.5 Z"/>
+<clipPath id="logo-HUNTERS-1-clip"><use href="#logo-HUNTERS-1-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-HUNTERS-2-shape" d="M 142.5 137 L 151.1 137 L 157 149.4 L 157 137 L 164.5 137 L 164.5 165 L 155.9 165 L 150 152.6 L 150 165 L 142.5 165 Z"/>
+<clipPath id="logo-HUNTERS-2-clip"><use href="#logo-HUNTERS-2-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-HUNTERS-3-shape" d="M 169.5 137 L 192.5 137 L 192.5 144.5 L 185.3 144.5 L 185.3 165 L 176.8 165 L 176.8 144.5 L 169.5 144.5 Z"/>
+<clipPath id="logo-HUNTERS-3-clip"><use href="#logo-HUNTERS-3-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-HUNTERS-4-shape" d="M 197.5 137 L 218.5 137 L 218.5 144.5 L 206 144.5 L 206 147.3 L 215.5 147.3 L 215.5 154.7 L 206 154.7 L 206 157.5 L 218.5 157.5 L 218.5 165 L 197.5 165 Z"/>
+<clipPath id="logo-HUNTERS-4-clip"><use href="#logo-HUNTERS-4-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-HUNTERS-5-shape" d="M 222.5 137 L 235 137 C 242 137 245.5 140.4 245.5 146 C 245.5 150 243.5 152.6 240.3 153.9 L 246.5 165 L 237.5 165 L 232.7 155.2 L 231 155.2 L 231 165 L 222.5 165 Z M 231 143.8 L 231 148.6 L 234.3 148.6 C 236.3 148.6 237.3 147.7 237.3 146.2 C 237.3 144.7 236.3 143.8 234.3 143.8 Z"/>
+<clipPath id="logo-HUNTERS-5-clip"><use href="#logo-HUNTERS-5-shape" clip-rule="evenodd"/></clipPath>
+<path id="logo-HUNTERS-6-shape" d="M 273 145.4 C 272 140 268 137 262.5 137 C 256 137 252 140.5 252 145.8 C 252 151 256 152.6 261.7 153.8 C 264.5 154.4 265.5 154.9 265.5 156.2 C 265.5 157.5 264.4 158.2 262.6 158.2 C 260.3 158.2 259.1 157 258.8 154.8 L 251 156.2 C 252 162 256.3 165 262.7 165 C 269.7 165 273.8 161.4 273.8 155.8 C 273.8 150.6 270.1 148.8 263.9 147.6 C 261.1 147.1 260.2 146.7 260.2 145.5 C 260.2 144.4 261.1 143.8 262.7 143.8 C 264.5 143.8 265.5 144.7 265.8 146.6 Z"/>
+<clipPath id="logo-HUNTERS-6-clip"><use href="#logo-HUNTERS-6-shape" clip-rule="evenodd"/></clipPath>
+</defs>
+<path id="logo-blue-pole-edge" d="M 225.8 101.9 L 121.8 9.9 C 120.7 8.9 118.9 9 117.9 10.2 C 116.9 11.3 117 13.1 118.2 14.1 L 222.2 106.1 C 223.3 107.1 225.1 107 226.1 105.8 C 227.1 104.7 227 102.9 225.8 101.9 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-blue-cloth-edge" d="M 140.8 30.4 L 100.8 34.4 L 111.8 45.4 L 98.8 57.4 L 176.2 61.7 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-blue-blade-edge" d="M 108.8 2.1 L 122.8 5.8 L 122.2 14 L 114.2 15.5 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-red-pole-edge" d="M 137.8 106.1 L 241.8 14.1 C 243 13.1 243.1 11.3 242.1 10.2 C 241.1 9 239.3 8.9 238.2 9.9 L 134.2 101.9 C 133 102.9 132.9 104.7 133.9 105.8 C 134.9 107 136.7 107.1 137.8 106.1 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-red-cloth-edge" d="M 219.2 30.4 L 259.2 34.4 L 248.2 45.4 L 261.2 57.4 L 183.8 61.7 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-red-blade-edge" d="M 251.2 2.1 L 245.8 15.5 L 237.8 14 L 237.2 5.8 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-shield-rim-edge" d="M 144.5 6 L 180 12.2 L 215.5 6 L 228 18.5 L 228 62 C 228 96.7 204 109 180 118 C 156 109 132 96.7 132 62 L 132 18.5 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-BOSS-0-edge" d="M 70.2 59.9 L 96.4 59.9 C 111.2 59.9 117.5 66.2 117.5 75.7 C 117.5 82 114.3 86.2 110.1 88.5 C 116.4 90.6 120.6 95.6 120.6 103 C 120.6 112.4 113.3 118.7 98.5 118.7 L 70.2 118.7 Z M 88 73.8 L 88 82.8 L 94.6 82.8 C 98.8 82.8 100.6 80.9 100.6 78.2 C 100.6 75.4 98.8 73.8 94.6 73.8 Z M 88 95 L 88 104.8 L 96.4 104.8 C 101.1 104.8 103.2 103 103.2 99.8 C 103.2 96.9 101.1 95 96.4 95 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-BOSS-1-edge" d="M 151.8 59.9 C 167.6 59.9 177 72.5 177 89.3 C 177 106.1 167.6 118.7 151.8 118.7 C 136 118.7 126.6 106.1 126.6 89.3 C 126.6 72.5 136 59.9 151.8 59.9 Z M 151.8 75.9 C 146.3 75.9 144.7 82.2 144.7 89.3 C 144.7 96.4 146.3 102.7 151.8 102.7 C 157.3 102.7 158.9 96.4 158.9 89.3 C 158.9 82.2 157.3 75.9 151.8 75.9 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-BOSS-2-edge" d="M 230.3 77.5 C 228.2 66.2 219.8 59.9 208.2 59.9 C 194.6 59.9 186.2 67.3 186.2 78.4 C 186.2 89.3 194.6 92.7 206.5 95.2 C 212.4 96.4 214.5 97.5 214.5 100.2 C 214.5 103 212.2 104.4 208.4 104.4 C 203.6 104.4 201.1 101.9 200.4 97.3 L 184.1 100.2 C 186.2 112.4 195.2 118.7 208.6 118.7 C 223.3 118.7 231.9 111.1 231.9 99.4 C 231.9 88.5 224.2 84.7 211.1 82.2 C 205.3 81.1 203.4 80.3 203.4 77.8 C 203.4 75.4 205.3 74.2 208.6 74.2 C 212.4 74.2 214.5 76.1 215.1 80.1 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-BOSS-3-edge" d="M 286.7 77.5 C 284.6 66.2 276.2 59.9 264.6 59.9 C 251 59.9 242.6 67.3 242.6 78.4 C 242.6 89.3 251 92.7 262.9 95.2 C 268.8 96.4 270.9 97.5 270.9 100.2 C 270.9 103 268.6 104.4 264.8 104.4 C 260 104.4 257.5 101.9 256.8 97.3 L 240.5 100.2 C 242.6 112.4 251.6 118.7 265 118.7 C 279.7 118.7 288.3 111.1 288.3 99.4 C 288.3 88.5 280.6 84.7 267.5 82.2 C 261.7 81.1 259.8 80.3 259.8 77.8 C 259.8 75.4 261.7 74.2 265 74.2 C 268.8 74.2 270.9 76.1 271.5 80.1 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-ribbon-tail-a-edge" d="M 76 140 L 36 140 L 48 158 L 36 176 L 76 176 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-ribbon-tail-b-edge" d="M 284 140 L 324 140 L 312 158 L 324 176 L 284 176 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="logo-ribbon-edge" d="M 62 131 L 298 131 L 298 171 L 62 171 Z" fill="none" stroke="#e9dfc6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="logo-blue-pole">
+<use id="logo-blue-pole-shade" href="#logo-blue-pole-shape" fill="#75502b"/>
+<g clip-path="url(#logo-blue-pole-clip)">
+<use id="logo-blue-pole-fill" href="#logo-blue-pole-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="logo-blue-pole-line" href="#logo-blue-pole-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="logo-blue-cloth">
+<use id="logo-blue-cloth-shade" href="#logo-blue-cloth-shape" fill="#2f5893"/>
+<g clip-path="url(#logo-blue-cloth-clip)">
+<use id="logo-blue-cloth-fill" href="#logo-blue-cloth-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#logo-blue-cloth-lit-clip)">
+<use id="logo-blue-cloth-lit" href="#logo-blue-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="logo-blue-cloth-fill-over" href="#logo-blue-cloth-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="logo-blue-cloth-line" href="#logo-blue-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="logo-blue-blade">
+<use id="logo-blue-blade-shade" href="#logo-blue-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#logo-blue-blade-clip)">
+<use id="logo-blue-blade-fill" href="#logo-blue-blade-shape" transform="translate(-2 -2)" fill="#b9c2cc"/>
+</g>
+<use id="logo-blue-blade-line" href="#logo-blue-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="logo-red-pole">
+<use id="logo-red-pole-shade" href="#logo-red-pole-shape" fill="#75502b"/>
+<g clip-path="url(#logo-red-pole-clip)">
+<use id="logo-red-pole-fill" href="#logo-red-pole-shape" transform="translate(-2 -2)" fill="#9a6a3a"/>
+</g>
+<use id="logo-red-pole-line" href="#logo-red-pole-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="logo-red-cloth">
+<use id="logo-red-cloth-shade" href="#logo-red-cloth-shape" fill="#933027"/>
+<g clip-path="url(#logo-red-cloth-clip)">
+<use id="logo-red-cloth-fill" href="#logo-red-cloth-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#logo-red-cloth-lit-clip)">
+<use id="logo-red-cloth-lit" href="#logo-red-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="logo-red-cloth-fill-over" href="#logo-red-cloth-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="logo-red-cloth-line" href="#logo-red-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="logo-red-blade">
+<use id="logo-red-blade-shade" href="#logo-red-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#logo-red-blade-clip)">
+<use id="logo-red-blade-fill" href="#logo-red-blade-shape" transform="translate(-2 -2)" fill="#b9c2cc"/>
+</g>
+<use id="logo-red-blade-line" href="#logo-red-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-shield-cast" d="M 147.5 10 L 183 16.2 L 218.5 10 L 231 22.5 L 231 66 C 231 100.7 207 113 183 122 C 159 113 135 100.7 135 66 L 135 22.5 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-shield-rim">
+<use id="logo-shield-rim-shade" href="#logo-shield-rim-shape" fill="#9c7c33"/>
+<g clip-path="url(#logo-shield-rim-clip)">
+<use id="logo-shield-rim-fill" href="#logo-shield-rim-shape" transform="translate(-4 -4)" fill="#c8a24a"/>
+<g clip-path="url(#logo-shield-rim-lit-clip)">
+<use id="logo-shield-rim-lit" href="#logo-shield-rim-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="logo-shield-rim-fill-over" href="#logo-shield-rim-shape" transform="translate(4.2 4.2)" fill="#c8a24a"/>
+</g>
+<path id="logo-shield-rim-sheen" d="M203.52 6 L217.92 6 L170.88 118 L156.48 118 Z M221.42 6 L224.02 6 L176.98 118 L174.38 118 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="logo-shield-rim-line" href="#logo-shield-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="logo-shield-field">
+<use id="logo-shield-field-shade" href="#logo-shield-field-shape" fill="#2f5893"/>
+<g clip-path="url(#logo-shield-field-clip)">
+<use id="logo-shield-field-deep" href="#logo-shield-field-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="logo-shield-field-shade-over" href="#logo-shield-field-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="logo-shield-field-fill" href="#logo-shield-field-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#logo-shield-field-lit-clip)">
+<use id="logo-shield-field-lit" href="#logo-shield-field-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="logo-shield-field-fill-over" href="#logo-shield-field-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<g id="logo-shield-red">
+<use id="logo-shield-red-shade" href="#logo-shield-red-shape" fill="#933027"/>
+<g clip-path="url(#logo-shield-red-clip)">
+<use id="logo-shield-red-deep" href="#logo-shield-red-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="logo-shield-red-shade-over" href="#logo-shield-red-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="logo-shield-red-fill" href="#logo-shield-red-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#logo-shield-red-lit-clip)">
+<use id="logo-shield-red-lit" href="#logo-shield-red-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="logo-shield-red-fill-over" href="#logo-shield-red-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
+</g>
+</g>
+<path id="logo-shield-split" d="M 180 6 L 180 118" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="logo-shield-field-line" href="#logo-shield-field-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="logo-shield-star">
+<use id="logo-shield-star-shade" href="#logo-shield-star-shape" fill="#9c7c33"/>
+<g clip-path="url(#logo-shield-star-clip)">
+<use id="logo-shield-star-fill" href="#logo-shield-star-shape" transform="translate(-2 -2)" fill="#c8a24a"/>
+<path id="logo-shield-star-sheen" d="M188.06 24.88 L193.82 24.88 L177.7 63.28 L171.94 63.28 Z M197.32 24.88 L199.92 24.88 L183.8 63.28 L181.2 63.28 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="logo-shield-star-line" href="#logo-shield-star-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-BOSS-0-cast" d="M 72.7 63.4 L 98.9 63.4 C 113.7 63.4 120 69.7 120 79.2 C 120 85.5 116.8 89.7 112.6 92 C 118.9 94.1 123.1 99.1 123.1 106.5 C 123.1 115.9 115.8 122.2 101 122.2 L 72.7 122.2 Z M 90.5 77.3 L 90.5 86.3 L 97.1 86.3 C 101.3 86.3 103.2 84.4 103.2 81.7 C 103.2 78.9 101.3 77.3 97.1 77.3 Z M 90.5 98.5 L 90.5 108.3 L 98.9 108.3 C 103.6 108.3 105.7 106.5 105.7 103.3 C 105.7 100.4 103.6 98.5 98.9 98.5 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-BOSS-0">
+<use id="logo-BOSS-0-shade" href="#logo-BOSS-0-shape" fill="#9c7c33" fill-rule="evenodd"/>
+<g clip-path="url(#logo-BOSS-0-clip)">
+<use id="logo-BOSS-0-fill" href="#logo-BOSS-0-shape" transform="translate(-5 -5)" fill="#c8a24a" fill-rule="evenodd"/>
+</g>
+<use id="logo-BOSS-0-line" href="#logo-BOSS-0-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-BOSS-1-cast" d="M 154.3 63.4 C 170.1 63.4 179.5 76 179.5 92.8 C 179.5 109.6 170.1 122.2 154.3 122.2 C 138.5 122.2 129.1 109.6 129.1 92.8 C 129.1 76 138.5 63.4 154.3 63.4 Z M 154.3 79.4 C 148.8 79.4 147.2 85.7 147.2 92.8 C 147.2 99.9 148.8 106.2 154.3 106.2 C 159.8 106.2 161.4 99.9 161.4 92.8 C 161.4 85.7 159.8 79.4 154.3 79.4 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-BOSS-1">
+<use id="logo-BOSS-1-shade" href="#logo-BOSS-1-shape" fill="#9c7c33" fill-rule="evenodd"/>
+<g clip-path="url(#logo-BOSS-1-clip)">
+<use id="logo-BOSS-1-fill" href="#logo-BOSS-1-shape" transform="translate(-5 -5)" fill="#c8a24a" fill-rule="evenodd"/>
+</g>
+<use id="logo-BOSS-1-line" href="#logo-BOSS-1-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-BOSS-2-cast" d="M 232.8 81 C 230.7 69.7 222.3 63.4 210.7 63.4 C 197.1 63.4 188.7 70.8 188.7 81.9 C 188.7 92.8 197.1 96.2 209 98.7 C 214.9 99.9 217 101 217 103.7 C 217 106.5 214.7 107.9 210.9 107.9 C 206.1 107.9 203.6 105.4 202.9 100.8 L 186.6 103.7 C 188.7 115.9 197.7 122.2 211.1 122.2 C 225.8 122.2 234.4 114.6 234.4 102.9 C 234.4 92 226.7 88.2 213.6 85.7 C 207.8 84.6 205.9 83.8 205.9 81.3 C 205.9 78.9 207.8 77.7 211.1 77.7 C 214.9 77.7 217 79.6 217.6 83.6 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-BOSS-2">
+<use id="logo-BOSS-2-shade" href="#logo-BOSS-2-shape" fill="#9c7c33" fill-rule="evenodd"/>
+<g clip-path="url(#logo-BOSS-2-clip)">
+<use id="logo-BOSS-2-fill" href="#logo-BOSS-2-shape" transform="translate(-5 -5)" fill="#c8a24a" fill-rule="evenodd"/>
+</g>
+<use id="logo-BOSS-2-line" href="#logo-BOSS-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-BOSS-3-cast" d="M 289.2 81 C 287.1 69.7 278.7 63.4 267.1 63.4 C 253.5 63.4 245.1 70.8 245.1 81.9 C 245.1 92.8 253.5 96.2 265.4 98.7 C 271.3 99.9 273.4 101 273.4 103.7 C 273.4 106.5 271.1 107.9 267.3 107.9 C 262.5 107.9 260 105.4 259.3 100.8 L 243 103.7 C 245.1 115.9 254.1 122.2 267.5 122.2 C 282.2 122.2 290.8 114.6 290.8 102.9 C 290.8 92 283.1 88.2 270 85.7 C 264.2 84.6 262.3 83.8 262.3 81.3 C 262.3 78.9 264.2 77.7 267.5 77.7 C 271.3 77.7 273.4 79.6 274 83.6 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-BOSS-3">
+<use id="logo-BOSS-3-shade" href="#logo-BOSS-3-shape" fill="#9c7c33" fill-rule="evenodd"/>
+<g clip-path="url(#logo-BOSS-3-clip)">
+<use id="logo-BOSS-3-fill" href="#logo-BOSS-3-shape" transform="translate(-5 -5)" fill="#c8a24a" fill-rule="evenodd"/>
+</g>
+<use id="logo-BOSS-3-line" href="#logo-BOSS-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="logo-ribbon-tail-a">
+<use id="logo-ribbon-tail-a-fill" href="#logo-ribbon-tail-a-shape" fill="#933027"/>
+<use id="logo-ribbon-tail-a-line" href="#logo-ribbon-tail-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="logo-ribbon-tail-b">
+<use id="logo-ribbon-tail-b-fill" href="#logo-ribbon-tail-b-shape" fill="#933027"/>
+<use id="logo-ribbon-tail-b-line" href="#logo-ribbon-tail-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-ribbon-cast" d="M 65 135 L 301 135 L 301 175 L 65 175 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-ribbon">
+<use id="logo-ribbon-shade" href="#logo-ribbon-shape" fill="#933027"/>
+<g clip-path="url(#logo-ribbon-clip)">
+<use id="logo-ribbon-deep" href="#logo-ribbon-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="logo-ribbon-shade-over" href="#logo-ribbon-shape" transform="translate(-3.1 -3.1)" fill="#933027"/>
+<use id="logo-ribbon-fill" href="#logo-ribbon-shape" transform="translate(-5 -5)" fill="#c2453a"/>
+<g clip-path="url(#logo-ribbon-lit-clip)">
+<use id="logo-ribbon-lit" href="#logo-ribbon-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="logo-ribbon-fill-over" href="#logo-ribbon-shape" transform="translate(4.6 4.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="logo-ribbon-line" href="#logo-ribbon-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-HUNTERS-0-cast" d="M 89 140.5 L 97.5 140.5 L 97.5 150.8 L 102.5 150.8 L 102.5 140.5 L 111 140.5 L 111 168.5 L 102.5 168.5 L 102.5 158.2 L 97.5 158.2 L 97.5 168.5 L 89 168.5 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-HUNTERS-0">
+<use id="logo-HUNTERS-0-shade" href="#logo-HUNTERS-0-shape" fill="#c4b594" fill-rule="evenodd"/>
+<g clip-path="url(#logo-HUNTERS-0-clip)">
+<use id="logo-HUNTERS-0-fill" href="#logo-HUNTERS-0-shape" transform="translate(-3 -3)" fill="#e9dfc6" fill-rule="evenodd"/>
+</g>
+<use id="logo-HUNTERS-0-line" href="#logo-HUNTERS-0-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-HUNTERS-1-cast" d="M 117 140.5 L 125.5 140.5 L 125.5 156.5 C 125.5 159.7 126.6 161 128 161 C 129.4 161 130.5 159.7 130.5 156.5 L 130.5 140.5 L 139 140.5 L 139 157 C 139 164.5 134.5 168.5 128 168.5 C 121.5 168.5 117 164.5 117 157 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-HUNTERS-1">
+<use id="logo-HUNTERS-1-shade" href="#logo-HUNTERS-1-shape" fill="#c4b594" fill-rule="evenodd"/>
+<g clip-path="url(#logo-HUNTERS-1-clip)">
+<use id="logo-HUNTERS-1-fill" href="#logo-HUNTERS-1-shape" transform="translate(-3 -3)" fill="#e9dfc6" fill-rule="evenodd"/>
+</g>
+<use id="logo-HUNTERS-1-line" href="#logo-HUNTERS-1-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-HUNTERS-2-cast" d="M 145 140.5 L 153.6 140.5 L 159.5 152.9 L 159.5 140.5 L 167 140.5 L 167 168.5 L 158.4 168.5 L 152.5 156.1 L 152.5 168.5 L 145 168.5 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-HUNTERS-2">
+<use id="logo-HUNTERS-2-shade" href="#logo-HUNTERS-2-shape" fill="#c4b594" fill-rule="evenodd"/>
+<g clip-path="url(#logo-HUNTERS-2-clip)">
+<use id="logo-HUNTERS-2-fill" href="#logo-HUNTERS-2-shape" transform="translate(-3 -3)" fill="#e9dfc6" fill-rule="evenodd"/>
+</g>
+<use id="logo-HUNTERS-2-line" href="#logo-HUNTERS-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-HUNTERS-3-cast" d="M 172 140.5 L 195 140.5 L 195 148 L 187.8 148 L 187.8 168.5 L 179.3 168.5 L 179.3 148 L 172 148 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-HUNTERS-3">
+<use id="logo-HUNTERS-3-shade" href="#logo-HUNTERS-3-shape" fill="#c4b594" fill-rule="evenodd"/>
+<g clip-path="url(#logo-HUNTERS-3-clip)">
+<use id="logo-HUNTERS-3-fill" href="#logo-HUNTERS-3-shape" transform="translate(-3 -3)" fill="#e9dfc6" fill-rule="evenodd"/>
+</g>
+<use id="logo-HUNTERS-3-line" href="#logo-HUNTERS-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-HUNTERS-4-cast" d="M 200 140.5 L 221 140.5 L 221 148 L 208.5 148 L 208.5 150.8 L 218 150.8 L 218 158.2 L 208.5 158.2 L 208.5 161 L 221 161 L 221 168.5 L 200 168.5 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-HUNTERS-4">
+<use id="logo-HUNTERS-4-shade" href="#logo-HUNTERS-4-shape" fill="#c4b594" fill-rule="evenodd"/>
+<g clip-path="url(#logo-HUNTERS-4-clip)">
+<use id="logo-HUNTERS-4-fill" href="#logo-HUNTERS-4-shape" transform="translate(-3 -3)" fill="#e9dfc6" fill-rule="evenodd"/>
+</g>
+<use id="logo-HUNTERS-4-line" href="#logo-HUNTERS-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-HUNTERS-5-cast" d="M 225 140.5 L 237.5 140.5 C 244.5 140.5 248 143.9 248 149.5 C 248 153.5 246 156.1 242.8 157.4 L 249 168.5 L 240 168.5 L 235.2 158.7 L 233.5 158.7 L 233.5 168.5 L 225 168.5 Z M 233.5 147.3 L 233.5 152.1 L 236.8 152.1 C 238.8 152.1 239.8 151.2 239.8 149.7 C 239.8 148.2 238.8 147.3 236.8 147.3 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-HUNTERS-5">
+<use id="logo-HUNTERS-5-shade" href="#logo-HUNTERS-5-shape" fill="#c4b594" fill-rule="evenodd"/>
+<g clip-path="url(#logo-HUNTERS-5-clip)">
+<use id="logo-HUNTERS-5-fill" href="#logo-HUNTERS-5-shape" transform="translate(-3 -3)" fill="#e9dfc6" fill-rule="evenodd"/>
+</g>
+<use id="logo-HUNTERS-5-line" href="#logo-HUNTERS-5-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="logo-HUNTERS-6-cast" d="M 275.5 148.9 C 274.5 143.5 270.5 140.5 265 140.5 C 258.5 140.5 254.5 144 254.5 149.3 C 254.5 154.5 258.5 156.1 264.2 157.3 C 267 157.9 268 158.4 268 159.7 C 268 161 266.9 161.7 265.1 161.7 C 262.8 161.7 261.6 160.5 261.3 158.3 L 253.5 159.7 C 254.5 165.5 258.8 168.5 265.2 168.5 C 272.2 168.5 276.3 164.9 276.3 159.3 C 276.3 154.1 272.6 152.3 266.4 151.1 C 263.6 150.6 262.7 150.2 262.7 149 C 262.7 147.9 263.6 147.3 265.2 147.3 C 267 147.3 268 148.2 268.3 150.1 Z" fill="#2a1a10" opacity="0.34"/>
+<g id="logo-HUNTERS-6">
+<use id="logo-HUNTERS-6-shade" href="#logo-HUNTERS-6-shape" fill="#c4b594" fill-rule="evenodd"/>
+<g clip-path="url(#logo-HUNTERS-6-clip)">
+<use id="logo-HUNTERS-6-fill" href="#logo-HUNTERS-6-shape" transform="translate(-3 -3)" fill="#e9dfc6" fill-rule="evenodd"/>
+</g>
+<use id="logo-HUNTERS-6-line" href="#logo-HUNTERS-6-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

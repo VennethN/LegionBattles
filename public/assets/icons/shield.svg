@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="shield" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="shield-shield-shape" d="M 7 9 C 7 9 18.3 5 24 5 C 29.7 5 41 9 41 9 C 41 9 42.2 19.3 41 24 C 39.8 28.7 36.8 33.7 34 37 C 31.2 40.3 24 44 24 44 C 24 44 16.8 40.3 14 37 C 11.2 33.7 8.2 28.7 7 24 C 5.8 19.3 7 9 7 9 Z"/>
+<clipPath id="shield-shield-clip"><use href="#shield-shield-shape"/></clipPath>
+<clipPath id="shield-shield-lit-clip"><use href="#shield-shield-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="shield-boss-shape" d="M 30 22 C 30 25.3 27.3 28 24 28 C 20.7 28 18 25.3 18 22 C 18 18.7 20.7 16 24 16 C 27.3 16 30 18.7 30 22 Z"/>
+</defs>
+<g id="shield-shield">
+<use id="shield-shield-shade" href="#shield-shield-shape" fill="#8d97a3"/>
+<g clip-path="url(#shield-shield-clip)">
+<use id="shield-shield-fill" href="#shield-shield-shape" transform="translate(-4 -4)" fill="#b9c2cc"/>
+<g clip-path="url(#shield-shield-lit-clip)">
+<use id="shield-shield-lit" href="#shield-shield-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="shield-shield-fill-over" href="#shield-shield-shape" transform="translate(4.2 4.2)" fill="#b9c2cc"/>
+</g>
+<path id="shield-shield-sheen" d="M32.19 5 L37.64 5 L21.26 44 L15.81 44 Z M41.14 5 L43.74 5 L27.36 44 L24.76 44 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="shield-shield-line" href="#shield-shield-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="shield-boss">
+<use id="shield-boss-fill" href="#shield-boss-shape" fill="#c8a24a"/>
+<use id="shield-boss-line" href="#shield-boss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="greatstag-tail" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="greatstag-tail-tail-shape" d="M 69 116 C 69 120.4 65 124 60 124 C 55 124 51 120.4 51 116 C 51 111.6 55 108 60 108 C 65 108 69 111.6 69 116 Z"/>
+<clipPath id="greatstag-tail-tail-clip"><use href="#greatstag-tail-tail-shape"/></clipPath>
+<clipPath id="greatstag-tail-tail-lit-clip"><use href="#greatstag-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="greatstag-tail-tail">
+<use id="greatstag-tail-tail-shade" href="#greatstag-tail-tail-shape" fill="#c4b594"/>
+<g clip-path="url(#greatstag-tail-tail-clip)">
+<use id="greatstag-tail-tail-fill" href="#greatstag-tail-tail-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#greatstag-tail-tail-lit-clip)">
+<use id="greatstag-tail-tail-lit" href="#greatstag-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greatstag-tail-tail-fill-over" href="#greatstag-tail-tail-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="greatstag-tail-tail-line" href="#greatstag-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

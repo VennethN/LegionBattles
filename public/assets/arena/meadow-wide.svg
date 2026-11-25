@@ -1,0 +1,425 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="meadow-arena-1180" width="1180" height="800" viewBox="0 0 1180 800">
+<defs>
+<path id="meadow-arena-1180-bush-shape" d="M -34 0 C -34 0 -39 -11.3 -38 -16 C -37 -20.7 -30.7 -23.7 -28 -28 C -25.3 -32.3 -26 -38.7 -22 -42 C -18 -45.3 -9.3 -48.3 -4 -48 C 1.3 -47.7 5.7 -41.7 10 -40 C 14.3 -38.3 18.3 -40.3 22 -38 C 25.7 -35.7 29.3 -30 32 -26 C 34.7 -22 37.3 -18.3 38 -14 C 38.7 -9.7 36 0 36 0 L -34 0 Z"/>
+<clipPath id="meadow-arena-1180-bush-clip"><use href="#meadow-arena-1180-bush-shape"/></clipPath>
+<clipPath id="meadow-arena-1180-bush-lit-clip"><use href="#meadow-arena-1180-bush-shape" transform="translate(-6 -6)"/></clipPath>
+<g id="meadow-arena-1180-thing-1">
+<path id="meadow-arena-1180-shadow" d="M 38 2 C 38 7 22.8 11 4 11 C -14.8 11 -30 7 -30 2 C -30 -3 -14.8 -7 4 -7 C 22.8 -7 38 -3 38 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="meadow-arena-1180-bush">
+<use id="meadow-arena-1180-bush-shade" href="#meadow-arena-1180-bush-shape" fill="#3b722f"/>
+<g clip-path="url(#meadow-arena-1180-bush-clip)">
+<use id="meadow-arena-1180-bush-deep" href="#meadow-arena-1180-bush-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="meadow-arena-1180-bush-shade-over" href="#meadow-arena-1180-bush-shape" transform="translate(-3.72 -3.72)" fill="#3b722f"/>
+<use id="meadow-arena-1180-bush-fill" href="#meadow-arena-1180-bush-shape" transform="translate(-6 -6)" fill="#4f8f3e"/>
+<g clip-path="url(#meadow-arena-1180-bush-lit-clip)">
+<use id="meadow-arena-1180-bush-lit" href="#meadow-arena-1180-bush-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-arena-1180-bush-fill-over" href="#meadow-arena-1180-bush-shape" transform="translate(4.6 4.6)" fill="#4f8f3e"/>
+</g>
+<path id="meadow-arena-1180-heap" d="M -24 -30 C -24 -33.7 -15 -42.3 -10 -44 C -5 -45.7 3.7 -42.7 6 -40 C 8.3 -37.3 6.7 -31 4 -28 C 1.3 -25 -5.3 -21.7 -10 -22 C -14.7 -22.3 -24 -26.3 -24 -30 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="meadow-arena-1180-hollow" d="M -6 -18 C -3.3 -20.7 6.7 -24.3 12 -24 C 17.3 -23.7 25.7 -18.7 26 -16 C 26.3 -13.3 19 -9.3 14 -8 C 9 -6.7 -0.7 -6.3 -4 -8 C -7.3 -9.7 -8.7 -15.3 -6 -18 Z" fill="#2a1a10" opacity="0.22"/>
+<path id="meadow-arena-1180-berry" d="M -13 -16 C -13 -14.3 -14.3 -13 -16 -13 C -17.7 -13 -19 -14.3 -19 -16 C -19 -17.7 -17.7 -19 -16 -19 C -14.3 -19 -13 -17.7 -13 -16 Z" fill="#c7364f"/>
+<path id="meadow-arena-1180-berry-2" d="M 11 -30 C 11 -28.3 9.7 -27 8 -27 C 6.3 -27 5 -28.3 5 -30 C 5 -31.7 6.3 -33 8 -33 C 9.7 -33 11 -31.7 11 -30 Z" fill="#c7364f"/>
+<path id="meadow-arena-1180-berry-3" d="M 25 -12 C 25 -10.3 23.7 -9 22 -9 C 20.3 -9 19 -10.3 19 -12 C 19 -13.7 20.3 -15 22 -15 C 23.7 -15 25 -13.7 25 -12 Z" fill="#c7364f"/>
+<path id="meadow-arena-1180-berry-4" d="M -23 -8 C -23 -6.3 -24.3 -5 -26 -5 C -27.7 -5 -29 -6.3 -29 -8 C -29 -9.7 -27.7 -11 -26 -11 C -24.3 -11 -23 -9.7 -23 -8 Z" fill="#c7364f"/>
+<path id="meadow-arena-1180-berry-5" d="M 5 -6 C 5 -4.3 3.7 -3 2 -3 C 0.3 -3 -1 -4.3 -1 -6 C -1 -7.7 0.3 -9 2 -9 C 3.7 -9 5 -7.7 5 -6 Z" fill="#c7364f"/>
+<path id="meadow-arena-1180-berry-lit" d="M -16 -17 C -16 -16.4 -16.4 -16 -17 -16 C -17.6 -16 -18 -16.4 -18 -17 C -18 -17.6 -17.6 -18 -17 -18 C -16.4 -18 -16 -17.6 -16 -17 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-berry-lit-2" d="M 8 -31 C 8 -30.4 7.6 -30 7 -30 C 6.4 -30 6 -30.4 6 -31 C 6 -31.6 6.4 -32 7 -32 C 7.6 -32 8 -31.6 8 -31 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-berry-lit-3" d="M 22 -13 C 22 -12.4 21.6 -12 21 -12 C 20.4 -12 20 -12.4 20 -13 C 20 -13.6 20.4 -14 21 -14 C 21.6 -14 22 -13.6 22 -13 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-berry-lit-4" d="M -26 -9 C -26 -8.4 -26.4 -8 -27 -8 C -27.6 -8 -28 -8.4 -28 -9 C -28 -9.6 -27.6 -10 -27 -10 C -26.4 -10 -26 -9.6 -26 -9 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-berry-lit-5" d="M 2 -7 C 2 -6.4 1.6 -6 1 -6 C 0.4 -6 0 -6.4 0 -7 C 0 -7.6 0.4 -8 1 -8 C 1.6 -8 2 -7.6 2 -7 Z" fill="#f8fcfe"/>
+</g>
+<use id="meadow-arena-1180-bush-line" href="#meadow-arena-1180-bush-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="meadow-arena-1180-thing-2">
+<path id="meadow-arena-1180-stem" d="M -12 0 Q -10 -8 -12 -16" fill="none" stroke="#3b722f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="meadow-arena-1180-petal" d="M -4.8 -16 C -4.8 -14.2 -6.2 -12.8 -8 -12.8 C -9.8 -12.8 -11.2 -14.2 -11.2 -16 C -11.2 -17.8 -9.8 -19.2 -8 -19.2 C -6.2 -19.2 -4.8 -17.8 -4.8 -16 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-2" d="M -7.6 -12.2 C -7.6 -10.4 -9 -9 -10.8 -9 C -12.5 -9 -14 -10.4 -14 -12.2 C -14 -14 -12.5 -15.4 -10.8 -15.4 C -9 -15.4 -7.6 -14 -7.6 -12.2 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-3" d="M -12 -13.6 C -12 -11.9 -13.5 -10.4 -15.2 -10.4 C -17 -10.4 -18.4 -11.9 -18.4 -13.6 C -18.4 -15.4 -17 -16.8 -15.2 -16.8 C -13.5 -16.8 -12 -15.4 -12 -13.6 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-4" d="M -12 -18.4 C -12 -16.6 -13.5 -15.2 -15.2 -15.2 C -17 -15.2 -18.4 -16.6 -18.4 -18.4 C -18.4 -20.1 -17 -21.6 -15.2 -21.6 C -13.5 -21.6 -12 -20.1 -12 -18.4 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-5" d="M -7.6 -19.8 C -7.6 -18 -9 -16.6 -10.8 -16.6 C -12.5 -16.6 -14 -18 -14 -19.8 C -14 -21.6 -12.5 -23 -10.8 -23 C -9 -23 -7.6 -21.6 -7.6 -19.8 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-heart" d="M -9.6 -16 C -9.6 -14.7 -10.7 -13.6 -12 -13.6 C -13.3 -13.6 -14.4 -14.7 -14.4 -16 C -14.4 -17.3 -13.3 -18.4 -12 -18.4 C -10.7 -18.4 -9.6 -17.3 -9.6 -16 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-stem-2" d="M 0 0 Q 2 -11 0 -22" fill="none" stroke="#3b722f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="meadow-arena-1180-petal-6" d="M 7.2 -22 C 7.2 -20.2 5.8 -18.8 4 -18.8 C 2.2 -18.8 0.8 -20.2 0.8 -22 C 0.8 -23.8 2.2 -25.2 4 -25.2 C 5.8 -25.2 7.2 -23.8 7.2 -22 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-7" d="M 4.4 -18.2 C 4.4 -16.4 3 -15 1.2 -15 C -0.5 -15 -2 -16.4 -2 -18.2 C -2 -20 -0.5 -21.4 1.2 -21.4 C 3 -21.4 4.4 -20 4.4 -18.2 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-8" d="M 0 -19.6 C 0 -17.9 -1.5 -16.4 -3.2 -16.4 C -5 -16.4 -6.4 -17.9 -6.4 -19.6 C -6.4 -21.4 -5 -22.8 -3.2 -22.8 C -1.5 -22.8 0 -21.4 0 -19.6 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-9" d="M 0 -24.4 C 0 -22.6 -1.5 -21.2 -3.2 -21.2 C -5 -21.2 -6.4 -22.6 -6.4 -24.4 C -6.4 -26.1 -5 -27.6 -3.2 -27.6 C -1.5 -27.6 0 -26.1 0 -24.4 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-10" d="M 4.4 -25.8 C 4.4 -24 3 -22.6 1.2 -22.6 C -0.5 -22.6 -2 -24 -2 -25.8 C -2 -27.6 -0.5 -29 1.2 -29 C 3 -29 4.4 -27.6 4.4 -25.8 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-heart-2" d="M 2.4 -22 C 2.4 -20.7 1.3 -19.6 0 -19.6 C -1.3 -19.6 -2.4 -20.7 -2.4 -22 C -2.4 -23.3 -1.3 -24.4 0 -24.4 C 1.3 -24.4 2.4 -23.3 2.4 -22 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-stem-3" d="M 11 0 Q 13 -7 11 -14" fill="none" stroke="#3b722f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="meadow-arena-1180-petal-11" d="M 18.2 -14 C 18.2 -12.2 16.8 -10.8 15 -10.8 C 13.2 -10.8 11.8 -12.2 11.8 -14 C 11.8 -15.8 13.2 -17.2 15 -17.2 C 16.8 -17.2 18.2 -15.8 18.2 -14 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-12" d="M 15.4 -10.2 C 15.4 -8.4 14 -7 12.2 -7 C 10.5 -7 9 -8.4 9 -10.2 C 9 -12 10.5 -13.4 12.2 -13.4 C 14 -13.4 15.4 -12 15.4 -10.2 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-13" d="M 11 -11.6 C 11 -9.9 9.5 -8.4 7.8 -8.4 C 6 -8.4 4.6 -9.9 4.6 -11.6 C 4.6 -13.4 6 -14.8 7.8 -14.8 C 9.5 -14.8 11 -13.4 11 -11.6 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-14" d="M 11 -16.4 C 11 -14.6 9.5 -13.2 7.8 -13.2 C 6 -13.2 4.6 -14.6 4.6 -16.4 C 4.6 -18.1 6 -19.6 7.8 -19.6 C 9.5 -19.6 11 -18.1 11 -16.4 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-petal-15" d="M 15.4 -17.8 C 15.4 -16 14 -14.6 12.2 -14.6 C 10.5 -14.6 9 -16 9 -17.8 C 9 -19.6 10.5 -21 12.2 -21 C 14 -21 15.4 -19.6 15.4 -17.8 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-heart-3" d="M 13.4 -14 C 13.4 -12.7 12.3 -11.6 11 -11.6 C 9.7 -11.6 8.6 -12.7 8.6 -14 C 8.6 -15.3 9.7 -16.4 11 -16.4 C 12.3 -16.4 13.4 -15.3 13.4 -14 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-blade-a" d="M -18 0 L -15 -9 L -12 0 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-blade-b" d="M 5 0 L 8 -8 L 11 0 Z" fill="#93c96a"/>
+</g>
+<path id="meadow-arena-1180-stalk-shape" d="M -8.5 -12 L -5.5 -12 Q -3.5 -12 -3.5 -10 L -3.5 -1 Q -3.5 1 -5.5 1 L -8.5 1 Q -10.5 1 -10.5 -1 L -10.5 -10 Q -10.5 -12 -8.5 -12 Z"/>
+<path id="meadow-arena-1180-cap-shape" d="M -19 -11 C -19 -11 -18 -19.5 -16 -22 C -14 -24.5 -10 -26 -7 -26 C -4 -26 0 -24.5 2 -22 C 4 -19.5 5 -11 5 -11 L -19 -11 Z"/>
+<clipPath id="meadow-arena-1180-cap-clip"><use href="#meadow-arena-1180-cap-shape"/></clipPath>
+<clipPath id="meadow-arena-1180-cap-lit-clip"><use href="#meadow-arena-1180-cap-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="meadow-arena-1180-stalk-2-shape" d="M 7.6 -8.4 L 8.5 -8.4 Q 10.5 -8.4 10.5 -6.4 L 10.5 -1.3 Q 10.5 0.7 8.5 0.7 L 7.6 0.7 Q 5.6 0.7 5.6 -1.3 L 5.6 -6.4 Q 5.6 -8.4 7.6 -8.4 Z"/>
+<path id="meadow-arena-1180-cap-2-shape" d="M -0.4 -7.7 C -0.4 -7.7 0.3 -13.6 1.7 -15.4 C 3.1 -17.1 5.9 -18.2 8 -18.2 C 10.1 -18.2 12.9 -17.1 14.3 -15.4 C 15.7 -13.6 16.4 -7.7 16.4 -7.7 L -0.4 -7.7 Z"/>
+<clipPath id="meadow-arena-1180-cap-2-clip"><use href="#meadow-arena-1180-cap-2-shape"/></clipPath>
+<clipPath id="meadow-arena-1180-cap-2-lit-clip"><use href="#meadow-arena-1180-cap-2-shape" transform="translate(-3 -3)"/></clipPath>
+<g id="meadow-arena-1180-thing-3">
+<path id="meadow-arena-1180-shadow-2" d="M 18 2 C 18 4.8 10.8 7 2 7 C -6.8 7 -14 4.8 -14 2 C -14 -0.8 -6.8 -3 2 -3 C 10.8 -3 18 -0.8 18 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="meadow-arena-1180-stalk">
+<use id="meadow-arena-1180-stalk-fill" href="#meadow-arena-1180-stalk-shape" fill="#e9dfc6"/>
+<use id="meadow-arena-1180-stalk-line" href="#meadow-arena-1180-stalk-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="meadow-arena-1180-cap">
+<use id="meadow-arena-1180-cap-shade" href="#meadow-arena-1180-cap-shape" fill="#933027"/>
+<g clip-path="url(#meadow-arena-1180-cap-clip)">
+<use id="meadow-arena-1180-cap-fill" href="#meadow-arena-1180-cap-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#meadow-arena-1180-cap-lit-clip)">
+<use id="meadow-arena-1180-cap-lit" href="#meadow-arena-1180-cap-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-arena-1180-cap-fill-over" href="#meadow-arena-1180-cap-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+<path id="meadow-arena-1180-spot-a" d="M -8.8 -19 C -8.8 -17.8 -9.8 -16.8 -11 -16.8 C -12.2 -16.8 -13.2 -17.8 -13.2 -19 C -13.2 -20.2 -12.2 -21.2 -11 -21.2 C -9.8 -21.2 -8.8 -20.2 -8.8 -19 Z" fill="#e9dfc6"/>
+<path id="meadow-arena-1180-spot-b" d="M -0.2 -16 C -0.2 -15 -1 -14.2 -2 -14.2 C -3 -14.2 -3.8 -15 -3.8 -16 C -3.8 -17 -3 -17.8 -2 -17.8 C -1 -17.8 -0.2 -17 -0.2 -16 Z" fill="#e9dfc6"/>
+</g>
+<use id="meadow-arena-1180-cap-line" href="#meadow-arena-1180-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="meadow-arena-1180-stalk-2">
+<use id="meadow-arena-1180-stalk-2-fill" href="#meadow-arena-1180-stalk-2-shape" fill="#e9dfc6"/>
+<use id="meadow-arena-1180-stalk-2-line" href="#meadow-arena-1180-stalk-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="meadow-arena-1180-cap-2">
+<use id="meadow-arena-1180-cap-2-shade" href="#meadow-arena-1180-cap-2-shape" fill="#933027"/>
+<g clip-path="url(#meadow-arena-1180-cap-2-clip)">
+<use id="meadow-arena-1180-cap-2-fill" href="#meadow-arena-1180-cap-2-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#meadow-arena-1180-cap-2-lit-clip)">
+<use id="meadow-arena-1180-cap-2-lit" href="#meadow-arena-1180-cap-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-arena-1180-cap-2-fill-over" href="#meadow-arena-1180-cap-2-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+<path id="meadow-arena-1180-spot-a-2" d="M 6.7 -13.3 C 6.7 -12.4 6.1 -11.8 5.2 -11.8 C 4.3 -11.8 3.7 -12.4 3.7 -13.3 C 3.7 -14.2 4.3 -14.8 5.2 -14.8 C 6.1 -14.8 6.7 -14.2 6.7 -13.3 Z" fill="#e9dfc6"/>
+<path id="meadow-arena-1180-spot-b-2" d="M 12.8 -11.2 C 12.8 -10.5 12.2 -9.9 11.5 -9.9 C 10.8 -9.9 10.2 -10.5 10.2 -11.2 C 10.2 -11.9 10.8 -12.5 11.5 -12.5 C 12.2 -12.5 12.8 -11.9 12.8 -11.2 Z" fill="#e9dfc6"/>
+</g>
+<use id="meadow-arena-1180-cap-2-line" href="#meadow-arena-1180-cap-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="meadow-arena-1180-thing-4">
+<path id="meadow-arena-1180-back" d="M -12 0 L -9 -16 L -5 0 L -1 -22 L 4 0 L 8 -15 L 12 0 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-front" d="M -8 0 L -5 -10 L -2 0 L 2 -14 L 6 0 Z" fill="#93c96a"/>
+</g>
+<path id="meadow-arena-1180-roots-shape" d="M -26 0 C -26 0 -19.7 -3.7 -18 -8 C -16.3 -12.3 -21.7 -23 -16 -26 C -10.3 -29 10.3 -29 16 -26 C 21.7 -23 16.3 -12.3 18 -8 C 19.7 -3.7 26 0 26 0 L -26 0 Z"/>
+<clipPath id="meadow-arena-1180-roots-clip"><use href="#meadow-arena-1180-roots-shape"/></clipPath>
+<clipPath id="meadow-arena-1180-roots-lit-clip"><use href="#meadow-arena-1180-roots-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="meadow-arena-1180-top-shape" d="M 18 -27 C 18 -23.1 9.9 -20 0 -20 C -9.9 -20 -18 -23.1 -18 -27 C -18 -30.9 -9.9 -34 0 -34 C 9.9 -34 18 -30.9 18 -27 Z"/>
+<clipPath id="meadow-arena-1180-top-clip"><use href="#meadow-arena-1180-top-shape"/></clipPath>
+<path id="meadow-arena-1180-leaf-shape" d="M 14 -44 C 14 -44 20 -50 22 -50 C 24 -50 26 -44 26 -44 C 26 -44 22 -40 20 -40 C 18 -40 14 -44 14 -44 Z"/>
+<g id="meadow-arena-1180-thing-5">
+<path id="meadow-arena-1180-shadow-3" d="M 30 2 C 30 6.4 18.4 10 4 10 C -10.4 10 -22 6.4 -22 2 C -22 -2.4 -10.4 -6 4 -6 C 18.4 -6 30 -2.4 30 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="meadow-arena-1180-roots">
+<use id="meadow-arena-1180-roots-shade" href="#meadow-arena-1180-roots-shape" fill="#75502b"/>
+<g clip-path="url(#meadow-arena-1180-roots-clip)">
+<use id="meadow-arena-1180-roots-deep" href="#meadow-arena-1180-roots-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="meadow-arena-1180-roots-shade-over" href="#meadow-arena-1180-roots-shape" transform="translate(-3.1 -3.1)" fill="#75502b"/>
+<use id="meadow-arena-1180-roots-fill" href="#meadow-arena-1180-roots-shape" transform="translate(-5 -5)" fill="#9a6a3a"/>
+<g clip-path="url(#meadow-arena-1180-roots-lit-clip)">
+<use id="meadow-arena-1180-roots-lit" href="#meadow-arena-1180-roots-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-arena-1180-roots-fill-over" href="#meadow-arena-1180-roots-shape" transform="translate(4.6 4.6)" fill="#9a6a3a"/>
+</g>
+<path id="meadow-arena-1180-bark-a" d="M -7.1 -4 L -8.1 -22 C -8.1 -22.5 -8.6 -22.9 -9 -22.9 C -9.5 -22.9 -9.9 -22.4 -9.9 -22 L -8.9 -4 C -8.9 -3.5 -8.4 -3.1 -8 -3.1 C -7.5 -3.1 -7.1 -3.6 -7.1 -4 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="meadow-arena-1180-bark-b" d="M 6.9 -5.9 L 7.9 -21.9 C 7.9 -22.4 7.6 -22.9 7.1 -22.9 C 6.6 -22.9 6.1 -22.6 6.1 -22.1 L 5.1 -6.1 C 5.1 -5.6 5.4 -5.1 5.9 -5.1 C 6.4 -5.1 6.9 -5.4 6.9 -5.9 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="meadow-arena-1180-roots-line" href="#meadow-arena-1180-roots-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="meadow-arena-1180-top">
+<use id="meadow-arena-1180-top-fill" href="#meadow-arena-1180-top-shape" fill="#e9dfc6"/>
+<g clip-path="url(#meadow-arena-1180-top-clip)">
+<path id="meadow-arena-1180-ring-a" d="M 12 -27 C 12 -24.6 6.6 -22.6 0 -22.6 C -6.6 -22.6 -12 -24.6 -12 -27 C -12 -29.4 -6.6 -31.4 0 -31.4 C 6.6 -31.4 12 -29.4 12 -27 Z" fill="#2a1a10" opacity="0.2"/>
+<path id="meadow-arena-1180-ring-b" d="M 9 -27 C 9 -25.2 5 -23.8 0 -23.8 C -5 -23.8 -9 -25.2 -9 -27 C -9 -28.8 -5 -30.2 0 -30.2 C 5 -30.2 9 -28.8 9 -27 Z" fill="#e9dfc6"/>
+<path id="meadow-arena-1180-ring-c" d="M 5 -27 C 5 -26 2.8 -25.2 0 -25.2 C -2.8 -25.2 -5 -26 -5 -27 C -5 -28 -2.8 -28.8 0 -28.8 C 2.8 -28.8 5 -28 5 -27 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="meadow-arena-1180-top-line" href="#meadow-arena-1180-top-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="meadow-arena-1180-sprout" d="M 12 -30 Q 16 -38 14 -44" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="meadow-arena-1180-leaf">
+<use id="meadow-arena-1180-leaf-fill" href="#meadow-arena-1180-leaf-shape" fill="#4f8f3e"/>
+<use id="meadow-arena-1180-leaf-line" href="#meadow-arena-1180-leaf-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="meadow-arena-1180-rock-shape" d="M -30 0 C -30 0 -30.7 -14 -28 -20 C -25.3 -26 -19.7 -33 -14 -36 C -8.3 -39 0 -39.7 6 -38 C 12 -36.3 18 -32.3 22 -26 C 26 -19.7 30 0 30 0 L -30 0 Z"/>
+<clipPath id="meadow-arena-1180-rock-clip"><use href="#meadow-arena-1180-rock-shape"/></clipPath>
+<clipPath id="meadow-arena-1180-rock-lit-clip"><use href="#meadow-arena-1180-rock-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="meadow-arena-1180-cap-3-shape" d="M -36 -22 C -34.7 -26.3 -23.7 -40 -16 -44 C -8.3 -48 2.3 -49.3 10 -46 C 17.7 -42.7 29 -27.3 30 -24 C 31 -20.7 20.3 -26.7 16 -26 C 11.7 -25.3 8.3 -19.7 4 -20 C -0.3 -20.3 -5.3 -28.3 -10 -28 C -14.7 -27.7 -19.7 -19 -24 -18 C -28.3 -17 -37.3 -17.7 -36 -22 Z"/>
+<path id="meadow-arena-1180-pebble-shape" d="M 14 0 C 14 0 14 -7.7 16 -10 C 18 -12.3 22.7 -14.3 26 -14 C 29.3 -13.7 34 -10.3 36 -8 C 38 -5.7 38 0 38 0 L 14 0 Z"/>
+<clipPath id="meadow-arena-1180-pebble-clip"><use href="#meadow-arena-1180-pebble-shape"/></clipPath>
+<clipPath id="meadow-arena-1180-pebble-lit-clip"><use href="#meadow-arena-1180-pebble-shape" transform="translate(-3 -3)"/></clipPath>
+<g id="meadow-arena-1180-thing-6">
+<path id="meadow-arena-1180-shadow-4" d="M 40 2 C 40 7 23.9 11 4 11 C -15.9 11 -32 7 -32 2 C -32 -3 -15.9 -7 4 -7 C 23.9 -7 40 -3 40 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="meadow-arena-1180-rock">
+<use id="meadow-arena-1180-rock-shade" href="#meadow-arena-1180-rock-shape" fill="#77766b"/>
+<g clip-path="url(#meadow-arena-1180-rock-clip)">
+<use id="meadow-arena-1180-rock-deep" href="#meadow-arena-1180-rock-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="meadow-arena-1180-rock-shade-over" href="#meadow-arena-1180-rock-shape" transform="translate(-3.72 -3.72)" fill="#77766b"/>
+<use id="meadow-arena-1180-rock-fill" href="#meadow-arena-1180-rock-shape" transform="translate(-6 -6)" fill="#9c9a8c"/>
+<g clip-path="url(#meadow-arena-1180-rock-lit-clip)">
+<use id="meadow-arena-1180-rock-lit" href="#meadow-arena-1180-rock-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-arena-1180-rock-fill-over" href="#meadow-arena-1180-rock-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<path id="meadow-arena-1180-facet" d="M -24 -18 L -12 -34 L 4 -34 L -4 -14 L -22 -6 Z" fill="#f4f1e4" opacity="0.22"/>
+<path id="meadow-arena-1180-facet-far" d="M 8 -30 L 24 -22 L 28 0 L 10 0 L 4 -14 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="meadow-arena-1180-crack" d="M -2 -30 L 2 -20 L -3 -12 L 1 -4 L 4 -4 L 0 -12 L 5 -20 L 1 -30 Z" fill="#2a1a10" opacity="0.31"/>
+<g id="meadow-arena-1180-cap-3">
+<use id="meadow-arena-1180-cap-3-fill" href="#meadow-arena-1180-cap-3-shape" fill="#4f8f3e"/>
+<use id="meadow-arena-1180-cap-3-line" href="#meadow-arena-1180-cap-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="meadow-arena-1180-rock-line" href="#meadow-arena-1180-rock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="meadow-arena-1180-pebble">
+<use id="meadow-arena-1180-pebble-shade" href="#meadow-arena-1180-pebble-shape" fill="#77766b"/>
+<g clip-path="url(#meadow-arena-1180-pebble-clip)">
+<use id="meadow-arena-1180-pebble-fill" href="#meadow-arena-1180-pebble-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#meadow-arena-1180-pebble-lit-clip)">
+<use id="meadow-arena-1180-pebble-lit" href="#meadow-arena-1180-pebble-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="meadow-arena-1180-pebble-fill-over" href="#meadow-arena-1180-pebble-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="meadow-arena-1180-pebble-line" href="#meadow-arena-1180-pebble-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="meadow-arena-1180-tuft-56" d="M -34 0 L -32 -9 L -30 0 L -28 -7 L -26 0 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-57" d="M -6 0 L -4 -9 L -2 0 L 0 -7 L 2 0 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-58" d="M 30 0 L 32 -9 L 34 0 L 36 -7 L 38 0 Z" fill="#93c96a"/>
+</g>
+<g id="meadow-arena-1180-thing-7">
+<path id="meadow-arena-1180-stem-4" d="M -12 0 Q -10 -8 -12 -16" fill="none" stroke="#3b722f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="meadow-arena-1180-petal-16" d="M -4.8 -16 C -4.8 -14.2 -6.2 -12.8 -8 -12.8 C -9.8 -12.8 -11.2 -14.2 -11.2 -16 C -11.2 -17.8 -9.8 -19.2 -8 -19.2 C -6.2 -19.2 -4.8 -17.8 -4.8 -16 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-17" d="M -7.6 -12.2 C -7.6 -10.4 -9 -9 -10.8 -9 C -12.5 -9 -14 -10.4 -14 -12.2 C -14 -14 -12.5 -15.4 -10.8 -15.4 C -9 -15.4 -7.6 -14 -7.6 -12.2 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-18" d="M -12 -13.6 C -12 -11.9 -13.5 -10.4 -15.2 -10.4 C -17 -10.4 -18.4 -11.9 -18.4 -13.6 C -18.4 -15.4 -17 -16.8 -15.2 -16.8 C -13.5 -16.8 -12 -15.4 -12 -13.6 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-19" d="M -12 -18.4 C -12 -16.6 -13.5 -15.2 -15.2 -15.2 C -17 -15.2 -18.4 -16.6 -18.4 -18.4 C -18.4 -20.1 -17 -21.6 -15.2 -21.6 C -13.5 -21.6 -12 -20.1 -12 -18.4 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-20" d="M -7.6 -19.8 C -7.6 -18 -9 -16.6 -10.8 -16.6 C -12.5 -16.6 -14 -18 -14 -19.8 C -14 -21.6 -12.5 -23 -10.8 -23 C -9 -23 -7.6 -21.6 -7.6 -19.8 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-heart-4" d="M -9.6 -16 C -9.6 -14.7 -10.7 -13.6 -12 -13.6 C -13.3 -13.6 -14.4 -14.7 -14.4 -16 C -14.4 -17.3 -13.3 -18.4 -12 -18.4 C -10.7 -18.4 -9.6 -17.3 -9.6 -16 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-stem-5" d="M 0 0 Q 2 -11 0 -22" fill="none" stroke="#3b722f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="meadow-arena-1180-petal-21" d="M 7.2 -22 C 7.2 -20.2 5.8 -18.8 4 -18.8 C 2.2 -18.8 0.8 -20.2 0.8 -22 C 0.8 -23.8 2.2 -25.2 4 -25.2 C 5.8 -25.2 7.2 -23.8 7.2 -22 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-22" d="M 4.4 -18.2 C 4.4 -16.4 3 -15 1.2 -15 C -0.5 -15 -2 -16.4 -2 -18.2 C -2 -20 -0.5 -21.4 1.2 -21.4 C 3 -21.4 4.4 -20 4.4 -18.2 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-23" d="M 0 -19.6 C 0 -17.9 -1.5 -16.4 -3.2 -16.4 C -5 -16.4 -6.4 -17.9 -6.4 -19.6 C -6.4 -21.4 -5 -22.8 -3.2 -22.8 C -1.5 -22.8 0 -21.4 0 -19.6 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-24" d="M 0 -24.4 C 0 -22.6 -1.5 -21.2 -3.2 -21.2 C -5 -21.2 -6.4 -22.6 -6.4 -24.4 C -6.4 -26.1 -5 -27.6 -3.2 -27.6 C -1.5 -27.6 0 -26.1 0 -24.4 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-25" d="M 4.4 -25.8 C 4.4 -24 3 -22.6 1.2 -22.6 C -0.5 -22.6 -2 -24 -2 -25.8 C -2 -27.6 -0.5 -29 1.2 -29 C 3 -29 4.4 -27.6 4.4 -25.8 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-heart-5" d="M 2.4 -22 C 2.4 -20.7 1.3 -19.6 0 -19.6 C -1.3 -19.6 -2.4 -20.7 -2.4 -22 C -2.4 -23.3 -1.3 -24.4 0 -24.4 C 1.3 -24.4 2.4 -23.3 2.4 -22 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-stem-6" d="M 11 0 Q 13 -7 11 -14" fill="none" stroke="#3b722f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="meadow-arena-1180-petal-26" d="M 18.2 -14 C 18.2 -12.2 16.8 -10.8 15 -10.8 C 13.2 -10.8 11.8 -12.2 11.8 -14 C 11.8 -15.8 13.2 -17.2 15 -17.2 C 16.8 -17.2 18.2 -15.8 18.2 -14 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-27" d="M 15.4 -10.2 C 15.4 -8.4 14 -7 12.2 -7 C 10.5 -7 9 -8.4 9 -10.2 C 9 -12 10.5 -13.4 12.2 -13.4 C 14 -13.4 15.4 -12 15.4 -10.2 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-28" d="M 11 -11.6 C 11 -9.9 9.5 -8.4 7.8 -8.4 C 6 -8.4 4.6 -9.9 4.6 -11.6 C 4.6 -13.4 6 -14.8 7.8 -14.8 C 9.5 -14.8 11 -13.4 11 -11.6 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-29" d="M 11 -16.4 C 11 -14.6 9.5 -13.2 7.8 -13.2 C 6 -13.2 4.6 -14.6 4.6 -16.4 C 4.6 -18.1 6 -19.6 7.8 -19.6 C 9.5 -19.6 11 -18.1 11 -16.4 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-petal-30" d="M 15.4 -17.8 C 15.4 -16 14 -14.6 12.2 -14.6 C 10.5 -14.6 9 -16 9 -17.8 C 9 -19.6 10.5 -21 12.2 -21 C 14 -21 15.4 -19.6 15.4 -17.8 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-heart-6" d="M 13.4 -14 C 13.4 -12.7 12.3 -11.6 11 -11.6 C 9.7 -11.6 8.6 -12.7 8.6 -14 C 8.6 -15.3 9.7 -16.4 11 -16.4 C 12.3 -16.4 13.4 -15.3 13.4 -14 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-blade-a-2" d="M -18 0 L -15 -9 L -12 0 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-blade-b-2" d="M 5 0 L 8 -8 L 11 0 Z" fill="#93c96a"/>
+</g>
+</defs>
+<path id="meadow-arena-1180-land" d="M 0 0 L 1180 0 L 1180 800 L 0 800 L 0 0 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-field-edge" d="M 40 33.7 C 60.2 15.3 121.5 32.4 162.2 32.1 C 203 31.8 243.7 31.7 284.4 32.1 C 325.2 32.4 365.9 33.5 406.7 34.3 C 447.4 35.1 488.1 35.3 528.9 36.7 C 569.6 38 610.4 42.6 651.1 42.5 C 691.9 42.4 732.6 35.8 773.3 36.2 C 814.1 36.5 854.8 43 895.6 44.7 C 936.3 46.3 975.8 46.9 1017.8 46.1 C 1059.8 45.3 1127.3 23.9 1147.7 40 C 1168.1 56.1 1140.2 108.6 1140.2 142.9 C 1140.2 177.1 1146.7 211.4 1147.7 245.7 C 1148.7 280 1147.1 314.3 1146.3 348.6 C 1145.5 382.9 1145.1 417.1 1143.1 451.4 C 1141.1 485.7 1134.7 520 1134.3 554.3 C 1134 588.6 1139.9 623.1 1140.9 657.1 C 1141.8 691.2 1160.5 741.3 1140 758.4 C 1119.5 775.5 1058.5 759 1017.8 759.6 C 977 760.3 936.3 762.1 895.6 762.3 C 854.8 762.5 814.1 761.6 773.3 760.7 C 732.6 759.8 691.9 756 651.1 757 C 610.4 758.1 569.6 765.8 528.9 766.9 C 488.1 767.9 447.4 765.7 406.7 763.4 C 365.9 761.1 325.2 753.4 284.4 753 C 243.7 752.7 202.1 760.1 162.2 761.2 C 122.3 762.4 65.1 777.3 45 760 C 25 742.7 42.4 691.4 41.8 657.1 C 41.1 622.9 41.6 588.6 41.1 554.3 C 40.7 520 39.1 485.7 39 451.4 C 38.9 417.1 41.4 382.9 40.5 348.6 C 39.7 314.3 33.9 280 33.9 245.7 C 34 211.4 39.8 178.2 40.8 142.9 C 41.8 107.5 19.8 52.2 40 33.7 Z" fill="#6ea748"/>
+<path id="meadow-arena-1180-field" d="M 48.3 41 C 68.2 23 128.5 39.8 168.6 39.5 C 208.8 39.2 248.9 39.1 289 39.4 C 329.2 39.8 369.3 40.8 409.4 41.6 C 449.5 42.4 489.7 42.6 529.8 43.9 C 569.9 45.3 610.1 49.7 650.2 49.6 C 690.3 49.5 730.5 43.1 770.6 43.5 C 810.7 43.8 850.8 50.2 891 51.8 C 931.1 53.4 970 54 1011.4 53.2 C 1052.7 52.4 1119.2 31.4 1139.3 47.2 C 1159.4 63 1132 114.4 1132 148 C 1132 181.6 1138.3 215.2 1139.3 248.8 C 1140.3 282.4 1138.7 316 1138 349.6 C 1137.2 383.2 1136.7 416.8 1134.8 450.4 C 1132.8 484 1126.5 517.6 1126.2 551.2 C 1125.8 584.8 1131.7 618.7 1132.6 652 C 1133.6 685.3 1152 734.5 1131.8 751.2 C 1111.5 768 1051.5 751.8 1011.4 752.4 C 971.2 753.1 931.1 754.9 891 755.1 C 850.8 755.2 810.7 754.4 770.6 753.5 C 730.5 752.7 690.3 748.9 650.2 749.9 C 610.1 750.9 569.9 758.5 529.8 759.5 C 489.7 760.6 449.5 758.4 409.4 756.1 C 369.3 753.9 329.2 746.3 289 746 C 248.9 745.6 207.9 752.9 168.6 754 C 129.3 755.1 73 769.8 53.2 752.8 C 33.4 735.8 50.7 685.6 50 652 C 49.4 618.4 49.8 584.8 49.4 551.2 C 48.9 517.6 47.3 484 47.3 450.4 C 47.2 416.8 49.6 383.2 48.8 349.6 C 48 316 42.2 282.4 42.3 248.8 C 42.3 215.2 48 182.6 49 148 C 50 113.4 28.3 59.1 48.3 41 Z" fill="#7fb956"/>
+<path id="meadow-arena-1180-patch-lit" d="M 1193.6 58.5 C 1204.3 83.7 1196.3 122.4 1175.8 148.3 C 1155.3 174.1 1105.7 212.7 1070.6 213.5 C 1035.5 214.3 999.1 170.8 965.2 152.9 C 931.4 135 879.8 128.5 867.5 106 C 855.3 83.5 868.2 35 891.6 17.9 C 915 0.7 971.5 6.6 1008.1 3.2 C 1044.7 -0.3 1080.2 -12.1 1111.1 -2.9 C 1142 6.3 1182.8 33.3 1193.6 58.5 Z" fill="#f4f1e4" opacity="0.12"/>
+<path id="meadow-arena-1180-patch-dark" d="M 752.1 42.9 C 775.5 17 817.2 -26.8 855.6 -30.1 C 894 -33.5 958.8 0.3 982.5 22.9 C 1006.1 45.5 993.8 78.1 997.4 105.4 C 1000.9 132.7 1020.7 162.9 1003.8 186.8 C 986.8 210.8 938.4 242.9 895.7 249.1 C 853.1 255.2 778.1 244.5 748 223.8 C 717.9 203.2 714.4 155.4 715.1 125.3 C 715.8 95.1 728.7 68.8 752.1 42.9 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-patch-lit-2" d="M 553.1 321.6 C 568.8 331.8 572.1 360.8 568.5 378.4 C 565 396.1 550 420.2 531.8 427.3 C 513.6 434.4 479.6 424.8 459.2 420.9 C 438.8 417 423.5 413.3 409.2 403.9 C 395 394.5 376.3 380.7 373.6 364.7 C 370.8 348.8 376.1 316.1 392.8 308.3 C 409.6 300.4 447.4 315.2 474.1 317.4 C 500.8 319.6 537.4 311.5 553.1 321.6 Z" fill="#f4f1e4" opacity="0.09"/>
+<path id="meadow-arena-1180-patch-dark-2" d="M 856.5 548.8 C 882.9 563.4 889.8 601.2 894.8 628.7 C 899.7 656.3 907.8 699.2 886.3 714.1 C 864.8 728.9 804.3 715.8 766 717.7 C 727.7 719.7 686.7 736.2 656.7 725.6 C 626.6 715 583.6 676 585.6 654 C 587.5 632 643.3 612.4 668.5 593.5 C 693.6 574.6 705.1 548.1 736.4 540.6 C 767.8 533.2 830.1 534.1 856.5 548.8 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="meadow-arena-1180-patch-lit-3" d="M 210.8 136.1 C 214.8 156 218.6 187.8 202.6 198.2 C 186.6 208.6 141.8 197.6 115.1 198.5 C 88.3 199.4 58 211.2 42.1 203.8 C 26.2 196.4 24.3 171.8 19.7 154.1 C 15.2 136.5 3.3 113.8 14.7 97.9 C 26.1 82 60.8 62.1 88.1 58.8 C 115.5 55.6 158.3 65.4 178.7 78.3 C 199.2 91.2 206.8 116.1 210.8 136.1 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="meadow-arena-1180-patch-dark-3" d="M 449 78 C 456.3 93.9 398.4 128 377.9 147.1 C 357.4 166.1 348.8 186 326 192.3 C 303.3 198.6 265.9 193 241.3 184.8 C 216.8 176.7 196.1 163.3 178.6 143.3 C 161.1 123.3 126.8 87.1 136.3 64.7 C 145.8 42.3 202.7 11 235.7 8.9 C 268.6 6.7 298.3 40.3 333.9 51.9 C 369.4 63.4 441.7 62.2 449 78 Z" fill="#2a1a10" opacity="0.03"/>
+<path id="meadow-arena-1180-patch-lit-4" d="M 406.5 561.6 C 424.1 540.7 459.8 503.6 490.9 501.2 C 522.1 498.8 568.3 528.6 593.3 547.2 C 618.3 565.8 635.2 588.2 640.9 612.7 C 646.5 637.1 648.5 680.5 627.1 693.8 C 605.6 707.1 551.4 689.3 512.1 692.5 C 472.7 695.6 412 723.6 390.9 712.6 C 369.9 701.6 383.1 651.7 385.7 626.5 C 388.3 601.4 389 582.5 406.5 561.6 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="meadow-arena-1180-patch-dark-4" d="M 1153.7 96.8 C 1171.8 120.1 1203 150.9 1195.4 173.6 C 1187.7 196.4 1140.9 223.8 1107.6 233.2 C 1074.3 242.5 1034.5 235.8 995.6 229.6 C 956.8 223.4 893.1 217.3 874.5 196.1 C 855.8 175 872 133.8 883.6 102.5 C 895.2 71.2 910.4 19.8 944.3 8.3 C 978.2 -3.1 1051.9 19 1086.8 33.7 C 1121.7 48.5 1135.6 73.5 1153.7 96.8 Z" fill="#2a1a10" opacity="0.03"/>
+<path id="meadow-arena-1180-patch-lit-5" d="M 410.9 658.5 C 432.2 657.6 464.6 651.1 476.4 658.8 C 488.1 666.4 480.8 689.3 481.4 704.4 C 482 719.5 490.8 739.2 480 749.4 C 469.2 759.7 437.6 765.4 416.6 765.7 C 395.6 765.9 368.7 760.5 354.1 751 C 339.6 741.4 330.3 722.9 329.3 708.4 C 328.4 693.9 334.9 672.4 348.5 664 C 362.1 655.7 389.6 659.4 410.9 658.5 Z" fill="#f4f1e4" opacity="0.08"/>
+<path id="meadow-arena-1180-patch-dark-5" d="M 733.9 420.2 C 770.6 414.9 820.1 402.4 847.8 413.6 C 875.5 424.7 899.4 464.5 900 487.3 C 900.5 510.1 871.3 534.8 851.3 550.3 C 831.2 565.8 805.6 576.7 779.7 580.4 C 753.8 584.2 717.7 582.6 696 573 C 674.3 563.3 660.9 543.6 649.5 522.4 C 638.1 501.2 613.4 462.9 627.5 445.9 C 641.6 428.9 697.2 425.6 733.9 420.2 Z" fill="#2a1a10" opacity="0.04"/>
+<path id="meadow-arena-1180-patch-lit-6" d="M 997.2 586.6 C 960.3 605.7 918.6 644.1 881.3 642.2 C 844 640.2 801.6 602 773.4 575.1 C 745.2 548.3 708.2 512.1 712 481.2 C 715.9 450.2 757.3 408.3 796.5 389.3 C 835.7 370.3 896.6 363.5 947.2 367.3 C 997.8 371.1 1074.2 385.6 1100.1 412.2 C 1126 438.9 1119.8 498 1102.7 527.1 C 1085.5 556.1 1034.1 567.4 997.2 586.6 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="meadow-arena-1180-patch-dark-6" d="M 123.2 231.7 C 143.9 202.4 171.9 155.1 210.2 146.7 C 248.6 138.2 313.6 163.2 353.4 181.1 C 393.2 199 433.2 223.8 448.9 254 C 464.7 284.2 472.5 340.2 448.1 362.4 C 423.8 384.5 350.1 378.9 303 386.9 C 255.9 394.8 201.7 420.7 165.6 410 C 129.5 399.3 93.5 352.3 86.4 322.6 C 79.4 292.9 102.6 261.1 123.2 231.7 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="meadow-arena-1180-patch-lit-7" d="M 913.7 436 C 907.7 421.3 927.9 400.7 939.3 383.8 C 950.8 367 960.8 341.9 982.3 334.9 C 1003.9 328 1044.1 333.7 1068.5 342.3 C 1092.9 350.8 1123.1 369.8 1128.6 386.2 C 1134.2 402.7 1115.1 426 1101.9 441 C 1088.6 455.9 1070.2 470.7 1049 476 C 1027.9 481.2 997.7 478.9 975.2 472.3 C 952.6 465.6 919.7 450.8 913.7 436 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="meadow-arena-1180-patch-dark-7" d="M 905.2 109.8 C 894.6 140.5 881.4 198.6 845.9 211 C 810.4 223.4 729.9 201.6 692.2 184.3 C 654.4 167.1 641 137.3 619.2 107.5 C 597.4 77.8 547.2 30.3 561.4 5.8 C 575.5 -18.8 655.9 -26.9 704 -39.6 C 752 -52.4 815.4 -81.8 849.6 -70.7 C 883.8 -59.5 900 -3 909.3 27.1 C 918.5 57.1 915.7 79.2 905.2 109.8 Z" fill="#2a1a10" opacity="0.03"/>
+<path id="meadow-arena-1180-patch-lit-8" d="M 1062.6 671.4 C 1034.9 672.2 998.4 630.4 975.9 611.7 C 953.5 592.9 929.7 577.1 927.8 558.8 C 925.8 540.6 946.3 519.6 964.4 502.1 C 982.5 484.7 1009.2 456.9 1036.6 454.1 C 1063.9 451.3 1107.3 470.3 1128.3 485.5 C 1149.2 500.7 1159.8 524.8 1162.1 545.1 C 1164.5 565.4 1158.7 586.2 1142.1 607.2 C 1125.5 628.3 1090.3 670.7 1062.6 671.4 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="meadow-arena-1180-patch-dark-8" d="M 985 604.5 C 972.8 591.7 953.5 568.9 959.2 555.1 C 965 541.4 998.9 526 1019.4 522.2 C 1039.9 518.4 1059 528.5 1082.3 532.4 C 1105.6 536.3 1149.9 534.5 1159 545.5 C 1168.1 556.5 1146.2 582.1 1136.9 598.4 C 1127.6 614.7 1120.5 637.8 1103.2 643.4 C 1085.8 649 1052.6 638.3 1032.9 631.8 C 1013.2 625.3 997.3 617.2 985 604.5 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="meadow-arena-1180-patch-lit-9" d="M 1034 717.4 C 1000.8 726.9 946.6 729.7 917.7 719 C 888.8 708.2 874.7 676.6 860.7 652.8 C 846.6 628.9 822.6 597.2 833.4 576 C 844.2 554.9 890.3 535.9 925.3 525.7 C 960.4 515.5 1017.6 503.9 1043.6 514.9 C 1069.5 525.8 1069 567 1081.2 591.5 C 1093.4 615.9 1124.5 640.6 1116.6 661.6 C 1108.8 682.6 1067.2 707.8 1034 717.4 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="meadow-arena-1180-patch-dark-9" d="M 1073.5 496.2 C 1051 492.3 1031.8 462 1020.7 445.9 C 1009.7 429.7 1006.2 416.2 1007.3 399.3 C 1008.3 382.3 1010 354 1027 344.3 C 1044 334.6 1087.2 335.9 1109.4 341.1 C 1131.6 346.3 1149.8 362.6 1160.2 375.5 C 1170.6 388.3 1172.6 402.2 1171.9 417.9 C 1171.2 433.6 1172.4 456.5 1156 469.5 C 1139.6 482.6 1096.1 500.1 1073.5 496.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="meadow-arena-1180-patch-lit-10" d="M 365.7 272 C 376.2 243.8 443.7 227.9 482.7 206.6 C 521.8 185.2 558.6 144.7 600 144.1 C 641.4 143.5 703.7 176.1 731.3 202.8 C 758.9 229.5 774.9 275.5 765.3 304.2 C 755.6 332.9 707.4 362 673.4 374.7 C 639.4 387.5 603.4 380.5 561.1 380.7 C 518.8 380.9 452.3 394 419.7 375.9 C 387.2 357.8 355.2 300.3 365.7 272 Z" fill="#f4f1e4" opacity="0.09"/>
+<path id="meadow-arena-1180-patch-dark-10" d="M 798.1 227.2 C 764.3 234.1 711.9 233.2 684.4 220.8 C 657 208.4 644.7 177.6 633.4 152.7 C 622.1 127.8 601.4 90 616.7 71.4 C 632.1 52.8 691.6 44 725.6 41 C 759.6 38.1 790.6 43.9 820.7 53.8 C 850.8 63.8 895.1 79.7 906.2 100.6 C 917.2 121.6 905.1 158.4 887.1 179.5 C 869.1 200.6 831.9 220.3 798.1 227.2 Z" fill="#2a1a10" opacity="0.04"/>
+<path id="meadow-arena-1180-patch-lit-11" d="M 1089 367 C 1109 385 1131.4 405.1 1132.3 426.4 C 1133.2 447.7 1117.8 481.8 1094.5 495 C 1071.3 508.2 1023.1 509 992.6 505.5 C 962.2 502 927.1 489 911.8 473.8 C 896.6 458.6 897.2 432.4 901.1 414.3 C 904.9 396.2 916.2 381 934.8 365.1 C 953.4 349.2 986.8 318.5 1012.5 318.8 C 1038.2 319.2 1069 349.1 1089 367 Z" fill="#f4f1e4" opacity="0.09"/>
+<path id="meadow-arena-1180-patch-dark-11" d="M 987.2 287.1 C 965.8 277.2 923.9 263.3 922.7 250 C 921.4 236.6 962.1 221.5 979.6 206.9 C 997.1 192.4 1005.2 167.8 1027.7 162.6 C 1050.3 157.3 1094.8 163.7 1114.9 175.4 C 1135.1 187 1150.1 215.2 1148.7 232.4 C 1147.4 249.5 1123 265.3 1106.7 278.1 C 1090.4 290.9 1070.9 307.8 1051 309.3 C 1031.1 310.8 1008.6 297 987.2 287.1 Z" fill="#2a1a10" opacity="0.04"/>
+<path id="meadow-arena-1180-patch-lit-12" d="M 1018.1 224.2 C 1035.3 241 1042 275.4 1033.3 297 C 1024.6 318.5 995.5 339.4 965.8 353.4 C 936.1 367.3 889.2 385.5 855.1 380.7 C 821 375.9 776.1 347.4 761.3 324.7 C 746.5 301.9 753.5 265.9 766.4 244.2 C 779.3 222.4 811.5 202.3 838.7 194.3 C 865.9 186.2 899.8 191.1 929.7 196 C 959.6 201 1000.8 207.3 1018.1 224.2 Z" fill="#f4f1e4" opacity="0.11"/>
+<path id="meadow-arena-1180-patch-dark-12" d="M 729.6 294.7 C 747.3 278.8 788.3 280.4 818.2 272.8 C 848.2 265.1 889.3 242 909.3 248.8 C 929.4 255.7 928.6 292.6 938.5 313.8 C 948.4 335.1 975.7 356.3 968.8 376.2 C 962 396.2 926.9 426.5 897.4 433.4 C 867.9 440.4 822.6 428.6 791.8 417.8 C 760.9 407 722.7 389 712.4 368.4 C 702 347.9 712 310.6 729.6 294.7 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="meadow-arena-1180-patch-lit-13" d="M 355 -6.6 C 382.1 -36.6 429.7 -71.7 469.9 -75.7 C 510.1 -79.7 556.6 -47 596.2 -30.8 C 635.8 -14.6 686.3 -6 707.6 21.5 C 728.9 48.9 744.1 103.9 724 134.2 C 704 164.4 637.4 193 587.1 202.8 C 536.7 212.7 468.5 209.6 421.9 193.1 C 375.3 176.6 318.5 137.2 307.4 104 C 296.2 70.7 328 23.3 355 -6.6 Z" fill="#f4f1e4" opacity="0.12"/>
+<path id="meadow-arena-1180-patch-dark-13" d="M 531.3 551.1 C 518 522.6 511.3 475.8 532.8 450.1 C 554.3 424.4 613.7 404.7 660.2 397 C 706.6 389.2 773.8 387 811.5 403.6 C 849.1 420.2 886 468 886.1 496.6 C 886.2 525.2 837.1 551.5 812 575.1 C 787 598.7 769.1 630.3 735.9 638 C 702.7 645.7 646.8 635.6 612.7 621.1 C 578.6 606.6 544.6 579.6 531.3 551.1 Z" fill="#2a1a10" opacity="0.03"/>
+<path id="meadow-arena-1180-bloom" d="M 247.2 443.3 L 252.7 448.8 L 247.2 454.3 L 241.7 448.8 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart" d="M 249.2 448.8 C 249.2 449.9 248.3 450.8 247.2 450.8 C 246.1 450.8 245.2 449.9 245.2 448.8 C 245.2 447.7 246.1 446.8 247.2 446.8 C 248.3 446.8 249.2 447.7 249.2 448.8 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft" d="M 554 310.1 L 558 297.1 L 562 310.1 L 566 300.1 L 570 310.1 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-2" d="M 491.3 254.5 L 495.3 241.5 L 499.3 254.5 L 503.3 244.5 L 507.3 254.5 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-3" d="M 128.1 383.7 L 132.1 370.7 L 136.1 383.7 L 140.1 373.7 L 144.1 383.7 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-clover" d="M 575.7 80.3 C 575.7 84.7 567.6 88.3 557.7 88.3 C 547.7 88.3 539.7 84.7 539.7 80.3 C 539.7 75.9 547.7 72.3 557.7 72.3 C 567.6 72.3 575.7 75.9 575.7 80.3 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-clover-2" d="M 688.4 153 C 688.4 157.5 680.3 161 670.4 161 C 660.4 161 652.4 157.5 652.4 153 C 652.4 148.6 660.4 145 670.4 145 C 680.3 145 688.4 148.6 688.4 153 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-4" d="M 595.8 668.7 L 599.8 655.7 L 603.8 668.7 L 607.8 658.7 L 611.8 668.7 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-5" d="M 310.7 170.5 L 314.7 157.5 L 318.7 170.5 L 322.7 160.5 L 326.7 170.5 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-bloom-2" d="M 464.5 599.9 L 470 605.4 L 464.5 610.9 L 459 605.4 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-2" d="M 466.5 605.4 C 466.5 606.5 465.6 607.4 464.5 607.4 C 463.4 607.4 462.5 606.5 462.5 605.4 C 462.5 604.3 463.4 603.4 464.5 603.4 C 465.6 603.4 466.5 604.3 466.5 605.4 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-6" d="M 579.3 308.6 L 583.3 295.6 L 587.3 308.6 L 591.3 298.6 L 595.3 308.6 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-7" d="M 993.6 370.9 L 997.6 357.9 L 1001.6 370.9 L 1005.6 360.9 L 1009.6 370.9 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-bloom-3" d="M 339.1 63.5 L 344.6 69 L 339.1 74.5 L 333.6 69 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-3" d="M 341.1 69 C 341.1 70.1 340.2 71 339.1 71 C 338 71 337.1 70.1 337.1 69 C 337.1 67.9 338 67 339.1 67 C 340.2 67 341.1 67.9 341.1 69 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-8" d="M 156 489.3 L 160 476.3 L 164 489.3 L 168 479.3 L 172 489.3 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-bloom-4" d="M 89.5 280.4 L 95 285.9 L 89.5 291.4 L 84 285.9 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-4" d="M 91.5 285.9 C 91.5 287 90.6 287.9 89.5 287.9 C 88.4 287.9 87.5 287 87.5 285.9 C 87.5 284.8 88.4 283.9 89.5 283.9 C 90.6 283.9 91.5 284.8 91.5 285.9 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-9" d="M 602.3 621.9 L 606.3 608.9 L 610.3 621.9 L 614.3 611.9 L 618.3 621.9 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-10" d="M 407.9 102 L 411.9 89 L 415.9 102 L 419.9 92 L 423.9 102 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-clover-3" d="M 290.8 498.9 C 290.8 503.4 282.7 506.9 272.8 506.9 C 262.9 506.9 254.8 503.4 254.8 498.9 C 254.8 494.5 262.9 490.9 272.8 490.9 C 282.7 490.9 290.8 494.5 290.8 498.9 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-bloom-5" d="M 792 161.3 L 797.5 166.8 L 792 172.3 L 786.5 166.8 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-5" d="M 794 166.8 C 794 167.9 793.1 168.8 792 168.8 C 790.9 168.8 790 167.9 790 166.8 C 790 165.7 790.9 164.8 792 164.8 C 793.1 164.8 794 165.7 794 166.8 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-11" d="M 482.5 703.6 L 486.5 690.6 L 490.5 703.6 L 494.5 693.6 L 498.5 703.6 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-bloom-6" d="M 756.3 517.2 L 761.8 522.7 L 756.3 528.2 L 750.8 522.7 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-6" d="M 758.3 522.7 C 758.3 523.8 757.4 524.7 756.3 524.7 C 755.1 524.7 754.3 523.8 754.3 522.7 C 754.3 521.6 755.1 520.7 756.3 520.7 C 757.4 520.7 758.3 521.6 758.3 522.7 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-12" d="M 838.8 464.1 L 842.8 451.1 L 846.8 464.1 L 850.8 454.1 L 854.8 464.1 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-bloom-7" d="M 208.6 340.3 L 214.1 345.8 L 208.6 351.3 L 203.1 345.8 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-7" d="M 210.6 345.8 C 210.6 346.9 209.7 347.8 208.6 347.8 C 207.5 347.8 206.6 346.9 206.6 345.8 C 206.6 344.7 207.5 343.8 208.6 343.8 C 209.7 343.8 210.6 344.7 210.6 345.8 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-bloom-8" d="M 1108.7 197.6 L 1114.2 203.1 L 1108.7 208.6 L 1103.2 203.1 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-8" d="M 1110.7 203.1 C 1110.7 204.2 1109.8 205.1 1108.7 205.1 C 1107.6 205.1 1106.7 204.2 1106.7 203.1 C 1106.7 202 1107.6 201.1 1108.7 201.1 C 1109.8 201.1 1110.7 202 1110.7 203.1 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-13" d="M 1083.5 507.5 L 1087.5 494.5 L 1091.5 507.5 L 1095.5 497.5 L 1099.5 507.5 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-bloom-9" d="M 716.3 393.8 L 721.8 399.3 L 716.3 404.8 L 710.8 399.3 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-9" d="M 718.3 399.3 C 718.3 400.4 717.4 401.3 716.3 401.3 C 715.2 401.3 714.3 400.4 714.3 399.3 C 714.3 398.1 715.2 397.3 716.3 397.3 C 717.4 397.3 718.3 398.1 718.3 399.3 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-clover-4" d="M 1096.7 165.1 C 1096.7 169.5 1088.7 173.1 1078.7 173.1 C 1068.8 173.1 1060.7 169.5 1060.7 165.1 C 1060.7 160.7 1068.8 157.1 1078.7 157.1 C 1088.7 157.1 1096.7 160.7 1096.7 165.1 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-clover-5" d="M 809.4 302 C 809.4 306.4 801.4 310 791.4 310 C 781.5 310 773.4 306.4 773.4 302 C 773.4 297.6 781.5 294 791.4 294 C 801.4 294 809.4 297.6 809.4 302 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-14" d="M 496.5 412 L 500.5 399 L 504.5 412 L 508.5 402 L 512.5 412 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-15" d="M 812.5 468.6 L 816.5 455.6 L 820.5 468.6 L 824.5 458.6 L 828.5 468.6 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-16" d="M 930.8 395.1 L 934.8 382.1 L 938.8 395.1 L 942.8 385.1 L 946.8 395.1 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-clover-6" d="M 472.6 728.1 C 472.6 732.6 464.6 736.1 454.6 736.1 C 444.7 736.1 436.6 732.6 436.6 728.1 C 436.6 723.7 444.7 720.1 454.6 720.1 C 464.6 720.1 472.6 723.7 472.6 728.1 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-17" d="M 422.9 585.9 L 426.9 572.9 L 430.9 585.9 L 434.9 575.9 L 438.9 585.9 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-clover-7" d="M 88.5 522.3 C 88.5 526.7 80.4 530.3 70.5 530.3 C 60.6 530.3 52.5 526.7 52.5 522.3 C 52.5 517.9 60.6 514.3 70.5 514.3 C 80.4 514.3 88.5 517.9 88.5 522.3 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-18" d="M 1023.7 356 L 1027.7 343 L 1031.7 356 L 1035.7 346 L 1039.7 356 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-19" d="M 793.4 191.3 L 797.4 178.3 L 801.4 191.3 L 805.4 181.3 L 809.4 191.3 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-20" d="M 324.8 419.7 L 328.8 406.7 L 332.8 419.7 L 336.8 409.7 L 340.8 419.7 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-clover-8" d="M 98.7 111.5 C 98.7 115.9 90.6 119.5 80.7 119.5 C 70.7 119.5 62.7 115.9 62.7 111.5 C 62.7 107.1 70.7 103.5 80.7 103.5 C 90.6 103.5 98.7 107.1 98.7 111.5 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-clover-9" d="M 940.9 82.1 C 940.9 86.5 932.8 90.1 922.9 90.1 C 913 90.1 904.9 86.5 904.9 82.1 C 904.9 77.7 913 74.1 922.9 74.1 C 932.8 74.1 940.9 77.7 940.9 82.1 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-21" d="M 137.1 514.5 L 141.1 501.5 L 145.1 514.5 L 149.1 504.5 L 153.1 514.5 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-22" d="M 229.1 682.5 L 233.1 669.5 L 237.1 682.5 L 241.1 672.5 L 245.1 682.5 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-23" d="M 1032.4 593.6 L 1036.4 580.6 L 1040.4 593.6 L 1044.4 583.6 L 1048.4 593.6 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-24" d="M 882.6 683.2 L 886.6 670.2 L 890.6 683.2 L 894.6 673.2 L 898.6 683.2 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-bloom-10" d="M 159 622.9 L 164.5 628.4 L 159 633.9 L 153.5 628.4 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-10" d="M 161 628.4 C 161 629.5 160.1 630.4 159 630.4 C 157.9 630.4 157 629.5 157 628.4 C 157 627.3 157.9 626.4 159 626.4 C 160.1 626.4 161 627.3 161 628.4 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-25" d="M 626.3 374 L 630.3 361 L 634.3 374 L 638.3 364 L 642.3 374 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-26" d="M 208.1 175.9 L 212.1 162.9 L 216.1 175.9 L 220.1 165.9 L 224.1 175.9 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-clover-10" d="M 902.5 676.9 C 902.5 681.3 894.4 684.9 884.5 684.9 C 874.6 684.9 866.5 681.3 866.5 676.9 C 866.5 672.5 874.6 668.9 884.5 668.9 C 894.4 668.9 902.5 672.5 902.5 676.9 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-27" d="M 193.8 130.3 L 197.8 117.3 L 201.8 130.3 L 205.8 120.3 L 209.8 130.3 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-28" d="M 594.9 356.5 L 598.9 343.5 L 602.9 356.5 L 606.9 346.5 L 610.9 356.5 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-29" d="M 926.5 119.9 L 930.5 106.9 L 934.5 119.9 L 938.5 109.9 L 942.5 119.9 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-30" d="M 720.8 679.2 L 724.8 666.2 L 728.8 679.2 L 732.8 669.2 L 736.8 679.2 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-clover-11" d="M 995.9 666.4 C 995.9 670.8 987.8 674.4 977.9 674.4 C 968 674.4 959.9 670.8 959.9 666.4 C 959.9 661.9 968 658.4 977.9 658.4 C 987.8 658.4 995.9 661.9 995.9 666.4 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-clover-12" d="M 1098.7 188.3 C 1098.7 192.7 1090.6 196.3 1080.7 196.3 C 1070.7 196.3 1062.7 192.7 1062.7 188.3 C 1062.7 183.9 1070.7 180.3 1080.7 180.3 C 1090.6 180.3 1098.7 183.9 1098.7 188.3 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-31" d="M 551.6 258.1 L 555.6 245.1 L 559.6 258.1 L 563.6 248.1 L 567.6 258.1 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-32" d="M 216.4 585.7 L 220.4 572.7 L 224.4 585.7 L 228.4 575.7 L 232.4 585.7 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-33" d="M 1002.6 717.1 L 1006.6 704.1 L 1010.6 717.1 L 1014.6 707.1 L 1018.6 717.1 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-34" d="M 868.9 714.5 L 872.9 701.5 L 876.9 714.5 L 880.9 704.5 L 884.9 714.5 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-bloom-11" d="M 88.8 552.9 L 94.3 558.4 L 88.8 563.9 L 83.3 558.4 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-11" d="M 90.8 558.4 C 90.8 559.5 89.9 560.4 88.8 560.4 C 87.7 560.4 86.8 559.5 86.8 558.4 C 86.8 557.3 87.7 556.4 88.8 556.4 C 89.9 556.4 90.8 557.3 90.8 558.4 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-bloom-12" d="M 460.1 461.4 L 465.6 466.9 L 460.1 472.4 L 454.6 466.9 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-12" d="M 462.1 466.9 C 462.1 468 461.2 468.9 460.1 468.9 C 459 468.9 458.1 468 458.1 466.9 C 458.1 465.8 459 464.9 460.1 464.9 C 461.2 464.9 462.1 465.8 462.1 466.9 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-35" d="M 565.1 512.6 L 569.1 499.6 L 573.1 512.6 L 577.1 502.6 L 581.1 512.6 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-clover-13" d="M 676.5 153.6 C 676.5 158 668.4 161.6 658.5 161.6 C 648.6 161.6 640.5 158 640.5 153.6 C 640.5 149.2 648.6 145.6 658.5 145.6 C 668.4 145.6 676.5 149.2 676.5 153.6 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-36" d="M 1071.7 195.4 L 1075.7 182.4 L 1079.7 195.4 L 1083.7 185.4 L 1087.7 195.4 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-clover-14" d="M 713.3 174.1 C 713.3 178.5 705.2 182.1 695.3 182.1 C 685.4 182.1 677.3 178.5 677.3 174.1 C 677.3 169.7 685.4 166.1 695.3 166.1 C 705.2 166.1 713.3 169.7 713.3 174.1 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-bloom-13" d="M 539.5 457.5 L 545 463 L 539.5 468.5 L 534 463 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-13" d="M 541.5 463 C 541.5 464.1 540.6 465 539.5 465 C 538.4 465 537.5 464.1 537.5 463 C 537.5 461.9 538.4 461 539.5 461 C 540.6 461 541.5 461.9 541.5 463 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-bloom-14" d="M 588.8 629.4 L 594.3 634.9 L 588.8 640.4 L 583.3 634.9 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-14" d="M 590.8 634.9 C 590.8 636 589.9 636.9 588.8 636.9 C 587.7 636.9 586.8 636 586.8 634.9 C 586.8 633.8 587.7 632.9 588.8 632.9 C 589.9 632.9 590.8 633.8 590.8 634.9 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-37" d="M 329.2 559 L 333.2 546 L 337.2 559 L 341.2 549 L 345.2 559 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-clover-15" d="M 629.6 550.9 C 629.6 555.3 621.6 558.9 611.6 558.9 C 601.7 558.9 593.6 555.3 593.6 550.9 C 593.6 546.4 601.7 542.9 611.6 542.9 C 621.6 542.9 629.6 546.4 629.6 550.9 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-bloom-15" d="M 1027 615.7 L 1032.5 621.2 L 1027 626.7 L 1021.5 621.2 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-15" d="M 1029 621.2 C 1029 622.3 1028.1 623.2 1027 623.2 C 1025.9 623.2 1025 622.3 1025 621.2 C 1025 620.1 1025.9 619.2 1027 619.2 C 1028.1 619.2 1029 620.1 1029 621.2 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-bloom-16" d="M 609.6 422.3 L 615.1 427.8 L 609.6 433.3 L 604.1 427.8 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-16" d="M 611.6 427.8 C 611.6 428.9 610.7 429.8 609.6 429.8 C 608.5 429.8 607.6 428.9 607.6 427.8 C 607.6 426.7 608.5 425.8 609.6 425.8 C 610.7 425.8 611.6 426.7 611.6 427.8 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-clover-16" d="M 949 570.6 C 949 575 940.9 578.6 931 578.6 C 921 578.6 913 575 913 570.6 C 913 566.2 921 562.6 931 562.6 C 940.9 562.6 949 566.2 949 570.6 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-38" d="M 446.5 226.1 L 450.5 213.1 L 454.5 226.1 L 458.5 216.1 L 462.5 226.1 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-39" d="M 746.3 261 L 750.3 248 L 754.3 261 L 758.3 251 L 762.3 261 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-40" d="M 1098.3 389.5 L 1102.3 376.5 L 1106.3 389.5 L 1110.3 379.5 L 1114.3 389.5 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-clover-17" d="M 331.6 400.6 C 331.6 405 323.6 408.6 313.6 408.6 C 303.7 408.6 295.6 405 295.6 400.6 C 295.6 396.2 303.7 392.6 313.6 392.6 C 323.6 392.6 331.6 396.2 331.6 400.6 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-clover-18" d="M 259.2 87.9 C 259.2 92.4 251.1 95.9 241.2 95.9 C 231.2 95.9 223.2 92.4 223.2 87.9 C 223.2 83.5 231.2 79.9 241.2 79.9 C 251.1 79.9 259.2 83.5 259.2 87.9 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-bloom-17" d="M 960.8 492.7 L 966.3 498.2 L 960.8 503.7 L 955.3 498.2 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-17" d="M 962.8 498.2 C 962.8 499.3 961.9 500.2 960.8 500.2 C 959.7 500.2 958.8 499.3 958.8 498.2 C 958.8 497.1 959.7 496.2 960.8 496.2 C 961.9 496.2 962.8 497.1 962.8 498.2 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-41" d="M 144.4 350.8 L 148.4 337.8 L 152.4 350.8 L 156.4 340.8 L 160.4 350.8 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-clover-19" d="M 819.5 213.6 C 819.5 218 811.4 221.6 801.5 221.6 C 791.5 221.6 783.5 218 783.5 213.6 C 783.5 209.2 791.5 205.6 801.5 205.6 C 811.4 205.6 819.5 209.2 819.5 213.6 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-clover-20" d="M 707.5 395.9 C 707.5 400.3 699.5 403.9 689.5 403.9 C 679.6 403.9 671.5 400.3 671.5 395.9 C 671.5 391.4 679.6 387.9 689.5 387.9 C 699.5 387.9 707.5 391.4 707.5 395.9 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-bloom-18" d="M 493.2 493.7 L 498.7 499.2 L 493.2 504.7 L 487.7 499.2 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-18" d="M 495.2 499.2 C 495.2 500.3 494.3 501.2 493.2 501.2 C 492.1 501.2 491.2 500.3 491.2 499.2 C 491.2 498.1 492.1 497.2 493.2 497.2 C 494.3 497.2 495.2 498.1 495.2 499.2 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-42" d="M 501.1 668.6 L 505.1 655.6 L 509.1 668.6 L 513.1 658.6 L 517.1 668.6 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-43" d="M 761.5 662.3 L 765.5 649.3 L 769.5 662.3 L 773.5 652.3 L 777.5 662.3 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-clover-21" d="M 125.3 604.4 C 125.3 608.8 117.3 612.4 107.3 612.4 C 97.4 612.4 89.3 608.8 89.3 604.4 C 89.3 600 97.4 596.4 107.3 596.4 C 117.3 596.4 125.3 600 125.3 604.4 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-44" d="M 986.6 304.5 L 990.6 291.5 L 994.6 304.5 L 998.6 294.5 L 1002.6 304.5 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-tuft-45" d="M 384.9 124.3 L 388.9 111.3 L 392.9 124.3 L 396.9 114.3 L 400.9 124.3 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-bloom-19" d="M 132.4 319.9 L 137.9 325.4 L 132.4 330.9 L 126.9 325.4 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-19" d="M 134.4 325.4 C 134.4 326.5 133.5 327.4 132.4 327.4 C 131.2 327.4 130.4 326.5 130.4 325.4 C 130.4 324.3 131.2 323.4 132.4 323.4 C 133.5 323.4 134.4 324.3 134.4 325.4 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-46" d="M 73.5 210.1 L 77.5 197.1 L 81.5 210.1 L 85.5 200.1 L 89.5 210.1 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-clover-22" d="M 319.8 563.7 C 319.8 568.1 311.8 571.7 301.8 571.7 C 291.9 571.7 283.8 568.1 283.8 563.7 C 283.8 559.3 291.9 555.7 301.8 555.7 C 311.8 555.7 319.8 559.3 319.8 563.7 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-clover-23" d="M 129.4 182.5 C 129.4 186.9 121.3 190.5 111.4 190.5 C 101.4 190.5 93.4 186.9 93.4 182.5 C 93.4 178.1 101.4 174.5 111.4 174.5 C 121.3 174.5 129.4 178.1 129.4 182.5 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-bloom-20" d="M 247.6 112.1 L 253.1 117.6 L 247.6 123.1 L 242.1 117.6 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-20" d="M 249.6 117.6 C 249.6 118.7 248.7 119.6 247.6 119.6 C 246.5 119.6 245.6 118.7 245.6 117.6 C 245.6 116.5 246.5 115.6 247.6 115.6 C 248.7 115.6 249.6 116.5 249.6 117.6 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-47" d="M 585.1 335.7 L 589.1 322.7 L 593.1 335.7 L 597.1 325.7 L 601.1 335.7 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-bloom-21" d="M 265.1 615.7 L 270.6 621.2 L 265.1 626.7 L 259.6 621.2 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-21" d="M 267.1 621.2 C 267.1 622.3 266.2 623.2 265.1 623.2 C 264 623.2 263.1 622.3 263.1 621.2 C 263.1 620.1 264 619.2 265.1 619.2 C 266.2 619.2 267.1 620.1 267.1 621.2 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-bloom-22" d="M 907.3 579.4 L 912.8 584.9 L 907.3 590.4 L 901.8 584.9 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-22" d="M 909.3 584.9 C 909.3 586 908.4 586.9 907.3 586.9 C 906.2 586.9 905.3 586 905.3 584.9 C 905.3 583.8 906.2 582.9 907.3 582.9 C 908.4 582.9 909.3 583.8 909.3 584.9 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-clover-24" d="M 273.6 332.1 C 273.6 336.5 265.6 340.1 255.6 340.1 C 245.7 340.1 237.6 336.5 237.6 332.1 C 237.6 327.7 245.7 324.1 255.6 324.1 C 265.6 324.1 273.6 327.7 273.6 332.1 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-48" d="M 1083.3 475.6 L 1087.3 462.6 L 1091.3 475.6 L 1095.3 465.6 L 1099.3 475.6 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-49" d="M 276 580.1 L 280 567.1 L 284 580.1 L 288 570.1 L 292 580.1 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-bloom-23" d="M 483.8 643 L 489.3 648.5 L 483.8 654 L 478.3 648.5 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-23" d="M 485.8 648.5 C 485.8 649.6 485 650.5 483.8 650.5 C 482.7 650.5 481.8 649.6 481.8 648.5 C 481.8 647.4 482.7 646.5 483.8 646.5 C 485 646.5 485.8 647.4 485.8 648.5 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-50" d="M 609.6 455.1 L 613.6 442.1 L 617.6 455.1 L 621.6 445.1 L 625.6 455.1 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-clover-25" d="M 585.7 562.3 C 585.7 566.7 577.6 570.3 567.7 570.3 C 557.7 570.3 549.7 566.7 549.7 562.3 C 549.7 557.9 557.7 554.3 567.7 554.3 C 577.6 554.3 585.7 557.9 585.7 562.3 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-clover-26" d="M 950.4 560.7 C 950.4 565.1 942.4 568.7 932.4 568.7 C 922.5 568.7 914.4 565.1 914.4 560.7 C 914.4 556.3 922.5 552.7 932.4 552.7 C 942.4 552.7 950.4 556.3 950.4 560.7 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-tuft-51" d="M 555.9 625.8 L 559.9 612.8 L 563.9 625.8 L 567.9 615.8 L 571.9 625.8 Z" fill="#5c9440"/>
+<path id="meadow-arena-1180-clover-27" d="M 203.3 103.1 C 203.3 107.5 195.3 111.1 185.3 111.1 C 175.4 111.1 167.3 107.5 167.3 103.1 C 167.3 98.7 175.4 95.1 185.3 95.1 C 195.3 95.1 203.3 98.7 203.3 103.1 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-bloom-24" d="M 67.1 241.5 L 72.6 247 L 67.1 252.5 L 61.6 247 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-24" d="M 69.1 247 C 69.1 248.1 68.2 249 67.1 249 C 66 249 65.1 248.1 65.1 247 C 65.1 245.9 66 245 67.1 245 C 68.2 245 69.1 245.9 69.1 247 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-clover-28" d="M 759.9 508.9 C 759.9 513.3 751.9 516.9 741.9 516.9 C 732 516.9 723.9 513.3 723.9 508.9 C 723.9 504.5 732 500.9 741.9 500.9 C 751.9 500.9 759.9 504.5 759.9 508.9 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-clover-29" d="M 652.4 652.3 C 652.4 656.7 644.3 660.3 634.4 660.3 C 624.5 660.3 616.4 656.7 616.4 652.3 C 616.4 647.9 624.5 644.3 634.4 644.3 C 644.3 644.3 652.4 647.9 652.4 652.3 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="meadow-arena-1180-bloom-25" d="M 861.1 593.7 L 866.6 599.2 L 861.1 604.7 L 855.6 599.2 Z" fill="#f8fcfe"/>
+<path id="meadow-arena-1180-bloom-heart-25" d="M 863.1 599.2 C 863.1 600.3 862.2 601.2 861.1 601.2 C 860 601.2 859.1 600.3 859.1 599.2 C 859.1 598.1 860 597.2 861.1 597.2 C 862.2 597.2 863.1 598.1 863.1 599.2 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-52" d="M 974.2 333.2 L 978.2 320.2 L 982.2 333.2 L 986.2 323.2 L 990.2 333.2 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-bloom-26" d="M 224.4 526.2 L 229.9 531.7 L 224.4 537.2 L 218.9 531.7 Z" fill="#f2d264"/>
+<path id="meadow-arena-1180-bloom-heart-26" d="M 226.4 531.7 C 226.4 532.8 225.5 533.7 224.4 533.7 C 223.3 533.7 222.4 532.8 222.4 531.7 C 222.4 530.6 223.3 529.7 224.4 529.7 C 225.5 529.7 226.4 530.6 226.4 531.7 Z" fill="#c9a53a"/>
+<path id="meadow-arena-1180-tuft-53" d="M 715 458.7 L 719 445.7 L 723 458.7 L 727 448.7 L 731 458.7 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-54" d="M 327.7 478 L 331.7 465 L 335.7 478 L 339.7 468 L 343.7 478 Z" fill="#93c96a"/>
+<path id="meadow-arena-1180-tuft-55" d="M 223.8 578.1 L 227.8 565.1 L 231.8 578.1 L 235.8 568.1 L 239.8 578.1 Z" fill="#5c9440"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(751.05 34.63) scale(-1.05 1.05)"/>
+<use href="#meadow-arena-1180-thing-2" transform="translate(1071.62 34.9) scale(0.95 0.95)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(993.77 35.05) scale(0.99 0.99)"/>
+<use href="#meadow-arena-1180-thing-3" transform="translate(502.69 36.67) scale(-0.99 0.99)"/>
+<use href="#meadow-arena-1180-thing-3" transform="translate(30 36.74) scale(-0.76 0.76)"/>
+<use href="#meadow-arena-1180-thing-2" transform="translate(355.5 37.2) scale(-1.06 1.06)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(827.82 37.46) scale(-0.96 0.96)"/>
+<use href="#meadow-arena-1180-thing-2" transform="translate(900.29 38.27) scale(-1.03 1.03)"/>
+<use href="#meadow-arena-1180-thing-2" transform="translate(668.67 38.58) scale(-0.88 0.88)"/>
+<use href="#meadow-arena-1180-thing-4" transform="translate(214 38.96) scale(0.98 0.98)"/>
+<use href="#meadow-arena-1180-thing-5" transform="translate(435.3 39.39) scale(0.93 0.93)"/>
+<use href="#meadow-arena-1180-thing-6" transform="translate(575.19 40.11) scale(1.09 1.09)"/>
+<use href="#meadow-arena-1180-thing-2" transform="translate(116.22 40.86) scale(-1.06 1.06)"/>
+<use href="#meadow-arena-1180-thing-7" transform="translate(280.43 41.34) scale(0.93 0.93)"/>
+<use href="#meadow-arena-1180-thing-5" transform="translate(20.5 80) scale(-0.88 0.88)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(1163.7 104) scale(0.86 0.86)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(17.88 151.74) scale(1.02 1.02)"/>
+<use href="#meadow-arena-1180-thing-4" transform="translate(1158.15 175.74) scale(1.08 1.08)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(18.32 253.05) scale(0.95 0.95)"/>
+<use href="#meadow-arena-1180-thing-4" transform="translate(1162.38 277.05) scale(0.82 0.82)"/>
+<use href="#meadow-arena-1180-thing-7" transform="translate(14.28 332.65) scale(0.82 0.82)"/>
+<use href="#meadow-arena-1180-thing-6" transform="translate(1163.76 356.65) scale(-0.92 0.92)"/>
+<use href="#meadow-arena-1180-thing-7" transform="translate(19.01 436.54) scale(-1.09 1.09)"/>
+<use href="#meadow-arena-1180-thing-2" transform="translate(1158.45 460.54) scale(-0.97 0.97)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(21.85 512.17) scale(0.83 0.83)"/>
+<use href="#meadow-arena-1180-thing-3" transform="translate(1163.03 536.17) scale(0.81 0.81)"/>
+<use href="#meadow-arena-1180-thing-5" transform="translate(14.55 620.71) scale(-1.08 1.08)"/>
+<use href="#meadow-arena-1180-thing-7" transform="translate(1164.3 644.71) scale(0.99 0.99)"/>
+<use href="#meadow-arena-1180-thing-5" transform="translate(18.5 696.63) scale(1.03 1.03)"/>
+<use href="#meadow-arena-1180-thing-3" transform="translate(1164.52 720.63) scale(1.03 1.03)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(1091.62 791.34) scale(-0.84 0.84)"/>
+<use href="#meadow-arena-1180-thing-3" transform="translate(455.3 791.63) scale(1.09 1.09)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(300.43 792.23) scale(-1.03 1.03)"/>
+<use href="#meadow-arena-1180-thing-6" transform="translate(136.22 792.33) scale(0.77 0.77)"/>
+<use href="#meadow-arena-1180-thing-3" transform="translate(50 792.75) scale(-0.81 0.81)"/>
+<use href="#meadow-arena-1180-thing-6" transform="translate(847.82 792.83) scale(0.77 0.77)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(771.05 792.93) scale(-0.84 0.84)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(234 793.34) scale(0.88 0.88)"/>
+<use href="#meadow-arena-1180-thing-2" transform="translate(920.29 793.41) scale(0.79 0.79)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(375.5 794.05) scale(-1.02 1.02)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(1013.77 794.81) scale(-1.04 1.04)"/>
+<use href="#meadow-arena-1180-thing-4" transform="translate(688.67 795.33) scale(1.07 1.07)"/>
+<use href="#meadow-arena-1180-thing-7" transform="translate(595.19 795.44) scale(-0.93 0.93)"/>
+<use href="#meadow-arena-1180-thing-1" transform="translate(522.69 795.7) scale(-1.02 1.02)"/>
+</svg>

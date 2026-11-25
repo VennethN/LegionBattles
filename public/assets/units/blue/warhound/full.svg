@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="warhound" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="warhound-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="warhound-shadow-shadow" d="M 134.6 181 C 134.6 186 117.3 190 96 190 C 74.7 190 57.4 186 57.4 181 C 57.4 176 74.7 172 96 172 C 117.3 172 134.6 176 134.6 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="warhound-tail-layer" transform="translate(67.44 127.92) rotate(0) scale(1 1) translate(-67.44 -127.92)">
+<defs>
+<path id="warhound-tail-tail-shape" d="M 67.4 126.2 C 67.4 126.2 59.3 124.6 55.7 121.2 C 52 117.8 46.7 110.6 45.6 106.1 C 44.5 101.6 49 94.3 49 94.3 C 49 94.3 51.8 102.4 54 106.1 C 56.2 109.7 59.6 113.6 62.4 116.2 C 65.2 118.7 70.8 121.2 70.8 121.2 L 67.4 126.2 Z"/>
+<clipPath id="warhound-tail-tail-clip"><use href="#warhound-tail-tail-shape"/></clipPath>
+<clipPath id="warhound-tail-tail-lit-clip"><use href="#warhound-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="warhound-tail-tail">
+<use id="warhound-tail-tail-shade" href="#warhound-tail-tail-shape" fill="#c4b594"/>
+<g clip-path="url(#warhound-tail-tail-clip)">
+<use id="warhound-tail-tail-fill" href="#warhound-tail-tail-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#warhound-tail-tail-lit-clip)">
+<use id="warhound-tail-tail-lit" href="#warhound-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warhound-tail-tail-fill-over" href="#warhound-tail-tail-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="warhound-tail-tail-line" href="#warhound-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="warhound-legs-far-layer" transform="translate(97.68 154.8) rotate(0) scale(1 1) translate(-97.68 -154.8)">
+<defs>
+<path id="warhound-legs-far-leg-shape" d="M 77.9 148.1 L 90.5 148.1 L 90.5 170.8 Q 96.4 171.6 96.4 176.6 L 96.4 180 L 77.9 180 Z"/>
+<path id="warhound-legs-far-leg-2-shape" d="M 104.8 148.1 L 117.4 148.1 L 117.4 170.8 Q 123.3 171.6 123.3 176.6 L 123.3 180 L 104.8 180 Z"/>
+</defs>
+<g id="warhound-legs-far-leg">
+<use id="warhound-legs-far-leg-fill" href="#warhound-legs-far-leg-shape" fill="#c4b594"/>
+<use id="warhound-legs-far-leg-line" href="#warhound-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warhound-legs-far-leg-2">
+<use id="warhound-legs-far-leg-2-fill" href="#warhound-legs-far-leg-2-shape" fill="#c4b594"/>
+<use id="warhound-legs-far-leg-2-line" href="#warhound-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="warhound-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="warhound-body-hide-shape" d="M 64.1 133 C 65.8 128.2 68.8 122.3 74.2 119.5 C 79.5 116.7 88.7 116.2 96 116.2 C 103.3 116.2 112.5 117 117.8 119.5 C 123.2 122 126.2 126.5 127.9 131.3 C 129.6 136 129.6 143.6 127.9 148.1 C 126.2 152.6 123.2 156.1 117.8 158.2 C 112.5 160.3 103.3 160.7 96 160.7 C 88.7 160.7 79.5 160.3 74.2 158.2 C 68.8 156.1 65.8 152.3 64.1 148.1 C 62.4 143.9 62.4 137.7 64.1 133 Z"/>
+<clipPath id="warhound-body-hide-clip"><use href="#warhound-body-hide-shape"/></clipPath>
+<clipPath id="warhound-body-hide-lit-clip"><use href="#warhound-body-hide-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="warhound-body-blanket-shape" d="M 79.2 116.2 L 112.8 114.5 C 112.8 114.5 116.7 136.9 116.2 143 C 115.6 149.2 109.4 151.4 109.4 151.4 L 84.2 153.1 C 84.2 153.1 78.4 150.9 77.5 144.7 C 76.7 138.6 79.2 116.2 79.2 116.2 Z"/>
+<clipPath id="warhound-body-blanket-clip"><use href="#warhound-body-blanket-shape"/></clipPath>
+<clipPath id="warhound-body-blanket-lit-clip"><use href="#warhound-body-blanket-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="warhound-body-trim-shape" d="M 74.2 144.7 L 121.2 144.7 L 121.2 149.8 L 74.2 149.8 L 74.2 144.7 Z"/>
+</defs>
+<g id="warhound-body-hide">
+<use id="warhound-body-hide-shade" href="#warhound-body-hide-shape" fill="#c4b594"/>
+<g clip-path="url(#warhound-body-hide-clip)">
+<use id="warhound-body-hide-deep" href="#warhound-body-hide-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="warhound-body-hide-shade-over" href="#warhound-body-hide-shape" transform="translate(-3.72 -3.72)" fill="#c4b594"/>
+<use id="warhound-body-hide-fill" href="#warhound-body-hide-shape" transform="translate(-6 -6)" fill="#e9dfc6"/>
+<g clip-path="url(#warhound-body-hide-lit-clip)">
+<use id="warhound-body-hide-lit" href="#warhound-body-hide-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warhound-body-hide-fill-over" href="#warhound-body-hide-shape" transform="translate(4.6 4.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="warhound-body-hide-line" href="#warhound-body-hide-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warhound-body-blanket">
+<use id="warhound-body-blanket-shade" href="#warhound-body-blanket-shape" fill="#2f5893"/>
+<g clip-path="url(#warhound-body-blanket-clip)">
+<use id="warhound-body-blanket-fill" href="#warhound-body-blanket-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#warhound-body-blanket-lit-clip)">
+<use id="warhound-body-blanket-lit" href="#warhound-body-blanket-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warhound-body-blanket-fill-over" href="#warhound-body-blanket-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<g id="warhound-body-trim">
+<use id="warhound-body-trim-fill" href="#warhound-body-trim-shape" fill="#c8a24a"/>
+<use id="warhound-body-trim-line" href="#warhound-body-trim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="warhound-body-blanket-line" href="#warhound-body-blanket-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="warhound-legs-near-layer" transform="translate(97.68 154.8) rotate(0) scale(1 1) translate(-97.68 -154.8)">
+<defs>
+<path id="warhound-legs-near-leg-shape" d="M 67.9 148.1 L 80.5 148.1 L 80.5 170.8 Q 86.3 171.6 86.3 176.6 L 86.3 180 L 67.9 180 Z"/>
+<clipPath id="warhound-legs-near-leg-clip"><use href="#warhound-legs-near-leg-shape"/></clipPath>
+<clipPath id="warhound-legs-near-leg-lit-clip"><use href="#warhound-legs-near-leg-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="warhound-legs-near-leg-2-shape" d="M 113.2 148.1 L 125.8 148.1 L 125.8 170.8 Q 131.7 171.6 131.7 176.6 L 131.7 180 L 113.2 180 Z"/>
+<clipPath id="warhound-legs-near-leg-2-clip"><use href="#warhound-legs-near-leg-2-shape"/></clipPath>
+<clipPath id="warhound-legs-near-leg-2-lit-clip"><use href="#warhound-legs-near-leg-2-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="warhound-legs-near-leg">
+<use id="warhound-legs-near-leg-shade" href="#warhound-legs-near-leg-shape" fill="#c4b594"/>
+<g clip-path="url(#warhound-legs-near-leg-clip)">
+<use id="warhound-legs-near-leg-fill" href="#warhound-legs-near-leg-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#warhound-legs-near-leg-lit-clip)">
+<use id="warhound-legs-near-leg-lit" href="#warhound-legs-near-leg-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warhound-legs-near-leg-fill-over" href="#warhound-legs-near-leg-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="warhound-legs-near-leg-line" href="#warhound-legs-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warhound-legs-near-leg-2">
+<use id="warhound-legs-near-leg-2-shade" href="#warhound-legs-near-leg-2-shape" fill="#c4b594"/>
+<g clip-path="url(#warhound-legs-near-leg-2-clip)">
+<use id="warhound-legs-near-leg-2-fill" href="#warhound-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#warhound-legs-near-leg-2-lit-clip)">
+<use id="warhound-legs-near-leg-2-lit" href="#warhound-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warhound-legs-near-leg-2-fill-over" href="#warhound-legs-near-leg-2-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="warhound-legs-near-leg-2-line" href="#warhound-legs-near-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="warhound-head-layer" transform="translate(122.88 126.24) rotate(0) scale(1 1) translate(-122.88 -126.24000000000001)">
+<defs>
+<path id="warhound-head-ear-far-shape" d="M 134.6 106.1 L 138 87.6 L 144.7 104.4 Z"/>
+<path id="warhound-head-neck-shape" d="M 126.4 139.1 L 139.9 124 C 143.3 120.2 142.9 114.3 139.1 110.9 C 135.3 107.5 129.4 107.9 126.1 111.7 L 112.6 126.8 C 109.2 130.6 109.6 136.5 113.4 139.9 C 117.2 143.3 123 142.9 126.4 139.1 Z"/>
+<clipPath id="warhound-head-neck-clip"><use href="#warhound-head-neck-shape"/></clipPath>
+<clipPath id="warhound-head-neck-lit-clip"><use href="#warhound-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="warhound-head-collar-shape" d="M 116.2 121.2 L 134.6 131.3 L 131.3 138.8 L 112.8 128.8 Z"/>
+<path id="warhound-head-head-shape" d="M 124.6 112.8 C 125.1 109 129.3 104.4 133 102.7 C 136.6 101 141.6 100.8 146.4 102.7 C 151.2 104.7 161.5 114.5 161.5 114.5 L 160.7 122.9 C 160.7 122.9 149.9 126.7 144.7 127.1 C 139.5 127.5 133 127.8 129.6 125.4 C 126.2 123 124 116.6 124.6 112.8 Z"/>
+<clipPath id="warhound-head-head-clip"><use href="#warhound-head-head-shape"/></clipPath>
+<clipPath id="warhound-head-head-lit-clip"><use href="#warhound-head-head-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="warhound-head-ear-shape" d="M 126.2 109.4 L 124.6 87.6 L 138 102.7 Z"/>
+<clipPath id="warhound-head-ear-clip"><use href="#warhound-head-ear-shape"/></clipPath>
+<clipPath id="warhound-head-ear-lit-clip"><use href="#warhound-head-ear-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="warhound-head-ear-far">
+<use id="warhound-head-ear-far-fill" href="#warhound-head-ear-far-shape" fill="#c4b594"/>
+<use id="warhound-head-ear-far-line" href="#warhound-head-ear-far-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warhound-head-neck">
+<use id="warhound-head-neck-shade" href="#warhound-head-neck-shape" fill="#c4b594"/>
+<g clip-path="url(#warhound-head-neck-clip)">
+<use id="warhound-head-neck-fill" href="#warhound-head-neck-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#warhound-head-neck-lit-clip)">
+<use id="warhound-head-neck-lit" href="#warhound-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warhound-head-neck-fill-over" href="#warhound-head-neck-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="warhound-head-neck-line" href="#warhound-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warhound-head-collar">
+<use id="warhound-head-collar-fill" href="#warhound-head-collar-shape" fill="#3d6fb6"/>
+<use id="warhound-head-collar-line" href="#warhound-head-collar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warhound-head-head">
+<use id="warhound-head-head-shade" href="#warhound-head-head-shape" fill="#4e3520"/>
+<g clip-path="url(#warhound-head-head-clip)">
+<use id="warhound-head-head-fill" href="#warhound-head-head-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#warhound-head-head-lit-clip)">
+<use id="warhound-head-head-lit" href="#warhound-head-head-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warhound-head-head-fill-over" href="#warhound-head-head-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="warhound-head-seam" d="M 139 101.1 L 141.5 128 C 141.6 128.4 141.9 128.6 142.3 128.6 C 142.6 128.6 142.9 128.2 142.9 127.9 L 140.3 101 C 140.3 100.6 140 100.3 139.6 100.4 C 139.2 100.4 139 100.7 139 101.1 Z" fill="#2a1a10" opacity="0.36"/>
+<path id="warhound-head-rivet" d="M 149.8 109.4 C 149.8 110.4 149 111.1 148.1 111.1 C 147.1 111.1 146.4 110.4 146.4 109.4 C 146.4 108.5 147.1 107.7 148.1 107.7 C 149 107.7 149.8 108.5 149.8 109.4 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="warhound-head-rivet-lit" d="M 148.2 108.8 C 148.2 109.3 147.9 109.6 147.5 109.6 C 147.1 109.6 146.7 109.3 146.7 108.8 C 146.7 108.4 147.1 108.1 147.5 108.1 C 147.9 108.1 148.2 108.4 148.2 108.8 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="warhound-head-rivet-2" d="M 154.8 112.8 C 154.8 113.7 154.1 114.5 153.1 114.5 C 152.2 114.5 151.4 113.7 151.4 112.8 C 151.4 111.9 152.2 111.1 153.1 111.1 C 154.1 111.1 154.8 111.9 154.8 112.8 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="warhound-head-rivet-lit-2" d="M 153.3 112.2 C 153.3 112.6 152.9 113 152.5 113 C 152.1 113 151.8 112.6 151.8 112.2 C 151.8 111.8 152.1 111.4 152.5 111.4 C 152.9 111.4 153.3 111.8 153.3 112.2 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="warhound-head-rivet-3" d="M 159 117 C 159 117.9 158.3 118.7 157.3 118.7 C 156.4 118.7 155.6 117.9 155.6 117 C 155.6 116.1 156.4 115.3 157.3 115.3 C 158.3 115.3 159 116.1 159 117 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="warhound-head-rivet-lit-3" d="M 157.5 116.4 C 157.5 116.8 157.1 117.2 156.7 117.2 C 156.3 117.2 156 116.8 156 116.4 C 156 116 156.3 115.6 156.7 115.6 C 157.1 115.6 157.5 116 157.5 116.4 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="warhound-head-head-line" href="#warhound-head-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warhound-head-ear">
+<use id="warhound-head-ear-shade" href="#warhound-head-ear-shape" fill="#c4b594"/>
+<g clip-path="url(#warhound-head-ear-clip)">
+<use id="warhound-head-ear-fill" href="#warhound-head-ear-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#warhound-head-ear-lit-clip)">
+<use id="warhound-head-ear-lit" href="#warhound-head-ear-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warhound-head-ear-fill-over" href="#warhound-head-ear-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="warhound-head-ear-line" href="#warhound-head-ear-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

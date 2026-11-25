@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="firepit" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="firepit-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="firepit-shadow-shadow" d="M 128 181 C 128 184.9 113.7 188 96 188 C 78.3 188 64 184.9 64 181 C 64 177.1 78.3 174 96 174 C 113.7 174 128 177.1 128 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="firepit-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="firepit-body-pit-shape" d="M 120 173 C 120 178 109.3 182 96 182 C 82.7 182 72 178 72 173 C 72 168 82.7 164 96 164 C 109.3 164 120 168 120 173 Z"/>
+<clipPath id="firepit-body-pit-clip"><use href="#firepit-body-pit-shape"/></clipPath>
+<path id="firepit-body-stone-0-shape" d="M 126.2 177.8 C 126.2 180.3 123.3 182.3 119.7 182.3 C 116.1 182.3 113.2 180.3 113.2 177.8 C 113.2 175.3 116.1 173.3 119.7 173.3 C 123.3 173.3 126.2 175.3 126.2 177.8 Z"/>
+<path id="firepit-body-stone-1-shape" d="M 107.2 182.9 C 107.2 185.3 104.2 187.4 100.7 187.4 C 97.1 187.4 94.2 185.3 94.2 182.9 C 94.2 180.4 97.1 178.4 100.7 178.4 C 104.2 178.4 107.2 180.4 107.2 182.9 Z"/>
+<path id="firepit-body-stone-2-shape" d="M 84.6 180.5 C 84.6 183 81.7 185 78.1 185 C 74.5 185 71.6 183 71.6 180.5 C 71.6 178 74.5 176 78.1 176 C 81.7 176 84.6 178 84.6 180.5 Z"/>
+<path id="firepit-body-stone-3-shape" d="M 75.5 172.5 C 75.5 175 72.6 177 69 177 C 65.4 177 62.5 175 62.5 172.5 C 62.5 170 65.4 168 69 168 C 72.6 168 75.5 170 75.5 172.5 Z"/>
+<path id="firepit-body-stone-4-shape" d="M 86.8 164.9 C 86.8 167.4 83.9 169.4 80.3 169.4 C 76.7 169.4 73.8 167.4 73.8 164.9 C 73.8 162.4 76.7 160.4 80.3 160.4 C 83.9 160.4 86.8 162.4 86.8 164.9 Z"/>
+<path id="firepit-body-stone-5-shape" d="M 109.8 163.4 C 109.8 165.9 106.9 167.9 103.3 167.9 C 99.8 167.9 96.8 165.9 96.8 163.4 C 96.8 160.9 99.8 158.9 103.3 158.9 C 106.9 158.9 109.8 160.9 109.8 163.4 Z"/>
+<path id="firepit-body-stone-6-shape" d="M 127.4 169.1 C 127.4 171.6 124.5 173.6 120.9 173.6 C 117.3 173.6 114.4 171.6 114.4 169.1 C 114.4 166.6 117.3 164.6 120.9 164.6 C 124.5 164.6 127.4 166.6 127.4 169.1 Z"/>
+</defs>
+<path id="firepit-body-glow" d="M 132 172 C 132 179.7 115.9 186 96 186 C 76.1 186 60 179.7 60 172 C 60 164.3 76.1 158 96 158 C 115.9 158 132 164.3 132 172 Z" fill="#ffd27a" opacity="0.4"/>
+<g id="firepit-body-pit">
+<use id="firepit-body-pit-fill" href="#firepit-body-pit-shape" fill="#434b56"/>
+<g clip-path="url(#firepit-body-pit-clip)">
+<path id="firepit-body-coal" d="M 91 172 C 91 174.8 88.8 177 86 177 C 83.2 177 81 174.8 81 172 C 81 169.2 83.2 167 86 167 C 88.8 167 91 169.2 91 172 Z" fill="#f08a3c"/>
+<path id="firepit-body-coal-2" d="M 106 174 C 106 177.3 103.3 180 100 180 C 96.7 180 94 177.3 94 174 C 94 170.7 96.7 168 100 168 C 103.3 168 106 170.7 106 174 Z" fill="#f08a3c"/>
+<path id="firepit-body-coal-3" d="M 113 170 C 113 172.2 111.2 174 109 174 C 106.8 174 105 172.2 105 170 C 105 167.8 106.8 166 109 166 C 111.2 166 113 167.8 113 170 Z" fill="#f08a3c"/>
+<path id="firepit-body-coal-4" d="M 98 169 C 98 171.2 96.2 173 94 173 C 91.8 173 90 171.2 90 169 C 90 166.8 91.8 165 94 165 C 96.2 165 98 166.8 98 169 Z" fill="#f08a3c"/>
+<path id="firepit-body-coal-hot" d="M 89.4 171 C 89.4 172.3 88.3 173.4 87 173.4 C 85.7 173.4 84.6 172.3 84.6 171 C 84.6 169.7 85.7 168.6 87 168.6 C 88.3 168.6 89.4 169.7 89.4 171 Z" fill="#ffd27a"/>
+<path id="firepit-body-coal-hot-2" d="M 103.4 173 C 103.4 174.3 102.3 175.4 101 175.4 C 99.7 175.4 98.6 174.3 98.6 173 C 98.6 171.7 99.7 170.6 101 170.6 C 102.3 170.6 103.4 171.7 103.4 173 Z" fill="#ffd27a"/>
+</g>
+<use id="firepit-body-pit-line" href="#firepit-body-pit-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="firepit-body-stone-0">
+<use id="firepit-body-stone-0-fill" href="#firepit-body-stone-0-shape" fill="#c4a564"/>
+<use id="firepit-body-stone-0-line" href="#firepit-body-stone-0-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="firepit-body-stone-1">
+<use id="firepit-body-stone-1-fill" href="#firepit-body-stone-1-shape" fill="#c4a564"/>
+<use id="firepit-body-stone-1-line" href="#firepit-body-stone-1-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="firepit-body-stone-2">
+<use id="firepit-body-stone-2-fill" href="#firepit-body-stone-2-shape" fill="#c4a564"/>
+<use id="firepit-body-stone-2-line" href="#firepit-body-stone-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="firepit-body-stone-3">
+<use id="firepit-body-stone-3-fill" href="#firepit-body-stone-3-shape" fill="#c4a564"/>
+<use id="firepit-body-stone-3-line" href="#firepit-body-stone-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="firepit-body-stone-4">
+<use id="firepit-body-stone-4-fill" href="#firepit-body-stone-4-shape" fill="#c4a564"/>
+<use id="firepit-body-stone-4-line" href="#firepit-body-stone-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="firepit-body-stone-5">
+<use id="firepit-body-stone-5-fill" href="#firepit-body-stone-5-shape" fill="#c4a564"/>
+<use id="firepit-body-stone-5-line" href="#firepit-body-stone-5-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="firepit-body-stone-6">
+<use id="firepit-body-stone-6-fill" href="#firepit-body-stone-6-shape" fill="#c4a564"/>
+<use id="firepit-body-stone-6-line" href="#firepit-body-stone-6-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

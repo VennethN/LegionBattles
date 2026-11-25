@@ -1,0 +1,294 @@
+// npm run art:sheet [unit ...]
+//
+// Draws the pictures to look at before believing the art is right, into
+// docs/art:
+//
+//   contact-sheet.png  every unit the game shows, on the sides it shows it on, and every effect, icon, pack and badge
+//   scenes.png         the game's own painted scenes
+//   parts.png          every part of every unit alone
+//   poses.png          every unit at the far end of each movement
+//   silhouettes.png    every unit as a black shape 48 px tall, in rows
+//   logo.png           the logo and its mark
+//
+// It also checks what a program can check: that no color is off the palette
+// and that every dark line is the one width. Whether there is a face on
+// anything, only looking at the sheet can tell.
+//
+// This file is the same for every game drawn with the kit. What a game
+// shows is said in scripts/art.game.ts.
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { Resvg } from '@resvg/resvg-js';
+import { composeUnit, generated, innerOf, withIdSuffix, type PartSource } from '../src/art/compose';
+import { CANVAS } from '../src/art/kit/draw';
+import { GRASS, OUTLINE, OUTLINE_WIDTH, TEAMS, allColors, type Team } from '../src/art/kit/palette';
+import type { UnitArt } from '../src/art/kit/unit';
+import { LOGO_H, LOGO_SCALE, LOGO_W, MARK_SIZE } from '../src/art/logoSize';
+import { ATTACK_POSES, HIT_POSE, HOP_POSE, LAND_POSE, TOPPLE_POSE } from '../src/art/poses';
+import type { Pose } from '../src/art/rig';
+import { UNIT_ART } from '../src/art/units';
+import { buildArt } from './art';
+import { GAME } from './art.game';
+
+const ASSETS = path.resolve('public/assets');
+const OVERRIDES = path.resolve('art/overrides');
+const OUT = path.resolve('docs/art');
+const FONT = 'DejaVu Sans, Inter, Arial, sans-serif';
+
+const manifest = buildArt();
+
+/** A file as the game will show it: the override if there is one. */
+function shown(rel: string): string {
+  const over = path.join(OVERRIDES, rel);
+  return fs.readFileSync(fs.existsSync(over) ? over : path.join(ASSETS, rel), 'utf8');
+}
+
+// A unit the game shows only as whole stills has no part files: its parts are drawn here as the art draws them.
+const source: PartSource = (unit, part, team) => {
+  const rel = `units/${team}/${unit.id}/${part}.svg`;
+  return fs.existsSync(path.join(OVERRIDES, rel)) || fs.existsSync(path.join(ASSETS, rel)) ? innerOf(shown(rel)) : generated(unit, part, team);
+};
+
+let serial = 0;
+function unitAt(unit: UnitArt, team: Team, x: number, y: number, scale: number, pose?: Pose, flip = false): string {
+  const inner = composeUnit(unit, team, { pose, source, idSuffix: `-n${serial++}` });
+  const sx = flip ? -scale : scale;
+  const tx = flip ? x + CANVAS * scale : x;
+  return `<g transform="translate(${tx} ${y}) scale(${sx} ${scale})">${inner}</g>`;
+}
+
+function label(x: number, y: number, text: string, size = 15, anchor = 'middle', color = OUTLINE): string {
+  return `<text x="${x}" y="${y}" font-family="${FONT}" font-size="${size}" font-weight="bold" text-anchor="${anchor}" fill="${color}">${text}</text>`;
+}
+
+function save(name: string, width: number, height: number, body: string, zoom = 1): void {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">${body}</svg>`;
+  const png = new Resvg(svg, { fitTo: { mode: 'zoom', value: zoom }, font: { loadSystemFonts: true } }).render().asPng();
+  fs.mkdirSync(OUT, { recursive: true });
+  fs.writeFileSync(path.join(OUT, name), png);
+  console.log(`sheet: docs/art/${name} (${Math.round(width * zoom)} x ${Math.round(height * zoom)})`);
+}
+
+const only = process.argv.slice(2);
+/** The sides a unit is shown on in this game. */
+const sides = (unit: UnitArt): Team[] => TEAMS.filter((t) => GAME.wants(t, unit.id));
+const cast = UNIT_ART.filter((u) => sides(u).length > 0);
+const units = cast.filter((u) => only.length === 0 || only.includes(u.id));
+
+// ------------------------------------------------------------ contact sheet
+{
+  const cell = 176;
+  const scale = 0.88;
+  const perRow = Math.min(units.length, 8);
+  const unitRows = Math.ceil(units.length / perRow);
+  const width = Math.max(perRow * cell + 40, 1040);
+  let y = 20;
+  let body = '';
+
+  body += label(20, y + 16, 'UNITS: blue faces right, red faces left (mirrored, as in the game). A place is empty where the game does not show that side.', 16, 'start');
+  y += 30;
+  for (let r = 0; r < unitRows; r++) {
+    for (const team of TEAMS) {
+      for (let c = 0; c < perRow; c++) {
+        const unit = units[r * perRow + c];
+        if (!unit) continue;
+        if (team === 'blue') body += label(20 + c * cell + cell / 2, y + 12, unit.id);
+        // A unit the game shows on one side only has an empty place on the other.
+        if (!sides(unit).includes(team)) continue;
+        body += unitAt(unit, team, 20 + c * cell + 4, y, scale, undefined, team === 'red');
+      }
+      y += cell - 6;
+    }
+    y += 8;
+  }
+
+  // Effects, board pieces and icons.
+  for (const [folder, title] of [['fx', 'EFFECTS'], ['icons', 'ICONS'], ['packs', 'PACKS'], ['grades', 'GRADES: plainer to grander']] as const) {
+    const list = Object.entries(manifest[folder]);
+    if (list.length === 0) continue;
+    body += label(20, y + 22, title, 16, 'start');
+    y += 34;
+    let x = 20;
+    let rowH = 0;
+    for (const [name, img] of list) {
+      const w = Math.max(img.width, 70) + 16;
+      if (x + w > width - 20) {
+        x = 20;
+        y += rowH + 30;
+        rowH = 0;
+      }
+      const inner = withIdSuffix(innerOf(shown(`${folder}/${name}.svg`)), `-f${serial++}`);
+      body += `<rect x="${x}" y="${y}" width="${w}" height="${img.height + 12}" rx="6" fill="${GRASS.shade}"/>`;
+      body += `<g transform="translate(${x + (w - img.width) / 2} ${y + 6})">${inner}</g>`;
+      body += label(x + w / 2, y + img.height + 26, name, 10);
+      rowH = Math.max(rowH, img.height + 12);
+      x += w + 10;
+    }
+    y += rowH + 40;
+  }
+
+  save('contact-sheet.png', width, y, `<rect width="${width}" height="${y}" fill="${GRASS.fill}"/>${body}`, 1.25);
+}
+
+// ------------------------------------------------------------------- parts
+{
+  // Every part by itself on its own canvas, so a stray shape shows: blue, then red.
+  const ps = 0.42;
+  const pc = CANVAS * ps + 4;
+  const most = Math.max(...units.map((u) => u.parts.length));
+  const width = 100 + most * pc * 2 + 30;
+  const height = 34 + units.length * (pc + 14);
+  let body = `<rect width="${width}" height="${height}" fill="${GRASS.fill}"/>`;
+  body += label(20, 22, 'PARTS: each layer alone, with its pivot (cross). Blue, then red.', 15, 'start');
+  units.forEach((unit, r) => {
+    const y = 34 + r * (pc + 14);
+    body += label(14, y + pc / 2 + 4, unit.id, 12, 'start');
+    TEAMS.forEach((team, t) => {
+      if (!sides(unit).includes(team)) return;
+      unit.parts.forEach((part, i) => {
+        const x = 100 + t * (most * pc + 20) + i * pc;
+        const inner = withIdSuffix(source(unit, part.name, team), `-p${serial++}`);
+        body += `<rect x="${x}" y="${y}" width="${CANVAS * ps}" height="${CANVAS * ps}" rx="5" fill="${GRASS.shade}"/>`;
+        body += `<g transform="translate(${x} ${y}) scale(${ps})">${inner}`;
+        const [px, py] = part.pivot;
+        body += `<path d="M ${px - 8} ${py} L ${px + 8} ${py} M ${px} ${py - 8} L ${px} ${py + 8}" stroke="#ffffff" stroke-width="3"/></g>`;
+        if (t === 0) body += label(x + (CANVAS * ps) / 2, y + CANVAS * ps + 10, part.name, 8);
+      });
+    });
+  });
+  save('parts.png', width, height, body, 1.25);
+}
+
+// ------------------------------------------------------------------- poses
+{
+  // Two units to a row, each at the far end of every movement.
+  const scale = 0.6;
+  const cell = CANVAS * scale + 2;
+  const names = ['rest', 'windup', 'strike', 'hop', 'land', 'hit', 'topple'];
+  const block = 92 + names.length * cell + 16;
+  const cols = units.length > 6 ? 2 : 1;
+  const rows = Math.ceil(units.length / cols);
+  const width = cols * block + 10;
+  const height = rows * cell + 40;
+  let body = `<rect width="${width}" height="${height}" fill="${GRASS.fill}"/>`;
+  for (let c = 0; c < cols; c++) names.forEach((n, i) => (body += label(c * block + 92 + i * cell + cell / 2, 22, n, 12)));
+  units.forEach((unit, n) => {
+    const c = Math.floor(n / rows);
+    const r = n % rows;
+    const attack = ATTACK_POSES[unit.style];
+    const poses: Array<Pose | undefined> = [undefined, attack.windup, attack.strike, HOP_POSE, LAND_POSE, HIT_POSE, TOPPLE_POSE];
+    body += label(c * block + 10, 34 + r * cell + cell / 2, unit.id, 11, 'start');
+    body += label(c * block + 10, 48 + r * cell + cell / 2, unit.style, 10, 'start', '#3b5a26');
+    poses.forEach((p, i) => {
+      body += unitAt(unit, sides(unit)[n % sides(unit).length], c * block + 92 + i * cell, 30 + r * cell, scale, p);
+    });
+  });
+  save('poses.png', width, height, body, 1.25);
+}
+
+// ------------------------------------------------------------- silhouettes
+{
+  // Every unit as one black shape, 48 px tall from its top to its feet. A trap is low and wide:
+  // at that height it would lie over its neighbors, so nothing is drawn bigger than a unit is.
+  const all = cast;
+  const gap = 78;
+  const perRow = Math.ceil(all.length / Math.ceil(all.length / 11));
+  const rows = Math.ceil(all.length / perRow);
+  const width = perRow * gap + 40;
+  const height = rows * 96;
+  let body = `<rect width="${width}" height="${height}" fill="#ffffff"/>`;
+  all.forEach((unit, n) => {
+    const i = n % perRow;
+    const row = Math.floor(n / perRow);
+    const tall = 180 - unit.top;
+    const scale = Math.min(48 / tall, 0.5);
+    let inner = composeUnit(unit, sides(unit)[0], { source, noShadow: true, idSuffix: `-s${serial++}` });
+    inner = inner
+      .replace(/fill="#[0-9a-fA-F]{3,8}"/g, 'fill="#000000"')
+      .replace(/stroke="#[0-9a-fA-F]{3,8}"/g, 'stroke="#000000"')
+      .replace(/ opacity="[^"]*"/g, '');
+    const x = 20 + i * gap + gap / 2 - 96 * scale;
+    const y = row * 96 + 66 - 180 * scale;
+    body += `<g transform="translate(${x} ${y}) scale(${scale})">${inner}</g>`;
+    body += label(20 + i * gap + gap / 2, row * 96 + 86, unit.id, 10);
+  });
+  save('silhouettes.png', width, height, body, 2);
+}
+
+// ------------------------------------------------------------------ scenes
+if (GAME.scenes.length > 0) {
+  // The game's own painted scenes, each small enough for all of them to be seen side by side.
+  const w = 640;
+  const tall = Math.max(...GAME.scenes.map((sc) => (w * sc.height) / sc.width));
+  const perRow = Math.min(GAME.scenes.length, 3);
+  const rows = Math.ceil(GAME.scenes.length / perRow);
+  const width = perRow * (w + 20) + 20;
+  const height = rows * (tall + 44) + 20;
+  let body = `<rect width="${width}" height="${height}" fill="${GRASS.dark}"/>`;
+  GAME.scenes.forEach((scene, i) => {
+    const x = 20 + (i % perRow) * (w + 20);
+    const y = 34 + Math.floor(i / perRow) * (tall + 44);
+    const h = (w * scene.height) / scene.width;
+    const inner = withIdSuffix(innerOf(shown(scene.file)), `-sc${serial++}`);
+    body += label(x + w / 2, y - 10, scene.title, 14, 'middle', '#ffffff');
+    body += `<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="0 0 ${scene.width} ${scene.height}">${inner}</svg>`;
+  });
+  save('scenes.png', width, height, body, 1);
+}
+
+// ------------------------------------------------------------------ the logo
+{
+  // The logo on the two grounds it is likeliest to stand on, a land's green and the dark of a menu, and its mark alone at three sizes.
+  const w = LOGO_W * LOGO_SCALE;
+  const h = LOGO_H * LOGO_SCALE;
+  const width = w * 2 + 60;
+  const height = h + 40 + 300;
+  let body = `<rect width="${w + 30}" height="${h + 40}" fill="${GRASS.dark}"/><rect x="${w + 30}" width="${w + 30}" height="${h + 40}" fill="${OUTLINE}"/>`;
+  body += `<rect y="${h + 40}" width="${width}" height="300" fill="${GRASS.fill}"/>`;
+  [15, w + 45].forEach((x) => {
+    const inner = withIdSuffix(innerOf(shown('logo/logo.svg')), `-lg${serial++}`);
+    body += `<svg x="${x}" y="20" width="${w}" height="${h}" viewBox="0 0 ${LOGO_W} ${LOGO_H}">${inner}</svg>`;
+  });
+  let x = 40;
+  for (const size of [264, 132, 64, 32]) {
+    const inner = withIdSuffix(innerOf(shown('logo/mark.svg')), `-lg${serial++}`);
+    body += `<svg x="${x}" y="${h + 40 + (300 - size) / 2}" width="${size}" height="${size}" viewBox="0 0 ${MARK_SIZE} ${MARK_SIZE}">${inner}</svg>`;
+    x += size + 50;
+  }
+  save('logo.png', width, height, body, 1);
+}
+
+// ------------------------------------------------------------------ checks
+{
+  const palette = allColors();
+  const problems: string[] = [];
+  const walk = (dir: string): string[] =>
+    fs.existsSync(dir)
+      ? fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+          const f = path.join(dir, e.name);
+          return e.isDirectory() ? walk(f) : f.endsWith('.svg') ? [f] : [];
+        })
+      : [];
+  for (const file of [...walk(ASSETS), ...walk(OVERRIDES)]) {
+    const svg = fs.readFileSync(file, 'utf8');
+    const rel = path.relative(process.cwd(), file);
+    for (const m of svg.matchAll(/(?:fill|stroke)="(#[0-9a-fA-F]{3,8})"/g)) {
+      if (!palette.has(m[1].toLowerCase())) problems.push(`${rel}: ${m[1]} is not in the palette`);
+    }
+    for (const m of svg.matchAll(/<(?:path|use)[^>]*stroke="([^"]+)"[^>]*stroke-width="([^"]+)"/g)) {
+      if (m[1].toLowerCase() === OUTLINE && Number(m[2]) !== OUTLINE_WIDTH) {
+        problems.push(`${rel}: a dark line ${m[2]} wide (they are all ${OUTLINE_WIDTH})`);
+      }
+    }
+    // A shape may be used again inside its own file (href="#..."). Nothing may point outside it.
+    if (/<style|<script|<filter|href="[^#]/.test(svg)) problems.push(`${rel}: has a style, script, filter or a reference to another file`);
+  }
+  const unique = [...new Set(problems)];
+  if (unique.length) {
+    console.error(`sheet: ${unique.length} problem(s):\n  ${unique.slice(0, 40).join('\n  ')}`);
+    process.exitCode = 1;
+  } else {
+    console.log('sheet: palette, line width and plain-SVG checks pass');
+  }
+}

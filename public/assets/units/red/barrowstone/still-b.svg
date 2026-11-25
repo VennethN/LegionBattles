@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="barrowstone-b" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="barrowstone-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="barrowstone-shadow-shadow" d="M 132 181 C 132 185.4 115.9 189 96 189 C 76.1 189 60 185.4 60 181 C 60 176.6 76.1 173 96 173 C 115.9 173 132 176.6 132 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="barrowstone-body-layer" transform="translate(96 174) rotate(5) scale(0.97 1.05) translate(-96 -180)">
+<defs>
+<path id="barrowstone-body-mound-shape" d="M 60 180 C 60 180 62 170.7 68 168 C 74 165.3 86.7 164 96 164 C 105.3 164 118 165.3 124 168 C 130 170.7 132 180 132 180 L 60 180 Z"/>
+<clipPath id="barrowstone-body-mound-clip"><use href="#barrowstone-body-mound-shape"/></clipPath>
+<clipPath id="barrowstone-body-mound-lit-clip"><use href="#barrowstone-body-mound-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="barrowstone-body-stone-shape" d="M 79.9 169.5 L 88 118.1 Q 90.8 100.3 106.6 102.8 Q 122.4 105.3 119.6 123.1 L 111.5 174.5 Z"/>
+<clipPath id="barrowstone-body-stone-clip"><use href="#barrowstone-body-stone-shape"/></clipPath>
+<clipPath id="barrowstone-body-stone-lit-clip"><use href="#barrowstone-body-stone-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="barrowstone-body-moss-shape" d="M 74 172 C 74 172 78.7 162.7 82 162 C 85.3 161.3 90.3 167.7 94 168 C 97.7 168.3 101 163 104 164 C 107 165 112 174 112 174 L 74 172 Z"/>
+</defs>
+<g id="barrowstone-body-mound">
+<use id="barrowstone-body-mound-shade" href="#barrowstone-body-mound-shape" fill="#4e3520"/>
+<g clip-path="url(#barrowstone-body-mound-clip)">
+<use id="barrowstone-body-mound-fill" href="#barrowstone-body-mound-shape" transform="translate(-3 -3)" fill="#b08a5a"/>
+<g clip-path="url(#barrowstone-body-mound-lit-clip)">
+<use id="barrowstone-body-mound-lit" href="#barrowstone-body-mound-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="barrowstone-body-mound-fill-over" href="#barrowstone-body-mound-shape" transform="translate(3.6 3.6)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="barrowstone-body-mound-line" href="#barrowstone-body-mound-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="barrowstone-body-glow" d="M 120 134 C 120 146.2 110.2 156 98 156 C 85.8 156 76 146.2 76 134 C 76 121.8 85.8 112 98 112 C 110.2 112 120 121.8 120 134 Z" fill="#cdb6f7" opacity="0.4"/>
+<g id="barrowstone-body-stone">
+<use id="barrowstone-body-stone-shade" href="#barrowstone-body-stone-shape" fill="#77766b"/>
+<g clip-path="url(#barrowstone-body-stone-clip)">
+<use id="barrowstone-body-stone-deep" href="#barrowstone-body-stone-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="barrowstone-body-stone-shade-over" href="#barrowstone-body-stone-shape" transform="translate(-3.1 -3.1)" fill="#77766b"/>
+<use id="barrowstone-body-stone-fill" href="#barrowstone-body-stone-shape" transform="translate(-5 -5)" fill="#9c9a8c"/>
+<g clip-path="url(#barrowstone-body-stone-lit-clip)">
+<use id="barrowstone-body-stone-lit" href="#barrowstone-body-stone-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="barrowstone-body-stone-fill-over" href="#barrowstone-body-stone-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<path id="barrowstone-body-sign-a" d="M 103.1 118.5 L 105.1 118.8 Q 106.1 119 106 119.9 L 101.6 147.6 Q 101.4 148.6 100.4 148.4 L 98.5 148.1 Q 97.5 148 97.6 147 L 102 119.3 Q 102.2 118.3 103.1 118.5 Z" fill="#8a5cd6"/>
+<path id="barrowstone-body-sign-b" d="M 103.2 124.6 L 111.8 134 L 111.2 138 L 102.4 129.5 Z" fill="#8a5cd6"/>
+</g>
+<use id="barrowstone-body-stone-line" href="#barrowstone-body-stone-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="barrowstone-body-moss">
+<use id="barrowstone-body-moss-fill" href="#barrowstone-body-moss-shape" fill="#4f8f3e"/>
+<use id="barrowstone-body-moss-line" href="#barrowstone-body-moss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

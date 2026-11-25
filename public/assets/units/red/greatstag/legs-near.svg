@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="greatstag-legs-near" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="greatstag-legs-near-leg-shape" d="M 64.5 142 L 75.5 142 L 75.5 169 Q 82.5 170 82.5 176 L 82.5 180 L 64.5 180 Z"/>
+<clipPath id="greatstag-legs-near-leg-clip"><use href="#greatstag-legs-near-leg-shape"/></clipPath>
+<clipPath id="greatstag-legs-near-leg-lit-clip"><use href="#greatstag-legs-near-leg-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="greatstag-legs-near-hoof-shape" d="M 62.5 172 L 85.5 172 L 85.5 182 L 62.5 182 L 62.5 172 Z"/>
+<path id="greatstag-legs-near-leg-2-shape" d="M 118.5 142 L 129.5 142 L 129.5 169 Q 136.5 170 136.5 176 L 136.5 180 L 118.5 180 Z"/>
+<clipPath id="greatstag-legs-near-leg-2-clip"><use href="#greatstag-legs-near-leg-2-shape"/></clipPath>
+<clipPath id="greatstag-legs-near-leg-2-lit-clip"><use href="#greatstag-legs-near-leg-2-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="greatstag-legs-near-hoof-2-shape" d="M 116.5 172 L 139.5 172 L 139.5 182 L 116.5 182 L 116.5 172 Z"/>
+</defs>
+<g id="greatstag-legs-near-leg">
+<use id="greatstag-legs-near-leg-shade" href="#greatstag-legs-near-leg-shape" fill="#8c6b42"/>
+<g clip-path="url(#greatstag-legs-near-leg-clip)">
+<use id="greatstag-legs-near-leg-fill" href="#greatstag-legs-near-leg-shape" transform="translate(-3 -3)" fill="#b08a5a"/>
+<g clip-path="url(#greatstag-legs-near-leg-lit-clip)">
+<use id="greatstag-legs-near-leg-lit" href="#greatstag-legs-near-leg-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greatstag-legs-near-leg-fill-over" href="#greatstag-legs-near-leg-shape" transform="translate(3.6 3.6)" fill="#b08a5a"/>
+</g>
+<g id="greatstag-legs-near-hoof">
+<use id="greatstag-legs-near-hoof-fill" href="#greatstag-legs-near-hoof-shape" fill="#5d6672"/>
+<use id="greatstag-legs-near-hoof-line" href="#greatstag-legs-near-hoof-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="greatstag-legs-near-leg-line" href="#greatstag-legs-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-legs-near-leg-2">
+<use id="greatstag-legs-near-leg-2-shade" href="#greatstag-legs-near-leg-2-shape" fill="#8c6b42"/>
+<g clip-path="url(#greatstag-legs-near-leg-2-clip)">
+<use id="greatstag-legs-near-leg-2-fill" href="#greatstag-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#b08a5a"/>
+<g clip-path="url(#greatstag-legs-near-leg-2-lit-clip)">
+<use id="greatstag-legs-near-leg-2-lit" href="#greatstag-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greatstag-legs-near-leg-2-fill-over" href="#greatstag-legs-near-leg-2-shape" transform="translate(3.6 3.6)" fill="#b08a5a"/>
+</g>
+<g id="greatstag-legs-near-hoof-2">
+<use id="greatstag-legs-near-hoof-2-fill" href="#greatstag-legs-near-hoof-2-shape" fill="#5d6672"/>
+<use id="greatstag-legs-near-hoof-2-line" href="#greatstag-legs-near-hoof-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="greatstag-legs-near-leg-2-line" href="#greatstag-legs-near-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

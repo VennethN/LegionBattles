@@ -1,0 +1,354 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="snow-arena-1180" width="1180" height="800" viewBox="0 0 1180 800">
+<defs>
+<path id="snow-arena-1180-stone-a-shape" d="M -14 -14 L 14 -14 Q 20 -14 20 -8 L 20 -6 Q 20 0 14 0 L -14 0 Q -20 0 -20 -6 L -20 -8 Q -20 -14 -14 -14 Z"/>
+<clipPath id="snow-arena-1180-stone-a-clip"><use href="#snow-arena-1180-stone-a-shape"/></clipPath>
+<clipPath id="snow-arena-1180-stone-a-lit-clip"><use href="#snow-arena-1180-stone-a-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="snow-arena-1180-stone-b-shape" d="M -8 -26 L 8 -26 Q 14 -26 14 -20 L 14 -19 Q 14 -13 8 -13 L -8 -13 Q -14 -13 -14 -19 L -14 -20 Q -14 -26 -8 -26 Z"/>
+<clipPath id="snow-arena-1180-stone-b-clip"><use href="#snow-arena-1180-stone-b-shape"/></clipPath>
+<clipPath id="snow-arena-1180-stone-b-lit-clip"><use href="#snow-arena-1180-stone-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-arena-1180-stone-c-shape" d="M -3 -36 L 4 -36 Q 9 -36 9 -31 L 9 -30 Q 9 -25 4 -25 L -3 -25 Q -8 -25 -8 -30 L -8 -31 Q -8 -36 -3 -36 Z"/>
+<clipPath id="snow-arena-1180-stone-c-clip"><use href="#snow-arena-1180-stone-c-shape"/></clipPath>
+<clipPath id="snow-arena-1180-stone-c-lit-clip"><use href="#snow-arena-1180-stone-c-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-arena-1180-snow-shape" d="M -10 -34 C -10 -34 -8.7 -40.7 -6 -42 C -3.3 -43.3 3.2 -43.3 6 -42 C 8.8 -40.7 11 -34 11 -34 L -10 -34 Z"/>
+<g id="snow-arena-1180-thing-1">
+<path id="snow-arena-1180-shadow" d="M 28 2 C 28 5.3 17.3 8 4 8 C -9.3 8 -20 5.3 -20 2 C -20 -1.3 -9.3 -4 4 -4 C 17.3 -4 28 -1.3 28 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snow-arena-1180-stone-a">
+<use id="snow-arena-1180-stone-a-shade" href="#snow-arena-1180-stone-a-shape" fill="#77766b"/>
+<g clip-path="url(#snow-arena-1180-stone-a-clip)">
+<use id="snow-arena-1180-stone-a-fill" href="#snow-arena-1180-stone-a-shape" transform="translate(-4 -4)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-arena-1180-stone-a-lit-clip)">
+<use id="snow-arena-1180-stone-a-lit" href="#snow-arena-1180-stone-a-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-arena-1180-stone-a-fill-over" href="#snow-arena-1180-stone-a-shape" transform="translate(4.2 4.2)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="snow-arena-1180-stone-a-line" href="#snow-arena-1180-stone-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-arena-1180-stone-b">
+<use id="snow-arena-1180-stone-b-shade" href="#snow-arena-1180-stone-b-shape" fill="#77766b"/>
+<g clip-path="url(#snow-arena-1180-stone-b-clip)">
+<use id="snow-arena-1180-stone-b-fill" href="#snow-arena-1180-stone-b-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-arena-1180-stone-b-lit-clip)">
+<use id="snow-arena-1180-stone-b-lit" href="#snow-arena-1180-stone-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-arena-1180-stone-b-fill-over" href="#snow-arena-1180-stone-b-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="snow-arena-1180-stone-b-line" href="#snow-arena-1180-stone-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-arena-1180-stone-c">
+<use id="snow-arena-1180-stone-c-shade" href="#snow-arena-1180-stone-c-shape" fill="#77766b"/>
+<g clip-path="url(#snow-arena-1180-stone-c-clip)">
+<use id="snow-arena-1180-stone-c-fill" href="#snow-arena-1180-stone-c-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-arena-1180-stone-c-lit-clip)">
+<use id="snow-arena-1180-stone-c-lit" href="#snow-arena-1180-stone-c-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-arena-1180-stone-c-fill-over" href="#snow-arena-1180-stone-c-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="snow-arena-1180-stone-c-line" href="#snow-arena-1180-stone-c-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-arena-1180-snow">
+<use id="snow-arena-1180-snow-fill" href="#snow-arena-1180-snow-shape" fill="#f8fcfe"/>
+<use id="snow-arena-1180-snow-line" href="#snow-arena-1180-snow-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<path id="snow-arena-1180-spike-a-shape" d="M -24 0 L -14 -40 L -2 0 Z"/>
+<clipPath id="snow-arena-1180-spike-a-clip"><use href="#snow-arena-1180-spike-a-shape"/></clipPath>
+<clipPath id="snow-arena-1180-spike-a-lit-clip"><use href="#snow-arena-1180-spike-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-arena-1180-spike-b-shape" d="M 6 0 L 18 -32 L 26 0 Z"/>
+<clipPath id="snow-arena-1180-spike-b-clip"><use href="#snow-arena-1180-spike-b-shape"/></clipPath>
+<clipPath id="snow-arena-1180-spike-b-lit-clip"><use href="#snow-arena-1180-spike-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="snow-arena-1180-spike-c-shape" d="M -12 0 L 2 -60 L 14 0 Z"/>
+<clipPath id="snow-arena-1180-spike-c-clip"><use href="#snow-arena-1180-spike-c-shape"/></clipPath>
+<clipPath id="snow-arena-1180-spike-c-lit-clip"><use href="#snow-arena-1180-spike-c-shape" transform="translate(-5 -5)"/></clipPath>
+<g id="snow-arena-1180-thing-2">
+<path id="snow-arena-1180-shadow-2" d="M 32 2 C 32 5.9 19.5 9 4 9 C -11.5 9 -24 5.9 -24 2 C -24 -1.9 -11.5 -5 4 -5 C 19.5 -5 32 -1.9 32 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snow-arena-1180-spike-a">
+<use id="snow-arena-1180-spike-a-shade" href="#snow-arena-1180-spike-a-shape" fill="#3f97bd"/>
+<g clip-path="url(#snow-arena-1180-spike-a-clip)">
+<use id="snow-arena-1180-spike-a-fill" href="#snow-arena-1180-spike-a-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#snow-arena-1180-spike-a-lit-clip)">
+<use id="snow-arena-1180-spike-a-lit" href="#snow-arena-1180-spike-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-arena-1180-spike-a-fill-over" href="#snow-arena-1180-spike-a-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="snow-arena-1180-spike-a-sheen" d="M-4.6 -40 L-0.6 -40 L-17.4 0 L-21.4 0 Z M2.9 -40 L5.5 -40 L-11.3 0 L-13.9 0 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="snow-arena-1180-spike-a-face" d="M -24 0 L -14 -40 L -13 0 Z" fill="#f4f1e4" opacity="0.32"/>
+</g>
+<use id="snow-arena-1180-spike-a-line" href="#snow-arena-1180-spike-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-arena-1180-spike-b">
+<use id="snow-arena-1180-spike-b-shade" href="#snow-arena-1180-spike-b-shape" fill="#3f97bd"/>
+<g clip-path="url(#snow-arena-1180-spike-b-clip)">
+<use id="snow-arena-1180-spike-b-fill" href="#snow-arena-1180-spike-b-shape" transform="translate(-3 -3)" fill="#6fc7e8"/>
+<g clip-path="url(#snow-arena-1180-spike-b-lit-clip)">
+<use id="snow-arena-1180-spike-b-lit" href="#snow-arena-1180-spike-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-arena-1180-spike-b-fill-over" href="#snow-arena-1180-spike-b-shape" transform="translate(3.6 3.6)" fill="#6fc7e8"/>
+</g>
+<path id="snow-arena-1180-spike-b-sheen" d="M22.72 -32 L26.72 -32 L13.28 0 L9.28 0 Z M30.22 -32 L32.82 -32 L19.38 0 L16.78 0 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="snow-arena-1180-spike-b-face" d="M 6 0 L 18 -32 L 16 0 Z" fill="#f4f1e4" opacity="0.32"/>
+</g>
+<use id="snow-arena-1180-spike-b-line" href="#snow-arena-1180-spike-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-arena-1180-spike-c">
+<use id="snow-arena-1180-spike-c-shade" href="#snow-arena-1180-spike-c-shape" fill="#3f97bd"/>
+<g clip-path="url(#snow-arena-1180-spike-c-clip)">
+<use id="snow-arena-1180-spike-c-deep" href="#snow-arena-1180-spike-c-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="snow-arena-1180-spike-c-shade-over" href="#snow-arena-1180-spike-c-shape" transform="translate(-3.1 -3.1)" fill="#3f97bd"/>
+<use id="snow-arena-1180-spike-c-fill" href="#snow-arena-1180-spike-c-shape" transform="translate(-5 -5)" fill="#6fc7e8"/>
+<g clip-path="url(#snow-arena-1180-spike-c-lit-clip)">
+<use id="snow-arena-1180-spike-c-lit" href="#snow-arena-1180-spike-c-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-arena-1180-spike-c-fill-over" href="#snow-arena-1180-spike-c-shape" transform="translate(4.6 4.6)" fill="#6fc7e8"/>
+</g>
+<path id="snow-arena-1180-spike-c-sheen" d="M13.6 -60 L17.6 -60 L-7.6 0 L-11.6 0 Z M21.1 -60 L23.7 -60 L-1.5 0 L-4.1 0 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="snow-arena-1180-spike-c-face" d="M -12 0 L 2 -60 L 1 0 Z" fill="#f4f1e4" opacity="0.32"/>
+</g>
+<use id="snow-arena-1180-spike-c-line" href="#snow-arena-1180-spike-c-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="snow-arena-1180-glint" d="M -1 -40 L 2 -50 L 2 -22 L -3 -20 Z" fill="#f4f1e4"/>
+</g>
+<g id="snow-arena-1180-thing-3">
+<path id="snow-arena-1180-back" d="M -12 0 L -9 -16 L -5 0 L -1 -22 L 4 0 L 8 -15 L 12 0 Z" fill="#b9ccd8"/>
+<path id="snow-arena-1180-front" d="M -8 0 L -5 -10 L -2 0 L 2 -14 L 6 0 Z" fill="#f8fcfe"/>
+</g>
+<path id="snow-arena-1180-drift-59-shape" d="M -40 0 C -40 0 -35 -8.7 -30 -12 C -25 -15.3 -16.7 -19.3 -10 -20 C -3.3 -20.7 3.3 -17.7 10 -16 C 16.7 -14.3 24.7 -12.7 30 -10 C 35.3 -7.3 42 0 42 0 L -40 0 Z"/>
+<clipPath id="snow-arena-1180-drift-59-clip"><use href="#snow-arena-1180-drift-59-shape"/></clipPath>
+<clipPath id="snow-arena-1180-drift-59-lit-clip"><use href="#snow-arena-1180-drift-59-shape" transform="translate(-5 -5)"/></clipPath>
+<g id="snow-arena-1180-thing-4">
+<g id="snow-arena-1180-drift-59">
+<use id="snow-arena-1180-drift-59-shade" href="#snow-arena-1180-drift-59-shape" fill="#d3e0e8"/>
+<g clip-path="url(#snow-arena-1180-drift-59-clip)">
+<use id="snow-arena-1180-drift-59-deep" href="#snow-arena-1180-drift-59-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="snow-arena-1180-drift-59-shade-over" href="#snow-arena-1180-drift-59-shape" transform="translate(-3.1 -3.1)" fill="#d3e0e8"/>
+<use id="snow-arena-1180-drift-59-fill" href="#snow-arena-1180-drift-59-shape" transform="translate(-5 -5)" fill="#f8fcfe"/>
+<g clip-path="url(#snow-arena-1180-drift-59-lit-clip)">
+<use id="snow-arena-1180-drift-59-lit" href="#snow-arena-1180-drift-59-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-arena-1180-drift-59-fill-over" href="#snow-arena-1180-drift-59-shape" transform="translate(4.6 4.6)" fill="#f8fcfe"/>
+</g>
+<path id="snow-arena-1180-lee" d="M 4 -16 C 6.7 -17.7 23.7 -12.7 30 -10 C 36.3 -7.3 44.7 -1.7 42 0 C 39.3 1.7 20.3 2.7 14 0 C 7.7 -2.7 1.3 -14.3 4 -16 Z" fill="#2a1a10" opacity="0.07"/>
+</g>
+</g>
+</g>
+<path id="snow-arena-1180-rock-shape" d="M -30 0 C -30 0 -30.7 -14 -28 -20 C -25.3 -26 -19.7 -33 -14 -36 C -8.3 -39 0 -39.7 6 -38 C 12 -36.3 18 -32.3 22 -26 C 26 -19.7 30 0 30 0 L -30 0 Z"/>
+<clipPath id="snow-arena-1180-rock-clip"><use href="#snow-arena-1180-rock-shape"/></clipPath>
+<clipPath id="snow-arena-1180-rock-lit-clip"><use href="#snow-arena-1180-rock-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="snow-arena-1180-cap-shape" d="M -36 -22 C -34.7 -26.3 -23.7 -40 -16 -44 C -8.3 -48 2.3 -49.3 10 -46 C 17.7 -42.7 29 -27.3 30 -24 C 31 -20.7 20.3 -26.7 16 -26 C 11.7 -25.3 8.3 -19.7 4 -20 C -0.3 -20.3 -5.3 -28.3 -10 -28 C -14.7 -27.7 -19.7 -19 -24 -18 C -28.3 -17 -37.3 -17.7 -36 -22 Z"/>
+<path id="snow-arena-1180-pebble-shape" d="M 14 0 C 14 0 14 -7.7 16 -10 C 18 -12.3 22.7 -14.3 26 -14 C 29.3 -13.7 34 -10.3 36 -8 C 38 -5.7 38 0 38 0 L 14 0 Z"/>
+<clipPath id="snow-arena-1180-pebble-clip"><use href="#snow-arena-1180-pebble-shape"/></clipPath>
+<clipPath id="snow-arena-1180-pebble-lit-clip"><use href="#snow-arena-1180-pebble-shape" transform="translate(-3 -3)"/></clipPath>
+<g id="snow-arena-1180-thing-5">
+<path id="snow-arena-1180-shadow-3" d="M 40 2 C 40 7 23.9 11 4 11 C -15.9 11 -32 7 -32 2 C -32 -3 -15.9 -7 4 -7 C 23.9 -7 40 -3 40 2 Z" fill="#2a1a10" opacity="0.28"/>
+<g id="snow-arena-1180-rock">
+<use id="snow-arena-1180-rock-shade" href="#snow-arena-1180-rock-shape" fill="#77766b"/>
+<g clip-path="url(#snow-arena-1180-rock-clip)">
+<use id="snow-arena-1180-rock-deep" href="#snow-arena-1180-rock-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="snow-arena-1180-rock-shade-over" href="#snow-arena-1180-rock-shape" transform="translate(-3.72 -3.72)" fill="#77766b"/>
+<use id="snow-arena-1180-rock-fill" href="#snow-arena-1180-rock-shape" transform="translate(-6 -6)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-arena-1180-rock-lit-clip)">
+<use id="snow-arena-1180-rock-lit" href="#snow-arena-1180-rock-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-arena-1180-rock-fill-over" href="#snow-arena-1180-rock-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<path id="snow-arena-1180-facet" d="M -24 -18 L -12 -34 L 4 -34 L -4 -14 L -22 -6 Z" fill="#f4f1e4" opacity="0.22"/>
+<path id="snow-arena-1180-facet-far" d="M 8 -30 L 24 -22 L 28 0 L 10 0 L 4 -14 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="snow-arena-1180-crack" d="M -2 -30 L 2 -20 L -3 -12 L 1 -4 L 4 -4 L 0 -12 L 5 -20 L 1 -30 Z" fill="#2a1a10" opacity="0.31"/>
+<g id="snow-arena-1180-cap">
+<use id="snow-arena-1180-cap-fill" href="#snow-arena-1180-cap-shape" fill="#f8fcfe"/>
+<use id="snow-arena-1180-cap-line" href="#snow-arena-1180-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="snow-arena-1180-rock-line" href="#snow-arena-1180-rock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="snow-arena-1180-pebble">
+<use id="snow-arena-1180-pebble-shade" href="#snow-arena-1180-pebble-shape" fill="#77766b"/>
+<g clip-path="url(#snow-arena-1180-pebble-clip)">
+<use id="snow-arena-1180-pebble-fill" href="#snow-arena-1180-pebble-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#snow-arena-1180-pebble-lit-clip)">
+<use id="snow-arena-1180-pebble-lit" href="#snow-arena-1180-pebble-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="snow-arena-1180-pebble-fill-over" href="#snow-arena-1180-pebble-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="snow-arena-1180-pebble-line" href="#snow-arena-1180-pebble-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</defs>
+<path id="snow-arena-1180-land" d="M 0 0 L 1180 0 L 1180 800 L 0 800 L 0 0 Z" fill="#b9ccd8"/>
+<path id="snow-arena-1180-field-edge" d="M 40 47.5 C 59.8 30.2 121.5 40.1 162.2 39.1 C 203 38.1 243.7 40.3 284.4 41.5 C 325.2 42.7 365.9 45.5 406.7 46 C 447.4 46.6 488.1 46 528.9 44.8 C 569.6 43.5 610.4 39.4 651.1 38.6 C 691.9 37.8 732.6 39 773.3 39.9 C 814.1 40.9 854.8 43.2 895.6 44.2 C 936.3 45.1 978.1 46.3 1017.8 45.6 C 1057.5 44.9 1113.6 23.8 1133.8 40 C 1153.9 56.2 1136.3 108.6 1138.5 142.9 C 1140.7 177.1 1146.9 211.4 1146.8 245.7 C 1146.7 280 1138.2 314.3 1137.9 348.6 C 1137.5 382.9 1143.4 417.1 1144.9 451.4 C 1146.3 485.7 1147.2 520 1146.5 554.3 C 1145.8 588.6 1141.7 622.2 1140.6 657.1 C 1139.5 692.1 1160.5 746.1 1140 763.9 C 1119.5 781.6 1058.5 763.9 1017.8 763.7 C 977 763.5 936.3 762.7 895.6 762.7 C 854.8 762.6 814.1 762.8 773.3 763.4 C 732.6 764 691.9 765.7 651.1 766.1 C 610.4 766.4 569.6 766.4 528.9 765.5 C 488.1 764.7 447.4 762.4 406.7 761.1 C 365.9 759.7 325.2 758.2 284.4 757.3 C 243.7 756.4 203.2 755.3 162.2 755.7 C 121.2 756.2 59 776.4 38.6 760 C 18.1 743.6 38.9 691.4 39.5 657.1 C 40.1 622.9 40.8 588.6 42.1 554.3 C 43.5 520 48 485.7 47.7 451.4 C 47.5 417.1 41.6 382.9 40.7 348.6 C 39.8 314.3 42 280 42.4 245.7 C 42.9 211.4 43.9 175.9 43.5 142.9 C 43.1 109.8 20.2 64.8 40 47.5 Z" fill="#d3e0e8"/>
+<path id="snow-arena-1180-field" d="M 48.3 54.6 C 67.7 37.6 128.5 47.3 168.6 46.3 C 208.8 45.3 248.9 47.5 289 48.7 C 329.2 49.8 369.3 52.6 409.4 53.1 C 449.5 53.7 489.7 53.1 529.8 51.9 C 569.9 50.7 610.1 46.6 650.2 45.8 C 690.3 45 730.5 46.2 770.6 47.1 C 810.7 48.1 850.8 50.4 891 51.3 C 931.1 52.2 972.3 53.4 1011.4 52.7 C 1050.5 52 1105.8 31.3 1125.6 47.2 C 1145.4 63.1 1128.1 114.4 1130.3 148 C 1132.4 181.6 1138.6 215.2 1138.5 248.8 C 1138.4 282.4 1130 316 1129.6 349.6 C 1129.3 383.2 1135.1 416.8 1136.6 450.4 C 1138 484 1138.9 517.6 1138.2 551.2 C 1137.5 584.8 1133.4 617.8 1132.4 652 C 1131.3 686.2 1151.9 739.2 1131.8 756.6 C 1111.6 774 1051.5 756.7 1011.4 756.5 C 971.2 756.3 931.1 755.5 891 755.4 C 850.8 755.4 810.7 755.6 770.6 756.1 C 730.5 756.7 690.3 758.4 650.2 758.7 C 610.1 759.1 569.9 759 529.8 758.2 C 489.7 757.4 449.5 755.2 409.4 753.8 C 369.3 752.5 329.2 751 289 750.2 C 248.9 749.3 209 748.2 168.6 748.6 C 128.3 749 67 768.9 46.8 752.8 C 26.7 736.7 47.2 685.6 47.8 652 C 48.4 618.4 49 584.8 50.4 551.2 C 51.7 517.6 56.1 484 55.9 450.4 C 55.6 416.8 49.8 383.2 48.9 349.6 C 48.1 316 50.2 282.4 50.7 248.8 C 51.1 215.2 52.1 180.4 51.7 148 C 51.3 115.6 28.8 71.5 48.3 54.6 Z" fill="#e4edf2"/>
+<path id="snow-arena-1180-patch-lit" d="M 1028.2 60.6 C 1022.1 47 1006.7 24.5 1015.3 14.5 C 1023.9 4.5 1059.1 2.5 1079.8 0.7 C 1100.5 -1.2 1125.5 -3.3 1139.6 3.4 C 1153.7 10.2 1159.6 27.5 1164.4 41.2 C 1169.3 54.9 1178.2 75.7 1168.9 85.6 C 1159.7 95.5 1128.5 98.7 1108.9 100.5 C 1089.4 102.4 1065.2 103.1 1051.8 96.5 C 1038.3 89.8 1034.3 74.3 1028.2 60.6 Z" fill="#f4f1e4" opacity="0.12"/>
+<path id="snow-arena-1180-patch-dark" d="M 1165.5 454.1 C 1165.1 475.5 1120.4 496.2 1093.6 517.4 C 1066.9 538.6 1036.2 580.1 1005 581.3 C 973.8 582.5 941.5 545.2 906.4 524.5 C 871.3 503.8 797.5 481.5 794.6 456.9 C 791.7 432.4 854.4 394.3 888.9 377.1 C 923.3 360 966.9 352.2 1001.5 354.1 C 1036 356.1 1068.8 372.1 1096.1 388.8 C 1123.5 405.4 1165.9 432.7 1165.5 454.1 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-patch-lit-2" d="M 860.9 496.8 C 844.4 491.3 835 476 827 464.5 C 819 453.1 809.5 439.6 812.9 428.1 C 816.4 416.6 832.1 401.5 847.6 395.5 C 863 389.6 889.8 388.3 905.8 392.5 C 921.9 396.6 935.9 409.7 944 420.6 C 952.1 431.5 957.4 445.1 954.3 458 C 951.3 470.8 941.4 491.1 925.8 497.6 C 910.2 504.1 877.3 502.3 860.9 496.8 Z" fill="#f4f1e4" opacity="0.08"/>
+<path id="snow-arena-1180-patch-dark-2" d="M 1086 411.2 C 1100 406.4 1124.9 411 1140.9 415.5 C 1157 420.1 1171.9 427.5 1182.2 438.3 C 1192.4 449.1 1208.1 469.2 1202.6 480.3 C 1197.2 491.4 1169.7 496 1149.4 504.8 C 1129.2 513.6 1102.8 535.2 1081.1 533.1 C 1059.3 531.1 1022.9 507.4 1018.8 492.5 C 1014.8 477.6 1045.6 457.5 1056.8 443.9 C 1068 430.4 1071.9 415.9 1086 411.2 Z" fill="#2a1a10" opacity="0.04"/>
+<path id="snow-arena-1180-patch-lit-3" d="M -68.4 95.7 C -40 77.2 15.1 75.3 52.9 75.1 C 90.7 75 123.8 80.8 158.2 94.9 C 192.6 108.9 259.6 137.9 259.3 159.4 C 259 181 186.2 206.4 156.4 224.1 C 126.5 241.8 115 257.4 80.4 265.7 C 45.9 274.1 -18.1 287.5 -51 274.3 C -83.9 261 -114.2 215.9 -117.1 186.1 C -120 156.3 -96.7 114.2 -68.4 95.7 Z" fill="#f4f1e4" opacity="0.12"/>
+<path id="snow-arena-1180-patch-dark-3" d="M 581.1 279.6 C 605 265 652.5 269.9 683.5 269.2 C 714.5 268.5 741.5 266 767.1 275.4 C 792.6 284.8 834.3 307.6 836.7 325.6 C 839.2 343.5 801.9 366.9 781.9 382.9 C 761.9 399 747 413.2 716.8 421.8 C 686.5 430.3 629.8 445 600.3 434.3 C 570.9 423.5 543.3 383.1 540.1 357.3 C 536.9 331.5 557.2 294.3 581.1 279.6 Z" fill="#2a1a10" opacity="0.03"/>
+<path id="snow-arena-1180-patch-lit-4" d="M 585.3 281.6 C 589.9 302.1 597.1 335.7 580.2 350.1 C 563.4 364.4 517.7 365.7 484.1 367.8 C 450.6 370 409.1 375.7 378.8 363.2 C 348.5 350.7 306.2 318.4 302.2 292.7 C 298.2 267 326.6 224.3 354.7 209 C 382.8 193.7 437.8 197.7 470.7 200.7 C 503.7 203.7 533.4 213.7 552.5 227.1 C 571.6 240.6 580.7 261.1 585.3 281.6 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="snow-arena-1180-patch-dark-4" d="M 400.3 341.2 C 383.7 330.9 389.1 300.7 387.4 282.2 C 385.7 263.8 378.7 245.2 390.1 230.5 C 401.6 215.8 433.7 194.8 456.1 193.9 C 478.4 193 503.7 213.6 524.3 225.1 C 544.9 236.6 572.4 246.5 579.6 262.8 C 586.7 279.2 582.6 309.7 567.2 323.2 C 551.8 336.7 514.8 340.9 487 343.9 C 459.2 346.9 416.9 351.5 400.3 341.2 Z" fill="#2a1a10" opacity="0.04"/>
+<path id="snow-arena-1180-patch-lit-5" d="M 1017.3 683.8 C 1022.2 665.2 1043.6 641.1 1066.4 631.4 C 1089.2 621.6 1127.1 620.9 1154.1 625.3 C 1181 629.6 1210.9 641.5 1228.2 657.4 C 1245.4 673.4 1264.3 702.9 1257.8 720.9 C 1251.3 739 1214.2 757 1189.1 765.9 C 1164 774.8 1132.5 778 1107.2 774.2 C 1081.8 770.4 1052 758 1037 742.9 C 1022 727.8 1012.4 702.4 1017.3 683.8 Z" fill="#f4f1e4" opacity="0.12"/>
+<path id="snow-arena-1180-patch-dark-5" d="M 1010.4 638.2 C 995.5 630.1 974.8 617.1 973.5 605.8 C 972.3 594.5 990.6 579.1 1002.9 570.5 C 1015.2 562 1030.1 557.5 1047.5 554.6 C 1064.9 551.7 1097.3 546.5 1107.5 553.2 C 1117.6 560 1108.5 582.8 1108.2 595.3 C 1107.9 607.8 1113.1 618.2 1105.6 628 C 1098.1 637.8 1079.2 652.2 1063.3 653.9 C 1047.4 655.6 1025.4 646.2 1010.4 638.2 Z" fill="#2a1a10" opacity="0.06"/>
+<path id="snow-arena-1180-patch-lit-6" d="M 312.3 761.9 C 314.9 790.6 311.8 852.1 282.6 864.7 C 253.5 877.3 176.7 848.8 137.4 837.7 C 98.1 826.6 67.1 817.1 46.8 798.1 C 26.5 779 13.8 750.4 15.6 723.3 C 17.4 696.1 27.9 651 57.5 635.2 C 87.1 619.3 158.1 618.6 193 628.1 C 228 637.6 247.3 669.9 267.2 692.2 C 287.1 714.4 309.8 733.1 312.3 761.9 Z" fill="#f4f1e4" opacity="0.08"/>
+<path id="snow-arena-1180-patch-dark-6" d="M 835.5 361.3 C 844.9 347.3 863 324.3 883.5 320.2 C 904 316.1 936.6 327.2 958.4 336.8 C 980.1 346.5 1011.8 363.4 1013.9 378 C 1016 392.6 985.9 410.2 971 424.3 C 956.1 438.4 944.9 458 924.5 462.6 C 904.1 467.3 865 462 848.8 452.2 C 832.6 442.5 829.5 419.5 827.3 404.3 C 825.1 389.2 826.1 375.3 835.5 361.3 Z" fill="#2a1a10" opacity="0.04"/>
+<path id="snow-arena-1180-patch-lit-7" d="M 603.5 72.6 C 613.6 92.9 591.3 112.6 587.3 136.7 C 583.3 160.7 600.3 202.6 579.4 216.8 C 558.5 231 498.6 227.5 461.6 221.8 C 424.7 216.2 378.6 203.4 357.7 182.8 C 336.8 162.2 326 121.6 336.3 98.2 C 346.7 74.8 388.2 56.5 419.9 42.5 C 451.6 28.6 495.9 9.5 526.5 14.5 C 557.1 19.5 593.3 52.2 603.5 72.6 Z" fill="#f4f1e4" opacity="0.09"/>
+<path id="snow-arena-1180-patch-dark-7" d="M 265 186.9 C 252.2 171.5 239.1 142.8 248.1 125.4 C 257.2 108 290.7 91.7 319.5 82.5 C 348.3 73.4 390.8 63.4 420.9 70.5 C 451 77.6 493 104.7 500.1 125.3 C 507.2 145.9 479.6 175.2 463.4 193.9 C 447.1 212.7 425.6 233.8 402.5 237.8 C 379.5 241.8 348.1 226.4 325.1 217.9 C 302.2 209.4 277.9 202.3 265 186.9 Z" fill="#2a1a10" opacity="0.04"/>
+<path id="snow-arena-1180-patch-lit-8" d="M 1004.6 51.7 C 1020.8 38.9 1043.4 12.9 1061.7 13.4 C 1080 13.8 1095.9 41.3 1114.7 54.6 C 1133.4 67.8 1168.4 76.1 1174.2 93.1 C 1179.9 110 1168.6 143.6 1149.2 156.5 C 1129.8 169.4 1086 172.4 1057.9 170.5 C 1029.8 168.6 996.2 158.5 980.7 145.2 C 965.1 131.9 960.8 106.1 964.8 90.5 C 968.8 75 988.5 64.6 1004.6 51.7 Z" fill="#f4f1e4" opacity="0.12"/>
+<path id="snow-arena-1180-patch-dark-8" d="M 470.6 380.3 C 485.9 382 501.2 395.1 512.2 405.2 C 523.2 415.4 539.2 430.4 536.7 441.2 C 534.1 451.9 512.2 461.4 496.9 469.6 C 481.6 477.9 462.8 491.2 444.9 490.8 C 427 490.4 401.4 478.5 389.4 467.1 C 377.3 455.8 367.5 434.5 372.7 422.5 C 377.9 410.5 404.2 402.4 420.5 395.3 C 436.8 388.3 455.3 378.7 470.6 380.3 Z" fill="#2a1a10" opacity="0.03"/>
+<path id="snow-arena-1180-patch-lit-9" d="M 130.6 25.4 C 172.8 33.1 237.7 50.8 251.7 74.3 C 265.7 97.7 230.8 139.5 214.6 166 C 198.4 192.5 185 218.9 154.4 233.4 C 123.9 247.8 71.1 258.3 31.5 252.5 C -8.2 246.8 -67.8 223.4 -83.6 199.1 C -99.4 174.8 -77.1 135 -63.4 106.5 C -49.7 78.1 -33.8 41.8 -1.4 28.3 C 30.9 14.8 88.4 17.8 130.6 25.4 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="snow-arena-1180-patch-dark-9" d="M 517.6 312.4 C 498.3 297.9 478.1 279.6 476.5 262 C 475 244.4 490.3 222 508.4 206.7 C 526.4 191.5 557.3 172.4 584.9 170.7 C 612.5 169 653.4 182 674 196.4 C 694.5 210.9 712.2 240 708.1 257.3 C 704.1 274.6 669.1 285 649.8 300.2 C 630.5 315.4 614.3 346.6 592.2 348.6 C 570.2 350.7 536.9 326.8 517.6 312.4 Z" fill="#2a1a10" opacity="0.04"/>
+<path id="snow-arena-1180-patch-lit-10" d="M 321.8 626.7 C 304.4 607.7 289.1 589.9 289.6 570.9 C 290.2 552 304.2 530.3 325 513 C 345.8 495.7 379.3 470 414.5 467.1 C 449.7 464.2 514.4 476 536.2 495.3 C 558 514.6 553.2 558 545.4 582.8 C 537.6 607.7 514.7 627.6 489.4 644.5 C 464.1 661.4 421.7 687.5 393.8 684.5 C 365.9 681.5 339.2 645.6 321.8 626.7 Z" fill="#f4f1e4" opacity="0.1"/>
+<path id="snow-arena-1180-patch-dark-10" d="M 573.4 53.6 C 586.3 80.3 615.8 108.9 605.8 131.3 C 595.8 153.6 551.8 174.1 513.5 187.7 C 475.2 201.3 414.6 222.2 376.1 213 C 337.7 203.8 291.5 160.4 282.9 132.3 C 274.3 104.2 303.3 66.2 324.5 44.2 C 345.6 22.2 375.9 12.6 410 0.4 C 444 -11.8 501.6 -37.7 528.8 -28.8 C 556 -20 560.6 26.9 573.4 53.6 Z" fill="#2a1a10" opacity="0.04"/>
+<path id="snow-arena-1180-patch-lit-11" d="M 836.1 193.5 C 858.8 200.6 872.6 224.8 884 242.3 C 895.4 259.8 910.2 280.5 904.5 298.4 C 898.7 316.3 873.1 343.1 849.5 349.7 C 825.8 356.2 792.2 343.9 762.6 337.7 C 733.1 331.6 685 328.5 671.9 312.8 C 658.9 297.1 671.9 262.4 684.5 243.5 C 697.2 224.6 722.3 207.8 747.6 199.4 C 772.8 191.1 813.3 186.3 836.1 193.5 Z" fill="#f4f1e4" opacity="0.11"/>
+<path id="snow-arena-1180-patch-dark-11" d="M 957.5 348.4 C 941.5 338.5 930.7 316.7 930.3 300.6 C 929.8 284.6 939.2 263.6 954.8 251.8 C 970.4 240.1 998.2 232.2 1023.8 230.2 C 1049.4 228.2 1091 228.5 1108.3 239.9 C 1125.6 251.3 1132.1 282.3 1127.7 298.8 C 1123.3 315.2 1099 328.3 1082.1 338.5 C 1065.2 348.7 1047.1 358.3 1026.3 360 C 1005.6 361.6 973.5 358.3 957.5 348.4 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-patch-lit-12" d="M 35.3 240.6 C 59.2 239 82.9 255 102.6 263.3 C 122.2 271.6 144.7 277.7 153.3 290.3 C 161.8 303 161.4 322.5 154 339.2 C 146.7 356 130.7 384.6 109.1 390.6 C 87.5 396.7 46.4 385 24.5 375.4 C 2.5 365.7 -11.9 349.8 -22.7 332.7 C -33.6 315.6 -50.6 288.1 -40.9 272.7 C -31.2 257.4 11.4 242.2 35.3 240.6 Z" fill="#f4f1e4" opacity="0.08"/>
+<path id="snow-arena-1180-patch-dark-12" d="M 726.5 574.6 C 743 584.3 765.6 600.5 767.4 615.2 C 769.2 630 753.7 650.8 737.3 663.3 C 720.8 675.9 690.5 691.2 668.7 690.5 C 646.9 689.8 625 671.5 606.4 659 C 587.7 646.5 556 629.3 556.9 615.5 C 557.8 601.6 593.4 585.6 612 575.9 C 630.6 566.2 649.3 557.6 668.4 557.4 C 687.5 557.1 710 565 726.5 574.6 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-patch-lit-13" d="M 572 147.8 C 586.3 163.2 607.5 190.4 600 205.4 C 592.6 220.4 552.3 229.1 527.3 237.7 C 502.3 246.2 471.7 261 450 256.8 C 428.2 252.5 411.2 229.4 396.8 212.2 C 382.3 195 357.6 170.9 363.3 153.7 C 369 136.6 405.9 116 431 109.2 C 456.1 102.4 490.5 106.6 514 113 C 537.5 119.5 557.6 132.4 572 147.8 Z" fill="#f4f1e4" opacity="0.09"/>
+<path id="snow-arena-1180-patch-dark-13" d="M 580.7 288.5 C 599.6 284.3 626.9 299.2 649.6 305.6 C 672.3 311.9 708.3 314.6 716.9 326.7 C 725.6 338.7 711.2 363 701.3 378 C 691.5 392.9 677.6 409.1 657.7 416.3 C 637.9 423.6 599.3 428.4 582.2 421.4 C 565.1 414.5 562.9 389.5 555.2 374.4 C 547.5 359.3 531.9 345.3 536.2 331 C 540.5 316.6 561.9 292.8 580.7 288.5 Z" fill="#2a1a10" opacity="0.03"/>
+<path id="snow-arena-1180-dip" d="M 984.5 689.9 C 984.5 692.9 978.3 695.4 970.5 695.4 C 962.8 695.4 956.5 692.9 956.5 689.9 C 956.5 686.8 962.8 684.4 970.5 684.4 C 978.3 684.4 984.5 686.8 984.5 689.9 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift" d="M 574 478.8 C 574 482.4 565.9 485.3 556 485.3 C 546 485.3 538 482.4 538 478.8 C 538 475.2 546 472.3 556 472.3 C 565.9 472.3 574 475.2 574 478.8 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-2" d="M 808.8 315.6 C 808.8 319.2 800.8 322.1 790.8 322.1 C 780.9 322.1 772.8 319.2 772.8 315.6 C 772.8 312 780.9 309.1 790.8 309.1 C 800.8 309.1 808.8 312 808.8 315.6 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-3" d="M 536.9 327.1 C 536.9 330.6 528.8 333.6 518.9 333.6 C 508.9 333.6 500.9 330.6 500.9 327.1 C 500.9 323.5 508.9 320.6 518.9 320.6 C 528.8 320.6 536.9 323.5 536.9 327.1 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-4" d="M 324.2 589.6 C 324.2 593.2 316.2 596.1 306.2 596.1 C 296.3 596.1 288.2 593.2 288.2 589.6 C 288.2 586 296.3 583.1 306.2 583.1 C 316.2 583.1 324.2 586 324.2 589.6 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice" d="M 129.9 240.6 L 134.9 247.1 L 129.9 253.6 L 124.9 247.1 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-5" d="M 562.2 727.4 C 562.2 731 554.2 733.9 544.2 733.9 C 534.3 733.9 526.2 731 526.2 727.4 C 526.2 723.8 534.3 720.9 544.2 720.9 C 554.2 720.9 562.2 723.8 562.2 727.4 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-6" d="M 234.4 718.1 C 234.4 721.7 226.4 724.6 216.4 724.6 C 206.5 724.6 198.4 721.7 198.4 718.1 C 198.4 714.5 206.5 711.6 216.4 711.6 C 226.4 711.6 234.4 714.5 234.4 718.1 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-2" d="M 350.7 215.4 L 355.7 221.9 L 350.7 228.4 L 345.7 221.9 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-7" d="M 1108.2 186 C 1108.2 189.6 1100.1 192.5 1090.2 192.5 C 1080.2 192.5 1072.2 189.6 1072.2 186 C 1072.2 182.4 1080.2 179.5 1090.2 179.5 C 1100.1 179.5 1108.2 182.4 1108.2 186 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-3" d="M 274.1 636 L 279.1 642.5 L 274.1 649 L 269.1 642.5 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-8" d="M 367 158.2 C 367 161.8 359 164.7 349 164.7 C 339.1 164.7 331 161.8 331 158.2 C 331 154.6 339.1 151.7 349 151.7 C 359 151.7 367 154.6 367 158.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-9" d="M 181.3 658.1 C 181.3 661.7 173.2 664.6 163.3 664.6 C 153.3 664.6 145.3 661.7 145.3 658.1 C 145.3 654.5 153.3 651.6 163.3 651.6 C 173.2 651.6 181.3 654.5 181.3 658.1 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-4" d="M 467.8 257 L 472.8 263.5 L 467.8 270 L 462.8 263.5 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-ice-5" d="M 784.6 78.3 L 789.6 84.8 L 784.6 91.3 L 779.6 84.8 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-dip-2" d="M 969 105.3 C 969 108.3 962.7 110.8 955 110.8 C 947.3 110.8 941 108.3 941 105.3 C 941 102.2 947.3 99.8 955 99.8 C 962.7 99.8 969 102.2 969 105.3 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-10" d="M 518.9 391.8 C 518.9 395.4 510.9 398.3 500.9 398.3 C 491 398.3 482.9 395.4 482.9 391.8 C 482.9 388.2 491 385.3 500.9 385.3 C 510.9 385.3 518.9 388.2 518.9 391.8 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-11" d="M 811.9 276.2 C 811.9 279.7 803.9 282.7 793.9 282.7 C 784 282.7 775.9 279.7 775.9 276.2 C 775.9 272.6 784 269.7 793.9 269.7 C 803.9 269.7 811.9 272.6 811.9 276.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-3" d="M 976.3 245.6 C 976.3 248.7 970 251.1 962.3 251.1 C 954.6 251.1 948.3 248.7 948.3 245.6 C 948.3 242.6 954.6 240.1 962.3 240.1 C 970 240.1 976.3 242.6 976.3 245.6 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-dip-4" d="M 943.7 581.6 C 943.7 584.6 937.5 587.1 929.7 587.1 C 922 587.1 915.7 584.6 915.7 581.6 C 915.7 578.5 922 576.1 929.7 576.1 C 937.5 576.1 943.7 578.5 943.7 581.6 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-dip-5" d="M 840.8 132.2 C 840.8 135.2 834.5 137.7 826.8 137.7 C 819.1 137.7 812.8 135.2 812.8 132.2 C 812.8 129.2 819.1 126.7 826.8 126.7 C 834.5 126.7 840.8 129.2 840.8 132.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-12" d="M 347.5 318.3 C 347.5 321.9 339.5 324.8 329.5 324.8 C 319.6 324.8 311.5 321.9 311.5 318.3 C 311.5 314.7 319.6 311.8 329.5 311.8 C 339.5 311.8 347.5 314.7 347.5 318.3 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-6" d="M 1113.6 318.7 C 1113.6 321.7 1107.3 324.2 1099.6 324.2 C 1091.8 324.2 1085.6 321.7 1085.6 318.7 C 1085.6 315.7 1091.8 313.2 1099.6 313.2 C 1107.3 313.2 1113.6 315.7 1113.6 318.7 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-13" d="M 959.9 729.2 C 959.9 732.8 951.8 735.7 941.9 735.7 C 931.9 735.7 923.9 732.8 923.9 729.2 C 923.9 725.6 931.9 722.7 941.9 722.7 C 951.8 722.7 959.9 725.6 959.9 729.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-6" d="M 577.5 459.4 L 582.5 465.9 L 577.5 472.4 L 572.5 465.9 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-dip-7" d="M 1080 553.6 C 1080 556.6 1073.7 559.1 1066 559.1 C 1058.3 559.1 1052 556.6 1052 553.6 C 1052 550.6 1058.3 548.1 1066 548.1 C 1073.7 548.1 1080 550.6 1080 553.6 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-14" d="M 203.5 120.4 C 203.5 124 195.4 126.9 185.5 126.9 C 175.6 126.9 167.5 124 167.5 120.4 C 167.5 116.8 175.6 113.9 185.5 113.9 C 195.4 113.9 203.5 116.8 203.5 120.4 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-15" d="M 846 706.5 C 846 710.1 838 713 828 713 C 818.1 713 810 710.1 810 706.5 C 810 702.9 818.1 700 828 700 C 838 700 846 702.9 846 706.5 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-8" d="M 952.9 728.4 C 952.9 731.5 946.6 733.9 938.9 733.9 C 931.2 733.9 924.9 731.5 924.9 728.4 C 924.9 725.4 931.2 722.9 938.9 722.9 C 946.6 722.9 952.9 725.4 952.9 728.4 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-16" d="M 833.3 402.2 C 833.3 405.8 825.2 408.7 815.3 408.7 C 805.4 408.7 797.3 405.8 797.3 402.2 C 797.3 398.7 805.4 395.7 815.3 395.7 C 825.2 395.7 833.3 398.7 833.3 402.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-17" d="M 854.5 218.8 C 854.5 222.4 846.4 225.3 836.5 225.3 C 826.5 225.3 818.5 222.4 818.5 218.8 C 818.5 215.2 826.5 212.3 836.5 212.3 C 846.4 212.3 854.5 215.2 854.5 218.8 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-7" d="M 881.9 108.8 L 886.9 115.3 L 881.9 121.8 L 876.9 115.3 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-dip-9" d="M 512.7 242.4 C 512.7 245.5 506.5 247.9 498.7 247.9 C 491 247.9 484.7 245.5 484.7 242.4 C 484.7 239.4 491 236.9 498.7 236.9 C 506.5 236.9 512.7 239.4 512.7 242.4 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-dip-10" d="M 956.8 98.2 C 956.8 101.2 950.5 103.7 942.8 103.7 C 935.1 103.7 928.8 101.2 928.8 98.2 C 928.8 95.1 935.1 92.7 942.8 92.7 C 950.5 92.7 956.8 95.1 956.8 98.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-18" d="M 187.8 145.9 C 187.8 149.5 179.8 152.4 169.8 152.4 C 159.9 152.4 151.8 149.5 151.8 145.9 C 151.8 142.3 159.9 139.4 169.8 139.4 C 179.8 139.4 187.8 142.3 187.8 145.9 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-19" d="M 1012.8 337.2 C 1012.8 340.8 1004.8 343.7 994.8 343.7 C 984.9 343.7 976.8 340.8 976.8 337.2 C 976.8 333.6 984.9 330.7 994.8 330.7 C 1004.8 330.7 1012.8 333.6 1012.8 337.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-20" d="M 432.2 577 C 432.2 580.6 424.2 583.5 414.2 583.5 C 404.3 583.5 396.2 580.6 396.2 577 C 396.2 573.4 404.3 570.5 414.2 570.5 C 424.2 570.5 432.2 573.4 432.2 577 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-21" d="M 794.4 389.2 C 794.4 392.7 786.3 395.7 776.4 395.7 C 766.4 395.7 758.4 392.7 758.4 389.2 C 758.4 385.6 766.4 382.7 776.4 382.7 C 786.3 382.7 794.4 385.6 794.4 389.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-8" d="M 729.7 102.5 L 734.7 109 L 729.7 115.5 L 724.7 109 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-dip-11" d="M 266.2 290 C 266.2 293.1 259.9 295.5 252.2 295.5 C 244.4 295.5 238.2 293.1 238.2 290 C 238.2 287 244.4 284.5 252.2 284.5 C 259.9 284.5 266.2 287 266.2 290 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-22" d="M 428.6 300.6 C 428.6 304.2 420.5 307.1 410.6 307.1 C 400.7 307.1 392.6 304.2 392.6 300.6 C 392.6 297 400.7 294.1 410.6 294.1 C 420.5 294.1 428.6 297 428.6 300.6 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-9" d="M 289.5 320.9 L 294.5 327.4 L 289.5 333.9 L 284.5 327.4 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-23" d="M 398.3 430.2 C 398.3 433.8 390.3 436.7 380.3 436.7 C 370.4 436.7 362.3 433.8 362.3 430.2 C 362.3 426.6 370.4 423.7 380.3 423.7 C 390.3 423.7 398.3 426.6 398.3 430.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-24" d="M 916.4 665.3 C 916.4 668.9 908.4 671.8 898.4 671.8 C 888.5 671.8 880.4 668.9 880.4 665.3 C 880.4 661.7 888.5 658.8 898.4 658.8 C 908.4 658.8 916.4 661.7 916.4 665.3 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-10" d="M 724.7 580.6 L 729.7 587.1 L 724.7 593.6 L 719.7 587.1 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-25" d="M 450.2 613.7 C 450.2 617.3 442.2 620.2 432.2 620.2 C 422.3 620.2 414.2 617.3 414.2 613.7 C 414.2 610.1 422.3 607.2 432.2 607.2 C 442.2 607.2 450.2 610.1 450.2 613.7 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-12" d="M 1053.7 457.6 C 1053.7 460.6 1047.4 463.1 1039.7 463.1 C 1032 463.1 1025.7 460.6 1025.7 457.6 C 1025.7 454.6 1032 452.1 1039.7 452.1 C 1047.4 452.1 1053.7 454.6 1053.7 457.6 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-dip-13" d="M 949.2 478.9 C 949.2 481.9 942.9 484.4 935.2 484.4 C 927.4 484.4 921.2 481.9 921.2 478.9 C 921.2 475.9 927.4 473.4 935.2 473.4 C 942.9 473.4 949.2 475.9 949.2 478.9 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-dip-14" d="M 232.2 120.8 C 232.2 123.9 225.9 126.3 218.2 126.3 C 210.5 126.3 204.2 123.9 204.2 120.8 C 204.2 117.8 210.5 115.3 218.2 115.3 C 225.9 115.3 232.2 117.8 232.2 120.8 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-26" d="M 192.8 84.5 C 192.8 88.1 184.8 91 174.8 91 C 164.9 91 156.8 88.1 156.8 84.5 C 156.8 80.9 164.9 78 174.8 78 C 184.8 78 192.8 80.9 192.8 84.5 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-11" d="M 933 185.5 L 938 192 L 933 198.5 L 928 192 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-dip-15" d="M 763.4 662.8 C 763.4 665.8 757.1 668.3 749.4 668.3 C 741.6 668.3 735.4 665.8 735.4 662.8 C 735.4 659.7 741.6 657.3 749.4 657.3 C 757.1 657.3 763.4 659.7 763.4 662.8 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-dip-16" d="M 1071.6 667.7 C 1071.6 670.7 1065.3 673.2 1057.6 673.2 C 1049.8 673.2 1043.6 670.7 1043.6 667.7 C 1043.6 664.6 1049.8 662.2 1057.6 662.2 C 1065.3 662.2 1071.6 664.6 1071.6 667.7 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-ice-12" d="M 74.9 480.8 L 79.9 487.3 L 74.9 493.8 L 69.9 487.3 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-dip-17" d="M 296.2 697.2 C 296.2 700.2 289.9 702.7 282.2 702.7 C 274.4 702.7 268.2 700.2 268.2 697.2 C 268.2 694.1 274.4 691.7 282.2 691.7 C 289.9 691.7 296.2 694.1 296.2 697.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-27" d="M 193.4 199.6 C 193.4 203.2 185.4 206.1 175.4 206.1 C 165.5 206.1 157.4 203.2 157.4 199.6 C 157.4 196 165.5 193.1 175.4 193.1 C 185.4 193.1 193.4 196 193.4 199.6 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-13" d="M 230.4 80.6 L 235.4 87.1 L 230.4 93.6 L 225.4 87.1 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-28" d="M 446.7 119.7 C 446.7 123.3 438.6 126.2 428.7 126.2 C 418.7 126.2 410.7 123.3 410.7 119.7 C 410.7 116.1 418.7 113.2 428.7 113.2 C 438.6 113.2 446.7 116.1 446.7 119.7 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-14" d="M 308.4 184.8 L 313.4 191.3 L 308.4 197.8 L 303.4 191.3 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-29" d="M 403 529.9 C 403 533.5 395 536.4 385 536.4 C 375.1 536.4 367 533.5 367 529.9 C 367 526.3 375.1 523.4 385 523.4 C 395 523.4 403 526.3 403 529.9 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-18" d="M 840.7 498 C 840.7 501.1 834.4 503.5 826.7 503.5 C 819 503.5 812.7 501.1 812.7 498 C 812.7 495 819 492.5 826.7 492.5 C 834.4 492.5 840.7 495 840.7 498 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-30" d="M 166.5 495.3 C 166.5 498.9 158.5 501.8 148.5 501.8 C 138.6 501.8 130.5 498.9 130.5 495.3 C 130.5 491.7 138.6 488.8 148.5 488.8 C 158.5 488.8 166.5 491.7 166.5 495.3 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-19" d="M 848.2 256.2 C 848.2 259.2 841.9 261.7 834.2 261.7 C 826.5 261.7 820.2 259.2 820.2 256.2 C 820.2 253.1 826.5 250.7 834.2 250.7 C 841.9 250.7 848.2 253.1 848.2 256.2 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-31" d="M 125.8 727.4 C 125.8 731 117.8 733.9 107.8 733.9 C 97.9 733.9 89.8 731 89.8 727.4 C 89.8 723.8 97.9 720.9 107.8 720.9 C 117.8 720.9 125.8 723.8 125.8 727.4 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-32" d="M 840.2 692.4 C 840.2 696 832.2 698.9 822.2 698.9 C 812.3 698.9 804.2 696 804.2 692.4 C 804.2 688.8 812.3 685.9 822.2 685.9 C 832.2 685.9 840.2 688.8 840.2 692.4 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-20" d="M 686.2 265.8 C 686.2 268.8 679.9 271.3 672.2 271.3 C 664.5 271.3 658.2 268.8 658.2 265.8 C 658.2 262.8 664.5 260.3 672.2 260.3 C 679.9 260.3 686.2 262.8 686.2 265.8 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-33" d="M 1008.9 693.1 C 1008.9 696.6 1000.8 699.6 990.9 699.6 C 980.9 699.6 972.9 696.6 972.9 693.1 C 972.9 689.5 980.9 686.6 990.9 686.6 C 1000.8 686.6 1008.9 689.5 1008.9 693.1 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-34" d="M 1119.5 175.3 C 1119.5 178.8 1111.4 181.8 1101.5 181.8 C 1091.5 181.8 1083.5 178.8 1083.5 175.3 C 1083.5 171.7 1091.5 168.8 1101.5 168.8 C 1111.4 168.8 1119.5 171.7 1119.5 175.3 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-35" d="M 171.8 174 C 171.8 177.6 163.7 180.5 153.8 180.5 C 143.8 180.5 135.8 177.6 135.8 174 C 135.8 170.4 143.8 167.5 153.8 167.5 C 163.7 167.5 171.8 170.4 171.8 174 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-36" d="M 627.2 228.6 C 627.2 232.2 619.1 235.1 609.2 235.1 C 599.2 235.1 591.2 232.2 591.2 228.6 C 591.2 225 599.2 222.1 609.2 222.1 C 619.1 222.1 627.2 225 627.2 228.6 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-37" d="M 476.3 467.7 C 476.3 471.3 468.2 474.2 458.3 474.2 C 448.3 474.2 440.3 471.3 440.3 467.7 C 440.3 464.1 448.3 461.2 458.3 461.2 C 468.2 461.2 476.3 464.1 476.3 467.7 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-38" d="M 339.3 255.7 C 339.3 259.3 331.2 262.2 321.3 262.2 C 311.4 262.2 303.3 259.3 303.3 255.7 C 303.3 252.1 311.4 249.2 321.3 249.2 C 331.2 249.2 339.3 252.1 339.3 255.7 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-15" d="M 66.4 276.9 L 71.4 283.4 L 66.4 289.9 L 61.4 283.4 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-39" d="M 644.5 663.3 C 644.5 666.9 636.5 669.8 626.5 669.8 C 616.6 669.8 608.5 666.9 608.5 663.3 C 608.5 659.7 616.6 656.8 626.5 656.8 C 636.5 656.8 644.5 659.7 644.5 663.3 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-40" d="M 1043.2 306.9 C 1043.2 310.5 1035.2 313.4 1025.2 313.4 C 1015.3 313.4 1007.2 310.5 1007.2 306.9 C 1007.2 303.3 1015.3 300.4 1025.2 300.4 C 1035.2 300.4 1043.2 303.3 1043.2 306.9 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-16" d="M 1000.9 69.4 L 1005.9 75.9 L 1000.9 82.4 L 995.9 75.9 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-41" d="M 432.8 728.4 C 432.8 732 424.8 734.9 414.8 734.9 C 404.9 734.9 396.8 732 396.8 728.4 C 396.8 724.8 404.9 721.9 414.8 721.9 C 424.8 721.9 432.8 724.8 432.8 728.4 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-21" d="M 625 464.4 C 625 467.4 618.8 469.9 611 469.9 C 603.3 469.9 597 467.4 597 464.4 C 597 461.3 603.3 458.9 611 458.9 C 618.8 458.9 625 461.3 625 464.4 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-42" d="M 153.7 675.1 C 153.7 678.7 145.6 681.6 135.7 681.6 C 125.7 681.6 117.7 678.7 117.7 675.1 C 117.7 671.5 125.7 668.6 135.7 668.6 C 145.6 668.6 153.7 671.5 153.7 675.1 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-17" d="M 705.9 114.7 L 710.9 121.2 L 705.9 127.7 L 700.9 121.2 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-dip-22" d="M 877 694.8 C 877 697.8 870.7 700.3 863 700.3 C 855.2 700.3 849 697.8 849 694.8 C 849 691.7 855.2 689.3 863 689.3 C 870.7 689.3 877 691.7 877 694.8 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-dip-23" d="M 763.6 355.1 C 763.6 358.2 757.3 360.6 749.6 360.6 C 741.8 360.6 735.6 358.2 735.6 355.1 C 735.6 352.1 741.8 349.6 749.6 349.6 C 757.3 349.6 763.6 352.1 763.6 355.1 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-43" d="M 852.7 380.2 C 852.7 383.8 844.7 386.7 834.7 386.7 C 824.8 386.7 816.7 383.8 816.7 380.2 C 816.7 376.7 824.8 373.7 834.7 373.7 C 844.7 373.7 852.7 376.7 852.7 380.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-44" d="M 640.8 508.5 C 640.8 512.1 632.7 515 622.8 515 C 612.8 515 604.8 512.1 604.8 508.5 C 604.8 504.9 612.8 502 622.8 502 C 632.7 502 640.8 504.9 640.8 508.5 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-24" d="M 674.1 518.3 C 674.1 521.3 667.9 523.8 660.1 523.8 C 652.4 523.8 646.1 521.3 646.1 518.3 C 646.1 515.2 652.4 512.8 660.1 512.8 C 667.9 512.8 674.1 515.2 674.1 518.3 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-45" d="M 635.4 612.7 C 635.4 616.3 627.3 619.2 617.4 619.2 C 607.4 619.2 599.4 616.3 599.4 612.7 C 599.4 609.2 607.4 606.2 617.4 606.2 C 627.3 606.2 635.4 609.2 635.4 612.7 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-46" d="M 979.3 558.3 C 979.3 561.8 971.3 564.8 961.3 564.8 C 951.4 564.8 943.3 561.8 943.3 558.3 C 943.3 554.7 951.4 551.8 961.3 551.8 C 971.3 551.8 979.3 554.7 979.3 558.3 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-25" d="M 973.6 715.9 C 973.6 719 967.3 721.4 959.6 721.4 C 951.8 721.4 945.6 719 945.6 715.9 C 945.6 712.9 951.8 710.4 959.6 710.4 C 967.3 710.4 973.6 712.9 973.6 715.9 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-47" d="M 335.6 67.3 C 335.6 70.9 327.6 73.8 317.6 73.8 C 307.7 73.8 299.6 70.9 299.6 67.3 C 299.6 63.7 307.7 60.8 317.6 60.8 C 327.6 60.8 335.6 63.7 335.6 67.3 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-48" d="M 1121.9 599.2 C 1121.9 602.8 1113.9 605.7 1103.9 605.7 C 1094 605.7 1085.9 602.8 1085.9 599.2 C 1085.9 595.6 1094 592.7 1103.9 592.7 C 1113.9 592.7 1121.9 595.6 1121.9 599.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-18" d="M 148.8 241.6 L 153.8 248.1 L 148.8 254.6 L 143.8 248.1 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-49" d="M 1060 488.8 C 1060 492.4 1051.9 495.3 1042 495.3 C 1032 495.3 1024 492.4 1024 488.8 C 1024 485.2 1032 482.3 1042 482.3 C 1051.9 482.3 1060 485.2 1060 488.8 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-19" d="M 387.8 164.5 L 392.8 171 L 387.8 177.5 L 382.8 171 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-dip-26" d="M 659.8 213.5 C 659.8 216.6 653.6 219 645.8 219 C 638.1 219 631.8 216.6 631.8 213.5 C 631.8 210.5 638.1 208 645.8 208 C 653.6 208 659.8 210.5 659.8 213.5 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-50" d="M 598.2 664.6 C 598.2 668.1 590.2 671.1 580.2 671.1 C 570.3 671.1 562.2 668.1 562.2 664.6 C 562.2 661 570.3 658.1 580.2 658.1 C 590.2 658.1 598.2 661 598.2 664.6 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-ice-20" d="M 946.5 441 L 951.5 447.5 L 946.5 454 L 941.5 447.5 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-51" d="M 164.3 236.1 C 164.3 239.7 156.2 242.6 146.3 242.6 C 136.4 242.6 128.3 239.7 128.3 236.1 C 128.3 232.5 136.4 229.6 146.3 229.6 C 156.2 229.6 164.3 232.5 164.3 236.1 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-27" d="M 566.5 207 C 566.5 210 560.3 212.5 552.5 212.5 C 544.8 212.5 538.5 210 538.5 207 C 538.5 203.9 544.8 201.5 552.5 201.5 C 560.3 201.5 566.5 203.9 566.5 207 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-ice-21" d="M 760.2 700.5 L 765.2 707 L 760.2 713.5 L 755.2 707 Z" fill="#d4f1fb"/>
+<path id="snow-arena-1180-drift-52" d="M 741 426.7 C 741 430.3 732.9 433.2 723 433.2 C 713 433.2 705 430.3 705 426.7 C 705 423.1 713 420.2 723 420.2 C 732.9 420.2 741 423.1 741 426.7 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-53" d="M 304.8 725.2 C 304.8 728.8 296.7 731.7 286.8 731.7 C 276.8 731.7 268.8 728.8 268.8 725.2 C 268.8 721.6 276.8 718.7 286.8 718.7 C 296.7 718.7 304.8 721.6 304.8 725.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-54" d="M 956.2 474.2 C 956.2 477.7 948.1 480.7 938.2 480.7 C 928.2 480.7 920.2 477.7 920.2 474.2 C 920.2 470.6 928.2 467.7 938.2 467.7 C 948.1 467.7 956.2 470.6 956.2 474.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-55" d="M 711.4 476.6 C 711.4 480.2 703.3 483.1 693.4 483.1 C 683.4 483.1 675.4 480.2 675.4 476.6 C 675.4 473 683.4 470.1 693.4 470.1 C 703.3 470.1 711.4 473 711.4 476.6 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-drift-56" d="M 876.6 419.1 C 876.6 422.6 868.6 425.6 858.6 425.6 C 848.7 425.6 840.6 422.6 840.6 419.1 C 840.6 415.5 848.7 412.6 858.6 412.6 C 868.6 412.6 876.6 415.5 876.6 419.1 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-28" d="M 390.8 634 C 390.8 637 384.6 639.5 376.8 639.5 C 369.1 639.5 362.8 637 362.8 634 C 362.8 631 369.1 628.5 376.8 628.5 C 384.6 628.5 390.8 631 390.8 634 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-dip-29" d="M 487.8 275.4 C 487.8 278.4 481.5 280.9 473.8 280.9 C 466.1 280.9 459.8 278.4 459.8 275.4 C 459.8 272.4 466.1 269.9 473.8 269.9 C 481.5 269.9 487.8 272.4 487.8 275.4 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-57" d="M 457.7 350.6 C 457.7 354.2 449.7 357.1 439.7 357.1 C 429.8 357.1 421.7 354.2 421.7 350.6 C 421.7 347 429.8 344.1 439.7 344.1 C 449.7 344.1 457.7 347 457.7 350.6 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-30" d="M 575.3 481 C 575.3 484 569 486.5 561.3 486.5 C 553.5 486.5 547.3 484 547.3 481 C 547.3 477.9 553.5 475.5 561.3 475.5 C 569 475.5 575.3 477.9 575.3 481 Z" fill="#2a1a10" opacity="0.05"/>
+<path id="snow-arena-1180-drift-58" d="M 967.3 310.2 C 967.3 313.8 959.2 316.7 949.3 316.7 C 939.3 316.7 931.3 313.8 931.3 310.2 C 931.3 306.6 939.3 303.7 949.3 303.7 C 959.2 303.7 967.3 306.6 967.3 310.2 Z" fill="#f8fcfe"/>
+<path id="snow-arena-1180-dip-31" d="M 874.8 505.9 C 874.8 508.9 868.5 511.4 860.8 511.4 C 853.1 511.4 846.8 508.9 846.8 505.9 C 846.8 502.8 853.1 500.4 860.8 500.4 C 868.5 500.4 874.8 502.8 874.8 505.9 Z" fill="#2a1a10" opacity="0.05"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(613.25 34.16) scale(-0.99 0.99)"/>
+<use href="#snow-arena-1180-thing-2" transform="translate(859.34 35.49) scale(1.04 1.04)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(280.75 36.28) scale(-0.85 0.85)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(128.24 36.7) scale(-0.86 0.86)"/>
+<use href="#snow-arena-1180-thing-2" transform="translate(30 37.17) scale(1.08 1.08)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(344.62 37.82) scale(-0.77 0.77)"/>
+<use href="#snow-arena-1180-thing-2" transform="translate(204.26 38.08) scale(1.09 1.09)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(946.97 39.11) scale(-1.04 1.04)"/>
+<use href="#snow-arena-1180-thing-4" transform="translate(775.95 39.41) scale(-0.81 0.81)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(422.17 40.83) scale(-0.87 0.87)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(1024.05 41.02) scale(-0.84 0.84)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(517.14 41.25) scale(-0.87 0.87)"/>
+<use href="#snow-arena-1180-thing-4" transform="translate(1109.5 41.62) scale(-0.98 0.98)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(704.36 41.93) scale(0.77 0.77)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(18.9 80) scale(0.86 0.86)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(1161.92 104) scale(0.76 0.76)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(17.64 154.96) scale(-1.08 1.08)"/>
+<use href="#snow-arena-1180-thing-4" transform="translate(1163.15 178.96) scale(0.8 0.8)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(16.2 256.95) scale(-1.07 1.07)"/>
+<use href="#snow-arena-1180-thing-2" transform="translate(1159.08 280.95) scale(0.76 0.76)"/>
+<use href="#snow-arena-1180-thing-4" transform="translate(18.15 343.08) scale(-0.87 0.87)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(1164.9 367.08) scale(1.05 1.05)"/>
+<use href="#snow-arena-1180-thing-4" transform="translate(21.61 423.3) scale(1.05 1.05)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(1165.07 447.3) scale(-0.86 0.86)"/>
+<use href="#snow-arena-1180-thing-2" transform="translate(15.38 518.53) scale(-1.03 1.03)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(1158.25 542.53) scale(0.83 0.83)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(18.34 589.06) scale(-0.85 0.85)"/>
+<use href="#snow-arena-1180-thing-4" transform="translate(1160.8 613.06) scale(0.83 0.83)"/>
+<use href="#snow-arena-1180-thing-2" transform="translate(21.25 665.52) scale(-1.09 1.09)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(1164.78 689.52) scale(-0.97 0.97)"/>
+<use href="#snow-arena-1180-thing-2" transform="translate(1129.5 790.53) scale(0.89 0.89)"/>
+<use href="#snow-arena-1180-thing-4" transform="translate(633.25 791.01) scale(1.02 1.02)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(724.36 791.25) scale(0.77 0.77)"/>
+<use href="#snow-arena-1180-thing-2" transform="translate(879.34 791.92) scale(-1.05 1.05)"/>
+<use href="#snow-arena-1180-thing-1" transform="translate(300.75 792.29) scale(-0.94 0.94)"/>
+<use href="#snow-arena-1180-thing-5" transform="translate(795.95 792.63) scale(-0.87 0.87)"/>
+<use href="#snow-arena-1180-thing-5" transform="translate(364.62 792.78) scale(-0.84 0.84)"/>
+<use href="#snow-arena-1180-thing-4" transform="translate(442.17 793.13) scale(0.89 0.89)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(1044.05 793.33) scale(0.77 0.77)"/>
+<use href="#snow-arena-1180-thing-4" transform="translate(224.26 794.07) scale(0.83 0.83)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(966.97 795.18) scale(-0.85 0.85)"/>
+<use href="#snow-arena-1180-thing-2" transform="translate(50 795.4) scale(-0.88 0.88)"/>
+<use href="#snow-arena-1180-thing-3" transform="translate(148.24 795.43) scale(-0.92 0.92)"/>
+<use href="#snow-arena-1180-thing-5" transform="translate(537.14 795.91) scale(-0.82 0.82)"/>
+</svg>

@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cleric" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="cleric-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="cleric-shadow-shadow" d="M 134 181 C 134 185.4 117 189 96 189 C 75 189 58 185.4 58 181 C 58 176.6 75 173 96 173 C 117 173 134 176.6 134 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="cleric-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<defs>
+<path id="cleric-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
+<clipPath id="cleric-leg-back-boot-clip"><use href="#cleric-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="cleric-leg-back-boot">
+<use id="cleric-leg-back-boot-fill" href="#cleric-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#cleric-leg-back-boot-clip)">
+<path id="cleric-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="cleric-leg-back-boot-line" href="#cleric-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cleric-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<path id="cleric-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="cleric-leg-front-boot-clip"><use href="#cleric-leg-front-boot-shape"/></clipPath>
+<clipPath id="cleric-leg-front-boot-lit-clip"><use href="#cleric-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="cleric-leg-front-boot">
+<use id="cleric-leg-front-boot-shade" href="#cleric-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#cleric-leg-front-boot-clip)">
+<use id="cleric-leg-front-boot-fill" href="#cleric-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#cleric-leg-front-boot-lit-clip)">
+<use id="cleric-leg-front-boot-lit" href="#cleric-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-leg-front-boot-fill-over" href="#cleric-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="cleric-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="cleric-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="cleric-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="cleric-leg-front-boot-line" href="#cleric-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cleric-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="cleric-body-robe-shape" d="M 72 105 C 77.2 100.2 88 101 96 101 C 104 101 114.8 100.2 120 105 C 125.2 109.8 124.8 120.2 127 130 C 129.2 139.8 133.8 156.8 133 164 C 132.2 171.2 128.2 171.2 122 173 C 115.8 174.8 104.7 175 96 175 C 87.3 175 76.2 174.8 70 173 C 63.8 171.2 59.8 171.2 59 164 C 58.2 156.8 62.8 139.8 65 130 C 67.2 120.2 66.8 109.8 72 105 Z"/>
+<clipPath id="cleric-body-robe-clip"><use href="#cleric-body-robe-shape"/></clipPath>
+<clipPath id="cleric-body-robe-lit-clip"><use href="#cleric-body-robe-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="cleric-body-hem-shape" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z"/>
+<path id="cleric-body-sleeve-shape" d="M 117.6 128.5 L 138.6 129.5 C 143.3 129.7 147.3 126.1 147.5 121.4 C 147.7 116.7 144.1 112.7 139.4 112.5 L 118.4 111.5 C 113.7 111.3 109.7 114.9 109.5 119.6 C 109.3 124.3 112.9 128.3 117.6 128.5 Z"/>
+<clipPath id="cleric-body-sleeve-clip"><use href="#cleric-body-sleeve-shape"/></clipPath>
+<clipPath id="cleric-body-sleeve-lit-clip"><use href="#cleric-body-sleeve-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="cleric-body-mantle-shape" d="M 70 102 C 76.2 98.7 87.3 98 96 98 C 104.7 98 115.8 98.7 122 102 C 128.2 105.3 132 114 133 118 C 134 122 128 126 128 126 C 128 126 106.7 130 96 130 C 85.3 130 64 126 64 126 C 64 126 58 122 59 118 C 60 114 63.8 105.3 70 102 Z"/>
+<clipPath id="cleric-body-mantle-clip"><use href="#cleric-body-mantle-shape"/></clipPath>
+<clipPath id="cleric-body-mantle-lit-clip"><use href="#cleric-body-mantle-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="cleric-body-trim-shape" d="M 56 119 C 62.7 117.5 82.7 123 96 123 C 109.3 123 129.3 117.5 136 119 C 142.7 120.5 142.7 129.2 136 132 C 129.3 134.8 109.3 136 96 136 C 82.7 136 62.7 134.8 56 132 C 49.3 129.2 49.3 120.5 56 119 Z"/>
+</defs>
+<g id="cleric-body-robe">
+<use id="cleric-body-robe-shade" href="#cleric-body-robe-shape" fill="#b3a585"/>
+<g clip-path="url(#cleric-body-robe-clip)">
+<use id="cleric-body-robe-deep" href="#cleric-body-robe-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="cleric-body-robe-shade-over" href="#cleric-body-robe-shape" transform="translate(-3.1 -3.1)" fill="#b3a585"/>
+<use id="cleric-body-robe-fill" href="#cleric-body-robe-shape" transform="translate(-5 -5)" fill="#d9cdb0"/>
+<g clip-path="url(#cleric-body-robe-lit-clip)">
+<use id="cleric-body-robe-lit" href="#cleric-body-robe-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-body-robe-fill-over" href="#cleric-body-robe-shape" transform="translate(4.6 4.6)" fill="#d9cdb0"/>
+</g>
+<path id="cleric-body-fold-a" d="M 77 162 Q 83.1 143 82 123 Q 78.8 142.4 77 162 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="cleric-body-fold-b" d="M 99 166 Q 101.2 149.3 97 133 Q 97.4 149.5 99 166 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="cleric-body-fold-c" d="M 119 163 Q 119.9 144.5 114 127 Q 115.8 145.1 119 163 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="cleric-body-fold-lit-a" d="M 84 163 Q 90 143 88 125 Q 86 145 84 163 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="cleric-body-fold-lit-b" d="M 105 165 Q 109 149 106 135 Q 104 151 105 165 Z" fill="#f4f1e4" opacity="0.25"/>
+<path id="cleric-body-hem-cast" d="M 52 159 C 59.3 159 81.3 163 96 163 C 110.7 163 132.7 159 140 159 C 147.3 159 147.3 161.7 140 163 C 132.7 164.3 110.7 167 96 167 C 81.3 167 59.3 164.3 52 163 C 44.7 161.7 44.7 159 52 159 Z" fill="#2a1a10" opacity="0.22"/>
+<g id="cleric-body-hem">
+<use id="cleric-body-hem-fill" href="#cleric-body-hem-shape" fill="#c8a24a"/>
+<use id="cleric-body-hem-line" href="#cleric-body-hem-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="cleric-body-robe-line" href="#cleric-body-robe-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="cleric-body-sleeve-cast" d="M 118.6 132 L 139.6 133 C 144.3 133.2 148.3 129.6 148.5 124.9 C 148.7 120.2 145.1 116.2 140.4 116 L 119.4 115 C 114.7 114.8 110.7 118.4 110.5 123.1 C 110.3 127.8 113.9 131.8 118.6 132 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="cleric-body-sleeve">
+<use id="cleric-body-sleeve-shade" href="#cleric-body-sleeve-shape" fill="#b3a585"/>
+<g clip-path="url(#cleric-body-sleeve-clip)">
+<use id="cleric-body-sleeve-fill" href="#cleric-body-sleeve-shape" transform="translate(-3 -3)" fill="#d9cdb0"/>
+<g clip-path="url(#cleric-body-sleeve-lit-clip)">
+<use id="cleric-body-sleeve-lit" href="#cleric-body-sleeve-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-body-sleeve-fill-over" href="#cleric-body-sleeve-shape" transform="translate(3.6 3.6)" fill="#d9cdb0"/>
+</g>
+</g>
+<use id="cleric-body-sleeve-line" href="#cleric-body-sleeve-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-body-mantle">
+<use id="cleric-body-mantle-shade" href="#cleric-body-mantle-shape" fill="#2f5893"/>
+<g clip-path="url(#cleric-body-mantle-clip)">
+<use id="cleric-body-mantle-fill" href="#cleric-body-mantle-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#cleric-body-mantle-lit-clip)">
+<use id="cleric-body-mantle-lit" href="#cleric-body-mantle-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-body-mantle-fill-over" href="#cleric-body-mantle-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<g id="cleric-body-trim">
+<use id="cleric-body-trim-fill" href="#cleric-body-trim-shape" fill="#c8a24a"/>
+<use id="cleric-body-trim-line" href="#cleric-body-trim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="cleric-body-mantle-line" href="#cleric-body-mantle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cleric-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<path id="cleric-head-cowl-shape" d="M 97 49 C 104.7 49 114.5 52 120 57 C 125.5 62 128.8 71.8 130 79 C 131.2 86.2 130.3 95 127 100 C 123.7 105 117.2 107.5 110 109 C 102.8 110.5 91.2 110.5 84 109 C 76.8 107.5 70.3 105 67 100 C 63.7 95 62.8 86.2 64 79 C 65.2 71.8 68.5 62 74 57 C 79.5 52 89.3 49 97 49 Z"/>
+<clipPath id="cleric-head-cowl-clip"><use href="#cleric-head-cowl-shape"/></clipPath>
+<clipPath id="cleric-head-cowl-lit-clip"><use href="#cleric-head-cowl-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="cleric-head-veil-shape" d="M 102 66 L 140 66 L 140 114 C 140 114 113.2 117 106 114 C 98.8 111 97.7 104 97 96 C 96.3 88 102 66 102 66 Z"/>
+<clipPath id="cleric-head-veil-clip"><use href="#cleric-head-veil-shape"/></clipPath>
+<clipPath id="cleric-head-veil-lit-clip"><use href="#cleric-head-veil-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="cleric-head-stripe-shape" d="M 113 60 L 122 60 L 122 120 L 113 120 L 113 60 Z"/>
+<path id="cleric-head-band-shape" d="M 60 62 C 66 59.7 83.7 58 96 58 C 108.3 58 127.7 59.8 134 62 C 140.3 64.2 140.3 70 134 71 C 127.7 72 108.3 67.8 96 68 C 83.7 68.2 66 73 60 72 C 54 71 54 64.3 60 62 Z"/>
+</defs>
+<path id="cleric-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="cleric-head-cowl">
+<use id="cleric-head-cowl-shade" href="#cleric-head-cowl-shape" fill="#2f5893"/>
+<g clip-path="url(#cleric-head-cowl-clip)">
+<use id="cleric-head-cowl-deep" href="#cleric-head-cowl-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="cleric-head-cowl-shade-over" href="#cleric-head-cowl-shape" transform="translate(-3.72 -3.72)" fill="#2f5893"/>
+<use id="cleric-head-cowl-fill" href="#cleric-head-cowl-shape" transform="translate(-6 -6)" fill="#3d6fb6"/>
+<g clip-path="url(#cleric-head-cowl-lit-clip)">
+<use id="cleric-head-cowl-lit" href="#cleric-head-cowl-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-head-cowl-fill-over" href="#cleric-head-cowl-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<g id="cleric-head-veil">
+<use id="cleric-head-veil-shade" href="#cleric-head-veil-shape" fill="#b3a585"/>
+<g clip-path="url(#cleric-head-veil-clip)">
+<use id="cleric-head-veil-fill" href="#cleric-head-veil-shape" transform="translate(-4 -4)" fill="#d9cdb0"/>
+<g clip-path="url(#cleric-head-veil-lit-clip)">
+<use id="cleric-head-veil-lit" href="#cleric-head-veil-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-head-veil-fill-over" href="#cleric-head-veil-shape" transform="translate(4.2 4.2)" fill="#d9cdb0"/>
+</g>
+<g id="cleric-head-stripe">
+<use id="cleric-head-stripe-fill" href="#cleric-head-stripe-shape" fill="#c8a24a"/>
+<use id="cleric-head-stripe-line" href="#cleric-head-stripe-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="cleric-head-veil-line" href="#cleric-head-veil-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-head-band">
+<use id="cleric-head-band-fill" href="#cleric-head-band-shape" fill="#c8a24a"/>
+<use id="cleric-head-band-line" href="#cleric-head-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="cleric-head-cowl-line" href="#cleric-head-cowl-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cleric-book-layer" transform="translate(72 146) rotate(0) scale(1 1) translate(-72 -146)">
+<defs>
+<path id="cleric-book-pages-shape" d="M 64 134 L 86 134 Q 89 134 89 137 L 89 161 Q 89 164 86 164 L 64 164 Q 61 164 61 161 L 61 137 Q 61 134 64 134 Z"/>
+<path id="cleric-book-cover-shape" d="M 59 129 L 81 129 Q 84 129 84 132 L 84 156 Q 84 159 81 159 L 59 159 Q 56 159 56 156 L 56 132 Q 56 129 59 129 Z"/>
+<clipPath id="cleric-book-cover-clip"><use href="#cleric-book-cover-shape"/></clipPath>
+<clipPath id="cleric-book-cover-lit-clip"><use href="#cleric-book-cover-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="cleric-book-clasp-shape" d="M 67 138 L 73 138 Q 75 138 75 140 L 75 148 Q 75 150 73 150 L 67 150 Q 65 150 65 148 L 65 140 Q 65 138 67 138 Z"/>
+<path id="cleric-book-hand-shape" d="M 77.5 161 C 77.5 165.1 74.1 168.5 70 168.5 C 65.9 168.5 62.5 165.1 62.5 161 C 62.5 156.9 65.9 153.5 70 153.5 C 74.1 153.5 77.5 156.9 77.5 161 Z"/>
+<clipPath id="cleric-book-hand-clip"><use href="#cleric-book-hand-shape"/></clipPath>
+<clipPath id="cleric-book-hand-lit-clip"><use href="#cleric-book-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="cleric-book-pages">
+<use id="cleric-book-pages-fill" href="#cleric-book-pages-shape" fill="#e9dfc6"/>
+<use id="cleric-book-pages-line" href="#cleric-book-pages-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-book-cover">
+<use id="cleric-book-cover-shade" href="#cleric-book-cover-shape" fill="#2f5893"/>
+<g clip-path="url(#cleric-book-cover-clip)">
+<use id="cleric-book-cover-fill" href="#cleric-book-cover-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#cleric-book-cover-lit-clip)">
+<use id="cleric-book-cover-lit" href="#cleric-book-cover-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-book-cover-fill-over" href="#cleric-book-cover-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="cleric-book-cover-line" href="#cleric-book-cover-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-book-clasp">
+<use id="cleric-book-clasp-fill" href="#cleric-book-clasp-shape" fill="#c8a24a"/>
+<use id="cleric-book-clasp-line" href="#cleric-book-clasp-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-book-hand">
+<use id="cleric-book-hand-shade" href="#cleric-book-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#cleric-book-hand-clip)">
+<use id="cleric-book-hand-fill" href="#cleric-book-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#cleric-book-hand-lit-clip)">
+<use id="cleric-book-hand-lit" href="#cleric-book-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-book-hand-fill-over" href="#cleric-book-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="cleric-book-hand-line" href="#cleric-book-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="cleric-censer-layer" transform="translate(142 121) rotate(0) scale(1 1) translate(-142 -121)">
+<defs>
+<path id="cleric-censer-bowl-shape" d="M 130 157 C 130 157 129 164.3 131 167 C 133 169.7 138.3 173 142 173 C 145.7 173 151 169.7 153 167 C 155 164.3 154 157 154 157 L 130 157 Z"/>
+<clipPath id="cleric-censer-bowl-clip"><use href="#cleric-censer-bowl-shape"/></clipPath>
+<clipPath id="cleric-censer-bowl-lit-clip"><use href="#cleric-censer-bowl-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="cleric-censer-lid-shape" d="M 130 157 C 130 157 133 151 135 149 C 137 147 139.7 145 142 145 C 144.3 145 147 147 149 149 C 151 151 154 157 154 157 L 130 157 Z"/>
+<path id="cleric-censer-hand-shape" d="M 149.5 121 C 149.5 125.1 146.1 128.5 142 128.5 C 137.9 128.5 134.5 125.1 134.5 121 C 134.5 116.9 137.9 113.5 142 113.5 C 146.1 113.5 149.5 116.9 149.5 121 Z"/>
+<clipPath id="cleric-censer-hand-clip"><use href="#cleric-censer-hand-shape"/></clipPath>
+<clipPath id="cleric-censer-hand-lit-clip"><use href="#cleric-censer-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="cleric-censer-chain" d="M 142 123 L 142 149" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="cleric-censer-halo" d="M 160 160 C 160 169.9 151.9 178 142 178 C 132.1 178 124 169.9 124 160 C 124 150.1 132.1 142 142 142 C 151.9 142 160 150.1 160 160 Z" fill="#fff3b8" opacity="0.45"/>
+<g id="cleric-censer-bowl">
+<use id="cleric-censer-bowl-shade" href="#cleric-censer-bowl-shape" fill="#9c7c33"/>
+<g clip-path="url(#cleric-censer-bowl-clip)">
+<use id="cleric-censer-bowl-fill" href="#cleric-censer-bowl-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#cleric-censer-bowl-lit-clip)">
+<use id="cleric-censer-bowl-lit" href="#cleric-censer-bowl-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-censer-bowl-fill-over" href="#cleric-censer-bowl-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="cleric-censer-bowl-line" href="#cleric-censer-bowl-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="cleric-censer-lid">
+<use id="cleric-censer-lid-fill" href="#cleric-censer-lid-shape" fill="#c8a24a"/>
+<use id="cleric-censer-lid-line" href="#cleric-censer-lid-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="cleric-censer-ember" d="M 137 155 L 147 155 Q 149 155 149 157 L 149 157 Q 149 159 147 159 L 137 159 Q 135 159 135 157 L 135 157 Q 135 155 137 155 Z" fill="#fff3b8"/>
+<g id="cleric-censer-hand">
+<use id="cleric-censer-hand-shade" href="#cleric-censer-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#cleric-censer-hand-clip)">
+<use id="cleric-censer-hand-fill" href="#cleric-censer-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#cleric-censer-hand-lit-clip)">
+<use id="cleric-censer-hand-lit" href="#cleric-censer-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="cleric-censer-hand-fill-over" href="#cleric-censer-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="cleric-censer-hand-line" href="#cleric-censer-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

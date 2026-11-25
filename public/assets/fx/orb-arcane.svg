@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="orb-arcane" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="orb-arcane-tail-shape" d="M 24 13 C 24 13 11.7 15.2 8 17 C 4.3 18.8 2 24 2 24 C 2 24 4.3 29.2 8 31 C 11.7 32.8 24 35 24 35 L 24 13 Z"/>
+<path id="orb-arcane-core-shape" d="M 39 24 C 39 30.6 33.6 36 27 36 C 20.4 36 15 30.6 15 24 C 15 17.4 20.4 12 27 12 C 33.6 12 39 17.4 39 24 Z"/>
+<clipPath id="orb-arcane-core-clip"><use href="#orb-arcane-core-shape"/></clipPath>
+<clipPath id="orb-arcane-core-lit-clip"><use href="#orb-arcane-core-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<path id="orb-arcane-halo" d="M 44 24 C 44 35 35 44 24 44 C 13 44 4 35 4 24 C 4 13 13 4 24 4 C 35 4 44 13 44 24 Z" fill="#cdb6f7" opacity="0.45"/>
+<g id="orb-arcane-tail">
+<use id="orb-arcane-tail-fill" href="#orb-arcane-tail-shape" fill="#cdb6f7"/>
+<use id="orb-arcane-tail-line" href="#orb-arcane-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="orb-arcane-core">
+<use id="orb-arcane-core-shade" href="#orb-arcane-core-shape" fill="#6541a8"/>
+<g clip-path="url(#orb-arcane-core-clip)">
+<use id="orb-arcane-core-fill" href="#orb-arcane-core-shape" transform="translate(-4 -4)" fill="#8a5cd6"/>
+<g clip-path="url(#orb-arcane-core-lit-clip)">
+<use id="orb-arcane-core-lit" href="#orb-arcane-core-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="orb-arcane-core-fill-over" href="#orb-arcane-core-shape" transform="translate(4.2 4.2)" fill="#8a5cd6"/>
+</g>
+</g>
+<use id="orb-arcane-core-line" href="#orb-arcane-core-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="orb-arcane-glint" d="M 26 20 C 26 21.7 24.7 23 23 23 C 21.3 23 20 21.7 20 20 C 20 18.3 21.3 17 23 17 C 24.7 17 26 18.3 26 20 Z" fill="#f4f1e4"/>
+</svg>

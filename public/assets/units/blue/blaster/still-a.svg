@@ -1,0 +1,261 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="blaster-a" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="blaster-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="blaster-shadow-shadow" d="M 132 181 C 132 185.4 115.9 189 96 189 C 76.1 189 60 185.4 60 181 C 60 176.6 76.1 173 96 173 C 115.9 173 132 176.6 132 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="blaster-leg-back-layer" transform="translate(85 152) rotate(0) scale(1 1) translate(-85 -152)">
+<defs>
+<path id="blaster-leg-back-boot-shape" d="M 75 148 L 94 148 L 94 164 C 100 164 105 168 105 174 L 105 176 Q 105 180 101 180 L 79 180 Q 75 180 75 176 Z"/>
+<clipPath id="blaster-leg-back-boot-clip"><use href="#blaster-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="blaster-leg-back-boot">
+<use id="blaster-leg-back-boot-fill" href="#blaster-leg-back-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#blaster-leg-back-boot-clip)">
+<path id="blaster-leg-back-sole" d="M 71 175 L 111 175 L 111 183 L 71 183 L 71 175 Z" fill="#2a1a10" opacity="0.35"/>
+</g>
+<use id="blaster-leg-back-boot-line" href="#blaster-leg-back-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="blaster-leg-front-layer" transform="translate(104 152) rotate(0) scale(1 1) translate(-104 -152)">
+<defs>
+<path id="blaster-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="blaster-leg-front-boot-clip"><use href="#blaster-leg-front-boot-shape"/></clipPath>
+<clipPath id="blaster-leg-front-boot-lit-clip"><use href="#blaster-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="blaster-leg-front-boot">
+<use id="blaster-leg-front-boot-shade" href="#blaster-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#blaster-leg-front-boot-clip)">
+<use id="blaster-leg-front-boot-fill" href="#blaster-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#blaster-leg-front-boot-lit-clip)">
+<use id="blaster-leg-front-boot-lit" href="#blaster-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-leg-front-boot-fill-over" href="#blaster-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="blaster-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="blaster-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="blaster-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="blaster-leg-front-boot-line" href="#blaster-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="blaster-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="blaster-body-tunic-shape" d="M 70 105 C 75.3 100.5 87.3 101 96 101 C 104.7 101 116.7 100.5 122 105 C 127.3 109.5 127.7 120.2 128 128 C 128.3 135.8 127.3 146.8 124 152 C 120.7 157.2 114.7 157.8 108 159 C 101.3 160.2 90.7 160.2 84 159 C 77.3 157.8 71.3 157.2 68 152 C 64.7 146.8 63.7 135.8 64 128 C 64.3 120.2 64.7 109.5 70 105 Z"/>
+<clipPath id="blaster-body-tunic-clip"><use href="#blaster-body-tunic-shape"/></clipPath>
+<clipPath id="blaster-body-tunic-lit-clip"><use href="#blaster-body-tunic-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="blaster-body-strap-shape" d="M 60 106 L 70 100 L 132 146 L 126 156 Z"/>
+<path id="blaster-body-pouch-shape" d="M 81.3 109.4 L 86.8 113.7 Q 88.4 115 87.2 116.5 L 82.3 122.8 Q 81 124.4 79.5 123.2 L 73.9 118.9 Q 72.4 117.6 73.6 116.1 L 78.5 109.8 Q 79.8 108.2 81.3 109.4 Z"/>
+<path id="blaster-body-pouch-2-shape" d="M 97.3 121.4 L 102.8 125.7 Q 104.4 127 103.2 128.5 L 98.3 134.8 Q 97 136.4 95.5 135.2 L 89.9 130.9 Q 88.4 129.6 89.6 128.1 L 94.5 121.8 Q 95.8 120.2 97.3 121.4 Z"/>
+<path id="blaster-body-pouch-3-shape" d="M 113.3 133.4 L 118.8 137.7 Q 120.4 139 119.2 140.5 L 114.3 146.8 Q 113 148.4 111.5 147.2 L 105.9 142.9 Q 104.4 141.6 105.6 140.1 L 110.5 133.8 Q 111.8 132.2 113.3 133.4 Z"/>
+<path id="blaster-body-belt-shape" d="M 56 140 L 136 140 L 136 149 L 56 149 L 56 140 Z"/>
+<path id="blaster-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
+<clipPath id="blaster-body-buckle-clip"><use href="#blaster-body-buckle-shape"/></clipPath>
+<clipPath id="blaster-body-buckle-lit-clip"><use href="#blaster-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="blaster-body-arm-shape" d="M 118.4 124.1 L 139.4 117.1 C 143.3 115.8 145.4 111.6 144.1 107.6 C 142.8 103.7 138.6 101.6 134.6 102.9 L 113.6 109.9 C 109.7 111.2 107.6 115.4 108.9 119.4 C 110.2 123.3 114.4 125.4 118.4 124.1 Z"/>
+<clipPath id="blaster-body-arm-clip"><use href="#blaster-body-arm-shape"/></clipPath>
+<clipPath id="blaster-body-arm-lit-clip"><use href="#blaster-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="blaster-body-tunic">
+<use id="blaster-body-tunic-shade" href="#blaster-body-tunic-shape" fill="#2f5893"/>
+<g clip-path="url(#blaster-body-tunic-clip)">
+<use id="blaster-body-tunic-deep" href="#blaster-body-tunic-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="blaster-body-tunic-shade-over" href="#blaster-body-tunic-shape" transform="translate(-3.1 -3.1)" fill="#2f5893"/>
+<use id="blaster-body-tunic-fill" href="#blaster-body-tunic-shape" transform="translate(-5 -5)" fill="#3d6fb6"/>
+<g clip-path="url(#blaster-body-tunic-lit-clip)">
+<use id="blaster-body-tunic-lit" href="#blaster-body-tunic-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-body-tunic-fill-over" href="#blaster-body-tunic-shape" transform="translate(4.6 4.6)" fill="#3d6fb6"/>
+</g>
+<g id="blaster-body-strap">
+<use id="blaster-body-strap-fill" href="#blaster-body-strap-shape" fill="#6b4a2b"/>
+<use id="blaster-body-strap-line" href="#blaster-body-strap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-body-pouch">
+<use id="blaster-body-pouch-fill" href="#blaster-body-pouch-shape" fill="#d9cdb0"/>
+<use id="blaster-body-pouch-line" href="#blaster-body-pouch-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-body-pouch-2">
+<use id="blaster-body-pouch-2-fill" href="#blaster-body-pouch-2-shape" fill="#d9cdb0"/>
+<use id="blaster-body-pouch-2-line" href="#blaster-body-pouch-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-body-pouch-3">
+<use id="blaster-body-pouch-3-fill" href="#blaster-body-pouch-3-shape" fill="#d9cdb0"/>
+<use id="blaster-body-pouch-3-line" href="#blaster-body-pouch-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="blaster-body-crease-a" d="M 80 139 Q 81.6 130.4 77 123 Q 77.9 131.1 80 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="blaster-body-crease-b" d="M 118 139 Q 121.6 132.4 120 125 Q 118.5 131.9 118 139 Z" fill="#2a1a10" opacity="0.21"/>
+<path id="blaster-body-belt-cast" d="M 56 150 L 136 150 L 136 154.5 L 56 154.5 L 56 150 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="blaster-body-belt">
+<use id="blaster-body-belt-fill" href="#blaster-body-belt-shape" fill="#6b4a2b"/>
+<use id="blaster-body-belt-line" href="#blaster-body-belt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-body-buckle">
+<use id="blaster-body-buckle-shade" href="#blaster-body-buckle-shape" fill="#9c7c33"/>
+<g clip-path="url(#blaster-body-buckle-clip)">
+<use id="blaster-body-buckle-fill" href="#blaster-body-buckle-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#blaster-body-buckle-lit-clip)">
+<use id="blaster-body-buckle-lit" href="#blaster-body-buckle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-body-buckle-fill-over" href="#blaster-body-buckle-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="blaster-body-buckle-line" href="#blaster-body-buckle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="blaster-body-tunic-line" href="#blaster-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="blaster-body-arm-cast" d="M 119.4 127.6 L 140.4 120.6 C 144.3 119.3 146.4 115.1 145.1 111.1 C 143.8 107.2 139.6 105.1 135.6 106.4 L 114.6 113.4 C 110.7 114.7 108.6 118.9 109.9 122.9 C 111.2 126.8 115.4 128.9 119.4 127.6 Z" fill="#2a1a10" opacity="0.17"/>
+<g id="blaster-body-arm">
+<use id="blaster-body-arm-shade" href="#blaster-body-arm-shape" fill="#2f5893"/>
+<g clip-path="url(#blaster-body-arm-clip)">
+<use id="blaster-body-arm-fill" href="#blaster-body-arm-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#blaster-body-arm-lit-clip)">
+<use id="blaster-body-arm-lit" href="#blaster-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-body-arm-fill-over" href="#blaster-body-arm-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="blaster-body-arm-line" href="#blaster-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="blaster-head-layer" transform="translate(96 106) rotate(0) scale(1 1) translate(-96 -106)">
+<defs>
+<path id="blaster-head-coif-shape" d="M 72 74 C 76.7 70.3 87.7 70 96 70 C 104.3 70 116.7 70.3 122 74 C 127.3 77.7 128.2 86.7 128 92 C 127.8 97.3 126 103 121 106 C 116 109 105.5 110 98 110 C 90.5 110 81 109 76 106 C 71 103 68.7 97.3 68 92 C 67.3 86.7 67.3 77.7 72 74 Z"/>
+<clipPath id="blaster-head-coif-clip"><use href="#blaster-head-coif-shape"/></clipPath>
+<clipPath id="blaster-head-coif-lit-clip"><use href="#blaster-head-coif-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="blaster-head-dome-shape" d="M 77 74 C 77 74 75.7 62.2 79 58 C 82.3 53.8 91 49 97 49 C 103 49 111.7 53.8 115 58 C 118.3 62.2 117 74 117 74 L 77 74 Z"/>
+<clipPath id="blaster-head-dome-clip"><use href="#blaster-head-dome-shape"/></clipPath>
+<clipPath id="blaster-head-dome-lit-clip"><use href="#blaster-head-dome-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="blaster-head-brim-shape" d="M 56 75 C 62.8 72.8 82.3 68 96 68 C 109.7 68 130.8 72.8 138 75 C 145.2 77.2 146 79.3 139 81 C 132 82.7 110 85 96 85 C 82 85 61.7 82.7 55 81 C 48.3 79.3 49.2 77.2 56 75 Z"/>
+<clipPath id="blaster-head-brim-clip"><use href="#blaster-head-brim-shape"/></clipPath>
+<clipPath id="blaster-head-brim-lit-clip"><use href="#blaster-head-brim-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="blaster-head-cast" d="M 122 110 C 122 115.2 110.8 119.5 97 119.5 C 83.2 119.5 72 115.2 72 110 C 72 104.8 83.2 100.5 97 100.5 C 110.8 100.5 122 104.8 122 110 Z" fill="#2a1a10" opacity="0.27"/>
+<g id="blaster-head-coif">
+<use id="blaster-head-coif-shade" href="#blaster-head-coif-shape" fill="#4e3520"/>
+<g clip-path="url(#blaster-head-coif-clip)">
+<use id="blaster-head-coif-deep" href="#blaster-head-coif-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="blaster-head-coif-shade-over" href="#blaster-head-coif-shape" transform="translate(-3.1 -3.1)" fill="#4e3520"/>
+<use id="blaster-head-coif-fill" href="#blaster-head-coif-shape" transform="translate(-5 -5)" fill="#6b4a2b"/>
+<g clip-path="url(#blaster-head-coif-lit-clip)">
+<use id="blaster-head-coif-lit" href="#blaster-head-coif-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-head-coif-fill-over" href="#blaster-head-coif-shape" transform="translate(4.6 4.6)" fill="#6b4a2b"/>
+</g>
+<path id="blaster-head-ring" d="M 67.8 88 Q 70 91.2 72.2 88 Q 70 89.4 67.8 88 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-2" d="M 74.8 88 Q 77 91.2 79.2 88 Q 77 89.4 74.8 88 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-3" d="M 81.8 88 Q 84 91.2 86.2 88 Q 84 89.4 81.8 88 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-4" d="M 71.3 93.6 Q 73.5 96.8 75.7 93.6 Q 73.5 95 71.3 93.6 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-5" d="M 78.3 93.6 Q 80.5 96.8 82.7 93.6 Q 80.5 95 78.3 93.6 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-6" d="M 85.3 93.6 Q 87.5 96.8 89.7 93.6 Q 87.5 95 85.3 93.6 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-7" d="M 67.8 99.2 Q 70 102.4 72.2 99.2 Q 70 100.6 67.8 99.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-8" d="M 74.8 99.2 Q 77 102.4 79.2 99.2 Q 77 100.6 74.8 99.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-9" d="M 81.8 99.2 Q 84 102.4 86.2 99.2 Q 84 100.6 81.8 99.2 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-10" d="M 71.3 104.8 Q 73.5 108 75.7 104.8 Q 73.5 106.2 71.3 104.8 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-11" d="M 78.3 104.8 Q 80.5 108 82.7 104.8 Q 80.5 106.2 78.3 104.8 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-ring-12" d="M 85.3 104.8 Q 87.5 108 89.7 104.8 Q 87.5 106.2 85.3 104.8 Z" fill="#2a1a10" opacity="0.42"/>
+<path id="blaster-head-slit" d="M 98.5 80 L 133.5 80 Q 138 80 138 84.5 L 138 84.5 Q 138 89 133.5 89 L 98.5 89 Q 94 89 94 84.5 L 94 84.5 Q 94 80 98.5 80 Z" fill="#1e2b17"/>
+<path id="blaster-head-slit-edge" d="M 98.5 80 L 133.5 80 Q 138 80 138 84.5 L 138 84.5 Q 138 89 133.5 89 L 98.5 89 Q 94 89 94 84.5 L 94 84.5 Q 94 80 98.5 80 Z" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use id="blaster-head-coif-line" href="#blaster-head-coif-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-head-dome">
+<use id="blaster-head-dome-shade" href="#blaster-head-dome-shape" fill="#434b56"/>
+<g clip-path="url(#blaster-head-dome-clip)">
+<use id="blaster-head-dome-fill" href="#blaster-head-dome-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#blaster-head-dome-lit-clip)">
+<use id="blaster-head-dome-lit" href="#blaster-head-dome-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-head-dome-fill-over" href="#blaster-head-dome-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="blaster-head-dome-sheen" d="M102.25 49 L108.65 49 L98.15 74 L91.75 74 Z M112.15 49 L114.75 49 L104.25 74 L101.65 74 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="blaster-head-crown-seam" d="M 97 46 L 97.6 46 Q 98.6 46 98.6 47 L 98.6 75 Q 98.6 76 97.6 76 L 97 76 Q 96 76 96 75 L 96 47 Q 96 46 97 46 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="blaster-head-dome-line" href="#blaster-head-dome-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-head-brim">
+<use id="blaster-head-brim-shade" href="#blaster-head-brim-shape" fill="#434b56"/>
+<g clip-path="url(#blaster-head-brim-clip)">
+<use id="blaster-head-brim-fill" href="#blaster-head-brim-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#blaster-head-brim-lit-clip)">
+<use id="blaster-head-brim-lit" href="#blaster-head-brim-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-head-brim-fill-over" href="#blaster-head-brim-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="blaster-head-brim-line" href="#blaster-head-brim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="blaster-head-glint" d="M 87.4 61.8 L 92.4 57.8 C 93.4 57 93.5 55.6 92.8 54.6 C 92 53.6 90.6 53.5 89.6 54.2 L 84.6 58.2 C 83.6 59 83.5 60.4 84.2 61.4 C 85 62.4 86.4 62.5 87.4 61.8 Z" fill="#f4f1e4"/>
+</g>
+<g id="blaster-keg-layer" transform="translate(76 144) rotate(0) scale(1 1) translate(-76 -144)">
+<defs>
+<path id="blaster-keg-keg-shape" d="M 61 130 L 91 130 C 91 130 94 139.3 94 144 C 94 148.7 91 158 91 158 L 61 158 C 61 158 58 148.7 58 144 C 58 139.3 61 130 61 130 Z"/>
+<clipPath id="blaster-keg-keg-clip"><use href="#blaster-keg-keg-shape"/></clipPath>
+<clipPath id="blaster-keg-keg-lit-clip"><use href="#blaster-keg-keg-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="blaster-keg-hoop-a-shape" d="M 56 134 L 96 134 L 96 139 L 56 139 L 56 134 Z"/>
+<path id="blaster-keg-hoop-b-shape" d="M 56 150 L 96 150 L 96 155 L 56 155 L 56 150 Z"/>
+<path id="blaster-keg-bung-shape" d="M 85 143 C 85 144.7 83.7 146 82 146 C 80.3 146 79 144.7 79 143 C 79 141.3 80.3 140 82 140 C 83.7 140 85 141.3 85 143 Z"/>
+</defs>
+<g id="blaster-keg-keg">
+<use id="blaster-keg-keg-shade" href="#blaster-keg-keg-shape" fill="#75502b"/>
+<g clip-path="url(#blaster-keg-keg-clip)">
+<use id="blaster-keg-keg-fill" href="#blaster-keg-keg-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#blaster-keg-keg-lit-clip)">
+<use id="blaster-keg-keg-lit" href="#blaster-keg-keg-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-keg-keg-fill-over" href="#blaster-keg-keg-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<g id="blaster-keg-hoop-a">
+<use id="blaster-keg-hoop-a-fill" href="#blaster-keg-hoop-a-shape" fill="#5d6672"/>
+<use id="blaster-keg-hoop-a-line" href="#blaster-keg-hoop-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-keg-hoop-b">
+<use id="blaster-keg-hoop-b-fill" href="#blaster-keg-hoop-b-shape" fill="#5d6672"/>
+<use id="blaster-keg-hoop-b-line" href="#blaster-keg-hoop-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="blaster-keg-stave" d="M 74.8 128 L 77.2 128 L 77.2 160 L 74.8 160 L 74.8 128 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="blaster-keg-keg-line" href="#blaster-keg-keg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-keg-bung">
+<use id="blaster-keg-bung-fill" href="#blaster-keg-bung-shape" fill="#5d6672"/>
+<use id="blaster-keg-bung-line" href="#blaster-keg-bung-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="blaster-weapon-layer" transform="translate(138 112) rotate(0) scale(1 1) translate(-138 -112)">
+<defs>
+<path id="blaster-weapon-spark-shape" d="M 159.5 64.5 L 159.8 69 L 163.1 72.2 L 158.6 72.5 L 155.4 75.8 L 155.1 71.2 L 151.9 68.1 L 156.4 67.8 Z"/>
+<path id="blaster-weapon-ball-shape" d="M 155.3 102.4 C 152.9 109.1 145.4 112.6 138.7 110.1 C 131.9 107.7 128.5 100.2 130.9 93.5 C 133.4 86.7 140.8 83.2 147.6 85.7 C 154.3 88.1 157.8 95.6 155.3 102.4 Z"/>
+<clipPath id="blaster-weapon-ball-clip"><use href="#blaster-weapon-ball-shape"/></clipPath>
+<clipPath id="blaster-weapon-ball-lit-clip"><use href="#blaster-weapon-ball-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="blaster-weapon-neck-shape" d="M 146.7 82.2 L 150.5 83.6 Q 152.4 84.2 151.7 86.1 L 151 88 Q 150.3 89.9 148.4 89.2 L 144.7 87.8 Q 142.8 87.1 143.5 85.3 L 144.2 83.4 Q 144.8 81.5 146.7 82.2 Z"/>
+<path id="blaster-weapon-hand-shape" d="M 145.5 114 C 145.5 118.1 142.1 121.5 138 121.5 C 133.9 121.5 130.5 118.1 130.5 114 C 130.5 109.9 133.9 106.5 138 106.5 C 142.1 106.5 145.5 109.9 145.5 114 Z"/>
+<clipPath id="blaster-weapon-hand-clip"><use href="#blaster-weapon-hand-shape"/></clipPath>
+<clipPath id="blaster-weapon-hand-lit-clip"><use href="#blaster-weapon-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="blaster-weapon-fuse" d="M 147.6 85.7 Q 158.5 79 156.8 72" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="blaster-weapon-halo" d="M 165.9 73.2 C 164.2 77.9 159.1 80.3 154.4 78.6 C 149.7 76.9 147.3 71.7 149 67.1 C 150.7 62.4 155.9 60 160.6 61.7 C 165.2 63.4 167.6 68.5 165.9 73.2 Z" fill="#ffd27a" opacity="0.45"/>
+<g id="blaster-weapon-spark">
+<use id="blaster-weapon-spark-fill" href="#blaster-weapon-spark-shape" fill="#f08a3c"/>
+<use id="blaster-weapon-spark-line" href="#blaster-weapon-spark-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-weapon-ball">
+<use id="blaster-weapon-ball-shade" href="#blaster-weapon-ball-shape" fill="#434b56"/>
+<g clip-path="url(#blaster-weapon-ball-clip)">
+<use id="blaster-weapon-ball-fill" href="#blaster-weapon-ball-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#blaster-weapon-ball-lit-clip)">
+<use id="blaster-weapon-ball-lit" href="#blaster-weapon-ball-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-weapon-ball-fill-over" href="#blaster-weapon-ball-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="blaster-weapon-ball-sheen" d="M149.29 83.23 L153.69 83.23 L141.37 112.58 L136.97 112.58 Z M157.19 83.23 L159.79 83.23 L147.47 112.58 L144.87 112.58 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="blaster-weapon-ball-line" href="#blaster-weapon-ball-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-weapon-neck">
+<use id="blaster-weapon-neck-fill" href="#blaster-weapon-neck-shape" fill="#5d6672"/>
+<use id="blaster-weapon-neck-line" href="#blaster-weapon-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="blaster-weapon-hand">
+<use id="blaster-weapon-hand-shade" href="#blaster-weapon-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#blaster-weapon-hand-clip)">
+<use id="blaster-weapon-hand-fill" href="#blaster-weapon-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#blaster-weapon-hand-lit-clip)">
+<use id="blaster-weapon-hand-lit" href="#blaster-weapon-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="blaster-weapon-hand-fill-over" href="#blaster-weapon-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="blaster-weapon-hand-line" href="#blaster-weapon-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

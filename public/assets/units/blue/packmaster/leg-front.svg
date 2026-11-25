@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="packmaster-leg-front" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="packmaster-leg-front-boot-shape" d="M 94 148 L 113 148 L 113 164 C 119 164 124 168 124 174 L 124 176 Q 124 180 120 180 L 98 180 Q 94 180 94 176 Z"/>
+<clipPath id="packmaster-leg-front-boot-clip"><use href="#packmaster-leg-front-boot-shape"/></clipPath>
+<clipPath id="packmaster-leg-front-boot-lit-clip"><use href="#packmaster-leg-front-boot-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="packmaster-leg-front-boot">
+<use id="packmaster-leg-front-boot-shade" href="#packmaster-leg-front-boot-shape" fill="#4e3520"/>
+<g clip-path="url(#packmaster-leg-front-boot-clip)">
+<use id="packmaster-leg-front-boot-fill" href="#packmaster-leg-front-boot-shape" transform="translate(-4 -4)" fill="#6b4a2b"/>
+<g clip-path="url(#packmaster-leg-front-boot-lit-clip)">
+<use id="packmaster-leg-front-boot-lit" href="#packmaster-leg-front-boot-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="packmaster-leg-front-boot-fill-over" href="#packmaster-leg-front-boot-shape" transform="translate(4.2 4.2)" fill="#6b4a2b"/>
+</g>
+<path id="packmaster-leg-front-sole" d="M 90 175 L 130 175 L 130 183 L 90 183 L 90 175 Z" fill="#2a1a10" opacity="0.35"/>
+<path id="packmaster-leg-front-cuff" d="M 90 159 L 118 159 L 118 163.5 L 90 163.5 L 90 159 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="packmaster-leg-front-cuff-under" d="M 90 163.5 L 118 163.5 L 118 165.5 L 90 165.5 L 90 163.5 Z" fill="#2a1a10" opacity="0.2"/>
+</g>
+<use id="packmaster-leg-front-boot-line" href="#packmaster-leg-front-boot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

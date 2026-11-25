@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="spiketrap-a" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="spiketrap-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="spiketrap-shadow-shadow" d="M 128 181 C 128 184.9 113.7 188 96 188 C 78.3 188 64 184.9 64 181 C 64 177.1 78.3 174 96 174 C 113.7 174 128 177.1 128 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="spiketrap-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="spiketrap-body-plate-shape" d="M 125 174 C 125 179.5 112 184 96 184 C 80 184 67 179.5 67 174 C 67 168.5 80 164 96 164 C 112 164 125 168.5 125 174 Z"/>
+<clipPath id="spiketrap-body-plate-clip"><use href="#spiketrap-body-plate-shape"/></clipPath>
+<clipPath id="spiketrap-body-plate-lit-clip"><use href="#spiketrap-body-plate-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="spiketrap-body-spike-0-shape" d="M 75 173 L 80 157 L 85 173 Z"/>
+<path id="spiketrap-body-spike-1-shape" d="M 85 173 L 90 151 L 95 173 Z"/>
+<path id="spiketrap-body-spike-2-shape" d="M 96 173 L 101 153 L 106 173 Z"/>
+<path id="spiketrap-body-spike-3-shape" d="M 106 173 L 111 158 L 116 173 Z"/>
+<path id="spiketrap-body-spike-4-shape" d="M 90 173 L 95 161 L 100 173 Z"/>
+</defs>
+<g id="spiketrap-body-plate">
+<use id="spiketrap-body-plate-shade" href="#spiketrap-body-plate-shape" fill="#434b56"/>
+<g clip-path="url(#spiketrap-body-plate-clip)">
+<use id="spiketrap-body-plate-fill" href="#spiketrap-body-plate-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#spiketrap-body-plate-lit-clip)">
+<use id="spiketrap-body-plate-lit" href="#spiketrap-body-plate-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="spiketrap-body-plate-fill-over" href="#spiketrap-body-plate-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="spiketrap-body-plate-sheen" d="M100.2 164 L108.9 164 L100.5 184 L91.8 184 Z M112.4 164 L115 164 L106.6 184 L104 184 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="spiketrap-body-rivet" d="M 77.8 174 C 77.8 175 77 175.8 76 175.8 C 75 175.8 74.2 175 74.2 174 C 74.2 173 75 172.2 76 172.2 C 77 172.2 77.8 173 77.8 174 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="spiketrap-body-rivet-lit" d="M 76.2 173.4 C 76.2 173.8 75.8 174.2 75.4 174.2 C 74.9 174.2 74.6 173.8 74.6 173.4 C 74.6 172.9 74.9 172.6 75.4 172.6 C 75.8 172.6 76.2 172.9 76.2 173.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="spiketrap-body-rivet-2" d="M 117.8 174 C 117.8 175 117 175.8 116 175.8 C 115 175.8 114.2 175 114.2 174 C 114.2 173 115 172.2 116 172.2 C 117 172.2 117.8 173 117.8 174 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="spiketrap-body-rivet-lit-2" d="M 116.2 173.4 C 116.2 173.8 115.8 174.2 115.4 174.2 C 114.9 174.2 114.6 173.8 114.6 173.4 C 114.6 172.9 114.9 172.6 115.4 172.6 C 115.8 172.6 116.2 172.9 116.2 173.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="spiketrap-body-rivet-3" d="M 97.8 181 C 97.8 182 97 182.8 96 182.8 C 95 182.8 94.2 182 94.2 181 C 94.2 180 95 179.2 96 179.2 C 97 179.2 97.8 180 97.8 181 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="spiketrap-body-rivet-lit-3" d="M 96.2 180.4 C 96.2 180.8 95.8 181.2 95.4 181.2 C 94.9 181.2 94.6 180.8 94.6 180.4 C 94.6 179.9 94.9 179.6 95.4 179.6 C 95.8 179.6 96.2 179.9 96.2 180.4 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="spiketrap-body-plate-line" href="#spiketrap-body-plate-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="spiketrap-body-spike-0">
+<use id="spiketrap-body-spike-0-fill" href="#spiketrap-body-spike-0-shape" fill="#b9c2cc"/>
+<use id="spiketrap-body-spike-0-line" href="#spiketrap-body-spike-0-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="spiketrap-body-spike-1">
+<use id="spiketrap-body-spike-1-fill" href="#spiketrap-body-spike-1-shape" fill="#b9c2cc"/>
+<use id="spiketrap-body-spike-1-line" href="#spiketrap-body-spike-1-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="spiketrap-body-spike-2">
+<use id="spiketrap-body-spike-2-fill" href="#spiketrap-body-spike-2-shape" fill="#b9c2cc"/>
+<use id="spiketrap-body-spike-2-line" href="#spiketrap-body-spike-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="spiketrap-body-spike-3">
+<use id="spiketrap-body-spike-3-fill" href="#spiketrap-body-spike-3-shape" fill="#b9c2cc"/>
+<use id="spiketrap-body-spike-3-line" href="#spiketrap-body-spike-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="spiketrap-body-spike-4">
+<use id="spiketrap-body-spike-4-fill" href="#spiketrap-body-spike-4-shape" fill="#b9c2cc"/>
+<use id="spiketrap-body-spike-4-line" href="#spiketrap-body-spike-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>
