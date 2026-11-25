@@ -1,6 +1,8 @@
 // The bank: the recorded sounds the game plays, kept in one file,
-// public/assets/audio/bank.bin (made by scripts/samples.mjs, which says
-// where each came from). An orchestra's instruments a note at a time,
+// public/assets/audio/bank.bin. It was cut for the Legion games (the script
+// that cut it, and says where each sound came from, is kept with them in
+// VennethN/game-assets, styles/legion/audio/tools/samples.mjs), and the
+// five sounds this game never plays were taken out of it here. An orchestra's instruments a note at a time,
 // drums, bells and cymbals, and the clicks of an interface.
 //
 // The effects (sfx.ts) and the music (music.ts) play from it when it is
@@ -25,18 +27,40 @@ export interface BufferLike {
 
 /** The notes each instrument was recorded at, as MIDI numbers. The notes between are these played faster or slower. */
 export const INSTRUMENTS = {
-  flute: [64, 69, 72, 76, 81, 84, 88],
+  flute: [69, 72, 76, 81, 84, 88],
   oboe: [62, 65, 70, 74],
   harp: [52, 59, 65, 72, 79],
-  glock: [79, 84, 91, 96],
+  glock: [79, 84, 91],
   cello: [50, 57, 64],
   bass: [38, 42, 45, 49],
   trumpet: [67, 70, 77],
   horn: [57],
   pizz: [76],
+  // A church bell, one stroke. Played slower it is a bigger bell and rings longer.
+  bell: [72],
 } as const satisfies Record<string, readonly number[]>;
 
 export type Instrument = keyof typeof INSTRUMENTS;
+
+/**
+ * How long each instrument's recordings are, in seconds, at the pitch they
+ * were recorded at (measured from the bank's file). The music asks, so that
+ * a note held longer than its recording is bowed or blown again and not cut
+ * off: a cello is recorded for nearly four seconds, a horn for half of one.
+ */
+export const LENGTHS: Readonly<Record<string, number>> = {
+  cello: 3.8,
+  flute: 1.7,
+  oboe: 1.8,
+  harp: 1.5,
+  bass: 1.3,
+  bell: 2.2,
+  glock: 1,
+  trumpet: 0.6,
+  horn: 0.5,
+  pizz: 0.5,
+  timpani: 1.5,
+};
 
 /** The recorded note of an instrument nearest to a pitch, and how fast to play it to get that pitch. */
 export function nearest(instrument: Instrument, midi: number): { name: string; rate: number } {
@@ -117,7 +141,7 @@ export class Bank {
   }
 }
 
-/** The rate the bank was written at (scripts/samples.mjs). Read at the same, it takes the least room. */
+/** The rate the bank was written at. Read at the same, it takes the least room. */
 const BANK_RATE = 32000;
 
 /** What turns an MP3 into a sound in a browser, or null where there is nothing that can. */

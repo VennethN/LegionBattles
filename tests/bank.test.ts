@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Bank, INSTRUMENTS, leadOf, nearest, parse, type BufferLike, type Instrument } from '../src/audio/bank';
-import { Music, THEMES, type Mood } from '../src/audio/music';
+import { MOMENTS, Music, PIECES, stepsOf, type Moment } from '../src/audio/music';
 import { SOUNDS, Sfx, type Hit } from '../src/audio/sfx';
 import { bankFile, fakeAudio, fakeBank } from './audio';
 
@@ -43,18 +43,22 @@ describe('the bank of recorded sounds', () => {
       asked.add(name);
       return get(name);
     };
-    // Every effect once, and every theme once round in each mood.
+    // Every effect once, every piece once round at each of its steps, and every moment.
     for (const recipe of Object.values(SOUNDS)) for (const h of (recipe as { hits?: Hit[] }).hits ?? []) asked.add(h.s);
-    for (const land of Object.keys(THEMES)) {
-      for (const mood of ['calm', 'battle'] as Mood[]) {
+    for (const [id, piece] of Object.entries(PIECES)) {
+      for (let step = 0; step < stepsOf(piece); step++) {
         const f = fakeAudio();
         const sfx = new Sfx(() => f.ctx, bank);
         sfx.unlock();
         const music = new Music(() => sfx.out);
-        music.play(land, mood);
-        for (let i = 0; i < 60 * 60; i++) {
+        music.play(id, step);
+        for (let i = 0; i < 90 * 60; i++) {
           f.clock.t += 1 / 60;
           music.update();
+        }
+        for (const what of Object.keys(MOMENTS) as Moment[]) {
+          music.play(id, step);
+          music.moment(what);
         }
       }
     }
