@@ -78,7 +78,10 @@ export function fit(cssW: number, cssH: number, dpr = 1): View {
 // The scale SVGs are rasterized at is the art runtime's to say (art/scale.ts). It is passed on here for the screens.
 export { ART_SCALE } from './art/scale';
 
-export const FONT = 'Fredoka';
+/** The display face: titles, names, buttons, numbers. Condensed and hard, read at a glance (src/fonts). */
+export const FONT = 'Grenze';
+/** The text face: every sentence. A sturdy serif that still reads at eleven pixels. */
+export const TEXT_FONT = 'Alegreya';
 
 export function hex(color: string): number {
   return parseInt(color.slice(1), 16);

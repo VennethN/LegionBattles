@@ -1,0 +1,35 @@
+/*
+ * The game's two faces, both under the SIL Open Font License 1.1 (public/fonts):
+ * Grenze, by the Grenze Project Authors (Omnibus-Type), for titles, names, buttons and numbers: condensed and hard,
+ * with some bite, and read at a glance. Alegreya, by the Alegreya Project Authors (Huerta Tipografica), for every sentence:
+ * a sturdy old-style serif that still reads at eleven pixels. Taken from the @fontsource packages, Latin only, and
+ * only the weights the game uses.
+ */
+@font-face {
+  font-family: 'Grenze';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./grenze-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Grenze';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./grenze-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Alegreya';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./alegreya-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Alegreya';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./alegreya-latin-700-normal.woff2') format('woff2');
+}

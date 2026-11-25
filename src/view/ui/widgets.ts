@@ -2,10 +2,10 @@
 // a darker lip along the bottom, the one dark line round them.
 
 import Phaser from 'phaser';
-import { BONE, GOLD, HIGHLIGHT, OUTLINE, type Material } from '../../art/kit/palette';
+import { BONE, GOLD, OUTLINE, type Material } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
-import { FONT, hex, view } from '../config';
-import { BAKE_PAD, slabKey } from './bake';
+import { FONT, TEXT_FONT, hex, view } from '../config';
+import { nine, uiKey } from './grim';
 
 export interface TextOpts {
   size?: number;
@@ -15,19 +15,31 @@ export interface TextOpts {
   weight?: 600 | 700;
   align?: 'left' | 'center' | 'right';
   wrap?: number;
+  /** Which face, where the words alone do not say: the display face for labels, the text face for sentences. */
+  face?: 'display' | 'text';
 }
 
-/** Text in the game's font with the dark line round it. */
+/** True for words set in the display face: a label, a name in capitals, a number. A sentence is set in the text face. */
+export function displayed(text: string, o: TextOpts = {}): boolean {
+  if (o.face) return o.face === 'display';
+  return text === text.toUpperCase() || !/\s/.test(text.trim());
+}
+
+/**
+ * Text in one of the game's two faces, with a thin dark line round it so that it reads on the field. Labels and
+ * numbers are in the hard display face; sentences in the serif, a size up, as a serif reads smaller than its size.
+ */
 export function label(scene: Phaser.Scene, x: number, y: number, text: string, o: TextOpts = {}): Phaser.GameObjects.Text {
-  const size = o.size ?? 24;
+  const display = displayed(text, o);
+  const size = (o.size ?? 24) + (display ? 0 : 1);
   const stroke = o.stroke === undefined ? OUTLINE : o.stroke;
   const t = scene.add.text(x, y, text, {
-    fontFamily: `${FONT}, sans-serif`,
-    fontStyle: `${o.weight ?? 700}`,
+    fontFamily: display ? `${FONT}, serif` : `${TEXT_FONT}, serif`,
+    fontStyle: `${display ? (o.weight ?? 700) : (o.weight ?? 700) === 700 ? 700 : 500}`,
     fontSize: `${size}px`,
     color: o.color ?? BONE.fill,
     stroke: stroke ?? undefined,
-    strokeThickness: stroke ? (o.strokeWidth ?? Math.max(4, Math.round(size / 5))) : 0,
+    strokeThickness: stroke ? (o.strokeWidth ?? Math.max(3, Math.round(size / 7))) : 0,
     align: o.align ?? 'center',
     wordWrap: o.wrap ? { width: o.wrap } : undefined,
   });
@@ -45,8 +57,8 @@ export function plain(button: Button): Button {
 }
 
 /**
- * A rounded slab: fill, a darker lip along the bottom, a band of light
- * along the top as the art has, and a dark line round it.
+ * A board drawn with a Graphics object where a picture will not do: hard corners, a face lifted off a darker foot,
+ * light along the top, the near-black line round it. The panels a screen keeps are baked pictures (bake.ts).
  */
 export function slab(
   g: Phaser.GameObjects.Graphics,
@@ -55,20 +67,17 @@ export function slab(
   w: number,
   h: number,
   mat: Material,
-  radius = 14,
+  _radius = 14,
   lip = 6,
 ): void {
   g.fillStyle(hex(mat.shade), 1);
-  g.fillRoundedRect(x, y, w, h, radius);
+  g.fillRect(x, y, w, h);
   g.fillStyle(hex(mat.fill), 1);
-  g.fillRoundedRect(x, y, w, h - lip, radius);
-  // The light comes from the top left, on a panel as on a unit. Small slabs and flat ones go without.
-  if (lip > 0 && h >= 30 && w >= 40) {
-    g.fillStyle(hex(HIGHLIGHT), 0.22);
-    g.fillRoundedRect(x + 5, y + 4, w - 10, Math.min(7, h * 0.16), Math.min(radius, 5));
-  }
-  g.lineStyle(4, hex(OUTLINE), 1);
-  g.strokeRoundedRect(x, y, w, h, radius);
+  g.fillRect(x, y, w, h - Math.max(2, lip * 0.6));
+  g.fillStyle(0xfff0d0, 0.14);
+  g.fillRect(x, y, w, 2);
+  g.lineStyle(2.5, 0x0d0b09, 1);
+  g.strokeRect(x, y, w, h);
 }
 
 export interface ButtonOpts {
@@ -79,20 +88,32 @@ export interface ButtonOpts {
   color?: string;
 }
 
+/** The color a board of the kit's is washed with for a material: red only for what must be pressed, brass for the way on, iron for the rest. */
+function washOf(mat: Material): number {
+  const f = mat.fill.toLowerCase();
+  if (f.startsWith('#c7') || f.startsWith('#c0') || f.startsWith('#d0')) return 0xe07a66;
+  if (f === '#c8a24a' || f === '#f2d264') return 0xf2dcae;
+  if (f === '#e9dfc6' || f === '#d9cdb0') return 0xffffff;
+  return 0xb8b2a8;
+}
+
 /**
- * A button. Never smaller than 44 px either way, which is what a finger
- * needs. It sinks when pressed and fires when let go over it. Its slab is a
- * picture made once for its size and color (bake.ts), up and down.
+ * A button: one of the style's boards with iron at its ends (large, medium or small, by its height), cut in nine to
+ * its width, washed in its material's color, with its words across the middle in the display face. Never smaller
+ * than 44 px either way, which is what a finger needs. It lifts a little under a pointer, sinks onto the kit's
+ * pressed board when pressed, and fires when let go over it.
  */
 export class Button {
   readonly root: Phaser.GameObjects.Container;
-  private readonly slab: Phaser.GameObjects.Image;
+  private board: Phaser.GameObjects.NineSlice;
   private readonly text: Phaser.GameObjects.Text;
   private readonly w: number;
   private readonly h: number;
+  private readonly kind: 'large' | 'medium' | 'small';
   private mat: Material;
   private enabled = true;
   private down = false;
+  private over = false;
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -104,13 +125,18 @@ export class Button {
   ) {
     this.w = Math.max(44, o.width ?? 200);
     this.h = Math.max(44, o.height ?? 64);
+    this.kind = this.h >= 62 ? 'large' : this.h >= 50 ? 'medium' : 'small';
     this.mat = o.mat ?? GOLD;
     this.root = scene.add.container(x, y);
-    this.slab = scene.add.image(0, 0, slabKey(scene, this.w, this.h, this.mat, 16, 7));
-    this.text = label(scene, 0, -3, text, { size: o.size ?? 30, color: o.color });
-    this.root.add([this.slab, this.text]);
+    this.board = nine(scene, `button-${this.kind}`, 0, 0, this.w, this.h);
+    this.text = label(scene, 0, -2, text, { size: o.size ?? 30, color: o.color, face: 'display' });
+    this.root.add([this.board, this.text]);
     this.root.setSize(this.w, this.h);
     this.root.setInteractive({ useHandCursor: true });
+    this.root.on('pointerover', () => {
+      this.over = true;
+      this.draw();
+    });
     this.root.on('pointerdown', () => {
       if (!this.enabled) {
         // A button that will not go says so: not enough coins, nothing to open.
@@ -122,6 +148,7 @@ export class Button {
     });
     this.root.on('pointerout', () => {
       this.down = false;
+      this.over = false;
       this.draw();
     });
     this.root.on('pointerup', () => {
@@ -135,14 +162,17 @@ export class Button {
   }
 
   private draw(): void {
-    // Pressed, it is a little shorter and its lip thinner: it has gone down into the page.
-    const sink = this.down ? 4 : 0;
-    const h = this.h - sink;
-    this.slab
-      .setTexture(slabKey(this.scene, this.w, h, this.mat, 16, this.down ? 3 : 7))
-      .setDisplaySize(this.w + BAKE_PAD * 2, h + BAKE_PAD * 2)
-      .setY(sink / 2);
-    this.text.y = -3 + sink;
+    // Pressed, it is the kit's pressed board and its words go down with it; under a pointer it is lifted and lit.
+    const key = uiKey(`button-${this.kind}${this.down ? '-pressed' : ''}`);
+    if (this.board.texture.key !== key) {
+      this.board.destroy();
+      this.board = nine(this.scene, `button-${this.kind}${this.down ? '-pressed' : ''}`, 0, 0, this.w, this.h, `button-${this.kind}`);
+      this.root.addAt(this.board, 0);
+    }
+    const lift = this.down ? 2 : this.over && this.enabled ? -1 : 0;
+    this.board.setY(lift);
+    this.board.setTint(this.over && this.enabled && !this.down ? Math.min(0xffffff, washOf(this.mat) + 0x101010) : washOf(this.mat));
+    this.text.y = -2 + lift;
     this.root.alpha = this.enabled ? 1 : 0.5;
   }
 

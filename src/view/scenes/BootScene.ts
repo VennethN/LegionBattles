@@ -3,15 +3,16 @@
 // and the sounds. The figures of a lair come later, as the lair is come to
 // (LairScene).
 
+import { loadUi } from '../ui/grim';
 import Phaser from 'phaser';
 import { GRIM_UNITS } from '../pictures';
 import { setGrim, type GrimManifest } from '../art/grim';
 import type { Manifest } from '../../art/manifest';
-import { BONE, OUTLINE } from '../../art/kit/palette';
+import { OUTLINE } from '../../art/kit/palette';
 import { fillBank } from '../../audio/bank';
 import { ads } from '../../platform/ads';
 import { ASSETS, getManifest, setManifest, setupCamera } from '../app';
-import { ART_SCALE, FONT, hex, view } from '../config';
+import { ART_SCALE, FONT, TEXT_FONT, view } from '../config';
 import { makeDigitFont } from '../Numbers';
 import { cardSheet, portraitFrame, sheet } from '../art/Sheet';
 import { WHOLE } from '../pictures';
@@ -40,6 +41,7 @@ export class BootScene extends Phaser.Scene {
     this.load.svg('bill', 'assets/grim/things/bill.svg', { scale: 1.5 });
   }
 
+
   create(): void {
     const manifest = this.cache.json.get('manifest') as Manifest;
     setManifest(manifest);
@@ -56,9 +58,10 @@ export class BootScene extends Phaser.Scene {
     const bar = this.add.graphics();
     const draw = (p: number): void => {
       bar.clear();
-      bar.fillStyle(hex(BONE.shade), 1).fillRoundedRect(cx - bw / 2 - 6, by - 16, bw + 12, 32, 14);
-      bar.fillStyle(hex(OUTLINE), 1).fillRoundedRect(cx - bw / 2 - 2, by - 12, bw + 4, 24, 11);
-      bar.fillStyle(hex(BONE.fill), 1).fillRoundedRect(cx - bw / 2, by - 10, Math.max(20, bw * p), 20, 9);
+      // An iron trough with a strip of tallow light filling it: no rounded pastel bar in this game.
+      bar.fillStyle(0x3a3631, 1).fillRect(cx - bw / 2 - 6, by - 12, bw + 12, 24);
+      bar.fillStyle(0x0b0908, 1).fillRect(cx - bw / 2 - 2, by - 8, bw + 4, 16);
+      bar.fillStyle(0xc89a4a, 1).fillRect(cx - bw / 2, by - 6, Math.max(6, bw * p), 12);
     };
     draw(0);
     this.load.on(Phaser.Loader.Events.PROGRESS, draw);
@@ -72,6 +75,8 @@ export class BootScene extends Phaser.Scene {
     // The style's own figures, each made about as tall as a card can show it.
     const cardScale = (id: string): number => Math.min(1.5, 230 / grim.units[id].full[3]);
     for (const id of GRIM_UNITS) this.load.svg(`svg:portrait/grim/${id}`, `assets/grim/units/${id}/full.svg`, { scale: cardScale(id) });
+    // The style's own interface pieces: buttons, slots, bar frames, the panel, the icons.
+    loadUi(this);
     // The recorded sounds, in one file. They are read while the game goes on: nothing waits for them.
     this.load.binary('audio-bank', 'assets/audio/bank.bin');
 
@@ -79,7 +84,7 @@ export class BootScene extends Phaser.Scene {
       void fillBank(this.cache.binary.get('audio-bank') as ArrayBuffer | undefined);
       // Text is drawn with the browser's canvas, so the font has to be there before any is made.
       const fonts = typeof document !== 'undefined' && document.fonts
-        ? Promise.all([document.fonts.load(`600 24px ${FONT}`), document.fonts.load(`700 24px ${FONT}`)])
+        ? Promise.all([document.fonts.load(`600 24px ${FONT}`), document.fonts.load(`700 24px ${FONT}`), document.fonts.load(`500 24px ${TEXT_FONT}`), document.fonts.load(`700 24px ${TEXT_FONT}`)])
         : Promise.resolve([]);
       const go = (): void => {
         art.keepFolder(this, 'fx', 'fx');
