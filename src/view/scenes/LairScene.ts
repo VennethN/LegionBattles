@@ -9,7 +9,7 @@
 
 import Phaser from 'phaser';
 import { BONE, HOLY, OUTLINE, RUBY } from '../../art/kit/palette';
-import { music } from '../../audio/music';
+import { huntOf, music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import type { Bot } from '../../game/bot';
 import { BUILDINGS, CAMP } from '../../game/content';
@@ -22,7 +22,7 @@ import { LairLight } from '../light/LairLight';
 import type { LightMode } from '../light/setting';
 import { Numbers } from '../Numbers';
 import {
-  ABILITY_MOVES, ALLY_ART, BUILDING_ART, GRIM_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAIR_MUSIC, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, isGrim, type Art,
+  ABILITY_MOVES, ALLY_ART, BUILDING_ART, GRIM_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, isGrim, type Art,
 } from '../pictures';
 import { Figure } from '../art/Figure';
 import { GrimFigure } from '../art/GrimFigure';
@@ -193,7 +193,9 @@ export class LairScene extends Phaser.Scene {
     this.marks = this.light.crisp(this.add.graphics().setDepth(2));
     this.ready = true;
     this.sync(0);
-    music.play(LAIR_MUSIC[h.monster.def.lair] ?? 'meadow', h.phase === 'camp' ? 'calm' : 'battle');
+    // Before the boss wakes, the lair's near silence; once it is up, its own piece at the step its health has come to.
+    if (h.phase === 'camp' || h.monster.state === 'asleep') music.play('lair', h.phase === 'camp' ? 1 : 0);
+    else music.play(huntOf(h.monster.def.id), musicStep(h.monster.part, h.cuts.length + 1));
     if (h.over) {
       this.ended = true;
       this.halted = true;
@@ -269,8 +271,8 @@ export class LairScene extends Phaser.Scene {
     const hud = this.scene.get('Hud') as HudScene | undefined;
     hud?.controls?.release();
     finishHunt();
-    sfx.play(won ? 'victory' : 'defeat', 0.8);
-    music.play(LAIR_MUSIC[this.hunt.monster.def.lair] ?? 'meadow', 'calm');
+    // The music ends the hunt itself: it resolves on a win and sinks on a loss.
+    music.moment(won ? 'fall' : 'lost');
     if (won) {
       this.monster?.die(this.clock);
       this.standIn?.die(this.clock);
@@ -316,7 +318,8 @@ export class LairScene extends Phaser.Scene {
         case 'wake':
           sfx.play('spawn', 1, 0.6);
           sfx.play('fight', 0.7);
-          music.play(LAIR_MUSIC[m.def.lair] ?? 'meadow', 'battle');
+          music.moment('wake');
+          music.play(huntOf(m.def.id), 0);
           this.shake(500, 0.012);
           hud?.banner(m.def.name.toUpperCase(), 'The boss is awake');
           break;
@@ -424,6 +427,7 @@ export class LairScene extends Phaser.Scene {
         case 'broken':
           sfx.play('blast', 0.9, 0.7);
           this.shake(420, 0.014);
+          music.moment('break');
           hud?.banner('STUNNED', 'Double damage: attack now');
           this.monster?.drop();
           this.standIn?.hit(this.clock, h.x);
@@ -431,7 +435,8 @@ export class LairScene extends Phaser.Scene {
         case 'shift':
           sfx.play('spawn', 1, 0.5);
           this.shake(900, 0.012);
-          hud?.banner(m.def.name.toUpperCase(), e.part === 1 ? 'Phase 2' : 'Phase 3');
+          music.play(huntOf(m.def.id), musicStep(e.part, w.cuts.length + 1));
+          hud?.banner(m.def.name.toUpperCase(), `Phase ${e.part + 1}`);
           break;
         case 'dash':
           sfx.play('lift', 0.9, 0.6);
@@ -810,4 +815,9 @@ export class LairScene extends Phaser.Scene {
     g.lineTo(t.x - nx, t.y - ny);
     g.closePath().strokePath();
   }
+}
+
+/** The step of a boss's piece for a part of its health: a hunt of three parts plays all three, a shorter one ends on the last. */
+function musicStep(part: number, parts: number): number {
+  return parts <= 1 ? 0 : Math.round((part * 2) / (parts - 1));
 }

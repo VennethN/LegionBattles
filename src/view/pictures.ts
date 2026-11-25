@@ -60,8 +60,6 @@ export const LAMP_ART: Art = { grim: 'streetlamp' };
 /** The ground of each kind of lair: the style's own, or one of the Legion kit's by name until the style has it. */
 export const LAIR_GROUND: Record<string, { grim: string } | { legion: 'meadow' | 'desert' | 'snow' }> = { churchyard: { grim: 'churchyard' }, wood: { legion: 'snow' } };
 
-/** The music of each kind of lair, by the name of its theme. */
-export const LAIR_MUSIC: Record<string, string> = { churchyard: 'meadow', wood: 'snow' };
 
 const ALL: Art[] = [...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART), ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
 const legion = (list: Art[]): Array<{ team: Side; unit: string }> => list.flatMap((a) => (isGrim(a) ? [] : [{ team: a.team, unit: a.legion }]));

@@ -42,7 +42,7 @@ export class LodgeScene extends Phaser.Scene {
     this.leaf = data.leaf ?? 'board';
     this.note = data.note ?? '';
     LairScene.applySound();
-    music.play('meadow', 'calm');
+    music.play('lodge');
     const s = save();
     const w = view.w;
 

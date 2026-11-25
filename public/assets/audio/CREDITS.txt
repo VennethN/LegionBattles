@@ -11,5 +11,7 @@ Interface Sounds 1.0, by Kenney
   The sounds of the buttons and the menus.
   https://www.kenney.nl
 
-scripts/samples.mjs in the game's repository says which recording each sound
-is cut from, and how.
+The script that cut them (samples.mjs, kept with the Legion games' sound in
+VennethN/game-assets, styles/legion/audio/tools) says which recording each
+sound is cut from, and how. Five of its sounds that this game never plays
+(tamb, sleigh, belltree, glock-96, flute-64) were taken out of this copy.

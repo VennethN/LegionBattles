@@ -69,6 +69,8 @@ interface SourceLike extends NodeLike {
   buffer: unknown;
   /** How fast it is played: 2 is an octave up. */
   playbackRate?: { value: number };
+  /** True for a sound that goes round until it is stopped: the wind. */
+  loop?: boolean;
   start(t: number, offset?: number): void;
   stop(t: number): void;
 }
@@ -140,9 +142,7 @@ const CROWD_DUCK = 0.12;
 const WANDER = [0, 0.7, -0.5, 1, -1, 0.3, -0.8, 0.5];
 
 // Notes, in hertz.
-const C4 = 261.6;
 const D4 = 293.7;
-const E4 = 329.6;
 const G4 = 392.0;
 const C5 = 523.3;
 const E5 = 659.3;
@@ -247,12 +247,11 @@ export const SOUNDS = {
   },
   // A tutorial's note comes up.
   pop: { level: 0.58, hits: [{ s: 'ui-pop', gain: 0.4 }], tones: [{ wave: 'sine', from: 420, to: 760, dur: 0.07, gain: 0.12 }], gap: 0.08 },
-  // A reward is claimed: wind chimes, and three bells going up.
+  // The hunter's horn is blown for help: two notes, the second a fourth up, over a drum.
   claim: {
-    level: 0.7,
-    hits: [{ s: 'chimes', gain: 0.3 }, ...arp('glock', [79, 84, 88], 0.07, 0.24, 0.02), { s: 'finger-cymbal', gain: 0.16, at: 0.2 }],
-    tones: [...run([G5, C6, E6], 0.06, 0.2, 0.12, 'sine'), { wave: 'triangle', from: C5, dur: 0.4, gain: 0.07 }],
-    noise: [{ filter: 'highpass', from: 4000, to: 9000, dur: 0.3, gain: 0.03, at: 0.1 }],
+    level: 0.6,
+    hits: [note('horn', 52, 0.4, 0, 0.28), note('horn', 57, 0.46, 0.2, 0.45), { s: 'bdrum-soft', gain: 0.3, at: 0.2 }],
+    tones: [{ wave: 'sawtooth', from: 165, dur: 0.2, gain: 0.09 }, { wave: 'sawtooth', from: 220, dur: 0.4, gain: 0.1, at: 0.2 }, { wave: 'triangle', from: 220, dur: 0.4, gain: 0.08, at: 0.2 }],
   },
   // A unit is set down on the board: wood, knocked.
   place: {
@@ -262,35 +261,32 @@ export const SOUNDS = {
     noise: [{ filter: 'lowpass', from: 500, dur: 0.05, gain: 0.1 }],
   },
   lift: { level: 0.9, hits: [{ s: 'ui-lift', gain: 0.35 }], tones: [{ wave: 'sine', from: 300, to: 460, dur: 0.07, gain: 0.12 }] },
-  // A battle begins: a horn's call of two notes over a kettledrum.
+  // The monster is awake: the low kettledrum, and a horn's two notes a minor third apart.
   fight: {
     level: 0.5,
-    hits: [
-      { s: 'timpani', gain: 0.6, dur: 0.9 },
-      note('horn', 57, 0.36, 0, 0.16),
-      note('horn', 62, 0.42, 0.13, 0.4),
-      { s: 'snare', gain: 0.22, at: 0.13 },
-    ],
+    hits: [{ s: 'timpani-low', gain: 0.6, dur: 0.9 }, note('horn', 52, 0.36, 0, 0.2), note('horn', 55, 0.42, 0.16, 0.5)],
     tones: [
-      { wave: 'sawtooth', from: 196, to: 262, dur: 0.34, gain: 0.1 },
-      { wave: 'triangle', from: 392, to: 523, dur: 0.34, gain: 0.1 },
+      { wave: 'sawtooth', from: 165, to: 196, dur: 0.4, gain: 0.1 },
+      { wave: 'sine', from: 90, to: 60, dur: 0.5, gain: 0.2 },
     ],
   },
+  // A coin put down on wood, not a chime: this is pay for a killing.
   coin: {
     level: 0.63,
-    hits: [note('glock', 88, 0.3, 0, 0.3), note('glock', 95, 0.3, 0.06, 0.5)],
-    tones: [{ wave: 'sine', from: E6, dur: 0.07, gain: 0.13 }, { wave: 'sine', from: G6 * 1.12, dur: 0.16, gain: 0.13, at: 0.06 }],
+    hits: [{ s: 'claves', gain: 0.25, rate: 1.5 }, note('glock', 79, 0.2, 0.02, 0.25)],
+    tones: [{ wave: 'sine', from: 784, dur: 0.07, gain: 0.12 }, { wave: 'sine', from: 1175, dur: 0.12, gain: 0.08, at: 0.03 }],
     gap: 0.05,
   },
+  // A bell struck once, with a low string under it: the bell post rung, a trophy holding its wearer up.
   levelUp: {
     level: 0.51,
-    hits: [...arp('harp', [72, 76, 79], 0.06, 0.42), note('glock', 84, 0.24, 0.18), { s: 'triangle', gain: 0.1, at: 0.18, dur: 0.5 }],
-    tones: run([C5, E5, G5, C6], 0.06, 0.16, 0.14),
+    hits: [{ s: 'bell-72', gain: 0.5, rate: 0.75 }, note('harp', 55, 0.3), note('harp', 62, 0.24, 0.05)],
+    tones: [{ wave: 'triangle', from: 392, dur: 0.9, gain: 0.12 }, { wave: 'sine', from: 1082, dur: 0.5, gain: 0.03 }, { wave: 'triangle', from: 196, dur: 0.5, gain: 0.1 }],
   },
   buy: {
     level: 0.51,
-    hits: [{ s: 'ui-buy', gain: 0.3 }, { s: 'finger-cymbal', gain: 0.2, at: 0.06, dur: 0.6 }],
-    tones: run([G5, C6], 0.06, 0.12, 0.13, 'sine'),
+    hits: [{ s: 'ui-buy', gain: 0.3 }, { s: 'finger-cymbal', gain: 0.16, rate: 0.7, at: 0.06, dur: 0.5 }],
+    tones: run([G4, C5], 0.06, 0.12, 0.13, 'sine'),
   },
 
   // A battle.
@@ -339,14 +335,12 @@ export const SOUNDS = {
     crowd: true,
     vary: 0.06,
   },
-  // Magic: a stroke up a bell tree.
+  // Something catches fire: a rush of air, and a low cymbal under it.
   cast: {
     level: 0.5,
-    hits: [{ s: 'belltree', gain: 0.35, rate: 1.15, dur: 0.6 }],
-    tones: [
-      { wave: 'sine', from: 420, to: 900, dur: 0.22, gain: 0.13 },
-      { wave: 'sine', from: 840, to: 1800, dur: 0.22, gain: 0.05 },
-    ],
+    hits: [{ s: 'cabasa', gain: 0.5, rate: 0.6 }, { s: 'crash', gain: 0.2, rate: 0.6, dur: 0.7 }, { s: 'bdrum-soft', gain: 0.35 }],
+    tones: [{ wave: 'sine', from: 160, to: 90, dur: 0.25, gain: 0.14 }],
+    noise: [{ filter: 'bandpass', from: 500, to: 1800, q: 0.7, dur: 0.35, gain: 0.16 }],
     gap: 0.06,
   },
   blast: {
@@ -356,30 +350,33 @@ export const SOUNDS = {
     noise: [{ filter: 'lowpass', from: 1900, to: 180, dur: 0.26, gain: 0.26 }],
     gap: 0.08,
   },
+  // Mending: two low notes of a harp, a fifth apart, and nothing bright over them.
   heal: {
     level: 0.4,
-    hits: [note('harp', 76, 0.4, 0, 0.6), note('harp', 83, 0.4, 0.08, 0.9), note('glock', 95, 0.08, 0.08)],
-    tones: [{ wave: 'triangle', from: E5, dur: 0.12, gain: 0.11 }, { wave: 'triangle', from: G5 * 1.122, dur: 0.18, gain: 0.11, at: 0.08 }],
+    hits: [note('harp', 62, 0.4, 0, 0.7), note('harp', 69, 0.34, 0.1, 0.9)],
+    tones: [{ wave: 'triangle', from: D4, dur: 0.16, gain: 0.11 }, { wave: 'triangle', from: 440, dur: 0.22, gain: 0.1, at: 0.1 }],
     gap: 0.1,
   },
+  // Something is about to be done, by the hunter or to them: a bare fifth low on a harp, and a low drum. Neither glad nor sad.
   skill: {
     level: 0.42,
-    hits: [...arp('harp', [72, 76, 79], 0.055, 0.42, 0, 0.5), { s: 'triangle', gain: 0.16, at: 0.11, dur: 0.5 }],
-    tones: run([C5, E5, G5], 0.055, 0.1, 0.15),
+    hits: [note('harp', 50, 0.42, 0, 0.5), note('harp', 57, 0.36, 0.05, 0.5), { s: 'tom-low', gain: 0.3, rate: 0.8 }],
+    tones: [{ wave: 'triangle', from: 146.8, dur: 0.16, gain: 0.15 }, { wave: 'triangle', from: 220, dur: 0.18, gain: 0.12, at: 0.05 }, { wave: 'sine', from: 110, to: 70, dur: 0.1, gain: 0.2 }],
     gap: 0.12,
   },
+  // The monster is open: iron rings once.
   status: {
-    level: 0.45,
-    hits: [{ s: 'tamb-shake', gain: 0.25, rate: 0.9 }],
+    level: 0.8,
+    hits: [{ s: 'brake-2', gain: 0.3, rate: 1.3, dur: 0.3 }, { s: 'tap-1', gain: 0.2 }],
     tones: [{ wave: 'square', from: 320, to: 210, dur: 0.06, gain: 0.05 }],
     gap: 0.1,
     crowd: true,
   },
-  // Someone is called up onto the field: a horn's two notes, and feet landing.
+  // Something comes up out of the ground, or the monster changes: a low drum, a low string, and earth falling.
   spawn: {
     level: 0.45,
-    hits: [note('horn', 57, 0.3, 0, 0.14), note('horn', 62, 0.34, 0.09, 0.3), { s: 'logdrum', gain: 0.25, at: 0.17, dur: 0.2 }],
-    tones: [{ wave: 'triangle', from: G4, dur: 0.1, gain: 0.1 }, { wave: 'triangle', from: C5, dur: 0.16, gain: 0.1, at: 0.08 }],
+    hits: [{ s: 'timpani-low', gain: 0.5, dur: 0.8 }, note('cello', 41, 0.4, 0, 0.5), { s: 'logdrum', gain: 0.25, at: 0.17, dur: 0.2 }],
+    tones: [{ wave: 'sine', from: 100, to: 60, dur: 0.4, gain: 0.22 }, { wave: 'triangle', from: 73.4, dur: 0.4, gain: 0.12 }],
     noise: [{ filter: 'lowpass', from: 700, dur: 0.06, gain: 0.1, at: 0.16 }],
     gap: 0.15,
   },
@@ -399,35 +396,33 @@ export const SOUNDS = {
     noise: [{ filter: 'lowpass', from: 520, dur: 0.12, gain: 0.16, at: 0.36 }],
     gap: 0.08,
   },
-  // Trumpets up the chord, and the whole band on its top.
+  // It is dead: the kettledrum, a great bell, and low strings on a bare fifth. No fanfare: nobody is glad yet.
   victory: {
     level: 0.64,
     hits: [
-      ...arp('trumpet', [67, 72, 76, 79], 0.12, 0.4),
-      note('trumpet', 72, 0.3, 0.5),
-      note('trumpet', 76, 0.3, 0.5),
-      note('trumpet', 79, 0.34, 0.5),
-      { s: 'timpani', gain: 0.6, rate: TIMPANI_C, at: 0.5 },
-      { s: 'crash-long', gain: 0.3, at: 0.5 },
-      ...arp('glock', [84, 88, 91, 96], 0.07, 0.14, 0.55),
+      { s: 'timpani', gain: 0.6, rate: 1.03 },
+      { s: 'bell-72', gain: 0.4, rate: 0.561 },
+      { s: 'crash-long', gain: 0.18, rate: 0.7 },
+      note('cello', 50, 0.35, 0, 1.3),
+      note('cello', 57, 0.3, 0, 1.3),
     ],
     tones: [
-      ...run([G4, C5, E5, G5], 0.12, 0.2, 0.16),
-      { wave: 'triangle', from: C5, dur: 0.7, gain: 0.12, at: 0.5 },
-      { wave: 'triangle', from: E5, dur: 0.7, gain: 0.1, at: 0.5 },
-      { wave: 'triangle', from: G5, dur: 0.7, gain: 0.1, at: 0.5 },
+      { wave: 'sine', from: 150, to: 70, dur: 0.4, gain: 0.3 },
+      { wave: 'triangle', from: D4, dur: 1.2, gain: 0.12 },
+      { wave: 'triangle', from: 146.8, dur: 1.1, gain: 0.12 },
+      { wave: 'triangle', from: 220, dur: 1.1, gain: 0.1 },
     ],
   },
-  // Cellos down three steps, and a kettledrum under the last.
+  // The hunter is down: cellos down three steps of the minor, and the low kettledrum under the last.
   defeat: {
     level: 0.45,
     hits: [
-      note('cello', 64, 0.4, 0, 0.3),
-      note('cello', 62, 0.4, 0.22, 0.3),
-      note('cello', 60, 0.45, 0.44, 0.9),
-      { s: 'timpani', gain: 0.35, rate: TIMPANI_C, at: 0.44 },
+      note('cello', 57, 0.4, 0, 0.3),
+      note('cello', 55, 0.4, 0.22, 0.3),
+      note('cello', 53, 0.45, 0.44, 0.9),
+      { s: 'timpani-low', gain: 0.35, at: 0.44 },
     ],
-    tones: run([E4, D4, C4], 0.2, 0.34, 0.15),
+    tones: run([220, 196, 174.6], 0.2, 0.34, 0.15),
   },
 
   // A pack.
