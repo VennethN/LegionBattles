@@ -39,7 +39,7 @@ describe('a run', () => {
       expect(run.wave).toBe(1);
       expect(statsOf(run).maxHp).toBe(24 + (h.stats.maxHp ?? 0));
     }
-    expect(statsOf(newRun('bram', 1)).armor).toBe(1);
+    expect(statsOf(newRun('bram', 1)).armor).toBe(3);
     expect(new Set(HEROES.map((h) => h.weapon)).size).toBe(HEROES.length);
     expect(new Set(HEROES.map((h) => h.quirk)).size).toBe(HEROES.length);
     expect(new Set(HEROES.map((h) => h.move)).size).toBe(HEROES.length);

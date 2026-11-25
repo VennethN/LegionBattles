@@ -3261,8 +3261,11 @@ export class World {
         this.mend(QUIRKS.gravedebt.mends);
       }
       if (debt && this.quirk === 'gravedebt') this.count('debt');
-      // Hungry Axe: every kill of his axe feeds him a little.
-      else if (this.perks.has('hungry')) this.mend(PERK.hungry.heals);
+      // Hungry Axe: a kill of his axe feeds him a little, and a sweep through a crowd is one mouthful, as in debt.
+      else if (this.perks.has('hungry') && this.time >= this.leechAt) {
+        this.leechAt = this.time + LEECH_GAP;
+        this.mend(PERK.hungry.heals);
+      }
       // Whisper, once it has learned to: a kill at full Unseen looses the next arrow at once.
       const own = this.own;
       if (own && def.id === 'whisper' && this.hidden && this.ruled('whisper', 3)) own.cool = Math.min(own.cool, OWN.whisper.again);

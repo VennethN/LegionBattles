@@ -49,19 +49,19 @@ export const PERKS: readonly PerkDef[] = [
   { id: 'overflow', hero: 'orrin', name: 'Overflow', says: 'Every 10th kill bursts with magic: 2x weapon damage to enemies around it.' },
   { id: 'arcward', hero: 'orrin', name: 'Arcane Ward', says: 'Every 12 s, a ward blocks the next hit on you completely.' },
   { id: 'pickpocket', hero: 'fenn', name: 'Pickpocket', says: 'Kills have a 12% chance to drop an extra coin.' },
-  { id: 'luckybreak', hero: 'fenn', name: 'Lucky Break', says: 'After you dodge a hit, your next 3 hits are crits.' },
+  { id: 'luckybreak', hero: 'fenn', name: 'Lucky Break', says: 'After you dodge a hit, your next 2 hits are crits.' },
   { id: 'warmth', hero: 'nan', name: 'Warm Hands', says: 'Heal 1 HP every second for each burning enemy near you, up to 3 a second.' },
   { id: 'hearth', hero: 'nan', name: 'Hearth', says: 'Stand still for 2 s to light a ring of fire around you. It burns enemies in it.' },
   { id: 'trample', hero: 'isaura', name: 'Trample', says: 'While your lance is couched, enemies you ride into take half your weapon damage and are knocked aside.' },
   { id: 'ninth', hero: 'isaura', name: 'For the Ninth', says: 'A kill with a Tilt thrust gives you 25% Attack Speed for 3 s.' },
-  { id: 'bloodied', hero: 'hroth', name: 'Bloodied', says: 'Below 50% HP, take 20% less damage.' },
-  { id: 'hungry', hero: 'hroth', name: 'Hungry Axe', says: 'Kills with your axe heal 1 HP at any HP.' },
+  { id: 'bloodied', hero: 'hroth', name: 'Bloodied', says: 'Below 50% HP, take 10% less damage.' },
+  { id: 'hungry', hero: 'hroth', name: 'Hungry Axe', says: 'Kills with your axe heal 1 HP at any HP, at most 4 times a second.' },
   { id: 'lastrites', hero: 'aldous', name: 'Last Rites', says: 'When a companion is downed, enemies near it are stunned for 1.5 s.' },
   { id: 'flock', hero: 'aldous', name: 'The Flock', says: '+4% damage for each companion on its feet.' },
   { id: 'coldskin', hero: 'ysolde', name: 'Cold Skin', says: 'Enemies that hit you up close are slowed by 50% for 2 s.' },
   { id: 'snowfall', hero: 'ysolde', name: 'Snowfall', says: 'Every 8 s, a gust of snow slows every enemy within 170 for 2 s.' },
-  { id: 'dawnlight', hero: 'maren', name: 'Dawnlight', says: 'Take 20% less damage while you stand on your holy ground.' },
-  { id: 'radiance', hero: 'maren', name: 'Radiance', says: 'Enemies that die on your holy ground burst with light: 1x weapon damage around them.' },
+  { id: 'dawnlight', hero: 'maren', name: 'Dawnlight', says: 'Take 10% less damage while you stand on your holy ground.' },
+  { id: 'radiance', hero: 'maren', name: 'Radiance', says: 'Enemies that die on your holy ground burst with light: 0.4x weapon damage around them.' },
 ];
 
 /** The numbers of the passives above. */
@@ -73,19 +73,19 @@ export const PERK = {
   overflow: { every: 10, r: 90, harm: 2 },
   arcward: { every: 12 },
   pickpocket: { chance: 0.12 },
-  luckybreak: { hits: 3 },
+  luckybreak: { hits: 2 },
   warmth: { r: 170, each: 1, most: 3 },
   hearth: { still: 2, r: 90, seconds: 2.2, harm: 0.5 },
   trample: { harm: 0.5, r: 30, knock: 40, again: 0.6 },
   ninth: { faster: 0.25, seconds: 3 },
-  bloodied: { under: 0.5, takes: 0.8 },
+  bloodied: { under: 0.5, takes: 0.9 },
   hungry: { heals: 1 },
   lastrites: { r: 170, stun: 1.5 },
   flock: { each: 0.04 },
   coldskin: { slow: 0.5, seconds: 2 },
   snowfall: { every: 8, r: 170, slow: 0.45, seconds: 2 },
-  dawnlight: { takes: 0.8 },
-  radiance: { r: 80, harm: 1 },
+  dawnlight: { takes: 0.9 },
+  radiance: { r: 60, harm: 0.4 },
 } as const;
 
 // ---------------------------------------------------------------- what a level gives
@@ -137,16 +137,16 @@ export const PAY = {
 
 /** Each hero's own: four stat steps, the relic they start with, and their title. */
 const OWN: Readonly<Record<string, { steps: ReadonlyArray<readonly [Stat, number]>; relic: string; title: string }>> = {
-  bram: { steps: [['maxHp', 8], ['armor', 2], ['damage', 12], ['maxHp', 10]], relic: 'thornmail', title: 'the Gate That Held' },
-  wren: { steps: [['damage', 12], ['haste', 10], ['crit', 8], ['damage', 15]], relic: 'horn', title: 'the Uncaught' },
-  orrin: { steps: [['lore', 2], ['haste', 10], ['maxHp', 6], ['damage', 15]], relic: 'stormglass', title: 'the Finished' },
-  fenn: { steps: [['damage', 10], ['dodge', 8], ['crit', 8], ['haste', 12]], relic: 'magpie', title: 'the Rich' },
-  nan: { steps: [['lore', 2], ['maxHp', 8], ['damage', 12], ['regen', 4]], relic: 'bellows', title: 'the Last Hearth' },
-  isaura: { steps: [['might', 2], ['speed', 8], ['damage', 12], ['armor', 2]], relic: 'spurs', title: 'Captain of the Dawn' },
-  hroth: { steps: [['maxHp', 10], ['might', 2], ['lifesteal', 4], ['damage', 12]], relic: 'lastcandle', title: 'the Thrice Buried' },
-  aldous: { steps: [['regen', 4], ['maxHp', 8], ['armor', 2], ['damage', 15]], relic: 'whistle', title: 'the Morning Bell' },
-  ysolde: { steps: [['lore', 2], ['reach', 15], ['damage', 12], ['dodge', 8]], relic: 'frostbite', title: 'the Thaw' },
-  maren: { steps: [['might', 2], ['maxHp', 10], ['armor', 2], ['damage', 12]], relic: 'fallen', title: 'the Oath Kept' },
+  bram: { steps: [['might', 2], ['armor', 3], ['damage', 25], ['maxHp', 15]], relic: 'thornmail', title: 'the Gate That Held' },
+  wren: { steps: [['damage', 16], ['maxHp', 10], ['haste', 12], ['damage', 16]], relic: 'horn', title: 'the Uncaught' },
+  orrin: { steps: [['lore', 2], ['haste', 10], ['maxHp', 8], ['damage', 10]], relic: 'stormglass', title: 'the Finished' },
+  fenn: { steps: [['damage', 5], ['maxHp', 6], ['crit', 4], ['haste', 5]], relic: 'magpie', title: 'the Rich' },
+  nan: { steps: [['lore', 3], ['maxHp', 10], ['damage', 15], ['regen', 4]], relic: 'bellows', title: 'the Last Hearth' },
+  isaura: { steps: [['might', 5], ['maxHp', 30], ['damage', 60], ['armor', 6]], relic: 'spurs', title: 'Captain of the Dawn' },
+  hroth: { steps: [['maxHp', 8], ['might', 1], ['armor', 1], ['damage', 5]], relic: 'lastcandle', title: 'the Thrice Buried' },
+  aldous: { steps: [['regen', 4], ['maxHp', 10], ['armor', 2], ['damage', 25]], relic: 'whistle', title: 'the Morning Bell' },
+  ysolde: { steps: [['lore', 3], ['maxHp', 12], ['damage', 25], ['dodge', 8]], relic: 'frostbite', title: 'the Thaw' },
+  maren: { steps: [['might', 1], ['maxHp', 8], ['armor', 1], ['damage', 8]], relic: 'fallen', title: 'the Oath Kept' },
 };
 
 const perksOf = (hero: string): Perk[] => PERKS.filter((p) => p.hero === hero).map((p) => p.id);

@@ -83,7 +83,7 @@ describe('quirks that are played', () => {
     expect(ownDef(other)).toEqual(weaponOf('gatekeeper'));
   });
 
-  it('Fenn: his knife knocks coins loose, and the coins he holds are harm, full at 240', () => {
+  it('Fenn: his knife knocks coins loose, and the coins he holds are harm, full at 80', () => {
     const coins = (quirk: Setup['quirk']): number => {
       const w = alone(new World(setup({ wave: 8, quirk, own: { id: 'headstails', tier: 0 } })));
       stand(w, 'bruiser', w.hero.x + 50, w.hero.y, { hp: 999999, dmg: 1 });
@@ -97,10 +97,10 @@ describe('quirks that are played', () => {
       const f = stand(w, 'bruiser', w.hero.x + 50, w.hero.y, { hp: 999999 }, true);
       return Math.max(...blows(play(w, 1), f.id));
     };
-    expect(QUIRKS.double.coins * 100 * QUIRKS.double.most).toBe(240);
-    expect(harm(120)).toBeGreaterThan(harm(0));
-    expect(harm(100000)).toBe(harm(240));
-    expect(as('fenn', { purse: 120 }).trait.share).toBeCloseTo(0.5);
+    expect(QUIRKS.double.coins * 100 * QUIRKS.double.most).toBe(80);
+    expect(harm(40)).toBeGreaterThan(harm(0));
+    expect(harm(100000)).toBe(harm(80));
+    expect(as('fenn', { purse: 40 }).trait.share).toBeCloseTo(0.5);
   });
 
   it('Fenn: once in a camp he tosses for a ware: heads it is free, tails it is paid for and gone', () => {

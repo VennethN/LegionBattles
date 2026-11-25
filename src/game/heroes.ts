@@ -58,7 +58,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'bram', unit: 'bram', name: 'Bram Oakenhold', short: 'Bram', epithet: 'the Gatewarden', who: 'The last man on a gate that fell. He does not step back.', line: 'The gate is wherever I stand.',
-    weapon: 'gatekeeper', stats: { maxHp: 8, armor: 1, speed: -5 }, quirk: 'standfast', quirkName: 'Stand Fast',
+    weapon: 'gatekeeper', stats: { maxHp: 14, armor: 3, might: 1 }, quirk: 'standfast', quirkName: 'Stand Fast',
     says: 'Stand still to raise your shield: take 60% less damage, block shots from the front, and attack 25% faster. Moving lowers it.', move: 'gate', unlock: { kind: 'runs', runs: 1 },
   },
   {
@@ -68,8 +68,8 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'fenn', unit: 'fenn', name: 'Fenn Two-Coins', short: 'Fenn', epithet: 'the Lucky', who: 'A thief who has never lost a toss.', line: 'Heads I win. Tails, look behind you.',
-    weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 8, maxHp: -2 }, quirk: 'double', quirkName: 'Double or Nothing',
-    says: 'Once per camp, flip a coin for an item: heads it is free, tails you pay and lose it. Deal 1% more damage per 4 coins held, up to 60%.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
+    weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 10, maxHp: 10, armor: 1, crit: 5 }, quirk: 'double', quirkName: 'Double or Nothing',
+    says: 'Once per camp, flip a coin for an item: heads it is free, tails you pay and lose it. Deal 1% more damage per 4 coins held, up to 20%.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
   },
   {
     id: 'nan', unit: 'nan', name: 'Old Nan Cinderwick', short: 'Old Nan', epithet: 'the Hearthwitch', who: 'She kept one fire lit for sixty years.', line: 'Come in out of the cold, dears.',
@@ -78,7 +78,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'isaura', unit: 'isaura', name: 'Isaura Vane', short: 'Isaura', epithet: 'Captain of the Ninth', who: 'Her company, the Ninth, is gone. She rides on alone.', line: 'The Ninth does not halt.',
-    weapon: 'ninth', stats: { might: 2, speed: 8 }, quirk: 'tilt', quirkName: 'Tilt',
+    weapon: 'ninth', stats: { might: 3, speed: 8, maxHp: 10, armor: 2 }, quirk: 'tilt', quirkName: 'Tilt',
     says: 'Ride in a straight line for 1.5 s to ready your lance: the next thrust deals 2.5x damage. Turning sharply or stopping loses it.', move: 'charge', unlock: { kind: 'runs', runs: 7 },
   },
   {
@@ -93,7 +93,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'ysolde', unit: 'ysolde', name: 'Ysolde Rimeheart', short: 'Ysolde', epithet: 'the Winter Widow', who: 'The cold took her husband. She took the cold.', line: 'It only hurts until it does not.',
-    weapon: 'widowstear', stats: { lore: 2, reach: 20, speed: -4 }, quirk: 'deepcold', quirkName: 'Deep Cold',
+    weapon: 'widowstear', stats: { lore: 1, reach: 10, speed: -4 }, quirk: 'deepcold', quirkName: 'Deep Cold',
     says: 'Hit a slowed enemy to freeze it for 0.9 s. Frozen enemies take 30% more damage and shatter when they die, hitting enemies nearby.', move: 'whiteout', unlock: { kind: 'boss', boss: 'colossus' },
   },
   {
@@ -349,9 +349,9 @@ export const QUIRKS = {
   double: {
     /** The chance a blow of his own knife knocks a coin loose. */
     chance: 0.04,
-    /** How many coins held are one hundredth more harm, and the most it comes to: full at 240 held. */
+    /** How many coins held are one hundredth more harm, and the most it comes to: full at 80 held. */
     coins: 4,
-    most: 0.6,
+    most: 0.2,
     /** The chance a toss comes up heads, what each point of Luck adds to it, and the most it can be. */
     heads: 0.5,
     luck: 0.0025,
