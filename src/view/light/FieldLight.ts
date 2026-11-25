@@ -359,16 +359,19 @@ export class FieldLight {
   /** Something goes up: a flash, a ring running out along the ground, fire all through it, sparks thrown out, and smoke after. */
   private blast(x: number, y: number, r: number, el: Element, smoke: boolean): void {
     const glow = this.glow as Glow;
-    this.flash(x, y, r * 3.2, el.light, 0.85, 0.4);
-    glow.spawn(x, y - 6, el, { dur: 0.18, from: r * 0.6, to: r * 1.5, alpha: 0.45 });
+    // One that goes out from the hero must not hide them: its fire is a ring round them, with no bright heart.
+    const h = this.world.hero;
+    const round = Math.hypot(x - h.x, y - h.y) < 36;
+    this.flash(x, y, r * 3.2, el.light, round ? 0.45 : 0.85, 0.4);
+    if (!round) glow.spawn(x, y - 6, el, { dur: 0.18, from: r * 0.6, to: r * 1.5, alpha: 0.45 });
     // The edge of it: how far it reached has to be seen.
     glow.spawn(x, y, el, { dur: 0.3, from: r * 0.45, to: r * 1.05, alpha: 0.5, flat: 0.62, frame: 'fx/ring' });
     const n = Math.round(Math.min(16, 7 + r / 9));
     for (let i = 0; i < n && this.spend(); i++) {
       const a = rnd(0, Math.PI * 2);
-      const d = r * rnd(0.25, 0.85);
+      const d = r * (round ? rnd(0.6, 0.95) : rnd(0.25, 0.85));
       glow.spawn(x + Math.cos(a) * d, y + Math.sin(a) * d * 0.62, el, {
-        dur: rnd(0.3, 0.6), vx: Math.cos(a) * r * 0.9, vy: Math.sin(a) * r * 0.6 - 50, gravity: -90, drag: 2.6, from: rnd(r * 0.3, r * 0.55), to: 4, flame: true, sway: 3, alpha: 0.7,
+        dur: rnd(0.3, 0.6), vx: Math.cos(a) * r * 0.9, vy: Math.sin(a) * r * 0.6 - 50, gravity: -90, drag: 2.6, from: rnd(r * 0.3, r * 0.55), to: 4, flame: true, sway: 3, alpha: round ? 0.5 : 0.7,
       });
     }
     this.sparks(x, y - 8, el === ELEMENTS.fire ? ELEMENTS.spark : el, 8, r * 5, 0.7);
@@ -417,7 +420,7 @@ export class FieldLight {
     const flick = (seed: number): number => 0.86 + 0.14 * Math.sin(clock * 17 + seed * 3.1) * Math.sin(clock * 7.3 + seed);
 
     // The hero carries light: little by day, a lantern's worth by night.
-    if (h.hp > 0) this.light(h.x, h.y - 26, 240 + 110 * this.dark, HERO_LIGHT[this.heroId] ?? LANTERN, 0.08 + 0.42 * this.dark, true);
+    if (h.hp > 0) this.light(h.x, h.y - 26, 240 + 110 * this.dark, HERO_LIGHT[this.heroId] ?? LANTERN, 0.08 + 0.52 * this.dark, true);
 
     // What they carry that burns or glows.
     // Many burning things in the hands do not make the hero a lamp: they share one light's worth between them.
@@ -547,8 +550,8 @@ export class FieldLight {
       }
       if (f.burn > 0) {
         this.burning.add(f.id);
-        if (!halted && Math.random() < 0.42 && this.spend()) {
-          glow.spawn(f.x + rnd(-9, 9) * size, f.y - rnd(8, 38) * size, ELEMENTS.fire, { dur: rnd(0.3, 0.52), vx: rnd(-10, 10), vy: rnd(-84, -44), from: rnd(15, 23) * Math.min(1.6, size), to: 3, flame: true, sway: 3 });
+        if (!halted && Math.random() < 0.3 && this.spend()) {
+          glow.spawn(f.x + rnd(-9, 9) * size, f.y - rnd(8, 38) * size, ELEMENTS.fire, { dur: rnd(0.3, 0.5), vx: rnd(-10, 10), vy: rnd(-96, -52), from: rnd(11, 17) * Math.min(1.5, size), to: 2, flame: true, sway: 3, alpha: 0.6 });
         }
         if (!halted && Math.random() < 0.04 && this.spend()) glow.spawn(f.x, f.y - 30 * size, ELEMENTS.spark, { dur: rnd(0.6, 1), vx: rnd(-26, 26), vy: rnd(-120, -70), from: 4, to: 1, sway: 5 });
         // Only the few nearest the hero throw light: there are sixteen lights in all.

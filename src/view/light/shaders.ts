@@ -73,6 +73,7 @@ void main() {
     light += uSun * (beam * uShafts);
     air += uSun * (beam * uShafts * 0.1 * (0.4 + 0.6 * outTexCoord.y));
   }
+  vec3 lamps = vec3(0.0);
   for (int i = 0; i < ${MAX_LIGHTS}; i++) {
     vec4 l = uLights[i];
     if (l.w > 0.0) {
@@ -80,15 +81,17 @@ void main() {
       vec2 d = (p - l.xy) * vec2(1.0, 1.32);
       float f = max(0.0, 1.0 - dot(d, d) / (l.z * l.z));
       f *= f;
-      light += uColors[i] * (l.w * f);
+      lamps += uColors[i] * (l.w * f);
       // A little of it hangs in the air round the light itself.
       air += uColors[i] * (l.w * f * f * 0.05);
     }
   }
+  // Many lights on one spot do not add up without end: ten fires side by side are not ten times as bright as one.
+  light += lamps / (1.0 + lamps * 0.6);
   vec3 shine = texture2D(uEmit, outTexCoord).rgb * uEmitAmount;
   // What shines hides a little of what is behind it, as well as adding to it: a bolt keeps its color on bright sand,
   // where adding alone would only turn everything white.
-  float solid = min(0.85, max(shine.r, max(shine.g, shine.b)) * 0.9);
+  float solid = min(0.6, max(shine.r, max(shine.g, shine.b)) * 0.8);
   vec3 c = (base.rgb * light + air) * (1.0 - solid) + shine;
   // How much of this glows afterwards, kept beside the color: what is lit past white, and whatever shines by itself.
   // It is measured before the color is brought back under white, which is the only time it can be.
