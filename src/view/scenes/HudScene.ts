@@ -41,6 +41,10 @@ export class HudScene extends Phaser.Scene {
   private drawn = '';
   private pending = 0;
   private told = false;
+  private gold = 0;
+  private second = -1;
+  private bossSeen = false;
+  private clock = 0;
 
   constructor() {
     super('Hud');
@@ -53,6 +57,10 @@ export class HudScene extends Phaser.Scene {
     this.pending = 0;
     this.paused = null;
     this.hint = null;
+    this.gold = -1;
+    this.second = -1;
+    this.bossSeen = false;
+    this.clock = 0;
     const w = view.w;
 
     // Struck: the whole screen goes red for a breath.
@@ -182,10 +190,11 @@ export class HudScene extends Phaser.Scene {
     sfx.play('open', 0.6);
   }
 
-  override update(): void {
+  override update(_time: number, delta: number): void {
     const world = theWorld();
     const run = theRun();
     if (!world || !run) return;
+    this.clock += Math.min(0.1, delta / 1000);
     const h = world.hero;
     const w = view.w;
 
@@ -224,8 +233,32 @@ export class HudScene extends Phaser.Scene {
     this.waveText.setText(`WAVE ${world.wave.n}`);
     const left = Math.ceil(world.left);
     this.timeText.setText(world.gathering >= 0 ? '' : String(left)).setColor(left <= 5 ? RUBY.fill : BONE.fill);
+    // The last five seconds are counted aloud: the wave is nearly won.
+    if (left !== this.second && !this.paused && !world.over && world.gathering < 0) {
+      if (left <= 5 && left > 0 && this.second > 0) {
+        sfx.play('tick', 0.6, 1 + (5 - left) * 0.06);
+        this.tweens.add({ targets: this.timeText, scale: { from: 1.3, to: 1 }, duration: 220 });
+      }
+      this.second = left;
+    }
     this.bossText.setText(boss ? boss.def.name.toUpperCase() : '');
-    this.goldText.setText(String(Math.floor(run.gold + world.gold)));
+    // A boss is named as it steps onto the field.
+    if (boss && !this.bossSeen) {
+      this.bossSeen = true;
+      this.banner(boss.def.name.toUpperCase(), 'Beat it and the wave is won');
+    }
+    const gold = Math.floor(run.gold + world.gold);
+    if (gold !== this.gold) {
+      if (this.gold >= 0 && gold > this.gold) {
+        this.tweens.killTweensOf(this.goldText);
+        this.tweens.add({ targets: this.goldText, scale: { from: 1.25, to: 1 }, duration: 160 });
+      }
+      this.gold = gold;
+      this.goldText.setText(String(gold));
+    }
+    // Badly hurt: the edge of the screen beats red, so that it is known without looking up at the bar.
+    if (h.hp > 0 && h.hp <= h.maxHp * 0.3 && !this.tweens.isTweening(this.flash)) this.flash.setAlpha(0.07 + 0.07 * Math.sin(this.clock * 7) ** 2);
+    else if (h.hp > h.maxHp * 0.3 && !this.tweens.isTweening(this.flash)) this.flash.setAlpha(0);
 
     // The stick, where the finger is.
     const st = this.controls.stick;

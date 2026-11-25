@@ -11,7 +11,7 @@ export interface Page {
   reload(): Promise<unknown>;
   evaluate<T>(fn: () => T | Promise<T>): Promise<T>;
   evaluate<T, A>(fn: (arg: A) => T | Promise<T>, arg: A): Promise<T>;
-  screenshot(o: { path: string }): Promise<unknown>;
+  screenshot(o: { path: string; type?: 'png' | 'jpeg'; quality?: number }): Promise<unknown>;
   viewportSize(): { width: number; height: number } | null;
   /** The page's own clock, taken over: time passes only when it is run. */
   clock: { install(): Promise<void>; pauseAt(time: number): Promise<void>; runFor(ms: number): Promise<void> };

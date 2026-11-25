@@ -35,6 +35,8 @@ export class CampScene extends Phaser.Scene {
   private loot: string | null = null;
   /** The weapon the player has pressed, whose card is up. */
   private picked = -1;
+  /** The thing the player has pressed, whose card is up. */
+  private thing: string | null = null;
 
   constructor() {
     super('Camp');
@@ -49,6 +51,7 @@ export class CampScene extends Phaser.Scene {
     this.run = run;
     this.loot = null;
     this.picked = -1;
+    this.thing = null;
     setupCamera(this);
     this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.78).setInteractive();
     this.root = this.add.container(0, 0);
@@ -238,8 +241,14 @@ export class CampScene extends Phaser.Scene {
       [...counts.entries()].slice(0, per * 2).forEach(([id, n], i) => {
         const x = waresX + 14 + (i % per) * 32;
         const y = thingsY + 34 + Math.floor(i / per) * 32;
-        this.icon(x, y, itemIcon(id), 26);
+        const img = this.icon(x, y, itemIcon(id), 26);
         if (n > 1) this.text(x + 9, y + 8, String(n), { size: 15 });
+        // Pressed, a thing says what it is: nobody remembers what all of them do.
+        img.setInteractive({ useHandCursor: true }).on('pointerup', () => {
+          this.thing = id;
+          sfx.play('click', 0.6);
+          this.draw();
+        });
       });
     }
 
@@ -255,6 +264,7 @@ export class CampScene extends Phaser.Scene {
     else this.heroStrip(pad, thingsY + (run.items.length > 0 ? 104 : 16), view.w - pad * 2, by - 44);
 
     if (this.picked >= 0 && run.weapons[this.picked]) this.weaponCard(this.picked);
+    else if (this.thing) this.thingCard(this.thing);
   }
 
   /** One of the wares: what it is, what it does in this hero's hands, and what it costs. */
@@ -378,6 +388,25 @@ export class CampScene extends Phaser.Scene {
       this.act(sell(this.run, i), 'coin');
     }, { width: 280, height: 46, size: 17, mat: IRON });
     sold.setEnabled(run.weapons.length > 1);
+  }
+
+  /** A thing that is held was pressed: what it is and what it gives. */
+  private thingCard(id: string): void {
+    const item = byId(ITEMS, id);
+    const cx = view.w / 2;
+    const cy = view.h / 2;
+    const shut = (): void => {
+      this.thing = null;
+      this.draw();
+    };
+    this.add2(this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.55).setInteractive()).on('pointerup', shut);
+    this.add2(slabImage(this, cx - 150, cy - 140, 300, 280, BONE, 18, 8));
+    this.add2(slabImage(this, cx - 44, cy - 118, 88, 88, TIER_MATS[item.tier], 14, 6));
+    this.icon(cx, cy - 76, itemIcon(item.id), 64);
+    const n = this.run.items.filter((x) => x === id).length;
+    this.text(cx, cy - 6, n > 1 ? `${item.name}  x${n}` : item.name, { size: 20, color: OUTLINE, stroke: null });
+    this.statLinesDark(cx, cy + 24, item.stats);
+    this.button(cx, cy + 100, 'CLOSE', shut, { width: 180, height: 46, size: 19, mat: IRON });
   }
 
   /** On to the next wave. */

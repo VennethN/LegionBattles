@@ -641,7 +641,8 @@ export class World {
         if (b.dead) continue;
         const dx = b.x - a.x;
         const dy = b.y - a.y;
-        const need = (a.def.r + b.def.r) * 0.9;
+        // They keep a little more than their own width apart: a knot of them drawn one over another reads as one.
+        const need = (a.def.r + b.def.r) * 1.2;
         if (Math.abs(dx) >= need || Math.abs(dy) >= need) continue;
         const d = Math.hypot(dx, dy);
         if (d >= need) continue;

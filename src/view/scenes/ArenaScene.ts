@@ -11,7 +11,7 @@ import Phaser from 'phaser';
 import { BONE, FIRE, FROST, HOLY, OUTLINE, RUBY, VENOM } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { LAND_NAMES, type Land } from '../../game/data';
+import { LAND_NAMES, levelNeeds, type Land } from '../../game/data';
 import { heroOf, type RunData } from '../../game/run';
 import { STEP, slotPlace, type Burst, type Ev, type Foe, type World } from '../../game/world';
 import { ads } from '../../platform/ads';
@@ -91,6 +91,7 @@ export class ArenaScene extends Phaser.Scene {
   private overlay = '';
   private still = false;
   private resumed = false;
+  private level = -1;
 
   constructor() {
     super('Arena');
@@ -123,6 +124,7 @@ export class ArenaScene extends Phaser.Scene {
     this.weapons = [];
     this.acc = 0;
     this.clock = 0;
+    this.level = -1;
     this.ready = false;
     this.ended = false;
     this.halted = false;
@@ -224,7 +226,24 @@ export class ArenaScene extends Phaser.Scene {
     this.sync(dt);
     this.fx.update(dt);
     this.nums.update(dt);
+    this.cheer();
     if (this.world.over && !this.ended) this.finish();
+  }
+
+  /** A level made in the middle of a wave is seen on the hero at once, though its choice waits for the camp. */
+  private cheer(): void {
+    let xp = this.run.xp + this.world.xp;
+    let level = this.run.level;
+    while (xp >= levelNeeds(level)) xp -= levelNeeds(level++);
+    if (level > this.level && this.level >= 0) {
+      const h = this.world.hero;
+      for (let i = 0; i < 6; i++) {
+        const a = (i / 6) * Math.PI * 2;
+        this.fx.spawn('fx/sparkle', h.x + Math.cos(a) * 26, h.y - 34 + Math.sin(a) * 18, { dur: 0.55, from: 0.4, to: 1.1, tint: hex(HOLY.fill), vy: -60, delay: i * 0.03, depth: h.y + 60 });
+      }
+      this.fx.spawn('fx/ring', h.x, h.y - 6, { dur: 0.45, from: 0.3, to: 2.2, tint: hex(HOLY.fill), alpha: 0.8, flat: 0.5, depth: h.y - 2 });
+    }
+    this.level = level;
   }
 
   /** The wave is over, one way or the other. */
@@ -520,8 +539,8 @@ export class ArenaScene extends Phaser.Scene {
     // The ground marked where they will stand.
     this.each(this.marks, w.marks, stamp, () => this.take('fx/ring').setTint(RED), (img, m) => {
       const k = 1 - Math.max(0, m.left) / 0.9;
-      const s = (m.boss ? 1.6 : 0.7) * (0.6 + 0.4 * Math.sin(this.clock * 14) ** 2);
-      img.setPosition(m.x, m.y).setScale(s * INV_ART * 1.4, s * INV_ART * 0.9).setAlpha(0.35 + 0.6 * k).setDepth(2);
+      const s = (m.boss ? 1.5 : 0.5) * (0.7 + 0.3 * Math.sin(this.clock * 14) ** 2);
+      img.setPosition(m.x, m.y).setScale(s * INV_ART * 1.4, s * INV_ART * 0.9).setAlpha(0.25 + 0.5 * k).setDepth(2);
     });
 
     // What flies.

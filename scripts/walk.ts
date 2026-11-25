@@ -12,6 +12,10 @@
 import fs from 'node:fs';
 
 import { chromium, open, type Page } from './browser';
+import { RICH, THINGS, UPS, arena, fight as fightFrames, tick, until, type Win } from './drive';
+
+/** Fights for some seconds. */
+const fight = (page: Page, seconds: number): Promise<void> => fightFrames(page, Math.round(seconds * 60));
 
 const args = process.argv.slice(2);
 const want = args.filter((a) => !a.startsWith('--'));
@@ -28,80 +32,6 @@ const sizes = sizeArg ? SIZES.filter((s) => sizeArg.split(',').includes(s[0]) ||
 const out = 'build/walk';
 fs.mkdirSync(out, { recursive: true });
 const base = process.env.URL ?? 'http://127.0.0.1:5175/';
-
-interface Win {
-  game: Phaser.Game;
-  stage(o: Record<string, unknown>): unknown;
-  run(): Record<string, unknown> | null;
-  world(): { hero: { x: number; y: number; hp: number }; foes: Array<{ x: number; y: number }>; picks: Array<{ x: number; y: number }>; over: string | null; time: number } | null;
-  save(): Record<string, unknown>;
-}
-
-async function tick(page: Page, frames: number): Promise<void> {
-  for (let i = 0; i < frames; i++) await page.clock.runFor(1000 / 60);
-}
-
-async function until(page: Page, key: string, most = 400): Promise<boolean> {
-  for (let i = 0; i < most; i++) {
-    if (await page.evaluate((k) => (window as unknown as Win).game?.scene?.isActive(k), key)) return true;
-    await page.clock.runFor(50);
-    await new Promise((r) => setTimeout(r, 15));
-  }
-  return false;
-}
-
-/** Fights for some seconds, steering away from whoever is nearest and toward what lies about. */
-async function fight(page: Page, seconds: number): Promise<void> {
-  let held: string[] = [];
-  for (let f = 0; f < seconds * 60; f++) {
-    if (f % 6 === 0) {
-      const keys = await page.evaluate(() => {
-        const world = (window as unknown as Win).world();
-        if (!world || world.over) return [];
-        let x = 0;
-        let y = 0;
-        for (const foe of world.foes) {
-          const dx = world.hero.x - foe.x;
-          const dy = world.hero.y - foe.y;
-          const d = Math.hypot(dx, dy) || 1;
-          if (d < 120) {
-            x += dx / d;
-            y += dy / d;
-          }
-        }
-        if (Math.hypot(x, y) < 0.3 && world.picks.length) {
-          x = (world.picks[0].x - world.hero.x) / 100;
-          y = (world.picks[0].y - world.hero.y) / 100;
-        }
-        const k: string[] = [];
-        if (x > 0.2) k.push('KeyD');
-        if (x < -0.2) k.push('KeyA');
-        if (y > 0.2) k.push('KeyS');
-        if (y < -0.2) k.push('KeyW');
-        return k;
-      });
-      for (const k of held) if (!keys.includes(k)) await page.keyboard.up(k);
-      for (const k of keys) if (!held.includes(k)) await page.keyboard.down(k);
-      held = keys;
-    }
-    await page.clock.runFor(1000 / 60);
-  }
-  for (const k of held) await page.keyboard.up(k);
-}
-
-const RICH = [{ id: 'sword', tier: 2 }, { id: 'spear', tier: 1 }, { id: 'bow', tier: 1 }, { id: 'brazier', tier: 1 }, { id: 'hammer', tier: 0 }, { id: 'frost', tier: 0 }];
-const THINGS = ['ration', 'ration', 'whetstone', 'mail', 'wardrum', 'banner', 'boots', 'keg', 'hawk', 'chalice', 'crown', 'lodestone'];
-const UPS = [{ stat: 'maxHp', by: 12 }, { stat: 'damage', by: 16 }, { stat: 'armor', by: 3 }, { stat: 'haste', by: 15 }, { stat: 'regen', by: 4 }, { stat: 'might', by: 6 }];
-
-/** Starts the field for a run stood up as described. */
-async function arena(page: Page, o: Record<string, unknown>, data: Record<string, unknown> = {}): Promise<void> {
-  await page.evaluate(([run, d]) => {
-    const w = window as unknown as Win;
-    w.stage(run);
-    for (const key of ['Hud', 'Camp', 'Result', 'Title']) w.game.scene.stop(key);
-    w.game.scene.start('Arena', d);
-  }, [o, data] as const);
-}
 
 const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>) => Promise<void>> = {
   // What someone who has never played sees: the field at once, and how to move.
@@ -166,17 +96,28 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await page.mouse.click(size.width * (size.height > size.width ? 0.28 : 0.2), size.height * (size.height > size.width ? 0.3 : 0.55));
     await tick(page, 10);
     await shot('wares');
-    // Press the first weapon in hand: its card.
-    const at = await page.evaluate(() => {
-      const sc = (window as unknown as Win).game.scene.getScene('Camp') as unknown as { root: { list: Array<{ x: number; y: number; input?: unknown; width: number }> } };
-      const slots = sc.root.list.filter((o) => o.input && o.width > 40 && o.width < 70);
-      const view = (window as unknown as { view: { zoom: number; density: number } }).view;
-      return slots[0] ? { x: (slots[0].x * view.zoom) / view.density, y: (slots[0].y * view.zoom) / view.density } : null;
-    });
-    if (at) {
-      await page.mouse.click(at.x, at.y);
+    // Press the first weapon in hand: its card. Then a thing: its card.
+    const place = (pick: 'hand' | 'thing'): Promise<{ x: number; y: number } | null> =>
+      page.evaluate((which) => {
+        const w = window as unknown as Win;
+        const sc = w.game.scene.getScene('Camp') as unknown as { root: { list: Array<{ type: string; x: number; y: number; input?: unknown; width: number; displayWidth?: number }> } };
+        // A hand is a pressable slot about sixty across; a thing is a small pressable picture.
+        const found = sc.root.list.find((o) => !!o.input && (which === 'hand' ? o.type === 'Container' && o.width > 50 && o.width < 70 : o.type === 'Image' && (o.displayWidth ?? 99) < 30));
+        return found ? { x: (found.x * w.view.zoom) / w.view.density, y: (found.y * w.view.zoom) / w.view.density } : null;
+      }, pick);
+    const hand = await place('hand');
+    if (hand) {
+      await page.mouse.click(hand.x, hand.y);
       await tick(page, 10);
       await shot('weapon');
+      await page.mouse.click(8, 8);
+      await tick(page, 10);
+    }
+    const thing = await place('thing');
+    if (thing) {
+      await page.mouse.click(thing.x, thing.y);
+      await tick(page, 10);
+      await shot('thing');
     }
   },
   // A pack to open.
@@ -238,6 +179,8 @@ for (const [label, width, height, dpr] of sizes) {
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   await page.clock.pauseAt(Date.now() + 1000);
+  // The game has to have loaded before a state can be stood up in it: a new player lands in the field, so that is waited for.
+  await until(page, 'Hud');
   const shot = async (name: string): Promise<void> => {
     await page.screenshot({ path: `${out}/${label}-${name}.png` });
   };

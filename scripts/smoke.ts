@@ -10,6 +10,7 @@
 // frames a second for real time to mean anything.
 
 import { chromium, open, type Context, type Page } from './browser';
+import { find } from './drive';
 
 const base = process.env.URL ?? 'http://127.0.0.1:5175/';
 let checks = 0;
@@ -41,35 +42,6 @@ async function until(page: Page, key: string, most = 600): Promise<boolean> {
     await new Promise((r) => setTimeout(r, 10));
   }
   return false;
-}
-
-/** Where on the page the middle of the first thing on a screen that says `text` is, or null. */
-function find(page: Page, key: string, text: string): Promise<{ x: number; y: number } | null> {
-  return page.evaluate(([k, t]) => {
-    const w = window as unknown as Win;
-    const sc = w.game.scene.getScene(k) as unknown as { children: { list: Phaser.GameObjects.GameObject[] } };
-    interface Node {
-      type: string;
-      visible: boolean;
-      x: number;
-      y: number;
-      input?: unknown;
-      text?: string;
-      list?: Node[];
-    }
-    let hit: { x: number; y: number } | null = null;
-    const walk = (list: Node[], ox: number, oy: number): void => {
-      for (const o of list) {
-        if (hit || o.type !== 'Container' || !o.visible) continue;
-        const kids = o.list ?? [];
-        if (o.input && kids.some((c) => typeof c.text === 'string' && c.text.trim().startsWith(t))) hit = { x: ox + o.x, y: oy + o.y };
-        walk(kids, ox + o.x, oy + o.y);
-      }
-    };
-    walk(sc.children.list as unknown as Node[], 0, 0);
-    const at = hit as { x: number; y: number } | null;
-    return at ? { x: (at.x * w.view.zoom) / w.view.density, y: (at.y * w.view.zoom) / w.view.density } : null;
-  }, [key, text] as const);
 }
 
 type Press = (x: number, y: number) => Promise<void>;
