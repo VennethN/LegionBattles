@@ -498,6 +498,8 @@ export interface MonsterDef {
   pay: readonly [number, number, number];
   /** What must have been felled for its contract to be posted: nothing, or a monster. */
   after: string | null;
+  /** Where it is weakest, in a line, told on its contract once it has been hunted. */
+  weak?: string;
 }
 
 export const MONSTERS: readonly MonsterDef[] = [
@@ -505,6 +507,7 @@ export const MONSTERS: readonly MonsterDef[] = [
     id: 'sexton', name: 'The Gravedigger',
     rumor: 'The graves at Saint Odran are open, and someone is still digging.',
     known: 'His spade hits in lines. The dead rise where the ground is marked. He is slow: attack after he swings.',
+    weak: 'Slow to recover: hit him the moment his spade lands.',
     lair: 'churchyard', hp: 3400, speed: 62, r: 44, stagger: { max: 220, grow: 1.25, down: 4.5, more: 2 }, gap: [0.9, 1.5], reach: 150, stones: 0,
     attacks: [
       { id: 'spade', name: 'Spade Slam', tell: 0.95, recover: 1.3, dmg: 20, shapes: [{ kind: 'line', len: 290, w: 78 }] },
@@ -534,6 +537,7 @@ export const MONSTERS: readonly MonsterDef[] = [
     id: 'king', name: 'The Antlered King',
     rumor: 'Something crowned walks the winter wood, and the trees lean away from it.',
     known: 'He charges across the field. Stand in front of a stone or a barricade and step aside: he is dazed when he hits it.',
+    weak: 'He charges blind: a stone or a barricade in his way dazes him.',
     lair: 'wood', hp: 4200, speed: 96, r: 46, stagger: { max: 330, grow: 1.25, down: 4.5, more: 2 }, gap: [0.55, 0.9], reach: 230, stones: 2,
     attacks: [
       { id: 'charge', name: 'Charge', tell: 1.05, recover: 0.8, dmg: 42, charge: { speed: 880, daze: 2.2, stagger: 30 }, shapes: [{ kind: 'line', len: 640, w: 84 }] },

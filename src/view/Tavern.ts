@@ -137,8 +137,6 @@ export class Tavern {
     if (view.tall && w > view.w - 12) {
       this.scrollMin = view.w - 6 - w;
       this.root.x = Math.max(this.scrollMin + 6, Math.min(6, view.w / 2 - plan.hearth * w));
-      const mask = scene.make.graphics({}, false).fillRect(6, y, view.w - 12, h);
-      this.root.setMask(mask.createGeometryMask());
       this.dragging(y);
     }
     const g = scene.add.graphics();

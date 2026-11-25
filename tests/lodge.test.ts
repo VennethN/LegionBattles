@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, TO_COME } from '../src/game/content';
+import { BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, TO_COME, byId } from '../src/game/content';
 import { Hunt } from '../src/game/hunt';
 import {
   FIRST_MUSTER, LESSON_PAY, OPENING, SUPPLY, lessonFor, newsOf, openingOf, type SaveData, buy, canHunt, changeBuilding, chargesOf, contracts, costOf, freshSave, isOpen, nextContract, opensBy, payFor, repair, setHunter, setupOf, supplyOf,
-  toggleReinforcement, wares, wear,
+  quarryOf, toggleReinforcement, toldBy, wares, wear,
 } from '../src/game/lodge';
 
 const tally = { time: 100, dealt: {}, taken: {}, killedBy: null, breaks: 0, taught: false, tasks: {}, downs: 0 };
@@ -215,5 +215,32 @@ describe('the opening hunts', () => {
     expect(repair({ wins: 2, trophies: ['spade'] }).opening).toBe(OPENING.length);
     expect(repair({ wins: 0 }).opening).toBe(0);
     expect(repair({ opening: 1, muster: { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 2, watchfire: 1 } } }).muster).toEqual({ hunter: 'marta', reinforcements: [], buildings: { barricade: 1 }, partners: [] });
+  });
+});
+
+describe('what a contract tells of its boss', () => {
+  it('the first time, only its first phase; after a hunt, what was reached; once felled, all of it', () => {
+    const s = freshSave();
+    const m = byId(MONSTERS, 'sexton');
+    let q = quarryOf(s, 'sexton');
+    expect(q.phases[0]).not.toContain('???');
+    expect(q.phases[1]).toContain('???');
+    expect(q.phases[2]).toContain('???');
+    expect(q.weak).toBeNull();
+    const first = new Set(m.parts[0]);
+    q.attacks.forEach((a, i) => expect(!!a).toBe(first.has([...new Set(m.parts.flat())][i])));
+    s.met = { sexton: 2 };
+    q = quarryOf(s, 'sexton');
+    expect(q.phases[1]).not.toContain('???');
+    expect(q.phases[2]).toContain('???');
+    expect(q.weak).toBeTruthy();
+    s.felled.sexton = 1;
+    q = quarryOf(s, 'sexton');
+    expect(q.phases.every((p) => !p.includes('???'))).toBe(true);
+    expect(q.attacks.every((a) => a && a.how.length > 0)).toBe(true);
+  });
+
+  it('every attack of every boss is told in plain words', () => {
+    for (const m of MONSTERS) for (const a of m.attacks) expect(toldBy(a).length, `${m.id} ${a.id}`).toBeGreaterThan(10);
   });
 });

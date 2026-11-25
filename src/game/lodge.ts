@@ -5,7 +5,7 @@
 
 import {
   BOARD, BUILDINGS, HUNTERS, LESSONS, MARKER, MINION, MONSTERS, PARTY, PARTY_DANGER, PARTY_SIZES, POSTED_BY, REINFORCEMENTS, TASKS, THING_CHANCE, TO_COME, VARIANTS, WHERE, WHY, byId,
-  type HunterDef, type LessonDef, type Mark, type MonsterDef, type TaskKind,
+  type AttackDef, type HunterDef, type LessonDef, type Mark, type MonsterDef, type TaskKind,
 } from './content';
 import type { Setup, Tally } from './hunt';
 import { Rng } from './rng';
@@ -53,6 +53,8 @@ export interface SaveData {
   muster: Muster;
   hunts: number;
   wins: number;
+  /** How many of each boss's three phases the player has seen, by the boss: what its contract can tell of it. */
+  met?: Record<string, number>;
   /** How far through the opening hunts the player is: an index into OPENING, and its length once everything is open. */
   opening: number;
   sound: boolean;
@@ -692,6 +694,8 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
   const def = byId(MONSTERS, monster);
   const lesson = lessonFor(save, monster, mark);
   save.hunts++;
+  // What has been seen of it: the phase reached, all three once it has fallen.
+  save.met = { ...(save.met ?? {}), [monster]: Math.max(save.met?.[monster] ?? 0, won ? 3 : Math.min(3, part + 1)) };
   if (taken) {
     // A contract taken comes off the board, won or lost, and a new one goes up in its place; now and then the whole board is posted again.
     const r = rewardFor(save, taken);
@@ -779,4 +783,45 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
     for (const m of MONSTERS) if (m.after === monster) posted.push(m.name);
   }
   return { won, coin, first, trophy, opened, posted, lesson: false, tasks: [], cut: 0, thing: null };
+}
+
+/** What a contract tells of its boss: each attack and how it is shown on the ground, its weak place, its phases. */
+export interface Quarry {
+  /** Each attack known, with how it is told; nothing for one not yet seen. */
+  attacks: Array<{ name: string; how: string } | null>;
+  weak: string | null;
+  /** A line for each phase: the attacks of it, or "???" where it has not been reached. */
+  phases: string[];
+}
+
+/** How an attack's warning looks on the ground and what to do about it, in a few plain words. */
+export function toldBy(a: AttackDef): string {
+  const sh = a.shapes[0];
+  let how = '';
+  if (!sh) how = 'No mark on the ground.';
+  else if (sh.kind === 'line') how = 'A strip on the ground toward you. Step aside.';
+  else if (sh.kind === 'cone') how = 'A wedge in front of it. Get out wide or behind.';
+  else if (sh.kind === 'ring' && sh.at === 'self') how = sh.inner ? 'A ring round it with a safe middle. Get in close.' : 'A circle round it. Get out.';
+  else if (sh.kind === 'ring') how = sh.inner ? 'A ring with a safe middle. Stand in the middle.' : 'A circle where you stand. Move.';
+  else if (sh.kind === 'marks') how = sh.at === 'follow' ? 'Circles that follow you. Keep moving.' : 'Circles on the ground. Stand between them.';
+  else if (sh.kind === 'lanes') how = 'Strips across the field. Stand in the gaps.';
+  if (a.summon) how += ' Something rises from them.';
+  if (a.charge) how += ' Then it charges: lure it into a stone.';
+  return how;
+}
+
+/**
+ * What its contract tells of a boss: the attacks of each phase the player has reached, and how each is told; its
+ * weak place once it has been hunted at all. The first time, only its first phase is told. "???" for the rest.
+ */
+export function quarryOf(save: SaveData, monster: string): Quarry {
+  const m = byId(MONSTERS, monster);
+  const seen = Math.max(1, save.met?.[monster] ?? 0, (save.felled[monster] ?? 0) > 0 ? 3 : 0);
+  const known = new Set(m.parts.slice(0, seen).flat());
+  const attacks = [...new Set(m.parts.flat())].map((id) => {
+    const a = m.attacks.find((x) => x.id === id);
+    return a && known.has(id) ? { name: a.name, how: toldBy(a) } : null;
+  });
+  const phases = m.parts.map((ids, i) => (i < seen ? `Phase ${i + 1}: ${[...new Set(ids)].map((id) => m.attacks.find((x) => x.id === id)?.name ?? id).join(', ')}.` : `Phase ${i + 1}: ???`));
+  return { attacks, weak: (save.met?.[monster] ?? 0) > 0 || (save.felled[monster] ?? 0) > 0 ? (m.weak ?? null) : null, phases };
 }

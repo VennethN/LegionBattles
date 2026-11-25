@@ -12,12 +12,14 @@ import { sfx } from '../../audio/sfx';
 import { ABILITIES, BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, byId, type Mark } from '../../game/content';
 import {
   buy, changeBuilding, chargesOf, contracts, costOf, isOpen, lessonFor, newsOf, openingOf, opensBy, rewardOf, setHunter, supplyOf, toggleReinforcement, wares, wear, type Contract,
-  board as postedBoard, partyFor, posterOf, posting, repost, togglePartner, type Posting,
+  board as postedBoard, partyFor, posterOf, posting, quarryOf, repost, togglePartner, type Posting,
 } from '../../game/lodge';
-import { setupCamera } from '../app';
+import { ASSETS, getManifest, setupCamera } from '../app';
+import { GrimFigure } from '../art/GrimFigure';
+import { getGrim, wantedUnit } from '../art/grim';
 import { hex, view } from '../config';
 import { ALLY_ART, BUILDING_ART, HUNTER_ART, MONSTER_ART, STAND_IN, isGrim, type Art } from '../pictures';
-import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
+import { CARDS, SHEET, portraitFrame, sheet } from '../art/Sheet';
 import { commit, save, takeContract, takePosting, theContract } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
@@ -53,6 +55,7 @@ export class LodgeScene extends Phaser.Scene {
     this.note = data.note ?? '';
     this.look = data.look ?? null;
     this.tavern = null;
+    this.boss = null;
     this.events.once('shutdown', () => this.tavern?.destroy());
     LairScene.applySound();
     music.play('lodge');
@@ -98,8 +101,9 @@ export class LodgeScene extends Phaser.Scene {
     this.scene.restart({ leaf, note, look });
   }
 
-  override update(_time: number, delta: number): void {
+  override update(time: number, delta: number): void {
     this.tavern?.update(Math.min(0.05, delta / 1000));
+    this.boss?.update(time / 1000, Math.min(0.05, delta / 1000));
   }
 
   /** A card: a slab with a press on it. */
@@ -261,11 +265,13 @@ export class LodgeScene extends Phaser.Scene {
   }
 
   /**
-   * The board once contracts are posted at random: the wall of timber with each posting a bill pinned askew. On the
-   * bill only what is read at a glance: the boss's likeness, its name on a clear strip, its danger in marks of blood,
-   * how many hunters it takes, what is unlike it this time in one shrunk line, and the reward. The bill picked is
-   * lifted off the wall, and everything about it is said under the wall: where, who posted it and why, each variant
-   * and each task with what it pays. Bills and words of any length lay out the same way.
+   * The board once contracts are posted at random, in two halves. On one side the postings, each a strip of paper
+   * nailed to the wall: the boss's small likeness, its name, its danger in marks of blood, the party it takes and the
+   * reward; the one picked pulled forward and lit, and NEW POSTINGS at the foot. On the other the one picked in full,
+   * a dossier: the boss large and lit, in the pose it strikes from; where, who posted it and why; what is unlike it
+   * this time and the tasks; the party's places; everything it pays; and what is known of the boss (src/game/lodge.ts,
+   * quarryOf). A phone held upright has the postings above and the dossier under them; the dossier scrolls when it
+   * is longer than its room.
    */
   private posters(top: number): void {
     const s = save();
@@ -275,89 +281,225 @@ export class LodgeScene extends Phaser.Scene {
     // A bill is always picked: the first, until another is.
     if (list.length && !list.some((p) => p.id === theContract().posting?.id)) takePosting(list[0].id);
     const chosen = theContract();
-    const wallH = tall ? Math.min(view.h * 0.46, 420) : Math.min(view.h * 0.48, 240);
-    this.add.existing(slabImage(this, 6, top - 4, w - 12, wallH, WOOD_DARK, 4, 6));
-    const cols = tall ? Math.min(2, list.length) : Math.max(1, Math.min(5, list.length));
-    const rows = Math.max(1, Math.ceil(list.length / cols));
-    const gap = 12;
-    const bw = Math.min(170, (w - 30) / cols - gap);
-    const bh = Math.min(bw * 1.32, (wallH - 16) / rows - gap);
-    const x0 = w / 2 - ((cols - 1) * (bw + gap)) / 2;
+    const picked = list.find((p) => p.id === chosen.posting?.id) ?? null;
+    const by = view.h - 36;
+    const n = Math.max(3, list.length);
+    // Where each half goes.
+    const lx = 6;
+    const ly = top - 4;
+    const lw = tall ? w - 12 : Math.max(250, Math.min(340, w * 0.32));
+    const rowH = tall ? 66 : Math.min(84, (view.h - ly - 8 - 72) / n - 8);
+    const lh = tall ? list.length * (rowH + 8) + 70 : view.h - ly - 8;
+    const dx = tall ? 6 : lx + lw + 8;
+    const dy = tall ? ly + lh + 6 : ly;
+    const dw = tall ? w - 12 : w - dx - 6;
+    const dh = by - 36 - dy;
+    this.add.existing(slabImage(this, lx, ly, lw, lh, WOOD_DARK, 4, 6));
+
+    // The postings, one under another.
     list.forEach((p, i) => {
       const poster = posterOf(s, p);
-      const x = x0 + (i % cols) * (bw + gap);
-      const y = top + 6 + bh / 2 + Math.floor(i / cols) * (bh + gap);
-      const picked = chosen.posting?.id === p.id;
-      const tilt = picked ? 0 : ((i * 37 + p.id * 11) % 7) - 3;
-      if (picked) this.add.rectangle(x + 5, y + 2, bw * 1.06, bh * 1.06, 0x000000, 0.45);
-      const card = this.add.container(x, y + (picked ? -4 : 0)).setAngle(tilt).setScale(picked ? 1.06 : 1);
-      card.add(this.add.image(0, 0, 'bill').setDisplaySize(bw, bh).setTint(picked ? 0xffffff : 0xcfc4ae));
-      card.add(this.add.circle(0, -bh / 2 + 7, 3, 0x2a221a).setStrokeStyle(1, 0x8a7a60));
-      this.figure(card, MONSTER_ART[p.monster], bh * 0.13, bh * 0.44, true);
-      card.add(slabImage(this, -bw / 2 + 6, bh * 0.2 - 13, bw - 12, 26, DARK, 2, 3));
-      const name = label(this, 0, bh * 0.2, byId(MONSTERS, p.monster).name.replace(/^The /, '').toUpperCase(), { size: 17, color: BONE.fill, face: 'display' });
-      name.setScale(Math.min(1, (bw - 24) / name.width));
-      card.add(name);
-      // Danger in marks of blood, up to six, and the party it takes beside them.
-      const dx = -bw * 0.24;
-      for (let k = 0; k < Math.max(3, poster.danger); k++) card.add(this.add.rectangle(dx + (k - 1) * 12, bh * 0.31, 7, 7, k < poster.danger ? 0x8a1e16 : 0x6b5a48, k < poster.danger ? 1 : 0.35).setAngle(45));
-      // What is unlike it this time, stamped in red across the corner of its likeness; the party it takes in the other.
-      const stamp = (text: string, x: number, y: number, angle: number): void => {
-        const t = label(this, x, y, text.toUpperCase(), { size: 15, color: '#8a1e16', stroke: '#e8dcc0', strokeWidth: 3, face: 'display' }).setAngle(angle);
-        t.setScale(Math.min(1, (bw * 0.5) / t.width));
-        card.add(t);
-      };
-      if (poster.variants.length) stamp(poster.variants[0].name + (poster.variants.length > 1 ? ` +${poster.variants.length - 1}` : ''), bw * 0.16, -bh * 0.24, -9);
-      if (poster.party > 1) stamp(`PARTY ${poster.party}`, -bw * 0.17, bh * 0.08, 7);
-      if (poster.tasks.length) stamp(`+ ${poster.tasks.length} TASK${poster.tasks.length > 1 ? 'S' : ''}`, bw * 0.17, bh * 0.08, -6);
-      const pay = label(this, -bw * 0.22, bh * 0.38, `${poster.coin} COIN`, { size: 15, color: '#3a2410', stroke: null, face: 'display' });
-      pay.setScale(Math.min(1, (bw * 0.42) / pay.width));
-      card.add(pay);
-      card.setSize(bw, bh).setInteractive({ useHandCursor: true });
-      card.on('pointerup', () => {
+      const on = p.id === picked?.id;
+      const rw = lw - 20 - (on ? 0 : 10);
+      const x = lx + 10 + (on ? 0 : 4) + rw / 2;
+      const y = ly + 12 + rowH / 2 + i * (rowH + 8);
+      if (on) this.add.image(x, y, SHEET, 'fx/glow').setDisplaySize(rw * 1.3, rowH * 2).setTint(0xffb85a).setAlpha(0.35);
+      const row = this.add.container(x, y);
+      if (on) this.add.rectangle(x + 5, y + 4, rw, rowH, 0x000000, 0.45);
+      row.add(slabImage(this, -rw / 2, -rowH / 2, rw, rowH, on ? BONE : { fill: '#b8ab90', shade: '#8a7e66' }, 3, 3));
+      // Nails at its corners.
+      for (const sx of [-1, 1]) row.add(this.add.circle(sx * (rw / 2 - 7), -rowH / 2 + 7, 2.5, 0x2a221a).setStrokeStyle(1, 0x8a7a60));
+      const face = this.add.image(-rw / 2 + 34, rowH / 2 - 6, CARDS, isGrim(MONSTER_ART[p.monster]) ? portraitFrame('grim', (MONSTER_ART[p.monster] as { grim: string }).grim) : portraitFrame('blue', 'militia')).setOrigin(0.5, 1);
+      face.setScale(Math.min((rowH - 10) / face.height, 56 / face.width));
+      row.add(face);
+      const name = label(this, -rw / 2 + 68, -rowH / 2 + 18, byId(MONSTERS, p.monster).name.replace(/^The /, '').toUpperCase(), { size: 17, align: 'left', color: INK, stroke: null, face: 'display' });
+      name.setScale(Math.min(1, (rw - 150) / name.width));
+      row.add(name);
+      for (let k = 0; k < Math.max(3, poster.danger); k++) row.add(this.add.rectangle(-rw / 2 + 74 + k * 13, rowH / 2 - 18, 7, 7, k < poster.danger ? 0x8a1e16 : 0x6b5a48, k < poster.danger ? 1 : 0.35).setAngle(45));
+      const sub = [poster.party > 1 ? `PARTY ${poster.party}` : 'ALONE', poster.variants.length ? poster.variants[0].name.toUpperCase() : ''].filter(Boolean).join('  ');
+      const subT = label(this, -rw / 2 + 74 + Math.max(3, poster.danger) * 13 + 6, rowH / 2 - 18, sub, { size: 15, align: 'left', color: '#5a3a20', stroke: null, face: 'display' });
+      subT.setScale(Math.min(1, (rw - 160 - Math.max(3, poster.danger) * 13) / subT.width));
+      row.add(subT);
+      row.add(this.add.image(rw / 2 - 58, -rowH / 2 + 18, SHEET, 'icon/coin').setScale(0.2));
+      row.add(label(this, rw / 2 - 12, -rowH / 2 + 18, String(poster.coin), { size: 17, align: 'right', color: '#3a2410', stroke: null, face: 'display' }));
+      row.setSize(rw, rowH).setInteractive({ useHandCursor: true });
+      row.on('pointerup', () => {
         sfx.play('click');
         takePosting(p.id);
         this.go('board');
       });
     });
-
-    // Under the wall: everything about the bill picked, then the way out.
-    const py = top + wallH + 6;
-    const ph = view.h - py - 8;
-    const pw = Math.min(w - 12, 900);
-    this.add.existing(slabImage(this, w / 2 - pw / 2, py, pw, ph, LEATHER, 4, 6));
-    const picked = list.find((p) => p.id === chosen.posting?.id);
-    const left = w / 2 - pw / 2 + 18;
-    const by = py + ph - 34;
-    if (picked) {
-      // Hobb, who keeps the board, says a word about the bill taken down: his own dice, the same word for the same bill.
-      const hobb = new Talk(picked.id * 131 + 7, 'keeper', picked.monster).pick('keeper', 'taken');
-      if (hobb) {
-        const hl = label(this, w / 2 + pw / 2 - 18, top + wallH - 22, `Hobb: "${hobb}"`, { size: 15, align: 'right', color: BONE.shade });
-        hl.setScale(Math.min(1, (w - 40) / hl.width));
-      }
-      const poster = posterOf(s, picked);
-      const head = label(this, left, py + 22, poster.title.toUpperCase(), { size: 22, align: 'left', face: 'display' });
-      head.setScale(Math.min(1, (pw - 36) / head.width));
-      label(this, left, py + 44, `${poster.where}. Posted by ${poster.by}: "${poster.why}"`, { size: 15, align: 'left', color: BONE.shade, wrap: pw - 36 }).setOrigin(0, 0);
-      const said = [
-        ...poster.variants.map((v) => `${v.name}: ${v.says}`),
-        ...poster.tasks.map((t) => `Task, ${t.name}: ${t.says} (+${t.bonus} coin)`),
-        `${poster.partyText}. Reward: ${poster.coin} coin${poster.first ? ', doubled for the first win' : ''}${poster.thing ? `, and ${poster.thing}` : ''}${poster.hiredCut ? `. Hired hands take ${poster.hiredCut}` : ''}.`,
-      ];
-      const body = label(this, left, py + (tall ? 92 : 80), said.join('\n'), { size: 15, align: 'left', wrap: pw - 36, color: BONE.fill }).setOrigin(0, 0);
-      // Long contracts are made to fit the room above the buttons.
-      body.setScale(Math.min(1, (by - 34 - body.y) / Math.max(1, body.height)));
-    } else label(this, w / 2, py + 40, 'Pick a contract from the board.', { size: 16, color: BONE.shade });
-    const bwid = Math.min(190, (pw - 40) / 3);
-    new Button(this, w / 2 - bwid - 10, by, 'NEW POSTINGS', () => {
+    new Button(this, lx + lw / 2, ly + lh - 32, 'NEW POSTINGS', () => {
       const why = repost(s);
       commit();
       this.go('board', why);
-    }, { width: bwid, height: 50, size: 16, mat: IRON });
-    new Button(this, w / 2, by, 'TEAM', () => this.go('muster'), { width: bwid, height: 54, size: 22, mat: IRON });
-    const hunt = new Button(this, w / 2 + bwid + 10, by, 'HUNT', () => this.hunt(), { width: bwid, height: 54, size: 26, mat: RUBY });
+    }, { width: Math.min(220, lw - 30), height: 48, size: 16, mat: IRON });
+
+    // The dossier of the one picked.
+    this.add.existing(slabImage(this, dx, dy, dw, dh, LEATHER, 4, 6));
+    if (picked) this.dossier(picked, dx, dy, dw, dh);
+    else label(this, dx + dw / 2, dy + 40, 'Pick a contract.', { size: 16, color: BONE.shade });
+    if (this.note) label(this, dx + dw / 2, by - 44, this.note, { size: 15, color: HOLY.fill, wrap: dw - 40 }).setDepth(5);
+    const bw = Math.min(200, (dw - 30) / 2);
+    new Button(this, dx + dw / 2 - bw / 2 - 8, by, 'TEAM', () => this.go('muster'), { width: bw, height: 54, size: 22, mat: IRON });
+    const hunt = new Button(this, dx + dw / 2 + bw / 2 + 8, by, 'HUNT', () => this.hunt(), { width: bw, height: 54, size: 26, mat: RUBY });
     hunt.setEnabled(!!picked);
+  }
+
+  /** The boss of the dossier, standing in the pose it strikes from: updated each frame while the board is up. */
+  private boss: GrimFigure | null = null;
+
+  /**
+   * The dossier: laid out away from the rest of the screen and looked at through a camera of its own over its room,
+   * so that it can be scrolled when it is longer than the room is.
+   */
+  private dossier(p: Posting, x: number, y: number, w: number, h: number): void {
+    const s = save();
+    const poster = posterOf(s, p);
+    const m = byId(MONSTERS, p.monster);
+    const q = quarryOf(s, p.monster);
+    // Far off to the side, where the screen's own camera never looks.
+    const OX = 20000;
+    const OY = 0;
+    const pad = 16;
+    const two = w >= 600;
+    const aw = two ? Math.min(290, w * 0.4) : w - pad * 2;
+    const bx = two ? pad + aw + 18 : pad;
+    const bw = two ? w - bx - pad : w - pad * 2;
+    const at = (lx: number, ly: number): [number, number] => [OX + lx, OY + ly];
+    const text = (lx: number, ly: number, t: string, o: Parameters<typeof label>[4], wrap: number): number => {
+      const [tx, ty] = at(lx, ly);
+      const l = label(this, tx, ty, t, { size: 15, align: 'left', wrap, ...o }).setOrigin(0, 0);
+      return l.height;
+    };
+    const head = (lx: number, ly: number, t: string): number => text(lx, ly, t, { size: 17, face: 'display', color: HOLY.fill }, 400) + 6;
+
+    // The boss, large and lit: a warm and a red light behind it, and its name and lair under it.
+    const figH = two ? Math.min(230, h * 0.48) : 210;
+    const [fx, fy] = at(pad + aw / 2, pad + figH);
+    this.add.image(fx, fy - figH * 0.45, SHEET, 'fx/glow').setDisplaySize(aw * 1.3, figH * 1.3).setTint(0x8a2a1a).setAlpha(0.7).setBlendMode(Phaser.BlendModes.ADD);
+    this.add.image(fx - aw * 0.15, fy - figH * 0.6, SHEET, 'fx/glow').setDisplaySize(aw * 0.8, figH * 0.8).setTint(0xffb060).setAlpha(0.35).setBlendMode(Phaser.BlendModes.ADD);
+    this.add.ellipse(fx, fy - 4, aw * 0.7, 26, 0x000000, 0.5);
+    const art = MONSTER_ART[p.monster];
+    if (isGrim(art)) {
+      void sheet(this.game, getManifest()).ensureWanted(this.scene.get(ASSETS), [wantedUnit(art.grim)]).then(() => {
+        if (!this.scene.isActive() || this.leaf !== 'board') return;
+        const g = getGrim();
+        const u = g.units[art.grim];
+        const fig = new GrimFigure(this, art.grim, u, g.poses, figH / (u.feet[1] - u.top), 3);
+        fig.x = fx;
+        fig.y = fy;
+        fig.facing = -1;
+        // Drawn back to strike: the first of its blows, held at its wind-up.
+        const first = Object.values(u.moves)[0];
+        if (first) fig.rest = first.windup;
+        this.boss = fig;
+      });
+    } else {
+      const img = this.add.image(fx, fy, CARDS, portraitFrame(art.team, art.legion)).setOrigin(0.5, 1);
+      img.setScale(figH / img.height).setTint(STAND_IN).setTintMode(Phaser.TintModes.FILL);
+    }
+    let ya = pad + figH + 10;
+    ya += text(pad, ya, m.name.toUpperCase(), { size: 24, face: 'display' }, aw) + 2;
+    ya += text(pad, ya, poster.where, { color: BONE.shade }, aw) + 8;
+    // Its danger, in marks of blood.
+    text(pad, ya, 'DANGER', { face: 'display', color: BONE.shade }, aw);
+    for (let k = 0; k < 6; k++) {
+      const [mx, my] = at(pad + 84 + k * 16, ya + 10);
+      this.add.rectangle(mx, my, 9, 9, k < poster.danger ? 0x8a1e16 : 0x4a3a2c, 1).setAngle(45);
+    }
+    ya += 30;
+    // The party's places: the player, the partners taken, and a hired hand in each left.
+    ya += head(pad, ya, poster.party > 1 ? `PARTY OF ${poster.party}` : 'ALONE');
+    const { partners } = partyFor(s, poster.party);
+    const names = [`${byId(HUNTERS, s.muster.hunter).short} (you)`, ...partners.slice(0, poster.party - 1).map((id) => byId(HUNTERS, id).short)];
+    const slotW = Math.min(66, (aw - 6 * (names.length - 1)) / Math.max(1, names.length));
+    names.forEach((nm, i) => {
+      const [sx, sy] = at(pad + i * (slotW + 6), ya);
+      this.add.existing(slabImage(this, sx, sy, slotW, 40, i === 0 ? GOLD : IRON, 3, 3));
+      const t = label(this, sx + slotW / 2, sy + 20, nm.replace(' (you)', ''), { size: 15, face: 'display' });
+      t.setScale(Math.min(1, (slotW - 6) / t.width));
+    });
+    ya += 52;
+    // Everything it pays.
+    ya += head(pad, ya, 'REWARD');
+    const pays = [
+      `${poster.coin} coin${poster.first ? ', twice over for the first win' : ''}`,
+      ...(poster.thing ? [`and ${poster.thing}`] : []),
+      ...(poster.tasks.length ? [`+ ${poster.bonus} coin for the tasks`] : []),
+      ...(poster.hiredCut ? [`Hired hands take ${poster.hiredCut}`] : []),
+    ];
+    ya += text(pad, ya, pays.join('\n'), { color: HOLY.fill }, aw) + 10;
+
+    // Who posted it and why, what is unlike it this time, and the tasks.
+    let yb = two ? pad : ya + 6;
+    yb += head(bx, yb, `POSTED BY ${poster.by.toUpperCase()}`);
+    yb += text(bx, yb, `"${poster.why}"`, { color: BONE.fill }, bw) + 6;
+    const hobb = new Talk(p.id * 131 + 7, 'keeper', p.monster).pick('keeper', 'taken');
+    if (hobb) yb += text(bx, yb, `Hobb: "${hobb}"`, { color: BONE.shade }, bw) + 6;
+    yb += 6;
+    yb += head(bx, yb, 'THIS TIME');
+    if (!poster.variants.length && !poster.tasks.length) yb += text(bx, yb, 'Nothing out of the way. Just the boss.', { color: BONE.shade }, bw) + 6;
+    for (const v of poster.variants) {
+      const [mx, my] = at(bx + 6, yb + 10);
+      this.add.rectangle(mx, my, 9, 9, 0x8a1e16).setAngle(45);
+      yb += text(bx + 20, yb, `${v.name}: ${v.says}`, {}, bw - 20) + 4;
+    }
+    for (const t of poster.tasks) {
+      const [mx, my] = at(bx + 6, yb + 10);
+      this.add.rectangle(mx, my, 11, 11).setStrokeStyle(2, 0xd8c8a0);
+      yb += text(bx + 20, yb, `${t.name}: ${t.says} (+${t.bonus} coin)`, {}, bw - 20) + 4;
+    }
+    yb += 10;
+    // What is known of the boss: each attack and how it is told, its weak place, its phases.
+    yb += head(bx, yb, 'KNOW YOUR QUARRY');
+    for (const a of q.attacks) yb += text(bx, yb, a ? `${a.name}: ${a.how}` : '???', { color: a ? BONE.fill : BONE.shade }, bw) + 4;
+    yb += 4;
+    yb += text(bx, yb, `Weak place: ${q.weak ?? '???'}`, { color: q.weak ? HOLY.fill : BONE.shade }, bw) + 6;
+    for (const ph of q.phases) yb += text(bx, yb, ph, { color: ph.includes('???') ? BONE.shade : BONE.fill }, bw) + 2;
+
+    // A camera of its own over the dossier's room, scrolled by a drag or the wheel when it is longer than that.
+    const z = view.zoom;
+    const cam = this.cameras.add(x * z, y * z, w * z, h * z);
+    cam.setZoom(z);
+    const most = Math.max(0, Math.max(ya, yb) + pad - h);
+    let scroll = 0;
+    const place = (): void => {
+      scroll = Math.max(0, Math.min(most, scroll));
+      cam.centerOn(OX + w / 2, OY + h / 2 + scroll);
+    };
+    place();
+    this.events.once('shutdown', () => this.cameras.remove(cam));
+    if (most > 0) {
+      // A small bar on its edge says there is more.
+      const bar = this.add.graphics();
+      const draw = (): void => {
+        bar.clear().fillStyle(0xd8c8a0, 0.5).fillRect(x + w - 6, y + 4 + (h - 8) * (scroll / (most + h)), 3, (h - 8) * (h / (most + h)));
+      };
+      draw();
+      let from: number | null = null;
+      const inside = (p: Phaser.Input.Pointer): boolean => {
+        const px = p.x / z;
+        const py = p.y / z;
+        return px >= x && px <= x + w && py >= y && py <= y + h;
+      };
+      this.input.on('pointerdown', (pt: Phaser.Input.Pointer) => {
+        if (inside(pt)) from = pt.y / z + scroll;
+      });
+      this.input.on('pointermove', (pt: Phaser.Input.Pointer) => {
+        if (from === null || !pt.isDown) return;
+        scroll = from - pt.y / z;
+        place();
+        draw();
+      });
+      this.input.on('pointerup', () => (from = null));
+      this.input.on('wheel', (pt: Phaser.Input.Pointer, _o: unknown, _dx: number, wdy: number) => {
+        if (!inside(pt)) return;
+        scroll += wdy * 0.5;
+        place();
+        draw();
+      });
+    }
   }
 
   private pick(c: Contract, mark: Mark): void {
