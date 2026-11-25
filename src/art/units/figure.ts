@@ -108,10 +108,33 @@ export function held(p: Pt, hold: readonly [number, number, number]): Pt {
   return [Math.round(hold[0] + p[0] * c - p[1] * s), Math.round(hold[1] + p[0] * s + p[1] * c)];
 }
 
+/**
+ * Where a hand is held, out from where a recipe says. The first figures
+ * were drawn with the weapon hand on the edge of the body or inside it,
+ * and the owner found them "too much inwards": an arm that cannot be seen
+ * is no arm. So a hand is held clear of the body, the more so the nearer
+ * in it was put. The figures written out part by part had theirs moved by
+ * the same rule, once, in their own files.
+ */
+export function outward(x: number): number {
+  return Math.max(x, Math.round(134 + (x - 116) * 0.35));
+}
+
+/** A recipe's hold, with its hand out where it is drawn. */
+export function reach(hold: readonly [number, number, number]): [number, number, number] {
+  // A weapon held level goes forward with its hand, point and all, and a long one would leave its page.
+  const most = hold[2] >= 60 ? LEVEL_MOST : Infinity;
+  return [hold[0] + Math.min(most, outward(hold[0]) - hold[0]), hold[1], hold[2]];
+}
+
+/** The most a hand that holds its weapon level is moved out. */
+export const LEVEL_MOST = 8;
+
 /** The parts of whoever a recipe describes, from the hips up: everything but the shadow and the legs. */
 export function upper(r: Recipe): { back: PartSpec[]; front: PartSpec[] } {
-  const hand: Pt = [r.hold[0], r.hold[1]];
-  const g: Grip = { hand, angle: r.hold[2] };
+  const hold = reach(r.hold);
+  const hand: Pt = [hold[0], hold[1]];
+  const g: Grip = { hand, angle: hold[2] };
   const weapon = part('weapon', 'weapon', 'body', hand, (d, team) => r.arm.draw(d, g, team));
   return {
     back: r.back ?? [],
@@ -131,7 +154,7 @@ export function figure(id: string, r: Recipe): UnitArt {
   note(id, r.set, r.role, r.read);
   const u = upper(r);
   const parts: PartSpec[] = [ground(r.shadow), ...u.back, ...legs(r.legs ?? LEATHER), ...u.front];
-  return { id, style: r.style ?? r.arm.style, muzzle: held(r.arm.tip, r.hold), top: r.top ?? r.head.top, parts };
+  return { id, style: r.style ?? r.arm.style, muzzle: held(r.arm.tip, reach(r.hold)), top: r.top ?? r.head.top, parts };
 }
 
 /** What the other hand holds, as a part: `draw` is given the hand's place. */

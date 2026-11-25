@@ -7,7 +7,7 @@ import { ground, legs, part } from './common';
 export const paladin: UnitArt = {
   id: 'paladin',
   style: 'slash',
-  muzzle: [146, 104],
+  muzzle: [156, 104],
   top: 22,
   parts: [
     ground(38),
@@ -20,11 +20,11 @@ export const paladin: UnitArt = {
           belt(c, { y: 138, mat: GOLD, buckle: null });
         },
       });
-      arm(d, 'arm', [117, 116], [128, 132], STEEL);
+      arm(d, 'arm', [117, 116], [138, 132], STEEL);
       pauldron(d, 117, 113, GOLD);
     }),
     part('head', 'head', 'body', NECK, (d) => wingedHelm(d)),
     part('shield', 'offhand', 'body', [72, 140], (d) => kiteShield(d, 72, 140)),
-    part('hammer', 'weapon', 'body', [129, 133], (d) => warhammer(d, { hand: [129, 133], angle: 24 }, 56, STEEL)),
+    part('hammer', 'weapon', 'body', [139, 133], (d) => warhammer(d, { hand: [139, 133], angle: 24 }, 56, STEEL)),
   ],
 };

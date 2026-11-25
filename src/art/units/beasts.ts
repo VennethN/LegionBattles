@@ -18,7 +18,7 @@ import { Path, capsule, circle, path, poly, roundRect, smooth, star, type Pt } f
 import type { PartSpec, UnitArt } from '../kit/unit';
 import { H, HOLD, O, W, X } from './catalogue';
 import { part } from './common';
-import { held, upper, type Recipe } from './figure';
+import { held, reach, upper, type Recipe } from './figure';
 import { note, type UnitRole } from './notes';
 import { B } from './wearing';
 
@@ -415,7 +415,7 @@ function mounted(id: string, m: Mount, r: Recipe): UnitArt {
       seated(d, (c) => leg(c, 100, r.legs ?? LEATHER), 4);
     },
   };
-  const tip = seat(held(r.arm.tip, r.hold));
+  const tip = seat(held(r.arm.tip, reach(r.hold)));
   return {
     id,
     style: r.style ?? r.arm.style,

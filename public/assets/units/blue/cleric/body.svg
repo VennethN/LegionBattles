@@ -4,7 +4,7 @@
 <clipPath id="cleric-body-robe-clip"><use href="#cleric-body-robe-shape"/></clipPath>
 <clipPath id="cleric-body-robe-lit-clip"><use href="#cleric-body-robe-shape" transform="translate(-5 -5)"/></clipPath>
 <path id="cleric-body-hem-shape" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z"/>
-<path id="cleric-body-sleeve-shape" d="M 117.5 128.5 L 134.5 129.5 C 139.2 129.8 143.2 126.2 143.5 121.5 C 143.8 116.8 140.2 112.8 135.5 112.5 L 118.5 111.5 C 113.8 111.2 109.8 114.8 109.5 119.5 C 109.2 124.2 112.8 128.2 117.5 128.5 Z"/>
+<path id="cleric-body-sleeve-shape" d="M 117.6 128.5 L 138.6 129.5 C 143.3 129.7 147.3 126.1 147.5 121.4 C 147.7 116.7 144.1 112.7 139.4 112.5 L 118.4 111.5 C 113.7 111.3 109.7 114.9 109.5 119.6 C 109.3 124.3 112.9 128.3 117.6 128.5 Z"/>
 <clipPath id="cleric-body-sleeve-clip"><use href="#cleric-body-sleeve-shape"/></clipPath>
 <clipPath id="cleric-body-sleeve-lit-clip"><use href="#cleric-body-sleeve-shape" transform="translate(-3 -3)"/></clipPath>
 <path id="cleric-body-mantle-shape" d="M 70 102 C 76.2 98.7 87.3 98 96 98 C 104.7 98 115.8 98.7 122 102 C 128.2 105.3 132 114 133 118 C 134 122 128 126 128 126 C 128 126 106.7 130 96 130 C 85.3 130 64 126 64 126 C 64 126 58 122 59 118 C 60 114 63.8 105.3 70 102 Z"/>
@@ -35,7 +35,7 @@
 </g>
 <use id="cleric-body-robe-line" href="#cleric-body-robe-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="cleric-body-sleeve-cast" d="M 118.5 132 L 135.5 133 C 140.2 133.3 144.2 129.7 144.5 125 C 144.8 120.3 141.2 116.3 136.5 116 L 119.5 115 C 114.8 114.7 110.8 118.3 110.5 123 C 110.2 127.7 113.8 131.7 118.5 132 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="cleric-body-sleeve-cast" d="M 118.6 132 L 139.6 133 C 144.3 133.2 148.3 129.6 148.5 124.9 C 148.7 120.2 145.1 116.2 140.4 116 L 119.4 115 C 114.7 114.8 110.7 118.4 110.5 123.1 C 110.3 127.8 113.9 131.8 118.6 132 Z" fill="#2a1a10" opacity="0.17"/>
 <g id="cleric-body-sleeve">
 <use id="cleric-body-sleeve-shade" href="#cleric-body-sleeve-shape" fill="#b3a585"/>
 <g clip-path="url(#cleric-body-sleeve-clip)">

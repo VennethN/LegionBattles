@@ -19,17 +19,17 @@ const STRAW: Material = { fill: GOLD.fill, shade: GOLD.shade };
 export const beekeeper: UnitArt = {
   id: 'beekeeper',
   style: 'throw',
-  muzzle: [146, 118],
+  muzzle: [151, 118],
   top: 42,
   parts: [
     ground(36),
     ...legs(LEATHER),
     part('body', 'body', 'root', FEET, (d, team) => {
       d.piece('smock', robePath(), LINEN, { inner: (c) => hem(c, CLOTH[team]) });
-      arm(d, 'sleeve', [116, 120], [132, 142], LINEN, 16);
+      arm(d, 'sleeve', [116, 120], [137, 142], LINEN, 16);
     }),
     part('head', 'head', 'body', NECK, (d, team) => veilHat(d, STRAW, LINEN, CLOTH[team])),
-    part('hive', 'weapon', 'body', [136, 144], (d) => skep(d, { hand: [136, 144], angle: 14 }, STRAW)),
+    part('hive', 'weapon', 'body', [141, 144], (d) => skep(d, { hand: [141, 144], angle: 14 }, STRAW)),
   ],
 };
 
@@ -37,7 +37,7 @@ export const beekeeper: UnitArt = {
 export const gravedigger: UnitArt = {
   id: 'gravedigger',
   style: 'chop',
-  muzzle: [146, 110],
+  muzzle: [161, 110],
   top: 30,
   parts: [
     ground(36),
@@ -50,10 +50,10 @@ export const gravedigger: UnitArt = {
           belt(c, { y: 140 });
         },
       });
-      arm(d, 'arm', [114, 118], [119, 138], DARK_CLOTH);
+      arm(d, 'arm', [114, 118], [134, 138], DARK_CLOTH);
     }),
     part('head', 'head', 'body', NECK, (d) => tailHood(d, DARK_CLOTH)),
-    part('shovel', 'weapon', 'body', [120, 142], (d) => shovel(d, { hand: [120, 142], angle: 24 })),
+    part('shovel', 'weapon', 'body', [135, 142], (d) => shovel(d, { hand: [135, 142], angle: 24 })),
   ],
 };
 
@@ -61,7 +61,7 @@ export const gravedigger: UnitArt = {
 export const bellringer: UnitArt = {
   id: 'bellringer',
   style: 'swing',
-  muzzle: [140, 150],
+  muzzle: [144, 150],
   top: 34,
   parts: [
     ground(36),
@@ -74,10 +74,10 @@ export const bellringer: UnitArt = {
           belt(c, { y: 142, mat: GOLD, buckle: null });
         },
       });
-      arm(d, 'sleeve', [116, 116], [136, 108], CLOTH[team], 15);
+      arm(d, 'sleeve', [116, 116], [140, 108], CLOTH[team], 15);
     }),
     part('head', 'head', 'body', NECK, (d) => tricorn(d, DARK_CLOTH, LINEN)),
-    part('bell', 'weapon', 'body', [138, 106], (d) => handbell(d, { hand: [138, 106], angle: 0 })),
+    part('bell', 'weapon', 'body', [142, 106], (d) => handbell(d, { hand: [142, 106], angle: 0 })),
   ],
 };
 
@@ -85,7 +85,7 @@ export const bellringer: UnitArt = {
 export const blacksmith: UnitArt = {
   id: 'blacksmith',
   style: 'slash',
-  muzzle: [146, 104],
+  muzzle: [155, 104],
   top: 46,
   parts: [
     ground(40),
@@ -100,12 +100,12 @@ export const blacksmith: UnitArt = {
           });
         },
       });
-      arm(d, 'arm', [118, 116], [129, 132], CLOTH[team], 17);
+      arm(d, 'arm', [118, 116], [138, 132], CLOTH[team], 17);
       pauldron(d, 119, 113, IRON, 10);
     }),
     part('head', 'head', 'body', NECK, (d) => forgeMask(d)),
     part('tongs', 'offhand', 'body', [72, 144], (d) => tongs(d, 72, 144, FIRE)),
-    part('hammer', 'weapon', 'body', [130, 133], (d) => warhammer(d, { hand: [130, 133], angle: 26 }, 54, LEATHER)),
+    part('hammer', 'weapon', 'body', [139, 133], (d) => warhammer(d, { hand: [139, 133], angle: 26 }, 54, LEATHER)),
   ],
 };
 
@@ -113,7 +113,7 @@ export const blacksmith: UnitArt = {
 export const lamplighter: UnitArt = {
   id: 'lamplighter',
   style: 'cast',
-  muzzle: [146, 34],
+  muzzle: [155, 34],
   top: 12,
   parts: [
     ground(36),
@@ -125,10 +125,10 @@ export const lamplighter: UnitArt = {
           hem(c, CLOTH[team]);
         },
       });
-      arm(d, 'sleeve', [116, 117], [129, 136], DARK_CLOTH, 16);
+      arm(d, 'sleeve', [116, 117], [138, 136], DARK_CLOTH, 16);
     }),
     part('head', 'head', 'body', NECK, (d, team) => stovepipe(d, DARK_CLOTH, CLOTH[team])),
-    part('pole', 'weapon', 'body', [130, 137], (d) => lampPole(d, { hand: [130, 137], angle: 8 }, FIRE)),
+    part('pole', 'weapon', 'body', [139, 137], (d) => lampPole(d, { hand: [139, 137], angle: 8 }, FIRE)),
   ],
 };
 
@@ -136,7 +136,7 @@ export const lamplighter: UnitArt = {
 export const honorguard: UnitArt = {
   id: 'honorguard',
   style: 'chop',
-  muzzle: [150, 96],
+  muzzle: [162, 96],
   top: 8,
   parts: [
     ground(40),
@@ -149,12 +149,12 @@ export const honorguard: UnitArt = {
           belt(c, { y: 138, mat: GOLD, buckle: null });
         },
       });
-      arm(d, 'arm', [116, 118], [124, 140], STEEL);
+      arm(d, 'arm', [116, 118], [136, 140], STEEL);
       mantle(d, CLOTH[team]);
       pauldron(d, 118, 112, GOLD, 10);
     }),
     part('head', 'head', 'body', NECK, (d, team) => crestedHelm(d, CLOTH[team])),
-    part('halberd', 'weapon', 'body', [125, 142], (d, team) => halberd(d, { hand: [125, 142], angle: 10 }, CLOTH[team])),
+    part('halberd', 'weapon', 'body', [137, 142], (d, team) => halberd(d, { hand: [137, 142], angle: 10 }, CLOTH[team])),
   ],
 };
 

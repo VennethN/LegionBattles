@@ -67,7 +67,7 @@
 <clipPath id="paladin-body-tabard-clip"><use href="#paladin-body-tabard-shape"/></clipPath>
 <clipPath id="paladin-body-tabard-lit-clip"><use href="#paladin-body-tabard-shape" transform="translate(-5 -5)"/></clipPath>
 <path id="paladin-body-belt-shape" d="M 56 138 L 136 138 L 136 147 L 56 147 L 56 138 Z"/>
-<path id="paladin-body-arm-shape" d="M 110.8 120.2 L 121.8 136.2 C 124.2 139.7 128.8 140.5 132.2 138.2 C 135.7 135.8 136.5 131.2 134.2 127.8 L 123.2 111.8 C 120.8 108.3 116.2 107.5 112.8 109.8 C 109.3 112.2 108.5 116.8 110.8 120.2 Z"/>
+<path id="paladin-body-arm-shape" d="M 112.5 122 L 133.5 138 C 136.7 140.5 141.5 139.8 144 136.5 C 146.5 133.3 145.8 128.5 142.5 126 L 121.5 110 C 118.3 107.5 113.5 108.2 111 111.5 C 108.5 114.7 109.2 119.5 112.5 122 Z"/>
 <clipPath id="paladin-body-arm-clip"><use href="#paladin-body-arm-shape"/></clipPath>
 <clipPath id="paladin-body-arm-lit-clip"><use href="#paladin-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
 <path id="paladin-body-pauldron-shape" d="M 129 113 C 129 119.1 123.6 124 117 124 C 110.4 124 105 119.1 105 113 C 105 106.9 110.4 102 117 102 C 123.6 102 129 106.9 129 113 Z"/>
@@ -96,7 +96,7 @@
 </g>
 <use id="paladin-body-tabard-line" href="#paladin-body-tabard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="paladin-body-arm-cast" d="M 111.8 123.7 L 122.8 139.7 C 125.2 143.2 129.8 144 133.2 141.7 C 136.7 139.3 137.5 134.7 135.2 131.3 L 124.2 115.3 C 121.8 111.8 117.2 111 113.8 113.3 C 110.3 115.7 109.5 120.3 111.8 123.7 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="paladin-body-arm-cast" d="M 113.5 125.5 L 134.5 141.5 C 137.7 144 142.5 143.3 145 140 C 147.5 136.8 146.8 132 143.5 129.5 L 122.5 113.5 C 119.3 111 114.5 111.7 112 115 C 109.5 118.2 110.2 123 113.5 125.5 Z" fill="#2a1a10" opacity="0.17"/>
 <g id="paladin-body-arm">
 <use id="paladin-body-arm-shade" href="#paladin-body-arm-shape" fill="#8d97a3"/>
 <g clip-path="url(#paladin-body-arm-clip)">
@@ -105,7 +105,7 @@
 <use id="paladin-body-arm-lit" href="#paladin-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
 <use id="paladin-body-arm-fill-over" href="#paladin-body-arm-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
 </g>
-<path id="paladin-body-arm-sheen" d="M129.44 107.47 L133.65 107.47 L119.77 140.53 L115.56 140.53 Z M137.15 107.47 L139.75 107.47 L125.87 140.53 L123.27 140.53 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="paladin-body-arm-sheen" d="M134.42 107.52 L140.11 107.52 L126.27 140.48 L120.58 140.48 Z M143.61 107.52 L146.21 107.52 L132.37 140.48 L129.77 140.48 Z" fill="#f4f1e4" opacity="0.2"/>
 </g>
 <use id="paladin-body-arm-line" href="#paladin-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
@@ -211,15 +211,15 @@
 </g>
 <path id="paladin-shield-glint" d="M 57.7 122.1 L 63.7 120.1 C 64.9 119.7 65.5 118.5 65.1 117.3 C 64.7 116.1 63.5 115.5 62.3 115.9 L 56.3 117.9 C 55.1 118.3 54.5 119.5 54.9 120.7 C 55.3 121.9 56.5 122.5 57.7 122.1 Z" fill="#f4f1e4"/>
 </g>
-<g id="paladin-hammer-layer" transform="translate(129 133) rotate(0) scale(1 1) translate(-129 -133)">
+<g id="paladin-hammer-layer" transform="translate(139 133) rotate(0) scale(1 1) translate(-139 -133)">
 <defs>
-<path id="paladin-hammer-shaft-shape" d="M 151.3 81.6 L 152.2 82 Q 155 83.3 153.8 86 L 126.9 146.3 Q 125.7 149 122.9 147.8 L 122 147.4 Q 119.3 146.2 120.5 143.5 L 147.4 83.2 Q 148.6 80.4 151.3 81.6 Z"/>
+<path id="paladin-hammer-shaft-shape" d="M 161.3 81.6 L 162.2 82 Q 165 83.3 163.8 86 L 136.9 146.3 Q 135.7 149 132.9 147.8 L 132 147.4 Q 129.3 146.2 130.5 143.5 L 157.4 83.2 Q 158.6 80.4 161.3 81.6 Z"/>
 <clipPath id="paladin-hammer-shaft-clip"><use href="#paladin-hammer-shaft-shape"/></clipPath>
-<path id="paladin-hammer-head-shape" d="M 144.8 65.6 L 168.5 76.2 Q 173.1 78.2 171.1 82.8 L 166.2 93.7 Q 164.2 98.3 159.6 96.3 L 135.8 85.7 Q 131.3 83.7 133.3 79.1 L 138.2 68.1 Q 140.2 63.6 144.8 65.6 Z"/>
+<path id="paladin-hammer-head-shape" d="M 154.8 65.6 L 178.5 76.2 Q 183.1 78.2 181.1 82.8 L 176.2 93.7 Q 174.2 98.3 169.6 96.3 L 145.8 85.7 Q 141.3 83.7 143.3 79.1 L 148.2 68.1 Q 150.2 63.6 154.8 65.6 Z"/>
 <clipPath id="paladin-hammer-head-clip"><use href="#paladin-hammer-head-shape"/></clipPath>
 <clipPath id="paladin-hammer-head-lit-clip"><use href="#paladin-hammer-head-shape" transform="translate(-5 -5)"/></clipPath>
-<path id="paladin-hammer-band-shape" d="M 154.7 67.8 L 160.2 70.3 Q 162 71.1 161.2 72.9 L 152.3 93 Q 151.5 94.8 149.6 94 L 144.2 91.6 Q 142.3 90.8 143.1 88.9 L 152.1 68.8 Q 152.9 67 154.7 67.8 Z"/>
-<path id="paladin-hammer-hand-shape" d="M 136.5 133 C 136.5 137.1 133.1 140.5 129 140.5 C 124.9 140.5 121.5 137.1 121.5 133 C 121.5 128.9 124.9 125.5 129 125.5 C 133.1 125.5 136.5 128.9 136.5 133 Z"/>
+<path id="paladin-hammer-band-shape" d="M 164.7 67.8 L 170.2 70.3 Q 172 71.1 171.2 72.9 L 162.3 93 Q 161.5 94.8 159.6 94 L 154.2 91.6 Q 152.3 90.8 153.1 88.9 L 162.1 68.8 Q 162.9 67 164.7 67.8 Z"/>
+<path id="paladin-hammer-hand-shape" d="M 146.5 133 C 146.5 137.1 143.1 140.5 139 140.5 C 134.9 140.5 131.5 137.1 131.5 133 C 131.5 128.9 134.9 125.5 139 125.5 C 143.1 125.5 146.5 128.9 146.5 133 Z"/>
 <clipPath id="paladin-hammer-hand-clip"><use href="#paladin-hammer-hand-shape"/></clipPath>
 <clipPath id="paladin-hammer-hand-lit-clip"><use href="#paladin-hammer-hand-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
@@ -240,9 +240,9 @@
 <use id="paladin-hammer-head-lit" href="#paladin-hammer-head-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
 <use id="paladin-hammer-head-fill-over" href="#paladin-hammer-head-shape" transform="translate(4.6 4.6)" fill="#b9c2cc"/>
 </g>
-<path id="paladin-hammer-head-sheen" d="M159.48 63.56 L165.75 63.56 L151.16 98.3 L144.89 98.3 Z M169.25 63.56 L171.85 63.56 L157.26 98.3 L154.66 98.3 Z" fill="#f4f1e4" opacity="0.2"/>
-<path id="paladin-hammer-face-a" d="M 145.6 63.8 L 148 64.8 L 137.4 88.6 L 135 87.5 L 145.6 63.8 Z" fill="#2a1a10" opacity="0.28"/>
-<path id="paladin-hammer-face-b" d="M 167 73.3 L 169.3 74.3 L 158.8 98.1 L 156.4 97 L 167 73.3 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="paladin-hammer-head-sheen" d="M169.48 63.56 L175.75 63.56 L161.16 98.3 L154.89 98.3 Z M179.25 63.56 L181.85 63.56 L167.26 98.3 L164.66 98.3 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="paladin-hammer-face-a" d="M 155.6 63.8 L 158 64.8 L 147.4 88.6 L 145 87.5 L 155.6 63.8 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="paladin-hammer-face-b" d="M 177 73.3 L 179.3 74.3 L 168.8 98.1 L 166.4 97 L 177 73.3 Z" fill="#2a1a10" opacity="0.28"/>
 </g>
 <use id="paladin-hammer-head-line" href="#paladin-hammer-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

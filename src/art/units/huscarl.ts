@@ -8,7 +8,7 @@ import { ground, legs, part } from './common';
 export const huscarl: UnitArt = {
   id: 'huscarl',
   style: 'slash',
-  muzzle: [146, 104],
+  muzzle: [155, 104],
   top: 40,
   parts: [
     ground(38),
@@ -20,11 +20,11 @@ export const huscarl: UnitArt = {
           belt(c, { y: 140 });
         },
       });
-      arm(d, 'arm', [116, 118], [128, 130], CLOTH[team]);
+      arm(d, 'arm', [116, 118], [137, 130], CLOTH[team]);
       furCollar(d, BONE);
     }),
     part('head', 'head', 'body', NECK, (d) => spangenhelm(d)),
-    part('axe', 'weapon', 'body', [130, 131], (d) => handAxe(d, { hand: [130, 131], angle: 26 })),
+    part('axe', 'weapon', 'body', [139, 131], (d) => handAxe(d, { hand: [139, 131], angle: 26 })),
     part('shield', 'offhand', 'body', [84, 140], (d) => roundShield(d, 84, 140, 28)),
   ],
 };

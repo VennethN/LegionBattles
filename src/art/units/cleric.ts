@@ -10,7 +10,7 @@ import type { UnitArt } from '../kit/unit';
 export const cleric: UnitArt = {
   id: 'cleric',
   style: 'swing',
-  muzzle: [138, 160],
+  muzzle: [142, 160],
   top: 44,
   parts: [
     { name: 'shadow', role: 'shadow', parent: 'root', pivot: FEET, draw: (d) => shadow(d, 38) },
@@ -23,12 +23,12 @@ export const cleric: UnitArt = {
       pivot: FEET,
       draw: (d, team) => {
         d.piece('robe', robePath(), LINEN, { inner: (c) => hem(c, GOLD) });
-        arm(d, 'sleeve', [118, 120], [135, 121], LINEN, 17);
+        arm(d, 'sleeve', [118, 120], [139, 121], LINEN, 17);
         mantle(d, CLOTH[team]);
       },
     },
     { name: 'head', role: 'head', parent: 'body', pivot: NECK, draw: (d, team) => cowl(d, CLOTH[team]) },
     { name: 'book', role: 'offhand', parent: 'body', pivot: [72, 146], draw: (d, team) => book(d, 72, 146, CLOTH[team]) },
-    { name: 'censer', role: 'weapon', parent: 'body', pivot: [138, 121], draw: (d) => censer(d, { hand: [138, 121], angle: 0 }, HOLY, 28) },
+    { name: 'censer', role: 'weapon', parent: 'body', pivot: [142, 121], draw: (d) => censer(d, { hand: [142, 121], angle: 0 }, HOLY, 28) },
   ],
 };

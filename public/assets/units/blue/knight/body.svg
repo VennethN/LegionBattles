@@ -7,7 +7,7 @@
 <path id="knight-body-buckle-shape" d="M 104 136 L 110 136 Q 113 136 113 139 L 113 146 Q 113 149 110 149 L 104 149 Q 101 149 101 146 L 101 139 Q 101 136 104 136 Z"/>
 <clipPath id="knight-body-buckle-clip"><use href="#knight-body-buckle-shape"/></clipPath>
 <clipPath id="knight-body-buckle-lit-clip"><use href="#knight-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
-<path id="knight-body-arm-shape" d="M 110.5 119.8 L 120.5 136.8 C 122.6 140.4 127.2 141.6 130.8 139.5 C 134.4 137.4 135.6 132.8 133.5 129.2 L 123.5 112.2 C 121.4 108.6 116.8 107.4 113.2 109.5 C 109.6 111.6 108.4 116.2 110.5 119.8 Z"/>
+<path id="knight-body-arm-shape" d="M 112.1 121.7 L 132.1 138.7 C 135.3 141.4 140 141 142.7 137.9 C 145.4 134.7 145 130 141.9 127.3 L 121.9 110.3 C 118.7 107.6 114 108 111.3 111.1 C 108.6 114.3 109 119 112.1 121.7 Z"/>
 <clipPath id="knight-body-arm-clip"><use href="#knight-body-arm-shape"/></clipPath>
 <clipPath id="knight-body-arm-lit-clip"><use href="#knight-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
 <path id="knight-body-pauldron-shape" d="M 129 113 C 129 119.1 123.6 124 117 124 C 110.4 124 105 119.1 105 113 C 105 106.9 110.4 102 117 102 C 123.6 102 129 106.9 129 113 Z"/>
@@ -47,7 +47,7 @@
 </g>
 <use id="knight-body-tabard-line" href="#knight-body-tabard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="knight-body-arm-cast" d="M 111.5 123.3 L 121.5 140.3 C 123.6 143.9 128.2 145.1 131.8 143 C 135.4 140.9 136.6 136.3 134.5 132.7 L 124.5 115.7 C 122.4 112.1 117.8 110.9 114.2 113 C 110.6 115.1 109.4 119.7 111.5 123.3 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="knight-body-arm-cast" d="M 113.1 125.2 L 133.1 142.2 C 136.3 144.9 141 144.5 143.7 141.4 C 146.4 138.2 146 133.5 142.9 130.8 L 122.9 113.8 C 119.7 111.1 115 111.5 112.3 114.6 C 109.6 117.8 110 122.5 113.1 125.2 Z" fill="#2a1a10" opacity="0.17"/>
 <g id="knight-body-arm">
 <use id="knight-body-arm-shade" href="#knight-body-arm-shape" fill="#8d97a3"/>
 <g clip-path="url(#knight-body-arm-clip)">
@@ -56,7 +56,7 @@
 <use id="knight-body-arm-lit" href="#knight-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
 <use id="knight-body-arm-fill-over" href="#knight-body-arm-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
 </g>
-<path id="knight-body-arm-sheen" d="M129.17 107.44 L133.24 107.44 L118.9 141.56 L114.83 141.56 Z M136.74 107.44 L139.34 107.44 L125 141.56 L122.4 141.56 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="knight-body-arm-sheen" d="M134.1 107.6 L139.62 107.6 L125.42 141.4 L119.9 141.4 Z M143.12 107.6 L145.72 107.6 L131.52 141.4 L128.92 141.4 Z" fill="#f4f1e4" opacity="0.2"/>
 </g>
 <use id="knight-body-arm-line" href="#knight-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

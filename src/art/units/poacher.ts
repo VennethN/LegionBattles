@@ -7,7 +7,7 @@ import { ground, legs, part } from './common';
 export const poacher: UnitArt = {
   id: 'poacher',
   style: 'shoot',
-  muzzle: [168, 126],
+  muzzle: [183, 126],
   top: 46,
   parts: [
     ground(34),
@@ -21,9 +21,9 @@ export const poacher: UnitArt = {
           belt(c, { y: 140 });
         },
       });
-      arm(d, 'arm', [114, 118], [120, 130], LINEN);
+      arm(d, 'arm', [114, 118], [135, 130], LINEN);
     }),
     part('head', 'head', 'body', NECK, (d, team) => brimHat(d, LEATHER, CLOTH[team])),
-    part('crossbow', 'weapon', 'body', [120, 131], (d) => crossbow(d, { hand: [120, 131], angle: 86 })),
+    part('crossbow', 'weapon', 'body', [135, 131], (d) => crossbow(d, { hand: [135, 131], angle: 86 })),
   ],
 };

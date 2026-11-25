@@ -8,7 +8,7 @@ import { ground, legs, part } from './common';
 export const warlord: UnitArt = {
   id: 'warlord',
   style: 'chop',
-  muzzle: [150, 100],
+  muzzle: [164, 100],
   top: 30,
   parts: [
     ground(42),
@@ -22,11 +22,11 @@ export const warlord: UnitArt = {
           belt(c, { y: 140, mat: GOLD, buckle: null });
         },
       });
-      arm(d, 'arm', [118, 118], [122, 138], IRON, 17);
+      arm(d, 'arm', [118, 118], [136, 138], IRON, 17);
       furCollar(d, BONE);
       pauldron(d, 120, 114, GOLD, 10);
     }),
     part('head', 'head', 'body', NECK, (d) => crownedHelm(d)),
-    part('sword', 'weapon', 'body', [122, 140], (d) => greatsword(d, { hand: [122, 140], angle: 30 }, 92, IRON)),
+    part('sword', 'weapon', 'body', [136, 140], (d) => greatsword(d, { hand: [136, 140], angle: 30 }, 92, IRON)),
   ],
 };

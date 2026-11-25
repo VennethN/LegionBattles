@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="fist" width="48" height="48" viewBox="0 0 48 48">
 <defs>
-<path id="fist-hand-shape" d="M 37 24 C 37 31.2 31.2 37 24 37 C 16.8 37 11 31.2 11 24 C 11 16.8 16.8 11 24 11 C 31.2 11 37 16.8 37 24 Z"/>
+<path id="fist-hand-shape" d="M 31.5 24 C 31.5 28.1 28.1 31.5 24 31.5 C 19.9 31.5 16.5 28.1 16.5 24 C 16.5 19.9 19.9 16.5 24 16.5 C 28.1 16.5 31.5 19.9 31.5 24 Z"/>
 <clipPath id="fist-hand-clip"><use href="#fist-hand-shape"/></clipPath>
 <clipPath id="fist-hand-lit-clip"><use href="#fist-hand-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>

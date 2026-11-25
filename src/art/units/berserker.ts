@@ -7,7 +7,7 @@ import type { UnitArt } from '../kit/unit';
 export const berserker: UnitArt = {
   id: 'berserker',
   style: 'chop',
-  muzzle: [146, 110],
+  muzzle: [161, 110],
   top: 26,
   parts: [
     { name: 'shadow', role: 'shadow', parent: 'root', pivot: FEET, draw: (d) => shadow(d) },
@@ -25,11 +25,11 @@ export const berserker: UnitArt = {
             belt(c, { y: 140 });
           },
         });
-        arm(d, 'arm', [114, 118], [119, 138], CLOTH[team]);
+        arm(d, 'arm', [114, 118], [134, 138], CLOTH[team]);
         furCollar(d, BONE);
       },
     },
     { name: 'head', role: 'head', parent: 'body', pivot: NECK, draw: (d) => hornedHelm(d) },
-    { name: 'axe', role: 'weapon', parent: 'body', pivot: [120, 142], draw: (d) => greatAxe(d, { hand: [120, 142], angle: 24 }) },
+    { name: 'axe', role: 'weapon', parent: 'body', pivot: [135, 142], draw: (d) => greatAxe(d, { hand: [135, 142], angle: 24 }) },
   ],
 };

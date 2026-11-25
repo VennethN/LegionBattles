@@ -8,7 +8,7 @@ import { ground, legs, part } from './common';
 export const bruiser: UnitArt = {
   id: 'bruiser',
   style: 'chop',
-  muzzle: [146, 104],
+  muzzle: [159, 104],
   top: 30,
   parts: [
     ground(42),
@@ -21,9 +21,9 @@ export const bruiser: UnitArt = {
           belt(c, { y: 142 });
         },
       });
-      arm(d, 'arm', [118, 118], [124, 140], CLOTH[team], 17);
+      arm(d, 'arm', [118, 118], [137, 140], CLOTH[team], 17);
     }),
     part('head', 'head', 'body', NECK, (d) => sackHood(d)),
-    part('club', 'weapon', 'body', [124, 142], (d) => club(d, { hand: [124, 142], angle: 22 })),
+    part('club', 'weapon', 'body', [137, 142], (d) => club(d, { hand: [137, 142], angle: 22 })),
   ],
 };

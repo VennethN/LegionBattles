@@ -20,7 +20,8 @@
     "smoke": "tsx scripts/smoke.ts",
     "art:roster": "tsx scripts/roster.ts",
     "film": "tsx scripts/film.ts",
-    "cover": "tsx scripts/cover.ts"
+    "cover": "tsx scripts/cover.ts",
+    "art:pages": "tsx scripts/pages.ts"
   },
   "dependencies": {
     "@fontsource/fredoka": "^5.3.0",

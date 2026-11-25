@@ -7,7 +7,7 @@ import type { UnitArt } from '../kit/unit';
 export const knight: UnitArt = {
   id: 'knight',
   style: 'slash',
-  muzzle: [140, 118],
+  muzzle: [150, 118],
   top: 28,
   parts: [
     { name: 'shadow', role: 'shadow', parent: 'root', pivot: FEET, draw: (d) => shadow(d) },
@@ -25,13 +25,13 @@ export const knight: UnitArt = {
             belt(c);
           },
         });
-        arm(d, 'arm', [117, 116], [127, 133], STEEL);
+        arm(d, 'arm', [117, 116], [137, 133], STEEL);
         pauldron(d, 117, 113);
       },
     },
     { name: 'plume', role: 'extra', parent: 'head', pivot: [99, 54], sway: 1, draw: (d, team) => plume(d, CLOTH[team]) },
     { name: 'head', role: 'head', parent: 'body', pivot: NECK, draw: (d) => roundHelm(d) },
     { name: 'shield', role: 'offhand', parent: 'body', pivot: [76, 141], draw: (d) => roundShield(d, 76, 141) },
-    { name: 'sword', role: 'weapon', parent: 'body', pivot: [128, 134], draw: (d) => sword(d, { hand: [128, 134], angle: 32 }, 60, STEEL) },
+    { name: 'sword', role: 'weapon', parent: 'body', pivot: [138, 134], draw: (d) => sword(d, { hand: [138, 134], angle: 32 }, 60, STEEL) },
   ],
 };

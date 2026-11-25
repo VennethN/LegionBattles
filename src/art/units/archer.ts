@@ -8,7 +8,7 @@ import type { UnitArt } from '../kit/unit';
 export const archer: UnitArt = {
   id: 'archer',
   style: 'bow',
-  muzzle: [150, 128],
+  muzzle: [156, 128],
   top: 44,
   parts: [
     { name: 'shadow', role: 'shadow', parent: 'root', pivot: FEET, draw: (d) => shadow(d, 34) },
@@ -28,11 +28,11 @@ export const archer: UnitArt = {
             belt(c, { y: 140, buckle: null });
           },
         });
-        arm(d, 'arm', [116, 117], [131, 128], CLOTH[team]);
+        arm(d, 'arm', [116, 117], [137, 128], CLOTH[team]);
       },
     },
     { name: 'head', role: 'head', parent: 'body', pivot: NECK, draw: (d, team) => hood(d, CLOTH[team], 12) },
-    { name: 'bow', role: 'weapon', parent: 'body', pivot: [134, 128], draw: (d) => bow(d, { hand: [134, 128], angle: 0 }) },
+    { name: 'bow', role: 'weapon', parent: 'body', pivot: [140, 128], draw: (d) => bow(d, { hand: [140, 128], angle: 0 }) },
     { name: 'draw-hand', role: 'offhand', parent: 'body', pivot: [118, 128], draw: (d) => nockedArrow(d, 118, 128) },
   ],
 };

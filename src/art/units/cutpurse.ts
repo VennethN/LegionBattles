@@ -7,7 +7,7 @@ import { ground, legs, part } from './common';
 export const cutpurse: UnitArt = {
   id: 'cutpurse',
   style: 'thrust',
-  muzzle: [150, 124],
+  muzzle: [160, 124],
   top: 48,
   parts: [
     ground(32),
@@ -19,10 +19,10 @@ export const cutpurse: UnitArt = {
           belt(c, { y: 138, mat: CLOTH[team], buckle: null });
         },
       });
-      arm(d, 'arm', [114, 118], [126, 128], DARK_CLOTH, 13);
+      arm(d, 'arm', [114, 118], [136, 128], DARK_CLOTH, 13);
     }),
     part('head', 'head', 'body', NECK, (d, team) => faceWrap(d, CLOTH[team])),
     part('knife-back', 'offhand', 'body', [74, 134], (d) => dagger(d, { hand: [74, 134], angle: -118 }, 32)),
-    part('knife', 'weapon', 'body', [128, 128], (d) => dagger(d, { hand: [128, 128], angle: 74 }, 36)),
+    part('knife', 'weapon', 'body', [138, 128], (d) => dagger(d, { hand: [138, 128], angle: 74 }, 36)),
   ],
 };

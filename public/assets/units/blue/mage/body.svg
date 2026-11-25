@@ -4,7 +4,7 @@
 <clipPath id="mage-body-robe-clip"><use href="#mage-body-robe-shape"/></clipPath>
 <clipPath id="mage-body-robe-lit-clip"><use href="#mage-body-robe-shape" transform="translate(-5 -5)"/></clipPath>
 <path id="mage-body-hem-shape" d="M 52 163 C 59.3 162.2 81.3 167 96 167 C 110.7 167 132.7 162.2 140 163 C 147.3 163.8 147.3 169.8 140 172 C 132.7 174.2 110.7 176 96 176 C 81.3 176 59.3 174.2 52 172 C 44.7 169.8 44.7 163.8 52 163 Z"/>
-<path id="mage-body-sleeve-shape" d="M 108.8 121.5 L 120.8 140.5 C 123.3 144.5 128.6 145.7 132.5 143.2 C 136.5 140.7 137.7 135.4 135.2 131.5 L 123.2 112.5 C 120.7 108.5 115.4 107.3 111.5 109.8 C 107.5 112.3 106.3 117.6 108.8 121.5 Z"/>
+<path id="mage-body-sleeve-shape" d="M 110.3 123.3 L 131.3 142.3 C 134.8 145.5 140.2 145.2 143.3 141.7 C 146.5 138.2 146.2 132.8 142.7 129.7 L 121.7 110.7 C 118.2 107.5 112.8 107.8 109.7 111.3 C 106.5 114.8 106.8 120.2 110.3 123.3 Z"/>
 <clipPath id="mage-body-sleeve-clip"><use href="#mage-body-sleeve-shape"/></clipPath>
 <clipPath id="mage-body-sleeve-lit-clip"><use href="#mage-body-sleeve-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
@@ -31,7 +31,7 @@
 </g>
 <use id="mage-body-robe-line" href="#mage-body-robe-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="mage-body-sleeve-cast" d="M 109.8 125 L 121.8 144 C 124.3 148 129.6 149.2 133.5 146.7 C 137.5 144.2 138.7 138.9 136.2 135 L 124.2 116 C 121.7 112 116.4 110.8 112.5 113.3 C 108.5 115.8 107.3 121.1 109.8 125 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="mage-body-sleeve-cast" d="M 111.3 126.8 L 132.3 145.8 C 135.8 149 141.2 148.7 144.3 145.2 C 147.5 141.7 147.2 136.3 143.7 133.2 L 122.7 114.2 C 119.2 111 113.8 111.3 110.7 114.8 C 107.5 118.3 107.8 123.7 111.3 126.8 Z" fill="#2a1a10" opacity="0.17"/>
 <g id="mage-body-sleeve">
 <use id="mage-body-sleeve-shade" href="#mage-body-sleeve-shape" fill="#2f5893"/>
 <g clip-path="url(#mage-body-sleeve-clip)">

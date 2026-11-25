@@ -46,7 +46,7 @@
 <path id="javelineer-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
 <clipPath id="javelineer-body-buckle-clip"><use href="#javelineer-body-buckle-shape"/></clipPath>
 <clipPath id="javelineer-body-buckle-lit-clip"><use href="#javelineer-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
-<path id="javelineer-body-arm-shape" d="M 115.5 123.4 L 125.5 121.4 C 129.5 120.5 132.2 116.6 131.4 112.5 C 130.5 108.5 126.6 105.8 122.5 106.6 L 112.5 108.6 C 108.5 109.5 105.8 113.4 106.6 117.5 C 107.5 121.5 111.4 124.2 115.5 123.4 Z"/>
+<path id="javelineer-body-arm-shape" d="M 114.7 123.5 L 136.7 121.5 C 140.8 121.1 143.8 117.4 143.5 113.3 C 143.1 109.2 139.4 106.2 135.3 106.5 L 113.3 108.5 C 109.2 108.9 106.2 112.6 106.5 116.7 C 106.9 120.8 110.6 123.8 114.7 123.5 Z"/>
 <clipPath id="javelineer-body-arm-clip"><use href="#javelineer-body-arm-shape"/></clipPath>
 <clipPath id="javelineer-body-arm-lit-clip"><use href="#javelineer-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
@@ -86,7 +86,7 @@
 </g>
 <use id="javelineer-body-tunic-line" href="#javelineer-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="javelineer-body-arm-cast" d="M 116.5 126.9 L 126.5 124.9 C 130.5 124 133.2 120.1 132.4 116 C 131.5 112 127.6 109.3 123.5 110.1 L 113.5 112.1 C 109.5 113 106.8 116.9 107.6 121 C 108.5 125 112.4 127.7 116.5 126.9 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="javelineer-body-arm-cast" d="M 115.7 127 L 137.7 125 C 141.8 124.6 144.8 120.9 144.5 116.8 C 144.1 112.7 140.4 109.7 136.3 110 L 114.3 112 C 110.2 112.4 107.2 116.1 107.5 120.2 C 107.9 124.3 111.6 127.3 115.7 127 Z" fill="#2a1a10" opacity="0.17"/>
 <g id="javelineer-body-arm">
 <use id="javelineer-body-arm-shade" href="#javelineer-body-arm-shape" fill="#b3a585"/>
 <g clip-path="url(#javelineer-body-arm-clip)">
@@ -190,11 +190,11 @@
 <use id="javelineer-shield-boss-line" href="#javelineer-shield-boss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
-<g id="javelineer-javelin-layer" transform="translate(131.03 107.5) rotate(-1) scale(1 1) translate(-126 -114)">
+<g id="javelineer-javelin-layer" transform="translate(142.62 108.51) rotate(-1) scale(1 1) translate(-138 -114)">
 <defs>
-<path id="javelineer-javelin-shaft-shape" d="M 166.8 97.5 L 166.8 97.5 Q 167.7 99.8 165.4 100.8 L 95.9 128.9 Q 93.6 129.8 92.6 127.5 L 92.6 127.5 Q 91.7 125.2 94 124.2 L 163.5 96.1 Q 165.9 95.2 166.8 97.5 Z"/>
-<path id="javelineer-javelin-head-shape" d="M 187.2 89.3 L 173.1 102.5 L 165.1 101.4 L 162.9 95.9 L 167.9 89.5 Z"/>
-<path id="javelineer-javelin-hand-shape" d="M 133.5 114 C 133.5 118.1 130.1 121.5 126 121.5 C 121.9 121.5 118.5 118.1 118.5 114 C 118.5 109.9 121.9 106.5 126 106.5 C 130.1 106.5 133.5 109.9 133.5 114 Z"/>
+<path id="javelineer-javelin-shaft-shape" d="M 178.8 97.5 L 178.8 97.5 Q 179.7 99.8 177.4 100.8 L 107.9 128.9 Q 105.6 129.8 104.6 127.5 L 104.6 127.5 Q 103.7 125.2 106 124.2 L 175.5 96.1 Q 177.9 95.2 178.8 97.5 Z"/>
+<path id="javelineer-javelin-head-shape" d="M 199.2 89.3 L 185.1 102.5 L 177.1 101.4 L 174.9 95.9 L 179.9 89.5 Z"/>
+<path id="javelineer-javelin-hand-shape" d="M 145.5 114 C 145.5 118.1 142.1 121.5 138 121.5 C 133.9 121.5 130.5 118.1 130.5 114 C 130.5 109.9 133.9 106.5 138 106.5 C 142.1 106.5 145.5 109.9 145.5 114 Z"/>
 <clipPath id="javelineer-javelin-hand-clip"><use href="#javelineer-javelin-hand-shape"/></clipPath>
 <clipPath id="javelineer-javelin-hand-lit-clip"><use href="#javelineer-javelin-hand-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>

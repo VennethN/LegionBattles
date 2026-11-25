@@ -7,7 +7,7 @@ import { ground, legs, part } from './common';
 export const harpooner: UnitArt = {
   id: 'harpooner',
   style: 'throw',
-  muzzle: [160, 94],
+  muzzle: [172, 94],
   top: 46,
   parts: [
     ground(34),
@@ -19,10 +19,10 @@ export const harpooner: UnitArt = {
           belt(c, { y: 140, mat: BONE, buckle: null });
         },
       });
-      arm(d, 'arm', [114, 116], [124, 112], CLOTH[team]);
+      arm(d, 'arm', [114, 116], [136, 112], CLOTH[team]);
     }),
     part('head', 'head', 'body', NECK, (d) => furHood(d, LEATHER)),
     part('rope', 'offhand', 'body', [76, 132], (d) => ropeCoil(d, 76, 146)),
-    part('harpoon', 'weapon', 'body', [126, 112], (d) => javelin(d, { hand: [126, 112], angle: 66 }, 48, LEATHER, true)),
+    part('harpoon', 'weapon', 'body', [138, 112], (d) => javelin(d, { hand: [138, 112], angle: 66 }, 48, LEATHER, true)),
   ],
 };

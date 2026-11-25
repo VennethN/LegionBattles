@@ -7,7 +7,7 @@ import { ground, legs, part } from './common';
 export const javelineer: UnitArt = {
   id: 'javelineer',
   style: 'throw',
-  muzzle: [160, 96],
+  muzzle: [172, 96],
   top: 22,
   parts: [
     ground(34),
@@ -20,10 +20,10 @@ export const javelineer: UnitArt = {
           belt(c, { y: 140 });
         },
       });
-      arm(d, 'arm', [114, 116], [124, 114], LINEN);
+      arm(d, 'arm', [114, 116], [136, 114], LINEN);
     }),
     part('head', 'head', 'body', NECK, (d, team) => spikeHelm(d, CLOTH[team])),
     part('shield', 'offhand', 'body', [78, 138], (d) => buckler(d, 78, 138, 17, WOOD)),
-    part('javelin', 'weapon', 'body', [126, 114], (d) => javelin(d, { hand: [126, 114], angle: 68 }, 44)),
+    part('javelin', 'weapon', 'body', [138, 114], (d) => javelin(d, { hand: [138, 114], angle: 68 }, 44)),
   ],
 };

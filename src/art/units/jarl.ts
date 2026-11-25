@@ -8,7 +8,7 @@ import { ground, legs, part } from './common';
 export const jarl: UnitArt = {
   id: 'jarl',
   style: 'chop',
-  muzzle: [150, 96],
+  muzzle: [164, 96],
   top: 32,
   parts: [
     ground(44),
@@ -22,10 +22,10 @@ export const jarl: UnitArt = {
           belt(c, { y: 140, mat: GOLD, buckle: null });
         },
       });
-      arm(d, 'arm', [118, 118], [122, 140], IRON, 17);
+      arm(d, 'arm', [118, 118], [136, 140], IRON, 17);
       furCollar(d, BONE);
     }),
     part('head', 'head', 'body', NECK, (d) => jarlHelm(d)),
-    part('hammer', 'weapon', 'body', [122, 142], (d) => greatHammer(d, { hand: [122, 142], angle: 22 })),
+    part('hammer', 'weapon', 'body', [136, 142], (d) => greatHammer(d, { hand: [136, 142], angle: 22 })),
   ],
 };

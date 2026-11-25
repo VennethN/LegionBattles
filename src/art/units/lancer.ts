@@ -7,7 +7,7 @@ import { ground, legs, part } from './common';
 export const lancer: UnitArt = {
   id: 'lancer',
   style: 'thrust',
-  muzzle: [184, 118],
+  muzzle: [192, 118],
   top: 38,
   parts: [
     ground(),
@@ -20,9 +20,9 @@ export const lancer: UnitArt = {
           belt(c, { y: 140 });
         },
       });
-      arm(d, 'arm', [114, 118], [116, 134], LINEN);
+      arm(d, 'arm', [114, 118], [124, 134], LINEN);
     }),
     part('head', 'head', 'body', NECK, (d, team) => turban(d, CLOTH[team])),
-    part('lance', 'weapon', 'body', [116, 136], (d, team) => spear(d, { hand: [116, 136], angle: 74 }, 74, LEATHER, CLOTH[team])),
+    part('lance', 'weapon', 'body', [124, 136], (d, team) => spear(d, { hand: [124, 136], angle: 74 }, 74, LEATHER, CLOTH[team])),
   ],
 };

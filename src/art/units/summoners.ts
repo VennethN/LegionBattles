@@ -13,7 +13,7 @@ import { ground, legs, part } from './common';
 export const herald: UnitArt = {
   id: 'herald',
   style: 'cast',
-  muzzle: [158, 64],
+  muzzle: [168, 64],
   top: 36,
   parts: [
     ground(34),
@@ -25,10 +25,10 @@ export const herald: UnitArt = {
           belt(c, { y: 140 });
         },
       });
-      arm(d, 'arm', [114, 116], [128, 110], CLOTH[team]);
+      arm(d, 'arm', [114, 116], [138, 110], CLOTH[team]);
     }),
     part('head', 'head', 'body', NECK, (d) => roundHelm(d, GOLD)),
-    part('trumpet', 'weapon', 'body', [129, 110], (d, team) => trumpet(d, { hand: [129, 110], angle: 38 }, CLOTH[team])),
+    part('trumpet', 'weapon', 'body', [139, 110], (d, team) => trumpet(d, { hand: [139, 110], angle: 38 }, CLOTH[team])),
   ],
 };
 
@@ -36,7 +36,7 @@ export const herald: UnitArt = {
 export const ringleader: UnitArt = {
   id: 'ringleader',
   style: 'cast',
-  muzzle: [152, 76],
+  muzzle: [162, 76],
   top: 40,
   parts: [
     ground(36),
@@ -44,10 +44,10 @@ export const ringleader: UnitArt = {
     ...legs(LEATHER),
     part('body', 'body', 'root', FEET, (d, team) => {
       d.piece('coat', robePath(), LEATHER, { inner: (c) => hem(c, CLOTH[team]) });
-      arm(d, 'sleeve', [116, 117], [128, 134], LEATHER, 16);
+      arm(d, 'sleeve', [116, 117], [138, 134], LEATHER, 16);
     }),
     part('head', 'head', 'body', NECK, (d) => hood(d, LEATHER, 16)),
-    part('lantern', 'weapon', 'body', [129, 135], (d) => crookLantern(d, { hand: [129, 135], angle: 4 }, FIRE)),
+    part('lantern', 'weapon', 'body', [139, 135], (d) => crookLantern(d, { hand: [139, 135], angle: 4 }, FIRE)),
   ],
 };
 
@@ -55,7 +55,7 @@ export const ringleader: UnitArt = {
 export const drummer: UnitArt = {
   id: 'drummer',
   style: 'slash',
-  muzzle: [140, 96],
+  muzzle: [150, 96],
   top: 38,
   parts: [
     ground(38),
@@ -67,11 +67,11 @@ export const drummer: UnitArt = {
           skirt(c, CLOTH[team]);
         },
       });
-      arm(d, 'arm', [114, 116], [128, 104], LINEN);
+      arm(d, 'arm', [114, 116], [138, 104], LINEN);
     }),
     part('head', 'head', 'body', NECK, (d, team) => turban(d, LINEN, CLOTH[team])),
     part('drum', 'offhand', 'body', [112, 142], (d, team) => drum(d, 112, 142, CLOTH[team])),
-    part('beater', 'weapon', 'body', [129, 104], (d) => beater(d, { hand: [129, 104], angle: 24 })),
+    part('beater', 'weapon', 'body', [139, 104], (d) => beater(d, { hand: [139, 104], angle: 24 })),
   ],
 };
 
@@ -79,7 +79,7 @@ export const drummer: UnitArt = {
 export const skald: UnitArt = {
   id: 'skald',
   style: 'cast',
-  muzzle: [156, 62],
+  muzzle: [164, 62],
   top: 40,
   parts: [
     ground(36),
@@ -91,10 +91,10 @@ export const skald: UnitArt = {
           belt(c, { y: 140 });
         },
       });
-      arm(d, 'arm', [116, 116], [130, 112], LEATHER);
+      arm(d, 'arm', [116, 116], [138, 112], LEATHER);
       furCollar(d, BONE);
     }),
     part('head', 'head', 'body', NECK, (d, team) => furHood(d, CLOTH[team])),
-    part('horn', 'weapon', 'body', [131, 112], (d) => warHorn(d, { hand: [131, 112], angle: 20 })),
+    part('horn', 'weapon', 'body', [139, 112], (d) => warHorn(d, { hand: [139, 112], angle: 20 })),
   ],
 };

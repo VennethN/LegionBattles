@@ -7,7 +7,7 @@ import { ground, legs, part } from './common';
 export const militia: UnitArt = {
   id: 'militia',
   style: 'thrust',
-  muzzle: [176, 124],
+  muzzle: [184, 124],
   top: 48,
   parts: [
     ground(),
@@ -20,10 +20,10 @@ export const militia: UnitArt = {
           belt(c, { y: 140 });
         },
       });
-      arm(d, 'arm', [114, 118], [116, 136], CLOTH[team]);
+      arm(d, 'arm', [114, 118], [124, 136], CLOTH[team]);
     }),
     part('head', 'head', 'body', NECK, (d) => kettleHelm(d)),
     part('buckler', 'offhand', 'body', [80, 138], (d) => buckler(d, 80, 138, 17)),
-    part('spear', 'weapon', 'body', [116, 138], (d) => spear(d, { hand: [116, 138], angle: 76 }, 66)),
+    part('spear', 'weapon', 'body', [124, 138], (d) => spear(d, { hand: [124, 138], angle: 76 }, 66)),
   ],
 };

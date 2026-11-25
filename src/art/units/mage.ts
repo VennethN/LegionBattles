@@ -10,7 +10,7 @@ import type { UnitArt } from '../kit/unit';
 export const mage: UnitArt = {
   id: 'mage',
   style: 'cast',
-  muzzle: [138, 52],
+  muzzle: [147, 52],
   top: 14,
   parts: [
     { name: 'shadow', role: 'shadow', parent: 'root', pivot: FEET, draw: (d) => shadow(d, 38) },
@@ -23,10 +23,10 @@ export const mage: UnitArt = {
       pivot: FEET,
       draw: (d, team) => {
         d.piece('robe', robePath(), CLOTH[team], { inner: (c) => hem(c, GOLD) });
-        arm(d, 'sleeve', [116, 117], [128, 136], CLOTH[team], 17);
+        arm(d, 'sleeve', [116, 117], [137, 136], CLOTH[team], 17);
       },
     },
     { name: 'head', role: 'head', parent: 'body', pivot: NECK, draw: (d, team) => pointedHood(d, CLOTH[team]) },
-    { name: 'staff', role: 'weapon', parent: 'body', pivot: [130, 138], draw: (d) => orbStaff(d, { hand: [130, 138], angle: 7 }, ARCANE) },
+    { name: 'staff', role: 'weapon', parent: 'body', pivot: [139, 138], draw: (d) => orbStaff(d, { hand: [139, 138], angle: 7 }, ARCANE) },
   ],
 };

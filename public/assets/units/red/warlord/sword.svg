@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="warlord-sword" width="272" height="272" viewBox="-40 -40 272 272">
 <defs>
-<path id="warlord-sword-blade-shape" d="M 119.3 124.6 L 150.3 70.9 L 168 60.3 L 167.7 80.9 L 136.7 134.6 Z"/>
+<path id="warlord-sword-blade-shape" d="M 133.3 124.6 L 164.3 70.9 L 182 60.3 L 181.7 80.9 L 150.7 134.6 Z"/>
 <clipPath id="warlord-sword-blade-clip"><use href="#warlord-sword-blade-shape"/></clipPath>
 <clipPath id="warlord-sword-blade-lit-clip"><use href="#warlord-sword-blade-shape" transform="translate(-5 -5)"/></clipPath>
-<path id="warlord-sword-grip-shape" d="M 125.1 132.6 L 126.9 133.6 Q 129.5 135.1 128 137.7 L 114 161.9 Q 112.5 164.5 109.9 163 L 108.1 162 Q 105.5 160.5 107 157.9 L 121 133.7 Q 122.5 131.1 125.1 132.6 Z"/>
-<path id="warlord-sword-pommel-shape" d="M 112.7 168.1 C 111 171 107.4 172 104.5 170.3 C 101.6 168.7 100.6 165 102.3 162.1 C 104 159.2 107.6 158.3 110.5 159.9 C 113.4 161.6 114.4 165.2 112.7 168.1 Z"/>
-<path id="warlord-sword-guard-shape" d="M 112.9 111.7 C 112.9 111.7 109.2 118.8 111.4 122.3 C 113.6 125.9 120.8 130.1 126 133.1 C 131.2 136.1 138.4 140.2 142.6 140.3 C 146.8 140.4 151.1 133.7 151.1 133.7 C 151.1 133.7 145.2 135.1 139.9 133 C 134.6 130.9 123.6 124.6 119.1 121 C 114.6 117.5 112.9 111.7 112.9 111.7 Z"/>
+<path id="warlord-sword-grip-shape" d="M 139.1 132.6 L 140.9 133.6 Q 143.5 135.1 142 137.7 L 128 161.9 Q 126.5 164.5 123.9 163 L 122.1 162 Q 119.5 160.5 121 157.9 L 135 133.7 Q 136.5 131.1 139.1 132.6 Z"/>
+<path id="warlord-sword-pommel-shape" d="M 126.7 168.1 C 125 171 121.4 172 118.5 170.3 C 115.6 168.7 114.6 165 116.3 162.1 C 118 159.2 121.6 158.3 124.5 159.9 C 127.4 161.6 128.4 165.2 126.7 168.1 Z"/>
+<path id="warlord-sword-guard-shape" d="M 126.9 111.7 C 126.9 111.7 123.2 118.8 125.4 122.3 C 127.6 125.9 134.8 130.1 140 133.1 C 145.2 136.1 152.4 140.2 156.6 140.3 C 160.8 140.4 165.1 133.7 165.1 133.7 C 165.1 133.7 159.2 135.1 153.9 133 C 148.6 130.9 137.6 124.6 133.1 121 C 128.6 117.5 126.9 111.7 126.9 111.7 Z"/>
 <clipPath id="warlord-sword-guard-clip"><use href="#warlord-sword-guard-shape"/></clipPath>
 <clipPath id="warlord-sword-guard-lit-clip"><use href="#warlord-sword-guard-shape" transform="translate(-3 -3)"/></clipPath>
-<path id="warlord-sword-hand-lower-shape" d="M 121.5 153.9 C 121.5 158 118.1 161.4 114 161.4 C 109.9 161.4 106.5 158 106.5 153.9 C 106.5 149.7 109.9 146.4 114 146.4 C 118.1 146.4 121.5 149.7 121.5 153.9 Z"/>
+<path id="warlord-sword-hand-lower-shape" d="M 135.5 153.9 C 135.5 158 132.1 161.4 128 161.4 C 123.9 161.4 120.5 158 120.5 153.9 C 120.5 149.7 123.9 146.4 128 146.4 C 132.1 146.4 135.5 149.7 135.5 153.9 Z"/>
 <clipPath id="warlord-sword-hand-lower-clip"><use href="#warlord-sword-hand-lower-shape"/></clipPath>
 <clipPath id="warlord-sword-hand-lower-lit-clip"><use href="#warlord-sword-hand-lower-shape" transform="translate(-3 -3)"/></clipPath>
-<path id="warlord-sword-hand-shape" d="M 129.5 140 C 129.5 144.1 126.1 147.5 122 147.5 C 117.9 147.5 114.5 144.1 114.5 140 C 114.5 135.9 117.9 132.5 122 132.5 C 126.1 132.5 129.5 135.9 129.5 140 Z"/>
+<path id="warlord-sword-hand-shape" d="M 143.5 140 C 143.5 144.1 140.1 147.5 136 147.5 C 131.9 147.5 128.5 144.1 128.5 140 C 128.5 135.9 131.9 132.5 136 132.5 C 140.1 132.5 143.5 135.9 143.5 140 Z"/>
 <clipPath id="warlord-sword-hand-clip"><use href="#warlord-sword-hand-shape"/></clipPath>
 <clipPath id="warlord-sword-hand-lit-clip"><use href="#warlord-sword-hand-shape" transform="translate(-3 -3)"/></clipPath>
 </defs>
@@ -25,9 +25,9 @@
 <use id="warlord-sword-blade-lit" href="#warlord-sword-blade-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
 <use id="warlord-sword-blade-fill-over" href="#warlord-sword-blade-shape" transform="translate(4.6 4.6)" fill="#b9c2cc"/>
 </g>
-<path id="warlord-sword-blade-sheen" d="M159.27 60.33 L166.57 60.33 L135.37 134.61 L128.07 134.61 Z M170.07 60.33 L172.67 60.33 L141.47 134.61 L138.87 134.61 Z" fill="#f4f1e4" opacity="0.2"/>
-<path id="warlord-sword-bevel" d="M 119.3 124.6 L 150.3 70.9 L 168 60.3 L 128 129.6 Z" fill="#f4f1e4" opacity="0.32"/>
-<path id="warlord-sword-fuller" d="M 129 127.9 L 154 84.6" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="warlord-sword-blade-sheen" d="M173.27 60.33 L180.57 60.33 L149.37 134.61 L142.07 134.61 Z M184.07 60.33 L186.67 60.33 L155.47 134.61 L152.87 134.61 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="warlord-sword-bevel" d="M 133.3 124.6 L 164.3 70.9 L 182 60.3 L 142 129.6 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="warlord-sword-fuller" d="M 143 127.9 L 168 84.6" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <use id="warlord-sword-blade-line" href="#warlord-sword-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
@@ -47,7 +47,7 @@
 <use id="warlord-sword-guard-lit" href="#warlord-sword-guard-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
 <use id="warlord-sword-guard-fill-over" href="#warlord-sword-guard-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
 </g>
-<path id="warlord-sword-guard-sheen" d="M136.18 111.68 L142.46 111.68 L130.38 140.44 L124.1 140.44 Z M145.96 111.68 L148.56 111.68 L136.48 140.44 L133.88 140.44 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="warlord-sword-guard-sheen" d="M150.18 111.68 L156.46 111.68 L144.38 140.44 L138.1 140.44 Z M159.96 111.68 L162.56 111.68 L150.48 140.44 L147.88 140.44 Z" fill="#f4f1e4" opacity="0.2"/>
 </g>
 <use id="warlord-sword-guard-line" href="#warlord-sword-guard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

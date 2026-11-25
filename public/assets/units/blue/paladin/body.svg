@@ -4,7 +4,7 @@
 <clipPath id="paladin-body-tabard-clip"><use href="#paladin-body-tabard-shape"/></clipPath>
 <clipPath id="paladin-body-tabard-lit-clip"><use href="#paladin-body-tabard-shape" transform="translate(-5 -5)"/></clipPath>
 <path id="paladin-body-belt-shape" d="M 56 138 L 136 138 L 136 147 L 56 147 L 56 138 Z"/>
-<path id="paladin-body-arm-shape" d="M 110.8 120.2 L 121.8 136.2 C 124.2 139.7 128.8 140.5 132.2 138.2 C 135.7 135.8 136.5 131.2 134.2 127.8 L 123.2 111.8 C 120.8 108.3 116.2 107.5 112.8 109.8 C 109.3 112.2 108.5 116.8 110.8 120.2 Z"/>
+<path id="paladin-body-arm-shape" d="M 112.5 122 L 133.5 138 C 136.7 140.5 141.5 139.8 144 136.5 C 146.5 133.3 145.8 128.5 142.5 126 L 121.5 110 C 118.3 107.5 113.5 108.2 111 111.5 C 108.5 114.7 109.2 119.5 112.5 122 Z"/>
 <clipPath id="paladin-body-arm-clip"><use href="#paladin-body-arm-shape"/></clipPath>
 <clipPath id="paladin-body-arm-lit-clip"><use href="#paladin-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
 <path id="paladin-body-pauldron-shape" d="M 129 113 C 129 119.1 123.6 124 117 124 C 110.4 124 105 119.1 105 113 C 105 106.9 110.4 102 117 102 C 123.6 102 129 106.9 129 113 Z"/>
@@ -33,7 +33,7 @@
 </g>
 <use id="paladin-body-tabard-line" href="#paladin-body-tabard-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="paladin-body-arm-cast" d="M 111.8 123.7 L 122.8 139.7 C 125.2 143.2 129.8 144 133.2 141.7 C 136.7 139.3 137.5 134.7 135.2 131.3 L 124.2 115.3 C 121.8 111.8 117.2 111 113.8 113.3 C 110.3 115.7 109.5 120.3 111.8 123.7 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="paladin-body-arm-cast" d="M 113.5 125.5 L 134.5 141.5 C 137.7 144 142.5 143.3 145 140 C 147.5 136.8 146.8 132 143.5 129.5 L 122.5 113.5 C 119.3 111 114.5 111.7 112 115 C 109.5 118.2 110.2 123 113.5 125.5 Z" fill="#2a1a10" opacity="0.17"/>
 <g id="paladin-body-arm">
 <use id="paladin-body-arm-shade" href="#paladin-body-arm-shape" fill="#8d97a3"/>
 <g clip-path="url(#paladin-body-arm-clip)">
@@ -42,7 +42,7 @@
 <use id="paladin-body-arm-lit" href="#paladin-body-arm-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
 <use id="paladin-body-arm-fill-over" href="#paladin-body-arm-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
 </g>
-<path id="paladin-body-arm-sheen" d="M129.44 107.47 L133.65 107.47 L119.77 140.53 L115.56 140.53 Z M137.15 107.47 L139.75 107.47 L125.87 140.53 L123.27 140.53 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="paladin-body-arm-sheen" d="M134.42 107.52 L140.11 107.52 L126.27 140.48 L120.58 140.48 Z M143.61 107.52 L146.21 107.52 L132.37 140.48 L129.77 140.48 Z" fill="#f4f1e4" opacity="0.2"/>
 </g>
 <use id="paladin-body-arm-line" href="#paladin-body-arm-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

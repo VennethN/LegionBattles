@@ -7,7 +7,7 @@
 <path id="berserker-body-buckle-shape" d="M 104 138 L 110 138 Q 113 138 113 141 L 113 148 Q 113 151 110 151 L 104 151 Q 101 151 101 148 L 101 141 Q 101 138 104 138 Z"/>
 <clipPath id="berserker-body-buckle-clip"><use href="#berserker-body-buckle-shape"/></clipPath>
 <clipPath id="berserker-body-buckle-lit-clip"><use href="#berserker-body-buckle-shape" transform="translate(-3 -3)"/></clipPath>
-<path id="berserker-body-arm-shape" d="M 106.7 119.8 L 111.7 139.8 C 112.7 143.8 116.8 146.3 120.8 145.3 C 124.8 144.3 127.3 140.2 126.3 136.2 L 121.3 116.2 C 120.3 112.2 116.2 109.7 112.2 110.7 C 108.2 111.7 105.7 115.8 106.7 119.8 Z"/>
+<path id="berserker-body-arm-shape" d="M 108.7 123.3 L 128.7 143.3 C 131.6 146.2 136.4 146.2 139.3 143.3 C 142.2 140.4 142.2 135.6 139.3 132.7 L 119.3 112.7 C 116.4 109.8 111.6 109.8 108.7 112.7 C 105.8 115.6 105.8 120.4 108.7 123.3 Z"/>
 <clipPath id="berserker-body-arm-clip"><use href="#berserker-body-arm-shape"/></clipPath>
 <clipPath id="berserker-body-arm-lit-clip"><use href="#berserker-body-arm-shape" transform="translate(-3 -3)"/></clipPath>
 <path id="berserker-body-fur-shape" d="M 66 104 L 96 99 L 126 104 L 133 116 L 126 127 L 120 120 L 113 130 L 105 121 L 96 131 L 87 121 L 79 130 L 72 120 L 66 127 L 59 116 Z"/>
@@ -48,7 +48,7 @@
 </g>
 <use id="berserker-body-tunic-line" href="#berserker-body-tunic-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="berserker-body-arm-cast" d="M 107.7 123.3 L 112.7 143.3 C 113.7 147.3 117.8 149.8 121.8 148.8 C 125.8 147.8 128.3 143.7 127.3 139.7 L 122.3 119.7 C 121.3 115.7 117.2 113.2 113.2 114.2 C 109.2 115.2 106.7 119.3 107.7 123.3 Z" fill="#2a1a10" opacity="0.17"/>
+<path id="berserker-body-arm-cast" d="M 109.7 126.8 L 129.7 146.8 C 132.6 149.7 137.4 149.7 140.3 146.8 C 143.2 143.9 143.2 139.1 140.3 136.2 L 120.3 116.2 C 117.4 113.3 112.6 113.3 109.7 116.2 C 106.8 119.1 106.8 123.9 109.7 126.8 Z" fill="#2a1a10" opacity="0.17"/>
 <g id="berserker-body-arm">
 <use id="berserker-body-arm-shade" href="#berserker-body-arm-shape" fill="#2f5893"/>
 <g clip-path="url(#berserker-body-arm-clip)">
