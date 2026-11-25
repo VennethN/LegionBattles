@@ -4,7 +4,7 @@ The newest round is at the top. Each round says what was built, who looked at it
 
 ## Round 0, 25 November 2026: the plan
 
-The owner asked for a new game, Boss Hunters: each stage a boss to kill, a hunter with special abilities to control, reinforcements and support buildings to bring, in 2D as Lastander is, in a dark, heavily inked gothic style of its own.
+The owner asked for a new game, Boss Hunters: each stage a boss to kill, a hunter with special abilities to control, reinforcements and support buildings to bring, in 2D as Lastander is, in a style of its own after the look the owner named ("Darkest dungeon-ish"; and then, of my first reading, "not necessarily dark ink / just darkest dungeon style").
 
 Two things are begun side by side:
 

@@ -11,7 +11,7 @@ In their words, of 25 November 2026:
 - "Each level we will be controlling a 'hunter' / Which is essentially a character with special abilities"
 - "In each level you'll be able to bring in other things such as reinforcements, support buildings"
 
-It is a game in a genre, with its own hunters, bosses, names and look. Nothing is copied from another game: the art is in the vein of dark, heavily inked gothic illustration, drawn by us, and no figure, name or picture of any other game is used.
+It is a game in a genre, with its own hunters, bosses, names and look. The art is in the vein the owner named, drawn by us; no figure, name or picture of any other game is used.
 
 ## The game in one paragraph
 
@@ -92,16 +92,18 @@ Each has three **marks** of difficulty: at a higher mark it has attacks it did n
 
 ## How it looks
 
-A new house style, its own, kept in `VennethN/game-assets` beside the Legion style. The owner asked for a look like that of dark gothic games drawn in heavy ink. What that means for us:
+A new house style, its own, kept in `VennethN/game-assets` beside the Legion style. The owner asked for "Darkest dungeon-ish artstyle", and when a first reading narrowed that to heavy ink, corrected it: "actually not necessarily dark ink / just darkest dungeon style". So it is the whole look that kind of game is known for, made as a style of ours:
 
-- **Ink first.** Heavy black line whose weight changes, and large shapes of solid black: half of a figure may be shadow.
+- **Heavy, stylized figures seen from the side.** Broad shoulders, big hands and boots, a small head sunk between the shoulders, a hunched and weighted stance. Monsters are huge and wrong.
+- **Thick black outlines with hard angles, and shadow as a shape.** Solid black is cut across a figure with a hard edge: not a gradient, not hatching.
 - **No eyes are drawn.** Faces are there (a jaw, a nose, a brow) but the eyes are always lost in shadow, under a brow, a hood, a helmet or a mask.
-- **Angular and worn.** Chiseled shapes, torn cloth, pitted iron. People are tall and lean, not round; monsters are huge and wrong.
-- **A muted palette** (bone, rust, dried blood, moss, lead, tallow) with one bright color kept for what matters: lantern light, blood, a monster's weak place.
-- **Texture**: hatching in the shadows and paper grain over all, so that it looks printed, not flat.
-- **Drawn in code**, as SVG, from parts that a rig moves, as the Legion figures are. No picture files made elsewhere, nothing made by an image model, nothing copied.
+- **Flat color in a muted, earthy palette** (browns, rust, dull reds, olive, dirty bone, lead), with red as the accent, warm firelight against cold dark, and a hard-edged lit rim where the light catches.
+- **Gothic dress and gear**: worn leather, straps, buckles, rags, pitted iron, masks and hoods.
+- **Lairs as dark stage sets** in the same flat shapes: stone, timber, torchlight.
+- **Drawn in code**, as SVG, from parts that a rig moves, as the Legion figures are. No picture files made elsewhere, nothing made by an image model.
+- **Ours.** It is in that vein, and no character, costume, pose, monster, interface piece or lettering of that game or any other is reproduced. The hunters and monsters are the ones in this design.
 - **Lit by the game.** Lairs are dark. The light that Lastander's field has (an ambient hour, lights that follow things, glow, a lens) is this game's too, turned darker: a lantern, a watchfire, a monster's glow.
-- The interface is ink on worn paper: contracts are posted bills, the muster is a ledger.
+- The interface is in the same hand: contracts are posted bills, the muster is a ledger.
 
 It must read on a small screen: a hunter stands about 90 units tall on the field and a monster three to five times that; words are never smaller than 15 of the layout's units.
 
