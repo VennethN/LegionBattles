@@ -259,6 +259,8 @@ export class LodgeScene extends Phaser.Scene {
     const w = view.w;
     const tall = view.tall;
     const list = postedBoard(s);
+    // A bill is always picked: the first, until another is.
+    if (list.length && !list.some((p) => p.id === theContract().posting?.id)) takePosting(list[0].id);
     const chosen = theContract();
     const wallH = tall ? Math.min(view.h * 0.46, 420) : Math.min(view.h * 0.48, 240);
     this.add.existing(slabImage(this, 6, top - 4, w - 12, wallH, WOOD_DARK, 4, 6));
@@ -286,18 +288,18 @@ export class LodgeScene extends Phaser.Scene {
       // Danger in marks of blood, up to six, and the party it takes beside them.
       const dx = -bw * 0.24;
       for (let k = 0; k < Math.max(3, poster.danger); k++) card.add(this.add.rectangle(dx + (k - 1) * 12, bh * 0.31, 7, 7, k < poster.danger ? 0x8a1e16 : 0x6b5a48, k < poster.danger ? 1 : 0.35).setAngle(45));
-      const lines: string[] = [];
-      if (poster.variants.length) lines.push(poster.variants.map((v) => v.name).join(', '));
-      if (poster.tasks.length) lines.push(poster.tasks.map((t) => t.name).join(', '));
-      if (poster.party > 1) lines.push(poster.partyText);
-      lines.forEach((t, k) => {
-        const l = label(this, -bw * 0.1, bh * 0.37 + k * 15, t, { size: 15, color: INK, stroke: null, face: 'display' });
-        l.setScale(Math.min(1, (bw * 0.66) / l.width));
-        card.add(l);
-      });
-      const pay = label(this, -bw * 0.22, bh * 0.37 + lines.length * 15 + 2, `${poster.coin} COIN`, { size: 15, color: '#3a2410', stroke: null, face: 'display' });
+      // What is unlike it this time, stamped in red across the corner of its likeness; the party it takes in the other.
+      const stamp = (text: string, x: number, y: number, angle: number): void => {
+        const t = label(this, x, y, text.toUpperCase(), { size: 15, color: '#8a1e16', stroke: '#e8dcc0', strokeWidth: 3, face: 'display' }).setAngle(angle);
+        t.setScale(Math.min(1, (bw * 0.5) / t.width));
+        card.add(t);
+      };
+      if (poster.variants.length) stamp(poster.variants[0].name + (poster.variants.length > 1 ? ` +${poster.variants.length - 1}` : ''), bw * 0.16, -bh * 0.24, -9);
+      if (poster.party > 1) stamp(`PARTY ${poster.party}`, -bw * 0.17, bh * 0.08, 7);
+      if (poster.tasks.length) stamp(`+ ${poster.tasks.length} TASK${poster.tasks.length > 1 ? 'S' : ''}`, bw * 0.17, bh * 0.08, -6);
+      const pay = label(this, -bw * 0.22, bh * 0.4, `${poster.coin} COIN`, { size: 15, color: '#3a2410', stroke: null, face: 'display' });
       pay.setScale(Math.min(1, (bw * 0.42) / pay.width));
-      if (bh * 0.37 + lines.length * 15 + 2 < bh / 2 - 6) card.add(pay);
+      card.add(pay);
       card.setSize(bw, bh).setInteractive({ useHandCursor: true });
       card.on('pointerup', () => {
         sfx.play('click');
