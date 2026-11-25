@@ -3873,6 +3873,22 @@
     0.5
    ]
   },
+  "glow": {
+   "width": 64,
+   "height": 64,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "flame": {
+   "width": 48,
+   "height": 72,
+   "origin": [
+    0.5,
+    0.78
+   ]
+  },
   "orb-arcane": {
    "width": 48,
    "height": 48,

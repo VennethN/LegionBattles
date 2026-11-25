@@ -21,6 +21,8 @@ import { Effects } from '../Effects';
 import { weaponIcon } from '../icons';
 import { Numbers } from '../Numbers';
 import { Figure } from '../art/Figure';
+import { FieldLight } from '../light/FieldLight';
+import type { LightMode } from '../light/setting';
 import { SHEET, Sheet, sheet, type UnitKey } from '../art/Sheet';
 import { STILL_SCALE } from '../art/scale';
 import { beginWave, finishWave, save, theRun, theWorld } from '../session';
@@ -72,6 +74,9 @@ export class ArenaScene extends Phaser.Scene {
   private heroBarBack!: Phaser.GameObjects.Image;
   private weapons: Phaser.GameObjects.Image[] = [];
   private fx!: Effects;
+  /** The hour, the lights and what burns (view/light). It is told what the field shows and changes nothing of it. */
+  private light!: FieldLight;
+  private carried: Array<{ id: string; x: number; y: number; rot: number; seen: boolean }> = [];
   private nums!: Numbers;
   private foes = new Map<number, FoeView>();
   private shots = new Map<number, Thing>();
@@ -188,6 +193,9 @@ export class ArenaScene extends Phaser.Scene {
     w.slots.forEach((slot) => {
       this.weapons.push(this.add.image(0, 0, SHEET, weaponIcon(slot.def.id)).setScale(WEAPON_SCALE * INV_ART));
     });
+    this.light = new FieldLight(this, w, def.id);
+    this.light.crisp(this.heroBarBack);
+    this.light.crisp(this.heroBar);
     this.ready = true;
     this.sync(0);
     if (this.still) {
@@ -242,6 +250,7 @@ export class ArenaScene extends Phaser.Scene {
         this.fx.spawn('fx/sparkle', h.x + Math.cos(a) * 26, h.y - 34 + Math.sin(a) * 18, { dur: 0.55, from: 0.4, to: 1.1, tint: hex(HOLY.fill), vy: -60, delay: i * 0.03, depth: h.y + 60 });
       }
       this.fx.spawn('fx/ring', h.x, h.y - 6, { dur: 0.45, from: 0.3, to: 2.2, tint: hex(HOLY.fill), alpha: 0.8, flat: 0.5, depth: h.y - 2 });
+      this.light.levelUp(h.x, h.y);
     }
     this.level = level;
   }
@@ -278,6 +287,7 @@ export class ArenaScene extends Phaser.Scene {
   private react(events: Ev[]): void {
     const w = this.world;
     const h = w.hero;
+    this.light.react(events);
     for (const e of events) {
       switch (e.t) {
         case 'mark':
@@ -331,8 +341,11 @@ export class ArenaScene extends Phaser.Scene {
         }
         case 'burst': {
           const tint = BURSTS[e.kind];
-          this.fx.spawn('fx/disc', e.x, e.y, { dur: 0.22, from: (e.r / 32) * 0.5, to: e.r / 32, tint, alpha: 0.4, flat: 0.62, depth: 4 });
-          this.fx.spawn('fx/ring', e.x, e.y, { dur: 0.3, from: (e.r / 32) * 0.4, to: (e.r / 32) * 1.1, tint, alpha: 0.9, flat: 0.62, depth: 5 });
+          // With the light on a burst is drawn as fire and light (view/light); without it, as a disc and a ring.
+          if (!this.light.on) {
+            this.fx.spawn('fx/disc', e.x, e.y, { dur: 0.22, from: (e.r / 32) * 0.5, to: e.r / 32, tint, alpha: 0.4, flat: 0.62, depth: 4 });
+            this.fx.spawn('fx/ring', e.x, e.y, { dur: 0.3, from: (e.r / 32) * 0.4, to: (e.r / 32) * 1.1, tint, alpha: 0.9, flat: 0.62, depth: 5 });
+          }
           if (e.kind === 'powder' || e.kind === 'foe' || e.kind === 'slam') {
             this.cameras.main.shake(110, e.kind === 'foe' ? 0.006 : 0.003);
             sfx.play(e.kind === 'slam' ? 'thud' : 'blast', 0.55);
@@ -383,12 +396,12 @@ export class ArenaScene extends Phaser.Scene {
     const f = this.world.foes.find((x) => x.id === e.id);
     if (!f) return;
     if (e.doing === 'charge') {
-      const img = this.take('fx/solid').setOrigin(0, 0.5).setTint(RED).setDepth(3).setRotation(Math.atan2(e.dy, e.dx));
+      const img = this.crisp(this.take('fx/solid')).setOrigin(0, 0.5).setTint(RED).setDepth(3).setRotation(Math.atan2(e.dy, e.dx));
       img.setDisplaySize((f.def.dash ?? 400) * (f.boss ? 0.7 : 0.62), f.def.r * 2.2);
       this.warnings.push({ img, id: e.id, left: e.seconds, of: e.seconds, kind: 'line', r: 0 });
     } else if (e.doing === 'burst' || e.doing === 'ring') {
       const r = e.doing === 'burst' ? (f.def.burst ?? 80) : 70;
-      const img = this.take('fx/disc').setTint(RED).setDepth(3);
+      const img = this.crisp(this.take('fx/disc')).setTint(RED).setDepth(3);
       this.warnings.push({ img, id: e.id, left: e.seconds, of: e.seconds, kind: 'ring', r });
     } else {
       this.fx.spawn('fx/sparkle', f.x, f.y - 60 * (f.def.size ?? 1), { dur: e.seconds, from: 0.5, to: 1.2, tint: RED, depth: f.y + 40 });
@@ -405,6 +418,7 @@ export class ArenaScene extends Phaser.Scene {
 
   private free(img: Phaser.GameObjects.Image): void {
     img.setVisible(false).setActive(false);
+    this.light.plain(img);
     this.spare.push(img);
   }
 
@@ -484,7 +498,9 @@ export class ArenaScene extends Phaser.Scene {
       const pop = slot.def.motion === 'pulse' && k > 0 ? 1 + k * 0.35 : 1;
       img.setPosition(x, y).setRotation(rot).setScale(WEAPON_SCALE * INV_ART * pop).setDepth(h.y + (place.y > -30 ? 3 : -3));
       img.setAlpha(fig.alpha).setVisible(h.hp > 0);
+      this.carried[i] = { id, x, y, rot, seen: h.hp > 0 };
     }
+    this.carried.length = n;
 
     // Whoever comes at them.
     for (const f of w.foes) {
@@ -537,7 +553,7 @@ export class ArenaScene extends Phaser.Scene {
     }
 
     // The ground marked where they will stand.
-    this.each(this.marks, w.marks, stamp, () => this.take('fx/ring').setTint(RED), (img, m) => {
+    this.each(this.marks, w.marks, stamp, () => this.crisp(this.take('fx/ring').setTint(RED)), (img, m) => {
       const k = 1 - Math.max(0, m.left) / 0.9;
       const s = (m.boss ? 1.5 : 0.5) * (0.7 + 0.3 * Math.sin(this.clock * 14) ** 2);
       img.setPosition(m.x, m.y).setScale(s * INV_ART * 1.4, s * INV_ART * 0.9).setAlpha(0.25 + 0.5 * k).setDepth(2);
@@ -560,7 +576,7 @@ export class ArenaScene extends Phaser.Scene {
         img.setRotation(this.clock * 8);
       } else if (s.art === 'stone' || s.art === 'bomb') img.setRotation(this.clock * 10);
       else img.setRotation(Math.atan2(s.vy, s.vx));
-      img.setPosition(s.x, y).setScale(size * INV_ART * (s.art.startsWith('orb') ? 1 : 0.85)).setDepth(s.y + 40);
+      img.setPosition(s.x, y).setScale(size * INV_ART * (s.art.startsWith('orb') ? 1 : 0.85)).setDepth(s.y + 40).setVisible(!this.light.draws(s));
     });
 
     // Clouds on the ground.
@@ -592,6 +608,18 @@ export class ArenaScene extends Phaser.Scene {
     if (this.warnings.some((x) => x.left < 0)) this.warnings = this.warnings.filter((x) => x.left >= 0);
 
     this.follow();
+    this.light.update(dt, this.clock, this.halted, this.carried);
+  }
+
+  /** The player has asked for more of the light, or less. */
+  setLight(mode: LightMode): void {
+    if (this.ready) this.light.setMode(mode);
+  }
+
+  /** A picture that stays sharp and bright whatever the hour: a warning has to be read. */
+  private crisp(img: Phaser.GameObjects.Image): Phaser.GameObjects.Image {
+    this.light.crisp(img);
+    return img;
   }
 
   /** Shows a list of the wave's things as pictures: one made for each new thing, moved while it lasts, taken back when it is gone. */

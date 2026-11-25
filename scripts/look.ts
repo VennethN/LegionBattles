@@ -22,7 +22,7 @@ page.on('console', (m) => {
   if (m.type() === 'error') errors.push(m.text());
 });
 await page.clock.install();
-await page.goto('http://127.0.0.1:5175/');
+await page.goto(process.env.URL ?? 'http://127.0.0.1:5175/');
 await page.evaluate(() => localStorage.clear());
 await page.reload();
 await page.clock.pauseAt(Date.now() + 1000);

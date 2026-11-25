@@ -19,6 +19,7 @@ import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
 import { commit, resumeRun, save, startRun } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
+import { LIGHT_NAMES, lightMode, nextLightMode, setLightMode } from '../light/setting';
 import { ArenaScene } from './ArenaScene';
 
 const DARK: Material = { fill: '#3b2a1c', shade: '#2a1a10' };
@@ -159,6 +160,12 @@ export class TitleScene extends Phaser.Scene {
       this.draw();
     });
     this.root.add(mute);
+    // How much of the field's light is made, beside it: the same choice the pause panel gives.
+    const light = new Button(this, tall ? view.w - 134 : 134, tall ? 36 : view.h - 40, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
+      setLightMode(nextLightMode(lightMode()), true);
+      light.setText(`LIGHT: ${LIGHT_NAMES[lightMode()]}`);
+    }, { width: 130, height: 44, size: 15, mat: IRON });
+    this.root.add(light.root);
     void RUBY;
   }
 

@@ -49,7 +49,7 @@ async function start(): Promise<void> {
     scale: { mode: Phaser.Scale.NONE, zoom: 1 / view.density },
     input: { activePointers: 3 },
     // One texture to a batch, on every device: all the art of the field is on one sheet, and it is what phones get anyway.
-    render: { antialias: true, antialiasGL: view.density <= 1, roundPixels: false, maxTextures: 1, powerPreference: 'high-performance' },
+    render: { antialias: true, antialiasGL: view.density <= 1, roundPixels: false, maxTextures: 2, powerPreference: 'high-performance' },
     scene: [BootScene, AssetsScene, TitleScene, ArenaScene, HudScene, CampScene, ResultScene],
   });
 

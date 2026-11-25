@@ -27,6 +27,44 @@ function orb(accent: Accent): (d: Doc) => void {
   };
 }
 
+/**
+ * Pictures of light: a soft glow and a tongue of flame. They are white,
+ * colored by the game, and added to what is under them. These alone fade
+ * from a bright middle to nothing, which the rule against gradients does
+ * not reach: that rule is about figures and things, and light has no edge.
+ * The game lays them over the drawn field (view/light) and never shows one
+ * as a thing in itself.
+ */
+function lightArt(): FxArt[] {
+  const soft = (id: string, stops: Array<[number, number]>, cx = 0.5, cy = 0.5): string =>
+    `<radialGradient id="${id}" cx="${cx}" cy="${cy}" r="0.5" gradientUnits="objectBoundingBox">` +
+    stops.map(([at, a]) => `<stop offset="${at}" stop-color="${WHITE}" stop-opacity="${a}"/>`).join('') +
+    '</radialGradient>';
+  return [
+    {
+      // Light with no edge: the glow round a flame, a mote in the air, a trail. Stretched, it is a streak.
+      name: 'glow',
+      width: 64,
+      height: 64,
+      origin: [0.5, 0.5],
+      draw: (d) => {
+        d.raw(`<defs>${soft('light-glow', [[0, 1], [0.18, 0.72], [0.4, 0.3], [0.7, 0.08], [1, 0]])}</defs><rect x="0" y="0" width="64" height="64" fill="url(#light-glow)"/>`);
+      },
+    },
+    {
+      // A tongue of flame, widest low down and drawn out to a point above.
+      name: 'flame',
+      width: 48,
+      height: 72,
+      origin: [0.5, 0.78],
+      draw: (d) => {
+        const tongue = 'M24 2 C30 20 44 34 42 50 C40 64 32 70 24 70 C16 70 8 64 6 50 C4 34 18 20 24 2 Z';
+        d.raw(`<defs>${soft('light-flame', [[0, 1], [0.3, 0.8], [0.62, 0.36], [1, 0]], 0.5, 0.74)}</defs><path d="${tongue}" fill="url(#light-flame)"/>`);
+      },
+    },
+  ];
+}
+
 export function fxArt(accents: Record<string, Accent>): FxArt[] {
   const out: FxArt[] = [
     {
@@ -148,6 +186,7 @@ export function fxArt(accents: Record<string, Accent>): FxArt[] {
       },
     },
   ];
+  out.push(...lightArt());
   for (const [name, accent] of Object.entries(accents)) {
     out.push({ name: `orb-${name}`, width: 48, height: 48, origin: [0.56, 0.5], draw: orb(accent) });
   }
