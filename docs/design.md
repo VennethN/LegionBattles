@@ -40,12 +40,14 @@ A hunter is a person with a name, a weapon, a way of fighting and two abilities.
 
 | Hunter | Weapon | How they fight | Abilities |
 | --- | --- | --- | --- |
-| **Marta Voss**, the Lychwarden | a long halberd | up close, slow heavy blows, hard to move | *Brace*: sets the halberd; the next blow that reaches her is turned and fills the stagger. *Reap*: a wide sweep that throws lesser things aside. |
-| **Jory Pell**, the Snaresman | a heavy windlass crossbow | from far off, always moving | *Jaw Trap*: laid on the ground; what steps in it is held and takes more. *Tar Flask*: a pool that slows, and burns if fire touches it. |
+| **Marta Voss**, the Warden | a long halberd | up close, slow heavy blows, hard to move | *Brace*: sets the halberd; the next blow that reaches her is turned and fills the stagger. *Reap*: a wide sweep that throws lesser things aside. |
+| **Jory Pell**, the Poacher | a heavy windlass crossbow | from far off, always moving | *Jaw Trap*: laid on the ground; what steps in it is held and takes more. *Tar Flask*: a pool that slows, and burns if fire touches it. |
 | **Agnes Thorn**, the Lamplighter | a lamplighter's long pole with a burning wick, and an oil can | middle reach, fire and light | *Flare*: a burst of light that blinds the monster for a moment and burns the small. *Street Lamp*: she stands a lamp on the ground; in its light allies are harder to hurt. |
-| **Old Brask**, the Kennelman | a boar spear, and two hounds | with his dogs | *Set On*: the hounds go for the mark and hold it. *Heel*: the hounds come back to him and all three mend. |
+| **Old Brask**, the Dog Handler | a boar spear, and two hounds | with his dogs | *Set On*: the hounds go for the mark and hold it. *Heel*: the hounds come back to him and all three mend. |
 
 Others are opened by trophies.
+
+Names are plain words anyone knows. The owner, of a first name for the gravedigger: "dont use sexton name why sexton"; a name that needs a dictionary is the wrong name, so the Lychwarden, the Snaresman, the Kennelman and the Glazier went with it.
 
 The names and dress are ours on purpose. A first draft had titles and looks that sat close to figures of other games (a nun with a light, a houndmaster, a trapper with a red scarf over the face, a pale countess); a reviewer said so, and they were changed. A new hunter or monster is held to the same: if it could be mistaken for somebody else's, it is redrawn or renamed.
 
@@ -76,12 +78,12 @@ Each is one idea, with attacks that teach it. To begin with:
 
 | Monster | The idea | Its lair |
 | --- | --- | --- |
-| **The Sexton** | a huge gravedigger whose dead get up; his spade falls in lines, and graves open where marked | a churchyard |
+| **The Gravedigger** | a huge gravedigger whose dead get up; his spade falls in lines, and graves open where marked | a churchyard |
 | **The Spinner** | webs that hold, young that swarm, and she drops from above where the ground is marked | a rotten cellar |
 | **The Antlered King** | he charges the length of the field; he must be made to hit something | a winter wood |
 | **The Bell Abbot** | his bell sends rings across the field that must be stood between; his monks walk in procession | a drowned abbey |
 | **The Furnace** | an iron thing that vents fire in turning lines and must be cooled to be hurt | a foundry |
-| **The Glazier** | he is not where he seems: a thing of mirror glass in a hall of mirrors, and what is struck may be a reflection | a mirror maker's hall |
+| **The Mirror King** | he is not where he seems: a thing of mirror glass in a hall of mirrors, and what is struck may be a reflection | a mirror maker's hall |
 
 Each has three **marks** of difficulty: at a higher mark it has attacks it did not have before, and pays more.
 
