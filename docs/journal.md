@@ -2,6 +2,43 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
+## Round 5, the look, after the first review
+
+A reviewer who had never seen the game went through every picture of it as a demanding player would, with the owner's words beside them ("Essentially make the game beautiful to look at"). The verdict: the drawn figures and the interface were clean and of one hand, and at dusk with magic flying it began to look like the game asked for; but by day, which is the first thirty seconds, the light was "a pale haze over a flat lawn" and looked worse than no light at all, the hero was lost, and "a portal reviewer would pass the menus and doubt the fight".
+
+The blockers by name, and what was done about each:
+
+1. **Daylight was haze, not light.** No land is come into at noon now. Every land's first wave is the golden hour: a low warm sun and the sky's cool light, with shade that drifts over the field in long patches drawn out the way the light goes (`hours.ts`, the light pass in `shaders.ts`). The milky shafts are gone: the patches of sun are the beams. Every figure throws a shadow that lies the way the light goes and is long at dusk: one of the horde's is its own picture laid down dark, a rigged figure's is one long soft shape (`Shadows.ts`). The lens is steeper in contrast than it was.
+2. **The hero was lost.** They stand in a ring of their side's blue, always, drawn by the camera that no light touches; they are drawn bigger (0.64 to the horde's 0.46); what they have bought floats smaller and behind them; numbers that would be written over them are set to one side; and a rule in the world keeps every companion on its feet out of a room round the hero's feet (`BAND.room`, with a test).
+3. **Red rings lied.** Where an enemy is about to come up the ground stirs, dark: it is not a danger and is not drawn as one. Red is only harm. A charge's lane and a burst's ring have a hard edge and a fill that grows as the time runs out. The band's bolts are thin streaks and an enemy's are round.
+
+And the rest of the list:
+
+- **Nothing that stands is out of focus.** The lens blurred the whole top and bottom of the view, enemies and captains with it. It blurs nothing now. The ground's own picture, made small, is laid over the far and near edges of the view (`FieldLight.ground`): the ground is soft there and everything on it is sharp. An enemy's red keeps a plain light at every hour, so that night does not turn it purple.
+- **A blow is a blow.** The hero's own weapon leaves a lit arc where a blade went and a streak where a point did, and the figure steps into it.
+- **Moves.** Each dims the field for its moment, has about three times the light it had, and begins a step out from the hero, never on top of them. Its name is said small by its button; the field is left to the move.
+- **The first thirty seconds.** The hero's name and line stand above them, not through them. What a new player is told is on a plate at the foot of the screen, and is a thumb and "drag to move" where there are no keys. The first red warning ever seen and the first blow ever taken are each said once. The first enemies of a wave are marked almost at once.
+- **The Hold is a place.** The meadow at dusk, the gate the runs go out by, a fire, the hero by it and whoever goes along beside them. Sound and light are behind one cog. An unopened hero's card says the deed that opens it. There is room for the count of renown and a button for the Hold's board, which show when those rules are merged.
+- **Quirks show on the hero.** Each has a ring on the ground in its own color, outside the blue one: faint, growing, bright when it is on. Fenn's coins go round him.
+- **Overlaps and words.** The result's lines each have a place of their own. A level's card has dark words that fit it. The pack, the road and the wares say what they are.
+
+Then the owner asked for "a bit better ui", and the interface was given a kit of its own:
+
+- **A panel is a frame of timber with iron corners round parchment** (`ui/bake.ts`): every pale sheet a player reads from, a card or a whole screen, is that one thing.
+- **A screen's heading is on a ribbon** (`heading` in `ui/widgets.ts`), and is the biggest thing on it.
+- **A button lifts under a pointer** as well as sinking when pressed.
+- **The HUD is one plate**: the hero's portrait in a frame with their health, fury, experience and quirk beside it; the wave and its time on a small plate of their own.
+- **Screens come in** with a short rise out of nothing.
+- **The camp shows what can be afforded**: a ware that cannot has an iron button with its price in red, and is dimmed.
+- **A road's card says what it costs and what it pays in the same two places**, to be read across.
+
+Not done, and why:
+
+- **Long shadows from the lights of the fight** (a fire throwing a figure's shadow away from it): shadows follow the sun only. It would be a second shadow for every figure near every light.
+- **A waist, an arm that follows the weapon, cloth hung from a weapon**: these need the heroes' pictures cut into more parts.
+- **Hover or press-and-hold for what a thing does**: a press already opens a thing's card in the camp. Nothing answers a hover but a button.
+- **The camp on a phone** still has the hero's field showing dimly behind its lists, and its layout was not rebuilt.
+
 ## Round 3, the screens: the hero found again, moves, quirks, the band, the Hold
 
 The light, the art and both rounds of rules were brought together in the main copy, and what the screens show of them was made properly.

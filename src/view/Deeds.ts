@@ -228,9 +228,14 @@ export class Deeds {
     this.hero.attack(this.clock, 0.05, true);
     light.dim(id === 'whiteout' || id === 'vanish' ? 2 : 1.2, 0.5);
     // What every move has: light going up off the hero as it leaves them, and a ring running out along the ground.
-    for (let i = 0; i < 24; i++) light.bit(x + rnd(-26, 26), y - rnd(0, 40), el, { dur: rnd(0.5, 1), vy: rnd(-260, -110), from: rnd(7, 14), to: 1, stretch: 0.6 });
-    for (let i = 0; i < 2; i++) light.bit(x, y, el, { dur: 0.45 + i * 0.2, from: 30, to: 230 + i * 110, alpha: 0.75 - i * 0.3, flat: 0.62, frame: 'fx/ring' });
-    this.fx.spawn('fx/ring', x, y - 4, { dur: 0.4, from: 0.4, to: 4.2, tint: light.on ? RING_TINT.bell : GOLD_TINT, alpha: light.on ? 0.35 : 0.9, flat: 0.62, depth: 5 });
+    // It all begins a step out from them: light laid on top of the hero is the hero lost, and they are who it is about.
+    for (let i = 0; i < 24; i++) {
+      const a = rnd(0, Math.PI * 2);
+      const d = rnd(38, 70);
+      light.bit(x + Math.cos(a) * d, y - 10 + Math.sin(a) * d * 0.6, el, { dur: rnd(0.5, 1), vx: Math.cos(a) * 40, vy: rnd(-240, -110), from: rnd(6, 12), to: 1, stretch: 0.6, alpha: 0.8 });
+    }
+    for (let i = 0; i < 2; i++) light.bit(x, y, el, { dur: 0.45 + i * 0.2, from: 110, to: 300 + i * 120, alpha: 0.5 - i * 0.2, flat: 0.62, frame: 'fx/ring' });
+    if (!light.on) this.fx.spawn('fx/ring', x, y - 4, { dur: 0.4, from: 0.4, to: 4.2, tint: GOLD_TINT, alpha: 0.9, flat: 0.62, depth: 5 });
     switch (id) {
       case 'rush':
       case 'charge': {
@@ -239,7 +244,7 @@ export class Deeds {
         const a = Math.atan2(dy, dx);
         for (let i = 0; i < 14; i++) {
           const side = (i / 13 - 0.5) * 1.5;
-          light.bit(x + Math.cos(a + side) * 40, y - 28 + Math.sin(a + side) * 30, el, { dur: rnd(0.3, 0.5), vx: Math.cos(a + side * 0.4) * rnd(420, 700), vy: Math.sin(a + side * 0.4) * rnd(420, 700), from: rnd(12, 20), to: 2, stretch: 4.5, turn: true, alpha: 0.9 });
+          light.bit(x + Math.cos(a + side) * 74, y - 28 + Math.sin(a + side) * 50, el, { dur: rnd(0.3, 0.5), vx: Math.cos(a + side * 0.4) * rnd(420, 700), vy: Math.sin(a + side * 0.4) * rnd(420, 700), from: rnd(9, 15), to: 2, stretch: 4.5, turn: true, alpha: 0.8 });
         }
         sfx.play('slash', 0.7, 0.6);
         break;
@@ -267,7 +272,7 @@ export class Deeds {
         for (let i = 0; i < 70; i++) {
           light.bit(x + rnd(-560, 560), y + rnd(-380, 260), 'frost', { dur: rnd(0.9, 1.8), vx: rnd(-30, 10), vy: rnd(30, 90), from: rnd(6, 14), to: 1, sway: 4, alpha: 0.9 });
         }
-        for (let i = 0; i < 3; i++) light.bit(x, y, 'frost', { dur: 0.5 + i * 0.25, from: 40, to: 520 + i * 160, alpha: 0.6 - i * 0.15, flat: 0.62, frame: 'fx/ring' });
+        for (let i = 0; i < 3; i++) light.bit(x, y, 'frost', { dur: 0.5 + i * 0.25, from: 120, to: 520 + i * 160, alpha: 0.6 - i * 0.15, flat: 0.62, frame: 'fx/ring' });
         this.shake(300, 0.012);
         sfx.play('blast', 0.5, 1.6);
         break;
@@ -279,7 +284,7 @@ export class Deeds {
       case 'warcry':
       case 'toll':
         // The sound of it goes out in rings, one after the other.
-        for (let i = 0; i < 3; i++) light.bit(x, y, el, { dur: 0.5 + i * 0.22, from: 30, to: 300 + i * 150, alpha: 0.7 - i * 0.18, flat: 0.62, frame: 'fx/ring' });
+        for (let i = 0; i < 3; i++) light.bit(x, y, el, { dur: 0.5 + i * 0.22, from: 110, to: 320 + i * 150, alpha: 0.7 - i * 0.18, flat: 0.62, frame: 'fx/ring' });
         break;
       case 'judgment':
         sfx.play('levelUp', 0.7, 0.5);
@@ -455,11 +460,11 @@ export class Deeds {
     if (h.dash && live) {
       const d = h.dash;
       for (let i = 0; i < 7; i++) {
-        light.bit(h.x - d.dx * rnd(0, 34) + rnd(-10, 10), h.y - rnd(6, 76), d.kind === 'rush' ? 'holy' : 'spark', { dur: rnd(0.3, 0.55), vx: -d.dx * rnd(260, 460), vy: -d.dy * rnd(260, 460), from: rnd(12, 22), to: 1, stretch: 6, turn: true, alpha: 0.85 });
+        light.bit(h.x - d.dx * rnd(44, 96) + rnd(-12, 12), h.y - rnd(6, 76) - d.dy * rnd(30, 60), d.kind === 'rush' ? 'holy' : 'spark', { dur: rnd(0.3, 0.55), vx: -d.dx * rnd(260, 460), vy: -d.dy * rnd(260, 460), from: rnd(10, 18), to: 1, stretch: 6, turn: true, alpha: 0.8 });
       }
-      light.lamp(h.x, h.y - 26, 240, d.kind === 'rush' ? 'holy' : 'spark', 0.7);
+      light.lamp(h.x - d.dx * 60, h.y - 26 - d.dy * 40, 240, d.kind === 'rush' ? 'holy' : 'spark', 0.6);
       // The ground rings behind them where they have gone through.
-      if (Math.floor(clock * 22) !== Math.floor((clock - dt) * 22)) light.bit(h.x, h.y, d.kind === 'rush' ? 'holy' : 'spark', { dur: 0.4, from: 22, to: 110, alpha: 0.5, flat: 0.62, frame: 'fx/ring' });
+      if (Math.floor(clock * 22) !== Math.floor((clock - dt) * 22)) light.bit(h.x - d.dx * 50, h.y - d.dy * 30, d.kind === 'rush' ? 'holy' : 'spark', { dur: 0.4, from: 40, to: 120, alpha: 0.4, flat: 0.62, frame: 'fx/ring' });
       if (Math.random() < 0.6) this.fx.spawn('fx/dust', h.x - d.dx * 14, h.y - 4 - d.dy * 14, { dur: 0.28, from: 0.4, to: 1.1, alpha: 0.6, flat: 0.6, depth: h.y - 1 });
     }
     // Unseen: smoke hangs where they are.

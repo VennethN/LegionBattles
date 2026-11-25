@@ -9,13 +9,13 @@
 
 import Phaser from 'phaser';
 import { LOGO_H, LOGO_W } from '../../art/logoSize';
-import { BONE, BUSH, GOLD, HOLY, IRON, OUTLINE, VENOM, type Material } from '../../art/kit/palette';
+import { BONE, BUSH, FIRE, GOLD, HOLY, IRON, OUTLINE, VENOM, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
 import { COMPANIONS, HEROES, MOVES, byId, weaponOf, type Feat, type HeroDef } from '../../game/data';
 import { bandSize } from '../../game/run';
 import { featShare, isOpen, bandFor, setBand } from '../../game/state';
-import { setupCamera } from '../app';
+import { comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
 import { commit, resumeRun, save, startRun } from '../session';
@@ -23,6 +23,7 @@ import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 import { HERO_LIGHT, LANTERN } from '../light/hours';
 import { LIGHT_NAMES, lightMode, nextLightMode, setLightMode } from '../light/setting';
+import { HOLD_PLACES } from '../icons';
 import { ArenaScene } from './ArenaScene';
 
 const DARK: Material = { fill: '#3b2a1c', shade: '#2a1a10' };
@@ -43,8 +44,28 @@ export function featText(feat: Feat): string {
   }
 }
 
+/** The same, in two or three words for a small card. */
+function featShort(feat: Feat): string {
+  switch (feat.kind) {
+    case 'wave':
+      return `WAVE\n${feat.wave}`;
+    case 'boss':
+      return `CAPTAIN\nOF ${feat.boss === 'warlord' ? 7 : feat.boss === 'colossus' ? 14 : 20}`;
+    case 'coins':
+      return `${feat.coins}\nCOINS`;
+    case 'kills':
+      return `${feat.kills}\nKILLS`;
+    case 'runs':
+      return feat.runs === 1 ? 'ONE\nRUN' : `${feat.runs}\nRUNS`;
+  }
+}
+
+/** The color the dusk lays over what stands in the Hold away from the fire. */
+const DUSK = 0x6f6a9c;
+
 export class TitleScene extends Phaser.Scene {
   private root!: Phaser.GameObjects.Container;
+  private settings = false;
   private chosen = HEROES[0].id;
 
   constructor() {
@@ -53,13 +74,15 @@ export class TitleScene extends Phaser.Scene {
 
   create(): void {
     setupCamera(this);
-    this.cameras.main.setBackgroundColor('#3f7a5a');
+    this.cameras.main.setBackgroundColor('#241c2c');
+    this.settings = false;
     ArenaScene.applySound();
     const s = save();
     this.chosen = isOpen(s, s.last) ? s.last : HEROES[0].id;
     this.root = this.add.container(0, 0);
     music.play('meadow', 'calm');
     this.draw();
+    comeIn(this);
   }
 
   private draw(): void {
@@ -90,16 +113,48 @@ export class TitleScene extends Phaser.Scene {
     // On a tall screen the stage takes what the rest leaves, up to a height past which it would only be empty.
     const chTall = 84 + 66 * k;
     const sh = tall ? Math.max(170, Math.min(400, H - sy - 110 - (2 * chTall + 8) - 88 - 84 - 30 - (s.run ? 58 : 0))) : H - sy - 14;
-    put(slabImage(this, sx, sy, sw, sh, DARK, 16, 6));
+    // The Hold is a place: the meadow at dusk, the gate the runs go out by, a fire, and whoever is chosen standing
+    // by it with those who go along. It was a flat green page with a dark panel on it, which a reviewer took for
+    // a settings menu.
+    const ground = this.add.image(W / 2, H / 2, 'hold:ground').setTint(DUSK);
+    ground.setScale(Math.max(W / ground.width, H / ground.height) * 1.02);
+    this.root.addAt(ground, 0);
+    // Dark toward the top and the far side, where the words are: they are read against it.
+    this.root.addAt(this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(W, H).setTint(0x140e1c).setAlpha(tall ? 0.5 : 0.1, 0.62, tall ? 0.74 : 0.3, 0.74), 1);
     const figX = tall ? sx + 110 : sx + sw / 2;
-    const feet = sy + sh - (tall ? 24 : 110);
+    const feet = sy + sh - (tall ? 24 : 96);
+    const tallest = tall ? sh - 44 : 236;
+    // The gate, behind them, in the dusk.
+    const gate = put(this.add.image(figX - (tall ? 10 : 16), feet - 10, CARDS, portraitFrame('blue', HOLD_PLACES[0]))).setTint(DUSK);
+    gate.setScale(Math.min((tallest * 1.24) / (gate.frame.height || 1), (tall ? 250 : sw + 30) / (gate.frame.width || 1)));
+    // The fire: its light on the ground and on the air, and flames that stand and waver.
+    const fx0 = figX + (tall ? 78 : 92);
+    const fy0 = feet + 8;
     const lit = HERO_LIGHT[hero.id] ?? LANTERN;
-    if (open) put(this.add.image(figX, feet - 70, SHEET, 'fx/glow')).setTint(lit).setAlpha(0.55).setScale((tall ? 4.2 : 6.4) / 2);
-    put(this.add.image(figX, feet + 2, SHEET, 'fx/disc')).setTint(hex(OUTLINE)).setAlpha(0.5).setScale(tall ? 1.1 : 1.5, tall ? 0.3 : 0.4);
+    put(this.add.image(fx0 - 30, feet - 4, SHEET, 'fx/glow')).setTint(hex(FIRE.fill)).setAlpha(0.5).setScale(tall ? 3.4 : 4.6, tall ? 1.3 : 1.7).setBlendMode(Phaser.BlendModes.ADD);
+    if (open) put(this.add.image(figX, feet - 80, SHEET, 'fx/glow')).setTint(lit).setAlpha(0.3).setScale((tall ? 4 : 5.6) / 2).setBlendMode(Phaser.BlendModes.ADD);
+    // Their shadow, thrown away from the fire.
+    put(this.add.image(figX - 36, feet + 4, SHEET, 'fx/glow')).setTint(0x0c0a16).setAlpha(0.75).setScale(tall ? 2.4 : 3.2, 0.5);
     const fig = put(this.add.image(figX, feet, CARDS, portraitFrame('blue', hero.unit)));
-    fig.setScale(Math.min((tall ? sh - 36 : 250) / (fig.frame.height || 1), (tall ? 190 : sw - 30) / (fig.frame.width || 1)));
+    fig.setScale(Math.min(tallest / (fig.frame.height || 1), (tall ? 190 : sw - 30) / (fig.frame.width || 1)));
     if (!open) fig.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.9);
     else this.tweens.add({ targets: fig, scaleY: fig.scaleY * 1.025, duration: 1100, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    // Who goes along stands at the fire with them.
+    if (open) {
+      bandFor(s, hero.id).filter((id) => id).forEach((id, i) => {
+        const who = byId(COMPANIONS, id);
+        const img = put(this.add.image(fx0 + 36 + i * 44, feet + 14 + i * 6, CARDS, portraitFrame('blue', who.unit))).setFlipX(true);
+        img.setScale(Math.min((tallest * 0.42) / (img.frame.height || 1), 84 / (img.frame.width || 1)));
+        this.tweens.add({ targets: img, scaleY: img.scaleY * 1.03, duration: 900 + i * 170, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      });
+    }
+    put(this.add.image(fx0, fy0 + 2, SHEET, 'fx/disc')).setTint(0x1c1410).setScale(0.5, 0.2);
+    for (let i = 0; i < 3; i++) {
+      const flame = put(this.add.image(fx0 + (i - 1) * 7, fy0 - 2, SHEET, 'fx/flame')).setOrigin(0.5, 0.9).setTint(i === 1 ? 0xffe9a8 : hex(FIRE.fill)).setBlendMode(Phaser.BlendModes.ADD);
+      const size = (i === 1 ? 0.5 : 0.36) * (tall ? 0.85 : 1);
+      flame.setScale(size, size * 1.2);
+      this.tweens.add({ targets: flame, scaleY: size * 1.55, scaleX: size * 0.86, duration: 170 + i * 60, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    }
 
     // Who they are. On a wide screen it is beside the stage, on a tall one inside it and under it.
     const tx = tall ? sx + 222 : sx + sw + 18;
@@ -223,9 +278,14 @@ export class TitleScene extends Phaser.Scene {
       card.add(slabImage(this, -cw / 2, -ch / 2, cw, ch, this.chosen === h.id ? HOLY : isOpenHero ? BONE : DARK, 12, 5));
       const img = this.add.image(0, ch / 2 - 26, CARDS, portraitFrame('blue', h.unit));
       img.setScale(Math.min((ch - 34) / (img.frame.height || 1), (cw - 8) / (img.frame.width || 1)));
-      if (!isOpenHero) img.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.9);
+      if (!isOpenHero) img.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.55);
       card.add(img);
-      card.add(label(this, 0, ch / 2 - 14, isOpenHero ? h.short : '???', { size: 15, color: isOpenHero ? OUTLINE : BONE.shade, stroke: null }));
+      if (isOpenHero) card.add(label(this, 0, ch / 2 - 14, h.short, { size: 15, color: OUTLINE, stroke: null }));
+      else {
+        // Dark and unnamed, with the deed that opens them and nothing else.
+        card.add(label(this, 0, -ch / 2 + 14, '???', { size: 15, color: BONE.shade, stroke: null }));
+        if (h.unlock) card.add(label(this, 0, ch / 2 - 22, featShort(h.unlock), { size: 15, color: BONE.fill, strokeWidth: 3 }).setLineSpacing(-3));
+      }
       card.setSize(cw, ch).setInteractive({ useHandCursor: true });
       card.on('pointerup', () => {
         this.chosen = h.id;
@@ -235,24 +295,54 @@ export class TitleScene extends Phaser.Scene {
       this.root.add(card);
     });
 
-    // Sound and how much of the light is made, small, in the top corners.
-    const mute = this.add.container(tall ? 38 : W - 38, 36);
-    mute.add(slabImage(this, -22, -22, 44, 44, IRON, 12, 5));
-    mute.add(this.add.image(0, -2, SHEET, s.sound ? 'icon/sound' : 'icon/mute').setScale(0.3));
-    mute.setSize(44, 44).setInteractive({ useHandCursor: true });
-    mute.on('pointerup', () => {
-      s.sound = !s.sound;
-      s.music = s.sound;
-      commit();
-      ArenaScene.applySound();
+    // What is kept between runs. The count of renown stands by the logo, and a button opens the Hold's board, where
+    // it is spent. Both are shown as soon as the rules of the Hold are in the game (a save with renown in it, a
+    // screen named Hold); until then there is nothing to show and nothing is.
+    const renown = (s as unknown as { renown?: number }).renown;
+    const board = 'Hold' in this.scene.manager.keys;
+    if (renown !== undefined) {
+      const rx0 = tall ? W - 70 : 14 + lw + 58;
+      const ry0 = tall ? 36 : 36;
+      put(slabImage(this, rx0 - 48, ry0 - 18, 96, 36, IRON, 12, 4));
+      put(this.add.image(rx0 - 28, ry0 - 1, SHEET, 'icon/laurel')).setScale(0.22);
+      put(label(this, rx0 + 12, ry0 - 2, String(renown), { size: 18, color: HOLY.fill }));
+    }
+    if (board) {
+      const hold = new Button(this, tall ? W - 86 : W - 38 - 34 - 74, tall ? 80 : 36, 'THE HOLD', () => this.scene.start('Hold'), { width: 148, height: 44, size: 17, mat: GOLD });
+      this.root.add(hold.root);
+    }
+
+    // One small cog in a corner, and behind it what a player sets once: the sound, and how much of the light is made.
+    const cx = tall ? 38 : W - 38;
+    const cog = this.add.container(cx, 36);
+    cog.add(slabImage(this, -22, -22, 44, 44, IRON, 12, 5));
+    cog.add(this.add.image(0, -2, SHEET, 'icon/cog').setScale(0.3));
+    cog.setSize(44, 44).setInteractive({ useHandCursor: true });
+    cog.on('pointerup', () => {
+      this.settings = !this.settings;
+      sfx.play('click', 0.6);
       this.draw();
     });
-    this.root.add(mute);
-    const light = new Button(this, tall ? W - 76 : W - 132, 36, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
-      setLightMode(nextLightMode(lightMode()), true);
-      light.setText(`LIGHT: ${LIGHT_NAMES[lightMode()]}`);
-    }, { width: 126, height: 44, size: 15, mat: IRON });
-    this.root.add(light.root);
+    this.root.add(cog);
+    if (this.settings) {
+      const pw = 236;
+      const px = tall ? 16 : W - 16 - pw;
+      const py = 66;
+      put(slabImage(this, px, py, pw, 128, BONE, 14, 6)).setInteractive();
+      const sound = new Button(this, px + pw / 2, py + 36, `SOUND: ${s.sound ? 'ON' : 'OFF'}`, () => {
+        s.sound = !s.sound;
+        s.music = s.sound;
+        commit();
+        ArenaScene.applySound();
+        this.draw();
+      }, { width: pw - 28, height: 44, size: 17, mat: IRON });
+      this.root.add(sound.root);
+      const light = new Button(this, px + pw / 2, py + 90, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
+        setLightMode(nextLightMode(lightMode()), true);
+        light.setText(`LIGHT: ${LIGHT_NAMES[lightMode()]}`);
+      }, { width: pw - 28, height: 44, size: 17, mat: IRON });
+      this.root.add(light.root);
+    }
   }
 
   private play(hero: string): void {

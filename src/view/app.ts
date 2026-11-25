@@ -35,3 +35,19 @@ export const TIER_MATS: readonly Material[] = [
 
 /** The name of the scene whose loader brings pictures in while the game runs. It is never put away. */
 export const ASSETS = 'Assets';
+
+/**
+ * A screen comes in: up a little and out of nothing, in a sixth of a second. Nothing pops. Called once, as a
+ * screen is first made, not each time it draws itself again.
+ */
+export function comeIn(scene: Phaser.Scene, what?: Phaser.GameObjects.Container): void {
+  if (what) {
+    const y = what.y;
+    what.setAlpha(0).setY(y + 14);
+    scene.tweens.add({ targets: what, alpha: 1, y, duration: 180, ease: 'Cubic.easeOut' });
+    return;
+  }
+  const cam = scene.cameras.main;
+  cam.setAlpha(0);
+  scene.tweens.add({ targets: cam, alpha: 1, duration: 200, ease: 'Cubic.easeOut' });
+}

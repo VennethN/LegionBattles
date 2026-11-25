@@ -38,3 +38,9 @@ export const ICONS_USED: ReadonlySet<string> = new Set([
   ...Object.values(THING_ICONS).map((n) => n.slice(5)),
   ...OTHER,
 ]);
+
+/**
+ * What stands behind a hero in the Hold besides people: the gate they go out by. It is a building of the kit,
+ * shown whole, and the art build writes it because it is named here.
+ */
+export const HOLD_PLACES: readonly string[] = ['gatehouse'];

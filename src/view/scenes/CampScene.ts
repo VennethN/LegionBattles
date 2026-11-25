@@ -16,13 +16,13 @@ import {
 } from '../../game/run';
 import { STAT_INFO, STATS, statText, type StatLine } from '../../game/stats';
 import { ads } from '../../platform/ads';
-import { TIER_MATS, setupCamera } from '../app';
+import { TIER_MATS, comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
 import { itemIcon, relicIcon, statIcon, weaponIcon } from '../icons';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
 import { keepRun, theRun } from '../session';
 import { pillImage, slabImage } from '../ui/bake';
-import { Button, label, plain } from '../ui/widgets';
+import { Button, heading, label, plain } from '../ui/widgets';
 
 const DARK: Material = { fill: '#3b2a1c', shade: '#2a1a10' };
 /** A weapon's picture is 100 by 184; this is how big its tallest is shown on a card. */
@@ -58,8 +58,9 @@ export class CampScene extends Phaser.Scene {
     this.relic = null;
     this.kinds = false;
     setupCamera(this);
-    this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.78).setInteractive();
+    this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.88).setInteractive();
     this.root = this.add.container(0, 0);
+    comeIn(this, this.root);
     music.play(waveOf(run.wave).land, 'calm');
     this.draw();
   }
@@ -106,8 +107,8 @@ export class CampScene extends Phaser.Scene {
 
   private head(): void {
     const run = this.run;
-    this.text(18, 26, 'CAMP', { size: 28, align: 'left' });
-    this.text(112, 30, `before wave ${run.wave}`, { size: 16, align: 'left', color: BONE.shade });
+    this.root.add(heading(this, 104, 26, 'CAMP'));
+    this.text(210, 28, `before wave ${run.wave}`, { size: 16, align: 'left', color: BONE.fill });
     this.add2(pillImage(this, view.w - 74, 26, 112, 32, IRON.shade));
     this.icon(view.w - 114, 26, 'icon/coin', 24);
     this.text(view.w - 62, 25, String(run.gold), { size: 21, color: HOLY.fill });
@@ -120,7 +121,7 @@ export class CampScene extends Phaser.Scene {
     const cy = view.h / 2;
     this.add2(slabImage(this, cx - 170, cy - 170, 340, 340, BONE, 18, 8));
     if (!this.loot) {
-      this.text(cx, cy - 132, 'A PACK', { size: 28 });
+      this.text(cx, cy - 132, "THE CAPTAIN'S PACK", { size: 24 });
       const img = this.add2(this.add.image(cx, cy - 16, SHEET, 'pack/thornwood'));
       img.setScale(150 / img.frame.height);
       this.tweens.add({ targets: img, angle: { from: -4, to: 4 }, duration: 380, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
@@ -133,7 +134,7 @@ export class CampScene extends Phaser.Scene {
       return;
     }
     const item = byId(ITEMS, this.loot);
-    this.text(cx, cy - 132, 'IT HELD', { size: 22, color: BONE.shade });
+    this.text(cx, cy - 132, 'INSIDE IT', { size: 22, color: BONE.shade });
     this.add2(slabImage(this, cx - 44, cy - 104, 88, 88, TIER_MATS[item.tier], 14, 6));
     this.icon(cx, cy - 62, itemIcon(item.id), 64);
     this.text(cx, cy + 6, item.name, { size: 22 });
@@ -161,14 +162,15 @@ export class CampScene extends Phaser.Scene {
   private level(): void {
     const run = this.run;
     const cx = view.w / 2;
-    this.text(cx, 84, 'LEVEL UP', { size: 38, color: HOLY.fill });
+    this.root.add(heading(this, cx, 84, 'LEVEL UP', GOLD));
     this.text(cx, 118, run.pending > 1 ? `Choose one. ${run.pending - 1} more after this.` : 'Choose one.', { size: 17, color: BONE.fill });
     const cols = view.tall ? 2 : 4;
     const cw = Math.min(210, (view.w - 32 - (cols - 1) * 12) / cols);
     const ch = 190;
     const rows = Math.ceil(run.choices.length / cols);
     const x0 = cx - (cols * cw + (cols - 1) * 12) / 2;
-    const y0 = view.tall ? 150 : (view.h - 150 - rows * ch) / 2 + 150;
+    // On a tall screen the cards stand a little above the middle of what is left under the heading, not hard against it with half the screen empty below.
+    const y0 = view.tall ? 150 + Math.max(0, (view.h - 170 - rows * (ch + 12)) * 0.4) : (view.h - 150 - rows * ch) / 2 + 150;
     run.choices.forEach((c, i) => {
       const x = x0 + (i % cols) * (cw + 12);
       const y = y0 + Math.floor(i / cols) * (ch + 12);
@@ -182,8 +184,11 @@ export class CampScene extends Phaser.Scene {
       const img = this.add.image(0, -28, SHEET, statIcon(info.icon));
       img.setScale(52 / img.frame.width);
       card.add(img);
-      card.add(label(this, 0, 22, friend ? info.name : `${statText(c.stat, c.by)} ${info.name}`, { size: friend ? 17 : 20 }));
-      card.add(label(this, 0, 40, info.says, { size: 15, color: OUTLINE, stroke: null, wrap: cw - 24 }).setOrigin(0.5, 0));
+      // Dark words on the pale card, and never wider than it: they were pale on pale, and ran to the card's edge.
+      const head = label(this, 0, 22, friend ? info.name : `${statText(c.stat, c.by)} ${info.name}`, { size: friend ? 17 : 20, color: '#2e5f45', stroke: null });
+      head.setScale(Math.min(1, (cw - 22) / Math.max(1, head.width)));
+      card.add(head);
+      card.add(label(this, 0, 40, info.says, { size: 15, color: OUTLINE, stroke: null, wrap: cw - 34 }).setOrigin(0.5, 0));
       card.setSize(cw, ch).setInteractive({ useHandCursor: true });
       card.on('pointerup', () => {
         choose(this.run, i);
@@ -326,7 +331,7 @@ export class CampScene extends Phaser.Scene {
     const relic = o.kind === 'relic';
     const name = weapon ? byId(WEAPONS, o.id).name : relic ? relicOf(o.id).name : byId(ITEMS, o.id).name;
     // A weapon says its kinds where it said only how it strikes: a kind is what a hand is filled for.
-    const tag = weapon ? `${TIER_NAMES[o.tier]}  ${byId(WEAPONS, o.id).kinds.join(' ').toUpperCase()}` : relic ? 'RELIC' : 'THING';
+    const tag = weapon ? `${TIER_NAMES[o.tier]}  ${byId(WEAPONS, o.id).kinds.join(' ').toUpperCase()}` : relic ? 'RELIC' : 'WARE';
     // A relic's card has more to say than a ware's, so its picture and its name stand higher.
     const high = view.tall || o.kind === 'relic';
     const picY = y + (high ? 76 : 86);
@@ -346,8 +351,11 @@ export class CampScene extends Phaser.Scene {
     } else if (relic) this.text(x + w / 2, nameY + named.height / 2 + 4, relicOf(o.id).says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 20 }).setOrigin(0.5, 0);
     else this.statLinesDark(x + w / 2, nameY + 24, byId(ITEMS, o.id).stats);
     const why = whyNot(run, i);
-    const b = this.button(x + w / 2 - 22, y + h - 34, why === 'hands' ? 'HANDS FULL' : `BUY   ${o.price}`, () => this.act(buy(this.run, i)), { width: w - 68, height: 46, size: why === 'hands' ? 15 : 19, mat: GOLD });
+    // What cannot be afforded is seen to be so at a glance: its button is iron, not gold, and its price is in red.
+    const poor = why === 'coins';
+    const b = this.button(x + w / 2 - 22, y + h - 34, why === 'hands' ? 'HANDS FULL' : `BUY   ${o.price}`, () => this.act(buy(this.run, i)), { width: w - 68, height: 46, size: why === 'hands' ? 15 : 19, mat: poor ? IRON : GOLD, color: poor ? '#ff8f7a' : undefined });
     b.setEnabled(why === '');
+    if (poor) this.add2(this.add.image(x + 6, y + 6, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(w - 12, h - 62).setTint(hex(OUTLINE)).setAlpha(0.22));
     // Kept for the next camp, or for after the wares are changed.
     const keep = this.add.container(x + w - 30, y + h - 34);
     keep.add(slabImage(this, -22, -23, 44, 46, o.locked ? HOLY : LINEN, 12, 6));

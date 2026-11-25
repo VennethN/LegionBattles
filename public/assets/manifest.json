@@ -2933,6 +2933,68 @@
     ]
    }
   },
+  "gatehouse": {
+   "style": "slash",
+   "muzzle": [
+    140,
+    150
+   ],
+   "top": 54,
+   "full": [
+    42,
+    57,
+    108,
+    136
+   ],
+   "parts": [
+    {
+     "name": "shadow",
+     "role": "shadow",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      42,
+      169,
+      108,
+      24
+     ]
+    },
+    {
+     "name": "body",
+     "role": "body",
+     "parent": "root",
+     "pivot": [
+      96,
+      180
+     ],
+     "box": [
+      44,
+      86,
+      104,
+      98
+     ]
+    },
+    {
+     "name": "flag",
+     "role": "extra",
+     "parent": "body",
+     "pivot": [
+      96,
+      92
+     ],
+     "sway": 0.8,
+     "box": [
+      88,
+      57,
+      40,
+      39
+     ]
+    }
+   ]
+  },
   "bram": {
    "style": "guard",
    "muzzle": [

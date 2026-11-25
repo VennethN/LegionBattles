@@ -9,7 +9,7 @@
 // buttons of one size and color share the one picture.
 
 import Phaser from 'phaser';
-import { HIGHLIGHT, OUTLINE, type Material } from '../../art/kit/palette';
+import { BONE, CLOTH, HIGHLIGHT, IRON, OUTLINE, WOOD, type Material } from '../../art/kit/palette';
 import { view } from '../config';
 
 /** Room round a baked shape for the half of its outline that lies outside it. */
@@ -45,8 +45,132 @@ export function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w
   ctx.closePath();
 }
 
+/** How wide the timber of a panel's frame is, and how big the iron at its corners. */
+const FRAME = 8;
+const CORNER = 20;
+
+/**
+ * A panel: a frame of timber with iron at its corners round a sheet of parchment. It is what the game's screens
+ * are made of, in the same hand as its logo: every sheet a player reads from, big or small, a card or a whole
+ * screen, is this one thing. Before it, a panel was a plain pale slab, and a reviewer took the title for a
+ * settings menu.
+ */
+export function panelOn(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, radius = 14): void {
+  // The timber, with its under side in shade.
+  ctx.fillStyle = WOOD.shade;
+  roundRect(ctx, x, y, w, h, radius);
+  ctx.fill();
+  ctx.fillStyle = WOOD.fill;
+  roundRect(ctx, x, y, w, h - 5, radius);
+  ctx.fill();
+  ctx.globalAlpha = 0.25;
+  ctx.fillStyle = HIGHLIGHT;
+  roundRect(ctx, x + 6, y + 2.5, w - 12, 3, 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  // The parchment, a shade darker along its foot and paler along its head.
+  const px = x + FRAME;
+  const py = y + FRAME;
+  const pw = w - FRAME * 2;
+  const ph = h - FRAME * 2 - 3;
+  ctx.fillStyle = BONE.shade;
+  roundRect(ctx, px, py, pw, ph, radius - 6);
+  ctx.fill();
+  ctx.fillStyle = BONE.fill;
+  roundRect(ctx, px, py, pw, ph - 4, radius - 6);
+  ctx.fill();
+  ctx.globalAlpha = 0.5;
+  ctx.fillStyle = HIGHLIGHT;
+  roundRect(ctx, px + 5, py + 4, pw - 10, Math.min(8, ph * 0.1), 4);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = OUTLINE;
+  roundRect(ctx, px, py, pw, ph, radius - 6);
+  ctx.stroke();
+  // Iron at each corner: a plate cut on the slant, over the timber's joint.
+  const c = Math.min(CORNER, w / 5, h / 5);
+  const plate = (cx: number, cy: number, sx: number, sy: number): void => {
+    ctx.beginPath();
+    ctx.moveTo(cx, cy + sy * 3);
+    ctx.lineTo(cx, cy + sy * c);
+    ctx.lineTo(cx + sx * (FRAME + 1), cy + sy * c);
+    ctx.lineTo(cx + sx * c, cy + sy * (FRAME + 1));
+    ctx.lineTo(cx + sx * c, cy);
+    ctx.lineTo(cx + sx * 3, cy);
+    ctx.quadraticCurveTo(cx, cy, cx, cy + sy * 3);
+    ctx.closePath();
+    ctx.fillStyle = sy > 0 ? IRON.fill : IRON.shade;
+    ctx.fill();
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = OUTLINE;
+    ctx.stroke();
+  };
+  plate(x + 1, y + 1, 1, 1);
+  plate(x + w - 1, y + 1, -1, 1);
+  plate(x + 1, y + h - 1, 1, -1);
+  plate(x + w - 1, y + h - 1, -1, -1);
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = OUTLINE;
+  roundRect(ctx, x, y, w, h, radius);
+  ctx.stroke();
+}
+
+/**
+ * A ribbon for a screen's heading: a band in the hero's blue with its two tails folded back behind it, as the
+ * family's logo has under its shield. The words are written over it by whoever asked.
+ */
+export function ribbonImage(scene: Phaser.Scene, cx: number, cy: number, w: number, h = 40, mat: Material = CLOTH.blue): Phaser.GameObjects.Image {
+  const tail = 22;
+  const full = w + tail * 2 + 8;
+  const key = baked(scene, `ribbon:${w}x${h}:${mat.fill}`, full, h + 16, (ctx) => {
+    const x = tail + 4;
+    const y = 3;
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = OUTLINE;
+    // The tails, lower and darker: they are behind the band.
+    for (const side of [-1, 1]) {
+      const ex = side < 0 ? x : x + w;
+      ctx.beginPath();
+      ctx.moveTo(ex - side * 12, y + 9);
+      ctx.lineTo(ex + side * tail, y + 9);
+      ctx.lineTo(ex + side * (tail - 10), y + 9 + h / 2);
+      ctx.lineTo(ex + side * tail, y + 9 + h);
+      ctx.lineTo(ex - side * 12, y + 9 + h);
+      ctx.closePath();
+      ctx.fillStyle = mat.shade;
+      ctx.fill();
+      ctx.globalAlpha = 0.35;
+      ctx.fillStyle = OUTLINE;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.stroke();
+    }
+    ctx.fillStyle = mat.shade;
+    roundRect(ctx, x, y, w, h, 5);
+    ctx.fill();
+    ctx.fillStyle = mat.fill;
+    roundRect(ctx, x, y, w, h - 5, 5);
+    ctx.fill();
+    ctx.globalAlpha = 0.25;
+    ctx.fillStyle = HIGHLIGHT;
+    roundRect(ctx, x + 5, y + 4, w - 10, 5, 3);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    roundRect(ctx, x, y, w, h, 5);
+    ctx.stroke();
+  });
+  return scene.add.image(cx, cy + 5, key).setDisplaySize(full, h + 16);
+}
+
 /** The slab of widgets.ts, drawn on a canvas: fill, a darker lip along the bottom, a band of light along the top, the dark line round it. */
 export function slabOn(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, mat: Material, radius = 14, lip = 6): void {
+  // A big pale slab is a sheet to read from, and every one of those is a framed panel: one kind of thing on every screen.
+  if (mat.fill === BONE.fill && w >= 150 && h >= 110) {
+    panelOn(ctx, x, y, w, h, Math.max(12, radius));
+    return;
+  }
   ctx.fillStyle = mat.shade;
   roundRect(ctx, x, y, w, h, radius);
   ctx.fill();

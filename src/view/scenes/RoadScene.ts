@@ -17,7 +17,7 @@ import { THING_ICONS, relicIcon } from '../icons';
 import { SHEET } from '../art/Sheet';
 import { keepRun, theRun } from '../session';
 import { slabImage } from '../ui/bake';
-import { Button, label } from '../ui/widgets';
+import { Button, heading, label } from '../ui/widgets';
 
 /** The picture and the color of each omen's card. */
 const OMEN_LOOK: Record<Omen, { icon: string; mat: Material }> = {
@@ -46,7 +46,7 @@ export class RoadScene extends Phaser.Scene {
     }
     this.run = run;
     setupCamera(this);
-    this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.78).setInteractive();
+    this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.88).setInteractive();
     this.root = this.add.container(0, 0);
     music.play(waveOf(run.wave).land, 'calm');
     this.draw();
@@ -86,7 +86,7 @@ export class RoadScene extends Phaser.Scene {
   }
 
   /** One card: a picture, a name, what it is in a line or two, and a button. A tall screen's is laid on its side. */
-  private card(x: number, y: number, w: number, h: number, mat: Material, icon: string, name: string, lines: Array<{ text: string; color?: string }>, button: string, on: () => void): void {
+  private card(x: number, y: number, w: number, h: number, mat: Material, icon: string, name: string, lines: Array<{ text: string; color?: string; head?: string }>, button: string, on: () => void): void {
     this.root.add(slabImage(this, x, y, w, h, BONE, 16, 7));
     const tall = view.tall;
     const pic = tall ? Math.min(92, h - 40) : Math.min(104, h * 0.34);
@@ -103,7 +103,13 @@ export class RoadScene extends Phaser.Scene {
     this.text(tx, ty, name, { size: 20, color: OUTLINE, stroke: null, align, wrap: tw });
     ty += 16;
     for (const line of lines) {
-      const made = this.text(tx, ty, line.text, { size: 15, color: line.color ?? '#6b4a2b', stroke: null, align, wrap: tw }).setOrigin(tall ? 0 : 0.5, 0);
+      // A line with a head (THE WAVE, THE PRIZE) has it over it, small and in its color: the same two things are in the same two places on every card, to be read across.
+      if (line.head) {
+        ty += 4;
+        this.text(tx, ty, line.head, { size: 15, color: line.color ?? '#6b4a2b', stroke: null, align }).setOrigin(tall ? 0 : 0.5, 0);
+        ty += 18;
+      }
+      const made = this.text(tx, ty, line.text, { size: 15, color: line.head ? OUTLINE : (line.color ?? '#6b4a2b'), stroke: null, align, wrap: tw }).setOrigin(tall ? 0 : 0.5, 0);
       ty += made.height + 4;
     }
     const b = new Button(this, tall ? x + w - 84 : x + w / 2, y + h - 34, button, on, { width: tall ? 140 : w - 36, height: 46, size: 19, mat: BUSH });
@@ -115,7 +121,7 @@ export class RoadScene extends Phaser.Scene {
   private relics(): void {
     const run = this.run;
     const cx = view.w / 2;
-    this.text(cx, 44, 'A RELIC', { size: 34, color: HOLY.fill });
+    this.root.add(heading(this, cx, 40, 'A RELIC', GOLD));
     this.text(cx, 76, run.relicsDue > 1 ? `Take one. ${run.relicsDue - 1} more after this.` : 'Take one of the three.', { size: 17, color: BONE.fill });
     const at = this.cards(run.relicChoices.length, 100);
     run.relicChoices.forEach((id, i) => {
@@ -134,19 +140,19 @@ export class RoadScene extends Phaser.Scene {
   private roads(): void {
     const run = this.run;
     const cx = view.w / 2;
-    this.text(cx, 44, `THE ROAD TO WAVE ${run.wave}`, { size: view.tall ? 24 : 30 });
-    this.text(cx, 76, 'Each road has its omen and its prize. Choose one.', { size: 16, color: BONE.fill });
+    this.root.add(heading(this, cx, 40, `THE ROAD TO WAVE ${run.wave}`));
+    this.text(cx, 78, 'What each road costs, and what it pays. Choose one.', { size: 16, color: BONE.fill });
     const at = this.cards(run.roads.length, 100);
     run.roads.forEach((road, i) => {
       const o = omenOf(road.omen);
       const look = OMEN_LOOK[road.omen];
       // Who is in the cage is not told: it is found out by letting them out.
-      const lines = [{ text: o.says }, { text: `Prize: ${o.prize}`, color: '#2e5f45' }];
+      const lines = [{ head: 'THE WAVE', text: o.says, color: '#952239' }, { head: 'THE PRIZE', text: o.prize[0].toUpperCase() + o.prize.slice(1), color: '#2e5f45' }];
       this.card(at.x[i], at.y[i], at.w, at.h, look.mat, look.icon, o.name, lines, 'TAKE IT', () => this.go(i));
     });
     // The companions of the run that a road might add to are counted for the player who has forgotten.
     const strays = run.band.filter((b) => b.stray).map((b) => byId(COMPANIONS, b.id).name);
-    if (strays.length > 0 && !view.tall) this.text(cx, view.h - 10, `With you off the road: ${strays.join(', ')}`, { size: 15, color: BONE.shade });
+    if (strays.length > 0 && !view.tall) this.text(cx, view.h - 10, `Freed on the road, and with you still: ${strays.join(', ')}`, { size: 15, color: BONE.shade });
   }
 
   /** On to the wave by the road that was chosen. */

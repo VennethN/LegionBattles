@@ -395,7 +395,10 @@ export class ArenaScene extends Phaser.Scene {
           const v = this.foes.get(e.id);
           if (v) v.flash = e.soft ? 0.05 : 0.09;
           // Fire and clouds tick on dozens at once: their numbers are small and plain, a blow's are big.
-          this.nums.show(e.x + (Math.random() - 0.5) * 14, e.y - 44, String(e.amount), e.crit ? hex(HOLY.fill) : e.soft ? hex(BONE.shade) : WHITE, e.crit ? 28 : e.soft ? 15 : 20);
+          // A number that would be written over the hero is set to one side of them: who they are is never under figures.
+          let nx = e.x + (Math.random() - 0.5) * 14;
+          if (Math.abs(nx - h.x) < 34 && e.y - 44 > h.y - 110 && e.y - 44 < h.y + 6) nx = h.x + (nx >= h.x ? 40 : -40);
+          this.nums.show(nx, e.y - 44, String(e.amount), e.crit ? hex(HOLY.fill) : e.soft ? hex(BONE.shade) : WHITE, e.crit ? 28 : e.soft ? 15 : 20);
           if (!e.soft) this.fx.spawn('fx/spark', e.x, e.y - 22, { dur: 0.12, from: 0.3, to: 0.8, alpha: 0.9, depth: e.y + 30 });
           break;
         }
@@ -432,7 +435,7 @@ export class ArenaScene extends Phaser.Scene {
         case 'hurt':
           this.hero.hit(this.clock, e.x);
           this.cameras.main.shake(140, 0.006);
-          this.nums.show(h.x, h.y - 70, `-${e.amount}`, RED, 30);
+          this.nums.show(h.x, h.y - 108, `-${e.amount}`, RED, 30);
           sfx.play('bigHit', 0.8);
           (this.scene.get('Hud') as HudScene | undefined)?.hurt();
           (this.scene.get('Hud') as HudScene | undefined)?.teach('hurt', 'THEY HURT WHEN THEY REACH YOU. KEEP MOVING.');
@@ -441,8 +444,8 @@ export class ArenaScene extends Phaser.Scene {
           this.fx.spawn('fx/dust', h.x, h.y - 20, { dur: 0.25, from: 0.6, to: 1.4, alpha: 0.6, depth: h.y + 5 });
           break;
         case 'mend':
-          this.nums.show(h.x, h.y - 70, `+${e.amount}`, hex(VENOM.fill), 22);
-          this.fx.spawn('fx/sparkle', h.x, h.y - 40, { dur: 0.4, from: 0.5, to: 1.1, tint: hex(VENOM.fill), vy: -40, depth: h.y + 30 });
+          this.nums.show(h.x, h.y - 108, `+${e.amount}`, hex(VENOM.fill), 22);
+          this.fx.spawn('fx/sparkle', h.x + 26, h.y - 100, { dur: 0.4, from: 0.3, to: 0.7, tint: hex(VENOM.fill), vy: -40, depth: h.y + 30 });
           break;
         case 'take':
           if (e.kind === 'coin') {

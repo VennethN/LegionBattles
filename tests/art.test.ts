@@ -9,7 +9,7 @@ import type { Manifest } from '../src/art/manifest';
 import { UNIT_ART } from '../src/art/units';
 import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAND_NAMES, RELICS, ROAD, WEAPONS } from '../src/game/data';
 import { STAT_INFO, STATS } from '../src/game/stats';
-import { ICONS_USED, THING_ICONS, itemIcon, relicIcon, statIcon, weaponIcon } from '../src/view/icons';
+import { ICONS_USED, THING_ICONS, itemIcon, relicIcon, statIcon, weaponIcon, HOLD_PLACES } from '../src/view/icons';
 import { SkylinePacker } from '../src/view/art/packer';
 
 const manifest = JSON.parse(fs.readFileSync('public/assets/manifest.json', 'utf8')) as Manifest;
@@ -76,7 +76,8 @@ describe('what the game asks the art for', () => {
 
   it('nothing is written that the game does not show', () => {
     expect(Object.keys(manifest.icons).sort()).toEqual([...ICONS_USED].sort());
-    const cast = new Set([...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit), ...FIGHTERS.map((e) => e.unit)]);
+    // And what stands in the Hold behind them: the gate.
+    const cast = new Set([...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit), ...FIGHTERS.map((e) => e.unit), ...HOLD_PLACES]);
     expect(Object.keys(manifest.units).sort()).toEqual([...cast].sort());
     expect(Object.keys(manifest.grades)).toEqual([]);
   });

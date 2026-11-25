@@ -8,7 +8,7 @@
 // stick.
 
 import Phaser from 'phaser';
-import { BONE, FIRE, GOLD, HOLY, IRON, OUTLINE, RUBY, VENOM } from '../../art/kit/palette';
+import { BONE, FIRE, GOLD, HOLY, IRON, LINEN, OUTLINE, RUBY, VENOM, type Material } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { levelNeeds } from '../../game/data';
 import { heroOf } from '../../game/run';
@@ -16,14 +16,16 @@ import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
 import { byFinger, hex, view } from '../config';
 import { Controls } from '../input';
-import { SHEET } from '../art/Sheet';
+import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
 import { commit, save, theRun, theWorld } from '../session';
 import { pillImage, slabImage } from '../ui/bake';
-import { Button, label } from '../ui/widgets';
+import { Button, heading, label } from '../ui/widgets';
 import { LIGHT_NAMES, lightMode, nextLightMode, setLightMode } from '../light/setting';
 import { ArenaScene } from './ArenaScene';
 
 const ICON = 0.5;
+/** The dark timber the HUD's plates are made of. */
+const PLATE: Material = { fill: '#4a3524', shade: '#2f2015' };
 
 export class HudScene extends Phaser.Scene {
   controls!: Controls;
@@ -59,6 +61,7 @@ export class HudScene extends Phaser.Scene {
   private second = -1;
   private bossSeen = false;
   private clock = 0;
+  private bossY = 82;
 
   constructor() {
     super('Hud');
@@ -84,16 +87,29 @@ export class HudScene extends Phaser.Scene {
     // under the bars on a tall screen, and neither could be read.
     this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, 132).setTint(hex(OUTLINE)).setAlpha(0.62, 0.62, 0, 0).setDepth(2);
 
+    // The hero's plate: who they are, in a frame, and beside them their health, their fury, their level and how
+    // their quirk stands. One thing in one corner, where it was five loose bars.
+    this.add.existing(slabImage(this, 8, 6, 252, 102, PLATE, 14, 6)).setDepth(9);
+    this.add.existing(slabImage(this, 16, 14, 64, 64, LINEN, 10, 4)).setDepth(10);
+    const who = theRun();
+    if (who) {
+      const pic = this.add.image(48, 74, CARDS, portraitFrame('blue', heroOf(who).unit)).setDepth(11);
+      pic.setScale(Math.min(58 / (pic.frame.height || 1), 58 / (pic.frame.width || 1)));
+    }
     this.bars = this.add.graphics().setDepth(10);
-    this.add.image(26, 26, SHEET, 'icon/heart').setScale(ICON * 0.62).setDepth(11);
-    this.hpText = label(this, 132, 25, '', { size: 15 }).setDepth(12);
-    this.lvText = label(this, 46, 63, '', { size: 15, align: 'left' }).setDepth(12);
+    this.hpText = label(this, 169, 25, '', { size: 15 }).setDepth(12);
+    this.lvText = label(this, 48, 91, '', { size: 15 }).setDepth(12);
     // What only this hero has, and how it stands: its name, gold while it is on, over a bar of how near it is.
-    this.quirkText = label(this, 46, 86, '', { size: 15, align: 'left' }).setDepth(12);
+    this.quirkText = label(this, 90, 79, '', { size: 15, align: 'left' }).setDepth(12);
 
-    this.waveText = label(this, w / 2, 16, '', { size: 16, color: BONE.fill }).setDepth(12);
-    this.timeText = label(this, w / 2, 44, '', { size: 34 }).setDepth(12);
-    this.bossText = label(this, w / 2, 76, '', { size: 15, color: RUBY.fill }).setDepth(12);
+    // The wave and what is left of it, on a small plate of their own.
+    // On a narrow screen the hero's plate reaches past the middle: the wave's plate stands clear of it, and a captain's name and health go under both.
+    const mid = Math.max(w / 2, 326);
+    this.bossY = w < 700 ? 124 : 82;
+    this.add.existing(slabImage(this, mid - 58, 4, 116, 64, PLATE, 14, 5)).setDepth(9);
+    this.waveText = label(this, mid, 18, '', { size: 15, color: BONE.fill }).setDepth(12);
+    this.timeText = label(this, mid, 44, '', { size: 32 }).setDepth(12);
+    this.bossText = label(this, w / 2, this.bossY, '', { size: 16, color: RUBY.fill }).setDepth(12);
 
     pillImage(this, w - 122, 26, 104, 30, IRON.shade).setDepth(10);
     this.add.image(w - 160, 26, SHEET, 'icon/coin').setScale(ICON * 0.6).setDepth(11);
@@ -192,7 +208,7 @@ export class HudScene extends Phaser.Scene {
   private showHint(): void {
     const c = this.add.container(view.w / 2, this.foot()).setDepth(15);
     if (byFinger(this.game)) {
-      c.add(pillImage(this, -150, -24, 300, 48, IRON.shade).setAlpha(0.92));
+      c.add(pillImage(this, 0, 0, 300, 48, IRON.shade).setAlpha(0.92));
       // A thumb on a stick: a ring, and the knob pushed to one side of it.
       const g = this.add.graphics();
       g.lineStyle(3, hex(BONE.fill), 0.9).strokeCircle(-112, 0, 15);
@@ -200,7 +216,7 @@ export class HudScene extends Phaser.Scene {
       c.add(g);
       c.add(label(this, 18, -1, 'DRAG TO MOVE', { size: 20 }));
     } else {
-      c.add(pillImage(this, -190, -24, 380, 48, IRON.shade).setAlpha(0.92));
+      c.add(pillImage(this, 0, 0, 380, 48, IRON.shade).setAlpha(0.92));
       const cap = (x: number, t: string): void => {
         c.add(slabImage(this, x - 15, -15, 30, 30, BONE, 7, 4));
         c.add(label(this, x, -2, t, { size: 16, color: OUTLINE, stroke: null }));
@@ -221,7 +237,7 @@ export class HudScene extends Phaser.Scene {
     const t = label(this, 0, -1, text, { size: 17, wrap: Math.min(440, view.w - 60) });
     const pw = Math.min(view.w - 24, t.width + 44);
     const ph = Math.max(44, t.height + 20);
-    c.add([pillImage(this, -pw / 2, -ph / 2, pw, ph, IRON.shade).setAlpha(0.92), t]);
+    c.add([pillImage(this, 0, 0, pw, ph, IRON.shade).setAlpha(0.92), t]);
     this.plateBox = c;
     this.tweens.add({ targets: c, alpha: 1, duration: 200 });
     this.tweens.add({ targets: c, alpha: 0, duration: 320, delay: seconds * 1000, onComplete: () => {
@@ -269,7 +285,7 @@ export class HudScene extends Phaser.Scene {
     const veil = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.6).setInteractive();
     const cx = view.w / 2;
     const cy = view.h / 2;
-    c.add([veil, slabImage(this, cx - 150, cy - 229, 300, 458, BONE, 18, 8), label(this, cx, cy - 191, 'PAUSED', { size: 30 })]);
+    c.add([veil, slabImage(this, cx - 150, cy - 229, 300, 458, BONE, 18, 8), ...heading(this, cx, cy - 194, 'PAUSED')]);
     const s = save();
     const toggle = (y: number, name: string, get: () => boolean, set: (v: boolean) => void): void => {
       const b = new Button(this, cx, y, `${name}: ${get() ? 'ON' : 'OFF'}`, () => {
@@ -335,25 +351,26 @@ export class HudScene extends Phaser.Scene {
       this.drawn = key;
       const g = this.bars;
       g.clear();
-      g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(44, 13, 180, 24, 9);
-      g.fillStyle(hex(RUBY.shade), 1).fillRoundedRect(48, 17, 172, 16, 6);
-      if (h.hp > 0) g.fillStyle(hex(RUBY.fill), 1).fillRoundedRect(48, 17, Math.max(10, 172 * (h.hp / h.maxHp)), 16, 6);
+      g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(88, 13, 162, 24, 8);
+      g.fillStyle(hex(RUBY.shade), 1).fillRoundedRect(92, 17, 154, 16, 5);
+      if (h.hp > 0) g.fillStyle(hex(RUBY.fill), 1).fillRoundedRect(92, 17, Math.max(10, 154 * (h.hp / h.maxHp)), 16, 5);
       // Fury, under their health: what kills fill, and the move is let loose from.
       if (world.move) {
-        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(44, 39, 180, 13, 5);
-        g.fillStyle(hex(world.fury >= 1 ? HOLY.fill : FIRE.fill), 1).fillRoundedRect(47, 42, Math.max(4, 174 * Math.min(1, world.fury)), 7, 3);
+        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(88, 39, 162, 13, 5);
+        g.fillStyle(hex(world.fury >= 1 ? HOLY.fill : FIRE.fill), 1).fillRoundedRect(91, 42, Math.max(4, 156 * Math.min(1, world.fury)), 7, 3);
       }
-      g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(96, 57, 128, 12, 5);
-      g.fillStyle(hex(VENOM.fill), 1).fillRoundedRect(99, 60, Math.max(4, 122 * (xp / levelNeeds(level))), 6, 3);
+      // Experience, toward the next level.
+      g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(88, 54, 162, 11, 5);
+      g.fillStyle(hex(VENOM.fill), 1).fillRoundedRect(91, 57, Math.max(4, 156 * (xp / levelNeeds(level))), 5, 2);
       // The quirk's bar: how near it is to being on.
       if (world.quirk && world.quirk !== 'kindling' && world.quirk !== 'deepcold') {
-        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(44, 97, 124, 10, 4);
-        g.fillStyle(hex(trait.on ? HOLY.fill : BONE.shade), 1).fillRoundedRect(47, 100, Math.max(3, 118 * trait.share), 4, 2);
+        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(88, 89, 162, 10, 4);
+        g.fillStyle(hex(trait.on ? HOLY.fill : BONE.shade), 1).fillRoundedRect(91, 92, Math.max(3, 156 * trait.share), 4, 2);
       }
       this.quirkText.setText(world.quirk ? heroOf(run).quirkName.toUpperCase() : '').setColor(trait.on ? HOLY.fill : BONE.shade);
       if (boss) {
-        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(w / 2 - 150, 88, 300, 18, 7);
-        g.fillStyle(hex(RUBY.fill), 1).fillRoundedRect(w / 2 - 146, 92, Math.max(8, 292 * (boss.hp / boss.maxHp)), 10, 4);
+        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(w / 2 - 150, this.bossY + 12, 300, 18, 7);
+        g.fillStyle(hex(RUBY.fill), 1).fillRoundedRect(w / 2 - 146, this.bossY + 16, Math.max(8, 292 * (boss.hp / boss.maxHp)), 10, 4);
       }
       this.hpText.setText(`${h.hp} / ${h.maxHp}`);
     }

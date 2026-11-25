@@ -16,7 +16,7 @@ import type { Team } from '../src/art/kit/palette';
 import { HOP_POSE } from '../src/art/poses';
 import { restPose, type Pose } from '../src/art/rig';
 import { ARENA, COMPANIONS, ENEMIES, HEROES } from '../src/game/data';
-import { ICONS_USED } from '../src/view/icons';
+import { ICONS_USED, HOLD_PLACES } from '../src/view/icons';
 
 /** A picture of the game's own that is loaded by itself: where it goes under public/assets, and how it is drawn. */
 export interface Scene {
@@ -56,6 +56,8 @@ export interface ArtGame {
 
 // The player's side: the heroes, and the companions who go with them.
 const HERO_UNITS = new Set([...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit)]);
+// What stands in the Hold behind them: shown whole, never moved.
+const PLACES = new Set(HOLD_PLACES);
 // A thing a road puts on the field (a wagon, a cage) is a picture of its own, not a figure.
 const FOE_UNITS = new Set(ENEMIES.filter((e) => !e.prop).map((e) => e.unit));
 const BOSS_UNITS = new Set(ENEMIES.filter((e) => e.ai === 'boss').map((e) => e.unit));
@@ -65,9 +67,9 @@ const STRIDE: Pose = { ...HOP_POSE, rootY: -6 };
 
 export const GAME: ArtGame = {
   // The heroes are the player's, in blue. Whoever comes at them is in red.
-  wants: (team, unit) => (team === 'blue' ? HERO_UNITS.has(unit) : FOE_UNITS.has(unit)),
+  wants: (team, unit) => (team === 'blue' ? HERO_UNITS.has(unit) || PLACES.has(unit) : FOE_UNITS.has(unit)),
   // A hero and a boss are moved part by part. The horde is too many for that: each of it is one picture.
-  rigged: (team, unit) => team === 'blue' || BOSS_UNITS.has(unit),
+  rigged: (team, unit) => (team === 'blue' && !PLACES.has(unit)) || BOSS_UNITS.has(unit),
   whole: (team) => team === 'blue',
   stills: (team, unit) => (team === 'red' && !BOSS_UNITS.has(unit) ? { a: restPose(), b: STRIDE } : null),
   // The sister game's icons are the kit's now: a helm, a horn, a sack and a gauntlet are wares here.

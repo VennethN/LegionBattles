@@ -313,6 +313,8 @@ export class FieldLight {
     // A big bright bit over the hero would hide them as a flash would.
     const h = this.world.hero;
     if ((o.from ?? 0) > 34 && !o.frame && Math.hypot(x - h.x, y - (h.y - 26)) < 60) o = { ...o, alpha: Math.min(o.alpha ?? 1, 0.3) };
+    // A ring that begins at their feet is a filled disc of light for its first moments: it begins a pace out instead.
+    if (o.frame && (o.from ?? 0) < 90 && (o.to ?? 0) > 90 && Math.hypot(x - h.x, y - h.y) < 30) o = { ...o, from: 90, alpha: Math.min(o.alpha ?? 1, 0.5) };
     this.glow.spawn(x, y, ELEMENTS[el] ?? ELEMENTS.holy, o);
   }
 
@@ -520,8 +522,9 @@ export class FieldLight {
 
     // The hero carries light: little by day, a lantern's worth by night.
     // On a night march the light they carry is small: what comes is seen late.
-    // By day it is little, but it is there: the hero stands in a pool a shade brighter than the field, which nobody else has.
-    if (h.hp > 0) this.light(h.x, h.y - 20, (230 + 120 * this.dark) * (w.night ? 0.66 : 1), HERO_LIGHT[this.heroId] ?? LANTERN, 0.14 + 0.46 * this.dark, true);
+    // By day it is little, but it is there: the hero stands in a pool a shade brighter than the field, which nobody else has,
+    // and is not dull when the shade drifts over them. On snow, which is nearly white already, it is less.
+    if (h.hp > 0) this.light(h.x, h.y - 20, (230 + 120 * this.dark) * (w.night ? 0.66 : 1), HERO_LIGHT[this.heroId] ?? LANTERN, (this.land === 'snow' ? 0.12 : 0.24) + 0.4 * this.dark, true);
 
     // What they carry that burns or glows.
     // Many burning things in the hands do not make the hero a lamp: they share one light's worth between them.

@@ -5,7 +5,7 @@ import Phaser from 'phaser';
 import { BONE, GOLD, HIGHLIGHT, OUTLINE, type Material } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { FONT, hex, view } from '../config';
-import { BAKE_PAD, slabKey } from './bake';
+import { BAKE_PAD, ribbonImage, slabKey } from './bake';
 
 export interface TextOpts {
   size?: number;
@@ -93,6 +93,7 @@ export class Button {
   private mat: Material;
   private enabled = true;
   private down = false;
+  private over = false;
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -120,8 +121,14 @@ export class Button {
       this.down = true;
       this.draw();
     });
+    // Under a pointer it lifts a little: it is seen to be a thing that can be pressed before it is pressed.
+    this.root.on('pointerover', () => {
+      this.over = true;
+      this.draw();
+    });
     this.root.on('pointerout', () => {
       this.down = false;
+      this.over = false;
       this.draw();
     });
     this.root.on('pointerup', () => {
@@ -144,6 +151,7 @@ export class Button {
       .setY(sink / 2);
     this.text.y = -3 + sink;
     this.root.alpha = this.enabled ? 1 : 0.5;
+    this.root.setScale(this.over && this.enabled && !this.down ? 1.04 : 1);
   }
 
   setText(text: string): this {
@@ -183,4 +191,16 @@ export class Button {
   destroy(): void {
     this.root.destroy();
   }
+}
+
+/**
+ * A screen's heading: its words on a ribbon. One a screen, and the biggest words on it. Returns what it made, for
+ * whoever keeps a screen's things together.
+ */
+export function heading(scene: Phaser.Scene, cx: number, y: number, text: string, mat?: Material): Phaser.GameObjects.GameObject[] {
+  const t = label(scene, cx, y - 2, text, { size: 26 });
+  const ribbon = ribbonImage(scene, cx, y, Math.max(160, t.width + 56), 40, mat);
+  t.setDepth(ribbon.depth + 1);
+  scene.children.bringToTop(t);
+  return [ribbon, t];
 }

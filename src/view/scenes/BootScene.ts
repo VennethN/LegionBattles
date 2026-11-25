@@ -3,6 +3,7 @@
 // the sounds. The figures of a wave come later, as the wave is come to
 // (ArenaScene).
 
+import { HOLD_PLACES } from '../icons';
 import Phaser from 'phaser';
 import { LOGO_H, LOGO_SCALE, LOGO_W } from '../../art/logoSize';
 import type { Manifest } from '../../art/manifest';
@@ -61,7 +62,9 @@ export class BootScene extends Phaser.Scene {
     // Whole figures for the list of heroes.
     const cards = cardSheet(this.game, manifest);
     // The companions' too: the Hold shows who can go along.
-    const heroes = [...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit)];
+    const heroes = [...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit), ...HOLD_PLACES];
+    // The Hold's own ground: the meadow, small. It is only ever seen dim and behind things.
+    this.load.svg('hold:ground', 'assets/arena/meadow-wide.svg', { scale: 0.5 });
     for (const unit of heroes) this.load.svg(`svg:portrait/blue/${unit}`, `assets/units/blue/${unit}/full.svg`, { scale: ART_SCALE });
     // The recorded sounds, in one file. They are read while the game goes on: nothing waits for them.
     this.load.binary('audio-bank', 'assets/audio/bank.bin');
