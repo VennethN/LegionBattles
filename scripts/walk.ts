@@ -203,6 +203,42 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await tick(page, 40);
     await shot('party-cart-road');
   },
+  // The two ways of playing in a hunt: by touch (the stick, ATTACK and the arc, a skill being aimed by a drag, with
+  // the cancel mark, and ATTACK dragged), and by mouse and keys (a skill's key held, its shape at the pointer).
+  thumbs: async (page, shot) => {
+    await lair(page, { monster: 'sexton', mark: 1, hunter: 'jory', reinforcements: [{ id: 'pikemen', charges: 1 }], buildings: [], awake: true }, RICH);
+    await pilot(page, 5);
+    const set = (o: Record<string, unknown>): Promise<void> =>
+      page.evaluate((v) => {
+        const hud = (window as unknown as Win).game.scene.getScene('Hud') as unknown as { controls: Record<string, unknown>; rescheme(): void };
+        const c = hud.controls;
+        if (v.scheme && v.scheme !== c.scheme) {
+          c.scheme = v.scheme;
+          hud.rescheme();
+        }
+        for (const k of ['skillDrag', 'attackDrag', 'dodgeDrag', 'holding', 'mouse']) if (k in v) c[k] = v[k];
+      }, o);
+    await set({ scheme: 'touch' });
+    await tick(page, 4);
+    await shot('thumbs');
+    const atk = await page.evaluate(() => {
+      const hud = (window as unknown as Win).game.scene.getScene('Hud') as unknown as { atk: { x: number; y: number } | null };
+      return hud.atk ? { x: hud.atk.x, y: hud.atk.y } : { x: 0, y: 0 };
+    });
+    await set({ skillDrag: { id: 99, i: 1, x0: atk.x - 110, y0: atk.y - 110, x: atk.x - 200, y: atk.y - 160 } });
+    await tick(page, 2);
+    await shot('thumbs-aim');
+    await set({ skillDrag: null, attackDrag: { id: 98, x0: atk.x, y0: atk.y, x: atk.x - 60, y: atk.y + 30 } });
+    await tick(page, 2);
+    await shot('thumbs-attack');
+    await set({ attackDrag: null, scheme: 'mouse' });
+    const size = page.viewportSize() as { width: number; height: number };
+    await page.mouse.move(size.width * 0.62, size.height * 0.45);
+    await set({ holding: 1 });
+    await tick(page, 2);
+    await shot('keys-aim');
+    await set({ holding: null });
+  },
   // A line said in a hunt: the boss's own by it, the hunter's over her head, and something heard from the King.
   talk: async (page, shot) => {
     const say = (who: string, when: string): Promise<void> =>

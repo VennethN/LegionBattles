@@ -101,7 +101,7 @@ export const LESSONS: readonly LessonDef[] = [
     parts: [['spade', 'sweep'], ['spade', 'lantern', 'sweep']],
     stagger: 0.3, spare: 0.4,
     steps: [
-      { id: 'move', wants: 'move', n: 150, says: { keys: 'Move: W A S D or the arrow keys', touch: 'Drag anywhere to move' } },
+      { id: 'move', wants: 'move', n: 150, says: { keys: 'Move: W A S D or the arrow keys', touch: 'Push the stick, bottom left, to move' } },
       { id: 'avoid', wants: 'avoid', attack: 'spade', slow: 1.5, hold: true, says: { keys: 'Red ground: he hits there. Move out of the red.', touch: 'Red ground: he hits there. Move out of the red.' } },
       { id: 'dodge', wants: 'dodge', attack: 'sweep', slow: 1.5, hold: true, says: { keys: 'Press SPACE to dodge out of the red', touch: 'Tap DODGE to get out of the red' } },
       { id: 'strike', wants: 'strike', n: 3, says: { keys: 'Press J or click to attack. Press again to chain. Best right after he swings.', touch: 'Tap ATTACK to hit. Tap again to chain. Best right after he swings.' } },

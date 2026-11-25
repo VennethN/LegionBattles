@@ -36,6 +36,12 @@ export interface Steer {
   attack?: boolean;
   /** Which way to attack, in radians: toward the pointer with a mouse. Without it, the way the hunter faces, turned to a boss in reach a little ahead. */
   aim?: number;
+  /** Let the blow find its own mark: the boss in reach, else the nearest of its helpers in reach, else ahead (a tap on a touch screen). */
+  auto?: boolean;
+  /** Which way to dodge when not moving, in radians: toward the pointer. Without it, away from the boss. */
+  toward?: number;
+  /** Where a thrown skill is to land, on the field: the pointer, or where a thumb dragged it. Without it, at the boss. */
+  at?: { x: number; y: number };
   /** Call the reinforcement at this place in the muster. */
   call?: number;
   /** In camp: set this building down where the hunter stands. */
@@ -102,8 +108,9 @@ export interface Hunter {
   /** When they went down, in seconds of the hunt; and whether that down has been counted in full for Stay Standing. */
   downAt: number;
   downFull: boolean;
-  /** An ability asked for in the middle of a roll, used as the roll ends. */
+  /** An ability asked for in the middle of a roll, used as the roll ends, and where it was aimed. */
   wanted: 0 | 1 | null;
+  wantAt: { x: number; y: number } | null;
   /** The blow being made: which of the chain, seconds since it began, which way, and whether it has landed. */
   blow: { n: number; t: number; aim: number; def: BlowDef; landed: boolean; heavy: boolean } | null;
   /** The next blow of the chain, and how long a press still chains to it. */
@@ -497,7 +504,7 @@ export class Hunt {
     const [mx, my] = this.tall ? [this.w / 2, this.h * 0.28] : [this.w * 0.72, this.h / 2];
     const make = (def: HunterDef, index: number, x: number, y: number): Hunter => ({
       def, index, ai: index > 0, abilities: [byId(ABILITIES, def.abilities[0]), byId(ABILITIES, def.abilities[1])], trophy: index === 0 ? (setup.trophy ?? null) : null,
-      down: false, help: 0, downAt: 0, downFull: false, wanted: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
+      down: false, help: 0, downAt: 0, downFull: false, wanted: null, wantAt: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
       x, y, face: mx >= x ? 1 : -1, aim: Math.atan2(my - y, mx - x), hp: def.hp, maxHp: def.hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
       grace: 0, root: 0, waits: [0, 0], bracing: 0, spared: false,
     });
@@ -877,9 +884,11 @@ export class Hunt {
     // An ability asked for in the middle of a roll is kept, and used as the roll ends: a press is not lost to bad timing.
     if (steer.a) h.wanted = 0;
     if (steer.b) h.wanted = 1;
+    if (steer.a || steer.b) h.wantAt = steer.at ?? null;
     if (h.wanted !== null && h.roll <= 0 && !(h.blow && !h.blow.landed)) {
-      this.use(h, h.wanted);
+      this.use(h, h.wanted, h.wantAt);
       h.wanted = null;
+      h.wantAt = null;
     }
     this.moveHunter(h, steer, dt);
     this.attack(h, steer, dt);
@@ -1001,7 +1010,11 @@ export class Hunt {
     h.aiming = 0;
     let x = steer.x;
     let y = steer.y;
-    if (Math.hypot(x, y) < 0.05) {
+    if (Math.hypot(x, y) < 0.05 && steer.toward !== undefined) {
+      // Standing, with a way pointed at: that way.
+      x = Math.cos(steer.toward);
+      y = Math.sin(steer.toward);
+    } else if (Math.hypot(x, y) < 0.05) {
       // With no way chosen, they go away from the monster.
       x = h.x - this.monster.x;
       y = h.y - this.monster.y;
@@ -1074,6 +1087,7 @@ export class Hunt {
   /** Which way a blow goes: where the player points, or the way the hunter faces, turned to a boss in reach a little ahead. */
   private aimOf(h: Hunter, steer: Steer, reach: number): number {
     if (steer.aim !== undefined) return steer.aim;
+    if (steer.auto) return this.autoAim(h, reach);
     const m = this.monster;
     const base = h.aim;
     const awake = m.state !== 'asleep' && m.state !== 'dead';
@@ -1085,6 +1099,23 @@ export class Hunt {
       if (dist(h.x, h.y, f.x, f.y) <= reach + 20 && Math.abs(turn(base, a)) <= ATTACK.help * RAD) return a;
     }
     return base;
+  }
+
+  /**
+   * Where a blow left to find its own mark goes: at the boss if it is in reach, whichever way the hunter faces; else at
+   * the nearest of its helpers or markers in reach; else straight ahead.
+   */
+  autoAim(h: Hunter, reach: number): number {
+    const m = this.monster;
+    const awake = m.state !== 'asleep' && m.state !== 'dead';
+    if (awake && dist(h.x, h.y, m.x, m.y) <= reach + m.def.r * m.size + 30) return Math.atan2(m.y - h.y, m.x - h.x);
+    let best = Infinity;
+    let aim = h.aim;
+    for (const f of this.helpers) {
+      const d = dist(h.x, h.y, f.x, f.y);
+      if (d <= reach + 20 && d < best) [best, aim] = [d, Math.atan2(f.y - h.y, f.x - h.x)];
+    }
+    return aim;
   }
 
   private startBlow(h: Hunter, steer: Steer, heavy: boolean): void {
@@ -1159,7 +1190,7 @@ export class Hunt {
     this.events.push({ t: 'loose', x, y, angle: a, from });
   }
 
-  private use(h: Hunter, i: 0 | 1): void {
+  private use(h: Hunter, i: 0 | 1, at: { x: number; y: number } | null = null): void {
     const m = this.monster;
     const a = h.abilities[i];
     if (h.waits[i] > 0) return;
@@ -1193,11 +1224,12 @@ export class Hunt {
         this.traps.push({ id: this.nextId++, x: h.x, y: h.y, def: a, arm: 0.6, life: a.life ?? 30 });
         break;
       case 'pool': {
-        // Thrown at the monster if it is in reach, and as far that way as it goes if not.
-        const d = dist(h.x, h.y, m.x, m.y);
+        // Thrown where it was aimed, or at the monster; as far that way as it goes, if that is out of reach.
+        const [ax, ay] = at ? [at.x, at.y] : [m.x, m.y];
+        const d = dist(h.x, h.y, ax, ay);
         const k = Math.min(1, (a.range ?? 300) / (d || 1));
-        tx = h.x + (m.x - h.x) * k;
-        ty = h.y + (m.y - h.y) * k;
+        tx = h.x + (ax - h.x) * k;
+        ty = h.y + (ay - h.y) * k;
         this.pools.push({ id: this.nextId++, x: tx, y: ty, r, life: a.life ?? 10, burning: 0, def: a });
         break;
       }

@@ -1,12 +1,14 @@
 // What lies over the lair: the hunter's health, the monster's in its three
-// parts with its stagger under it, the buttons for what the hunter can do
-// (which are also what teaches the keys), and the stick under a finger. In
-// camp it shows what there is to build instead. It reads the hunt and shows
-// it; the lair itself is the screen under this one.
+// parts with its stagger under it, and the buttons for what the hunter can
+// do. In camp it shows what there is to build instead. It reads the hunt and
+// shows it; the lair itself is the screen under this one.
 //
-// It also takes the steering, because it is the screen on top: a press that
-// lands on one of its buttons is the button's, and any other press is the
-// stick.
+// It also takes the steering, because it is the screen on top. With a mouse
+// and keys it shows a row of the hunter's skills with their keys in the
+// corners, and nothing to press with a thumb. On a touch screen it shows a
+// stick bottom left and a big ATTACK with the rest round it on the right
+// (src/view/input.ts says how each is used). It changes from one to the
+// other the moment the other is used.
 
 import Phaser from 'phaser';
 import { BONE, GOLD, HOLY, IRON, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
@@ -16,7 +18,7 @@ import type { Ev, Hunt, TaskState } from '../../game/hunt';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
-import { Controls, KEY_NAMES, type Ask } from '../input';
+import { Controls, DRAG_MIN, KEY_NAMES, STICK_R, type Ask } from '../input';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
 import { uiIcon, uiKey } from '../ui/grim';
 import { commit, save, theHunt } from '../session';
@@ -39,6 +41,10 @@ interface Pad {
   wait: (h: Hunt) => number;
   left: ((h: Hunt) => number) | null;
   ready: boolean;
+  /** How big its slot is, and the seconds still to wait written on it, on a thumb's button. */
+  size: number;
+  secs: Phaser.GameObjects.Text | null;
+  seconds: ((h: Hunt) => number) | null;
 }
 
 /** The short word on a pad for each thing: a pad is narrow. */
@@ -93,7 +99,9 @@ export class HudScene extends Phaser.Scene {
   private low!: Phaser.GameObjects.Graphics;
   private bannerUntil = 0;
   private clock = 0;
-  private touch = false;
+  private get touch(): boolean {
+    return this.controls?.scheme === 'touch';
+  }
   /** Where the monster's bar is, and how wide. */
   private bx = 0;
   private by = 0;
@@ -105,7 +113,8 @@ export class HudScene extends Phaser.Scene {
 
   create(data: { fresh?: boolean }): void {
     setupCamera(this);
-    this.controls = new Controls(this);
+    this.controls = new Controls(this, this.sys.game.device.input.touch && !this.sys.game.device.os.desktop);
+    this.controls.onScheme = () => this.rescheme();
     this.paused = null;
     this.hint = null;
     this.pads = [];
@@ -114,7 +123,6 @@ export class HudScene extends Phaser.Scene {
     const hunt = theHunt();
     if (!hunt) return;
     const w = view.w;
-    this.touch = this.sys.game.device.input.touch && !this.sys.game.device.os.desktop;
 
     // Struck: the whole screen goes red for a breath.
     this.flash = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(RUBY.fill)).setAlpha(0).setDepth(1);
@@ -188,56 +196,53 @@ export class HudScene extends Phaser.Scene {
   // ------------------------------------------------------------ the buttons
 
   /** One button of the hunt: a picture, a word, its key, a veil that drains as its wait runs out. */
-  private pad(parent: Phaser.GameObjects.Container, x: number, y: number, icon: string, word: string, ask: Ask, mat: Material, wait: (h: Hunt) => number, left: ((h: Hunt) => number) | null): void {
+  private pad(
+    parent: Phaser.GameObjects.Container, x: number, y: number, icon: string, word: string, ask: Ask, mat: Material, wait: (h: Hunt) => number, left: ((h: Hunt) => number) | null,
+    size = PAD, seconds: ((h: Hunt) => number) | null = null, press?: (p: Phaser.Input.Pointer) => void,
+  ): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
+    const k = size / PAD;
     // The style's round iron slot, its icon on it, and the word under: the slot is the button.
-    c.add(this.add.image(0, -4, uiKey('slot')).setDisplaySize(PAD + 6, PAD + 10).setTint(mat === GOLD ? 0xf0d8a8 : 0xffffff));
+    c.add(this.add.image(0, -4 * k, uiKey('slot')).setDisplaySize(size + 6, size + 10).setTint(mat === GOLD ? 0xf0d8a8 : 0xffffff));
     const kit = uiIcon(icon);
-    c.add(kit ? this.add.image(0, -8, kit).setDisplaySize(40, 40) : this.add.image(0, -8, SHEET, `icon/${icon}`).setScale(ICON * 0.66));
-    c.add(label(this, 0, PAD / 2 - 2, word, { size: 15, face: 'display' }));
+    c.add(kit ? this.add.image(0, -8 * k, kit).setDisplaySize(40 * k, 40 * k) : this.add.image(0, -8 * k, SHEET, `icon/${icon}`).setScale(ICON * 0.66 * k));
+    c.add(label(this, 0, size / 2 - 2, word, { size: 15, face: 'display' }));
     // The wait still to run, as a dark sweep round the slot from the top, as a clock's hand goes.
     const veil = this.add.graphics();
     c.add(veil);
     // The key that does the same, small in the slot's corner, where there are keys.
-    if (!this.touch) c.add(label(this, -PAD / 2 + 2, -PAD / 2 + 4, KEY_NAMES[ask], { size: 15, align: 'left', color: HOLY.fill, face: 'display' }));
-    const count = left ? label(this, PAD / 2 - 6, -PAD / 2 + 12, '', { size: 16, align: 'right', color: HOLY.fill }) : null;
+    if (!this.touch) c.add(label(this, -size / 2 + 2, -size / 2 + 4, KEY_NAMES[ask], { size: 15, align: 'left', color: HOLY.fill, face: 'display' }));
+    const count = left ? label(this, size / 2 - 6, -size / 2 + 12, '', { size: 16, align: 'right', color: HOLY.fill }) : null;
     if (count) c.add(count);
-    c.setSize(PAD, PAD).setInteractive({ useHandCursor: true });
+    const secs = seconds ? label(this, 0, -8 * k, '', { size: 22, face: 'display' }) : null;
+    if (secs) c.add(secs);
+    c.setSize(size, size).setInteractive({ useHandCursor: true });
     // It acts as it is pressed, not as it is let go: a roll cannot wait for a finger to lift.
-    c.on('pointerdown', () => this.controls.ask(ask));
+    c.on('pointerdown', (p: Phaser.Input.Pointer) => (press ? press(p) : this.controls.ask(ask)));
     parent.add(c);
-    this.pads.push({ ask, root: c, veil, count, wait, left, ready: true });
+    this.pads.push({ ask, root: c, veil, count, wait, left, ready: true, size, secs, seconds });
+    return c;
   }
 
   private buildFight(hunt: Hunt): void {
     const c = this.add.container(0, 0).setDepth(12);
     this.fight = c;
+    this.pads = [];
+    this.atk = null;
+    if (this.touch) this.buildThumbs(hunt, c);
+    else this.buildKeys(hunt, c);
+  }
+
+  /**
+   * Mouse and keys: the hunter's skills, the dodge and the horn in a row bottom right, each with its key in the corner.
+   * The mouse attacks and aims; there is no button to press with a thumb.
+   */
+  private buildKeys(hunt: Hunt, c: Phaser.GameObjects.Container): void {
     const y = view.h - PAD / 2 - 14;
-    let x = view.w - PAD / 2 - 12;
+    let x = view.w - PAD / 2 - 14;
     const step = PAD + 8;
     const h = hunt.hunter;
     const [a, b] = hunt.skills;
-    // ATTACK, the biggest, under the right thumb: held, it goes on striking. The rest sit round it.
-    const big = Math.round(PAD * 1.3);
-    const ax = view.w - big / 2 - 10;
-    const ay = view.h - big / 2 - 12;
-    const atk = this.add.container(ax, ay);
-    atk.add(this.add.image(0, -4, uiKey('slot')).setDisplaySize(big + 8, big + 12).setTint(0xe0a090));
-    const blade = uiIcon('reap');
-    if (blade) atk.add(this.add.image(0, -10, blade).setDisplaySize(48, 48));
-    atk.add(label(this, 0, big / 2 - 2, 'ATTACK', { size: 16, face: 'display' }));
-    if (!this.touch) atk.add(label(this, -big / 2 + 2, -big / 2 + 4, 'J', { size: 15, align: 'left', color: HOLY.fill, face: 'display' }));
-    atk.setSize(big, big).setInteractive({ useHandCursor: true });
-    const hold = (on: boolean): void => {
-      this.controls.attackHeld = on;
-      atk.setScale(on ? 0.94 : 1);
-    };
-    atk.on('pointerdown', () => hold(true));
-    atk.on('pointerup', () => hold(false));
-    atk.on('pointerout', () => hold(false));
-    c.add(atk);
-    this.atk = atk;
-    x = ax - big / 2 - PAD / 2 - 8;
     this.pad(c, x, y, 'dodge', 'DODGE', 'dodge', BONE, (n) => n.hunter.rollWait / h.def.dodge.wait, null);
     x -= step;
     this.pad(c, x, y, b.id, SHORT[b.id] ?? b.name.toUpperCase(), 'b', IRON, (n) => n.hunter.waits[1] / b.wait, null);
@@ -247,6 +252,72 @@ export class HudScene extends Phaser.Scene {
       x -= step;
       this.pad(c, x, y, `icon-${call.def.id}`, SHORT[call.def.id] ?? call.def.name.toUpperCase(), `call${i}` as Ask, GOLD, (n) => (n.calls[i].left > 0 ? n.hornWait / 5 : 1), (n) => n.calls[i].left);
     });
+    // How the mouse is used, small, beside the row, until the hunter has struck a few times.
+    if (save().wins < 3) label(this, x - PAD / 2 - 12, y - 10, 'CLICK: ATTACK\nRIGHT CLICK: DODGE', { size: 15, align: 'right', color: BONE.shade, face: 'display' }).setDepth(12);
+  }
+
+  /**
+   * Touch: the stick bottom left (drawn each frame), and on the right a big ATTACK with the two skills and the dodge
+   * round it in an arc, and the horn further out. A left hand has them the other way round (the pause panel's SIDES).
+   */
+  private buildThumbs(hunt: Hunt, c: Phaser.GameObjects.Container): void {
+    const lefty = !!save().lefty;
+    const side = (x: number): number => (lefty ? view.w - x : x);
+    const h = hunt.hunter;
+    const [a, b] = hunt.skills;
+    // Sizes in the layout's units: on a phone a unit is about two thirds of a pixel, so no button is under ~58 pixels.
+    const big = 132;
+    const small = 92;
+    const ax = side(view.w - big / 2 - 26);
+    const ay = view.h - big / 2 - 30;
+    const sx = side(STICK_R + 64);
+    const sy = view.h - STICK_R - 70;
+    this.controls.stickHome.x = this.controls.stickAt.x = sx;
+    this.controls.stickHome.y = this.controls.stickAt.y = sy;
+    // ATTACK: tapped, the blow finds its own mark; held and dragged, it strikes the way it is dragged.
+    const atk = this.add.container(ax, ay);
+    atk.add(this.add.image(0, -4, uiKey('slot')).setDisplaySize(big + 8, big + 12).setTint(0xe0a090));
+    const blade = uiIcon('reap');
+    if (blade) atk.add(this.add.image(0, -10, blade).setDisplaySize(58, 58));
+    atk.add(label(this, 0, big / 2 - 4, 'ATTACK', { size: 17, face: 'display' }));
+    atk.setSize(big, big).setInteractive();
+    atk.on('pointerdown', (p: Phaser.Input.Pointer) => this.controls.press('attack', p));
+    c.add(atk);
+    this.atk = atk;
+    // Round it: the skills and the dodge, a quarter circle from beside it to over it; the horn beyond.
+    const r = big / 2 + small / 2 + 32;
+    const at = (deg: number, rr: number): [number, number] => {
+      const t = (deg * Math.PI) / 180;
+      return [ax + (lefty ? -1 : 1) * Math.cos(t) * rr, ay + Math.sin(t) * rr];
+    };
+    const [dx, dy] = at(180, r);
+    this.pad(c, dx, dy, 'dodge', 'DODGE', 'dodge', BONE, (n) => n.hunter.rollWait / h.def.dodge.wait, null, small, (n) => n.hunter.rollWait, (p) => this.controls.press('dodge', p));
+    const [bx, by] = at(225, r);
+    this.pad(c, bx, by, b.id, SHORT[b.id] ?? b.name.toUpperCase(), 'b', IRON, (n) => n.hunter.waits[1] / b.wait, null, small, (n) => n.hunter.waits[1], (p) => this.controls.press('b', p));
+    const [qx, qy] = at(270, r);
+    this.pad(c, qx, qy, a.id, SHORT[a.id] ?? a.name.toUpperCase(), 'a', IRON, (n) => n.hunter.waits[0] / a.wait, null, small, (n) => n.hunter.waits[0], (p) => this.controls.press('a', p));
+    hunt.calls.forEach((call, i) => {
+      const [hx, hy] = at(i === 0 ? 200 : 250, r + small + 14);
+      this.pad(c, hx, hy, `icon-${call.def.id}`, SHORT[call.def.id] ?? call.def.name.toUpperCase(), `call${i}` as Ask, GOLD, (n) => (n.calls[i].left > 0 ? n.hornWait / 5 : 1), (n) => n.calls[i].left, small);
+    });
+    // The cancel mark: over the arc, where a thumb aiming a skill can slide to call it off.
+    const [cx, cy] = at(270, r + small + 70);
+    this.controls.cancelAt = { x: cx, y: Math.max(cy, this.by + 120), r: 46 };
+  }
+
+  /** The other way of playing was just used: its buttons in place of these. */
+  private rescheme(): void {
+    const hunt = theHunt();
+    if (!hunt) return;
+    const shown = this.fight?.visible ?? true;
+    this.fight?.destroy();
+    this.buildFight(hunt);
+    this.fight?.setVisible(shown);
+    this.shownStep = '';
+    if (this.hint) {
+      this.hint.destroy();
+      this.showHint();
+    }
   }
 
   private buildCamp(hunt: Hunt): void {
@@ -393,7 +464,7 @@ export class HudScene extends Phaser.Scene {
   private showHint(): void {
     const c = this.add.container(view.w / 2, view.h * 0.62).setDepth(15);
     if (this.touch) {
-      c.add(label(this, 0, 0, 'DRAG ANYWHERE TO MOVE', { size: 20 }));
+      c.add(label(this, 0, 0, 'MOVE WITH THE STICK, BOTTOM LEFT', { size: 20 }));
     } else {
       const cap = (x: number, y: number, t: string): void => {
         c.add(slabImage(this, x - 17, y - 17, 34, 34, BONE, 8, 5));
@@ -430,7 +501,7 @@ export class HudScene extends Phaser.Scene {
     const veil = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.6).setInteractive();
     const cx = view.w / 2;
     const cy = view.h / 2;
-    c.add([veil, slabImage(this, cx - 150, cy - 229, 300, 514, BONE, 18, 8), label(this, cx, cy - 191, 'PAUSED', { size: 30 })]);
+    c.add([veil, slabImage(this, cx - 150, cy - 274, 300, 556, BONE, 18, 8), label(this, cx, cy - 240, 'PAUSED', { size: 30 })]);
     const s = save();
     const toggle = (y: number, name: string, get: () => boolean, set: (v: boolean) => void): void => {
       const b = new Button(this, cx, y, `${name}: ${get() ? 'ON' : 'OFF'}`, () => {
@@ -441,29 +512,37 @@ export class HudScene extends Phaser.Scene {
       }, { width: 220, height: 46, size: 19, mat: IRON });
       c.add(b.root);
     };
-    c.add(new Button(this, cx, cy - 131, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
-    toggle(cy - 67, 'SOUND', () => s.sound, (v) => (s.sound = v));
-    toggle(cy - 9, 'MUSIC', () => s.music, (v) => (s.music = v));
+    c.add(new Button(this, cx, cy - 184, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
+    toggle(cy - 124, 'SOUND', () => s.sound, (v) => (s.sound = v));
+    toggle(cy - 70, 'MUSIC', () => s.music, (v) => (s.music = v));
     // The lines said in a hunt are spice: some would rather play in silence.
-    toggle(cy + 49, 'LINES', () => s.talk !== false, (v) => {
+    toggle(cy - 16, 'LINES', () => s.talk !== false, (v) => {
       s.talk = v;
       lair.talk.on = v;
       if (!v) lair.talk.drop();
     });
     // How much of the light is made: all of it, the cheap part, or none. A slow machine wants less.
-    const light = new Button(this, cx, cy + 107, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
+    const light = new Button(this, cx, cy + 38, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
       setLightMode(nextLightMode(lightMode()), true);
       lair.setLight(lightMode());
       light.setText(`LIGHT: ${LIGHT_NAMES[lightMode()]}`);
     }, { width: 220, height: 46, size: 19, mat: IRON });
     c.add(light.root);
     // How hard the screen is shaken and flashed by a blow: some players want it felt, some find it hard to watch.
-    const feel = new Button(this, cx, cy + 165, `EFFECTS: ${FEEL_NAMES[feelMode()]}`, () => {
+    const feel = new Button(this, cx, cy + 92, `EFFECTS: ${FEEL_NAMES[feelMode()]}`, () => {
       setFeelMode(nextFeelMode(feelMode()));
       feel.setText(`EFFECTS: ${FEEL_NAMES[feelMode()]}`);
     }, { width: 220, height: 46, size: 19, mat: IRON });
     c.add(feel.root);
-    c.add(new Button(this, cx, cy + 233, 'GIVE UP', () => {
+    // On a touch screen, which hand has the stick: a left hand wants the buttons on the left.
+    const sides = new Button(this, cx, cy + 146, `BUTTONS: ${s.lefty ? 'LEFT' : 'RIGHT'}`, () => {
+      s.lefty = !s.lefty;
+      commit();
+      sides.setText(`BUTTONS: ${s.lefty ? 'LEFT' : 'RIGHT'}`);
+      this.rescheme();
+    }, { width: 220, height: 46, size: 19, mat: IRON });
+    c.add(sides.root);
+    c.add(new Button(this, cx, cy + 222, 'GIVE UP', () => {
       hunt.giveUp();
       this.paused?.destroy();
       this.paused = null;
@@ -719,7 +798,7 @@ export class HudScene extends Phaser.Scene {
     // A hunt that teaches: its plate, and the button the step is about beats so that it is found.
     this.showPlate(hunt);
     const step = hunt.teaching?.step;
-    if (this.atk && !this.controls.attackHeld) this.atk.setScale(step?.wants === 'strike' ? 1.06 + 0.07 * Math.sin(this.clock * 9) : 1);
+    if (this.atk) this.atk.setScale(this.controls.attackHeld ? 0.94 : step?.wants === 'strike' ? 1.06 + 0.07 * Math.sin(this.clock * 9) : 1);
     const wanted: Ask | null = step?.wants === 'dodge' ? 'dodge' : step?.wants === 'skill' ? (step.skill === 0 ? 'a' : 'b') : null;
 
     // Each button: its veil is as tall as the share of its wait still to run.
@@ -728,13 +807,18 @@ export class HudScene extends Phaser.Scene {
         if (!this.tweens.isTweening(p.root)) p.root.setScale(p.ask === wanted ? 1.08 + 0.08 * Math.sin(this.clock * 9) : 1);
         const wait = Math.max(0, Math.min(1, p.wait(hunt)));
         p.veil.clear();
+        const k = p.size / PAD;
         if (wait > 0.001) {
           p.veil.fillStyle(0x0b0908, 0.72);
-          p.veil.slice(0, -8, PAD / 2 - 4, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * wait, false).fillPath();
+          p.veil.slice(0, -8 * k, p.size / 2 - 4, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * wait, false).fillPath();
         }
         if (p.count && p.left) p.count.setText(`x${p.left(hunt)}`);
+        // On a thumb's button the seconds still to wait are written on it, and it is dimmed till then.
+        const secs = p.seconds ? p.seconds(hunt) : 0;
+        p.secs?.setText(secs > 0.05 && wait > 0.001 ? (secs < 1 ? secs.toFixed(1) : String(Math.ceil(secs))) : '');
+        if (p.seconds) p.root.setAlpha(wait > 0.001 ? 0.62 : 1);
         const ready = wait <= 0;
-        if (ready && !p.ready) this.tweens.add({ targets: p.root, scale: { from: 1.14, to: 1 }, duration: 180 });
+        if (ready && !p.ready) this.tweens.add({ targets: p.root, scale: { from: 1.18, to: 1 }, duration: 240, ease: 'Back.easeOut' });
         p.ready = ready;
       }
     }
@@ -742,17 +826,31 @@ export class HudScene extends Phaser.Scene {
     // Badly hurt: the edge of the screen beats red, so that it is known without looking up at the bar.
     if (!this.tweens.isTweening(this.flash)) this.flash.setAlpha(h.hp > 0 && h.hp <= h.maxHp * 0.3 ? 0.06 + 0.06 * Math.sin(this.clock * 7) ** 2 : 0);
 
-    // The stick, where the finger is.
-    const st = this.controls.stick;
-    this.stick.clear();
-    if (st && !this.paused) {
-      const dx = st.x - st.x0;
-      const dy = st.y - st.y0;
-      const len = Math.hypot(dx, dy);
-      const k = len > 46 ? 46 / len : 1;
-      this.stick.fillStyle(hex(OUTLINE), 0.25).fillCircle(st.x0, st.y0, 54);
-      this.stick.lineStyle(3, hex(BONE.fill), 0.5).strokeCircle(st.x0, st.y0, 54);
-      this.stick.fillStyle(hex(BONE.fill), 0.7).fillCircle(st.x0 + dx * k, st.y0 + dy * k, 22);
+    // The stick, on a touch screen only: its base always there, faint, and the knob where the thumb pushes it.
+    const ct = this.controls;
+    const g = this.stick;
+    g.clear();
+    if (this.touch && !this.paused) {
+      const held = ct.sticking;
+      const { x, y } = ct.stickAt;
+      g.fillStyle(hex(OUTLINE), held ? 0.34 : 0.22).fillCircle(x, y, STICK_R + 18);
+      g.lineStyle(3, hex(BONE.fill), held ? 0.6 : 0.3).strokeCircle(x, y, STICK_R + 18);
+      // Four small marks round the rim: the ways.
+      for (let i = 0; i < 4; i++) {
+        const t = (i * Math.PI) / 2;
+        g.fillStyle(hex(BONE.fill), 0.3).fillCircle(x + Math.cos(t) * (STICK_R + 6), y + Math.sin(t) * (STICK_R + 6), 3);
+      }
+      g.fillStyle(hex(BONE.fill), held ? 0.85 : 0.5).fillCircle(x + ct.knob.x, y + ct.knob.y, 30);
+      g.lineStyle(3, hex(OUTLINE), 0.8).strokeCircle(x + ct.knob.x, y + ct.knob.y, 30);
+      // Aiming a skill or the dodge: the cancel mark, which goes red under the thumb.
+      const aiming = ct.skillDrag ?? ct.dodgeDrag;
+      if (aiming && Controls.dragged(aiming) >= DRAG_MIN) {
+        const c = ct.cancelAt;
+        const on = ct.cancelling;
+        g.fillStyle(on ? 0x8a1e16 : hex(OUTLINE), on ? 0.9 : 0.55).fillCircle(c.x, c.y, c.r);
+        g.lineStyle(3, hex(BONE.fill), 0.8).strokeCircle(c.x, c.y, c.r);
+        g.lineStyle(6, hex(BONE.fill), 0.9).lineBetween(c.x - 14, c.y - 14, c.x + 14, c.y + 14).lineBetween(c.x + 14, c.y - 14, c.x - 14, c.y + 14);
+      }
     }
 
     // Once they have walked, they know how.

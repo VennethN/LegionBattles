@@ -34,6 +34,7 @@ import { SHEET, Sheet, sheet, type UnitKey } from '../art/Sheet';
 import { STILL_SCALE } from '../art/scale';
 import { beginHunt, finishHunt, save, theHunt } from '../session';
 import type { HudScene } from './HudScene';
+import { Controls, DRAG_FAR, DRAG_MIN, type Target } from '../input';
 
 const INV_ART = 1 / ART_SCALE;
 const WHITE = 0xffffff;
@@ -278,21 +279,28 @@ export class LairScene extends Phaser.Scene {
     const hud = this.scene.get('Hud') as HudScene | undefined;
     if (!this.halted) {
       this.acc += dt;
-      const steer: Steer = LairScene.pilot ? LairScene.pilot.steer(this.hunt) : { ...(hud?.controls?.steer ?? { x: 0, y: 0 }), attack: hud?.controls?.attacking ?? false, aim: this.aimed() };
-      // What was asked for is asked once, and the first step of the hunt after that takes it.
+      const steer: Steer = LairScene.pilot ? LairScene.pilot.steer(this.hunt) : this.steered(hud?.controls ?? null);
+      // What was asked for is asked once, and the first step of the hunt after that takes it, aimed where it was aimed.
       const places = BUILDINGS.filter((b) => b.id in this.hunt.toPlace).map((b) => b.id);
-      for (const ask of hud?.controls?.take() ?? []) {
-        if (ask === 'dodge') steer.dodge = true;
-        else if (ask === 'a') steer.a = true;
-        else if (ask === 'b') steer.b = true;
-        else if (ask === 'wake') steer.wake = true;
+      for (const { ask, at } of hud?.controls?.take() ?? []) {
+        if (ask === 'dodge') {
+          steer.dodge = true;
+          const t = this.targetOf(at, 'dodge');
+          if (t) steer.toward = Math.atan2(t.y - this.hunt.hunter.y, t.x - this.hunt.hunter.x);
+          // Dragged from the dodge, it goes that way even while walking.
+          if (at?.kind === 'drag' && t) [steer.x, steer.y] = [Math.cos(steer.toward as number), Math.sin(steer.toward as number)];
+        } else if (ask === 'a' || ask === 'b') {
+          steer[ask] = true;
+          const t = this.targetOf(at, ask === 'a' ? 0 : 1);
+          if (t) steer.at = t;
+        } else if (ask === 'wake') steer.wake = true;
         else if (ask.startsWith('call')) steer.call = Number(ask.slice(4));
         else if (ask.startsWith('place')) steer.place = places[Number(ask.slice(5))];
       }
       let steps = 0;
       while (this.acc >= STEP && steps++ < 6) {
         this.remember();
-        this.hunt.step(steps === 1 ? steer : { x: steer.x, y: steer.y, attack: steer.attack, aim: steer.aim });
+        this.hunt.step(steps === 1 ? steer : { x: steer.x, y: steer.y, attack: steer.attack, aim: steer.aim, auto: steer.auto });
         this.acc -= STEP;
       }
       // A frame that took far too long is not caught up on: the hunt would lurch.
@@ -335,14 +343,48 @@ export class LairScene extends Phaser.Scene {
   // ------------------------------------------------------------ what has happened
 
   /**
-   * Where a mouse points, as the angle from the hunter, for the next blow to go: none by touch or with no mouse on
-   * the field, and then the rules aim where the hunter faces, with a little help toward the boss.
+   * The steering of this frame, by the way of playing in use. With a mouse, blows go where it points. On a touch
+   * screen, ATTACK dragged strikes the way it is dragged, and tapped finds its own mark (the rules choose it).
+   */
+  private steered(c: Controls | null): Steer {
+    if (!c) return { x: 0, y: 0 };
+    const steer: Steer = { ...c.steer, attack: c.attacking };
+    if (c.scheme === 'mouse') steer.aim = this.aimed();
+    else {
+      const d = c.attackDrag;
+      if (d && Controls.dragged(d) >= DRAG_MIN) steer.aim = Math.atan2(d.y - d.y0, d.x - d.x0);
+      else steer.auto = true;
+    }
+    return steer;
+  }
+
+  /**
+   * Where a mouse points, as the angle from the hunter, for the next blow to go: none on a touch screen or with no
+   * mouse on the field.
    */
   private aimed(): number | undefined {
-    const p = this.input.activePointer;
-    if (!p || p.wasTouch || !this.ready) return undefined;
-    const at = this.cameras.main.getWorldPoint(p.x, p.y);
+    const hud = this.scene.get('Hud') as HudScene | undefined;
+    const c = hud?.controls;
+    if (!c || c.scheme !== 'mouse' || !c.mouse || !this.ready) return undefined;
+    const at = this.cameras.main.getWorldPoint(c.mouse.x, c.mouse.y);
     return Math.atan2(at.y - this.hunt.hunter.y, at.x - this.hunt.hunter.x);
+  }
+
+  /**
+   * Where on the field a skill or a dodge was aimed: the point under the mouse, or as far from the hunter, the way the
+   * thumb was dragged, as the drag is of its longest (the skill's own reach, or the dodge's length).
+   */
+  private targetOf(at: Target | undefined, what: 0 | 1 | 'dodge'): { x: number; y: number } | null {
+    if (!at) return null;
+    const h = this.hunt.hunter;
+    if (at.kind === 'screen') {
+      const p = this.cameras.main.getWorldPoint(at.x, at.y);
+      return { x: p.x, y: p.y };
+    }
+    const len = Math.hypot(at.dx, at.dy) || 1;
+    const far = what === 'dodge' ? h.def.dodge.dist : (h.abilities[what].range ?? h.abilities[what].r ?? 100);
+    const k = Math.min(1, len / DRAG_FAR) * far;
+    return { x: h.x + (at.dx / len) * k, y: h.y + (at.dy / len) * k };
   }
 
   /** Holds the lair nearly still for a moment: a blow that lands is felt. */
@@ -966,8 +1008,12 @@ export class LairScene extends Phaser.Scene {
       g.lineStyle(2, 0x0d0b09, 1).strokeTriangle(tx - 9 * b, ty - 12 * b, tx + 9 * b, ty - 12 * b, tx, ty);
     }
 
-    // With a mouse, where the next blow goes: a faint wedge at the hunter's feet.
-    const aim = this.aimed();
+    // Being aimed: a skill's own shape where it will go, a dodge's way, or ATTACK dragged.
+    this.drawAiming(g);
+    // With a mouse, where the next blow goes: a faint wedge at the hunter's feet. On a touch screen, ATTACK dragged.
+    const hud = this.scene.get('Hud') as HudScene | undefined;
+    const ad = hud?.controls?.scheme === 'touch' ? hud.controls.attackDrag : null;
+    const aim = ad && Controls.dragged(ad) >= DRAG_MIN ? Math.atan2(ad.y - ad.y0, ad.x - ad.x0) : this.aimed();
     if (aim !== undefined && w.phase !== 'camp' && h.hp > 0) {
       const r0 = 26;
       const r1 = 58;
@@ -976,6 +1022,55 @@ export class LairScene extends Phaser.Scene {
       g.lineTo(h.x + Math.cos(aim) * r1, h.y + Math.sin(aim) * r1 * 0.6);
       g.lineTo(h.x + Math.cos(aim + 0.32) * r0, h.y + Math.sin(aim + 0.32) * r0 * 0.6);
       g.closePath().fillPath();
+    }
+  }
+
+  /**
+   * A skill being aimed, a key held with a mouse or a thumb dragging its button: its shape on the ground as the rules
+   * will make it, at the hunter or where it will be thrown; a dodge being dragged, the line it will go.
+   */
+  private drawAiming(g: Phaser.GameObjects.Graphics): void {
+    const hud = this.scene.get('Hud') as HudScene | undefined;
+    const c = hud?.controls;
+    const h = this.hunt.hunter;
+    if (!c || this.hunt.phase === 'camp' || h.hp <= 0) return;
+    let i: 0 | 1 | null = null;
+    let at: Target | undefined;
+    if (c.scheme === 'mouse' && c.holding !== null && c.mouse) [i, at] = [c.holding, { kind: 'screen', x: c.mouse.x, y: c.mouse.y }];
+    else if (c.skillDrag && Controls.dragged(c.skillDrag) >= DRAG_MIN) {
+      const d = c.skillDrag;
+      [i, at] = [d.i, { kind: 'drag', dx: d.x - d.x0, dy: d.y - d.y0 }];
+    }
+    const off = c.cancelling;
+    const color = off ? 0x8a8a8a : 0xe8b860;
+    if (i !== null) {
+      const a = h.abilities[i];
+      const r = a.r ?? 60;
+      if (a.kind === 'pool') {
+        // Thrown: where it lands, no further than its reach, and the line it is thrown along.
+        const t = this.targetOf(at, i) ?? { x: h.x, y: h.y };
+        const d = Math.hypot(t.x - h.x, t.y - h.y);
+        const k = Math.min(1, (a.range ?? 300) / (d || 1));
+        const [tx, ty] = [h.x + (t.x - h.x) * k, h.y + (t.y - h.y) * k];
+        g.lineStyle(2, color, 0.5).lineBetween(h.x, h.y, tx, ty);
+        g.fillStyle(color, 0.16).fillCircle(tx, ty, r);
+        g.lineStyle(3, color, 0.85).strokeCircle(tx, ty, r);
+        g.lineStyle(1, color, 0.3).strokeCircle(h.x, h.y, a.range ?? 300);
+      } else {
+        // Used where the hunter stands: its reach round them.
+        g.fillStyle(color, 0.14).fillCircle(h.x, h.y, r);
+        g.lineStyle(3, color, 0.85).strokeCircle(h.x, h.y, r);
+      }
+    }
+    const dd = c.dodgeDrag;
+    if (dd && Controls.dragged(dd) >= DRAG_MIN) {
+      const t = this.targetOf({ kind: 'drag', dx: dd.x - dd.x0, dy: dd.y - dd.y0 }, 'dodge');
+      if (t) {
+        const ang = Math.atan2(t.y - h.y, t.x - h.x);
+        const far = h.def.dodge.dist;
+        this.strip(g, h.x, h.y, ang, far, 34, color, 0.2);
+        g.fillStyle(color, 0.8).fillTriangle(h.x + Math.cos(ang) * far, h.y + Math.sin(ang) * far, h.x + Math.cos(ang + 2.7) * 18 + Math.cos(ang) * far, h.y + Math.sin(ang + 2.7) * 18 + Math.sin(ang) * far, h.x + Math.cos(ang - 2.7) * 18 + Math.cos(ang) * far, h.y + Math.sin(ang - 2.7) * 18 + Math.sin(ang) * far);
+      }
     }
   }
 

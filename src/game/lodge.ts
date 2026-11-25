@@ -59,6 +59,8 @@ export interface SaveData {
   music: boolean;
   /** Whether the hunters and bosses say their lines during a hunt. */
   talk: boolean;
+  /** On a touch screen, the stick on the right and the buttons on the left: for a left hand. */
+  lefty?: boolean;
   /** What the player has been shown once and need not be shown again. */
   told: string[];
   /** The contracts posted on the board, and where the board's own dice are. */

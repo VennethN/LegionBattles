@@ -52,6 +52,10 @@ async function finish(page: Page): Promise<void> {
   for (let i = 0; i < 40 && !(await hunt<string | null>(page, 'h.over')); i++) await playKeys(page, 90);
 }
 
+/** The way of playing the screen shows: mouse and keys, or touch. */
+const scheme = (page: Page): Promise<string> =>
+  page.evaluate(() => ((window as unknown as Win).game.scene.getScene('Hud') as unknown as { controls: { scheme: string } }).controls.scheme);
+
 async function play(label: string, context: Context, page: Page, tap: Press, touch: boolean): Promise<void> {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(String(e.message)));
@@ -75,14 +79,23 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
   const x0 = await hunt<number>(page, 'h.hunter.x');
   const y0 = await hunt<number>(page, 'h.hunter.y');
   if (touch) {
+    // A thumb on the stick, bottom left, pushed: a real touch, as a mouse press would be read as the mouse.
     const size = page.viewportSize() as { width: number; height: number };
-    await page.mouse.move(size.width * 0.5, size.height * 0.6);
-    await page.mouse.down();
-    await page.mouse.move(size.width * 0.5 - 30, size.height * 0.6 + 10);
-    await page.mouse.move(size.width * 0.5 - 60, size.height * 0.6 + 20);
+    const cdp = await context.newCDPSession(page);
+    const at = (x: number, y: number): Array<{ x: number; y: number; id: number }> => [{ x, y, id: 1 }];
+    const [sx, sy] = [size.width * 0.17, size.height * 0.86];
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: at(sx, sy) });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: at(sx + 20, sy - 10) });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: at(sx + 40, sy - 20) });
     await tick(page, 70);
-    await page.mouse.up();
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    check(`${label}: a touch screen has the stick and the thumb buttons`, (await scheme(page)) === 'touch' && !!(await find(page, 'Hud', 'ATTACK')));
   } else {
+    // A click on the field is the mouse: no stick and no thumb buttons come up, ever.
+    const size = page.viewportSize() as { width: number; height: number };
+    await page.mouse.click(size.width * 0.4, size.height * 0.55);
+    await tick(page, 5);
+    check(`${label}: a mouse click shows no stick and no thumb buttons`, (await scheme(page)) === 'mouse' && !(await find(page, 'Hud', 'ATTACK')));
     await page.keyboard.down('KeyA');
     await tick(page, 70);
     await page.keyboard.up('KeyA');
