@@ -168,6 +168,15 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await pilot(page, 24);
     await shot('hunt-king-agnes');
   },
+  // A contract's hunt with partners: their plates and the task strip, the villagers to keep, then the cart and its road.
+  party: async (page, shot) => {
+    await lair(page, { monster: 'sexton', mark: 2, hunter: 'marta', partners: ['brask', 'agnes'], reinforcements: [], buildings: [], terms: { variants: [], tasks: [{ id: 'villagers', n: 2 }, { id: 'together', n: 4 }, { id: 'careful', n: 3 }] } }, RICH);
+    await pilot(page, 30);
+    await shot('party-villagers');
+    await lair(page, { monster: 'king', mark: 2, hunter: 'jory', partners: ['marta'], reinforcements: [], buildings: [], terms: { variants: [], tasks: [{ id: 'cart' }, { id: 'breaks', n: 2 }] } }, RICH);
+    await pilot(page, 20);
+    await shot('party-cart');
+  },
   // A line said in a hunt: the boss's own by it, the hunter's over her head, and something heard from the King.
   talk: async (page, shot) => {
     const say = (who: string, when: string): Promise<void> =>
