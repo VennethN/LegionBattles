@@ -5716,6 +5716,238 @@
     0.5
    ]
   },
+  "r-bellows": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-echobell": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-wolfskin": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-lastcandle": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-magpie": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-thornmail": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-stormglass": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-horn": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-spade": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-twinquiver": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-ageswhet": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-crown": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-ledger": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-shell": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-spurs": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-whistle": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-bonedice": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-emberheart": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-frostbite": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-mirror": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-fallen": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-sands": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-bowl": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-tithe": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-oldmap": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "r-seal": {
+   "width": 48,
+   "height": 48,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "thing-wagon": {
+   "width": 150,
+   "height": 124,
+   "origin": [
+    0.5,
+    0.94
+   ]
+  },
+  "thing-cage": {
+   "width": 116,
+   "height": 124,
+   "origin": [
+    0.5,
+    0.93
+   ]
+  },
+  "thing-shrine": {
+   "width": 128,
+   "height": 156,
+   "origin": [
+    0.5,
+    0.94
+   ]
+  },
   "w-sword": {
    "width": 100,
    "height": 184,
@@ -5837,6 +6069,110 @@
    ]
   },
   "w-censer": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-halberd": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-trident": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-mace": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-longbow": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-rimebow": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-blowpipe": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-hatchet": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-hail": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-holywater": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-gourd": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-sunbrand": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-fang": {
+   "width": 100,
+   "height": 184,
+   "origin": [
+    0.5,
+    0.6847826086956522
+   ]
+  },
+  "w-wand": {
    "width": 100,
    "height": 184,
    "origin": [

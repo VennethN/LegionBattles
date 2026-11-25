@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-gourd" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-gourd-glass-shape" d="M 46 92 C 46 92 47.5 97 46 100 C 44.5 103 38.2 106.5 37 110 C 35.8 113.5 36.8 118.5 39 121 C 41.2 123.5 46.3 125 50 125 C 53.7 125 58.8 123.5 61 121 C 63.2 118.5 64.2 113.5 63 110 C 61.8 106.5 55.5 103 54 100 C 52.5 97 54 92 54 92 L 46 92 Z"/>
+<clipPath id="w-gourd-glass-clip"><use href="#w-gourd-glass-shape"/></clipPath>
+<path id="w-gourd-liquid-shape" d="M 34 107 L 66 107 L 66 129 L 34 129 L 34 107 Z"/>
+<path id="w-gourd-cork-shape" d="M 47 86 L 53 86 Q 55 86 55 88 L 55 92 Q 55 94 53 94 L 47 94 Q 45 94 45 92 L 45 88 Q 45 86 47 86 Z"/>
+<path id="w-gourd-hand-shape" d="M 57.5 129 C 57.5 133.1 54.1 136.5 50 136.5 C 45.9 136.5 42.5 133.1 42.5 129 C 42.5 124.9 45.9 121.5 50 121.5 C 54.1 121.5 57.5 124.9 57.5 129 Z"/>
+<clipPath id="w-gourd-hand-clip"><use href="#w-gourd-hand-shape"/></clipPath>
+<clipPath id="w-gourd-hand-lit-clip"><use href="#w-gourd-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="w-gourd-halo" d="M 69 110 C 69 120.5 60.5 129 50 129 C 39.5 129 31 120.5 31 110 C 31 99.5 39.5 91 50 91 C 60.5 91 69 99.5 69 110 Z" fill="#d5f2a4" opacity="0.45"/>
+<g id="w-gourd-glass">
+<use id="w-gourd-glass-fill" href="#w-gourd-glass-shape" fill="#e9dfc6"/>
+<g clip-path="url(#w-gourd-glass-clip)">
+<g id="w-gourd-liquid">
+<use id="w-gourd-liquid-fill" href="#w-gourd-liquid-shape" fill="#8fce4a"/>
+<use id="w-gourd-liquid-line" href="#w-gourd-liquid-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="w-gourd-glass-line" href="#w-gourd-glass-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-gourd-cork">
+<use id="w-gourd-cork-fill" href="#w-gourd-cork-shape" fill="#9a6a3a"/>
+<use id="w-gourd-cork-line" href="#w-gourd-cork-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-gourd-hand">
+<use id="w-gourd-hand-shade" href="#w-gourd-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-gourd-hand-clip)">
+<use id="w-gourd-hand-fill" href="#w-gourd-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-gourd-hand-lit-clip)">
+<use id="w-gourd-hand-lit" href="#w-gourd-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-gourd-hand-fill-over" href="#w-gourd-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-gourd-hand-line" href="#w-gourd-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

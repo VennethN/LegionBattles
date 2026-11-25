@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="thing-shrine" width="128" height="156" viewBox="0 0 128 156">
+<defs>
+<path id="thing-shrine-flame-shape" d="M 54 40 C 54 40 48.3 31.7 50 26 C 51.7 20.3 64 6 64 6 C 64 6 76.3 20.3 78 26 C 79.7 31.7 74 40 74 40 L 54 40 Z"/>
+<path id="thing-shrine-bowl-shape" d="M 42 38 L 86 38 C 84 52 44 52 42 38 Z"/>
+<clipPath id="thing-shrine-bowl-clip"><use href="#thing-shrine-bowl-shape"/></clipPath>
+<clipPath id="thing-shrine-bowl-lit-clip"><use href="#thing-shrine-bowl-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thing-shrine-stone-shape" d="M 48 50 L 80 50 L 88 124 L 40 124 Z"/>
+<clipPath id="thing-shrine-stone-clip"><use href="#thing-shrine-stone-shape"/></clipPath>
+<clipPath id="thing-shrine-stone-lit-clip"><use href="#thing-shrine-stone-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="thing-shrine-sun-shape" d="M 64 69 L 66.3 76.5 L 73.2 72.8 L 69.5 79.7 L 77 82 L 69.5 84.3 L 73.2 91.2 L 66.3 87.5 L 64 95 L 61.7 87.5 L 54.8 91.2 L 58.5 84.3 L 51 82 L 58.5 79.7 L 54.8 72.8 L 61.7 76.5 Z"/>
+<path id="thing-shrine-step-a-shape" d="M 30 120 L 98 120 Q 102 120 102 124 L 102 129 Q 102 133 98 133 L 30 133 Q 26 133 26 129 L 26 124 Q 26 120 30 120 Z"/>
+<clipPath id="thing-shrine-step-a-clip"><use href="#thing-shrine-step-a-shape"/></clipPath>
+<clipPath id="thing-shrine-step-a-lit-clip"><use href="#thing-shrine-step-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thing-shrine-step-b-shape" d="M 18 131 L 110 131 Q 114 131 114 135 L 114 140 Q 114 144 110 144 L 18 144 Q 14 144 14 140 L 14 135 Q 14 131 18 131 Z"/>
+<clipPath id="thing-shrine-step-b-clip"><use href="#thing-shrine-step-b-shape"/></clipPath>
+<clipPath id="thing-shrine-step-b-lit-clip"><use href="#thing-shrine-step-b-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thing-shrine-moss-shape" d="M 18 133 C 18 133 22.7 128.2 26 128 C 29.3 127.8 34.7 131.8 38 132 C 41.3 132.2 46 129 46 129 C 46 129 45.3 135.5 42 137 C 38.7 138.5 30 138.7 26 138 C 22 137.3 18 133 18 133 Z"/>
+</defs>
+<path id="thing-shrine-shadow" d="M 118 146 C 118 150.4 93.8 154 64 154 C 34.2 154 10 150.4 10 146 C 10 141.6 34.2 138 64 138 C 93.8 138 118 141.6 118 146 Z" fill="#2a1a10" opacity="0.1"/>
+<path id="thing-shrine-glow" d="M 92 30 C 92 45.5 79.5 58 64 58 C 48.5 58 36 45.5 36 30 C 36 14.5 48.5 2 64 2 C 79.5 2 92 14.5 92 30 Z" fill="#fff3b8" opacity="0.4"/>
+<g id="thing-shrine-flame">
+<use id="thing-shrine-flame-fill" href="#thing-shrine-flame-shape" fill="#f2d264"/>
+<use id="thing-shrine-flame-line" href="#thing-shrine-flame-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-shrine-bowl">
+<use id="thing-shrine-bowl-shade" href="#thing-shrine-bowl-shape" fill="#9c7c33"/>
+<g clip-path="url(#thing-shrine-bowl-clip)">
+<use id="thing-shrine-bowl-fill" href="#thing-shrine-bowl-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#thing-shrine-bowl-lit-clip)">
+<use id="thing-shrine-bowl-lit" href="#thing-shrine-bowl-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-shrine-bowl-fill-over" href="#thing-shrine-bowl-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="thing-shrine-bowl-line" href="#thing-shrine-bowl-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-shrine-stone">
+<use id="thing-shrine-stone-shade" href="#thing-shrine-stone-shape" fill="#77766b"/>
+<g clip-path="url(#thing-shrine-stone-clip)">
+<use id="thing-shrine-stone-deep" href="#thing-shrine-stone-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="thing-shrine-stone-shade-over" href="#thing-shrine-stone-shape" transform="translate(-3.72 -3.72)" fill="#77766b"/>
+<use id="thing-shrine-stone-fill" href="#thing-shrine-stone-shape" transform="translate(-6 -6)" fill="#9c9a8c"/>
+<g clip-path="url(#thing-shrine-stone-lit-clip)">
+<use id="thing-shrine-stone-lit" href="#thing-shrine-stone-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-shrine-stone-fill-over" href="#thing-shrine-stone-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<g id="thing-shrine-sun">
+<use id="thing-shrine-sun-fill" href="#thing-shrine-sun-shape" fill="#c8a24a"/>
+<use id="thing-shrine-sun-line" href="#thing-shrine-sun-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="thing-shrine-crack" d="M 74 54 L 78 70 L 73 84 L 76 84 L 81 70 L 77 54 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="thing-shrine-stone-line" href="#thing-shrine-stone-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-shrine-step-a">
+<use id="thing-shrine-step-a-shade" href="#thing-shrine-step-a-shape" fill="#77766b"/>
+<g clip-path="url(#thing-shrine-step-a-clip)">
+<use id="thing-shrine-step-a-fill" href="#thing-shrine-step-a-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#thing-shrine-step-a-lit-clip)">
+<use id="thing-shrine-step-a-lit" href="#thing-shrine-step-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-shrine-step-a-fill-over" href="#thing-shrine-step-a-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="thing-shrine-step-a-line" href="#thing-shrine-step-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-shrine-step-b">
+<use id="thing-shrine-step-b-shade" href="#thing-shrine-step-b-shape" fill="#77766b"/>
+<g clip-path="url(#thing-shrine-step-b-clip)">
+<use id="thing-shrine-step-b-fill" href="#thing-shrine-step-b-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#thing-shrine-step-b-lit-clip)">
+<use id="thing-shrine-step-b-lit" href="#thing-shrine-step-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-shrine-step-b-fill-over" href="#thing-shrine-step-b-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="thing-shrine-step-b-line" href="#thing-shrine-step-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-shrine-moss">
+<use id="thing-shrine-moss-fill" href="#thing-shrine-moss-shape" fill="#4f8f3e"/>
+<use id="thing-shrine-moss-line" href="#thing-shrine-moss-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

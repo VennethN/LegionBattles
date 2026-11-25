@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="r-spurs" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="r-spurs-band-shape" d="M 0.9 16.9 L 7.8 12.9 L 13.8 23.3 C 17.8 30.2 28.2 24.2 24.2 17.3 L 18.2 6.9 L 25.1 2.9 L 31.1 13.3 C 41.1 30.6 16.9 44.6 6.9 27.3 Z"/>
+<clipPath id="r-spurs-band-clip"><use href="#r-spurs-band-shape"/></clipPath>
+<clipPath id="r-spurs-band-lit-clip"><use href="#r-spurs-band-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="r-spurs-shank-shape" d="M 25.5 34 L 33.5 40 C 34.6 40.8 36.2 40.6 37 39.5 C 37.8 38.4 37.6 36.8 36.5 36 L 28.5 30 C 27.4 29.2 25.8 29.4 25 30.5 C 24.2 31.6 24.4 33.2 25.5 34 Z"/>
+<path id="r-spurs-rowel-shape" d="M 38 31.5 L 39.6 36.8 L 44.6 34.7 L 41.5 39.2 L 46.3 41.9 L 40.8 42.2 L 41.7 47.7 L 38 43.6 L 34.3 47.7 L 35.2 42.2 L 29.7 41.9 L 34.5 39.2 L 31.4 34.7 L 36.4 36.8 Z"/>
+</defs>
+<g id="r-spurs-band">
+<use id="r-spurs-band-shade" href="#r-spurs-band-shape" fill="#434b56"/>
+<g clip-path="url(#r-spurs-band-clip)">
+<use id="r-spurs-band-fill" href="#r-spurs-band-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#r-spurs-band-lit-clip)">
+<use id="r-spurs-band-lit" href="#r-spurs-band-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-spurs-band-fill-over" href="#r-spurs-band-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+<path id="r-spurs-band-sheen" d="M29.76 2.88 L35.8 2.88 L18.28 44.59 L12.24 44.59 Z M39.3 2.88 L41.9 2.88 L24.38 44.59 L21.78 44.59 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="r-spurs-band-line" href="#r-spurs-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-spurs-shank">
+<use id="r-spurs-shank-fill" href="#r-spurs-shank-shape" fill="#5d6672"/>
+<use id="r-spurs-shank-line" href="#r-spurs-shank-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-spurs-rowel">
+<use id="r-spurs-rowel-fill" href="#r-spurs-rowel-shape" fill="#c8a24a"/>
+<use id="r-spurs-rowel-line" href="#r-spurs-rowel-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

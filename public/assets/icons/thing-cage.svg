@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="thing-cage" width="116" height="124" viewBox="0 0 116 124">
+<defs>
+<path id="thing-cage-floor-shape" d="M 16 98 L 100 98 Q 104 98 104 102 L 104 107 Q 104 111 100 111 L 16 111 Q 12 111 12 107 L 12 102 Q 12 98 16 98 Z"/>
+<clipPath id="thing-cage-floor-clip"><use href="#thing-cage-floor-shape"/></clipPath>
+<clipPath id="thing-cage-floor-lit-clip"><use href="#thing-cage-floor-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="thing-cage-bar-shape" d="M 23 28 L 24 28 Q 27 28 27 31 L 27 99 Q 27 102 24 102 L 23 102 Q 20 102 20 99 L 20 31 Q 20 28 23 28 Z"/>
+<path id="thing-cage-bar-2-shape" d="M 40 28 L 41 28 Q 44 28 44 31 L 44 99 Q 44 102 41 102 L 40 102 Q 37 102 37 99 L 37 31 Q 37 28 40 28 Z"/>
+<path id="thing-cage-bar-3-shape" d="M 57 28 L 58 28 Q 61 28 61 31 L 61 99 Q 61 102 58 102 L 57 102 Q 54 102 54 99 L 54 31 Q 54 28 57 28 Z"/>
+<path id="thing-cage-bar-4-shape" d="M 74 28 L 75 28 Q 78 28 78 31 L 78 99 Q 78 102 75 102 L 74 102 Q 71 102 71 99 L 71 31 Q 71 28 74 28 Z"/>
+<path id="thing-cage-bar-5-shape" d="M 91 28 L 92 28 Q 95 28 95 31 L 95 99 Q 95 102 92 102 L 91 102 Q 88 102 88 99 L 88 31 Q 88 28 91 28 Z"/>
+<path id="thing-cage-roof-shape" d="M 8 32 L 22 14 L 94 14 L 108 32 Z"/>
+<clipPath id="thing-cage-roof-clip"><use href="#thing-cage-roof-shape"/></clipPath>
+<clipPath id="thing-cage-roof-lit-clip"><use href="#thing-cage-roof-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="thing-cage-ring-shape" d="M 56 4 L 60 4 Q 65 4 65 9 L 65 11 Q 65 16 60 16 L 56 16 Q 51 16 51 11 L 51 9 Q 51 4 56 4 Z"/>
+<path id="thing-cage-lock-shape" d="M 51 58 L 65 58 Q 69 58 69 62 L 69 74 Q 69 78 65 78 L 51 78 Q 47 78 47 74 L 47 62 Q 47 58 51 58 Z"/>
+<clipPath id="thing-cage-lock-clip"><use href="#thing-cage-lock-shape"/></clipPath>
+<clipPath id="thing-cage-lock-lit-clip"><use href="#thing-cage-lock-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="thing-cage-shadow" d="M 106 112 C 106 116.4 84.5 120 58 120 C 31.5 120 10 116.4 10 112 C 10 107.6 31.5 104 58 104 C 84.5 104 106 107.6 106 112 Z" fill="#2a1a10" opacity="0.1"/>
+<g id="thing-cage-floor">
+<use id="thing-cage-floor-shade" href="#thing-cage-floor-shape" fill="#75502b"/>
+<g clip-path="url(#thing-cage-floor-clip)">
+<use id="thing-cage-floor-fill" href="#thing-cage-floor-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#thing-cage-floor-lit-clip)">
+<use id="thing-cage-floor-lit" href="#thing-cage-floor-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-cage-floor-fill-over" href="#thing-cage-floor-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="thing-cage-floor-line" href="#thing-cage-floor-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="thing-cage-inside" d="M 30 100 C 30 100 29.3 77.7 32 70 C 34.7 62.3 40.3 57 46 54 C 51.7 51 60 50 66 52 C 72 54 78.7 58 82 66 C 85.3 74 86 100 86 100 L 30 100 Z" fill="#2a1a10" opacity="0.6"/>
+<g id="thing-cage-bar">
+<use id="thing-cage-bar-fill" href="#thing-cage-bar-shape" fill="#5d6672"/>
+<use id="thing-cage-bar-line" href="#thing-cage-bar-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-cage-bar-2">
+<use id="thing-cage-bar-2-fill" href="#thing-cage-bar-2-shape" fill="#5d6672"/>
+<use id="thing-cage-bar-2-line" href="#thing-cage-bar-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-cage-bar-3">
+<use id="thing-cage-bar-3-fill" href="#thing-cage-bar-3-shape" fill="#5d6672"/>
+<use id="thing-cage-bar-3-line" href="#thing-cage-bar-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-cage-bar-4">
+<use id="thing-cage-bar-4-fill" href="#thing-cage-bar-4-shape" fill="#5d6672"/>
+<use id="thing-cage-bar-4-line" href="#thing-cage-bar-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-cage-bar-5">
+<use id="thing-cage-bar-5-fill" href="#thing-cage-bar-5-shape" fill="#5d6672"/>
+<use id="thing-cage-bar-5-line" href="#thing-cage-bar-5-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-cage-roof">
+<use id="thing-cage-roof-shade" href="#thing-cage-roof-shape" fill="#75502b"/>
+<g clip-path="url(#thing-cage-roof-clip)">
+<use id="thing-cage-roof-fill" href="#thing-cage-roof-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#thing-cage-roof-lit-clip)">
+<use id="thing-cage-roof-lit" href="#thing-cage-roof-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-cage-roof-fill-over" href="#thing-cage-roof-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="thing-cage-roof-line" href="#thing-cage-roof-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-cage-ring">
+<use id="thing-cage-ring-fill" href="#thing-cage-ring-shape" fill="#5d6672"/>
+<use id="thing-cage-ring-line" href="#thing-cage-ring-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-cage-lock">
+<use id="thing-cage-lock-shade" href="#thing-cage-lock-shape" fill="#9c7c33"/>
+<g clip-path="url(#thing-cage-lock-clip)">
+<use id="thing-cage-lock-fill" href="#thing-cage-lock-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#thing-cage-lock-lit-clip)">
+<use id="thing-cage-lock-lit" href="#thing-cage-lock-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-cage-lock-fill-over" href="#thing-cage-lock-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+<path id="thing-cage-lock-sheen" d="M62.2 58 L66.2 58 L57.8 78 L53.8 78 Z M69.7 58 L72.3 58 L63.9 78 L61.3 78 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="thing-cage-lock-line" href="#thing-cage-lock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="thing-cage-keyhole" d="M 58 64 L 58 64 Q 60 64 60 66 L 60 71 Q 60 73 58 73 L 58 73 Q 56 73 56 71 L 56 66 Q 56 64 58 64 Z" fill="#2a1a10"/>
+</svg>

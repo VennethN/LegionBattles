@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-fang" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-fang-handle-shape" d="M 49.5 100 L 50.5 100 Q 53.5 100 53.5 103 L 53.5 137 Q 53.5 140 50.5 140 L 49.5 140 Q 46.5 140 46.5 137 L 46.5 103 Q 46.5 100 49.5 100 Z"/>
+<path id="w-fang-blade-shape" d="M 47 102 C 47 102 43.8 89 46 84 C 48.2 79 54.7 73 60 72 C 65.3 71 78 78 78 78 C 78 78 65.8 78 62 80 C 58.2 82 56.3 86.3 55 90 C 53.7 93.7 54 102 54 102 L 47 102 Z"/>
+<clipPath id="w-fang-blade-clip"><use href="#w-fang-blade-shape"/></clipPath>
+<clipPath id="w-fang-blade-lit-clip"><use href="#w-fang-blade-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="w-fang-hand-shape" d="M 57.5 126 C 57.5 130.1 54.1 133.5 50 133.5 C 45.9 133.5 42.5 130.1 42.5 126 C 42.5 121.9 45.9 118.5 50 118.5 C 54.1 118.5 57.5 121.9 57.5 126 Z"/>
+<clipPath id="w-fang-hand-clip"><use href="#w-fang-hand-shape"/></clipPath>
+<clipPath id="w-fang-hand-lit-clip"><use href="#w-fang-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="w-fang-handle">
+<use id="w-fang-handle-fill" href="#w-fang-handle-shape" fill="#9a6a3a"/>
+<use id="w-fang-handle-line" href="#w-fang-handle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-fang-blade">
+<use id="w-fang-blade-shade" href="#w-fang-blade-shape" fill="#8d97a3"/>
+<g clip-path="url(#w-fang-blade-clip)">
+<use id="w-fang-blade-fill" href="#w-fang-blade-shape" transform="translate(-3 -3)" fill="#b9c2cc"/>
+<g clip-path="url(#w-fang-blade-lit-clip)">
+<use id="w-fang-blade-lit" href="#w-fang-blade-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-fang-blade-fill-over" href="#w-fang-blade-shape" transform="translate(3.6 3.6)" fill="#b9c2cc"/>
+</g>
+<path id="w-fang-blade-sheen" d="M67.43 71 L72.55 71 L59.53 102 L54.41 102 Z M76.05 71 L78.65 71 L65.63 102 L63.03 102 Z" fill="#f4f1e4" opacity="0.2"/>
+</g>
+<use id="w-fang-blade-line" href="#w-fang-blade-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-fang-hand">
+<use id="w-fang-hand-shade" href="#w-fang-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-fang-hand-clip)">
+<use id="w-fang-hand-fill" href="#w-fang-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-fang-hand-lit-clip)">
+<use id="w-fang-hand-lit" href="#w-fang-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-fang-hand-fill-over" href="#w-fang-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-fang-hand-line" href="#w-fang-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

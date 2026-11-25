@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="w-longbow" width="100" height="184" viewBox="0 0 100 184">
+<defs>
+<path id="w-longbow-limbs-shape" d="M 38 64 C 58 74 65 102 64 126 C 65 150 58 178 38 188 L 36 178 C 50 166 55 144 55 126 C 55 108 50 86 36 74 Z"/>
+<clipPath id="w-longbow-limbs-clip"><use href="#w-longbow-limbs-shape"/></clipPath>
+<clipPath id="w-longbow-limbs-lit-clip"><use href="#w-longbow-limbs-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="w-longbow-grip-shape" d="M 57 117 L 61 117 Q 65 117 65 121 L 65 131 Q 65 135 61 135 L 57 135 Q 53 135 53 131 L 53 121 Q 53 117 57 117 Z"/>
+<path id="w-longbow-hand-shape" d="M 63.5 126 C 63.5 130.1 60.1 133.5 56 133.5 C 51.9 133.5 48.5 130.1 48.5 126 C 48.5 121.9 51.9 118.5 56 118.5 C 60.1 118.5 63.5 121.9 63.5 126 Z"/>
+<clipPath id="w-longbow-hand-clip"><use href="#w-longbow-hand-shape"/></clipPath>
+<clipPath id="w-longbow-hand-lit-clip"><use href="#w-longbow-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="w-longbow-string" d="M 41 70 L 41 182" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="w-longbow-limbs">
+<use id="w-longbow-limbs-shade" href="#w-longbow-limbs-shape" fill="#75502b"/>
+<g clip-path="url(#w-longbow-limbs-clip)">
+<use id="w-longbow-limbs-fill" href="#w-longbow-limbs-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#w-longbow-limbs-lit-clip)">
+<use id="w-longbow-limbs-lit" href="#w-longbow-limbs-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-longbow-limbs-fill-over" href="#w-longbow-limbs-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="w-longbow-limbs-line" href="#w-longbow-limbs-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-longbow-grip">
+<use id="w-longbow-grip-fill" href="#w-longbow-grip-shape" fill="#6b4a2b"/>
+<use id="w-longbow-grip-line" href="#w-longbow-grip-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="w-longbow-hand">
+<use id="w-longbow-hand-shade" href="#w-longbow-hand-shape" fill="#4e3520"/>
+<g clip-path="url(#w-longbow-hand-clip)">
+<use id="w-longbow-hand-fill" href="#w-longbow-hand-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#w-longbow-hand-lit-clip)">
+<use id="w-longbow-hand-lit" href="#w-longbow-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="w-longbow-hand-fill-over" href="#w-longbow-hand-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="w-longbow-hand-line" href="#w-longbow-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

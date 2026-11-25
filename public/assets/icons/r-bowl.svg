@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="r-bowl" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="r-bowl-coin-shape" d="M 35 19 C 35 23.4 31.4 27 27 27 C 22.6 27 19 23.4 19 19 C 19 14.6 22.6 11 27 11 C 31.4 11 35 14.6 35 19 Z"/>
+<clipPath id="r-bowl-coin-clip"><use href="#r-bowl-coin-shape"/></clipPath>
+<clipPath id="r-bowl-coin-lit-clip"><use href="#r-bowl-coin-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="r-bowl-bowl-shape" d="M 4 22 L 44 22 C 44 36 34 43 24 43 C 14 43 4 36 4 22 Z"/>
+<clipPath id="r-bowl-bowl-clip"><use href="#r-bowl-bowl-shape"/></clipPath>
+<clipPath id="r-bowl-bowl-lit-clip"><use href="#r-bowl-bowl-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="r-bowl-rim-shape" d="M 5 19 L 43 19 Q 46 19 46 22 L 46 22 Q 46 25 43 25 L 5 25 Q 2 25 2 22 L 2 22 Q 2 19 5 19 Z"/>
+<path id="r-bowl-foot-shape" d="M 18 41 L 30 41 Q 32 41 32 43 L 32 44 Q 32 46 30 46 L 18 46 Q 16 46 16 44 L 16 43 Q 16 41 18 41 Z"/>
+</defs>
+<g id="r-bowl-coin">
+<use id="r-bowl-coin-shade" href="#r-bowl-coin-shape" fill="#9c7c33"/>
+<g clip-path="url(#r-bowl-coin-clip)">
+<use id="r-bowl-coin-fill" href="#r-bowl-coin-shape" transform="translate(-3 -3)" fill="#c8a24a"/>
+<g clip-path="url(#r-bowl-coin-lit-clip)">
+<use id="r-bowl-coin-lit" href="#r-bowl-coin-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-bowl-coin-fill-over" href="#r-bowl-coin-shape" transform="translate(3.6 3.6)" fill="#c8a24a"/>
+</g>
+</g>
+<use id="r-bowl-coin-line" href="#r-bowl-coin-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-bowl-bowl">
+<use id="r-bowl-bowl-shade" href="#r-bowl-bowl-shape" fill="#75502b"/>
+<g clip-path="url(#r-bowl-bowl-clip)">
+<use id="r-bowl-bowl-deep" href="#r-bowl-bowl-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="r-bowl-bowl-shade-over" href="#r-bowl-bowl-shape" transform="translate(-3.1 -3.1)" fill="#75502b"/>
+<use id="r-bowl-bowl-fill" href="#r-bowl-bowl-shape" transform="translate(-5 -5)" fill="#9a6a3a"/>
+<g clip-path="url(#r-bowl-bowl-lit-clip)">
+<use id="r-bowl-bowl-lit" href="#r-bowl-bowl-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-bowl-bowl-fill-over" href="#r-bowl-bowl-shape" transform="translate(4.6 4.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="r-bowl-bowl-line" href="#r-bowl-bowl-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-bowl-rim">
+<use id="r-bowl-rim-fill" href="#r-bowl-rim-shape" fill="#75502b"/>
+<use id="r-bowl-rim-line" href="#r-bowl-rim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-bowl-foot">
+<use id="r-bowl-foot-fill" href="#r-bowl-foot-shape" fill="#75502b"/>
+<use id="r-bowl-foot-line" href="#r-bowl-foot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -11,7 +11,7 @@ import Phaser from 'phaser';
 import { BONE, FIRE, FROST, HOLY, OUTLINE, RUBY, VENOM } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { COMPANIONS, LAND_NAMES, byId, levelNeeds, type Land } from '../../game/data';
+import { COMPANIONS, LAND_NAMES, ROAD, byId, levelNeeds, omenOf, type Land } from '../../game/data';
 import { heroOf, type RunData } from '../../game/run';
 import { STEP, slotPlace, type Burst, type Ev, type Foe, type World, type ZoneKind } from '../../game/world';
 import { ads } from '../../platform/ads';
@@ -21,6 +21,7 @@ import { Deeds } from '../Deeds';
 import { Effects } from '../Effects';
 import { weaponIcon } from '../icons';
 import { Numbers } from '../Numbers';
+import { RoadField } from '../RoadField';
 import { Figure } from '../art/Figure';
 import { FieldLight } from '../light/FieldLight';
 import type { LightMode } from '../light/setting';
@@ -48,14 +49,14 @@ const WHITE = 0xffffff;
 const RED = hex(RUBY.fill);
 const BURSTS: Record<Burst, number> = {
   powder: hex(FIRE.fill), fire: hex(FIRE.fill), slam: hex(BONE.fill), light: hex(HOLY.fill), venom: hex(VENOM.fill), foe: RED,
-  star: hex(HOLY.light), frost: hex(FROST.fill), rain: hex(BONE.fill), rise: RED,
+  star: hex(HOLY.light), frost: hex(FROST.fill), rain: hex(BONE.fill), rise: RED, bolt: hex(HOLY.light),
 };
 /** What each kind of ground that goes on doing something is tinted. */
 const ZONES: Record<ZoneKind, number> = { cloud: hex(VENOM.fill), holy: hex(HOLY.fill), fire: hex(FIRE.fill), rain: hex(BONE.shade) };
 /** Which way each weapon's picture points when it stands upright: most point up; a bow looses to its right. */
-const POINTS_RIGHT = new Set(['bow']);
+const POINTS_RIGHT = new Set(['bow', 'longbow', 'rimebow']);
 /** What does not turn to its mark at all: it is swung, thrown or shaken where it hangs. */
-const HANGS = new Set(['sling', 'bomb', 'censer']);
+const HANGS = new Set(['sling', 'bomb', 'censer', 'holywater', 'gourd', 'hail', 'hatchet']);
 
 interface FoeView {
   foe: Foe;
@@ -95,6 +96,8 @@ export class ArenaScene extends Phaser.Scene {
   /** The hour, the lights and what burns (view/light). It is told what the field shows and changes nothing of it. */
   private light!: FieldLight;
   private carried: Array<{ id: string; x: number; y: number; rot: number; seen: boolean }> = [];
+  /** What the road and the relics put on the field. */
+  private road!: RoadField;
   private nums!: Numbers;
   private foes = new Map<number, FoeView>();
   private shots = new Map<number, Thing>();
@@ -179,6 +182,8 @@ export class ArenaScene extends Phaser.Scene {
       if (calls) stills.push({ team: 'red', unit: calls });
     }
     const rigged: UnitKey[] = [{ team: 'blue', unit: hero.unit }, ...run.band.map((b) => ({ team: 'blue' as const, unit: byId(COMPANIONS, b.id).unit }))];
+    // Whoever is in the cage on this road may be let out and fight: their figure is brought in with the band's.
+    if (this.world.omen === 'stray' && run.road.stray) rigged.push({ team: 'blue', unit: byId(COMPANIONS, run.road.stray).unit });
     if (this.world.wave.boss) {
       rigged.push({ team: 'red', unit: this.world.wave.boss });
       const calls = ENEMY_CALLS[this.world.wave.boss];
@@ -221,6 +226,8 @@ export class ArenaScene extends Phaser.Scene {
       (ms, by) => this.cameras.main.shake(ms, by));
     this.light.crisp(this.heroBarBack);
     this.light.crisp(this.heroBar);
+    this.road = new RoadField(this, w, this.fx, { banner: (text, under) => (this.scene.get('Hud') as HudScene | undefined)?.banner(text, under), foeScale: FOE_SCALE });
+    this.road.plainNight(!this.light.on);
     this.ready = true;
     this.sync(0);
     if (this.still) {
@@ -236,7 +243,9 @@ export class ArenaScene extends Phaser.Scene {
       return;
     }
     sfx.play('fight', 0.7);
-    const under = w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'A captain leads them' : '';
+    // A road with an omen says which it was as the wave begins.
+    const omen = w.omen === 'quiet' ? '' : omenOf(w.omen).name;
+    const under = omen || (w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'A captain leads them' : '');
     // A run begins as its hero's: who they are is said before the wave is.
     if (w.wave.n === 1) this.scene.launch('Hud', { banner: def.name.toUpperCase(), under: def.epithet, line: `"${def.line}"`, then: { banner: `WAVE ${w.wave.n}`, under } });
     else this.scene.launch('Hud', { banner: `WAVE ${w.wave.n}`, under });
@@ -322,6 +331,7 @@ export class ArenaScene extends Phaser.Scene {
     this.light.react(events);
     for (const e of events) {
       this.deeds.react(e);
+      this.road.react(e);
       switch (e.t) {
         case 'mark':
           if (e.boss) sfx.play('spawn', 0.9, 0.7);
@@ -444,8 +454,8 @@ export class ArenaScene extends Phaser.Scene {
       const img = this.crisp(this.take('fx/solid')).setOrigin(0, 0.5).setTint(RED).setDepth(3).setRotation(Math.atan2(e.dy, e.dx));
       img.setDisplaySize((f.def.dash ?? 400) * (f.boss ? 0.7 : 0.62), f.def.r * 2.2);
       this.warnings.push({ img, id: e.id, left: e.seconds, of: e.seconds, kind: 'line', r: 0 });
-    } else if (e.doing === 'burst' || e.doing === 'ring') {
-      const r = e.doing === 'burst' ? (f.def.burst ?? 80) : 70;
+    } else if (e.doing === 'burst' || e.doing === 'ring' || e.doing === 'blaze') {
+      const r = e.doing === 'burst' ? (f.def.burst ?? 80) : e.doing === 'blaze' ? ROAD.champions.blaze : 70;
       const img = this.crisp(this.take('fx/disc')).setTint(RED).setDepth(3);
       this.warnings.push({ img, id: e.id, left: e.seconds, of: e.seconds, kind: 'ring', r });
     } else {
@@ -571,9 +581,12 @@ export class ArenaScene extends Phaser.Scene {
     this.carried.length = n;
 
     this.deeds.update(dt, this.clock, this.halted);
+    this.road.sync(this.clock, dt);
 
     // Whoever comes at them.
     for (const f of w.foes) {
+      // A wagon or a cage is a thing, shown with the rest of what a road puts on the field.
+      if (f.def.prop) continue;
       let v = this.foes.get(f.id);
       if (!v) {
         v = { foe: f, img: null, fig: null, flash: 0, born: this.clock, stamp };
@@ -684,7 +697,9 @@ export class ArenaScene extends Phaser.Scene {
 
   /** The player has asked for more of the light, or less. */
   setLight(mode: LightMode): void {
-    if (this.ready) this.light.setMode(mode);
+    if (!this.ready) return;
+    this.light.setMode(mode);
+    this.road.plainNight(!this.light.on);
   }
 
   /** A picture that stays sharp and bright whatever the hour: a warning has to be read. */

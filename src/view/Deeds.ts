@@ -420,6 +420,14 @@ export class Deeds {
       }
     }
 
+    // A champion stands in a light of its own kind, as a captain does: it is not one of the rest, and is seen not to be.
+    for (const f of w.foes) {
+      if (!f.champion || f.dead) continue;
+      const el = f.champion === 'burning' ? 'fire' : f.champion === 'quick' ? 'venom' : 'spark';
+      light.lamp(f.x, f.y - 26, 150, el, 0.4 + 0.08 * Math.sin(clock * 3 + f.id));
+      if (!halted && Math.random() < 0.12) light.bit(f.x + rnd(-14, 14), f.y - rnd(8, 50), el, { dur: rnd(0.4, 0.8), vy: rnd(-60, -24), from: rnd(4, 8), to: 1, flame: el === 'fire', sway: 3 });
+    }
+
     // The ground marked for what is about to land.
     for (const o of this.omens) {
       o.left -= halted ? 0 : dt;

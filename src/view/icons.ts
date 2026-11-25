@@ -2,7 +2,7 @@
 // every stat has one, by name. The art build writes exactly the pictures
 // named here (scripts/art.game.ts), and a test holds that each is drawn.
 
-import { ITEMS, WEAPONS, weaponOf } from '../game/data';
+import { ITEMS, RELICS, WEAPONS, weaponOf } from '../game/data';
 import { STAT_INFO, STATS } from '../game/stats';
 
 /** The picture of a weapon. A hero's own is drawn with a plain weapon's picture until it has one of its own. */
@@ -20,6 +20,12 @@ export const itemIcon = (id: string): string => `icon/${ITEM_ICONS[id] ?? 'sack'
 
 export const statIcon = (icon: string): string => `icon/${icon}`;
 
+/** The picture of a relic. */
+export const relicIcon = (id: string): string => `icon/r-${id}`;
+
+/** The pictures of what a road puts on the field: the pay wagon, the cage, the shrine. */
+export const THING_ICONS = { wagon: 'icon/thing-wagon', cage: 'icon/thing-cage', shrine: 'icon/thing-shrine' } as const;
+
 /** The pictures the screens and the field ask for besides those. */
 const OTHER = ['coin', 'heart', 'sack', 'pack', 'fist', 'shot-bomb', 'shot-stone', 'reroll', 'lock', 'check', 'cog', 'sound', 'mute', 'hold', 'trophy', 'laurel', 'star', 'sword', 'chevrons', 'cross', 'arrow', 'crown'];
 
@@ -28,5 +34,7 @@ export const ICONS_USED: ReadonlySet<string> = new Set([
   ...WEAPONS.map((w) => `w-${w.id}`),
   ...ITEMS.map((it) => itemIcon(it.id).slice(5)),
   ...STATS.map((s) => statIcon(STAT_INFO[s].icon).slice(5)),
+  ...RELICS.map((r) => relicIcon(r.id).slice(5)),
+  ...Object.values(THING_ICONS).map((n) => n.slice(5)),
   ...OTHER,
 ]);

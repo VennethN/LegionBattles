@@ -4,11 +4,11 @@
 // older copy of the game, or not a save at all, so it is mended on the way
 // in.
 
-import { BAND, COMPANIONS, HEROES, OLD_HEROES, type Feat } from './data';
+import { BAND, COMPANIONS, HEROES, OLD_HEROES, OMENS, RELICS, type Feat } from './data';
 import { bandSize, survived, type RunData } from './run';
 
-/** 1: heroes without names. 2: named heroes, companions. */
-export const SAVE_VERSION = 2;
+/** 1: heroes without names. 2: named heroes, companions. 3: the road, relics, kinds of weapon. */
+export const SAVE_VERSION = 3;
 
 export interface SaveData {
   v: number;
@@ -55,6 +55,9 @@ const whole = (v: unknown, least = 0): number => (typeof v === 'number' && Numbe
 const names = (v: unknown, known: ReadonlySet<string> | null = null): string[] =>
   Array.isArray(v) ? [...new Set(v.filter((x): x is string => typeof x === 'string' && (!known || known.has(x))))] : [];
 
+const RELIC_IDS: ReadonlySet<string> = new Set(RELICS.map((r) => r.id));
+const OMEN_IDS: ReadonlySet<string> = new Set(OMENS.map((o) => o.id));
+
 /** A run as it was saved, if it can still be carried on. Anything odd about it and it is let go. */
 function mendRun(raw: unknown): RunData | null {
   if (!isRecord(raw)) return null;
@@ -62,8 +65,13 @@ function mendRun(raw: unknown): RunData | null {
   const ok =
     typeof r.hero === 'string' && HEROES.some((h) => h.id === r.hero) && typeof r.wave === 'number' && r.wave >= 1 && Array.isArray(r.weapons) && Array.isArray(r.band) &&
     r.band.every((b) => isRecord(b) && COMPANIONS.some((c) => c.id === b.id) && typeof b.bond === 'number') &&
-    Array.isArray(r.items) && Array.isArray(r.ups) && Array.isArray(r.offers) && Array.isArray(r.choices) && (r.phase === 'camp' || r.phase === 'level') &&
-    typeof r.gold === 'number' && typeof r.dice === 'number' && typeof r.fury === 'number' && typeof r.rose === 'number';
+    Array.isArray(r.items) && Array.isArray(r.ups) && Array.isArray(r.offers) && Array.isArray(r.choices) &&
+    (r.phase === 'camp' || r.phase === 'level' || r.phase === 'relic' || r.phase === 'road') &&
+    typeof r.gold === 'number' && typeof r.dice === 'number' && typeof r.fury === 'number' && typeof r.rose === 'number' &&
+    // What a run has had since the road: its relics, the road it is on and the roads it is offered.
+    names(r.relics, RELIC_IDS).length === (Array.isArray(r.relics) ? r.relics.length : -1) && Array.isArray(r.relicChoices) && typeof r.relicsDue === 'number' &&
+    isRecord(r.road) && OMEN_IDS.has(String(r.road.omen)) && Array.isArray(r.roads) && r.roads.every((x) => isRecord(x) && OMEN_IDS.has(String(x.omen))) &&
+    typeof r.forks === 'number' && typeof r.vigor === 'number' && typeof r.whet === 'number' && typeof r.left === 'number';
   return ok ? r : null;
 }
 

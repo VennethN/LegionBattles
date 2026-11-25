@@ -151,7 +151,8 @@ describe('quirks', () => {
       f.x = w.hero.x + 80;
       return Math.max(...blows(play(w, 0.5), f.id));
     };
-    expect(harm(10)).toBeGreaterThan(harm(100) * 1.3);
+    // At a tenth of his health he has nine tenths of what his rage can give.
+    expect(harm(10)).toBeGreaterThan(harm(100) * (1 + QUIRKS.unburied.most * 0.8));
     const w = as('hroth', { stats: stats({ maxHp: 30, regen: 50 }) });
     w.slots[0].cool = 999;
     w.hero.hp = 3;

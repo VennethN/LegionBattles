@@ -35,13 +35,23 @@ export class ResultScene extends Phaser.Scene {
     this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.8).setInteractive();
     const cx = view.w / 2;
     const pw = Math.min(460, view.w - 28);
-    const ph = opened.length > 0 ? 486 : 330;
+    // As tall as what it has to say: the rows, and whoever this run opened.
+    const lines = 4 + (run.relics.length > 0 ? 1 : 0) + (run.band.length > 0 ? 1 : 0);
+    const under = 172 + lines * 28 + 4;
+    const ph = under + 56 + (opened.length > 0 ? 150 : 0) + 70;
     const py = Math.max(14, (view.h - ph) / 2);
     this.add.existing(slabImage(this, cx - pw / 2, py, pw, ph, BONE, 20, 8));
-    label(this, cx, py + 44, 'FALLEN', { size: 40, color: RUBY.fill });
+    // Whose run it was: their picture, their name and what they are called, before how it ended.
+    const pic = this.add.image(cx - pw / 2 + 70, py + 118, CARDS, portraitFrame('blue', hero.unit));
+    pic.setScale(Math.min(96 / (pic.frame.height || 1), 100 / (pic.frame.width || 1)));
+    const nx = cx - pw / 2 + 132;
+    const name = label(this, nx, py + 40, hero.name.toUpperCase(), { size: 24, align: 'left', color: OUTLINE, stroke: null });
+    name.setScale(Math.min(1, (pw - 150) / Math.max(1, name.width)));
+    label(this, nx, py + 66, hero.epithet, { size: 17, align: 'left', color: HOLY.shade, stroke: null });
+    label(this, nx, py + 98, 'FALLEN', { size: 30, align: 'left', color: RUBY.fill });
     // Who landed the last blow, if anyone did: a hero who gave up fell to no one.
     const by = world?.lastBy ? ENEMIES.find((e) => e.id === world.lastBy)?.name : '';
-    label(this, cx, py + 82, by ? `on wave ${run.wave}, to ${/^The /.test(by) ? by : `a ${by}`}` : `on wave ${run.wave}`, { size: 17, color: OUTLINE, stroke: null });
+    label(this, nx, py + 126, by ? `on wave ${run.wave}, to ${/^The /.test(by) ? by : `a ${by}`}` : `on wave ${run.wave}`, { size: 17, align: 'left', color: OUTLINE, stroke: null });
     const best = s.best[hero.id] ?? 0;
     const rows: Array<[string, string]> = [
       ['Waves come through', String(waves)],
@@ -49,22 +59,25 @@ export class ResultScene extends Phaser.Scene {
       ['Coins gathered', String(run.coins)],
       ['Level', String(run.level)],
     ];
+    // What they found on the road, and who stood with them.
+    if (run.relics.length > 0) rows.push(['Relics carried', String(run.relics.length)]);
+    if (run.band.length > 0) rows.push(['Stood with them', run.band.map((b) => byId(COMPANIONS, b.id).name).join(', ')]);
     rows.forEach(([name, value], i) => {
-      const y = py + 124 + i * 30;
+      const y = py + 172 + i * 28;
       label(this, cx - pw / 2 + 40, y, name, { size: 18, align: 'left', color: OUTLINE, stroke: null });
       label(this, cx + pw / 2 - 40, y, value, { size: 20, align: 'right', color: OUTLINE, stroke: null });
     });
-    if (waves > 0 && waves >= best) label(this, cx, py + 250, `${hero.short}'s best yet`, { size: 17, color: '#2e5f45', stroke: null });
+    if (waves > 0 && waves >= best) label(this, cx, py + under, `${hero.short}'s best yet`, { size: 17, color: '#2e5f45', stroke: null });
     // A companion this run opened is named. Plain for now.
     const friends = takeFriends();
     if (friends.length > 0) {
       const names = friends.map((id) => byId(COMPANIONS, id).name.toUpperCase()).join(', ');
-      label(this, cx, py + 274, `${names} WILL COME WITH YOU NOW`, { size: 16, color: HOLY.shade, stroke: null });
+      label(this, cx, py + under + 24, `${names} WILL COME WITH YOU NOW`, { size: 16, color: HOLY.shade, stroke: null });
     }
 
     // Whoever this run opened is shown, by name now.
     if (opened.length > 0) {
-      const y = py + 318;
+      const y = py + under + 84;
       label(this, cx, y - 36, opened.length > 1 ? 'NEW HEROES' : 'A NEW HERO', { size: 20, color: HOLY.shade, stroke: null });
       const step = Math.min(110, (pw - 60) / opened.length);
       opened.forEach((id, i) => {

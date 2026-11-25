@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="r-fallen" width="48" height="48" viewBox="0 0 48 48">
+<defs>
+<path id="r-fallen-pole-shape" d="M 11 3 L 12 3 Q 14 3 14 5 L 14 44 Q 14 46 12 46 L 11 46 Q 9 46 9 44 L 9 5 Q 9 3 11 3 Z"/>
+<path id="r-fallen-cloth-shape" d="M 13 7 L 42 9 L 38 16 L 43 23 L 36 27 L 40 34 L 30 31 L 26 38 L 20 31 L 13 33 Z"/>
+<clipPath id="r-fallen-cloth-clip"><use href="#r-fallen-cloth-shape"/></clipPath>
+<clipPath id="r-fallen-cloth-lit-clip"><use href="#r-fallen-cloth-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="r-fallen-stripe-shape" d="M 13 15 L 40 17 L 40 22 L 13 21 Z"/>
+<path id="r-fallen-finial-shape" d="M 11.5 0 L 16 5 L 11.5 9 L 7 5 Z"/>
+</defs>
+<g id="r-fallen-pole">
+<use id="r-fallen-pole-fill" href="#r-fallen-pole-shape" fill="#9a6a3a"/>
+<use id="r-fallen-pole-line" href="#r-fallen-pole-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-fallen-cloth">
+<use id="r-fallen-cloth-shade" href="#r-fallen-cloth-shape" fill="#353041"/>
+<g clip-path="url(#r-fallen-cloth-clip)">
+<use id="r-fallen-cloth-fill" href="#r-fallen-cloth-shape" transform="translate(-4 -4)" fill="#4a4458"/>
+<g clip-path="url(#r-fallen-cloth-lit-clip)">
+<use id="r-fallen-cloth-lit" href="#r-fallen-cloth-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="r-fallen-cloth-fill-over" href="#r-fallen-cloth-shape" transform="translate(4.2 4.2)" fill="#4a4458"/>
+</g>
+<g id="r-fallen-stripe">
+<use id="r-fallen-stripe-fill" href="#r-fallen-stripe-shape" fill="#e9dfc6"/>
+<use id="r-fallen-stripe-line" href="#r-fallen-stripe-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="r-fallen-cloth-line" href="#r-fallen-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r-fallen-finial">
+<use id="r-fallen-finial-fill" href="#r-fallen-finial-shape" fill="#c8a24a"/>
+<use id="r-fallen-finial-line" href="#r-fallen-finial-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

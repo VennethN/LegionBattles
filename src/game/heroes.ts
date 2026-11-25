@@ -52,7 +52,7 @@ export interface HeroDef {
 export const HEROES: readonly HeroDef[] = [
   {
     id: 'bram', unit: 'bram', name: 'Bram Oakenhold', short: 'Bram', epithet: 'the Gatewarden', who: 'The last man on a gate that fell. He does not step back.', line: 'The gate is wherever I stand.',
-    weapon: 'gatekeeper', stats: { maxHp: 6, armor: 1, speed: -5 }, quirk: 'standfast', quirkName: 'Stand Fast',
+    weapon: 'gatekeeper', stats: { maxHp: 8, armor: 1, speed: -5 }, quirk: 'standfast', quirkName: 'Stand Fast',
     says: 'Standing still he sets his shield: blows do far less and his sword is faster. A step drops it.', move: 'rush', unlock: null,
   },
   {
@@ -67,7 +67,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'fenn', unit: 'fenn', name: 'Fenn Two-Coins', short: 'Fenn', epithet: 'the Lucky', who: 'A thief who has never lost a toss.', line: 'Heads I win. Tails, look behind you.',
-    weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 8, maxHp: -4 }, quirk: 'sticky', quirkName: 'Sticky Fingers',
+    weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 8, maxHp: -2 }, quirk: 'sticky', quirkName: 'Sticky Fingers',
     says: 'A blow may knock a coin loose. The more coins he holds the harder he hits: spending makes him weaker.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
   },
   {
@@ -82,7 +82,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'hroth', unit: 'hroth', name: 'Hroth', short: 'Hroth', epithet: 'the Unburied', who: 'They buried him twice.', line: 'Dig deeper next time.',
-    weapon: 'gravecleaver', stats: { might: 3, lifesteal: 4, armor: -2 }, quirk: 'unburied', quirkName: "Won't Stay Down",
+    weapon: 'gravecleaver', stats: { might: 3, lifesteal: 2, armor: -2 }, quirk: 'unburied', quirkName: "Won't Stay Down",
     says: 'More harm the more he is hurt. Once in a land he gets up from a killing blow. He does not mend by himself.', move: 'warcry', unlock: { kind: 'wave', wave: 10 },
   },
   {
@@ -116,16 +116,16 @@ export const OLD_HEROES: Readonly<Record<string, string>> = {
  * with until it has one of its own.
  */
 export const SIGNATURES: readonly WeaponDef[] = [
-  { id: 'gatekeeper', name: 'Gatekeeper', own: true, icon: 'sword', kind: 'melee', motion: 'sweep', dmg: [9, 14, 22, 34], scale: { might: 1 }, every: [1, 0.93, 0.86, 0.78], range: 96, crit: 5, critBy: 2, knock: 18, arc: 100, price: 0, says: 'Sword and shield: a wide sweep in front of him.' },
-  { id: 'whisper', name: 'Whisper', own: true, icon: 'bow', kind: 'ranged', motion: 'shoot', dmg: [7, 12, 18, 27], scale: { aim: 1 }, every: [1.12, 1.04, 0.96, 0.88], range: 410, crit: 8, critBy: 2, knock: 6, pierce: 1, flies: 680, shot: 'arrow', price: 0, says: 'A longbow: an arrow through two.' },
-  { id: 'unfinished', name: 'The Unfinished Staff', own: true, icon: 'staff', kind: 'magic', motion: 'cast', dmg: [9, 14, 21, 32], scale: { lore: 1 }, every: [1.15, 1.07, 0.99, 0.9], range: 390, crit: 5, critBy: 2, knock: 5, pierce: 1, flies: 430, shot: 'orb-arcane', price: 0, says: 'A bolt that bends to its mark, and on through it.' },
-  { id: 'headstails', name: 'Heads and Tails', own: true, icon: 'dagger', kind: 'melee', motion: 'thrust', dmg: [5, 8, 12, 19], scale: { might: 0.7 }, every: [0.52, 0.48, 0.44, 0.39], range: 82, crit: 20, critBy: 2.5, knock: 4, pierce: 2, price: 0, says: 'A pair of knives: quick, and they often find the gap.' },
-  { id: 'hearthbrand', name: 'Hearthbrand', own: true, icon: 'brazier', kind: 'magic', motion: 'cast', dmg: [8, 12, 18, 27], scale: { lore: 0.8 }, every: [1.35, 1.26, 1.17, 1.08], range: 330, crit: 0, critBy: 2, knock: 8, burst: 58, burn: [3, 5, 8, 12], flies: 400, shot: 'orb-fire', price: 0, says: 'A burning staff: its fire bursts and keeps burning.' },
-  { id: 'ninth', name: "The Ninth's Lance", own: true, icon: 'spear', kind: 'melee', motion: 'thrust', dmg: [10, 16, 24, 37], scale: { might: 1 }, every: [1.2, 1.12, 1.03, 0.94], range: 165, crit: 5, critBy: 2, knock: 20, pierce: 99, price: 0, says: 'A long thrust through everyone in its line.' },
-  { id: 'gravecleaver', name: 'Gravecleaver', own: true, icon: 'greataxe', kind: 'melee', motion: 'sweep', dmg: [16, 25, 38, 58], scale: { might: 1.6 }, every: [1.75, 1.63, 1.51, 1.4], range: 110, crit: 5, critBy: 2, knock: 26, arc: 140, price: 0, says: 'A great axe: slow, wide and heavy.' },
-  { id: 'passingbell', name: 'The Passing Bell', own: true, icon: 'censer', kind: 'magic', motion: 'pulse', dmg: [7, 11, 17, 26], scale: { lore: 0.7 }, every: [3.4, 3.15, 2.9, 2.65], range: 116, crit: 0, critBy: 2, knock: 18, burst: 118, mends: [1, 1, 2, 2], price: 0, says: 'A ring of sound that throws them back and mends the band.' },
-  { id: 'widowstear', name: "Widow's Tear", own: true, icon: 'frost', kind: 'magic', motion: 'cast', dmg: [6, 9, 14, 21], scale: { lore: 0.7 }, every: [1.2, 1.12, 1.04, 0.95], range: 370, crit: 0, critBy: 2, knock: 2, pierce: 2, slow: 0.4, flies: 460, shot: 'orb-frost', price: 0, says: 'A wand of ice: slows three in a line.' },
-  { id: 'morningstar', name: 'Morningstar', own: true, icon: 'hammer', kind: 'melee', motion: 'slam', dmg: [13, 20, 31, 47], scale: { might: 1.3 }, every: [1.6, 1.49, 1.38, 1.27], range: 100, crit: 0, critBy: 2, knock: 10, burst: 62, stun: 0.8, price: 0, says: 'A hammer: stuns everyone where it lands.' },
+  { id: 'gatekeeper', name: 'Gatekeeper', own: true, icon: 'sword', kinds: ['blade'], kind: 'melee', motion: 'sweep', dmg: [9, 14, 22, 34], scale: { might: 1 }, every: [1, 0.93, 0.86, 0.78], range: 96, crit: 5, critBy: 2, knock: 18, arc: 100, price: 0, says: 'Sword and shield: a wide sweep in front of him.' },
+  { id: 'whisper', name: 'Whisper', own: true, icon: 'bow', kinds: ['bow'], kind: 'ranged', motion: 'shoot', dmg: [7, 12, 18, 27], scale: { aim: 1 }, every: [1.12, 1.04, 0.96, 0.88], range: 410, crit: 8, critBy: 2, knock: 6, pierce: 1, flies: 680, shot: 'arrow', price: 0, says: 'A longbow: an arrow through two.' },
+  { id: 'unfinished', name: 'The Unfinished Staff', own: true, icon: 'staff', kinds: ['arcane'], kind: 'magic', motion: 'cast', dmg: [9, 14, 21, 32], scale: { lore: 1 }, every: [1.15, 1.07, 0.99, 0.9], range: 390, crit: 5, critBy: 2, knock: 5, pierce: 1, flies: 430, shot: 'orb-arcane', price: 0, says: 'A bolt that bends to its mark, and on through it.' },
+  { id: 'headstails', name: 'Heads and Tails', own: true, icon: 'dagger', kinds: ['blade'], kind: 'melee', motion: 'thrust', dmg: [5, 8, 12, 19], scale: { might: 0.7 }, every: [0.52, 0.48, 0.44, 0.39], range: 82, crit: 20, critBy: 2.5, knock: 4, pierce: 2, price: 0, says: 'A pair of knives: quick, and they often find the gap.' },
+  { id: 'hearthbrand', name: 'Hearthbrand', own: true, icon: 'brazier', kinds: ['fire', 'arcane'], kind: 'magic', motion: 'cast', dmg: [8, 12, 18, 27], scale: { lore: 0.8 }, every: [1.35, 1.26, 1.17, 1.08], range: 330, crit: 0, critBy: 2, knock: 8, burst: 58, burn: [3, 5, 8, 12], flies: 400, shot: 'orb-fire', price: 0, says: 'A burning staff: its fire bursts and keeps burning.' },
+  { id: 'ninth', name: "The Ninth's Lance", own: true, icon: 'spear', kinds: ['pole'], kind: 'melee', motion: 'thrust', dmg: [10, 16, 24, 37], scale: { might: 1 }, every: [1.2, 1.12, 1.03, 0.94], range: 165, crit: 5, critBy: 2, knock: 20, pierce: 99, price: 0, says: 'A long thrust through everyone in its line.' },
+  { id: 'gravecleaver', name: 'Gravecleaver', own: true, icon: 'greataxe', kinds: ['blade', 'blunt'], kind: 'melee', motion: 'sweep', dmg: [16, 25, 38, 58], scale: { might: 1.6 }, every: [1.75, 1.63, 1.51, 1.4], range: 110, crit: 5, critBy: 2, knock: 26, arc: 140, price: 0, says: 'A great axe: slow, wide and heavy.' },
+  { id: 'passingbell', name: 'The Passing Bell', own: true, icon: 'censer', kinds: ['holy'], kind: 'magic', motion: 'pulse', dmg: [7, 11, 17, 26], scale: { lore: 0.7 }, every: [3.4, 3.15, 2.9, 2.65], range: 116, crit: 0, critBy: 2, knock: 18, burst: 118, mends: [1, 1, 2, 2], price: 0, says: 'A ring of sound that throws them back and mends the band.' },
+  { id: 'widowstear', name: "Widow's Tear", own: true, icon: 'frost', kinds: ['frost', 'arcane'], kind: 'magic', motion: 'cast', dmg: [6, 9, 14, 21], scale: { lore: 0.7 }, every: [1.2, 1.12, 1.04, 0.95], range: 370, crit: 0, critBy: 2, knock: 2, pierce: 2, slow: 0.4, flies: 460, shot: 'orb-frost', price: 0, says: 'A wand of ice: slows three in a line.' },
+  { id: 'morningstar', name: 'Morningstar', own: true, icon: 'hammer', kinds: ['blunt', 'holy'], kind: 'melee', motion: 'slam', dmg: [13, 20, 31, 47], scale: { might: 1.3 }, every: [1.6, 1.49, 1.38, 1.27], range: 100, crit: 0, critBy: 2, knock: 10, burst: 62, stun: 0.8, price: 0, says: 'A hammer: stuns everyone where it lands.' },
 ];
 
 /** The hero levels at which their own weapon grows a tier by itself. */
@@ -144,7 +144,7 @@ export const QUIRKS = {
     /** Seconds he has to stand before the shield is set. */
     after: 0.45,
     /** The share of a blow that gets through a set shield. */
-    lets: 0.6,
+    lets: 0.55,
     /** How much more often his own sword strikes behind it. */
     faster: 1.25,
   },
@@ -176,15 +176,15 @@ export const QUIRKS = {
   momentum: {
     /** Seconds of running to her full harm, and how much more that is. */
     seconds: 3,
-    most: 0.3,
+    most: 0.24,
     /** How long she can stand before it is lost. */
     slack: 0.3,
   },
   unburied: {
     /** How much more he hits at the edge of death. */
-    most: 0.45,
+    most: 0.2,
     /** The share of his health he gets up with, how wide the burst is and how many of his blows it is worth. */
-    rises: 0.34,
+    rises: 0.25,
     r: 150,
     harm: 3,
   },

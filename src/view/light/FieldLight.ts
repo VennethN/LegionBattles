@@ -125,7 +125,7 @@ export class FieldLight {
     private readonly heroId: string,
   ) {
     this.land = world.wave.land;
-    this.hour = hourOf(this.land, world.wave.n);
+    this.hour = hourOf(this.land, world.wave.n, world.night);
     this.dark = darkness(this.hour);
     scene.events.on(Phaser.Scenes.Events.ADDED_TO_SCENE, this.added, this);
     scene.events.once(Phaser.Scenes.Events.SHUTDOWN, this.destroy, this);
@@ -465,7 +465,8 @@ export class FieldLight {
     const flick = (seed: number): number => 0.86 + 0.14 * Math.sin(clock * 17 + seed * 3.1) * Math.sin(clock * 7.3 + seed);
 
     // The hero carries light: little by day, a lantern's worth by night.
-    if (h.hp > 0) this.light(h.x, h.y - 26, 240 + 110 * this.dark, HERO_LIGHT[this.heroId] ?? LANTERN, 0.08 + 0.52 * this.dark, true);
+    // On a night march the light they carry is small: what comes is seen late.
+    if (h.hp > 0) this.light(h.x, h.y - 26, (240 + 110 * this.dark) * (w.night ? 0.66 : 1), HERO_LIGHT[this.heroId] ?? LANTERN, 0.08 + 0.52 * this.dark, true);
 
     // What they carry that burns or glows.
     // Many burning things in the hands do not make the hero a lamp: they share one light's worth between them.

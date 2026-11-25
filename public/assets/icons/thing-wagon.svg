@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="thing-wagon" width="150" height="124" viewBox="0 0 150 124">
+<defs>
+<path id="thing-wagon-pole-shape" d="M 111 8 L 112 8 Q 114 8 114 10 L 114 62 Q 114 64 112 64 L 111 64 Q 109 64 109 62 L 109 10 Q 109 8 111 8 Z"/>
+<path id="thing-wagon-pennon-shape" d="M 113 10 L 140 15 L 130 21 L 139 28 L 113 30 Z"/>
+<clipPath id="thing-wagon-pennon-clip"><use href="#thing-wagon-pennon-shape"/></clipPath>
+<clipPath id="thing-wagon-pennon-lit-clip"><use href="#thing-wagon-pennon-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="thing-wagon-heap-shape" d="M 34 52 C 34 52 39.3 41.7 44 38 C 48.7 34.3 55.7 30.7 62 30 C 68.3 29.3 76.3 31.7 82 34 C 87.7 36.3 92.7 41 96 44 C 99.3 47 102 52 102 52 L 34 52 Z"/>
+<clipPath id="thing-wagon-heap-clip"><use href="#thing-wagon-heap-shape"/></clipPath>
+<clipPath id="thing-wagon-heap-lit-clip"><use href="#thing-wagon-heap-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="thing-wagon-box-shape" d="M 18 50 L 132 50 L 124 92 L 26 92 Z"/>
+<clipPath id="thing-wagon-box-clip"><use href="#thing-wagon-box-shape"/></clipPath>
+<clipPath id="thing-wagon-box-lit-clip"><use href="#thing-wagon-box-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="thing-wagon-rail-shape" d="M 17 46 L 133 46 Q 136 46 136 49 L 136 52 Q 136 55 133 55 L 17 55 Q 14 55 14 52 L 14 49 Q 14 46 17 46 Z"/>
+<path id="thing-wagon-wheel-shape" d="M 64 96 C 64 107 55 116 44 116 C 33 116 24 107 24 96 C 24 85 33 76 44 76 C 55 76 64 85 64 96 Z"/>
+<clipPath id="thing-wagon-wheel-clip"><use href="#thing-wagon-wheel-shape"/></clipPath>
+<clipPath id="thing-wagon-wheel-lit-clip"><use href="#thing-wagon-wheel-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="thing-wagon-wheel-2-shape" d="M 126 96 C 126 107 117 116 106 116 C 95 116 86 107 86 96 C 86 85 95 76 106 76 C 117 76 126 85 126 96 Z"/>
+<clipPath id="thing-wagon-wheel-2-clip"><use href="#thing-wagon-wheel-2-shape"/></clipPath>
+<clipPath id="thing-wagon-wheel-2-lit-clip"><use href="#thing-wagon-wheel-2-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<path id="thing-wagon-shadow" d="M 137 114 C 137 119 109.2 123 75 123 C 40.8 123 13 119 13 114 C 13 109 40.8 105 75 105 C 109.2 105 137 109 137 114 Z" fill="#2a1a10" opacity="0.1"/>
+<g id="thing-wagon-pole">
+<use id="thing-wagon-pole-fill" href="#thing-wagon-pole-shape" fill="#9a6a3a"/>
+<use id="thing-wagon-pole-line" href="#thing-wagon-pole-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-wagon-pennon">
+<use id="thing-wagon-pennon-shade" href="#thing-wagon-pennon-shape" fill="#933027"/>
+<g clip-path="url(#thing-wagon-pennon-clip)">
+<use id="thing-wagon-pennon-fill" href="#thing-wagon-pennon-shape" transform="translate(-3 -3)" fill="#c2453a"/>
+<g clip-path="url(#thing-wagon-pennon-lit-clip)">
+<use id="thing-wagon-pennon-lit" href="#thing-wagon-pennon-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-wagon-pennon-fill-over" href="#thing-wagon-pennon-shape" transform="translate(3.6 3.6)" fill="#c2453a"/>
+</g>
+</g>
+<use id="thing-wagon-pennon-line" href="#thing-wagon-pennon-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-wagon-heap">
+<use id="thing-wagon-heap-shade" href="#thing-wagon-heap-shape" fill="#9c7c33"/>
+<g clip-path="url(#thing-wagon-heap-clip)">
+<use id="thing-wagon-heap-fill" href="#thing-wagon-heap-shape" transform="translate(-4 -4)" fill="#c8a24a"/>
+<g clip-path="url(#thing-wagon-heap-lit-clip)">
+<use id="thing-wagon-heap-lit" href="#thing-wagon-heap-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-wagon-heap-fill-over" href="#thing-wagon-heap-shape" transform="translate(4.2 4.2)" fill="#c8a24a"/>
+</g>
+<path id="thing-wagon-heap-sheen" d="M72.76 29.33 L82.96 29.33 L73.44 52 L63.24 52 Z M86.46 29.33 L89.06 29.33 L79.54 52 L76.94 52 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="thing-wagon-coin" d="M 58 43 C 58 44.4 55.3 45.6 52 45.6 C 48.7 45.6 46 44.4 46 43 C 46 41.6 48.7 40.4 52 40.4 C 55.3 40.4 58 41.6 58 43 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="thing-wagon-coin-2" d="M 72 37 C 72 38.4 69.3 39.6 66 39.6 C 62.7 39.6 60 38.4 60 37 C 60 35.6 62.7 34.4 66 34.4 C 69.3 34.4 72 35.6 72 37 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="thing-wagon-coin-3" d="M 86 42 C 86 43.4 83.3 44.6 80 44.6 C 76.7 44.6 74 43.4 74 42 C 74 40.6 76.7 39.4 80 39.4 C 83.3 39.4 86 40.6 86 42 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="thing-wagon-coin-4" d="M 66 48 C 66 49.4 63.3 50.6 60 50.6 C 56.7 50.6 54 49.4 54 48 C 54 46.6 56.7 45.4 60 45.4 C 63.3 45.4 66 46.6 66 48 Z" fill="#f4f1e4" opacity="0.32"/>
+<path id="thing-wagon-coin-5" d="M 96 49 C 96 50.4 93.3 51.6 90 51.6 C 86.7 51.6 84 50.4 84 49 C 84 47.6 86.7 46.4 90 46.4 C 93.3 46.4 96 47.6 96 49 Z" fill="#f4f1e4" opacity="0.32"/>
+</g>
+<use id="thing-wagon-heap-line" href="#thing-wagon-heap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-wagon-box">
+<use id="thing-wagon-box-shade" href="#thing-wagon-box-shape" fill="#75502b"/>
+<g clip-path="url(#thing-wagon-box-clip)">
+<use id="thing-wagon-box-deep" href="#thing-wagon-box-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="thing-wagon-box-shade-over" href="#thing-wagon-box-shape" transform="translate(-3.72 -3.72)" fill="#75502b"/>
+<use id="thing-wagon-box-fill" href="#thing-wagon-box-shape" transform="translate(-6 -6)" fill="#9a6a3a"/>
+<g clip-path="url(#thing-wagon-box-lit-clip)">
+<use id="thing-wagon-box-lit" href="#thing-wagon-box-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-wagon-box-fill-over" href="#thing-wagon-box-shape" transform="translate(4.6 4.6)" fill="#9a6a3a"/>
+</g>
+<path id="thing-wagon-plank" d="M 45.2 52 L 45.2 90 C 45.2 90.4 45.6 90.8 46 90.8 C 46.4 90.8 46.8 90.4 46.8 90 L 46.8 52 C 46.8 51.6 46.4 51.2 46 51.2 C 45.6 51.2 45.2 51.6 45.2 52 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="thing-wagon-plank-2" d="M 74.2 52 L 74.2 90 C 74.2 90.4 74.6 90.8 75 90.8 C 75.4 90.8 75.8 90.4 75.8 90 L 75.8 52 C 75.8 51.6 75.4 51.2 75 51.2 C 74.6 51.2 74.2 51.6 74.2 52 Z" fill="#2a1a10" opacity="0.28"/>
+<path id="thing-wagon-plank-3" d="M 103.2 52 L 103.2 90 C 103.2 90.4 103.6 90.8 104 90.8 C 104.4 90.8 104.8 90.4 104.8 90 L 104.8 52 C 104.8 51.6 104.4 51.2 104 51.2 C 103.6 51.2 103.2 51.6 103.2 52 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<use id="thing-wagon-box-line" href="#thing-wagon-box-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-wagon-rail">
+<use id="thing-wagon-rail-fill" href="#thing-wagon-rail-shape" fill="#5d6672"/>
+<use id="thing-wagon-rail-line" href="#thing-wagon-rail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-wagon-wheel">
+<use id="thing-wagon-wheel-shade" href="#thing-wagon-wheel-shape" fill="#75502b"/>
+<g clip-path="url(#thing-wagon-wheel-clip)">
+<use id="thing-wagon-wheel-fill" href="#thing-wagon-wheel-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#thing-wagon-wheel-lit-clip)">
+<use id="thing-wagon-wheel-lit" href="#thing-wagon-wheel-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-wagon-wheel-fill-over" href="#thing-wagon-wheel-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="thing-wagon-spoke" d="M 27 97.1 L 61 97.1 C 61.6 97.1 62.1 96.6 62.1 96 C 62.1 95.4 61.6 94.9 61 94.9 L 27 94.9 C 26.4 94.9 25.9 95.4 25.9 96 C 25.9 96.6 26.4 97.1 27 97.1 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="thing-wagon-spoke-2" d="M 31.2 84.8 L 55.2 108.8 C 55.7 109.2 56.4 109.2 56.8 108.8 C 57.2 108.4 57.2 107.7 56.8 107.2 L 32.8 83.2 C 32.3 82.8 31.6 82.8 31.2 83.2 C 30.8 83.6 30.8 84.3 31.2 84.8 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="thing-wagon-spoke-3" d="M 42.9 79 L 42.9 113 C 42.9 113.6 43.4 114.1 44 114.1 C 44.6 114.1 45.1 113.6 45.1 113 L 45.1 79 C 45.1 78.4 44.6 77.9 44 77.9 C 43.4 77.9 42.9 78.4 42.9 79 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="thing-wagon-spoke-4" d="M 55.2 83.2 L 31.2 107.2 C 30.8 107.7 30.8 108.4 31.2 108.8 C 31.6 109.2 32.3 109.2 32.8 108.8 L 56.8 84.8 C 57.2 84.3 57.2 83.6 56.8 83.2 C 56.4 82.8 55.7 82.8 55.2 83.2 Z" fill="#2a1a10" opacity="0.34"/>
+</g>
+<use id="thing-wagon-wheel-line" href="#thing-wagon-wheel-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="thing-wagon-wheel-2">
+<use id="thing-wagon-wheel-2-shade" href="#thing-wagon-wheel-2-shape" fill="#75502b"/>
+<g clip-path="url(#thing-wagon-wheel-2-clip)">
+<use id="thing-wagon-wheel-2-fill" href="#thing-wagon-wheel-2-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#thing-wagon-wheel-2-lit-clip)">
+<use id="thing-wagon-wheel-2-lit" href="#thing-wagon-wheel-2-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="thing-wagon-wheel-2-fill-over" href="#thing-wagon-wheel-2-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="thing-wagon-spoke-5" d="M 89 97.1 L 123 97.1 C 123.6 97.1 124.1 96.6 124.1 96 C 124.1 95.4 123.6 94.9 123 94.9 L 89 94.9 C 88.4 94.9 87.9 95.4 87.9 96 C 87.9 96.6 88.4 97.1 89 97.1 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="thing-wagon-spoke-6" d="M 93.2 84.8 L 117.2 108.8 C 117.7 109.2 118.4 109.2 118.8 108.8 C 119.2 108.4 119.2 107.7 118.8 107.2 L 94.8 83.2 C 94.3 82.8 93.6 82.8 93.2 83.2 C 92.8 83.6 92.8 84.3 93.2 84.8 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="thing-wagon-spoke-7" d="M 104.9 79 L 104.9 113 C 104.9 113.6 105.4 114.1 106 114.1 C 106.6 114.1 107.1 113.6 107.1 113 L 107.1 79 C 107.1 78.4 106.6 77.9 106 77.9 C 105.4 77.9 104.9 78.4 104.9 79 Z" fill="#2a1a10" opacity="0.34"/>
+<path id="thing-wagon-spoke-8" d="M 117.2 83.2 L 93.2 107.2 C 92.8 107.7 92.8 108.4 93.2 108.8 C 93.6 109.2 94.3 109.2 94.8 108.8 L 118.8 84.8 C 119.2 84.3 119.2 83.6 118.8 83.2 C 118.4 82.8 117.7 82.8 117.2 83.2 Z" fill="#2a1a10" opacity="0.34"/>
+</g>
+<use id="thing-wagon-wheel-2-line" href="#thing-wagon-wheel-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

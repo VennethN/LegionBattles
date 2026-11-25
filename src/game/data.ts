@@ -4,6 +4,7 @@
 // the companions in companions.ts; both are handed on from here.
 
 import { SIGNATURES } from './heroes';
+import type { Kind } from './kinds';
 import type { StatLine, Stat } from './stats';
 
 // ---------------------------------------------------------------- the hero
@@ -34,6 +35,10 @@ export type Feat =
 // The heroes and the companions have files of their own: who they are, and the numbers of what only they do.
 export * from './heroes';
 export * from './companions';
+// So have the kinds of weapon, the relics and the road.
+export * from './kinds';
+export * from './relics';
+export * from './road';
 
 // ---------------------------------------------------------------- weapons
 
@@ -58,6 +63,8 @@ export interface WeaponDef {
   id: string;
   name: string;
   kind: WeaponKind;
+  /** The kinds it is of, one or two: holding several of a kind gives that kind's gift (kinds.ts). */
+  kinds: readonly Kind[];
   motion: Motion;
   /** Harm at each tier, before the hero's stats. */
   dmg: readonly [number, number, number, number];
@@ -86,14 +93,16 @@ export interface WeaponDef {
   burn?: readonly [number, number, number, number];
   /** Cold: slows by this share for two seconds. */
   slow?: number;
-  /** Poison: leaves a cloud that does this much a second for three seconds. */
+  /** Poison: leaves a cloud that does this much a second for three seconds. A thrust with this leaves it where its first mark stood, as wide as `burst`. */
   cloud?: readonly [number, number, number, number];
   /** Seconds it stuns. */
   stun?: number;
   /** How many more enemies what it looses leaps to after the first. */
   leaps?: number;
-  /** What a pulse gives back in health at each tier. */
+  /** What a pulse gives back in health at each tier. A slam with this gives it back when it fells someone. */
   mends?: readonly [number, number, number, number];
+  /** Holy water: where it bursts the ground is holy for four seconds, does this much a second, and mends the band that stands on it. */
+  holy?: readonly [number, number, number, number];
   /** What it costs at tier I, before the wave's prices. */
   price: number;
   /** One line a player reads. */
@@ -105,22 +114,36 @@ export interface WeaponDef {
 }
 
 export const WEAPONS: readonly WeaponDef[] = [
-  { id: 'sword', name: 'Sword', kind: 'melee', motion: 'sweep', dmg: [8, 13, 20, 31], scale: { might: 1 }, every: [1.05, 0.97, 0.9, 0.82], range: 92, crit: 5, critBy: 2, knock: 14, arc: 80, price: 20, says: 'A sweep in front of you.' },
-  { id: 'dagger', name: 'Dagger', kind: 'melee', motion: 'thrust', dmg: [5, 8, 12, 19], scale: { might: 0.7 }, every: [0.58, 0.53, 0.48, 0.42], range: 78, crit: 20, critBy: 2.5, knock: 4, pierce: 1, price: 18, says: 'Quick, and often finds the gap.' },
-  { id: 'spear', name: 'Spear', kind: 'melee', motion: 'thrust', dmg: [10, 16, 24, 37], scale: { might: 1 }, every: [1.25, 1.16, 1.07, 0.98], range: 150, crit: 5, critBy: 2, knock: 20, pierce: 3, price: 22, says: 'A long thrust through three.' },
-  { id: 'greataxe', name: 'Great Axe', kind: 'melee', motion: 'sweep', dmg: [16, 25, 38, 58], scale: { might: 1.6 }, every: [1.8, 1.68, 1.56, 1.44], range: 108, crit: 5, critBy: 2, knock: 26, arc: 130, price: 26, says: 'Slow, wide and heavy.' },
-  { id: 'hammer', name: 'War Hammer', kind: 'melee', motion: 'slam', dmg: [13, 20, 31, 47], scale: { might: 1.3 }, every: [1.65, 1.54, 1.43, 1.32], range: 96, crit: 0, critBy: 2, knock: 10, burst: 56, stun: 0.7, price: 26, says: 'Stuns everyone where it lands.' },
-  { id: 'torch', name: 'Torch', kind: 'melee', motion: 'thrust', dmg: [4, 6, 9, 14], scale: { might: 0.4, lore: 0.4 }, every: [0.9, 0.84, 0.78, 0.72], range: 84, crit: 0, critBy: 2, knock: 6, pierce: 2, burn: [3, 5, 8, 12], price: 20, says: 'Sets alight what it touches.' },
-  { id: 'bow', name: 'Bow', kind: 'ranged', motion: 'shoot', dmg: [7, 11, 17, 26], scale: { aim: 1 }, every: [1.1, 1.02, 0.94, 0.86], range: 400, crit: 5, critBy: 2, knock: 6, pierce: 0, flies: 620, shot: 'arrow', price: 20, says: 'An arrow at the nearest.' },
-  { id: 'crossbow', name: 'Crossbow', kind: 'ranged', motion: 'shoot', dmg: [14, 22, 33, 50], scale: { aim: 1.4 }, every: [1.9, 1.78, 1.66, 1.54], range: 460, crit: 10, critBy: 2, knock: 16, pierce: 2, flies: 760, shot: 'bolt', price: 26, says: 'A bolt through three.' },
-  { id: 'javelin', name: 'Javelin', kind: 'ranged', motion: 'shoot', dmg: [11, 17, 26, 40], scale: { aim: 0.8, might: 0.6 }, every: [1.5, 1.4, 1.3, 1.2], range: 350, crit: 5, critBy: 2, knock: 12, pierce: 1, flies: 560, shot: 'javelin', price: 22, says: 'Thrown hard, through two.' },
-  { id: 'sling', name: 'Sling', kind: 'ranged', motion: 'shoot', dmg: [4, 6, 10, 15], scale: { aim: 0.6 }, every: [0.56, 0.52, 0.48, 0.43], range: 320, crit: 5, critBy: 2, knock: 3, pierce: 0, leaps: 1, flies: 540, shot: 'stone', price: 18, says: 'Stones that skip to a second.' },
-  { id: 'bomb', name: 'Powder Bomb', kind: 'ranged', motion: 'lob', dmg: [12, 19, 29, 44], scale: { aim: 0.5, lore: 0.5 }, every: [2.2, 2.06, 1.92, 1.78], range: 330, crit: 0, critBy: 2, knock: 18, burst: 74, flies: 330, shot: 'bomb', price: 26, says: 'Bursts where it lands.' },
-  { id: 'staff', name: 'Arcane Staff', kind: 'magic', motion: 'cast', dmg: [10, 16, 24, 37], scale: { lore: 1 }, every: [1.1, 1.02, 0.94, 0.86], range: 390, crit: 5, critBy: 2, knock: 5, pierce: 1, flies: 430, shot: 'orb-arcane', price: 22, says: 'A bolt that bends to its mark, and on through it.' },
-  { id: 'brazier', name: 'Fire Brazier', kind: 'magic', motion: 'cast', dmg: [8, 12, 18, 27], scale: { lore: 0.8 }, every: [1.4, 1.31, 1.22, 1.13], range: 320, crit: 0, critBy: 2, knock: 8, burst: 56, burn: [3, 5, 8, 12], flies: 400, shot: 'orb-fire', price: 24, says: 'Bursts into fire that keeps burning.' },
-  { id: 'frost', name: 'Frost Crystal', kind: 'magic', motion: 'cast', dmg: [6, 9, 14, 21], scale: { lore: 0.7 }, every: [1.3, 1.21, 1.12, 1.03], range: 360, crit: 0, critBy: 2, knock: 2, pierce: 2, slow: 0.4, flies: 460, shot: 'orb-frost', price: 22, says: 'Slows three in a line.' },
-  { id: 'venom', name: 'Spore Staff', kind: 'magic', motion: 'cast', dmg: [3, 5, 7, 11], scale: { lore: 0.5 }, every: [1.7, 1.59, 1.48, 1.37], range: 300, crit: 0, critBy: 2, knock: 0, burst: 62, cloud: [4, 6, 10, 15], flies: 360, shot: 'orb-venom', price: 22, says: 'Leaves a cloud that eats at them.' },
-  { id: 'censer', name: 'Censer', kind: 'magic', motion: 'pulse', dmg: [6, 10, 15, 23], scale: { lore: 0.6 }, every: [4, 3.7, 3.4, 3.1], range: 110, crit: 0, critBy: 2, knock: 16, burst: 112, mends: [1, 1, 2, 2], price: 24, says: 'A ring of light that mends you.' },
+  { id: 'sword', name: 'Sword', kinds: ['blade'], kind: 'melee', motion: 'sweep', dmg: [8, 13, 20, 31], scale: { might: 1 }, every: [1.05, 0.97, 0.9, 0.82], range: 92, crit: 5, critBy: 2, knock: 14, arc: 80, price: 20, says: 'A sweep in front of you.' },
+  { id: 'dagger', name: 'Dagger', kinds: ['blade'], kind: 'melee', motion: 'thrust', dmg: [5, 8, 12, 19], scale: { might: 0.7 }, every: [0.58, 0.53, 0.48, 0.42], range: 78, crit: 20, critBy: 2.5, knock: 4, pierce: 1, price: 18, says: 'Quick, and often finds the gap.' },
+  { id: 'spear', name: 'Spear', kinds: ['pole'], kind: 'melee', motion: 'thrust', dmg: [10, 16, 24, 37], scale: { might: 1 }, every: [1.25, 1.16, 1.07, 0.98], range: 150, crit: 5, critBy: 2, knock: 20, pierce: 3, price: 22, says: 'A long thrust through three.' },
+  { id: 'greataxe', name: 'Great Axe', kinds: ['blade', 'blunt'], kind: 'melee', motion: 'sweep', dmg: [16, 25, 38, 58], scale: { might: 1.6 }, every: [1.8, 1.68, 1.56, 1.44], range: 108, crit: 5, critBy: 2, knock: 26, arc: 130, price: 26, says: 'Slow, wide and heavy.' },
+  { id: 'hammer', name: 'War Hammer', kinds: ['blunt'], kind: 'melee', motion: 'slam', dmg: [13, 20, 31, 47], scale: { might: 1.3 }, every: [1.65, 1.54, 1.43, 1.32], range: 96, crit: 0, critBy: 2, knock: 10, burst: 56, stun: 0.7, price: 26, says: 'Stuns everyone where it lands.' },
+  { id: 'torch', name: 'Torch', kinds: ['fire', 'blunt'], kind: 'melee', motion: 'thrust', dmg: [4, 6, 9, 14], scale: { might: 0.4, lore: 0.4 }, every: [0.9, 0.84, 0.78, 0.72], range: 84, crit: 0, critBy: 2, knock: 6, pierce: 2, burn: [3, 5, 8, 12], price: 20, says: 'Sets alight what it touches.' },
+  { id: 'bow', name: 'Bow', kinds: ['bow'], kind: 'ranged', motion: 'shoot', dmg: [7, 11, 17, 26], scale: { aim: 1 }, every: [1.1, 1.02, 0.94, 0.86], range: 400, crit: 5, critBy: 2, knock: 6, pierce: 0, flies: 620, shot: 'arrow', price: 20, says: 'An arrow at the nearest.' },
+  { id: 'crossbow', name: 'Crossbow', kinds: ['bow'], kind: 'ranged', motion: 'shoot', dmg: [14, 22, 33, 50], scale: { aim: 1.4 }, every: [1.9, 1.78, 1.66, 1.54], range: 460, crit: 10, critBy: 2, knock: 16, pierce: 2, flies: 760, shot: 'bolt', price: 26, says: 'A bolt through three.' },
+  { id: 'javelin', name: 'Javelin', kinds: ['pole', 'thrown'], kind: 'ranged', motion: 'shoot', dmg: [11, 17, 26, 40], scale: { aim: 0.8, might: 0.6 }, every: [1.5, 1.4, 1.3, 1.2], range: 350, crit: 5, critBy: 2, knock: 12, pierce: 1, flies: 560, shot: 'javelin', price: 22, says: 'Thrown hard, through two.' },
+  { id: 'sling', name: 'Sling', kinds: ['thrown'], kind: 'ranged', motion: 'shoot', dmg: [4, 6, 10, 15], scale: { aim: 0.6 }, every: [0.56, 0.52, 0.48, 0.43], range: 320, crit: 5, critBy: 2, knock: 3, pierce: 0, leaps: 1, flies: 540, shot: 'stone', price: 18, says: 'Stones that skip to a second.' },
+  { id: 'bomb', name: 'Powder Bomb', kinds: ['thrown', 'fire'], kind: 'ranged', motion: 'lob', dmg: [12, 19, 29, 44], scale: { aim: 0.5, lore: 0.5 }, every: [2.2, 2.06, 1.92, 1.78], range: 330, crit: 0, critBy: 2, knock: 18, burst: 74, flies: 330, shot: 'bomb', price: 26, says: 'Bursts where it lands.' },
+  { id: 'staff', name: 'Arcane Staff', kinds: ['arcane'], kind: 'magic', motion: 'cast', dmg: [10, 16, 24, 37], scale: { lore: 1 }, every: [1.1, 1.02, 0.94, 0.86], range: 390, crit: 5, critBy: 2, knock: 5, pierce: 1, flies: 430, shot: 'orb-arcane', price: 22, says: 'A bolt that bends to its mark, and on through it.' },
+  { id: 'brazier', name: 'Fire Brazier', kinds: ['fire', 'arcane'], kind: 'magic', motion: 'cast', dmg: [8, 12, 18, 27], scale: { lore: 0.8 }, every: [1.4, 1.31, 1.22, 1.13], range: 320, crit: 0, critBy: 2, knock: 8, burst: 56, burn: [3, 5, 8, 12], flies: 400, shot: 'orb-fire', price: 24, says: 'Bursts into fire that keeps burning.' },
+  { id: 'frost', name: 'Frost Crystal', kinds: ['frost', 'arcane'], kind: 'magic', motion: 'cast', dmg: [6, 9, 14, 21], scale: { lore: 0.7 }, every: [1.3, 1.21, 1.12, 1.03], range: 360, crit: 0, critBy: 2, knock: 2, pierce: 2, slow: 0.4, flies: 460, shot: 'orb-frost', price: 22, says: 'Slows three in a line.' },
+  { id: 'venom', name: 'Spore Staff', kinds: ['venom', 'arcane'], kind: 'magic', motion: 'cast', dmg: [3, 5, 7, 11], scale: { lore: 0.5 }, every: [1.7, 1.59, 1.48, 1.37], range: 300, crit: 0, critBy: 2, knock: 0, burst: 62, cloud: [4, 6, 10, 15], flies: 360, shot: 'orb-venom', price: 22, says: 'Leaves a cloud that eats at them.' },
+  { id: 'censer', name: 'Censer', kinds: ['holy'], kind: 'magic', motion: 'pulse', dmg: [6, 10, 15, 23], scale: { lore: 0.6 }, every: [4, 3.7, 3.4, 3.1], range: 110, crit: 0, critBy: 2, knock: 16, burst: 112, mends: [1, 1, 2, 2], price: 24, says: 'A ring of light that mends you.' },
+  // The second armful: so that every kind has four of its own to find.
+  { id: 'halberd', name: 'Halberd', kinds: ['pole', 'blade'], kind: 'melee', motion: 'sweep', dmg: [11, 17, 26, 40], scale: { might: 1.2 }, every: [1.45, 1.35, 1.25, 1.15], range: 138, crit: 5, critBy: 2, knock: 22, arc: 56, price: 24, says: 'A long, narrow sweep that keeps them off.' },
+  { id: 'trident', name: 'Rime Trident', kinds: ['frost', 'pole'], kind: 'melee', motion: 'thrust', dmg: [7, 11, 17, 26], scale: { might: 0.6, lore: 0.5 }, every: [1.15, 1.07, 0.99, 0.9], range: 134, crit: 0, critBy: 2, knock: 10, pierce: 2, slow: 0.35, price: 22, says: 'A cold thrust that slows two.' },
+  { id: 'mace', name: 'Blessed Mace', kinds: ['holy', 'blunt'], kind: 'melee', motion: 'slam', dmg: [8, 13, 20, 31], scale: { might: 0.9 }, every: [1.2, 1.12, 1.04, 0.95], range: 86, crit: 0, critBy: 2, knock: 8, burst: 44, stun: 0.45, mends: [1, 1, 1, 2], price: 24, says: 'A quick slam. Felling with it mends you.' },
+  { id: 'longbow', name: 'War Bow', kinds: ['bow'], kind: 'ranged', motion: 'shoot', dmg: [13, 20, 31, 47], scale: { aim: 1.5 }, every: [2.1, 1.96, 1.82, 1.68], range: 560, crit: 25, critBy: 3, knock: 10, pierce: 0, flies: 820, shot: 'arrow', price: 26, says: 'Far, slow, and often deadly.' },
+  { id: 'rimebow', name: 'Rime Bow', kinds: ['frost', 'bow'], kind: 'ranged', motion: 'shoot', dmg: [5, 8, 12, 19], scale: { aim: 0.7, lore: 0.3 }, every: [0.95, 0.88, 0.81, 0.74], range: 380, crit: 5, critBy: 2, knock: 4, pierce: 1, slow: 0.3, flies: 600, shot: 'arrow', price: 22, says: 'Arrows of ice that slow two.' },
+  { id: 'blowpipe', name: 'Blowpipe', kinds: ['venom', 'bow'], kind: 'ranged', motion: 'shoot', dmg: [3, 5, 7, 11], scale: { aim: 0.5 }, every: [0.8, 0.74, 0.68, 0.62], range: 330, crit: 5, critBy: 2, knock: 0, burst: 36, cloud: [3, 5, 8, 12], flies: 640, shot: 'bolt', price: 20, says: 'Quick darts, each a small cloud.' },
+  { id: 'hatchet', name: 'Throwing Axes', kinds: ['blade', 'thrown'], kind: 'ranged', motion: 'shoot', dmg: [10, 16, 24, 37], scale: { might: 0.8, aim: 0.5 }, every: [1.3, 1.21, 1.12, 1.03], range: 280, crit: 12, critBy: 2, knock: 20, pierce: 1, flies: 500, shot: 'javelin', price: 22, says: 'Thrown hard and near, through two.' },
+  { id: 'hail', name: 'Hailstones', kinds: ['frost', 'thrown'], kind: 'ranged', motion: 'shoot', dmg: [3, 5, 8, 12], scale: { aim: 0.4, lore: 0.3 }, every: [0.62, 0.57, 0.52, 0.47], range: 300, crit: 0, critBy: 2, knock: 2, pierce: 0, leaps: 1, slow: 0.2, flies: 520, shot: 'stone', price: 20, says: 'Cold stones that skip on and slow.' },
+  { id: 'holywater', name: 'Holy Water', kinds: ['holy', 'thrown'], kind: 'ranged', motion: 'lob', dmg: [7, 11, 17, 26], scale: { lore: 0.6, aim: 0.3 }, every: [2.6, 2.43, 2.26, 2.1], range: 300, crit: 0, critBy: 2, knock: 6, burst: 70, holy: [3, 5, 8, 12], flies: 320, shot: 'bomb', price: 26, says: 'Breaks into holy ground that mends you.' },
+  { id: 'gourd', name: 'Spore Gourd', kinds: ['venom', 'thrown'], kind: 'ranged', motion: 'lob', dmg: [4, 6, 9, 14], scale: { lore: 0.4, aim: 0.2 }, every: [2.4, 2.25, 2.1, 1.95], range: 310, crit: 0, critBy: 2, knock: 0, burst: 88, cloud: [5, 8, 12, 18], flies: 320, shot: 'bomb', price: 24, says: 'Thrown into the thick of them: a wide cloud.' },
+  { id: 'sunbrand', name: 'Sunbrand', kinds: ['holy', 'fire'], kind: 'melee', motion: 'sweep', dmg: [6, 10, 15, 23], scale: { might: 0.7, lore: 0.5 }, every: [1.1, 1.02, 0.94, 0.86], range: 96, crit: 5, critBy: 2, knock: 10, arc: 90, burn: [3, 5, 8, 12], price: 24, says: 'A sweep that sets them all alight.' },
+  { id: 'fang', name: 'Serpent Sickle', kinds: ['venom', 'blade'], kind: 'melee', motion: 'thrust', dmg: [4, 7, 10, 16], scale: { might: 0.6 }, every: [0.7, 0.65, 0.6, 0.54], range: 80, crit: 15, critBy: 2.5, knock: 4, pierce: 1, burst: 34, cloud: [3, 5, 8, 12], price: 22, says: 'Quick cuts that leave a small cloud.' },
+  { id: 'wand', name: 'Spark Wand', kinds: ['arcane'], kind: 'magic', motion: 'cast', dmg: [4, 6, 10, 15], scale: { lore: 0.5 }, every: [0.6, 0.55, 0.5, 0.45], range: 340, crit: 5, critBy: 2, knock: 2, pierce: 0, leaps: 2, flies: 520, shot: 'orb-arcane', price: 22, says: 'Quick sparks that leap on to two more.' },
 ];
 
 /** A weapon by its name, a hero's own among them. */
@@ -226,6 +249,8 @@ export const SELL_SHARE = 0.5;
 export const WEAPON_SHARE = 0.4;
 /** A weapon offered is, this often, one already carried: so that two of a kind can be joined. */
 export const SAME_AGAIN = 0.35;
+/** A weapon offered that is not one already carried is, this often, of a kind the hero holds: so that a kind can be built up. */
+export const KIND_AGAIN = 0.35;
 
 export function priceAt(base: number, wave: number): number {
   return Math.max(1, Math.round(base * (1 + PRICE_RISE * (wave - 1))));
@@ -247,8 +272,10 @@ export function rerollCost(wave: number, times: number): number {
  * summon: stays back and calls others up.
  * boost: stays back; whoever is near it is faster.
  * boss: all of it, in turns.
+ * cross: goes over the field from one side to the other and hurts nobody (the pay wagon).
+ * still: stands where it is and hurts nobody (a cage).
  */
-export type Ai = 'walk' | 'shoot' | 'charge' | 'bomb' | 'summon' | 'boost' | 'boss';
+export type Ai = 'walk' | 'shoot' | 'charge' | 'bomb' | 'summon' | 'boost' | 'boss' | 'cross' | 'still';
 
 export interface EnemyDef {
   id: string;
@@ -282,6 +309,8 @@ export interface EnemyDef {
   calls?: string;
   /** boost: how far its drum carries. */
   aura?: number;
+  /** A thing, not a fighter: the picture it is shown with in place of a figure. It is only ever put on the field by a road's omen (road.ts). */
+  prop?: string;
 }
 
 export const ENEMIES: readonly EnemyDef[] = [
@@ -301,7 +330,7 @@ export const ENEMIES: readonly EnemyDef[] = [
   { id: 'powdermonkey', unit: 'powdermonkey', name: 'Powder Monkey', ai: 'bomb', hp: 7, dmg: 5, speed: 132, r: 12, coins: 2, burst: 84 },
   { id: 'yak', unit: 'yak', name: 'Yak', ai: 'charge', hp: 34, dmg: 4, speed: 62, r: 20, coins: 5, dash: 410, size: 1.1 },
   { id: 'drummer', unit: 'drummer', name: 'War Drummer', ai: 'boost', hp: 22, dmg: 2, speed: 66, r: 14, coins: 6, keep: 300, aura: 230 },
-  { id: 'medjay', unit: 'medjay', name: 'Medjay', ai: 'walk', hp: 44, dmg: 4, speed: 76, r: 17, coins: 5, size: 1.15 },
+  { id: 'medjay', unit: 'medjay', name: 'Medjay', ai: 'walk', hp: 40, dmg: 3, speed: 76, r: 17, coins: 5, size: 1.15 },
   { id: 'colossus', unit: 'colossus', name: 'The Colossus', ai: 'boss', hp: 700, dmg: 5, speed: 66, r: 32, coins: 70, size: 1.7, every: 2.4, flies: 220, dash: 380, calls: 'scarab' },
   // Frostholt.
   { id: 'huscarl', unit: 'huscarl', name: 'Huscarl', ai: 'walk', hp: 14, dmg: 3, speed: 102, r: 14, coins: 2 },
@@ -311,14 +340,22 @@ export const ENEMIES: readonly EnemyDef[] = [
   { id: 'skald', unit: 'skald', name: 'Skald', ai: 'boost', hp: 24, dmg: 2, speed: 66, r: 14, coins: 6, keep: 300, aura: 230 },
   { id: 'warbear', unit: 'warbear', name: 'War Bear', ai: 'charge', hp: 40, dmg: 5, speed: 66, r: 21, coins: 6, dash: 420, size: 1.1 },
   { id: 'jarl', unit: 'jarl', name: 'The Jarl', ai: 'boss', hp: 900, dmg: 6, speed: 80, r: 28, coins: 120, size: 1.6, every: 2.2, flies: 240, dash: 430, calls: 'direwolf' },
+  // What a road may put on the field. Their health grows with the wave as an enemy's does; neither is in any wave's mix.
+  { id: 'paywagon', unit: '', name: 'Pay Wagon', ai: 'cross', hp: 70, dmg: 0, speed: 30, r: 30, coins: 0, size: 1.2, prop: 'wagon' },
+  { id: 'cage', unit: '', name: 'Cage', ai: 'still', hp: 26, dmg: 0, speed: 0, r: 24, coins: 0, prop: 'cage' },
 ];
 
 /**
  * How enemies grow. Each wave an enemy has `hp` more of its first health, and `hpMore` more again for every wave
  * squared: a hero's harm grows faster than a straight line, as six weapons are bought and joined, and so must theirs.
  * Harm grows the same way, slowly at first: `dmg` each wave and `dmgMore` for every wave squared.
+ *
+ * Since the road, relics and kinds of weapon a hero has far more by the middle of a run than weapons alone gave, so
+ * both grow again on top of that: health by `hpLate` of itself for every wave past `hpFrom`, and harm by `dmgLate`
+ * for every wave past `dmgFrom`. The early waves are left as they were: there an enemy's harm is 1 or 2, and the
+ * smallest change in it is a half or a whole again.
  */
-export const ENEMY_GROWTH = { hp: 0.16, hpMore: 0.012, dmg: 0.06, dmgMore: 0.007 };
+export const ENEMY_GROWTH = { hp: 0.17, hpMore: 0.016, dmg: 0.06, dmgMore: 0.007, hpFrom: 4, hpLate: 0.09, dmgFrom: 7, dmgLate: 0.06 };
 /** How fast coins thin out: the waves grow far faster than the camp's prices do. */
 export const COIN_THINNING = 0.22;
 /** Past the last of the written waves, health grows by this share of itself every wave besides. */
@@ -359,13 +396,13 @@ const MIXES: ReadonlyArray<ReadonlyArray<readonly [string, number]>> = [
   [['lancer', 3], ['scarab', 2], ['javelineer', 1]],
   [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1]],
   [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1], ['yak', 0.6]],
-  [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1], ['yak', 0.6], ['medjay', 0.6], ['drummer', 0.2]],
-  [['lancer', 2], ['scarab', 2], ['javelineer', 1.6], ['powdermonkey', 1.2], ['yak', 0.8], ['medjay', 0.8], ['drummer', 0.25]],
+  [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1], ['yak', 0.6], ['medjay', 0.3], ['drummer', 0.1]],
+  [['lancer', 2], ['scarab', 2], ['javelineer', 1.6], ['powdermonkey', 1.2], ['yak', 0.8], ['medjay', 0.6], ['drummer', 0.25]],
   [['lancer', 3], ['scarab', 2], ['javelineer', 1], ['powdermonkey', 1]],
   [['huscarl', 2], ['direwolf', 3]],
   [['huscarl', 2], ['direwolf', 3], ['harpooner', 1.5]],
   [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8]],
-  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8], ['icegolem', 0.4], ['warbear', 0.6]],
+  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8], ['icegolem', 0.3], ['warbear', 0.5]],
   [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8], ['icegolem', 0.5], ['warbear', 0.7], ['skald', 0.22]],
   [['huscarl', 2], ['direwolf', 3], ['harpooner', 1.5]],
 ];
@@ -406,8 +443,9 @@ export function coinShare(wave: number): number {
 export function enemyAt(def: EnemyDef, wave: number): { hp: number; dmg: number } {
   const past = Math.max(0, wave - LAST_WAVE);
   const w = wave - 1;
-  const hp = def.hp * (1 + ENEMY_GROWTH.hp * w + ENEMY_GROWTH.hpMore * w * w) * Math.pow(1 + ENDLESS_GROWTH, past);
-  const dmg = def.dmg * (1 + ENEMY_GROWTH.dmg * w + ENEMY_GROWTH.dmgMore * w * w) * Math.pow(1 + ENDLESS_GROWTH * 0.5, past);
+  const g = ENEMY_GROWTH;
+  const hp = def.hp * (1 + g.hp * w + g.hpMore * w * w) * (1 + g.hpLate * Math.max(0, wave - g.hpFrom)) * Math.pow(1 + ENDLESS_GROWTH, past);
+  const dmg = def.dmg * (1 + g.dmg * w + g.dmgMore * w * w) * (1 + g.dmgLate * Math.max(0, wave - g.dmgFrom)) * Math.pow(1 + ENDLESS_GROWTH * 0.5, past);
   return { hp: Math.max(1, Math.round(hp)), dmg: Math.max(1, Math.round(dmg)) };
 }
 

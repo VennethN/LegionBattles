@@ -14,6 +14,7 @@ import { BootScene } from './view/scenes/BootScene';
 import { CampScene } from './view/scenes/CampScene';
 import { HudScene } from './view/scenes/HudScene';
 import { ResultScene } from './view/scenes/ResultScene';
+import { RoadScene } from './view/scenes/RoadScene';
 import { TitleScene } from './view/scenes/TitleScene';
 import { commit, reloadSave, save, stage, theRun, theWorld } from './view/session';
 
@@ -50,7 +51,7 @@ async function start(): Promise<void> {
     input: { activePointers: 3 },
     // One texture to a batch, on every device: all the art of the field is on one sheet, and it is what phones get anyway.
     render: { antialias: true, antialiasGL: view.density <= 1, roundPixels: false, maxTextures: 2, powerPreference: 'high-performance' },
-    scene: [BootScene, AssetsScene, TitleScene, ArenaScene, HudScene, CampScene, ResultScene],
+    scene: [BootScene, AssetsScene, TitleScene, ArenaScene, HudScene, CampScene, RoadScene, ResultScene],
   });
 
   let pending = 0;
@@ -67,8 +68,11 @@ async function start(): Promise<void> {
       const m = game.scene;
       if (m.isActive('Title')) m.getScene('Title').scene.restart();
       else if (m.isActive('Arena') || m.isPaused('Arena')) {
-        const over = m.isActive('Camp') ? 'Camp' : m.isActive('Result') ? 'Result' : '';
+        // The road's screen is the camp's to bring back: the camp sees where the run stands and hands over to it.
+        const road = m.isActive('Road');
+        const over = m.isActive('Camp') || road ? 'Camp' : m.isActive('Result') ? 'Result' : '';
         m.stop('Hud');
+        if (road) m.stop('Road');
         if (over) m.stop(over);
         m.getScene('Arena').scene.restart({ keep: true, over });
       }

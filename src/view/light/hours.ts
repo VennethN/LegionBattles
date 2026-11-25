@@ -27,19 +27,19 @@ const DAYS: Record<Land, Array<[number, Hour]>> = {
     [0, { ambient: [0.96, 0.96, 0.9], sun: [1.0, 0.9, 0.6], shafts: 0.22, clouds: 0.26, shade: [0.84, 0.95, 1.12], vignette: 0.34 }],
     [0.45, { ambient: [0.98, 0.88, 0.8], sun: [1.0, 0.58, 0.3], shafts: 0.24, clouds: 0.22, shade: [0.95, 0.84, 1.08], vignette: 0.42 }],
     [0.8, { ambient: [0.72, 0.58, 0.76], sun: [1.0, 0.5, 0.46], shafts: 0.16, clouds: 0.12, shade: [0.8, 0.84, 1.2], vignette: 0.44 }],
-    [1, { ambient: [0.58, 0.63, 0.84], sun: [0.55, 0.72, 1.0], shafts: 0.1, clouds: 0.1, shade: [0.78, 0.9, 1.24], vignette: 0.44 }],
+    [1, { ambient: [0.43, 0.49, 0.76], sun: [0.55, 0.72, 1.0], shafts: 0.1, clouds: 0.1, shade: [0.78, 0.9, 1.24], vignette: 0.44 }],
   ],
   desert: [
     [0, { ambient: [0.97, 0.94, 0.86], sun: [1.0, 0.94, 0.72], shafts: 0.14, clouds: 0.1, shade: [0.95, 0.9, 1.05], vignette: 0.32 }],
     [0.5, { ambient: [0.96, 0.8, 0.68], sun: [1.0, 0.52, 0.26], shafts: 0.22, clouds: 0.1, shade: [1.0, 0.8, 1.0], vignette: 0.44 }],
     [0.8, { ambient: [0.72, 0.54, 0.66], sun: [0.9, 0.42, 0.5], shafts: 0.12, clouds: 0, shade: [0.84, 0.8, 1.2], vignette: 0.5 }],
-    [1, { ambient: [0.56, 0.56, 0.8], sun: [0.6, 0.7, 1.0], shafts: 0.08, clouds: 0, shade: [0.8, 0.88, 1.24], vignette: 0.44 }],
+    [1, { ambient: [0.43, 0.44, 0.72], sun: [0.6, 0.7, 1.0], shafts: 0.08, clouds: 0, shade: [0.8, 0.88, 1.24], vignette: 0.44 }],
   ],
   snow: [
     [0, { ambient: [0.9, 0.95, 1.02], sun: [1.0, 0.95, 0.84], shafts: 0.16, clouds: 0.28, shade: [0.84, 0.94, 1.14], vignette: 0.36 }],
     [0.5, { ambient: [0.62, 0.72, 0.98], sun: [0.8, 0.76, 1.0], shafts: 0.12, clouds: 0.16, shade: [0.78, 0.9, 1.24], vignette: 0.46 }],
     // The last of it is under the northern lights.
-    [1, { ambient: [0.52, 0.6, 0.82], sun: [0.36, 1.0, 0.7], shafts: 0.14, clouds: 0.08, shade: [0.78, 0.92, 1.24], vignette: 0.44 }],
+    [1, { ambient: [0.41, 0.49, 0.76], sun: [0.36, 1.0, 0.7], shafts: 0.14, clouds: 0.08, shade: [0.78, 0.92, 1.24], vignette: 0.44 }],
   ],
 };
 
@@ -51,7 +51,12 @@ function mix(a: Rgb, b: Rgb, k: number): Rgb {
 }
 
 /** The hour of a wave. Past the twentieth the days come round again, as the waves do. */
-export function hourOf(land: Land, wave: number): Hour {
+export function hourOf(land: Land, wave: number, night = false): Hour {
+  // A night march is the land's last hour, and darker than that: there is no light but what is carried.
+  if (night) {
+    const last = DAYS[land][DAYS[land].length - 1][1];
+    return { ...last, ambient: [last.ambient[0] * 0.8, last.ambient[1] * 0.8, last.ambient[2] * 0.84], shafts: 0, clouds: 0, vignette: 0.56 };
+  }
   const at = ((wave - 1) % 20) + 1;
   const [from, to] = SPANS[land];
   const t = Math.max(0, Math.min(1, (at - from) / Math.max(1, to - from)));
