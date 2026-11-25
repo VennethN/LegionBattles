@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="marta-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="marta-leg-front-hose-shape" d="M 163.8 184 L 167.1 199 L 167.4 220.4 L 148.6 223.6 L 143.3 203 L 140.2 188 Z"/>
+<clipPath id="marta-leg-front-hose-clip"><use href="#marta-leg-front-hose-shape"/></clipPath>
+<path id="marta-leg-front-boot-shape" d="M 145.7 215 L 169 213 L 172.1 227 L 183.8 230 L 189.8 236 L 189.8 240 L 141.8 240 L 139.8 230 Z"/>
+<clipPath id="marta-leg-front-boot-clip"><use href="#marta-leg-front-boot-shape"/></clipPath>
+<path id="marta-leg-front-cap-shape" d="M 176 229 L 188 233 L 188 238 L 173 238 Z"/>
+<path id="marta-leg-front-boot-strap-shape" d="M 147.8 219.8 L 169.8 217.8 L 170.2 222.2 L 148.2 224.2 Z"/>
+<clipPath id="marta-leg-front-boot-strap-clip"><use href="#marta-leg-front-boot-strap-shape"/></clipPath>
+<path id="marta-leg-front-boot-strap-buckle-shape" d="M 160 217.2 L 166.8 217.6 L 166.4 224 L 160.4 223.6 Z"/>
+<clipPath id="marta-leg-front-boot-strap-buckle-clip"><use href="#marta-leg-front-boot-strap-buckle-shape"/></clipPath>
+</defs>
+<g id="marta-leg-front-hose">
+<use id="marta-leg-front-hose-line" href="#marta-leg-front-hose-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-leg-front-hose-clip)">
+<use id="marta-leg-front-hose-lit" href="#marta-leg-front-hose-shape" fill="#6f5c46"/>
+<path id="marta-leg-front-hose-mid" d="M 136 180 L 150 180 L 151.8 185.8 L 154.1 209.4 L 151 213.6 L 152.2 226.2 L 136 226 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="marta-leg-front-hose-dark" d="M 136 180 L 150 180 L 151.8 185.8 L 154.1 209.4 L 151 213.6 L 152.2 226.2 L 136 226 Z" fill="#14110f"/>
+<path id="marta-leg-front-patch" d="M 154 200 L 166 199 L 167 211 L 155 212 Z" fill="#4a3c2d"/>
+<path id="marta-leg-front-patch-stitch" d="M 154.8 198.4 L 155.6 201.4 L 156 198.3 Z M 157.8 198.2 L 158.6 201.1 L 159 198.1 Z M 160.8 197.9 L 161.6 200.9 L 162 197.8 Z M 163.8 197.7 L 164.6 200.6 L 165 197.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="marta-leg-front-boot">
+<use id="marta-leg-front-boot-line" href="#marta-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-leg-front-boot-clip)">
+<use id="marta-leg-front-boot-lit" href="#marta-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="marta-leg-front-boot-mid" d="M 133.8 210 L 159.8 210 L 161.6 226 L 173 232 L 193.8 235 L 193.8 244 L 133.8 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="marta-leg-front-boot-dark" d="M 133.8 210 L 159.8 210 L 161.6 226 L 173 232 L 193.8 235 L 193.8 244 L 133.8 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="marta-leg-front-boot-sole" d="M 139.8 237 L 190.8 237 L 190.8 241.5 L 139.8 241.5 Z" fill="#14110f"/>
+<path id="marta-leg-front-boot-crease" d="M 171.3 225.8 L 159.8 231 L 172.1 228.2 Z" fill="#14110f"/>
+<g id="marta-leg-front-cap">
+<use id="marta-leg-front-cap-line" href="#marta-leg-front-cap-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="marta-leg-front-cap-lit" href="#marta-leg-front-cap-shape" fill="#8c9194"/>
+</g>
+<g id="marta-leg-front-boot-strap">
+<use id="marta-leg-front-boot-strap-line" href="#marta-leg-front-boot-strap-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-leg-front-boot-strap-clip)">
+<use id="marta-leg-front-boot-strap-lit" href="#marta-leg-front-boot-strap-shape" fill="#4f4944"/>
+<path id="marta-leg-front-boot-strap-dark" d="M 144.9 221.2 L 157 220.1 L 158.1 220.9 L 173 219.5 L 173.3 223.6 L 145.4 226.1 Z" fill="#14110f"/>
+<path id="marta-leg-front-boot-strap-stitch" d="M 151.9 220.8 L 152.6 222.4 L 153.1 220.7 Z M 158.3 220.2 L 159.1 221.8 L 159.5 220.1 Z M 164.8 219.7 L 165.5 221.2 L 166 219.6 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="marta-leg-front-boot-strap-buckle">
+<use id="marta-leg-front-boot-strap-buckle-line" href="#marta-leg-front-boot-strap-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-leg-front-boot-strap-buckle-clip)">
+<use id="marta-leg-front-boot-strap-buckle-lit" href="#marta-leg-front-boot-strap-buckle-shape" fill="#8c9194"/>
+<path id="marta-leg-front-boot-strap-buckle-dark" d="M 148 213.2 L 160.7 213.2 L 163.4 228 L 148 228 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="marta-leg-front-boot-strap-pin" d="M 161.7 219.8 L 165.8 220.2 L 165.8 221.4 L 161.7 221.2 Z" fill="#14110f"/>
+</svg>

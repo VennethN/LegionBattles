@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sexton-candles" width="1060" height="1060" viewBox="-170 -170 1060 1060">
+<defs>
+<path id="sexton-candles-wax-shape" d="M 262 204 L 288 168 L 330 140 L 392 146 L 424 162 L 430 190 L 424 214 L 414 216 L 410 190 L 398 184 L 394 222 L 384 226 L 378 196 L 362 178 L 352 186 L 344 176 L 318 182 L 312 206 L 302 208 L 298 192 L 284 214 L 280 236 L 270 234 Z"/>
+<clipPath id="sexton-candles-wax-clip"><use href="#sexton-candles-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-a-wax-shape" d="M 285 150 L 294 151 L 296 170 L 300 178 L 281 179 L 284 168 Z"/>
+<clipPath id="sexton-candles-candle-a-wax-clip"><use href="#sexton-candles-candle-a-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-a-flame-shape" d="M 286 148 L 290 132 L 294 148 L 290 151 Z"/>
+<path id="sexton-candles-candle-b-wax-shape" d="M 321 108 L 330 109 L 332 142 L 336 150 L 317 151 L 320 140 Z"/>
+<clipPath id="sexton-candles-candle-b-wax-clip"><use href="#sexton-candles-candle-b-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-b-flame-shape" d="M 322 106 L 326 90 L 330 106 L 326 109 Z"/>
+<path id="sexton-candles-candle-c-wax-shape" d="M 359 120 L 368 121 L 370 136 L 374 144 L 355 145 L 358 134 Z"/>
+<clipPath id="sexton-candles-candle-c-wax-clip"><use href="#sexton-candles-candle-c-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-c-flame-shape" d="M 360 118 L 364 102 L 368 118 L 364 121 Z"/>
+<path id="sexton-candles-candle-d-wax-shape" d="M 393 120 L 402 121 L 404 146 L 408 154 L 389 155 L 392 144 Z"/>
+<clipPath id="sexton-candles-candle-d-wax-clip"><use href="#sexton-candles-candle-d-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-d-flame-shape" d="M 394 118 L 398 102 L 402 118 L 398 121 Z"/>
+<path id="sexton-candles-candle-e-wax-shape" d="M 339 132 L 348 133 L 350 140 L 354 148 L 335 149 L 338 138 Z"/>
+<clipPath id="sexton-candles-candle-e-wax-clip"><use href="#sexton-candles-candle-e-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-e-flame-shape" d="M 340 130 L 344 114 L 348 130 L 344 133 Z"/>
+</defs>
+<g id="sexton-candles-wax">
+<use id="sexton-candles-wax-line" href="#sexton-candles-wax-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-wax-clip)">
+<use id="sexton-candles-wax-lit" href="#sexton-candles-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-wax-mid" d="M 250 136 L 316.6 134.8 L 331.1 174.3 L 327.3 183.7 L 348.6 241.2 L 250 240 Z" transform="translate(4 -0.96)" fill="#9c9178"/>
+<path id="sexton-candles-wax-dark" d="M 250 136 L 316.6 134.8 L 331.1 174.3 L 327.3 183.7 L 348.6 241.2 L 250 240 Z" fill="#14110f"/>
+<path id="sexton-candles-wax-runs" d="M 328.5 149.8 L 326 174 L 331.5 150.2 Z M 390.5 154.1 L 396 200 L 393.5 153.9 Z M 368.5 149.9 L 368 172 L 371.5 150.1 Z M 298.5 179.8 L 296 204 L 301.5 180.2 Z" fill="#9c9178"/>
+<path id="sexton-candles-wax-glow" d="M 340 142 L 400 148 L 412 166 L 350 162 Z" fill="#eeb040" opacity="0.4"/>
+</g>
+</g>
+<g id="sexton-candles-candle-a-wax">
+<use id="sexton-candles-candle-a-wax-line" href="#sexton-candles-candle-a-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-a-wax-clip)">
+<use id="sexton-candles-candle-a-wax-lit" href="#sexton-candles-candle-a-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-a-wax-mid" d="M 269 146 L 285.7 145.7 L 289.2 161.2 L 287.3 164.6 L 291.5 183.3 L 269 183 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-a-wax-dark" d="M 269 146 L 285.7 145.7 L 289.2 161.2 L 287.3 164.6 L 291.5 183.3 L 269 183 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-a-flame">
+<use id="sexton-candles-candle-a-flame-line" href="#sexton-candles-candle-a-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-a-flame-lit" href="#sexton-candles-candle-a-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-a-heart" d="M 288.4 147 L 290 139 L 291.6 147 Z" fill="#ffe6a2"/>
+<g id="sexton-candles-candle-b-wax">
+<use id="sexton-candles-candle-b-wax-line" href="#sexton-candles-candle-b-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-b-wax-clip)">
+<use id="sexton-candles-candle-b-wax-lit" href="#sexton-candles-candle-b-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-b-wax-mid" d="M 305 104 L 321.7 103.8 L 324.6 121.1 L 322.4 124.5 L 327.5 155.2 L 305 155 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-b-wax-dark" d="M 305 104 L 321.7 103.8 L 324.6 121.1 L 322.4 124.5 L 327.5 155.2 L 305 155 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-b-flame">
+<use id="sexton-candles-candle-b-flame-line" href="#sexton-candles-candle-b-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-b-flame-lit" href="#sexton-candles-candle-b-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-b-heart" d="M 324.4 105 L 326 97 L 327.6 105 Z" fill="#ffe6a2"/>
+<g id="sexton-candles-candle-c-wax">
+<use id="sexton-candles-candle-c-wax-line" href="#sexton-candles-candle-c-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-c-wax-clip)">
+<use id="sexton-candles-candle-c-wax-lit" href="#sexton-candles-candle-c-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-c-wax-mid" d="M 343 116 L 359.8 115.6 L 362.7 127.2 L 360.7 130.9 L 365.4 149.4 L 343 149 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-c-wax-dark" d="M 343 116 L 359.8 115.6 L 362.7 127.2 L 360.7 130.9 L 365.4 149.4 L 343 149 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-c-flame">
+<use id="sexton-candles-candle-c-flame-line" href="#sexton-candles-candle-c-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-c-flame-lit" href="#sexton-candles-candle-c-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-c-heart" d="M 362.4 117 L 364 109 L 365.6 117 Z" fill="#ffe6a2"/>
+<g id="sexton-candles-candle-d-wax">
+<use id="sexton-candles-candle-d-wax-line" href="#sexton-candles-candle-d-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-d-wax-clip)">
+<use id="sexton-candles-candle-d-wax-lit" href="#sexton-candles-candle-d-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-d-wax-mid" d="M 377 116 L 393.6 115.8 L 398.3 140.3 L 396.5 143.3 L 399.6 159.2 L 377 159 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-d-wax-dark" d="M 377 116 L 393.6 115.8 L 398.3 140.3 L 396.5 143.3 L 399.6 159.2 L 377 159 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-d-flame">
+<use id="sexton-candles-candle-d-flame-line" href="#sexton-candles-candle-d-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-d-flame-lit" href="#sexton-candles-candle-d-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-d-heart" d="M 396.4 117 L 398 109 L 399.6 117 Z" fill="#ffe6a2"/>
+<g id="sexton-candles-candle-e-wax">
+<use id="sexton-candles-candle-e-wax-line" href="#sexton-candles-candle-e-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-e-wax-clip)">
+<use id="sexton-candles-candle-e-wax-lit" href="#sexton-candles-candle-e-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-e-wax-mid" d="M 323 128 L 339.2 128 L 346 153 L 323 153 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-e-wax-dark" d="M 323 128 L 339.2 128 L 346 153 L 323 153 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-e-flame">
+<use id="sexton-candles-candle-e-flame-line" href="#sexton-candles-candle-e-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-e-flame-lit" href="#sexton-candles-candle-e-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-e-heart" d="M 342.4 129 L 344 121 L 345.6 129 Z" fill="#ffe6a2"/>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="brask-leash-arm" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="brask-leash-arm-arm-upper-shape" d="M 123.6 111.7 L 128.6 125.6 L 129.9 146.1 L 114.1 149.9 L 107.9 130.5 L 104.4 116.3 Z"/>
+<clipPath id="brask-leash-arm-arm-upper-clip"><use href="#brask-leash-arm-arm-upper-shape"/></clipPath>
+<path id="brask-leash-arm-arm-fore-shape" d="M 126.6 140.8 L 136.2 146 L 147.5 156.5 L 140.5 167.5 L 126.9 160.7 L 117.4 155.2 Z"/>
+<clipPath id="brask-leash-arm-arm-fore-clip"><use href="#brask-leash-arm-arm-fore-shape"/></clipPath>
+<path id="brask-leash-arm-arm-fist-shape" d="M 136.9 144.3 L 153.6 149.8 L 159.7 155.1 L 158.9 162.3 L 161.6 165.5 L 157.7 172.2 L 153.8 171.9 L 151.1 178.6 L 141.1 178.1 L 127.4 167.9 L 128.7 156.7 Z"/>
+<clipPath id="brask-leash-arm-arm-fist-clip"><use href="#brask-leash-arm-arm-fist-shape"/></clipPath>
+<path id="brask-leash-arm-clip-shape" d="M 144 198 L 150 198 L 151 208 L 143 208 Z"/>
+</defs>
+<g id="brask-leash-arm-arm-upper">
+<use id="brask-leash-arm-arm-upper-line" href="#brask-leash-arm-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-leash-arm-arm-upper-clip)">
+<use id="brask-leash-arm-arm-upper-lit" href="#brask-leash-arm-arm-upper-shape" fill="#9a5b38"/>
+<path id="brask-leash-arm-arm-upper-mid" d="M 117.1 110.2 L 121.9 130.2 L 119.3 134.8 L 123.1 150.8 L 103.8 155.4 L 94.4 115.5 Z" transform="translate(2.5 -0.6)" fill="#6a3b24"/>
+<path id="brask-leash-arm-arm-upper-dark" d="M 117.1 110.2 L 121.9 130.2 L 119.3 134.8 L 123.1 150.8 L 103.8 155.4 L 94.4 115.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="brask-leash-arm-arm-fore">
+<use id="brask-leash-arm-arm-fore-line" href="#brask-leash-arm-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-leash-arm-arm-fore-clip)">
+<use id="brask-leash-arm-arm-fore-lit" href="#brask-leash-arm-arm-fore-shape" fill="#9a5b38"/>
+<path id="brask-leash-arm-arm-fore-mid" d="M 121.4 143.4 L 131.3 149.7 L 132.6 154.6 L 146.6 163.5 L 137.8 177.3 L 110.8 160.1 Z" transform="translate(2.5 -0.6)" fill="#6a3b24"/>
+<path id="brask-leash-arm-arm-fore-dark" d="M 121.4 143.4 L 131.3 149.7 L 132.6 154.6 L 146.6 163.5 L 137.8 177.3 L 110.8 160.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="brask-leash-arm-arm-fold" d="M 116.6 155.8 L 124.9 145.8 L 113 151 Z" fill="#14110f"/>
+<g id="brask-leash-arm-arm-fist">
+<use id="brask-leash-arm-arm-fist-line" href="#brask-leash-arm-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-leash-arm-arm-fist-clip)">
+<use id="brask-leash-arm-arm-fist-lit" href="#brask-leash-arm-arm-fist-shape" fill="#7b5b3d"/>
+<path id="brask-leash-arm-arm-fist-mid" d="M 123.2 154.3 L 158.8 179.1 L 150.6 191.9 L 114.1 168.6 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="brask-leash-arm-arm-fist-dark" d="M 123.2 154.3 L 158.8 179.1 L 150.6 191.9 L 114.1 168.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="brask-leash-arm-arm-fist-fingers" d="M 159.7 161.6 L 149.6 159 L 158.4 164.7 Z M 155.7 170 L 145.8 166.1 L 154 172.9 Z" fill="#14110f"/>
+<path id="brask-leash-arm-coil-a" d="M 140 168 L 132 180 L 140 192 L 150 180 L 142 170" fill="none" stroke="#553d29" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="brask-leash-arm-coil-b" d="M 144 170 L 138 184 L 146 198 L 154 184 L 146 172" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="brask-leash-arm-clip">
+<use id="brask-leash-arm-clip-line" href="#brask-leash-arm-clip-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.9" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="brask-leash-arm-clip-lit" href="#brask-leash-arm-clip-shape" fill="#8c9194"/>
+</g>
+</svg>

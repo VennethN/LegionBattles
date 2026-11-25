@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="marta-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="marta-leg-back-hose-shape" d="M 122.9 187.8 L 121.3 203.1 L 114.9 223.5 L 97.1 220.5 L 99 199.4 L 101.1 184.2 Z"/>
+<clipPath id="marta-leg-back-hose-clip"><use href="#marta-leg-back-hose-shape"/></clipPath>
+<path id="marta-leg-back-boot-shape" d="M 94.2 215 L 116.5 213 L 115.7 227 L 125.5 230 L 131.5 236 L 131.5 240 L 87.5 240 L 85.5 230 Z"/>
+<clipPath id="marta-leg-back-boot-clip"><use href="#marta-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="marta-leg-back-hose">
+<use id="marta-leg-back-hose-line" href="#marta-leg-back-hose-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-leg-back-hose-clip)">
+<use id="marta-leg-back-hose-lit" href="#marta-leg-back-hose-shape" fill="#6f5c46"/>
+<path id="marta-leg-back-hose-mid" d="M 85.1 180.2 L 108.9 179.8 L 113.1 197.4 L 110.9 201.4 L 117.2 227.8 L 85.1 227.5 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="marta-leg-back-hose-dark" d="M 85.1 180.2 L 108.9 179.8 L 113.1 197.4 L 110.9 201.4 L 117.2 227.8 L 85.1 227.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="marta-leg-back-boot">
+<use id="marta-leg-back-boot-line" href="#marta-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-leg-back-boot-clip)">
+<use id="marta-leg-back-boot-lit" href="#marta-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="marta-leg-back-boot-mid" d="M 79.5 210 L 103.9 210 L 105.6 226 L 116.5 232 L 135.5 235 L 135.5 244 L 79.5 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="marta-leg-back-boot-dark" d="M 79.5 210 L 103.9 210 L 105.6 226 L 116.5 232 L 135.5 235 L 135.5 244 L 79.5 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="marta-leg-back-boot-sole" d="M 85.5 237 L 132.5 237 L 132.5 241.5 L 85.5 241.5 Z" fill="#14110f"/>
+<path id="marta-leg-back-boot-crease" d="M 114.8 225.8 L 103.9 231 L 115.7 228.2 Z" fill="#14110f"/>
+</svg>

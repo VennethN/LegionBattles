@@ -118,7 +118,7 @@ export function isOpen(save: SaveData, id: string): boolean {
 export function opensBy(id: string): string {
   const t = byId(THINGS, id);
   const m = MONSTERS.find((x) => x.trophy.id === t.opens);
-  return m ? `Fell ${m.name}` : '';
+  return m ? `Beat ${m.name}` : '';
 }
 
 /** What a trophy opens, by name. */
@@ -143,7 +143,7 @@ export interface Contract {
 }
 
 export function contracts(save: SaveData): Contract[] {
-  const needs = (after: string | null): string => (after ? `Fell ${byId(MONSTERS, after).name}` : '');
+  const needs = (after: string | null): string => (after ? `Beat ${byId(MONSTERS, after).name}` : '');
   const list: Contract[] = MONSTERS.map((m) => {
     const posted = m.after === null || (save.felled[m.after] ?? 0) >= 1;
     const felled = save.felled[m.id] ?? 0;
@@ -186,9 +186,9 @@ export function toggleReinforcement(save: SaveData, id: string): string {
     m.reinforcements = m.reinforcements.filter((x) => x !== id);
     return '';
   }
-  if (!isOpen(save, id)) return opensBy(id);
+  if (!isOpen(save, id)) return `Locked: ${opensBy(id)}`;
   if (m.reinforcements.length >= MOST.reinforcements) return `No more than ${MOST.reinforcements} kinds`;
-  if (costOf(m) + byId(REINFORCEMENTS, id).cost > supplyOf(save)) return 'Not enough supply';
+  if (costOf(m) + byId(REINFORCEMENTS, id).cost > supplyOf(save)) return 'Not enough Supply';
   m.reinforcements.push(id);
   return '';
 }
@@ -203,15 +203,15 @@ export function changeBuilding(save: SaveData, id: string, by: 1 | -1): string {
     else m.buildings[id] = now - 1;
     return '';
   }
-  if (!isOpen(save, id)) return opensBy(id);
+  if (!isOpen(save, id)) return `Locked: ${opensBy(id)}`;
   if (now >= MOST.ofOne) return `No more than ${MOST.ofOne} of one`;
-  if (costOf(m) + byId(BUILDINGS, id).cost > supplyOf(save)) return 'Not enough supply';
+  if (costOf(m) + byId(BUILDINGS, id).cost > supplyOf(save)) return 'Not enough Supply';
   m.buildings[id] = now + 1;
   return '';
 }
 
 export function setHunter(save: SaveData, id: string): string {
-  if (!isOpen(save, id)) return opensBy(id);
+  if (!isOpen(save, id)) return `Locked: ${opensBy(id)}`;
   save.muster.hunter = id;
   return '';
 }
@@ -256,16 +256,16 @@ export function wares(save: SaveData): Ware[] {
   const list: Ware[] = [];
   const next = SUPPLY.steps[save.supply];
   list.push({
-    id: 'supply', name: 'More supply', says: next === undefined ? 'The lodge can carry no more.' : `One more to spend on a muster (${supplyOf(save)} now).`,
+    id: 'supply', name: 'More Supply', says: next === undefined ? 'At the most.' : `+1 Supply for your team (${supplyOf(save)} now).`,
     price: next ?? 0, had: next === undefined,
   });
   for (const r of REINFORCEMENTS) {
     if (!isOpen(save, r.id)) continue;
-    list.push({ id: `more:${r.id}`, name: `${r.name}: a second call`, says: 'They can be called twice in a hunt.', price: STEP_COST.more, had: save.steps.includes(`more:${r.id}`) });
+    list.push({ id: `more:${r.id}`, name: `${r.name}: 2 calls`, says: 'Call them twice per hunt.', price: STEP_COST.more, had: save.steps.includes(`more:${r.id}`) });
   }
   for (const b of BUILDINGS) {
     if (!isOpen(save, b.id)) continue;
-    list.push({ id: `sturdy:${b.id}`, name: `${b.name}: sturdier`, says: 'Half as much again before it breaks.', price: STEP_COST.sturdy, had: save.steps.includes(`sturdy:${b.id}`) });
+    list.push({ id: `sturdy:${b.id}`, name: `${b.name}: stronger`, says: '+50% Health.', price: STEP_COST.sturdy, had: save.steps.includes(`sturdy:${b.id}`) });
   }
   return list;
 }

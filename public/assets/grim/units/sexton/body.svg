@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sexton-body" width="1060" height="1060" viewBox="-170 -170 1060 1060">
+<defs>
+<path id="sexton-body-trunk-shape" d="M 286 540 L 246 430 L 232 300 L 262 196 L 330 138 L 410 150 L 462 222 L 486 300 L 494 390 L 472 480 L 432 546 Z"/>
+<clipPath id="sexton-body-trunk-clip"><use href="#sexton-body-trunk-shape"/></clipPath>
+<path id="sexton-body-shroud-a-shape" d="M 404 330 L 488 322 L 492 400 L 470 452 L 410 430 Z"/>
+<clipPath id="sexton-body-shroud-a-clip"><use href="#sexton-body-shroud-a-shape"/></clipPath>
+<path id="sexton-body-shroud-b-shape" d="M 372 180 L 440 196 L 462 250 L 392 262 Z"/>
+<clipPath id="sexton-body-shroud-b-clip"><use href="#sexton-body-shroud-b-shape"/></clipPath>
+<path id="sexton-body-rope-across-shape" d="M 337.2 146.5 L 476.8 436.7 L 463.2 443.3 L 322.8 153.5 Z"/>
+<clipPath id="sexton-body-rope-across-clip"><use href="#sexton-body-rope-across-shape"/></clipPath>
+<path id="sexton-body-rope-shape" d="M 262 472 L 470 456 L 472 478 L 266 496 Z"/>
+<clipPath id="sexton-body-rope-clip"><use href="#sexton-body-rope-shape"/></clipPath>
+<path id="sexton-body-bone-a-shape" d="M 443.4 499.4 L 455.4 565.4 L 448.6 566.6 L 436.6 500.6 Z"/>
+<clipPath id="sexton-body-bone-a-clip"><use href="#sexton-body-bone-a-shape"/></clipPath>
+<path id="sexton-body-bone-a-knob-a-shape" d="M 433 495.1 L 441.4 493 L 447 498.6 L 444.9 505.6 L 435.8 507 Z"/>
+<clipPath id="sexton-body-bone-a-knob-a-clip"><use href="#sexton-body-bone-a-knob-a-shape"/></clipPath>
+<path id="sexton-body-bone-a-knob-b-shape" d="M 445 561.1 L 453.4 559 L 459 564.6 L 456.9 571.6 L 447.8 573 Z"/>
+<clipPath id="sexton-body-bone-a-knob-b-clip"><use href="#sexton-body-bone-a-knob-b-shape"/></clipPath>
+<path id="sexton-body-bone-b-shape" d="M 471 495.8 L 475 547.8 L 469 548.2 L 465 496.2 Z"/>
+<clipPath id="sexton-body-bone-b-clip"><use href="#sexton-body-bone-b-shape"/></clipPath>
+<path id="sexton-body-bone-b-knob-a-shape" d="M 462 491.8 L 469.2 490 L 474 494.8 L 472.2 500.8 L 464.4 502 Z"/>
+<clipPath id="sexton-body-bone-b-knob-a-clip"><use href="#sexton-body-bone-b-knob-a-shape"/></clipPath>
+<path id="sexton-body-bone-b-knob-b-shape" d="M 466 543.8 L 473.2 542 L 478 546.8 L 476.2 552.8 L 468.4 554 Z"/>
+<clipPath id="sexton-body-bone-b-knob-b-clip"><use href="#sexton-body-bone-b-knob-b-shape"/></clipPath>
+</defs>
+<g id="sexton-body-trunk">
+<use id="sexton-body-trunk-line" href="#sexton-body-trunk-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-trunk-clip)">
+<use id="sexton-body-trunk-lit" href="#sexton-body-trunk-shape" fill="#4f4944"/>
+<path id="sexton-body-trunk-mid" d="M 200 100 L 344 100 L 358 130.9 L 371.9 285.7 L 350.2 314.3 L 372 557.1 L 200 580 Z" transform="translate(14 -3.36)" fill="#34302d"/>
+<path id="sexton-body-trunk-dark" d="M 200 100 L 344 100 L 358 130.9 L 371.9 285.7 L 350.2 314.3 L 372 557.1 L 200 580 Z" fill="#14110f"/>
+<g id="sexton-body-shroud-a">
+<use id="sexton-body-shroud-a-line" href="#sexton-body-shroud-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-shroud-a-clip)">
+<use id="sexton-body-shroud-a-lit" href="#sexton-body-shroud-a-shape" fill="#cfc5a8"/>
+<path id="sexton-body-shroud-a-mid" d="M 392 318 L 413.9 317.2 L 434.8 391.4 L 430.8 399.4 L 446.9 456.8 L 392 456 Z" transform="translate(6 -1.44)" fill="#9c9178"/>
+<path id="sexton-body-shroud-a-dark" d="M 392 318 L 413.9 317.2 L 434.8 391.4 L 430.8 399.4 L 446.9 456.8 L 392 456 Z" fill="#14110f"/>
+<path id="sexton-body-weave-a" d="M 450.2 339.8 L 390.2 342.9 L 450.2 341.4 Z M 450.6 351.4 L 390.7 354.5 L 450.7 353 Z M 451.1 362.9 L 391.1 366 L 451.1 364.5 Z M 451.5 374.5 L 391.6 377.6 L 451.6 376.1 Z M 451.9 386 L 392 389.2 L 452 387.6 Z M 452.4 397.6 L 392.5 400.7 L 452.5 399.2 Z M 452.8 409.2 L 392.9 412.3 L 452.9 410.8 Z M 453.3 420.7 L 393.4 423.8 L 453.3 422.3 Z M 453.7 432.3 L 393.8 435.4 L 453.8 433.9 Z" fill="#9c9178"/>
+<path id="sexton-body-weave-b" d="M 435.2 332 L 440 440 L 436.8 332 Z M 455.2 330 L 458 448 L 456.8 330 Z M 473.2 326 L 474 440 L 474.8 326 Z" fill="#9c9178"/>
+<path id="sexton-body-stain" d="M 440 400 L 476 392 L 480 440 L 452 450 Z" fill="#5a5645" opacity="0.6"/>
+</g>
+</g>
+<g id="sexton-body-shroud-b">
+<use id="sexton-body-shroud-b-line" href="#sexton-body-shroud-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-shroud-b-clip)">
+<use id="sexton-body-shroud-b-lit" href="#sexton-body-shroud-b-shape" fill="#cfc5a8"/>
+<path id="sexton-body-shroud-b-mid" d="M 360 176 L 394.9 174.8 L 407.2 208.4 L 403.2 218.1 L 421.1 267.2 L 360 266 Z" transform="translate(6 -1.44)" fill="#9c9178"/>
+<path id="sexton-body-shroud-b-dark" d="M 360 176 L 394.9 174.8 L 407.2 208.4 L 403.2 218.1 L 421.1 267.2 L 360 266 Z" fill="#14110f"/>
+<path id="sexton-body-weave-c" d="M 425.2 198.5 L 375.4 202.7 L 425.3 200.1 Z M 425.9 208.5 L 376.1 212.7 L 426 210.1 Z M 426.6 218.5 L 376.7 222.7 L 426.7 220.1 Z M 427.2 228.5 L 377.4 232.7 L 427.3 230.1 Z M 427.9 238.5 L 378.1 242.7 L 428 240.1 Z M 428.6 248.5 L 378.7 252.7 L 428.7 250.1 Z M 415.2 192 L 420 258 L 416.8 192 Z M 435.2 198.1 L 440 256 L 436.8 197.9 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="sexton-body-stitches" d="M 401 342.3 L 392 350 L 403 345.7 Z M 403 370.3 L 394 378 L 405 373.7 Z M 405 398.3 L 396 406 L 407 401.7 Z M 408.8 422.4 L 400 432 L 411.2 425.6 Z M 378.4 194.8 L 372 206 L 381.6 197.2 Z M 384.6 224.6 L 376 236 L 387.4 227.4 Z M 388.4 250.8 L 382 262 L 391.6 253.2 Z" fill="#14110f"/>
+<path id="sexton-body-coat-folds" d="M 428.5 272 L 470 300 L 431.5 268 Z M 397.6 290.7 L 410 326 L 402.4 289.3 Z M 437.6 469.2 L 420 530 L 442.4 470.8 Z M 467.6 409.2 L 450 470 L 472.4 410.8 Z" fill="#34302d"/>
+<path id="sexton-body-candle-light-a" d="M 352 160 L 408 158 L 440 200 L 420 196 L 396 176 L 364 176 Z" fill="#c27a26" opacity="0.5"/>
+<path id="sexton-body-candle-light-b" d="M 404 204 L 440 204 L 456 240 L 430 232 Z" fill="#c27a26" opacity="0.3"/>
+<path id="sexton-body-dirt" d="M 392 500 L 470 470 L 466 520 L 430 550 L 390 548 Z" fill="#434134"/>
+<path id="sexton-body-dry" d="M 278.5 249.7 L 262 330 L 281.5 250.3 Z M 298.5 359.8 L 290 440 L 301.5 360.2 Z M 260.5 379.9 L 258 430 L 263.5 380.1 Z" fill="#e9e0c6"/>
+<path id="sexton-body-trunk-cold" d="M 192 98 L 534 98 L 534 586 L 192 586 Z M 289.8 537.1 L 249.8 427.1 L 235.8 297.1 L 265.8 193.1 L 333.8 135.1 L 413.8 147.1 L 465.8 219.1 L 489.8 297.1 L 497.8 387.1 L 475.8 477.1 L 435.8 543.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="sexton-body-trunk-open-0" d="M 464 226 L 466.32 224.26 L 486.32 294.26 L 484 296 Z" fill="#4f4944"/>
+</g>
+<g id="sexton-body-rope-across">
+<use id="sexton-body-rope-across-line" href="#sexton-body-rope-across-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-rope-across-clip)">
+<use id="sexton-body-rope-across-lit" href="#sexton-body-rope-across-shape" fill="#c7ad84"/>
+<path id="sexton-body-rope-across-dark" d="M 331.2 146.1 L 400.1 288.9 L 399.1 292.2 L 471.7 442.5 L 458.3 449 L 315.7 153.6 Z" fill="#14110f"/>
+<path id="sexton-body-rope-x-twist" d="M 341.4 157.7 L 335.5 178.1 L 343.5 158.4 Z M 347.3 169.9 L 341.4 190.3 L 349.4 170.6 Z M 353.2 182.1 L 347.3 202.5 L 355.3 182.8 Z M 359.1 194.3 L 353.2 214.7 L 361.2 195 Z M 365 206.4 L 359.1 226.8 L 367.1 207.2 Z M 370.9 218.6 L 365 239 L 373 219.3 Z M 376.8 230.8 L 370.9 251.2 L 378.9 231.5 Z M 382.8 243 L 376.8 263.4 L 384.8 243.7 Z M 388.7 255.2 L 382.8 275.6 L 390.7 255.9 Z M 394.6 267.3 L 388.7 287.7 L 396.7 268.1 Z M 400.5 279.5 L 394.6 299.9 L 402.6 280.2 Z M 406.4 291.7 L 400.5 312.1 L 408.5 292.4 Z M 412.3 303.9 L 406.4 324.3 L 414.4 304.6 Z M 418.2 316.1 L 412.3 336.5 L 420.3 316.8 Z M 424.1 328.3 L 418.2 348.7 L 426.2 329 Z M 430 340.4 L 424.1 360.8 L 432.1 341.2 Z M 435.9 352.6 L 430 373 L 438 353.3 Z M 441.8 364.8 L 435.9 385.2 L 443.9 365.5 Z M 447.8 377 L 441.8 397.4 L 449.8 377.7 Z M 453.7 389.2 L 447.8 409.6 L 455.7 389.9 Z M 459.6 401.3 L 453.7 421.7 L 461.7 402.1 Z M 465.5 413.5 L 459.6 433.9 L 467.6 414.2 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="sexton-body-rope">
+<use id="sexton-body-rope-line" href="#sexton-body-rope-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-rope-clip)">
+<use id="sexton-body-rope-lit" href="#sexton-body-rope-shape" fill="#c7ad84"/>
+<path id="sexton-body-rope-mid" d="M 250 452 L 362.2 450.9 L 368.2 469.1 L 363.8 476.9 L 371.8 501.1 L 250 500 Z" transform="translate(4 -0.96)" fill="#927a58"/>
+<path id="sexton-body-rope-dark" d="M 250 452 L 362.2 450.9 L 368.2 469.1 L 363.8 476.9 L 371.8 501.1 L 250 500 Z" fill="#14110f"/>
+<path id="sexton-body-twist" d="M 322.8 472.7 L 347.9 491.3 L 324.7 470.4 Z M 334.5 471.6 L 359.5 490.1 L 336.4 469.2 Z M 346.2 470.4 L 371.2 488.9 L 348.1 468.1 Z M 357.8 469.2 L 382.9 487.8 L 359.7 466.9 Z M 369.5 468.1 L 394.5 486.6 L 371.4 465.7 Z M 381.2 466.9 L 406.2 485.4 L 383.1 464.6 Z M 392.8 465.7 L 417.9 484.3 L 394.7 463.4 Z M 404.5 464.6 L 429.5 483.1 L 406.4 462.2 Z M 416.2 463.4 L 441.2 481.9 L 418.1 461.1 Z M 427.8 462.2 L 452.9 480.8 L 429.7 459.9 Z M 439.5 461.1 L 464.5 479.6 L 441.4 458.7 Z M 451.2 459.9 L 476.2 478.4 L 453.1 457.6 Z" fill="#927a58"/>
+</g>
+</g>
+<path id="sexton-body-bone-cord" d="M 440 476 L 444 500" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="sexton-body-bone-a">
+<use id="sexton-body-bone-a-line" href="#sexton-body-bone-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-a-clip)">
+<use id="sexton-body-bone-a-lit" href="#sexton-body-bone-a-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-a-dark" d="M 441.1 496.8 L 448 535 L 447 536.6 L 452.9 568.9 L 446.6 570 L 433.5 498.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-body-bone-a-knob-a">
+<use id="sexton-body-bone-a-knob-a-line" href="#sexton-body-bone-a-knob-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-a-knob-a-clip)">
+<use id="sexton-body-bone-a-knob-a-lit" href="#sexton-body-bone-a-knob-a-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-a-knob-a-dark" d="M 421 489 L 435.2 489 L 440.8 511 L 421 511 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-body-bone-a-knob-b">
+<use id="sexton-body-bone-a-knob-b-line" href="#sexton-body-bone-a-knob-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-a-knob-b-clip)">
+<use id="sexton-body-bone-a-knob-b-lit" href="#sexton-body-bone-a-knob-b-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-a-knob-b-dark" d="M 433 555 L 447.2 555 L 452.8 577 L 433 577 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-body-bone-cord-b" d="M 462 474 L 468 494" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="sexton-body-bone-b">
+<use id="sexton-body-bone-b-line" href="#sexton-body-bone-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-b-clip)">
+<use id="sexton-body-bone-b-lit" href="#sexton-body-bone-b-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-b-dark" d="M 469.1 492.9 L 471.8 528.2 L 470.9 529.4 L 472.5 551 L 467.1 551.4 L 462.6 493.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-body-bone-b-knob-a">
+<use id="sexton-body-bone-b-knob-a-line" href="#sexton-body-bone-b-knob-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-b-knob-a-clip)">
+<use id="sexton-body-bone-b-knob-a-lit" href="#sexton-body-bone-b-knob-a-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-b-knob-a-dark" d="M 450 486 L 463.9 486 L 468.7 506 L 450 506 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-body-bone-b-knob-b">
+<use id="sexton-body-bone-b-knob-b-line" href="#sexton-body-bone-b-knob-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-b-knob-b-clip)">
+<use id="sexton-body-bone-b-knob-b-lit" href="#sexton-body-bone-b-knob-b-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-b-knob-b-dark" d="M 454 538 L 467.9 538 L 472.7 558 L 454 558 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-body-nail-ring" d="M 412 480 L 404 492 L 412 504 L 420 492 L 412 480" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="sexton-body-nails" d="M 405.5 499.5 L 400 540 L 410.5 500.5 Z M 409.5 501.9 L 410 546 L 414.5 502.1 Z M 413.5 500.4 L 422 540 L 418.5 499.6 Z" fill="#14110f"/>
+</svg>

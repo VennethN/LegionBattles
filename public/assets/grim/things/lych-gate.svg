@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="lych-gate" width="280" height="322" viewBox="0 0 280 322">
+<defs>
+<path id="lych-gate-post-a-shape" d="M 34 310 L 38 120 L 62 120 L 66 310 Z"/>
+<clipPath id="lych-gate-post-a-clip"><use href="#lych-gate-post-a-shape"/></clipPath>
+<path id="lych-gate-post-b-shape" d="M 204 310 L 208 120 L 232 120 L 236 310 Z"/>
+<clipPath id="lych-gate-post-b-clip"><use href="#lych-gate-post-b-shape"/></clipPath>
+<path id="lych-gate-brace-a-shape" d="M 66.4 174 L 104.1 131.7 L 95.9 124.3 L 57.6 166 Z"/>
+<clipPath id="lych-gate-brace-a-clip"><use href="#lych-gate-brace-a-shape"/></clipPath>
+<path id="lych-gate-brace-b-shape" d="M 212.4 166 L 174.1 124.3 L 165.9 131.7 L 203.6 174 Z"/>
+<clipPath id="lych-gate-brace-b-clip"><use href="#lych-gate-brace-b-shape"/></clipPath>
+<path id="lych-gate-beam-shape" d="M 20 112 L 250 106 L 252 126 L 22 132 Z"/>
+<clipPath id="lych-gate-beam-clip"><use href="#lych-gate-beam-shape"/></clipPath>
+<path id="lych-gate-roof-shape" d="M 0 110 L 60 40 L 136 8 L 212 40 L 270 104 L 240 108 L 222 92 L 196 104 L 30 114 Z"/>
+<clipPath id="lych-gate-roof-clip"><use href="#lych-gate-roof-shape"/></clipPath>
+<path id="lych-gate-lamp-shape" d="M 126 152 L 146 152 L 148 180 L 124 180 Z"/>
+<path id="lych-gate-leaf-shape" d="M 66 304 L 70 196 L 112 204 L 108 310 Z"/>
+<clipPath id="lych-gate-leaf-clip"><use href="#lych-gate-leaf-shape"/></clipPath>
+<path id="lych-gate-strap-shape" d="M 66 222 L 112 228 L 112 236 L 66 230 Z"/>
+</defs>
+<path id="lych-gate-blot" d="M 10 306 L 250 300 L 272 310 L 240 318 L 20 316 Z" fill="#14110f" opacity="0.55"/>
+<g id="lych-gate-post-a">
+<use id="lych-gate-post-a-line" href="#lych-gate-post-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#lych-gate-post-a-clip)">
+<use id="lych-gate-post-a-lit" href="#lych-gate-post-a-shape" fill="#6f5c46"/>
+<path id="lych-gate-post-a-mid" d="M 22 116 L 45.3 115.8 L 53.6 232.9 L 49.3 238.3 L 54.7 314.2 L 22 314 Z" transform="translate(4.48 -1.08)" fill="#4a3c2d"/>
+<path id="lych-gate-post-a-dark" d="M 22 116 L 45.3 115.8 L 53.6 232.9 L 49.3 238.3 L 54.7 314.2 L 22 314 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="lych-gate-post-b">
+<use id="lych-gate-post-b-line" href="#lych-gate-post-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#lych-gate-post-b-clip)">
+<use id="lych-gate-post-b-lit" href="#lych-gate-post-b-shape" fill="#6f5c46"/>
+<path id="lych-gate-post-b-mid" d="M 192 116 L 212.7 115.8 L 220 218.2 L 215.7 223.6 L 222.2 314.2 L 192 314 Z" transform="translate(4.48 -1.08)" fill="#4a3c2d"/>
+<path id="lych-gate-post-b-dark" d="M 192 116 L 212.7 115.8 L 220 218.2 L 215.7 223.6 L 222.2 314.2 L 192 314 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="lych-gate-brace-a">
+<use id="lych-gate-brace-a-line" href="#lych-gate-brace-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#lych-gate-brace-a-clip)">
+<use id="lych-gate-brace-a-lit" href="#lych-gate-brace-a-shape" fill="#6f5c46"/>
+<path id="lych-gate-brace-a-mid" d="M 60.8 172.9 L 82.4 148.9 L 82.4 145.9 L 101.2 125.1 L 93.1 117.7 L 51.1 164.2 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="lych-gate-brace-a-dark" d="M 60.8 172.9 L 82.4 148.9 L 82.4 145.9 L 101.2 125.1 L 93.1 117.7 L 51.1 164.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="lych-gate-brace-b">
+<use id="lych-gate-brace-b-line" href="#lych-gate-brace-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#lych-gate-brace-b-clip)">
+<use id="lych-gate-brace-b-lit" href="#lych-gate-brace-b-shape" fill="#6f5c46"/>
+<path id="lych-gate-brace-b-mid" d="M 210.7 171.6 L 186.3 144.7 L 183.6 144.4 L 167.3 126.4 L 159.1 133.8 L 201.1 180.3 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="lych-gate-brace-b-dark" d="M 210.7 171.6 L 186.3 144.7 L 183.6 144.4 L 167.3 126.4 L 159.1 133.8 L 201.1 180.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="lych-gate-beam">
+<use id="lych-gate-beam-line" href="#lych-gate-beam-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#lych-gate-beam-clip)">
+<use id="lych-gate-beam-lit" href="#lych-gate-beam-shape" fill="#6f5c46"/>
+<path id="lych-gate-beam-mid" d="M 10 122 L 260 116 L 260 136 L 10 138 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="lych-gate-beam-dark" d="M 10 122 L 260 116 L 260 136 L 10 138 Z" fill="#14110f"/>
+<path id="lych-gate-beam-grain" d="M 40 117 L 120 113 L 40 115 Z M 150 114 L 240 110 L 150 112 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<path id="lych-gate-pegs-a-0" d="M 45.3 116 L 47.5 113.8 L 49.7 116 L 47.5 118.2 Z" fill="#14110f"/>
+<path id="lych-gate-pegs-a-1" d="M 52.3 116 L 54.5 113.8 L 56.7 116 L 54.5 118.2 Z" fill="#14110f"/>
+<path id="lych-gate-pegs-b-0" d="M 215.3 112 L 217.5 109.8 L 219.7 112 L 217.5 114.2 Z" fill="#14110f"/>
+<path id="lych-gate-pegs-b-1" d="M 222.3 112 L 224.5 109.8 L 226.7 112 L 224.5 114.2 Z" fill="#14110f"/>
+<g id="lych-gate-roof">
+<use id="lych-gate-roof-line" href="#lych-gate-roof-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#lych-gate-roof-clip)">
+<use id="lych-gate-roof-lit" href="#lych-gate-roof-shape" fill="#4f4944"/>
+<path id="lych-gate-roof-mid" d="M -10 0 L 112 0 L 115.4 8.5 L 107 67.5 L 99.1 74 L 92.6 119.5 L -10 120 Z" transform="translate(9 -2.16)" fill="#34302d"/>
+<path id="lych-gate-roof-dark" d="M -10 0 L 112 0 L 115.4 8.5 L 107 67.5 L 99.1 74 L 92.6 119.5 L -10 120 Z" fill="#14110f"/>
+<path id="lych-gate-shingles" d="M 139.3 31.3 L 236 80 L 140.7 28.7 Z M 135.3 53.3 L 214 92 L 136.7 50.7 Z M 149.1 17.2 L 250 92 L 150.9 14.8 Z M 127.5 77.4 L 190 100 L 128.5 74.6 Z" fill="#34302d"/>
+<path id="lych-gate-shingle-ends" d="M 152.9 32.5 L 156.2 44.9 L 154.7 32.2 Z M 162.9 37.8 L 166.2 50.2 L 164.7 37.4 Z M 172.9 43 L 176.2 55.4 L 174.7 42.7 Z M 182.9 48.3 L 186.2 60.7 L 184.7 47.9 Z M 192.9 53.5 L 196.2 65.9 L 194.7 53.2 Z M 202.9 58.8 L 206.2 71.2 L 204.7 58.4 Z M 212.9 64 L 216.2 76.4 L 214.7 63.7 Z M 222.9 69.3 L 226.2 81.7 L 224.7 68.9 Z M 147.2 54.6 L 150.9 66.9 L 149 54.2 Z M 158.2 60 L 161.9 72.2 L 160 59.6 Z M 169.2 65.3 L 172.9 77.6 L 171 64.9 Z M 180.2 70.6 L 183.9 82.9 L 182 70.2 Z M 191.2 76 L 194.9 88.2 L 193 75.6 Z M 202.2 81.3 L 205.9 93.6 L 204 80.9 Z" fill="#34302d"/>
+<path id="lych-gate-roof-moss" d="M 170 40 L 200 52 L 190 64 L 164 54 Z" fill="#4b4f2f"/>
+<path id="lych-gate-roof-hole" d="M 204 66 L 222 72 L 216 86 L 202 80 Z" fill="#14110f"/>
+<path id="lych-gate-roof-cold" d="M -40 -32 L 310 -32 L 310 154 L -40 154 Z M 2.5 108.1 L 62.5 38.1 L 138.5 6.1 L 214.5 38.1 L 272.5 102.1 L 242.5 106.1 L 224.5 90.1 L 198.5 102.1 L 32.5 112.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<path id="lych-gate-chain" d="M 136 126 L 136 150" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="lych-gate-lamp">
+<use id="lych-gate-lamp-line" href="#lych-gate-lamp-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="lych-gate-lamp-lit" href="#lych-gate-lamp-shape" fill="#eeb040"/>
+</g>
+<path id="lych-gate-lamp-heart" d="M 132 158 L 140 158 L 141 176 L 131 176 Z" fill="#ffe6a2"/>
+<path id="lych-gate-lamp-cap" d="M 122 154 L 130 144 L 142 144 L 150 154 Z" fill="#14110f"/>
+<path id="lych-gate-lamp-foot" d="M 122 178 L 150 178 L 146 186 L 126 186 Z" fill="#14110f"/>
+<g id="lych-gate-leaf">
+<use id="lych-gate-leaf-line" href="#lych-gate-leaf-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#lych-gate-leaf-clip)">
+<use id="lych-gate-leaf-lit" href="#lych-gate-leaf-shape" fill="#6f5c46"/>
+<path id="lych-gate-leaf-mid" d="M 54 192 L 77.8 191.4 L 87.1 247.5 L 81.4 256.4 L 91 314.6 L 54 314 Z" transform="translate(6.44 -1.55)" fill="#4a3c2d"/>
+<path id="lych-gate-leaf-dark" d="M 54 192 L 77.8 191.4 L 87.1 247.5 L 81.4 256.4 L 91 314.6 L 54 314 Z" fill="#14110f"/>
+<path id="lych-gate-boards" d="M 80.7 200 L 80 306 L 83.3 200 Z M 94.7 202 L 94 308 L 97.3 202 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="lych-gate-strap">
+<use id="lych-gate-strap-line" href="#lych-gate-strap-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="lych-gate-strap-lit" href="#lych-gate-strap-shape" fill="#9a5b38"/>
+</g>
+</svg>

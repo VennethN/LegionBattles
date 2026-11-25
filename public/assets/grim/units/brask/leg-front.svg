@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="brask-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="brask-leg-front-leg-shape" d="M 155.6 168.7 L 160.7 189.7 L 163.7 219.7 L 144.3 224.3 L 134.8 195.9 L 128.4 175.3 Z"/>
+<clipPath id="brask-leg-front-leg-clip"><use href="#brask-leg-front-leg-shape"/></clipPath>
+<path id="brask-leg-front-boot-shape" d="M 141.7 215 L 165 213 L 170.1 227 L 181.8 230 L 187.8 236 L 187.8 240 L 139.8 240 L 137.8 230 Z"/>
+<clipPath id="brask-leg-front-boot-clip"><use href="#brask-leg-front-boot-shape"/></clipPath>
+<path id="brask-leg-front-boot-strap-shape" d="M 143.8 221.8 L 167.8 219.8 L 168.2 224.2 L 144.2 226.2 Z"/>
+<clipPath id="brask-leg-front-boot-strap-clip"><use href="#brask-leg-front-boot-strap-shape"/></clipPath>
+<path id="brask-leg-front-boot-strap-buckle-shape" d="M 157.4 219.2 L 164.2 219.6 L 163.8 226 L 157.8 225.6 Z"/>
+<clipPath id="brask-leg-front-boot-strap-buckle-clip"><use href="#brask-leg-front-boot-strap-buckle-shape"/></clipPath>
+</defs>
+<g id="brask-leg-front-leg">
+<use id="brask-leg-front-leg-line" href="#brask-leg-front-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-leg-front-leg-clip)">
+<use id="brask-leg-front-leg-lit" href="#brask-leg-front-leg-shape" fill="#7b5b3d"/>
+<path id="brask-leg-front-leg-mid" d="M 124 166 L 138 166 L 139.8 171.7 L 143.7 197.7 L 140.6 202.2 L 144.2 226.3 L 124 226 Z" transform="translate(4.95 -1.19)" fill="#553d29"/>
+<path id="brask-leg-front-leg-dark" d="M 124 166 L 138 166 L 139.8 171.7 L 143.7 197.7 L 140.6 202.2 L 144.2 226.3 L 124 226 Z" fill="#14110f"/>
+<path id="brask-leg-front-knee" d="M 146.1 196.9 L 160 194 L 145.9 195.1 Z M 148.1 202.9 L 158 201 L 147.9 201.1 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="brask-leg-front-boot">
+<use id="brask-leg-front-boot-line" href="#brask-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-leg-front-boot-clip)">
+<use id="brask-leg-front-boot-lit" href="#brask-leg-front-boot-shape" fill="#4f4944"/>
+<path id="brask-leg-front-boot-mid" d="M 131.8 210 L 157.8 210 L 159.6 226 L 171 232 L 191.8 235 L 191.8 244 L 131.8 244 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="brask-leg-front-boot-dark" d="M 131.8 210 L 157.8 210 L 159.6 226 L 171 232 L 191.8 235 L 191.8 244 L 131.8 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="brask-leg-front-boot-sole" d="M 137.8 237 L 188.8 237 L 188.8 241.5 L 137.8 241.5 Z" fill="#14110f"/>
+<path id="brask-leg-front-boot-crease" d="M 169.3 225.8 L 157.8 231 L 170.1 228.2 Z" fill="#14110f"/>
+<g id="brask-leg-front-boot-strap">
+<use id="brask-leg-front-boot-strap-line" href="#brask-leg-front-boot-strap-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-leg-front-boot-strap-clip)">
+<use id="brask-leg-front-boot-strap-lit" href="#brask-leg-front-boot-strap-shape" fill="#7b5b3d"/>
+<path id="brask-leg-front-boot-strap-dark" d="M 140.9 223.2 L 153.9 222.1 L 154.9 222.9 L 171 221.6 L 171.3 225.6 L 141.3 228.1 Z" fill="#14110f"/>
+<path id="brask-leg-front-boot-strap-stitch" d="M 148.3 222.8 L 149 224.4 L 149.5 222.7 Z M 155.3 222.2 L 156.1 223.8 L 156.5 222.1 Z M 162.4 221.7 L 163.1 223.2 L 163.6 221.6 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="brask-leg-front-boot-strap-buckle">
+<use id="brask-leg-front-boot-strap-buckle-line" href="#brask-leg-front-boot-strap-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-leg-front-boot-strap-buckle-clip)">
+<use id="brask-leg-front-boot-strap-buckle-lit" href="#brask-leg-front-boot-strap-buckle-shape" fill="#8c9194"/>
+<path id="brask-leg-front-boot-strap-buckle-dark" d="M 145.4 215.2 L 158.1 215.2 L 160.8 230 L 145.4 230 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="brask-leg-front-boot-strap-pin" d="M 159.1 221.8 L 163.2 222.2 L 163.2 223.4 L 159.1 223.2 Z" fill="#14110f"/>
+</svg>

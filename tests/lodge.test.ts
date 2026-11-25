@@ -24,7 +24,7 @@ describe('a new lodge', () => {
     expect(board).toHaveLength(MONSTERS.length + TO_COME.length);
     expect(board[0].posted).toBe(true);
     expect(board[0].upTo).toBe(1);
-    expect(board.slice(1).every((c) => !c.posted && c.needs.startsWith('Fell '))).toBe(true);
+    expect(board.slice(1).every((c) => !c.posted && c.needs.startsWith('Beat '))).toBe(true);
     expect(board.filter((c) => c.monster === null)).toHaveLength(TO_COME.length);
     expect(nextContract(freshSave())).toEqual({ monster: 'sexton', mark: 1 });
   });
@@ -33,10 +33,10 @@ describe('a new lodge', () => {
 describe('the muster', () => {
   it('takes what the supply allows and says why not otherwise', () => {
     const s = freshSave();
-    expect(toggleReinforcement(s, 'crossbowmen')).toBe('Not enough supply');
+    expect(toggleReinforcement(s, 'crossbowmen')).toBe('Not enough Supply');
     expect(changeBuilding(s, 'barricade', 1)).toBe('');
     expect(costOf(s.muster)).toBe(6);
-    expect(changeBuilding(s, 'barricade', 1)).toBe('Not enough supply');
+    expect(changeBuilding(s, 'barricade', 1)).toBe('Not enough Supply');
     expect(changeBuilding(s, 'watchfire', -1)).toBe('');
     expect(toggleReinforcement(s, 'crossbowmen')).toBe('');
     expect(s.muster.reinforcements).toEqual(['pikemen', 'crossbowmen']);
@@ -46,11 +46,11 @@ describe('the muster', () => {
 
   it('does not take what is not opened, and says what opens it', () => {
     const s = freshSave();
-    expect(setHunter(s, 'jory')).toBe('Fell The Sexton');
-    expect(toggleReinforcement(s, 'sappers')).toBe('Fell The Sexton');
-    expect(changeBuilding(s, 'ballista', 1)).toBe('Fell The Antlered King');
+    expect(setHunter(s, 'jory')).toBe('Locked: Beat The Gravedigger');
+    expect(toggleReinforcement(s, 'sappers')).toBe('Locked: Beat The Gravedigger');
+    expect(changeBuilding(s, 'ballista', 1)).toBe('Locked: Beat The Antlered King');
     expect(s.muster.hunter).toBe('marta');
-    for (const t of [...HUNTERS, ...REINFORCEMENTS, ...BUILDINGS]) if (t.opens) expect(opensBy(t.id)).toMatch(/^Fell /);
+    for (const t of [...HUNTERS, ...REINFORCEMENTS, ...BUILDINGS]) if (t.opens) expect(opensBy(t.id)).toMatch(/^Beat /);
   });
 
   it('makes the hunt it describes', () => {
@@ -71,7 +71,7 @@ describe('what a hunt pays', () => {
     const s = freshSave();
     const pay = payFor(s, 'sexton', 1, true, tally, 2);
     expect(pay).toMatchObject({ won: true, coin: 80, first: true, trophy: 'spade', posted: ['The Antlered King'] });
-    expect(pay.opened.sort()).toEqual(['Bell Post', 'Jory Pell', 'Sappers']);
+    expect(pay.opened.sort()).toEqual(['Bell', 'Bombers', 'Jory Pell']);
     expect(s.coin).toBe(80);
     expect(isOpen(s, 'jory')).toBe(true);
     expect(canHunt(s, 'king', 1)).toBe(true);

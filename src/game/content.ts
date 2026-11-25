@@ -35,9 +35,9 @@ export const ENRAGE = { at: 420, faster: 0.7 };
 
 /** What each mark does to a monster: its health, the harm of its blows, how long its tells show, and how long it walks between attacks. */
 export const MARKS: Record<Mark, { hp: number; dmg: number; tell: number; gap: number; name: string }> = {
-  1: { hp: 1, dmg: 1, tell: 1, gap: 1, name: 'First mark' },
-  2: { hp: 1.2, dmg: 1.2, tell: 0.86, gap: 0.82, name: 'Second mark' },
-  3: { hp: 1.4, dmg: 1.45, tell: 0.74, gap: 0.66, name: 'Third mark' },
+  1: { hp: 1, dmg: 1, tell: 1, gap: 1, name: 'Difficulty 1' },
+  2: { hp: 1.2, dmg: 1.2, tell: 0.86, gap: 0.82, name: 'Difficulty 2' },
+  3: { hp: 1.4, dmg: 1.45, tell: 0.74, gap: 0.66, name: 'Difficulty 3' },
 };
 
 // ------------------------------------------------------------ hunters
@@ -89,17 +89,17 @@ export interface AbilityDef {
 export const ABILITIES: readonly AbilityDef[] = [
   // Marta sets her halberd. The next of the monster's blows to reach her in `life` seconds is turned: it does nothing,
   // fills `stagger`, and she answers with a blow `share` times her own.
-  { id: 'brace', name: 'Brace', says: 'Sets the halberd. The next blow that reaches her is turned and staggers the monster.', kind: 'brace', wait: 9, life: 1.4, stagger: 36, share: 2.5 },
-  { id: 'reap', name: 'Reap', says: 'A wide sweep all round her that throws lesser things aside.', kind: 'sweep', wait: 8, r: 138, dmg: 30, stagger: 8 },
+  { id: 'brace', name: 'Block', says: 'She blocks the next hit: no damage, and the boss is weakened.', kind: 'brace', wait: 9, life: 1.4, stagger: 36, share: 2.5 },
+  { id: 'reap', name: 'Sweep', says: 'Hits everything around her for 30 damage and knocks small enemies back.', kind: 'sweep', wait: 8, r: 138, dmg: 30, stagger: 8 },
   // Jory's trap lies where he stood. What steps in it is held for `hold` seconds and takes `share` more while held.
-  { id: 'jawtrap', name: 'Jaw Trap', says: 'Laid at his feet. What steps in it is held, and takes more while it is.', kind: 'trap', wait: 11, r: 30, life: 45, hold: 2.4, share: 0.3, stagger: 14, most: 2 },
-  { id: 'tarflask', name: 'Tar Flask', says: 'A pool that slows what stands in it, and burns if fire touches it.', kind: 'pool', wait: 13, r: 96, life: 12, share: 0.45, dmg: 9, range: 400 },
+  { id: 'jawtrap', name: 'Trap', says: 'Placed at his feet. It holds what steps in it for 2.4 seconds, and that takes 30% more damage.', kind: 'trap', wait: 11, r: 30, life: 45, hold: 2.4, share: 0.3, stagger: 14, most: 2 },
+  { id: 'tarflask', name: 'Tar', says: 'A pool that slows the boss by 45%. Fire sets it burning.', kind: 'pool', wait: 13, r: 96, life: 12, share: 0.45, dmg: 9, range: 400 },
   // Agnes's flare blinds the monster for `hold` seconds, which is an opening, and burns the small for `dmg`.
-  { id: 'flare', name: 'Flare', says: 'A burst of light that blinds the monster for a moment and burns the small.', kind: 'flare', wait: 10, r: 190, hold: 1.9, dmg: 26, stagger: 16 },
-  { id: 'lamp', name: 'Street Lamp', says: 'She stands a lamp on the ground. In its light allies are harder to hurt.', kind: 'ward', wait: 14, r: 120, life: 8, share: 0.5 },
+  { id: 'flare', name: 'Flare', says: 'A flash that stops the boss for 1.9 seconds and deals 26 damage to small enemies.', kind: 'flare', wait: 10, r: 190, hold: 1.9, dmg: 26, stagger: 16 },
+  { id: 'lamp', name: 'Lamp', says: 'A lamp on the ground for 8 seconds. Everyone in its light takes half damage.', kind: 'ward', wait: 14, r: 120, life: 8, share: 0.5 },
   // Brask's hounds hold the monster for `hold` seconds and bite `share` times as hard for `life`.
-  { id: 'seton', name: 'Set On', says: 'The hounds go for the monster and hold it.', kind: 'seton', wait: 18, hold: 1.8, life: 4, share: 2, stagger: 10 },
-  { id: 'heel', name: 'Heel', says: 'The hounds come back to him, and all three mend.', kind: 'whistle', wait: 24, share: 0.15 },
+  { id: 'seton', name: 'Dogs Attack', says: 'The dogs hold the boss for 1.8 seconds and bite twice as hard for 4 seconds.', kind: 'seton', wait: 18, hold: 1.8, life: 4, share: 2, stagger: 10 },
+  { id: 'heel', name: 'Call Back', says: 'The dogs come back, get up if they are down, and all three heal 15%.', kind: 'whistle', wait: 24, share: 0.15 },
 ];
 
 export interface HunterDef {
@@ -127,26 +127,26 @@ export interface HunterDef {
 
 export const HUNTERS: readonly HunterDef[] = [
   {
-    id: 'marta', name: 'Marta Voss', short: 'Marta', epithet: 'the Lychwarden', who: 'She kept the gate of a churchyard until what was in it got out.',
-    way: 'Up close, with slow heavy blows. Hard to move.',
+    id: 'marta', name: 'Marta Voss', short: 'Marta', epithet: 'the Warden', who: 'She kept the gate of a churchyard until what was in it got out.',
+    way: 'Close range. Slow, heavy hits. 125 Health, takes 22% less damage.',
     hp: 125, speed: 158, armor: 0.22, strike: { kind: 'arc', reach: 98, every: 0.95, dmg: 16, half: 56 },
     dodge: { dist: 118, dur: 0.3, wait: 1.9 }, abilities: ['brace', 'reap'], opens: null,
   },
   {
-    id: 'jory', name: 'Jory Pell', short: 'Jory', epithet: 'the Snaresman', who: 'He has never met the thing he could not catch, given a week.',
-    way: 'From far off, always moving. His bolts bite harder from a distance.',
+    id: 'jory', name: 'Jory Pell', short: 'Jory', epithet: 'the Poacher', who: 'He has never met the thing he could not catch, given a week.',
+    way: 'Long range. Fast on his feet. 35% more damage from far away. 84 Health.',
     hp: 84, speed: 186, armor: 0, strike: { kind: 'bolt', reach: 430, every: 1.05, dmg: 11, speed: 900, far: { beyond: 230, by: 0.35 } },
     dodge: { dist: 165, dur: 0.28, wait: 1.3 }, abilities: ['jawtrap', 'tarflask'], opens: 'spade',
   },
   {
     id: 'agnes', name: 'Agnes Thorn', short: 'Agnes', epithet: 'the Lamplighter', who: 'She lit the lamps of a town that is dark now. She kept the pole.',
-    way: 'At middle reach, with fire and light.',
+    way: 'Mid range. Fire and light. 112 Health.',
     hp: 112, speed: 170, armor: 0, strike: { kind: 'arc', reach: 152, every: 1.0, dmg: 15, half: 38 },
     dodge: { dist: 140, dur: 0.3, wait: 1.5 }, abilities: ['flare', 'lamp'], opens: 'antler',
   },
   {
-    id: 'brask', name: 'Old Brask', short: 'Brask', epithet: 'the Kennelman', who: 'He talks to the dogs. He does not talk to anyone else.',
-    way: 'With a boar spear, and two hounds that fight beside him.',
+    id: 'brask', name: 'Old Brask', short: 'Brask', epithet: 'the Dog Handler', who: 'He talks to the dogs. He does not talk to anyone else.',
+    way: 'A spear and two dogs that fight beside him. 104 Health.',
     hp: 104, speed: 166, armor: 0, strike: { kind: 'arc', reach: 118, every: 1.0, dmg: 13, half: 24 },
     dodge: { dist: 140, dur: 0.3, wait: 1.5 }, abilities: ['seton', 'heel'], hounds: 2, opens: 'antler',
   },
@@ -192,15 +192,15 @@ export interface ReinforcementDef {
 
 export const REINFORCEMENTS: readonly ReinforcementDef[] = [
   {
-    id: 'pikemen', name: 'Pikemen', says: 'Stand in a line where they are called and hold it. A charge that meets them is hurt.', cost: 2, charges: 1, men: 4, form: 'line', draws: true,
+    id: 'pikemen', name: 'Spearmen', says: 'Four men in a line in front of you. They hurt a boss that charges into them.', cost: 2, charges: 1, men: 4, form: 'line', draws: true,
     ally: { way: 'hold', hp: 46, speed: 0, reach: 82, every: 0.9, dmg: 5, set: { dmg: 12, stagger: 6 } }, opens: null,
   },
   {
-    id: 'crossbowmen', name: 'Crossbowmen', says: 'Stand back and shoot in volleys.', cost: 2, charges: 1, men: 3, form: 'back',
+    id: 'crossbowmen', name: 'Crossbowmen', says: 'Three men behind you who shoot the boss.', cost: 2, charges: 1, men: 3, form: 'back',
     ally: { way: 'shoot', hp: 26, speed: 0, reach: 600, every: 2.3, dmg: 9 }, opens: null,
   },
   {
-    id: 'sappers', name: 'Sappers', says: 'Run in, set a charge on the monster and run out. The blast staggers it.', cost: 3, charges: 1, men: 2, form: 'run',
+    id: 'sappers', name: 'Bombers', says: 'Two men who run in and set a bomb: 110 damage each, and it weakens the boss.', cost: 3, charges: 1, men: 2, form: 'run',
     ally: { way: 'sap', hp: 30, speed: 215, reach: 54, every: 0, dmg: 0, blast: { r: 88, fuse: 2, dmg: 110, stagger: 50 } }, opens: 'spade',
   },
 ];
@@ -232,10 +232,10 @@ export interface BuildingDef {
 }
 
 export const BUILDINGS: readonly BuildingDef[] = [
-  { id: 'barricade', name: 'Barricade', says: 'Stops a charge once, and breaks. The monster that hit it is dazed.', cost: 1, hp: 90, r: 30, kind: 'wall', reach: 0, daze: 2.7, stagger: 34, opens: null },
-  { id: 'watchfire', name: 'Watchfire', says: 'Light in a dark lair. Those near it strike faster.', cost: 2, hp: 60, r: 22, kind: 'fire', reach: 210, share: 0.3, opens: null },
-  { id: 'bellpost', name: 'Bell Post', says: 'Rung by the hunter standing at it. Its sound breaks what the monster is preparing.', cost: 2, hp: 60, r: 22, kind: 'bell', reach: 96, every: 15, stagger: 20, daze: 1.6, opens: 'spade' },
-  { id: 'ballista', name: 'Ballista', says: 'Shoots a heavy bolt at the monster every few seconds.', cost: 3, hp: 70, r: 28, kind: 'ballista', reach: 620, every: 4, dmg: 30, opens: 'antler' },
+  { id: 'barricade', name: 'Barricade', says: 'Stops one charge and breaks. The boss is dazed for 2.7 seconds.', cost: 1, hp: 90, r: 30, kind: 'wall', reach: 0, daze: 2.7, stagger: 34, opens: null },
+  { id: 'watchfire', name: 'Campfire', says: 'Light. Everyone near it attacks 30% faster.', cost: 2, hp: 60, r: 22, kind: 'fire', reach: 210, share: 0.3, opens: null },
+  { id: 'bellpost', name: 'Bell', says: 'Stand next to it while the boss prepares an attack: the bell stops the attack.', cost: 2, hp: 60, r: 22, kind: 'bell', reach: 96, every: 15, stagger: 20, daze: 1.6, opens: 'spade' },
+  { id: 'ballista', name: 'Ballista', says: 'Shoots the boss for 30 damage every 4 seconds.', cost: 3, hp: 70, r: 28, kind: 'ballista', reach: 620, every: 4, dmg: 30, opens: 'antler' },
 ];
 
 // ------------------------------------------------------------ monsters
@@ -331,36 +331,36 @@ export interface MonsterDef {
 
 export const MONSTERS: readonly MonsterDef[] = [
   {
-    id: 'sexton', name: 'The Sexton',
+    id: 'sexton', name: 'The Gravedigger',
     rumor: 'The graves at Saint Odran are open, and someone is still digging.',
-    known: 'His spade falls in lines. Where the ground is marked, the dead get up. He is slow: strike when the spade is down.',
+    known: 'His spade hits in lines. The dead rise where the ground is marked. He is slow: attack after he swings.',
     lair: 'churchyard', hp: 3400, speed: 62, r: 44, stagger: { max: 220, grow: 1.25, down: 4.5, more: 2 }, gap: [0.9, 1.5], reach: 150, stones: 0,
     attacks: [
-      { id: 'spade', name: 'Spade', tell: 0.95, recover: 1.3, dmg: 20, shapes: [{ kind: 'line', len: 290, w: 78 }] },
+      { id: 'spade', name: 'Spade Slam', tell: 0.95, recover: 1.3, dmg: 20, shapes: [{ kind: 'line', len: 290, w: 78 }] },
       { id: 'sweep', name: 'Sweep', tell: 0.85, recover: 1.2, dmg: 18, near: 210, shapes: [{ kind: 'cone', r: 185, half: 66 }] },
       { id: 'graves', name: 'Open Graves', tell: 1.4, recover: 1.7, dmg: 12, summon: 'risen', shapes: [{ kind: 'marks', n: 3, r: 44, at: 'target', spread: 190 }] },
       // Three furrows, one after another, fanned.
-      { id: 'furrow', name: 'Furrows', tell: 0.95, recover: 1.5, dmg: 20, shapes: [{ kind: 'line', len: 320, w: 62, turn: -30 }, { kind: 'line', len: 320, w: 62, after: 0.3 }, { kind: 'line', len: 320, w: 62, turn: 30, after: 0.6 }] },
+      { id: 'furrow', name: 'Three Slams', tell: 0.95, recover: 1.5, dmg: 20, shapes: [{ kind: 'line', len: 320, w: 62, turn: -30 }, { kind: 'line', len: 320, w: 62, after: 0.3 }, { kind: 'line', len: 320, w: 62, turn: 30, after: 0.6 }] },
       // His lantern: everything near him burns, so the answer is to be far or to be gone.
-      { id: 'lantern', name: 'Grave Lantern', tell: 1.3, recover: 1.9, dmg: 24, shapes: [{ kind: 'ring', r: 200, at: 'self' }] },
+      { id: 'lantern', name: 'Lantern Burst', tell: 1.3, recover: 1.9, dmg: 24, shapes: [{ kind: 'ring', r: 200, at: 'self' }] },
       // The ground opens under the hunter again and again: keep moving.
       { id: 'bury', name: 'Bury', tell: 0.8, recover: 1.6, dmg: 16, shapes: [{ kind: 'marks', n: 6, r: 50, at: 'follow', every: 0.38 }] },
       { id: 'grasp', name: 'Grasping Hands', tell: 1.0, recover: 1.2, dmg: 9, root: 1.1, mark: 2, far: 170, shapes: [{ kind: 'ring', r: 82, at: 'target' }] },
-      { id: 'cross', name: 'Cross', tell: 1.1, recover: 1.7, dmg: 19, mark: 3, shapes: [{ kind: 'line', len: 360, w: 74 }, { kind: 'line', len: 360, w: 74, turn: 90 }, { kind: 'line', len: 360, w: 74, turn: 180 }, { kind: 'line', len: 360, w: 74, turn: 270 }] },
-      { id: 'moregraves', name: 'A Field of Graves', tell: 1.5, recover: 1.8, dmg: 10, summon: 'risen', mark: 3, shapes: [{ kind: 'marks', n: 5, r: 44, at: 'field' }] },
+      { id: 'cross', name: 'Four Slams', tell: 1.1, recover: 1.7, dmg: 19, mark: 3, shapes: [{ kind: 'line', len: 360, w: 74 }, { kind: 'line', len: 360, w: 74, turn: 90 }, { kind: 'line', len: 360, w: 74, turn: 180 }, { kind: 'line', len: 360, w: 74, turn: 270 }] },
+      { id: 'moregraves', name: 'More Graves', tell: 1.5, recover: 1.8, dmg: 10, summon: 'risen', mark: 3, shapes: [{ kind: 'marks', n: 5, r: 44, at: 'field' }] },
     ],
     parts: [
       ['spade', 'sweep', 'spade', 'graves', 'grasp'],
       ['furrow', 'sweep', 'graves', 'lantern', 'spade', 'grasp', 'cross'],
       ['bury', 'furrow', 'lantern', 'graves', 'sweep', 'cross', 'moregraves'],
     ],
-    trophy: { id: 'spade', name: "The Sexton's Spade", says: 'Once in a hunt, the blow that would kill leaves one health instead.' },
+    trophy: { id: 'spade', name: "The Gravedigger's Spade", says: 'Once per hunt, a hit that would kill you leaves you at 1 Health.' },
     pay: [40, 70, 110], after: null,
   },
   {
     id: 'king', name: 'The Antlered King',
     rumor: 'Something crowned walks the winter wood, and the trees lean away from it.',
-    known: 'He charges the length of the field. Stand so that a stone or a barricade is behind you, and step aside: what he hits dazes him.',
+    known: 'He charges across the field. Stand in front of a stone or a barricade and step aside: he is dazed when he hits it.',
     lair: 'wood', hp: 4200, speed: 96, r: 46, stagger: { max: 330, grow: 1.25, down: 4.5, more: 2 }, gap: [0.55, 0.9], reach: 230, stones: 2,
     attacks: [
       { id: 'charge', name: 'Charge', tell: 1.05, recover: 0.8, dmg: 42, charge: { speed: 880, daze: 2.2, stagger: 30 }, shapes: [{ kind: 'line', len: 640, w: 84 }] },
@@ -369,16 +369,16 @@ export const MONSTERS: readonly MonsterDef[] = [
       // Roots break the ground round the hunter.
       { id: 'thorns', name: 'Thorns', tell: 0.95, recover: 1.2, dmg: 23, shapes: [{ kind: 'marks', n: 5, r: 48, at: 'target', spread: 170 }] },
       // His herd: the dead of the wood run the field in lanes, and the hunter stands between.
-      { id: 'herd', name: 'The Herd', tell: 1.4, recover: 1.6, dmg: 30, shapes: [{ kind: 'lanes', n: 4, w: 96 }] },
-      { id: 'bellow', name: 'Bellow', tell: 0.9, recover: 1.0, dmg: 22, mark: 2, shapes: [{ kind: 'ring', r: 280, at: 'self', inner: 120 }] },
-      { id: 'crossherd', name: 'The Wild Hunt', tell: 1.6, recover: 1.8, dmg: 30, mark: 3, shapes: [{ kind: 'lanes', n: 4, w: 96 }, { kind: 'marks', n: 4, r: 48, at: 'target', spread: 200, after: 0.7 }] },
+      { id: 'herd', name: 'Stampede', tell: 1.4, recover: 1.6, dmg: 30, shapes: [{ kind: 'lanes', n: 4, w: 96 }] },
+      { id: 'bellow', name: 'Roar', tell: 0.9, recover: 1.0, dmg: 22, mark: 2, shapes: [{ kind: 'ring', r: 280, at: 'self', inner: 120 }] },
+      { id: 'crossherd', name: 'Wild Stampede', tell: 1.6, recover: 1.8, dmg: 30, mark: 3, shapes: [{ kind: 'lanes', n: 4, w: 96 }, { kind: 'marks', n: 4, r: 48, at: 'target', spread: 200, after: 0.7 }] },
     ],
     parts: [
       ['charge', 'gore', 'stomp', 'charge', 'bellow'],
       ['charge', 'thorns', 'charge', 'gore', 'stomp', 'bellow'],
       ['herd', 'charge', 'thorns', 'charge', 'stomp', 'crossherd', 'charge'],
     ],
-    trophy: { id: 'antler', name: "The King's Tine", says: 'A roll carries a quarter further, and comes back a quarter sooner.' },
+    trophy: { id: 'antler', name: "The King's Tine", says: 'Dodge goes 25% further and has 25% less Cooldown.' },
     pay: [50, 85, 130], after: 'sexton',
   },
 ];

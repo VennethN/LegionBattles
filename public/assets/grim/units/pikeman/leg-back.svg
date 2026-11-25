@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="pikeman-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="pikeman-leg-back-leg-shape" d="M 121.8 170.2 L 107.3 223.6 L 92.7 220.4 L 102.2 165.8 Z"/>
+<clipPath id="pikeman-leg-back-leg-clip"><use href="#pikeman-leg-back-leg-shape"/></clipPath>
+<path id="pikeman-leg-back-boot-shape" d="M 90.5 217 L 108.5 215 L 107.8 227 L 116 230 L 122 236 L 122 240 L 84 240 L 82 230 Z"/>
+<clipPath id="pikeman-leg-back-boot-clip"><use href="#pikeman-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="pikeman-leg-back-leg">
+<use id="pikeman-leg-back-leg-line" href="#pikeman-leg-back-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-leg-back-leg-clip)">
+<use id="pikeman-leg-back-leg-lit" href="#pikeman-leg-back-leg-shape" fill="#4f4944"/>
+<path id="pikeman-leg-back-leg-mid" d="M 113.1 165.2 L 106.6 194.4 L 103.1 196.9 L 97 224.4 L 78.8 220.4 L 92.2 160.5 Z" transform="translate(4.07 -0.98)" fill="#34302d"/>
+<path id="pikeman-leg-back-leg-dark" d="M 113.1 165.2 L 106.6 194.4 L 103.1 196.9 L 97 224.4 L 78.8 220.4 L 92.2 160.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="pikeman-leg-back-boot">
+<use id="pikeman-leg-back-boot-line" href="#pikeman-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-leg-back-boot-clip)">
+<use id="pikeman-leg-back-boot-lit" href="#pikeman-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="pikeman-leg-back-boot-mid" d="M 76 212 L 98.3 212 L 99.7 226 L 108.5 232 L 126 235 L 126 244 L 76 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="pikeman-leg-back-boot-dark" d="M 76 212 L 98.3 212 L 99.7 226 L 108.5 232 L 126 235 L 126 244 L 76 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="pikeman-leg-back-boot-sole" d="M 82 237 L 123 237 L 123 241.5 L 82 241.5 Z" fill="#14110f"/>
+<path id="pikeman-leg-back-boot-crease" d="M 107 225.8 L 98.3 231 L 108 228.2 Z" fill="#14110f"/>
+</svg>

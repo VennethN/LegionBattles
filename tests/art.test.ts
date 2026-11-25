@@ -4,14 +4,18 @@ import { describe, expect, it } from 'vitest';
 import { castList } from '../src/art/cast';
 import { checkCast } from '../src/art/check';
 import { allColors } from '../src/art/kit/palette';
+import { allColors as grimColors } from '../src/grim/kit/palette';
+import { checkCast as checkGrim } from '../src/grim/check';
 import type { Manifest } from '../src/art/manifest';
 import { UNIT_ART } from '../src/art/units';
 import { ABILITIES, BUILDINGS, HELPERS, HUNTERS, MONSTERS, REINFORCEMENTS } from '../src/game/content';
 import { ICONS_USED, abilityIcon } from '../src/view/icons';
-import { ALLY_ART, BUILDING_ART, HELPER_ART, HUNTER_ART, LAIR_GROUND, MONSTER_ART, RIGGED, STILLS, WHOLE } from '../src/view/pictures';
+import { ALLY_ART, BUILDING_ART, GRIM_UNITS, HELPER_ART, HUNTER_ART, LAIR_GROUND, MONSTER_ART, MONSTER_MOVES, ABILITY_MOVES, RIGGED, STILLS, WHOLE, isGrim } from '../src/view/pictures';
+import { GRIM_RASTER, type GrimManifest } from '../src/view/art/grim';
 import { SkylinePacker } from '../src/view/art/packer';
 
 const manifest = JSON.parse(fs.readFileSync('public/assets/manifest.json', 'utf8')) as Manifest;
+const grim = JSON.parse(fs.readFileSync('public/assets/grim/manifest.json', 'utf8')) as GrimManifest;
 
 /** Every file under a folder, by its path. */
 function files(dir: string, out: string[] = []): string[] {
@@ -72,8 +76,31 @@ describe('what the game asks the art for', () => {
 
   it('every kind of lair has a ground, lying down and stood up', () => {
     for (const ground of Object.values(LAIR_GROUND)) {
-      expect(has(`arena/${ground}-wide.svg`), ground).toBe(true);
-      expect(has(`arena/${ground}-tall.svg`), ground).toBe(true);
+      const at = 'grim' in ground ? `grim/grounds/${ground.grim}` : `arena/${ground.legion}`;
+      expect(has(`${at}-wide.svg`), at).toBe(true);
+      expect(has(`${at}-tall.svg`), at).toBe(true);
+    }
+  });
+
+  it('every figure of the style the game shows is written part by part, with the moves its attacks are shown by', () => {
+    for (const id of GRIM_UNITS) {
+      const unit = grim.units[id];
+      expect(unit, id).toBeDefined();
+      for (const part of unit.parts) expect(has(`grim/units/${id}/${part.name}.svg`), `${id}/${part.name}`).toBe(true);
+      expect(has(`grim/units/${id}/full.svg`), id).toBe(true);
+    }
+    for (const [monster, moves] of Object.entries(MONSTER_MOVES)) {
+      const art = MONSTER_ART[monster];
+      if (!isGrim(art)) continue;
+      for (const move of Object.values(moves)) expect(grim.units[art.grim].moves[move], `${monster}: ${move}`).toBeDefined();
+    }
+    for (const h of HUNTERS) {
+      const art = HUNTER_ART[h.id];
+      if (!isGrim(art)) continue;
+      for (const a of h.abilities) {
+        const move = ABILITY_MOVES[a];
+        if (move) expect(grim.units[art.grim].moves[move], `${h.id}: ${move}`).toBeDefined();
+      }
     }
   });
 });
@@ -82,12 +109,15 @@ describe('the pictures', () => {
   const svgs = files('public/assets').filter((f) => f.endsWith('.svg'));
 
   it('are drawn in the palette and no other colors', () => {
-    const allowed = new Set([...allColors()].map((c) => c.toLowerCase()));
+    // Two kits, two palettes: a picture is in its own kit's and no other.
+    const legion = new Set([...allColors()].map((c) => c.toLowerCase()));
+    const style = new Set([...grimColors()].map((c) => c.toLowerCase()));
     const strange = new Map<string, string>();
     for (const file of svgs) {
       const text = fs.readFileSync(file, 'utf8');
       for (const m of text.matchAll(/#[0-9a-fA-F]{6}\b/g)) {
         const c = m[0].toLowerCase();
+        const allowed = file.includes(`${path.sep}grim${path.sep}`) ? style : legion;
         if (!allowed.has(c) && !strange.has(c)) strange.set(c, file);
       }
     }
@@ -130,10 +160,21 @@ describe('the sheet of the field', () => {
 
   it('holds any hunter, any monster, and everyone and everything else that can be on a field, all at once', () => {
     const p = kept();
-    const size = (unit: string): number => manifest.units[unit].full[3] * manifest.units[unit].full[2];
-    const biggest = (list: Array<{ unit: string }>): string => list.map((x) => x.unit).sort((a, b) => size(b) - size(a))[0];
-    const all = [...parts(biggest(Object.values(HUNTER_ART))), ...parts(biggest(Object.values(MONSTER_ART))), ...STILLS.flatMap((k) => stills(k.unit))].sort((a, b) => b[1] - a[1]);
+    // A figure of the style is cut part by part at the sheet's own sharpness; a stand-in as the Legion kit has it.
+    const style = (id: string): Array<readonly [number, number]> => grim.units[id].parts.map((part) => [Math.ceil(part.box[2] * GRIM_RASTER), Math.ceil(part.box[3] * GRIM_RASTER)] as const);
+    const area = (list: Array<readonly [number, number]>): number => list.reduce((a, [w, h]) => a + w * h, 0);
+    const of = (a: (typeof HUNTER_ART)[string]): Array<readonly [number, number]> => (isGrim(a) ? style(a.grim) : parts(a.legion));
+    const biggest = (list: Array<(typeof HUNTER_ART)[string]>): Array<readonly [number, number]> => list.map(of).sort((a, b) => area(b) - area(a))[0];
+    const others = [...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART)].flatMap((a) => (isGrim(a) ? style(a.grim) : []));
+    const things = Object.values(grim.things).filter((t) => t.set === 'churchyard').map((t) => [t.width, t.height] as const);
+    const all = [...biggest(Object.values(HUNTER_ART)), ...biggest(Object.values(MONSTER_ART)), ...others, ...things, ...STILLS.flatMap((k) => stills(k.unit))].sort((a, b) => b[1] - a[1]);
     expect(p.fits(all)).toBe(true);
+  });
+});
+
+describe('the style the game is drawn in', () => {
+  it('holds to its own rules: its palette, its line, a shadow under every figure', () => {
+    expect(checkGrim()).toEqual([]);
   });
 });
 

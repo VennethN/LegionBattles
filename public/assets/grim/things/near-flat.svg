@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="near-flat" width="300" height="240" viewBox="0 0 300 240">
+<path id="near-flat-ground" d="M 0 240 L 0 190 L 40 176 L 90 184 L 150 170 L 210 186 L 260 180 L 300 196 L 300 240 Z" fill="#14110f"/>
+<path id="near-flat-cross" d="M 60 190 L 72 96 L 50 92 L 54 74 L 76 78 L 80 40 L 98 42 L 94 82 L 118 86 L 114 104 L 92 100 L 84 192 Z" fill="#14110f"/>
+<path id="near-flat-rail-a" d="M 170 180 L 173 110 L 166 110 L 176 88 L 186 110 L 179 110 L 182 180 Z" fill="#14110f"/>
+<path id="near-flat-rail-b" d="M 204 186 L 210 124 L 203 124 L 215 102 L 223 126 L 216 125 L 214 186 Z" fill="#14110f"/>
+<path id="near-flat-rail-bar" d="M 160 132 L 232 142 L 232 148 L 160 138 Z" fill="#14110f"/>
+<path id="near-flat-grass" d="M 23.4 189 L 8 150 L 16.6 191 Z M 33.5 186 L 30 146 L 26.5 186 Z M 43.2 185.5 L 56 150 L 36.8 182.5 Z M 131.4 179.2 L 120 144 L 124.6 180.8 Z M 141.5 176.6 L 144 140 L 134.5 175.4 Z M 253.5 185.4 L 244 150 L 246.5 186.6 Z M 265.3 187.2 L 274 152 L 258.7 184.8 Z M 285.3 193 L 292 160 L 278.7 191 Z" fill="#14110f"/>
+</svg>

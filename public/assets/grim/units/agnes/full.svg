@@ -1,0 +1,433 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="agnes" width="416" height="416" viewBox="-80 -80 416 416">
+<g id="agnes-shadow-layer" transform="translate(128 240) rotate(0) scale(1 1) translate(-128 -240)">
+<path id="agnes-shadow-blot" d="M 74 241 L 88.6 234.5 L 115.6 233.2 L 151 234.5 L 178 238.9 L 169.7 245 L 136.4 246.8 L 94.8 245.5 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="agnes-ladder-layer" transform="translate(112 130) rotate(0) scale(1 1) translate(-112 -130)">
+<defs>
+<path id="agnes-ladder-rung-0-shape" d="M 87.3 185.3 L 103.3 189.3 L 102.3 193.1 L 86.3 189.1 Z"/>
+<path id="agnes-ladder-rung-1-shape" d="M 90.9 163.4 L 106.9 167.4 L 106 171.3 L 90 167.3 Z"/>
+<path id="agnes-ladder-rung-2-shape" d="M 94.6 141.6 L 110.6 145.6 L 109.6 149.5 L 93.6 145.5 Z"/>
+<path id="agnes-ladder-rung-3-shape" d="M 98.2 119.7 L 114.2 123.7 L 113.2 127.6 L 97.2 123.6 Z"/>
+<path id="agnes-ladder-rung-4-shape" d="M 101.8 97.9 L 117.8 101.9 L 116.9 105.8 L 100.9 101.8 Z"/>
+<path id="agnes-ladder-rung-5-shape" d="M 105.5 76.1 L 121.5 80.1 L 120.5 83.9 L 104.5 79.9 Z"/>
+<path id="agnes-ladder-rung-6-shape" d="M 109.1 54.2 L 125.1 58.2 L 124.2 62.1 L 108.2 58.1 Z"/>
+<path id="agnes-ladder-rail-a-shape" d="M 87.2 204.5 L 114.8 36.5 L 109.2 35.5 L 80.8 203.5 Z"/>
+<clipPath id="agnes-ladder-rail-a-clip"><use href="#agnes-ladder-rail-a-shape"/></clipPath>
+<path id="agnes-ladder-rail-b-shape" d="M 103.2 208.5 L 130.8 40.5 L 125.2 39.5 L 96.8 207.5 Z"/>
+<clipPath id="agnes-ladder-rail-b-clip"><use href="#agnes-ladder-rail-b-shape"/></clipPath>
+</defs>
+<g id="agnes-ladder-rung-0">
+<use id="agnes-ladder-rung-0-line" href="#agnes-ladder-rung-0-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-0-lit" href="#agnes-ladder-rung-0-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-1">
+<use id="agnes-ladder-rung-1-line" href="#agnes-ladder-rung-1-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-1-lit" href="#agnes-ladder-rung-1-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-2">
+<use id="agnes-ladder-rung-2-line" href="#agnes-ladder-rung-2-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-2-lit" href="#agnes-ladder-rung-2-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-3">
+<use id="agnes-ladder-rung-3-line" href="#agnes-ladder-rung-3-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-3-lit" href="#agnes-ladder-rung-3-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-4">
+<use id="agnes-ladder-rung-4-line" href="#agnes-ladder-rung-4-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-4-lit" href="#agnes-ladder-rung-4-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-5">
+<use id="agnes-ladder-rung-5-line" href="#agnes-ladder-rung-5-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-5-lit" href="#agnes-ladder-rung-5-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-6">
+<use id="agnes-ladder-rung-6-line" href="#agnes-ladder-rung-6-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-6-lit" href="#agnes-ladder-rung-6-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rail-a">
+<use id="agnes-ladder-rail-a-line" href="#agnes-ladder-rail-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-ladder-rail-a-clip)">
+<use id="agnes-ladder-rail-a-lit" href="#agnes-ladder-rail-a-shape" fill="#6f5c46"/>
+<path id="agnes-ladder-rail-a-dark" d="M 84 207 L 96.8 130.4 L 95.9 129.1 L 112 33 L 105.6 31.9 L 76.6 205.8 Z" fill="#14110f"/>
+<path id="agnes-ladder-rail-a-cold" d="M 40.84 -4.46 L 154.76 -4.46 L 154.76 244.53 L 40.84 244.53 Z M 88.7 203.4 L 116.3 35.3 L 110.8 34.4 L 82.4 202.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="agnes-ladder-rail-b">
+<use id="agnes-ladder-rail-b-line" href="#agnes-ladder-rail-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-ladder-rail-b-clip)">
+<use id="agnes-ladder-rail-b-lit" href="#agnes-ladder-rail-b-shape" fill="#6f5c46"/>
+<path id="agnes-ladder-rail-b-dark" d="M 100.8 211.2 L 116.6 116.1 L 115.7 114.7 L 128.6 37.1 L 122.3 36 L 93.3 209.9 Z" fill="#14110f"/>
+<path id="agnes-ladder-rail-grain" d="M 104.6 180.1 L 110 140 L 103.4 179.9 Z M 116.6 110.1 L 122 76 L 115.4 109.9 Z" fill="#4a3c2d"/>
+</g>
+</g>
+</g>
+<g id="agnes-leg-back-layer" transform="translate(118 176) rotate(0) scale(1 1) translate(-118 -176)">
+<defs>
+<path id="agnes-leg-back-leg-shape" d="M 126.9 173.4 L 124 194.5 L 116.9 223.1 L 103.1 220.9 L 106.3 191.7 L 109.1 170.6 Z"/>
+<clipPath id="agnes-leg-back-leg-clip"><use href="#agnes-leg-back-leg-shape"/></clipPath>
+<path id="agnes-leg-back-boot-shape" d="M 100.5 217 L 118.5 215 L 119.8 227 L 129.2 230 L 135.2 236 L 135.2 240 L 95.2 240 L 93.2 230 Z"/>
+<clipPath id="agnes-leg-back-boot-clip"><use href="#agnes-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="agnes-leg-back-leg">
+<use id="agnes-leg-back-leg-line" href="#agnes-leg-back-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-leg-back-leg-clip)">
+<use id="agnes-leg-back-leg-lit" href="#agnes-leg-back-leg-shape" fill="#4f4944"/>
+<path id="agnes-leg-back-leg-mid" d="M 118.4 169 L 114.4 194.2 L 110.4 197.4 L 106 224.4 L 90 221.8 L 98.9 165.9 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="agnes-leg-back-leg-dark" d="M 118.4 169 L 114.4 194.2 L 110.4 197.4 L 106 224.4 L 90 221.8 L 98.9 165.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-leg-back-boot">
+<use id="agnes-leg-back-boot-line" href="#agnes-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-leg-back-boot-clip)">
+<use id="agnes-leg-back-boot-lit" href="#agnes-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="agnes-leg-back-boot-mid" d="M 87.2 212 L 110.3 212 L 111.7 226 L 120.5 232 L 139.2 235 L 139.2 244 L 87.2 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="agnes-leg-back-boot-dark" d="M 87.2 212 L 110.3 212 L 111.7 226 L 120.5 232 L 139.2 235 L 139.2 244 L 87.2 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-leg-back-boot-sole" d="M 93.2 237 L 136.2 237 L 136.2 241.5 L 93.2 241.5 Z" fill="#14110f"/>
+<path id="agnes-leg-back-boot-crease" d="M 119 225.8 L 110.3 231 L 120 228.2 Z" fill="#14110f"/>
+</g>
+<g id="agnes-leg-front-layer" transform="translate(140 176) rotate(0) scale(1 1) translate(-140 -176)">
+<defs>
+<path id="agnes-leg-front-leg-shape" d="M 149.4 170.5 L 153.2 191.4 L 155.4 220.8 L 140.6 223.2 L 134.5 194.4 L 130.6 173.5 Z"/>
+<clipPath id="agnes-leg-front-leg-clip"><use href="#agnes-leg-front-leg-shape"/></clipPath>
+<path id="agnes-leg-front-boot-shape" d="M 137.9 217 L 157 215 L 162.3 227 L 172.4 230 L 178.4 236 L 178.4 240 L 136.4 240 L 134.4 230 Z"/>
+<clipPath id="agnes-leg-front-boot-clip"><use href="#agnes-leg-front-boot-shape"/></clipPath>
+<path id="agnes-leg-front-boot-strap-shape" d="M 139.8 222 L 159.8 220 L 160.2 224 L 140.2 226 Z"/>
+<clipPath id="agnes-leg-front-boot-strap-clip"><use href="#agnes-leg-front-boot-strap-shape"/></clipPath>
+<path id="agnes-leg-front-boot-strap-buckle-shape" d="M 151 219.6 L 157 219.9 L 156.7 225.6 L 151.3 225.3 Z"/>
+<clipPath id="agnes-leg-front-boot-strap-buckle-clip"><use href="#agnes-leg-front-boot-strap-buckle-shape"/></clipPath>
+</defs>
+<g id="agnes-leg-front-leg">
+<use id="agnes-leg-front-leg-line" href="#agnes-leg-front-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-leg-front-leg-clip)">
+<use id="agnes-leg-front-leg-lit" href="#agnes-leg-front-leg-shape" fill="#4f4944"/>
+<path id="agnes-leg-front-leg-mid" d="M 144 168.3 L 148.4 196 L 145.4 200.6 L 149.3 224.8 L 132.3 227.5 L 123.4 171.6 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="agnes-leg-front-leg-dark" d="M 144 168.3 L 148.4 196 L 145.4 200.6 L 149.3 224.8 L 132.3 227.5 L 123.4 171.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-leg-front-boot">
+<use id="agnes-leg-front-boot-line" href="#agnes-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-leg-front-boot-clip)">
+<use id="agnes-leg-front-boot-lit" href="#agnes-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="agnes-leg-front-boot-mid" d="M 128.4 212 L 152.2 212 L 153.6 226 L 163 232 L 182.4 235 L 182.4 244 L 128.4 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="agnes-leg-front-boot-dark" d="M 128.4 212 L 152.2 212 L 153.6 226 L 163 232 L 182.4 235 L 182.4 244 L 128.4 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-leg-front-boot-sole" d="M 134.4 237 L 179.4 237 L 179.4 241.5 L 134.4 241.5 Z" fill="#14110f"/>
+<path id="agnes-leg-front-boot-crease" d="M 161.4 225.8 L 152.2 231 L 162.4 228.2 Z" fill="#14110f"/>
+<g id="agnes-leg-front-boot-strap">
+<use id="agnes-leg-front-boot-strap-line" href="#agnes-leg-front-boot-strap-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-leg-front-boot-strap-clip)">
+<use id="agnes-leg-front-boot-strap-lit" href="#agnes-leg-front-boot-strap-shape" fill="#4f4944"/>
+<path id="agnes-leg-front-boot-strap-dark" d="M 136.9 223.3 L 148.1 222.2 L 149.1 222.9 L 163 221.5 L 163.3 225.1 L 137.4 227.7 Z" fill="#14110f"/>
+<path id="agnes-leg-front-boot-strap-stitch" d="M 143.5 222.9 L 144.2 224.3 L 144.7 222.8 Z M 149.3 222.3 L 150.1 223.7 L 150.5 222.2 Z M 155.2 221.8 L 155.9 223.1 L 156.4 221.6 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="agnes-leg-front-boot-strap-buckle">
+<use id="agnes-leg-front-boot-strap-buckle-line" href="#agnes-leg-front-boot-strap-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-leg-front-boot-strap-buckle-clip)">
+<use id="agnes-leg-front-boot-strap-buckle-lit" href="#agnes-leg-front-boot-strap-buckle-shape" fill="#8c9194"/>
+<path id="agnes-leg-front-boot-strap-buckle-dark" d="M 139 215.6 L 151.6 215.6 L 154 229.6 L 139 229.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-leg-front-boot-strap-pin" d="M 152.5 221.8 L 156.1 222.2 L 156.1 223.4 L 152.5 223.2 Z" fill="#14110f"/>
+</g>
+<g id="agnes-body-layer" transform="translate(130 174) rotate(0) scale(1 1) translate(-130 -174)">
+<defs>
+<path id="agnes-body-smock-shape" d="M 112 104 L 152 104 L 160 132 L 154 164 L 162 200 L 120.1 203 L 123.1 199.5 L 123 202.8 L 131.2 202.2 L 132.9 200 L 132.7 202.1 L 139.1 201.6 L 142 198.1 L 141.8 201.4 L 106 204 L 110 164 L 106 134 Z"/>
+<clipPath id="agnes-body-smock-clip"><use href="#agnes-body-smock-shape"/></clipPath>
+<path id="agnes-body-apron-shape" d="M 132 118 L 156 116 L 160 190 L 138 196 Z"/>
+<clipPath id="agnes-body-apron-clip"><use href="#agnes-body-apron-shape"/></clipPath>
+<path id="agnes-body-belt-shape" d="M 107.7 146.5 L 157.7 142.5 L 158.3 149.5 L 108.3 153.5 Z"/>
+<clipPath id="agnes-body-belt-clip"><use href="#agnes-body-belt-shape"/></clipPath>
+<path id="agnes-body-belt-buckle-shape" d="M 127.8 142.8 L 138.3 143.3 L 137.7 153.3 L 128.3 152.7 Z"/>
+<clipPath id="agnes-body-belt-buckle-clip"><use href="#agnes-body-belt-buckle-shape"/></clipPath>
+<path id="agnes-body-can-shape" d="M 114 156 L 130 155 L 132 180 L 112 182 Z"/>
+<clipPath id="agnes-body-can-clip"><use href="#agnes-body-can-shape"/></clipPath>
+<path id="agnes-body-can-top-shape" d="M 112 157 L 120 147 L 126 147 L 132 156 Z"/>
+<clipPath id="agnes-body-can-top-clip"><use href="#agnes-body-can-top-shape"/></clipPath>
+</defs>
+<g id="agnes-body-smock">
+<use id="agnes-body-smock-line" href="#agnes-body-smock-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-smock-clip)">
+<use id="agnes-body-smock-lit" href="#agnes-body-smock-shape" fill="#4f4944"/>
+<path id="agnes-body-smock-mid" d="M 90 96 L 120 96 L 122.9 103.9 L 124.7 148.9 L 119 155.6 L 121.1 208.1 L 90 210 Z" transform="translate(7.84 -1.88)" fill="#34302d"/>
+<path id="agnes-body-smock-dark" d="M 90 96 L 120 96 L 122.9 103.9 L 124.7 148.9 L 119 155.6 L 121.1 208.1 L 90 210 Z" fill="#14110f"/>
+<path id="agnes-body-gathers" d="M 127 108 L 126 150 L 129 108 Z M 145 170.1 L 150 200 L 147 169.9 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="agnes-body-apron">
+<use id="agnes-body-apron-line" href="#agnes-body-apron-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-apron-clip)">
+<use id="agnes-body-apron-lit" href="#agnes-body-apron-shape" fill="#7b5b3d"/>
+<path id="agnes-body-apron-mid" d="M 120 112 L 134 111.7 L 141.3 164.6 L 138 169.4 L 142.4 200.3 L 120 200 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="agnes-body-apron-dark" d="M 120 112 L 134 111.7 L 141.3 164.6 L 138 169.4 L 142.4 200.3 L 120 200 Z" fill="#14110f"/>
+<path id="agnes-body-pocket" d="M 140 160 L 156 158 L 157 178 L 142 180 Z" fill="#553d29"/>
+<path id="agnes-body-pocket-stitch" d="M 141.3 158.5 L 142.2 161 L 142.4 158.4 Z M 145.3 158 L 146.2 160.5 L 146.4 157.9 Z M 149.3 157.5 L 150.2 160 L 150.4 157.4 Z M 153.3 157 L 154.2 159.5 L 154.4 156.9 Z" fill="#14110f"/>
+<path id="agnes-body-burn-a" d="M 146 132 L 150 130 L 151 136 L 147 137 Z" fill="#14110f"/>
+<path id="agnes-body-burn-b" d="M 149.3 186.7 L 154 190 L 150.7 185.3 Z" fill="#553d29"/>
+</g>
+<path id="agnes-body-apron-open-0" d="M 158 150 L 160.32 148.26 L 161.32 174.26 L 159 176 Z" fill="#7b5b3d"/>
+</g>
+<g id="agnes-body-belt">
+<use id="agnes-body-belt-line" href="#agnes-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-belt-clip)">
+<use id="agnes-body-belt-lit" href="#agnes-body-belt-shape" fill="#7b5b3d"/>
+<path id="agnes-body-belt-dark" d="M 104.9 148.7 L 139.6 145.9 L 140.9 146.9 L 161 145.3 L 161.5 151.8 L 105.5 156.2 Z" fill="#14110f"/>
+<path id="agnes-body-belt-stitch" d="M 113.4 148.3 L 114.2 150.8 L 114.6 148.2 Z M 119.7 147.8 L 120.5 150.3 L 120.9 147.7 Z M 126 147.3 L 126.8 149.8 L 127.2 147.2 Z M 132.3 146.8 L 133.1 149.3 L 133.5 146.7 Z M 138.6 146.3 L 139.4 148.8 L 139.8 146.2 Z M 144.9 145.8 L 145.7 148.3 L 146.1 145.7 Z M 151.2 145.3 L 152 147.7 L 152.4 145.2 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="agnes-body-belt-buckle">
+<use id="agnes-body-belt-buckle-line" href="#agnes-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-belt-buckle-clip)">
+<use id="agnes-body-belt-buckle-lit" href="#agnes-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="agnes-body-belt-buckle-dark" d="M 115.8 138.8 L 128.8 138.8 L 133 157.3 L 115.8 157.3 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-body-belt-pin" d="M 130.4 147.2 L 136.7 147.6 L 136.7 148.8 L 130.4 148.6 Z" fill="#14110f"/>
+<g id="agnes-body-can">
+<use id="agnes-body-can-line" href="#agnes-body-can-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-can-clip)">
+<use id="agnes-body-can-lit" href="#agnes-body-can-shape" fill="#8c9194"/>
+<use id="agnes-body-can-rim" href="#agnes-body-can-shape" fill="#f4d294" opacity="0.55"/>
+<use id="agnes-body-can-lit-over" href="#agnes-body-can-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="agnes-body-can-mid" d="M 100 151 L 117.1 150.6 L 122.5 171.9 L 120.3 176 L 122.9 186.4 L 100 186 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="agnes-body-can-dark" d="M 100 151 L 117.1 150.6 L 122.5 171.9 L 120.3 176 L 122.9 186.4 L 100 186 Z" fill="#14110f"/>
+<path id="agnes-body-can-band" d="M 113 172.7 L 132 171 L 113 171.3 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="agnes-body-can-top">
+<use id="agnes-body-can-top-line" href="#agnes-body-can-top-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-can-top-clip)">
+<use id="agnes-body-can-top-lit" href="#agnes-body-can-top-shape" fill="#8c9194"/>
+<path id="agnes-body-can-top-dark" d="M 100 143 L 118 143 L 122 161 L 100 161 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-body-spout" d="M 126 150 L 140 138 L 144 139" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="agnes-body-can-handle" d="M 114 160 L 107 166 L 113 176" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+</g>
+<g id="agnes-pole-layer" transform="translate(138 114) rotate(0) scale(1 1) translate(-138 -114)">
+<defs>
+<path id="agnes-pole-arm-back-upper-shape" d="M 131 113.5 L 128.8 129.7 L 121.7 151.2 L 110.3 148.8 L 113.7 126.5 L 117 110.5 Z"/>
+<clipPath id="agnes-pole-arm-back-upper-clip"><use href="#agnes-pole-arm-back-upper-shape"/></clipPath>
+<path id="agnes-pole-arm-back-fore-shape" d="M 121.8 147.8 L 127.5 161.2 L 132.8 180.7 L 124 184.1 L 115.8 165.7 L 110.2 152.2 Z"/>
+<clipPath id="agnes-pole-arm-back-fore-clip"><use href="#agnes-pole-arm-back-fore-shape"/></clipPath>
+<path id="agnes-pole-arm-back-fist-shape" d="M 131.9 169.1 L 139.2 179.4 L 140.5 185.2 L 136.9 189 L 137.1 192 L 132 194.2 L 129.8 192.4 L 125.3 195.1 L 119.8 190.5 L 116.2 178.7 L 121.8 172.7 Z"/>
+<clipPath id="agnes-pole-arm-back-fist-clip"><use href="#agnes-pole-arm-back-fist-shape"/></clipPath>
+<path id="agnes-pole-pole-shape" d="M 104.7 225.7 L 231 25.8 L 226.4 22.9 L 99.3 222.3 Z"/>
+<clipPath id="agnes-pole-pole-clip"><use href="#agnes-pole-pole-shape"/></clipPath>
+<path id="agnes-pole-ferrule-shape" d="M 221.5 43.1 L 233 24.1 L 227.1 20.4 L 214.8 38.8 Z"/>
+<clipPath id="agnes-pole-ferrule-clip"><use href="#agnes-pole-ferrule-shape"/></clipPath>
+<path id="agnes-pole-holder-shape" d="M 224.7 22.3 L 232.7 26.3 L 236.7 18.3 L 229.7 14.3 Z"/>
+<clipPath id="agnes-pole-holder-clip"><use href="#agnes-pole-holder-shape"/></clipPath>
+<path id="agnes-pole-flame-shape" d="M 229.7 15.3 L 226.7 4.3 L 232.7 8.3 L 236.7 -7.7 L 242.7 8.3 L 240.7 16.3 L 235.7 19.3 Z"/>
+<clipPath id="agnes-pole-flame-clip"><use href="#agnes-pole-flame-shape"/></clipPath>
+<path id="agnes-pole-arm-front-upper-shape" d="M 155.2 106.3 L 165.3 113.8 L 176.2 127.3 L 167.8 136.7 L 154.1 126 L 144.8 117.7 Z"/>
+<clipPath id="agnes-pole-arm-front-upper-clip"><use href="#agnes-pole-arm-front-upper-shape"/></clipPath>
+<path id="agnes-pole-arm-front-fore-shape" d="M 178.3 129.9 L 177.2 124.7 L 172.8 118.4 L 163.2 121.6 L 164.4 128.9 L 165.7 134.1 Z"/>
+<clipPath id="agnes-pole-arm-front-fore-clip"><use href="#agnes-pole-arm-front-fore-shape"/></clipPath>
+<path id="agnes-pole-arm-front-fist-shape" d="M 163.6 134.2 L 156.2 122.7 L 155.1 116.4 L 159.2 112.5 L 159.1 109.3 L 164.7 107.1 L 166.9 109.2 L 171.9 106.5 L 177.7 111.7 L 180.9 124.6 L 174.6 130.7 Z"/>
+<clipPath id="agnes-pole-arm-front-fist-clip"><use href="#agnes-pole-arm-front-fist-shape"/></clipPath>
+</defs>
+<g id="agnes-pole-arm-back-upper">
+<use id="agnes-pole-arm-back-upper-line" href="#agnes-pole-arm-back-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-arm-back-upper-clip)">
+<use id="agnes-pole-arm-back-upper-lit" href="#agnes-pole-arm-back-upper-shape" fill="#c7ad84"/>
+<path id="agnes-pole-arm-back-upper-mid" d="M 127.4 109.7 L 123.6 127.6 L 120.5 129.9 L 115.6 153 L 101.6 150 L 110.9 106.2 Z" transform="translate(2.5 -0.6)" fill="#927a58"/>
+<path id="agnes-pole-arm-back-upper-dark" d="M 127.4 109.7 L 123.6 127.6 L 120.5 129.9 L 115.6 153 L 101.6 150 L 110.9 106.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-pole-arm-back-fore">
+<use id="agnes-pole-arm-back-fore-line" href="#agnes-pole-arm-back-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-arm-back-fore-clip)">
+<use id="agnes-pole-arm-back-fore-lit" href="#agnes-pole-arm-back-fore-shape" fill="#c7ad84"/>
+<path id="agnes-pole-arm-back-fore-mid" d="M 117.2 146.3 L 124.9 166.6 L 123.7 169.7 L 129.6 185.1 L 118.5 189.4 L 104 151.4 Z" transform="translate(2.5 -0.6)" fill="#927a58"/>
+<path id="agnes-pole-arm-back-fore-dark" d="M 117.2 146.3 L 124.9 166.6 L 123.7 169.7 L 129.6 185.1 L 118.5 189.4 L 104 151.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-pole-arm-back-fold" d="M 112.1 155.7 L 118.1 148.4 L 109.5 152.1 Z" fill="#14110f"/>
+<g id="agnes-pole-arm-back-fist">
+<use id="agnes-pole-arm-back-fist-line" href="#agnes-pole-arm-back-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-arm-back-fist-clip)">
+<use id="agnes-pole-arm-back-fist-lit" href="#agnes-pole-arm-back-fist-shape" fill="#7b5b3d"/>
+<path id="agnes-pole-arm-back-fist-mid" d="M 119.7 169 L 129.6 198.7 L 119.4 202.6 L 108.2 173.4 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="agnes-pole-arm-back-fist-dark" d="M 119.7 169 L 129.6 198.7 L 119.4 202.6 L 108.2 173.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-pole-arm-back-fist-fingers" d="M 137.7 188.9 L 133 183 L 135.6 190.1 Z M 131.7 192.1 L 127.7 185.5 L 129.5 193 Z" fill="#14110f"/>
+<g id="agnes-pole-pole">
+<use id="agnes-pole-pole-line" href="#agnes-pole-pole-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-pole-clip)">
+<use id="agnes-pole-pole-lit" href="#agnes-pole-pole-shape" fill="#6f5c46"/>
+<path id="agnes-pole-pole-dark" d="M 101.5 227.3 L 169.5 120.2 L 169.2 118.3 L 230.4 21.8 L 225 18.4 L 95.1 223.2 Z" fill="#14110f"/>
+<path id="agnes-pole-pole-grain" d="M 142.1 161.9 L 157.4 136.6 L 141.1 161.3 Z M 181.7 99.5 L 197 74.2 L 180.7 98.9 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="agnes-pole-ferrule">
+<use id="agnes-pole-ferrule-line" href="#agnes-pole-ferrule-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-ferrule-clip)">
+<use id="agnes-pole-ferrule-lit" href="#agnes-pole-ferrule-shape" fill="#9a5b38"/>
+<path id="agnes-pole-ferrule-dark" d="M 217.7 44.3 L 226.1 31.1 L 225.8 29.3 L 231.8 19.8 L 225.6 15.8 L 210.5 39.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-pole-hook" d="M 226.7 26.3 L 216.7 20.3 L 216.7 30.3" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="agnes-pole-holder">
+<use id="agnes-pole-holder-line" href="#agnes-pole-holder-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-holder-clip)">
+<use id="agnes-pole-holder-lit" href="#agnes-pole-holder-shape" fill="#8c9194"/>
+<path id="agnes-pole-holder-dark" d="M 212.7 10.3 L 227.1 10.3 L 231.9 30.3 L 212.7 30.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-pole-flame">
+<use id="agnes-pole-flame-line" href="#agnes-pole-flame-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-flame-clip)">
+<use id="agnes-pole-flame-lit" href="#agnes-pole-flame-shape" fill="#eeb040"/>
+<path id="agnes-pole-flame-heart" d="M 232.7 15.3 L 233.7 6.3 L 236.7 0.3 L 238.7 10.3 L 237.7 16.3 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="agnes-pole-arm-front-upper">
+<use id="agnes-pole-arm-front-upper-line" href="#agnes-pole-arm-front-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-arm-front-upper-clip)">
+<use id="agnes-pole-arm-front-upper-lit" href="#agnes-pole-arm-front-upper-shape" fill="#c7ad84"/>
+<path id="agnes-pole-arm-front-upper-mid" d="M 149.7 107.8 L 163.4 120.3 L 163.7 123.9 L 174.5 133.7 L 164 145.2 L 137.6 121.2 Z" transform="translate(2.5 -0.6)" fill="#927a58"/>
+<path id="agnes-pole-arm-front-upper-dark" d="M 149.7 107.8 L 163.4 120.3 L 163.7 123.9 L 174.5 133.7 L 164 145.2 L 137.6 121.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-pole-arm-front-fore">
+<use id="agnes-pole-arm-front-fore-line" href="#agnes-pole-arm-front-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-arm-front-fore-clip)">
+<use id="agnes-pole-arm-front-fore-lit" href="#agnes-pole-arm-front-fore-shape" fill="#c7ad84"/>
+<path id="agnes-pole-arm-front-fore-mid" d="M 174.3 134.4 L 168.4 116.7 L 155.1 121.1 L 161 138.8 Z" transform="translate(2.5 -0.6)" fill="#927a58"/>
+<path id="agnes-pole-arm-front-fore-dark" d="M 174.3 134.4 L 168.4 116.7 L 155.1 121.1 L 161 138.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-pole-arm-front-fold" d="M 167.8 138.1 L 174.2 130.3 L 165 134.3 Z" fill="#14110f"/>
+<g id="agnes-pole-arm-front-fist">
+<use id="agnes-pole-arm-front-fist-line" href="#agnes-pole-arm-front-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-pole-arm-front-fist-clip)">
+<use id="agnes-pole-arm-front-fist-lit" href="#agnes-pole-arm-front-fist-shape" fill="#7b5b3d"/>
+<path id="agnes-pole-arm-front-fist-mid" d="M 176.8 134.8 L 167.5 102.4 L 178.7 98.7 L 189.3 130.7 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="agnes-pole-arm-front-fist-dark" d="M 176.8 134.8 L 167.5 102.4 L 178.7 98.7 L 189.3 130.7 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-pole-arm-front-fist-fingers" d="M 158.3 112.5 L 163.1 119.1 L 160.7 111.3 Z M 164.9 109.4 L 168.9 116.6 L 167.3 108.5 Z" fill="#14110f"/>
+</g>
+<g id="agnes-yoke-layer" transform="translate(134 104) rotate(0) scale(1 1) translate(-134 -104)">
+<defs>
+<path id="agnes-yoke-yoke-shape" d="M 106 110 L 114 96 L 132 90 L 150 92 L 162 102 L 164 118 L 108.6 123.5 L 110.9 121.4 L 111.5 123.2 L 129.9 121.4 L 132.2 118.1 L 131.8 121.2 L 139.6 120.4 L 142.4 116.4 L 141.8 120.2 L 150.8 119.3 L 152.8 116.9 L 152.8 119.1 L 158.9 118.5 L 160.9 116.7 L 161.4 118.3 L 104 124 Z"/>
+<clipPath id="agnes-yoke-yoke-clip"><use href="#agnes-yoke-yoke-shape"/></clipPath>
+<path id="agnes-yoke-ladder-strap-shape" d="M 117.6 93.8 L 153.6 119.8 L 150.4 124.2 L 114.4 98.2 Z"/>
+<clipPath id="agnes-yoke-ladder-strap-clip"><use href="#agnes-yoke-ladder-strap-shape"/></clipPath>
+<path id="agnes-yoke-ladder-strap-buckle-shape" d="M 133.5 107.5 L 141.7 107.9 L 141.3 115.7 L 133.9 115.3 Z"/>
+<clipPath id="agnes-yoke-ladder-strap-buckle-clip"><use href="#agnes-yoke-ladder-strap-buckle-shape"/></clipPath>
+</defs>
+<g id="agnes-yoke-yoke">
+<use id="agnes-yoke-yoke-line" href="#agnes-yoke-yoke-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-yoke-yoke-clip)">
+<use id="agnes-yoke-yoke-lit" href="#agnes-yoke-yoke-shape" fill="#4f4944"/>
+<path id="agnes-yoke-yoke-mid" d="M 92 84 L 118 84 L 119.8 89.8 L 121.5 106.6 L 118.3 110.9 L 120.2 130.2 L 92 132 Z" transform="translate(8.4 -2.02)" fill="#34302d"/>
+<path id="agnes-yoke-yoke-dark" d="M 92 84 L 118 84 L 119.8 89.8 L 121.5 106.6 L 118.3 110.9 L 120.2 130.2 L 92 132 Z" fill="#14110f"/>
+<path id="agnes-yoke-yoke-seam" d="M 114.3 116.3 L 115.1 119.2 L 115.5 116.2 Z M 120.3 115.8 L 121.1 118.7 L 121.5 115.7 Z M 126.3 115.3 L 127.1 118.2 L 127.5 115.2 Z M 132.3 114.8 L 133.1 117.7 L 133.5 114.7 Z M 138.3 114.3 L 139.1 117.2 L 139.5 114.2 Z M 144.3 113.8 L 145.1 116.7 L 145.5 113.7 Z M 150.3 113.3 L 151.1 116.2 L 151.5 113.2 Z M 156.3 112.8 L 157.1 115.7 L 157.5 112.7 Z" fill="#34302d"/>
+<path id="agnes-yoke-yoke-cold" d="M 64 50 L 204 50 L 204 164 L 64 164 Z M 108.1 108.4 L 116.1 94.4 L 134.1 88.4 L 152.1 90.4 L 164.1 100.4 L 166.1 116.4 L 110.7 122 L 113 119.9 L 113.6 121.7 L 132 119.8 L 134.3 116.5 L 133.9 119.6 L 141.7 118.9 L 144.5 114.8 L 143.9 118.6 L 152.9 117.7 L 154.9 115.4 L 154.9 117.5 L 161 116.9 L 163 115.1 L 163.5 116.7 L 106.1 122.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="agnes-yoke-ladder-strap">
+<use id="agnes-yoke-ladder-strap-line" href="#agnes-yoke-ladder-strap-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-yoke-ladder-strap-clip)">
+<use id="agnes-yoke-ladder-strap-lit" href="#agnes-yoke-ladder-strap-shape" fill="#7b5b3d"/>
+<path id="agnes-yoke-ladder-strap-dark" d="M 114.3 93.2 L 131 105.3 L 131.3 106.7 L 154.6 123.5 L 151.7 127.6 L 110.8 98.1 Z" fill="#14110f"/>
+<path id="agnes-yoke-ladder-strap-stitch" d="M 120.9 98.3 L 120.2 100.3 L 121.9 99 Z M 126.2 102.1 L 125.5 104.1 L 127.1 102.8 Z M 131.5 105.9 L 130.8 107.9 L 132.4 106.6 Z M 136.7 109.8 L 136.1 111.7 L 137.7 110.5 Z M 142 113.6 L 141.3 115.5 L 143 114.3 Z M 147.3 117.4 L 146.6 119.3 L 148.3 118.1 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="agnes-yoke-ladder-strap-buckle">
+<use id="agnes-yoke-ladder-strap-buckle-line" href="#agnes-yoke-ladder-strap-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-yoke-ladder-strap-buckle-clip)">
+<use id="agnes-yoke-ladder-strap-buckle-lit" href="#agnes-yoke-ladder-strap-buckle-shape" fill="#8c9194"/>
+<path id="agnes-yoke-ladder-strap-buckle-dark" d="M 121.5 103.5 L 134.3 103.5 L 137.6 119.7 L 121.5 119.7 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-yoke-ladder-strap-pin" d="M 135.5 110.8 L 140.5 111.2 L 140.5 112.4 L 135.5 112.2 Z" fill="#14110f"/>
+</g>
+<g id="agnes-head-layer" transform="translate(138 100) rotate(0) scale(1 1) translate(-138 -100)">
+<defs>
+<path id="agnes-head-bun-shape" d="M 120 74 L 130 72 L 132 88 L 124 94 L 116 86 Z"/>
+<clipPath id="agnes-head-bun-clip"><use href="#agnes-head-bun-shape"/></clipPath>
+<path id="agnes-head-neck-shape" d="M 134.6 87.4 L 144.5 90.1 L 146.3 101.8 L 132.8 101.8 Z"/>
+<clipPath id="agnes-head-neck-clip"><use href="#agnes-head-neck-shape"/></clipPath>
+<path id="agnes-head-face-shape" d="M 135 74.1 L 139.5 70.5 L 148.5 70.5 L 152.1 74.1 L 154.4 78.2 L 152.6 80.4 L 153.9 82.2 L 158 86.7 L 154.4 88.1 L 154.8 90.8 L 153.5 91.7 L 153.9 93.5 L 151.7 96.3 L 145.8 97.7 L 139.5 92.1 L 135.9 89.4 Z"/>
+<clipPath id="agnes-head-face-clip"><use href="#agnes-head-face-shape"/></clipPath>
+<path id="agnes-head-face-ear-shape" d="M 139.5 82.2 L 142.7 81.3 L 144 84.9 L 142.7 89 L 140 87.6 Z"/>
+<path id="agnes-head-kerchief-shape" d="M 130 96 L 152 98 L 150 106 L 140 114 L 132 106 Z"/>
+<clipPath id="agnes-head-kerchief-clip"><use href="#agnes-head-kerchief-shape"/></clipPath>
+<path id="agnes-head-cap-shape" d="M 124 76 L 126 64 L 146 58 L 162 62 L 166 72 L 158 75 Z"/>
+<clipPath id="agnes-head-cap-clip"><use href="#agnes-head-cap-shape"/></clipPath>
+<path id="agnes-head-peak-shape" d="M 156 71 L 166 70 L 182 76 L 180 80 L 156 77 Z"/>
+<clipPath id="agnes-head-peak-clip"><use href="#agnes-head-peak-shape"/></clipPath>
+</defs>
+<g id="agnes-head-bun">
+<use id="agnes-head-bun-line" href="#agnes-head-bun-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-head-bun-clip)">
+<use id="agnes-head-bun-lit" href="#agnes-head-bun-shape" fill="#c7ad84"/>
+<path id="agnes-head-bun-mid" d="M 104 68 L 122.2 67.8 L 125.1 80 L 123.7 82.4 L 127.4 98.2 L 104 98 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="agnes-head-bun-dark" d="M 104 68 L 122.2 67.8 L 125.1 80 L 123.7 82.4 L 127.4 98.2 L 104 98 Z" fill="#14110f"/>
+<path id="agnes-head-bun-strands" d="M 123.4 75.9 L 122 88 L 124.6 76.1 Z M 127.4 76 L 127 90 L 128.6 76 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="agnes-head-neck">
+<use id="agnes-head-neck-line" href="#agnes-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-head-neck-clip)">
+<use id="agnes-head-neck-lit" href="#agnes-head-neck-shape" fill="#c7ad84"/>
+<path id="agnes-head-neck-mid" d="M 120.8 83.4 L 136.7 83.4 L 142.4 105.8 L 120.8 105.8 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="agnes-head-neck-dark" d="M 120.8 83.4 L 136.7 83.4 L 142.4 105.8 L 120.8 105.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-head-face">
+<use id="agnes-head-face-line" href="#agnes-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-head-face-clip)">
+<use id="agnes-head-face-lit" href="#agnes-head-face-shape" fill="#c7ad84"/>
+<path id="agnes-head-face-mid" d="M 131.4 67.8 L 142 68.6 L 143.5 85.9 L 140.7 89.6 L 141.5 98.5 L 131.4 100.2 Z" transform="translate(2.7 -0.65)" fill="#927a58"/>
+<path id="agnes-head-face-dark" d="M 131.4 67.8 L 142 68.6 L 143.5 85.9 L 140.7 89.6 L 141.5 98.5 L 131.4 100.2 Z" fill="#14110f"/>
+<path id="agnes-head-face-cheek-plane" d="M 144.9 85.4 L 150.3 84.5 L 152.1 87.6 L 150.8 92.1 L 145.8 95.3 L 143.1 90.3 Z" fill="#927a58"/>
+<path id="agnes-head-face-chin-plane" d="M 149.4 93.5 L 153.9 93 L 151.7 96.3 L 147.6 96.9 Z" fill="#927a58"/>
+<path id="agnes-head-face-socket" d="M 154.8 77.7 L 142.2 76.8 L 143.1 83.1 L 147.6 85.4 L 150.3 83.1 L 153.5 82 Z" fill="#14110f"/>
+<path id="agnes-head-face-lines" d="M 151.8 87.7 L 150.8 91.7 L 153.3 88.4 Z M 140.8 91.8 L 147.6 96.3 L 141.8 90.6 Z" fill="#14110f"/>
+<path id="agnes-head-face-mouth" d="M 154.6 90 L 149 91.9 L 155 92 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-head-face-nostril" d="M 154.8 87.4 L 151.7 86.3 L 153.9 88.7 Z" fill="#14110f"/>
+<g id="agnes-head-face-ear">
+<use id="agnes-head-face-ear-line" href="#agnes-head-face-ear-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-head-face-ear-lit" href="#agnes-head-face-ear-shape" fill="#c7ad84"/>
+</g>
+<path id="agnes-head-face-ear-hollow" d="M 140.1 83.7 L 142.2 87.2 L 141.4 83.2 Z" fill="#14110f"/>
+<path id="agnes-head-soot" d="M 149.4 92.6 L 154 96 L 150.6 91.4 Z M 145.3 96.4 L 148 99 L 146.7 95.6 Z" fill="#927a58"/>
+<g id="agnes-head-kerchief">
+<use id="agnes-head-kerchief-line" href="#agnes-head-kerchief-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-head-kerchief-clip)">
+<use id="agnes-head-kerchief-lit" href="#agnes-head-kerchief-shape" fill="#7d312b"/>
+<path id="agnes-head-kerchief-mid" d="M 118 92 L 136.7 91.6 L 140.4 105 L 138.3 109 L 140.9 118.4 L 118 118 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="agnes-head-kerchief-dark" d="M 118 92 L 136.7 91.6 L 140.4 105 L 138.3 109 L 140.9 118.4 L 118 118 Z" fill="#14110f"/>
+<path id="agnes-head-kerchief-fold" d="M 137.3 100.1 L 140 110 L 138.7 99.9 Z" fill="#551f1c"/>
+</g>
+</g>
+<g id="agnes-head-cap">
+<use id="agnes-head-cap-line" href="#agnes-head-cap-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-head-cap-clip)">
+<use id="agnes-head-cap-lit" href="#agnes-head-cap-shape" fill="#4f4944"/>
+<path id="agnes-head-cap-mid" d="M 112 54 L 138.8 53.6 L 141.4 63.1 L 139.1 67.1 L 142.8 80.4 L 112 80 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="agnes-head-cap-dark" d="M 112 54 L 138.8 53.6 L 141.4 63.1 L 139.1 67.1 L 142.8 80.4 L 112 80 Z" fill="#14110f"/>
+<path id="agnes-head-cap-seams" d="M 145.3 60 L 146 74 L 146.7 60 Z M 135.3 61.9 L 134 75 L 136.7 62.1 Z" fill="#34302d"/>
+<path id="agnes-head-cap-cold" d="M 84 18 L 206 18 L 206 116 L 84 116 Z M 125.9 74.6 L 127.9 62.6 L 147.9 56.6 L 163.9 60.6 L 167.9 70.6 L 159.9 73.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="agnes-head-peak">
+<use id="agnes-head-peak-line" href="#agnes-head-peak-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-head-peak-clip)">
+<use id="agnes-head-peak-lit" href="#agnes-head-peak-shape" fill="#4f4944"/>
+<path id="agnes-head-peak-dark" d="M 150 75 L 186 78 L 186 84 L 150 82 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-head-cap-button" d="M 144.4 59.5 L 146 57.9 L 147.6 59.5 L 146 61.1 Z" fill="#14110f"/>
+</g>
+</svg>

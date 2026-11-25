@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="risen" width="416" height="416" viewBox="-80 -80 416 416">
+<g id="risen-shadow-layer" transform="translate(128 240) rotate(0) scale(1 1) translate(-128 -240)">
+<path id="risen-shadow-blot" d="M 82 241 L 94.9 235 L 118.8 233.8 L 150.1 235 L 174 239 L 166.6 244.5 L 137.2 246.2 L 100.4 245 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="risen-leg-back-layer" transform="translate(114 176) rotate(0) scale(1 1) translate(-114 -176)">
+<defs>
+<path id="risen-leg-back-thigh-shape" d="M 121 171.2 L 122.6 185.5 L 123 205.4 L 113 206.6 L 109.4 187 L 107 172.8 Z"/>
+<clipPath id="risen-leg-back-thigh-clip"><use href="#risen-leg-back-thigh-shape"/></clipPath>
+<path id="risen-leg-back-shin-shape" d="M 122.5 206.1 L 107.2 235.5 L 100.8 232.5 L 113.5 201.9 Z"/>
+<clipPath id="risen-leg-back-shin-clip"><use href="#risen-leg-back-shin-shape"/></clipPath>
+<path id="risen-leg-back-foot-shape" d="M 98 232 L 110 230 L 122 240 L 96 240 Z"/>
+<clipPath id="risen-leg-back-foot-clip"><use href="#risen-leg-back-foot-shape"/></clipPath>
+</defs>
+<g id="risen-leg-back-thigh">
+<use id="risen-leg-back-thigh-line" href="#risen-leg-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-leg-back-thigh-clip)">
+<use id="risen-leg-back-thigh-lit" href="#risen-leg-back-thigh-shape" fill="#9aa48c"/>
+<path id="risen-leg-back-thigh-mid" d="M 113.4 169 L 115.6 187.7 L 113.6 190.5 L 115.8 209.3 L 103.1 210.8 L 98.4 170.8 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-leg-back-thigh-dark" d="M 113.4 169 L 115.6 187.7 L 113.6 190.5 L 115.8 209.3 L 103.1 210.8 L 98.4 170.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="risen-leg-back-shin">
+<use id="risen-leg-back-shin-line" href="#risen-leg-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-leg-back-shin-clip)">
+<use id="risen-leg-back-shin-lit" href="#risen-leg-back-shin-shape" fill="#9aa48c"/>
+<path id="risen-leg-back-shin-mid" d="M 119.2 201.3 L 112.9 214.7 L 110.3 215.8 L 101 235.9 L 92.8 232.1 L 109.3 196.6 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-leg-back-shin-dark" d="M 119.2 201.3 L 112.9 214.7 L 110.3 215.8 L 101 235.9 L 92.8 232.1 L 109.3 196.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="risen-leg-back-foot">
+<use id="risen-leg-back-foot-line" href="#risen-leg-back-foot-shape" transform="translate(-1.98 1.49)" fill="#14110f" stroke="#14110f" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-leg-back-foot-clip)">
+<use id="risen-leg-back-foot-lit" href="#risen-leg-back-foot-shape" fill="#9aa48c"/>
+<path id="risen-leg-back-foot-mid" d="M 84 226 L 105.7 226 L 109.7 244 L 84 244 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-leg-back-foot-dark" d="M 84 226 L 105.7 226 L 109.7 244 L 84 244 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="risen-arm-back-layer" transform="translate(140 126) rotate(0) scale(1 1) translate(-140 -126)">
+<defs>
+<path id="risen-arm-back-arm-upper-shape" d="M 143 122 L 153.5 129 L 166.4 140.8 L 161.6 147.2 L 147.2 137.5 L 137 130 Z"/>
+<clipPath id="risen-arm-back-arm-upper-clip"><use href="#risen-arm-back-arm-upper-shape"/></clipPath>
+<path id="risen-arm-back-arm-fore-shape" d="M 163 139.9 L 173 137 L 187.2 134.9 L 188.8 141.1 L 175.1 145.4 L 165 148.1 Z"/>
+<clipPath id="risen-arm-back-arm-fore-clip"><use href="#risen-arm-back-arm-fore-shape"/></clipPath>
+<path id="risen-arm-back-arm-fist-shape" d="M 179.1 134.5 L 186.9 130.3 L 190.9 129.9 L 193.2 132.7 L 195.3 132.8 L 196.4 136.5 L 195 137.8 L 196.4 141.2 L 192.8 144.6 L 184.4 146.1 L 180.8 141.7 Z"/>
+<clipPath id="risen-arm-back-arm-fist-clip"><use href="#risen-arm-back-arm-fist-shape"/></clipPath>
+</defs>
+<g id="risen-arm-back-arm-upper">
+<use id="risen-arm-back-arm-upper-line" href="#risen-arm-back-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-arm-back-arm-upper-clip)">
+<use id="risen-arm-back-arm-upper-lit" href="#risen-arm-back-arm-upper-shape" fill="#9aa48c"/>
+<path id="risen-arm-back-arm-upper-mid" d="M 138.8 122.6 L 153.3 133.4 L 153.8 136.2 L 166.5 145.7 L 160.6 153.6 L 131.8 132 Z" transform="translate(2.5 -0.6)" fill="#6b7562"/>
+<path id="risen-arm-back-arm-upper-dark" d="M 138.8 122.6 L 153.3 133.4 L 153.8 136.2 L 166.5 145.7 L 160.6 153.6 L 131.8 132 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="risen-arm-back-arm-fore">
+<use id="risen-arm-back-arm-fore-line" href="#risen-arm-back-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-arm-back-arm-fore-clip)">
+<use id="risen-arm-back-arm-fore-lit" href="#risen-arm-back-arm-fore-shape" fill="#9aa48c"/>
+<path id="risen-arm-back-arm-fore-mid" d="M 160.7 143 L 171.6 140.3 L 173.8 141.5 L 190.9 137.2 L 192.9 145.1 L 163.1 152.6 Z" transform="translate(2.5 -0.6)" fill="#6b7562"/>
+<path id="risen-arm-back-arm-fore-dark" d="M 160.7 143 L 171.6 140.3 L 173.8 141.5 L 190.9 137.2 L 192.9 145.1 L 163.1 152.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="risen-arm-back-arm-fold" d="M 161.3 147.9 L 165.4 142.9 L 159.5 145.5 Z" fill="#14110f"/>
+<g id="risen-arm-back-arm-fist">
+<use id="risen-arm-back-arm-fist-line" href="#risen-arm-back-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-arm-back-arm-fist-clip)">
+<use id="risen-arm-back-arm-fist-lit" href="#risen-arm-back-arm-fist-shape" fill="#9aa48c"/>
+<path id="risen-arm-back-arm-fist-mid" d="M 178.1 142.9 L 199.3 138.5 L 201.1 145.9 L 180.1 151.1 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-arm-back-arm-fist-dark" d="M 178.1 142.9 L 199.3 138.5 L 201.1 145.9 L 180.1 151.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="risen-arm-back-arm-fist-fingers" d="M 193.3 132.1 L 188.8 134.9 L 193.9 133.7 Z M 194.9 136.5 L 190.1 138.8 L 195.4 138.1 Z" fill="#14110f"/>
+<path id="risen-arm-back-fingers" d="M 192.5 135.2 L 202 130 L 191.5 132.8 Z M 193 139.3 L 204 138 L 193 136.7 Z M 191.5 143.2 L 201 146 L 192.5 140.8 Z" fill="#9aa48c"/>
+</g>
+<g id="risen-leg-front-layer" transform="translate(130 176) rotate(0) scale(1 1) translate(-130 -176)">
+<defs>
+<path id="risen-leg-front-thigh-shape" d="M 136.7 168.6 L 143.4 182.1 L 150.9 201.5 L 141.1 206.5 L 130.6 188.5 L 123.3 175.4 Z"/>
+<clipPath id="risen-leg-front-thigh-clip"><use href="#risen-leg-front-thigh-shape"/></clipPath>
+<path id="risen-leg-front-shin-shape" d="M 151.4 203 L 143.9 234.7 L 136.1 233.3 L 140.6 201 Z"/>
+<clipPath id="risen-leg-front-shin-clip"><use href="#risen-leg-front-shin-shape"/></clipPath>
+<path id="risen-leg-front-foot-shape" d="M 134 232 L 146 230 L 160 240 L 132 240 Z"/>
+<clipPath id="risen-leg-front-foot-clip"><use href="#risen-leg-front-foot-shape"/></clipPath>
+</defs>
+<g id="risen-leg-front-thigh">
+<use id="risen-leg-front-thigh-line" href="#risen-leg-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-leg-front-thigh-clip)">
+<use id="risen-leg-front-thigh-lit" href="#risen-leg-front-thigh-shape" fill="#9aa48c"/>
+<path id="risen-leg-front-thigh-mid" d="M 131.1 168.1 L 139.2 184.4 L 138.2 187.8 L 147.6 206.5 L 135.3 212.7 L 116.6 175.4 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-leg-front-thigh-dark" d="M 131.1 168.1 L 139.2 184.4 L 138.2 187.8 L 147.6 206.5 L 135.3 212.7 L 116.6 175.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="risen-leg-front-shin">
+<use id="risen-leg-front-shin-line" href="#risen-leg-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-leg-front-shin-clip)">
+<use id="risen-leg-front-shin-lit" href="#risen-leg-front-shin-shape" fill="#9aa48c"/>
+<path id="risen-leg-front-shin-mid" d="M 148.6 199.4 L 144.3 222.5 L 141.9 224.3 L 139.6 237 L 129.7 235.1 L 136.8 197.2 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-leg-front-shin-dark" d="M 148.6 199.4 L 144.3 222.5 L 141.9 224.3 L 139.6 237 L 129.7 235.1 L 136.8 197.2 Z" fill="#14110f"/>
+<path id="risen-leg-front-dirt" d="M 136 218 L 150 216 L 148 236 L 134 236 Z" fill="#434134"/>
+</g>
+</g>
+<g id="risen-leg-front-foot">
+<use id="risen-leg-front-foot-line" href="#risen-leg-front-foot-shape" transform="translate(-1.98 1.49)" fill="#14110f" stroke="#14110f" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-leg-front-foot-clip)">
+<use id="risen-leg-front-foot-lit" href="#risen-leg-front-foot-shape" fill="#9aa48c"/>
+<path id="risen-leg-front-foot-mid" d="M 120 226 L 141.2 226 L 145.2 244 L 120 244 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-leg-front-foot-dark" d="M 120 226 L 141.2 226 L 145.2 244 L 120 244 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="risen-body-layer" transform="translate(122 176) rotate(0) scale(1 1) translate(-122 -176)">
+<defs>
+<path id="risen-body-shroud-shape" d="M 112 130 L 124 116 L 146 112 L 158 126 L 152 150 L 142 172 L 146 188 L 102 204 L 105.5 203.6 L 110.6 193.4 L 107.8 203.3 L 115.5 202.3 L 119.6 194.1 L 117.2 202.1 L 122.1 201.5 L 127.7 189.8 L 124.1 201.2 L 137.9 199.5 L 144 186.7 L 140 199.2 L 150 198 L 106 170 L 104 146 Z"/>
+<clipPath id="risen-body-shroud-clip"><use href="#risen-body-shroud-shape"/></clipPath>
+<path id="risen-body-trail-shape" d="M 110 160 L 116 164 L 104 188 L 92 214 L 96 190 Z"/>
+<clipPath id="risen-body-trail-clip"><use href="#risen-body-trail-shape"/></clipPath>
+</defs>
+<g id="risen-body-shroud">
+<use id="risen-body-shroud-line" href="#risen-body-shroud-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-body-shroud-clip)">
+<use id="risen-body-shroud-lit" href="#risen-body-shroud-shape" fill="#cfc5a8"/>
+<path id="risen-body-shroud-mid" d="M 90 106 L 122 106 L 126.7 114.1 L 125.3 147.7 L 119.7 153.4 L 117.3 209.9 L 90 214 Z" transform="translate(7.84 -1.88)" fill="#9c9178"/>
+<path id="risen-body-shroud-dark" d="M 90 106 L 122 106 L 126.7 114.1 L 125.3 147.7 L 119.7 153.4 L 117.3 209.9 L 90 214 Z" fill="#14110f"/>
+<path id="risen-body-wraps" d="M 153.7 129 L 124 140 L 154.3 131 Z M 149.6 149 L 122 160 L 150.4 151 Z M 143.6 171 L 122 180 L 144.4 173 Z" fill="#9c9178"/>
+<path id="risen-body-earth" d="M 124 176 L 148 170 L 150 200 L 120 206 Z" fill="#5a5645" opacity="0.8"/>
+<path id="risen-body-stain" d="M 136 122 L 152 124 L 148 140 L 134 138 Z" fill="#5a5645" opacity="0.6"/>
+<path id="risen-body-tear" d="M 140 142 L 150 138 L 148 162 L 140 168 L 136 154 Z" fill="#14110f"/>
+<path id="risen-body-ribs" d="M 138.2 148.9 L 148 146 L 137.8 147.1 Z M 138.1 154.9 L 147 153 L 137.9 153.1 Z M 139 160.9 L 146 160 L 139 159.1 Z" fill="#9aa48c"/>
+<path id="risen-body-shroud-cold" d="M 62 72 L 198 72 L 198 244 L 62 244 Z M 113.9 128.6 L 125.9 114.6 L 147.9 110.6 L 159.9 124.6 L 153.9 148.6 L 143.9 170.6 L 147.9 186.6 L 103.9 202.6 L 107.4 202.1 L 112.5 192 L 109.7 201.8 L 117.4 200.9 L 121.5 192.6 L 119.1 200.7 L 124.1 200 L 129.6 188.4 L 126 199.8 L 139.8 198.1 L 145.9 185.2 L 141.9 197.8 L 151.9 196.6 L 107.9 168.6 L 105.9 144.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="risen-body-trail">
+<use id="risen-body-trail-line" href="#risen-body-trail-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-body-trail-clip)">
+<use id="risen-body-trail-lit" href="#risen-body-trail-shape" fill="#cfc5a8"/>
+<path id="risen-body-trail-dark" d="M 80 156 L 100.5 155.7 L 105.5 185.3 L 102.7 189.8 L 107.5 218.3 L 80 218 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="risen-head-layer" transform="translate(146 120) rotate(0) scale(1 1) translate(-146 -120)">
+<defs>
+<path id="risen-head-face-shape" d="M 151 104.1 L 155.5 100.5 L 164.5 100.5 L 168.1 104.1 L 170.4 108.2 L 168.6 110.4 L 169.9 112.2 L 174 116.7 L 170.4 118.1 L 170.8 120.8 L 169.5 121.7 L 169.9 123.5 L 167.7 128.6 L 161.8 130.3 L 155.5 122.1 L 151.9 119.4 Z"/>
+<clipPath id="risen-head-face-clip"><use href="#risen-head-face-shape"/></clipPath>
+<path id="risen-head-cowl-shape" d="M 140 124 L 142 104 L 154 96 L 170 98 L 174 108 L 164 106 L 154 110 L 152 128 Z"/>
+<clipPath id="risen-head-cowl-clip"><use href="#risen-head-cowl-shape"/></clipPath>
+<path id="risen-head-jaw-tie-shape" d="M 155 106 L 160 105 L 167 128 L 162 130 Z"/>
+<clipPath id="risen-head-jaw-tie-clip"><use href="#risen-head-jaw-tie-shape"/></clipPath>
+</defs>
+<g id="risen-head-face">
+<use id="risen-head-face-line" href="#risen-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-head-face-clip)">
+<use id="risen-head-face-lit" href="#risen-head-face-shape" fill="#9aa48c"/>
+<path id="risen-head-face-mid" d="M 147.4 97.8 L 158 98.6 L 159.5 115.9 L 156.7 119.6 L 157.5 128.5 L 147.4 130.2 Z" transform="translate(2.7 -0.65)" fill="#6b7562"/>
+<path id="risen-head-face-dark" d="M 147.4 97.8 L 158 98.6 L 159.5 115.9 L 156.7 119.6 L 157.5 128.5 L 147.4 130.2 Z" fill="#14110f"/>
+<path id="risen-head-face-cheek-plane" d="M 160.9 115.4 L 166.3 114.5 L 168.1 117.6 L 166.8 122.1 L 161.8 127.5 L 159.1 120.3 Z" fill="#6b7562"/>
+<path id="risen-head-face-chin-plane" d="M 165.4 123.5 L 169.9 123 L 167.7 128.6 L 163.6 129.3 Z" fill="#6b7562"/>
+<path id="risen-head-face-socket" d="M 170.8 107.7 L 158.2 106.8 L 159.1 113.1 L 163.6 115.4 L 166.3 113.1 L 169.5 112 Z" fill="#14110f"/>
+<path id="risen-head-face-lines" d="M 167.8 117.7 L 166.8 121.7 L 169.3 118.4 Z M 156.7 121.7 L 163.6 128.6 L 157.9 120.7 Z" fill="#14110f"/>
+<path id="risen-head-face-mouth" d="M 170.6 120 L 165 121.9 L 171 122 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="risen-head-face-nostril" d="M 170.8 117.4 L 167.7 116.3 L 169.9 118.7 Z" fill="#14110f"/>
+<g id="risen-head-cowl">
+<use id="risen-head-cowl-line" href="#risen-head-cowl-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-head-cowl-clip)">
+<use id="risen-head-cowl-lit" href="#risen-head-cowl-shape" fill="#cfc5a8"/>
+<path id="risen-head-cowl-mid" d="M 128 92 L 150.8 91.4 L 158 113.7 L 155.5 119.3 L 159.8 132.6 L 128 132 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="risen-head-cowl-dark" d="M 128 92 L 150.8 91.4 L 158 113.7 L 155.5 119.3 L 159.8 132.6 L 128 132 Z" fill="#14110f"/>
+<path id="risen-head-cowl-earth" d="M 152 98 L 166 98 L 162 106 L 152 108 Z" fill="#5a5645" opacity="0.7"/>
+<path id="risen-head-cowl-cold" d="M 100 56 L 214 56 L 214 168 L 100 168 Z M 141.7 122.7 L 143.7 102.7 L 155.7 94.7 L 171.7 96.7 L 175.7 106.7 L 165.7 104.7 L 155.7 108.7 L 153.7 126.7 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="risen-head-jaw-tie">
+<use id="risen-head-jaw-tie-line" href="#risen-head-jaw-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-head-jaw-tie-clip)">
+<use id="risen-head-jaw-tie-lit" href="#risen-head-jaw-tie-shape" fill="#cfc5a8"/>
+<path id="risen-head-jaw-tie-mid" d="M 143 101 L 156.9 100.9 L 159.8 119.3 L 158.3 121.7 L 160.3 134.1 L 143 134 Z" transform="translate(1.5 -0.36)" fill="#9c9178"/>
+<path id="risen-head-jaw-tie-dark" d="M 143 101 L 156.9 100.9 L 159.8 119.3 L 158.3 121.7 L 160.3 134.1 L 143 134 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="risen-arm-front-layer" transform="translate(148 128) rotate(0) scale(1 1) translate(-148 -128)">
+<defs>
+<path id="risen-arm-front-arm-upper-shape" d="M 151.7 123.9 L 162.4 132.5 L 175 146.7 L 169 153.3 L 154.4 141.2 L 144.3 132.1 Z"/>
+<clipPath id="risen-arm-front-arm-upper-clip"><use href="#risen-arm-front-arm-upper-shape"/></clipPath>
+<path id="risen-arm-front-arm-fore-shape" d="M 170.6 145.5 L 181.4 141.7 L 196.9 138.6 L 199.1 145.4 L 184.2 150.9 L 173.4 154.5 Z"/>
+<clipPath id="risen-arm-front-arm-fore-clip"><use href="#risen-arm-front-arm-fore-shape"/></clipPath>
+<path id="risen-arm-front-arm-fist-shape" d="M 188 138.6 L 196.3 133.5 L 200.8 132.9 L 203.5 135.8 L 205.8 135.8 L 207.2 139.9 L 205.7 141.4 L 207.6 145 L 203.8 149 L 194.5 151.2 L 190.2 146.6 Z"/>
+<clipPath id="risen-arm-front-arm-fist-clip"><use href="#risen-arm-front-arm-fist-shape"/></clipPath>
+</defs>
+<g id="risen-arm-front-arm-upper">
+<use id="risen-arm-front-arm-upper-line" href="#risen-arm-front-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-arm-front-arm-upper-clip)">
+<use id="risen-arm-front-arm-upper-lit" href="#risen-arm-front-arm-upper-shape" fill="#9aa48c"/>
+<path id="risen-arm-front-arm-upper-mid" d="M 147.3 124.3 L 161.6 137.4 L 161.9 140.6 L 174.3 151.9 L 166.9 160 L 138.5 133.9 Z" transform="translate(2.5 -0.6)" fill="#6b7562"/>
+<path id="risen-arm-front-arm-upper-dark" d="M 147.3 124.3 L 161.6 137.4 L 161.9 140.6 L 174.3 151.9 L 166.9 160 L 138.5 133.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="risen-arm-front-arm-fore">
+<use id="risen-arm-front-arm-fore-line" href="#risen-arm-front-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-arm-front-arm-fore-clip)">
+<use id="risen-arm-front-arm-fore-lit" href="#risen-arm-front-arm-fore-shape" fill="#9aa48c"/>
+<path id="risen-arm-front-arm-fore-mid" d="M 168.6 149 L 180.2 145.4 L 182.7 146.6 L 200.9 141.1 L 203.5 149.7 L 171.8 159.5 Z" transform="translate(2.5 -0.6)" fill="#6b7562"/>
+<path id="risen-arm-front-arm-fore-dark" d="M 168.6 149 L 180.2 145.4 L 182.7 146.6 L 200.9 141.1 L 203.5 149.7 L 171.8 159.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="risen-arm-front-arm-fold" d="M 169 154.4 L 173.6 148.8 L 167 151.6 Z" fill="#14110f"/>
+<g id="risen-arm-front-arm-fist">
+<use id="risen-arm-front-arm-fist-line" href="#risen-arm-front-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-arm-front-arm-fist-clip)">
+<use id="risen-arm-front-arm-fist-lit" href="#risen-arm-front-arm-fist-shape" fill="#9aa48c"/>
+<path id="risen-arm-front-arm-fist-mid" d="M 187.3 148 L 210.6 141.9 L 213 150 L 190 157 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-arm-front-arm-fist-dark" d="M 187.3 148 L 210.6 141.9 L 213 150 L 190 157 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="risen-arm-front-arm-fist-fingers" d="M 203.5 135.2 L 198.7 138.5 L 204.3 136.9 Z M 205.6 139.9 L 200.4 142.7 L 206.2 141.7 Z" fill="#14110f"/>
+<path id="risen-arm-front-fingers" d="M 202.7 137.3 L 214 130 L 201.3 134.7 Z M 204.1 142.5 L 217 140 L 203.9 139.5 Z M 202.5 147.4 L 214 150 L 203.5 144.6 Z" fill="#9aa48c"/>
+</g>
+</svg>

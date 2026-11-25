@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sexton-cage" width="1060" height="1060" viewBox="-170 -170 1060 1060">
+<defs>
+<path id="sexton-cage-glow-shape" d="M 438 404 L 490 404 L 494 470 L 434 470 Z"/>
+<clipPath id="sexton-cage-glow-clip"><use href="#sexton-cage-glow-shape"/></clipPath>
+<path id="sexton-cage-lock-shape" d="M 484 426 L 498 426 L 498 446 L 484 446 Z"/>
+<clipPath id="sexton-cage-lock-clip"><use href="#sexton-cage-lock-shape"/></clipPath>
+</defs>
+<path id="sexton-cage-chain" d="M 462 356 L 464 398" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="sexton-cage-chain-links" d="M 458.9 356.7 L 464 364.3 L 461.9 355.4 Z M 462.5 363.8 L 461.2 372.9 L 465.5 364.8 Z M 459.7 373.5 L 464.8 381.1 L 462.7 372.2 Z M 463.3 380.6 L 462 389.7 L 466.3 381.6 Z M 460.5 390.3 L 465.6 397.9 L 463.5 389 Z" fill="#14110f"/>
+<g id="sexton-cage-glow">
+<use id="sexton-cage-glow-line" href="#sexton-cage-glow-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-cage-glow-clip)">
+<use id="sexton-cage-glow-lit" href="#sexton-cage-glow-shape" fill="#c42a2c"/>
+<path id="sexton-cage-glow-low" d="M 432 448 L 496 446 L 496 472 L 432 472 Z" fill="#8c1a20"/>
+</g>
+</g>
+<path id="sexton-cage-heart" d="M 454 418 L 464 412 L 474 418 L 478 436 L 468 458 L 452 450 L 448 432 Z" fill="#eeb040"/>
+<path id="sexton-cage-heart-core" d="M 460 424 L 468 422 L 470 436 L 464 448 L 456 440 Z" fill="#ffe6a2"/>
+<path id="sexton-cage-top" d="M 432 406 L 450 392 L 476 392 L 496 406 Z" fill="#14110f"/>
+<path id="sexton-cage-foot" d="M 430 468 L 498 468 L 490 482 L 438 482 Z" fill="#14110f"/>
+<path id="sexton-cage-bar-a" d="M 450 404 L 454 404 L 452 470 L 448 470 Z" fill="#14110f"/>
+<path id="sexton-cage-bar-b" d="M 470 404 L 474 404 L 476 470 L 472 470 Z" fill="#14110f"/>
+<path id="sexton-cage-bar-c" d="M 436 404 L 439 404 L 435 470 L 432 470 Z" fill="#14110f"/>
+<path id="sexton-cage-hoop" d="M 432 434 L 496 432 L 496 438 L 432 440 Z" fill="#14110f"/>
+<g id="sexton-cage-lock">
+<use id="sexton-cage-lock-line" href="#sexton-cage-lock-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-cage-lock-clip)">
+<use id="sexton-cage-lock-lit" href="#sexton-cage-lock-shape" fill="#8c9194"/>
+<path id="sexton-cage-lock-dark" d="M 472 422 L 486.1 421.8 L 488.9 434.1 L 487.3 436.8 L 490.3 450.2 L 472 450 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

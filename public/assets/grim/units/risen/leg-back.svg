@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="risen-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="risen-leg-back-thigh-shape" d="M 121 171.2 L 122.6 185.5 L 123 205.4 L 113 206.6 L 109.4 187 L 107 172.8 Z"/>
+<clipPath id="risen-leg-back-thigh-clip"><use href="#risen-leg-back-thigh-shape"/></clipPath>
+<path id="risen-leg-back-shin-shape" d="M 122.5 206.1 L 107.2 235.5 L 100.8 232.5 L 113.5 201.9 Z"/>
+<clipPath id="risen-leg-back-shin-clip"><use href="#risen-leg-back-shin-shape"/></clipPath>
+<path id="risen-leg-back-foot-shape" d="M 98 232 L 110 230 L 122 240 L 96 240 Z"/>
+<clipPath id="risen-leg-back-foot-clip"><use href="#risen-leg-back-foot-shape"/></clipPath>
+</defs>
+<g id="risen-leg-back-thigh">
+<use id="risen-leg-back-thigh-line" href="#risen-leg-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-leg-back-thigh-clip)">
+<use id="risen-leg-back-thigh-lit" href="#risen-leg-back-thigh-shape" fill="#9aa48c"/>
+<path id="risen-leg-back-thigh-mid" d="M 113.4 169 L 115.6 187.7 L 113.6 190.5 L 115.8 209.3 L 103.1 210.8 L 98.4 170.8 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-leg-back-thigh-dark" d="M 113.4 169 L 115.6 187.7 L 113.6 190.5 L 115.8 209.3 L 103.1 210.8 L 98.4 170.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="risen-leg-back-shin">
+<use id="risen-leg-back-shin-line" href="#risen-leg-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-leg-back-shin-clip)">
+<use id="risen-leg-back-shin-lit" href="#risen-leg-back-shin-shape" fill="#9aa48c"/>
+<path id="risen-leg-back-shin-mid" d="M 119.2 201.3 L 112.9 214.7 L 110.3 215.8 L 101 235.9 L 92.8 232.1 L 109.3 196.6 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-leg-back-shin-dark" d="M 119.2 201.3 L 112.9 214.7 L 110.3 215.8 L 101 235.9 L 92.8 232.1 L 109.3 196.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="risen-leg-back-foot">
+<use id="risen-leg-back-foot-line" href="#risen-leg-back-foot-shape" transform="translate(-1.98 1.49)" fill="#14110f" stroke="#14110f" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-leg-back-foot-clip)">
+<use id="risen-leg-back-foot-lit" href="#risen-leg-back-foot-shape" fill="#9aa48c"/>
+<path id="risen-leg-back-foot-mid" d="M 84 226 L 105.7 226 L 109.7 244 L 84 244 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-leg-back-foot-dark" d="M 84 226 L 105.7 226 L 109.7 244 L 84 244 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

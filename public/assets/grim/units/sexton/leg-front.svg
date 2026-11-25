@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sexton-leg-front" width="1060" height="1060" viewBox="-170 -170 1060 1060">
+<defs>
+<path id="sexton-leg-front-thigh-shape" d="M 440.7 505.7 L 457.1 537.4 L 468.8 586.6 L 415.2 613.4 L 386.6 572.6 L 367.3 542.3 Z"/>
+<clipPath id="sexton-leg-front-thigh-clip"><use href="#sexton-leg-front-thigh-shape"/></clipPath>
+<path id="sexton-leg-front-shin-shape" d="M 470.2 596.8 L 464.9 624.9 L 449.3 661.7 L 402.7 650.3 L 408.4 611.2 L 413.8 583.2 Z"/>
+<clipPath id="sexton-leg-front-shin-clip"><use href="#sexton-leg-front-shin-shape"/></clipPath>
+<path id="sexton-leg-front-boot-shape" d="M 396.9 647 L 452 645 L 461.9 667 L 499.3 670 L 505.3 676 L 505.3 680 L 389.3 680 L 387.3 670 Z"/>
+<clipPath id="sexton-leg-front-boot-clip"><use href="#sexton-leg-front-boot-shape"/></clipPath>
+<path id="sexton-leg-front-toecap-shape" d="M 478 650 L 504 660 L 504 674 L 472 674 Z"/>
+<clipPath id="sexton-leg-front-toecap-clip"><use href="#sexton-leg-front-toecap-shape"/></clipPath>
+</defs>
+<g id="sexton-leg-front-thigh">
+<use id="sexton-leg-front-thigh-line" href="#sexton-leg-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-front-thigh-clip)">
+<use id="sexton-leg-front-thigh-lit" href="#sexton-leg-front-thigh-shape" fill="#4f4944"/>
+<path id="sexton-leg-front-thigh-mid" d="M 411.5 516.9 L 433.9 561.8 L 432.6 566.5 L 449.2 599.8 L 377.3 635.7 L 336.6 554.3 Z" transform="translate(9 -2.16)" fill="#34302d"/>
+<path id="sexton-leg-front-thigh-dark" d="M 411.5 516.9 L 433.9 561.8 L 432.6 566.5 L 449.2 599.8 L 377.3 635.7 L 336.6 554.3 Z" fill="#14110f"/>
+<path id="sexton-leg-front-patch" d="M 416 546 L 452 540 L 460 580 L 424 588 Z" fill="#34302d"/>
+<path id="sexton-leg-front-patch-thread" d="M 417.8 542.1 L 420.2 548.9 L 420.2 541.8 Z M 425 540.9 L 427.4 547.7 L 427.4 540.6 Z M 432.2 539.7 L 434.6 546.5 L 434.6 539.4 Z M 439.4 538.5 L 441.8 545.3 L 441.8 538.2 Z M 446.6 537.3 L 449 544.1 L 449 537 Z M 425.7 584 L 428.4 590.6 L 428 583.5 Z M 432.9 582.4 L 435.6 589 L 435.2 581.9 Z M 440.1 580.8 L 442.8 587.4 L 442.4 580.3 Z M 447.3 579.2 L 450 585.8 L 449.6 578.7 Z M 454.5 577.6 L 457.2 584.2 L 456.8 577.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-leg-front-shin">
+<use id="sexton-leg-front-shin-line" href="#sexton-leg-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-front-shin-clip)">
+<use id="sexton-leg-front-shin-lit" href="#sexton-leg-front-shin-shape" fill="#4f4944"/>
+<path id="sexton-leg-front-shin-mid" d="M 450.3 588.9 L 441.1 626.6 L 436.3 629.9 L 429 659.8 L 374.6 646.6 L 392 574.8 Z" transform="translate(9 -2.16)" fill="#34302d"/>
+<path id="sexton-leg-front-shin-dark" d="M 450.3 588.9 L 441.1 626.6 L 436.3 629.9 L 429 659.8 L 374.6 646.6 L 392 574.8 Z" fill="#14110f"/>
+<path id="sexton-leg-front-bindings" d="M 471.9 601.3 L 416.4 608.7 L 472.3 605.3 Z M 468.4 613.3 L 412.9 620.7 L 468.8 617.3 Z M 464.9 625.3 L 409.4 632.7 L 465.3 629.3 Z M 461.4 637.3 L 405.9 644.7 L 461.8 641.3 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="sexton-leg-front-boot">
+<use id="sexton-leg-front-boot-line" href="#sexton-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-front-boot-clip)">
+<use id="sexton-leg-front-boot-lit" href="#sexton-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="sexton-leg-front-boot-mid" d="M 381.3 642 L 432.8 642 L 437 666 L 464 672 L 509.3 675 L 509.3 684 L 381.3 684 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="sexton-leg-front-boot-dark" d="M 381.3 642 L 432.8 642 L 437 666 L 464 672 L 509.3 675 L 509.3 684 L 381.3 684 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-leg-front-boot-sole" d="M 387.3 677 L 506.3 677 L 506.3 681.5 L 387.3 681.5 Z" fill="#14110f"/>
+<path id="sexton-leg-front-boot-crease" d="M 460.7 665.7 L 432.8 671 L 461.1 668.3 Z" fill="#14110f"/>
+<g id="sexton-leg-front-toecap">
+<use id="sexton-leg-front-toecap-line" href="#sexton-leg-front-toecap-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-front-toecap-clip)">
+<use id="sexton-leg-front-toecap-lit" href="#sexton-leg-front-toecap-shape" fill="#8c9194"/>
+<use id="sexton-leg-front-toecap-rim" href="#sexton-leg-front-toecap-shape" fill="#f4d294" opacity="0.55"/>
+<use id="sexton-leg-front-toecap-lit-over" href="#sexton-leg-front-toecap-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="sexton-leg-front-toecap-mid" d="M 460 646 L 479 645.3 L 482.3 656.4 L 479.1 661.5 L 484.2 678.7 L 460 678 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="sexton-leg-front-toecap-dark" d="M 460 646 L 479 645.3 L 482.3 656.4 L 479.1 661.5 L 484.2 678.7 L 460 678 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-leg-front-mud" d="M 380 668 L 420 660 L 470 668 L 500 676 L 380 678 Z" fill="#434134"/>
+</svg>

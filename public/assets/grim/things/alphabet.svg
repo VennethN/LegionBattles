@@ -1,0 +1,243 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="alphabet" width="470" height="134" viewBox="0 0 470 134">
+<defs>
+<path id="alphabet-board-shape" d="M 4 6 L 462 2 L 466 126 L 2 130 Z"/>
+<path id="alphabet-ABCDEFGHIJKLM-0-shape" d="M 23.6 13.9 L 36.6 13.5 L 44.4 53.4 L 34.4 53.2 L 33.1 45.5 L 28.2 44.7 L 26.5 52.6 L 15.8 52.7 Z M 28.6 37.4 L 31.9 37.8 L 30.3 26.2 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-0-clip"><use href="#alphabet-ABCDEFGHIJKLM-0-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-1-shape" d="M 48 14.4 L 68.5 14.3 L 76.2 20.5 L 75.6 29.4 L 72.6 33.6 L 77.6 38.7 L 76.9 47.3 L 69.6 52.8 L 49.2 52.8 Z M 58.4 22.1 L 65 21.4 L 67.3 23.9 L 67 27.8 L 64.8 29.6 L 59.4 29.3 Z M 59.3 36.9 L 66.1 37.2 L 68.1 39.5 L 67.7 44.4 L 65.8 44.7 L 58.4 45.6 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-1-clip"><use href="#alphabet-ABCDEFGHIJKLM-1-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-2-shape" d="M 87.9 14.1 L 107.7 13.6 L 107.7 24.9 L 92.7 24.3 L 92.1 25.2 L 92 41 L 92.5 42.8 L 107.6 42.6 L 107.8 52.8 L 87.9 52.8 L 80.7 46.3 L 80.8 20.4 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-2-clip"><use href="#alphabet-ABCDEFGHIJKLM-2-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-3-shape" d="M 111.3 14.3 L 130.7 13.8 L 139.8 22.2 L 139.9 45.3 L 130.5 53.4 L 111 52.6 Z M 121.2 22.8 L 126.7 22.7 L 129.3 25.8 L 129 40.8 L 126.2 43.6 L 121.7 44.3 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-3-clip"><use href="#alphabet-ABCDEFGHIJKLM-3-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-4-shape" d="M 144 13.8 L 170.4 14.1 L 170.2 22.7 L 153.6 22.6 L 154.8 28.6 L 166 28.6 L 166.3 37 L 153.9 37.8 L 154.1 44.4 L 169.4 44 L 169.3 52.5 L 143.8 53.3 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-4-clip"><use href="#alphabet-ABCDEFGHIJKLM-4-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-5-shape" d="M 173.9 13.9 L 200.3 13.9 L 199.3 23.2 L 184.6 22.8 L 184.2 29.2 L 195.5 29.4 L 195.3 39.1 L 183.9 38.4 L 183.6 53.2 L 174.2 52.9 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-5-clip"><use href="#alphabet-ABCDEFGHIJKLM-5-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-6-shape" d="M 210.6 14.1 L 230.1 14 L 230 24.1 L 215.1 24.1 L 214.1 25.6 L 214.6 41 L 215.8 42.8 L 222.6 42.9 L 221.7 37.8 L 217.5 37.9 L 218.2 29.2 L 233 29.5 L 232 53.4 L 210.1 52.7 L 204.1 46.1 L 204.1 20.8 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-6-clip"><use href="#alphabet-ABCDEFGHIJKLM-6-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-7-shape" d="M 236.6 13.7 L 246.6 13.7 L 246.4 28.2 L 254.3 27.8 L 254.3 13.6 L 265.1 13.7 L 264.7 52.8 L 254.7 53.3 L 254.8 37.4 L 246.5 36.9 L 247.3 52.9 L 236.9 52.7 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-7-clip"><use href="#alphabet-ABCDEFGHIJKLM-7-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-8-shape" d="M 268.4 13.8 L 281.1 14.2 L 280.3 53.5 L 268.9 52.9 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-8-clip"><use href="#alphabet-ABCDEFGHIJKLM-8-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-9-shape" d="M 297.4 14.3 L 313.3 14 L 313.2 46.7 L 307.2 52.8 L 290.3 52.8 L 285.1 47.5 L 284.5 39.2 L 294.5 38.4 L 295.3 42.3 L 301.6 42.2 L 303.4 41.1 L 302.6 23.2 L 298.1 23.4 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-9-clip"><use href="#alphabet-ABCDEFGHIJKLM-9-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-10-shape" d="M 317.6 13.6 L 327.9 14.1 L 327.4 28.8 L 335.9 14.1 L 346.1 14.1 L 336.6 31.7 L 345.8 52.7 L 335.2 52.7 L 329.6 38.7 L 327.7 41 L 327.3 53.4 L 317.4 52.6 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-10-clip"><use href="#alphabet-ABCDEFGHIJKLM-10-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-11-shape" d="M 349.5 14.3 L 360.9 13.9 L 360 43.8 L 374.5 44.4 L 374.8 52.5 L 349.9 53.3 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-11-clip"><use href="#alphabet-ABCDEFGHIJKLM-11-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-ABCDEFGHIJKLM-12-shape" d="M 378.5 14.2 L 388.8 14.4 L 395.1 29.5 L 401.5 13.9 L 412.6 13.6 L 411.9 53 L 403.6 53.2 L 403.3 32 L 398 45 L 392.7 45.7 L 388 32.7 L 387.1 52.8 L 378.3 53.5 Z"/>
+<clipPath id="alphabet-ABCDEFGHIJKLM-12-clip"><use href="#alphabet-ABCDEFGHIJKLM-12-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-0-shape" d="M 16 73.7 L 25 73.5 L 35.7 92 L 35.3 74.3 L 44.5 74.4 L 44.3 113.3 L 35.8 113.4 L 24.9 94.6 L 24.5 112.7 L 15.8 112.6 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-0-clip"><use href="#alphabet-NOPQRSTUVWXYZ-0-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-1-shape" d="M 54.8 73.9 L 71.2 73.8 L 77.6 80.3 L 76.6 107 L 71.2 112.9 L 55.2 112.8 L 48.4 106.4 L 48.1 80.3 Z M 58.9 83.3 L 66.8 82.9 L 66.7 103.6 L 59 103.5 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-1-clip"><use href="#alphabet-NOPQRSTUVWXYZ-1-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-2-shape" d="M 81.3 74.2 L 100.7 74.2 L 108.3 80.8 L 108.5 92.3 L 101.4 98.9 L 91.7 98.2 L 91 112.9 L 81 113.4 Z M 91.5 81.5 L 97.7 81.6 L 99.3 84.9 L 99.8 88.2 L 97 90 L 91.1 89.9 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-2-clip"><use href="#alphabet-NOPQRSTUVWXYZ-2-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-3-shape" d="M 119 73.6 L 134.9 73.7 L 140.5 80.5 L 141 105.6 L 139 108.1 L 142.9 112.9 L 133.8 112.6 L 131.7 112.1 L 130.5 113.2 L 119.6 112.9 L 112.8 107 L 112.1 80.9 Z M 123 83.1 L 130.8 83.1 L 130.8 103.9 L 123.2 103.5 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-3-clip"><use href="#alphabet-NOPQRSTUVWXYZ-3-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-4-shape" d="M 146.3 73.8 L 166 74.5 L 174.1 80.9 L 173.8 90.8 L 169 95.7 L 174.4 113.5 L 165.2 112.7 L 159.1 99.1 L 157.3 98.3 L 157.4 113.1 L 146.4 113.5 Z M 156.4 81.5 L 163.8 81.4 L 164.5 84.7 L 164.4 88.4 L 161.7 89.2 L 156.9 89.5 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-4-clip"><use href="#alphabet-NOPQRSTUVWXYZ-4-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-5-shape" d="M 185.4 73.6 L 205.3 74.1 L 204.6 82.8 L 190.6 83.4 L 189.4 84.1 L 189.1 86.6 L 192.2 89.1 L 201.4 90 L 207.9 95.7 L 207 106.6 L 201.4 113 L 180.7 113.1 L 180.4 103.8 L 196 104.1 L 197.7 102.4 L 197.5 99.9 L 194.2 97.1 L 184.9 97 L 179.5 90.6 L 179.4 80.1 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-5-clip"><use href="#alphabet-NOPQRSTUVWXYZ-5-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-6-shape" d="M 211.7 74.2 L 240.5 74.4 L 240.7 82.7 L 231.3 82.6 L 231.3 113.2 L 221.3 112.6 L 220.6 83.3 L 211.2 82.7 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-6-clip"><use href="#alphabet-NOPQRSTUVWXYZ-6-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-7-shape" d="M 243.8 73.6 L 254.3 74.2 L 254.5 103 L 256.3 103.6 L 261.7 103.7 L 262.1 102.6 L 262.5 74.3 L 272.7 74.1 L 272.7 106.5 L 266.5 112.9 L 250.4 113.2 L 243.9 106.7 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-7-clip"><use href="#alphabet-NOPQRSTUVWXYZ-7-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-8-shape" d="M 277.3 74 L 287.8 73.7 L 290.5 97.4 L 295 73.6 L 305.2 73.8 L 296.7 112.9 L 285.8 113.2 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-8-clip"><use href="#alphabet-NOPQRSTUVWXYZ-8-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-9-shape" d="M 309.3 73.9 L 317.9 73.6 L 320.9 94.4 L 325.2 78.8 L 329.6 79.1 L 333.9 95 L 336.8 73.6 L 345.5 74 L 339.7 112.6 L 329.7 112.6 L 328 97.2 L 324.9 112.9 L 316.4 112.9 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-9-clip"><use href="#alphabet-NOPQRSTUVWXYZ-9-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-10-shape" d="M 349.3 73.8 L 360.2 74.4 L 363.5 85.5 L 368.4 74.3 L 378.6 73.8 L 369.1 93.9 L 378.7 113 L 368.4 113.2 L 364.3 100.8 L 360.6 113.2 L 349.7 113.4 L 359.3 93.1 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-10-clip"><use href="#alphabet-NOPQRSTUVWXYZ-10-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-11-shape" d="M 381.8 74 L 393.1 73.8 L 397 87.3 L 400.2 74 L 410.5 74.4 L 402.2 97.9 L 401.9 113 L 391.2 113.1 L 391.7 97.4 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-11-clip"><use href="#alphabet-NOPQRSTUVWXYZ-11-shape" clip-rule="evenodd"/></clipPath>
+<path id="alphabet-NOPQRSTUVWXYZ-12-shape" d="M 414.4 74.3 L 444.2 73.8 L 443.7 82.9 L 428.3 103.9 L 443.2 103.8 L 444 112.9 L 414.4 112.6 L 414.8 104.4 L 430.9 83.4 L 414.9 83.3 Z"/>
+<clipPath id="alphabet-NOPQRSTUVWXYZ-12-clip"><use href="#alphabet-NOPQRSTUVWXYZ-12-shape" clip-rule="evenodd"/></clipPath>
+</defs>
+<g id="alphabet-board">
+<use id="alphabet-board-line" href="#alphabet-board-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="alphabet-board-lit" href="#alphabet-board-shape" fill="#4f4944"/>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-0">
+<use id="alphabet-ABCDEFGHIJKLM-0-line" href="#alphabet-ABCDEFGHIJKLM-0-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-0-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-0-lit" href="#alphabet-ABCDEFGHIJKLM-0-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot" d="M 10 40 L 50.6 38.1 L 50.6 58.2 L 10 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-1">
+<use id="alphabet-ABCDEFGHIJKLM-1-line" href="#alphabet-ABCDEFGHIJKLM-1-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-1-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-1-lit" href="#alphabet-ABCDEFGHIJKLM-1-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-2" d="M 42.6 40 L 83.2 38.1 L 83.2 58.2 L 42.6 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-2">
+<use id="alphabet-ABCDEFGHIJKLM-2-line" href="#alphabet-ABCDEFGHIJKLM-2-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-2-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-2-lit" href="#alphabet-ABCDEFGHIJKLM-2-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-3" d="M 75.2 40 L 113.2 38.1 L 113.2 58.2 L 75.2 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-3">
+<use id="alphabet-ABCDEFGHIJKLM-3-line" href="#alphabet-ABCDEFGHIJKLM-3-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-3-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-3-lit" href="#alphabet-ABCDEFGHIJKLM-3-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-4" d="M 105.2 40 L 145.8 38.1 L 145.8 58.2 L 105.2 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-4">
+<use id="alphabet-ABCDEFGHIJKLM-4-line" href="#alphabet-ABCDEFGHIJKLM-4-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-4-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-4-lit" href="#alphabet-ABCDEFGHIJKLM-4-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-5" d="M 137.8 40 L 175.8 38.1 L 175.8 58.2 L 137.8 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-5">
+<use id="alphabet-ABCDEFGHIJKLM-5-line" href="#alphabet-ABCDEFGHIJKLM-5-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-5-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-5-lit" href="#alphabet-ABCDEFGHIJKLM-5-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-6" d="M 167.8 40 L 205.8 38.1 L 205.8 58.2 L 167.8 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-6">
+<use id="alphabet-ABCDEFGHIJKLM-6-line" href="#alphabet-ABCDEFGHIJKLM-6-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-6-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-6-lit" href="#alphabet-ABCDEFGHIJKLM-6-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-7" d="M 197.8 40 L 238.4 38.1 L 238.4 58.2 L 197.8 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-7">
+<use id="alphabet-ABCDEFGHIJKLM-7-line" href="#alphabet-ABCDEFGHIJKLM-7-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-7-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-7-lit" href="#alphabet-ABCDEFGHIJKLM-7-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-8" d="M 230.4 40 L 271 38.1 L 271 58.2 L 230.4 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-8">
+<use id="alphabet-ABCDEFGHIJKLM-8-line" href="#alphabet-ABCDEFGHIJKLM-8-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-8-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-8-lit" href="#alphabet-ABCDEFGHIJKLM-8-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-9" d="M 263 40 L 286.7 38.1 L 286.7 58.2 L 263 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-9">
+<use id="alphabet-ABCDEFGHIJKLM-9-line" href="#alphabet-ABCDEFGHIJKLM-9-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-9-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-9-lit" href="#alphabet-ABCDEFGHIJKLM-9-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-10" d="M 278.7 40 L 319.3 38.1 L 319.3 58.2 L 278.7 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-10">
+<use id="alphabet-ABCDEFGHIJKLM-10-line" href="#alphabet-ABCDEFGHIJKLM-10-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-10-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-10-lit" href="#alphabet-ABCDEFGHIJKLM-10-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-11" d="M 311.3 40 L 351.9 38.1 L 351.9 58.2 L 311.3 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-11">
+<use id="alphabet-ABCDEFGHIJKLM-11-line" href="#alphabet-ABCDEFGHIJKLM-11-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-11-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-11-lit" href="#alphabet-ABCDEFGHIJKLM-11-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-12" d="M 343.9 40 L 380.6 38.1 L 380.6 58.2 L 343.9 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-ABCDEFGHIJKLM-12">
+<use id="alphabet-ABCDEFGHIJKLM-12-line" href="#alphabet-ABCDEFGHIJKLM-12-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-ABCDEFGHIJKLM-12-clip)">
+<use id="alphabet-ABCDEFGHIJKLM-12-lit" href="#alphabet-ABCDEFGHIJKLM-12-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-13" d="M 372.6 40 L 418.4 38.1 L 418.4 58.2 L 372.6 58.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-0">
+<use id="alphabet-NOPQRSTUVWXYZ-0-line" href="#alphabet-NOPQRSTUVWXYZ-0-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-0-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-0-lit" href="#alphabet-NOPQRSTUVWXYZ-0-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-14" d="M 10 100 L 50.6 98.1 L 50.6 118.2 L 10 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-1">
+<use id="alphabet-NOPQRSTUVWXYZ-1-line" href="#alphabet-NOPQRSTUVWXYZ-1-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-1-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-1-lit" href="#alphabet-NOPQRSTUVWXYZ-1-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-15" d="M 42.6 100 L 83.2 98.1 L 83.2 118.2 L 42.6 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-2">
+<use id="alphabet-NOPQRSTUVWXYZ-2-line" href="#alphabet-NOPQRSTUVWXYZ-2-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-2-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-2-lit" href="#alphabet-NOPQRSTUVWXYZ-2-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-16" d="M 75.2 100 L 114.5 98.1 L 114.5 118.2 L 75.2 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-3">
+<use id="alphabet-NOPQRSTUVWXYZ-3-line" href="#alphabet-NOPQRSTUVWXYZ-3-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-3-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-3-lit" href="#alphabet-NOPQRSTUVWXYZ-3-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-17" d="M 106.5 100 L 148.4 98.1 L 148.4 118.2 L 106.5 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-4">
+<use id="alphabet-NOPQRSTUVWXYZ-4-line" href="#alphabet-NOPQRSTUVWXYZ-4-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-4-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-4-lit" href="#alphabet-NOPQRSTUVWXYZ-4-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-18" d="M 140.4 100 L 181 98.1 L 181 118.2 L 140.4 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-5">
+<use id="alphabet-NOPQRSTUVWXYZ-5-line" href="#alphabet-NOPQRSTUVWXYZ-5-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-5-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-5-lit" href="#alphabet-NOPQRSTUVWXYZ-5-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-19" d="M 173 100 L 213.6 98.1 L 213.6 118.2 L 173 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-6">
+<use id="alphabet-NOPQRSTUVWXYZ-6-line" href="#alphabet-NOPQRSTUVWXYZ-6-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-6-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-6-lit" href="#alphabet-NOPQRSTUVWXYZ-6-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-20" d="M 205.6 100 L 246.2 98.1 L 246.2 118.2 L 205.6 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-7">
+<use id="alphabet-NOPQRSTUVWXYZ-7-line" href="#alphabet-NOPQRSTUVWXYZ-7-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-7-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-7-lit" href="#alphabet-NOPQRSTUVWXYZ-7-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-21" d="M 238.2 100 L 278.8 98.1 L 278.8 118.2 L 238.2 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-8">
+<use id="alphabet-NOPQRSTUVWXYZ-8-line" href="#alphabet-NOPQRSTUVWXYZ-8-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-8-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-8-lit" href="#alphabet-NOPQRSTUVWXYZ-8-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-22" d="M 270.8 100 L 311.4 98.1 L 311.4 118.2 L 270.8 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-9">
+<use id="alphabet-NOPQRSTUVWXYZ-9-line" href="#alphabet-NOPQRSTUVWXYZ-9-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-9-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-9-lit" href="#alphabet-NOPQRSTUVWXYZ-9-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-23" d="M 303.4 100 L 351.8 98.1 L 351.8 118.2 L 303.4 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-10">
+<use id="alphabet-NOPQRSTUVWXYZ-10-line" href="#alphabet-NOPQRSTUVWXYZ-10-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-10-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-10-lit" href="#alphabet-NOPQRSTUVWXYZ-10-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-24" d="M 343.8 100 L 384.4 98.1 L 384.4 118.2 L 343.8 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-11">
+<use id="alphabet-NOPQRSTUVWXYZ-11-line" href="#alphabet-NOPQRSTUVWXYZ-11-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-11-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-11-lit" href="#alphabet-NOPQRSTUVWXYZ-11-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-25" d="M 376.4 100 L 417 98.1 L 417 118.2 L 376.4 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="alphabet-NOPQRSTUVWXYZ-12">
+<use id="alphabet-NOPQRSTUVWXYZ-12-line" href="#alphabet-NOPQRSTUVWXYZ-12-shape" transform="translate(-1.67 1.25)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="5.76" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#alphabet-NOPQRSTUVWXYZ-12-clip)">
+<use id="alphabet-NOPQRSTUVWXYZ-12-lit" href="#alphabet-NOPQRSTUVWXYZ-12-shape" fill="#cfc5a8" fill-rule="evenodd"/>
+<path id="alphabet-foot-26" d="M 409 100 L 449.6 98.1 L 449.6 118.2 L 409 118.2 Z" fill="#9c9178"/>
+</g>
+</g>
+</svg>

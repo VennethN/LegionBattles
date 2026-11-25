@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="marta-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="marta-head-braid-shape" d="M 124 78 L 132 80 L 128 100 L 122 120 L 115 118 L 119 98 Z"/>
+<clipPath id="marta-head-braid-clip"><use href="#marta-head-braid-shape"/></clipPath>
+<path id="marta-head-neck-shape" d="M 138.6 85.4 L 148.5 88.1 L 150.3 99.8 L 136.8 99.8 Z"/>
+<clipPath id="marta-head-neck-clip"><use href="#marta-head-neck-shape"/></clipPath>
+<path id="marta-head-face-shape" d="M 138.7 71.7 L 143.3 68 L 152.7 68 L 156.4 71.7 L 158.7 75.9 L 156.9 78.3 L 158.3 80.1 L 162.5 84.8 L 158.7 86.2 L 159.2 89 L 157.8 89.9 L 158.3 91.8 L 155.9 95.3 L 149.9 96.9 L 143.3 90.4 L 139.6 87.6 Z"/>
+<clipPath id="marta-head-face-clip"><use href="#marta-head-face-shape"/></clipPath>
+<path id="marta-head-coif-shape" d="M 126 72 L 142 72 L 141 88 L 137 98 L 128 100 Z"/>
+<clipPath id="marta-head-coif-clip"><use href="#marta-head-coif-shape"/></clipPath>
+<path id="marta-head-bowl-shape" d="M 130 68 L 133 56 L 142 49 L 154 48 L 163 54 L 166 67 Z"/>
+<clipPath id="marta-head-bowl-clip"><use href="#marta-head-bowl-shape"/></clipPath>
+<path id="marta-head-brim-shape" d="M 116 71 L 122 65 L 166 63 L 184 70 L 182 76 L 118 77 Z"/>
+<clipPath id="marta-head-brim-clip"><use href="#marta-head-brim-shape"/></clipPath>
+<path id="marta-head-chin-strap-shape" d="M 140.5 75.2 L 151.5 97.2 L 148.5 98.8 L 137.5 76.8 Z"/>
+<clipPath id="marta-head-chin-strap-clip"><use href="#marta-head-chin-strap-shape"/></clipPath>
+</defs>
+<g id="marta-head-braid">
+<use id="marta-head-braid-line" href="#marta-head-braid-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-head-braid-clip)">
+<use id="marta-head-braid-lit" href="#marta-head-braid-shape" fill="#cfc5a8"/>
+<path id="marta-head-braid-mid" d="M 103 74 L 120.9 73.8 L 124.5 97.9 L 122.6 100.8 L 126.1 124.2 L 103 124 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="marta-head-braid-dark" d="M 103 74 L 120.9 73.8 L 124.5 97.9 L 122.6 100.8 L 126.1 124.2 L 103 124 Z" fill="#14110f"/>
+<path id="marta-head-plait" d="M 129.4 82.6 L 122.6 87.6 L 130.2 83.8 Z M 127.8 89.4 L 121 94.4 L 128.6 90.6 Z M 126.2 96.2 L 119.4 101.2 L 127 97.4 Z M 124.6 103 L 117.8 108 L 125.4 104.2 Z M 123 109.8 L 116.2 114.8 L 123.8 111 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="marta-head-neck">
+<use id="marta-head-neck-line" href="#marta-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-head-neck-clip)">
+<use id="marta-head-neck-lit" href="#marta-head-neck-shape" fill="#c7ad84"/>
+<path id="marta-head-neck-mid" d="M 124.8 81.4 L 140.7 81.4 L 146.4 103.8 L 124.8 103.8 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="marta-head-neck-dark" d="M 124.8 81.4 L 140.7 81.4 L 146.4 103.8 L 124.8 103.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="marta-head-face">
+<use id="marta-head-face-line" href="#marta-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-head-face-clip)">
+<use id="marta-head-face-lit" href="#marta-head-face-shape" fill="#c7ad84"/>
+<path id="marta-head-face-mid" d="M 134.9 65.2 L 145.9 66 L 147.5 84 L 144.6 87.8 L 145.5 97.1 L 134.9 98.8 Z" transform="translate(2.8 -0.67)" fill="#927a58"/>
+<path id="marta-head-face-dark" d="M 134.9 65.2 L 145.9 66 L 147.5 84 L 144.6 87.8 L 145.5 97.1 L 134.9 98.8 Z" fill="#14110f"/>
+<path id="marta-head-face-cheek-plane" d="M 148.9 83.4 L 154.5 82.5 L 156.4 85.7 L 155 90.4 L 149.9 94.3 L 147.1 88.5 Z" fill="#927a58"/>
+<path id="marta-head-face-chin-plane" d="M 153.6 91.8 L 158.3 91.3 L 155.9 95.3 L 151.7 96 Z" fill="#927a58"/>
+<path id="marta-head-face-socket" d="M 159.2 75.5 L 146.1 74.5 L 147.1 81.1 L 151.7 83.4 L 154.5 81.1 L 157.8 79.9 Z" fill="#14110f"/>
+<path id="marta-head-face-lines" d="M 156.1 85.8 L 155 89.9 L 157.6 86.6 Z M 144.6 90.1 L 151.7 95.3 L 145.8 88.8 Z" fill="#14110f"/>
+<path id="marta-head-face-mouth" d="M 159 88.3 L 153.1 90.2 L 159.4 90.3 Z" fill="#14110f"/>
+<path id="marta-head-face-scar" d="M 152.1 79.5 L 156.4 87.6 L 153.3 78.9 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="marta-head-face-nostril" d="M 159.2 85.5 L 155.9 84.3 L 158.3 86.9 Z" fill="#14110f"/>
+<g id="marta-head-coif">
+<use id="marta-head-coif-line" href="#marta-head-coif-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-head-coif-clip)">
+<use id="marta-head-coif-lit" href="#marta-head-coif-shape" fill="#c7ad84"/>
+<path id="marta-head-coif-mid" d="M 114 68 L 132.5 67.8 L 135.5 83.1 L 133.6 86.2 L 137.1 104.2 L 114 104 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="marta-head-coif-dark" d="M 114 68 L 132.5 67.8 L 135.5 83.1 L 133.6 86.2 L 137.1 104.2 L 114 104 Z" fill="#14110f"/>
+<path id="marta-head-coif-quilt" d="M 135.4 74 L 134 98 L 136.6 74 Z M 130.4 74 L 130 98 L 131.6 74 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="marta-head-bowl">
+<use id="marta-head-bowl-line" href="#marta-head-bowl-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-head-bowl-clip)">
+<use id="marta-head-bowl-lit" href="#marta-head-bowl-shape" fill="#8c9194"/>
+<path id="marta-head-bowl-mid" d="M 118 44 L 142.1 43.5 L 146.3 58.5 L 144 62.8 L 146.7 72.5 L 118 72 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="marta-head-bowl-dark" d="M 118 44 L 142.1 43.5 L 146.3 58.5 L 144 62.8 L 146.7 72.5 L 118 72 Z" fill="#14110f"/>
+<path id="marta-head-dent" d="M 149.2 52.6 L 156 60 L 150.8 51.4 Z M 157.1 56.3 L 160 62 L 158.9 55.7 Z" fill="#5b6165"/>
+<path id="marta-head-rust" d="M 142 60 L 152 62 L 150 68 L 140 68 Z" fill="#6a3b24" opacity="0.8"/>
+<path id="marta-head-bowl-cold" d="M 90 8 L 206 8 L 206 108 L 90 108 Z M 131.9 66.6 L 134.9 54.6 L 143.9 47.6 L 155.9 46.6 L 164.9 52.6 L 167.9 65.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="marta-head-brim">
+<use id="marta-head-brim-line" href="#marta-head-brim-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-head-brim-clip)">
+<use id="marta-head-brim-lit" href="#marta-head-brim-shape" fill="#8c9194"/>
+<use id="marta-head-brim-rim" href="#marta-head-brim-shape" fill="#f4d294" opacity="0.55"/>
+<use id="marta-head-brim-lit-over" href="#marta-head-brim-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="marta-head-brim-mid" d="M 104 59 L 133.6 59 L 139.2 81 L 104 81 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="marta-head-brim-dark" d="M 104 59 L 133.6 59 L 139.2 81 L 104 81 Z" fill="#14110f"/>
+</g>
+<path id="marta-head-brim-open-0" d="M 168 63.4 L 170.32 61.66 L 182.32 66.26 L 180 68 Z" fill="#8c9194"/>
+</g>
+<path id="marta-head-rivets-0" d="M 130.3 67.9 L 131.8 66.4 L 133.3 67.9 L 131.8 69.4 Z" fill="#14110f"/>
+<path id="marta-head-rivets-1" d="M 137.9 67.6 L 139.4 66.1 L 140.9 67.6 L 139.4 69.1 Z" fill="#14110f"/>
+<path id="marta-head-rivets-2" d="M 145.5 67.3 L 147 65.8 L 148.5 67.3 L 147 68.8 Z" fill="#14110f"/>
+<path id="marta-head-rivets-3" d="M 153.1 67 L 154.6 65.5 L 156.1 67 L 154.6 68.5 Z" fill="#14110f"/>
+<path id="marta-head-rivets-4" d="M 160.7 66.7 L 162.2 65.2 L 163.7 66.7 L 162.2 68.2 Z" fill="#14110f"/>
+<g id="marta-head-chin-strap">
+<use id="marta-head-chin-strap-line" href="#marta-head-chin-strap-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-head-chin-strap-clip)">
+<use id="marta-head-chin-strap-lit" href="#marta-head-chin-strap-shape" fill="#7b5b3d"/>
+<path id="marta-head-chin-strap-dark" d="M 138.3 73 L 145.8 87.9 L 145.6 88.7 L 151.5 100.6 L 148.7 102 L 135 74.6 Z" fill="#14110f"/>
+<path id="marta-head-chin-strap-stitch" d="M 141.1 78.9 L 140.3 80 L 141.7 80 Z M 143.6 83.8 L 142.7 84.9 L 144.1 84.8 Z M 146 88.6 L 145.2 89.7 L 146.5 89.7 Z M 148.4 93.4 L 147.6 94.5 L 148.9 94.5 Z" fill="#553d29"/>
+</g>
+</g>
+</svg>

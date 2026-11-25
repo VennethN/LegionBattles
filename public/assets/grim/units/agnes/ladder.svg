@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="agnes-ladder" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="agnes-ladder-rung-0-shape" d="M 87.3 185.3 L 103.3 189.3 L 102.3 193.1 L 86.3 189.1 Z"/>
+<path id="agnes-ladder-rung-1-shape" d="M 90.9 163.4 L 106.9 167.4 L 106 171.3 L 90 167.3 Z"/>
+<path id="agnes-ladder-rung-2-shape" d="M 94.6 141.6 L 110.6 145.6 L 109.6 149.5 L 93.6 145.5 Z"/>
+<path id="agnes-ladder-rung-3-shape" d="M 98.2 119.7 L 114.2 123.7 L 113.2 127.6 L 97.2 123.6 Z"/>
+<path id="agnes-ladder-rung-4-shape" d="M 101.8 97.9 L 117.8 101.9 L 116.9 105.8 L 100.9 101.8 Z"/>
+<path id="agnes-ladder-rung-5-shape" d="M 105.5 76.1 L 121.5 80.1 L 120.5 83.9 L 104.5 79.9 Z"/>
+<path id="agnes-ladder-rung-6-shape" d="M 109.1 54.2 L 125.1 58.2 L 124.2 62.1 L 108.2 58.1 Z"/>
+<path id="agnes-ladder-rail-a-shape" d="M 87.2 204.5 L 114.8 36.5 L 109.2 35.5 L 80.8 203.5 Z"/>
+<clipPath id="agnes-ladder-rail-a-clip"><use href="#agnes-ladder-rail-a-shape"/></clipPath>
+<path id="agnes-ladder-rail-b-shape" d="M 103.2 208.5 L 130.8 40.5 L 125.2 39.5 L 96.8 207.5 Z"/>
+<clipPath id="agnes-ladder-rail-b-clip"><use href="#agnes-ladder-rail-b-shape"/></clipPath>
+</defs>
+<g id="agnes-ladder-rung-0">
+<use id="agnes-ladder-rung-0-line" href="#agnes-ladder-rung-0-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-0-lit" href="#agnes-ladder-rung-0-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-1">
+<use id="agnes-ladder-rung-1-line" href="#agnes-ladder-rung-1-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-1-lit" href="#agnes-ladder-rung-1-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-2">
+<use id="agnes-ladder-rung-2-line" href="#agnes-ladder-rung-2-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-2-lit" href="#agnes-ladder-rung-2-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-3">
+<use id="agnes-ladder-rung-3-line" href="#agnes-ladder-rung-3-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-3-lit" href="#agnes-ladder-rung-3-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-4">
+<use id="agnes-ladder-rung-4-line" href="#agnes-ladder-rung-4-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-4-lit" href="#agnes-ladder-rung-4-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-5">
+<use id="agnes-ladder-rung-5-line" href="#agnes-ladder-rung-5-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-5-lit" href="#agnes-ladder-rung-5-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rung-6">
+<use id="agnes-ladder-rung-6-line" href="#agnes-ladder-rung-6-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-ladder-rung-6-lit" href="#agnes-ladder-rung-6-shape" fill="#6f5c46"/>
+</g>
+<g id="agnes-ladder-rail-a">
+<use id="agnes-ladder-rail-a-line" href="#agnes-ladder-rail-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-ladder-rail-a-clip)">
+<use id="agnes-ladder-rail-a-lit" href="#agnes-ladder-rail-a-shape" fill="#6f5c46"/>
+<path id="agnes-ladder-rail-a-dark" d="M 84 207 L 96.8 130.4 L 95.9 129.1 L 112 33 L 105.6 31.9 L 76.6 205.8 Z" fill="#14110f"/>
+<path id="agnes-ladder-rail-a-cold" d="M 40.84 -4.46 L 154.76 -4.46 L 154.76 244.53 L 40.84 244.53 Z M 88.7 203.4 L 116.3 35.3 L 110.8 34.4 L 82.4 202.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="agnes-ladder-rail-b">
+<use id="agnes-ladder-rail-b-line" href="#agnes-ladder-rail-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-ladder-rail-b-clip)">
+<use id="agnes-ladder-rail-b-lit" href="#agnes-ladder-rail-b-shape" fill="#6f5c46"/>
+<path id="agnes-ladder-rail-b-dark" d="M 100.8 211.2 L 116.6 116.1 L 115.7 114.7 L 128.6 37.1 L 122.3 36 L 93.3 209.9 Z" fill="#14110f"/>
+<path id="agnes-ladder-rail-grain" d="M 104.6 180.1 L 110 140 L 103.4 179.9 Z M 116.6 110.1 L 122 76 L 115.4 109.9 Z" fill="#4a3c2d"/>
+</g>
+</g>
+</svg>

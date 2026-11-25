@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="brask-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="brask-head-neck-shape" d="M 136.4 85.6 L 146.7 88.4 L 148.5 100.5 L 134.5 100.5 Z"/>
+<clipPath id="brask-head-neck-clip"><use href="#brask-head-neck-shape"/></clipPath>
+<path id="brask-head-face-shape" d="M 138.7 71.7 L 143.3 68 L 152.7 68 L 156.4 71.7 L 158.7 75.9 L 156.9 78.3 L 158.3 80.1 L 162.5 84.8 L 158.7 86.2 L 159.2 89 L 157.8 89.9 L 158.3 91.8 L 155.9 94.1 L 149.9 95.5 L 143.3 90.4 L 139.6 87.6 Z"/>
+<clipPath id="brask-head-face-clip"><use href="#brask-head-face-shape"/></clipPath>
+<path id="brask-head-face-ear-shape" d="M 143.3 80.1 L 146.6 79.2 L 148 82.9 L 146.6 87.1 L 143.8 85.7 Z"/>
+<path id="brask-head-beard-shape" d="M 140 90 L 158 88 L 162 96 L 160 116 L 154 122 L 151 128 L 147 120 L 143 114 L 136 98 Z"/>
+<clipPath id="brask-head-beard-clip"><use href="#brask-head-beard-shape"/></clipPath>
+<path id="brask-head-side-hair-shape" d="M 131 80 L 138 82 L 139 94 L 132 92 Z"/>
+<clipPath id="brask-head-side-hair-clip"><use href="#brask-head-side-hair-shape"/></clipPath>
+</defs>
+<g id="brask-head-neck">
+<use id="brask-head-neck-line" href="#brask-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-head-neck-clip)">
+<use id="brask-head-neck-lit" href="#brask-head-neck-shape" fill="#c7ad84"/>
+<path id="brask-head-neck-mid" d="M 122.5 81.6 L 138.5 81.6 L 144.5 104.5 L 122.5 104.5 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="brask-head-neck-dark" d="M 122.5 81.6 L 138.5 81.6 L 144.5 104.5 L 122.5 104.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="brask-head-face">
+<use id="brask-head-face-line" href="#brask-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-head-face-clip)">
+<use id="brask-head-face-lit" href="#brask-head-face-shape" fill="#c7ad84"/>
+<path id="brask-head-face-mid" d="M 134.9 65.2 L 145.9 66 L 147.5 84 L 144.6 87.8 L 145.5 97.1 L 134.9 98.8 Z" transform="translate(2.8 -0.67)" fill="#927a58"/>
+<path id="brask-head-face-dark" d="M 134.9 65.2 L 145.9 66 L 147.5 84 L 144.6 87.8 L 145.5 97.1 L 134.9 98.8 Z" fill="#14110f"/>
+<path id="brask-head-face-cheek-plane" d="M 148.9 83.4 L 154.5 82.5 L 156.4 85.7 L 155 90.4 L 149.9 93.2 L 147.1 88.5 Z" fill="#927a58"/>
+<path id="brask-head-face-chin-plane" d="M 153.6 91.8 L 158.3 91.3 L 155.9 94.1 L 151.7 94.7 Z" fill="#927a58"/>
+<path id="brask-head-face-socket" d="M 159.2 75.5 L 146.1 74.5 L 147.1 81.1 L 151.7 83.4 L 154.5 81.1 L 157.8 79.9 Z" fill="#14110f"/>
+<path id="brask-head-face-lines" d="M 156.1 85.8 L 155 89.9 L 157.6 86.6 Z M 144.7 90.2 L 151.7 94.1 L 145.7 88.8 Z" fill="#14110f"/>
+<path id="brask-head-face-mouth" d="M 159 88.3 L 153.1 90.2 L 159.4 90.3 Z" fill="#14110f"/>
+<path id="brask-head-face-scar" d="M 152.1 79.5 L 156.4 87.6 L 153.3 78.9 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="brask-head-face-nostril" d="M 159.2 85.5 L 155.9 84.3 L 158.3 86.9 Z" fill="#14110f"/>
+<g id="brask-head-face-ear">
+<use id="brask-head-face-ear-line" href="#brask-head-face-ear-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="brask-head-face-ear-lit" href="#brask-head-face-ear-shape" fill="#c7ad84"/>
+</g>
+<path id="brask-head-face-ear-hollow" d="M 143.9 81.7 L 146.1 85.4 L 145.3 81.2 Z" fill="#14110f"/>
+<path id="brask-head-skull-planes" d="M 142.1 70.8 L 152 69 L 141.9 69.2 Z M 138.8 76.3 L 140 70 L 137.2 75.7 Z" fill="#927a58"/>
+<g id="brask-head-beard">
+<use id="brask-head-beard-line" href="#brask-head-beard-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-head-beard-clip)">
+<use id="brask-head-beard-lit" href="#brask-head-beard-shape" fill="#cfc5a8"/>
+<path id="brask-head-beard-mid" d="M 124 84 L 141.2 83.6 L 147.1 108.3 L 144.8 112.6 L 149.5 132.4 L 124 132 Z" transform="translate(3 -0.72)" fill="#9c9178"/>
+<path id="brask-head-beard-dark" d="M 124 84 L 141.2 83.6 L 147.1 108.3 L 144.8 112.6 L 149.5 132.4 L 124 132 Z" fill="#14110f"/>
+<path id="brask-head-locks" d="M 149.1 94 L 150 120 L 150.9 94 Z M 155.1 94 L 156 114 L 156.9 94 Z M 144.1 96.1 L 146 112 L 145.9 95.9 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="brask-head-side-hair">
+<use id="brask-head-side-hair-line" href="#brask-head-side-hair-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-head-side-hair-clip)">
+<use id="brask-head-side-hair-lit" href="#brask-head-side-hair-shape" fill="#cfc5a8"/>
+<path id="brask-head-side-hair-dark" d="M 119 76 L 133.2 76 L 136.8 98 L 119 98 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

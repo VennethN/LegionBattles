@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bill" width="222" height="292" viewBox="0 0 222 292">
+<defs>
+<path id="bill-sheet-shape" d="M 10 12 L 186 6 L 206 24 L 212 264 L 11.4 271.8 L 16 265.6 L 14.5 271.7 L 23.6 271.3 L 28 265.7 L 26.7 271.2 L 48.4 270.4 L 55.1 260.3 L 51.9 270.2 L 62.7 269.8 L 68.5 260.7 L 65.2 269.7 L 84.2 269 L 89.9 261.3 L 87.9 268.8 L 97 268.5 L 101.8 262 L 100.2 268.3 L 110.1 268 L 116.5 258.3 L 113.4 267.8 L 122.7 267.5 L 128.7 258.2 L 125.5 267.4 L 134.9 267 L 139.4 261.3 L 138.2 266.9 L 146.2 266.6 L 150.6 260.3 L 148.7 266.5 L 157 266.1 L 162.4 258.6 L 160.3 266 L 194.8 264.7 L 199.3 258.6 L 197.7 264.6 L 207.1 264.2 L 211.1 258.9 L 209.9 264.1 L 6 272 Z"/>
+<clipPath id="bill-sheet-clip"><use href="#bill-sheet-shape"/></clipPath>
+<path id="bill-dog-ear-shape" d="M 186 6 L 206 24 L 188 26 Z"/>
+<clipPath id="bill-dog-ear-clip"><use href="#bill-dog-ear-shape"/></clipPath>
+<path id="bill-CONTRACT-0-shape" d="M 35 22.3 L 46.9 21.8 L 47.1 28.8 L 38.1 28.4 L 36.9 29.6 L 37.3 39.4 L 38.4 39.8 L 47.1 39.9 L 47.4 46.4 L 34.6 46.7 L 30.7 42.3 L 31 26.2 Z"/>
+<clipPath id="bill-CONTRACT-0-clip"><use href="#bill-CONTRACT-0-shape" clip-rule="evenodd"/></clipPath>
+<path id="bill-CONTRACT-1-shape" d="M 54.1 22 L 63.7 21.8 L 67.9 26.3 L 67.9 42.4 L 63.8 46.8 L 53.5 46.9 L 49.9 42.7 L 49.7 26 Z M 56.2 27.6 L 61.5 27.4 L 61.5 40.8 L 56.2 41 Z"/>
+<clipPath id="bill-CONTRACT-1-clip"><use href="#bill-CONTRACT-1-shape" clip-rule="evenodd"/></clipPath>
+<path id="bill-CONTRACT-2-shape" d="M 70.2 22.2 L 76 21.9 L 82.4 33.5 L 82.2 22.1 L 88.1 21.8 L 88 46.7 L 82.4 46.7 L 75.6 35.4 L 75.8 46.5 L 70.5 46.7 Z"/>
+<clipPath id="bill-CONTRACT-2-clip"><use href="#bill-CONTRACT-2-shape" clip-rule="evenodd"/></clipPath>
+<path id="bill-CONTRACT-3-shape" d="M 90.7 22.2 L 108.9 21.8 L 108.5 28 L 103.3 28.1 L 102.7 46.9 L 96.6 46.5 L 96.8 27.8 L 90.6 28 Z"/>
+<clipPath id="bill-CONTRACT-3-clip"><use href="#bill-CONTRACT-3-shape" clip-rule="evenodd"/></clipPath>
+<path id="bill-CONTRACT-4-shape" d="M 111.2 21.7 L 123.5 22.3 L 128.6 26.3 L 128.1 32.7 L 125.3 36.1 L 129.3 46.7 L 122.7 46.7 L 119 37.6 L 117.5 37.3 L 117.6 46.6 L 111 46.5 Z M 117.8 27.1 L 122.2 26.8 L 122.8 28.3 L 122.8 31.1 L 121 31.8 L 118.2 31.9 Z"/>
+<clipPath id="bill-CONTRACT-4-clip"><use href="#bill-CONTRACT-4-shape" clip-rule="evenodd"/></clipPath>
+<path id="bill-CONTRACT-5-shape" d="M 136.4 21.9 L 144.8 21.7 L 150 46.3 L 143.2 46.6 L 142.3 41.8 L 139.1 41.6 L 138.4 46.6 L 131.6 46.5 Z M 139.5 36.6 L 141.8 36.9 L 140.9 29.3 Z"/>
+<clipPath id="bill-CONTRACT-5-clip"><use href="#bill-CONTRACT-5-shape" clip-rule="evenodd"/></clipPath>
+<path id="bill-CONTRACT-6-shape" d="M 156.2 22 L 168.7 22.3 L 169 28.7 L 159.7 28.4 L 158.7 29.6 L 158.6 39.1 L 159.6 39.9 L 169 39.7 L 168.8 46.5 L 156.5 46.8 L 152.3 42.5 L 152.7 26 Z"/>
+<clipPath id="bill-CONTRACT-6-clip"><use href="#bill-CONTRACT-6-shape" clip-rule="evenodd"/></clipPath>
+<path id="bill-CONTRACT-7-shape" d="M 171 21.8 L 189.6 22 L 189.5 27.5 L 183.9 28 L 183.7 46.9 L 177.3 46.5 L 176.7 27.4 L 171.3 27.8 Z"/>
+<clipPath id="bill-CONTRACT-7-clip"><use href="#bill-CONTRACT-7-shape" clip-rule="evenodd"/></clipPath>
+<path id="bill-seal-ribbon-a-shape" d="M 163 239.2 L 170.2 241 L 163 269.8 L 157.6 264.4 L 152.2 269.8 Z"/>
+<clipPath id="bill-seal-ribbon-a-clip"><use href="#bill-seal-ribbon-a-shape"/></clipPath>
+<path id="bill-seal-ribbon-b-shape" d="M 173.8 241 L 182.8 239.2 L 188.2 266.2 L 181 262.6 L 177.4 268 Z"/>
+<clipPath id="bill-seal-ribbon-b-clip"><use href="#bill-seal-ribbon-b-shape"/></clipPath>
+<path id="bill-seal-wax-shape" d="M 159.4 214 L 177.4 212.2 L 190 223 L 191.8 239.2 L 179.2 250 L 161.2 248.2 L 152.2 235.6 Z"/>
+<clipPath id="bill-seal-wax-clip"><use href="#bill-seal-wax-shape"/></clipPath>
+<path id="bill-nail-a-shape" d="M 20 16 L 30 14 L 32 26 L 22 28 Z"/>
+<clipPath id="bill-nail-a-clip"><use href="#bill-nail-a-shape"/></clipPath>
+<path id="bill-nail-b-shape" d="M 104 250 L 114 248 L 116 260 L 106 262 Z"/>
+<clipPath id="bill-nail-b-clip"><use href="#bill-nail-b-shape"/></clipPath>
+</defs>
+<g id="bill-sheet">
+<use id="bill-sheet-line" href="#bill-sheet-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-sheet-clip)">
+<use id="bill-sheet-lit" href="#bill-sheet-shape" fill="#d8cbab"/>
+<path id="bill-fox-a" d="M 0 0 L 60 0 L 30 30 L 0 40 Z" fill="#b5a684" opacity="0.7"/>
+<path id="bill-fox-b" d="M 150 230 L 220 200 L 220 280 L 130 280 Z" fill="#b5a684" opacity="0.7"/>
+<path id="bill-fold" d="M 8 150.8 L 212 144 L 8 149.2 Z M 111.2 8 L 108 270 L 112.8 8 Z" fill="#b5a684"/>
+<path id="bill-mug" d="M 150 190 L 164 184 L 178 190 L 182 204 L 172 214 L 156 214 L 146 204 L 150 190" fill="none" stroke="#b5a684" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="bill-frame" d="M 28 58 L 190 54 L 192 160 L 30 164 L 28 58" fill="none" stroke="#14110f" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="bill-frame-inner" d="M 34 64.8 L 184 60 L 34 63.2 Z M 33.2 64 L 36 158 L 34.8 64 Z" fill="#b5a684"/>
+<path id="bill-rules" d="M 30 185.2 L 190 181 L 30 182.8 Z M 30 201.2 L 176 197 L 30 198.8 Z M 30 217.2 L 186 213 L 30 214.8 Z M 30 233.2 L 140 230 L 30 230.8 Z" fill="#b5a684"/>
+</g>
+</g>
+<g id="bill-dog-ear">
+<use id="bill-dog-ear-line" href="#bill-dog-ear-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-dog-ear-clip)">
+<use id="bill-dog-ear-lit" href="#bill-dog-ear-shape" fill="#d8cbab"/>
+<path id="bill-dog-ear-dark" d="M 180 0 L 210 26 L 180 30 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-CONTRACT-0">
+<use id="bill-CONTRACT-0-line" href="#bill-CONTRACT-0-shape" transform="translate(-0.01 0.01)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="0.02" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-CONTRACT-0-clip)">
+<use id="bill-CONTRACT-0-lit" href="#bill-CONTRACT-0-shape" fill="#14110f" fill-rule="evenodd"/>
+<path id="bill-foot" d="M 24.7 38.4 L 53.1 37.2 L 53.1 49.9 L 24.7 49.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-CONTRACT-1">
+<use id="bill-CONTRACT-1-line" href="#bill-CONTRACT-1-shape" transform="translate(-0.01 0.01)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="0.02" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-CONTRACT-1-clip)">
+<use id="bill-CONTRACT-1-lit" href="#bill-CONTRACT-1-shape" fill="#14110f" fill-rule="evenodd"/>
+<path id="bill-foot-2" d="M 43.6 38.4 L 73.7 37.2 L 73.7 49.9 L 43.6 49.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-CONTRACT-2">
+<use id="bill-CONTRACT-2-line" href="#bill-CONTRACT-2-shape" transform="translate(-0.01 0.01)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="0.02" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-CONTRACT-2-clip)">
+<use id="bill-CONTRACT-2-lit" href="#bill-CONTRACT-2-shape" fill="#14110f" fill-rule="evenodd"/>
+<path id="bill-foot-3" d="M 64.2 38.4 L 94.2 37.2 L 94.2 49.9 L 64.2 49.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-CONTRACT-3">
+<use id="bill-CONTRACT-3-line" href="#bill-CONTRACT-3-shape" transform="translate(-0.01 0.01)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="0.02" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-CONTRACT-3-clip)">
+<use id="bill-CONTRACT-3-lit" href="#bill-CONTRACT-3-shape" fill="#14110f" fill-rule="evenodd"/>
+<path id="bill-foot-4" d="M 84.7 38.4 L 114.8 37.2 L 114.8 49.9 L 84.7 49.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-CONTRACT-4">
+<use id="bill-CONTRACT-4-line" href="#bill-CONTRACT-4-shape" transform="translate(-0.01 0.01)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="0.02" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-CONTRACT-4-clip)">
+<use id="bill-CONTRACT-4-lit" href="#bill-CONTRACT-4-shape" fill="#14110f" fill-rule="evenodd"/>
+<path id="bill-foot-5" d="M 105.3 38.4 L 135.3 37.2 L 135.3 49.9 L 105.3 49.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-CONTRACT-5">
+<use id="bill-CONTRACT-5-line" href="#bill-CONTRACT-5-shape" transform="translate(-0.01 0.01)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="0.02" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-CONTRACT-5-clip)">
+<use id="bill-CONTRACT-5-lit" href="#bill-CONTRACT-5-shape" fill="#14110f" fill-rule="evenodd"/>
+<path id="bill-foot-6" d="M 125.8 38.4 L 155.8 37.2 L 155.8 49.9 L 125.8 49.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-CONTRACT-6">
+<use id="bill-CONTRACT-6-line" href="#bill-CONTRACT-6-shape" transform="translate(-0.01 0.01)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="0.02" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-CONTRACT-6-clip)">
+<use id="bill-CONTRACT-6-lit" href="#bill-CONTRACT-6-shape" fill="#14110f" fill-rule="evenodd"/>
+<path id="bill-foot-7" d="M 146.3 38.4 L 174.7 37.2 L 174.7 49.9 L 146.3 49.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-CONTRACT-7">
+<use id="bill-CONTRACT-7-line" href="#bill-CONTRACT-7-shape" transform="translate(-0.01 0.01)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="0.02" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-CONTRACT-7-clip)">
+<use id="bill-CONTRACT-7-lit" href="#bill-CONTRACT-7-shape" fill="#14110f" fill-rule="evenodd"/>
+<path id="bill-foot-8" d="M 165.2 38.4 L 195.3 37.2 L 195.3 49.9 L 165.2 49.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-seal-ribbon-a">
+<use id="bill-seal-ribbon-a-line" href="#bill-seal-ribbon-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-seal-ribbon-a-clip)">
+<use id="bill-seal-ribbon-a-lit" href="#bill-seal-ribbon-a-shape" fill="#7d312b"/>
+<path id="bill-seal-ribbon-a-dark" d="M 140.2 235.2 L 156.5 235 L 160.1 252.7 L 158.5 255.5 L 162.3 274 L 140.2 273.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-seal-ribbon-b">
+<use id="bill-seal-ribbon-b-line" href="#bill-seal-ribbon-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-seal-ribbon-b-clip)">
+<use id="bill-seal-ribbon-b-lit" href="#bill-seal-ribbon-b-shape" fill="#7d312b"/>
+<path id="bill-seal-ribbon-b-dark" d="M 161.8 235.2 L 174.5 235 L 178.4 257.6 L 176.8 260.1 L 178.8 272.2 L 161.8 272 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-seal-wax">
+<use id="bill-seal-wax-line" href="#bill-seal-wax-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-seal-wax-clip)">
+<use id="bill-seal-wax-lit" href="#bill-seal-wax-shape" fill="#7d312b"/>
+<path id="bill-seal-wax-mid" d="M 140.2 208.2 L 159.1 207.3 L 165.5 226.6 L 162.1 233.8 L 169 254.9 L 140.2 254 Z" transform="translate(3 -0.72)" fill="#551f1c"/>
+<path id="bill-seal-wax-dark" d="M 140.2 208.2 L 159.1 207.3 L 165.5 226.6 L 162.1 233.8 L 169 254.9 L 140.2 254 Z" fill="#14110f"/>
+<path id="bill-seal-press" d="M 163 221.2 L 179.2 221.2 L 182.8 237.4 L 166.6 241 Z" fill="#551f1c"/>
+<path id="bill-seal-mark" d="M 166.7 225.8 L 175.6 237.4 L 170.1 223.8 Z M 175.9 235.4 L 169.3 236.5 L 175.3 239.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-nail-a">
+<use id="bill-nail-a-line" href="#bill-nail-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-nail-a-clip)">
+<use id="bill-nail-a-lit" href="#bill-nail-a-shape" fill="#8c9194"/>
+<use id="bill-nail-a-rim" href="#bill-nail-a-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bill-nail-a-lit-over" href="#bill-nail-a-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="bill-nail-a-dark" d="M 8 10 L 22.2 10 L 27.4 32 L 8 32 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bill-nail-b">
+<use id="bill-nail-b-line" href="#bill-nail-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bill-nail-b-clip)">
+<use id="bill-nail-b-lit" href="#bill-nail-b-shape" fill="#8c9194"/>
+<use id="bill-nail-b-rim" href="#bill-nail-b-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bill-nail-b-lit-over" href="#bill-nail-b-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="bill-nail-b-dark" d="M 92 244 L 106.2 244 L 111.4 266 L 92 266 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

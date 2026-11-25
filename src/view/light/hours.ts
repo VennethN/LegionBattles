@@ -21,7 +21,8 @@ export interface Hour {
 
 export const LAIRS: Record<string, Hour> = {
   // A churchyard at night: a little green in the dark, as of old stone.
-  churchyard: { ambient: [0.3, 0.36, 0.42], sun: [0.7, 0.8, 1], shafts: 0, clouds: 0.25, shade: [0.84, 0.94, 1.1], vignette: 0.62, lamp: 1 },
+  // The style's own dark: cold, blue-green, and nearly black, so that what is seen is what a fire lights.
+  churchyard: { ambient: [0.31, 0.38, 0.43], sun: [0.7, 0.8, 1], shafts: 0, clouds: 0.15, shade: [0.86, 0.96, 1.08], vignette: 0.6, lamp: 1 },
   // A wood under snow and a moon: brighter, and blue.
   wood: { ambient: [0.34, 0.42, 0.6], sun: [0.7, 0.8, 1], shafts: 0.1, clouds: 0.2, shade: [0.82, 0.92, 1.14], vignette: 0.56, lamp: 0.5 },
 };
@@ -51,4 +52,4 @@ export const ELEMENTS: Record<string, Element> = {
 };
 
 /** The lantern a hunter carries. */
-export const LANTERN = 0xffd9a6;
+export const LANTERN = 0xffc47a;

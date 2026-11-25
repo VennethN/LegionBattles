@@ -40,7 +40,7 @@ export interface UnitKey {
 }
 
 /** Pictures to bring onto the sheet together, under one name: a unit's parts, or its whole pictures. */
-interface Wanted {
+export interface Wanted {
   id: string;
   files: Array<{ frame: string; key: string; url: string; scale: number; sx: number; sy: number; w: number; h: number; origin: readonly [number, number] }>;
 }
@@ -279,6 +279,26 @@ export class Sheet {
         };
       }),
     };
+  }
+
+  /**
+   * Brings in pictures described from outside: a second manifest's figures
+   * and things, each with its file, where it is cut from and where it turns.
+   * What is on the sheet already stays; if there is no room for the rest,
+   * every unit is taken off and only these are packed.
+   */
+  ensureWanted(scene: Phaser.Scene, list: readonly Wanted[]): Promise<void> {
+    const all = new Map<string, Wanted>();
+    for (const w of list) all.set(w.id, w);
+    const missing = [...all.values()].filter((w) => !this.packed.has(w.id));
+    if (missing.length === 0) return Promise.resolve();
+    return this.loadWanted(scene, missing).then(() => {
+      if (this.packWanted(scene, missing)) return undefined;
+      this.wipe();
+      return this.loadWanted(scene, [...all.values()]).then(() => {
+        if (!this.packWanted(scene, [...all.values()])) throw new Error(`sheet "${this.key}": one field does not fit`);
+      });
+    });
   }
 
   /**

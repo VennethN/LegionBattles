@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="dead-tree" width="216" height="310" viewBox="0 0 216 310">
+<defs>
+<path id="dead-tree-b1-shape" d="M 102.9 144.3 L 32.1 68.3 L 27.9 71.7 L 89.1 155.7 Z"/>
+<clipPath id="dead-tree-b1-clip"><use href="#dead-tree-b1-shape"/></clipPath>
+<path id="dead-tree-b2-shape" d="M 39.5 76 L 9 29.4 L 7 30.6 L 32.5 80 Z"/>
+<clipPath id="dead-tree-b2-clip"><use href="#dead-tree-b2-shape"/></clipPath>
+<path id="dead-tree-b3-shape" d="M 53.7 93.4 L 71.1 40.4 L 68.9 39.6 L 46.3 90.6 Z"/>
+<clipPath id="dead-tree-b3-clip"><use href="#dead-tree-b3-shape"/></clipPath>
+<path id="dead-tree-b4-shape" d="M 117.9 135.4 L 177.8 61.6 L 174.2 58.4 L 106.1 124.6 Z"/>
+<clipPath id="dead-tree-b4-clip"><use href="#dead-tree-b4-shape"/></clipPath>
+<path id="dead-tree-b5-shape" d="M 165.9 64.6 L 205.4 43 L 206.6 45 L 170.1 71.4 Z"/>
+<clipPath id="dead-tree-b5-clip"><use href="#dead-tree-b5-shape"/></clipPath>
+<path id="dead-tree-b6-shape" d="M 154 86 L 151.2 30 L 148.8 30 L 146 86 Z"/>
+<clipPath id="dead-tree-b6-clip"><use href="#dead-tree-b6-shape"/></clipPath>
+<path id="dead-tree-b7-shape" d="M 110 109.7 L 101.8 33.9 L 98.2 34.1 L 98 110.3 Z"/>
+<clipPath id="dead-tree-b7-clip"><use href="#dead-tree-b7-shape"/></clipPath>
+<path id="dead-tree-b8-shape" d="M 102.7 38.7 L 84.8 5.6 L 83.2 6.4 L 97.3 41.3 Z"/>
+<clipPath id="dead-tree-b8-clip"><use href="#dead-tree-b8-shape"/></clipPath>
+<path id="dead-tree-trunk-shape" d="M 70 296 L 84 220 L 86 150 L 96 110 L 120 116 L 126 160 L 120 230 L 140 296 Z"/>
+<clipPath id="dead-tree-trunk-clip"><use href="#dead-tree-trunk-shape"/></clipPath>
+</defs>
+<path id="dead-tree-blot" d="M 40 292 L 120 286 L 170 296 L 110 304 L 50 300 Z" fill="#14110f" opacity="0.55"/>
+<g id="dead-tree-b1">
+<use id="dead-tree-b1-line" href="#dead-tree-b1-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#dead-tree-b1-clip)">
+<use id="dead-tree-b1-lit" href="#dead-tree-b1-shape" fill="#6f5c46"/>
+<path id="dead-tree-b1-dark" d="M 97.8 152.4 L 61.1 107.9 L 56.2 107.2 L 25.4 69.9 L 12.8 80.3 L 82.6 164.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="dead-tree-b2">
+<use id="dead-tree-b2-line" href="#dead-tree-b2-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#dead-tree-b2-clip)">
+<use id="dead-tree-b2-lit" href="#dead-tree-b2-shape" fill="#6f5c46"/>
+<path id="dead-tree-b2-dark" d="M 37.4 80.6 L 20.7 51.9 L 18.6 51.2 L 5.2 28.2 L -1.1 31.8 L 29.9 85 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="dead-tree-b3">
+<use id="dead-tree-b3-line" href="#dead-tree-b3-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#dead-tree-b3-clip)">
+<use id="dead-tree-b3-lit" href="#dead-tree-b3-shape" fill="#6f5c46"/>
+<path id="dead-tree-b3-dark" d="M 48.7 94.7 L 61.3 61.8 L 60.7 60.3 L 69.8 36.7 L 62.9 34 L 40.7 91.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="dead-tree-b4">
+<use id="dead-tree-b4-line" href="#dead-tree-b4-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#dead-tree-b4-clip)">
+<use id="dead-tree-b4-lit" href="#dead-tree-b4-shape" fill="#6f5c46"/>
+<path id="dead-tree-b4-dark" d="M 110 132.2 L 140.3 99 L 140.3 94.3 L 175.7 55.6 L 165 45.9 L 97 120.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="dead-tree-b5">
+<use id="dead-tree-b5-line" href="#dead-tree-b5-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#dead-tree-b5-clip)">
+<use id="dead-tree-b5-lit" href="#dead-tree-b5-shape" fill="#6f5c46"/>
+<path id="dead-tree-b5-dark" d="M 165.6 69.8 L 187.7 55.8 L 189.5 56.1 L 209.3 43.6 L 213.2 49.8 L 170.2 77 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="dead-tree-b6">
+<use id="dead-tree-b6-line" href="#dead-tree-b6-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#dead-tree-b6-clip)">
+<use id="dead-tree-b6-lit" href="#dead-tree-b6-shape" fill="#6f5c46"/>
+<path id="dead-tree-b6-dark" d="M 150 89 L 150 54.4 L 148.4 52.7 L 148.4 27 L 141.2 27 L 141.2 89 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="dead-tree-b7">
+<use id="dead-tree-b7-line" href="#dead-tree-b7-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#dead-tree-b7-clip)">
+<use id="dead-tree-b7-lit" href="#dead-tree-b7-shape" fill="#6f5c46"/>
+<path id="dead-tree-b7-dark" d="M 104 113 L 101.5 65.2 L 99.3 63 L 97.6 31.1 L 86.7 31.7 L 91 113.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="dead-tree-b8">
+<use id="dead-tree-b8-line" href="#dead-tree-b8-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#dead-tree-b8-clip)">
+<use id="dead-tree-b8-lit" href="#dead-tree-b8-shape" fill="#6f5c46"/>
+<path id="dead-tree-b8-dark" d="M 101.1 42.8 L 90.4 20 L 89.3 19.6 L 81.8 3.7 L 76.8 6.1 L 95.3 45.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="dead-tree-trunk">
+<use id="dead-tree-trunk-line" href="#dead-tree-trunk-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#dead-tree-trunk-clip)">
+<use id="dead-tree-trunk-lit" href="#dead-tree-trunk-shape" fill="#6f5c46"/>
+<path id="dead-tree-trunk-mid" d="M 50 100 L 96 100 L 101.4 109.9 L 103.9 187.9 L 97.3 195.7 L 100.6 300.1 L 50 300 Z" transform="translate(9 -2.16)" fill="#4a3c2d"/>
+<path id="dead-tree-trunk-dark" d="M 50 100 L 96 100 L 101.4 109.9 L 103.9 187.9 L 97.3 195.7 L 100.6 300.1 L 50 300 Z" fill="#14110f"/>
+<path id="dead-tree-bark" d="M 110.5 150 L 110 210 L 113.5 150 Z M 116.5 180.1 L 122 250 L 119.5 179.9 Z M 106.5 230.1 L 110 280 L 109.5 229.9 Z" fill="#14110f"/>
+<path id="dead-tree-hollow" d="M 104 176 L 112 170 L 116 186 L 108 196 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="dead-tree-rope" d="M 166 72 L 168 120" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="dead-tree-noose" d="M 168 120 L 162 130 L 168 140 L 174 130 L 168 120" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

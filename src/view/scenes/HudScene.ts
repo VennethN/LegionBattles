@@ -40,7 +40,7 @@ interface Pad {
 }
 
 /** The short word on a pad for each thing: a pad is narrow. */
-const SHORT: Record<string, string> = { jawtrap: 'TRAP', tarflask: 'TAR', seton: 'SET ON', lamp: 'LAMP', pikemen: 'PIKES', crossbowmen: 'BOWS', sappers: 'SAPPERS' };
+const SHORT: Record<string, string> = { seton: 'DOGS', heel: 'BACK', pikemen: 'SPEARS', crossbowmen: 'BOWS', sappers: 'BOMBS' };
 
 export class HudScene extends Phaser.Scene {
   controls!: Controls;
@@ -128,7 +128,7 @@ export class HudScene extends Phaser.Scene {
     if (!save().told.includes('move')) this.showHint();
     if (data.fresh && hunt.phase === 'camp') {
       const things = Object.values(hunt.toPlace).some((n) => n > 0);
-      this.banner(things ? 'SET YOUR CAMP' : hunt.monster.def.name.toUpperCase(), things ? 'It sleeps. Build, then wake it.' : 'It sleeps. Wake it when you are ready.');
+      this.banner(things ? 'BUILD YOUR CAMP' : hunt.monster.def.name.toUpperCase(), things ? 'The boss is asleep. Build, then wake it.' : 'The boss is asleep. Wake it when you are ready.');
     }
   }
 
@@ -161,7 +161,7 @@ export class HudScene extends Phaser.Scene {
     const step = PAD + 8;
     const h = hunt.hunter;
     const [a, b] = hunt.skills;
-    this.pad(c, x, y, 'icon/boot', 'ROLL', 'dodge', BONE, (n) => n.hunter.rollWait / h.def.dodge.wait, null);
+    this.pad(c, x, y, 'icon/boot', 'DODGE', 'dodge', BONE, (n) => n.hunter.rollWait / h.def.dodge.wait, null);
     x -= step;
     this.pad(c, x, y, abilityIcon(b.id), SHORT[b.id] ?? b.name.toUpperCase(), 'b', IRON, (n) => n.hunter.waits[1] / b.wait, null);
     x -= step;
@@ -204,7 +204,7 @@ export class HudScene extends Phaser.Scene {
     });
     const wx = view.tall ? view.w / 2 : view.w - wakeW / 2 - 14;
     const wy = view.tall && brought.length ? y - 76 : y;
-    const wake = new Button(this, wx, wy, 'WAKE IT', () => this.controls.ask('wake'), { width: wakeW, height: 60, size: 24, mat: RUBY });
+    const wake = new Button(this, wx, wy, 'WAKE BOSS', () => this.controls.ask('wake'), { width: wakeW, height: 60, size: 24, mat: RUBY });
     c.add(wake.root);
   }
 
@@ -238,18 +238,18 @@ export class HudScene extends Phaser.Scene {
   /** What has just happened in the lair, for what it teaches: the tells are the lesson, and these are its few words. */
   noted(e: Ev): void {
     if (save().wins > 2) return;
-    if (e.t === 'tell' && e.first) this.teach('tell', 'RED ON THE GROUND IS WHERE IT WILL STRIKE. STEP OUT OF IT.');
-    else if (e.t === 'hurt' && e.who === 'hunter') this.teach('roll', this.touch ? 'ROLL GOES THROUGH A BLOW.' : 'SPACE ROLLS THROUGH A BLOW.');
-    else if (e.t === 'open' && e.why === 'recover') this.teach('open', 'A GOLD RING: IT IS OPEN. STRIKE NOW, AND IT WILL BREAK.');
-    else if (e.t === 'summon') this.teach('summon', 'THE DEAD GET UP WHERE THE GROUND WAS MARKED.');
-    else if (e.t === 'crash') this.teach('crash', 'WHAT IT RUNS INTO DAZES IT.');
+    if (e.t === 'tell' && e.first) this.teach('tell', 'RED ON THE GROUND IS WHERE THE BOSS WILL HIT. GET OUT OF IT.');
+    else if (e.t === 'hurt' && e.who === 'hunter') this.teach('roll', this.touch ? 'DODGE GOES THROUGH A HIT.' : 'SPACE: DODGE THROUGH A HIT.');
+    else if (e.t === 'open' && e.why === 'recover') this.teach('open', 'GOLD RING: THE BOSS IS OPEN. ATTACK NOW TO STUN IT.');
+    else if (e.t === 'summon') this.teach('summon', 'THE DEAD RISE WHERE THE GROUND WAS MARKED.');
+    else if (e.t === 'crash') this.teach('crash', 'THE BOSS IS DAZED WHEN IT RUNS INTO SOMETHING.');
   }
 
   /** How to move, shown to someone who has not yet: keys on a keyboard, a finger on a phone. */
   private showHint(): void {
     const c = this.add.container(view.w / 2, view.h * 0.62).setDepth(15);
     if (this.touch) {
-      c.add(label(this, 0, 0, 'DRAG ANYWHERE TO WALK', { size: 20 }));
+      c.add(label(this, 0, 0, 'DRAG ANYWHERE TO MOVE', { size: 20 }));
     } else {
       const cap = (x: number, y: number, t: string): void => {
         c.add(slabImage(this, x - 17, y - 17, 34, 34, BONE, 8, 5));
@@ -259,7 +259,7 @@ export class HudScene extends Phaser.Scene {
       cap(-152, 18, 'A');
       cap(-116, 18, 'S');
       cap(-80, 18, 'D');
-      c.add(label(this, 44, -12, 'WALK', { size: 22 }));
+      c.add(label(this, 44, -12, 'MOVE', { size: 22 }));
       c.add(label(this, 44, 16, 'or the arrow keys', { size: 15, color: BONE.shade }));
     }
     this.tweens.add({ targets: c, scale: 1.04, duration: 500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
@@ -348,8 +348,8 @@ export class HudScene extends Phaser.Scene {
     }
     // Under its bars: what it is doing, by name, while it prepares it; and that it is open, or broken, when it is.
     const doing = m.state === 'tell' || m.state === 'dash' ? (m.attack?.name ?? '').toUpperCase() : '';
-    const state = doing || (m.state === 'asleep' ? 'ASLEEP' : m.state === 'broken' ? 'BROKEN' : m.state === 'shift' ? '' : hunt.open ? 'OPEN' : '');
-    this.stateText.setText(state).setColor(doing ? RUBY.fill : HOLY.fill).setAlpha(state === 'BROKEN' ? 0.6 + 0.4 * Math.sin(this.clock * 12) ** 2 : 1);
+    const state = doing || (m.state === 'asleep' ? 'ASLEEP' : m.state === 'broken' ? 'STUNNED' : m.state === 'shift' ? '' : hunt.open ? 'OPEN: ATTACK' : '');
+    this.stateText.setText(state).setColor(doing ? RUBY.fill : HOLY.fill).setAlpha(state === 'STUNNED' ? 0.6 + 0.4 * Math.sin(this.clock * 12) ** 2 : 1);
 
     // Camp: what is left to build, and what to do.
     if (camp) {
@@ -363,7 +363,7 @@ export class HudScene extends Phaser.Scene {
           p.root.setAlpha(n > 0 ? 1 : 0.4);
         }
       }
-      this.campText.setText(any ? (this.touch ? 'Stand where you want a thing and press its button.' : 'Stand where you want a thing and press its button or its number.') : 'Step into the red ring, or press WAKE IT.');
+      this.campText.setText(any ? (this.touch ? 'Stand where you want it and press its button.' : 'Stand where you want it and press its button or number.') : 'Walk into the red ring, or press WAKE BOSS.');
     } else this.campText.setText('');
 
     // Each button: its veil is as tall as the share of its wait still to run.

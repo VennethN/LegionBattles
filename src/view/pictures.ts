@@ -1,78 +1,79 @@
 // Which picture stands for what. Every hunter, monster, helper, man and
-// building of the game is shown with a figure of the art kit, named here
-// and nowhere else: the screens ask this table, and the art build writes
-// exactly what it names (scripts/art.game.ts).
+// building of the game is named here and nowhere else: the screens ask
+// this table, and the art builds write exactly what it names.
 //
-// These are stand-ins. The game is to have a style of its own, and when its
-// figures are drawn, bringing them in is this table and the art build: no
-// screen names a picture.
+// The game's own style is the Grim kit (src/grim): a figure of it is named
+// by `grim`. What that kit has not drawn yet is shown by a figure of the
+// Legion kit this project was begun with, as a dark shape of the right
+// size and no more: a stand-in that sits in the style. When the kit draws
+// one, its line here changes to `grim` and the Legion figure leaves.
 
-/** A figure of the kit, and how big it is drawn on the field (1 is the kit's canvas, 192 units to a side). */
-export interface Picture {
-  unit: string;
-  scale: number;
-}
-
-/** The side whose colors a figure is drawn in: the hunter's own in blue, what they hunt in red. */
 export type Side = 'blue' | 'red';
 
-export const HUNTER_ART: Record<string, Picture> = {
-  marta: { unit: 'honorguard', scale: 0.68 },
-  jory: { unit: 'poacher', scale: 0.66 },
-  agnes: { unit: 'cleric', scale: 0.66 },
-  brask: { unit: 'packmaster', scale: 0.68 },
+/** A figure of the game's own style, or a stand-in from the Legion kit (which side's drawing, and how big). */
+export type Art = { grim: string } | { legion: string; team: Side; scale: number };
+
+/** How big a figure of the style is drawn on the field: a hunter's 178 units of height are then about 90 pixels in a portal's frame. A monster is drawn at the same. */
+export const GRIM_SCALE = 0.6;
+/** The color a stand-in is filled with: the style's unlit black, a little lifted so that it is seen on the dark. */
+export const STAND_IN = 0x1a2227;
+
+export const isGrim = (a: Art): a is { grim: string } => 'grim' in a;
+
+export const HUNTER_ART: Record<string, Art> = { marta: { grim: 'marta' }, jory: { grim: 'jory' }, agnes: { grim: 'agnes' }, brask: { grim: 'brask' } };
+
+export const MONSTER_ART: Record<string, Art> = {
+  sexton: { grim: 'sexton' },
+  king: { legion: 'greatstag', team: 'red', scale: 1.9 },
 };
 
-export const MONSTER_ART: Record<string, Picture> = {
-  sexton: { unit: 'gravedigger', scale: 1.75 },
-  king: { unit: 'greatstag', scale: 1.7 },
+/** Which of a monster's own moves shows each of its attacks, by the attack's name. One not named here is shown by the shape it marks. */
+export const MONSTER_MOVES: Record<string, Record<string, string>> = {
+  sexton: { spade: 'slam', furrow: 'slam', cross: 'slam', sweep: 'sweep', lantern: 'ring', graves: 'ring', moregraves: 'ring', bury: 'ring', grasp: 'ring', shift: 'ring' },
 };
 
-export const HELPER_ART: Record<string, Picture> = {
-  risen: { unit: 'shroud', scale: 0.56 },
-};
+/** Which of a hunter's moves shows each ability, by the ability's name. Their first move is their own blow. */
+export const ABILITY_MOVES: Record<string, string> = { reap: 'reap', jawtrap: 'set', tarflask: 'set', flare: 'flare', lamp: 'lamp', seton: 'setOn', heel: 'heel' };
+
+export const HELPER_ART: Record<string, Art> = { risen: { grim: 'risen' } };
 
 /** Those who fight beside the hunter, by the reinforcement they came with. */
-export const ALLY_ART: Record<string, Picture> = {
-  pikemen: { unit: 'pikeman', scale: 0.56 },
-  crossbowmen: { unit: 'crossbowman', scale: 0.56 },
-  sappers: { unit: 'blaster', scale: 0.56 },
-  hound: { unit: 'warhound', scale: 0.5 },
+export const ALLY_ART: Record<string, Art> = {
+  pikemen: { grim: 'pikeman' },
+  hound: { grim: 'hound' },
+  crossbowmen: { legion: 'crossbowman', team: 'blue', scale: 0.62 },
+  sappers: { legion: 'blaster', team: 'blue', scale: 0.62 },
 };
 
-export const BUILDING_ART: Record<string, Picture> = {
-  barricade: { unit: 'palisade', scale: 0.6 },
-  watchfire: { unit: 'firepit', scale: 0.62 },
-  bellpost: { unit: 'alarmbell', scale: 0.6 },
-  ballista: { unit: 'ballista', scale: 0.6 },
+export const BUILDING_ART: Record<string, Art> = {
+  barricade: { grim: 'barricade' },
+  watchfire: { grim: 'watchfire' },
+  ballista: { grim: 'ballista' },
+  bellpost: { legion: 'alarmbell', team: 'blue', scale: 0.7 },
 };
 
-/** What stands or lies on the field besides: a lair's stones, and a trap laid. */
-export const STONE_ART: Picture = { unit: 'barrowstone', scale: 0.8 };
-export const TRAP_ART: Picture = { unit: 'spiketrap', scale: 0.4 };
+/** What stands or lies on the field besides: a lair's stones, a trap laid, the lamp Agnes stands on the ground. */
+export const STONE_ART: Art = { legion: 'barrowstone', team: 'red', scale: 0.9 };
+export const TRAP_ART: Art = { legion: 'spiketrap', team: 'blue', scale: 0.4 };
+export const LAMP_ART: Art = { grim: 'streetlamp' };
 
-/** The ground of each kind of lair, by the name of the kit's ground it is drawn as. */
-export const LAIR_GROUND: Record<string, 'meadow' | 'desert' | 'snow'> = { churchyard: 'meadow', wood: 'snow' };
+/** The ground of each kind of lair: the style's own, or one of the Legion kit's by name until the style has it. */
+export const LAIR_GROUND: Record<string, { grim: string } | { legion: 'meadow' | 'desert' | 'snow' }> = { churchyard: { grim: 'churchyard' }, wood: { legion: 'snow' } };
 
-/** Everything that is moved part by part: a hunter and a monster. */
-export const RIGGED: ReadonlyArray<{ team: Side; unit: string }> = [
-  ...Object.values(HUNTER_ART).map((p) => ({ team: 'blue' as const, unit: p.unit })),
-  ...Object.values(MONSTER_ART).map((p) => ({ team: 'red' as const, unit: p.unit })),
-];
+/** The music of each kind of lair, by the name of its theme. */
+export const LAIR_MUSIC: Record<string, string> = { churchyard: 'meadow', wood: 'snow' };
 
-/** Everything shown as one picture, changed between two as it walks. */
-export const STILLS: ReadonlyArray<{ team: Side; unit: string }> = [
-  ...Object.values(HELPER_ART).map((p) => ({ team: 'red' as const, unit: p.unit })),
-  ...Object.values(ALLY_ART).map((p) => ({ team: 'blue' as const, unit: p.unit })),
-  ...Object.values(BUILDING_ART).map((p) => ({ team: 'blue' as const, unit: p.unit })),
-  { team: 'red', unit: STONE_ART.unit },
-  { team: 'blue', unit: TRAP_ART.unit },
-];
+const ALL: Art[] = [...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART), ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
+const legion = (list: Art[]): Array<{ team: Side; unit: string }> => list.flatMap((a) => (isGrim(a) ? [] : [{ team: a.team, unit: a.legion }]));
 
-/** Everything shown whole on a card: the board's bills and the muster's ledger. */
-export const WHOLE: ReadonlyArray<{ team: Side; unit: string }> = [
-  ...Object.values(HUNTER_ART).map((p) => ({ team: 'blue' as const, unit: p.unit })),
-  ...Object.values(MONSTER_ART).map((p) => ({ team: 'red' as const, unit: p.unit })),
-  ...Object.values(ALLY_ART).map((p) => ({ team: 'blue' as const, unit: p.unit })),
-  ...Object.values(BUILDING_ART).map((p) => ({ team: 'blue' as const, unit: p.unit })),
-];
+/** Every figure of the style the game shows. */
+export const GRIM_UNITS: string[] = [...new Set(ALL.flatMap((a) => (isGrim(a) ? [a.grim] : [])))];
+
+/** The Legion stand-ins that are moved part by part: a monster. */
+export const RIGGED = legion(Object.values(MONSTER_ART));
+/** The Legion stand-ins shown as one picture, changed between two as they walk. */
+export const STILLS = legion([...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART]);
+/** The Legion stand-ins shown whole on a card. */
+export const WHOLE = legion([...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART)]);
+/** The Legion grounds still shown. */
+export const LEGION_GROUNDS = [...new Set(Object.values(LAIR_GROUND).flatMap((g) => ('legion' in g ? [g.legion] : [])))];

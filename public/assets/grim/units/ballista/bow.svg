@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ballista-bow" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ballista-bow-stock-shape" d="M 62 190 L 72 180 L 214 142 L 218 154 L 76 196 Z"/>
+<clipPath id="ballista-bow-stock-clip"><use href="#ballista-bow-stock-shape"/></clipPath>
+<path id="ballista-bow-lash-shape" d="M 196 138 L 208 134 L 214 156 L 202 160 Z"/>
+<clipPath id="ballista-bow-lash-clip"><use href="#ballista-bow-lash-shape"/></clipPath>
+<path id="ballista-bow-windlass-shape" d="M 58 176 L 76 172 L 80 192 L 62 196 Z"/>
+<clipPath id="ballista-bow-windlass-clip"><use href="#ballista-bow-windlass-shape"/></clipPath>
+<path id="ballista-bow-prod-shape" d="M 196 96 L 206 98 L 222 138 L 224 156 L 212 196 L 202 198 L 212 156 L 210 140 Z"/>
+<clipPath id="ballista-bow-prod-clip"><use href="#ballista-bow-prod-shape"/></clipPath>
+<path id="ballista-bow-bolt-shape" d="M 122 162 L 214 137 L 238 136 L 216 146 L 124 170 Z"/>
+<clipPath id="ballista-bow-bolt-clip"><use href="#ballista-bow-bolt-shape"/></clipPath>
+</defs>
+<g id="ballista-bow-stock">
+<use id="ballista-bow-stock-line" href="#ballista-bow-stock-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ballista-bow-stock-clip)">
+<use id="ballista-bow-stock-lit" href="#ballista-bow-stock-shape" fill="#6f5c46"/>
+<path id="ballista-bow-stock-mid" d="M 56 190 L 222 148 L 222 162 L 56 204 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="ballista-bow-stock-dark" d="M 56 190 L 222 148 L 222 162 L 56 204 Z" fill="#14110f"/>
+<path id="ballista-bow-stock-grain" d="M 90.2 180.8 L 150 164 L 89.8 179.2 Z M 140.2 172.8 L 200 154 L 139.8 171.2 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="ballista-bow-lash">
+<use id="ballista-bow-lash-line" href="#ballista-bow-lash-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ballista-bow-lash-clip)">
+<use id="ballista-bow-lash-lit" href="#ballista-bow-lash-shape" fill="#c7ad84"/>
+<path id="ballista-bow-lash-dark" d="M 184 130 L 200.3 129.8 L 203.1 141.8 L 201.5 144.6 L 206.1 164.2 L 184 164 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ballista-bow-windlass">
+<use id="ballista-bow-windlass-line" href="#ballista-bow-windlass-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ballista-bow-windlass-clip)">
+<use id="ballista-bow-windlass-lit" href="#ballista-bow-windlass-shape" fill="#8c9194"/>
+<path id="ballista-bow-windlass-mid" d="M 46 168 L 63.6 167.5 L 67.7 181 L 65.5 185.5 L 70 200.5 L 46 200 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="ballista-bow-windlass-dark" d="M 46 168 L 63.6 167.5 L 67.7 181 L 65.5 185.5 L 70 200.5 L 46 200 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ballista-bow-crank" d="M 68 184 L 56 170 L 48 176" fill="none" stroke="#14110f" stroke-width="3.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ballista-bow-prod">
+<use id="ballista-bow-prod-line" href="#ballista-bow-prod-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ballista-bow-prod-clip)">
+<use id="ballista-bow-prod-lit" href="#ballista-bow-prod-shape" fill="#8c9194"/>
+<path id="ballista-bow-prod-mid" d="M 184 92 L 201.5 91.8 L 206.5 136.5 L 203.7 140.3 L 210.7 202.2 L 184 202 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="ballista-bow-prod-dark" d="M 184 92 L 201.5 91.8 L 206.5 136.5 L 203.7 140.3 L 210.7 202.2 L 184 202 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ballista-bow-cord" d="M 200 98 L 124 168 L 206 197" fill="none" stroke="#14110f" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ballista-bow-bolt">
+<use id="ballista-bow-bolt-line" href="#ballista-bow-bolt-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ballista-bow-bolt-clip)">
+<use id="ballista-bow-bolt-lit" href="#ballista-bow-bolt-shape" fill="#cfc5a8"/>
+<path id="ballista-bow-bolt-dark" d="M 118 168 L 240 138 L 240 150 L 118 176 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

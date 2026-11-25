@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="brask-spear" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="brask-spear-shaft-shape" d="M 184.5 240.2 L 191.8 48.3 L 183.8 48 L 175.5 239.8 Z"/>
+<clipPath id="brask-spear-shaft-clip"><use href="#brask-spear-shaft-shape"/></clipPath>
+<path id="brask-spear-socket-shape" d="M 182.8 46.1 L 193.8 46.1 L 192.8 70.1 L 183.8 70.1 Z"/>
+<clipPath id="brask-spear-socket-clip"><use href="#brask-spear-socket-shape"/></clipPath>
+<path id="brask-spear-lugs-shape" d="M 165.8 38.1 L 173.8 44.1 L 202.8 43.1 L 211.8 36.1 L 209.8 50.1 L 201.8 52.1 L 174.8 53.1 L 167.8 51.1 Z"/>
+<clipPath id="brask-spear-lugs-clip"><use href="#brask-spear-lugs-shape"/></clipPath>
+<path id="brask-spear-blade-shape" d="M 182.8 44.1 L 174.8 26.1 L 177.8 6.1 L 189.8 -19.9 L 200.8 6.1 L 202.8 26.1 L 193.8 44.1 Z"/>
+<clipPath id="brask-spear-blade-clip"><use href="#brask-spear-blade-shape"/></clipPath>
+<path id="brask-spear-rag-shape" d="M 183.8 54.1 L 175.8 58.1 L 165.8 78.1 L 173.8 74.1 L 175.8 88.1 L 182.8 70.1 L 187.8 60.1 Z"/>
+<clipPath id="brask-spear-rag-clip"><use href="#brask-spear-rag-shape"/></clipPath>
+<path id="brask-spear-arm-upper-shape" d="M 156.1 108.5 L 167.5 118.2 L 178.6 135.9 L 165.4 148.1 L 150.1 134.3 L 139.9 123.5 Z"/>
+<clipPath id="brask-spear-arm-upper-clip"><use href="#brask-spear-arm-upper-shape"/></clipPath>
+<path id="brask-spear-arm-fore-shape" d="M 179.3 148.1 L 185.3 142.2 L 190.1 131.4 L 179.1 122.2 L 170.4 129.9 L 164.7 135.9 Z"/>
+<clipPath id="brask-spear-arm-fore-clip"><use href="#brask-spear-arm-fore-shape"/></clipPath>
+<path id="brask-spear-arm-fist-shape" d="M 164.1 132.2 L 172.5 114.5 L 179.2 108.5 L 187 110.5 L 190.9 107.9 L 197.8 113.2 L 196.9 117.4 L 203.9 121.4 L 202 132.3 L 188.8 146 L 176.6 143 Z"/>
+<clipPath id="brask-spear-arm-fist-clip"><use href="#brask-spear-arm-fist-shape"/></clipPath>
+</defs>
+<g id="brask-spear-shaft">
+<use id="brask-spear-shaft-line" href="#brask-spear-shaft-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-spear-shaft-clip)">
+<use id="brask-spear-shaft-lit" href="#brask-spear-shaft-shape" fill="#6f5c46"/>
+<path id="brask-spear-shaft-dark" d="M 181.6 243.1 L 185.2 156.1 L 183.5 154.2 L 188 45.1 L 179.8 44.8 L 171.8 242.7 Z" fill="#14110f"/>
+<path id="brask-spear-shaft-grain" d="M 181.7 215.4 L 182.4 181 L 180.3 215.4 Z M 186.3 102.3 L 186.8 72.7 L 184.9 102.2 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<path id="brask-spear-shoe" d="M 185.2 240.2 L 184.8 232.8 L 175.8 232.4 L 174.8 239.8 Z" fill="#14110f"/>
+<g id="brask-spear-socket">
+<use id="brask-spear-socket-line" href="#brask-spear-socket-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-spear-socket-clip)">
+<use id="brask-spear-socket-lit" href="#brask-spear-socket-shape" fill="#8c9194"/>
+<path id="brask-spear-socket-dark" d="M 170.8 42.1 L 185.5 42 L 187.6 55.8 L 186.4 57.6 L 188.9 74.2 L 170.8 74.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="brask-spear-socket-nails-0" d="M 187 56.1 L 188.4 54.7 L 189.8 56.1 L 188.4 57.5 Z" fill="#14110f"/>
+<path id="brask-spear-socket-nails-1" d="M 186.9 64.1 L 188.3 62.7 L 189.7 64.1 L 188.3 65.5 Z" fill="#14110f"/>
+<g id="brask-spear-lugs">
+<use id="brask-spear-lugs-line" href="#brask-spear-lugs-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-spear-lugs-clip)">
+<use id="brask-spear-lugs-lit" href="#brask-spear-lugs-shape" fill="#8c9194"/>
+<use id="brask-spear-lugs-rim" href="#brask-spear-lugs-shape" fill="#f4d294" opacity="0.55"/>
+<use id="brask-spear-lugs-lit-over" href="#brask-spear-lugs-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="brask-spear-lugs-mid" d="M 153.8 32.1 L 180.8 32.1 L 187.6 57.1 L 153.8 57.1 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="brask-spear-lugs-dark" d="M 153.8 32.1 L 180.8 32.1 L 187.6 57.1 L 153.8 57.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="brask-spear-blade">
+<use id="brask-spear-blade-line" href="#brask-spear-blade-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-spear-blade-clip)">
+<use id="brask-spear-blade-lit" href="#brask-spear-blade-shape" fill="#8c9194"/>
+<use id="brask-spear-blade-rim" href="#brask-spear-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="brask-spear-blade-lit-over" href="#brask-spear-blade-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="brask-spear-blade-mid" d="M 167.8 -23.9 L 187.8 -23.9 L 190.2 -17.9 L 189.7 16.2 L 186.8 19.3 L 186.4 48.1 L 167.8 48.1 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="brask-spear-blade-dark" d="M 167.8 -23.9 L 187.8 -23.9 L 190.2 -17.9 L 189.7 16.2 L 186.8 19.3 L 186.4 48.1 L 167.8 48.1 Z" fill="#14110f"/>
+<path id="brask-spear-blade-pits" d="M 193.1 18.5 L 196.8 24.1 L 194.5 17.8 Z M 194 2.4 L 196.8 8.1 L 195.6 1.9 Z" fill="#5b6165"/>
+<path id="brask-spear-blade-rust" d="M 189.8 34.1 L 199.8 32.1 L 195.8 44.1 L 189.8 44.1 Z" fill="#6a3b24"/>
+</g>
+</g>
+<g id="brask-spear-rag">
+<use id="brask-spear-rag-line" href="#brask-spear-rag-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-spear-rag-clip)">
+<use id="brask-spear-rag-lit" href="#brask-spear-rag-shape" fill="#7d312b"/>
+<path id="brask-spear-rag-mid" d="M 153.8 50.1 L 172.2 49.8 L 175.9 65.8 L 173.9 69.4 L 179.2 92.4 L 153.8 92.1 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="brask-spear-rag-dark" d="M 153.8 50.1 L 172.2 49.8 L 175.9 65.8 L 173.9 69.4 L 179.2 92.4 L 153.8 92.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="brask-spear-arm-upper">
+<use id="brask-spear-arm-upper-line" href="#brask-spear-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-spear-arm-upper-clip)">
+<use id="brask-spear-arm-upper-lit" href="#brask-spear-arm-upper-shape" fill="#9a5b38"/>
+<path id="brask-spear-arm-upper-mid" d="M 149 111 L 163.2 126.3 L 163.2 131.5 L 174.5 143.8 L 158.2 158.9 L 130.1 128.4 Z" transform="translate(2.5 -0.6)" fill="#6a3b24"/>
+<path id="brask-spear-arm-upper-dark" d="M 149 111 L 163.2 126.3 L 163.2 131.5 L 174.5 143.8 L 158.2 158.9 L 130.1 128.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="brask-spear-arm-fore">
+<use id="brask-spear-arm-fore-line" href="#brask-spear-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-spear-arm-fore-clip)">
+<use id="brask-spear-arm-fore-lit" href="#brask-spear-arm-fore-shape" fill="#9a5b38"/>
+<path id="brask-spear-arm-fore-mid" d="M 171.6 145.6 L 188.1 125.8 L 172.7 113 L 156.2 132.8 Z" transform="translate(2.5 -0.6)" fill="#6a3b24"/>
+<path id="brask-spear-arm-fore-dark" d="M 171.6 145.6 L 188.1 125.8 L 172.7 113 L 156.2 132.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="brask-spear-arm-fold" d="M 166 150.7 L 175.2 139.6 L 162 145.3 Z" fill="#14110f"/>
+<g id="brask-spear-arm-fist">
+<use id="brask-spear-arm-fist-line" href="#brask-spear-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#brask-spear-arm-fist-clip)">
+<use id="brask-spear-arm-fist-lit" href="#brask-spear-arm-fist-shape" fill="#7b5b3d"/>
+<path id="brask-spear-arm-fist-mid" d="M 173.2 148.7 L 205.5 112.9 L 218.5 123.7 L 187.7 160.8 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="brask-spear-arm-fist-dark" d="M 173.2 148.7 L 205.5 112.9 L 218.5 123.7 L 187.7 160.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="brask-spear-arm-fist-fingers" d="M 186.4 109.4 L 182 120.2 L 189.6 111.4 Z M 195.1 115 L 189.4 125.4 L 198.1 117.4 Z" fill="#14110f"/>
+</svg>

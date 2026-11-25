@@ -15,7 +15,7 @@ import { HOP_POSE } from '../src/art/poses';
 import { restPose, type Pose } from '../src/art/rig';
 import { FIELD } from '../src/game/content';
 import { ICONS_USED } from '../src/view/icons';
-import { LAIR_GROUND, RIGGED, STILLS, WHOLE } from '../src/view/pictures';
+import { LEGION_GROUNDS, RIGGED, STILLS, WHOLE } from '../src/view/pictures';
 
 /** A picture of the game's own that is loaded by itself: where it goes under public/assets, and how it is drawn. */
 export interface Scene {
@@ -59,7 +59,7 @@ const STRIDE: Pose = { ...HOP_POSE, rootY: -6 };
 const has = (list: ReadonlyArray<{ team: string; unit: string }>, team: Team, unit: string): boolean => list.some((k) => k.team === team && k.unit === unit);
 
 export const GAME: ArtGame = {
-  // Only what the table of pictures names is written: the hunter's side in blue, what they hunt in red.
+  // Only what the table of pictures still names of this kit is written: the stand-ins for what the game's own style has not drawn yet.
   wants: (team, unit) => has(RIGGED, team, unit) || has(STILLS, team, unit) || has(WHOLE, team, unit),
   // A hunter and a monster are moved part by part. Everyone else on a field is one picture.
   rigged: (team, unit) => has(RIGGED, team, unit),
@@ -73,7 +73,7 @@ export const GAME: ArtGame = {
   logoFirst: 'BOSS',
   logoWord: 'HUNTERS',
   // The ground of a lair, one picture to each kind, lying down for a wide window and stood up for a tall one.
-  scenes: [...new Set(Object.values(LAIR_GROUND))].flatMap((ground) =>
+  scenes: LEGION_GROUNDS.flatMap((ground) =>
     (['wide', 'tall'] as const).map((shape) => {
       const w = shape === 'wide' ? FIELD.long : FIELD.short;
       const h = shape === 'wide' ? FIELD.short : FIELD.long;

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jory-cowl" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="jory-cowl-cowl-shape" d="M 116 110 L 124 96 L 142 90 L 158 92 L 168 104 L 168 120 L 144.9 122.6 L 147.1 120 L 147.3 122.3 L 155.5 121.4 L 158 117.1 L 157 121.2 L 114 126 Z"/>
+<clipPath id="jory-cowl-cowl-clip"><use href="#jory-cowl-cowl-shape"/></clipPath>
+</defs>
+<g id="jory-cowl-cowl">
+<use id="jory-cowl-cowl-line" href="#jory-cowl-cowl-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-cowl-cowl-clip)">
+<use id="jory-cowl-cowl-lit" href="#jory-cowl-cowl-shape" fill="#7b5b3d"/>
+<path id="jory-cowl-cowl-mid" d="M 104 84 L 130 84 L 131.9 89.9 L 132.9 111.6 L 129.3 116 L 130.1 134.1 L 104 136 Z" transform="translate(7.56 -1.81)" fill="#553d29"/>
+<path id="jory-cowl-cowl-dark" d="M 104 84 L 130 84 L 131.9 89.9 L 132.9 111.6 L 129.3 116 L 130.1 134.1 L 104 136 Z" fill="#14110f"/>
+<path id="jory-cowl-cowl-seam" d="M 148 95.2 L 144.5 97.9 L 148.6 96.2 Z M 148.8 100.8 L 145.3 103.5 L 149.4 101.8 Z M 149.6 106.4 L 146.1 109.1 L 150.2 107.4 Z M 150.4 112 L 146.9 114.7 L 151 113 Z M 151.2 117.6 L 147.7 120.3 L 151.8 118.6 Z" fill="#553d29"/>
+<path id="jory-cowl-cowl-cold" d="M 74 50 L 208 50 L 208 166 L 74 166 Z M 118.1 108.4 L 126.1 94.4 L 144.1 88.4 L 160.1 90.4 L 170.1 102.4 L 170.1 118.4 L 147 121 L 149.2 118.4 L 149.4 120.7 L 157.6 119.8 L 160.1 115.5 L 159.1 119.6 L 116.1 124.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</svg>

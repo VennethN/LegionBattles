@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="torch-post" width="70" height="208" viewBox="0 0 70 208">
+<defs>
+<path id="torch-post-post-shape" d="M 26 200 L 29 64 L 39 64 L 42 200 Z"/>
+<clipPath id="torch-post-post-clip"><use href="#torch-post-post-shape"/></clipPath>
+<path id="torch-post-cup-shape" d="M 18 50 L 50 50 L 46 70 L 22 70 Z"/>
+<clipPath id="torch-post-cup-clip"><use href="#torch-post-cup-shape"/></clipPath>
+<path id="torch-post-flame-shape" d="M 22 50 L 18 34 L 28 40 L 30 16 L 40 34 L 48 26 L 46 50 Z"/>
+<clipPath id="torch-post-flame-clip"><use href="#torch-post-flame-shape"/></clipPath>
+</defs>
+<path id="torch-post-blot" d="M 10 196 L 44 192 L 62 198 L 40 204 L 14 202 Z" fill="#14110f" opacity="0.55"/>
+<g id="torch-post-post">
+<use id="torch-post-post-line" href="#torch-post-post-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#torch-post-post-clip)">
+<use id="torch-post-post-lit" href="#torch-post-post-shape" fill="#6f5c46"/>
+<path id="torch-post-post-mid" d="M 14 60 L 31.5 59.9 L 34.3 116 L 32.3 118.4 L 36.5 204.1 L 14 204 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="torch-post-post-dark" d="M 14 60 L 31.5 59.9 L 34.3 116 L 32.3 118.4 L 36.5 204.1 L 14 204 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="torch-post-cup">
+<use id="torch-post-cup-line" href="#torch-post-cup-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#torch-post-cup-clip)">
+<use id="torch-post-cup-lit" href="#torch-post-cup-shape" fill="#8c9194"/>
+<path id="torch-post-cup-mid" d="M 6 46 L 29 45.4 L 32.7 58.2 L 29.2 62.8 L 32.6 74.6 L 6 74 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="torch-post-cup-dark" d="M 6 46 L 29 45.4 L 32.7 58.2 L 29.2 62.8 L 32.6 74.6 L 6 74 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="torch-post-flame">
+<use id="torch-post-flame-line" href="#torch-post-flame-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#torch-post-flame-clip)">
+<use id="torch-post-flame-lit" href="#torch-post-flame-shape" fill="#eeb040"/>
+<path id="torch-post-heart" d="M 28 50 L 30 34 L 34 26 L 38 38 L 40 50 Z" fill="#ffe6a2"/>
+</g>
+</g>
+</svg>

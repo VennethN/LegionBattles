@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="pikeman-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="pikeman-leg-front-leg-shape" d="M 146.2 165.4 L 157.7 220 L 142.3 224 L 125.8 170.6 Z"/>
+<clipPath id="pikeman-leg-front-leg-clip"><use href="#pikeman-leg-front-leg-shape"/></clipPath>
+<path id="pikeman-leg-front-boot-shape" d="M 139.9 217 L 159 215 L 164.3 227 L 173.2 230 L 179.2 236 L 179.2 240 L 139.2 240 L 137.2 230 Z"/>
+<clipPath id="pikeman-leg-front-boot-clip"><use href="#pikeman-leg-front-boot-shape"/></clipPath>
+</defs>
+<g id="pikeman-leg-front-leg">
+<use id="pikeman-leg-front-leg-line" href="#pikeman-leg-front-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-leg-front-leg-clip)">
+<use id="pikeman-leg-front-leg-lit" href="#pikeman-leg-front-leg-shape" fill="#4f4944"/>
+<path id="pikeman-leg-front-leg-mid" d="M 138.8 164.2 L 145.7 190.8 L 143.5 195 L 151.3 224.8 L 132.5 229.6 L 117 169.8 Z" transform="translate(4.47 -1.07)" fill="#34302d"/>
+<path id="pikeman-leg-front-leg-dark" d="M 138.8 164.2 L 145.7 190.8 L 143.5 195 L 151.3 224.8 L 132.5 229.6 L 117 169.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="pikeman-leg-front-boot">
+<use id="pikeman-leg-front-boot-line" href="#pikeman-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-leg-front-boot-clip)">
+<use id="pikeman-leg-front-boot-lit" href="#pikeman-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="pikeman-leg-front-boot-mid" d="M 131.2 212 L 154.2 212 L 155.6 226 L 165 232 L 183.2 235 L 183.2 244 L 131.2 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="pikeman-leg-front-boot-dark" d="M 131.2 212 L 154.2 212 L 155.6 226 L 165 232 L 183.2 235 L 183.2 244 L 131.2 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="pikeman-leg-front-boot-sole" d="M 137.2 237 L 180.2 237 L 180.2 241.5 L 137.2 241.5 Z" fill="#14110f"/>
+<path id="pikeman-leg-front-boot-crease" d="M 163.4 225.8 L 154.2 231 L 164.4 228.2 Z" fill="#14110f"/>
+</svg>

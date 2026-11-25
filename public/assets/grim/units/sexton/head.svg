@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sexton-head" width="1060" height="1060" viewBox="-170 -170 1060 1060">
+<defs>
+<path id="sexton-head-face-shape" d="M 466.7 268.7 L 476.3 261 L 495.7 261 L 503.4 268.7 L 508.2 277.4 L 504.4 282.3 L 507.3 286.1 L 516 295.8 L 508.2 298.7 L 509.2 304.5 L 506.3 306.4 L 507.3 310.3 L 502.4 322.7 L 489.9 326.4 L 476.3 307.4 L 468.6 301.6 Z"/>
+<clipPath id="sexton-head-face-clip"><use href="#sexton-head-face-shape"/></clipPath>
+<path id="sexton-head-hood-shape" d="M 436 300 L 440 262 L 460 244 L 492 240 L 510 258 L 512 274 L 486 270 L 470 280 L 466 318 L 444 322 Z"/>
+<clipPath id="sexton-head-hood-clip"><use href="#sexton-head-hood-shape"/></clipPath>
+<path id="sexton-head-jaw-tie-shape" d="M 474 276 L 484 274 L 498 318 L 488 322 Z"/>
+<clipPath id="sexton-head-jaw-tie-clip"><use href="#sexton-head-jaw-tie-shape"/></clipPath>
+<path id="sexton-head-knot-shape" d="M 468 240 L 480 234 L 488 242 L 476 250 Z"/>
+<clipPath id="sexton-head-knot-clip"><use href="#sexton-head-knot-shape"/></clipPath>
+</defs>
+<g id="sexton-head-face">
+<use id="sexton-head-face-line" href="#sexton-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-head-face-clip)">
+<use id="sexton-head-face-lit" href="#sexton-head-face-shape" fill="#9aa48c"/>
+<path id="sexton-head-face-mid" d="M 458.9 255.2 L 481.6 256.8 L 485 294.1 L 479 302.1 L 480.7 321.2 L 458.9 324.8 Z" transform="translate(5.8 -1.39)" fill="#6b7562"/>
+<path id="sexton-head-face-dark" d="M 458.9 255.2 L 481.6 256.8 L 485 294.1 L 479 302.1 L 480.7 321.2 L 458.9 324.8 Z" fill="#14110f"/>
+<path id="sexton-head-face-cheek-plane" d="M 487.9 292.9 L 499.5 291 L 503.4 297.7 L 500.5 307.4 L 489.9 320.2 L 484.1 303.5 Z" fill="#6b7562"/>
+<path id="sexton-head-face-chin-plane" d="M 497.6 310.3 L 507.3 309.3 L 502.4 322.7 L 493.7 324.2 Z" fill="#6b7562"/>
+<path id="sexton-head-face-socket" d="M 509.2 276.5 L 482.1 274.5 L 484.1 288.1 L 493.7 292.9 L 499.5 288.1 L 506.3 285.7 Z" fill="#14110f"/>
+<path id="sexton-head-face-lines" d="M 502.8 297.9 L 500.5 306.4 L 505.9 299.5 Z M 478.8 306.5 L 493.7 322.7 L 481.6 304.4 Z" fill="#14110f"/>
+<path id="sexton-head-face-mouth" d="M 508.9 303 L 496.6 307 L 509.5 307.2 Z" fill="#14110f"/>
+<path id="sexton-head-face-scar" d="M 494.4 284.7 L 503.4 301.6 L 496.9 283.7 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="sexton-head-face-nostril" d="M 509.2 297.3 L 502.4 294.8 L 507.3 300.1 Z" fill="#14110f"/>
+<path id="sexton-head-skin-cracks" d="M 493.1 300.4 L 500 312 L 494.9 299.6 Z M 483 312.3 L 488 326 L 485 311.7 Z M 501.3 286.7 L 508 292 L 502.7 285.3 Z" fill="#6b7562"/>
+<g id="sexton-head-hood">
+<use id="sexton-head-hood-line" href="#sexton-head-hood-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-head-hood-clip)">
+<use id="sexton-head-hood-lit" href="#sexton-head-hood-shape" fill="#cfc5a8"/>
+<path id="sexton-head-hood-mid" d="M 420 230 L 460 230 L 464 244.2 L 462 284.2 L 453.6 292.5 L 452 325.8 L 420 330 Z" transform="translate(5 -1.2)" fill="#9c9178"/>
+<path id="sexton-head-hood-dark" d="M 420 230 L 460 230 L 464 244.2 L 462 284.2 L 453.6 292.5 L 452 325.8 L 420 330 Z" fill="#14110f"/>
+<path id="sexton-head-hood-weave" d="M 471.7 243.5 L 473.4 258.5 L 473.5 243.4 Z M 477.7 245.5 L 479.4 260.5 L 479.5 245.4 Z M 483.7 247.5 L 485.4 262.5 L 485.5 247.4 Z M 489.7 249.5 L 491.4 264.5 L 491.5 249.4 Z M 495.7 251.5 L 497.4 266.5 L 497.5 251.4 Z M 501.7 253.5 L 503.4 268.5 L 503.5 253.4 Z M 465.1 252 L 464 300 L 466.9 252 Z" fill="#9c9178"/>
+<path id="sexton-head-hood-stain" d="M 474 262 L 500 262 L 492 272 L 476 274 Z" fill="#5a5645" opacity="0.5"/>
+<path id="sexton-head-hood-cold" d="M 396 200 L 552 200 L 552 362 L 396 362 Z M 438.9 297.8 L 442.9 259.8 L 462.9 241.8 L 494.9 237.8 L 512.9 255.8 L 514.9 271.8 L 488.9 267.8 L 472.9 277.8 L 468.9 315.8 L 446.9 319.8 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="sexton-head-jaw-tie">
+<use id="sexton-head-jaw-tie-line" href="#sexton-head-jaw-tie-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-head-jaw-tie-clip)">
+<use id="sexton-head-jaw-tie-lit" href="#sexton-head-jaw-tie-shape" fill="#cfc5a8"/>
+<path id="sexton-head-jaw-tie-mid" d="M 462 270 L 479.8 269.7 L 483.7 290.6 L 481.4 294.4 L 487.4 326.3 L 462 326 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-head-jaw-tie-dark" d="M 462 270 L 479.8 269.7 L 483.7 290.6 L 481.4 294.4 L 487.4 326.3 L 462 326 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-head-knot">
+<use id="sexton-head-knot-line" href="#sexton-head-knot-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-head-knot-clip)">
+<use id="sexton-head-knot-lit" href="#sexton-head-knot-shape" fill="#cfc5a8"/>
+<path id="sexton-head-knot-dark" d="M 456 230 L 472.8 230 L 479.2 254 L 456 254 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

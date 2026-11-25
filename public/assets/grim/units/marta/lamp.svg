@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="marta-lamp" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="marta-lamp-lamp-glass-shape" d="M 183.6 189.6 L 200.4 189.6 L 202.5 209.2 L 181.5 209.2 Z"/>
+<clipPath id="marta-lamp-lamp-glass-clip"><use href="#marta-lamp-lamp-glass-shape"/></clipPath>
+</defs>
+<path id="marta-lamp-bracket" d="M 182 172 L 195 172 L 195 178 L 182 178 Z" fill="#14110f"/>
+<path id="marta-lamp-lamp-ring" d="M 188.5 181.2 L 192 177 L 195.5 181.2 L 192 185.4 L 188.5 181.2" fill="none" stroke="#14110f" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="marta-lamp-lamp-glass">
+<use id="marta-lamp-lamp-glass-line" href="#marta-lamp-lamp-glass-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-lamp-lamp-glass-clip)">
+<use id="marta-lamp-lamp-glass-lit" href="#marta-lamp-lamp-glass-shape" fill="#eeb040"/>
+<path id="marta-lamp-lamp-low" d="M 180.8 202.2 L 203.2 200.8 L 203.2 210.6 L 180.8 210.6 Z" fill="#c27a26"/>
+</g>
+</g>
+<path id="marta-lamp-lamp-heart" d="M 188.9 205 L 187.8 198 L 192 191.7 L 196.2 198 L 195.1 205 Z" fill="#ffe6a2"/>
+<path id="marta-lamp-lamp-cap" d="M 180.1 190.3 L 185 183.3 L 199 183.3 L 203.9 190.3 Z" fill="#14110f"/>
+<path id="marta-lamp-lamp-vent" d="M 188.5 184 L 195.5 184 L 194.1 179.8 L 189.9 179.8 Z" fill="#14110f"/>
+<path id="marta-lamp-lamp-foot" d="M 179.4 208.5 L 204.6 208.5 L 201.8 214.1 L 182.2 214.1 Z" fill="#14110f"/>
+<path id="marta-lamp-lamp-bar" d="M 190.7 189.6 L 193.3 189.6 L 193.3 209.2 L 190.7 209.2 Z" fill="#14110f"/>
+<path id="marta-lamp-lamp-bar-l" d="M 183 189.6 L 185 189.6 L 183.3 209.2 L 181.4 209.2 Z" fill="#14110f"/>
+</svg>

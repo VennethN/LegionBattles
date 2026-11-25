@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="button" width="244" height="72" viewBox="0 0 244 72">
+<defs>
+<path id="button-board-shape" d="M 8 12 L 120 8 L 232 6 L 236 30 L 232 34 L 236 58 L 128 62 L 6 64 L 10 40 L 6 36 Z"/>
+<clipPath id="button-board-clip"><use href="#button-board-shape"/></clipPath>
+<path id="button-iron-a-shape" d="M 8 6 L 30 5 L 31 63 L 9 64 Z"/>
+<clipPath id="button-iron-a-clip"><use href="#button-iron-a-shape"/></clipPath>
+<path id="button-iron-b-shape" d="M 210 6 L 232 5 L 233 63 L 211 64 Z"/>
+<clipPath id="button-iron-b-clip"><use href="#button-iron-b-shape"/></clipPath>
+</defs>
+<g id="button-board">
+<use id="button-board-line" href="#button-board-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#button-board-clip)">
+<use id="button-board-lit" href="#button-board-shape" fill="#6f5c46"/>
+<path id="button-board-mid" d="M 0 46 L 0 49.7 L 96.4 47.3 L 100.1 43.8 L 240 40.3 L 240 70 L 0 70 Z" transform="translate(4 -0.96)" fill="#4a3c2d"/>
+<path id="button-board-dark" d="M 0 46 L 0 49.7 L 96.4 47.3 L 100.1 43.8 L 240 40.3 L 240 70 L 0 70 Z" fill="#14110f"/>
+<path id="button-grain" d="M 40 21 L 120 18 L 40 19 Z M 90 31 L 200 27 L 90 29 Z M 50 41 L 110 39 L 50 39 Z M 130 17 L 206 14 L 130 15 Z" fill="#4a3c2d"/>
+<path id="button-split" d="M 232 30.7 L 176 34 L 232 33.3 Z" fill="#14110f"/>
+<path id="button-knot" d="M 149.5 25.1 L 158 28 L 150.5 22.9 Z M 157.5 26.9 L 150 32 L 158.5 29.1 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="button-iron-a">
+<use id="button-iron-a-line" href="#button-iron-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#button-iron-a-clip)">
+<use id="button-iron-a-lit" href="#button-iron-a-shape" fill="#8c9194"/>
+<use id="button-iron-a-rim" href="#button-iron-a-shape" fill="#f4d294" opacity="0.55"/>
+<use id="button-iron-a-lit-over" href="#button-iron-a-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="button-iron-a-mid" d="M -4 1 L 11.3 0.8 L 16.9 38.2 L 14.5 41.8 L 18.5 68.2 L -4 68 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="button-iron-a-dark" d="M -4 1 L 11.3 0.8 L 16.9 38.2 L 14.5 41.8 L 18.5 68.2 L -4 68 Z" fill="#14110f"/>
+<path id="button-iron-a-rust" d="M 8 40 L 31 44 L 31 64 L 8 64 Z" fill="#6a3b24" opacity="0.7"/>
+</g>
+</g>
+<path id="button-iron-a-a" d="M 16.2 17 L 19 14.2 L 21.8 17 L 19 19.8 Z" fill="#14110f"/>
+<path id="button-iron-a-b" d="M 17.2 34 L 20 31.2 L 22.8 34 L 20 36.8 Z" fill="#14110f"/>
+<path id="button-iron-a-c" d="M 17.2 52 L 20 49.2 L 22.8 52 L 20 54.8 Z" fill="#14110f"/>
+<g id="button-iron-b">
+<use id="button-iron-b-line" href="#button-iron-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#button-iron-b-clip)">
+<use id="button-iron-b-lit" href="#button-iron-b-shape" fill="#8c9194"/>
+<use id="button-iron-b-rim" href="#button-iron-b-shape" fill="#f4d294" opacity="0.55"/>
+<use id="button-iron-b-lit-over" href="#button-iron-b-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="button-iron-b-mid" d="M 198 1 L 213.5 0.7 L 218.4 33.1 L 215.6 37.3 L 220.3 68.3 L 198 68 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="button-iron-b-dark" d="M 198 1 L 213.5 0.7 L 218.4 33.1 L 215.6 37.3 L 220.3 68.3 L 198 68 Z" fill="#14110f"/>
+<path id="button-iron-b-rust" d="M 210 40 L 233 44 L 233 64 L 210 64 Z" fill="#6a3b24" opacity="0.7"/>
+</g>
+</g>
+<path id="button-iron-b-a" d="M 218.2 17 L 221 14.2 L 223.8 17 L 221 19.8 Z" fill="#14110f"/>
+<path id="button-iron-b-b" d="M 219.2 34 L 222 31.2 L 224.8 34 L 222 36.8 Z" fill="#14110f"/>
+<path id="button-iron-b-c" d="M 219.2 52 L 222 49.2 L 224.8 52 L 222 54.8 Z" fill="#14110f"/>
+</svg>

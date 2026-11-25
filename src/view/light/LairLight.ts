@@ -97,6 +97,8 @@ export class LairLight {
   constructor(
     private readonly scene: Phaser.Scene,
     private readonly hunt: Hunt,
+    /** Where the lair's own fires burn: the heads of its torch posts. */
+    private readonly torches: ReadonlyArray<readonly [number, number]> = [],
   ) {
     this.hour = LAIRS[hunt.monster.def.lair] ?? LAIRS.churchyard;
     this.dark = darkness(this.hour);
@@ -365,23 +367,30 @@ export class LairLight {
 
     // The hunter's lantern: the one light there always is.
     const lamp = this.hour.lamp;
-    if (h.hp > 0) this.light(h.x, h.y - 30, 330, LANTERN, 0.72 * lamp * flick(1), true);
+    if (h.hp > 0) this.light(h.x, h.y - 40, 360, LANTERN, 0.9 * lamp * flick(1), true);
 
     // The monster is seen by a light of its own, dull while it sleeps: it is what the lair is about.
     const awake = m.state !== 'asleep' && m.state !== 'dead';
     if (m.state !== 'dead') {
       const broken = m.state === 'broken';
       const color = broken ? ELEMENTS.holy.light : w.open ? 0xffc890 : ELEMENTS.red.light;
-      this.light(m.x, m.y - 70, 320, color, (awake ? 0.42 + 0.08 * Math.sin(clock * 2.2) + (broken ? 0.12 : 0) : 0.26) * (0.5 + 0.5 * lamp));
+      // It carries its own light, low on its chest: red, and the brighter for being awake.
+      this.light(m.x + m.face * 30, m.y - 150, 440, color, (awake ? 0.7 + 0.08 * Math.sin(clock * 2.2) + (broken ? 0.1 : 0) : 0.45) * (0.5 + 0.5 * lamp));
       if (broken && !halted && Math.random() < 0.4 && this.spend()) glow.spawn(m.x + rnd(-40, 40), m.y - rnd(20, 160), ELEMENTS.holy, { dur: rnd(0.4, 0.8), vy: rnd(-60, -20), from: rnd(6, 10), to: 1 });
     }
+
+    // The lair's own torches burn where they stand.
+    this.torches.forEach(([tx, ty], i) => {
+      this.light(tx, ty + 60, 250, ELEMENTS.fire.light, 0.5 * flick(40 + i));
+      if (!halted && Math.random() < 0.5 && this.spend()) glow.spawn(tx + rnd(-4, 4), ty + rnd(-2, 4), ELEMENTS.fire, { dur: rnd(0.3, 0.5), vx: rnd(-6, 6), vy: rnd(-90, -50), from: rnd(10, 16), to: 2, flame: true, sway: 3, alpha: 0.6 });
+    });
 
     // Fires: a watchfire burns and lights its ground.
     for (const b of w.buildings) {
       if (b.def.kind !== 'fire') continue;
-      this.light(b.x, b.y - 16, 280, ELEMENTS.fire.light, 0.7 * flick(b.id));
+      this.light(b.x, b.y - 30, 300, ELEMENTS.fire.light, 0.75 * flick(b.id));
       if (halted) continue;
-      if (Math.random() < 0.7 && this.spend()) glow.spawn(b.x + rnd(-9, 9), b.y - rnd(8, 16), ELEMENTS.fire, { dur: rnd(0.3, 0.55), vx: rnd(-8, 8), vy: rnd(-120, -66), from: rnd(14, 22), to: 3, flame: true, sway: 3, alpha: 0.7 });
+      if (Math.random() < 0.7 && this.spend()) glow.spawn(b.x + rnd(-9, 9), b.y - rnd(46, 56), ELEMENTS.fire, { dur: rnd(0.3, 0.55), vx: rnd(-8, 8), vy: rnd(-120, -66), from: rnd(14, 22), to: 3, flame: true, sway: 3, alpha: 0.7 });
       if (Math.random() < 0.08 && this.spend()) glow.spawn(b.x, b.y - 20, ELEMENTS.spark, { dur: rnd(0.7, 1.2), vx: rnd(-26, 26), vy: rnd(-130, -70), from: 4, to: 1, sway: 5 });
     }
 
@@ -397,8 +406,8 @@ export class LairLight {
       }
     }
 
-    // A ward is a ring of light on the ground.
-    for (const d of w.wards) this.light(d.x, d.y, d.r * 1.7, ELEMENTS.holy.light, 0.4 * Math.min(1, d.life));
+    // A lamp stood on the ground lights what is round it.
+    for (const d of w.wards) this.light(d.x, d.y - 40, d.r * 2, LANTERN, 0.6 * Math.min(1, d.life) * flick(d.id));
 
     // The tells throw a little red on the ground under them: the nearest few.
     let told = 0;

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hound-legs-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="hound-legs-back-hind-shape" d="M 88 182 L 108 184 L 104 204 L 112 222 L 108 240 L 98 240 L 100 226 L 90 206 Z"/>
+<clipPath id="hound-legs-back-hind-clip"><use href="#hound-legs-back-hind-shape"/></clipPath>
+<path id="hound-legs-back-fore-far-shape" d="M 155.5 196.5 L 150 240.4 L 142 239.6 L 144.5 195.5 Z"/>
+<clipPath id="hound-legs-back-fore-far-clip"><use href="#hound-legs-back-fore-far-shape"/></clipPath>
+</defs>
+<g id="hound-legs-back-hind">
+<use id="hound-legs-back-hind-line" href="#hound-legs-back-hind-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-legs-back-hind-clip)">
+<use id="hound-legs-back-hind-lit" href="#hound-legs-back-hind-shape" fill="#4f4944"/>
+<path id="hound-legs-back-hind-mid" d="M 76 178 L 96.4 177.7 L 102.3 214.5 L 99.5 218.7 L 103.6 244.3 L 76 244 Z" transform="translate(3.36 -0.81)" fill="#34302d"/>
+<path id="hound-legs-back-hind-dark" d="M 76 178 L 96.4 177.7 L 102.3 214.5 L 99.5 218.7 L 103.6 244.3 L 76 244 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hound-legs-back-fore-far">
+<use id="hound-legs-back-fore-far-line" href="#hound-legs-back-fore-far-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-legs-back-fore-far-clip)">
+<use id="hound-legs-back-fore-far-lit" href="#hound-legs-back-fore-far-shape" fill="#4f4944"/>
+<path id="hound-legs-back-fore-far-mid" d="M 130 191.5 L 148 191.4 L 151.1 219.8 L 149.7 221.8 L 152.2 244.5 L 130 244.4 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="hound-legs-back-fore-far-dark" d="M 130 191.5 L 148 191.4 L 151.1 219.8 L 149.7 221.8 L 152.2 244.5 L 130 244.4 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

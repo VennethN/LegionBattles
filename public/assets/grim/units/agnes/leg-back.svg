@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="agnes-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="agnes-leg-back-leg-shape" d="M 126.9 173.4 L 124 194.5 L 116.9 223.1 L 103.1 220.9 L 106.3 191.7 L 109.1 170.6 Z"/>
+<clipPath id="agnes-leg-back-leg-clip"><use href="#agnes-leg-back-leg-shape"/></clipPath>
+<path id="agnes-leg-back-boot-shape" d="M 100.5 217 L 118.5 215 L 119.8 227 L 129.2 230 L 135.2 236 L 135.2 240 L 95.2 240 L 93.2 230 Z"/>
+<clipPath id="agnes-leg-back-boot-clip"><use href="#agnes-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="agnes-leg-back-leg">
+<use id="agnes-leg-back-leg-line" href="#agnes-leg-back-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-leg-back-leg-clip)">
+<use id="agnes-leg-back-leg-lit" href="#agnes-leg-back-leg-shape" fill="#4f4944"/>
+<path id="agnes-leg-back-leg-mid" d="M 118.4 169 L 114.4 194.2 L 110.4 197.4 L 106 224.4 L 90 221.8 L 98.9 165.9 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="agnes-leg-back-leg-dark" d="M 118.4 169 L 114.4 194.2 L 110.4 197.4 L 106 224.4 L 90 221.8 L 98.9 165.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-leg-back-boot">
+<use id="agnes-leg-back-boot-line" href="#agnes-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-leg-back-boot-clip)">
+<use id="agnes-leg-back-boot-lit" href="#agnes-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="agnes-leg-back-boot-mid" d="M 87.2 212 L 110.3 212 L 111.7 226 L 120.5 232 L 139.2 235 L 139.2 244 L 87.2 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="agnes-leg-back-boot-dark" d="M 87.2 212 L 110.3 212 L 111.7 226 L 120.5 232 L 139.2 235 L 139.2 244 L 87.2 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-leg-back-boot-sole" d="M 93.2 237 L 136.2 237 L 136.2 241.5 L 93.2 241.5 Z" fill="#14110f"/>
+<path id="agnes-leg-back-boot-crease" d="M 119 225.8 L 110.3 231 L 120 228.2 Z" fill="#14110f"/>
+</svg>

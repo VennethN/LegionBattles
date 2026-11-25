@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jory-pack" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="jory-pack-frame-shape" d="M 88.5 95.8 L 94.5 167.8 L 89.5 168.2 L 83.5 96.2 Z"/>
+<clipPath id="jory-pack-frame-clip"><use href="#jory-pack-frame-shape"/></clipPath>
+<path id="jory-pack-bag-shape" d="M 84 108 L 116 104 L 120 150 L 112 160 L 88 162 L 80 150 Z"/>
+<clipPath id="jory-pack-bag-clip"><use href="#jory-pack-bag-shape"/></clipPath>
+<path id="jory-pack-pack-strap-shape" d="M 106.5 103.9 L 108.5 157.9 L 103.5 158.1 L 101.5 104.1 Z"/>
+<clipPath id="jory-pack-pack-strap-clip"><use href="#jory-pack-pack-strap-shape"/></clipPath>
+<path id="jory-pack-pack-strap-buckle-shape" d="M 101.1 122.9 L 108.6 123.3 L 108.2 130.4 L 101.5 130.1 Z"/>
+<clipPath id="jory-pack-pack-strap-buckle-clip"><use href="#jory-pack-pack-strap-buckle-shape"/></clipPath>
+<path id="jory-pack-roll-shape" d="M 80 94 L 86 88 L 116 86 L 122 92 L 120 104 L 82 106 Z"/>
+<clipPath id="jory-pack-roll-clip"><use href="#jory-pack-roll-shape"/></clipPath>
+<path id="jory-pack-rag-shape" d="M 84 150 L 92 152 L 90 172 L 84 166 L 80 176 Z"/>
+<clipPath id="jory-pack-rag-clip"><use href="#jory-pack-rag-shape"/></clipPath>
+</defs>
+<g id="jory-pack-frame">
+<use id="jory-pack-frame-line" href="#jory-pack-frame-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-frame-clip)">
+<use id="jory-pack-frame-lit" href="#jory-pack-frame-shape" fill="#6f5c46"/>
+<path id="jory-pack-frame-dark" d="M 71.5 91.8 L 87.2 91.8 L 89.3 126.1 L 88.1 127.5 L 90.8 172.2 L 71.5 172.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-pack-bag">
+<use id="jory-pack-bag-line" href="#jory-pack-bag-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-bag-clip)">
+<use id="jory-pack-bag-lit" href="#jory-pack-bag-shape" fill="#7b5b3d"/>
+<path id="jory-pack-bag-mid" d="M 68 100 L 93.5 99.4 L 99.8 122.9 L 96.5 129.3 L 106.5 166.6 L 68 166 Z" transform="translate(5.6 -1.34)" fill="#553d29"/>
+<path id="jory-pack-bag-dark" d="M 68 100 L 93.5 99.4 L 99.8 122.9 L 96.5 129.3 L 106.5 166.6 L 68 166 Z" fill="#14110f"/>
+<path id="jory-pack-flap" d="M 82 106 L 118 102 L 118 126 L 100 132 L 82 126 Z" fill="#553d29"/>
+<path id="jory-pack-flap-stitch" d="M 85.9 125.3 L 85.5 128 L 87 125.7 Z M 89.9 126.8 L 89.5 129.5 L 91 127.2 Z M 93.9 128.3 L 93.5 131 L 95 128.7 Z M 97.9 129.8 L 97.5 132.5 L 99 130.2 Z" fill="#14110f"/>
+<path id="jory-pack-bag-cold" d="M 40 64 L 160 64 L 160 202 L 40 202 Z M 86.3 106.3 L 118.3 102.3 L 122.3 148.3 L 114.3 158.3 L 90.3 160.3 L 82.3 148.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="jory-pack-pack-strap">
+<use id="jory-pack-pack-strap-line" href="#jory-pack-pack-strap-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-pack-strap-clip)">
+<use id="jory-pack-pack-strap-lit" href="#jory-pack-pack-strap-shape" fill="#4f4944"/>
+<path id="jory-pack-pack-strap-dark" d="M 105 101 L 106.1 129.1 L 105.2 130.1 L 106.4 161 L 101.8 161.2 L 99.6 101.2 Z" fill="#14110f"/>
+<path id="jory-pack-pack-strap-stitch" d="M 105.1 109.6 L 103.3 110.2 L 105.2 110.8 Z M 105.3 115.5 L 103.6 116.2 L 105.4 116.7 Z M 105.5 121.5 L 103.8 122.1 L 105.6 122.7 Z M 105.8 127.4 L 104 128.1 L 105.8 128.6 Z M 106 133.3 L 104.2 134 L 106 134.5 Z M 106.2 139.3 L 104.4 139.9 L 106.3 140.5 Z M 106.4 145.2 L 104.7 145.9 L 106.5 146.4 Z M 106.6 151.2 L 104.9 151.8 L 106.7 152.4 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="jory-pack-pack-strap-buckle">
+<use id="jory-pack-pack-strap-buckle-line" href="#jory-pack-pack-strap-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-pack-strap-buckle-clip)">
+<use id="jory-pack-pack-strap-buckle-lit" href="#jory-pack-pack-strap-buckle-shape" fill="#8c9194"/>
+<path id="jory-pack-pack-strap-buckle-dark" d="M 89.1 118.9 L 101.8 118.9 L 104.8 134.4 L 89.1 134.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-pack-pack-strap-pin" d="M 103 125.9 L 107.5 126.3 L 107.5 127.5 L 103 127.3 Z" fill="#14110f"/>
+<g id="jory-pack-roll">
+<use id="jory-pack-roll-line" href="#jory-pack-roll-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-roll-clip)">
+<use id="jory-pack-roll-lit" href="#jory-pack-roll-shape" fill="#c7ad84"/>
+<path id="jory-pack-roll-mid" d="M 68 82 L 96.9 81.4 L 99.7 91 L 96.6 95.5 L 100.9 110.6 L 68 110 Z" transform="translate(3 -0.72)" fill="#927a58"/>
+<path id="jory-pack-roll-dark" d="M 68 82 L 96.9 81.4 L 99.7 91 L 96.6 95.5 L 100.9 110.6 L 68 110 Z" fill="#14110f"/>
+<path id="jory-pack-roll-turns" d="M 93.2 87.9 L 92 104 L 94.8 88.1 Z M 107.2 87 L 108 103 L 108.8 87 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="jory-pack-rag">
+<use id="jory-pack-rag-line" href="#jory-pack-rag-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-rag-clip)">
+<use id="jory-pack-rag-lit" href="#jory-pack-rag-shape" fill="#7d312b"/>
+<path id="jory-pack-rag-dark" d="M 68 146 L 83.7 145.9 L 86.8 166 L 85.3 168.3 L 87.1 180.1 L 68 180 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

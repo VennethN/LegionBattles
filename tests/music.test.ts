@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { BARS, Music, SLOTS, THEMES, chordOf, hertz, midiOf, notesOf, type Mood } from '../src/audio/music';
 import { Sfx } from '../src/audio/sfx';
-import { LAIR_GROUND } from '../src/view/pictures';
+import { LAIR_MUSIC } from '../src/view/pictures';
 import { Bank, INSTRUMENTS } from '../src/audio/bank';
 import { fakeAudio, fakeBank, sampled, type FakeAudio } from './audio';
 
@@ -23,7 +23,7 @@ function run(f: FakeAudio, music: Music, seconds: number): void {
 
 describe('the themes', () => {
   it('there is one for every kind of land', () => {
-    for (const land of Object.values(LAIR_GROUND)) expect(THEMES[land], land).toBeDefined();
+    for (const land of Object.values(LAIR_MUSIC)) expect(THEMES[land], land).toBeDefined();
   });
 
   it('each is sixteen bars of eight slots, with a chord under every bar', () => {

@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "art": "tsx scripts/art.ts",
+    "art": "tsx scripts/art.ts && tsx scripts/grim.ts",
     "pace": "tsx scripts/pace.ts",
     "walk": "tsx scripts/walk.ts",
     "art:preview": "tsx scripts/preview.ts",
@@ -20,7 +20,9 @@
     "smoke": "tsx scripts/smoke.ts",
     "art:roster": "tsx scripts/roster.ts",
     "film": "tsx scripts/film.ts",
-    "art:pages": "tsx scripts/pages.ts"
+    "art:pages": "tsx scripts/pages.ts",
+    "grim:roster": "tsx scripts/grim/roster.ts",
+    "grim:pages": "tsx scripts/grim/pages.ts"
   },
   "dependencies": {
     "@fontsource/fredoka": "^5.3.0",

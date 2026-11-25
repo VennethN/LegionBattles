@@ -1,0 +1,596 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sexton" width="1060" height="1060" viewBox="-170 -170 1060 1060">
+<g id="sexton-shadow-layer" transform="translate(360 680) rotate(0) scale(1 1) translate(-360 -680)">
+<path id="sexton-shadow-blot" d="M 190 683 L 248.8 664 L 358 659.7 L 500.8 664 L 610 678.4 L 576.4 698.2 L 442 704.3 L 274 700 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="sexton-leg-back-layer" transform="translate(318 536) rotate(0) scale(1 1) translate(-318 -536)">
+<defs>
+<path id="sexton-leg-back-thigh-shape" d="M 353.9 539.1 L 341.4 571.4 L 312.7 611.3 L 259.3 588.7 L 271.6 542 L 282.1 508.9 Z"/>
+<clipPath id="sexton-leg-back-thigh-clip"><use href="#sexton-leg-back-thigh-shape"/></clipPath>
+<path id="sexton-leg-back-shin-shape" d="M 313.2 583.4 L 321.4 610.8 L 324.4 650.6 L 279.6 661.4 L 266.8 624 L 258.8 596.6 Z"/>
+<clipPath id="sexton-leg-back-shin-clip"><use href="#sexton-leg-back-shin-shape"/></clipPath>
+<path id="sexton-leg-back-boot-shape" d="M 274 647 L 327 645 L 331 667 L 364.6 670 L 370.6 676 L 370.6 680 L 262.6 680 L 260.6 670 Z"/>
+<clipPath id="sexton-leg-back-boot-clip"><use href="#sexton-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="sexton-leg-back-thigh">
+<use id="sexton-leg-back-thigh-line" href="#sexton-leg-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-back-thigh-clip)">
+<use id="sexton-leg-back-thigh-lit" href="#sexton-leg-back-thigh-shape" fill="#4f4944"/>
+<path id="sexton-leg-back-thigh-mid" d="M 309.4 517.1 L 292.3 557.8 L 287.1 560.3 L 271.6 597.2 L 201.4 567.7 L 235.8 486.1 Z" transform="translate(9 -2.16)" fill="#34302d"/>
+<path id="sexton-leg-back-thigh-dark" d="M 309.4 517.1 L 292.3 557.8 L 287.1 560.3 L 271.6 597.2 L 201.4 567.7 L 235.8 486.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-leg-back-shin">
+<use id="sexton-leg-back-shin-line" href="#sexton-leg-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-back-shin-clip)">
+<use id="sexton-leg-back-shin-lit" href="#sexton-leg-back-shin-shape" fill="#4f4944"/>
+<path id="sexton-leg-back-shin-mid" d="M 278.2 588.8 L 285.4 618.6 L 283.1 622.8 L 292.4 661.4 L 239.6 674.2 L 222.2 602.4 Z" transform="translate(9 -2.16)" fill="#34302d"/>
+<path id="sexton-leg-back-shin-dark" d="M 278.2 588.8 L 285.4 618.6 L 283.1 622.8 L 292.4 661.4 L 239.6 674.2 L 222.2 602.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-leg-back-boot">
+<use id="sexton-leg-back-boot-line" href="#sexton-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-back-boot-clip)">
+<use id="sexton-leg-back-boot-lit" href="#sexton-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="sexton-leg-back-boot-mid" d="M 254.6 642 L 303 642 L 307 666 L 333 672 L 374.6 675 L 374.6 684 L 254.6 684 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="sexton-leg-back-boot-dark" d="M 254.6 642 L 303 642 L 307 666 L 333 672 L 374.6 675 L 374.6 684 L 254.6 684 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-leg-back-boot-sole" d="M 260.6 677 L 371.6 677 L 371.6 681.5 L 260.6 681.5 Z" fill="#14110f"/>
+<path id="sexton-leg-back-boot-crease" d="M 329.8 665.7 L 303 671 L 330.2 668.3 Z" fill="#14110f"/>
+</g>
+<g id="sexton-tails-layer" transform="translate(330 520) rotate(0) scale(1 1) translate(-330 -520)">
+<defs>
+<path id="sexton-tails-tails-shape" d="M 250 470 L 400 500 L 404 606 L 249.2 630 L 260.8 606.8 L 256 628.9 L 270.5 626.7 L 283 601.5 L 277.5 625.6 L 297.5 622.5 L 306.6 606.7 L 304.5 621.4 L 318.5 619.2 L 327.2 603.6 L 324.8 618.3 L 236 632 Z"/>
+<clipPath id="sexton-tails-tails-clip"><use href="#sexton-tails-tails-shape"/></clipPath>
+</defs>
+<g id="sexton-tails-tails">
+<use id="sexton-tails-tails-line" href="#sexton-tails-tails-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-tails-tails-clip)">
+<use id="sexton-tails-tails-lit" href="#sexton-tails-tails-shape" fill="#4f4944"/>
+<path id="sexton-tails-tails-mid" d="M 224 466 L 307.3 464.9 L 333.9 534.5 L 330.5 543.2 L 366.3 637.1 L 224 636 Z" transform="translate(9 -2.16)" fill="#34302d"/>
+<path id="sexton-tails-tails-dark" d="M 224 466 L 307.3 464.9 L 333.9 534.5 L 330.5 543.2 L 366.3 637.1 L 224 636 Z" fill="#14110f"/>
+<path id="sexton-tails-tail-folds" d="M 328 499.9 L 322 610 L 332 500.1 Z M 368 506 L 372 600 L 372 506 Z" fill="#34302d"/>
+<path id="sexton-tails-dirt" d="M 300 590 L 360 584 L 400 600 L 404 640 L 290 640 Z" fill="#434134"/>
+<path id="sexton-tails-tails-cold" d="M 196 430 L 444 430 L 444 672 L 196 672 Z M 253.3 467.6 L 403.3 497.6 L 407.3 603.6 L 252.5 627.5 L 264.1 604.3 L 259.2 626.5 L 273.8 624.2 L 286.3 599 L 280.8 623.1 L 300.8 620 L 309.8 604.2 L 307.8 618.9 L 321.8 616.8 L 330.5 601.1 L 328.1 615.8 L 239.3 629.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</g>
+<g id="sexton-leg-front-layer" transform="translate(404 536) rotate(0) scale(1 1) translate(-404 -536)">
+<defs>
+<path id="sexton-leg-front-thigh-shape" d="M 440.7 505.7 L 457.1 537.4 L 468.8 586.6 L 415.2 613.4 L 386.6 572.6 L 367.3 542.3 Z"/>
+<clipPath id="sexton-leg-front-thigh-clip"><use href="#sexton-leg-front-thigh-shape"/></clipPath>
+<path id="sexton-leg-front-shin-shape" d="M 470.2 596.8 L 464.9 624.9 L 449.3 661.7 L 402.7 650.3 L 408.4 611.2 L 413.8 583.2 Z"/>
+<clipPath id="sexton-leg-front-shin-clip"><use href="#sexton-leg-front-shin-shape"/></clipPath>
+<path id="sexton-leg-front-boot-shape" d="M 396.9 647 L 452 645 L 461.9 667 L 499.3 670 L 505.3 676 L 505.3 680 L 389.3 680 L 387.3 670 Z"/>
+<clipPath id="sexton-leg-front-boot-clip"><use href="#sexton-leg-front-boot-shape"/></clipPath>
+<path id="sexton-leg-front-toecap-shape" d="M 478 650 L 504 660 L 504 674 L 472 674 Z"/>
+<clipPath id="sexton-leg-front-toecap-clip"><use href="#sexton-leg-front-toecap-shape"/></clipPath>
+</defs>
+<g id="sexton-leg-front-thigh">
+<use id="sexton-leg-front-thigh-line" href="#sexton-leg-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-front-thigh-clip)">
+<use id="sexton-leg-front-thigh-lit" href="#sexton-leg-front-thigh-shape" fill="#4f4944"/>
+<path id="sexton-leg-front-thigh-mid" d="M 411.5 516.9 L 433.9 561.8 L 432.6 566.5 L 449.2 599.8 L 377.3 635.7 L 336.6 554.3 Z" transform="translate(9 -2.16)" fill="#34302d"/>
+<path id="sexton-leg-front-thigh-dark" d="M 411.5 516.9 L 433.9 561.8 L 432.6 566.5 L 449.2 599.8 L 377.3 635.7 L 336.6 554.3 Z" fill="#14110f"/>
+<path id="sexton-leg-front-patch" d="M 416 546 L 452 540 L 460 580 L 424 588 Z" fill="#34302d"/>
+<path id="sexton-leg-front-patch-thread" d="M 417.8 542.1 L 420.2 548.9 L 420.2 541.8 Z M 425 540.9 L 427.4 547.7 L 427.4 540.6 Z M 432.2 539.7 L 434.6 546.5 L 434.6 539.4 Z M 439.4 538.5 L 441.8 545.3 L 441.8 538.2 Z M 446.6 537.3 L 449 544.1 L 449 537 Z M 425.7 584 L 428.4 590.6 L 428 583.5 Z M 432.9 582.4 L 435.6 589 L 435.2 581.9 Z M 440.1 580.8 L 442.8 587.4 L 442.4 580.3 Z M 447.3 579.2 L 450 585.8 L 449.6 578.7 Z M 454.5 577.6 L 457.2 584.2 L 456.8 577.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-leg-front-shin">
+<use id="sexton-leg-front-shin-line" href="#sexton-leg-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-front-shin-clip)">
+<use id="sexton-leg-front-shin-lit" href="#sexton-leg-front-shin-shape" fill="#4f4944"/>
+<path id="sexton-leg-front-shin-mid" d="M 450.3 588.9 L 441.1 626.6 L 436.3 629.9 L 429 659.8 L 374.6 646.6 L 392 574.8 Z" transform="translate(9 -2.16)" fill="#34302d"/>
+<path id="sexton-leg-front-shin-dark" d="M 450.3 588.9 L 441.1 626.6 L 436.3 629.9 L 429 659.8 L 374.6 646.6 L 392 574.8 Z" fill="#14110f"/>
+<path id="sexton-leg-front-bindings" d="M 471.9 601.3 L 416.4 608.7 L 472.3 605.3 Z M 468.4 613.3 L 412.9 620.7 L 468.8 617.3 Z M 464.9 625.3 L 409.4 632.7 L 465.3 629.3 Z M 461.4 637.3 L 405.9 644.7 L 461.8 641.3 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="sexton-leg-front-boot">
+<use id="sexton-leg-front-boot-line" href="#sexton-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-front-boot-clip)">
+<use id="sexton-leg-front-boot-lit" href="#sexton-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="sexton-leg-front-boot-mid" d="M 381.3 642 L 432.8 642 L 437 666 L 464 672 L 509.3 675 L 509.3 684 L 381.3 684 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="sexton-leg-front-boot-dark" d="M 381.3 642 L 432.8 642 L 437 666 L 464 672 L 509.3 675 L 509.3 684 L 381.3 684 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-leg-front-boot-sole" d="M 387.3 677 L 506.3 677 L 506.3 681.5 L 387.3 681.5 Z" fill="#14110f"/>
+<path id="sexton-leg-front-boot-crease" d="M 460.7 665.7 L 432.8 671 L 461.1 668.3 Z" fill="#14110f"/>
+<g id="sexton-leg-front-toecap">
+<use id="sexton-leg-front-toecap-line" href="#sexton-leg-front-toecap-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-leg-front-toecap-clip)">
+<use id="sexton-leg-front-toecap-lit" href="#sexton-leg-front-toecap-shape" fill="#8c9194"/>
+<use id="sexton-leg-front-toecap-rim" href="#sexton-leg-front-toecap-shape" fill="#f4d294" opacity="0.55"/>
+<use id="sexton-leg-front-toecap-lit-over" href="#sexton-leg-front-toecap-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="sexton-leg-front-toecap-mid" d="M 460 646 L 479 645.3 L 482.3 656.4 L 479.1 661.5 L 484.2 678.7 L 460 678 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="sexton-leg-front-toecap-dark" d="M 460 646 L 479 645.3 L 482.3 656.4 L 479.1 661.5 L 484.2 678.7 L 460 678 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-leg-front-mud" d="M 380 668 L 420 660 L 470 668 L 500 676 L 380 678 Z" fill="#434134"/>
+</g>
+<g id="sexton-bell-arm-layer" transform="translate(398 312) rotate(0) scale(1 1) translate(-398 -312)">
+<defs>
+<path id="sexton-bell-arm-bell-handle-shape" d="M 574.4 620.8 L 602.9 607.7 L 609.1 620.3 L 581.6 635.2 Z"/>
+<clipPath id="sexton-bell-arm-bell-handle-clip"><use href="#sexton-bell-arm-bell-handle-shape"/></clipPath>
+<path id="sexton-bell-arm-bell-shape" d="M 602 618 L 622 602 L 660 590 L 690 570 L 722 562 L 730 690 L 696 676 L 662 660 L 624 652 L 602 640 Z"/>
+<clipPath id="sexton-bell-arm-bell-clip"><use href="#sexton-bell-arm-bell-shape"/></clipPath>
+<path id="sexton-bell-arm-clapper-shape" d="M 724 640 L 744 646 L 748 666 L 730 670 Z"/>
+<clipPath id="sexton-bell-arm-clapper-clip"><use href="#sexton-bell-arm-clapper-shape"/></clipPath>
+<path id="sexton-bell-arm-arm-upper-shape" d="M 419.9 299.3 L 464.6 367.7 L 513.9 469.6 L 478.1 490.4 L 417.6 395.1 L 376.1 324.7 Z"/>
+<clipPath id="sexton-bell-arm-arm-upper-clip"><use href="#sexton-bell-arm-arm-upper-shape"/></clipPath>
+<path id="sexton-bell-arm-arm-fore-shape" d="M 515.8 470.9 L 547 533.9 L 581 625.1 L 551 638.9 L 506.7 552.5 L 476.2 489.1 Z"/>
+<clipPath id="sexton-bell-arm-arm-fore-clip"><use href="#sexton-bell-arm-arm-fore-shape"/></clipPath>
+<path id="sexton-bell-arm-arm-fist-shape" d="M 575.3 584.2 L 603.6 619 L 609.3 639.1 L 597.5 653.2 L 599 663.9 L 581.3 672.8 L 573.4 666.9 L 558.2 677.4 L 537.4 662.6 L 522.1 621.7 L 540.5 599.3 Z"/>
+<clipPath id="sexton-bell-arm-arm-fist-clip"><use href="#sexton-bell-arm-arm-fist-shape"/></clipPath>
+</defs>
+<g id="sexton-bell-arm-bell-handle">
+<use id="sexton-bell-arm-bell-handle-line" href="#sexton-bell-arm-bell-handle-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-bell-arm-bell-handle-clip)">
+<use id="sexton-bell-arm-bell-handle-lit" href="#sexton-bell-arm-bell-handle-shape" fill="#6f5c46"/>
+<path id="sexton-bell-arm-bell-handle-dark" d="M 562.4 603.7 L 584.8 603.1 L 590.3 620.9 L 587.6 626.3 L 591.8 639.8 L 562.4 639.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-bell-arm-bell">
+<use id="sexton-bell-arm-bell-line" href="#sexton-bell-arm-bell-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-bell-arm-bell-clip)">
+<use id="sexton-bell-arm-bell-lit" href="#sexton-bell-arm-bell-shape" fill="#8c9194"/>
+<use id="sexton-bell-arm-bell-rim" href="#sexton-bell-arm-bell-shape" fill="#f4d294" opacity="0.55"/>
+<use id="sexton-bell-arm-bell-lit-over" href="#sexton-bell-arm-bell-shape" transform="translate(-2.4 1.8)" fill="#8c9194"/>
+<path id="sexton-bell-arm-bell-mid" d="M 590 634 L 595.5 643.7 L 655.1 651.9 L 664.1 645.7 L 740.5 656.3 L 740 700 L 590 700 Z" transform="translate(8 -1.92)" fill="#5b6165"/>
+<path id="sexton-bell-arm-bell-dark" d="M 590 634 L 595.5 643.7 L 655.1 651.9 L 664.1 645.7 L 740.5 656.3 L 740 700 L 590 700 Z" fill="#14110f"/>
+<path id="sexton-bell-arm-bell-bands" d="M 638 596.1 L 644 656 L 642 595.9 Z M 688 572.2 L 698 676 L 692 571.8 Z" fill="#5b6165"/>
+<path id="sexton-bell-arm-bell-rust" d="M 650 630 L 690 640 L 688 674 L 652 658 Z" fill="#6a3b24"/>
+<path id="sexton-bell-arm-bell-pits" d="M 654.8 606.9 L 664 616 L 657.2 605.1 Z M 702.7 590.7 L 710 602 L 705.3 589.3 Z M 662.8 622.9 L 670 630 L 665.2 621.1 Z" fill="#5b6165"/>
+</g>
+</g>
+<path id="sexton-bell-arm-bell-mouth" d="M 712 566 L 724 562 L 732 690 L 718 684 Z" fill="#14110f"/>
+<g id="sexton-bell-arm-clapper">
+<use id="sexton-bell-arm-clapper-line" href="#sexton-bell-arm-clapper-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-bell-arm-clapper-clip)">
+<use id="sexton-bell-arm-clapper-lit" href="#sexton-bell-arm-clapper-shape" fill="#8c9194"/>
+<path id="sexton-bell-arm-clapper-dark" d="M 712 636 L 729.7 635.6 L 733.3 648.9 L 731.5 652.6 L 737.5 674.4 L 712 674 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-bell-arm-arm-upper">
+<use id="sexton-bell-arm-arm-upper-line" href="#sexton-bell-arm-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-bell-arm-arm-upper-clip)">
+<use id="sexton-bell-arm-arm-upper-lit" href="#sexton-bell-arm-arm-upper-shape" fill="#4f4944"/>
+<path id="sexton-bell-arm-arm-upper-mid" d="M 402.8 305.7 L 453.6 392.8 L 452.5 398 L 500.7 480.7 L 454.6 507.6 L 353.6 334.4 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="sexton-bell-arm-arm-upper-dark" d="M 402.8 305.7 L 453.6 392.8 L 452.5 398 L 500.7 480.7 L 454.6 507.6 L 353.6 334.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-bell-arm-arm-fore">
+<use id="sexton-bell-arm-arm-fore-line" href="#sexton-bell-arm-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-bell-arm-arm-fore-clip)">
+<use id="sexton-bell-arm-arm-fore-lit" href="#sexton-bell-arm-arm-fore-shape" fill="#4f4944"/>
+<path id="sexton-bell-arm-arm-fore-mid" d="M 500.6 474.6 L 527.2 532.2 L 525.5 537.6 L 569.7 633.6 L 529.7 652 L 457.1 494.6 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="sexton-bell-arm-arm-fore-dark" d="M 500.6 474.6 L 527.2 532.2 L 525.5 537.6 L 569.7 633.6 L 529.7 652 L 457.1 494.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-bell-arm-arm-fold" d="M 482.3 500.1 L 503.4 474.5 L 472.9 487.5 Z" fill="#14110f"/>
+<g id="sexton-bell-arm-arm-fist">
+<use id="sexton-bell-arm-arm-fist-line" href="#sexton-bell-arm-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-bell-arm-arm-fist-clip)">
+<use id="sexton-bell-arm-arm-fist-lit" href="#sexton-bell-arm-arm-fist-shape" fill="#9aa48c"/>
+<path id="sexton-bell-arm-arm-fist-mid" d="M 532.1 586.7 L 574.1 689.3 L 538.9 705.5 L 492.5 604.9 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="sexton-bell-arm-arm-fist-dark" d="M 532.1 586.7 L 574.1 689.3 L 538.9 705.5 L 492.5 604.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-bell-arm-arm-fist-fingers" d="M 600.4 652.9 L 582.2 633.2 L 593.1 657.7 Z M 580.1 665.4 L 564.2 643.3 L 572.3 669.3 Z" fill="#14110f"/>
+<path id="sexton-bell-arm-cracks" d="M 547.2 620.8 L 560 632 L 548.8 619.2 Z M 570.9 612.5 L 578 626 L 573.1 611.5 Z M 555.7 645.2 L 570 648 L 556.3 642.8 Z" fill="#6b7562"/>
+</g>
+<g id="sexton-body-layer" transform="translate(360 536) rotate(0) scale(1 1) translate(-360 -536)">
+<defs>
+<path id="sexton-body-trunk-shape" d="M 286 540 L 246 430 L 232 300 L 262 196 L 330 138 L 410 150 L 462 222 L 486 300 L 494 390 L 472 480 L 432 546 Z"/>
+<clipPath id="sexton-body-trunk-clip"><use href="#sexton-body-trunk-shape"/></clipPath>
+<path id="sexton-body-shroud-a-shape" d="M 404 330 L 488 322 L 492 400 L 470 452 L 410 430 Z"/>
+<clipPath id="sexton-body-shroud-a-clip"><use href="#sexton-body-shroud-a-shape"/></clipPath>
+<path id="sexton-body-shroud-b-shape" d="M 372 180 L 440 196 L 462 250 L 392 262 Z"/>
+<clipPath id="sexton-body-shroud-b-clip"><use href="#sexton-body-shroud-b-shape"/></clipPath>
+<path id="sexton-body-rope-across-shape" d="M 337.2 146.5 L 476.8 436.7 L 463.2 443.3 L 322.8 153.5 Z"/>
+<clipPath id="sexton-body-rope-across-clip"><use href="#sexton-body-rope-across-shape"/></clipPath>
+<path id="sexton-body-rope-shape" d="M 262 472 L 470 456 L 472 478 L 266 496 Z"/>
+<clipPath id="sexton-body-rope-clip"><use href="#sexton-body-rope-shape"/></clipPath>
+<path id="sexton-body-bone-a-shape" d="M 443.4 499.4 L 455.4 565.4 L 448.6 566.6 L 436.6 500.6 Z"/>
+<clipPath id="sexton-body-bone-a-clip"><use href="#sexton-body-bone-a-shape"/></clipPath>
+<path id="sexton-body-bone-a-knob-a-shape" d="M 433 495.1 L 441.4 493 L 447 498.6 L 444.9 505.6 L 435.8 507 Z"/>
+<clipPath id="sexton-body-bone-a-knob-a-clip"><use href="#sexton-body-bone-a-knob-a-shape"/></clipPath>
+<path id="sexton-body-bone-a-knob-b-shape" d="M 445 561.1 L 453.4 559 L 459 564.6 L 456.9 571.6 L 447.8 573 Z"/>
+<clipPath id="sexton-body-bone-a-knob-b-clip"><use href="#sexton-body-bone-a-knob-b-shape"/></clipPath>
+<path id="sexton-body-bone-b-shape" d="M 471 495.8 L 475 547.8 L 469 548.2 L 465 496.2 Z"/>
+<clipPath id="sexton-body-bone-b-clip"><use href="#sexton-body-bone-b-shape"/></clipPath>
+<path id="sexton-body-bone-b-knob-a-shape" d="M 462 491.8 L 469.2 490 L 474 494.8 L 472.2 500.8 L 464.4 502 Z"/>
+<clipPath id="sexton-body-bone-b-knob-a-clip"><use href="#sexton-body-bone-b-knob-a-shape"/></clipPath>
+<path id="sexton-body-bone-b-knob-b-shape" d="M 466 543.8 L 473.2 542 L 478 546.8 L 476.2 552.8 L 468.4 554 Z"/>
+<clipPath id="sexton-body-bone-b-knob-b-clip"><use href="#sexton-body-bone-b-knob-b-shape"/></clipPath>
+</defs>
+<g id="sexton-body-trunk">
+<use id="sexton-body-trunk-line" href="#sexton-body-trunk-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-trunk-clip)">
+<use id="sexton-body-trunk-lit" href="#sexton-body-trunk-shape" fill="#4f4944"/>
+<path id="sexton-body-trunk-mid" d="M 200 100 L 344 100 L 358 130.9 L 371.9 285.7 L 350.2 314.3 L 372 557.1 L 200 580 Z" transform="translate(14 -3.36)" fill="#34302d"/>
+<path id="sexton-body-trunk-dark" d="M 200 100 L 344 100 L 358 130.9 L 371.9 285.7 L 350.2 314.3 L 372 557.1 L 200 580 Z" fill="#14110f"/>
+<g id="sexton-body-shroud-a">
+<use id="sexton-body-shroud-a-line" href="#sexton-body-shroud-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-shroud-a-clip)">
+<use id="sexton-body-shroud-a-lit" href="#sexton-body-shroud-a-shape" fill="#cfc5a8"/>
+<path id="sexton-body-shroud-a-mid" d="M 392 318 L 413.9 317.2 L 434.8 391.4 L 430.8 399.4 L 446.9 456.8 L 392 456 Z" transform="translate(6 -1.44)" fill="#9c9178"/>
+<path id="sexton-body-shroud-a-dark" d="M 392 318 L 413.9 317.2 L 434.8 391.4 L 430.8 399.4 L 446.9 456.8 L 392 456 Z" fill="#14110f"/>
+<path id="sexton-body-weave-a" d="M 450.2 339.8 L 390.2 342.9 L 450.2 341.4 Z M 450.6 351.4 L 390.7 354.5 L 450.7 353 Z M 451.1 362.9 L 391.1 366 L 451.1 364.5 Z M 451.5 374.5 L 391.6 377.6 L 451.6 376.1 Z M 451.9 386 L 392 389.2 L 452 387.6 Z M 452.4 397.6 L 392.5 400.7 L 452.5 399.2 Z M 452.8 409.2 L 392.9 412.3 L 452.9 410.8 Z M 453.3 420.7 L 393.4 423.8 L 453.3 422.3 Z M 453.7 432.3 L 393.8 435.4 L 453.8 433.9 Z" fill="#9c9178"/>
+<path id="sexton-body-weave-b" d="M 435.2 332 L 440 440 L 436.8 332 Z M 455.2 330 L 458 448 L 456.8 330 Z M 473.2 326 L 474 440 L 474.8 326 Z" fill="#9c9178"/>
+<path id="sexton-body-stain" d="M 440 400 L 476 392 L 480 440 L 452 450 Z" fill="#5a5645" opacity="0.6"/>
+</g>
+</g>
+<g id="sexton-body-shroud-b">
+<use id="sexton-body-shroud-b-line" href="#sexton-body-shroud-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-shroud-b-clip)">
+<use id="sexton-body-shroud-b-lit" href="#sexton-body-shroud-b-shape" fill="#cfc5a8"/>
+<path id="sexton-body-shroud-b-mid" d="M 360 176 L 394.9 174.8 L 407.2 208.4 L 403.2 218.1 L 421.1 267.2 L 360 266 Z" transform="translate(6 -1.44)" fill="#9c9178"/>
+<path id="sexton-body-shroud-b-dark" d="M 360 176 L 394.9 174.8 L 407.2 208.4 L 403.2 218.1 L 421.1 267.2 L 360 266 Z" fill="#14110f"/>
+<path id="sexton-body-weave-c" d="M 425.2 198.5 L 375.4 202.7 L 425.3 200.1 Z M 425.9 208.5 L 376.1 212.7 L 426 210.1 Z M 426.6 218.5 L 376.7 222.7 L 426.7 220.1 Z M 427.2 228.5 L 377.4 232.7 L 427.3 230.1 Z M 427.9 238.5 L 378.1 242.7 L 428 240.1 Z M 428.6 248.5 L 378.7 252.7 L 428.7 250.1 Z M 415.2 192 L 420 258 L 416.8 192 Z M 435.2 198.1 L 440 256 L 436.8 197.9 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="sexton-body-stitches" d="M 401 342.3 L 392 350 L 403 345.7 Z M 403 370.3 L 394 378 L 405 373.7 Z M 405 398.3 L 396 406 L 407 401.7 Z M 408.8 422.4 L 400 432 L 411.2 425.6 Z M 378.4 194.8 L 372 206 L 381.6 197.2 Z M 384.6 224.6 L 376 236 L 387.4 227.4 Z M 388.4 250.8 L 382 262 L 391.6 253.2 Z" fill="#14110f"/>
+<path id="sexton-body-coat-folds" d="M 428.5 272 L 470 300 L 431.5 268 Z M 397.6 290.7 L 410 326 L 402.4 289.3 Z M 437.6 469.2 L 420 530 L 442.4 470.8 Z M 467.6 409.2 L 450 470 L 472.4 410.8 Z" fill="#34302d"/>
+<path id="sexton-body-candle-light-a" d="M 352 160 L 408 158 L 440 200 L 420 196 L 396 176 L 364 176 Z" fill="#c27a26" opacity="0.5"/>
+<path id="sexton-body-candle-light-b" d="M 404 204 L 440 204 L 456 240 L 430 232 Z" fill="#c27a26" opacity="0.3"/>
+<path id="sexton-body-dirt" d="M 392 500 L 470 470 L 466 520 L 430 550 L 390 548 Z" fill="#434134"/>
+<path id="sexton-body-dry" d="M 278.5 249.7 L 262 330 L 281.5 250.3 Z M 298.5 359.8 L 290 440 L 301.5 360.2 Z M 260.5 379.9 L 258 430 L 263.5 380.1 Z" fill="#e9e0c6"/>
+<path id="sexton-body-trunk-cold" d="M 192 98 L 534 98 L 534 586 L 192 586 Z M 289.8 537.1 L 249.8 427.1 L 235.8 297.1 L 265.8 193.1 L 333.8 135.1 L 413.8 147.1 L 465.8 219.1 L 489.8 297.1 L 497.8 387.1 L 475.8 477.1 L 435.8 543.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="sexton-body-trunk-open-0" d="M 464 226 L 466.32 224.26 L 486.32 294.26 L 484 296 Z" fill="#4f4944"/>
+</g>
+<g id="sexton-body-rope-across">
+<use id="sexton-body-rope-across-line" href="#sexton-body-rope-across-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-rope-across-clip)">
+<use id="sexton-body-rope-across-lit" href="#sexton-body-rope-across-shape" fill="#c7ad84"/>
+<path id="sexton-body-rope-across-dark" d="M 331.2 146.1 L 400.1 288.9 L 399.1 292.2 L 471.7 442.5 L 458.3 449 L 315.7 153.6 Z" fill="#14110f"/>
+<path id="sexton-body-rope-x-twist" d="M 341.4 157.7 L 335.5 178.1 L 343.5 158.4 Z M 347.3 169.9 L 341.4 190.3 L 349.4 170.6 Z M 353.2 182.1 L 347.3 202.5 L 355.3 182.8 Z M 359.1 194.3 L 353.2 214.7 L 361.2 195 Z M 365 206.4 L 359.1 226.8 L 367.1 207.2 Z M 370.9 218.6 L 365 239 L 373 219.3 Z M 376.8 230.8 L 370.9 251.2 L 378.9 231.5 Z M 382.8 243 L 376.8 263.4 L 384.8 243.7 Z M 388.7 255.2 L 382.8 275.6 L 390.7 255.9 Z M 394.6 267.3 L 388.7 287.7 L 396.7 268.1 Z M 400.5 279.5 L 394.6 299.9 L 402.6 280.2 Z M 406.4 291.7 L 400.5 312.1 L 408.5 292.4 Z M 412.3 303.9 L 406.4 324.3 L 414.4 304.6 Z M 418.2 316.1 L 412.3 336.5 L 420.3 316.8 Z M 424.1 328.3 L 418.2 348.7 L 426.2 329 Z M 430 340.4 L 424.1 360.8 L 432.1 341.2 Z M 435.9 352.6 L 430 373 L 438 353.3 Z M 441.8 364.8 L 435.9 385.2 L 443.9 365.5 Z M 447.8 377 L 441.8 397.4 L 449.8 377.7 Z M 453.7 389.2 L 447.8 409.6 L 455.7 389.9 Z M 459.6 401.3 L 453.7 421.7 L 461.7 402.1 Z M 465.5 413.5 L 459.6 433.9 L 467.6 414.2 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="sexton-body-rope">
+<use id="sexton-body-rope-line" href="#sexton-body-rope-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-rope-clip)">
+<use id="sexton-body-rope-lit" href="#sexton-body-rope-shape" fill="#c7ad84"/>
+<path id="sexton-body-rope-mid" d="M 250 452 L 362.2 450.9 L 368.2 469.1 L 363.8 476.9 L 371.8 501.1 L 250 500 Z" transform="translate(4 -0.96)" fill="#927a58"/>
+<path id="sexton-body-rope-dark" d="M 250 452 L 362.2 450.9 L 368.2 469.1 L 363.8 476.9 L 371.8 501.1 L 250 500 Z" fill="#14110f"/>
+<path id="sexton-body-twist" d="M 322.8 472.7 L 347.9 491.3 L 324.7 470.4 Z M 334.5 471.6 L 359.5 490.1 L 336.4 469.2 Z M 346.2 470.4 L 371.2 488.9 L 348.1 468.1 Z M 357.8 469.2 L 382.9 487.8 L 359.7 466.9 Z M 369.5 468.1 L 394.5 486.6 L 371.4 465.7 Z M 381.2 466.9 L 406.2 485.4 L 383.1 464.6 Z M 392.8 465.7 L 417.9 484.3 L 394.7 463.4 Z M 404.5 464.6 L 429.5 483.1 L 406.4 462.2 Z M 416.2 463.4 L 441.2 481.9 L 418.1 461.1 Z M 427.8 462.2 L 452.9 480.8 L 429.7 459.9 Z M 439.5 461.1 L 464.5 479.6 L 441.4 458.7 Z M 451.2 459.9 L 476.2 478.4 L 453.1 457.6 Z" fill="#927a58"/>
+</g>
+</g>
+<path id="sexton-body-bone-cord" d="M 440 476 L 444 500" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="sexton-body-bone-a">
+<use id="sexton-body-bone-a-line" href="#sexton-body-bone-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-a-clip)">
+<use id="sexton-body-bone-a-lit" href="#sexton-body-bone-a-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-a-dark" d="M 441.1 496.8 L 448 535 L 447 536.6 L 452.9 568.9 L 446.6 570 L 433.5 498.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-body-bone-a-knob-a">
+<use id="sexton-body-bone-a-knob-a-line" href="#sexton-body-bone-a-knob-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-a-knob-a-clip)">
+<use id="sexton-body-bone-a-knob-a-lit" href="#sexton-body-bone-a-knob-a-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-a-knob-a-dark" d="M 421 489 L 435.2 489 L 440.8 511 L 421 511 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-body-bone-a-knob-b">
+<use id="sexton-body-bone-a-knob-b-line" href="#sexton-body-bone-a-knob-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-a-knob-b-clip)">
+<use id="sexton-body-bone-a-knob-b-lit" href="#sexton-body-bone-a-knob-b-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-a-knob-b-dark" d="M 433 555 L 447.2 555 L 452.8 577 L 433 577 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-body-bone-cord-b" d="M 462 474 L 468 494" fill="none" stroke="#14110f" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="sexton-body-bone-b">
+<use id="sexton-body-bone-b-line" href="#sexton-body-bone-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-b-clip)">
+<use id="sexton-body-bone-b-lit" href="#sexton-body-bone-b-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-b-dark" d="M 469.1 492.9 L 471.8 528.2 L 470.9 529.4 L 472.5 551 L 467.1 551.4 L 462.6 493.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-body-bone-b-knob-a">
+<use id="sexton-body-bone-b-knob-a-line" href="#sexton-body-bone-b-knob-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-b-knob-a-clip)">
+<use id="sexton-body-bone-b-knob-a-lit" href="#sexton-body-bone-b-knob-a-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-b-knob-a-dark" d="M 450 486 L 463.9 486 L 468.7 506 L 450 506 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-body-bone-b-knob-b">
+<use id="sexton-body-bone-b-knob-b-line" href="#sexton-body-bone-b-knob-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-body-bone-b-knob-b-clip)">
+<use id="sexton-body-bone-b-knob-b-lit" href="#sexton-body-bone-b-knob-b-shape" fill="#cfc5a8"/>
+<path id="sexton-body-bone-b-knob-b-dark" d="M 454 538 L 467.9 538 L 472.7 558 L 454 558 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-body-nail-ring" d="M 412 480 L 404 492 L 412 504 L 420 492 L 412 480" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="sexton-body-nails" d="M 405.5 499.5 L 400 540 L 410.5 500.5 Z M 409.5 501.9 L 410 546 L 414.5 502.1 Z M 413.5 500.4 L 422 540 L 418.5 499.6 Z" fill="#14110f"/>
+</g>
+<g id="sexton-candles-layer" transform="translate(330 150) rotate(0) scale(1 1) translate(-330 -150)">
+<defs>
+<path id="sexton-candles-wax-shape" d="M 262 204 L 288 168 L 330 140 L 392 146 L 424 162 L 430 190 L 424 214 L 414 216 L 410 190 L 398 184 L 394 222 L 384 226 L 378 196 L 362 178 L 352 186 L 344 176 L 318 182 L 312 206 L 302 208 L 298 192 L 284 214 L 280 236 L 270 234 Z"/>
+<clipPath id="sexton-candles-wax-clip"><use href="#sexton-candles-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-a-wax-shape" d="M 285 150 L 294 151 L 296 170 L 300 178 L 281 179 L 284 168 Z"/>
+<clipPath id="sexton-candles-candle-a-wax-clip"><use href="#sexton-candles-candle-a-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-a-flame-shape" d="M 286 148 L 290 132 L 294 148 L 290 151 Z"/>
+<path id="sexton-candles-candle-b-wax-shape" d="M 321 108 L 330 109 L 332 142 L 336 150 L 317 151 L 320 140 Z"/>
+<clipPath id="sexton-candles-candle-b-wax-clip"><use href="#sexton-candles-candle-b-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-b-flame-shape" d="M 322 106 L 326 90 L 330 106 L 326 109 Z"/>
+<path id="sexton-candles-candle-c-wax-shape" d="M 359 120 L 368 121 L 370 136 L 374 144 L 355 145 L 358 134 Z"/>
+<clipPath id="sexton-candles-candle-c-wax-clip"><use href="#sexton-candles-candle-c-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-c-flame-shape" d="M 360 118 L 364 102 L 368 118 L 364 121 Z"/>
+<path id="sexton-candles-candle-d-wax-shape" d="M 393 120 L 402 121 L 404 146 L 408 154 L 389 155 L 392 144 Z"/>
+<clipPath id="sexton-candles-candle-d-wax-clip"><use href="#sexton-candles-candle-d-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-d-flame-shape" d="M 394 118 L 398 102 L 402 118 L 398 121 Z"/>
+<path id="sexton-candles-candle-e-wax-shape" d="M 339 132 L 348 133 L 350 140 L 354 148 L 335 149 L 338 138 Z"/>
+<clipPath id="sexton-candles-candle-e-wax-clip"><use href="#sexton-candles-candle-e-wax-shape"/></clipPath>
+<path id="sexton-candles-candle-e-flame-shape" d="M 340 130 L 344 114 L 348 130 L 344 133 Z"/>
+</defs>
+<g id="sexton-candles-wax">
+<use id="sexton-candles-wax-line" href="#sexton-candles-wax-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-wax-clip)">
+<use id="sexton-candles-wax-lit" href="#sexton-candles-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-wax-mid" d="M 250 136 L 316.6 134.8 L 331.1 174.3 L 327.3 183.7 L 348.6 241.2 L 250 240 Z" transform="translate(4 -0.96)" fill="#9c9178"/>
+<path id="sexton-candles-wax-dark" d="M 250 136 L 316.6 134.8 L 331.1 174.3 L 327.3 183.7 L 348.6 241.2 L 250 240 Z" fill="#14110f"/>
+<path id="sexton-candles-wax-runs" d="M 328.5 149.8 L 326 174 L 331.5 150.2 Z M 390.5 154.1 L 396 200 L 393.5 153.9 Z M 368.5 149.9 L 368 172 L 371.5 150.1 Z M 298.5 179.8 L 296 204 L 301.5 180.2 Z" fill="#9c9178"/>
+<path id="sexton-candles-wax-glow" d="M 340 142 L 400 148 L 412 166 L 350 162 Z" fill="#eeb040" opacity="0.4"/>
+</g>
+</g>
+<g id="sexton-candles-candle-a-wax">
+<use id="sexton-candles-candle-a-wax-line" href="#sexton-candles-candle-a-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-a-wax-clip)">
+<use id="sexton-candles-candle-a-wax-lit" href="#sexton-candles-candle-a-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-a-wax-mid" d="M 269 146 L 285.7 145.7 L 289.2 161.2 L 287.3 164.6 L 291.5 183.3 L 269 183 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-a-wax-dark" d="M 269 146 L 285.7 145.7 L 289.2 161.2 L 287.3 164.6 L 291.5 183.3 L 269 183 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-a-flame">
+<use id="sexton-candles-candle-a-flame-line" href="#sexton-candles-candle-a-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-a-flame-lit" href="#sexton-candles-candle-a-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-a-heart" d="M 288.4 147 L 290 139 L 291.6 147 Z" fill="#ffe6a2"/>
+<g id="sexton-candles-candle-b-wax">
+<use id="sexton-candles-candle-b-wax-line" href="#sexton-candles-candle-b-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-b-wax-clip)">
+<use id="sexton-candles-candle-b-wax-lit" href="#sexton-candles-candle-b-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-b-wax-mid" d="M 305 104 L 321.7 103.8 L 324.6 121.1 L 322.4 124.5 L 327.5 155.2 L 305 155 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-b-wax-dark" d="M 305 104 L 321.7 103.8 L 324.6 121.1 L 322.4 124.5 L 327.5 155.2 L 305 155 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-b-flame">
+<use id="sexton-candles-candle-b-flame-line" href="#sexton-candles-candle-b-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-b-flame-lit" href="#sexton-candles-candle-b-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-b-heart" d="M 324.4 105 L 326 97 L 327.6 105 Z" fill="#ffe6a2"/>
+<g id="sexton-candles-candle-c-wax">
+<use id="sexton-candles-candle-c-wax-line" href="#sexton-candles-candle-c-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-c-wax-clip)">
+<use id="sexton-candles-candle-c-wax-lit" href="#sexton-candles-candle-c-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-c-wax-mid" d="M 343 116 L 359.8 115.6 L 362.7 127.2 L 360.7 130.9 L 365.4 149.4 L 343 149 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-c-wax-dark" d="M 343 116 L 359.8 115.6 L 362.7 127.2 L 360.7 130.9 L 365.4 149.4 L 343 149 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-c-flame">
+<use id="sexton-candles-candle-c-flame-line" href="#sexton-candles-candle-c-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-c-flame-lit" href="#sexton-candles-candle-c-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-c-heart" d="M 362.4 117 L 364 109 L 365.6 117 Z" fill="#ffe6a2"/>
+<g id="sexton-candles-candle-d-wax">
+<use id="sexton-candles-candle-d-wax-line" href="#sexton-candles-candle-d-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-d-wax-clip)">
+<use id="sexton-candles-candle-d-wax-lit" href="#sexton-candles-candle-d-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-d-wax-mid" d="M 377 116 L 393.6 115.8 L 398.3 140.3 L 396.5 143.3 L 399.6 159.2 L 377 159 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-d-wax-dark" d="M 377 116 L 393.6 115.8 L 398.3 140.3 L 396.5 143.3 L 399.6 159.2 L 377 159 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-d-flame">
+<use id="sexton-candles-candle-d-flame-line" href="#sexton-candles-candle-d-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-d-flame-lit" href="#sexton-candles-candle-d-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-d-heart" d="M 396.4 117 L 398 109 L 399.6 117 Z" fill="#ffe6a2"/>
+<g id="sexton-candles-candle-e-wax">
+<use id="sexton-candles-candle-e-wax-line" href="#sexton-candles-candle-e-wax-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-candles-candle-e-wax-clip)">
+<use id="sexton-candles-candle-e-wax-lit" href="#sexton-candles-candle-e-wax-shape" fill="#cfc5a8"/>
+<path id="sexton-candles-candle-e-wax-mid" d="M 323 128 L 339.2 128 L 346 153 L 323 153 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-candles-candle-e-wax-dark" d="M 323 128 L 339.2 128 L 346 153 L 323 153 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-candles-candle-e-flame">
+<use id="sexton-candles-candle-e-flame-line" href="#sexton-candles-candle-e-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sexton-candles-candle-e-flame-lit" href="#sexton-candles-candle-e-flame-shape" fill="#eeb040"/>
+</g>
+<path id="sexton-candles-candle-e-heart" d="M 342.4 129 L 344 121 L 345.6 129 Z" fill="#ffe6a2"/>
+</g>
+<g id="sexton-cage-layer" transform="translate(462 356) rotate(0) scale(1 1) translate(-462 -356)">
+<defs>
+<path id="sexton-cage-glow-shape" d="M 438 404 L 490 404 L 494 470 L 434 470 Z"/>
+<clipPath id="sexton-cage-glow-clip"><use href="#sexton-cage-glow-shape"/></clipPath>
+<path id="sexton-cage-lock-shape" d="M 484 426 L 498 426 L 498 446 L 484 446 Z"/>
+<clipPath id="sexton-cage-lock-clip"><use href="#sexton-cage-lock-shape"/></clipPath>
+</defs>
+<path id="sexton-cage-chain" d="M 462 356 L 464 398" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="sexton-cage-chain-links" d="M 458.9 356.7 L 464 364.3 L 461.9 355.4 Z M 462.5 363.8 L 461.2 372.9 L 465.5 364.8 Z M 459.7 373.5 L 464.8 381.1 L 462.7 372.2 Z M 463.3 380.6 L 462 389.7 L 466.3 381.6 Z M 460.5 390.3 L 465.6 397.9 L 463.5 389 Z" fill="#14110f"/>
+<g id="sexton-cage-glow">
+<use id="sexton-cage-glow-line" href="#sexton-cage-glow-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-cage-glow-clip)">
+<use id="sexton-cage-glow-lit" href="#sexton-cage-glow-shape" fill="#c42a2c"/>
+<path id="sexton-cage-glow-low" d="M 432 448 L 496 446 L 496 472 L 432 472 Z" fill="#8c1a20"/>
+</g>
+</g>
+<path id="sexton-cage-heart" d="M 454 418 L 464 412 L 474 418 L 478 436 L 468 458 L 452 450 L 448 432 Z" fill="#eeb040"/>
+<path id="sexton-cage-heart-core" d="M 460 424 L 468 422 L 470 436 L 464 448 L 456 440 Z" fill="#ffe6a2"/>
+<path id="sexton-cage-top" d="M 432 406 L 450 392 L 476 392 L 496 406 Z" fill="#14110f"/>
+<path id="sexton-cage-foot" d="M 430 468 L 498 468 L 490 482 L 438 482 Z" fill="#14110f"/>
+<path id="sexton-cage-bar-a" d="M 450 404 L 454 404 L 452 470 L 448 470 Z" fill="#14110f"/>
+<path id="sexton-cage-bar-b" d="M 470 404 L 474 404 L 476 470 L 472 470 Z" fill="#14110f"/>
+<path id="sexton-cage-bar-c" d="M 436 404 L 439 404 L 435 470 L 432 470 Z" fill="#14110f"/>
+<path id="sexton-cage-hoop" d="M 432 434 L 496 432 L 496 438 L 432 440 Z" fill="#14110f"/>
+<g id="sexton-cage-lock">
+<use id="sexton-cage-lock-line" href="#sexton-cage-lock-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-cage-lock-clip)">
+<use id="sexton-cage-lock-lit" href="#sexton-cage-lock-shape" fill="#8c9194"/>
+<path id="sexton-cage-lock-dark" d="M 472 422 L 486.1 421.8 L 488.9 434.1 L 487.3 436.8 L 490.3 450.2 L 472 450 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="sexton-head-layer" transform="translate(452 300) rotate(0) scale(1 1) translate(-452 -300)">
+<defs>
+<path id="sexton-head-face-shape" d="M 466.7 268.7 L 476.3 261 L 495.7 261 L 503.4 268.7 L 508.2 277.4 L 504.4 282.3 L 507.3 286.1 L 516 295.8 L 508.2 298.7 L 509.2 304.5 L 506.3 306.4 L 507.3 310.3 L 502.4 322.7 L 489.9 326.4 L 476.3 307.4 L 468.6 301.6 Z"/>
+<clipPath id="sexton-head-face-clip"><use href="#sexton-head-face-shape"/></clipPath>
+<path id="sexton-head-hood-shape" d="M 436 300 L 440 262 L 460 244 L 492 240 L 510 258 L 512 274 L 486 270 L 470 280 L 466 318 L 444 322 Z"/>
+<clipPath id="sexton-head-hood-clip"><use href="#sexton-head-hood-shape"/></clipPath>
+<path id="sexton-head-jaw-tie-shape" d="M 474 276 L 484 274 L 498 318 L 488 322 Z"/>
+<clipPath id="sexton-head-jaw-tie-clip"><use href="#sexton-head-jaw-tie-shape"/></clipPath>
+<path id="sexton-head-knot-shape" d="M 468 240 L 480 234 L 488 242 L 476 250 Z"/>
+<clipPath id="sexton-head-knot-clip"><use href="#sexton-head-knot-shape"/></clipPath>
+</defs>
+<g id="sexton-head-face">
+<use id="sexton-head-face-line" href="#sexton-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-head-face-clip)">
+<use id="sexton-head-face-lit" href="#sexton-head-face-shape" fill="#9aa48c"/>
+<path id="sexton-head-face-mid" d="M 458.9 255.2 L 481.6 256.8 L 485 294.1 L 479 302.1 L 480.7 321.2 L 458.9 324.8 Z" transform="translate(5.8 -1.39)" fill="#6b7562"/>
+<path id="sexton-head-face-dark" d="M 458.9 255.2 L 481.6 256.8 L 485 294.1 L 479 302.1 L 480.7 321.2 L 458.9 324.8 Z" fill="#14110f"/>
+<path id="sexton-head-face-cheek-plane" d="M 487.9 292.9 L 499.5 291 L 503.4 297.7 L 500.5 307.4 L 489.9 320.2 L 484.1 303.5 Z" fill="#6b7562"/>
+<path id="sexton-head-face-chin-plane" d="M 497.6 310.3 L 507.3 309.3 L 502.4 322.7 L 493.7 324.2 Z" fill="#6b7562"/>
+<path id="sexton-head-face-socket" d="M 509.2 276.5 L 482.1 274.5 L 484.1 288.1 L 493.7 292.9 L 499.5 288.1 L 506.3 285.7 Z" fill="#14110f"/>
+<path id="sexton-head-face-lines" d="M 502.8 297.9 L 500.5 306.4 L 505.9 299.5 Z M 478.8 306.5 L 493.7 322.7 L 481.6 304.4 Z" fill="#14110f"/>
+<path id="sexton-head-face-mouth" d="M 508.9 303 L 496.6 307 L 509.5 307.2 Z" fill="#14110f"/>
+<path id="sexton-head-face-scar" d="M 494.4 284.7 L 503.4 301.6 L 496.9 283.7 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="sexton-head-face-nostril" d="M 509.2 297.3 L 502.4 294.8 L 507.3 300.1 Z" fill="#14110f"/>
+<path id="sexton-head-skin-cracks" d="M 493.1 300.4 L 500 312 L 494.9 299.6 Z M 483 312.3 L 488 326 L 485 311.7 Z M 501.3 286.7 L 508 292 L 502.7 285.3 Z" fill="#6b7562"/>
+<g id="sexton-head-hood">
+<use id="sexton-head-hood-line" href="#sexton-head-hood-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-head-hood-clip)">
+<use id="sexton-head-hood-lit" href="#sexton-head-hood-shape" fill="#cfc5a8"/>
+<path id="sexton-head-hood-mid" d="M 420 230 L 460 230 L 464 244.2 L 462 284.2 L 453.6 292.5 L 452 325.8 L 420 330 Z" transform="translate(5 -1.2)" fill="#9c9178"/>
+<path id="sexton-head-hood-dark" d="M 420 230 L 460 230 L 464 244.2 L 462 284.2 L 453.6 292.5 L 452 325.8 L 420 330 Z" fill="#14110f"/>
+<path id="sexton-head-hood-weave" d="M 471.7 243.5 L 473.4 258.5 L 473.5 243.4 Z M 477.7 245.5 L 479.4 260.5 L 479.5 245.4 Z M 483.7 247.5 L 485.4 262.5 L 485.5 247.4 Z M 489.7 249.5 L 491.4 264.5 L 491.5 249.4 Z M 495.7 251.5 L 497.4 266.5 L 497.5 251.4 Z M 501.7 253.5 L 503.4 268.5 L 503.5 253.4 Z M 465.1 252 L 464 300 L 466.9 252 Z" fill="#9c9178"/>
+<path id="sexton-head-hood-stain" d="M 474 262 L 500 262 L 492 272 L 476 274 Z" fill="#5a5645" opacity="0.5"/>
+<path id="sexton-head-hood-cold" d="M 396 200 L 552 200 L 552 362 L 396 362 Z M 438.9 297.8 L 442.9 259.8 L 462.9 241.8 L 494.9 237.8 L 512.9 255.8 L 514.9 271.8 L 488.9 267.8 L 472.9 277.8 L 468.9 315.8 L 446.9 319.8 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="sexton-head-jaw-tie">
+<use id="sexton-head-jaw-tie-line" href="#sexton-head-jaw-tie-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-head-jaw-tie-clip)">
+<use id="sexton-head-jaw-tie-lit" href="#sexton-head-jaw-tie-shape" fill="#cfc5a8"/>
+<path id="sexton-head-jaw-tie-mid" d="M 462 270 L 479.8 269.7 L 483.7 290.6 L 481.4 294.4 L 487.4 326.3 L 462 326 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="sexton-head-jaw-tie-dark" d="M 462 270 L 479.8 269.7 L 483.7 290.6 L 481.4 294.4 L 487.4 326.3 L 462 326 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-head-knot">
+<use id="sexton-head-knot-line" href="#sexton-head-knot-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-head-knot-clip)">
+<use id="sexton-head-knot-lit" href="#sexton-head-knot-shape" fill="#cfc5a8"/>
+<path id="sexton-head-knot-dark" d="M 456 230 L 472.8 230 L 479.2 254 L 456 254 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="sexton-spade-layer" transform="translate(432 334) rotate(0) scale(1 1) translate(-432 -334)">
+<defs>
+<path id="sexton-spade-shaft-shape" d="M 544.6 609 L 619.6 338.7 L 600.4 333.3 L 523.4 603 Z"/>
+<clipPath id="sexton-spade-shaft-clip"><use href="#sexton-spade-shaft-shape"/></clipPath>
+<path id="sexton-spade-grip-shape" d="M 494 588 L 574 612 L 568 634 L 488 610 Z"/>
+<clipPath id="sexton-spade-grip-clip"><use href="#sexton-spade-grip-shape"/></clipPath>
+<path id="sexton-spade-blade-shape" d="M 554 338 L 550 318 L 564 224 L 624 122 L 676 236 L 670 322 L 664 346 L 626 336 L 592 328 Z"/>
+<clipPath id="sexton-spade-blade-clip"><use href="#sexton-spade-blade-shape"/></clipPath>
+<path id="sexton-spade-step-a-shape" d="M 548 330 L 588 322 L 590 334 L 552 344 Z"/>
+<clipPath id="sexton-spade-step-a-clip"><use href="#sexton-spade-step-a-shape"/></clipPath>
+<path id="sexton-spade-step-b-shape" d="M 628 330 L 670 318 L 668 332 L 630 342 Z"/>
+<clipPath id="sexton-spade-step-b-clip"><use href="#sexton-spade-step-b-shape"/></clipPath>
+<path id="sexton-spade-socket-shape" d="M 594 328 L 624 332 L 618 376 L 588 370 Z"/>
+<clipPath id="sexton-spade-socket-clip"><use href="#sexton-spade-socket-shape"/></clipPath>
+<path id="sexton-spade-arm-upper-shape" d="M 449.9 306.3 L 498.2 331.2 L 554.7 381.3 L 525.3 426.7 L 459.7 390.7 L 414.1 361.7 Z"/>
+<clipPath id="sexton-spade-arm-upper-clip"><use href="#sexton-spade-arm-upper-shape"/></clipPath>
+<path id="sexton-spade-arm-fore-shape" d="M 567.6 396.9 L 580.2 435.8 L 584.9 492.7 L 543.1 503.3 L 524.1 450.1 L 512.4 411.1 Z"/>
+<clipPath id="sexton-spade-arm-fore-clip"><use href="#sexton-spade-arm-fore-shape"/></clipPath>
+<path id="sexton-spade-arm-fist-shape" d="M 587.2 438.8 L 615.3 490.2 L 617.9 517.3 L 599.5 532.6 L 598.8 546.6 L 574 554 L 565.2 544.5 L 543.3 554.4 L 520.1 530.5 L 510.1 474.5 L 539 450.1 Z"/>
+<clipPath id="sexton-spade-arm-fist-clip"><use href="#sexton-spade-arm-fist-shape"/></clipPath>
+</defs>
+<g id="sexton-spade-shaft">
+<use id="sexton-spade-shaft-line" href="#sexton-spade-shaft-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-spade-shaft-clip)">
+<use id="sexton-spade-shaft-lit" href="#sexton-spade-shaft-shape" fill="#6f5c46"/>
+<path id="sexton-spade-shaft-mid" d="M 537.2 610 L 564.9 511.6 L 562.3 506.3 L 611 333.2 L 591.8 327.7 L 514.1 603.5 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="sexton-spade-shaft-dark" d="M 537.2 610 L 564.9 511.6 L 562.3 506.3 L 611 333.2 L 591.8 327.7 L 514.1 603.5 Z" fill="#14110f"/>
+<path id="sexton-spade-shaft-grain" d="M 543 579.4 L 556.8 525 L 540.2 578.6 Z M 573.4 471.4 L 588.7 411.6 L 570.6 470.6 Z M 594.7 395.8 L 603.9 357.6 L 591.8 395 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="sexton-spade-grip">
+<use id="sexton-spade-grip-line" href="#sexton-spade-grip-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-spade-grip-clip)">
+<use id="sexton-spade-grip-lit" href="#sexton-spade-grip-shape" fill="#6f5c46"/>
+<path id="sexton-spade-grip-mid" d="M 480 606 L 580 628 L 576 642 L 480 620 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="sexton-spade-grip-dark" d="M 480 606 L 580 628 L 576 642 L 480 620 Z" fill="#14110f"/>
+<path id="sexton-spade-grip-grain" d="M 503.6 599.4 L 556 614 L 504.4 596.6 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<path id="sexton-spade-grip-peg" d="M 528 610 L 532 606 L 536 610 L 532 614 Z" fill="#14110f"/>
+<g id="sexton-spade-blade">
+<use id="sexton-spade-blade-line" href="#sexton-spade-blade-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-spade-blade-clip)">
+<use id="sexton-spade-blade-lit" href="#sexton-spade-blade-shape" fill="#8c9194"/>
+<use id="sexton-spade-blade-rim" href="#sexton-spade-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="sexton-spade-blade-lit-over" href="#sexton-spade-blade-shape" transform="translate(-3.2 2.4)" fill="#8c9194"/>
+<path id="sexton-spade-blade-mid" d="M 520 106 L 604 106 L 613.1 129.8 L 615.7 225.4 L 601.8 241.4 L 604.9 356.2 L 520 366 Z" transform="translate(9 -2.16)" fill="#5b6165"/>
+<path id="sexton-spade-blade-dark" d="M 520 106 L 604 106 L 613.1 129.8 L 615.7 225.4 L 601.8 241.4 L 604.9 356.2 L 520 366 Z" fill="#14110f"/>
+<path id="sexton-spade-pits" d="M 632.5 277.3 L 648 292 L 635.5 274.7 Z M 642.4 227.2 L 654 240 L 645.6 224.8 Z M 626.6 207.4 L 640 218 L 629.4 204.6 Z M 648.6 307.4 L 660 316 L 651.4 304.6 Z M 620.6 253.4 L 632 262 L 623.4 250.6 Z" fill="#5b6165"/>
+<path id="sexton-spade-rust" d="M 614 302 L 650 296 L 662 328 L 624 336 Z" fill="#6a3b24"/>
+<path id="sexton-spade-earth" d="M 618 130 L 640 166 L 632 196 L 612 176 Z" fill="#5a5645"/>
+<path id="sexton-spade-chip" d="M 672 264 L 662 270 L 674 278 Z" fill="#14110f"/>
+<path id="sexton-spade-ridge" d="M 617.5 136 L 622 316 L 622.5 136 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="sexton-spade-step-a">
+<use id="sexton-spade-step-a-line" href="#sexton-spade-step-a-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-spade-step-a-clip)">
+<use id="sexton-spade-step-a-lit" href="#sexton-spade-step-a-shape" fill="#8c9194"/>
+<path id="sexton-spade-step-a-dark" d="M 536 318 L 562.7 317.3 L 566.6 330.4 L 562.9 335.4 L 566.9 348.7 L 536 348 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-spade-step-b">
+<use id="sexton-spade-step-b-line" href="#sexton-spade-step-b-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-spade-step-b-clip)">
+<use id="sexton-spade-step-b-lit" href="#sexton-spade-step-b-shape" fill="#8c9194"/>
+<use id="sexton-spade-step-b-rim" href="#sexton-spade-step-b-shape" fill="#f4d294" opacity="0.55"/>
+<use id="sexton-spade-step-b-lit-over" href="#sexton-spade-step-b-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+</g>
+</g>
+<g id="sexton-spade-socket">
+<use id="sexton-spade-socket-line" href="#sexton-spade-socket-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-spade-socket-clip)">
+<use id="sexton-spade-socket-lit" href="#sexton-spade-socket-shape" fill="#8c9194"/>
+<path id="sexton-spade-socket-mid" d="M 576 324 L 596.6 323.4 L 602.4 343.9 L 599.5 349.8 L 608.2 380.6 L 576 380 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="sexton-spade-socket-dark" d="M 576 324 L 596.6 323.4 L 602.4 343.9 L 599.5 349.8 L 608.2 380.6 L 576 380 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-spade-nail-a" d="M 602.5 342 L 606 338.5 L 609.5 342 L 606 345.5 Z" fill="#14110f"/>
+<path id="sexton-spade-nail-b" d="M 600.5 358 L 604 354.5 L 607.5 358 L 604 361.5 Z" fill="#14110f"/>
+<g id="sexton-spade-arm-upper">
+<use id="sexton-spade-arm-upper-line" href="#sexton-spade-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-spade-arm-upper-clip)">
+<use id="sexton-spade-arm-upper-lit" href="#sexton-spade-arm-upper-shape" fill="#4f4944"/>
+<path id="sexton-spade-arm-upper-mid" d="M 434.4 324.8 L 491.2 361.7 L 492.6 366.8 L 545.5 401.1 L 507.3 460 L 394.2 386.7 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="sexton-spade-arm-upper-dark" d="M 434.4 324.8 L 491.2 361.7 L 492.6 366.8 L 545.5 401.1 L 507.3 460 L 394.2 386.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sexton-spade-arm-fore">
+<use id="sexton-spade-arm-fore-line" href="#sexton-spade-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-spade-arm-fore-clip)">
+<use id="sexton-spade-arm-fore-lit" href="#sexton-spade-arm-fore-shape" fill="#4f4944"/>
+<path id="sexton-spade-arm-fore-mid" d="M 546.9 399.1 L 556.2 435.7 L 553.6 440.7 L 568.7 499.9 L 512.4 514.3 L 486.9 414.5 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="sexton-spade-arm-fore-dark" d="M 546.9 399.1 L 556.2 435.7 L 553.6 440.7 L 568.7 499.9 L 512.4 514.3 L 486.9 414.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-spade-arm-fold" d="M 522.1 430.2 L 549.6 396.8 L 509.9 413.8 Z" fill="#14110f"/>
+<g id="sexton-spade-arm-fist">
+<use id="sexton-spade-arm-fist-line" href="#sexton-spade-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sexton-spade-arm-fist-clip)">
+<use id="sexton-spade-arm-fist-lit" href="#sexton-spade-arm-fist-shape" fill="#9aa48c"/>
+<path id="sexton-spade-arm-fist-mid" d="M 531.1 431.8 L 560.9 573.4 L 511.9 585.9 L 476.1 445.9 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="sexton-spade-arm-fist-dark" d="M 531.1 431.8 L 560.9 573.4 L 511.9 585.9 L 476.1 445.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sexton-spade-arm-fist-fingers" d="M 603.2 532.9 L 584.6 503.4 L 592.7 537.3 Z M 574.2 544.2 L 559.1 512 L 563.3 547.3 Z" fill="#14110f"/>
+<path id="sexton-spade-hand-cracks" d="M 547.1 480.9 L 562 494 L 548.9 479.1 Z M 570.9 476.6 L 580 490 L 573.1 475.4 Z M 555.5 507.2 L 572 512 L 556.5 504.8 Z" fill="#6b7562"/>
+</g>
+</svg>

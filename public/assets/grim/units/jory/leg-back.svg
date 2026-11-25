@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jory-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="jory-leg-back-thigh-shape" d="M 124.7 154.5 L 120.1 172.2 L 110.7 195.9 L 97.3 192.1 L 102.8 167.3 L 107.3 149.5 Z"/>
+<clipPath id="jory-leg-back-thigh-clip"><use href="#jory-leg-back-thigh-shape"/></clipPath>
+<path id="jory-leg-back-shin-shape" d="M 110.5 192.5 L 104.9 207.7 L 95.1 228 L 84.9 224 L 92 202.7 L 97.5 187.5 Z"/>
+<clipPath id="jory-leg-back-shin-clip"><use href="#jory-leg-back-shin-shape"/></clipPath>
+<path id="jory-leg-back-boot-shape" d="M 81 219 L 98 217 L 101.4 227 L 111.2 230 L 117.2 236 L 117.2 240 L 77.2 240 L 75.2 230 Z"/>
+<clipPath id="jory-leg-back-boot-clip"><use href="#jory-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="jory-leg-back-thigh">
+<use id="jory-leg-back-thigh-line" href="#jory-leg-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-leg-back-thigh-clip)">
+<use id="jory-leg-back-thigh-lit" href="#jory-leg-back-thigh-shape" fill="#6f5c46"/>
+<path id="jory-leg-back-thigh-mid" d="M 116.6 149.1 L 111.5 166.8 L 107.6 169.3 L 99.9 196 L 84.1 191.4 L 97.8 143.7 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-leg-back-thigh-dark" d="M 116.6 149.1 L 111.5 166.8 L 107.6 169.3 L 99.9 196 L 84.1 191.4 L 97.8 143.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-leg-back-shin">
+<use id="jory-leg-back-shin-line" href="#jory-leg-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-leg-back-shin-clip)">
+<use id="jory-leg-back-shin-lit" href="#jory-leg-back-shin-shape" fill="#6f5c46"/>
+<path id="jory-leg-back-shin-mid" d="M 105.1 187.2 L 96.5 209.2 L 92.8 211.1 L 86.3 227.8 L 74.6 223.2 L 90.7 181.6 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-leg-back-shin-dark" d="M 105.1 187.2 L 96.5 209.2 L 92.8 211.1 L 86.3 227.8 L 74.6 223.2 L 90.7 181.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-leg-back-boot">
+<use id="jory-leg-back-boot-line" href="#jory-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-leg-back-boot-clip)">
+<use id="jory-leg-back-boot-lit" href="#jory-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="jory-leg-back-boot-mid" d="M 69.2 214 L 92.4 214 L 93.7 226 L 102 232 L 121.2 235 L 121.2 244 L 69.2 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="jory-leg-back-boot-dark" d="M 69.2 214 L 92.4 214 L 93.7 226 L 102 232 L 121.2 235 L 121.2 244 L 69.2 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-leg-back-boot-sole" d="M 75.2 237 L 118.2 237 L 118.2 241.5 L 75.2 241.5 Z" fill="#14110f"/>
+<path id="jory-leg-back-boot-crease" d="M 100.5 225.8 L 92.4 231 L 101.6 228.2 Z" fill="#14110f"/>
+</svg>

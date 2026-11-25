@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="risen-arm-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="risen-arm-front-arm-upper-shape" d="M 151.7 123.9 L 162.4 132.5 L 175 146.7 L 169 153.3 L 154.4 141.2 L 144.3 132.1 Z"/>
+<clipPath id="risen-arm-front-arm-upper-clip"><use href="#risen-arm-front-arm-upper-shape"/></clipPath>
+<path id="risen-arm-front-arm-fore-shape" d="M 170.6 145.5 L 181.4 141.7 L 196.9 138.6 L 199.1 145.4 L 184.2 150.9 L 173.4 154.5 Z"/>
+<clipPath id="risen-arm-front-arm-fore-clip"><use href="#risen-arm-front-arm-fore-shape"/></clipPath>
+<path id="risen-arm-front-arm-fist-shape" d="M 188 138.6 L 196.3 133.5 L 200.8 132.9 L 203.5 135.8 L 205.8 135.8 L 207.2 139.9 L 205.7 141.4 L 207.6 145 L 203.8 149 L 194.5 151.2 L 190.2 146.6 Z"/>
+<clipPath id="risen-arm-front-arm-fist-clip"><use href="#risen-arm-front-arm-fist-shape"/></clipPath>
+</defs>
+<g id="risen-arm-front-arm-upper">
+<use id="risen-arm-front-arm-upper-line" href="#risen-arm-front-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-arm-front-arm-upper-clip)">
+<use id="risen-arm-front-arm-upper-lit" href="#risen-arm-front-arm-upper-shape" fill="#9aa48c"/>
+<path id="risen-arm-front-arm-upper-mid" d="M 147.3 124.3 L 161.6 137.4 L 161.9 140.6 L 174.3 151.9 L 166.9 160 L 138.5 133.9 Z" transform="translate(2.5 -0.6)" fill="#6b7562"/>
+<path id="risen-arm-front-arm-upper-dark" d="M 147.3 124.3 L 161.6 137.4 L 161.9 140.6 L 174.3 151.9 L 166.9 160 L 138.5 133.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="risen-arm-front-arm-fore">
+<use id="risen-arm-front-arm-fore-line" href="#risen-arm-front-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-arm-front-arm-fore-clip)">
+<use id="risen-arm-front-arm-fore-lit" href="#risen-arm-front-arm-fore-shape" fill="#9aa48c"/>
+<path id="risen-arm-front-arm-fore-mid" d="M 168.6 149 L 180.2 145.4 L 182.7 146.6 L 200.9 141.1 L 203.5 149.7 L 171.8 159.5 Z" transform="translate(2.5 -0.6)" fill="#6b7562"/>
+<path id="risen-arm-front-arm-fore-dark" d="M 168.6 149 L 180.2 145.4 L 182.7 146.6 L 200.9 141.1 L 203.5 149.7 L 171.8 159.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="risen-arm-front-arm-fold" d="M 169 154.4 L 173.6 148.8 L 167 151.6 Z" fill="#14110f"/>
+<g id="risen-arm-front-arm-fist">
+<use id="risen-arm-front-arm-fist-line" href="#risen-arm-front-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#risen-arm-front-arm-fist-clip)">
+<use id="risen-arm-front-arm-fist-lit" href="#risen-arm-front-arm-fist-shape" fill="#9aa48c"/>
+<path id="risen-arm-front-arm-fist-mid" d="M 187.3 148 L 210.6 141.9 L 213 150 L 190 157 Z" transform="translate(2 -0.48)" fill="#6b7562"/>
+<path id="risen-arm-front-arm-fist-dark" d="M 187.3 148 L 210.6 141.9 L 213 150 L 190 157 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="risen-arm-front-arm-fist-fingers" d="M 203.5 135.2 L 198.7 138.5 L 204.3 136.9 Z M 205.6 139.9 L 200.4 142.7 L 206.2 141.7 Z" fill="#14110f"/>
+<path id="risen-arm-front-fingers" d="M 202.7 137.3 L 214 130 L 201.3 134.7 Z M 204.1 142.5 L 217 140 L 203.9 139.5 Z M 202.5 147.4 L 214 150 L 203.5 144.6 Z" fill="#9aa48c"/>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="agnes-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="agnes-body-smock-shape" d="M 112 104 L 152 104 L 160 132 L 154 164 L 162 200 L 120.1 203 L 123.1 199.5 L 123 202.8 L 131.2 202.2 L 132.9 200 L 132.7 202.1 L 139.1 201.6 L 142 198.1 L 141.8 201.4 L 106 204 L 110 164 L 106 134 Z"/>
+<clipPath id="agnes-body-smock-clip"><use href="#agnes-body-smock-shape"/></clipPath>
+<path id="agnes-body-apron-shape" d="M 132 118 L 156 116 L 160 190 L 138 196 Z"/>
+<clipPath id="agnes-body-apron-clip"><use href="#agnes-body-apron-shape"/></clipPath>
+<path id="agnes-body-belt-shape" d="M 107.7 146.5 L 157.7 142.5 L 158.3 149.5 L 108.3 153.5 Z"/>
+<clipPath id="agnes-body-belt-clip"><use href="#agnes-body-belt-shape"/></clipPath>
+<path id="agnes-body-belt-buckle-shape" d="M 127.8 142.8 L 138.3 143.3 L 137.7 153.3 L 128.3 152.7 Z"/>
+<clipPath id="agnes-body-belt-buckle-clip"><use href="#agnes-body-belt-buckle-shape"/></clipPath>
+<path id="agnes-body-can-shape" d="M 114 156 L 130 155 L 132 180 L 112 182 Z"/>
+<clipPath id="agnes-body-can-clip"><use href="#agnes-body-can-shape"/></clipPath>
+<path id="agnes-body-can-top-shape" d="M 112 157 L 120 147 L 126 147 L 132 156 Z"/>
+<clipPath id="agnes-body-can-top-clip"><use href="#agnes-body-can-top-shape"/></clipPath>
+</defs>
+<g id="agnes-body-smock">
+<use id="agnes-body-smock-line" href="#agnes-body-smock-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-smock-clip)">
+<use id="agnes-body-smock-lit" href="#agnes-body-smock-shape" fill="#4f4944"/>
+<path id="agnes-body-smock-mid" d="M 90 96 L 120 96 L 122.9 103.9 L 124.7 148.9 L 119 155.6 L 121.1 208.1 L 90 210 Z" transform="translate(7.84 -1.88)" fill="#34302d"/>
+<path id="agnes-body-smock-dark" d="M 90 96 L 120 96 L 122.9 103.9 L 124.7 148.9 L 119 155.6 L 121.1 208.1 L 90 210 Z" fill="#14110f"/>
+<path id="agnes-body-gathers" d="M 127 108 L 126 150 L 129 108 Z M 145 170.1 L 150 200 L 147 169.9 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="agnes-body-apron">
+<use id="agnes-body-apron-line" href="#agnes-body-apron-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-apron-clip)">
+<use id="agnes-body-apron-lit" href="#agnes-body-apron-shape" fill="#7b5b3d"/>
+<path id="agnes-body-apron-mid" d="M 120 112 L 134 111.7 L 141.3 164.6 L 138 169.4 L 142.4 200.3 L 120 200 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="agnes-body-apron-dark" d="M 120 112 L 134 111.7 L 141.3 164.6 L 138 169.4 L 142.4 200.3 L 120 200 Z" fill="#14110f"/>
+<path id="agnes-body-pocket" d="M 140 160 L 156 158 L 157 178 L 142 180 Z" fill="#553d29"/>
+<path id="agnes-body-pocket-stitch" d="M 141.3 158.5 L 142.2 161 L 142.4 158.4 Z M 145.3 158 L 146.2 160.5 L 146.4 157.9 Z M 149.3 157.5 L 150.2 160 L 150.4 157.4 Z M 153.3 157 L 154.2 159.5 L 154.4 156.9 Z" fill="#14110f"/>
+<path id="agnes-body-burn-a" d="M 146 132 L 150 130 L 151 136 L 147 137 Z" fill="#14110f"/>
+<path id="agnes-body-burn-b" d="M 149.3 186.7 L 154 190 L 150.7 185.3 Z" fill="#553d29"/>
+</g>
+<path id="agnes-body-apron-open-0" d="M 158 150 L 160.32 148.26 L 161.32 174.26 L 159 176 Z" fill="#7b5b3d"/>
+</g>
+<g id="agnes-body-belt">
+<use id="agnes-body-belt-line" href="#agnes-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-belt-clip)">
+<use id="agnes-body-belt-lit" href="#agnes-body-belt-shape" fill="#7b5b3d"/>
+<path id="agnes-body-belt-dark" d="M 104.9 148.7 L 139.6 145.9 L 140.9 146.9 L 161 145.3 L 161.5 151.8 L 105.5 156.2 Z" fill="#14110f"/>
+<path id="agnes-body-belt-stitch" d="M 113.4 148.3 L 114.2 150.8 L 114.6 148.2 Z M 119.7 147.8 L 120.5 150.3 L 120.9 147.7 Z M 126 147.3 L 126.8 149.8 L 127.2 147.2 Z M 132.3 146.8 L 133.1 149.3 L 133.5 146.7 Z M 138.6 146.3 L 139.4 148.8 L 139.8 146.2 Z M 144.9 145.8 L 145.7 148.3 L 146.1 145.7 Z M 151.2 145.3 L 152 147.7 L 152.4 145.2 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="agnes-body-belt-buckle">
+<use id="agnes-body-belt-buckle-line" href="#agnes-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-belt-buckle-clip)">
+<use id="agnes-body-belt-buckle-lit" href="#agnes-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="agnes-body-belt-buckle-dark" d="M 115.8 138.8 L 128.8 138.8 L 133 157.3 L 115.8 157.3 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-body-belt-pin" d="M 130.4 147.2 L 136.7 147.6 L 136.7 148.8 L 130.4 148.6 Z" fill="#14110f"/>
+<g id="agnes-body-can">
+<use id="agnes-body-can-line" href="#agnes-body-can-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-can-clip)">
+<use id="agnes-body-can-lit" href="#agnes-body-can-shape" fill="#8c9194"/>
+<use id="agnes-body-can-rim" href="#agnes-body-can-shape" fill="#f4d294" opacity="0.55"/>
+<use id="agnes-body-can-lit-over" href="#agnes-body-can-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="agnes-body-can-mid" d="M 100 151 L 117.1 150.6 L 122.5 171.9 L 120.3 176 L 122.9 186.4 L 100 186 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="agnes-body-can-dark" d="M 100 151 L 117.1 150.6 L 122.5 171.9 L 120.3 176 L 122.9 186.4 L 100 186 Z" fill="#14110f"/>
+<path id="agnes-body-can-band" d="M 113 172.7 L 132 171 L 113 171.3 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="agnes-body-can-top">
+<use id="agnes-body-can-top-line" href="#agnes-body-can-top-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-body-can-top-clip)">
+<use id="agnes-body-can-top-lit" href="#agnes-body-can-top-shape" fill="#8c9194"/>
+<path id="agnes-body-can-top-dark" d="M 100 143 L 118 143 L 122 161 L 100 161 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-body-spout" d="M 126 150 L 140 138 L 144 139" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="agnes-body-can-handle" d="M 114 160 L 107 166 L 113 176" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

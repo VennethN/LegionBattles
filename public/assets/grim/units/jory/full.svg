@@ -1,0 +1,452 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jory" width="416" height="416" viewBox="-80 -80 416 416">
+<g id="jory-shadow-layer" transform="translate(128 240) rotate(0) scale(1 1) translate(-128 -240)">
+<path id="jory-shadow-blot" d="M 68 241 L 84.2 234 L 114.4 232.6 L 153.8 234 L 184 238.8 L 174.7 245.4 L 137.6 247.4 L 91.2 246 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="jory-leg-back-layer" transform="translate(116 156) rotate(0) scale(1 1) translate(-116 -156)">
+<defs>
+<path id="jory-leg-back-thigh-shape" d="M 124.7 154.5 L 120.1 172.2 L 110.7 195.9 L 97.3 192.1 L 102.8 167.3 L 107.3 149.5 Z"/>
+<clipPath id="jory-leg-back-thigh-clip"><use href="#jory-leg-back-thigh-shape"/></clipPath>
+<path id="jory-leg-back-shin-shape" d="M 110.5 192.5 L 104.9 207.7 L 95.1 228 L 84.9 224 L 92 202.7 L 97.5 187.5 Z"/>
+<clipPath id="jory-leg-back-shin-clip"><use href="#jory-leg-back-shin-shape"/></clipPath>
+<path id="jory-leg-back-boot-shape" d="M 81 219 L 98 217 L 101.4 227 L 111.2 230 L 117.2 236 L 117.2 240 L 77.2 240 L 75.2 230 Z"/>
+<clipPath id="jory-leg-back-boot-clip"><use href="#jory-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="jory-leg-back-thigh">
+<use id="jory-leg-back-thigh-line" href="#jory-leg-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-leg-back-thigh-clip)">
+<use id="jory-leg-back-thigh-lit" href="#jory-leg-back-thigh-shape" fill="#6f5c46"/>
+<path id="jory-leg-back-thigh-mid" d="M 116.6 149.1 L 111.5 166.8 L 107.6 169.3 L 99.9 196 L 84.1 191.4 L 97.8 143.7 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-leg-back-thigh-dark" d="M 116.6 149.1 L 111.5 166.8 L 107.6 169.3 L 99.9 196 L 84.1 191.4 L 97.8 143.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-leg-back-shin">
+<use id="jory-leg-back-shin-line" href="#jory-leg-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-leg-back-shin-clip)">
+<use id="jory-leg-back-shin-lit" href="#jory-leg-back-shin-shape" fill="#6f5c46"/>
+<path id="jory-leg-back-shin-mid" d="M 105.1 187.2 L 96.5 209.2 L 92.8 211.1 L 86.3 227.8 L 74.6 223.2 L 90.7 181.6 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-leg-back-shin-dark" d="M 105.1 187.2 L 96.5 209.2 L 92.8 211.1 L 86.3 227.8 L 74.6 223.2 L 90.7 181.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-leg-back-boot">
+<use id="jory-leg-back-boot-line" href="#jory-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-leg-back-boot-clip)">
+<use id="jory-leg-back-boot-lit" href="#jory-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="jory-leg-back-boot-mid" d="M 69.2 214 L 92.4 214 L 93.7 226 L 102 232 L 121.2 235 L 121.2 244 L 69.2 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="jory-leg-back-boot-dark" d="M 69.2 214 L 92.4 214 L 93.7 226 L 102 232 L 121.2 235 L 121.2 244 L 69.2 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-leg-back-boot-sole" d="M 75.2 237 L 118.2 237 L 118.2 241.5 L 75.2 241.5 Z" fill="#14110f"/>
+<path id="jory-leg-back-boot-crease" d="M 100.5 225.8 L 92.4 231 L 101.6 228.2 Z" fill="#14110f"/>
+</g>
+<g id="jory-pack-layer" transform="translate(96 124) rotate(0) scale(1 1) translate(-96 -124)">
+<defs>
+<path id="jory-pack-frame-shape" d="M 88.5 95.8 L 94.5 167.8 L 89.5 168.2 L 83.5 96.2 Z"/>
+<clipPath id="jory-pack-frame-clip"><use href="#jory-pack-frame-shape"/></clipPath>
+<path id="jory-pack-bag-shape" d="M 84 108 L 116 104 L 120 150 L 112 160 L 88 162 L 80 150 Z"/>
+<clipPath id="jory-pack-bag-clip"><use href="#jory-pack-bag-shape"/></clipPath>
+<path id="jory-pack-pack-strap-shape" d="M 106.5 103.9 L 108.5 157.9 L 103.5 158.1 L 101.5 104.1 Z"/>
+<clipPath id="jory-pack-pack-strap-clip"><use href="#jory-pack-pack-strap-shape"/></clipPath>
+<path id="jory-pack-pack-strap-buckle-shape" d="M 101.1 122.9 L 108.6 123.3 L 108.2 130.4 L 101.5 130.1 Z"/>
+<clipPath id="jory-pack-pack-strap-buckle-clip"><use href="#jory-pack-pack-strap-buckle-shape"/></clipPath>
+<path id="jory-pack-roll-shape" d="M 80 94 L 86 88 L 116 86 L 122 92 L 120 104 L 82 106 Z"/>
+<clipPath id="jory-pack-roll-clip"><use href="#jory-pack-roll-shape"/></clipPath>
+<path id="jory-pack-rag-shape" d="M 84 150 L 92 152 L 90 172 L 84 166 L 80 176 Z"/>
+<clipPath id="jory-pack-rag-clip"><use href="#jory-pack-rag-shape"/></clipPath>
+</defs>
+<g id="jory-pack-frame">
+<use id="jory-pack-frame-line" href="#jory-pack-frame-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-frame-clip)">
+<use id="jory-pack-frame-lit" href="#jory-pack-frame-shape" fill="#6f5c46"/>
+<path id="jory-pack-frame-dark" d="M 71.5 91.8 L 87.2 91.8 L 89.3 126.1 L 88.1 127.5 L 90.8 172.2 L 71.5 172.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-pack-bag">
+<use id="jory-pack-bag-line" href="#jory-pack-bag-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-bag-clip)">
+<use id="jory-pack-bag-lit" href="#jory-pack-bag-shape" fill="#7b5b3d"/>
+<path id="jory-pack-bag-mid" d="M 68 100 L 93.5 99.4 L 99.8 122.9 L 96.5 129.3 L 106.5 166.6 L 68 166 Z" transform="translate(5.6 -1.34)" fill="#553d29"/>
+<path id="jory-pack-bag-dark" d="M 68 100 L 93.5 99.4 L 99.8 122.9 L 96.5 129.3 L 106.5 166.6 L 68 166 Z" fill="#14110f"/>
+<path id="jory-pack-flap" d="M 82 106 L 118 102 L 118 126 L 100 132 L 82 126 Z" fill="#553d29"/>
+<path id="jory-pack-flap-stitch" d="M 85.9 125.3 L 85.5 128 L 87 125.7 Z M 89.9 126.8 L 89.5 129.5 L 91 127.2 Z M 93.9 128.3 L 93.5 131 L 95 128.7 Z M 97.9 129.8 L 97.5 132.5 L 99 130.2 Z" fill="#14110f"/>
+<path id="jory-pack-bag-cold" d="M 40 64 L 160 64 L 160 202 L 40 202 Z M 86.3 106.3 L 118.3 102.3 L 122.3 148.3 L 114.3 158.3 L 90.3 160.3 L 82.3 148.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="jory-pack-pack-strap">
+<use id="jory-pack-pack-strap-line" href="#jory-pack-pack-strap-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-pack-strap-clip)">
+<use id="jory-pack-pack-strap-lit" href="#jory-pack-pack-strap-shape" fill="#4f4944"/>
+<path id="jory-pack-pack-strap-dark" d="M 105 101 L 106.1 129.1 L 105.2 130.1 L 106.4 161 L 101.8 161.2 L 99.6 101.2 Z" fill="#14110f"/>
+<path id="jory-pack-pack-strap-stitch" d="M 105.1 109.6 L 103.3 110.2 L 105.2 110.8 Z M 105.3 115.5 L 103.6 116.2 L 105.4 116.7 Z M 105.5 121.5 L 103.8 122.1 L 105.6 122.7 Z M 105.8 127.4 L 104 128.1 L 105.8 128.6 Z M 106 133.3 L 104.2 134 L 106 134.5 Z M 106.2 139.3 L 104.4 139.9 L 106.3 140.5 Z M 106.4 145.2 L 104.7 145.9 L 106.5 146.4 Z M 106.6 151.2 L 104.9 151.8 L 106.7 152.4 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="jory-pack-pack-strap-buckle">
+<use id="jory-pack-pack-strap-buckle-line" href="#jory-pack-pack-strap-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-pack-strap-buckle-clip)">
+<use id="jory-pack-pack-strap-buckle-lit" href="#jory-pack-pack-strap-buckle-shape" fill="#8c9194"/>
+<path id="jory-pack-pack-strap-buckle-dark" d="M 89.1 118.9 L 101.8 118.9 L 104.8 134.4 L 89.1 134.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-pack-pack-strap-pin" d="M 103 125.9 L 107.5 126.3 L 107.5 127.5 L 103 127.3 Z" fill="#14110f"/>
+<g id="jory-pack-roll">
+<use id="jory-pack-roll-line" href="#jory-pack-roll-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-roll-clip)">
+<use id="jory-pack-roll-lit" href="#jory-pack-roll-shape" fill="#c7ad84"/>
+<path id="jory-pack-roll-mid" d="M 68 82 L 96.9 81.4 L 99.7 91 L 96.6 95.5 L 100.9 110.6 L 68 110 Z" transform="translate(3 -0.72)" fill="#927a58"/>
+<path id="jory-pack-roll-dark" d="M 68 82 L 96.9 81.4 L 99.7 91 L 96.6 95.5 L 100.9 110.6 L 68 110 Z" fill="#14110f"/>
+<path id="jory-pack-roll-turns" d="M 93.2 87.9 L 92 104 L 94.8 88.1 Z M 107.2 87 L 108 103 L 108.8 87 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="jory-pack-rag">
+<use id="jory-pack-rag-line" href="#jory-pack-rag-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-pack-rag-clip)">
+<use id="jory-pack-rag-lit" href="#jory-pack-rag-shape" fill="#7d312b"/>
+<path id="jory-pack-rag-dark" d="M 68 146 L 83.7 145.9 L 86.8 166 L 85.3 168.3 L 87.1 180.1 L 68 180 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="jory-traps-layer" transform="translate(100 160) rotate(0) scale(1 1) translate(-100 -160)">
+<defs>
+<path id="jory-traps-trap-a-jaws-shape" d="M 75.5 182.5 L 81.5 179.5 L 84.5 188.5 L 89 179.5 L 92 188.5 L 96.5 179.5 L 99.5 188.5 L 104 179.5 L 108.5 182.5 L 111.5 196 L 104 206.5 L 80 206.5 L 72.5 196 Z"/>
+<clipPath id="jory-traps-trap-a-jaws-clip"><use href="#jory-traps-trap-a-jaws-shape"/></clipPath>
+<path id="jory-traps-trap-a-pan-shape" d="M 86 193 L 98 193 L 96.5 202 L 87.5 202 Z"/>
+<path id="jory-traps-trap-b-jaws-shape" d="M 98.3 180.8 L 103.3 178.3 L 105.8 185.8 L 109.5 178.3 L 112 185.8 L 115.8 178.3 L 118.3 185.8 L 122 178.3 L 125.8 180.8 L 128.3 192 L 122 200.8 L 102 200.8 L 95.8 192 Z"/>
+<clipPath id="jory-traps-trap-b-jaws-clip"><use href="#jory-traps-trap-b-jaws-shape"/></clipPath>
+<path id="jory-traps-trap-b-pan-shape" d="M 107 189.5 L 117 189.5 L 115.8 197 L 108.3 197 Z"/>
+</defs>
+<path id="jory-traps-trap-a-chain" d="M 92 160 L 92 179.5" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="jory-traps-trap-a-chain-links" d="M 89.1 160.9 L 93.6 164.9 L 91.7 159.1 Z M 92.3 164 L 90.4 169.8 L 94.9 165.8 Z M 89.1 170.6 L 93.6 174.6 L 91.7 168.9 Z M 92.3 173.7 L 90.4 179.5 L 94.9 175.5 Z" fill="#14110f"/>
+<g id="jory-traps-trap-a-jaws">
+<use id="jory-traps-trap-a-jaws-line" href="#jory-traps-trap-a-jaws-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-traps-trap-a-jaws-clip)">
+<use id="jory-traps-trap-a-jaws-lit" href="#jory-traps-trap-a-jaws-shape" fill="#8c9194"/>
+<path id="jory-traps-trap-a-jaws-mid" d="M 60.5 175.5 L 85.3 174.7 L 91.3 194 L 87.3 199.9 L 90.9 211.3 L 60.5 210.5 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="jory-traps-trap-a-jaws-dark" d="M 60.5 175.5 L 85.3 174.7 L 91.3 194 L 87.3 199.9 L 90.9 211.3 L 60.5 210.5 Z" fill="#14110f"/>
+<path id="jory-traps-trap-a-rust" d="M 98 196 L 110 193 L 107 206.5 L 96.5 206.5 Z" fill="#6a3b24"/>
+</g>
+</g>
+<g id="jory-traps-trap-a-pan">
+<use id="jory-traps-trap-a-pan-line" href="#jory-traps-trap-a-pan-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-traps-trap-a-pan-lit" href="#jory-traps-trap-a-pan-shape" fill="#9a5b38"/>
+</g>
+<path id="jory-traps-trap-a-spring" d="M 69.5 205 L 114.5 205 L 111.5 211 L 72.5 211 Z" fill="#14110f"/>
+<path id="jory-traps-trap-b-chain" d="M 112 162 L 112 178.3" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="jory-traps-trap-b-chain-links" d="M 109.1 163 L 113.6 166.1 L 111.7 161 Z M 112.3 165.1 L 110.4 170.1 L 114.9 167.1 Z M 109.1 171.1 L 113.6 174.2 L 111.7 169.1 Z M 112.3 173.2 L 110.4 178.3 L 114.9 175.2 Z" fill="#14110f"/>
+<g id="jory-traps-trap-b-jaws">
+<use id="jory-traps-trap-b-jaws-line" href="#jory-traps-trap-b-jaws-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-traps-trap-b-jaws-clip)">
+<use id="jory-traps-trap-b-jaws-lit" href="#jory-traps-trap-b-jaws-shape" fill="#8c9194"/>
+<path id="jory-traps-trap-b-jaws-mid" d="M 83.8 174.3 L 106.5 173.6 L 110.5 187.4 L 107.2 192.4 L 111 205.4 L 83.8 204.8 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="jory-traps-trap-b-jaws-dark" d="M 83.8 174.3 L 106.5 173.6 L 110.5 187.4 L 107.2 192.4 L 111 205.4 L 83.8 204.8 Z" fill="#14110f"/>
+<path id="jory-traps-trap-b-rust" d="M 117 192 L 127 189.5 L 124.5 200.8 L 115.8 200.8 Z" fill="#6a3b24"/>
+</g>
+</g>
+<g id="jory-traps-trap-b-pan">
+<use id="jory-traps-trap-b-pan-line" href="#jory-traps-trap-b-pan-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-traps-trap-b-pan-lit" href="#jory-traps-trap-b-pan-shape" fill="#9a5b38"/>
+</g>
+<path id="jory-traps-trap-b-spring" d="M 93.3 199.5 L 130.8 199.5 L 128.3 204.5 L 95.8 204.5 Z" fill="#14110f"/>
+</g>
+<g id="jory-leg-front-layer" transform="translate(130 156) rotate(0) scale(1 1) translate(-130 -156)">
+<defs>
+<path id="jory-leg-front-thigh-shape" d="M 138.5 147.8 L 147.3 164.3 L 156.7 188.6 L 143.3 195.4 L 130.4 172.8 L 121.5 156.2 Z"/>
+<clipPath id="jory-leg-front-thigh-clip"><use href="#jory-leg-front-thigh-shape"/></clipPath>
+<path id="jory-leg-front-shin-shape" d="M 157.4 189.2 L 155.1 205.2 L 149.9 226.9 L 138.1 225.1 L 140.5 202.9 L 142.6 186.8 Z"/>
+<clipPath id="jory-leg-front-shin-clip"><use href="#jory-leg-front-shin-shape"/></clipPath>
+<path id="jory-leg-front-boot-shape" d="M 134.5 219 L 152.5 217 L 159.8 227 L 170.4 230 L 176.4 236 L 176.4 240 L 134.4 240 L 132.4 230 Z"/>
+<clipPath id="jory-leg-front-boot-clip"><use href="#jory-leg-front-boot-shape"/></clipPath>
+</defs>
+<g id="jory-leg-front-thigh">
+<use id="jory-leg-front-thigh-line" href="#jory-leg-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-leg-front-thigh-clip)">
+<use id="jory-leg-front-thigh-lit" href="#jory-leg-front-thigh-shape" fill="#6f5c46"/>
+<path id="jory-leg-front-thigh-mid" d="M 132.5 147.4 L 143.2 168.9 L 141.9 173.6 L 152.3 194.2 L 136.7 202 L 114 156.6 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-leg-front-thigh-dark" d="M 132.5 147.4 L 143.2 168.9 L 141.9 173.6 L 152.3 194.2 L 136.7 202 L 114 156.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-leg-front-shin">
+<use id="jory-leg-front-shin-line" href="#jory-leg-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-leg-front-shin-clip)">
+<use id="jory-leg-front-shin-lit" href="#jory-leg-front-shin-shape" fill="#6f5c46"/>
+<path id="jory-leg-front-shin-mid" d="M 153.9 185.6 L 151.5 201.2 L 148.2 203.8 L 144.2 229.1 L 130.8 227 L 137.7 183 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-leg-front-shin-dark" d="M 153.9 185.6 L 151.5 201.2 L 148.2 203.8 L 144.2 229.1 L 130.8 227 L 137.7 183 Z" fill="#14110f"/>
+<path id="jory-leg-front-wraps" d="M 155.8 195.4 L 142.9 201 L 156.3 196.9 Z M 154.8 200.6 L 141.9 206.2 L 155.3 202.1 Z M 153.8 205.8 L 140.9 211.4 L 154.3 207.3 Z M 152.8 211 L 139.9 216.6 L 153.3 212.5 Z M 151.8 216.2 L 138.9 221.8 L 152.3 217.7 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="jory-leg-front-boot">
+<use id="jory-leg-front-boot-line" href="#jory-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-leg-front-boot-clip)">
+<use id="jory-leg-front-boot-lit" href="#jory-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="jory-leg-front-boot-mid" d="M 126.4 214 L 150.3 214 L 151.7 226 L 160.5 232 L 180.4 235 L 180.4 244 L 126.4 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="jory-leg-front-boot-dark" d="M 126.4 214 L 150.3 214 L 151.7 226 L 160.5 232 L 180.4 235 L 180.4 244 L 126.4 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-leg-front-boot-sole" d="M 132.4 237 L 177.4 237 L 177.4 241.5 L 132.4 241.5 Z" fill="#14110f"/>
+<path id="jory-leg-front-boot-crease" d="M 159 225.8 L 150.3 231 L 160 228.2 Z" fill="#14110f"/>
+</g>
+<g id="jory-body-layer" transform="translate(124 156) rotate(0) scale(1 1) translate(-124 -156)">
+<defs>
+<path id="jory-body-coat-shape" d="M 122 104 L 154 104 L 164 128 L 156 160 L 164 200 L 112.5 205.5 L 115.5 201.4 L 115.1 205.2 L 121.8 204.5 L 125.5 198.7 L 124.5 204.2 L 132.7 203.3 L 135 200.5 L 135 203.1 L 142.1 202.4 L 144.7 198.6 L 144.3 202.1 L 151.8 201.3 L 155.3 195 L 153.7 201.1 L 160.6 200.4 L 162.9 196.5 L 162.1 200.2 L 108 206 L 114 160 L 110 128 Z"/>
+<clipPath id="jory-body-coat-clip"><use href="#jory-body-coat-shape"/></clipPath>
+<path id="jory-body-frog-0-shape" d="M 140 112 L 158 111 L 159 116 L 140 117 Z"/>
+<path id="jory-body-frog-1-shape" d="M 140 124 L 160 123 L 161 128 L 140 129 Z"/>
+<path id="jory-body-frog-2-shape" d="M 140 136 L 162 135 L 163 140 L 140 141 Z"/>
+<path id="jory-body-belt-shape" d="M 111.8 146 L 159.8 143 L 160.2 151 L 112.2 154 Z"/>
+<clipPath id="jory-body-belt-clip"><use href="#jory-body-belt-shape"/></clipPath>
+<path id="jory-body-belt-buckle-shape" d="M 132.4 142.4 L 144.4 143 L 143.8 154.4 L 133 153.8 Z"/>
+<clipPath id="jory-body-belt-buckle-clip"><use href="#jory-body-belt-buckle-shape"/></clipPath>
+<path id="jory-body-case-shape" d="M 140 152 L 152 151 L 156 184 L 144 186 Z"/>
+<clipPath id="jory-body-case-clip"><use href="#jory-body-case-shape"/></clipPath>
+<path id="jory-body-flask-shape" d="M 124 156 L 132 156 L 134 162 L 136 176 L 122 176 L 123 162 Z"/>
+<clipPath id="jory-body-flask-clip"><use href="#jory-body-flask-shape"/></clipPath>
+<path id="jory-body-cork-shape" d="M 125.5 151 L 130.5 151 L 131 156 L 125 156 Z"/>
+</defs>
+<g id="jory-body-coat">
+<use id="jory-body-coat-line" href="#jory-body-coat-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-body-coat-clip)">
+<use id="jory-body-coat-lit" href="#jory-body-coat-shape" fill="#727646"/>
+<path id="jory-body-coat-mid" d="M 94 96 L 126 96 L 128.5 104 L 129.3 150.7 L 124.5 156.2 L 125.5 210 L 94 212 Z" transform="translate(7.84 -1.88)" fill="#4b4f2f"/>
+<path id="jory-body-coat-dark" d="M 94 96 L 126 96 L 128.5 104 L 129.3 150.7 L 124.5 156.2 L 125.5 210 L 94 212 Z" fill="#14110f"/>
+<path id="jory-body-seam" d="M 149.1 108 L 150 200 L 150.9 108 Z" fill="#4b4f2f"/>
+<path id="jory-body-folds" d="M 156.9 164.1 L 162 198 L 159.1 163.9 Z M 138.9 165.9 L 138 202 L 141.1 166.1 Z" fill="#4b4f2f"/>
+<path id="jory-body-patch" d="M 136 172 L 150 170 L 152 188 L 138 190 Z" fill="#4b4f2f"/>
+<path id="jory-body-patch-thread" d="M 137.6 170.3 L 138.5 173.2 L 138.7 170.1 Z M 142.2 169.6 L 143.2 172.5 L 143.3 169.4 Z M 146.9 168.9 L 147.9 171.8 L 148 168.8 Z M 139.6 188.3 L 140.5 191.2 L 140.7 188.1 Z M 144.2 187.6 L 145.2 190.5 L 145.3 187.4 Z M 148.9 186.9 L 149.9 189.8 L 150 186.8 Z" fill="#14110f"/>
+</g>
+<path id="jory-body-coat-open-0" d="M 162 130 L 164.32 128.26 L 159.32 154.26 L 157 156 Z" fill="#727646"/>
+</g>
+<g id="jory-body-frog-0">
+<use id="jory-body-frog-0-line" href="#jory-body-frog-0-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.9" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-body-frog-0-lit" href="#jory-body-frog-0-shape" fill="#7d312b"/>
+</g>
+<path id="jory-body-toggle-0" d="M 144.2 114.4 L 146 112.6 L 147.8 114.4 L 146 116.2 Z" fill="#14110f"/>
+<g id="jory-body-frog-1">
+<use id="jory-body-frog-1-line" href="#jory-body-frog-1-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.9" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-body-frog-1-lit" href="#jory-body-frog-1-shape" fill="#7d312b"/>
+</g>
+<path id="jory-body-toggle-1" d="M 144.2 126.4 L 146 124.6 L 147.8 126.4 L 146 128.2 Z" fill="#14110f"/>
+<g id="jory-body-frog-2">
+<use id="jory-body-frog-2-line" href="#jory-body-frog-2-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.9" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-body-frog-2-lit" href="#jory-body-frog-2-shape" fill="#7d312b"/>
+</g>
+<path id="jory-body-toggle-2" d="M 144.2 138.4 L 146 136.6 L 147.8 138.4 L 146 140.2 Z" fill="#14110f"/>
+<g id="jory-body-belt">
+<use id="jory-body-belt-line" href="#jory-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-body-belt-clip)">
+<use id="jory-body-belt-lit" href="#jory-body-belt-shape" fill="#7b5b3d"/>
+<path id="jory-body-belt-dark" d="M 108.9 148.4 L 142.4 146.4 L 143.8 147.5 L 163 146.3 L 163.4 153.7 L 109.4 157.1 Z" fill="#14110f"/>
+<path id="jory-body-belt-stitch" d="M 117.2 148.2 L 118 151.1 L 118.4 148.2 Z M 123.2 147.9 L 124 150.7 L 124.4 147.8 Z M 129.3 147.5 L 130.1 150.3 L 130.5 147.4 Z M 135.3 147.1 L 136.1 149.9 L 136.5 147 Z M 141.3 146.7 L 142.1 149.6 L 142.5 146.6 Z M 147.4 146.3 L 148.2 149.2 L 148.6 146.3 Z M 153.4 146 L 154.2 148.8 L 154.6 145.9 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="jory-body-belt-buckle">
+<use id="jory-body-belt-buckle-line" href="#jory-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-body-belt-buckle-clip)">
+<use id="jory-body-belt-buckle-lit" href="#jory-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="jory-body-belt-buckle-dark" d="M 120.4 138.4 L 133.6 138.4 L 138.4 158.4 L 120.4 158.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-body-belt-pin" d="M 135.4 147.5 L 142.6 148 L 142.6 149.2 L 135.4 149 Z" fill="#14110f"/>
+<g id="jory-body-case">
+<use id="jory-body-case-line" href="#jory-body-case-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-body-case-clip)">
+<use id="jory-body-case-lit" href="#jory-body-case-shape" fill="#7b5b3d"/>
+<path id="jory-body-case-mid" d="M 128 147 L 144 146.8 L 146.9 164.8 L 145.1 167.6 L 148.8 190.2 L 128 190 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="jory-body-case-dark" d="M 128 147 L 144 146.8 L 146.9 164.8 L 145.1 167.6 L 148.8 190.2 L 128 190 Z" fill="#14110f"/>
+<path id="jory-body-case-stitch" d="M 143.2 178.5 L 144.2 180.9 L 144.3 178.3 Z M 147.2 177.8 L 148.2 180.3 L 148.3 177.6 Z M 151.2 177.1 L 152.2 179.6 L 152.3 177 Z" fill="#553d29"/>
+</g>
+</g>
+<path id="jory-body-bolts" d="M 144.2 151.8 L 141 142 L 141.8 152.2 Z M 148.2 151.9 L 146 140 L 145.8 152.1 Z M 152.2 151.1 L 152 141 L 149.8 150.9 Z" fill="#14110f"/>
+<g id="jory-body-flask">
+<use id="jory-body-flask-line" href="#jory-body-flask-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-body-flask-clip)">
+<use id="jory-body-flask-lit" href="#jory-body-flask-shape" fill="#4f4944"/>
+<path id="jory-body-flask-dark" d="M 110 152 L 125.5 151.8 L 129 167.6 L 127.5 170.3 L 129.7 180.2 L 110 180 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-body-cork">
+<use id="jory-body-cork-line" href="#jory-body-cork-shape" transform="translate(-0.69 0.52)" fill="#14110f" stroke="#14110f" stroke-width="2.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-body-cork-lit" href="#jory-body-cork-shape" fill="#c7ad84"/>
+</g>
+</g>
+<g id="jory-crossbow-layer" transform="translate(142 114) rotate(0) scale(1 1) translate(-142 -114)">
+<defs>
+<path id="jory-crossbow-arm-back-upper-shape" d="M 140.5 106.4 L 153.8 115.6 L 169.7 131.4 L 162.3 140.6 L 144.2 127.6 L 131.5 117.6 Z"/>
+<clipPath id="jory-crossbow-arm-back-upper-clip"><use href="#jory-crossbow-arm-back-upper-shape"/></clipPath>
+<path id="jory-crossbow-arm-back-fore-shape" d="M 163.6 130.3 L 177.7 123.9 L 198.2 117.7 L 201.8 126.3 L 182.5 135.5 L 168.4 141.7 Z"/>
+<clipPath id="jory-crossbow-arm-back-fore-clip"><use href="#jory-crossbow-arm-back-fore-shape"/></clipPath>
+<path id="jory-crossbow-arm-back-fist-shape" d="M 186.6 118.8 L 196.8 111.2 L 202.5 109.8 L 206.3 113.3 L 209.4 113.1 L 211.7 118.1 L 209.9 120.3 L 212.7 124.7 L 208.3 130.4 L 196.6 134.3 L 190.5 128.8 Z"/>
+<clipPath id="jory-crossbow-arm-back-fist-clip"><use href="#jory-crossbow-arm-back-fist-shape"/></clipPath>
+<path id="jory-crossbow-stock-shape" d="M 136 108 L 148 106 L 232 108 L 234 118 L 150 124 L 138 122 Z"/>
+<clipPath id="jory-crossbow-stock-clip"><use href="#jory-crossbow-stock-shape"/></clipPath>
+<path id="jory-crossbow-drum-shape" d="M 128 102 L 142 100 L 144 126 L 130 128 Z"/>
+<clipPath id="jory-crossbow-drum-clip"><use href="#jory-crossbow-drum-shape"/></clipPath>
+<path id="jory-crossbow-prod-shape" d="M 212 56 L 221 58 L 234 100 L 236 124 L 224 168 L 215 170 L 226 124 L 224 102 Z"/>
+<clipPath id="jory-crossbow-prod-clip"><use href="#jory-crossbow-prod-shape"/></clipPath>
+<path id="jory-crossbow-lashing-shape" d="M 220 102 L 234 100 L 236 124 L 222 126 Z"/>
+<clipPath id="jory-crossbow-lashing-clip"><use href="#jory-crossbow-lashing-shape"/></clipPath>
+<path id="jory-crossbow-bolt-shape" d="M 190 105 L 232 104.4 L 246 107.6 L 232 110 L 190 109.4 Z"/>
+<path id="jory-crossbow-stirrup-shape" d="M 234 102 L 246 100 L 248 122 L 236 122 L 237 117 L 242 117 L 241 106 L 235 107 Z"/>
+<path id="jory-crossbow-arm-front-upper-shape" d="M 157.6 111.7 L 162.2 122.2 L 164.2 138.1 L 151.8 141.9 L 145.8 127.2 L 142.4 116.3 Z"/>
+<clipPath id="jory-crossbow-arm-front-upper-clip"><use href="#jory-crossbow-arm-front-upper-shape"/></clipPath>
+<path id="jory-crossbow-arm-front-fore-shape" d="M 162.6 145.1 L 170.5 138.9 L 179.5 127.9 L 172.5 120.1 L 161.2 128.4 L 153.4 134.9 Z"/>
+<clipPath id="jory-crossbow-arm-front-fore-clip"><use href="#jory-crossbow-arm-front-fore-shape"/></clipPath>
+<path id="jory-crossbow-arm-front-fist-shape" d="M 160.7 125.6 L 168.6 113.9 L 174.2 110.3 L 179.5 112.5 L 182.6 111.1 L 186.9 115.6 L 185.9 118.6 L 190.4 122.2 L 187.8 129.8 L 176.9 138.2 L 168.5 134.7 Z"/>
+<clipPath id="jory-crossbow-arm-front-fist-clip"><use href="#jory-crossbow-arm-front-fist-shape"/></clipPath>
+</defs>
+<g id="jory-crossbow-arm-back-upper">
+<use id="jory-crossbow-arm-back-upper-line" href="#jory-crossbow-arm-back-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-arm-back-upper-clip)">
+<use id="jory-crossbow-arm-back-upper-lit" href="#jory-crossbow-arm-back-upper-shape" fill="#727646"/>
+<path id="jory-crossbow-arm-back-upper-mid" d="M 135.4 107.9 L 149.7 119.3 L 150.3 123.1 L 168.5 137.7 L 159.6 148.8 L 124.9 121.1 Z" transform="translate(2.5 -0.6)" fill="#4b4f2f"/>
+<path id="jory-crossbow-arm-back-upper-dark" d="M 135.4 107.9 L 149.7 119.3 L 150.3 123.1 L 168.5 137.7 L 159.6 148.8 L 124.9 121.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-crossbow-arm-back-fore">
+<use id="jory-crossbow-arm-back-fore-line" href="#jory-crossbow-arm-back-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-arm-back-fore-clip)">
+<use id="jory-crossbow-arm-back-fore-lit" href="#jory-crossbow-arm-back-fore-shape" fill="#727646"/>
+<path id="jory-crossbow-arm-back-fore-mid" d="M 162.3 134.9 L 183.4 126.2 L 186.5 127.3 L 202.7 120.7 L 207.2 131.7 L 167.7 148 Z" transform="translate(2.5 -0.6)" fill="#4b4f2f"/>
+<path id="jory-crossbow-arm-back-fore-dark" d="M 162.3 134.9 L 183.4 126.2 L 186.5 127.3 L 202.7 120.7 L 207.2 131.7 L 167.7 148 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-crossbow-arm-back-fold" d="M 162.1 141.7 L 168.1 134.4 L 159.5 138.1 Z" fill="#14110f"/>
+<g id="jory-crossbow-arm-back-fist">
+<use id="jory-crossbow-arm-back-fist-line" href="#jory-crossbow-arm-back-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-arm-back-fist-clip)">
+<use id="jory-crossbow-arm-back-fist-lit" href="#jory-crossbow-arm-back-fist-shape" fill="#7b5b3d"/>
+<path id="jory-crossbow-arm-back-fist-mid" d="M 186.8 131.1 L 216.3 120.4 L 220.4 130.5 L 191.5 142.4 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="jory-crossbow-arm-back-fist-dark" d="M 186.8 131.1 L 216.3 120.4 L 220.4 130.5 L 191.5 142.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-crossbow-arm-back-fist-fingers" d="M 206.3 112.5 L 200.5 117.4 L 207.6 114.6 Z M 209.6 118.4 L 203.2 122.6 L 210.6 120.7 Z" fill="#14110f"/>
+<g id="jory-crossbow-stock">
+<use id="jory-crossbow-stock-line" href="#jory-crossbow-stock-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-stock-clip)">
+<use id="jory-crossbow-stock-lit" href="#jory-crossbow-stock-shape" fill="#6f5c46"/>
+<path id="jory-crossbow-stock-mid" d="M 130 117 L 240 113 L 240 128 L 130 128 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="jory-crossbow-stock-dark" d="M 130 117 L 240 113 L 240 128 L 130 128 Z" fill="#14110f"/>
+<path id="jory-crossbow-grain" d="M 156 112.6 L 200 111 L 156 111.4 Z M 178 115.6 L 226 113 L 178 114.4 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="jory-crossbow-drum">
+<use id="jory-crossbow-drum-line" href="#jory-crossbow-drum-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-drum-clip)">
+<use id="jory-crossbow-drum-lit" href="#jory-crossbow-drum-shape" fill="#8c9194"/>
+<path id="jory-crossbow-drum-mid" d="M 116 96 L 132 95.8 L 134.8 110.1 L 133.1 112.9 L 136.8 132.2 L 116 132 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="jory-crossbow-drum-dark" d="M 116 96 L 132 95.8 L 134.8 110.1 L 133.1 112.9 L 136.8 132.2 L 116 132 Z" fill="#14110f"/>
+<path id="jory-crossbow-drum-bands" d="M 130.1 110.7 L 143 109 L 129.9 109.3 Z M 131.1 119.7 L 144 118 L 130.9 118.3 Z" fill="#5b6165"/>
+</g>
+</g>
+<path id="jory-crossbow-crank-up" d="M 134 102 L 130 88 L 122 88" fill="none" stroke="#14110f" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="jory-crossbow-crank-down" d="M 138 128 L 142 142 L 150 142" fill="none" stroke="#14110f" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="jory-crossbow-cords" d="M 142 104 L 190 106" fill="none" stroke="#14110f" stroke-width="1.3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="jory-crossbow-prod">
+<use id="jory-crossbow-prod-line" href="#jory-crossbow-prod-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-prod-clip)">
+<use id="jory-crossbow-prod-lit" href="#jory-crossbow-prod-shape" fill="#8c9194"/>
+<use id="jory-crossbow-prod-rim" href="#jory-crossbow-prod-shape" fill="#f4d294" opacity="0.55"/>
+<use id="jory-crossbow-prod-lit-over" href="#jory-crossbow-prod-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="jory-crossbow-prod-mid" d="M 206 50 L 217 54 L 228 102 L 230 124 L 219 172 L 206 174 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="jory-crossbow-prod-dark" d="M 206 50 L 217 54 L 228 102 L 230 124 L 219 172 L 206 174 Z" fill="#14110f"/>
+<path id="jory-crossbow-prod-pits" d="M 225.3 84.3 L 229 92 L 226.7 83.7 Z M 229.2 131.8 L 228 140 L 230.8 132.2 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="jory-crossbow-lashing">
+<use id="jory-crossbow-lashing-line" href="#jory-crossbow-lashing-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-lashing-clip)">
+<use id="jory-crossbow-lashing-lit" href="#jory-crossbow-lashing-shape" fill="#c7ad84"/>
+<path id="jory-crossbow-lashing-dark" d="M 208 96 L 224 95.8 L 228.1 115.8 L 226.4 118.7 L 228.8 130.2 L 208 130 Z" fill="#14110f"/>
+<path id="jory-crossbow-lash-turns" d="M 227.8 103 L 216 108.4 L 228.2 104.2 Z M 227.8 107 L 216 112.4 L 228.2 108.2 Z M 227.8 111 L 216 116.4 L 228.2 112.2 Z M 227.8 115 L 216 120.4 L 228.2 116.2 Z M 227.8 119 L 216 124.4 L 228.2 120.2 Z" fill="#927a58"/>
+</g>
+</g>
+<path id="jory-crossbow-string" d="M 216 58 L 190 108 L 219 169" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="jory-crossbow-bolt">
+<use id="jory-crossbow-bolt-line" href="#jory-crossbow-bolt-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-crossbow-bolt-lit" href="#jory-crossbow-bolt-shape" fill="#cfc5a8"/>
+</g>
+<g id="jory-crossbow-stirrup">
+<use id="jory-crossbow-stirrup-line" href="#jory-crossbow-stirrup-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-crossbow-stirrup-lit" href="#jory-crossbow-stirrup-shape" fill="#8c9194"/>
+</g>
+<g id="jory-crossbow-arm-front-upper">
+<use id="jory-crossbow-arm-front-upper-line" href="#jory-crossbow-arm-front-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-arm-front-upper-clip)">
+<use id="jory-crossbow-arm-front-upper-lit" href="#jory-crossbow-arm-front-upper-shape" fill="#727646"/>
+<path id="jory-crossbow-arm-front-upper-mid" d="M 152 110.3 L 157 126.7 L 155.4 130 L 159.3 142.7 L 143.9 147.5 L 134.2 115.7 Z" transform="translate(2.5 -0.6)" fill="#4b4f2f"/>
+<path id="jory-crossbow-arm-front-upper-dark" d="M 152 110.3 L 157 126.7 L 155.4 130 L 159.3 142.7 L 143.9 147.5 L 134.2 115.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-crossbow-arm-front-fore">
+<use id="jory-crossbow-arm-front-fore-line" href="#jory-crossbow-arm-front-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-arm-front-fore-clip)">
+<use id="jory-crossbow-arm-front-fore-lit" href="#jory-crossbow-arm-front-fore-shape" fill="#727646"/>
+<path id="jory-crossbow-arm-front-fore-mid" d="M 157.5 144 L 167.4 135.1 L 167.8 131.6 L 178.4 122.2 L 169.6 112.3 L 147.1 132.2 Z" transform="translate(2.5 -0.6)" fill="#4b4f2f"/>
+<path id="jory-crossbow-arm-front-fore-dark" d="M 157.5 144 L 167.4 135.1 L 167.8 131.6 L 178.4 122.2 L 169.6 112.3 L 147.1 132.2 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-crossbow-arm-front-fold" d="M 153.7 146.3 L 160.3 138.3 L 150.7 142.4 Z" fill="#14110f"/>
+<g id="jory-crossbow-arm-front-fist">
+<use id="jory-crossbow-arm-front-fist-line" href="#jory-crossbow-arm-front-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-crossbow-arm-front-fist-clip)">
+<use id="jory-crossbow-arm-front-fist-lit" href="#jory-crossbow-arm-front-fist-shape" fill="#7b5b3d"/>
+<path id="jory-crossbow-arm-front-fist-mid" d="M 165.4 138.4 L 192.5 116.3 L 200.6 125.4 L 174.6 148.6 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="jory-crossbow-arm-front-fist-dark" d="M 165.4 138.4 L 192.5 116.3 L 200.6 125.4 L 174.6 148.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-crossbow-arm-front-fist-fingers" d="M 179.1 111.7 L 174.9 119 L 181.3 113.5 Z M 184.8 116.7 L 179.6 123.5 L 186.7 118.7 Z" fill="#14110f"/>
+</g>
+<g id="jory-cowl-layer" transform="translate(140 104) rotate(0) scale(1 1) translate(-140 -104)">
+<defs>
+<path id="jory-cowl-cowl-shape" d="M 116 110 L 124 96 L 142 90 L 158 92 L 168 104 L 168 120 L 144.9 122.6 L 147.1 120 L 147.3 122.3 L 155.5 121.4 L 158 117.1 L 157 121.2 L 114 126 Z"/>
+<clipPath id="jory-cowl-cowl-clip"><use href="#jory-cowl-cowl-shape"/></clipPath>
+</defs>
+<g id="jory-cowl-cowl">
+<use id="jory-cowl-cowl-line" href="#jory-cowl-cowl-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-cowl-cowl-clip)">
+<use id="jory-cowl-cowl-lit" href="#jory-cowl-cowl-shape" fill="#7b5b3d"/>
+<path id="jory-cowl-cowl-mid" d="M 104 84 L 130 84 L 131.9 89.9 L 132.9 111.6 L 129.3 116 L 130.1 134.1 L 104 136 Z" transform="translate(7.56 -1.81)" fill="#553d29"/>
+<path id="jory-cowl-cowl-dark" d="M 104 84 L 130 84 L 131.9 89.9 L 132.9 111.6 L 129.3 116 L 130.1 134.1 L 104 136 Z" fill="#14110f"/>
+<path id="jory-cowl-cowl-seam" d="M 148 95.2 L 144.5 97.9 L 148.6 96.2 Z M 148.8 100.8 L 145.3 103.5 L 149.4 101.8 Z M 149.6 106.4 L 146.1 109.1 L 150.2 107.4 Z M 150.4 112 L 146.9 114.7 L 151 113 Z M 151.2 117.6 L 147.7 120.3 L 151.8 118.6 Z" fill="#553d29"/>
+<path id="jory-cowl-cowl-cold" d="M 74 50 L 208 50 L 208 166 L 74 166 Z M 118.1 108.4 L 126.1 94.4 L 144.1 88.4 L 160.1 90.4 L 170.1 102.4 L 170.1 118.4 L 147 121 L 149.2 118.4 L 149.4 120.7 L 157.6 119.8 L 160.1 115.5 L 159.1 119.6 L 116.1 124.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</g>
+<g id="jory-head-layer" transform="translate(148 102) rotate(0) scale(1 1) translate(-148 -102)">
+<defs>
+<path id="jory-head-face-shape" d="M 147 76.1 L 151.5 72.5 L 160.5 72.5 L 164.1 76.1 L 166.4 80.2 L 164.6 82.4 L 165.9 84.2 L 170 88.7 L 166.4 90.1 L 166.8 92.8 L 165.5 93.7 L 165.9 95.5 L 163.7 98.3 L 157.8 99.7 L 151.5 94.1 L 147.9 91.4 Z"/>
+<clipPath id="jory-head-face-clip"><use href="#jory-head-face-shape"/></clipPath>
+<path id="jory-head-hood-shape" d="M 134 104 L 132 76 L 140 60 L 156 53 L 172 58 L 180 72 L 172 78 L 163 73 L 152 84 L 150 104 Z"/>
+<clipPath id="jory-head-hood-clip"><use href="#jory-head-hood-shape"/></clipPath>
+<path id="jory-head-lining-shape" d="M 180 72 L 172 78 L 163 73 L 152 84 L 150 96 L 155 86 L 163 78 L 171 82 Z"/>
+</defs>
+<g id="jory-head-face">
+<use id="jory-head-face-line" href="#jory-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-head-face-clip)">
+<use id="jory-head-face-lit" href="#jory-head-face-shape" fill="#c7ad84"/>
+<path id="jory-head-face-mid" d="M 143.4 69.8 L 154 70.6 L 155.5 87.9 L 152.7 91.6 L 153.5 100.5 L 143.4 102.2 Z" transform="translate(2.7 -0.65)" fill="#927a58"/>
+<path id="jory-head-face-dark" d="M 143.4 69.8 L 154 70.6 L 155.5 87.9 L 152.7 91.6 L 153.5 100.5 L 143.4 102.2 Z" fill="#14110f"/>
+<path id="jory-head-face-cheek-plane" d="M 156.9 87.4 L 162.3 86.5 L 164.1 89.6 L 162.8 94.1 L 157.8 97.3 L 155.1 92.3 Z" fill="#927a58"/>
+<path id="jory-head-face-chin-plane" d="M 161.4 95.5 L 165.9 95 L 163.7 98.3 L 159.6 98.9 Z" fill="#927a58"/>
+<path id="jory-head-face-socket" d="M 166.8 79.7 L 154.2 78.8 L 155.1 85.1 L 159.6 87.4 L 162.3 85.1 L 165.5 84 Z" fill="#14110f"/>
+<path id="jory-head-face-lines" d="M 163.8 89.7 L 162.8 93.7 L 165.3 90.4 Z M 152.8 93.8 L 159.6 98.3 L 153.8 92.6 Z" fill="#14110f"/>
+<path id="jory-head-face-mouth" d="M 166.6 92 L 161 93.9 L 167 94 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-head-face-nostril" d="M 166.8 89.4 L 163.7 88.3 L 165.9 90.7 Z" fill="#14110f"/>
+<path id="jory-head-stubble" d="M 157.5 95.3 L 160 98 L 158.5 94.7 Z M 153.4 97.2 L 155 100 L 154.6 96.8 Z M 161.5 93.3 L 164 96 L 162.5 92.7 Z M 149.4 95.2 L 151 98 L 150.6 94.8 Z" fill="#927a58"/>
+<g id="jory-head-hood">
+<use id="jory-head-hood-line" href="#jory-head-hood-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-head-hood-clip)">
+<use id="jory-head-hood-lit" href="#jory-head-hood-shape" fill="#7b5b3d"/>
+<path id="jory-head-hood-mid" d="M 120 46 L 146 46 L 148.1 54.2 L 145.7 86.6 L 141.1 91 L 139.9 107.8 L 120 110 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="jory-head-hood-dark" d="M 120 46 L 146 46 L 148.1 54.2 L 145.7 86.6 L 141.1 91 L 139.9 107.8 L 120 110 Z" fill="#14110f"/>
+<path id="jory-head-hood-seam" d="M 157.6 55.1 L 157.8 58.8 L 158.7 55.2 Z M 161.6 57.1 L 161.8 60.8 L 162.7 57.2 Z M 165.6 59.1 L 165.8 62.8 L 166.7 59.2 Z M 169.6 61.1 L 169.8 64.8 L 170.7 61.2 Z" fill="#553d29"/>
+<path id="jory-head-hood-fold" d="M 149 65.8 L 146 82 L 151 66.2 Z M 157 61.8 L 156 72 L 159 62.2 Z" fill="#553d29"/>
+<path id="jory-head-hood-cold" d="M 92 13 L 220 13 L 220 144 L 92 144 Z M 136.1 102.4 L 134.1 74.4 L 142.1 58.4 L 158.1 51.4 L 174.1 56.4 L 182.1 70.4 L 174.1 76.4 L 165.1 71.4 L 154.1 82.4 L 152.1 102.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="jory-head-lining">
+<use id="jory-head-lining-line" href="#jory-head-lining-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-head-lining-lit" href="#jory-head-lining-shape" fill="#7d312b"/>
+</g>
+<path id="jory-head-hood-shadow" d="M 152 84 L 163 73 L 171 79 L 166 84 L 158 86 L 153 92 Z" fill="#14110f"/>
+</g>
+</svg>

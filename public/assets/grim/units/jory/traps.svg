@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jory-traps" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="jory-traps-trap-a-jaws-shape" d="M 75.5 182.5 L 81.5 179.5 L 84.5 188.5 L 89 179.5 L 92 188.5 L 96.5 179.5 L 99.5 188.5 L 104 179.5 L 108.5 182.5 L 111.5 196 L 104 206.5 L 80 206.5 L 72.5 196 Z"/>
+<clipPath id="jory-traps-trap-a-jaws-clip"><use href="#jory-traps-trap-a-jaws-shape"/></clipPath>
+<path id="jory-traps-trap-a-pan-shape" d="M 86 193 L 98 193 L 96.5 202 L 87.5 202 Z"/>
+<path id="jory-traps-trap-b-jaws-shape" d="M 98.3 180.8 L 103.3 178.3 L 105.8 185.8 L 109.5 178.3 L 112 185.8 L 115.8 178.3 L 118.3 185.8 L 122 178.3 L 125.8 180.8 L 128.3 192 L 122 200.8 L 102 200.8 L 95.8 192 Z"/>
+<clipPath id="jory-traps-trap-b-jaws-clip"><use href="#jory-traps-trap-b-jaws-shape"/></clipPath>
+<path id="jory-traps-trap-b-pan-shape" d="M 107 189.5 L 117 189.5 L 115.8 197 L 108.3 197 Z"/>
+</defs>
+<path id="jory-traps-trap-a-chain" d="M 92 160 L 92 179.5" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="jory-traps-trap-a-chain-links" d="M 89.1 160.9 L 93.6 164.9 L 91.7 159.1 Z M 92.3 164 L 90.4 169.8 L 94.9 165.8 Z M 89.1 170.6 L 93.6 174.6 L 91.7 168.9 Z M 92.3 173.7 L 90.4 179.5 L 94.9 175.5 Z" fill="#14110f"/>
+<g id="jory-traps-trap-a-jaws">
+<use id="jory-traps-trap-a-jaws-line" href="#jory-traps-trap-a-jaws-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-traps-trap-a-jaws-clip)">
+<use id="jory-traps-trap-a-jaws-lit" href="#jory-traps-trap-a-jaws-shape" fill="#8c9194"/>
+<path id="jory-traps-trap-a-jaws-mid" d="M 60.5 175.5 L 85.3 174.7 L 91.3 194 L 87.3 199.9 L 90.9 211.3 L 60.5 210.5 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="jory-traps-trap-a-jaws-dark" d="M 60.5 175.5 L 85.3 174.7 L 91.3 194 L 87.3 199.9 L 90.9 211.3 L 60.5 210.5 Z" fill="#14110f"/>
+<path id="jory-traps-trap-a-rust" d="M 98 196 L 110 193 L 107 206.5 L 96.5 206.5 Z" fill="#6a3b24"/>
+</g>
+</g>
+<g id="jory-traps-trap-a-pan">
+<use id="jory-traps-trap-a-pan-line" href="#jory-traps-trap-a-pan-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-traps-trap-a-pan-lit" href="#jory-traps-trap-a-pan-shape" fill="#9a5b38"/>
+</g>
+<path id="jory-traps-trap-a-spring" d="M 69.5 205 L 114.5 205 L 111.5 211 L 72.5 211 Z" fill="#14110f"/>
+<path id="jory-traps-trap-b-chain" d="M 112 162 L 112 178.3" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="jory-traps-trap-b-chain-links" d="M 109.1 163 L 113.6 166.1 L 111.7 161 Z M 112.3 165.1 L 110.4 170.1 L 114.9 167.1 Z M 109.1 171.1 L 113.6 174.2 L 111.7 169.1 Z M 112.3 173.2 L 110.4 178.3 L 114.9 175.2 Z" fill="#14110f"/>
+<g id="jory-traps-trap-b-jaws">
+<use id="jory-traps-trap-b-jaws-line" href="#jory-traps-trap-b-jaws-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-traps-trap-b-jaws-clip)">
+<use id="jory-traps-trap-b-jaws-lit" href="#jory-traps-trap-b-jaws-shape" fill="#8c9194"/>
+<path id="jory-traps-trap-b-jaws-mid" d="M 83.8 174.3 L 106.5 173.6 L 110.5 187.4 L 107.2 192.4 L 111 205.4 L 83.8 204.8 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="jory-traps-trap-b-jaws-dark" d="M 83.8 174.3 L 106.5 173.6 L 110.5 187.4 L 107.2 192.4 L 111 205.4 L 83.8 204.8 Z" fill="#14110f"/>
+<path id="jory-traps-trap-b-rust" d="M 117 192 L 127 189.5 L 124.5 200.8 L 115.8 200.8 Z" fill="#6a3b24"/>
+</g>
+</g>
+<g id="jory-traps-trap-b-pan">
+<use id="jory-traps-trap-b-pan-line" href="#jory-traps-trap-b-pan-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-traps-trap-b-pan-lit" href="#jory-traps-trap-b-pan-shape" fill="#9a5b38"/>
+</g>
+<path id="jory-traps-trap-b-spring" d="M 93.3 199.5 L 130.8 199.5 L 128.3 204.5 L 95.8 204.5 Z" fill="#14110f"/>
+</svg>

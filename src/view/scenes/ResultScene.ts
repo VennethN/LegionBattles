@@ -34,19 +34,19 @@ export class ResultScene extends Phaser.Scene {
     const pw = Math.min(480, view.w - 28);
     const lines: Array<[string, string]> = [];
     const t = Math.round(hunt.tally.time);
-    lines.push(['The hunt took', `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`]);
-    if (hunt.tally.breaks > 0) lines.push(['It was broken', `${hunt.tally.breaks} time${hunt.tally.breaks === 1 ? '' : 's'}`]);
-    lines.push([pay.first ? 'Coin, twice for the first fall' : 'Coin', `+${pay.coin}`]);
+    lines.push(['Time', `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`]);
+    if (hunt.tally.breaks > 0) lines.push(['Boss stunned', `${hunt.tally.breaks} time${hunt.tally.breaks === 1 ? '' : 's'}`]);
+    lines.push([pay.first ? 'Reward (double: first win)' : 'Reward', `+${pay.coin} coin`]);
     const notes: string[] = [];
     if (pay.trophy) notes.push(`Trophy: ${m.trophy.name}. ${m.trophy.says}`);
-    if (pay.opened.length) notes.push(`Now at the lodge: ${pay.opened.join(', ')}.`);
-    if (pay.posted.length) notes.push(`A new contract is posted: ${pay.posted.join(', ')}.`);
-    if (!pay.won) notes.push(hunt.tally.killedBy ? 'It can be hunted again at once.' : 'The hunter turned back.');
+    if (pay.opened.length) notes.push(`Unlocked: ${pay.opened.join(', ')}.`);
+    if (pay.posted.length) notes.push(`New boss: ${pay.posted.join(', ')}.`);
+    if (!pay.won) notes.push(hunt.tally.killedBy ? 'You can try again at once.' : 'You gave up.');
     const ph = 190 + lines.length * 30 + notes.length * 50 + 80;
     const py = Math.max(12, (view.h - ph) / 2);
     this.add.existing(slabImage(this, cx - pw / 2, py, pw, ph, BONE, 20, 8));
-    label(this, cx, py + 44, pay.won ? 'IT HAS FALLEN' : 'THE HUNT IS LOST', { size: 36, color: pay.won ? HOLY.fill : RUBY.fill });
-    label(this, cx, py + 82, `${m.name}, ${['first', 'second', 'third'][c.mark - 1]} mark`, { size: 17, color: OUTLINE, stroke: null });
+    label(this, cx, py + 44, pay.won ? 'BOSS DEFEATED' : 'DEFEATED', { size: 36, color: pay.won ? HOLY.fill : RUBY.fill });
+    label(this, cx, py + 82, `${m.name}, difficulty ${c.mark}`, { size: 17, color: OUTLINE, stroke: null });
     let y = py + 124;
     for (const [name, value] of lines) {
       label(this, cx - pw / 2 + 36, y, name, { size: 17, align: 'left', color: OUTLINE, stroke: null });

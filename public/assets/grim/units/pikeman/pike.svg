@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="pikeman-pike" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="pikeman-pike-arm-back-upper-shape" d="M 124.2 113.2 L 123.8 125.1 L 118.7 141 L 105.3 139 L 106.3 122.6 L 107.8 110.8 Z"/>
+<clipPath id="pikeman-pike-arm-back-upper-clip"><use href="#pikeman-pike-arm-back-upper-shape"/></clipPath>
+<path id="pikeman-pike-arm-back-fore-shape" d="M 119.1 140.8 L 118.9 147.9 L 115.4 157.2 L 104.7 155.9 L 104.5 146.2 L 104.9 139.2 Z"/>
+<clipPath id="pikeman-pike-arm-back-fore-clip"><use href="#pikeman-pike-arm-back-fore-shape"/></clipPath>
+<path id="pikeman-pike-arm-back-fist-shape" d="M 120.8 144.8 L 122.7 159.4 L 120.9 165.9 L 115.2 167.8 L 113.8 171 L 107.3 170.5 L 106.1 167.5 L 100.1 167.9 L 96.9 160.2 L 99.6 146.2 L 108.5 143.1 Z"/>
+<clipPath id="pikeman-pike-arm-back-fist-clip"><use href="#pikeman-pike-arm-back-fist-shape"/></clipPath>
+<path id="pikeman-pike-shaft-shape" d="M 69 164.6 L 232.9 118.1 L 234.7 124.3 L 71 171.4 Z"/>
+<clipPath id="pikeman-pike-shaft-clip"><use href="#pikeman-pike-shaft-shape"/></clipPath>
+<path id="pikeman-pike-head-shape" d="M 233.8 116.2 L 241.8 114.2 L 252 116 L 239.8 127.2 L 232.8 125.2 Z"/>
+<clipPath id="pikeman-pike-head-clip"><use href="#pikeman-pike-head-shape"/></clipPath>
+<path id="pikeman-pike-arm-front-upper-shape" d="M 150.4 109.4 L 155.1 119.9 L 156.9 135.9 L 143.1 140.1 L 137.1 125.5 L 133.6 114.6 Z"/>
+<clipPath id="pikeman-pike-arm-front-upper-clip"><use href="#pikeman-pike-arm-front-upper-shape"/></clipPath>
+<path id="pikeman-pike-arm-front-fore-shape" d="M 152.6 130.9 L 157.4 131.9 L 163 136.6 L 159 147.4 L 152.2 146.4 L 147.4 145.1 Z"/>
+<clipPath id="pikeman-pike-arm-front-fore-clip"><use href="#pikeman-pike-arm-front-fore-shape"/></clipPath>
+<path id="pikeman-pike-arm-front-fist-shape" d="M 151.5 128 L 167 129.5 L 173.3 133 L 174 139.4 L 176.9 141.6 L 174.8 148.2 L 171.4 148.7 L 170.3 155 L 161.6 156.6 L 147.7 150.3 L 146.7 140.3 Z"/>
+<clipPath id="pikeman-pike-arm-front-fist-clip"><use href="#pikeman-pike-arm-front-fist-shape"/></clipPath>
+</defs>
+<g id="pikeman-pike-arm-back-upper">
+<use id="pikeman-pike-arm-back-upper-line" href="#pikeman-pike-arm-back-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-pike-arm-back-upper-clip)">
+<use id="pikeman-pike-arm-back-upper-lit" href="#pikeman-pike-arm-back-upper-shape" fill="#c7ad84"/>
+<path id="pikeman-pike-arm-back-upper-mid" d="M 119.7 109.5 L 117.7 123.4 L 114.3 126.2 L 111.9 143 L 95.5 140.7 L 100.4 106.7 Z" transform="translate(2.5 -0.6)" fill="#927a58"/>
+<path id="pikeman-pike-arm-back-upper-dark" d="M 119.7 109.5 L 117.7 123.4 L 114.3 126.2 L 111.9 143 L 95.5 140.7 L 100.4 106.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="pikeman-pike-arm-back-fore">
+<use id="pikeman-pike-arm-back-fore-line" href="#pikeman-pike-arm-back-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-pike-arm-back-fore-clip)">
+<use id="pikeman-pike-arm-back-fore-lit" href="#pikeman-pike-arm-back-fore-shape" fill="#c7ad84"/>
+<path id="pikeman-pike-arm-back-fore-mid" d="M 113.8 137.2 L 111.2 159.7 L 96.3 158 L 98.9 135.4 Z" transform="translate(2.5 -0.6)" fill="#927a58"/>
+<path id="pikeman-pike-arm-back-fore-dark" d="M 113.8 137.2 L 111.2 159.7 L 96.3 158 L 98.9 135.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="pikeman-pike-arm-back-fold" d="M 107.5 146.5 L 114.4 138.2 L 104.5 142.5 Z" fill="#14110f"/>
+<g id="pikeman-pike-arm-back-fist">
+<use id="pikeman-pike-arm-back-fist-line" href="#pikeman-pike-arm-back-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-pike-arm-back-fist-clip)">
+<use id="pikeman-pike-arm-back-fist-lit" href="#pikeman-pike-arm-back-fist-shape" fill="#7b5b3d"/>
+<path id="pikeman-pike-arm-back-fist-mid" d="M 108.3 138.2 L 102.5 173.9 L 90 172.4 L 94.2 136.5 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="pikeman-pike-arm-back-fist-dark" d="M 108.3 138.2 L 102.5 173.9 L 90 172.4 L 94.2 136.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="pikeman-pike-arm-back-fist-fingers" d="M 116 168.2 L 114.3 159.7 L 113.2 168.3 Z M 108.3 168.3 L 107.6 159.4 L 105.4 168 Z" fill="#14110f"/>
+<g id="pikeman-pike-shaft">
+<use id="pikeman-pike-shaft-line" href="#pikeman-pike-shaft-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-pike-shaft-clip)">
+<use id="pikeman-pike-shaft-lit" href="#pikeman-pike-shaft-shape" fill="#6f5c46"/>
+<path id="pikeman-pike-shaft-dark" d="M 66.8 167.6 L 138.5 147.1 L 140.2 147.9 L 236.7 120.3 L 238.4 126.4 L 68.8 174.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="pikeman-pike-head">
+<use id="pikeman-pike-head-line" href="#pikeman-pike-head-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-pike-head-clip)">
+<use id="pikeman-pike-head-lit" href="#pikeman-pike-head-shape" fill="#8c9194"/>
+<path id="pikeman-pike-head-dark" d="M 229.8 122.2 L 254 117 L 239.8 130.2 L 229.8 129.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="pikeman-pike-arm-front-upper">
+<use id="pikeman-pike-arm-front-upper-line" href="#pikeman-pike-arm-front-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-pike-arm-front-upper-clip)">
+<use id="pikeman-pike-arm-front-upper-lit" href="#pikeman-pike-arm-front-upper-shape" fill="#c7ad84"/>
+<path id="pikeman-pike-arm-front-upper-mid" d="M 144.3 108.2 L 149.3 124.6 L 147.6 128.3 L 151.4 140.7 L 134.4 145.9 L 124.6 114.2 Z" transform="translate(2.5 -0.6)" fill="#927a58"/>
+<path id="pikeman-pike-arm-front-upper-dark" d="M 144.3 108.2 L 149.3 124.6 L 147.6 128.3 L 151.4 140.7 L 134.4 145.9 L 124.6 114.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="pikeman-pike-arm-front-fore">
+<use id="pikeman-pike-arm-front-fore-line" href="#pikeman-pike-arm-front-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-pike-arm-front-fore-clip)">
+<use id="pikeman-pike-arm-front-fore-lit" href="#pikeman-pike-arm-front-fore-shape" fill="#c7ad84"/>
+<path id="pikeman-pike-arm-front-fore-mid" d="M 147.7 135.5 L 164.4 141.5 L 158.9 156.6 L 142.3 150.5 Z" transform="translate(2.5 -0.6)" fill="#927a58"/>
+<path id="pikeman-pike-arm-front-fore-dark" d="M 147.7 135.5 L 164.4 141.5 L 158.9 156.6 L 142.3 150.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="pikeman-pike-arm-front-fold" d="M 145.2 145 L 152.6 136.1 L 142 140.6 Z" fill="#14110f"/>
+<g id="pikeman-pike-arm-front-fist">
+<use id="pikeman-pike-arm-front-fist-line" href="#pikeman-pike-arm-front-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#pikeman-pike-arm-front-fist-clip)">
+<use id="pikeman-pike-arm-front-fist-lit" href="#pikeman-pike-arm-front-fist-shape" fill="#7b5b3d"/>
+<path id="pikeman-pike-arm-front-fist-mid" d="M 141.5 139.3 L 177.1 154 L 172.5 166.7 L 136.3 153.5 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="pikeman-pike-arm-front-fist-dark" d="M 141.5 139.3 L 177.1 154 L 172.5 166.7 L 136.3 153.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="pikeman-pike-arm-front-fist-fingers" d="M 174.6 138.6 L 165.3 138.3 L 174 141.6 Z M 172.7 146.7 L 163.4 145.2 L 171.8 149.6 Z" fill="#14110f"/>
+</svg>
