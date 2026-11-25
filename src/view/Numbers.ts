@@ -105,6 +105,23 @@ export class Numbers {
     this.flip = -this.flip;
     n.x = x + this.flip * 6;
     n.y = y;
+    // Never on top of one still on show: a party's blows land together, and two numbers over each other read as one
+    // garbled one. Moved down a line, under it, until it is clear: what is older has risen above.
+    const w = value.length * size * 0.62 * Math.max(0.8, this.zoom);
+    const line = size * 1.05 * Math.max(0.8, this.zoom);
+    for (let tries = 0; tries < 5; tries++) {
+      const over = this.pool.some((o) => {
+        if (o === n || !o.active) return false;
+        // Where it is now, worked out as update() places it: one shown this frame has not been placed yet.
+        const k = o.t / LIFE;
+        const ox = o.x + o.vx * k;
+        const oy = o.y - 44 * this.zoom * (1 - (1 - k) * (1 - k));
+        const ow = o.text.text.length * o.size * 0.62;
+        return Math.abs(ox - n.x) < (w + ow) / 2 && Math.abs(oy - n.y) < line;
+      });
+      if (!over) break;
+      n.y += line;
+    }
     n.vx = this.flip * 16;
     n.size = size * Math.max(0.8, this.zoom);
     n.text.setText(value);

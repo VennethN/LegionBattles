@@ -176,6 +176,14 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await lair(page, { monster: 'king', mark: 2, hunter: 'jory', partners: ['marta'], reinforcements: [], buildings: [], terms: { variants: [], tasks: [{ id: 'cart' }, { id: 'breaks', n: 2 }] } }, RICH);
     await pilot(page, 20);
     await shot('party-cart');
+    // The cart and its road: the hunter stood by it, so that the camera looks there.
+    await page.evaluate(() => {
+      const h = (window as unknown as Win).hunt() as unknown as { hunter: { x: number; y: number }; buildings: Array<{ x: number; y: number; def: { id: string } }> };
+      const cart = h.buildings.find((b) => b.def.id === 'cart');
+      if (cart) [h.hunter.x, h.hunter.y] = [cart.x + 70, cart.y + 40];
+    });
+    await tick(page, 40);
+    await shot('party-cart-road');
   },
   // A line said in a hunt: the boss's own by it, the hunter's over her head, and something heard from the King.
   talk: async (page, shot) => {
