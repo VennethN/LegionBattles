@@ -36,6 +36,22 @@ describe('the companions', () => {
     expect(w.hero.x).toBeGreaterThan(w.w / 2 + 300);
   });
 
+  it('never stand on top of the hero, even in the thick of a fight', () => {
+    for (const id of ['greta', 'biscuit', 'mossback', 'tam', 'ember']) {
+      const [w, ally] = withOne(id);
+      // Enemies all round the hero, so that whoever fights up close is drawn in to where they stand.
+      for (let i = 0; i < 8; i++) stand(w, 'cutpurse', w.hero.x + Math.cos(i) * 30, w.hero.y + Math.sin(i) * 20, { hp: 9999 });
+      let nearest = Infinity;
+      for (let i = 0; i < 240; i++) {
+        w.step({ x: 0, y: 0 });
+        if (ally.down > 0 || ally.state === 'dash') continue;
+        const [rx, ry] = BAND.room;
+        nearest = Math.min(nearest, Math.hypot((ally.x - w.hero.x) / rx, (ally.y - w.hero.y) / ry));
+      }
+      expect(nearest, id).toBeGreaterThan(0.99);
+    }
+  });
+
   it('grow with the hero: their level, a share of their Damage and Haste, and each step of the bond', () => {
     const harm = (o: Partial<Setup>, bond = 0): number => {
       const w = new World(setup({ band: [{ id: 'greta', bond }], ...o }));

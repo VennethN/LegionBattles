@@ -534,7 +534,8 @@ export class World {
   private seenAt = { x: 0, y: 0 };
   private traitOn = false;
   private ids = 1;
-  private nextBand = 0.4;
+  // The first of a wave are marked almost at once: an empty field is a dull thing to open on.
+  private nextBand = 0.15;
   private regen = 0;
   private leechAt = 0;
   private bossDue: string | undefined;
@@ -1714,8 +1715,29 @@ export class World {
         a.x = Math.max(ARENA.edge, Math.min(this.w - ARENA.edge, a.x));
         a.y = Math.max(ARENA.edge + 20, Math.min(this.h - ARENA.edge, a.y));
       }
+      if (a.state !== 'dash') this.giveRoom(a);
       if (a.def.quirk === 'rally' && Math.hypot(a.x - h.x, a.y - h.y) < ALLY_QUIRKS.rally.r) this.rally = ALLY_QUIRKS.rally.faster + ALLY_QUIRKS.rally.bond * a.bond;
     }
+  }
+
+  /** A companion that has come to stand where the hero does steps out to the edge of the room kept round them (BAND.room). */
+  private giveRoom(a: Ally): void {
+    const h = this.hero;
+    const [rx, ry] = BAND.room;
+    let dx = (a.x - h.x) / rx;
+    let dy = (a.y - h.y) / ry;
+    const d = Math.hypot(dx, dy);
+    if (d >= 1) return;
+    // Right on top of them: out behind them.
+    if (d < 0.01) dx = -h.face;
+    // It is put out at the room's edge, and a little round it: one that is on its way to something on the far side
+    // goes round the hero, where a push straight back would hold it at the edge for good.
+    if (Math.abs(dy) < 0.6) dy += dy < 0 ? -0.35 : 0.35;
+    const n = Math.hypot(dx, dy);
+    dx /= n;
+    dy /= n;
+    a.x = h.x + dx * rx;
+    a.y = h.y + dy * ry;
   }
 
   /** What a companion on its feet does this step. */

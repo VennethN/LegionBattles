@@ -14,7 +14,7 @@ import { levelNeeds } from '../../game/data';
 import { heroOf } from '../../game/run';
 import { ads } from '../../platform/ads';
 import { setupCamera } from '../app';
-import { hex, view } from '../config';
+import { byFinger, hex, view } from '../config';
 import { Controls } from '../input';
 import { SHEET } from '../art/Sheet';
 import { commit, save, theRun, theWorld } from '../session';
@@ -47,6 +47,8 @@ export class HudScene extends Phaser.Scene {
   private moveBar: Phaser.GameObjects.Graphics | null = null;
   private moveText: Phaser.GameObjects.Text | null = null;
   private moveName = '';
+  private callText: Phaser.GameObjects.Text | null = null;
+  private plateBox: Phaser.GameObjects.Container | null = null;
   private fury = -1;
   private flash!: Phaser.GameObjects.Image;
   private paused: Phaser.GameObjects.Container | null = null;
@@ -77,6 +79,10 @@ export class HudScene extends Phaser.Scene {
 
     // Struck: the whole screen goes red for a breath.
     this.flash = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(RUBY.fill)).setAlpha(0).setDepth(1);
+
+    // The top of the field goes dark behind what is written over it: scenery at a field's edge was drawn straight
+    // under the bars on a tall screen, and neither could be read.
+    this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, 132).setTint(hex(OUTLINE)).setAlpha(0.62, 0.62, 0, 0).setDepth(2);
 
     this.bars = this.add.graphics().setDepth(10);
     this.add.image(26, 26, SHEET, 'icon/heart').setScale(ICON * 0.62).setDepth(11);
@@ -111,22 +117,25 @@ export class HudScene extends Phaser.Scene {
       document.removeEventListener('visibilitychange', onHide);
     });
 
-    this.bannerText = label(this, w / 2, view.h * 0.3, '', { size: 46 }).setDepth(20).setAlpha(0);
-    this.underText = label(this, w / 2, view.h * 0.3 + 40, '', { size: 18, color: HOLY.fill }).setDepth(20).setAlpha(0);
-    this.lineText = label(this, w / 2, view.h * 0.3 + 70, '', { size: 16, color: BONE.fill, wrap: Math.min(520, w - 40) }).setDepth(20).setAlpha(0);
+    // Words across the field stand well above the hero, who is in the middle of it: a hero's own line was once written through their figure.
+    const top = Math.min(view.h * 0.2, view.h / 2 - 190) + 20;
+    this.bannerText = label(this, w / 2, top, '', { size: 44 }).setDepth(20).setAlpha(0);
+    this.underText = label(this, w / 2, top + 38, '', { size: 18, color: HOLY.fill }).setDepth(20).setAlpha(0);
+    this.lineText = label(this, w / 2, top + 66, '', { size: 16, color: BONE.fill, wrap: Math.min(520, w - 40) }).setDepth(20).setAlpha(0);
     if (data.banner) this.banner(data.banner, data.under ?? '', data.line ?? '');
     // Who the hero is was said first: the wave is said after.
     const then = data.then;
     if (then) this.time.delayedCall(1900, () => this.banner(then.banner, then.under));
 
     // The hero's move, in a corner where a thumb is: its name, the bar that kills fill, and a press that lets it loose.
-    // Plain for now: the proper showing of it is still to be made.
     const move = theWorld()?.move;
     this.moveBar = null;
     this.moveText = null;
     this.fury = -1;
     this.moveGold = null;
     this.moveBox = null;
+    this.callText = null;
+    this.plateBox = null;
     this.ripe = false;
     if (move) {
       // Big enough for a thumb, in the corner a thumb rests in. It turns gold when the move is full.
@@ -141,6 +150,7 @@ export class HudScene extends Phaser.Scene {
       c.on('pointerdown', () => this.controls.act());
       this.moveBox = c;
       this.moveBar = this.add.graphics().setDepth(13);
+      this.callText = label(this, w - bw / 2 - 12, view.h - bh - 34, '', { size: 22, color: HOLY.fill }).setDepth(14).setAlpha(0);
     }
 
     this.stick = this.add.graphics().setDepth(5);
@@ -170,26 +180,73 @@ export class HudScene extends Phaser.Scene {
     this.tweens.add({ targets: this.flash, alpha: 0, duration: 260 });
   }
 
-  /** How to move, shown to someone who has not yet: keys on a keyboard, a finger on a phone. */
+  /** Where a plate of words at the foot of the screen stands: clear of the fight, and of the move's button on a narrow screen. */
+  private foot(): number {
+    return view.h - (view.w < 760 ? 138 : 50);
+  }
+
+  /**
+   * How to move, shown to someone who has not yet, on a plate at the foot of the screen: keys on a keyboard, a
+   * thumb on a phone. It was once drawn across the middle of the fight, and showed keys to someone with none.
+   */
   private showHint(): void {
-    const c = this.add.container(view.w / 2, view.h - 62).setDepth(15);
-    const touch = this.sys.game.device.input.touch && !this.sys.game.device.os.desktop;
-    if (touch) {
-      c.add(label(this, 0, 0, 'DRAG ANYWHERE TO MOVE', { size: 20 }));
+    const c = this.add.container(view.w / 2, this.foot()).setDepth(15);
+    if (byFinger(this.game)) {
+      c.add(pillImage(this, -150, -24, 300, 48, IRON.shade).setAlpha(0.92));
+      // A thumb on a stick: a ring, and the knob pushed to one side of it.
+      const g = this.add.graphics();
+      g.lineStyle(3, hex(BONE.fill), 0.9).strokeCircle(-112, 0, 15);
+      g.fillStyle(hex(BONE.fill), 1).fillCircle(-106, -3, 8);
+      c.add(g);
+      c.add(label(this, 18, -1, 'DRAG TO MOVE', { size: 20 }));
     } else {
-      const cap = (x: number, y: number, t: string): void => {
-        c.add(slabImage(this, x - 17, y - 17, 34, 34, BONE, 8, 5));
-        c.add(label(this, x, y - 2, t, { size: 17, color: OUTLINE, stroke: null }));
+      c.add(pillImage(this, -190, -24, 380, 48, IRON.shade).setAlpha(0.92));
+      const cap = (x: number, t: string): void => {
+        c.add(slabImage(this, x - 15, -15, 30, 30, BONE, 7, 4));
+        c.add(label(this, x, -2, t, { size: 16, color: OUTLINE, stroke: null }));
       };
-      cap(-116, -20, 'W');
-      cap(-152, 18, 'A');
-      cap(-116, 18, 'S');
-      cap(-80, 18, 'D');
-      c.add(label(this, 44, -12, 'MOVE', { size: 22 }));
-      c.add(label(this, 44, 16, 'or the arrow keys', { size: 15, color: BONE.shade }));
+      cap(-160, 'W');
+      cap(-126, 'A');
+      cap(-92, 'S');
+      cap(-58, 'D');
+      c.add(label(this, 76, -1, 'OR ARROWS: MOVE', { size: 18 }));
     }
-    this.tweens.add({ targets: c, scale: 1.04, duration: 500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     this.hint = c;
+  }
+
+  /** A line of words on a plate at the foot of the screen, for a few seconds: something the player has just met, said once. */
+  plate(text: string, seconds = 3.4): void {
+    this.plateBox?.destroy();
+    const c = this.add.container(view.w / 2, this.foot()).setDepth(15).setAlpha(0);
+    const t = label(this, 0, -1, text, { size: 17, wrap: Math.min(440, view.w - 60) });
+    const pw = Math.min(view.w - 24, t.width + 44);
+    const ph = Math.max(44, t.height + 20);
+    c.add([pillImage(this, -pw / 2, -ph / 2, pw, ph, IRON.shade).setAlpha(0.92), t]);
+    this.plateBox = c;
+    this.tweens.add({ targets: c, alpha: 1, duration: 200 });
+    this.tweens.add({ targets: c, alpha: 0, duration: 320, delay: seconds * 1000, onComplete: () => {
+      if (this.plateBox === c) this.plateBox = null;
+      c.destroy();
+    } });
+  }
+
+  /** Says a thing once in a player's life: the first time it is met. */
+  teach(key: string, text: string): void {
+    const s = save();
+    if (s.told.includes(key) || this.hint) return;
+    s.told.push(key);
+    commit();
+    this.plate(text);
+  }
+
+  /** The move was let loose: its name, by its button. The field itself is left to the move. */
+  moveCalled(name: string): void {
+    const t = this.callText;
+    if (!t) return;
+    this.tweens.killTweensOf(t);
+    t.setText(name).setAlpha(1).setScale(1.5);
+    this.tweens.add({ targets: t, scale: 1, duration: 220, ease: 'Back.easeOut' });
+    this.tweens.add({ targets: t, alpha: 0, duration: 400, delay: 1100 });
   }
 
   /** Stops the wave, or lets it go on. */
@@ -343,7 +400,7 @@ export class HudScene extends Phaser.Scene {
         g.clear();
         g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(bx, by, 144, 14, 6);
         g.fillStyle(hex(full ? HOLY.fill : VENOM.fill), 1).fillRoundedRect(bx + 3, by + 3, Math.max(4, 138 * Math.min(1, world.fury)), 8, 4);
-        const touch = this.sys.game.device.input.touch && !this.sys.game.device.os.desktop;
+        const touch = byFinger(this.game);
         this.moveText.setText(full && shown === 101 ? (touch ? 'TAP!' : 'PRESS SPACE') : this.moveName).setColor(full ? OUTLINE : BONE.fill).setStroke(full ? HOLY.light : OUTLINE, full ? 3 : 5);
         this.moveGold?.setVisible(full);
       }
@@ -381,7 +438,7 @@ export class HudScene extends Phaser.Scene {
         this.told = true;
         save().told.push('move');
         commit();
-        this.time.delayedCall(700, () => this.banner('', 'What you carry strikes by itself. Gather the coins.'));
+        this.time.delayedCall(500, () => this.plate('YOU STRIKE BY YOURSELF. GATHER THE COINS.', 4));
       }
     }
   }

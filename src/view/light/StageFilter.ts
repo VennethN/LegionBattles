@@ -5,7 +5,7 @@
 //   1. light   the whole picture, multiplied by the hour and the lights
 //   2. bright  what is bright enough to glow, at a quarter of the size
 //   3. blur    that, blurred across and down, twice
-//   4. lens    the whole picture again: focus, the glow added, the grade
+//   4. lens    the whole picture again: the glow added, the grade, the rim
 //
 // Two passes over the whole picture and five over a sixteenth of it. The
 // built-in tilt shift alone reads the picture a hundred times for every
@@ -56,9 +56,12 @@ export class StageFilter extends Phaser.Filters.Controller {
   scroll: [number, number] = [0, 0];
   time = 0;
   ambient: [number, number, number] = [1, 1, 1];
-  sun: [number, number, number] = [1, 1, 1];
-  shafts = 0;
+  sun: [number, number, number] = [0, 0, 0];
+  /** Which way the sun's light goes over the ground, as a direction of length one. */
+  sunDir: [number, number] = [1, 0];
   clouds = 0;
+  /** What is drawn past the field's edge, where the camera drew nothing. */
+  back: [number, number, number] = [0, 0, 0];
   /** x, y, radius and strength of each light, in the view's units; and their colors. */
   readonly lights = new Float32Array(MAX_LIGHTS * 4);
   readonly colors = new Float32Array(MAX_LIGHTS * 3);
@@ -71,16 +74,10 @@ export class StageFilter extends Phaser.Filters.Controller {
   /** How bright a lit thing must be before it glows, and where it glows fully. One is white as drawn. */
   glow: [number, number] = [1.0, 1.55];
   bloom = 0.62;
-  /** How far out of focus the edge furthest from the hero is, in pixels of a view 510 high. */
-  blur = 4.2;
-  /** Where the blur begins and where it is whole, from the line of focus (0) to the further edge (1). */
-  band: [number, number] = [0.5, 1.0];
-  /** The line of focus, from the top (0) to the bottom (1) of the view. */
-  focus = 0.5;
   vignette = 0.42;
   shade: [number, number, number] = [0.9, 0.94, 1.08];
-  contrast = 0.2;
-  saturation = 1.06;
+  contrast = 0.34;
+  saturation = 1.12;
   grain = 0.022;
 
   constructor(camera: Phaser.Cameras.Scene2D.Camera) {
@@ -129,8 +126,10 @@ class StageNode extends Phaser.Renderer.WebGL.RenderNodes.BaseFilter {
           p.setUniform('uTime', c.time);
           p.setUniform('uAmbient', c.ambient);
           p.setUniform('uSun', c.sun);
-          p.setUniform('uShafts', c.shafts);
-          p.setUniform('uClouds', c.full ? c.clouds : 0);
+          p.setUniform('uSunDir', c.sunDir);
+          p.setUniform('uBack', c.back);
+          // The cheap light has the shade too: without it the hour is only a tint.
+          p.setUniform('uClouds', c.clouds);
           p.setUniform('uEmitAmount', c.emit ? c.emitAmount : 0);
           p.setUniform('uGlow', c.glow);
           p.setUniform('uLights[0]', c.lights);
@@ -175,13 +174,7 @@ class StageNode extends Phaser.Renderer.WebGL.RenderNodes.BaseFilter {
       told({
         second: glow ? glow.texture : this.black,
         uniforms: (p) => {
-          // Sizes are said for a view 510 high, so that the picture is the same on a big screen.
-          const k = lit.height / 510;
           p.setUniform('uBloom', 1);
-          p.setUniform('uTexel', [1 / lit.width, 1 / lit.height]);
-          p.setUniform('uBlur', c.full ? c.blur * k : 0);
-          p.setUniform('uBand', c.band);
-          p.setUniform('uFocus', 1 - c.focus);
           p.setUniform('uBloomAmount', glow ? c.bloom : 0);
           p.setUniform('uVignette', c.vignette);
           p.setUniform('uShade', c.shade);

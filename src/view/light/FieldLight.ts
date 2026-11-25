@@ -20,7 +20,7 @@ import type { Land } from '../../game/data';
 import type { Ev, Shot, World } from '../../game/world';
 import { SHEET } from '../art/Sheet';
 import { Glow, type BitOpts, glowScale } from './Glow';
-import { ELEMENTS, HERO_LIGHT, LANTERN, WEAPON_LIGHT, darkness, hourOf, type Element, type Hour } from './hours';
+import { ELEMENTS, HERO_LIGHT, LANTERN, SUN_ANGLE, WEAPON_LIGHT, darkness, hourOf, type Element, type Hour } from './hours';
 import { lightMode, stepLightDown, type LightMode } from './setting';
 import { MAX_LIGHTS } from './shaders';
 import { StageFilter, lightPossible, registerStage } from './StageFilter';
@@ -96,8 +96,12 @@ export class FieldLight {
   private smoke: Phaser.GameObjects.Image[] = [];
   private readonly crispSet = new Set<Seen>();
   private readonly emitSet = new Set<Seen>();
-  private readonly hour: Hour;
+  /** The hour of this wave: its light, and how long its shadows are. */
+  readonly hour: Hour;
   private readonly dark: number;
+  /** The ground's own picture again, soft, laid over the far and near edges of the view: what is out of focus there is the ground, never a figure. */
+  private soft: Phaser.GameObjects.Image[] = [];
+  private fieldH = 0;
   private readonly land: Land;
   private lit: Lit[] = [];
   /** Lights asked for from outside for the frame to come (a companion that glows, a move): taken up by the next update. */
@@ -113,6 +117,9 @@ export class FieldLight {
   private slow = 0;
   private budget = 0;
   private gone = false;
+  private dimLeft = 0;
+  private dimOf = 1;
+  private dimBy = 0;
   /** The view this frame, in the field's units: its top left corner and its size. */
   private vx = 0;
   private vy = 0;
@@ -183,6 +190,7 @@ export class FieldLight {
     this.motes = [];
     this.glow?.clear();
     for (const s of this.smoke) s.setVisible(false);
+    for (const g of this.soft) g.setVisible(false);
     this.flashes = [];
     // Every camera draws everything again.
     for (const child of scene.children.list) (child as Seen).cameraFilter = 0;
@@ -198,6 +206,41 @@ export class FieldLight {
     this.filter = null;
     this.crispCam = null;
     this.mode = 'off';
+  }
+
+  /**
+   * The ground a second time, from a picture of it made small, which a
+   * screen shows soft. It is laid over the top and the bottom of the view,
+   * fading to nothing toward the middle: far and near ground are out of
+   * focus, as through a long lens, and everything that stands on it is
+   * drawn after and stays sharp.
+   */
+  ground(softKey: string, w: number, h: number): void {
+    this.fieldH = h;
+    for (let i = 0; i < 2; i++) this.soft.push(this.scene.add.image(0, 0, softKey).setOrigin(0, 0).setDisplaySize(w, h).setDepth(-99).setVisible(false));
+  }
+
+  /** Puts the soft ground where the view's far and near edges are this frame. */
+  private focus(): void {
+    const on = this.mode === 'full';
+    // How much of the view's height each edge's soft band takes: the far one more than the near.
+    const bands: Array<[number, number, number]> = [[0, 0.3, 1], [0.8, 1, 0.9]];
+    this.soft.forEach((img, i) => {
+      img.setVisible(on);
+      if (!on) return;
+      const [from, to, most] = bands[i];
+      const y0 = Math.max(0, this.vy + this.vh * from);
+      const y1 = Math.min(this.fieldH, this.vy + this.vh * to);
+      if (y1 - y0 < 4) {
+        img.setVisible(false);
+        return;
+      }
+      const k = img.frame.height / this.fieldH;
+      img.setCrop(0, y0 * k, img.frame.width, (y1 - y0) * k);
+      // Whole at the view's edge, nothing where the band ends.
+      if (i === 0) img.setAlpha(most, most, 0, 0);
+      else img.setAlpha(0, 0, most, most);
+    });
   }
 
   // ------------------------------------------------------------ who draws what
@@ -244,8 +287,18 @@ export class FieldLight {
     if (!this.filter) return;
     // A flash on top of the hero is held down: lit past white, they would bloom away to a blob and be lost.
     const h = this.world.hero;
-    if (Math.hypot(x - h.x, y - (h.y - 26)) < 70) strength = Math.min(strength, 0.42);
+    if (Math.hypot(x - h.x, y - (h.y - 26)) < 80) strength = Math.min(strength, 0.3);
     this.flashes.push({ x, y, r, color, strength, t: 0, dur });
+  }
+
+  /**
+   * The field goes dim for a moment, and what gives light of its own does not: a hero's move is seen against it.
+   * `by` is how much of the hour's light is taken, at the most.
+   */
+  dim(seconds: number, by: number): void {
+    this.dimOf = seconds;
+    this.dimLeft = seconds;
+    this.dimBy = by;
   }
 
   /** A light for the frame to come, for whoever shows something that glows and is not the wave's own to tell of. */
@@ -444,6 +497,7 @@ export class FieldLight {
   update(dt: number, clock: number, halted: boolean, carried: ReadonlyArray<{ id: string; x: number; y: number; rot: number; seen: boolean }>): void {
     this.clock = clock;
     this.age += dt;
+    if (this.dimLeft > 0 && !halted) this.dimLeft -= dt;
     this.watch(dt, halted);
     const filter = this.filter;
     const glow = this.glow;
@@ -466,7 +520,8 @@ export class FieldLight {
 
     // The hero carries light: little by day, a lantern's worth by night.
     // On a night march the light they carry is small: what comes is seen late.
-    if (h.hp > 0) this.light(h.x, h.y - 26, (240 + 110 * this.dark) * (w.night ? 0.66 : 1), HERO_LIGHT[this.heroId] ?? LANTERN, 0.08 + 0.52 * this.dark, true);
+    // By day it is little, but it is there: the hero stands in a pool a shade brighter than the field, which nobody else has.
+    if (h.hp > 0) this.light(h.x, h.y - 20, (230 + 120 * this.dark) * (w.night ? 0.66 : 1), HERO_LIGHT[this.heroId] ?? LANTERN, 0.14 + 0.46 * this.dark, true);
 
     // What they carry that burns or glows.
     // Many burning things in the hands do not make the hero a lamp: they share one light's worth between them.
@@ -531,6 +586,7 @@ export class FieldLight {
     }
     if (this.flashes.some((f) => f.t >= f.dur)) this.flashes = this.flashes.filter((f) => f.t < f.dur);
 
+    this.focus();
     this.moveAir(dt, halted);
     this.moveSmoke(dt);
     if (!halted) glow.update(dt);
@@ -557,14 +613,19 @@ export class FieldLight {
       if (el && v.halo && v.core) {
         const big = s.mine ? 1 : 1.15;
         const pulse = 1 + 0.08 * Math.sin(this.clock * 30 + s.id);
-        v.halo.setPosition(s.x, y - 2).setRotation(angle).setScale(glowScale(42 * big) * 1.4 * pulse, glowScale(42 * big) * pulse).setTint(el.mid).setAlpha(0.78);
-        v.core.setPosition(s.x, y - 2).setRotation(angle).setScale(glowScale(16 * big) * 1.6, glowScale(16 * big)).setTint(el.hot).setAlpha(s.mine ? 1 : 0);
-        if (!s.mine) v.halo.setTint(el.cool).setAlpha(0.8);
+        if (s.mine) {
+          // The band's own: a thin bright streak along its way. An enemy's is round and red. The two are told apart by shape as well as color.
+          v.halo.setPosition(s.x, y - 2).setRotation(angle).setScale(glowScale(40) * 2.3 * pulse, glowScale(40) * 0.6).setTint(el.mid).setAlpha(0.8);
+          v.core.setPosition(s.x, y - 2).setRotation(angle).setScale(glowScale(15) * 3, glowScale(15) * 0.7).setTint(el.hot).setAlpha(1);
+        } else {
+          v.halo.setPosition(s.x, y - 2).setRotation(0).setScale(glowScale(48) * pulse, glowScale(48) * pulse).setTint(el.cool).setAlpha(0.85);
+          v.core.setAlpha(0);
+        }
         // What it leaves behind: a tail that cools, and now and then a bit that falls away.
         while (v.since > 7 && !halted) {
           v.since -= 7;
           if (!this.spend()) break;
-          glow.spawn(s.x + rnd(-2, 2), y - 2 + rnd(-2, 2), el, { dur: rnd(0.22, 0.34), vx: -s.vx * 0.06 + rnd(-14, 14), vy: -s.vy * 0.06 + rnd(-14, 14) - (el === ELEMENTS.fire ? 22 : 0), from: 17 * big, to: 2, alpha: 0.7, flame: el === ELEMENTS.fire });
+          glow.spawn(s.x + rnd(-2, 2), y - 2 + rnd(-2, 2), el, { dur: rnd(0.22, 0.34), vx: -s.vx * 0.06 + rnd(-14, 14), vy: -s.vy * 0.06 + rnd(-14, 14) - (el === ELEMENTS.fire ? 22 : 0), from: (s.mine ? 12 : 19) * big, to: 2, alpha: 0.7, flame: el === ELEMENTS.fire });
           if (Math.random() < 0.22) glow.spawn(s.x, y, el, { dur: rnd(0.4, 0.7), vx: rnd(-40, 40), vy: rnd(-40, 30), gravity: el === ELEMENTS.fire ? -60 : 90, from: 5, to: 1 });
         }
         this.light(s.x, y, s.mine ? 105 : 110, el.light, (s.mine ? 0.34 : 0.38) * reach);
@@ -608,7 +669,7 @@ export class FieldLight {
       const size = f.def.size ?? 1;
       if (f.boss) {
         // A captain stands in a light of their own: there is no losing sight of them.
-        this.light(f.x, f.y - 30 * size, 230, ELEMENTS.red.light, (0.2 + 0.06 * Math.sin(this.clock * 2.2)) * (0.6 + 0.4 * this.dark));
+        this.light(f.x, f.y - 30 * size, 260, ELEMENTS.red.light, (0.3 + 0.07 * Math.sin(this.clock * 2.2)) * (0.6 + 0.4 * this.dark));
       }
       if (f.burn > 0) {
         this.burning.add(f.id);
@@ -718,16 +779,18 @@ export class FieldLight {
     filter.view = [this.vw, this.vh];
     filter.scroll = [this.vx, this.vy];
     filter.time = this.clock;
-    filter.ambient = hour.ambient;
-    filter.sun = hour.sun;
-    filter.shafts = hour.shafts;
+    // Dimmed for a move: quickly down, slowly back.
+    const u = this.dimLeft > 0 ? 1 - this.dimLeft / this.dimOf : 1;
+    const dim = this.dimLeft > 0 ? this.dimBy * Math.min(1, u * 8) * Math.min(1, (1 - u) * 2.5) : 0;
+    const keep = 1 - dim;
+    filter.ambient = [hour.ambient[0] * keep, hour.ambient[1] * keep, hour.ambient[2] * keep];
+    filter.sun = [hour.sun[0] * keep, hour.sun[1] * keep, hour.sun[2] * keep];
+    filter.sunDir = [Math.cos(SUN_ANGLE), Math.sin(SUN_ANGLE)];
     filter.clouds = hour.clouds;
     filter.shade = hour.shade;
     filter.vignette = hour.vignette;
     // A flame in full sun is a pale thing; at night it is all there is to see.
     filter.emitAmount = 0.8 + 0.2 * this.dark;
-    // The line of focus is where the hero stands, so that they and what is round them are always sharp.
-    filter.focus = Math.max(0.2, Math.min(0.8, (this.world.hero.y - 30 - this.vy) / this.vh));
     const cx = this.vx + this.vw / 2;
     const cy = this.vy + this.vh / 2;
     const seen = this.lit.filter((l) => l.strength > 0.01 && Math.abs(l.x - cx) < this.vw / 2 + l.r && Math.abs(l.y - cy) < this.vh / 2 + l.r);

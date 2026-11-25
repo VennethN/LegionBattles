@@ -8,38 +8,53 @@ import type { Land } from '../../game/data';
 type Rgb = [number, number, number];
 
 export interface Hour {
-  /** The light that falls on everything. Over one is brighter than the pictures were drawn. */
+  /** The light of the sky, which falls on everything, in the sun and out of it: cool, and less than the pictures were drawn in. */
   ambient: Rgb;
-  /** The color of the shafts through the air: the sun's by day, the moon's or the sky's by night. */
+  /** The sun's own light (the moon's, at night), color and strength in one. It falls only where nothing is in its way. */
   sun: Rgb;
-  /** How strong the shafts are, and how deep the cloud shadow. */
-  shafts: number;
+  /** How much of the sun the drifting shade takes away where it lies: the field is in patches of warm light and cool shade. */
   clouds: number;
   /** What the darkest parts of the picture lean to. */
   shade: Rgb;
   /** How dark the rim of the view is. */
   vignette: number;
+  /** The shadow a figure throws: how long, as a share of its height, and how dark. */
+  long: number;
+  cast: number;
 }
 
-/** The hours a land passes through, by how far through its waves it is: 0 at its first, 1 at its captain's. */
+/**
+ * Which way the sun's light goes across the field, in every land and at every hour: down and to the right, from a
+ * sun low on the upper left. Shadows lie that way and the patches of shade are drawn out along it.
+ */
+export const SUN_ANGLE = 0.62;
+
+/**
+ * The hours a land passes through, by how far through its waves it is: 0 at its first, 1 at its captain's.
+ *
+ * No land is come into at noon. Noon is flat: the sky's light and the sun's are one white, nothing throws a
+ * shadow, and the pictures look as they do with no light at all, only paler. The first wave is the first thing a
+ * player sees, so it is the golden hour: a low warm sun, long shadows and cool shade. A reviewer said of the
+ * first version, which began at noon, that it was "a pale haze over a flat lawn".
+ */
 const DAYS: Record<Land, Array<[number, Hour]>> = {
   meadow: [
-    [0, { ambient: [0.96, 0.96, 0.9], sun: [1.0, 0.9, 0.6], shafts: 0.22, clouds: 0.26, shade: [0.84, 0.95, 1.12], vignette: 0.34 }],
-    [0.45, { ambient: [0.98, 0.88, 0.8], sun: [1.0, 0.58, 0.3], shafts: 0.24, clouds: 0.22, shade: [0.95, 0.84, 1.08], vignette: 0.42 }],
-    [0.8, { ambient: [0.72, 0.58, 0.76], sun: [1.0, 0.5, 0.46], shafts: 0.16, clouds: 0.12, shade: [0.8, 0.84, 1.2], vignette: 0.44 }],
-    [1, { ambient: [0.43, 0.49, 0.76], sun: [0.55, 0.72, 1.0], shafts: 0.1, clouds: 0.1, shade: [0.78, 0.9, 1.24], vignette: 0.44 }],
+    [0, { ambient: [0.56, 0.62, 0.78], sun: [0.62, 0.4, 0.1], clouds: 0.88, shade: [0.84, 0.92, 1.14], vignette: 0.4, long: 1.15, cast: 0.3 }],
+    [0.45, { ambient: [0.62, 0.6, 0.76], sun: [0.56, 0.28, 0.1], clouds: 0.86, shade: [0.9, 0.84, 1.12], vignette: 0.44, long: 1.6, cast: 0.28 }],
+    [0.8, { ambient: [0.5, 0.48, 0.72], sun: [0.34, 0.14, 0.14], clouds: 0.7, shade: [0.8, 0.84, 1.2], vignette: 0.46, long: 1.9, cast: 0.18 }],
+    [1, { ambient: [0.32, 0.4, 0.66], sun: [0.1, 0.14, 0.22], clouds: 0.6, shade: [0.78, 0.9, 1.24], vignette: 0.46, long: 0.8, cast: 0.16 }],
   ],
   desert: [
-    [0, { ambient: [0.97, 0.94, 0.86], sun: [1.0, 0.94, 0.72], shafts: 0.14, clouds: 0.1, shade: [0.95, 0.9, 1.05], vignette: 0.32 }],
-    [0.5, { ambient: [0.96, 0.8, 0.68], sun: [1.0, 0.52, 0.26], shafts: 0.22, clouds: 0.1, shade: [1.0, 0.8, 1.0], vignette: 0.44 }],
-    [0.8, { ambient: [0.72, 0.54, 0.66], sun: [0.9, 0.42, 0.5], shafts: 0.12, clouds: 0, shade: [0.84, 0.8, 1.2], vignette: 0.5 }],
-    [1, { ambient: [0.43, 0.44, 0.72], sun: [0.6, 0.7, 1.0], shafts: 0.08, clouds: 0, shade: [0.8, 0.88, 1.24], vignette: 0.44 }],
+    [0, { ambient: [0.6, 0.6, 0.72], sun: [0.6, 0.42, 0.14], clouds: 0.72, shade: [0.95, 0.9, 1.08], vignette: 0.38, long: 1.1, cast: 0.3 }],
+    [0.5, { ambient: [0.66, 0.54, 0.62], sun: [0.56, 0.24, 0.08], clouds: 0.7, shade: [1.0, 0.8, 1.04], vignette: 0.46, long: 1.7, cast: 0.28 }],
+    [0.8, { ambient: [0.52, 0.42, 0.62], sun: [0.3, 0.1, 0.14], clouds: 0.5, shade: [0.84, 0.8, 1.2], vignette: 0.5, long: 2, cast: 0.18 }],
+    [1, { ambient: [0.32, 0.36, 0.64], sun: [0.1, 0.12, 0.2], clouds: 0.4, shade: [0.8, 0.88, 1.24], vignette: 0.46, long: 0.8, cast: 0.16 }],
   ],
   snow: [
-    [0, { ambient: [0.9, 0.95, 1.02], sun: [1.0, 0.95, 0.84], shafts: 0.16, clouds: 0.28, shade: [0.84, 0.94, 1.14], vignette: 0.36 }],
-    [0.5, { ambient: [0.62, 0.72, 0.98], sun: [0.8, 0.76, 1.0], shafts: 0.12, clouds: 0.16, shade: [0.78, 0.9, 1.24], vignette: 0.46 }],
+    [0, { ambient: [0.58, 0.68, 0.86], sun: [0.5, 0.36, 0.18], clouds: 0.8, shade: [0.84, 0.94, 1.14], vignette: 0.4, long: 1.4, cast: 0.26 }],
+    [0.5, { ambient: [0.48, 0.58, 0.84], sun: [0.3, 0.2, 0.3], clouds: 0.7, shade: [0.78, 0.9, 1.24], vignette: 0.46, long: 1.9, cast: 0.18 }],
     // The last of it is under the northern lights.
-    [1, { ambient: [0.41, 0.49, 0.76], sun: [0.36, 1.0, 0.7], shafts: 0.14, clouds: 0.08, shade: [0.78, 0.92, 1.24], vignette: 0.44 }],
+    [1, { ambient: [0.3, 0.4, 0.64], sun: [0.06, 0.24, 0.16], clouds: 0.7, shade: [0.78, 0.92, 1.24], vignette: 0.46, long: 0.8, cast: 0.16 }],
   ],
 };
 
@@ -55,7 +70,7 @@ export function hourOf(land: Land, wave: number, night = false): Hour {
   // A night march is the land's last hour, and darker than that: there is no light but what is carried.
   if (night) {
     const last = DAYS[land][DAYS[land].length - 1][1];
-    return { ...last, ambient: [last.ambient[0] * 0.8, last.ambient[1] * 0.8, last.ambient[2] * 0.84], shafts: 0, clouds: 0, vignette: 0.56 };
+    return { ...last, ambient: [last.ambient[0] * 0.82, last.ambient[1] * 0.82, last.ambient[2] * 0.86], sun: [0, 0, 0], clouds: 0, vignette: 0.56, cast: 0.1 };
   }
   const at = ((wave - 1) % 20) + 1;
   const [from, to] = SPANS[land];
@@ -66,22 +81,26 @@ export function hourOf(land: Land, wave: number, night = false): Hour {
     const [t0, a] = day[i - 1];
     if (t > t1) continue;
     const k = (t - t0) / (t1 - t0);
+    const num = (x: number, y: number): number => x + (y - x) * k;
     return {
       ambient: mix(a.ambient, b.ambient, k),
       sun: mix(a.sun, b.sun, k),
-      shafts: a.shafts + (b.shafts - a.shafts) * k,
-      clouds: a.clouds + (b.clouds - a.clouds) * k,
+      clouds: num(a.clouds, b.clouds),
       shade: mix(a.shade, b.shade, k),
-      vignette: a.vignette + (b.vignette - a.vignette) * k,
+      vignette: num(a.vignette, b.vignette),
+      long: num(a.long, b.long),
+      cast: num(a.cast, b.cast),
     };
   }
   return day[day.length - 1][1];
 }
 
-/** How dark an hour is: 0 in full day, 1 in the deepest night there is. Lights count for more the darker it is. */
+/** How dark an hour is: 0 in the last of the day's sun, 1 in the deepest night there is. Lights count for more the darker it is. */
 export function darkness(hour: Hour): number {
-  const luma = hour.ambient[0] * 0.3 + hour.ambient[1] * 0.59 + hour.ambient[2] * 0.11;
-  return Math.max(0, Math.min(1, (1 - luma) / 0.42));
+  // What falls where the sun does, which is most of the field.
+  const lit = [hour.ambient[0] + hour.sun[0], hour.ambient[1] + hour.sun[1], hour.ambient[2] + hour.sun[2]];
+  const luma = lit[0] * 0.3 + lit[1] * 0.59 + lit[2] * 0.11;
+  return Math.max(0, Math.min(1, (1.04 - luma) / 0.56));
 }
 
 /** The colors a kind of light goes through as it cools, and the light it throws on the ground. */

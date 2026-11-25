@@ -128,6 +128,12 @@ export const BAND = {
   rises: 0.5,
   /** How far from the hero a companion goes after an enemy. */
   leash: 340,
+  /**
+   * The room round the hero's feet that no companion on its feet stands in, across and up and down: a companion
+   * in a fight came to stand on top of the hero, and the hero is who the player has to see. One running through
+   * (a charge) is not stopped by it, and one that circles them is beyond it already.
+   */
+  room: [50, 30],
 } as const;
 
 /** The numbers of each companion's quirk. `bond` is what each step of its bond adds, where the quirk grows. */

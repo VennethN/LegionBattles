@@ -1,3 +1,4 @@
+import type Phaser from 'phaser';
 // The screen. The game has no fixed shape: it is laid out afresh for
 // whatever window it is given, wide or tall, so that it fills a monitor, a
 // phone held either way and a portal's frame alike, with no bars round it.
@@ -82,4 +83,14 @@ export const FONT = 'Fredoka';
 
 export function hex(color: string): number {
   return parseInt(color.slice(1), 16);
+}
+
+/**
+ * True where the player steers with a finger: a phone or a tablet. It is asked of the browser in two ways, since
+ * neither alone is right everywhere: a laptop with a touch screen has touch and a mouse, and some phones' browsers
+ * say they are desktops.
+ */
+export function byFinger(game: Phaser.Game): boolean {
+  const coarse = typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+  return coarse || (game.device.input.touch && !game.device.os.desktop);
 }
