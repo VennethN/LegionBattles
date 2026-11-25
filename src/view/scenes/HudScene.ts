@@ -196,6 +196,11 @@ export class HudScene extends Phaser.Scene {
     this.tweens.add({ targets: this.flash, alpha: 0, duration: 260 });
   }
 
+  /** True where the player steers with a finger. */
+  get byFinger(): boolean {
+    return byFinger(this.game);
+  }
+
   /** Where a plate of words at the foot of the screen stands: clear of the fight, and of the move's button on a narrow screen. */
   private foot(): number {
     return view.h - (view.w < 760 ? 138 : 50);
@@ -363,7 +368,7 @@ export class HudScene extends Phaser.Scene {
       g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(88, 54, 162, 11, 5);
       g.fillStyle(hex(VENOM.fill), 1).fillRoundedRect(91, 57, Math.max(4, 156 * (xp / levelNeeds(level))), 5, 2);
       // The quirk's bar: how near it is to being on.
-      if (world.quirk && world.quirk !== 'kindling' && world.quirk !== 'deepcold') {
+      if (world.quirk && world.quirk !== 'unfinished' && world.quirk !== 'deepcold') {
         g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(88, 89, 162, 10, 4);
         g.fillStyle(hex(trait.on ? HOLY.fill : BONE.shade), 1).fillRoundedRect(91, 92, Math.max(3, 156 * trait.share), 4, 2);
       }

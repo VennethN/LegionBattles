@@ -5,9 +5,10 @@
 // pace report can play one without a screen.
 
 import {
-  BAND, BASE_STATS, CHOICES, COMPANIONS, HEROES, ITEMS, KIND_AGAIN, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId, landAt, levelNeeds,
-  ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type HeroDef,
+  BAND, BASE_STATS, CHOICES, COMPANIONS, HEROES, ITEMS, KIND_AGAIN, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId,
+  finishedAs, landAt, levelNeeds, ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type Count, type HeroDef, type WeaponDef,
 } from './data';
+import { VOW, VOWS, noBoons, type Boons, type Thing, thingKey } from './holdData';
 import { KINDS, KIND_STEPS, countKinds, giftLine, kindStep, type Kind, type KindCounts } from './kinds';
 import { RELIC, RELICS } from './relics';
 import { OMENS, ROAD, type Omen, type Road } from './road';
@@ -24,6 +25,8 @@ export interface Offer {
   sold: boolean;
   /** Kept when the wares are changed, and for the next camp. */
   locked: boolean;
+  /** True for the ware the Merchant's Seal has halved. */
+  cut?: boolean;
 }
 
 /** One of a level's choices: a stat raised, or, where `bond` names a companion, a step of the bond with it. */
@@ -97,7 +100,90 @@ export interface RunData {
   whet: number;
   /** The share of the hero's health that was left when the last wave ended: a player picks a road by it, and so does the plain player. */
   left: number;
+  /** True for a player's first run: its second wave's road is the stray's, with Biscuit in the cage. */
+  first: boolean;
+  /** The last weapon bought, by name, or '': Orrin's staff is finished as it. */
+  taken: string;
+  /** True once Fenn has tossed for a ware in this camp. */
+  tossed: boolean;
+  /** True from the end of a forced march until its camp has been passed by. */
+  forced: boolean;
+  /** The share of their health the hero begins the next wave with: 1 but after a forced march. */
+  hurt: number;
+  /** Choices as for a level that are owed at the best tier: the prize of the road of the wounded. */
+  bests: number;
+  /** What the run has counted of the way its hero was played (heroes.ts, COUNTS): the oaths about a passive ask after it. */
+  counts: Partial<Record<Count, number>>;
+  /** The vows the run was sworn under, by name (holdData.ts). */
+  vows: string[];
+  /** The weapons the run may be offered, by name, or null for all the armory has not shut. */
+  pool: string[] | null;
+  /** The day whose road this run is (hold.ts), or '' for a run of the player's own. */
+  daily: string;
+  /** True if the hero's own weapon follows its second rule: an oath opens it, and the player chooses. */
+  alt: boolean;
+  /** Seconds fought so far, and waves come through with no blow landed. */
+  time: number;
+  clean: number;
+  /** Wares that may still be struck from the table in this run, and true once the relics on offer have been looked at a second time. */
+  banishes: number;
+  relooked: boolean;
+  /** What the armory had not opened when the run began: the weapons, wares and relics this run is never offered. */
+  shut: string[];
+  /** What the board had given when the run began, added up (holdData.ts). */
+  boons: Boons;
+  /** True once the Second Breath has been drawn: it is once in a run. */
+  breathed: boolean;
+  /** Deeds done in this run, for the tally at its end. */
+  deeds: string[];
+  /** What the waves have told since the save last took it: who stood on the field, who was slain, which roads were come through, which captains fell with no blow landed. */
+  told: Told | null;
+  /** True once the run's renown has been paid, and once its win has been counted. */
+  paid: boolean;
+  won: boolean;
 }
+
+/** What the Hold gives a run to begin with: its vows, what is shut to it or the weapons it may be offered, what the board gives, and what the hero's oaths have opened. */
+export interface Terms {
+  /** True for a player's first run: its second wave's road is the stray's, with Biscuit in the cage. */
+  first?: boolean;
+  vows?: readonly string[];
+  shut?: readonly string[];
+  /** The weapons the run may be offered, by name: all that are not shut, if it is not given. */
+  pool?: readonly string[] | null;
+  boons?: Boons;
+  /** A relic the run begins with. */
+  relic?: string;
+  alt?: boolean;
+  daily?: string;
+}
+
+export interface Told {
+  met: string[];
+  slain: Record<string, number>;
+  roads: string[];
+  unstruck: string[];
+}
+
+/** True if the armory had this open when the run began. */
+export function offered(run: RunData, kind: Thing['kind'], id: string): boolean {
+  return !run.shut.includes(thingKey({ kind, id }));
+}
+
+const openWeapons = (run: RunData): typeof WEAPONS => WEAPONS.filter((w) => (run.pool ? run.pool.includes(w.id) : true) && offered(run, 'weapon', w.id));
+const openItems = (run: RunData): typeof ITEMS => ITEMS.filter((it) => offered(run, 'item', it.id));
+const openRelics = (run: RunData): typeof RELICS => RELICS.filter((r) => offered(run, 'relic', r.id));
+
+/** A price in the camp as the run's vows have it: dearer under Lean Coffers. */
+const dear = (run: RunData, price: number): number => (run.vows.includes('lean') ? Math.max(1, Math.round(price * VOW.prices)) : price);
+
+/** How many hands the run has for what is bought. */
+export function handsOf(run: RunData): number {
+  return SLOTS - (run.vows.includes('hand') ? VOW.hands : 0);
+}
+
+/** Who is in the cage on a first run. */
+export const FIRST_STRAY = 'biscuit';
 
 export function heroOf(run: RunData): HeroDef {
   return byId(HEROES, run.hero);
@@ -109,14 +195,28 @@ export function bandSize(hero: string, places: number): number {
 }
 
 /** A new run: a hero, and the companions who go with them. The hero's own weapon is all they carry. */
-export function newRun(hero: string, seed: number, band: readonly string[] = [], forks: number = ROAD.roads): RunData {
+export function newRun(hero: string, seed: number, band: readonly string[] = [], forks: number = ROAD.roads, terms: Terms = {}): RunData {
   byId(HEROES, hero);
   const known = [...new Set(band)].filter((id) => COMPANIONS.some((c) => c.id === id));
-  return {
+  const run: RunData = {
+    first: !!terms.first, taken: '', tossed: false, forced: false, hurt: 1, bests: 0, counts: {},
     hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [], band: known.map((id) => ({ id, bond: 0 })), fury: 0, rose: -1, saved: false,
     items: [], ups: [], packs: 0, kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
     relics: [], relicsDue: 0, relicChoices: [], road: { omen: 'quiet' }, roads: [], forks: Math.max(1, Math.min(ROAD.most, Math.floor(forks))), vigor: 0, whet: 0, left: 1,
+    vows: VOWS.filter((v) => (terms.vows ?? []).includes(v.id)).map((v) => v.id), shut: [...(terms.shut ?? [])], pool: terms.pool ? [...terms.pool] : null, boons: terms.boons ? { ...terms.boons, stats: { ...terms.boons.stats } } : noBoons(),
+    daily: terms.daily ?? '', alt: !!terms.alt, time: 0, clean: 0, banishes: 0, relooked: false, breathed: false, deeds: [], told: null, paid: false, won: false,
   };
+  // What an oath of the hero's has opened: a relic to begin with.
+  if (terms.relic && RELICS.some((r) => r.id === terms.relic)) run.relics.push(terms.relic);
+  // What the board gives a run to begin with: coins, and marks to strike wares with.
+  run.gold = run.boons.gold;
+  run.banishes = run.boons.banish;
+  return run;
+}
+
+/** Adds to one of the run's counts. */
+function counted(run: RunData, of: Count, n: number): void {
+  run.counts = { ...(run.counts ?? {}), [of]: (run.counts?.[of] ?? 0) + n };
 }
 
 /** True if the run holds a relic. */
@@ -127,6 +227,13 @@ export function hasRelic(run: RunData, id: string): boolean {
 /** The hero's own weapon as it stands: it grows a tier by itself at set levels. */
 export function ownOf(run: RunData): Carried {
   return { id: heroOf(run).weapon, tier: ownTier(run.level) };
+}
+
+/** What the hero's own weapon is: for Orrin, his staff as the last weapon he bought finished it. */
+export function ownDef(run: RunData): WeaponDef {
+  const hero = heroOf(run);
+  const own = weaponOf(hero.weapon);
+  return hero.quirk === 'unfinished' && run.taken ? finishedAs(own, weaponOf(run.taken)) : own;
 }
 
 /** Rolls with the run's dice, and leaves them where they came to rest. */
@@ -146,15 +253,17 @@ export function statLines(run: RunData): StatLine[] {
     { maxHp: run.level },
     ...run.items.map((id) => byId(ITEMS, id).stats),
     ...run.ups.map((u) => ({ [u.stat]: u.by }) as StatLine),
-    // What the kinds of weapon held give as plain stats, and the health the Banner of the Fallen has given.
+    // What the kinds of weapon held give as plain stats.
     giftLine(kindCounts(run)),
+    // The health the Banner of the Fallen has given, and what the board gives for good.
     { maxHp: run.vigor },
+    run.boons.stats,
   ];
 }
 
 /** How many of each kind of weapon the hero holds, their own among them. */
 export function kindCounts(run: RunData): KindCounts {
-  return countKinds([weaponOf(heroOf(run).weapon), ...run.weapons.map((w) => weaponOf(w.id))]);
+  return countKinds([ownDef(run), ...run.weapons.map((w) => weaponOf(w.id))]);
 }
 
 /** A kind of weapon as the camp shows it: how many are held, the step of its gift that gives, and what the next step asks for and gives. */
@@ -206,12 +315,22 @@ export function setupOf(run: RunData, tall = false, auto = true): Setup {
   // The Tithe Box takes its coins if they are there.
   const tithe = hasRelic(run, 'tithe') && run.gold >= RELIC.tithe.coins;
   if (tithe) run.gold -= RELIC.tithe.coins;
+  // A forced march is paid for once: by the wave that follows it. Under Open Wounds every wave begins with what the
+  // last one left, so the two ask the same thing and the worse of them holds.
+  const hurt = Math.min(run.hurt ?? 1, run.vows.includes('wounds') ? Math.max(0.05, run.left) : 1);
+  run.hurt = 1;
   return {
+    taken: run.taken ?? '', hurt, herald: run.wave === HERALD_WAVE, given: !!run.first && run.wave === 2,
     seed, wave: run.wave, stats, quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
     band: run.band, level: run.level, fury: run.fury, auto, purse: run.gold, spare: run.rose !== landAt(run.wave), rescue: !run.saved, tall,
     omen: run.road.omen, stray: run.road.stray, relics: run.relics, whet: run.whet, tithe, bones,
+    vows: run.vows, alt: run.alt, breath: run.boons.breath > 0 && !run.breathed,
+    furyBy: 1 + run.boons.fury / 100, bandHp: 1 + run.boons.bandHp / 100, bandDmg: 1 + run.boons.bandDmg / 100, bandUp: run.boons.bandUp / 100,
   };
 }
+
+/** The wave on which a lone champion comes, in every run, and leaves a relic if it falls. */
+export const HERALD_WAVE = 3;
 
 /** The stats the Bone Dice may roll: the ones counted in hundredths, where 15 up and 10 down mean the same for each. */
 const DICE_STATS: readonly Stat[] = ['damage', 'haste', 'crit', 'dodge', 'speed', 'luck', 'bounty'];
@@ -224,7 +343,18 @@ export function endWave(run: RunData, world: World): void {
   run.left = Math.max(0, world.hero.hp / world.hero.maxHp);
   if (world.rose) run.rose = landAt(run.wave);
   if (world.rescued) run.saved = true;
-  run.xp += world.xp;
+  if (world.breathed) run.breathed = true;
+  // What the wave told, kept until the save takes it (hold.ts).
+  const told = (run.told ??= { met: [], slain: {}, roads: [], unstruck: [] });
+  for (const id of world.met) if (!told.met.includes(id)) told.met.push(id);
+  for (const [id, n] of Object.entries(world.slain)) told.slain[id] = (told.slain[id] ?? 0) + n;
+  for (const id of world.unstruck) if (!told.unstruck.includes(id)) told.unstruck.push(id);
+  for (const [of, n] of Object.entries(world.counts)) counted(run, of as Count, n);
+  if (world.over === 'cleared' && !told.roads.includes(world.omen)) told.roads.push(world.omen);
+  run.time += world.time;
+  if (world.over === 'cleared' && !world.struck) run.clean++;
+  // The board's tales: more is learned from the same wave.
+  run.xp += world.xp * (1 + run.boons.xp / 100);
   run.kills += world.kills;
   run.packs += world.packs;
   for (const b of world.felled) if (!run.felled.includes(b)) run.felled.push(b);
@@ -239,16 +369,28 @@ export function endWave(run: RunData, world: World): void {
   }
   // What the road promised, and what the wave gave besides.
   const omen = world.omen;
-  // A captain leaves a relic, and so does a road of champions or a night march come through.
-  run.relicsDue += world.felled.length + (omen === 'champions' || omen === 'night' ? 1 : 0);
-  // The shrine's blessing is a choice as for a level, with no level made.
+  // A captain leaves a relic. So do the roads that pay one, come through, a duelist who fell, and the lone champion of the third wave.
+  run.relicsDue += world.felled.length + (omen === 'champions' || omen === 'night' || omen === 'forced' ? 1 : 0) + (world.dueled ? 1 : 0) + (world.herald ? 1 : 0);
+  // The shrine's blessing is a choice as for a level, with no level made. The road of the wounded pays one of the best kind.
   if (world.blessed) run.pending++;
+  if (omen === 'wounded') {
+    run.pending++;
+    run.bests = (run.bests ?? 0) + 1;
+  }
+  // The blizzard's spoils: the plainest weapon bought gains a tier, or a pack for one who has bought none that can.
+  if (omen === 'blizzard' && !whet(run)) run.packs++;
+  // A forced march: no camp after it, and the next wave finds the hero as this one left them.
+  if (omen === 'forced') {
+    run.forced = true;
+    run.hurt = Math.max(ROAD.forced.least, run.left);
+  }
   // Whoever was let out of the cage stays for the run, beyond the band's places.
   if (world.freed && !run.band.some((b) => b.id === world.freed)) run.band.push({ id: world.freed, bond: 0, stray: true });
   if (hasRelic(run, 'fallen')) run.vigor += RELIC.fallen.health * world.banners;
   if (hasRelic(run, 'ageswhet')) run.whet++;
   run.wave++;
   run.rerolls = 0;
+  run.tossed = false;
   run.road = { omen: 'quiet' };
   // What was locked is still on the table; the rest of the wares are new.
   rollOffers(run, false);
@@ -264,12 +406,13 @@ function settle(run: RunData): void {
   }
   run.choices = [];
   if (run.relicsDue > 0) {
-    const left = RELICS.filter((r) => !hasRelic(run, r.id));
+    const left = openRelics(run).filter((r) => !hasRelic(run, r.id));
     if (left.length === 0) {
       // A run that holds every relic there is takes coins instead.
       run.gold += RELIC.instead * run.relicsDue;
       run.relicsDue = 0;
     } else {
+      run.relooked = false;
       run.relicChoices = roll(run, (rng) => {
         const pool = left.map((r) => r.id);
         const out: string[] = [];
@@ -281,7 +424,22 @@ function settle(run: RunData): void {
     }
   }
   run.relicChoices = [];
+  if (run.forced) {
+    // The camp is passed by: straight on to the roads.
+    run.forced = false;
+    leave(run);
+    return;
+  }
   run.phase = 'camp';
+}
+
+/** The plainest weapon bought gains a tier. False if none can. */
+function whet(run: RunData): boolean {
+  let plainest: Carried | null = null;
+  for (const w of run.weapons) if (w.tier < TIERS - 1 && (!plainest || w.tier < plainest.tier)) plainest = w;
+  if (!plainest) return false;
+  plainest.tier++;
+  return true;
 }
 
 /** How many relics are offered when one is won. */
@@ -313,18 +471,21 @@ function rollTier(rng: Rng, step: number, luck: number, most = TIERS - 1): numbe
 function rollChoices(run: RunData): void {
   const luck = statsOf(run).luck;
   // Orrin picks from one more.
-  const n = CHOICES + (heroOf(run).quirk === 'echo' ? QUIRKS.echo.choices : 0);
+  const n = CHOICES + (heroOf(run).quirk === 'unfinished' ? QUIRKS.unfinished.choices : 0);
+  // A blessing of the best kind: every choice at the best tier.
+  const best = (run.bests ?? 0) > 0;
   run.choices = roll(run, (rng) => {
     const pool = [...UPGRADES];
     const out: Choice[] = [];
     while (out.length < n && pool.length > 0) {
       const u = pool.splice(rng.int(pool.length), 1)[0];
-      const tier = rollTier(rng, run.level, luck);
+      const rolled = rollTier(rng, run.level, luck);
+      const tier = best ? TIERS - 1 : rolled;
       out.push({ stat: u.stat, tier, by: u.by[tier] });
     }
     // Now and then the last of them is a bond with a companion on the run who has a step left.
     const open = run.band.filter((b) => b.bond < BAND.bonds);
-    if (open.length > 0 && rng.chance(BAND.bondChance)) {
+    if (!best && open.length > 0 && rng.chance(BAND.bondChance)) {
       const b = rng.pick(open);
       out[out.length - 1] = { stat: 'damage', tier: b.bond, by: 0, bond: b.id };
     }
@@ -340,6 +501,7 @@ export function choose(run: RunData, i: number): boolean {
   if (bonded) bonded.bond = Math.min(BAND.bonds, bonded.bond + 1);
   else run.ups.push({ stat: c.stat, by: c.by });
   run.pending--;
+  if ((run.bests ?? 0) > 0) run.bests--;
   settle(run);
   return true;
 }
@@ -361,21 +523,23 @@ function rollOffer(run: RunData, rng: Rng, slot: number): Offer {
     } else {
       // Now and then one of a kind the hero holds already: a kind is built up over a run, and the camp helps.
       const counts = kindCounts(run);
-      const kin = WEAPONS.filter((w) => w.kinds.some((k) => counts[k] > 0));
-      id = (kin.length > 0 && rng.chance(KIND_AGAIN) ? rng.pick(kin) : rng.pick(WEAPONS)).id;
+      const open = openWeapons(run);
+      const kin = open.filter((w) => w.kinds.some((k) => counts[k] > 0));
+      id = (kin.length > 0 && rng.chance(KIND_AGAIN) ? rng.pick(kin) : rng.pick(open)).id;
       tier = rollTier(rng, run.wave, luck);
     }
     const def = byId(WEAPONS, id);
-    return { kind: 'weapon', id, tier, price: priceAt(def.price * TIER_PRICE[tier], run.wave), sold: false, locked: false };
+    return { kind: 'weapon', id, tier, price: dear(run, priceAt(def.price * TIER_PRICE[tier], run.wave)), sold: false, locked: false };
   }
+  const wares = openItems(run);
   let tier = rollTier(rng, run.wave, luck);
-  let pool = ITEMS.filter((it) => it.tier === tier && held(run, it.id) < (it.most ?? 99));
+  let pool = wares.filter((it) => it.tier === tier && held(run, it.id) < (it.most ?? 99));
   while (pool.length === 0 && tier > 0) {
     tier--;
-    pool = ITEMS.filter((it) => it.tier === tier);
+    pool = wares.filter((it) => it.tier === tier);
   }
   const item = rng.pick(pool);
-  return { kind: 'item', id: item.id, tier: item.tier, price: priceAt(item.price, run.wave), sold: false, locked: false };
+  return { kind: 'item', id: item.id, tier: item.tier, price: dear(run, priceAt(item.price, run.wave)), sold: false, locked: false };
 }
 
 /** New wares. What is locked stays, unless it was sold. `all` changes even those. */
@@ -388,12 +552,51 @@ function rollOffers(run: RunData, all: boolean): void {
     }
     // Rarely the last of the wares is a relic, at a high price: never two at once, and never one the run holds.
     const last = next[OFFERS - 1];
-    const left = RELICS.filter((r) => !hasRelic(run, r.id));
+    const left = openRelics(run).filter((r) => !hasRelic(run, r.id));
     if (run.wave >= RELIC.wareFrom && left.length > 0 && !(last.locked && !last.sold) && !next.some((o) => o.kind === 'relic') && rng.chance(RELIC.ware)) {
-      next[OFFERS - 1] = { kind: 'relic', id: rng.pick(left).id, tier: TIERS - 1, price: priceAt(RELIC.price, run.wave), sold: false, locked: false };
+      next[OFFERS - 1] = { kind: 'relic', id: rng.pick(left).id, tier: TIERS - 1, price: dear(run, priceAt(RELIC.price, run.wave)), sold: false, locked: false };
+    }
+    // The Merchant's Seal: the dearest ware on the table is half its price. One at a time: a halved ware kept from before is the one.
+    if (hasRelic(run, 'seal') && !next.some((o) => o.cut && !o.sold)) {
+      let dearest: Offer | null = null;
+      for (const o of next) if (!o.sold && (!dearest || o.price > dearest.price)) dearest = o;
+      if (dearest) {
+        dearest.price = Math.max(1, Math.round(dearest.price * RELIC.seal.share));
+        dearest.cut = true;
+      }
     }
     run.offers = next;
   });
+}
+
+/**
+ * The Black Mark: strikes a ware from the table. It is not offered again
+ * in this run, and another takes its place. A relic can be struck too.
+ */
+export function banish(run: RunData, i: number): boolean {
+  const o = run.offers[i];
+  if (run.phase !== 'camp' || !o || o.sold || run.banishes <= 0) return false;
+  run.banishes--;
+  const key = thingKey(o);
+  if (!run.shut.includes(key)) run.shut.push(key);
+  roll(run, (rng) => {
+    run.offers[i] = rollOffer(run, rng, i);
+  });
+  return true;
+}
+
+/** A Second Look: once at each choice of a relic, three others are shown instead, where there are others. */
+export function relook(run: RunData): boolean {
+  if (run.phase !== 'relic' || run.relooked || run.boons.relook <= 0) return false;
+  const others = openRelics(run).filter((r) => !hasRelic(run, r.id) && !run.relicChoices.includes(r.id)).map((r) => r.id);
+  if (others.length === 0) return false;
+  run.relooked = true;
+  run.relicChoices = roll(run, (rng) => {
+    const out: string[] = [];
+    while (out.length < run.relicChoices.length && others.length > 0) out.push(others.splice(rng.int(others.length), 1)[0]);
+    return out;
+  });
+  return true;
 }
 
 export function held(run: RunData, item: string): number {
@@ -411,7 +614,7 @@ export function whyNot(run: RunData, i: number): '' | 'sold' | 'coins' | 'hands'
   const o = run.offers[i];
   if (!o || o.sold) return 'sold';
   if (run.gold < o.price) return 'coins';
-  if (o.kind === 'weapon' && run.weapons.length >= SLOTS && twinOf(run, o.id, o.tier) < 0) return 'hands';
+  if (o.kind === 'weapon' && run.weapons.length >= handsOf(run) && twinOf(run, o.id, o.tier) < 0) return 'hands';
   return '';
 }
 
@@ -424,9 +627,49 @@ export function buy(run: RunData, i: number): boolean {
   o.locked = false;
   if (o.kind === 'item') run.items.push(o.id);
   else if (o.kind === 'relic') run.relics.push(o.id);
-  else if (run.weapons.length < SLOTS) run.weapons.push({ id: o.id, tier: o.tier });
-  else run.weapons[twinOf(run, o.id, o.tier)].tier++;
+  else {
+    if (run.weapons.length < handsOf(run)) run.weapons.push({ id: o.id, tier: o.tier });
+    else run.weapons[twinOf(run, o.id, o.tier)].tier++;
+    // The last weapon bought: Orrin's staff is finished as it. A new form is counted.
+    if (heroOf(run).quirk === 'unfinished' && run.taken !== o.id) counted(run, 'finished', 1);
+    run.taken = o.id;
+  }
   return true;
+}
+
+/** True if Fenn may toss for a ware now: once in a camp, and for one he could pay for. */
+export function canToss(run: RunData, i: number): boolean {
+  return run.phase === 'camp' && heroOf(run).quirk === 'double' && !run.tossed && whyNot(run, i) === '';
+}
+
+/** The chance Fenn's toss comes up heads: even, and a little better for every point of Luck. */
+export function tossOdds(run: RunData): number {
+  const q = QUIRKS.double;
+  return Math.min(q.best, q.heads + Math.max(0, statsOf(run).luck) * q.luck);
+}
+
+/**
+ * Fenn tosses for a ware: heads it is his for nothing, tails he pays for it
+ * and it is gone. Once in a camp. Gives back how it fell, or null if there
+ * was no toss.
+ */
+export function toss(run: RunData, i: number): 'heads' | 'tails' | null {
+  if (!canToss(run, i)) return null;
+  const o = run.offers[i];
+  const heads = roll(run, (rng) => rng.chance(tossOdds(run)));
+  run.tossed = true;
+  if (heads) {
+    counted(run, 'toss', 1);
+    const price = o.price;
+    o.price = 0;
+    buy(run, i);
+    o.price = price;
+    return 'heads';
+  }
+  run.gold -= o.price;
+  o.sold = true;
+  o.locked = false;
+  return 'tails';
 }
 
 /** Joins a weapon with its twin into one of the next tier. */
@@ -454,9 +697,10 @@ export function sell(run: RunData, slot: number): boolean {
 }
 
 export function rerollPrice(run: RunData): number {
-  // The Merchant's Seal: the first look at other wares in each camp is free.
-  if (run.rerolls === 0 && hasRelic(run, 'seal')) return 0;
-  return rerollCost(run.wave, run.rerolls);
+  // The board's quartermaster gives a free look or two in each camp. (The Merchant's Seal used to: it halves the dearest ware now.)
+  if (run.rerolls < run.boons.reroll) return 0;
+  // A free look still counts as a look: the next one costs what a second would.
+  return dear(run, rerollCost(run.wave, run.rerolls));
 }
 
 /** Pays to see other wares. What is locked stays. */
@@ -483,8 +727,9 @@ export function openPack(run: RunData): string | null {
   const luck = statsOf(run).luck;
   const id = roll(run, (rng) => {
     let tier = rollTier(rng, run.wave + 3, luck);
-    let pool = ITEMS.filter((it) => it.tier === tier);
-    while (pool.length === 0 && tier > 0) pool = ITEMS.filter((it) => it.tier === --tier);
+    const wares = openItems(run);
+    let pool = wares.filter((it) => it.tier === tier);
+    while (pool.length === 0 && tier > 0) pool = wares.filter((it) => it.tier === --tier);
     return rng.pick(pool).id;
   });
   run.items.push(id);
@@ -493,7 +738,7 @@ export function openPack(run: RunData): string | null {
 
 /** What a weapon would do in this hero's hands, for the card that offers it: its harm, and the seconds between its blows. */
 export function weaponNumbers(run: RunData, id: string, tier: number): { harm: number; every: number } {
-  const def = weaponOf(id);
+  const def = id === heroOf(run).weapon ? ownDef(run) : weaponOf(id);
   const s = statsOf(run);
   const base = def.dmg[tier] + (def.scale.might ?? 0) * s.might + (def.scale.aim ?? 0) * s.aim + (def.scale.lore ?? 0) * s.lore;
   return { harm: Math.max(1, Math.round(base * Math.max(0.1, 1 + s.damage / 100))), every: def.every[tier] / hasteRate(s.haste) };
@@ -513,11 +758,27 @@ function strayFor(run: RunData, rng: Rng): string | undefined {
   return free.length > 0 ? rng.pick(free).id : undefined;
 }
 
+/** True if an omen may be offered to the run now. */
+function roadOpen(run: RunData, id: Omen, stray: string | undefined): boolean {
+  const o = OMENS.find((x) => x.id === id);
+  if (!o || o.weight <= 0 || run.wave < o.from) return false;
+  // An omen that is one land's own comes only there.
+  if (o.land && o.land !== waveOf(run.wave).land) return false;
+  if (id === 'stray') return stray !== undefined;
+  // A forced march leaves no camp after it: never before a captain, who is hard enough rested.
+  if (id === 'forced') return !waveOf(run.wave + 1).boss;
+  // Under the vow that makes every wave a night, the night road would cost nothing.
+  if (id === 'night') return !run.vows.includes('dusk');
+  // The keepers want a purse worth taking from.
+  if (id === 'toll') return run.gold >= ROAD.toll.least;
+  return true;
+}
+
 /** The roads to the run's next wave: no two alike, each with what it needs to be told. */
 function rollRoads(run: RunData, n: number): Road[] {
   return roll(run, (rng) => {
     const stray = strayFor(run, rng);
-    const pool = OMENS.filter((o) => run.wave >= o.from && (o.id !== 'stray' || stray !== undefined));
+    const pool = OMENS.filter((o) => roadOpen(run, o.id, stray));
     const out: Road[] = [];
     while (out.length < n && pool.length > 0) {
       const o = rng.weighted(pool, (x) => x.weight);
@@ -526,6 +787,26 @@ function rollRoads(run: RunData, n: number): Road[] {
     }
     return out;
   });
+}
+
+/** The roads are laid out, or, where there is one road, the run is on it at once. */
+function leave(run: RunData): void {
+  // A first run's second wave: the stray's road and no other, with Biscuit in the cage, so that a companion is met in the first minutes.
+  if (run.first && run.wave === 2 && !run.band.some((b) => b.id === FIRST_STRAY)) {
+    run.roads = [{ omen: 'stray', stray: FIRST_STRAY }];
+    run.phase = 'road';
+    return;
+  }
+  const n = waveOf(run.wave).boss ? 1 : forksOf(run);
+  const roads = n <= 1 ? [] : rollRoads(run, n);
+  if (roads.length === 0) {
+    run.road = { omen: 'quiet' };
+    run.roads = [];
+    run.phase = 'fight';
+    return;
+  }
+  run.roads = roads;
+  run.phase = 'road';
 }
 
 /**
@@ -537,22 +818,20 @@ export function march(run: RunData): boolean {
   if (run.phase !== 'camp') return false;
   // The Paymaster's Ledger: what was not spent earns.
   if (hasRelic(run, 'ledger')) run.gold += Math.min(RELIC.ledger.most, Math.floor(run.gold * RELIC.ledger.share));
-  const n = waveOf(run.wave).boss ? 1 : forksOf(run);
-  if (n <= 1) {
-    run.road = { omen: 'quiet' };
-    run.roads = [];
-    run.phase = 'fight';
-    return true;
-  }
-  run.roads = rollRoads(run, n);
-  run.phase = 'road';
+  leave(run);
   return true;
 }
 
-/** Takes one of the roads on offer, and the run is on its way to the wave. */
+/** What the keepers of the toll road would take now. */
+export function tollOf(run: RunData): number {
+  return Math.floor(run.gold * ROAD.toll.share);
+}
+
+/** Takes one of the roads on offer, and the run is on its way to the wave. The toll road is paid for here. */
 export function takeRoad(run: RunData, i: number): boolean {
   const road = run.roads[i];
   if (run.phase !== 'road' || !road) return false;
+  if (road.omen === 'toll') run.gold -= tollOf(run);
   run.road = road;
   run.roads = [];
   run.phase = 'fight';

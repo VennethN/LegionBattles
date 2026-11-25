@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { BAND, MOVE, RELIC, RELICS, OFFERS, relicOf, rerollCost, waveOf } from '../src/game/data';
-import { RELIC_CHOICES, buy, endWave, hasRelic, march, newRun, reroll, rerollPrice, setupOf, statsOf, takeRelic, whyNot, type RunData } from '../src/game/run';
+import { RELIC_CHOICES, buy, endWave, hasRelic, lock, march, newRun, reroll, rerollPrice, setupOf, statsOf, takeRelic, whyNot, type RunData } from '../src/game/run';
 import { World, type Ev, type Pick, type Setup } from '../src/game/world';
 import { alone, blows, play, setup, stand, stats } from './field';
 
@@ -76,7 +76,8 @@ describe('relics', () => {
       const at = run.offers.indexOf(relics[0]);
       expect(at).toBe(OFFERS - 1);
       expect(hasRelic(run, relics[0].id)).toBe(false);
-      expect(relics[0].price).toBeGreaterThan(RELIC.price);
+      // A relic is dear, unless the Merchant's Seal, bought on the way, has halved it.
+      if (!relics[0].cut) expect(relics[0].price).toBeGreaterThan(RELIC.price);
       expect(whyNot(run, at)).toBe('');
       expect(buy(run, at)).toBe(true);
       expect(hasRelic(run, relics[0].id)).toBe(true);
@@ -107,18 +108,20 @@ describe('relics', () => {
     }
   });
 
-  it('Echo Bell: every tenth blow of the hero\'s own weapon lands twice', () => {
+  it('Echo Bell: every fourth blow of the hero\'s own weapon lands twice', () => {
     const count = (relics: string[]): { strikes: number; rang: number } => {
       const w = holding(relics);
-      stand(w, 'bruiser', w.hero.x + 60, w.hero.y, { hp: 99999 }, true);
-      const events = play(w, w.everyOf(w.slots[0]) * 20.5);
+      // One who walks back each time it is thrown off, so that the blows go on landing.
+      stand(w, 'bruiser', w.hero.x + 60, w.hero.y, { hp: 9999999, dmg: 0 });
+      const events = play(w, 18);
       return { strikes: has(events, 'strike').length, rang: has(events, 'relic').filter((e) => e.id === 'echobell').length };
     };
-    const plain = count([]);
+    expect(RELIC.echobell.every).toBe(4);
+    expect(count([]).rang).toBe(0);
     const bell = count(['echobell']);
-    expect(plain.rang).toBe(0);
-    expect(bell.rang).toBe(Math.floor(plain.strikes / RELIC.echobell.every));
-    expect(bell.strikes).toBe(plain.strikes + bell.rang);
+    expect(bell.rang).toBeGreaterThanOrEqual(3);
+    // Each ring is one blow more, and there is one for every four of his own.
+    expect(bell.rang).toBe(Math.floor((bell.strikes - bell.rang) / RELIC.echobell.every));
   });
 
   it('Wolfskin: a fifth more harm while a companion is close by', () => {
@@ -244,14 +247,15 @@ describe('relics', () => {
     }
   });
 
-  it('Whetstone of Ages: each wave come through, the hero\'s own weapon does 3% more, and no other', () => {
+  it('Whetstone of Ages: each wave come through, every weapon the hero carries does 2% more', () => {
     const base = firstBlow(holding([]));
     expect(firstBlow(holding(['ageswhet'], { whet: 10 }))).toBe(Math.round(base * (1 + 10 * RELIC.ageswhet.each)));
     const bought = (whet: number): number => {
       const w = alone(new World(setup({ weapons: [{ id: 'sword', tier: 0 }], relics: ['ageswhet'], whet, stats: stats({ maxHp: 9999, crit: -1000 }) })));
       return firstBlow(w);
     };
-    expect(bought(10)).toBe(bought(0));
+    expect(RELIC.ageswhet.each).toBe(0.02);
+    expect(bought(10)).toBe(Math.round(bought(0) * (1 + 10 * RELIC.ageswhet.each)));
     // The run counts the waves it has been held for.
     const run = camp({ phase: 'fight', relics: ['ageswhet'] });
     const w = new World(setupOf(run));
@@ -438,7 +442,7 @@ describe('relics', () => {
     expect(new World(setup({ wave: 6, relics: ['sands'] })).wave.seconds).toBe(waveOf(6).seconds - RELIC.sands.shorter);
     expect(new World(setup({ wave: 1, relics: ['sands'] })).wave.seconds).toBe(Math.max(RELIC.sands.least, waveOf(1).seconds - RELIC.sands.shorter));
     const fury = (relics: string[]): number => {
-      const w = holding(relics, { move: 'rush', auto: false });
+      const w = holding(relics, { move: 'charge', auto: false });
       w.slots[0].cool = 999;
       stand(w, 'cutpurse', w.hero.x + 300, w.hero.y, { hp: 1, burn: 2, burnBy: 4 }, true);
       play(w, 0.6);
@@ -449,7 +453,7 @@ describe('relics', () => {
 
   it('Beggar\'s Bowl: a heart mends double and fills the fury bar', () => {
     for (const relics of [['bowl'], []]) {
-      const w = holding(relics, { move: 'rush', auto: false, stats: stats({ maxHp: 30 }) });
+      const w = holding(relics, { move: 'charge', auto: false, stats: stats({ maxHp: 30 }) });
       w.hero.hp = 10;
       coin(w, w.hero.x + 10, w.hero.y, 3, 'heart');
       play(w, 0.5);
@@ -472,12 +476,25 @@ describe('relics', () => {
     expect(firstBlow(holding(['tithe'], { tithe: false }))).toBe(base);
   });
 
-  it('Merchant\'s Seal: the first look at other wares in each camp is free', () => {
-    const run = camp({ gold: 0, relics: ['seal'] });
-    expect(rerollPrice(run)).toBe(0);
-    expect(reroll(run)).toBe(true);
-    expect(rerollPrice(run)).toBe(rerollCost(run.wave, 1));
-    expect(reroll(run)).toBe(false);
-    expect(rerollPrice(camp())).toBe(rerollCost(5, 0));
+  it('Merchant\'s Seal: the dearest ware in every camp is half its price, one at a time', () => {
+    const run = camp({ gold: 100000, relics: ['seal'] });
+    for (let i = 0; i < 20; i++) {
+      reroll(run);
+      const cut = run.offers.filter((o) => o.cut);
+      expect(cut.length).toBe(1);
+      // Halved, it was the dearest: twice what it costs now is no less than any other.
+      for (const o of run.offers) expect(cut[0].price * 2 + 1).toBeGreaterThanOrEqual(o.price);
+    }
+    // One kept from before is the one: nothing else is halved beside it.
+    const kept = run.offers.findIndex((o) => o.cut);
+    lock(run, kept);
+    reroll(run);
+    expect(run.offers.filter((o) => o.cut).length).toBe(1);
+    expect(run.offers[kept].cut).toBe(true);
+    // Without the seal nothing is, and a look at other wares costs what it costs.
+    const plain = camp({ gold: 100000 });
+    reroll(plain);
+    expect(plain.offers.some((o) => o.cut)).toBe(false);
+    expect(rerollPrice(camp({ relics: ['seal'] }))).toBe(rerollCost(5, 0));
   });
 });

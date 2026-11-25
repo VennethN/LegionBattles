@@ -176,7 +176,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await tick(page, 4);
   ok('a full move waits to be asked for', (await fury()) === 1);
   if (!touch) await page.keyboard.press('Space');
-  else ok('the move has a button', await press(page, tap, 'Hud', 'SHIELD RUSH'));
+  else ok('the move has a button', await press(page, tap, 'Hud', 'PLANT THE GATE'));
   await tick(page, 6);
   ok('the move is let loose when it is asked for', (await fury()) < 1);
 
@@ -212,7 +212,8 @@ async function play(label: string, { context, page }: { context: Context; page: 
   r = await run(page);
   ok('the next wave is on its button', await press(page, tap, 'Camp', 'NEXT WAVE'));
   // Out of the camp the roads are laid out, and the one taken is the wave that is fought.
-  ok('the roads to it are laid out', (await until(page, 'Road')) && (await run(page))?.phase === 'road' && (await run(page))?.roads.length === 2);
+  // A first run has one road out of its first camp: the stray's, with Biscuit in the cage.
+  ok('the road to it is laid out: the stray\'s, on a first run', (await until(page, 'Road')) && (await run(page))?.phase === 'road' && (await run(page))?.roads.length === 1 && (await run(page))?.roads[0].omen === 'stray');
   await tick(page, 10);
   const first = (await run(page))?.roads[0].omen;
   ok('CHOOSE takes a road', await press(page, tap, 'Road', 'CHOOSE'));
@@ -234,6 +235,24 @@ async function play(label: string, { context, page }: { context: Context; page: 
   ok('a companion goes along after the first run', (await find(page, 'Title', 'Biscuit')) !== null);
   ok('and can be left at home', (await press(page, tap, 'Title', 'Biscuit')) && (await find(page, 'Title', 'None')) !== null);
   ok('and taken along again', (await press(page, tap, 'Title', 'None')) && (await find(page, 'Title', 'Biscuit')) !== null);
+  // The Hold: the run that ended paid renown, a tab shows another part of it, and renown buys what is sold there.
+  const hold = (): Promise<{ renown: number; places: number; tally: unknown }> => page.evaluate(() => (window as unknown as Win).save() as unknown as { renown: number; places: number; tally: unknown });
+  ok('the run that ended paid renown', (await hold()).renown > 0 && (await hold()).tally !== null);
+  ok('THE HOLD opens the Hold', (await press(page, tap, 'Title', 'THE HOLD')) && (await until(page, 'Hold')));
+  await tick(page, 10);
+  ok('with its renown said', (await words(page, 'Hold', 'RENOWN')) !== null);
+  ok('KENNELS shows the band', (await press(page, tap, 'Hold', 'KENNELS')) && (await words(page, 'Hold', 'Places in the band')) !== null);
+  await page.evaluate(() => {
+    const w = window as unknown as Win;
+    (w.save() as unknown as { renown: number }).renown = 500;
+    w.game.scene.getScene('Hold').scene.restart({ tab: 'KENNELS' });
+  });
+  await tick(page, 10);
+  ok('BUY buys the second place', (await press(page, tap, 'Hold', 'BUY')) && (await hold()).places === 2 && (await hold()).renown < 500);
+  ok('VOWS says what opens them', (await press(page, tap, 'Hold', 'VOWS')) && (await words(page, 'Hold', 'Clear wave 20')) !== null);
+  ok('DAILY shows the day\'s road', (await press(page, tap, 'Hold', 'DAILY')) && (await words(page, 'Hold', 'The road of')) !== null && (await find(page, 'Hold', 'SET OUT')) !== null);
+  ok('BACK goes back to the list', (await press(page, tap, 'Hold', 'BACK')) && (await until(page, 'Title')));
+  await tick(page, 10);
   ok('Wren can be chosen', await press(page, tap, 'Title', 'Wren'));
   ok('PLAY begins as them', (await press(page, tap, 'Title', 'PLAY')) && (await until(page, 'Hud')) && (await run(page))?.hero === 'wren');
   ok('with the companion on the field', (await page.evaluate(() => ((window as unknown as Win).world() as unknown as { band: Array<{ def: { id: string } }> }).band.map((a) => a.def.id).join())) === 'biscuit');

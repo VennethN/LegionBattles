@@ -7,7 +7,7 @@
 
 import { SLOTS, weaponOf } from './data';
 import type { Omen } from './road';
-import { buy, choose, combine, kindCounts, march, openPack, reroll, rerollPrice, takeRelic, takeRoad, twinOf, whyNot, type RunData } from './run';
+import { buy, canToss, choose, combine, kindCounts, march, openPack, reroll, rerollPrice, takeRelic, takeRoad, toss, twinOf, whyNot, type RunData } from './run';
 import type { Stat } from './stats';
 import type { Steer, World } from './world';
 
@@ -15,7 +15,10 @@ import type { Steer, World } from './world';
 const REACTION = 0.22;
 const WOBBLE = 0.5;
 
-const minds = new WeakMap<World, { at: number; steer: Steer; dice: number }>();
+const minds = new WeakMap<World, { at: number; steer: Steer; dice: number; heading: Steer; until: number }>();
+
+/** How long the plain player holds one heading as Isaura: a little longer than it takes to couch her lance. */
+const HOLD = 1.75;
 
 /**
  * Which way the plain player steers this step. It looks again only every
@@ -25,29 +28,74 @@ const minds = new WeakMap<World, { at: number; steer: Steer; dice: number }>();
 export function botSteer(w: World): Steer {
   let mind = minds.get(w);
   if (!mind) {
-    mind = { at: -1, steer: { x: 0, y: 0 }, dice: 12345 };
+    mind = { at: -1, steer: { x: 0, y: 0 }, dice: 12345, heading: { x: 0, y: 0 }, until: -1 };
     minds.set(w, mind);
   }
   if (w.time < mind.at) return mind.steer;
   mind.at = w.time + REACTION;
   mind.dice = (Math.imul(mind.dice, 1664525) + 1013904223) >>> 0;
   const best = think(w);
+  if (w.quirk === 'tilt' && w.gathering < 0) {
+    // Isaura: it goes where it would have gone, but in straight legs, each held long enough to couch her lance. A turn
+    // loses it, so it turns only when a leg is done, when something has to be stepped out of, or at a wall. A person
+    // would ride through the thick of them on purpose; this only keeps its line.
+    const h = w.hero;
+    const ahead = { x: h.x + mind.heading.x * 70, y: h.y + mind.heading.y * 70 };
+    const walled = ahead.x < 50 || ahead.x > w.w - 50 || ahead.y < 80 || ahead.y > w.h - 50;
+    if (best.urgent || walled || w.time >= mind.until || (mind.heading.x === 0 && mind.heading.y === 0)) {
+      let x = best.x;
+      let y = best.y;
+      if (Math.hypot(x, y) < 0.05) {
+        // Nowhere it has to be: across the front of whoever is nearest, or the way she faces.
+        const to = nearestFoe(w);
+        x = to ? -to.y : h.face;
+        y = to ? to.x : 0;
+      }
+      const len = Math.hypot(x, y) || 1;
+      mind.heading = { x: x / len, y: y / len };
+      mind.until = w.time + HOLD;
+    }
+    mind.steer = { x: mind.heading.x, y: mind.heading.y, act: w.ripe };
+    return mind.steer;
+  }
   const turn = (mind.dice / 4294967296 - 0.5) * 2 * WOBBLE;
   const c = Math.cos(turn);
   const sn = Math.sin(turn);
   // It lets the move loose when it is full and there is a crowd for it, as a player who has learned it does.
   mind.steer = { x: best.x * c - best.y * sn, y: best.x * sn + best.y * c, act: w.ripe };
+  // A move that goes the way the hero faces is turned on the nearest of them first: stars brought down behind him are wasted.
+  if (mind.steer.act && (w.move?.id === 'starfall' || w.move?.id === 'gate')) {
+    const to = nearestFoe(w);
+    if (to) mind.steer = { x: to.x, y: to.y, act: true };
+  }
   return mind.steer;
 }
 
-function think(w: World): Steer {
+/** The way to the nearest foe, as a length of one, or null with nobody on the field. */
+function nearestFoe(w: World): { x: number; y: number } | null {
+  const h = w.hero;
+  let best = Infinity;
+  let out: { x: number; y: number } | null = null;
+  for (const f of w.foes) {
+    if (f.def.prop) continue;
+    const d = Math.hypot(f.x - h.x, f.y - h.y);
+    if (d < best && d > 1) {
+      best = d;
+      out = { x: (f.x - h.x) / d, y: (f.y - h.y) / d };
+    }
+  }
+  return out;
+}
+
+function think(w: World): Steer & { urgent: boolean } {
   const h = w.hero;
   let x = 0;
   let y = 0;
   // It stands where everything it carries can reach, and no nearer than it must.
   let reach = Infinity;
   for (const s of w.slots) reach = Math.min(reach, s.def.motion === 'pulse' ? (s.def.burst ?? 100) : w.rangeOf(s.def));
-  const stand = Math.max(62, Math.min(240, reach * 0.78));
+  // Nan keeps close: her fires do not burn down while she is near them.
+  const stand = Math.max(62, Math.min(w.quirk === 'banked' ? 165 : 240, reach * 0.78));
 
   let nearest = Infinity;
   let nx = 0;
@@ -93,11 +141,23 @@ function think(w: World): Steer {
       y += (s.vx / speed) * side * 2.6;
     }
   }
-  // What has to be stepped out of whoever the hero is: a charge, a burst, a shot.
-  const dodging = w.foes.some((f) => f.state === 'dash' || f.doing === 'charge' || f.doing === 'burst') || Math.hypot(x, y) > 2.2;
+  // A lane of the burning field that is shown or alight: out of it by the shorter way.
+  let burning = false;
+  for (const p of w.perils) {
+    const across = p.w > p.h;
+    const off = across ? h.y - p.y : h.x - p.x;
+    const half = (across ? p.h : p.w) / 2 + 26;
+    if (Math.abs(off) > half) continue;
+    burning = true;
+    const side = off >= 0 ? 1 : -1;
+    if (across) y += side * 6;
+    else x += side * 6;
+  }
+  // What has to be stepped out of whoever the hero is: a charge, a burst, a shot, a fire.
+  const dodging = burning || w.foes.some((f) => f.state === 'dash' || f.doing === 'charge' || f.doing === 'burst') || Math.hypot(x, y) > 2.2;
   const pressed = Math.hypot(x, y) > 0.4;
   // Bram stands his ground behind his shield while there is someone to hit and nothing to step out of, and he is not badly hurt.
-  if (w.quirk === 'standfast' && !dodging && nearest <= stand * 1.2 && h.hp / h.maxHp > 0.3) return { x: 0, y: 0 };
+  if (w.quirk === 'standfast' && !dodging && nearest <= stand * 1.2 && h.hp / h.maxHp > 0.3) return { x: 0, y: 0, urgent: false };
   // Closes with the nearest when nothing is in reach.
   if (nearest < Infinity && nearest > stand) {
     const d = Math.hypot(nx, ny) || 1;
@@ -110,7 +170,7 @@ function think(w: World): Steer {
     if (sh && !sh.done) {
       const d = Math.hypot(sh.x - h.x, sh.y - h.y);
       // In the ring it stays put, well inside the edge, unless it is being hurt badly.
-      if (d < sh.r * 0.55 && h.hp / h.maxHp > 0.35) return { x: 0, y: 0 };
+      if (d < sh.r * 0.55 && h.hp / h.maxHp > 0.35) return { x: 0, y: 0, urgent: false };
       x += ((sh.x - h.x) / (d || 1)) * 2.2;
       y += ((sh.y - h.y) / (d || 1)) * 2.2;
     }
@@ -149,13 +209,8 @@ function think(w: World): Steer {
   if (h.y < wall) y += ((wall - h.y) / wall) * 1.5;
   if (h.y > w.h - wall) y -= ((h.y - (w.h - wall)) / wall) * 1.5;
   const len = Math.hypot(x, y);
-  if (len > 0.05) return { x: x / len, y: y / len };
-  // Isaura never halts: with nowhere to be, she rides a ring round whoever is nearest.
-  if (w.quirk === 'momentum') {
-    const d = Math.hypot(nx, ny) || 1;
-    return nearest < Infinity ? { x: -ny / d, y: nx / d } : { x: h.face, y: 0 };
-  }
-  return { x: 0, y: 0 };
+  if (len > 0.05) return { x: x / len, y: y / len, urgent: dodging };
+  return { x: 0, y: 0, urgent: false };
 }
 
 /** What the plain player values on a level: health and harm before anything clever. */
@@ -202,21 +257,34 @@ export function botRelic(run: RunData): void {
   }
 }
 
-/** How much the plain player wants each road, hale and hurt: it takes the prizes while it is winning and the quiet road when it is not. */
+/**
+ * How much the plain player wants each road, hale and hurt. It takes the dangerous prizes while it is winning and
+ * pays the toll when it is not. It does not always take the one it wants most: a player who did would say nothing
+ * about the rest.
+ */
 const ROAD_WANT: Record<Omen, readonly [number, number]> = {
-  quiet: [1, 5], horde: [2.2, 0.6], champions: [3.4, 0.4], night: [3, 0.5], wagon: [2.6, 1.6], shrine: [3.2, 2.4], stray: [4, 3],
+  quiet: [1, 1], horde: [2.2, 0.6], champions: [2.4, 0.3], forced: [2.4, 0.2], toll: [1.6, 4], duel: [2.4, 0.5], wounded: [2.2, 0.8], stray: [3.2, 2.6], shrine: [2.6, 1.6], wagon: [2.6, 1.2],
+  burning: [2.6, 0.9], night: [2.4, 0.4], blizzard: [2.6, 1.2],
 };
 
-/** Picks a road, if roads are laid out. */
+/** Picks a road, if roads are laid out: each as likely as it is wanted. */
 export function botRoad(run: RunData): void {
   if (run.phase !== 'road') return;
   // Hale is having come out of the last wave with more than half its health.
   const hurt = run.left < 0.5 ? 1 : 0;
-  let best = 0;
-  run.roads.forEach((r, i) => {
-    if (ROAD_WANT[r.omen][hurt] > ROAD_WANT[run.roads[best].omen][hurt]) best = i;
-  });
-  takeRoad(run, best);
+  const wants = run.roads.map((r) => ROAD_WANT[r.omen][hurt] ** 1.5);
+  const all = wants.reduce((a, b) => a + b, 0);
+  // Its own dice, from where the run's stand: it does not move the run's.
+  let at = ((Math.imul(run.dice ^ (run.wave * 2654435761), 1664525) + 1013904223) >>> 0) / 4294967296 * all;
+  let pick = 0;
+  for (let i = 0; i < wants.length; i++) {
+    at -= wants[i];
+    if (at <= 0) {
+      pick = i;
+      break;
+    }
+  }
+  takeRoad(run, pick);
 }
 
 /** Trades in the camp as the plain player does, and leaves for the next wave by one of its roads. */
@@ -248,7 +316,9 @@ export function botCamp(run: RunData): void {
       }
     });
     if (best >= 0) {
-      buy(run, best);
+      // Fenn tosses for what he would have bought, once in a camp, when it is dear enough to be worth the toss.
+      if (canToss(run, best) && run.offers[best].price >= 30) toss(run, best);
+      else buy(run, best);
       continue;
     }
     // Looks at other wares when it has coins to spare and has not looked twice already.

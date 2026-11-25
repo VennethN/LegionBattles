@@ -49,16 +49,16 @@ export interface KindDef {
 const pct = (n: number): string => `${Math.round(n * 100)}%`;
 
 export const KINDS: readonly KindDef[] = [
-  { id: 'blade', name: 'Blade', says: GIFTS.blade.crit.map((c) => `+${c}% critical chance`) as [string, string, string] },
-  { id: 'pole', name: 'Pole', says: [`Everything reaches ${pct(GIFTS.pole.reach[0])} further`, `Everything reaches ${pct(GIFTS.pole.reach[1])} further`, `Reaches ${pct(GIFTS.pole.reach[2])} further, thrusts go through one more`] },
-  { id: 'blunt', name: 'Blunt', says: GIFTS.blunt.stun.map((s) => `Stuns last ${s}s longer, blows throw further`) as [string, string, string] },
-  { id: 'bow', name: 'Bow', says: GIFTS.bow.haste.map((h) => `What shoots or is thrown is ${h}% quicker`) as [string, string, string] },
-  { id: 'thrown', name: 'Thrown', says: ['What is thrown skips to one more', 'Skips to one more, and bursts are wider', 'Skips to two more, and bursts are wider'] },
-  { id: 'fire', name: 'Fire', says: ['Fires burn 1s longer', 'Fires burn 2s longer', 'Fires burn 3s longer, and hotter'] },
-  { id: 'frost', name: 'Frost', says: ['The slowed are slower, for longer', 'The slowed are slower still, for longer', 'The slowed all but stop'] },
-  { id: 'holy', name: 'Holy', says: GIFTS.holy.regen.map((r) => `+${r} Mending`) as [string, string, string] },
-  { id: 'venom', name: 'Venom', says: ['Clouds are wider and eat faster', 'Clouds are wider still and eat faster', 'Clouds are far wider and eat far faster'] },
-  { id: 'arcane', name: 'Arcane', says: [`+${GIFTS.arcane.lore[0]} Lore`, `+${GIFTS.arcane.lore[1]} Lore`, `+${GIFTS.arcane.lore[2]} Lore, and every fifth spell is cast at once`] },
+  { id: 'blade', name: 'Blade', says: GIFTS.blade.crit.map((c) => `+${c}% Crit Chance`) as [string, string, string] },
+  { id: 'pole', name: 'Polearm', says: [`+${pct(GIFTS.pole.reach[0])} Range for all weapons`, `+${pct(GIFTS.pole.reach[1])} Range for all weapons`, `+${pct(GIFTS.pole.reach[2])} Range, and thrusts hit 1 more enemy`] },
+  { id: 'blunt', name: 'Blunt', says: GIFTS.blunt.stun.map((s, i) => `Stuns last ${s} s longer, +${pct(GIFTS.blunt.knock[i] - 1)} knockback`) as [string, string, string] },
+  { id: 'bow', name: 'Bow', says: GIFTS.bow.haste.map((h) => `+${h}% Attack Speed for ranged weapons`) as [string, string, string] },
+  { id: 'thrown', name: 'Thrown', says: ['Thrown weapons bounce to 1 more enemy', 'Bounce to 1 more enemy, explosions 15% wider', 'Bounce to 2 more enemies, explosions 15% wider'] },
+  { id: 'fire', name: 'Fire', says: ['Burns last 1 s longer', 'Burns last 2 s longer', 'Burns last 3 s longer and deal 30% more damage'] },
+  { id: 'frost', name: 'Frost', says: GIFTS.frost.by.map((b, i) => `Slows are ${pct(b)} stronger and last ${GIFTS.frost.more[i]} s longer`) as [string, string, string] },
+  { id: 'holy', name: 'Holy', says: GIFTS.holy.regen.map((r) => `+${r} HP Regen`) as [string, string, string] },
+  { id: 'venom', name: 'Poison', says: GIFTS.venom.r.map((r, i) => `Poison clouds are ${pct(r - 1)} wider and deal ${pct(GIFTS.venom.harm[i] - 1)} more damage`) as [string, string, string] },
+  { id: 'arcane', name: 'Arcane', says: [`+${GIFTS.arcane.lore[0]} Magic Damage`, `+${GIFTS.arcane.lore[1]} Magic Damage`, `+${GIFTS.arcane.lore[2]} Magic Damage, and every ${GIFTS.arcane.free[2]}th spell has no cooldown`] },
 ];
 
 export type KindCounts = Record<Kind, number>;

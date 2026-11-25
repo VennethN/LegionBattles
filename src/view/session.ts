@@ -2,8 +2,10 @@
 // being fought. Every screen asks here, so that there is one of each
 // however many screens are open.
 
+import { handOver } from '../game/handover';
+import { beginDaily, beginRun } from '../game/hold';
 import { endWave, newRun, setupOf, type RunData } from '../game/run';
-import { bandFor, record, type SaveData } from '../game/state';
+import { record, type SaveData } from '../game/state';
 import { loadSave, storeSave, wipeSave } from '../game/storage';
 import { World } from '../game/world';
 
@@ -36,6 +38,14 @@ export function startOver(): void {
   reloadSave();
 }
 
+/** True once, for the run in which the move was handed over to the player: the field says so. */
+let handed = false;
+export function takeHanded(): boolean {
+  const was = handed;
+  handed = false;
+  return was;
+}
+
 export function theRun(): RunData | null {
   return run;
 }
@@ -47,13 +57,32 @@ export function theWorld(): World | null {
 /** Begins a new run with a hero. A run that was left in its camp is let go. */
 export function startRun(hero: string): RunData {
   const s = save();
-  run = newRun(hero, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1, bandFor(s, hero));
+  // The Hold sends it out: the band chosen, the vows sworn, the armory as it stands and what the board gives. A
+  // player's first run is told that it is one: it has a companion to find on its second wave.
+  run = beginRun(s, hero, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1);
+  // From the second run on the move waits for the player, and the game says so once.
+  handed = handOver(s);
   world = null;
   opened = [];
   friends = [];
   s.run = null;
   s.runs++;
   s.last = hero;
+  commit();
+  return run;
+}
+
+/** Sets out on the day's road, if it has not been taken today. A run left in its camp is let go. */
+export function startDaily(date: string): RunData | null {
+  const s = save();
+  const daily = beginDaily(s, date);
+  if (!daily) return null;
+  run = daily;
+  world = null;
+  opened = [];
+  friends = [];
+  s.run = null;
+  s.runs++;
   commit();
   return run;
 }

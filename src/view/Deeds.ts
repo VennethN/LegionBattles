@@ -31,7 +31,7 @@ const RING_EL: Record<string, string> = { fire: 'fire', bell: 'holy', cry: 'fire
 const RING_TINT: Record<string, number> = { fire: hex(FIRE.fill), bell: GOLD_TINT, cry: hex(FIRE.fill), frost: hex(FROST.fill), flare: hex(HOLY.light), roar: hex(BONE.fill) };
 const FALL_EL: Partial<Record<Burst, string>> = { star: 'arcane', light: 'holy', frost: 'frost', fire: 'fire' };
 const MOVE_EL: Record<MoveId, string> = {
-  rush: 'holy', rain: 'spark', starfall: 'arcane', vanish: 'spark', wildfire: 'fire', charge: 'spark', warcry: 'fire', toll: 'holy', whiteout: 'frost', judgment: 'holy',
+  gate: 'holy', oneshot: 'spark', starfall: 'arcane', vanish: 'spark', wildfire: 'fire', charge: 'spark', opengrave: 'fire', toll: 'holy', whiteout: 'frost', judgment: 'holy',
 };
 /** The companions that give light of their own, and of what element. */
 const ALLY_LIGHT: Record<string, string | undefined> = { pip: 'holy', ember: 'fire' };
@@ -68,6 +68,8 @@ export class Deeds {
   private readonly sign: Phaser.GameObjects.Image;
   private readonly coins: Phaser.GameObjects.Image[] = [];
   private streak = 0;
+  /** True while Orrin's doubled bolt is the next: the wave does not say, so this stays off until a screen is made for it. */
+  private readonly third = false;
   private clock = 0;
   private share = 0;
 
@@ -239,7 +241,6 @@ export class Deeds {
     for (let i = 0; i < 2; i++) light.bit(x, y, el, { dur: 0.45 + i * 0.2, from: 110, to: 300 + i * 120, alpha: 0.32 - i * 0.12, flat: 0.62, frame: 'fx/ring' });
     if (!light.on) this.fx.spawn('fx/ring', x, y - 4, { dur: 0.4, from: 0.4, to: 4.2, tint: GOLD_TINT, alpha: 0.9, flat: 0.62, depth: 5 });
     switch (id) {
-      case 'rush':
       case 'charge': {
         // The run itself is shown while it lasts (update): here its start. Dust is kicked up behind and a wedge of light goes on ahead.
         for (let i = 0; i < 8; i++) this.fx.spawn('fx/dust', x - dx * (10 + i * 12) + rnd(-8, 8), y - 6 - dy * (10 + i * 12), { dur: 0.4, from: 0.6, to: 1.8, alpha: 0.7, flat: 0.6, depth: y - 1 });
@@ -251,10 +252,44 @@ export class Deeds {
         sfx.play('slash', 0.7, 0.6);
         break;
       }
-      case 'rain':
-        // The sky answers before the first arrow lands: thin shafts come down all over the marked ground.
-        sfx.play('shoot', 0.6, 0.5);
+      case 'gate': {
+        // The gate comes down in front of him: the ground jumps, dust goes up along where it stands, and gold light with it.
+        const gx = x + dx * 110;
+        const gy = y + dy * 110;
+        this.shake(300, 0.013);
+        sfx.play('thud', 0.9, 0.7);
+        light.flash(gx, gy - 20, 420, GOLD_TINT, 0.9, 0.45);
+        for (let i = 0; i < 12; i++) {
+          const along = (i / 11 - 0.5) * 200;
+          const px = gx - dy * along;
+          const py = gy + dx * along * 0.62;
+          this.fx.spawn('fx/dust', px, py - 4, { dur: rnd(0.4, 0.7), from: 0.6, to: 1.9, alpha: 0.75, vy: -30, depth: py + 2 });
+          light.bit(px, py - 10, 'holy', { dur: rnd(0.4, 0.8), vx: rnd(-40, 40), vy: rnd(-260, -120), from: rnd(8, 15), to: 1, stretch: 0.7, alpha: 0.9 });
+        }
         break;
+      }
+      case 'oneshot': {
+        // One arrow, and everything else holds its breath: a line of light along its way, drawn in an instant.
+        sfx.play('shoot', 0.9, 0.5);
+        for (let i = 0; i < 26; i++) {
+          const d = 50 + i * 19;
+          light.bit(x + dx * d, y - 34 + dy * d, 'spark', { dur: 0.16 + i * 0.012, vx: dx * 900, vy: dy * 900, from: 16 - i * 0.3, to: 2, stretch: 7, turn: true, alpha: 0.95 });
+        }
+        light.flash(x + dx * 60, y - 34 + dy * 60, 260, 0xfff4d8, 0.8, 0.2);
+        break;
+      }
+      case 'opengrave': {
+        // He pays for it in blood and the grave gives it back: earth and embers go up round him, and he burns like a coal while it lasts.
+        this.shake(260, 0.011);
+        sfx.play('blast', 0.7, 0.55);
+        light.smokeAt(x, y - 20, 8);
+        for (let i = 0; i < 18; i++) {
+          const a = (i / 18) * Math.PI * 2;
+          this.fx.spawn('fx/dust', x + Math.cos(a) * 46, y - 6 + Math.sin(a) * 28, { dur: rnd(0.4, 0.7), from: 0.5, to: 1.6, alpha: 0.7, vy: -26, depth: y + 2 });
+          light.bit(x + Math.cos(a) * 52, y - 6 + Math.sin(a) * 32, 'fire', { dur: rnd(0.6, 1.1), vx: Math.cos(a) * 30, vy: rnd(-220, -100), from: rnd(7, 13), to: 1, sway: 5 });
+        }
+        break;
+      }
       case 'starfall':
         for (let i = 0; i < 16; i++) light.bit(x + rnd(-200, 200), y - rnd(180, 420), 'arcane', { dur: rnd(0.5, 1), vy: rnd(40, 120), from: rnd(4, 9), to: 1, alpha: 0.9 });
         sfx.play('cast', 0.7, 0.6);
@@ -283,7 +318,6 @@ export class Deeds {
         sfx.play('blast', 0.7, 0.8);
         this.shake(260, 0.01);
         break;
-      case 'warcry':
       case 'toll':
         // The sound of it goes out in rings, one after the other.
         for (let i = 0; i < 3; i++) light.bit(x, y, el, { dur: 0.5 + i * 0.22, from: 110, to: 320 + i * 150, alpha: 0.7 - i * 0.18, flat: 0.62, frame: 'fx/ring' });
@@ -379,8 +413,8 @@ export class Deeds {
           if (live && Math.random() < 0.3 * t.share) light.bit(h.x + rnd(-16, 16), h.y - rnd(4, 64), 'venom', { dur: rnd(0.5, 0.9), vy: rnd(-40, -16), from: rnd(4, 7), to: 1, alpha: 0.7 });
         }
         break;
-      case 'momentum':
-        // Isaura at speed: the air drawn out behind her.
+      case 'tilt':
+        // Isaura riding straight: the air drawn out behind her, the more the nearer her lance is to couched.
         tint = hex(STEEL.fill);
         sign = 0.1 + 0.75 * t.share;
         signR = 38 + 12 * t.share + (t.on ? beat : 0);
@@ -393,7 +427,7 @@ export class Deeds {
           }
         }
         break;
-      case 'unburied':
+      case 'gravedebt':
         // Hroth, hurt: he glows like a coal, the more the nearer he is to falling. A coal's orange, not the red of harm.
         tint = hex(FIRE.fill);
         sign = 0.1 + 0.75 * t.share;
@@ -403,12 +437,13 @@ export class Deeds {
           if (live && Math.random() < 0.35 * t.share) light.bit(h.x + rnd(-18, 18), h.y - rnd(6, 60), 'fire', { dur: rnd(0.4, 0.8), vy: rnd(-90, -40), from: rnd(4, 8), to: 1, sway: 4 });
         }
         break;
-      case 'echo':
-        // Orrin's third spell, waiting in the staff.
+      case 'unfinished': {
+        // Orrin's third bolt, waiting in the staff, once the staff has learned it.
+        const ready = !!(w.own && w.own.tier >= 1 && this.third);
         tint = hex(ARCANE.fill);
-        sign = t.on ? 0.85 : 0.12 + 0.3 * t.share;
-        signR = t.on ? 46 + beat : 38;
-        if (t.on) {
+        sign = ready ? 0.85 : 0.16;
+        signR = ready ? 46 + beat : 38;
+        if (ready) {
           const tx = h.x + hero.muzzleReach;
           const ty = h.y - hero.muzzleHeight;
           light.lamp(tx, ty, 110, 'arcane', 0.5);
@@ -416,19 +451,19 @@ export class Deeds {
           if (live && Math.random() < 0.08) this.fx.spawn('fx/sparkle', tx, ty, { dur: 0.3, from: 0.3, to: 0.7, tint: hex(ARCANE.light), depth: h.y + 60 });
         }
         break;
-      case 'sticky':
+      }
+      case 'double':
         // Fenn's purse: the heavier it is the harder he hits, and the more coins go round him.
         tint = GOLD_TINT;
         sign = 0.1 + 0.6 * t.share;
         signR = 40 + 8 * t.share;
         break;
-      case 'kindling':
-        // Old Nan: embers go up off her all the time. What she lights will burst.
+      case 'banked':
+        // Old Nan's banked fire: the ring is how far it reaches, and it brightens with every enemy burning inside it.
         tint = hex(FIRE.fill);
-        sign = 0.4;
-        signR = 42 + beat * 0.5;
+        sign = 0.16 + 0.4 * t.share;
+        signR = QUIRKS.banked.r;
         if (live && Math.random() < 0.25) light.bit(h.x + rnd(-18, 18), h.y - rnd(0, 20), 'fire', { dur: rnd(0.6, 1.1), vx: rnd(-14, 14), vy: rnd(-90, -40), from: rnd(4, 7), to: 1, sway: 5 });
-        if (live && Math.random() < 0.04) this.fx.spawn('fx/sparkle', h.x + rnd(-22, 22), h.y - rnd(10, 60), { dur: 0.4, from: 0.2, to: 0.5, tint: hex(FIRE.light), vy: -40, depth: h.y + 60 });
         break;
       case 'deepcold':
         // Ysolde: the cold comes down round her.
@@ -450,7 +485,7 @@ export class Deeds {
         break;
     }
     // Fenn's coins.
-    const purse = w.quirk === 'sticky' && h.hp > 0 ? Math.ceil(t.share * 3.999) : 0;
+    const purse = w.quirk === 'double' && h.hp > 0 ? Math.ceil(t.share * 3.999) : 0;
     this.coins.forEach((c, i) => {
       c.setVisible(i < purse);
       if (i >= purse) return;
@@ -462,15 +497,15 @@ export class Deeds {
     this.sign.setVisible(sign > 0.01 && h.hp > 0);
     if (sign > 0.01) this.sign.setPosition(hx, hy).setTint(tint).setAlpha(sign).setScale((signR / 60) * INV_ART, (signR / 60) * INV_ART * 0.62);
 
-    // A rush or a charge, while it lasts: light torn off the hero, and the ground kicked up.
+    // A charge, while it lasts: light torn off the hero, and the ground kicked up.
     if (h.dash && live) {
       const d = h.dash;
       for (let i = 0; i < 7; i++) {
-        light.bit(h.x - d.dx * rnd(44, 96) + rnd(-12, 12), h.y - rnd(6, 76) - d.dy * rnd(30, 60), d.kind === 'rush' ? 'holy' : 'spark', { dur: rnd(0.3, 0.55), vx: -d.dx * rnd(260, 460), vy: -d.dy * rnd(260, 460), from: rnd(10, 18), to: 1, stretch: 6, turn: true, alpha: 0.8 });
+        light.bit(h.x - d.dx * rnd(44, 96) + rnd(-12, 12), h.y - rnd(6, 76) - d.dy * rnd(30, 60), 'spark', { dur: rnd(0.3, 0.55), vx: -d.dx * rnd(260, 460), vy: -d.dy * rnd(260, 460), from: rnd(10, 18), to: 1, stretch: 6, turn: true, alpha: 0.8 });
       }
-      light.lamp(h.x - d.dx * 60, h.y - 26 - d.dy * 40, 240, d.kind === 'rush' ? 'holy' : 'spark', 0.6);
+      light.lamp(h.x - d.dx * 60, h.y - 26 - d.dy * 40, 240, 'spark', 0.6);
       // The ground rings behind them where they have gone through.
-      if (Math.floor(clock * 22) !== Math.floor((clock - dt) * 22)) light.bit(h.x - d.dx * 50, h.y - d.dy * 30, d.kind === 'rush' ? 'holy' : 'spark', { dur: 0.4, from: 40, to: 120, alpha: 0.4, flat: 0.62, frame: 'fx/ring' });
+      if (Math.floor(clock * 22) !== Math.floor((clock - dt) * 22)) light.bit(h.x - d.dx * 50, h.y - d.dy * 30, 'spark', { dur: 0.4, from: 40, to: 120, alpha: 0.4, flat: 0.62, frame: 'fx/ring' });
       if (Math.random() < 0.6) this.fx.spawn('fx/dust', h.x - d.dx * 14, h.y - 4 - d.dy * 14, { dur: 0.28, from: 0.4, to: 1.1, alpha: 0.6, flat: 0.6, depth: h.y - 1 });
     }
     // Unseen: smoke hangs where they are.

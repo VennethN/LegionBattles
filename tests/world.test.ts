@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { botSteer } from '../src/game/bot';
-import { ENEMIES, HERO_RADIUS, HEROES, HURT_GRACE, ITEMS, LAST_WAVE, MARK_CLEAR, MARK_SECONDS, UPGRADES, WEAPONS, byId, coinShare, enemyAt, landAt, levelNeeds, tierWeights, waveOf } from '../src/game/data';
+import { CAPTAIN_SECONDS, ENEMIES, HERO_RADIUS, HEROES, HURT_GRACE, ITEMS, LAST_WAVE, MARK_CLEAR, MARK_SECONDS, UPGRADES, WAVE_SECONDS, WEAPONS, byId, coinShare, enemyAt, landAt, levelNeeds, tierWeights, waveOf } from '../src/game/data';
 import { newRun, setupOf, statsOf } from '../src/game/run';
 import { STATS, armorShare, hasteRate, noStats, sumStats, type Stats } from '../src/game/stats';
 import { STEP, World, slotPlace, type Ev, type Foe, type Setup } from '../src/game/world';
@@ -68,9 +68,12 @@ describe('the data', () => {
     expect(enemyAt(byId(ENEMIES, 'huscarl'), 40).hp).toBeGreaterThan(enemyAt(byId(ENEMIES, 'huscarl'), 20).hp * 10);
   });
 
-  it('has waves that lengthen to a minute, a boss on three of twenty, and the same twenty again after', () => {
+  it('has waves that lengthen to three quarters of a minute, a boss on three of twenty, and the same twenty again after', () => {
     expect(waveOf(1).seconds).toBe(20);
-    expect(waveOf(12).seconds).toBe(60);
+    expect(waveOf(12).seconds).toBe(WAVE_SECONDS);
+    for (let n = 1; n <= 40; n++) expect(waveOf(n).seconds).toBeLessThanOrEqual(waveOf(n).boss ? CAPTAIN_SECONDS : WAVE_SECONDS);
+    // A whole run is about a quarter of an hour of fighting, at the most.
+    expect(Array.from({ length: 20 }, (_, i) => waveOf(i + 1).seconds).reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(15 * 60);
     expect([7, 14, 20].map((n) => waveOf(n).boss)).toEqual(['warlord', 'colossus', 'jarl']);
     expect(Array.from({ length: 20 }, (_, i) => waveOf(i + 1).boss).filter(Boolean).length).toBe(3);
     expect(waveOf(27).boss).toBe('warlord');

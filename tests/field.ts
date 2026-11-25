@@ -3,7 +3,7 @@
 
 import { ENEMIES, byId, enemyAt } from '../src/game/data';
 import { noStats, type Stats } from '../src/game/stats';
-import { STEP, World, type Ev, type Foe, type Setup, type Steer } from '../src/game/world';
+import { STEP, World, type Ev, type Foe, type Setup, type Shot, type Steer } from '../src/game/world';
 
 export const stats = (line: Partial<Stats> = {}): Stats => ({ ...noStats(), maxHp: 30, ...line });
 
@@ -42,3 +42,13 @@ export function alone(w: World): World {
 /** The harm of the blows that were not critical, from what happened. */
 export const blows = (events: readonly Ev[], id?: number): number[] =>
   events.flatMap((e) => (e.t === 'hit' && !e.crit && !e.soft && (id === undefined || e.id === id) ? [e.amount] : []));
+
+/** A shot of theirs, flying at the hero from one side. */
+export const shotAt = (w: World, fromX: number, dmg = 5): Shot => {
+  const s: Shot = {
+    id: 7000 + w.shots.length, mine: false, x: w.hero.x + fromX, y: w.hero.y - 14, vx: fromX > 0 ? -300 : 300, vy: 0, r: 7, dmg, crit: false, pierce: 0, leaps: 0, life: 2, art: 'orb-red',
+    knock: 0, seen: [], from: null, tier: 0, mark: 0, lob: null, chills: 0, by: 'poacher', burns: 0, split: false, src: 0,
+  };
+  w.shots.push(s);
+  return s;
+};

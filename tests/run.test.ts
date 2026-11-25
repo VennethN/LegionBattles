@@ -252,16 +252,16 @@ describe('the save', () => {
     expect(isOpen(save, 'orrin')).toBe(false);
     const run = newRun('bram', 1);
     run.wave = 4;
-    expect(record(save, run, 30)).toEqual({ heroes: [], friends: [] });
+    expect(record(save, run, 30)).toMatchObject({ heroes: [], friends: [] });
     run.wave = 5;
     // The fourth wave come through opens Pip, who goes straight into the empty place in the band.
-    expect(record(save, run, 0)).toEqual({ heroes: [], friends: ['pip'] });
+    expect(record(save, run, 0)).toMatchObject({ heroes: [], friends: ["pip"] });
     expect(save.band).toEqual(['pip']);
     expect(bestWave(save)).toBe(4);
     expect(featShare(save, { kind: 'wave', wave: 5 })).toBeCloseTo(0.8);
     run.wave = 6;
     expect(record(save, run, 30).heroes).toEqual(['orrin']);
-    expect(record(save, run, 0)).toEqual({ heroes: [], friends: [] });
+    expect(record(save, run, 0)).toMatchObject({ heroes: [], friends: [] });
     expect(isOpen(save, 'orrin')).toBe(true);
     expect(save.kills).toBe(60);
     expect(save.last).toBe('bram');
@@ -272,9 +272,10 @@ describe('the save', () => {
     const run = newRun('wren', 1);
     run.felled = ['warlord'];
     run.coins = 250;
-    const opened = record(save, run, 700);
-    expect(opened.heroes.sort()).toEqual(['fenn', 'isaura', 'nan']);
-    expect(opened.friends.sort()).toEqual(['greta', 'quill']);
+    const opened = record(save, run, 4000);
+    expect(opened.heroes.sort()).toEqual(['fenn', 'nan']);
+    expect(save.kills).toBe(4000);
+    expect(featDone(save, { kind: 'kills', kills: 4000 })).toBe(true);
     expect(featDone(save, { kind: 'boss', boss: 'warlord' })).toBe(true);
     expect(featDone(save, { kind: 'boss', boss: 'jarl' })).toBe(false);
     const poorer = newRun('wren', 1);
@@ -316,17 +317,17 @@ describe('the save', () => {
 
 describe('a save from before the heroes had names', () => {
   it('is carried over: each hero by their new name, with whoever its deeds have opened since', () => {
-    const old = { v: 1, best: { knight: 9, archer: 4, mage: 2 }, open: ['mage', 'cutpurse'], kills: 700, coins: 120, felled: ['warlord'], runs: 6, last: 'mage', run: { hero: 'knight', wave: 3 }, sound: true, music: false, told: [] };
+    const old = { v: 1, best: { knight: 9, archer: 4, mage: 2 }, open: ['mage', 'cutpurse'], kills: 4100, coins: 120, felled: ['warlord'], runs: 6, last: 'mage', run: { hero: 'knight', wave: 3 }, sound: true, music: false, told: [] };
     const s = repair(old);
     expect(s.v).toBe(SAVE_VERSION);
     expect(s.best).toEqual({ bram: 9, wren: 4, orrin: 2 });
     expect(s.last).toBe('orrin');
-    expect(s.open).toEqual(expect.arrayContaining(['orrin', 'fenn', 'nan', 'isaura']));
+    expect(s.open).toEqual(expect.arrayContaining(['orrin', 'fenn', 'nan']));
     // The run it left in a camp carried other things, and is let go.
     expect(s.run).toBeNull();
     expect(s.ended).toBe(5);
     // Its deeds open companions too, and the first of them goes along.
-    expect(s.friends).toEqual(expect.arrayContaining(['biscuit', 'pip', 'mossback', 'quill', 'greta']));
+    expect(s.friends).toEqual(expect.arrayContaining(['biscuit', 'pip', 'mossback', 'quill']));
     expect(s.band).toEqual([s.friends[0]]);
     expect(s.music).toBe(false);
   });

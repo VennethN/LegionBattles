@@ -30,7 +30,7 @@ import { Shadows } from '../light/Shadows';
 import type { LightMode } from '../light/setting';
 import { SHEET, Sheet, sheet, type UnitKey } from '../art/Sheet';
 import { STILL_SCALE } from '../art/scale';
-import { beginWave, finishWave, save, theRun, theWorld } from '../session';
+import { beginWave, finishWave, save, takeHanded, theRun, theWorld } from '../session';
 import type { HudScene } from './HudScene';
 
 const INV_ART = 1 / ART_SCALE;
@@ -57,7 +57,7 @@ const BURSTS: Record<Burst, number> = {
   star: hex(HOLY.light), frost: hex(FROST.fill), rain: hex(BONE.fill), rise: RED, bolt: hex(HOLY.light),
 };
 /** What each kind of ground that goes on doing something is tinted. */
-const ZONES: Record<ZoneKind, number> = { cloud: hex(VENOM.fill), holy: hex(HOLY.fill), fire: hex(FIRE.fill), rain: hex(BONE.shade) };
+const ZONES: Record<ZoneKind, number> = { cloud: hex(VENOM.fill), holy: hex(HOLY.fill), fire: hex(FIRE.fill), rain: hex(BONE.shade), ice: hex(FROST.fill) };
 /** Which way each weapon's picture points when it stands upright: most point up; a bow looses to its right. */
 const POINTS_RIGHT = new Set(['bow', 'longbow', 'rimebow']);
 /** What does not turn to its mark at all: it is swung, thrown or shaken where it hangs. */
@@ -288,10 +288,19 @@ export class ArenaScene extends Phaser.Scene {
     sfx.play('fight', 0.7);
     // A road with an omen says which it was as the wave begins.
     const omen = w.omen === 'quiet' ? '' : omenOf(w.omen).name;
+    // The run in which the skill stops casting itself says so, once, in place of the land's name.
+    const handed = w.wave.n === 1 && takeHanded();
     const under = omen || (w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'Boss wave' : '');
     // A run begins as its hero's: who they are is said before the wave is.
     if (w.wave.n === 1) this.scene.launch('Hud', { banner: def.name.toUpperCase(), under: def.epithet, line: `"${def.line}"`, then: { banner: `WAVE ${w.wave.n}`, under } });
     else this.scene.launch('Hud', { banner: `WAVE ${w.wave.n}`, under });
+    // From this run on the skill waits for the player. It is said once, kindly, where they are looking, and the button itself beats when it is full.
+    if (handed) {
+      this.time.delayedCall(3200, () => {
+        const hud = this.scene.get('Hud') as HudScene | undefined;
+        hud?.plate(hud.byFinger ? 'YOUR SKILL IS YOURS NOW: TAP ITS BUTTON WHEN IT IS FULL.' : 'YOUR SKILL IS YOURS NOW: PRESS SPACE WHEN IT IS FULL.', 5);
+      });
+    }
   }
 
   override update(_time: number, delta: number): void {
@@ -404,7 +413,7 @@ export class ArenaScene extends Phaser.Scene {
         case 'strike': {
           const slot = w.slots[e.slot];
           const melee = slot.def.kind === 'melee';
-          if (slot.own) this.swing(e.angle, e.range, slot.def.motion, slot.def.id);
+          if (slot.own) this.swing(e.angle, e.range * (e.great ? 1.35 : 1), slot.def.motion, slot.def.id);
           if (slot.def.motion === 'sweep') {
             this.fx.spawn('fx/slash', h.x + Math.cos(e.angle) * e.range * 0.55, h.y - 24 + Math.sin(e.angle) * e.range * 0.55, {
               dur: 0.16, from: (e.range / 60) * 0.9, to: (e.range / 60) * 1.15, rotation: e.angle, alpha: 0.9, depth: h.y + 40,
