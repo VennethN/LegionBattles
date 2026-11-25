@@ -97,6 +97,8 @@ export class LairScene extends Phaser.Scene {
   private stopLeft = 0;
   /** True once a step of a lesson has asked for its first warning to be held. */
   private holdNext = false;
+  /** The warnings shown, by their number, so that a blow that lands can be drawn along the shape it was told in. */
+  private told = new Map<number, Tell>();
 
   constructor() {
     super('Lair');
@@ -123,6 +125,7 @@ export class LairScene extends Phaser.Scene {
     this.slowLeft = 0;
     this.stopLeft = 0;
     this.holdNext = false;
+    this.told.clear();
 
     const cam = this.cameras.main;
     cam.setViewport(0, 0, view.width, view.height);
@@ -192,7 +195,10 @@ export class LairScene extends Phaser.Scene {
     const hp = HUNTER_ART[h.hunter.def.id];
     this.hunter = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, GRIM_SCALE, 1);
     const mp = MONSTER_ART[h.monster.def.id];
-    if (isGrim(mp)) this.monster = new GrimFigure(this, mp.grim, g.units[mp.grim], g.poses, GRIM_SCALE, 2);
+    if (isGrim(mp)) {
+      this.monster = new GrimFigure(this, mp.grim, g.units[mp.grim], g.poses, GRIM_SCALE, 2);
+      this.monster.big = true;
+    }
     else this.standIn = new Figure(this, mp.legion, mp.team, getManifest().units[mp.legion], mp.scale, 'unit', 2);
     this.light = new LairLight(this, h, torches);
     this.marks = this.light.crisp(this.add.graphics().setDepth(2));
@@ -335,6 +341,7 @@ export class LairScene extends Phaser.Scene {
           break;
         case 'tell': {
           const t = w.tells.find((x) => x.id === e.id);
+          if (t) this.told.set(t.id, { ...t });
           if (e.first && t && this.holdNext) {
             // The first warning of a step that teaches it: the moment is held, so that it is seen before it is over.
             this.holdNext = false;
@@ -355,6 +362,22 @@ export class LairScene extends Phaser.Scene {
             sfx.play(e.r > 60 ? 'thud' : 'hit', e.r > 60 ? 0.7 : 0.35, 0.8);
             if (e.r > 60) this.shake(140, 0.006);
             if (e.kind === 'ring') this.fx.spawn('fx/dust', e.x, e.y, { dur: 0.3, from: 0.6, to: Math.max(1, e.r / 28), alpha: 0.5, depth: 4 });
+            // The blow is drawn along the shape it was told in: a smear down a line, a sweep across a cone.
+            const t = this.told.get(e.id);
+            this.told.delete(e.id);
+            if (t && t.by === 0 && t.kind === 'line') {
+              for (let i = 1; i <= 3; i++) {
+                const k = i / 4;
+                this.fx.spawn('fx/slash', t.x + Math.cos(t.angle) * t.len * k, t.y + Math.sin(t.angle) * t.len * k, {
+                  dur: 0.22, from: (t.w / 60) * 0.8, to: (t.w / 60) * 1.4, rotation: t.angle, alpha: 0.75, delay: i * 0.025, depth: t.y + 50,
+                });
+              }
+              this.fx.spawn('fx/dust', t.x + Math.cos(t.angle) * t.len * 0.8, t.y + Math.sin(t.angle) * t.len * 0.8, { dur: 0.35, from: 0.6, to: 1.6, alpha: 0.6, depth: 4 });
+            } else if (t && t.by === 0 && t.kind === 'cone') {
+              this.fx.spawn('fx/slash', t.x + Math.cos(t.angle) * t.r * 0.55, t.y + Math.sin(t.angle) * t.r * 0.55, {
+                dur: 0.24, from: (t.r / 60) * 0.7, to: (t.r / 60) * 1.25, rotation: t.angle + Math.PI / 2, alpha: 0.8, depth: t.y + 50,
+              });
+            }
           }
           break;
         case 'strike':
@@ -377,6 +400,7 @@ export class LairScene extends Phaser.Scene {
         case 'hit': {
           const big = e.big;
           if (e.who === 'monster') {
+            if (big) this.stop(0.05);
             this.nums.show(e.x + (Math.random() - 0.5) * 50, e.y - this.tall() * 0.7, String(e.amount), big ? GOLD : e.open ? WHITE : hex(BONE.shade), big ? 30 : e.open ? 24 : 19);
             if (e.open && !big) this.monster?.hit(this.clock);
             if (big || e.open) this.standIn?.hit(this.clock, h.x);
@@ -393,6 +417,8 @@ export class LairScene extends Phaser.Scene {
         case 'hurt':
           if (e.who === 'hunter') {
             this.hunter.hit(this.clock);
+            // A blow that lands is felt: the lair stops for a breath, longer for a heavier one.
+            this.stop(Math.min(0.11, 0.04 + e.amount / 400));
             this.nums.show(h.x, h.y - 70, `-${e.amount}`, RED, 28);
             sfx.play('bigHit', 0.8, 0.7);
             this.shake(220, 0.012);
@@ -432,8 +458,15 @@ export class LairScene extends Phaser.Scene {
           }
           break;
         case 'broken':
+          // The biggest moment of a hunt: everything stops, he drops, a ring bursts off him, and the lair goes on slow
+          // for a beat.
           sfx.play('blast', 0.9, 0.7);
-          this.shake(420, 0.014);
+          this.stop(0.18);
+          this.slow(0.9, 0.35);
+          this.shake(520, 0.018);
+          this.fx.spawn('fx/ring', e.x, e.y, { dur: 0.5, from: 0.5, to: 5, tint: GOLD, alpha: 0.9, depth: 5 });
+          this.fx.spawn('fx/ring', e.x, e.y, { dur: 0.7, from: 0.3, to: 3.2, tint: GOLD, alpha: 0.6, delay: 0.08, depth: 5 });
+          this.fx.spawn('fx/dust', e.x, e.y, { dur: 0.6, from: 1, to: 3, alpha: 0.6, depth: 4 });
           music.moment('break');
           hud?.banner('STUNNED', 'Double damage: attack now');
           this.monster?.drop();

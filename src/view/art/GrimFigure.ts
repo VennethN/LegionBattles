@@ -16,6 +16,9 @@ const INV = 1 / GRIM_RASTER;
 /** Seconds from the end of a windup to the blow being fully out, and to being back at rest after it is held. */
 const SNAP = 0.07;
 const BACK = 0.26;
+/** How far past its drawn pose a wind-up is pushed while it is held, and a strike before it settles. */
+const WINDUP_OVER = 0.18;
+const STRIKE_OVER = 0.22;
 
 const easeOut = (t: number): number => 1 - (1 - t) * (1 - t) * (1 - t);
 
@@ -46,6 +49,8 @@ export class GrimFigure {
   private hitAt = -9;
   private deadAt = -1;
   private lastTint = 0xffffff;
+  /** A figure as big as a boss: its recovery is slower and heavier, the opening it leaves plainer. */
+  big = false;
 
   constructor(
     scene: Phaser.Scene,
@@ -133,21 +138,49 @@ export class GrimFigure {
     this.stillK += ((this.stillOff ? 0 : 1) - this.stillK) * Math.min(1, dt * 10);
     if (this.still && this.stillK > 0.01) addPose(p, this.still, this.stillK);
 
+    // A move in three beats that can be told apart at a glance: a wind-up that draws the whole figure back and
+    // holds there, trembling, past where the kit drew it; a strike that snaps out beyond its pose and stretches the
+    // body; and a recovery, slow for a big figure, in which it is plainly open. Timing and pose are pushed, not
+    // rubber: it must still look heavy.
     const a = this.act;
     if (a) {
       const t = now - a.at;
-      if (t < a.lead) addPose(p, a.windup, easeOut(t / a.lead));
-      else if (t < a.lead + SNAP) {
+      const back = BACK * (this.big ? 2.2 : 1);
+      if (t < a.lead) {
+        const k = easeOut(t / a.lead);
+        // The last third of a long wind-up is a hold: it goes a little further back, and shakes with the strain.
+        const held = a.lead > 0.35 ? Math.max(0, (t / a.lead - 0.66) / 0.34) : 0;
+        addPose(p, a.windup, k * (1 + WINDUP_OVER * held) + held * 0.04 * Math.sin(now * 70));
+        p.bodySy -= 0.05 * k;
+        p.bodySx += 0.04 * k;
+      } else if (t < a.lead + SNAP) {
         const k = (t - a.lead) / SNAP;
-        addPose(p, a.windup, 1 - k);
-        addPose(p, a.strike, k);
-      } else if (t < a.lead + SNAP + a.hold) addPose(p, a.strike, 1);
-      else if (t < a.lead + SNAP + a.hold + BACK) addPose(p, a.strike, 1 - easeOut((t - a.lead - SNAP - a.hold) / BACK));
-      else this.act = null;
+        addPose(p, a.windup, (1 - k) * (1 + WINDUP_OVER));
+        addPose(p, a.strike, k * (1 + STRIKE_OVER));
+        p.bodySy += 0.06 * k;
+        p.bodySx -= 0.04 * k;
+      } else if (t < a.lead + SNAP + a.hold) {
+        // It settles back from beyond the pose onto it.
+        const k = (t - a.lead - SNAP) / Math.max(0.01, a.hold);
+        addPose(p, a.strike, 1 + STRIKE_OVER * (1 - easeOut(Math.min(1, k * 2))));
+        p.bodySy += 0.06 * (1 - easeOut(Math.min(1, k * 2)));
+      } else if (t < a.lead + SNAP + a.hold + back) {
+        const k = easeOut((t - a.lead - SNAP - a.hold) / back);
+        addPose(p, a.strike, 1 - k);
+        // Spent: it sags as it comes back, the opening a player is to see.
+        p.bodyY += (this.big ? 6 : 2) * Math.sin(k * Math.PI);
+        p.headRot += (this.big ? 8 : 3) * Math.sin(k * Math.PI);
+      } else this.act = null;
     }
 
+    // Struck: a hard flinch away, quick in and slower out, and a squash.
     const since = now - this.hitAt;
-    if (since < 0.3) addPose(p, this.poses.hit, Math.sin((since / 0.3) * Math.PI));
+    if (since < 0.34) {
+      const k = since < 0.06 ? since / 0.06 : 1 - (since - 0.06) / 0.28;
+      addPose(p, this.poses.hit, k * 1.35);
+      p.bodySy -= 0.05 * k;
+      p.bodySx += 0.05 * k;
+    }
 
     if (this.deadAt >= 0) {
       const t = now - this.deadAt;
