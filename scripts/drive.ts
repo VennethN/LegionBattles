@@ -55,7 +55,8 @@ export async function lair(page: Page, hunt: Record<string, unknown>, save: Reco
     Object.assign(w.save(), s);
     w.pilot(false);
     for (const key of ['Hud', 'Result', 'Lodge', 'Lair']) w.game.scene.stop(key);
-    w.stage(h);
+    // A lair is stood up for the window it is shown in, as the game does it: lying down, or on end for a tall one.
+    w.stage({ tall: w.view.tall, ...h });
     w.game.scene.start('Lair');
   }, [hunt, save] as const);
   await until(page, 'Hud');

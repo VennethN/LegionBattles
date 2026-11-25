@@ -95,11 +95,11 @@ export const ABILITIES: readonly AbilityDef[] = [
   { id: 'jawtrap', name: 'Jaw Trap', says: 'Laid at his feet. What steps in it is held, and takes more while it is.', kind: 'trap', wait: 11, r: 30, life: 45, hold: 2.4, share: 0.3, stagger: 14, most: 2 },
   { id: 'tarflask', name: 'Tar Flask', says: 'A pool that slows what stands in it, and burns if fire touches it.', kind: 'pool', wait: 13, r: 96, life: 12, share: 0.45, dmg: 9, range: 400 },
   // Agnes's flare blinds the monster for `hold` seconds, which is an opening, and burns the small for `dmg`.
-  { id: 'flare', name: 'Flare', says: 'A burst of light that blinds the monster for a moment and burns the small.', kind: 'flare', wait: 12, r: 190, hold: 1.9, dmg: 26, stagger: 16 },
+  { id: 'flare', name: 'Flare', says: 'A burst of light that blinds the monster for a moment and burns the small.', kind: 'flare', wait: 10, r: 190, hold: 1.9, dmg: 26, stagger: 16 },
   { id: 'lamp', name: 'Street Lamp', says: 'She stands a lamp on the ground. In its light allies are harder to hurt.', kind: 'ward', wait: 14, r: 120, life: 8, share: 0.5 },
   // Brask's hounds hold the monster for `hold` seconds and bite `share` times as hard for `life`.
-  { id: 'seton', name: 'Set On', says: 'The hounds go for the monster and hold it.', kind: 'seton', wait: 14, hold: 2, life: 4.5, share: 2, stagger: 12 },
-  { id: 'heel', name: 'Heel', says: 'The hounds come back to him, and all three mend.', kind: 'whistle', wait: 20, share: 0.2 },
+  { id: 'seton', name: 'Set On', says: 'The hounds go for the monster and hold it.', kind: 'seton', wait: 18, hold: 1.8, life: 4, share: 2, stagger: 10 },
+  { id: 'heel', name: 'Heel', says: 'The hounds come back to him, and all three mend.', kind: 'whistle', wait: 24, share: 0.15 },
 ];
 
 export interface HunterDef {
@@ -141,7 +141,7 @@ export const HUNTERS: readonly HunterDef[] = [
   {
     id: 'agnes', name: 'Agnes Thorn', short: 'Agnes', epithet: 'the Lamplighter', who: 'She lit the lamps of a town that is dark now. She kept the pole.',
     way: 'At middle reach, with fire and light.',
-    hp: 104, speed: 166, armor: 0, strike: { kind: 'arc', reach: 152, every: 1.0, dmg: 13, half: 38 },
+    hp: 112, speed: 170, armor: 0, strike: { kind: 'arc', reach: 152, every: 1.0, dmg: 15, half: 38 },
     dodge: { dist: 140, dur: 0.3, wait: 1.5 }, abilities: ['flare', 'lamp'], opens: 'antler',
   },
   {
@@ -361,17 +361,17 @@ export const MONSTERS: readonly MonsterDef[] = [
     id: 'king', name: 'The Antlered King',
     rumor: 'Something crowned walks the winter wood, and the trees lean away from it.',
     known: 'He charges the length of the field. Stand so that a stone or a barricade is behind you, and step aside: what he hits dazes him.',
-    lair: 'wood', hp: 4200, speed: 96, r: 46, stagger: { max: 250, grow: 1.25, down: 4.5, more: 2 }, gap: [0.7, 1.1], reach: 230, stones: 2,
+    lair: 'wood', hp: 4200, speed: 96, r: 46, stagger: { max: 330, grow: 1.25, down: 4.5, more: 2 }, gap: [0.55, 0.9], reach: 230, stones: 2,
     attacks: [
-      { id: 'charge', name: 'Charge', tell: 1.05, recover: 0.8, dmg: 34, charge: { speed: 880, daze: 2.5, stagger: 30 }, shapes: [{ kind: 'line', len: 640, w: 84 }] },
-      { id: 'gore', name: 'Gore', tell: 0.62, recover: 0.9, dmg: 23, near: 190, shapes: [{ kind: 'cone', r: 150, half: 54 }] },
-      { id: 'stomp', name: 'Stomp', tell: 0.8, recover: 1.1, dmg: 21, near: 230, shapes: [{ kind: 'ring', r: 175, at: 'self' }] },
+      { id: 'charge', name: 'Charge', tell: 1.05, recover: 0.8, dmg: 42, charge: { speed: 880, daze: 2.2, stagger: 30 }, shapes: [{ kind: 'line', len: 640, w: 84 }] },
+      { id: 'gore', name: 'Gore', tell: 0.62, recover: 0.9, dmg: 28, near: 190, shapes: [{ kind: 'cone', r: 150, half: 54 }] },
+      { id: 'stomp', name: 'Stomp', tell: 0.8, recover: 1.1, dmg: 26, near: 230, shapes: [{ kind: 'ring', r: 175, at: 'self' }] },
       // Roots break the ground round the hunter.
-      { id: 'thorns', name: 'Thorns', tell: 1.0, recover: 1.2, dmg: 18, shapes: [{ kind: 'marks', n: 5, r: 48, at: 'target', spread: 170 }] },
+      { id: 'thorns', name: 'Thorns', tell: 0.95, recover: 1.2, dmg: 23, shapes: [{ kind: 'marks', n: 5, r: 48, at: 'target', spread: 170 }] },
       // His herd: the dead of the wood run the field in lanes, and the hunter stands between.
-      { id: 'herd', name: 'The Herd', tell: 1.5, recover: 1.6, dmg: 25, shapes: [{ kind: 'lanes', n: 4, w: 96 }] },
-      { id: 'bellow', name: 'Bellow', tell: 0.9, recover: 1.0, dmg: 17, mark: 2, shapes: [{ kind: 'ring', r: 280, at: 'self', inner: 120 }] },
-      { id: 'crossherd', name: 'The Wild Hunt', tell: 1.6, recover: 1.8, dmg: 25, mark: 3, shapes: [{ kind: 'lanes', n: 4, w: 96 }, { kind: 'marks', n: 4, r: 48, at: 'target', spread: 200, after: 0.7 }] },
+      { id: 'herd', name: 'The Herd', tell: 1.4, recover: 1.6, dmg: 30, shapes: [{ kind: 'lanes', n: 4, w: 96 }] },
+      { id: 'bellow', name: 'Bellow', tell: 0.9, recover: 1.0, dmg: 22, mark: 2, shapes: [{ kind: 'ring', r: 280, at: 'self', inner: 120 }] },
+      { id: 'crossherd', name: 'The Wild Hunt', tell: 1.6, recover: 1.8, dmg: 30, mark: 3, shapes: [{ kind: 'lanes', n: 4, w: 96 }, { kind: 'marks', n: 4, r: 48, at: 'target', spread: 200, after: 0.7 }] },
     ],
     parts: [
       ['charge', 'gore', 'stomp', 'charge', 'bellow'],

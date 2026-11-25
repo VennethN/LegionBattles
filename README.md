@@ -59,16 +59,29 @@ With the bot as a careful player (it sees a tell after a quarter of a second and
 
 | Monster | Mark | Marta | Jory | Agnes | Brask |
 | --- | --- | --- | --- | --- | --- |
-| The Sexton | 1 | 100%, 3:00 | 100%, 4:14 | 81%, 3:59 | 100%, 3:45 |
-| The Sexton | 2 | 38%, 3:23 | 63%, 5:23 | 0% | 0% |
-| The Sexton | 3 | 0% | 13%, 5:48 | 0% | 0% |
-| The Antlered King | 1 | 100%, 3:12 | 100%, 4:38 | 88%, 5:06 | 100%, 3:58 |
-| The Antlered King | 2 | 100%, 3:47 | 81%, 5:39 | 75%, 6:21 | 100%, 5:01 |
-| The Antlered King | 3 | 75%, 4:40 | 88%, 6:50 | 13%, 8:01 | 94%, 6:17 |
+| The Sexton | 1 | 100%, 3:00 | 100%, 4:28 | 88%, 3:15 | 88%, 4:04 |
+| The Sexton | 2 | 44%, 3:24 | 56%, 5:26 | 38%, 4:17 | 0% |
+| The Sexton | 3 | 0% | 25%, 6:07 | 0% | 0% |
+| The Antlered King | 1 | 100%, 3:24 | 100%, 4:46 | 100%, 4:58 | 94%, 5:06 |
+| The Antlered King | 2 | 88%, 4:12 | 88%, 5:59 | 38%, 6:05 | 94%, 5:56 |
+| The Antlered King | 3 | 69%, 4:54 | 50%, 7:04 | 19%, 7:13 | 44%, 6:55 |
 
-Hunts won, and how long a won hunt took. The aim was: the first mark nearly always, the second about half the time, the third seldom, in three to six minutes. The Sexton is there. **The Antlered King is too easy at his second and third marks**, most of all for Marta and Brask, and Agnes is the weakest hunter against both: these are the next numbers to set. What kills: the risen and the lantern (the Sexton), thorns and the herd (the King).
+Hunts won, and how long a won hunt took. The aim was: the first mark nearly always, the second about half the time, the third seldom, in three to six minutes. The Sexton is there, but for Brask, who cannot win his second mark. **The Antlered King is still too easy at his second and third marks** for everyone but Agnes: he was made harder three times in this round (more health, harder to break, quicker, heavier blows) and is the next number to set. What kills: the risen, the lantern and being buried (the Sexton); thorns, the herd and the charge (the King).
 
-What each thing brought is worth, by itself, at the second mark (8 hunts each, so only big differences mean anything): against the Sexton with Marta, nothing wins 25%, crossbowmen 63%, pikemen 50%, two ballistae 100% in half the time; sappers, the bell post, barricades and the watchfire made no difference the measure can see. Against the King nothing brought changed whether the bot won. The bot does not use a bell or a fire as a player would, so this measures the bot as much as the things.
+What each thing brought is worth, by itself, at the second mark, 16 hunts each. Two measures with other dice differ by about fifteen points, so only bigger differences mean anything:
+
+| Brought alone | Sexton, Marta | Sexton, Jory | King, Marta | King, Jory |
+| --- | --- | --- | --- | --- |
+| nothing | 44% | 69% | 63% | 69% |
+| Pikemen | 38% | 88% | 75% | 94% |
+| Crossbowmen | 50% | 69% | 69% | 88% |
+| Sappers | 44% | 81% | 100% | 100% |
+| Barricade x2 | 38% | 88% | 94% | 94% |
+| Watchfire x2 | 13% | 50% | 100% | 88% |
+| Bell Post x2 | 19% | 69% | 81% | 81% |
+| Ballista x2 | 100% | 50% | 81% | 88% |
+
+Against the King everything helps, sappers and barricades most. Against the Sexton two ballistae win it for Marta in two thirds of the time, and pikemen and barricades help Jory. A watchfire or a bell post against the Sexton made the bot do worse: it does not use them as a player would and they are in its way, so that measures the bot as much as the things.
 
 ## Not yet looked at
 

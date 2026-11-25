@@ -26,11 +26,9 @@ import { Figure } from '../art/Figure';
 import { SHEET, Sheet, sheet, type UnitKey } from '../art/Sheet';
 import { STILL_SCALE } from '../art/scale';
 import { beginHunt, finishHunt, save, theHunt } from '../session';
-import { label } from '../ui/widgets';
 import type { HudScene } from './HudScene';
 
 const INV_ART = 1 / ART_SCALE;
-const TAU = Math.PI * 2;
 const WHITE = 0xffffff;
 const RED = 0xff4a36;
 const GOLD = hex(HOLY.fill);
@@ -53,8 +51,6 @@ export class LairScene extends Phaser.Scene {
   private ground!: Phaser.GameObjects.Graphics;
   /** What is drawn over the dark, sharp: the tells, the rings, the bars. */
   private marks!: Phaser.GameObjects.Graphics;
-  private said!: Phaser.GameObjects.Text;
-  private saidLeft = 0;
   private readonly stills = new Map<string, Still>();
   private spare: Phaser.GameObjects.Image[] = [];
   private stamp = 0;
@@ -87,7 +83,6 @@ export class LairScene extends Phaser.Scene {
     this.ready = false;
     this.ended = false;
     this.halted = false;
-    this.saidLeft = 0;
 
     const cam = this.cameras.main;
     cam.setViewport(0, 0, view.width, view.height);
@@ -142,7 +137,6 @@ export class LairScene extends Phaser.Scene {
     this.monster = new Figure(this, mp.unit, 'red', getManifest().units[mp.unit], mp.scale, 'unit', 2);
     this.light = new LairLight(this, h);
     this.marks = this.light.crisp(this.add.graphics().setDepth(2));
-    this.said = this.light.crisp(label(this, 0, 0, '', { size: 18, color: RUBY.fill }).setDepth(7000).setAlpha(0));
     this.ready = true;
     this.sync(0);
     music.play(land, h.phase === 'camp' ? 'calm' : 'battle');
@@ -249,8 +243,6 @@ export class LairScene extends Phaser.Scene {
           if (e.first && t) {
             // The monster draws back for as long as the tell shows, and its blow falls as the tell lands.
             this.monster.attack(this.clock, t.of, true);
-            this.said.setText(e.name.toUpperCase()).setAlpha(1);
-            this.saidLeft = Math.min(1.6, t.of + 0.3);
             sfx.play('skill', 0.5, 0.8);
           }
           break;
@@ -503,12 +495,6 @@ export class LairScene extends Phaser.Scene {
 
     this.drawMarks();
 
-    // The attack's name, over the monster, for as long as it matters.
-    if (this.saidLeft > 0) {
-      this.saidLeft -= this.halted ? 0 : dt;
-      this.said.setPosition(m.x, m.y - mf.height - 16).setAlpha(Math.min(1, this.saidLeft * 3));
-    } else this.said.setAlpha(0);
-
     this.follow();
     this.light.update(dt, this.clock, this.halted);
   }
@@ -590,6 +576,15 @@ export class LairScene extends Phaser.Scene {
     g.closePath().fillPath();
   }
 
+  /** A band between two circles, as one shape: out along the outer rim and back along the inner. */
+  private band(g: Phaser.GameObjects.Graphics, x: number, y: number, inner: number, outer: number, color: number, alpha: number): void {
+    const n = 40;
+    const pts: Phaser.Math.Vector2[] = [];
+    for (let i = 0; i <= n; i++) pts.push(new Phaser.Math.Vector2(x + Math.cos((i / n) * Math.PI * 2) * outer, y + Math.sin((i / n) * Math.PI * 2) * outer));
+    for (let i = n; i >= 0; i--) pts.push(new Phaser.Math.Vector2(x + Math.cos((i / n) * Math.PI * 2) * inner, y + Math.sin((i / n) * Math.PI * 2) * inner));
+    g.fillStyle(color, alpha).fillPoints(pts, true);
+  }
+
   private drawTell(g: Phaser.GameObjects.Graphics, t: Tell): void {
     const k = Math.max(0, Math.min(1, 1 - t.left / t.of));
     const color = t.foe ? RED : GOLD;
@@ -597,26 +592,26 @@ export class LairScene extends Phaser.Scene {
     const last = t.left < 0.18 ? 0.25 : 0;
     if (t.kind === 'ring') {
       if (t.inner > 0) {
-        // A ring with a safe middle: a band.
-        const mid = (t.r + t.inner) / 2;
-        g.lineStyle(t.r - t.inner, color, 0.14 + last).strokeCircle(t.x, t.y, mid);
-        g.lineStyle((t.r - t.inner) * k, color, 0.26).strokeCircle(t.x, t.y, t.inner + ((t.r - t.inner) * k) / 2);
+        // A ring with a safe middle: a band, filling outward from its inner rim.
+        this.band(g, t.x, t.y, t.inner, t.r, color, 0.14 + last);
+        if (k > 0.03) this.band(g, t.x, t.y, t.inner, t.inner + (t.r - t.inner) * k, color, 0.26);
         g.lineStyle(3, color, 0.9).strokeCircle(t.x, t.y, t.r).strokeCircle(t.x, t.y, t.inner);
         return;
       }
       g.fillStyle(color, 0.14 + last).fillCircle(t.x, t.y, t.r);
-      g.fillStyle(color, 0.28).fillCircle(t.x, t.y, t.r * k);
+      if (t.r * k > 2) g.fillStyle(color, 0.28).fillCircle(t.x, t.y, t.r * k);
       g.lineStyle(3, color, 0.9).strokeCircle(t.x, t.y, t.r);
       return;
     }
     if (t.kind === 'cone') {
       g.fillStyle(color, 0.14 + last).slice(t.x, t.y, t.r, t.angle - t.half, t.angle + t.half, false).fillPath();
-      g.fillStyle(color, 0.28).slice(t.x, t.y, t.r * k, t.angle - t.half, t.angle + t.half, false).fillPath();
+      // A wedge of no size is not drawn at all: the arc of one cannot be worked out.
+      if (t.r * k > 4) g.fillStyle(color, 0.28).slice(t.x, t.y, t.r * k, t.angle - t.half, t.angle + t.half, false).fillPath();
       g.lineStyle(3, color, 0.9).slice(t.x, t.y, t.r, t.angle - t.half, t.angle + t.half, false).strokePath();
       return;
     }
     this.strip(g, t.x, t.y, t.angle, t.len, t.w, color, 0.14 + last);
-    this.strip(g, t.x, t.y, t.angle, t.len * k, t.w, color, 0.28);
+    if (k > 0.01) this.strip(g, t.x, t.y, t.angle, t.len * k, t.w, color, 0.28);
     const cx = Math.cos(t.angle);
     const cy = Math.sin(t.angle);
     const nx = -cy * (t.w / 2);
@@ -627,6 +622,5 @@ export class LairScene extends Phaser.Scene {
     g.lineTo(t.x + cx * t.len - nx, t.y + cy * t.len - ny);
     g.lineTo(t.x - nx, t.y - ny);
     g.closePath().strokePath();
-    void TAU;
   }
 }

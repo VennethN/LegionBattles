@@ -364,14 +364,15 @@ export class LairLight {
     const flick = (seed: number): number => 0.86 + 0.14 * Math.sin(clock * 17 + seed * 3.1) * Math.sin(clock * 7.3 + seed);
 
     // The hunter's lantern: the one light there always is.
-    if (h.hp > 0) this.light(h.x, h.y - 30, 330, LANTERN, 0.72 * flick(1), true);
+    const lamp = this.hour.lamp;
+    if (h.hp > 0) this.light(h.x, h.y - 30, 330, LANTERN, 0.72 * lamp * flick(1), true);
 
     // The monster is seen by a light of its own, dull while it sleeps: it is what the lair is about.
     const awake = m.state !== 'asleep' && m.state !== 'dead';
     if (m.state !== 'dead') {
       const broken = m.state === 'broken';
       const color = broken ? ELEMENTS.holy.light : w.open ? 0xffc890 : ELEMENTS.red.light;
-      this.light(m.x, m.y - 70, 320, color, awake ? 0.42 + 0.08 * Math.sin(clock * 2.2) + (broken ? 0.12 : 0) : 0.26);
+      this.light(m.x, m.y - 70, 320, color, (awake ? 0.42 + 0.08 * Math.sin(clock * 2.2) + (broken ? 0.12 : 0) : 0.26) * (0.5 + 0.5 * lamp));
       if (broken && !halted && Math.random() < 0.4 && this.spend()) glow.spawn(m.x + rnd(-40, 40), m.y - rnd(20, 160), ELEMENTS.holy, { dur: rnd(0.4, 0.8), vy: rnd(-60, -20), from: rnd(6, 10), to: 1 });
     }
 

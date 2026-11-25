@@ -4,7 +4,7 @@
 
 export type LightMode = 'full' | 'low' | 'off';
 
-const KEY = 'lastander-light';
+const KEY = 'boss-hunters-light';
 const MODES: readonly LightMode[] = ['full', 'low', 'off'];
 
 let now: LightMode | null = null;

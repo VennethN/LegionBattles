@@ -346,8 +346,10 @@ export class HudScene extends Phaser.Scene {
       g.fillStyle(hex(STEEL.shade), 1).fillRect(bx, by + 23, bw, 6);
       g.fillStyle(hex(HOLY.fill), 1).fillRect(bx, by + 23, bw * Math.min(1, m.stagger / m.staggerMax), 6);
     }
-    const state = m.state === 'asleep' ? 'ASLEEP' : m.state === 'broken' ? 'BROKEN' : m.state === 'shift' ? '' : hunt.open ? 'OPEN' : '';
-    this.stateText.setText(state).setAlpha(state === 'BROKEN' ? 0.6 + 0.4 * Math.sin(this.clock * 12) ** 2 : 1);
+    // Under its bars: what it is doing, by name, while it prepares it; and that it is open, or broken, when it is.
+    const doing = m.state === 'tell' || m.state === 'dash' ? (m.attack?.name ?? '').toUpperCase() : '';
+    const state = doing || (m.state === 'asleep' ? 'ASLEEP' : m.state === 'broken' ? 'BROKEN' : m.state === 'shift' ? '' : hunt.open ? 'OPEN' : '');
+    this.stateText.setText(state).setColor(doing ? RUBY.fill : HOLY.fill).setAlpha(state === 'BROKEN' ? 0.6 + 0.4 * Math.sin(this.clock * 12) ** 2 : 1);
 
     // Camp: what is left to build, and what to do.
     if (camp) {

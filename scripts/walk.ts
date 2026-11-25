@@ -51,7 +51,7 @@ const tell = async (page: Page, monster: string, part: number, attack: string): 
     const round = h.monster.def.parts[p as number];
     (h as unknown as { round: number }).round = Math.max(0, round.indexOf(a as string));
     h.hunter.maxHp = h.hunter.hp = 9999;
-    h.hunter.x = h.monster.x - 210;
+    h.hunter.x = h.monster.x - 172;
     h.hunter.y = h.monster.y + 30;
     h.monster.state = 'walk';
     h.monster.left = 0;
@@ -89,7 +89,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     if (at) await page.mouse.click(at.x, at.y);
     await tick(page, 12);
     await shot('muster-note');
-    await lodge(page, 'muster', { hunts: 1, wins: 0, coin: 12, trophies: [], felled: {}, worn: {}, steps: [], supply: 0 });
+    await lodge(page, 'muster', { hunts: 1, wins: 0, coin: 12, trophies: [], felled: {}, worn: {}, steps: [], supply: 0, muster: { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1, watchfire: 1 } } });
     await shot('muster-new');
     await lodge(page, 'ledger', RICH);
     await shot('ledger');

@@ -36,7 +36,7 @@ const shoot = async (frame: number): Promise<void> => {
 
 await until(page, 'Hud');
 await lair(page, { monster, mark: 1, hunter, reinforcements: [{ id: 'pikemen', charges: 1 }], buildings: [{ id: 'barricade', n: 1 }, { id: 'watchfire', n: 1 }] }, RICH);
-await pilot(page, Number(process.env.SECONDS ?? 60), shoot);
+await pilot(page, Number(process.env.FILM_SECONDS ?? 60), shoot);
 
 await browser.close();
 console.log(`film: ${n} pictures in ${out}${errors.length ? `\n  the page said: ${[...new Set(errors)].slice(0, 4).join(' | ')}` : ''}`);

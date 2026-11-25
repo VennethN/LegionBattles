@@ -15,7 +15,9 @@ Built:
 - **The lair's light**, dark: the hunter's lantern, the monster's glow, a watchfire, burning tar, flashes; the tells are drawn over the dark and stay sharp.
 - **A bot and a measure** (`npm run pace`). The table is in the README.
 
-Measured: the Sexton is about where it was aimed (first mark nearly always, second about half, third seldom, three to six minutes). The Antlered King is too easy at his second and third marks. Agnes is the weakest hunter.
+Measured: the Sexton is about where it was aimed (first mark nearly always, second about half, third seldom, three to six minutes), but Brask cannot win his second mark. The Antlered King was made harder three times and is still too easy at his second and third marks. Each thing brought changes the outcome against the King; against the Sexton the ballista, pikemen and barricades do.
+
+Looked at: every screen at 907x510, the lodge, the camp and the monster's states at 821x462 and on a phone held upright, every attack's tell half shown, and a hunt against the Sexton in its middle. The smoke plays it through its own buttons and keys with the mouse and by touch: 61 checks pass.
 
 Not looked at: nobody has played it, and the figures are stand-ins. The README's last section has the list.
 

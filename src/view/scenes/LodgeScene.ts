@@ -125,9 +125,9 @@ export class LodgeScene extends Phaser.Scene {
       } else {
         // Not posted: a dark bill, and what must fall first. Nothing else of it is told.
         if (c.monster) this.figure(card, 'red', MONSTER_ART[c.id].unit, ch / 2 - 46, ch - 76, false);
-        else card.add(this.add.image(0, -18, SHEET, 'icon/lock').setScale(0.34).setAlpha(0.6));
-        card.add(label(this, 0, ch / 2 - 34, '???', { size: 17, color: BONE.shade }));
-        card.add(label(this, 0, ch / 2 - 14, c.needs, { size: 15, color: BONE.shade, wrap: cw - 6 }).setScale(Math.min(1, (cw - 6) / 150)));
+        else card.add(this.add.image(0, -ch / 2 + 44, SHEET, 'icon/lock').setScale(0.34).setAlpha(0.6));
+        card.add(label(this, 0, ch / 2 - 62, '???', { size: 17, color: BONE.shade }));
+        card.add(label(this, 0, ch / 2 - 28, c.needs, { size: 15, color: BONE.shade, wrap: cw - 10 }));
       }
     });
 

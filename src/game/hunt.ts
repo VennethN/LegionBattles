@@ -354,6 +354,7 @@ export class Hunt {
   private targetAlly = 0;
   private dash: { angle: number; left: number; speed: number; daze: number; stagger: number; dmg: number; id: number; struck: boolean } | null = null;
   private frenzyBy = 1;
+  private wanted: 0 | 1 | null = null;
 
   constructor(setup: Setup) {
     this.rng = new Rng(setup.seed);
@@ -503,8 +504,13 @@ export class Hunt {
     h.waits[1] = Math.max(0, h.waits[1] - dt);
 
     if (steer.dodge) this.rollNow(steer);
-    if (steer.a) this.use(0);
-    if (steer.b) this.use(1);
+    // An ability asked for in the middle of a roll is kept, and used as the roll ends: a press is not lost to bad timing.
+    if (steer.a) this.wanted = 0;
+    if (steer.b) this.wanted = 1;
+    if (this.wanted !== null && h.roll <= 0) {
+      this.use(this.wanted);
+      this.wanted = null;
+    }
     if (steer.call !== undefined) this.call(steer.call);
     this.moveHunter(steer, dt);
     this.strike(dt);
@@ -665,7 +671,7 @@ export class Hunt {
     const h = this.hunter;
     const m = this.monster;
     const a = this.abilities[i];
-    if (h.waits[i] > 0 || h.roll > 0) return;
+    if (h.waits[i] > 0) return;
     h.waits[i] = a.wait;
     const r = a.r ?? 0;
     let tx = h.x;

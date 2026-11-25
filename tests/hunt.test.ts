@@ -414,6 +414,16 @@ describe('the hunter', () => {
     expect(hp('marta')).toBeLessThan(hp('jory'));
   });
 
+  it('an ability asked for in the middle of a roll is used as the roll ends', () => {
+    const h = awake();
+    hold(h, 'recover');
+    h.step({ x: 1, y: 0, dodge: true });
+    h.step({ x: 0, y: 0, b: true });
+    expect(h.hunter.waits[1]).toBe(0);
+    play(h, 0.4);
+    expect(h.hunter.waits[1]).toBeGreaterThan(0);
+  });
+
   it('falls when their health is gone, and the hunt is lost', () => {
     const h = awake();
     h.hunter.hp = 1;

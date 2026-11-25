@@ -127,6 +127,8 @@ export class Bot {
     const safe = (x: number, y: number): boolean => {
       const e = FIELD.edge + 4;
       if (x < e || y < e || x > h.w - e || y > h.h - e) return false;
+      // What stands on the field cannot be walked through: a way out that ends in a barricade is no way out.
+      if (h.stones.some((st) => dist(x, y, st.x, st.y) < st.r + 14) || h.buildings.some((bd) => dist(x, y, bd.x, bd.y) < bd.def.r + 14)) return false;
       return !all.some((t) => inside(t, x, y, 18));
     };
     const threats = all.filter((t) => inside(t, hu.x, hu.y, 18));

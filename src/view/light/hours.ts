@@ -15,13 +15,15 @@ export interface Hour {
   shade: Rgb;
   /** How dark the rim of the view is. */
   vignette: number;
+  /** How strong a lantern and a monster's glow are here, as a share: pale ground throws light back, and needs less. */
+  lamp: number;
 }
 
 export const LAIRS: Record<string, Hour> = {
   // A churchyard at night: a little green in the dark, as of old stone.
-  churchyard: { ambient: [0.3, 0.36, 0.42], sun: [0.7, 0.8, 1], shafts: 0, clouds: 0.25, shade: [0.84, 0.94, 1.1], vignette: 0.62 },
+  churchyard: { ambient: [0.3, 0.36, 0.42], sun: [0.7, 0.8, 1], shafts: 0, clouds: 0.25, shade: [0.84, 0.94, 1.1], vignette: 0.62, lamp: 1 },
   // A wood under snow and a moon: brighter, and blue.
-  wood: { ambient: [0.36, 0.44, 0.6], sun: [0.7, 0.8, 1], shafts: 0.12, clouds: 0.2, shade: [0.82, 0.92, 1.14], vignette: 0.56 },
+  wood: { ambient: [0.34, 0.42, 0.6], sun: [0.7, 0.8, 1], shafts: 0.1, clouds: 0.2, shade: [0.82, 0.92, 1.14], vignette: 0.56, lamp: 0.5 },
 };
 
 /** How dark an hour is, 0 for noon to 1 for the dead of night. */

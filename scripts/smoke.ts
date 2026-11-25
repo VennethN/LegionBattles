@@ -22,6 +22,8 @@ const failures: string[] = [];
 function check(what: string, ok: boolean): void {
   checks++;
   if (!ok) failures.push(what);
+  // SMOKE_SAY=1 says each check as it is made: where a run stops is then known.
+  if (process.env.SMOKE_SAY) console.log(`${ok ? 'ok  ' : 'FAIL'} ${what}`);
 }
 
 type Press = (x: number, y: number) => Promise<void>;
@@ -41,6 +43,7 @@ const active = (page: Page, key: string): Promise<boolean> => page.evaluate((k) 
 async function play(label: string, context: Context, page: Page, tap: Press, touch: boolean): Promise<void> {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(String(e.message)));
+  (page as unknown as { on(e: string, f: () => void): void }).on('crash', () => console.error(`${label}: the page crashed`));
   await page.clock.install();
   await page.goto(base);
   await page.evaluate(() => localStorage.clear());
@@ -69,7 +72,7 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
   }
   const x = await hunt<number>(page, 'h.hunter.x');
   check(`${label}: the hunter walks`, x > 250);
-  check(`${label}: a building's button sets it down`, (await press(page, tap, 'Hud', touch ? 'BARRICADE' : '1  BARRICADE')) && (await hunt<number>(page, 'h.buildings.length')) === 1);
+  check(`${label}: a building's button sets it down`, ((await press(page, tap, 'Hud', 'BARRICADE')) || (await press(page, tap, 'Hud', '1  BARRICADE'))) && (await hunt<number>(page, 'h.buildings.length')) === 1);
   if (!touch) {
     await page.keyboard.down('KeyS');
     await tick(page, 40);
