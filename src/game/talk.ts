@@ -23,6 +23,8 @@ import { Rng } from './rng';
 export type Moment =
   // The hunter.
   | 'enter' | 'sight' | 'miss' | 'skill' | 'hurt' | 'break' | 'kill' | 'fall'
+  // A partner: helped up, or helping someone up.
+  | 'up' | 'help'
   // The monster.
   | 'wake' | 'change' | 'last' | 'big' | 'reel' | 'die'
   // Those who come at the horn.
@@ -45,6 +47,8 @@ export const VOICES: Record<string, { name: string; heard?: boolean }> = {
   jory: { name: 'Jory' },
   agnes: { name: 'Agnes' },
   brask: { name: 'Brask' },
+  sellsword: { name: 'Sellsword' },
+  bowman: { name: 'Bowman' },
   sexton: { name: 'The Gravedigger' },
   king: { name: 'The Antlered King', heard: true },
   pikemen: { name: 'Spearman' },
@@ -57,7 +61,7 @@ export const VOICES: Record<string, { name: string; heard?: boolean }> = {
 export const MATTERS: ReadonlySet<Moment> = new Set<Moment>(['wake', 'change', 'last', 'break', 'reel', 'die', 'kill', 'fall']);
 
 /** How often a moment that comes often is spoken to at all: said every time, a line wears out in one hunt. */
-const CHANCE: Partial<Record<Moment, number>> = { miss: 0.5, skill: 0.5, hurt: 0.8, big: 0.4, called: 0.9, warn: 0.6, sight: 1, enter: 1 };
+const CHANCE: Partial<Record<Moment, number>> = { miss: 0.5, skill: 0.5, hurt: 0.8, big: 0.4, called: 0.9, warn: 0.6, sight: 1, enter: 1, up: 1, help: 0.7 };
 
 /** Seconds a line shows, the least and the most, and the seconds of quiet after one before chatter may come again. */
 export const TALK = { least: 2.2, most: 3.2, perLetter: 0.035, quiet: 3.5 };
@@ -148,6 +152,31 @@ export const LINES: readonly Line[] = [
   ...L('crossbowmen', 'called', ['Loose!', 'Pick your mark.', 'Wind and loose!', 'Eyes on the big one.', 'Do not hit the hunter.', 'From back here, thanks.']),
   ...L('sappers', 'called', ['Where do you want it?', 'One charge, coming up.', 'Stand well back.', 'Short fuse today.']),
   ...L('sappers', 'warn', ['Fire in the hole!', 'Get clear!', 'Fuse is lit!', 'Run, run, run!', 'Mind the bang!', 'Ears!']),
+
+  // ---- Partners: helped up, and helping.
+  ...L('marta', 'up', ['Up. Thank you.', 'Not done yet.', 'I owe you a gate.', 'Back on my feet.', 'That was close.', 'Right. Again.']),
+  ...L('marta', 'help', ['Up you get.', 'On your feet.', 'I have you.', 'Not here. Not today.']),
+  ...L('jory', 'up', ['Thanks. Do not tell anyone.', 'I was resting.', 'Right. Where was I?', 'Owe you a hare.', 'Still alive. Mostly.', 'Up, up.']),
+  ...L('jory', 'help', ['Come on, get up.', 'Not yet, you are not.', 'Up. He is coming.', 'Lean on me.']),
+  ...L('agnes', 'up', ['Still burning.', 'Thank you, love.', 'Not out yet.', 'Light again.', 'Up. Where is he?', 'I saw a light. It was you.']),
+  ...L('agnes', 'help', ['Look at me. Up.', 'Here. Take my hand.', 'Not in the dark.', 'Up, quick now.']),
+  ...L('brask', 'up', ['Good girls. Stop licking.', 'I am up.', 'Old, not dead.', 'Thank you. Do not fuss.', 'Back again.', 'Where is my spear?']),
+  ...L('brask', 'help', ['Up, lad.', 'Off the ground.', 'Easy. I have you.', 'Up. Dogs need you.']),
+  // ---- Hands for hire. They talk about the money.
+  ...L('sellsword', 'miss', ['Not paid enough for that.', 'Close.', 'Missed me. Good.', 'Hah.', 'Slow beast.', 'Saw it.']),
+  ...L('sellsword', 'skill', ['Got him.', 'There.', 'Earned my wage.', 'Back off!', 'Hold still.', 'That is for the pay.']),
+  ...L('sellsword', 'hurt', ['That costs extra.', 'Ow.', 'Still standing.', 'Danger money. Now.', 'Fine. Fine.', 'I want a raise.']),
+  ...L('sellsword', 'break', ['He is down!', 'Hit him now!', 'Now, now!', 'Open! Go!']),
+  ...L('sellsword', 'fall', ['Keep my pay.', 'Not worth it.']),
+  ...L('sellsword', 'up', ['Thanks. Still billing you.', 'Up.', 'Owe you one.', 'Back to work.', 'That hurt.', 'Right then.']),
+  ...L('sellsword', 'help', ['Up. You still owe me.', 'Get up.', 'On your feet.', 'Come on.']),
+  ...L('bowman', 'miss', ['Too slow.', 'Missed.', 'Ha.', 'Not me.', 'Nearly.', 'Saw that.']),
+  ...L('bowman', 'skill', ['Got him.', 'Pinned.', 'There.', 'Stay put.', 'Hit.', 'Easy shot.']),
+  ...L('bowman', 'hurt', ['Ow!', 'Not the arm.', 'I am a bowman. Keep back!', 'Still shooting.', 'Fine.', 'That stung.']),
+  ...L('bowman', 'break', ['He is down!', 'Shoot him!', 'Now!', 'Open!']),
+  ...L('bowman', 'fall', ['Should have stayed home.', 'Tell my mother.']),
+  ...L('bowman', 'up', ['Thanks.', 'Up again.', 'Where is my bow?', 'Owe you.', 'Not dead.', 'Right.']),
+  ...L('bowman', 'help', ['Up!', 'Get up!', 'Come on.', 'On your feet.']),
 
   // ---- Hobb, who keeps the board at the lodge.
   ...L('keeper', 'taken', ['Saint Odran\'s. Bring a spade back.', 'He was a good digger once.', 'Do not fall in anything.'], 'sexton'),
@@ -301,23 +330,39 @@ export class Talk {
           if (e.first && m.attack && isBig(hunt, e.attack)) this.offer(this.monster, 'big');
           break;
         case 'dodged':
-          this.offer(this.hunter, 'miss');
+          this.offer(hunt.party[e.who]?.def.id ?? this.hunter, 'miss');
           break;
         case 'turned':
-          this.offer(this.hunter, 'skill');
+          this.offer(hunt.party[e.who]?.def.id ?? this.hunter, 'skill');
+          break;
+        case 'down':
+          // A partner going down says so; the player's own fall is said when the hunt is lost.
+          if (e.who !== 0) this.offer(hunt.party[e.who].def.id, 'fall');
+          break;
+        case 'helped':
+          // The one helped up says so, or now and then the partner who helped.
+          if (e.by !== 0 && this.rng.chance(0.4)) this.offer(hunt.party[e.by].def.id, 'help');
+          else this.offer(hunt.party[e.who].def.id, 'up');
           break;
         case 'open':
           if (e.why === 'held' || e.why === 'blind') this.offer(this.hunter, 'skill');
           break;
         case 'hurt':
           if (e.who !== 'hunter') break;
+          if (e.id !== 0) {
+            const p = hunt.party[e.id];
+            if (p && e.amount >= p.maxHp * 0.2) this.offer(p.def.id, 'hurt');
+            break;
+          }
           // Badly hurt: a heavy blow, or the first that takes them under a third.
           if (e.amount >= h.maxHp * 0.16 || (!this.low && h.hp <= h.maxHp * 0.33)) this.offer(this.hunter, 'hurt');
           this.low = h.hp <= h.maxHp * 0.33;
           break;
         case 'broken':
           // The hunter calls it, or the monster is heard: one of the two, by the dice.
-          if (this.rng.chance(0.5)) this.offer(this.hunter, 'break');
+          // With a party, a partner may call it.
+          if (hunt.party.length > 1 && this.rng.chance(0.35)) this.offer(this.rng.pick(hunt.party.slice(1)).def.id, 'break');
+          else if (this.rng.chance(0.5)) this.offer(this.hunter, 'break');
           else this.offer(this.monster, 'reel');
           break;
         case 'call':

@@ -18,7 +18,7 @@ const arg = (name: string): string | undefined => process.argv.find((a) => a.sta
 const flag = (name: string): boolean => process.argv.includes(`--${name}`);
 const runs = Number(arg('runs') ?? 12);
 const monsters = MONSTERS.filter((m) => !arg('monster') || m.id === arg('monster'));
-const hunters = HUNTERS.filter((h) => !arg('hunter') || h.id === arg('hunter'));
+const hunters = HUNTERS.filter((h) => !h.hired && (!arg('hunter') || h.id === arg('hunter')));
 const marks = ([1, 2, 3] as Mark[]).filter((m) => !arg('mark') || m === Number(arg('mark')));
 const careless: BotOpts = flag('careless') ? { react: 0.32, slip: 0.12 } : {};
 
@@ -112,6 +112,72 @@ if (flag('lesson') || flag('opening')) {
 }
 
 const FIRST = { reinforcements: [{ id: 'pikemen', charges: 1 }], buildings: [{ id: 'barricade', n: 1 }, { id: 'watchfire', n: 1 }] };
+
+if (flag('party')) {
+  // The same contract with one, two, three and four hunters: each size should be about as hard as the other, the
+  // boss's health and stagger growing with the party. The player is the bot as Marta; the partners are the hunt's own.
+  const others = ['jory', 'agnes', 'brask'];
+  console.log(`${runs} hunts each, the bot as Marta with partners, with the first muster.`);
+  console.log('monster            mark  party  won   time  downs');
+  for (const m of monsters) {
+    for (const mark of marks) {
+      for (let n = 1; n <= 4; n++) {
+        const o = measure({ monster: m.id, mark, hunter: 'marta', partners: others.slice(0, n - 1), ...FIRST });
+        const downs = (o.tallies.reduce((k, t) => k + t.downs, 0) / runs).toFixed(1);
+        console.log(`${m.name.padEnd(18)} ${mark}     ${n}      ${pct(o.won)}  ${mins(o)}   ${downs}`);
+      }
+    }
+  }
+  process.exit(0);
+}
+
+if (flag('contracts') || arg('contracts')) {
+  // Contracts as the board posts them, played by the bot: how often each variant and task is won or done, so that none
+  // is a sure loss or worth nothing.
+  const { freshSave, board, repost, setupForPosting, OPENING } = await import('../src/game/lodge');
+  const s = freshSave();
+  s.opening = OPENING.length;
+  s.trophies = ['spade', 'antler'];
+  s.felled = { sexton: 2, king: 2 };
+  const want = Number(arg('contracts') ?? runs * 4);
+  const byVariant: Record<string, { n: number; won: number }> = {};
+  const byTask: Record<string, { n: number; done: number }> = {};
+  const byParty: Record<number, { n: number; won: number }> = {};
+  let played = 0;
+  let seed = 500;
+  while (played < want) {
+    for (const p of board(s)) {
+      if (played >= want) break;
+      const setup = setupForPosting(s, p, seed++, false);
+      const r = hunt(setup);
+      played++;
+      for (const v of p.variants.length ? p.variants : ['(none)']) {
+        byVariant[v] ??= { n: 0, won: 0 };
+        byVariant[v].n++;
+        if (r.won) byVariant[v].won++;
+      }
+      for (const t of p.tasks) {
+        byTask[t.id] ??= { n: 0, done: 0 };
+        byTask[t.id].n++;
+        if (r.tally.tasks[t.id]) byTask[t.id].done++;
+      }
+      byParty[p.party] ??= { n: 0, won: 0 };
+      byParty[p.party].n++;
+      if (r.won) byParty[p.party].won++;
+    }
+    s.reposts = 1;
+    repost(s);
+  }
+  const p100 = (a: number, b: number): string => `${Math.round((a / Math.max(1, b)) * 100)}%`;
+  console.log(`${played} posted contracts at difficulties 1 to 3, the bot as Marta.`);
+  console.log('variant: contracts, won');
+  for (const [k, v] of Object.entries(byVariant)) console.log(`  ${k.padEnd(14)} ${String(v.n).padStart(3)}  ${p100(v.won, v.n)}`);
+  console.log('task: contracts, done');
+  for (const [k, v] of Object.entries(byTask)) console.log(`  ${k.padEnd(14)} ${String(v.n).padStart(3)}  ${p100(v.done, v.n)}`);
+  console.log('party: contracts, won');
+  for (const [k, v] of Object.entries(byParty)) console.log(`  ${k.padEnd(14)} ${String(v.n).padStart(3)}  ${p100(v.won, v.n)}`);
+  process.exit(0);
+}
 
 if (flag('things')) {
   console.log(`What each thing is worth: ${runs} hunts each, a hunter who brings only that, at the ${arg('mark') ?? 2} mark.`);

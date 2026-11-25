@@ -20,7 +20,11 @@ export const STAND_IN = 0x1a2227;
 
 export const isGrim = (a: Art): a is { grim: string } => 'grim' in a;
 
-export const HUNTER_ART: Record<string, Art> = { marta: { grim: 'marta' }, jory: { grim: 'jory' }, agnes: { grim: 'agnes' }, brask: { grim: 'brask' } };
+export const HUNTER_ART: Record<string, Art> = {
+  marta: { grim: 'marta' }, jory: { grim: 'jory' }, agnes: { grim: 'agnes' }, brask: { grim: 'brask' },
+  // Hands for hire are not drawn yet: a dark shape of a fighter and of an archer.
+  sellsword: { legion: 'militia', team: 'blue', scale: 0.62 }, bowman: { legion: 'poacher', team: 'blue', scale: 0.62 },
+};
 
 export const MONSTER_ART: Record<string, Art> = {
   sexton: { grim: 'sexton' },
@@ -36,7 +40,11 @@ export const MONSTER_MOVES: Record<string, Record<string, string>> = {
 /** Which of a hunter's moves shows each ability, by the ability's name. Their first move is their own blow. */
 export const ABILITY_MOVES: Record<string, string> = { reap: 'reap', jawtrap: 'set', tarflask: 'set', flare: 'flare', lamp: 'lamp', seton: 'setOn', heel: 'heel' };
 
-export const HELPER_ART: Record<string, Art> = { risen: { grim: 'risen' } };
+export const HELPER_ART: Record<string, Art> = {
+  risen: { grim: 'risen' }, herd: { grim: 'herdbeast' },
+  // What a contract asks to be broken first: not drawn yet, a dark stone.
+  gravemarker: { legion: 'barrowstone', team: 'red', scale: 0.7 }, totem: { legion: 'barrowstone', team: 'red', scale: 0.7 },
+};
 
 /** Those who fight beside the hunter, by the reinforcement they came with. */
 export const ALLY_ART: Record<string, Art> = {
@@ -44,6 +52,8 @@ export const ALLY_ART: Record<string, Art> = {
   hound: { grim: 'hound' },
   crossbowmen: { grim: 'crossbowman' },
   sappers: { grim: 'sapper' },
+  // The villagers a contract asks to be kept alive: not drawn yet, so a dark shape of the right size.
+  villager: { legion: 'beekeeper', team: 'blue', scale: 0.58 },
 };
 
 export const BUILDING_ART: Record<string, Art> = {
@@ -51,6 +61,8 @@ export const BUILDING_ART: Record<string, Art> = {
   watchfire: { grim: 'watchfire' },
   ballista: { grim: 'ballista' },
   bellpost: { grim: 'bellpost' },
+  // The cart a contract asks to be kept whole: not drawn yet, so a dark shape of the right size.
+  cart: { legion: 'warwagon', team: 'blue', scale: 0.6 },
 };
 
 /** What stands or lies on the field besides: a lair's stones, a trap laid, the lamp Agnes stands on the ground. */

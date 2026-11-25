@@ -31,7 +31,7 @@ export interface Win {
   hunt(): HuntWin | null;
   save(): Record<string, unknown>;
   pilot(on: boolean): void;
-  botSteer(): { x: number; y: number; dodge?: boolean; a?: boolean; b?: boolean; call?: number; place?: string; wake?: boolean } | null;
+  botSteer(): { x: number; y: number; dodge?: boolean; a?: boolean; b?: boolean; call?: number; place?: string; wake?: boolean; attack?: boolean } | null;
 }
 
 /** Steps the game by so many of its frames. The page's clock must have been taken over and paused. */
@@ -97,6 +97,8 @@ export async function playKeys(page: Page, frames: number, each?: (frame: number
         if (s.steer.x < -0.3) keys.push('KeyA');
         if (s.steer.y > 0.3) keys.push('KeyS');
         if (s.steer.y < -0.3) keys.push('KeyW');
+        // Attack is held with its key, as a player holds it.
+        if (s.steer.attack) keys.push('KeyJ');
         if (s.steer.dodge) await page.keyboard.press('Space');
         if (s.steer.a) await page.keyboard.press('KeyQ');
         if (s.steer.b) await page.keyboard.press('KeyE');

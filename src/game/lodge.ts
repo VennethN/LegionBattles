@@ -3,14 +3,39 @@
 // a hunt pays. Pure, like the hunt itself: the screens ask here what
 // something costs and whether it can be done, and never work it out.
 
-import { BUILDINGS, HUNTERS, LESSONS, MONSTERS, REINFORCEMENTS, TO_COME, byId, type LessonDef, type Mark, type MonsterDef } from './content';
+import {
+  BOARD, BUILDINGS, HUNTERS, LESSONS, MARKER, MINION, MONSTERS, PARTY, PARTY_DANGER, PARTY_SIZES, POSTED_BY, REINFORCEMENTS, TASKS, THING_CHANCE, TO_COME, VARIANTS, WHERE, WHY, byId,
+  type HunterDef, type LessonDef, type Mark, type MonsterDef, type TaskKind,
+} from './content';
 import type { Setup, Tally } from './hunt';
+import { Rng } from './rng';
 
 /** What goes on a hunt: who, what the horn calls, and how many of each building. */
 export interface Muster {
   hunter: string;
   reinforcements: string[];
   buildings: Record<string, number>;
+  /** Who the player would take along, in order: a contract takes as many as it has places for. */
+  partners: string[];
+}
+
+/** A contract posted on the board: one hunt of one boss, unlike the last. */
+export interface Posting {
+  /** Counts up: no two postings share it. */
+  id: number;
+  monster: string;
+  mark: Mark;
+  /** How the boss is unlike itself, by name (content.ts, VARIANTS). */
+  variants: string[];
+  /** What is asked besides the kill, each with its number. */
+  tasks: Array<{ id: TaskKind; n?: number }>;
+  /** How many hunters it takes: the player and their partners. */
+  party: number;
+  /** Who put it up, and why. */
+  by: string;
+  why: string;
+  /** A free step from the shop, paid besides the coin, if this contract pays one. */
+  thing: string | null;
 }
 
 export interface SaveData {
@@ -36,6 +61,13 @@ export interface SaveData {
   talk: boolean;
   /** What the player has been shown once and need not be shown again. */
   told: string[];
+  /** The contracts posted on the board, and where the board's own dice are. */
+  board: Posting[];
+  boardDice: number;
+  nextPosting: number;
+  /** Hunts since the whole board was last posted again, and the free new postings left before the next hunt. */
+  sincePosted: number;
+  reposts: number;
 }
 
 /** The supply a new lodge has, and what each step more costs. */
@@ -48,7 +80,7 @@ export const MOST = { reinforcements: 2, ofOne: 3 };
 export const CONSOLATION = 6;
 
 /** What a player goes out with once everything is open: enough to see what each kind of thing is for. */
-export const FIRST_MUSTER: Muster = { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1, watchfire: 1 } };
+export const FIRST_MUSTER: Muster = { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1, watchfire: 1 }, partners: [] };
 
 /**
  * The opening hunts: what each allows, one new thing a hunt. The first is a lesson, with nothing brought and no
@@ -106,7 +138,9 @@ function advance(save: SaveData): void {
     // Everything is open: the muster a player starts from, if theirs fits inside it.
     for (const id of FIRST_MUSTER.reinforcements) if (!m.reinforcements.includes(id)) m.reinforcements.push(id);
     for (const [id, n] of Object.entries(FIRST_MUSTER.buildings)) m.buildings[id] = Math.max(m.buildings[id] ?? 0, n);
-    if (costOf(m) > supplyOf(save)) save.muster = { hunter: m.hunter, reinforcements: [...FIRST_MUSTER.reinforcements], buildings: { ...FIRST_MUSTER.buildings } };
+    if (costOf(m) > supplyOf(save)) save.muster = { hunter: m.hunter, reinforcements: [...FIRST_MUSTER.reinforcements], buildings: { ...FIRST_MUSTER.buildings }, partners: m.partners };
+    // The board is posted from here on.
+    fillBoard(save);
     return;
   }
   if (step.gives?.building && Object.keys(m.buildings).length === 0) m.buildings[step.gives.building] = 1;
@@ -116,8 +150,9 @@ function advance(save: SaveData): void {
 export function freshSave(): SaveData {
   return {
     v: 1, coin: 0, supply: 0, felled: {}, trophies: [], worn: {}, steps: [],
-    muster: { hunter: FIRST_MUSTER.hunter, reinforcements: [], buildings: {} },
+    muster: { hunter: FIRST_MUSTER.hunter, reinforcements: [], buildings: {}, partners: [] },
     hunts: 0, wins: 0, opening: 0, sound: true, music: true, talk: true, told: [],
+    board: [], boardDice: 0x2c1b3c6d, nextPosting: 1, sincePosted: 0, reposts: BOARD.freeReposts,
   };
 }
 
@@ -163,9 +198,15 @@ export function repair(raw: unknown): SaveData {
         if (typeof n === 'number' && n >= 1 && isOpen(s, b.id)) s.muster.buildings[b.id] = Math.min(MOST.ofOne, Math.floor(n));
       }
     }
+    if (Array.isArray(m.partners)) s.muster.partners = [...new Set(m.partners.filter((id): id is string => typeof id === 'string' && canPartner(s, id) && id !== s.muster.hunter))].slice(0, PARTY.most - 1);
     // A muster that no longer fits its supply is cut back to one that does.
-    if (costOf(s.muster) > supplyOf(s)) s.muster = { hunter: s.muster.hunter, reinforcements: [...FIRST_MUSTER.reinforcements], buildings: { ...FIRST_MUSTER.buildings } };
+    if (costOf(s.muster) > supplyOf(s)) s.muster = { hunter: s.muster.hunter, reinforcements: [...FIRST_MUSTER.reinforcements], buildings: { ...FIRST_MUSTER.buildings }, partners: s.muster.partners };
   }
+  if (typeof r.boardDice === 'number') s.boardDice = r.boardDice >>> 0 || 1;
+  if (typeof r.nextPosting === 'number') s.nextPosting = Math.max(1, Math.floor(r.nextPosting));
+  if (typeof r.sincePosted === 'number') s.sincePosted = Math.max(0, Math.floor(r.sincePosted));
+  if (typeof r.reposts === 'number') s.reposts = Math.max(0, Math.min(BOARD.freeReposts, Math.floor(r.reposts)));
+  if (Array.isArray(r.board)) s.board = r.board.filter(postingKnown).map((p) => ({ ...p, variants: [...p.variants], tasks: p.tasks.map((t) => ({ ...t })) }));
   // And one that holds more than its step of the opening allows, to what that allows.
   const step = openingOf(s);
   if (step) {
@@ -180,6 +221,15 @@ export function repair(raw: unknown): SaveData {
     s.muster.buildings = kept;
   }
   return s;
+}
+
+/** True if a posting read from a save is one this game can still play. */
+function postingKnown(p: unknown): p is Posting {
+  if (!p || typeof p !== 'object') return false;
+  const x = p as Posting;
+  return typeof x.id === 'number' && MONSTERS.some((m) => m.id === x.monster) && [1, 2, 3].includes(x.mark) && Array.isArray(x.variants) && x.variants.every((v) => VARIANTS.some((d) => d.id === v))
+    && Array.isArray(x.tasks) && x.tasks.every((t) => TASKS.some((d) => d.id === t.id)) && typeof x.party === 'number' && x.party >= 1 && x.party <= PARTY.most
+    && typeof x.by === 'string' && typeof x.why === 'string';
 }
 
 function stepKnown(step: string): boolean {
@@ -250,6 +300,165 @@ export function nextContract(save: SaveData): { monster: string; mark: Mark } {
   return { monster: MONSTERS[0].id, mark: 3 };
 }
 
+// ------------------------------------------------------------ posted contracts
+
+/** True once the board is posted: the lesson and the opening hunts are behind the player. */
+export function posting(save: SaveData): boolean {
+  return !openingOf(save);
+}
+
+/** The bosses that can be hunted now, with the highest difficulty each can be hunted at. */
+function huntable(save: SaveData): Array<{ m: MonsterDef; upTo: Mark; first: boolean }> {
+  return contracts(save).filter((c) => c.posted && c.monster).map((c) => ({ m: c.monster as MonsterDef, upTo: Math.max(1, c.upTo) as Mark, first: c.felled < 1 }));
+}
+
+/** The board as it is now: filled to its size first, if it has room. */
+export function board(save: SaveData): Posting[] {
+  if (posting(save)) fillBoard(save);
+  return save.board;
+}
+
+/** The bosses not yet posted, as dark shapes with what must fall first. Nothing else of them is told. */
+export function unposted(save: SaveData): Array<{ id: string; needs: string }> {
+  return contracts(save).filter((c) => !c.posted).map((c) => ({ id: c.id, needs: c.needs }));
+}
+
+/** Posts contracts until the board is full. A boss whose first trophy is not taken is always on it. */
+export function fillBoard(save: SaveData): void {
+  const can = huntable(save);
+  if (can.length === 0) return;
+  const rng = new Rng(save.boardDice);
+  for (const c of can) {
+    // Its first contract is plain: one hunter, the first difficulty, nothing unlike itself. It is how a boss is learned.
+    if (c.first && !save.board.some((p) => p.monster === c.m.id && p.mark === 1)) save.board.push(draw(save, rng, c.m, 1, true));
+  }
+  for (const c of can) {
+    // And the hardest difficulty it can be hunted at is always somewhere, so that nobody waits on the dice to go on.
+    if (!c.first && save.board.length < BOARD.size && !save.board.some((p) => p.monster === c.m.id && p.mark === c.upTo)) save.board.push(draw(save, rng, c.m, c.upTo, false));
+  }
+  while (save.board.length < BOARD.size) {
+    const c = rng.pick(can);
+    // Higher difficulties are posted more often than lower ones.
+    const marks = ([1, 2, 3] as Mark[]).filter((k) => k <= c.upTo);
+    const mark = rng.weighted(marks, (k) => k);
+    save.board.push(draw(save, rng, c.m, mark, false));
+  }
+  save.boardDice = rng.state;
+}
+
+/** Takes the whole board down and posts it again. Free once between hunts. Says why not, or nothing if it was done. */
+export function repost(save: SaveData): string {
+  if (!posting(save)) return 'Locked: finish the first hunts';
+  if (save.reposts <= 0) return 'No new postings until after your next hunt';
+  save.reposts--;
+  save.board = [];
+  fillBoard(save);
+  return '';
+}
+
+/** One contract, drawn by the board's dice. */
+function draw(save: SaveData, rng: Rng, m: MonsterDef, mark: Mark, plain: boolean): Posting {
+  const variants: string[] = [];
+  const tasks: Array<{ id: TaskKind; n?: number }> = [];
+  if (!plain) {
+    // More, and stronger, at a higher difficulty.
+    const nv = mark === 1 ? (rng.chance(0.5) ? 1 : 0) : mark === 2 ? 1 : rng.chance(0.5) ? 2 : 1;
+    const nt = mark === 1 ? (rng.chance(0.6) ? 1 : 0) : mark === 2 ? 1 : rng.chance(0.4) ? 2 : 1;
+    for (let i = 0; i < nv; i++) {
+      const can = VARIANTS.filter((v) => (!v.only || v.only === m.id) && (v.mark ?? 1) <= mark && !variants.includes(v.id) && !variants.some((x) => v.not?.includes(x) || byId(VARIANTS, x).not?.includes(v.id))
+        && (v.kind !== 'minions' || !!MINION[m.id]));
+      if (can.length) variants.push(rng.pick(can).id);
+    }
+    for (let i = 0; i < nt; i++) {
+      const can = TASKS.filter((t) => !tasks.some((x) => x.id === t.id || t.not?.includes(x.id)) && (t.id !== 'markers' || !!MARKER[m.id]) && t.id !== 'together');
+      if (can.length) tasks.push({ id: rng.pick(can).id });
+    }
+  }
+  const danger = mark + variants.reduce((n, v) => n + byId(VARIANTS, v).danger, 0);
+  const sizes = PARTY_SIZES[mark];
+  const party = plain ? 1 : Math.min(PARTY.most, rng.pick(sizes) + (danger >= PARTY_DANGER ? 1 : 0));
+  // With two hunters or more, keeping everyone standing may be asked too.
+  if (!plain && party >= 2 && tasks.length < 2 && rng.chance(0.3)) tasks.push({ id: 'together' });
+  // A fast kill with a Giant or a party gets the time their Health asks for; so does breaking it often with a party.
+  const swift = tasks.find((t) => t.id === 'swift');
+  if (swift) {
+    const base = byId(TASKS, 'swift').n?.[mark - 1] ?? 300;
+    swift.n = Math.round((base * (variants.includes('giant') ? 1.25 : 1) * (1 + 0.3 * (party - 1))) / 10) * 10;
+  }
+  const breaks = tasks.find((t) => t.id === 'breaks');
+  if (breaks) breaks.n = (byId(TASKS, 'breaks').n?.[mark - 1] ?? 4) + (party - 1);
+  const open = wares(save).filter((w) => !w.had && w.id !== 'supply');
+  const thing = !plain && mark >= 2 && open.length > 0 && rng.chance(THING_CHANCE) ? rng.pick(open).id : null;
+  return { id: save.nextPosting++, monster: m.id, mark, variants, tasks, party, by: rng.pick(POSTED_BY), why: rng.pick(WHY[m.id] ?? ['It must die.']), thing };
+}
+
+/** A posting on the board, by its number. */
+export function postingOf(save: SaveData, id: number): Posting | undefined {
+  return save.board.find((p) => p.id === id);
+}
+
+/** What a poster shows: everything a player reads off it, worked out here so that no screen works it out. */
+export interface Poster {
+  id: number;
+  monster: string;
+  /** "WANTED: The Gravedigger" and the like. */
+  title: string;
+  where: string;
+  by: string;
+  why: string;
+  mark: Mark;
+  /** Danger, 1 to 6: the difficulty and what the variants add. */
+  danger: number;
+  party: number;
+  /** "Party: 3 hunters", or "Alone". */
+  partyText: string;
+  variants: Array<{ id: string; name: string; says: string }>;
+  tasks: Array<{ id: TaskKind; name: string; says: string; bonus: number }>;
+  coin: number;
+  /** Coin paid besides for each task done, all of them together. */
+  bonus: number;
+  /** What a hand for hire takes of the coin, if the player has to take any on. */
+  hiredCut: number;
+  /** The shop's step paid besides, by name, if any. */
+  thing: string | null;
+  /** True for the first win at its difficulty, which pays the coin twice. */
+  first: boolean;
+}
+
+export function posterOf(save: SaveData, p: Posting): Poster {
+  const m = byId(MONSTERS, p.monster);
+  const danger = Math.min(6, p.mark + p.variants.reduce((n, v) => n + byId(VARIANTS, v).danger, 0));
+  const r = rewardFor(save, p);
+  return {
+    id: p.id, monster: p.monster, title: `WANTED: ${m.name}`, where: WHERE[p.monster] ?? '', by: p.by, why: p.why, mark: p.mark, danger, party: p.party,
+    partyText: p.party === 1 ? 'Alone' : `Party: ${p.party} hunters`,
+    variants: p.variants.map((v) => {
+      const d = byId(VARIANTS, v);
+      return { id: d.id, name: d.name, says: d.says };
+    }),
+    tasks: p.tasks.map((t) => {
+      const d = byId(TASKS, t.id);
+      const n = t.n ?? d.n?.[p.mark - 1] ?? 0;
+      const says = d.says.replace('{n}', d.id === 'swift' ? `${Math.floor(n / 60)}:${String(n % 60).padStart(2, '0')}` : String(n));
+      return { id: d.id, name: d.name, says, bonus: Math.round(r.base * d.pay) };
+    }),
+    coin: r.coin, bonus: r.bonus, hiredCut: r.cut, thing: p.thing ? (wares(save).find((w) => w.id === p.thing)?.name ?? null) : null, first: r.first,
+  };
+}
+
+/** What a posted contract pays: the coin of its boss and difficulty, more for its danger and its party, less what hands for hire take. */
+export function rewardFor(save: SaveData, p: Posting): { coin: number; base: number; bonus: number; cut: number; first: boolean } {
+  const m = byId(MONSTERS, p.monster);
+  const first = (save.felled[p.monster] ?? 0) < p.mark;
+  const extra = p.variants.reduce((n, v) => n + byId(VARIANTS, v).danger, 0);
+  const base = Math.round(m.pay[p.mark - 1] * (1 + 0.25 * extra) * (1 + PARTY.pay * (p.party - 1)));
+  const bonus = p.tasks.reduce((n, t) => n + Math.round(base * byId(TASKS, t.id).pay), 0);
+  const { hired } = partyFor(save, p.party);
+  const gross = base * (first ? 2 : 1);
+  const cut = Math.round(gross * PARTY.hiredCut * hired);
+  return { coin: gross - cut, base, bonus, cut, first };
+}
+
 // ------------------------------------------------------------ the muster
 
 export function supplyOf(save: SaveData): number {
@@ -300,9 +509,75 @@ export function changeBuilding(save: SaveData, id: string, by: 1 | -1): string {
 }
 
 export function setHunter(save: SaveData, id: string): string {
+  if (byId(HUNTERS, id).hired) return 'A hand for hire cannot lead';
   if (!isOpen(save, id)) return `Locked: ${opensBy(id)}`;
   save.muster.hunter = id;
+  save.muster.partners = save.muster.partners.filter((x) => x !== id);
   return '';
+}
+
+// ------------------------------------------------------------ the party
+
+/** True if a hunter can go as a partner: one of the player's own that is unlocked. Hands for hire fill the rest by themselves. */
+function canPartner(save: SaveData, id: string): boolean {
+  const h = HUNTERS.find((x) => x.id === id);
+  return !!h && !h.hired && isOpen(save, id);
+}
+
+/** The hunters' bar of the loadout: every hunter of the player's own, unlocked or a dark shape with how to unlock it. */
+export interface HunterSlot {
+  id: string;
+  /** Their name, or "???" while locked. */
+  name: string;
+  /** What they do, in a line, or nothing while locked. */
+  way: string;
+  open: boolean;
+  /** How to unlock them, while locked. */
+  unlock: string;
+  /** True for the one the player leads with, and the place each partner is in (or -1). */
+  leading: boolean;
+  partner: number;
+}
+
+export function hunterBar(save: SaveData): HunterSlot[] {
+  return HUNTERS.filter((h) => !h.hired).map((h) => {
+    const open = isOpen(save, h.id);
+    return { id: h.id, name: open ? h.name : '???', way: open ? h.way : '', open, unlock: open ? '' : opensBy(h.id), leading: save.muster.hunter === h.id, partner: save.muster.partners.indexOf(h.id) };
+  });
+}
+
+/** Takes a hunter along as a partner, or leaves them. Says why not, or nothing if it was done. */
+export function togglePartner(save: SaveData, id: string): string {
+  const m = save.muster;
+  if (m.partners.includes(id)) {
+    m.partners = m.partners.filter((x) => x !== id);
+    return '';
+  }
+  if (id === m.hunter) return 'That is you';
+  if (byId(HUNTERS, id).hired) return 'Hands for hire come by themselves';
+  if (!isOpen(save, id)) return `Locked: ${opensBy(id)}`;
+  if (m.partners.length >= PARTY.most - 1) return `No more than ${PARTY.most - 1} partners`;
+  m.partners.push(id);
+  return '';
+}
+
+/** The hands for hire, in the order they are taken on: a fighter, then a bowman, then the fighter's brother. */
+const HIRED: readonly string[] = ['sellsword', 'bowman', 'sellsword'];
+
+/** Who goes on a contract with the player: their partners first, any other hunter they have unlocked, then hands for hire. */
+export function partyFor(save: SaveData, size: number): { partners: string[]; hired: number } {
+  const want = Math.max(0, Math.min(PARTY.most, size) - 1);
+  const me = save.muster.hunter;
+  const own = [...save.muster.partners, ...HUNTERS.filter((h) => !h.hired && isOpen(save, h.id)).map((h) => h.id)].filter((id, i, a) => id !== me && a.indexOf(id) === i && canPartner(save, id));
+  const partners = own.slice(0, want);
+  let hired = 0;
+  while (partners.length < want) partners.push(HIRED[hired++ % HIRED.length]);
+  return { partners, hired };
+}
+
+/** The hunter a partner's place holds, for the card: who, and whether a hand for hire. */
+export function partnerDef(id: string): HunterDef {
+  return byId(HUNTERS, id);
 }
 
 /** Puts a trophy on the hunter of the muster, or takes theirs off. */
@@ -315,6 +590,12 @@ export function wear(save: SaveData, trophy: string | null): void {
 /** How many times a reinforcement can be called, with what has been bought for it. */
 export function chargesOf(save: SaveData, id: string): number {
   return byId(REINFORCEMENTS, id).charges + (save.steps.includes(`more:${id}`) ? 1 : 0);
+}
+
+/** The hunt the muster makes of a posted contract: its boss and difficulty, its terms, and the party it takes. */
+export function setupForPosting(save: SaveData, p: Posting, seed: number, tall: boolean): Setup {
+  const base = setupOf(save, p.monster, p.mark, seed, tall);
+  return { ...base, partners: partyFor(save, p.party).partners, terms: { variants: [...p.variants], tasks: p.tasks.map((t) => ({ ...t })) } };
 }
 
 /** The hunt the muster makes of a contract. */
@@ -396,13 +677,65 @@ export interface Pay {
   posted: string[];
   /** True if the hunt was a lesson: its win is not the contract's. */
   lesson: boolean;
+  /** A posted contract's tasks, each done or not, with what each paid. */
+  tasks: Array<{ id: TaskKind; name: string; done: boolean; coin: number }>;
+  /** What hands for hire took, and the shop's step paid besides, by name. */
+  cut: number;
+  thing: string | null;
 }
 
 /** Writes a hunt's end into the save and says what it paid. */
-export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean, tally: Tally, part: number): Pay {
+export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean, tally: Tally, part: number, taken?: Posting): Pay {
   const def = byId(MONSTERS, monster);
   const lesson = lessonFor(save, monster, mark);
   save.hunts++;
+  if (taken) {
+    // A contract taken comes off the board, won or lost, and a new one goes up in its place; now and then the whole board is posted again.
+    const r = rewardFor(save, taken);
+    // A contract tried again after it came off the board is paid as it was posted.
+    save.board = save.board.filter((p) => p.id !== taken.id);
+    save.sincePosted++;
+    save.reposts = BOARD.freeReposts;
+    if (save.sincePosted >= BOARD.turnEvery) {
+      save.sincePosted = 0;
+      save.board = [];
+    }
+    if (!won) {
+      const coin = CONSOLATION * part;
+      save.coin += coin;
+      fillBoard(save);
+      return { won, coin, first: false, trophy: null, opened: [], posted: [], lesson: false, tasks: [], cut: 0, thing: null };
+    }
+    save.wins++;
+    const tasks = taken.tasks.map((t) => {
+      const d = byId(TASKS, t.id);
+      const done = !!tally.tasks[t.id];
+      return { id: t.id, name: d.name, done, coin: done ? Math.round(r.base * d.pay) : 0 };
+    });
+    const coin = r.coin + tasks.reduce((n, t) => n + t.coin, 0);
+    save.coin += coin;
+    const before = save.felled[monster] ?? 0;
+    save.felled[monster] = Math.max(before, mark);
+    let trophy: string | null = null;
+    let opened: string[] = [];
+    const newly: string[] = [];
+    if (before === 0) {
+      if (!save.trophies.includes(def.trophy.id)) {
+        trophy = def.trophy.id;
+        save.trophies.push(trophy);
+        opened = opensWith(trophy);
+      }
+      for (const m of MONSTERS) if (m.after === monster) newly.push(m.name);
+    }
+    let thing: string | null = null;
+    if (taken.thing && !save.steps.includes(taken.thing) && taken.thing !== 'supply') {
+      const step = taken.thing;
+      save.steps.push(step);
+      thing = wares(save).find((w) => w.id === step)?.name ?? step;
+    }
+    fillBoard(save);
+    return { won, coin, first: r.first, trophy, opened, posted: newly, lesson: false, tasks, cut: r.cut, thing };
+  }
   // A lesson whose steps were all done is not taught again, win or lose.
   if (lesson && tally.taught && !save.told.includes(`lesson:${lesson.id}`)) save.told.push(`lesson:${lesson.id}`);
   // Past the lesson, each hunt of the opening brings in the next thing, however it ended.
@@ -410,7 +743,7 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
   if (!won) {
     const coin = CONSOLATION * part;
     save.coin += coin;
-    return { won, coin, first: false, trophy: null, opened: [], posted: [], lesson: !!lesson };
+    return { won, coin, first: false, trophy: null, opened: [], posted: [], lesson: !!lesson, tasks: [], cut: 0, thing: null };
   }
   save.wins++;
   if (lesson) {
@@ -424,7 +757,7 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
       opened = opensWith(trophy);
     }
     advance(save);
-    return { won, coin: LESSON_PAY, first: false, trophy, opened, posted: [], lesson: true };
+    return { won, coin: LESSON_PAY, first: false, trophy, opened, posted: [], lesson: true, tasks: [], cut: 0, thing: null };
   }
   const before = save.felled[monster] ?? 0;
   const first = before < mark;
@@ -442,5 +775,5 @@ export function payFor(save: SaveData, monster: string, mark: Mark, won: boolean
     }
     for (const m of MONSTERS) if (m.after === monster) posted.push(m.name);
   }
-  return { won, coin, first, trophy, opened, posted, lesson: false };
+  return { won, coin, first, trophy, opened, posted, lesson: false, tasks: [], cut: 0, thing: null };
 }

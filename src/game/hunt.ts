@@ -11,10 +11,14 @@
 // where and when.
 
 import {
-  ABILITIES, BUILDINGS, CAMP, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKS, MONSTERS, REINFORCEMENTS, byId,
-  type AbilityDef, type AllyDef, type AttackDef, type BuildingDef, type HelperDef, type HunterDef, type LessonDef, type LessonStep, type Mark, type MonsterDef, type ReinforcementDef, type ShapeDef,
+  ABILITIES, ATTACK, BUILDINGS, CAMP, CART, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
+  TELL_FLOOR, VARIANTS, VILLAGER, byId,
+  type AbilityDef, type AllyDef, type AttackDef, type BlowDef, type BuildingDef, type HelperDef, type HunterDef, type LessonDef, type LessonStep, type Mark, type MonsterDef, type ReinforcementDef,
+  type ShapeDef, type TaskKind, type VariantDef,
 } from './content';
+import { Bot } from './bot';
 import { Rng } from './rng';
+import { dist, inside, turn } from './geometry';
 
 export const STEP = 1 / 60;
 const TAU = Math.PI * 2;
@@ -28,6 +32,10 @@ export interface Steer {
   /** The first ability, the second. */
   a?: boolean;
   b?: boolean;
+  /** Attack, held or not: a press is a blow, pressed again in time the next of the chain, held the chain again (or a heavy shot aimed). */
+  attack?: boolean;
+  /** Which way to attack, in radians: toward the pointer with a mouse. Without it, the way the hunter faces, turned to a boss in reach a little ahead. */
+  aim?: number;
   /** Call the reinforcement at this place in the muster. */
   call?: number;
   /** In camp: set this building down where the hunter stands. */
@@ -53,10 +61,59 @@ export interface Setup {
   tall?: boolean;
   /** The trophy the hunter wears, by name. */
   trophy?: string | null;
+  /** Who goes with the player, by hunter: the partners, each steered by the hunt's own brain. */
+  partners?: readonly string[];
+  /** What this contract makes of the hunt: how the boss is unlike itself, and the tasks besides the kill. */
+  terms?: Terms;
+}
+
+/** A contract's terms, as the board drew them (lodge.ts). */
+export interface Terms {
+  variants: readonly string[];
+  tasks: ReadonlyArray<{ id: TaskKind; n?: number }>;
+}
+
+/** A task of the contract as the hunt keeps it: how far along, and whether it is done or failed. */
+export interface TaskState {
+  id: TaskKind;
+  name: string;
+  /** What it asks, its number written in. */
+  says: string;
+  n: number;
+  /** How far along: seconds, hits, breaks, markers broken or villagers alive, by the task. */
+  now: number;
+  done: boolean;
+  failed: boolean;
 }
 
 export interface Hunter {
   def: HunterDef;
+  /** Their place in the party: 0 is the player. */
+  index: number;
+  /** True for a partner, steered by the hunt's own brain. */
+  ai: boolean;
+  abilities: readonly [AbilityDef, AbilityDef];
+  /** The trophy they wear: only the player's. */
+  trophy: string | null;
+  /** True while they are down: nothing they do until someone helps them up, and nothing can hurt them. */
+  down: boolean;
+  /** Seconds of help given them while down. */
+  help: number;
+  /** An ability asked for in the middle of a roll, used as the roll ends. */
+  wanted: 0 | 1 | null;
+  /** The blow being made: which of the chain, seconds since it began, which way, and whether it has landed. */
+  blow: { n: number; t: number; aim: number; def: BlowDef; landed: boolean; heavy: boolean } | null;
+  /** The next blow of the chain, and how long a press still chains to it. */
+  chain: number;
+  chainLeft: number;
+  /** A press made while a blow was being made: the next goes as it ends. */
+  queued: boolean;
+  /** Seconds a held attack has aimed a heavy shot. */
+  aiming: number;
+  /** True if attack was held the step before: a press is a new hold. */
+  held: boolean;
+  /** Times struck in this hunt. */
+  hits: number;
   x: number;
   y: number;
   face: 1 | -1;
@@ -84,6 +141,12 @@ export interface Hunter {
   spared: boolean;
 }
 
+/** Fire left on the ground by a burning blow: a pool that burns and does not slow. */
+const FIRE_GROUND: AbilityDef = { id: 'fire', name: 'Fire', says: '', kind: 'pool', wait: 0, share: 0, dmg: 6 };
+
+/** What the hunter is called in the tally of harm: the player, or a partner by name. */
+const whoOf = (h: Hunter): string => (h.index === 0 ? 'hunter' : h.def.id);
+
 export type MonsterState = 'asleep' | 'walk' | 'tell' | 'dash' | 'recover' | 'dazed' | 'held' | 'broken' | 'shift' | 'dead';
 
 export interface Monster {
@@ -108,6 +171,8 @@ export interface Monster {
   /** Seconds a trap's hold makes it take more, and by how much. */
   soft: number;
   softBy: number;
+  /** How much bigger it and its shapes are than its kind: a Giant. */
+  size: number;
 }
 
 /** A shape on the ground that will land. `foe` is false for the one thing of the hunter's side that is shown this way: a sapper's charge. */
@@ -156,6 +221,8 @@ export interface Helper {
 export interface Ally {
   id: number;
   def: AllyDef;
+  /** Whose it is, by their place in the party: a hound runs with its own hunter. */
+  owner: number;
   /** Which reinforcement it came with, or 'hound'. */
   group: string;
   x: number;
@@ -194,6 +261,8 @@ export interface Shot {
   dmg: number;
   left: number;
   from: 'hunter' | 'ally' | 'ballista';
+  /** Who loosed it, for the tally: a hunter's name in it, or the crossbowmen or the ballista. */
+  by: string;
 }
 
 export interface Trap {
@@ -238,13 +307,16 @@ export type Ev =
   | { t: 'wake' }
   | { t: 'tell'; id: number; attack: string; name: string; first: boolean }
   | { t: 'land'; id: number; kind: Tell['kind']; x: number; y: number; r: number; foe: boolean }
-  | { t: 'strike'; x: number; y: number; angle: number; reach: number; kind: 'arc' | 'bolt' }
+  /** A blow begun: its wind-up. `n` is its place in the chain. */
+  | { t: 'blow'; who: number; n: number; heavy: boolean; x: number; y: number; angle: number; wind: number }
+  /** A blow landing. */
+  | { t: 'strike'; who: number; n: number; heavy: boolean; x: number; y: number; angle: number; reach: number; kind: 'arc' | 'thrust' | 'bolt' }
   | { t: 'hit'; who: 'monster' | 'helper'; id: number; x: number; y: number; amount: number; big: boolean; open: boolean }
   | { t: 'hurt'; who: 'hunter' | 'ally' | 'building'; id: number; x: number; y: number; amount: number; by: string }
-  | { t: 'roll'; x: number; y: number }
-  | { t: 'dodged'; x: number; y: number }
-  | { t: 'ability'; id: string; x: number; y: number; r: number; tx: number; ty: number }
-  | { t: 'turned'; x: number; y: number }
+  | { t: 'roll'; who: number; x: number; y: number }
+  | { t: 'dodged'; who: number; x: number; y: number }
+  | { t: 'ability'; who: number; id: string; x: number; y: number; r: number; tx: number; ty: number }
+  | { t: 'turned'; who: number; x: number; y: number }
   | { t: 'open'; why: Opening; seconds: number }
   | { t: 'broken'; x: number; y: number }
   | { t: 'rise' }
@@ -267,6 +339,15 @@ export type Ev =
   | { t: 'lesson'; id: string; index: number; hold: boolean }
   | { t: 'learned'; id: string }
   | { t: 'taught'; says: string }
+  /** A hunter of the party is down, and helped up. */
+  | { t: 'down'; who: number; x: number; y: number }
+  | { t: 'helped'; who: number; by: number }
+  /** The boss is after another of the party. */
+  | { t: 'target'; who: number }
+  /** A task of the contract is done, or failed. */
+  | { t: 'task'; id: TaskKind; done: boolean }
+  /** An Armored boss's armor is broken. */
+  | { t: 'armor' }
   | { t: 'end'; won: boolean };
 
 /** What a hunt came to, for the lodge and for the measure. */
@@ -283,6 +364,10 @@ export interface Tally {
   breaks: number;
   /** True if the hunt was a lesson and every step of it was done. */
   taught: boolean;
+  /** The contract's tasks: done or not, by name. */
+  tasks: Partial<Record<TaskKind, boolean>>;
+  /** How many times a hunter of the party went down. */
+  downs: number;
 }
 
 interface Pending {
@@ -291,33 +376,7 @@ interface Pending {
   first: boolean;
 }
 
-const dist = (ax: number, ay: number, bx: number, by: number): number => Math.hypot(ax - bx, ay - by);
-
-/** The smallest turn from one heading to another. */
-function turn(from: number, to: number): number {
-  let d = (to - from) % TAU;
-  if (d > Math.PI) d -= TAU;
-  if (d < -Math.PI) d += TAU;
-  return d;
-}
-
-/** True if a point is inside a tell's shape. `pad` widens the shape: a big thing is struck by its rim. */
-export function inside(tell: Tell, px: number, py: number, pad = 0): boolean {
-  const dx = px - tell.x;
-  const dy = py - tell.y;
-  if (tell.kind === 'ring') {
-    const d = Math.hypot(dx, dy);
-    return d <= tell.r + pad && d >= tell.inner - pad;
-  }
-  if (tell.kind === 'cone') {
-    const d = Math.hypot(dx, dy);
-    if (d > tell.r + pad) return false;
-    return d < 1 || Math.abs(turn(tell.angle, Math.atan2(dy, dx))) <= tell.half + (pad > 0 ? pad / Math.max(40, d) : 0);
-  }
-  const along = dx * Math.cos(tell.angle) + dy * Math.sin(tell.angle);
-  const across = -dx * Math.sin(tell.angle) + dy * Math.cos(tell.angle);
-  return along >= -pad && along <= tell.len + pad && Math.abs(across) <= tell.w / 2 + pad;
-}
+export { inside };
 
 export class Hunt {
   readonly w: number;
@@ -329,8 +388,16 @@ export class Hunt {
   phase: 'camp' | 'hunt' | 'won' | 'lost' = 'camp';
   /** Seconds since the monster woke. */
   time = 0;
+  /** The player's hunter: the first of the party. */
   readonly hunter: Hunter;
+  /** Everyone on the hunt: the player first, then the partners. */
+  readonly party: Hunter[];
   readonly monster: Monster;
+  /** The contract's variants, by name, and its tasks as they stand. */
+  readonly variants: ReadonlySet<string>;
+  readonly tasks: TaskState[] = [];
+  /** Which of the party the boss is after, by place. */
+  targetWho = 0;
   tells: Tell[] = [];
   helpers: Helper[] = [];
   allies: Ally[] = [];
@@ -348,12 +415,20 @@ export class Hunt {
   hornWait = 0;
   /** Seconds the hounds bite harder for, after being set on. */
   frenzy = 0;
-  readonly tally: Tally = { time: 0, dealt: {}, taken: {}, killedBy: null, breaks: 0, taught: false };
+  readonly tally: Tally = { time: 0, dealt: {}, taken: {}, killedBy: null, breaks: 0, taught: false, tasks: {}, downs: 0 };
 
   private readonly rng: Rng;
   private readonly sturdy = new Set<string>();
-  private readonly abilities: readonly [AbilityDef, AbilityDef];
   private events: Ev[] = [];
+  /** Each partner's brain: the bot's, as a partner. None for the player. */
+  private readonly brains: Array<Bot | null>;
+  /** What the variants do to the boss's numbers, put together. */
+  private readonly vary: { speed: number; tell: number; gap: number; armor: number; ahead: boolean; blight: VariantDef['blight']; again: string; escort: number; waves: VariantDef['waves'] };
+  private blightIn = 0;
+  private waveIn = 0;
+  private againDone = false;
+  /** Harm done to the boss by each of the party: who hurt it most is one it turns on. */
+  private readonly dealtBy: number[];
   private nextId = 1;
   /** Where the monster is in the round of its part. */
   private round = 0;
@@ -361,9 +436,8 @@ export class Hunt {
   private elapsed = 0;
   private tellFor = 1;
   private targetAlly = 0;
-  private dash: { angle: number; left: number; speed: number; daze: number; stagger: number; dmg: number; id: number; struck: boolean } | null = null;
+  private dash: { angle: number; left: number; speed: number; daze: number; stagger: number; dmg: number; id: number; struck: Set<number> } | null = null;
   private frenzyBy = 1;
-  private wanted: 0 | 1 | null = null;
   /** What a mark, or a lesson in its place, does to the monster's numbers. */
   private readonly scale: { hp: number; dmg: number; tell: number; gap: number };
   /** The monster's rounds, part by part: its own, or a lesson's. */
@@ -386,22 +460,57 @@ export class Hunt {
     const hd = byId(HUNTERS, setup.hunter);
     const md = byId(MONSTERS, setup.monster);
     this.scale = this.lessonDef?.scale ?? MARKS[setup.mark];
-    this.parts = this.lessonDef?.parts ?? md.parts;
+    const lesson = this.lessonDef;
+    // A lesson is fought alone and as it is written: no partners, nothing of a contract's.
+    const partners = lesson ? [] : (setup.partners ?? []).slice(0, PARTY.most - 1);
+    const terms = lesson ? null : (setup.terms ?? null);
+    this.variants = new Set((terms?.variants ?? []).filter((v) => VARIANTS.some((x) => x.id === v && (!x.only || x.only === md.id))));
+    const vs = VARIANTS.filter((v) => this.variants.has(v.id));
+    const num = (f: (v: VariantDef) => number | undefined, base: number): number => vs.reduce((k, v) => k * (f(v) ?? 1), base);
+    this.vary = {
+      speed: num((v) => v.speed, 1), tell: num((v) => v.tell, 1), gap: num((v) => v.gap, 1), armor: vs.reduce((k, v) => Math.max(k, v.armor ?? 0), 0),
+      ahead: vs.some((v) => v.ahead), blight: vs.find((v) => v.blight)?.blight, again: vs.find((v) => v.again)?.again ?? '',
+      escort: vs.reduce((k, v) => k + (v.escort ?? 0), 0), waves: vs.find((v) => v.waves)?.waves,
+    };
+    this.blightIn = this.vary.blight?.every ?? 0;
+    this.waveIn = this.vary.waves?.every ?? 0;
+    // Opening Graves more often: one more after every so many of each round.
+    const more = vs.find((v) => v.more)?.more;
+    const rounds = lesson?.parts ?? md.parts;
+    this.parts = more && md.attacks.some((a) => a.id === more.attack)
+      ? rounds.map((r) => r.flatMap((id, i) => ((i + 1) % more.every === 0 ? [id, more.attack] : [id])))
+      : rounds;
     if (this.lessonDef && setup.taught) {
       this.stepAt = this.lessonDef.steps.length;
       this.tally.taught = true;
     }
-    this.abilities = [byId(ABILITIES, hd.abilities[0]), byId(ABILITIES, hd.abilities[1])];
     const [hx, hy] = this.tall ? [this.w / 2, this.h * 0.78] : [this.w * 0.2, this.h / 2];
     const [mx, my] = this.tall ? [this.w / 2, this.h * 0.28] : [this.w * 0.72, this.h / 2];
-    this.hunter = {
-      def: hd, x: hx, y: hy, face: mx >= hx ? 1 : -1, aim: Math.atan2(my - hy, mx - hx), hp: hd.hp, maxHp: hd.hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
+    const make = (def: HunterDef, index: number, x: number, y: number): Hunter => ({
+      def, index, ai: index > 0, abilities: [byId(ABILITIES, def.abilities[0]), byId(ABILITIES, def.abilities[1])], trophy: index === 0 ? (setup.trophy ?? null) : null,
+      down: false, help: 0, wanted: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
+      x, y, face: mx >= x ? 1 : -1, aim: Math.atan2(my - y, mx - x), hp: def.hp, maxHp: def.hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
       grace: 0, root: 0, waits: [0, 0], bracing: 0, spared: false,
-    };
-    const hp = Math.round(md.hp * this.scale.hp);
+    });
+    this.hunter = make(hd, 0, hx, hy);
+    this.party = [this.hunter];
+    // Partners stand behind and beside the player as they come in.
+    partners.forEach((id, i) => {
+      const side = i === 1 ? 1 : i === 0 ? -1 : 0;
+      const back = i === 2 ? 70 : 30;
+      const [px, py] = this.tall ? [hx + side * 80, hy + back] : [hx - back, hy + side * 80];
+      this.party.push(make(byId(HUNTERS, id), i + 1, px, py));
+    });
+    this.brains = this.party.map((p) => (p.ai ? new Bot((setup.seed * 13 + p.index * 101) >>> 0, { who: p.index, partner: true, react: 0.28, slip: 0.08 }) : null));
+    this.dealtBy = this.party.map(() => 0);
+    const n = this.party.length;
+    const hpBy = num((v) => v.hp, 1) * (1 + PARTY.hp * (n - 1));
+    const hp = Math.round(md.hp * this.scale.hp * hpBy);
+    const size = num((v) => v.size, 1);
     this.monster = {
-      def: md, x: mx, y: my, face: hx >= mx ? 1 : -1, aim: Math.atan2(hy - my, hx - mx), hp, maxHp: hp, part: 0, state: 'asleep', left: 0, stagger: 0, staggerMax: Math.round(md.stagger.max * (this.lessonDef?.stagger ?? 1)), attack: null,
-      moving: false, enraged: false, soft: 0, softBy: 0,
+      def: md, x: mx, y: my, face: hx >= mx ? 1 : -1, aim: Math.atan2(hy - my, hx - mx), hp, maxHp: hp, part: 0, state: 'asleep', left: 0, stagger: 0,
+      staggerMax: Math.round(md.stagger.max * (this.lessonDef?.stagger ?? 1) * (1 + PARTY.stagger * (n - 1))), attack: null,
+      moving: false, enraged: false, soft: 0, softBy: 0, size,
     };
     this.calls = setup.reinforcements.map((r) => ({ def: byId(REINFORCEMENTS, r.id), left: r.charges }));
     for (const b of setup.buildings) {
@@ -415,9 +524,10 @@ export class Hunt {
       const y = this.h / 2 + Math.sin(a) * this.h * 0.27;
       if (dist(x, y, hx, hy) > 120 && dist(x, y, mx, my) > 150) this.stones.push({ x, y, r: 34 });
     }
-    for (let i = 0; i < (hd.hounds ?? 0); i++) {
-      this.allies.push(this.ally(HOUND, 'hound', hx - 40, hy + (i === 0 ? -34 : 34)));
+    for (const p of this.party) {
+      for (let i = 0; i < (p.def.hounds ?? 0); i++) this.allies.push(this.ally(HOUND, 'hound', p.x - 40, p.y + (i === 0 ? -34 : 34), p.index));
     }
+    if (terms) this.setTasks(terms, md, hx, hy, mx, my);
     // A lesson has no camp: the monster is awake as the hunter walks in, and the first step is on.
     if (this.lessonDef) {
       this.wake();
@@ -478,7 +588,124 @@ export class Hunt {
 
   /** The hunter's two abilities, as the tables have them. */
   get skills(): readonly [AbilityDef, AbilityDef] {
-    return this.abilities;
+    return this.hunter.abilities;
+  }
+
+  /** The party still standing. */
+  get standing(): Hunter[] {
+    return this.party.filter((p) => !p.down);
+  }
+
+  // ------------------------------------------------------------ the contract's tasks
+
+  /** Puts the contract's tasks in place: their numbers, and what some of them stand on the field. */
+  private setTasks(terms: Terms, md: MonsterDef, hx: number, hy: number, mx: number, my: number): void {
+    for (const t of terms.tasks) {
+      const def = TASKS.find((x) => x.id === t.id);
+      if (!def || this.tasks.some((x) => x.id === def.id)) continue;
+      if (def.id === 'together' && this.party.length < 2) continue;
+      const n = t.n ?? def.n?.[this.mark - 1] ?? 0;
+      const says = def.says.replace('{n}', def.id === 'swift' ? `${Math.floor(n / 60)}:${String(n % 60).padStart(2, '0')}` : String(n));
+      this.tasks.push({ id: def.id, name: def.name, says, n, now: 0, done: false, failed: false });
+      const e = FIELD.edge + 40;
+      if (def.id === 'villagers') {
+        // Three of them, along the hunter's own side of the field, behind where the fight starts.
+        for (let i = 0; i < 3; i++) {
+          const k = (i + 1) / 4;
+          const [x, y] = this.tall ? [this.w * k, this.h - e - (i === 1 ? 40 : 0)] : [e + (i === 1 ? 40 : 0), this.h * k];
+          this.allies.push(this.ally(VILLAGER, 'villager', x, y, 0));
+        }
+      } else if (def.id === 'cart') {
+        // Behind the hunter's start, where the fight is not at first.
+        const [x, y] = this.tall ? [this.w / 2 + 150, Math.min(this.h - e, hy + 60)] : [Math.max(e, hx - 90), hy - 170];
+        this.buildings.push({ id: this.nextId++, def: CART, x, y, hp: CART.hp, maxHp: CART.hp, cool: 0 });
+      } else if (def.id === 'markers') {
+        const hd = byId(HELPERS, MARKER[md.id] ?? 'gravemarker');
+        for (let i = 0; i < n; i++) {
+          // Round the edge of the field, away from where either side starts.
+          const a = (i / n) * TAU + 0.4;
+          let x = this.w / 2 + Math.cos(a) * (this.w / 2 - e - 30);
+          let y = this.h / 2 + Math.sin(a) * (this.h / 2 - e - 30);
+          if (dist(x, y, hx, hy) < 160) [x, y] = [this.w - x, this.h - y];
+          if (dist(x, y, mx, my) < 160) [x, y] = [this.w / 2 + (x - this.w / 2) * 0.6, this.h / 2 + (y - this.h / 2) * 0.6];
+          const hp = Math.round(hd.hp * (1 + (this.scale.hp - 1) / 2));
+          this.helpers.push({ id: this.nextId++, def: hd, x, y, hp, face: 1, cool: 0, held: 0, moving: false, winding: false });
+        }
+      }
+    }
+  }
+
+  private task(id: TaskKind): TaskState | undefined {
+    return this.tasks.find((t) => t.id === id && !t.done && !t.failed);
+  }
+
+  private fail(id: TaskKind): void {
+    const t = this.task(id);
+    if (!t) return;
+    t.failed = true;
+    this.tally.tasks[id] = false;
+    this.events.push({ t: 'task', id, done: false });
+  }
+
+  private finish(id: TaskKind): void {
+    const t = this.task(id);
+    if (!t) return;
+    t.done = true;
+    this.tally.tasks[id] = true;
+    this.events.push({ t: 'task', id, done: true });
+  }
+
+  /** How the tasks stand now: what can be known before the end is known now. */
+  private checkTasks(): void {
+    for (const t of this.tasks) {
+      if (t.done || t.failed) continue;
+      switch (t.id) {
+        case 'swift':
+          t.now = Math.floor(this.time);
+          if (this.time > t.n) this.fail('swift');
+          break;
+        case 'careful':
+          t.now = this.hunter.hits;
+          if (t.now > t.n) this.fail('careful');
+          break;
+        case 'breaks':
+          t.now = this.tally.breaks;
+          if (t.now >= t.n) this.finish('breaks');
+          break;
+        case 'markers': {
+          const left = this.helpers.filter((f) => f.def.still).length;
+          t.now = t.n - left;
+          if (left === 0) this.finish('markers');
+          break;
+        }
+        case 'villagers':
+          t.now = this.allies.filter((a) => a.group === 'villager').length;
+          if (t.now < t.n) this.fail('villagers');
+          break;
+        case 'cart':
+          t.now = this.buildings.some((b) => b.def.id === 'cart') ? 1 : 0;
+          if (t.now === 0) this.fail('cart');
+          break;
+        case 'together':
+          t.now = this.tally.downs;
+          if (t.now > t.n) this.fail('together');
+          break;
+        case 'nobuild':
+          t.now = this.buildings.filter((b) => b.def.id !== 'cart').length;
+          if (t.now > 0) this.fail('nobuild');
+          break;
+      }
+    }
+  }
+
+  /** The boss is dead: what was still in hand is done, and what needed doing first is failed. */
+  private closeTasks(): void {
+    this.checkTasks();
+    for (const t of this.tasks) {
+      if (t.done || t.failed) continue;
+      if (t.id === 'breaks' || t.id === 'markers') this.fail(t.id);
+      else this.finish(t.id);
+    }
   }
 
   /** True while the monster can be struck freely: what the stagger is filled in. */
@@ -551,6 +778,23 @@ export class Hunt {
     // A moment for its roar before the first blow.
     m.left = 1.4;
     this.events.push({ t: 'wake' });
+    this.escort();
+  }
+
+  /** A contract that says the boss comes with minions: they are about it as it wakes, and again at each new phase. */
+  private escort(): void {
+    const n = this.vary.escort;
+    const id = MINION[this.monster.def.id];
+    if (!n || !id) return;
+    const def = byId(HELPERS, id);
+    const m = this.monster;
+    for (let i = 0; i < n; i++) {
+      const a = m.aim + ((i - (n - 1) / 2) * 0.9);
+      const f: Helper = { id: this.nextId++, def, x: m.x + Math.cos(a) * (m.def.r + 50), y: m.y + Math.sin(a) * (m.def.r + 50), hp: Math.round(def.hp * (1 + (this.scale.hp - 1) / 2)), face: 1, cool: 1, held: 0, moving: false, winding: false };
+      this.keepOut(f, 10, false);
+      this.helpers.push(f);
+      this.events.push({ t: 'summon', id: f.id, x: f.x, y: f.y });
+    }
   }
 
   // ------------------------------------------------------------ a step
@@ -560,7 +804,9 @@ export class Hunt {
     const h = this.hunter;
     const m = this.monster;
     if (this.phase === 'camp') {
-      this.moveHunter(steer, dt);
+      this.moveHunter(h, steer, dt);
+      // Partners keep by the player in camp: building and waking are the player's.
+      for (const p of this.party) if (p.ai) this.moveHunter(p, this.brains[p.index]?.steer(this) ?? { x: 0, y: 0 }, dt);
       this.heel(dt);
       if (steer.place) this.place(steer.place);
       if (steer.wake || dist(h.x, h.y, m.x, m.y) < CAMP.wakeAt) this.wake();
@@ -574,24 +820,14 @@ export class Hunt {
     }
     this.hornWait = Math.max(0, this.hornWait - dt);
     this.frenzy = Math.max(0, this.frenzy - dt);
-    h.grace = Math.max(0, h.grace - dt);
-    h.root = Math.max(0, h.root - dt);
-    h.bracing = Math.max(0, h.bracing - dt);
-    h.rollWait = Math.max(0, h.rollWait - dt);
-    h.waits[0] = Math.max(0, h.waits[0] - dt);
-    h.waits[1] = Math.max(0, h.waits[1] - dt);
 
-    if (steer.dodge) this.rollNow(steer);
-    // An ability asked for in the middle of a roll is kept, and used as the roll ends: a press is not lost to bad timing.
-    if (steer.a) this.wanted = 0;
-    if (steer.b) this.wanted = 1;
-    if (this.wanted !== null && h.roll <= 0) {
-      this.use(this.wanted);
-      this.wanted = null;
+    for (const p of this.party) {
+      const s = p.index === 0 ? steer : (this.brains[p.index]?.steer(this) ?? { x: 0, y: 0 });
+      this.act(p, s, dt);
+      if (this.over) return;
     }
-    if (steer.call !== undefined) this.call(steer.call);
-    this.moveHunter(steer, dt);
-    this.strike(dt);
+    if (steer.call !== undefined && !h.down) this.call(steer.call);
+    this.helpUp(dt);
 
     this.stepMonster(dt);
     this.stepTells(dt);
@@ -600,31 +836,109 @@ export class Hunt {
     this.stepBuildings(dt);
     this.stepShots(dt);
     this.stepGround(dt);
+    this.stepContract(dt);
+    if (!this.over) this.checkTasks();
+  }
+
+  /** One of the party, this step: their waits run down, and they do what they are steered to. */
+  private act(h: Hunter, steer: Steer, dt: number): void {
+    h.grace = Math.max(0, h.grace - dt);
+    h.root = Math.max(0, h.root - dt);
+    h.bracing = Math.max(0, h.bracing - dt);
+    h.rollWait = Math.max(0, h.rollWait - dt);
+    h.waits[0] = Math.max(0, h.waits[0] - dt);
+    h.waits[1] = Math.max(0, h.waits[1] - dt);
+    if (h.down) {
+      h.moving = false;
+      return;
+    }
+    if (steer.dodge) this.rollNow(h, steer);
+    // An ability asked for in the middle of a roll is kept, and used as the roll ends: a press is not lost to bad timing.
+    if (steer.a) h.wanted = 0;
+    if (steer.b) h.wanted = 1;
+    if (h.wanted !== null && h.roll <= 0 && !(h.blow && !h.blow.landed)) {
+      this.use(h, h.wanted);
+      h.wanted = null;
+    }
+    this.moveHunter(h, steer, dt);
+    this.attack(h, steer, dt);
+  }
+
+  /** What a contract adds as the hunt goes: rot left behind a Blighted boss, and minions that keep coming. */
+  private stepContract(dt: number): void {
+    const m = this.monster;
+    const awake = m.state !== 'asleep' && m.state !== 'dead' && m.state !== 'shift';
+    const b = this.vary.blight;
+    if (b && awake) {
+      this.blightIn -= dt;
+      if (this.blightIn <= 0 && m.moving) {
+        this.blightIn = b.every;
+        // Rot where it stands, which bursts after its warning: nothing hurts without a tell.
+        const seconds = b.tell * this.scale.tell;
+        const tell: Tell = {
+          id: this.nextId++, kind: 'ring', x: m.x, y: m.y, angle: 0, len: 0, w: 0, r: b.r * m.size, half: 0, inner: 0, left: seconds, of: seconds, dmg: b.dmg * this.scale.dmg, foe: true,
+          attack: 'blight', by: -1,
+        };
+        this.tells.push(tell);
+        this.events.push({ t: 'tell', id: tell.id, attack: 'blight', name: 'Rot', first: false });
+      }
+    }
+    const w = this.vary.waves;
+    const id = MINION[m.def.id];
+    if (w && id && awake) {
+      this.waveIn -= dt;
+      if (this.waveIn <= 0) {
+        this.waveIn = w.every;
+        const attack: AttackDef = { id: 'waves', name: 'More Minions', tell: 1.4, recover: 0, dmg: 6, summon: id, shapes: [] };
+        this.tell({ kind: 'marks', n: w.n, r: 44, at: 'field' }, 1.4 * this.scale.tell, attack, m.aim, false, -1);
+      }
+    }
+  }
+
+  /** A hunter who is down is helped up by whoever stands by them long enough. */
+  private helpUp(dt: number): void {
+    for (const d of this.party) {
+      if (!d.down) continue;
+      const by = this.party.find((p) => !p.down && p.roll <= 0 && dist(p.x, p.y, d.x, d.y) <= REVIVE.r);
+      if (!by) {
+        d.help = Math.max(0, d.help - dt * REVIVE.fade);
+        continue;
+      }
+      d.help += dt;
+      if (d.help < REVIVE.time) continue;
+      d.down = false;
+      d.help = 0;
+      d.hp = Math.round(d.maxHp * REVIVE.hp);
+      d.grace = REVIVE.grace;
+      this.events.push({ t: 'helped', who: d.index, by: by.index });
+    }
   }
 
   // ------------------------------------------------------------ the hunter
 
-  private moveHunter(steer: Steer, dt: number): void {
-    const h = this.hunter;
+  private moveHunter(h: Hunter, steer: Steer, dt: number): void {
     if (h.roll > 0) {
-      const speed = this.rollDist() / h.def.dodge.dur;
+      const speed = this.rollDist(h) / h.def.dodge.dur;
       h.x += h.rx * speed * dt;
       h.y += h.ry * speed * dt;
       h.roll = Math.max(0, h.roll - dt);
       h.moving = true;
-    } else if (h.root > 0 || h.bracing > 0) {
+    } else if (h.root > 0 || h.bracing > 0 || (h.blow && !h.blow.landed && h.blow.def.kind !== 'bolt')) {
+      // Held, braced, or in the wind-up of a swing or a thrust: they stand.
       h.moving = false;
     } else {
       const len = Math.hypot(steer.x, steer.y);
       h.moving = len > 0.05;
       if (h.moving) {
         const k = Math.min(1, len) / len;
-        h.x += steer.x * k * h.def.speed * dt;
-        h.y += steer.y * k * h.def.speed * dt;
+        // Aiming a heavy shot, or in a blow's recovery, they go at half pace.
+        const slow = h.aiming > 0 || h.blow ? 0.5 : 1;
+        h.x += steer.x * k * h.def.speed * slow * dt;
+        h.y += steer.y * k * h.def.speed * slow * dt;
         if (Math.abs(steer.x) > 0.1) h.face = steer.x > 0 ? 1 : -1;
-        this.did('move', Math.min(1, len) * h.def.speed * dt);
-        // In camp there is nothing to aim at: they look where they walk, and build there.
-        if (this.phase === 'camp') h.aim = Math.atan2(steer.y, steer.x);
+        if (h.index === 0) this.did('move', Math.min(1, len) * h.def.speed * dt);
+        // They look where they walk, and attack that way unless told otherwise.
+        if (!h.blow) h.aim = Math.atan2(steer.y, steer.x);
       }
     }
     this.keepOut(h, 12, true);
@@ -652,13 +966,17 @@ export class Hunt {
     p.y = y + ((p.y - y) / d) * r;
   }
 
-  private rollDist(): number {
-    return this.hunter.def.dodge.dist * (this.trophy === 'antler' ? 1.25 : 1);
+  private rollDist(h: Hunter): number {
+    return h.def.dodge.dist * (h.trophy === 'antler' ? 1.25 : 1);
   }
 
-  private rollNow(steer: Steer): void {
-    const h = this.hunter;
+  private rollNow(h: Hunter, steer: Steer): void {
     if (h.rollWait > 0 || h.roll > 0 || h.root > 0) return;
+    // A blow cannot be dodged out of while it winds up; its recovery can be cut short.
+    if (h.blow && !h.blow.landed) return;
+    h.blow = null;
+    h.queued = false;
+    h.aiming = 0;
     let x = steer.x;
     let y = steer.y;
     if (Math.hypot(x, y) < 0.05) {
@@ -670,10 +988,10 @@ export class Hunt {
     h.rx = x / len;
     h.ry = y / len;
     h.roll = h.def.dodge.dur;
-    h.rollWait = h.def.dodge.wait * (this.trophy === 'antler' ? 0.75 : 1);
+    h.rollWait = h.def.dodge.wait * (h.trophy === 'antler' ? 0.75 : 1);
     h.bracing = 0;
-    this.events.push({ t: 'roll', x: h.x, y: h.y });
-    if (this.tells.some((t) => t.foe && t.by === 0)) this.stepRolled = true;
+    this.events.push({ t: 'roll', who: h.index, x: h.x, y: h.y });
+    if (h.index === 0 && this.tells.some((t) => t.foe && t.by === 0)) this.stepRolled = true;
   }
 
   /** How much faster someone strikes where they stand: a watchfire's doing. */
@@ -683,80 +1001,149 @@ export class Hunt {
     return 1 + most;
   }
 
-  private strike(dt: number): void {
-    const h = this.hunter;
+  /**
+   * Attacking: a press is a blow, and a press while one is being made, or soon after, the next of the chain. Held, the
+   * chain goes on by itself (or, for a hunter with a heavy shot, the shot is aimed and goes when it is ready).
+   */
+  private attack(h: Hunter, steer: Steer, dt: number): void {
+    h.since += dt;
+    const hold = !!steer.attack;
+    const pressed = hold && !h.held;
+    h.held = hold;
+    const can = h.roll <= 0 && h.bracing <= 0 && this.phase === 'hunt';
+    const b = h.blow;
+    if (b) {
+      b.t += dt * this.hasteAt(h.x, h.y);
+      if (pressed) h.queued = true;
+      if (!b.landed && b.t >= b.def.wind) {
+        b.landed = true;
+        this.landBlow(h, b);
+        if (this.over) return;
+      }
+      if (b.landed && b.t >= b.def.wind + b.def.recover) {
+        h.blow = null;
+        h.chainLeft = ATTACK.chain;
+        // A press made meanwhile, or the attack still held, is the next blow at once.
+        if (can && (h.queued || (hold && !h.def.heavy))) this.startBlow(h, steer, false);
+        h.queued = false;
+      }
+      return;
+    }
+    h.chainLeft = Math.max(0, h.chainLeft - dt);
+    if (h.chainLeft <= 0) h.chain = 0;
+    if (!can) {
+      h.aiming = 0;
+      return;
+    }
+    const heavy = h.def.heavy;
+    if (heavy && hold && !pressed) {
+      // Held: the heavy shot is cranked, and goes when it is ready.
+      h.aiming += dt;
+      if (h.aiming >= (heavy.aim ?? 1)) {
+        h.aiming = 0;
+        this.startBlow(h, steer, true);
+      }
+      return;
+    }
+    h.aiming = 0;
+    if (pressed || (hold && !heavy)) this.startBlow(h, steer, false);
+  }
+
+  /** Which way a blow goes: where the player points, or the way the hunter faces, turned to a boss in reach a little ahead. */
+  private aimOf(h: Hunter, steer: Steer, reach: number): number {
+    if (steer.aim !== undefined) return steer.aim;
     const m = this.monster;
-    const s = h.def.strike;
-    h.since += dt * this.hasteAt(h.x, h.y);
-    if (h.since < s.every || h.roll > 0 || h.bracing > 0) return;
+    const base = h.aim;
+    const awake = m.state !== 'asleep' && m.state !== 'dead';
+    const to = Math.atan2(m.y - h.y, m.x - h.x);
+    if (awake && dist(h.x, h.y, m.x, m.y) <= reach + m.def.r * m.size + 30 && Math.abs(turn(base, to)) <= ATTACK.help * RAD) return to;
+    // A helper in reach and ahead, and a marker to be broken, take the aim the same way.
+    for (const f of this.helpers) {
+      const a = Math.atan2(f.y - h.y, f.x - h.x);
+      if (dist(h.x, h.y, f.x, f.y) <= reach + 20 && Math.abs(turn(base, a)) <= ATTACK.help * RAD) return a;
+    }
+    return base;
+  }
+
+  private startBlow(h: Hunter, steer: Steer, heavy: boolean): void {
+    const combo = h.def.combo;
+    const n = heavy ? 0 : h.chain % combo.length;
+    const def = heavy ? (h.def.heavy as BlowDef) : combo[n];
+    const aim = this.aimOf(h, steer, def.reach);
+    h.aim = aim;
+    if (Math.abs(Math.cos(aim)) > 0.15) h.face = Math.cos(aim) > 0 ? 1 : -1;
+    h.blow = { n, t: 0, aim, def, landed: false, heavy };
+    h.queued = false;
+    if (!heavy) h.chain = (n + 1) % combo.length;
+    this.events.push({ t: 'blow', who: h.index, n, heavy, x: h.x, y: h.y, angle: aim, wind: def.wind });
+  }
+
+  /** A blow lands: on the boss, its helpers and its markers, as far and as wide as the blow goes. */
+  private landBlow(h: Hunter, b: NonNullable<Hunter['blow']>): void {
+    const m = this.monster;
+    const d = b.def;
+    h.since = 0;
+    this.events.push({ t: 'strike', who: h.index, n: b.n, heavy: b.heavy, x: h.x, y: h.y, angle: b.aim, reach: d.reach, kind: d.kind });
     // A bell within reach is rung, if there is something to break with it.
     if (m.state === 'tell') {
-      const bell = this.buildings.find((b) => b.def.kind === 'bell' && b.cool <= 0 && dist(h.x, h.y, b.x, b.y) <= b.def.reach);
+      const bell = this.buildings.find((x) => x.def.kind === 'bell' && x.cool <= 0 && dist(h.x, h.y, x.x, x.y) <= x.def.reach);
       if (bell) {
-        h.since = 0;
-        h.aim = Math.atan2(bell.y - h.y, bell.x - h.x);
         bell.cool = bell.def.every ?? 15;
-        this.events.push({ t: 'strike', x: h.x, y: h.y, angle: h.aim, reach: s.reach, kind: 'arc' }, { t: 'bell', x: bell.x, y: bell.y });
+        this.events.push({ t: 'bell', x: bell.x, y: bell.y });
         this.cancelAttack();
         this.addStagger(bell.def.stagger ?? 0);
         if (this.monster.state !== 'broken') this.openFor('dazed', bell.def.daze ?? 1.5, 'bell');
         return;
       }
     }
+    if (d.kind === 'bolt') {
+      const tx = h.x + Math.cos(b.aim) * d.reach;
+      const ty = h.y + Math.sin(b.aim) * d.reach;
+      const far = d.far && dist(h.x, h.y, m.x, m.y) >= d.far.beyond ? 1 + d.far.by : 1;
+      this.loose(h.x, h.y, tx, ty, d.speed ?? 800, d.dmg * far, 'hunter', d.reach + 80, whoOf(h));
+      return;
+    }
     const awake = m.state !== 'asleep' && m.state !== 'dead';
-    const dm = dist(h.x, h.y, m.x, m.y);
-    let tx = 0;
-    let ty = 0;
-    let found = false;
-    if (awake && dm <= s.reach + m.def.r) {
-      tx = m.x;
-      ty = m.y;
-      found = true;
-    } else {
-      let best = s.reach + 14;
-      for (const f of this.helpers) {
-        const d = dist(h.x, h.y, f.x, f.y);
-        if (d < best) {
-          best = d;
-          tx = f.x;
-          ty = f.y;
-          found = true;
+    const body = m.def.r * m.size;
+    const shape = d.kind === 'arc'
+      ? { kind: 'cone' as const, x: h.x, y: h.y, angle: b.aim, r: d.reach, half: (d.half ?? 50) * RAD, len: 0, w: 0, inner: 0 }
+      : { kind: 'line' as const, x: h.x, y: h.y, angle: b.aim, len: d.reach, w: d.w ?? 30, r: 0, half: 0, inner: 0 };
+    if (awake && inside(shape, m.x, m.y, body * 0.8)) {
+      this.harm(d.dmg, whoOf(h), h.index);
+      if (h.index === 0) this.did('strike');
+    }
+    for (const f of [...this.helpers]) if (inside(shape, f.x, f.y, 14)) this.harmHelper(f, d.dmg);
+    if (d.fire) {
+      // Fire left on the ground where the blow ends.
+      const k = d.reach * 0.7;
+      this.pools.push({ id: this.nextId++, x: h.x + Math.cos(b.aim) * k, y: h.y + Math.sin(b.aim) * k, r: d.fire.r, life: d.fire.life, burning: d.fire.life, def: { ...FIRE_GROUND, dmg: d.fire.dmg } });
+    }
+    if (d.hounds) {
+      // The dogs go in with the blow: each of the hunter's own near the boss bites now.
+      for (const a of this.allies) {
+        if (a.group !== 'hound' || a.owner !== h.index || a.state === 'down') continue;
+        if (awake && dist(a.x, a.y, m.x, m.y) < 220) {
+          a.cool = 0;
+          a.state = 'run';
+          this.harm(a.def.dmg * 2, 'hound', h.index);
         }
       }
     }
-    if (!found) return;
-    h.since = 0;
-    h.aim = Math.atan2(ty - h.y, tx - h.x);
-    h.face = tx >= h.x ? 1 : -1;
-    this.events.push({ t: 'strike', x: h.x, y: h.y, angle: h.aim, reach: s.reach, kind: s.kind });
-    if (s.kind === 'bolt') {
-      const far = s.far && dist(h.x, h.y, tx, ty) >= s.far.beyond ? 1 + s.far.by : 1;
-      this.loose(h.x, h.y, tx, ty, s.speed ?? 800, s.dmg * far, 'hunter', s.reach + 80);
-      return;
-    }
-    const half = (s.half ?? 50) * RAD;
-    if (awake && dm <= s.reach + m.def.r && Math.abs(turn(h.aim, Math.atan2(m.y - h.y, m.x - h.x))) <= half + 0.3) {
-      this.harm(s.dmg, 'hunter');
-      this.did('strike');
-    }
-    for (const f of [...this.helpers]) {
-      if (dist(h.x, h.y, f.x, f.y) <= s.reach + 14 && Math.abs(turn(h.aim, Math.atan2(f.y - h.y, f.x - h.x))) <= half) this.harmHelper(f, s.dmg);
-    }
   }
 
-  private loose(x: number, y: number, tx: number, ty: number, speed: number, dmg: number, from: Shot['from'], range: number): void {
+  private loose(x: number, y: number, tx: number, ty: number, speed: number, dmg: number, from: Shot['from'], range: number, by: string): void {
     const a = Math.atan2(ty - y, tx - x);
-    this.shots.push({ id: this.nextId++, x, y, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, dmg, left: range / speed, from });
+    this.shots.push({ id: this.nextId++, x, y, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, dmg, left: range / speed, from, by });
     this.events.push({ t: 'loose', x, y, angle: a, from });
   }
 
-  private use(i: 0 | 1): void {
-    const h = this.hunter;
+  private use(h: Hunter, i: 0 | 1): void {
     const m = this.monster;
-    const a = this.abilities[i];
+    const a = h.abilities[i];
     if (h.waits[i] > 0) return;
     h.waits[i] = a.wait;
-    this.did('skill', 1, i);
+    if (h.index === 0) this.did('skill', 1, i);
+    const who = whoOf(h);
     const r = a.r ?? 0;
     let tx = h.x;
     let ty = h.y;
@@ -766,7 +1153,7 @@ export class Hunt {
         break;
       case 'sweep':
         if (this.struckBy(h.x, h.y, r)) {
-          this.harm(a.dmg ?? 0, 'ability');
+          this.harm(a.dmg ?? 0, h.index === 0 ? 'ability' : who, h.index);
           this.addStagger(a.stagger ?? 0);
         }
         for (const f of [...this.helpers]) {
@@ -804,7 +1191,7 @@ export class Hunt {
         this.wards.push({ id: this.nextId++, x: h.x, y: h.y, r, life: a.life ?? 8, share: a.share ?? 0.5 });
         break;
       case 'seton': {
-        const hounds = this.allies.filter((x) => x.group === 'hound' && x.state !== 'down');
+        const hounds = this.allies.filter((x) => x.group === 'hound' && x.owner === h.index && x.state !== 'down');
         if (hounds.length === 0 || m.state === 'asleep' || m.state === 'dead') break;
         this.frenzy = a.life ?? 4;
         this.frenzyBy = a.share ?? 2;
@@ -829,7 +1216,7 @@ export class Hunt {
         const by = a.share ?? 0.25;
         this.mend(h, by * h.maxHp);
         for (const x of this.allies) {
-          if (x.group !== 'hound') continue;
+          if (x.group !== 'hound' || x.owner !== h.index) continue;
           if (x.state === 'down') x.hp = 0;
           x.hp = Math.min(x.maxHp, x.hp + by * x.maxHp);
           x.state = 'heel';
@@ -838,7 +1225,7 @@ export class Hunt {
         break;
       }
     }
-    this.events.push({ t: 'ability', id: a.id, x: h.x, y: h.y, r, tx, ty });
+    this.events.push({ t: 'ability', who: h.index, id: a.id, x: h.x, y: h.y, r, tx, ty });
   }
 
   private mend(h: Hunter, amount: number): void {
@@ -872,7 +1259,7 @@ export class Hunt {
         x += -cy * off;
         y += cx * off;
       }
-      const a = this.ally(c.def.ally, c.def.id, x, y);
+      const a = this.ally(c.def.ally, c.def.id, x, y, 0);
       this.keepOut(a, 10, true);
       if (c.def.ally.way === 'sap') a.state = 'run';
       this.allies.push(a);
@@ -880,13 +1267,12 @@ export class Hunt {
     this.events.push({ t: 'call', id: c.def.id, x: h.x, y: h.y });
   }
 
-  private ally(def: AllyDef, group: string, x: number, y: number): Ally {
-    return { id: this.nextId++, def, group, x, y, hp: def.hp, maxHp: def.hp, face: 1, cool: this.rng.range(0.1, 0.6), state: def.way === 'hound' ? 'heel' : 'stand', moving: false, met: 0, left: 0, fx: 0, fy: 0 };
+  private ally(def: AllyDef, group: string, x: number, y: number, owner: number): Ally {
+    return { id: this.nextId++, def, owner, group, x, y, hp: def.hp, maxHp: def.hp, face: 1, cool: this.rng.range(0.1, 0.6), state: def.way === 'hound' ? 'heel' : 'stand', moving: false, met: 0, left: 0, fx: 0, fy: 0 };
   }
 
-  private hurtHunter(amount: number, by: string, root = 0): void {
-    const h = this.hunter;
-    if (h.grace > 0 || this.over) return;
+  private hurtHunter(h: Hunter, amount: number, by: string, root = 0): void {
+    if (h.down || h.grace > 0 || this.over) return;
     let harm = amount * (1 - h.def.armor);
     for (const w of this.wards) if (dist(h.x, h.y, w.x, w.y) <= w.r) harm *= 1 - w.share;
     harm = Math.max(1, Math.round(harm));
@@ -895,12 +1281,13 @@ export class Hunt {
     if (t && this.lessonDef) harm = Math.max(0, Math.min(harm, Math.floor(h.hp - h.maxHp * this.lessonDef.spare)));
     if (t) this.stepHurt = true;
     h.hp -= harm;
+    h.hits++;
     h.grace = HURT_GRACE;
     if (root > 0) h.root = root;
-    this.tally.taken[by] = (this.tally.taken[by] ?? 0) + harm;
-    this.events.push({ t: 'hurt', who: 'hunter', id: 0, x: h.x, y: h.y, amount: harm, by });
+    if (h.index === 0) this.tally.taken[by] = (this.tally.taken[by] ?? 0) + harm;
+    this.events.push({ t: 'hurt', who: 'hunter', id: h.index, x: h.x, y: h.y, amount: harm, by });
     if (h.hp > 0) return;
-    if (this.trophy === 'spade' && !h.spared) {
+    if (h.trophy === 'spade' && !h.spared) {
       h.spared = true;
       h.hp = 1;
       h.grace = 1.4;
@@ -908,9 +1295,21 @@ export class Hunt {
       return;
     }
     h.hp = 0;
+    h.down = true;
+    h.help = 0;
+    h.blow = null;
+    h.roll = 0;
+    h.bracing = 0;
+    h.aiming = 0;
+    this.tally.downs++;
+    this.events.push({ t: 'down', who: h.index, x: h.x, y: h.y });
+    // The boss turns to whoever is still standing.
+    if (this.targetWho === h.index) this.pickTarget();
+    if (this.party.some((p) => !p.down)) return;
     this.tally.killedBy = by;
     this.phase = 'lost';
-    this.events.push({ t: 'fall', who: 'hunter', id: 0, x: h.x, y: h.y }, { t: 'end', won: false });
+    const me = this.hunter;
+    this.events.push({ t: 'fall', who: 'hunter', id: 0, x: me.x, y: me.y }, { t: 'end', won: false });
   }
 
   // ------------------------------------------------------------ harm to the monster and its helpers
@@ -918,15 +1317,17 @@ export class Hunt {
   /** True if something this wide at a place reaches the monster's body. */
   private struckBy(x: number, y: number, r: number): boolean {
     const m = this.monster;
-    return m.state !== 'asleep' && m.state !== 'dead' && dist(x, y, m.x, m.y) <= r + m.def.r;
+    return m.state !== 'asleep' && m.state !== 'dead' && dist(x, y, m.x, m.y) <= r + m.def.r * m.size;
   }
 
-  private harm(amount: number, by: string): void {
+  private harm(amount: number, by: string, who = -1): void {
     const m = this.monster;
     if (m.state === 'asleep' || m.state === 'dead' || m.state === 'shift' || amount <= 0) return;
     const broken = m.state === 'broken';
     const open = this.open;
     let dmg = amount * (broken ? m.def.stagger.more : 1) * (m.soft > 0 ? 1 + m.softBy : 1);
+    // An Armored boss shrugs off half of everything until its stagger has been broken once.
+    if (this.vary.armor > 0 && this.tally.breaks === 0) dmg *= 1 - this.vary.armor;
     if (by === 'hound' && this.frenzy > 0) dmg *= this.frenzyBy;
     dmg = Math.max(1, Math.round(dmg));
     // It does not go from one part into the next in one blow: it changes first.
@@ -935,12 +1336,15 @@ export class Hunt {
     const done = Math.min(dmg, m.hp - floor);
     m.hp -= done;
     this.tally.dealt[by] = (this.tally.dealt[by] ?? 0) + done;
+    if (who >= 0 && who < this.dealtBy.length) this.dealtBy[who] += done;
     this.events.push({ t: 'hit', who: 'monster', id: 0, x: m.x, y: m.y, amount: dmg, big: broken, open });
     if (m.hp <= 0) {
       m.hp = 0;
       m.state = 'dead';
       this.cancelAttack();
       this.tells = [];
+      // What the contract asked is settled before its markers go down with it.
+      this.closeTasks();
       for (const f of this.helpers) this.events.push({ t: 'fall', who: 'helper', id: f.id, x: f.x, y: f.y });
       this.helpers = [];
       this.phase = 'won';
@@ -969,6 +1373,7 @@ export class Hunt {
     m.left = m.def.stagger.down;
     this.tally.breaks++;
     this.events.push({ t: 'broken', x: m.x, y: m.y });
+    if (this.vary.armor > 0 && this.tally.breaks === 1) this.events.push({ t: 'armor' });
     this.did('break');
   }
 
@@ -1015,7 +1420,37 @@ export class Hunt {
     const a = this.targetAlly ? this.allies.find((x) => x.id === this.targetAlly && x.state !== 'down' && x.state !== 'leave') : null;
     if (a) return a;
     this.targetAlly = 0;
-    return this.hunter;
+    return this.targetHunter();
+  }
+
+  /** The one of the party it is after: the chosen one if they still stand, the nearest who does if not. */
+  private targetHunter(): Hunter {
+    const t = this.party[this.targetWho];
+    if (t && !t.down) return t;
+    this.pickTarget();
+    return this.party[this.targetWho];
+  }
+
+  /**
+   * Turns on one of the party: most often the nearest, now and then the one who has hurt it most, and once in a while
+   * the farthest, so that nobody can stand at the back for ever.
+   */
+  private pickTarget(): void {
+    const m = this.monster;
+    const up = this.party.filter((p) => !p.down);
+    if (up.length === 0) return;
+    let pick = up[0];
+    if (up.length > 1) {
+      const r = this.rng.next();
+      const d = (p: Hunter): number => dist(p.x, p.y, m.x, m.y);
+      if (r < 0.6) pick = up.reduce((a, b) => (d(b) < d(a) ? b : a));
+      else if (r < 0.85) pick = up.reduce((a, b) => (this.dealtBy[b.index] > this.dealtBy[a.index] ? b : a));
+      else pick = up.reduce((a, b) => (d(b) > d(a) ? b : a));
+    }
+    if (pick.index !== this.targetWho) {
+      this.targetWho = pick.index;
+      this.events.push({ t: 'target', who: pick.index });
+    }
   }
 
   private stepMonster(dt: number): void {
@@ -1038,11 +1473,11 @@ export class Hunt {
         const shown = lesson?.step.attack ? byId(m.def.attacks, lesson.step.attack).shapes[0] : null;
         const from = shown ? Math.max(m.def.reach, (shown.kind === 'line' ? shown.len : shown.kind === 'marks' || shown.kind === 'lanes' ? 9999 : shown.r) * 0.8) : m.def.reach;
         if (d > m.def.reach) {
-          const speed = m.def.speed * this.slowAt(m.x, m.y) * (shown && d > from ? 1.8 : 1);
+          const speed = m.def.speed * this.vary.speed * this.slowAt(m.x, m.y) * (shown && d > from ? 1.8 : 1);
           m.x += Math.cos(m.aim) * speed * dt;
           m.y += Math.sin(m.aim) * speed * dt;
           m.moving = true;
-          this.keepOut(m, m.def.r * 0.8, false);
+          this.keepOut(m, m.def.r * m.size * 0.8, false);
         }
         this.caught();
         if (m.state !== 'walk') return;
@@ -1096,6 +1531,7 @@ export class Hunt {
           this.round = 0;
           this.events.push({ t: 'part', part: m.part });
           this.walkOn();
+          this.escort();
         }
         return;
     }
@@ -1104,7 +1540,10 @@ export class Hunt {
   private walkOn(): void {
     const m = this.monster;
     m.state = 'walk';
-    m.left = this.rng.range(m.def.gap[0], m.def.gap[1]) * this.scale.gap * (m.enraged ? ENRAGE.faster : 1);
+    // Against a party it attacks sooner: there are more of them to keep busy.
+    const party = 1 / (1 + PARTY.gap * (this.party.length - 1));
+    m.left = this.rng.range(m.def.gap[0], m.def.gap[1]) * this.scale.gap * this.vary.gap * party * (m.enraged ? ENRAGE.faster : 1);
+    if (this.party.length > 1) this.pickTarget();
     // Sometimes it turns on those who stand against it, and not on the hunter.
     this.targetAlly = 0;
     const draws = this.allies.filter((a) => a.state !== 'down' && byIdOr(REINFORCEMENTS, a.group)?.draws && dist(a.x, a.y, m.x, m.y) < 330);
@@ -1117,12 +1556,15 @@ export class Hunt {
   /** Takes the next attack of its round that suits where its mark stands, and begins it. */
   private begin(d: number): void {
     const m = this.monster;
-    const round = this.parts[m.part];
+    // A Furious boss fights with its next phase's round from the start.
+    const round = this.parts[Math.min(this.parts.length - 1, m.part + (this.vary.ahead ? 1 : 0))];
+    this.againDone = false;
     let pick: AttackDef | null = null;
     for (let tries = 0; tries < round.length && !pick; tries++) {
       const a = byId(m.def.attacks, round[this.round % round.length]);
       this.round++;
       if (a.mark && a.mark > this.mark) continue;
+      if (a.party && a.party > this.party.length) continue;
       if (a.far !== undefined && d < a.far) continue;
       if (a.near !== undefined && d > a.near) continue;
       pick = a;
@@ -1143,7 +1585,9 @@ export class Hunt {
     this.elapsed = 0;
     this.stepRolled = false;
     this.stepHurt = false;
-    this.tellFor = pick.tell * this.scale.tell * slow * (m.enraged ? ENRAGE.faster : 1);
+    const base = pick.tell * this.scale.tell * slow * (m.enraged ? ENRAGE.faster : 1);
+    // A Quick boss's warnings are shorter, but never under what a person can react to; a Giant's are longer.
+    this.tellFor = this.vary.tell < 1 ? Math.max(base * this.vary.tell, Math.min(base, TELL_FLOOR)) : base * this.vary.tell;
     this.pending = [];
     pick.shapes.forEach((shape, i) => {
       if (shape.kind === 'marks' && shape.at === 'follow') {
@@ -1154,38 +1598,46 @@ export class Hunt {
   }
 
   /** Puts a shape on the ground, to land after `seconds`. */
-  private tell(shape: ShapeDef, seconds: number, attack: AttackDef, aim: number, first: boolean): void {
+  private tell(shape: ShapeDef, seconds: number, attack: AttackDef, aim: number, first: boolean, by = 0): void {
     const m = this.monster;
     const t = this.target();
+    const k = m.size;
     const dmg = attack.dmg * this.scale.dmg;
-    const base = { left: seconds, of: seconds, dmg, foe: true, attack: attack.id, by: 0, len: 0, w: 0, r: 0, half: 0, inner: 0, angle: 0, root: attack.root };
+    const base = { left: seconds, of: seconds, dmg, foe: true, attack: attack.id, by, len: 0, w: 0, r: 0, half: 0, inner: 0, angle: 0, root: attack.root };
     const made: Tell[] = [];
-    if (shape.kind === 'line') {
-      made.push({ ...base, id: this.nextId++, kind: 'line', x: m.x, y: m.y, angle: aim + (shape.turn ?? 0) * RAD, len: shape.len, w: shape.w, charge: attack.charge });
-    } else if (shape.kind === 'cone') {
-      made.push({ ...base, id: this.nextId++, kind: 'cone', x: m.x, y: m.y, angle: aim + (shape.turn ?? 0) * RAD, r: shape.r, half: shape.half * RAD });
-    } else if (shape.kind === 'ring') {
-      const at = shape.at === 'self' ? m : t;
-      made.push({ ...base, id: this.nextId++, kind: 'ring', x: at.x, y: at.y, r: shape.r, inner: shape.inner ?? 0 });
-    } else if (shape.kind === 'marks') {
-      const e = FIELD.edge + shape.r * 0.5;
-      for (let n = 0; n < shape.n; n++) {
-        let x = t.x;
-        let y = t.y;
-        if (shape.at === 'follow') {
-          x = this.hunter.x;
-          y = this.hunter.y;
-        } else if (shape.at === 'field') {
-          x = this.rng.range(e, this.w - e);
-          y = this.rng.range(e, this.h - e);
-        } else if (n > 0) {
-          const a = this.rng.range(0, TAU);
-          const d = this.rng.range(shape.r * 1.2, shape.spread ?? 160);
-          x += Math.cos(a) * d;
-          y += Math.sin(a) * d;
+    // What is marked at a target is marked at one more of the party, for an attack that splits, against three or more.
+    const up = this.party.filter((p) => !p.down);
+    const second = attack.split && up.length >= 3 ? up.filter((p) => p !== t).reduce((a, b) => (dist(b.x, b.y, t.x, t.y) > dist(a.x, a.y, t.x, t.y) ? b : a)) : null;
+    const at = (target: { x: number; y: number }): void => {
+      if (shape.kind === 'ring') {
+        const c = shape.at === 'self' ? m : target;
+        made.push({ ...base, id: this.nextId++, kind: 'ring', x: c.x, y: c.y, r: shape.r * k, inner: (shape.inner ?? 0) * k });
+      } else if (shape.kind === 'marks') {
+        const e = FIELD.edge + shape.r * 0.5;
+        for (let n = 0; n < shape.n; n++) {
+          let x = target.x;
+          let y = target.y;
+          if (shape.at === 'field') {
+            x = this.rng.range(e, this.w - e);
+            y = this.rng.range(e, this.h - e);
+          } else if (n > 0 && shape.at === 'target') {
+            const a = this.rng.range(0, TAU);
+            const d = this.rng.range(shape.r * 1.2, (shape.spread ?? 160) * k);
+            x += Math.cos(a) * d;
+            y += Math.sin(a) * d;
+          }
+          made.push({ ...base, id: this.nextId++, kind: 'ring', x: Math.max(e, Math.min(this.w - e, x)), y: Math.max(e, Math.min(this.h - e, y)), r: shape.r * k, summon: attack.summon });
         }
-        made.push({ ...base, id: this.nextId++, kind: 'ring', x: Math.max(e, Math.min(this.w - e, x)), y: Math.max(e, Math.min(this.h - e, y)), r: shape.r, summon: attack.summon });
       }
+    };
+    if (shape.kind === 'line') {
+      made.push({ ...base, id: this.nextId++, kind: 'line', x: m.x, y: m.y, angle: aim + (shape.turn ?? 0) * RAD, len: shape.len * k, w: shape.w * k, charge: attack.charge });
+    } else if (shape.kind === 'cone') {
+      made.push({ ...base, id: this.nextId++, kind: 'cone', x: m.x, y: m.y, angle: aim + (shape.turn ?? 0) * RAD, r: shape.r * k, half: shape.half * RAD });
+    } else if (shape.kind === 'ring' || shape.kind === 'marks') {
+      // Marks that follow come down each where the one it is after stands as it appears.
+      at(shape.kind === 'marks' && shape.at === 'follow' ? this.targetHunter() : t);
+      if (second && (shape.kind === 'marks' ? shape.at === 'target' : shape.at === 'target')) at(second);
     } else {
       // Lanes right across the field, the long way, with ground between them that is safe.
       const across = this.tall ? this.w : this.h;
@@ -1217,11 +1669,12 @@ export class Hunt {
     m.moving = true;
     d.left -= step;
     // Whoever is in its way as it passes. A roll goes through it.
-    const h = this.hunter;
-    if (!d.struck && h.roll <= 0 && dist(h.x, h.y, m.x, m.y) < m.def.r + 14) {
-      d.struck = true;
-      if (h.bracing > 0) this.turned();
-      else this.hurtHunter(d.dmg, 'charge');
+    for (const h of this.party) {
+      if (h.down || d.struck.has(h.index) || h.roll > 0 || dist(h.x, h.y, m.x, m.y) >= m.def.r * m.size + 14) continue;
+      d.struck.add(h.index);
+      if (h.bracing > 0) this.turned(h);
+      else this.hurtHunter(h, d.dmg, 'charge');
+      if (this.over || !this.dash) return;
     }
     for (const a of [...this.allies]) {
       if (a.met === d.id || a.state === 'down' || dist(a.x, a.y, m.x, m.y) > m.def.r + 16) continue;
@@ -1262,6 +1715,13 @@ export class Hunt {
       const a = m.attack;
       this.dash = null;
       m.attack = null;
+      // A Stampede: the charge again at once, unless a crash stopped it.
+      if (this.vary.again && !this.againDone && a?.id === this.vary.again) {
+        this.againDone = true;
+        m.aim = Math.atan2(this.target().y - m.y, this.target().x - m.x);
+        this.start(a, 1);
+        return;
+      }
       this.openFor('recover', a?.recover ?? 0.8, 'recover');
     }
   }
@@ -1300,19 +1760,17 @@ export class Hunt {
   }
 
   /** The halberd turns a blow: nothing is taken, and the monster is the worse for it. */
-  private turned(): void {
-    const h = this.hunter;
-    const a = this.abilities.find((x) => x.kind === 'brace');
+  private turned(h: Hunter): void {
+    const a = h.abilities.find((x) => x.kind === 'brace');
     h.bracing = 0;
     h.grace = Math.max(h.grace, 0.3);
-    this.events.push({ t: 'turned', x: h.x, y: h.y });
+    this.events.push({ t: 'turned', who: h.index, x: h.x, y: h.y });
     if (!a) return;
     this.addStagger(a.stagger ?? 0);
-    if (this.struckBy(h.x, h.y, h.def.strike.reach * 1.5)) this.harm(h.def.strike.dmg * (a.share ?? 2), 'ability');
+    if (this.struckBy(h.x, h.y, h.def.strike.reach * 1.5)) this.harm(h.def.strike.dmg * (a.share ?? 2), h.index === 0 ? 'ability' : whoOf(h), h.index);
   }
 
   private land(t: Tell): void {
-    const h = this.hunter;
     const m = this.monster;
     this.events.push({ t: 'land', id: t.id, kind: t.kind, x: t.x, y: t.y, r: t.kind === 'line' ? t.len : t.r, foe: t.foe });
     if (!t.foe) {
@@ -1329,26 +1787,29 @@ export class Hunt {
     if (t.charge && t.by === 0 && m.state === 'tell') {
       // The line was where it will run. It runs it now, and what it meets on the way is struck as it passes.
       m.state = 'dash';
-      this.dash = { angle: t.angle, left: t.len, speed: t.charge.speed, daze: t.charge.daze, stagger: t.charge.stagger, dmg: t.dmg, id: t.id, struck: false };
+      // A Quick boss runs a little faster too.
+      const speed = t.charge.speed * (1 + (this.vary.speed - 1) / 2);
+      this.dash = { angle: t.angle, left: t.len, speed, daze: t.charge.daze, stagger: t.charge.stagger, dmg: t.dmg, id: t.id, struck: new Set() };
       this.events.push({ t: 'dash', x: m.x, y: m.y, angle: t.angle });
       return;
     }
-    if (inside(t, h.x, h.y)) {
-      if (h.roll > 0) this.events.push({ t: 'dodged', x: h.x, y: h.y });
-      else if (h.bracing > 0 && h.grace <= 0) {
-        if (t.by === 0) this.turned();
+    for (const p of this.party) {
+      if (p.down || !inside(t, p.x, p.y)) continue;
+      if (p.roll > 0) this.events.push({ t: 'dodged', who: p.index, x: p.x, y: p.y });
+      else if (p.bracing > 0 && p.grace <= 0) {
+        if (t.by === 0) this.turned(p);
         else {
-          h.bracing = 0;
-          this.events.push({ t: 'turned', x: h.x, y: h.y });
+          p.bracing = 0;
+          this.events.push({ t: 'turned', who: p.index, x: p.x, y: p.y });
         }
-      } else this.hurtHunter(t.dmg, t.attack, t.root ?? 0);
+      } else this.hurtHunter(p, t.dmg, t.attack, t.root ?? 0);
       if (this.over) return;
     }
     for (const a of [...this.allies]) if (a.state !== 'down' && a.state !== 'leave' && inside(t, a.x, a.y)) this.hurtAlly(a, t.dmg, t.attack);
     for (const b of [...this.buildings]) if (inside(t, b.x, b.y, b.def.r * 0.5)) this.hurtBuilding(b, t.dmg, t.attack);
     if (t.summon) {
       const def = byId(HELPERS, t.summon);
-      if (this.helpers.length < def.most) {
+      if (this.helpers.filter((f) => !f.def.still).length < def.most) {
         // A helper grows by half of what the monster does at a mark: a swarm at full growth leaves no room to fight.
         const f: Helper = { id: this.nextId++, def, x: t.x, y: t.y, hp: Math.round(def.hp * (1 + (this.scale.hp - 1) / 2)), face: 1, cool: 0.8, held: 0, moving: false, winding: false };
         this.helpers.push(f);
@@ -1387,9 +1848,10 @@ export class Hunt {
   // ------------------------------------------------------------ helpers
 
   private stepHelpers(dt: number): void {
-    const h = this.hunter;
     for (const f of this.helpers) {
       f.moving = false;
+      // A marker stands where it was put and does nothing.
+      if (f.def.still) continue;
       f.cool -= dt;
       if (f.held > 0) {
         f.held -= dt;
@@ -1397,10 +1859,15 @@ export class Hunt {
       }
       f.winding = this.tells.some((t) => t.by === f.id);
       if (f.winding) continue;
-      // It goes for whoever is nearest: the hunter, one of theirs, or what they built.
-      let tx = h.x;
-      let ty = h.y;
-      let best = dist(f.x, f.y, h.x, h.y);
+      // It goes for whoever is nearest: a hunter, one of theirs, or what they built.
+      let tx = f.x;
+      let ty = f.y;
+      let best = 1e9;
+      for (const p of this.party) {
+        if (p.down) continue;
+        const d = dist(f.x, f.y, p.x, p.y);
+        if (d < best) [best, tx, ty] = [d, p.x, p.y];
+      }
       for (const a of this.allies) {
         if (a.state === 'down' || a.state === 'leave') continue;
         const d = dist(f.x, f.y, a.x, a.y);
@@ -1439,6 +1906,7 @@ export class Hunt {
       for (let j = i + 1; j < this.helpers.length; j++) {
         const a = this.helpers[i];
         const b = this.helpers[j];
+        if (a.def.still || b.def.still) continue;
         const d = dist(a.x, a.y, b.x, b.y);
         if (d >= 26 || d < 0.01) continue;
         const k = (26 - d) / 2 / d;
@@ -1458,8 +1926,8 @@ export class Hunt {
   }
 
   private follow(a: Ally, dt: number, side: number): void {
-    const h = this.hunter;
-    const n = this.allies.filter((x) => x.group === 'hound').indexOf(a);
+    const h = this.party[a.owner] ?? this.hunter;
+    const n = this.allies.filter((x) => x.group === 'hound' && x.owner === a.owner).indexOf(a);
     const tx = h.x - h.face * 34 * side;
     const ty = h.y + (n === 0 ? -30 : 30);
     this.walkTo(a, tx, ty, 14, dt);
@@ -1507,10 +1975,10 @@ export class Hunt {
           const f = this.helpers.find((x) => dist(x.x, x.y, a.x, a.y) <= 190);
           if (f) {
             a.cool = a.def.every;
-            this.loose(a.x, a.y, f.x, f.y, 700, a.def.dmg, 'ally', 260);
+            this.loose(a.x, a.y, f.x, f.y, 700, a.def.dmg, 'ally', 260, a.group);
           } else if (awake && dm <= a.def.reach) {
             a.cool = a.def.every;
-            this.loose(a.x, a.y, m.x, m.y, 700, a.def.dmg, 'ally', a.def.reach + 60);
+            this.loose(a.x, a.y, m.x, m.y, 700, a.def.dmg, 'ally', a.def.reach + 60, a.group);
           }
           break;
         }
@@ -1519,6 +1987,10 @@ export class Hunt {
           break;
         case 'hound':
           this.hound(a, dt, awake);
+          break;
+        case 'cower':
+          // A villager stands where they are and keeps their head down.
+          a.face = m.x >= a.x ? 1 : -1;
           break;
       }
     }
@@ -1564,7 +2036,7 @@ export class Hunt {
   }
 
   private hound(a: Ally, dt: number, awake: boolean): void {
-    const h = this.hunter;
+    const h = this.party[a.owner] ?? this.hunter;
     const m = this.monster;
     if (a.state === 'heel' && a.left > 0) {
       a.left -= dt;
@@ -1587,7 +2059,7 @@ export class Hunt {
     } else if (awake && (this.frenzy > 0 || dist(m.x, m.y, h.x, h.y) < 440)) {
       if (this.walkTo(a, m.x, m.y, m.def.r + a.def.reach * 0.5, dt) && a.cool <= 0) {
         a.cool = a.def.every;
-        this.harm(a.def.dmg, 'hound');
+        this.harm(a.def.dmg, 'hound', a.owner);
       }
     } else this.follow(a, dt, 1);
   }
@@ -1601,7 +2073,7 @@ export class Hunt {
       b.cool = Math.max(0, b.cool - dt);
       if (b.def.kind === 'ballista' && b.cool <= 0 && awake && dist(b.x, b.y, m.x, m.y) <= b.def.reach) {
         b.cool = b.def.every ?? 4;
-        this.loose(b.x, b.y - 10, m.x, m.y, 950, b.def.dmg ?? 20, 'ballista', b.def.reach + 80);
+        this.loose(b.x, b.y - 10, m.x, m.y, 950, b.def.dmg ?? 20, 'ballista', b.def.reach + 80, 'ballista');
       } else if (b.def.kind === 'fire') {
         for (const p of this.pools) if (p.burning <= 0 && dist(p.x, p.y, b.x, b.y) <= p.r + 46) this.light(p);
       }
@@ -1623,11 +2095,11 @@ export class Hunt {
       s.left -= dt;
       let gone = s.left <= 0;
       if (!gone && this.struckBy(s.x, s.y, 6)) {
-        this.harm(s.dmg, s.from === 'hunter' ? 'hunter' : s.from === 'ballista' ? 'ballista' : 'crossbowmen');
+        this.harm(s.dmg, s.by, this.party.findIndex((p) => whoOf(p) === s.by));
         gone = true;
       }
       if (!gone) {
-        const f = this.helpers.find((x) => dist(x.x, x.y, s.x, s.y) < 20);
+        const f = this.helpers.find((x) => dist(x.x, x.y, s.x, s.y) < (x.def.still ? 26 : 20));
         if (f) {
           this.harmHelper(f, s.dmg);
           gone = true;

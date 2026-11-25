@@ -87,6 +87,19 @@ Each is one idea, with attacks that teach it. To begin with:
 
 Each has three **marks** of difficulty: at a higher mark it has attacks it did not have before, and pays more.
 
+## Contracts on the board
+
+The owner, of 25 November 2026: "the wanted posters are the bosses / But the wanted posters arent fixed / E.g they are random contracts that are posted there on the screen, / Each boss can have variation in its battle / there could be a variant of the boss that is quicker, / Or there could be additional minions, or additional task in addition of killing the boss / Each contract's detail is different", and "We can also have slots for partners depending on the contract / E.g one contract can house 2,3,4 hunters and we're just one of the hunters / The rest are AIs on our side".
+
+- **The board** holds four contracts, drawn by the save's own dice once the opening hunts are done. A contract taken comes off when its hunt ends, won or lost, and a new one goes up; every five hunts the whole board is posted again; once between hunts the player may have it posted again for free. A boss whose first trophy is not taken always has a plain contract up (alone, the first difficulty, nothing unlike itself), and the hardest difficulty each boss can be hunted at is always somewhere, so that nobody waits on the dice.
+- **A contract** is a boss, a difficulty, and what makes this hunt of it unlike the last. Variants (content.ts, `VARIANTS`): Quick (25% faster, shorter warnings, never under half a second), Armored (half damage until its stagger is broken once), Furious (its next phase's attacks from the start; from difficulty 2), Giant (50% more health, slower, bigger attacks), Blighted (rot left where it walks, which bursts after its warning), Restless Dead (the Gravedigger: graves twice as often), Stampede (the King: two charges in a row, unless a crash stops the second), Escort (3 minions at the start and at each new phase), Endless Minions (2 more every 20 seconds). Tasks besides the kill, each paying more when done (`TASKS`): Fast Kill, Careful, Break It, No Camp, Markers (grave markers or antler totems to break first), Villagers (keep some of three alive), The Cart, and No One Falls (with a party). Difficulty 1 has none or one of each; 2 one of each; 3 one or two.
+- **The poster** says who put it up and why ("Took three cows and the miller's boy. The boy came back. The cows did not."), where, the danger (the difficulty and what the variants add), the party, the tasks with what each pays, and the reward, which grows with danger and party, less what hands for hire take, and sometimes a step from the shop besides.
+- **The party.** A contract takes one to four hunters, more at a higher difficulty and a high danger. The player leads; the partners are their own unlocked hunters (chosen on the team page, or the rest in order), then hands for hire. Partners are steered by the hunt itself, by the same rules as the player's hunter. A fallen hunter is helped up by standing by them. The boss chooses among the party, grows with it, and has attacks for a party of three or more. Reinforcements and buildings are one muster for the party: partners bring nothing of their own.
+
+## Attacking
+
+The owner: "Make it also so attacks are not automatic". A press is a blow, each hunter's chain is their own, held it goes on by itself, a blow commits for its wind-up and is open in its recovery, and blows in the boss's opening fill its stagger. Partners and the bot press by the same rules.
+
 ## Between hunts: the lodge
 
 - **The board**: the contracts.

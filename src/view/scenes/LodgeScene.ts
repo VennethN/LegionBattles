@@ -12,12 +12,13 @@ import { sfx } from '../../audio/sfx';
 import { ABILITIES, BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, byId, type Mark } from '../../game/content';
 import {
   buy, changeBuilding, chargesOf, contracts, costOf, isOpen, lessonFor, newsOf, openingOf, opensBy, rewardOf, setHunter, supplyOf, toggleReinforcement, wares, wear, type Contract,
+  board as postedBoard, posterOf, posting, repost,
 } from '../../game/lodge';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
 import { ALLY_ART, BUILDING_ART, HUNTER_ART, MONSTER_ART, STAND_IN, isGrim, type Art } from '../pictures';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
-import { commit, save, takeContract, theContract } from '../session';
+import { commit, save, takeContract, takePosting, theContract } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 import { uiIcon } from '../ui/grim';
@@ -125,6 +126,10 @@ export class LodgeScene extends Phaser.Scene {
    * The wall lays out three to five bills of any length of words: each shrinks its words to its own width.
    */
   private board(top: number): void {
+    if (posting(save())) {
+      this.posters(top);
+      return;
+    }
     const s = save();
     const w = view.w;
     const all = contracts(s);
@@ -242,6 +247,98 @@ export class LodgeScene extends Phaser.Scene {
     new Button(this, team ? w / 2 + 110 : w / 2, by, 'HUNT', () => this.hunt(), { width: 200, height: 56, size: 26, mat: RUBY });
   }
 
+  /**
+   * The board once contracts are posted at random: the wall of timber with each posting a bill pinned askew. On the
+   * bill only what is read at a glance: the boss's likeness, its name on a clear strip, its danger in marks of blood,
+   * how many hunters it takes, what is unlike it this time in one shrunk line, and the reward. The bill picked is
+   * lifted off the wall, and everything about it is said under the wall: where, who posted it and why, each variant
+   * and each task with what it pays. Bills and words of any length lay out the same way.
+   */
+  private posters(top: number): void {
+    const s = save();
+    const w = view.w;
+    const tall = view.tall;
+    const list = postedBoard(s);
+    const chosen = theContract();
+    const wallH = tall ? Math.min(view.h * 0.46, 420) : Math.min(view.h * 0.48, 240);
+    this.add.existing(slabImage(this, 6, top - 4, w - 12, wallH, WOOD_DARK, 4, 6));
+    const cols = tall ? Math.min(2, list.length) : Math.max(1, Math.min(5, list.length));
+    const rows = Math.max(1, Math.ceil(list.length / cols));
+    const gap = 12;
+    const bw = Math.min(170, (w - 30) / cols - gap);
+    const bh = Math.min(bw * 1.32, (wallH - 16) / rows - gap);
+    const x0 = w / 2 - ((cols - 1) * (bw + gap)) / 2;
+    list.forEach((p, i) => {
+      const poster = posterOf(s, p);
+      const x = x0 + (i % cols) * (bw + gap);
+      const y = top + 6 + bh / 2 + Math.floor(i / cols) * (bh + gap);
+      const picked = chosen.posting?.id === p.id;
+      const tilt = picked ? 0 : ((i * 37 + p.id * 11) % 7) - 3;
+      if (picked) this.add.rectangle(x + 5, y + 2, bw * 1.06, bh * 1.06, 0x000000, 0.45);
+      const card = this.add.container(x, y + (picked ? -4 : 0)).setAngle(tilt).setScale(picked ? 1.06 : 1);
+      card.add(this.add.image(0, 0, 'bill').setDisplaySize(bw, bh).setTint(picked ? 0xffffff : 0xcfc4ae));
+      card.add(this.add.circle(0, -bh / 2 + 7, 3, 0x2a221a).setStrokeStyle(1, 0x8a7a60));
+      this.figure(card, MONSTER_ART[p.monster], bh * 0.13, bh * 0.44, true);
+      card.add(slabImage(this, -bw / 2 + 6, bh * 0.2 - 13, bw - 12, 26, DARK, 2, 3));
+      const name = label(this, 0, bh * 0.2, byId(MONSTERS, p.monster).name.replace(/^The /, '').toUpperCase(), { size: 17, color: BONE.fill, face: 'display' });
+      name.setScale(Math.min(1, (bw - 24) / name.width));
+      card.add(name);
+      // Danger in marks of blood, up to six, and the party it takes beside them.
+      const dx = -bw * 0.24;
+      for (let k = 0; k < Math.max(3, poster.danger); k++) card.add(this.add.rectangle(dx + (k - 1) * 12, bh * 0.31, 7, 7, k < poster.danger ? 0x8a1e16 : 0x6b5a48, k < poster.danger ? 1 : 0.35).setAngle(45));
+      const lines: string[] = [];
+      if (poster.variants.length) lines.push(poster.variants.map((v) => v.name).join(', '));
+      if (poster.tasks.length) lines.push(poster.tasks.map((t) => t.name).join(', '));
+      if (poster.party > 1) lines.push(poster.partyText);
+      lines.forEach((t, k) => {
+        const l = label(this, -bw * 0.1, bh * 0.37 + k * 15, t, { size: 15, color: INK, stroke: null, face: 'display' });
+        l.setScale(Math.min(1, (bw * 0.66) / l.width));
+        card.add(l);
+      });
+      const pay = label(this, -bw * 0.22, bh * 0.37 + lines.length * 15 + 2, `${poster.coin} COIN`, { size: 15, color: '#3a2410', stroke: null, face: 'display' });
+      pay.setScale(Math.min(1, (bw * 0.42) / pay.width));
+      if (bh * 0.37 + lines.length * 15 + 2 < bh / 2 - 6) card.add(pay);
+      card.setSize(bw, bh).setInteractive({ useHandCursor: true });
+      card.on('pointerup', () => {
+        sfx.play('click');
+        takePosting(p.id);
+        this.go('board');
+      });
+    });
+
+    // Under the wall: everything about the bill picked, then the way out.
+    const py = top + wallH + 6;
+    const ph = view.h - py - 8;
+    const pw = Math.min(w - 12, 900);
+    this.add.existing(slabImage(this, w / 2 - pw / 2, py, pw, ph, LEATHER, 4, 6));
+    const picked = list.find((p) => p.id === chosen.posting?.id);
+    const left = w / 2 - pw / 2 + 18;
+    const by = py + ph - 34;
+    if (picked) {
+      const poster = posterOf(s, picked);
+      const head = label(this, left, py + 22, poster.title.toUpperCase(), { size: 22, align: 'left', face: 'display' });
+      head.setScale(Math.min(1, (pw - 36) / head.width));
+      label(this, left, py + 44, `${poster.where}. Posted by ${poster.by}: "${poster.why}"`, { size: 15, align: 'left', color: BONE.shade, wrap: pw - 36 }).setOrigin(0, 0);
+      const said = [
+        ...poster.variants.map((v) => `${v.name}: ${v.says}`),
+        ...poster.tasks.map((t) => `Task, ${t.name}: ${t.says} (+${t.bonus} coin)`),
+        `${poster.partyText}. Reward: ${poster.coin} coin${poster.first ? ', doubled for the first win' : ''}${poster.thing ? `, and ${poster.thing}` : ''}${poster.hiredCut ? `. Hired hands take ${poster.hiredCut}` : ''}.`,
+      ];
+      const body = label(this, left, py + (tall ? 92 : 80), said.join('\n'), { size: 15, align: 'left', wrap: pw - 36, color: BONE.fill }).setOrigin(0, 0);
+      // Long contracts are made to fit the room above the buttons.
+      body.setScale(Math.min(1, (by - 34 - body.y) / Math.max(1, body.height)));
+    } else label(this, w / 2, py + 40, 'Pick a contract from the board.', { size: 16, color: BONE.shade });
+    const bwid = Math.min(190, (pw - 40) / 3);
+    new Button(this, w / 2 - bwid - 10, by, 'NEW POSTINGS', () => {
+      const why = repost(s);
+      commit();
+      this.go('board', why);
+    }, { width: bwid, height: 50, size: 16, mat: IRON });
+    new Button(this, w / 2, by, 'TEAM', () => this.go('muster'), { width: bwid, height: 54, size: 22, mat: IRON });
+    const hunt = new Button(this, w / 2 + bwid + 10, by, 'HUNT', () => this.hunt(), { width: bwid, height: 54, size: 26, mat: RUBY });
+    hunt.setEnabled(!!picked);
+  }
+
   private pick(c: Contract, mark: Mark): void {
     takeContract(c.id, Math.max(1, Math.min(mark, c.upTo)) as Mark);
     this.go('board');
@@ -249,7 +346,8 @@ export class LodgeScene extends Phaser.Scene {
 
   private hunt(): void {
     const c = theContract();
-    takeContract(c.monster, c.mark);
+    // A posted contract is kept as it was taken; before the board is posted, the one the board holds out.
+    if (c.posting === undefined) takeContract(c.monster, c.mark);
     this.leave();
   }
 

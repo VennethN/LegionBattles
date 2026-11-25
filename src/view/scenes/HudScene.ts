@@ -44,6 +44,7 @@ interface Pad {
 const SHORT: Record<string, string> = { seton: 'DOGS', heel: 'BACK', pikemen: 'SPEARS', crossbowmen: 'BOWS', sappers: 'BOMBS' };
 
 export class HudScene extends Phaser.Scene {
+  private taskText: Phaser.GameObjects.Text | null = null;
   controls!: Controls;
   private bars!: Phaser.GameObjects.Graphics;
   private hpText!: Phaser.GameObjects.Text;
@@ -156,6 +157,8 @@ export class HudScene extends Phaser.Scene {
     this.underText = label(this, w / 2, view.h * 0.3 + 40, '', { size: 18, color: HOLY.fill, wrap: Math.min(520, w - 40) }).setDepth(20).setAlpha(0);
     this.campText = label(this, w / 2, view.tall ? 150 : 96, '', { size: 16, wrap: Math.min(560, w - 40) }).setDepth(12);
 
+    // The contract's tasks and the party, one line each under the hunter's bar: plain for now.
+    this.taskText = label(this, 14, view.tall ? 150 : 74, '', { size: 15, align: 'left', color: HOLY.fill }).setOrigin(0, 0).setDepth(12);
     this.buildFight(hunt);
     this.buildCamp(hunt);
 
@@ -203,6 +206,26 @@ export class HudScene extends Phaser.Scene {
     const step = PAD + 8;
     const h = hunt.hunter;
     const [a, b] = hunt.skills;
+    // ATTACK, the biggest, under the right thumb: held, it goes on striking. The rest sit round it.
+    const big = Math.round(PAD * 1.3);
+    const ax = view.w - big / 2 - 10;
+    const ay = view.h - big / 2 - 12;
+    const atk = this.add.container(ax, ay);
+    atk.add(this.add.image(0, -4, uiKey('slot')).setDisplaySize(big + 8, big + 12).setTint(0xe0a090));
+    const blade = uiIcon('reap');
+    if (blade) atk.add(this.add.image(0, -10, blade).setDisplaySize(48, 48));
+    atk.add(label(this, 0, big / 2 - 2, 'ATTACK', { size: 16, face: 'display' }));
+    if (!this.touch) atk.add(label(this, -big / 2 + 2, -big / 2 + 4, 'J', { size: 15, align: 'left', color: HOLY.fill, face: 'display' }));
+    atk.setSize(big, big).setInteractive({ useHandCursor: true });
+    const hold = (on: boolean): void => {
+      this.controls.attackHeld = on;
+      atk.setScale(on ? 0.94 : 1);
+    };
+    atk.on('pointerdown', () => hold(true));
+    atk.on('pointerup', () => hold(false));
+    atk.on('pointerout', () => hold(false));
+    c.add(atk);
+    x = ax - big / 2 - PAD / 2 - 8;
     this.pad(c, x, y, 'dodge', 'DODGE', 'dodge', BONE, (n) => n.hunter.rollWait / h.def.dodge.wait, null);
     x -= step;
     this.pad(c, x, y, b.id, SHORT[b.id] ?? b.name.toUpperCase(), 'b', IRON, (n) => n.hunter.waits[1] / b.wait, null);
@@ -273,7 +296,7 @@ export class HudScene extends Phaser.Scene {
    * sits off the fight: beside the buttons at the foot of a wide window, over them in a tall one.
    */
   private buildPlate(): void {
-    const padsW = 3 * (PAD + 8) + 12;
+    const padsW = 3 * (PAD + 8) + Math.round(PAD * 1.3) + 22;
     const pw = view.tall ? view.w - 24 : Math.min(600, view.w - padsW - 28);
     const ph = 62;
     const x = view.tall ? view.w / 2 : 14 + pw / 2;
@@ -573,6 +596,11 @@ export class HudScene extends Phaser.Scene {
     const hunt = theHunt();
     if (!hunt || !this.bars) return;
     this.clock += Math.min(0.1, delta / 1000);
+    const lines = [
+      ...hunt.tasks.map((t) => `${t.done ? 'DONE' : t.failed ? 'FAILED' : 'TASK'}: ${t.says}`),
+      ...hunt.party.filter((p) => p.index > 0).map((p) => `${p.def.short}: ${p.down ? 'DOWN, stand by them to help' : `${Math.ceil(p.hp)} / ${p.maxHp}`}`),
+    ].join('\n');
+    if (this.taskText && this.taskText.text !== lines) this.taskText.setText(lines);
     const h = hunt.hunter;
     const m = hunt.monster;
     const camp = hunt.phase === 'camp';

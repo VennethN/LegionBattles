@@ -4,12 +4,12 @@
 
 import type { Mark } from '../game/content';
 import { Hunt, type Setup } from '../game/hunt';
-import { nextContract, payFor, setupOf, type Pay, type SaveData } from '../game/lodge';
+import { nextContract, payFor, postingOf, setupForPosting, setupOf, type Pay, type Posting, type SaveData } from '../game/lodge';
 import { loadSave, storeSave, wipeSave } from '../game/storage';
 
 let current: SaveData | null = null;
 let hunt: Hunt | null = null;
-let contract: { monster: string; mark: Mark } | null = null;
+let contract: { monster: string; mark: Mark; posting?: Posting } | null = null;
 let pay: Pay | null = null;
 
 export function save(): SaveData {
@@ -40,7 +40,7 @@ export function theHunt(): Hunt | null {
 }
 
 /** The contract being hunted, or the one the board holds out next. */
-export function theContract(): { monster: string; mark: Mark } {
+export function theContract(): { monster: string; mark: Mark; posting?: Posting } {
   return contract ?? nextContract(save());
 }
 
@@ -48,12 +48,20 @@ export function takeContract(monster: string, mark: Mark): void {
   contract = { monster, mark };
 }
 
+/** Takes a contract posted on the board, by its number. */
+export function takePosting(id: number): void {
+  const p = postingOf(save(), id);
+  // Kept as it was posted: tried again after it is taken off the board, it is the same contract.
+  if (p) contract = { monster: p.monster, mark: p.mark, posting: { ...p, variants: [...p.variants], tasks: p.tasks.map((t) => ({ ...t })) } };
+}
+
 /** Goes to the lair of the contract taken, with the muster as it stands. */
 export function beginHunt(tall: boolean): Hunt {
   const c = theContract();
   contract = c;
   pay = null;
-  hunt = new Hunt(setupOf(save(), c.monster, c.mark, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1, tall));
+  const seed = (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1;
+  hunt = new Hunt(c.posting ? setupForPosting(save(), c.posting, seed, tall) : setupOf(save(), c.monster, c.mark, seed, tall));
   return hunt;
 }
 
@@ -61,7 +69,7 @@ export function beginHunt(tall: boolean): Hunt {
 export function finishHunt(): Pay | null {
   if (!hunt || !hunt.over || !contract) return pay;
   if (pay) return pay;
-  pay = payFor(save(), contract.monster, contract.mark, hunt.over === 'won', hunt.tally, hunt.monster.part);
+  pay = payFor(save(), contract.monster, contract.mark, hunt.over === 'won', hunt.tally, hunt.monster.part, contract.posting);
   commit();
   return pay;
 }

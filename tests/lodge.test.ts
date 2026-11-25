@@ -6,13 +6,13 @@ import {
   toggleReinforcement, wares, wear,
 } from '../src/game/lodge';
 
-const tally = { time: 100, dealt: {}, taken: {}, killedBy: null, breaks: 0, taught: false };
+const tally = { time: 100, dealt: {}, taken: {}, killedBy: null, breaks: 0, taught: false, tasks: {}, downs: 0 };
 
 /** A lodge with the opening hunts behind it: everything is open, and the muster is the one a player starts from. */
 const opened = (): SaveData => {
   const s = freshSave();
   s.opening = OPENING.length;
-  s.muster = { hunter: FIRST_MUSTER.hunter, reinforcements: [...FIRST_MUSTER.reinforcements], buildings: { ...FIRST_MUSTER.buildings } };
+  s.muster = { hunter: FIRST_MUSTER.hunter, reinforcements: [...FIRST_MUSTER.reinforcements], buildings: { ...FIRST_MUSTER.buildings }, partners: [] };
   return s;
 };
 
@@ -21,7 +21,7 @@ describe('a new lodge', () => {
     const s = freshSave();
     expect(isOpen(s, 'marta')).toBe(true);
     expect(isOpen(s, 'jory')).toBe(false);
-    expect(s.muster).toEqual({ hunter: 'marta', reinforcements: [], buildings: {} });
+    expect(s.muster).toEqual({ hunter: 'marta', reinforcements: [], buildings: {}, partners: [] });
     expect(costOf(FIRST_MUSTER)).toBeLessThanOrEqual(SUPPLY.base);
   });
 
@@ -190,7 +190,7 @@ describe('the opening hunts', () => {
     const s = freshSave();
     payFor(s, 'sexton', 1, true, tally, 1);
     // The second hunt: one building, and a camp to set it in.
-    expect(s.muster).toEqual({ hunter: 'marta', reinforcements: [], buildings: { barricade: 1 } });
+    expect(s.muster).toEqual({ hunter: 'marta', reinforcements: [], buildings: { barricade: 1 }, partners: [] });
     expect(newsOf(s)).toMatch(/^New: a Barricade/);
     expect(changeBuilding(s, 'watchfire', 1)).toMatch(/^Only 1 building/);
     expect(toggleReinforcement(s, 'pikemen')).toBe('Locked: play 1 more hunt');
@@ -200,7 +200,7 @@ describe('the opening hunts', () => {
     expect(second.calls).toEqual([]);
     // The third: the horn.
     payFor(s, 'sexton', 1, false, tally, 1);
-    expect(s.muster).toEqual({ hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1 } });
+    expect(s.muster).toEqual({ hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1 }, partners: [] });
     expect(newsOf(s)).toMatch(/^New: Spearmen/);
     expect(new Hunt(setupOf(s, 'sexton', 1, 3, false)).calls.map((c) => c.def.id)).toEqual(['pikemen']);
     // And after it the supply decides.
@@ -214,6 +214,6 @@ describe('the opening hunts', () => {
   it('a save from before the opening that has won is past it', () => {
     expect(repair({ wins: 2, trophies: ['spade'] }).opening).toBe(OPENING.length);
     expect(repair({ wins: 0 }).opening).toBe(0);
-    expect(repair({ opening: 1, muster: { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 2, watchfire: 1 } } }).muster).toEqual({ hunter: 'marta', reinforcements: [], buildings: { barricade: 1 } });
+    expect(repair({ opening: 1, muster: { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 2, watchfire: 1 } } }).muster).toEqual({ hunter: 'marta', reinforcements: [], buildings: { barricade: 1 }, partners: [] });
   });
 });

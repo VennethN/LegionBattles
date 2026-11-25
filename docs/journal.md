@@ -2,6 +2,20 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## Round 3, 25 November 2026: posted contracts, a party, and attacks by hand
+
+The owner asked for three things in one go: the bosses as wanted posters that are random contracts, each unlike the last ("there could be a variant of the boss that is quicker, / Or there could be additional minions, or additional task"); partners on a contract ("one contract can house 2,3,4 hunters and we're just one of the hunters / The rest are AIs on our side"); and "Make it also so attacks are not automatic".
+
+What was built, in the rules with tests (tests/contracts.test.ts, 33 of them):
+
+- **The board** (lodge.ts: `board`, `fillBoard`, `repost`, `posterOf`, `rewardFor`, `setupForPosting`, `unposted`). Four contracts drawn by the save's dice; replaced when taken; the whole board again every five hunts; NEW POSTINGS free once between hunts.
+- **Variants and tasks** (content.ts `VARIANTS`, `TASKS`; hunt.ts `Terms`, `TaskState`). Nine variants, eight tasks, each a rule in the hunt with a test. Nothing a variant adds hurts without a tell: a test plays every variant with a partner and fails if anyone is hurt by what was not shown.
+- **A party** (hunt.ts `party`, partners' brains; lodge.ts `partyFor`, `togglePartner`, `hunterBar`). Up to four hunters; partners are the bot made a partner; down and helped up; the boss chooses among them, grows with them, and has attacks only for three or more. Two hands for hire when the player has too few hunters.
+- **Attacks by hand** (content.ts `combo`, `heavy`, `ATTACK`; hunt.ts `attack`, `startBlow`, `landBlow`). Each hunter's chain; held, it repeats; Jory's held bolt; wind-ups that cannot be dodged out of and recoveries that can; aim toward the pointer or the way faced, turned to a boss a little ahead. The lesson's strike step teaches the press.
+- **Partners speak**: lines for being helped up and helping, and the hands for hire talk about money.
+
+In the screens, only what keeps it playable: J or K or a held press attacks; partners are drawn; the posted contracts are a plain list with NEW POSTINGS; tasks and partners' health are lines on the HUD. The screens agent makes these into the real thing.
+
 ## Round 2, 25 November 2026: the owner's first play
 
 The owner played the published game and said: "let's make it simple for the first boss, e.g no camp, just you vs the boss, / make it essentially a tutorial / make the animations also clearer/ exagerrated to an extent, / the music also doesnt fit". Then: "dont use sexton name why sexton", and "Give some small dialogue as lore as well / But the dialogue is not blocking".

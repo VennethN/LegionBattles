@@ -7,7 +7,8 @@
 
 import type { BuildingDef } from './content';
 import { FIELD, CAMP } from './content';
-import { inside, type Hunt, type Steer, type Tell } from './hunt';
+import { inside } from './geometry';
+import type { Hunt, Hunter, Steer, Tell } from './hunt';
 
 export interface BotOpts {
   /** Seconds before it sees a tell that has appeared. A careful player is about a quarter of a second. */
@@ -17,6 +18,10 @@ export interface BotOpts {
   /** False for a bot that never uses its abilities, or never blows the horn: to measure what they are worth. */
   abilities?: boolean;
   horn?: boolean;
+  /** Which of the party it steers: 0, the player, unless it is a partner's brain. */
+  who?: number;
+  /** True for a partner's brain: it keeps out of the player's way, helps the fallen up, and leaves building and the horn to the player. */
+  partner?: boolean;
 }
 
 const dist = (ax: number, ay: number, bx: number, by: number): number => Math.hypot(ax - bx, ay - by);
@@ -32,13 +37,23 @@ export class Bot {
   private plan: Array<{ id: string; x: number; y: number; tries: number }> | null = null;
   private dice: number;
   private side = 1;
+  private readonly who: number;
+  private readonly partner: boolean;
 
   constructor(seed = 1, o: BotOpts = {}) {
     this.react = o.react ?? 0.24;
     this.slip = o.slip ?? 0.07;
     this.abilities = o.abilities ?? true;
-    this.horn = o.horn ?? true;
+    this.horn = (o.horn ?? true) && !o.partner;
+    this.who = o.who ?? 0;
+    this.partner = !!o.partner;
     this.dice = seed >>> 0 || 1;
+    this.side = this.who % 2 === 0 ? 1 : -1;
+  }
+
+  /** The hunter it steers. */
+  private me(h: Hunt): Hunter {
+    return h.party[this.who] ?? h.hunter;
   }
 
   private roll(): number {
@@ -49,10 +64,11 @@ export class Bot {
 
   /** How it is steered now, in camp or in the hunt. */
   steer(h: Hunt): Steer {
-    if (h.phase === 'camp') return this.camp(h);
+    if (h.phase === 'camp') return this.partner ? this.keepBy(h) : this.camp(h);
+    if (this.me(h).down) return { x: 0, y: 0 };
     const s = this.fight(h);
     // In a hunt that teaches it does what the step asks for, as someone reading the plate would.
-    const t = h.teaching;
+    const t = this.partner ? null : h.teaching;
     if (t) {
       if (t.step.wants === 'skill') {
         // It waits for the red to show where the step shows an attack, and presses a moment after.
@@ -77,7 +93,7 @@ export class Bot {
     const ux = (hx - m.x) / d;
     const uy = (hy - m.y) / d;
     const at = (along: number, across: number): { x: number; y: number } => ({ x: m.x + ux * along - uy * across, y: m.y + uy * along + ux * across });
-    const spots: Record<BuildingDef['kind'], Array<{ x: number; y: number }>> = {
+    const spots: Record<Exclude<BuildingDef['kind'], 'cart'>, Array<{ x: number; y: number }>> = {
       // Barricades where a charge at the hunter would run; a fire and a bell where the fight will be; a ballista behind it all.
       wall: [at(CAMP.clear + 70, 0), at(CAMP.clear + 70, 150), at(CAMP.clear + 70, -150)],
       fire: [at(CAMP.clear + 30, 80), at(CAMP.clear + 30, -230), at(CAMP.clear + 180, 230)],
@@ -92,8 +108,19 @@ export class Bot {
     return plan;
   }
 
+  /** A partner in camp: by the player's side, out of their way. */
+  private keepBy(h: Hunt): Steer {
+    const me = this.me(h);
+    const p = h.hunter;
+    const tx = p.x - 50 + this.side * 20 * this.who;
+    const ty = p.y + this.side * 70;
+    const d = dist(me.x, me.y, tx, ty);
+    return d > 24 ? { x: (tx - me.x) / d, y: (ty - me.y) / d } : { x: 0, y: 0 };
+  }
+
   private camp(h: Hunt): Steer {
-    this.plan ??= this.wanted(h);
+    // A contract that asks for nothing to be built: nothing is.
+    this.plan ??= h.tasks.some((t) => t.id === 'nobuild') ? [] : this.wanted(h);
     const hu = h.hunter;
     const job = this.plan[0];
     if (!job) return { x: 0, y: 0, wake: true };
@@ -130,7 +157,7 @@ export class Bot {
   }
 
   private fight(h: Hunt): Steer {
-    const hu = h.hunter;
+    const hu = this.me(h);
     const m = h.monster;
     const tells = this.seen(h);
     const steer: Steer = { x: 0, y: 0 };
@@ -148,7 +175,7 @@ export class Bot {
     const threats = all.filter((t) => inside(t, hu.x, hu.y, 18));
     const dm = dist(hu.x, hu.y, m.x, m.y);
     const open = h.open;
-    const [a, b] = h.skills;
+    const [a, b] = hu.abilities;
     const ready = (i: 0 | 1): boolean => this.abilities && hu.waits[i] <= 0 && hu.roll <= 0;
 
     // ---- the horn
@@ -172,9 +199,9 @@ export class Bot {
       }
       if (hu.bracing > 0 && soonest.by === 0) return steer;
       const flare = a.kind === 'flare' ? 0 : b.kind === 'flare' ? 1 : -1;
-      if (flare >= 0 && ready(flare as 0 | 1) && soonest.by === 0 && m.state === 'tell' && dm < (h.skills[flare as 0 | 1].r ?? 0) + m.def.r) steer[flare === 0 ? 'a' : 'b'] = true;
+      if (flare >= 0 && ready(flare as 0 | 1) && soonest.by === 0 && m.state === 'tell' && dm < (hu.abilities[flare as 0 | 1].r ?? 0) + m.def.r) steer[flare === 0 ? 'a' : 'b'] = true;
       const seton = a.kind === 'seton' ? 0 : b.kind === 'seton' ? 1 : -1;
-      if (seton >= 0 && ready(seton as 0 | 1) && soonest.by === 0 && m.state === 'tell' && h.allies.some((x) => x.group === 'hound' && x.state !== 'down')) steer[seton === 0 ? 'a' : 'b'] = true;
+      if (seton >= 0 && ready(seton as 0 | 1) && soonest.by === 0 && m.state === 'tell' && h.allies.some((x) => x.group === 'hound' && x.owner === hu.index && x.state !== 'down')) steer[seton === 0 ? 'a' : 'b'] = true;
       const ward = a.kind === 'ward' ? 0 : b.kind === 'ward' ? 1 : -1;
       if (ward >= 0 && ready(ward as 0 | 1) && hu.hp < hu.maxHp * 0.6) steer[ward === 0 ? 'a' : 'b'] = true;
 
@@ -212,7 +239,7 @@ export class Bot {
 
     // ---- abilities used when nothing is about to land
     for (const i of [0, 1] as const) {
-      const s = h.skills[i];
+      const s = hu.abilities[i];
       if (!ready(i)) continue;
       const near = h.helpers.filter((f) => dist(f.x, f.y, hu.x, hu.y) < (s.r ?? 0)).length;
       let use = false;
@@ -220,19 +247,50 @@ export class Bot {
       else if (s.kind === 'trap') use = m.state === 'walk' && dm < 300 && dm > 90 && h.traps.length < 2;
       else if (s.kind === 'pool') use = m.state !== 'shift' && m.state !== 'broken' && dm < (s.range ?? 300) && h.pools.length === 0;
       else if (s.kind === 'flare') use = near >= 3;
-      else if (s.kind === 'seton') use = open && m.state !== 'broken' ? false : m.state === 'walk' && h.allies.some((x) => x.group === 'hound' && x.state !== 'down');
-      else if (s.kind === 'whistle') use = hu.hp < hu.maxHp * 0.55 || h.allies.some((x) => x.group === 'hound' && x.state === 'down');
+      else if (s.kind === 'seton') use = open && m.state !== 'broken' ? false : m.state === 'walk' && h.allies.some((x) => x.group === 'hound' && x.owner === hu.index && x.state !== 'down');
+      else if (s.kind === 'whistle') use = hu.hp < hu.maxHp * 0.55 || h.allies.some((x) => x.group === 'hound' && x.owner === hu.index && x.state === 'down');
       if (use) steer[i === 0 ? 'a' : 'b'] = true;
+    }
+
+    // ---- a fallen one of the party: stand by them until they are up, when nothing is about to land
+    const fallen = h.party.find((p) => p.down && p !== hu);
+    if (fallen) {
+      const d = dist(hu.x, hu.y, fallen.x, fallen.y);
+      if (d > 40) {
+        steer.x = (fallen.x - hu.x) / d;
+        steer.y = (fallen.y - hu.y) / d;
+      }
+      return steer;
+    }
+
+    // ---- a marker the contract asks to be broken: gone for while the boss is busy elsewhere
+    const blow = hu.def.combo[0];
+    const marker = h.tasks.some((t) => t.id === 'markers' && !t.done && !t.failed) && !open
+      ? h.helpers.filter((f) => f.def.still).reduce<null | { x: number; y: number }>((best, f) => (!best || dist(f.x, f.y, hu.x, hu.y) < dist(best.x, best.y, hu.x, hu.y) ? f : best), null)
+      : null;
+    if (marker && (this.who === h.party.length - 1 || !this.partner || h.party.length === 1)) {
+      const d = dist(hu.x, hu.y, marker.x, marker.y);
+      const want = Math.min(blow.reach - 20, 90);
+      if (d > want) {
+        steer.x = (marker.x - hu.x) / d;
+        steer.y = (marker.y - hu.y) / d;
+      } else {
+        steer.attack = true;
+        steer.aim = Math.atan2(marker.y - hu.y, marker.x - hu.x);
+      }
+      return steer;
     }
 
     // ---- where to stand
     const s = hu.def.strike;
     let tx = hu.x;
     let ty = hu.y;
+    // A partner goes round the boss to a side of its own, so that the party is not one target.
+    const spread = this.partner ? this.side * (0.7 + 0.5 * Math.floor((this.who - 1) / 2)) : 0;
     if (s.kind === 'bolt') {
       // At a distance: far enough for the bolt's bite, and going round rather than straight back into a wall.
       const want = Math.min(s.reach - 40, (s.far?.beyond ?? 200) + 70);
-      const ang = Math.atan2(hu.y - m.y, hu.x - m.x) + this.side * 0.25;
+      const ang = Math.atan2(hu.y - m.y, hu.x - m.x) + this.side * 0.25 + spread * 0.3;
       tx = m.x + Math.cos(ang) * want;
       ty = m.y + Math.sin(ang) * want;
       const e = FIELD.edge + 30;
@@ -246,14 +304,25 @@ export class Bot {
       if (stone && m.state === 'walk') [tx, ty] = stone;
     } else {
       // Up close: within reach of it, and of a helper if one is nearer.
-      const want = s.reach + m.def.r - 16;
-      const ang = Math.atan2(hu.y - m.y, hu.x - m.x);
+      const want = Math.min(blow.reach, s.reach) + m.def.r * m.size - 22;
+      const ang = Math.atan2(hu.y - m.y, hu.x - m.x) + (this.partner ? spread * 0.6 : 0);
       tx = m.x + Math.cos(ang) * want;
       ty = m.y + Math.sin(ang) * want;
-      const helper = h.helpers.find((f) => dist(f.x, f.y, hu.x, hu.y) < 150);
+      const helper = h.helpers.find((f) => !f.def.still && dist(f.x, f.y, hu.x, hu.y) < 150);
       if (helper && !open) {
         tx = helper.x + (hu.x - helper.x) * 0.4;
         ty = helper.y + (hu.y - helper.y) * 0.4;
+      }
+    }
+    // A partner does not stand on top of the player or another of the party.
+    if (this.partner) {
+      for (const p of h.party) {
+        if (p === hu || p.down) continue;
+        const d = dist(tx, ty, p.x, p.y);
+        if (d < 60) {
+          tx += ((tx - p.x) / (d || 1)) * (60 - d);
+          ty += ((ty - p.y) / (d || 1)) * (60 - d);
+        }
       }
     }
     // A bell in reach is worth standing at while the monster prepares.
@@ -266,13 +335,30 @@ export class Bot {
       steer.x = (tx - hu.x) / d;
       steer.y = (ty - hu.y) / d;
     }
+
+    // ---- attack: held while the boss is in reach and nothing is about to land; aimed at it, or at a helper in the way
+    const awake = m.state !== 'asleep' && m.state !== 'dead' && m.state !== 'shift';
+    const reach = blow.kind === 'bolt' ? blow.reach - 30 : blow.reach + m.def.r * m.size - 10;
+    const helperNear = h.helpers.find((f) => !f.def.still && dist(f.x, f.y, hu.x, hu.y) < blow.reach + 10);
+    if (awake && dm <= reach) {
+      steer.attack = true;
+      steer.aim = Math.atan2(m.y - hu.y, m.x - hu.x);
+      // A melee hunter stands to strike: walking out of reach mid-chain wastes the blow.
+      if (blow.kind !== 'bolt' && dm < reach - 10) {
+        steer.x = 0;
+        steer.y = 0;
+      }
+    } else if (helperNear) {
+      steer.attack = true;
+      steer.aim = Math.atan2(helperNear.y - hu.y, helperNear.x - hu.x);
+    }
     return steer;
   }
 
   /** A place to stand with a stone or a barricade behind it, on the far side from the monster: what a charge at the hunter would then run into. */
   private behind(h: Hunt): [number, number] | null {
     const m = h.monster;
-    const hu = h.hunter;
+    const hu = this.me(h);
     const things = [...h.stones.map((s) => ({ x: s.x, y: s.y, r: s.r })), ...h.buildings.filter((b) => b.def.kind === 'wall').map((b) => ({ x: b.x, y: b.y, r: b.def.r }))];
     let best: [number, number] | null = null;
     let least = 1e9;
@@ -290,6 +376,6 @@ export class Bot {
 
 import { BUILDINGS } from './content';
 
-function kindOf(id: string): BuildingDef['kind'] {
-  return (BUILDINGS.find((b) => b.id === id) as BuildingDef).kind;
+function kindOf(id: string): Exclude<BuildingDef['kind'], 'cart'> {
+  return (BUILDINGS.find((b) => b.id === id) as BuildingDef).kind as Exclude<BuildingDef['kind'], 'cart'>;
 }
