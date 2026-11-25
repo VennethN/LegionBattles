@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-hourglass" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-hourglass-glass-shape" d="M 18 10 L 46 10 L 36 32 L 46 54 L 18 54 L 28 32 Z"/>
+<clipPath id="icon-hourglass-glass-clip"><use href="#icon-hourglass-glass-shape"/></clipPath>
+<path id="icon-hourglass-sand-top-shape" d="M 24 20 L 40 20 L 34 30 L 30 30 Z"/>
+<path id="icon-hourglass-sand-low-shape" d="M 20 54 L 26 44 L 32 40 L 38 44 L 44 54 Z"/>
+<clipPath id="icon-hourglass-sand-low-clip"><use href="#icon-hourglass-sand-low-shape"/></clipPath>
+<path id="icon-hourglass-top-shape" d="M 8 4 L 56 4 L 56 12 L 8 12 Z"/>
+<clipPath id="icon-hourglass-top-clip"><use href="#icon-hourglass-top-shape"/></clipPath>
+<path id="icon-hourglass-bottom-shape" d="M 8 52 L 56 52 L 56 60 L 8 60 Z"/>
+<clipPath id="icon-hourglass-bottom-clip"><use href="#icon-hourglass-bottom-shape"/></clipPath>
+<path id="icon-hourglass-post-l-shape" d="M 10 12 L 15 12 L 15 52 L 10 52 Z"/>
+<clipPath id="icon-hourglass-post-l-clip"><use href="#icon-hourglass-post-l-shape"/></clipPath>
+<path id="icon-hourglass-post-r-shape" d="M 49 12 L 54 12 L 54 52 L 49 52 Z"/>
+<clipPath id="icon-hourglass-post-r-clip"><use href="#icon-hourglass-post-r-shape"/></clipPath>
+</defs>
+<g id="icon-hourglass-glass">
+<use id="icon-hourglass-glass-line" href="#icon-hourglass-glass-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-hourglass-glass-clip)">
+<use id="icon-hourglass-glass-lit" href="#icon-hourglass-glass-shape" fill="#b4bfc0"/>
+<path id="icon-hourglass-glass-dark" d="M 6 6 L 20.9 5.8 L 24.3 37.3 L 20.9 41.9 L 22.6 58.2 L 6 58 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-hourglass-sand-top">
+<use id="icon-hourglass-sand-top-line" href="#icon-hourglass-sand-top-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-hourglass-sand-top-lit" href="#icon-hourglass-sand-top-shape" fill="#c7ad84"/>
+</g>
+<g id="icon-hourglass-sand-low">
+<use id="icon-hourglass-sand-low-line" href="#icon-hourglass-sand-low-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-hourglass-sand-low-clip)">
+<use id="icon-hourglass-sand-low-lit" href="#icon-hourglass-sand-low-shape" fill="#c7ad84"/>
+<path id="icon-hourglass-sand-low-dark" d="M 8 36 L 22 36 L 24.5 58 L 8 58 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-hourglass-run" d="M 32 30 L 32 42" fill="none" stroke="#c7ad84" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="icon-hourglass-top">
+<use id="icon-hourglass-top-line" href="#icon-hourglass-top-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-hourglass-top-clip)">
+<use id="icon-hourglass-top-lit" href="#icon-hourglass-top-shape" fill="#6f5c46"/>
+<path id="icon-hourglass-top-dark" d="M -4 0 L 15.9 0 L 17.4 16 L -4 16 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-hourglass-bottom">
+<use id="icon-hourglass-bottom-line" href="#icon-hourglass-bottom-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-hourglass-bottom-clip)">
+<use id="icon-hourglass-bottom-lit" href="#icon-hourglass-bottom-shape" fill="#6f5c46"/>
+<path id="icon-hourglass-bottom-dark" d="M -4 48 L 15.9 48 L 17.4 64 L -4 64 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-hourglass-post-l">
+<use id="icon-hourglass-post-l-line" href="#icon-hourglass-post-l-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-hourglass-post-l-clip)">
+<use id="icon-hourglass-post-l-lit" href="#icon-hourglass-post-l-shape" fill="#6f5c46"/>
+<path id="icon-hourglass-post-l-dark" d="M -2 8 L 10.7 8 L 11.1 27 L 10.5 27.6 L 11.1 56 L -2 56 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-hourglass-post-r">
+<use id="icon-hourglass-post-r-line" href="#icon-hourglass-post-r-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-hourglass-post-r-clip)">
+<use id="icon-hourglass-post-r-lit" href="#icon-hourglass-post-r-shape" fill="#6f5c46"/>
+<path id="icon-hourglass-post-r-dark" d="M 37 8 L 50.2 8 L 50.6 28 L 49.9 28.8 L 50.5 56 L 37 56 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

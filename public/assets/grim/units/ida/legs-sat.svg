@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ida-legs-sat" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ida-legs-sat-sat-back-thigh-shape" d="M 123.7 161 L 141.4 161.4 L 165.6 165.4 L 164.4 182.6 L 139.9 182 L 122.3 181 Z"/>
+<clipPath id="ida-legs-sat-sat-back-thigh-clip"><use href="#ida-legs-sat-sat-back-thigh-shape"/></clipPath>
+<path id="ida-legs-sat-sat-back-shin-shape" d="M 172.4 168.3 L 172.3 178.4 L 170 192.3 L 156 191.7 L 155.6 177.7 L 155.6 167.7 Z"/>
+<clipPath id="ida-legs-sat-sat-back-shin-clip"><use href="#ida-legs-sat-sat-back-shin-shape"/></clipPath>
+<path id="ida-legs-sat-sat-back-boot-shape" d="M 153.4 191 L 171.6 189 L 174.9 194 L 184.8 197 L 190.8 203 L 190.8 207 L 149.8 207 L 147.8 197 Z"/>
+<clipPath id="ida-legs-sat-sat-back-boot-clip"><use href="#ida-legs-sat-sat-back-boot-shape"/></clipPath>
+<path id="ida-legs-sat-sat-front-thigh-shape" d="M 132.7 164 L 150.4 164.4 L 174.6 168.4 L 173.4 185.6 L 148.9 185 L 131.3 184 Z"/>
+<clipPath id="ida-legs-sat-sat-front-thigh-clip"><use href="#ida-legs-sat-sat-front-thigh-shape"/></clipPath>
+<path id="ida-legs-sat-sat-front-shin-shape" d="M 181.4 171.4 L 181.3 180.2 L 179 192.3 L 165 191.7 L 164.6 179.4 L 164.6 170.6 Z"/>
+<clipPath id="ida-legs-sat-sat-front-shin-clip"><use href="#ida-legs-sat-sat-front-shin-shape"/></clipPath>
+<path id="ida-legs-sat-sat-front-boot-shape" d="M 162.4 191 L 180.6 189 L 183.9 194 L 193.8 197 L 199.8 203 L 199.8 207 L 158.8 207 L 156.8 197 Z"/>
+<clipPath id="ida-legs-sat-sat-front-boot-clip"><use href="#ida-legs-sat-sat-front-boot-shape"/></clipPath>
+</defs>
+<g id="ida-legs-sat-sat-back-thigh">
+<use id="ida-legs-sat-sat-back-thigh-line" href="#ida-legs-sat-sat-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-legs-sat-sat-back-thigh-clip)">
+<use id="ida-legs-sat-sat-back-thigh-lit" href="#ida-legs-sat-sat-back-thigh-shape" fill="#7b5b3d"/>
+<path id="ida-legs-sat-sat-back-thigh-mid" d="M 119.9 172.4 L 141.6 174 L 144.9 177.4 L 167.7 179 L 166.3 197.4 L 118.4 193.9 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="ida-legs-sat-sat-back-thigh-dark" d="M 119.9 172.4 L 141.6 174 L 144.9 177.4 L 167.7 179 L 166.3 197.4 L 118.4 193.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-legs-sat-sat-back-shin">
+<use id="ida-legs-sat-sat-back-shin-line" href="#ida-legs-sat-sat-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-legs-sat-sat-back-shin-clip)">
+<use id="ida-legs-sat-sat-back-shin-lit" href="#ida-legs-sat-sat-back-shin-shape" fill="#7b5b3d"/>
+<path id="ida-legs-sat-sat-back-shin-mid" d="M 162.6 164.9 L 161.9 183.4 L 159.4 185.9 L 159 194.8 L 143.4 194.2 L 144.7 164.2 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="ida-legs-sat-sat-back-shin-dark" d="M 162.6 164.9 L 161.9 183.4 L 159.4 185.9 L 159 194.8 L 143.4 194.2 L 144.7 164.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-legs-sat-sat-back-boot">
+<use id="ida-legs-sat-sat-back-boot-line" href="#ida-legs-sat-sat-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-legs-sat-sat-back-boot-clip)">
+<use id="ida-legs-sat-sat-back-boot-lit" href="#ida-legs-sat-sat-back-boot-shape" fill="#7b5b3d"/>
+<path id="ida-legs-sat-sat-back-boot-mid" d="M 141.8 186 L 165.3 186 L 166.7 193 L 175.6 199 L 194.8 202 L 194.8 211 L 141.8 211 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ida-legs-sat-sat-back-boot-dark" d="M 141.8 186 L 165.3 186 L 166.7 193 L 175.6 199 L 194.8 202 L 194.8 211 L 141.8 211 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-legs-sat-sat-back-boot-sole" d="M 147.8 204 L 191.8 204 L 191.8 208.5 L 147.8 208.5 Z" fill="#14110f"/>
+<path id="ida-legs-sat-sat-back-boot-crease" d="M 174.1 192.8 L 165.3 198 L 175.1 195.2 Z" fill="#14110f"/>
+<g id="ida-legs-sat-sat-front-thigh">
+<use id="ida-legs-sat-sat-front-thigh-line" href="#ida-legs-sat-sat-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-legs-sat-sat-front-thigh-clip)">
+<use id="ida-legs-sat-sat-front-thigh-lit" href="#ida-legs-sat-sat-front-thigh-shape" fill="#7b5b3d"/>
+<path id="ida-legs-sat-sat-front-thigh-mid" d="M 129.3 169.5 L 158 171.6 L 160.9 174.7 L 177.1 175.9 L 175.8 194.4 L 127.8 190.9 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="ida-legs-sat-sat-front-thigh-dark" d="M 129.3 169.5 L 158 171.6 L 160.9 174.7 L 177.1 175.9 L 175.8 194.4 L 127.8 190.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-legs-sat-sat-front-shin">
+<use id="ida-legs-sat-sat-front-shin-line" href="#ida-legs-sat-sat-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-legs-sat-sat-front-shin-clip)">
+<use id="ida-legs-sat-sat-front-shin-lit" href="#ida-legs-sat-sat-front-shin-shape" fill="#7b5b3d"/>
+<path id="ida-legs-sat-sat-front-shin-mid" d="M 176.7 168.2 L 175.9 183.5 L 173.5 186 L 173 195.1 L 157.4 194.3 L 158.7 167.3 Z" transform="translate(2.5 -0.6)" fill="#553d29"/>
+<path id="ida-legs-sat-sat-front-shin-dark" d="M 176.7 168.2 L 175.9 183.5 L 173.5 186 L 173 195.1 L 157.4 194.3 L 158.7 167.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="ida-legs-sat-sat-front-boot">
+<use id="ida-legs-sat-sat-front-boot-line" href="#ida-legs-sat-sat-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-legs-sat-sat-front-boot-clip)">
+<use id="ida-legs-sat-sat-front-boot-lit" href="#ida-legs-sat-sat-front-boot-shape" fill="#7b5b3d"/>
+<path id="ida-legs-sat-sat-front-boot-mid" d="M 150.8 186 L 174.3 186 L 175.7 193 L 184.6 199 L 203.8 202 L 203.8 211 L 150.8 211 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="ida-legs-sat-sat-front-boot-dark" d="M 150.8 186 L 174.3 186 L 175.7 193 L 184.6 199 L 203.8 202 L 203.8 211 L 150.8 211 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="ida-legs-sat-sat-front-boot-sole" d="M 156.8 204 L 200.8 204 L 200.8 208.5 L 156.8 208.5 Z" fill="#14110f"/>
+<path id="ida-legs-sat-sat-front-boot-crease" d="M 183.1 192.8 L 174.3 198 L 184.1 195.2 Z" fill="#14110f"/>
+</svg>

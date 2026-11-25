@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-banner" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-banner-pole-shape" d="M 16.5 62 L 16.5 4 L 11.5 4 L 11.5 62 Z"/>
+<path id="icon-banner-cloth-shape" d="M 16 8 L 56 10 L 52 22 L 58 36 L 46 34 L 40 44 L 32 36 L 16 40 Z"/>
+<clipPath id="icon-banner-cloth-clip"><use href="#icon-banner-cloth-shape"/></clipPath>
+<path id="icon-banner-finial-shape" d="M 10 4 L 14 0 L 18 4 L 14 8 Z"/>
+<clipPath id="icon-banner-finial-clip"><use href="#icon-banner-finial-shape"/></clipPath>
+</defs>
+<g id="icon-banner-pole">
+<use id="icon-banner-pole-line" href="#icon-banner-pole-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-banner-pole-lit" href="#icon-banner-pole-shape" fill="#6f5c46"/>
+</g>
+<g id="icon-banner-cloth">
+<use id="icon-banner-cloth-line" href="#icon-banner-cloth-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-banner-cloth-clip)">
+<use id="icon-banner-cloth-lit" href="#icon-banner-cloth-shape" fill="#7d312b"/>
+<path id="icon-banner-cloth-mid" d="M 0 28 L 0 29.3 L 27.5 28.4 L 30.2 25.8 L 64 24.7 L 64 48 L 0 48 Z" transform="translate(3 -0.72)" fill="#551f1c"/>
+<path id="icon-banner-cloth-dark" d="M 0 28 L 0 29.3 L 27.5 28.4 L 30.2 25.8 L 64 24.7 L 64 48 L 0 48 Z" fill="#14110f"/>
+<path id="icon-banner-mark" d="M 26.8 19 L 38 30 L 29.2 17 Z M 36.8 17 L 28 30 L 39.2 19 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="icon-banner-finial">
+<use id="icon-banner-finial-line" href="#icon-banner-finial-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-banner-finial-clip)">
+<use id="icon-banner-finial-lit" href="#icon-banner-finial-shape" fill="#8c9194"/>
+<path id="icon-banner-finial-dark" d="M -2 -4 L 10.4 -4 L 11.8 12 L -2 12 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

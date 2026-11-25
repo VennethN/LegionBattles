@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="villager-crone-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="villager-crone-leg-back-shoe-shape" d="M 108.7 227 L 122.5 225 L 122 227 L 127.4 230 L 133.4 236 L 133.4 240 L 103.4 240 L 101.4 230 Z"/>
+<clipPath id="villager-crone-leg-back-shoe-clip"><use href="#villager-crone-leg-back-shoe-shape"/></clipPath>
+</defs>
+<g id="villager-crone-leg-back-shoe">
+<use id="villager-crone-leg-back-shoe-line" href="#villager-crone-leg-back-shoe-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#villager-crone-leg-back-shoe-clip)">
+<use id="villager-crone-leg-back-shoe-lit" href="#villager-crone-leg-back-shoe-shape" fill="#4f4944"/>
+<path id="villager-crone-leg-back-shoe-mid" d="M 95.4 222 L 114.7 222 L 115.7 226 L 122.5 232 L 137.4 235 L 137.4 244 L 95.4 244 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="villager-crone-leg-back-shoe-dark" d="M 95.4 222 L 114.7 222 L 115.7 226 L 122.5 232 L 137.4 235 L 137.4 244 L 95.4 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="villager-crone-leg-back-shoe-sole" d="M 101.4 237 L 134.4 237 L 134.4 241.5 L 101.4 241.5 Z" fill="#14110f"/>
+<path id="villager-crone-leg-back-shoe-crease" d="M 121.1 225.9 L 114.7 231 L 122.4 228.1 Z" fill="#14110f"/>
+</svg>

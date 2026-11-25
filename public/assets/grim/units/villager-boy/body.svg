@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="villager-boy-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="villager-boy-body-tunic-shape" d="M 114 158 L 144 156 L 150 176 L 148 208 L 114.5 209.8 L 116.6 206.9 L 115.9 209.7 L 129.8 209 L 132 206.2 L 131.5 208.9 L 136.5 208.6 L 138.5 206.4 L 138.3 208.5 L 144.8 208.2 L 146.9 205.6 L 146.6 208.1 L 110 210 L 108 178 Z"/>
+<clipPath id="villager-boy-body-tunic-clip"><use href="#villager-boy-body-tunic-shape"/></clipPath>
+<path id="villager-boy-body-tie-shape" d="M 109.9 180 L 147.9 178 L 148.1 182 L 110.1 184 Z"/>
+<clipPath id="villager-boy-body-tie-clip"><use href="#villager-boy-body-tie-shape"/></clipPath>
+</defs>
+<g id="villager-boy-body-tunic">
+<use id="villager-boy-body-tunic-line" href="#villager-boy-body-tunic-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#villager-boy-body-tunic-clip)">
+<use id="villager-boy-body-tunic-lit" href="#villager-boy-body-tunic-shape" fill="#727646"/>
+<path id="villager-boy-body-tunic-mid" d="M 94 150 L 122 150 L 123.9 157.9 L 124.8 183.7 L 121.2 187.9 L 122.1 214.1 L 94 214 Z" transform="translate(5.88 -1.41)" fill="#4b4f2f"/>
+<path id="villager-boy-body-tunic-dark" d="M 94 150 L 122 150 L 123.9 157.9 L 124.8 183.7 L 121.2 187.9 L 122.1 214.1 L 94 214 Z" fill="#14110f"/>
+<path id="villager-boy-body-patch" d="M 134 184 L 144 183 L 144 194 L 134 195 Z" fill="#4b4f2f"/>
+<path id="villager-boy-body-tunic-cold" d="M 68 116 L 190 116 L 190 250 L 68 250 Z M 115.7 156.7 L 145.7 154.7 L 151.7 174.7 L 149.7 206.7 L 116.3 208.5 L 118.3 205.6 L 117.6 208.4 L 131.5 207.7 L 133.7 204.9 L 133.2 207.6 L 138.2 207.3 L 140.2 205.1 L 140 207.2 L 146.6 206.9 L 148.6 204.3 L 148.3 206.8 L 111.7 208.7 L 109.7 176.7 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="villager-boy-body-tie">
+<use id="villager-boy-body-tie-line" href="#villager-boy-body-tie-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#villager-boy-body-tie-clip)">
+<use id="villager-boy-body-tie-lit" href="#villager-boy-body-tie-shape" fill="#7d312b"/>
+<path id="villager-boy-body-tie-dark" d="M 107 181.2 L 129.3 180.1 L 130.2 180.7 L 151 179.7 L 151.2 183.3 L 107.2 185.6 Z" fill="#14110f"/>
+<path id="villager-boy-body-tie-stitch" d="M 115 181 L 115.7 182.4 L 116.2 181 Z M 121.7 180.7 L 122.3 182.1 L 122.9 180.6 Z M 128.4 180.3 L 129 181.7 L 129.6 180.2 Z M 135.1 180 L 135.7 181.4 L 136.2 179.9 Z M 141.7 179.6 L 142.4 181 L 142.9 179.5 Z" fill="#551f1c"/>
+</g>
+</g>
+</svg>

@@ -2,7 +2,7 @@
 // The roster in the guide is written from this, and the manifest carries it.
 
 export interface UnitNote {
-  kind: 'hunter' | 'monster' | 'enemy' | 'reinforcement' | 'building';
+  kind: 'hunter' | 'monster' | 'enemy' | 'reinforcement' | 'building' | 'folk' | 'hireling' | 'prop';
   name: string;
   read: string;
 }
@@ -40,4 +40,14 @@ export const UNIT_NOTES: Record<string, UnitNote> = {
   barricade: { kind: 'building', name: 'Barricade', read: 'sharpened stakes lashed across a log' },
   bellpost: { kind: 'building', name: 'Bell post', read: 'a timber post and arm with a bell hung from it and a rope to ring it by' },
   streetlamp: { kind: 'building', name: 'Street lamp', read: 'a short iron post with a lit square lantern, stood down by the Lamplighter' },
+  'villager-farmer': { kind: 'folk', name: 'A farmer', read: 'a straw hat with a torn brim, a pale smock, a sack over his shoulder he will not let go of, clogs; small and round-shouldered' },
+  'villager-crone': { kind: 'folk', name: 'An old woman', read: 'bent nearly double over a stick, a black shawl over her head and back, a long rust skirt, a basket with a loaf in it' },
+  'villager-boy': { kind: 'folk', name: 'A boy', read: 'small and barefoot, a cap too big for him, a green tunic tied with red, a stick for driving geese' },
+  cart: { kind: 'prop', name: 'A cart', read: 'a hand cart on two big spoked wheels, a cask and sacks under a red sheet roped down, two long shafts' },
+  sellsword: { kind: 'hireling', name: 'Sellsword', read: 'a dented iron cap with a nose guard, mail over a stained gambeson, a short sword and a round shield with its paint gone; nothing of the lodge on him' },
+  bowman: { kind: 'hireling', name: 'Bowman', read: 'a short green hood with a long tail, a leather jerkin, a longbow as tall as he is, a bag of arrows at his hip' },
+  gravemarker: { kind: 'prop', name: 'A grave marker', read: 'a crooked wooden cross on a mound of turned earth, a rag on its arm and a candle at its foot' },
+  totem: { kind: 'prop', name: 'An antler totem', read: 'a stake with bleached antlers lashed to its top, a red rag, bones and a little bell hung from it' },
+  stone: { kind: 'prop', name: 'A standing stone', read: 'a grey stone taller than a man, leaning, lichen on it and an old mark cut in its face' },
+  jawtrap: { kind: 'prop', name: 'A jaw trap', read: 'an iron trap set open on the ground, its teeth up, its chain pegged out' },
 };

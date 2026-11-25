@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="candles" width="80" height="92" viewBox="0 0 80 92">
+<defs>
+<path id="candles-dish-shape" d="M 4 84 L 10 76 L 70 74 L 76 82 Z"/>
+<clipPath id="candles-dish-clip"><use href="#candles-dish-shape"/></clipPath>
+<path id="candles-pool-shape" d="M 16 78 L 24 72 L 58 70 L 66 76 Z"/>
+<clipPath id="candles-pool-clip"><use href="#candles-pool-shape"/></clipPath>
+<path id="candles-tall-shape" d="M 25.5 40.5 L 34.5 39.5 L 35 74 L 25 74 Z"/>
+<clipPath id="candles-tall-clip"><use href="#candles-tall-shape"/></clipPath>
+<path id="candles-tall-flame-shape" d="M 27 39 L 30 26 L 33 39 Z"/>
+<clipPath id="candles-tall-flame-clip"><use href="#candles-tall-flame-shape"/></clipPath>
+<path id="candles-mid-shape" d="M 44 50.5 L 52 49.5 L 52.5 72 L 43.5 72 Z"/>
+<clipPath id="candles-mid-clip"><use href="#candles-mid-shape"/></clipPath>
+<path id="candles-mid-flame-shape" d="M 45 49 L 48 36 L 51 49 Z"/>
+<clipPath id="candles-mid-flame-clip"><use href="#candles-mid-flame-shape"/></clipPath>
+<path id="candles-low-shape" d="M 58.5 64.5 L 65.5 63.5 L 66 74 L 58 74 Z"/>
+<clipPath id="candles-low-clip"><use href="#candles-low-shape"/></clipPath>
+<path id="candles-low-flame-shape" d="M 59 63 L 62 50 L 65 63 Z"/>
+<clipPath id="candles-low-flame-clip"><use href="#candles-low-flame-shape"/></clipPath>
+</defs>
+<path id="candles-blot" d="M 6 82 L 74 78 L 76 88 L 8 90 Z" fill="#14110f" opacity="0.55"/>
+<g id="candles-dish">
+<use id="candles-dish-line" href="#candles-dish-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#candles-dish-clip)">
+<use id="candles-dish-lit" href="#candles-dish-shape" fill="#8c9194"/>
+<path id="candles-dish-dark" d="M -8 70 L 30.8 70 L 34.8 88 L -8 88 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="candles-pool">
+<use id="candles-pool-line" href="#candles-pool-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#candles-pool-clip)">
+<use id="candles-pool-lit" href="#candles-pool-shape" fill="#c7ad84"/>
+<path id="candles-pool-dark" d="M 4 66 L 29.4 66 L 32.6 82 L 4 82 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="candles-tall">
+<use id="candles-tall-line" href="#candles-tall-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#candles-tall-clip)">
+<use id="candles-tall-lit" href="#candles-tall-shape" fill="#c7ad84"/>
+<path id="candles-tall-dark" d="M 13 35.5 L 27.4 35.4 L 29.8 58.9 L 28.8 60.3 L 30.6 78.1 L 13 78 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="candles-tall-run" d="M 25.5 42 L 28.5 42 L 27.5 49 Z" fill="#c7ad84"/>
+<g id="candles-tall-flame">
+<use id="candles-tall-flame-line" href="#candles-tall-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#candles-tall-flame-clip)">
+<use id="candles-tall-flame-lit" href="#candles-tall-flame-shape" fill="#eeb040"/>
+<path id="candles-tall-hot" d="M 29 38 L 30 32 L 31 38 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="candles-mid">
+<use id="candles-mid-line" href="#candles-mid-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#candles-mid-clip)">
+<use id="candles-mid-lit" href="#candles-mid-shape" fill="#c7ad84"/>
+<path id="candles-mid-dark" d="M 31.5 45.5 L 45.6 45.4 L 47.9 63.1 L 47 64.3 L 48.6 76.1 L 31.5 76 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="candles-mid-run" d="M 44 52 L 47 52 L 46 59 Z" fill="#c7ad84"/>
+<g id="candles-mid-flame">
+<use id="candles-mid-flame-line" href="#candles-mid-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#candles-mid-flame-clip)">
+<use id="candles-mid-flame-lit" href="#candles-mid-flame-shape" fill="#eeb040"/>
+<path id="candles-mid-hot" d="M 47 48 L 48 42 L 49 48 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="candles-low">
+<use id="candles-low-line" href="#candles-low-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#candles-low-clip)">
+<use id="candles-low-lit" href="#candles-low-shape" fill="#c7ad84"/>
+<path id="candles-low-dark" d="M 46 59.5 L 59.4 59.5 L 63 78 L 46 78 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="candles-low-run" d="M 58.5 66 L 61.5 66 L 60.5 73 Z" fill="#c7ad84"/>
+<g id="candles-low-flame">
+<use id="candles-low-flame-line" href="#candles-low-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#candles-low-flame-clip)">
+<use id="candles-low-flame-lit" href="#candles-low-flame-shape" fill="#eeb040"/>
+<path id="candles-low-hot" d="M 61 62 L 62 56 L 63 62 Z" fill="#ffe6a2"/>
+</g>
+</g>
+</svg>

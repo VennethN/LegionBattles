@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="inn-window" width="156" height="160" viewBox="0 0 156 160">
+<defs>
+<path id="inn-window-frame-shape" d="M 8 9 L 142 7 L 143 150 L 7 150 Z"/>
+<clipPath id="inn-window-frame-clip"><use href="#inn-window-frame-shape"/></clipPath>
+<path id="inn-window-night-shape" d="M 20 20.5 L 130 19.5 L 130.5 138 L 19.5 138 Z"/>
+<clipPath id="inn-window-night-clip"><use href="#inn-window-night-shape"/></clipPath>
+<path id="inn-window-mullion-shape" d="M 72 20.3 L 78 19.7 L 78.3 138 L 71.7 138 Z"/>
+<clipPath id="inn-window-mullion-clip"><use href="#inn-window-mullion-shape"/></clipPath>
+<path id="inn-window-transom-shape" d="M 20 76.3 L 130 75.7 L 130.3 82 L 19.7 82 Z"/>
+<clipPath id="inn-window-transom-clip"><use href="#inn-window-transom-shape"/></clipPath>
+<path id="inn-window-sill-shape" d="M 0 147 L 150 145 L 151 156 L -1 156 Z"/>
+<clipPath id="inn-window-sill-clip"><use href="#inn-window-sill-shape"/></clipPath>
+<path id="inn-window-sill-bottle-shape" d="M 113 146 L 113 134 L 116 131 L 116 126 L 120 126 L 120 131 L 123 134 L 123 146 Z"/>
+<clipPath id="inn-window-sill-bottle-clip"><use href="#inn-window-sill-bottle-shape"/></clipPath>
+<path id="inn-window-shutter-l-shape" d="M 8 10 L 1 18 L 1 142 L 8 148 Z"/>
+<clipPath id="inn-window-shutter-l-clip"><use href="#inn-window-shutter-l-shape"/></clipPath>
+<path id="inn-window-shutter-r-shape" d="M 142 10 L 152 18 L 152 142 L 142 148 Z"/>
+<clipPath id="inn-window-shutter-r-clip"><use href="#inn-window-shutter-r-shape"/></clipPath>
+</defs>
+<g id="inn-window-frame">
+<use id="inn-window-frame-line" href="#inn-window-frame-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#inn-window-frame-clip)">
+<use id="inn-window-frame-lit" href="#inn-window-frame-shape" fill="#6f5c46"/>
+<path id="inn-window-frame-mid" d="M -5 3 L 36.4 1.6 L 57.6 57.6 L 53.4 68.3 L 86.4 155.4 L -5 154 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="inn-window-frame-dark" d="M -5 3 L 36.4 1.6 L 57.6 57.6 L 53.4 68.3 L 86.4 155.4 L -5 154 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="inn-window-night">
+<use id="inn-window-night-line" href="#inn-window-night-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#inn-window-night-clip)">
+<use id="inn-window-night-lit" href="#inn-window-night-shape" fill="#33424b"/>
+<path id="inn-window-night-dark" d="M 7.5 15.5 L 32.7 14.1 L 60 87 L 55.7 97.7 L 72.9 143.4 L 7.5 142 Z" fill="#14110f"/>
+<path id="inn-window-moon" d="M 96 36 L 104 40 L 108 50 L 104 60 L 96 64 L 100 56 L 101 48 L 99 42 Z" fill="#b4bfc0"/>
+<path id="inn-window-hills" d="M 20 120 L 50 106 L 80 114 L 110 100 L 130 108 L 130 138 L 20 138 Z" fill="#242f36"/>
+</g>
+</g>
+<path id="inn-window-stars" d="M 39.1 36.4 L 41 38 L 40.9 35.6 Z M 59.1 52.4 L 61 54 L 60.9 51.6 Z M 33.1 70.4 L 35 72 L 34.9 69.6 Z M 79.1 30.4 L 81 32 L 80.9 29.6 Z" fill="#84939a"/>
+<g id="inn-window-mullion">
+<use id="inn-window-mullion-line" href="#inn-window-mullion-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#inn-window-mullion-clip)">
+<use id="inn-window-mullion-lit" href="#inn-window-mullion-shape" fill="#6f5c46"/>
+<path id="inn-window-mullion-dark" d="M 59.7 15.7 L 73.3 15.7 L 74.4 66.2 L 73.7 67.1 L 75.4 142 L 59.7 142 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="inn-window-transom">
+<use id="inn-window-transom-line" href="#inn-window-transom-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#inn-window-transom-clip)">
+<use id="inn-window-transom-lit" href="#inn-window-transom-shape" fill="#6f5c46"/>
+<path id="inn-window-transom-dark" d="M 7.7 71.7 L 62.7 71.7 L 65.2 86 L 7.7 86 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="inn-window-sill">
+<use id="inn-window-sill-line" href="#inn-window-sill-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#inn-window-sill-clip)">
+<use id="inn-window-sill-lit" href="#inn-window-sill-shape" fill="#6f5c46"/>
+<path id="inn-window-sill-dark" d="M -13 141 L 72.8 141 L 77.2 160 L -13 160 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="inn-window-sill-bottle">
+<use id="inn-window-sill-bottle-line" href="#inn-window-sill-bottle-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#inn-window-sill-bottle-clip)">
+<use id="inn-window-sill-bottle-lit" href="#inn-window-sill-bottle-shape" fill="#727646"/>
+<path id="inn-window-sill-bottle-dark" d="M 101 122 L 116 121.9 L 118.4 137.1 L 117.2 138.8 L 119 150.1 L 101 150 Z" fill="#14110f"/>
+<path id="inn-window-sill-bottle-gleam" d="M 114 135 L 116 135 L 116 142 L 114 142 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="inn-window-shutter-l">
+<use id="inn-window-shutter-l-line" href="#inn-window-shutter-l-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#inn-window-shutter-l-clip)">
+<use id="inn-window-shutter-l-lit" href="#inn-window-shutter-l-shape" fill="#6f5c46"/>
+<path id="inn-window-shutter-l-dark" d="M -11 6 L 4.2 6 L 5.6 72.7 L 4.6 73.9 L 6.2 152 L -11 152 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="inn-window-shutter-r">
+<use id="inn-window-shutter-r-line" href="#inn-window-shutter-r-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#inn-window-shutter-r-clip)">
+<use id="inn-window-shutter-r-lit" href="#inn-window-shutter-r-shape" fill="#6f5c46"/>
+<path id="inn-window-shutter-r-dark" d="M 130 6 L 146.4 6 L 148.3 69.8 L 147.2 71.2 L 149.6 152 L 130 152 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="agnes-legs-sat" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="agnes-legs-sat-sat-back-thigh-shape" d="M 121.6 162 L 139.3 162.5 L 163.6 166.3 L 162.4 181.7 L 138 181 L 120.4 180 Z"/>
+<clipPath id="agnes-legs-sat-sat-back-thigh-clip"><use href="#agnes-legs-sat-sat-back-thigh-shape"/></clipPath>
+<path id="agnes-legs-sat-sat-back-shin-shape" d="M 169.6 168.9 L 169.4 178.8 L 167.3 192.3 L 154.7 191.7 L 154.4 178.1 L 154.4 168.3 Z"/>
+<clipPath id="agnes-legs-sat-sat-back-shin-clip"><use href="#agnes-legs-sat-sat-back-shin-shape"/></clipPath>
+<path id="agnes-legs-sat-sat-back-boot-shape" d="M 152.3 191 L 168.7 189 L 172.1 194 L 180.4 197 L 186.4 203 L 186.4 207 L 149.5 207 L 147.5 197 Z"/>
+<clipPath id="agnes-legs-sat-sat-back-boot-clip"><use href="#agnes-legs-sat-sat-back-boot-shape"/></clipPath>
+<path id="agnes-legs-sat-sat-front-thigh-shape" d="M 130.6 165 L 148.3 165.5 L 172.6 169.3 L 171.4 184.7 L 147 184 L 129.4 183 Z"/>
+<clipPath id="agnes-legs-sat-sat-front-thigh-clip"><use href="#agnes-legs-sat-sat-front-thigh-shape"/></clipPath>
+<path id="agnes-legs-sat-sat-front-shin-shape" d="M 178.6 172 L 178.4 180.6 L 176.3 192.3 L 163.7 191.7 L 163.4 179.8 L 163.4 171.2 Z"/>
+<clipPath id="agnes-legs-sat-sat-front-shin-clip"><use href="#agnes-legs-sat-sat-front-shin-shape"/></clipPath>
+<path id="agnes-legs-sat-sat-front-boot-shape" d="M 161.3 191 L 177.7 189 L 181.1 194 L 189.4 197 L 195.4 203 L 195.4 207 L 158.5 207 L 156.5 197 Z"/>
+<clipPath id="agnes-legs-sat-sat-front-boot-clip"><use href="#agnes-legs-sat-sat-front-boot-shape"/></clipPath>
+</defs>
+<g id="agnes-legs-sat-sat-back-thigh">
+<use id="agnes-legs-sat-sat-back-thigh-line" href="#agnes-legs-sat-sat-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-legs-sat-sat-back-thigh-clip)">
+<use id="agnes-legs-sat-sat-back-thigh-lit" href="#agnes-legs-sat-sat-back-thigh-shape" fill="#4f4944"/>
+<path id="agnes-legs-sat-sat-back-thigh-mid" d="M 117.9 172.2 L 139.6 173.8 L 142.6 176.9 L 165.7 178.5 L 164.5 195 L 116.5 191.6 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="agnes-legs-sat-sat-back-thigh-dark" d="M 117.9 172.2 L 139.6 173.8 L 142.6 176.9 L 165.7 178.5 L 164.5 195 L 116.5 191.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-legs-sat-sat-back-shin">
+<use id="agnes-legs-sat-sat-back-shin-line" href="#agnes-legs-sat-sat-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-legs-sat-sat-back-shin-clip)">
+<use id="agnes-legs-sat-sat-back-shin-lit" href="#agnes-legs-sat-sat-back-shin-shape" fill="#4f4944"/>
+<path id="agnes-legs-sat-sat-back-shin-mid" d="M 160.8 165.5 L 160 183.6 L 157.8 185.9 L 157.4 194.8 L 143.3 194.2 L 144.6 164.9 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="agnes-legs-sat-sat-back-shin-dark" d="M 160.8 165.5 L 160 183.6 L 157.8 185.9 L 157.4 194.8 L 143.3 194.2 L 144.6 164.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-legs-sat-sat-back-boot">
+<use id="agnes-legs-sat-sat-back-boot-line" href="#agnes-legs-sat-sat-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-legs-sat-sat-back-boot-clip)">
+<use id="agnes-legs-sat-sat-back-boot-lit" href="#agnes-legs-sat-sat-back-boot-shape" fill="#7b5b3d"/>
+<path id="agnes-legs-sat-sat-back-boot-mid" d="M 141.5 186 L 163.5 186 L 164.7 193 L 172.7 199 L 190.4 202 L 190.4 211 L 141.5 211 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="agnes-legs-sat-sat-back-boot-dark" d="M 141.5 186 L 163.5 186 L 164.7 193 L 172.7 199 L 190.4 202 L 190.4 211 L 141.5 211 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-legs-sat-sat-back-boot-sole" d="M 147.5 204 L 187.4 204 L 187.4 208.5 L 147.5 208.5 Z" fill="#14110f"/>
+<path id="agnes-legs-sat-sat-back-boot-crease" d="M 171.3 192.8 L 163.5 198 L 172.4 195.2 Z" fill="#14110f"/>
+<g id="agnes-legs-sat-sat-front-thigh">
+<use id="agnes-legs-sat-sat-front-thigh-line" href="#agnes-legs-sat-sat-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-legs-sat-sat-front-thigh-clip)">
+<use id="agnes-legs-sat-sat-front-thigh-lit" href="#agnes-legs-sat-sat-front-thigh-shape" fill="#4f4944"/>
+<path id="agnes-legs-sat-sat-front-thigh-mid" d="M 127.3 170 L 155.9 172 L 158.6 174.8 L 175.1 176 L 173.9 192.7 L 125.9 189.2 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="agnes-legs-sat-sat-front-thigh-dark" d="M 127.3 170 L 155.9 172 L 158.6 174.8 L 175.1 176 L 173.9 192.7 L 125.9 189.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-legs-sat-sat-front-shin">
+<use id="agnes-legs-sat-sat-front-shin-line" href="#agnes-legs-sat-sat-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-legs-sat-sat-front-shin-clip)">
+<use id="agnes-legs-sat-sat-front-shin-lit" href="#agnes-legs-sat-sat-front-shin-shape" fill="#4f4944"/>
+<path id="agnes-legs-sat-sat-front-shin-mid" d="M 174.3 168.8 L 173.6 183.8 L 171.3 186 L 170.9 195 L 156.9 194.4 L 158.2 168 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="agnes-legs-sat-sat-front-shin-dark" d="M 174.3 168.8 L 173.6 183.8 L 171.3 186 L 170.9 195 L 156.9 194.4 L 158.2 168 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="agnes-legs-sat-sat-front-boot">
+<use id="agnes-legs-sat-sat-front-boot-line" href="#agnes-legs-sat-sat-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-legs-sat-sat-front-boot-clip)">
+<use id="agnes-legs-sat-sat-front-boot-lit" href="#agnes-legs-sat-sat-front-boot-shape" fill="#7b5b3d"/>
+<path id="agnes-legs-sat-sat-front-boot-mid" d="M 150.5 186 L 172.5 186 L 173.7 193 L 181.7 199 L 199.4 202 L 199.4 211 L 150.5 211 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="agnes-legs-sat-sat-front-boot-dark" d="M 150.5 186 L 172.5 186 L 173.7 193 L 181.7 199 L 199.4 202 L 199.4 211 L 150.5 211 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="agnes-legs-sat-sat-front-boot-sole" d="M 156.5 204 L 196.4 204 L 196.4 208.5 L 156.5 208.5 Z" fill="#14110f"/>
+<path id="agnes-legs-sat-sat-front-boot-crease" d="M 180.3 192.8 L 172.5 198 L 181.4 195.2 Z" fill="#14110f"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="gravemarker-candle" width="312" height="376" viewBox="-60 -60 312 376">
+<defs>
+<path id="gravemarker-candle-candle-shape" d="M 118 230 L 126 230 L 126 212 L 118 212 Z"/>
+<clipPath id="gravemarker-candle-candle-clip"><use href="#gravemarker-candle-candle-shape"/></clipPath>
+</defs>
+<g id="gravemarker-candle-candle">
+<use id="gravemarker-candle-candle-line" href="#gravemarker-candle-candle-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#gravemarker-candle-candle-clip)">
+<use id="gravemarker-candle-candle-lit" href="#gravemarker-candle-candle-shape" fill="#cfc5a8"/>
+<path id="gravemarker-candle-candle-dark" d="M 106 208 L 119.2 207.9 L 120.8 219.7 L 119.8 221.2 L 121.6 234.1 L 106 234 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="gravemarker-candle-flame" d="M 120 212 L 122 202 L 125 212 Z" fill="#eeb040"/>
+<path id="gravemarker-candle-heart" d="M 121 211 L 122 206 L 123.6 211 Z" fill="#ffe6a2"/>
+</svg>

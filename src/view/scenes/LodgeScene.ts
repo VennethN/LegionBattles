@@ -23,7 +23,7 @@ import { CARDS, SHEET, portraitFrame, sheet } from '../art/Sheet';
 import { commit, save, takeContract, takePosting, theContract } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
-import { uiIcon } from '../ui/grim';
+import { uiIcon, uiKey } from '../ui/grim';
 import { LairScene } from './LairScene';
 import { Talk } from '../../game/talk';
 import { Tavern } from '../Tavern';
@@ -78,11 +78,11 @@ export class LodgeScene extends Phaser.Scene {
     });
     const coinY = view.tall ? 82 : 34;
     const coinX = view.tall ? w - 70 : w - 130;
-    this.add.image(coinX - 34, coinY, SHEET, 'icon/coin').setScale(0.3);
+    this.add.image(coinX - 34, coinY, uiKey('icon-coin')).setDisplaySize(30, 30);
     label(this, coinX, coinY - 1, String(s.coin), { size: 20, color: HOLY.fill });
     if (!view.tall) {
       const mute = this.add.container(w - 36, 34);
-      mute.add([slabImage(this, -22, -22, 44, 44, BONE, 12, 5), this.add.image(0, -2, SHEET, s.sound ? 'icon/sound' : 'icon/mute').setScale(0.26).setTint(hex(OUTLINE))]);
+      mute.add([slabImage(this, -22, -22, 44, 44, BONE, 12, 5), this.add.image(0, -2, uiKey(s.sound ? 'icon-sound' : 'icon-mute')).setDisplaySize(30, 30)]);
       mute.setSize(44, 44).setInteractive({ useHandCursor: true }).on('pointerup', () => {
         s.sound = !s.sound;
         s.music = s.sound;
@@ -313,7 +313,7 @@ export class LodgeScene extends Phaser.Scene {
       else row.add(this.add.rectangle(0, 0, rw + 4, rowH + 4).setStrokeStyle(3, 0xd8a24a));
       // Nails at its corners.
       for (const sx of [-1, 1]) row.add(this.add.circle(sx * (rw / 2 - 7), -rowH / 2 + 7, 2.5, 0x2a221a).setStrokeStyle(1, 0x8a7a60));
-      const face = this.add.image(-rw / 2 + 34, rowH / 2 - 6, CARDS, isGrim(MONSTER_ART[p.monster]) ? portraitFrame('grim', (MONSTER_ART[p.monster] as { grim: string }).grim) : portraitFrame('blue', 'militia')).setOrigin(0.5, 1);
+      const face = this.add.image(-rw / 2 + 34, rowH / 2 - 6, CARDS, isGrim(MONSTER_ART[p.monster]) ? portraitFrame('grim', (MONSTER_ART[p.monster] as { grim: string }).grim) : portraitFrame('grim', 'sexton')).setOrigin(0.5, 1);
       face.setScale(Math.min((rowH - 10) / face.height, 56 / face.width));
       row.add(face);
       const name = label(this, -rw / 2 + 68, -rowH / 2 + 18, byId(MONSTERS, p.monster).name.replace(/^The /, '').toUpperCase(), { size: 17, align: 'left', color: INK, stroke: null, face: 'display' });
@@ -324,7 +324,7 @@ export class LodgeScene extends Phaser.Scene {
       const subT = label(this, -rw / 2 + 74 + Math.max(3, poster.danger) * 13 + 6, rowH / 2 - 18, sub, { size: 15, align: 'left', color: '#5a3a20', stroke: null, face: 'display' });
       subT.setScale(Math.min(1, (rw - 160 - Math.max(3, poster.danger) * 13) / subT.width));
       row.add(subT);
-      row.add(this.add.image(rw / 2 - 58, -rowH / 2 + 18, SHEET, 'icon/coin').setScale(0.2));
+      row.add(this.add.image(rw / 2 - 58, -rowH / 2 + 18, uiKey('icon-coin')).setDisplaySize(20, 20));
       row.add(label(this, rw / 2 - 12, -rowH / 2 + 18, String(poster.coin), { size: 17, align: 'right', color: '#3a2410', stroke: null, face: 'display' }));
       row.setSize(rw, rowH).setInteractive({ useHandCursor: true });
       row.on('pointerup', () => {
@@ -673,7 +673,7 @@ export class LodgeScene extends Phaser.Scene {
     const sx = view.tall ? w / 2 : 150;
     const sy = view.tall ? by - 128 : by;
     if (!step) {
-      this.add.image(sx - 96, sy, SHEET, 'icon/sack').setScale(0.3);
+      this.add.image(sx - 96, sy, uiKey('icon-sack')).setDisplaySize(30, 30);
       label(this, sx - 70, sy - 1, `SUPPLY ${used} / ${all}`, { size: 20, align: 'left', color: used > all ? RUBY.fill : BONE.fill });
     }
     if (s.trophies.length && chosen) {

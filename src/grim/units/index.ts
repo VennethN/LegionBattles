@@ -6,8 +6,9 @@ import { MONSTERS } from './monsters';
 import { MUSTER } from './muster';
 import { TRADES } from './trades';
 import { LORDS } from './lords';
+import { FOLK } from './folk';
 
-export const UNIT_ART: UnitArt[] = [...HUNTERS, ...TRADES, ...MONSTERS, ...LORDS, ...MUSTER];
+export const UNIT_ART: UnitArt[] = [...HUNTERS, ...TRADES, ...MONSTERS, ...LORDS, ...MUSTER, ...FOLK];
 
 export function unit(id: string): UnitArt {
   const u = UNIT_ART.find((x) => x.id === id);

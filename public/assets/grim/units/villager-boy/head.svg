@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="villager-boy-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="villager-boy-head-face-shape" d="M 129 134.3 L 132.5 131.5 L 139.5 131.5 L 142.3 134.3 L 144.1 137.5 L 142.7 139.2 L 143.7 140.6 L 146.9 144.1 L 144.1 145.2 L 144.4 147.3 L 143.4 148 L 143.7 149.4 L 142 150.2 L 137.4 151.1 L 132.5 148.3 L 129.7 146.2 Z"/>
+<clipPath id="villager-boy-head-face-clip"><use href="#villager-boy-head-face-shape"/></clipPath>
+<path id="villager-boy-head-face-ear-shape" d="M 132.5 140.6 L 135 139.9 L 136 142.7 L 135 145.9 L 132.9 144.8 Z"/>
+<path id="villager-boy-head-cap-shape" d="M 120 140 L 120 126 L 132 118 L 146 120 L 150 130 L 160 134 L 146 136 L 128 144 Z"/>
+<clipPath id="villager-boy-head-cap-clip"><use href="#villager-boy-head-cap-shape"/></clipPath>
+</defs>
+<g id="villager-boy-head-face">
+<use id="villager-boy-head-face-line" href="#villager-boy-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#villager-boy-head-face-clip)">
+<use id="villager-boy-head-face-lit" href="#villager-boy-head-face-shape" fill="#c7ad84"/>
+<path id="villager-boy-head-face-mid" d="M 126.2 129.4 L 133.2 130.1 L 135.3 153.2 L 126.2 154.6 Z" transform="translate(2.1 -0.5)" fill="#927a58"/>
+<path id="villager-boy-head-face-dark" d="M 126.2 129.4 L 133.2 130.1 L 135.3 153.2 L 126.2 154.6 Z" fill="#14110f"/>
+<path id="villager-boy-head-face-cheek-plane" d="M 136.7 143.1 L 140.9 142.4 L 142.3 144.8 L 141.3 148.3 L 137.4 149.6 L 135.3 146.9 Z" fill="#927a58"/>
+<path id="villager-boy-head-face-chin-plane" d="M 140.2 149.4 L 143.7 149 L 142 150.2 L 138.8 150.6 Z" fill="#927a58"/>
+<path id="villager-boy-head-face-socket" d="M 144.4 137.1 L 134.6 136.4 L 135.3 141.3 L 138.8 143.1 L 140.9 141.3 L 143.4 140.5 Z" fill="#14110f"/>
+<path id="villager-boy-head-face-lines" d="M 142.1 144.9 L 141.3 148 L 143.2 145.4 Z M 133.6 148.2 L 138.8 150.2 L 134.2 147 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="villager-boy-head-face-nostril" d="M 144.4 144.6 L 142 143.8 L 143.7 145.7 Z" fill="#14110f"/>
+<g id="villager-boy-head-face-ear">
+<use id="villager-boy-head-face-ear-line" href="#villager-boy-head-face-ear-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="villager-boy-head-face-ear-lit" href="#villager-boy-head-face-ear-shape" fill="#c7ad84"/>
+</g>
+<path id="villager-boy-head-face-ear-hollow" d="M 133 141.8 L 134.6 144.5 L 134 141.4 Z" fill="#14110f"/>
+<g id="villager-boy-head-cap">
+<use id="villager-boy-head-cap-line" href="#villager-boy-head-cap-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#villager-boy-head-cap-clip)">
+<use id="villager-boy-head-cap-lit" href="#villager-boy-head-cap-shape" fill="#7b5b3d"/>
+<path id="villager-boy-head-cap-mid" d="M 108 114 L 134.8 113.4 L 139.4 128.4 L 136.6 133.7 L 141.2 148.6 L 108 148 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="villager-boy-head-cap-dark" d="M 108 114 L 134.8 113.4 L 139.4 128.4 L 136.6 133.7 L 141.2 148.6 L 108 148 Z" fill="#14110f"/>
+<path id="villager-boy-head-cap-cold" d="M 80 78 L 200 78 L 200 184 L 80 184 Z M 121.5 138.8 L 121.5 124.8 L 133.5 116.8 L 147.5 118.8 L 151.5 128.8 L 161.5 132.8 L 147.5 134.8 L 129.5 142.8 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</svg>

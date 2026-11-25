@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bowman-legs-sat" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="bowman-legs-sat-sat-back-thigh-shape" d="M 119.6 162 L 137.3 162.5 L 161.6 166.3 L 160.4 181.7 L 136 181 L 118.4 180 Z"/>
+<clipPath id="bowman-legs-sat-sat-back-thigh-clip"><use href="#bowman-legs-sat-sat-back-thigh-shape"/></clipPath>
+<path id="bowman-legs-sat-sat-back-shin-shape" d="M 167.6 168.9 L 167.4 178.8 L 165.3 192.3 L 152.7 191.7 L 152.4 178.1 L 152.4 168.3 Z"/>
+<clipPath id="bowman-legs-sat-sat-back-shin-clip"><use href="#bowman-legs-sat-sat-back-shin-shape"/></clipPath>
+<path id="bowman-legs-sat-sat-back-boot-shape" d="M 150.3 191 L 166.7 189 L 170.1 194 L 178.4 197 L 184.4 203 L 184.4 207 L 147.5 207 L 145.5 197 Z"/>
+<clipPath id="bowman-legs-sat-sat-back-boot-clip"><use href="#bowman-legs-sat-sat-back-boot-shape"/></clipPath>
+<path id="bowman-legs-sat-sat-front-thigh-shape" d="M 128.6 165 L 146.3 165.5 L 170.6 169.3 L 169.4 184.7 L 145 184 L 127.4 183 Z"/>
+<clipPath id="bowman-legs-sat-sat-front-thigh-clip"><use href="#bowman-legs-sat-sat-front-thigh-shape"/></clipPath>
+<path id="bowman-legs-sat-sat-front-shin-shape" d="M 176.6 172 L 176.4 180.6 L 174.3 192.3 L 161.7 191.7 L 161.4 179.8 L 161.4 171.2 Z"/>
+<clipPath id="bowman-legs-sat-sat-front-shin-clip"><use href="#bowman-legs-sat-sat-front-shin-shape"/></clipPath>
+<path id="bowman-legs-sat-sat-front-boot-shape" d="M 159.3 191 L 175.7 189 L 179.1 194 L 187.4 197 L 193.4 203 L 193.4 207 L 156.5 207 L 154.5 197 Z"/>
+<clipPath id="bowman-legs-sat-sat-front-boot-clip"><use href="#bowman-legs-sat-sat-front-boot-shape"/></clipPath>
+</defs>
+<g id="bowman-legs-sat-sat-back-thigh">
+<use id="bowman-legs-sat-sat-back-thigh-line" href="#bowman-legs-sat-sat-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bowman-legs-sat-sat-back-thigh-clip)">
+<use id="bowman-legs-sat-sat-back-thigh-lit" href="#bowman-legs-sat-sat-back-thigh-shape" fill="#6f5c46"/>
+<path id="bowman-legs-sat-sat-back-thigh-mid" d="M 115.9 172.2 L 137.6 173.8 L 140.6 176.9 L 163.7 178.5 L 162.5 195 L 114.5 191.6 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="bowman-legs-sat-sat-back-thigh-dark" d="M 115.9 172.2 L 137.6 173.8 L 140.6 176.9 L 163.7 178.5 L 162.5 195 L 114.5 191.6 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bowman-legs-sat-sat-back-shin">
+<use id="bowman-legs-sat-sat-back-shin-line" href="#bowman-legs-sat-sat-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bowman-legs-sat-sat-back-shin-clip)">
+<use id="bowman-legs-sat-sat-back-shin-lit" href="#bowman-legs-sat-sat-back-shin-shape" fill="#6f5c46"/>
+<path id="bowman-legs-sat-sat-back-shin-mid" d="M 158.8 165.5 L 158 183.6 L 155.8 185.9 L 155.4 194.8 L 141.3 194.2 L 142.6 164.9 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="bowman-legs-sat-sat-back-shin-dark" d="M 158.8 165.5 L 158 183.6 L 155.8 185.9 L 155.4 194.8 L 141.3 194.2 L 142.6 164.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bowman-legs-sat-sat-back-boot">
+<use id="bowman-legs-sat-sat-back-boot-line" href="#bowman-legs-sat-sat-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bowman-legs-sat-sat-back-boot-clip)">
+<use id="bowman-legs-sat-sat-back-boot-lit" href="#bowman-legs-sat-sat-back-boot-shape" fill="#7b5b3d"/>
+<path id="bowman-legs-sat-sat-back-boot-mid" d="M 139.5 186 L 161.5 186 L 162.7 193 L 170.7 199 L 188.4 202 L 188.4 211 L 139.5 211 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="bowman-legs-sat-sat-back-boot-dark" d="M 139.5 186 L 161.5 186 L 162.7 193 L 170.7 199 L 188.4 202 L 188.4 211 L 139.5 211 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bowman-legs-sat-sat-back-boot-sole" d="M 145.5 204 L 185.4 204 L 185.4 208.5 L 145.5 208.5 Z" fill="#14110f"/>
+<path id="bowman-legs-sat-sat-back-boot-crease" d="M 169.3 192.8 L 161.5 198 L 170.4 195.2 Z" fill="#14110f"/>
+<g id="bowman-legs-sat-sat-front-thigh">
+<use id="bowman-legs-sat-sat-front-thigh-line" href="#bowman-legs-sat-sat-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bowman-legs-sat-sat-front-thigh-clip)">
+<use id="bowman-legs-sat-sat-front-thigh-lit" href="#bowman-legs-sat-sat-front-thigh-shape" fill="#6f5c46"/>
+<path id="bowman-legs-sat-sat-front-thigh-mid" d="M 125.3 170 L 153.9 172 L 156.6 174.8 L 173.1 176 L 171.9 192.7 L 123.9 189.2 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="bowman-legs-sat-sat-front-thigh-dark" d="M 125.3 170 L 153.9 172 L 156.6 174.8 L 173.1 176 L 171.9 192.7 L 123.9 189.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bowman-legs-sat-sat-front-shin">
+<use id="bowman-legs-sat-sat-front-shin-line" href="#bowman-legs-sat-sat-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bowman-legs-sat-sat-front-shin-clip)">
+<use id="bowman-legs-sat-sat-front-shin-lit" href="#bowman-legs-sat-sat-front-shin-shape" fill="#6f5c46"/>
+<path id="bowman-legs-sat-sat-front-shin-mid" d="M 172.3 168.8 L 171.6 183.8 L 169.3 186 L 168.9 195 L 154.9 194.4 L 156.2 168 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="bowman-legs-sat-sat-front-shin-dark" d="M 172.3 168.8 L 171.6 183.8 L 169.3 186 L 168.9 195 L 154.9 194.4 L 156.2 168 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bowman-legs-sat-sat-front-boot">
+<use id="bowman-legs-sat-sat-front-boot-line" href="#bowman-legs-sat-sat-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bowman-legs-sat-sat-front-boot-clip)">
+<use id="bowman-legs-sat-sat-front-boot-lit" href="#bowman-legs-sat-sat-front-boot-shape" fill="#7b5b3d"/>
+<path id="bowman-legs-sat-sat-front-boot-mid" d="M 148.5 186 L 170.5 186 L 171.7 193 L 179.7 199 L 197.4 202 L 197.4 211 L 148.5 211 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="bowman-legs-sat-sat-front-boot-dark" d="M 148.5 186 L 170.5 186 L 171.7 193 L 179.7 199 L 197.4 202 L 197.4 211 L 148.5 211 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bowman-legs-sat-sat-front-boot-sole" d="M 154.5 204 L 194.4 204 L 194.4 208.5 L 154.5 208.5 Z" fill="#14110f"/>
+<path id="bowman-legs-sat-sat-front-boot-crease" d="M 178.3 192.8 L 170.5 198 L 179.4 195.2 Z" fill="#14110f"/>
+</svg>

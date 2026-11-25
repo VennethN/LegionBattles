@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sellsword-legs-sat" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="sellsword-legs-sat-sat-back-thigh-shape" d="M 121.7 163 L 139.4 163.4 L 163.6 167.4 L 162.4 184.6 L 137.9 184 L 120.3 183 Z"/>
+<clipPath id="sellsword-legs-sat-sat-back-thigh-clip"><use href="#sellsword-legs-sat-sat-back-thigh-shape"/></clipPath>
+<path id="sellsword-legs-sat-sat-back-shin-shape" d="M 170.4 170.4 L 170.3 180 L 168 193.3 L 154 192.7 L 153.6 179.3 L 153.6 169.6 Z"/>
+<clipPath id="sellsword-legs-sat-sat-back-shin-clip"><use href="#sellsword-legs-sat-sat-back-shin-shape"/></clipPath>
+<path id="sellsword-legs-sat-sat-back-boot-shape" d="M 151.4 192 L 169.6 190 L 172.9 195 L 182.8 198 L 188.8 204 L 188.8 208 L 147.8 208 L 145.8 198 Z"/>
+<clipPath id="sellsword-legs-sat-sat-back-boot-clip"><use href="#sellsword-legs-sat-sat-back-boot-shape"/></clipPath>
+<path id="sellsword-legs-sat-sat-front-thigh-shape" d="M 130.7 166 L 148.4 166.4 L 172.6 170.4 L 171.4 187.6 L 146.9 187 L 129.3 186 Z"/>
+<clipPath id="sellsword-legs-sat-sat-front-thigh-clip"><use href="#sellsword-legs-sat-sat-front-thigh-shape"/></clipPath>
+<path id="sellsword-legs-sat-sat-front-shin-shape" d="M 179.4 173.4 L 179.3 181.8 L 177 193.3 L 163 192.7 L 162.6 181 L 162.6 172.6 Z"/>
+<clipPath id="sellsword-legs-sat-sat-front-shin-clip"><use href="#sellsword-legs-sat-sat-front-shin-shape"/></clipPath>
+<path id="sellsword-legs-sat-sat-front-boot-shape" d="M 160.4 192 L 178.6 190 L 181.9 195 L 191.8 198 L 197.8 204 L 197.8 208 L 156.8 208 L 154.8 198 Z"/>
+<clipPath id="sellsword-legs-sat-sat-front-boot-clip"><use href="#sellsword-legs-sat-sat-front-boot-shape"/></clipPath>
+</defs>
+<g id="sellsword-legs-sat-sat-back-thigh">
+<use id="sellsword-legs-sat-sat-back-thigh-line" href="#sellsword-legs-sat-sat-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-legs-sat-sat-back-thigh-clip)">
+<use id="sellsword-legs-sat-sat-back-thigh-lit" href="#sellsword-legs-sat-sat-back-thigh-shape" fill="#4f4944"/>
+<path id="sellsword-legs-sat-sat-back-thigh-mid" d="M 117.9 174.4 L 139.6 176 L 142.9 179.4 L 165.7 181 L 164.3 199.4 L 116.4 195.9 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="sellsword-legs-sat-sat-back-thigh-dark" d="M 117.9 174.4 L 139.6 176 L 142.9 179.4 L 165.7 181 L 164.3 199.4 L 116.4 195.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sellsword-legs-sat-sat-back-shin">
+<use id="sellsword-legs-sat-sat-back-shin-line" href="#sellsword-legs-sat-sat-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-legs-sat-sat-back-shin-clip)">
+<use id="sellsword-legs-sat-sat-back-shin-lit" href="#sellsword-legs-sat-sat-back-shin-shape" fill="#4f4944"/>
+<path id="sellsword-legs-sat-sat-back-shin-mid" d="M 160.6 166.9 L 159.9 184.7 L 157.4 187.3 L 157 195.8 L 141.4 195.2 L 142.7 166.2 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="sellsword-legs-sat-sat-back-shin-dark" d="M 160.6 166.9 L 159.9 184.7 L 157.4 187.3 L 157 195.8 L 141.4 195.2 L 142.7 166.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sellsword-legs-sat-sat-back-boot">
+<use id="sellsword-legs-sat-sat-back-boot-line" href="#sellsword-legs-sat-sat-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-legs-sat-sat-back-boot-clip)">
+<use id="sellsword-legs-sat-sat-back-boot-lit" href="#sellsword-legs-sat-sat-back-boot-shape" fill="#7b5b3d"/>
+<path id="sellsword-legs-sat-sat-back-boot-mid" d="M 139.8 187 L 163.3 187 L 164.7 194 L 173.6 200 L 192.8 203 L 192.8 212 L 139.8 212 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="sellsword-legs-sat-sat-back-boot-dark" d="M 139.8 187 L 163.3 187 L 164.7 194 L 173.6 200 L 192.8 203 L 192.8 212 L 139.8 212 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sellsword-legs-sat-sat-back-boot-sole" d="M 145.8 205 L 189.8 205 L 189.8 209.5 L 145.8 209.5 Z" fill="#14110f"/>
+<path id="sellsword-legs-sat-sat-back-boot-crease" d="M 172.1 193.8 L 163.3 199 L 173.1 196.2 Z" fill="#14110f"/>
+<g id="sellsword-legs-sat-sat-front-thigh">
+<use id="sellsword-legs-sat-sat-front-thigh-line" href="#sellsword-legs-sat-sat-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-legs-sat-sat-front-thigh-clip)">
+<use id="sellsword-legs-sat-sat-front-thigh-lit" href="#sellsword-legs-sat-sat-front-thigh-shape" fill="#4f4944"/>
+<path id="sellsword-legs-sat-sat-front-thigh-mid" d="M 127.3 171.5 L 156 173.6 L 158.9 176.7 L 175.1 177.9 L 173.8 196.4 L 125.8 192.9 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="sellsword-legs-sat-sat-front-thigh-dark" d="M 127.3 171.5 L 156 173.6 L 158.9 176.7 L 175.1 177.9 L 173.8 196.4 L 125.8 192.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sellsword-legs-sat-sat-front-shin">
+<use id="sellsword-legs-sat-sat-front-shin-line" href="#sellsword-legs-sat-sat-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-legs-sat-sat-front-shin-clip)">
+<use id="sellsword-legs-sat-sat-front-shin-lit" href="#sellsword-legs-sat-sat-front-shin-shape" fill="#4f4944"/>
+<path id="sellsword-legs-sat-sat-front-shin-mid" d="M 174.7 170.2 L 173.9 184.9 L 171.4 187.4 L 171 196.1 L 155.4 195.3 L 156.7 169.3 Z" transform="translate(2.5 -0.6)" fill="#34302d"/>
+<path id="sellsword-legs-sat-sat-front-shin-dark" d="M 174.7 170.2 L 173.9 184.9 L 171.4 187.4 L 171 196.1 L 155.4 195.3 L 156.7 169.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="sellsword-legs-sat-sat-front-boot">
+<use id="sellsword-legs-sat-sat-front-boot-line" href="#sellsword-legs-sat-sat-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-legs-sat-sat-front-boot-clip)">
+<use id="sellsword-legs-sat-sat-front-boot-lit" href="#sellsword-legs-sat-sat-front-boot-shape" fill="#7b5b3d"/>
+<path id="sellsword-legs-sat-sat-front-boot-mid" d="M 148.8 187 L 172.3 187 L 173.7 194 L 182.6 200 L 201.8 203 L 201.8 212 L 148.8 212 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="sellsword-legs-sat-sat-front-boot-dark" d="M 148.8 187 L 172.3 187 L 173.7 194 L 182.6 200 L 201.8 203 L 201.8 212 L 148.8 212 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sellsword-legs-sat-sat-front-boot-sole" d="M 154.8 205 L 198.8 205 L 198.8 209.5 L 154.8 209.5 Z" fill="#14110f"/>
+<path id="sellsword-legs-sat-sat-front-boot-crease" d="M 181.1 193.8 L 172.3 199 L 182.1 196.2 Z" fill="#14110f"/>
+</svg>

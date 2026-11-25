@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-cross" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-cross-a-shape" d="M 6 14 L 14 6 L 58 50 L 50 58 Z"/>
+<clipPath id="icon-cross-a-clip"><use href="#icon-cross-a-shape"/></clipPath>
+<path id="icon-cross-b-shape" d="M 50 6 L 58 14 L 14 58 L 6 50 Z"/>
+<clipPath id="icon-cross-b-clip"><use href="#icon-cross-b-shape"/></clipPath>
+</defs>
+<g id="icon-cross-a">
+<use id="icon-cross-a-line" href="#icon-cross-a-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-cross-a-clip)">
+<use id="icon-cross-a-lit" href="#icon-cross-a-shape" fill="#7d312b"/>
+<use id="icon-cross-a-rim" href="#icon-cross-a-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-cross-a-lit-over" href="#icon-cross-a-shape" transform="translate(-0.96 0.72)" fill="#7d312b"/>
+<path id="icon-cross-a-dark" d="M -6 2 L 13.3 1.4 L 16.7 23.3 L 10.2 31.7 L 15.1 62.6 L -6 62 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-cross-b">
+<use id="icon-cross-b-line" href="#icon-cross-b-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-cross-b-clip)">
+<use id="icon-cross-b-lit" href="#icon-cross-b-shape" fill="#7d312b"/>
+<use id="icon-cross-b-rim" href="#icon-cross-b-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-cross-b-lit-over" href="#icon-cross-b-shape" transform="translate(-0.96 0.72)" fill="#7d312b"/>
+<path id="icon-cross-b-dark" d="M -6 2 L 12.7 1.5 L 16.9 28.7 L 11.7 36.7 L 15.7 62.5 L -6 62 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

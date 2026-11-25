@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cart-sheet" width="480" height="416" viewBox="-80 -80 480 416">
+<defs>
+<path id="cart-sheet-sheet-shape" d="M 96 128 L 150 114 L 192 124 L 210 136 L 198 142 L 178 134 L 140 132 L 108 140 Z"/>
+<clipPath id="cart-sheet-sheet-clip"><use href="#cart-sheet-sheet-shape"/></clipPath>
+</defs>
+<g id="cart-sheet-sheet">
+<use id="cart-sheet-sheet-line" href="#cart-sheet-sheet-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-sheet-sheet-clip)">
+<use id="cart-sheet-sheet-lit" href="#cart-sheet-sheet-shape" fill="#7d312b"/>
+<path id="cart-sheet-sheet-mid" d="M 84 110 L 138.5 109.2 L 142.9 123.4 L 139.2 129.3 L 144.7 146.8 L 84 146 Z" transform="translate(3 -0.72)" fill="#551f1c"/>
+<path id="cart-sheet-sheet-dark" d="M 84 110 L 138.5 109.2 L 142.9 123.4 L 139.2 129.3 L 144.7 146.8 L 84 146 Z" fill="#14110f"/>
+<path id="cart-sheet-sheet-fold" d="M 129.2 122.3 L 134 134 L 130.8 121.7 Z M 167.3 122.4 L 174 134 L 168.7 121.6 Z" fill="#551f1c"/>
+</g>
+</g>
+<path id="cart-sheet-rope" d="M 84 136 L 140 120 L 214 140" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

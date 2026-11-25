@@ -14,8 +14,7 @@ import {
   ABILITIES, ATTACK, BLEED, BUILDINGS, CAMP, CART, CART_ROAD, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
   TELL_FLOOR, VARIANTS, VILLAGER, byId,
   type AbilityDef, type AllyDef, type AttackDef, type BlowDef, type BuildingDef, type HelperDef, type HunterDef, type LessonDef, type LessonStep, type Mark, type MonsterDef, type ReinforcementDef,
-  type ShapeDef, type TaskKind, type VariantDef,
-} from './content';
+  type ShapeDef, type TaskKind, type VariantDef, ROOM } from './content';
 import { Bot } from './bot';
 import { Rng } from './rng';
 import { dist, inside, turn } from './geometry';
@@ -978,6 +977,7 @@ export class Hunt {
     this.stepTells(dt);
     this.stepHelpers(dt);
     this.stepAllies(dt);
+    this.makeRoom();
     this.stepBuildings(dt);
     this.stepShots(dt);
     this.stepGround(dt);
@@ -1175,6 +1175,15 @@ export class Hunt {
     const e = FIELD.edge;
     p.x = Math.max(e, Math.min(this.w - e, p.x));
     p.y = Math.max(e, Math.min(this.h - e, p.y));
+  }
+
+  /** Nobody stands on the player: helpers, allies and partners that came closer than ROOM are put back to it. */
+  private makeRoom(): void {
+    const h = this.hunter;
+    if (h.down) return;
+    for (const f of this.helpers) if (!f.def.still) this.push(f, h.x, h.y, ROOM);
+    for (const a of this.allies) this.push(a, h.x, h.y, ROOM);
+    for (const p of this.party) if (p.index !== 0 && !p.down) this.push(p, h.x, h.y, ROOM);
   }
 
   private push(p: { x: number; y: number }, x: number, y: number, r: number): void {

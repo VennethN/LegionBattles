@@ -1,16 +1,22 @@
 // Which small picture stands for what: every ability, and what the screens
-// name besides. The art build writes exactly the pictures named here
-// (scripts/art.game.ts), and a test holds that each is drawn.
+// name besides. All are the Grim kit's own icons (src/grim/interface.ts),
+// loaded as interface pieces (src/view/ui/grim.ts); a test holds that each
+// is drawn and that each one a screen names is on this list.
 
-/** The picture on each ability's button, by the ability's name. */
-export const ABILITY_ICONS: Record<string, string> = {
-  brace: 'shield', reap: 'burst', jawtrap: 'lock', tarflask: 'keg', flare: 'spark', lamp: 'candle', seton: 'chevrons', heel: 'herb',
-};
+import { ABILITIES } from '../game/content';
 
-export const abilityIcon = (id: string): string => `icon/${ABILITY_ICONS[id] ?? 'star'}`;
+/** The kit's icon on each ability's button, by the ability's name: each has its own, drawn as what it is. */
+export const ABILITY_ICONS: Record<string, string> = Object.fromEntries(ABILITIES.map((a) => [a.id, `ability-${a.id}`]));
 
-/** The pictures the screens ask for besides those. */
-const OTHER = ['coin', 'heart', 'sack', 'boot', 'horn', 'lock', 'check', 'cog', 'sound', 'mute', 'hold', 'trophy', 'star', 'sword', 'cross', 'arrow', 'hourglass', 'banner'];
+/** The key of the picture of an ability, ready to show. */
+export const abilityIcon = (id: string): string => `ui:icon-${ABILITY_ICONS[id] ?? 'star'}`;
 
-/** Every picture the game asks for by name, without the "icon/" in front: what the art build writes. */
-export const ICONS_USED: ReadonlySet<string> = new Set([...Object.values(ABILITY_ICONS), ...OTHER]);
+/** The kit's icons the screens ask for besides those, by name without the "icon-" in front. */
+export const OTHER_ICONS = [
+  'attack', 'dodge', 'horn', 'pikemen', 'crossbowmen', 'sappers', 'barricade', 'watchfire', 'bellpost', 'ballista', 'supply', 'coin',
+  'trophy-spade', 'trophy-antler', 'trophy-silk', 'trophy-bellrope', 'trophy-grate', 'trophy-shard',
+  'heart', 'sack', 'lock', 'check', 'cog', 'sound', 'mute', 'hold', 'trophy', 'star', 'sword', 'cross', 'arrow', 'hourglass', 'banner',
+] as const;
+
+/** Every icon the game shows, by the kit's name for it: what is loaded. */
+export const ICONS_USED: ReadonlySet<string> = new Set([...Object.values(ABILITY_ICONS), ...OTHER_ICONS].map((n) => `icon-${n}`));

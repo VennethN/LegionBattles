@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="notice-board" width="172" height="146" viewBox="0 0 172 146">
+<defs>
+<path id="notice-board-board-shape" d="M 6 11 L 164 9 L 165 132 L 5 132 Z"/>
+<clipPath id="notice-board-board-clip"><use href="#notice-board-board-shape"/></clipPath>
+<path id="notice-board-frame-shape" d="M 0 4 L 170 0 L 170 140 L 0 144 L 0 4 L 8 12 L 8 132 L 162 130 L 162 8 L 8 12 Z"/>
+<clipPath id="notice-board-frame-clip"><use href="#notice-board-frame-shape" clip-rule="evenodd"/></clipPath>
+<path id="notice-board-notice-0-shape" d="M 18 18.8 L 64 21.2 L 62.4 74 L 16.4 76 Z"/>
+<clipPath id="notice-board-notice-0-clip"><use href="#notice-board-notice-0-shape"/></clipPath>
+<path id="notice-board-notice-1-shape" d="M 70 16.9 L 112 15.1 L 113.2 62 L 71.2 64 Z"/>
+<clipPath id="notice-board-notice-1-clip"><use href="#notice-board-notice-1-shape"/></clipPath>
+<path id="notice-board-notice-2-shape" d="M 118 21.4 L 154 22.6 L 153.2 72 L 117.2 74 Z"/>
+<clipPath id="notice-board-notice-2-clip"><use href="#notice-board-notice-2-shape"/></clipPath>
+<path id="notice-board-notice-3-shape" d="M 28 75.5 L 76 72.5 L 78 124 L 30 126 Z"/>
+<clipPath id="notice-board-notice-3-clip"><use href="#notice-board-notice-3-shape"/></clipPath>
+<path id="notice-board-notice-4-shape" d="M 84 65.1 L 124 66.9 L 122.8 122 L 82.8 124 Z"/>
+<clipPath id="notice-board-notice-4-clip"><use href="#notice-board-notice-4-shape"/></clipPath>
+<path id="notice-board-notice-5-shape" d="M 126 81.2 L 156 78.8 L 157.6 120 L 127.6 122 Z"/>
+<clipPath id="notice-board-notice-5-clip"><use href="#notice-board-notice-5-shape"/></clipPath>
+<path id="notice-board-seal-shape" d="M 96 104 L 104 100 L 112 106 L 110 116 L 100 118 L 94 112 Z"/>
+<clipPath id="notice-board-seal-clip"><use href="#notice-board-seal-shape"/></clipPath>
+</defs>
+<g id="notice-board-board">
+<use id="notice-board-board-line" href="#notice-board-board-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#notice-board-board-clip)">
+<use id="notice-board-board-lit" href="#notice-board-board-shape" fill="#6f5c46"/>
+<path id="notice-board-board-mid" d="M 0 90 L 0 91.7 L 62.3 90.2 L 65.9 86.7 L 170 84.3 L 170 140 L 0 140 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="notice-board-board-dark" d="M 0 90 L 0 91.7 L 62.3 90.2 L 65.9 86.7 L 170 84.3 L 170 140 L 0 140 Z" fill="#14110f"/>
+<path id="notice-board-planks" d="M 8 51 L 162 48 L 8 49 Z M 8 93 L 162 90 L 8 91 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="notice-board-frame">
+<use id="notice-board-frame-line" href="#notice-board-frame-shape" transform="translate(-0.99 0.74)" fill="#14110f" fill-rule="evenodd" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#notice-board-frame-clip)">
+<use id="notice-board-frame-lit" href="#notice-board-frame-shape" fill="#6f5c46" fill-rule="evenodd"/>
+<path id="notice-board-frame-dark" d="M -12 -4 L 59.2 -5.1 L 83.6 59.4 L 80.2 68.2 L 110.8 149.1 L -12 148 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="notice-board-notice-0">
+<use id="notice-board-notice-0-line" href="#notice-board-notice-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#notice-board-notice-0-clip)">
+<use id="notice-board-notice-0-lit" href="#notice-board-notice-0-shape" fill="#d8cbab"/>
+<path id="notice-board-notice-0-dark" d="M 4.4 14.8 L 23.7 13.7 L 35 48.8 L 30.5 58.8 L 37.6 81.1 L 4.4 80 Z" fill="#14110f"/>
+<path id="notice-board-notice-0-lines" d="M 24 30.8 L 56 29 L 24 29.2 Z M 24 38.8 L 52 37 L 24 37.2 Z M 24 46.8 L 58 45 L 24 45.2 Z M 24 54.8 L 50 53 L 24 53.2 Z" fill="#34302d"/>
+</g>
+</g>
+<path id="notice-board-notice-0-nail" d="M 39 22 L 43 22 L 43 26 L 39 26 Z" fill="#5b6165"/>
+<g id="notice-board-notice-1">
+<use id="notice-board-notice-1-line" href="#notice-board-notice-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#notice-board-notice-1-clip)">
+<use id="notice-board-notice-1-lit" href="#notice-board-notice-1-shape" fill="#d8cbab"/>
+<path id="notice-board-notice-1-dark" d="M 58 11.1 L 76.3 10.1 L 83.6 31.9 L 80 40.2 L 89.6 69 L 58 68 Z" fill="#14110f"/>
+<path id="notice-board-notice-1-lines" d="M 76 26.8 L 104 25 L 76 25.2 Z M 76 34.8 L 100 33 L 76 33.2 Z M 76 42.8 L 106 41 L 76 41.2 Z M 76 50.8 L 98 49 L 76 49.2 Z" fill="#34302d"/>
+</g>
+</g>
+<path id="notice-board-notice-1-nail" d="M 89 18 L 93 18 L 93 22 L 89 22 Z" fill="#5b6165"/>
+<g id="notice-board-notice-2">
+<use id="notice-board-notice-2-line" href="#notice-board-notice-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#notice-board-notice-2-clip)">
+<use id="notice-board-notice-2-lit" href="#notice-board-notice-2-shape" fill="#d8cbab"/>
+<path id="notice-board-notice-2-dark" d="M 105.2 17.4 L 122.3 16.8 L 131.7 52.1 L 128.7 58 L 134.2 78.6 L 105.2 78 Z" fill="#14110f"/>
+<path id="notice-board-notice-2-lines" d="M 124 32.8 L 146 31 L 124 31.2 Z M 124 40.8 L 142 39 L 124 39.2 Z M 124 48.8 L 148 47 L 124 47.2 Z M 124 56.8 L 140 55 L 124 55.2 Z" fill="#34302d"/>
+</g>
+</g>
+<path id="notice-board-notice-2-nail" d="M 134 24 L 138 24 L 138 28 L 134 28 Z" fill="#5b6165"/>
+<g id="notice-board-notice-3">
+<use id="notice-board-notice-3-line" href="#notice-board-notice-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#notice-board-notice-3-clip)">
+<use id="notice-board-notice-3-lit" href="#notice-board-notice-3-shape" fill="#d8cbab"/>
+<path id="notice-board-notice-3-dark" d="M 16 68.5 L 35 67.6 L 43.3 91.5 L 40 99.3 L 51 130.9 L 16 130 Z" fill="#14110f"/>
+<path id="notice-board-notice-3-lines" d="M 34 84.8 L 68 83 L 34 83.2 Z M 34 92.8 L 64 91 L 34 91.2 Z M 34 100.8 L 70 99 L 34 99.2 Z M 34 108.8 L 62 107 L 34 107.2 Z" fill="#34302d"/>
+</g>
+</g>
+<path id="notice-board-notice-3-nail" d="M 50 76 L 54 76 L 54 80 L 50 80 Z" fill="#5b6165"/>
+<g id="notice-board-notice-4">
+<use id="notice-board-notice-4-line" href="#notice-board-notice-4-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#notice-board-notice-4-clip)">
+<use id="notice-board-notice-4-lit" href="#notice-board-notice-4-shape" fill="#d8cbab"/>
+<path id="notice-board-notice-4-dark" d="M 70.8 61.1 L 88.4 60.5 L 95.2 85.3 L 91.9 91.7 L 101.9 128.6 L 70.8 128 Z" fill="#14110f"/>
+<path id="notice-board-notice-4-lines" d="M 90 76.8 L 116 75 L 90 75.2 Z M 90 84.8 L 112 83 L 90 83.2 Z M 90 92.8 L 118 91 L 90 91.2 Z M 90 100.8 L 110 99 L 90 99.2 Z" fill="#34302d"/>
+</g>
+</g>
+<path id="notice-board-notice-4-nail" d="M 102 68 L 106 68 L 106 72 L 102 72 Z" fill="#5b6165"/>
+<g id="notice-board-notice-5">
+<use id="notice-board-notice-5-line" href="#notice-board-notice-5-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#notice-board-notice-5-clip)">
+<use id="notice-board-notice-5-lit" href="#notice-board-notice-5-shape" fill="#d8cbab"/>
+<path id="notice-board-notice-5-dark" d="M 114 74.8 L 130.9 74.1 L 137.4 97.8 L 134 104.4 L 140 126.7 L 114 126 Z" fill="#14110f"/>
+<path id="notice-board-notice-5-lines" d="M 132 90.8 L 148 89 L 132 89.2 Z M 132.1 98.8 L 144 97 L 131.9 97.2 Z M 132 106.8 L 150 105 L 132 105.2 Z M 132.1 114.8 L 142 113 L 131.9 113.2 Z" fill="#34302d"/>
+</g>
+</g>
+<path id="notice-board-notice-5-nail" d="M 139 82 L 143 82 L 143 86 L 139 86 Z" fill="#5b6165"/>
+<g id="notice-board-seal">
+<use id="notice-board-seal-line" href="#notice-board-seal-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#notice-board-seal-clip)">
+<use id="notice-board-seal-lit" href="#notice-board-seal-shape" fill="#7d312b"/>
+<path id="notice-board-seal-dark" d="M 82 96 L 98.7 95.7 L 101.8 106.7 L 100.2 109.9 L 103.7 122.3 L 82 122 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

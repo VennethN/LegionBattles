@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="totem-bell" width="312" height="376" viewBox="-60 -60 312 376">
+<defs>
+<path id="totem-bell-bell-shape" d="M 122 82 L 134 82 L 140 100 L 116 100 Z"/>
+<clipPath id="totem-bell-bell-clip"><use href="#totem-bell-bell-shape"/></clipPath>
+</defs>
+<path id="totem-bell-cord" d="M 128 58 L 128 82" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="totem-bell-bell">
+<use id="totem-bell-bell-line" href="#totem-bell-bell-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-bell-bell-clip)">
+<use id="totem-bell-bell-lit" href="#totem-bell-bell-shape" fill="#9a5b38"/>
+<use id="totem-bell-bell-rim" href="#totem-bell-bell-shape" fill="#f4d294" opacity="0.55"/>
+<use id="totem-bell-bell-lit-over" href="#totem-bell-bell-shape" transform="translate(-0.96 0.72)" fill="#9a5b38"/>
+<path id="totem-bell-bell-mid" d="M 104 78 L 123.5 77.6 L 127.2 91 L 125.1 95 L 127.7 104.4 L 104 104 Z" transform="translate(2 -0.48)" fill="#6a3b24"/>
+<path id="totem-bell-bell-dark" d="M 104 78 L 123.5 77.6 L 127.2 91 L 125.1 95 L 127.7 104.4 L 104 104 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="totem-bell-mouth" d="M 118 98 L 138 98 L 136 102 L 120 102 Z" fill="#14110f"/>
+</svg>

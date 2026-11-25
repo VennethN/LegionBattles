@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="totem-bones" width="312" height="376" viewBox="-60 -60 312 376">
+<defs>
+<path id="totem-bones-bone-shape" d="M 64 94 L 76 92 L 78 98 L 66 100 Z"/>
+<clipPath id="totem-bones-bone-clip"><use href="#totem-bones-bone-shape"/></clipPath>
+<path id="totem-bones-jaw-shape" d="M 62 102 L 78 104 L 76 112 L 66 110 Z"/>
+<clipPath id="totem-bones-jaw-clip"><use href="#totem-bones-jaw-shape"/></clipPath>
+</defs>
+<path id="totem-bones-cord" d="M 72 60 L 70 94" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="totem-bones-bone">
+<use id="totem-bones-bone-line" href="#totem-bones-bone-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-bones-bone-clip)">
+<use id="totem-bones-bone-lit" href="#totem-bones-bone-shape" fill="#cfc5a8"/>
+<path id="totem-bones-bone-dark" d="M 52 88 L 66.6 88 L 69.8 104 L 52 104 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="totem-bones-jaw">
+<use id="totem-bones-jaw-line" href="#totem-bones-jaw-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-bones-jaw-clip)">
+<use id="totem-bones-jaw-lit" href="#totem-bones-jaw-shape" fill="#cfc5a8"/>
+<path id="totem-bones-jaw-dark" d="M 50 98 L 64.8 98 L 68.8 116 L 50 116 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

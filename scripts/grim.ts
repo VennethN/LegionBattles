@@ -23,6 +23,7 @@ import { FALL, HIT, STRIDE, TREAD } from '../src/grim/poses';
 import { UNIT_ART } from '../src/grim/units';
 import { UNIT_NOTES } from '../src/grim/units/notes';
 import { FIELD } from '../src/game/content';
+import { CARD_UNITS } from '../src/view/pictures';
 
 const OUT = 'public/assets/grim';
 
@@ -58,7 +59,8 @@ for (const unit of UNIT_ART) {
     return { name: p.name, role: p.role, parent: p.parent, pivot: [p.pivot[0], p.pivot[1]], ...(p.sway !== undefined ? { sway: p.sway } : {}), ...(p.hangs ? { hangs: true } : {}), ...(p.only ? { only: p.only } : {}), box: boxOf(svg, W, H, unit.margin) };
   });
   const full = page(unit.id, composeUnit(unit), cw, ch, unit.margin);
-  files.set(`units/${unit.id}/full.svg`, full);
+  // Written whole only if a card shows it: the build's room is for what is seen.
+  if (CARD_UNITS.includes(unit.id)) files.set(`units/${unit.id}/full.svg`, full);
   manifest.units[unit.id] = {
     ...UNIT_NOTES[unit.id], canvas: [cw, ch], feet: [unit.feet[0], unit.feet[1]], margin: unit.margin, muzzle: [unit.muzzle[0], unit.muzzle[1]], top: unit.top,
     full: boxOf(full, W, H, unit.margin), parts, moves: unit.moves, stills: unit.stills ?? {},

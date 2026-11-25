@@ -12,6 +12,8 @@ export interface GrimPart extends RigPart {
   box: [number, number, number, number];
   /** Shown only while the figure stands in this still: the Furnace's water, only while it is cooled. */
   only?: string;
+  /** Hidden while the figure stands in this still: the standing legs, while a hunter sits on a bench. */
+  hide?: string;
 }
 
 export interface GrimUnit {

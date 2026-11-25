@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-star" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-star-star-shape" d="M 32 4 L 39.1 24.3 L 60.5 21.7 L 43.4 37.7 L 49.6 58.3 L 32 46 L 14.4 58.3 L 20.6 37.7 L 3.5 24.7 L 24.9 24.3 Z"/>
+<clipPath id="icon-star-star-clip"><use href="#icon-star-star-shape"/></clipPath>
+</defs>
+<g id="icon-star-star">
+<use id="icon-star-star-line" href="#icon-star-star-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-star-star-clip)">
+<use id="icon-star-star-lit" href="#icon-star-star-shape" fill="#eeb040"/>
+<use id="icon-star-star-rim" href="#icon-star-star-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-star-star-lit-over" href="#icon-star-star-shape" transform="translate(-1.12 0.84)" fill="#eeb040"/>
+<path id="icon-star-star-mid" d="M -8.5 0 L 9.6 -0.5 L 14 27.5 L 8.5 35.7 L 12.8 62.8 L -8.5 62.3 Z" transform="translate(2 -0.48)" fill="#c27a26"/>
+<path id="icon-star-star-dark" d="M -8.5 0 L 9.6 -0.5 L 14 27.5 L 8.5 35.7 L 12.8 62.8 L -8.5 62.3 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-star-nail" d="M 30 32 L 34 32 L 34 36 L 30 36 Z" fill="#14110f"/>
+</svg>

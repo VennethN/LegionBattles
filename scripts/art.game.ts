@@ -14,7 +14,6 @@ import type { Team } from '../src/art/kit/palette';
 import { HOP_POSE } from '../src/art/poses';
 import { restPose, type Pose } from '../src/art/rig';
 import { FIELD } from '../src/game/content';
-import { ICONS_USED } from '../src/view/icons';
 import { LEGION_GROUNDS, RIGGED, STILLS, WHOLE } from '../src/view/pictures';
 
 /** A picture of the game's own that is loaded by itself: where it goes under public/assets, and how it is drawn. */
@@ -66,7 +65,8 @@ export const GAME: ArtGame = {
   whole: (team, unit) => has(WHOLE, team, unit),
   stills: (team, unit) => (has(STILLS, team, unit) ? { a: restPose(), b: STRIDE } : null),
   icons: () => [...idleIcons(), ...holdoutIcons()],
-  onlyIcons: ICONS_USED,
+  // The icons are the Grim kit's now (src/view/icons.ts): the Legion kit writes none.
+  onlyIcons: new Set<string>(),
   onlyPacks: new Set<string>(),
   grades: [],
   // A stand-in, like the figures: the family's shield with this game's name on it, until the game's own style has a logo.

@@ -62,9 +62,15 @@ interface Num {
   y: number;
   vx: number;
   size: number;
+  /** Who it is about, so that blows landing on them together are added into one number. */
+  key: string;
+  amount: number;
+  sign: string;
 }
 
 const LIFE = 0.8;
+/** Seconds a number stays open for more blows on the same one to be added into it. */
+const MERGE = 0.3;
 
 export class Numbers {
   private pool: Num[] = [];
@@ -81,11 +87,37 @@ export class Numbers {
     const text = this.scene.add.bitmapText(0, 0, DIGITS_KEY, '0', 26).setOrigin(0.5).setVisible(false).setActive(false);
     text.setLetterSpacing(-14);
     text.depth = 7000;
-    return { text, active: false, t: 0, x: 0, y: 0, vx: 0, size: 26 };
+    return { text, active: false, t: 0, x: 0, y: 0, vx: 0, size: 26, key: '', amount: 0, sign: '' };
   }
 
   /** The zoom of the field on show. Numbers shrink with it, but less: they are read, not looked at. */
   zoom = 1;
+
+  /**
+   * A number of harm on someone. Blows that land on the same one within a moment of each other are added into the
+   * number already up, which pops again, instead of a second number beside it: a party's blows and a fast chain land
+   * together, and a pile of small numbers is read as none.
+   */
+  add(key: string, x: number, y: number, amount: number, color: number, size = 26, sign = ''): void {
+    const open = this.pool.find((o) => o.active && o.key === key && o.t < MERGE);
+    if (open) {
+      open.amount += amount;
+      open.t = 0;
+      open.text.setText(`${open.sign}${open.amount}`);
+      open.text.setTint(color);
+      open.size = Math.max(open.size, size * Math.max(0.8, this.zoom));
+      return;
+    }
+    this.show(x, y, `${sign}${amount}`, color, size);
+    const n = this.last;
+    if (n) {
+      n.key = key;
+      n.amount = amount;
+      n.sign = sign;
+    }
+  }
+
+  private last: Num | null = null;
 
   show(x: number, y: number, value: string, color: number, size = 26): void {
     let n: Num | null = null;
@@ -101,6 +133,8 @@ export class Numbers {
     }
     n.active = true;
     n.t = 0;
+    n.key = '';
+    this.last = n;
     // Numbers that come together drift apart, left then right.
     this.flip = -this.flip;
     n.x = x + this.flip * 6;

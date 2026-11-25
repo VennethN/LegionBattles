@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bowman-leg-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="bowman-leg-back-leg-shape" d="M 124.8 173.8 L 121.1 194.9 L 112.9 223.4 L 99.1 220.6 L 103.5 191.3 L 107.2 170.2 Z"/>
+<clipPath id="bowman-leg-back-leg-clip"><use href="#bowman-leg-back-leg-shape"/></clipPath>
+<path id="bowman-leg-back-boot-shape" d="M 97 217 L 114 215 L 113.4 227 L 122 230 L 128 236 L 128 240 L 90 240 L 88 230 Z"/>
+<clipPath id="bowman-leg-back-boot-clip"><use href="#bowman-leg-back-boot-shape"/></clipPath>
+</defs>
+<g id="bowman-leg-back-leg">
+<use id="bowman-leg-back-leg-line" href="#bowman-leg-back-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bowman-leg-back-leg-clip)">
+<use id="bowman-leg-back-leg-lit" href="#bowman-leg-back-leg-shape" fill="#6f5c46"/>
+<path id="bowman-leg-back-leg-mid" d="M 116.2 169 L 111.1 194.7 L 107.7 197.2 L 102.3 224.3 L 86 221.1 L 97.2 165.2 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="bowman-leg-back-leg-dark" d="M 116.2 169 L 111.1 194.7 L 107.7 197.2 L 102.3 224.3 L 86 221.1 L 97.2 165.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bowman-leg-back-boot">
+<use id="bowman-leg-back-boot-line" href="#bowman-leg-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bowman-leg-back-boot-clip)">
+<use id="bowman-leg-back-boot-lit" href="#bowman-leg-back-boot-shape" fill="#7b5b3d"/>
+<path id="bowman-leg-back-boot-mid" d="M 82 212 L 104.4 212 L 105.7 226 L 114 232 L 132 235 L 132 244 L 82 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="bowman-leg-back-boot-dark" d="M 82 212 L 104.4 212 L 105.7 226 L 114 232 L 132 235 L 132 244 L 82 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bowman-leg-back-boot-sole" d="M 88 237 L 129 237 L 129 241.5 L 88 241.5 Z" fill="#14110f"/>
+<path id="bowman-leg-back-boot-crease" d="M 112.5 225.8 L 104.4 231 L 113.6 228.2 Z" fill="#14110f"/>
+</svg>

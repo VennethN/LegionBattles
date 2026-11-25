@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="river-door" width="166" height="272" viewBox="0 0 166 272">
+<defs>
+<path id="river-door-jamb-shape" d="M 14 262 L 16 30 L 40 6 L 120 6 L 144 30 L 146 262 L 132 262 L 130 34 L 116 20 L 44 20 L 30 34 L 28 262 Z"/>
+<clipPath id="river-door-jamb-clip"><use href="#river-door-jamb-shape"/></clipPath>
+<path id="river-door-door-shape" d="M 30 262 L 30 34 L 44 20 L 116 20 L 130 34 L 130 262 Z"/>
+<clipPath id="river-door-door-clip"><use href="#river-door-door-shape"/></clipPath>
+<path id="river-door-strap-70-shape" d="M 30 70.5 L 130 69.5 L 130.5 80 L 29.5 80 Z"/>
+<clipPath id="river-door-strap-70-clip"><use href="#river-door-strap-70-shape"/></clipPath>
+<path id="river-door-strap-190-shape" d="M 30 190.5 L 130 189.5 L 130.5 200 L 29.5 200 Z"/>
+<clipPath id="river-door-strap-190-clip"><use href="#river-door-strap-190-shape"/></clipPath>
+<path id="river-door-bar-shape" d="M 22 129 L 140 127 L 141 140 L 21 140 Z"/>
+<clipPath id="river-door-bar-clip"><use href="#river-door-bar-shape"/></clipPath>
+<path id="river-door-bar-hook-22-shape" d="M 22 124.3 L 30 123.7 L 30.3 144 L 21.7 144 Z"/>
+<clipPath id="river-door-bar-hook-22-clip"><use href="#river-door-bar-hook-22-shape"/></clipPath>
+<path id="river-door-bar-hook-132-shape" d="M 132 124.3 L 140 123.7 L 140.3 144 L 131.7 144 Z"/>
+<clipPath id="river-door-bar-hook-132-clip"><use href="#river-door-bar-hook-132-shape"/></clipPath>
+<path id="river-door-step-shape" d="M 10 270 L 14 256 L 146 252 L 152 266 Z"/>
+<clipPath id="river-door-step-clip"><use href="#river-door-step-shape"/></clipPath>
+<path id="river-door-oar-shape" d="M 152 255.9 L 142 59.9 L 138 60.1 L 148 256.1 Z"/>
+<path id="river-door-oar-blade-shape" d="M 136 250 L 146 200 L 160 202 L 156 256 Z"/>
+<clipPath id="river-door-oar-blade-clip"><use href="#river-door-oar-blade-shape"/></clipPath>
+<path id="river-door-rope-shape" d="M 0 262 L 4 240 L 24 232 L 40 240 L 42 262 Z"/>
+<clipPath id="river-door-rope-clip"><use href="#river-door-rope-shape"/></clipPath>
+</defs>
+<path id="river-door-blot" d="M 0 258 L 160 252 L 166 266 L 6 270 Z" fill="#14110f" opacity="0.55"/>
+<g id="river-door-jamb">
+<use id="river-door-jamb-line" href="#river-door-jamb-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-jamb-clip)">
+<use id="river-door-jamb-lit" href="#river-door-jamb-shape" fill="#77786f"/>
+<path id="river-door-jamb-mid" d="M 2 2 L 40.6 1.4 L 72.7 147 L 68.3 154.5 L 93 266.6 L 2 266 Z" transform="translate(2 -0.48)" fill="#54564f"/>
+<path id="river-door-jamb-dark" d="M 2 2 L 40.6 1.4 L 72.7 147 L 68.3 154.5 L 93 266.6 L 2 266 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="river-door-door">
+<use id="river-door-door-line" href="#river-door-door-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-door-clip)">
+<use id="river-door-door-lit" href="#river-door-door-shape" fill="#6f5c46"/>
+<path id="river-door-door-mid" d="M 80 10 L 78.2 10 L 80.1 134 L 83.8 137.9 L 85.8 270 L 140 270 L 140 10 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="river-door-door-dark" d="M 80 10 L 78.2 10 L 80.1 134 L 83.8 137.9 L 85.8 270 L 140 270 L 140 10 Z" fill="#14110f"/>
+<path id="river-door-planks" d="M 53 22 L 54 262 L 55 22 Z M 79 20 L 80 262 L 81 20 Z M 105 22 L 106 262 L 107 22 Z" fill="#4a3c2d"/>
+<path id="river-door-damp" d="M 30 200 L 130 196 L 130 262 L 30 262 Z" fill="#4b4f2f" opacity="0.6"/>
+</g>
+</g>
+<g id="river-door-strap-70">
+<use id="river-door-strap-70-line" href="#river-door-strap-70-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-strap-70-clip)">
+<use id="river-door-strap-70-lit" href="#river-door-strap-70-shape" fill="#8c9194"/>
+<path id="river-door-strap-70-dark" d="M 17.5 65.5 L 67.8 65.5 L 72 84 L 17.5 84 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="river-door-strap-70-rivets-0" d="M 45 75 L 46.4 73.6 L 47.8 75 L 46.4 76.4 Z" fill="#14110f"/>
+<path id="river-door-strap-70-rivets-1" d="M 61.8 75 L 63.2 73.6 L 64.6 75 L 63.2 76.4 Z" fill="#14110f"/>
+<path id="river-door-strap-70-rivets-2" d="M 78.6 75 L 80 73.6 L 81.4 75 L 80 76.4 Z" fill="#14110f"/>
+<path id="river-door-strap-70-rivets-3" d="M 95.4 75 L 96.8 73.6 L 98.2 75 L 96.8 76.4 Z" fill="#14110f"/>
+<path id="river-door-strap-70-rivets-4" d="M 112.2 75 L 113.6 73.6 L 115 75 L 113.6 76.4 Z" fill="#14110f"/>
+<g id="river-door-strap-190">
+<use id="river-door-strap-190-line" href="#river-door-strap-190-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-strap-190-clip)">
+<use id="river-door-strap-190-lit" href="#river-door-strap-190-shape" fill="#8c9194"/>
+<path id="river-door-strap-190-dark" d="M 17.5 185.5 L 67.8 185.5 L 72 204 L 17.5 204 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="river-door-strap-190-rivets-0" d="M 45 195 L 46.4 193.6 L 47.8 195 L 46.4 196.4 Z" fill="#14110f"/>
+<path id="river-door-strap-190-rivets-1" d="M 61.8 195 L 63.2 193.6 L 64.6 195 L 63.2 196.4 Z" fill="#14110f"/>
+<path id="river-door-strap-190-rivets-2" d="M 78.6 195 L 80 193.6 L 81.4 195 L 80 196.4 Z" fill="#14110f"/>
+<path id="river-door-strap-190-rivets-3" d="M 95.4 195 L 96.8 193.6 L 98.2 195 L 96.8 196.4 Z" fill="#14110f"/>
+<path id="river-door-strap-190-rivets-4" d="M 112.2 195 L 113.6 193.6 L 115 195 L 113.6 196.4 Z" fill="#14110f"/>
+<g id="river-door-bar">
+<use id="river-door-bar-line" href="#river-door-bar-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-bar-clip)">
+<use id="river-door-bar-lit" href="#river-door-bar-shape" fill="#6f5c46"/>
+<path id="river-door-bar-dark" d="M 9 123 L 78.4 123 L 83.6 144 L 9 144 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="river-door-bar-hook-22">
+<use id="river-door-bar-hook-22-line" href="#river-door-bar-hook-22-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-bar-hook-22-clip)">
+<use id="river-door-bar-hook-22-lit" href="#river-door-bar-hook-22-shape" fill="#8c9194"/>
+<path id="river-door-bar-hook-22-dark" d="M 9.7 119.7 L 23.8 119.6 L 26.1 136.6 L 25.1 138 L 26.4 148.1 L 9.7 148 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="river-door-bar-hook-132">
+<use id="river-door-bar-hook-132-line" href="#river-door-bar-hook-132-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-bar-hook-132-clip)">
+<use id="river-door-bar-hook-132-lit" href="#river-door-bar-hook-132-shape" fill="#8c9194"/>
+<path id="river-door-bar-hook-132-dark" d="M 119.7 119.7 L 133.8 119.6 L 135.1 129.6 L 134.2 131 L 136.5 148.1 L 119.7 148 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="river-door-grille" d="M 66 42.3 L 94 41.7 L 94.3 62 L 65.7 62 Z" fill="#14110f"/>
+<path id="river-door-grille-bars" d="M 71.8 42 L 73 62 L 74.2 42 Z M 78.8 42 L 80 62 L 81.2 42 Z M 85.8 42 L 87 62 L 88.2 42 Z" fill="#5b6165"/>
+<g id="river-door-step">
+<use id="river-door-step-line" href="#river-door-step-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-step-clip)">
+<use id="river-door-step-lit" href="#river-door-step-shape" fill="#77786f"/>
+<path id="river-door-step-dark" d="M -2 248 L 64.9 247.5 L 68.3 259.6 L 65.7 263.7 L 68.7 274.5 L -2 274 Z" fill="#14110f"/>
+<path id="river-door-wet" d="M 40 262 L 110 258 L 120 264 L 44 268 Z" fill="#84939a" opacity="0.4"/>
+</g>
+</g>
+<g id="river-door-oar">
+<use id="river-door-oar-line" href="#river-door-oar-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="river-door-oar-lit" href="#river-door-oar-shape" fill="#6f5c46"/>
+</g>
+<g id="river-door-oar-blade">
+<use id="river-door-oar-blade-line" href="#river-door-oar-blade-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-oar-blade-clip)">
+<use id="river-door-oar-blade-lit" href="#river-door-oar-blade-shape" fill="#6f5c46"/>
+<path id="river-door-oar-blade-dark" d="M 124 196 L 141.9 195.7 L 146.4 223.3 L 143.9 227.3 L 149.3 260.3 L 124 260 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="river-door-rope">
+<use id="river-door-rope-line" href="#river-door-rope-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#river-door-rope-clip)">
+<use id="river-door-rope-lit" href="#river-door-rope-shape" fill="#c7ad84"/>
+<path id="river-door-rope-dark" d="M -12 228 L 10.9 227.3 L 16 243.4 L 13 249.3 L 18.5 266.7 L -12 266 Z" fill="#14110f"/>
+<path id="river-door-coils" d="M 4 250.7 L 40 248 L 4 249.3 Z M 8 240.7 L 36 238 L 8 239.3 Z M 2 256.7 L 42 256 L 2 255.3 Z" fill="#927a58"/>
+</g>
+</g>
+</svg>

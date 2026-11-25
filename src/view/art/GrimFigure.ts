@@ -223,8 +223,9 @@ export class GrimFigure {
       s.rotation = o.rot * RAD;
       s.scaleX = o.sx * INV;
       s.scaleY = o.sy * INV;
-      const only = this.art.parts[i].only;
-      if (only) s.visible = only === this.stillName;
+      const part = this.art.parts[i];
+      if (part.only) s.visible = part.only === this.stillName;
+      else if (part.hide) s.visible = part.hide !== this.stillName;
     }
     if (this.tint !== this.lastTint || this.fill !== this.lastFill) {
       this.lastTint = this.tint;

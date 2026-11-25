@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="butcher-block" width="176" height="152" viewBox="0 0 176 152">
+<defs>
+<path id="butcher-block-leg-0-shape" d="M 40 70.3 L 34 140.3 L 26 139.7 L 32 69.7 Z"/>
+<clipPath id="butcher-block-leg-0-clip"><use href="#butcher-block-leg-0-shape"/></clipPath>
+<path id="butcher-block-leg-1-shape" d="M 128 69.7 L 134 139.7 L 126 140.3 L 120 70.3 Z"/>
+<clipPath id="butcher-block-leg-1-clip"><use href="#butcher-block-leg-1-shape"/></clipPath>
+<path id="butcher-block-block-shape" d="M 18 80 L 16 40 L 144 36 L 148 78 Z"/>
+<clipPath id="butcher-block-block-clip"><use href="#butcher-block-block-shape"/></clipPath>
+<path id="butcher-block-top-shape" d="M 14 42 L 146 38 L 140 30 L 20 34 Z"/>
+<clipPath id="butcher-block-top-clip"><use href="#butcher-block-top-shape"/></clipPath>
+<path id="butcher-block-cleaver-shape" d="M 84 34 L 86 6 L 116 4 L 118 32 Z"/>
+<clipPath id="butcher-block-cleaver-clip"><use href="#butcher-block-cleaver-shape"/></clipPath>
+<path id="butcher-block-cleaver-grip-shape" d="M 115.4 7.6 L 139.4 1.6 L 140.6 6.4 L 116.6 12.4 Z"/>
+<path id="butcher-block-joint-shape" d="M 26 34 L 30 20 L 50 14 L 62 22 L 58 34 Z"/>
+<clipPath id="butcher-block-joint-clip"><use href="#butcher-block-joint-shape"/></clipPath>
+<path id="butcher-block-knuckle-shape" d="M 58 26 L 70 24 L 72 30 L 60 32 Z"/>
+<clipPath id="butcher-block-knuckle-clip"><use href="#butcher-block-knuckle-shape"/></clipPath>
+<path id="butcher-block-bucket-shape" d="M 146 140 L 142 104 L 172 102 L 170 140 Z"/>
+<clipPath id="butcher-block-bucket-clip"><use href="#butcher-block-bucket-shape"/></clipPath>
+</defs>
+<path id="butcher-block-blot" d="M 0 138 L 170 132 L 176 146 L 6 150 Z" fill="#14110f" opacity="0.55"/>
+<g id="butcher-block-leg-0">
+<use id="butcher-block-leg-0-line" href="#butcher-block-leg-0-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#butcher-block-leg-0-clip)">
+<use id="butcher-block-leg-0-lit" href="#butcher-block-leg-0-shape" fill="#6f5c46"/>
+<path id="butcher-block-leg-0-dark" d="M 36.9 67.1 L 34.3 97.8 L 32.9 99.1 L 29.1 142.9 L 21.8 142.3 L 28.3 66.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="butcher-block-leg-1">
+<use id="butcher-block-leg-1-line" href="#butcher-block-leg-1-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#butcher-block-leg-1-clip)">
+<use id="butcher-block-leg-1-lit" href="#butcher-block-leg-1-shape" fill="#6f5c46"/>
+<path id="butcher-block-leg-1-dark" d="M 124.4 67 L 127.8 106.7 L 126.6 108.1 L 129.6 143 L 122.3 143.7 L 115.8 67.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="butcher-block-block">
+<use id="butcher-block-block-line" href="#butcher-block-block-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#butcher-block-block-clip)">
+<use id="butcher-block-block-lit" href="#butcher-block-block-shape" fill="#6f5c46"/>
+<path id="butcher-block-block-mid" d="M 0 62 L 0 63.9 L 77.9 62 L 82 58 L 160 56.1 L 160 90 L 0 90 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="butcher-block-block-dark" d="M 0 62 L 0 63.9 L 77.9 62 L 82 58 L 160 56.1 L 160 90 L 0 90 Z" fill="#14110f"/>
+<path id="butcher-block-rings" d="M 30 44.8 L 70 42 L 30 43.2 Z M 90 41.8 L 130 40 L 90 40.2 Z" fill="#4a3c2d"/>
+<path id="butcher-block-stain" d="M 60 40 L 104 38 L 110 50 L 70 56 Z" fill="#551f1c" opacity="0.7"/>
+</g>
+</g>
+<g id="butcher-block-top">
+<use id="butcher-block-top-line" href="#butcher-block-top-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#butcher-block-top-clip)">
+<use id="butcher-block-top-lit" href="#butcher-block-top-shape" fill="#6f5c46"/>
+<path id="butcher-block-top-dark" d="M 2 26 L 51.2 26 L 56 46 L 2 46 Z" fill="#14110f"/>
+<path id="butcher-block-chops" d="M 40.1 36.7 L 52 34 L 39.9 35.3 Z M 110.1 34.7 L 120 33 L 109.9 33.3 Z M 76.2 35.7 L 84 33 L 75.8 34.3 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="butcher-block-cleaver">
+<use id="butcher-block-cleaver-line" href="#butcher-block-cleaver-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#butcher-block-cleaver-clip)">
+<use id="butcher-block-cleaver-lit" href="#butcher-block-cleaver-shape" fill="#8c9194"/>
+<use id="butcher-block-cleaver-rim" href="#butcher-block-cleaver-shape" fill="#f4d294" opacity="0.55"/>
+<use id="butcher-block-cleaver-lit-over" href="#butcher-block-cleaver-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="butcher-block-cleaver-dark" d="M 72 0 L 93.6 -0.6 L 99.6 18.1 L 96.9 23.9 L 101.6 38.6 L 72 38 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="butcher-block-cleaver-grip">
+<use id="butcher-block-cleaver-grip-line" href="#butcher-block-cleaver-grip-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="butcher-block-cleaver-grip-lit" href="#butcher-block-cleaver-grip-shape" fill="#6f5c46"/>
+</g>
+<g id="butcher-block-joint">
+<use id="butcher-block-joint-line" href="#butcher-block-joint-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#butcher-block-joint-clip)">
+<use id="butcher-block-joint-lit" href="#butcher-block-joint-shape" fill="#7d312b"/>
+<path id="butcher-block-joint-mid" d="M 14 10 L 38.1 9.5 L 41.5 21.2 L 39 25.6 L 42.7 38.5 L 14 38 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="butcher-block-joint-dark" d="M 14 10 L 38.1 9.5 L 41.5 21.2 L 39 25.6 L 42.7 38.5 L 14 38 Z" fill="#14110f"/>
+<path id="butcher-block-fat" d="M 30 22 L 48 16 L 50 20 L 34 26 Z" fill="#c7ad84"/>
+</g>
+</g>
+<g id="butcher-block-knuckle">
+<use id="butcher-block-knuckle-line" href="#butcher-block-knuckle-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#butcher-block-knuckle-clip)">
+<use id="butcher-block-knuckle-lit" href="#butcher-block-knuckle-shape" fill="#cfc5a8"/>
+<path id="butcher-block-knuckle-dark" d="M 46 20 L 60.6 20 L 63.8 36 L 46 36 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="butcher-block-bucket">
+<use id="butcher-block-bucket-line" href="#butcher-block-bucket-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#butcher-block-bucket-clip)">
+<use id="butcher-block-bucket-lit" href="#butcher-block-bucket-shape" fill="#6f5c46"/>
+<path id="butcher-block-bucket-dark" d="M 130 98 L 149.2 97.5 L 153.7 113.2 L 151.2 118.2 L 158.8 144.5 L 130 144 Z" fill="#14110f"/>
+<path id="butcher-block-bucket-hoop" d="M 142 116 L 172 114 L 172 120 L 142 122 Z" fill="#5b6165"/>
+</g>
+</g>
+<path id="butcher-block-drips" d="M 60 138 L 96 136 L 100 142 L 64 144 Z" fill="#551f1c" opacity="0.6"/>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-lock" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-lock-shackle-shape" d="M 16 30 L 16 18 L 24 6 L 40 6 L 48 18 L 48 30 L 40 30 L 40 20 L 36 14 L 28 14 L 24 20 L 24 30 Z"/>
+<clipPath id="icon-lock-shackle-clip"><use href="#icon-lock-shackle-shape"/></clipPath>
+<path id="icon-lock-body-shape" d="M 8 30 L 56 28 L 58 58 L 6 60 Z"/>
+<clipPath id="icon-lock-body-clip"><use href="#icon-lock-body-shape"/></clipPath>
+</defs>
+<g id="icon-lock-shackle">
+<use id="icon-lock-shackle-line" href="#icon-lock-shackle-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-lock-shackle-clip)">
+<use id="icon-lock-shackle-lit" href="#icon-lock-shackle-shape" fill="#8c9194"/>
+<use id="icon-lock-shackle-rim" href="#icon-lock-shackle-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-lock-shackle-lit-over" href="#icon-lock-shackle-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="icon-lock-shackle-dark" d="M 4 2 L 21.8 1.7 L 23.6 14.8 L 19.7 19.3 L 21.7 34.3 L 4 34 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-lock-body">
+<use id="icon-lock-body-line" href="#icon-lock-body-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-lock-body-clip)">
+<use id="icon-lock-body-lit" href="#icon-lock-body-shape" fill="#4f4944"/>
+<use id="icon-lock-body-rim" href="#icon-lock-body-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-lock-body-lit-over" href="#icon-lock-body-shape" transform="translate(-1.28 0.96)" fill="#4f4944"/>
+<path id="icon-lock-body-mid" d="M 0 46 L 0 47.5 L 37.5 46.3 L 40.6 43.3 L 64 42.5 L 64 64 L 0 64 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="icon-lock-body-dark" d="M 0 46 L 0 47.5 L 37.5 46.3 L 40.6 43.3 L 64 42.5 L 64 64 L 0 64 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-lock-keyhole" d="M 29 36 L 35 36 L 35 44 L 37 52 L 27 52 L 29 44 Z" fill="#14110f"/>
+<path id="icon-lock-lock-rivets-0" d="M 20.2 33.5 L 22 31.7 L 23.8 33.5 L 22 35.3 Z" fill="#14110f"/>
+<path id="icon-lock-lock-rivets-1" d="M 40.2 32.5 L 42 30.7 L 43.8 32.5 L 42 34.3 Z" fill="#14110f"/>
+</svg>

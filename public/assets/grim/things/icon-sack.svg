@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-sack" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-sack-sack-shape" d="M 22 20 L 12 34 L 8 50 L 16 60 L 48 60 L 56 50 L 52 34 L 42 20 Z"/>
+<clipPath id="icon-sack-sack-clip"><use href="#icon-sack-sack-shape"/></clipPath>
+<path id="icon-sack-neck-shape" d="M 22 20 L 20 6 L 30 12 L 36 4 L 44 8 L 42 20 Z"/>
+<clipPath id="icon-sack-neck-clip"><use href="#icon-sack-neck-shape"/></clipPath>
+<path id="icon-sack-tie-shape" d="M 20 18 L 44 16 L 44 22 L 20 24 Z"/>
+<clipPath id="icon-sack-tie-clip"><use href="#icon-sack-tie-shape"/></clipPath>
+<path id="icon-sack-coin-shape" d="M 46 50 L 52 44 L 60 46 L 62 54 L 56 60 L 48 58 Z"/>
+<clipPath id="icon-sack-coin-clip"><use href="#icon-sack-coin-shape"/></clipPath>
+</defs>
+<g id="icon-sack-sack">
+<use id="icon-sack-sack-line" href="#icon-sack-sack-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-sack-sack-clip)">
+<use id="icon-sack-sack-lit" href="#icon-sack-sack-shape" fill="#c7ad84"/>
+<path id="icon-sack-sack-mid" d="M -4 16 L 16.6 15.5 L 20.9 44.5 L 14.7 51.3 L 16.7 64.5 L -4 64 Z" transform="translate(3 -0.72)" fill="#927a58"/>
+<path id="icon-sack-sack-dark" d="M -4 16 L 16.6 15.5 L 20.9 44.5 L 14.7 51.3 L 16.7 64.5 L -4 64 Z" fill="#14110f"/>
+<path id="icon-sack-folds" d="M 21 29.8 L 18 50 L 23 30.2 Z M 39 28.2 L 44 50 L 41 27.8 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="icon-sack-neck">
+<use id="icon-sack-neck-line" href="#icon-sack-neck-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-sack-neck-clip)">
+<use id="icon-sack-neck-lit" href="#icon-sack-neck-shape" fill="#c7ad84"/>
+<path id="icon-sack-neck-dark" d="M 8 0 L 22.9 0 L 25.8 24 L 8 24 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-sack-tie">
+<use id="icon-sack-tie-line" href="#icon-sack-tie-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-sack-tie-clip)">
+<use id="icon-sack-tie-lit" href="#icon-sack-tie-shape" fill="#7d312b"/>
+<path id="icon-sack-tie-dark" d="M 8 12 L 22.5 12 L 24 28 L 8 28 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-sack-coin">
+<use id="icon-sack-coin-line" href="#icon-sack-coin-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-sack-coin-clip)">
+<use id="icon-sack-coin-lit" href="#icon-sack-coin-shape" fill="#eeb040"/>
+<use id="icon-sack-coin-rim" href="#icon-sack-coin-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-sack-coin-lit-over" href="#icon-sack-coin-shape" transform="translate(-0.96 0.72)" fill="#eeb040"/>
+<path id="icon-sack-coin-dark" d="M 34 40 L 47.4 40 L 50.3 64 L 34 64 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

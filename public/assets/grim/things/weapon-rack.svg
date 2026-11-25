@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="weapon-rack" width="206" height="230" viewBox="0 0 206 230">
+<defs>
+<path id="weapon-rack-back-shape" d="M 20 61 L 180 59 L 181 70 L 19 70 Z"/>
+<clipPath id="weapon-rack-back-clip"><use href="#weapon-rack-back-shape"/></clipPath>
+<path id="weapon-rack-foot-shape" d="M 14 197 L 186 195 L 187 218 L 13 218 Z"/>
+<clipPath id="weapon-rack-foot-clip"><use href="#weapon-rack-foot-shape"/></clipPath>
+<path id="weapon-rack-upright-0-shape" d="M 19 50.5 L 29 49.5 L 29.5 216 L 18.5 216 Z"/>
+<clipPath id="weapon-rack-upright-0-clip"><use href="#weapon-rack-upright-0-shape"/></clipPath>
+<path id="weapon-rack-upright-1-shape" d="M 171 50.5 L 181 49.5 L 181.5 216 L 170.5 216 Z"/>
+<clipPath id="weapon-rack-upright-1-clip"><use href="#weapon-rack-upright-1-shape"/></clipPath>
+<path id="weapon-rack-pole-50-shape" d="M 52 34 L 54 198 L 50 198 L 48 34 Z"/>
+<path id="weapon-rack-head-50-shape" d="M 45 36 L 50 8 L 55 36 Z"/>
+<clipPath id="weapon-rack-head-50-clip"><use href="#weapon-rack-head-50-shape"/></clipPath>
+<path id="weapon-rack-pole-82-shape" d="M 84 46 L 86 198 L 82 198 L 80 46 Z"/>
+<path id="weapon-rack-head-82-shape" d="M 77 48 L 82 20 L 87 48 Z"/>
+<clipPath id="weapon-rack-head-82-clip"><use href="#weapon-rack-head-82-shape"/></clipPath>
+<path id="weapon-rack-pole-114-shape" d="M 116 26 L 118 198 L 114 198 L 112 26 Z"/>
+<path id="weapon-rack-head-114-shape" d="M 110 28 L 114 0 L 118 28 L 128 34 L 118 36 Z"/>
+<clipPath id="weapon-rack-head-114-clip"><use href="#weapon-rack-head-114-shape"/></clipPath>
+<path id="weapon-rack-axe-haft-shape" d="M 152 74.1 L 148 170.1 L 144 169.9 L 148 73.9 Z"/>
+<path id="weapon-rack-axe-head-shape" d="M 148 82 L 170 72 L 176 96 L 164 104 L 150 96 Z"/>
+<clipPath id="weapon-rack-axe-head-clip"><use href="#weapon-rack-axe-head-shape"/></clipPath>
+<path id="weapon-rack-shield-shape" d="M 150 214 L 148 160 L 176 150 L 200 160 L 196 214 Z"/>
+<clipPath id="weapon-rack-shield-clip"><use href="#weapon-rack-shield-shape"/></clipPath>
+</defs>
+<path id="weapon-rack-blot" d="M 0 216 L 200 210 L 206 224 L 6 228 Z" fill="#14110f" opacity="0.55"/>
+<g id="weapon-rack-back">
+<use id="weapon-rack-back-line" href="#weapon-rack-back-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#weapon-rack-back-clip)">
+<use id="weapon-rack-back-lit" href="#weapon-rack-back-shape" fill="#6f5c46"/>
+<path id="weapon-rack-back-dark" d="M 7 55 L 97.8 55 L 102.2 74 L 7 74 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="weapon-rack-foot">
+<use id="weapon-rack-foot-line" href="#weapon-rack-foot-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#weapon-rack-foot-clip)">
+<use id="weapon-rack-foot-lit" href="#weapon-rack-foot-shape" fill="#6f5c46"/>
+<path id="weapon-rack-foot-mid" d="M 1 191 L 97.8 190.3 L 103.3 208.8 L 99.5 213.9 L 102.2 222.7 L 1 222 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="weapon-rack-foot-dark" d="M 1 191 L 97.8 190.3 L 103.3 208.8 L 99.5 213.9 L 102.2 222.7 L 1 222 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="weapon-rack-upright-0">
+<use id="weapon-rack-upright-0-line" href="#weapon-rack-upright-0-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#weapon-rack-upright-0-clip)">
+<use id="weapon-rack-upright-0-lit" href="#weapon-rack-upright-0-shape" fill="#6f5c46"/>
+<path id="weapon-rack-upright-0-dark" d="M 6.5 45.5 L 22.4 45.5 L 24.9 138.1 L 23.4 139.9 L 25.6 220 L 6.5 220 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="weapon-rack-upright-1">
+<use id="weapon-rack-upright-1-line" href="#weapon-rack-upright-1-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#weapon-rack-upright-1-clip)">
+<use id="weapon-rack-upright-1-lit" href="#weapon-rack-upright-1-shape" fill="#6f5c46"/>
+<path id="weapon-rack-upright-1-dark" d="M 158.5 45.5 L 174.3 45.5 L 176.8 135.8 L 175.4 137.6 L 177.7 220 L 158.5 220 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="weapon-rack-pole-50">
+<use id="weapon-rack-pole-50-line" href="#weapon-rack-pole-50-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="weapon-rack-pole-50-lit" href="#weapon-rack-pole-50-shape" fill="#6f5c46"/>
+</g>
+<g id="weapon-rack-head-50">
+<use id="weapon-rack-head-50-line" href="#weapon-rack-head-50-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#weapon-rack-head-50-clip)">
+<use id="weapon-rack-head-50-lit" href="#weapon-rack-head-50-shape" fill="#8c9194"/>
+<use id="weapon-rack-head-50-rim" href="#weapon-rack-head-50-shape" fill="#f4d294" opacity="0.55"/>
+<use id="weapon-rack-head-50-lit-over" href="#weapon-rack-head-50-shape" transform="translate(-0.8 0.6)" fill="#8c9194"/>
+<path id="weapon-rack-head-50-dark" d="M 33 4 L 48 3.9 L 50.7 26 L 49.5 27.7 L 51 40.1 L 33 40 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="weapon-rack-pole-82">
+<use id="weapon-rack-pole-82-line" href="#weapon-rack-pole-82-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="weapon-rack-pole-82-lit" href="#weapon-rack-pole-82-shape" fill="#6f5c46"/>
+</g>
+<g id="weapon-rack-head-82">
+<use id="weapon-rack-head-82-line" href="#weapon-rack-head-82-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#weapon-rack-head-82-clip)">
+<use id="weapon-rack-head-82-lit" href="#weapon-rack-head-82-shape" fill="#8c9194"/>
+<use id="weapon-rack-head-82-rim" href="#weapon-rack-head-82-shape" fill="#f4d294" opacity="0.55"/>
+<use id="weapon-rack-head-82-lit-over" href="#weapon-rack-head-82-shape" transform="translate(-0.8 0.6)" fill="#8c9194"/>
+<path id="weapon-rack-head-82-dark" d="M 65 16 L 79.9 15.9 L 81.7 30.6 L 80.6 32.2 L 83.1 52.1 L 65 52 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="weapon-rack-pole-114">
+<use id="weapon-rack-pole-114-line" href="#weapon-rack-pole-114-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="weapon-rack-pole-114-lit" href="#weapon-rack-pole-114-shape" fill="#6f5c46"/>
+</g>
+<g id="weapon-rack-head-114">
+<use id="weapon-rack-head-114-line" href="#weapon-rack-head-114-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#weapon-rack-head-114-clip)">
+<use id="weapon-rack-head-114-lit" href="#weapon-rack-head-114-shape" fill="#8c9194"/>
+<use id="weapon-rack-head-114-rim" href="#weapon-rack-head-114-shape" fill="#f4d294" opacity="0.55"/>
+<use id="weapon-rack-head-114-lit-over" href="#weapon-rack-head-114-shape" transform="translate(-0.8 0.6)" fill="#8c9194"/>
+<path id="weapon-rack-head-114-dark" d="M 98 -4 L 115.5 -4.2 L 119.3 16.8 L 117.1 20.3 L 120.7 40.2 L 98 40 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="weapon-rack-axe-haft">
+<use id="weapon-rack-axe-haft-line" href="#weapon-rack-axe-haft-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="weapon-rack-axe-haft-lit" href="#weapon-rack-axe-haft-shape" fill="#6f5c46"/>
+</g>
+<g id="weapon-rack-axe-head">
+<use id="weapon-rack-axe-head-line" href="#weapon-rack-axe-head-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#weapon-rack-axe-head-clip)">
+<use id="weapon-rack-axe-head-lit" href="#weapon-rack-axe-head-shape" fill="#8c9194"/>
+<use id="weapon-rack-axe-head-rim" href="#weapon-rack-axe-head-shape" fill="#f4d294" opacity="0.55"/>
+<use id="weapon-rack-axe-head-lit-over" href="#weapon-rack-axe-head-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="weapon-rack-axe-head-dark" d="M 136 68 L 154.8 67.5 L 162 90.7 L 159.6 95.7 L 163.6 108.5 L 136 108 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="weapon-rack-bow" d="M 134 40 L 126 80 L 128 130 L 136 164" fill="none" stroke="#14110f" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="weapon-rack-bow-string" d="M 134 40 L 136 164" fill="none" stroke="#9c9178" stroke-width="1.2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="weapon-rack-shield">
+<use id="weapon-rack-shield-line" href="#weapon-rack-shield-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#weapon-rack-shield-clip)">
+<use id="weapon-rack-shield-lit" href="#weapon-rack-shield-shape" fill="#6f5c46"/>
+<path id="weapon-rack-shield-mid" d="M 136 146 L 160.4 145 L 169.6 173.9 L 165.6 182.6 L 177.2 219 L 136 218 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="weapon-rack-shield-dark" d="M 136 146 L 160.4 145 L 169.6 173.9 L 165.6 182.6 L 177.2 219 L 136 218 Z" fill="#14110f"/>
+<path id="weapon-rack-shield-band" d="M 150 180 L 198 176 L 198 186 L 150 190 Z" fill="#551f1c"/>
+</g>
+</g>
+<path id="weapon-rack-shield-rivets-0" d="M 160.1 163.3 L 161.7 161.7 L 163.3 163.3 L 161.7 164.9 Z" fill="#14110f"/>
+<path id="weapon-rack-shield-rivets-1" d="M 171.4 162 L 173 160.4 L 174.6 162 L 173 163.6 Z" fill="#14110f"/>
+<path id="weapon-rack-shield-rivets-2" d="M 182.7 160.7 L 184.3 159.1 L 185.9 160.7 L 184.3 162.3 Z" fill="#14110f"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-check" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-check-tick-shape" d="M 4 34 L 14 26 L 26 40 L 52 6 L 62 14 L 28 58 L 20 58 Z"/>
+<clipPath id="icon-check-tick-clip"><use href="#icon-check-tick-shape"/></clipPath>
+</defs>
+<g id="icon-check-tick">
+<use id="icon-check-tick-line" href="#icon-check-tick-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-check-tick-clip)">
+<use id="icon-check-tick-lit" href="#icon-check-tick-shape" fill="#cfc5a8"/>
+<path id="icon-check-tick-mid" d="M 0 40 L 24 48 L 64 12 L 64 64 L 0 64 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="icon-check-tick-dark" d="M 0 40 L 24 48 L 64 12 L 64 64 L 0 64 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-check-nick" d="M 30.6 44.5 L 48 20 L 29.4 43.5 Z" fill="#e9e0c6"/>
+</svg>

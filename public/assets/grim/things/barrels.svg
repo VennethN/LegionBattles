@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="barrels" width="206" height="150" viewBox="0 0 206 150">
+<defs>
+<path id="barrels-barrel-a-shape" d="M 30 120 L 24 78 L 30 36 L 74 36 L 80 78 L 74 120 Z"/>
+<clipPath id="barrels-barrel-a-clip"><use href="#barrels-barrel-a-shape"/></clipPath>
+<path id="barrels-barrel-a-head-shape" d="M 30 36 L 74 36 L 70 30 L 34 30 Z"/>
+<clipPath id="barrels-barrel-a-head-clip"><use href="#barrels-barrel-a-head-shape"/></clipPath>
+<path id="barrels-barrel-b-shape" d="M 92 116 L 86 78 L 92 40 L 132 40 L 138 78 L 132 116 Z"/>
+<clipPath id="barrels-barrel-b-clip"><use href="#barrels-barrel-b-shape"/></clipPath>
+<path id="barrels-barrel-b-head-shape" d="M 92 40 L 132 40 L 128 34 L 96 34 Z"/>
+<clipPath id="barrels-barrel-b-head-clip"><use href="#barrels-barrel-b-head-shape"/></clipPath>
+<path id="barrels-barrel-c-shape" d="M 100 142 L 96 112 L 104 98 L 176 96 L 186 110 L 182 140 Z"/>
+<clipPath id="barrels-barrel-c-clip"><use href="#barrels-barrel-c-shape"/></clipPath>
+<path id="barrels-bc-head-shape" d="M 176 96 L 192 100 L 196 124 L 186 140 L 182 140 L 186 110 Z"/>
+<clipPath id="barrels-bc-head-clip"><use href="#barrels-bc-head-shape"/></clipPath>
+<path id="barrels-sack-shape" d="M 150 96 L 148 80 L 156 66 L 176 64 L 182 78 L 180 96 Z"/>
+<clipPath id="barrels-sack-clip"><use href="#barrels-sack-shape"/></clipPath>
+</defs>
+<path id="barrels-blot" d="M 0 136 L 200 130 L 206 144 L 6 148 Z" fill="#14110f" opacity="0.55"/>
+<g id="barrels-barrel-a">
+<use id="barrels-barrel-a-line" href="#barrels-barrel-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrels-barrel-a-clip)">
+<use id="barrels-barrel-a-lit" href="#barrels-barrel-a-shape" fill="#6f5c46"/>
+<path id="barrels-barrel-a-mid" d="M 54 32 L 52.5 32.1 L 53.9 64.2 L 57 67.3 L 59.5 123.9 L 90 124 L 90 32 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="barrels-barrel-a-dark" d="M 54 32 L 52.5 32.1 L 53.9 64.2 L 57 67.3 L 59.5 123.9 L 90 124 L 90 32 Z" fill="#14110f"/>
+<path id="barrels-barrel-a-staves" d="M 37.2 36 L 35 120 L 38.8 36 Z M 51.2 36 L 52 120 L 52.8 36 Z M 65.2 36 L 69 120 L 66.8 36 Z" fill="#4a3c2d"/>
+<path id="barrels-barrel-a-hoop-a" d="M 24 48 L 80 48 L 80 54 L 24 54 Z" fill="#5b6165"/>
+<path id="barrels-barrel-a-hoop-b" d="M 24 102 L 80 102 L 80 108 L 24 108 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="barrels-barrel-a-head">
+<use id="barrels-barrel-a-head-line" href="#barrels-barrel-a-head-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrels-barrel-a-head-clip)">
+<use id="barrels-barrel-a-head-lit" href="#barrels-barrel-a-head-shape" fill="#6f5c46"/>
+<path id="barrels-barrel-a-head-dark" d="M 18 26 L 42 26 L 44.4 40 L 18 40 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="barrels-barrel-b">
+<use id="barrels-barrel-b-line" href="#barrels-barrel-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrels-barrel-b-clip)">
+<use id="barrels-barrel-b-lit" href="#barrels-barrel-b-shape" fill="#6f5c46"/>
+<path id="barrels-barrel-b-mid" d="M 114 36 L 112.3 36.1 L 114.1 74.4 L 117.7 78 L 119.7 119.9 L 148 120 L 148 36 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="barrels-barrel-b-dark" d="M 114 36 L 112.3 36.1 L 114.1 74.4 L 117.7 78 L 119.7 119.9 L 148 120 L 148 36 Z" fill="#14110f"/>
+<path id="barrels-barrel-b-staves" d="M 98.2 40 L 96 116 L 99.8 40 Z M 111.2 40 L 112 116 L 112.8 40 Z M 124.2 40 L 128 116 L 125.8 40 Z" fill="#4a3c2d"/>
+<path id="barrels-barrel-b-hoop-a" d="M 86 52 L 138 52 L 138 58 L 86 58 Z" fill="#5b6165"/>
+<path id="barrels-barrel-b-hoop-b" d="M 86 98 L 138 98 L 138 104 L 86 104 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="barrels-barrel-b-head">
+<use id="barrels-barrel-b-head-line" href="#barrels-barrel-b-head-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrels-barrel-b-head-clip)">
+<use id="barrels-barrel-b-head-lit" href="#barrels-barrel-b-head-shape" fill="#6f5c46"/>
+<path id="barrels-barrel-b-head-dark" d="M 80 30 L 102.8 30 L 105.2 44 L 80 44 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="barrels-barrel-c">
+<use id="barrels-barrel-c-line" href="#barrels-barrel-c-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrels-barrel-c-clip)">
+<use id="barrels-barrel-c-lit" href="#barrels-barrel-c-shape" fill="#6f5c46"/>
+<path id="barrels-barrel-c-mid" d="M 90 124 L 90.1 125.8 L 141.1 123.8 L 145 120 L 189.9 118.2 L 190 146 L 90 146 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="barrels-barrel-c-dark" d="M 90 124 L 90.1 125.8 L 141.1 123.8 L 145 120 L 189.9 118.2 L 190 146 L 90 146 Z" fill="#14110f"/>
+<path id="barrels-bc-hoop-a" d="M 120 98 L 126 98 L 124 142 L 118 142 Z" fill="#5b6165"/>
+<path id="barrels-bc-hoop-b" d="M 156 97 L 162 97 L 164 141 L 158 141 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="barrels-bc-head">
+<use id="barrels-bc-head-line" href="#barrels-bc-head-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrels-bc-head-clip)">
+<use id="barrels-bc-head-lit" href="#barrels-bc-head-shape" fill="#6f5c46"/>
+<path id="barrels-bc-head-dark" d="M 164 92 L 178.9 91.8 L 183.1 117 L 181.1 120.1 L 185.1 144.2 L 164 144 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="barrels-sack">
+<use id="barrels-sack-line" href="#barrels-sack-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#barrels-sack-clip)">
+<use id="barrels-sack-lit" href="#barrels-sack-shape" fill="#c7ad84"/>
+<path id="barrels-sack-mid" d="M 136 60 L 157.3 59.3 L 163.8 79.7 L 161.1 85.5 L 165.9 100.7 L 136 100 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="barrels-sack-dark" d="M 136 60 L 157.3 59.3 L 163.8 79.7 L 161.1 85.5 L 165.9 100.7 L 136 100 Z" fill="#14110f"/>
+<path id="barrels-sack-tie" d="M 154.1 70.8 L 178 68 L 153.9 69.2 Z" fill="#927a58"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cart-wheel-near" width="480" height="416" viewBox="-80 -80 480 416">
+<defs>
+<path id="cart-wheel-near-wheel-spoke-0-shape" d="M 176.7 201.8 L 209.4 212.4 L 208.3 215.9 L 175.3 206.2 Z"/>
+<clipPath id="cart-wheel-near-wheel-spoke-0-clip"><use href="#cart-wheel-near-wheel-spoke-0-shape"/></clipPath>
+<path id="cart-wheel-near-wheel-spoke-1-shape" d="M 178.2 203.5 L 185.4 237.1 L 181.9 237.9 L 173.8 204.5 Z"/>
+<clipPath id="cart-wheel-near-wheel-spoke-1-clip"><use href="#cart-wheel-near-wheel-spoke-1-shape"/></clipPath>
+<path id="cart-wheel-near-wheel-spoke-2-shape" d="M 177.6 205.7 L 152 228.7 L 149.5 226.1 L 174.4 202.3 Z"/>
+<clipPath id="cart-wheel-near-wheel-spoke-2-clip"><use href="#cart-wheel-near-wheel-spoke-2-shape"/></clipPath>
+<path id="cart-wheel-near-wheel-spoke-3-shape" d="M 176.7 201.8 L 143.7 192.1 L 142.6 195.6 L 175.3 206.2 Z"/>
+<clipPath id="cart-wheel-near-wheel-spoke-3-clip"><use href="#cart-wheel-near-wheel-spoke-3-shape"/></clipPath>
+<path id="cart-wheel-near-wheel-spoke-4-shape" d="M 178.2 203.5 L 170.1 170.1 L 166.6 170.9 L 173.8 204.5 Z"/>
+<clipPath id="cart-wheel-near-wheel-spoke-4-clip"><use href="#cart-wheel-near-wheel-spoke-4-shape"/></clipPath>
+<path id="cart-wheel-near-wheel-spoke-5-shape" d="M 177.6 205.7 L 202.5 181.9 L 200 179.3 L 174.4 202.3 Z"/>
+<clipPath id="cart-wheel-near-wheel-spoke-5-clip"><use href="#cart-wheel-near-wheel-spoke-5-shape"/></clipPath>
+<path id="cart-wheel-near-wheel-rim-shape" d="M 216 204 L 212 221.4 L 200.9 235.3 L 184.9 243 L 167.1 243 L 151.1 235.3 L 140 221.4 L 136 204 L 140 186.6 L 151.1 172.7 L 167.1 165 L 184.9 165 L 200.9 172.7 L 212 186.6 L 204.8 190.1 L 196 179 L 183.1 172.8 L 168.9 172.8 L 156 179 L 147.2 190.1 L 144 204 L 147.2 217.9 L 156 229 L 168.9 235.2 L 183.1 235.2 L 196 229 L 204.8 217.9 L 208 204 L 216 204 Z"/>
+<clipPath id="cart-wheel-near-wheel-rim-clip"><use href="#cart-wheel-near-wheel-rim-shape"/></clipPath>
+<path id="cart-wheel-near-wheel-hub-shape" d="M 184.8 204 L 182.2 210.2 L 176 212.8 L 169.8 210.2 L 167.2 204 L 169.8 197.8 L 176 195.2 L 182.2 197.8 Z"/>
+<clipPath id="cart-wheel-near-wheel-hub-clip"><use href="#cart-wheel-near-wheel-hub-shape"/></clipPath>
+</defs>
+<path id="cart-wheel-near-wheel-gaps" d="M 215.2 204 L 211.3 221 L 200.4 234.6 L 184.7 242.2 L 167.3 242.2 L 151.6 234.6 L 140.7 221 L 136.8 204 L 140.7 187 L 151.6 173.4 L 167.3 165.8 L 184.7 165.8 L 200.4 173.4 L 211.3 187 Z" fill="#14110f"/>
+<g id="cart-wheel-near-wheel-spoke-0">
+<use id="cart-wheel-near-wheel-spoke-0-line" href="#cart-wheel-near-wheel-spoke-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-near-wheel-spoke-0-clip)">
+<use id="cart-wheel-near-wheel-spoke-0-lit" href="#cart-wheel-near-wheel-spoke-0-shape" fill="#6f5c46"/>
+<path id="cart-wheel-near-wheel-spoke-0-dark" d="M 163.3 197.8 L 186.1 197.8 L 191.8 219.9 L 163.3 219.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-near-wheel-spoke-1">
+<use id="cart-wheel-near-wheel-spoke-1-line" href="#cart-wheel-near-wheel-spoke-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-near-wheel-spoke-1-clip)">
+<use id="cart-wheel-near-wheel-spoke-1-lit" href="#cart-wheel-near-wheel-spoke-1-shape" fill="#6f5c46"/>
+<path id="cart-wheel-near-wheel-spoke-1-dark" d="M 161.8 199.5 L 176.7 199.4 L 178.9 217.2 L 177.4 219.3 L 180.1 242 L 161.8 241.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-near-wheel-spoke-2">
+<use id="cart-wheel-near-wheel-spoke-2-line" href="#cart-wheel-near-wheel-spoke-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-near-wheel-spoke-2-clip)">
+<use id="cart-wheel-near-wheel-spoke-2-lit" href="#cart-wheel-near-wheel-spoke-2-shape" fill="#6f5c46"/>
+<path id="cart-wheel-near-wheel-spoke-2-dark" d="M 137.5 198.3 L 157.1 197.8 L 163.1 217.4 L 160.9 222 L 164.4 233.2 L 137.5 232.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-near-wheel-spoke-3">
+<use id="cart-wheel-near-wheel-spoke-3-line" href="#cart-wheel-near-wheel-spoke-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-near-wheel-spoke-3-clip)">
+<use id="cart-wheel-near-wheel-spoke-3-lit" href="#cart-wheel-near-wheel-spoke-3-shape" fill="#6f5c46"/>
+<path id="cart-wheel-near-wheel-spoke-3-dark" d="M 130.6 188.1 L 153.4 188.1 L 159.1 210.2 L 130.6 210.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-near-wheel-spoke-4">
+<use id="cart-wheel-near-wheel-spoke-4-line" href="#cart-wheel-near-wheel-spoke-4-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-near-wheel-spoke-4-clip)">
+<use id="cart-wheel-near-wheel-spoke-4-lit" href="#cart-wheel-near-wheel-spoke-4-shape" fill="#6f5c46"/>
+<path id="cart-wheel-near-wheel-spoke-4-dark" d="M 154.6 166.1 L 169.5 166 L 171.6 183.3 L 170.2 185.2 L 173.1 208.6 L 154.6 208.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-near-wheel-spoke-5">
+<use id="cart-wheel-near-wheel-spoke-5-line" href="#cart-wheel-near-wheel-spoke-5-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-near-wheel-spoke-5-clip)">
+<use id="cart-wheel-near-wheel-spoke-5-lit" href="#cart-wheel-near-wheel-spoke-5-shape" fill="#6f5c46"/>
+<path id="cart-wheel-near-wheel-spoke-5-dark" d="M 162.4 175.3 L 182.1 174.8 L 186.4 188.7 L 184.1 193.7 L 189.1 210.2 L 162.4 209.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-near-wheel-rim">
+<use id="cart-wheel-near-wheel-rim-line" href="#cart-wheel-near-wheel-rim-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-near-wheel-rim-clip)">
+<use id="cart-wheel-near-wheel-rim-lit" href="#cart-wheel-near-wheel-rim-shape" fill="#6f5c46"/>
+<path id="cart-wheel-near-wheel-rim-mid" d="M 124 161 L 159.4 159.9 L 172.6 196.1 L 168.9 205 L 184.6 248.1 L 124 247 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="cart-wheel-near-wheel-rim-dark" d="M 124 161 L 159.4 159.9 L 172.6 196.1 L 168.9 205 L 184.6 248.1 L 124 247 Z" fill="#14110f"/>
+<path id="cart-wheel-near-wheel-rim-cold" d="M 96 125 L 256 125 L 256 283 L 96 283 Z M 217.9 202.6 L 214 219.9 L 202.9 233.8 L 186.8 241.6 L 169 241.6 L 153 233.8 L 141.9 219.9 L 137.9 202.6 L 141.9 185.2 L 153 171.3 L 169 163.6 L 186.8 163.6 L 202.9 171.3 L 214 185.2 L 206.8 188.7 L 197.9 177.5 L 185 171.4 L 170.8 171.4 L 158 177.5 L 149.1 188.7 L 145.9 202.6 L 149.1 216.4 L 158 227.6 L 170.8 233.8 L 185 233.8 L 197.9 227.6 L 206.8 216.4 L 209.9 202.6 L 217.9 202.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<path id="cart-wheel-near-wheel-tire" d="M 216.8 204 L 212.8 221.7 L 201.4 235.9 L 185.1 243.8 L 166.9 243.8 L 150.6 235.9 L 139.2 221.7 L 135.2 204 L 139.2 186.3 L 150.6 172.1 L 166.9 164.2 L 185.1 164.2 L 201.4 172.1 L 212.8 186.3 L 216.8 204" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="cart-wheel-near-wheel-hub">
+<use id="cart-wheel-near-wheel-hub-line" href="#cart-wheel-near-wheel-hub-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-near-wheel-hub-clip)">
+<use id="cart-wheel-near-wheel-hub-lit" href="#cart-wheel-near-wheel-hub-shape" fill="#8c9194"/>
+<path id="cart-wheel-near-wheel-hub-dark" d="M 155.2 191.2 L 171.8 190.9 L 174.7 201.5 L 173.2 204.4 L 176.7 217.1 L 155.2 216.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="cart-wheel-near-wheel-pin" d="M 175.2 203 L 177 201.2 L 178.8 203 L 177 204.8 Z" fill="#14110f"/>
+</svg>

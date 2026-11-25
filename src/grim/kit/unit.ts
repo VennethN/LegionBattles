@@ -36,6 +36,8 @@ export interface PartSpec {
   hangs?: boolean;
   /** The still this part is shown in, and in no other pose: what water leaves on the Furnace while it is cooled. */
   only?: string;
+  /** The still this part is not shown in: legs standing, which a seated figure swaps for legs bent at the knee. */
+  hide?: string;
   draw: (d: Doc) => void;
 }
 
@@ -73,4 +75,9 @@ export function drawPart(unit: UnitArt, part: PartSpec): Doc {
 /** A part, said shortly. */
 export function part(name: string, role: Role, parent: Parent, pivot: Pt, draw: (d: Doc) => void, sway?: number, hangs?: boolean, only?: string): PartSpec {
   return { name, role, parent, pivot, draw, ...(sway !== undefined ? { sway } : {}), ...(hangs ? { hangs } : {}), ...(only ? { only } : {}) };
+}
+
+/** The same part, not shown in one still. */
+export function hidden(spec: PartSpec, still: string): PartSpec {
+  return { ...spec, hide: still };
 }

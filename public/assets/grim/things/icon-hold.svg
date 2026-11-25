@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-hold" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-hold-bar-0-shape" d="M 12 6 L 26 6 L 26 58 L 12 58 Z"/>
+<clipPath id="icon-hold-bar-0-clip"><use href="#icon-hold-bar-0-shape"/></clipPath>
+<path id="icon-hold-bar-1-shape" d="M 38 6 L 52 6 L 52 58 L 38 58 Z"/>
+<clipPath id="icon-hold-bar-1-clip"><use href="#icon-hold-bar-1-shape"/></clipPath>
+</defs>
+<g id="icon-hold-bar-0">
+<use id="icon-hold-bar-0-line" href="#icon-hold-bar-0-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-hold-bar-0-clip)">
+<use id="icon-hold-bar-0-lit" href="#icon-hold-bar-0-shape" fill="#8c9194"/>
+<use id="icon-hold-bar-0-rim" href="#icon-hold-bar-0-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-hold-bar-0-lit-over" href="#icon-hold-bar-0-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="icon-hold-bar-0-mid" d="M 20 0 L 32 0 L 32 64 L 20 64 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="icon-hold-bar-0-dark" d="M 20 0 L 32 0 L 32 64 L 20 64 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-hold-bar-0-nails-0" d="M 17 22 L 19 20 L 21 22 L 19 24 Z" fill="#14110f"/>
+<path id="icon-hold-bar-0-nails-1" d="M 17 42 L 19 40 L 21 42 L 19 44 Z" fill="#14110f"/>
+<g id="icon-hold-bar-1">
+<use id="icon-hold-bar-1-line" href="#icon-hold-bar-1-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-hold-bar-1-clip)">
+<use id="icon-hold-bar-1-lit" href="#icon-hold-bar-1-shape" fill="#8c9194"/>
+<use id="icon-hold-bar-1-rim" href="#icon-hold-bar-1-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-hold-bar-1-lit-over" href="#icon-hold-bar-1-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="icon-hold-bar-1-mid" d="M 46 0 L 58 0 L 58 64 L 46 64 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="icon-hold-bar-1-dark" d="M 46 0 L 58 0 L 58 64 L 46 64 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-hold-bar-1-nails-0" d="M 43 22 L 45 20 L 47 22 L 45 24 Z" fill="#14110f"/>
+<path id="icon-hold-bar-1-nails-1" d="M 43 42 L 45 40 L 47 42 L 45 44 Z" fill="#14110f"/>
+</svg>

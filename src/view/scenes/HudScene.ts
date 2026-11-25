@@ -28,7 +28,6 @@ import { LIGHT_NAMES, lightMode, nextLightMode, setLightMode } from '../light/se
 import { FEEL_NAMES, feelMode, nextFeelMode, setFeelMode } from '../vfx/setting';
 import { LairScene } from './LairScene';
 
-const ICON = 0.5;
 const PAD = 70;
 
 /** A button of the hunt: what it asks for, and how it reads whether it is ready. */
@@ -74,6 +73,9 @@ export class HudScene extends Phaser.Scene {
   private plateBack!: Phaser.GameObjects.Image;
   private shownStep = '';
   private plateUntil = 0;
+  /** Where the lesson's plate stands, and how big it is: it moves up out of the way of a warning laid under it. */
+  private plateHome = { x: 0, y: 0, w: 0, h: 0 };
+  private plateUp = false;
   private hint: Phaser.GameObjects.Container | null = null;
   private stick!: Phaser.GameObjects.Graphics;
   private flash!: Phaser.GameObjects.Image;
@@ -104,6 +106,8 @@ export class HudScene extends Phaser.Scene {
   private bossFlash = 0;
   private low!: Phaser.GameObjects.Graphics;
   private bannerUntil = 0;
+  /** True while the banner shown is one that gives way to a warning. */
+  private bannerSoft = false;
   private clock = 0;
   private get touch(): boolean {
     return this.controls?.scheme === 'touch';
@@ -119,7 +123,9 @@ export class HudScene extends Phaser.Scene {
 
   create(data: { fresh?: boolean }): void {
     setupCamera(this);
-    this.controls = new Controls(this, this.sys.game.device.input.touch && !this.sys.game.device.os.desktop);
+    // A touch screen is started on touch, a tablet or a phone that says it is a desktop too: its words say tap.
+    const coarse = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+    this.controls = new Controls(this, this.sys.game.device.input.touch && (!this.sys.game.device.os.desktop || coarse));
     this.controls.onScheme = () => this.rescheme();
     this.paused = null;
     this.hint = null;
@@ -161,7 +167,7 @@ export class HudScene extends Phaser.Scene {
 
     // Pause: a button, and the P key. Escape is the browser's, for leaving full screen.
     const pause = this.add.container(w - 34, 26).setDepth(12);
-    pause.add([slabImage(this, -22, -22, 44, 44, BONE, 12, 5), this.add.image(0, -2, SHEET, 'icon/hold').setScale(ICON * 0.5).setTint(hex(OUTLINE))]);
+    pause.add([slabImage(this, -22, -22, 44, 44, BONE, 12, 5), this.add.image(0, -2, uiKey('icon-hold')).setDisplaySize(30, 30)]);
     pause.setSize(44, 44).setInteractive({ useHandCursor: true });
     pause.on('pointerup', () => this.pause(true));
     const onKey = (e: KeyboardEvent): void => {
@@ -191,8 +197,11 @@ export class HudScene extends Phaser.Scene {
     this.plate = null;
     this.shownStep = '';
     this.plateUntil = 0;
-    if (!hunt.camps) this.buildPlate();
-    else if (!save().told.includes('move')) this.showHint();
+    // How to move is shown in the lesson only, where nobody has moved yet; a hunt after it has no word on it.
+    if (!hunt.camps) {
+      this.buildPlate();
+      if (!save().told.includes('move')) this.showHint();
+    }
     if (data.fresh && hunt.phase === 'camp') {
       const things = Object.values(hunt.toPlace).some((n) => n > 0);
       this.banner(things ? 'BUILD YOUR CAMP' : hunt.monster.def.name.toUpperCase(), things ? 'The boss is asleep. Build, then wake it.' : 'The boss is asleep. Wake it when you are ready.');
@@ -211,7 +220,7 @@ export class HudScene extends Phaser.Scene {
     // The style's round iron slot, its icon on it, and the word under: the slot is the button.
     c.add(this.add.image(0, -4 * k, uiKey('slot')).setDisplaySize(size + 6, size + 10).setTint(mat === GOLD ? 0xf0d8a8 : 0xffffff));
     const kit = uiIcon(icon);
-    c.add(kit ? this.add.image(0, -8 * k, kit).setDisplaySize(40 * k, 40 * k) : this.add.image(0, -8 * k, SHEET, `icon/${icon}`).setScale(ICON * 0.66 * k));
+    c.add(this.add.image(0, -8 * k, kit ?? uiKey('icon-star')).setDisplaySize(40 * k, 40 * k));
     c.add(label(this, 0, size / 2 - 2, word, { size: 15, face: 'display' }));
     // The wait still to run, as a dark sweep round the slot from the top, as a clock's hand goes.
     const veil = this.add.graphics();
@@ -254,6 +263,9 @@ export class HudScene extends Phaser.Scene {
     this.pad(c, x, y, b.id, SHORT[b.id] ?? b.name.toUpperCase(), 'b', IRON, (n) => n.hunter.waits[1] / b.wait, null);
     x -= step;
     this.pad(c, x, y, a.id, SHORT[a.id] ?? a.name.toUpperCase(), 'a', IRON, (n) => n.hunter.waits[0] / a.wait, null);
+    // ATTACK, with its key, so that a hunt always shows how to strike: the mouse on the field does the same.
+    x -= step;
+    this.atk = this.pad(c, x, y, 'attack', 'ATTACK', 'attack', RUBY, () => 0, null, PAD, null, (p) => this.controls.press('attack', p));
     hunt.calls.forEach((call, i) => {
       x -= step;
       this.pad(c, x, y, `icon-${call.def.id}`, SHORT[call.def.id] ?? call.def.name.toUpperCase(), `call${i}` as Ask, GOLD, (n) => (n.calls[i].left > 0 ? n.hornWait / 5 : 1), (n) => n.calls[i].left);
@@ -405,16 +417,27 @@ export class HudScene extends Phaser.Scene {
   // ------------------------------------------------------------ what is said
 
   /** Words across the lair for a moment: a name, and a line under it. */
-  banner(text: string, under: string): void {
+  banner(text: string, under: string, soft = false): void {
+    const hunt = theHunt();
+    // A banner that only says how things stand gives way to a warning: it is not shown while one is up.
+    if (soft && hunt && hunt.tells.some((t) => t.foe)) return;
+    this.bannerSoft = soft;
     this.tweens.killTweensOf([this.bannerText, this.underText]);
-    // Under the bars, where nothing fights, and gone quickly: a banner must not lie over the boss or the hunter.
-    const y = this.by + (view.tall ? 74 : 66);
+    // Under the bars and under the name of what the boss is doing, where nothing fights, and gone quickly: a banner
+    // must not lie over the boss, the hunter, or the attack's name.
+    const y = this.stateY() + (view.tall ? 36 : 30);
     this.bannerText.setText(text).setAlpha(text ? 1 : 0).setScale(text ? 1.15 : 1).setY(y);
     this.underText.setText(under).setAlpha(under ? 1 : 0).setY(y + (text ? 28 : 0));
     if (text) this.tweens.add({ targets: this.bannerText, scale: 1, duration: 200, ease: 'Back.easeOut' });
     this.tweens.add({ targets: [this.bannerText, this.underText], alpha: 0, delay: 1000, duration: 350 });
     // A line said under a banner waits its turn: it is moved below it while the banner shows.
     this.bannerUntil = this.clock + 1.35;
+  }
+
+  /** Where the line under the boss's bar stands: the name of what it is doing. Nothing is laid over it. */
+  private stateY(): number {
+    const hunt = theHunt();
+    return this.by + (hunt?.monster.def.heat ? 56 : 40);
   }
 
   /** The hunter was struck: the screen says so. */
@@ -429,11 +452,17 @@ export class HudScene extends Phaser.Scene {
    * sits off the fight: beside the buttons at the foot of a wide window, over them in a tall one.
    */
   private buildPlate(): void {
-    const padsW = 3 * (PAD + 8) + Math.round(PAD * 1.3) + 22;
-    const pw = view.tall ? view.w - 24 : Math.min(600, view.w - padsW - 28);
+    const hunt = theHunt();
+    // Clear of the buttons: on keys, the row and the words on the mouse beside it; on a touch screen, the stick at the
+    // left and the arc of buttons at the right.
+    const calls = hunt?.calls.length ?? 0;
+    const left = this.touch ? STICK_R * 2 + 84 : 14;
+    const right = this.touch ? view.w - 360 : view.w - (4 + calls) * (PAD + 8) - 14 - (save().wins < 3 ? 150 : 0);
+    const pw = view.tall ? view.w - 24 : Math.min(600, right - left);
     const ph = 62;
-    const x = view.tall ? view.w / 2 : 14 + pw / 2;
-    const y = view.tall ? view.h - PAD - 36 - ph / 2 : view.h - 14 - ph / 2;
+    const x = view.tall ? view.w / 2 : this.touch ? (left + right) / 2 : left + pw / 2;
+    const y = view.tall ? view.h - PAD - (this.touch ? 200 : 36) - ph / 2 : view.h - 14 - ph / 2;
+    this.plateHome = { x, y, w: pw, h: ph };
     const c = this.add.container(x, y).setDepth(14);
     this.plateBack = slabImage(this, -pw / 2, -ph / 2, pw, ph, IRON, 12, 6);
     this.plateText = label(this, 0, -8, '', { size: 18, wrap: pw - 28 });
@@ -464,6 +493,21 @@ export class HudScene extends Phaser.Scene {
     this.plateText.setY(this.plateText.height > 30 ? -12 : -8);
     c.setAlpha(1).setScale(1.12);
     this.tweens.add({ targets: c, scale: 1, duration: 260, ease: 'Back.easeOut' });
+  }
+
+  /** The plate never lies over a warning: when one is marked under it, it goes up under the bars until it is gone. */
+  private movePlate(dt: number): void {
+    const c = this.plate;
+    if (!c) return;
+    const lair = this.scene.get('Lair') as LairScene;
+    const p = this.plateHome;
+    const clear = (y: number): boolean => lair.clearOf(p.x - p.w / 2, y - p.h / 2, p.x + p.w / 2, y + p.h / 2);
+    // Below where a banner shows, so that the two are never on top of each other.
+    const upY = this.stateY() + 96 + p.h / 2;
+    if (c.alpha > 0) this.plateUp = this.plateUp ? !clear(p.y) : !clear(p.y) && clear(upY);
+    const k = Math.min(1, dt * 12);
+    c.x += ((this.plateUp ? view.w / 2 : p.x) - c.x) * k;
+    c.y += ((this.plateUp ? upY : p.y) - c.y) * k;
   }
 
   /** Says a thing once in a player's life: the first time it matters. */
@@ -508,9 +552,14 @@ export class HudScene extends Phaser.Scene {
 
   /** How to move, shown to someone who has not yet: keys on a keyboard, a finger on a phone. */
   private showHint(): void {
-    const c = this.add.container(view.w / 2, view.h * 0.62).setDepth(15);
+    // Away from the middle, where the hunter stands: over the stick on a touch screen, and on a keyboard just over
+    // the lesson's plate, at its left.
+    const plateTop = this.plate ? this.plate.y - 31 : view.h - 90;
+    const c = this.touch
+      ? this.add.container(STICK_R + 64, view.h - STICK_R * 2 - 110).setDepth(15)
+      : this.add.container(Math.min(view.w / 2, 14 + 170), plateTop - 52).setDepth(15);
     if (this.touch) {
-      c.add(label(this, 0, 0, 'MOVE WITH THE STICK, BOTTOM LEFT', { size: 20 }));
+      c.add(label(this, 0, 0, 'MOVE: PUSH\nTHE STICK', { size: 20 }));
     } else {
       const cap = (x: number, y: number, t: string): void => {
         c.add(slabImage(this, x - 17, y - 17, 34, 34, BONE, 8, 5));
@@ -801,7 +850,7 @@ export class HudScene extends Phaser.Scene {
     const h = this.saidH;
     // Kept off the bars at the top and the buttons and plate at the foot.
     // Clear of the bars and the stagger's mark, and of a banner while one shows.
-    const top = this.by + (this.clock < this.bannerUntil ? 120 : 64);
+    const top = this.stateY() + (this.clock < this.bannerUntil ? 84 : 24);
     const foot = view.h - PAD - (view.tall ? 120 : 40);
     const place = (x: number, y: number): [number, number] => [Math.max(8 + w / 2, Math.min(view.w - 8 - w / 2, x)), Math.max(top + h / 2, Math.min(foot - h / 2, y))];
     let at: [number, number] | null;
@@ -846,7 +895,14 @@ export class HudScene extends Phaser.Scene {
     const said = state || this.heatSays;
     this.stateText.setText(said).setColor(doing ? RUBY.fill : state ? HOLY.fill : this.heatColor).setAlpha(state === 'STUNNED' ? 0.6 + 0.4 * Math.sin(this.clock * 12) ** 2 : 1);
     // Under the heat bar, for a boss that has one.
-    this.stateText.setY(this.by + (m.def.heat ? 56 : 40));
+    this.stateText.setY(this.stateY());
+    // A warning came up while a banner that gives way to one was showing: it goes at once.
+    if (this.bannerSoft && this.bannerText.alpha > 0 && hunt.tells.some((t) => t.foe)) {
+      this.bannerSoft = false;
+      this.tweens.killTweensOf([this.bannerText, this.underText]);
+      this.tweens.add({ targets: [this.bannerText, this.underText], alpha: 0, duration: 120 });
+      this.bannerUntil = this.clock;
+    }
 
     // Camp: what is left to build, and what to do.
     if (camp) {
@@ -879,6 +935,7 @@ export class HudScene extends Phaser.Scene {
 
     // A hunt that teaches: its plate, and the button the step is about beats so that it is found.
     this.showPlate(hunt);
+    this.movePlate(Math.min(0.1, delta / 1000));
     const step = hunt.teaching?.step;
     if (this.atk) this.atk.setScale(this.controls.attackHeld ? 0.94 : step?.wants === 'strike' ? 1.06 + 0.07 * Math.sin(this.clock * 9) : 1);
     const wanted: Ask | null = step?.wants === 'dodge' ? 'dodge' : step?.wants === 'skill' ? (step.skill === 0 ? 'a' : 'b') : null;

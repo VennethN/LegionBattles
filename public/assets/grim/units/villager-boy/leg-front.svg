@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="villager-boy-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="villager-boy-leg-front-leg-shape" d="M 142 199.3 L 143.9 213.5 L 144.5 233.5 L 135.5 234.5 L 132.2 214.9 L 130 200.7 Z"/>
+<clipPath id="villager-boy-leg-front-leg-clip"><use href="#villager-boy-leg-front-leg-shape"/></clipPath>
+<path id="villager-boy-leg-front-foot-shape" d="M 134 233 L 148 232 L 152 240 L 132 240 Z"/>
+<clipPath id="villager-boy-leg-front-foot-clip"><use href="#villager-boy-leg-front-foot-shape"/></clipPath>
+</defs>
+<g id="villager-boy-leg-front-leg">
+<use id="villager-boy-leg-front-leg-line" href="#villager-boy-leg-front-leg-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#villager-boy-leg-front-leg-clip)">
+<use id="villager-boy-leg-front-leg-lit" href="#villager-boy-leg-front-leg-shape" fill="#c7ad84"/>
+<path id="villager-boy-leg-front-leg-mid" d="M 138.3 196.7 L 140.9 218.3 L 139.1 220.8 L 141 236.9 L 130.1 238.2 L 125.4 198.2 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="villager-boy-leg-front-leg-dark" d="M 138.3 196.7 L 140.9 218.3 L 139.1 220.8 L 141 236.9 L 130.1 238.2 L 125.4 198.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="villager-boy-leg-front-foot">
+<use id="villager-boy-leg-front-foot-line" href="#villager-boy-leg-front-foot-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#villager-boy-leg-front-foot-clip)">
+<use id="villager-boy-leg-front-foot-lit" href="#villager-boy-leg-front-foot-shape" fill="#c7ad84"/>
+<path id="villager-boy-leg-front-foot-dark" d="M 120 228 L 136.4 228 L 139.6 244 L 120 244 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

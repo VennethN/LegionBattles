@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="check" width="48" height="48" viewBox="0 0 48 48">
-<defs>
-<path id="check-check-shape" d="M 6 25 L 12 19 L 20 27 L 36 9 L 42 15 L 20 39 Z"/>
-</defs>
-<g id="check-check">
-<use id="check-check-fill" href="#check-check-shape" fill="#8fce4a"/>
-<use id="check-check-line" href="#check-check-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>

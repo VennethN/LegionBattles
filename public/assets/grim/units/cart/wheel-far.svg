@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="cart-wheel-far" width="480" height="416" viewBox="-80 -80 480 416">
+<defs>
+<path id="cart-wheel-far-wheel-spoke-0-shape" d="M 140.7 197.8 L 171.8 207.9 L 170.7 211.4 L 139.3 202.2 Z"/>
+<clipPath id="cart-wheel-far-wheel-spoke-0-clip"><use href="#cart-wheel-far-wheel-spoke-0-shape"/></clipPath>
+<path id="cart-wheel-far-wheel-spoke-1-shape" d="M 142.2 199.5 L 149 231.5 L 145.5 232.3 L 137.8 200.5 Z"/>
+<clipPath id="cart-wheel-far-wheel-spoke-1-clip"><use href="#cart-wheel-far-wheel-spoke-1-shape"/></clipPath>
+<path id="cart-wheel-far-wheel-spoke-2-shape" d="M 141.6 201.7 L 117.2 223.5 L 114.8 220.9 L 138.4 198.3 Z"/>
+<clipPath id="cart-wheel-far-wheel-spoke-2-clip"><use href="#cart-wheel-far-wheel-spoke-2-shape"/></clipPath>
+<path id="cart-wheel-far-wheel-spoke-3-shape" d="M 140.7 197.8 L 109.3 188.6 L 108.2 192.1 L 139.3 202.2 Z"/>
+<clipPath id="cart-wheel-far-wheel-spoke-3-clip"><use href="#cart-wheel-far-wheel-spoke-3-shape"/></clipPath>
+<path id="cart-wheel-far-wheel-spoke-4-shape" d="M 142.2 199.5 L 134.5 167.7 L 131 168.5 L 137.8 200.5 Z"/>
+<clipPath id="cart-wheel-far-wheel-spoke-4-clip"><use href="#cart-wheel-far-wheel-spoke-4-shape"/></clipPath>
+<path id="cart-wheel-far-wheel-spoke-5-shape" d="M 141.6 201.7 L 165.2 179.1 L 162.8 176.5 L 138.4 198.3 Z"/>
+<clipPath id="cart-wheel-far-wheel-spoke-5-clip"><use href="#cart-wheel-far-wheel-spoke-5-shape"/></clipPath>
+<path id="cart-wheel-far-wheel-rim-shape" d="M 178 200 L 174.2 216.5 L 163.7 229.7 L 148.5 237 L 131.5 237 L 116.3 229.7 L 105.8 216.5 L 102 200 L 105.8 183.5 L 116.3 170.3 L 131.5 163 L 148.5 163 L 163.7 170.3 L 174.2 183.5 L 167.4 186.8 L 159 176.2 L 146.8 170.4 L 133.2 170.4 L 121 176.2 L 112.6 186.8 L 109.6 200 L 112.6 213.2 L 121 223.8 L 133.2 229.6 L 146.8 229.6 L 159 223.8 L 167.4 213.2 L 170.4 200 L 178 200 Z"/>
+<clipPath id="cart-wheel-far-wheel-rim-clip"><use href="#cart-wheel-far-wheel-rim-shape"/></clipPath>
+<path id="cart-wheel-far-wheel-hub-shape" d="M 148.4 200 L 145.9 205.9 L 140 208.4 L 134.1 205.9 L 131.6 200 L 134.1 194.1 L 140 191.6 L 145.9 194.1 Z"/>
+<clipPath id="cart-wheel-far-wheel-hub-clip"><use href="#cart-wheel-far-wheel-hub-shape"/></clipPath>
+</defs>
+<path id="cart-wheel-far-wheel-gaps" d="M 177.2 200 L 173.6 216.2 L 163.2 229.1 L 148.3 236.3 L 131.7 236.3 L 116.8 229.1 L 106.4 216.2 L 102.8 200 L 106.4 183.8 L 116.8 170.9 L 131.7 163.7 L 148.3 163.7 L 163.2 170.9 L 173.6 183.8 Z" fill="#14110f"/>
+<g id="cart-wheel-far-wheel-spoke-0">
+<use id="cart-wheel-far-wheel-spoke-0-line" href="#cart-wheel-far-wheel-spoke-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-far-wheel-spoke-0-clip)">
+<use id="cart-wheel-far-wheel-spoke-0-lit" href="#cart-wheel-far-wheel-spoke-0-shape" fill="#6f5c46"/>
+<path id="cart-wheel-far-wheel-spoke-0-dark" d="M 127.3 193.8 L 159.3 193.8 L 164.7 215.4 L 127.3 215.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-far-wheel-spoke-1">
+<use id="cart-wheel-far-wheel-spoke-1-line" href="#cart-wheel-far-wheel-spoke-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-far-wheel-spoke-1-clip)">
+<use id="cart-wheel-far-wheel-spoke-1-lit" href="#cart-wheel-far-wheel-spoke-1-shape" fill="#6f5c46"/>
+<path id="cart-wheel-far-wheel-spoke-1-dark" d="M 125.8 195.5 L 143.8 195.4 L 146.8 219.5 L 145.6 221.2 L 147.4 236.3 L 125.8 236.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-far-wheel-spoke-2">
+<use id="cart-wheel-far-wheel-spoke-2-line" href="#cart-wheel-far-wheel-spoke-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-far-wheel-spoke-2-clip)">
+<use id="cart-wheel-far-wheel-spoke-2-lit" href="#cart-wheel-far-wheel-spoke-2-shape" fill="#6f5c46"/>
+<path id="cart-wheel-far-wheel-spoke-2-dark" d="M 102.8 194.3 L 130.4 193.7 L 136.4 213.2 L 133.7 218.4 L 136.6 228.1 L 102.8 227.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-far-wheel-spoke-3">
+<use id="cart-wheel-far-wheel-spoke-3-line" href="#cart-wheel-far-wheel-spoke-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-far-wheel-spoke-3-clip)">
+<use id="cart-wheel-far-wheel-spoke-3-lit" href="#cart-wheel-far-wheel-spoke-3-shape" fill="#6f5c46"/>
+<path id="cart-wheel-far-wheel-spoke-3-dark" d="M 96.2 184.6 L 128.2 184.6 L 133.7 206.2 L 96.2 206.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-far-wheel-spoke-4">
+<use id="cart-wheel-far-wheel-spoke-4-line" href="#cart-wheel-far-wheel-spoke-4-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-far-wheel-spoke-4-clip)">
+<use id="cart-wheel-far-wheel-spoke-4-lit" href="#cart-wheel-far-wheel-spoke-4-shape" fill="#6f5c46"/>
+<path id="cart-wheel-far-wheel-spoke-4-dark" d="M 119 163.7 L 137 163.7 L 139.4 182.8 L 138.2 184.4 L 140.7 204.6 L 119 204.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-far-wheel-spoke-5">
+<use id="cart-wheel-far-wheel-spoke-5-line" href="#cart-wheel-far-wheel-spoke-5-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-far-wheel-spoke-5-clip)">
+<use id="cart-wheel-far-wheel-spoke-5-lit" href="#cart-wheel-far-wheel-spoke-5-shape" fill="#6f5c46"/>
+<path id="cart-wheel-far-wheel-spoke-5-dark" d="M 126.4 172.5 L 153.6 172 L 158.3 187.3 L 156.3 191.5 L 160.7 206.1 L 126.4 205.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="cart-wheel-far-wheel-rim">
+<use id="cart-wheel-far-wheel-rim-line" href="#cart-wheel-far-wheel-rim-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-far-wheel-rim-clip)">
+<use id="cart-wheel-far-wheel-rim-lit" href="#cart-wheel-far-wheel-rim-shape" fill="#6f5c46"/>
+<path id="cart-wheel-far-wheel-rim-mid" d="M 90 159 L 147.7 157.7 L 165.3 206.5 L 161.1 216.8 L 170.3 242.3 L 90 241 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="cart-wheel-far-wheel-rim-dark" d="M 90 159 L 147.7 157.7 L 165.3 206.5 L 161.1 216.8 L 170.3 242.3 L 90 241 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="cart-wheel-far-wheel-tire" d="M 178.8 200 L 174.9 216.8 L 164.2 230.3 L 148.6 237.8 L 131.4 237.8 L 115.8 230.3 L 105.1 216.8 L 101.2 200 L 105.1 183.2 L 115.8 169.7 L 131.4 162.2 L 148.6 162.2 L 164.2 169.7 L 174.9 183.2 L 178.8 200" fill="none" stroke="#14110f" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="cart-wheel-far-wheel-hub">
+<use id="cart-wheel-far-wheel-hub-line" href="#cart-wheel-far-wheel-hub-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#cart-wheel-far-wheel-hub-clip)">
+<use id="cart-wheel-far-wheel-hub-lit" href="#cart-wheel-far-wheel-hub-shape" fill="#8c9194"/>
+<path id="cart-wheel-far-wheel-hub-dark" d="M 119.6 187.6 L 135 187.6 L 141.7 212.4 L 119.6 212.4 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="cart-wheel-far-wheel-pin" d="M 139.2 199 L 141 197.2 L 142.8 199 L 141 200.8 Z" fill="#14110f"/>
+</svg>

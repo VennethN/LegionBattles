@@ -7,21 +7,19 @@
 
 import Phaser from 'phaser';
 import { getGrim } from '../art/grim';
+import { ICONS_USED } from '../icons';
 
 /** How many pixels each unit of a piece is drawn at: sharp on a dense screen, and these pieces are few. */
 export const UI_RASTER = 2;
 
 /** Every piece the screens use, by the name the kit gives it. */
-export const UI_PIECES = [
+export const UI_PIECES: readonly string[] = [
   'button-large', 'button-large-pressed', 'button-medium', 'button-medium-pressed', 'button-small', 'button-small-pressed',
   'slot', 'slot-pressed', 'slot-spent', 'bar-frame', 'bar-frame-monster', 'bar-frame-stagger',
   'fill-health', 'fill-monster', 'fill-stagger', 'fill-wait', 'panel', 'trophy-plate',
-  'icon-ability-brace', 'icon-ability-reap', 'icon-ability-jawtrap', 'icon-ability-tarflask', 'icon-ability-flare', 'icon-ability-lamp',
-  'icon-ability-seton', 'icon-ability-heel', 'icon-dodge', 'icon-horn', 'icon-pikemen', 'icon-crossbowmen', 'icon-sappers',
-  'icon-barricade', 'icon-watchfire', 'icon-bellpost', 'icon-ballista', 'icon-supply', 'icon-coin', 'icon-trophy-spade', 'icon-trophy-antler',
-  'icon-ability-forgestrike', 'icon-ability-anvil', 'icon-ability-keg', 'icon-ability-cavein', 'icon-ability-shove', 'icon-ability-wake',
-  'icon-ability-hook', 'icon-ability-hack', 'icon-trophy-silk', 'icon-trophy-bellrope', 'icon-trophy-grate', 'icon-trophy-shard',
-] as const;
+  // The icons, from the list of what the screens name.
+  ...ICONS_USED,
+];
 
 export const uiKey = (id: string): string => `ui:${id}`;
 
@@ -33,7 +31,7 @@ export function loadUi(scene: Phaser.Scene): void {
 /** The icon the kit drew for an ability or a thing, or null where it drew none. */
 export function uiIcon(id: string): string | null {
   const name = id.startsWith('icon-') ? id : `icon-ability-${id}`;
-  for (const k of [name, `icon-${id}`]) if ((UI_PIECES as readonly string[]).includes(k)) return uiKey(k);
+  for (const k of [name, `icon-${id}`]) if (UI_PIECES.includes(k)) return uiKey(k);
   return null;
 }
 

@@ -10,7 +10,7 @@ import type { Manifest } from '../src/art/manifest';
 import { UNIT_ART } from '../src/art/units';
 import { ABILITIES, BUILDINGS, HELPERS, HUNTERS, MONSTERS, REINFORCEMENTS } from '../src/game/content';
 import { ICONS_USED, abilityIcon } from '../src/view/icons';
-import { ALLY_ART, BUILDING_ART, GRIM_UNITS, HELPER_ART, HUNTER_ART, LAIR_GROUND, MONSTER_ART, MONSTER_MOVES, ABILITY_MOVES, RIGGED, STILLS, WHOLE, isGrim } from '../src/view/pictures';
+import { ALLY_ART, BUILDING_ART, GRIM_UNITS, HELPER_ART, HUNTER_ART, LAIR_GROUND, MONSTER_ART, MONSTER_MOVES, ABILITY_MOVES, CARD_UNITS, RIGGED, STILLS, WHOLE, isGrim } from '../src/view/pictures';
 import { GRIM_RASTER, type GrimManifest } from '../src/view/art/grim';
 import { SkylinePacker } from '../src/view/art/packer';
 
@@ -56,19 +56,19 @@ describe('what the game asks the art for', () => {
   });
 
   it('every ability has a picture, and so has everything else a screen names', () => {
-    const drawn = new Set(Object.keys(manifest.icons).map((n) => `icon/${n}`));
-    for (const a of ABILITIES) expect(drawn.has(abilityIcon(a.id)), a.id).toBe(true);
-    // Whatever a screen asks for by name is on the list the art build writes from.
+    // The icons are the Grim kit's own: each one the game shows is drawn by the kit.
+    for (const a of ABILITIES) expect(ICONS_USED.has(abilityIcon(a.id).slice(3)), a.id).toBe(true);
+    for (const name of ICONS_USED) expect(grim.things[name], name).toBeDefined();
+    // Whatever a screen asks for by name is on the list that is loaded.
     const asked = new Set<string>();
     for (const file of files('src/view').filter((f) => f.endsWith('.ts'))) {
-      for (const m of fs.readFileSync(file, 'utf8').matchAll(/'icon\/([a-z0-9-]+)'/g)) asked.add(m[1]);
+      for (const m of fs.readFileSync(file, 'utf8').matchAll(/'(icon-[a-z0-9-]+)'/g)) asked.add(m[1]);
     }
-    for (const name of asked) expect(ICONS_USED.has(name), `icon/${name}`).toBe(true);
-    for (const name of ICONS_USED) expect(drawn.has(`icon/${name}`), name).toBe(true);
+    for (const name of asked) expect(ICONS_USED.has(name), name).toBe(true);
   });
 
   it('nothing is written that the game does not show', () => {
-    expect(Object.keys(manifest.icons).sort()).toEqual([...ICONS_USED].sort());
+    expect(Object.keys(manifest.icons)).toEqual([]);
     const cast = new Set([...RIGGED, ...STILLS, ...WHOLE].map((k) => k.unit));
     expect(Object.keys(manifest.units).sort()).toEqual([...cast].sort());
     expect(Object.keys(manifest.grades)).toEqual([]);
@@ -87,8 +87,9 @@ describe('what the game asks the art for', () => {
       const unit = grim.units[id];
       expect(unit, id).toBeDefined();
       for (const part of unit.parts) expect(has(`grim/units/${id}/${part.name}.svg`), `${id}/${part.name}`).toBe(true);
-      expect(has(`grim/units/${id}/full.svg`), id).toBe(true);
     }
+    // Whole, for a card, only what a card shows.
+    for (const id of CARD_UNITS) expect(has(`grim/units/${id}/full.svg`), id).toBe(true);
     for (const [monster, moves] of Object.entries(MONSTER_MOVES)) {
       const art = MONSTER_ART[monster];
       if (!isGrim(art)) continue;
@@ -96,7 +97,8 @@ describe('what the game asks the art for', () => {
     }
     for (const h of HUNTERS) {
       const art = HUNTER_ART[h.id];
-      if (!isGrim(art)) continue;
+      // A hand for hire does what it is told with its own plain blow: the lair shows its first move for any ability.
+      if (!isGrim(art) || h.hired) continue;
       for (const a of h.abilities) {
         const move = ABILITY_MOVES[a];
         if (move) expect(grim.units[art.grim].moves[move], `${h.id}: ${move}`).toBeDefined();

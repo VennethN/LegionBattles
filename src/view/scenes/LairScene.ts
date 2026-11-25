@@ -25,7 +25,7 @@ import { Numbers } from '../Numbers';
 import { drawTell as drawMarkedTell } from '../vfx/Tells';
 import { Vfx } from '../vfx/Vfx';
 import {
-  ABILITY_MOVES, ALLY_ART, BLOW_MOVES, BUILDING_ART, FIELD_THINGS, FIELD_THING_R, HELPER_ALPHA, GRIM_SCALE, HUNTER_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, isGrim, type Art,
+  ABILITY_MOVES, ALLY_ART, BLOW_MOVES, BUILDING_ART, FIELD_THINGS, FIELD_THING_R, HELPER_ALPHA, GRIM_SCALE, HUNTER_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, VILLAGERS, isGrim, type Art,
 } from '../pictures';
 import { Figure } from '../art/Figure';
 import { GrimFigure } from '../art/GrimFigure';
@@ -116,12 +116,25 @@ const PERCHED = new Set(['wall', 'lych-gate', 'dead-tree', 'hunting-wall', 'fall
 export class LairScene extends Phaser.Scene {
   private hunt!: Hunt;
   private hunter!: GrimFigure;
+  /**
+   * The player's hunter again, as a bright shape drawn over everything, shown only while something stands in front
+   * of them: in a game of reading where to step, the player must never lose where they are.
+   */
+  private echo!: GrimFigure;
+  /** How much of the echo shows: it comes up and goes down over a moment, never at once. */
+  private echoK = 0;
   /** The monster: a figure of the style, or a stand-in moved part by part. */
   private monster: GrimFigure | null = null;
   private standIn: Figure | null = null;
   /** The props of a lair where they stand, what is left of those broken, and the pictures lying on the field for both. */
   private readonly props = new Map<number, { id: string; x: number; y: number }>();
   private readonly broken = new Map<string, { thing: string; x: number; y: number }>();
+  /** Figures that stand where they were broken, in the kit's still for it: a grave marker, a totem, the cart. */
+  private readonly wrecks = new Map<string, { art: Art; x: number; y: number }>();
+  /** The buildings as they stood last frame, so that one destroyed can be left lying where it was. */
+  private readonly built = new Map<number, { id: string; x: number; y: number }>();
+  /** When the cart last turned its wheels over, and where it was then: it rolls only while it goes. */
+  private cartRoll = { at: -9, x: 0, y: 0, face: 1 as 1 | -1 };
   private readonly lying = new Map<string, Phaser.GameObjects.Image>();
   private fx!: Effects;
   private nums!: Numbers;
@@ -177,6 +190,9 @@ export class LairScene extends Phaser.Scene {
     this.before.clear();
     this.props.clear();
     this.broken.clear();
+    this.wrecks.clear();
+    this.cartRoll = { at: -9, x: 0, y: 0, face: 1 };
+    this.built.clear();
     this.lying.clear();
     this.monster = null;
     this.standIn = null;
@@ -211,7 +227,7 @@ export class LairScene extends Phaser.Scene {
     const groundUrl = 'grim' in lair ? `assets/grim/grounds/${lair.grim}-${shape}.svg` : `assets/arena/${lair.legion}-${shape}.svg`;
     // Everything that can be on this field: the hunter, the monster, and all that either side may bring or call up.
     // Marta's figure always: it stands for the player's own hunter while theirs is not drawn yet.
-    const arts: Art[] = [HUNTER_ART.marta, ...h.party.map((p) => HUNTER_ART[p.def.id] ?? HUNTER_ART.marta), MONSTER_ART[h.monster.def.id], ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
+    const arts: Art[] = [...VILLAGERS, HUNTER_ART.marta, ...h.party.map((p) => HUNTER_ART[p.def.id] ?? HUNTER_ART.marta), MONSTER_ART[h.monster.def.id], ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
     const grim = [...new Set(arts.flatMap((a) => (isGrim(a) ? [a.grim] : [])))].map(wantedUnit);
     const dressing = DRESSING[h.monster.def.lair] ?? [];
     // What the later lairs and hunters leave on the field, and what their props leave when broken: few and small, so always.
@@ -270,6 +286,9 @@ export class LairScene extends Phaser.Scene {
     // The player's own hunter is drawn a little bigger than the rest, and carries a warm light of their own, so that they
     // are found at a glance beside a boss four times their height.
     this.hunter = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, HUNTER_SCALE, 1);
+    this.echo = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, HUNTER_SCALE, 1);
+    this.echo.tint = 0xffe2a0;
+    this.echo.fill = true;
     this.halo = this.add.image(0, 0, SHEET, 'fx/glow').setBlendMode(Phaser.BlendModes.ADD).setTint(0xffb060).setAlpha(0.55);
     const mp = MONSTER_ART[h.monster.def.id];
     if (isGrim(mp)) {
@@ -279,6 +298,7 @@ export class LairScene extends Phaser.Scene {
     else this.standIn = new Figure(this, mp.legion, mp.team, getManifest().units[mp.legion], mp.scale, 'unit', 2);
     this.light = new LairLight(this, h, torches);
     this.marks = this.light.crisp(this.add.graphics().setDepth(2));
+    this.light.crisp(this.echo.root);
     this.vfx = new Vfx({
       scene: this, hunt: h, light: this.light, perches,
       hunter: () => this.hunter, monster: () => this.monster, tall: () => this.tall(),
@@ -400,7 +420,10 @@ export class LairScene extends Phaser.Scene {
     if (won) {
       this.monster?.die(this.clock);
       this.standIn?.die(this.clock);
-    } else this.hunter.die(this.clock);
+    } else {
+      this.hunter.die(this.clock);
+      this.echo.die(this.clock);
+    }
     this.shake(320, 0.01);
     // The fall is watched before anything is said of it.
     this.time.delayedCall(won ? 1700 : 1300, () => {
@@ -509,7 +532,7 @@ export class LairScene extends Phaser.Scene {
           music.moment('wake');
           music.play(huntOf(m.def.id), 0);
           this.shake(500, 0.012);
-          hud?.banner(m.def.name.toUpperCase(), 'The boss is awake');
+          hud?.banner(m.def.name.toUpperCase(), 'The boss is awake', true);
           break;
         case 'lesson':
           this.holdNext = e.hold;
@@ -561,6 +584,7 @@ export class LairScene extends Phaser.Scene {
             break;
           }
           this.hunter.play(BLOW_MOVES[h.def.id]?.[e.n] ?? '', this.clock, 0.07, 0.12);
+          this.echo.play(BLOW_MOVES[h.def.id]?.[e.n] ?? '', this.clock, 0.07, 0.12);
           if (e.kind === 'arc') {
             this.fx.spawn('fx/slash', e.x + Math.cos(e.angle) * e.reach * 0.5, e.y - 30 + Math.sin(e.angle) * e.reach * 0.5, {
               dur: 0.16, from: (e.reach / 60) * 0.9, to: (e.reach / 60) * 1.15, rotation: e.angle, alpha: 0.9, depth: h.y + 40,
@@ -580,7 +604,7 @@ export class LairScene extends Phaser.Scene {
           const big = e.big;
           if (e.who === 'monster') {
             if (big) this.stop(0.05);
-            this.nums.show(e.x + (Math.random() - 0.5) * 50, Math.max(this.cameras.main.worldView.y + 110, e.y - this.tall() * 0.45), String(e.amount), big ? GOLD : e.open ? WHITE : hex(BONE.shade), big ? 30 : e.open ? 24 : 19);
+            this.nums.add('monster', e.x + (Math.random() - 0.5) * 50, Math.max(this.cameras.main.worldView.y + 110, e.y - this.tall() * 0.45), e.amount, big ? GOLD : e.open ? WHITE : hex(BONE.shade), big ? 30 : e.open ? 24 : 19);
             if (e.open && !big) this.monster?.hit(this.clock);
             if (big || e.open) this.standIn?.hit(this.clock, h.x);
             sfx.play(big ? 'bigHit' : 'hit', big ? 0.6 : 0.4, 0.9 + Math.random() * 0.2);
@@ -588,7 +612,7 @@ export class LairScene extends Phaser.Scene {
             const s = this.actors.get(`h${e.id}`);
             if (s) s.flash = 0.1;
             s?.fig?.hit(this.clock);
-            this.nums.show(e.x, e.y - 44, String(e.amount), WHITE, 18);
+            this.nums.add(`h${e.id}`, e.x, e.y - 44, e.amount, WHITE, 18);
           }
           this.fx.spawn('fx/spark', e.x + (Math.random() - 0.5) * 30, e.y - (e.who === 'monster' ? 60 : 24), { dur: 0.12, from: 0.3, to: big ? 1.2 : 0.8, alpha: 0.9, depth: e.y + 60 });
           break;
@@ -599,12 +623,13 @@ export class LairScene extends Phaser.Scene {
             const s = this.actors.get(`p${e.id}`);
             if (s) s.flash = 0.12;
             s?.fig?.hit(this.clock);
-            this.nums.show(e.x, e.y - 60, `-${e.amount}`, RED, 20);
+            this.nums.add(`p${e.id}`, e.x, e.y - 60, e.amount, RED, 20, '-');
           } else if (e.who === 'hunter') {
             this.hunter.hit(this.clock);
+            this.echo.hit(this.clock);
             // A blow that lands is felt: the lair stops for a breath, longer for a heavier one.
             this.stop(Math.min(0.11, 0.04 + e.amount / 400));
-            this.nums.show(h.x, h.y - 70, `-${e.amount}`, RED, 28);
+            this.nums.add('me', h.x, h.y - 70, e.amount, RED, 28, '-');
             sfx.play('bigHit', 0.8, 0.7);
             this.shake(220, 0.012);
             hud?.struck();
@@ -631,6 +656,7 @@ export class LairScene extends Phaser.Scene {
         case 'ability':
           sfx.play(e.id === 'heel' ? 'heal' : e.id === 'jawtrap' ? 'place' : 'skill', 0.7);
           if (ABILITY_MOVES[e.id]) (e.who === 0 ? this.hunter : this.actors.get(`p${e.who}`)?.fig)?.play(ABILITY_MOVES[e.id], this.clock, 0.16, 0.3);
+          if (ABILITY_MOVES[e.id] && e.who === 0) this.echo.play(ABILITY_MOVES[e.id], this.clock, 0.16, 0.3);
           // The ring's picture is 64 units from its middle to its rim.
           if (e.id === 'reap') this.fx.spawn('fx/ring', e.x, e.y, { dur: 0.22, from: (e.r / 64) * 0.5, to: e.r / 64, alpha: 0.7, depth: 4 });
           if (e.id === 'flare') this.fx.spawn('fx/ring', e.x, e.y, { dur: 0.35, from: 0.4, to: e.r / 64, tint: GOLD, alpha: 0.8, depth: 4 });
@@ -661,7 +687,7 @@ export class LairScene extends Phaser.Scene {
           sfx.play('spawn', 1, 0.5);
           this.shake(900, 0.012);
           music.play(huntOf(m.def.id), musicStep(e.part, w.cuts.length + 1));
-          hud?.banner(m.def.name.toUpperCase(), `Phase ${e.part + 1}`);
+          hud?.banner(m.def.name.toUpperCase(), `Phase ${e.part + 1}`, true);
           break;
         case 'dash':
           sfx.play('lift', 0.9, 0.6);
@@ -676,7 +702,7 @@ export class LairScene extends Phaser.Scene {
           break;
         case 'call':
           sfx.play('claim', 0.8);
-          hud?.banner('', 'REINFORCEMENTS');
+          hud?.banner('', 'REINFORCEMENTS', true);
           break;
         case 'place':
           // Set down with weight: a thump, a shake and dust thrown out round its foot.
@@ -717,7 +743,12 @@ export class LairScene extends Phaser.Scene {
             const p = this.props.get(e.id);
             const left = p && LEFT_BROKEN.get(p.id);
             if (p && left) this.broken.set(`b${e.id}`, { thing: left, x: p.x, y: p.y });
+            else if (p && this.breaks(HELPER_ART[p.id])) this.wrecks.set(`r${e.id}`, { art: HELPER_ART[p.id], x: p.x, y: p.y });
             this.props.delete(e.id);
+          }
+          if (e.who === 'building') {
+            const b = this.built.get(e.id);
+            if (b && this.breaks(BUILDING_ART[b.id])) this.wrecks.set(`rb${e.id}`, { art: BUILDING_ART[b.id], x: b.x, y: b.y + 12 });
           }
           if (e.who === 'helper' || e.who === 'ally') {
             sfx.play('death', 0.4, 1 + Math.random() * 0.2);
@@ -881,6 +912,46 @@ export class LairScene extends Phaser.Scene {
     return s;
   }
 
+  /**
+   * What, if anything, stands in front of the player's hunter this frame: the boss's body reaching down over them, or
+   * any other figure whose feet are just below theirs and close beside. Figures are drawn by how low their feet are,
+   * so these are the ones drawn over the hunter.
+   */
+  /** True if the kit drew a figure broken, so that it can be left standing broken when it is. */
+  private breaks(art: Art | undefined): art is { grim: string } {
+    return !!art && isGrim(art) && !!getGrim().units[art.grim]?.stills.broken;
+  }
+
+  /** True if a blow is marked on the ground within `pad` of a point of the field. */
+  private marked(x: number, y: number, pad: number): boolean {
+    return this.hunt.tells.some((t) => {
+      if (!t.foe) return false;
+      if (t.kind !== 'line') return Math.hypot(t.x - x, t.y - y) < t.r + pad;
+      // A line: how near the point comes to it.
+      const dx = Math.cos(t.angle);
+      const dy = Math.sin(t.angle);
+      const along = Math.max(0, Math.min(t.len, (x - t.x) * dx + (y - t.y) * dy));
+      return Math.hypot(t.x + dx * along - x, t.y + dy * along - y) < t.w / 2 + pad;
+    });
+  }
+
+  private coveredBy(): 'monster' | 'other' | null {
+    const fig = this.hunter;
+    const hx = fig.x;
+    const hy = fig.y;
+    const tall = fig.height;
+    const m = this.monster;
+    if (m && m.y > hy && m.y - m.height < hy - tall * 0.3 && Math.abs(m.x - hx) < m.height * 0.38) return 'monster';
+    for (const [key, s] of this.actors) {
+      if (key.startsWith('x') || key.startsWith('ghost')) continue;
+      const o = s.fig ? s.fig.root : s.img;
+      if (!o || !o.visible) continue;
+      const below = o.y - hy;
+      if (below > 0 && below < 70 && Math.abs(o.x - hx) < 36) return 'other';
+    }
+    return null;
+  }
+
   private sync(dt: number): void {
     const w = this.hunt;
     const h = w.hunter;
@@ -899,6 +970,13 @@ export class LairScene extends Phaser.Scene {
     fig.alpha = h.roll > 0 ? 0.6 : h.grace > 0 && Math.floor(this.clock * 20) % 2 === 0 ? 0.6 : 1;
     fig.update(this.clock, dt);
     if (h.roll > 0) fig.root.scaleY *= 0.62;
+    const echo = this.echo;
+    echo.x = fig.x;
+    echo.y = fig.y;
+    echo.facing = fig.facing;
+    echo.moving = fig.moving;
+    echo.pace = fig.pace;
+    echo.hold(h.bracing > 0 ? 'brace' : null);
     this.halo.setPosition(fig.x, fig.y - 40).setDisplaySize(170, 150).setDepth(fig.y - 1).setVisible(h.hp > 0);
 
     // The monster.
@@ -928,6 +1006,17 @@ export class LairScene extends Phaser.Scene {
       for (const part of mf.root.list) (part as Phaser.GameObjects.Image).setTint(tint).setTintMode(Phaser.TintModes.FILL);
     }
 
+    // Does anything stand in front of the player's hunter? The boss's body over them, or a figure just below their feet.
+    const covered = this.coveredBy();
+    // The boss's body over the player is seen through, so that both are read.
+    if (this.monster) this.monster.root.alpha *= covered === 'monster' ? 0.55 : 1;
+    this.echoK += ((covered && h.hp > 0 ? 1 : 0) - this.echoK) * Math.min(1, dt * 12);
+    echo.alpha = 0.5 * this.echoK;
+    echo.update(this.clock, dt);
+    if (h.roll > 0) echo.root.scaleY *= 0.62;
+    echo.root.depth = 9500;
+    echo.root.setVisible(this.echoK > 0.02);
+
     // The player's partners, each by their own figure; one who is down lies still until helped up.
     for (const p of w.party) {
       if (p.index === 0) continue;
@@ -947,15 +1036,19 @@ export class LairScene extends Phaser.Scene {
         s.fig.alpha = HELPER_ALPHA[f.def.id] ?? 1;
       }
       // A prop is remembered where it stands, so that what is left of it can lie there when it is broken.
-      if (LEFT_BROKEN.has(f.def.id)) this.props.set(f.id, { id: f.def.id, x: f.x, y: f.y });
+      if (LEFT_BROKEN.has(f.def.id) || this.breaks(HELPER_ART[f.def.id])) this.props.set(f.id, { id: f.def.id, x: f.x, y: f.y });
     }
     // Those who fight beside the hunter. A hound that is down lies still.
     for (const a of w.allies) {
       const [x, y] = this.at(`a${a.id}`, a.x, a.y);
-      const s = this.show(`a${a.id}`, ALLY_ART[a.group] ?? ALLY_ART.pikemen, x, y, a.face, a.moving);
+      const folk = a.group === 'villager';
+      const s = this.show(`a${a.id}`, folk ? VILLAGERS[a.id % VILLAGERS.length] : (ALLY_ART[a.group] ?? ALLY_ART.pikemen), x, y, a.face, a.moving);
       if (s.fig) {
-        s.fig.pace = a.group === 'hound' ? 1.6 : 1;
-        s.fig.hold(a.state === 'down' ? 'fall' : null);
+        s.fig.pace = a.group === 'hound' ? 1.6 : folk ? 1.3 : 1;
+        // A villager runs hunched with their arms over their head, and cowers where a blow is marked near them.
+        const cower = folk && !a.moving && this.marked(a.x, a.y, 60);
+        s.fig.hold(a.state === 'down' ? 'fall' : cower ? 'cower' : null);
+        if (folk) s.fig.rest = a.moving ? (getGrim().units[s.fig.id]?.moves.flee?.windup ?? null) : null;
         s.fig.alpha = a.state === 'down' ? 0.7 : 1;
       } else if (s.img && a.state === 'down') s.img.setRotation(a.face * 1.3).setAlpha(0.7);
       else if (s.img && a.group === 'villager') {
@@ -966,6 +1059,18 @@ export class LairScene extends Phaser.Scene {
     }
     for (const b of w.buildings) {
       const s = this.show(`b${b.id}`, BUILDING_ART[b.def.id], b.x, b.y + 12, 1, false);
+      this.built.set(b.id, { id: b.def.id, x: b.x, y: b.y });
+      if (s.fig && b.def.id === 'cart') {
+        // The cart's wheels turn over while it goes, and it faces the way it goes.
+        const r = this.cartRoll;
+        const moved = Math.hypot(b.x - r.x, b.y - r.y);
+        if (moved > 1 && !this.halted && this.clock - r.at > 0.42) {
+          s.fig.play('roll', this.clock, 0.16, 0.02);
+          const face = Math.abs(b.x - r.x) > 0.5 ? (b.x < r.x ? -1 : 1) : r.face;
+          this.cartRoll = { at: this.clock, x: b.x, y: b.y, face };
+        }
+        s.fig.facing = this.cartRoll.face;
+      }
       // A bell that has been rung hangs dull until it can be rung again.
       if (s.img && b.def.kind === 'bell' && b.cool > 0 && s.flash <= 0) s.img.setTint(0x0e1418);
     }
@@ -990,7 +1095,11 @@ export class LairScene extends Phaser.Scene {
     for (const t of w.traps) {
       const s = this.show(`t${t.id}`, TRAP_ART, t.x, t.y + 6, 1, false);
       s.img?.setDepth(3).setAlpha(t.arm > 0 ? 0.5 : 1);
+      // Laid shut, and sprung open once it is set.
+      s.fig?.hold(t.arm > 0 ? 'shut' : null);
     }
+    // What was broken stands broken where it was.
+    for (const [key, r] of this.wrecks) this.show(key, r.art, r.x, r.y, 1, false).fig?.hold('broken');
     for (const s of w.shots) {
       const v = this.actors.get(`x${s.id}`) ?? { fig: null, img: this.take('fx/bolt'), stamp: 0, flash: 0, born: this.clock };
       this.actors.set(`x${s.id}`, v);
@@ -1031,8 +1140,9 @@ export class LairScene extends Phaser.Scene {
     // A ring of warm light at the player's feet: theirs, and nobody else's.
     if (h.hp > 0) {
       const [rx, ry] = [fig.x, fig.y];
-      g.lineStyle(3, 0xe8b860, 0.85).strokeEllipse(rx, ry, 64, 26);
-      g.lineStyle(6, 0xe8b860, 0.2).strokeEllipse(rx, ry, 72, 30);
+      g.fillStyle(0xe8b860, 0.16).fillEllipse(rx, ry, 70, 28);
+      g.lineStyle(4, 0xffd27a, 1).strokeEllipse(rx, ry, 66, 27);
+      g.lineStyle(8, 0xe8b860, 0.3).strokeEllipse(rx, ry, 78, 32);
     }
 
     this.drawMarks();

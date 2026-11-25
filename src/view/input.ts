@@ -24,7 +24,7 @@ const KEYS: Record<string, [number, number]> = {
 };
 
 /** What can be asked for with a key or a button, and the key of each. */
-export type Ask = 'dodge' | 'a' | 'b' | 'call0' | 'call1' | 'place0' | 'place1' | 'place2' | 'place3' | 'wake';
+export type Ask = 'attack' | 'dodge' | 'a' | 'b' | 'call0' | 'call1' | 'place0' | 'place1' | 'place2' | 'place3' | 'wake';
 /** The keys that attack while held. */
 const ATTACK_KEYS = new Set(['KeyJ']);
 /** The skills' keys: held, the skill shows where it will go; let go, it is used. */
@@ -34,7 +34,7 @@ const ASKS: Record<string, Ask> = {
   Space: 'dodge', KeyK: 'dodge', KeyR: 'call0', KeyF: 'call1', Digit1: 'place0', Digit2: 'place1', Digit3: 'place2', Digit4: 'place3', Enter: 'wake',
 };
 /** The letter on the key of each thing, as most keyboards have it, for the buttons to show. */
-export const KEY_NAMES: Record<Ask, string> = { dodge: 'SPACE', a: 'Q', b: 'E', call0: 'R', call1: 'F', place0: '1', place1: '2', place2: '3', place3: '4', wake: 'ENTER' };
+export const KEY_NAMES: Record<Ask, string> = { attack: 'J', dodge: 'SPACE', a: 'Q', b: 'E', call0: 'R', call1: 'F', place0: '1', place1: '2', place2: '3', place3: '4', wake: 'ENTER' };
 
 /** The stick's reach, in the layout's units: pushed this far, the hunter runs flat out. */
 export const STICK_R = 62;

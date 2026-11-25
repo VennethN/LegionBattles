@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trophy" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trophy-foot-shape" d="M 16 60 L 20 52 L 44 52 L 48 60 Z"/>
+<clipPath id="icon-trophy-foot-clip"><use href="#icon-trophy-foot-shape"/></clipPath>
+<path id="icon-trophy-stem-shape" d="M 28 40 L 36 40 L 38 52 L 26 52 Z"/>
+<clipPath id="icon-trophy-stem-clip"><use href="#icon-trophy-stem-shape"/></clipPath>
+<path id="icon-trophy-cup-shape" d="M 8 6 L 56 6 L 52 26 L 40 40 L 24 40 L 12 26 Z"/>
+<clipPath id="icon-trophy-cup-clip"><use href="#icon-trophy-cup-shape"/></clipPath>
+</defs>
+<g id="icon-trophy-foot">
+<use id="icon-trophy-foot-line" href="#icon-trophy-foot-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-foot-clip)">
+<use id="icon-trophy-foot-lit" href="#icon-trophy-foot-shape" fill="#8c9194"/>
+<path id="icon-trophy-foot-dark" d="M 4 48 L 21 48 L 22.5 64 L 4 64 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trophy-stem">
+<use id="icon-trophy-stem-line" href="#icon-trophy-stem-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-stem-clip)">
+<use id="icon-trophy-stem-lit" href="#icon-trophy-stem-shape" fill="#8c9194"/>
+<path id="icon-trophy-stem-dark" d="M 14 36 L 27.6 36 L 29.8 56 L 14 56 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trophy-cup">
+<use id="icon-trophy-cup-line" href="#icon-trophy-cup-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trophy-cup-clip)">
+<use id="icon-trophy-cup-lit" href="#icon-trophy-cup-shape" fill="#8c9194"/>
+<use id="icon-trophy-cup-rim" href="#icon-trophy-cup-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-trophy-cup-lit-over" href="#icon-trophy-cup-shape" transform="translate(-1.44 1.08)" fill="#8c9194"/>
+<path id="icon-trophy-cup-mid" d="M 36 0 L 34.6 -0.1 L 33.5 25.2 L 36.1 28.4 L 35.4 44.1 L 64 44 L 64 0 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="icon-trophy-cup-dark" d="M 36 0 L 34.6 -0.1 L 33.5 25.2 L 36.1 28.4 L 35.4 44.1 L 64 44 L 64 0 Z" fill="#14110f"/>
+<path id="icon-trophy-dent" d="M 18 18 L 24 16 L 22 24 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-trophy-handle-l" d="M 10 12 L 2 16 L 6 28 L 14 28" fill="none" stroke="#14110f" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="icon-trophy-handle-r" d="M 54 12 L 62 16 L 58 28 L 50 28" fill="none" stroke="#14110f" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

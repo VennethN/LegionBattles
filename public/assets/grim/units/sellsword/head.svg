@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sellsword-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="sellsword-head-face-shape" d="M 131.3 78.5 L 135.7 75 L 144.3 75 L 147.8 78.5 L 150 82.4 L 148.2 84.5 L 149.5 86.3 L 153.4 90.6 L 150 91.9 L 150.4 94.5 L 149.1 95.4 L 149.5 97.1 L 147.4 101 L 141.7 102.5 L 135.7 95.8 L 132.2 93.2 Z"/>
+<clipPath id="sellsword-head-face-clip"><use href="#sellsword-head-face-shape"/></clipPath>
+<path id="sellsword-head-face-ear-shape" d="M 135.7 86.3 L 138.7 85.4 L 140 88.9 L 138.7 92.8 L 136.1 91.5 Z"/>
+<path id="sellsword-head-cap-shape" d="M 120 86 L 124 70 L 138 62 L 152 66 L 158 80 L 150 82 L 128 88 Z"/>
+<clipPath id="sellsword-head-cap-clip"><use href="#sellsword-head-cap-shape"/></clipPath>
+<path id="sellsword-head-nasal-shape" d="M 148 78 L 153 78 L 154 96 L 150 96 Z"/>
+<clipPath id="sellsword-head-nasal-clip"><use href="#sellsword-head-nasal-shape"/></clipPath>
+</defs>
+<g id="sellsword-head-face">
+<use id="sellsword-head-face-line" href="#sellsword-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-head-face-clip)">
+<use id="sellsword-head-face-lit" href="#sellsword-head-face-shape" fill="#c7ad84"/>
+<path id="sellsword-head-face-mid" d="M 127.9 72.4 L 138 73.1 L 139.6 89.8 L 136.9 93.4 L 137.6 102 L 127.9 103.6 Z" transform="translate(2.6 -0.62)" fill="#927a58"/>
+<path id="sellsword-head-face-dark" d="M 127.9 72.4 L 138 73.1 L 139.6 89.8 L 136.9 93.4 L 137.6 102 L 127.9 103.6 Z" fill="#14110f"/>
+<path id="sellsword-head-face-cheek-plane" d="M 140.9 89.3 L 146.1 88.4 L 147.8 91.5 L 146.5 95.8 L 141.7 100 L 139.1 94.1 Z" fill="#927a58"/>
+<path id="sellsword-head-face-chin-plane" d="M 145.2 97.1 L 149.5 96.7 L 147.4 101 L 143.5 101.6 Z" fill="#927a58"/>
+<path id="sellsword-head-face-socket" d="M 150.4 81.9 L 138.3 81.1 L 139.1 87.1 L 143.5 89.3 L 146.1 87.1 L 149.1 86.1 Z" fill="#14110f"/>
+<path id="sellsword-head-face-lines" d="M 147.5 91.6 L 146.5 95.4 L 148.9 92.2 Z M 136.9 95.5 L 143.5 101 L 137.9 94.4 Z" fill="#14110f"/>
+<path id="sellsword-head-face-mouth" d="M 150.3 93.8 L 144.8 95.6 L 150.5 95.7 Z" fill="#14110f"/>
+<path id="sellsword-head-face-scar" d="M 143.8 85.6 L 147.8 93.2 L 144.9 85.2 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="sellsword-head-face-nostril" d="M 150.4 91.3 L 147.4 90.2 L 149.5 92.5 Z" fill="#14110f"/>
+<g id="sellsword-head-face-ear">
+<use id="sellsword-head-face-ear-line" href="#sellsword-head-face-ear-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="sellsword-head-face-ear-lit" href="#sellsword-head-face-ear-shape" fill="#c7ad84"/>
+</g>
+<path id="sellsword-head-face-ear-hollow" d="M 136.2 87.7 L 138.3 91.1 L 137.5 87.2 Z" fill="#14110f"/>
+<g id="sellsword-head-cap">
+<use id="sellsword-head-cap-line" href="#sellsword-head-cap-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-head-cap-clip)">
+<use id="sellsword-head-cap-lit" href="#sellsword-head-cap-shape" fill="#8c9194"/>
+<use id="sellsword-head-cap-rim" href="#sellsword-head-cap-shape" fill="#f4d294" opacity="0.55"/>
+<use id="sellsword-head-cap-lit-over" href="#sellsword-head-cap-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="sellsword-head-cap-mid" d="M 108 58 L 132.1 57.4 L 136.9 73.1 L 134 78.5 L 138.3 92.6 L 108 92 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="sellsword-head-cap-dark" d="M 108 58 L 132.1 57.4 L 136.9 73.1 L 134 78.5 L 138.3 92.6 L 108 92 Z" fill="#14110f"/>
+<path id="sellsword-head-dent" d="M 139.1 66.4 L 144 74 L 140.9 65.6 Z" fill="#5b6165"/>
+<path id="sellsword-head-cap-cold" d="M 80 22 L 198 22 L 198 128 L 80 128 Z M 121.7 84.7 L 125.7 68.7 L 139.7 60.7 L 153.7 64.7 L 159.7 78.7 L 151.7 80.7 L 129.7 86.7 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="sellsword-head-nasal">
+<use id="sellsword-head-nasal-line" href="#sellsword-head-nasal-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-head-nasal-clip)">
+<use id="sellsword-head-nasal-lit" href="#sellsword-head-nasal-shape" fill="#8c9194"/>
+<path id="sellsword-head-nasal-dark" d="M 136 74 L 148.8 74 L 149.8 83.5 L 149.2 84.4 L 150.8 100 L 136 100 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

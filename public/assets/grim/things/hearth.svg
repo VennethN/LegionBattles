@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hearth" width="306" height="380" viewBox="0 0 306 380">
+<defs>
+<path id="hearth-chimney-shape" d="M 60 190 L 70 0 L 230 0 L 240 190 Z"/>
+<clipPath id="hearth-chimney-clip"><use href="#hearth-chimney-shape"/></clipPath>
+<path id="hearth-breast-shape" d="M 20 366 L 24 196 L 276 192 L 280 362 Z"/>
+<clipPath id="hearth-breast-clip"><use href="#hearth-breast-shape"/></clipPath>
+<path id="hearth-arch-shape" d="M 66 364 L 64 270 L 90 238 L 150 226 L 210 238 L 236 270 L 234 362 Z"/>
+<clipPath id="hearth-arch-clip"><use href="#hearth-arch-shape"/></clipPath>
+<path id="hearth-pot-shape" d="M 126 290 L 174 290 L 178 312 L 166 326 L 134 326 L 122 312 Z"/>
+<clipPath id="hearth-pot-clip"><use href="#hearth-pot-shape"/></clipPath>
+<path id="hearth-logs-shape" d="M 96 360 L 110 342 L 196 340 L 206 358 Z"/>
+<clipPath id="hearth-logs-clip"><use href="#hearth-logs-shape"/></clipPath>
+<path id="hearth-fire-shape" d="M 104 344 L 114 314 L 124 334 L 134 300 L 146 330 L 156 306 L 168 332 L 180 312 L 196 344 Z"/>
+<clipPath id="hearth-fire-clip"><use href="#hearth-fire-shape"/></clipPath>
+<path id="hearth-mantel-shape" d="M 8 183 L 292 181 L 293 198 L 7 198 Z"/>
+<clipPath id="hearth-mantel-clip"><use href="#hearth-mantel-shape"/></clipPath>
+<path id="hearth-corbel-0-shape" d="M 20 198 L 40 198 L 34 220 L 26 220 Z"/>
+<clipPath id="hearth-corbel-0-clip"><use href="#hearth-corbel-0-shape"/></clipPath>
+<path id="hearth-corbel-1-shape" d="M 252 198 L 272 198 L 266 220 L 258 220 Z"/>
+<clipPath id="hearth-corbel-1-clip"><use href="#hearth-corbel-1-shape"/></clipPath>
+<path id="hearth-mantel-candle-shape" d="M 56.5 162.5 L 63.5 161.5 L 64 182 L 56 182 Z"/>
+<clipPath id="hearth-mantel-candle-clip"><use href="#hearth-mantel-candle-shape"/></clipPath>
+<path id="hearth-mantel-candle-flame-shape" d="M 57 161 L 60 148 L 63 161 Z"/>
+<clipPath id="hearth-mantel-candle-flame-clip"><use href="#hearth-mantel-candle-flame-shape"/></clipPath>
+<path id="hearth-jug-shape" d="M 226 182 L 222 168 L 228 156 L 226 150 L 242 150 L 240 156 L 246 168 L 242 182 Z"/>
+<clipPath id="hearth-jug-clip"><use href="#hearth-jug-shape"/></clipPath>
+<path id="hearth-horn-shape" d="M 100 182 L 130 176 L 150 170 L 154 176 L 134 184 Z"/>
+<clipPath id="hearth-horn-clip"><use href="#hearth-horn-shape"/></clipPath>
+<path id="hearth-poker-shape" d="M 273.5 220.1 L 263.5 360.1 L 260.5 359.9 L 270.5 219.9 Z"/>
+</defs>
+<path id="hearth-blot" d="M 0 364 L 300 358 L 306 374 L 6 378 Z" fill="#14110f" opacity="0.55"/>
+<g id="hearth-chimney">
+<use id="hearth-chimney-line" href="#hearth-chimney-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-chimney-clip)">
+<use id="hearth-chimney-lit" href="#hearth-chimney-shape" fill="#77786f"/>
+<path id="hearth-chimney-mid" d="M 150 0 L 147.6 0.1 L 151 108.2 L 156 113.3 L 158.4 189.9 L 240 190 L 240 0 Z" transform="translate(4 -0.96)" fill="#54564f"/>
+<path id="hearth-chimney-dark" d="M 150 0 L 147.6 0.1 L 151 108.2 L 156 113.3 L 158.4 189.9 L 240 190 L 240 0 Z" fill="#14110f"/>
+<path id="hearth-course-20" d="M 64 20.9 L 236 19 L 64 19.1 Z" fill="#54564f"/>
+<path id="hearth-course-42" d="M 64 42.9 L 236 41 L 64 41.1 Z" fill="#54564f"/>
+<path id="hearth-course-64" d="M 64 64.9 L 236 63 L 64 63.1 Z" fill="#54564f"/>
+<path id="hearth-course-86" d="M 64 86.9 L 236 85 L 64 85.1 Z" fill="#54564f"/>
+<path id="hearth-course-108" d="M 64 108.9 L 236 107 L 64 107.1 Z" fill="#54564f"/>
+<path id="hearth-course-130" d="M 64 130.9 L 236 129 L 64 129.1 Z" fill="#54564f"/>
+<path id="hearth-course-152" d="M 64 152.9 L 236 151 L 64 151.1 Z" fill="#54564f"/>
+<path id="hearth-course-174" d="M 64 174.9 L 236 173 L 64 173.1 Z" fill="#54564f"/>
+<path id="hearth-joints" d="M 87.6 12.9 L 81.9 18.6 L 88.6 14.1 Z M 97.6 25.1 L 91.9 30.8 L 98.6 26.3 Z M 107.6 37.2 L 101.9 42.9 L 108.6 38.4 Z M 117.6 49.3 L 111.9 55 L 118.6 50.6 Z M 127.6 61.5 L 121.9 67.2 L 128.6 62.7 Z M 137.6 73.6 L 131.9 79.3 L 138.6 74.9 Z M 147.6 85.8 L 141.9 91.5 L 148.6 87 Z M 157.6 97.9 L 151.9 103.6 L 158.6 99.1 Z M 167.6 110.1 L 161.9 115.8 L 168.6 111.3 Z M 177.6 122.2 L 171.9 127.9 L 178.6 123.4 Z M 187.6 134.3 L 181.9 140 L 188.6 135.6 Z M 197.6 146.5 L 191.9 152.2 L 198.6 147.7 Z M 207.6 158.6 L 201.9 164.3 L 208.6 159.9 Z M 217.6 170.8 L 211.9 176.5 L 218.6 172 Z" fill="#54564f"/>
+<path id="hearth-soot-up" d="M 110 150 L 190 150 L 176 60 L 124 60 Z" fill="#34302d" opacity="0.5"/>
+</g>
+</g>
+<g id="hearth-breast">
+<use id="hearth-breast-line" href="#hearth-breast-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-breast-clip)">
+<use id="hearth-breast-lit" href="#hearth-breast-shape" fill="#77786f"/>
+<path id="hearth-breast-mid" d="M 200 190 L 198 190.1 L 200.3 261.4 L 204.6 265.7 L 208 369.9 L 290 370 L 290 190 Z" transform="translate(5 -1.2)" fill="#54564f"/>
+<path id="hearth-breast-dark" d="M 200 190 L 198 190.1 L 200.3 261.4 L 204.6 265.7 L 208 369.9 L 290 370 L 290 190 Z" fill="#14110f"/>
+<path id="hearth-stone-214" d="M 24 215 L 278 212 L 24 213 Z" fill="#54564f"/>
+<path id="hearth-stone-238" d="M 24 239 L 278 236 L 24 237 Z" fill="#54564f"/>
+<path id="hearth-stone-262" d="M 24 263 L 278 260 L 24 261 Z" fill="#54564f"/>
+<path id="hearth-stone-286" d="M 24 287 L 278 284 L 24 285 Z" fill="#54564f"/>
+<path id="hearth-stone-310" d="M 24 311 L 278 308 L 24 309 Z" fill="#54564f"/>
+<path id="hearth-stone-334" d="M 24 335 L 278 332 L 24 333 Z" fill="#54564f"/>
+<path id="hearth-stone-358" d="M 24 359 L 278 356 L 24 357 Z" fill="#54564f"/>
+<path id="hearth-stone-joints" d="M 50.7 221.1 L 46.9 229.3 L 52.2 222 Z M 69 231.9 L 65.2 240.1 L 70.6 232.8 Z M 87.3 242.8 L 83.5 251 L 88.9 243.7 Z M 105.7 253.6 L 101.9 261.8 L 107.2 254.5 Z M 124 264.4 L 120.2 272.6 L 125.6 265.3 Z M 142.3 275.3 L 138.5 283.5 L 143.9 276.2 Z M 160.7 286.1 L 156.9 294.3 L 162.2 287 Z M 179 296.9 L 175.2 305.1 L 180.6 297.8 Z M 197.3 307.8 L 193.5 316 L 198.9 308.7 Z M 215.7 318.6 L 211.9 326.8 L 217.2 319.5 Z M 234 329.4 L 230.2 337.6 L 235.6 330.3 Z M 252.3 340.3 L 248.5 348.5 L 253.9 341.2 Z" fill="#54564f"/>
+</g>
+</g>
+<g id="hearth-arch">
+<use id="hearth-arch-line" href="#hearth-arch-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-arch-clip)">
+<use id="hearth-arch-lit" href="#hearth-arch-shape" fill="#9a5b38"/>
+<path id="hearth-arch-mid" d="M 52 222 L 91.1 220.8 L 121.4 300.8 L 117.7 310.1 L 140.1 369.2 L 52 368 Z" transform="translate(2 -0.48)" fill="#6a3b24"/>
+<path id="hearth-arch-dark" d="M 52 222 L 91.1 220.8 L 121.4 300.8 L 117.7 310.1 L 140.1 369.2 L 52 368 Z" fill="#14110f"/>
+<path id="hearth-voussoirs" d="M 73.7 264.9 L 92 270 L 74.3 263.1 Z M 97.2 238.5 L 108 254 L 98.8 237.5 Z M 149 228 L 150 246 L 151 228 Z M 201.2 237.5 L 192 254 L 202.8 238.5 Z M 225.7 263.1 L 208 270 L 226.3 264.9 Z" fill="#6a3b24"/>
+</g>
+</g>
+<path id="hearth-mouth" d="M 86 362 L 84 276 L 104 254 L 150 244 L 196 254 L 216 276 L 214 362 Z" fill="#14110f"/>
+<path id="hearth-glow" d="M 96 362 L 104 310 L 150 290 L 196 310 L 204 362 Z" fill="#c27a26" opacity="0.55"/>
+<path id="hearth-pot-chain" d="M 150 250 L 150 284" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="hearth-pot-chain-links" d="M 147.1 250.9 L 151.6 254.9 L 149.7 249.1 Z M 150.3 254 L 148.4 259.7 L 152.9 255.7 Z M 147.1 260.6 L 151.6 264.6 L 149.7 258.8 Z M 150.3 263.7 L 148.4 269.4 L 152.9 265.5 Z M 147.1 270.3 L 151.6 274.3 L 149.7 268.5 Z M 150.3 273.4 L 148.4 279.1 L 152.9 275.2 Z M 147.1 280 L 151.6 284 L 149.7 278.3 Z" fill="#14110f"/>
+<g id="hearth-pot">
+<use id="hearth-pot-line" href="#hearth-pot-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-pot-clip)">
+<use id="hearth-pot-lit" href="#hearth-pot-shape" fill="#4f4944"/>
+<use id="hearth-pot-rim" href="#hearth-pot-shape" fill="#f4d294" opacity="0.55"/>
+<use id="hearth-pot-lit-over" href="#hearth-pot-shape" transform="translate(-0.8 0.6)" fill="#4f4944"/>
+<path id="hearth-pot-dark" d="M 110 286 L 145.4 285.1 L 154.3 312.2 L 150.8 319.2 L 154.6 330.9 L 110 330 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hearth-logs">
+<use id="hearth-logs-line" href="#hearth-logs-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-logs-clip)">
+<use id="hearth-logs-lit" href="#hearth-logs-shape" fill="#6f5c46"/>
+<path id="hearth-logs-dark" d="M 84 336 L 160.1 335.4 L 164.7 351.3 L 161.4 355.8 L 163.9 364.6 L 84 364 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hearth-fire">
+<use id="hearth-fire-line" href="#hearth-fire-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-fire-clip)">
+<use id="hearth-fire-lit" href="#hearth-fire-shape" fill="#eeb040"/>
+<path id="hearth-fire-hot" d="M 126 344 L 136 322 L 148 340 L 160 324 L 172 344 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<path id="hearth-embers" d="M 88 364 L 212 364 L 206 358 L 96 358 Z" fill="#c27a26" opacity="0.9"/>
+<g id="hearth-mantel">
+<use id="hearth-mantel-line" href="#hearth-mantel-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-mantel-clip)">
+<use id="hearth-mantel-lit" href="#hearth-mantel-shape" fill="#6f5c46"/>
+<path id="hearth-mantel-mid" d="M 0 192 L 300 188 L 300 206 L 0 206 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="hearth-mantel-dark" d="M 0 192 L 300 188 L 300 206 L 0 206 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hearth-corbel-0">
+<use id="hearth-corbel-0-line" href="#hearth-corbel-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-corbel-0-clip)">
+<use id="hearth-corbel-0-lit" href="#hearth-corbel-0-shape" fill="#6f5c46"/>
+<path id="hearth-corbel-0-dark" d="M 8 194 L 26.7 193.7 L 31.8 210.9 L 30.3 214 L 33.3 224.3 L 8 224 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hearth-corbel-1">
+<use id="hearth-corbel-1-line" href="#hearth-corbel-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-corbel-1-clip)">
+<use id="hearth-corbel-1-lit" href="#hearth-corbel-1-shape" fill="#6f5c46"/>
+<path id="hearth-corbel-1-dark" d="M 240 194 L 258.8 193.7 L 264 211.4 L 262.4 214.6 L 265.2 224.3 L 240 224 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hearth-mantel-candle">
+<use id="hearth-mantel-candle-line" href="#hearth-mantel-candle-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-mantel-candle-clip)">
+<use id="hearth-mantel-candle-lit" href="#hearth-mantel-candle-shape" fill="#c7ad84"/>
+<path id="hearth-mantel-candle-dark" d="M 44 157.5 L 58 157.4 L 59.3 167.9 L 58.3 169.2 L 60.4 186.1 L 44 186 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="hearth-mantel-candle-run" d="M 56.5 164 L 59.5 164 L 58.5 171 Z" fill="#c7ad84"/>
+<g id="hearth-mantel-candle-flame">
+<use id="hearth-mantel-candle-flame-line" href="#hearth-mantel-candle-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-mantel-candle-flame-clip)">
+<use id="hearth-mantel-candle-flame-lit" href="#hearth-mantel-candle-flame-shape" fill="#eeb040"/>
+<path id="hearth-mantel-candle-hot" d="M 59 160 L 60 154 L 61 160 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="hearth-jug">
+<use id="hearth-jug-line" href="#hearth-jug-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-jug-clip)">
+<use id="hearth-jug-lit" href="#hearth-jug-shape" fill="#9a5b38"/>
+<path id="hearth-jug-dark" d="M 210 146 L 228.9 145.6 L 234.9 168.7 L 233 172.3 L 236.7 186.4 L 210 186 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hearth-horn">
+<use id="hearth-horn-line" href="#hearth-horn-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hearth-horn-clip)">
+<use id="hearth-horn-lit" href="#hearth-horn-shape" fill="#cfc5a8"/>
+<path id="hearth-horn-dark" d="M 88 166 L 118.8 166 L 124.4 188 L 88 188 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hearth-poker">
+<use id="hearth-poker-line" href="#hearth-poker-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="hearth-poker-lit" href="#hearth-poker-shape" fill="#8c9194"/>
+</g>
+</svg>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="marta-legs-sat" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="marta-legs-sat-sat-back-thigh-shape" d="M 125.8 176 L 143.5 176.3 L 167.7 180.6 L 166.3 199.4 L 141.9 199 L 124.2 198 Z"/>
+<clipPath id="marta-legs-sat-sat-back-thigh-clip"><use href="#marta-legs-sat-sat-back-thigh-shape"/></clipPath>
+<path id="marta-legs-sat-sat-back-shin-shape" d="M 175.2 184 L 175.1 190.9 L 172.7 200.5 L 157.3 199.5 L 156.8 189.8 L 156.8 182.8 Z"/>
+<clipPath id="marta-legs-sat-sat-back-shin-clip"><use href="#marta-legs-sat-sat-back-shin-shape"/></clipPath>
+<path id="marta-legs-sat-sat-back-boot-shape" d="M 154.4 199 L 174.5 197 L 177.7 202 L 189.2 205 L 195.2 211 L 195.2 215 L 150.1 215 L 148.1 205 Z"/>
+<clipPath id="marta-legs-sat-sat-back-boot-clip"><use href="#marta-legs-sat-sat-back-boot-shape"/></clipPath>
+<path id="marta-legs-sat-sat-front-thigh-shape" d="M 134.8 179 L 152.5 179.3 L 176.7 183.6 L 175.3 202.4 L 150.9 202 L 133.2 201 Z"/>
+<clipPath id="marta-legs-sat-sat-front-thigh-clip"><use href="#marta-legs-sat-sat-front-thigh-shape"/></clipPath>
+<path id="marta-legs-sat-sat-front-shin-shape" d="M 184.2 187.1 L 184.1 192.8 L 181.7 200.6 L 166.3 199.4 L 165.8 191.5 L 165.8 185.7 Z"/>
+<clipPath id="marta-legs-sat-sat-front-shin-clip"><use href="#marta-legs-sat-sat-front-shin-shape"/></clipPath>
+<path id="marta-legs-sat-sat-front-boot-shape" d="M 163.4 199 L 183.5 197 L 186.7 202 L 198.2 205 L 204.2 211 L 204.2 215 L 159.1 215 L 157.1 205 Z"/>
+<clipPath id="marta-legs-sat-sat-front-boot-clip"><use href="#marta-legs-sat-sat-front-boot-shape"/></clipPath>
+</defs>
+<g id="marta-legs-sat-sat-back-thigh">
+<use id="marta-legs-sat-sat-back-thigh-line" href="#marta-legs-sat-sat-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-legs-sat-sat-back-thigh-clip)">
+<use id="marta-legs-sat-sat-back-thigh-lit" href="#marta-legs-sat-sat-back-thigh-shape" fill="#6f5c46"/>
+<path id="marta-legs-sat-sat-back-thigh-mid" d="M 121.9 188.7 L 143.6 190.3 L 146.9 193.7 L 169.6 195.3 L 168.2 215.7 L 120.2 212.2 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="marta-legs-sat-sat-back-thigh-dark" d="M 121.9 188.7 L 143.6 190.3 L 146.9 193.7 L 169.6 195.3 L 168.2 215.7 L 120.2 212.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="marta-legs-sat-sat-back-shin">
+<use id="marta-legs-sat-sat-back-shin-line" href="#marta-legs-sat-sat-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-legs-sat-sat-back-shin-clip)">
+<use id="marta-legs-sat-sat-back-shin-lit" href="#marta-legs-sat-sat-back-shin-shape" fill="#6f5c46"/>
+<path id="marta-legs-sat-sat-back-shin-mid" d="M 163.2 180.2 L 161.9 202.8 L 143.4 201.7 L 144.8 179.1 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="marta-legs-sat-sat-back-shin-dark" d="M 163.2 180.2 L 161.9 202.8 L 143.4 201.7 L 144.8 179.1 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="marta-legs-sat-sat-back-boot">
+<use id="marta-legs-sat-sat-back-boot-line" href="#marta-legs-sat-sat-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-legs-sat-sat-back-boot-clip)">
+<use id="marta-legs-sat-sat-back-boot-lit" href="#marta-legs-sat-sat-back-boot-shape" fill="#7b5b3d"/>
+<path id="marta-legs-sat-sat-back-boot-mid" d="M 142.1 194 L 167.1 194 L 168.6 201 L 178.5 207 L 199.2 210 L 199.2 219 L 142.1 219 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="marta-legs-sat-sat-back-boot-dark" d="M 142.1 194 L 167.1 194 L 168.6 201 L 178.5 207 L 199.2 210 L 199.2 219 L 142.1 219 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="marta-legs-sat-sat-back-boot-sole" d="M 148.1 212 L 196.2 212 L 196.2 216.5 L 148.1 216.5 Z" fill="#14110f"/>
+<path id="marta-legs-sat-sat-back-boot-crease" d="M 176.9 200.8 L 167.1 206 L 177.8 203.2 Z" fill="#14110f"/>
+<g id="marta-legs-sat-sat-front-thigh">
+<use id="marta-legs-sat-sat-front-thigh-line" href="#marta-legs-sat-sat-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-legs-sat-sat-front-thigh-clip)">
+<use id="marta-legs-sat-sat-front-thigh-lit" href="#marta-legs-sat-sat-front-thigh-shape" fill="#6f5c46"/>
+<path id="marta-legs-sat-sat-front-thigh-mid" d="M 131.3 185.3 L 160 187.3 L 163 190.4 L 179.1 191.6 L 177.6 212.1 L 129.7 208.7 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="marta-legs-sat-sat-front-thigh-dark" d="M 131.3 185.3 L 160 187.3 L 163 190.4 L 179.1 191.6 L 177.6 212.1 L 129.7 208.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="marta-legs-sat-sat-front-shin">
+<use id="marta-legs-sat-sat-front-shin-line" href="#marta-legs-sat-sat-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-legs-sat-sat-front-shin-clip)">
+<use id="marta-legs-sat-sat-front-shin-lit" href="#marta-legs-sat-sat-front-shin-shape" fill="#6f5c46"/>
+<path id="marta-legs-sat-sat-front-shin-mid" d="M 177.8 183.6 L 176.4 203.2 L 157.9 201.8 L 159.4 182.2 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="marta-legs-sat-sat-front-shin-dark" d="M 177.8 183.6 L 176.4 203.2 L 157.9 201.8 L 159.4 182.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="marta-legs-sat-sat-front-boot">
+<use id="marta-legs-sat-sat-front-boot-line" href="#marta-legs-sat-sat-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-legs-sat-sat-front-boot-clip)">
+<use id="marta-legs-sat-sat-front-boot-lit" href="#marta-legs-sat-sat-front-boot-shape" fill="#7b5b3d"/>
+<path id="marta-legs-sat-sat-front-boot-mid" d="M 151.1 194 L 176.1 194 L 177.6 201 L 187.5 207 L 208.2 210 L 208.2 219 L 151.1 219 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="marta-legs-sat-sat-front-boot-dark" d="M 151.1 194 L 176.1 194 L 177.6 201 L 187.5 207 L 208.2 210 L 208.2 219 L 151.1 219 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="marta-legs-sat-sat-front-boot-sole" d="M 157.1 212 L 205.2 212 L 205.2 216.5 L 157.1 216.5 Z" fill="#14110f"/>
+<path id="marta-legs-sat-sat-front-boot-crease" d="M 185.9 200.8 L 176.1 206 L 186.8 203.2 Z" fill="#14110f"/>
+</svg>

@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bar-counter" width="366" height="300" viewBox="0 0 366 300">
+<defs>
+<path id="bar-counter-shelf-shape" d="M 40 71 L 330 69 L 331 78 L 39 78 Z"/>
+<clipPath id="bar-counter-shelf-clip"><use href="#bar-counter-shelf-shape"/></clipPath>
+<path id="bar-counter-bracket-0-shape" d="M 70 78 L 80 78 L 70 96 Z"/>
+<clipPath id="bar-counter-bracket-0-clip"><use href="#bar-counter-bracket-0-shape"/></clipPath>
+<path id="bar-counter-bracket-1-shape" d="M 300 78 L 310 78 L 300 96 Z"/>
+<clipPath id="bar-counter-bracket-1-clip"><use href="#bar-counter-bracket-1-shape"/></clipPath>
+<path id="bar-counter-bottle-0-shape" d="M 55 70 L 55 56.8 L 58 53.5 L 58 48 L 62 48 L 62 53.5 L 65 56.8 L 65 70 Z"/>
+<clipPath id="bar-counter-bottle-0-clip"><use href="#bar-counter-bottle-0-shape"/></clipPath>
+<path id="bar-counter-bottle-1-shape" d="M 87 70 L 87 52.6 L 90 48.3 L 90 41 L 94 41 L 94 48.3 L 97 52.6 L 97 70 Z"/>
+<clipPath id="bar-counter-bottle-1-clip"><use href="#bar-counter-bottle-1-shape"/></clipPath>
+<path id="bar-counter-bottle-2-shape" d="M 119 70 L 119 55.6 L 122 52 L 122 46 L 126 46 L 126 52 L 129 55.6 L 129 70 Z"/>
+<clipPath id="bar-counter-bottle-2-clip"><use href="#bar-counter-bottle-2-shape"/></clipPath>
+<path id="bar-counter-bottle-3-shape" d="M 151 70 L 151 51.4 L 154 46.8 L 154 39 L 158 39 L 158 46.8 L 161 51.4 L 161 70 Z"/>
+<clipPath id="bar-counter-bottle-3-clip"><use href="#bar-counter-bottle-3-shape"/></clipPath>
+<path id="bar-counter-bottle-4-shape" d="M 183 70 L 183 54.4 L 186 50.5 L 186 44 L 190 44 L 190 50.5 L 193 54.4 L 193 70 Z"/>
+<clipPath id="bar-counter-bottle-4-clip"><use href="#bar-counter-bottle-4-shape"/></clipPath>
+<path id="bar-counter-bottle-5-shape" d="M 215 70 L 215 50.2 L 218 45.3 L 218 37 L 222 37 L 222 45.3 L 225 50.2 L 225 70 Z"/>
+<clipPath id="bar-counter-bottle-5-clip"><use href="#bar-counter-bottle-5-shape"/></clipPath>
+<path id="bar-counter-bottle-6-shape" d="M 247 70 L 247 53.2 L 250 49 L 250 42 L 254 42 L 254 49 L 257 53.2 L 257 70 Z"/>
+<clipPath id="bar-counter-bottle-6-clip"><use href="#bar-counter-bottle-6-shape"/></clipPath>
+<path id="bar-counter-bottle-7-shape" d="M 279 70 L 279 56.2 L 282 52.8 L 282 47 L 286 47 L 286 52.8 L 289 56.2 L 289 70 Z"/>
+<clipPath id="bar-counter-bottle-7-clip"><use href="#bar-counter-bottle-7-shape"/></clipPath>
+<path id="bar-counter-stand-shape" d="M 60 187 L 300 185 L 301 196 L 59 196 Z"/>
+<clipPath id="bar-counter-stand-clip"><use href="#bar-counter-stand-shape"/></clipPath>
+<path id="bar-counter-keg-0-shape" d="M 62 186 L 56 158 L 62 126 L 158 126 L 164 158 L 158 186 Z"/>
+<clipPath id="bar-counter-keg-0-clip"><use href="#bar-counter-keg-0-shape"/></clipPath>
+<path id="bar-counter-keg-0-tap-shape" d="M 106 150 L 114 150 L 114 166 L 120 166 L 120 172 L 106 172 Z"/>
+<clipPath id="bar-counter-keg-0-tap-clip"><use href="#bar-counter-keg-0-tap-shape"/></clipPath>
+<path id="bar-counter-keg-1-shape" d="M 192 186 L 186 158 L 192 126 L 288 126 L 294 158 L 288 186 Z"/>
+<clipPath id="bar-counter-keg-1-clip"><use href="#bar-counter-keg-1-shape"/></clipPath>
+<path id="bar-counter-keg-1-tap-shape" d="M 236 150 L 244 150 L 244 166 L 250 166 L 250 172 L 236 172 Z"/>
+<clipPath id="bar-counter-keg-1-tap-clip"><use href="#bar-counter-keg-1-tap-shape"/></clipPath>
+<path id="bar-counter-front-shape" d="M 10 284 L 14 196 L 350 190 L 352 280 Z"/>
+<clipPath id="bar-counter-front-clip"><use href="#bar-counter-front-shape"/></clipPath>
+<path id="bar-counter-top-shape" d="M 0 186 L 360 180 L 362 194 L 2 200 Z"/>
+<clipPath id="bar-counter-top-clip"><use href="#bar-counter-top-shape"/></clipPath>
+<path id="bar-counter-mug-a-shape" d="M 63 170.4 L 77 169.6 L 77.4 186 L 62.6 186 Z"/>
+<clipPath id="bar-counter-mug-a-clip"><use href="#bar-counter-mug-a-shape"/></clipPath>
+<path id="bar-counter-mug-b-shape" d="M 85 170.4 L 99 169.6 L 99.4 186 L 84.6 186 Z"/>
+<clipPath id="bar-counter-mug-b-clip"><use href="#bar-counter-mug-b-shape"/></clipPath>
+<path id="bar-counter-bottle-out-shape" d="M 285 182 L 285 166.4 L 288 162.5 L 288 156 L 292 156 L 292 162.5 L 295 166.4 L 295 182 Z"/>
+<clipPath id="bar-counter-bottle-out-clip"><use href="#bar-counter-bottle-out-shape"/></clipPath>
+<path id="bar-counter-rag-shape" d="M 180 186 L 214 184 L 220 200 L 208 212 L 196 198 L 182 196 Z"/>
+<clipPath id="bar-counter-rag-clip"><use href="#bar-counter-rag-shape"/></clipPath>
+</defs>
+<path id="bar-counter-blot" d="M 0 284 L 360 278 L 366 292 L 6 296 Z" fill="#14110f" opacity="0.55"/>
+<g id="bar-counter-shelf">
+<use id="bar-counter-shelf-line" href="#bar-counter-shelf-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-shelf-clip)">
+<use id="bar-counter-shelf-lit" href="#bar-counter-shelf-shape" fill="#6f5c46"/>
+<path id="bar-counter-shelf-dark" d="M 27 65 L 183.2 65 L 186.8 82 L 27 82 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bar-counter-bracket-0">
+<use id="bar-counter-bracket-0-line" href="#bar-counter-bracket-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bracket-0-clip)">
+<use id="bar-counter-bracket-0-lit" href="#bar-counter-bracket-0-shape" fill="#6f5c46"/>
+<path id="bar-counter-bracket-0-dark" d="M 58 74 L 73.4 73.9 L 75.4 85.9 L 74.5 87.4 L 76.6 100.1 L 58 100 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bar-counter-bracket-1">
+<use id="bar-counter-bracket-1-line" href="#bar-counter-bracket-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bracket-1-clip)">
+<use id="bar-counter-bracket-1-lit" href="#bar-counter-bracket-1-shape" fill="#6f5c46"/>
+<path id="bar-counter-bracket-1-dark" d="M 288 74 L 303.5 73.9 L 305.2 84 L 304.1 85.8 L 306.5 100.1 L 288 100 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bar-counter-bottle-0">
+<use id="bar-counter-bottle-0-line" href="#bar-counter-bottle-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bottle-0-clip)">
+<use id="bar-counter-bottle-0-lit" href="#bar-counter-bottle-0-shape" fill="#727646"/>
+<path id="bar-counter-bottle-0-dark" d="M 43 44 L 58 43.9 L 59.9 56.4 L 58.6 58.3 L 61 74.1 L 43 74 Z" fill="#14110f"/>
+<path id="bar-counter-bottle-0-gleam" d="M 56 57.9 L 58 57.9 L 58 66 L 56 66 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="bar-counter-bottle-1">
+<use id="bar-counter-bottle-1-line" href="#bar-counter-bottle-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bottle-1-clip)">
+<use id="bar-counter-bottle-1-lit" href="#bar-counter-bottle-1-shape" fill="#7d312b"/>
+<path id="bar-counter-bottle-1-dark" d="M 75 37 L 89.9 36.9 L 91.7 52.5 L 90.7 53.9 L 93.1 74.1 L 75 74 Z" fill="#14110f"/>
+<path id="bar-counter-bottle-1-gleam" d="M 88 54.1 L 90 54.1 L 90 66 L 88 66 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="bar-counter-bottle-2">
+<use id="bar-counter-bottle-2-line" href="#bar-counter-bottle-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bottle-2-clip)">
+<use id="bar-counter-bottle-2-lit" href="#bar-counter-bottle-2-shape" fill="#33424b"/>
+<path id="bar-counter-bottle-2-dark" d="M 107 42 L 122 41.9 L 124.5 59.6 L 123.2 61.4 L 125 74.1 L 107 74 Z" fill="#14110f"/>
+<path id="bar-counter-bottle-2-gleam" d="M 120 56.8 L 122 56.8 L 122 66 L 120 66 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="bar-counter-bottle-3">
+<use id="bar-counter-bottle-3-line" href="#bar-counter-bottle-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bottle-3-clip)">
+<use id="bar-counter-bottle-3-lit" href="#bar-counter-bottle-3-shape" fill="#727646"/>
+<path id="bar-counter-bottle-3-dark" d="M 139 35 L 154 34.9 L 156.7 58.7 L 155.5 60.4 L 157 74.1 L 139 74 Z" fill="#14110f"/>
+<path id="bar-counter-bottle-3-gleam" d="M 152 53 L 154 53 L 154 66 L 152 66 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="bar-counter-bottle-4">
+<use id="bar-counter-bottle-4-line" href="#bar-counter-bottle-4-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bottle-4-clip)">
+<use id="bar-counter-bottle-4-lit" href="#bar-counter-bottle-4-shape" fill="#c7ad84"/>
+<path id="bar-counter-bottle-4-dark" d="M 171 40 L 186 39.9 L 187.5 51.8 L 186.4 53.5 L 189 74.1 L 171 74 Z" fill="#14110f"/>
+<path id="bar-counter-bottle-4-gleam" d="M 184 55.7 L 186 55.7 L 186 66 L 184 66 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="bar-counter-bottle-5">
+<use id="bar-counter-bottle-5-line" href="#bar-counter-bottle-5-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bottle-5-clip)">
+<use id="bar-counter-bottle-5-lit" href="#bar-counter-bottle-5-shape" fill="#7d312b"/>
+<path id="bar-counter-bottle-5-dark" d="M 203 33 L 217.9 32.9 L 220.1 53.8 L 219.1 55.3 L 221.1 74.1 L 203 74 Z" fill="#14110f"/>
+<path id="bar-counter-bottle-5-gleam" d="M 216 51.9 L 218 51.9 L 218 66 L 216 66 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="bar-counter-bottle-6">
+<use id="bar-counter-bottle-6-line" href="#bar-counter-bottle-6-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bottle-6-clip)">
+<use id="bar-counter-bottle-6-lit" href="#bar-counter-bottle-6-shape" fill="#33424b"/>
+<path id="bar-counter-bottle-6-dark" d="M 235 38 L 250.1 37.9 L 252.8 60.1 L 251.5 61.9 L 252.9 74.1 L 235 74 Z" fill="#14110f"/>
+<path id="bar-counter-bottle-6-gleam" d="M 248 54.6 L 250 54.6 L 250 66 L 248 66 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="bar-counter-bottle-7">
+<use id="bar-counter-bottle-7-line" href="#bar-counter-bottle-7-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bottle-7-clip)">
+<use id="bar-counter-bottle-7-lit" href="#bar-counter-bottle-7-shape" fill="#727646"/>
+<path id="bar-counter-bottle-7-dark" d="M 267 43 L 282.1 42.9 L 284.1 57.3 L 282.8 59.3 L 284.9 74.1 L 267 74 Z" fill="#14110f"/>
+<path id="bar-counter-bottle-7-gleam" d="M 280 57.4 L 282 57.4 L 282 66 L 280 66 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="bar-counter-stand">
+<use id="bar-counter-stand-line" href="#bar-counter-stand-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-stand-clip)">
+<use id="bar-counter-stand-lit" href="#bar-counter-stand-shape" fill="#6f5c46"/>
+<path id="bar-counter-stand-dark" d="M 47 181 L 177.8 181 L 182.2 200 L 47 200 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bar-counter-keg-0">
+<use id="bar-counter-keg-0-line" href="#bar-counter-keg-0-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-keg-0-clip)">
+<use id="bar-counter-keg-0-lit" href="#bar-counter-keg-0-shape" fill="#6f5c46"/>
+<path id="bar-counter-keg-0-mid" d="M 50 160 L 50 161.9 L 119.4 160.8 L 123.6 156.8 L 170 156.1 L 170 196 L 50 196 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="bar-counter-keg-0-dark" d="M 50 160 L 50 161.9 L 119.4 160.8 L 123.6 156.8 L 170 156.1 L 170 196 L 50 196 Z" fill="#14110f"/>
+<path id="bar-counter-keg-0-hoop-a" d="M 80 126 L 86 126 L 86 186 L 80 186 Z" fill="#5b6165"/>
+<path id="bar-counter-keg-0-hoop-b" d="M 134 126 L 140 126 L 140 186 L 134 186 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="bar-counter-keg-0-tap">
+<use id="bar-counter-keg-0-tap-line" href="#bar-counter-keg-0-tap-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-keg-0-tap-clip)">
+<use id="bar-counter-keg-0-tap-lit" href="#bar-counter-keg-0-tap-shape" fill="#9a5b38"/>
+<use id="bar-counter-keg-0-tap-rim" href="#bar-counter-keg-0-tap-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bar-counter-keg-0-tap-lit-over" href="#bar-counter-keg-0-tap-shape" transform="translate(-0.8 0.6)" fill="#9a5b38"/>
+<path id="bar-counter-keg-0-tap-dark" d="M 94 146 L 109.3 145.8 L 111.6 157 L 110.4 159.1 L 113.9 176.2 L 94 176 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bar-counter-keg-0-chalk" d="M 95.3 136.7 L 104 144 L 96.7 135.3 Z M 103.3 135.3 L 96 144 L 104.7 136.7 Z" fill="#9c9178"/>
+<g id="bar-counter-keg-1">
+<use id="bar-counter-keg-1-line" href="#bar-counter-keg-1-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-keg-1-clip)">
+<use id="bar-counter-keg-1-lit" href="#bar-counter-keg-1-shape" fill="#6f5c46"/>
+<path id="bar-counter-keg-1-mid" d="M 180 160 L 180 161.5 L 220.9 160.8 L 224.1 157.8 L 300 156.5 L 300 196 L 180 196 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="bar-counter-keg-1-dark" d="M 180 160 L 180 161.5 L 220.9 160.8 L 224.1 157.8 L 300 156.5 L 300 196 L 180 196 Z" fill="#14110f"/>
+<path id="bar-counter-keg-1-hoop-a" d="M 210 126 L 216 126 L 216 186 L 210 186 Z" fill="#5b6165"/>
+<path id="bar-counter-keg-1-hoop-b" d="M 264 126 L 270 126 L 270 186 L 264 186 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="bar-counter-keg-1-tap">
+<use id="bar-counter-keg-1-tap-line" href="#bar-counter-keg-1-tap-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-keg-1-tap-clip)">
+<use id="bar-counter-keg-1-tap-lit" href="#bar-counter-keg-1-tap-shape" fill="#9a5b38"/>
+<use id="bar-counter-keg-1-tap-rim" href="#bar-counter-keg-1-tap-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bar-counter-keg-1-tap-lit-over" href="#bar-counter-keg-1-tap-shape" transform="translate(-0.8 0.6)" fill="#9a5b38"/>
+<path id="bar-counter-keg-1-tap-dark" d="M 224 146 L 239.3 145.8 L 242.2 159.6 L 240.9 161.7 L 243.9 176.2 L 224 176 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bar-counter-keg-1-chalk" d="M 225.3 136.7 L 234 144 L 226.7 135.3 Z M 233.3 135.3 L 226 144 L 234.7 136.7 Z" fill="#9c9178"/>
+<g id="bar-counter-front">
+<use id="bar-counter-front-line" href="#bar-counter-front-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-front-clip)">
+<use id="bar-counter-front-lit" href="#bar-counter-front-shape" fill="#6f5c46"/>
+<path id="bar-counter-front-mid" d="M 0 236 L 0 237.8 L 153.1 235.2 L 157 231.6 L 360 228.2 L 360 300 L 0 300 Z" transform="translate(4 -0.96)" fill="#4a3c2d"/>
+<path id="bar-counter-front-dark" d="M 0 236 L 0 237.8 L 153.1 235.2 L 157 231.6 L 360 228.2 L 360 300 L 0 300 Z" fill="#14110f"/>
+<path id="bar-counter-panels" d="M 94.8 196 L 96 284 L 97.2 196 Z M 178.8 194 L 180 282 L 181.2 194 Z M 262.8 192 L 264 280 L 265.2 192 Z" fill="#4a3c2d"/>
+<path id="bar-counter-rail" d="M 14 261 L 350 254 L 14 259 Z" fill="#4a3c2d"/>
+<path id="bar-counter-kicks" d="M 30.1 272.7 L 44 270 L 29.9 271.3 Z M 200.1 268.7 L 220 266 L 199.9 267.3 Z M 300.1 266.7 L 312 264 L 299.9 265.3 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<path id="bar-counter-nails-0" d="M 42.4 203.6 L 43.8 202.2 L 45.2 203.6 L 43.8 205 Z" fill="#14110f"/>
+<path id="bar-counter-nails-1" d="M 81.9 202.9 L 83.3 201.5 L 84.7 202.9 L 83.3 204.3 Z" fill="#14110f"/>
+<path id="bar-counter-nails-2" d="M 121.4 202.1 L 122.8 200.7 L 124.2 202.1 L 122.8 203.5 Z" fill="#14110f"/>
+<path id="bar-counter-nails-3" d="M 160.9 201.4 L 162.3 200 L 163.7 201.4 L 162.3 202.8 Z" fill="#14110f"/>
+<path id="bar-counter-nails-4" d="M 200.4 200.6 L 201.8 199.2 L 203.2 200.6 L 201.8 202 Z" fill="#14110f"/>
+<path id="bar-counter-nails-5" d="M 239.9 199.9 L 241.3 198.5 L 242.7 199.9 L 241.3 201.3 Z" fill="#14110f"/>
+<path id="bar-counter-nails-6" d="M 279.4 199.1 L 280.8 197.7 L 282.2 199.1 L 280.8 200.5 Z" fill="#14110f"/>
+<path id="bar-counter-nails-7" d="M 318.9 198.4 L 320.3 197 L 321.7 198.4 L 320.3 199.8 Z" fill="#14110f"/>
+<g id="bar-counter-top">
+<use id="bar-counter-top-line" href="#bar-counter-top-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-top-clip)">
+<use id="bar-counter-top-lit" href="#bar-counter-top-shape" fill="#6f5c46"/>
+<use id="bar-counter-top-rim" href="#bar-counter-top-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bar-counter-top-lit-over" href="#bar-counter-top-shape" transform="translate(-0.96 0.72)" fill="#6f5c46"/>
+<path id="bar-counter-top-mid" d="M 0 194 L 362 188 L 362 204 L 0 204 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="bar-counter-top-dark" d="M 0 194 L 362 188 L 362 204 L 0 204 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bar-counter-mug-a">
+<use id="bar-counter-mug-a-line" href="#bar-counter-mug-a-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-mug-a-clip)">
+<use id="bar-counter-mug-a-lit" href="#bar-counter-mug-a-shape" fill="#8c9194"/>
+<path id="bar-counter-mug-a-dark" d="M 50.6 165.6 L 65.3 165.6 L 71.8 190 L 50.6 190 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bar-counter-mug-a-handle" d="M 77 173 L 82 175 L 82 182 L 77 183" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="bar-counter-mug-b">
+<use id="bar-counter-mug-b-line" href="#bar-counter-mug-b-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-mug-b-clip)">
+<use id="bar-counter-mug-b-lit" href="#bar-counter-mug-b-shape" fill="#8c9194"/>
+<path id="bar-counter-mug-b-dark" d="M 72.6 165.6 L 87.3 165.6 L 93.8 190 L 72.6 190 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bar-counter-mug-b-handle" d="M 99 173 L 104 175 L 104 182 L 99 183" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="bar-counter-bottle-out">
+<use id="bar-counter-bottle-out-line" href="#bar-counter-bottle-out-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-bottle-out-clip)">
+<use id="bar-counter-bottle-out-lit" href="#bar-counter-bottle-out-shape" fill="#727646"/>
+<path id="bar-counter-bottle-out-dark" d="M 273 152 L 288 151.9 L 290 167.6 L 288.9 169.2 L 291 186.1 L 273 186 Z" fill="#14110f"/>
+<path id="bar-counter-bottle-out-gleam" d="M 286 167.7 L 288 167.7 L 288 178 L 286 178 Z" fill="#84939a" opacity="0.6"/>
+</g>
+</g>
+<g id="bar-counter-rag">
+<use id="bar-counter-rag-line" href="#bar-counter-rag-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bar-counter-rag-clip)">
+<use id="bar-counter-rag-lit" href="#bar-counter-rag-shape" fill="#d8cbab"/>
+<path id="bar-counter-rag-dark" d="M 168 180 L 192.8 179.3 L 197.6 194.8 L 194.2 200.6 L 199.2 216.7 L 168 216 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

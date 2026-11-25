@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jawtrap-jaw-far" width="188" height="156" viewBox="-30 -30 188 156">
+<defs>
+<path id="jawtrap-jaw-far-jaw-shape" d="M 22 74 L 26 58 L 34 66 L 40 54 L 48 64 L 56 52 L 64 64 L 64 74 Z"/>
+<clipPath id="jawtrap-jaw-far-jaw-clip"><use href="#jawtrap-jaw-far-jaw-shape"/></clipPath>
+</defs>
+<g id="jawtrap-jaw-far-jaw">
+<use id="jawtrap-jaw-far-jaw-line" href="#jawtrap-jaw-far-jaw-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jawtrap-jaw-far-jaw-clip)">
+<use id="jawtrap-jaw-far-jaw-lit" href="#jawtrap-jaw-far-jaw-shape" fill="#8c9194"/>
+<path id="jawtrap-jaw-far-jaw-dark" d="M 10 48 L 40.5 47.5 L 45.8 65.7 L 43.2 70.4 L 45.5 78.5 L 10 78 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

@@ -5,7 +5,7 @@
 
 import { loadUi } from '../ui/grim';
 import Phaser from 'phaser';
-import { GRIM_UNITS } from '../pictures';
+import { CARD_UNITS } from '../pictures';
 import { setGrim, type GrimManifest } from '../art/grim';
 import type { Manifest } from '../../art/manifest';
 import { OUTLINE } from '../../art/kit/palette';
@@ -75,7 +75,7 @@ export class BootScene extends Phaser.Scene {
     for (const k of WHOLE) this.load.svg(`svg:portrait/${k.team}/${k.unit}`, `assets/units/${k.team}/${k.unit}/full.svg`, { scale: ART_SCALE });
     // The style's own figures, each made about as tall as a card can show it.
     const cardScale = (id: string): number => Math.min(1.5, 230 / grim.units[id].full[3]);
-    for (const id of GRIM_UNITS) this.load.svg(`svg:portrait/grim/${id}`, `assets/grim/units/${id}/full.svg`, { scale: cardScale(id) });
+    for (const id of CARD_UNITS) this.load.svg(`svg:portrait/grim/${id}`, `assets/grim/units/${id}/full.svg`, { scale: cardScale(id) });
     // The style's own interface pieces: buttons, slots, bar frames, the panel, the icons.
     loadUi(this);
     // The recorded sounds, in one file. They are read while the game goes on: nothing waits for them.
@@ -112,7 +112,7 @@ export class BootScene extends Phaser.Scene {
           );
           this.textures.remove(key);
         }
-        for (const id of GRIM_UNITS) {
+        for (const id of CARD_UNITS) {
           const u = grim.units[id];
           const k = cardScale(id);
           const key = `svg:portrait/grim/${id}`;

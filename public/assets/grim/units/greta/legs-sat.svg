@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="greta-legs-sat" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="greta-legs-sat-sat-back-thigh-shape" d="M 125.9 168.5 L 143.6 168.7 L 167.8 173.3 L 166.2 194.7 L 141.8 194.5 L 124.1 193.5 Z"/>
+<clipPath id="greta-legs-sat-sat-back-thigh-clip"><use href="#greta-legs-sat-sat-back-thigh-shape"/></clipPath>
+<path id="greta-legs-sat-sat-back-shin-shape" d="M 176.5 177 L 176.4 185.6 L 173.7 197.4 L 156.3 196.6 L 155.6 184.6 L 155.5 176 Z"/>
+<clipPath id="greta-legs-sat-sat-back-shin-clip"><use href="#greta-legs-sat-sat-back-shin-shape"/></clipPath>
+<path id="greta-legs-sat-sat-back-boot-shape" d="M 153 196 L 175.8 194 L 178.9 199 L 192.7 202 L 198.7 208 L 198.7 212 L 147.5 212 L 145.5 202 Z"/>
+<clipPath id="greta-legs-sat-sat-back-boot-clip"><use href="#greta-legs-sat-sat-back-boot-shape"/></clipPath>
+<path id="greta-legs-sat-sat-front-thigh-shape" d="M 134.9 171.5 L 152.6 171.7 L 176.8 176.3 L 175.2 197.7 L 150.8 197.5 L 133.1 196.5 Z"/>
+<clipPath id="greta-legs-sat-sat-front-thigh-clip"><use href="#greta-legs-sat-sat-front-thigh-shape"/></clipPath>
+<path id="greta-legs-sat-sat-front-shin-shape" d="M 185.5 180.1 L 185.4 187.5 L 182.7 197.5 L 165.3 196.5 L 164.6 186.3 L 164.5 178.9 Z"/>
+<clipPath id="greta-legs-sat-sat-front-shin-clip"><use href="#greta-legs-sat-sat-front-shin-shape"/></clipPath>
+<path id="greta-legs-sat-sat-front-boot-shape" d="M 162 196 L 184.8 194 L 187.9 199 L 201.7 202 L 207.7 208 L 207.7 212 L 156.5 212 L 154.5 202 Z"/>
+<clipPath id="greta-legs-sat-sat-front-boot-clip"><use href="#greta-legs-sat-sat-front-boot-shape"/></clipPath>
+</defs>
+<g id="greta-legs-sat-sat-back-thigh">
+<use id="greta-legs-sat-sat-back-thigh-line" href="#greta-legs-sat-sat-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-legs-sat-sat-back-thigh-clip)">
+<use id="greta-legs-sat-sat-back-thigh-lit" href="#greta-legs-sat-sat-back-thigh-shape" fill="#6f5c46"/>
+<path id="greta-legs-sat-sat-back-thigh-mid" d="M 121.8 183.2 L 143.6 184.8 L 146.8 188.2 L 169.6 189.8 L 167.9 213.1 L 119.9 209.7 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="greta-legs-sat-sat-back-thigh-dark" d="M 121.8 183.2 L 143.6 184.8 L 146.8 188.2 L 169.6 189.8 L 167.9 213.1 L 119.9 209.7 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="greta-legs-sat-sat-back-shin">
+<use id="greta-legs-sat-sat-back-shin-line" href="#greta-legs-sat-sat-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-legs-sat-sat-back-shin-clip)">
+<use id="greta-legs-sat-sat-back-shin-lit" href="#greta-legs-sat-sat-back-shin-shape" fill="#6f5c46"/>
+<path id="greta-legs-sat-sat-back-shin-mid" d="M 164.2 173.4 L 163.4 189.7 L 160.4 192.7 L 160.1 199.8 L 140.5 198.8 L 141.8 172.3 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="greta-legs-sat-sat-back-shin-dark" d="M 164.2 173.4 L 163.4 189.7 L 160.4 192.7 L 160.1 199.8 L 140.5 198.8 L 141.8 172.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="greta-legs-sat-sat-back-boot">
+<use id="greta-legs-sat-sat-back-boot-line" href="#greta-legs-sat-sat-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-legs-sat-sat-back-boot-clip)">
+<use id="greta-legs-sat-sat-back-boot-lit" href="#greta-legs-sat-sat-back-boot-shape" fill="#4f4944"/>
+<path id="greta-legs-sat-sat-back-boot-mid" d="M 139.5 191 L 166.9 191 L 168.6 198 L 179.8 204 L 202.7 207 L 202.7 216 L 139.5 216 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="greta-legs-sat-sat-back-boot-dark" d="M 139.5 191 L 166.9 191 L 168.6 198 L 179.8 204 L 202.7 207 L 202.7 216 L 139.5 216 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="greta-legs-sat-sat-back-boot-sole" d="M 145.5 209 L 199.7 209 L 199.7 213.5 L 145.5 213.5 Z" fill="#14110f"/>
+<path id="greta-legs-sat-sat-back-boot-crease" d="M 178 197.8 L 166.9 203 L 178.9 200.2 Z" fill="#14110f"/>
+<g id="greta-legs-sat-sat-front-thigh">
+<use id="greta-legs-sat-sat-front-thigh-line" href="#greta-legs-sat-sat-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-legs-sat-sat-front-thigh-clip)">
+<use id="greta-legs-sat-sat-front-thigh-lit" href="#greta-legs-sat-sat-front-thigh-shape" fill="#6f5c46"/>
+<path id="greta-legs-sat-sat-front-thigh-mid" d="M 131.4 178.8 L 160 180.9 L 163 184 L 179.1 185.2 L 177.5 208.7 L 129.5 205.2 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="greta-legs-sat-sat-front-thigh-dark" d="M 131.4 178.8 L 160 180.9 L 163 184 L 179.1 185.2 L 177.5 208.7 L 129.5 205.2 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="greta-legs-sat-sat-front-shin">
+<use id="greta-legs-sat-sat-front-shin-line" href="#greta-legs-sat-sat-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-legs-sat-sat-front-shin-clip)">
+<use id="greta-legs-sat-sat-front-shin-lit" href="#greta-legs-sat-sat-front-shin-shape" fill="#6f5c46"/>
+<path id="greta-legs-sat-sat-front-shin-mid" d="M 178.1 176.7 L 176.8 200.2 L 155.8 199 L 157.1 175.5 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="greta-legs-sat-sat-front-shin-dark" d="M 178.1 176.7 L 176.8 200.2 L 155.8 199 L 157.1 175.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="greta-legs-sat-sat-front-boot">
+<use id="greta-legs-sat-sat-front-boot-line" href="#greta-legs-sat-sat-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-legs-sat-sat-front-boot-clip)">
+<use id="greta-legs-sat-sat-front-boot-lit" href="#greta-legs-sat-sat-front-boot-shape" fill="#4f4944"/>
+<path id="greta-legs-sat-sat-front-boot-mid" d="M 148.5 191 L 175.9 191 L 177.6 198 L 188.8 204 L 211.7 207 L 211.7 216 L 148.5 216 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="greta-legs-sat-sat-front-boot-dark" d="M 148.5 191 L 175.9 191 L 177.6 198 L 188.8 204 L 211.7 207 L 211.7 216 L 148.5 216 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="greta-legs-sat-sat-front-boot-sole" d="M 154.5 209 L 208.7 209 L 208.7 213.5 L 154.5 213.5 Z" fill="#14110f"/>
+<path id="greta-legs-sat-sat-front-boot-crease" d="M 187 197.8 L 175.9 203 L 187.9 200.2 Z" fill="#14110f"/>
+</svg>

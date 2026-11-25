@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="miner-table" width="226" height="160" viewBox="0 0 226 160">
+<defs>
+<path id="miner-table-leg-0-shape" d="M 37.5 82 L 37.5 148 L 30.5 148 L 30.5 82 Z"/>
+<clipPath id="miner-table-leg-0-clip"><use href="#miner-table-leg-0-shape"/></clipPath>
+<path id="miner-table-leg-1-shape" d="M 189.5 82 L 189.5 148 L 182.5 148 L 182.5 82 Z"/>
+<clipPath id="miner-table-leg-1-clip"><use href="#miner-table-leg-1-shape"/></clipPath>
+<path id="miner-table-top-shape" d="M 16 76 L 204 72 L 206 86 L 18 90 Z"/>
+<clipPath id="miner-table-top-clip"><use href="#miner-table-top-shape"/></clipPath>
+<path id="miner-table-sketch-shape" d="M 50 74 L 56 66 L 126 64 L 124 74 Z"/>
+<clipPath id="miner-table-sketch-clip"><use href="#miner-table-sketch-shape"/></clipPath>
+<path id="miner-table-paperweight-shape" d="M 108 66 L 114 60 L 124 62 L 122 68 Z"/>
+<clipPath id="miner-table-paperweight-clip"><use href="#miner-table-paperweight-shape"/></clipPath>
+<path id="miner-table-dish-shape" d="M 132 74 L 136 68 L 164 68 L 168 74 Z"/>
+<clipPath id="miner-table-dish-clip"><use href="#miner-table-dish-shape"/></clipPath>
+<path id="miner-table-ore-shape" d="M 138 68 L 144 60 L 152 62 L 160 58 L 162 68 Z"/>
+<clipPath id="miner-table-ore-clip"><use href="#miner-table-ore-shape"/></clipPath>
+<path id="miner-table-lamp-shape" d="M 22 74 L 24 50 L 30 40 L 50 40 L 56 50 L 58 74 Z"/>
+<clipPath id="miner-table-lamp-clip"><use href="#miner-table-lamp-shape"/></clipPath>
+<path id="miner-table-lamp-flame-shape" d="M 36 66 L 40 52 L 44 66 Z"/>
+<clipPath id="miner-table-lamp-flame-clip"><use href="#miner-table-lamp-flame-shape"/></clipPath>
+<path id="miner-table-pick-haft-shape" d="M 198 147.7 L 182 49.7 L 178 50.3 L 194 148.3 Z"/>
+<path id="miner-table-pick-head-shape" d="M 150 58 L 180 44 L 212 50 L 182 52 Z"/>
+<clipPath id="miner-table-pick-head-clip"><use href="#miner-table-pick-head-shape"/></clipPath>
+</defs>
+<path id="miner-table-blot" d="M 0 146 L 220 140 L 226 154 L 6 158 Z" fill="#14110f" opacity="0.55"/>
+<path id="miner-table-under" d="M 30 84 L 190 80 L 186 144 L 34 148 Z" fill="#14110f"/>
+<g id="miner-table-leg-0">
+<use id="miner-table-leg-0-line" href="#miner-table-leg-0-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-leg-0-clip)">
+<use id="miner-table-leg-0-lit" href="#miner-table-leg-0-shape" fill="#6f5c46"/>
+<path id="miner-table-leg-0-dark" d="M 34.6 79 L 34.6 109 L 33.4 110.4 L 33.4 151 L 27 151 L 27 79 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="miner-table-leg-1">
+<use id="miner-table-leg-1-line" href="#miner-table-leg-1-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-leg-1-clip)">
+<use id="miner-table-leg-1-lit" href="#miner-table-leg-1-shape" fill="#6f5c46"/>
+<path id="miner-table-leg-1-dark" d="M 186.7 79 L 186.7 119.1 L 185.3 120.6 L 185.3 151 L 179 151 L 179 79 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="miner-table-top">
+<use id="miner-table-top-line" href="#miner-table-top-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-top-clip)">
+<use id="miner-table-top-lit" href="#miner-table-top-shape" fill="#6f5c46"/>
+<path id="miner-table-top-mid" d="M 0 84 L 220 80 L 220 96 L 0 96 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="miner-table-top-dark" d="M 0 84 L 220 80 L 220 96 L 0 96 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="miner-table-sketch">
+<use id="miner-table-sketch-line" href="#miner-table-sketch-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-sketch-clip)">
+<use id="miner-table-sketch-lit" href="#miner-table-sketch-shape" fill="#d8cbab"/>
+<path id="miner-table-sketch-dark" d="M 38 60 L 63.2 60 L 67.2 78 L 38 78 Z" fill="#14110f"/>
+<path id="miner-table-seam" d="M 60 70.7 L 118 66 L 60 69.3 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="miner-table-paperweight">
+<use id="miner-table-paperweight-line" href="#miner-table-paperweight-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-paperweight-clip)">
+<use id="miner-table-paperweight-lit" href="#miner-table-paperweight-shape" fill="#77786f"/>
+<path id="miner-table-paperweight-dark" d="M 96 56 L 112.8 56 L 116 72 L 96 72 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="miner-table-dish">
+<use id="miner-table-dish-line" href="#miner-table-dish-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-dish-clip)">
+<use id="miner-table-dish-lit" href="#miner-table-dish-shape" fill="#8c9194"/>
+<path id="miner-table-dish-dark" d="M 120 64 L 145.2 64 L 147.6 78 L 120 78 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="miner-table-ore">
+<use id="miner-table-ore-line" href="#miner-table-ore-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-ore-clip)">
+<use id="miner-table-ore-lit" href="#miner-table-ore-shape" fill="#9a5b38"/>
+<path id="miner-table-ore-dark" d="M 126 54 L 145.6 54 L 149.6 72 L 126 72 Z" fill="#14110f"/>
+<path id="miner-table-ore-glint" d="M 150 62 L 154 61 L 152 65 Z" fill="#eeb040"/>
+</g>
+</g>
+<g id="miner-table-lamp">
+<use id="miner-table-lamp-line" href="#miner-table-lamp-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-lamp-clip)">
+<use id="miner-table-lamp-lit" href="#miner-table-lamp-shape" fill="#4f4944"/>
+<path id="miner-table-lamp-dark" d="M 10 36 L 30.3 35.2 L 36.3 53.7 L 32.9 60.4 L 38.9 78.8 L 10 78 Z" fill="#14110f"/>
+<path id="miner-table-lamp-pane" d="M 30 70 L 30 50 L 50 50 L 50 70 Z" fill="#c27a26"/>
+</g>
+</g>
+<g id="miner-table-lamp-flame">
+<use id="miner-table-lamp-flame-line" href="#miner-table-lamp-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-lamp-flame-clip)">
+<use id="miner-table-lamp-flame-lit" href="#miner-table-lamp-flame-shape" fill="#eeb040"/>
+<path id="miner-table-lamp-hot" d="M 39 64 L 40 58 L 41 64 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<path id="miner-table-lamp-bail" d="M 30 40 L 40 30 L 50 40" fill="none" stroke="#14110f" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="miner-table-pick-haft">
+<use id="miner-table-pick-haft-line" href="#miner-table-pick-haft-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="miner-table-pick-haft-lit" href="#miner-table-pick-haft-shape" fill="#6f5c46"/>
+</g>
+<g id="miner-table-pick-head">
+<use id="miner-table-pick-head-line" href="#miner-table-pick-head-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#miner-table-pick-head-clip)">
+<use id="miner-table-pick-head-lit" href="#miner-table-pick-head-shape" fill="#8c9194"/>
+<use id="miner-table-pick-head-rim" href="#miner-table-pick-head-shape" fill="#f4d294" opacity="0.55"/>
+<use id="miner-table-pick-head-lit-over" href="#miner-table-pick-head-shape" transform="translate(-0.8 0.6)" fill="#8c9194"/>
+<path id="miner-table-pick-head-dark" d="M 138 40 L 172 40 L 177.6 62 L 138 62 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Bot } from '../src/game/bot';
-import { ABILITIES, BUILDINGS, CAMP, HELPERS, HUNTERS, LESSONS, MARKS, MONSTERS, REINFORCEMENTS, byId } from '../src/game/content';
+import { ABILITIES, BUILDINGS, CAMP, HELPERS, ROOM, HUNTERS, LESSONS, MARKS, MONSTERS, REINFORCEMENTS, byId } from '../src/game/content';
 import { Hunt, STEP, inside, type Ev, type Setup, type Tell } from '../src/game/hunt';
 import { awake, hold, next, of, play, setup } from './lair';
 
@@ -878,5 +878,23 @@ describe('a hunt that teaches', () => {
     expect(parts).toEqual([1]);
     names.delete('shift');
     for (const n of names) expect(lesson.parts.flat()).toContain(n);
+  });
+});
+
+describe('room round the player', () => {
+  it('no helper, ally or partner stands on the player, and a helper can still reach them', () => {
+    const h = awake({ monster: 'sexton', reinforcements: [{ id: 'pikemen', charges: 1 }], partners: ['jory', 'agnes'] });
+    hold(h, 'recover', 99);
+    h.step({ x: 0, y: 0, call: 0 });
+    // Everyone of both sides is put right on the player's feet.
+    for (const f of h.helpers) [f.x, f.y] = [h.hunter.x + 2, h.hunter.y + 1];
+    for (const a of h.allies) [a.x, a.y] = [h.hunter.x - 1, h.hunter.y + 2];
+    for (const p of h.party.slice(1)) [p.x, p.y] = [h.hunter.x + 1, h.hunter.y - 2];
+    h.step({ x: 0, y: 0 });
+    const d = (o: { x: number; y: number }): number => Math.hypot(o.x - h.hunter.x, o.y - h.hunter.y);
+    for (const f of h.helpers) if (!f.def.still) expect(d(f)).toBeGreaterThanOrEqual(ROOM - 0.5);
+    for (const a of h.allies) expect(d(a)).toBeGreaterThanOrEqual(ROOM - 0.5);
+    for (const p of h.party.slice(1)) expect(d(p)).toBeGreaterThanOrEqual(ROOM - 0.5);
+    for (const f of HELPERS) if (!f.still && f.dmg > 0) expect(f.reach, f.id).toBeGreaterThan(ROOM);
   });
 });

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-attack" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-attack-blade-shape" d="M 18 50 L 46 12 L 58 4 L 54 18 L 24 54 Z"/>
+<clipPath id="icon-attack-blade-clip"><use href="#icon-attack-blade-shape"/></clipPath>
+<path id="icon-attack-guard-shape" d="M 10 44 L 16 40 L 34 58 L 28 62 Z"/>
+<clipPath id="icon-attack-guard-clip"><use href="#icon-attack-guard-shape"/></clipPath>
+<path id="icon-attack-grip-shape" d="M 22 52.3 L 8 64.3 L 4 59.7 L 18 47.7 Z"/>
+<clipPath id="icon-attack-grip-clip"><use href="#icon-attack-grip-shape"/></clipPath>
+</defs>
+<path id="icon-attack-cut" d="M 7.5 31.3 L 26 8 L 4.5 28.7 Z M 15.5 45.3 L 40 14 L 12.5 42.7 Z" fill="#cfc5a8"/>
+<g id="icon-attack-blade">
+<use id="icon-attack-blade-line" href="#icon-attack-blade-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-attack-blade-clip)">
+<use id="icon-attack-blade-lit" href="#icon-attack-blade-shape" fill="#8c9194"/>
+<use id="icon-attack-blade-rim" href="#icon-attack-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-attack-blade-lit-over" href="#icon-attack-blade-shape" transform="translate(-1.44 1.08)" fill="#8c9194"/>
+<path id="icon-attack-blade-mid" d="M 0 64 L 21 52 L 56 10 L 64 16 L 64 64 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="icon-attack-blade-dark" d="M 0 64 L 21 52 L 56 10 L 64 16 L 64 64 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-attack-guard">
+<use id="icon-attack-guard-line" href="#icon-attack-guard-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-attack-guard-clip)">
+<use id="icon-attack-guard-lit" href="#icon-attack-guard-shape" fill="#8c9194"/>
+<path id="icon-attack-guard-dark" d="M -2 36 L 14 35.8 L 16.3 53.5 L 13.5 57.5 L 14.7 66.2 L -2 66 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-attack-grip">
+<use id="icon-attack-grip-line" href="#icon-attack-grip-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-attack-grip-clip)">
+<use id="icon-attack-grip-lit" href="#icon-attack-grip-shape" fill="#7b5b3d"/>
+<path id="icon-attack-grip-dark" d="M -8 43.7 L 5.8 43.7 L 8.8 68.3 L -8 68.3 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

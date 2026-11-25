@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jory-legs-sat" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="jory-legs-sat-sat-back-thigh-shape" d="M 117.5 142.5 L 140.1 143 L 171.2 146.7 L 170.3 161.3 L 139.1 160.6 L 116.5 159.5 Z"/>
+<clipPath id="jory-legs-sat-sat-back-thigh-clip"><use href="#jory-legs-sat-sat-back-thigh-shape"/></clipPath>
+<path id="jory-legs-sat-sat-back-shin-shape" d="M 176.9 149.1 L 176.7 163 L 174.7 182.2 L 162.8 181.8 L 162.5 162.6 L 162.6 148.7 Z"/>
+<clipPath id="jory-legs-sat-sat-back-shin-clip"><use href="#jory-legs-sat-sat-back-shin-shape"/></clipPath>
+<path id="jory-legs-sat-sat-back-boot-shape" d="M 160.6 181 L 176.1 179 L 179.5 184 L 187 187 L 193 193 L 193 197 L 158.1 197 L 156.1 187 Z"/>
+<clipPath id="jory-legs-sat-sat-back-boot-clip"><use href="#jory-legs-sat-sat-back-boot-shape"/></clipPath>
+<path id="jory-legs-sat-sat-front-thigh-shape" d="M 126.5 145.5 L 149.1 146 L 180.2 149.7 L 179.3 164.3 L 148.1 163.6 L 125.5 162.5 Z"/>
+<clipPath id="jory-legs-sat-sat-front-thigh-clip"><use href="#jory-legs-sat-sat-front-thigh-shape"/></clipPath>
+<path id="jory-legs-sat-sat-front-shin-shape" d="M 185.9 152.1 L 185.7 164.8 L 183.7 182.2 L 171.8 181.8 L 171.5 164.3 L 171.6 151.7 Z"/>
+<clipPath id="jory-legs-sat-sat-front-shin-clip"><use href="#jory-legs-sat-sat-front-shin-shape"/></clipPath>
+<path id="jory-legs-sat-sat-front-boot-shape" d="M 169.6 181 L 185.1 179 L 188.5 184 L 196 187 L 202 193 L 202 197 L 167.1 197 L 165.1 187 Z"/>
+<clipPath id="jory-legs-sat-sat-front-boot-clip"><use href="#jory-legs-sat-sat-front-boot-shape"/></clipPath>
+</defs>
+<g id="jory-legs-sat-sat-back-thigh">
+<use id="jory-legs-sat-sat-back-thigh-line" href="#jory-legs-sat-sat-back-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-legs-sat-sat-back-thigh-clip)">
+<use id="jory-legs-sat-sat-back-thigh-lit" href="#jory-legs-sat-sat-back-thigh-shape" fill="#6f5c46"/>
+<path id="jory-legs-sat-sat-back-thigh-mid" d="M 113.9 152.2 L 141 153.7 L 143.8 156.6 L 173.5 158.2 L 172.6 173.9 L 112.9 170.5 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-legs-sat-sat-back-thigh-dark" d="M 113.9 152.2 L 141 153.7 L 143.8 156.6 L 173.5 158.2 L 172.6 173.9 L 112.9 170.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-legs-sat-sat-back-shin">
+<use id="jory-legs-sat-sat-back-shin-line" href="#jory-legs-sat-sat-back-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-legs-sat-sat-back-shin-clip)">
+<use id="jory-legs-sat-sat-back-shin-lit" href="#jory-legs-sat-sat-back-shin-shape" fill="#6f5c46"/>
+<path id="jory-legs-sat-sat-back-shin-mid" d="M 168.6 145.9 L 167.8 169.9 L 165.8 172 L 165.4 184.9 L 152.1 184.5 L 153.3 145.4 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-legs-sat-sat-back-shin-dark" d="M 168.6 145.9 L 167.8 169.9 L 165.8 172 L 165.4 184.9 L 152.1 184.5 L 153.3 145.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-legs-sat-sat-back-boot">
+<use id="jory-legs-sat-sat-back-boot-line" href="#jory-legs-sat-sat-back-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-legs-sat-sat-back-boot-clip)">
+<use id="jory-legs-sat-sat-back-boot-lit" href="#jory-legs-sat-sat-back-boot-shape" fill="#7b5b3d"/>
+<path id="jory-legs-sat-sat-back-boot-mid" d="M 150.1 176 L 171.3 176 L 172.5 183 L 180.1 189 L 197 192 L 197 201 L 150.1 201 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="jory-legs-sat-sat-back-boot-dark" d="M 150.1 176 L 171.3 176 L 172.5 183 L 180.1 189 L 197 192 L 197 201 L 150.1 201 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-legs-sat-sat-back-boot-sole" d="M 156.1 194 L 194 194 L 194 198.5 L 156.1 198.5 Z" fill="#14110f"/>
+<path id="jory-legs-sat-sat-back-boot-crease" d="M 178.6 182.8 L 171.3 188 L 179.8 185.2 Z" fill="#14110f"/>
+<g id="jory-legs-sat-sat-front-thigh">
+<use id="jory-legs-sat-sat-front-thigh-line" href="#jory-legs-sat-sat-front-thigh-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-legs-sat-sat-front-thigh-clip)">
+<use id="jory-legs-sat-sat-front-thigh-lit" href="#jory-legs-sat-sat-front-thigh-shape" fill="#6f5c46"/>
+<path id="jory-legs-sat-sat-front-thigh-mid" d="M 123.2 150.2 L 158.9 152.2 L 161.5 154.8 L 182.8 156 L 181.9 171.8 L 122.2 168.4 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-legs-sat-sat-front-thigh-dark" d="M 123.2 150.2 L 158.9 152.2 L 161.5 154.8 L 182.8 156 L 181.9 171.8 L 122.2 168.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-legs-sat-sat-front-shin">
+<use id="jory-legs-sat-sat-front-shin-line" href="#jory-legs-sat-sat-front-shin-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-legs-sat-sat-front-shin-clip)">
+<use id="jory-legs-sat-sat-front-shin-lit" href="#jory-legs-sat-sat-front-shin-shape" fill="#6f5c46"/>
+<path id="jory-legs-sat-sat-front-shin-mid" d="M 181.9 149 L 181.2 169.5 L 179.1 171.7 L 178.6 185 L 165.4 184.6 L 166.6 148.5 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="jory-legs-sat-sat-front-shin-dark" d="M 181.9 149 L 181.2 169.5 L 179.1 171.7 L 178.6 185 L 165.4 184.6 L 166.6 148.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="jory-legs-sat-sat-front-boot">
+<use id="jory-legs-sat-sat-front-boot-line" href="#jory-legs-sat-sat-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-legs-sat-sat-front-boot-clip)">
+<use id="jory-legs-sat-sat-front-boot-lit" href="#jory-legs-sat-sat-front-boot-shape" fill="#7b5b3d"/>
+<path id="jory-legs-sat-sat-front-boot-mid" d="M 159.1 176 L 180.3 176 L 181.5 183 L 189.1 189 L 206 192 L 206 201 L 159.1 201 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="jory-legs-sat-sat-front-boot-dark" d="M 159.1 176 L 180.3 176 L 181.5 183 L 189.1 189 L 206 192 L 206 201 L 159.1 201 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="jory-legs-sat-sat-front-boot-sole" d="M 165.1 194 L 203 194 L 203 198.5 L 165.1 198.5 Z" fill="#14110f"/>
+<path id="jory-legs-sat-sat-front-boot-crease" d="M 187.6 182.8 L 180.3 188 L 188.8 185.2 Z" fill="#14110f"/>
+</svg>

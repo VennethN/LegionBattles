@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-sword" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-sword-blade-shape" d="M 28 44 L 28 10 L 32 2 L 36 10 L 36 44 Z"/>
+<clipPath id="icon-sword-blade-clip"><use href="#icon-sword-blade-shape"/></clipPath>
+<path id="icon-sword-guard-shape" d="M 14 44 L 50 42 L 50 48 L 14 50 Z"/>
+<clipPath id="icon-sword-guard-clip"><use href="#icon-sword-guard-shape"/></clipPath>
+<path id="icon-sword-grip-shape" d="M 29 48 L 35 48 L 35 58 L 29 58 Z"/>
+<clipPath id="icon-sword-grip-clip"><use href="#icon-sword-grip-shape"/></clipPath>
+<path id="icon-sword-pommel-shape" d="M 26 58 L 38 58 L 36 64 L 28 64 Z"/>
+<clipPath id="icon-sword-pommel-clip"><use href="#icon-sword-pommel-shape"/></clipPath>
+</defs>
+<g id="icon-sword-blade">
+<use id="icon-sword-blade-line" href="#icon-sword-blade-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-sword-blade-clip)">
+<use id="icon-sword-blade-lit" href="#icon-sword-blade-shape" fill="#8c9194"/>
+<use id="icon-sword-blade-rim" href="#icon-sword-blade-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-sword-blade-lit-over" href="#icon-sword-blade-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="icon-sword-blade-dark" d="M 32 0 L 40 0 L 40 48 L 32 48 Z" fill="#14110f"/>
+<path id="icon-sword-notch" d="M 28 22 L 31 24 L 28 26 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-sword-guard">
+<use id="icon-sword-guard-line" href="#icon-sword-guard-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-sword-guard-clip)">
+<use id="icon-sword-guard-lit" href="#icon-sword-guard-shape" fill="#8c9194"/>
+<path id="icon-sword-guard-dark" d="M 2 38 L 19.8 38 L 21.2 54 L 2 54 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-sword-grip">
+<use id="icon-sword-grip-line" href="#icon-sword-grip-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-sword-grip-clip)">
+<use id="icon-sword-grip-lit" href="#icon-sword-grip-shape" fill="#7b5b3d"/>
+<path id="icon-sword-grip-dark" d="M 17 44 L 29.5 44 L 30.7 62 L 17 62 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-sword-pommel">
+<use id="icon-sword-pommel-line" href="#icon-sword-pommel-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-sword-pommel-clip)">
+<use id="icon-sword-pommel-lit" href="#icon-sword-pommel-shape" fill="#8c9194"/>
+<path id="icon-sword-pommel-dark" d="M 14 54 L 27.6 54 L 28.7 68 L 14 68 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

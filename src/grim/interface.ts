@@ -282,6 +282,132 @@ const ICONS: Record<string, (d: Doc) => void> = {
     });
     d.ink('binding', poly([[12, 48], [30, 52], [26, 62], [10, 58]]), LEATHER, { dark: 0.3, mid: 0, ...fine });
   },
+  // ---- What the screens ask for besides the abilities, in the same hand.
+  // Attack: the hunter's own blow, a short broad blade and the cut it makes.
+  attack: (d) => {
+    d.strokes('cut', [[[6, 30], [26, 8]], [[14, 44], [40, 14]]], 4, BONE.lit);
+    d.ink('blade', poly([[18, 50], [46, 12], [58, 4], [54, 18], [24, 54]]), LEAD, { dark: poly([[0, 64], [21, 52], [56, 10], [64, 16], [64, 64]]), mid: 2, rim: 1.8, ...fine });
+    d.ink('guard', poly([[10, 44], [16, 40], [34, 58], [28, 62]]), LEAD, { dark: 0.4, mid: 0, ...fine });
+    d.ink('grip', limb([20, 50], [6, 62], 6, 6), LEATHER, { dark: 0.4, mid: 0, ...fine });
+  },
+  // Health: a heart as the butcher knows it, dark red, its vessels at the top.
+  heart: (d) => {
+    d.ink('heart', poly([[32, 60], [10, 40], [4, 24], [10, 12], [22, 10], [32, 18], [42, 10], [54, 12], [60, 24], [54, 40]]), BLOOD, {
+      dark: 0.35, mid: 3, rim: 1.6, ...fine,
+      inner: (c) => c.detail('vein', [[[36, 22], [30, 40]], [[30, 40], [36, 52]]], BLOOD, 2),
+    });
+    d.ink('vessel', poly([[26, 14], [26, 2], [34, 2], [34, 16]]), GORE, { dark: 0.4, mid: 0, ...fine });
+  },
+  // A sack of takings, its neck tied, a coin out of it.
+  sack: (d) => {
+    d.ink('sack', poly([[22, 20], [12, 34], [8, 50], [16, 60], [48, 60], [56, 50], [52, 34], [42, 20]]), TALLOW, { dark: 0.4, mid: 3, ...fine, inner: (c) => c.detail('folds', [[[22, 30], [18, 50]], [[40, 28], [44, 50]]], TALLOW, 2) });
+    d.ink('neck', poly([[22, 20], [20, 6], [30, 12], [36, 4], [44, 8], [42, 20]]), TALLOW, { dark: 0.4, mid: 0, ...fine });
+    d.ink('tie', poly([[20, 18], [44, 16], [44, 22], [20, 24]]), BLOOD, { dark: 0.3, mid: 0, ...fine });
+    d.ink('coin', poly([[46, 50], [52, 44], [60, 46], [62, 54], [56, 60], [48, 58]]), FIRE, { dark: 0.4, mid: 0, rim: 1.2, ...fine });
+  },
+  // Locked: a padlock of black iron, its keyhole cut.
+  lock: (d) => {
+    d.ink('shackle', poly([[16, 30], [16, 18], [24, 6], [40, 6], [48, 18], [48, 30], [40, 30], [40, 20], [36, 14], [28, 14], [24, 20], [24, 30]]), LEAD, { dark: 0.4, mid: 0, rim: 1.2, ...fine });
+    d.ink('body', poly([[8, 30], [56, 28], [58, 58], [6, 60]]), SOOT, { dark: poly([[0, 46], ...cut([0, 46], [64, 44], 'i-lock', 1, 3), [64, 64], [0, 64]]), mid: 3, rim: 1.6, ...fine });
+    d.black('keyhole', poly([[29, 36], [35, 36], [35, 44], [37, 52], [27, 52], [29, 44]]));
+    rivets(d, 'lock-rivets', [12, 34], [52, 32], 2, 1.8);
+  },
+  // Done: a tick cut deep, as a tally is.
+  check: (d) => {
+    d.ink('tick', poly([[4, 34], [14, 26], [26, 40], [52, 6], [62, 14], [28, 58], [20, 58]]), BONE, { dark: poly([[0, 40], [24, 48], [64, 12], [64, 64], [0, 64]]), mid: 2, ...fine });
+    d.scratch('nick', [[[30, 44], [48, 20]]], 1.6);
+  },
+  // Settings: a cog of black iron with a bolt through it.
+  cog: (d) => {
+    const pts: Pt[] = [];
+    for (let i = 0; i < 16; i++) {
+      const a = (i / 16) * Math.PI * 2 - Math.PI / 2;
+      const r = i % 2 === 0 ? 29 : 21;
+      pts.push([32 + Math.cos(a) * r, 32 + Math.sin(a) * r]);
+    }
+    d.ink('cog', poly(pts), LEAD, { dark: 0.3, mid: 3, rim: 1.4, ...fine });
+    d.ink('bolt', poly([[24, 24], [40, 24], [42, 32], [40, 40], [24, 40], [22, 32]]), SOOT, { dark: 0.4, mid: 0, ...fine });
+    d.scratch('bolt-cut', [[[27, 32], [37, 32]]], 2.4);
+  },
+  // Sound on: a hand bell and the ring off it.
+  sound: (d) => {
+    d.ink('handle', limb([20, 4], [24, 18], 6, 6), WOOD, { dark: false, mid: 0, ...fine });
+    d.ink('bell', poly([[20, 18], [30, 18], [36, 32], [44, 48], [6, 48], [14, 32]]), LEAD, { dark: 0.4, mid: 3, rim: 1.6, ...fine });
+    d.black('clapper', poly([[22, 48], [28, 48], [27, 56], [23, 56]]));
+    d.strokes('ring', [[[48, 22], [58, 14]], [[50, 34], [62, 34]], [[48, 46], [58, 54]]], 4, LAMP.lit);
+  },
+  // Sound off: the same bell, a red cross over its ring.
+  mute: (d) => {
+    d.ink('handle', limb([20, 4], [24, 18], 6, 6), WOOD, { dark: false, mid: 0, ...fine });
+    d.ink('bell', poly([[20, 18], [30, 18], [36, 32], [44, 48], [6, 48], [14, 32]]), LEAD, { dark: 0.4, mid: 3, ...fine });
+    d.black('clapper', poly([[22, 48], [28, 48], [27, 56], [23, 56]]));
+    d.ink('cross', poly([[44, 18], [50, 22], [56, 16], [62, 22], [56, 28], [62, 34], [56, 40], [50, 34], [44, 40], [38, 34], [44, 28], [38, 22]]), GORE, { dark: 0.3, mid: 0, ...fine });
+  },
+  // Pause: two bars of iron, nailed, as a door is barred.
+  hold: (d) => {
+    for (const [i, x] of [12, 38].entries()) {
+      d.ink(`bar-${i}`, poly([[x, 6], [x + 14, 6], [x + 14, 58], [x, 58]]), LEAD, { dark: poly([[x + 8, 0], [x + 20, 0], [x + 20, 64], [x + 8, 64]]), mid: 2, rim: 1.4, ...fine });
+      rivets(d, `bar-${i}-nails`, [x + 7, 12], [x + 7, 52], 2, 2);
+    }
+  },
+  // A prize: a dented pewter cup on its foot.
+  trophy: (d) => {
+    d.ink('foot', poly([[16, 60], [20, 52], [44, 52], [48, 60]]), LEAD, { dark: 0.4, mid: 0, ...fine });
+    d.ink('stem', poly([[28, 40], [36, 40], [38, 52], [26, 52]]), LEAD, { dark: 0.5, mid: 0, ...fine });
+    d.ink('cup', poly([[8, 6], [56, 6], [52, 26], [40, 40], [24, 40], [12, 26]]), LEAD, { dark: poly([[36, 0], ...cut([36, 0], [34, 44], 'i-cup', 1, 3), [64, 44], [64, 0]]), mid: 3, rim: 1.8, ...fine, inner: (c) => c.black('dent', poly([[18, 18], [24, 16], [22, 24]])) });
+    d.pen('handle-l', poly([[10, 12], [2, 16], [6, 28], [14, 28]], false), 3);
+    d.pen('handle-r', poly([[54, 12], [62, 16], [58, 28], [50, 28]], false), 3);
+  },
+  // A mark of worth: a star cut from tin and nailed up, one point bent.
+  star: (d) => {
+    const pts: Pt[] = [];
+    for (let i = 0; i < 10; i++) {
+      const a = (i / 10) * Math.PI * 2 - Math.PI / 2;
+      const r = i % 2 === 0 ? 30 : 12;
+      pts.push([32 + Math.cos(a) * r, 34 + Math.sin(a) * r - (i === 2 ? 3 : 0)]);
+    }
+    d.ink('star', poly(pts), FIRE, { dark: 0.3, mid: 2, rim: 1.4, ...fine });
+    d.black('nail', poly([[30, 32], [34, 32], [34, 36], [30, 36]]));
+  },
+  // A sword, point up, plain and notched.
+  sword: (d) => {
+    d.ink('blade', poly([[28, 44], [28, 10], [32, 2], [36, 10], [36, 44]]), LEAD, { dark: poly([[32, 0], [40, 0], [40, 48], [32, 48]]), mid: 0, rim: 1.6, ...fine, inner: (c) => c.black('notch', poly([[28, 22], [31, 24], [28, 26]])) });
+    d.ink('guard', poly([[14, 44], [50, 42], [50, 48], [14, 50]]), LEAD, { dark: 0.4, mid: 0, ...fine });
+    d.ink('grip', poly([[29, 48], [35, 48], [35, 58], [29, 58]]), LEATHER, { dark: 0.4, mid: 0, ...fine });
+    d.ink('pommel', poly([[26, 58], [38, 58], [36, 64], [28, 64]]), LEAD, { dark: 0.4, mid: 0, ...fine });
+  },
+  // Close: two strokes of red, crossed.
+  cross: (d) => {
+    d.ink('a', poly([[6, 14], [14, 6], [58, 50], [50, 58]]), BLOOD, { dark: 0.35, mid: 0, rim: 1.2, ...fine });
+    d.ink('b', poly([[50, 6], [58, 14], [14, 58], [6, 50]]), BLOOD, { dark: 0.35, mid: 0, rim: 1.2, ...fine });
+  },
+  // Onward: an arrow, pointing right, its fletching ragged.
+  arrow: (d) => {
+    d.ink('shaft', poly([[8, 29], [46, 29], [46, 35], [8, 35]]), WOOD, { dark: 0.4, mid: 0, ...fine });
+    d.ink('head', poly([[42, 18], [62, 32], [42, 46], [46, 32]]), LEAD, { dark: poly([[40, 32], [64, 32], [64, 50], [40, 50]]), mid: 0, rim: 1.6, ...fine });
+    d.ink('fletch-a', poly([[2, 18], [12, 18], [22, 30], [10, 30]]), BLOOD, { dark: 0.3, mid: 0, ...fine });
+    d.ink('fletch-b', poly([[2, 46], [12, 46], [22, 34], [10, 34]]), BLOOD, { dark: 0.4, mid: 0, ...fine });
+  },
+  // Time: an hourglass in a wooden frame, most of its sand run.
+  hourglass: (d) => {
+    d.ink('glass', poly([[18, 10], [46, 10], [36, 32], [46, 54], [18, 54], [28, 32]]), SNOW, { dark: 0.3, mid: 0, ...fine });
+    d.ink('sand-top', poly([[24, 20], [40, 20], [34, 30], [30, 30]]), TALLOW, { dark: false, line: 1.2, heavy: 1.6 });
+    d.ink('sand-low', poly([[20, 54], [26, 44], [32, 40], [38, 44], [44, 54]]), TALLOW, { dark: 0.3, mid: 0, line: 1.2, heavy: 1.6 });
+    d.pen('run', poly([[32, 30], [32, 42]], false), 1.6, TALLOW.lit);
+    d.ink('top', poly([[8, 4], [56, 4], [56, 12], [8, 12]]), WOOD, { dark: 0.4, mid: 0, ...fine });
+    d.ink('bottom', poly([[8, 52], [56, 52], [56, 60], [8, 60]]), WOOD, { dark: 0.4, mid: 0, ...fine });
+    d.ink('post-l', poly([[10, 12], [15, 12], [15, 52], [10, 52]]), WOOD, { dark: 0.4, mid: 0, ...fine });
+    d.ink('post-r', poly([[49, 12], [54, 12], [54, 52], [49, 52]]), WOOD, { dark: 0.6, mid: 0, ...fine });
+  },
+  // A banner: a ragged red cloth on a pole, its foot driven in.
+  banner: (d) => {
+    d.ink('pole', limb([14, 62], [14, 4], 5, 5), WOOD, { dark: false, mid: 0, ...fine });
+    d.ink('cloth', poly([[16, 8], [56, 10], [52, 22], [58, 36], [46, 34], [40, 44], [32, 36], [16, 40]]), BLOOD, {
+      dark: poly([[0, 28], ...cut([0, 28], [64, 26], 'i-banner', 1, 3), [64, 48], [0, 48]]), mid: 3, ...fine,
+      inner: (c) => c.strokes('mark', [[[28, 18], [38, 30]], [[38, 18], [28, 30]]], 3, BONE.mid),
+    });
+    d.ink('finial', poly([[10, 4], [14, 0], [18, 4], [14, 8]]), LEAD, { dark: 0.3, mid: 0, ...fine });
+  },
 };
 
 // ------------------------------------------------------------ plates, bars, boards

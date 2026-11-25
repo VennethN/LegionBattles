@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="long-table" width="346" height="140" viewBox="0 0 346 140">
+<defs>
+<path id="long-table-trestle-0-a-shape" d="M 43.8 59.1 L 23.4 129 L 16.6 127 L 36.2 56.9 Z"/>
+<clipPath id="long-table-trestle-0-a-clip"><use href="#long-table-trestle-0-a-shape"/></clipPath>
+<path id="long-table-trestle-0-b-shape" d="M 43.8 56.9 L 63.4 127 L 56.6 129 L 36.2 59.1 Z"/>
+<clipPath id="long-table-trestle-0-b-clip"><use href="#long-table-trestle-0-b-shape"/></clipPath>
+<path id="long-table-trestle-1-a-shape" d="M 299.8 59.1 L 279.4 129 L 272.6 127 L 292.2 56.9 Z"/>
+<clipPath id="long-table-trestle-1-a-clip"><use href="#long-table-trestle-1-a-shape"/></clipPath>
+<path id="long-table-trestle-1-b-shape" d="M 299.8 56.9 L 319.4 127 L 312.6 129 L 292.2 59.1 Z"/>
+<clipPath id="long-table-trestle-1-b-clip"><use href="#long-table-trestle-1-b-shape"/></clipPath>
+<path id="long-table-stretcher-shape" d="M 40 97 L 296 95 L 297 104 L 39 104 Z"/>
+<clipPath id="long-table-stretcher-clip"><use href="#long-table-stretcher-shape"/></clipPath>
+<path id="long-table-top-shape" d="M 2 50 L 336 44 L 340 58 L 4 64 Z"/>
+<clipPath id="long-table-top-clip"><use href="#long-table-top-shape"/></clipPath>
+<path id="long-table-board-shape" d="M 60 42.5 L 104 41.5 L 104.5 47 L 59.5 47 Z"/>
+<clipPath id="long-table-board-clip"><use href="#long-table-board-shape"/></clipPath>
+<path id="long-table-loaf-shape" d="M 68 42 L 70 34 L 82 31 L 94 34 L 96 42 Z"/>
+<clipPath id="long-table-loaf-clip"><use href="#long-table-loaf-shape"/></clipPath>
+<path id="long-table-tankard-a-shape" d="M 125 31.4 L 139 30.6 L 139.4 47 L 124.6 47 Z"/>
+<clipPath id="long-table-tankard-a-clip"><use href="#long-table-tankard-a-shape"/></clipPath>
+<path id="long-table-candle-shape" d="M 166.5 28.5 L 173.5 27.5 L 174 46 L 166 46 Z"/>
+<clipPath id="long-table-candle-clip"><use href="#long-table-candle-shape"/></clipPath>
+<path id="long-table-candle-flame-shape" d="M 167 27 L 170 14 L 173 27 Z"/>
+<clipPath id="long-table-candle-flame-clip"><use href="#long-table-candle-flame-shape"/></clipPath>
+<path id="long-table-plate-shape" d="M 200 46 L 204 42 L 236 41 L 240 45 Z"/>
+<clipPath id="long-table-plate-clip"><use href="#long-table-plate-shape"/></clipPath>
+<path id="long-table-bone-shape" d="M 210 42 L 214 36 L 228 35 L 232 40 Z"/>
+<clipPath id="long-table-bone-clip"><use href="#long-table-bone-shape"/></clipPath>
+<path id="long-table-tankard-b-shape" d="M 262 45 L 284 44 L 284 34 L 262 35 Z"/>
+<clipPath id="long-table-tankard-b-clip"><use href="#long-table-tankard-b-shape"/></clipPath>
+</defs>
+<path id="long-table-blot" d="M 0 126 L 340 120 L 346 134 L 6 138 Z" fill="#14110f" opacity="0.55"/>
+<path id="long-table-under" d="M 20 60 L 320 56 L 316 120 L 24 124 Z" fill="#14110f"/>
+<g id="long-table-trestle-0-a">
+<use id="long-table-trestle-0-a-line" href="#long-table-trestle-0-a-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-trestle-0-a-clip)">
+<use id="long-table-trestle-0-a-lit" href="#long-table-trestle-0-a-shape" fill="#6f5c46"/>
+<path id="long-table-trestle-0-a-dark" d="M 41.4 55.3 L 32.8 85.5 L 31.2 86.5 L 18.6 130.7 L 11.5 128.7 L 33.1 52.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="long-table-trestle-0-b">
+<use id="long-table-trestle-0-b-line" href="#long-table-trestle-0-b-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-trestle-0-b-clip)">
+<use id="long-table-trestle-0-b-lit" href="#long-table-trestle-0-b-shape" fill="#6f5c46"/>
+<path id="long-table-trestle-0-b-dark" d="M 39.9 54.9 L 47.8 82.5 L 46.8 84.5 L 60.1 131.1 L 53.1 133.1 L 31.5 57.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="long-table-trestle-1-a">
+<use id="long-table-trestle-1-a-line" href="#long-table-trestle-1-a-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-trestle-1-a-clip)">
+<use id="long-table-trestle-1-a-lit" href="#long-table-trestle-1-a-shape" fill="#6f5c46"/>
+<path id="long-table-trestle-1-a-dark" d="M 297.4 55.3 L 288.4 86.8 L 286.8 87.9 L 274.6 130.7 L 267.5 128.7 L 289.1 52.9 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="long-table-trestle-1-b">
+<use id="long-table-trestle-1-b-line" href="#long-table-trestle-1-b-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-trestle-1-b-clip)">
+<use id="long-table-trestle-1-b-lit" href="#long-table-trestle-1-b-shape" fill="#6f5c46"/>
+<path id="long-table-trestle-1-b-dark" d="M 295.9 54.9 L 305.8 89.6 L 304.8 91.7 L 316.1 131.1 L 309.1 133.1 L 287.5 57.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="long-table-stretcher">
+<use id="long-table-stretcher-line" href="#long-table-stretcher-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-stretcher-clip)">
+<use id="long-table-stretcher-lit" href="#long-table-stretcher-shape" fill="#6f5c46"/>
+<path id="long-table-stretcher-dark" d="M 27 91 L 166.2 91 L 169.8 108 L 27 108 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="long-table-top">
+<use id="long-table-top-line" href="#long-table-top-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-top-clip)">
+<use id="long-table-top-lit" href="#long-table-top-shape" fill="#6f5c46"/>
+<path id="long-table-top-mid" d="M 0 57 L 340 51 L 340 70 L 0 70 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="long-table-top-dark" d="M 0 57 L 340 51 L 340 70 L 0 70 Z" fill="#14110f"/>
+<path id="long-table-boards" d="M 4 54.8 L 338 48 L 4 53.2 Z" fill="#4a3c2d"/>
+<path id="long-table-knife-marks" d="M 110 50.7 L 124 49 L 110 49.3 Z M 118.2 52.7 L 130 48 L 117.8 51.3 Z M 240 48.7 L 256 47 L 240 47.3 Z" fill="#e9e0c6"/>
+</g>
+</g>
+<g id="long-table-board">
+<use id="long-table-board-line" href="#long-table-board-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-board-clip)">
+<use id="long-table-board-lit" href="#long-table-board-shape" fill="#6f5c46"/>
+<path id="long-table-board-dark" d="M 47.5 37.5 L 76.4 37.5 L 78.6 51 L 47.5 51 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="long-table-loaf">
+<use id="long-table-loaf-line" href="#long-table-loaf-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-loaf-clip)">
+<use id="long-table-loaf-lit" href="#long-table-loaf-shape" fill="#c7ad84"/>
+<path id="long-table-loaf-mid" d="M 56 27 L 77 27 L 81.4 46 L 56 46 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="long-table-loaf-dark" d="M 56 27 L 77 27 L 81.4 46 L 56 46 Z" fill="#14110f"/>
+<path id="long-table-loaf-scores" d="M 75.4 33.4 L 79 38 L 76.6 32.6 Z M 84.4 32.4 L 88 37 L 85.6 31.6 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="long-table-tankard-a">
+<use id="long-table-tankard-a-line" href="#long-table-tankard-a-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-tankard-a-clip)">
+<use id="long-table-tankard-a-lit" href="#long-table-tankard-a-shape" fill="#8c9194"/>
+<path id="long-table-tankard-a-dark" d="M 112.6 26.6 L 127.3 26.6 L 133.8 51 L 112.6 51 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="long-table-tankard-a-handle" d="M 139 34 L 144 36 L 144 43 L 139 44" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="long-table-candle">
+<use id="long-table-candle-line" href="#long-table-candle-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-candle-clip)">
+<use id="long-table-candle-lit" href="#long-table-candle-shape" fill="#c7ad84"/>
+<path id="long-table-candle-dark" d="M 154 23.5 L 167.9 23.4 L 169.4 34.4 L 168.5 35.6 L 170.5 50.1 L 154 50 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="long-table-candle-run" d="M 166.5 30 L 169.5 30 L 168.5 37 Z" fill="#c7ad84"/>
+<g id="long-table-candle-flame">
+<use id="long-table-candle-flame-line" href="#long-table-candle-flame-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-candle-flame-clip)">
+<use id="long-table-candle-flame-lit" href="#long-table-candle-flame-shape" fill="#eeb040"/>
+<path id="long-table-candle-hot" d="M 169 26 L 170 20 L 171 26 Z" fill="#ffe6a2"/>
+</g>
+</g>
+<g id="long-table-plate">
+<use id="long-table-plate-line" href="#long-table-plate-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-plate-clip)">
+<use id="long-table-plate-lit" href="#long-table-plate-shape" fill="#8c9194"/>
+<path id="long-table-plate-dark" d="M 188 37 L 215 37 L 217 50 L 188 50 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="long-table-bone">
+<use id="long-table-bone-line" href="#long-table-bone-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-bone-clip)">
+<use id="long-table-bone-lit" href="#long-table-bone-shape" fill="#cfc5a8"/>
+<path id="long-table-bone-dark" d="M 198 31 L 217.4 31 L 220.2 46 L 198 46 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="long-table-tankard-b">
+<use id="long-table-tankard-b-line" href="#long-table-tankard-b-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#long-table-tankard-b-clip)">
+<use id="long-table-tankard-b-lit" href="#long-table-tankard-b-shape" fill="#8c9194"/>
+<path id="long-table-tankard-b-dark" d="M 250 30 L 268.6 30 L 273 49 L 250 49 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="long-table-spill" d="M 284 44 L 306 43 L 312 47 L 286 48 Z" fill="#551f1c" opacity="0.6"/>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sellsword-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="sellsword-body-gambeson-shape" d="M 104 106 L 152 104 L 160 134 L 156 182 L 105.3 185.6 L 108.1 182.6 L 108.1 185.4 L 113.9 185 L 116.6 181.4 L 116.2 184.8 L 124.1 184.3 L 126.4 182.1 L 126.7 184.1 L 134.2 183.6 L 136.4 180.5 L 135.9 183.4 L 141.2 183.1 L 143.3 181.4 L 144 182.9 L 152.2 182.3 L 154.4 179.6 L 154.3 182.1 L 100 186 L 98 140 Z"/>
+<clipPath id="sellsword-body-gambeson-clip"><use href="#sellsword-body-gambeson-shape"/></clipPath>
+<path id="sellsword-body-mail-shape" d="M 106 108 L 150 106 L 156 132 L 152 162 L 104 166 L 100 136 Z"/>
+<clipPath id="sellsword-body-mail-clip"><use href="#sellsword-body-mail-shape"/></clipPath>
+<path id="sellsword-body-belt-shape" d="M 99.8 156.5 L 155.8 152.5 L 156.2 159.5 L 100.2 163.5 Z"/>
+<clipPath id="sellsword-body-belt-clip"><use href="#sellsword-body-belt-shape"/></clipPath>
+<path id="sellsword-body-belt-buckle-shape" d="M 128.4 152.4 L 138.9 152.9 L 138.3 162.9 L 128.9 162.3 Z"/>
+<clipPath id="sellsword-body-belt-buckle-clip"><use href="#sellsword-body-belt-buckle-shape"/></clipPath>
+<path id="sellsword-body-purse-shape" d="M 140 162 L 152 162 L 152.7 171.8 L 149.6 176 L 141.7 176 L 139.3 171.8 Z"/>
+<clipPath id="sellsword-body-purse-clip"><use href="#sellsword-body-purse-shape"/></clipPath>
+</defs>
+<g id="sellsword-body-gambeson">
+<use id="sellsword-body-gambeson-line" href="#sellsword-body-gambeson-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-body-gambeson-clip)">
+<use id="sellsword-body-gambeson-lit" href="#sellsword-body-gambeson-shape" fill="#c7ad84"/>
+<path id="sellsword-body-gambeson-mid" d="M 84 96 L 116 96 L 119.3 103.8 L 121 141.2 L 114.8 148.7 L 116.7 190.2 L 84 192 Z" transform="translate(8.68 -2.08)" fill="#927a58"/>
+<path id="sellsword-body-gambeson-dark" d="M 84 96 L 116 96 L 119.3 103.8 L 121 141.2 L 114.8 148.7 L 116.7 190.2 L 84 192 Z" fill="#14110f"/>
+<path id="sellsword-body-quilt" d="M 131.2 108 L 130 180 L 132.8 108 Z M 143.2 108 L 146 178 L 144.8 108 Z" fill="#927a58"/>
+<path id="sellsword-body-stain" d="M 136 150 L 150 146 L 152 160 L 138 164 Z" fill="#927a58"/>
+<path id="sellsword-body-gambeson-cold" d="M 58 64 L 200 64 L 200 226 L 58 226 Z M 105.9 104.6 L 153.9 102.6 L 161.9 132.6 L 157.9 180.6 L 107.2 184.2 L 110 181.2 L 110.1 184 L 115.8 183.6 L 118.5 180 L 118.1 183.4 L 126 182.8 L 128.3 180.6 L 128.6 182.7 L 136.1 182.1 L 138.3 179.1 L 137.8 182 L 143.1 181.6 L 145.2 180 L 145.9 181.4 L 154.1 180.8 L 156.3 178.2 L 156.2 180.7 L 101.9 184.6 L 99.9 138.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="sellsword-body-mail">
+<use id="sellsword-body-mail-line" href="#sellsword-body-mail-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-body-mail-clip)">
+<use id="sellsword-body-mail-lit" href="#sellsword-body-mail-shape" fill="#8c9194"/>
+<path id="sellsword-body-mail-mid" d="M 86 100 L 118 100 L 120.8 107.8 L 122.9 139.1 L 117.7 145.7 L 119.2 168.2 L 86 170 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="sellsword-body-mail-dark" d="M 86 100 L 118 100 L 120.8 107.8 L 122.9 139.1 L 117.7 145.7 L 119.2 168.2 L 86 170 Z" fill="#14110f"/>
+<path id="sellsword-body-links" d="M 111.6 111.4 L 117.1 116.7 L 112.4 110.6 Z M 116.7 111.1 L 122.3 116.4 L 117.6 110.3 Z M 121.9 110.8 L 127.4 116.1 L 122.7 110.1 Z M 127 110.5 L 132.6 115.9 L 127.8 109.8 Z M 132.2 110.2 L 137.7 115.6 L 133 109.5 Z M 137.3 109.9 L 142.8 115.3 L 138.1 109.2 Z M 142.5 109.6 L 148 115 L 143.3 108.9 Z M 109.9 129.3 L 115.4 134.7 L 110.7 128.6 Z M 115.6 129.1 L 121.1 134.4 L 116.4 128.3 Z M 121.3 128.8 L 126.8 134.2 L 122.2 128 Z M 127 128.5 L 132.5 133.9 L 127.9 127.8 Z M 132.8 128.2 L 138.3 133.6 L 133.6 127.5 Z M 138.5 127.9 L 144 133.3 L 139.3 127.2 Z M 144.2 127.6 L 149.7 133 L 145 126.9 Z M 108 147.3 L 113.5 152.7 L 108.9 146.6 Z M 114 147.1 L 119.5 152.5 L 114.9 146.3 Z M 120 146.8 L 125.5 152.2 L 120.9 146 Z M 126 146.5 L 131.5 151.9 L 126.9 145.8 Z M 132 146.2 L 137.5 151.6 L 132.9 145.5 Z M 138 145.9 L 143.5 151.3 L 138.9 145.2 Z M 144 145.6 L 149.5 151 L 144.9 144.9 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="sellsword-body-belt">
+<use id="sellsword-body-belt-line" href="#sellsword-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-body-belt-clip)">
+<use id="sellsword-body-belt-lit" href="#sellsword-body-belt-shape" fill="#7b5b3d"/>
+<path id="sellsword-body-belt-dark" d="M 96.9 158.7 L 135.3 155.9 L 136.6 157 L 159 155.4 L 159.4 161.8 L 97.4 166.2 Z" fill="#14110f"/>
+<path id="sellsword-body-belt-stitch" d="M 105.8 158.3 L 106.5 160.8 L 106.9 158.2 Z M 111.9 157.9 L 112.7 160.4 L 113.1 157.8 Z M 118.1 157.4 L 118.8 159.9 L 119.3 157.4 Z M 124.2 157 L 125 159.5 L 125.4 156.9 Z M 130.4 156.6 L 131.2 159 L 131.6 156.5 Z M 136.6 156.1 L 137.3 158.6 L 137.7 156 Z M 142.7 155.7 L 143.5 158.2 L 143.9 155.6 Z M 148.9 155.2 L 149.6 157.7 L 150.1 155.2 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="sellsword-body-belt-buckle">
+<use id="sellsword-body-belt-buckle-line" href="#sellsword-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-body-belt-buckle-clip)">
+<use id="sellsword-body-belt-buckle-lit" href="#sellsword-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="sellsword-body-belt-buckle-dark" d="M 116.4 148.4 L 129.4 148.4 L 133.6 166.9 L 116.4 166.9 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sellsword-body-belt-pin" d="M 131 156.8 L 137.3 157.2 L 137.3 158.4 L 131 158.2 Z" fill="#14110f"/>
+<g id="sellsword-body-purse">
+<use id="sellsword-body-purse-line" href="#sellsword-body-purse-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-body-purse-clip)">
+<use id="sellsword-body-purse-lit" href="#sellsword-body-purse-shape" fill="#7b5b3d"/>
+<path id="sellsword-body-purse-mid" d="M 127.3 158 L 141.3 158 L 146.9 180 L 127.3 180 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="sellsword-body-purse-dark" d="M 127.3 158 L 141.3 158 L 146.9 180 L 127.3 180 Z" fill="#14110f"/>
+<path id="sellsword-body-purse-flap" d="M 138.8 161 L 153.2 161 L 152 167.9 L 146 169.8 L 140 167.9 Z" fill="#553d29"/>
+<path id="sellsword-body-purse-seam" d="M 141.8 173.4 L 142.3 175.8 L 142.9 173.4 Z M 144 173.4 L 144.5 175.8 L 145.1 173.4 Z M 146.2 173.4 L 146.8 175.8 L 147.3 173.4 Z M 148.4 173.4 L 149 175.8 L 149.5 173.4 Z" fill="#553d29"/>
+</g>
+</g>
+<path id="sellsword-body-purse-toggle" d="M 144.4 169 L 146 167.4 L 147.6 169 L 146 170.6 Z" fill="#14110f"/>
+</svg>

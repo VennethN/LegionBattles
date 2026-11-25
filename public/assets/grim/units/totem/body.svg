@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="totem-body" width="312" height="376" viewBox="-60 -60 312 376">
+<defs>
+<path id="totem-body-stake-shape" d="M 88 240 L 102 240 L 104 76 L 94 70 L 88 76 Z"/>
+<clipPath id="totem-body-stake-clip"><use href="#totem-body-stake-shape"/></clipPath>
+<path id="totem-body-beam-l-shape" d="M 92 82 L 70 60 L 52 32 L 58 30 L 76 54 L 96 76 Z"/>
+<clipPath id="totem-body-beam-l-clip"><use href="#totem-body-beam-l-shape"/></clipPath>
+<path id="totem-body-tine-l1-shape" d="M 66 52 L 48 50 L 46 44 L 64 46 Z"/>
+<clipPath id="totem-body-tine-l1-clip"><use href="#totem-body-tine-l1-shape"/></clipPath>
+<path id="totem-body-tine-l2-shape" d="M 60 40 L 56 18 L 62 18 L 66 38 Z"/>
+<clipPath id="totem-body-tine-l2-clip"><use href="#totem-body-tine-l2-shape"/></clipPath>
+<path id="totem-body-beam-r-shape" d="M 98 76 L 120 56 L 140 28 L 146 32 L 128 60 L 102 82 Z"/>
+<clipPath id="totem-body-beam-r-clip"><use href="#totem-body-beam-r-shape"/></clipPath>
+<path id="totem-body-tine-r1-shape" d="M 124 54 L 146 52 L 148 58 L 126 60 Z"/>
+<clipPath id="totem-body-tine-r1-clip"><use href="#totem-body-tine-r1-shape"/></clipPath>
+<path id="totem-body-tine-r2-shape" d="M 134 42 L 140 20 L 146 22 L 140 44 Z"/>
+<clipPath id="totem-body-tine-r2-clip"><use href="#totem-body-tine-r2-shape"/></clipPath>
+<path id="totem-body-rag-shape" d="M 90 92 L 104 92 L 108 130 L 100 122 L 94 134 Z"/>
+<clipPath id="totem-body-rag-clip"><use href="#totem-body-rag-shape"/></clipPath>
+</defs>
+<g id="totem-body-stake">
+<use id="totem-body-stake-line" href="#totem-body-stake-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-body-stake-clip)">
+<use id="totem-body-stake-lit" href="#totem-body-stake-shape" fill="#6f5c46"/>
+<path id="totem-body-stake-mid" d="M 80 244 L 94 244 L 92.9 240 L 93.6 174.5 L 95.9 172.1 L 97.1 70 L 80 66 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="totem-body-stake-dark" d="M 80 244 L 94 244 L 92.9 240 L 93.6 174.5 L 95.9 172.1 L 97.1 70 L 80 66 Z" fill="#14110f"/>
+<path id="totem-body-grain" d="M 95.3 100 L 98 220 L 96.7 100 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="totem-body-beam-l">
+<use id="totem-body-beam-l-line" href="#totem-body-beam-l-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-body-beam-l-clip)">
+<use id="totem-body-beam-l-lit" href="#totem-body-beam-l-shape" fill="#cfc5a8"/>
+<path id="totem-body-beam-l-dark" d="M 40 26 L 61 24.9 L 68.2 47.2 L 63.9 56.4 L 73.8 87.1 L 40 86 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="totem-body-tine-l1">
+<use id="totem-body-tine-l1-line" href="#totem-body-tine-l1-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-body-tine-l1-clip)">
+<use id="totem-body-tine-l1-lit" href="#totem-body-tine-l1-shape" fill="#cfc5a8"/>
+<path id="totem-body-tine-l1-dark" d="M 34 40 L 51.4 40 L 54.6 56 L 34 56 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="totem-body-tine-l2">
+<use id="totem-body-tine-l2-line" href="#totem-body-tine-l2-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-body-tine-l2-clip)">
+<use id="totem-body-tine-l2-lit" href="#totem-body-tine-l2-shape" fill="#cfc5a8"/>
+<path id="totem-body-tine-l2-dark" d="M 44 14 L 57.9 13.9 L 59.6 25.3 L 58.5 26.8 L 61.1 44.1 L 44 44 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="totem-body-beam-r">
+<use id="totem-body-beam-r-line" href="#totem-body-beam-r-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-body-beam-r-clip)">
+<use id="totem-body-beam-r-lit" href="#totem-body-beam-r-shape" fill="#cfc5a8"/>
+<path id="totem-body-beam-r-dark" d="M 86 24 L 107.9 22.8 L 120.1 58.6 L 115.4 68.5 L 121.7 87.2 L 86 86 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="totem-body-tine-r1">
+<use id="totem-body-tine-r1-line" href="#totem-body-tine-r1-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-body-tine-r1-clip)">
+<use id="totem-body-tine-r1-lit" href="#totem-body-tine-r1-shape" fill="#cfc5a8"/>
+<path id="totem-body-tine-r1-dark" d="M 112 48 L 130.8 48 L 134 64 L 112 64 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="totem-body-tine-r2">
+<use id="totem-body-tine-r2-line" href="#totem-body-tine-r2-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-body-tine-r2-clip)">
+<use id="totem-body-tine-r2-lit" href="#totem-body-tine-r2-shape" fill="#cfc5a8"/>
+<path id="totem-body-tine-r2-dark" d="M 122 16 L 136.4 15.9 L 138.9 31.1 L 137.5 33.3 L 140 48.1 L 122 48 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="totem-body-rawhide" d="M 88 78 L 104 88 L 90 92 L 104 80" fill="none" stroke="#14110f" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="totem-body-rag">
+<use id="totem-body-rag-line" href="#totem-body-rag-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#totem-body-rag-clip)">
+<use id="totem-body-rag-lit" href="#totem-body-rag-shape" fill="#7d312b"/>
+<path id="totem-body-rag-mid" d="M 78 88 L 94.5 87.8 L 99.3 117.7 L 97.1 120.9 L 99.9 138.2 L 78 138 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="totem-body-rag-dark" d="M 78 88 L 94.5 87.8 L 99.3 117.7 L 97.1 120.9 L 99.9 138.2 L 78 138 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

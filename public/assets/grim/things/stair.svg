@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="stair" width="270" height="340" viewBox="0 0 270 340">
+<defs>
+<path id="stair-tread-0-shape" d="M 14 298.5 L 48 297.5 L 48.5 306 L 13.5 306 Z"/>
+<clipPath id="stair-tread-0-clip"><use href="#stair-tread-0-shape"/></clipPath>
+<path id="stair-riser-0-shape" d="M 16 306.3 L 42 305.7 L 42.3 330 L 15.7 330 Z"/>
+<clipPath id="stair-riser-0-clip"><use href="#stair-riser-0-shape"/></clipPath>
+<path id="stair-tread-1-shape" d="M 40 266.5 L 74 265.5 L 74.5 274 L 39.5 274 Z"/>
+<clipPath id="stair-tread-1-clip"><use href="#stair-tread-1-shape"/></clipPath>
+<path id="stair-riser-1-shape" d="M 42 274.3 L 68 273.7 L 68.3 298 L 41.7 298 Z"/>
+<clipPath id="stair-riser-1-clip"><use href="#stair-riser-1-shape"/></clipPath>
+<path id="stair-tread-2-shape" d="M 66 234.5 L 100 233.5 L 100.5 242 L 65.5 242 Z"/>
+<clipPath id="stair-tread-2-clip"><use href="#stair-tread-2-shape"/></clipPath>
+<path id="stair-riser-2-shape" d="M 68 242.3 L 94 241.7 L 94.3 266 L 67.7 266 Z"/>
+<clipPath id="stair-riser-2-clip"><use href="#stair-riser-2-shape"/></clipPath>
+<path id="stair-tread-3-shape" d="M 92 202.5 L 126 201.5 L 126.5 210 L 91.5 210 Z"/>
+<clipPath id="stair-tread-3-clip"><use href="#stair-tread-3-shape"/></clipPath>
+<path id="stair-riser-3-shape" d="M 94 210.3 L 120 209.7 L 120.3 234 L 93.7 234 Z"/>
+<clipPath id="stair-riser-3-clip"><use href="#stair-riser-3-shape"/></clipPath>
+<path id="stair-tread-4-shape" d="M 118 170.5 L 152 169.5 L 152.5 178 L 117.5 178 Z"/>
+<clipPath id="stair-tread-4-clip"><use href="#stair-tread-4-shape"/></clipPath>
+<path id="stair-riser-4-shape" d="M 120 178.3 L 146 177.7 L 146.3 202 L 119.7 202 Z"/>
+<clipPath id="stair-riser-4-clip"><use href="#stair-riser-4-shape"/></clipPath>
+<path id="stair-tread-5-shape" d="M 144 138.5 L 178 137.5 L 178.5 146 L 143.5 146 Z"/>
+<clipPath id="stair-tread-5-clip"><use href="#stair-tread-5-shape"/></clipPath>
+<path id="stair-riser-5-shape" d="M 146 146.3 L 172 145.7 L 172.3 170 L 145.7 170 Z"/>
+<clipPath id="stair-riser-5-clip"><use href="#stair-riser-5-shape"/></clipPath>
+<path id="stair-tread-6-shape" d="M 170 106.5 L 204 105.5 L 204.5 114 L 169.5 114 Z"/>
+<clipPath id="stair-tread-6-clip"><use href="#stair-tread-6-shape"/></clipPath>
+<path id="stair-riser-6-shape" d="M 172 114.3 L 198 113.7 L 198.3 138 L 171.7 138 Z"/>
+<clipPath id="stair-riser-6-clip"><use href="#stair-riser-6-shape"/></clipPath>
+<path id="stair-tread-7-shape" d="M 196 74.5 L 230 73.5 L 230.5 82 L 195.5 82 Z"/>
+<clipPath id="stair-tread-7-clip"><use href="#stair-tread-7-shape"/></clipPath>
+<path id="stair-riser-7-shape" d="M 198 82.3 L 224 81.7 L 224.3 106 L 197.7 106 Z"/>
+<clipPath id="stair-riser-7-clip"><use href="#stair-riser-7-shape"/></clipPath>
+<path id="stair-tread-8-shape" d="M 222 42.5 L 256 41.5 L 256.5 50 L 221.5 50 Z"/>
+<clipPath id="stair-tread-8-clip"><use href="#stair-tread-8-shape"/></clipPath>
+<path id="stair-riser-8-shape" d="M 224 50.3 L 250 49.7 L 250.3 74 L 223.7 74 Z"/>
+<clipPath id="stair-riser-8-clip"><use href="#stair-riser-8-shape"/></clipPath>
+<path id="stair-stringer-shape" d="M 10 334 L 256 36 L 256 58 L 24 334 Z"/>
+<clipPath id="stair-stringer-clip"><use href="#stair-stringer-shape"/></clipPath>
+<path id="stair-post-0-shape" d="M 22.5 306 L 22.5 238 L 17.5 238 L 17.5 306 Z"/>
+<path id="stair-post-3-shape" d="M 100.5 210 L 100.5 142 L 95.5 142 L 95.5 210 Z"/>
+<path id="stair-post-6-shape" d="M 178.5 114 L 178.5 46 L 173.5 46 L 173.5 114 Z"/>
+<path id="stair-post-9-shape" d="M 256.5 18 L 256.5 -50 L 251.5 -50 L 251.5 18 Z"/>
+<path id="stair-rail-shape" d="M 22.3 239.9 L 256.3 -48.1 L 251.7 -51.9 L 17.7 236.1 Z"/>
+<path id="stair-newel-shape" d="M 12 230.5 L 28 229.5 L 28.5 334 L 11.5 334 Z"/>
+<clipPath id="stair-newel-clip"><use href="#stair-newel-shape"/></clipPath>
+<path id="stair-newel-cap-shape" d="M 8 230 L 32 230 L 28 220 L 12 220 Z"/>
+<clipPath id="stair-newel-cap-clip"><use href="#stair-newel-cap-shape"/></clipPath>
+</defs>
+<path id="stair-blot" d="M 0 326 L 120 320 L 124 334 L 4 338 Z" fill="#14110f" opacity="0.55"/>
+<path id="stair-under" d="M 16 330 L 250 42 L 250 330 Z" fill="#14110f"/>
+<g id="stair-tread-0">
+<use id="stair-tread-0-line" href="#stair-tread-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-tread-0-clip)">
+<use id="stair-tread-0-lit" href="#stair-tread-0-shape" fill="#6f5c46"/>
+<path id="stair-tread-0-dark" d="M 1.5 293.5 L 29.3 293.5 L 32.7 310 L 1.5 310 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-riser-0">
+<use id="stair-riser-0-line" href="#stair-riser-0-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-riser-0-clip)">
+<use id="stair-riser-0-lit" href="#stair-riser-0-shape" fill="#6f5c46"/>
+<path id="stair-riser-0-dark" d="M 3.7 301.7 L 28.4 301.2 L 34.3 320.7 L 32.1 325.2 L 34.9 334.5 L 3.7 334 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-tread-1">
+<use id="stair-tread-1-line" href="#stair-tread-1-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-tread-1-clip)">
+<use id="stair-tread-1-lit" href="#stair-tread-1-shape" fill="#6f5c46"/>
+<path id="stair-tread-1-dark" d="M 27.5 261.5 L 55.3 261.5 L 58.7 278 L 27.5 278 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-riser-1">
+<use id="stair-riser-1-line" href="#stair-riser-1-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-riser-1-clip)">
+<use id="stair-riser-1-lit" href="#stair-riser-1-shape" fill="#6f5c46"/>
+<path id="stair-riser-1-dark" d="M 29.7 269.7 L 54.8 269.1 L 60.1 286.8 L 57.3 291.9 L 60.6 302.6 L 29.7 302 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-tread-2">
+<use id="stair-tread-2-line" href="#stair-tread-2-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-tread-2-clip)">
+<use id="stair-tread-2-lit" href="#stair-tread-2-shape" fill="#6f5c46"/>
+<path id="stair-tread-2-dark" d="M 53.5 229.5 L 81.3 229.5 L 84.7 246 L 53.5 246 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-riser-2">
+<use id="stair-riser-2-line" href="#stair-riser-2-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-riser-2-clip)">
+<use id="stair-riser-2-lit" href="#stair-riser-2-shape" fill="#6f5c46"/>
+<path id="stair-riser-2-dark" d="M 55.7 237.7 L 80.5 237.2 L 86.3 256.3 L 84 261.2 L 86.8 270.5 L 55.7 270 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-tread-3">
+<use id="stair-tread-3-line" href="#stair-tread-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-tread-3-clip)">
+<use id="stair-tread-3-lit" href="#stair-tread-3-shape" fill="#6f5c46"/>
+<path id="stair-tread-3-dark" d="M 79.5 197.5 L 107.3 197.5 L 110.7 214 L 79.5 214 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-riser-3">
+<use id="stair-riser-3-line" href="#stair-riser-3-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-riser-3-clip)">
+<use id="stair-riser-3-lit" href="#stair-riser-3-shape" fill="#6f5c46"/>
+<path id="stair-riser-3-dark" d="M 81.7 205.7 L 106.4 205.2 L 111 220.6 L 108.9 225.1 L 112.9 238.5 L 81.7 238 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-tread-4">
+<use id="stair-tread-4-line" href="#stair-tread-4-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-tread-4-clip)">
+<use id="stair-tread-4-lit" href="#stair-tread-4-shape" fill="#6f5c46"/>
+<path id="stair-tread-4-dark" d="M 105.5 165.5 L 133.3 165.5 L 136.7 182 L 105.5 182 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-riser-4">
+<use id="stair-riser-4-line" href="#stair-riser-4-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-riser-4-clip)">
+<use id="stair-riser-4-lit" href="#stair-riser-4-shape" fill="#6f5c46"/>
+<path id="stair-riser-4-dark" d="M 107.7 173.7 L 132.5 173.2 L 137.8 190.8 L 135.5 195.6 L 138.8 206.5 L 107.7 206 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-tread-5">
+<use id="stair-tread-5-line" href="#stair-tread-5-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-tread-5-clip)">
+<use id="stair-tread-5-lit" href="#stair-tread-5-shape" fill="#6f5c46"/>
+<path id="stair-tread-5-dark" d="M 131.5 133.5 L 159.3 133.5 L 162.7 150 L 131.5 150 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-riser-5">
+<use id="stair-riser-5-line" href="#stair-riser-5-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-riser-5-clip)">
+<use id="stair-riser-5-lit" href="#stair-riser-5-shape" fill="#6f5c46"/>
+<path id="stair-riser-5-dark" d="M 133.7 141.7 L 158.8 141.1 L 162.1 152.2 L 159.3 157.3 L 164.5 174.6 L 133.7 174 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-tread-6">
+<use id="stair-tread-6-line" href="#stair-tread-6-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-tread-6-clip)">
+<use id="stair-tread-6-lit" href="#stair-tread-6-shape" fill="#6f5c46"/>
+<path id="stair-tread-6-dark" d="M 157.5 101.5 L 185.3 101.5 L 188.7 118 L 157.5 118 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-riser-6">
+<use id="stair-riser-6-line" href="#stair-riser-6-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-riser-6-clip)">
+<use id="stair-riser-6-lit" href="#stair-riser-6-shape" fill="#6f5c46"/>
+<path id="stair-riser-6-dark" d="M 159.7 109.7 L 184.5 109.2 L 189 123.9 L 186.6 128.7 L 190.8 142.5 L 159.7 142 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-tread-7">
+<use id="stair-tread-7-line" href="#stair-tread-7-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-tread-7-clip)">
+<use id="stair-tread-7-lit" href="#stair-tread-7-shape" fill="#6f5c46"/>
+<path id="stair-tread-7-dark" d="M 183.5 69.5 L 211.3 69.5 L 214.7 86 L 183.5 86 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-riser-7">
+<use id="stair-riser-7-line" href="#stair-riser-7-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-riser-7-clip)">
+<use id="stair-riser-7-lit" href="#stair-riser-7-shape" fill="#6f5c46"/>
+<path id="stair-riser-7-dark" d="M 185.7 77.7 L 210.3 77.3 L 214.8 92.3 L 212.8 96.5 L 217 110.4 L 185.7 110 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-tread-8">
+<use id="stair-tread-8-line" href="#stair-tread-8-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-tread-8-clip)">
+<use id="stair-tread-8-lit" href="#stair-tread-8-shape" fill="#6f5c46"/>
+<path id="stair-tread-8-dark" d="M 209.5 37.5 L 237.3 37.5 L 240.7 54 L 209.5 54 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-riser-8">
+<use id="stair-riser-8-line" href="#stair-riser-8-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-riser-8-clip)">
+<use id="stair-riser-8-lit" href="#stair-riser-8-shape" fill="#6f5c46"/>
+<path id="stair-riser-8-dark" d="M 211.7 45.7 L 236.4 45.2 L 240.2 57.7 L 238 62.3 L 242.9 78.5 L 211.7 78 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-stringer">
+<use id="stair-stringer-line" href="#stair-stringer-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-stringer-clip)">
+<use id="stair-stringer-lit" href="#stair-stringer-shape" fill="#6f5c46"/>
+<path id="stair-stringer-dark" d="M -2 32 L 81.6 31 L 132.8 175.7 L 129.4 183.7 L 184.4 339 L -2 338 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-post-0">
+<use id="stair-post-0-line" href="#stair-post-0-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="stair-post-0-lit" href="#stair-post-0-shape" fill="#6f5c46"/>
+</g>
+<g id="stair-post-3">
+<use id="stair-post-3-line" href="#stair-post-3-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="stair-post-3-lit" href="#stair-post-3-shape" fill="#6f5c46"/>
+</g>
+<g id="stair-post-6">
+<use id="stair-post-6-line" href="#stair-post-6-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="stair-post-6-lit" href="#stair-post-6-shape" fill="#6f5c46"/>
+</g>
+<g id="stair-post-9">
+<use id="stair-post-9-line" href="#stair-post-9-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="stair-post-9-lit" href="#stair-post-9-shape" fill="#6f5c46"/>
+</g>
+<g id="stair-rail">
+<use id="stair-rail-line" href="#stair-rail-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="stair-rail-lit" href="#stair-rail-shape" fill="#6f5c46"/>
+</g>
+<g id="stair-newel">
+<use id="stair-newel-line" href="#stair-newel-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-newel-clip)">
+<use id="stair-newel-lit" href="#stair-newel-shape" fill="#6f5c46"/>
+<path id="stair-newel-dark" d="M -0.5 225.5 L 17.6 225.4 L 21.8 289.7 L 19.4 292.8 L 22.4 338.1 L -0.5 338 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="stair-newel-cap">
+<use id="stair-newel-cap-line" href="#stair-newel-cap-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#stair-newel-cap-clip)">
+<use id="stair-newel-cap-lit" href="#stair-newel-cap-shape" fill="#6f5c46"/>
+<path id="stair-newel-cap-dark" d="M -4 216 L 15.6 216 L 19.6 234 L -4 234 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

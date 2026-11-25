@@ -36,6 +36,7 @@ export function composeUnit(unit: UnitArt, opts: ComposeOpts = {}): string {
   unit.parts.forEach((part, i) => {
     if (opts.noShadow && part.role === 'shadow') return;
     if (part.only && part.only !== opts.still) return;
+    if (part.hide && part.hide === opts.still) return;
     const o = out[i];
     const r = (n: number): number => Math.round(n * 100) / 100;
     const transform =

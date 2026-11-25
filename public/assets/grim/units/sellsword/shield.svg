@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="sellsword-shield" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="sellsword-shield-shield-shape" d="M 70 104 L 96 94 L 118 102 L 124 130 L 118 160 L 96 170 L 72 160 L 64 132 Z"/>
+<clipPath id="sellsword-shield-shield-clip"><use href="#sellsword-shield-shield-shape"/></clipPath>
+<path id="sellsword-shield-boss-shape" d="M 88 124 L 98 118 L 106 126 L 104 138 L 92 140 L 86 132 Z"/>
+<clipPath id="sellsword-shield-boss-clip"><use href="#sellsword-shield-boss-shape"/></clipPath>
+</defs>
+<g id="sellsword-shield-shield">
+<use id="sellsword-shield-shield-line" href="#sellsword-shield-shield-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-shield-shield-clip)">
+<use id="sellsword-shield-shield-lit" href="#sellsword-shield-shield-shape" fill="#6f5c46"/>
+<path id="sellsword-shield-shield-mid" d="M 52 90 L 83.8 89 L 94.6 123.3 L 90.6 131.8 L 104.2 175 L 52 174 Z" transform="translate(8.4 -2.02)" fill="#4a3c2d"/>
+<path id="sellsword-shield-shield-dark" d="M 52 90 L 83.8 89 L 94.6 123.3 L 90.6 131.8 L 104.2 175 L 52 174 Z" fill="#14110f"/>
+<path id="sellsword-shield-boards" d="M 79.2 100 L 82 164 L 80.8 100 Z M 93.2 96 L 96 168 L 94.8 96 Z M 107.2 98 L 110 164 L 108.8 98 Z" fill="#4a3c2d"/>
+<path id="sellsword-shield-old-paint" d="M 84 110 L 104 104 L 110 130 L 90 138 Z" fill="#4a3c2d"/>
+<path id="sellsword-shield-shield-cold" d="M 24 54 L 164 54 L 164 210 L 24 210 Z M 72.1 102.4 L 98.1 92.4 L 120.1 100.4 L 126.1 128.4 L 120.1 158.4 L 98.1 168.4 L 74.1 158.4 L 66.1 130.4 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="sellsword-shield-boss">
+<use id="sellsword-shield-boss-line" href="#sellsword-shield-boss-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#sellsword-shield-boss-clip)">
+<use id="sellsword-shield-boss-lit" href="#sellsword-shield-boss-shape" fill="#8c9194"/>
+<use id="sellsword-shield-boss-rim" href="#sellsword-shield-boss-shape" fill="#f4d294" opacity="0.55"/>
+<use id="sellsword-shield-boss-lit-over" href="#sellsword-shield-boss-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="sellsword-shield-boss-dark" d="M 74 114 L 90.8 113.7 L 94.7 127 L 93.1 130.2 L 97.2 144.3 L 74 144 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="sellsword-shield-rim-nails-0" d="M 74.6 123 L 76 121.6 L 77.4 123 L 76 124.4 Z" fill="#14110f"/>
+<path id="sellsword-shield-rim-nails-1" d="M 82.6 113 L 84 111.6 L 85.4 113 L 84 114.4 Z" fill="#14110f"/>
+<path id="sellsword-shield-rim-nails-2" d="M 90.6 103 L 92 101.6 L 93.4 103 L 92 104.4 Z" fill="#14110f"/>
+</svg>

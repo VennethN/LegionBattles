@@ -135,7 +135,20 @@ export const DODGE: Pose = pose({ rootX: 14, rootY: 22, rootRot: 26, bodyRot: 30
 /** Waiting: the weight on the back foot, the head down, the weapon let rest against them. */
 export const REST: Pose = pose({ rootX: -2, bodyRot: -4, bodyY: 2, headRot: 14, headY: 2, weaponRot: 8, weaponX: -4, weaponY: 4, offRot: 10, legFrontRot: -8, legBackRot: 4, extraRot: 4 });
 /** Sat down on a bench or a barrel: low, the legs out in front, the head down. */
+/** Sat on the floor, legs out: for a figure with no legs bent at the knee to sit with. */
 export const SIT: Pose = pose({ rootY: 44, bodyRot: -6, bodyY: 4, headRot: 12, weaponRot: 14, weaponY: 6, offRot: 18, legFrontRot: -78, legFrontY: -6, legBackRot: -64, legBackY: -4, extraRot: 6 });
+
+/**
+ * Sat on a bench, for a figure that has seated legs (a part shown only in `sit`, the standing legs hidden in it):
+ * the whole figure comes down by half its leg, so that a thigh laid level and a shin stood upright reach the
+ * floor. `hipY` is where its legs hang from on its canvas; `more` is what it does with its arms meanwhile.
+ */
+export function sitFor(hipY: number, more: Partial<Pose> = {}, feetY = 240): Pose {
+  return pose({ rootY: (feetY - hipY) / 2, bodyRot: -4, bodyY: 0, headRot: 10, weaponRot: 12, weaponY: 4, offRot: 16, extraRot: 4, ...more });
+}
+
+/** Leant back against a bar or a wall, the weight on the back foot, the near foot crossed over, at ease. */
+export const LEAN: Pose = pose({ rootX: -4, rootRot: -7, bodyRot: -6, headRot: 12, headY: 2, weaponRot: 14, weaponY: 6, weaponX: -4, offRot: 26, offY: 6, legFrontRot: 16, legFrontY: -2, legBackRot: -6, extraRot: 5 });
 
 // ---- The hunters who came after the first four.
 

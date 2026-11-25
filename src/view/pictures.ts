@@ -24,8 +24,8 @@ export const isGrim = (a: Art): a is { grim: string } => 'grim' in a;
 
 export const HUNTER_ART: Record<string, Art> = {
   marta: { grim: 'marta' }, jory: { grim: 'jory' }, agnes: { grim: 'agnes' }, brask: { grim: 'brask' },
-  // Hands for hire are not drawn yet: a dark shape of a fighter and of an archer.
-  sellsword: { legion: 'militia', team: 'blue', scale: 0.62 }, bowman: { legion: 'poacher', team: 'blue', scale: 0.62 },
+  // Hands for hire: plainer than any hunter, with nothing of the lodge on them.
+  sellsword: { grim: 'sellsword' }, bowman: { grim: 'bowman' },
   greta: { grim: 'greta' }, ned: { grim: 'ned' }, ida: { grim: 'ida' }, silas: { grim: 'silas' },
 };
 
@@ -52,6 +52,7 @@ export const MONSTER_MOVES: Record<string, Record<string, string>> = {
 /** Which of a hunter's own moves shows each blow of their chain, by its place in the chain. One not named here is shown by their first move. */
 export const BLOW_MOVES: Record<string, readonly string[]> = {
   greta: ['smash', 'swing'], ned: ['jab', 'pick'], ida: ['jab', 'sweep'], silas: ['chop', 'backhand', 'chop'],
+  sellsword: ['chop'], bowman: ['loose'],
 };
 
 /** Which of a hunter's moves shows each ability, by the ability's name. Their first move is their own blow. */
@@ -62,8 +63,8 @@ export const ABILITY_MOVES: Record<string, string> = {
 
 export const HELPER_ART: Record<string, Art> = {
   risen: { grim: 'risen' }, herd: { grim: 'herdbeast' },
-  // What a contract asks to be broken first: not drawn yet, a dark stone.
-  gravemarker: { legion: 'barrowstone', team: 'red', scale: 0.7 }, totem: { legion: 'barrowstone', team: 'red', scale: 0.7 },
+  // What a contract asks to be broken first: they stand broken where they stood.
+  gravemarker: { grim: 'gravemarker' }, totem: { grim: 'totem' },
   // The later bosses' own, and the props of their lairs, which stand as figures until they are broken.
   spiderling: { grim: 'spiderling' }, eggsac: { grim: 'eggsac' }, monk: { grim: 'monk' }, cinder: { grim: 'cinder' },
   barrel: { grim: 'barrel' }, mirror: { grim: 'mirror-stand' }, reflection: { grim: 'reflection' },
@@ -83,22 +84,25 @@ export const ALLY_ART: Record<string, Art> = {
   hound: { grim: 'hound' },
   crossbowmen: { grim: 'crossbowman' },
   sappers: { grim: 'sapper' },
-  // The villagers a contract asks to be kept alive: not drawn yet, so a dark shape of the right size.
-  villager: { legion: 'beekeeper', team: 'blue', scale: 0.58 },
+  // The villagers a contract asks to be kept alive: one of the three folk, by the villager (VILLAGERS).
+  villager: { grim: 'villager-farmer' },
 };
+
+/** The folk a contract asks to be kept alive, told apart: each villager is one of these, by their number. */
+export const VILLAGERS: readonly Art[] = [{ grim: 'villager-farmer' }, { grim: 'villager-crone' }, { grim: 'villager-boy' }];
 
 export const BUILDING_ART: Record<string, Art> = {
   barricade: { grim: 'barricade' },
   watchfire: { grim: 'watchfire' },
   ballista: { grim: 'ballista' },
   bellpost: { grim: 'bellpost' },
-  // The cart a contract asks to be kept whole: not drawn yet, so a dark shape of the right size.
-  cart: { legion: 'warwagon', team: 'blue', scale: 0.6 },
+  // The cart a contract asks to be brought through: its wheels turn as it goes.
+  cart: { grim: 'cart' },
 };
 
 /** What stands or lies on the field besides: a lair's stones, a trap laid, the lamp Agnes stands on the ground. */
-export const STONE_ART: Art = { legion: 'barrowstone', team: 'red', scale: 0.9 };
-export const TRAP_ART: Art = { legion: 'spiketrap', team: 'blue', scale: 0.4 };
+export const STONE_ART: Art = { grim: 'stone' };
+export const TRAP_ART: Art = { grim: 'jawtrap' };
 export const LAMP_ART: Art = { grim: 'streetlamp' };
 
 /** The ground of each kind of lair: the style's own, or one of the Legion kit's by name until the style has it. */
@@ -108,11 +112,14 @@ export const LAIR_GROUND: Record<string, { grim: string } | { legion: 'meadow' |
 };
 
 
-const ALL: Art[] = [...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART), ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
+const ALL: Art[] = [...VILLAGERS, ...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART), ...Object.values(HELPER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART), STONE_ART, TRAP_ART, LAMP_ART];
 const legion = (list: Art[]): Array<{ team: Side; unit: string }> => list.flatMap((a) => (isGrim(a) ? [] : [{ team: a.team, unit: a.legion }]));
 
 /** Every figure of the style the game shows. */
 export const GRIM_UNITS: string[] = [...new Set(ALL.flatMap((a) => (isGrim(a) ? [a.grim] : [])))];
+
+/** The figures shown whole on a card: the hunters, the hands for hire and the bosses. Only these are written whole. */
+export const CARD_UNITS: string[] = [...new Set([...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART)].flatMap((a) => (isGrim(a) ? [a.grim] : [])))];
 
 /** The Legion stand-ins that are moved part by part: a monster. */
 export const RIGGED = legion(Object.values(MONSTER_ART));

@@ -21,6 +21,13 @@ export function byId<T extends { id: string }>(list: readonly T[], id: string): 
 /** The lair: its long side, its short side, and how far in from its rim anyone can stand. A wide window has it lying down, a tall one stood up. */
 export const FIELD = { long: 1180, short: 800, edge: 46 };
 
+/**
+ * How near the player's own hunter anyone else may stand, feet to feet. A helper, an ally or a partner that came
+ * closer is put back to this: a figure stood on the player hides them, and in a game of reading where to step the
+ * player has to see where they are. Every helper's reach is more than this, so it can still bite.
+ */
+export const ROOM = 30;
+
 /** How near the sleeping monster nothing can be built, and how near each other two buildings can stand. */
 export const CAMP = { clear: 190, apart: 64, wakeAt: 120 };
 

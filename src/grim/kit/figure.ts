@@ -275,3 +275,24 @@ export function stud(d: Doc, name: string, at: Pt, r = 1.6): void {
 }
 
 export { INK };
+
+/**
+ * Legs sat on a bench, for the part a figure shows only when it sits: a thigh laid level forward from the hip and
+ * a shin stood down to the floor, the far leg a little behind and darker. The thigh is long, so that the knee
+ * comes out past a coat's front: drawn after the body, it lies over the coat's lap. `hip` is where the standing legs hang
+ * from; `legLen` is how far that is above the floor, half of it thigh and half shin, so `sitFor` lowers the
+ * figure by half of it and the boots meet the floor.
+ */
+export function satLegs(d: Doc, name: string, hip: Pt, legLen: number, leg: Tone, bootTone: Tone, w = 20): void {
+  const half = legLen / 2;
+  const floor = hip[1] + half;
+  const legs: Array<[string, number, number, number]> = [['back', -9, -3, 0.66], ['front', 0, 0, 0.36]];
+  for (const [k, dx, dy, share] of legs) {
+    const h: Pt = [hip[0] + dx, hip[1] + dy];
+    const knee: Pt = [h[0] + Math.max(42, half * 1.25), h[1] + 3];
+    d.ink(`${name}-${k}-thigh`, limb(h, knee, w, w * 0.86, w * 0.08), leg, { dark: limbDark(h, knee, w, w * 0.9, `${name}-${k}-t`, share), mid: 2.5 });
+    const ankle: Pt = [knee[0] - 2, Math.max(knee[1] + 4, floor - 15)];
+    d.ink(`${name}-${k}-shin`, limb([knee[0] - 1, knee[1] - w * 0.3], ankle, w * 0.84, w * 0.7, w * 0.05), leg, { dark: limbDark([knee[0] - 1, knee[1] - w * 0.3], ankle, w * 0.84, w * 0.74, `${name}-${k}-s`, share), mid: 2.5 });
+    boot(d, `${name}-${k}-boot`, [ankle[0] + 4, floor], [ankle[0], floor - 17], bootTone, w * 2.05, w * 0.86);
+  }
+}

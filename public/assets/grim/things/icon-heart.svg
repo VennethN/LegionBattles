@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-heart" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-heart-heart-shape" d="M 32 60 L 10 40 L 4 24 L 10 12 L 22 10 L 32 18 L 42 10 L 54 12 L 60 24 L 54 40 Z"/>
+<clipPath id="icon-heart-heart-clip"><use href="#icon-heart-heart-shape"/></clipPath>
+<path id="icon-heart-vessel-shape" d="M 26 14 L 26 2 L 34 2 L 34 16 Z"/>
+<clipPath id="icon-heart-vessel-clip"><use href="#icon-heart-vessel-shape"/></clipPath>
+</defs>
+<g id="icon-heart-heart">
+<use id="icon-heart-heart-line" href="#icon-heart-heart-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-heart-heart-clip)">
+<use id="icon-heart-heart-lit" href="#icon-heart-heart-shape" fill="#7d312b"/>
+<use id="icon-heart-heart-rim" href="#icon-heart-heart-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-heart-heart-lit-over" href="#icon-heart-heart-shape" transform="translate(-1.28 0.96)" fill="#7d312b"/>
+<path id="icon-heart-heart-mid" d="M -8 6 L 11.6 5.5 L 15.4 30.3 L 10 38.3 L 14.1 64.5 L -8 64 Z" transform="translate(3 -0.72)" fill="#551f1c"/>
+<path id="icon-heart-heart-dark" d="M -8 6 L 11.6 5.5 L 15.4 30.3 L 10 38.3 L 14.1 64.5 L -8 64 Z" fill="#14110f"/>
+<path id="icon-heart-vein" d="M 35.1 21.7 L 30 40 L 36.9 22.3 Z M 29.1 40.4 L 36 52 L 30.9 39.6 Z" fill="#551f1c"/>
+</g>
+</g>
+<g id="icon-heart-vessel">
+<use id="icon-heart-vessel-line" href="#icon-heart-vessel-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-heart-vessel-clip)">
+<use id="icon-heart-vessel-lit" href="#icon-heart-vessel-shape" fill="#c42a2c"/>
+<path id="icon-heart-vessel-dark" d="M 14 -2 L 26.6 -2 L 28.2 20 L 14 20 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

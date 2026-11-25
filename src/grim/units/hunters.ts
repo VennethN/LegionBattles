@@ -9,11 +9,11 @@
 // middle tone, for when they are seen big.
 
 import { Doc, cut } from '../kit/draw';
-import { along, arm, between, blot, boot, chain, face, fist, hem, limb, limbDark, neck, pouch, rivets, stitches, strap, stud } from '../kit/figure';
+import { along, arm, between, blot, boot, chain, face, fist, hem, limb, limbDark, neck, pouch, rivets, satLegs, stitches, strap, stud } from '../kit/figure';
 import { BLOOD, BONE, LAMP, LEAD, LEATHER, MOSS, RUST, SCRATCH, SOOT, TALLOW, WOOD } from '../kit/palette';
 import { poly, type Pt } from '../kit/path';
-import { part, type UnitArt } from '../kit/unit';
-import { BRACE, CLEAVE, DODGE, FALL, HIT, JAB, POINT, RAISE_LIGHT, REAP, REST, SET_DOWN, SHOULDER_LOOSE, SIT, UNDERHAND, WHISTLE } from '../poses';
+import { hidden, part, type UnitArt } from '../kit/unit';
+import { BRACE, CLEAVE, DODGE, FALL, HIT, JAB, POINT, RAISE_LIGHT, REAP, REST, SET_DOWN, SHOULDER_LOOSE, UNDERHAND, WHISTLE, LEAN, sitFor } from '../poses';
 
 /** The canvas hunters and other people are drawn on, and where they stand on it. */
 export const PERSON: readonly [number, number] = [256, 256];
@@ -57,16 +57,16 @@ const marta: UnitArt = {
   feet: PERSON_FEET,
   margin: PERSON_MARGIN,
   moves: { cleave: CLEAVE, reap: REAP },
-  stills: { brace: BRACE, hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: SIT },
+  stills: { brace: BRACE, hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: sitFor(190, { weaponRot: -30, weaponX: -6 }), lean: LEAN },
   muzzle: [222, 30],
   top: 40,
   parts: [
     part('shadow', 'shadow', 'root', [128, 240], (d) => blot(d, [136, 240], 118, 13)),
-    part('leg-back', 'legBack', 'root', [112, 192], (d) => {
+    hidden(part('leg-back', 'legBack', 'root', [112, 192], (d) => {
       d.ink('hose', limb([112, 186], [106, 222], 22, 18, 2), WOOD, { dark: 0.62, mid: 3 });
       boot(d, 'boot', [106, 240], [106, 214], LEATHER, 44, 21);
-    }),
-    part('leg-front', 'legFront', 'root', [152, 192], (d) => {
+    }), 'sit'),
+    hidden(part('leg-front', 'legFront', 'root', [152, 192], (d) => {
       d.ink('hose', limb([152, 186], [158, 222], 24, 19, 2), WOOD, {
         // The inside of the leg is in the other leg's shadow.
         dark: poly([[136, 180], [150, 180], ...cut([150, 186], [154, 226], 'marta-lf', -1, 4), [136, 226]]),
@@ -79,7 +79,7 @@ const marta: UnitArt = {
       boot(d, 'boot', [162, 240], [158, 214], LEATHER, 48, 22);
       d.ink('cap', poly([[176, 229], [188, 233], [188, 238], [173, 238]]), LEAD, { dark: false, line: 1.6, heavy: 2 });
       strap(d, 'boot-strap', [148, 222], [170, 220], 4.5, SOOT, 0.7, LEAD);
-    }),
+    }), 'sit'),
     part('body', 'body', 'root', [132, 192], (d) => {
       // A quilted jack: short, belted, its hem frayed.
       d.ink('jack', poly([
@@ -115,6 +115,7 @@ const marta: UnitArt = {
       keyOn(d, 'key-c', [112, 162], 118, 13);
       pouch(d, 'pouch', [160, 150], 14, 16, LEATHER);
     }),
+    part('legs-sat', 'extra', 'body', [134, 190], (d) => satLegs(d, 'sat', [134, 190], 50, WOOD, LEATHER, 22), 0, false, 'sit'),
     part('halberd', 'weapon', 'body', [136, 110], (d) => {
       const butt: Pt = [180, 240];
       const tip: Pt = [198, -22];
@@ -222,16 +223,16 @@ const jory: UnitArt = {
   feet: PERSON_FEET,
   margin: PERSON_MARGIN,
   moves: { loose: SHOULDER_LOOSE, set: SET_DOWN },
-  stills: { hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: SIT },
+  stills: { hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: sitFor(154, { weaponRot: 30, weaponY: 12 }), lean: LEAN },
   muzzle: [244, 112],
   top: 50,
   parts: [
     part('shadow', 'shadow', 'root', [128, 240], (d) => blot(d, [126, 240], 116, 12)),
-    part('leg-back', 'legBack', 'root', [116, 156], (d) => {
+    hidden(part('leg-back', 'legBack', 'root', [116, 156], (d) => {
       d.ink('thigh', limb([116, 152], [104, 194], 18, 14, 1.5), WOOD, { dark: limbDark([116, 152], [104, 194], 18, 15, 'jory-lb-t', 0.6), mid: 2.5 });
       d.ink('shin', limb([104, 190], [90, 226], 14, 11, 1), WOOD, { dark: limbDark([104, 190], [90, 226], 14, 12, 'jory-lb-s', 0.6), mid: 2.5 });
       boot(d, 'boot', [94, 240], [90, 218], LEATHER, 40, 16);
-    }),
+    }), 'sit'),
     part('pack', 'extra', 'body', [96, 124], (d) => {
       // His pack: a bag on a frame, a rolled blanket on top, the lodge's red rag tied to it.
       d.ink('frame', limb([86, 96], [92, 168], 5, 5), WOOD, { dark: 0.5, mid: 0, line: 1.6, heavy: 2 });
@@ -250,14 +251,14 @@ const jory: UnitArt = {
       jawTrap(d, 'trap-a', [92, 160], 1.5);
       jawTrap(d, 'trap-b', [112, 162], 1.25);
     }, 0.8, true),
-    part('leg-front', 'legFront', 'root', [130, 156], (d) => {
+    hidden(part('leg-front', 'legFront', 'root', [130, 156], (d) => {
       d.ink('thigh', limb([130, 152], [150, 192], 19, 15, 1.5), WOOD, { dark: limbDark([130, 152], [150, 192], 19, 16, 'jory-lf-t', 0.36), mid: 2.5 });
       d.ink('shin', limb([150, 188], [144, 226], 15, 12, 1), WOOD, {
         dark: limbDark([150, 188], [144, 226], 15, 13, 'jory-lf-s', 0.36), mid: 2.5,
         inner: (c) => c.detail('wraps', stitches([150, 196], [145, 222], 5, 12, 0.3), WOOD, 1.6),
       });
       boot(d, 'boot', [152, 240], [144, 218], LEATHER, 42, 17);
-    }),
+    }), 'sit'),
     part('body', 'body', 'root', [124, 156], (d) => {
       // The coat: heavy, to the knee, leaning into his step, its skirts frayed.
       d.ink('coat', poly([
@@ -286,6 +287,7 @@ const jory: UnitArt = {
       d.ink('flask', poly([[124, 156], [132, 156], [134, 162], [136, 176], [122, 176], [123, 162]]), SOOT, { dark: 0.4, mid: 0, line: 1.6, heavy: 2 });
       d.ink('cork', poly([[125.5, 151], [130.5, 151], [131, 156], [125, 156]]), TALLOW, { dark: false, line: 1.2, heavy: 1.4 });
     }),
+    part('legs-sat', 'extra', 'body', [126, 154], (d) => satLegs(d, 'sat', [126, 154], 86, WOOD, LEATHER, 17), 0, false, 'sit'),
     part('crossbow', 'weapon', 'body', [142, 114], (d) => {
       // The arm that is further off, under the fore end.
       arm(d, 'arm-back', [136, 112], [170, 126], [200, 120], MOSS, LEATHER, 12);
@@ -369,7 +371,7 @@ const agnes: UnitArt = {
   feet: PERSON_FEET,
   margin: PERSON_MARGIN,
   moves: { jab: JAB, flare: RAISE_LIGHT, lamp: SET_DOWN },
-  stills: { hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: SIT },
+  stills: { hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: sitFor(174, { weaponRot: -26 }), lean: LEAN },
   muzzle: [238, 8],
   top: 30,
   parts: [
@@ -386,15 +388,15 @@ const agnes: UnitArt = {
       d.ink('rail-a', limb(railA[0], railA[1], 6.4, 5.6), WOOD, { dark: limbDark(railA[0], railA[1], 7, 7, 'agnes-rail-a', 0.5), mid: 0, line: 1.8, heavy: 2.4, cold: 1.6 });
       d.ink('rail-b', limb(railB[0], railB[1], 6.4, 5.6), WOOD, { dark: limbDark(railB[0], railB[1], 7, 7, 'agnes-rail-b', 0.4), mid: 0, line: 1.8, heavy: 2.4, inner: (c) => c.detail('rail-grain', [[[104, 180], [110, 140]], [[116, 110], [122, 76]]], WOOD, 1.3) });
     }, 0.1),
-    part('leg-back', 'legBack', 'root', [118, 176], (d) => {
+    hidden(part('leg-back', 'legBack', 'root', [118, 176], (d) => {
       d.ink('leg', limb([118, 172], [110, 222], 18, 14, 1.5), SOOT, { dark: limbDark([118, 172], [110, 222], 18, 15, 'agnes-lb', 0.6), mid: 2.5 });
       boot(d, 'boot', [112, 240], [110, 216], LEATHER, 40, 17);
-    }),
-    part('leg-front', 'legFront', 'root', [140, 176], (d) => {
+    }), 'sit'),
+    hidden(part('leg-front', 'legFront', 'root', [140, 176], (d) => {
       d.ink('leg', limb([140, 172], [148, 222], 19, 15, 1.5), SOOT, { dark: limbDark([140, 172], [148, 222], 19, 16, 'agnes-lf', 0.36), mid: 2.5 });
       boot(d, 'boot', [154, 240], [148, 216], LEATHER, 42, 18);
       strap(d, 'boot-strap', [140, 224], [160, 222], 4, SOOT, 0.7, LEAD);
-    }),
+    }), 'sit'),
     part('body', 'body', 'root', [130, 174], (d) => {
       // The smock: black with soot, loose, to the knee.
       d.ink('smock', poly([
@@ -423,6 +425,7 @@ const agnes: UnitArt = {
       d.pen('spout', poly([[126, 150], [140, 138], [144, 139]], false), 2.6);
       d.pen('can-handle', poly([[114, 160], [107, 166], [113, 176]], false), 1.6);
     }),
+    part('legs-sat', 'extra', 'body', [130, 174], (d) => satLegs(d, 'sat', [130, 174], 66, SOOT, LEATHER, 18), 0, false, 'sit'),
     part('pole', 'weapon', 'body', [138, 114], (d) => {
       const butt: Pt = [102, 224];
       const tip: Pt = [234, 16];
@@ -483,15 +486,15 @@ const brask: UnitArt = {
   feet: PERSON_FEET,
   margin: PERSON_MARGIN,
   moves: { thrust: UNDERHAND, setOn: POINT, heel: WHISTLE },
-  stills: { hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: SIT },
+  stills: { hit: HIT, fall: FALL, dodge: DODGE, rest: REST, sit: sitFor(174, { weaponRot: -26 }), lean: LEAN },
   muzzle: [190, 0],
   top: 62,
   parts: [
     part('shadow', 'shadow', 'root', [128, 240], (d) => blot(d, [130, 240], 124, 13)),
-    part('leg-back', 'legBack', 'root', [108, 176], (d) => {
+    hidden(part('leg-back', 'legBack', 'root', [108, 176], (d) => {
       d.ink('leg', limb([110, 172], [100, 222], 26, 19, 2), LEATHER, { dark: limbDark([110, 172], [100, 222], 26, 21, 'brask-lb', 0.62) });
       boot(d, 'boot', [100, 240], [100, 214], SOOT, 44, 21);
-    }),
+    }), 'sit'),
     part('leash-arm', 'offhand', 'body', [114, 114], (d) => {
       arm(d, 'arm', [114, 114], [122, 148], [144, 162], RUST, LEATHER, 18);
       // The leash, coiled in his fist, its clip hanging.
@@ -499,14 +502,14 @@ const brask: UnitArt = {
       d.pen('coil-b', poly([[144, 170], [138, 184], [146, 198], [154, 184], [146, 172]], false), 2.6);
       d.ink('clip', poly([[144, 198], [150, 198], [151, 208], [143, 208]]), LEAD, { dark: false, line: 1.3, heavy: 1.6 });
     }),
-    part('leg-front', 'legFront', 'root', [142, 176], (d) => {
+    hidden(part('leg-front', 'legFront', 'root', [142, 176], (d) => {
       d.ink('leg', limb([142, 172], [154, 222], 28, 20, 2), LEATHER, {
         dark: poly([[124, 166], [138, 166], ...cut([138, 172], [146, 226], 'brask-lf', -1, 4), [124, 226]]),
         inner: (c) => c.detail('knee', [[[146, 196], [160, 194]], [[148, 202], [158, 201]]], LEATHER, 1.8),
       });
       boot(d, 'boot', [160, 240], [154, 214], SOOT, 48, 22);
       strap(d, 'boot-strap', [144, 224], [168, 222], 4.5, LEATHER, 0.7, LEAD);
-    }),
+    }), 'sit'),
     part('body', 'body', 'root', [126, 176], (d) => {
       // A barrel of a man in a quilted coat, bent forward from the hips.
       d.ink('coat', poly([[96, 106], [158, 104], [168, 132], [162, 172], [156, 196], [98, 198], [92, 152]]), RUST, {
@@ -539,6 +542,7 @@ const brask: UnitArt = {
       rivets(d, 'collar-studs', [124, 176], [137, 175], 3, 1.3);
       d.ink('bone-bag', poly([[108, 184], [122, 184], [126, 204], [116, 210], [106, 204]]), TALLOW, { dark: 0.4, mid: 2, line: 1.8, heavy: 2.4, inner: (c) => c.detail('bag-tie', [[[108, 190], [124, 190]]], TALLOW, 1.4) });
     }),
+    part('legs-sat', 'extra', 'body', [128, 174], (d) => satLegs(d, 'sat', [128, 174], 66, LEATHER, SOOT, 25), 0, false, 'sit'),
     part('spear', 'weapon', 'body', [148, 116], (d) => {
       const butt: Pt = [180, 240];
       const tip: Pt = [190, -6];

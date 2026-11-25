@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-arrow" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-arrow-shaft-shape" d="M 8 29 L 46 29 L 46 35 L 8 35 Z"/>
+<clipPath id="icon-arrow-shaft-clip"><use href="#icon-arrow-shaft-shape"/></clipPath>
+<path id="icon-arrow-head-shape" d="M 42 18 L 62 32 L 42 46 L 46 32 Z"/>
+<clipPath id="icon-arrow-head-clip"><use href="#icon-arrow-head-shape"/></clipPath>
+<path id="icon-arrow-fletch-a-shape" d="M 2 18 L 12 18 L 22 30 L 10 30 Z"/>
+<clipPath id="icon-arrow-fletch-a-clip"><use href="#icon-arrow-fletch-a-shape"/></clipPath>
+<path id="icon-arrow-fletch-b-shape" d="M 2 46 L 12 46 L 22 34 L 10 34 Z"/>
+<clipPath id="icon-arrow-fletch-b-clip"><use href="#icon-arrow-fletch-b-shape"/></clipPath>
+</defs>
+<g id="icon-arrow-shaft">
+<use id="icon-arrow-shaft-line" href="#icon-arrow-shaft-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-arrow-shaft-clip)">
+<use id="icon-arrow-shaft-lit" href="#icon-arrow-shaft-shape" fill="#6f5c46"/>
+<path id="icon-arrow-shaft-dark" d="M -4 25 L 14.3 25 L 15.4 39 L -4 39 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-arrow-head">
+<use id="icon-arrow-head-line" href="#icon-arrow-head-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-arrow-head-clip)">
+<use id="icon-arrow-head-lit" href="#icon-arrow-head-shape" fill="#8c9194"/>
+<use id="icon-arrow-head-rim" href="#icon-arrow-head-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-arrow-head-lit-over" href="#icon-arrow-head-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="icon-arrow-head-dark" d="M 40 32 L 64 32 L 64 50 L 40 50 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-arrow-fletch-a">
+<use id="icon-arrow-fletch-a-line" href="#icon-arrow-fletch-a-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-arrow-fletch-a-clip)">
+<use id="icon-arrow-fletch-a-lit" href="#icon-arrow-fletch-a-shape" fill="#7d312b"/>
+<path id="icon-arrow-fletch-a-dark" d="M -10 14 L 3.6 14 L 5.8 34 L -10 34 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-arrow-fletch-b">
+<use id="icon-arrow-fletch-b-line" href="#icon-arrow-fletch-b-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-arrow-fletch-b-clip)">
+<use id="icon-arrow-fletch-b-lit" href="#icon-arrow-fletch-b-shape" fill="#7d312b"/>
+<path id="icon-arrow-fletch-b-dark" d="M -10 30 L 4.5 30 L 6.7 50 L -10 50 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>
