@@ -171,15 +171,16 @@ export class LodgeScene extends Phaser.Scene {
         // Danger, in red marks of blood: one for each mark of difficulty it will be hunted at.
         const mark = picked ? Math.min(chosen.mark, c.upTo) : Math.min(c.upTo, Math.max(1, c.felled + 1));
         for (let k = 0; k < 3; k++) {
-          const d = this.add.rectangle(-bw * 0.24 + (k - 1) * 14, bh * 0.34, 8, 8, k < mark ? 0x8a1e16 : 0x6b5a48, k < mark ? 1 : 0.35).setAngle(45);
+          const d = this.add.rectangle(-bw * 0.24 + (k - 1) * 14, bh * 0.3, 8, 8, k < mark ? 0x8a1e16 : 0x6b5a48, k < mark ? 1 : 0.35).setAngle(45);
           card.add(d);
         }
         const { coin } = rewardOf(s, c.id, mark as Mark);
-        const pay = label(this, -bw * 0.22, bh * 0.43, `${coin} COIN`, { size: 15, color: '#3a2410', stroke: null, face: 'display' });
+        // Above the bill's torn foot and left of its seal, where nothing printed covers it.
+        const pay = label(this, -bw * 0.22, bh * 0.37, `${coin} COIN`, { size: 15, color: '#3a2410', stroke: null, face: 'display' });
         pay.setScale(Math.min(1, (bw * 0.42) / pay.width));
         // Who may go: a party of more than the hunter is said on the bill (the contract's own number, when contracts have one).
         const party = (c as Contract & { party?: number }).party ?? 1;
-        if (party > 1) card.add(label(this, -bw * 0.08, bh * 0.47, `PARTY: ${party}`, { size: 15, color: INK, stroke: null, face: 'display' }));
+        if (party > 1) card.add(label(this, -bw * 0.08, bh * 0.44, `PARTY: ${party}`, { size: 15, color: INK, stroke: null, face: 'display' }));
         card.add(pay);
       } else {
         card.add(label(this, -bw * 0.08, bh * 0.22, '???', { size: 20, color: BONE.shade, face: 'display' }));
@@ -298,7 +299,7 @@ export class LodgeScene extends Phaser.Scene {
       if (poster.variants.length) stamp(poster.variants[0].name + (poster.variants.length > 1 ? ` +${poster.variants.length - 1}` : ''), bw * 0.16, -bh * 0.24, -9);
       if (poster.party > 1) stamp(`PARTY ${poster.party}`, -bw * 0.17, bh * 0.08, 7);
       if (poster.tasks.length) stamp(`+ ${poster.tasks.length} TASK${poster.tasks.length > 1 ? 'S' : ''}`, bw * 0.17, bh * 0.08, -6);
-      const pay = label(this, -bw * 0.22, bh * 0.4, `${poster.coin} COIN`, { size: 15, color: '#3a2410', stroke: null, face: 'display' });
+      const pay = label(this, -bw * 0.22, bh * 0.38, `${poster.coin} COIN`, { size: 15, color: '#3a2410', stroke: null, face: 'display' });
       pay.setScale(Math.min(1, (bw * 0.42) / pay.width));
       card.add(pay);
       card.setSize(bw, bh).setInteractive({ useHandCursor: true });
