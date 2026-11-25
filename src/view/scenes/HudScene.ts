@@ -82,6 +82,7 @@ export class HudScene extends Phaser.Scene {
   private hpFlash = 0;
   private bossFlash = 0;
   private low!: Phaser.GameObjects.Graphics;
+  private bannerUntil = 0;
   private clock = 0;
   private touch = false;
   /** Where the monster's bar is, and how wide. */
@@ -153,8 +154,8 @@ export class HudScene extends Phaser.Scene {
       document.removeEventListener('visibilitychange', onHide);
     });
 
-    this.bannerText = label(this, w / 2, view.h * 0.3, '', { size: 44 }).setDepth(20).setAlpha(0);
-    this.underText = label(this, w / 2, view.h * 0.3 + 40, '', { size: 18, color: HOLY.fill, wrap: Math.min(520, w - 40) }).setDepth(20).setAlpha(0);
+    this.bannerText = label(this, w / 2, view.h * 0.3, '', { size: 32, face: 'display' }).setDepth(20).setAlpha(0);
+    this.underText = label(this, w / 2, view.h * 0.3 + 40, '', { size: 16, color: HOLY.fill, wrap: Math.min(520, w - 40) }).setDepth(20).setAlpha(0);
     this.campText = label(this, w / 2, view.tall ? 150 : 96, '', { size: 16, wrap: Math.min(560, w - 40) }).setDepth(12);
 
     // The contract's tasks and the party, one line each under the hunter's bar: plain for now.
@@ -278,10 +279,14 @@ export class HudScene extends Phaser.Scene {
   /** Words across the lair for a moment: a name, and a line under it. */
   banner(text: string, under: string): void {
     this.tweens.killTweensOf([this.bannerText, this.underText]);
-    this.bannerText.setText(text).setAlpha(text ? 1 : 0).setScale(text ? 1.25 : 1);
-    this.underText.setText(under).setAlpha(under ? 1 : 0).setY(view.h * 0.3 + (text ? 40 : 0));
-    if (text) this.tweens.add({ targets: this.bannerText, scale: 1, duration: 220, ease: 'Back.easeOut' });
-    this.tweens.add({ targets: [this.bannerText, this.underText], alpha: 0, delay: 1700, duration: 450 });
+    // Under the bars, where nothing fights, and gone quickly: a banner must not lie over the boss or the hunter.
+    const y = this.by + (view.tall ? 74 : 66);
+    this.bannerText.setText(text).setAlpha(text ? 1 : 0).setScale(text ? 1.15 : 1).setY(y);
+    this.underText.setText(under).setAlpha(under ? 1 : 0).setY(y + (text ? 28 : 0));
+    if (text) this.tweens.add({ targets: this.bannerText, scale: 1, duration: 200, ease: 'Back.easeOut' });
+    this.tweens.add({ targets: [this.bannerText, this.underText], alpha: 0, delay: 1000, duration: 350 });
+    // A line said under a banner waits its turn: it is moved below it while the banner shows.
+    this.bannerUntil = this.clock + 1.35;
   }
 
   /** The hunter was struck: the screen says so. */
@@ -568,7 +573,8 @@ export class HudScene extends Phaser.Scene {
     const w = this.saidW;
     const h = this.saidH;
     // Kept off the bars at the top and the buttons and plate at the foot.
-    const top = this.by + 54;
+    // Clear of the bars and the stagger's mark, and of a banner while one shows.
+    const top = this.by + (this.clock < this.bannerUntil ? 120 : 64);
     const foot = view.h - PAD - (view.tall ? 120 : 40);
     const place = (x: number, y: number): [number, number] => [Math.max(8 + w / 2, Math.min(view.w - 8 - w / 2, x)), Math.max(top + h / 2, Math.min(foot - h / 2, y))];
     let at: [number, number] | null;

@@ -23,7 +23,7 @@ import { LairLight } from '../light/LairLight';
 import type { LightMode } from '../light/setting';
 import { Numbers } from '../Numbers';
 import {
-  ABILITY_MOVES, ALLY_ART, BUILDING_ART, GRIM_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, isGrim, type Art,
+  ABILITY_MOVES, ALLY_ART, BUILDING_ART, GRIM_SCALE, HUNTER_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, isGrim, type Art,
 } from '../pictures';
 import { Figure } from '../art/Figure';
 import { GrimFigure } from '../art/GrimFigure';
@@ -96,6 +96,7 @@ export class LairScene extends Phaser.Scene {
   private shook = 0;
   /** True while the hunt is held still: the game is paused, or its end is being shown. */
   halted = false;
+  private halo!: Phaser.GameObjects.Image;
   /** What the hunter and the boss say: spice, never a rule. The HUD shows its line. */
   talk!: Talk;
   /** A player made of rules, for the scripts that film the game and take its pictures. The game never sets it. */
@@ -205,7 +206,10 @@ export class LairScene extends Phaser.Scene {
     }
     this.ground = this.add.graphics().setDepth(1);
     const hp = HUNTER_ART[h.hunter.def.id];
-    this.hunter = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, GRIM_SCALE, 1);
+    // The player's own hunter is drawn a little bigger than the rest, and carries a warm light of their own, so that they
+    // are found at a glance beside a boss four times their height.
+    this.hunter = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, HUNTER_SCALE, 1);
+    this.halo = this.add.image(0, 0, SHEET, 'fx/glow').setBlendMode(Phaser.BlendModes.ADD).setTint(0xffb060).setAlpha(0.55);
     const mp = MONSTER_ART[h.monster.def.id];
     if (isGrim(mp)) {
       this.monster = new GrimFigure(this, mp.grim, g.units[mp.grim], g.poses, GRIM_SCALE, 2);
@@ -428,7 +432,7 @@ export class LairScene extends Phaser.Scene {
           const big = e.big;
           if (e.who === 'monster') {
             if (big) this.stop(0.05);
-            this.nums.show(e.x + (Math.random() - 0.5) * 50, e.y - this.tall() * 0.7, String(e.amount), big ? GOLD : e.open ? WHITE : hex(BONE.shade), big ? 30 : e.open ? 24 : 19);
+            this.nums.show(e.x + (Math.random() - 0.5) * 50, Math.max(this.cameras.main.worldView.y + 110, e.y - this.tall() * 0.45), String(e.amount), big ? GOLD : e.open ? WHITE : hex(BONE.shade), big ? 30 : e.open ? 24 : 19);
             if (e.open && !big) this.monster?.hit(this.clock);
             if (big || e.open) this.standIn?.hit(this.clock, h.x);
             sfx.play(big ? 'bigHit' : 'hit', big ? 0.6 : 0.4, 0.9 + Math.random() * 0.2);
@@ -626,8 +630,11 @@ export class LairScene extends Phaser.Scene {
     const my = this.ready && this.monster ? this.monster.y : m.y;
     const hx = hx0 + (mx - hx0) * lean;
     const hy = hy0 - 20 + (my - this.tall() * 0.45 - (hy0 - 20)) * lean;
-    const cx = view.w >= w.w ? w.w / 2 : Math.max(view.w / 2, Math.min(w.w - view.w / 2, hx));
-    const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2, Math.min(w.h - view.h / 2, hy));
+    // Never so far toward the boss that the hunter is near the edge of the view: they stay in its middle part.
+    const kx = Math.max(hx0 - view.w * 0.28, Math.min(hx0 + view.w * 0.28, hx));
+    const ky = Math.max(hy0 - view.h * 0.24, Math.min(hy0 + view.h * 0.2, hy));
+    const cx = view.w >= w.w ? w.w / 2 : Math.max(view.w / 2, Math.min(w.w - view.w / 2, kx));
+    const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2, Math.min(w.h - view.h / 2, ky));
     cam.centerOn(cx, cy);
   }
 
@@ -719,6 +726,7 @@ export class LairScene extends Phaser.Scene {
     fig.alpha = h.roll > 0 ? 0.6 : h.grace > 0 && Math.floor(this.clock * 20) % 2 === 0 ? 0.6 : 1;
     fig.update(this.clock, dt);
     if (h.roll > 0) fig.root.scaleY *= 0.62;
+    this.halo.setPosition(fig.x, fig.y - 40).setDisplaySize(170, 150).setDepth(fig.y - 1).setVisible(h.hp > 0);
 
     // The monster.
     const [mx, my] = this.at('monster', m.x, m.y);
@@ -811,6 +819,13 @@ export class LairScene extends Phaser.Scene {
       const a = Math.min(0.8, p.life * 0.5);
       g.fillStyle(p.burning > 0 ? 0x5a2410 : 0x1c1612, a).fillCircle(p.x, p.y, p.r);
       g.lineStyle(3, p.burning > 0 ? 0xff8a3c : 0x0c0a08, a).strokeCircle(p.x, p.y, p.r);
+    }
+
+    // A ring of warm light at the player's feet: theirs, and nobody else's.
+    if (h.hp > 0) {
+      const [rx, ry] = [fig.x, fig.y];
+      g.lineStyle(3, 0xe8b860, 0.85).strokeEllipse(rx, ry, 64, 26);
+      g.lineStyle(6, 0xe8b860, 0.2).strokeEllipse(rx, ry, 72, 30);
     }
 
     this.drawMarks();

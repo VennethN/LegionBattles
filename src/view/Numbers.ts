@@ -10,7 +10,8 @@ import { SHEET, type Sheet } from './art/Sheet';
 export const DIGITS_KEY = 'digits';
 // The digits, and the letters a big number is cut short with (game/format.ts): K, M, B, T and then aa, ab and on.
 const CHARS = '0123456789.+-KMBTabcdefghijklmnopqrstuvwxyz';
-const CELL_W = 44;
+// Narrow cells: the display face is condensed, and wide ones set its digits apart ("1 2" read as two numbers).
+const CELL_W = 30;
 const CELL_H = 60;
 
 /**

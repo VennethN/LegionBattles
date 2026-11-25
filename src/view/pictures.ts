@@ -15,6 +15,8 @@ export type Art = { grim: string } | { legion: string; team: Side; scale: number
 
 /** How big a figure of the style is drawn on the field: a hunter's 178 units of height are then about 90 pixels in a portal's frame. A monster is drawn at the same. */
 export const GRIM_SCALE = 0.6;
+/** The player's own hunter is drawn a little bigger than anyone else's, so that they read beside a boss. Their reach on the field is the rules', not this. */
+export const HUNTER_SCALE = 0.72;
 /** The color a stand-in is filled with: the style's unlit black, a little lifted so that it is seen on the dark. */
 export const STAND_IN = 0x1a2227;
 

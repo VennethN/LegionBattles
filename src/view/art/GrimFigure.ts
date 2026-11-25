@@ -142,7 +142,9 @@ export class GrimFigure {
     // holds there, trembling, past where the kit drew it; a strike that snaps out beyond its pose and stretches the
     // body; and a recovery, slow for a big figure, in which it is plainly open. Timing and pose are pushed, not
     // rubber: it must still look heavy.
-    const a = this.act;
+    // Held in a still (staggered, braced), a figure does not also swing or flinch on top of it: poses added on top of
+    // each other pull its parts apart.
+    const a = this.stillK > 0.3 ? null : this.act;
     if (a) {
       const t = now - a.at;
       const back = BACK * (this.big ? 2.2 : 1);
@@ -175,7 +177,7 @@ export class GrimFigure {
 
     // Struck: a hard flinch away, quick in and slower out, and a squash.
     const since = now - this.hitAt;
-    if (since < 0.34) {
+    if (since < 0.34 && this.stillK < 0.3) {
       const k = since < 0.06 ? since / 0.06 : 1 - (since - 0.06) / 0.28;
       addPose(p, this.poses.hit, k * 1.35);
       p.bodySy -= 0.05 * k;
