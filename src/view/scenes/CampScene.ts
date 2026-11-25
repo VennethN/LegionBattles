@@ -108,7 +108,7 @@ export class CampScene extends Phaser.Scene {
   private head(): void {
     const run = this.run;
     this.root.add(heading(this, 104, 26, 'CAMP'));
-    this.text(210, 28, `before wave ${run.wave}`, { size: 16, align: 'left', color: BONE.fill });
+    this.text(210, 28, `Next: wave ${run.wave}`, { size: 16, align: 'left', color: BONE.fill });
     this.add2(pillImage(this, view.w - 74, 26, 112, 32, IRON.shade));
     this.icon(view.w - 114, 26, 'icon/coin', 24);
     this.text(view.w - 62, 25, String(run.gold), { size: 21, color: HOLY.fill });
@@ -121,7 +121,7 @@ export class CampScene extends Phaser.Scene {
     const cy = view.h / 2;
     this.add2(slabImage(this, cx - 170, cy - 170, 340, 340, BONE, 18, 8));
     if (!this.loot) {
-      this.text(cx, cy - 132, "THE CAPTAIN'S PACK", { size: 24 });
+      this.text(cx, cy - 132, 'BOSS CHEST', { size: 24 });
       const img = this.add2(this.add.image(cx, cy - 16, SHEET, 'pack/thornwood'));
       img.setScale(150 / img.frame.height);
       this.tweens.add({ targets: img, angle: { from: -4, to: 4 }, duration: 380, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
@@ -134,7 +134,7 @@ export class CampScene extends Phaser.Scene {
       return;
     }
     const item = byId(ITEMS, this.loot);
-    this.text(cx, cy - 132, 'INSIDE IT', { size: 22, color: BONE.shade });
+    this.text(cx, cy - 132, 'YOU GOT', { size: 22, color: BONE.shade });
     this.add2(slabImage(this, cx - 44, cy - 104, 88, 88, TIER_MATS[item.tier], 14, 6));
     this.icon(cx, cy - 62, itemIcon(item.id), 64);
     this.text(cx, cy + 6, item.name, { size: 22 });
@@ -163,7 +163,7 @@ export class CampScene extends Phaser.Scene {
     const run = this.run;
     const cx = view.w / 2;
     this.root.add(heading(this, cx, 84, 'LEVEL UP', GOLD));
-    this.text(cx, 118, run.pending > 1 ? `Choose one. ${run.pending - 1} more after this.` : 'Choose one.', { size: 17, color: BONE.fill });
+    this.text(cx, 118, run.pending > 1 ? `Choose 1 upgrade. ${run.pending - 1} more after this.` : 'Choose 1 upgrade.', { size: 17, color: BONE.fill });
     const cols = view.tall ? 2 : 4;
     const cw = Math.min(210, (view.w - 32 - (cols - 1) * 12) / cols);
     const ch = 212;
@@ -176,7 +176,7 @@ export class CampScene extends Phaser.Scene {
       const y = y0 + Math.floor(i / cols) * (ch + 12);
       // A bond with a companion is offered like a stat: its name, the step it would be, and what the companion does.
       const friend = c.bond ? byId(COMPANIONS, c.bond) : null;
-      const info = friend ? { name: `Bond with ${friend.name}`, icon: 'heart', says: `${friend.name} is stronger, and ${friend.quirkName} does more.` } : STAT_INFO[c.stat];
+      const info = friend ? { name: `Bond with ${friend.name}`, icon: 'heart', says: `${friend.name} gets stronger. ${friend.quirkName} improves.` } : STAT_INFO[c.stat];
       const card = this.add.container(x + cw / 2, y + ch / 2);
       card.add(slabImage(this, -cw / 2, -ch / 2, cw, ch, BONE, 16, 7));
       card.add(slabImage(this, -cw / 2 + 8, -ch / 2 + 8, cw - 16, 30, TIER_MATS[c.tier], 10, 0));
@@ -221,7 +221,7 @@ export class CampScene extends Phaser.Scene {
     const under = top + Math.ceil(run.offers.length / cols) * (ch + gap) + 2;
 
     // What is carried: six hands, and the things beside them.
-    this.text(waresX, under + 12, 'IN HAND', { size: 15, align: 'left', color: BONE.shade });
+    this.text(waresX, under + 12, 'WEAPONS', { size: 15, align: 'left', color: BONE.shade });
     const hand = Math.min(62, (waresW - (SLOTS - 1) * 8 - (tall ? 0 : 250)) / SLOTS);
     for (let i = 0; i < SLOTS; i++) {
       const x = waresX + i * (hand + 8);
@@ -265,7 +265,7 @@ export class CampScene extends Phaser.Scene {
     }
     const thingsY = under + 38 + hand + 10;
     if (run.items.length > 0) {
-      this.text(waresX, thingsY + 8, 'THINGS', { size: 15, align: 'left', color: BONE.shade });
+      this.text(waresX, thingsY + 8, 'ITEMS', { size: 15, align: 'left', color: BONE.shade });
       const per = Math.max(1, Math.floor((waresW - (tall ? 0 : 250)) / 32));
       const counts = new Map<string, number>();
       for (const id of run.items) counts.set(id, (counts.get(id) ?? 0) + 1);
@@ -303,9 +303,9 @@ export class CampScene extends Phaser.Scene {
     const bw = tall ? (view.w - pad * 3) / 2 : 230;
     const by = view.h - 44;
     const cost = rerollPrice(run);
-    const again = this.button(tall ? pad + bw / 2 : view.w - pad - bw / 2, tall ? by : by - 66, `OTHER WARES   ${cost > 0 ? cost : 'FREE'}`, () => this.act(reroll(this.run), 'place'), { width: bw, height: 52, size: 19, mat: IRON });
+    const again = this.button(tall ? pad + bw / 2 : view.w - pad - bw / 2, tall ? by : by - 66, `REROLL   ${cost > 0 ? cost : 'FREE'}`, () => this.act(reroll(this.run), 'place'), { width: bw, height: 52, size: 19, mat: IRON });
     again.setEnabled(run.gold >= cost);
-    this.button(tall ? view.w - pad - bw / 2 : view.w - pad - bw / 2, by, `WAVE ${run.wave}  >`, () => this.go(), { width: bw, height: 60, size: 26, mat: BUSH });
+    this.button(tall ? view.w - pad - bw / 2 : view.w - pad - bw / 2, by, 'NEXT WAVE  >', () => this.go(), { width: bw, height: 60, size: 26, mat: BUSH });
 
     if (!tall) this.hero(pad, top, left - pad);
     else this.heroStrip(pad, thingsY + (run.items.length > 0 ? 104 : 16) + (run.relics.length > 0 ? 34 : 0), view.w - pad * 2, by - 44);
@@ -331,7 +331,7 @@ export class CampScene extends Phaser.Scene {
     const relic = o.kind === 'relic';
     const name = weapon ? byId(WEAPONS, o.id).name : relic ? relicOf(o.id).name : byId(ITEMS, o.id).name;
     // A weapon says its kinds where it said only how it strikes: a kind is what a hand is filled for.
-    const tag = weapon ? `${TIER_NAMES[o.tier]}  ${byId(WEAPONS, o.id).kinds.join(' ').toUpperCase()}` : relic ? 'RELIC' : 'WARE';
+    const tag = weapon ? `${TIER_NAMES[o.tier]}  ${byId(WEAPONS, o.id).kinds.join(' ').toUpperCase()}` : relic ? 'RELIC' : 'ITEM';
     // A relic's card has more to say than a ware's, so its picture and its name stand higher.
     const high = view.tall || o.kind === 'relic';
     const picY = y + (high ? 76 : 86);
@@ -346,14 +346,14 @@ export class CampScene extends Phaser.Scene {
     const named = this.text(x + w / 2, nameY, name, { size: 18, color: OUTLINE, stroke: null, wrap: w - 16 });
     if (weapon) {
       const n = weaponNumbers(run, o.id, o.tier);
-      this.text(x + w / 2, nameY + 24, `${n.harm} harm, every ${n.every.toFixed(1)}s`, { size: 15, color: OUTLINE, stroke: null });
+      this.text(x + w / 2, nameY + 24, `${n.harm} damage every ${n.every.toFixed(1)}s`, { size: 15, color: OUTLINE, stroke: null });
       if (!view.tall) this.text(x + w / 2, nameY + 50, byId(WEAPONS, o.id).says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 20 });
     } else if (relic) this.text(x + w / 2, nameY + named.height / 2 + 4, relicOf(o.id).says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 20 }).setOrigin(0.5, 0);
     else this.statLinesDark(x + w / 2, nameY + 24, byId(ITEMS, o.id).stats);
     const why = whyNot(run, i);
     // What cannot be afforded is seen to be so at a glance: its button is iron, not gold, and its price is in red.
     const poor = why === 'coins';
-    const b = this.button(x + w / 2 - 22, y + h - 34, why === 'hands' ? 'HANDS FULL' : `BUY   ${o.price}`, () => this.act(buy(this.run, i)), { width: w - 68, height: 46, size: why === 'hands' ? 15 : 19, mat: poor ? IRON : GOLD, color: poor ? '#ff8f7a' : undefined });
+    const b = this.button(x + w / 2 - 22, y + h - 34, why === 'hands' ? 'SLOTS FULL' : `BUY   ${o.price}`, () => this.act(buy(this.run, i)), { width: w - 68, height: 46, size: why === 'hands' ? 15 : 19, mat: poor ? IRON : GOLD, color: poor ? '#ff8f7a' : undefined });
     b.setEnabled(why === '');
     if (poor) this.add2(this.add.image(x + 6, y + 6, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(w - 12, h - 62).setTint(hex(OUTLINE)).setAlpha(0.22));
     // Kept for the next camp, or for after the wares are changed.
@@ -437,10 +437,10 @@ export class CampScene extends Phaser.Scene {
     const img = this.add2(this.add.image(cx, cy - 60, SHEET, weaponIcon(w.id)));
     img.setScale(100 / 184);
     const n = weaponNumbers(run, w.id, w.tier);
-    this.text(cx, cy + 2, `${n.harm} harm, every ${n.every.toFixed(1)}s`, { size: 17, color: OUTLINE, stroke: null });
+    this.text(cx, cy + 2, `${n.harm} damage every ${n.every.toFixed(1)}s`, { size: 17, color: OUTLINE, stroke: null });
     this.text(cx, cy + 28, def.says, { size: 15, color: '#6b4a2b', stroke: null, wrap: 280 });
     const twin = twinOf(run, w.id, w.tier, i) >= 0;
-    const join = plain(this.button(cx, cy + 76, twin ? `JOIN TWO INTO ${TIER_NAMES[w.tier + 1]}` : 'NO TWIN TO JOIN', () => {
+    const join = plain(this.button(cx, cy + 76, twin ? `MERGE INTO TIER ${TIER_NAMES[w.tier + 1]}` : 'NEED 2 TO MERGE', () => {
       this.picked = -1;
       this.act(combine(this.run, i), 'levelUp');
     }, { width: 280, height: 46, size: 17, mat: HOLY, color: OUTLINE }));
@@ -504,13 +504,13 @@ export class CampScene extends Phaser.Scene {
     };
     this.add2(this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.55).setInteractive()).on('pointerup', shut);
     this.add2(slabImage(this, cx - w / 2, top, w, h, BONE, 18, 8));
-    this.text(cx, top + 28, 'KINDS OF WEAPON', { size: 20, color: OUTLINE, stroke: null });
-    this.text(cx, top + 52, 'Two, three and four of a kind give its gift.', { size: 15, color: '#6b4a2b', stroke: null });
+    this.text(cx, top + 28, 'WEAPON TYPES', { size: 20, color: OUTLINE, stroke: null });
+    this.text(cx, top + 52, 'Hold 2, 3 or 4 of a type for a set bonus.', { size: 15, color: '#6b4a2b', stroke: null });
     held.forEach((k, i) => {
       const y = top + 84 + i * rowH;
       this.text(cx - w / 2 + 18, y, `${k.name} ${k.held}`, { size: 17, align: 'left', color: OUTLINE, stroke: null });
-      this.text(cx - w / 2 + 110, y - 10, k.says || 'Nothing yet.', { size: 15, align: 'left', color: k.says ? '#2e5f45' : '#6b4a2b', stroke: null });
-      this.text(cx - w / 2 + 110, y, k.next ? `At ${k.next.at}: ${k.next.says}` : 'All of its gift.', { size: 15, align: 'left', color: '#6b4a2b', stroke: null, wrap: w - 126 }).setOrigin(0, 0);
+      this.text(cx - w / 2 + 110, y - 10, k.says || 'No bonus yet.', { size: 15, align: 'left', color: k.says ? '#2e5f45' : '#6b4a2b', stroke: null });
+      this.text(cx - w / 2 + 110, y, k.next ? `At ${k.next.at}: ${k.next.says}` : 'Max bonus.', { size: 15, align: 'left', color: '#6b4a2b', stroke: null, wrap: w - 126 }).setOrigin(0, 0);
     });
     this.button(cx, top + h - 36, 'CLOSE', shut, { width: 180, height: 46, size: 19, mat: IRON });
   }

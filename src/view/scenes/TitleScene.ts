@@ -32,15 +32,15 @@ const DARK: Material = { fill: '#3b2a1c', shade: '#2a1a10' };
 export function featText(feat: Feat): string {
   switch (feat.kind) {
     case 'wave':
-      return `Come through wave ${feat.wave}`;
+      return `Reach wave ${feat.wave}`;
     case 'boss':
-      return feat.boss === 'warlord' ? 'Beat the captain of wave 7' : feat.boss === 'colossus' ? 'Beat the captain of wave 14' : 'Beat the captain of wave 20';
+      return feat.boss === 'warlord' ? 'Beat the wave 7 boss' : feat.boss === 'colossus' ? 'Beat the wave 14 boss' : 'Beat the wave 20 boss';
     case 'coins':
-      return `Gather ${feat.coins} coins in one run`;
+      return `Collect ${feat.coins} coins in one run`;
     case 'kills':
-      return `Fell ${feat.kills} enemies in all`;
+      return `Defeat ${feat.kills} enemies in total`;
     case 'runs':
-      return feat.runs === 1 ? 'Finish a run' : `Finish ${feat.runs} runs`;
+      return feat.runs === 1 ? 'Finish 1 run' : `Finish ${feat.runs} runs`;
   }
 }
 
@@ -50,13 +50,13 @@ function featShort(feat: Feat): string {
     case 'wave':
       return `WAVE\n${feat.wave}`;
     case 'boss':
-      return `CAPTAIN\nOF ${feat.boss === 'warlord' ? 7 : feat.boss === 'colossus' ? 14 : 20}`;
+      return `BOSS\nWAVE ${feat.boss === 'warlord' ? 7 : feat.boss === 'colossus' ? 14 : 20}`;
     case 'coins':
       return `${feat.coins}\nCOINS`;
     case 'kills':
       return `${feat.kills}\nKILLS`;
     case 'runs':
-      return feat.runs === 1 ? 'ONE\nRUN' : `${feat.runs}\nRUNS`;
+      return feat.runs === 1 ? '1\nRUN' : `${feat.runs}\nRUNS`;
   }
 }
 
@@ -177,18 +177,18 @@ export class TitleScene extends Phaser.Scene {
         ty = sy + sh + 10;
         const x = sx + 6;
         const w = W - 40;
-        say(`${hero.quirkName.toUpperCase()}  ${hero.says}`, 15, BONE.fill, 6, x, w);
-        say(`${move.name.toUpperCase()}  ${move.says}`, 15, HOLY.fill, 6, x, w);
-        say(`Carries ${wdef.name}.${best > 0 ? ` Best: wave ${best}.` : ''}`, 15, BONE.shade, 6, x, w);
+        say(`PASSIVE: ${hero.quirkName.toUpperCase()}  ${hero.says}`, 15, BONE.fill, 6, x, w);
+        say(`SKILL: ${move.name.toUpperCase()}  ${move.says}`, 15, HOLY.fill, 6, x, w);
+        say(`WEAPON: ${wdef.name}${best > 0 ? `     BEST: WAVE ${best}` : ''}`, 15, BONE.shade, 6, x, w);
       } else {
-        say(`${hero.quirkName.toUpperCase()}  ${hero.says}`, 15, BONE.fill, 8);
-        say(`${move.name.toUpperCase()}  ${move.says}`, 15, HOLY.fill, 8);
-        say(`Carries ${wdef.name}.${best > 0 ? ` Best: wave ${best}.` : ''}`, 15, BONE.shade, 8);
+        say(`PASSIVE: ${hero.quirkName.toUpperCase()}  ${hero.says}`, 15, BONE.fill, 8);
+        say(`SKILL: ${move.name.toUpperCase()}  ${move.says}`, 15, HOLY.fill, 8);
+        say(`WEAPON: ${wdef.name}${best > 0 ? `     BEST: WAVE ${best}` : ''}`, 15, BONE.shade, 8);
       }
     } else {
       // Not opened: dark, with what opens them and how near that is, and nothing else.
       say('???', tall ? 24 : 30, BONE.shade, 6);
-      say(hero.unlock ? featText(hero.unlock) : '', 17, BONE.fill, 8);
+      say(hero.unlock ? `LOCKED. Unlock: ${featText(hero.unlock)}.` : 'LOCKED', 17, BONE.fill, 8);
       if (hero.unlock) {
         const share = featShare(s, hero.unlock);
         const g = put(this.add.graphics());
@@ -214,7 +214,7 @@ export class TitleScene extends Phaser.Scene {
       // A run was left in its camp: it can be taken up where it was.
       const name = byId(HEROES, kept.hero).short;
       const cw2 = tall ? rw : Math.min(300, rw - bw - 10);
-      const on = new Button(this, tall ? W / 2 : rx + cw2 / 2, tall ? by - playH / 2 - 8 - 25 : by, `CARRY ON: ${name}, WAVE ${kept.wave}`, () => this.carryOn(), { width: cw2, height: 50, size: 16, mat: GOLD });
+      const on = new Button(this, tall ? W / 2 : rx + cw2 / 2, tall ? by - playH / 2 - 8 - 25 : by, `CONTINUE: ${name}, WAVE ${kept.wave}`, () => this.carryOn(), { width: cw2, height: 50, size: 16, mat: GOLD });
       this.root.add(on.root);
       if (tall) floor -= 58;
     }
@@ -236,15 +236,15 @@ export class TitleScene extends Phaser.Scene {
         if (none) {
           // Nobody has been met yet: dark, and what opens the first of them is said.
           card.add(label(this, -cwid / 2 + 14, -12, '???', { size: 17, align: 'left', color: BONE.shade }));
-          card.add(label(this, -cwid / 2 + 14, 10, featText(COMPANIONS[0].unlock), { size: 15, align: 'left', color: BONE.shade, strokeWidth: 3 }));
+          card.add(label(this, -cwid / 2 + 14, 10, `Unlock: ${featText(COMPANIONS[0].unlock)}`, { size: 15, align: 'left', color: BONE.shade, strokeWidth: 3 }));
         } else {
           if (who) {
             const img = this.add.image(-cwid / 2 + 34, bandH / 2 - 10, CARDS, portraitFrame('blue', who.unit));
             img.setScale(Math.min(48 / (img.frame.height || 1), 52 / (img.frame.width || 1)));
             card.add(img);
           }
-          card.add(label(this, -cwid / 2 + (who ? 66 : 16), -12, who ? who.name : 'Nobody', { size: 17, align: 'left' }));
-          card.add(label(this, -cwid / 2 + (who ? 66 : 16), 10, who ? who.quirkName : 'Press to choose', { size: 15, align: 'left', color: who ? HOLY.fill : BONE.shade, strokeWidth: 3 }));
+          card.add(label(this, -cwid / 2 + (who ? 66 : 16), -12, who ? who.name : 'None', { size: 17, align: 'left' }));
+          card.add(label(this, -cwid / 2 + (who ? 66 : 16), 10, who ? who.quirkName : 'Choose a companion', { size: 15, align: 'left', color: who ? HOLY.fill : BONE.shade, strokeWidth: 3 }));
           card.setSize(cwid, bandH).setInteractive({ useHandCursor: true });
           card.on('pointerup', () => {
             // The next of those who are open and in no other place; after the last, nobody.
@@ -258,7 +258,7 @@ export class TitleScene extends Phaser.Scene {
         }
         this.root.add(card);
       }
-      put(label(this, rx + 2, y - bandH / 2 - 12, 'GOES WITH THEM', { size: 15, align: 'left', color: BONE.fill, strokeWidth: 3 }));
+      put(label(this, rx + 2, y - bandH / 2 - 12, places > 1 ? 'COMPANIONS' : 'COMPANION', { size: 15, align: 'left', color: BONE.fill, strokeWidth: 3 }));
       floor = y - bandH / 2 - 26;
     }
 

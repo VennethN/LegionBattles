@@ -225,7 +225,7 @@ export class HudScene extends Phaser.Scene {
       cap(-126, 'A');
       cap(-92, 'S');
       cap(-58, 'D');
-      c.add(label(this, 76, -1, 'OR ARROWS: MOVE', { size: 18 }));
+      c.add(label(this, 76, -1, 'OR ARROW KEYS: MOVE', { size: 18 }));
     }
     this.hint = c;
   }
@@ -300,7 +300,7 @@ export class HudScene extends Phaser.Scene {
     toggle(cy - 67, 'SOUND', () => s.sound, (v) => (s.sound = v));
     toggle(cy - 9, 'MUSIC', () => s.music, (v) => (s.music = v));
     // Whether the move goes off by itself when it is full. It is so for a new player, who has not yet been told there is one.
-    toggle(cy + 49, 'AUTO MOVE', () => s.auto, (v) => {
+    toggle(cy + 49, 'AUTO SKILL', () => s.auto, (v) => {
       s.auto = v;
       world.auto = v;
     });
@@ -390,7 +390,7 @@ export class HudScene extends Phaser.Scene {
     // A boss is named as it steps onto the field.
     if (boss && !this.bossSeen) {
       this.bossSeen = true;
-      this.banner(boss.def.name.toUpperCase(), 'Beat it and the wave is won');
+      this.banner(boss.def.name.toUpperCase(), 'Defeat the boss to win the wave');
     }
     const gold = Math.floor(run.gold + world.gold);
     if (gold !== this.gold) {
@@ -455,7 +455,7 @@ export class HudScene extends Phaser.Scene {
         this.told = true;
         save().told.push('move');
         commit();
-        this.time.delayedCall(500, () => this.plate('YOU STRIKE BY YOURSELF. GATHER THE COINS.', 4));
+        this.time.delayedCall(500, () => this.plate('YOU ATTACK AUTOMATICALLY. COLLECT THE COINS.', 4));
       }
     }
   }

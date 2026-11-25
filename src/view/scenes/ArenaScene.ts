@@ -288,7 +288,7 @@ export class ArenaScene extends Phaser.Scene {
     sfx.play('fight', 0.7);
     // A road with an omen says which it was as the wave begins.
     const omen = w.omen === 'quiet' ? '' : omenOf(w.omen).name;
-    const under = omen || (w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'A captain leads them' : '');
+    const under = omen || (w.wave.n === 1 || waveStartsLand(w.wave.n) ? LAND_NAMES[land] : w.wave.boss ? 'Boss wave' : '');
     // A run begins as its hero's: who they are is said before the wave is.
     if (w.wave.n === 1) this.scene.launch('Hud', { banner: def.name.toUpperCase(), under: def.epithet, line: `"${def.line}"`, then: { banner: `WAVE ${w.wave.n}`, under } });
     else this.scene.launch('Hud', { banner: `WAVE ${w.wave.n}`, under });
@@ -466,7 +466,7 @@ export class ArenaScene extends Phaser.Scene {
           this.nums.show(h.x, h.y - 108, `-${e.amount}`, RED, 30);
           sfx.play('bigHit', 0.8);
           (this.scene.get('Hud') as HudScene | undefined)?.hurt();
-          (this.scene.get('Hud') as HudScene | undefined)?.teach('hurt', 'THEY HURT WHEN THEY REACH YOU. KEEP MOVING.');
+          (this.scene.get('Hud') as HudScene | undefined)?.teach('hurt', 'ENEMIES HURT YOU ON TOUCH. KEEP MOVING.');
           break;
         case 'dodge':
           this.fx.spawn('fx/dust', h.x, h.y - 20, { dur: 0.25, from: 0.6, to: 1.4, alpha: 0.6, depth: h.y + 5 });
@@ -488,13 +488,13 @@ export class ArenaScene extends Phaser.Scene {
         case 'aim':
           this.warn(e);
           // The first red on the ground a player ever sees is said to be what it is.
-          if (e.doing === 'charge' || e.doing === 'burst' || e.doing === 'ring' || e.doing === 'blaze') (this.scene.get('Hud') as HudScene | undefined)?.teach('red', 'RED ON THE GROUND IS A BLOW COMING. STEP OUT OF IT.');
+          if (e.doing === 'charge' || e.doing === 'burst' || e.doing === 'ring' || e.doing === 'blaze') (this.scene.get('Hud') as HudScene | undefined)?.teach('red', 'RED AREAS ARE INCOMING ATTACKS. MOVE OUT OF THEM.');
           break;
         case 'foeShot':
           sfx.play('shoot', 0.25, 0.7);
           break;
         case 'gather':
-          (this.scene.get('Hud') as HudScene | undefined)?.banner('CLEARED', '');
+          (this.scene.get('Hud') as HudScene | undefined)?.banner('WAVE CLEARED', '');
           break;
         case 'end':
           break;

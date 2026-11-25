@@ -160,13 +160,13 @@ export class Deeds {
       case 'rise':
         sfx.play('blast', 0.8, 0.6);
         this.shake(320, 0.012);
-        this.say(`${this.def.short.toUpperCase()} GETS UP`, 'Once in a land');
+        this.say(`${this.def.short.toUpperCase()} REVIVES`, 'Once per land');
         light.boom(e.x, e.y, 120, 'fire', true);
         this.hold = 0.16;
         return true;
       case 'rescue':
         sfx.play('heal', 0.9, 0.8);
-        this.say('ON YOUR FEET', 'Tam drags you up');
+        this.say('REVIVED', 'Tam saved you');
         light.flash(h.x, h.y - 30, 320, GOLD_TINT, 0.8, 0.6);
         return true;
       case 'hurt':

@@ -208,14 +208,14 @@ async function play(label: string, { context, page }: { context: Context; page: 
   ok('a level is chosen and the wares come up', r?.phase === 'camp');
   const hands = r?.weapons.length ?? 0;
   ok('BUY buys', (await press(page, tap, 'Camp', 'BUY')) && ((await run(page))?.weapons.length ?? 0) + ((await run(page))?.items.length ?? 0) > hands);
-  ok('OTHER WARES shows others', (await press(page, tap, 'Camp', 'OTHER WARES')) && (await run(page))?.rerolls === 1);
+  ok('REROLL shows other items', (await press(page, tap, 'Camp', 'REROLL')) && (await run(page))?.rerolls === 1);
   r = await run(page);
   ok('the next wave is on its button', await press(page, tap, 'Camp', `WAVE ${r?.wave}`));
   // Out of the camp the roads are laid out, and the one taken is the wave that is fought.
   ok('the roads to it are laid out', (await until(page, 'Road')) && (await run(page))?.phase === 'road' && (await run(page))?.roads.length === 2);
   await tick(page, 10);
   const first = (await run(page))?.roads[0].omen;
-  ok('TAKE IT takes a road', await press(page, tap, 'Road', 'TAKE IT'));
+  ok('CHOOSE takes a road', await press(page, tap, 'Road', 'CHOOSE'));
   ok('and the wave begins by it', (await until(page, 'Hud')) && (await world(page))?.wave === 2 && (await page.evaluate(() => ((window as unknown as Win).world() as unknown as { omen: string }).omen)) === first);
 
   // A fall, and the ways on from it.
@@ -223,7 +223,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await fall(page);
   ok('a fall ends the run on the result', await until(page, 'Result'));
   await tick(page, 30);
-  ok('AGAIN starts another with the same hero', (await press(page, tap, 'Result', 'AGAIN')) && (await until(page, 'Hud')) && (await world(page))?.wave === 1 && (await run(page))?.hero === 'bram');
+  ok('PLAY AGAIN starts another with the same hero', (await press(page, tap, 'Result', 'PLAY AGAIN')) && (await until(page, 'Hud')) && (await world(page))?.wave === 1 && (await run(page))?.hero === 'bram');
   await tick(page, 30);
   await fall(page);
   await until(page, 'Result');
@@ -232,8 +232,8 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await tick(page, 10);
   // The first run has ended, so Biscuit has been met and comes along; a press on his place sends him home again.
   ok('a companion goes along after the first run', (await find(page, 'Title', 'Biscuit')) !== null);
-  ok('and can be left at home', (await press(page, tap, 'Title', 'Biscuit')) && (await find(page, 'Title', 'Nobody')) !== null);
-  ok('and taken along again', (await press(page, tap, 'Title', 'Nobody')) && (await find(page, 'Title', 'Biscuit')) !== null);
+  ok('and can be left at home', (await press(page, tap, 'Title', 'Biscuit')) && (await find(page, 'Title', 'None')) !== null);
+  ok('and taken along again', (await press(page, tap, 'Title', 'None')) && (await find(page, 'Title', 'Biscuit')) !== null);
   ok('Wren can be chosen', await press(page, tap, 'Title', 'Wren'));
   ok('PLAY begins as them', (await press(page, tap, 'Title', 'PLAY')) && (await until(page, 'Hud')) && (await run(page))?.hero === 'wren');
   ok('with the companion on the field', (await page.evaluate(() => ((window as unknown as Win).world() as unknown as { band: Array<{ def: { id: string } }> }).band.map((a) => a.def.id).join())) === 'biscuit');
@@ -246,7 +246,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await page.reload();
   await page.clock.pauseAt(Date.now() + 1000);
   ok('after a reload the list comes up, not a new run', await until(page, 'Title'));
-  ok('with the run to carry on', (await press(page, tap, 'Title', 'CARRY ON')) && (await until(page, 'Camp')) && (await run(page))?.gold === left?.gold && (await run(page))?.wave === left?.wave);
+  ok('with the run to carry on', (await press(page, tap, 'Title', 'CONTINUE')) && (await until(page, 'Camp')) && (await run(page))?.gold === left?.gold && (await run(page))?.wave === left?.wave);
 
   // A relic won: one of three is taken, and then the camp is there.
   await arena(page, { hero: 'bram', wave: 8, level: 6, gold: 50, phase: 'relic', relicsDue: 1, relicChoices: ['bellows', 'stormglass', 'oldmap'], offers: [] }, { camp: true });
@@ -262,7 +262,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   if (blade) {
     await tap(blade.x, blade.y);
     await tick(page, 10);
-    ok('and pressed, say what they give', (await words(page, 'Camp', 'KINDS OF WEAPON')) !== null && (await press(page, tap, 'Camp', 'CLOSE')));
+    ok('and pressed, say what they give', (await words(page, 'Camp', 'WEAPON TYPES')) !== null && (await press(page, tap, 'Camp', 'CLOSE')));
   }
 
   for (const e of [...new Set(errors)]) failures.push(`${label}: the page said: ${e}`);

@@ -53,6 +53,12 @@ The headless browser draws a few frames a second. The scripts take over the page
 - **No words smaller than 15 of the layout's units.** That is eleven pixels in the smallest frame a portal shows.
 - **What a player has not opened is dark, with "???".** What opens it is said, and nothing else.
 - **The build stays under 5 MB,** in bytes: `du -sb dist`. `du -sh` counts a whole disk block for each of three hundred small pictures and says a megabyte more.
+- **In-game text is plain game language.** The owner played it and found the wording convoluted: the docs' old-fashioned voice had spilled into the game. Every word a player reads is short, direct, and in the terms a player of this kind of game knows without thinking:
+  - **The terms:** Passive (not quirk), Skill (not move), Weapon, Damage (not harm), Attack speed (not haste), Health or HP, Armor, Crit, Range, Move speed, Unlock and Locked (not open, opened, unopened), Boss (not captain), Items (not wares or things), Shop or Camp, Weapon slots (not hands), Chest (not pack), Companion, Relic, Level up, Reroll, Merge (not join), Risk and Reward on a road (not omen and prize), Upgrades, Quests or Achievements (not deeds), Codex (not chronicle), Daily Run, Weapon types and Set bonus (not kinds and gifts). Renown, Vow and the Hold stay as names, each explained once where it is first met.
+  - **Short and concrete, subject first, numbers as numbers:** "Stand still to raise your shield: take 40% less damage and attack 25% faster. Moving lowers it." "Every 3rd spell casts twice." "Unlock: reach wave 10." "New companion unlocked: Pip". Never "a quarter" or "half as much again".
+  - **Labels are the nouns a player expects:** COMPANION, WEAPON, PASSIVE, SKILL, BEST: WAVE 6, PLAY, NEXT WAVE, CHOOSE YOUR ROAD, CHOOSE A RELIC, REROLL, PLAY AGAIN.
+  - A hero's two lines of story keep their flavor, in simple sentences.
+  - The code may keep its older names (quirk, move, omen) where renaming is not cheap: what the player reads is what matters. The smoke finds buttons by their words, so change both together.
 - **Comments say why,** in short plain sentences.
 - **Text for the owner and for the docs is plain, and has no em dashes.**
 - **Say what nobody has looked at.** The README ends with that list: keep it true.

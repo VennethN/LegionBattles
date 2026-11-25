@@ -103,21 +103,21 @@ export class RoadField {
         return true;
       }
       case 'wagon':
-        if (e.how === 'on') this.o.banner('THE PAY WAGON', 'Break it open before it is over the field');
+        if (e.how === 'on') this.o.banner('PAY WAGON', 'Destroy it before it escapes');
         else if (e.how === 'broken') sfx.play('claim', 0.8);
-        else this.o.banner('', 'The wagon is away with its chest');
+        else this.o.banner('', 'The wagon escaped');
         return true;
       case 'bless':
         for (let i = 0; i < 8; i++) {
           const a = (i / 8) * Math.PI * 2;
           this.fx.spawn('fx/sparkle', e.x + Math.cos(a) * 40, e.y - 30 + Math.sin(a) * 24, { dur: 0.7, from: 0.5, to: 1.3, tint: GOLD, vy: -70, delay: i * 0.03, depth: e.y + 80 });
         }
-        this.o.banner('BLESSED', 'A choice waits in the camp');
+        this.o.banner('BLESSED', 'Free upgrade at the next camp');
         sfx.play('levelUp', 0.8);
         return true;
       case 'free':
         this.fx.spawn('fx/ring', e.x, e.y - 10, { dur: 0.45, from: 0.3, to: 2.4, tint: GOLD, alpha: 0.9, flat: 0.5, depth: e.y + 3 });
-        this.o.banner(`${byId(COMPANIONS, e.who).name.toUpperCase()} IS FREE`, 'And fights beside you for the run');
+        this.o.banner(`${byId(COMPANIONS, e.who).name.toUpperCase()} IS FREE`, 'Joins you for this run');
         sfx.play('claim', 0.8);
         return true;
       case 'relic':

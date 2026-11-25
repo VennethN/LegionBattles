@@ -121,8 +121,8 @@ export class RoadScene extends Phaser.Scene {
   private relics(): void {
     const run = this.run;
     const cx = view.w / 2;
-    this.root.add(heading(this, cx, 40, 'A RELIC', GOLD));
-    this.text(cx, 76, run.relicsDue > 1 ? `Take one. ${run.relicsDue - 1} more after this.` : 'Take one of the three.', { size: 17, color: BONE.fill });
+    this.root.add(heading(this, cx, 40, 'CHOOSE A RELIC', GOLD));
+    this.text(cx, 76, run.relicsDue > 1 ? `Choose 1. ${run.relicsDue - 1} more after this.` : 'Choose 1 of 3.', { size: 17, color: BONE.fill });
     const at = this.cards(run.relicChoices.length, 100);
     run.relicChoices.forEach((id, i) => {
       const r = relicOf(id);
@@ -140,19 +140,19 @@ export class RoadScene extends Phaser.Scene {
   private roads(): void {
     const run = this.run;
     const cx = view.w / 2;
-    this.root.add(heading(this, cx, 40, `THE ROAD TO WAVE ${run.wave}`));
-    this.text(cx, 78, 'What each road costs, and what it pays. Choose one.', { size: 16, color: BONE.fill });
+    this.root.add(heading(this, cx, 40, 'CHOOSE YOUR ROAD'));
+    this.text(cx, 78, `Wave ${run.wave} is next. Each road has a risk and a reward.`, { size: 16, color: BONE.fill });
     const at = this.cards(run.roads.length, 100);
     run.roads.forEach((road, i) => {
       const o = omenOf(road.omen);
       const look = OMEN_LOOK[road.omen];
       // Who is in the cage is not told: it is found out by letting them out.
-      const lines = [{ head: 'THE WAVE', text: o.says, color: '#952239' }, { head: 'THE PRIZE', text: o.prize[0].toUpperCase() + o.prize.slice(1), color: '#2e5f45' }];
-      this.card(at.x[i], at.y[i], at.w, at.h, look.mat, look.icon, o.name, lines, 'TAKE IT', () => this.go(i));
+      const lines = [{ head: 'RISK', text: o.says, color: '#952239' }, { head: 'REWARD', text: o.prize[0].toUpperCase() + o.prize.slice(1), color: '#2e5f45' }];
+      this.card(at.x[i], at.y[i], at.w, at.h, look.mat, look.icon, o.name, lines, 'CHOOSE', () => this.go(i));
     });
     // The companions of the run that a road might add to are counted for the player who has forgotten.
     const strays = run.band.filter((b) => b.stray).map((b) => byId(COMPANIONS, b.id).name);
-    if (strays.length > 0 && !view.tall) this.text(cx, view.h - 10, `Freed on the road, and with you still: ${strays.join(', ')}`, { size: 15, color: BONE.shade });
+    if (strays.length > 0 && !view.tall) this.text(cx, view.h - 10, `Rescued companions with you: ${strays.join(', ')}`, { size: 15, color: BONE.shade });
   }
 
   /** On to the wave by the road that was chosen. */

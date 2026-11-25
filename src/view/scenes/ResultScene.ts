@@ -55,19 +55,19 @@ export class ResultScene extends Phaser.Scene {
     const name = label(this, nx, py + 40, hero.name.toUpperCase(), { size: 24, align: 'left', color: OUTLINE, stroke: null });
     name.setScale(Math.min(1, (pw - 150) / Math.max(1, name.width)));
     label(this, nx, py + 66, hero.epithet, { size: 17, align: 'left', color: HOLY.shade, stroke: null });
-    heading(this, cx, py + 2, 'FALLEN', CLOTH.red);
+    heading(this, cx, py + 2, 'DEFEATED', CLOTH.red);
     // Who landed the last blow, if anyone did: a hero who gave up fell to no one.
     const by = world?.lastBy ? ENEMIES.find((e) => e.id === world.lastBy)?.name : '';
-    label(this, nx, py + 104, by ? `on wave ${run.wave}, to ${/^The /.test(by) ? by : `a ${by}`}` : `on wave ${run.wave}`, { size: 17, align: 'left', color: OUTLINE, stroke: null });
+    label(this, nx, py + 104, by ? `Wave ${run.wave}. Killed by: ${by}` : `Wave ${run.wave}`, { size: 17, align: 'left', color: OUTLINE, stroke: null });
     const rows: Array<[string, string]> = [
-      ['Waves come through', String(waves)],
-      ['Enemies felled', String(run.kills)],
-      ['Coins gathered', String(run.coins)],
+      ['Waves survived', String(waves)],
+      ['Enemies defeated', String(run.kills)],
+      ['Coins collected', String(run.coins)],
       ['Level', String(run.level)],
     ];
     // What they found on the road, and who stood with them.
-    if (run.relics.length > 0) rows.push(['Relics carried', String(run.relics.length)]);
-    if (run.band.length > 0) rows.push(['Stood with them', run.band.map((b) => byId(COMPANIONS, b.id).name).join(', ')]);
+    if (run.relics.length > 0) rows.push(['Relics', String(run.relics.length)]);
+    if (run.band.length > 0) rows.push(['Companions', run.band.map((b) => byId(COMPANIONS, b.id).name).join(', ')]);
     rows.forEach(([name, value], i) => {
       const y = py + 172 + i * 28;
       label(this, cx - pw / 2 + 40, y, name, { size: 18, align: 'left', color: OUTLINE, stroke: null });
@@ -75,13 +75,13 @@ export class ResultScene extends Phaser.Scene {
     });
     let at = py + under + 4;
     if (isBest) {
-      label(this, cx, at, `${hero.short}'s best yet`, { size: 17, color: '#2e5f45', stroke: null });
+      label(this, cx, at, `New best for ${hero.short}!`, { size: 17, color: '#2e5f45', stroke: null });
       at += 28;
     }
     // A companion this run opened is named.
     if (friends.length > 0) {
       const names = friends.map((id) => byId(COMPANIONS, id).name.toUpperCase()).join(', ');
-      const line = label(this, cx, at, `${names} WILL COME WITH YOU NOW`, { size: 16, color: HOLY.shade, stroke: null });
+      const line = label(this, cx, at, `NEW COMPANION UNLOCKED: ${names}`, { size: 16, color: HOLY.shade, stroke: null });
       line.setScale(Math.min(1, (pw - 40) / Math.max(1, line.width)));
       at += 30;
     }
@@ -89,7 +89,7 @@ export class ResultScene extends Phaser.Scene {
     // Whoever this run opened is shown, by name now.
     if (opened.length > 0) {
       const y = at + 58;
-      label(this, cx, y - 36, opened.length > 1 ? 'NEW HEROES' : 'A NEW HERO', { size: 20, color: HOLY.shade, stroke: null });
+      label(this, cx, y - 36, opened.length > 1 ? 'NEW HEROES UNLOCKED' : 'NEW HERO UNLOCKED', { size: 20, color: HOLY.shade, stroke: null });
       const step = Math.min(110, (pw - 60) / opened.length);
       opened.forEach((id, i) => {
         const def = byId(HEROES, id);
@@ -110,7 +110,7 @@ export class ResultScene extends Phaser.Scene {
       this.scene.stop('Arena');
       this.scene.start('Title');
     }, { width: bw, height: 56, size: 22, mat: IRON });
-    new Button(this, cx + bw / 2 + 8, byy, 'AGAIN', () => {
+    new Button(this, cx + bw / 2 + 8, byy, 'PLAY AGAIN', () => {
       startRun(hero.id);
       this.scene.stop();
       this.scene.get('Arena').scene.restart();
