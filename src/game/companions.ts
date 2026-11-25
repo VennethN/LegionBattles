@@ -120,7 +120,7 @@ export const BAND = {
   /** The chance that one of a level's choices is a bond, while a companion on the run has a step left. */
   bondChance: 0.3,
   /** The share of a blow a companion takes: they are in the thick of it far more than the hero. */
-  takes: 0.5,
+  takes: 0.62,
   /** Seconds a companion cannot be hurt again after a blow. */
   grace: 0.8,
   /** Seconds one that was struck down sits out, and the share of its health it gets up with. */

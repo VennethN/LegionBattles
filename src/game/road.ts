@@ -37,11 +37,11 @@ export interface OmenDef {
 export const OMENS: readonly OmenDef[] = [
   { id: 'quiet', name: 'Quiet Road', says: 'The wave as it is.', prize: 'Nothing more', from: 2, weight: 3 },
   { id: 'horde', name: 'The Horde', says: 'Half as many again, each a little weaker.', prize: 'Half as much experience again', from: 2, weight: 2 },
-  { id: 'champions', name: 'Champions', says: 'Fewer of them, and three champions among them.', prize: 'A relic, one of three', from: 3, weight: 2 },
-  { id: 'night', name: 'Night March', says: 'It is dark, and they come on faster.', prize: 'A relic, one of three', from: 4, weight: 1.5 },
+  { id: 'champions', name: 'Champions', says: 'Fewer of them, and three champions among them.', prize: 'A relic, one of three', from: 4, weight: 1.3 },
+  { id: 'night', name: 'Night March', says: 'It is dark, and they come on faster.', prize: 'A relic, one of three', from: 6, weight: 1 },
   { id: 'wagon', name: 'Pay Wagon', says: 'A wagon crosses the field under guard.', prize: 'Its chest, if you break it', from: 3, weight: 2 },
   { id: 'shrine', name: 'The Shrine', says: 'A shrine stands on the field. Stand in its ring.', prize: 'A blessing: a choice as for a level', from: 2, weight: 1.6 },
-  { id: 'stray', name: 'The Stray', says: 'A creature is caged on the field. Break the cage.', prize: 'It fights beside you for the run', from: 3, weight: 1.4 },
+  { id: 'stray', name: 'The Stray', says: 'A creature is caged on the field. Break the cage.', prize: 'It fights beside you for the run', from: 3, weight: 1.2 },
 ];
 
 export function omenOf(id: Omen): OmenDef {
@@ -63,13 +63,13 @@ export const ROAD = {
   },
   champions: {
     /** How many times as many of the rest come, and how many champions. */
-    fewer: 0.75,
+    fewer: 0.85,
     count: 3,
     /** The shares of the wave's time at which each is marked. */
     at: [0.12, 0.38, 0.62],
     /** How many times the health, harm, size and coins of the one it is made from. */
-    hp: 4,
-    dmg: 1.5,
+    hp: 7,
+    dmg: 1.6,
     size: 1.3,
     coins: 4,
     /** Quick: how many times as fast. */
@@ -84,7 +84,7 @@ export const ROAD = {
   },
   night: {
     /** How many times as fast they come on in the dark. */
-    faster: 1.12,
+    faster: 1.2,
   },
   wagon: {
     /** The share of the wave's time at which it is marked, and the share of it that crossing the field takes. */
@@ -105,7 +105,7 @@ export const ROAD = {
   },
   stray: {
     /** The most strays a run takes in. */
-    most: 2,
+    most: 1,
     /** How far from where the hero begins the cage stands, at the least. */
     clear: 300,
   },

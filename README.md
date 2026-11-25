@@ -13,11 +13,14 @@ It was made in one sitting, in a cloud session with no screen and no sound. The 
 - **Move.** WASD or the arrow keys, or hold the mouse or a finger down anywhere and drag: that is a stick wherever it was put down. P pauses.
 - **The move.** Kills fill a bar. When it is full the hero's one great deed is let loose: by the space bar, the other button of the mouse, or its button in the corner under a thumb. For a new player it goes off by itself when it is full and there is a crowd for it (AUTO MOVE, in the pause panel).
 - **A wave** lasts from twenty seconds to a minute. Enemies are marked on the ground a moment before they stand there, and come from every side. Stay alive until the clock runs out and whoever is left leaves the field. Every coin on the ground comes to you then.
-- **What you carry** strikes whoever is nearest and in reach, each thing in its own time. A hero has a weapon of their own, which nobody else can have: it takes no hand, is never sold, and grows a tier by itself at levels 5, 10 and 15. Besides it there are sixteen weapons to buy, of three kinds (blades and the like, things shot and thrown, magic), and six hands to carry them in.
+- **What you carry** strikes whoever is nearest and in reach, each thing in its own time. A hero has a weapon of their own, which nobody else can have: it takes no hand, is never sold, and grows a tier by itself at levels 5, 10 and 15. Besides it there are twenty-nine weapons to buy and six hands to carry them in.
+- **Kinds of weapon.** Every weapon is of one kind or two: Blade, Pole, Blunt, Bow, Thrown, Fire, Frost, Holy, Venom, Arcane. Holding two, three and four of a kind gives that kind's gift, more at each step: blades find the gap more often, poles reach further, blunt things stun for longer, bows are quicker, thrown things skip on, fire burns longer, cold slows more, holy things mend, venom's clouds grow, the arcane is more learned. The hero's own weapon counts. The camp says what is held of each, and pressed, what that gives and what one more would.
 - **Coins** are left by the fallen. They are what the camp takes, and they are experience too.
 - **The camp**, between waves. For every level made, one of four things to raise; now and then one of them is a bond with a companion who is along, three steps each. Then four wares: weapons and things. Two weapons of a kind and a tier can be joined into one of the next tier, up to the fourth. A ware can be locked, to be there next time. Other wares can be asked for, at a price that rises.
 - **Enemies** do different things, and each warns of it. Some walk at you. Some keep off and shoot what can be stepped out of. Some stop, turn and charge down a line shown on the ground. Some run in and burst in a ring shown on the ground. Some call others up, and some drum the rest on faster.
-- **A boss** leads the seventh, the fourteenth and the twentieth wave. Beat it and the wave is won at once. It leaves a pack, which holds a thing for nothing.
+- **A boss** leads the seventh, the fourteenth and the twentieth wave. Beat it and the wave is won at once. It leaves a pack, which holds a thing for nothing, and a relic to choose.
+- **The road.** Out of the camp there are two roads to the next wave, each with an omen and a prize, and one is taken. The quiet road is the wave as it is. The horde is half as many again, each a little weaker, for half as much experience again. Champions is fewer of the rest and three champions among them, each far stronger and quick, armored or burning, for a relic. A night march is dark and faster, for a relic. The pay wagon crosses the field under guard, and broken open it spills its chest. The shrine blesses whoever stands in its ring for eight seconds in all: a choice as for a level. The stray is a caged companion, who fights beside the band for the rest of the run once the cage is broken, one a run. A captain's wave has one road.
+- **Relics.** Twenty-six, each one of a kind, each bending a rule: what dies burning sets its neighbors alight, every tenth blow lands twice, the first blow that would kill leaves one health, lightning strikes the strongest every eight seconds, one in eight of the slain gets up on your side, double harm dealt and double taken. A captain leaves one of three to choose, so do the champions' road and the night march, and now and then the last of the camp's wares is one, at a high price. A run holds as many as it finds, and the camp shows them.
 - **After the twentieth wave** the same twenty come round again, far harder each time. How many waves a hero came through is the score.
 - **Heroes.** Ten, each with a name, of whom two are open at the start. Each has a weapon of their own, numbers of their own, a quirk that asks to be played round, and a move. Bram Oakenhold sets his shield when he stands still. Wren Fallowmere hits harder every second nothing touches her. Every third spell of Orrin Quillon's is cast twice. Fenn Two-Coins hits harder the more coins he holds. What dies burning by Old Nan Cinderwick bursts and lights its neighbors. Isaura Vane hits harder the longer she keeps moving. Hroth gets up once from a killing blow. Brother Aldous Bell brings one companion more. What Ysolde Rimeheart has slowed, struck again, freezes. Maren Dawnguard's hammer leaves holy ground. `docs/design.md` has them all, with their moves. The rest are opened by feats: coming through a wave, beating a boss, gathering coins in one run, felling enemies over all runs. One who is not open is a dark shape with no name, and what opens them is said.
 - **Companions.** Eight, opened by feats as the heroes are; the first, Biscuit the war hound, comes when the first run ends. One goes on a run (two once the Hold opens a second place, which is not built yet; Aldous brings one more). Each fights by itself and has a quirk of its own: Biscuit fetches coins, Pip the wisp flashes when the hero is struck, enemies go for Mossback the turtle, Quill the eagle hunts those who shoot, Greta the bear roars, Ember the salamander leaves fire where it runs, everyone strikes faster by Tam's banner and once in a run he gets a fallen hero up, and Thistle the stag charges through the line. A companion has health: struck down, it sits out for a few seconds and gets up, and it is whole again at each camp. It grows with the hero's level.
@@ -64,13 +67,17 @@ That is the type check, every test and a build. All three have to pass before a 
 | `src/game/heroes.ts` | The ten heroes: who each is, the weapon that is theirs alone, and the numbers of every quirk and every move. |
 | `src/game/companions.ts` | The eight companions, the numbers of each one's quirk, and what every companion shares. |
 | `src/game/world.ts` | One wave as it is fought, with no screen: the hero with their quirk and their move, the companions steering themselves, the enemies, what flies, what lies on the ground. The same seed and the same steering give the same wave. |
-| `src/game/run.ts` | A run: who goes on it, what a wave leaves it with, levels and bonds, the camp's wares, buying, joining, selling. |
+| `src/game/kinds.ts` | The kinds of weapon and the numbers of each one's gift. |
+| `src/game/relics.ts` | The relics, and the numbers of each. |
+| `src/game/road.ts` | The omens, and the numbers of the road and of each. |
+| `src/game/run.ts` | A run: who goes on it, what a wave leaves it with, levels and bonds, relics won and chosen, the camp's wares, buying, joining, selling, and the roads out of it. |
 | `src/game/stats.ts` | What a hero is, as numbers, and how lines of them add up. |
 | `src/game/state.ts`, `storage.ts` | What is kept between visits, and where. |
 | `src/game/bot.ts` | The plain computer player the pace report and the tests use. The game never does. |
 | `src/art` | The art kit and everything drawn with it. `holdout.ts` is this game's own: the weapons as pictures, the wares, the marks of the stats, the arena's ground. |
-| `src/view/scenes` | `BootScene` loads. `ArenaScene` is the field. `HudScene` lies over it and takes the steering. `CampScene` is the camp, `TitleScene` the list of heroes, `ResultScene` the end of a run. `AssetsScene` loads pictures while the game runs. |
+| `src/view/scenes` | `BootScene` loads. `ArenaScene` is the field. `HudScene` lies over it and takes the steering. `CampScene` is the camp, `RoadScene` the choice of a relic and of a road, `TitleScene` the list of heroes, `ResultScene` the end of a run. `AssetsScene` loads pictures while the game runs. |
 | `src/view/art` | The art's runtime: `Sheet` packs pictures onto one texture, `Figure` moves a figure's parts by the rig. |
+| `src/view/RoadField.ts` | What a road and a relic put on the field: the wagon, the cage, the shrine, a champion's ring, the risen. |
 | `src/view/config.ts` | How the screen is fitted to a window. |
 | `src/view/input.ts` | The keys and the stick. |
 | `src/audio` | The sounds and the music, which are the first game's. `public/assets/audio/CREDITS.txt` names where the recordings came from and is shipped with the game. |
@@ -95,7 +102,13 @@ That is the type check, every test and a build. All three have to pass before a 
 
 **A companion.** An entry in `COMPANIONS` in `src/game/companions.ts` with the kit's unit that draws it, the way it fights (`Does`, a case in `actAs` in `world.ts`), its quirk (`AllyQuirk`, its numbers in `ALLY_QUIRKS`) and the feat that opens it. A test in `tests/band.test.ts`. Then `npm run art`, and `npm run pace -- --friends`.
 
-**A weapon.** A line in `WEAPONS`, and its drawing in `ARMS` in `src/art/holdout.ts`, which is one of the kit's eighty. A test fails until both are there.
+**A weapon.** A line in `WEAPONS` with its kinds, and its drawing in `ARMS` in `src/art/holdout.ts`, which is one of the kit's eighty. A test fails until both are there, and another if it is a weapon there is already by another name.
+
+**A kind of weapon.** A name in `Kind` and a line in `KINDS` in `src/game/kinds.ts`, its numbers in `GIFTS`, what it does in `giftsOf` (how weapons work, which `world.ts` applies) or `giftLine` (a plain stat), and at least four weapons of it. A test in `tests/kinds.test.ts`.
+
+**A relic.** A line in `RELICS` in `src/game/relics.ts`, its numbers in `RELIC`, its rule where it acts (`this.has('<id>')` in `world.ts`, `hasRelic` in `run.ts`), a picture named `r-<id>` in `src/art/holdout.ts`, what the plain player thinks of it in `RELIC_WANT` in `bot.ts`, and a test in `tests/relics.test.ts`.
+
+**An omen.** A name in `Omen` and a line in `OMENS` in `src/game/road.ts`, its numbers in `ROAD`, what it does to the wave in `omened` or `signs` in `world.ts`, its prize in `endWave` in `run.ts`, its picture and color in `RoadScene.ts`, what the plain player thinks of it in `ROAD_WANT`, and a test in `tests/road.test.ts`. A thing it puts on the field is shown by `src/view/RoadField.ts`.
 
 **A ware.** A line in `ITEMS`, and its picture's name in `src/view/icons.ts`.
 
@@ -105,43 +118,66 @@ That is the type check, every test and a build. All three have to pass before a 
 
 ## The pace
 
-`npm run pace` is how the numbers were set. Its player steers away from what would hurt and toward what lies about, a fifth of a second late and never quite true, lets the move loose when there is a crowd for it, stands as Bram and keeps moving as Isaura, and buys what it can afford with no plan.
+`npm run pace` is how the numbers were set. Its player steers away from what would hurt and toward what lies about, a fifth of a second late and never quite true, lets the move loose when there is a crowd for it, stands as Bram and keeps moving as Isaura, and buys what it can afford with no plan but a liking for a kind of weapon it holds already. It takes the roads with prizes while it comes out of a wave with more than half its health and the quiet road when it does not, stands in a shrine's ring, goes for a cage and a wagon, and takes the relic it thinks is worth most.
 
-As last measured, with sixteen runs to a hero, alone, each stopped at the twenty-second wave. "Mean" is the mean of the waves come through with every run stopped at the twentieth:
+As last measured, with thirty-two runs to a hero, alone, each stopped at the twenty-sixth wave. "Mean" is the mean of the waves come through with every run stopped at the twentieth:
 
-| Hero | Half come through | Mean of the written 20 | Fewest | Won, of 16 |
+| Hero | Half come through | Mean of the written 20 | Fewest | Won, of 32 |
 | --- | --- | --- | --- | --- |
-| Bram Oakenhold | 11 | 12.7 | 5 | 4 |
-| Wren Fallowmere | 17 | 14.3 | 5 | 6 |
-| Orrin Quillon | 11 | 12.8 | 4 | 2 |
-| Fenn Two-Coins | 12 | 13.0 | 4 | 4 |
-| Old Nan Cinderwick | 12 | 13.4 | 7 | 4 |
-| Isaura Vane | 12 | 12.9 | 5 | 5 |
-| Hroth | 17 | 14.9 | 8 | 6 |
-| Brother Aldous Bell | 11 | 10.3 | 7 | 1 |
-| Ysolde Rimeheart | 10 | 11.6 | 8 | 3 |
-| Maren Dawnguard | 11 | 13.8 | 8 | 5 |
+| Bram Oakenhold | 10 | 9.7 | 3 | 0 |
+| Wren Fallowmere | 11 | 11.4 | 3 | 0 |
+| Orrin Quillon | 11 | 12.0 | 5 | 3 |
+| Fenn Two-Coins | 11 | 10.0 | 3 | 4 |
+| Old Nan Cinderwick | 11 | 10.1 | 3 | 1 |
+| Isaura Vane | 11 | 12.3 | 7 | 3 |
+| Hroth | 11 | 12.1 | 4 | 6 |
+| Brother Aldous Bell | 10 | 10.7 | 4 | 2 |
+| Ysolde Rimeheart | 11 | 12.0 | 3 | 5 |
+| Maren Dawnguard | 11 | 12.5 | 7 | 2 |
 
-A run either stops at a wall (the ninth to the twelfth wave, most often) or gets its hands full of good weapons and goes on to the end, with little between: "half" jumps from 11 to 17 when one run more gets past the wall, so the mean says more. Before the heroes had names, half of each hero's runs came through 7 to 10 waves. They come about two waves further now: a hero's own weapon grows by itself and takes no hand, and there is the move. Without the move, the quirk and the growing weapon a hero comes through 8, as before. The move alone is worth the most: let loose every ten seconds, as it first was, it took half of the runs past the thirtieth wave.
+Half of each hero's runs come through ten or eleven waves, and about one run in twelve wins the twentieth. Before the road, relics and kinds of weapon were in, the same waves let half of Wren's runs through thirty-one: a hero has far more now by the middle of a run, and the enemies were made to grow again from the fourth wave (their health) and the seventh (their harm), with the first waves left as they were. Runs used to end at two walls, the twelfth wave and the eighteenth; those were lowered, and they now end all along the way.
 
-Aldous alone is the weakest, as he is meant to be: he hits softly, and is never alone in the game.
+What each new thing is worth to the plain player, as Orrin, thirty-two runs each, in the mean of the written 20:
 
-What a companion is worth, with twenty-four runs each (sixteen for Aldous), as the mean of the written 20 beside the hero alone:
+| As Orrin | Mean of the written 20 |
+| --- | --- |
+| With everything | 12.0 |
+| Kept to the quiet road | 9.5 |
+| With no relic doing anything | 11.2 |
+| With no gift from the kinds | 11.9 |
 
-| With | Bram (10.8 alone) | Wren (13.0 alone) | Aldous (10.1 alone) |
+The roads are worth the most by far: a blessing is a level's choice, a stray is a companion, a wagon is a camp's worth of coins. Relics come late and to runs that are already going well, so taking them all away costs little. The gifts of the kinds are worth less than the dice move, to this player: it leans toward a kind it holds but does not give up a better weapon for one, as a person building for a gift would.
+
+How the roads went, over all ten heroes:
+
+| Road | Times taken | Come through | Prize had, of those |
 | --- | --- | --- | --- |
-| Biscuit | 12.5 | 13.3 | 11.9 |
-| Pip | 14.2 | 14.1 | 15.1 |
-| Mossback | 12.9 | 15.3 | 15.6 |
-| Quill | 12.7 | 13.1 | 13.1 |
-| Greta | 14.6 | 14.4 | 14.8 |
-| Ember | 12.6 | 13.5 | 12.4 |
-| Tam | 12.6 | 15.0 | 13.6 |
-| Thistle | 13.2 | 14.0 | 15.9 |
+| Quiet road | 123 | 75% | 100% |
+| The horde | 502 | 94% | 100% |
+| Champions | 595 | 80% | 100% |
+| Night march | 280 | 93% | 100% |
+| Pay wagon | 638 | 92% | 86% |
+| The shrine | 941 | 96% | 96% |
+| The stray | 267 | 99% | 97% |
 
-A companion is worth between nothing and four waves, two on the whole. Biscuit, who is the first, is worth the least in waves; he is the one who makes the first runs gentler (more health left at the end of each of the first five waves) and brings coins in. These were measured before the last small change to how often a move fills, which moved the heroes by less than the dice do.
+Champions are the road that ends runs, as they are meant to be. The quiet road looks worse than it is: the plain player takes it only when it is already hurt.
 
-Twelve runs are few, twenty-four are not many, and that player is not a person. A person plans what to buy, which it does not, and sees less of the field at once than it does. Two measures of the same thing with other dice differ by a wave or more: a difference smaller than that between two heroes or two companions says nothing.
+What a companion is worth, with twenty-four runs each, as the mean of the written 20 beside the hero alone:
+
+| With | Bram (9.1 alone) | Wren (11.0 alone) |
+| --- | --- | --- |
+| Biscuit | 12.0 | 11.4 |
+| Pip | 11.7 | 12.2 |
+| Mossback | 11.3 | 12.8 |
+| Quill | 11.0 | 13.3 |
+| Greta | 12.0 | 13.7 |
+| Ember | 12.6 | 13.0 |
+| Tam | 12.2 | 12.3 |
+| Thistle | 13.1 | 13.9 |
+
+A companion is worth two to three waves, more to Bram, who is the weakest alone, than to Wren. That is a little more than it was before the enemies were made to grow again: a companion's blows grow with the hero's level whatever the hero has found. A stray is one more of them, which is why a run takes in only one.
+
+Thirty-two runs are not many, and that player is not a person. A person plans what to buy, which it does not, and sees less of the field at once than it does. Two measures of the same thing with other dice differ by a wave or more: a difference smaller than that between two heroes or two companions says nothing.
 
 ## For a portal
 
@@ -149,7 +185,7 @@ Twelve runs are few, twenty-four are not many, and that player is not a person. 
 - It fits any frame with no bars, and was looked at in 907 by 510, 821 by 462, 1920 by 1080 and on a phone both ways.
 - Keys are read by where they are on the keyboard, so the same four steer on a keyboard laid out another way. Escape is not used. The arrow keys, the space bar and the wheel do not scroll the page it is in.
 - It has no full screen button of its own, no links out, and nothing in it but its own drawings and the recorded sounds it credits.
-- The build is 4.0 MB.
+- The build is 3.7 MB, as the sum of its files.
 - On CrazyGames it keeps the save with the player's account, says when play starts and stops, and may show something between waves. Its code for that is the first game's.
 
 ## Not yet looked at
@@ -166,6 +202,11 @@ This was built in a cloud session with no screen and no sound.
 - The named heroes, their quirks and moves, and the companions are rules that were tested and measured, and shown only plainly: a hero's own weapon still floats beside them with the rest, a move is a ring and a line of words, a companion is its figure and nothing more, and what a quirk is doing is not shown on the screen at all. The proper screens for all of it are the next piece of work. What was looked at: the list of heroes with the companion's button at the small frame and on a phone, and a wave with a band at a portal's frame.
 - Whether a quirk is fun to play round is not known: Bram's standing still, Isaura's never stopping and Wren's not being touched were only ever played by the computer.
 - A companion's worth was measured with twenty-four runs to a companion and two heroes, which tells a companion worth nothing from one worth three waves and little finer than that.
+- The road, the relics and the kinds of weapon are rules that were tested and measured, and shown only plainly. What was looked at, at a portal's frame, at the small frame and on a phone held upright: the roads as cards (two and three), a relic's three cards, the camp with relics, kinds and a relic among its wares, the card of the kinds, and one picture each of the shrine, the cage broken open, the wagon under guard, a champion with its ring, and the night. What was not: a wagon getting away, a burning champion's blaze, lightning from the Stormglass, the slain getting up, a shot splitting, or any other relic going off. Nobody has pressed any of it but a script.
+- Whether the roads are a real choice is not known. The computer always takes a prize while it is hale; whether a person feels the champions' road is worth a relic, or finds the shrine's eight seconds dull, has to be played.
+- The night march is a flat dark veil over the field, until the light that is being made for the field takes it over.
+- Twenty-nine weapons and twenty-six relics is a great deal for a first run to meet at once. The Hold is meant to open them a few at a time; until it does, they are all there from the first camp.
+- A save from before the road keeps everything but a run that was left in its camp.
 - A save from before the heroes had names keeps its bests and who was open, and loses a run that was left in its camp.
 - Past the twentieth wave the game is the same twenty waves again, harder. It has not been played that far by anyone but the computer.
 - This game added three things to the art kit (whole pictures at a pose in the art build and on the sheet, a bare hand on a figure, two letters for the logo). They are here and not yet in the copy of the art skill that the other two games carry.

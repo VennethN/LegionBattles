@@ -156,7 +156,7 @@ export const RELICS: readonly RelicDef[] = [
   { id: 'whistle', name: 'Kennel Whistle', says: 'Companions get up twice as fast and hit a quarter harder.' },
   { id: 'bonedice', name: 'Bone Dice', says: 'Each wave one stat is rolled up by 15 and one down by 10.' },
   { id: 'emberheart', name: 'Ember Heart', says: 'Every fifth kill bursts into flame.' },
-  { id: 'frostbite', name: 'Frostbite Ring', says: 'The slowed do a quarter less harm.' },
+  { id: 'frostbite', name: 'Frostbite Charm', says: 'The slowed do a quarter less harm.' },
   { id: 'mirror', name: 'Mirror Shard', says: 'A blow you dodge is thrown back at who struck.' },
   { id: 'fallen', name: 'Banner of the Fallen', says: 'Each champion or captain you kill gives 2 health for the run.' },
   { id: 'sands', name: 'Running Sands', says: 'Waves are five seconds shorter, and fury fills a third faster.' },

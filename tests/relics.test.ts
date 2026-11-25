@@ -381,7 +381,7 @@ describe('relics', () => {
     expect(told(play(v, 0.6), 'emberheart')).toBe(false);
   });
 
-  it('Frostbite Ring: the slowed do a quarter less, by hand and by shot', () => {
+  it('Frostbite Charm: the slowed do a quarter less, by hand and by shot', () => {
     const taken = (relics: string[], slow: number): number => {
       const w = holding(relics);
       w.slots[0].cool = 99;

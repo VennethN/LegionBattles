@@ -79,7 +79,7 @@ export async function arena(page: Page, run: Record<string, unknown>, data: Reco
   await page.evaluate(([r, d]) => {
     const w = window as unknown as Win;
     w.stage(r);
-    for (const key of ['Hud', 'Camp', 'Result', 'Title']) w.game.scene.stop(key);
+    for (const key of ['Hud', 'Camp', 'Road', 'Result', 'Title']) w.game.scene.stop(key);
     w.game.scene.start('Arena', d);
   }, [run, data] as const);
 }
@@ -110,6 +110,35 @@ export function find(page: Page, key: string, text: string): Promise<{ x: number
         const kids = o.list ?? [];
         if (o.input && kids.some((c) => typeof c.text === 'string' && c.text.trim().startsWith(t))) hit = { x: ox + o.x, y: oy + o.y };
         walk(kids, ox + o.x, oy + o.y);
+      }
+    };
+    walk(sc.children.list as Node[], 0, 0);
+    const at = hit as { x: number; y: number } | null;
+    return at ? { x: (at.x * w.view.zoom) / w.view.density, y: (at.y * w.view.zoom) / w.view.density } : null;
+  }, [key, text] as const);
+}
+
+/** Where on the page words that start with `text` are written on a screen, whether they can be pressed or not, or null. It is a little inside their left end. */
+export function words(page: Page, key: string, text: string): Promise<{ x: number; y: number } | null> {
+  return page.evaluate(([k, t]) => {
+    const w = window as unknown as Win;
+    const sc = w.game.scene.getScene(k) as unknown as { children: { list: unknown[] } };
+    interface Node {
+      type: string;
+      visible: boolean;
+      x: number;
+      y: number;
+      originX?: number;
+      width?: number;
+      text?: string;
+      list?: Node[];
+    }
+    let hit: { x: number; y: number } | null = null;
+    const walk = (list: Node[], ox: number, oy: number): void => {
+      for (const o of list) {
+        if (hit || !o.visible) continue;
+        if (o.type === 'Text' && typeof o.text === 'string' && o.text.trim().startsWith(t)) hit = { x: ox + o.x - (o.originX ?? 0) * (o.width ?? 0) + 8, y: oy + o.y };
+        else if (o.list) walk(o.list, ox + o.x, oy + o.y);
       }
     };
     walk(sc.children.list as Node[], 0, 0);

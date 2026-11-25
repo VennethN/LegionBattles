@@ -12,7 +12,7 @@
 import fs from 'node:fs';
 
 import { chromium, open, type Page } from './browser';
-import { RICH, THINGS, UPS, arena, fight as fightFrames, tick, until, type Win } from './drive';
+import { RICH, THINGS, UPS, arena, fight as fightFrames, tick, until, words, type Win } from './drive';
 
 /** Fights for some seconds. */
 const fight = (page: Page, seconds: number): Promise<void> => fightFrames(page, Math.round(seconds * 60));
@@ -128,6 +128,77 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
       await tick(page, 10);
       await shot('thing');
     }
+  },
+  // The road out of the camp: two roads, then three, then a relic to choose.
+  road: async (page, shot) => {
+    const base = { hero: 'bram', wave: 6, weapons: RICH.slice(0, 4), items: THINGS.slice(0, 5), level: 5, gold: 120, offers: [] };
+    await arena(page, { ...base, phase: 'road', roads: [{ omen: 'champions' }, { omen: 'shrine' }] }, { camp: true });
+    await until(page, 'Road');
+    await tick(page, 10);
+    await shot('road');
+    await arena(page, { ...base, phase: 'road', roads: [{ omen: 'wagon' }, { omen: 'stray', stray: 'greta' }, { omen: 'night' }], band: [{ id: 'biscuit', bond: 1 }, { id: 'pip', bond: 0, stray: true }] }, { camp: true });
+    await until(page, 'Road');
+    await tick(page, 10);
+    await shot('road-three');
+    await arena(page, { ...base, phase: 'relic', relicsDue: 2, relicChoices: ['stormglass', 'bonedice', 'fallen'] }, { camp: true });
+    await until(page, 'Road');
+    await tick(page, 10);
+    await shot('relic');
+  },
+  // The camp of a run well on: relics held, kinds built up, a relic among the wares, and the card of the kinds.
+  relics: async (page, shot) => {
+    await arena(page, { hero: 'bram', wave: 9, weapons: [{ id: 'sword', tier: 2 }, { id: 'halberd', tier: 1 }, { id: 'fang', tier: 1 }, { id: 'torch', tier: 0 }, { id: 'sunbrand', tier: 0 }, { id: 'hail', tier: 0 }],
+      items: THINGS.slice(0, 7), ups: UPS.slice(0, 3), level: 9, gold: 400, phase: 'camp',
+      relics: ['bellows', 'echobell', 'stormglass', 'ageswhet', 'fallen', 'oldmap', 'seal', 'crown'],
+      offers: [
+        { kind: 'weapon', id: 'trident', tier: 1, price: 73, sold: false, locked: false }, { kind: 'item', id: 'mail', tier: 1, price: 59, sold: false, locked: true },
+        { kind: 'weapon', id: 'holywater', tier: 2, price: 116, sold: false, locked: false }, { kind: 'relic', id: 'spade', tier: 3, price: 140, sold: false, locked: false },
+      ] }, { camp: true });
+    await until(page, 'Camp');
+    await tick(page, 10);
+    await shot('relics');
+    const at = await words(page, 'Camp', 'Blade');
+    if (at) {
+      await page.mouse.click(at.x, at.y);
+      await tick(page, 10);
+      await shot('kinds');
+    }
+  },
+  // What a road puts on the field: the shrine, the cage, the wagon, champions, and the night.
+  omens: async (page, shot) => {
+    const base = { hero: 'wren', wave: 6, weapons: RICH.slice(0, 4), items: THINGS.slice(0, 6), ups: UPS, level: 8, band: [{ id: 'biscuit', bond: 0 }], relics: ['spade'] };
+    const near = (what: 'shrine' | 'thing'): Promise<void> =>
+      page.evaluate((which) => {
+        const w = (window as unknown as Win).world() as unknown as { hero: { x: number; y: number }; shrine: { x: number; y: number } | null; foes: Array<{ x: number; y: number; def: { prop?: string } }> };
+        const to = which === 'shrine' ? w.shrine : w.foes.find((f) => f.def.prop);
+        if (to) Object.assign(w.hero, { x: to.x - 40, y: to.y + 30 });
+      }, what);
+    await arena(page, { ...base, road: { omen: 'shrine' } });
+    await until(page, 'Hud');
+    await fight(page, 0.5);
+    await near('shrine');
+    await tick(page, 200);
+    await shot('omen-shrine');
+    await arena(page, { ...base, road: { omen: 'stray', stray: 'greta' } });
+    await until(page, 'Hud');
+    await fight(page, 2.5);
+    await near('thing');
+    await tick(page, 20);
+    await shot('omen-cage');
+    await arena(page, { ...base, road: { omen: 'wagon' } });
+    await until(page, 'Hud');
+    await fight(page, 9);
+    await near('thing');
+    await tick(page, 12);
+    await shot('omen-wagon');
+    await arena(page, { ...base, road: { omen: 'champions' } });
+    await until(page, 'Hud');
+    await fight(page, 9);
+    await shot('omen-champions');
+    await arena(page, { ...base, road: { omen: 'night' } });
+    await until(page, 'Hud');
+    await fight(page, 6);
+    await shot('omen-night');
   },
   // A pack to open.
   pack: async (page, shot) => {

@@ -10,7 +10,7 @@
 // frames a second for real time to mean anything.
 
 import { chromium, open, type Context, type Page } from './browser';
-import { find } from './drive';
+import { arena, find, words } from './drive';
 
 const base = process.env.URL ?? 'http://127.0.0.1:5175/';
 let checks = 0;
@@ -24,7 +24,7 @@ function check(what: string, ok: boolean): void {
 interface Win {
   game: Phaser.Game;
   view: { zoom: number; density: number; w: number; h: number; tall: boolean };
-  run(): { hero: string; wave: number; gold: number; phase: string; weapons: unknown[]; items: unknown[]; rerolls: number; offers: Array<{ kind: string; locked: boolean; sold: boolean }>; pending: number; packs: number } | null;
+  run(): { hero: string; wave: number; gold: number; phase: string; weapons: unknown[]; items: unknown[]; rerolls: number; offers: Array<{ kind: string; locked: boolean; sold: boolean }>; pending: number; packs: number; roads: Array<{ omen: string }>; relics: string[] } | null;
   world(): { time: number; over: string | null; hero: { x: number; y: number; hp: number }; foes: Array<{ x: number; y: number }>; picks: Array<{ x: number; y: number }>; wave: { n: number } } | null;
   save(): { runs: number; run: unknown; best: Record<string, number> };
 }
@@ -203,7 +203,12 @@ async function play(label: string, { context, page }: { context: Context; page: 
   ok('OTHER WARES shows others', (await press(page, tap, 'Camp', 'OTHER WARES')) && (await run(page))?.rerolls === 1);
   r = await run(page);
   ok('the next wave is on its button', await press(page, tap, 'Camp', `WAVE ${r?.wave}`));
-  ok('and begins', (await until(page, 'Hud')) && (await world(page))?.wave === 2);
+  // Out of the camp the roads are laid out, and the one taken is the wave that is fought.
+  ok('the roads to it are laid out', (await until(page, 'Road')) && (await run(page))?.phase === 'road' && (await run(page))?.roads.length === 2);
+  await tick(page, 10);
+  const first = (await run(page))?.roads[0].omen;
+  ok('TAKE IT takes a road', await press(page, tap, 'Road', 'TAKE IT'));
+  ok('and the wave begins by it', (await until(page, 'Hud')) && (await world(page))?.wave === 2 && (await page.evaluate(() => ((window as unknown as Win).world() as unknown as { omen: string }).omen)) === first);
 
   // A fall, and the ways on from it.
   await tick(page, 30);
@@ -234,6 +239,23 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await page.clock.pauseAt(Date.now() + 1000);
   ok('after a reload the list comes up, not a new run', await until(page, 'Title'));
   ok('with the run to carry on', (await press(page, tap, 'Title', 'CARRY ON')) && (await until(page, 'Camp')) && (await run(page))?.gold === left?.gold && (await run(page))?.wave === left?.wave);
+
+  // A relic won: one of three is taken, and then the camp is there.
+  await arena(page, { hero: 'bram', wave: 8, level: 6, gold: 50, phase: 'relic', relicsDue: 1, relicChoices: ['bellows', 'stormglass', 'oldmap'], offers: [] }, { camp: true });
+  ok('a relic to choose comes up', await until(page, 'Road'));
+  await tick(page, 10);
+  ok('TAKE takes one', (await press(page, tap, 'Road', 'TAKE')) && (await run(page))?.relics.length === 1);
+  ok('and the camp follows', (await until(page, 'Camp')) && (await run(page))?.phase === 'camp');
+  await tick(page, 10);
+  ok('the relic is shown in the camp', (await words(page, 'Camp', 'RELICS')) !== null);
+  // The kinds of weapon held say what they give when pressed.
+  const blade = await words(page, 'Camp', 'Blade');
+  ok('the kinds held are listed', blade !== null);
+  if (blade) {
+    await tap(blade.x, blade.y);
+    await tick(page, 10);
+    ok('and pressed, say what they give', (await words(page, 'Camp', 'KINDS OF WEAPON')) !== null && (await press(page, tap, 'Camp', 'CLOSE')));
+  }
 
   for (const e of [...new Set(errors)]) failures.push(`${label}: the page said: ${e}`);
   await page.evaluate(() => 0);

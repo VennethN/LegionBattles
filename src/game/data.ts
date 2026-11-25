@@ -133,13 +133,13 @@ export const WEAPONS: readonly WeaponDef[] = [
   // The second armful: so that every kind has four of its own to find.
   { id: 'halberd', name: 'Halberd', kinds: ['pole', 'blade'], kind: 'melee', motion: 'sweep', dmg: [11, 17, 26, 40], scale: { might: 1.2 }, every: [1.45, 1.35, 1.25, 1.15], range: 138, crit: 5, critBy: 2, knock: 22, arc: 56, price: 24, says: 'A long, narrow sweep that keeps them off.' },
   { id: 'trident', name: 'Rime Trident', kinds: ['frost', 'pole'], kind: 'melee', motion: 'thrust', dmg: [7, 11, 17, 26], scale: { might: 0.6, lore: 0.5 }, every: [1.15, 1.07, 0.99, 0.9], range: 134, crit: 0, critBy: 2, knock: 10, pierce: 2, slow: 0.35, price: 22, says: 'A cold thrust that slows two.' },
-  { id: 'mace', name: 'Blessed Mace', kinds: ['holy', 'blunt'], kind: 'melee', motion: 'slam', dmg: [8, 13, 20, 31], scale: { might: 0.9 }, every: [1.2, 1.12, 1.04, 0.95], range: 86, crit: 0, critBy: 2, knock: 8, burst: 44, stun: 0.45, mends: [1, 1, 1, 2], price: 24, says: 'A quick, small slam. Felling someone with it mends you.' },
+  { id: 'mace', name: 'Blessed Mace', kinds: ['holy', 'blunt'], kind: 'melee', motion: 'slam', dmg: [8, 13, 20, 31], scale: { might: 0.9 }, every: [1.2, 1.12, 1.04, 0.95], range: 86, crit: 0, critBy: 2, knock: 8, burst: 44, stun: 0.45, mends: [1, 1, 1, 2], price: 24, says: 'A quick slam. Felling with it mends you.' },
   { id: 'longbow', name: 'War Bow', kinds: ['bow'], kind: 'ranged', motion: 'shoot', dmg: [13, 20, 31, 47], scale: { aim: 1.5 }, every: [2.1, 1.96, 1.82, 1.68], range: 560, crit: 25, critBy: 3, knock: 10, pierce: 0, flies: 820, shot: 'arrow', price: 26, says: 'Far, slow, and often deadly.' },
   { id: 'rimebow', name: 'Rime Bow', kinds: ['frost', 'bow'], kind: 'ranged', motion: 'shoot', dmg: [5, 8, 12, 19], scale: { aim: 0.7, lore: 0.3 }, every: [0.95, 0.88, 0.81, 0.74], range: 380, crit: 5, critBy: 2, knock: 4, pierce: 1, slow: 0.3, flies: 600, shot: 'arrow', price: 22, says: 'Arrows of ice that slow two.' },
   { id: 'blowpipe', name: 'Blowpipe', kinds: ['venom', 'bow'], kind: 'ranged', motion: 'shoot', dmg: [3, 5, 7, 11], scale: { aim: 0.5 }, every: [0.8, 0.74, 0.68, 0.62], range: 330, crit: 5, critBy: 2, knock: 0, burst: 36, cloud: [3, 5, 8, 12], flies: 640, shot: 'bolt', price: 20, says: 'Quick darts, each a small cloud.' },
-  { id: 'hatchet', name: 'Throwing Axes', kinds: ['blade', 'thrown'], kind: 'ranged', motion: 'shoot', dmg: [10, 16, 24, 37], scale: { might: 0.8, aim: 0.5 }, every: [1.3, 1.21, 1.12, 1.03], range: 280, crit: 12, critBy: 2, knock: 20, pierce: 1, flies: 500, shot: 'javelin', price: 22, says: 'Thrown hard and near: through two, and back they go.' },
-  { id: 'hail', name: 'Hailstones', kinds: ['frost', 'thrown'], kind: 'ranged', motion: 'shoot', dmg: [3, 5, 8, 12], scale: { aim: 0.4, lore: 0.3 }, every: [0.62, 0.57, 0.52, 0.47], range: 300, crit: 0, critBy: 2, knock: 2, pierce: 0, leaps: 1, slow: 0.2, flies: 520, shot: 'stone', price: 20, says: 'Cold stones that skip to a second and slow both.' },
-  { id: 'holywater', name: 'Holy Water', kinds: ['holy', 'thrown'], kind: 'ranged', motion: 'lob', dmg: [7, 11, 17, 26], scale: { lore: 0.6, aim: 0.3 }, every: [2.6, 2.43, 2.26, 2.1], range: 300, crit: 0, critBy: 2, knock: 6, burst: 70, holy: [3, 5, 8, 12], flies: 320, shot: 'bomb', price: 26, says: 'Where it breaks the ground is holy: it burns them and mends you.' },
+  { id: 'hatchet', name: 'Throwing Axes', kinds: ['blade', 'thrown'], kind: 'ranged', motion: 'shoot', dmg: [10, 16, 24, 37], scale: { might: 0.8, aim: 0.5 }, every: [1.3, 1.21, 1.12, 1.03], range: 280, crit: 12, critBy: 2, knock: 20, pierce: 1, flies: 500, shot: 'javelin', price: 22, says: 'Thrown hard and near, through two.' },
+  { id: 'hail', name: 'Hailstones', kinds: ['frost', 'thrown'], kind: 'ranged', motion: 'shoot', dmg: [3, 5, 8, 12], scale: { aim: 0.4, lore: 0.3 }, every: [0.62, 0.57, 0.52, 0.47], range: 300, crit: 0, critBy: 2, knock: 2, pierce: 0, leaps: 1, slow: 0.2, flies: 520, shot: 'stone', price: 20, says: 'Cold stones that skip on and slow.' },
+  { id: 'holywater', name: 'Holy Water', kinds: ['holy', 'thrown'], kind: 'ranged', motion: 'lob', dmg: [7, 11, 17, 26], scale: { lore: 0.6, aim: 0.3 }, every: [2.6, 2.43, 2.26, 2.1], range: 300, crit: 0, critBy: 2, knock: 6, burst: 70, holy: [3, 5, 8, 12], flies: 320, shot: 'bomb', price: 26, says: 'Breaks into holy ground that mends you.' },
   { id: 'gourd', name: 'Spore Gourd', kinds: ['venom', 'thrown'], kind: 'ranged', motion: 'lob', dmg: [4, 6, 9, 14], scale: { lore: 0.4, aim: 0.2 }, every: [2.4, 2.25, 2.1, 1.95], range: 310, crit: 0, critBy: 2, knock: 0, burst: 88, cloud: [5, 8, 12, 18], flies: 320, shot: 'bomb', price: 24, says: 'Thrown into the thick of them: a wide cloud.' },
   { id: 'sunbrand', name: 'Sunbrand', kinds: ['holy', 'fire'], kind: 'melee', motion: 'sweep', dmg: [6, 10, 15, 23], scale: { might: 0.7, lore: 0.5 }, every: [1.1, 1.02, 0.94, 0.86], range: 96, crit: 5, critBy: 2, knock: 10, arc: 90, burn: [3, 5, 8, 12], price: 24, says: 'A sweep that sets them all alight.' },
   { id: 'fang', name: 'Serpent Sickle', kinds: ['venom', 'blade'], kind: 'melee', motion: 'thrust', dmg: [4, 7, 10, 16], scale: { might: 0.6 }, every: [0.7, 0.65, 0.6, 0.54], range: 80, crit: 15, critBy: 2.5, knock: 4, pierce: 1, burst: 34, cloud: [3, 5, 8, 12], price: 22, says: 'Quick cuts that leave a small cloud.' },
@@ -330,7 +330,7 @@ export const ENEMIES: readonly EnemyDef[] = [
   { id: 'powdermonkey', unit: 'powdermonkey', name: 'Powder Monkey', ai: 'bomb', hp: 7, dmg: 5, speed: 132, r: 12, coins: 2, burst: 84 },
   { id: 'yak', unit: 'yak', name: 'Yak', ai: 'charge', hp: 34, dmg: 4, speed: 62, r: 20, coins: 5, dash: 410, size: 1.1 },
   { id: 'drummer', unit: 'drummer', name: 'War Drummer', ai: 'boost', hp: 22, dmg: 2, speed: 66, r: 14, coins: 6, keep: 300, aura: 230 },
-  { id: 'medjay', unit: 'medjay', name: 'Medjay', ai: 'walk', hp: 44, dmg: 4, speed: 76, r: 17, coins: 5, size: 1.15 },
+  { id: 'medjay', unit: 'medjay', name: 'Medjay', ai: 'walk', hp: 40, dmg: 3, speed: 76, r: 17, coins: 5, size: 1.15 },
   { id: 'colossus', unit: 'colossus', name: 'The Colossus', ai: 'boss', hp: 700, dmg: 5, speed: 66, r: 32, coins: 70, size: 1.7, every: 2.4, flies: 220, dash: 380, calls: 'scarab' },
   // Frostholt.
   { id: 'huscarl', unit: 'huscarl', name: 'Huscarl', ai: 'walk', hp: 14, dmg: 3, speed: 102, r: 14, coins: 2 },
@@ -349,8 +349,13 @@ export const ENEMIES: readonly EnemyDef[] = [
  * How enemies grow. Each wave an enemy has `hp` more of its first health, and `hpMore` more again for every wave
  * squared: a hero's harm grows faster than a straight line, as six weapons are bought and joined, and so must theirs.
  * Harm grows the same way, slowly at first: `dmg` each wave and `dmgMore` for every wave squared.
+ *
+ * Since the road, relics and kinds of weapon a hero has far more by the middle of a run than weapons alone gave, so
+ * both grow again on top of that: health by `hpLate` of itself for every wave past `hpFrom`, and harm by `dmgLate`
+ * for every wave past `dmgFrom`. The early waves are left as they were: there an enemy's harm is 1 or 2, and the
+ * smallest change in it is a half or a whole again.
  */
-export const ENEMY_GROWTH = { hp: 0.16, hpMore: 0.012, dmg: 0.06, dmgMore: 0.007 };
+export const ENEMY_GROWTH = { hp: 0.17, hpMore: 0.016, dmg: 0.06, dmgMore: 0.007, hpFrom: 4, hpLate: 0.09, dmgFrom: 7, dmgLate: 0.06 };
 /** How fast coins thin out: the waves grow far faster than the camp's prices do. */
 export const COIN_THINNING = 0.22;
 /** Past the last of the written waves, health grows by this share of itself every wave besides. */
@@ -391,13 +396,13 @@ const MIXES: ReadonlyArray<ReadonlyArray<readonly [string, number]>> = [
   [['lancer', 3], ['scarab', 2], ['javelineer', 1]],
   [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1]],
   [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1], ['yak', 0.6]],
-  [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1], ['yak', 0.6], ['medjay', 0.6], ['drummer', 0.2]],
-  [['lancer', 2], ['scarab', 2], ['javelineer', 1.6], ['powdermonkey', 1.2], ['yak', 0.8], ['medjay', 0.8], ['drummer', 0.25]],
+  [['lancer', 3], ['scarab', 2], ['javelineer', 1.4], ['powdermonkey', 1], ['yak', 0.6], ['medjay', 0.3], ['drummer', 0.1]],
+  [['lancer', 2], ['scarab', 2], ['javelineer', 1.6], ['powdermonkey', 1.2], ['yak', 0.8], ['medjay', 0.6], ['drummer', 0.25]],
   [['lancer', 3], ['scarab', 2], ['javelineer', 1], ['powdermonkey', 1]],
   [['huscarl', 2], ['direwolf', 3]],
   [['huscarl', 2], ['direwolf', 3], ['harpooner', 1.5]],
   [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8]],
-  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8], ['icegolem', 0.4], ['warbear', 0.6]],
+  [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8], ['icegolem', 0.3], ['warbear', 0.5]],
   [['huscarl', 2], ['direwolf', 2.5], ['harpooner', 1.5], ['frostwitch', 0.8], ['icegolem', 0.5], ['warbear', 0.7], ['skald', 0.22]],
   [['huscarl', 2], ['direwolf', 3], ['harpooner', 1.5]],
 ];
@@ -438,8 +443,9 @@ export function coinShare(wave: number): number {
 export function enemyAt(def: EnemyDef, wave: number): { hp: number; dmg: number } {
   const past = Math.max(0, wave - LAST_WAVE);
   const w = wave - 1;
-  const hp = def.hp * (1 + ENEMY_GROWTH.hp * w + ENEMY_GROWTH.hpMore * w * w) * Math.pow(1 + ENDLESS_GROWTH, past);
-  const dmg = def.dmg * (1 + ENEMY_GROWTH.dmg * w + ENEMY_GROWTH.dmgMore * w * w) * Math.pow(1 + ENDLESS_GROWTH * 0.5, past);
+  const g = ENEMY_GROWTH;
+  const hp = def.hp * (1 + g.hp * w + g.hpMore * w * w) * (1 + g.hpLate * Math.max(0, wave - g.hpFrom)) * Math.pow(1 + ENDLESS_GROWTH, past);
+  const dmg = def.dmg * (1 + g.dmg * w + g.dmgMore * w * w) * (1 + g.dmgLate * Math.max(0, wave - g.dmgFrom)) * Math.pow(1 + ENDLESS_GROWTH * 0.5, past);
   return { hp: Math.max(1, Math.round(hp)), dmg: Math.max(1, Math.round(dmg)) };
 }
 

@@ -318,7 +318,7 @@ describe('omens', () => {
     expect(new World(setupOf(run)).band.length).toBe(2);
   });
 
-  it('the stray: the cage holds someone who is not on the run, and a run takes in no more than two', () => {
+  it('the stray: the cage holds someone who is not on the run, and a run takes in no more than one', () => {
     const run = camp(6, { band: [{ id: 'biscuit', bond: 0 }] });
     const who = new Set<string>();
     for (let i = 0; i < 80; i++) {
@@ -333,7 +333,7 @@ describe('omens', () => {
     }
     expect(who.size).toBeGreaterThan(2);
     for (const id of who) expect(COMPANIONS.some((c) => c.id === id)).toBe(true);
-    const full = camp(6, { band: [{ id: 'pip', bond: 0, stray: true }, { id: 'quill', bond: 0, stray: true }] });
+    const full = camp(6, { band: [{ id: 'biscuit', bond: 0 }, ...['pip', 'quill', 'greta'].slice(0, ROAD.stray.most).map((id) => ({ id, bond: 0, stray: true }))] });
     for (let i = 0; i < 40; i++) {
       full.phase = 'camp';
       march(full);

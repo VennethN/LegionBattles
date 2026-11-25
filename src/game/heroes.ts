@@ -52,7 +52,7 @@ export interface HeroDef {
 export const HEROES: readonly HeroDef[] = [
   {
     id: 'bram', unit: 'bram', name: 'Bram Oakenhold', short: 'Bram', epithet: 'the Gatewarden', who: 'The last man on a gate that fell. He does not step back.', line: 'The gate is wherever I stand.',
-    weapon: 'gatekeeper', stats: { maxHp: 6, armor: 1, speed: -5 }, quirk: 'standfast', quirkName: 'Stand Fast',
+    weapon: 'gatekeeper', stats: { maxHp: 8, armor: 1, speed: -5 }, quirk: 'standfast', quirkName: 'Stand Fast',
     says: 'Standing still he sets his shield: blows do far less and his sword is faster. A step drops it.', move: 'rush', unlock: null,
   },
   {
@@ -67,7 +67,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'fenn', unit: 'fenn', name: 'Fenn Two-Coins', short: 'Fenn', epithet: 'the Lucky', who: 'A thief who has never lost a toss.', line: 'Heads I win. Tails, look behind you.',
-    weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 8, maxHp: -4 }, quirk: 'sticky', quirkName: 'Sticky Fingers',
+    weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 8, maxHp: -2 }, quirk: 'sticky', quirkName: 'Sticky Fingers',
     says: 'A blow may knock a coin loose. The more coins he holds the harder he hits: spending makes him weaker.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
   },
   {
@@ -82,7 +82,7 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'hroth', unit: 'hroth', name: 'Hroth', short: 'Hroth', epithet: 'the Unburied', who: 'They buried him twice.', line: 'Dig deeper next time.',
-    weapon: 'gravecleaver', stats: { might: 3, lifesteal: 4, armor: -2 }, quirk: 'unburied', quirkName: "Won't Stay Down",
+    weapon: 'gravecleaver', stats: { might: 3, lifesteal: 2, armor: -2 }, quirk: 'unburied', quirkName: "Won't Stay Down",
     says: 'More harm the more he is hurt. Once in a land he gets up from a killing blow. He does not mend by himself.', move: 'warcry', unlock: { kind: 'wave', wave: 10 },
   },
   {
@@ -144,7 +144,7 @@ export const QUIRKS = {
     /** Seconds he has to stand before the shield is set. */
     after: 0.45,
     /** The share of a blow that gets through a set shield. */
-    lets: 0.6,
+    lets: 0.55,
     /** How much more often his own sword strikes behind it. */
     faster: 1.25,
   },
@@ -176,15 +176,15 @@ export const QUIRKS = {
   momentum: {
     /** Seconds of running to her full harm, and how much more that is. */
     seconds: 3,
-    most: 0.3,
+    most: 0.24,
     /** How long she can stand before it is lost. */
     slack: 0.3,
   },
   unburied: {
     /** How much more he hits at the edge of death. */
-    most: 0.45,
+    most: 0.2,
     /** The share of his health he gets up with, how wide the burst is and how many of his blows it is worth. */
-    rises: 0.34,
+    rises: 0.25,
     r: 150,
     harm: 3,
   },

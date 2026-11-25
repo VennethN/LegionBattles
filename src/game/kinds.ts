@@ -50,8 +50,8 @@ const pct = (n: number): string => `${Math.round(n * 100)}%`;
 
 export const KINDS: readonly KindDef[] = [
   { id: 'blade', name: 'Blade', says: GIFTS.blade.crit.map((c) => `+${c}% critical chance`) as [string, string, string] },
-  { id: 'pole', name: 'Pole', says: [`Everything reaches ${pct(GIFTS.pole.reach[0])} further`, `Everything reaches ${pct(GIFTS.pole.reach[1])} further`, `Reaches ${pct(GIFTS.pole.reach[2])} further, and a thrust goes through one more`] },
-  { id: 'blunt', name: 'Blunt', says: GIFTS.blunt.stun.map((s) => `Stuns last ${s}s longer, and blows throw back further`) as [string, string, string] },
+  { id: 'pole', name: 'Pole', says: [`Everything reaches ${pct(GIFTS.pole.reach[0])} further`, `Everything reaches ${pct(GIFTS.pole.reach[1])} further`, `Reaches ${pct(GIFTS.pole.reach[2])} further, thrusts go through one more`] },
+  { id: 'blunt', name: 'Blunt', says: GIFTS.blunt.stun.map((s) => `Stuns last ${s}s longer, blows throw further`) as [string, string, string] },
   { id: 'bow', name: 'Bow', says: GIFTS.bow.haste.map((h) => `What shoots or is thrown is ${h}% quicker`) as [string, string, string] },
   { id: 'thrown', name: 'Thrown', says: ['What is thrown skips to one more', 'Skips to one more, and bursts are wider', 'Skips to two more, and bursts are wider'] },
   { id: 'fire', name: 'Fire', says: ['Fires burn 1s longer', 'Fires burn 2s longer', 'Fires burn 3s longer, and hotter'] },
