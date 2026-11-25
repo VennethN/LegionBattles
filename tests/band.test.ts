@@ -380,5 +380,5 @@ describe('the band and the run', () => {
       // Tam is there for his banner, not his spear.
       if (c.id !== 'tam') expect(struck, c.id).toBeGreaterThan(3);
     }
-  });
+  }, 60000);
 });

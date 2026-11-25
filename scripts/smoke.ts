@@ -176,7 +176,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await tick(page, 4);
   ok('a full move waits to be asked for', (await fury()) === 1);
   if (!touch) await page.keyboard.press('Space');
-  else ok('the move has a button', await press(page, tap, 'Hud', 'SHIELD RUSH'));
+  else ok('the move has a button', await press(page, tap, 'Hud', 'PLANT THE GATE'));
   await tick(page, 6);
   ok('the move is let loose when it is asked for', (await fury()) < 1);
 
@@ -212,7 +212,8 @@ async function play(label: string, { context, page }: { context: Context; page: 
   r = await run(page);
   ok('the next wave is on its button', await press(page, tap, 'Camp', `WAVE ${r?.wave}`));
   // Out of the camp the roads are laid out, and the one taken is the wave that is fought.
-  ok('the roads to it are laid out', (await until(page, 'Road')) && (await run(page))?.phase === 'road' && (await run(page))?.roads.length === 2);
+  // A first run has one road out of its first camp: the stray's, with Biscuit in the cage.
+  ok('the road to it is laid out: the stray\'s, on a first run', (await until(page, 'Road')) && (await run(page))?.phase === 'road' && (await run(page))?.roads.length === 1 && (await run(page))?.roads[0].omen === 'stray');
   await tick(page, 10);
   const first = (await run(page))?.roads[0].omen;
   ok('TAKE IT takes a road', await press(page, tap, 'Road', 'TAKE IT'));
