@@ -2,11 +2,11 @@
 // every stat has one, by name. The art build writes exactly the pictures
 // named here (scripts/art.game.ts), and a test holds that each is drawn.
 
-import { ITEMS, WEAPONS } from '../game/data';
+import { ITEMS, WEAPONS, weaponOf } from '../game/data';
 import { STAT_INFO, STATS } from '../game/stats';
 
-/** The picture of a weapon. */
-export const weaponIcon = (id: string): string => `icon/w-${id}`;
+/** The picture of a weapon. A hero's own is drawn with a plain weapon's picture until it has one of its own. */
+export const weaponIcon = (id: string): string => `icon/w-${weaponOf(id).icon ?? id}`;
 
 /** The picture of each ware. Most have one of their own; a few are things the kit had drawn already. */
 const ITEM_ICONS: Record<string, string> = {

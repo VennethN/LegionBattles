@@ -47,7 +47,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await page.evaluate(() => {
       const w = window as unknown as Win;
       const s = w.save() as { best: Record<string, number>; open: string[]; kills: number; coins: number; runs: number; last: string; told: string[] };
-      Object.assign(s, { best: { knight: 9, archer: 4, mage: 6 }, open: ['mage', 'cutpurse'], kills: 420, coins: 260, runs: 5, last: 'mage', told: ['move'] });
+      Object.assign(s, { best: { bram: 9, wren: 4, orrin: 6 }, open: ['orrin', 'fenn'], kills: 420, coins: 260, runs: 5, ended: 5, last: 'orrin', friends: ['biscuit', 'pip', 'mossback', 'quill'], band: ['pip'], told: ['move'] });
       for (const key of ['Hud', 'Camp', 'Result', 'Arena']) w.game.scene.stop(key);
       w.game.scene.start('Title');
     });
@@ -58,32 +58,41 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
   },
   // A wave in its middle, with every hand full.
   horde: async (page, shot) => {
-    await arena(page, { hero: 'knight', wave: 11, weapons: RICH, items: THINGS, ups: UPS, level: 12, gold: 310 });
+    await arena(page, { hero: 'bram', wave: 11, weapons: RICH, items: THINGS, ups: UPS, level: 12, gold: 310, fury: 0.9, band: [{ id: 'greta', bond: 1 }, { id: 'pip', bond: 0 }] });
     await until(page, 'Hud');
     await fight(page, 16);
     await shot('horde');
   },
+  // The band: a hero with companions beside them, as the wave begins and in the middle of it.
+  band: async (page, shot) => {
+    await arena(page, { hero: 'aldous', wave: 4, level: 4, weapons: RICH.slice(0, 2), band: [{ id: 'greta', bond: 0 }, { id: 'mossback', bond: 0 }, { id: 'biscuit', bond: 0 }], fury: 0.5 });
+    await until(page, 'Hud');
+    await tick(page, 40);
+    await shot('band');
+    await fight(page, 7);
+    await shot('band-fight');
+  },
   // A boss.
   boss: async (page, shot) => {
-    await arena(page, { hero: 'archer', wave: 7, weapons: RICH, items: THINGS, ups: UPS, level: 8, gold: 120 });
+    await arena(page, { hero: 'wren', wave: 7, weapons: RICH, items: THINGS, ups: UPS, level: 8, gold: 120 });
     await until(page, 'Hud');
     await fight(page, 9);
     await shot('boss');
   },
   // Snow and sand, to see the grounds.
   lands: async (page, shot) => {
-    await arena(page, { hero: 'mage', wave: 9, weapons: RICH, items: THINGS, ups: UPS, level: 9 });
+    await arena(page, { hero: 'orrin', wave: 9, weapons: RICH, items: THINGS, ups: UPS, level: 9 });
     await until(page, 'Hud');
     await fight(page, 8);
     await shot('land-desert');
-    await arena(page, { hero: 'frostwitch', wave: 16, weapons: RICH, items: THINGS, ups: UPS, level: 14 });
+    await arena(page, { hero: 'ysolde', wave: 16, weapons: RICH, items: THINGS, ups: UPS, level: 14 });
     await until(page, 'Hud');
     await fight(page, 8);
     await shot('land-snow');
   },
   // A level's choice, then the wares.
   camp: async (page, shot) => {
-    await arena(page, { hero: 'knight', wave: 6, weapons: RICH.slice(0, 4), items: THINGS.slice(0, 7), ups: UPS.slice(0, 3), level: 5, gold: 260, phase: 'level', pending: 1,
+    await arena(page, { hero: 'bram', wave: 6, weapons: RICH.slice(0, 4), items: THINGS.slice(0, 7), ups: UPS.slice(0, 3), level: 5, gold: 260, phase: 'level', pending: 1,
       choices: [{ stat: 'maxHp', tier: 0, by: 3 }, { stat: 'haste', tier: 1, by: 10 }, { stat: 'luck', tier: 2, by: 15 }, { stat: 'armor', tier: 3, by: 4 }],
       offers: [
         { kind: 'weapon', id: 'greataxe', tier: 1, price: 73, sold: false, locked: false }, { kind: 'item', id: 'mail', tier: 1, price: 59, sold: false, locked: true },
@@ -122,7 +131,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
   },
   // A pack to open.
   pack: async (page, shot) => {
-    await arena(page, { hero: 'cleric', wave: 8, weapons: RICH.slice(0, 3), items: THINGS.slice(0, 4), level: 6, gold: 90, phase: 'camp', packs: 1, offers: [] }, { camp: true });
+    await arena(page, { hero: 'aldous', wave: 8, weapons: RICH.slice(0, 3), items: THINGS.slice(0, 4), level: 6, gold: 90, phase: 'camp', packs: 1, offers: [] }, { camp: true });
     await until(page, 'Camp');
     await tick(page, 10);
     await shot('pack');
@@ -142,7 +151,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
       const s = (window as unknown as Win).save() as { best: Record<string, number>; open: string[]; felled: string[]; runs: number };
       Object.assign(s, { best: {}, open: [], felled: [], runs: 2 });
     });
-    await arena(page, { hero: 'knight', wave: 8, weapons: RICH.slice(0, 3), items: THINGS.slice(0, 4), level: 6, gold: 20, kills: 388, coins: 233, felled: ['warlord'] });
+    await arena(page, { hero: 'bram', wave: 8, weapons: RICH.slice(0, 3), items: THINGS.slice(0, 4), level: 6, gold: 20, kills: 388, coins: 233, felled: ['warlord'] });
     await until(page, 'Hud');
     await fight(page, 3);
     await page.evaluate(() => {
@@ -157,7 +166,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
   },
   // The game held still.
   pause: async (page, shot) => {
-    await arena(page, { hero: 'knight', wave: 3, weapons: RICH.slice(0, 2), level: 2 });
+    await arena(page, { hero: 'bram', wave: 3, weapons: RICH.slice(0, 2), level: 2 });
     await until(page, 'Hud');
     await fight(page, 4);
     await page.keyboard.press('KeyP');

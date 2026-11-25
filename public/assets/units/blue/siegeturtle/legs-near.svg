@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="siegeturtle-legs-near" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="siegeturtle-legs-near-leg-a-shape" d="M 64 152 L 70 152 Q 78 152 78 160 L 78 172 Q 78 180 70 180 L 64 180 Q 56 180 56 172 L 56 160 Q 56 152 64 152 Z"/>
+<clipPath id="siegeturtle-legs-near-leg-a-clip"><use href="#siegeturtle-legs-near-leg-a-shape"/></clipPath>
+<clipPath id="siegeturtle-legs-near-leg-a-lit-clip"><use href="#siegeturtle-legs-near-leg-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="siegeturtle-legs-near-leg-b-shape" d="M 116 152 L 122 152 Q 130 152 130 160 L 130 172 Q 130 180 122 180 L 116 180 Q 108 180 108 172 L 108 160 Q 108 152 116 152 Z"/>
+<clipPath id="siegeturtle-legs-near-leg-b-clip"><use href="#siegeturtle-legs-near-leg-b-shape"/></clipPath>
+<clipPath id="siegeturtle-legs-near-leg-b-lit-clip"><use href="#siegeturtle-legs-near-leg-b-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="siegeturtle-legs-near-leg-a">
+<use id="siegeturtle-legs-near-leg-a-shade" href="#siegeturtle-legs-near-leg-a-shape" fill="#2e5f45"/>
+<g clip-path="url(#siegeturtle-legs-near-leg-a-clip)">
+<use id="siegeturtle-legs-near-leg-a-fill" href="#siegeturtle-legs-near-leg-a-shape" transform="translate(-3 -3)" fill="#3f7a5a"/>
+<g clip-path="url(#siegeturtle-legs-near-leg-a-lit-clip)">
+<use id="siegeturtle-legs-near-leg-a-lit" href="#siegeturtle-legs-near-leg-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-legs-near-leg-a-fill-over" href="#siegeturtle-legs-near-leg-a-shape" transform="translate(3.6 3.6)" fill="#3f7a5a"/>
+</g>
+</g>
+<use id="siegeturtle-legs-near-leg-a-line" href="#siegeturtle-legs-near-leg-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-legs-near-leg-b">
+<use id="siegeturtle-legs-near-leg-b-shade" href="#siegeturtle-legs-near-leg-b-shape" fill="#2e5f45"/>
+<g clip-path="url(#siegeturtle-legs-near-leg-b-clip)">
+<use id="siegeturtle-legs-near-leg-b-fill" href="#siegeturtle-legs-near-leg-b-shape" transform="translate(-3 -3)" fill="#3f7a5a"/>
+<g clip-path="url(#siegeturtle-legs-near-leg-b-lit-clip)">
+<use id="siegeturtle-legs-near-leg-b-lit" href="#siegeturtle-legs-near-leg-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-legs-near-leg-b-fill-over" href="#siegeturtle-legs-near-leg-b-shape" transform="translate(3.6 3.6)" fill="#3f7a5a"/>
+</g>
+</g>
+<use id="siegeturtle-legs-near-leg-b-line" href="#siegeturtle-legs-near-leg-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

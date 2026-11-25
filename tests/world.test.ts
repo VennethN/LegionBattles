@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { botSteer } from '../src/game/bot';
-import { ENEMIES, HERO_RADIUS, HEROES, HURT_GRACE, ITEMS, LAST_WAVE, MARK_CLEAR, MARK_SECONDS, UPGRADES, WEAPONS, byId, coinShare, enemyAt, levelNeeds, tierWeights, waveOf } from '../src/game/data';
+import { ENEMIES, HERO_RADIUS, HEROES, HURT_GRACE, ITEMS, LAST_WAVE, MARK_CLEAR, MARK_SECONDS, UPGRADES, WEAPONS, byId, coinShare, enemyAt, landAt, levelNeeds, tierWeights, waveOf } from '../src/game/data';
 import { newRun, setupOf, statsOf } from '../src/game/run';
 import { STATS, armorShare, hasteRate, noStats, sumStats, type Stats } from '../src/game/stats';
 import { STEP, World, slotPlace, type Ev, type Foe, type Setup } from '../src/game/world';
 
 const stats = (line: Partial<Stats> = {}): Stats => ({ ...noStats(), maxHp: 30, ...line });
-const setup = (o: Partial<Setup> = {}): Setup => ({ seed: 7, wave: 1, stats: stats(), flag: 'drive', weapons: [{ id: 'sword', tier: 0 }], ...o });
+const setup = (o: Partial<Setup> = {}): Setup => ({ seed: 7, wave: 1, stats: stats(), weapons: [{ id: 'sword', tier: 0 }], ...o });
 
 /** Steps a wave with the hero standing still, for some seconds, and gives back everything that happened. */
 function play(w: World, seconds: number, steer = { x: 0, y: 0 }): Ev[] {
@@ -24,7 +24,7 @@ function stand(w: World, id: string, x: number, y: number, o: Partial<Foe> = {})
   const at = enemyAt(def, w.wave.n);
   const f: Foe = {
     id: 9000 + w.foes.length, def, x, y, kx: 0, ky: 0, hp: at.hp, maxHp: at.hp, dmg: at.dmg, face: 1, state: 'walk', left: 0, cool: 99, dx: 0, dy: 0, doing: '', turn: 0,
-    slow: 0, slowBy: 0, stun: 0, burn: 0, burnBy: 0, burnTick: 0, moving: false, spurred: false, boss: false, dead: false, ...o,
+    slow: 0, slowBy: 0, stun: 0, burn: 0, burnBy: 0, burnTick: 0, frozen: 0, numb: 0, marked: 0, markedBy: 0, flee: 0, moving: false, spurred: false, boss: false, dead: false, ...o,
   };
   w.foes.push(f);
   return f;
@@ -33,7 +33,6 @@ function stand(w: World, id: string, x: number, y: number, o: Partial<Foe> = {})
 describe('the data', () => {
   it('names only things there are', () => {
     for (const h of HEROES) {
-      expect(byId(WEAPONS, h.weapon).id, h.id).toBe(h.weapon);
       if (h.unlock?.kind === 'boss') expect(byId(ENEMIES, h.unlock.boss).ai).toBe('boss');
     }
     for (let n = 1; n <= LAST_WAVE * 2 + 3; n++) {
@@ -50,7 +49,7 @@ describe('the data', () => {
   });
 
   it('starts with two heroes open and gives each of the rest a feat', () => {
-    expect(HEROES.filter((h) => h.unlock === null).map((h) => h.id)).toEqual(['knight', 'archer']);
+    expect(HEROES.filter((h) => h.unlock === null).map((h) => h.id)).toEqual(['bram', 'wren']);
   });
 
   it('makes every weapon better at every tier, and every enemy harder every wave', () => {
@@ -77,6 +76,8 @@ describe('the data', () => {
     expect(waveOf(27).boss).toBe('warlord');
     expect(waveOf(21).land).toBe('meadow');
     expect(waveOf(21).band).toBeGreaterThan(waveOf(1).band);
+    // The lands are counted on past the written waves: what happens once in a land asks.
+    expect([1, 7, 8, 14, 15, 20, 21, 28].map(landAt)).toEqual([0, 0, 1, 1, 2, 2, 3, 4]);
   });
 
   it('asks more for each level, opens better tiers later, and thins the coins', () => {
@@ -200,7 +201,7 @@ describe('the hero', () => {
     expect(play(w, HURT_GRACE).filter((e) => e.t === 'hurt').length).toBe(1);
   });
 
-  it('armor takes its share, plate one more, and a blow always does at least one', () => {
+  it('armor takes its share, and a blow always does at least one', () => {
     const taken = (o: Partial<Setup>): number => {
       const w = new World(setup({ weapons: [{ id: 'bow', tier: 0 }], ...o }));
       w.slots[0].cool = 99;
@@ -210,8 +211,7 @@ describe('the hero', () => {
     };
     expect(taken({})).toBe(10);
     expect(taken({ stats: stats({ armor: 15 }) })).toBe(5);
-    expect(taken({ stats: stats({ armor: 15 }), flag: 'plate' })).toBe(4);
-    expect(taken({ stats: stats({ armor: 100000 }), flag: 'plate' })).toBe(1);
+    expect(taken({ stats: stats({ armor: 100000 }) })).toBe(1);
   });
 
   it('dodges no more than the cap lets them', () => {
@@ -250,21 +250,21 @@ describe('weapons', () => {
     expect(play(w, 0.6).some((e) => e.t === 'hit')).toBe(true);
   });
 
-  it('a spear goes through three in a line, and through everyone for the hero who drives it', () => {
-    const hits = (flag: Setup['flag']): number => {
-      const w = new World(setup({ weapons: [{ id: 'spear', tier: 0 }], flag, stats: stats({ maxHp: 9999 }) }));
+  it('a spear goes through three in a line, and the lance that is a hero\'s own through everyone', () => {
+    const hits = (id: string): number => {
+      const w = new World(setup({ weapons: [], own: { id, tier: 0 }, stats: stats({ maxHp: 9999 }) }));
       for (let i = 0; i < 5; i++) {
         const f = stand(w, 'bruiser', w.hero.x + 60 + i * 20, w.hero.y, { hp: 9999 });
         f.def = { ...f.def, speed: 0 };
       }
       return play(w, 0.4).filter((e) => e.t === 'hit').length;
     };
-    expect(hits('plate')).toBe(3);
-    expect(hits('drive')).toBe(5);
+    expect(hits('spear')).toBe(3);
+    expect(hits('ninth')).toBeGreaterThan(3);
   });
 
   it('a sweep hits who is in front and not who is behind', () => {
-    const w = new World(setup({ weapons: [{ id: 'sword', tier: 0 }], flag: 'plate', stats: stats({ maxHp: 9999 }) }));
+    const w = new World(setup({ weapons: [{ id: 'sword', tier: 0 }], stats: stats({ maxHp: 9999 }) }));
     const front = stand(w, 'bruiser', w.hero.x + 60, w.hero.y, { hp: 9999 });
     const back = stand(w, 'bruiser', w.hero.x - 75, w.hero.y, { hp: 9999 });
     front.def = { ...front.def, speed: 0 };
@@ -274,57 +274,53 @@ describe('weapons', () => {
     expect(back.hp).toBe(9999);
   });
 
-  it('strike more often with Haste, and magic more often still for the hero who has the focus', () => {
-    const every = (flag: Setup['flag'], haste: number, id: string): number => {
-      const w = new World(setup({ flag, stats: stats({ haste }), weapons: [{ id, tier: 0 }] }));
+  it('strike more often with Haste', () => {
+    const every = (haste: number, id: string): number => {
+      const w = new World(setup({ stats: stats({ haste }), weapons: [{ id, tier: 0 }] }));
       return w.everyOf(w.slots[0]);
     };
-    expect(every('plate', 100, 'sword')).toBeCloseTo(every('plate', 0, 'sword') / 2);
-    expect(every('focus', 0, 'staff')).toBeCloseTo(every('plate', 0, 'staff') / 1.2);
-    expect(every('focus', 0, 'sword')).toBe(every('plate', 0, 'sword'));
+    expect(every(100, 'sword')).toBeCloseTo(every(0, 'sword') / 2);
   });
 
-  it('an arrow stops at the first it hits, a bolt goes on, and the volley gives each one more', () => {
-    const hits = (id: string, flag: Setup['flag']): number => {
-      const w = new World(setup({ weapons: [{ id, tier: 0 }], flag, stats: stats({ maxHp: 9999 }) }));
+  it('an arrow stops at the first it hits, and a bolt goes on through three', () => {
+    const hits = (id: string): number => {
+      const w = new World(setup({ weapons: [{ id, tier: 0 }], stats: stats({ maxHp: 9999 }) }));
       for (let i = 0; i < 6; i++) {
         const f = stand(w, 'bruiser', w.hero.x + 120 + i * 30, w.hero.y - 30, { hp: 99999 });
         f.def = { ...f.def, speed: 0 };
       }
       return play(w, 1).filter((e) => e.t === 'hit').length;
     };
-    expect(hits('bow', 'plate')).toBe(1);
-    expect(hits('bow', 'volley')).toBe(2);
-    expect(hits('crossbow', 'plate')).toBe(3);
+    expect(hits('bow')).toBe(1);
+    expect(hits('crossbow')).toBe(3);
   });
 
-  it('fire burns on after the blow, and twice as long for the hero who kindles', () => {
-    const burnt = (flag: Setup['flag']): number => {
-      const w = new World(setup({ weapons: [{ id: 'torch', tier: 0 }], flag, stats: stats({ maxHp: 9999 }) }));
+  it('fire burns on after the blow', () => {
+    const burnt = (): number => {
+      const w = new World(setup({ weapons: [{ id: 'torch', tier: 0 }], stats: stats({ maxHp: 9999 }) }));
       const f = stand(w, 'bruiser', w.hero.x + 50, w.hero.y, { hp: 99999 });
       f.def = { ...f.def, speed: 0 };
       play(w, 0.5);
       w.slots[0].cool = 999;
       return play(w, 9).filter((e) => e.t === 'hit' && e.soft).length;
     };
-    expect(burnt('plate')).toBeGreaterThanOrEqual(5);
-    expect(burnt('kindle')).toBeGreaterThanOrEqual(burnt('plate') + 5);
+    expect(burnt()).toBeGreaterThanOrEqual(5);
   });
 
-  it('a hammer stuns where it lands, cold slows, and the slowed take more from the hero who shatters', () => {
-    const w = new World(setup({ weapons: [{ id: 'hammer', tier: 0 }], flag: 'plate', stats: stats({ maxHp: 9999 }) }));
+  it('a hammer stuns where it lands, and cold slows', () => {
+    const w = new World(setup({ weapons: [{ id: 'hammer', tier: 0 }], stats: stats({ maxHp: 9999 }) }));
     const f = stand(w, 'bruiser', w.hero.x + 60, w.hero.y, { hp: 9999 });
     play(w, 0.4);
     expect(f.stun).toBeGreaterThan(0);
-    const cold = (flag: Setup['flag']): number => {
-      const v = new World(setup({ weapons: [{ id: 'frost', tier: 0 }], flag, stats: stats({ maxHp: 9999 }) }));
+    const cold = (): number => {
+      const v = new World(setup({ weapons: [{ id: 'frost', tier: 0 }], stats: stats({ maxHp: 9999 }) }));
       const g = stand(v, 'bruiser', v.hero.x + 100, v.hero.y, { hp: 9999 });
       g.def = { ...g.def, speed: 0 };
       play(v, 0.8);
       expect(g.slow).toBeGreaterThan(0);
       return 9999 - g.hp;
     };
-    expect(cold('shatter')).toBeGreaterThan(cold('plate'));
+    expect(cold()).toBeGreaterThan(0);
   });
 
   it('float round the hero each in a place of its own', () => {
@@ -337,8 +333,8 @@ describe('weapons', () => {
 
 describe('what is left on the ground', () => {
   it('comes to a hero who is near, and is worth more with Bounty', () => {
-    const got = (bounty: number, flag: Setup['flag'] = 'plate'): [number, number] => {
-      const w = new World(setup({ flag, stats: stats({ bounty }), weapons: [{ id: 'bow', tier: 0 }] }));
+    const got = (bounty: number): [number, number] => {
+      const w = new World(setup({ stats: stats({ bounty }), weapons: [{ id: 'bow', tier: 0 }] }));
       w.slots[0].cool = 999;
       w.picks.push({ id: 1, kind: 'coin', x: w.hero.x + 40, y: w.hero.y, vx: 0, vy: 0, value: 3, pulled: false, age: 1 });
       w.picks.push({ id: 2, kind: 'coin', x: w.hero.x + 500, y: w.hero.y, vx: 0, vy: 0, value: 3, pulled: false, age: 1 });
@@ -347,21 +343,19 @@ describe('what is left on the ground', () => {
     };
     expect(got(0)).toEqual([3, 3]);
     expect(got(100)).toEqual([6, 3]);
-    expect(got(0, 'thief')).toEqual([3, 4.5]);
   });
 
-  it('a heart mends, one more with the halo, and is left for a hero who is whole', () => {
-    const mended = (flag: Setup['flag'], hp: number): number => {
-      const w = new World(setup({ flag, stats: stats({ maxHp: 30 }), weapons: [{ id: 'bow', tier: 0 }] }));
+  it('a heart mends, and is left for a hero who is whole', () => {
+    const mended = (hp: number): number => {
+      const w = new World(setup({ stats: stats({ maxHp: 30 }), weapons: [{ id: 'bow', tier: 0 }] }));
       w.slots[0].cool = 999;
       w.hero.hp = hp;
       w.picks.push({ id: 1, kind: 'heart', x: w.hero.x + 30, y: w.hero.y, vx: 0, vy: 0, value: 3, pulled: false, age: 1 });
       play(w, 0.39);
       return w.hero.hp - hp;
     };
-    expect(mended('plate', 10)).toBe(3);
-    expect(mended('halo', 10)).toBe(4);
-    expect(mended('plate', 30)).toBe(0);
+    expect(mended(10)).toBe(3);
+    expect(mended(30)).toBe(0);
   });
 });
 

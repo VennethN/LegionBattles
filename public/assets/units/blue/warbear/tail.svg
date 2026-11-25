@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="warbear-tail" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="warbear-tail-tail-shape" d="M 65.2 107 C 65.2 112.1 60.6 116.2 55 116.2 C 49.3 116.2 44.7 112.1 44.7 107 C 44.7 102 49.3 97.9 55 97.9 C 60.6 97.9 65.2 102 65.2 107 Z"/>
+<clipPath id="warbear-tail-tail-clip"><use href="#warbear-tail-tail-shape"/></clipPath>
+<clipPath id="warbear-tail-tail-lit-clip"><use href="#warbear-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="warbear-tail-tail">
+<use id="warbear-tail-tail-shade" href="#warbear-tail-tail-shape" fill="#4e3520"/>
+<g clip-path="url(#warbear-tail-tail-clip)">
+<use id="warbear-tail-tail-fill" href="#warbear-tail-tail-shape" transform="translate(-3 -3)" fill="#6b4a2b"/>
+<g clip-path="url(#warbear-tail-tail-lit-clip)">
+<use id="warbear-tail-tail-lit" href="#warbear-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warbear-tail-tail-fill-over" href="#warbear-tail-tail-shape" transform="translate(3.6 3.6)" fill="#6b4a2b"/>
+</g>
+</g>
+<use id="warbear-tail-tail-line" href="#warbear-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

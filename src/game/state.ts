@@ -1,12 +1,14 @@
-// What is kept between visits: which heroes are open, how far each has
-// come, a run that was left in its camp, and how the player likes the
-// sound. A save may be from an older copy of the game, or not a save at
-// all, so it is mended on the way in.
+// What is kept between visits: which heroes and companions are open, how
+// far each hero has come, who goes on the next run, a run that was left in
+// its camp, and how the player likes the sound. A save may be from an
+// older copy of the game, or not a save at all, so it is mended on the way
+// in.
 
-import { HEROES, type Feat } from './data';
-import { survived, type RunData } from './run';
+import { BAND, COMPANIONS, HEROES, OLD_HEROES, type Feat } from './data';
+import { bandSize, survived, type RunData } from './run';
 
-export const SAVE_VERSION = 1;
+/** 1: heroes without names. 2: named heroes, companions. */
+export const SAVE_VERSION = 2;
 
 export interface SaveData {
   v: number;
@@ -20,9 +22,19 @@ export interface SaveData {
   coins: number;
   /** Every boss beaten, ever. */
   felled: string[];
+  /** Runs begun, and runs that have ended. */
   runs: number;
+  ended: number;
   /** Who was played last: the one the game offers first. */
   last: string;
+  /** Companions opened by a feat. */
+  friends: string[];
+  /** The companions who go on the next run, in their places. More may be named here than a hero has places for: the first are taken. */
+  band: string[];
+  /** Places in the band that are open, before what a hero adds. */
+  places: number;
+  /** True if the move goes off by itself when it is full. */
+  auto: boolean;
   /** A run left in its camp, to carry on. */
   run: RunData | null;
   sound: boolean;
@@ -32,7 +44,10 @@ export interface SaveData {
 }
 
 export function freshSave(): SaveData {
-  return { v: SAVE_VERSION, best: {}, open: [], kills: 0, coins: 0, felled: [], runs: 0, last: HEROES[0].id, run: null, sound: true, music: true, told: [] };
+  return {
+    v: SAVE_VERSION, best: {}, open: [], kills: 0, coins: 0, felled: [], runs: 0, ended: 0, last: HEROES[0].id, friends: [], band: [], places: 1, auto: true, run: null, sound: true, music: true,
+    told: [],
+  };
 }
 
 const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
@@ -45,26 +60,43 @@ function mendRun(raw: unknown): RunData | null {
   if (!isRecord(raw)) return null;
   const r = raw as unknown as RunData;
   const ok =
-    typeof r.hero === 'string' && HEROES.some((h) => h.id === r.hero) && typeof r.wave === 'number' && r.wave >= 1 && Array.isArray(r.weapons) && r.weapons.length > 0 &&
+    typeof r.hero === 'string' && HEROES.some((h) => h.id === r.hero) && typeof r.wave === 'number' && r.wave >= 1 && Array.isArray(r.weapons) && Array.isArray(r.band) &&
+    r.band.every((b) => isRecord(b) && COMPANIONS.some((c) => c.id === b.id) && typeof b.bond === 'number') &&
     Array.isArray(r.items) && Array.isArray(r.ups) && Array.isArray(r.offers) && Array.isArray(r.choices) && (r.phase === 'camp' || r.phase === 'level') &&
-    typeof r.gold === 'number' && typeof r.dice === 'number';
+    typeof r.gold === 'number' && typeof r.dice === 'number' && typeof r.fury === 'number' && typeof r.rose === 'number';
   return ok ? r : null;
 }
+
+/** A hero's name as it is now: a save from before the heroes had names calls them by what they were. */
+const heroNow = (id: unknown): string => (typeof id === 'string' ? (OLD_HEROES[id] ?? id) : '');
 
 export function repair(raw: unknown, _seed = 1): SaveData {
   const s = freshSave();
   if (!isRecord(raw)) return s;
   const heroes = new Set(HEROES.map((h) => h.id));
+  const friends = new Set(COMPANIONS.map((c) => c.id));
   if (isRecord(raw.best)) {
-    for (const [id, n] of Object.entries(raw.best)) if (heroes.has(id)) s.best[id] = whole(n);
+    for (const [id, n] of Object.entries(raw.best)) if (heroes.has(heroNow(id))) s.best[heroNow(id)] = Math.max(s.best[heroNow(id)] ?? 0, whole(n));
   }
-  s.open = names(raw.open, heroes);
+  s.open = names(Array.isArray(raw.open) ? raw.open.map(heroNow) : [], heroes);
   s.kills = whole(raw.kills);
   s.coins = whole(raw.coins);
   s.felled = names(raw.felled);
   s.runs = whole(raw.runs);
-  s.last = typeof raw.last === 'string' && heroes.has(raw.last) ? raw.last : s.last;
-  s.run = mendRun(raw.run);
+  // A save from before runs were counted to their end: every run begun but the one in its camp has ended.
+  s.ended = typeof raw.ended === 'number' ? Math.min(s.runs, whole(raw.ended)) : Math.max(0, s.runs - (raw.run ? 1 : 0));
+  s.last = heroes.has(heroNow(raw.last)) ? heroNow(raw.last) : s.last;
+  s.friends = names(raw.friends, friends);
+  s.places = Math.max(1, Math.min(BAND.places, whole(raw.places, 1)));
+  s.auto = raw.auto !== false;
+  // A run from before the heroes had names carried other things: it is let go.
+  s.run = raw.v === SAVE_VERSION ? mendRun(raw.run) : null;
+  // Whoever a feat has opened since is opened now, and only those who are open go on a run.
+  for (const c of COMPANIONS) if (!s.friends.includes(c.id) && featDone(s, c.unlock)) s.friends.push(c.id);
+  for (const h of HEROES) if (h.unlock && !s.open.includes(h.id) && featDone(s, h.unlock)) s.open.push(h.id);
+  s.band = names(raw.band, friends).filter((id) => s.friends.includes(id));
+  // A save from before there were companions takes the first it has earned along.
+  if (!Array.isArray(raw.band) && s.friends.length > 0) s.band = [s.friends[0]];
   s.sound = raw.sound !== false;
   s.music = raw.music !== false;
   s.told = names(raw.told);
@@ -86,7 +118,35 @@ export function featDone(save: SaveData, feat: Feat): boolean {
       return save.coins >= feat.coins;
     case 'kills':
       return save.kills >= feat.kills;
+    case 'runs':
+      return save.ended >= feat.runs;
   }
+}
+
+/** True for a companion a feat has opened. */
+export function isFriend(save: SaveData, id: string): boolean {
+  return save.friends.includes(id);
+}
+
+/** Who goes on a run with a hero: the companions chosen, as many as that hero has places for. */
+export function bandFor(save: SaveData, hero: string): string[] {
+  return save.band.filter((id) => isFriend(save, id)).slice(0, bandSize(hero, save.places));
+}
+
+/**
+ * Puts a companion in a place of the band, or takes whoever is there out
+ * of it ('' for nobody). One who was in another place changes places.
+ */
+export function setBand(save: SaveData, place: number, id: string): boolean {
+  if (place < 0 || place > BAND.places || (id !== '' && !isFriend(save, id))) return false;
+  const next = [...save.band];
+  const was = next.indexOf(id);
+  if (id === '') next.splice(place, 1);
+  else if (was >= 0 && place < next.length) [next[was], next[place]] = [next[place], next[was]];
+  else if (was < 0 && place < next.length) next[place] = id;
+  else if (was < 0) next.push(id);
+  save.band = next;
+  return true;
 }
 
 export function isOpen(save: SaveData, hero: string): boolean {
@@ -105,26 +165,42 @@ export function featShare(save: SaveData, feat: Feat): number {
       return Math.min(1, save.coins / feat.coins);
     case 'kills':
       return Math.min(1, save.kills / feat.kills);
+    case 'runs':
+      return Math.min(1, save.ended / feat.runs);
   }
+}
+
+/** Who a run has opened: heroes and companions, each in the order the game lists them. */
+export interface Opened {
+  heroes: string[];
+  friends: string[];
 }
 
 /**
  * Writes what a run has come to into the save: after every wave, and when
- * it ends. `kills` is what the last wave added. Returns the heroes this
- * opened, in the order the game lists them.
+ * it ends. `kills` is what the last wave added. Returns who this opened.
+ * A companion opened while the band has a place free goes straight into
+ * it: the first of them is met by having it along.
  */
-export function record(save: SaveData, run: RunData, kills: number): string[] {
+export function record(save: SaveData, run: RunData, kills: number): Opened {
   save.best[run.hero] = Math.max(save.best[run.hero] ?? 0, survived(run));
   save.kills += kills;
   save.coins = Math.max(save.coins, run.coins);
   for (const b of run.felled) if (!save.felled.includes(b)) save.felled.push(b);
   save.last = run.hero;
-  const opened: string[] = [];
+  if (run.phase === 'over') save.ended++;
+  const opened: Opened = { heroes: [], friends: [] };
   for (const h of HEROES) {
     if (h.unlock && !save.open.includes(h.id) && featDone(save, h.unlock)) {
       save.open.push(h.id);
-      opened.push(h.id);
+      opened.heroes.push(h.id);
     }
+  }
+  for (const c of COMPANIONS) {
+    if (save.friends.includes(c.id) || !featDone(save, c.unlock)) continue;
+    save.friends.push(c.id);
+    opened.friends.push(c.id);
+    if (save.band.length < save.places) save.band.push(c.id);
   }
   return opened;
 }

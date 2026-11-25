@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="eagle-leg-near" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="eagle-leg-near-jess-shape" d="M 90 162 L 78 176 L 84 180 L 94 168 Z"/>
+<path id="eagle-leg-near-leg-shape" d="M 93 152 L 94 152 Q 97 152 97 155 L 97 173 Q 97 176 94 176 L 93 176 Q 90 176 90 173 L 90 155 Q 90 152 93 152 Z"/>
+<path id="eagle-leg-near-foot-shape" d="M 88 174 L 106 174 L 108 180 L 86 180 Z"/>
+</defs>
+<g id="eagle-leg-near-jess">
+<use id="eagle-leg-near-jess-fill" href="#eagle-leg-near-jess-shape" fill="#3d6fb6"/>
+<use id="eagle-leg-near-jess-line" href="#eagle-leg-near-jess-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-leg-near-leg">
+<use id="eagle-leg-near-leg-fill" href="#eagle-leg-near-leg-shape" fill="#c8a24a"/>
+<use id="eagle-leg-near-leg-line" href="#eagle-leg-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-leg-near-foot">
+<use id="eagle-leg-near-foot-fill" href="#eagle-leg-near-foot-shape" fill="#c8a24a"/>
+<use id="eagle-leg-near-foot-line" href="#eagle-leg-near-foot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

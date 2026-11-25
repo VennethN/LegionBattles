@@ -67,11 +67,11 @@ await until(page, 'Hud');
 await fight(page, 60 * 6, shoot);
 
 // Further on: every hand full on the dunes, and a boss.
-await arena(page, { hero: 'knight', wave: 11, weapons: RICH, items: THINGS, ups: UPS, level: 12, gold: 310 });
+await arena(page, { hero: 'bram', wave: 11, weapons: RICH, items: THINGS, ups: UPS, level: 12, gold: 310 });
 await until(page, 'Hud');
 await fight(page, 60 * 5);
 await fight(page, 60 * 9, shoot);
-await arena(page, { hero: 'archer', wave: 7, weapons: RICH, items: THINGS, ups: UPS, level: 8, gold: 120 });
+await arena(page, { hero: 'wren', wave: 7, weapons: RICH, items: THINGS, ups: UPS, level: 8, gold: 120 });
 await until(page, 'Hud');
 await fight(page, 60 * 3);
 await fight(page, 60 * 9, shoot);

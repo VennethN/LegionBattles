@@ -14,7 +14,7 @@ import { idleIcons } from '../src/art/icons-idle';
 import type { Team } from '../src/art/kit/palette';
 import { HOP_POSE } from '../src/art/poses';
 import { restPose, type Pose } from '../src/art/rig';
-import { ARENA, ENEMIES, HEROES } from '../src/game/data';
+import { ARENA, COMPANIONS, ENEMIES, HEROES } from '../src/game/data';
 import { ICONS_USED } from '../src/view/icons';
 
 /** A picture of the game's own that is loaded by itself: where it goes under public/assets, and how it is drawn. */
@@ -49,7 +49,8 @@ export interface ArtGame {
   scenes: readonly Scene[];
 }
 
-const HERO_UNITS = new Set(HEROES.map((h) => h.unit));
+// The player's side: the heroes, and the companions who go with them.
+const HERO_UNITS = new Set([...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit)]);
 const FOE_UNITS = new Set(ENEMIES.map((e) => e.unit));
 const BOSS_UNITS = new Set(ENEMIES.filter((e) => e.ai === 'boss').map((e) => e.unit));
 

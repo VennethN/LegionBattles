@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="warbear-legs-far" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="warbear-legs-far-leg-shape" d="M 69.8 136.7 L 90.3 136.7 L 90.3 167.5 Q 98.3 168.6 98.3 175.4 L 98.3 180 L 69.8 180 Z"/>
+<path id="warbear-legs-far-leg-2-shape" d="M 106.3 136.7 L 126.8 136.7 L 126.8 167.5 Q 134.8 168.6 134.8 175.4 L 134.8 180 L 106.3 180 Z"/>
+</defs>
+<g id="warbear-legs-far-leg">
+<use id="warbear-legs-far-leg-fill" href="#warbear-legs-far-leg-shape" fill="#4e3520"/>
+<use id="warbear-legs-far-leg-line" href="#warbear-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warbear-legs-far-leg-2">
+<use id="warbear-legs-far-leg-2-fill" href="#warbear-legs-far-leg-2-shape" fill="#4e3520"/>
+<use id="warbear-legs-far-leg-2-line" href="#warbear-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

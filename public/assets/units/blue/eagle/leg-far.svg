@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="eagle-leg-far" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="eagle-leg-far-leg-shape" d="M 103 152 L 104 152 Q 107 152 107 155 L 107 173 Q 107 176 104 176 L 103 176 Q 100 176 100 173 L 100 155 Q 100 152 103 152 Z"/>
+<path id="eagle-leg-far-foot-shape" d="M 98 174 L 116 174 L 118 180 L 96 180 Z"/>
+</defs>
+<g id="eagle-leg-far-leg">
+<use id="eagle-leg-far-leg-fill" href="#eagle-leg-far-leg-shape" fill="#9c7c33"/>
+<use id="eagle-leg-far-leg-line" href="#eagle-leg-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-leg-far-foot">
+<use id="eagle-leg-far-foot-fill" href="#eagle-leg-far-foot-shape" fill="#9c7c33"/>
+<use id="eagle-leg-far-foot-line" href="#eagle-leg-far-foot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

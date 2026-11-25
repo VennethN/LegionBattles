@@ -34,7 +34,8 @@ export function botSteer(w: World): Steer {
   const turn = (mind.dice / 4294967296 - 0.5) * 2 * WOBBLE;
   const c = Math.cos(turn);
   const sn = Math.sin(turn);
-  mind.steer = { x: best.x * c - best.y * sn, y: best.x * sn + best.y * c };
+  // It lets the move loose when it is full and there is a crowd for it, as a player who has learned it does.
+  mind.steer = { x: best.x * c - best.y * sn, y: best.x * sn + best.y * c, act: w.ripe };
   return mind.steer;
 }
 
@@ -91,7 +92,11 @@ function think(w: World): Steer {
       y += (s.vx / speed) * side * 2.6;
     }
   }
+  // What has to be stepped out of whoever the hero is: a charge, a burst, a shot.
+  const dodging = w.foes.some((f) => f.state === 'dash' || f.doing === 'charge' || f.doing === 'burst') || Math.hypot(x, y) > 2.2;
   const pressed = Math.hypot(x, y) > 0.4;
+  // Bram stands his ground behind his shield while there is someone to hit and nothing to step out of, and he is not badly hurt.
+  if (w.quirk === 'standfast' && !dodging && nearest <= stand * 1.2 && h.hp / h.maxHp > 0.3) return { x: 0, y: 0 };
   // Closes with the nearest when nothing is in reach.
   if (nearest < Infinity && nearest > stand) {
     const d = Math.hypot(nx, ny) || 1;
@@ -124,7 +129,13 @@ function think(w: World): Steer {
   if (h.y < wall) y += ((wall - h.y) / wall) * 1.5;
   if (h.y > w.h - wall) y -= ((h.y - (w.h - wall)) / wall) * 1.5;
   const len = Math.hypot(x, y);
-  return len > 0.05 ? { x: x / len, y: y / len } : { x: 0, y: 0 };
+  if (len > 0.05) return { x: x / len, y: y / len };
+  // Isaura never halts: with nowhere to be, she rides a ring round whoever is nearest.
+  if (w.quirk === 'momentum') {
+    const d = Math.hypot(nx, ny) || 1;
+    return nearest < Infinity ? { x: -ny / d, y: nx / d } : { x: h.face, y: 0 };
+  }
+  return { x: 0, y: 0 };
 }
 
 /** What the plain player values on a level: health and harm before anything clever. */
@@ -137,7 +148,8 @@ export function botLevel(run: RunData): void {
     let best = 0;
     let bestScore = -1;
     run.choices.forEach((c, i) => {
-      const score = (WANT[c.stat] ?? 1) * (1 + c.tier * 0.8);
+      // A bond is worth about what the best of the rest is.
+      const score = c.bond ? 3.2 : (WANT[c.stat] ?? 1) * (1 + c.tier * 0.8);
       if (score > bestScore) {
         bestScore = score;
         best = i;

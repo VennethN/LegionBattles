@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="eagle-wing-far" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="eagle-wing-far-wing-shape" d="M 100 120 C 100 120 90.3 104.3 84 96 C 77.7 87.7 69.3 76.7 62 70 C 54.7 63.3 40 56 40 56 L 48 76 L 36 78 L 48 94 L 40 100 C 40 100 52.7 107.7 60 112 C 67.3 116.3 84 126 84 126 L 100 120 Z"/>
+</defs>
+<g id="eagle-wing-far-wing">
+<use id="eagle-wing-far-wing-fill" href="#eagle-wing-far-wing-shape" fill="#77766b"/>
+<use id="eagle-wing-far-wing-line" href="#eagle-wing-far-wing-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

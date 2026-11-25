@@ -5,12 +5,12 @@
 // pace report can play one without a screen.
 
 import {
-  BASE_STATS, HEROES, ITEMS, OFFERS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId, levelNeeds, priceAt, rerollCost,
-  tierWeights, type HeroDef,
+  BAND, BASE_STATS, CHOICES, COMPANIONS, HEROES, ITEMS, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId, landAt, levelNeeds,
+  ownTier, priceAt, rerollCost, tierWeights, weaponOf, type HeroDef,
 } from './data';
 import { Rng } from './rng';
 import { hasteRate, sumStats, type Stat, type StatLine, type Stats } from './stats';
-import type { Carried, Setup, World } from './world';
+import type { Banded, Carried, Setup, World } from './world';
 
 export interface Offer {
   kind: 'weapon' | 'item';
@@ -22,10 +22,12 @@ export interface Offer {
   locked: boolean;
 }
 
+/** One of a level's choices: a stat raised, or, where `bond` names a companion, a step of the bond with it. */
 export interface Choice {
   stat: Stat;
   tier: number;
   by: number;
+  bond?: string;
 }
 
 /**
@@ -48,7 +50,16 @@ export interface RunData {
   level: number;
   /** Levels made whose choice has not been taken yet. */
   pending: number;
+  /** What was bought: the hero's own weapon is not among them. */
   weapons: Carried[];
+  /** The companions on the run, and the steps of each one's bond. */
+  band: Banded[];
+  /** How full the fury bar is, carried from wave to wave. */
+  fury: number;
+  /** The land Hroth last got up in (landAt), or -1. */
+  rose: number;
+  /** True once Tam has dragged the hero up: it is once in a run. */
+  saved: boolean;
   items: string[];
   /** What was chosen on each level. */
   ups: Array<{ stat: Stat; by: number }>;
@@ -69,12 +80,24 @@ export function heroOf(run: RunData): HeroDef {
   return byId(HEROES, run.hero);
 }
 
-export function newRun(hero: string, seed: number): RunData {
-  const def = byId(HEROES, hero);
+/** How many companions a hero may bring, with this many places open in the Hold. The shepherd brings one more. */
+export function bandSize(hero: string, places: number): number {
+  return Math.max(0, Math.min(BAND.places, places)) + (byId(HEROES, hero).quirk === 'shepherd' ? 1 : 0);
+}
+
+/** A new run: a hero, and the companions who go with them. The hero's own weapon is all they carry. */
+export function newRun(hero: string, seed: number, band: readonly string[] = []): RunData {
+  byId(HEROES, hero);
+  const known = [...new Set(band)].filter((id) => COMPANIONS.some((c) => c.id === id));
   return {
-    hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [{ id: def.weapon, tier: 0 }], items: [], ups: [], packs: 0,
-    kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
+    hero, dice: seed >>> 0 || 1, wave: 1, gold: 0, xp: 0, level: 0, pending: 0, weapons: [], band: known.map((id) => ({ id, bond: 0 })), fury: 0, rose: -1, saved: false,
+    items: [], ups: [], packs: 0, kills: 0, coins: 0, felled: [], phase: 'fight', offers: [], rerolls: 0, choices: [],
   };
+}
+
+/** The hero's own weapon as it stands: it grows a tier by itself at set levels. */
+export function ownOf(run: RunData): Carried {
+  return { id: heroOf(run).weapon, tier: ownTier(run.level) };
 }
 
 /** Rolls with the run's dice, and leaves them where they came to rest. */
@@ -104,14 +127,21 @@ export function statsOf(run: RunData): Stats {
 }
 
 /** What a wave is fought with. The wave's own dice come off the run's, so no two waves are alike. */
-export function setupOf(run: RunData, tall = false): Setup {
-  return { seed: roll(run, (r) => Math.floor(r.next() * 0x7fffffff) + 1), wave: run.wave, stats: statsOf(run), flag: heroOf(run).flag, weapons: run.weapons, tall };
+export function setupOf(run: RunData, tall = false, auto = true): Setup {
+  const hero = heroOf(run);
+  return {
+    seed: roll(run, (r) => Math.floor(r.next() * 0x7fffffff) + 1), wave: run.wave, stats: statsOf(run), quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
+    band: run.band, level: run.level, fury: run.fury, auto, purse: run.gold, spare: run.rose !== landAt(run.wave), rescue: !run.saved, tall,
+  };
 }
 
 /** A wave has ended: the run takes what it left, and goes on to a level, to the camp, or to its end. */
 export function endWave(run: RunData, world: World): void {
   run.gold += Math.round(world.gold);
-  run.coins += Math.round(world.xp / (heroOf(run).flag === 'thief' ? 1.5 : 1));
+  run.coins += Math.round(world.xp);
+  run.fury = world.fury;
+  if (world.rose) run.rose = landAt(run.wave);
+  if (world.rescued) run.saved = true;
   run.xp += world.xp;
   run.kills += world.kills;
   run.packs += world.packs;
@@ -150,13 +180,21 @@ function rollTier(rng: Rng, step: number, luck: number, most = TIERS - 1): numbe
 
 function rollChoices(run: RunData): void {
   const luck = statsOf(run).luck;
+  // Orrin picks from one more.
+  const n = CHOICES + (heroOf(run).quirk === 'echo' ? QUIRKS.echo.choices : 0);
   run.choices = roll(run, (rng) => {
     const pool = [...UPGRADES];
     const out: Choice[] = [];
-    while (out.length < 4 && pool.length > 0) {
+    while (out.length < n && pool.length > 0) {
       const u = pool.splice(rng.int(pool.length), 1)[0];
       const tier = rollTier(rng, run.level, luck);
       out.push({ stat: u.stat, tier, by: u.by[tier] });
+    }
+    // Now and then the last of them is a bond with a companion on the run who has a step left.
+    const open = run.band.filter((b) => b.bond < BAND.bonds);
+    if (open.length > 0 && rng.chance(BAND.bondChance)) {
+      const b = rng.pick(open);
+      out[out.length - 1] = { stat: 'damage', tier: b.bond, by: 0, bond: b.id };
     }
     return out;
   });
@@ -166,7 +204,9 @@ function rollChoices(run: RunData): void {
 export function choose(run: RunData, i: number): boolean {
   const c = run.choices[i];
   if (run.phase !== 'level' || !c) return false;
-  run.ups.push({ stat: c.stat, by: c.by });
+  const bonded = c.bond ? run.band.find((b) => b.id === c.bond) : undefined;
+  if (bonded) bonded.bond = Math.min(BAND.bonds, bonded.bond + 1);
+  else run.ups.push({ stat: c.stat, by: c.by });
   run.pending--;
   if (run.pending > 0) rollChoices(run);
   else {
@@ -267,9 +307,9 @@ export function sellPrice(w: Carried): number {
   return Math.max(1, Math.round(byId(WEAPONS, w.id).price * TIER_PRICE[w.tier] * SELL_SHARE));
 }
 
-/** Sells a weapon. The last one is never sold: a hero with nothing in hand cannot fight. */
+/** Sells a weapon that was bought. The hero's own is not among them, so there is always something in hand. */
 export function sell(run: RunData, slot: number): boolean {
-  if (run.phase !== 'camp' || !run.weapons[slot] || run.weapons.length <= 1) return false;
+  if (run.phase !== 'camp' || !run.weapons[slot]) return false;
   run.gold += sellPrice(run.weapons[slot]);
   run.weapons.splice(slot, 1);
   return true;
@@ -313,11 +353,10 @@ export function openPack(run: RunData): string | null {
 
 /** What a weapon would do in this hero's hands, for the card that offers it: its harm, and the seconds between its blows. */
 export function weaponNumbers(run: RunData, id: string, tier: number): { harm: number; every: number } {
-  const def = byId(WEAPONS, id);
+  const def = weaponOf(id);
   const s = statsOf(run);
   const base = def.dmg[tier] + (def.scale.might ?? 0) * s.might + (def.scale.aim ?? 0) * s.aim + (def.scale.lore ?? 0) * s.lore;
-  const focus = heroOf(run).flag === 'focus' && def.kind === 'magic' ? 1.2 : 1;
-  return { harm: Math.max(1, Math.round(base * Math.max(0.1, 1 + s.damage / 100))), every: def.every[tier] / (hasteRate(s.haste) * focus) };
+  return { harm: Math.max(1, Math.round(base * Math.max(0.1, 1 + s.damage / 100))), every: def.every[tier] / hasteRate(s.haste) };
 }
 
 /** Leaves the camp for the next wave. */

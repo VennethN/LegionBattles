@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="salamander-legs-near" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="salamander-legs-near-leg-shape" d="M 63.5 156 L 76.5 156 L 76.5 169 Q 83.5 170 83.5 176 L 83.5 180 L 63.5 180 Z"/>
+<clipPath id="salamander-legs-near-leg-clip"><use href="#salamander-legs-near-leg-shape"/></clipPath>
+<clipPath id="salamander-legs-near-leg-lit-clip"><use href="#salamander-legs-near-leg-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="salamander-legs-near-leg-2-shape" d="M 117.5 156 L 130.5 156 L 130.5 169 Q 137.5 170 137.5 176 L 137.5 180 L 117.5 180 Z"/>
+<clipPath id="salamander-legs-near-leg-2-clip"><use href="#salamander-legs-near-leg-2-shape"/></clipPath>
+<clipPath id="salamander-legs-near-leg-2-lit-clip"><use href="#salamander-legs-near-leg-2-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="salamander-legs-near-leg">
+<use id="salamander-legs-near-leg-shade" href="#salamander-legs-near-leg-shape" fill="#434b56"/>
+<g clip-path="url(#salamander-legs-near-leg-clip)">
+<use id="salamander-legs-near-leg-fill" href="#salamander-legs-near-leg-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#salamander-legs-near-leg-lit-clip)">
+<use id="salamander-legs-near-leg-lit" href="#salamander-legs-near-leg-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-legs-near-leg-fill-over" href="#salamander-legs-near-leg-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="salamander-legs-near-leg-line" href="#salamander-legs-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-legs-near-leg-2">
+<use id="salamander-legs-near-leg-2-shade" href="#salamander-legs-near-leg-2-shape" fill="#434b56"/>
+<g clip-path="url(#salamander-legs-near-leg-2-clip)">
+<use id="salamander-legs-near-leg-2-fill" href="#salamander-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#salamander-legs-near-leg-2-lit-clip)">
+<use id="salamander-legs-near-leg-2-lit" href="#salamander-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-legs-near-leg-2-fill-over" href="#salamander-legs-near-leg-2-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="salamander-legs-near-leg-2-line" href="#salamander-legs-near-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -1,7 +1,9 @@
 // Every number of the game, and what each is for. The rules (world.ts,
 // run.ts) read these and know none of their own. A change here is measured
-// with `npm run pace` before and after.
+// with `npm run pace` before and after. The heroes are in heroes.ts and
+// the companions in companions.ts; both are handed on from here.
 
+import { SIGNATURES } from './heroes';
 import type { StatLine, Stat } from './stats';
 
 // ---------------------------------------------------------------- the hero
@@ -21,57 +23,17 @@ export const HURT_GRACE = 0.5;
 /** The most weapons a hero carries. */
 export const SLOTS = 6;
 
-/**
- * What makes a hero more than their numbers: one rule each, which world.ts
- * and run.ts ask for by name.
- *
- * plate: every blow that lands does one less (never less than one).
- * volley: bows, bolts and things thrown go through one more enemy.
- * focus: magic strikes a fifth more often.
- * rage: more damage the more hurt they are, up to half as much again.
- * thief: half as much experience again from every coin.
- * halo: whatever heals them heals one more.
- * kindle: fires they light burn twice as long.
- * shatter: what they have slowed takes a third more from everything.
- * drive: a thrust reaches further and goes through everyone in its line.
- * oath: a hammer's blow lands on a wider ring and stuns longer.
- */
-export type Flag = 'plate' | 'volley' | 'focus' | 'rage' | 'thief' | 'halo' | 'kindle' | 'shatter' | 'drive' | 'oath';
-
-/** A thing a player does once that opens a hero for good. */
+/** A thing a player does once that opens a hero or a companion for good. */
 export type Feat =
   | { kind: 'wave'; wave: number }
   | { kind: 'boss'; boss: string }
   | { kind: 'coins'; coins: number }
-  | { kind: 'kills'; kills: number };
+  | { kind: 'kills'; kills: number }
+  | { kind: 'runs'; runs: number };
 
-export interface HeroDef {
-  id: string;
-  /** The figure the kit draws for them. */
-  unit: string;
-  name: string;
-  /** What they carry at the start. */
-  weapon: string;
-  stats: StatLine;
-  flag: Flag;
-  /** Their rule, in a line a player reads. */
-  says: string;
-  /** What opens them, or null for one who is there from the start. */
-  unlock: Feat | null;
-}
-
-export const HEROES: readonly HeroDef[] = [
-  { id: 'knight', unit: 'knight', name: 'Knight', weapon: 'sword', stats: { maxHp: 6, armor: 2, speed: -5 }, flag: 'plate', says: 'Every blow that lands does one less.', unlock: null },
-  { id: 'archer', unit: 'archer', name: 'Archer', weapon: 'bow', stats: { aim: 2, reach: 30, maxHp: -4 }, flag: 'volley', says: 'Arrows and bolts go through one more.', unlock: null },
-  { id: 'mage', unit: 'mage', name: 'Mage', weapon: 'staff', stats: { lore: 3, maxHp: -2, might: -2 }, flag: 'focus', says: 'Magic strikes a fifth more often.', unlock: { kind: 'wave', wave: 5 } },
-  { id: 'cutpurse', unit: 'cutpurse', name: 'Cutpurse', weapon: 'dagger', stats: { speed: 12, bounty: 20, dodge: 8, maxHp: -4 }, flag: 'thief', says: 'Half as much experience again from coins.', unlock: { kind: 'coins', coins: 200 } },
-  { id: 'pyromancer', unit: 'pyromancer', name: 'Pyromancer', weapon: 'brazier', stats: { lore: 2, crit: 5 }, flag: 'kindle', says: 'Fires burn twice as long.', unlock: { kind: 'boss', boss: 'warlord' } },
-  { id: 'lancer', unit: 'lancer', name: 'Lancer', weapon: 'spear', stats: { might: 2, speed: 6 }, flag: 'drive', says: 'A thrust reaches further, through everyone in its line.', unlock: { kind: 'kills', kills: 600 } },
-  { id: 'berserker', unit: 'berserker', name: 'Berserker', weapon: 'greataxe', stats: { might: 3, lifesteal: 4, armor: -2 }, flag: 'rage', says: 'More damage the more hurt.', unlock: { kind: 'wave', wave: 10 } },
-  { id: 'cleric', unit: 'cleric', name: 'Cleric', weapon: 'censer', stats: { regen: 6, maxHp: 4, damage: -15 }, flag: 'halo', says: 'Whatever heals, heals one more.', unlock: { kind: 'wave', wave: 12 } },
-  { id: 'frostwitch', unit: 'frostwitch', name: 'Frost Witch', weapon: 'frost', stats: { lore: 2, reach: 20, speed: -4 }, flag: 'shatter', says: 'The slowed take a third more.', unlock: { kind: 'boss', boss: 'colossus' } },
-  { id: 'paladin', unit: 'paladin', name: 'Paladin', weapon: 'hammer', stats: { maxHp: 8, armor: 1, might: 2, haste: -10 }, flag: 'oath', says: 'A hammer lands wider and stuns longer.', unlock: { kind: 'wave', wave: 20 } },
-];
+// The heroes and the companions have files of their own: who they are, and the numbers of what only they do.
+export * from './heroes';
+export * from './companions';
 
 // ---------------------------------------------------------------- weapons
 
@@ -136,6 +98,10 @@ export interface WeaponDef {
   price: number;
   /** One line a player reads. */
   says: string;
+  /** True for a hero's own weapon (SIGNATURES in heroes.ts): it takes no hand, and is never sold, bought or joined. */
+  own?: boolean;
+  /** The weapon whose picture it is drawn with, where it has none of its own. */
+  icon?: string;
 }
 
 export const WEAPONS: readonly WeaponDef[] = [
@@ -156,6 +122,13 @@ export const WEAPONS: readonly WeaponDef[] = [
   { id: 'venom', name: 'Spore Staff', kind: 'magic', motion: 'cast', dmg: [3, 5, 7, 11], scale: { lore: 0.5 }, every: [1.7, 1.59, 1.48, 1.37], range: 300, crit: 0, critBy: 2, knock: 0, burst: 62, cloud: [4, 6, 10, 15], flies: 360, shot: 'orb-venom', price: 22, says: 'Leaves a cloud that eats at them.' },
   { id: 'censer', name: 'Censer', kind: 'magic', motion: 'pulse', dmg: [6, 10, 15, 23], scale: { lore: 0.6 }, every: [4, 3.7, 3.4, 3.1], range: 110, crit: 0, critBy: 2, knock: 16, burst: 112, mends: [1, 1, 2, 2], price: 24, says: 'A ring of light that mends you.' },
 ];
+
+/** A weapon by its name, a hero's own among them. */
+export function weaponOf(id: string): WeaponDef {
+  const found = WEAPONS.find((w) => w.id === id) ?? SIGNATURES.find((w) => w.id === id);
+  if (!found) throw new Error(`data: no weapon is called "${id}"`);
+  return found;
+}
 
 /** How much dearer each tier is than the first. */
 export const TIER_PRICE = [1, 2.1, 4.3, 8.5] as const;
@@ -222,6 +195,9 @@ export const UPGRADES: ReadonlyArray<{ stat: Stat; by: readonly [number, number,
   { stat: 'luck', by: [5, 10, 15, 20] },
   { stat: 'bounty', by: [5, 8, 12, 16] },
 ];
+
+/** How many things a level offers to choose from. */
+export const CHOICES = 4;
 
 /** Experience from the start of a level to the next. A coin is one. */
 export function levelNeeds(level: number): number {
@@ -413,6 +389,12 @@ export function waveOf(n: number): WaveDef {
     most: Math.min(110, 22 + 5 * n),
     boss,
   };
+}
+
+/** Which land a wave is fought in, counted from 0 and on past the written waves: what happens once in a land asks this. */
+export function landAt(n: number): number {
+  const at = ((n - 1) % LAST_WAVE) + 1;
+  return Math.floor((n - 1) / LAST_WAVE) * LANDS.length + (at <= 7 ? 0 : at <= 14 ? 1 : 2);
 }
 
 /** The chance that each coin an enemy carries is left on the ground, on a wave. */

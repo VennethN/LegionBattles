@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="greatstag-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="greatstag-head-antler-shape" d="M 135.9 73 L 125.9 33 C 125.3 30.9 123.2 29.6 121 30.1 C 118.9 30.7 117.6 32.8 118.1 35 L 128.1 75 C 128.7 77.1 130.8 78.4 133 77.9 C 135.1 77.3 136.4 75.2 135.9 73 Z"/>
+<path id="greatstag-head-antler-2-shape" d="M 130.5 62.5 L 146.5 46.5 C 147.8 45.1 147.8 42.9 146.5 41.5 C 145.1 40.2 142.9 40.2 141.5 41.5 L 125.5 57.5 C 124.2 58.9 124.2 61.1 125.5 62.5 C 126.9 63.8 129.1 63.8 130.5 62.5 Z"/>
+<path id="greatstag-head-antler-3-shape" d="M 127.1 45.7 L 139.1 23.7 C 140 22 139.4 19.9 137.7 18.9 C 136 18 133.9 18.6 132.9 20.3 L 120.9 42.3 C 120 44 120.6 46.1 122.3 47.1 C 124 48 126.1 47.4 127.1 45.7 Z"/>
+<path id="greatstag-head-antler-4-shape" d="M 126 36.2 L 113 14.2 C 112 12.6 109.9 12 108.2 13 C 106.6 14 106 16.1 107 17.8 L 120 39.8 C 121 41.4 123.1 42 124.8 41 C 126.4 40 127 37.9 126 36.2 Z"/>
+<path id="greatstag-head-neck-shape" d="M 132 126 L 150 90 C 152.3 85.6 150.5 80.2 146 78 C 141.6 75.7 136.2 77.5 134 82 L 116 118 C 113.7 122.4 115.5 127.8 120 130 C 124.4 132.3 129.8 130.5 132 126 Z"/>
+<clipPath id="greatstag-head-neck-clip"><use href="#greatstag-head-neck-shape"/></clipPath>
+<clipPath id="greatstag-head-neck-lit-clip"><use href="#greatstag-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="greatstag-head-ear-shape" d="M 136 78 C 136 78 127 74.7 124 72 C 121 69.3 118 62 118 62 C 118 62 128.3 62.3 132 64 C 135.7 65.7 139.3 69.7 140 72 C 140.7 74.3 136 78 136 78 Z"/>
+<path id="greatstag-head-hood-shape" d="M 134 76 C 136.7 72 141.7 67 146 66 C 150.3 65 155.7 66.7 160 70 C 164.3 73.3 172 86 172 86 L 168 94 C 168 94 155.3 94.3 150 96 C 144.7 97.7 136 104 136 104 C 136 104 130.3 94.7 130 90 C 129.7 85.3 131.3 80 134 76 Z"/>
+<clipPath id="greatstag-head-hood-clip"><use href="#greatstag-head-hood-shape"/></clipPath>
+<clipPath id="greatstag-head-hood-lit-clip"><use href="#greatstag-head-hood-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="greatstag-head-trim-shape" d="M 128 96 L 140 108 L 144 102 L 132 90 Z"/>
+<path id="greatstag-head-antler-5-shape" d="M 151.9 69 L 141.9 29 C 141.3 26.9 139.2 25.6 137 26.1 C 134.9 26.7 133.6 28.8 134.1 31 L 144.1 71 C 144.7 73.1 146.8 74.4 149 73.9 C 151.1 73.3 152.4 71.2 151.9 69 Z"/>
+<path id="greatstag-head-antler-6-shape" d="M 146.5 58.5 L 162.5 42.5 C 163.8 41.1 163.8 38.9 162.5 37.5 C 161.1 36.2 158.9 36.2 157.5 37.5 L 141.5 53.5 C 140.2 54.9 140.2 57.1 141.5 58.5 C 142.9 59.8 145.1 59.8 146.5 58.5 Z"/>
+<path id="greatstag-head-antler-7-shape" d="M 143.1 41.7 L 155.1 19.7 C 156 18 155.4 15.9 153.7 14.9 C 152 14 149.9 14.6 148.9 16.3 L 136.9 38.3 C 136 40 136.6 42.1 138.3 43.1 C 140 44 142.1 43.4 143.1 41.7 Z"/>
+<path id="greatstag-head-antler-8-shape" d="M 142 32.2 L 129 10.2 C 128 8.6 125.9 8 124.2 9 C 122.6 10 122 12.1 123 13.8 L 136 35.8 C 137 37.4 139.1 38 140.8 37 C 142.4 36 143 33.9 142 32.2 Z"/>
+</defs>
+<g id="greatstag-head-antler">
+<use id="greatstag-head-antler-fill" href="#greatstag-head-antler-shape" fill="#c4b594"/>
+<use id="greatstag-head-antler-line" href="#greatstag-head-antler-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-head-antler-2">
+<use id="greatstag-head-antler-2-fill" href="#greatstag-head-antler-2-shape" fill="#c4b594"/>
+<use id="greatstag-head-antler-2-line" href="#greatstag-head-antler-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-head-antler-3">
+<use id="greatstag-head-antler-3-fill" href="#greatstag-head-antler-3-shape" fill="#c4b594"/>
+<use id="greatstag-head-antler-3-line" href="#greatstag-head-antler-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-head-antler-4">
+<use id="greatstag-head-antler-4-fill" href="#greatstag-head-antler-4-shape" fill="#c4b594"/>
+<use id="greatstag-head-antler-4-line" href="#greatstag-head-antler-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="greatstag-head-antler-fill" d="M 134.2 73.4 L 124.2 33.4 C 123.9 32.2 122.7 31.5 121.4 31.8 C 120.2 32.1 119.5 33.3 119.8 34.6 L 129.8 74.6 C 130.1 75.8 131.3 76.5 132.6 76.2 C 133.8 75.9 134.5 74.7 134.2 73.4 Z" fill="#c4b594"/>
+<path id="greatstag-head-antler-fill-2" d="M 129.3 61.3 L 145.3 45.3 C 146 44.6 146 43.4 145.3 42.7 C 144.6 42 143.4 42 142.7 42.7 L 126.7 58.7 C 126 59.4 126 60.6 126.7 61.3 C 127.4 62 128.6 62 129.3 61.3 Z" fill="#c4b594"/>
+<path id="greatstag-head-antler-fill-3" d="M 125.6 44.9 L 137.6 22.9 C 138.1 22 137.7 20.9 136.9 20.4 C 136 19.9 134.9 20.3 134.4 21.1 L 122.4 43.1 C 121.9 44 122.3 45.1 123.1 45.6 C 124 46.1 125.1 45.7 125.6 44.9 Z" fill="#c4b594"/>
+<path id="greatstag-head-antler-fill-4" d="M 124.5 37.1 L 111.5 15.1 C 111 14.2 109.9 13.9 109.1 14.5 C 108.2 15 107.9 16.1 108.5 16.9 L 121.5 38.9 C 122 39.8 123.1 40.1 123.9 39.5 C 124.8 39 125.1 37.9 124.5 37.1 Z" fill="#c4b594"/>
+<g id="greatstag-head-neck">
+<use id="greatstag-head-neck-shade" href="#greatstag-head-neck-shape" fill="#8c6b42"/>
+<g clip-path="url(#greatstag-head-neck-clip)">
+<use id="greatstag-head-neck-fill" href="#greatstag-head-neck-shape" transform="translate(-3 -3)" fill="#b08a5a"/>
+<g clip-path="url(#greatstag-head-neck-lit-clip)">
+<use id="greatstag-head-neck-lit" href="#greatstag-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greatstag-head-neck-fill-over" href="#greatstag-head-neck-shape" transform="translate(3.6 3.6)" fill="#b08a5a"/>
+</g>
+</g>
+<use id="greatstag-head-neck-line" href="#greatstag-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-head-ear">
+<use id="greatstag-head-ear-fill" href="#greatstag-head-ear-shape" fill="#b08a5a"/>
+<use id="greatstag-head-ear-line" href="#greatstag-head-ear-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-head-hood">
+<use id="greatstag-head-hood-shade" href="#greatstag-head-hood-shape" fill="#2f5893"/>
+<g clip-path="url(#greatstag-head-hood-clip)">
+<use id="greatstag-head-hood-fill" href="#greatstag-head-hood-shape" transform="translate(-4 -4)" fill="#3d6fb6"/>
+<g clip-path="url(#greatstag-head-hood-lit-clip)">
+<use id="greatstag-head-hood-lit" href="#greatstag-head-hood-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="greatstag-head-hood-fill-over" href="#greatstag-head-hood-shape" transform="translate(4.2 4.2)" fill="#3d6fb6"/>
+</g>
+<g id="greatstag-head-trim">
+<use id="greatstag-head-trim-fill" href="#greatstag-head-trim-shape" fill="#c8a24a"/>
+<use id="greatstag-head-trim-line" href="#greatstag-head-trim-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="greatstag-head-hood-line" href="#greatstag-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-head-antler-5">
+<use id="greatstag-head-antler-5-fill" href="#greatstag-head-antler-5-shape" fill="#e9dfc6"/>
+<use id="greatstag-head-antler-5-line" href="#greatstag-head-antler-5-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-head-antler-6">
+<use id="greatstag-head-antler-6-fill" href="#greatstag-head-antler-6-shape" fill="#e9dfc6"/>
+<use id="greatstag-head-antler-6-line" href="#greatstag-head-antler-6-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-head-antler-7">
+<use id="greatstag-head-antler-7-fill" href="#greatstag-head-antler-7-shape" fill="#e9dfc6"/>
+<use id="greatstag-head-antler-7-line" href="#greatstag-head-antler-7-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="greatstag-head-antler-8">
+<use id="greatstag-head-antler-8-fill" href="#greatstag-head-antler-8-shape" fill="#e9dfc6"/>
+<use id="greatstag-head-antler-8-line" href="#greatstag-head-antler-8-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="greatstag-head-antler-fill-5" d="M 150.2 69.4 L 140.2 29.4 C 139.9 28.2 138.7 27.5 137.4 27.8 C 136.2 28.1 135.5 29.3 135.8 30.6 L 145.8 70.6 C 146.1 71.8 147.3 72.5 148.6 72.2 C 149.8 71.9 150.5 70.7 150.2 69.4 Z" fill="#e9dfc6"/>
+<path id="greatstag-head-antler-fill-6" d="M 145.3 57.3 L 161.3 41.3 C 162 40.6 162 39.4 161.3 38.7 C 160.6 38 159.4 38 158.7 38.7 L 142.7 54.7 C 142 55.4 142 56.6 142.7 57.3 C 143.4 58 144.6 58 145.3 57.3 Z" fill="#e9dfc6"/>
+<path id="greatstag-head-antler-fill-7" d="M 141.6 40.9 L 153.6 18.9 C 154.1 18 153.7 16.9 152.9 16.4 C 152 15.9 150.9 16.3 150.4 17.1 L 138.4 39.1 C 137.9 40 138.3 41.1 139.1 41.6 C 140 42.1 141.1 41.7 141.6 40.9 Z" fill="#e9dfc6"/>
+<path id="greatstag-head-antler-fill-8" d="M 140.5 33.1 L 127.5 11.1 C 127 10.2 125.9 9.9 125.1 10.5 C 124.2 11 123.9 12.1 124.5 12.9 L 137.5 34.9 C 138 35.8 139.1 36.1 139.9 35.5 C 140.8 35 141.1 33.9 140.5 33.1 Z" fill="#e9dfc6"/>
+</svg>

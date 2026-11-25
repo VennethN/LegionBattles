@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="warhound-tail" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="warhound-tail-tail-shape" d="M 67.4 126.2 C 67.4 126.2 59.3 124.6 55.7 121.2 C 52 117.8 46.7 110.6 45.6 106.1 C 44.5 101.6 49 94.3 49 94.3 C 49 94.3 51.8 102.4 54 106.1 C 56.2 109.7 59.6 113.6 62.4 116.2 C 65.2 118.7 70.8 121.2 70.8 121.2 L 67.4 126.2 Z"/>
+<clipPath id="warhound-tail-tail-clip"><use href="#warhound-tail-tail-shape"/></clipPath>
+<clipPath id="warhound-tail-tail-lit-clip"><use href="#warhound-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="warhound-tail-tail">
+<use id="warhound-tail-tail-shade" href="#warhound-tail-tail-shape" fill="#c4b594"/>
+<g clip-path="url(#warhound-tail-tail-clip)">
+<use id="warhound-tail-tail-fill" href="#warhound-tail-tail-shape" transform="translate(-3 -3)" fill="#e9dfc6"/>
+<g clip-path="url(#warhound-tail-tail-lit-clip)">
+<use id="warhound-tail-tail-lit" href="#warhound-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="warhound-tail-tail-fill-over" href="#warhound-tail-tail-shape" transform="translate(3.6 3.6)" fill="#e9dfc6"/>
+</g>
+</g>
+<use id="warhound-tail-tail-line" href="#warhound-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

@@ -34,9 +34,15 @@ export class Controls {
 
   private readonly down = new Set<string>();
   private pointer = -1;
+  /** True from when the move was asked for until the field has taken it. */
+  private want = false;
   private readonly onDown = (e: KeyboardEvent): void => {
     if (KEYS[e.code]) {
       this.down.add(e.code);
+      e.preventDefault();
+    } else if (e.code === 'Space') {
+      // The space bar lets the hero's move loose.
+      this.want = true;
       e.preventDefault();
     }
   };
@@ -54,7 +60,13 @@ export class Controls {
     window.addEventListener('keyup', this.onUp);
     window.addEventListener('blur', this.onBlur);
     const at = (p: Phaser.Input.Pointer): [number, number] => [p.x / view.zoom, p.y / view.zoom];
+    scene.input.mouse?.disableContextMenu();
     scene.input.on('pointerdown', (p: Phaser.Input.Pointer, over: unknown[]) => {
+      // The other button of the mouse lets the move loose, wherever it is pressed.
+      if (p.rightButtonDown()) {
+        this.want = true;
+        return;
+      }
       // A press on a button is the button's.
       if (over.length > 0 || this.pointer >= 0) return;
       const [x, y] = at(p);
@@ -102,8 +114,21 @@ export class Controls {
     return { x: 0, y: 0 };
   }
 
+  /** Asks for the hero's move: its button on a phone does. */
+  act(): void {
+    this.want = true;
+  }
+
+  /** True if the move was asked for since this was last called. */
+  takeAct(): boolean {
+    const want = this.want;
+    this.want = false;
+    return want;
+  }
+
   /** Lets go of everything: when the wave stops, so that the hero does not run on when it starts again. */
   release(): void {
+    this.want = false;
     this.down.clear();
     this.stick = null;
     this.pointer = -1;

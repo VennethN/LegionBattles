@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="siegeturtle-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="siegeturtle-head-neck-shape" d="M 141.8 150.8 L 161.8 146.8 C 166.6 145.9 169.8 141.1 168.8 136.2 C 167.9 131.4 163.1 128.2 158.2 129.2 L 138.2 133.2 C 133.4 134.1 130.2 138.9 131.2 143.8 C 132.1 148.6 136.9 151.8 141.8 150.8 Z"/>
+<clipPath id="siegeturtle-head-neck-clip"><use href="#siegeturtle-head-neck-shape"/></clipPath>
+<clipPath id="siegeturtle-head-neck-lit-clip"><use href="#siegeturtle-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="siegeturtle-head-cap-shape" d="M 152 126 C 152 126 162 122.7 166 124 C 170 125.3 174.7 130.3 176 134 C 177.3 137.7 174 146 174 146 C 174 146 164 143.3 160 142 C 156 140.7 150 138 150 138 L 152 126 Z"/>
+<clipPath id="siegeturtle-head-cap-clip"><use href="#siegeturtle-head-cap-shape"/></clipPath>
+<clipPath id="siegeturtle-head-cap-lit-clip"><use href="#siegeturtle-head-cap-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="siegeturtle-head-neck">
+<use id="siegeturtle-head-neck-shade" href="#siegeturtle-head-neck-shape" fill="#2e5f45"/>
+<g clip-path="url(#siegeturtle-head-neck-clip)">
+<use id="siegeturtle-head-neck-fill" href="#siegeturtle-head-neck-shape" transform="translate(-3 -3)" fill="#3f7a5a"/>
+<g clip-path="url(#siegeturtle-head-neck-lit-clip)">
+<use id="siegeturtle-head-neck-lit" href="#siegeturtle-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-head-neck-fill-over" href="#siegeturtle-head-neck-shape" transform="translate(3.6 3.6)" fill="#3f7a5a"/>
+</g>
+</g>
+<use id="siegeturtle-head-neck-line" href="#siegeturtle-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-head-cap">
+<use id="siegeturtle-head-cap-shade" href="#siegeturtle-head-cap-shape" fill="#434b56"/>
+<g clip-path="url(#siegeturtle-head-cap-clip)">
+<use id="siegeturtle-head-cap-fill" href="#siegeturtle-head-cap-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#siegeturtle-head-cap-lit-clip)">
+<use id="siegeturtle-head-cap-lit" href="#siegeturtle-head-cap-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-head-cap-fill-over" href="#siegeturtle-head-cap-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="siegeturtle-head-cap-sheen" d="M168.57 122.67 L172.67 122.67 L162.87 146 L158.77 146 Z M176.17 122.67 L178.77 122.67 L168.97 146 L166.37 146 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="siegeturtle-head-rivet" d="M 158.6 131 C 158.6 131.9 157.9 132.6 157 132.6 C 156.1 132.6 155.4 131.9 155.4 131 C 155.4 130.1 156.1 129.4 157 129.4 C 157.9 129.4 158.6 130.1 158.6 131 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="siegeturtle-head-rivet-lit" d="M 157.2 130.4 C 157.2 130.8 156.8 131.2 156.4 131.2 C 156 131.2 155.7 130.8 155.7 130.4 C 155.7 130 156 129.7 156.4 129.7 C 156.8 129.7 157.2 130 157.2 130.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="siegeturtle-head-rivet-2" d="M 165.6 132 C 165.6 132.9 164.9 133.6 164 133.6 C 163.1 133.6 162.4 132.9 162.4 132 C 162.4 131.1 163.1 130.4 164 130.4 C 164.9 130.4 165.6 131.1 165.6 132 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="siegeturtle-head-rivet-lit-2" d="M 164.2 131.4 C 164.2 131.8 163.8 132.2 163.4 132.2 C 163 132.2 162.7 131.8 162.7 131.4 C 162.7 131 163 130.7 163.4 130.7 C 163.8 130.7 164.2 131 164.2 131.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="siegeturtle-head-rivet-3" d="M 171.6 136 C 171.6 136.9 170.9 137.6 170 137.6 C 169.1 137.6 168.4 136.9 168.4 136 C 168.4 135.1 169.1 134.4 170 134.4 C 170.9 134.4 171.6 135.1 171.6 136 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="siegeturtle-head-rivet-lit-3" d="M 170.2 135.4 C 170.2 135.8 169.8 136.2 169.4 136.2 C 169 136.2 168.7 135.8 168.7 135.4 C 168.7 135 169 134.7 169.4 134.7 C 169.8 134.7 170.2 135 170.2 135.4 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="siegeturtle-head-cap-line" href="#siegeturtle-head-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

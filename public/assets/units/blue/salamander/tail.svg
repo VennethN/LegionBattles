@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="salamander-tail" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="salamander-tail-tail-shape" d="M 66 132 C 66 132 54.3 132.7 48 136 C 41.7 139.3 34.3 146 28 152 C 21.7 158 10 172 10 172 C 10 172 25 170 32 168 C 39 166 46 162.3 52 160 C 58 157.7 68 154 68 154 L 66 132 Z"/>
+<clipPath id="salamander-tail-tail-clip"><use href="#salamander-tail-tail-shape"/></clipPath>
+<clipPath id="salamander-tail-tail-lit-clip"><use href="#salamander-tail-tail-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="salamander-tail-tail">
+<use id="salamander-tail-tail-shade" href="#salamander-tail-tail-shape" fill="#434b56"/>
+<g clip-path="url(#salamander-tail-tail-clip)">
+<use id="salamander-tail-tail-fill" href="#salamander-tail-tail-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#salamander-tail-tail-lit-clip)">
+<use id="salamander-tail-tail-lit" href="#salamander-tail-tail-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-tail-tail-fill-over" href="#salamander-tail-tail-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+</g>
+<use id="salamander-tail-tail-line" href="#salamander-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

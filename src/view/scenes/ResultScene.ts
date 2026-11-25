@@ -5,12 +5,12 @@ import Phaser from 'phaser';
 import { BONE, BUSH, HOLY, IRON, OUTLINE, RUBY } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { ENEMIES, HEROES, byId } from '../../game/data';
+import { COMPANIONS, ENEMIES, HEROES, byId } from '../../game/data';
 import { heroOf, survived } from '../../game/run';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
-import { endRun, save, startRun, takeOpened, theRun, theWorld } from '../session';
+import { endRun, save, startRun, takeFriends, takeOpened, theRun, theWorld } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 
@@ -54,7 +54,13 @@ export class ResultScene extends Phaser.Scene {
       label(this, cx - pw / 2 + 40, y, name, { size: 18, align: 'left', color: OUTLINE, stroke: null });
       label(this, cx + pw / 2 - 40, y, value, { size: 20, align: 'right', color: OUTLINE, stroke: null });
     });
-    if (waves > 0 && waves >= best) label(this, cx, py + 250, `${hero.name}'s best yet`, { size: 17, color: '#2e5f45', stroke: null });
+    if (waves > 0 && waves >= best) label(this, cx, py + 250, `${hero.short}'s best yet`, { size: 17, color: '#2e5f45', stroke: null });
+    // A companion this run opened is named. Plain for now.
+    const friends = takeFriends();
+    if (friends.length > 0) {
+      const names = friends.map((id) => byId(COMPANIONS, id).name.toUpperCase()).join(', ');
+      label(this, cx, py + 274, `${names} WILL COME WITH YOU NOW`, { size: 16, color: HOLY.shade, stroke: null });
+    }
 
     // Whoever this run opened is shown, by name now.
     if (opened.length > 0) {
@@ -68,7 +74,7 @@ export class ResultScene extends Phaser.Scene {
         const img = this.add.image(x, y + 66, CARDS, portraitFrame('blue', def.unit));
         img.setScale(0.24).setAlpha(0);
         this.tweens.add({ targets: img, alpha: 1, y: y + 60, duration: 300, delay: 300 + i * 160, ease: 'Back.easeOut' });
-        label(this, x, y + 78, def.name, { size: 16, color: OUTLINE, stroke: null });
+        label(this, x, y + 78, def.short, { size: 16, color: OUTLINE, stroke: null });
       });
       this.time.delayedCall(350, () => sfx.play('claim', 0.8));
     }

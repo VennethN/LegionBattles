@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="salamander" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="salamander-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="salamander-shadow-shadow" d="M 142 181 C 142 186 121.4 190 96 190 C 70.6 190 50 186 50 181 C 50 176 70.6 172 96 172 C 121.4 172 142 176 142 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="salamander-tail-layer" transform="translate(62 118) rotate(0) scale(1 1) translate(-62 -118)">
+<defs>
+<path id="salamander-tail-tail-shape" d="M 66 132 C 66 132 54.3 132.7 48 136 C 41.7 139.3 34.3 146 28 152 C 21.7 158 10 172 10 172 C 10 172 25 170 32 168 C 39 166 46 162.3 52 160 C 58 157.7 68 154 68 154 L 66 132 Z"/>
+<clipPath id="salamander-tail-tail-clip"><use href="#salamander-tail-tail-shape"/></clipPath>
+<clipPath id="salamander-tail-tail-lit-clip"><use href="#salamander-tail-tail-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="salamander-tail-tail">
+<use id="salamander-tail-tail-shade" href="#salamander-tail-tail-shape" fill="#434b56"/>
+<g clip-path="url(#salamander-tail-tail-clip)">
+<use id="salamander-tail-tail-fill" href="#salamander-tail-tail-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#salamander-tail-tail-lit-clip)">
+<use id="salamander-tail-tail-lit" href="#salamander-tail-tail-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-tail-tail-fill-over" href="#salamander-tail-tail-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+</g>
+<use id="salamander-tail-tail-line" href="#salamander-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="salamander-legs-far-layer" transform="translate(98 150) rotate(0) scale(1 1) translate(-98 -150)">
+<defs>
+<path id="salamander-legs-far-leg-shape" d="M 75.5 156 L 88.5 156 L 88.5 169 Q 95.5 170 95.5 176 L 95.5 180 L 75.5 180 Z"/>
+<path id="salamander-legs-far-leg-2-shape" d="M 107.5 156 L 120.5 156 L 120.5 169 Q 127.5 170 127.5 176 L 127.5 180 L 107.5 180 Z"/>
+</defs>
+<g id="salamander-legs-far-leg">
+<use id="salamander-legs-far-leg-fill" href="#salamander-legs-far-leg-shape" fill="#434b56"/>
+<use id="salamander-legs-far-leg-line" href="#salamander-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-legs-far-leg-2">
+<use id="salamander-legs-far-leg-2-fill" href="#salamander-legs-far-leg-2-shape" fill="#434b56"/>
+<use id="salamander-legs-far-leg-2-line" href="#salamander-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="salamander-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="salamander-body-hide-shape" d="M 58 146 C 60 144 63.7 133.3 70 130 C 76.3 126.7 87.3 126 96 126 C 104.7 126 115.7 127 122 130 C 128.3 133 132 142 134 144 C 136 146 136 140.3 134 142 C 132 143.7 128.3 151.5 122 154 C 115.7 156.5 104.7 157 96 157 C 87.3 157 76.3 156.5 70 154 C 63.7 151.5 60 143.3 58 142 C 56 140.7 56 148 58 146 Z"/>
+<clipPath id="salamander-body-hide-clip"><use href="#salamander-body-hide-shape"/></clipPath>
+<clipPath id="salamander-body-hide-lit-clip"><use href="#salamander-body-hide-shape" transform="translate(-6 -6)"/></clipPath>
+<path id="salamander-body-saddle-shape" d="M 84 126 L 112 126 C 112 126 116.3 141.7 114 146 C 111.7 150.3 103.3 152 98 152 C 92.7 152 84.3 150.3 82 146 C 79.7 141.7 84 126 84 126 Z"/>
+<clipPath id="salamander-body-saddle-clip"><use href="#salamander-body-saddle-shape"/></clipPath>
+<clipPath id="salamander-body-saddle-lit-clip"><use href="#salamander-body-saddle-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="salamander-body-flame-shape" d="M 66 128 C 66 128 64 122 65 118 C 66 114 72 104 72 104 C 72 104 78 114 79 118 C 80 122 78 128 78 128 L 66 128 Z"/>
+<path id="salamander-body-flame-2-shape" d="M 80 128 C 80 128 78 123 79 118 C 80 113 86 98 86 98 C 86 98 92 113 93 118 C 94 123 92 128 92 128 L 80 128 Z"/>
+<path id="salamander-body-flame-3-shape" d="M 94 128 C 94 128 92 123.7 93 118 C 94 112.3 100 94 100 94 C 100 94 106 112.3 107 118 C 108 123.7 106 128 106 128 L 94 128 Z"/>
+<path id="salamander-body-flame-4-shape" d="M 108 128 C 108 128 106 122.7 107 118 C 108 113.3 114 100 114 100 C 114 100 120 113.3 121 118 C 122 122.7 120 128 120 128 L 108 128 Z"/>
+</defs>
+<g id="salamander-body-hide">
+<use id="salamander-body-hide-shade" href="#salamander-body-hide-shape" fill="#434b56"/>
+<g clip-path="url(#salamander-body-hide-clip)">
+<use id="salamander-body-hide-deep" href="#salamander-body-hide-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="salamander-body-hide-shade-over" href="#salamander-body-hide-shape" transform="translate(-3.72 -3.72)" fill="#434b56"/>
+<use id="salamander-body-hide-fill" href="#salamander-body-hide-shape" transform="translate(-6 -6)" fill="#5d6672"/>
+<g clip-path="url(#salamander-body-hide-lit-clip)">
+<use id="salamander-body-hide-lit" href="#salamander-body-hide-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-body-hide-fill-over" href="#salamander-body-hide-shape" transform="translate(4.6 4.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="salamander-body-hide-line" href="#salamander-body-hide-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-body-saddle">
+<use id="salamander-body-saddle-shade" href="#salamander-body-saddle-shape" fill="#2f5893"/>
+<g clip-path="url(#salamander-body-saddle-clip)">
+<use id="salamander-body-saddle-fill" href="#salamander-body-saddle-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#salamander-body-saddle-lit-clip)">
+<use id="salamander-body-saddle-lit" href="#salamander-body-saddle-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-body-saddle-fill-over" href="#salamander-body-saddle-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="salamander-body-saddle-line" href="#salamander-body-saddle-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="salamander-body-glow" d="M 81 118.4 C 81 123.4 77 127.4 72 127.4 C 67 127.4 63 123.4 63 118.4 C 63 113.4 67 109.4 72 109.4 C 77 109.4 81 113.4 81 118.4 Z" fill="#ffd27a" opacity="0.4"/>
+<g id="salamander-body-flame">
+<use id="salamander-body-flame-fill" href="#salamander-body-flame-shape" fill="#f08a3c"/>
+<use id="salamander-body-flame-line" href="#salamander-body-flame-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="salamander-body-glow-2" d="M 95 116 C 95 121 91 125 86 125 C 81 125 77 121 77 116 C 77 111 81 107 86 107 C 91 107 95 111 95 116 Z" fill="#ffd27a" opacity="0.4"/>
+<g id="salamander-body-flame-2">
+<use id="salamander-body-flame-2-fill" href="#salamander-body-flame-2-shape" fill="#f08a3c"/>
+<use id="salamander-body-flame-2-line" href="#salamander-body-flame-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="salamander-body-glow-3" d="M 109 114.4 C 109 119.4 105 123.4 100 123.4 C 95 123.4 91 119.4 91 114.4 C 91 109.4 95 105.4 100 105.4 C 105 105.4 109 109.4 109 114.4 Z" fill="#ffd27a" opacity="0.4"/>
+<g id="salamander-body-flame-3">
+<use id="salamander-body-flame-3-fill" href="#salamander-body-flame-3-shape" fill="#f08a3c"/>
+<use id="salamander-body-flame-3-line" href="#salamander-body-flame-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="salamander-body-glow-4" d="M 123 116.8 C 123 121.8 119 125.8 114 125.8 C 109 125.8 105 121.8 105 116.8 C 105 111.8 109 107.8 114 107.8 C 119 107.8 123 111.8 123 116.8 Z" fill="#ffd27a" opacity="0.4"/>
+<g id="salamander-body-flame-4">
+<use id="salamander-body-flame-4-fill" href="#salamander-body-flame-4-shape" fill="#f08a3c"/>
+<use id="salamander-body-flame-4-line" href="#salamander-body-flame-4-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="salamander-legs-near-layer" transform="translate(98 150) rotate(0) scale(1 1) translate(-98 -150)">
+<defs>
+<path id="salamander-legs-near-leg-shape" d="M 63.5 156 L 76.5 156 L 76.5 169 Q 83.5 170 83.5 176 L 83.5 180 L 63.5 180 Z"/>
+<clipPath id="salamander-legs-near-leg-clip"><use href="#salamander-legs-near-leg-shape"/></clipPath>
+<clipPath id="salamander-legs-near-leg-lit-clip"><use href="#salamander-legs-near-leg-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="salamander-legs-near-leg-2-shape" d="M 117.5 156 L 130.5 156 L 130.5 169 Q 137.5 170 137.5 176 L 137.5 180 L 117.5 180 Z"/>
+<clipPath id="salamander-legs-near-leg-2-clip"><use href="#salamander-legs-near-leg-2-shape"/></clipPath>
+<clipPath id="salamander-legs-near-leg-2-lit-clip"><use href="#salamander-legs-near-leg-2-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="salamander-legs-near-leg">
+<use id="salamander-legs-near-leg-shade" href="#salamander-legs-near-leg-shape" fill="#434b56"/>
+<g clip-path="url(#salamander-legs-near-leg-clip)">
+<use id="salamander-legs-near-leg-fill" href="#salamander-legs-near-leg-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#salamander-legs-near-leg-lit-clip)">
+<use id="salamander-legs-near-leg-lit" href="#salamander-legs-near-leg-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-legs-near-leg-fill-over" href="#salamander-legs-near-leg-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="salamander-legs-near-leg-line" href="#salamander-legs-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-legs-near-leg-2">
+<use id="salamander-legs-near-leg-2-shade" href="#salamander-legs-near-leg-2-shape" fill="#434b56"/>
+<g clip-path="url(#salamander-legs-near-leg-2-clip)">
+<use id="salamander-legs-near-leg-2-fill" href="#salamander-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#salamander-legs-near-leg-2-lit-clip)">
+<use id="salamander-legs-near-leg-2-lit" href="#salamander-legs-near-leg-2-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-legs-near-leg-2-fill-over" href="#salamander-legs-near-leg-2-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+</g>
+<use id="salamander-legs-near-leg-2-line" href="#salamander-legs-near-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="salamander-head-layer" transform="translate(128 116) rotate(0) scale(1 1) translate(-128 -116)">
+<defs>
+<path id="salamander-head-spine-shape" d="M 125 128 L 131 114 L 136 128 Z"/>
+<path id="salamander-head-spine-2-shape" d="M 135 128 L 141 114 L 146 128 Z"/>
+<path id="salamander-head-spine-3-shape" d="M 145 128 L 151 114 L 156 128 Z"/>
+<path id="salamander-head-head-shape" d="M 124 136 C 125.3 132.3 129.3 128 134 126 C 138.7 124 146 123.3 152 124 C 158 124.7 165.3 127 170 130 C 174.7 133 180 142 180 142 C 180 142 172.7 148.3 166 150 C 159.3 151.7 146.7 152.3 140 152 C 133.3 151.7 128.7 150.7 126 148 C 123.3 145.3 122.7 139.7 124 136 Z"/>
+<clipPath id="salamander-head-head-clip"><use href="#salamander-head-head-shape"/></clipPath>
+<clipPath id="salamander-head-head-lit-clip"><use href="#salamander-head-head-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="salamander-head-plate-shape" d="M 132 126 C 132 126 145.3 121.3 152 122 C 158.7 122.7 167.3 126.8 172 130 C 176.7 133.2 180 141 180 141 C 180 141 167.7 138.7 160 138 C 152.3 137.3 138.7 139 134 137 C 129.3 135 132 126 132 126 Z"/>
+<clipPath id="salamander-head-plate-clip"><use href="#salamander-head-plate-shape"/></clipPath>
+<clipPath id="salamander-head-plate-lit-clip"><use href="#salamander-head-plate-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="salamander-head-spine">
+<use id="salamander-head-spine-fill" href="#salamander-head-spine-shape" fill="#f08a3c"/>
+<use id="salamander-head-spine-line" href="#salamander-head-spine-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-head-spine-2">
+<use id="salamander-head-spine-2-fill" href="#salamander-head-spine-2-shape" fill="#f08a3c"/>
+<use id="salamander-head-spine-2-line" href="#salamander-head-spine-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-head-spine-3">
+<use id="salamander-head-spine-3-fill" href="#salamander-head-spine-3-shape" fill="#f08a3c"/>
+<use id="salamander-head-spine-3-line" href="#salamander-head-spine-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-head-head">
+<use id="salamander-head-head-shade" href="#salamander-head-head-shape" fill="#434b56"/>
+<g clip-path="url(#salamander-head-head-clip)">
+<use id="salamander-head-head-fill" href="#salamander-head-head-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#salamander-head-head-lit-clip)">
+<use id="salamander-head-head-lit" href="#salamander-head-head-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-head-head-fill-over" href="#salamander-head-head-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+</g>
+<use id="salamander-head-head-line" href="#salamander-head-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-head-plate">
+<use id="salamander-head-plate-shade" href="#salamander-head-plate-shape" fill="#9a6337"/>
+<g clip-path="url(#salamander-head-plate-clip)">
+<use id="salamander-head-plate-fill" href="#salamander-head-plate-shape" transform="translate(-3 -3)" fill="#c98b52"/>
+<g clip-path="url(#salamander-head-plate-lit-clip)">
+<use id="salamander-head-plate-lit" href="#salamander-head-plate-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-head-plate-fill-over" href="#salamander-head-plate-shape" transform="translate(3.6 3.6)" fill="#c98b52"/>
+</g>
+<path id="salamander-head-plate-sheen" d="M158.8 121.33 L166.4 121.33 L158.14 141 L150.54 141 Z M169.9 121.33 L172.5 121.33 L164.24 141 L161.64 141 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="salamander-head-rivet" d="M 147.7 130 C 147.7 130.9 146.9 131.7 146 131.7 C 145.1 131.7 144.3 130.9 144.3 130 C 144.3 129.1 145.1 128.3 146 128.3 C 146.9 128.3 147.7 129.1 147.7 130 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="salamander-head-rivet-lit" d="M 146.2 129.4 C 146.2 129.8 145.8 130.2 145.4 130.2 C 145 130.2 144.6 129.8 144.6 129.4 C 144.6 129 145 128.6 145.4 128.6 C 145.8 128.6 146.2 129 146.2 129.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="salamander-head-rivet-2" d="M 157.7 132 C 157.7 132.9 156.9 133.7 156 133.7 C 155.1 133.7 154.3 132.9 154.3 132 C 154.3 131.1 155.1 130.3 156 130.3 C 156.9 130.3 157.7 131.1 157.7 132 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="salamander-head-rivet-lit-2" d="M 156.2 131.4 C 156.2 131.8 155.8 132.2 155.4 132.2 C 155 132.2 154.6 131.8 154.6 131.4 C 154.6 131 155 130.6 155.4 130.6 C 155.8 130.6 156.2 131 156.2 131.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="salamander-head-rivet-3" d="M 167.7 135 C 167.7 135.9 166.9 136.7 166 136.7 C 165.1 136.7 164.3 135.9 164.3 135 C 164.3 134.1 165.1 133.3 166 133.3 C 166.9 133.3 167.7 134.1 167.7 135 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="salamander-head-rivet-lit-3" d="M 166.2 134.4 C 166.2 134.8 165.8 135.2 165.4 135.2 C 165 135.2 164.6 134.8 164.6 134.4 C 164.6 134 165 133.6 165.4 133.6 C 165.8 133.6 166.2 134 166.2 134.4 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="salamander-head-plate-line" href="#salamander-head-plate-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

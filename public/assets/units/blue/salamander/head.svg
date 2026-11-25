@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="salamander-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="salamander-head-spine-shape" d="M 125 128 L 131 114 L 136 128 Z"/>
+<path id="salamander-head-spine-2-shape" d="M 135 128 L 141 114 L 146 128 Z"/>
+<path id="salamander-head-spine-3-shape" d="M 145 128 L 151 114 L 156 128 Z"/>
+<path id="salamander-head-head-shape" d="M 124 136 C 125.3 132.3 129.3 128 134 126 C 138.7 124 146 123.3 152 124 C 158 124.7 165.3 127 170 130 C 174.7 133 180 142 180 142 C 180 142 172.7 148.3 166 150 C 159.3 151.7 146.7 152.3 140 152 C 133.3 151.7 128.7 150.7 126 148 C 123.3 145.3 122.7 139.7 124 136 Z"/>
+<clipPath id="salamander-head-head-clip"><use href="#salamander-head-head-shape"/></clipPath>
+<clipPath id="salamander-head-head-lit-clip"><use href="#salamander-head-head-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="salamander-head-plate-shape" d="M 132 126 C 132 126 145.3 121.3 152 122 C 158.7 122.7 167.3 126.8 172 130 C 176.7 133.2 180 141 180 141 C 180 141 167.7 138.7 160 138 C 152.3 137.3 138.7 139 134 137 C 129.3 135 132 126 132 126 Z"/>
+<clipPath id="salamander-head-plate-clip"><use href="#salamander-head-plate-shape"/></clipPath>
+<clipPath id="salamander-head-plate-lit-clip"><use href="#salamander-head-plate-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="salamander-head-spine">
+<use id="salamander-head-spine-fill" href="#salamander-head-spine-shape" fill="#f08a3c"/>
+<use id="salamander-head-spine-line" href="#salamander-head-spine-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-head-spine-2">
+<use id="salamander-head-spine-2-fill" href="#salamander-head-spine-2-shape" fill="#f08a3c"/>
+<use id="salamander-head-spine-2-line" href="#salamander-head-spine-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-head-spine-3">
+<use id="salamander-head-spine-3-fill" href="#salamander-head-spine-3-shape" fill="#f08a3c"/>
+<use id="salamander-head-spine-3-line" href="#salamander-head-spine-3-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-head-head">
+<use id="salamander-head-head-shade" href="#salamander-head-head-shape" fill="#434b56"/>
+<g clip-path="url(#salamander-head-head-clip)">
+<use id="salamander-head-head-fill" href="#salamander-head-head-shape" transform="translate(-4 -4)" fill="#5d6672"/>
+<g clip-path="url(#salamander-head-head-lit-clip)">
+<use id="salamander-head-head-lit" href="#salamander-head-head-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-head-head-fill-over" href="#salamander-head-head-shape" transform="translate(4.2 4.2)" fill="#5d6672"/>
+</g>
+</g>
+<use id="salamander-head-head-line" href="#salamander-head-head-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="salamander-head-plate">
+<use id="salamander-head-plate-shade" href="#salamander-head-plate-shape" fill="#9a6337"/>
+<g clip-path="url(#salamander-head-plate-clip)">
+<use id="salamander-head-plate-fill" href="#salamander-head-plate-shape" transform="translate(-3 -3)" fill="#c98b52"/>
+<g clip-path="url(#salamander-head-plate-lit-clip)">
+<use id="salamander-head-plate-lit" href="#salamander-head-plate-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="salamander-head-plate-fill-over" href="#salamander-head-plate-shape" transform="translate(3.6 3.6)" fill="#c98b52"/>
+</g>
+<path id="salamander-head-plate-sheen" d="M158.8 121.33 L166.4 121.33 L158.14 141 L150.54 141 Z M169.9 121.33 L172.5 121.33 L164.24 141 L161.64 141 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="salamander-head-rivet" d="M 147.7 130 C 147.7 130.9 146.9 131.7 146 131.7 C 145.1 131.7 144.3 130.9 144.3 130 C 144.3 129.1 145.1 128.3 146 128.3 C 146.9 128.3 147.7 129.1 147.7 130 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="salamander-head-rivet-lit" d="M 146.2 129.4 C 146.2 129.8 145.8 130.2 145.4 130.2 C 145 130.2 144.6 129.8 144.6 129.4 C 144.6 129 145 128.6 145.4 128.6 C 145.8 128.6 146.2 129 146.2 129.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="salamander-head-rivet-2" d="M 157.7 132 C 157.7 132.9 156.9 133.7 156 133.7 C 155.1 133.7 154.3 132.9 154.3 132 C 154.3 131.1 155.1 130.3 156 130.3 C 156.9 130.3 157.7 131.1 157.7 132 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="salamander-head-rivet-lit-2" d="M 156.2 131.4 C 156.2 131.8 155.8 132.2 155.4 132.2 C 155 132.2 154.6 131.8 154.6 131.4 C 154.6 131 155 130.6 155.4 130.6 C 155.8 130.6 156.2 131 156.2 131.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="salamander-head-rivet-3" d="M 167.7 135 C 167.7 135.9 166.9 136.7 166 136.7 C 165.1 136.7 164.3 135.9 164.3 135 C 164.3 134.1 165.1 133.3 166 133.3 C 166.9 133.3 167.7 134.1 167.7 135 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="salamander-head-rivet-lit-3" d="M 166.2 134.4 C 166.2 134.8 165.8 135.2 165.4 135.2 C 165 135.2 164.6 134.8 164.6 134.4 C 164.6 134 165 133.6 165.4 133.6 C 165.8 133.6 166.2 134 166.2 134.4 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="salamander-head-plate-line" href="#salamander-head-plate-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

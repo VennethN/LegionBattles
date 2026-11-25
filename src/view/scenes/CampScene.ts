@@ -10,9 +10,9 @@ import Phaser from 'phaser';
 import { BONE, BUSH, GOLD, HOLY, IRON, LINEN, OUTLINE, RUBY, VENOM, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { ITEMS, SLOTS, TIER_NAMES, WEAPONS, byId, levelNeeds, waveOf } from '../../game/data';
+import { COMPANIONS, ITEMS, SLOTS, TIER_NAMES, WEAPONS, byId, levelNeeds, waveOf, weaponOf } from '../../game/data';
 import {
-  buy, choose, combine, heroOf, lock, march, openPack, reroll, rerollPrice, sell, sellPrice, statsOf, twinOf, weaponNumbers, whyNot, type Offer, type RunData,
+  buy, choose, combine, heroOf, lock, march, openPack, ownOf, reroll, rerollPrice, sell, sellPrice, statsOf, twinOf, weaponNumbers, whyNot, type Offer, type RunData,
 } from '../../game/run';
 import { STAT_INFO, STATS, statText, type StatLine } from '../../game/stats';
 import { ads } from '../../platform/ads';
@@ -165,7 +165,9 @@ export class CampScene extends Phaser.Scene {
     run.choices.forEach((c, i) => {
       const x = x0 + (i % cols) * (cw + 12);
       const y = y0 + Math.floor(i / cols) * (ch + 12);
-      const info = STAT_INFO[c.stat];
+      // A bond with a companion is offered like a stat: its name, the step it would be, and what the companion does.
+      const friend = c.bond ? byId(COMPANIONS, c.bond) : null;
+      const info = friend ? { name: `Bond with ${friend.name}`, icon: 'heart', says: `${friend.name} is stronger, and ${friend.quirkName} does more.` } : STAT_INFO[c.stat];
       const card = this.add.container(x + cw / 2, y + ch / 2);
       card.add(slabImage(this, -cw / 2, -ch / 2, cw, ch, BONE, 16, 7));
       card.add(slabImage(this, -cw / 2 + 8, -ch / 2 + 8, cw - 16, 30, TIER_MATS[c.tier], 10, 0));
@@ -173,7 +175,7 @@ export class CampScene extends Phaser.Scene {
       const img = this.add.image(0, -28, SHEET, statIcon(info.icon));
       img.setScale(52 / img.frame.width);
       card.add(img);
-      card.add(label(this, 0, 22, `${statText(c.stat, c.by)} ${info.name}`, { size: 20 }));
+      card.add(label(this, 0, 22, friend ? info.name : `${statText(c.stat, c.by)} ${info.name}`, { size: friend ? 17 : 20 }));
       card.add(label(this, 0, 40, info.says, { size: 15, color: OUTLINE, stroke: null, wrap: cw - 24 }).setOrigin(0.5, 0));
       card.setSize(cw, ch).setInteractive({ useHandCursor: true });
       card.on('pointerup', () => {
@@ -325,10 +327,13 @@ export class CampScene extends Phaser.Scene {
     this.add2(slabImage(this, x, y, w, h, DARK, 16, 6));
     const img = this.add2(this.add.image(x + 48, y + 92, CARDS, portraitFrame('blue', def.unit)));
     img.setScale(0.28);
-    this.text(x + 96, y + 30, def.name, { size: 20, align: 'left' });
+    this.text(x + 96, y + 30, def.short, { size: 20, align: 'left' });
     this.text(x + 96, y + 54, `Level ${run.level}`, { size: 16, align: 'left', color: HOLY.fill });
     this.text(x + 96, y + 76, `${Math.floor(run.xp)} / ${levelNeeds(run.level)}`, { size: 15, align: 'left', color: BONE.shade });
-    this.statGrid(x + 12, y + 122, w - 24, 1, h - 134);
+    // Their own weapon, which takes no hand and grows by itself: named with its tier, plainly, until it has a place of its own here.
+    const own = ownOf(run);
+    this.text(x + 14, y + 126, `${weaponOf(own.id).name} ${TIER_NAMES[own.tier]}`, { size: 15, align: 'left', color: BONE.fill, strokeWidth: 3 });
+    this.statGrid(x + 12, y + 142, w - 24, 1, h - 154);
   }
 
   /** The same under a tall screen's wares: two columns, as tall as they need and no taller, just over the buttons. */

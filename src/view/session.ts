@@ -3,15 +3,16 @@
 // however many screens are open.
 
 import { endWave, newRun, setupOf, type RunData } from '../game/run';
-import { record, type SaveData } from '../game/state';
+import { bandFor, record, type SaveData } from '../game/state';
 import { loadSave, storeSave, wipeSave } from '../game/storage';
 import { World } from '../game/world';
 
 let current: SaveData | null = null;
 let run: RunData | null = null;
 let world: World | null = null;
-/** Heroes opened by the run so far and not yet shown to the player. */
+/** Heroes and companions opened by the run so far and not yet shown to the player. */
 let opened: string[] = [];
+let friends: string[] = [];
 
 export function save(): SaveData {
   if (!current) current = loadSave().save;
@@ -46,9 +47,10 @@ export function theWorld(): World | null {
 /** Begins a new run with a hero. A run that was left in its camp is let go. */
 export function startRun(hero: string): RunData {
   const s = save();
-  run = newRun(hero, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1);
+  run = newRun(hero, (Date.now() ^ (Math.random() * 0x7fffffff)) >>> 0 || 1, bandFor(s, hero));
   world = null;
   opened = [];
+  friends = [];
   s.run = null;
   s.runs++;
   s.last = hero;
@@ -69,7 +71,7 @@ export function resumeRun(): RunData | null {
 /** The wave that is to be fought next, made ready. */
 export function beginWave(tall: boolean): World {
   if (!run) throw new Error('no run');
-  world = new World(setupOf(run, tall));
+  world = new World(setupOf(run, tall, save().auto));
   return world;
 }
 
@@ -83,7 +85,9 @@ export function finishWave(): void {
   const kills = world.kills;
   endWave(run, world);
   const s = save();
-  opened.push(...record(s, run, kills));
+  const now = record(s, run, kills);
+  opened.push(...now.heroes);
+  friends.push(...now.friends);
   s.run = run.phase === 'over' ? null : run;
   commit();
 }
@@ -103,6 +107,13 @@ export function takeOpened(): string[] {
   return o;
 }
 
+/** The companions the run has opened, once. */
+export function takeFriends(): string[] {
+  const o = friends;
+  friends = [];
+  return o;
+}
+
 export function endRun(): void {
   run = null;
   world = null;
@@ -117,7 +128,7 @@ export function endRun(): void {
  * wave, what they carry. The game itself never calls it.
  */
 export function stage(o: Partial<RunData> & { hero: string }): RunData {
-  run = { ...newRun(o.hero, 12345), ...o };
+  run = { ...newRun(o.hero, 12345, o.band?.map((b) => b.id)), ...o };
   world = null;
   opened = [];
   return run;

@@ -125,7 +125,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
 
   // Someone who has never played is in the field at once.
   ok('a new player lands in the field', await until(page, 'Hud'));
-  ok('as the first hero, on the first wave', (await run(page))?.hero === 'knight' && (await world(page))?.wave === 1);
+  ok('as the first hero, on the first wave', (await run(page))?.hero === 'bram' && (await world(page))?.wave === 1);
 
   // Steering: the keys, then a drag.
   let before = await world(page);
@@ -157,6 +157,20 @@ async function play(label: string, { context, page }: { context: Context; page: 
     const later = await world(page);
     ok('and the hero stops when it is lifted', !!still && !!later && Math.abs(later.x - still.x) < 1);
   }
+
+  // The move: when it is full, the space bar lets it loose, or its button under a thumb.
+  const fury = (): Promise<number> => page.evaluate(() => ((window as unknown as Win).world() as unknown as { fury: number }).fury);
+  await page.evaluate(() => {
+    const w = (window as unknown as Win).world() as unknown as { fury: number; auto: boolean };
+    w.fury = 1;
+    w.auto = false;
+  });
+  await tick(page, 4);
+  ok('a full move waits to be asked for', (await fury()) === 1);
+  if (!touch) await page.keyboard.press('Space');
+  else ok('the move has a button', await press(page, tap, 'Hud', 'SHIELD RUSH'));
+  await tick(page, 6);
+  ok('the move is let loose when it is asked for', (await fury()) < 1);
 
   // Pause holds the wave still.
   if (!touch) await page.keyboard.press('KeyP');
@@ -196,15 +210,20 @@ async function play(label: string, { context, page }: { context: Context; page: 
   await fall(page);
   ok('a fall ends the run on the result', await until(page, 'Result'));
   await tick(page, 30);
-  ok('AGAIN starts another with the same hero', (await press(page, tap, 'Result', 'AGAIN')) && (await until(page, 'Hud')) && (await world(page))?.wave === 1 && (await run(page))?.hero === 'knight');
+  ok('AGAIN starts another with the same hero', (await press(page, tap, 'Result', 'AGAIN')) && (await until(page, 'Hud')) && (await world(page))?.wave === 1 && (await run(page))?.hero === 'bram');
   await tick(page, 30);
   await fall(page);
   await until(page, 'Result');
   await tick(page, 30);
   ok('HEROES goes to the list', (await press(page, tap, 'Result', 'HEROES')) && (await until(page, 'Title')));
   await tick(page, 10);
-  ok('the Archer can be chosen', await press(page, tap, 'Title', 'Archer'));
-  ok('PLAY begins as them', (await press(page, tap, 'Title', 'PLAY')) && (await until(page, 'Hud')) && (await run(page))?.hero === 'archer');
+  // The first run has ended, so Biscuit has been met and comes along; a press on his place sends him home again.
+  ok('a companion goes along after the first run', (await find(page, 'Title', 'WITH BISCUIT')) !== null);
+  ok('and can be left at home', (await press(page, tap, 'Title', 'WITH BISCUIT')) && (await find(page, 'Title', 'WITH NOBODY')) !== null);
+  ok('and taken along again', (await press(page, tap, 'Title', 'WITH NOBODY')) && (await find(page, 'Title', 'WITH BISCUIT')) !== null);
+  ok('Wren can be chosen', await press(page, tap, 'Title', 'Wren'));
+  ok('PLAY begins as them', (await press(page, tap, 'Title', 'PLAY')) && (await until(page, 'Hud')) && (await run(page))?.hero === 'wren');
+  ok('with the companion on the field', (await page.evaluate(() => ((window as unknown as Win).world() as unknown as { band: Array<{ def: { id: string } }> }).band.map((a) => a.def.id).join())) === 'biscuit');
 
   // A run left in its camp is there after the page is shut.
   await fight(page, 60 * 24);

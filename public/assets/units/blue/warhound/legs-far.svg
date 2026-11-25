@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="warhound-legs-far" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="warhound-legs-far-leg-shape" d="M 77.9 148.1 L 90.5 148.1 L 90.5 170.8 Q 96.4 171.6 96.4 176.6 L 96.4 180 L 77.9 180 Z"/>
+<path id="warhound-legs-far-leg-2-shape" d="M 104.8 148.1 L 117.4 148.1 L 117.4 170.8 Q 123.3 171.6 123.3 176.6 L 123.3 180 L 104.8 180 Z"/>
+</defs>
+<g id="warhound-legs-far-leg">
+<use id="warhound-legs-far-leg-fill" href="#warhound-legs-far-leg-shape" fill="#c4b594"/>
+<use id="warhound-legs-far-leg-line" href="#warhound-legs-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="warhound-legs-far-leg-2">
+<use id="warhound-legs-far-leg-2-fill" href="#warhound-legs-far-leg-2-shape" fill="#c4b594"/>
+<use id="warhound-legs-far-leg-2-line" href="#warhound-legs-far-leg-2-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

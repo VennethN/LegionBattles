@@ -30,9 +30,10 @@ The headless browser draws a few frames a second. The scripts take over the page
 ## Rules of the project
 
 - **The rules are pure, in `src/game`, with tests.** `world.ts` and `run.ts` know nothing of the screen. A new rule goes there with a test, not into a scene.
-- **The numbers are in `src/game/data.ts`,** each with a comment that says what it is for.
-- **A change to a number is measured.** `npm run pace` before and after, twelve runs at the least, and say what moved. `--why` finds a wall.
+- **The numbers are in `src/game/data.ts`, `heroes.ts` and `companions.ts`,** each with a comment that says what it is for.
+- **A change to a number is measured.** `npm run pace` before and after, twelve runs at the least, and say what moved. `--why` finds a wall, `--friends` measures the companions, and `--nomove`, `--noquirk` and `--nogrow` say what a part of a hero is worth. Two measures with other dice differ by a wave or more: believe a bigger difference than that, or play more runs.
 - **The screens show and ask.** A scene never works out what something costs or does: it asks `run.ts`.
+- **What the screens show of a hero's quirk, their move and the band, the wave tells them:** `World.trait`, `World.fury`, the companions in `World.band`, and the events. A screen never works a quirk out for itself.
 - **Everything an enemy is about to do is shown before it does it:** a mark where it will stand, a line it will run down, a ring it will burst in. A new way of fighting comes with its warning.
 - **The art is drawn in code, in the kit's style.** No image files, no AI pictures, no art copied from another game. Nothing has a face: no eyes, mouths, noses or brows, and no two dark openings side by side that could be read as eyes. A pale ring round a dark middle is an eye too: an orb with a halo was, and is a cut stone now.
 - **It is a game in a genre, not a copy of another game.** Its heroes, weapons, wares, enemies, names and looks are its own.

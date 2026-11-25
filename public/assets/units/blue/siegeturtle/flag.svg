@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="siegeturtle-flag" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="siegeturtle-flag-staff-shape" d="M 78 34 L 79 34 Q 81 34 81 36 L 81 68 Q 81 70 79 70 L 78 70 Q 76 70 76 68 L 76 36 Q 76 34 78 34 Z"/>
+<path id="siegeturtle-flag-cloth-shape" d="M 77 35 L 50 41 L 60 47 L 50 54 L 77 57 Z"/>
+<clipPath id="siegeturtle-flag-cloth-clip"><use href="#siegeturtle-flag-cloth-shape"/></clipPath>
+<clipPath id="siegeturtle-flag-cloth-lit-clip"><use href="#siegeturtle-flag-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="siegeturtle-flag-staff">
+<use id="siegeturtle-flag-staff-fill" href="#siegeturtle-flag-staff-shape" fill="#9a6a3a"/>
+<use id="siegeturtle-flag-staff-line" href="#siegeturtle-flag-staff-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-flag-cloth">
+<use id="siegeturtle-flag-cloth-shade" href="#siegeturtle-flag-cloth-shape" fill="#2f5893"/>
+<g clip-path="url(#siegeturtle-flag-cloth-clip)">
+<use id="siegeturtle-flag-cloth-fill" href="#siegeturtle-flag-cloth-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#siegeturtle-flag-cloth-lit-clip)">
+<use id="siegeturtle-flag-cloth-lit" href="#siegeturtle-flag-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-flag-cloth-fill-over" href="#siegeturtle-flag-cloth-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="siegeturtle-flag-cloth-line" href="#siegeturtle-flag-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

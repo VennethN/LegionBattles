@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="eagle-head" width="272" height="272" viewBox="-40 -40 272 272">
+<defs>
+<path id="eagle-head-neck-shape" d="M 119.1 119.5 L 133.1 101.5 C 136.2 97.6 135.4 91.9 131.5 88.9 C 127.6 85.8 121.9 86.6 118.9 90.5 L 104.9 108.5 C 101.8 112.4 102.6 118.1 106.5 121.1 C 110.4 124.2 116.1 123.4 119.1 119.5 Z"/>
+<clipPath id="eagle-head-neck-clip"><use href="#eagle-head-neck-shape"/></clipPath>
+<clipPath id="eagle-head-neck-lit-clip"><use href="#eagle-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="eagle-head-beak-shape" d="M 138 88 C 138 88 148.7 88 152 90 C 155.3 92 158 100 158 100 C 158 100 151.3 98.3 148 98 C 144.7 97.7 138 98 138 98 L 138 88 Z"/>
+<path id="eagle-head-hood-shape" d="M 118 100 C 118 100 114.3 88 116 84 C 117.7 80 124 76.7 128 76 C 132 75.3 137.7 76.7 140 80 C 142.3 83.3 142 96 142 96 C 142 96 134 101.3 130 102 C 126 102.7 118 100 118 100 Z"/>
+<clipPath id="eagle-head-hood-clip"><use href="#eagle-head-hood-shape"/></clipPath>
+<clipPath id="eagle-head-hood-lit-clip"><use href="#eagle-head-hood-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="eagle-head-plume-shape" d="M 126 78 C 126 78 122.3 69 120 66 C 117.7 63 112 60 112 60 C 112 60 120.7 59.3 124 62 C 127.3 64.7 132 76 132 76 L 126 78 Z"/>
+</defs>
+<g id="eagle-head-neck">
+<use id="eagle-head-neck-shade" href="#eagle-head-neck-shape" fill="#77766b"/>
+<g clip-path="url(#eagle-head-neck-clip)">
+<use id="eagle-head-neck-fill" href="#eagle-head-neck-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#eagle-head-neck-lit-clip)">
+<use id="eagle-head-neck-lit" href="#eagle-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="eagle-head-neck-fill-over" href="#eagle-head-neck-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="eagle-head-neck-line" href="#eagle-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-head-beak">
+<use id="eagle-head-beak-fill" href="#eagle-head-beak-shape" fill="#c8a24a"/>
+<use id="eagle-head-beak-line" href="#eagle-head-beak-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-head-hood">
+<use id="eagle-head-hood-shade" href="#eagle-head-hood-shape" fill="#2f5893"/>
+<g clip-path="url(#eagle-head-hood-clip)">
+<use id="eagle-head-hood-fill" href="#eagle-head-hood-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#eagle-head-hood-lit-clip)">
+<use id="eagle-head-hood-lit" href="#eagle-head-hood-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="eagle-head-hood-fill-over" href="#eagle-head-hood-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="eagle-head-hood-line" href="#eagle-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-head-plume">
+<use id="eagle-head-plume-fill" href="#eagle-head-plume-shape" fill="#c8a24a"/>
+<use id="eagle-head-plume-line" href="#eagle-head-plume-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

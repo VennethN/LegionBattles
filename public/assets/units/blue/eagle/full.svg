@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="eagle" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="eagle-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="eagle-shadow-shadow" d="M 130 181 C 130 184.9 114.8 188 96 188 C 77.2 188 62 184.9 62 181 C 62 177.1 77.2 174 96 174 C 114.8 174 130 177.1 130 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="eagle-wing-far-layer" transform="translate(96 116) rotate(0) scale(1 1) translate(-96 -116)">
+<defs>
+<path id="eagle-wing-far-wing-shape" d="M 100 120 C 100 120 90.3 104.3 84 96 C 77.7 87.7 69.3 76.7 62 70 C 54.7 63.3 40 56 40 56 L 48 76 L 36 78 L 48 94 L 40 100 C 40 100 52.7 107.7 60 112 C 67.3 116.3 84 126 84 126 L 100 120 Z"/>
+</defs>
+<g id="eagle-wing-far-wing">
+<use id="eagle-wing-far-wing-fill" href="#eagle-wing-far-wing-shape" fill="#77766b"/>
+<use id="eagle-wing-far-wing-line" href="#eagle-wing-far-wing-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="eagle-tail-layer" transform="translate(78 148) rotate(0) scale(1 1) translate(-78 -148)">
+<defs>
+<path id="eagle-tail-tail-shape" d="M 84 140 L 56 158 L 60 166 L 68 162 L 70 172 L 80 164 L 84 172 L 94 152 Z"/>
+<clipPath id="eagle-tail-tail-clip"><use href="#eagle-tail-tail-shape"/></clipPath>
+<clipPath id="eagle-tail-tail-lit-clip"><use href="#eagle-tail-tail-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="eagle-tail-tail">
+<use id="eagle-tail-tail-shade" href="#eagle-tail-tail-shape" fill="#77766b"/>
+<g clip-path="url(#eagle-tail-tail-clip)">
+<use id="eagle-tail-tail-fill" href="#eagle-tail-tail-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#eagle-tail-tail-lit-clip)">
+<use id="eagle-tail-tail-lit" href="#eagle-tail-tail-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="eagle-tail-tail-fill-over" href="#eagle-tail-tail-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="eagle-tail-tail-line" href="#eagle-tail-tail-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="eagle-leg-far-layer" transform="translate(104 158) rotate(0) scale(1 1) translate(-104 -158)">
+<defs>
+<path id="eagle-leg-far-leg-shape" d="M 103 152 L 104 152 Q 107 152 107 155 L 107 173 Q 107 176 104 176 L 103 176 Q 100 176 100 173 L 100 155 Q 100 152 103 152 Z"/>
+<path id="eagle-leg-far-foot-shape" d="M 98 174 L 116 174 L 118 180 L 96 180 Z"/>
+</defs>
+<g id="eagle-leg-far-leg">
+<use id="eagle-leg-far-leg-fill" href="#eagle-leg-far-leg-shape" fill="#9c7c33"/>
+<use id="eagle-leg-far-leg-line" href="#eagle-leg-far-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-leg-far-foot">
+<use id="eagle-leg-far-foot-fill" href="#eagle-leg-far-foot-shape" fill="#9c7c33"/>
+<use id="eagle-leg-far-foot-line" href="#eagle-leg-far-foot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="eagle-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="eagle-body-body-shape" d="M 80 152 C 79.3 145.7 80.7 129.7 84 122 C 87.3 114.3 94 108.3 100 106 C 106 103.7 115 104.7 120 108 C 125 111.3 129.3 119 130 126 C 130.7 133 128.3 144 124 150 C 119.7 156 110 160.3 104 162 C 98 163.7 92 161.7 88 160 C 84 158.3 80.7 158.3 80 152 Z"/>
+<clipPath id="eagle-body-body-clip"><use href="#eagle-body-body-shape"/></clipPath>
+<clipPath id="eagle-body-body-lit-clip"><use href="#eagle-body-body-shape" transform="translate(-5 -5)"/></clipPath>
+<path id="eagle-body-breast-shape" d="M 112 110 C 112 110 131.3 115 134 122 C 136.7 129 132.3 144.7 128 152 C 123.7 159.3 112 168 108 166 C 104 164 103.3 149.3 104 140 C 104.7 130.7 112 110 112 110 Z"/>
+<path id="eagle-body-wing-shape" d="M 92 116 C 92 116 104.7 119.3 108 124 C 111.3 128.7 113.3 138 112 144 C 110.7 150 100 160 100 160 C 100 160 88 159.3 84 156 C 80 152.7 74.7 146.7 76 140 C 77.3 133.3 92 116 92 116 Z"/>
+<clipPath id="eagle-body-wing-clip"><use href="#eagle-body-wing-shape"/></clipPath>
+<clipPath id="eagle-body-wing-lit-clip"><use href="#eagle-body-wing-shape" transform="translate(-4 -4)"/></clipPath>
+</defs>
+<g id="eagle-body-body">
+<use id="eagle-body-body-shade" href="#eagle-body-body-shape" fill="#77766b"/>
+<g clip-path="url(#eagle-body-body-clip)">
+<use id="eagle-body-body-deep" href="#eagle-body-body-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="eagle-body-body-shade-over" href="#eagle-body-body-shape" transform="translate(-3.1 -3.1)" fill="#77766b"/>
+<use id="eagle-body-body-fill" href="#eagle-body-body-shape" transform="translate(-5 -5)" fill="#9c9a8c"/>
+<g clip-path="url(#eagle-body-body-lit-clip)">
+<use id="eagle-body-body-lit" href="#eagle-body-body-shape" transform="translate(-5 -5)" fill="#f4f1e4" opacity="0.36"/>
+<use id="eagle-body-body-fill-over" href="#eagle-body-body-shape" transform="translate(4.6 4.6)" fill="#9c9a8c"/>
+</g>
+<g id="eagle-body-breast">
+<use id="eagle-body-breast-fill" href="#eagle-body-breast-shape" fill="#e9dfc6"/>
+<use id="eagle-body-breast-line" href="#eagle-body-breast-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="eagle-body-body-line" href="#eagle-body-body-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-body-wing">
+<use id="eagle-body-wing-shade" href="#eagle-body-wing-shape" fill="#77766b"/>
+<g clip-path="url(#eagle-body-wing-clip)">
+<use id="eagle-body-wing-fill" href="#eagle-body-wing-shape" transform="translate(-4 -4)" fill="#9c9a8c"/>
+<g clip-path="url(#eagle-body-wing-lit-clip)">
+<use id="eagle-body-wing-lit" href="#eagle-body-wing-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="eagle-body-wing-fill-over" href="#eagle-body-wing-shape" transform="translate(4.2 4.2)" fill="#9c9a8c"/>
+</g>
+<path id="eagle-body-feather-a" d="M 92 124 Q 85.1 136.1 84 150 Q 88.6 137.2 92 124 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="eagle-body-feather-b" d="M 102 128 Q 96.1 141.4 96 156 Q 99.6 142.1 102 128 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="eagle-body-wing-line" href="#eagle-body-wing-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="eagle-leg-near-layer" transform="translate(94 158) rotate(0) scale(1 1) translate(-94 -158)">
+<defs>
+<path id="eagle-leg-near-jess-shape" d="M 90 162 L 78 176 L 84 180 L 94 168 Z"/>
+<path id="eagle-leg-near-leg-shape" d="M 93 152 L 94 152 Q 97 152 97 155 L 97 173 Q 97 176 94 176 L 93 176 Q 90 176 90 173 L 90 155 Q 90 152 93 152 Z"/>
+<path id="eagle-leg-near-foot-shape" d="M 88 174 L 106 174 L 108 180 L 86 180 Z"/>
+</defs>
+<g id="eagle-leg-near-jess">
+<use id="eagle-leg-near-jess-fill" href="#eagle-leg-near-jess-shape" fill="#3d6fb6"/>
+<use id="eagle-leg-near-jess-line" href="#eagle-leg-near-jess-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-leg-near-leg">
+<use id="eagle-leg-near-leg-fill" href="#eagle-leg-near-leg-shape" fill="#c8a24a"/>
+<use id="eagle-leg-near-leg-line" href="#eagle-leg-near-leg-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-leg-near-foot">
+<use id="eagle-leg-near-foot-fill" href="#eagle-leg-near-foot-shape" fill="#c8a24a"/>
+<use id="eagle-leg-near-foot-line" href="#eagle-leg-near-foot-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="eagle-head-layer" transform="translate(114 110) rotate(0) scale(1 1) translate(-114 -110)">
+<defs>
+<path id="eagle-head-neck-shape" d="M 119.1 119.5 L 133.1 101.5 C 136.2 97.6 135.4 91.9 131.5 88.9 C 127.6 85.8 121.9 86.6 118.9 90.5 L 104.9 108.5 C 101.8 112.4 102.6 118.1 106.5 121.1 C 110.4 124.2 116.1 123.4 119.1 119.5 Z"/>
+<clipPath id="eagle-head-neck-clip"><use href="#eagle-head-neck-shape"/></clipPath>
+<clipPath id="eagle-head-neck-lit-clip"><use href="#eagle-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="eagle-head-beak-shape" d="M 138 88 C 138 88 148.7 88 152 90 C 155.3 92 158 100 158 100 C 158 100 151.3 98.3 148 98 C 144.7 97.7 138 98 138 98 L 138 88 Z"/>
+<path id="eagle-head-hood-shape" d="M 118 100 C 118 100 114.3 88 116 84 C 117.7 80 124 76.7 128 76 C 132 75.3 137.7 76.7 140 80 C 142.3 83.3 142 96 142 96 C 142 96 134 101.3 130 102 C 126 102.7 118 100 118 100 Z"/>
+<clipPath id="eagle-head-hood-clip"><use href="#eagle-head-hood-shape"/></clipPath>
+<clipPath id="eagle-head-hood-lit-clip"><use href="#eagle-head-hood-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="eagle-head-plume-shape" d="M 126 78 C 126 78 122.3 69 120 66 C 117.7 63 112 60 112 60 C 112 60 120.7 59.3 124 62 C 127.3 64.7 132 76 132 76 L 126 78 Z"/>
+</defs>
+<g id="eagle-head-neck">
+<use id="eagle-head-neck-shade" href="#eagle-head-neck-shape" fill="#77766b"/>
+<g clip-path="url(#eagle-head-neck-clip)">
+<use id="eagle-head-neck-fill" href="#eagle-head-neck-shape" transform="translate(-3 -3)" fill="#9c9a8c"/>
+<g clip-path="url(#eagle-head-neck-lit-clip)">
+<use id="eagle-head-neck-lit" href="#eagle-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="eagle-head-neck-fill-over" href="#eagle-head-neck-shape" transform="translate(3.6 3.6)" fill="#9c9a8c"/>
+</g>
+</g>
+<use id="eagle-head-neck-line" href="#eagle-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-head-beak">
+<use id="eagle-head-beak-fill" href="#eagle-head-beak-shape" fill="#c8a24a"/>
+<use id="eagle-head-beak-line" href="#eagle-head-beak-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-head-hood">
+<use id="eagle-head-hood-shade" href="#eagle-head-hood-shape" fill="#2f5893"/>
+<g clip-path="url(#eagle-head-hood-clip)">
+<use id="eagle-head-hood-fill" href="#eagle-head-hood-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#eagle-head-hood-lit-clip)">
+<use id="eagle-head-hood-lit" href="#eagle-head-hood-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="eagle-head-hood-fill-over" href="#eagle-head-hood-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="eagle-head-hood-line" href="#eagle-head-hood-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="eagle-head-plume">
+<use id="eagle-head-plume-fill" href="#eagle-head-plume-shape" fill="#c8a24a"/>
+<use id="eagle-head-plume-line" href="#eagle-head-plume-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="siegeturtle" width="272" height="272" viewBox="-40 -40 272 272">
+<g id="siegeturtle-shadow-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<path id="siegeturtle-shadow-shadow" d="M 150 181 C 150 186.5 125.8 191 96 191 C 66.2 191 42 186.5 42 181 C 42 175.5 66.2 171 96 171 C 125.8 171 150 175.5 150 181 Z" fill="#2a1a10" opacity="0.28"/>
+</g>
+<g id="siegeturtle-legs-far-layer" transform="translate(96 160) rotate(0) scale(1 1) translate(-96 -160)">
+<defs>
+<path id="siegeturtle-legs-far-leg-a-shape" d="M 82 150 L 86 150 Q 94 150 94 158 L 94 172 Q 94 180 86 180 L 82 180 Q 74 180 74 172 L 74 158 Q 74 150 82 150 Z"/>
+<path id="siegeturtle-legs-far-leg-b-shape" d="M 124 150 L 128 150 Q 136 150 136 158 L 136 172 Q 136 180 128 180 L 124 180 Q 116 180 116 172 L 116 158 Q 116 150 124 150 Z"/>
+</defs>
+<g id="siegeturtle-legs-far-leg-a">
+<use id="siegeturtle-legs-far-leg-a-fill" href="#siegeturtle-legs-far-leg-a-shape" fill="#2e5f45"/>
+<use id="siegeturtle-legs-far-leg-a-line" href="#siegeturtle-legs-far-leg-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-legs-far-leg-b">
+<use id="siegeturtle-legs-far-leg-b-fill" href="#siegeturtle-legs-far-leg-b-shape" fill="#2e5f45"/>
+<use id="siegeturtle-legs-far-leg-b-line" href="#siegeturtle-legs-far-leg-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="siegeturtle-flag-layer" transform="translate(78 68) rotate(0) scale(1 1) translate(-78 -68)">
+<defs>
+<path id="siegeturtle-flag-staff-shape" d="M 78 34 L 79 34 Q 81 34 81 36 L 81 68 Q 81 70 79 70 L 78 70 Q 76 70 76 68 L 76 36 Q 76 34 78 34 Z"/>
+<path id="siegeturtle-flag-cloth-shape" d="M 77 35 L 50 41 L 60 47 L 50 54 L 77 57 Z"/>
+<clipPath id="siegeturtle-flag-cloth-clip"><use href="#siegeturtle-flag-cloth-shape"/></clipPath>
+<clipPath id="siegeturtle-flag-cloth-lit-clip"><use href="#siegeturtle-flag-cloth-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="siegeturtle-flag-staff">
+<use id="siegeturtle-flag-staff-fill" href="#siegeturtle-flag-staff-shape" fill="#9a6a3a"/>
+<use id="siegeturtle-flag-staff-line" href="#siegeturtle-flag-staff-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-flag-cloth">
+<use id="siegeturtle-flag-cloth-shade" href="#siegeturtle-flag-cloth-shape" fill="#2f5893"/>
+<g clip-path="url(#siegeturtle-flag-cloth-clip)">
+<use id="siegeturtle-flag-cloth-fill" href="#siegeturtle-flag-cloth-shape" transform="translate(-3 -3)" fill="#3d6fb6"/>
+<g clip-path="url(#siegeturtle-flag-cloth-lit-clip)">
+<use id="siegeturtle-flag-cloth-lit" href="#siegeturtle-flag-cloth-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-flag-cloth-fill-over" href="#siegeturtle-flag-cloth-shape" transform="translate(3.6 3.6)" fill="#3d6fb6"/>
+</g>
+</g>
+<use id="siegeturtle-flag-cloth-line" href="#siegeturtle-flag-cloth-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="siegeturtle-head-layer" transform="translate(146 140) rotate(0) scale(1 1) translate(-146 -140)">
+<defs>
+<path id="siegeturtle-head-neck-shape" d="M 141.8 150.8 L 161.8 146.8 C 166.6 145.9 169.8 141.1 168.8 136.2 C 167.9 131.4 163.1 128.2 158.2 129.2 L 138.2 133.2 C 133.4 134.1 130.2 138.9 131.2 143.8 C 132.1 148.6 136.9 151.8 141.8 150.8 Z"/>
+<clipPath id="siegeturtle-head-neck-clip"><use href="#siegeturtle-head-neck-shape"/></clipPath>
+<clipPath id="siegeturtle-head-neck-lit-clip"><use href="#siegeturtle-head-neck-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="siegeturtle-head-cap-shape" d="M 152 126 C 152 126 162 122.7 166 124 C 170 125.3 174.7 130.3 176 134 C 177.3 137.7 174 146 174 146 C 174 146 164 143.3 160 142 C 156 140.7 150 138 150 138 L 152 126 Z"/>
+<clipPath id="siegeturtle-head-cap-clip"><use href="#siegeturtle-head-cap-shape"/></clipPath>
+<clipPath id="siegeturtle-head-cap-lit-clip"><use href="#siegeturtle-head-cap-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="siegeturtle-head-neck">
+<use id="siegeturtle-head-neck-shade" href="#siegeturtle-head-neck-shape" fill="#2e5f45"/>
+<g clip-path="url(#siegeturtle-head-neck-clip)">
+<use id="siegeturtle-head-neck-fill" href="#siegeturtle-head-neck-shape" transform="translate(-3 -3)" fill="#3f7a5a"/>
+<g clip-path="url(#siegeturtle-head-neck-lit-clip)">
+<use id="siegeturtle-head-neck-lit" href="#siegeturtle-head-neck-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-head-neck-fill-over" href="#siegeturtle-head-neck-shape" transform="translate(3.6 3.6)" fill="#3f7a5a"/>
+</g>
+</g>
+<use id="siegeturtle-head-neck-line" href="#siegeturtle-head-neck-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-head-cap">
+<use id="siegeturtle-head-cap-shade" href="#siegeturtle-head-cap-shape" fill="#434b56"/>
+<g clip-path="url(#siegeturtle-head-cap-clip)">
+<use id="siegeturtle-head-cap-fill" href="#siegeturtle-head-cap-shape" transform="translate(-3 -3)" fill="#5d6672"/>
+<g clip-path="url(#siegeturtle-head-cap-lit-clip)">
+<use id="siegeturtle-head-cap-lit" href="#siegeturtle-head-cap-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-head-cap-fill-over" href="#siegeturtle-head-cap-shape" transform="translate(3.6 3.6)" fill="#5d6672"/>
+</g>
+<path id="siegeturtle-head-cap-sheen" d="M168.57 122.67 L172.67 122.67 L162.87 146 L158.77 146 Z M176.17 122.67 L178.77 122.67 L168.97 146 L166.37 146 Z" fill="#f4f1e4" opacity="0.2"/>
+<path id="siegeturtle-head-rivet" d="M 158.6 131 C 158.6 131.9 157.9 132.6 157 132.6 C 156.1 132.6 155.4 131.9 155.4 131 C 155.4 130.1 156.1 129.4 157 129.4 C 157.9 129.4 158.6 130.1 158.6 131 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="siegeturtle-head-rivet-lit" d="M 157.2 130.4 C 157.2 130.8 156.8 131.2 156.4 131.2 C 156 131.2 155.7 130.8 155.7 130.4 C 155.7 130 156 129.7 156.4 129.7 C 156.8 129.7 157.2 130 157.2 130.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="siegeturtle-head-rivet-2" d="M 165.6 132 C 165.6 132.9 164.9 133.6 164 133.6 C 163.1 133.6 162.4 132.9 162.4 132 C 162.4 131.1 163.1 130.4 164 130.4 C 164.9 130.4 165.6 131.1 165.6 132 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="siegeturtle-head-rivet-lit-2" d="M 164.2 131.4 C 164.2 131.8 163.8 132.2 163.4 132.2 C 163 132.2 162.7 131.8 162.7 131.4 C 162.7 131 163 130.7 163.4 130.7 C 163.8 130.7 164.2 131 164.2 131.4 Z" fill="#f4f1e4" opacity="0.58"/>
+<path id="siegeturtle-head-rivet-3" d="M 171.6 136 C 171.6 136.9 170.9 137.6 170 137.6 C 169.1 137.6 168.4 136.9 168.4 136 C 168.4 135.1 169.1 134.4 170 134.4 C 170.9 134.4 171.6 135.1 171.6 136 Z" fill="#2a1a10" opacity="0.53"/>
+<path id="siegeturtle-head-rivet-lit-3" d="M 170.2 135.4 C 170.2 135.8 169.8 136.2 169.4 136.2 C 169 136.2 168.7 135.8 168.7 135.4 C 168.7 135 169 134.7 169.4 134.7 C 169.8 134.7 170.2 135 170.2 135.4 Z" fill="#f4f1e4" opacity="0.58"/>
+</g>
+<use id="siegeturtle-head-cap-line" href="#siegeturtle-head-cap-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="siegeturtle-body-layer" transform="translate(96 180) rotate(0) scale(1 1) translate(-96 -180)">
+<defs>
+<path id="siegeturtle-body-fort-shape" d="M 75 66 L 119 66 Q 122 66 122 69 L 122 107 Q 122 110 119 110 L 75 110 Q 72 110 72 107 L 72 69 Q 72 66 75 66 Z"/>
+<clipPath id="siegeturtle-body-fort-clip"><use href="#siegeturtle-body-fort-shape"/></clipPath>
+<clipPath id="siegeturtle-body-fort-lit-clip"><use href="#siegeturtle-body-fort-shape" transform="translate(-4 -4)"/></clipPath>
+<path id="siegeturtle-body-band-shape" d="M 66 92 L 128 92 L 128 100 L 66 100 L 66 92 Z"/>
+<path id="siegeturtle-body-merlons-shape" d="M 70 68 L 70 56 L 82 56 L 82 62 L 92 62 L 92 56 L 104 56 L 104 62 L 112 62 L 112 56 L 124 56 L 124 68 Z"/>
+<path id="siegeturtle-body-shell-shape" d="M 40 152 C 32 144.3 41.7 126.7 48 118 C 54.3 109.3 66.7 103 78 100 C 89.3 97 105 96.7 116 100 C 127 103.3 138 111.3 144 120 C 150 128.7 160 144.7 152 152 C 144 159.3 114.7 164 96 164 C 77.3 164 48 159.7 40 152 Z"/>
+<clipPath id="siegeturtle-body-shell-clip"><use href="#siegeturtle-body-shell-shape"/></clipPath>
+<clipPath id="siegeturtle-body-shell-lit-clip"><use href="#siegeturtle-body-shell-shape" transform="translate(-6 -6)"/></clipPath>
+</defs>
+<g id="siegeturtle-body-fort">
+<use id="siegeturtle-body-fort-shade" href="#siegeturtle-body-fort-shape" fill="#75502b"/>
+<g clip-path="url(#siegeturtle-body-fort-clip)">
+<use id="siegeturtle-body-fort-fill" href="#siegeturtle-body-fort-shape" transform="translate(-4 -4)" fill="#9a6a3a"/>
+<g clip-path="url(#siegeturtle-body-fort-lit-clip)">
+<use id="siegeturtle-body-fort-lit" href="#siegeturtle-body-fort-shape" transform="translate(-4 -4)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-body-fort-fill-over" href="#siegeturtle-body-fort-shape" transform="translate(4.2 4.2)" fill="#9a6a3a"/>
+</g>
+<path id="siegeturtle-body-plank" d="M 84 62 L 86.4 62 L 86.4 112 L 84 112 L 84 62 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="siegeturtle-body-plank-2" d="M 96 62 L 98.4 62 L 98.4 112 L 96 112 L 96 62 Z" fill="#2a1a10" opacity="0.25"/>
+<path id="siegeturtle-body-plank-3" d="M 108 62 L 110.4 62 L 110.4 112 L 108 112 L 108 62 Z" fill="#2a1a10" opacity="0.25"/>
+<g id="siegeturtle-body-band">
+<use id="siegeturtle-body-band-fill" href="#siegeturtle-body-band-shape" fill="#3d6fb6"/>
+<use id="siegeturtle-body-band-line" href="#siegeturtle-body-band-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<use id="siegeturtle-body-fort-line" href="#siegeturtle-body-fort-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-body-merlons">
+<use id="siegeturtle-body-merlons-fill" href="#siegeturtle-body-merlons-shape" fill="#9a6a3a"/>
+<use id="siegeturtle-body-merlons-line" href="#siegeturtle-body-merlons-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-body-shell">
+<use id="siegeturtle-body-shell-shade" href="#siegeturtle-body-shell-shape" fill="#3b722f"/>
+<g clip-path="url(#siegeturtle-body-shell-clip)">
+<use id="siegeturtle-body-shell-deep" href="#siegeturtle-body-shell-shape" fill="#2a1a10" opacity="0.2"/>
+<use id="siegeturtle-body-shell-shade-over" href="#siegeturtle-body-shell-shape" transform="translate(-3.72 -3.72)" fill="#3b722f"/>
+<use id="siegeturtle-body-shell-fill" href="#siegeturtle-body-shell-shape" transform="translate(-6 -6)" fill="#4f8f3e"/>
+<g clip-path="url(#siegeturtle-body-shell-lit-clip)">
+<use id="siegeturtle-body-shell-lit" href="#siegeturtle-body-shell-shape" transform="translate(-6 -6)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-body-shell-fill-over" href="#siegeturtle-body-shell-shape" transform="translate(4.6 4.6)" fill="#4f8f3e"/>
+</g>
+<path id="siegeturtle-body-plate-a" d="M 80 104 L 70 126 L 84 146 L 108 146 L 122 126 L 112 104" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="siegeturtle-body-plate-b" d="M 70 126 L 46 132" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="siegeturtle-body-plate-c" d="M 122 126 L 148 132" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="siegeturtle-body-lip" d="M 40 146 C 49.3 146.7 77.3 158 96 158 C 114.7 158 142.7 146.7 152 146 C 161.3 145.3 161.3 150.7 152 154 C 142.7 157.3 114.7 166 96 166 C 77.3 166 49.3 157.3 40 154 C 30.7 150.7 30.7 145.3 40 146 Z" fill="#2a1a10" opacity="0.25"/>
+</g>
+<use id="siegeturtle-body-shell-line" href="#siegeturtle-body-shell-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="siegeturtle-legs-near-layer" transform="translate(96 160) rotate(0) scale(1 1) translate(-96 -160)">
+<defs>
+<path id="siegeturtle-legs-near-leg-a-shape" d="M 64 152 L 70 152 Q 78 152 78 160 L 78 172 Q 78 180 70 180 L 64 180 Q 56 180 56 172 L 56 160 Q 56 152 64 152 Z"/>
+<clipPath id="siegeturtle-legs-near-leg-a-clip"><use href="#siegeturtle-legs-near-leg-a-shape"/></clipPath>
+<clipPath id="siegeturtle-legs-near-leg-a-lit-clip"><use href="#siegeturtle-legs-near-leg-a-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="siegeturtle-legs-near-leg-b-shape" d="M 116 152 L 122 152 Q 130 152 130 160 L 130 172 Q 130 180 122 180 L 116 180 Q 108 180 108 172 L 108 160 Q 108 152 116 152 Z"/>
+<clipPath id="siegeturtle-legs-near-leg-b-clip"><use href="#siegeturtle-legs-near-leg-b-shape"/></clipPath>
+<clipPath id="siegeturtle-legs-near-leg-b-lit-clip"><use href="#siegeturtle-legs-near-leg-b-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<g id="siegeturtle-legs-near-leg-a">
+<use id="siegeturtle-legs-near-leg-a-shade" href="#siegeturtle-legs-near-leg-a-shape" fill="#2e5f45"/>
+<g clip-path="url(#siegeturtle-legs-near-leg-a-clip)">
+<use id="siegeturtle-legs-near-leg-a-fill" href="#siegeturtle-legs-near-leg-a-shape" transform="translate(-3 -3)" fill="#3f7a5a"/>
+<g clip-path="url(#siegeturtle-legs-near-leg-a-lit-clip)">
+<use id="siegeturtle-legs-near-leg-a-lit" href="#siegeturtle-legs-near-leg-a-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-legs-near-leg-a-fill-over" href="#siegeturtle-legs-near-leg-a-shape" transform="translate(3.6 3.6)" fill="#3f7a5a"/>
+</g>
+</g>
+<use id="siegeturtle-legs-near-leg-a-line" href="#siegeturtle-legs-near-leg-a-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-legs-near-leg-b">
+<use id="siegeturtle-legs-near-leg-b-shade" href="#siegeturtle-legs-near-leg-b-shape" fill="#2e5f45"/>
+<g clip-path="url(#siegeturtle-legs-near-leg-b-clip)">
+<use id="siegeturtle-legs-near-leg-b-fill" href="#siegeturtle-legs-near-leg-b-shape" transform="translate(-3 -3)" fill="#3f7a5a"/>
+<g clip-path="url(#siegeturtle-legs-near-leg-b-lit-clip)">
+<use id="siegeturtle-legs-near-leg-b-lit" href="#siegeturtle-legs-near-leg-b-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-legs-near-leg-b-fill-over" href="#siegeturtle-legs-near-leg-b-shape" transform="translate(3.6 3.6)" fill="#3f7a5a"/>
+</g>
+</g>
+<use id="siegeturtle-legs-near-leg-b-line" href="#siegeturtle-legs-near-leg-b-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="siegeturtle-crossbow-layer" transform="translate(108 64) rotate(0) scale(1 1) translate(-108 -64)">
+<defs>
+<path id="siegeturtle-crossbow-limbs-shape" d="M 129.9 32.7 Q 157.2 55.3 139.3 85.9 L 133.7 82.8 Q 147.4 57.1 125.7 37.5 Z"/>
+<path id="siegeturtle-crossbow-stock-shape" d="M 147.2 56.1 L 147.6 58 Q 148.3 62 144.3 62.7 L 95.1 71.4 Q 91.1 72 90.4 68.1 L 90.1 66.1 Q 89.4 62.2 93.3 61.5 L 142.6 52.8 Q 146.5 52.1 147.2 56.1 Z"/>
+<clipPath id="siegeturtle-crossbow-stock-clip"><use href="#siegeturtle-crossbow-stock-shape"/></clipPath>
+<clipPath id="siegeturtle-crossbow-stock-lit-clip"><use href="#siegeturtle-crossbow-stock-shape" transform="translate(-3 -3)"/></clipPath>
+<path id="siegeturtle-crossbow-bolt-shape" d="M 146.6 52.6 L 161.2 54.6 L 148.2 61.5 Z"/>
+<path id="siegeturtle-crossbow-hand-shape" d="M 115.5 64 C 115.5 68.1 112.1 71.5 108 71.5 C 103.9 71.5 100.5 68.1 100.5 64 C 100.5 59.9 103.9 56.5 108 56.5 C 112.1 56.5 115.5 59.9 115.5 64 Z"/>
+<clipPath id="siegeturtle-crossbow-hand-clip"><use href="#siegeturtle-crossbow-hand-shape"/></clipPath>
+<clipPath id="siegeturtle-crossbow-hand-lit-clip"><use href="#siegeturtle-crossbow-hand-shape" transform="translate(-3 -3)"/></clipPath>
+</defs>
+<path id="siegeturtle-crossbow-string" d="M 133.2 34.2 L 117.8 62.3 L 141.9 83.4" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="siegeturtle-crossbow-limbs">
+<use id="siegeturtle-crossbow-limbs-fill" href="#siegeturtle-crossbow-limbs-shape" fill="#b9c2cc"/>
+<use id="siegeturtle-crossbow-limbs-line" href="#siegeturtle-crossbow-limbs-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-crossbow-stock">
+<use id="siegeturtle-crossbow-stock-shade" href="#siegeturtle-crossbow-stock-shape" fill="#75502b"/>
+<g clip-path="url(#siegeturtle-crossbow-stock-clip)">
+<use id="siegeturtle-crossbow-stock-fill" href="#siegeturtle-crossbow-stock-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#siegeturtle-crossbow-stock-lit-clip)">
+<use id="siegeturtle-crossbow-stock-lit" href="#siegeturtle-crossbow-stock-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-crossbow-stock-fill-over" href="#siegeturtle-crossbow-stock-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="siegeturtle-crossbow-stock-line" href="#siegeturtle-crossbow-stock-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-crossbow-bolt">
+<use id="siegeturtle-crossbow-bolt-fill" href="#siegeturtle-crossbow-bolt-shape" fill="#e9dfc6"/>
+<use id="siegeturtle-crossbow-bolt-line" href="#siegeturtle-crossbow-bolt-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="siegeturtle-crossbow-hand">
+<use id="siegeturtle-crossbow-hand-shade" href="#siegeturtle-crossbow-hand-shape" fill="#75502b"/>
+<g clip-path="url(#siegeturtle-crossbow-hand-clip)">
+<use id="siegeturtle-crossbow-hand-fill" href="#siegeturtle-crossbow-hand-shape" transform="translate(-3 -3)" fill="#9a6a3a"/>
+<g clip-path="url(#siegeturtle-crossbow-hand-lit-clip)">
+<use id="siegeturtle-crossbow-hand-lit" href="#siegeturtle-crossbow-hand-shape" transform="translate(-3 -3)" fill="#f4f1e4" opacity="0.36"/>
+<use id="siegeturtle-crossbow-hand-fill-over" href="#siegeturtle-crossbow-hand-shape" transform="translate(3.6 3.6)" fill="#9a6a3a"/>
+</g>
+</g>
+<use id="siegeturtle-crossbow-hand-line" href="#siegeturtle-crossbow-hand-shape" fill="none" stroke="#2a1a10" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

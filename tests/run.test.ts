@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { botCamp, botSteer } from '../src/game/bot';
-import { HEROES, ITEMS, OFFERS, SLOTS, WEAPONS, byId, levelNeeds, priceAt, rerollCost } from '../src/game/data';
+import { HEROES, ITEMS, OFFERS, SLOTS, WEAPONS, byId, levelNeeds, priceAt, rerollCost, weaponOf } from '../src/game/data';
 import {
-  buy, choose, combine, endWave, held, lock, march, newRun, openPack, reroll, rerollPrice, sell, sellPrice, setupOf, statsOf, survived, twinOf, whyNot, type RunData,
+  buy, choose, combine, endWave, held, lock, march, newRun, openPack, ownOf, reroll, rerollPrice, sell, sellPrice, setupOf, statsOf, survived, twinOf, weaponNumbers, whyNot, type RunData,
 } from '../src/game/run';
 import { bestWave, featDone, featShare, freshSave, isOpen, record, repair } from '../src/game/state';
 import { World } from '../src/game/world';
@@ -20,7 +20,7 @@ function fought(run: RunData, o: { gold?: number; xp?: number; kills?: number; p
 }
 
 /** A run standing in its camp after the first wave, with coins to spend. */
-function inCamp(hero = 'knight', gold = 1000): RunData {
+function inCamp(hero = 'bram', gold = 1000): RunData {
   const run = newRun(hero, 5);
   endWave(run, fought(run, { gold }));
   return run;
@@ -30,15 +30,23 @@ describe('a run', () => {
   it('starts every hero with their own weapon and their own stats', () => {
     for (const h of HEROES) {
       const run = newRun(h.id, 1);
-      expect(run.weapons).toEqual([{ id: h.weapon, tier: 0 }]);
+      // Their own weapon is theirs alone and takes no hand: every hand is free.
+      expect(run.weapons).toEqual([]);
+      expect(ownOf(run)).toEqual({ id: h.weapon, tier: 0 });
+      expect(weaponOf(h.weapon).own, h.id).toBe(true);
+      expect(WEAPONS.some((w) => w.id === h.weapon), h.id).toBe(false);
+      expect(setupOf(run).own).toEqual({ id: h.weapon, tier: 0 });
       expect(run.wave).toBe(1);
       expect(statsOf(run).maxHp).toBe(24 + (h.stats.maxHp ?? 0));
     }
-    expect(statsOf(newRun('knight', 1)).armor).toBe(2);
+    expect(statsOf(newRun('bram', 1)).armor).toBe(1);
+    expect(new Set(HEROES.map((h) => h.weapon)).size).toBe(HEROES.length);
+    expect(new Set(HEROES.map((h) => h.quirk)).size).toBe(HEROES.length);
+    expect(new Set(HEROES.map((h) => h.move)).size).toBe(HEROES.length);
   });
 
   it('goes from a wave to the camp, or to a level first when one was made', () => {
-    const run = newRun('knight', 3);
+    const run = newRun('bram', 3);
     endWave(run, fought(run, { gold: 12.6, xp: 5, kills: 9 }));
     expect(run.phase).toBe('camp');
     expect(run.wave).toBe(2);
@@ -63,11 +71,11 @@ describe('a run', () => {
     expect(run.ups.length).toBe(2);
     // A level is a point of health by itself: two levels, two points over what the hero began with.
     const chosenHp = run.ups.filter((u) => u.stat === 'maxHp').reduce((n, u) => n + u.by, 0);
-    expect(statsOf(run).maxHp).toBe(statsOf(newRun('knight', 3)).maxHp + 2 + chosenHp);
+    expect(statsOf(run).maxHp).toBe(statsOf(newRun('bram', 3)).maxHp + 2 + chosenHp);
   });
 
   it('ends when the hero falls, and keeps what the last wave gave', () => {
-    const run = newRun('archer', 3);
+    const run = newRun('wren', 3);
     endWave(run, fought(run, { gold: 7, kills: 4, dead: true }));
     expect(run.phase).toBe('over');
     expect(run.wave).toBe(1);
@@ -76,14 +84,45 @@ describe('a run', () => {
     expect(march(run)).toBe(false);
   });
 
-  it('counts the coins a thief gathers as coins, not as the experience they were worth', () => {
-    const run = newRun('cutpurse', 3);
-    endWave(run, fought(run, { xp: 15 }));
-    expect(run.coins).toBe(10);
+  it('a hero\'s own weapon grows a tier by itself at levels 5, 10 and 15, and no further', () => {
+    const run = newRun('bram', 3);
+    const tiers = [0, 4, 5, 9, 10, 14, 15, 40].map((level) => {
+      run.level = level;
+      return ownOf(run).tier;
+    });
+    expect(tiers).toEqual([0, 0, 1, 1, 2, 2, 3, 3]);
+    // Stronger at each: what the camp shows of it grows too.
+    expect(weaponNumbers(run, 'gatekeeper', 3).harm).toBeGreaterThan(weaponNumbers(run, 'gatekeeper', 0).harm);
+  });
+
+  it('carries the fury bar from wave to wave, and what happens once in a land or a run', () => {
+    const run = newRun('hroth', 3);
+    expect(setupOf(run).spare).toBe(true);
+    const w = fought(run);
+    w.fury = 0.4;
+    w.rose = true;
+    w.rescued = true;
+    endWave(run, w);
+    expect(run.fury).toBe(0.4);
+    expect(run.saved).toBe(true);
+    march(run);
+    const next = setupOf(run);
+    expect(next.fury).toBe(0.4);
+    // He got up in this land already; in the next he can again. Tam's rescue is once in a run.
+    expect(next.spare).toBe(false);
+    expect(next.rescue).toBe(false);
+    run.wave = 8;
+    expect(setupOf(run).spare).toBe(true);
+  });
+
+  it('Orrin picks from one more at each level', () => {
+    const run = newRun('orrin', 3);
+    endWave(run, fought(run, { xp: levelNeeds(0) }));
+    expect(run.choices.length).toBe(5);
   });
 
   it('gives no two waves the same dice', () => {
-    const run = newRun('knight', 3);
+    const run = newRun('bram', 3);
     expect(setupOf(run).seed).not.toBe(setupOf(run).seed);
   });
 });
@@ -102,14 +141,14 @@ describe('the camp', () => {
   });
 
   it('sells what there are coins for, once', () => {
-    const run = inCamp('knight', 0);
+    const run = inCamp('bram', 0);
     expect(whyNot(run, 0)).toBe('coins');
     expect(buy(run, 0)).toBe(false);
     run.gold = 1000;
     const o = run.offers[0];
     expect(buy(run, 0)).toBe(true);
     expect(run.gold).toBe(1000 - o.price);
-    expect(run.weapons.length).toBe(2);
+    expect(run.weapons.length).toBe(1);
     expect(whyNot(run, 0)).toBe('sold');
     expect(buy(run, 0)).toBe(false);
   });
@@ -149,15 +188,21 @@ describe('the camp', () => {
     expect(combine(run, 0)).toBe(false);
   });
 
-  it('buys a weapon back for half, and never the last one', () => {
-    const run = inCamp('knight', 0);
+  it('buys a weapon back for half, down to the last: the hero\'s own is never among them', () => {
+    const run = inCamp('bram', 0);
     run.weapons.push({ id: 'crossbow', tier: 1 });
-    const worth = sellPrice(run.weapons[1]);
+    const worth = sellPrice(run.weapons[0]);
     expect(worth).toBeGreaterThan(0);
-    expect(sell(run, 1)).toBe(true);
+    expect(sell(run, 0)).toBe(true);
     expect(run.gold).toBe(worth);
+    expect(run.weapons.length).toBe(0);
     expect(sell(run, 0)).toBe(false);
-    expect(run.weapons.length).toBe(1);
+    // And it is never on the camp's table.
+    for (let i = 0; i < 30; i++) {
+      run.gold = 9999;
+      reroll(run);
+      for (const o of run.offers) if (o.kind === 'weapon') expect(weaponOf(o.id).own).toBeFalsy();
+    }
   });
 
   it('shows other wares for a price that rises each time, and keeps what is locked', () => {
@@ -180,7 +225,7 @@ describe('the camp', () => {
   });
 
   it('opens a pack for something that costs nothing', () => {
-    const run = inCamp('knight', 0);
+    const run = inCamp('bram', 0);
     expect(openPack(run)).toBeNull();
     run.packs = 2;
     const got = openPack(run);
@@ -191,7 +236,7 @@ describe('the camp', () => {
   });
 
   it('does nothing out of its turn', () => {
-    const run = newRun('knight', 2);
+    const run = newRun('bram', 2);
     expect(buy(run, 0)).toBe(false);
     expect(reroll(run)).toBe(false);
     expect(sell(run, 0)).toBe(false);
@@ -203,30 +248,36 @@ describe('the camp', () => {
 describe('the save', () => {
   it('opens a hero when their feat is done, once, and says so', () => {
     const save = freshSave();
-    expect(isOpen(save, 'knight')).toBe(true);
-    expect(isOpen(save, 'mage')).toBe(false);
-    const run = newRun('knight', 1);
+    expect(isOpen(save, 'bram')).toBe(true);
+    expect(isOpen(save, 'orrin')).toBe(false);
+    const run = newRun('bram', 1);
+    run.wave = 4;
+    expect(record(save, run, 30)).toEqual({ heroes: [], friends: [] });
     run.wave = 5;
-    expect(record(save, run, 30)).toEqual([]);
+    // The fourth wave come through opens Pip, who goes straight into the empty place in the band.
+    expect(record(save, run, 0)).toEqual({ heroes: [], friends: ['pip'] });
+    expect(save.band).toEqual(['pip']);
     expect(bestWave(save)).toBe(4);
     expect(featShare(save, { kind: 'wave', wave: 5 })).toBeCloseTo(0.8);
     run.wave = 6;
-    expect(record(save, run, 30)).toEqual(['mage']);
-    expect(record(save, run, 0)).toEqual([]);
-    expect(isOpen(save, 'mage')).toBe(true);
+    expect(record(save, run, 30).heroes).toEqual(['orrin']);
+    expect(record(save, run, 0)).toEqual({ heroes: [], friends: [] });
+    expect(isOpen(save, 'orrin')).toBe(true);
     expect(save.kills).toBe(60);
-    expect(save.last).toBe('knight');
+    expect(save.last).toBe('bram');
   });
 
   it('counts a boss beaten, coins gathered in one run, and kills over every run', () => {
     const save = freshSave();
-    const run = newRun('archer', 1);
+    const run = newRun('wren', 1);
     run.felled = ['warlord'];
     run.coins = 250;
-    expect(record(save, run, 700).sort()).toEqual(['cutpurse', 'lancer', 'pyromancer']);
+    const opened = record(save, run, 700);
+    expect(opened.heroes.sort()).toEqual(['fenn', 'isaura', 'nan']);
+    expect(opened.friends.sort()).toEqual(['greta', 'quill']);
     expect(featDone(save, { kind: 'boss', boss: 'warlord' })).toBe(true);
     expect(featDone(save, { kind: 'boss', boss: 'jarl' })).toBe(false);
-    const poorer = newRun('archer', 1);
+    const poorer = newRun('wren', 1);
     poorer.coins = 10;
     record(save, poorer, 0);
     expect(save.coins).toBe(250);
@@ -235,11 +286,15 @@ describe('the save', () => {
   it('mends whatever it is given', () => {
     expect(repair(null)).toEqual(freshSave());
     expect(repair('nonsense')).toEqual(freshSave());
-    const odd = repair({ best: { knight: 7.9, nobody: 3 }, open: ['mage', 'mage', 'nobody', 5], kills: -4, last: 'nobody', sound: false, run: { hero: 'nobody' }, told: ['move'] });
-    expect(odd.best).toEqual({ knight: 7 });
-    expect(odd.open).toEqual(['mage']);
+    const odd = repair({ best: { bram: 3.9, nobody: 3 }, open: ['orrin', 'orrin', 'nobody', 5], kills: -4, last: 'nobody', sound: false, run: { hero: 'nobody' }, told: ['move'], band: ['pip', 'nobody'], places: 9, auto: false });
+    expect(odd.best).toEqual({ bram: 3 });
+    expect(odd.open).toEqual(['orrin']);
     expect(odd.kills).toBe(0);
-    expect(odd.last).toBe('knight');
+    expect(odd.last).toBe('bram');
+    // Nobody goes along who has not been opened, and no more places are open than there are.
+    expect(odd.band).toEqual([]);
+    expect(odd.places).toBe(2);
+    expect(odd.auto).toBe(false);
     expect(odd.sound).toBe(false);
     expect(odd.music).toBe(true);
     expect(odd.run).toBeNull();
@@ -253,15 +308,33 @@ describe('the save', () => {
     const back = repair(JSON.parse(JSON.stringify(save)));
     expect(back.run).toEqual(run);
     expect(buy(back.run as RunData, 0)).toBe(true);
-    const fighting = newRun('knight', 1);
+    const fighting = newRun('bram', 1);
     save.run = fighting;
     expect(repair(JSON.parse(JSON.stringify(save))).run).toBeNull();
   });
 });
 
+describe('a save from before the heroes had names', () => {
+  it('is carried over: each hero by their new name, with whoever its deeds have opened since', () => {
+    const old = { v: 1, best: { knight: 9, archer: 4, mage: 2 }, open: ['mage', 'cutpurse'], kills: 700, coins: 120, felled: ['warlord'], runs: 6, last: 'mage', run: { hero: 'knight', wave: 3 }, sound: true, music: false, told: [] };
+    const s = repair(old);
+    expect(s.v).toBe(2);
+    expect(s.best).toEqual({ bram: 9, wren: 4, orrin: 2 });
+    expect(s.last).toBe('orrin');
+    expect(s.open).toEqual(expect.arrayContaining(['orrin', 'fenn', 'nan', 'isaura']));
+    // The run it left in a camp carried other things, and is let go.
+    expect(s.run).toBeNull();
+    expect(s.ended).toBe(5);
+    // Its deeds open companions too, and the first of them goes along.
+    expect(s.friends).toEqual(expect.arrayContaining(['biscuit', 'pip', 'mossback', 'quill', 'greta']));
+    expect(s.band).toEqual([s.friends[0]]);
+    expect(s.music).toBe(false);
+  });
+});
+
 describe('a whole run by the plain player', () => {
   it('trades in every camp and comes to an end', () => {
-    const run = newRun('knight', 4242);
+    const run = newRun('bram', 4242);
     let waves = 0;
     while (run.phase !== 'over' && waves++ < 60) {
       const w = new World(setupOf(run));

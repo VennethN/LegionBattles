@@ -7,7 +7,7 @@ import { WEAPON_ART } from '../src/art/holdout';
 import { allColors } from '../src/art/kit/palette';
 import type { Manifest } from '../src/art/manifest';
 import { UNIT_ART } from '../src/art/units';
-import { ENEMIES, HEROES, ITEMS, LAND_NAMES, WEAPONS } from '../src/game/data';
+import { BAND, COMPANIONS, ENEMIES, HEROES, ITEMS, LAND_NAMES, WEAPONS } from '../src/game/data';
 import { STAT_INFO, STATS } from '../src/game/stats';
 import { ICONS_USED, itemIcon, statIcon, weaponIcon } from '../src/view/icons';
 import { SkylinePacker } from '../src/view/art/packer';
@@ -70,7 +70,7 @@ describe('what the game asks the art for', () => {
 
   it('nothing is written that the game does not show', () => {
     expect(Object.keys(manifest.icons).sort()).toEqual([...ICONS_USED].sort());
-    const cast = new Set([...HEROES.map((h) => h.unit), ...ENEMIES.map((e) => e.unit)]);
+    const cast = new Set([...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit), ...ENEMIES.map((e) => e.unit)]);
     expect(Object.keys(manifest.units).sort()).toEqual([...cast].sort());
     expect(Object.keys(manifest.grades)).toEqual([]);
   });
@@ -133,10 +133,21 @@ describe('the sheet of the field', () => {
     expect(kept().used()).toBeLessThan(0.34);
   });
 
-  it('holds any hero, every boss and every enemy there is, all at once', () => {
+  it('every companion is drawn part by part, in blue', () => {
+    for (const c of COMPANIONS) {
+      const unit = manifest.units[c.unit];
+      expect(unit, c.id).toBeDefined();
+      for (const part of unit.parts) expect(has(`units/blue/${c.unit}/${part.name}.svg`), `${c.unit}/${part.name}`).toBe(true);
+    }
+  });
+
+  it('holds any hero, the biggest band there can be, every boss and every enemy there is, all at once', () => {
     const p = kept();
-    const tallest = HEROES.map((h) => h.unit).sort((a, b) => manifest.units[b].full[3] * manifest.units[b].full[2] - manifest.units[a].full[3] * manifest.units[a].full[2])[0];
-    const all = [...parts(tallest), ...ENEMIES.flatMap((e) => (e.ai === 'boss' ? parts(e.unit) : stills(e.unit)))].sort((a, b) => b[1] - a[1]);
+    const size = (unit: string): number => manifest.units[unit].full[3] * manifest.units[unit].full[2];
+    const tallest = HEROES.map((h) => h.unit).sort((a, b) => size(b) - size(a))[0];
+    // A band is as many as the Hold opens and one more for the shepherd: the biggest of them, to be sure of the rest.
+    const band = COMPANIONS.map((c) => c.unit).sort((a, b) => size(b) - size(a)).slice(0, BAND.places + 1);
+    const all = [...parts(tallest), ...band.flatMap(parts), ...ENEMIES.flatMap((e) => (e.ai === 'boss' ? parts(e.unit) : stills(e.unit)))].sort((a, b) => b[1] - a[1]);
     expect(p.fits(all)).toBe(true);
   });
 });

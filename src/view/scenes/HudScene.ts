@@ -36,6 +36,11 @@ export class HudScene extends Phaser.Scene {
   private underText!: Phaser.GameObjects.Text;
   private hint: Phaser.GameObjects.Container | null = null;
   private stick!: Phaser.GameObjects.Graphics;
+  /** The move: its button, the bar that fills it, and its name. */
+  private moveBar: Phaser.GameObjects.Graphics | null = null;
+  private moveText: Phaser.GameObjects.Text | null = null;
+  private moveName = '';
+  private fury = -1;
   private flash!: Phaser.GameObjects.Image;
   private paused: Phaser.GameObjects.Container | null = null;
   private drawn = '';
@@ -101,6 +106,24 @@ export class HudScene extends Phaser.Scene {
     this.underText = label(this, w / 2, view.h * 0.3 + 40, '', { size: 18, color: HOLY.fill }).setDepth(20).setAlpha(0);
     if (data.banner) this.banner(data.banner, data.under ?? '');
 
+    // The hero's move, in a corner where a thumb is: its name, the bar that kills fill, and a press that lets it loose.
+    // Plain for now: the proper showing of it is still to be made.
+    const move = theWorld()?.move;
+    this.moveBar = null;
+    this.moveText = null;
+    this.fury = -1;
+    if (move) {
+      const bw = 176;
+      const bh = 58;
+      const c = this.add.container(w - bw / 2 - 12, view.h - bh / 2 - 12).setDepth(12);
+      this.moveName = move.name.toUpperCase();
+      this.moveText = label(this, 0, -12, this.moveName, { size: 15 });
+      c.add([slabImage(this, -bw / 2, -bh / 2, bw, bh, IRON, 12, 5), this.moveText]);
+      c.setSize(bw, bh).setInteractive({ useHandCursor: true });
+      c.on('pointerdown', () => this.controls.act());
+      this.moveBar = this.add.graphics().setDepth(13);
+    }
+
     this.stick = this.add.graphics().setDepth(5);
     this.told = save().told.includes('move');
     if (!this.told) this.showHint();
@@ -165,7 +188,7 @@ export class HudScene extends Phaser.Scene {
     const veil = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.6).setInteractive();
     const cx = view.w / 2;
     const cy = view.h / 2;
-    c.add([veil, slabImage(this, cx - 150, cy - 170, 300, 340, BONE, 18, 8), label(this, cx, cy - 132, 'PAUSED', { size: 30 })]);
+    c.add([veil, slabImage(this, cx - 150, cy - 200, 300, 400, BONE, 18, 8), label(this, cx, cy - 162, 'PAUSED', { size: 30 })]);
     const s = save();
     const toggle = (y: number, name: string, get: () => boolean, set: (v: boolean) => void): void => {
       const b = new Button(this, cx, y, `${name}: ${get() ? 'ON' : 'OFF'}`, () => {
@@ -176,10 +199,15 @@ export class HudScene extends Phaser.Scene {
       }, { width: 220, height: 46, size: 19, mat: IRON });
       c.add(b.root);
     };
-    c.add(new Button(this, cx, cy - 72, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
-    toggle(cy - 8, 'SOUND', () => s.sound, (v) => (s.sound = v));
-    toggle(cy + 50, 'MUSIC', () => s.music, (v) => (s.music = v));
-    c.add(new Button(this, cx, cy + 118, 'GIVE UP', () => {
+    c.add(new Button(this, cx, cy - 102, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
+    toggle(cy - 38, 'SOUND', () => s.sound, (v) => (s.sound = v));
+    toggle(cy + 20, 'MUSIC', () => s.music, (v) => (s.music = v));
+    // Whether the move goes off by itself when it is full. It is so for a new player, who has not yet been told there is one.
+    toggle(cy + 78, 'AUTO MOVE', () => s.auto, (v) => {
+      s.auto = v;
+      world.auto = v;
+    });
+    c.add(new Button(this, cx, cy + 146, 'GIVE UP', () => {
       // Giving up ends the run as a fall does: the hero's health is taken, and the wave ends itself.
       world.hero.hp = 0;
       world.over = 'dead';
@@ -259,6 +287,23 @@ export class HudScene extends Phaser.Scene {
     // Badly hurt: the edge of the screen beats red, so that it is known without looking up at the bar.
     if (h.hp > 0 && h.hp <= h.maxHp * 0.3 && !this.tweens.isTweening(this.flash)) this.flash.setAlpha(0.07 + 0.07 * Math.sin(this.clock * 7) ** 2);
     else if (h.hp > h.maxHp * 0.3 && !this.tweens.isTweening(this.flash)) this.flash.setAlpha(0);
+
+    // The move's bar: how full it is, and gold with its key named when it is ready.
+    if (this.moveBar && this.moveText) {
+      const full = world.fury >= 1;
+      const shown = full ? 100 + (Math.floor(this.clock * 2) % 2) : Math.round(world.fury * 100);
+      if (shown !== this.fury) {
+        this.fury = shown;
+        const bx = w - 176 - 12 + 16;
+        const by = view.h - 12 - 24;
+        const g = this.moveBar;
+        g.clear();
+        g.fillStyle(hex(OUTLINE), 1).fillRoundedRect(bx, by, 144, 14, 6);
+        g.fillStyle(hex(full ? HOLY.fill : VENOM.fill), 1).fillRoundedRect(bx + 3, by + 3, Math.max(4, 138 * Math.min(1, world.fury)), 8, 4);
+        const touch = this.sys.game.device.input.touch && !this.sys.game.device.os.desktop;
+        this.moveText.setText(full && shown === 101 ? (touch ? 'TAP!' : 'PRESS SPACE') : this.moveName).setColor(full ? HOLY.fill : BONE.fill);
+      }
+    }
 
     // The stick, where the finger is.
     const st = this.controls.stick;
