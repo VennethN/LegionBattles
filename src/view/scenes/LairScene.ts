@@ -582,10 +582,19 @@ export class LairScene extends Phaser.Scene {
     const cam = this.cameras.main;
     // The view never leaves the lair. Where the window shows more than all of it, it sits in the middle.
     // It follows the hunter where they are drawn, which is between the rules' steps, so that the two move as one.
-    const hx = this.ready ? this.hunter.x : w.hunter.x;
-    const hy = this.ready ? this.hunter.y : w.hunter.y;
+    const hx0 = this.ready ? this.hunter.x : w.hunter.x;
+    const hy0 = this.ready ? this.hunter.y : w.hunter.y;
+    // It leans a third of the way toward the boss, and toward the middle of its height: up close, the boss's head
+    // and what it is about to do are in the picture as well as the hunter.
+    const m = w.monster;
+    const lean = m.state === 'asleep' || m.state === 'dead' ? 0 : 0.32;
+    // Where the boss is drawn, between the rules' steps, as the hunter is: so that the view does not judder.
+    const mx = this.ready && this.monster ? this.monster.x : m.x;
+    const my = this.ready && this.monster ? this.monster.y : m.y;
+    const hx = hx0 + (mx - hx0) * lean;
+    const hy = hy0 - 20 + (my - this.tall() * 0.45 - (hy0 - 20)) * lean;
     const cx = view.w >= w.w ? w.w / 2 : Math.max(view.w / 2, Math.min(w.w - view.w / 2, hx));
-    const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2, Math.min(w.h - view.h / 2, hy - 20));
+    const cy = view.h >= w.h ? w.h / 2 : Math.max(view.h / 2, Math.min(w.h - view.h / 2, hy));
     cam.centerOn(cx, cy);
   }
 

@@ -159,6 +159,9 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
   await tick(page, 20);
   check(`${label}: the board goes back`, await press(page, tap, 'Lodge', 'BOSSES'));
   await tick(page, 20);
+  // The King was posted by the Gravedigger's fall: his bill is taken from the board.
+  check(`${label}: the King's bill can be picked`, await press(page, tap, 'Lodge', 'ANTLERED KING'));
+  await tick(page, 20);
   check(`${label}: HUNT goes to a lair`, (await press(page, tap, 'Lodge', 'HUNT')) && (await until(page, 'Hud')));
   await tick(page, 30);
   check(`${label}: as the hunter chosen, against the contract the board held out`, (await hunt<string>(page, 'h.hunter.def.id + "/" + h.monster.def.id')) === 'jory/king');

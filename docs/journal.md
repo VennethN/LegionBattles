@@ -2,6 +2,21 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## Round 2, 25 November 2026: the owner's first play
+
+The owner played the published game and said: "let's make it simple for the first boss, e.g no camp, just you vs the boss, / make it essentially a tutorial / make the animations also clearer/ exagerrated to an extent, / the music also doesnt fit". Then: "dont use sexton name why sexton", and "Give some small dialogue as lore as well / But the dialogue is not blocking".
+
+Built:
+
+- **The first hunt is a lesson.** The title, then PLAY, then Marta against the Gravedigger: no camp, nothing brought, a simpler and slower boss (two attacks, then a third in a short second phase), and seven steps the hunt waits on, each taught on a plate at the foot of the screen and done once. Time slows the first time a warning shows. The next two hunts each bring in one new thing (a Barricade and the camp; Spearmen and the horn), and then the team and the shop open.
+- **Plain names.** The Gravedigger, the Warden, the Poacher, the Dog Handler, the Mirror King; Dodge, Block, Sweep, Phase, Reward.
+- **The game's own style** is in: every figure, the churchyard and the winter wood, icons, bars and buttons from `VennethN/game-assets`.
+- **Clearer animation.** A boss's attack is a held, trembling wind-up past its pose, a strike that snaps out and stretches and is drawn as a smear along its warning's shape, and a slow, sagging recovery. Heavy blows stop the lair for a breath; the stagger breaking stops it longest, bursts gold and slows the lair for a beat.
+- **Music written for the hunt** (merged from its own branch): the lodge, a near silent lair, a piece for each boss in three steps, and moments for waking, breaking and falling. The old fanfares are gone.
+- **Lines**: about 230 short lines, hunters to each boss and each boss's story in pieces, shown by the speaker, never blocking. LINES turns them off.
+
+The game agent that began this round stopped on a usage limit half way; another finished it from where it was left.
+
 ## Round 1, 25 November 2026: the game, with stand-in pictures
 
 The project was begun from Lastander's: its build, scripts, sheet, figures, input, sound, portal code and the light on the field are kept, and its rules, screens and data were taken out.

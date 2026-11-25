@@ -35,7 +35,9 @@ The headless browser draws a few frames a second. The scripts take over the page
 - **A tell is drawn as it is ruled.** The lair is seen from above: a circle on the ground is a circle, at the size the rules have it. Do not flatten or prettify a tell.
 - **A change to a number is measured.** `npm run pace` before and after, sixteen hunts at the least, and say what moved. `--why` says what did the harm, `--things` what each thing brought is worth.
 - **The screens show and ask.** A scene never works out what something costs, does or whether it is allowed: it asks `lodge.ts` or the hunt. What the HUD and the lair show, the hunt tells them, as state and events.
-- **No screen names a picture.** `src/view/pictures.ts` says which figure stands for what. The figures there now are stand-ins from the Legion kit; the game's own are drawn in `VennethN/game-assets`.
+- **No screen names a picture.** `src/view/pictures.ts` says which figure stands for what. The figures are the game's own Grim style, drawn in `VennethN/game-assets` (`styles/grim`) and copied into `src/grim`; change them there, not here, and copy again.
+- **In-game text is plain game language.** Health, Damage, Dodge, Skill, Boss, Phase, Reward, Unlock, Locked; short lines with numbers. Names are plain words anyone knows: the owner asked "why sexton", and the Gravedigger is what he is called.
+- **Lines are spice, never a rule.** What the hunters and bosses say never stops the hunt, never asks for a press, and never covers a warning, the hunter or the bars (`src/game/talk.ts`, `showSaid` in the HUD).
 - **The art is drawn in code.** No image files, no pictures from an image model, nothing copied from another game. The Legion kit's own rules (`.claude/skills/legion-art`) hold for its figures while they are here.
 - **The game lights its pictures.** Everything about the light is in `src/view/light`: how dark each kind of lair is in `hours.ts`, how strong each light is in `LairLight.ts`. **What has to be read is not lit:** the tells, numbers, bars and names go through `light.crisp`, which keeps them off the lit camera. Never so dark that the monster or a helper is lost.
 - **It is a game in a genre, not a copy of another game.** Its hunters, monsters, names and looks are its own. If one could be mistaken for somebody else's, it is renamed or redrawn (the design says which were).
@@ -43,7 +45,7 @@ The headless browser draws a few frames a second. The scripts take over the page
 - **Everything on a field is on one sheet,** and a field's pictures always fit. `tests/art.test.ts` fails when they no longer do.
 - **No words smaller than 15 of the layout's units.** That is eleven pixels in the smallest frame a portal shows.
 - **What a player has not opened is dark, with "???".** What opens it is said, and nothing else.
-- **A new player is in a hunt at once,** and is taught by what happens, in few words, once.
+- **A new player is in a hunt within one press,** a lesson with no camp and nothing brought, taught one thing at a time by doing (`LESSONS` in content.ts). Each hunt after it brings in one new thing (`OPENING` in lodge.ts).
 - **The build stays under 5 MB.**
 - **Comments say why,** in short plain sentences.
 - **Text for the owner and for the docs is plain, and has no em dashes.**
