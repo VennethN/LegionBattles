@@ -168,6 +168,28 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await pilot(page, 24);
     await shot('hunt-king-agnes');
   },
+  // A line said in a hunt: the boss's own by it, the hunter's over her head, and something heard from the King.
+  talk: async (page, shot) => {
+    const say = (who: string, when: string): Promise<void> =>
+      page.evaluate(([w, n]) => {
+        const lair = (window as unknown as Win).game.scene.getScene('Lair') as unknown as { talk: { drop(): void; offer(who: string, when: string): void } };
+        lair.talk.drop();
+        lair.talk.offer(w, n);
+      }, [who, when] as const);
+    await lair(page, { monster: 'sexton', mark: 1, hunter: 'marta', reinforcements: [], buildings: [], awake: true }, RICH);
+    await pilot(page, 4);
+    await say('sexton', 'change');
+    await tick(page, 12);
+    await shot('talk-boss');
+    await say('marta', 'break');
+    await tick(page, 12);
+    await shot('talk-hunter');
+    await lair(page, { monster: 'king', mark: 1, hunter: 'jory', reinforcements: [], buildings: [], awake: true }, RICH);
+    await pilot(page, 4);
+    await say('king', 'change');
+    await tick(page, 12);
+    await shot('talk-heard');
+  },
   // Every attack of every monster, with its tell half shown: this is what a player has to read.
   tells: async (page, shot) => {
     const all: Array<[string, number, string]> = [

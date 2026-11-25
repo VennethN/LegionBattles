@@ -62,6 +62,12 @@ export class HudScene extends Phaser.Scene {
   private stick!: Phaser.GameObjects.Graphics;
   private flash!: Phaser.GameObjects.Image;
   private paused: Phaser.GameObjects.Container | null = null;
+  /** The line being said, as a caption by whoever says it, and which line it is. */
+  private said: Phaser.GameObjects.Container | null = null;
+  private saidId = 0;
+  private saidW = 0;
+  private saidH = 0;
+  private saidHeard = false;
   private pads: Pad[] = [];
   private campPads: Array<{ root: Phaser.GameObjects.Container; text: Phaser.GameObjects.Text; id: string; n: number }> = [];
   private camp: Phaser.GameObjects.Container | null = null;
@@ -361,7 +367,7 @@ export class HudScene extends Phaser.Scene {
     const veil = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.6).setInteractive();
     const cx = view.w / 2;
     const cy = view.h / 2;
-    c.add([veil, slabImage(this, cx - 150, cy - 200, 300, 400, BONE, 18, 8), label(this, cx, cy - 162, 'PAUSED', { size: 30 })]);
+    c.add([veil, slabImage(this, cx - 150, cy - 200, 300, 456, BONE, 18, 8), label(this, cx, cy - 162, 'PAUSED', { size: 30 })]);
     const s = save();
     const toggle = (y: number, name: string, get: () => boolean, set: (v: boolean) => void): void => {
       const b = new Button(this, cx, y, `${name}: ${get() ? 'ON' : 'OFF'}`, () => {
@@ -375,14 +381,20 @@ export class HudScene extends Phaser.Scene {
     c.add(new Button(this, cx, cy - 102, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
     toggle(cy - 38, 'SOUND', () => s.sound, (v) => (s.sound = v));
     toggle(cy + 20, 'MUSIC', () => s.music, (v) => (s.music = v));
+    // The lines said in a hunt are spice: some would rather play in silence.
+    toggle(cy + 78, 'LINES', () => s.talk !== false, (v) => {
+      s.talk = v;
+      lair.talk.on = v;
+      if (!v) lair.talk.drop();
+    });
     // How much of the light is made: all of it, the cheap part, or none. A slow machine wants less.
-    const light = new Button(this, cx, cy + 78, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
+    const light = new Button(this, cx, cy + 136, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
       setLightMode(nextLightMode(lightMode()), true);
       lair.setLight(lightMode());
       light.setText(`LIGHT: ${LIGHT_NAMES[lightMode()]}`);
     }, { width: 220, height: 46, size: 19, mat: IRON });
     c.add(light.root);
-    c.add(new Button(this, cx, cy + 146, 'GIVE UP', () => {
+    c.add(new Button(this, cx, cy + 204, 'GIVE UP', () => {
       hunt.giveUp();
       this.paused?.destroy();
       this.paused = null;
@@ -392,6 +404,74 @@ export class HudScene extends Phaser.Scene {
     sfx.play('open', 0.6);
   }
 
+  /**
+   * The line being said, as a small caption that hangs by whoever says it, or under the boss's bars for something
+   * heard. It is moved as they move. Where it would lie over a warning on the ground or over the hunter it is tried
+   * on the other side of the speaker, and if there is no room there either it is dropped: a line never hides what
+   * has to be read.
+   */
+  private showSaid(): void {
+    const lair = this.scene.get('Lair') as LairScene | undefined;
+    const now = lair?.talk?.now ?? null;
+    if (!now || !lair) {
+      if (this.said) {
+        const c = this.said;
+        this.said = null;
+        this.tweens.add({ targets: c, alpha: 0, duration: 260, onComplete: () => c.destroy() });
+      }
+      return;
+    }
+    if (now.id !== this.saidId) {
+      this.said?.destroy();
+      this.saidId = now.id;
+      this.saidHeard = now.heard;
+      const c = this.add.container(0, 0).setDepth(13);
+      const wrap = Math.min(300, view.w - 40);
+      const line = label(this, 0, 0, now.says, { size: 17, wrap, color: now.heard ? BONE.shade : BONE.fill, weight: now.heard ? 600 : 700 });
+      const name = now.heard ? null : label(this, 0, 0, now.name, { size: 15, color: HOLY.fill });
+      const w = Math.max(line.width, name?.width ?? 0) + 24;
+      const h = line.height + (name ? name.height - 2 : 0) + 14;
+      name?.setPosition(0, -h / 2 + 7 + (name?.height ?? 0) / 2);
+      line.setPosition(0, h / 2 - 7 - line.height / 2);
+      const g = this.add.graphics();
+      g.fillStyle(hex(OUTLINE), now.heard ? 0.6 : 0.82).fillRoundedRect(-w / 2, -h / 2, w, h, 9);
+      if (!now.heard) g.lineStyle(2, hex(now.matters ? RUBY.fill : STEEL.shade), 0.9).strokeRoundedRect(-w / 2, -h / 2, w, h, 9);
+      c.add([g, ...(name ? [name] : []), line]);
+      this.saidW = w;
+      this.saidH = h;
+      c.setAlpha(0).setScale(0.9);
+      this.tweens.add({ targets: c, alpha: 1, scale: 1, duration: 200, ease: 'Back.easeOut' });
+      this.said = c;
+    }
+    const c = this.said;
+    if (!c) return;
+    const w = this.saidW;
+    const h = this.saidH;
+    // Kept off the bars at the top and the buttons and plate at the foot.
+    const top = this.by + 54;
+    const foot = view.h - PAD - (view.tall ? 120 : 40);
+    const place = (x: number, y: number): [number, number] => [Math.max(8 + w / 2, Math.min(view.w - 8 - w / 2, x)), Math.max(top + h / 2, Math.min(foot - h / 2, y))];
+    let at: [number, number] | null;
+    if (this.saidHeard) at = place(view.w / 2, top + h / 2 + 4);
+    else {
+      const p = lair.speakerAt(now.who);
+      if (!p) at = null;
+      else {
+        const above = place(p.x, p.y - h / 2 - 6);
+        const below = place(p.x, p.y + h / 2 + 150);
+        at = [above, below].find(([x, y]) => lair.clearOf(x - w / 2, y - h / 2, x + w / 2, y + h / 2)) ?? null;
+      }
+    }
+    if (!at) {
+      // No room by the speaker that hides nothing: the line goes unsaid.
+      lair.talk.drop();
+      c.destroy();
+      this.said = null;
+      return;
+    }
+    c.setPosition(at[0], at[1]);
+  }
+
   override update(_time: number, delta: number): void {
     const hunt = theHunt();
     if (!hunt || !this.bars) return;
@@ -399,6 +479,7 @@ export class HudScene extends Phaser.Scene {
     const h = hunt.hunter;
     const m = hunt.monster;
     const camp = hunt.phase === 'camp';
+    this.showSaid();
     this.camp?.setVisible(camp);
     this.fight?.setVisible(!camp);
 

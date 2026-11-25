@@ -14,6 +14,7 @@ import { sfx } from '../../audio/sfx';
 import type { Bot } from '../../game/bot';
 import { BUILDINGS, CAMP } from '../../game/content';
 import { STEP, type Ev, type Hunt, type Steer, type Tell } from '../../game/hunt';
+import { Talk } from '../../game/talk';
 import { ads } from '../../platform/ads';
 import { ASSETS, getManifest } from '../app';
 import { ART_SCALE, hex, view } from '../config';
@@ -84,6 +85,8 @@ export class LairScene extends Phaser.Scene {
   private shook = 0;
   /** True while the hunt is held still: the game is paused, or its end is being shown. */
   halted = false;
+  /** What the hunter and the boss say: spice, never a rule. The HUD shows its line. */
+  talk!: Talk;
   /** A player made of rules, for the scripts that film the game and take its pictures. The game never sets it. */
   static pilot: Bot | null = null;
   private overlay = '';
@@ -105,6 +108,8 @@ export class LairScene extends Phaser.Scene {
     this.hunt = kept ?? theHunt() ?? beginHunt(view.tall);
     this.overlay = data.over ?? '';
     this.resumed = !!kept;
+    // Its own dice, never the hunt's: a line said or not changes nothing that happens.
+    this.talk = new Talk(save().hunts * 7919 + 17, this.hunt.hunter.def.id, this.hunt.monster.def.id, save().talk !== false);
     this.actors.clear();
     this.before.clear();
     this.monster = null;
@@ -256,6 +261,7 @@ export class LairScene extends Phaser.Scene {
       // it stands as this frame is into the next step, so that what moves, moves evenly whatever the screen's rate.
       this.blend = Math.min(1, this.acc / STEP);
       this.react(this.hunt.drain());
+      this.talk.step(dt);
     }
     this.sync(dt);
     this.fx.update(dt);
@@ -311,6 +317,7 @@ export class LairScene extends Phaser.Scene {
     const h = w.hunter;
     const m = w.monster;
     this.light.react(events);
+    this.talk.hear(events, this.hunt);
     const hud = this.scene.get('Hud') as HudScene | undefined;
     for (const e of events) {
       hud?.noted(e);
@@ -500,6 +507,42 @@ export class LairScene extends Phaser.Scene {
   }
 
   // ------------------------------------------------------------ the lair as it stands
+
+  /**
+   * Where a speaker is, in the HUD's units: the point over their head that a line hangs from. A reinforcement's
+   * line hangs over the nearest of its own; a boss that is not seen speaks from where it stands. Null if the
+   * speaker is not on the field.
+   */
+  speakerAt(who: string): { x: number; y: number } | null {
+    if (!this.ready) return null;
+    const cam = this.cameras.main;
+    const at = (x: number, y: number): { x: number; y: number } => ({ x: x - cam.worldView.x, y: y - cam.worldView.y });
+    if (who === this.hunt.hunter.def.id) return at(this.hunter.x, this.hunter.y - this.hunter.height - 10);
+    if (who === this.hunt.monster.def.id) return at(this.hunt.monster.x, this.hunt.monster.y - this.tall() * 0.9);
+    const own = this.hunt.allies.filter((a) => a.group === who && a.state !== 'down');
+    if (own.length === 0) return at(this.hunter.x, this.hunter.y - this.hunter.height - 10);
+    const near = own.reduce((b, a) => (Math.hypot(a.x - this.hunter.x, a.y - this.hunter.y) < Math.hypot(b.x - this.hunter.x, b.y - this.hunter.y) ? a : b));
+    return at(near.x, near.y - 80);
+  }
+
+  /** True if a box, in the HUD's units, lies over no warning on the ground and not over the hunter: a line never hides what must be read. */
+  clearOf(x0: number, y0: number, x1: number, y1: number): boolean {
+    const cam = this.cameras.main;
+    const ox = cam.worldView.x;
+    const oy = cam.worldView.y;
+    const hits = (a0: number, b0: number, a1: number, b1: number): boolean => a0 < x1 + ox && a1 > x0 + ox && b0 < y1 + oy && b1 > y0 + oy;
+    for (const t of this.hunt.tells) {
+      if (!t.foe) continue;
+      if (t.kind === 'line') {
+        const ex = t.x + Math.cos(t.angle) * t.len;
+        const ey = t.y + Math.sin(t.angle) * t.len;
+        const pad = t.w / 2;
+        if (hits(Math.min(t.x, ex) - pad, Math.min(t.y, ey) - pad, Math.max(t.x, ex) + pad, Math.max(t.y, ey) + pad)) return false;
+      } else if (hits(t.x - t.r, t.y - t.r, t.x + t.r, t.y + t.r)) return false;
+    }
+    const h = this.hunter;
+    return !hits(h.x - 26, h.y - h.height, h.x + 26, h.y + 4);
+  }
 
   private follow(): void {
     const w = this.hunt;

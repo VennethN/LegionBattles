@@ -32,6 +32,8 @@ export interface SaveData {
   opening: number;
   sound: boolean;
   music: boolean;
+  /** Whether the hunters and bosses say their lines during a hunt. */
+  talk: boolean;
   /** What the player has been shown once and need not be shown again. */
   told: string[];
 }
@@ -115,7 +117,7 @@ export function freshSave(): SaveData {
   return {
     v: 1, coin: 0, supply: 0, felled: {}, trophies: [], worn: {}, steps: [],
     muster: { hunter: FIRST_MUSTER.hunter, reinforcements: [], buildings: {} },
-    hunts: 0, wins: 0, opening: 0, sound: true, music: true, told: [],
+    hunts: 0, wins: 0, opening: 0, sound: true, music: true, talk: true, told: [],
   };
 }
 
@@ -148,6 +150,7 @@ export function repair(raw: unknown): SaveData {
   else if (s.wins > 0 || s.trophies.length > 0) s.opening = OPENING.length;
   if (typeof r.sound === 'boolean') s.sound = r.sound;
   if (typeof r.music === 'boolean') s.music = r.music;
+  if (typeof r.talk === 'boolean') s.talk = r.talk;
   if (Array.isArray(r.told)) s.told = r.told.filter((t): t is string => typeof t === 'string');
   const m = r.muster;
   if (m && typeof m === 'object') {
