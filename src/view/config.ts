@@ -4,14 +4,21 @@
 //
 // Everything is placed in the layout's own units. A wide window is 720 of
 // them high and as wide as its shape makes it; a tall one is 720 wide and as
-// high as its shape makes it. The cameras zoom those units up to the
-// canvas, which is drawn at up to twice the window's own pixels on a dense
-// screen so that the art, rasterized at 2x, stays sharp.
+// high as its shape makes it. A window that is nearly square is neither
+// wide enough for the lists to stand beside the fight nor tall enough for
+// them to stand under it, at that size: it is given more units, so that
+// both have their room and everything in it is a little smaller. The
+// cameras zoom those units up to the canvas, which is drawn at up to twice
+// the window's own pixels on a dense screen so that the art, rasterized at
+// 2x, stays sharp.
 
 /** A wide window's height and a tall window's width, in the layout's units. */
 export const BASE = 720;
 /** A window narrower than this for its height is laid out tall: the fight above, the lists below. */
-export const TALL_BELOW = 1.2;
+export const TALL_BELOW = 1;
+/** The least a wide layout is across, and the least a tall one is high: what the fight and the lists need between them. */
+export const WIDE_LEAST = 940;
+export const TALL_LEAST = 900;
 
 export interface View {
   /** The window in the layout's units. */
@@ -50,11 +57,11 @@ export function fit(cssW: number, cssH: number, dpr = 1): View {
   const aspect = w / h;
   view.tall = aspect < TALL_BELOW;
   if (view.tall) {
-    view.w = BASE;
-    view.h = BASE / aspect;
+    view.h = Math.max(BASE / aspect, TALL_LEAST);
+    view.w = view.h * aspect;
   } else {
-    view.h = BASE;
-    view.w = BASE * aspect;
+    view.w = Math.max(BASE * aspect, WIDE_LEAST);
+    view.h = view.w / aspect;
   }
   let density = askedDensity() || Math.min(2, Math.max(1, dpr));
   if (!askedDensity()) {

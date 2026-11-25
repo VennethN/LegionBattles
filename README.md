@@ -31,7 +31,7 @@ Other things to run:
 
 ## How it plays
 
-**The road.** Stages are numbered from 1 and have no end. Ten stages are a land. In a plain stage ten enemies come one after another. The fifth stage of a land is its captain and the tenth is its boss: one enemy each, much stronger, and to be brought down before a clock runs out. A legion that fails is set back a stage and holds there until it is strong enough, or until the player presses FIGHT. There are three lands, Thornwood, the Sunscar Dunes and Frostholt, each with its own enemies, ground and music. After the third the road goes through them again, harder: Thornwood II, and on.
+**The road.** Stages are numbered from 1 and have no end. Ten stages are a land. In a plain stage ten enemies come one after another. The fifth stage of a land is its captain and the tenth is its boss: one enemy each, much stronger, and to be brought down before a clock runs out. A legion that fails is set back a stage and holds there until it is strong enough, or until the player presses FIGHT. AUTO, in the corner of the fight, says whether the legion goes on by itself at all: off, it stays at its stage and earns there. There are three lands, Thornwood, the Sunscar Dunes and Frostholt, each with its own enemies, ground and music. After the third the road goes through them again, harder: Thornwood II, and on.
 
 **Heroes.** They are hired in order, each dearer and stronger than the one before. A hero strikes by itself, on its own beat. Each level costs a little more than the last. A hero's own damage doubles at levels 10, 25, 50, 75 and 100, and every 25 levels after. At level 25 each gives something to the whole legion (damage, gold, or the strength of a tap), and twice that at level 100. Who has not been hired yet is shown dark, as "???".
 
@@ -64,7 +64,7 @@ Other things to run:
 | `src/view/scenes` | `BootScene` loads, `GameScene` is the one screen, `ListScene` is the scrolling lists, `ModalScene` the cards that come up over everything, `AssetsScene` loads pictures while the game runs. |
 | `src/view/art` | The art's runtime: `Sheet` packs pictures onto one texture, `Figure` moves a figure's parts by the rig. |
 | `src/view/config.ts`, `src/view/app.ts` | How the screen is fitted to a window, and how it is cut into the fight and the lists. |
-| `src/audio` | The sounds and the music, which is written as notes and played on recorded instruments. |
+| `src/audio` | The sounds and the music, which is written as notes and played on recorded instruments. The recordings are the first game's bank (`public/assets/audio/bank.bin`), cut from two libraries that are free to use; `public/assets/audio/CREDITS.txt` names them and is shipped with the game. |
 | `src/platform` | The portal: CrazyGames' SDK for the save, the player's name and ads. |
 | `scripts` | `art` and `sheet` are the kit's and the same for every game; `art.game.ts` says what this game shows of the kit. `pace`, `walk` and `cover` are this game's. |
 | `tests` | Vitest. |

@@ -50,7 +50,8 @@ const clamp = (v: number, lo: number, hi: number): number => Math.max(lo, Math.m
  */
 export function layout(): Layout {
   if (view.tall) {
-    const stageH = Math.round(clamp(view.h * 0.46, 330, 640));
+    // The fight has its plate, its camp, its ranks and its buttons one over another, and is never so low that the ranks are squeezed.
+    const stageH = Math.round(clamp(view.h * 0.46, 520, 640));
     const panel = { x: 0, y: stageH, w: view.w, h: view.h - stageH };
     const head = { x: 0, y: panel.y, w: view.w, h: 78 };
     const tabs = { x: 0, y: head.y + head.h, w: view.w, h: 58 };

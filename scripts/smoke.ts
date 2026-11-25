@@ -199,12 +199,12 @@ async function play(browser: Browser, name: string, width: number, height: numbe
     s = await state();
     check(`${name}: pressing the pack opens it`, s.packs === 1, s.packs);
   }
-  await press('Game', 'GO ON');
+  await press('Game', 'AUTO ON');
   s = await state();
-  check(`${name}: GO ON, pressed, holds the legion where it is`, !s.advance && s.holding, [s.advance, s.holding]);
-  await press('Game', 'HOLD');
+  check(`${name}: AUTO, pressed, holds the legion where it is`, !s.advance && s.holding, [s.advance, s.holding]);
+  await press('Game', 'AUTO OFF');
   s = await state();
-  check(`${name}: and HOLD lets it go on`, s.advance, s.advance);
+  check(`${name}: and pressed again lets it go on`, s.advance, s.advance);
 
   // Rebirth, from the tab to the honors.
   await set('s.run.stage = 41; s.run.top = 45; s.best = 45; s.run.gold = 5e9; for (let i = 0; i < 18; i++) s.run.heroes[i] = i < 9 ? 40 : 0; s.run.camp[0] = 4');

@@ -212,8 +212,8 @@ export class GameScene extends Phaser.Scene {
     });
 
     // Whether the legion goes on by itself, and the way back to a boss that turned it.
-    this.advance = new Button(this, S.x + S.w - 74, S.y + S.h - 44, '', () => this.toggleAdvance(), { width: 124, height: 50, size: 20, mat: VENOM }).setDepth(8000);
-    this.fightBoss = new Button(this, S.x + S.w - 74, S.y + S.h - 104, 'FIGHT', () => this.challenge(), { width: 124, height: 54, size: 22, mat: FIRE }).setDepth(8000);
+    this.advance = new Button(this, S.x + S.w - 78, S.y + S.h - 44, '', () => this.toggleAdvance(), { width: 132, height: 50, size: 19, mat: VENOM }).setDepth(8000);
+    this.fightBoss = new Button(this, S.x + S.w - 78, S.y + S.h - 104, 'FIGHT', () => this.challenge(), { width: 132, height: 54, size: 22, mat: FIRE }).setDepth(8000);
     this.tweens.add({ targets: this.fightBoss.root, scale: 1.06, duration: 420, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
   }
 
@@ -454,7 +454,8 @@ export class GameScene extends Phaser.Scene {
     }
     if (all) {
       this.buy.setText(s.settings.buy === 0 ? 'MAX' : `x${s.settings.buy}`);
-      this.advance.setText(s.settings.advance ? 'GO ON' : 'HOLD').setMaterial(s.settings.advance ? VENOM : STEEL);
+      // It says how things stand, not what a press would do: lit while the legion goes on by itself.
+      this.advance.setText(s.settings.advance ? 'AUTO ON' : 'AUTO OFF').setMaterial(s.settings.advance ? VENOM : STEEL);
     }
     this.fightBoss.setVisible(run.holding && s.settings.advance);
 

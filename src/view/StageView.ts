@@ -144,10 +144,19 @@ export class StageView {
     private readonly battle: Battle,
   ) {
     // The band the figures stand in: under the stage's plate and the camp, over the buttons.
-    this.bandTop = rect.y + (view.tall ? 196 : 222);
-    this.bandBottom = rect.y + rect.h - (view.tall ? 84 : 104);
+    let top = rect.y + (view.tall ? 196 : 222);
+    let bottom = rect.y + rect.h - (view.tall ? 84 : 104);
+    // On a stage much taller than it is wide the ranks would stand far apart: the legion keeps together, a little above the middle.
+    const most = rect.w * 0.78;
+    if (bottom - top > most) {
+      top += (bottom - top - most) * 0.4;
+      bottom = top + most;
+    }
+    this.bandTop = top;
+    this.bandBottom = bottom;
     const band = this.bandBottom - this.bandTop;
-    this.unit = Math.max(0.56, Math.min(0.8, band / 520));
+    // Figures are as big as the band is deep, and no bigger than a narrow stage has room for five ranks of.
+    this.unit = Math.max(0.5, Math.min(0.8, band / 520, rect.w / 900));
     this.frontX = rect.x + rect.w * 0.47;
     // Five ranks deep, from the front one back to the edge of the screen.
     // The giants stand in the rearmost, and are not to be cut off by the edge of the screen.
