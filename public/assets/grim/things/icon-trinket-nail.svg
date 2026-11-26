@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trinket-nail" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trinket-nail-shank-shape" d="M 14 10 L 22 8 L 40 40 L 36 44 Z"/>
+<clipPath id="icon-trinket-nail-shank-clip"><use href="#icon-trinket-nail-shank-shape"/></clipPath>
+<path id="icon-trinket-nail-point-shape" d="M 36 40 L 41 39 L 58 50 L 60 54 Z"/>
+<path id="icon-trinket-nail-head-shape" d="M 4 10 L 20 2 L 28 8 L 12 18 Z"/>
+<clipPath id="icon-trinket-nail-head-clip"><use href="#icon-trinket-nail-head-shape"/></clipPath>
+<path id="icon-trinket-nail-splinter-shape" d="M 22 28 L 32 24 L 33 28 L 24 32 Z"/>
+<clipPath id="icon-trinket-nail-splinter-clip"><use href="#icon-trinket-nail-splinter-shape"/></clipPath>
+</defs>
+<g id="icon-trinket-nail-shank">
+<use id="icon-trinket-nail-shank-line" href="#icon-trinket-nail-shank-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-nail-shank-clip)">
+<use id="icon-trinket-nail-shank-lit" href="#icon-trinket-nail-shank-shape" fill="#8c9194"/>
+<use id="icon-trinket-nail-shank-rim" href="#icon-trinket-nail-shank-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-trinket-nail-shank-lit-over" href="#icon-trinket-nail-shank-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="icon-trinket-nail-shank-mid" d="M 0 4 L 16 4 L 38 46 L 30 48 L 0 48 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="icon-trinket-nail-shank-dark" d="M 0 4 L 16 4 L 38 46 L 30 48 L 0 48 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trinket-nail-point">
+<use id="icon-trinket-nail-point-line" href="#icon-trinket-nail-point-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-trinket-nail-point-lit" href="#icon-trinket-nail-point-shape" fill="#9a5b38"/>
+</g>
+<g id="icon-trinket-nail-head">
+<use id="icon-trinket-nail-head-line" href="#icon-trinket-nail-head-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-nail-head-clip)">
+<use id="icon-trinket-nail-head-lit" href="#icon-trinket-nail-head-shape" fill="#8c9194"/>
+<use id="icon-trinket-nail-head-rim" href="#icon-trinket-nail-head-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-trinket-nail-head-lit-over" href="#icon-trinket-nail-head-shape" transform="translate(-1.28 0.96)" fill="#8c9194"/>
+<path id="icon-trinket-nail-head-dark" d="M -8 -2 L 6.9 -2 L 9.8 22 L -8 22 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trinket-nail-splinter">
+<use id="icon-trinket-nail-splinter-line" href="#icon-trinket-nail-splinter-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-nail-splinter-clip)">
+<use id="icon-trinket-nail-splinter-lit" href="#icon-trinket-nail-splinter-shape" fill="#6f5c46"/>
+<path id="icon-trinket-nail-splinter-dark" d="M 10 20 L 23.3 20 L 24.7 36 L 10 36 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

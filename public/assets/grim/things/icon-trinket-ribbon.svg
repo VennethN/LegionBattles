@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trinket-ribbon" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trinket-ribbon-tail-a-shape" d="M 28 30 L 36 32 L 24 60 L 18 54 L 14 60 Z"/>
+<clipPath id="icon-trinket-ribbon-tail-a-clip"><use href="#icon-trinket-ribbon-tail-a-shape"/></clipPath>
+<path id="icon-trinket-ribbon-tail-b-shape" d="M 32 32 L 40 30 L 54 56 L 48 54 L 46 62 Z"/>
+<clipPath id="icon-trinket-ribbon-tail-b-clip"><use href="#icon-trinket-ribbon-tail-b-shape"/></clipPath>
+<path id="icon-trinket-ribbon-loop-a-shape" d="M 30 26 L 14 10 L 6 16 L 10 30 L 28 32 Z"/>
+<clipPath id="icon-trinket-ribbon-loop-a-clip"><use href="#icon-trinket-ribbon-loop-a-shape"/></clipPath>
+<path id="icon-trinket-ribbon-loop-b-shape" d="M 34 26 L 50 8 L 58 14 L 56 28 L 36 32 Z"/>
+<clipPath id="icon-trinket-ribbon-loop-b-clip"><use href="#icon-trinket-ribbon-loop-b-shape"/></clipPath>
+<path id="icon-trinket-ribbon-knot-shape" d="M 26 22 L 38 22 L 40 34 L 26 34 Z"/>
+<clipPath id="icon-trinket-ribbon-knot-clip"><use href="#icon-trinket-ribbon-knot-shape"/></clipPath>
+</defs>
+<g id="icon-trinket-ribbon-tail-a">
+<use id="icon-trinket-ribbon-tail-a-line" href="#icon-trinket-ribbon-tail-a-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-ribbon-tail-a-clip)">
+<use id="icon-trinket-ribbon-tail-a-lit" href="#icon-trinket-ribbon-tail-a-shape" fill="#7d312b"/>
+<path id="icon-trinket-ribbon-tail-a-dark" d="M 2 26 L 17.9 25.8 L 20 43.5 L 17.1 47.5 L 19 64.2 L 2 64 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trinket-ribbon-tail-b">
+<use id="icon-trinket-ribbon-tail-b-line" href="#icon-trinket-ribbon-tail-b-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-ribbon-tail-b-clip)">
+<use id="icon-trinket-ribbon-tail-b-lit" href="#icon-trinket-ribbon-tail-b-shape" fill="#7d312b"/>
+<path id="icon-trinket-ribbon-tail-b-dark" d="M 20 26 L 34.3 25.8 L 36.3 43.4 L 33.5 47.2 L 35.6 66.2 L 20 66 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trinket-ribbon-loop-a">
+<use id="icon-trinket-ribbon-loop-a-line" href="#icon-trinket-ribbon-loop-a-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-ribbon-loop-a-clip)">
+<use id="icon-trinket-ribbon-loop-a-lit" href="#icon-trinket-ribbon-loop-a-shape" fill="#7d312b"/>
+<path id="icon-trinket-ribbon-loop-a-mid" d="M -6 6 L 10.1 5.8 L 12.4 22.9 L 9.3 26.9 L 10.5 36.2 L -6 36 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="icon-trinket-ribbon-loop-a-dark" d="M -6 6 L 10.1 5.8 L 12.4 22.9 L 9.3 26.9 L 10.5 36.2 L -6 36 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trinket-ribbon-loop-b">
+<use id="icon-trinket-ribbon-loop-b-line" href="#icon-trinket-ribbon-loop-b-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-ribbon-loop-b-clip)">
+<use id="icon-trinket-ribbon-loop-b-lit" href="#icon-trinket-ribbon-loop-b-shape" fill="#7d312b"/>
+<path id="icon-trinket-ribbon-loop-b-mid" d="M 22 4 L 36.9 3.8 L 39.6 23.5 L 36.4 27.9 L 37.6 36.2 L 22 36 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="icon-trinket-ribbon-loop-b-dark" d="M 22 4 L 36.9 3.8 L 39.6 23.5 L 36.4 27.9 L 37.6 36.2 L 22 36 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trinket-ribbon-knot">
+<use id="icon-trinket-ribbon-knot-line" href="#icon-trinket-ribbon-knot-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-ribbon-knot-clip)">
+<use id="icon-trinket-ribbon-knot-lit" href="#icon-trinket-ribbon-knot-shape" fill="#7d312b"/>
+<use id="icon-trinket-ribbon-knot-rim" href="#icon-trinket-ribbon-knot-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-trinket-ribbon-knot-lit-over" href="#icon-trinket-ribbon-knot-shape" transform="translate(-1.12 0.84)" fill="#7d312b"/>
+<path id="icon-trinket-ribbon-knot-dark" d="M 14 18 L 26.8 18 L 29 38 L 14 38 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

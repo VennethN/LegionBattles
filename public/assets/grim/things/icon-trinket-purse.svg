@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trinket-purse" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trinket-purse-coin-shape" d="M 30 10 L 40 8 L 46 14 L 40 20 L 30 20 Z"/>
+<path id="icon-trinket-purse-purse-shape" d="M 22 22 L 42 22 L 54 34 L 58 50 L 48 60 L 16 60 L 6 50 L 10 34 Z"/>
+<clipPath id="icon-trinket-purse-purse-clip"><use href="#icon-trinket-purse-purse-shape"/></clipPath>
+<path id="icon-trinket-purse-mouth-shape" d="M 18 16 L 46 16 L 44 24 L 20 24 Z"/>
+<clipPath id="icon-trinket-purse-mouth-clip"><use href="#icon-trinket-purse-mouth-shape"/></clipPath>
+<path id="icon-trinket-purse-tie-shape" d="M 16 22 L 48 22 L 48 28 L 16 28 Z"/>
+<clipPath id="icon-trinket-purse-tie-clip"><use href="#icon-trinket-purse-tie-shape"/></clipPath>
+</defs>
+<g id="icon-trinket-purse-coin">
+<use id="icon-trinket-purse-coin-line" href="#icon-trinket-purse-coin-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-trinket-purse-coin-lit" href="#icon-trinket-purse-coin-shape" fill="#eeb040"/>
+</g>
+<g id="icon-trinket-purse-purse">
+<use id="icon-trinket-purse-purse-line" href="#icon-trinket-purse-purse-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-purse-purse-clip)">
+<use id="icon-trinket-purse-purse-lit" href="#icon-trinket-purse-purse-shape" fill="#4f4944"/>
+<path id="icon-trinket-purse-purse-mid" d="M 0 30 L 24 30 L 25.2 30.1 L 23.7 42.8 L 21 45.1 L 18.8 63.9 L 0 64 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="icon-trinket-purse-purse-dark" d="M 0 30 L 24 30 L 25.2 30.1 L 23.7 42.8 L 21 45.1 L 18.8 63.9 L 0 64 Z" fill="#14110f"/>
+<path id="icon-trinket-purse-nap" d="M 21.5 38.6 L 30 44 L 22.5 37.4 Z M 33.4 36.6 L 42 44 L 34.6 35.4 Z M 23.7 50.7 L 34 54 L 24.3 49.3 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="icon-trinket-purse-mouth">
+<use id="icon-trinket-purse-mouth-line" href="#icon-trinket-purse-mouth-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-purse-mouth-clip)">
+<use id="icon-trinket-purse-mouth-lit" href="#icon-trinket-purse-mouth-shape" fill="#4f4944"/>
+<path id="icon-trinket-purse-mouth-dark" d="M 6 12 L 22.3 12 L 23.8 28 L 6 28 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trinket-purse-tie">
+<use id="icon-trinket-purse-tie-line" href="#icon-trinket-purse-tie-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-purse-tie-clip)">
+<use id="icon-trinket-purse-tie-lit" href="#icon-trinket-purse-tie-shape" fill="#7b5b3d"/>
+<path id="icon-trinket-purse-tie-dark" d="M 4 18 L 21.2 18 L 22.3 32 L 4 32 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-trinket-purse-tie-end" d="M 48 26 L 56 34 L 54 42" fill="none" stroke="#7b5b3d" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

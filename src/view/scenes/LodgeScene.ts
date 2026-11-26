@@ -25,7 +25,7 @@ import { commit, save, takeContract, takePosting, theContract } from '../session
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 import { uiIcon, uiKey } from '../ui/grim';
-import { wareIcon } from '../icons';
+import { TRINKET_ICONS, wareIcon } from '../icons';
 import { LairScene } from './LairScene';
 import { Talk } from '../../game/talk';
 import { Tavern } from '../Tavern';
@@ -126,12 +126,36 @@ export class LodgeScene extends Phaser.Scene {
    * A figure on a card, standing on the card's floor. One not yet unlocked is its black shape. A stand-in for what
    * the style has not drawn yet is a dark shape too, a little paler, and no more.
    */
-  private figure(c: Phaser.GameObjects.Container, art: Art, floor: number, high: number, open: boolean): void {
+  private figure(c: Phaser.GameObjects.Container, art: Art, floor: number, high: number, open: boolean, rank = 0): void {
     const img = this.add.image(0, floor, CARDS, isGrim(art) ? portraitFrame('grim', art.grim) : portraitFrame(art.team, art.legion));
     img.setScale(Math.min(high / img.height, 1.2));
     if (!open) img.setTint(hex(OUTLINE)).setTintMode(Phaser.TintModes.FILL).setAlpha(0.85);
     else if (!isGrim(art)) img.setTint(STAND_IN).setTintMode(Phaser.TintModes.FILL);
     c.add(img);
+    // A hunter who has risen is shown in what they have earned: the card's picture is drawn at the first rank, so the
+    // figure itself takes its place once it is on the sheet.
+    if (open && rank > 0 && isGrim(art)) {
+      void sheet(this.game, getManifest()).ensureWanted(this.scene.get(ASSETS), [wantedUnit(art.grim)]).then(() => {
+        if (!img.active) return;
+        const g = getGrim();
+        const u = g.units[art.grim];
+        const fig = new GrimFigure(this, art.grim, u, g.poses, Math.min(high / (u.feet[1] - u.top), 1.2), 4);
+        fig.x = 0;
+        fig.y = floor;
+        fig.rank = rank;
+        fig.shift = 1;
+        c.add(fig.root);
+        img.destroy();
+        const tick = (_t: number, dt: number): void => {
+          if (!fig.root.active) {
+            this.events.off('update', tick);
+            return;
+          }
+          fig.update(this.time.now / 1000, dt / 1000);
+        };
+        this.events.on('update', tick);
+      });
+    }
   }
 
   // ------------------------------------------------------------ the board
@@ -617,7 +641,7 @@ export class LodgeScene extends Phaser.Scene {
     this.add.existing(slabImage(this, 6, top - 6, w - 12, hh + 14, WOOD_DARK, 4, 5));
     this.add.image(w / 2, top + hh / 2 + 6, SHEET, 'fx/glow').setDisplaySize(hw * 1.8, hh * 1.4).setTint(0xffb85a).setAlpha(0.45);
     const card = this.card(w / 2, top + hh / 2, hw, hh, BONE, null);
-    this.figure(card, HUNTER_ART[hunter.id], hh / 2 - 12, hh - 20, true);
+    this.figure(card, HUNTER_ART[hunter.id], hh / 2 - 12, hh - 20, true, hunter.hired ? 0 : growthOf(s, hunter.id).rank);
     const side = Math.min(200, w / 2 - hw / 2 - 30);
     new Button(this, w / 2 - hw / 2 - 12 - side / 2, top + hh / 2, 'BACK', () => this.go('muster'), { width: Math.min(150, side), height: 50, size: 19, mat: IRON });
     const right = w / 2 + hw / 2 + 12 + side / 2;
@@ -667,7 +691,11 @@ export class LodgeScene extends Phaser.Scene {
           const d = to ? TRINKETS.find((x) => x.id === to) : null;
           this.act('', d ? `${d.name}: ${d.says}` : held.length ? 'No trinket.' : 'No trinkets yet. Contracts drop them, and the Shop sells some.');
         };
-        new Button(this, w / 2 + (i - (grown.slots - 1) / 2) * (sw + 10), y + 4, `TRINKET: ${t ? t.name.toUpperCase() : 'NONE'}`, cycle, { width: sw, height: 40, size: 15, mat: t ? GOLD : IRON });
+        const bx = w / 2 + (i - (grown.slots - 1) / 2) * (sw + 10);
+        new Button(this, bx, y + 4, `TRINKET: ${t ? t.name.toUpperCase() : 'NONE'}`, cycle, { width: sw, height: 40, size: 15, mat: t ? GOLD : IRON });
+        // The trinket's own picture beside its name, so a slot says what it holds at a glance.
+        const pic = t ? uiIcon(`icon-${TRINKET_ICONS[t.id]}`) : null;
+        if (pic) this.add.image(bx - sw / 2 - 2, y + 4, pic).setDisplaySize(34, 34);
       }
       y += 34;
     }

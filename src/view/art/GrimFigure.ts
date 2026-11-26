@@ -6,6 +6,7 @@
 //
 // The game says where it is and what it is doing; this only shows it.
 
+import { wornAt } from '../../grim/compose';
 import Phaser from 'phaser';
 import { addPose, clearPose, makeXforms, restPose, solve, type Pose } from '../../grim/rig';
 import { SHEET } from './Sheet';
@@ -61,6 +62,8 @@ export class GrimFigure {
   rest: Pose | null = null;
   /** How much its weight shifts at rest, foot to foot: none in a hunt, where it stands ready. */
   shift = 0;
+  /** The hunter's rank, 0 to 4: which earned parts (a cord, a cloak, a trophy, a mantle) are worn. */
+  rank = 0;
 
   constructor(
     scene: Phaser.Scene,
@@ -229,8 +232,12 @@ export class GrimFigure {
       s.scaleX = o.sx * INV;
       s.scaleY = o.sy * INV;
       const part = this.art.parts[i];
-      if (part.only) s.visible = part.only === this.stillName;
-      else if (part.hide) s.visible = part.hide !== this.stillName;
+      let shown = true;
+      if (part.only) shown = part.only === this.stillName;
+      else if (part.hide) shown = part.hide !== this.stillName;
+      // What a hunter has earned is worn: a part with a rank shows only from that rank (the kit's own rule).
+      if (shown && part.rank !== undefined) shown = wornAt(part, this.rank);
+      s.visible = shown;
     }
     if (this.tint !== this.lastTint || this.fill !== this.lastFill) {
       this.lastTint = this.tint;

@@ -26,6 +26,14 @@ export interface ComposeOpts {
   idSuffix?: string;
   /** The still the figure stands in, so that a part shown only in it is drawn. */
   still?: string;
+  /** The hunter's rank, so that what they have earned is worn. Nothing is worn at 0. */
+  rank?: number;
+}
+
+/** Whether a part is worn at a rank: a part with no rank always is. */
+export function wornAt(part: { rank?: number; upto?: number }, rank: number): boolean {
+  if (part.rank === undefined) return true;
+  return rank >= part.rank && (part.upto === undefined || rank <= part.upto);
 }
 
 /** The figure as svg content on its own canvas. */
@@ -37,6 +45,7 @@ export function composeUnit(unit: UnitArt, opts: ComposeOpts = {}): string {
     if (opts.noShadow && part.role === 'shadow') return;
     if (part.only && part.only !== opts.still) return;
     if (part.hide && part.hide === opts.still) return;
+    if (!wornAt(part, opts.rank ?? 0)) return;
     const o = out[i];
     const r = (n: number): number => Math.round(n * 100) / 100;
     const transform =

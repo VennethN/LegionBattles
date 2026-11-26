@@ -408,6 +408,85 @@ const ICONS: Record<string, (d: Doc) => void> = {
     });
     d.ink('finial', poly([[10, 4], [14, 0], [18, 4], [14, 8]]), LEAD, { dark: 0.3, mid: 0, ...fine });
   },
+  // ---- Trinkets, by the game's ids (growth.ts): each the thing it is, worn and handled.
+  // Whetstone: a long grey stone worn hollow in the middle by a blade's edge, with the marks of it across it.
+  'trinket-whetstone': (d) => {
+    d.ink('stone', poly([[4, 44], [10, 32], [50, 16], [60, 22], [60, 32], [20, 50], [8, 52]]), LEAD, {
+      dark: poly([[0, 42], ...cut([4, 46], [64, 30], 'i-whet', 1, 3), [64, 60], [0, 60]]), mid: 3, ...fine,
+      inner: (c) => c.detail('wear', [[[18, 38], [48, 25]]], LEAD, 2.4),
+    });
+    d.scratch('edge', [[[16, 34], [28, 29]], [[32, 27], [44, 22]], [[22, 40], [34, 35]]], 2);
+    d.ink('strap', poly([[38, 18], [44, 16], [50, 38], [44, 40]]), LEATHER, { dark: 0.4, mid: 0, ...fine });
+  },
+  // Grave salt: a drawstring bag of sacking, open, its salt spilling over the lip.
+  'trinket-salt': (d) => {
+    d.ink('bag', poly([[18, 20], [46, 20], [52, 34], [56, 52], [44, 60], [20, 60], [8, 52], [12, 34]]), TALLOW, {
+      dark: poly([[0, 30], [26, 30], ...cut([26, 30], [22, 64], 'i-salt', -1, 3), [0, 64]]), mid: 3, ...fine,
+      inner: (c) => c.detail('sack-weave', [[[18, 40], [40, 38]], [[16, 50], [44, 48]]], TALLOW, 1.6),
+    });
+    d.ink('neck', poly([[16, 14], [48, 14], [46, 22], [18, 22]]), TALLOW, { dark: 0.4, mid: 0, ...fine });
+    d.pen('string', poly([[20, 22], [32, 26], [44, 22]], false), 2.4, BLOOD.lit);
+    d.ink('salt', poly([[20, 14], [26, 6], [36, 4], [44, 8], [46, 14]]), BONE, { dark: false, mid: 0, ...fine });
+    d.flat('grain-a', poly([[52, 12], [56, 12], [56, 16], [52, 16]]), BONE.lit);
+    d.flat('grain-b', poly([[56, 22], [59, 22], [59, 25], [56, 25]]), BONE.lit);
+  },
+  // Oiled boots: a pair of tall boots, the near one in front, a bead of oil shining on its toe.
+  'trinket-boots': (d) => {
+    d.ink('far', poly([[30, 4], [44, 4], [44, 40], [60, 48], [60, 56], [30, 56]]), LEATHER, { dark: 0.55, mid: 0, ...fine });
+    d.ink('near', poly([[10, 10], [26, 10], [26, 44], [46, 52], [48, 62], [6, 62], [8, 44]]), LEATHER, {
+      dark: poly([[0, 6], [14, 6], [14, 64], [0, 64]]), mid: 3, rim: 1.6, ...fine,
+      inner: (c) => c.detail('crease', [[[14, 46], [26, 48]]], LEATHER, 1.8),
+    });
+    d.black('sole', poly([[6, 58], [48, 58], [48, 63], [6, 63]]));
+    d.ink('cuff', poly([[8, 8], [28, 8], [28, 16], [8, 16]]), LEATHER, { dark: 0.3, mid: 0, ...fine });
+    d.scratch('oil', [[[30, 50], [40, 53]]], 2);
+  },
+  // Hip flask: a flat pewter flask, curved to the hip, its cap on a little chain.
+  'trinket-flask': (d) => {
+    d.ink('flask', poly([[14, 16], [50, 16], [54, 24], [54, 56], [48, 62], [16, 62], [10, 56], [10, 24]]), LEAD, {
+      dark: poly([[0, 10], [24, 10], ...cut([24, 16], [22, 64], 'i-flask', -1, 3), [0, 64]]), mid: 3, rim: 1.8, ...fine,
+      inner: (c) => c.detail('dent', [[[34, 38], [42, 44]]], LEAD, 1.8),
+    });
+    d.ink('shoulder', poly([[24, 10], [40, 10], [42, 16], [22, 16]]), LEAD, { dark: 0.4, mid: 0, ...fine });
+    d.ink('cap', poly([[26, 2], [38, 2], [38, 10], [26, 10]]), BONE, { dark: 0.4, mid: 0, ...fine });
+    d.pen('chain', poly([[38, 6], [48, 8], [52, 16]], false), 1.8, LEAD.lit);
+    d.ink('band', poly([[10, 30], [54, 30], [54, 36], [10, 36]]), LEATHER, { dark: 0.4, mid: 0, ...fine });
+  },
+  // Hard bread: a heel of a loaf, its crust split, broken open on one end.
+  'trinket-bread': (d) => {
+    d.ink('loaf', poly([[4, 46], [8, 30], [22, 18], [42, 16], [56, 24], [60, 40], [56, 52], [8, 54]]), RUST, {
+      dark: poly([[0, 44], ...cut([2, 44], [64, 42], 'i-bread', 1, 3), [64, 64], [0, 64]]), mid: 3, ...fine,
+      inner: (c) => c.detail('splits', [[[20, 26], [26, 34]], [[32, 20], [36, 30]], [[44, 22], [46, 32]]], RUST, 2),
+    });
+    d.ink('crumb', poly([[50, 26], [58, 30], [60, 44], [54, 50], [48, 40]]), TALLOW, { dark: 0.4, mid: 0, ...fine });
+    d.strokes('splits', [[[22, 24], [26, 32]], [[34, 20], [36, 28]]], 2.4);
+  },
+  // Coffin nail: a long square nail with a broad flat head, bent near its point where it was drawn out of the lid.
+  'trinket-nail': (d) => {
+    d.ink('shank', poly([[14, 10], [22, 8], [40, 40], [36, 44]]), LEAD, { dark: poly([[0, 4], [16, 4], [38, 46], [30, 48], [0, 48]]), mid: 2, rim: 1.4, ...fine });
+    d.ink('point', poly([[36, 40], [41, 39], [58, 50], [60, 54]]), RUST, { dark: false, mid: 0, ...fine });
+    d.ink('head', poly([[4, 10], [20, 2], [28, 8], [12, 18]]), LEAD, { dark: 0.4, mid: 0, rim: 1.6, ...fine });
+    d.ink('splinter', poly([[22, 28], [32, 24], [33, 28], [24, 32]]), WOOD, { dark: 0.4, mid: 0, ...fine });
+  },
+  // Red ribbon: a length of the lodge's red, tied in a knot, its two tails cut in a swallowtail.
+  'trinket-ribbon': (d) => {
+    d.ink('tail-a', poly([[28, 30], [36, 32], [24, 60], [18, 54], [14, 60]]), BLOOD, { dark: 0.45, mid: 0, ...fine });
+    d.ink('tail-b', poly([[32, 32], [40, 30], [54, 56], [48, 54], [46, 62]]), BLOOD, { dark: 0.3, mid: 0, ...fine });
+    d.ink('loop-a', poly([[30, 26], [14, 10], [6, 16], [10, 30], [28, 32]]), BLOOD, { dark: 0.4, mid: 2, ...fine });
+    d.ink('loop-b', poly([[34, 26], [50, 8], [58, 14], [56, 28], [36, 32]]), BLOOD, { dark: 0.3, mid: 2, ...fine });
+    d.ink('knot', poly([[26, 22], [38, 22], [40, 34], [26, 34]]), BLOOD, { dark: 0.3, mid: 0, rim: 1.4, ...fine });
+  },
+  // Moleskin purse: a soft pouch of grey-brown fur tied tight, a coin showing at its mouth.
+  'trinket-purse': (d) => {
+    d.ink('coin', poly([[30, 10], [40, 8], [46, 14], [40, 20], [30, 20]]), FIRE, { dark: false, mid: 0, ...fine });
+    d.ink('purse', poly([[22, 22], [42, 22], [54, 34], [58, 50], [48, 60], [16, 60], [6, 50], [10, 34]]), SOOT, {
+      dark: poly([[0, 30], [24, 30], ...cut([24, 30], [20, 64], 'i-purse', -1, 3), [0, 64]]), mid: 3, ...fine,
+      inner: (c) => c.detail('nap', [[[22, 38], [30, 44]], [[34, 36], [42, 44]], [[24, 50], [34, 54]]], SOOT, 1.6),
+    });
+    d.ink('mouth', poly([[18, 16], [46, 16], [44, 24], [20, 24]]), SOOT, { dark: 0.4, mid: 0, ...fine });
+    d.ink('tie', poly([[16, 22], [48, 22], [48, 28], [16, 28]]), LEATHER, { dark: 0.4, mid: 0, ...fine });
+    d.pen('tie-end', poly([[48, 26], [56, 34], [54, 42]], false), 2.4, LEATHER.lit);
+  },
 };
 
 // ------------------------------------------------------------ plates, bars, boards

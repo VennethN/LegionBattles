@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ida-rank-mantle" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ida-rank-mantle-cloak-shape" d="M 156 90 L 146 80 L 132 84 L 96 98 L 71.2 153 L 52 224 L 54 223.9 L 52.8 228.8 L 56.4 223.8 L 64.5 223.3 L 63.6 228.1 L 67.2 223.2 L 75.1 222.8 L 74.9 225.8 L 77.8 222.6 L 96.6 221.6 L 96.3 224.6 L 98.9 221.5 L 107.2 221 L 106.8 224.2 L 109.6 220.9 L 117.4 220.5 L 115.4 227.1 L 119.8 220.3 L 126 220 L 122 108 Z"/>
+<clipPath id="ida-rank-mantle-cloak-clip"><use href="#ida-rank-mantle-cloak-shape"/></clipPath>
+<path id="ida-rank-mantle-tie-shape" d="M 152 86 L 160 86 L 160 93 L 152 93 Z"/>
+</defs>
+<g id="ida-rank-mantle-cloak">
+<use id="ida-rank-mantle-cloak-line" href="#ida-rank-mantle-cloak-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-rank-mantle-cloak-clip)">
+<use id="ida-rank-mantle-cloak-lit" href="#ida-rank-mantle-cloak-shape" fill="#7d312b"/>
+<path id="ida-rank-mantle-cloak-mid" d="M 42 82 L 85.6 82 L 87.5 90.2 L 82.4 148.5 L 78.3 152.3 L 71.7 227.8 L 42 234 Z" transform="translate(3 -0.72)" fill="#551f1c"/>
+<path id="ida-rank-mantle-cloak-dark" d="M 42 82 L 85.6 82 L 87.5 90.2 L 82.4 148.5 L 78.3 152.3 L 71.7 227.8 L 42 234 Z" fill="#14110f"/>
+<path id="ida-rank-mantle-folds" d="M 97 105.8 L 76 216 L 99 106.2 Z M 107 111.9 L 98 218 L 109 112.1 Z" fill="#551f1c"/>
+<path id="ida-rank-mantle-cloak-cold" d="M 12 40 L 196 40 L 196 268.81 L 12 268.81 Z M 158.5 88.1 L 148.5 78.1 L 134.5 82.1 L 98.5 96.1 L 73.7 151.1 L 54.5 222.1 L 56.5 222 L 55.3 226.9 L 58.9 221.9 L 67 221.4 L 66.1 226.2 L 69.7 221.3 L 77.6 220.9 L 77.4 224 L 80.3 220.7 L 99.1 219.7 L 98.8 222.7 L 101.4 219.6 L 109.7 219.1 L 109.3 222.4 L 112.1 219 L 119.9 218.6 L 117.9 225.2 L 122.3 218.5 L 128.5 218.1 L 124.5 106.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<path id="ida-rank-mantle-gilt-back" d="M 132 86 L 97 99 L 71.2 153 L 52 224" fill="none" stroke="#c27a26" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="ida-rank-mantle-gilt-hem" d="M 52 224 L 89 227 L 126 220" fill="none" stroke="#c27a26" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ida-rank-mantle-tie">
+<use id="ida-rank-mantle-tie-line" href="#ida-rank-mantle-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ida-rank-mantle-tie-lit" href="#ida-rank-mantle-tie-shape" fill="#8c9194"/>
+</g>
+</svg>

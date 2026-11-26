@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="amos-goad" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="amos-goad-staff-shape" d="M 182 240.3 L 197 25.3 L 190 24.7 L 174 239.7 Z"/>
+<clipPath id="amos-goad-staff-clip"><use href="#amos-goad-staff-shape"/></clipPath>
+<path id="amos-goad-socket-shape" d="M 189 23 L 198.5 23 L 198 41 L 189.5 41 Z"/>
+<clipPath id="amos-goad-socket-clip"><use href="#amos-goad-socket-shape"/></clipPath>
+<path id="amos-goad-point-shape" d="M 189.5 23 L 191.5 -1 L 194.5 -15 L 197.5 -1 L 198.5 23 Z"/>
+<clipPath id="amos-goad-point-clip"><use href="#amos-goad-point-shape"/></clipPath>
+<path id="amos-goad-hook-shape" d="M 197.5 27 L 207.5 21 L 215.5 11 L 213.5 1 L 209.5 3 L 210.5 11 L 204.5 17 L 198.5 33 Z"/>
+<clipPath id="amos-goad-hook-clip"><use href="#amos-goad-hook-shape"/></clipPath>
+<path id="amos-goad-grip-shape" d="M 190.3 135.3 L 191.6 115.3 L 182.4 114.7 L 180.8 134.7 Z"/>
+<clipPath id="amos-goad-grip-clip"><use href="#amos-goad-grip-shape"/></clipPath>
+<path id="amos-goad-arm-upper-shape" d="M 155.6 107.6 L 166 117.5 L 176.2 134.8 L 163.8 145.2 L 149.8 131.2 L 140.4 120.4 Z"/>
+<clipPath id="amos-goad-arm-upper-clip"><use href="#amos-goad-arm-upper-shape"/></clipPath>
+<path id="amos-goad-arm-fore-shape" d="M 175.8 146.3 L 183.1 140.6 L 190.7 129.8 L 181.9 120.2 L 171.4 127.8 L 164.2 133.7 Z"/>
+<clipPath id="amos-goad-arm-fore-clip"><use href="#amos-goad-arm-fore-shape"/></clipPath>
+<path id="amos-goad-arm-fist-shape" d="M 167.3 127.3 L 176.9 112.6 L 183.7 108 L 190.4 110.7 L 194.2 108.9 L 199.6 114.4 L 198.4 118 L 204.1 122.4 L 201.1 132 L 187.8 142.6 L 177.2 138.4 Z"/>
+<clipPath id="amos-goad-arm-fist-clip"><use href="#amos-goad-arm-fist-shape"/></clipPath>
+<path id="amos-goad-fist-shape" d="M 180.7 116.9 L 189.8 117.8 L 193.5 119.8 L 193.8 123.5 L 195.5 124.8 L 194.3 128.6 L 192.3 128.9 L 191.7 132.6 L 186.6 133.5 L 178.6 129.9 L 178 124 Z"/>
+<clipPath id="amos-goad-fist-clip"><use href="#amos-goad-fist-shape"/></clipPath>
+</defs>
+<g id="amos-goad-staff">
+<use id="amos-goad-staff-line" href="#amos-goad-staff-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-goad-staff-clip)">
+<use id="amos-goad-staff-lit" href="#amos-goad-staff-shape" fill="#6f5c46"/>
+<path id="amos-goad-staff-dark" d="M 179.4 243.1 L 184.9 165.7 L 183.5 163.9 L 193.7 22 L 186.5 21.5 L 170.6 242.5 Z" fill="#14110f"/>
+<path id="amos-goad-staff-grain" d="M 180.8 210 L 181.6 190 L 179.5 210 Z M 187.6 115 L 188.8 90 L 186.4 115 Z M 191.6 60 L 192.4 40 L 190.3 60 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<path id="amos-goad-shoe" d="M 182.5 240.3 L 182.5 232.8 L 174.6 232.2 L 173.5 239.7 Z" fill="#14110f"/>
+<g id="amos-goad-socket">
+<use id="amos-goad-socket-line" href="#amos-goad-socket-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-goad-socket-clip)">
+<use id="amos-goad-socket-lit" href="#amos-goad-socket-shape" fill="#8c9194"/>
+<path id="amos-goad-socket-dark" d="M 177 19 L 191.4 18.9 L 193.7 33.5 L 192.6 35.2 L 194.2 45.1 L 177 45 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-goad-socket-nails-0" d="M 192.6 30.5 L 193.9 29.2 L 195.2 30.5 L 193.9 31.8 Z" fill="#14110f"/>
+<path id="amos-goad-socket-nails-1" d="M 192.5 35.5 L 193.8 34.2 L 195.1 35.5 L 193.8 36.8 Z" fill="#14110f"/>
+<g id="amos-goad-point">
+<use id="amos-goad-point-line" href="#amos-goad-point-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-goad-point-clip)">
+<use id="amos-goad-point-lit" href="#amos-goad-point-shape" fill="#8c9194"/>
+<use id="amos-goad-point-rim" href="#amos-goad-point-shape" fill="#f4d294" opacity="0.55"/>
+<use id="amos-goad-point-lit-over" href="#amos-goad-point-shape" transform="translate(-1.44 1.08)" fill="#8c9194"/>
+<path id="amos-goad-point-mid" d="M 194.5 -19 L 203.5 -19 L 203.5 25 L 194.5 25 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="amos-goad-point-dark" d="M 194.5 -19 L 203.5 -19 L 203.5 25 L 194.5 25 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="amos-goad-hook">
+<use id="amos-goad-hook-line" href="#amos-goad-hook-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-goad-hook-clip)">
+<use id="amos-goad-hook-lit" href="#amos-goad-hook-shape" fill="#8c9194"/>
+<use id="amos-goad-hook-rim" href="#amos-goad-hook-shape" fill="#f4d294" opacity="0.55"/>
+<use id="amos-goad-hook-lit-over" href="#amos-goad-hook-shape" transform="translate(-1.12 0.84)" fill="#8c9194"/>
+<path id="amos-goad-hook-dark" d="M 185.5 -3 L 201.8 -3.2 L 205.2 14.2 L 203.6 16.9 L 207.6 37.2 L 185.5 37 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="amos-goad-grip">
+<use id="amos-goad-grip-line" href="#amos-goad-grip-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-goad-grip-clip)">
+<use id="amos-goad-grip-lit" href="#amos-goad-grip-shape" fill="#7b5b3d"/>
+<path id="amos-goad-grip-dark" d="M 187.2 138.1 L 188 127 L 186.5 125.1 L 187.4 112 L 178.2 111.4 L 176.4 137.3 Z" fill="#14110f"/>
+<path id="amos-goad-grip-turns" d="M 181.5 133.3 L 190.6 127.2 L 180.9 132.3 Z M 181.9 128.3 L 191 122.2 L 181.3 127.3 Z M 182.2 123.3 L 191.4 117.2 L 181.6 122.3 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="amos-goad-arm-upper">
+<use id="amos-goad-arm-upper-line" href="#amos-goad-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-goad-arm-upper-clip)">
+<use id="amos-goad-arm-upper-lit" href="#amos-goad-arm-upper-shape" fill="#80603c"/>
+<path id="amos-goad-arm-upper-mid" d="M 149.1 109.2 L 162.1 124.5 L 161.9 129.8 L 172.2 142 L 157.1 154.8 L 131.2 124.3 Z" transform="translate(2.5 -0.6)" fill="#5a4229"/>
+<path id="amos-goad-arm-upper-dark" d="M 149.1 109.2 L 162.1 124.5 L 161.9 129.8 L 172.2 142 L 157.1 154.8 L 131.2 124.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="amos-goad-arm-fore">
+<use id="amos-goad-arm-fore-line" href="#amos-goad-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-goad-arm-fore-clip)">
+<use id="amos-goad-arm-fore-lit" href="#amos-goad-arm-fore-shape" fill="#80603c"/>
+<path id="amos-goad-arm-fore-mid" d="M 170.2 144.6 L 177.8 137.6 L 177.9 132.8 L 188.6 123 L 177.5 111.1 L 156.8 130.1 Z" transform="translate(2.5 -0.6)" fill="#5a4229"/>
+<path id="amos-goad-arm-fore-dark" d="M 170.2 144.6 L 177.8 137.6 L 177.9 132.8 L 188.6 123 L 177.5 111.1 L 156.8 130.1 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-goad-arm-fold" d="M 164.6 147.8 L 172.9 137.8 L 161 143 Z" fill="#14110f"/>
+<g id="amos-goad-arm-fist">
+<use id="amos-goad-arm-fist-line" href="#amos-goad-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-goad-arm-fist-clip)">
+<use id="amos-goad-arm-fist-lit" href="#amos-goad-arm-fist-shape" fill="#7b5b3d"/>
+<path id="amos-goad-arm-fist-mid" d="M 173.5 143.1 L 206.6 115.1 L 216.9 126.3 L 185 155.6 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="amos-goad-arm-fist-dark" d="M 173.5 143.1 L 206.6 115.1 L 216.9 126.3 L 185 155.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-goad-arm-fist-fingers" d="M 189.9 109.7 L 184.8 118.8 L 192.6 111.8 Z M 197 115.7 L 190.7 124.3 L 199.4 118.2 Z" fill="#14110f"/>
+<g id="amos-goad-fist">
+<use id="amos-goad-fist-line" href="#amos-goad-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-goad-fist-clip)">
+<use id="amos-goad-fist-lit" href="#amos-goad-fist-shape" fill="#7b5b3d"/>
+<path id="amos-goad-fist-mid" d="M 174.9 123.4 L 195.7 132 L 193 139.4 L 171.9 131.7 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="amos-goad-fist-dark" d="M 174.9 123.4 L 195.7 132 L 193 139.4 L 171.9 131.7 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-goad-fist-fingers" d="M 194.2 123 L 188.8 122.8 L 193.8 124.8 Z M 193.1 127.7 L 187.6 126.9 L 192.5 129.4 Z" fill="#14110f"/>
+</svg>

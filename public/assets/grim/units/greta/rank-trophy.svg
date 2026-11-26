@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="greta-rank-trophy" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="greta-rank-trophy-ring-shape" d="M 156 111 L 164 111 L 164 117 L 156 117 Z"/>
+<path id="greta-rank-trophy-claw-shape" d="M 155 116 L 165 115 L 168 126 L 166 138 L 160 146 L 162 136 L 160 126 Z"/>
+<clipPath id="greta-rank-trophy-claw-clip"><use href="#greta-rank-trophy-claw-shape"/></clipPath>
+</defs>
+<path id="greta-rank-trophy-thong" d="M 150 98 L 156 108 L 160 114" fill="none" stroke="#553d29" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="greta-rank-trophy-ring">
+<use id="greta-rank-trophy-ring-line" href="#greta-rank-trophy-ring-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="greta-rank-trophy-ring-lit" href="#greta-rank-trophy-ring-shape" fill="#8c9194"/>
+</g>
+<g id="greta-rank-trophy-claw">
+<use id="greta-rank-trophy-claw-line" href="#greta-rank-trophy-claw-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#greta-rank-trophy-claw-clip)">
+<use id="greta-rank-trophy-claw-lit" href="#greta-rank-trophy-claw-shape" fill="#cfc5a8"/>
+<use id="greta-rank-trophy-claw-rim" href="#greta-rank-trophy-claw-shape" fill="#f4d294" opacity="0.55"/>
+<use id="greta-rank-trophy-claw-lit-over" href="#greta-rank-trophy-claw-shape" transform="translate(-1.12 0.84)" fill="#cfc5a8"/>
+<path id="greta-rank-trophy-claw-mid" d="M 152 112 L 160 112 L 162 132 L 158 150 L 152 150 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="greta-rank-trophy-claw-dark" d="M 152 112 L 160 112 L 162 132 L 158 150 L 152 150 Z" fill="#14110f"/>
+<path id="greta-rank-trophy-claw-rings" d="M 159.1 122.7 L 167 121 L 158.9 121.3 Z M 160.1 129.7 L 167 128 L 159.9 128.3 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="greta-rank-trophy-ring-nail-0" d="M 158.8 114 L 160 112.8 L 161.2 114 L 160 115.2 Z" fill="#14110f"/>
+</svg>

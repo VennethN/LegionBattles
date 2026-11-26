@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="amos-rank-trophy" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="amos-rank-trophy-ring-shape" d="M 156 117 L 164 117 L 164 123 L 156 123 Z"/>
+<path id="amos-rank-trophy-claw-shape" d="M 155 122 L 165 121 L 168 132 L 166 144 L 160 152 L 162 142 L 160 132 Z"/>
+<clipPath id="amos-rank-trophy-claw-clip"><use href="#amos-rank-trophy-claw-shape"/></clipPath>
+</defs>
+<path id="amos-rank-trophy-thong" d="M 150 104 L 156 114 L 160 120" fill="none" stroke="#553d29" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="amos-rank-trophy-ring">
+<use id="amos-rank-trophy-ring-line" href="#amos-rank-trophy-ring-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="amos-rank-trophy-ring-lit" href="#amos-rank-trophy-ring-shape" fill="#8c9194"/>
+</g>
+<g id="amos-rank-trophy-claw">
+<use id="amos-rank-trophy-claw-line" href="#amos-rank-trophy-claw-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-rank-trophy-claw-clip)">
+<use id="amos-rank-trophy-claw-lit" href="#amos-rank-trophy-claw-shape" fill="#cfc5a8"/>
+<use id="amos-rank-trophy-claw-rim" href="#amos-rank-trophy-claw-shape" fill="#f4d294" opacity="0.55"/>
+<use id="amos-rank-trophy-claw-lit-over" href="#amos-rank-trophy-claw-shape" transform="translate(-1.12 0.84)" fill="#cfc5a8"/>
+<path id="amos-rank-trophy-claw-mid" d="M 152 118 L 160 118 L 162 138 L 158 156 L 152 156 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="amos-rank-trophy-claw-dark" d="M 152 118 L 160 118 L 162 138 L 158 156 L 152 156 Z" fill="#14110f"/>
+<path id="amos-rank-trophy-claw-rings" d="M 159.1 128.7 L 167 127 L 158.9 127.3 Z M 160.1 135.7 L 167 134 L 159.9 134.3 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="amos-rank-trophy-ring-nail-0" d="M 158.8 120 L 160 118.8 L 161.2 120 L 160 121.2 Z" fill="#14110f"/>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="amos-rank-cloak" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="amos-rank-cloak-cloak-shape" d="M 158 94 L 148 84 L 134 88 L 94 102 L 76.4 136 L 62 186 L 64 185.9 L 63.2 190.1 L 66.4 185.7 L 75.2 185.1 L 73.3 191.2 L 77.2 185 L 83.7 184.6 L 83.4 187.9 L 86.4 184.4 L 94.7 183.9 L 93.9 188.5 L 97.5 183.7 L 104.2 183.3 L 102.9 188.3 L 106.4 183.1 L 115 182.6 L 113.8 186.9 L 116.7 182.5 L 124 182 L 120 112 Z"/>
+<clipPath id="amos-rank-cloak-cloak-clip"><use href="#amos-rank-cloak-cloak-shape"/></clipPath>
+<path id="amos-rank-cloak-tie-shape" d="M 154 90 L 162 90 L 162 97 L 154 97 Z"/>
+</defs>
+<g id="amos-rank-cloak-cloak">
+<use id="amos-rank-cloak-cloak-line" href="#amos-rank-cloak-cloak-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-rank-cloak-cloak-clip)">
+<use id="amos-rank-cloak-cloak-lit" href="#amos-rank-cloak-cloak-shape" fill="#4f4944"/>
+<path id="amos-rank-cloak-cloak-mid" d="M 52 86 L 87.2 86 L 89.1 94.2 L 83.8 150.4 L 79.6 154.2 L 76.3 189.8 L 52 196 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="amos-rank-cloak-cloak-dark" d="M 52 86 L 87.2 86 L 89.1 94.2 L 83.8 150.4 L 79.6 154.2 L 76.3 189.8 L 52 196 Z" fill="#14110f"/>
+<path id="amos-rank-cloak-folds" d="M 95 109.8 L 80 178 L 97 110.2 Z M 105 115.8 L 96 180 L 107 116.2 Z" fill="#34302d"/>
+<path id="amos-rank-cloak-cloak-cold" d="M 22 44 L 198 44 L 198 231.25 L 22 231.25 Z M 160.5 92.1 L 150.5 82.1 L 136.5 86.1 L 96.5 100.1 L 78.9 134.1 L 64.5 184.1 L 66.5 184 L 65.7 188.2 L 68.9 183.8 L 77.7 183.3 L 75.8 189.4 L 79.7 183.1 L 86.2 182.7 L 85.9 186.1 L 88.9 182.6 L 97.2 182 L 96.4 186.7 L 100 181.8 L 106.7 181.4 L 105.4 186.5 L 108.9 181.3 L 117.5 180.7 L 116.3 185.1 L 119.2 180.6 L 126.5 180.1 L 122.5 110.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="amos-rank-cloak-tie">
+<use id="amos-rank-cloak-tie-line" href="#amos-rank-cloak-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="amos-rank-cloak-tie-lit" href="#amos-rank-cloak-tie-shape" fill="#7b5b3d"/>
+</g>
+</svg>

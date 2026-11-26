@@ -20,13 +20,13 @@ export const HUNTER_SCALE = 0.72;
 /** The color a stand-in is filled with: the style's unlit black, a little lifted so that it is seen on the dark. */
 export const STAND_IN = 0x1a2227;
 
-/** How much bigger than the kit's hound Bull, the mastiff, is drawn: one dog as much as two. */
-export const MASTIFF = 1.3;
+/** How much bigger than he is drawn Bull, the mastiff, stands: the kit draws him at a mastiff's size already. */
+export const MASTIFF = 1;
 
 export const isGrim = (a: Art): a is { grim: string } => 'grim' in a;
 
 export const HUNTER_ART: Record<string, Art> = {
-  marta: { grim: 'marta' }, jory: { grim: 'jory' }, agnes: { grim: 'agnes' }, brask: { grim: 'brask' },
+  marta: { grim: 'marta' }, jory: { grim: 'jory' }, agnes: { grim: 'agnes' }, brask: { grim: 'amos' },
   // Hands for hire: plainer than any hunter, with nothing of the lodge on them.
   sellsword: { grim: 'sellsword' }, bowman: { grim: 'bowman' },
   greta: { grim: 'greta' }, ned: { grim: 'ned' }, ida: { grim: 'ida' }, silas: { grim: 'silas' },
@@ -84,8 +84,8 @@ export const FIELD_THING_R: Record<string, number> = { shallows: 112 };
 /** Those who fight beside the hunter, by the reinforcement they came with. */
 export const ALLY_ART: Record<string, Art> = {
   pikemen: { grim: 'pikeman' },
-  // Bull, Amos's mastiff: the kit's hound drawn bigger, until the artist draws a mastiff in his coat (MASTIFF).
-  hound: { grim: 'hound' },
+  // Bull, Amos's mastiff in his studded coat.
+  hound: { grim: 'bull' },
   crossbowmen: { grim: 'crossbowman' },
   sappers: { grim: 'sapper' },
   // The villagers a contract asks to be kept alive: one of the three folk, by the villager (VILLAGERS).

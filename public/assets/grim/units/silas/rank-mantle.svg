@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="silas-rank-mantle" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="silas-rank-mantle-cloak-shape" d="M 158 96 L 148 86 L 134 90 L 88 104 L 63.2 156 L 44 224 L 46 223.9 L 44.8 228.8 L 48.4 223.8 L 56.5 223.3 L 55.6 228.1 L 59.2 223.2 L 67.1 222.8 L 66.9 225.8 L 69.8 222.6 L 88.6 221.6 L 88.3 224.6 L 90.9 221.5 L 99.2 221 L 98.8 224.2 L 101.6 220.9 L 109.4 220.5 L 107.4 227.1 L 111.8 220.3 L 118 220 L 114 114 Z"/>
+<clipPath id="silas-rank-mantle-cloak-clip"><use href="#silas-rank-mantle-cloak-shape"/></clipPath>
+<path id="silas-rank-mantle-tie-shape" d="M 154 92 L 162 92 L 162 99 L 154 99 Z"/>
+</defs>
+<g id="silas-rank-mantle-cloak">
+<use id="silas-rank-mantle-cloak-line" href="#silas-rank-mantle-cloak-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-rank-mantle-cloak-clip)">
+<use id="silas-rank-mantle-cloak-lit" href="#silas-rank-mantle-cloak-shape" fill="#7d312b"/>
+<path id="silas-rank-mantle-cloak-mid" d="M 34 88 L 77.6 88 L 79.5 96.2 L 74.4 152 L 70.3 155.8 L 63.7 227.8 L 34 234 Z" transform="translate(3 -0.72)" fill="#551f1c"/>
+<path id="silas-rank-mantle-cloak-dark" d="M 34 88 L 77.6 88 L 79.5 96.2 L 74.4 152 L 70.3 155.8 L 63.7 227.8 L 34 234 Z" fill="#14110f"/>
+<path id="silas-rank-mantle-folds" d="M 89 111.8 L 68 216 L 91 112.2 Z M 99 117.9 L 90 218 L 101 118.1 Z" fill="#551f1c"/>
+<path id="silas-rank-mantle-cloak-cold" d="M 4 46 L 198 46 L 198 268.81 L 4 268.81 Z M 160.5 94.1 L 150.5 84.1 L 136.5 88.1 L 90.5 102.1 L 65.7 154.1 L 46.5 222.1 L 48.5 222 L 47.3 226.9 L 50.9 221.9 L 59 221.4 L 58.1 226.2 L 61.7 221.3 L 69.6 220.9 L 69.4 224 L 72.3 220.7 L 91.1 219.7 L 90.8 222.7 L 93.4 219.6 L 101.7 219.1 L 101.3 222.4 L 104.1 219 L 111.9 218.6 L 109.9 225.2 L 114.3 218.5 L 120.5 218.1 L 116.5 112.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<path id="silas-rank-mantle-gilt-back" d="M 134 92 L 89 105 L 63.2 156 L 44 224" fill="none" stroke="#c27a26" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="silas-rank-mantle-gilt-hem" d="M 44 224 L 81 227 L 118 220" fill="none" stroke="#c27a26" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="silas-rank-mantle-tie">
+<use id="silas-rank-mantle-tie-line" href="#silas-rank-mantle-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="silas-rank-mantle-tie-lit" href="#silas-rank-mantle-tie-shape" fill="#8c9194"/>
+</g>
+</svg>

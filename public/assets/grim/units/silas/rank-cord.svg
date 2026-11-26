@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="silas-rank-cord" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="silas-rank-cord-knot-shape" d="M 162 180 L 170 179 L 171 187 L 163 188 Z"/>
+</defs>
+<path id="silas-rank-cord-loop" d="M 164 160 L 160 172 L 166 182 L 174 174 L 172 161" fill="none" stroke="#c7ad84" stroke-width="3.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="silas-rank-cord-braid" d="M 162.1 165.9 L 161 170.5 L 163.2 166.3 Z M 163.7 170.6 L 162.7 175.2 L 164.9 171 Z M 165.4 175.3 L 164.4 179.9 L 166.5 175.7 Z" fill="#927a58"/>
+<g id="silas-rank-cord-knot">
+<use id="silas-rank-cord-knot-line" href="#silas-rank-cord-knot-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="silas-rank-cord-knot-lit" href="#silas-rank-cord-knot-shape" fill="#7d312b"/>
+</g>
+<path id="silas-rank-cord-tail-a" d="M 164 187 L 162 200" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="silas-rank-cord-tail-b" d="M 169 187 L 171 198" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

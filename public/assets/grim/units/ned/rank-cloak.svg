@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ned-rank-cloak" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ned-rank-cloak-cloak-shape" d="M 164 100 L 154 90 L 140 94 L 96 108 L 78.4 137 L 64 182 L 66 181.9 L 65.2 186.1 L 68.4 181.7 L 77.2 181.1 L 75.3 187.2 L 79.2 181 L 85.7 180.6 L 85.4 183.9 L 88.4 180.4 L 96.7 179.9 L 95.9 184.5 L 99.5 179.7 L 106.2 179.3 L 104.9 184.3 L 108.4 179.1 L 117 178.6 L 115.8 182.9 L 118.7 178.5 L 126 178 L 122 118 Z"/>
+<clipPath id="ned-rank-cloak-cloak-clip"><use href="#ned-rank-cloak-cloak-shape"/></clipPath>
+<path id="ned-rank-cloak-tie-shape" d="M 160 96 L 168 96 L 168 103 L 160 103 Z"/>
+</defs>
+<g id="ned-rank-cloak-cloak">
+<use id="ned-rank-cloak-cloak-line" href="#ned-rank-cloak-cloak-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ned-rank-cloak-cloak-clip)">
+<use id="ned-rank-cloak-cloak-lit" href="#ned-rank-cloak-cloak-shape" fill="#4f4944"/>
+<path id="ned-rank-cloak-cloak-mid" d="M 54 92 L 89.2 92 L 91.1 100.2 L 85.8 150.6 L 81.6 154.3 L 78.3 185.8 L 54 192 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="ned-rank-cloak-cloak-dark" d="M 54 92 L 89.2 92 L 91.1 100.2 L 85.8 150.6 L 81.6 154.3 L 78.3 185.8 L 54 192 Z" fill="#14110f"/>
+<path id="ned-rank-cloak-folds" d="M 97 115.7 L 82 174 L 99 116.3 Z M 107 121.8 L 98 176 L 109 122.2 Z" fill="#34302d"/>
+<path id="ned-rank-cloak-cloak-cold" d="M 24 50 L 204 50 L 204 227.25 L 24 227.25 Z M 166.5 98.1 L 156.5 88.1 L 142.5 92.1 L 98.5 106.1 L 80.9 135.1 L 66.5 180.1 L 68.5 180 L 67.7 184.2 L 70.9 179.8 L 79.7 179.3 L 77.8 185.4 L 81.7 179.1 L 88.2 178.7 L 87.9 182.1 L 90.9 178.6 L 99.2 178 L 98.4 182.7 L 102 177.8 L 108.7 177.4 L 107.4 182.5 L 110.9 177.3 L 119.5 176.7 L 118.3 181.1 L 121.2 176.6 L 128.5 176.1 L 124.5 116.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="ned-rank-cloak-tie">
+<use id="ned-rank-cloak-tie-line" href="#ned-rank-cloak-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ned-rank-cloak-tie-lit" href="#ned-rank-cloak-tie-shape" fill="#7b5b3d"/>
+</g>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ida-rank-trophy" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ida-rank-trophy-ring-shape" d="M 152 115 L 160 115 L 160 121 L 152 121 Z"/>
+<path id="ida-rank-trophy-claw-shape" d="M 151 120 L 161 119 L 164 130 L 162 142 L 156 150 L 158 140 L 156 130 Z"/>
+<clipPath id="ida-rank-trophy-claw-clip"><use href="#ida-rank-trophy-claw-shape"/></clipPath>
+</defs>
+<path id="ida-rank-trophy-thong" d="M 146 102 L 152 112 L 156 118" fill="none" stroke="#553d29" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="ida-rank-trophy-ring">
+<use id="ida-rank-trophy-ring-line" href="#ida-rank-trophy-ring-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ida-rank-trophy-ring-lit" href="#ida-rank-trophy-ring-shape" fill="#8c9194"/>
+</g>
+<g id="ida-rank-trophy-claw">
+<use id="ida-rank-trophy-claw-line" href="#ida-rank-trophy-claw-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-rank-trophy-claw-clip)">
+<use id="ida-rank-trophy-claw-lit" href="#ida-rank-trophy-claw-shape" fill="#cfc5a8"/>
+<use id="ida-rank-trophy-claw-rim" href="#ida-rank-trophy-claw-shape" fill="#f4d294" opacity="0.55"/>
+<use id="ida-rank-trophy-claw-lit-over" href="#ida-rank-trophy-claw-shape" transform="translate(-1.12 0.84)" fill="#cfc5a8"/>
+<path id="ida-rank-trophy-claw-mid" d="M 148 116 L 156 116 L 158 136 L 154 154 L 148 154 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="ida-rank-trophy-claw-dark" d="M 148 116 L 156 116 L 158 136 L 154 154 L 148 154 Z" fill="#14110f"/>
+<path id="ida-rank-trophy-claw-rings" d="M 155.1 126.7 L 163 125 L 154.9 125.3 Z M 156.1 133.7 L 163 132 L 155.9 132.3 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="ida-rank-trophy-ring-nail-0" d="M 154.8 118 L 156 116.8 L 157.2 118 L 156 119.2 Z" fill="#14110f"/>
+</svg>

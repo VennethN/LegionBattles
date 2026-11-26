@@ -7,6 +7,10 @@ import { BONE, GOLD, IRON, OUTLINE } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
 import { HUNTERS, MONSTERS, byId } from '../../game/content';
 import { TRINKETS } from '../../game/growth';
+import { growthOf } from '../../game/lodge';
+import { GrimFigure } from '../art/GrimFigure';
+import { getGrim } from '../art/grim';
+import { HUNTER_ART, isGrim } from '../pictures';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
@@ -63,7 +67,26 @@ export class ResultScene extends Phaser.Scene {
     label(this, cx, py + 92, pay.lesson ? `${m.name}, your first hunt` : `${m.name}, difficulty ${c.mark}`, { size: 16, color: OUTLINE, stroke: null });
     // The hunter who went, at the page's left; the trophy, if one was won, on its plate at the right.
     const id = hunt.hunter.def.id;
-    if (this.textures.get(CARDS).has(portraitFrame('grim', id)) && pw > 400) {
+    const risen = pay.ranks.find((r) => r.hunter === id && r.rose);
+    const g = getGrim();
+    const art = HUNTER_ART[id];
+    if (risen && pw > 400 && isGrim(art) && g.units[art.grim]) {
+      // A rank gained is a moment: the hunter in what they have just earned, lit, rising a little into it.
+      const u = g.units[art.grim];
+      const fx = cx - pw / 2 + 50;
+      const fy = py + 112;
+      this.add.image(fx, fy - 40, SHEET, 'fx/glow').setDisplaySize(140, 140).setTint(0xffc060).setAlpha(0.7).setBlendMode(Phaser.BlendModes.ADD);
+      const fig = new GrimFigure(this, art.grim, u, g.poses, 86 / (u.feet[1] - u.top), 5);
+      fig.x = fx;
+      fig.y = fy;
+      fig.rank = growthOf(save(), id).rank;
+      fig.shift = 1;
+      fig.root.setScale(0.8).setAlpha(0);
+      this.tweens.add({ targets: fig.root, scale: 1, alpha: 1, duration: 520, ease: 'Back.Out' });
+      this.events.on('update', (_t: number, dt: number) => fig.root.active && fig.update(this.time.now / 1000, dt / 1000));
+      label(this, fx, py + 128, `RANK UP: ${risen.rose?.toUpperCase()}`, { size: 15, face: 'display', color: '#6b4a1a', stroke: null });
+      sfx.play('levelUp', 0.7);
+    } else if (this.textures.get(CARDS).has(portraitFrame('grim', id)) && pw > 400) {
       const face = this.add.image(cx - pw / 2 + 46, py + 70, CARDS, portraitFrame('grim', id));
       face.setScale(Math.min(70 / face.width, 80 / face.height));
       if (!pay.won) face.setTint(0x7a6a5a);

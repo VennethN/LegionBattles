@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jory-rank-cloak" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="jory-rank-cloak-cloak-shape" d="M 158 106 L 148 96 L 134 100 L 96 114 L 78.4 138 L 64 178 L 66 177.9 L 65.2 182.1 L 68.4 177.7 L 77.2 177.1 L 75.3 183.2 L 79.2 177 L 85.7 176.6 L 85.4 179.9 L 88.4 176.4 L 96.7 175.9 L 95.9 180.5 L 99.5 175.7 L 106.2 175.3 L 104.9 180.3 L 108.4 175.1 L 117 174.6 L 115.8 178.9 L 118.7 174.5 L 126 174 L 122 124 Z"/>
+<clipPath id="jory-rank-cloak-cloak-clip"><use href="#jory-rank-cloak-cloak-shape"/></clipPath>
+<path id="jory-rank-cloak-tie-shape" d="M 154 102 L 162 102 L 162 109 L 154 109 Z"/>
+</defs>
+<g id="jory-rank-cloak-cloak">
+<use id="jory-rank-cloak-cloak-line" href="#jory-rank-cloak-cloak-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-rank-cloak-cloak-clip)">
+<use id="jory-rank-cloak-cloak-lit" href="#jory-rank-cloak-cloak-shape" fill="#4f4944"/>
+<path id="jory-rank-cloak-cloak-mid" d="M 54 98 L 89.2 98 L 91.1 106.2 L 85.8 150.7 L 81.5 154.5 L 78.3 181.8 L 54 188 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="jory-rank-cloak-cloak-dark" d="M 54 98 L 89.2 98 L 91.1 106.2 L 85.8 150.7 L 81.5 154.5 L 78.3 181.8 L 54 188 Z" fill="#14110f"/>
+<path id="jory-rank-cloak-folds" d="M 97.1 121.7 L 82 170 L 98.9 122.3 Z M 107 127.8 L 98 172 L 109 128.2 Z" fill="#34302d"/>
+<path id="jory-rank-cloak-cloak-cold" d="M 24 56 L 198 56 L 198 223.25 L 24 223.25 Z M 160.5 104.1 L 150.5 94.1 L 136.5 98.1 L 98.5 112.1 L 80.9 136.1 L 66.5 176.1 L 68.5 176 L 67.7 180.2 L 70.9 175.8 L 79.7 175.3 L 77.8 181.4 L 81.7 175.1 L 88.2 174.7 L 87.9 178.1 L 90.9 174.6 L 99.2 174 L 98.4 178.7 L 102 173.8 L 108.7 173.4 L 107.4 178.5 L 110.9 173.3 L 119.5 172.7 L 118.3 177.1 L 121.2 172.6 L 128.5 172.1 L 124.5 122.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="jory-rank-cloak-tie">
+<use id="jory-rank-cloak-tie-line" href="#jory-rank-cloak-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-rank-cloak-tie-lit" href="#jory-rank-cloak-tie-shape" fill="#7b5b3d"/>
+</g>
+</svg>

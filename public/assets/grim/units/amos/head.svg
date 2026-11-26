@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="amos-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="amos-head-neck-shape" d="M 140.6 87.4 L 150.5 90.1 L 152.3 101.8 L 138.8 101.8 Z"/>
+<clipPath id="amos-head-neck-clip"><use href="#amos-head-neck-shape"/></clipPath>
+<path id="amos-head-face-shape" d="M 143 76.1 L 147.5 72.5 L 156.5 72.5 L 160.1 76.1 L 162.4 80.2 L 160.6 82.4 L 161.9 84.2 L 166 88.7 L 162.4 90.1 L 162.8 92.8 L 161.5 93.7 L 161.9 95.5 L 159.7 98.9 L 153.8 100.4 L 147.5 94.1 L 143.9 91.4 Z"/>
+<clipPath id="amos-head-face-clip"><use href="#amos-head-face-shape"/></clipPath>
+<path id="amos-head-face-ear-shape" d="M 147.5 84.2 L 150.7 83.3 L 152 86.9 L 150.7 91 L 148 89.6 Z"/>
+<path id="amos-head-whiskers-shape" d="M 138 90 L 146 92 L 150 104 L 158 106 L 156 112 L 144 112 L 136 102 Z"/>
+<clipPath id="amos-head-whiskers-clip"><use href="#amos-head-whiskers-shape"/></clipPath>
+<path id="amos-head-neckcloth-shape" d="M 136 106 L 162 106 L 160 116 L 150 120 L 140 114 Z"/>
+<clipPath id="amos-head-neckcloth-clip"><use href="#amos-head-neckcloth-shape"/></clipPath>
+<path id="amos-head-neckcloth-end-shape" d="M 150 116 L 158 118 L 156 132 L 150 128 Z"/>
+<clipPath id="amos-head-neckcloth-end-clip"><use href="#amos-head-neckcloth-end-shape"/></clipPath>
+<path id="amos-head-whistle-shape" d="M 148 130 L 160 126 L 162 131 L 150 135 Z"/>
+<path id="amos-head-crown-shape" d="M 130 74 L 132 60 L 146 52 L 164 54 L 172 66 L 170 76 Z"/>
+<clipPath id="amos-head-crown-clip"><use href="#amos-head-crown-shape"/></clipPath>
+<path id="amos-head-band-shape" d="M 131 70 L 171 70 L 171 77 L 131 77 Z"/>
+<clipPath id="amos-head-band-clip"><use href="#amos-head-band-shape"/></clipPath>
+<path id="amos-head-brim-shape" d="M 96 86 L 108 76 L 130 72 L 172 72 L 196 78 L 194 84 L 170 82 L 130 82 L 110 90 Z"/>
+<clipPath id="amos-head-brim-clip"><use href="#amos-head-brim-shape"/></clipPath>
+</defs>
+<g id="amos-head-neck">
+<use id="amos-head-neck-line" href="#amos-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-head-neck-clip)">
+<use id="amos-head-neck-lit" href="#amos-head-neck-shape" fill="#c7ad84"/>
+<path id="amos-head-neck-mid" d="M 126.8 83.4 L 142.7 83.4 L 148.4 105.8 L 126.8 105.8 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="amos-head-neck-dark" d="M 126.8 83.4 L 142.7 83.4 L 148.4 105.8 L 126.8 105.8 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="amos-head-face">
+<use id="amos-head-face-line" href="#amos-head-face-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-head-face-clip)">
+<use id="amos-head-face-lit" href="#amos-head-face-shape" fill="#c7ad84"/>
+<path id="amos-head-face-mid" d="M 139.4 69.8 L 150 70.6 L 151.5 87.9 L 148.7 91.6 L 149.5 100.5 L 139.4 102.2 Z" transform="translate(2.7 -0.65)" fill="#927a58"/>
+<path id="amos-head-face-dark" d="M 139.4 69.8 L 150 70.6 L 151.5 87.9 L 148.7 91.6 L 149.5 100.5 L 139.4 102.2 Z" fill="#14110f"/>
+<path id="amos-head-face-cheek-plane" d="M 152.9 87.4 L 158.3 86.5 L 160.1 89.6 L 158.8 94.1 L 153.8 97.9 L 151.1 92.3 Z" fill="#927a58"/>
+<path id="amos-head-face-chin-plane" d="M 157.4 95.5 L 161.9 95 L 159.7 98.9 L 155.6 99.5 Z" fill="#927a58"/>
+<path id="amos-head-face-socket" d="M 162.8 79.7 L 150.2 78.8 L 151.1 85.1 L 155.6 87.4 L 158.3 85.1 L 161.5 84 Z" fill="#14110f"/>
+<path id="amos-head-face-lines" d="M 159.8 89.7 L 158.8 93.7 L 161.3 90.4 Z M 148.8 93.8 L 155.6 98.9 L 149.8 92.6 Z" fill="#14110f"/>
+<path id="amos-head-face-mouth" d="M 162.6 92 L 157 93.9 L 163 94 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-head-face-nostril" d="M 162.8 89.4 L 159.7 88.3 L 161.9 90.7 Z" fill="#14110f"/>
+<g id="amos-head-face-ear">
+<use id="amos-head-face-ear-line" href="#amos-head-face-ear-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="amos-head-face-ear-lit" href="#amos-head-face-ear-shape" fill="#c7ad84"/>
+</g>
+<path id="amos-head-face-ear-hollow" d="M 148.1 85.7 L 150.2 89.2 L 149.4 85.2 Z" fill="#14110f"/>
+<g id="amos-head-whiskers">
+<use id="amos-head-whiskers-line" href="#amos-head-whiskers-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-head-whiskers-clip)">
+<use id="amos-head-whiskers-lit" href="#amos-head-whiskers-shape" fill="#cfc5a8"/>
+<path id="amos-head-whiskers-mid" d="M 124 86 L 142.2 85.6 L 147.3 102.9 L 145.4 106.8 L 148.3 116.4 L 124 116 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="amos-head-whiskers-dark" d="M 124 86 L 142.2 85.6 L 147.3 102.9 L 145.4 106.8 L 148.3 116.4 L 124 116 Z" fill="#14110f"/>
+<path id="amos-head-whisker-locks" d="M 141.3 96.1 L 144 108 L 142.7 95.9 Z M 147.4 104.4 L 152 110 L 148.6 103.6 Z" fill="#9c9178"/>
+</g>
+</g>
+<g id="amos-head-neckcloth">
+<use id="amos-head-neckcloth-line" href="#amos-head-neckcloth-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-head-neckcloth-clip)">
+<use id="amos-head-neckcloth-lit" href="#amos-head-neckcloth-shape" fill="#7d312b"/>
+<path id="amos-head-neckcloth-mid" d="M 124 102 L 143.6 102 L 149.2 124 L 124 124 Z" transform="translate(2 -0.48)" fill="#551f1c"/>
+<path id="amos-head-neckcloth-dark" d="M 124 102 L 143.6 102 L 149.2 124 L 124 124 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="amos-head-neckcloth-end">
+<use id="amos-head-neckcloth-end-line" href="#amos-head-neckcloth-end-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-head-neckcloth-end-clip)">
+<use id="amos-head-neckcloth-end-lit" href="#amos-head-neckcloth-end-shape" fill="#7d312b"/>
+<path id="amos-head-neckcloth-end-dark" d="M 138 112 L 151.4 112 L 155 136 L 138 136 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-head-whistle-cord" d="M 142 112 L 146 126 L 152 132" fill="none" stroke="#927a58" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="amos-head-whistle">
+<use id="amos-head-whistle-line" href="#amos-head-whistle-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.9" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="amos-head-whistle-lit" href="#amos-head-whistle-shape" fill="#cfc5a8"/>
+</g>
+<g id="amos-head-crown">
+<use id="amos-head-crown-line" href="#amos-head-crown-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-head-crown-clip)">
+<use id="amos-head-crown-lit" href="#amos-head-crown-shape" fill="#4f4944"/>
+<path id="amos-head-crown-mid" d="M 118 48 L 146.3 47.3 L 151 62.9 L 147.7 68.1 L 151.5 80.7 L 118 80 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="amos-head-crown-dark" d="M 118 48 L 146.3 47.3 L 151 62.9 L 147.7 68.1 L 151.5 80.7 L 118 80 Z" fill="#14110f"/>
+<path id="amos-head-crown-dent" d="M 147.2 54.3 L 152 66 L 148.8 53.7 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="amos-head-band">
+<use id="amos-head-band-line" href="#amos-head-band-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-head-band-clip)">
+<use id="amos-head-band-lit" href="#amos-head-band-shape" fill="#7b5b3d"/>
+<path id="amos-head-band-dark" d="M 119 66 L 141.6 66 L 144.4 81 L 119 81 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="amos-head-brim">
+<use id="amos-head-brim-line" href="#amos-head-brim-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-head-brim-clip)">
+<use id="amos-head-brim-lit" href="#amos-head-brim-shape" fill="#4f4944"/>
+<path id="amos-head-brim-mid" d="M 92 80 L 126 78 L 124 96 L 92 96 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="amos-head-brim-dark" d="M 92 80 L 126 78 L 124 96 L 92 96 Z" fill="#14110f"/>
+</g>
+<path id="amos-head-brim-open-0" d="M 176 73 L 178.32 71.26 L 196.32 76.26 L 194 78 Z" fill="#4f4944"/>
+</g>
+</svg>

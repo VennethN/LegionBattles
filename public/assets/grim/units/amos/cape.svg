@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="amos-cape" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="amos-cape-cape-shape" d="M 100 116 L 108 98 L 130 90 L 154 92 L 168 106 L 170 122 L 104.5 129.3 L 107.6 125.1 L 107.4 129 L 113.3 128.3 L 116.6 123.1 L 115.6 128 L 124.4 127.1 L 127.2 123.6 L 127.2 126.8 L 135 125.9 L 138.2 120.5 L 137 125.7 L 144.1 124.9 L 147.3 120.3 L 146.9 124.6 L 155 123.7 L 157.5 120.7 L 157.8 123.4 L 98 130 Z"/>
+<clipPath id="amos-cape-cape-clip"><use href="#amos-cape-cape-shape"/></clipPath>
+</defs>
+<g id="amos-cape-cape">
+<use id="amos-cape-cape-line" href="#amos-cape-cape-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-cape-cape-clip)">
+<use id="amos-cape-cape-lit" href="#amos-cape-cape-shape" fill="#80603c"/>
+<path id="amos-cape-cape-mid" d="M 84 84 L 120 84 L 122 89.8 L 123.7 108.5 L 120 113.3 L 122 136.2 L 84 138 Z" transform="translate(2 -0.48)" fill="#5a4229"/>
+<path id="amos-cape-cape-dark" d="M 84 84 L 120 84 L 122 89.8 L 123.7 108.5 L 120 113.3 L 122 136.2 L 84 138 Z" fill="#14110f"/>
+<path id="amos-cape-cape-seams" d="M 133.2 94.1 L 136 124 L 134.8 93.9 Z" fill="#5a4229"/>
+<path id="amos-cape-cape-cold" d="M 58 50 L 210 50 L 210 170 L 58 170 Z M 102.3 114.3 L 110.3 96.3 L 132.3 88.3 L 156.3 90.3 L 170.3 104.3 L 172.3 120.3 L 106.8 127.5 L 109.9 123.4 L 109.7 127.2 L 115.7 126.6 L 118.9 121.3 L 117.9 126.3 L 126.7 125.3 L 129.5 121.9 L 129.5 125 L 137.3 124.2 L 140.5 118.8 L 139.3 123.9 L 146.4 123.1 L 149.6 118.6 L 149.2 122.8 L 157.3 121.9 L 159.8 119 L 160.1 121.6 L 100.3 128.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</svg>

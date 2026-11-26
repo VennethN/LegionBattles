@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="marta-rank-cord" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="marta-rank-cord-knot-shape" d="M 150 168 L 158 167 L 159 175 L 151 176 Z"/>
+</defs>
+<path id="marta-rank-cord-loop" d="M 152 148 L 148 160 L 154 170 L 162 162 L 160 149" fill="none" stroke="#c7ad84" stroke-width="3.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="marta-rank-cord-braid" d="M 150.1 153.9 L 149 158.5 L 151.2 154.3 Z M 151.7 158.6 L 150.7 163.2 L 152.9 159 Z M 153.4 163.3 L 152.4 167.9 L 154.5 163.7 Z" fill="#927a58"/>
+<g id="marta-rank-cord-knot">
+<use id="marta-rank-cord-knot-line" href="#marta-rank-cord-knot-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="marta-rank-cord-knot-lit" href="#marta-rank-cord-knot-shape" fill="#7d312b"/>
+</g>
+<path id="marta-rank-cord-tail-a" d="M 152 175 L 150 188" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="marta-rank-cord-tail-b" d="M 157 175 L 159 186" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="amos-body" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="amos-body-coat-shape" d="M 104 104 L 156 102 L 166 130 L 162 170 L 170 214 L 102.1 217.7 L 105.6 212.4 L 104.1 217.6 L 114.2 217 L 117.2 212.6 L 116.1 216.9 L 143.8 215.4 L 146.8 211.6 L 146.2 215.3 L 154.8 214.8 L 158.1 209.6 L 156.5 214.7 L 96 218 L 104 170 L 98 130 Z"/>
+<clipPath id="amos-body-coat-clip"><use href="#amos-body-coat-shape"/></clipPath>
+<path id="amos-body-belt-shape" d="M 99.8 154 L 163.8 150 L 164.2 158 L 100.2 162 Z"/>
+<clipPath id="amos-body-belt-clip"><use href="#amos-body-belt-shape"/></clipPath>
+<path id="amos-body-belt-buckle-shape" d="M 133.7 149.5 L 145.7 150.1 L 145.1 161.5 L 134.3 160.9 Z"/>
+<clipPath id="amos-body-belt-buckle-clip"><use href="#amos-body-belt-buckle-shape"/></clipPath>
+<path id="amos-body-bell-strap-shape" d="M 147.8 160 L 152.2 160 L 152.2 166.6 L 147.8 166.6 Z"/>
+<path id="amos-body-bell-bell-shape" d="M 143.4 166.6 L 156.6 166.6 L 158.8 182 L 141.2 182 Z"/>
+<clipPath id="amos-body-bell-bell-clip"><use href="#amos-body-bell-bell-shape"/></clipPath>
+<path id="amos-body-rope-shape" d="M 98 162 L 104 158 L 118 158 L 122 164 L 120 186 L 114 192 L 104 192 L 98 186 Z"/>
+<clipPath id="amos-body-rope-clip"><use href="#amos-body-rope-shape"/></clipPath>
+<path id="amos-body-salt-bag-shape" d="M 122 164 L 134 164 L 134.7 173.8 L 131.6 178 L 123.7 178 L 121.3 173.8 Z"/>
+<clipPath id="amos-body-salt-bag-clip"><use href="#amos-body-salt-bag-shape"/></clipPath>
+</defs>
+<g id="amos-body-coat">
+<use id="amos-body-coat-line" href="#amos-body-coat-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-body-coat-clip)">
+<use id="amos-body-coat-lit" href="#amos-body-coat-shape" fill="#80603c"/>
+<path id="amos-body-coat-mid" d="M 80 94 L 118 94 L 121.8 101.8 L 124.9 164.1 L 117.7 172.9 L 120.2 222.2 L 80 224 Z" transform="translate(3 -0.72)" fill="#5a4229"/>
+<path id="amos-body-coat-dark" d="M 80 94 L 118 94 L 121.8 101.8 L 124.9 164.1 L 117.7 172.9 L 120.2 222.2 L 80 224 Z" fill="#14110f"/>
+<path id="amos-body-coat-seams" d="M 145.1 106 L 150 212 L 146.9 106 Z M 131.1 176 L 130 214 L 132.9 176 Z" fill="#5a4229"/>
+<path id="amos-body-creases" d="M 139.3 150.7 L 150 160 L 140.7 149.3 Z M 149.2 186.6 L 160 200 L 150.8 185.4 Z" fill="#5a4229"/>
+<path id="amos-body-patch" d="M 110 182 L 124 180 L 126 196 L 112 198 Z" fill="#5a4229"/>
+<path id="amos-body-patch-thread" d="M 110.9 180.3 L 112 183.2 L 112.1 180.2 Z M 114.4 179.8 L 115.5 182.7 L 115.6 179.7 Z M 117.9 179.3 L 119 182.2 L 119.1 179.2 Z M 121.4 178.8 L 122.5 181.7 L 122.6 178.7 Z" fill="#14110f"/>
+<path id="amos-body-coat-cold" d="M 56 62 L 210 62 L 210 258 L 56 258 Z M 106.3 102.3 L 158.3 100.3 L 168.3 128.3 L 164.3 168.3 L 172.3 212.3 L 104.4 215.9 L 107.9 210.7 L 106.4 215.8 L 116.6 215.3 L 119.5 210.9 L 118.4 215.2 L 146.1 213.7 L 149.1 209.9 L 148.5 213.6 L 157.1 213.1 L 160.4 207.9 L 158.8 213 L 98.3 216.3 L 106.3 168.3 L 100.3 128.3 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+<path id="amos-body-coat-open-0" d="M 164 134 L 166.32 132.26 L 163.32 164.26 L 161 166 Z" fill="#80603c"/>
+</g>
+<path id="amos-body-button-0" d="M 154 116 L 156 114 L 158 116 L 156 118 Z" fill="#14110f"/>
+<path id="amos-body-button-1" d="M 154 132 L 156 130 L 158 132 L 156 134 Z" fill="#14110f"/>
+<path id="amos-body-button-2" d="M 154 148 L 156 146 L 158 148 L 156 150 Z" fill="#14110f"/>
+<g id="amos-body-belt">
+<use id="amos-body-belt-line" href="#amos-body-belt-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-body-belt-clip)">
+<use id="amos-body-belt-lit" href="#amos-body-belt-shape" fill="#7b5b3d"/>
+<path id="amos-body-belt-dark" d="M 96.9 156.4 L 140.3 153.7 L 141.7 154.9 L 167 153.3 L 167.4 160.7 L 97.4 165.1 Z" fill="#14110f"/>
+<path id="amos-body-belt-stitch" d="M 106.3 156.2 L 107.1 159 L 107.5 156.1 Z M 112.5 155.8 L 113.3 158.6 L 113.7 155.7 Z M 118.8 155.4 L 119.6 158.2 L 120 155.3 Z M 125.1 155 L 125.8 157.8 L 126.3 154.9 Z M 131.3 154.6 L 132.1 157.4 L 132.5 154.5 Z M 137.6 154.2 L 138.3 157 L 138.8 154.1 Z M 143.8 153.8 L 144.6 156.7 L 145 153.7 Z M 150.1 153.4 L 150.9 156.3 L 151.3 153.4 Z M 156.3 153 L 157.1 155.9 L 157.5 153 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="amos-body-belt-buckle">
+<use id="amos-body-belt-buckle-line" href="#amos-body-belt-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-body-belt-buckle-clip)">
+<use id="amos-body-belt-buckle-lit" href="#amos-body-belt-buckle-shape" fill="#8c9194"/>
+<path id="amos-body-belt-buckle-dark" d="M 121.7 145.5 L 134.9 145.5 L 139.7 165.5 L 121.7 165.5 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-body-belt-pin" d="M 136.7 154.7 L 143.9 155.1 L 143.9 156.3 L 136.7 156.1 Z" fill="#14110f"/>
+<g id="amos-body-bell-strap">
+<use id="amos-body-bell-strap-line" href="#amos-body-bell-strap-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="amos-body-bell-strap-lit" href="#amos-body-bell-strap-shape" fill="#7b5b3d"/>
+</g>
+<g id="amos-body-bell-bell">
+<use id="amos-body-bell-bell-line" href="#amos-body-bell-bell-shape" transform="translate(-1.09 0.82)" fill="#14110f" stroke="#14110f" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-body-bell-bell-clip)">
+<use id="amos-body-bell-bell-lit" href="#amos-body-bell-bell-shape" fill="#8c9194"/>
+<use id="amos-body-bell-bell-rim" href="#amos-body-bell-bell-shape" fill="#f4d294" opacity="0.55"/>
+<use id="amos-body-bell-bell-lit-over" href="#amos-body-bell-bell-shape" transform="translate(-0.96 0.72)" fill="#8c9194"/>
+<path id="amos-body-bell-bell-mid" d="M 150 164.4 L 161 164.4 L 161 184.2 L 151.1 184.2 Z" transform="translate(2 -0.48)" fill="#5b6165"/>
+<path id="amos-body-bell-bell-dark" d="M 150 164.4 L 161 164.4 L 161 184.2 L 151.1 184.2 Z" fill="#14110f"/>
+<path id="amos-body-bell-dent" d="M 145.2 173.8 L 148.9 175.4 L 146 172.6 Z" fill="#5b6165"/>
+</g>
+</g>
+<path id="amos-body-bell-mouth" d="M 141.2 182 L 158.8 182 L 156.6 184.8 L 143.4 184.8 Z" fill="#14110f"/>
+<path id="amos-body-bell-clapper" d="M 148.4 183.1 L 151.7 183.1 L 151.7 187.5 L 148.4 187.5 Z" fill="#14110f"/>
+<g id="amos-body-rope">
+<use id="amos-body-rope-line" href="#amos-body-rope-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-body-rope-clip)">
+<use id="amos-body-rope-lit" href="#amos-body-rope-shape" fill="#c7ad84"/>
+<path id="amos-body-rope-mid" d="M 86 154 L 104.5 153.6 L 110.2 176.3 L 107.7 180.8 L 111.7 196.4 L 86 196 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="amos-body-rope-dark" d="M 86 154 L 104.5 153.6 L 110.2 176.3 L 107.7 180.8 L 111.7 196.4 L 86 196 Z" fill="#14110f"/>
+<path id="amos-body-rope-turns" d="M 100.1 168.8 L 120 166 L 99.9 167.2 Z M 100.1 176.8 L 121 174 L 99.9 175.2 Z M 101 184.8 L 119 183 L 101 183.2 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="amos-body-salt-bag">
+<use id="amos-body-salt-bag-line" href="#amos-body-salt-bag-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-body-salt-bag-clip)">
+<use id="amos-body-salt-bag-lit" href="#amos-body-salt-bag-shape" fill="#7b5b3d"/>
+<path id="amos-body-salt-bag-mid" d="M 109.3 160 L 123.3 160 L 128.9 182 L 109.3 182 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="amos-body-salt-bag-dark" d="M 109.3 160 L 123.3 160 L 128.9 182 L 109.3 182 Z" fill="#14110f"/>
+<path id="amos-body-salt-bag-flap" d="M 120.8 163 L 135.2 163 L 134 169.9 L 128 171.8 L 122 169.9 Z" fill="#553d29"/>
+<path id="amos-body-salt-bag-seam" d="M 123.8 175.4 L 124.3 177.8 L 124.9 175.4 Z M 126 175.4 L 126.5 177.8 L 127.1 175.4 Z M 128.2 175.4 L 128.8 177.8 L 129.3 175.4 Z M 130.4 175.4 L 131 177.8 L 131.5 175.4 Z" fill="#553d29"/>
+</g>
+</g>
+<path id="amos-body-salt-bag-toggle" d="M 126.4 171 L 128 169.4 L 129.6 171 L 128 172.6 Z" fill="#14110f"/>
+</svg>

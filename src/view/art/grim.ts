@@ -14,6 +14,9 @@ export interface GrimPart extends RigPart {
   only?: string;
   /** Hidden while the figure stands in this still: the standing legs, while a hunter sits on a bench. */
   hide?: string;
+  /** Worn from this rank of the hunter's, up to `upto`: what hunting with them has earned. Off at rank 0. */
+  rank?: number;
+  upto?: number;
 }
 
 export interface GrimUnit {

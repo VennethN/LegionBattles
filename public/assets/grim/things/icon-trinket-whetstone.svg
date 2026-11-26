@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trinket-whetstone" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trinket-whetstone-stone-shape" d="M 4 44 L 10 32 L 50 16 L 60 22 L 60 32 L 20 50 L 8 52 Z"/>
+<clipPath id="icon-trinket-whetstone-stone-clip"><use href="#icon-trinket-whetstone-stone-shape"/></clipPath>
+<path id="icon-trinket-whetstone-strap-shape" d="M 38 18 L 44 16 L 50 38 L 44 40 Z"/>
+<clipPath id="icon-trinket-whetstone-strap-clip"><use href="#icon-trinket-whetstone-strap-shape"/></clipPath>
+</defs>
+<g id="icon-trinket-whetstone-stone">
+<use id="icon-trinket-whetstone-stone-line" href="#icon-trinket-whetstone-stone-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-whetstone-stone-clip)">
+<use id="icon-trinket-whetstone-stone-lit" href="#icon-trinket-whetstone-stone-shape" fill="#8c9194"/>
+<path id="icon-trinket-whetstone-stone-mid" d="M 0 42 L 4.3 47.2 L 37.9 38.3 L 40 35.1 L 63.7 28.8 L 64 60 L 0 60 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="icon-trinket-whetstone-stone-dark" d="M 0 42 L 4.3 47.2 L 37.9 38.3 L 40 35.1 L 63.7 28.8 L 64 60 L 0 60 Z" fill="#14110f"/>
+<path id="icon-trinket-whetstone-wear" d="M 18.5 39.1 L 48 25 L 17.5 36.9 Z" fill="#5b6165"/>
+</g>
+</g>
+<path id="icon-trinket-whetstone-edge" d="M 16.4 34.9 L 28 29 L 15.6 33.1 Z M 32.4 27.9 L 44 22 L 31.6 26.1 Z M 22.4 40.9 L 34 35 L 21.6 39.1 Z" fill="#e9e0c6"/>
+<g id="icon-trinket-whetstone-strap">
+<use id="icon-trinket-whetstone-strap-line" href="#icon-trinket-whetstone-strap-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-whetstone-strap-clip)">
+<use id="icon-trinket-whetstone-strap-lit" href="#icon-trinket-whetstone-strap-shape" fill="#7b5b3d"/>
+<path id="icon-trinket-whetstone-strap-dark" d="M 26 12 L 39.9 11.9 L 40.7 23.5 L 39.1 25.6 L 40.4 44.1 L 26 44 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

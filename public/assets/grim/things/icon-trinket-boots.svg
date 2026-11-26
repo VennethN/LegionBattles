@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trinket-boots" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trinket-boots-far-shape" d="M 30 4 L 44 4 L 44 40 L 60 48 L 60 56 L 30 56 Z"/>
+<clipPath id="icon-trinket-boots-far-clip"><use href="#icon-trinket-boots-far-shape"/></clipPath>
+<path id="icon-trinket-boots-near-shape" d="M 10 10 L 26 10 L 26 44 L 46 52 L 48 62 L 6 62 L 8 44 Z"/>
+<clipPath id="icon-trinket-boots-near-clip"><use href="#icon-trinket-boots-near-shape"/></clipPath>
+<path id="icon-trinket-boots-cuff-shape" d="M 8 8 L 28 8 L 28 16 L 8 16 Z"/>
+<clipPath id="icon-trinket-boots-cuff-clip"><use href="#icon-trinket-boots-cuff-shape"/></clipPath>
+</defs>
+<g id="icon-trinket-boots-far">
+<use id="icon-trinket-boots-far-line" href="#icon-trinket-boots-far-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-boots-far-clip)">
+<use id="icon-trinket-boots-far-lit" href="#icon-trinket-boots-far-shape" fill="#7b5b3d"/>
+<path id="icon-trinket-boots-far-dark" d="M 18 0 L 36.3 -0.2 L 39.2 28.7 L 35.9 33.2 L 38.5 60.2 L 18 60 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trinket-boots-near">
+<use id="icon-trinket-boots-near-line" href="#icon-trinket-boots-near-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-boots-near-clip)">
+<use id="icon-trinket-boots-near-lit" href="#icon-trinket-boots-near-shape" fill="#7b5b3d"/>
+<use id="icon-trinket-boots-near-rim" href="#icon-trinket-boots-near-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-trinket-boots-near-lit-over" href="#icon-trinket-boots-near-shape" transform="translate(-1.28 0.96)" fill="#7b5b3d"/>
+<path id="icon-trinket-boots-near-mid" d="M 0 6 L 14 6 L 14 64 L 0 64 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="icon-trinket-boots-near-dark" d="M 0 6 L 14 6 L 14 64 L 0 64 Z" fill="#14110f"/>
+<path id="icon-trinket-boots-crease" d="M 13.9 46.9 L 26 48 L 14.1 45.1 Z" fill="#553d29"/>
+</g>
+</g>
+<path id="icon-trinket-boots-sole" d="M 6 58 L 48 58 L 48 63 L 6 63 Z" fill="#14110f"/>
+<g id="icon-trinket-boots-cuff">
+<use id="icon-trinket-boots-cuff-line" href="#icon-trinket-boots-cuff-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-boots-cuff-clip)">
+<use id="icon-trinket-boots-cuff-lit" href="#icon-trinket-boots-cuff-shape" fill="#7b5b3d"/>
+<path id="icon-trinket-boots-cuff-dark" d="M -4 4 L 10 4 L 11.4 20 L -4 20 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-trinket-boots-oil" d="M 29.7 51 L 40 53 L 30.3 49 Z" fill="#e9e0c6"/>
+</svg>

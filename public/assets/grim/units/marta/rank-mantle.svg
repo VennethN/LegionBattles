@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="marta-rank-mantle" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="marta-rank-mantle-cloak-shape" d="M 156 90 L 146 80 L 132 84 L 92 98 L 67.2 153 L 48 224 L 50 223.9 L 48.8 228.8 L 52.4 223.8 L 60.5 223.3 L 59.6 228.1 L 63.2 223.2 L 71.1 222.8 L 70.9 225.8 L 73.8 222.6 L 92.6 221.6 L 92.3 224.6 L 94.9 221.5 L 103.2 221 L 102.8 224.2 L 105.6 220.9 L 113.4 220.5 L 111.4 227.1 L 115.8 220.3 L 122 220 L 118 108 Z"/>
+<clipPath id="marta-rank-mantle-cloak-clip"><use href="#marta-rank-mantle-cloak-shape"/></clipPath>
+<path id="marta-rank-mantle-tie-shape" d="M 152 86 L 160 86 L 160 93 L 152 93 Z"/>
+</defs>
+<g id="marta-rank-mantle-cloak">
+<use id="marta-rank-mantle-cloak-line" href="#marta-rank-mantle-cloak-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-rank-mantle-cloak-clip)">
+<use id="marta-rank-mantle-cloak-lit" href="#marta-rank-mantle-cloak-shape" fill="#7d312b"/>
+<path id="marta-rank-mantle-cloak-mid" d="M 38 82 L 81.6 82 L 83.5 90.2 L 78.4 148.5 L 74.3 152.3 L 67.7 227.8 L 38 234 Z" transform="translate(3 -0.72)" fill="#551f1c"/>
+<path id="marta-rank-mantle-cloak-dark" d="M 38 82 L 81.6 82 L 83.5 90.2 L 78.4 148.5 L 74.3 152.3 L 67.7 227.8 L 38 234 Z" fill="#14110f"/>
+<path id="marta-rank-mantle-folds" d="M 93 105.8 L 72 216 L 95 106.2 Z M 103 111.9 L 94 218 L 105 112.1 Z" fill="#551f1c"/>
+<path id="marta-rank-mantle-cloak-cold" d="M 8 40 L 196 40 L 196 268.81 L 8 268.81 Z M 158.5 88.1 L 148.5 78.1 L 134.5 82.1 L 94.5 96.1 L 69.7 151.1 L 50.5 222.1 L 52.5 222 L 51.3 226.9 L 54.9 221.9 L 63 221.4 L 62.1 226.2 L 65.7 221.3 L 73.6 220.9 L 73.4 224 L 76.3 220.7 L 95.1 219.7 L 94.8 222.7 L 97.4 219.6 L 105.7 219.1 L 105.3 222.4 L 108.1 219 L 115.9 218.6 L 113.9 225.2 L 118.3 218.5 L 124.5 218.1 L 120.5 106.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<path id="marta-rank-mantle-gilt-back" d="M 132 86 L 93 99 L 67.2 153 L 48 224" fill="none" stroke="#c27a26" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="marta-rank-mantle-gilt-hem" d="M 48 224 L 85 227 L 122 220" fill="none" stroke="#c27a26" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="marta-rank-mantle-tie">
+<use id="marta-rank-mantle-tie-line" href="#marta-rank-mantle-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="marta-rank-mantle-tie-lit" href="#marta-rank-mantle-tie-shape" fill="#8c9194"/>
+</g>
+</svg>

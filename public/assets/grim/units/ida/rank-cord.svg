@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ida-rank-cord" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ida-rank-cord-knot-shape" d="M 148 174 L 156 173 L 157 181 L 149 182 Z"/>
+</defs>
+<path id="ida-rank-cord-loop" d="M 150 154 L 146 166 L 152 176 L 160 168 L 158 155" fill="none" stroke="#c7ad84" stroke-width="3.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="ida-rank-cord-braid" d="M 148.1 159.9 L 147 164.5 L 149.2 160.3 Z M 149.7 164.6 L 148.7 169.2 L 150.9 165 Z M 151.4 169.3 L 150.4 173.9 L 152.5 169.7 Z" fill="#927a58"/>
+<g id="ida-rank-cord-knot">
+<use id="ida-rank-cord-knot-line" href="#ida-rank-cord-knot-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ida-rank-cord-knot-lit" href="#ida-rank-cord-knot-shape" fill="#7d312b"/>
+</g>
+<path id="ida-rank-cord-tail-a" d="M 150 181 L 148 194" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="ida-rank-cord-tail-b" d="M 155 181 L 157 192" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

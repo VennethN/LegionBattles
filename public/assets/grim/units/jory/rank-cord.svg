@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jory-rank-cord" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="jory-rank-cord-knot-shape" d="M 146 168 L 154 167 L 155 175 L 147 176 Z"/>
+</defs>
+<path id="jory-rank-cord-loop" d="M 148 148 L 144 160 L 150 170 L 158 162 L 156 149" fill="none" stroke="#c7ad84" stroke-width="3.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="jory-rank-cord-braid" d="M 146.1 153.9 L 145 158.5 L 147.2 154.3 Z M 147.7 158.6 L 146.7 163.2 L 148.9 159 Z M 149.4 163.3 L 148.4 167.9 L 150.5 163.7 Z" fill="#927a58"/>
+<g id="jory-rank-cord-knot">
+<use id="jory-rank-cord-knot-line" href="#jory-rank-cord-knot-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-rank-cord-knot-lit" href="#jory-rank-cord-knot-shape" fill="#7d312b"/>
+</g>
+<path id="jory-rank-cord-tail-a" d="M 148 175 L 146 188" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="jory-rank-cord-tail-b" d="M 153 175 L 155 186" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

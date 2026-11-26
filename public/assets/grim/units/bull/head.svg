@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bull-head" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="bull-head-neck-shape" d="M 160 150 L 188 140 L 200 164 L 182 186 L 166 176 Z"/>
+<clipPath id="bull-head-neck-clip"><use href="#bull-head-neck-shape"/></clipPath>
+<path id="bull-head-breast-shape" d="M 170 176 L 192 166 L 198 184 L 188 200 L 174 198 Z"/>
+<clipPath id="bull-head-breast-clip"><use href="#bull-head-breast-shape"/></clipPath>
+<path id="bull-head-skull-shape" d="M 174 140 L 184 128 L 204 126 L 214 136 L 216 150 L 206 164 L 186 166 L 174 156 Z"/>
+<clipPath id="bull-head-skull-clip"><use href="#bull-head-skull-shape"/></clipPath>
+<path id="bull-head-muzzle-shape" d="M 206 140 L 226 142 L 232 150 L 230 164 L 212 168 L 204 158 Z"/>
+<clipPath id="bull-head-muzzle-clip"><use href="#bull-head-muzzle-shape"/></clipPath>
+<path id="bull-head-jowl-shape" d="M 204 160 L 226 162 L 224 176 L 214 184 L 204 178 Z"/>
+<clipPath id="bull-head-jowl-clip"><use href="#bull-head-jowl-shape"/></clipPath>
+<path id="bull-head-fang-shape" d="M 217 166 L 222 166 L 220 174 Z"/>
+<path id="bull-head-ear-shape" d="M 182 130 L 184 116 L 194 120 L 194 130 Z"/>
+<clipPath id="bull-head-ear-clip"><use href="#bull-head-ear-shape"/></clipPath>
+<path id="bull-head-collar-shape" d="M 164 160 L 186 150 L 192 160 L 170 172 Z"/>
+<clipPath id="bull-head-collar-clip"><use href="#bull-head-collar-shape"/></clipPath>
+<path id="bull-head-spike-0-shape" d="M 165 163 L 168 154 L 171 162 Z"/>
+<clipPath id="bull-head-spike-0-clip"><use href="#bull-head-spike-0-shape"/></clipPath>
+<path id="bull-head-spike-1-shape" d="M 173 159 L 176 150 L 179 158 Z"/>
+<clipPath id="bull-head-spike-1-clip"><use href="#bull-head-spike-1-shape"/></clipPath>
+<path id="bull-head-spike-2-shape" d="M 181 155 L 184 146 L 187 154 Z"/>
+<clipPath id="bull-head-spike-2-clip"><use href="#bull-head-spike-2-shape"/></clipPath>
+<path id="bull-head-tag-shape" d="M 172 170 L 180 168 L 181 176 L 173 178 Z"/>
+</defs>
+<g id="bull-head-neck">
+<use id="bull-head-neck-line" href="#bull-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-neck-clip)">
+<use id="bull-head-neck-lit" href="#bull-head-neck-shape" fill="#80603c"/>
+<path id="bull-head-neck-mid" d="M 148 136 L 171.9 135.1 L 180.8 162.2 L 177.3 170 L 184.1 190.9 L 148 190 Z" transform="translate(2 -0.48)" fill="#5a4229"/>
+<path id="bull-head-neck-dark" d="M 148 136 L 171.9 135.1 L 180.8 162.2 L 177.3 170 L 184.1 190.9 L 148 190 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bull-head-breast">
+<use id="bull-head-breast-line" href="#bull-head-breast-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-breast-clip)">
+<use id="bull-head-breast-lit" href="#bull-head-breast-shape" fill="#c7ad84"/>
+<path id="bull-head-breast-mid" d="M 158 162 L 175.7 161.4 L 182.1 182.9 L 179.2 188.8 L 183.9 204.6 L 158 204 Z" transform="translate(2 -0.48)" fill="#927a58"/>
+<path id="bull-head-breast-dark" d="M 158 162 L 175.7 161.4 L 182.1 182.9 L 179.2 188.8 L 183.9 204.6 L 158 204 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bull-head-skull">
+<use id="bull-head-skull-line" href="#bull-head-skull-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-skull-clip)">
+<use id="bull-head-skull-lit" href="#bull-head-skull-shape" fill="#80603c"/>
+<path id="bull-head-skull-mid" d="M 168 128 L 182 124 L 185.6 130 L 185.6 146.2 L 182.4 149.7 L 182.4 168 L 168 170 Z" transform="translate(3 -0.72)" fill="#5a4229"/>
+<path id="bull-head-skull-dark" d="M 168 128 L 182 124 L 185.6 130 L 185.6 146.2 L 182.4 149.7 L 182.4 168 L 168 170 Z" fill="#14110f"/>
+<path id="bull-head-brow" d="M 200 136 L 214 136 L 215 142 L 204 143 L 198 140 Z" fill="#14110f"/>
+<path id="bull-head-brow-folds" d="M 190.4 132.7 L 198 128 L 189.6 131.3 Z M 192.4 140.7 L 200 136 L 191.6 139.3 Z" fill="#5a4229"/>
+</g>
+</g>
+<g id="bull-head-muzzle">
+<use id="bull-head-muzzle-line" href="#bull-head-muzzle-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-muzzle-clip)">
+<use id="bull-head-muzzle-lit" href="#bull-head-muzzle-shape" fill="#4f4944"/>
+<path id="bull-head-muzzle-mid" d="M 200 158 L 236 158 L 236 172 L 200 172 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="bull-head-muzzle-dark" d="M 200 158 L 236 158 L 236 172 L 200 172 Z" fill="#14110f"/>
+<path id="bull-head-muzzle-fold" d="M 211.3 145.9 L 210 160 L 212.7 146.1 Z" fill="#34302d"/>
+</g>
+</g>
+<g id="bull-head-jowl">
+<use id="bull-head-jowl-line" href="#bull-head-jowl-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-jowl-clip)">
+<use id="bull-head-jowl-lit" href="#bull-head-jowl-shape" fill="#4f4944"/>
+<path id="bull-head-jowl-dark" d="M 192 156 L 212.8 155.6 L 218 172.9 L 216 177 L 219.4 188.4 L 192 188 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="bull-head-nose" d="M 226 142 L 233 145 L 233 152 L 226 152 Z" fill="#14110f"/>
+<g id="bull-head-fang">
+<use id="bull-head-fang-line" href="#bull-head-fang-shape" transform="translate(-0.6 0.45)" fill="#14110f" stroke="#14110f" stroke-width="2.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="bull-head-fang-lit" href="#bull-head-fang-shape" fill="#cfc5a8"/>
+</g>
+<g id="bull-head-ear">
+<use id="bull-head-ear-line" href="#bull-head-ear-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-ear-clip)">
+<use id="bull-head-ear-lit" href="#bull-head-ear-shape" fill="#80603c"/>
+<path id="bull-head-ear-dark" d="M 170 112 L 185.4 112 L 190.6 134 L 170 134 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bull-head-collar">
+<use id="bull-head-collar-line" href="#bull-head-collar-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-collar-clip)">
+<use id="bull-head-collar-lit" href="#bull-head-collar-shape" fill="#7b5b3d"/>
+<path id="bull-head-collar-dark" d="M 152 146 L 172.4 145.5 L 175.7 156.7 L 173.5 161.2 L 178 176.5 L 152 176 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bull-head-spike-0">
+<use id="bull-head-spike-0-line" href="#bull-head-spike-0-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-spike-0-clip)">
+<use id="bull-head-spike-0-lit" href="#bull-head-spike-0-shape" fill="#8c9194"/>
+<use id="bull-head-spike-0-rim" href="#bull-head-spike-0-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bull-head-spike-0-lit-over" href="#bull-head-spike-0-shape" transform="translate(-0.8 0.6)" fill="#8c9194"/>
+</g>
+</g>
+<g id="bull-head-spike-1">
+<use id="bull-head-spike-1-line" href="#bull-head-spike-1-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-spike-1-clip)">
+<use id="bull-head-spike-1-lit" href="#bull-head-spike-1-shape" fill="#8c9194"/>
+<use id="bull-head-spike-1-rim" href="#bull-head-spike-1-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bull-head-spike-1-lit-over" href="#bull-head-spike-1-shape" transform="translate(-0.8 0.6)" fill="#8c9194"/>
+</g>
+</g>
+<g id="bull-head-spike-2">
+<use id="bull-head-spike-2-line" href="#bull-head-spike-2-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-head-spike-2-clip)">
+<use id="bull-head-spike-2-lit" href="#bull-head-spike-2-shape" fill="#8c9194"/>
+<use id="bull-head-spike-2-rim" href="#bull-head-spike-2-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bull-head-spike-2-lit-over" href="#bull-head-spike-2-shape" transform="translate(-0.8 0.6)" fill="#8c9194"/>
+</g>
+</g>
+<g id="bull-head-tag">
+<use id="bull-head-tag-line" href="#bull-head-tag-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.8" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="bull-head-tag-lit" href="#bull-head-tag-shape" fill="#9a5b38"/>
+</g>
+</svg>

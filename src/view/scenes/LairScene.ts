@@ -7,6 +7,7 @@
 // The hunter and the monster are figures moved part by part. Everyone else
 // is one picture each, changed between two as they walk.
 
+import { growthOf } from '../../game/lodge';
 import Phaser from 'phaser';
 import { BONE, HOLY, OUTLINE, RUBY } from '../../art/kit/palette';
 import { huntOf, music } from '../../audio/music';
@@ -287,6 +288,8 @@ export class LairScene extends Phaser.Scene {
     // are found at a glance beside a boss four times their height.
     this.hunter = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, HUNTER_SCALE, 1);
     this.echo = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, HUNTER_SCALE, 1);
+    // Each wears what their rank has earned them; the outline matches the figure it outlines.
+    this.hunter.rank = this.echo.rank = h.hunter.def.hired ? 0 : growthOf(save(), h.hunter.def.id).rank;
     this.echo.tint = 0xffe2a0;
     this.echo.fill = true;
     // Only the figure is outlined, never its shadow.
@@ -1035,6 +1038,7 @@ export class LairScene extends Phaser.Scene {
       const [x, y] = this.at(`p${p.index}`, p.x, p.y);
       const s = this.show(`p${p.index}`, HUNTER_ART[p.def.id] ?? HUNTER_ART.marta, x, y, p.face, p.moving);
       if (s.fig) {
+        if (!p.def.hired) s.fig.rank = growthOf(save(), p.def.id).rank;
         s.fig.hold(p.down ? 'fall' : null);
         s.fig.alpha = p.down ? 0.7 : 1;
       } else if (s.img) s.img.setRotation(p.down ? p.face * 1.3 : 0).setAlpha(p.down ? 0.7 : 1);

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="amos-leg-front" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="amos-leg-front-breeches-shape" d="M 155.2 173.5 L 159.7 191.9 L 162.8 218 L 145.2 222 L 137.8 196.9 L 132.8 178.5 Z"/>
+<clipPath id="amos-leg-front-breeches-clip"><use href="#amos-leg-front-breeches-shape"/></clipPath>
+<path id="amos-leg-front-boot-shape" d="M 142.2 213 L 164.5 211 L 169.7 227 L 180.7 230 L 186.7 236 L 186.7 240 L 140.7 240 L 138.7 230 Z"/>
+<clipPath id="amos-leg-front-boot-clip"><use href="#amos-leg-front-boot-shape"/></clipPath>
+<path id="amos-leg-front-gaiter-shape" d="M 145.8 213.8 L 165.8 211.8 L 166.2 216.2 L 146.2 218.2 Z"/>
+<clipPath id="amos-leg-front-gaiter-clip"><use href="#amos-leg-front-gaiter-shape"/></clipPath>
+<path id="amos-leg-front-gaiter-buckle-shape" d="M 156.6 211.2 L 163.4 211.6 L 163 218 L 157 217.6 Z"/>
+<clipPath id="amos-leg-front-gaiter-buckle-clip"><use href="#amos-leg-front-gaiter-buckle-shape"/></clipPath>
+</defs>
+<g id="amos-leg-front-breeches">
+<use id="amos-leg-front-breeches-line" href="#amos-leg-front-breeches-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-leg-front-breeches-clip)">
+<use id="amos-leg-front-breeches-lit" href="#amos-leg-front-breeches-shape" fill="#6f5c46"/>
+<path id="amos-leg-front-breeches-mid" d="M 126 170 L 140 170 L 141.7 175.7 L 145.3 197.5 L 142.6 201.7 L 146.3 224.3 L 126 224 Z" transform="translate(2.5 -0.6)" fill="#4a3c2d"/>
+<path id="amos-leg-front-breeches-dark" d="M 126 170 L 140 170 L 141.7 175.7 L 145.3 197.5 L 142.6 201.7 L 146.3 224.3 L 126 224 Z" fill="#14110f"/>
+<path id="amos-leg-front-knee" d="M 148.1 198.8 L 160 196 L 147.9 197.2 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<g id="amos-leg-front-boot">
+<use id="amos-leg-front-boot-line" href="#amos-leg-front-boot-shape" transform="translate(-2.18 1.64)" fill="#14110f" stroke="#14110f" stroke-width="7.4" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-leg-front-boot-clip)">
+<use id="amos-leg-front-boot-lit" href="#amos-leg-front-boot-shape" fill="#7b5b3d"/>
+<path id="amos-leg-front-boot-mid" d="M 132.7 208 L 157.9 208 L 159.6 226 L 170.5 232 L 190.7 235 L 190.7 244 L 132.7 244 Z" transform="translate(3 -0.72)" fill="#553d29"/>
+<path id="amos-leg-front-boot-dark" d="M 132.7 208 L 157.9 208 L 159.6 226 L 170.5 232 L 190.7 235 L 190.7 244 L 132.7 244 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-leg-front-boot-sole" d="M 138.7 237 L 187.7 237 L 187.7 241.5 L 138.7 241.5 Z" fill="#14110f"/>
+<path id="amos-leg-front-boot-crease" d="M 168.8 225.8 L 157.9 231 L 169.7 228.2 Z" fill="#14110f"/>
+<g id="amos-leg-front-gaiter">
+<use id="amos-leg-front-gaiter-line" href="#amos-leg-front-gaiter-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-leg-front-gaiter-clip)">
+<use id="amos-leg-front-gaiter-lit" href="#amos-leg-front-gaiter-shape" fill="#7b5b3d"/>
+<path id="amos-leg-front-gaiter-dark" d="M 142.9 215.3 L 153.5 214.2 L 154.4 214.9 L 169 213.5 L 169.4 217.6 L 143.4 220.1 Z" fill="#14110f"/>
+<path id="amos-leg-front-gaiter-stitch" d="M 149.5 214.8 L 150.2 216.4 L 150.6 214.7 Z M 155.3 214.3 L 156.1 215.8 L 156.5 214.1 Z M 161.2 213.7 L 161.9 215.2 L 162.4 213.5 Z" fill="#553d29"/>
+</g>
+</g>
+<g id="amos-leg-front-gaiter-buckle">
+<use id="amos-leg-front-gaiter-buckle-line" href="#amos-leg-front-gaiter-buckle-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-leg-front-gaiter-buckle-clip)">
+<use id="amos-leg-front-gaiter-buckle-lit" href="#amos-leg-front-gaiter-buckle-shape" fill="#8c9194"/>
+<path id="amos-leg-front-gaiter-buckle-dark" d="M 144.6 207.2 L 157.3 207.2 L 160 222 L 144.6 222 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-leg-front-gaiter-pin" d="M 158.3 213.8 L 162.4 214.2 L 162.4 215.4 L 158.3 215.2 Z" fill="#14110f"/>
+</svg>

@@ -38,6 +38,13 @@ export interface PartSpec {
   only?: string;
   /** The still this part is not shown in: legs standing, which a seated figure swaps for legs bent at the knee. */
   hide?: string;
+  /**
+   * The hunter's rank from which this part is worn, and the last rank it is worn at: what a hunter earns by
+   * hunting with them (a cord at the belt, a cloak, a trophy at the shoulder). A figure is drawn at rank 0
+   * unless the game says otherwise, so a part with a rank is left off until it is earned.
+   */
+  rank?: number;
+  upto?: number;
   draw: (d: Doc) => void;
 }
 

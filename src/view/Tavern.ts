@@ -10,6 +10,7 @@
 // It shows and asks: who is open is the lodge's to say, and a press on a
 // hunter only tells the lodge screen whom to show.
 
+import { growthOf } from '../game/lodge';
 import Phaser from 'phaser';
 import { BONE, HOLY } from '../art/kit/palette';
 import { sfx } from '../audio/sfx';
@@ -184,7 +185,7 @@ export class Tavern {
     const art = sheet(scene.game, getManifest());
     // Every hunter drawn in the style, and Bull at Amos's feet.
     const drawn = HUNTERS.map((d) => HUNTER_ART[d.id]).filter(isGrim).map((a) => a.grim);
-    const wanted = [...[...new Set([...drawn, 'hound'])].map(wantedUnit), wantedThing('inn-bench')];
+    const wanted = [...[...new Set([...drawn, 'bull'])].map(wantedUnit), wantedThing('inn-bench')];
     void art.ensureWanted(loader, [...wanted, ...PIECES.map(wantedThing)]).then(() => {
       if (this.gone || !scene.scene.isActive()) return;
       this.pieces(plan);
@@ -437,11 +438,13 @@ export class Tavern {
       // Bull lies at Amos's feet, his or not: a black shape while Amos is shut away. He is a mastiff, bigger than a hound.
       if (id === 'brask') {
         for (const [dx, f] of [[64, -1]] as const) {
-          const dog = new GrimFigure(this.scene, 'hound', grim.units.hound, grim.poses, SCALE * MASTIFF, 9);
+          const dog = new GrimFigure(this.scene, 'bull', grim.units.bull, grim.poses, SCALE * MASTIFF, 9);
           dog.x = x + dx;
           dog.y = y + 6;
           dog.facing = f;
-          dog.rest = pose({ bodyY: 8, headRot: dx > 0 ? -10 : 6 });
+          // Lying by his master, as the kit drew him to.
+          if (grim.units.bull.stills.lie) dog.hold('lie');
+          else dog.rest = pose({ bodyY: 8, headRot: dx > 0 ? -10 : 6 });
           if (!open) [dog.tint, dog.fill] = [0x0a0806, true];
           this.root.add(dog.root);
           spot.dogs.push(dog);
@@ -450,6 +453,8 @@ export class Tavern {
       const art = HUNTER_ART[id];
       if (isGrim(art)) {
         const fig = new GrimFigure(this.scene, art.grim, grim.units[art.grim], grim.poses, SCALE, id.length * 5);
+        // Dressed as far as they have risen: a cord, a cloak, a trophy, a mantle.
+        if (open && !def.hired) fig.rank = growthOf(this.s, id).rank;
         fig.x = x;
         fig.y = y;
         fig.facing = at.face;

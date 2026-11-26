@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bull-legs-back" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="bull-legs-back-hind-shape" d="M 78 176 L 104 178 L 100 202 L 108 222 L 104 240 L 90 240 L 92 224 L 80 204 Z"/>
+<clipPath id="bull-legs-back-hind-clip"><use href="#bull-legs-back-hind-shape"/></clipPath>
+<path id="bull-legs-back-fore-far-shape" d="M 165.5 192.6 L 160 240.5 L 148 239.5 L 150.5 191.4 Z"/>
+<clipPath id="bull-legs-back-fore-far-clip"><use href="#bull-legs-back-fore-far-shape"/></clipPath>
+</defs>
+<g id="bull-legs-back-hind">
+<use id="bull-legs-back-hind-line" href="#bull-legs-back-hind-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-legs-back-hind-clip)">
+<use id="bull-legs-back-hind-lit" href="#bull-legs-back-hind-shape" fill="#80603c"/>
+<path id="bull-legs-back-hind-mid" d="M 66 172 L 88.7 171.6 L 96.6 214.6 L 92.9 220.5 L 97.3 244.4 L 66 244 Z" transform="translate(4.2 -1.01)" fill="#5a4229"/>
+<path id="bull-legs-back-hind-dark" d="M 66 172 L 88.7 171.6 L 96.6 214.6 L 92.9 220.5 L 97.3 244.4 L 66 244 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bull-legs-back-fore-far">
+<use id="bull-legs-back-fore-far-line" href="#bull-legs-back-fore-far-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bull-legs-back-fore-far-clip)">
+<use id="bull-legs-back-fore-far-lit" href="#bull-legs-back-fore-far-shape" fill="#80603c"/>
+<path id="bull-legs-back-fore-far-mid" d="M 136 187.4 L 155.8 187.2 L 159.6 215.1 L 157.6 218 L 161.2 244.7 L 136 244.5 Z" transform="translate(2 -0.48)" fill="#5a4229"/>
+<path id="bull-legs-back-fore-far-dark" d="M 136 187.4 L 155.8 187.2 L 159.6 215.1 L 157.6 218 L 161.2 244.7 L 136 244.5 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

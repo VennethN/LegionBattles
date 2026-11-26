@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="amos-whistle-arm" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="amos-whistle-arm-arm-upper-shape" d="M 124.7 111 L 127.8 125.1 L 127.2 145.2 L 112.8 146.8 L 109.1 127.3 L 107.3 113 Z"/>
+<clipPath id="amos-whistle-arm-arm-upper-clip"><use href="#amos-whistle-arm-arm-upper-shape"/></clipPath>
+<path id="amos-whistle-arm-arm-fore-shape" d="M 125 140.3 L 133.1 146.5 L 141.8 157.7 L 134.2 166.3 L 122.8 158.1 L 115 151.7 Z"/>
+<clipPath id="amos-whistle-arm-arm-fore-clip"><use href="#amos-whistle-arm-arm-fore-shape"/></clipPath>
+<path id="amos-whistle-arm-arm-fist-shape" d="M 134.3 145.5 L 148.2 152.6 L 152.8 158.2 L 151 164.4 L 152.9 167.6 L 148.6 172.9 L 145.2 172.1 L 141.8 177.6 L 133.2 175.7 L 122.6 164.9 L 125.3 155.1 Z"/>
+<clipPath id="amos-whistle-arm-arm-fist-clip"><use href="#amos-whistle-arm-arm-fist-shape"/></clipPath>
+<path id="amos-whistle-arm-whistle-shape" d="M 134 158 L 146 154 L 148 159 L 136 163 Z"/>
+</defs>
+<g id="amos-whistle-arm-arm-upper">
+<use id="amos-whistle-arm-arm-upper-line" href="#amos-whistle-arm-arm-upper-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-whistle-arm-arm-upper-clip)">
+<use id="amos-whistle-arm-arm-upper-lit" href="#amos-whistle-arm-arm-upper-shape" fill="#80603c"/>
+<path id="amos-whistle-arm-arm-upper-mid" d="M 119.3 108.6 L 121.6 128.7 L 118.7 132.8 L 120.6 149 L 103.2 151 L 98.5 111 Z" transform="translate(2.5 -0.6)" fill="#5a4229"/>
+<path id="amos-whistle-arm-arm-upper-dark" d="M 119.3 108.6 L 121.6 128.7 L 118.7 132.8 L 120.6 149 L 103.2 151 L 98.5 111 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="amos-whistle-arm-arm-fore">
+<use id="amos-whistle-arm-arm-fore-line" href="#amos-whistle-arm-arm-fore-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-whistle-arm-arm-fore-clip)">
+<use id="amos-whistle-arm-arm-fore-lit" href="#amos-whistle-arm-arm-fore-shape" fill="#80603c"/>
+<path id="amos-whistle-arm-arm-fore-mid" d="M 119.8 141.7 L 128.1 149 L 128.5 153.5 L 140.3 163.9 L 130.7 174.8 L 108.2 154.8 Z" transform="translate(2.5 -0.6)" fill="#5a4229"/>
+<path id="amos-whistle-arm-arm-fore-dark" d="M 119.8 141.7 L 128.1 149 L 128.5 153.5 L 140.3 163.9 L 130.7 174.8 L 108.2 154.8 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-whistle-arm-arm-fold" d="M 115.2 153 L 122.6 144.1 L 112 148.6 Z" fill="#14110f"/>
+<g id="amos-whistle-arm-arm-fist">
+<use id="amos-whistle-arm-arm-fist-line" href="#amos-whistle-arm-arm-fist-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#amos-whistle-arm-arm-fist-clip)">
+<use id="amos-whistle-arm-arm-fist-lit" href="#amos-whistle-arm-arm-fist-shape" fill="#7b5b3d"/>
+<path id="amos-whistle-arm-arm-fist-mid" d="M 120.9 152.3 L 148.6 179.1 L 139.6 189.2 L 110.8 163.6 Z" transform="translate(2 -0.48)" fill="#553d29"/>
+<path id="amos-whistle-arm-arm-fist-dark" d="M 120.9 152.3 L 148.6 179.1 L 139.6 189.2 L 110.8 163.6 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="amos-whistle-arm-arm-fist-fingers" d="M 151.9 163.9 L 143.3 160.1 L 150.2 166.4 Z M 147.2 170.7 L 139 165.8 L 145.2 173 Z" fill="#14110f"/>
+<g id="amos-whistle-arm-whistle">
+<use id="amos-whistle-arm-whistle-line" href="#amos-whistle-arm-whistle-shape" transform="translate(-0.79 0.6)" fill="#14110f" stroke="#14110f" stroke-width="2.9" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="amos-whistle-arm-whistle-lit" href="#amos-whistle-arm-whistle-shape" fill="#cfc5a8"/>
+</g>
+<path id="amos-whistle-arm-whistle-cord" d="M 134 158 L 128 170 L 136 178 L 142 166" fill="none" stroke="#927a58" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>

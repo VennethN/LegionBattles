@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trinket-bread" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trinket-bread-loaf-shape" d="M 4 46 L 8 30 L 22 18 L 42 16 L 56 24 L 60 40 L 56 52 L 8 54 Z"/>
+<clipPath id="icon-trinket-bread-loaf-clip"><use href="#icon-trinket-bread-loaf-shape"/></clipPath>
+<path id="icon-trinket-bread-crumb-shape" d="M 50 26 L 58 30 L 60 44 L 54 50 L 48 40 Z"/>
+<clipPath id="icon-trinket-bread-crumb-clip"><use href="#icon-trinket-bread-crumb-shape"/></clipPath>
+</defs>
+<g id="icon-trinket-bread-loaf">
+<use id="icon-trinket-bread-loaf-line" href="#icon-trinket-bread-loaf-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-bread-loaf-clip)">
+<use id="icon-trinket-bread-loaf-lit" href="#icon-trinket-bread-loaf-shape" fill="#9a5b38"/>
+<path id="icon-trinket-bread-loaf-mid" d="M 0 44 L 2 45.1 L 33.6 44 L 35.9 41.8 L 64 40.9 L 64 64 L 0 64 Z" transform="translate(3 -0.72)" fill="#6a3b24"/>
+<path id="icon-trinket-bread-loaf-dark" d="M 0 44 L 2 45.1 L 33.6 44 L 35.9 41.8 L 64 40.9 L 64 64 L 0 64 Z" fill="#14110f"/>
+<path id="icon-trinket-bread-splits" d="M 19.2 26.6 L 26 34 L 20.8 25.4 Z M 31.1 20.4 L 36 30 L 32.9 19.6 Z M 43 22.2 L 46 32 L 45 21.8 Z" fill="#6a3b24"/>
+</g>
+</g>
+<g id="icon-trinket-bread-crumb">
+<use id="icon-trinket-bread-crumb-line" href="#icon-trinket-bread-crumb-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-bread-crumb-clip)">
+<use id="icon-trinket-bread-crumb-lit" href="#icon-trinket-bread-crumb-shape" fill="#c7ad84"/>
+<path id="icon-trinket-bread-crumb-dark" d="M 36 22 L 49.8 21.9 L 51.1 39.1 L 49.5 41.1 L 50.5 54.1 L 36 54 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-trinket-bread-splits-2" d="M 20.9 24.5 L 26 32 L 23.1 23.5 Z M 32.8 20.3 L 36 28 L 35.2 19.7 Z" fill="#14110f"/>
+</svg>

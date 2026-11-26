@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="ida-rank-cloak" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="ida-rank-cloak-cloak-shape" d="M 156 90 L 146 80 L 132 84 L 96 98 L 78.4 133 L 64 184 L 66 183.9 L 65.2 188.1 L 68.4 183.7 L 77.2 183.1 L 75.3 189.2 L 79.2 183 L 85.7 182.6 L 85.4 185.9 L 88.4 182.4 L 96.7 181.9 L 95.9 186.5 L 99.5 181.7 L 106.2 181.3 L 104.9 186.3 L 108.4 181.1 L 117 180.6 L 115.8 184.9 L 118.7 180.5 L 126 180 L 122 108 Z"/>
+<clipPath id="ida-rank-cloak-cloak-clip"><use href="#ida-rank-cloak-cloak-shape"/></clipPath>
+<path id="ida-rank-cloak-tie-shape" d="M 152 86 L 160 86 L 160 93 L 152 93 Z"/>
+</defs>
+<g id="ida-rank-cloak-cloak">
+<use id="ida-rank-cloak-cloak-line" href="#ida-rank-cloak-cloak-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#ida-rank-cloak-cloak-clip)">
+<use id="ida-rank-cloak-cloak-lit" href="#ida-rank-cloak-cloak-shape" fill="#4f4944"/>
+<path id="ida-rank-cloak-cloak-mid" d="M 54 82 L 89.2 82 L 91.1 90.2 L 85.8 147.6 L 81.6 151.4 L 78.3 187.8 L 54 194 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="ida-rank-cloak-cloak-dark" d="M 54 82 L 89.2 82 L 91.1 90.2 L 85.8 147.6 L 81.6 151.4 L 78.3 187.8 L 54 194 Z" fill="#14110f"/>
+<path id="ida-rank-cloak-folds" d="M 97 105.8 L 82 176 L 99 106.2 Z M 107 111.9 L 98 178 L 109 112.1 Z" fill="#34302d"/>
+<path id="ida-rank-cloak-cloak-cold" d="M 24 40 L 196 40 L 196 229.25 L 24 229.25 Z M 158.5 88.1 L 148.5 78.1 L 134.5 82.1 L 98.5 96.1 L 80.9 131.1 L 66.5 182.1 L 68.5 182 L 67.7 186.2 L 70.9 181.8 L 79.7 181.3 L 77.8 187.4 L 81.7 181.1 L 88.2 180.7 L 87.9 184.1 L 90.9 180.6 L 99.2 180 L 98.4 184.7 L 102 179.8 L 108.7 179.4 L 107.4 184.5 L 110.9 179.3 L 119.5 178.7 L 118.3 183.1 L 121.2 178.6 L 128.5 178.1 L 124.5 106.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="ida-rank-cloak-tie">
+<use id="ida-rank-cloak-tie-line" href="#ida-rank-cloak-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="ida-rank-cloak-tie-lit" href="#ida-rank-cloak-tie-shape" fill="#7b5b3d"/>
+</g>
+</svg>

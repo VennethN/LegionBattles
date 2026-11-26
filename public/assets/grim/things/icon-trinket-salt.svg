@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trinket-salt" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trinket-salt-bag-shape" d="M 18 20 L 46 20 L 52 34 L 56 52 L 44 60 L 20 60 L 8 52 L 12 34 Z"/>
+<clipPath id="icon-trinket-salt-bag-clip"><use href="#icon-trinket-salt-bag-shape"/></clipPath>
+<path id="icon-trinket-salt-neck-shape" d="M 16 14 L 48 14 L 46 22 L 18 22 Z"/>
+<clipPath id="icon-trinket-salt-neck-clip"><use href="#icon-trinket-salt-neck-shape"/></clipPath>
+<path id="icon-trinket-salt-salt-shape" d="M 20 14 L 26 6 L 36 4 L 44 8 L 46 14 Z"/>
+</defs>
+<g id="icon-trinket-salt-bag">
+<use id="icon-trinket-salt-bag-line" href="#icon-trinket-salt-bag-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-salt-bag-clip)">
+<use id="icon-trinket-salt-bag-lit" href="#icon-trinket-salt-bag-shape" fill="#c7ad84"/>
+<path id="icon-trinket-salt-bag-mid" d="M 0 30 L 26 30 L 27.3 30.2 L 25.9 42 L 23 44.5 L 20.7 63.8 L 0 64 Z" transform="translate(3 -0.72)" fill="#927a58"/>
+<path id="icon-trinket-salt-bag-dark" d="M 0 30 L 26 30 L 27.3 30.2 L 25.9 42 L 23 44.5 L 20.7 63.8 L 0 64 Z" fill="#14110f"/>
+<path id="icon-trinket-salt-sack-weave" d="M 18.1 40.8 L 40 38 L 17.9 39.2 Z M 16.1 50.8 L 44 48 L 15.9 49.2 Z" fill="#927a58"/>
+</g>
+</g>
+<g id="icon-trinket-salt-neck">
+<use id="icon-trinket-salt-neck-line" href="#icon-trinket-salt-neck-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-salt-neck-clip)">
+<use id="icon-trinket-salt-neck-lit" href="#icon-trinket-salt-neck-shape" fill="#c7ad84"/>
+<path id="icon-trinket-salt-neck-dark" d="M 4 10 L 21 10 L 22.5 26 L 4 26 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-trinket-salt-string" d="M 20 22 L 32 26 L 44 22" fill="none" stroke="#7d312b" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="icon-trinket-salt-salt">
+<use id="icon-trinket-salt-salt-line" href="#icon-trinket-salt-salt-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="icon-trinket-salt-salt-lit" href="#icon-trinket-salt-salt-shape" fill="#cfc5a8"/>
+</g>
+<path id="icon-trinket-salt-grain-a" d="M 52 12 L 56 12 L 56 16 L 52 16 Z" fill="#cfc5a8"/>
+<path id="icon-trinket-salt-grain-b" d="M 56 22 L 59 22 L 59 25 L 56 25 Z" fill="#cfc5a8"/>
+</svg>

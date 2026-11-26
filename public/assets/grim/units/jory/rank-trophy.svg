@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="jory-rank-trophy" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="jory-rank-trophy-ring-shape" d="M 152 125 L 160 125 L 160 131 L 152 131 Z"/>
+<path id="jory-rank-trophy-claw-shape" d="M 151 130 L 161 129 L 164 140 L 162 152 L 156 160 L 158 150 L 156 140 Z"/>
+<clipPath id="jory-rank-trophy-claw-clip"><use href="#jory-rank-trophy-claw-shape"/></clipPath>
+</defs>
+<path id="jory-rank-trophy-thong" d="M 146 112 L 152 122 L 156 128" fill="none" stroke="#553d29" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="jory-rank-trophy-ring">
+<use id="jory-rank-trophy-ring-line" href="#jory-rank-trophy-ring-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="jory-rank-trophy-ring-lit" href="#jory-rank-trophy-ring-shape" fill="#8c9194"/>
+</g>
+<g id="jory-rank-trophy-claw">
+<use id="jory-rank-trophy-claw-line" href="#jory-rank-trophy-claw-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#jory-rank-trophy-claw-clip)">
+<use id="jory-rank-trophy-claw-lit" href="#jory-rank-trophy-claw-shape" fill="#cfc5a8"/>
+<use id="jory-rank-trophy-claw-rim" href="#jory-rank-trophy-claw-shape" fill="#f4d294" opacity="0.55"/>
+<use id="jory-rank-trophy-claw-lit-over" href="#jory-rank-trophy-claw-shape" transform="translate(-1.12 0.84)" fill="#cfc5a8"/>
+<path id="jory-rank-trophy-claw-mid" d="M 148 126 L 156 126 L 158 146 L 154 164 L 148 164 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="jory-rank-trophy-claw-dark" d="M 148 126 L 156 126 L 158 146 L 154 164 L 148 164 Z" fill="#14110f"/>
+<path id="jory-rank-trophy-claw-rings" d="M 155.1 136.7 L 163 135 L 154.9 135.3 Z M 156.1 143.7 L 163 142 L 155.9 142.3 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="jory-rank-trophy-ring-nail-0" d="M 154.8 128 L 156 126.8 L 157.2 128 L 156 129.2 Z" fill="#14110f"/>
+</svg>

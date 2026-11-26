@@ -11,11 +11,10 @@ export const ABILITY_ICONS: Record<string, string> = Object.fromEntries(ABILITIE
 /** The key of the picture of an ability, ready to show. */
 export const abilityIcon = (id: string): string => `ui:icon-${ABILITY_ICONS[id] ?? 'star'}`;
 
-/**
- * Each trinket's picture. The kit has none of its own yet: these are its nearest icons, until the artist draws them.
- */
+/** Each trinket's picture, drawn by the kit as the thing it is. */
 export const TRINKET_ICONS: Record<string, string> = {
-  whetstone: 'sword', salt: 'cross', boots: 'arrow', flask: 'heart', bread: 'sack', nail: 'lock', ribbon: 'banner', purse: 'coin',
+  whetstone: 'trinket-whetstone', salt: 'trinket-salt', boots: 'trinket-boots', flask: 'trinket-flask',
+  bread: 'trinket-bread', nail: 'trinket-nail', ribbon: 'trinket-ribbon', purse: 'trinket-purse',
 };
 
 /** What the shop shows for each ware, by what it is: the thing it is for, or the trinket. */
@@ -34,4 +33,4 @@ export const OTHER_ICONS = [
 ] as const;
 
 /** Every icon the game shows, by the kit's name for it: what is loaded. */
-export const ICONS_USED: ReadonlySet<string> = new Set([...Object.values(ABILITY_ICONS), ...OTHER_ICONS].map((n) => `icon-${n}`));
+export const ICONS_USED: ReadonlySet<string> = new Set([...Object.values(ABILITY_ICONS), ...Object.values(TRINKET_ICONS), ...OTHER_ICONS].map((n) => `icon-${n}`));

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon-trinket-flask" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+<path id="icon-trinket-flask-flask-shape" d="M 14 16 L 50 16 L 54 24 L 54 56 L 48 62 L 16 62 L 10 56 L 10 24 Z"/>
+<clipPath id="icon-trinket-flask-flask-clip"><use href="#icon-trinket-flask-flask-shape"/></clipPath>
+<path id="icon-trinket-flask-shoulder-shape" d="M 24 10 L 40 10 L 42 16 L 22 16 Z"/>
+<clipPath id="icon-trinket-flask-shoulder-clip"><use href="#icon-trinket-flask-shoulder-shape"/></clipPath>
+<path id="icon-trinket-flask-cap-shape" d="M 26 2 L 38 2 L 38 10 L 26 10 Z"/>
+<clipPath id="icon-trinket-flask-cap-clip"><use href="#icon-trinket-flask-cap-shape"/></clipPath>
+<path id="icon-trinket-flask-band-shape" d="M 10 30 L 54 30 L 54 36 L 10 36 Z"/>
+<clipPath id="icon-trinket-flask-band-clip"><use href="#icon-trinket-flask-band-shape"/></clipPath>
+</defs>
+<g id="icon-trinket-flask-flask">
+<use id="icon-trinket-flask-flask-line" href="#icon-trinket-flask-flask-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-flask-flask-clip)">
+<use id="icon-trinket-flask-flask-lit" href="#icon-trinket-flask-flask-shape" fill="#8c9194"/>
+<use id="icon-trinket-flask-flask-rim" href="#icon-trinket-flask-flask-shape" fill="#f4d294" opacity="0.55"/>
+<use id="icon-trinket-flask-flask-lit-over" href="#icon-trinket-flask-flask-shape" transform="translate(-1.44 1.08)" fill="#8c9194"/>
+<path id="icon-trinket-flask-flask-mid" d="M 0 10 L 24 10 L 25.4 16.1 L 24.4 40.6 L 21.4 43.6 L 20.6 63.9 L 0 64 Z" transform="translate(3 -0.72)" fill="#5b6165"/>
+<path id="icon-trinket-flask-flask-dark" d="M 0 10 L 24 10 L 25.4 16.1 L 24.4 40.6 L 21.4 43.6 L 20.6 63.9 L 0 64 Z" fill="#14110f"/>
+<path id="icon-trinket-flask-dent" d="M 33.5 38.7 L 42 44 L 34.5 37.3 Z" fill="#5b6165"/>
+</g>
+</g>
+<g id="icon-trinket-flask-shoulder">
+<use id="icon-trinket-flask-shoulder-line" href="#icon-trinket-flask-shoulder-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-flask-shoulder-clip)">
+<use id="icon-trinket-flask-shoulder-lit" href="#icon-trinket-flask-shoulder-shape" fill="#8c9194"/>
+<path id="icon-trinket-flask-shoulder-dark" d="M 10 6 L 25.1 6 L 26.1 20 L 10 20 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="icon-trinket-flask-cap">
+<use id="icon-trinket-flask-cap-line" href="#icon-trinket-flask-cap-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-flask-cap-clip)">
+<use id="icon-trinket-flask-cap-lit" href="#icon-trinket-flask-cap-shape" fill="#cfc5a8"/>
+<path id="icon-trinket-flask-cap-dark" d="M 14 -2 L 27.4 -2 L 28.9 14 L 14 14 Z" fill="#14110f"/>
+</g>
+</g>
+<path id="icon-trinket-flask-chain" d="M 38 6 L 48 8 L 52 16" fill="none" stroke="#8c9194" stroke-width="1.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="icon-trinket-flask-band">
+<use id="icon-trinket-flask-band-line" href="#icon-trinket-flask-band-shape" transform="translate(-1.49 1.12)" fill="#14110f" stroke="#14110f" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#icon-trinket-flask-band-clip)">
+<use id="icon-trinket-flask-band-lit" href="#icon-trinket-flask-band-shape" fill="#7b5b3d"/>
+<path id="icon-trinket-flask-band-dark" d="M -2 26 L 17.4 26 L 18.5 40 L -2 40 Z" fill="#14110f"/>
+</g>
+</g>
+</svg>

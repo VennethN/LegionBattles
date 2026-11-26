@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="silas-rank-trophy" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="silas-rank-trophy-ring-shape" d="M 158 119 L 166 119 L 166 125 L 158 125 Z"/>
+<path id="silas-rank-trophy-claw-shape" d="M 157 124 L 167 123 L 170 134 L 168 146 L 162 154 L 164 144 L 162 134 Z"/>
+<clipPath id="silas-rank-trophy-claw-clip"><use href="#silas-rank-trophy-claw-shape"/></clipPath>
+</defs>
+<path id="silas-rank-trophy-thong" d="M 152 106 L 158 116 L 162 122" fill="none" stroke="#553d29" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="silas-rank-trophy-ring">
+<use id="silas-rank-trophy-ring-line" href="#silas-rank-trophy-ring-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="silas-rank-trophy-ring-lit" href="#silas-rank-trophy-ring-shape" fill="#8c9194"/>
+</g>
+<g id="silas-rank-trophy-claw">
+<use id="silas-rank-trophy-claw-line" href="#silas-rank-trophy-claw-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#silas-rank-trophy-claw-clip)">
+<use id="silas-rank-trophy-claw-lit" href="#silas-rank-trophy-claw-shape" fill="#cfc5a8"/>
+<use id="silas-rank-trophy-claw-rim" href="#silas-rank-trophy-claw-shape" fill="#f4d294" opacity="0.55"/>
+<use id="silas-rank-trophy-claw-lit-over" href="#silas-rank-trophy-claw-shape" transform="translate(-1.12 0.84)" fill="#cfc5a8"/>
+<path id="silas-rank-trophy-claw-mid" d="M 154 120 L 162 120 L 164 140 L 160 158 L 154 158 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="silas-rank-trophy-claw-dark" d="M 154 120 L 162 120 L 164 140 L 160 158 L 154 158 Z" fill="#14110f"/>
+<path id="silas-rank-trophy-claw-rings" d="M 161.1 130.7 L 169 129 L 160.9 129.3 Z M 162.1 137.7 L 169 136 L 161.9 136.3 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="silas-rank-trophy-ring-nail-0" d="M 160.8 122 L 162 120.8 L 163.2 122 L 162 123.2 Z" fill="#14110f"/>
+</svg>

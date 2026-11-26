@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="marta-rank-trophy" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="marta-rank-trophy-ring-shape" d="M 152 113 L 160 113 L 160 119 L 152 119 Z"/>
+<path id="marta-rank-trophy-claw-shape" d="M 151 118 L 161 117 L 164 128 L 162 140 L 156 148 L 158 138 L 156 128 Z"/>
+<clipPath id="marta-rank-trophy-claw-clip"><use href="#marta-rank-trophy-claw-shape"/></clipPath>
+</defs>
+<path id="marta-rank-trophy-thong" d="M 146 100 L 152 110 L 156 116" fill="none" stroke="#553d29" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<g id="marta-rank-trophy-ring">
+<use id="marta-rank-trophy-ring-line" href="#marta-rank-trophy-ring-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="marta-rank-trophy-ring-lit" href="#marta-rank-trophy-ring-shape" fill="#8c9194"/>
+</g>
+<g id="marta-rank-trophy-claw">
+<use id="marta-rank-trophy-claw-line" href="#marta-rank-trophy-claw-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-rank-trophy-claw-clip)">
+<use id="marta-rank-trophy-claw-lit" href="#marta-rank-trophy-claw-shape" fill="#cfc5a8"/>
+<use id="marta-rank-trophy-claw-rim" href="#marta-rank-trophy-claw-shape" fill="#f4d294" opacity="0.55"/>
+<use id="marta-rank-trophy-claw-lit-over" href="#marta-rank-trophy-claw-shape" transform="translate(-1.12 0.84)" fill="#cfc5a8"/>
+<path id="marta-rank-trophy-claw-mid" d="M 148 114 L 156 114 L 158 134 L 154 152 L 148 152 Z" transform="translate(2 -0.48)" fill="#9c9178"/>
+<path id="marta-rank-trophy-claw-dark" d="M 148 114 L 156 114 L 158 134 L 154 152 L 148 152 Z" fill="#14110f"/>
+<path id="marta-rank-trophy-claw-rings" d="M 155.1 124.7 L 163 123 L 154.9 123.3 Z M 156.1 131.7 L 163 130 L 155.9 130.3 Z" fill="#9c9178"/>
+</g>
+</g>
+<path id="marta-rank-trophy-ring-nail-0" d="M 154.8 116 L 156 114.8 L 157.2 116 L 156 117.2 Z" fill="#14110f"/>
+</svg>

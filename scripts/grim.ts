@@ -56,7 +56,7 @@ for (const unit of UNIT_ART) {
   const parts = unit.parts.map((p) => {
     const svg = drawPart(unit, p).svg(cw, ch, unit.margin);
     files.set(`units/${unit.id}/${p.name}.svg`, svg);
-    return { name: p.name, role: p.role, parent: p.parent, pivot: [p.pivot[0], p.pivot[1]], ...(p.sway !== undefined ? { sway: p.sway } : {}), ...(p.hangs ? { hangs: true } : {}), ...(p.only ? { only: p.only } : {}), box: boxOf(svg, W, H, unit.margin) };
+    return { name: p.name, role: p.role, parent: p.parent, pivot: [p.pivot[0], p.pivot[1]], ...(p.sway !== undefined ? { sway: p.sway } : {}), ...(p.hangs ? { hangs: true } : {}), ...(p.only ? { only: p.only } : {}), ...(p.hide ? { hide: p.hide } : {}), ...(p.rank !== undefined ? { rank: p.rank } : {}), ...(p.upto !== undefined ? { upto: p.upto } : {}), box: boxOf(svg, W, H, unit.margin) };
   });
   const full = page(unit.id, composeUnit(unit), cw, ch, unit.margin);
   // Written whole only if a card shows it: the build's room is for what is seen.

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="marta-rank-cloak" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="marta-rank-cloak-cloak-shape" d="M 156 90 L 146 80 L 132 84 L 92 98 L 74.4 130 L 60 178 L 62 177.9 L 61.2 182.1 L 64.4 177.7 L 73.2 177.1 L 71.3 183.2 L 75.2 177 L 81.7 176.6 L 81.4 179.9 L 84.4 176.4 L 92.7 175.9 L 91.9 180.5 L 95.5 175.7 L 102.2 175.3 L 100.9 180.3 L 104.4 175.1 L 113 174.6 L 111.8 178.9 L 114.7 174.5 L 122 174 L 118 108 Z"/>
+<clipPath id="marta-rank-cloak-cloak-clip"><use href="#marta-rank-cloak-cloak-shape"/></clipPath>
+<path id="marta-rank-cloak-tie-shape" d="M 152 86 L 160 86 L 160 93 L 152 93 Z"/>
+</defs>
+<g id="marta-rank-cloak-cloak">
+<use id="marta-rank-cloak-cloak-line" href="#marta-rank-cloak-cloak-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#marta-rank-cloak-cloak-clip)">
+<use id="marta-rank-cloak-cloak-lit" href="#marta-rank-cloak-cloak-shape" fill="#4f4944"/>
+<path id="marta-rank-cloak-cloak-mid" d="M 50 82 L 85.2 82 L 87.1 90.2 L 81.8 144.1 L 77.6 147.9 L 74.3 181.8 L 50 188 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="marta-rank-cloak-cloak-dark" d="M 50 82 L 85.2 82 L 87.1 90.2 L 81.8 144.1 L 77.6 147.9 L 74.3 181.8 L 50 188 Z" fill="#14110f"/>
+<path id="marta-rank-cloak-folds" d="M 93 105.8 L 78 170 L 95 106.2 Z M 103 111.8 L 94 172 L 105 112.2 Z" fill="#34302d"/>
+<path id="marta-rank-cloak-cloak-cold" d="M 20 40 L 196 40 L 196 223.25 L 20 223.25 Z M 158.5 88.1 L 148.5 78.1 L 134.5 82.1 L 94.5 96.1 L 76.9 128.1 L 62.5 176.1 L 64.5 176 L 63.7 180.2 L 66.9 175.8 L 75.7 175.3 L 73.8 181.4 L 77.7 175.1 L 84.2 174.7 L 83.9 178.1 L 86.9 174.6 L 95.2 174 L 94.4 178.7 L 98 173.8 L 104.7 173.4 L 103.4 178.5 L 106.9 173.3 L 115.5 172.7 L 114.3 177.1 L 117.2 172.6 L 124.5 172.1 L 120.5 106.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="marta-rank-cloak-tie">
+<use id="marta-rank-cloak-tie-line" href="#marta-rank-cloak-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="marta-rank-cloak-tie-lit" href="#marta-rank-cloak-tie-shape" fill="#7b5b3d"/>
+</g>
+</svg>

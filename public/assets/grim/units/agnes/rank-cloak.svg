@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="agnes-rank-cloak" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="agnes-rank-cloak-cloak-shape" d="M 152 92 L 142 82 L 128 86 L 100 100 L 82.4 131 L 68 178 L 70 177.9 L 69.2 182.1 L 72.4 177.7 L 81.2 177.1 L 79.3 183.2 L 83.2 177 L 89.7 176.6 L 89.4 179.9 L 92.4 176.4 L 100.7 175.9 L 99.9 180.5 L 103.5 175.7 L 110.2 175.3 L 108.9 180.3 L 112.4 175.1 L 121 174.6 L 119.8 178.9 L 122.7 174.5 L 130 174 L 126 110 Z"/>
+<clipPath id="agnes-rank-cloak-cloak-clip"><use href="#agnes-rank-cloak-cloak-shape"/></clipPath>
+<path id="agnes-rank-cloak-tie-shape" d="M 148 88 L 156 88 L 156 95 L 148 95 Z"/>
+</defs>
+<g id="agnes-rank-cloak-cloak">
+<use id="agnes-rank-cloak-cloak-line" href="#agnes-rank-cloak-cloak-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#agnes-rank-cloak-cloak-clip)">
+<use id="agnes-rank-cloak-cloak-lit" href="#agnes-rank-cloak-cloak-shape" fill="#4f4944"/>
+<path id="agnes-rank-cloak-cloak-mid" d="M 58 84 L 93.2 84 L 95.1 92.2 L 89.8 144.9 L 85.6 148.7 L 82.3 181.8 L 58 188 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="agnes-rank-cloak-cloak-dark" d="M 58 84 L 93.2 84 L 95.1 92.2 L 89.8 144.9 L 85.6 148.7 L 82.3 181.8 L 58 188 Z" fill="#14110f"/>
+<path id="agnes-rank-cloak-folds" d="M 101 107.8 L 86 170 L 103 108.2 Z M 111 113.8 L 102 172 L 113 114.2 Z" fill="#34302d"/>
+<path id="agnes-rank-cloak-cloak-cold" d="M 28 42 L 192 42 L 192 223.25 L 28 223.25 Z M 154.5 90.1 L 144.5 80.1 L 130.5 84.1 L 102.5 98.1 L 84.9 129.1 L 70.5 176.1 L 72.5 176 L 71.7 180.2 L 74.9 175.8 L 83.7 175.3 L 81.8 181.4 L 85.7 175.1 L 92.2 174.7 L 91.9 178.1 L 94.9 174.6 L 103.2 174 L 102.4 178.7 L 106 173.8 L 112.7 173.4 L 111.4 178.5 L 114.9 173.3 L 123.5 172.7 L 122.3 177.1 L 125.2 172.6 L 132.5 172.1 L 128.5 108.1 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="agnes-rank-cloak-tie">
+<use id="agnes-rank-cloak-tie-line" href="#agnes-rank-cloak-tie-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="agnes-rank-cloak-tie-lit" href="#agnes-rank-cloak-tie-shape" fill="#7b5b3d"/>
+</g>
+</svg>

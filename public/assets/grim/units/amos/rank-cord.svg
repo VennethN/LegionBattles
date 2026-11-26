@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="amos-rank-cord" width="416" height="416" viewBox="-80 -80 416 416">
+<defs>
+<path id="amos-rank-cord-knot-shape" d="M 132 176 L 140 175 L 141 183 L 133 184 Z"/>
+</defs>
+<path id="amos-rank-cord-loop" d="M 134 156 L 130 168 L 136 178 L 144 170 L 142 157" fill="none" stroke="#c7ad84" stroke-width="3.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="amos-rank-cord-braid" d="M 132.1 161.9 L 131 166.5 L 133.2 162.3 Z M 133.7 166.6 L 132.7 171.2 L 134.9 167 Z M 135.4 171.3 L 134.4 175.9 L 136.5 171.7 Z" fill="#927a58"/>
+<g id="amos-rank-cord-knot">
+<use id="amos-rank-cord-knot-line" href="#amos-rank-cord-knot-shape" transform="translate(-0.89 0.67)" fill="#14110f" stroke="#14110f" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="amos-rank-cord-knot-lit" href="#amos-rank-cord-knot-shape" fill="#7d312b"/>
+</g>
+<path id="amos-rank-cord-tail-a" d="M 134 183 L 132 196" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="amos-rank-cord-tail-b" d="M 139 183 L 141 194" fill="none" stroke="#c7ad84" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter"/>
+</svg>
