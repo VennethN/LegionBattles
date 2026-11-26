@@ -178,10 +178,11 @@ export const ATTACK = { chain: 0.4, help: 35 };
 /**
  * Auto attack: the player's hunter strikes by themselves whenever something is in reach and nothing is pressed. `grace`
  * is how long after the player lets go of attack it waits, so a player choosing when to strike is not cut across at once.
- * `margin` is time kept in hand: auto starts no blow whose wind-up would still be going when a warning on the hunter lands.
- * `pad` is how near a warning's edge counts as standing in it, for this choice only.
+ * Auto starts no blow while the hunter stands in a warning, however long it has to land: a blow plants a melee hunter and
+ * halves their walk, and a player walking out of the red is not to be held there by their own swings.
+ * `pad` is how near a warning's edge counts as standing in it, for this choice only: wide, as a charge catches what stands at its edge.
  */
-export const AUTO = { grace: 1, margin: 0.15, pad: 10 };
+export const AUTO = { grace: 1, pad: 40 };
 
 export type AbilityKind = 'brace' | 'sweep' | 'trap' | 'pool' | 'flare' | 'ward' | 'seton' | 'whistle' | 'forge' | 'anvil' | 'keg' | 'cavein' | 'shove' | 'wake' | 'hook' | 'hack';
 

@@ -307,7 +307,8 @@ export class HudScene extends Phaser.Scene {
     atk.add(label(this, 0, big / 2 - 4, 'ATTACK', { size: 17, face: 'display' }));
     atk.setSize(big, big).setInteractive();
     atk.on('pointerdown', (p: Phaser.Input.Pointer) => this.controls.press('attack', p));
-    this.autoMark = label(this, 0, -big / 2 - 12, 'AUTO', { size: 15, face: 'display', color: HOLY.light });
+    // Inside the button's top, not over it: above it sits a skill's name.
+    this.autoMark = label(this, 0, -big / 2 + 16, 'AUTO', { size: 15, face: 'display', color: HOLY.light });
     atk.add(this.autoMark);
     c.add(atk);
     this.atk = atk;
@@ -606,58 +607,66 @@ export class HudScene extends Phaser.Scene {
     const veil = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.6).setInteractive();
     const cx = view.w / 2;
     const cy = view.h / 2;
-    c.add([veil, slabImage(this, cx - 150, cy - 301, 300, 610, BONE, 18, 8), label(this, cx, cy - 267, 'PAUSED', { size: 30 })]);
+    // Six settings under RESUME: in one column where the screen is tall enough, else in two, so the panel always fits.
+    const cols = view.h >= 640 ? 1 : 2;
+    const rows = 6 / cols;
+    const step = cols === 1 ? 54 : 52;
+    const ph = 124 + rows * step + 20 + 64 + (cols === 1 ? 54 : 0);
+    const pw = cols === 1 ? 300 : 520;
+    const py = cy - ph / 2;
+    c.add([veil, slabImage(this, cx - pw / 2, py, pw, ph, BONE, 18, 8), label(this, cx, py + 34, 'PAUSED', { size: 30 })]);
+    const at = (i: number): [number, number] => [cx + (cols === 1 ? 0 : (i % 2 === 0 ? -1 : 1) * 122), py + 124 + 23 + Math.floor(i / cols) * step];
     const s = save();
-    const toggle = (y: number, name: string, get: () => boolean, set: (v: boolean) => void): void => {
-      const b = new Button(this, cx, y, `${name}: ${get() ? 'ON' : 'OFF'}`, () => {
+    const toggle = (i: number, name: string, get: () => boolean, set: (v: boolean) => void): void => {
+      const b = new Button(this, ...at(i), `${name}: ${get() ? 'ON' : 'OFF'}`, () => {
         set(!get());
         commit();
         LairScene.applySound();
         b.setText(`${name}: ${get() ? 'ON' : 'OFF'}`);
-      }, { width: 220, height: 46, size: 19, mat: IRON });
+      }, { width: 230, height: 46, size: 19, mat: IRON });
       c.add(b.root);
     };
-    c.add(new Button(this, cx, cy - 211, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
-    toggle(cy - 151, 'SOUND', () => s.sound, (v) => (s.sound = v));
-    toggle(cy - 97, 'MUSIC', () => s.music, (v) => (s.music = v));
+    c.add(new Button(this, cx, py + 93, 'RESUME', () => this.pause(false), { width: 230, height: 54, size: 24, mat: GOLD }).root);
+    toggle(0, 'SOUND', () => s.sound, (v) => (s.sound = v));
+    toggle(1, 'MUSIC', () => s.music, (v) => (s.music = v));
     // The lines said in a hunt are spice: some would rather play in silence.
-    toggle(cy - 43, 'LINES', () => s.talk !== false, (v) => {
+    toggle(2, 'LINES', () => s.talk !== false, (v) => {
       s.talk = v;
       lair.talk.on = v;
       if (!v) lair.talk.drop();
     });
     // Auto attack strikes for the player when nothing is pressed; some would rather choose every blow.
-    toggle(cy + 11, 'AUTO ATTACK', () => s.auto !== false, (v) => {
+    toggle(3, 'AUTO ATTACK', () => s.auto !== false, (v) => {
       s.auto = v;
       hunt.autoAttack = v;
     });
     // How much of the light is made: all of it, the cheap part, or none. A slow machine wants less.
-    const light = new Button(this, cx, cy + 65, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
+    const light = new Button(this, ...at(4), `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
       setLightMode(nextLightMode(lightMode()), true);
       lair.setLight(lightMode());
       light.setText(`LIGHT: ${LIGHT_NAMES[lightMode()]}`);
-    }, { width: 220, height: 46, size: 19, mat: IRON });
+    }, { width: 230, height: 46, size: 19, mat: IRON });
     c.add(light.root);
     // How hard the screen is shaken and flashed by a blow: some players want it felt, some find it hard to watch.
-    const feel = new Button(this, cx, cy + 119, `EFFECTS: ${FEEL_NAMES[feelMode()]}`, () => {
+    const feel = new Button(this, ...at(5), `EFFECTS: ${FEEL_NAMES[feelMode()]}`, () => {
       setFeelMode(nextFeelMode(feelMode()));
       feel.setText(`EFFECTS: ${FEEL_NAMES[feelMode()]}`);
-    }, { width: 220, height: 46, size: 19, mat: IRON });
+    }, { width: 230, height: 46, size: 19, mat: IRON });
     c.add(feel.root);
-    // On a touch screen, which hand has the stick: a left hand wants the buttons on the left.
-    const sides = new Button(this, cx, cy + 173, `BUTTONS: ${s.lefty ? 'LEFT' : 'RIGHT'}`, () => {
+    // On a touch screen, which hand has the stick: a left hand wants the buttons on the left. It sits beside GIVE UP.
+    const sides = new Button(this, cx + (cols === 1 ? 0 : -122), py + ph - 40 - (cols === 1 ? 62 : 0), `BUTTONS: ${s.lefty ? 'LEFT' : 'RIGHT'}`, () => {
       s.lefty = !s.lefty;
       commit();
       sides.setText(`BUTTONS: ${s.lefty ? 'LEFT' : 'RIGHT'}`);
       this.rescheme();
-    }, { width: 220, height: 46, size: 19, mat: IRON });
+    }, { width: 230, height: 46, size: 19, mat: IRON });
     c.add(sides.root);
-    c.add(new Button(this, cx, cy + 249, 'GIVE UP', () => {
+    c.add(new Button(this, cx + (cols === 1 ? 0 : 122), py + ph - 40, 'GIVE UP', () => {
       hunt.giveUp();
       this.paused?.destroy();
       this.paused = null;
       lair.halted = false;
-    }, { width: 220, height: 46, size: 19, mat: RUBY }).root);
+    }, { width: 230, height: 46, size: 19, mat: RUBY }).root);
     this.paused = c;
     sfx.play('open', 0.6);
   }

@@ -117,6 +117,8 @@ The owner, of 25 November 2026: "the wanted posters are the bosses / But the wan
 
 The owner: "Make it also so attacks are not automatic". A press is a blow, each hunter's chain is their own, held it goes on by itself, a blow commits for its wind-up and is open in its recovery, and blows in the boss's opening fill its stagger. Partners and the bot press by the same rules.
 
+Then, on 26 November 2026: "let's bring back autoattack for bosshunters, but make manual attack override auto attack". **Auto attack** is a setting in the pause panel (AUTO ATTACK), on unless the player turns it off, and kept in the save. While it is on and attack is not pressed, the player's hunter strikes whatever is in reach by themselves, in their own chain: the boss if it is in reach, else a helper. It starts no blow while the hunter stands in a warning or in the line of a charge, so that it never plants them in the red. **A press overrides it**: from the press on the blow goes where the player aims, and auto waits a second after the attack is let go before it strikes again (`AUTO` in content.ts). Auto never cranks a heavy shot. Partners and the bot keep pressing by the rules above. A small AUTO over the ATTACK button is lit while auto is striking and dim while it waits or is overridden.
+
 ## Between hunts: the lodge
 
 - **The board**: the contracts.

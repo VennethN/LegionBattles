@@ -1351,7 +1351,7 @@ export class Hunt {
     if (can && this.autoWants(h)) this.startBlow(h, own, false);
   }
 
-  /** Whether auto attack would start the next blow now: something in reach, and no warning on the hunter landing within its wind-up. */
+  /** Whether auto attack would start the next blow now: something in reach, and no warning, and no charge's line, on the hunter. */
   autoWants(h: Hunter): boolean {
     const combo = h.def.combo;
     const def = combo[h.chain % combo.length];
@@ -1360,8 +1360,14 @@ export class Hunt {
     const boss = awake && this.reachable() && dist(h.x, h.y, m.x, m.y) <= def.reach + m.def.r * m.size + 30;
     const helper = this.helpers.some((f) => dist(h.x, h.y, f.x, f.y) <= def.reach + 20);
     if (!boss && !helper) return false;
-    const wind = def.wind / Math.max(0.1, this.hasteAt(h.x, h.y));
-    return !this.tells.some((t) => t.foe && t.left <= wind + AUTO.margin && inside(t, h.x, h.y, AUTO.pad));
+    if (this.tells.some((t) => t.foe && inside(t, h.x, h.y, AUTO.pad))) return false;
+    // A boss running down a line is as deadly as a tell: auto does not plant the hunter in its way.
+    const run = this.running;
+    if (run) {
+      const lane: Tell = { id: -1, kind: 'line', x: m.x, y: m.y, angle: run.angle, len: run.left + 40, w: m.def.r * m.size * 2 + 40, r: 0, half: 0, inner: 0, left: 0, of: 1, dmg: 1, foe: true, attack: 'charge', by: 0 };
+      if (inside(lane, h.x, h.y, AUTO.pad)) return false;
+    }
+    return true;
   }
 
   /** Which way a blow goes: where the player points, or the way the hunter faces, turned to a boss in reach a little ahead. */

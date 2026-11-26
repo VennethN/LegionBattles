@@ -2,6 +2,18 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## Round 6, auto attack again, with the hand over it
+
+The owner: "let's bring back autoattack for bosshunters, but make manual attack override auto attack". Built as a rule in `hunt.ts` with tests (`AUTO` in content.ts):
+
+- **Auto attack** strikes for the player's hunter whenever the boss, or else a helper, is in reach and attack is not pressed, in the hunter's own chain. It starts no blow while the hunter stands in a warning or in the line of a charge: a blow plants a melee hunter, and the first try, which only kept clear of warnings about to land, let the Antlered King's charge kill most of the melee hunters (Ned won 1 hunt in 16).
+- **A press overrides it.** From the press the blow goes where the player aims, as before, and auto waits a second after attack is let go before it strikes again. Auto never cranks a heavy shot.
+- **AUTO ATTACK: ON / OFF** in the pause panel, on unless turned off, kept in the save. The lesson has it on too, and its strike step now says "Walk up to him: you attack on your own. Press J or click to strike when you choose." (on touch, "Tap ATTACK").
+- **A small AUTO over the ATTACK button**, lit while auto is striking and dim while it waits or a press has taken over.
+- Partners and the bot press as they did. `npm run pace -- --auto` has the player's hunter strike by auto alone, the bot only walking, dodging and using skills and the horn.
+
+Measured at the first mark, 16 hunts each of the 48 pairs of boss and hunter: the bot pressing, 96% won in 3:27 on average; auto alone, 97% won in 3:46. Auto is a little slower, as it stops striking in the red. It is worst with Jory against the Furnace (38% against 63%), where a bow that stands still in the cinders is caught.
+
 ## Round 5, the artist's sixth pass
 
 The artist drew Old Amos, the Drover, and Bull, his mastiff, in place of Brask and two hounds; the eight trinkets; and four looks a hunter earns by rank (a cord at the belt, a cloak, a trophy at the shoulder, a mantle with a gilt edge). They are in:
