@@ -7,7 +7,7 @@
 // that costs nothing, and what is shown can never be behind the run.
 
 import { getManifest } from '../app';
-import { listsReady } from '../stream';
+import { portraitsReady } from '../stream';
 import Phaser from 'phaser';
 import type { ArenaScene } from './ArenaScene';
 import { BONE, BUSH, GOLD, HOLY, IRON, LINEN, OUTLINE, RUBY, VENOM, type Material } from '../../art/kit/palette';
@@ -65,13 +65,13 @@ export class CampScene extends Phaser.Scene {
   }
 
   create(): void {
-    // The lists need every hero's and companion's picture: if they are still coming, the mark turns until they are in.
-    if (!listsReady(this, getManifest())) return;
     const run = theRun();
     if (!run) {
       this.scene.start('Title');
       return;
     }
+    // The camp shows the hero's picture: if it is still coming, the mark turns until it is in.
+    if (!portraitsReady(this, getManifest(), [heroOf(run).unit])) return;
     this.run = run;
     this.loot = null;
     this.picked = -1;
@@ -206,7 +206,7 @@ export class CampScene extends Phaser.Scene {
   private pack(): void {
     const cx = view.w / 2;
     const cy = view.h / 2;
-    this.add2(slabImage(this, cx - 170, cy - 170, 340, 340, BONE, 18, 8));
+    const panel = this.add2(slabImage(this, cx - 170, cy - 170, 340, 340, BONE, 18, 8));
     if (!this.loot) {
       this.text(cx, cy - 132, 'BOSS CHEST', { size: 24 });
       const img = this.add2(this.add.image(cx, cy - 10, SHEET, THING_ICONS.chest));
@@ -224,14 +224,17 @@ export class CampScene extends Phaser.Scene {
     }
     const item = byId(ITEMS, this.loot);
     this.text(cx, cy - 132, 'YOU GOT', { size: 22, color: BONE.shade });
-    // The chest stands open below what came out of it.
-    const open = this.add2(this.add.image(cx, cy + 40, SHEET, THING_ICONS.chestOpen));
-    open.setScale(120 / open.frame.width).setAlpha(0.9);
     const back = this.add2(slabImage(this, cx - 44, cy - 104, 88, 88, TIER_MATS[item.tier], 14, 6));
     const pic = this.icon(cx, cy - 62, itemIcon(item.id), 64);
     if (this.burst) {
       this.burst = false;
-      // The lid bursts open: a flash of gold, coins thrown out, and what was inside rises out of it to its place.
+      // The lid bursts open: the chest stands open where the item will be, a flash of gold, coins thrown out, and what
+      // was inside rises out of it to its place as the chest fades, so that nothing stands over the item's words.
+      const open = this.add2(this.add.image(cx, cy - 30, SHEET, THING_ICONS.chestOpen));
+      open.setScale(170 / open.frame.width);
+      // Over the panel, under the item that rises out of it.
+      this.root.moveAbove(open, panel);
+      this.tweens.add({ targets: open, alpha: 0, duration: 420, delay: 520, onComplete: () => open.destroy() });
       const glow = this.add2(this.add.image(cx, cy + 20, SHEET, 'fx/glow').setTint(hex(HOLY.light)).setBlendMode(Phaser.BlendModes.ADD));
       glow.setScale(0.2);
       this.tweens.add({ targets: glow, scale: 3.2, alpha: { from: 1, to: 0 }, duration: 520, ease: 'Cubic.easeOut' });

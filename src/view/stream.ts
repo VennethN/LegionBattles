@@ -35,6 +35,8 @@ export class StreamScene extends Phaser.Scene {
 export const LISTED: readonly string[] = [...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit), ...HOLD_PLACES];
 
 let kept = new Set<string>();
+/** The pictures being brought in now, and the load that brings each. */
+const coming = new Map<string, Promise<void>>();
 let queue: Promise<void> = Promise.resolve();
 
 /** Runs `job` after whatever the background is doing now: one load at a time on the stream's loader. */
@@ -69,9 +71,12 @@ export function hasPortrait(unit: string): boolean {
  * screen's; `portraits` for the rest.
  */
 export function keepPortraits(scene: Phaser.Scene, manifest: Manifest, units: readonly string[]): Promise<void> {
-  const want = [...new Set(units)].filter((u) => !kept.has(u) && manifest.units[u]);
-  if (want.length === 0) return Promise.resolve();
-  return unitBundles(want.map((unit) => ({ team: 'blue', unit })))
+  const wanted = [...new Set(units)].filter((u) => !kept.has(u) && manifest.units[u]);
+  // What another call is already bringing in is waited for, not loaded twice on a loader.
+  const want = wanted.filter((u) => !coming.has(u));
+  const others = wanted.filter((u) => coming.has(u)).map((u) => coming.get(u) as Promise<void>);
+  if (want.length === 0) return Promise.all(others).then(() => undefined);
+  const batch = unitBundles(want.map((unit) => ({ team: 'blue', unit })))
     .then(() =>
       loadOn(scene, (load) => {
         let n = 0;
@@ -105,7 +110,25 @@ export function keepPortraits(scene: Phaser.Scene, manifest: Manifest, units: re
         kept.add(unit);
       }
       cards.refresh();
+    })
+    .finally(() => {
+      for (const u of want) coming.delete(u);
     });
+  for (const u of want) coming.set(u, batch);
+  return Promise.all([batch, ...others]).then(() => undefined);
+}
+
+/**
+ * True if these units' whole pictures are in, so that a screen showing them can be made. If not, the screen shows the
+ * mark turning, asks for them ahead of anything else, and starts again when they have come.
+ */
+export function portraitsReady(scene: Phaser.Scene, manifest: Manifest, units: readonly string[], data?: object): boolean {
+  if (units.every((u) => kept.has(u) || !manifest.units[u])) return true;
+  spinner(scene, view.w / 2, view.h / 2);
+  void keepPortraits(scene.game.scene.getScene(STREAM), manifest, units).then(() => {
+    if (scene.scene.isActive()) scene.scene.restart(data);
+  });
+  return false;
 }
 
 /** Every listed picture, at once and ahead of anything else the background has still to do. */
@@ -167,6 +190,7 @@ export function streamRest(game: Phaser.Game, manifest: Manifest, wave: number):
 /** For a test: forget what was kept. */
 export function resetStream(): void {
   kept = new Set();
+  coming.clear();
   started = false;
   live = false;
   queue = Promise.resolve();

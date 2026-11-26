@@ -2,7 +2,7 @@
 // what that opened, and the way back in.
 
 import { getManifest } from '../app';
-import { listsReady } from '../stream';
+import { portraitsReady } from '../stream';
 import Phaser from 'phaser';
 import { BONE, BUSH, CLOTH, GOLD, HOLY, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { music } from '../../audio/music';
@@ -23,8 +23,9 @@ export class ResultScene extends Phaser.Scene {
   }
 
   create(): void {
-    // The lists need every hero's and companion's picture: if they are still coming, the mark turns until they are in.
-    if (!listsReady(this, getManifest())) return;
+    // The result shows the heroes' pictures (the one who fell, and any it unlocked): if they are still coming, the mark
+    // turns until they are in.
+    if (!portraitsReady(this, getManifest(), HEROES.map((h) => h.unit))) return;
     const run = theRun();
     if (!run) {
       this.scene.start('Title');

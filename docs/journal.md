@@ -2,6 +2,16 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
+## Round 13, quicker to play, Upgrades, a real chest, the skill taught, and the portal's rules
+
+What the owner asked after the effects: "can we rename the hold to something familiar", "can we get rid of loading bars and instead have it asynchronously loading", "make chest an actual chest", "why skills are auto used", and "a pass to make sure we fit crazygame's criteria".
+
+- **Upgrades.** The Hold is called UPGRADES wherever a player reads it: the title's button and the screen's heading. The code still says Hold.
+- **Loading.** The boot loads only what the first screen needs, and the rest comes in the background once the game is being played (`src/view/stream.ts`): the sounds and music (the band waits for its instruments rather than start on stand-ins), every hero's and companion's picture, the ground behind the title, and the units of the lands ahead, the nearest first. A screen that needs pictures that have not come shows the game's mark turning and starts again when they are in. The build ships the small pictures in bundles (everything kept from the start in one file, each unit's in one; `bundleArt` in `vite.config.ts`, `src/view/art/bundles.ts`): a wave's hundred pictures were a hundred requests, and the wait between them was most of the time. There is no loading bar: the page shows the game's mark turning from its first moment. Measured with `npm run firstplay` at 4 Mbit/s and 100 ms, three visits each, the cache off: a new player is in the first wave after 4.2 s, from 9.0 s; someone back sees the title after 4.8 s, from 7.8 s. The portal is told loading is done when the first screen can be played.
+- **The chest** is a wooden chest with iron bands, iron corners and a gold trim, with one plain lock plate and a bar across it (a round stud on it read as an eye, and went). On the field it lands with a puff of the land's dust and glints; in the camp it rattles, and OPEN throws the lid open with a flash of gold and coins while what was in it rises out. The card pack picture left over from Legion Battles is gone from the build.
+- **The skill** waits for the player from a new save's first run. The first time it fills, the field dims a moment, the button beats, and a plate says "PRESS SPACE" (or "TAP THE BUTTON" on touch). AUTO SKILL in the pause panel is still there. A save from before keeps what it had, and is handed over as before.
+- **CrazyGames.** `docs/crazygames.md` is the checklist, line by line from the portal's own pages, with the listing's text, tags and covers. New covers under the name Lastander, with Bram, Wren and Orrin. A test holds that a run of a hundred waves kept at every camp is far inside the portal's megabyte (under 8 KB). `npm run portal` loads the portal's build with the SDK in its local mode and says what the game tells it and when.
+
 ## Round 12, effects
 
 The owner: "can you upgrade the vfx / So its not just circle". Before this round most effects were the same few round pictures scaled and tinted: a ring, a disc, a sparkle, a puff of dust.
