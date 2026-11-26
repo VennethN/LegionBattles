@@ -2,6 +2,18 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## Round 5, the artist's sixth pass
+
+The artist drew Old Amos, the Drover, and Bull, his mastiff, in place of Brask and two hounds; the eight trinkets; and four looks a hunter earns by rank (a cord at the belt, a cloak, a trophy at the shoulder, a mantle with a gilt edge). They are in:
+
+- **Ranks are worn.** A part of the kit's with a rank is drawn only from that rank, by the kit's own rule (`wornAt`), in the inn, on the hunter's page, in the hunt, on partners and on the record. The kit counts the first rank as 1 and the game as 0, so a figure is dressed at the game's rank plus one (`dressAt` in `pictures.ts`).
+- **A rank gained is a moment** on the hunter's record: the hunter in their new look, lit, rising into place, with a sound.
+- **The manifest carries which parts hide in a still.** Before it did, a hunter sat on a bench drew their standing legs as well as their seated ones.
+- **Bull lies by his master** in the inn, in the kit's `lie` still. Amos's figure stands for the game's `brask`.
+- **Trinkets have their own pictures** in the shop and in a hunter's trinket slots.
+- **Small things left from round 4:** a bill's strip no longer lies over the boss's name; the "more below" band hides what it covers; the hands for hire say what they are in one line; on a touch screen the stick stays off the camp's cards until a thumb is on it.
+- **Not done:** the kit's hearth, bar, stair, door and window were compared with the room drawn in code and left out, since the drawn ones are lit and in scale and the kit's are a first pass.
+
 ## Round 4, after the review
 
 A review of the live game asked for seven things, in order. What was done:
