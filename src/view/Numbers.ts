@@ -66,6 +66,8 @@ interface Num {
   key: string;
   amount: number;
   sign: string;
+  /** Seconds since it first showed: blows are added into it only while it is new, not for as long as they keep coming. */
+  age: number;
 }
 
 const LIFE = 0.8;
@@ -87,7 +89,7 @@ export class Numbers {
     const text = this.scene.add.bitmapText(0, 0, DIGITS_KEY, '0', 26).setOrigin(0.5).setVisible(false).setActive(false);
     text.setLetterSpacing(-14);
     text.depth = 7000;
-    return { text, active: false, t: 0, x: 0, y: 0, vx: 0, size: 26, key: '', amount: 0, sign: '' };
+    return { text, active: false, t: 0, x: 0, y: 0, vx: 0, size: 26, key: '', amount: 0, sign: '', age: 0 };
   }
 
   /** The zoom of the field on show. Numbers shrink with it, but less: they are read, not looked at. */
@@ -99,7 +101,7 @@ export class Numbers {
    * together, and a pile of small numbers is read as none.
    */
   add(key: string, x: number, y: number, amount: number, color: number, size = 26, sign = ''): void {
-    const open = this.pool.find((o) => o.active && o.key === key && o.t < MERGE);
+    const open = this.pool.find((o) => o.active && o.key === key && o.age < MERGE);
     if (open) {
       open.amount += amount;
       open.t = 0;
@@ -134,6 +136,7 @@ export class Numbers {
     n.active = true;
     n.t = 0;
     n.key = '';
+    n.age = 0;
     this.last = n;
     // Numbers that come together drift apart, left then right.
     this.flip = -this.flip;
@@ -168,6 +171,7 @@ export class Numbers {
       const n = this.pool[i];
       if (!n.active) continue;
       n.t += dt;
+      n.age += dt;
       if (n.t >= LIFE) {
         n.active = false;
         n.text.setVisible(false).setActive(false);

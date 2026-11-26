@@ -66,6 +66,8 @@ export class HudScene extends Phaser.Scene {
   private bannerText!: Phaser.GameObjects.Text;
   private underText!: Phaser.GameObjects.Text;
   private campText!: Phaser.GameObjects.Text;
+  /** Where the camp's line would stand, over the middle of the cards. */
+  private campHome = 0;
   /** The plate of a hunt that teaches: what to do now, off the fight. */
   private plate: Phaser.GameObjects.Container | null = null;
   private plateText!: Phaser.GameObjects.Text;
@@ -389,7 +391,8 @@ export class HudScene extends Phaser.Scene {
     const wx = view.tall ? view.w / 2 : view.w - wakeW / 2 - 16;
     const wy = view.tall ? y - ch / 2 - 66 : y;
     // What to do now goes by the cards, not under the bars, where the banners are.
-    this.campText.setPosition(view.tall ? view.w / 2 : x0 - cw / 2 + row / 2, view.tall ? wy - 52 : y - ch / 2 - 40);
+    this.campHome = view.tall ? view.w / 2 : x0 - cw / 2 + row / 2;
+    this.campText.setPosition(this.campHome, view.tall ? wy - 52 : y - ch / 2 - 40);
     const wake = new Button(this, wx, wy, 'WAKE THE BOSS', () => this.controls.ask('wake'), { width: wakeW, height: 62, size: 22, mat: RUBY });
     c.add(wake.root);
   }
@@ -931,6 +934,9 @@ export class HudScene extends Phaser.Scene {
       }
       const pick = this.touch ? 'Tap a card, then tap the ground to set it down. Tap a building to pick it up.' : 'Pick a card, then click the ground to set it down. Click a building to pick it up.';
       this.campText.setText(this.controls.picking ? (this.touch ? 'Tap the ground where it should stand.' : 'Click the ground where it should stand.') : any ? pick : 'All set. Press WAKE THE BOSS, or walk into the red ring.');
+      // Over the cards, but never past the screen's edge: a short row of cards is narrower than the line.
+      const half = this.campText.displayWidth / 2 + 12;
+      this.campText.setX(Math.max(half, Math.min(view.w - half, this.campHome)));
     } else this.campText.setText('');
 
     // A hunt that teaches: its plate, and the button the step is about beats so that it is found.

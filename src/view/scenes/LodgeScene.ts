@@ -326,8 +326,9 @@ export class LodgeScene extends Phaser.Scene {
       row.add(name);
       // The week's contract and a chain's step say so on a strip across the top of the bill.
       if (poster.banner) {
-        const tag = label(this, rw / 2 - 74, -rowH / 2 + 1, poster.banner, { size: 15, align: 'right', color: '#f0d8a8', face: 'display' });
-        row.add([this.add.rectangle(rw / 2 - 74 - tag.displayWidth / 2, -rowH / 2 + 1, tag.displayWidth + 12, 20, 0x7a1e16), tag]);
+        // Clear of the coin and its icon at the bill's right.
+        const tag = label(this, rw / 2 - 92, -rowH / 2 + 1, poster.banner, { size: 15, align: 'right', color: '#f0d8a8', face: 'display' });
+        row.add([this.add.rectangle(rw / 2 - 92 - tag.displayWidth / 2, -rowH / 2 + 1, tag.displayWidth + 12, 20, 0x7a1e16), tag]);
       }
       for (let k = 0; k < Math.max(3, poster.danger); k++) row.add(this.add.rectangle(-rw / 2 + 74 + k * 13, rowH / 2 - 18, 7, 7, k < poster.danger ? 0x8a1e16 : 0x6b5a48, k < poster.danger ? 1 : 0.35).setAngle(45));
       // The party, and the first way it is unlike itself if there is room for it at a size that can be read.
@@ -774,7 +775,8 @@ export class LodgeScene extends Phaser.Scene {
     const cols = Math.max(2, Math.min(5, Math.floor(pw / 176)));
     const rows = Math.ceil(list.length / cols);
     const cw = pw / cols - 8;
-    const ch = Math.min(124, (view.h - top - 40) / rows - 8);
+    // On a tall screen the cards take the room there is, so that the page is not half empty.
+    const ch = Math.min(view.tall ? 190 : 124, (view.h - top - 40) / rows - 8);
     list.forEach((ware, i) => {
       const x = w / 2 - pw / 2 + (i % cols) * (cw + 8) + cw / 2 + 4;
       const y = top + 34 + Math.floor(i / cols) * (ch + 8) + ch / 2;
