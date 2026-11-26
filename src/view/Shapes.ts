@@ -307,7 +307,7 @@ export class Shapes {
   /** What a lasting patch of ground is drawn as, and how wide its picture's edge is of the picture: so that it is drawn at its reach. */
   static zoneFrame(kind: ZoneKind): { frame: string; edge: number; tint: number; alpha: number } {
     switch (kind) {
-      case 'cloud': return { frame: 'fx/pool', edge: 52 / 128, tint: hex(VENOM.fill), alpha: 0.5 };
+      case 'cloud': return { frame: 'fx/pool', edge: 52 / 128, tint: hex(VENOM.shade), alpha: 0.7 };
       case 'holy': return { frame: 'fx/glyphs', edge: 56 / 128, tint: hex(HOLY.fill), alpha: 0.75 };
       case 'fire': return { frame: 'fx/crack', edge: 58 / 128, tint: hex(FIRE.shade), alpha: 0.7 };
       case 'ice': return { frame: 'fx/frostpatch', edge: 54 / 128, tint: hex(FROST.light), alpha: 0.6 };
@@ -341,9 +341,8 @@ export class Shapes {
     const fx = this.fx;
     for (let i = 0; i < 10; i++) {
       const a = (i / 10) * TAU;
-      fx.spawn('fx/star5', x + Math.cos(a) * 28, y - 10 + Math.sin(a) * 12, { dur: 0.9, from: this.px('fx/star5', 14), to: this.px('fx/star5', 6), vy: -90 - (i % 3) * 30, spin: 3, tint: hex(HOLY.light), hold: 0.5, delay: i * 0.04, depth: y + (Math.sin(a) > 0 ? 6 : -6) });
+      fx.spawn('fx/star5', x + Math.cos(a) * 34, y - 10 + Math.sin(a) * 14, { dur: 0.9, from: this.px('fx/star5', 20), to: this.px('fx/star5', 8), vy: -90 - (i % 3) * 30, spin: 3, tint: hex(HOLY.light), hold: 0.5, delay: i * 0.04, depth: y + (Math.sin(a) > 0 ? 6 : -6) });
     }
-    fx.spawn('fx/sunburst', x, y - 50, { dur: 0.5, from: this.px('fx/sunburst', 20), to: this.px('fx/sunburst', 90), spin: 1, alpha: 0.7, depth: y - 4 });
   }
 
   /** HP coming back to them: leaves going up off them. */

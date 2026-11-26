@@ -45,7 +45,7 @@ async function strip(page: Page, name: string, gap: number): Promise<void> {
   for (let i = 0; i < 3; i++) {
     if (i) await fight(page, gap);
     const file = `${out}/${name}-${i + 1}.png`;
-    await (page as unknown as { screenshot(o: unknown): Promise<unknown> }).screenshot({ path: file, clip: { x: 907 / 2 - 230, y: 510 / 2 - 150, width: 460, height: 300 } });
+    await (page as unknown as { screenshot(o: unknown): Promise<unknown> }).screenshot({ path: file, clip: name === 'ground' ? { x: 907 / 2 - 260, y: 510 / 2 - 180, width: 520, height: 360 } : { x: 907 / 2 - 230, y: 510 / 2 - 150, width: 460, height: 300 } });
     files.push(file);
   }
   console.log(`  ${name}: ${files.join(' ')}`);
@@ -83,6 +83,34 @@ const STATES: Record<string, (page: Page) => Promise<void>> = {
     await keep(page);
     await fight(page, 60 * 5);
     await strip(page, 'hits3', 5);
+  },
+  // A level gained in the middle of a wave.
+  level: async (page) => {
+    await arena(page, { hero: 'wren', wave: 3, weapons: RICH.slice(0, 2), items: THINGS, ups: UPS, level: 4, gold: 50 });
+    await until(page, 'Hud');
+    await keep(page);
+    await fight(page, 60);
+    await page.evaluate(() => {
+      ((window as unknown as Win).world() as unknown as { xp: number }).xp += 400;
+    });
+    await fight(page, 3);
+    await strip(page, 'level', 10);
+  },
+  // Each kind of ground that lasts, laid round the hero: venom, holy, fire, ice and mud.
+  ground: async (page) => {
+    await arena(page, { hero: 'aldous', wave: 2, weapons: [], items: [], ups: [], level: 4, gold: 50 });
+    await until(page, 'Hud');
+    await keep(page);
+    await page.evaluate(() => {
+      const w = (window as unknown as Win).world() as unknown as { hero: { x: number; y: number }; zones: unknown[]; foes: unknown[]; ids: number };
+      const kinds = ['cloud', 'holy', 'fire', 'ice', 'mud'];
+      kinds.forEach((kind, i) => {
+        const a = (i / kinds.length) * Math.PI * 2;
+        w.zones.push({ id: 90000 + i, x: w.hero.x + Math.cos(a) * 150, y: w.hero.y + Math.sin(a) * 95, r: 60, by: 0, life: 30, tick: 0, kind, mend: 0 });
+      });
+    });
+    await fight(page, 40);
+    await strip(page, 'ground', 20);
   },
 };
 

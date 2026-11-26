@@ -2,6 +2,27 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
+## Round 12, effects
+
+The owner: "can you upgrade the vfx / So its not just circle". Before this round most effects were the same few round pictures scaled and tinted: a ring, a disc, a sparkle, a puff of dust.
+
+**What was built:**
+- **Twenty-four new pictures in `src/art/fxShapes.ts`**, in the kit's style: a stab, chips of stone, wood, bone and metal, a crack in the ground, tongues of fire, frost crystals and icicles, a holy sunburst, venom drips, bubbles and a pool, a rune, a five-pointed star, a leaf, a curl of smoke, a bell's note, a hoof print, an ember, holy marks on the ground, a patch of ice, and a hard-edged lane and a chevron for warnings. The cut and the blow's star were redrawn in place with a bright edge and a lit heart. `npm run fx:sheet` draws them all on one sheet.
+- **They are written small** (most at five eighths of the size they are laid out at, the ground's marks at under a third) and scaled up where they are shown. The field's sheet was held to "under half" for what is kept from the start; with these it is 0.50, and the test was moved to 0.51. The test that matters, that every land's units still fit under it, passes.
+- **A hit says what dealt it.** The wave's hit event names its weapon now (`weapon` on `hit`, with a test). `src/view/Shapes.ts` draws a blade's hit as a cut and a chip of metal, a spear's or an arrow's as a streak and a small star, a hammer's as a star, dust and stones, fire as tongues and embers, frost as a crystal and shards, holy as a sunburst, venom as drips, arcane as a rune. A crit is bigger and holds at its full size longer.
+- **A fall** throws the dust of its land and, where the fallen is made of it, metal plates, stone, ice, wood or venom. A boss breaks the ground when it comes up and when it falls.
+- **Bursts** are drawn as what they are on the ground: a crack and dust for a slam or powder, a ring of tongues for fire, crystals for frost, a falling star and a crater for Starfall, a sunburst for light, bone out of broken ground for the risen. With the light off a faint ring still says how far a burst reached.
+- **Lasting ground**: venom is a bubbling pool, holy ground a round of marks that sends up motes, fire is burnt earth with flames on it, ice a cracked patch with glints, mud a dark pool. Each is drawn to its reach.
+- **Moves**: Wildfire's wall is tongues of flame stood on the ground; Starfall's stars come out over the field and fall as stars with a trail; Whiteout grows crystals out over the ground; Judgment comes down as a turning sunburst; Plant the Gate throws splinters; The One That Matters is a big arrow with streaks behind it; Vanish tears into curls of smoke; Open Grave sends up a ring of embers and throws bone; a charge tears the ground where it starts and leaves prints; Toll and a bell's ring send out notes. The passive's sign under the hero is a round of marks, not a plain ring.
+- **Coins tumble and glint** where they drop. A level sends stars up round the hero.
+- **Warnings** keep their rule: red, the exact shape and size, a fill that shows the time. A lane now has a hard line down each long side and chevrons that light as the fill reaches them; a ring has cracks inside it, drawn to just inside its edge.
+- **A cap**: effects stop being added past 220 at once with the light full, 140 low and 110 off, and the cap falls by steps when frames are slow for seconds on end, as the light does. What says something happened (a swing's arc, a stab, a star falling) is drawn whatever the cap.
+- **Never over the hero**: what is drawn close to them goes under them and fainter; what rises off a patch they stand in goes under them; Vanish's smoke goes under them.
+
+**Looked at** (stills, at a portal's frame): a horde in the meadow, a boss wave, each of the ten moves at three moments, before and after (`build/fx-before`, `build/walk`), and close up with `npm run fx:look`: a lane warning, blows on crowds in three lands, a level gained and each kind of lasting ground. What was found and fixed on the way: dust tinted with the land's earth came out as dark blots (the dust picture is pale, and a tint only darkens it); the passive's sign, turned while squashed, stood up as a tall oval over the hero, and was kept sharp so that it drew over them; Vanish's smoke sat on the hero; the gate's crack stood up as a tall dark spider; the venom pool could not be seen on grass.
+
+**Not looked at:** any of it moving, a phone, the light set to LOW or OFF, a boss arriving or falling, a hit's crit hold, a frozen field after Whiteout as it fades, and whether the cap ever bites in a real horde.
+
 ## Round 11, bringing the heroes level under vows
 
 The round before left the heroes far apart under vows: with a full track and three vows, half of Fenn's runs ended by wave 6 and Hroth's by wave 9, while Old Nan's half reached 28.
