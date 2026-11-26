@@ -41,7 +41,7 @@ What the portal asks of a game, what this game does about each, and what to fill
 
 | What they ask | Here | State |
 | --- | --- | --- |
-| Text and pictures legible at a device pixel ratio of 1 in 907x510, 1216x684, 1077x606, 821x462, 1366x768, 1920x1080, 1536x864, 1280x720, 800x450 (mobile) and 1080x607 (tablet) | No words under 15 layout units (eleven pixels in the smallest frame); pictures of the main screens at every one of those sizes (`npm run walk -- --size=...`, the `cg-` sizes) | see "Looked at" below |
+| Text and pictures legible at a device pixel ratio of 1 in 907x510, 1216x684, 1077x606, 821x462, 1366x768, 1920x1080, 1536x864, 1280x720, 800x450 (mobile) and 1080x607 (tablet) | No words under 15 layout units (eleven pixels in the smallest frame). The first wave, the title, the camp, a level up, an item's card and the pause panel were looked at at every one of those sizes but 1080x607 (`npm run walk -- --size=...`, the `cg-` sizes): everything fits and reads; a shop card's longest lines end in dots | passed (1080x607 not looked at: its run stopped) |
 | Physics the same at any refresh rate | The wave steps at a fixed rate whatever the frame rate (`STEP` in `world.ts`) | passed |
 | English | All in English | passed |
 | Intuitive controls; keys that adapt to the layout | Keys by position | passed |
@@ -91,7 +91,7 @@ What the portal asks of a game, what this game does about each, and what to fill
 
 ## Looked at, and not checkable here
 
-Looked at: the portal build loaded in the headless browser with the SDK in its local mode (`npm run portal`), which gave the calls above in order and no console error; the first wave, the title, Upgrades and the boss's chest at the portal's frame.
+Looked at: the main screens at the portal's sizes (above); the portal build loaded in the headless browser with the SDK in its local mode (`npm run portal`), which gave the calls above in order and no console error; the first wave, the title, Upgrades and the boss's chest at the portal's frame.
 
 Not checkable here: the portal's own QA tool and its preview page; a real phone or tablet, Safari, a Chromebook; how a real ad looks and sounds over the game; a player signed in to CrazyGames carrying a save between devices.
 
