@@ -133,16 +133,22 @@ export class Numbers {
     this.flip = -this.flip;
     let nx = x + this.flip * 6;
     let ny = y;
-    for (let tries = 0; tries < 3; tries++) {
-      const near = this.pool.find((m) => m !== n && m.active && m.t < 0.35 && Math.abs(m.text.x - nx) < 30 && Math.abs(m.text.y - ny) < 18);
+    // How wide each is, from its own width: a crit's "152" beside a "36" was read as one when this was a fixed 30.
+    const drawn = size0(size, this.zoom);
+    const wide = value.length * drawn * 0.62;
+    for (let tries = 0; tries < 4; tries++) {
+      const near = this.pool.find((m) => m !== n && m.active && m.t < 0.6 && Math.abs(m.text.x - nx) < (m.text.displayWidth + wide) / 2 + 4 && Math.abs(m.text.y - ny) < (m.size + drawn) * 0.42);
       if (!near) break;
-      nx += near.text.x <= nx ? 30 : -30;
+      const room = (near.text.displayWidth + wide) / 2 + 6;
+      nx = near.text.x + (near.text.x <= nx ? room : -room);
       ny -= 6;
+      // It drifts on away from the one it was moved off, never back onto it.
+      this.flip = near.text.x <= nx ? 1 : -1;
     }
     n.x = nx;
     n.y = ny;
     n.vx = this.flip * 16;
-    n.size = size * Math.max(0.8, this.zoom);
+    n.size = size0(size, this.zoom);
     n.text.setText(value);
     n.text.setTint(color);
     n.text.setActive(true).setVisible(true);
@@ -175,4 +181,9 @@ export class Numbers {
       n.text.setVisible(false).setActive(false);
     }
   }
+}
+
+/** The size a number is drawn at: never under 0.8 of its size, however far the view is drawn out. */
+function size0(size: number, zoom: number): number {
+  return size * Math.max(0.8, zoom);
 }
