@@ -95,7 +95,8 @@ describe('what a weapon of their own learns', () => {
       const w = at('wren', tier);
       Object.assign(w, { quiet: safe > 0 ? QUIRKS.unseen.most : 0 });
       // Near enough that an arrow loosed from the hand at the first of them is still at their height when it reaches the last.
-      for (let i = 0; i < 5; i++) stand(w, 'bruiser', w.hero.x + 100 + i * 45, w.hero.y, { hp: 99999, dmg: 0 }, true);
+      // Close enough together that even a slim one at the end is still in the arrow's path.
+      for (let i = 0; i < 5; i++) stand(w, 'bruiser', w.hero.x + 100 + i * 38, w.hero.y, { hp: 99999, dmg: 0 }, true);
       return struck(play(w, 0.9)).size;
     };
     expect(through(2, 100)).toBe(5);
@@ -368,7 +369,7 @@ describe('what a weapon of their own learns', () => {
   it("Widow's Tear, 5: its bolt goes through everyone in its line", () => {
     const through = (tier: number): number => {
       const w = at('ysolde', tier);
-      for (let i = 0; i < 5; i++) stand(w, 'bruiser', w.hero.x + 100 + i * 45, w.hero.y, { hp: 9999999, dmg: 0 }, true);
+      for (let i = 0; i < 5; i++) stand(w, 'bruiser', w.hero.x + 100 + i * 38, w.hero.y, { hp: 9999999, dmg: 0 }, true);
       return struck(play(w, 1.2)).size;
     };
     expect(through(1)).toBe(5);

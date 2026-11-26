@@ -63,12 +63,12 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'orrin', unit: 'orrin', name: 'Orrin Quillon', short: 'Orrin', epithet: 'the Unfinished', who: 'A wizard expelled before his last lesson.', line: 'I never did learn how it ends.',
-    weapon: 'unfinished', stats: { lore: 3, maxHp: -2, might: -2 }, quirk: 'unfinished', quirkName: 'Unfinished',
+    weapon: 'unfinished', stats: { lore: 3, maxHp: 2, might: -2 }, quirk: 'unfinished', quirkName: 'Unfinished',
     says: 'Your staff copies the last weapon you bought: its weapon types and its effects. Level ups offer 1 more choice.', move: 'starfall', unlock: { kind: 'wave', wave: 5 },
   },
   {
     id: 'fenn', unit: 'fenn', name: 'Fenn Two-Coins', short: 'Fenn', epithet: 'the Lucky', who: 'A thief who has never lost a toss.', line: 'Heads I win. Tails, look behind you.',
-    weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 10, maxHp: 10, armor: 1, crit: 5 }, quirk: 'double', quirkName: 'Double or Nothing',
+    weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 10, maxHp: 18, armor: 2, crit: 5 }, quirk: 'double', quirkName: 'Double or Nothing',
     says: 'Once per camp, flip a coin for an item: heads it is free, tails you pay and lose it. Deal 1% more damage per 4 coins held, up to 20%.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
   },
   {
@@ -88,12 +88,12 @@ export const HEROES: readonly HeroDef[] = [
   },
   {
     id: 'aldous', unit: 'aldous', name: 'Brother Aldous Bell', short: 'Aldous', epithet: 'the Shepherd', who: 'He rang the bell for the dead. Now he rings it for the living.', line: 'Stay close. I will count you all at dusk.',
-    weapon: 'passingbell', stats: { regen: 6, maxHp: 4, damage: -20 }, quirk: 'shepherd', quirkName: 'Shepherd',
+    weapon: 'passingbell', stats: { regen: 6, maxHp: 8, damage: -10 }, quirk: 'shepherd', quirkName: 'Shepherd',
     says: 'Companions near you attack 20% faster, deal 30% more damage and are healed whenever you are. You deal 20% less damage.', move: 'toll', unlock: { kind: 'runs', runs: 18 },
   },
   {
     id: 'ysolde', unit: 'ysolde', name: 'Ysolde Rimeheart', short: 'Ysolde', epithet: 'the Winter Widow', who: 'The cold took her husband. She took the cold.', line: 'It only hurts until it does not.',
-    weapon: 'widowstear', stats: { lore: 1, reach: 10, speed: -4 }, quirk: 'deepcold', quirkName: 'Deep Cold',
+    weapon: 'widowstear', stats: { lore: 2, reach: 10, maxHp: 6 }, quirk: 'deepcold', quirkName: 'Deep Cold',
     says: 'Hit a slowed enemy to freeze it for 0.9 s. Frozen enemies take 30% more damage and shatter when they die, hitting enemies nearby.', move: 'whiteout', unlock: { kind: 'boss', boss: 'colossus' },
   },
   {
@@ -120,7 +120,7 @@ export const SIGNATURES: readonly WeaponDef[] = [
   { id: 'gatekeeper', name: 'Gatekeeper', own: true, icon: 'sword', kinds: ['blade'], kind: 'melee', motion: 'sweep', dmg: [9, 14, 22, 34], scale: { might: 1 }, every: [1, 0.93, 0.86, 0.78], range: 96, crit: 5, critBy: 2, knock: 18, arc: 100, price: 0, says: 'Sword and shield. Sweeps a wide arc in front of you.' },
   { id: 'whisper', name: 'Whisper', own: true, icon: 'bow', kinds: ['bow'], kind: 'ranged', motion: 'shoot', dmg: [8, 13, 19, 29], scale: { aim: 1 }, every: [1.12, 1.04, 0.96, 0.88], range: 410, crit: 8, critBy: 2, knock: 6, pierce: 1, flies: 680, shot: 'arrow', price: 0, says: 'Longbow. Each arrow hits up to 2 enemies in a line.' },
   { id: 'unfinished', name: 'The Unfinished Staff', own: true, icon: 'staff', kinds: ['arcane'], kind: 'magic', motion: 'cast', dmg: [11, 17, 26, 39], scale: { lore: 1 }, every: [1.1, 1.02, 0.94, 0.85], range: 390, crit: 5, critBy: 2, knock: 5, pierce: 1, flies: 430, shot: 'orb-arcane', price: 0, says: 'Homing bolt. Hits up to 2 enemies.' },
-  { id: 'headstails', name: 'Heads and Tails', own: true, icon: 'dagger', kinds: ['blade'], kind: 'melee', motion: 'thrust', dmg: [6, 9, 13, 20], scale: { might: 0.7 }, every: [0.52, 0.48, 0.44, 0.39], range: 82, crit: 20, critBy: 2.5, knock: 4, pierce: 2, price: 0, says: 'Fast knife with a 20% crit chance. Each hit has a 4% chance to knock a coin loose.' },
+  { id: 'headstails', name: 'Heads and Tails', own: true, icon: 'dagger', kinds: ['blade'], kind: 'melee', motion: 'thrust', dmg: [7, 10, 15, 22], scale: { might: 0.7 }, every: [0.52, 0.48, 0.44, 0.39], range: 92, crit: 12, critBy: 2, knock: 10, pierce: 2, price: 0, says: 'Fast knife with a 12% crit chance. Each hit has a 4% chance to knock a coin loose.' },
   { id: 'hearthbrand', name: 'Hearthbrand', own: true, icon: 'brazier', kinds: ['fire', 'arcane'], kind: 'magic', motion: 'cast', dmg: [9, 14, 20, 30], scale: { lore: 0.8 }, every: [1.3, 1.21, 1.13, 1.04], range: 330, crit: 0, critBy: 2, knock: 8, burst: 60, burn: [4, 6, 9, 13], flies: 400, shot: 'orb-fire', price: 0, says: 'Fireball. Explodes on hit and sets enemies on fire.' },
   { id: 'ninth', name: "The Ninth's Lance", own: true, icon: 'spear', kinds: ['pole'], kind: 'melee', motion: 'thrust', dmg: [11, 18, 27, 41], scale: { might: 1 }, every: [1.2, 1.12, 1.03, 0.94], range: 165, crit: 5, critBy: 2, knock: 20, pierce: 99, price: 0, says: 'Long lance. Hits every enemy in a line.' },
   { id: 'gravecleaver', name: 'Gravecleaver', own: true, icon: 'greataxe', kinds: ['blade', 'blunt'], kind: 'melee', motion: 'sweep', dmg: [17, 26, 40, 60], scale: { might: 1.6 }, every: [1.75, 1.63, 1.51, 1.4], range: 110, crit: 5, critBy: 2, knock: 26, arc: 140, price: 0, says: 'Great axe. Slow, wide, heavy sweeps.' },

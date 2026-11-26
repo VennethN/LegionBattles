@@ -384,7 +384,7 @@ export const ENEMIES: readonly EnemyDef[] = [
   { id: 'cutpurse', unit: 'cutpurse', name: 'Bandit', ai: 'walk', hp: 6, dmg: 1, speed: 104, r: 13, coins: 1 },
   { id: 'warhound', unit: 'warhound', name: 'War Hound', ai: 'walk', hp: 4, dmg: 1, speed: 150, r: 12, coins: 1, size: 0.9 },
   { id: 'poacher', unit: 'poacher', name: 'Poacher', ai: 'shoot', hp: 9, dmg: 1, speed: 70, r: 13, coins: 2, keep: 250, every: 2.8, flies: 200 },
-  { id: 'bruiser', unit: 'bruiser', name: 'Bruiser', ai: 'walk', hp: 30, dmg: 2, speed: 58, r: 18, coins: 4, size: 1.2 },
+  { id: 'bruiser', unit: 'bruiser', name: 'Bruiser', ai: 'walk', hp: 24, dmg: 2, speed: 58, r: 15, coins: 4, size: 1.2 },
   { id: 'packram', unit: 'packram', name: 'Ram', ai: 'charge', hp: 18, dmg: 2, speed: 72, r: 15, coins: 3, dash: 430 },
   { id: 'hexer', unit: 'hexer', name: 'Hexer', ai: 'summon', hp: 24, dmg: 2, speed: 62, r: 14, coins: 5, keep: 330, every: 5.5, calls: 'cutpurse' },
   { id: 'direwolf', unit: 'direwolf', name: 'Dire Wolf', ai: 'walk', hp: 10, dmg: 1, speed: 158, r: 14, coins: 2 },
@@ -507,7 +507,7 @@ export interface LandDef {
 }
 
 export const LANDS_DEF: readonly LandDef[] = [
-  { id: 'meadow', name: 'Thornwood', scale: 1, boss: 'warlord', roster: [['cutpurse', 1, 3], ['warhound', 2, 2], ['poacher', 3, 1.4], ['bruiser', 4, 0.7], ['packram', 5, 0.8], ['direwolf', 6, 2], ['hexer', 7, 0.3]] },
+  { id: 'meadow', name: 'Thornwood', scale: 1, boss: 'warlord', roster: [['cutpurse', 1, 3], ['warhound', 2, 2], ['poacher', 3, 1.4], ['bruiser', 5, 0.55], ['packram', 5, 0.8], ['direwolf', 6, 2], ['hexer', 7, 0.3]] },
   { id: 'mire', name: 'Blackwater Mire', scale: 0.62, boss: 'mirelord', roster: [['bogspear', 1, 3], ['slime', 1, 1.5], ['netter', 2, 1.3], ['mudbrute', 4, 0.7], ['sporecaller', 6, 0.3], ['bogwitch', 8, 0.2]] },
   { id: 'desert', name: 'Sunscar Dunes', scale: 0.6, boss: 'colossus', roster: [['lancer', 1, 3], ['scarab', 1, 2], ['javelineer', 2, 1.4], ['powdermonkey', 3, 1], ['yak', 5, 0.6], ['medjay', 6, 0.4], ['drummer', 8, 0.2]] },
   { id: 'snow', name: 'Frostholt', scale: 0.5, boss: 'jarl', roster: [['huscarl', 1, 2], ['direwolf', 1, 2.5], ['harpooner', 2, 1.5], ['frostwitch', 3, 0.8], ['warbear', 5, 0.5], ['icegolem', 6, 0.35], ['skald', 8, 0.2]] },

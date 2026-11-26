@@ -63,12 +63,30 @@ export function botSteer(w: World): Steer {
   const sn = Math.sin(turn);
   // It lets the move loose when it is full and there is a crowd for it, as a player who has learned it does.
   mind.steer = { x: best.x * c - best.y * sn, y: best.x * sn + best.y * c, act: w.ripe };
+  // A move that saves the hero rather than kills is kept for when it is needed, as a player keeps it: badly hurt, a
+  // charge coming, or a boss close. Let loose at once it is spent on nothing and is not there when the boss comes.
+  if (mind.steer.act && SAVERS.has(w.move?.id ?? '') && !inDanger(w)) mind.steer = { ...mind.steer, act: false };
   // A move that goes the way the hero faces is turned on the nearest of them first: stars brought down behind him are wasted.
   if (mind.steer.act && (w.move?.id === 'starfall' || w.move?.id === 'gate')) {
     const to = nearestFoe(w);
     if (to) mind.steer = { x: to.x, y: to.y, act: true };
   }
   return mind.steer;
+}
+
+/** The moves that save the hero: vanishing, freezing the field, the bell that heals and stuns. */
+const SAVERS = new Set(['vanish', 'whiteout', 'toll']);
+
+/** Whether the hero is in trouble a saving move would get them out of. */
+function inDanger(w: World): boolean {
+  const h = w.hero;
+  if (h.hp / h.maxHp < 0.5) return true;
+  for (const f of w.foes) {
+    const d = Math.hypot(f.x - h.x, f.y - h.y);
+    if (f.boss && d < 170) return true;
+    if ((f.state === 'dash' || f.doing === 'charge') && d < 320) return true;
+  }
+  return false;
 }
 
 /** The way to the nearest foe, as a length of one, or null with nobody on the field. */
@@ -126,6 +144,34 @@ function think(w: World): Steer & { urgent: boolean } {
       x += (dx / (d + f.def.r)) * k;
       y += (dy / (d + f.def.r)) * k;
     }
+  }
+  // Hemmed in, the pushes away cancel each other and it would stand still and be struck from all sides. A player looks
+  // for the gap and goes through it: of sixteen ways, the one that keeps furthest from those close, and off the walls.
+  const close = w.foes.filter((f) => !f.def.prop && Math.hypot(h.x - f.x, h.y - f.y) - f.def.r < Math.max(90, stand * 0.9));
+  if (close.length >= 3 && Math.hypot(x, y) < 2) {
+    let bestA = 0;
+    let bestScore = -Infinity;
+    for (let i = 0; i < 16; i++) {
+      const a = (i / 16) * Math.PI * 2;
+      const ux = Math.cos(a);
+      const uy = Math.sin(a);
+      // How near the way out passes anyone close, a little way along it.
+      let score = 0;
+      for (const f of close) {
+        const fx = f.x - (h.x + ux * 60);
+        const fy = f.y - (h.y + uy * 60);
+        score += Math.min(0, Math.hypot(fx, fy) - f.def.r - 40);
+      }
+      const ex = h.x + ux * 140;
+      const ey = h.y + uy * 140;
+      if (ex < 60 || ey < 60 || ex > w.w - 60 || ey > w.h - 60) score -= 200;
+      if (score > bestScore) {
+        bestScore = score;
+        bestA = a;
+      }
+    }
+    x += Math.cos(bestA) * 3;
+    y += Math.sin(bestA) * 3;
   }
   // Steps aside from whatever is flying at it.
   for (const s of w.shots) {
