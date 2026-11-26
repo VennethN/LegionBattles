@@ -141,6 +141,11 @@ export class FieldLight {
     this.setMode(lightMode());
   }
 
+  /** How much light the player has asked for, as it stands after any step down: the effects are cut back with it. */
+  get setting(): LightMode {
+    return this.mode;
+  }
+
   /** True while the light is made at all. */
   get on(): boolean {
     return this.filter !== null;

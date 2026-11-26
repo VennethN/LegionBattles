@@ -45,10 +45,19 @@ export interface FxOpts {
   tint?: number;
   flipX?: boolean;
   depth?: number;
+  /** Played even when the pool is at its cap: what says something happened, not what dresses it. */
+  must?: boolean;
 }
 
 export class Effects {
   private pool: Fx[] = [];
+  /** How many are playing. */
+  private live = 0;
+  /**
+   * The most that play at once. Past it, a new one is let go, unless it must be seen: a phone with the light taken
+   * down a step plays fewer, and a horde's thirty blows a second do not each throw chips.
+   */
+  cap = 220;
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -71,6 +80,7 @@ export class Effects {
 
   /** Plays one effect. `frame` is its name on the sheet, like "fx/spark". */
   spawn(frame: string, x: number, y: number, o: FxOpts = {}): void {
+    if (this.live >= this.cap && !o.must) return;
     let fx: Fx | null = null;
     for (let i = 0; i < this.pool.length; i++) {
       if (!this.pool[i].active) {
@@ -84,6 +94,7 @@ export class Effects {
       this.pool.push(fx);
     }
     fx.active = true;
+    this.live++;
     fx.t = -(o.delay ?? 0);
     fx.dur = o.dur ?? 0.3;
     fx.x = x;
@@ -120,6 +131,7 @@ export class Effects {
       const img = fx.img;
       if (fx.t >= fx.dur) {
         fx.active = false;
+        this.live--;
         img.setVisible(false).setActive(false);
         continue;
       }
@@ -144,5 +156,11 @@ export class Effects {
       fx.active = false;
       fx.img.setVisible(false).setActive(false);
     }
+    this.live = 0;
+  }
+
+  /** How many are playing now. */
+  get playing(): number {
+    return this.live;
   }
 }
