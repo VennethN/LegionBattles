@@ -47,7 +47,7 @@ interface Pad {
 }
 
 /** The short word on a pad for each thing: a pad is narrow. */
-const SHORT: Record<string, string> = { seton: 'DOGS', heel: 'BACK', pikemen: 'SPEARS', crossbowmen: 'BOWS', sappers: 'BOMBS', forgestrike: 'FORGE', keg: 'KEG', wake: 'LANTERN' };
+const SHORT: Record<string, string> = { seton: 'BULL', heel: 'BACK', pikemen: 'SPEARS', crossbowmen: 'BOWS', sappers: 'BOMBS', forgestrike: 'FORGE', keg: 'KEG', wake: 'LANTERN' };
 
 export class HudScene extends Phaser.Scene {
   /** The partners' plates under the hunter's, and the tasks' strip: what each shows, and the drawing redone each frame. */
@@ -427,7 +427,7 @@ export class HudScene extends Phaser.Scene {
     // must not lie over the boss, the hunter, or the attack's name.
     const y = this.stateY() + (view.tall ? 36 : 30);
     this.bannerText.setText(text).setAlpha(text ? 1 : 0).setScale(text ? 1.15 : 1).setY(y);
-    this.underText.setText(under).setAlpha(under ? 1 : 0).setY(y + (text ? 28 : 0));
+    this.underText.setText(under).setAlpha(under ? 1 : 0).setY(y + (text ? 36 : 0));
     if (text) this.tweens.add({ targets: this.bannerText, scale: 1, duration: 200, ease: 'Back.easeOut' });
     this.tweens.add({ targets: [this.bannerText, this.underText], alpha: 0, delay: 1000, duration: 350 });
     // A line said under a banner waits its turn: it is moved below it while the banner shows.

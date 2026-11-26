@@ -106,7 +106,7 @@ describe('a party', () => {
     expect(four.monster.maxHp).toBe(Math.round(solo.monster.maxHp * (1 + PARTY.hp * 3)));
     expect(four.monster.staggerMax).toBeGreaterThan(solo.monster.staggerMax);
     // Brask's dogs come with him, and run with him.
-    expect(four.allies.filter((a) => a.group === 'hound' && a.owner === 3)).toHaveLength(2);
+    expect(four.allies.filter((a) => a.group === 'hound' && a.owner === 3)).toHaveLength(1);
   });
 
   it('partners fight by themselves: they move, attack and hurt the boss', () => {

@@ -2,6 +2,20 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## Round 4, after the review
+
+A review of the live game asked for seven things, in order. What was done:
+
+1. **The hunter is always seen.** A bright outline of the hunter is drawn over everything while something stands in front of them; a boss reaching down over them fades; the ring at their feet is stronger; helpers and partners keep a step away (`ROOM` in content.ts, with a test). Numbers that land together are added into one.
+2. **The words keep off the fight.** A banner that only says how things stand (the boss waking, a phase, reinforcements) gives way to a warning, goes when one comes up, and sits under the attack's name, which nothing covers. The move hint is shown in the lesson only, beside its plate. The lesson's plate keeps clear of the buttons and moves up out of the way of a warning laid under it. A hunt with mouse and keys has an ATTACK button (J). A touch screen that says it is a desktop is played by touch, with touch's words.
+3. **The tasks are on the field.** The villagers and the cart to be kept have a gold ring and a mark over them, the markers to be broken a red one, and an arrow at the edge of the screen points toward one out of sight. A figure's shadow lies on the ground as shade, not as a hole.
+4. **Growth between hunts** (`src/game/growth.ts`, with tests): a rank for each hunter from hunting with them (five, each a little more Health and Damage, 3% to 12%, and the third a second trinket slot); eight trinkets, each one small rule no trophy already gives, the plain ones sold in the shop and the rare ones only dropped by contracts; the week's hard contract (two of its boss's variants, three times the pay, a trinket for certain); and three chains of contracts that tell a story across their posters, with a prize at the end. Shown on a hunter's page (rank, how far to the next, trinket slots), on the bills and the contract page (the week's and a chain's strip), and on the hunter's record (experience, rank up, what was found). Measured: at the last rank, Marta's third marks go up by 10 to 40 points; the first two were already won.
+5. **The lodge.** The shop is a sheet of cards with pictures, every ware seen at once. The contract page says at its foot when there is more below. The bills keep their words at the smallest legal size and drop the variant's name before shrinking. Cards on the muster not going stay readable. The inn opens on the hunter who goes, Amos sits on a bench and Ned at the table in the kit's own sitting pose, the hands for hire lean on the bar under a line saying what they are. The banner's two lines no longer touch.
+6. **Old Brask is now Old Amos, the Drover**, with one big mastiff, Bull, in place of two dogs: the same two skills, retuned and measured. His lines are his own. Until the artist draws them, Amos is Brask's figure and Bull is the hound drawn bigger.
+7. **The artist's fifth pass** is in: the three villagers, the cart whose wheels turn, the sellsword and the bowman, the grave marker, the totem, the standing stone and the jaw trap replace the last stand-ins; what was broken stands broken; every icon is the kit's own. Whole figures are written for cards only, and the art is 3.2 MB.
+
+Not done: the film was not made again, the walk's pictures of every screen were not all taken again, and the inn's other pieces from the kit (the long table, the bar, the hearth) are not yet placed.
+
 ## The contract screen, the camp's cards and the inn's ten places
 
 The owner: "contracts on one side and the selected contract details on the other / Selecting it will show more details about the contract / Plus the boss you'll be facing", and of the camp: "Make sure to make the items clearer / Not just words / But cards with pictures".

@@ -20,6 +20,9 @@ export const HUNTER_SCALE = 0.72;
 /** The color a stand-in is filled with: the style's unlit black, a little lifted so that it is seen on the dark. */
 export const STAND_IN = 0x1a2227;
 
+/** How much bigger than the kit's hound Bull, the mastiff, is drawn: one dog as much as two. */
+export const MASTIFF = 1.3;
+
 export const isGrim = (a: Art): a is { grim: string } => 'grim' in a;
 
 export const HUNTER_ART: Record<string, Art> = {
@@ -81,6 +84,7 @@ export const FIELD_THING_R: Record<string, number> = { shallows: 112 };
 /** Those who fight beside the hunter, by the reinforcement they came with. */
 export const ALLY_ART: Record<string, Art> = {
   pikemen: { grim: 'pikeman' },
+  // Bull, Amos's mastiff: the kit's hound drawn bigger, until the artist draws a mastiff in his coat (MASTIFF).
   hound: { grim: 'hound' },
   crossbowmen: { grim: 'crossbowman' },
   sappers: { grim: 'sapper' },

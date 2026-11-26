@@ -11,6 +11,21 @@ export const ABILITY_ICONS: Record<string, string> = Object.fromEntries(ABILITIE
 /** The key of the picture of an ability, ready to show. */
 export const abilityIcon = (id: string): string => `ui:icon-${ABILITY_ICONS[id] ?? 'star'}`;
 
+/**
+ * Each trinket's picture. The kit has none of its own yet: these are its nearest icons, until the artist draws them.
+ */
+export const TRINKET_ICONS: Record<string, string> = {
+  whetstone: 'sword', salt: 'cross', boots: 'arrow', flask: 'heart', bread: 'sack', nail: 'lock', ribbon: 'banner', purse: 'coin',
+};
+
+/** What the shop shows for each ware, by what it is: the thing it is for, or the trinket. */
+export function wareIcon(id: string): string {
+  const [kind, what] = id.split(':');
+  if (kind === 'supply') return 'icon-sack';
+  if (kind === 'trinket') return `icon-${TRINKET_ICONS[what] ?? 'star'}`;
+  return `icon-${what}`;
+}
+
 /** The kit's icons the screens ask for besides those, by name without the "icon-" in front. */
 export const OTHER_ICONS = [
   'attack', 'dodge', 'horn', 'pikemen', 'crossbowmen', 'sappers', 'barricade', 'watchfire', 'bellpost', 'ballista', 'supply', 'coin',

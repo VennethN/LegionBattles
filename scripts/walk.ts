@@ -163,7 +163,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await shot('board');
     // The team: the inn, once its people are in; then one of them pressed, which opens what they do and the loadout.
     const people = async (): Promise<void> => {
-      for (let i = 0; i < 80 && !(await find(page, 'Lodge', 'BRASK')); i++) {
+      for (let i = 0; i < 80 && !(await find(page, 'Lodge', 'AMOS')); i++) {
         await page.clock.runFor(50);
         await new Promise((r) => setTimeout(r, 30));
       }

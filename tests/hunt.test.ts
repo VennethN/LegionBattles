@@ -573,9 +573,9 @@ describe('abilities', () => {
     expect(harm(true)).toBeLessThan(harm(false) * 0.6);
   });
 
-  it("Brask's hounds fight beside him, hold the monster when set on, and get up at his whistle", () => {
+  it("Amos's mastiff fights beside him, holds the monster when set on, and gets up at his whistle", () => {
     const h = awake({ hunter: 'brask' });
-    expect(h.allies.filter((a) => a.group === 'hound')).toHaveLength(2);
+    expect(h.allies.filter((a) => a.group === 'hound')).toHaveLength(1);
     h.hunter.x = h.monster.x - 300;
     hold(h, 'walk');
     const events = play(h, 0.1, (x) => ({ x: 0, y: 0, a: x.hunter.waits[0] <= 0 }));

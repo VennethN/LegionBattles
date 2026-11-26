@@ -3,7 +3,7 @@
 // shapes and colors, lit by its hearth and a lantern or two. Each hunter has
 // a place of their own and stands or sits there as who they are: Marta
 // keeping the door, Jory at the window with his crossbow, Agnes tending a
-// lamp by the fire, Brask on the bench with his dogs, and the hands for hire
+// lamp by the fire, Amos on the bench with Bull at his feet, and the hands for hire
 // leaning at the bar. One not yet unlocked is a black shape at their place,
 // "???" and how to unlock them, and nothing else.
 //
@@ -21,8 +21,8 @@ import { ASSETS, getManifest } from './app';
 import { view } from './config';
 import { CARDS, SHEET, portraitFrame, sheet } from './art/Sheet';
 import { GrimFigure } from './art/GrimFigure';
-import { getGrim, wantedUnit } from './art/grim';
-import { HUNTER_ART, STAND_IN, isGrim } from './pictures';
+import { getGrim, thingFrame, wantedThing, wantedUnit } from './art/grim';
+import { HUNTER_ART, MASTIFF, STAND_IN, isGrim } from './pictures';
 import { label } from './ui/widgets';
 
 /** A place in the room, as shares of its width and height: where the feet are, and which way they face. */
@@ -92,7 +92,7 @@ const RESTS: Record<string, Partial<Pose>> = {
   jory: { weaponRot: -32, weaponY: -6, weaponX: 4, headRot: 10, bodyRot: 4 },
   // By the fire, the lamp held out on its pole to be trimmed.
   agnes: { weaponRot: 18, weaponY: 2, bodyRot: 5, headRot: 8, extraRot: 6 },
-  // By the bench, the spear grounded, looking down at the dogs. Sat on it, once the kit has a sitting pose.
+  // By the bench, the goad grounded, looking down at Bull.
   brask: { weaponRot: -12, weaponY: 8, headRot: 12, bodyRot: 4 },
   // The hammer's head on the floor, both hands on the haft, by the anvil.
   greta: { weaponRot: 14, weaponY: 10, bodyRot: 4, headRot: 6 },
@@ -103,6 +103,12 @@ const RESTS: Record<string, Partial<Pose>> = {
   // At the block, the cleaver let down, the hook hung at his side.
   silas: { weaponRot: 22, weaponY: 6, bodyRot: 5, headRot: 10 },
 };
+
+/** Who sits or leans at their place, in the kit's own stills: the rest stand. */
+const STILLS: Record<string, string> = { brask: 'sit', ned: 'sit', sellsword: 'lean', bowman: 'lean' };
+
+/** How big the kit's pieces of the inn are drawn: about as the hunters are. */
+const PIECE = 0.62;
 
 /** How tall a hunter stands in the room, in the layout's units: never under about 60 screen pixels on a phone. */
 const SCALE = 0.62;
@@ -156,7 +162,9 @@ export class Tavern {
     // In a tall window the room is a little wider than the screen, and starts on the hearth.
     if (w > view.w - 12) {
       this.scrollMin = view.w - 6 - w;
-      this.root.x = Math.max(this.scrollMin + 6, Math.min(6, view.w / 2 - plan.hearth * w));
+      // Looking at the hunter who goes, so that the player sees who they are at once.
+      const at = plan.at[s.muster.hunter]?.x ?? plan.hearth;
+      this.root.x = Math.max(this.scrollMin + 6, Math.min(6, view.w / 2 - at * w));
       this.dragging(y);
     }
     const g = scene.add.graphics();
@@ -171,9 +179,9 @@ export class Tavern {
     // The figures come once their pictures are in; the room stands meanwhile.
     const loader = scene.scene.get(ASSETS);
     const art = sheet(scene.game, getManifest());
-    // Every hunter drawn in the style, and the dogs at Brask's feet.
+    // Every hunter drawn in the style, and Bull at Amos's feet.
     const drawn = HUNTERS.map((d) => HUNTER_ART[d.id]).filter(isGrim).map((a) => a.grim);
-    const wanted = [...new Set([...drawn, 'hound'])].map(wantedUnit);
+    const wanted = [...[...new Set([...drawn, 'hound'])].map(wantedUnit), wantedThing('inn-bench')];
     void art.ensureWanted(loader, wanted).then(() => {
       if (this.gone || !scene.scene.isActive()) return;
       this.people(plan);
@@ -428,6 +436,14 @@ export class Tavern {
 
   private people(plan: Plan): void {
     const grim = getGrim();
+    // Over the hands for hire at the bar, what they are: nobody the player picks, but who comes when a party is short.
+    const hired = ['sellsword', 'bowman'].map((id) => plan.at[id]).filter((p): p is Place => !!p);
+    if (hired.length) {
+      const hx = Math.min(this.w - 110, Math.max(110, (hired.reduce((n, p) => n + p.x, 0) / hired.length) * this.w));
+      const hy = Math.min(...hired.map((p) => p.y)) * this.h - 150 * SCALE - 40;
+      this.root.add(label(this.scene, hx, hy, 'HANDS FOR HIRE', { size: 15, face: 'display', color: HOLY.fill }));
+      this.root.add(label(this.scene, hx, hy + 20, 'They come when a contract needs more hunters than you bring.', { size: 15, color: BONE.shade, wrap: 200 }).setOrigin(0.5, 0));
+    }
     const order = HUNTERS.map((d) => d.id).sort((a, b) => (plan.at[a]?.y ?? 0) - (plan.at[b]?.y ?? 0));
     for (const id of order) {
       const at = plan.at[id];
@@ -439,10 +455,10 @@ export class Tavern {
       const pool = this.scene.add.image(x, y - 4, SHEET, 'fx/glow').setBlendMode(Phaser.BlendModes.ADD).setTint(0xffb060).setAlpha(0).setDisplaySize(140, 60);
       this.root.add(pool);
       const spot: Spot = { id, open, x, y, fig: null, img: null, dogs: [], pool, name: null, lit: 0, height: 120 };
-      // Brask's dogs lie at his feet, his or not: a black shape each while he is shut away.
+      // Bull lies at Amos's feet, his or not: a black shape while Amos is shut away. He is a mastiff, bigger than a hound.
       if (id === 'brask') {
-        for (const [dx, f] of [[-66, 1], [64, -1]] as const) {
-          const dog = new GrimFigure(this.scene, 'hound', grim.units.hound, grim.poses, SCALE * 0.8, dx > 0 ? 9 : 4);
+        for (const [dx, f] of [[64, -1]] as const) {
+          const dog = new GrimFigure(this.scene, 'hound', grim.units.hound, grim.poses, SCALE * MASTIFF, 9);
           dog.x = x + dx;
           dog.y = y + 6;
           dog.facing = f;
@@ -460,6 +476,18 @@ export class Tavern {
         fig.facing = at.face;
         fig.rest = pose(RESTS[id] ?? {});
         fig.shift = 1;
+        // Sat on a bench or leant on the bar, in the kit's own stills, for those whose place is that.
+        const still = STILLS[id];
+        if (still && grim.units[art.grim].stills[still]) {
+          if (still === 'sit') {
+            // The bench under them, from the kit's inn.
+            const bench = this.scene.add.image(x, y + 2, SHEET, thingFrame('inn-bench')).setScale(PIECE);
+            this.root.add(bench);
+          }
+          fig.rest = null;
+          fig.shift = 0;
+          fig.hold(still);
+        }
         if (!open) [fig.tint, fig.fill] = [0x0a0806, true];
         this.root.add(fig.root);
         spot.fig = fig;

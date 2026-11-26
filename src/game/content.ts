@@ -229,9 +229,9 @@ export const ABILITIES: readonly AbilityDef[] = [
   // Agnes's flare blinds the monster for `hold` seconds, which is an opening, and burns the small for `dmg`.
   { id: 'flare', name: 'Flare', says: 'A flash that stops the boss for 1.9 seconds and deals 26 damage to small enemies.', kind: 'flare', wait: 10, r: 190, hold: 1.9, dmg: 26, stagger: 16 },
   { id: 'lamp', name: 'Lamp', says: 'A lamp on the ground for 8 seconds. Everyone in its light takes half damage.', kind: 'ward', wait: 14, r: 120, life: 8, share: 0.5 },
-  // Brask's hounds hold the monster for `hold` seconds and bite `share` times as hard for `life`.
-  { id: 'seton', name: 'Dogs Attack', says: 'The dogs hold the boss for 1.8 seconds and bite twice as hard for 4 seconds.', kind: 'seton', wait: 18, hold: 1.8, life: 4, share: 2, stagger: 10 },
-  { id: 'heel', name: 'Call Back', says: 'The dogs come back, get up if they are down, and all three heal 15%.', kind: 'whistle', wait: 24, share: 0.15 },
+  // Amos's mastiff holds the monster for `hold` seconds and bites `share` times as hard for `life`.
+  { id: 'seton', name: 'Set Bull On', says: 'Bull holds the boss for 1.8 seconds and bites twice as hard for 4 seconds.', kind: 'seton', wait: 18, hold: 1.8, life: 4, share: 2, stagger: 10 },
+  { id: 'heel', name: 'Call Back', says: 'Bull comes back, gets up if he is down, and both of you heal 15%.', kind: 'whistle', wait: 24, share: 0.15 },
   // Greta's hammer, heated: a heavy blow in front. What it lands on burns `dmg` a second for `life` seconds, and its
   // armor is cracked for as long: every blow fills `share` more stagger.
   { id: 'forgestrike', name: 'Forge Strike', says: 'A heated blow for 30 damage. The boss burns and takes 50% more stagger for 6 seconds.', kind: 'forge', wait: 12, r: 128, dmg: 30, stagger: 18, life: 6, share: 0.5, burn: 4 },
@@ -324,11 +324,11 @@ export const HUNTERS: readonly HunterDef[] = [
     ],
   },
   {
-    id: 'brask', name: 'Old Brask', short: 'Brask', epithet: 'the Dog Handler', who: 'He talks to the dogs. He does not talk to anyone else.',
-    way: 'A spear and two dogs that fight beside him. 104 Health.',
+    id: 'brask', name: 'Old Amos', short: 'Amos', epithet: 'the Drover', who: 'Forty years driving cattle over the moor. The wood took the herd. Bull stayed.',
+    way: 'A goad-spear, and Bull, a great mastiff in a leather coat, who fights beside him. 104 Health.',
     hp: 104, speed: 166, armor: 0, strike: { kind: 'arc', reach: 118, every: 1.0, dmg: 13, half: 24 },
-    dodge: { dist: 140, dur: 0.3, wait: 1.5 }, abilities: ['seton', 'heel'], hounds: 2, opens: 'antler',
-    // Spear thrusts, and on the third the dogs go in with him.
+    dodge: { dist: 140, dur: 0.3, wait: 1.5 }, abilities: ['seton', 'heel'], hounds: 1, opens: 'antler',
+    // Spear thrusts, and on the third Bull goes in with him.
     combo: [
       { kind: 'thrust', reach: 128, w: 32, dmg: 6, wind: 0.14, recover: 0.24 },
       { kind: 'thrust', reach: 128, w: 32, dmg: 6, wind: 0.14, recover: 0.24 },
@@ -429,7 +429,8 @@ export interface AllyDef {
   blast?: { r: number; fuse: number; dmg: number; stagger: number };
 }
 
-export const HOUND: AllyDef = { way: 'hound', hp: 48, speed: 236, reach: 44, every: 0.8, dmg: 4 };
+// Bull: one mastiff in place of two dogs, measured to be worth about what they were.
+export const HOUND: AllyDef = { way: 'hound', hp: 92, speed: 224, reach: 52, every: 0.8, dmg: 7 };
 
 export interface ReinforcementDef {
   id: string;

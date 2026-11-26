@@ -25,7 +25,7 @@ import { Numbers } from '../Numbers';
 import { drawTell as drawMarkedTell } from '../vfx/Tells';
 import { Vfx } from '../vfx/Vfx';
 import {
-  ABILITY_MOVES, ALLY_ART, BLOW_MOVES, BUILDING_ART, FIELD_THINGS, FIELD_THING_R, HELPER_ALPHA, GRIM_SCALE, HUNTER_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, VILLAGERS, isGrim, type Art,
+  ABILITY_MOVES, ALLY_ART, BLOW_MOVES, BUILDING_ART, FIELD_THINGS, FIELD_THING_R, HELPER_ALPHA, GRIM_SCALE, HUNTER_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, VILLAGERS, MASTIFF, isGrim, type Art,
 } from '../pictures';
 import { Figure } from '../art/Figure';
 import { GrimFigure } from '../art/GrimFigure';
@@ -1048,7 +1048,8 @@ export class LairScene extends Phaser.Scene {
       const folk = a.group === 'villager';
       const s = this.show(`a${a.id}`, folk ? VILLAGERS[a.id % VILLAGERS.length] : (ALLY_ART[a.group] ?? ALLY_ART.pikemen), x, y, a.face, a.moving);
       if (s.fig) {
-        s.fig.pace = a.group === 'hound' ? 1.6 : folk ? 1.3 : 1;
+        s.fig.pace = a.group === 'hound' ? 1.4 : folk ? 1.3 : 1;
+        if (a.group === 'hound') s.fig.scale *= MASTIFF;
         // A villager runs hunched with their arms over their head, and cowers where a blow is marked near them.
         const cower = folk && !a.moving && this.marked(a.x, a.y, 60);
         s.fig.hold(a.state === 'down' ? 'fall' : cower ? 'cower' : null);

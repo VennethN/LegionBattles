@@ -12,8 +12,9 @@ import { sfx } from '../../audio/sfx';
 import { ABILITIES, BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, byId, type Mark } from '../../game/content';
 import {
   buy, changeBuilding, chargesOf, contracts, costOf, isOpen, lessonFor, newsOf, openingOf, opensBy, rewardOf, setHunter, supplyOf, toggleReinforcement, wares, wear, type Contract,
-  board as postedBoard, partyFor, posterOf, posting, quarryOf, repost, togglePartner, type Posting,
+  board as postedBoard, partyFor, posterOf, posting, quarryOf, repost, togglePartner, type Posting, growthOf, setWeek, wearTrinket,
 } from '../../game/lodge';
+import { TRINKETS, weekOf } from '../../game/growth';
 import { ASSETS, getManifest, setupCamera } from '../app';
 import { GrimFigure } from '../art/GrimFigure';
 import { getGrim, wantedUnit } from '../art/grim';
@@ -24,6 +25,7 @@ import { commit, save, takeContract, takePosting, theContract } from '../session
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 import { uiIcon, uiKey } from '../ui/grim';
+import { wareIcon } from '../icons';
 import { LairScene } from './LairScene';
 import { Talk } from '../../game/talk';
 import { Tavern } from '../Tavern';
@@ -275,6 +277,8 @@ export class LodgeScene extends Phaser.Scene {
    */
   private posters(top: number): void {
     const s = save();
+    // The week by the player's own clock: a new one posts its hard contract.
+    setWeek(s, weekOf(Date.now()));
     const w = view.w;
     const tall = view.tall;
     const list = postedBoard(s);
@@ -317,12 +321,23 @@ export class LodgeScene extends Phaser.Scene {
       face.setScale(Math.min((rowH - 10) / face.height, 56 / face.width));
       row.add(face);
       const name = label(this, -rw / 2 + 68, -rowH / 2 + 18, byId(MONSTERS, p.monster).name.replace(/^The /, '').toUpperCase(), { size: 17, align: 'left', color: INK, stroke: null, face: 'display' });
-      name.setScale(Math.min(1, (rw - 150) / name.width));
+      // Never smaller than the smallest words the game allows.
+      name.setScale(Math.max(15 / 17, Math.min(1, (rw - 150) / name.width)));
       row.add(name);
+      // The week's contract and a chain's step say so on a strip across the top of the bill.
+      if (poster.banner) {
+        const tag = label(this, rw / 2 - 74, -rowH / 2 + 1, poster.banner, { size: 15, align: 'right', color: '#f0d8a8', face: 'display' });
+        row.add([this.add.rectangle(rw / 2 - 74 - tag.displayWidth / 2, -rowH / 2 + 1, tag.displayWidth + 12, 20, 0x7a1e16), tag]);
+      }
       for (let k = 0; k < Math.max(3, poster.danger); k++) row.add(this.add.rectangle(-rw / 2 + 74 + k * 13, rowH / 2 - 18, 7, 7, k < poster.danger ? 0x8a1e16 : 0x6b5a48, k < poster.danger ? 1 : 0.35).setAngle(45));
-      const sub = [poster.party > 1 ? `PARTY ${poster.party}` : 'ALONE', poster.variants.length ? poster.variants[0].name.toUpperCase() : ''].filter(Boolean).join('  ');
-      const subT = label(this, -rw / 2 + 74 + Math.max(3, poster.danger) * 13 + 6, rowH / 2 - 18, sub, { size: 15, align: 'left', color: '#5a3a20', stroke: null, face: 'display' });
-      subT.setScale(Math.min(1, (rw - 160 - Math.max(3, poster.danger) * 13) / subT.width));
+      // The party, and the first way it is unlike itself if there is room for it at a size that can be read.
+      const room = rw - 84 - Math.max(3, poster.danger) * 13 - 12;
+      const party = poster.party > 1 ? `PARTY ${poster.party}` : 'ALONE';
+      const subT = label(this, -rw / 2 + 74 + Math.max(3, poster.danger) * 13 + 6, rowH / 2 - 18, party, { size: 15, align: 'left', color: '#5a3a20', stroke: null, face: 'display' });
+      if (poster.variants.length) {
+        subT.setText(`${party}  ${poster.variants[0].name.toUpperCase()}`);
+        if (subT.width > room) subT.setText(party);
+      }
       row.add(subT);
       row.add(this.add.image(rw / 2 - 58, -rowH / 2 + 18, uiKey('icon-coin')).setDisplaySize(20, 20));
       row.add(label(this, rw / 2 - 12, -rowH / 2 + 18, String(poster.coin), { size: 17, align: 'right', color: '#3a2410', stroke: null, face: 'display' }));
@@ -404,6 +419,7 @@ export class LodgeScene extends Phaser.Scene {
       img.setScale(figH / img.height).setTint(STAND_IN).setTintMode(Phaser.TintModes.FILL);
     }
     let ya = pad + figH + 10;
+    if (poster.banner) ya += text(pad, ya, poster.banner, { face: 'display', color: RUBY.fill }, aw) + 2;
     ya += text(pad, ya, m.name.toUpperCase(), { size: 24, face: 'display' }, aw) + 2;
     ya += text(pad, ya, poster.where, { color: BONE.shade }, aw) + 8;
     // Its danger, in marks of blood.
@@ -432,6 +448,8 @@ export class LodgeScene extends Phaser.Scene {
       ...(poster.thing ? [`and ${poster.thing}`] : []),
       ...(poster.tasks.length ? [`+ ${poster.bonus} coin for the tasks`] : []),
       ...(poster.hiredCut ? [`Hired hands take ${poster.hiredCut}`] : []),
+      ...(poster.prize ? [`+ ${poster.prize} coin for the end of the story`] : []),
+      ...(p.weekly ? ['and a trinket, for certain'] : []),
     ];
     ya += text(pad, ya, pays.join('\n'), { color: HOLY.fill }, aw) + 10;
 
@@ -468,9 +486,17 @@ export class LodgeScene extends Phaser.Scene {
     cam.setZoom(z);
     const most = Math.max(0, Math.max(ya, yb) + pad - h);
     let scroll = 0;
+    // While there is more below, the foot of the page darkens and says so: nothing is cut off without a word.
+    const cue = this.add.container(OX + w / 2, 0).setDepth(50).setVisible(most > 0);
+    cue.add([
+      this.add.rectangle(0, -26, w, 30, 0x0d0b09, 0.55),
+      this.add.rectangle(0, -6, w, 14, 0x0d0b09, 0.85),
+      label(this, 0, -14, 'MORE BELOW: DRAG OR SCROLL', { size: 15, face: 'display', color: HOLY.fill }),
+    ]);
     const place = (): void => {
       scroll = Math.max(0, Math.min(most, scroll));
       cam.centerOn(OX + w / 2, OY + h / 2 + scroll);
+      cue.setY(OY + h + scroll).setVisible(scroll < most - 4);
     };
     place();
     this.events.once('shutdown', () => this.cameras.remove(cam));
@@ -606,10 +632,44 @@ export class LodgeScene extends Phaser.Scene {
     }
     let y = top + hh + (party > 1 ? 44 : 26);
     if (party > 1) label(this, w / 2, y - 18, this.partyLine(party), { size: 15, face: 'display', color: BONE.fill });
-    label(this, w / 2, y, `${hunter.name.toUpperCase()}, ${hunter.epithet.toUpperCase()}`, { size: 19, face: 'display', color: HOLY.fill });
+    const grown = hunter.hired ? null : growthOf(s, hunter.id);
+    label(this, w / 2, y, `${hunter.name.toUpperCase()}, ${hunter.epithet.toUpperCase()}${grown ? `  -  ${grown.name.toUpperCase()}` : ''}`, { size: 19, face: 'display', color: HOLY.fill });
     y += 24;
     label(this, w / 2, y, hunter.way, { size: 15, color: BONE.shade, wrap: w - 40 });
     y += tall() ? 34 : 26;
+    if (grown) {
+      // Their rank, what it gives and how far to the next, and a slot for each trinket it lets them wear.
+      const next = grown.next ? `${grown.next.left} more to ${grown.next.name}.` : 'The last rank.';
+      const says = `Rank: ${grown.name}${grown.gives ? `, ${grown.gives}` : ''}. ${next}`;
+      const line = label(this, w / 2, y, says, { size: 15, color: BONE.fill, wrap: w - 40 });
+      if (grown.next) {
+        const bw2 = 120;
+        const bx2 = w / 2 + line.displayWidth / 2 + 14;
+        if (bx2 + bw2 < w - 10) {
+          this.add.rectangle(bx2, y, bw2, 8, 0x2a1e14).setOrigin(0, 0.5).setStrokeStyle(1, 0x8d7650);
+          this.add.rectangle(bx2 + 1, y, (bw2 - 2) * grown.next.share, 6, 0xd8a24a).setOrigin(0, 0.5);
+        }
+      }
+      y += 26;
+      const held = s.trinkets ?? [];
+      const sw = Math.min(230, (w - 40) / grown.slots - 10);
+      for (let i = 0; i < grown.slots; i++) {
+        const on = grown.worn[i];
+        const t = on ? TRINKETS.find((x) => x.id === on) : null;
+        const cycle = (): void => {
+          // Round what is held and not worn in another of their slots, and then none.
+          const free = held.filter((id) => id === on || !grown.worn.includes(id));
+          const at = on ? free.indexOf(on) : -1;
+          const to = free[at + 1] ?? null;
+          if (on) wearTrinket(s, hunter.id, on);
+          if (to) wearTrinket(s, hunter.id, to);
+          const d = to ? TRINKETS.find((x) => x.id === to) : null;
+          this.act('', d ? `${d.name}: ${d.says}` : held.length ? 'No trinket.' : 'No trinkets yet. Contracts drop them, and the Shop sells some.');
+        };
+        new Button(this, w / 2 + (i - (grown.slots - 1) / 2) * (sw + 10), y + 4, `TRINKET: ${t ? t.name.toUpperCase() : 'NONE'}`, cycle, { width: sw, height: 40, size: 15, mat: t ? GOLD : IRON });
+      }
+      y += 34;
+    }
     // The two skills, each with its own mark from the style.
     for (const id of hunter.abilities) {
       const a = byId(ABILITIES, id);
@@ -643,7 +703,8 @@ export class LodgeScene extends Phaser.Scene {
         else this.act(changeBuilding(s, t.id, 1), `${t.name}: ${t.says}`);
       };
       const card = this.card(x, cy, cw, ch, !open ? DARK : BONE, press);
-      if (open && n === 0) card.setAlpha(0.72);
+      // One not going sits back a little, and stays easy to read.
+      if (open && n === 0) card.setAlpha(0.9);
       // Going on the hunt: a brass edge round it.
       if (n > 0) card.add(this.add.rectangle(0, 0, cw - 4, ch - 4).setStrokeStyle(3, 0xb08a48));
       this.figure(card, t.art, 8, 62, open);
@@ -706,25 +767,36 @@ export class LodgeScene extends Phaser.Scene {
     const s = save();
     const w = view.w;
     const list = wares(s);
-    const pw = Math.min(w - 20, 760);
-    const rh = Math.min(58, (view.h - top - 60) / list.length);
-    label(this, w / 2, top + 16, this.note || 'Spend coin here. Trophies unlock more.', { size: 15, color: this.note ? HOLY.fill : BONE.shade, wrap: pw - 20 });
+    label(this, w / 2, top + 14, this.note || 'Spend coin here. Trophies unlock more.', { size: 15, color: this.note ? HOLY.fill : BONE.shade, wrap: w - 40 });
+    // Each ware a card with its picture, what it is and what it does, and its price on a button: laid out in as many
+    // columns as fit, so that every one is seen at once.
+    const pw = Math.min(w - 16, 1000);
+    const cols = Math.max(2, Math.min(5, Math.floor(pw / 176)));
+    const rows = Math.ceil(list.length / cols);
+    const cw = pw / cols - 8;
+    const ch = Math.min(124, (view.h - top - 40) / rows - 8);
     list.forEach((ware, i) => {
-      const y = top + 44 + i * rh + rh / 2;
-      this.add.existing(slabImage(this, w / 2 - pw / 2, y - rh / 2 + 3, pw, rh - 6, ware.had ? DARK : BONE, 12, 5));
+      const x = w / 2 - pw / 2 + (i % cols) * (cw + 8) + cw / 2 + 4;
+      const y = top + 34 + Math.floor(i / cols) * (ch + 8) + ch / 2;
+      const card = this.add.container(x, y);
+      card.add(slabImage(this, -cw / 2, -ch / 2, cw, ch, ware.had ? DARK : BONE, 6, 4));
       const ink = ware.had ? BONE.shade : INK;
-      label(this, w / 2 - pw / 2 + 18, y - (view.tall ? 9 : 0) - 2, ware.name, { size: 16, align: 'left', color: ink, stroke: null });
-      if (!view.tall) label(this, w / 2 - pw / 2 + 300, y - 2, ware.says, { size: 15, align: 'left', color: ink, stroke: null });
-      else label(this, w / 2 - pw / 2 + 18, y + 10, ware.says, { size: 15, align: 'left', color: ink, stroke: null }).setScale(Math.min(1, (pw - 150) / (ware.says.length * 7.4)));
-      if (ware.had) label(this, w / 2 + pw / 2 - 64, y - 2, 'BOUGHT', { size: 16, color: BONE.shade });
+      card.add(this.add.image(-cw / 2 + 22, -ch / 2 + 22, uiKey(wareIcon(ware.id))).setDisplaySize(32, 32).setAlpha(ware.had ? 0.5 : 1));
+      const name = label(this, -cw / 2 + 44, -ch / 2 + 22, ware.name, { size: 15, align: 'left', color: ink, stroke: null, face: 'display' });
+      name.setScale(Math.min(1, (cw - 52) / name.width));
+      card.add(name);
+      const says = label(this, -cw / 2 + 10, -ch / 2 + 42, ware.says, { size: 15, align: 'left', color: ink, stroke: null, wrap: cw - 20 }).setOrigin(0, 0);
+      says.setScale(Math.min(1, (ch - 86) / Math.max(1, says.height)));
+      card.add(says);
+      if (ware.had) card.add(label(this, 0, ch / 2 - 18, 'BOUGHT', { size: 15, color: BONE.shade, face: 'display' }));
       else {
-        const b = new Button(this, w / 2 + pw / 2 - 64, y - 1, `${ware.price}`, () => {
+        const b = new Button(this, x, y + ch / 2 - 22, `${ware.price}`, () => {
           const why = buy(s, ware.id);
           if (why) sfx.play('deny', 0.6);
           else sfx.play('buy', 0.8);
           commit();
           this.go('ledger', why || `${ware.name}: bought.`);
-        }, { width: 104, height: Math.max(44, rh - 12), size: 18, mat: s.coin >= ware.price ? GOLD : IRON });
+        }, { width: Math.min(110, cw - 20), height: 38, size: 17, mat: s.coin >= ware.price ? GOLD : IRON });
         b.setEnabled(s.coin >= ware.price);
       }
     });

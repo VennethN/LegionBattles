@@ -5,7 +5,8 @@
 import Phaser from 'phaser';
 import { BONE, GOLD, IRON, OUTLINE } from '../../art/kit/palette';
 import { sfx } from '../../audio/sfx';
-import { MONSTERS, byId } from '../../game/content';
+import { HUNTERS, MONSTERS, byId } from '../../game/content';
+import { TRINKETS } from '../../game/growth';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
@@ -38,7 +39,16 @@ export class ResultScene extends Phaser.Scene {
     lines.push(['Time', `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`]);
     if (hunt.tally.breaks > 0) lines.push(['Boss stunned', `${hunt.tally.breaks} time${hunt.tally.breaks === 1 ? '' : 's'}`]);
     lines.push([pay.first ? 'Reward (double: first win)' : 'Reward', `+${pay.coin} coin`]);
+    if (pay.prize) lines.push(['End of the story', `+${pay.prize} coin`]);
+    const lead = pay.ranks[0];
+    if (lead) lines.push(['Experience', `+${lead.xp}`]);
     const notes: string[] = [];
+    // Who rose a rank, what was found, and how far a chain of contracts has gone.
+    const rose = pay.ranks.filter((r) => r.rose).map((r) => `${byId(HUNTERS, r.hunter).short} is now ${r.rose}.`);
+    if (rose.length) notes.push(`Rank up: ${rose.join(' ')}`);
+    const found = pay.trinket ? TRINKETS.find((x) => x.id === pay.trinket) : null;
+    if (found) notes.push(`Found: ${found.name}. ${found.says}`);
+    if (pay.chain) notes.push(pay.chain);
     if (pay.trophy) notes.push(`Trophy: ${m.trophy.name}. ${m.trophy.says}`);
     if (pay.opened.length) notes.push(`Unlocked: ${pay.opened.join(', ')}.`);
     if (pay.posted.length) notes.push(`New boss: ${pay.posted.join(', ')}.`);

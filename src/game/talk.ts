@@ -48,7 +48,7 @@ export const VOICES: Record<string, { name: string; heard?: boolean }> = {
   marta: { name: 'Marta' },
   jory: { name: 'Jory' },
   agnes: { name: 'Agnes' },
-  brask: { name: 'Brask' },
+  brask: { name: 'Amos' },
   sellsword: { name: 'Sellsword' },
   bowman: { name: 'Bowman' },
   greta: { name: 'Greta' },
@@ -121,26 +121,32 @@ export const LINES: readonly Line[] = [
   ...L('agnes', 'fall', ['Someone light the lane.', 'It is going out.'], 'sexton'),
   ...L('agnes', 'fall', ['Too dark. Too much of it.', 'Keep the lamp. Run.'], 'king'),
 
-  // ---- Old Brask, the Dog Handler. He had three dogs. The King took one.
-  ...L('brask', 'enter', ['He took my third dog.', 'Had three dogs once.', 'Quiet, girls. He hears well.'], 'king'),
-  ...L('brask', 'sight', ['There he is, girls.', 'That collar in his antlers. That is Pip.'], 'king'),
-  ...L('brask', 'enter', ['Bess dug something up here. It moved.', 'Easy, girls. Smell that?', 'No digging. Not here.'], 'sexton'),
-  ...L('brask', 'sight', ['That is what they smelled.', 'Big lad. Mind his feet, girls.'], 'sexton'),
-  ...L('brask', 'miss', ['Heel! Heel!', 'Too old for this.', 'Missed the dogs too. Good.', 'Close, that.', 'Down, Bess!', 'Nearly had my hat.']),
-  ...L('brask', 'skill', ['Take him!', 'Good girls.', 'Hold him there.', 'That is it, Bess.', 'Back to me.', 'Bite and hold.']),
-  ...L('brask', 'hurt', ['Leave off!', 'I am up. I am up.', 'Worse than a horse kick.', 'Stay back, girls.', 'Old bones.', 'Not the leg again.']),
-  ...L('brask', 'break', ['He is down! Get in!', 'Now, girls, now!', 'On him! All of you!', 'Down he goes.']),
-  ...L('brask', 'kill', ['That was for Pip.', 'Fetch the collar, Bess.'], 'king'),
-  ...L('brask', 'kill', ['Leave it, Bess. Do not dig.', 'Good girls. Home.'], 'sexton'),
-  ...L('brask', 'fall', ['Go home, girls.', 'Run, Bess. Run.'], 'king'),
-  ...L('brask', 'fall', ['Do not let him bury the dogs.', 'Go home, girls.'], 'sexton'),
+
+  // ---- Old Amos, the Drover. Forty years driving cattle over the moor. The King's wood took the herd; Bull stayed.
+  ...L('brask', 'enter', ['The herd went in here. None came out.', 'Forty head. All gone under those trees.', 'Steady, Bull. He hears well.'], 'king'),
+  ...L('brask', 'sight', ['There he is, Bull.', 'That is my brand on his antlers.'], 'king'),
+  ...L('brask', 'enter', ['Bull will not walk on graves. Nor will I.', 'Steady, Bull. Smell that?', 'Churchyard. Bad grazing.'], 'sexton'),
+  ...L('brask', 'sight', ['That is what he smelled.', 'Big fellow. Mind his feet, Bull.'], 'sexton'),
+  ...L('brask', 'miss', ['Back, Bull! Back!', 'Too old for this.', 'Missed the dog too. Good.', 'Close, that.', 'Easy, easy.', 'Nearly had my hat.']),
+  ...L('brask', 'skill', ['Take him, Bull!', 'Good lad.', 'Hold him there.', 'That is it, Bull.', 'Back to me.', 'Bite and hold.']),
+  ...L('brask', 'hurt', ['Leave off!', 'I am up. I am up.', 'Worse than a bull\'s kick.', 'Stay back, Bull.', 'Old bones.', 'Not the leg again.']),
+  ...L('brask', 'break', ['He is down! Get in!', 'Now, Bull, now!', 'On him!', 'Down he goes.']),
+  ...L('brask', 'kill', ['That was for the herd.', 'Fetch the brand, Bull.'], 'king'),
+  ...L('brask', 'kill', ['Leave it, Bull. Do not dig.', 'Good lad. Home.'], 'sexton'),
+  ...L('brask', 'fall', ['Go home, Bull.', 'Run, lad. Run.'], 'king'),
+  ...L('brask', 'fall', ['Do not let him bury the dog.', 'Go home, Bull.'], 'sexton'),
+  ...L('brask', 'enter', ['Little ones about. Easy, Bull.', 'Spiders. Bull hates spiders.'], 'spinner'),
+  ...L('brask', 'enter', ['Wet dog. Lovely.', 'Bells. He will howl all night.'], 'abbot'),
+  ...L('brask', 'enter', ['Mind your paws, Bull.', 'Hot floor. Hot dog.'], 'furnace'),
+  ...L('brask', 'enter', ['He barks at the mirrors.', 'Smell which one is real, Bull.'], 'mirror'),
+  ...L('brask', 'rest', ['Good lad.', 'Down, Bull. Down.', 'He ate better than me today.', 'Hm.', 'Stay. Stay. Good.', 'Do not feed him. He bites.']),
 
   // ---- The Gravedigger. Tobias Marrow buried a parish through the plague year and was not paid for the last hundred.
   // He mutters about the earth and what it is owed.
   ...L('sexton', 'wake', ['Who walks on my work?', 'The earth is owed.', 'One more to put down.', 'Six hundred graves. Mind your feet.']),
   ...L('sexton', 'wake', ['Warden. You locked me in.', 'Marta. Come to pay me?'], 'marta'),
   ...L('sexton', 'wake', ['Lamp girl. I needed the oil.'], 'agnes'),
-  ...L('sexton', 'wake', ['Keep those dogs off my graves.'], 'brask'),
+  ...L('sexton', 'wake', ['Keep that dog off my graves.'], 'brask'),
   ...L('sexton', 'change', ['Every grave is paid for. Every one.', 'I dug six hundred. Who thanked me?', 'A hundred unpaid. I counted.']),
   ...L('sexton', 'last', ['No pay? Then I pay the earth myself.', 'It wants them back. All of them.', 'I will dig yours for free.']),
   ...L('sexton', 'big', ['Open up. Open up.', 'Down you go.', 'Room for one more.', 'Up. You owe me.', 'Measure twice. Dig once.', 'Hold still. It is quicker.']),
@@ -244,10 +250,6 @@ export const LINES: readonly Line[] = [
   ...L('agnes', 'enter', ['Candles under water. Sad.', 'Their bell never needed my lamps.'], 'abbot'),
   ...L('agnes', 'enter', ['Too much fire. Even for me.', 'It does not need my lamp.'], 'furnace'),
   ...L('agnes', 'enter', ['Light in mirrors. Watch the true one.', 'Every lamp here lit twice.'], 'mirror'),
-  ...L('brask', 'enter', ['Easy, girls. Little ones about.', 'Spiders. The girls hate spiders.'], 'spinner'),
-  ...L('brask', 'enter', ['Wet dogs. Lovely.', 'Bells. They will howl all night.'], 'abbot'),
-  ...L('brask', 'enter', ['Mind your paws, girls.', 'Hot floor. Hot dogs.'], 'furnace'),
-  ...L('brask', 'enter', ['They bark at the mirrors.', 'Smell which one is real, girls.'], 'mirror'),
 
   // ---- The Spinner. She was down there before the cellars were dug. She does not speak: what is heard and seen.
   ...L('spinner', 'wake', ['Something taps. Eight times.', 'Silk shivers across the whole ceiling.', 'Eyes open in the dark. Many.', 'A dry clicking, very close.']),
@@ -299,8 +301,6 @@ export const LINES: readonly Line[] = [
   ...L('jory', 'help', ['Come on, get up.', 'Not yet, you are not.', 'Up. He is coming.', 'Lean on me.']),
   ...L('agnes', 'up', ['Still burning.', 'Thank you, love.', 'Not out yet.', 'Light again.', 'Up. Where is he?', 'I saw a light. It was you.']),
   ...L('agnes', 'help', ['Look at me. Up.', 'Here. Take my hand.', 'Not in the dark.', 'Up, quick now.']),
-  ...L('brask', 'up', ['Good girls. Stop licking.', 'I am up.', 'Old, not dead.', 'Thank you. Do not fuss.', 'Back again.', 'Where is my spear?']),
-  ...L('brask', 'help', ['Up, lad.', 'Off the ground.', 'Easy. I have you.', 'Up. Dogs need you.']),
   // ---- Hands for hire. They talk about the money.
   ...L('sellsword', 'miss', ['Not paid enough for that.', 'Close.', 'Missed me. Good.', 'Hah.', 'Slow beast.', 'Saw it.']),
   ...L('sellsword', 'skill', ['Got him.', 'There.', 'Earned my wage.', 'Back off!', 'Hold still.', 'That is for the pay.']),
@@ -322,7 +322,6 @@ export const LINES: readonly Line[] = [
   ...L('marta', 'rest', ['I keep the door. Old habit.', 'Nobody comes in I have not seen.', 'Sit if you like. I stand.', 'The key still weighs on my belt.', 'Eleven years of gates. Now this.', 'Wake me if the dead knock.']),
   ...L('jory', 'rest', ['Wind is turning. Good for tracks.', 'This string wants waxing.', 'Somebody is out there. Always is.', 'I could take that hare from here.', 'Never sit with your back to glass.', 'Hobb waters the ale. I checked.']),
   ...L('agnes', 'rest', ['This wick is nearly gone.', 'Fire is just a lamp that ate too much.', 'Every dark street had a lamp once.', 'Hold still. I am trimming.', 'The oil smells of home.', 'Light first. Then talk.']),
-  ...L('brask', 'rest', ['Good dogs.', 'Down, Mutt. Down.', 'They ate better than me today.', 'Hm.', 'Stay. Stay. Good.', 'Do not feed them. They bite.']),
   ...L('sellsword', 'rest', ['Paid by the day. Day is young.', 'Another round. On the job.', 'I have seen worse. Paid worse.', 'Point me at it.', 'Coin first. Courage after.', 'Who is buying?']),
   ...L('bowman', 'rest', ['Mostly I hit things.', 'Arrows are extra.', 'I aim where I am paid.', 'Quiet night. Suspicious.', 'Nice bar. Bad light.', 'Wake me when there is pay.']),
 
