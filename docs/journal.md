@@ -2,6 +2,18 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## Round 7, a hunter's page that says what to press
+
+The owner: "for the menu in boss hunters, can we make it clearer of the button to select which hunters? the ui currently is very messy". The page a hunter opens to from the inn was rebuilt as one layout:
+
+- **At the left, the hunter**, large and lit on their card, their name and title, and one big button, CHOOSE and their name. It is the only thing that chooses a hunter. Once chosen it is greyed and says CHOSEN, and the card is stamped CHOSEN. On a contract for a party, ADD AS PARTNER or REMOVE PARTNER under it, and how many partner places are left (`placesOf` in lodge.ts).
+- **At the right, a ledger page** in three headed blocks: STATS (Health, Damage of each blow of the chain, Range and Speed, with the rank and trinkets in, as the hunt has them: `statsOf`), SKILLS (each its mark, name, key and one short line, `brief` in content.ts, whose numbers a test holds to the full line's; pressed, the full line is said) and GROWTH (the rank, a bar to the next and what it gives, the trinket slots with their pictures, and the trophy for the hunter going).
+- **Along the bottom, what to bring**: a card each with its picture, name and supply cost large; one going has a lit gold edge and a tick, not a faint word. The supply is large at the bottom left.
+- **One action to a corner**: BACK at the top left, back to the inn, and HUNT AS and the name of the hunter going at the bottom right. "HUNT AS THEM" is gone; the inn's HUNT says the name too.
+- **Who hunts is shown everywhere in the lodge**: their likeness and name in the top bar, which opens their page, and a CHOSEN plaque at their place in the inn (a partner's says PARTNER).
+
+Looked at in pictures at 907x510, 821x462 and on a phone held sideways and upright: a hunter not chosen, chosen, a party contract, and the first hunts. The pictures found the torch of Agnes reaching over her title and the tick's count drawn over a barricade, both fixed.
+
 ## Round 6, auto attack again, with the hand over it
 
 The owner: "let's bring back autoattack for bosshunters, but make manual attack override auto attack". Built as a rule in `hunt.ts` with tests (`AUTO` in content.ts):

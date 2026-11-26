@@ -15,7 +15,8 @@ import { LairScene } from './view/scenes/LairScene';
 import { LodgeScene } from './view/scenes/LodgeScene';
 import { ResultScene } from './view/scenes/ResultScene';
 import { TitleScene } from './view/scenes/TitleScene';
-import { commit, reloadSave, save, stage, theHunt } from './view/session';
+import { commit, reloadSave, save, stage, takePosting, theHunt } from './view/session';
+import { board, posterOf } from './game/lodge';
 
 /**
  * Starts the game. A portal is looked for first, because where there is one
@@ -108,6 +109,12 @@ async function start(): Promise<void> {
   };
   w.view = view;
   w.stage = stage;
+  // For the scripts: takes the first contract on the board that wants a party, as a press on its bill would.
+  w.partyContract = (): boolean => {
+    const p = board(save()).find((x) => posterOf(save(), x).party > 1);
+    if (p) takePosting(p.id);
+    return !!p;
+  };
 
   // Signed in on the portal in the middle of a visit: the save kept there is the account's now.
   onAccount(() => {

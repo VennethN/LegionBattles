@@ -3,8 +3,10 @@ import { BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, TO_COME, byId } from '../
 import { Hunt } from '../src/game/hunt';
 import {
   FIRST_MUSTER, LESSON_PAY, OPENING, SUPPLY, lessonFor, newsOf, openingOf, type SaveData, buy, canHunt, changeBuilding, chargesOf, contracts, costOf, freshSave, isOpen, nextContract, opensBy, payFor, repair, setHunter, setupOf, supplyOf,
-  quarryOf, toggleReinforcement, toldBy, wares, wear,
+  quarryOf, toggleReinforcement, toldBy, wares, wear, placesOf, statsOf, togglePartner,
 } from '../src/game/lodge';
+import { ABILITIES } from '../src/game/content';
+import { RANKS } from '../src/game/growth';
 
 const tally = { time: 100, dealt: {}, taken: {}, killedBy: null, breaks: 0, taught: false, tasks: {}, downs: 0 };
 
@@ -69,6 +71,39 @@ describe('the muster', () => {
     expect(chargesOf(s, 'pikemen')).toBe(2);
     h.step({ x: 0, y: 0, place: 'barricade' });
     expect(h.buildings[0].maxHp).toBe(135);
+  });
+});
+
+describe("a hunter's page", () => {
+  it('gives every skill a line of its own whose numbers are the full line\'s', () => {
+    for (const a of ABILITIES) {
+      expect(a.brief, a.id).toBeTruthy();
+      expect((a.brief ?? '').length, a.id).toBeLessThanOrEqual(48);
+      for (const n of (a.brief ?? '').match(/\d+(\.\d+)?/g) ?? []) expect(a.says, `${a.id}: ${n}`).toContain(n);
+    }
+  });
+
+  it('shows the stats the hunt gives the hunter, with their rank in', () => {
+    const s = opened();
+    const marta = byId(HUNTERS, 'marta');
+    expect(statsOf(s, 'marta')).toEqual({ health: marta.hp, damage: marta.combo.map((b) => b.dmg), range: Math.max(...marta.combo.map((b) => b.reach)), speed: marta.speed });
+    s.xp = { marta: 1e6 };
+    const top = RANKS[RANKS.length - 1].gain;
+    const h = new Hunt(setupOf(s, 'sexton', 1, 5, false));
+    expect(statsOf(s, 'marta').health).toBe(h.hunter.maxHp);
+    expect(statsOf(s, 'marta').damage[0]).toBe(Math.round(marta.combo[0].dmg * (1 + top)));
+  });
+
+  it('counts the partner places a contract has, and how many are left', () => {
+    const s = opened();
+    expect(placesOf(s, 1)).toEqual({ places: 0, chosen: 0, left: 0 });
+    s.trophies.push('spade');
+    expect(placesOf(s, 3)).toEqual({ places: 2, chosen: 0, left: 2 });
+    s.muster.partners = ['jory'];
+    expect(placesOf(s, 3)).toEqual({ places: 2, chosen: 1, left: 1 });
+    expect(placesOf(s, 2)).toEqual({ places: 1, chosen: 1, left: 0 });
+    expect(togglePartner(s, 'jory')).toBe('');
+    expect(placesOf(s, 3).chosen).toBe(0);
   });
 });
 

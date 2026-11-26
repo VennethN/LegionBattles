@@ -181,12 +181,26 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     if (jory) await page.mouse.click(jory.x, jory.y);
     await tick(page, 30);
     await shot('muster');
+    // Chosen: the stamp on the card, the button greyed, and the name in the top bar and on HUNT AS.
+    const choose = await find(page, 'Lodge', 'CHOOSE');
+    if (choose) await page.mouse.click(choose.x, choose.y);
+    await tick(page, 30);
+    await shot('muster-chosen');
     const at = await find(page, 'Lodge', 'BALLISTA');
     if (at) await page.mouse.click(at.x, at.y);
     await tick(page, 12);
     await shot('muster-note');
     await lodge(page, 'muster', { opening: 2, hunts: 2, wins: 1, coin: 42, trophies: ['spade'], felled: {}, worn: {}, steps: [], supply: 0, muster: { hunter: 'marta', reinforcements: ['pikemen'], buildings: { barricade: 1 }, partners: [] } });
     await shot('muster-new');
+    // A contract for a party: a hunter's page offers them as a partner, and says how many places are left.
+    await lodge(page, 'board', RICH);
+    await page.evaluate(() => (window as unknown as { partyContract(): boolean }).partyContract());
+    await lodge(page, 'muster', RICH);
+    await people();
+    const agnes = await find(page, 'Lodge', 'AGNES');
+    if (agnes) await page.mouse.click(agnes.x, agnes.y);
+    await tick(page, 30);
+    await shot('muster-party');
     await lodge(page, 'ledger', RICH);
     await shot('ledger');
   },

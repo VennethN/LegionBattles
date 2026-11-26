@@ -212,8 +212,8 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
     await page.clock.runFor(50);
     await new Promise((r) => setTimeout(r, 30));
   }
-  check(`${label}: a hunter in the inn can be looked at`, (await press(page, tap, 'Lodge', 'JORY')) && (await tick(page, 30), !!(await find(page, 'Lodge', 'HUNT AS THEM'))));
-  check(`${label}: a hunter the trophy opened can be taken`, (await press(page, tap, 'Lodge', 'HUNT AS THEM')) && (await saved<string>(page, 's.muster.hunter')) === 'jory');
+  check(`${label}: a hunter in the inn can be looked at`, (await press(page, tap, 'Lodge', 'JORY')) && (await tick(page, 30), !!(await find(page, 'Lodge', 'CHOOSE JORY'))));
+  check(`${label}: a hunter the trophy opened can be taken`, (await press(page, tap, 'Lodge', 'CHOOSE JORY')) && (await saved<string>(page, 's.muster.hunter')) === 'jory' && (await tick(page, 20), !!(await find(page, 'Lodge', 'HUNT AS JORY'))));
   await tick(page, 20);
   check(`${label}: a building is added within the supply`, (await press(page, tap, 'Lodge', 'BARRICADE')) && (await saved<number>(page, 's.muster.buildings.barricade')) === 2);
   await tick(page, 20);

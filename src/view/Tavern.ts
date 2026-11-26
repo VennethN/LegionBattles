@@ -484,6 +484,14 @@ export class Tavern {
         spot.img = img;
         spot.height = img.displayHeight;
       }
+      // The one chosen to hunt has a plaque over their head; a partner taken along, a plainer one.
+      const mark = open && !def.hired ? (this.s.muster.hunter === id ? 'CHOSEN' : this.s.muster.partners.includes(id) ? 'PARTNER' : '') : '';
+      if (mark) {
+        const plaque = this.scene.add.container(x, y - spot.height - 12);
+        const lit = mark === 'CHOSEN';
+        plaque.add([this.scene.add.rectangle(0, 0, 84, 24, lit ? 0xd8a24a : 0x3a2a1e).setStrokeStyle(2, 0x1a120c), label(this.scene, 0, -1, mark, { size: 15, face: 'display', color: lit ? '#1a120c' : BONE.fill, stroke: null })]);
+        this.root.add(plaque);
+      }
       // One shut away is a black shape and ???; how to open them is said only while they are pointed at or tapped,
       // so that ten people in a row do not bury each other in words.
       let how: Phaser.GameObjects.Text | null = null;
@@ -501,7 +509,8 @@ export class Tavern {
       zone.on('pointerover', () => {
         how?.setVisible(true);
         if (!open) return;
-        spot.name ??= label(this.scene, x, y - spot.height - 14, def.short.toUpperCase(), { size: 17, face: 'display', color: HOLY.fill });
+        // Over a plaque, if there is one.
+        spot.name ??= label(this.scene, x, y - spot.height - (mark ? 38 : 14), def.short.toUpperCase(), { size: 17, face: 'display', color: HOLY.fill });
         this.root.add(spot.name);
         spot.name.setVisible(true);
         spot.lit = Math.max(spot.lit, 0.5);
