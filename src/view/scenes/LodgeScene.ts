@@ -802,13 +802,14 @@ export class LodgeScene extends Phaser.Scene {
       this.add.rectangle(x + 12, yy - gap / 2, pw - 24, 1, 0x8d7650, 0.6).setOrigin(0, 0.5);
     };
 
-    // STATS: four numbers in a row, each under its name.
+    // STATS: a picture and a number each, the word small under it: a heart, a sword, an arrow and a boot.
     let at = head('STATS', 40);
-    const cells: Array<[string, string]> = [['HEALTH', `${stats.health}`], ['DAMAGE', stats.damage.join(' / ')], ['RANGE', `${stats.range}`], ['SPEED', `${stats.speed}`]];
-    cells.forEach(([k, v], i) => {
+    const cells: Array<[string, string, string]> = [['heart', 'HEALTH', `${stats.health}`], ['sword', 'DAMAGE', stats.damage.join(' / ')], ['arrow', 'RANGE', `${stats.range}`], ['trinket-boots', 'SPEED', `${stats.speed}`]];
+    cells.forEach(([icon, k, v], i) => {
       const sx = cx + (i + 0.5) * (cw / cells.length);
-      label(this, sx, at + 8, k, { size: 15, color: '#6a5640', stroke: null });
-      label(this, sx, at + 28, v, { size: 19, face: 'display', color: INK, stroke: null });
+      const num = label(this, sx + 14, at + 12, v, { size: 21, face: 'display', color: INK, stroke: null });
+      this.add.image(sx + 14 - num.width / 2 - 16, at + 12, uiKey(`icon-${icon}`)).setDisplaySize(26, 26);
+      label(this, sx, at + 33, k, { size: 15, color: '#6a5640', stroke: null });
     });
     yy = at + 40 + gap;
     rule();
@@ -830,7 +831,9 @@ export class LodgeScene extends Phaser.Scene {
       if (beside) label(this, tx, ry, a.brief ?? a.says, { size: 15, align: 'left', color: '#3a2a1e', stroke: null, wrap: cx + cw - tx });
       else label(this, cx + 30, ry + 20, a.brief ?? a.says, { size: 15, align: 'left', color: '#3a2a1e', stroke: null, wrap: cw - 30 });
       // The whole line is a press: a zone over it, where it is, under nothing else.
-      this.add.zone(cx + cw / 2, ry + (beside ? 0 : 10), cw, skillH).setInteractive({ useHandCursor: true }).on('pointerup', () => this.go('muster', `${a.name}: ${a.says}`, this.look));
+      const zone = this.add.zone(cx + cw / 2, ry + (beside ? 0 : 10), cw, skillH).setInteractive({ useHandCursor: true });
+      zone.on('pointerup', () => this.go('muster', `${a.name}: ${a.says}`, this.look));
+      zone.on('pointerover', () => this.noteLine?.setText(`${a.name}: ${a.says}`));
     });
     yy = at + hunter.abilities.length * skillH + gap;
     rule();
@@ -841,16 +844,27 @@ export class LodgeScene extends Phaser.Scene {
       label(this, cx, at + 12, 'A hand for hire does not rank up.', { size: 15, align: 'left', color: '#3a2a1e', stroke: null });
       return;
     }
-    const rank = label(this, cx, at + 10, grown.name.toUpperCase(), { size: 17, align: 'left', face: 'display', color: INK, stroke: null });
-    let gx = cx + rank.width + 10;
-    if (grown.next) {
-      const bw = Math.min(140, cw * 0.28);
-      this.add.rectangle(gx, at + 10, bw, 10, 0x2a1e14).setOrigin(0, 0.5).setStrokeStyle(1, 0x8d7650);
-      this.add.rectangle(gx + 1, at + 10, (bw - 2) * grown.next.share, 8, 0xd8a24a).setOrigin(0, 0.5);
-      gx += bw + 10;
+    // The rank as a badge, a bar to the next, and the next rank's name at the bar's end.
+    const rank = label(this, cx + 34, at + 10, grown.name.toUpperCase(), { size: 17, align: 'left', face: 'display', color: '#f0e2c0', stroke: null });
+    const badge = this.add.rectangle(cx, at + 10, rank.width + 44, 26, 0x5a2a1a).setOrigin(0, 0.5).setStrokeStyle(2, 0xd8a24a);
+    this.add.image(cx + 16, at + 10, uiKey('icon-banner')).setDisplaySize(22, 22);
+    rank.setDepth(1);
+    badge.setDepth(0);
+    let gx = cx + rank.width + 54;
+    if (grown.gives) {
+      // What the rank gives: a little more Health and Damage, as a heart and a sword with the share.
+      const up = grown.gives.match(/\+\d+%/)?.[0] ?? '';
+      this.add.image(gx + 8, at + 10, uiKey('icon-heart')).setDisplaySize(18, 18);
+      this.add.image(gx + 24, at + 10, uiKey('icon-sword')).setDisplaySize(18, 18);
+      const g = label(this, gx + 36, at + 10, up, { size: 15, align: 'left', face: 'display', color: INK, stroke: null });
+      gx += 44 + g.width;
     }
-    const next = grown.next ? `${grown.next.left} more to ${grown.next.name}` : 'The last rank';
-    label(this, gx, at + 10, grown.gives ? `${grown.gives}. ${next}.` : `${next}.`, { size: 15, align: 'left', color: '#3a2a1e', stroke: null, wrap: cx + cw - gx });
+    if (grown.next) {
+      const bw = Math.min(160, cw * 0.3);
+      this.add.rectangle(gx, at + 10, bw, 12, 0x2a1e14).setOrigin(0, 0.5).setStrokeStyle(1, 0x8d7650);
+      this.add.rectangle(gx + 1, at + 10, (bw - 2) * grown.next.share, 10, 0xd8a24a).setOrigin(0, 0.5);
+      label(this, gx + bw + 8, at + 10, grown.next.name.toUpperCase(), { size: 15, align: 'left', face: 'display', color: '#6a5640', stroke: null });
+    }
     const held = s.trinkets ?? [];
     const chosen = s.muster.hunter === hunter.id;
     const trophy = chosen && s.trophies.length > 0;

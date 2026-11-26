@@ -248,12 +248,14 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
   await context.close();
 }
 
+// ONLY=mouse or ONLY=touch plays one of the two, on a machine too busy for both in one go.
+const only = process.env.ONLY ?? '';
 const browser = await chromium.launch();
-{
+if (only !== 'touch') {
   const { context, page } = await open(browser, { viewport: { width: 907, height: 510 }, deviceScaleFactor: 1 });
   await play('mouse', context, page, (x, y) => page.mouse.click(x, y), false);
 }
-{
+if (only !== 'mouse') {
   const { context, page } = await open(browser, { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true });
   await play('touch', context, page, (x, y) => page.touchscreen.tap(x, y), true);
 }
