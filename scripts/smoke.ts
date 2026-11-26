@@ -120,11 +120,11 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
     check(`${label}: a touch screen has the stick and the thumb buttons`, (await scheme(page)) === 'touch' && !!(await find(page, 'Hud', 'ATTACK')));
   } else {
-    // A click on the field is the mouse: no stick and no thumb buttons come up, ever.
+    // A click on the field is the mouse: no stick and no thumb buttons come up, ever; ATTACK is in the row, with its key.
     const size = page.viewportSize() as { width: number; height: number };
     await page.mouse.click(size.width * 0.4, size.height * 0.55);
     await tick(page, 5);
-    check(`${label}: a mouse click shows no stick and no thumb buttons`, (await scheme(page)) === 'mouse' && !(await find(page, 'Hud', 'ATTACK')));
+    check(`${label}: a mouse click keeps the keys' buttons, ATTACK among them`, (await scheme(page)) === 'mouse' && !!(await find(page, 'Hud', 'ATTACK')));
     await page.keyboard.down('KeyA');
     await tick(page, 70);
     await page.keyboard.up('KeyA');

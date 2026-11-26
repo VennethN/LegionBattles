@@ -110,6 +110,9 @@ const STILLS: Record<string, string> = { brask: 'sit', ned: 'sit', sellsword: 'l
 /** How big the kit's pieces of the inn are drawn: about as the hunters are. */
 const PIECE = 0.62;
 
+/** The kit's pieces of the inn that are stood in it. */
+const PIECES = ['long-table', 'candles', 'weapon-rack', 'barrels', 'butcher-block', 'forge-corner', 'inn-bench'];
+
 /** How tall a hunter stands in the room, in the layout's units: never under about 60 screen pixels on a phone. */
 const SCALE = 0.62;
 
@@ -182,8 +185,9 @@ export class Tavern {
     // Every hunter drawn in the style, and Bull at Amos's feet.
     const drawn = HUNTERS.map((d) => HUNTER_ART[d.id]).filter(isGrim).map((a) => a.grim);
     const wanted = [...[...new Set([...drawn, 'hound'])].map(wantedUnit), wantedThing('inn-bench')];
-    void art.ensureWanted(loader, wanted).then(() => {
+    void art.ensureWanted(loader, [...wanted, ...PIECES.map(wantedThing)]).then(() => {
       if (this.gone || !scene.scene.isActive()) return;
+      this.pieces(plan);
       this.people(plan);
       this.root.add(this.smoke);
     });
@@ -219,10 +223,7 @@ export class Tavern {
     this.stair(g, plan.stair * w, fy);
     this.bar(g, plan, fy);
     this.hearth(g, plan.hearth * w, fy);
-    this.table(g, plan);
-    // The new hunters' own corners: a butcher's block for Silas, an anvil for Greta by the fire.
-    if (plan.at.silas) this.block(g, plan.at.silas.x * w + plan.at.silas.face * 46, plan.at.silas.y * this.h);
-    if (plan.at.greta) this.anvil(g, plan.at.greta.x * w - plan.at.greta.face * 50, plan.at.greta.y * this.h);
+    // The table, the hunters' own corners and what stands about are the kit's pieces of the inn (`pieces`).
     // Lanterns from the beam: one over the table, one over the bar.
     for (const lx of [plan.table[0] + 0.04, plan.bar[0] + 0.08]) this.lantern(g, lx * w, h * 0.06 + 20);
   }
@@ -338,51 +339,10 @@ export class Tavern {
     this.glow(x - hw * 0.3 + 3, top - 20, 46, 0xffc070, 0.45);
   }
 
-  private table(g: Phaser.GameObjects.Graphics, plan: Plan): void {
-    const [a, b, foot] = plan.table;
-    const x0 = a * this.w;
-    const x1 = b * this.w;
-    const y = foot * this.h - (view.tall ? 70 : 64);
-    // A long table, its top seen a little from above, and a bench before it.
-    g.fillStyle(0x0c0704, 1).fillRect(x0 - 4, y - 4, x1 - x0 + 8, 30);
-    g.fillStyle(0x4a3220, 1).fillRect(x0, y, x1 - x0, 14);
-    g.fillStyle(0x34231a, 1).fillRect(x0, y + 14, x1 - x0, 10);
-    for (const lx of [x0 + 10, x1 - 20]) g.fillStyle(0x24170e, 1).fillRect(lx, y + 24, 10, 40);
-    // A bench in front.
-    g.fillStyle(0x0c0704, 1).fillRect(x0 + 10, y + 36, x1 - x0 - 20, 14);
-    g.fillStyle(0x5a3e24, 1).fillRect(x0 + 12, y + 38, x1 - x0 - 24, 8);
-    for (const lx of [x0 + 20, x1 - 30]) g.fillStyle(0x24170e, 1).fillRect(lx, y + 46, 8, 18);
-    // A candle, a loaf, a cup.
-    g.fillStyle(0xe8dcc0, 1).fillRect(x0 + (x1 - x0) * 0.5, y - 14, 5, 14);
-    g.fillStyle(0xa8743a, 1).fillEllipse(x0 + (x1 - x0) * 0.25, y + 2, 30, 14);
-    g.fillStyle(0x7a7a80, 1).fillRect(x0 + (x1 - x0) * 0.72, y - 10, 9, 11);
-    this.glow(x0 + (x1 - x0) * 0.5 + 2, y - 16, 70, 0xffc070, 0.5);
-  }
 
   /** A butcher's block: a round of a trunk on its legs, scored on top, a cleaver stood in it. */
-  private block(g: Phaser.GameObjects.Graphics, x: number, foot: number): void {
-    const y = foot - 40;
-    g.fillStyle(0x0c0704, 1).fillRect(x - 26, y - 4, 52, 46);
-    g.fillStyle(0x5a3a22, 1).fillRect(x - 23, y, 46, 12);
-    g.fillStyle(0x3a2416, 1).fillRect(x - 23, y + 12, 46, 10);
-    for (const lx of [x - 20, x + 12]) g.fillStyle(0x24170e, 1).fillRect(lx, y + 22, 8, 18);
-    g.lineStyle(1, 0x2a1a10, 0.8).lineBetween(x - 16, y + 3, x - 4, y + 9).lineBetween(x + 2, y + 2, x + 14, y + 8);
-    // The cleaver stood in it, and a dark stain down its side.
-    g.fillStyle(0x0c0704, 1).fillRect(x + 4, y - 22, 16, 22);
-    g.fillStyle(0x9aa0a6, 1).fillRect(x + 6, y - 20, 12, 14);
-    g.fillStyle(0x3a1010, 0.9).fillRect(x - 10, y + 12, 6, 12);
-  }
 
   /** An anvil on its stump, in the corner by the fire: the smith's. */
-  private anvil(g: Phaser.GameObjects.Graphics, x: number, foot: number): void {
-    const y = foot - 34;
-    g.fillStyle(0x0c0704, 1).fillRect(x - 16, y + 12, 32, 24);
-    g.fillStyle(0x3a2416, 1).fillRect(x - 13, y + 14, 26, 22);
-    g.fillStyle(0x0c0704, 1).fillTriangle(x - 34, y - 2, x - 18, y - 2, x - 18, y + 6).fillRect(x - 20, y - 6, 42, 16);
-    g.fillStyle(0x4a4e54, 1).fillRect(x - 17, y - 3, 36, 8);
-    g.fillStyle(0x6e747a, 1).fillRect(x - 17, y - 3, 36, 3);
-    this.glow(x, y - 4, 40, 0xff9040, 0.35);
-  }
 
   private lantern(g: Phaser.GameObjects.Graphics, x: number, y: number): void {
     g.lineStyle(2, 0x0c0704, 1).lineBetween(x, y, x, y + 22);
@@ -433,6 +393,25 @@ export class Tavern {
   }
 
   // ------------------------------------------------------------ the people
+
+  /**
+   * The kit's own pieces of the inn, stood on the floor at about the hunters' size: the long table with its candles,
+   * Silas's block, Greta's forge corner by the fire, the barrels by the bar and the rack of weapons by the door.
+   */
+  private pieces(plan: Plan): void {
+    const put = (id: string, x: number, y: number, k = PIECE): void => {
+      this.root.add(this.scene.add.image(x, y, SHEET, thingFrame(id)).setScale(k));
+    };
+    const fy = this.h * plan.floor;
+    const [a, b, foot] = plan.table;
+    const tx = ((a + b) / 2) * this.w;
+    put('long-table', tx, foot * this.h - (view.tall ? 40 : 30));
+    put('candles', tx - 30, foot * this.h - (view.tall ? 40 : 30) - 60, PIECE * 0.8);
+    put('weapon-rack', plan.door * this.w + 70, fy + 6, PIECE * 0.85);
+    put('barrels', plan.bar[0] * this.w - 40, plan.bar[2] * this.h);
+    if (plan.at.silas) put('butcher-block', plan.at.silas.x * this.w + plan.at.silas.face * 46, plan.at.silas.y * this.h);
+    if (plan.at.greta) put('forge-corner', plan.at.greta.x * this.w - plan.at.greta.face * 56, plan.at.greta.y * this.h - 6, PIECE * 0.8);
+  }
 
   private people(plan: Plan): void {
     const grim = getGrim();
