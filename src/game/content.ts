@@ -190,8 +190,10 @@ export type AbilityKind = 'brace' | 'sweep' | 'trap' | 'pool' | 'flare' | 'ward'
 export interface AbilityDef {
   id: string;
   name: string;
-  /** What it does, for the muster's card. */
+  /** What it does, in full: for the hunt's lesson and when its line on a hunter's page is pressed. */
   says: string;
+  /** What it does in one short line, for a hunter's page: its numbers are the same as in `says`. Every hunter's skill has one. */
+  brief?: string;
   kind: AbilityKind;
   /** Seconds before it can be used again. */
   wait: number;
@@ -230,35 +232,35 @@ export interface AbilityDef {
 export const ABILITIES: readonly AbilityDef[] = [
   // Marta sets her halberd. The next of the monster's blows to reach her in `life` seconds is turned: it does nothing,
   // fills `stagger`, and she answers with a blow `share` times her own.
-  { id: 'brace', name: 'Block', says: 'She blocks the next hit: no damage, and the boss is weakened.', kind: 'brace', wait: 9, life: 1.4, stagger: 36, share: 2.5 },
-  { id: 'reap', name: 'Sweep', says: 'Hits everything around her for 30 damage and knocks small enemies back.', kind: 'sweep', wait: 8, r: 138, dmg: 30, stagger: 8 },
+  { id: 'brace', name: 'Block', brief: 'Blocks the next hit and weakens the boss.', says: 'She blocks the next hit: no damage, and the boss is weakened.', kind: 'brace', wait: 9, life: 1.4, stagger: 36, share: 2.5 },
+  { id: 'reap', name: 'Sweep', brief: 'Hits all around you for 30, knocks back.', says: 'Hits everything around her for 30 damage and knocks small enemies back.', kind: 'sweep', wait: 8, r: 138, dmg: 30, stagger: 8 },
   // Jory's trap lies where he stood. What steps in it is held for `hold` seconds and takes `share` more while held.
-  { id: 'jawtrap', name: 'Trap', says: 'Placed at his feet. It holds what steps in it for 2.4 seconds, and that takes 30% more damage.', kind: 'trap', wait: 11, r: 30, life: 45, hold: 2.4, share: 0.3, stagger: 14, most: 2 },
-  { id: 'tarflask', name: 'Tar', says: 'A pool that slows the boss by 45%. Fire sets it burning.', kind: 'pool', wait: 13, r: 96, life: 12, share: 0.45, dmg: 9, range: 400 },
+  { id: 'jawtrap', name: 'Trap', brief: 'A trap that holds for 2.4 seconds.', says: 'Placed at his feet. It holds what steps in it for 2.4 seconds, and that takes 30% more damage.', kind: 'trap', wait: 11, r: 30, life: 45, hold: 2.4, share: 0.3, stagger: 14, most: 2 },
+  { id: 'tarflask', name: 'Tar', brief: 'A pool that slows the boss by 45%.', says: 'A pool that slows the boss by 45%. Fire sets it burning.', kind: 'pool', wait: 13, r: 96, life: 12, share: 0.45, dmg: 9, range: 400 },
   // Agnes's flare blinds the monster for `hold` seconds, which is an opening, and burns the small for `dmg`.
-  { id: 'flare', name: 'Flare', says: 'A flash that stops the boss for 1.9 seconds and deals 26 damage to small enemies.', kind: 'flare', wait: 10, r: 190, hold: 1.9, dmg: 26, stagger: 16 },
-  { id: 'lamp', name: 'Lamp', says: 'A lamp on the ground for 8 seconds. Everyone in its light takes half damage.', kind: 'ward', wait: 14, r: 120, life: 8, share: 0.5 },
+  { id: 'flare', name: 'Flare', brief: 'Stops the boss for 1.9 seconds.', says: 'A flash that stops the boss for 1.9 seconds and deals 26 damage to small enemies.', kind: 'flare', wait: 10, r: 190, hold: 1.9, dmg: 26, stagger: 16 },
+  { id: 'lamp', name: 'Lamp', brief: 'Take half damage in its light for 8 seconds.', says: 'A lamp on the ground for 8 seconds. Everyone in its light takes half damage.', kind: 'ward', wait: 14, r: 120, life: 8, share: 0.5 },
   // Amos's mastiff holds the monster for `hold` seconds and bites `share` times as hard for `life`.
-  { id: 'seton', name: 'Set Bull On', says: 'Bull holds the boss for 1.8 seconds and bites twice as hard for 4 seconds.', kind: 'seton', wait: 18, hold: 1.8, life: 4, share: 2, stagger: 10 },
-  { id: 'heel', name: 'Call Back', says: 'Bull comes back, gets up if he is down, and both of you heal 15%.', kind: 'whistle', wait: 24, share: 0.15 },
+  { id: 'seton', name: 'Set Bull On', brief: 'Bull holds the boss for 1.8 seconds.', says: 'Bull holds the boss for 1.8 seconds and bites twice as hard for 4 seconds.', kind: 'seton', wait: 18, hold: 1.8, life: 4, share: 2, stagger: 10 },
+  { id: 'heel', name: 'Call Back', brief: 'Bull comes back; both of you heal 15%.', says: 'Bull comes back, gets up if he is down, and both of you heal 15%.', kind: 'whistle', wait: 24, share: 0.15 },
   // Greta's hammer, heated: a heavy blow in front. What it lands on burns `dmg` a second for `life` seconds, and its
   // armor is cracked for as long: every blow fills `share` more stagger.
-  { id: 'forgestrike', name: 'Forge Strike', says: 'A heated blow for 30 damage. The boss burns and takes 50% more stagger for 6 seconds.', kind: 'forge', wait: 12, r: 128, dmg: 30, stagger: 18, life: 6, share: 0.5, burn: 4 },
+  { id: 'forgestrike', name: 'Forge Strike', brief: 'A blow for 30 damage that sets the boss burning.', says: 'A heated blow for 30 damage. The boss burns and takes 50% more stagger for 6 seconds.', kind: 'forge', wait: 12, r: 128, dmg: 30, stagger: 18, life: 6, share: 0.5, burn: 4 },
   // Her anvil is shown where it will fall, `range` in front of her, and falls after `fuse`: what is under it is held,
   // and it stays as a stone that blocks a charge.
-  { id: 'anvil', name: 'Anvil', says: 'Drops an anvil in front of her. It holds what is under it for 1.6 seconds, deals 34 damage, and stays as cover.', kind: 'anvil', wait: 15, r: 64, range: 120, fuse: 0.9, dmg: 34, hold: 1.6, stagger: 16, life: 14 },
+  { id: 'anvil', name: 'Anvil', brief: 'Drops an anvil: 34 damage, holds 1.6 seconds.', says: 'Drops an anvil in front of her. It holds what is under it for 1.6 seconds, deals 34 damage, and stays as cover.', kind: 'anvil', wait: 15, r: 64, range: 120, fuse: 0.9, dmg: 34, hold: 1.6, stagger: 16, life: 14 },
   // Ned's powder: thrown, shown with its fuse, and it goes up. A hunter caught in it is hurt too.
-  { id: 'keg', name: 'Powder Keg', says: 'Thrown at the boss. After its fuse it blows up for 70 damage. Hunters in it get hurt too.', kind: 'keg', wait: 13, r: 110, range: 330, fuse: 1.6, dmg: 70, stagger: 30, hurt: 24 },
+  { id: 'keg', name: 'Powder Keg', brief: 'Thrown; blows up for 70 damage.', says: 'Thrown at the boss. After its fuse it blows up for 70 damage. Hunters in it get hurt too.', kind: 'keg', wait: 13, r: 110, range: 330, fuse: 1.6, dmg: 70, stagger: 30, hurt: 24 },
   // Rocks come down along a strip from where he stands, `fuse` after it is shown.
-  { id: 'cavein', name: 'Cave-in', says: 'Rocks fall in a line in front of him a second later, for 40 damage.', kind: 'cavein', wait: 11, range: 330, w: 80, fuse: 1.0, dmg: 40, stagger: 20, hold: 0.8 },
+  { id: 'cavein', name: 'Cave-in', brief: 'Rocks fall in a line for 40 damage.', says: 'Rocks fall in a line in front of him a second later, for 40 damage.', kind: 'cavein', wait: 11, range: 330, w: 80, fuse: 1.0, dmg: 40, stagger: 20, hold: 0.8 },
   // Ida's pole at full length: helpers are thrown back, and a boss caught winding up is put off its blow.
-  { id: 'shove', name: 'Shove', says: 'A long push. Throws small enemies back. Timed as the boss winds up, it stops the attack.', kind: 'shove', wait: 8, r: 205, dmg: 10, push: 150, stagger: 24, hold: 1.3 },
+  { id: 'shove', name: 'Shove', brief: 'Pushes back; stops a boss winding up.', says: 'A long push. Throws small enemies back. Timed as the boss winds up, it stops the attack.', kind: 'shove', wait: 8, r: 205, dmg: 10, push: 150, stagger: 24, hold: 1.3 },
   // Her lantern leaves light behind her as she walks, `n` patches `every` seconds apart, each lasting `life`.
-  { id: 'wake', name: 'Lantern Wake', says: 'For 6 seconds she leaves light behind her. Hunters in it move 30% faster, enemies 35% slower.', kind: 'wake', wait: 17, r: 74, life: 4.5, n: 12, every: 0.5, share: 0.3, slow: 0.35 },
+  { id: 'wake', name: 'Lantern Wake', brief: 'A trail of light: hunters 30% faster.', says: 'For 6 seconds she leaves light behind her. Hunters in it move 30% faster, enemies 35% slower.', kind: 'wake', wait: 17, r: 74, life: 4.5, n: 12, every: 0.5, share: 0.3, slow: 0.35 },
   // Silas's hook on its chain: a small thing on its line is dragged to him, and if there is none he is dragged to the boss.
-  { id: 'hook', name: 'Hook', says: 'Throws the hook. Pulls a small enemy to him, or pulls him to the boss.', kind: 'hook', wait: 9, range: 330, w: 40, dmg: 12 },
+  { id: 'hook', name: 'Hook', brief: 'Pulls a small enemy in, or you to the boss.', says: 'Throws the hook. Pulls a small enemy to him, or pulls him to the boss.', kind: 'hook', wait: 9, range: 330, w: 40, dmg: 12 },
   // A flurry of the cleaver where he stands: `n` cuts, each opening another wound.
-  { id: 'hack', name: 'Hack', says: 'Six fast cuts in front of him. Each makes the boss bleed more.', kind: 'hack', wait: 12, r: 104, dmg: 5, n: 6, every: 0.14 },
+  { id: 'hack', name: 'Hack', brief: 'Six fast cuts that make the boss bleed.', says: 'Six fast cuts in front of him. Each makes the boss bleed more.', kind: 'hack', wait: 12, r: 104, dmg: 5, n: 6, every: 0.14 },
 ];
 
 /** How a boss bleeds: the harm each stack does a second, the most stacks there can be, and the seconds after the last cut before one closes, and between each closing after. */

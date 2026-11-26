@@ -659,6 +659,35 @@ export function togglePartner(save: SaveData, id: string): string {
   return '';
 }
 
+/** The partners' places on a contract for `party`: how many there are, how many the player has chosen, and how many are left. */
+export function placesOf(save: SaveData, party: number): { places: number; chosen: number; left: number } {
+  const places = Math.max(0, Math.min(PARTY.most, party) - 1);
+  const chosen = Math.min(places, save.muster.partners.length);
+  return { places, chosen, left: places - chosen };
+}
+
+/** What a hunter's page shows of them: their Health, the Damage of each blow of their chain, their reach and their speed, with their rank and trinkets in, as the hunt has them. */
+export interface HunterStats {
+  health: number;
+  damage: number[];
+  range: number;
+  speed: number;
+}
+
+export function statsOf(save: SaveData, id: string): HunterStats {
+  const h = byId(HUNTERS, id);
+  const g = h.hired ? null : growthOf(save, id);
+  const gain = g ? RANKS[g.rank].gain : 0;
+  const t = g?.worn ?? [];
+  const grow = (1 + gain) * (t.includes('whetstone') ? 1 + TRINKET_EFFECT.whetstone : 1);
+  return {
+    health: Math.round(h.hp * (1 + gain)) + (t.includes('bread') ? TRINKET_EFFECT.bread : 0),
+    damage: h.combo.map((b) => Math.round(b.dmg * grow)),
+    range: Math.max(...h.combo.map((b) => b.reach)),
+    speed: h.speed,
+  };
+}
+
 /** The hands for hire, in the order they are taken on: a fighter, then a bowman, then the fighter's brother. */
 const HIRED: readonly string[] = ['sellsword', 'bowman', 'sellsword'];
 
