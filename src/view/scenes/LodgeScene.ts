@@ -9,10 +9,10 @@ import Phaser from 'phaser';
 import { BONE, GOLD, HOLY, IRON, LEATHER, OUTLINE, RUBY, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { ABILITIES, BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, byId, type Mark } from '../../game/content';
+import { ABILITIES, HUNTERS, MONSTERS, byId, type Mark } from '../../game/content';
 import {
-  buy, changeBuilding, chargesOf, contracts, costOf, isOpen, lessonFor, newsOf, openingOf, opensBy, rewardOf, setHunter, supplyOf, toggleReinforcement, wares, wear, type Contract,
-  board as postedBoard, partyFor, posterOf, posting, quarryOf, repost, togglePartner, type Posting, growthOf, setWeek, wearTrinket, placesOf, statsOf,
+  buy, changeBuilding, chargesOf, contracts, isOpen, lessonFor, newsOf, openingOf, opensBy, rewardOf, setHunter, toggleReinforcement, wares, wear, type Contract,
+  board as postedBoard, partyFor, posterOf, posting, quarryOf, repost, togglePartner, type Posting, growthOf, setWeek, wearTrinket, placesOf, statsOf, bringOf, huntAction, type Bring, type BringCard,
 } from '../../game/lodge';
 import { TRINKETS, weekOf } from '../../game/growth';
 import { ASSETS, getManifest, setupCamera } from '../app';
@@ -21,7 +21,7 @@ import { getGrim, wantedUnit } from '../art/grim';
 import { hex, view } from '../config';
 import { ALLY_ART, BUILDING_ART, HUNTER_ART, MONSTER_ART, STAND_IN, dressAt, isGrim, type Art } from '../pictures';
 import { CARDS, SHEET, portraitFrame, sheet } from '../art/Sheet';
-import { commit, save, takeContract, takePosting, theContract } from '../session';
+import { commit, save, takeContract, takePosting, takenContract, theContract } from '../session';
 import { slabImage } from '../ui/bake';
 import { Button, label } from '../ui/widgets';
 import { uiIcon, uiKey } from '../ui/grim';
@@ -45,6 +45,8 @@ export class LodgeScene extends Phaser.Scene {
   /** Which hunter the TEAM screen is showing, or nothing for the inn they wait in. */
   private look: string | null = null;
   private tavern: Tavern | null = null;
+  /** The line at the foot of the hunter's page: what was last pressed, or what a card pointed at is. */
+  private noteLine: Phaser.GameObjects.Text | null = null;
 
   constructor() {
     super('Lodge');
@@ -73,11 +75,12 @@ export class LodgeScene extends Phaser.Scene {
     if (!step || !step.lesson) leaves.push(['muster', 'TEAM']);
     if (!step) leaves.push(['ledger', 'SHOP']);
     if (!leaves.some((l) => l[0] === this.leaf)) this.leaf = 'board';
-    const tw = view.tall ? 104 : 118;
-    // Who is hunting, in a chip by the game's name, on every leaf: pressed, it opens their page.
-    const chipW = 100;
+    // Narrower leaves in a narrow frame, so that the chip, the leaves and the coin all fit.
+    const tw = view.tall ? 104 : w < 860 ? 100 : 118;
+    // Who is hunting and what, in a chip by the game's name, on every leaf: pressed, it opens their page.
+    const chipW = 150;
     const teamOpen = leaves.some((l) => l[0] === 'muster');
-    this.chosenChip(view.tall ? 6 + chipW / 2 : 10 + lw + 8 + chipW / 2, view.tall ? 82 : 34, chipW, view.tall ? 36 : 46, teamOpen);
+    this.chosenChip(view.tall ? 6 + chipW / 2 : 10 + lw + 8 + chipW / 2, view.tall ? 80 : 34, chipW, view.tall ? 38 : 46, teamOpen);
     const tx = view.tall ? w / 2 + 34 : Math.max(w / 2, 10 + lw + 8 + chipW + 8 + (leaves.length * (tw + 6) - 6) / 2);
     leaves.forEach(([leaf, name], i) => {
       new Button(this, tx + (i - (leaves.length - 1) / 2) * (tw + 6), 34, name, () => this.go(leaf), { width: tw, height: 46, size: 17, mat: leaf === this.leaf ? GOLD : IRON });
@@ -103,20 +106,28 @@ export class LodgeScene extends Phaser.Scene {
     else this.ledger(top);
   }
 
-  /** The hunter going, in the top bar: their likeness and name. */
+  /** The hunter going and the contract taken, in the top bar: their likeness and name, and the boss, or NO CONTRACT. */
   private chosenChip(x: number, y: number, cw: number, ch: number, press: boolean): void {
     const s = save();
     const me = byId(HUNTERS, s.muster.hunter);
     const art = HUNTER_ART[me.id];
+    const taken = takenContract();
     const c = this.add.container(x, y);
     c.add(slabImage(this, -cw / 2, -ch / 2, cw, ch, DARK, 8, 3));
     // Their whole figure, as tall as the chip: a weapon held high is part of how they are known.
     const face = this.add.image(-cw / 2 + 20, 0, CARDS, isGrim(art) ? portraitFrame('grim', art.grim) : portraitFrame(art.team, art.legion));
     face.setScale((ch - 4) / face.height);
     c.add(face);
-    const name = label(this, -cw / 2 + 38, -1, me.short.toUpperCase(), { size: 15, align: 'left', face: 'display', color: HOLY.fill });
+    const two = ch >= 36;
+    const name = label(this, -cw / 2 + 38, two ? -9 : -1, me.short.toUpperCase(), { size: 15, align: 'left', face: 'display', color: HOLY.fill });
     name.setScale(Math.min(1, (cw - 44) / name.width));
     c.add(name);
+    // What HUNT will start: the boss of the contract taken, or none, dimmed.
+    const what = taken ? byId(MONSTERS, taken.monster).name.replace(/^The /, '').toUpperCase() : 'NO CONTRACT';
+    const line = label(this, two ? -cw / 2 + 38 : cw / 2 + 8, two ? 9 : -1, what, { size: 15, align: 'left', face: 'display', color: taken ? BONE.fill : BONE.shade });
+    line.setScale(Math.min(1, (two ? cw - 44 : 150) / line.width));
+    if (!taken) line.setAlpha(0.7);
+    c.add(line);
     if (press) {
       c.setSize(cw, ch).setInteractive({ useHandCursor: true }).on('pointerup', () => {
         sfx.play('click');
@@ -312,8 +323,10 @@ export class LodgeScene extends Phaser.Scene {
     const news = newsOf(s);
     if (news) label(this, w / 2, by - 44, news, { size: 15, color: HOLY.fill, wrap: pw - 40 });
     const team = !openingOf(s)?.lesson;
-    if (team) new Button(this, w / 2 - 110, by, 'TEAM', () => this.go('muster'), { width: 200, height: 56, size: 22, mat: IRON });
-    new Button(this, team ? w / 2 + 110 : w / 2, by, 'HUNT', () => this.hunt(), { width: 200, height: 56, size: 26, mat: RUBY });
+    if (team) new Button(this, w / 2 - 120, by, 'TEAM', () => this.go('muster'), { width: 200, height: 56, size: 22, mat: IRON });
+    // The hunt it starts, by name.
+    const act = huntAction(s, theContract());
+    new Button(this, team ? w / 2 + 120 : w / 2, by, act.label, () => this.hunt(), { width: 220, height: 56, size: act.label.length > 17 ? 16 : 19, mat: RUBY });
   }
 
   /**
@@ -332,10 +345,9 @@ export class LodgeScene extends Phaser.Scene {
     const w = view.w;
     const tall = view.tall;
     const list = postedBoard(s);
-    // A bill is always picked: the first, until another is.
-    if (list.length && !list.some((p) => p.id === theContract().posting?.id)) takePosting(list[0].id);
-    const chosen = theContract();
-    const picked = list.find((p) => p.id === chosen.posting?.id) ?? null;
+    // No bill is picked until the player picks one: HUNT starts nothing they did not choose.
+    const chosen = takenContract();
+    const picked = list.find((p) => p.id === chosen?.posting?.id) ?? null;
     const by = view.h - 36;
     const n = Math.max(3, list.length);
     // Where each half goes.
@@ -413,7 +425,9 @@ export class LodgeScene extends Phaser.Scene {
     if (this.note) label(this, dx + dw / 2, by - 44, this.note, { size: 15, color: HOLY.fill, wrap: dw - 40 }).setDepth(5);
     const bw = Math.min(200, (dw - 30) / 2);
     new Button(this, dx + dw / 2 - bw / 2 - 8, by, 'TEAM', () => this.go('muster'), { width: bw, height: 54, size: 22, mat: IRON });
-    const hunt = new Button(this, dx + dw / 2 + bw / 2 + 8, by, 'HUNT', () => this.hunt(), { width: bw, height: 54, size: 26, mat: RUBY });
+    // Named for what it starts: the hunt of the bill picked, or, with none, what to do first.
+    const act = huntAction(s, picked ? takenContract() : null);
+    const hunt = new Button(this, dx + dw / 2 + bw / 2 + 8, by, picked ? act.label : 'PICK A CONTRACT', () => this.hunt(), { width: bw, height: 54, size: act.label.length > 17 || !picked ? 16 : 20, mat: RUBY });
     hunt.setEnabled(!!picked);
   }
 
@@ -624,7 +638,8 @@ export class LodgeScene extends Phaser.Scene {
   private inn(top: number): void {
     const s = save();
     const w = view.w;
-    const party = theContract().posting ? posterOf(s, theContract().posting as Posting).party : 1;
+    const taken = takenContract();
+    const party = taken?.posting ? posterOf(s, taken.posting).party : 1;
     const foot = view.h - (tall() ? 150 : 72);
     // Wider than the screen, and dragged sideways: ten people need the room.
     const rw = tall() ? Math.max(w - 12, 820) : Math.max(w - 12, 1360);
@@ -639,11 +654,10 @@ export class LodgeScene extends Phaser.Scene {
     }, () => this.go('board'));
     // Under the room: who is going, what was last said, and the way out.
     const by = view.h - 42;
-    const hunter = byId(HUNTERS, s.muster.hunter);
     const lx = tall() ? w / 2 : 20;
     if (party > 1) label(this, lx, tall() ? foot + 22 : by - 12, this.partyLine(party), { size: 15, face: 'display', color: BONE.fill, align: tall() ? 'center' : 'left' });
     label(this, lx, tall() ? foot + 50 : party > 1 ? by + 12 : by, this.note || 'Drag to look round the room. Press a hunter to choose them and what to bring.', { size: 15, color: HOLY.fill, align: tall() ? 'center' : 'left', wrap: tall() ? w - 40 : w - 300 });
-    new Button(this, tall() ? w / 2 : w - 6 - 118, by, `HUNT AS ${hunter.short.toUpperCase()}`, () => this.leave(), { width: 236, height: 58, size: 22, mat: RUBY });
+    this.huntButton(tall() ? w / 2 : w - 6 - 120, by, 240, 56);
   }
 
   /**
@@ -660,27 +674,30 @@ export class LodgeScene extends Phaser.Scene {
     const s = save();
     const w = view.w;
     const h = view.h;
-    const m = s.muster;
     const hunter = byId(HUNTERS, this.look);
-    const party = theContract().posting ? posterOf(s, theContract().posting as Posting).party : 1;
-    const step = openingOf(s);
+    const taken = takenContract();
+    const party = taken?.posting ? posterOf(s, taken.posting).party : 1;
     const short = !tall() && h < 450;
 
-    // The bottom row: the supply at the left, what was last said, and HUNT AS at the right.
+    // The bottom row: the supply at the left, what was last said, and what HUNT will do at the right.
     const bh = short ? 48 : 54;
     const by = h - bh / 2 - (tall() ? 14 : 6);
-    // The things to bring, in a strip over it: one row in a wide window, two in a tall one.
-    const things = this.bringable();
-    const cols = tall() ? 4 : Math.max(1, things.length);
-    const rows = Math.ceil(things.length / cols);
-    const ch = tall() ? 90 : short ? 82 : 104;
-    const stripBottom = by - bh / 2 - (tall() ? 34 : 8);
-    const stripTop = stripBottom - rows * (ch + 6) + 6;
-    this.bringStrip(things, stripTop, ch, cols);
+    // What can be brought, over it, with room above the button for who goes.
+    const ch = tall() ? 92 : short ? 86 : 108;
+    const stripBottom = by - bh / 2 - (tall() ? 34 : 22);
+    const stripTop = stripBottom - this.bringHeight(ch);
+    const said = this.note || newsOf(s);
+    const hw = tall() ? 200 : 240;
+    const b = bringOf(s);
+    const left = b.supply ? 6 + 14 + Math.max(160, b.all * 21) + 10 : 12;
+    this.noteLine = tall()
+      ? label(this, w / 2, stripBottom + 17, said, { size: 15, color: HOLY.fill, wrap: w - 30 })
+      : label(this, (w - hw - 6 + left) / 2, by, said, { size: 15, color: HOLY.fill, wrap: Math.max(120, w - hw - 6 - left - 20) });
+    this.bringSection(stripTop, ch);
 
     // Above it, the hunter and their ledger: side by side in a wide window, one over the other in a tall one.
     const y0 = top - 4;
-    const y1 = stripTop - 8;
+    const y1 = stripTop - 6;
     if (tall()) {
       // The hunter takes what the ledger does not need, so that the figure is large.
       const hh = Math.max(party > 1 ? 196 : 176, Math.min(340, y1 - y0 - 290));
@@ -692,19 +709,18 @@ export class LodgeScene extends Phaser.Scene {
       this.ledgerPage(hunter, 6 + lw + 8, y0, w - 20 - lw, y1 - y0, true);
     }
 
-    // The supply, large, at the left of the bottom row. In the opening hunts it is not yet spoken of.
-    if (!step) {
-      const used = costOf(m);
-      const all = supplyOf(s);
-      this.add.image(28, by, uiKey('icon-sack')).setDisplaySize(36, 36);
-      label(this, 52, by - 1, `SUPPLY ${used} / ${all}`, { size: short ? 22 : 24, align: 'left', face: 'display', color: used > all ? RUBY.fill : BONE.fill });
-    }
-    const hw = tall() ? 196 : 236;
-    const said = this.note || newsOf(s);
-    if (tall()) label(this, w / 2, stripBottom + 17, said, { size: 15, color: HOLY.fill, wrap: w - 30 });
-    else label(this, (w - hw - 6 + (step ? 12 : 236)) / 2, by, said, { size: 15, color: HOLY.fill, wrap: Math.max(120, w - hw - 6 - (step ? 12 : 236) - 20) });
-    const me = byId(HUNTERS, m.hunter);
-    new Button(this, w - 6 - hw / 2, by, `HUNT AS ${me.short.toUpperCase()}`, () => this.leave(), { width: hw, height: bh, size: tall() ? 20 : 22, mat: RUBY });
+    // The supply, as bags, at the left of the bottom row. In the opening hunts it is not yet spoken of.
+    if (b.supply) this.supplyPips(20, by, b, short);
+    this.huntButton(w - 6 - hw / 2, by, hw, bh);
+  }
+
+  /** The button at the foot of the lodge: what it will really do, as the rules say, with who goes over it. */
+  private huntButton(x: number, y: number, bw: number, bh: number): void {
+    const s = save();
+    const act = huntAction(s, takenContract());
+    label(this, x, y - bh / 2 - 10, act.as.toUpperCase(), { size: 15, face: 'display', color: BONE.fill });
+    const size = act.label.length > 17 ? (bw < 220 ? 15 : 17) : 20;
+    new Button(this, x, y, act.label, () => (act.go === 'board' ? this.go('board') : this.hunt()), { width: bw, height: bh, size, mat: act.go === 'board' ? GOLD : RUBY });
   }
 
   /** The hunter, large and lit, the way back, and the buttons that choose them. `side` puts the buttons beside the figure. */
@@ -876,65 +892,124 @@ export class LodgeScene extends Phaser.Scene {
   }
 
   /** What can be brought: what comes at the horn and what is built. In the opening hunts only what has been brought in so far. */
-  private bringable(): Array<{ id: string; name: string; says: string; cost: number; art: Art; kind: 'r' | 'b' }> {
-    const step = openingOf(save());
-    return [
-      ...(!step || step.reinforcements > 0 ? REINFORCEMENTS : []).map((r) => ({ id: r.id, name: r.name, says: r.says, cost: r.cost, art: ALLY_ART[r.id], kind: 'r' as const })),
-      ...(!step || step.buildings > 0 ? BUILDINGS : []).map((b) => ({ id: b.id, name: b.name, says: b.says, cost: b.cost, art: BUILDING_ART[b.id], kind: 'b' as const })),
-    ];
+  /** How tall the bring section is, its heading and group names in: one row of groups in a wide window, a row each in a tall one. */
+  private bringHeight(ch: number): number {
+    const b = bringOf(save());
+    const head = tall() ? 46 : 26;
+    return tall() ? head + b.groups.length * (20 + ch + 6) : head + 20 + ch;
   }
 
-  /** The strip of what is brought: a card each with its picture, name and supply cost; one going is lit and ticked. */
-  private bringStrip(things: ReturnType<LodgeScene['bringable']>, y: number, ch: number, cols: number): void {
+  /**
+   * What can be brought, under its heading and the one line that says how: the cards in their groups, each under its
+   * rule (TROOPS, up to 2 kinds; CAMP, up to 3 of each), with its supply cost in a bag at its foot. One going is lit
+   * and ticked; one that cannot be added now is dimmed with why on it. What each one is, the rules say (`bringOf`).
+   */
+  private bringSection(y: number, ch: number): Phaser.GameObjects.Text {
     const s = save();
-    const m = s.muster;
     const w = view.w;
-    const step = openingOf(s);
-    const cw = Math.min(124, (w - 12) / cols - 6);
-    const x0 = (n: number): number => w / 2 - ((n - 1) * (cw + 6)) / 2;
-    things.forEach((t, i) => {
-      const row = Math.floor(i / cols);
-      const inRow = Math.min(cols, things.length - row * cols);
-      const x = x0(inRow) + (i % cols) * (cw + 6);
-      const cy = y + ch / 2 + row * (ch + 6);
-      const open = isOpen(s, t.id);
-      const n = t.kind === 'r' ? (m.reinforcements.includes(t.id) ? 1 : 0) : (m.buildings[t.id] ?? 0);
-      const press = (): void => {
-        if (t.kind === 'r') this.act(toggleReinforcement(s, t.id), `${t.name}: ${t.says}${chargesOf(s, t.id) > 1 ? ' 2 calls.' : ''}`);
-        else this.act(changeBuilding(s, t.id, 1), `${t.name}: ${t.says}`);
+    const b = bringOf(s);
+    // The heading, like the ledger's, and how it works in one line.
+    const how = b.supply ? 'Spend supply to bring helpers. Tap a card to bring it, tap again to leave it.' : 'Tap a card to bring it, tap again to leave it.';
+    const head = label(this, tall() ? w / 2 : 14, y + 10, 'BRING TO THE HUNT', { size: 17, align: tall() ? 'center' : 'left', face: 'display', color: HOLY.fill });
+    label(this, tall() ? w / 2 : 14 + head.width + 12, tall() ? y + 32 : y + 10, how, { size: 15, align: tall() ? 'center' : 'left', color: BONE.fill, wrap: tall() ? w - 20 : w - head.width - 40 });
+    let gy = y + (tall() ? 46 : 26);
+    const all = b.groups.reduce((n, g) => n + g.cards.length, 0);
+    const gap = 16;
+    const cw = tall() ? Math.min(124, (w - 12) / 4 - 6) : Math.min(124, (w - 12 - gap * (b.groups.length - 1)) / all - 6);
+    const rowW = (n: number): number => n * (cw + 6) - 6;
+    let gx = tall() ? 0 : w / 2 - (rowW(all) + gap * (b.groups.length - 1)) / 2;
+    // The first card that can be had, while nothing is going: a hint, never a block.
+    const nothing = b.groups.every((g) => g.cards.every((c) => c.n === 0));
+    const hinted = nothing ? b.groups.flatMap((g) => g.cards).find((c) => c.open && c.canAdd) : undefined;
+    let hover: Phaser.GameObjects.Text | null = null;
+    for (const g of b.groups) {
+      if (tall()) gx = w / 2 - rowW(g.cards.length) / 2;
+      label(this, gx, gy + 8, `${g.title} (${g.rule})`, { size: 15, align: 'left', face: 'display', color: BONE.shade });
+      g.cards.forEach((c, i) => {
+        const x = gx + cw / 2 + i * (cw + 6);
+        const cy = gy + 20 + ch / 2;
+        this.bringCard(c, x, cy, cw, ch, b.supply, c === hinted, (t) => {
+          hover ??= this.noteLine;
+          hover?.setText(t);
+        });
+      });
+      if (tall()) gy += 20 + ch + 6;
+      else gx += rowW(g.cards.length) + 6 + gap;
+    }
+    return head;
+  }
+
+  /** One card of what can be brought. */
+  private bringCard(c: BringCard, x: number, cy: number, cw: number, ch: number, supply: boolean, hint: boolean, say: (t: string) => void): void {
+    const s = save();
+    const art = c.kind === 'troop' ? ALLY_ART[c.id] : BUILDING_ART[c.id];
+    const press = (): void => {
+      if (c.kind === 'troop') this.act(toggleReinforcement(s, c.id), `${c.name}: ${c.says}${chargesOf(s, c.id) > 1 ? ' 2 calls.' : ''}`);
+      else this.act(changeBuilding(s, c.id, 1), `${c.name}: ${c.says}`);
+    };
+    if (c.n > 0) this.add.image(x, cy, SHEET, 'fx/glow').setDisplaySize(cw * 1.5, ch * 1.4).setTint(0xffc860).setAlpha(0.55);
+    const card = this.card(x, cy, cw, ch, !c.open ? DARK : BONE, press);
+    // Pointed at, it says what it is in the line at the foot of the page.
+    card.on('pointerover', () => say(`${c.name}: ${c.says}`));
+    // Going on the hunt: a lit gold edge and a tick.
+    if (c.n > 0) card.add(this.add.rectangle(0, 0, cw - 4, ch - 4).setStrokeStyle(4, 0xf0b840));
+    this.figure(card, art, ch / 2 - 44, ch - 66, c.open);
+    card.add(label(this, 0, ch / 2 - 32, c.open ? c.name.toUpperCase() : 'LOCKED', { size: 15, color: c.open ? INK : BONE.shade, stroke: null, face: 'display' }).setScale(Math.min(1, (cw - 8) / (c.name.length * 9.6))));
+    if (!c.open) {
+      card.add(label(this, 0, -8, opensBy(c.id), { size: 15, color: BONE.shade, wrap: cw - 8 }));
+      return;
+    }
+    const foot = ch / 2 - 13;
+    // What it costs, in the same bag as the supply, with the number on it.
+    if (supply) {
+      card.add(this.add.image(-cw / 2 + 16, foot, uiKey('icon-sack')).setDisplaySize(22, 22));
+      card.add(label(this, -cw / 2 + 30, foot, `${c.cost}`, { size: 19, align: 'left', face: 'display', color: '#6a4010', stroke: null }));
+    }
+    if (c.n > 0) {
+      const tick = this.add.graphics();
+      tick.fillStyle(0xf0b840, 1).fillCircle(cw / 2 - 16, -ch / 2 + 16, 13).lineStyle(2, hex(OUTLINE), 1).strokeCircle(cw / 2 - 16, -ch / 2 + 16, 13);
+      tick.lineStyle(4, hex(OUTLINE), 1).beginPath().moveTo(cw / 2 - 22, -ch / 2 + 16).lineTo(cw / 2 - 18, -ch / 2 + 21).lineTo(cw / 2 - 9, -ch / 2 + 10).strokePath();
+      card.add(tick);
+    }
+    if (c.kind === 'camp' && c.n > 0) {
+      // Built more than once: how many, with a button each way.
+      const step = (sx: number, sign: string, by: 1 | -1, mat: Material, ok: boolean): void => {
+        const b = this.add.container(sx, foot);
+        b.add([slabImage(this, -12, -12, 24, 24, mat, 6, 3), label(this, 0, -2, sign, { size: 19 })]);
+        if (!ok) b.setAlpha(0.4);
+        b.setSize(36, 36).setInteractive({ useHandCursor: true }).on('pointerup', (_p: unknown, _x: number, _y: number, e: Phaser.Types.Input.EventData) => {
+          e.stopPropagation();
+          this.act(changeBuilding(s, c.id, by), c.name);
+        });
+        card.add(b);
       };
-      if (n > 0) this.add.image(x, cy, SHEET, 'fx/glow').setDisplaySize(cw * 1.5, ch * 1.4).setTint(0xffc860).setAlpha(0.55);
-      const card = this.card(x, cy, cw, ch, !open ? DARK : BONE, press);
-      // Going on the hunt: a lit gold edge and a tick. Not going: plain, and as easy to read.
-      if (n > 0) card.add(this.add.rectangle(0, 0, cw - 4, ch - 4).setStrokeStyle(4, 0xf0b840));
-      this.figure(card, t.art, ch / 2 - 30, ch - 50, open);
-      card.add(label(this, 0, ch / 2 - 15, open ? t.name.toUpperCase() : 'LOCKED', { size: 15, color: open ? INK : BONE.shade, stroke: null, face: 'display' }).setScale(Math.min(1, (cw - 8) / (t.name.length * 9.6))));
-      if (!open) {
-        card.add(label(this, 0, -6, opensBy(t.id), { size: 15, color: BONE.shade, wrap: cw - 8 }));
-        return;
-      }
-      // The supply it takes, large, at the top left.
-      if (!step) card.add(label(this, -cw / 2 + 8, -ch / 2 + 16, `${t.cost}`, { size: 24, align: 'left', face: 'display', color: '#8a5a10', stroke: null }));
-      if (n > 0) {
-        const tick = this.add.container(cw / 2 - 16, -ch / 2 + 16);
-        const g = this.add.graphics();
-        g.fillStyle(0xf0b840, 1).fillCircle(0, 0, 13).lineStyle(2, hex(OUTLINE), 1).strokeCircle(0, 0, 13);
-        g.lineStyle(4, hex(OUTLINE), 1).beginPath().moveTo(-6, 0).lineTo(-2, 5).lineTo(7, -6).strokePath();
-        tick.add(g);
-        card.add(tick);
-        if (t.kind === 'b') {
-          // How many are built, under the tick when more than one, and a small button to take one off again.
-          if (n > 1) card.add(label(this, cw / 2 - 16, -ch / 2 + 40, `x${n}`, { size: 17, face: 'display', color: INK, stroke: null }));
-          const off = this.add.container(-cw / 2 + 18, 4);
-          off.add([slabImage(this, -14, -14, 28, 28, RUBY, 8, 3), label(this, 0, -2, '-', { size: 20 })]);
-          off.setSize(44, 44).setInteractive({ useHandCursor: true }).on('pointerup', (_p: unknown, _x: number, _y: number, e: Phaser.Types.Input.EventData) => {
-            e.stopPropagation();
-            this.act(changeBuilding(s, t.id, -1), t.name);
-          });
-          card.add(off);
-        }
-      }
-    });
+      step(cw / 2 - 58, '-', -1, RUBY, true);
+      card.add(label(this, cw / 2 - 36, foot, `x${c.n}`, { size: 17, face: 'display', color: INK, stroke: null }));
+      step(cw / 2 - 14, '+', 1, GOLD, c.canAdd);
+    }
+    if (c.n === 0 && !c.canAdd && c.why) {
+      // Cannot be added now: dimmed, and why, in a few words.
+      card.setAlpha(0.6);
+      card.add(this.add.rectangle(0, -8, cw - 10, 24, 0xe8d6b0, 0.92));
+      card.add(label(this, 0, -9, c.why, { size: 15, color: '#8a2418', stroke: null, face: 'display' }).setScale(Math.min(1, (cw - 14) / (c.why.length * 8.6))));
+    }
+    if (hint) {
+      // The first card that can be had, while nothing is going: it pulses, and says what to do.
+      const tip = label(this, x, cy - ch / 2 + 14, 'TAP TO BRING', { size: 15, face: 'display', color: '#8a2418', stroke: null });
+      this.tweens.add({ targets: [tip, card], alpha: { from: 1, to: 0.65 }, duration: 700, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    }
+  }
+
+  /** The supply, as bags that empty as it is spent, and what is left in words that cannot be misread. */
+  private supplyPips(x: number, y: number, b: Bring, short: boolean): number {
+    label(this, x, y - 12, `SUPPLY LEFT ${b.left} / ${b.all}`, { size: short ? 15 : 17, align: 'left', face: 'display', color: b.used > b.all ? RUBY.fill : BONE.fill });
+    const pip = short ? 16 : 19;
+    for (let i = 0; i < b.all; i++) {
+      const bag = this.add.image(x + pip / 2 + i * (pip + 2), y + 12, uiKey('icon-sack')).setDisplaySize(pip, pip);
+      // Spent: a dark empty shape.
+      if (i >= b.left) bag.setTint(0x3a2a1e).setAlpha(0.7);
+    }
+    return b.all * (pip + 2);
   }
 
   /** Something was pressed on the muster: it is written down, and the line says what it was or why not. */

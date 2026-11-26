@@ -606,6 +606,87 @@ export function changeBuilding(save: SaveData, id: string, by: 1 | -1): string {
   return '';
 }
 
+// ------------------------------------------------------------ what can be brought, as the hunter's page shows it
+
+/** One card of what can be brought: what it is, what it costs, how many go, and whether one more can, with why not in a few words. */
+export interface BringCard {
+  id: string;
+  kind: 'troop' | 'camp';
+  name: string;
+  says: string;
+  cost: number;
+  /** How many go: 0 or 1 for troops, up to MOST.ofOne for the camp. */
+  n: number;
+  open: boolean;
+  /** True if a press now would take one more. */
+  canAdd: boolean;
+  /** Why not, in a few words for the card: "Need 3 supply", "2 kinds already". Empty when it can. */
+  why: string;
+}
+
+/** A group of cards under its heading, with its rule said as the rules have it. */
+export interface BringGroup {
+  id: 'troops' | 'camp';
+  title: string;
+  rule: string;
+  cards: BringCard[];
+}
+
+/** What a hunter's page shows of what can be brought: the groups, and the supply spent, held and left. */
+export interface Bring {
+  groups: BringGroup[];
+  used: number;
+  all: number;
+  left: number;
+  /** False in the opening hunts, where supply is not yet spoken of. */
+  supply: boolean;
+}
+
+/** Says why a press would not take one more, in the card's few words, by asking the rule itself on a copy of the save. */
+function shortWhy(save: SaveData, kind: 'troop' | 'camp', id: string, cost: number): string {
+  const copy = JSON.parse(JSON.stringify(save)) as SaveData;
+  const why = kind === 'troop' ? toggleReinforcement(copy, id) : changeBuilding(copy, id, 1);
+  if (!why) return '';
+  if (why.startsWith('Locked')) return 'Locked';
+  if (why === 'Not enough Supply') return `Need ${cost} supply`;
+  if (why.startsWith('No more than') && why.endsWith('kinds')) return `${MOST.reinforcements} kinds already`;
+  if (why.startsWith('No more than')) return `${MOST.ofOne} at most`;
+  if (why.startsWith('Only 1')) return 'Only 1 this hunt';
+  return why;
+}
+
+export function bringOf(save: SaveData): Bring {
+  const m = save.muster;
+  const step = openingOf(save);
+  const troops = (!step || step.reinforcements > 0 ? REINFORCEMENTS : []).map((r): BringCard => {
+    const n = m.reinforcements.includes(r.id) ? 1 : 0;
+    const why = n ? '' : shortWhy(save, 'troop', r.id, r.cost);
+    return { id: r.id, kind: 'troop', name: r.name, says: r.says, cost: r.cost, n, open: isOpen(save, r.id), canAdd: !n && !why, why };
+  });
+  const camp = (!step || step.buildings > 0 ? BUILDINGS : []).map((b): BringCard => {
+    const n = m.buildings[b.id] ?? 0;
+    const why = shortWhy(save, 'camp', b.id, b.cost);
+    return { id: b.id, kind: 'camp', name: b.name, says: b.says, cost: b.cost, n, open: isOpen(save, b.id), canAdd: !why, why };
+  });
+  const most = step ? step.reinforcements : MOST.reinforcements;
+  const groups: BringGroup[] = [];
+  if (troops.length) groups.push({ id: 'troops', title: 'TROOPS', rule: most === 1 ? 'up to 1 kind' : `up to ${most} kinds`, cards: troops });
+  if (camp.length) groups.push({ id: 'camp', title: 'CAMP', rule: step ? 'up to 1' : `up to ${MOST.ofOne} of each`, cards: camp });
+  const used = costOf(m);
+  const all = supplyOf(save);
+  return { groups, used, all, left: Math.max(0, all - used), supply: !step };
+}
+
+/**
+ * What the lodge's HUNT button does, said in its own words: with no contract taken it sends the player to choose one;
+ * with one it names the hunt, and says who goes.
+ */
+export function huntAction(save: SaveData, taken: { monster: string } | null): { go: 'board' | 'hunt'; label: string; as: string } {
+  const me = byId(HUNTERS, save.muster.hunter);
+  if (!taken) return { go: 'board', label: 'CHOOSE A CONTRACT', as: `as ${me.short}` };
+  return { go: 'hunt', label: `HUNT ${byId(MONSTERS, taken.monster).name.toUpperCase()}`, as: `as ${me.short}` };
+}
+
 export function setHunter(save: SaveData, id: string): string {
   if (byId(HUNTERS, id).hired) return 'A hand for hire cannot lead';
   if (!isOpen(save, id)) return `Locked: ${opensBy(id)}`;

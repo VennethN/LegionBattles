@@ -2,6 +2,20 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## Round 9, what to bring, and what HUNT starts
+
+The owner, of the row of cards on a hunter's page: "this section isnt clear, i at first am confused on what can i bring since it inst clear that i can spend supplies to choose which ones i want tot birng". And of its button: "the hunt as X is also misleading, i hadn't chosen a contract yet". Built:
+
+- **BRING TO THE HUNT**, a heading over the row, and one line: "Spend supply to bring helpers. Tap a card to bring it, tap again to leave it."
+- **Two groups under their rules**, as lodge.ts says them (`bringOf`): TROOPS (up to 2 kinds) and CAMP (up to 3 of each).
+- **A card's cost in the supply's own bag**, with the number on it, at the card's foot. A card that cannot be added now is dimmed with why on it, in the rule's own words cut short ("Need 3 supply", "2 kinds already"), worked out by asking the rule on a copy of the save, so card and rule never disagree (a test holds it). A building going more than once has its count with a - and a + button.
+- **SUPPLY LEFT 5 / 8**, over a row of bags that empty as it is spent.
+- **While nothing is going, the first card that can be had says TAP TO BRING** and pulses. It blocks nothing. Pointing at a card says what it does in the line at the foot.
+- **HUNT says what it will do** (`huntAction`): with no contract taken, CHOOSE A CONTRACT, which opens BOSSES; with one, HUNT and the boss's name (HUNT THE GRAVEDIGGER), with "AS MARTA" over it. The board no longer picks a bill for the player: its button says PICK A CONTRACT, greyed, until one is picked, and then the hunt by name. The inn's button is the same as the page's.
+- **The top bar's chip says the contract** under the hunter's name, the boss, or NO CONTRACT, dimmed, so a player always knows what HUNT will start.
+
+Looked at in pictures at 907x510, 821x462 and on a phone held sideways and upright, with nothing brought, with some, on a party contract and with no contract.
+
 ## Round 8, easier, for a web portal
 
 The owner: "lets make the difficulty a bit easier, i dont mean dark souls difficulty, since this will be on crazygames page". Aimed at a casual player: the first difficulty won by the bot 90% or more, the second 70 to 85%, the third 50 to 65%, and a hunt of one to three minutes at the first.

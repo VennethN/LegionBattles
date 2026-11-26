@@ -142,6 +142,10 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
   await press(page, tap, 'Hud', 'SOUND');
   check(`${label}: and the lines`, (await press(page, tap, 'Hud', 'LINES')) && (await saved<boolean>(page, 's.talk')) === false);
   await press(page, tap, 'Hud', 'LINES');
+  // Auto attack, on from the start: turned off it says so and the hunt stops striking by itself; turned on again, it does.
+  check(`${label}: auto attack starts on`, !!(await find(page, 'Hud', 'AUTO ATTACK: ON')) && (await hunt<boolean>(page, 'h.autoAttack')) === true);
+  check(`${label}: and can be turned off`, (await press(page, tap, 'Hud', 'AUTO ATTACK')) && (await saved<boolean>(page, 's.auto')) === false && (await hunt<boolean>(page, 'h.autoAttack')) === false && !!(await find(page, 'Hud', 'AUTO ATTACK: OFF')));
+  check(`${label}: and on again`, (await press(page, tap, 'Hud', 'AUTO ATTACK')) && (await saved<boolean>(page, 's.auto')) === true && (await hunt<boolean>(page, 'h.autoAttack')) === true);
   check(`${label}: and the light turned down`, await press(page, tap, 'Hud', 'LIGHT'));
   check(`${label}: RESUME goes on`, await press(page, tap, 'Hud', 'RESUME'));
   await tick(page, 20);
@@ -213,7 +217,9 @@ async function play(label: string, context: Context, page: Page, tap: Press, tou
     await new Promise((r) => setTimeout(r, 30));
   }
   check(`${label}: a hunter in the inn can be looked at`, (await press(page, tap, 'Lodge', 'JORY')) && (await tick(page, 30), !!(await find(page, 'Lodge', 'CHOOSE JORY'))));
-  check(`${label}: a hunter the trophy opened can be taken`, (await press(page, tap, 'Lodge', 'CHOOSE JORY')) && (await saved<string>(page, 's.muster.hunter')) === 'jory' && (await tick(page, 20), !!(await find(page, 'Lodge', 'HUNT AS JORY'))));
+  check(`${label}: a hunter the trophy opened can be taken`, (await press(page, tap, 'Lodge', 'CHOOSE JORY')) && (await saved<string>(page, 's.muster.hunter')) === 'jory');
+  // With no contract picked, the page's last button says so, and starts nothing.
+  check(`${label}: with no contract picked, the button says to choose one`, (await tick(page, 20), !!(await find(page, 'Lodge', 'CHOOSE A CONTRACT'))));
   await tick(page, 20);
   check(`${label}: a building is added within the supply`, (await press(page, tap, 'Lodge', 'BARRICADE')) && (await saved<number>(page, 's.muster.buildings.barricade')) === 2);
   await tick(page, 20);

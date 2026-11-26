@@ -4,7 +4,7 @@
 
 import type { Mark } from '../game/content';
 import { Hunt, type Setup } from '../game/hunt';
-import { nextContract, payFor, postingOf, setupForPosting, setupOf, type Pay, type Posting, type SaveData } from '../game/lodge';
+import { nextContract, payFor, posting, postingOf, setupForPosting, setupOf, type Pay, type Posting, type SaveData } from '../game/lodge';
 import { loadSave, storeSave, wipeSave } from '../game/storage';
 
 let current: SaveData | null = null;
@@ -76,6 +76,14 @@ export function finishHunt(): Pay | null {
 
 export function thePay(): Pay | null {
   return pay;
+}
+
+/**
+ * The contract taken, or none. Once the board posts contracts one has to be picked from it; before that, in the
+ * opening hunts, the board holds out the one there is, and that is taken.
+ */
+export function takenContract(): { monster: string; mark: Mark; posting?: Posting } | null {
+  return contract ?? (posting(save()) ? null : nextContract(save()));
 }
 
 /** Leaves the lair: back to the lodge. */

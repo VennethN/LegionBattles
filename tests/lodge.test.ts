@@ -3,7 +3,7 @@ import { BUILDINGS, HUNTERS, MONSTERS, REINFORCEMENTS, TO_COME, byId } from '../
 import { Hunt } from '../src/game/hunt';
 import {
   FIRST_MUSTER, LESSON_PAY, OPENING, SUPPLY, lessonFor, newsOf, openingOf, type SaveData, buy, canHunt, changeBuilding, chargesOf, contracts, costOf, freshSave, isOpen, nextContract, opensBy, payFor, repair, setHunter, setupOf, supplyOf,
-  quarryOf, toggleReinforcement, toldBy, wares, wear, placesOf, statsOf, togglePartner,
+  quarryOf, toggleReinforcement, toldBy, wares, wear, placesOf, statsOf, togglePartner, bringOf, huntAction,
 } from '../src/game/lodge';
 import { ABILITIES } from '../src/game/content';
 import { RANKS } from '../src/game/growth';
@@ -104,6 +104,41 @@ describe("a hunter's page", () => {
     expect(placesOf(s, 2)).toEqual({ places: 1, chosen: 1, left: 0 });
     expect(togglePartner(s, 'jory')).toBe('');
     expect(placesOf(s, 3).chosen).toBe(0);
+  });
+});
+
+describe('what can be brought, as the page shows it', () => {
+  it('groups troops and camp under their rules, and says the supply left', () => {
+    const s = opened();
+    const b = bringOf(s);
+    expect(b.groups.map((g) => [g.id, g.rule])).toEqual([['troops', 'up to 2 kinds'], ['camp', 'up to 3 of each']]);
+    expect([b.used, b.all, b.left]).toEqual([costOf(s.muster), supplyOf(s), supplyOf(s) - costOf(s.muster)]);
+  });
+
+  it('says why a card cannot be added, as the rule does, and never stops one going off', () => {
+    const s = opened();
+    s.trophies.push('spade');
+    const card = (id: string) => bringOf(s).groups.flatMap((g) => g.cards).find((c) => c.id === id);
+    // Spearmen and a barricade and a campfire are on: crossbowmen cost more than is left.
+    expect(card('crossbowmen')?.canAdd).toBe(false);
+    expect(card('crossbowmen')?.why).toBe('Need 2 supply');
+    expect(card('pikemen')?.n).toBe(1);
+    // Two kinds of troop on, a third is refused for that reason.
+    s.supply = 4;
+    expect(toggleReinforcement(s, 'crossbowmen')).toBe('');
+    expect(card('sappers')?.why).toBe('2 kinds already');
+    // What a card says agrees with the rule itself.
+    for (const c of bringOf(s).groups.flatMap((g) => g.cards)) {
+      const copy = JSON.parse(JSON.stringify(s)) as SaveData;
+      const done = c.kind === 'troop' ? (c.n ? 'on' : toggleReinforcement(copy, c.id)) : changeBuilding(copy, c.id, 1);
+      if (c.kind === 'camp' || !c.n) expect(done === '', c.id).toBe(c.canAdd);
+    }
+  });
+
+  it('says what HUNT does: choose a contract first, or the hunt by its boss', () => {
+    const s = opened();
+    expect(huntAction(s, null)).toEqual({ go: 'board', label: 'CHOOSE A CONTRACT', as: 'as Marta' });
+    expect(huntAction(s, { monster: 'sexton' }).label).toBe('HUNT THE GRAVEDIGGER');
   });
 });
 
