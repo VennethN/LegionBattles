@@ -6,6 +6,7 @@ import { Doc } from './kit/draw';
 import { BONE, HIGHLIGHT, LINEN, OUTLINE, STEEL, WOOD, type Accent } from './kit/palette';
 import { arrowShape } from './kit/parts';
 import { circle, ellipse, path, poly, roundRect, smooth, star } from './kit/path';
+import { shapeArt } from './fxShapes';
 
 export interface FxArt {
   name: string;
@@ -110,6 +111,8 @@ export function fxArt(accents: Record<string, Accent>): FxArt[] {
           .C(80, 52, 62, 26, 30, 6)
           .Z();
         d.piece('arc', c, { fill: WHITE, shade: WHITE }, { shade: 0 });
+        // The edge that cut, brighter than the rest, so a blade's swing has a front.
+        d.line('edge', path().M(38, 11).C(70, 20, 86, 44, 84, 80), HIGHLIGHT, 3);
       },
     },
     {
@@ -119,7 +122,9 @@ export function fxArt(accents: Record<string, Accent>): FxArt[] {
       height: 64,
       origin: [0.5, 0.5],
       draw: (d) => {
-        d.piece('burst', star(32, 32, 7, 28, 12, -80), { fill: WHITE, shade: WHITE }, { shade: 0 });
+        d.piece('burst', star(32, 32, 8, 29, 13, -70), { fill: WHITE, shade: WHITE }, { shade: 0 });
+        // A brighter star at its heart, so a blow's star is lit from where it struck.
+        d.flat('core', star(32, 32, 8, 16, 8, -70), HIGHLIGHT);
       },
     },
     {
@@ -187,6 +192,8 @@ export function fxArt(accents: Record<string, Accent>): FxArt[] {
     },
   ];
   out.push(...lightArt());
+  // The shapes effects are made of, so that an effect is a thing and not one more disc (fxShapes.ts).
+  out.push(...shapeArt());
   for (const [name, accent] of Object.entries(accents)) {
     out.push({ name: `orb-${name}`, width: 48, height: 48, origin: [0.56, 0.5], draw: orb(accent) });
   }

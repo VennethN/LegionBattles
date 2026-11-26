@@ -466,7 +466,8 @@ export type Ev =
   // `great` is a blow that is more than the weapon's usual: Isaura's couched thrust, a sweep that goes all the way round.
   | { t: 'strike'; slot: number; angle: number; x: number; y: number; range: number; great?: boolean }
   | { t: 'loose'; slot: number; angle: number; shot: number }
-  | { t: 'hit'; id: number; x: number; y: number; amount: number; crit: boolean; soft: boolean }
+  /** `weapon` is the weapon whose blow it was, where it was a weapon's: the screen shows a sword's hit unlike a hammer's. */
+  | { t: 'hit'; id: number; x: number; y: number; amount: number; crit: boolean; soft: boolean; weapon?: string }
   | { t: 'fall'; id: number; x: number; y: number; boss: boolean; swept: boolean }
   // A captain that fell gets up again: the vow of the second wind.
   | { t: 'second'; id: number; x: number; y: number }
@@ -3322,6 +3323,9 @@ export class World {
   }
 
   /** Harm reaches a foe, with whatever the weapon leaves on them. */
+  /** The weapon whose blow is being dealt while one is, so that its hit can say whose it was. */
+  private weaponNow: string | null = null;
+
   private land(f: Foe, amount: number, crit: boolean, fromX: number, fromY: number, knock: number, def: WeaponDef | null, tier: number): void {
     if (f.dead) return;
     // Long Shot: the farther the mark, the harder.
@@ -3369,7 +3373,9 @@ export class World {
     }
     if (f.boss && def) this.fill(MOVE.bossBlow);
     const debt = this.indebted;
+    this.weaponNow = def?.id ?? null;
     this.wound(f, amount, crit, false);
+    this.weaponNow = null;
     // A fifth form's rule, and the small rules of the wares held, go off as the blow lands.
     if (def) this.carry(f, amount, def, tier);
     if (f.dead && def?.own) {
@@ -3409,7 +3415,7 @@ export class World {
     if (!soft && this.wards.length > 0 && this.wards.some((w) => w !== f && !w.dead && Math.hypot(w.x - f.x, w.y - f.y) <= (w.def.wide ?? 220))) by *= FOE_WARD;
     by = Math.max(1, Math.round(by));
     f.hp -= by;
-    this.events.push({ t: 'hit', id: f.id, x: f.x, y: f.y, amount: by, crit, soft });
+    this.events.push(this.weaponNow && !soft ? { t: 'hit', id: f.id, x: f.x, y: f.y, amount: by, crit, soft, weapon: this.weaponNow } : { t: 'hit', id: f.id, x: f.x, y: f.y, amount: by, crit, soft });
     if (f.hp > 0) return;
     // The dead that get up: once, after a moment down. The Restless road raises every enemy so.
     if (!f.boss && !f.def.prop && !f.second && !f.champion && (f.def.undying || this.omen === 'restless')) {

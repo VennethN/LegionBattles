@@ -270,6 +270,15 @@ describe('weapons', () => {
     expect(play(w, 0.6).some((e) => e.t === 'hit')).toBe(true);
   });
 
+  it('say which weapon a hit came from, so the screen can show a sword unlike a hammer', () => {
+    const w = new World(setup({ weapons: [{ id: 'hammer', tier: 0 }] }));
+    const f = stand(w, 'bruiser', w.hero.x + 70, w.hero.y, { hp: 999 });
+    f.def = { ...f.def, speed: 0 };
+    const hits = play(w, 1.5).filter((e) => e.t === 'hit' && !e.soft);
+    expect(hits.length).toBeGreaterThan(0);
+    for (const e of hits) if (e.t === 'hit') expect(e.weapon).toBe('hammer');
+  });
+
   it('a spear goes through three in a line, and the lance that is a hero\'s own through everyone', () => {
     const hits = (id: string): number => {
       const w = new World(setup({ weapons: [], own: { id, tier: 0 }, stats: stats({ maxHp: 9999 }) }));

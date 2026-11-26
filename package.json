@@ -23,6 +23,7 @@
     "cover": "tsx scripts/cover.ts",
     "art:pages": "tsx scripts/pages.ts",
     "light": "tsx scripts/light.ts",
+    "fx:sheet": "tsx scripts/fxsheet.ts",
     "glide": "tsx scripts/glide.ts"
   },
   "dependencies": {
