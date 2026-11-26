@@ -1,16 +1,16 @@
 // npm run cover
 //
 // The pictures a portal shows the game by, in the three shapes it asks for,
-// to docs/covers. They are put together from the game's own art: the hero
-// in the middle with what they carry about them, the horde closing in from
-// both sides, a captain behind, and the title small at the top.
+// to docs/covers. They are put together from the game's own art: three of
+// the named heroes back to back in the middle, the horde closing in from
+// both sides, a boss behind, and the title at the top.
 
 import { lastanderLogoSvg } from '../src/art/lastander';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 import { composeUnit, innerOf, withIdSuffix } from '../src/art/compose';
-import { arenaGround, weaponIcons, WEAPON_HAND } from '../src/art/holdout';
+import { arenaGround } from '../src/art/holdout';
 import { iconArt } from '../src/art/icons';
 import { Doc } from '../src/art/kit/draw';
 import { OUTLINE, type Team } from '../src/art/kit/palette';
@@ -36,17 +36,7 @@ function unit(id: string, team: Team, x: number, y: number, tall: number, flip =
   return `<g transform="translate(${r(x - (flip ? -1 : 1) * FEET_X * s)} ${r(y - FEET_Y * s)}) scale(${r(flip ? -s : s)} ${r(s)})">${inner}</g>`;
 }
 
-const WEAPONS = new Map(weaponIcons().map((w) => [w.name.slice(2), w]));
 const ICONS = new Map(iconArt().map((i) => [i.name, i]));
-
-/** What a hero carries, its hand at (x, y), turned by so many degrees, `s` times the size it is drawn. */
-function weapon(id: string, x: number, y: number, s: number, turn: number): string {
-  const art = WEAPONS.get(id);
-  if (!art) throw new Error(`cover: no weapon ${id}`);
-  const d = new Doc(`cover-w${serial++}`);
-  art.draw(d);
-  return `<g transform="translate(${r(x)} ${r(y)}) rotate(${turn}) scale(${r(s)}) translate(${-WEAPON_HAND[0]} ${-WEAPON_HAND[1]})">${d.inner()}</g>`;
-}
 
 function coin(x: number, y: number, size: number): string {
   const art = ICONS.get('coin');
@@ -78,6 +68,8 @@ interface Layout {
   h: number;
   title: [number, number, number];
   hero: [number, number, number];
+  /** How far Wren and Orrin stand to either side of Bram, as a share of his height. */
+  spread: number;
   /** Whoever closes in: those left of the hero face right, the rest face left. */
   horde: Stand[];
   boss: Stand;
@@ -86,31 +78,31 @@ interface Layout {
 
 const LAYOUTS: Layout[] = [
   {
-    name: 'landscape', w: 1920, h: 1080, title: [960, 168, 560], hero: [960, 900, 470],
+    name: 'landscape', w: 1920, h: 1080, title: [960, 168, 600], hero: [960, 960, 420], spread: 0.78,
     horde: [
-      { id: 'cutpurse', x: 330, y: 740, tall: 280 }, { id: 'direwolf', x: 500, y: 1000, tall: 300 }, { id: 'bruiser', x: 170, y: 1010, tall: 330 }, { id: 'poacher', x: 620, y: 660, tall: 240 },
-      { id: 'lancer', x: 1600, y: 760, tall: 280 }, { id: 'scarab', x: 1380, y: 980, tall: 300 }, { id: 'huscarl', x: 1770, y: 1020, tall: 320 }, { id: 'javelineer', x: 1300, y: 650, tall: 240 },
+      { id: 'cutpurse', x: 300, y: 700, tall: 260 }, { id: 'direwolf', x: 400, y: 1010, tall: 280 }, { id: 'bruiser', x: 130, y: 980, tall: 320 }, { id: 'poacher', x: 470, y: 560, tall: 220 },
+      { id: 'lancer', x: 1560, y: 780, tall: 270 }, { id: 'scarab', x: 1540, y: 1030, tall: 280 }, { id: 'huscarl', x: 1800, y: 1010, tall: 310 }, { id: 'javelineer', x: 1420, y: 560, tall: 220 },
     ],
-    boss: { id: 'warlord', x: 1560, y: 600, tall: 430 },
-    coins: [[820, 960, 54], [1090, 990, 48], [740, 1030, 42], [1180, 930, 40]],
+    boss: { id: 'warlord', x: 1720, y: 640, tall: 400 },
+    coins: [[760, 1030, 48], [1180, 1040, 44], [960, 1060, 40]],
   },
   {
-    name: 'portrait', w: 800, h: 1200, title: [400, 150, 500], hero: [400, 980, 430],
+    name: 'portrait', w: 800, h: 1200, title: [400, 160, 560], hero: [400, 1000, 330], spread: 0.66,
     horde: [
-      { id: 'cutpurse', x: 110, y: 800, tall: 240 }, { id: 'direwolf', x: 170, y: 1130, tall: 270 }, { id: 'poacher', x: 120, y: 560, tall: 200 },
-      { id: 'lancer', x: 690, y: 800, tall: 240 }, { id: 'scarab', x: 640, y: 1130, tall: 270 }, { id: 'javelineer', x: 700, y: 560, tall: 200 },
+      { id: 'cutpurse', x: 110, y: 640, tall: 200 }, { id: 'direwolf', x: 130, y: 1150, tall: 220 }, { id: 'poacher', x: 220, y: 470, tall: 170 },
+      { id: 'lancer', x: 690, y: 660, tall: 200 }, { id: 'scarab', x: 680, y: 1150, tall: 220 }, { id: 'javelineer', x: 580, y: 470, tall: 170 },
     ],
-    boss: { id: 'warlord', x: 560, y: 600, tall: 360 },
-    coins: [[290, 1060, 46], [520, 1090, 40], [240, 960, 34]],
+    boss: { id: 'warlord', x: 400, y: 600, tall: 300 },
+    coins: [[300, 1120, 40], [500, 1130, 36]],
   },
   {
-    name: 'square', w: 800, h: 800, title: [400, 108, 400], hero: [400, 690, 340],
+    name: 'square', w: 800, h: 800, title: [400, 118, 440], hero: [400, 720, 270], spread: 0.72,
     horde: [
-      { id: 'cutpurse', x: 100, y: 590, tall: 210 }, { id: 'direwolf', x: 190, y: 770, tall: 230 },
-      { id: 'lancer', x: 700, y: 590, tall: 210 }, { id: 'scarab', x: 620, y: 770, tall: 230 },
+      { id: 'cutpurse', x: 90, y: 560, tall: 180 }, { id: 'direwolf', x: 110, y: 790, tall: 190 },
+      { id: 'lancer', x: 710, y: 560, tall: 180 }, { id: 'scarab', x: 700, y: 790, tall: 190 },
     ],
-    boss: { id: 'warlord', x: 590, y: 440, tall: 290 },
-    coins: [[300, 740, 40], [510, 760, 36]],
+    boss: { id: 'warlord', x: 400, y: 430, tall: 230 },
+    coins: [[300, 780, 34], [500, 785, 30]],
   },
 ];
 
@@ -130,10 +122,13 @@ function draw(l: Layout): string {
   things.push({ y: l.boss.y, svg: unit(l.boss.id, 'red', l.boss.x, l.boss.y, l.boss.tall, l.boss.x > hx, READY) });
   for (const f of l.horde) things.push({ y: f.y, svg: unit(f.id, 'red', f.x, f.y, f.tall, f.x > hx, STRIDE) });
   for (const [x, y, size] of l.coins) things.push({ y: y - 1000, svg: coin(x, y, size) });
-  // The hero, and what they carry about them: a bow behind, a staff and a spear to either side.
-  const u = ht / FEET_Y;
-  const hero = weapon('bow', hx - 122 * u, hy - 96 * u, u * 0.95, 196) + weapon('staff', hx - 62 * u, hy - 122 * u, u * 1.05, -16) +
-    weapon('spear', hx + 96 * u, hy - 92 * u, u * 1.05, 26) + unit('knight', 'blue', hx, hy, ht, false, READY);
+  // The heroes, back to back in the middle: Bram with his gate shield in front, Wren and Orrin a step behind him on
+  // either side. Each is the hero's own figure, as they stand in the game.
+  const side = ht * 0.8;
+  const out = ht * l.spread;
+  things.push({ y: hy - ht * 0.12, svg: unit('wren', 'blue', hx - out, hy - ht * 0.12, side, true, READY) });
+  things.push({ y: hy - ht * 0.1, svg: unit('orrin', 'blue', hx + out, hy - ht * 0.1, side, false, READY) });
+  const hero = unit('bram', 'blue', hx, hy, ht, false, READY);
   things.push({ y: hy, svg: hero });
   things.sort((a, b) => a.y - b.y);
   for (const t of things) body += t.svg;

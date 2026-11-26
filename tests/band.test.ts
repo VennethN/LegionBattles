@@ -344,7 +344,8 @@ describe('the band and the run', () => {
     expect(save.band).toEqual(['biscuit']);
     expect(slotsOf(save)).toBe(1);
     expect(nextSlot(save)).toBe(SLOT_WAVES[1]);
-    expect(save.auto).toBe(true);
+    // The skill waits for the player from the first run: it is taught when it first fills.
+    expect(save.auto).toBe(false);
     expect(bandFor(save, 'wren')).toEqual(['biscuit']);
     expect(setBand(save, 0, 'pip')).toBe(false);
     // Wave 5 unlocks Pip; one slot, so Biscuit stays where he is and Pip waits to be chosen.

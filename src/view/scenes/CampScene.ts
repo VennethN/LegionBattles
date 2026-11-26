@@ -6,6 +6,8 @@
 // It is drawn afresh after every press. Nothing here moves by itself, so
 // that costs nothing, and what is shown can never be behind the run.
 
+import { getManifest } from '../app';
+import { listsReady } from '../stream';
 import Phaser from 'phaser';
 import type { ArenaScene } from './ArenaScene';
 import { BONE, BUSH, GOLD, HOLY, IRON, LINEN, OUTLINE, RUBY, VENOM, type Material } from '../../art/kit/palette';
@@ -21,7 +23,7 @@ import { compare, previewLevel, previewOffer, weaponFacts, type Change, type Pre
 import { ads } from '../../platform/ads';
 import { TIER_MATS, comeIn, setupCamera } from '../app';
 import { hex, view } from '../config';
-import { itemIcon, relicIcon, statIcon, weaponIcon } from '../icons';
+import { THING_ICONS, itemIcon, relicIcon, statIcon, weaponIcon } from '../icons';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
 import { keepRun, theRun } from '../session';
 import { pillImage, slabImage } from '../ui/bake';
@@ -42,6 +44,8 @@ export class CampScene extends Phaser.Scene {
   private root!: Phaser.GameObjects.Container;
   /** What a pack just gave, while its card is up. */
   private loot: string | null = null;
+  /** True for the one drawing just after OPEN, when the chest bursts and what was in it rises out. */
+  private burst = false;
   /** The weapon the player has pressed, whose card is up. */
   private picked = -1;
   /** True while the card of the hero's own weapon is shown. */
@@ -61,6 +65,8 @@ export class CampScene extends Phaser.Scene {
   }
 
   create(): void {
+    // The lists need every hero's and companion's picture: if they are still coming, the mark turns until they are in.
+    if (!listsReady(this, getManifest())) return;
     const run = theRun();
     if (!run) {
       this.scene.start('Title');
@@ -203,21 +209,44 @@ export class CampScene extends Phaser.Scene {
     this.add2(slabImage(this, cx - 170, cy - 170, 340, 340, BONE, 18, 8));
     if (!this.loot) {
       this.text(cx, cy - 132, 'BOSS CHEST', { size: 24 });
-      const img = this.add2(this.add.image(cx, cy - 16, SHEET, 'pack/thornwood'));
-      img.setScale(150 / img.frame.height);
-      this.tweens.add({ targets: img, angle: { from: -4, to: 4 }, duration: 380, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      const img = this.add2(this.add.image(cx, cy - 10, SHEET, THING_ICONS.chest));
+      img.setScale(170 / img.frame.width);
+      // It rattles now and then, as if something in it wanted out.
+      this.tweens.add({ targets: img, angle: { from: -3, to: 3 }, duration: 90, yoyo: true, repeat: 3, repeatDelay: 0, loop: -1, loopDelay: 900, ease: 'Sine.easeInOut' });
       this.button(cx, cy + 116, 'OPEN', () => {
         this.loot = openPack(this.run);
         sfx.play('packOpen', 0.8);
         keepRun();
+        this.burst = true;
         this.draw();
       }, { width: 200, height: 54, size: 24 });
       return;
     }
     const item = byId(ITEMS, this.loot);
     this.text(cx, cy - 132, 'YOU GOT', { size: 22, color: BONE.shade });
-    this.add2(slabImage(this, cx - 44, cy - 104, 88, 88, TIER_MATS[item.tier], 14, 6));
-    this.icon(cx, cy - 62, itemIcon(item.id), 64);
+    // The chest stands open below what came out of it.
+    const open = this.add2(this.add.image(cx, cy + 40, SHEET, THING_ICONS.chestOpen));
+    open.setScale(120 / open.frame.width).setAlpha(0.9);
+    const back = this.add2(slabImage(this, cx - 44, cy - 104, 88, 88, TIER_MATS[item.tier], 14, 6));
+    const pic = this.icon(cx, cy - 62, itemIcon(item.id), 64);
+    if (this.burst) {
+      this.burst = false;
+      // The lid bursts open: a flash of gold, coins thrown out, and what was inside rises out of it to its place.
+      const glow = this.add2(this.add.image(cx, cy + 20, SHEET, 'fx/glow').setTint(hex(HOLY.light)).setBlendMode(Phaser.BlendModes.ADD));
+      glow.setScale(0.2);
+      this.tweens.add({ targets: glow, scale: 3.2, alpha: { from: 1, to: 0 }, duration: 520, ease: 'Cubic.easeOut' });
+      for (let i = 0; i < 9; i++) {
+        const coin = this.add2(this.add.image(cx, cy + 24, SHEET, 'icon/coin'));
+        coin.setScale(22 / coin.frame.width);
+        const a = -Math.PI / 2 + (i - 4) * 0.28;
+        this.tweens.add({ targets: coin, x: cx + Math.cos(a) * 150, y: cy + 24 + Math.sin(a) * 120, angle: 360, alpha: { from: 1, to: 0 }, duration: 640, ease: 'Quad.easeOut' });
+      }
+      for (const o of [back, pic]) {
+        const y = o.y;
+        o.setY(y + 90).setScale(o.scaleX * 0.4, o.scaleY * 0.4);
+        this.tweens.add({ targets: o, y, scaleX: o.scaleX / 0.4, scaleY: o.scaleY / 0.4, duration: 460, delay: 120, ease: 'Back.easeOut' });
+      }
+    }
     this.text(cx, cy + 6, item.name, { size: 22 });
     this.statLines(cx, cy + 36, item.stats, 'center');
     this.button(cx, cy + 122, 'TAKE', () => {

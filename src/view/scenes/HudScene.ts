@@ -54,6 +54,11 @@ export class HudScene extends Phaser.Scene {
   private fury = -1;
   private flash!: Phaser.GameObjects.Image;
   private paused: Phaser.GameObjects.Container | null = null;
+
+  /** True while the pause panel is up. */
+  get isPaused(): boolean {
+    return this.paused !== null;
+  }
   private drawn = '';
   private pending = 0;
   private told = false;
@@ -446,6 +451,15 @@ export class HudScene extends Phaser.Scene {
       // Full: the button beats, so that it is seen without being looked for.
       if (full !== this.ripe) {
         this.ripe = full;
+        // The first time the skill is ready in a player's life, it is taught: the field dims a moment, the button
+        // beats, and the plate says what to press. AUTO SKILL in the pause panel is there for anyone who wants it.
+        if (full && !world.auto && !save().told.includes('skill')) {
+          (this.scene.get('Arena') as ArenaScene | undefined)?.dimFor(1.2);
+          // With the light off the field is dimmed by a veil under the HUD, which comes and goes.
+          const veil = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0).setDepth(-1);
+          this.tweens.add({ targets: veil, alpha: 0.4, duration: 200, yoyo: true, hold: 900, onComplete: () => veil.destroy() });
+          this.teach('skill', byFinger(this.game) ? `${this.moveName} IS READY. TAP THE BUTTON.` : `${this.moveName} IS READY. PRESS SPACE.`);
+        }
         if (this.moveBox) {
           this.tweens.killTweensOf(this.moveBox);
           this.moveBox.setScale(1);

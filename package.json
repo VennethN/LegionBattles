@@ -25,6 +25,7 @@
     "light": "tsx scripts/light.ts",
     "fx:sheet": "tsx scripts/fxsheet.ts",
     "fx:look": "tsx scripts/fxlook.ts",
+    "portal": "tsx scripts/portal.ts",
     "glide": "tsx scripts/glide.ts"
   },
   "dependencies": {

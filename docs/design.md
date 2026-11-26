@@ -221,9 +221,9 @@ A companion has HP. Downed, it sits out for a while and recovers; it comes back 
 
 Each is drawn with a unit the kit already had (the herbalist is the kit's leecher, Rime its ice golem, Clank its automaton, Boom its cannon, Hive its beekeeper, Snap its reef crab, Smoke its dire wolf, Gilt its scarab).
 
-## Between runs: the Hold
+## Between runs: Upgrades
 
-The title screen is the Hold, the place the runs go out from. What a player keeps between runs is **each hero's own mastery**. The owner: "as for permanent upgrades, it'll be hero based, so as you finish more with your hero, you get to unlock permanent upgrades for that hero, e.g more skill, more quirks of the hero unlocked as you go".
+Between runs the player goes to **Upgrades** from the title (it was called the Hold until the owner asked for "something familiar"; the code still says Hold). What a player keeps between runs is **each hero's own mastery**. The owner: "as for permanent upgrades, it'll be hero based, so as you finish more with your hero, you get to unlock permanent upgrades for that hero, e.g more skill, more quirks of the hero unlocked as you go".
 
 - **Mastery.** Every run pays mastery to the hero who played it, when it ends: 2 for each wave cleared, 10 for each boss beaten, 25 for the win, 20% more of all of it for each vow sworn, and what each quest done in the run pays. So a run that dies early still moves its hero on. The day's run pays nobody: it is the same run for everyone.
 - **A track for each hero**, twelve levels (`mastery.ts`), at 12, 35, 70, 115, 170, 240, 320, 410, 520, 650, 800 and 980 mastery in all. Every hero's has the same shape, and what is in it is theirs:
@@ -259,7 +259,7 @@ The title screen is the Hold, the place the runs go out from. What a player keep
 - **Quests**, each paying its hero mastery once, and at the end of every run the nearest ones not yet done and how far along each is. Hidden ones are never listed among them.
 - **The Codex**: every hero, companion, enemy, weapon and relic met, and "???" for the rest.
 
-What the player reads calls these by the usual names: deeds are Quests, the Chronicle is the Codex, the Daily Road is the Daily Run, wares are Items, a captain is a Boss. Vow, Mastery and the Hold keep their names.
+What the player reads calls these by the usual names: deeds are Quests, the Chronicle is the Codex, the Daily Road is the Daily Run, wares are Items, a captain is a Boss. Vow and Mastery keep their names, and the Hold is called Upgrades.
 
 ## How it looks
 

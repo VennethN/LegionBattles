@@ -14,6 +14,7 @@
 // as battles need them and kept. If the sheet fills up, only the units are
 // wiped, and the battle that is starting packs its own again.
 
+import { svgUrl, unitBundles } from './bundles';
 import Phaser from 'phaser';
 import type { Manifest, ManifestImage, ManifestPart } from '../../art/manifest';
 import { ART_SCALE, STILL_SCALE } from './scale';
@@ -112,7 +113,7 @@ export class Sheet {
   /** Queues the pictures of a folder of the manifest on a scene's loader. */
   queue(scene: Phaser.Scene, folder: Folder): void {
     for (const name of Object.keys(this.manifest[folder])) {
-      scene.load.svg(`svg:${folder}/${name}`, `assets/${folder}/${name}.svg`, { scale: ART_SCALE });
+      scene.load.svg(`svg:${folder}/${name}`, svgUrl(`assets/${folder}/${name}.svg`), { scale: ART_SCALE });
     }
   }
 
@@ -153,6 +154,10 @@ export class Sheet {
 
   /** Loads and packs whatever of these units is not on the sheet yet. */
   ensure(scene: Phaser.Scene, wanted: readonly UnitKey[]): Promise<void> {
+    return unitBundles(wanted).then(() => this.ensureNow(scene, wanted));
+  }
+
+  private ensureNow(scene: Phaser.Scene, wanted: readonly UnitKey[]): Promise<void> {
     const seen = new Set<string>();
     const list = wanted.filter((k) => {
       const id = `${k.team}/${k.unit}`;
@@ -180,6 +185,10 @@ export class Sheet {
    * that the next stage stands the instant it is asked for.
    */
   prepare(scene: Phaser.Scene, wanted: readonly UnitKey[]): Promise<void> {
+    return unitBundles(wanted).then(() => this.prepareNow(scene, wanted));
+  }
+
+  private prepareNow(scene: Phaser.Scene, wanted: readonly UnitKey[]): Promise<void> {
     const seen = new Set<string>();
     const missing = wanted.filter((k) => {
       const id = `${k.team}/${k.unit}`;
@@ -200,7 +209,7 @@ export class Sheet {
         for (const part of this.manifest.units[k.unit].parts) {
           const key = `svg:${Sheet.unitFrame(k.team, k.unit, part.name)}`;
           if (scene.textures.exists(key)) continue;
-          scene.load.svg(key, `assets/units/${k.team}/${k.unit}/${part.name}.svg`, { scale: ART_SCALE });
+          scene.load.svg(key, svgUrl(`assets/units/${k.team}/${k.unit}/${part.name}.svg`), { scale: ART_SCALE });
           queued++;
         }
       }
@@ -289,6 +298,10 @@ export class Sheet {
    * up, before anything is drawn with what was there.
    */
   ensureField(scene: Phaser.Scene, rigged: readonly UnitKey[], stills: readonly UnitKey[]): Promise<void> {
+    return unitBundles([...rigged, ...stills]).then(() => this.ensureFieldNow(scene, rigged, stills));
+  }
+
+  private ensureFieldNow(scene: Phaser.Scene, rigged: readonly UnitKey[], stills: readonly UnitKey[]): Promise<void> {
     const all = new Map<string, Wanted>();
     for (const k of rigged) all.set(`${k.team}/${k.unit}`, this.partsOf(k));
     for (const k of stills) all.set(`still:${k.team}/${k.unit}`, this.stillsOf(k));
@@ -309,7 +322,7 @@ export class Sheet {
       for (const w of list) {
         for (const f of w.files) {
           if (scene.textures.exists(f.key)) continue;
-          scene.load.svg(f.key, f.url, { scale: f.scale });
+          scene.load.svg(f.key, svgUrl(f.url), { scale: f.scale });
           queued++;
         }
       }

@@ -6,6 +6,7 @@
 // those). A save may be from an older copy of the game, or not a save at
 // all, so it is mended on the way in.
 
+import { HANDED } from './handover';
 import { BAND, COMPANIONS, COUNTS, HEROES, OLD_HEROES, FUSED, OMENS, RELICS, SLOT_WAVES, WEAPONS, type Feat } from './data';
 import { chronicle, fillBand, unlockFriends, waitingOf, type Tally } from './hold';
 import { CRATES, DEEDS, VOWS, noBoons, type Boons } from './holdData';
@@ -87,8 +88,9 @@ const START_FRIEND = COMPANIONS.find((c) => c.unlock.kind === 'start')?.id ?? CO
 
 export function freshSave(): SaveData {
   return {
-    v: SAVE_VERSION, best: {}, open: [], kills: 0, coins: 0, felled: [], runs: 0, ended: 0, last: HEROES[0].id, friends: [START_FRIEND], band: [START_FRIEND], auto: true, run: null, sound: true,
-    music: true, told: [], mastery: {}, picks: {}, crates: [], vows: [], won: {}, deeds: [], daily: null, dailyBest: 0, seen: {}, tally: null,
+    v: SAVE_VERSION, best: {}, open: [], kills: 0, coins: 0, felled: [], runs: 0, ended: 0, last: HEROES[0].id, friends: [START_FRIEND], band: [START_FRIEND], auto: false, run: null, sound: true,
+    // A save begun now never has its skill handed over: AUTO is off from the start (handover.ts).
+    music: true, told: [HANDED], mastery: {}, picks: {}, crates: [], vows: [], won: {}, deeds: [], daily: null, dailyBest: 0, seen: {}, tally: null,
   };
 }
 

@@ -7,6 +7,8 @@
 // A hero who is not open yet is a dark shape with no name: what opens them
 // is said, and nothing else about them.
 
+import { getManifest } from '../app';
+import { listsReady, playable } from '../stream';
 import Phaser from 'phaser';
 import { LOGO_H, LOGO_W } from '../../art/logoSize';
 import { BONE, BUSH, FIRE, GOLD, HOLY, IRON, OUTLINE, RUBY, VENOM, type Material } from '../../art/kit/palette';
@@ -86,6 +88,9 @@ export class TitleScene extends Phaser.Scene {
   }
 
   create(): void {
+    // The lists need every hero's and companion's picture: if they are still coming, the mark turns until they are in.
+    if (!listsReady(this, getManifest())) return;
+    playable(this.game, getManifest(), 1);
     setupCamera(this);
     this.cameras.main.setBackgroundColor('#241c2c');
     this.settings = false;
@@ -343,7 +348,7 @@ export class TitleScene extends Phaser.Scene {
     // Renown is gone: what a player keeps is each hero's mastery, said on the Hold's HEROES tab.
     const board = 'Hold' in this.scene.manager.keys;
     if (board) {
-      const hold = new Button(this, tall ? W - 86 : W - 38 - 34 - 74, tall ? 80 : 36, 'THE HOLD', () => this.scene.start('Hold'), { width: 148, height: 44, size: 17, mat: GOLD });
+      const hold = new Button(this, tall ? W - 86 : W - 38 - 34 - 74, tall ? 80 : 36, 'UPGRADES', () => this.scene.start('Hold'), { width: 148, height: 44, size: 17, mat: GOLD });
       this.root.add(hold.root);
     }
 

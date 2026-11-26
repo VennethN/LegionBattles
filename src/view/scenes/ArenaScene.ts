@@ -21,6 +21,8 @@ import { Deeds } from '../Deeds';
 import { Blend, shareOf } from '../blend';
 import { Effects } from '../Effects';
 import { Shapes, type HitLook } from '../Shapes';
+import { playable } from '../stream';
+import { svgUrl } from '../art/bundles';
 import { THING_ICONS, weaponIcon } from '../icons';
 import { Numbers } from '../Numbers';
 import { RoadField } from '../RoadField';
@@ -246,9 +248,9 @@ export class ArenaScene extends Phaser.Scene {
         return;
       }
       // The ground is one big picture: sharp enough for the screen it is on, and no bigger.
-      loader.load.svg(groundKey, `assets/arena/${land}-${shape}.svg`, { scale: Math.min(1.6, Math.max(1, view.zoom)) });
+      loader.load.svg(groundKey, svgUrl(`assets/arena/${land}-${shape}.svg`), { scale: Math.min(1.6, Math.max(1, view.zoom)) });
       // And once more, small: shown at the field's size it is soft, and the light lays it over the far and near ground (FieldLight.ground).
-      loader.load.svg(`${groundKey}:soft`, `assets/arena/${land}-${shape}.svg`, { scale: SOFT_GROUND });
+      loader.load.svg(`${groundKey}:soft`, svgUrl(`assets/arena/${land}-${shape}.svg`), { scale: SOFT_GROUND });
       loader.load.once(Phaser.Loader.Events.COMPLETE, () => resolve());
       loader.load.start();
     });
@@ -289,6 +291,8 @@ export class ArenaScene extends Phaser.Scene {
     this.road.plainNight(!this.light.on);
     this.ready = true;
     this.sync(0);
+    // The field can be played: the portal is told, and what the game has not needed yet starts coming in behind it.
+    playable(this.game, getManifest(), w.wave.n);
     if (this.still) {
       this.ended = true;
       this.halted = true;
@@ -925,10 +929,12 @@ export class ArenaScene extends Phaser.Scene {
     // What lies about.
     this.each(this.picks, w.picks, stamp, (p) => {
       // What drops pops out with a glint where it lands.
-      if (p.kind !== 'pack' && p.age < 0.2) this.shapes.glint(p.x, p.y, p.kind === 'coin');
-      return this.take(p.kind === 'heart' ? 'icon/heart' : p.kind === 'pack' ? 'pack/thornwood' : p.value >= 10 ? 'icon/sack' : 'icon/coin');
+      if (p.age < 0.2) this.shapes.glint(p.x, p.y, p.kind !== 'heart');
+      // A chest lands with a thump of dust and a glint or two off its gold.
+      if (p.kind === 'pack') this.shapes.chestLands(p.x, p.y, this.world.wave.land);
+      return this.take(p.kind === 'heart' ? 'icon/heart' : p.kind === 'pack' ? THING_ICONS.chest : p.value >= 10 ? 'icon/sack' : 'icon/coin');
     }, (img, p) => {
-      const base = p.kind === 'pack' ? 0.2 : p.kind === 'heart' ? 0.44 : p.value >= 10 ? 0.5 : p.value >= 3 ? 0.42 : 0.3;
+      const base = p.kind === 'pack' ? 0.3 : p.kind === 'heart' ? 0.44 : p.value >= 10 ? 0.5 : p.value >= 3 ? 0.42 : 0.3;
       const hop = p.pulled ? 0 : Math.abs(Math.sin(Math.min(1, p.age * 2.2) * Math.PI)) * 14 * Math.max(0, 1 - p.age);
       const px = this.picksWas.x(p.id, p.x, k);
       const py = this.picksWas.y(p.id, p.y, k);
@@ -977,6 +983,11 @@ export class ArenaScene extends Phaser.Scene {
     if (this.campAt) this.follow(this.campAt.x - 32 + (0.5 - this.focusAt.x) * view.w, this.campAt.y - 4 + (0.5 - this.focusAt.y) * view.h);
     else this.follow(hx, hy);
     this.light.update(dt, this.clock, this.halted, this.carried);
+  }
+
+  /** The field dims for a moment, so that what the screen over it says is seen: the skill taught the first time. */
+  dimFor(seconds: number): void {
+    this.light.dim(seconds, 0.45);
   }
 
   /** The player has asked for more of the light, or less. */

@@ -76,7 +76,8 @@ export const GAME: ArtGame = {
   icons: () => [...idleIcons(), ...holdoutIcons(), ...weaponIcons()],
   onlyIcons: ICONS_USED,
   // A pack is what a boss leaves: one picture serves.
-  onlyPacks: new Set(['thornwood']),
+  // No card packs: the boss's chest is a chest of its own (THING_ICONS.chest), by the owner's word ("make chest an actual chest").
+  onlyPacks: new Set(),
   grades: [],
   logoWord: 'LASTANDER',
   logo: { svg: lastanderLogoSvg, mark: lastanderMarkSvg },

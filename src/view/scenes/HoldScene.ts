@@ -8,6 +8,8 @@
 // It is the plainest thing that works: the screens agent draws the real
 // one. What is locked is dark, with "???" and what unlocks it.
 
+import { getManifest } from '../app';
+import { listsReady } from '../stream';
 import Phaser from 'phaser';
 import { BONE, BUSH, GOLD, HOLY, IRON, LEATHER, OUTLINE, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
@@ -70,6 +72,8 @@ export class HoldScene extends Phaser.Scene {
   }
 
   create(data: { tab?: Tab } = {}): void {
+    // The lists need every hero's and companion's picture: if they are still coming, the mark turns until they are in.
+    if (!listsReady(this, getManifest(), data)) return;
     setupCamera(this);
     this.cameras.main.setBackgroundColor('#2e2218');
     this.tab = data.tab && TABS.includes(data.tab) ? data.tab : 'HEROES';
@@ -97,7 +101,7 @@ export class HoldScene extends Phaser.Scene {
     const tall = view.tall;
     const pad = 14;
     // The head: where this is, on the screens' ribbon, and the way back.
-    for (const o of heading(this, tall ? 110 : 120, 30, 'THE HOLD')) this.put(o);
+    for (const o of heading(this, tall ? 110 : 120, 30, 'UPGRADES')) this.put(o);
     this.put(new Button(this, view.w - pad - (tall ? 42 : 66), 30, 'BACK', () => this.scene.start('Title'), { width: tall ? 84 : 132, height: 44, size: 18, mat: IRON }).root);
     // What the last run paid, once there has been one.
     let y = 62;

@@ -205,8 +205,42 @@ function artOverrides(): Plugin {
       // The manifest without the spaces that make it readable: the same data in half the bytes.
       const manifest = path.join(outDir, 'assets', 'manifest.json');
       if (fs.existsSync(manifest)) fs.writeFileSync(manifest, JSON.stringify(JSON.parse(fs.readFileSync(manifest, 'utf8'))));
+      bundleArt(path.join(outDir, 'assets'));
     },
   };
+}
+
+/**
+ * The small pictures of a build put together in bundles, and their own files taken out (src/view/art/bundles.ts says
+ * why): everything kept from the start in kept.json, and each unit's pictures in units/<team>/<unit>.json. A
+ * bundle is an object of each picture's path to its text. The text's double quotes are made single, which JSON does
+ * not have to escape, so that a bundle is no bigger than its files.
+ */
+export function bundleArt(assets: string): void {
+  const text = (file: string): string => {
+    const svg = fs.readFileSync(file, 'utf8');
+    return svg.includes("'") ? svg : svg.replace(/"/g, "'");
+  };
+  const kept: Record<string, string> = {};
+  for (const folder of ['fx', 'icons', 'packs']) {
+    const dir = path.join(assets, folder);
+    if (!fs.existsSync(dir)) continue;
+    for (const name of fs.readdirSync(dir)) if (name.endsWith('.svg')) kept[`assets/${folder}/${name}`] = text(path.join(dir, name));
+    fs.rmSync(dir, { recursive: true });
+  }
+  if (Object.keys(kept).length > 0) fs.writeFileSync(path.join(assets, 'kept.json'), JSON.stringify(kept));
+  for (const team of ['blue', 'red']) {
+    const dir = path.join(assets, 'units', team);
+    if (!fs.existsSync(dir)) continue;
+    for (const unit of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (!unit.isDirectory()) continue;
+      const from = path.join(dir, unit.name);
+      const pics: Record<string, string> = {};
+      for (const name of fs.readdirSync(from)) if (name.endsWith('.svg')) pics[`assets/units/${team}/${unit.name}/${name}`] = text(path.join(from, name));
+      fs.writeFileSync(path.join(dir, `${unit.name}.json`), JSON.stringify(pics));
+      fs.rmSync(from, { recursive: true });
+    }
+  }
 }
 
 export default defineConfig({

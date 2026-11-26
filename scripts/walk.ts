@@ -27,6 +27,14 @@ const SIZES: Array<[string, number, number, number]> = [
   ['full', 1920, 1080, 1],
   ['phone-wide', 844, 390, 2],
   ['phone-tall', 390, 844, 2],
+  // The rest of the frames CrazyGames names as its audience's (docs/crazygames.md), at a pixel to a pixel.
+  ['cg-1216', 1216, 684, 1],
+  ['cg-1077', 1077, 606, 1],
+  ['cg-1366', 1366, 768, 1],
+  ['cg-1536', 1536, 864, 1],
+  ['cg-1280', 1280, 720, 1],
+  ['cg-800', 800, 450, 1],
+  ['cg-1080', 1080, 607, 1],
 ];
 const sizes = sizeArg ? SIZES.filter((s) => sizeArg.split(',').includes(s[0]) || sizeArg.split(',').includes(`${s[1]}x${s[2]}`)) : SIZES.slice(0, 1);
 const out = 'build/walk';

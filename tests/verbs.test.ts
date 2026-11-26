@@ -496,9 +496,16 @@ describe('a first run', () => {
 });
 
 describe('the move, handed over', () => {
-  it('plays itself in a first run, and from the second waits for the player, which is said once', () => {
+  it('waits for the player from the very first run of a save begun now, and is never handed over', () => {
     const s = freshSave();
-    expect(s.auto).toBe(true);
+    expect(s.auto).toBe(false);
+    s.ended = 3;
+    expect(handOver(s)).toBe(false);
+    expect(s.auto).toBe(false);
+  });
+
+  it('in a save from before, plays itself in a first run and from the second waits for the player, which is said once', () => {
+    const s = { ...freshSave(), auto: true, told: [] as string[] };
     expect(handOver(s)).toBe(false);
     expect(s.auto).toBe(true);
     s.ended = 1;

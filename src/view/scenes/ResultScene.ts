@@ -1,6 +1,8 @@
 // The end of a run, over the field where it ended: how far the hero came,
 // what that opened, and the way back in.
 
+import { getManifest } from '../app';
+import { listsReady } from '../stream';
 import Phaser from 'phaser';
 import { BONE, BUSH, CLOTH, GOLD, HOLY, IRON, OUTLINE, VENOM } from '../../art/kit/palette';
 import { music } from '../../audio/music';
@@ -21,6 +23,8 @@ export class ResultScene extends Phaser.Scene {
   }
 
   create(): void {
+    // The lists need every hero's and companion's picture: if they are still coming, the mark turns until they are in.
+    if (!listsReady(this, getManifest())) return;
     const run = theRun();
     if (!run) {
       this.scene.start('Title');

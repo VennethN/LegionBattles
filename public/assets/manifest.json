@@ -12269,14 +12269,6 @@
     0.5
    ]
   },
-  "pack": {
-   "width": 48,
-   "height": 48,
-   "origin": [
-    0.5,
-    0.5
-   ]
-  },
   "check": {
    "width": 48,
    "height": 48,
@@ -13037,6 +13029,22 @@
     0.94
    ]
   },
+  "thing-chest": {
+   "width": 96,
+   "height": 84,
+   "origin": [
+    0.5,
+    0.9
+   ]
+  },
+  "thing-chest-open": {
+   "width": 96,
+   "height": 84,
+   "origin": [
+    0.5,
+    0.9
+   ]
+  },
   "thing-campfire": {
    "width": 112,
    "height": 104,
@@ -13278,15 +13286,6 @@
    ]
   }
  },
- "packs": {
-  "thornwood": {
-   "width": 124,
-   "height": 168,
-   "origin": [
-    0.5,
-    0.5
-   ]
-  }
- },
+ "packs": {},
  "grades": {}
 }

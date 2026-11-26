@@ -11,9 +11,13 @@
       #game { position: fixed; inset: 0; }
       /* The canvas fills the window whatever size it is drawn at: the game makes it as dense as the screen (src/view/config.ts). */
       #game canvas { display: block; width: 100% !important; height: 100% !important; }
+      /* The game's mark, turning, from the first moment the page is up until the game draws its own: never a loading bar. */
+      #boot-mark { position: fixed; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; animation: turn 1.4s linear infinite; }
+      @keyframes turn { to { transform: rotate(360deg); } }
     </style>
   </head>
   <body>
+    <img id="boot-mark" src="./assets/logo/mark.svg" alt="" />
     <div id="game"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -1,20 +1,19 @@
-// Loads what the game needs before its first frame: the manifest, the
-// effects and the icons, the heroes' pictures for the lists, the font and
-// the sounds. The figures of a wave come later, as the wave is come to
-// (ArenaScene).
+// Loads what the first screen needs and nothing more: the manifest, the
+// effects and the icons, the font, and the pictures of whoever that screen
+// shows. A wave's figures come as the wave is come to (ArenaScene), and the
+// rest in the background once the game is being played (stream.ts).
 
-import { HOLD_PLACES } from '../icons';
 import Phaser from 'phaser';
 import { LOGO_H, LOGO_SCALE, LOGO_W } from '../../art/logoSize';
 import type { Manifest } from '../../art/manifest';
-import { BONE, OUTLINE } from '../../art/kit/palette';
-import { fillBank } from '../../audio/bank';
-import { HEROES, COMPANIONS } from '../../game/data';
-import { ads } from '../../platform/ads';
-import { ASSETS, getManifest, setManifest, setupCamera } from '../app';
-import { ART_SCALE, FONT, hex, view } from '../config';
+import { OUTLINE } from '../../art/kit/palette';
+import { COMPANIONS, HEROES, byId, waveOf } from '../../game/data';
+import { ASSETS, setManifest, setupCamera } from '../app';
+import { FONT, view } from '../config';
 import { makeDigitFont } from '../Numbers';
-import { cardSheet, portraitFrame, sheet } from '../art/Sheet';
+import { sheet } from '../art/Sheet';
+import { bundle, prefetchSvg, unitBundles } from '../art/bundles';
+import { LISTED, STREAM, keepPortraits, spinner } from '../stream';
 import { save, startRun } from '../session';
 
 /** The sheet of the field is taller than it is wide: a hero, three lands of enemies and their bosses are on it together. */
@@ -29,9 +28,25 @@ export class BootScene extends Phaser.Scene {
     setupCamera(this);
     this.cameras.main.setBackgroundColor(OUTLINE);
     this.load.json('manifest', 'assets/manifest.json');
-    // The logo stands over the loading bar, so it is the first picture asked for.
     const shown = Math.min(480, view.w - 80);
     this.load.svg('logo', 'assets/logo/logo.svg', { scale: Math.min(1, (shown * Math.max(1, view.res)) / (LOGO_W * LOGO_SCALE)) });
+    // The game's small mark, which turns while something is still coming: there is no loading bar.
+    this.load.svg('mark', 'assets/logo/mark.svg', { width: 128, height: 128 });
+    // Everything the first screen needs is asked for at once, side by side: the bundle of what is kept from the
+    // start, the font, and for someone new the first wave's ground and figures. Each would otherwise wait for the
+    // one before it.
+    void bundle('kept');
+    if (typeof document !== 'undefined' && document.fonts) void Promise.all([document.fonts.load(`600 24px ${FONT}`), document.fonts.load(`700 24px ${FONT}`)]).catch(() => undefined);
+    const s = save();
+    if (s.runs === 0 && !s.run) {
+      const wave = waveOf(1);
+      void prefetchSvg(`assets/arena/${wave.land}-${view.tall ? 'tall' : 'wide'}.svg`);
+      const red = wave.mix.map(([id]) => id);
+      void unitBundles([
+        ...[HEROES[0].unit, ...s.band.map((id) => byId(COMPANIONS, id).unit)].map((unit) => ({ team: 'blue', unit })),
+        ...red.map((unit) => ({ team: 'red', unit })),
+      ]);
+    }
   }
 
   create(): void {
@@ -43,75 +58,47 @@ export class BootScene extends Phaser.Scene {
     const logo = this.add.image(cx, cy - 50, 'logo');
     logo.setDisplaySize(shown, (shown * LOGO_H) / LOGO_W).setAlpha(0);
     this.tweens.add({ targets: logo, alpha: 1, y: cy - 60, duration: 260, ease: 'Cubic.easeOut' });
-    const by = cy + 110;
-    const bw = Math.min(360, view.w - 120);
-    const bar = this.add.graphics();
-    const draw = (p: number): void => {
-      bar.clear();
-      bar.fillStyle(hex(BONE.shade), 1).fillRoundedRect(cx - bw / 2 - 6, by - 16, bw + 12, 32, 14);
-      bar.fillStyle(hex(OUTLINE), 1).fillRoundedRect(cx - bw / 2 - 2, by - 12, bw + 4, 24, 11);
-      bar.fillStyle(hex(BONE.fill), 1).fillRoundedRect(cx - bw / 2, by - 10, Math.max(20, bw * p), 20, 9);
-    };
-    draw(0);
-    this.load.on(Phaser.Loader.Events.PROGRESS, draw);
+    spinner(this, cx, cy + 100, 48);
+    // The page's own mark, which turned until the game could draw, gives way to the game's.
+    if (typeof document !== 'undefined') document.getElementById('boot-mark')?.remove();
 
+    // Only what the first screen needs. Someone who has never played lands in the first wave as Wren, with the band
+    // they start with: their pictures and the field's. Anyone else sees the title, which shows every hero and
+    // companion. The rest comes in the background once the game is being played (stream.ts).
+    const s = save();
+    const fresh = s.runs === 0 && !s.run;
+    const first = fresh ? [HEROES[0].unit, ...s.band.map((id) => byId(COMPANIONS, id).unit)] : [...LISTED];
     const art = sheet(this.game, manifest, SHEET_HEIGHT);
-    art.queue(this, 'fx');
-    art.queue(this, 'icons');
-    art.queue(this, 'packs');
-    // Whole figures for the list of heroes.
-    const cards = cardSheet(this.game, manifest);
-    // The companions' too: the Hold shows who can go along.
-    const heroes = [...HEROES.map((h) => h.unit), ...COMPANIONS.map((c) => c.unit), ...HOLD_PLACES];
-    // The Hold's own ground: the meadow, small. It is only ever seen dim and behind things.
-    this.load.svg('hold:ground', 'assets/arena/meadow-wide.svg', { scale: 0.5 });
-    for (const unit of heroes) this.load.svg(`svg:portrait/blue/${unit}`, `assets/units/blue/${unit}/full.svg`, { scale: ART_SCALE });
-    // The recorded sounds, in one file. They are read while the game goes on: nothing waits for them.
-    this.load.binary('audio-bank', 'assets/audio/bank.bin');
-
-    this.load.once(Phaser.Loader.Events.COMPLETE, () => {
-      void fillBank(this.cache.binary.get('audio-bank') as ArrayBuffer | undefined);
-      // Text is drawn with the browser's canvas, so the font has to be there before any is made.
-      const fonts = typeof document !== 'undefined' && document.fonts
-        ? Promise.all([document.fonts.load(`600 24px ${FONT}`), document.fonts.load(`700 24px ${FONT}`)])
-        : Promise.resolve([]);
-      const go = (): void => {
-        art.keepFolder(this, 'fx', 'fx');
-        art.inner('fx/pixel', 'fx/solid', 5);
-        art.keepFolder(this, 'icons', 'icon');
-        art.keepFolder(this, 'packs', 'pack');
-        makeDigitFont(this, art);
-        // From here down, the sheet is for the figures of the field.
-        art.seal();
-        const units = heroes.map((unit) => [unit, getManifest().units[unit]] as const).sort((a, b) => b[1].full[3] - a[1].full[3]);
-        for (const [unit, info] of units) {
-          const key = `svg:portrait/blue/${unit}`;
-          const source = this.textures.get(key).getSourceImage() as HTMLImageElement;
-          // A list's picture stands on its feet: the frame turns about the middle of the ground under it.
-          const box = info.full;
-          cards.keep(
-            portraitFrame('blue', unit),
-            source,
-            Math.round(box[2] * ART_SCALE),
-            Math.round(box[3] * ART_SCALE),
-            [(96 - box[0]) / box[2], (180 - box[1]) / box[3]],
-            [(box[0] + manifest.margin) * ART_SCALE, (box[1] + manifest.margin) * ART_SCALE],
-          );
-          this.textures.remove(key);
-        }
-        cards.refresh();
-        ads().loadingDone();
-        this.scene.launch(ASSETS);
-        // Someone who has never played lands in the field at once, as the Knight: the list of heroes can wait until
-        // there is a reason to choose. Anyone else chooses first.
-        const s = save();
-        if (s.runs === 0 && !s.run) {
-          startRun(HEROES[0].id);
-          this.scene.start('Arena');
-        } else this.scene.start('Title');
-      };
-      fonts.then(go, go);
+    void bundle('kept').then(() => {
+      art.queue(this, 'fx');
+      art.queue(this, 'icons');
+      // The title's own ground: the meadow, small. It is only ever seen dim and behind things.
+      if (!fresh) this.load.svg('hold:ground', 'assets/arena/meadow-wide.svg', { scale: 0.5 });
+      this.load.once(Phaser.Loader.Events.COMPLETE, () => {
+        // Text is drawn with the browser's canvas, so the font has to be there before any is made: no word is ever
+        // drawn in a font that is not the game's.
+        const fonts = typeof document !== 'undefined' && document.fonts
+          ? Promise.all([document.fonts.load(`600 24px ${FONT}`), document.fonts.load(`700 24px ${FONT}`)])
+          : Promise.resolve([]);
+        const go = (): void => {
+          art.keepFolder(this, 'fx', 'fx');
+          art.inner('fx/pixel', 'fx/solid', 5);
+          art.keepFolder(this, 'icons', 'icon');
+          makeDigitFont(this, art);
+          // From here down, the sheet is for the figures of the field.
+          art.seal();
+          void keepPortraits(this, manifest, first).then(() => {
+            this.scene.launch(ASSETS);
+            this.scene.launch(STREAM);
+            if (fresh) {
+              startRun(HEROES[0].id);
+              this.scene.start('Arena');
+            } else this.scene.start('Title');
+          });
+        };
+        fonts.then(go, go);
+      });
+      this.load.start();
     });
-    this.load.start();
   }
 }

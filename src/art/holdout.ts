@@ -588,6 +588,57 @@ const ICONS: Record<string, (d: Doc) => void> = {
 
 // ---------------------------------------------------------------- what a road puts on the field
 
+/** A chest, shut or open. Its feet stand at (48, 76). */
+function chest(d: Doc, open: boolean): void {
+  d.shadeOver('shadow', ellipse(48, 77, 42, 6), 0.35);
+  if (open) {
+    // The lid stands back behind the body, its inside turned to us.
+    d.piece('lid', path().M(14, 40).L(18, 10).C(30, 0, 66, 0, 78, 10).L(82, 40).Z(), WOOD, {
+      shade: 3,
+      inner: (c) => {
+        c.shadeOver('inside', path().M(20, 38).L(23, 14).C(34, 6, 62, 6, 73, 14).L(76, 38).Z(), 1);
+        c.flat('band-a', poly([[27, 8], [35, 5], [33, 40], [25, 40]]), IRON.fill);
+        c.flat('band-b', poly([[61, 5], [69, 8], [71, 40], [63, 40]]), IRON.fill);
+      },
+    });
+    // The gold heaped up in it, above the rim.
+    d.piece('heap', smooth([[14, 46, 'c'], [24, 34], [40, 30], [56, 31], [72, 35], [82, 46, 'c']]), GOLD, {
+      shade: 2,
+      inner: (c) => {
+        for (const [x, y] of [[28, 38], [44, 34], [60, 36], [36, 43], [52, 41], [70, 42]] as const) c.flat('coin', ellipse(x, y, 6, 3.4), GOLD.shade);
+      },
+    });
+    d.glint('glint', star(58, 33, 4, 7, 2));
+  } else {
+    // The lid, rounded on top, with its two iron bands and a gold trim along its foot.
+    d.piece('lid', path().M(10, 44).L(10, 30).C(12, 12, 84, 12, 86, 30).L(86, 44).Z(), WOOD, {
+      shade: 3,
+      inner: (c) => {
+        c.flat('band-a', poly([[22, 14], [31, 13], [31, 44], [22, 44]]), IRON.fill);
+        c.flat('band-b', poly([[65, 13], [74, 14], [74, 44], [65, 44]]), IRON.fill);
+        c.lightOver('sheen', path().M(18, 28).C(24, 18, 72, 18, 78, 28).L(78, 31).C(70, 23, 26, 23, 18, 31).Z(), 0.8);
+      },
+    });
+  }
+  d.piece('body', roundRect(10, 42, 76, 34, 3), WOOD, {
+    shade: 3,
+    inner: (c) => {
+      c.shadeOver('plank', roundRect(10, 58, 76, 2, 1), 0.8);
+      c.flat('band-a', roundRect(22, 42, 9, 34, 1), IRON.fill);
+      c.flat('band-b', roundRect(65, 42, 9, 34, 1), IRON.fill);
+    },
+  });
+  d.piece('trim', roundRect(8, 40, 80, 7, 3), GOLD, { shade: 2 });
+  // Iron at the four corners of the body.
+  for (const [x, flip] of [[10, 1], [86, -1]] as const) {
+    d.piece('corner-low', poly([[x, 76], [x + 11 * flip, 76], [x, 65]]), IRON, { shade: 0 });
+  }
+  // The lock: one gold plate with a bar across it.
+  d.piece('lock', path().M(40, 42).L(56, 42).L(56, 54).C(56, 59, 52, 62, 48, 63).C(44, 62, 40, 59, 40, 54).Z(), GOLD, { shade: 2 });
+  // A raised bar across it, not a round stud: a round dark spot on a plate reads as an eye.
+  d.flat('bar', roundRect(43, 49, 10, 3, 1), GOLD.shade);
+}
+
 /**
  * The things an omen puts on the field, each a picture that stands on the
  * ground at the middle of its lower edge: the pay wagon, the cage, and the
@@ -657,6 +708,17 @@ const THINGS: IconArt[] = [
       d.piece('step-b', roundRect(14, 131, 100, 13, 4), STONE, { shade: 3 });
       d.piece('moss', smooth([[18, 133, 'c'], [26, 128], [38, 132], [46, 129, 'c'], [42, 137], [26, 138]]), BUSH, { shade: 0 });
     },
+  },
+  {
+    // The boss's chest: a wooden chest with iron bands and corners, a rounded lid and a gold trim. Its lock is one
+    // plain plate with a stud: no keyhole, and nothing in pairs that could be read as a face.
+    name: 'thing-chest', width: 96, height: 84, origin: [0.5, 0.9],
+    draw: (d) => chest(d, false),
+  },
+  {
+    // The same chest open: the lid thrown back, and gold heaped inside with a glint on it. The game lights it.
+    name: 'thing-chest-open', width: 96, height: 84, origin: [0.5, 0.9],
+    draw: (d) => chest(d, true),
   },
   {
     // The camp between waves: a ring of stones, logs laid crossed and a fire on them. The light makes it glow; with the light off it is still a fire.

@@ -1,9 +1,9 @@
-// The move is the hero's one verb. With AUTO on it plays itself, which is
-// right for a player's first run, when they have not been told there is
-// one, and wrong after it: the verb is theirs. So when a player begins
-// their second run AUTO is turned off for them, once, and the game says
-// so. They can turn it on again in the pause panel, and it stays as they
-// leave it from then on.
+// The move is the hero's one verb. A save begun now has AUTO off from the
+// first run, and the skill is taught the first time it fills (the owner:
+// "why skills are auto used"). A save from before that had it on for a
+// first run and handed it over when the second began: such a save is
+// handed over once, as before, and said so. Either way AUTO can be turned
+// on in the pause panel, and stays as it is left.
 
 /** What the save keeps of this. */
 export interface HandedSave {

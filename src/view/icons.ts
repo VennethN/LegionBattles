@@ -26,10 +26,10 @@ export const statIcon = (icon: string): string => `icon/${icon}`;
 export const relicIcon = (id: string): string => `icon/r-${id}`;
 
 /** The pictures of what a road puts on the field: the pay wagon, the cage, the shrine; and the fire the camp is made at. */
-export const THING_ICONS = { wagon: 'icon/thing-wagon', cage: 'icon/thing-cage', shrine: 'icon/thing-shrine', campfire: 'icon/thing-campfire' } as const;
+export const THING_ICONS = { wagon: 'icon/thing-wagon', cage: 'icon/thing-cage', shrine: 'icon/thing-shrine', campfire: 'icon/thing-campfire', chest: 'icon/thing-chest', chestOpen: 'icon/thing-chest-open' } as const;
 
 /** The pictures the screens and the field ask for besides those. */
-const OTHER = ['coin', 'heart', 'sack', 'pack', 'fist', 'shot-bomb', 'shot-stone', 'reroll', 'lock', 'check', 'cog', 'sound', 'mute', 'hold', 'trophy', 'laurel', 'star', 'sword', 'chevrons', 'cross', 'arrow', 'crown'];
+const OTHER = ['coin', 'heart', 'sack', 'fist', 'shot-bomb', 'shot-stone', 'reroll', 'lock', 'check', 'cog', 'sound', 'mute', 'hold', 'trophy', 'laurel', 'star', 'sword', 'chevrons', 'cross', 'arrow', 'crown'];
 
 /** Every picture the game asks for by name, without the "icon/" in front: what the art build writes. */
 export const ICONS_USED: ReadonlySet<string> = new Set([

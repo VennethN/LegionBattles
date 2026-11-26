@@ -9,6 +9,7 @@ import { onAccount, startPortal } from './platform/portal';
 import { fit, view } from './view/config';
 import { ArenaScene } from './view/scenes/ArenaScene';
 import { AssetsScene } from './view/scenes/AssetsScene';
+import { StreamScene } from './view/stream';
 import { BootScene } from './view/scenes/BootScene';
 import { CampScene } from './view/scenes/CampScene';
 import { HudScene } from './view/scenes/HudScene';
@@ -51,7 +52,7 @@ async function start(): Promise<void> {
     input: { activePointers: 3 },
     // One texture to a batch, on every device: all the art of the field is on one sheet, and it is what phones get anyway.
     render: { antialias: true, antialiasGL: view.density <= 1, roundPixels: false, maxTextures: 2, powerPreference: 'high-performance' },
-    scene: [BootScene, AssetsScene, TitleScene, HoldScene, ArenaScene, HudScene, CampScene, RoadScene, ResultScene],
+    scene: [BootScene, AssetsScene, StreamScene, TitleScene, HoldScene, ArenaScene, HudScene, CampScene, RoadScene, ResultScene],
   });
 
   let pending = 0;

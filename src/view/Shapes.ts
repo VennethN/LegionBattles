@@ -352,6 +352,12 @@ export class Shapes {
     }
   }
 
+  /** A chest has dropped: it comes down with a puff of the land's dust and a glint off its gold. */
+  chestLands(x: number, y: number, land: Land): void {
+    this.dustRing(x, y + 4, 26, 5, DUST[land]);
+    for (let i = 0; i < 3; i++) this.fx.spawn('fx/sparkle', x + rnd(-18, 18), y - rnd(14, 34), { dur: 0.4, delay: 0.15 + i * 0.12, from: this.px('fx/sparkle', 4), to: this.px('fx/sparkle', 16), tint: hex(HOLY.light), hold: 0.4, depth: y + 4 });
+  }
+
   /** A coin, a sack or a heart has been dropped: a glint where it lies. */
   glint(x: number, y: number, gold: boolean): void {
     this.fx.spawn('fx/sparkle', x + rnd(-6, 6), y - rnd(8, 16), { dur: 0.3, from: this.px('fx/sparkle', 4), to: this.px('fx/sparkle', 14), tint: gold ? hex(HOLY.light) : 0xffffff, hold: 0.4, depth: y });

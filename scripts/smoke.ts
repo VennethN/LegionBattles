@@ -241,7 +241,7 @@ async function play(label: string, { context, page }: { context: Context; page: 
   const hold = (): Promise<{ mastery: Record<string, number>; picks: Record<string, Record<number, number>>; tally: unknown }> =>
     page.evaluate(() => (window as unknown as Win).save() as unknown as { mastery: Record<string, number>; picks: Record<string, Record<number, number>>; tally: unknown });
   ok('the run that ended paid Wren mastery', ((await hold()).mastery.wren ?? 0) > 0 && (await hold()).tally !== null);
-  ok('THE HOLD opens the Hold', (await press(page, tap, 'Title', 'THE HOLD')) && (await until(page, 'Hold')));
+  ok('UPGRADES opens Upgrades', (await press(page, tap, 'Title', 'UPGRADES')) && (await until(page, 'Hold')));
   await tick(page, 10);
   ok('with each hero\'s mastery said', (await words(page, 'Hold', 'Wren Fallowmere')) !== null);
   ok('COMPANIONS shows the slots', (await press(page, tap, 'Hold', 'COMPANIONS')) && (await words(page, 'Hold', 'Companion slots')) !== null);
