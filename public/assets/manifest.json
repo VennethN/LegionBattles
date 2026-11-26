@@ -11947,6 +11947,198 @@
     0.78
    ]
   },
+  "stab": {
+   "width": 60,
+   "height": 15,
+   "origin": [
+    0.1,
+    0.5
+   ]
+  },
+  "shard-stone": {
+   "width": 24,
+   "height": 24,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "shard-wood": {
+   "width": 24,
+   "height": 24,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "shard-bone": {
+   "width": 24,
+   "height": 24,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "shard-metal": {
+   "width": 24,
+   "height": 24,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "crack": {
+   "width": 40,
+   "height": 40,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "tongue": {
+   "width": 25,
+   "height": 40,
+   "origin": [
+    0.5,
+    0.92
+   ]
+  },
+  "crystal": {
+   "width": 36,
+   "height": 42,
+   "origin": [
+    0.5,
+    0.9
+   ]
+  },
+  "icicle": {
+   "width": 10,
+   "height": 25,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "sunburst": {
+   "width": 60,
+   "height": 60,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "drip": {
+   "width": 13,
+   "height": 20,
+   "origin": [
+    0.5,
+    0.6
+   ]
+  },
+  "bubble": {
+   "width": 24,
+   "height": 24,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "rune": {
+   "width": 30,
+   "height": 30,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "star5": {
+   "width": 36,
+   "height": 36,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "leaf": {
+   "width": 28,
+   "height": 20,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "smoke": {
+   "width": 40,
+   "height": 30,
+   "origin": [
+    0.5,
+    0.6
+   ]
+  },
+  "note": {
+   "width": 32,
+   "height": 40,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "hoof": {
+   "width": 24,
+   "height": 24,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "ember": {
+   "width": 16,
+   "height": 16,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "pool": {
+   "width": 40,
+   "height": 40,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "glyphs": {
+   "width": 40,
+   "height": 40,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "frostpatch": {
+   "width": 40,
+   "height": 40,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
+  "warn-lane": {
+   "width": 20,
+   "height": 20,
+   "origin": [
+    0,
+    0.5
+   ]
+  },
+  "chevron": {
+   "width": 20,
+   "height": 20,
+   "origin": [
+    0.5,
+    0.5
+   ]
+  },
   "orb-arcane": {
    "width": 48,
    "height": 48,
