@@ -14,6 +14,8 @@ const ITEM_ICONS: Record<string, string> = {
   horseshoe: 'horseshoe', keg: 'keg', wardrum: 'wardrum', hawk: 'hawk', grimoire: 'grimoire', mail: 'mail', spyglass: 'spyglass', lodestone: 'magnet',
   cloak: 'cloak', banner: 'banner', horn: 'horn', chalice: 'chalice', gauntlets: 'gauntlet', hourglass: 'hourglass', crown: 'crown', relic: 'relic',
   stoneheart: 'stoneheart', quiver: 'quiver',
+  // Each land's own wares.
+  reedpipe: 'reedpipe', thornbrace: 'thornbrace', leechjar: 'leechjar', mudboots: 'mudboots', sunglass: 'sunglass', scarab: 'scarab', icepick: 'icepick', wolfpelt: 'wolfpelt', harpoon: 'harpoon', pearl: 'pearl', blastcap: 'blastcap', minerlamp: 'minerlamp', saddle: 'saddle', kumis: 'kumis', gravebell: 'gravebell', ossuary: 'ossuary', cogwheel: 'cogwheel', gearplate: 'gearplate', tongs: 'tongs', cinderheart: 'cinderheart',
 };
 
 export const itemIcon = (id: string): string => `icon/${ITEM_ICONS[id] ?? 'sack'}`;

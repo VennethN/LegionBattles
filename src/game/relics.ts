@@ -159,6 +159,7 @@ export const RELIC = {
 
 export const RELICS: readonly RelicDef[] = [
   { id: 'bellows', name: 'Bellows', says: 'Enemies that die burning set nearby enemies on fire for 3 s.' },
+  { id: 'temper', name: "Master's Temper", says: 'Your best tier IV weapon becomes tier V. With none at IV, the next one that gets there does.' },
   { id: 'echobell', name: 'Echo Bell', says: 'Every 4th hit of your own weapon hits twice.' },
   { id: 'wolfskin', name: 'Wolfskin', says: '+20% damage while a companion is near you.' },
   { id: 'lastcandle', name: 'Last Candle', says: 'Once per wave, a killing blow leaves you at 1 HP.' },

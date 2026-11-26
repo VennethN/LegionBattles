@@ -9,8 +9,9 @@
 //
 // Distances are in the arena's units and times in seconds.
 
+import { FIFTH, fifthOf, type Fx } from './forms';
 import {
-  ALLY_QUIRKS, ALT, ARENA, BAND, BURN_LORE, COMPANIONS, GATHER_SECONDS, HEART, HERO_RADIUS, HERO_SPEED, HURT_GRACE, LATE_COIN, LEECH_GAP, MARK_CLEAR, MARK_SECONDS, MOVE, MOVES, OWN, PICKUP_RADIUS,
+  ALLY_QUIRKS, ALT, ARENA, BAND, BURN_LORE, COMPANIONS, GATHER_SECONDS, HEART, HERO_RADIUS, HERO_SPEED, HURT_GRACE, ITEMS, LATE_COIN, LEECH_GAP, MARK_CLEAR, MARK_SECONDS, MOVE, MOVES, OWN, PICKUP_RADIUS,
   QUIRKS, RING_SHARE, ENEMIES, FOUND, altAt, byId, coinShare, enemyAt, finishedAs, waveOf, weaponOf,
   type AllyQuirk, type CompanionDef, type Count, type EnemyDef, type MoveDef, type MoveId, type Quirk, type WaveDef, type WeaponDef,
 } from './data';
@@ -81,6 +82,8 @@ export interface Setup {
   stray?: string;
   /** The relics the run holds, by name (relics.ts). */
   relics?: readonly string[];
+  /** The wares the run holds, by name: some carry a small rule of their own (forms.ts). */
+  items?: readonly string[];
   /** Waves come through with the Whetstone of Ages in hand. */
   whet?: number;
   /** True if the Tithe Box was paid for this wave. */
@@ -433,6 +436,9 @@ export interface Pick {
   late?: boolean;
 }
 
+/** How hard a pull drags an enemy in toward the one struck: as a weapon's knock, the other way. */
+const PULL = 4;
+
 export interface Slot {
   def: WeaponDef;
   tier: number;
@@ -511,6 +517,8 @@ export type Ev =
   | { t: 'wagon'; id: number; how: 'on' | 'broken' | 'away' }
   // A relic does what it does, where it can be seen.
   | { t: 'relic'; id: string; x: number; y: number }
+  /** A fifth form's rule or a ware's went off where a blow landed: `id` is the weapon's or the ware's. From `from` for one that jumped. */
+  | { t: 'form'; id: string; x: number; y: number; from?: { x: number; y: number } }
   // One of the slain gets up on the hero's side.
   | { t: 'risen'; id: number; x: number; y: number }
   // A shot stops on Bram's set shield; `back` if it is thrown back at who loosed it.
@@ -641,6 +649,12 @@ export class World {
   readonly gifts: Gifts;
 
   private readonly relics: ReadonlySet<string>;
+  /** The small rules the wares carry, each counted on its own. */
+  private readonly wareFx: ReadonlyArray<{ key: string; id: string; fx: Fx }>;
+  /** How many blows or strikes each counted rule has seen, by its key. */
+  private readonly fxCount = new Map<string, number>();
+  /** When a rule may next give health back: as the leech, no faster than LEECH_GAP. */
+  private fxLeech = 0;
   /** The Whetstone of Ages: how many times the harm of the hero's own weapon. */
   private readonly whet: number;
   private readonly tithe: boolean;
@@ -733,6 +747,11 @@ export class World {
   constructor(setup: Setup) {
     // A relic made of two does what both of its halves do: it is held as them, and as itself for what it does more.
     this.relics = new Set((setup.relics ?? []).flatMap((id) => [id, ...partsOf(id)]));
+    // What the wares held carry besides their stats: a copy each, so that two of a ware count twice.
+    this.wareFx = (setup.items ?? []).flatMap((id, n) => {
+      const fx = ITEMS.find((it) => it.id === id)?.fx;
+      return fx ? [{ key: `ware:${id}:${n}`, id, fx }] : [];
+    });
     if (this.relics.has('thunderbell')) this.storm = RELIC.thunderbell.every;
     this.vows = new Set(setup.vows ?? []);
     this.furyBy = Math.max(0, setup.furyBy ?? 1);
@@ -2999,6 +3018,12 @@ export class World {
       slot.cool = this.everyOf(slot);
       slot.since = 0;
       this.fire(i, slot, target, 0);
+      // A fifth form that echoes: every so-many-th strike is struck again at once.
+      const form = slot.tier === FIFTH && !slot.own ? fifthOf(def.id) : null;
+      if (form?.fx.kind === 'echo' && this.due(`v:${def.id}:${i}`, form.fx.every)) {
+        this.fire(i, slot, target.dead ? (this.nearest(range) ?? target) : target, 0.15);
+        this.events.push({ t: 'form', id: def.id, x: this.hero.x, y: this.hero.y });
+      }
       if (def.kind === 'magic') {
         this.casts++;
         // The gift of the arcane: every so-many-th spell is not waited for.
@@ -3200,6 +3225,94 @@ export class World {
     }
   }
 
+  /** Counts one more for a rule, and says if it is that rule's turn: every `every`-th, or every one. */
+  private due(key: string, every = 1): boolean {
+    const n = (this.fxCount.get(key) ?? 0) + 1;
+    this.fxCount.set(key, n);
+    return n % Math.max(1, every) === 0;
+  }
+
+  /** What a landed blow carries besides its harm: its weapon's fifth form's rule, and every ware's. */
+  private carry(f: Foe, amount: number, def: WeaponDef, tier: number): void {
+    if (tier === FIFTH && !def.own) {
+      const form = fifthOf(def.id);
+      if (form && form.fx.kind !== 'echo') this.goOff(`v:${def.id}`, def.id, form.fx, f, amount);
+    }
+    for (const w of this.wareFx) this.goOff(w.key, w.id, w.fx, f, amount);
+  }
+
+  /** One rule goes off on a blow that landed on `f` for `amount`. */
+  private goOff(key: string, id: string, fx: Fx, f: Foe, amount: number): void {
+    const said = (x: number, y: number, from?: { x: number; y: number }): void => {
+      this.events.push({ t: 'form', id, x, y, ...(from ? { from } : {}) });
+    };
+    switch (fx.kind) {
+      case 'burst':
+        if (this.due(key, fx.every)) {
+          this.blast(f.x, f.y, fx.r ?? 70, Math.max(1, Math.round(amount * (fx.share ?? 0.4))), 0, 'powder', 0);
+          said(f.x, f.y);
+        }
+        break;
+      case 'chain': {
+        const next = this.nearest(fx.r ?? 110, [f.id], f.x, f.y);
+        // What jumps lands as plain harm: it carries no rule of its own, so it never jumps again.
+        if (next && this.due(key, fx.every)) {
+          this.land(next, Math.max(1, Math.round(amount * (fx.share ?? 0.5))), false, f.x, f.y, 0, null, 0);
+          said(next.x, next.y, { x: f.x, y: f.y });
+        }
+        break;
+      }
+      case 'stun':
+        if (!f.dead && this.due(key, fx.every)) {
+          f.stun = Math.max(f.stun, (fx.secs ?? 0.5) * (f.boss ? MOVE.bossShare : 1));
+          said(f.x, f.y);
+        }
+        break;
+      case 'slow':
+        if (!f.dead) {
+          f.slow = Math.max(f.slow, fx.secs ?? 1.5);
+          f.slowBy = Math.max(f.slowBy, Math.min(0.85, fx.by ?? 0.2));
+        }
+        break;
+      case 'burn':
+        if (!f.dead) {
+          f.burnBy = Math.max(f.burnBy, this.fireOf(fx.per ?? 4));
+          f.burn = Math.max(f.burn, fx.secs ?? 2);
+        }
+        break;
+      case 'mark':
+        if (!f.dead) {
+          f.marked = Math.max(f.marked, fx.secs ?? 3);
+          f.markedBy = Math.max(f.markedBy, fx.by ?? 0.15);
+        }
+        break;
+      case 'pull':
+        if (this.due(key, fx.every)) {
+          let pulled = false;
+          for (const o of this.foes) {
+            if (o === f || o.dead) continue;
+            const d = Math.hypot(o.x - f.x, o.y - f.y);
+            if (d <= 0 || d > (fx.r ?? 100)) continue;
+            this.shove(o, (f.x - o.x) / d, (f.y - o.y) / d, PULL);
+            pulled = true;
+          }
+          if (pulled) said(f.x, f.y);
+        }
+        break;
+      case 'mend':
+        if (f.dead && this.time >= this.fxLeech) {
+          this.fxLeech = this.time + LEECH_GAP;
+          this.mend(fx.heal ?? 1);
+        }
+        break;
+      case 'coin':
+        if (f.dead && this.rng.chance(fx.chance ?? 0.1)) this.drop('coin', f.x, f.y, 1);
+        break;
+      case 'echo':
+        break;
+    }
+  }
+
   /** A weapon's blow lands on a foe: rolled afresh for each one it lands on. Gives back what it did. */
   private blow(f: Foe, slot: Slot, fromX: number, fromY: number, times = 1): number {
     const { amount: rolled, crit } = this.roll(slot);
@@ -3257,6 +3370,8 @@ export class World {
     if (f.boss && def) this.fill(MOVE.bossBlow);
     const debt = this.indebted;
     this.wound(f, amount, crit, false);
+    // A fifth form's rule, and the small rules of the wares held, go off as the blow lands.
+    if (def) this.carry(f, amount, def, tier);
     if (f.dead && def?.own) {
       // Hroth in debt: what his axe fells gives health back, though a sweep through a crowd is one mouthful and not ten.
       if (debt && this.time >= this.leechAt) {

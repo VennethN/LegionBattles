@@ -5,6 +5,7 @@
 
 import { SIGNATURES } from './heroes';
 import type { Kind } from './kinds';
+import { FIFTH_STEP, withFifth, type Fx } from './forms';
 import type { StatLine, Stat } from './stats';
 
 // ---------------------------------------------------------------- the hero
@@ -50,7 +51,7 @@ export * from './mastery';
 
 export const TIERS = 4;
 /** What the tiers are called, plainest first. */
-export const TIER_NAMES = ['I', 'II', 'III', 'IV'] as const;
+export const TIER_NAMES = ['I', 'II', 'III', 'IV', 'V'] as const;
 
 export type WeaponKind = 'melee' | 'ranged' | 'magic';
 /**
@@ -73,11 +74,11 @@ export interface WeaponDef {
   kinds: readonly Kind[];
   motion: Motion;
   /** Harm at each tier, before the hero's stats. */
-  dmg: readonly [number, number, number, number];
+  dmg: readonly number[];
   /** How much of Might, Aim and Lore is added to that. */
   scale: { might?: number; aim?: number; lore?: number };
   /** Seconds between strikes at each tier. */
-  every: readonly [number, number, number, number];
+  every: readonly number[];
   /** How far off it strikes. */
   range: number;
   /** Its own chance of a blow that hits harder, and how much harder. */
@@ -96,19 +97,19 @@ export interface WeaponDef {
   /** What flies: a picture's name. */
   shot?: string;
   /** Fire: this much harm a second, for three seconds. */
-  burn?: readonly [number, number, number, number];
+  burn?: readonly number[];
   /** Cold: slows by this share for two seconds. */
   slow?: number;
   /** Poison: leaves a cloud that does this much a second for three seconds. A thrust with this leaves it where its first mark stood, as wide as `burst`. */
-  cloud?: readonly [number, number, number, number];
+  cloud?: readonly number[];
   /** Seconds it stuns. */
   stun?: number;
   /** How many more enemies what it looses leaps to after the first. */
   leaps?: number;
   /** What a pulse gives back in health at each tier. A slam with this gives it back when it fells someone. */
-  mends?: readonly [number, number, number, number];
+  mends?: readonly number[];
   /** Holy water: where it bursts the ground is holy for four seconds, does this much a second, and mends the band that stands on it. */
-  holy?: readonly [number, number, number, number];
+  holy?: readonly number[];
   /** What it costs at tier I, before the wave's prices. */
   price: number;
   /** One line a player reads. */
@@ -152,6 +153,13 @@ export const WEAPONS: readonly WeaponDef[] = [
   { id: 'wand', name: 'Spark Wand', kinds: ['arcane'], kind: 'magic', motion: 'cast', dmg: [4, 6, 10, 15], scale: { lore: 0.5 }, every: [0.6, 0.55, 0.5, 0.45], range: 340, crit: 5, critBy: 2, knock: 2, pierce: 0, leaps: 2, flies: 520, shot: 'orb-arcane', price: 22, says: 'Fast sparks that bounce to 2 more enemies.' },
 ];
 
+// Each weapon's numbers at tier V, the fifth form two tier IV weapons merge into (forms.ts): worked out from tier IV,
+// so that a weapon's table stays four numbers a line.
+for (const w of WEAPONS) {
+  const more = (four: readonly number[] | undefined): number[] | undefined => (four ? withFifth(four, FIFTH_STEP.more) : undefined);
+  Object.assign(w, { dmg: more(w.dmg), every: withFifth(w.every, FIFTH_STEP.every), burn: more(w.burn), cloud: more(w.cloud), mends: more(w.mends), holy: more(w.holy) });
+}
+
 /** A weapon by its name, a hero's own among them. */
 export function weaponOf(id: string): WeaponDef {
   const found = WEAPONS.find((w) => w.id === id) ?? SIGNATURES.find((w) => w.id === id);
@@ -160,7 +168,7 @@ export function weaponOf(id: string): WeaponDef {
 }
 
 /** How much dearer each tier is than the first. */
-export const TIER_PRICE = [1, 2.1, 4.3, 8.5] as const;
+export const TIER_PRICE = [1, 2.1, 4.3, 8.5, FIFTH_STEP.price] as const;
 
 // ---------------------------------------------------------------- things
 
@@ -173,6 +181,12 @@ export interface ItemDef {
   stats: StatLine;
   /** The most of it one hero can hold, if it has a limit. */
   most?: number;
+  /** A land's own ware: sold only in that land's shops. */
+  land?: Land;
+  /** A small rule it carries besides its stats, on every weapon's blows (forms.ts). */
+  fx?: Fx;
+  /** That rule in a line a player reads. */
+  says?: string;
 }
 
 export const ITEMS: readonly ItemDef[] = [
@@ -202,6 +216,27 @@ export const ITEMS: readonly ItemDef[] = [
   { id: 'relic', name: 'Sun Relic', tier: 3, price: 165, stats: { lore: 8, crit: 8 } },
   { id: 'stoneheart', name: 'Stone Heart', tier: 3, price: 160, stats: { maxHp: 20, armor: 3, speed: -8 } },
   { id: 'quiver', name: 'Endless Quiver', tier: 3, price: 165, stats: { aim: 6, haste: 10 } },
+  // Each land's own two wares, sold only in its shops: something to want after the slots are full, and a reason a land feels its own.
+  { id: 'reedpipe', name: 'Reed Pipe', tier: 1, price: 40, land: 'meadow', stats: { speed: 4 }, fx: { kind: 'coin', chance: 0.08 }, says: 'Kills drop a coin 8% of the time.' },
+  { id: 'thornbrace', name: 'Thorn Bracer', tier: 2, price: 70, land: 'meadow', stats: { armor: 2 }, fx: { kind: 'slow', by: 0.2, secs: 1.5 }, says: 'Hits slow the enemy by 20% for 1.5 s.' },
+  { id: 'leechjar', name: 'Leech Jar', tier: 1, price: 44, land: 'mire', stats: { regen: 2 }, fx: { kind: 'mend', heal: 1 }, says: 'Kills heal you 1 HP.' },
+  { id: 'mudboots', name: 'Mud Boots', tier: 2, price: 72, land: 'mire', stats: { maxHp: 6, speed: 3 }, fx: { kind: 'pull', r: 70 }, says: 'Hits drag nearby enemies in toward the one struck.' },
+  { id: 'sunglass', name: 'Burning Glass', tier: 1, price: 44, land: 'desert', stats: { crit: 3 }, fx: { kind: 'burn', per: 3, secs: 2 }, says: 'Hits burn for 3 damage a second for 2 s.' },
+  { id: 'scarab', name: 'Scarab Charm', tier: 2, price: 76, land: 'desert', stats: { luck: 15 }, fx: { kind: 'coin', chance: 0.12 }, says: 'Kills drop a coin 12% of the time.' },
+  { id: 'icepick', name: 'Ice Pick', tier: 1, price: 44, land: 'snow', stats: { might: 2 }, fx: { kind: 'stun', every: 12, secs: 0.4 }, says: 'Every 12th hit freezes the enemy for 0.4 s.' },
+  { id: 'wolfpelt', name: 'Wolf Pelt', tier: 2, price: 76, land: 'snow', stats: { maxHp: 10, armor: 1 }, fx: { kind: 'slow', by: 0.25, secs: 1.5 }, says: 'Hits slow the enemy by 25% for 1.5 s.' },
+  { id: 'harpoon', name: 'Rope Harpoon', tier: 1, price: 46, land: 'coast', stats: { reach: 15 }, fx: { kind: 'pull', r: 80 }, says: 'Hits drag nearby enemies in toward the one struck.' },
+  { id: 'pearl', name: 'Black Pearl', tier: 2, price: 80, land: 'coast', stats: { crit: 4, luck: 10 }, fx: { kind: 'mark', by: 0.1, secs: 3 }, says: 'Hits mark the enemy: it takes 10% more from everything for 3 s.' },
+  { id: 'blastcap', name: 'Blasting Cap', tier: 1, price: 48, land: 'mine', stats: { damage: 4 }, fx: { kind: 'burst', every: 10, share: 0.6, r: 70 }, says: 'Every 10th hit bursts for 60% of its damage around the enemy.' },
+  { id: 'minerlamp', name: "Miner's Lamp", tier: 2, price: 80, land: 'mine', stats: { armor: 2, pickup: 40 }, fx: { kind: 'mark', by: 0.12, secs: 3 }, says: 'Hits mark the enemy: it takes 12% more from everything for 3 s.' },
+  { id: 'saddle', name: 'Horse Saddle', tier: 1, price: 48, land: 'steppe', stats: { speed: 7 }, fx: { kind: 'chain', share: 0.25, r: 100 }, says: 'Hits jump to one more enemy for 25% damage.' },
+  { id: 'kumis', name: 'Skin of Kumis', tier: 2, price: 82, land: 'steppe', stats: { maxHp: 8, haste: 6 }, fx: { kind: 'mend', heal: 1 }, says: 'Kills heal you 1 HP.' },
+  { id: 'gravebell', name: 'Grave Bell', tier: 1, price: 50, land: 'crypt', stats: { lore: 3 }, fx: { kind: 'stun', every: 10, secs: 0.5 }, says: 'Every 10th hit stuns the enemy for 0.5 s.' },
+  { id: 'ossuary', name: 'Bone Reliquary', tier: 2, price: 84, land: 'crypt', stats: { lifesteal: 3 }, fx: { kind: 'mark', by: 0.15, secs: 3 }, says: 'Hits mark the enemy: it takes 15% more from everything for 3 s.' },
+  { id: 'cogwheel', name: 'Spring Cog', tier: 1, price: 50, land: 'clock', stats: { haste: 8 }, fx: { kind: 'chain', share: 0.3, r: 110 }, says: 'Hits jump to one more enemy for 30% damage.' },
+  { id: 'gearplate', name: 'Gear Plate', tier: 2, price: 86, land: 'clock', stats: { armor: 3, maxHp: 6 }, fx: { kind: 'stun', every: 9, secs: 0.5 }, says: 'Every 9th hit stuns the enemy for 0.5 s.' },
+  { id: 'tongs', name: "Smith's Tongs", tier: 1, price: 52, land: 'ember', stats: { might: 3 }, fx: { kind: 'burn', per: 5, secs: 2 }, says: 'Hits burn for 5 damage a second for 2 s.' },
+  { id: 'cinderheart', name: 'Cinder Heart', tier: 2, price: 88, land: 'ember', stats: { damage: 8 }, fx: { kind: 'burst', every: 8, share: 0.7, r: 80 }, says: 'Every 8th hit bursts for 70% of its damage around the enemy.' },
 ];
 
 // ---------------------------------------------------------------- a level

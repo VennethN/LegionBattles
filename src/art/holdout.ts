@@ -463,6 +463,121 @@ const ICONS: Record<string, (d: Doc) => void> = {
     d.flat('cross-a', capsule(29, 14, 37, 22, 2), RUBY.fill);
     d.flat('cross-b', capsule(37, 14, 29, 22, 2), RUBY.fill);
   },
+  // ------------------------------------------------ each land's own wares
+  reedpipe: (d) => {
+    d.piece('pipe', roundRect(8, 21, 34, 8, 3).rotate(-30, 24, 25), BUSH, { shade: 3 });
+    for (const t of [0, 1, 2]) d.flat('hole', circle(17 + t * 7, 29 - t * 4, 1.6), BUSH.shade);
+    d.piece('tie', roundRect(33, 9, 6, 9, 1).rotate(-30, 36, 13), LINEN, { shade: 0 });
+  },
+  thornbrace: (d) => {
+    d.piece('band', roundRect(9, 16, 30, 18, 6), LEATHER, { shade: 4 });
+    for (const x of [13, 21, 29, 37]) d.piece('thorn', poly([[x - 3, 17], [x, 7], [x + 3, 17]]), WOOD, { shade: 0 });
+    d.piece('strap', roundRect(9, 27, 30, 4, 1), flat(LEATHER), { shade: 0 });
+  },
+  leechjar: (d) => {
+    d.piece('jar', path().M(12, 14).L(36, 14).L(38, 42).L(10, 42).Z(), FROST, { shade: 2 });
+    d.piece('leech', smooth([[16, 34], [20, 26], [28, 24], [33, 30], [28, 36], [21, 37]]), DARK_CLOTH, { shade: 0 });
+    d.piece('lid', roundRect(10, 8, 28, 7, 2), WOOD, { shade: 0 });
+  },
+  mudboots: (d) => {
+    d.piece('boot', path().M(14, 6).L(28, 6).L(28, 30).L(42, 34).L(42, 43).L(10, 43).L(12, 30).Z(), LEATHER, { shade: 4 });
+    d.piece('mud', path().M(9, 34).C(16, 30, 24, 36, 30, 32).C(36, 30, 40, 34, 43, 34).L(43, 44).L(9, 44).Z(), DIRT, { shade: 0 });
+  },
+  sunglass: (d) => {
+    d.piece('handle', capsule(30, 30, 42, 42, 6), WOOD, { shade: 0 });
+    d.piece('rim', circle(20, 20, 15), BRONZE, { shade: 2 });
+    d.piece('glass', circle(20, 20, 11), HOLY, { shade: 0 });
+    d.glint('glint', capsule(14, 18, 17, 13, 3));
+  },
+  scarab: (d) => {
+    d.piece('wing', path().M(24, 12).C(36, 12, 40, 24, 38, 34).C(34, 42, 14, 42, 10, 34).C(8, 24, 12, 12, 24, 12).Z(), VENOM, { shade: 4 });
+    d.line('split', path().M(24, 14).L(24, 40));
+    d.piece('head', roundRect(18, 5, 12, 9, 4), GOLD, { shade: 0 });
+  },
+  icepick: (d) => {
+    d.piece('shaft', roundRect(21, 14, 6, 32, 2), WOOD, { shade: 0 });
+    d.piece('head', poly([[4, 16], [24, 8], [44, 14], [26, 18], [22, 18]]), FROST, { shade: 3 });
+  },
+  wolfpelt: (d) => {
+    d.piece('pelt', smooth([[6, 16, 'c'], [14, 8], [34, 8], [42, 16, 'c'], [38, 30], [42, 42, 'c'], [24, 38], [6, 42, 'c'], [10, 30]]), STONE, {
+      shade: 4,
+      inner: (c) => {
+        for (const x of [16, 24, 32]) c.shadeOver('fur', capsule(x, 14, x - 2, 32, 1.6), 1);
+      },
+    });
+  },
+  harpoon: (d) => {
+    d.piece('shaft', roundRect(6, 22, 30, 5, 2).rotate(-35, 22, 24), WOOD, { shade: 0 });
+    d.piece('barb', poly([[32, 6], [44, 2], [40, 14], [36, 11]]), STEEL, { shade: 2 });
+    d.line('rope', smooth([[8, 34], [12, 42], [20, 40], [24, 44]], false));
+  },
+  pearl: (d) => {
+    d.line('cord', path().M(12, 4).C(14, 14, 20, 18, 24, 20).C(28, 18, 34, 14, 36, 4));
+    d.piece('pearl', circle(24, 30, 12), DARK_CLOTH, { shade: 4 });
+    d.glint('glint', capsule(19, 26, 21, 23, 2.5));
+  },
+  blastcap: (d) => {
+    d.piece('stick', roundRect(10, 16, 28, 14, 5).rotate(-20, 24, 23), RUBY, { shade: 4 });
+    d.line('wick', path().M(36, 14).L(42, 6));
+    d.piece('spark', star(42, 6, 5, 6, 2.6), FIRE, { shade: 0 });
+  },
+  minerlamp: (d) => {
+    d.piece('cap', path().M(8, 26).C(8, 8, 40, 8, 40, 26).Z(), IRON, { shade: 4 });
+    d.piece('brim', roundRect(4, 25, 40, 6, 3), flat(IRON), { shade: 0 });
+    d.flat('glow', circle(24, 15, 8), FIRE.light, 0.6);
+    d.piece('lamp', roundRect(19, 10, 10, 10, 3), HOLY, { shade: 0 });
+  },
+  saddle: (d) => {
+    d.piece('seat', path().M(4, 22).C(10, 30, 18, 24, 24, 24).C(30, 24, 38, 30, 44, 22).L(42, 34).C(30, 40, 18, 40, 6, 34).Z(), LEATHER, { shade: 4 });
+    d.piece('horn', roundRect(36, 12, 7, 12, 3), BRONZE, { shade: 0 });
+    d.piece('stirrup', path().M(20, 34).L(28, 34).L(30, 46).L(18, 46).Z(), IRON, { shade: 0 });
+  },
+  kumis: (d) => {
+    d.piece('skin', smooth([[16, 12, 'c'], [12, 24], [10, 38], [24, 44, 'c'], [38, 38], [36, 24], [32, 12, 'c']]), LEATHER, { shade: 4 });
+    d.piece('neck', roundRect(19, 4, 10, 10, 3), BONE, { shade: 0 });
+    d.piece('tie', roundRect(17, 12, 14, 4, 1), RUBY, { shade: 0 });
+  },
+  gravebell: (d) => {
+    d.piece('handle', roundRect(21, 3, 6, 12, 2), WOOD, { shade: 0 });
+    d.piece('bell', path().M(14, 14).C(14, 12, 34, 12, 34, 14).L(38, 36).L(10, 36).Z(), IRON, { shade: 4 });
+    d.piece('lip', roundRect(7, 34, 34, 5, 2), flat(IRON), { shade: 0 });
+    // A teardrop of iron, not a round one: a pale ring round a dark middle reads as an eye.
+    d.piece('clapper', path().M(24, 37).C(29, 40, 28, 46, 24, 46).C(20, 46, 19, 40, 24, 37).Z(), flat(IRON), { shade: 0 });
+  },
+  ossuary: (d) => {
+    d.piece('box', roundRect(8, 18, 32, 24, 3), GOLD, { shade: 4 });
+    d.piece('lid', path().M(6, 18).L(24, 6).L(42, 18).Z(), GOLD, { shade: 2 });
+    // A bone laid across it, end over end: two round knobs side by side read as eyes.
+    d.piece('bone', capsule(14, 38, 34, 24, 6), BONE, { shade: 0 });
+    d.piece('knob', circle(35, 23, 5), BONE, { shade: 0 });
+  },
+  cogwheel: (d) => {
+    d.piece('teeth', star(24, 24, 10, 21, 16), BRONZE, { shade: 3 });
+    d.piece('hub', circle(24, 24, 7), GOLD, { shade: 0 });
+    d.piece('spring', capsule(24, 24, 40, 40, 3), STEEL, { shade: 0 });
+  },
+  gearplate: (d) => {
+    d.piece('plate', path().M(8, 8).L(40, 8).L(40, 28).C(40, 38, 30, 44, 24, 46).C(18, 44, 8, 38, 8, 28).Z(), STEEL, { shade: 4 });
+    d.piece('gear', star(24, 24, 8, 11, 8), BRONZE, { shade: 0 });
+    d.piece('hub', circle(24, 24, 4), GOLD, { shade: 0 });
+  },
+  tongs: (d) => {
+    d.piece('arm-a', capsule(8, 42, 30, 8, 3.5), IRON, { shade: 0 });
+    d.piece('arm-b', capsule(16, 44, 36, 10, 3.5), IRON, { shade: 0 });
+    d.piece('coal', smooth([[28, 4], [38, 4], [42, 12], [34, 16], [26, 12]]), FIRE, { shade: 0 });
+  },
+  cinderheart: (d) => {
+    d.flat('halo', circle(24, 26, 21), FIRE.light, 0.35);
+    d.piece('heart', heart(), IRON, {
+      shade: 4,
+      inner: (c) => c.piece('crack', path().M(22, 12).L(27, 20).L(21, 27).L(26, 36).L(24, 37).L(18, 27).L(24, 20).L(20, 13).Z(), FIRE, { shade: 0, outline: false }),
+    });
+  },
+  'r-temper': (d) => {
+    d.piece('anvil', path().M(4, 20).L(40, 20).L(44, 14).L(44, 26).L(34, 30).L(32, 40).L(14, 40).L(12, 30).L(6, 28).Z(), IRON, { shade: 4 });
+    d.piece('blade', poly([[10, 16], [38, 4], [42, 8], [14, 20]]), FIRE, { shade: 0 });
+    d.piece('spark', star(30, 8, 5, 6, 2.6), HOLY, { shade: 0 });
+  },
   'r-seal': (d) => {
     d.piece('tail-a', poly([[15, 26], [23, 30], [16, 47], [12, 41], [7, 43]]), RUBY, { shade: 0 });
     d.piece('tail-b', poly([[33, 26], [25, 30], [32, 47], [36, 41], [41, 43]]), RUBY, { shade: 0 });

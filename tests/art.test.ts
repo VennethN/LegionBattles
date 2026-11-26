@@ -137,8 +137,9 @@ describe('the sheet of the field', () => {
   const stills = (unit: string): Array<readonly [number, number]> => Object.values(manifest.units[unit].stills ?? {}).map((b) => [b[2], b[3]] as const);
 
   // It was a third before the road: thirteen more weapons, a picture for every relic and the things of the road took it to under a half.
+  // Each land's two wares and Master's Temper took it to just under one: what a wave stands up still fits, as the test after this holds.
   it('holds what is kept from the start in under half of itself', () => {
-    expect(kept().used()).toBeLessThan(0.48);
+    expect(kept().used()).toBeLessThan(0.5);
   });
 
   it('every companion is drawn part by part, in blue', () => {

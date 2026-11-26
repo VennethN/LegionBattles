@@ -4,9 +4,10 @@
 // that a run can be saved in the middle and carried on, and so that the
 // pace report can play one without a screen.
 
+import { FIFTH, fifthOf } from './forms';
 import {
   BAND, BASE_STATS, CHOICES, COMPANIONS, FOUND, HEROES, ITEMS, KIND_AGAIN, LAND_WAVES, OFFERS, QUIRKS, SAME_AGAIN, SELL_SHARE, SLOTS, TIERS, TIER_PRICE, UPGRADES, WEAPONS, WEAPON_SHARE, byId,
-  finishedAs, landAt, levelNeeds, ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type Count, type HeroDef, type WeaponDef,
+  finishedAs, LANDS, landAt, levelNeeds, ownTier, priceAt, rerollCost, tierWeights, waveOf, weaponOf, type Count, type HeroDef, type WeaponDef,
 } from './data';
 import { VOW, VOWS, noBoons, type Boons, type Thing, thingKey } from './holdData';
 import { KINDS, KIND_STEPS, countKinds, giftLine, kindStep, type Kind, type KindCounts } from './kinds';
@@ -70,6 +71,8 @@ export interface RunData {
   /** True once Tam has dragged the hero up: it is once in a run. */
   saved: boolean;
   items: string[];
+  /** True once Master's Temper has made a fifth form this run. */
+  tempered?: boolean;
   /** What was chosen on each level. */
   ups: Array<{ stat: Stat; by: number }>;
   /** Packs picked up and not opened. */
@@ -188,7 +191,8 @@ export function offered(run: RunData, kind: Thing['kind'], id: string): boolean 
 }
 
 const openWeapons = (run: RunData): typeof WEAPONS => WEAPONS.filter((w) => (run.pool ? run.pool.includes(w.id) : true) && offered(run, 'weapon', w.id));
-const openItems = (run: RunData): typeof ITEMS => ITEMS.filter((it) => offered(run, 'item', it.id));
+// A land's own wares are sold only in that land's shops: the camp before a wave is in the land of that wave.
+const openItems = (run: RunData): typeof ITEMS => ITEMS.filter((it) => offered(run, 'item', it.id) && (!it.land || it.land === LANDS[landAt(run.wave)]));
 const openRelics = (run: RunData): typeof RELICS => RELICS.filter((r) => offered(run, 'relic', r.id));
 
 /** A price in the camp as the run's vows have it: dearer under Lean Coffers. */
@@ -358,7 +362,7 @@ export function setupOf(run: RunData, tall = false, auto = true): Setup {
     perks: run.boons.perks ?? [], skillHarm: run.boons.harm ?? 0, skillArea: run.boons.area ?? 0, skillAgain: run.boons.again ?? 0, slots: run.slots ?? BAND.places,
     seed, wave: run.wave, stats, quirk: hero.quirk, move: hero.move, own: ownOf(run), weapons: run.weapons,
     band: run.band, level: run.level, fury: run.fury, auto, purse: run.gold, spare: run.rose !== landAt(run.wave), rescue: !run.saved, tall,
-    omen: run.road.omen, stray: run.road.stray, relics: run.relics, whet: run.whet, tithe, bones,
+    omen: run.road.omen, stray: run.road.stray, relics: run.relics, items: run.items, whet: run.whet, tithe, bones,
     vows: run.vows, alt: run.alt, breath: run.boons.breath > 0 && !run.breathed,
     furyBy: 1 + run.boons.fury / 100, bandHp: 1 + run.boons.bandHp / 100, bandDmg: 1 + run.boons.bandDmg / 100, bandUp: run.boons.bandUp / 100,
   };
@@ -523,6 +527,7 @@ export function takeRelic(run: RunData, i: number): boolean {
   if (run.phase !== 'relic' || !id) return false;
   run.relics.push(id);
   fuse(run);
+  temper(run);
   run.relicsDue = Math.max(0, run.relicsDue - 1);
   settle(run);
   return true;
@@ -590,7 +595,9 @@ function rollOffer(run: RunData, rng: Rng, slot: number): Offer {
     let tier: number;
     if (run.weapons.length > 0 && rng.chance(SAME_AGAIN)) {
       // One the hero carries already, at its own tier, so that the two can be joined.
-      const mine = rng.pick(run.weapons);
+      // A fifth form is never offered: the shop deals in the four tiers, and V is made by merging.
+      const offerable = run.weapons.filter((w) => w.tier < TIERS);
+      const mine = rng.pick(offerable.length > 0 ? offerable : [{ id: rng.pick(openWeapons(run)).id, tier: 0 }]);
       id = mine.id;
       tier = mine.tier;
     } else {
@@ -678,7 +685,8 @@ export function held(run: RunData, item: string): number {
 
 /** The place of a weapon the same as this one, which it could be joined with, or -1. */
 export function twinOf(run: RunData, id: string, tier: number, not = -1): number {
-  if (tier >= TIERS - 1) return -1;
+  // Two of tier IV merge into the fifth form; a fifth form merges with nothing.
+  if (tier >= FIFTH || (tier === TIERS - 1 && !fifthOf(id))) return -1;
   return run.weapons.findIndex((w, i) => i !== not && w.id === id && w.tier === tier);
 }
 
@@ -702,10 +710,12 @@ export function buy(run: RunData, i: number): boolean {
   else if (o.kind === 'relic') {
     run.relics.push(o.id);
     fuse(run);
+    temper(run);
   }
   else {
     if (run.weapons.length < handsOf(run)) run.weapons.push({ id: o.id, tier: o.tier });
     else run.weapons[twinOf(run, o.id, o.tier)].tier++;
+    temper(run);
     // The last weapon bought: Orrin's staff is finished as it. A new form is counted.
     if (heroOf(run).quirk === 'unfinished' && run.taken !== o.id) counted(run, 'finished', 1);
     run.taken = o.id;
@@ -748,6 +758,20 @@ export function toss(run: RunData, i: number): 'heads' | 'tails' | null {
   return 'tails';
 }
 
+/**
+ * Master's Temper: the best tier IV weapon held becomes its fifth form, once a run. Held with none at tier IV, it waits
+ * for the first that gets there.
+ */
+export function temper(run: RunData): boolean {
+  if (!hasRelic(run, 'temper') || run.tempered) return false;
+  let best: Carried | null = null;
+  for (const w of run.weapons) if (w.tier === TIERS - 1 && fifthOf(w.id) && (!best || byId(WEAPONS, w.id).price > byId(WEAPONS, best.id).price)) best = w;
+  if (!best) return false;
+  best.tier = FIFTH;
+  run.tempered = true;
+  return true;
+}
+
 /** Joins a weapon with its twin into one of the next tier. */
 export function combine(run: RunData, slot: number): boolean {
   const w = run.weapons[slot];
@@ -756,6 +780,7 @@ export function combine(run: RunData, slot: number): boolean {
   if (twin < 0) return false;
   w.tier++;
   run.weapons.splice(twin, 1);
+  temper(run);
   return true;
 }
 

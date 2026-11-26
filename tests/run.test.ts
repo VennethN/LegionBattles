@@ -201,7 +201,7 @@ describe('the camp', () => {
     expect(canSwap(run, 3, 0)).toBe(false);
   });
 
-  it('joins two of a kind into one of the next tier, and nothing past the last', () => {
+  it('joins two of a kind into one of the next tier, up to the fifth form and nothing past it', () => {
     const run = inCamp();
     run.weapons = [{ id: 'sword', tier: 0 }, { id: 'bow', tier: 0 }, { id: 'sword', tier: 0 }, { id: 'sword', tier: 1 }];
     expect(twinOf(run, 'sword', 0, 0)).toBe(2);
@@ -210,7 +210,11 @@ describe('the camp', () => {
     expect(run.weapons).toEqual([{ id: 'sword', tier: 1 }, { id: 'bow', tier: 0 }, { id: 'sword', tier: 1 }]);
     expect(combine(run, 0)).toBe(true);
     expect(run.weapons).toEqual([{ id: 'sword', tier: 2 }, { id: 'bow', tier: 0 }]);
+    // Two of tier IV make the fifth form (forms.ts), and that merges with nothing.
     run.weapons = [{ id: 'sword', tier: 3 }, { id: 'sword', tier: 3 }];
+    expect(combine(run, 0)).toBe(true);
+    expect(run.weapons).toEqual([{ id: 'sword', tier: 4 }]);
+    run.weapons.push({ id: 'sword', tier: 4 });
     expect(combine(run, 0)).toBe(false);
   });
 
