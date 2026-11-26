@@ -2,6 +2,41 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is to be.
 
+## Round 8, easier, for a web portal
+
+The owner: "lets make the difficulty a bit easier, i dont mean dark souls difficulty, since this will be on crazygames page". Aimed at a casual player: the first difficulty won by the bot 90% or more, the second 70 to 85%, the third 50 to 65%, and a hunt of one to three minutes at the first.
+
+What changed, all in content.ts:
+
+- **The difficulties** (`MARKS`): Difficulty 1 is gentler than before (the boss has 80% of its health, hits for 90%, and its warnings last 5% longer); Difficulty 2 is about what Difficulty 1 was in damage, with its health back to the base; Difficulty 3 keeps its steps above that but far less steep (health 1.22 and damage 1.3 times the base, where they were 1.4 and 1.45; warnings 80% as long, where they were 74%; the walk between blows 72%, where it was 66%).
+- **Fewer and slower helpers.** The risen: 4 at once, not 6, slower, and their own warning 0.6 s, not 0.5; More Graves opens 4 graves, not 5. Spiderlings: 3 at once, not 4, slower, warning 0.6 s.
+- **Bury** warns for 0.95 s, not 0.8, its marks come a little further apart, and each hits for 14, not 16.
+
+Every attack still has its warning, and the warnings are only longer. Measured with `npm run pace -- --table --runs=24` (24 hunts a contract, the eight hunters in turn, the bot, the first muster). Won, the average length of a won hunt, and the hunter's health left at the end of a won hunt:
+
+| Contract | Before | After | After, auto attack alone |
+| --- | --- | --- | --- |
+| Gravedigger 1 | 96%, 2:38, 63% | 100%, 2:02, 83% | 100%, 2:16, 74% |
+| Gravedigger 2 | 71%, 2:55, 35% | 100%, 2:46, 55% | 83%, 3:13, 56% |
+| Gravedigger 3 | 4%, 3:07, 9% | 54%, 3:29, 25% | 50%, 3:52, 23% |
+| Antlered King 1 | 100%, 4:29, 63% | 100%, 3:26, 75% | 100%, 4:21, 71% |
+| Antlered King 2 | 50%, 4:43, 48% | 92%, 4:13, 64% | 96%, 5:19, 58% |
+| Antlered King 3 | 21%, 6:06, 40% | 46%, 5:02, 43% | 50%, 5:48, 55% |
+| Spinner 1 | 92%, 3:07, 64% | 100%, 2:24, 85% | 100%, 2:16, 80% |
+| Spinner 2 | 75%, 3:27, 59% | 83%, 3:11, 76% | 96%, 3:06, 52% |
+| Spinner 3 | 13%, 3:20, 79% | 71%, 3:46, 40% | 58%, 3:33, 35% |
+| Bell Abbot 1 | 96%, 3:57, 75% | 96%, 2:45, 81% | 100%, 2:46, 81% |
+| Bell Abbot 2 | 79%, 4:27, 60% | 92%, 3:33, 69% | 96%, 4:10, 62% |
+| Bell Abbot 3 | 21%, 5:21, 32% | 71%, 4:53, 50% | 54%, 5:37, 44% |
+| Furnace 1 | 96%, 2:35, 76% | 100%, 1:58, 81% | 88%, 2:05, 84% |
+| Furnace 2 | 88%, 2:41, 51% | 100%, 2:37, 69% | 92%, 2:38, 73% |
+| Furnace 3 | 63%, 3:19, 39% | 71%, 2:43, 53% | 67%, 3:32, 47% |
+| Mirror King 1 | 88%, 3:37, 61% | 100%, 2:46, 74% | 100%, 3:01, 76% |
+| Mirror King 2 | 67%, 3:28, 55% | 96%, 3:39, 53% | 100%, 3:50, 57% |
+| Mirror King 3 | 21%, 4:24, 39% | 54%, 3:41, 30% | 46%, 4:28, 46% |
+
+The first difficulty is now won nearly always, in about two to three and a half minutes. The second is won 83 to 100% of the time, a little above the aim: the bot is steadier than a new player, so it is left there. The third is now 46 to 71%, where it was 4 to 63%; what kills there is the third difficulty's own attacks (the King's Crossing Herd, the Mirror King's reflections), as it should be. The Antlered King's hunts are still the longest, at three and a half minutes at the first difficulty.
+
 ## Round 7, a hunter's page that says what to press
 
 The owner: "for the menu in boss hunters, can we make it clearer of the button to select which hunters? the ui currently is very messy". The page a hunter opens to from the inn was rebuilt as one layout:

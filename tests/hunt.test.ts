@@ -186,8 +186,11 @@ describe('tells', () => {
     const h = awake({ monster: 'sexton' });
     h.hunter.x = h.monster.x - 120;
     next(h, 'spade');
-    play(h, 1.0);
+    // Until the spade lands on them, however long its warning is at this mark.
+    const full = h.hunter.hp;
+    for (let t = 0; t < 3 && h.hunter.hp === full; t += 0.05) play(h, 0.05);
     const hp = h.hunter.hp;
+    expect(hp).toBeLessThan(full);
     expect(h.hunter.grace).toBeGreaterThan(0);
     (h as unknown as { hurtHunter(who: unknown, n: number, by: string): void }).hurtHunter(h.hunter, 50, 'spade');
     expect(h.hunter.hp).toBe(hp);

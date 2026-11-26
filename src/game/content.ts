@@ -42,9 +42,9 @@ export const ENRAGE = { at: 420, faster: 0.7 };
 
 /** What each mark does to a monster: its health, the harm of its blows, how long its tells show, and how long it walks between attacks. */
 export const MARKS: Record<Mark, { hp: number; dmg: number; tell: number; gap: number; name: string }> = {
-  1: { hp: 1, dmg: 1, tell: 1, gap: 1, name: 'Difficulty 1' },
-  2: { hp: 1.16, dmg: 1.13, tell: 0.9, gap: 0.87, name: 'Difficulty 2' },
-  3: { hp: 1.4, dmg: 1.45, tell: 0.74, gap: 0.66, name: 'Difficulty 3' },
+  1: { hp: 0.8, dmg: 0.9, tell: 1.05, gap: 1.05, name: 'Difficulty 1' },
+  2: { hp: 1, dmg: 1.06, tell: 0.94, gap: 0.9, name: 'Difficulty 2' },
+  3: { hp: 1.22, dmg: 1.3, tell: 0.8, gap: 0.72, name: 'Difficulty 3' },
 };
 
 // ------------------------------------------------------------ the first hunt
@@ -587,14 +587,14 @@ export interface HelperDef {
 }
 
 export const HELPERS: readonly HelperDef[] = [
-  { id: 'risen', name: 'the risen', hp: 34, speed: 78, dmg: 8, reach: 40, every: 1.6, tell: 0.5, most: 6 },
+  { id: 'risen', name: 'the risen', hp: 34, speed: 68, dmg: 8, reach: 40, every: 1.6, tell: 0.6, most: 4 },
   // The King's herd, for a contract that says he comes with it: quicker than the dead and harder to pin.
   { id: 'herd', name: 'a herd beast', hp: 40, speed: 118, dmg: 10, reach: 44, every: 1.5, tell: 0.5, most: 6 },
   // What a contract asks to be broken first. They stand where they are put and do nothing: a thing to go out of the way for.
   { id: 'gravemarker', name: 'a grave marker', hp: 240, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
   { id: 'totem', name: 'an antler totem', hp: 240, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 0, still: true },
   // The Spinner's young: quick and weak, and there are always more while a sac stands.
-  { id: 'spiderling', name: 'a spiderling', hp: 18, speed: 130, dmg: 5, reach: 34, every: 1.4, tell: 0.5, most: 4 },
+  { id: 'spiderling', name: 'a spiderling', hp: 18, speed: 112, dmg: 5, reach: 34, every: 1.4, tell: 0.6, most: 3 },
   // A sac on the cellar wall: it does nothing but hatch. Broken, it hatches nothing more.
   { id: 'eggsac', name: 'an egg sac', hp: 50, speed: 0, dmg: 0, reach: 0, every: 0, tell: 0, most: 5, still: true, hatch: { every: 18, into: 'spiderling' } },
   // The Abbot's monks walk round the abbey singing, and he mends while they sing. They do not fight.
@@ -667,12 +667,12 @@ export const MONSTERS: readonly MonsterDef[] = [
       // His lantern: everything near him burns, so the answer is to be far or to be gone.
       { id: 'lantern', name: 'Lantern Burst', tell: 1.3, recover: 1.9, dmg: 24, shapes: [{ kind: 'ring', r: 200, at: 'self' }] },
       // The ground opens under the hunter again and again: keep moving.
-      { id: 'bury', name: 'Bury', tell: 0.8, recover: 1.6, dmg: 16, shapes: [{ kind: 'marks', n: 6, r: 50, at: 'follow', every: 0.38 }] },
+      { id: 'bury', name: 'Bury', tell: 0.95, recover: 1.6, dmg: 14, shapes: [{ kind: 'marks', n: 6, r: 50, at: 'follow', every: 0.44 }] },
       { id: 'grasp', name: 'Grasping Hands', tell: 1.0, recover: 1.2, dmg: 9, root: 1.1, mark: 2, far: 170, split: true, shapes: [{ kind: 'ring', r: 82, at: 'target' }] },
       // Only against a party of three or more: his spade round in a half circle, across all of them.
       { id: 'widesweep', name: 'Wide Sweep', tell: 1.05, recover: 1.5, dmg: 18, party: 3, shapes: [{ kind: 'cone', r: 250, half: 105 }] },
       { id: 'cross', name: 'Four Slams', tell: 1.1, recover: 1.7, dmg: 19, mark: 3, shapes: [{ kind: 'line', len: 360, w: 74 }, { kind: 'line', len: 360, w: 74, turn: 90 }, { kind: 'line', len: 360, w: 74, turn: 180 }, { kind: 'line', len: 360, w: 74, turn: 270 }] },
-      { id: 'moregraves', name: 'More Graves', tell: 1.5, recover: 1.8, dmg: 10, summon: 'risen', mark: 3, shapes: [{ kind: 'marks', n: 5, r: 44, at: 'field' }] },
+      { id: 'moregraves', name: 'More Graves', tell: 1.5, recover: 1.8, dmg: 10, summon: 'risen', mark: 3, shapes: [{ kind: 'marks', n: 4, r: 44, at: 'field' }] },
     ],
     parts: [
       ['spade', 'sweep', 'spade', 'graves', 'grasp', 'widesweep'],

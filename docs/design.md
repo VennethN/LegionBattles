@@ -113,6 +113,10 @@ The owner, of 25 November 2026: "the wanted posters are the bosses / But the wan
 - **No Camp** is a rule the hunt keeps but the board does not post: building nothing was a choice, not a challenge.
 - **The party.** A contract takes one to four hunters, more at a higher difficulty and a high danger. The player leads; the partners are their own unlocked hunters (chosen on the team page, or the rest in order), then hands for hire. Partners are steered by the hunt itself, by the same rules as the player's hunter. A fallen hunter is helped up by standing by them. The boss chooses among the party, grows with it, and has attacks for a party of three or more. Reinforcements and buildings are one muster for the party: partners bring nothing of their own.
 
+## How hard
+
+The owner, on 26 November 2026: "lets make the difficulty a bit easier, i dont mean dark souls difficulty, since this will be on crazygames page". The aim, measured by the bot: Difficulty 1 won 90% or more in one to three and a half minutes, Difficulty 2 about 80 to 95%, Difficulty 3 about half the time. `MARKS` in content.ts holds the steps; `npm run pace -- --table` measures each contract. The journal's round 8 has the table.
+
 ## Attacking
 
 The owner: "Make it also so attacks are not automatic". A press is a blow, each hunter's chain is their own, held it goes on by itself, a blow commits for its wind-up and is open in its recovery, and blows in the boss's opening fill its stagger. Partners and the bot press by the same rules.
