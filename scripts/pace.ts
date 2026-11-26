@@ -38,14 +38,14 @@ interface Out {
 }
 
 /** Plays a hunt to its end, or for ten minutes. */
-export function hunt(setup: Setup, bot: BotOpts = {}): { won: boolean; tally: Tally; part: number } {
+export function hunt(setup: Setup, bot: BotOpts = {}): { won: boolean; tally: Tally; part: number; left: number } {
   const h = new Hunt({ ...setup, autoAttack: auto });
   const b = new Bot(setup.seed * 7 + 3, bot);
   for (let t = 0; t < 600 + 60 && !h.over; t += STEP) {
     h.step(steerOf(b, h));
     h.drain();
   }
-  return { won: h.over === 'won', tally: h.tally, part: h.monster.part };
+  return { won: h.over === 'won', tally: h.tally, part: h.monster.part, left: Math.max(0, h.hunter.hp) / h.hunter.maxHp };
 }
 
 // A rank and trinkets for every hunter going: what growth between hunts is worth (`--rank=4 --trinkets=whetstone,salt`).
@@ -193,6 +193,34 @@ if (flag('contracts') || arg('contracts')) {
   for (const [k, v] of Object.entries(byTask)) console.log(`  ${k.padEnd(14)} ${String(v.n).padStart(3)}  ${p100(v.done, v.n)}`);
   console.log('party: contracts, won');
   for (const [k, v] of Object.entries(byParty)) console.log(`  ${k.padEnd(14)} ${String(v.n).padStart(3)}  ${p100(v.won, v.n)}`);
+  process.exit(0);
+}
+
+if (flag('table')) {
+  // Each boss at each mark, as a contract: hunts shared out among the hunters, with the first muster. How often it is
+  // won, how long a won hunt takes, how much of the hunter's health is left at its end, and what does the harm.
+  console.log(`${runs} hunts a contract, the hunters in turn, the bot${auto ? ' with auto attack alone' : ''}, with pikemen, a barricade and a watchfire.`);
+  console.log('monster            mark   won   time  health left  killed by');
+  for (const m of monsters) {
+    for (const mark of marks) {
+      let won = 0;
+      let time = 0;
+      let left = 0;
+      const by: Record<string, number> = {};
+      for (let i = 0; i < runs; i++) {
+        const hu = hunters[i % hunters.length];
+        const r = hunt({ monster: m.id, mark, hunter: hu.id, ...FIRST, seed: 1000 + i * 37 }, careless);
+        if (r.won) {
+          won++;
+          time += r.tally.time;
+          left += r.left;
+        } else if (r.tally.killedBy) by[r.tally.killedBy] = (by[r.tally.killedBy] ?? 0) + 1;
+      }
+      const t = won ? `${Math.floor(time / won / 60)}:${String(Math.round((time / won) % 60)).padStart(2, '0')}` : '  - ';
+      const k = Object.entries(by).sort((a, b) => b[1] - a[1]).map(([x, n]) => `${x} ${n}`).join(', ') || 'nothing';
+      console.log(`${m.name.padEnd(18)} ${mark}     ${pct(won)}  ${t}   ${won ? `${Math.round((left / won) * 100)}%`.padStart(4) : '  - '}         ${k}`);
+    }
+  }
   process.exit(0);
 }
 

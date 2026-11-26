@@ -14,6 +14,7 @@
     "art": "tsx scripts/art.ts && tsx scripts/grim.ts",
     "pace": "tsx scripts/pace.ts",
     "walk": "tsx scripts/walk.ts",
+    "cover": "tsx scripts/cover.ts",
     "art:preview": "tsx scripts/preview.ts",
     "check": "tsc --noEmit && vitest run && vite build",
     "art:sheet": "tsx scripts/sheet.ts",
