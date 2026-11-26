@@ -326,10 +326,12 @@ export class Shapes {
     const px = x + Math.cos(a) * d;
     const py = y + Math.sin(a) * d * 0.62;
     const fx = this.fx;
-    if (kind === 'cloud') fx.spawn('fx/bubble', px, py, { dur: 0.5, from: this.px('fx/bubble', 6), to: this.px('fx/bubble', 13), vy: -24, hold: 0.7, depth: py + 2 });
-    else if (kind === 'holy') fx.spawn('fx/sparkle', px, py - 6, { dur: 0.8, from: this.px('fx/sparkle', 12), to: this.px('fx/sparkle', 4), vy: -40, tint: hex(HOLY.light), hold: 0.5, depth: py + 2 });
-    else if (kind === 'fire') fx.spawn('fx/tongue', px, py, { dur: rnd(0.35, 0.55), from: this.px('fx/tongue', 8), to: this.px('fx/tongue', rnd(16, 24)), vy: -18, hold: 0.5, depth: py + 2 });
-    else if (kind === 'ice') fx.spawn('fx/sparkle', px, py - 4, { dur: 0.3, from: this.px('fx/sparkle', 4), to: this.px('fx/sparkle', 12), tint: hex(FROST.light), depth: py + 2 });
+    // What rises in front of the hero goes under them: a patch they stand in is never drawn over them.
+    const under = this.over(px, py, 2);
+    if (kind === 'cloud') fx.spawn('fx/bubble', px, py, { dur: 0.5, from: this.px('fx/bubble', 6), to: this.px('fx/bubble', 13), vy: -24, hold: 0.7, depth: under });
+    else if (kind === 'holy') fx.spawn('fx/sparkle', px, py - 6, { dur: 0.8, from: this.px('fx/sparkle', 12), to: this.px('fx/sparkle', 4), vy: -40, tint: hex(HOLY.light), hold: 0.5, depth: under });
+    else if (kind === 'fire') fx.spawn('fx/tongue', px, py, { dur: rnd(0.35, 0.55), from: this.px('fx/tongue', 8), to: this.px('fx/tongue', rnd(16, 24)), vy: -18, hold: 0.5, depth: under });
+    else if (kind === 'ice') fx.spawn('fx/sparkle', px, py - 4, { dur: 0.3, from: this.px('fx/sparkle', 4), to: this.px('fx/sparkle', 12), tint: hex(FROST.light), depth: under });
   }
 
   // ------------------------------------------------------------ the hero's own

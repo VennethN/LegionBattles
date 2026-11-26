@@ -24,6 +24,7 @@
     "art:pages": "tsx scripts/pages.ts",
     "light": "tsx scripts/light.ts",
     "fx:sheet": "tsx scripts/fxsheet.ts",
+    "fx:look": "tsx scripts/fxlook.ts",
     "glide": "tsx scripts/glide.ts"
   },
   "dependencies": {
