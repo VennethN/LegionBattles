@@ -348,7 +348,7 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
   },
   // How a hunt ends, both ways.
   result: async (page, shot) => {
-    await lair(page, { monster: 'sexton', mark: 1, hunter: 'marta', awake: true }, { opening: 3, hunts: 3, wins: 1, trophies: [], felled: {}, coin: 0 });
+    await lair(page, { monster: 'sexton', mark: 1, hunter: 'marta', awake: true }, { opening: 3, hunts: 3, wins: 1, trophies: [], felled: {}, coin: 0, xp: { marta: 150 } });
     await page.evaluate(() => {
       const h = (window as unknown as Win).hunt();
       if (h) {

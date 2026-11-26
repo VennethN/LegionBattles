@@ -121,7 +121,7 @@ export async function playKeys(page: Page, frames: number, each?: (frame: number
 }
 
 /** A lodge well on: both monsters felled, coin in hand, everything opened. */
-export const RICH = { opening: 3, coin: 260, supply: 2, felled: { sexton: 2, king: 1 }, trophies: ['spade', 'antler'], worn: { marta: 'spade' }, steps: ['more:pikemen'], hunts: 9, wins: 5, xp: { marta: 210, jory: 70 }, trinkets: ['whetstone', 'boots', 'nail'], charms: { marta: ['whetstone', 'nail'] }, chains: {}, told: ['move', 'tell', 'roll', 'open', 'summon', 'crash', 'horn', 'lesson:first'] };
+export const RICH = { opening: 3, coin: 260, supply: 2, felled: { sexton: 2, king: 1 }, trophies: ['spade', 'antler'], worn: { marta: 'spade' }, steps: ['more:pikemen'], hunts: 9, wins: 5, xp: { marta: 210, jory: 70, agnes: 360, brask: 620, greta: 180 }, trinkets: ['whetstone', 'boots', 'nail'], charms: { marta: ['whetstone', 'nail'] }, chains: {}, told: ['move', 'tell', 'roll', 'open', 'summon', 'crash', 'horn', 'lesson:first'] };
 
 /** Where on the page the middle of the first thing on a screen that says words starting with `text` is, or null. */
 export function find(page: Page, key: string, text: string): Promise<{ x: number; y: number } | null> {

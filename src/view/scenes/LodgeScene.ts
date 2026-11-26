@@ -19,7 +19,7 @@ import { ASSETS, getManifest, setupCamera } from '../app';
 import { GrimFigure } from '../art/GrimFigure';
 import { getGrim, wantedUnit } from '../art/grim';
 import { hex, view } from '../config';
-import { ALLY_ART, BUILDING_ART, HUNTER_ART, MONSTER_ART, STAND_IN, isGrim, type Art } from '../pictures';
+import { ALLY_ART, BUILDING_ART, HUNTER_ART, MONSTER_ART, STAND_IN, dressAt, isGrim, type Art } from '../pictures';
 import { CARDS, SHEET, portraitFrame, sheet } from '../art/Sheet';
 import { commit, save, takeContract, takePosting, theContract } from '../session';
 import { slabImage } from '../ui/bake';
@@ -134,7 +134,7 @@ export class LodgeScene extends Phaser.Scene {
     c.add(img);
     // A hunter who has risen is shown in what they have earned: the card's picture is drawn at the first rank, so the
     // figure itself takes its place once it is on the sheet.
-    if (open && rank > 0 && isGrim(art)) {
+    if (open && rank > 1 && isGrim(art)) {
       void sheet(this.game, getManifest()).ensureWanted(this.scene.get(ASSETS), [wantedUnit(art.grim)]).then(() => {
         if (!img.active) return;
         const g = getGrim();
@@ -344,7 +344,8 @@ export class LodgeScene extends Phaser.Scene {
       const face = this.add.image(-rw / 2 + 34, rowH / 2 - 6, CARDS, isGrim(MONSTER_ART[p.monster]) ? portraitFrame('grim', (MONSTER_ART[p.monster] as { grim: string }).grim) : portraitFrame('grim', 'sexton')).setOrigin(0.5, 1);
       face.setScale(Math.min((rowH - 10) / face.height, 56 / face.width));
       row.add(face);
-      const name = label(this, -rw / 2 + 68, -rowH / 2 + 18, byId(MONSTERS, p.monster).name.replace(/^The /, '').toUpperCase(), { size: 17, align: 'left', color: INK, stroke: null, face: 'display' });
+      // Under a strip across the bill's top (the week's contract, a chain's step), the name moves down clear of it.
+      const name = label(this, -rw / 2 + 68, -rowH / 2 + (poster.banner ? 31 : 18), byId(MONSTERS, p.monster).name.replace(/^The /, '').toUpperCase(), { size: 17, align: 'left', color: INK, stroke: null, face: 'display' });
       // Never smaller than the smallest words the game allows.
       name.setScale(Math.max(15 / 17, Math.min(1, (rw - 150) / name.width)));
       row.add(name);
@@ -514,7 +515,7 @@ export class LodgeScene extends Phaser.Scene {
     // While there is more below, the foot of the page darkens and says so: nothing is cut off without a word.
     const cue = this.add.container(OX + w / 2, 0).setDepth(50).setVisible(most > 0);
     cue.add([
-      this.add.rectangle(0, -26, w, 30, 0x0d0b09, 0.55),
+      this.add.rectangle(0, -26, w, 30, 0x0d0b09, 0.86),
       this.add.rectangle(0, -6, w, 14, 0x0d0b09, 0.85),
       label(this, 0, -14, 'MORE BELOW: DRAG OR SCROLL', { size: 15, face: 'display', color: HOLY.fill }),
     ]);
@@ -641,7 +642,7 @@ export class LodgeScene extends Phaser.Scene {
     this.add.existing(slabImage(this, 6, top - 6, w - 12, hh + 14, WOOD_DARK, 4, 5));
     this.add.image(w / 2, top + hh / 2 + 6, SHEET, 'fx/glow').setDisplaySize(hw * 1.8, hh * 1.4).setTint(0xffb85a).setAlpha(0.45);
     const card = this.card(w / 2, top + hh / 2, hw, hh, BONE, null);
-    this.figure(card, HUNTER_ART[hunter.id], hh / 2 - 12, hh - 20, true, hunter.hired ? 0 : growthOf(s, hunter.id).rank);
+    this.figure(card, HUNTER_ART[hunter.id], hh / 2 - 12, hh - 20, true, hunter.hired ? 0 : dressAt(growthOf(s, hunter.id).rank));
     const side = Math.min(200, w / 2 - hw / 2 - 30);
     new Button(this, w / 2 - hw / 2 - 12 - side / 2, top + hh / 2, 'BACK', () => this.go('muster'), { width: Math.min(150, side), height: 50, size: 19, mat: IRON });
     const right = w / 2 + hw / 2 + 12 + side / 2;

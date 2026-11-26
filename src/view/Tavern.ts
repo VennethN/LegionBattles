@@ -23,7 +23,7 @@ import { view } from './config';
 import { CARDS, SHEET, portraitFrame, sheet } from './art/Sheet';
 import { GrimFigure } from './art/GrimFigure';
 import { getGrim, thingFrame, wantedThing, wantedUnit } from './art/grim';
-import { HUNTER_ART, MASTIFF, STAND_IN, isGrim } from './pictures';
+import { HUNTER_ART, MASTIFF, STAND_IN, dressAt, isGrim } from './pictures';
 import { label } from './ui/widgets';
 
 /** A place in the room, as shares of its width and height: where the feet are, and which way they face. */
@@ -420,9 +420,9 @@ export class Tavern {
     const hired = ['sellsword', 'bowman'].map((id) => plan.at[id]).filter((p): p is Place => !!p);
     if (hired.length) {
       const hx = Math.min(this.w - 110, Math.max(110, (hired.reduce((n, p) => n + p.x, 0) / hired.length) * this.w));
-      const hy = Math.min(...hired.map((p) => p.y)) * this.h - 150 * SCALE - 40;
+      const hy = Math.min(...hired.map((p) => p.y)) * this.h - 150 * SCALE - 46;
       this.root.add(label(this.scene, hx, hy, 'HANDS FOR HIRE', { size: 15, face: 'display', color: HOLY.fill }));
-      this.root.add(label(this.scene, hx, hy + 20, 'They come when a contract needs more hunters than you bring.', { size: 15, color: BONE.shade, wrap: 200 }).setOrigin(0.5, 0));
+      this.root.add(label(this.scene, hx, hy + 20, 'They join when a party is short.', { size: 15, color: BONE.shade, wrap: 200 }).setOrigin(0.5, 0));
     }
     const order = HUNTERS.map((d) => d.id).sort((a, b) => (plan.at[a]?.y ?? 0) - (plan.at[b]?.y ?? 0));
     for (const id of order) {
@@ -454,7 +454,7 @@ export class Tavern {
       if (isGrim(art)) {
         const fig = new GrimFigure(this.scene, art.grim, grim.units[art.grim], grim.poses, SCALE, id.length * 5);
         // Dressed as far as they have risen: a cord, a cloak, a trophy, a mantle.
-        if (open && !def.hired) fig.rank = growthOf(this.s, id).rank;
+        if (open && !def.hired) fig.rank = dressAt(growthOf(this.s, id).rank);
         fig.x = x;
         fig.y = y;
         fig.facing = at.face;

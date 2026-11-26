@@ -10,7 +10,7 @@ import { TRINKETS } from '../../game/growth';
 import { growthOf } from '../../game/lodge';
 import { GrimFigure } from '../art/GrimFigure';
 import { getGrim } from '../art/grim';
-import { HUNTER_ART, isGrim } from '../pictures';
+import { HUNTER_ART, dressAt, isGrim } from '../pictures';
 import { setupCamera } from '../app';
 import { hex, view } from '../config';
 import { CARDS, SHEET, portraitFrame } from '../art/Sheet';
@@ -74,17 +74,17 @@ export class ResultScene extends Phaser.Scene {
       // A rank gained is a moment: the hunter in what they have just earned, lit, rising a little into it.
       const u = g.units[art.grim];
       const fx = cx - pw / 2 + 50;
-      const fy = py + 112;
+      const fy = py + 116;
       this.add.image(fx, fy - 40, SHEET, 'fx/glow').setDisplaySize(140, 140).setTint(0xffc060).setAlpha(0.7).setBlendMode(Phaser.BlendModes.ADD);
       const fig = new GrimFigure(this, art.grim, u, g.poses, 86 / (u.feet[1] - u.top), 5);
       fig.x = fx;
       fig.y = fy;
-      fig.rank = growthOf(save(), id).rank;
+      fig.rank = dressAt(growthOf(save(), id).rank);
       fig.shift = 1;
       fig.root.setScale(0.8).setAlpha(0);
       this.tweens.add({ targets: fig.root, scale: 1, alpha: 1, duration: 520, ease: 'Back.Out' });
       this.events.on('update', (_t: number, dt: number) => fig.root.active && fig.update(this.time.now / 1000, dt / 1000));
-      label(this, fx, py + 128, `RANK UP: ${risen.rose?.toUpperCase()}`, { size: 15, face: 'display', color: '#6b4a1a', stroke: null });
+      // What rank it is is said in the record's notes below: the figure itself is the moment.
       sfx.play('levelUp', 0.7);
     } else if (this.textures.get(CARDS).has(portraitFrame('grim', id)) && pw > 400) {
       const face = this.add.image(cx - pw / 2 + 46, py + 70, CARDS, portraitFrame('grim', id));

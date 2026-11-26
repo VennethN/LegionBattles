@@ -975,7 +975,8 @@ export class HudScene extends Phaser.Scene {
     const ct = this.controls;
     const g = this.stick;
     g.clear();
-    if (this.touch && !this.paused) {
+    // While camp is set the bottom of the screen is the cards': the stick shows only while a thumb is on it.
+    if (this.touch && !this.paused && !(ct.camp && !ct.sticking)) {
       const held = ct.sticking;
       const { x, y } = ct.stickAt;
       g.fillStyle(hex(OUTLINE), held ? 0.34 : 0.22).fillCircle(x, y, STICK_R + 18);

@@ -26,7 +26,7 @@ import { Numbers } from '../Numbers';
 import { drawTell as drawMarkedTell } from '../vfx/Tells';
 import { Vfx } from '../vfx/Vfx';
 import {
-  ABILITY_MOVES, ALLY_ART, BLOW_MOVES, BUILDING_ART, FIELD_THINGS, FIELD_THING_R, HELPER_ALPHA, GRIM_SCALE, HUNTER_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, VILLAGERS, MASTIFF, isGrim, type Art,
+  ABILITY_MOVES, ALLY_ART, BLOW_MOVES, BUILDING_ART, FIELD_THINGS, FIELD_THING_R, HELPER_ALPHA, GRIM_SCALE, HUNTER_SCALE, HELPER_ART, HUNTER_ART, LAIR_GROUND, LAMP_ART, MONSTER_ART, MONSTER_MOVES, STAND_IN, STONE_ART, TRAP_ART, VILLAGERS, MASTIFF, dressAt, isGrim, type Art,
 } from '../pictures';
 import { Figure } from '../art/Figure';
 import { GrimFigure } from '../art/GrimFigure';
@@ -289,7 +289,7 @@ export class LairScene extends Phaser.Scene {
     this.hunter = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, HUNTER_SCALE, 1);
     this.echo = new GrimFigure(this, isGrim(hp) ? hp.grim : 'marta', g.units[isGrim(hp) ? hp.grim : 'marta'], g.poses, HUNTER_SCALE, 1);
     // Each wears what their rank has earned them; the outline matches the figure it outlines.
-    this.hunter.rank = this.echo.rank = h.hunter.def.hired ? 0 : growthOf(save(), h.hunter.def.id).rank;
+    this.hunter.rank = this.echo.rank = h.hunter.def.hired ? 0 : dressAt(growthOf(save(), h.hunter.def.id).rank);
     this.echo.tint = 0xffe2a0;
     this.echo.fill = true;
     // Only the figure is outlined, never its shadow.
@@ -1038,7 +1038,7 @@ export class LairScene extends Phaser.Scene {
       const [x, y] = this.at(`p${p.index}`, p.x, p.y);
       const s = this.show(`p${p.index}`, HUNTER_ART[p.def.id] ?? HUNTER_ART.marta, x, y, p.face, p.moving);
       if (s.fig) {
-        if (!p.def.hired) s.fig.rank = growthOf(save(), p.def.id).rank;
+        if (!p.def.hired) s.fig.rank = dressAt(growthOf(save(), p.def.id).rank);
         s.fig.hold(p.down ? 'fall' : null);
         s.fig.alpha = p.down ? 0.7 : 1;
       } else if (s.img) s.img.setRotation(p.down ? p.face * 1.3 : 0).setAlpha(p.down ? 0.7 : 1);

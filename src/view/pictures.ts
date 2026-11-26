@@ -23,6 +23,9 @@ export const STAND_IN = 0x1a2227;
 /** How much bigger than he is drawn Bull, the mastiff, stands: the kit draws him at a mastiff's size already. */
 export const MASTIFF = 1;
 
+/** The kit counts ranks from 1 (the first, with nothing earned), the game from 0: what a figure is dressed at for a game rank. */
+export const dressAt = (rank: number): number => rank + 1;
+
 export const isGrim = (a: Art): a is { grim: string } => 'grim' in a;
 
 export const HUNTER_ART: Record<string, Art> = {

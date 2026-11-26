@@ -62,7 +62,7 @@ export class GrimFigure {
   rest: Pose | null = null;
   /** How much its weight shifts at rest, foot to foot: none in a hunt, where it stands ready. */
   shift = 0;
-  /** The hunter's rank, 0 to 4: which earned parts (a cord, a cloak, a trophy, a mantle) are worn. */
+  /** The hunter's rank as the kit counts it, 1 to 5 (`dressAt`): which earned parts (a cord, a cloak, a trophy, a mantle) are worn. */
   rank = 0;
 
   constructor(
