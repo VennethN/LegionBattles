@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Bot } from '../src/game/bot';
-import { ABILITIES, BUILDINGS, CAMP, HELPERS, ROOM, HUNTERS, LESSONS, MARKS, MONSTERS, REINFORCEMENTS, byId } from '../src/game/content';
+import { ABILITIES, AUTO, BUILDINGS, CAMP, HELPERS, ROOM, HUNTERS, LESSONS, MARKS, MONSTERS, REINFORCEMENTS, byId } from '../src/game/content';
 import { Hunt, STEP, inside, type Ev, type Setup, type Tell } from '../src/game/hunt';
 import { awake, hold, next, of, play, setup } from './lair';
 
@@ -434,6 +434,68 @@ describe('the hunter', () => {
     g.hunter.x = g.monster.x - 400;
     play(g, 2, ATTACK);
     expect(g.monster.hp).toBe(g.monster.maxHp);
+  });
+
+  it('with auto attack on, strikes by themselves at what is in reach, and at nothing out of reach', () => {
+    const h = awake({ autoAttack: true });
+    hold(h, 'recover');
+    h.hunter.x = h.monster.x - 110;
+    h.hunter.y = h.monster.y;
+    // Nothing pressed: the chain goes on by itself, aimed at the boss.
+    const ev = play(h, 3);
+    expect(of(ev, 'strike').length).toBeGreaterThanOrEqual(3);
+    expect(h.monster.hp).toBeLessThan(h.monster.maxHp);
+    expect(h.hunter.autoing).toBe(true);
+    // Far off, it waits.
+    const g = awake({ autoAttack: true });
+    hold(g, 'recover');
+    g.hunter.x = g.monster.x - 400;
+    expect(of(play(g, 2), 'blow')).toHaveLength(0);
+    expect(g.hunter.autoing).toBe(false);
+  });
+
+  it('auto attack starts no blow that a warning on the hunter would land in, and the player can still dodge', () => {
+    const h = awake({ autoAttack: true });
+    hold(h, 'recover');
+    h.hunter.x = h.monster.x - 110;
+    h.hunter.y = h.monster.y;
+    h.tells.push({ id: 997, kind: 'ring', x: h.hunter.x, y: h.hunter.y, angle: 0, len: 0, w: 0, r: 60, half: 0, inner: 0, left: 0.2, of: 1, dmg: 1, foe: true, attack: 'test', by: 0 });
+    h.step({ x: 0, y: 0 });
+    expect(of(h.drain(), 'blow')).toHaveLength(0);
+    // A dodge goes at once, whatever auto attack was doing.
+    h.step({ x: 0, y: 0, dodge: true });
+    expect(of(h.drain(), 'roll')).toHaveLength(1);
+  });
+
+  it("the player's own press overrides auto attack, which waits a moment after it is let go", () => {
+    const h = awake({ autoAttack: true });
+    hold(h, 'recover');
+    h.hunter.x = h.monster.x - 110;
+    h.hunter.y = h.monster.y;
+    // Held, the player's aim wins: they strike away from the boss, as they asked.
+    h.step({ x: 0, y: 0, attack: true, aim: Math.PI });
+    const began = of(h.drain(), 'blow');
+    expect(began).toHaveLength(1);
+    expect(Math.abs(began[0].angle)).toBeCloseTo(Math.PI, 3);
+    expect(h.hunter.autoing).toBe(false);
+    play(h, 1.5, { x: 0, y: 0, attack: true, aim: Math.PI });
+    // Let go: auto waits out its grace before it strikes again.
+    const quiet = play(h, AUTO.grace - 0.2);
+    expect(of(quiet, 'blow')).toHaveLength(0);
+    const after = play(h, 1);
+    expect(of(after, 'blow').length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('with auto attack off, the hunter strikes only when attack is pressed; partners keep their own way', () => {
+    const h = awake({ autoAttack: false });
+    hold(h, 'recover');
+    h.hunter.x = h.monster.x - 110;
+    h.hunter.y = h.monster.y;
+    expect(of(play(h, 2), 'blow')).toHaveLength(0);
+    const p = awake({ autoAttack: true, partners: ['jory'] });
+    expect(p.party[1].ai).toBe(true);
+    play(p, 1);
+    expect(p.party[1].autoing).toBe(false);
   });
 
   it("Jory's bolts fly, and bite harder from far off", () => {

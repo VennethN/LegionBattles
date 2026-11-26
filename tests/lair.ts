@@ -4,7 +4,8 @@
 import type { Mark } from '../src/game/content';
 import { Hunt, STEP, type Ev, type MonsterState, type Setup, type Steer } from '../src/game/hunt';
 
-export const setup = (o: Partial<Setup> = {}): Setup => ({ seed: 7, monster: 'sexton', mark: 1 as Mark, hunter: 'marta', reinforcements: [], buildings: [], ...o });
+// Auto attack is off unless a test asks for it: most tests say exactly when the hunter presses attack.
+export const setup = (o: Partial<Setup> = {}): Setup => ({ seed: 7, monster: 'sexton', mark: 1 as Mark, hunter: 'marta', reinforcements: [], buildings: [], autoAttack: false, ...o });
 
 /** A hunt already woken, with the monster's first roar over. */
 export function awake(o: Partial<Setup> = {}): Hunt {

@@ -111,7 +111,7 @@ export const LESSONS: readonly LessonDef[] = [
       { id: 'move', wants: 'move', n: 150, says: { keys: 'Move: W A S D or the arrow keys', touch: 'Push the stick, bottom left, to move' } },
       { id: 'avoid', wants: 'avoid', attack: 'spade', slow: 1.5, hold: true, says: { keys: 'Red ground: he hits there. Move out of the red.', touch: 'Red ground: he hits there. Move out of the red.' } },
       { id: 'dodge', wants: 'dodge', attack: 'sweep', slow: 1.5, hold: true, says: { keys: 'Press SPACE to dodge out of the red', touch: 'Tap DODGE to get out of the red' } },
-      { id: 'strike', wants: 'strike', n: 3, says: { keys: 'Press J or click to attack. Press again to chain. Best right after he swings.', touch: 'Tap ATTACK to hit. Tap again to chain. Best right after he swings.' } },
+      { id: 'strike', wants: 'strike', n: 3, says: { keys: 'Walk up to him: you attack on your own. Press J or click to strike when you choose.', touch: 'Walk up to him: you attack on your own. Tap ATTACK to strike when you choose.' } },
       // Her block lasts 1.4 seconds: the warning here is a little shorter, so that a press as the red shows turns the blow.
       { id: 'block', wants: 'skill', skill: 0, attack: 'spade', slow: 0.85, says: { keys: 'Press Q when the red shows: Block stops his hit', touch: 'Tap BLOCK when the red shows: it stops his hit' } },
       { id: 'sweep', wants: 'skill', skill: 1, says: { keys: 'Press E next to him: Sweep hits hard', touch: 'Tap SWEEP next to him: it hits hard' } },
@@ -174,6 +174,14 @@ export interface BlowDef {
 
 /** How long after a blow's recovery a press still chains to the next, and how far the aim turns by itself toward a boss in reach. */
 export const ATTACK = { chain: 0.4, help: 35 };
+
+/**
+ * Auto attack: the player's hunter strikes by themselves whenever something is in reach and nothing is pressed. `grace`
+ * is how long after the player lets go of attack it waits, so a player choosing when to strike is not cut across at once.
+ * `margin` is time kept in hand: auto starts no blow whose wind-up would still be going when a warning on the hunter lands.
+ * `pad` is how near a warning's edge counts as standing in it, for this choice only.
+ */
+export const AUTO = { grace: 1, margin: 0.15, pad: 10 };
 
 export type AbilityKind = 'brace' | 'sweep' | 'trap' | 'pool' | 'flare' | 'ward' | 'seton' | 'whistle' | 'forge' | 'anvil' | 'keg' | 'cavein' | 'shove' | 'wake' | 'hook' | 'hack';
 

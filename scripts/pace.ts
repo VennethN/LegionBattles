@@ -1,4 +1,4 @@
-// npm run pace [-- --runs=12 --monster=sexton --hunter=marta --mark=1 --things --why --rank=4 --trinkets=whetstone,salt]
+// npm run pace [-- --runs=12 --monster=sexton --hunter=marta --mark=1 --things --why --rank=4 --trinkets=whetstone,salt --auto]
 //
 // The measure: hunts played by the bot (src/game/bot.ts), and how they
 // went. For each monster and mark, with each hunter and the first muster:
@@ -22,6 +22,13 @@ const monsters = MONSTERS.filter((m) => !arg('monster') || m.id === arg('monster
 const hunters = HUNTERS.filter((h) => !h.hired && (!arg('hunter') || h.id === arg('hunter')));
 const marks = ([1, 2, 3] as Mark[]).filter((m) => !arg('mark') || m === Number(arg('mark')));
 const careless: BotOpts = flag('careless') ? { react: 0.32, slip: 0.12 } : {};
+// `--auto`: the player's hunter strikes by auto attack alone; the bot only moves, dodges and uses skills and the horn.
+// Without it the bot presses attack itself, auto attack is off, and the measure is as it always was.
+const auto = flag('auto');
+function steerOf(b: Bot, h: Hunt): ReturnType<Bot['steer']> {
+  const s = b.steer(h);
+  return auto ? { ...s, attack: false, aim: undefined, auto: undefined } : s;
+}
 
 interface Out {
   won: number;
@@ -32,10 +39,10 @@ interface Out {
 
 /** Plays a hunt to its end, or for ten minutes. */
 export function hunt(setup: Setup, bot: BotOpts = {}): { won: boolean; tally: Tally; part: number } {
-  const h = new Hunt(setup);
+  const h = new Hunt({ ...setup, autoAttack: auto });
   const b = new Bot(setup.seed * 7 + 3, bot);
   for (let t = 0; t < 600 + 60 && !h.over; t += STEP) {
-    h.step(b.steer(h));
+    h.step(steerOf(b, h));
     h.drain();
   }
   return { won: h.over === 'won', tally: h.tally, part: h.monster.part };
@@ -91,11 +98,11 @@ if (flag('lesson') || flag('opening')) {
     let least = 1;
     const steps: Record<string, number> = {};
     for (let i = 0; i < runs; i++) {
-      const h = new Hunt({ seed: 1000 + i * 37, monster: 'sexton', mark: 1, hunter: 'marta', reinforcements: [], buildings: [], lesson: 'first' });
+      const h = new Hunt({ seed: 1000 + i * 37, monster: 'sexton', mark: 1, hunter: 'marta', reinforcements: [], buildings: [], lesson: 'first', autoAttack: auto });
       const b = new Bot(i * 7 + 3, opts);
       let since = 0;
       for (let t = 0; t < 600 && !h.over; t += STEP) {
-        h.step(b.steer(h));
+        h.step(steerOf(b, h));
         least = Math.min(least, h.hunter.hp / h.hunter.maxHp);
         for (const e of h.drain()) if (e.t === 'learned') {
           steps[e.id] = (steps[e.id] ?? 0) + (h.time - since);

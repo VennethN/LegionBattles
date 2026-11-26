@@ -66,6 +66,8 @@ export interface SaveData {
   music: boolean;
   /** Whether the hunters and bosses say their lines during a hunt. */
   talk: boolean;
+  /** Whether the player's hunter strikes by themselves when attack is not pressed (the setting AUTO ATTACK). */
+  auto: boolean;
   /** On a touch screen, the stick on the right and the buttons on the left: for a left hand. */
   lefty?: boolean;
   /** What the player has been shown once and need not be shown again. */
@@ -169,7 +171,7 @@ export function freshSave(): SaveData {
   return {
     v: 1, coin: 0, supply: 0, felled: {}, trophies: [], worn: {}, steps: [],
     muster: { hunter: FIRST_MUSTER.hunter, reinforcements: [], buildings: {}, partners: [] },
-    hunts: 0, wins: 0, opening: 0, sound: true, music: true, talk: true, told: [],
+    hunts: 0, wins: 0, opening: 0, sound: true, music: true, talk: true, auto: true, told: [],
     board: [], boardDice: 0x2c1b3c6d, nextPosting: 1, sincePosted: 0, reposts: BOARD.freeReposts,
   };
 }
@@ -204,6 +206,7 @@ export function repair(raw: unknown): SaveData {
   if (typeof r.sound === 'boolean') s.sound = r.sound;
   if (typeof r.music === 'boolean') s.music = r.music;
   if (typeof r.talk === 'boolean') s.talk = r.talk;
+  if (typeof r.auto === 'boolean') s.auto = r.auto;
   if (Array.isArray(r.told)) s.told = r.told.filter((t): t is string => typeof t === 'string');
   // What has been seen of each boss: a phase from 1 to 3, for what its contract can tell.
   if (r.met && typeof r.met === 'object') {
@@ -704,13 +707,14 @@ export function setupOf(save: SaveData, monster: string, mark: Mark, seed: numbe
   const m = save.muster;
   const lesson = lessonFor(save, monster, mark);
   // A lesson is its own hunt: its hunter, nothing brought, no trophy, and its steps unless they were done before.
-  if (lesson) return { seed, monster, mark, hunter: lesson.hunter, tall, reinforcements: [], buildings: [], trophy: null, lesson: lesson.id, taught: save.told.includes(`lesson:${lesson.id}`) };
+  if (lesson) return { seed, monster, mark, hunter: lesson.hunter, tall, reinforcements: [], buildings: [], trophy: null, lesson: lesson.id, taught: save.told.includes(`lesson:${lesson.id}`), autoAttack: save.auto !== false };
   return {
     seed, monster, mark, hunter: m.hunter, tall,
     reinforcements: m.reinforcements.map((id) => ({ id, charges: chargesOf(save, id) })),
     buildings: BUILDINGS.filter((b) => (m.buildings[b.id] ?? 0) > 0).map((b) => ({ id: b.id, n: m.buildings[b.id], sturdy: save.steps.includes(`sturdy:${b.id}`) })),
     trophy: save.worn[m.hunter] ?? null,
     grown: grownFor(save, [m.hunter]),
+    autoAttack: save.auto !== false,
   };
 }
 

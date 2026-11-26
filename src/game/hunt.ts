@@ -11,7 +11,7 @@
 // where and when.
 
 import {
-  ABILITIES, ATTACK, BLEED, BUILDINGS, CAMP, CART, CART_ROAD, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
+  ABILITIES, ATTACK, AUTO, BLEED, BUILDINGS, CAMP, CART, CART_ROAD, ENRAGE, FIELD, HELPERS, HORN_WAIT, HOUND, HUNTERS, HURT_GRACE, LESSONS, MARKER, MARKS, MINION, MONSTERS, PARTY, REINFORCEMENTS, REVIVE, TASKS,
   TELL_FLOOR, VARIANTS, VILLAGER, byId,
   type AbilityDef, type AllyDef, type AttackDef, type BlowDef, type BuildingDef, type HelperDef, type HunterDef, type LessonDef, type LessonStep, type Mark, type MonsterDef, type ReinforcementDef,
   type ShapeDef, type TaskKind, type VariantDef, ROOM } from './content';
@@ -75,6 +75,8 @@ export interface Setup {
   partners?: readonly string[];
   /** What this contract makes of the hunt: how the boss is unlike itself, and the tasks besides the kill. */
   terms?: Terms;
+  /** False to turn auto attack off: the player's hunter then strikes only when attack is pressed. On unless said. */
+  autoAttack?: boolean;
   /** What each hunter going has grown into, by the hunter's name: their rank's gain and the trinkets they wear (growth.ts). */
   grown?: Readonly<Record<string, { gain: number; trinkets: readonly string[] }>>;
 }
@@ -133,6 +135,10 @@ export interface Hunter {
   aiming: number;
   /** True if attack was held the step before: a press is a new hold. */
   held: boolean;
+  /** Seconds left before auto attack may strike again, after the player last held attack. */
+  manualLeft: number;
+  /** True while auto attack is doing the striking for this hunter: the HUD marks the ATTACK button. */
+  autoing: boolean;
   /** Times struck in this hunt. */
   hits: number;
   x: number;
@@ -475,6 +481,8 @@ export class Hunt {
   /** Which of the party the boss is after, by place. */
   targetWho = 0;
   tells: Tell[] = [];
+  /** Whether the player's hunter strikes by themselves when nothing is pressed (the setting AUTO ATTACK). */
+  autoAttack = true;
   helpers: Helper[] = [];
   allies: Ally[] = [];
   buildings: Building[] = [];
@@ -539,6 +547,7 @@ export class Hunt {
     this.h = this.tall ? FIELD.long : FIELD.short;
     this.mark = setup.mark;
     this.trophy = setup.trophy ?? null;
+    this.autoAttack = setup.autoAttack ?? true;
     this.lessonDef = setup.lesson ? byId(LESSONS, setup.lesson) : null;
     const hd = byId(HUNTERS, setup.hunter);
     const md = byId(MONSTERS, setup.monster);
@@ -578,7 +587,7 @@ export class Hunt {
       return {
       def, index, ai: index > 0, abilities: [byId(ABILITIES, def.abilities[0]), byId(ABILITIES, def.abilities[1])], trophy: index === 0 ? (setup.trophy ?? null) : null,
       gain, trinkets, nailed: false,
-      down: false, help: 0, downAt: 0, downFull: false, wanted: null, wantAt: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, hits: 0,
+      down: false, help: 0, downAt: 0, downFull: false, wanted: null, wantAt: null, blow: null, chain: 0, chainLeft: 0, queued: false, aiming: 0, held: false, manualLeft: 0, autoing: false, hits: 0,
       x, y, face: mx >= x ? 1 : -1, aim: Math.atan2(my - y, mx - x), hp, maxHp: hp, moving: false, since: 0, roll: 0, rollWait: 0, rx: 1, ry: 0,
       grace: 0, root: 0, waits: [0, 0], bracing: 0, spared: false, flurry: null, wakeLeft: 0, wakeT: 0, edge: false,
       };
@@ -1260,7 +1269,17 @@ export class Hunt {
    */
   private attack(h: Hunter, steer: Steer, dt: number): void {
     h.since += dt;
-    const hold = !!steer.attack;
+    const manual = !!steer.attack;
+    // The player's own press always wins, and auto waits a moment after it is let go.
+    if (manual) h.manualLeft = AUTO.grace;
+    else h.manualLeft = Math.max(0, h.manualLeft - dt);
+    const auto = !manual && !h.ai && this.autoAttack && h.manualLeft <= 0;
+    h.autoing = auto && (h.blow !== null || this.autoWants(h));
+    if (auto) {
+      this.autoAttackStep(h, steer, dt);
+      return;
+    }
+    const hold = manual;
     const pressed = hold && !h.held;
     h.held = hold;
     const can = h.roll <= 0 && h.bracing <= 0 && this.phase === 'hunt';
@@ -1300,6 +1319,49 @@ export class Hunt {
     }
     h.aiming = 0;
     if (pressed || (hold && !heavy)) this.startBlow(h, steer, false);
+  }
+
+  /**
+   * Auto attack's step: the blow being made goes on; a new one starts, aimed by auto aim, only while something is in reach
+   * and no warning on the hunter would land before its wind-up ended. Each blow is the next of the chain, as a held press.
+   */
+  private autoAttackStep(h: Hunter, steer: Steer, dt: number): void {
+    h.held = false;
+    h.queued = false;
+    h.aiming = 0;
+    const can = h.roll <= 0 && h.bracing <= 0 && this.phase === 'hunt';
+    const b = h.blow;
+    const own: Steer = { ...steer, aim: undefined, auto: true };
+    if (b) {
+      b.t += dt * this.hasteAt(h.x, h.y);
+      if (!b.landed && b.t >= b.def.wind) {
+        b.landed = true;
+        this.landBlow(h, b);
+        if (this.over) return;
+      }
+      if (b.landed && b.t >= b.def.wind + b.def.recover) {
+        h.blow = null;
+        h.chainLeft = ATTACK.chain;
+        if (can && this.autoWants(h)) this.startBlow(h, own, false);
+      }
+      return;
+    }
+    h.chainLeft = Math.max(0, h.chainLeft - dt);
+    if (h.chainLeft <= 0) h.chain = 0;
+    if (can && this.autoWants(h)) this.startBlow(h, own, false);
+  }
+
+  /** Whether auto attack would start the next blow now: something in reach, and no warning on the hunter landing within its wind-up. */
+  autoWants(h: Hunter): boolean {
+    const combo = h.def.combo;
+    const def = combo[h.chain % combo.length];
+    const m = this.monster;
+    const awake = m.state !== 'asleep' && m.state !== 'dead';
+    const boss = awake && this.reachable() && dist(h.x, h.y, m.x, m.y) <= def.reach + m.def.r * m.size + 30;
+    const helper = this.helpers.some((f) => dist(h.x, h.y, f.x, f.y) <= def.reach + 20);
+    if (!boss && !helper) return false;
+    const wind = def.wind / Math.max(0.1, this.hasteAt(h.x, h.y));
+    return !this.tells.some((t) => t.foe && t.left <= wind + AUTO.margin && inside(t, h.x, h.y, AUTO.pad));
   }
 
   /** Which way a blow goes: where the player points, or the way the hunter faces, turned to a boss in reach a little ahead. */

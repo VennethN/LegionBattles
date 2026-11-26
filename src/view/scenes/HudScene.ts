@@ -54,6 +54,8 @@ export class HudScene extends Phaser.Scene {
   private partyBars: Phaser.GameObjects.Graphics | null = null;
   /** The ATTACK button: it beats while the lesson waits for a blow. */
   private atk: Phaser.GameObjects.Container | null = null;
+  /** AUTO over the ATTACK button: bright while auto attack does the striking, dim while the player holds attack. */
+  private autoMark: Phaser.GameObjects.Text | null = null;
   private partyMarks: Phaser.GameObjects.Text[] = [];
   private taskLines: Phaser.GameObjects.Text[] = [];
   private taskCounts: Phaser.GameObjects.Text[] = [];
@@ -246,6 +248,7 @@ export class HudScene extends Phaser.Scene {
     this.fight = c;
     this.pads = [];
     this.atk = null;
+    this.autoMark = null;
     if (this.touch) this.buildThumbs(hunt, c);
     else this.buildKeys(hunt, c);
   }
@@ -268,6 +271,8 @@ export class HudScene extends Phaser.Scene {
     // ATTACK, with its key, so that a hunt always shows how to strike: the mouse on the field does the same.
     x -= step;
     this.atk = this.pad(c, x, y, 'attack', 'ATTACK', 'attack', RUBY, () => 0, null, PAD, null, (p) => this.controls.press('attack', p));
+    this.autoMark = label(this, 0, -PAD / 2 - 14, 'AUTO', { size: 15, face: 'display', color: HOLY.light });
+    this.atk.add(this.autoMark);
     hunt.calls.forEach((call, i) => {
       x -= step;
       this.pad(c, x, y, `icon-${call.def.id}`, SHORT[call.def.id] ?? call.def.name.toUpperCase(), `call${i}` as Ask, GOLD, (n) => (n.calls[i].left > 0 ? n.hornWait / 5 : 1), (n) => n.calls[i].left);
@@ -302,6 +307,8 @@ export class HudScene extends Phaser.Scene {
     atk.add(label(this, 0, big / 2 - 4, 'ATTACK', { size: 17, face: 'display' }));
     atk.setSize(big, big).setInteractive();
     atk.on('pointerdown', (p: Phaser.Input.Pointer) => this.controls.press('attack', p));
+    this.autoMark = label(this, 0, -big / 2 - 12, 'AUTO', { size: 15, face: 'display', color: HOLY.light });
+    atk.add(this.autoMark);
     c.add(atk);
     this.atk = atk;
     // Round it: the skills and the dodge, a quarter circle from beside it to over it; the horn beyond.
@@ -599,7 +606,7 @@ export class HudScene extends Phaser.Scene {
     const veil = this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.6).setInteractive();
     const cx = view.w / 2;
     const cy = view.h / 2;
-    c.add([veil, slabImage(this, cx - 150, cy - 274, 300, 556, BONE, 18, 8), label(this, cx, cy - 240, 'PAUSED', { size: 30 })]);
+    c.add([veil, slabImage(this, cx - 150, cy - 301, 300, 610, BONE, 18, 8), label(this, cx, cy - 267, 'PAUSED', { size: 30 })]);
     const s = save();
     const toggle = (y: number, name: string, get: () => boolean, set: (v: boolean) => void): void => {
       const b = new Button(this, cx, y, `${name}: ${get() ? 'ON' : 'OFF'}`, () => {
@@ -610,37 +617,42 @@ export class HudScene extends Phaser.Scene {
       }, { width: 220, height: 46, size: 19, mat: IRON });
       c.add(b.root);
     };
-    c.add(new Button(this, cx, cy - 184, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
-    toggle(cy - 124, 'SOUND', () => s.sound, (v) => (s.sound = v));
-    toggle(cy - 70, 'MUSIC', () => s.music, (v) => (s.music = v));
+    c.add(new Button(this, cx, cy - 211, 'RESUME', () => this.pause(false), { width: 220, height: 54, size: 24, mat: GOLD }).root);
+    toggle(cy - 151, 'SOUND', () => s.sound, (v) => (s.sound = v));
+    toggle(cy - 97, 'MUSIC', () => s.music, (v) => (s.music = v));
     // The lines said in a hunt are spice: some would rather play in silence.
-    toggle(cy - 16, 'LINES', () => s.talk !== false, (v) => {
+    toggle(cy - 43, 'LINES', () => s.talk !== false, (v) => {
       s.talk = v;
       lair.talk.on = v;
       if (!v) lair.talk.drop();
     });
+    // Auto attack strikes for the player when nothing is pressed; some would rather choose every blow.
+    toggle(cy + 11, 'AUTO ATTACK', () => s.auto !== false, (v) => {
+      s.auto = v;
+      hunt.autoAttack = v;
+    });
     // How much of the light is made: all of it, the cheap part, or none. A slow machine wants less.
-    const light = new Button(this, cx, cy + 38, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
+    const light = new Button(this, cx, cy + 65, `LIGHT: ${LIGHT_NAMES[lightMode()]}`, () => {
       setLightMode(nextLightMode(lightMode()), true);
       lair.setLight(lightMode());
       light.setText(`LIGHT: ${LIGHT_NAMES[lightMode()]}`);
     }, { width: 220, height: 46, size: 19, mat: IRON });
     c.add(light.root);
     // How hard the screen is shaken and flashed by a blow: some players want it felt, some find it hard to watch.
-    const feel = new Button(this, cx, cy + 92, `EFFECTS: ${FEEL_NAMES[feelMode()]}`, () => {
+    const feel = new Button(this, cx, cy + 119, `EFFECTS: ${FEEL_NAMES[feelMode()]}`, () => {
       setFeelMode(nextFeelMode(feelMode()));
       feel.setText(`EFFECTS: ${FEEL_NAMES[feelMode()]}`);
     }, { width: 220, height: 46, size: 19, mat: IRON });
     c.add(feel.root);
     // On a touch screen, which hand has the stick: a left hand wants the buttons on the left.
-    const sides = new Button(this, cx, cy + 146, `BUTTONS: ${s.lefty ? 'LEFT' : 'RIGHT'}`, () => {
+    const sides = new Button(this, cx, cy + 173, `BUTTONS: ${s.lefty ? 'LEFT' : 'RIGHT'}`, () => {
       s.lefty = !s.lefty;
       commit();
       sides.setText(`BUTTONS: ${s.lefty ? 'LEFT' : 'RIGHT'}`);
       this.rescheme();
     }, { width: 220, height: 46, size: 19, mat: IRON });
     c.add(sides.root);
-    c.add(new Button(this, cx, cy + 222, 'GIVE UP', () => {
+    c.add(new Button(this, cx, cy + 249, 'GIVE UP', () => {
       hunt.giveUp();
       this.paused?.destroy();
       this.paused = null;
@@ -944,6 +956,8 @@ export class HudScene extends Phaser.Scene {
     this.movePlate(Math.min(0.1, delta / 1000));
     const step = hunt.teaching?.step;
     if (this.atk) this.atk.setScale(this.controls.attackHeld ? 0.94 : step?.wants === 'strike' ? 1.06 + 0.07 * Math.sin(this.clock * 9) : 1);
+    // AUTO shows who is striking: bright while auto attack does it, dim while the player holds attack or nothing is in reach.
+    if (this.autoMark) this.autoMark.setVisible(hunt.autoAttack).setAlpha(hunt.hunter.autoing && !this.controls.attackHeld ? 1 : 0.35);
     const wanted: Ask | null = step?.wants === 'dodge' ? 'dodge' : step?.wants === 'skill' ? (step.skill === 0 ? 'a' : 'b') : null;
 
     // Each button: its veil is as tall as the share of its wait still to run.
