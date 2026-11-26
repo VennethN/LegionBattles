@@ -166,22 +166,22 @@ The renderer is set to bind two textures (`maxTextures: 2` in `main.ts`): the fi
 
 `npm run pace` is how the numbers were set. Its player steers away from what would hurt and toward what lies about, a fifth of a second late and never quite true, lets the move loose when there is a crowd for it, stands as Bram and keeps moving as Isaura, and buys what it can afford with no plan but a liking for a kind of weapon it holds already. It takes the roads with prizes while it comes out of a wave with more than half its health and the quiet road when it does not, stands in a shrine's ring, goes for a cage and a wagon, and takes the relic it thinks is worth most.
 
-As last measured (round 9, after bringing the heroes level), with 24 runs to a hero and Biscuit along. "Half" is the wave half the runs came through.
+As last measured (round 11, after bringing the heroes level under vows), with 24 runs to a hero, Biscuit along and every level of the hero's mastery (`--mastery=all`). "Half" is the wave half the runs came through; the mean is beside it.
 
-| Hero | Start: half | Start: mean | Whole track: half | Whole track: mean | Whole track: won, of 24 |
-| --- | --- | --- | --- | --- | --- |
-| Wren Fallowmere | 8 | 13.8 | 36 | 43.6 | 3 |
-| Bram Oakenhold | 8 | 11.8 | 27 | 38.3 | 2 |
-| Orrin Quillon | 9 | 12.4 | 28 | 34.7 | 2 |
-| Fenn Two-Coins | 7 | 13.8 | 37 | 55.7 | 7 |
-| Old Nan Cinderwick | 7 | 10.6 | 29 | 29.8 | 0 |
-| Isaura Vane | 8 | 9.6 | 30 | 37.4 | 2 |
-| Hroth | 8 | 13.3 | 26 | 34.7 | 2 |
-| Brother Aldous Bell | 9 | 10.6 | 22 | 30.2 | 1 |
-| Ysolde Rimeheart | 9 | 13.3 | 28 | 26.8 | 0 |
-| Maren Dawnguard | 9 | 11.5 | 24 | 31.5 | 1 |
+| Hero | No vows: half | No vows: mean | Three vows: half | Three vows: mean |
+| --- | --- | --- | --- | --- |
+| Wren Fallowmere | 36 | 35.6 | 26 | 28.9 |
+| Bram Oakenhold | 26 | 32.8 | 24 | 20.3 |
+| Orrin Quillon | 18 | 32.5 | 18 | 21.8 |
+| Fenn Two-Coins | 110 | 67.0 | 9 | 36.3 |
+| Old Nan Cinderwick | 29 | 34.3 | 27 | 27.5 |
+| Isaura Vane | 25 | 34.8 | 19 | 24.1 |
+| Hroth | 27 | 46.8 | 18 | 32.5 |
+| Brother Aldous Bell | 22 | 25.0 | 18 | 16.7 |
+| Ysolde Rimeheart | 19 | 26.6 | 18 | 20.1 |
+| Maren Dawnguard | 26 | 33.5 | 19 | 23.6 |
 
-"Start" is a first run's armory and no mastery (`--pool=start`); "whole track" is every level of the hero's mastery and the whole armory (`--mastery=all`). A run is bimodal: one that gets through the first walls runs on far, so read the half before the mean. Fenn's runs are the most bimodal: a run that gets rich runs away with the coins he holds. Before this round the heroes were 5 to 17 at the start and 5 to 110 with a full track. A full hundred waves is about 41 minutes of fighting as this player plays it. `docs/journal.md`, Rounds 8 and 9, have the careers (when each slot, hero and companion came) and one companion against six.
+A first run (Wren with Biscuit, the first armory, no mastery: `--first --pool=start`): half 8, mean 12.6. "Three vows" are the first three: Double Time, Lean Coffers, Bare Fields. A run is bimodal: one that gets through the first walls (the bosses at waves 10, 20 and 30) runs on far, so the half snaps to a boss wave and moves a long way for a small change. Fenn is the most bimodal: about half his runs fall by wave 10 and the rest run very long, so his half is 9 or 60-plus by the luck of a few runs; read his mean. `docs/journal.md`, Round 11, has what was changed and why.
 
 The figures of the rounds before, with twenty waves and the board, are in the journal and no longer hold.
 

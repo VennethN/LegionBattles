@@ -54,7 +54,7 @@ export const HEROES: readonly HeroDef[] = [
   {
     id: 'wren', unit: 'wren', name: 'Wren Fallowmere', short: 'Wren', epithet: 'the Quiet Arrow', who: 'A poacher the king could never catch.', line: 'You will not hear the one that matters.',
     weapon: 'whisper', stats: { aim: 2, reach: 30, maxHp: -3 }, quirk: 'unseen', quirkName: 'Unseen',
-    says: 'Deal 4% more damage for each second you are not hit, up to 60%: 2x as fast with no enemy near you. Getting hit halves it.', move: 'oneshot', unlock: null,
+    says: 'Deal 4% more damage for each second you are not hit, up to 45%: 2x as fast with no enemy near you. Getting hit halves it.', move: 'oneshot', unlock: null,
   },
   {
     id: 'bram', unit: 'bram', name: 'Bram Oakenhold', short: 'Bram', epithet: 'the Gatewarden', who: 'The last man on a gate that fell. He does not step back.', line: 'The gate is wherever I stand.',
@@ -69,7 +69,7 @@ export const HEROES: readonly HeroDef[] = [
   {
     id: 'fenn', unit: 'fenn', name: 'Fenn Two-Coins', short: 'Fenn', epithet: 'the Lucky', who: 'A thief who has never lost a toss.', line: 'Heads I win. Tails, look behind you.',
     weapon: 'headstails', stats: { speed: 12, bounty: 10, dodge: 10, maxHp: 18, armor: 2, crit: 5 }, quirk: 'double', quirkName: 'Double or Nothing',
-    says: 'Once per camp, flip a coin for an item: heads it is free, tails you pay and lose it. Deal 1% more damage per 4 coins held, up to 20%.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
+    says: 'Once per camp, flip a coin for an item: heads it is free, tails you pay and lose it. Deal 1% more damage per 5 coins held, up to 16%.', move: 'vanish', unlock: { kind: 'coins', coins: 200 },
   },
   {
     id: 'nan', unit: 'nan', name: 'Old Nan Cinderwick', short: 'Old Nan', epithet: 'the Hearthwitch', who: 'She kept one fire lit for sixty years.', line: 'Come in out of the cold, dears.',
@@ -89,12 +89,12 @@ export const HEROES: readonly HeroDef[] = [
   {
     id: 'aldous', unit: 'aldous', name: 'Brother Aldous Bell', short: 'Aldous', epithet: 'the Shepherd', who: 'He rang the bell for the dead. Now he rings it for the living.', line: 'Stay close. I will count you all at dusk.',
     weapon: 'passingbell', stats: { regen: 6, maxHp: 8, damage: -10 }, quirk: 'shepherd', quirkName: 'Shepherd',
-    says: 'Companions near you attack 20% faster, deal 30% more damage and are healed whenever you are. You deal 20% less damage.', move: 'toll', unlock: { kind: 'runs', runs: 18 },
+    says: 'Companions near you attack 25% faster, deal 40% more damage and are healed whenever you are. You deal 10% less damage.', move: 'toll', unlock: { kind: 'runs', runs: 18 },
   },
   {
     id: 'ysolde', unit: 'ysolde', name: 'Ysolde Rimeheart', short: 'Ysolde', epithet: 'the Winter Widow', who: 'The cold took her husband. She took the cold.', line: 'It only hurts until it does not.',
     weapon: 'widowstear', stats: { lore: 2, reach: 10, maxHp: 6 }, quirk: 'deepcold', quirkName: 'Deep Cold',
-    says: 'Hit a slowed enemy to freeze it for 0.9 s. Frozen enemies take 30% more damage and shatter when they die, hitting enemies nearby.', move: 'whiteout', unlock: { kind: 'boss', boss: 'colossus' },
+    says: 'Hit a slowed enemy to freeze it for 0.9 s. Frozen enemies take 45% more damage and shatter when they die, hitting enemies nearby.', move: 'whiteout', unlock: { kind: 'boss', boss: 'colossus' },
   },
   {
     id: 'maren', unit: 'maren', name: 'Maren Dawnguard', short: 'Maren', epithet: 'the Oathkeeper', who: 'She swore to see the morning.', line: 'Hold until the light. Then hold some more.',
@@ -331,7 +331,7 @@ export const QUIRKS = {
   unseen: {
     /** What each second untouched adds to her harm, and the most it comes to. With nobody within `far`, it grows `alone` times as fast. A blow leaves `keeps` of it. */
     each: 0.04,
-    most: 0.6,
+    most: 0.45,
     far: 180,
     alone: 2,
     keeps: 0.5,
@@ -350,8 +350,8 @@ export const QUIRKS = {
     /** The chance a blow of his own knife knocks a coin loose. */
     chance: 0.04,
     /** How many coins held are one hundredth more harm, and the most it comes to: full at 80 held. */
-    coins: 4,
-    most: 0.2,
+    coins: 5,
+    most: 0.16,
     /** The chance a toss comes up heads, what each point of Luck adds to it, and the most it can be. */
     heads: 0.5,
     luck: 0.0025,
@@ -385,8 +385,8 @@ export const QUIRKS = {
   shepherd: {
     /** How near him a companion is in his fold: it strikes faster there, by this much, harder by this much, and what heals him heals it. */
     r: 230,
-    faster: 1.2,
-    harder: 1.3,
+    faster: 1.25,
+    harder: 1.4,
   },
   deepcold: {
     /** Seconds the slowed, struck again, are frozen for. A captain is frozen for a share of it, as it is stunned (MOVE.bossShare). */
@@ -394,7 +394,7 @@ export const QUIRKS = {
     /** Seconds after thawing before the same one can be frozen again. */
     numb: 4.5,
     /** How much more the frozen take. */
-    more: 1.3,
+    more: 1.45,
     /** The shards of one that breaks: how wide, and the share of its health they do. */
     r: 66,
     shards: 0.12,

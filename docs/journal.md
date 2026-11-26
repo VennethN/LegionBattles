@@ -2,6 +2,45 @@
 
 The newest round is at the top. Each round says what was built, who looked at it and what they said, and what was decided next. `docs/design.md` is what the game is being made into.
 
+## Round 11, bringing the heroes level under vows
+
+The round before left the heroes far apart under vows: with a full track and three vows, half of Fenn's runs ended by wave 6 and Hroth's by wave 9, while Old Nan's half reached 28.
+
+**What was found** (`npm run pace -- --why`, which says who hurt the hero on each wave):
+- **Bruisers were the wall for everyone on waves 4 to 9**, two thirds of the harm taken there, and most of all for those who fight up close. Each vow alone sank Fenn from wave 40 to 8: no vow is unfair to a kind of hero, but the heroes who fight close stood on the edge of this wall, and any vow pushed them over.
+- **The plain player stood still when hemmed in.** Its pushes away from each enemy cancelled when they came from every side, so it stood and was struck by all of them. A person goes through the gap. This was most of why the close fighters fell.
+- **A saving skill was spent at once.** Fenn's Vanish, Ysolde's Whiteout and Aldous's Toll went off the moment they were full, and were not there when the boss came.
+- **Fenn's knife leaned on crits and his luck.** With a 20% chance of a 2.5x blow, a run either got rich early and ran away, or fell to the first bruisers.
+
+**What changed:**
+- The plain player looks for the gap when three or more are close, and goes through it (`src/game/bot.ts`), and keeps a saving skill for when it is hurt, a charge is coming or a boss is close.
+- Bruisers come from wave 5, not 4, less often (0.55 from 0.7), with 24 health at the first wave (was 30) and a reach of 15 (was 18). Two tests of arrows that go through a line had their line closed up a little, since a slimmer bruiser at the end fell out of the arrow's path.
+- Fenn: the knife is steadier (7 / 10 / 15 / 22 damage, 12% crit for 2x, was 6 / 9 / 13 / 20 at 20% for 2.5x), reaches a little further and pushes harder; 18 more health (was 10) and 2 armor (was 1); his coins are 1% per 5 held up to 16% (was 1% per 4 up to 20%), still full at 80.
+- Wren's Unseen comes to 45% (was 60%).
+- Aldous deals 10% less (was 20%), with 8 more health; his Shepherd is 25% faster and 40% harder for companions near him (was 20% and 30%).
+- Ysolde has 2 Lore and 6 health and no slowness at the start (was 1 Lore and 4% slower); the frozen take 45% more (was 30%).
+- Orrin starts with 2 more health (was 2 less).
+- Tried and taken back: a lower ceiling on dodge, and a toss that is less often heads; neither moved Fenn.
+
+**Measured**, 24 runs a hero, full track, Biscuit along (the wave half came through, before and after):
+
+| Hero | No vows | Three vows |
+| --- | --- | --- |
+| Wren | 26 to 36 | 18 to 26 |
+| Bram | 19 to 26 | 9 to 24 |
+| Orrin | 19 to 18 | 9 to 18 |
+| Fenn | 110 to 110 | 7 to 9 (mean 33 to 36) |
+| Old Nan | 27 to 29 | 27 to 27 |
+| Isaura | 25 to 25 | 17 to 19 |
+| Hroth | 27 to 27 | 9 to 18 |
+| Aldous | 16 to 22 | 14 to 18 |
+| Ysolde | 18 to 19 | 14 to 18 |
+| Maren | 25 to 26 | 14 to 19 |
+
+A first run: half 8 before and after.
+
+**Not reached.** The aim was every hero within about four waves of the others. Under three vows nine of the ten are now between 18 and 27, where they were between 9 and 27; Fenn's half is still 9 because his runs split in two (his mean is 36, the second highest). Without vows Orrin, Ysolde and Aldous stop at the Mire Lord (wave 20) and the rest at the Colossus (wave 30), with Wren at 36 and Fenn's half running to the end. The halves snap to the boss waves, so evening them further means looking at how each hero meets the Warlord, the Mire Lord and the Colossus, and at what makes Fenn's good runs run away: that is the next round's.
+
 ## Round 10, after the second review
 
 A fresh reviewer played the pictures of Round 9 and listed what was wrong and what to build next, in five steps. What was done, step by step:
