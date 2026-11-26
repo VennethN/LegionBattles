@@ -14,7 +14,9 @@ A review of the live game asked for seven things, in order. What was done:
 6. **Old Brask is now Old Amos, the Drover**, with one big mastiff, Bull, in place of two dogs: the same two skills, retuned and measured. His lines are his own. Until the artist draws them, Amos is Brask's figure and Bull is the hound drawn bigger.
 7. **The artist's fifth pass** is in: the three villagers, the cart whose wheels turn, the sellsword and the bowman, the grave marker, the totem, the standing stone and the jaw trap replace the last stand-ins; what was broken stands broken; every icon is the kit's own. Whole figures are written for cards only, and the art is 3.2 MB.
 
-Not done: the film was not made again, the walk's pictures of every screen were not all taken again, and the inn's other pieces from the kit (the long table, the bar, the hearth) are not yet placed.
+Looked at: the lodge (board, inn, a hunter's page, the shop) at 907x510, 821x462 and on a phone upright; the lesson's first steps, camp, a party hunt with villagers and with the cart, the boss's states and the hunter's record at 907x510; and the film of a hunt against the Gravedigger (`npm run film`, 1800 pictures), as strips. The pictures found three faults, fixed: every card of the muster showed the same figure, the camp's line ran off the left edge, and numbers kept adding up through a whole stun. The smoke: 95 of 96 checks passed, the one failing being its own old expectation that a mouse hunt has no ATTACK button (it has one now); it was run beside another project's smoke, so not alone.
+
+Not done: the kit's hearth, bar, stair, door and window are not placed in the inn (its own drawn ones stand); the lodge was not seen at the phone held sideways; and the growth screens were seen in pictures only.
 
 ## The contract screen, the camp's cards and the inn's ten places
 

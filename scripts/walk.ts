@@ -358,6 +358,8 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
         h.hunter.y = h.monster.y;
         h.monster.state = 'recover';
         h.monster.left = 9;
+        // The last blow, struck for the hunter: nobody steers here.
+        (h as unknown as { harm(n: number, by: string, who: number): void }).harm(99999, 'marta', 0);
       }
     });
     await tick(page, 60 * 4);
@@ -367,10 +369,10 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
     await lair(page, { monster: 'king', mark: 2, hunter: 'jory', awake: true }, RICH);
     await pilot(page, 8);
     await page.evaluate(() => {
-      const h = (window as unknown as Win).hunt() as unknown as { hurtHunter(n: number, by: string): void; hunter: { grace: number } } | null;
+      const h = (window as unknown as Win).hunt() as unknown as { hurtHunter(who: unknown, n: number, by: string): void; hunter: { grace: number } } | null;
       if (h) {
         h.hunter.grace = 0;
-        h.hurtHunter(99999, 'charge');
+        h.hurtHunter(h.hunter, 99999, 'charge');
       }
     });
     await tick(page, 60 * 3);

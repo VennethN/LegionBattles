@@ -939,13 +939,19 @@ export class LairScene extends Phaser.Scene {
     });
   }
 
+  private readonly box = new Phaser.Geom.Rectangle();
+
   private coveredBy(): 'monster' | 'other' | null {
     const fig = this.hunter;
     const hx = fig.x;
     const hy = fig.y;
     const tall = fig.height;
     const m = this.monster;
-    if (m && m.y > hy && m.y - m.height < hy - tall * 0.3 && Math.abs(m.x - hx) < m.height * 0.38) return 'monster';
+    if (m && m.y >= hy - 2 && m.y - m.height < hy - tall * 0.3) {
+      // What the boss is drawn over, its weapon and reach as well as its body.
+      const b = m.root.getBounds(this.box);
+      if (b.right > hx - 14 && b.left < hx + 14 && b.top < hy - tall * 0.4) return 'monster';
+    }
     for (const [key, s] of this.actors) {
       if (key.startsWith('x') || key.startsWith('ghost')) continue;
       const o = s.fig ? s.fig.root : s.img;
@@ -973,6 +979,8 @@ export class LairScene extends Phaser.Scene {
     // Rolling, they are low and half seen; struck, they flicker for the moment nothing can hurt them.
     fig.alpha = h.roll > 0 ? 0.6 : h.grace > 0 && Math.floor(this.clock * 20) % 2 === 0 ? 0.6 : 1;
     fig.update(this.clock, dt);
+    // Level with another, the hunter stands in front.
+    fig.root.depth = fig.y + 1;
     if (h.roll > 0) fig.root.scaleY *= 0.62;
     const echo = this.echo;
     echo.x = fig.x;
