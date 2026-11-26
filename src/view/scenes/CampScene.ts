@@ -11,7 +11,8 @@ import type { ArenaScene } from './ArenaScene';
 import { BONE, BUSH, GOLD, HOLY, IRON, LINEN, OUTLINE, RUBY, VENOM, type Material } from '../../art/kit/palette';
 import { music } from '../../audio/music';
 import { sfx } from '../../audio/sfx';
-import { COMPANIONS, ITEMS, SLOTS, TIER_NAMES, WEAPONS, byId, levelNeeds, ownRules, relicOf, waveOf, weaponOf } from '../../game/data';
+import { COMPANIONS, ITEMS, LAND_NAMES, SLOTS, TIER_NAMES, WEAPONS, byId, levelNeeds, ownRules, relicOf, waveOf, weaponOf } from '../../game/data';
+import { FIFTH, fifthOf } from '../../game/forms';
 import {
   buy, canSwap, canToss, choose, combine, handsOf, heroOf, kindsOf, lock, march, openPack, ownDef, ownOf, reroll, rerollPrice, sell, sellPrice, statsOf, swap, toss, tossOdds, twinOf, whyNot, type Offer, type RunData,
 } from '../../game/run';
@@ -30,6 +31,11 @@ import { Button, heading, label, plain } from '../ui/widgets';
 const RARITY_WORDS = ['COMMON', 'UNCOMMON', 'RARE', 'EPIC'] as const;
 
 const DARK: Material = { fill: '#3b2a1c', shade: '#2a1a10' };
+
+/** A weapon's name at a tier: its fifth form has a name of its own. */
+function nameAt(id: string, tier: number): string {
+  return (tier === FIFTH ? fifthOf(id)?.name : undefined) ?? byId(WEAPONS, id).name;
+}
 
 export class CampScene extends Phaser.Scene {
   private run!: RunData;
@@ -326,8 +332,10 @@ export class CampScene extends Phaser.Scene {
         img.setScale((hand * 0.95) / 184 / 0.5 * 0.5);
         slot.add(img);
         slot.add(label(this, hand / 2 - 13, -hand / 2 + 13, TIER_NAMES[w.tier], { size: 15, color: OUTLINE, stroke: null }));
+        // A fifth form has a glint in the corner where a pair that can merge has its arrows: it is the last there is.
+        if (w.tier === FIFTH) slot.add(this.add.image(-hand / 2 + 12, -hand / 2 + 12, SHEET, 'fx/sparkle').setScale(0.5).setTint(hex(OUTLINE)));
         // Two of a kind can be joined: the slot says so.
-        if (twinOf(run, w.id, w.tier, i) >= 0) slot.add(this.add.image(-hand / 2 + 12, -hand / 2 + 12, SHEET, 'icon/chevrons').setScale(0.22).setAngle(-90));
+        else if (twinOf(run, w.id, w.tier, i) >= 0) slot.add(this.add.image(-hand / 2 + 12, -hand / 2 + 12, SHEET, 'icon/chevrons').setScale(0.22).setAngle(-90));
         slot.setSize(hand, hand).setInteractive({ useHandCursor: true });
         slot.on('pointerup', () => {
           this.picked = this.picked === i ? -1 : i;
@@ -428,7 +436,8 @@ export class CampScene extends Phaser.Scene {
     // Every card is laid out the same way, each thing on a line of its own that is cut to fit and never shrunk: a
     // reviewer found a weapon's set bonus written over its words, and a line squeezed below what can be read.
     // A weapon says its kinds where it said only how it strikes: a kind is what a hand is filled for.
-    const tag = weapon ? `${TIER_NAMES[o.tier]}  ${byId(WEAPONS, o.id).kinds.join(' ').toUpperCase()}` : relic ? 'RELIC' : 'ITEM';
+    const land = !weapon && !relic ? byId(ITEMS, o.id).land : undefined;
+    const tag = weapon ? `${TIER_NAMES[o.tier]}  ${byId(WEAPONS, o.id).kinds.join(' ').toUpperCase()}` : relic ? 'RELIC' : land ? `${LAND_NAMES[land].toUpperCase()} ONLY` : 'ITEM';
     const picY = y + 68;
     if (weapon) {
       // A weapon's picture turns about its hand, two thirds of the way down it, sized by the frame's own height.
@@ -448,7 +457,7 @@ export class CampScene extends Phaser.Scene {
       if (nums.width > w - 12) nums.setText(`${f.dmg} DMG   ${f.dps} DPS`);
       if (nums.width > w - 12) nums.setText(`${f.dps} DPS`);
       // Beside them, the same weapon already held: it merges, or which is better.
-      if (p.weapon.joins) this.fit(this.text(x + w / 2, y + 154, `Merges with yours: ${TIER_NAMES[o.tier + 1]}`, { size: 15, color: '#2e7d3a', stroke: null }), w - 14);
+      if (p.weapon.joins) this.fit(this.text(x + w / 2, y + 154, `Merges with yours: ${nameAt(o.id, o.tier + 1)} ${TIER_NAMES[o.tier + 1]}`, { size: 15, color: '#2e7d3a', stroke: null }), w - 14);
       else if (p.weapon.held) {
         const better = f.dps > p.weapon.held.dps;
         this.fit(this.text(x + w / 2, y + 154, `Yours: ${p.weapon.held.dps} DPS, ${better ? 'this is better' : 'yours is better'}`, { size: 15, color: better ? '#2e7d3a' : RUBY.shade, stroke: null }), w - 14);
@@ -462,7 +471,16 @@ export class CampScene extends Phaser.Scene {
       // What it does, last, cut to the room that is left.
       this.fitLines(this.text(x + w / 2, y + 188, byId(WEAPONS, o.id).says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 20 }).setOrigin(0.5, 0), room - (y + 188));
     } else if (relic) this.fitLines(this.text(x + w / 2, y + 128, relicOf(o.id).says, { size: 15, color: '#6b4a2b', stroke: null, wrap: w - 20 }).setOrigin(0.5, 0), room - (y + 128));
-    else this.changeLines(x + 12, y + 128, w - 24, p.changes, Math.max(1, Math.floor((room - y - 128) / 22)));
+    else {
+      // An item of the land's own says its rule first, and its stats under it.
+      const says = byId(ITEMS, o.id).says;
+      let at = y + 128;
+      if (says) {
+        const t = this.fitLines(this.text(x + w / 2, at, says, { size: 15, color: '#2e5f45', stroke: null, wrap: w - 20, weight: 600 }).setOrigin(0.5, 0), room - at);
+        if (t.active) at += t.height + 8;
+      }
+      this.changeLines(x + 12, at, w - 24, p.changes, Math.max(1, Math.floor((room - at) / 22)));
+    }
     const why = whyNot(run, i);
     // Every slot full and no twin to merge with: a held weapon can be sold for it, from here.
     const full = o.kind === 'weapon' && !o.sold && run.weapons.length >= handsOf(run) && twinOf(run, o.id, o.tier) < 0;
@@ -574,7 +592,10 @@ export class CampScene extends Phaser.Scene {
     });
   }
 
-  /** A weapon on offer with every slot full: which held weapon to sell for it, each with what it sells for. */
+  /**
+   * A weapon on offer with every slot full: which held weapon to give up for it. Each one can be swapped for it (sold
+   * and the offer bought in one step) or only sold, which leaves a slot free and the offer to buy or not.
+   */
   private swapCard(i: number): void {
     const run = this.run;
     const o = run.offers[i];
@@ -582,30 +603,40 @@ export class CampScene extends Phaser.Scene {
     const rowH = 52;
     const n = run.weapons.length;
     const ch = 118 + n * rowH + 62;
+    const cw = Math.min(440, view.w - 16);
     const cy = Math.max(ch / 2 + 8, view.h / 2);
     const top = cy - ch / 2;
+    const left = cx - cw / 2;
     const shut = (): void => {
       this.swapFor = -1;
       this.draw();
     };
     this.add2(this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.55).setInteractive()).on('pointerup', shut);
-    this.add2(slabImage(this, cx - 170, top, 340, ch, BONE, 18, 8).setInteractive());
-    this.add2(slabImage(this, cx - 160, top + 10, 320, 30, TIER_MATS[o.tier], 10, 0));
-    this.text(cx, top + 25, `SWAP FOR ${byId(WEAPONS, o.id).name.toUpperCase()} ${TIER_NAMES[o.tier]}`, { size: 16, color: OUTLINE, stroke: null });
-    this.text(cx, top + 62, `Costs ${o.price}. Sell one weapon to make room:`, { size: 15, color: '#6b4a2b', stroke: null, wrap: 300 });
+    this.add2(slabImage(this, left, top, cw, ch, BONE, 18, 8).setInteractive());
+    this.add2(slabImage(this, left + 10, top + 10, cw - 20, 30, TIER_MATS[o.tier], 10, 0));
+    this.fit(this.text(cx, top + 25, `SWAP FOR ${byId(WEAPONS, o.id).name.toUpperCase()} ${TIER_NAMES[o.tier]}`, { size: 16, color: OUTLINE, stroke: null }), cw - 30);
+    this.text(cx, top + 62, `Costs ${o.price}. Swap a weapon for it, or sell one to free a slot:`, { size: 15, color: '#6b4a2b', stroke: null, wrap: cw - 30 });
     run.weapons.forEach((w, slot) => {
       const y = top + 96 + slot * rowH;
-      this.add2(slabImage(this, cx - 150, y, 44, 44, TIER_MATS[w.tier], 10, 4));
+      this.add2(slabImage(this, left + 20, y, 44, 44, TIER_MATS[w.tier], 10, 4));
       // Sized as the slots size it: the pictures are drawn on a canvas 184 high with room round the weapon.
-      const img = this.add2(this.add.image(cx - 128, y + 30, SHEET, weaponIcon(w.id)));
+      const img = this.add2(this.add.image(left + 42, y + 30, SHEET, weaponIcon(w.id)));
       img.setScale(48 / 184);
-      this.fit(this.text(cx - 96, y + 22, `${byId(WEAPONS, w.id).name} ${TIER_NAMES[w.tier]}`, { size: 16, align: 'left', color: OUTLINE, stroke: null }), 130);
+      const bw = 96;
+      const sellX = left + cw - 20 - bw / 2;
+      const swapX = sellX - bw - 8;
+      this.fit(this.text(left + 74, y + 22, `${nameAt(w.id, w.tier)} ${TIER_NAMES[w.tier]}`, { size: 16, align: 'left', color: OUTLINE, stroke: null }), swapX - bw / 2 - 8 - (left + 74));
       const can = canSwap(run, i, slot);
-      const b = plain(this.button(cx + 90, y + 22, `SELL +${sellPrice(w)}`, () => {
+      const b = plain(this.button(swapX, y + 22, 'SWAP', () => {
         this.swapFor = -1;
         this.act(this.moving(() => swap(this.run, i, slot)), 'buy');
-      }, { width: 120, height: 42, size: 16, mat: can ? GOLD : IRON, color: can ? undefined : '#ff8f7a' }));
+      }, { width: bw, height: 42, size: 16, mat: can ? GOLD : IRON, color: can ? undefined : '#ff8f7a' }));
       b.setEnabled(can);
+      const sold = plain(this.button(sellX, y + 22, `SELL +${sellPrice(w)}`, () => {
+        this.swapFor = -1;
+        this.act(sell(this.run, slot), 'coin');
+      }, { width: bw, height: 42, size: 15, mat: IRON }));
+      sold.setEnabled(run.weapons.length > 1);
     });
     this.button(cx, top + ch - 36, 'CANCEL', shut, { width: 200, height: 46, size: 18, mat: IRON });
   }
@@ -622,21 +653,32 @@ export class CampScene extends Phaser.Scene {
       this.picked = -1;
       this.draw();
     });
-    this.add2(slabImage(this, cx - 160, cy - 170, 320, 340, BONE, 18, 8));
-    this.add2(slabImage(this, cx - 150, cy - 160, 300, 30, TIER_MATS[w.tier], 10, 0));
-    this.text(cx, cy - 145, `${def.name}  ${TIER_NAMES[w.tier]}`, { size: 17, color: OUTLINE, stroke: null });
-    const img = this.add2(this.add.image(cx, cy - 60, SHEET, weaponIcon(w.id)));
-    img.setScale(100 / 184);
+    // A tier IV weapon says what its fifth form would be, and a fifth form says its own rule: the card is taller for it.
+    const form = fifthOf(w.id);
+    const next = form && w.tier >= FIFTH - 1 ? form : null;
+    const extra = next ? 70 : 0;
+    const top = cy - 170 - extra / 2;
+    this.add2(slabImage(this, cx - 160, top, 320, 340 + extra, BONE, 18, 8));
+    this.add2(slabImage(this, cx - 150, top + 10, 300, 30, TIER_MATS[w.tier], 10, 0));
+    this.fit(this.text(cx, top + 25, `${nameAt(w.id, w.tier)}  ${TIER_NAMES[w.tier]}`, { size: 17, color: OUTLINE, stroke: null }), 280);
+    // A tall weapon is sized by its own height, so that its tip stays under the band with its name.
+    const img = this.add2(this.add.image(cx, top + 104, SHEET, weaponIcon(w.id)));
+    img.setScale(Math.min(100 / 184, 118 / img.frame.height));
     const f = weaponFacts(run, w.id, w.tier);
-    this.text(cx, cy + 2, `${f.dmg} DMG   ${f.rate.toFixed(2)} hits/s   ${f.dps} DPS`, { size: 17, color: OUTLINE, stroke: null });
-    this.text(cx, cy + 28, def.says, { size: 15, color: '#6b4a2b', stroke: null, wrap: 280 });
+    this.text(cx, top + 172, `${f.dmg} DMG   ${f.rate.toFixed(2)} hits/s   ${f.dps} DPS`, { size: 17, color: OUTLINE, stroke: null });
+    this.text(cx, top + 198, def.says, { size: 15, color: '#6b4a2b', stroke: null, wrap: 280 });
+    if (next) {
+      const head = w.tier === FIFTH ? `${def.name}'s tier V:` : `Merge 2 for tier V, ${next.name}:`;
+      this.text(cx, top + 222, `${head} ${next.says}`, { size: 15, color: '#2e5f45', stroke: null, wrap: 280, weight: 600 }).setOrigin(0.5, 0);
+    }
     const twin = twinOf(run, w.id, w.tier, i) >= 0;
-    const join = plain(this.button(cx, cy + 76, twin ? `MERGE INTO TIER ${TIER_NAMES[w.tier + 1]}` : 'NEED 2 TO MERGE', () => {
+    const last = w.tier >= FIFTH || (w.tier === FIFTH - 1 && !form);
+    const join = plain(this.button(cx, top + 246 + extra, twin ? `MERGE INTO TIER ${TIER_NAMES[w.tier + 1]}` : last ? 'HIGHEST TIER' : 'NEED 2 TO MERGE', () => {
       this.picked = -1;
       this.act(combine(this.run, i), 'levelUp');
     }, { width: 280, height: 46, size: 17, mat: HOLY, color: OUTLINE }));
     join.setEnabled(twin);
-    const sold = this.button(cx, cy + 130, `SELL FOR ${sellPrice(w)}`, () => {
+    const sold = this.button(cx, top + 300 + extra, `SELL FOR ${sellPrice(w)}`, () => {
       this.picked = -1;
       this.act(sell(this.run, i), 'coin');
     }, { width: 280, height: 46, size: 17, mat: IRON });
@@ -653,13 +695,20 @@ export class CampScene extends Phaser.Scene {
       this.draw();
     };
     this.add2(this.add.image(0, 0, SHEET, 'fx/solid').setOrigin(0, 0).setDisplaySize(view.w, view.h).setTint(hex(OUTLINE)).setAlpha(0.55).setInteractive()).on('pointerup', shut);
-    this.add2(slabImage(this, cx - 150, cy - 140, 300, 280, BONE, 18, 8));
-    this.add2(slabImage(this, cx - 44, cy - 118, 88, 88, TIER_MATS[item.tier], 14, 6));
-    this.icon(cx, cy - 76, itemIcon(item.id), 64);
+    // A land's own item says its rule and where it is sold, over its stats: its card is taller for it.
+    const extra = item.says ? 70 : 0;
+    const top = cy - 140 - extra / 2;
+    this.add2(slabImage(this, cx - 150, top, 300, 280 + extra, BONE, 18, 8));
+    this.add2(slabImage(this, cx - 44, top + 22, 88, 88, TIER_MATS[item.tier], 14, 6));
+    this.icon(cx, top + 64, itemIcon(item.id), 64);
     const n = this.run.items.filter((x) => x === id).length;
-    this.text(cx, cy - 6, n > 1 ? `${item.name}  x${n}` : item.name, { size: 20, color: OUTLINE, stroke: null });
-    this.statLinesDark(cx, cy + 24, item.stats);
-    this.button(cx, cy + 100, 'CLOSE', shut, { width: 180, height: 46, size: 19, mat: IRON });
+    this.text(cx, top + 134, n > 1 ? `${item.name}  x${n}` : item.name, { size: 20, color: OUTLINE, stroke: null });
+    if (item.says) {
+      if (item.land) this.text(cx, top + 156, `${LAND_NAMES[item.land]} only`, { size: 15, color: '#6b4a2b', stroke: null });
+      this.text(cx, top + 172, item.says, { size: 15, color: '#2e5f45', stroke: null, wrap: 264, weight: 600 }).setOrigin(0.5, 0);
+    }
+    this.statLinesDark(cx, top + 164 + extra, item.stats);
+    this.button(cx, top + 240 + extra, 'CLOSE', shut, { width: 180, height: 46, size: 19, mat: IRON });
   }
 
   /** A relic that is held was pressed: what it is and what it does. */

@@ -3,7 +3,7 @@
 
 import type Phaser from 'phaser';
 import type { Manifest } from '../art/manifest';
-import { ARCANE, FIRE, FROST, LINEN, type Material } from '../art/kit/palette';
+import { ARCANE, FIRE, FROST, HOLY, LINEN, type Material } from '../art/kit/palette';
 import { view } from './config';
 
 let manifest: Manifest | null = null;
@@ -25,12 +25,16 @@ export function setupCamera(scene: Phaser.Scene): void {
   cam.centerOn(view.w / 2, view.h / 2);
 }
 
-/** The color of each tier, plainest first: linen, then the blue of ice, the violet of the arcane, the orange of fire. */
+/**
+ * The color of each tier, plainest first: linen, then the blue of ice, the violet of the arcane, the orange of fire,
+ * and the gold of the holy for tier V, which only a merge of two tier IV makes.
+ */
 export const TIER_MATS: readonly Material[] = [
   LINEN,
   { fill: FROST.fill, shade: FROST.shade },
   { fill: ARCANE.fill, shade: ARCANE.shade },
   { fill: FIRE.fill, shade: FIRE.shade },
+  { fill: HOLY.fill, shade: HOLY.shade },
 ];
 
 /** The name of the scene whose loader brings pictures in while the game runs. It is never put away. */

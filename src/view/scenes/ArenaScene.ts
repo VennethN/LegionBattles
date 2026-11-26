@@ -424,10 +424,13 @@ export class ArenaScene extends Phaser.Scene {
     // The others in a ring round it, on the far side from the hero, each facing the fire.
     const gather = new Map<number, { x: number; y: number; face: 1 | -1 }>();
     const n = w.band.length;
+    // A bigger band sits a little further out, so that three or more are not stood on the fire and each other.
+    const rx = 72 + 10 * Math.max(0, n - 2);
+    const ry = 40 + 7 * Math.max(0, n - 2);
     w.band.forEach((a, i) => {
       const angle = Math.PI + ((i + 1) * 2 * Math.PI) / (n + 1);
-      const x = fire.x + Math.cos(angle) * 72;
-      const y = fire.y + Math.sin(angle) * 40;
+      const x = fire.x + Math.cos(angle) * rx;
+      const y = fire.y + Math.sin(angle) * ry;
       gather.set(a.id, { x, y, face: x <= fire.x ? 1 : -1 });
     });
     this.deeds.gather = gather;
@@ -468,6 +471,16 @@ export class ArenaScene extends Phaser.Scene {
             this.fx.spawn('fx/spark', e.x, e.y - 24, { dur: 0.14, from: 0.5, to: 1, rotation: e.angle, alpha: 0.9, depth: h.y + 40 });
           }
           sfx.play(melee ? 'slash' : 'cast', melee ? 0.5 : 0.45, 0.9 + (e.slot % 3) * 0.08);
+          break;
+        }
+        case 'form': {
+          // A tier V weapon's rule, or a land's item, went off: a glint of the gold of tier V where it did, and a jump drawn along its way.
+          const gold = hex(HOLY.fill);
+          if (e.from) {
+            const ang = Math.atan2(e.y - e.from.y, e.x - e.from.x);
+            this.fx.spawn('fx/spark', (e.x + e.from.x) / 2, (e.y + e.from.y) / 2 - 22, { dur: 0.16, from: 0.6, to: Math.min(2.4, Math.hypot(e.x - e.from.x, e.y - e.from.y) / 40), rotation: ang, tint: gold, alpha: 0.9, depth: e.y + 40 });
+          }
+          this.fx.spawn('fx/sparkle', e.x, e.y - 26, { dur: 0.3, from: 0.3, to: 0.8, tint: gold, vy: -30, depth: e.y + 50 });
           break;
         }
         case 'loose':

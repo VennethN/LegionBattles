@@ -294,6 +294,72 @@ const STATES: Record<string, (page: Page, shot: (name: string) => Promise<void>)
       await shot('thing');
     }
   },
+  // A run deep in the snow: a tier V weapon in hand and its card, a tier IV one that says what its tier V would be,
+  // the land's own items in the shop and in hand, the swap list with SELL beside each, and the tier V in a fight.
+  fifth: async (page, shot) => {
+    const run = { hero: 'wren', wave: 34, level: 20, gold: 600, items: ['wolfpelt', 'icepick', 'mail', 'boots', 'banner'], ups: UPS.slice(0, 4),
+      weapons: [{ id: 'sword', tier: 4 }, { id: 'greataxe', tier: 3 }, { id: 'bow', tier: 3 }, { id: 'staff', tier: 2 }, { id: 'torch', tier: 1 }, { id: 'hail', tier: 0 }],
+      band: [{ id: 'biscuit', bond: 1 }] };
+    await arena(page, { ...run, phase: 'camp',
+      offers: [
+        { kind: 'weapon', id: 'javelin', tier: 2, price: 160, sold: false, locked: false }, { kind: 'item', id: 'icepick', tier: 2, price: 120, sold: false, locked: false },
+        { kind: 'item', id: 'wolfpelt', tier: 2, price: 120, sold: false, locked: false }, { kind: 'weapon', id: 'bow', tier: 3, price: 380, sold: false, locked: false },
+      ] }, { camp: true });
+    await until(page, 'Camp');
+    await tick(page, 10);
+    await shot('fifth-camp');
+    // The cards are opened as the presses would open them: the scene's own fields, then a draw.
+    const open = async (field: string, value: unknown): Promise<void> => {
+      await page.evaluate(([f, v]) => {
+        const sc = (window as unknown as Win).game.scene.getScene('Camp') as unknown as Record<string, unknown> & { draw(): void };
+        for (const k of ['picked', 'swapFor']) sc[k] = -1;
+        for (const k of ['thing', 'relic']) sc[k] = null;
+        sc[f as string] = v;
+        sc.draw();
+      }, [field, value] as const);
+      await tick(page, 10);
+    };
+    await open('picked', 0);
+    await shot('fifth-weapon');
+    await open('picked', 1);
+    await shot('fifth-next');
+    await open('thing', 'wolfpelt');
+    await shot('land-item');
+    await open('swapFor', 0);
+    await shot('swap-sell');
+    await open('picked', -1);
+    await arena(page, { ...run, phase: 'fight' });
+    await until(page, 'Hud');
+    await fight(page, 4);
+    await shot('fifth-fight');
+  },
+  // A relic made of two: the choice that says so, what comes after it, and the fused one's card in the camp.
+  forms: async (page, shot) => {
+    const base = { hero: 'bram', wave: 12, weapons: RICH.slice(0, 4), items: THINGS.slice(0, 5), level: 9, gold: 120, offers: [], relics: ['echobell', 'spade'] };
+    await arena(page, { ...base, phase: 'relic', relicsDue: 1, relicChoices: ['stormglass', 'bonedice', 'fallen'] }, { camp: true });
+    await until(page, 'Road');
+    await tick(page, 10);
+    await shot('fuse-choice');
+    const take = await words(page, 'Road', 'TAKE');
+    if (take) {
+      await page.mouse.click(take.x, take.y);
+      await tick(page, 10);
+      await shot('fuse-taken');
+    }
+    // The camp of the same run: the band of three round its fire, and the fused relic in the row.
+    await arena(page, { ...base, relics: ['thunderbell', 'spade'], phase: 'camp', band: [{ id: 'greta', bond: 1 }, { id: 'mossback', bond: 0 }, { id: 'biscuit', bond: 2 }],
+      offers: [{ kind: 'weapon', id: 'greataxe', tier: 1, price: 73, sold: false, locked: false }, { kind: 'item', id: 'mail', tier: 1, price: 59, sold: false, locked: false }] }, { camp: true });
+    await until(page, 'Camp');
+    await tick(page, 10);
+    await shot('camp-band');
+    await page.evaluate(() => {
+      const sc = (window as unknown as Win).game.scene.getScene('Camp') as unknown as { relic: string | null; draw(): void };
+      sc.relic = 'thunderbell';
+      sc.draw();
+    });
+    await tick(page, 10);
+    await shot('fuse-card');
+  },
   // The road out of the camp: two roads, then three, then a relic to choose.
   road: async (page, shot) => {
     const base = { hero: 'bram', wave: 6, weapons: RICH.slice(0, 4), items: THINGS.slice(0, 5), level: 5, gold: 120, offers: [] };
