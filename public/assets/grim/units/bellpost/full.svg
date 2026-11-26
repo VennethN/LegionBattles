@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bellpost" width="416" height="416" viewBox="-80 -80 416 416">
+<g id="bellpost-shadow-layer" transform="translate(128 240) rotate(0) scale(1 1) translate(-128 -240)">
+<path id="bellpost-shadow-blot" d="M 85 241 L 97.6 235 L 121 233.8 L 151.6 235 L 175 239 L 167.8 244.5 L 139 246.2 L 103 245 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="bellpost-post-layer" transform="translate(112 236) rotate(0) scale(1 1) translate(-112 -236)">
+<defs>
+<path id="bellpost-post-foot-a-shape" d="M 115.4 217.7 L 87.1 243.3 L 80.9 236.7 L 108.6 210.3 Z"/>
+<clipPath id="bellpost-post-foot-a-clip"><use href="#bellpost-post-foot-a-shape"/></clipPath>
+<path id="bellpost-post-foot-b-shape" d="M 119.3 210.2 L 148.9 236.6 L 143.1 243.4 L 112.7 217.8 Z"/>
+<clipPath id="bellpost-post-foot-b-clip"><use href="#bellpost-post-foot-b-shape"/></clipPath>
+<path id="bellpost-post-post-shape" d="M 104 240 L 106 52 L 122 52 L 124 240 Z"/>
+<clipPath id="bellpost-post-post-clip"><use href="#bellpost-post-post-shape"/></clipPath>
+<path id="bellpost-post-brace-shape" d="M 125.4 98.9 L 159 58.6 L 153 53.4 L 118.6 93.1 Z"/>
+<clipPath id="bellpost-post-brace-clip"><use href="#bellpost-post-brace-shape"/></clipPath>
+<path id="bellpost-post-arm-shape" d="M 100 44 L 178 46 L 178 60 L 100 60 Z"/>
+<clipPath id="bellpost-post-arm-clip"><use href="#bellpost-post-arm-shape"/></clipPath>
+<path id="bellpost-post-rag-shape" d="M 104 62 L 112 62 L 114 86 L 108 80 L 104 90 Z"/>
+<clipPath id="bellpost-post-rag-clip"><use href="#bellpost-post-rag-shape"/></clipPath>
+</defs>
+<g id="bellpost-post-foot-a">
+<use id="bellpost-post-foot-a-line" href="#bellpost-post-foot-a-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bellpost-post-foot-a-clip)">
+<use id="bellpost-post-foot-a-lit" href="#bellpost-post-foot-a-shape" fill="#6f5c46"/>
+<path id="bellpost-post-foot-a-mid" d="M 68.9 206.3 L 94.1 205.5 L 98.8 220.4 L 95.5 226.9 L 102.3 248.1 L 68.9 247.3 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="bellpost-post-foot-a-dark" d="M 68.9 206.3 L 94.1 205.5 L 98.8 220.4 L 95.5 226.9 L 102.3 248.1 L 68.9 247.3 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bellpost-post-foot-b">
+<use id="bellpost-post-foot-b-line" href="#bellpost-post-foot-b-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bellpost-post-foot-b-clip)">
+<use id="bellpost-post-foot-b-lit" href="#bellpost-post-foot-b-shape" fill="#6f5c46"/>
+<path id="bellpost-post-foot-b-mid" d="M 100.7 206.2 L 119 205.6 L 127 230.3 L 124.3 236.1 L 128.2 248.1 L 100.7 247.4 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="bellpost-post-foot-b-dark" d="M 100.7 206.2 L 119 205.6 L 127 230.3 L 124.3 236.1 L 128.2 248.1 L 100.7 247.4 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bellpost-post-post">
+<use id="bellpost-post-post-line" href="#bellpost-post-post-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bellpost-post-post-clip)">
+<use id="bellpost-post-post-lit" href="#bellpost-post-post-shape" fill="#6f5c46"/>
+<path id="bellpost-post-post-mid" d="M 92 48 L 110.1 47.9 L 113.7 127.5 L 110.8 131 L 115.9 244.1 L 92 244 Z" transform="translate(3 -0.72)" fill="#4a3c2d"/>
+<path id="bellpost-post-post-dark" d="M 92 48 L 110.1 47.9 L 113.7 127.5 L 110.8 131 L 115.9 244.1 L 92 244 Z" fill="#14110f"/>
+<path id="bellpost-post-post-grain" d="M 115.2 70 L 117 130 L 116.8 70 Z M 113.2 150 L 116 220 L 114.8 150 Z" fill="#4a3c2d"/>
+<path id="bellpost-post-post-split" d="M 111 100 L 113 140 L 113 100 Z" fill="#14110f"/>
+<path id="bellpost-post-post-cold" d="M 64 12 L 164 12 L 164 280 L 64 280 Z M 105.9 238.6 L 107.9 50.6 L 123.9 50.6 L 125.9 238.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+<g id="bellpost-post-brace">
+<use id="bellpost-post-brace-line" href="#bellpost-post-brace-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bellpost-post-brace-clip)">
+<use id="bellpost-post-brace-lit" href="#bellpost-post-brace-shape" fill="#6f5c46"/>
+<path id="bellpost-post-brace-mid" d="M 120.6 98.7 L 134 82.9 L 133.9 81 L 157.4 53.3 L 151.1 47.9 L 113.2 92.5 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="bellpost-post-brace-dark" d="M 120.6 98.7 L 134 82.9 L 133.9 81 L 157.4 53.3 L 151.1 47.9 L 113.2 92.5 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="bellpost-post-arm">
+<use id="bellpost-post-arm-line" href="#bellpost-post-arm-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bellpost-post-arm-clip)">
+<use id="bellpost-post-arm-lit" href="#bellpost-post-arm-shape" fill="#6f5c46"/>
+<path id="bellpost-post-arm-mid" d="M 94 54 L 184 55 L 184 66 L 94 66 Z" transform="translate(2 -0.48)" fill="#4a3c2d"/>
+<path id="bellpost-post-arm-dark" d="M 94 54 L 184 55 L 184 66 L 94 66 Z" fill="#14110f"/>
+<path id="bellpost-post-arm-grain" d="M 110 49.7 L 160 50 L 110 48.3 Z" fill="#4a3c2d"/>
+</g>
+</g>
+<path id="bellpost-post-pegs-0" d="M 109 52 L 111 50 L 113 52 L 111 54 Z" fill="#14110f"/>
+<path id="bellpost-post-pegs-1" d="M 115 52 L 117 50 L 119 52 L 117 54 Z" fill="#14110f"/>
+<g id="bellpost-post-rag">
+<use id="bellpost-post-rag-line" href="#bellpost-post-rag-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bellpost-post-rag-clip)">
+<use id="bellpost-post-rag-lit" href="#bellpost-post-rag-shape" fill="#7d312b"/>
+<path id="bellpost-post-rag-dark" d="M 92 58 L 106.5 57.9 L 108.8 77.1 L 107.7 78.7 L 109.5 94.1 L 92 94 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="bellpost-bell-layer" transform="translate(156 60) rotate(0) scale(1 1) translate(-156 -60)">
+<defs>
+<path id="bellpost-bell-bell-shape" d="M 142 76 L 170 76 L 176 104 L 186 124 L 126 124 L 136 104 Z"/>
+<clipPath id="bellpost-bell-bell-clip"><use href="#bellpost-bell-bell-shape"/></clipPath>
+</defs>
+<path id="bellpost-bell-bell-chain" d="M 156 60 L 156 76" fill="none" stroke="#14110f" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="bellpost-bell-bell-chain-links" d="M 153 60.8 L 157.6 65.3 L 155.8 59.2 Z M 156.2 64.5 L 154.4 70.7 L 159 66.2 Z M 153 71.5 L 157.6 76 L 155.8 69.8 Z" fill="#14110f"/>
+<g id="bellpost-bell-bell">
+<use id="bellpost-bell-bell-line" href="#bellpost-bell-bell-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#bellpost-bell-bell-clip)">
+<use id="bellpost-bell-bell-lit" href="#bellpost-bell-bell-shape" fill="#8c9194"/>
+<use id="bellpost-bell-bell-rim" href="#bellpost-bell-bell-shape" fill="#f4d294" opacity="0.55"/>
+<use id="bellpost-bell-bell-lit-over" href="#bellpost-bell-bell-shape" transform="translate(-1.6 1.2)" fill="#8c9194"/>
+<path id="bellpost-bell-bell-mid" d="M 114 72 L 141 71 L 148.3 92.5 L 144.6 101 L 154.2 129 L 114 128 Z" transform="translate(4 -0.96)" fill="#5b6165"/>
+<path id="bellpost-bell-bell-dark" d="M 114 72 L 141 71 L 148.3 92.5 L 144.6 101 L 154.2 129 L 114 128 Z" fill="#14110f"/>
+<path id="bellpost-bell-bell-band" d="M 136 111 L 178 108 L 136 109 Z M 140.1 89 L 174 86 L 139.9 87 Z" fill="#5b6165"/>
+<path id="bellpost-bell-bell-rust" d="M 150 106 L 176 110 L 184 126 L 150 126 Z" fill="#6a3b24"/>
+</g>
+</g>
+<path id="bellpost-bell-clapper" d="M 152 124 L 160 124 L 159 136 L 153 136 Z" fill="#14110f"/>
+<path id="bellpost-bell-rope" d="M 156 136 L 154 160 L 158 186" fill="none" stroke="#c7ad84" stroke-width="2.6" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path id="bellpost-bell-rope-end" d="M 154 184 L 162 184 L 161 194 L 155 194 Z" fill="#14110f"/>
+</g>
+</svg>

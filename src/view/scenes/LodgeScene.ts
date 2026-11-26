@@ -786,7 +786,6 @@ export class LodgeScene extends Phaser.Scene {
       name.setScale(Math.min(1, (cw - 52) / name.width));
       card.add(name);
       const says = label(this, -cw / 2 + 10, -ch / 2 + 42, ware.says, { size: 15, align: 'left', color: ink, stroke: null, wrap: cw - 20 }).setOrigin(0, 0);
-      says.setScale(Math.min(1, (ch - 86) / Math.max(1, says.height)));
       card.add(says);
       if (ware.had) card.add(label(this, 0, ch / 2 - 18, 'BOUGHT', { size: 15, color: BONE.shade, face: 'display' }));
       else {

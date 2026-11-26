@@ -79,7 +79,7 @@ export const TRINKETS: readonly TrinketDef[] = [
   { id: 'whetstone', name: 'Whetstone', says: 'Your hits do 8% more damage.', rare: false, price: 90 },
   { id: 'salt', name: 'Pouch of Grave Salt', says: 'Your hits fill the boss\'s stagger 20% faster.', rare: false, price: 90 },
   { id: 'boots', name: 'Oiled Boots', says: 'Move 8% faster.', rare: false, price: 70 },
-  { id: 'flask', name: 'Hip Flask', says: 'Breaking the boss\'s stagger heals you 15 health.', rare: false, price: 100 },
+  { id: 'flask', name: 'Hip Flask', says: 'Breaking the stagger heals you 15 Health.', rare: false, price: 100 },
   { id: 'bread', name: 'Hard Bread', says: '+12 Health.', rare: false, price: 80 },
   { id: 'nail', name: 'Coffin Nail', says: 'The first hit you take in each phase does 50% less damage.', rare: true, price: 150 },
   { id: 'ribbon', name: 'Red Ribbon', says: 'Your partners do 10% more damage.', rare: true, price: 140 },

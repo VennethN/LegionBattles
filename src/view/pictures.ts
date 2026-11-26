@@ -122,8 +122,8 @@ const legion = (list: Art[]): Array<{ team: Side; unit: string }> => list.flatMa
 /** Every figure of the style the game shows. */
 export const GRIM_UNITS: string[] = [...new Set(ALL.flatMap((a) => (isGrim(a) ? [a.grim] : [])))];
 
-/** The figures shown whole on a card: the hunters, the hands for hire and the bosses. Only these are written whole. */
-export const CARD_UNITS: string[] = [...new Set([...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART)].flatMap((a) => (isGrim(a) ? [a.grim] : [])))];
+/** The figures shown whole on a card: the hunters, the hands for hire, the bosses, and what the muster brings. Only these are written whole. */
+export const CARD_UNITS: string[] = [...new Set([...Object.values(HUNTER_ART), ...Object.values(MONSTER_ART), ...Object.values(ALLY_ART), ...Object.values(BUILDING_ART)].flatMap((a) => (isGrim(a) ? [a.grim] : [])))];
 
 /** The Legion stand-ins that are moved part by part: a monster. */
 export const RIGGED = legion(Object.values(MONSTER_ART));

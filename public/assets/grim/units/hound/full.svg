@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="hound" width="416" height="416" viewBox="-80 -80 416 416">
+<g id="hound-shadow-layer" transform="translate(128 240) rotate(0) scale(1 1) translate(-128 -240)">
+<path id="hound-shadow-blot" d="M 66 241 L 83.4 234.5 L 115.6 233.2 L 157.8 234.5 L 190 238.9 L 180.1 245 L 140.4 246.8 L 90.8 245.5 Z" fill="#14110f" opacity="0.55"/>
+</g>
+<g id="hound-tail-layer" transform="translate(84 178) rotate(0) scale(1 1) translate(-84 -178)">
+<defs>
+<path id="hound-tail-tail-shape" d="M 86 174 L 90 182 L 70 196 L 56 216 L 62 196 L 72 182 Z"/>
+<clipPath id="hound-tail-tail-clip"><use href="#hound-tail-tail-shape"/></clipPath>
+</defs>
+<g id="hound-tail-tail">
+<use id="hound-tail-tail-line" href="#hound-tail-tail-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-tail-tail-clip)">
+<use id="hound-tail-tail-lit" href="#hound-tail-tail-shape" fill="#4f4944"/>
+<path id="hound-tail-tail-mid" d="M 44 170 L 68 169.3 L 77 199.2 L 73.6 206.2 L 78 220.7 L 44 220 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="hound-tail-tail-dark" d="M 44 170 L 68 169.3 L 77 199.2 L 73.6 206.2 L 78 220.7 L 44 220 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="hound-legs-back-layer" transform="translate(96 190) rotate(0) scale(1 1) translate(-96 -190)">
+<defs>
+<path id="hound-legs-back-hind-shape" d="M 88 182 L 108 184 L 104 204 L 112 222 L 108 240 L 98 240 L 100 226 L 90 206 Z"/>
+<clipPath id="hound-legs-back-hind-clip"><use href="#hound-legs-back-hind-shape"/></clipPath>
+<path id="hound-legs-back-fore-far-shape" d="M 155.5 196.5 L 150 240.4 L 142 239.6 L 144.5 195.5 Z"/>
+<clipPath id="hound-legs-back-fore-far-clip"><use href="#hound-legs-back-fore-far-shape"/></clipPath>
+</defs>
+<g id="hound-legs-back-hind">
+<use id="hound-legs-back-hind-line" href="#hound-legs-back-hind-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-legs-back-hind-clip)">
+<use id="hound-legs-back-hind-lit" href="#hound-legs-back-hind-shape" fill="#4f4944"/>
+<path id="hound-legs-back-hind-mid" d="M 76 178 L 96.4 177.7 L 102.3 214.5 L 99.5 218.7 L 103.6 244.3 L 76 244 Z" transform="translate(3.36 -0.81)" fill="#34302d"/>
+<path id="hound-legs-back-hind-dark" d="M 76 178 L 96.4 177.7 L 102.3 214.5 L 99.5 218.7 L 103.6 244.3 L 76 244 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hound-legs-back-fore-far">
+<use id="hound-legs-back-fore-far-line" href="#hound-legs-back-fore-far-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-legs-back-fore-far-clip)">
+<use id="hound-legs-back-fore-far-lit" href="#hound-legs-back-fore-far-shape" fill="#4f4944"/>
+<path id="hound-legs-back-fore-far-mid" d="M 130 191.5 L 148 191.4 L 151.1 219.8 L 149.7 221.8 L 152.2 244.5 L 130 244.4 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="hound-legs-back-fore-far-dark" d="M 130 191.5 L 148 191.4 L 151.1 219.8 L 149.7 221.8 L 152.2 244.5 L 130 244.4 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="hound-body-layer" transform="translate(124 190) rotate(0) scale(1 1) translate(-124 -190)">
+<defs>
+<path id="hound-body-trunk-shape" d="M 84 174 L 110 166 L 146 162 L 170 170 L 172 196 L 160 212 L 140 204 L 116 192 L 96 196 Z"/>
+<clipPath id="hound-body-trunk-clip"><use href="#hound-body-trunk-shape"/></clipPath>
+</defs>
+<g id="hound-body-trunk">
+<use id="hound-body-trunk-line" href="#hound-body-trunk-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-body-trunk-clip)">
+<use id="hound-body-trunk-lit" href="#hound-body-trunk-shape" fill="#4f4944"/>
+<path id="hound-body-trunk-mid" d="M 70 180 L 87.6 192.5 L 127.4 198.8 L 133.6 194.7 L 176.4 201.5 L 176 220 L 70 220 Z" transform="translate(9 -2.16)" fill="#34302d"/>
+<path id="hound-body-trunk-dark" d="M 70 180 L 87.6 192.5 L 127.4 198.8 L 133.6 194.7 L 176.4 201.5 L 176 220 L 70 220 Z" fill="#14110f"/>
+<path id="hound-body-belly" d="M 96 196 L 116 190 L 140 202 L 160 212 L 172 196 L 174 222 L 90 222 Z" fill="#927a58"/>
+<path id="hound-body-ribs" d="M 140.8 171.8 L 138 192 L 143.2 172.2 Z M 150.8 171.9 L 150 196 L 153.2 172.1 Z M 130.8 171.7 L 128 188 L 133.2 172.3 Z" fill="#34302d"/>
+<path id="hound-body-scar" d="M 117.6 172.7 L 128 178 L 118.4 171.3 Z" fill="#14110f"/>
+<path id="hound-body-trunk-cold" d="M 44 122 L 212 122 L 212 252 L 44 252 Z M 85.9 172.6 L 111.9 164.6 L 147.9 160.6 L 171.9 168.6 L 173.9 194.6 L 161.9 210.6 L 141.9 202.6 L 117.9 190.6 L 97.9 194.6 Z" fill="#506a76" fill-rule="evenodd"/>
+</g>
+</g>
+</g>
+<g id="hound-legs-front-layer" transform="translate(160 198) rotate(0) scale(1 1) translate(-160 -198)">
+<defs>
+<path id="hound-legs-front-fore-shape" d="M 154 194 L 170 196 L 168 220 L 174 240 L 162 240 L 158 222 Z"/>
+<clipPath id="hound-legs-front-fore-clip"><use href="#hound-legs-front-fore-shape"/></clipPath>
+<path id="hound-legs-front-hind-near-shape" d="M 100 186 L 118 190 L 114 208 L 124 226 L 122 240 L 110 240 L 112 228 L 102 210 Z"/>
+<clipPath id="hound-legs-front-hind-near-clip"><use href="#hound-legs-front-hind-near-shape"/></clipPath>
+</defs>
+<g id="hound-legs-front-fore">
+<use id="hound-legs-front-fore-line" href="#hound-legs-front-fore-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-legs-front-fore-clip)">
+<use id="hound-legs-front-fore-lit" href="#hound-legs-front-fore-shape" fill="#4f4944"/>
+<path id="hound-legs-front-fore-mid" d="M 142 190 L 159.5 189.8 L 163 211.4 L 160.6 215.1 L 165.3 244.2 L 142 244 Z" transform="translate(3 -0.72)" fill="#34302d"/>
+<path id="hound-legs-front-fore-dark" d="M 142 190 L 159.5 189.8 L 163 211.4 L 160.6 215.1 L 165.3 244.2 L 142 244 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hound-legs-front-hind-near">
+<use id="hound-legs-front-hind-near-line" href="#hound-legs-front-hind-near-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-legs-front-hind-near-clip)">
+<use id="hound-legs-front-hind-near-lit" href="#hound-legs-front-hind-near-shape" fill="#4f4944"/>
+<path id="hound-legs-front-hind-near-mid" d="M 88 182 L 106.2 181.8 L 112.5 218.9 L 110.3 222.5 L 114 244.2 L 88 244 Z" transform="translate(3.36 -0.81)" fill="#34302d"/>
+<path id="hound-legs-front-hind-near-dark" d="M 88 182 L 106.2 181.8 L 112.5 218.9 L 110.3 222.5 L 114 244.2 L 88 244 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+<g id="hound-head-layer" transform="translate(166 172) rotate(0) scale(1 1) translate(-166 -172)">
+<defs>
+<path id="hound-head-neck-shape" d="M 156 162 L 176 156 L 184 172 L 168 188 Z"/>
+<clipPath id="hound-head-neck-clip"><use href="#hound-head-neck-shape"/></clipPath>
+<path id="hound-head-jaw-shape" d="M 176 178 L 204 184 L 206 190 L 180 190 Z"/>
+<clipPath id="hound-head-jaw-clip"><use href="#hound-head-jaw-shape"/></clipPath>
+<path id="hound-head-teeth-shape" d="M 184 180 L 188 185 L 192 181 L 196 186 L 200 182 L 204 184 L 184 183 Z"/>
+<path id="hound-head-skull-shape" d="M 170 154 L 184 152 L 196 162 L 210 170 L 208 178 L 186 178 L 172 172 Z"/>
+<clipPath id="hound-head-skull-clip"><use href="#hound-head-skull-shape"/></clipPath>
+<path id="hound-head-ear-shape" d="M 170 156 L 164 138 L 178 150 Z"/>
+<clipPath id="hound-head-ear-clip"><use href="#hound-head-ear-shape"/></clipPath>
+<path id="hound-head-collar-shape" d="M 154 170 L 170 160 L 174 168 L 158 180 Z"/>
+<clipPath id="hound-head-collar-clip"><use href="#hound-head-collar-shape"/></clipPath>
+<path id="hound-head-rag-shape" d="M 158 178 L 166 175 L 168 194 L 162 188 L 158 196 Z"/>
+<clipPath id="hound-head-rag-clip"><use href="#hound-head-rag-shape"/></clipPath>
+</defs>
+<g id="hound-head-neck">
+<use id="hound-head-neck-line" href="#hound-head-neck-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-head-neck-clip)">
+<use id="hound-head-neck-lit" href="#hound-head-neck-shape" fill="#4f4944"/>
+<path id="hound-head-neck-mid" d="M 144 152 L 163.1 151.4 L 170.6 175.6 L 167.8 181.5 L 171.3 192.6 L 144 192 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="hound-head-neck-dark" d="M 144 152 L 163.1 151.4 L 170.6 175.6 L 167.8 181.5 L 171.3 192.6 L 144 192 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hound-head-jaw">
+<use id="hound-head-jaw-line" href="#hound-head-jaw-shape" transform="translate(-1.29 0.97)" fill="#14110f" stroke="#14110f" stroke-width="4.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-head-jaw-clip)">
+<use id="hound-head-jaw-lit" href="#hound-head-jaw-shape" fill="#c7ad84"/>
+<path id="hound-head-jaw-dark" d="M 164 174 L 182.6 174 L 187.4 194 L 164 194 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hound-head-teeth">
+<use id="hound-head-teeth-line" href="#hound-head-teeth-shape" transform="translate(-0.6 0.45)" fill="#14110f" stroke="#14110f" stroke-width="2.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<use id="hound-head-teeth-lit" href="#hound-head-teeth-shape" fill="#cfc5a8"/>
+</g>
+<g id="hound-head-skull">
+<use id="hound-head-skull-line" href="#hound-head-skull-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-head-skull-clip)">
+<use id="hound-head-skull-lit" href="#hound-head-skull-shape" fill="#4f4944"/>
+<path id="hound-head-skull-mid" d="M 166 150 L 182 150 L 190 162 L 200 170 L 186 172 L 176 166 L 166 172 Z" transform="translate(2 -0.48)" fill="#34302d"/>
+<path id="hound-head-skull-dark" d="M 166 150 L 182 150 L 190 162 L 200 170 L 186 172 L 176 166 L 166 172 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hound-head-ear">
+<use id="hound-head-ear-line" href="#hound-head-ear-shape" transform="translate(-1.79 1.34)" fill="#14110f" stroke="#14110f" stroke-width="6.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-head-ear-clip)">
+<use id="hound-head-ear-lit" href="#hound-head-ear-shape" fill="#4f4944"/>
+<path id="hound-head-ear-dark" d="M 152 134 L 169 133.8 L 171.7 145.2 L 170.1 148 L 173 160.2 L 152 160 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hound-head-collar">
+<use id="hound-head-collar-line" href="#hound-head-collar-shape" transform="translate(-1.19 0.89)" fill="#14110f" stroke="#14110f" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-head-collar-clip)">
+<use id="hound-head-collar-lit" href="#hound-head-collar-shape" fill="#7b5b3d"/>
+<path id="hound-head-collar-dark" d="M 142 156 L 159.2 155.6 L 162.8 168 L 161.1 171.4 L 164.8 184.4 L 142 184 Z" fill="#14110f"/>
+</g>
+</g>
+<g id="hound-head-rag">
+<use id="hound-head-rag-line" href="#hound-head-rag-shape" transform="translate(-0.99 0.74)" fill="#14110f" stroke="#14110f" stroke-width="3.6" stroke-linejoin="miter" stroke-miterlimit="3"/>
+<g clip-path="url(#hound-head-rag-clip)">
+<use id="hound-head-rag-lit" href="#hound-head-rag-shape" fill="#7d312b"/>
+<path id="hound-head-rag-dark" d="M 146 171 L 160.6 170.9 L 162.8 185.4 L 161.5 187.4 L 163.4 200.1 L 146 200 Z" fill="#14110f"/>
+</g>
+</g>
+</g>
+</svg>
